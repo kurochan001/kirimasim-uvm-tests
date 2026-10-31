@@ -66,6 +66,11 @@ sequenceへの配送に使う識別子／応答へ関連するIDをコピーす�
 現在そのsequenceを選べるかです。USER modeは選択をcallbackへ委ねます。
 relevanceを上書きするsequenceは、それに対応する`wait_for_relevant`も実装します。
 
+**lock／grab／unlock／ungrab** — sequenceによる所有と、その解放です。
+lockは通常の仲裁に加わり、grabは先頭に入りますが、互換性のない所有者がいれば待ちます。
+子は親のlock下でも取得でき、取得中は親を一時的にblockedにできます。
+`has_lock`と`is_blocked`は別の状態を照会します。
+
 **callback／typewide登録／iterator** — 登録した拡張hook／単一instanceではなく型の組み合わせに適用する登録／
 適用可能で有効なcallbackを辿るobjectです。登録順・継承・途中終了はそれぞれ別の検査対象です。
 
@@ -84,6 +89,10 @@ subscriber同士の未規定の呼び出し順は仮定しません。
 **TLM 2のpayload／extension／socket／phase／delay** — transactionのデータ／型付きの追加情報／
 transportの接続／protocolの進行状態／時間の注記です。TLM 2のprotocol phaseとUVM実行のphaseは別です。
 accessorや接続の検査だけで、protocolやtimingの全体を検査したとは扱いません。
+
+**nonblocking transport／`nb_transport`** — 即時に要求・応答を完了できれば1、できなければ0を返す操作です。
+呼び出し中の同期的なanalysis callbackが応答を供給できます。
+0という結果だけでは、出力引数の特定の値や、要求側の途中の副作用がなかったことは示せません。
 
 ## 実行と結果
 

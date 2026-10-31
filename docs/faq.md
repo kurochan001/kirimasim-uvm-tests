@@ -189,3 +189,29 @@ The IEEE PDFs used for review remain local and ignored by Git; do not copy
 their text or examples into the suite. Describe behavior in your own words
 and cite clause numbers. The UVM library is fetched separately under Apache-2.0;
 the suite is Apache-2.0 WITH LLVM-exception.
+
+## Locking and nonblocking transport
+
+### Q19. How do lock and grab differ, and can a lock owner be blocked?
+
+Lock joins regular request arbitration; grab enters at the front. Both wait
+when an incompatible existing lock or grab prevents acquisition. A child's
+ownership can temporarily block its parent even when the parent still owns
+a lock. Inspect `is_blocked` as well as `has_lock`; `current_grabber` identifies
+the sequence currently allowed to act under nested ownership.
+
+Current tests cover ownership, nested release and waiting acquisitions.
+Queued lock-versus-item ordering and actual item exclusion still need further
+tests; these state queries alone do not establish those behaviors.
+
+### Q20. How can nonblocking transport return a response immediately?
+
+A target can compute a response synchronously when the accepted request's
+analysis notification is delivered, then write it through the response put
+port before `nb_transport` returns. The tests connect this path through public
+interfaces and retire the accepted request afterwards so the slot can be reused.
+
+When completion is not immediate, the return value is 0. These expectations
+do not prescribe its response output argument or whether a partial request
+was queued. The recovery case drains any residual request through `try_get`
+before a fresh transaction, without asserting that drain's return value.

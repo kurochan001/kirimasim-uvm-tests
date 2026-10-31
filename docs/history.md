@@ -2,8 +2,9 @@
 
 [日本語](history.ja.md) · [README](../README.md)
 
-These are the increment records previously kept in the README, through the
-349-test suite at [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
+These records cover the M1 and M2 increments through the sixth M2 increment
+(373 tests). The earlier 349-test checkpoint is
+[500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
 current library limitations are in [known differences](known-differences.md).
@@ -384,3 +385,48 @@ M1's six spec-only cases and remaining clause coverage are retained;
 starting M2 does not mark M1 complete. More sequence/sequencer and callback
 behavior, TLM 1 nonblocking transport and broader TLM 2 timing/protocol
 coverage remain M2 work. M2 is not complete.
+
+### Sixth M2 increment
+
+This increment adds 24 tests, bringing the suite to 373:
+
+- Eight competing-sequence arbitration cases: FIFO request arrival with
+  unequal priorities, reversed arrival order, STRICT_FIFO priority and
+  equal-priority arrival, STRICT_RANDOM unique highest priority, USER selection
+  of either lower-priority candidate, and RANDOM delivery membership.
+  They cover 15.3.2.19, F.2.4.1 and the USER APIs of 15.3.2.3/15.3.2.4.
+- Eight lock/grab cases: sequence APIs, sequencer APIs and cross-release,
+  nested parent/child ownership and restoration, and blocked acquisitions
+  that transfer after unlock. They cover 14.2.5.5–14.2.5.10 and
+  15.3.2.8–15.3.2.13/15.3.2.15/15.3.2.16.
+- Eight TLM 1 nonblocking transport cases: absent immediate response,
+  full request storage, nonblocking and combined transport ports, slot reuse,
+  independent channels, recovery after retiring a failed call, and request/reply
+  object handles. They cover 12.2.9.2.2 and 12.2.4.2.11 through public interfaces.
+
+All 24 match Verilator 5.052 with seeds 1 and 73. No new spec-only cases are
+added; the suite has 362 tagged matches and eleven retained seed 1 differences.
+Combined Ghost bundled runs have 95 matches and 278 failures with each seed;
+the same tests fail at both seeds. kirimasim reports all 373 unsupported at
+`uvm_object_wrapper`. Totals combine fresh runs of these 24 tests with the
+fingerprint-verified unchanged 349-case baseline.
+
+Arbitration request arrivals are separated by a positive delay before the
+driver starts, so candidates are already pending. RANDOM output checks both requests
+occur exactly once, without fixing their order or claiming a distribution test.
+USER cases require a callback with two candidates; the single-candidate
+requirement remains a separate spec-only case.
+
+Lock queries use explicitly associated sequence objects on an idle sequencer.
+Nested cases check the child can acquire under a parent lock, blocks its
+parent while owning, then restores parent eligibility. Waiting acquisitions
+are observed after a positive delay and before a delayed release. These are
+ownership and blocking-API tests, not queued lock-versus-item ordering tests.
+
+Immediate transport responses are computed synchronously from accepted-request
+analysis and sent through the public response put port. Successful requests
+are retired through the public request get interface, allowing slot reuse.
+Failure cases do not prescribe the response output argument or partial queue
+effects; recovery drains any residual request without asserting whether one
+was queued. Object cases compare typed handle values and payloads. Blocking
+tests retain watchdogs; no protected FIFO or arbitration queue is accessed.

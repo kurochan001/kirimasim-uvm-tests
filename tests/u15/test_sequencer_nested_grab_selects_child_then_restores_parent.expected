@@ -1,0 +1,4 @@
+UT: parent_held child_blocked 0 child_has_lock 0
+UT: nested parent_blocked 1 child_blocked 0 child_has_lock 1 owner_child 1
+UT: restored parent_blocked 0 parent_has_lock 1 owner_parent 1
+UT: cleared locks 0 0 blocked 0 0 grabbed 0 owner_null 1

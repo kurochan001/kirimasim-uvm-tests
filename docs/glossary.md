@@ -91,6 +91,12 @@ a selection input / whether a sequence is currently eligible. USER mode
 delegates selection to a callback; a relevance override supplies a matching
 `wait_for_relevant` implementation.
 
+**Lock / grab / unlock / ungrab** — Sequence ownership and its release.
+Lock joins regular arbitration; grab goes to the front, while still waiting
+for incompatible existing ownership. A child can acquire under its parent's
+lock and temporarily block that parent. `has_lock` and `is_blocked` answer
+different questions.
+
 **Callback / typewide registration / iterator** — A registered extension hook /
 registration applying to a callback type pairing rather than one instance /
 an object that traverses the applicable enabled callbacks. Registration order,
@@ -117,6 +123,12 @@ additional typed information / a transport connection / protocol progress /
 a timing annotation. A TLM 2 protocol phase is different from a UVM execution
 phase. Accessor and connection tests do not establish full protocol or timing
 coverage.
+
+**Nonblocking transport / `nb_transport`** — A request/response operation
+that returns 1 for immediate completion or 0 when it cannot complete
+immediately. A synchronous analysis callback can supply the response during
+the call. A 0 does not establish a particular response output value or that
+no partial request-side effect occurred.
 
 ## Execution and result records
 
