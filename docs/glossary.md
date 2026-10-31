@@ -292,7 +292,8 @@ prediction from supplied observations. RTL/backdoor integration remains future w
 **Memory / location / location index** — A model of contiguous storage /
 one stored word / the word selected within that memory. `uvm_mem` records
 geometry without mirroring every location. Local offsets and external
-addresses incorporate location stride; current tests do not access data.
+addresses incorporate location stride. Frontdoor cases transfer data through
+a testbench driver; that storage belongs to the fixture.
 
 **READ / WRITE prediction** — Updating model state from a supplied observation
 and its access-policy effects. RC/RS apply read effects; W1C/W1S/W1T and
@@ -315,10 +316,20 @@ its generic-operation publication port / a hook for value or target changes.
 Wide operations accumulate bus words before publication. Memory observations
 are excluded. The published observed value can differ from the post-policy mirror.
 
-**Frontdoor bus model / auto-prediction** — Register read/write traffic through
-an adapter, sequencer and testbench driver / automatic mirror update after
+**Frontdoor bus model / auto-prediction** — Register or memory read/write traffic through
+an adapter, sequencer and testbench driver / automatic register-mirror update after
 that access when enabled. This tests UVM traffic without establishing an RTL
 bus implementation. See the [path guide](faq.md#adapter-predictor-and-frontdoor-paths).
+
+**Update / mirror / access status** — Writing desired register state when
+needed / reading and optionally checking mirrored state / the operation's
+success or failure. Update encodes the field policy into bus write data;
+a failed read does not supply a portable data value.
+
+**Register access hooks** — Inherited pre/post read/write methods that can
+change a value or status, or reject an access before a bus request.
+They are distinct from registering callback objects. See the
+[access-hook FAQ](faq.md#memory-transfers-and-register-access-hooks).
 
 ## Execution and result records
 

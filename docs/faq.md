@@ -172,7 +172,7 @@ a claim that every test was rebuilt together.
 
 ### Q16. Are M1, M2 or M3 complete, and what does the test count cover?
 
-M1 and M2 still have open clause targets. M3 now has 72
+M1 and M2 still have open clause targets. M3 now has 96
 register-layer cases, including testbench frontdoor paths; it is also incomplete. Starting a stage does not complete
 the preceding stages.
 The [plan](../README.md#plan) identifies current scope and remaining work.
@@ -595,8 +595,8 @@ units, rights, endian ordering, relocation and hierarchy.
 
 Later increments add memory/policy checks and the adapter, predictor and
 testbench frontdoor cases described below.
-Memory transfers and virtual-register models, broader policy/map conditions,
-broader bus/predictor combinations, backdoor/DPI setups, callbacks and
+Virtual-register models, broader memory packing/error and policy/map conditions,
+bus/predictor integration, custom frontdoors, backdoor/DPI setups, registered callbacks and
 annex E sequences remain future work. Register and memory map queries use
 explicit arguments. The release's multiple-map note and null-map resolution
 are discussed in
@@ -610,7 +610,8 @@ the initial batch is not a reviewed register-layer coverage inventory.
 `uvm_mem` describes contiguous locations without storing a mirror for every
 location. Construction records the number and bit width of locations; each
 location's byte width rounds up independently. Current memory tests inspect
-layout and addresses, without reading or writing memory data.
+layout and addresses; the frontdoor additions also transfer data through a
+testbench driver, as described in Q54.
 
 The location index selects a different local offset and external address.
 Byte-addressed two-byte locations advance by two address units; word-addressed
@@ -714,5 +715,53 @@ uses the standard TLM adapter and retains required reconstruction of repeated
 payload bytes as spec-only.
 
 These fixtures establish selected UVM paths without an RTL DUT or DPI. Actual
-bus signal protocols, broader response/error and timing combinations, memory
-transfers and integrated monitor/predictor traffic remain future work.
+bus signal protocols, broader response/error and timing combinations, and
+integrated monitor/predictor traffic remain future work. Q54–Q56 describe
+the memory, update/mirror, error-status and access-hook additions.
+
+## Memory transfers and register access hooks
+
+### Q54. Which memory transfers are now tested?
+
+Eight frontdoor cases check byte-wide reads/writes at nonzero location
+indices, separate driver responses, little-endian 32-bit locations on a
+byte-wide bus, word addressing, and three-location burst reads/writes.
+The driver acknowledges requests after a positive delay and stores physical
+address/data pairs. There is no RTL memory or per-location UVM mirror.
+
+For the burst fixtures, memory width, bus width and `uvm_reg_data_t` width
+are all 64 bits. Each array element fills one location, avoiding partial-beat
+packing assumptions. Narrow-memory array packing, partial final beats,
+big-endian memory transfers and memory-error combinations remain open.
+The driver's storage is fixture state, not a mirror maintained by `uvm_mem`.
+The burst pair retains spec-only expectations: 19.1.2.1 requires physical
+bus descriptors to use READ/WRITE, but pinned UVM passes burst kinds to the
+adapter. See [known differences](known-differences.md).
+
+### Q55. How do update, mirror and bus errors behave in these cases?
+
+`set` changes desired state without a transfer. `update` writes only when
+needed; successful auto-prediction makes the next update a no-op. The W1C
+and W1S cases separately observe the physical write mask and resulting
+mirror, because the command data and policy result can differ.
+
+`mirror(UVM_CHECK)` reads, reports a mismatch and refreshes the mirror.
+A field with comparison disabled contributes no mismatch error. The catcher
+counts original error severity and consumes the expected diagnostic without
+rewriting it. Two further cases return a bus error through the adapter,
+then verify that a successful retry completes. They make no assertion about
+failed-read data or the mirror at the failed-operation boundary.
+
+### Q56. Which access hooks and ordering rules are covered?
+
+Register method overrides check pre-write value replacement, pre-read and
+pre-write rejection before any bus request, post-read value replacement,
+and post-read/post-write status replacement. The post-read value case checks
+the caller result without prescribing the mirror after the hook.
+
+Clauses 18.4.8.1/.3 and 18.5.6.1/.3 place register hooks before field hooks.
+The two ordering cases expect `RF`; pinned UVM runs `FR`, so they retain
+spec-only oracles. See [known differences](known-differences.md).
+These tests override the inherited methods; registration with
+`uvm_reg_cb`/`uvm_reg_field_cb`, callback redirection and further post-hook
+ordering combinations remain separate work.

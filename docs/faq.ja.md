@@ -154,7 +154,7 @@ Ghostはさらに実行ファイル・profile・供給されたライブラリ�
 
 ### Q16. M1・M2・M3は完了していますか。件数は何の網羅を示しますか
 
-M1・M2には条項ごとの目標に未達があります。M3はbusモデルのfrontdoor経路を含め72件まで追加した段階で、未完です。
+M1・M2には条項ごとの目標に未達があります。M3はbusモデルのfrontdoor経路を含め96件まで追加した段階で、未完です。
 次の段階の開始によって、それまでの段階が完了したとは扱いません。
 範囲と残りの作業は[進め方](../README.ja.md#進め方)にあります。
 件数はテストの本数で、規格の全要求や組み合わせの棚卸しではありません。
@@ -497,8 +497,8 @@ field名検索とmapの幅・変換結果の4件はspecのみで保持し、lock
 mapの単位・権限・endian順序・再配置・階層を検査します。
 
 以後の追加でmemory・policy・mapと、下記のadapter・predictor・busモデルのfrontdoorを検査しています。
-memoryの転送やvirtual register、追加のpolicy／mapやbus／predictorの組み合わせ、
-backdoor／DPIの環境、register callback、付録Eのsequenceは今後の作業です。
+virtual register、追加のmemory packing／エラーやpolicy／map、bus／predictorの統合、
+custom frontdoor、backdoor／DPI、登録callback、付録Eのsequenceは今後の作業です。
 register・memoryのmap検索では引数を明示します。配布物の複数mapに関する注記とnull時のmap解決は
 [既知差分](known-differences.ja.md)で説明します。
 全件が`spec_check: ai`で、初回の追加をレジスタ層の要求の網羅としては扱いません。
@@ -509,7 +509,7 @@ register・memoryのmap検索では引数を明示します。配布物の複数
 
 `uvm_mem`は連続したlocationを表しますが、全locationのmirror値は保持しません。
 構築時にlocationの数とbit幅を記録し、1 locationのbyte幅は端数を切り上げます。
-現在のmemoryテストは配置とアドレスを調べ、memoryのデータを読み書きしません。
+配置とアドレスに加え、現在はテストベンチdriverを通るfrontdoorのデータ転送も検査します（Q54）。
 
 location番号が変わるとlocal offsetと外部アドレスも変わります。byte単位の2 byte locationは2ずつ、
 4 byte bus上のword単位の4 byte locationは1ずつ進みます。
@@ -592,4 +592,41 @@ addressとdataの対応を確認し、規定されていない転送順序は要
 big endianの幅の広いreadは標準TLM adapterを使い、同じpayload byteから値を復元する規格の期待値をspecのみで保持します。
 
 RTLのDUTやDPIを使わない、選択したUVM経路の検査です。実際のbus信号protocol、より広い応答・エラー・timingの
-組み合わせ、memory転送、monitorとpredictorをつないだ実転送は今後の作業です。
+組み合わせ、monitorとpredictorをつないだ実転送は今後の作業です。
+追加したmemory転送、update／mirror、エラーstatus、アクセスhookはQ54〜Q56で説明します。
+
+## memory転送とregisterのアクセスhook
+
+### Q54. memoryのどの転送を検査していますか
+
+8件で、0以外のlocationのbyte幅read／write、driverの別応答、byte幅busでのlittle endianの32 bit location、
+word単位のアドレス、3 locationのburst read／writeを検査します。
+driverは正の遅延の後に応答し、物理アドレスとデータを保存します。RTL memoryやlocationごとのUVM mirrorは使いません。
+
+burstではmemory・bus・`uvm_reg_data_t`の幅をすべて64 bitにそろえ、配列の1要素が1 locationを満たします。
+狭いmemoryへの配列packing、最後の部分beat、big endianのmemory転送、memoryエラーの組み合わせは未追加です。
+driverの記憶域は検査系の状態であり、`uvm_mem`が保持するmirrorではありません。
+burstの2件はspecのみです。19.1.2.1が物理bus記述子をREAD／WRITEとするのに対し、固定版UVMはburst種別をadapterへ渡します。
+[既知差分](known-differences.ja.md)も参照してください。
+
+### Q55. update・mirrorとbusエラーでは何を検査していますか
+
+`set`は転送なしでdesiredを変えます。`update`は必要な場合に書き込み、成功時のauto-predictionで次のupdateが不要になります。
+W1C／W1Sではbusへ送るwrite maskと結果のmirrorを分けて観測します。命令のデータとpolicy適用後の値は異なる場合があります。
+
+`mirror(UVM_CHECK)`はreadし、不一致を報告してmirrorを更新します。fieldの比較を無効にすると、その不一致はエラーになりません。
+catcherは元のerror severityを数え、severityを書き換えずに期待した診断を受け取ります。
+別の2件ではadapter経由のbusエラーを呼び出し元へ返し、その後の再試行の成功を確認します。
+失敗したreadのデータや失敗時点のmirrorの値は規定しません。
+
+### Q56. どのアクセスhookと順序を検査していますか
+
+registerの継承methodをoverrideし、pre-writeの値の変更、pre-read／pre-writeでbus要求を出す前の中止、
+post-readの戻り値の変更、post-read／post-writeの戻りstatusの変更を検査します。
+post-readの値のケースは呼び出し元の値を確認し、hook後のmirrorは規定しません。
+
+18.4.8.1／.3と18.5.6.1／.3はregisterのhookをfieldより先としています。
+順序の2件は`RF`を期待しますが、固定版UVMは`FR`になるためspecのみで保持します。
+[既知差分](known-differences.ja.md)も参照してください。
+今回の検査は継承methodのoverrideです。`uvm_reg_cb`／`uvm_reg_field_cb`への登録、callbackでの転送先変更、
+追加のpost-hook順序の組み合わせは今後の作業です。

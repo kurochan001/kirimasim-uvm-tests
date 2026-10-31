@@ -2,8 +2,8 @@
 
 [日本語](history.ja.md) · [README](../README.md)
 
-These records cover M1, fifteen M2 increments and three M3 increments
-(661 tests). The earlier 349-test checkpoint is
+These records cover M1, fifteen M2 increments and four M3 increments
+(685 tests). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -925,3 +925,43 @@ a diagram distinguishing active and passive fixtures. Tool tests, metadata,
 pinned-library integrity, current input/runner/configuration fingerprints,
 documentation links and diagram rendering were checked. All cases retain
 spec_check: ai, UVM_NO_DPI and no deprecated API.
+
+## Fourth M3 increment: memory transfers and register access hooks (2026-11-01)
+
+This increment adds 24 chapter 18 cases, bringing the suite to 685 and M3
+to 96: 79 in chapter 18 and 17 in chapter 19. M1 remains at 229 and M2 at
+360; all three stages remain open.
+
+- Eight memory frontdoor paths: nonzero location selection, separate
+  responses, little-endian wide reads/writes, word addressing and full-width
+  burst reads/writes.
+- Eight register cases: clean/dirty update, W1C/W1S update commands, mirror
+  checking and disabled comparison, and read/write bus-error propagation
+  followed by successful retry.
+- Eight access-hook cases: pre-write value replacement, pre-access rejection,
+  post-read data and post-access status replacement, and register/field
+  pre-read/pre-write order.
+
+Twenty additions match Verilator 5.052 at seeds 1 and 73. Four retain
+spec-only expectations: two for register hooks preceding field hooks and
+two for physical memory burst beats using READ/WRITE kinds. Fixed UVM
+reverses the hook order and passes abstract burst kinds to the adapter. Combined with the unchanged 661-case baseline
+at 256d873, there are 624 matches and 61 known differences: 54 runtime seed 1
+differences and seven missing-API builds without runtime seeds. The same
+fixed executable/profile snapshots give Ghost 145 matches and 540 failures
+per seed, with identical failing sets, and kirimasim 678 unsupported cases
+plus seven missing-API failures. Input, runner, version and configuration
+fingerprints were checked before combining evidence.
+
+The memory burst fixtures align memory, bus and data-array element widths
+at 64 bits; they do not establish narrow-memory packing or partial-beat
+behavior. Failed-read data and the failed-operation mirror boundary are
+unconstrained. The storage driver is not an RTL DUT or UVM memory mirror.
+Access-hook cases override inherited methods without registering callback
+objects. Broader memory/error/policy conditions and integrated prediction
+remain open.
+
+Both README languages, glossary, FAQ and known differences are updated.
+Tool tests, metadata, pinned-library integrity, evidence fingerprints and
+local documentation links were checked. All cases retain spec_check: ai,
+UVM_NO_DPI and no deprecated API.

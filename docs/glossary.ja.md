@@ -220,7 +220,7 @@ blockのresetは子blockへ再帰しますが、物理的なハードウェア�
 
 **Memory／location／location番号** — 連続した記憶域のモデル／その中の1 word／選択するwordの番号です。
 `uvm_mem`は配置を保持し、全locationのmirror値は持ちません。local offsetと外部アドレスにはlocationの間隔を反映し、
-現在の検査ではデータへアクセスしません。
+現在はテストベンチdriverを通るfrontdoorのデータ転送も検査します。driverの記憶域は検査系の状態です。
 
 **READ／WRITE prediction** — 渡された観測値とaccess policyの効果でモデルを更新する操作です。
 RC／RSはreadの効果、W1C／W1S／W1TとW0C／W0Sは選んだbitへのwriteの効果を適用します。
@@ -236,9 +236,16 @@ RC／RSはreadの効果、W1C／W1S／W1TとW0C／W0Sは選んだbitへのwrite�
 **Predictor／reg_ap／pre_predict** — bus観測を受け取るcomponent／genericな操作の公開port／値や転送先を変えるhookです。
 幅の広い操作はbus wordを集めてから公開し、memory観測は除外します。公開する観測値とpolicy適用後のmirrorは別です。
 
-**Frontdoorのbusモデル／auto-prediction** — adapter・sequencer・テストベンチdriverを通るregisterの読み書き／
-有効にした場合にアクセス後のmirrorを自動更新することです。RTLのbus実装を示すものではありません。
+**Frontdoorのbusモデル／auto-prediction** — adapter・sequencer・テストベンチdriverを通るregisterやmemoryの読み書き／
+有効にした場合にアクセス後のregisterのmirrorを自動更新することです。RTLのbus実装を示すものではありません。
 [経路の説明](faq.ja.md#adapterpredictorfrontdoorの経路)も参照してください。
+
+**Update／mirror／アクセスstatus** — 必要な場合にregisterのdesiredを書き込む操作／
+readしてmirrorを更新し、必要なら比較する操作／アクセスの成否です。
+updateはfieldのpolicyからbusのwriteデータを組み立てます。失敗したreadのデータには移植可能な期待値を置きません。
+
+**Registerのアクセスhook** — 値やstatusの変更、bus要求前の中止を行える継承pre／post read／write methodです。
+callback objectの登録とは別です。[アクセスhookのFAQ](faq.ja.md#memory転送とregisterのアクセスhook)も参照してください。
 
 ## 実行と結果
 

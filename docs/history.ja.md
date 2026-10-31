@@ -2,7 +2,7 @@
 
 [English](history.md) · [README](../README.ja.md)
 
-M1・M2の15回目と、M3の3回目（661件）までの追加作業を記録しています。以前の349件の時点は
+M1・M2の15回目と、M3の4回目（685件）までの追加作業を記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -686,3 +686,29 @@ virtual overrideの引数名は基底と揃え、extension用tokenは具体ク�
 日英のREADME・用語集・FAQ・既知差分を更新し、activeとpassiveの検査系を分ける図を追加しました。
 単体テスト、メタデータ、固定UVM、入力・ランナー・設定の指紋、リンク、図の描画を確認しました。
 全件がspec_check: ai・UVM_NO_DPIで、deprecated APIを要求しません。
+
+## M3の4回目：memory転送とregisterのアクセスhook（2026-11-01）
+
+第18章に24件を追加し、全685件、M3は96件（第18章79件・第19章17件）になりました。
+M1は229件、M2は360件のままで、3段階とも未完です。
+
+- memoryのfrontdoorを8件：0以外のlocation、別応答、little endianの幅の広いread／write、
+  word単位のアドレス、幅をそろえたburst read／write。
+- registerを8件：更新不要／必要時のupdate、W1C／W1Sのwrite命令、mirrorの比較と比較無効、
+  read／writeのbusエラーを返した後の再試行。
+- アクセスhookを8件：pre-writeの値、pre-accessでの中止、post-readの値とpost-accessのstatus、
+  register／fieldのpre-read／pre-writeの順序。
+
+20件がVerilator 5.052のseed 1・73で一致します。残る4件はregister／fieldのhook順序と、burstの物理beatのREAD／WRITE種別を
+規格の期待値で保持します。固定版UVMはhookを逆順とし、抽象的なburst種別をadapterへ渡すためspecのみです。変更のない256d873時点の661件と合算すると、624件一致、既知差分61件です。
+内訳は実行時のseed 1の差分54件と、実行時のseed結果がないAPI欠落7件です。
+同じ実行ファイル・profileの固定コピーでGhostは各seedで145件一致・540件不一致（不一致の集合も同じ）、
+kirimasimは678件未対応・API欠落7件です。合算前に入力・ランナー・版・設定の指紋を確認しています。
+
+memoryのburstはmemory・bus・配列要素を64 bitにそろえており、狭いmemoryへのpackingや部分beatは検査しません。
+失敗したreadのデータと失敗時点のmirrorには期待値を置きません。driverの記憶域はRTLのDUTやUVMのmemory mirrorではありません。
+アクセスhookは継承methodのoverrideであり、callback objectの登録は含みません。
+追加のmemory／エラー／policy条件やpredictorとの統合は未完です。
+
+日英README、用語集、FAQ、既知差分を更新しました。ツールテスト、metadata、固定ライブラリの整合性、
+実行記録の指紋、ローカルリンクを確認しました。全件がspec_check: ai、UVM_NO_DPIで、deprecated APIは要求しません。

@@ -2,7 +2,7 @@
 
 [日本語](known-differences.ja.md) · [README](../README.md) · [FAQ](faq.md)
 
-This describes the current 661-test suite and the pinned Accellera UVM
+This describes the current 685-test suite and the pinned Accellera UVM
 2020.3.1 library. A mismatch is a test result; it does not by itself assign
 the cause to the simulator, the library or the expectation.
 
@@ -14,7 +14,7 @@ A simple memory registered on two sibling-interface maps matches 18.2.3.4 in
 the pinned release. The release's multiple-map note and shared-map hierarchies
 require separate review; this case establishes only its two-interface setup.
 See the [memory scope](faq.md#memory-prediction-and-map-controls).
-The following thirty-six additional limitations were identified during M1, M2 and M3.
+The following thirty-eight additional limitations were identified during M1, M2 and M3.
 Where a test directly checks a required behavior that is missing, its
 normative expectation is retained with `:oracle: spec`.
 
@@ -149,6 +149,18 @@ normative expectation is retained with `:oracle: spec`.
   reconstruction required by 18.4.4.10 and 19.1.2.3, using repeated bytes to
   avoid intra-word ambiguity.
 
+- Register pre-write and pre-read hooks run after the field hooks. Clauses
+  18.4.8.1/.3 and 18.5.6.1/.3 require the register hooks first. Two cases
+  retain the required `RF` order; the library produces `FR` during otherwise
+  successful bus accesses. This concerns inherited method hooks, without
+  registered callback objects.
+
+- Memory burst accesses copy UVM_BURST_READ/UVM_BURST_WRITE into the
+  physical bus descriptor instead of the READ/WRITE kinds required by
+  19.1.2.1. Two full-width burst cases observe every physical beat's kind
+  and retain the data transfers required by 18.6.5.3/.4. Their testbench
+  driver accepts the prescribed physical READ/WRITE operations.
+
 These branches are not treated as reproduced fixed-release oracles.
 Spec-only diagnostics preserve the required post-drop objector membership,
 initial transaction state, severity-ID reset, field-operation name errors,
@@ -159,25 +171,26 @@ initiator-socket routing, repeated push delivery, sequence-library APIs/removal,
 FIFO peek notifications, `start_item` error severity, library subtype
 construction, `finish_item` dispatch, IDs and guards, pre-lock field lookup,
 map width/translation results, location-specific memory offsets and
-single-map effective access, predictor redirection and big-endian frontdoor read data.
+single-map effective access, predictor redirection, big-endian frontdoor read data
+and register/field pre-access hook order, plus physical burst-beat kinds.
 Matching tests avoid the other library limitations.
 
-Across the suite, 604 tests have the `verilator@5.052` oracle tag and fifty-seven
+Across the suite, 624 tests have the `verilator@5.052` oracle tag and sixty-one
 cases are spec-only. One of the spec-only cases checks 9.6: a child's pre-reset
 task must be killed when that phase ends, but the pinned-library run on Verilator 5.052
 lets the child perform its delayed write during a later phase. The cause of
 this combined simulator/library difference remains unassigned.
 
-The fifty-seven spec-only tests retain their normative expected files.
-Default Verilator runs and CI select the 604 tagged cases. `--all` includes
+The sixty-one spec-only tests retain their normative expected files.
+Default Verilator runs and CI select the 624 tagged cases. `--all` includes
 spec-only cases and records mismatches or build failures as `known`.
-The runtime records for 50 cases establish the first difference at seed 1,
+The runtime records for 54 cases establish the first difference at seed 1,
 without seed 73 results. Seven missing-API cases cannot build and have no
 runtime seed result: one time API and six sequence-library cases.
 
 ## Spec-only tests
 
-These are the fifty-seven current spec-only cases. Several exercise the same
+These are the sixty-one current spec-only cases. Several exercise the same
 limitation, so their count is not a count of distinct bugs.
 
 - Field-operation accessor errors:
@@ -263,11 +276,19 @@ limitation, so their count is not a count of distinct bugs.
 - Big-endian frontdoor read reconstruction:
   [two bus words](../tests/u18/test_reg_frontdoor_big_endian_wide_read_preserves_returned_bus_words.sv).
 
+- Register hooks before field hooks:
+  [pre-write](../tests/u18/test_reg_pre_write_hook_precedes_the_containing_fields_hook.sv)
+  and [pre-read](../tests/u18/test_reg_pre_read_hook_precedes_the_containing_fields_hook.sv).
+
+- Physical memory burst-beat kinds and transfers:
+  [write](../tests/u18/test_mem_frontdoor_burst_write_advances_full_width_locations.sv)
+  and [read](../tests/u18/test_mem_frontdoor_burst_read_fills_full_width_array_in_location_order.sv).
+
 ## Simulator and library combinations
 
-Ghost's bundled-library evidence has 140 matches and 521 failures with each
-of seeds 1 and 73; the same tests fail at both seeds. The previous 637-case
-full run and 24 fresh cases use the same executable/profile snapshot.
+Ghost's bundled-library evidence has 145 matches and 540 failures with each
+of seeds 1 and 73; the same tests fail at both seeds. The verified 661-case
+baseline and 24 fresh cases use the same executable/profile snapshot.
 Earlier pinned-library smoke runs differed, including with preprocessing
 enabled; the sampled build has no pinned-mode measurement. Bundled results
 cover the supplied library. Their mismatches do not distinguish a simulator
@@ -275,7 +296,7 @@ problem from a library problem or establish results for the locked library.
 Private identity, profiles and diagnostics are not published.
 
 The tested kirimasim executable reports `uvm_object_wrapper` as unsupported
-on 654 cases. Seven cases fail earlier on missing library APIs: one time
+on 678 cases. Seven cases fail earlier on missing library APIs: one time
 setter and six sequence-library cases. Neither result is a pass or evidence
 of UVM execution beyond those compilation blockers.
 

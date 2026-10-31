@@ -2,7 +2,7 @@
 
 [English](known-differences.md) · [README](../README.ja.md) · [FAQ](faq.ja.md)
 
-現在の661件と、固定したAccellera UVM 2020.3.1についての記録です。
+現在の685件と、固定したAccellera UVM 2020.3.1についての記録です。
 不一致はテストの結果であり、それだけではシミュレータ・ライブラリ・期待値のどれが原因かは決まりません。
 
 ## 固定版ライブラリの制約
@@ -11,7 +11,7 @@
 現在のregister検索ではmap引数を明示します。memoryを2つの兄弟interfaceのmapに登録する単純なケースは、
 固定版でも18.2.3.4の期待値に一致しました。配布物の複数mapに関する注記と、mapを共有する階層は別途照合が必要です。
 このケースが示すのは2つのinterfaceの構成です。[memoryの範囲](faq.ja.md#memorypredictionmapの制御)も参照してください。
-それ以外に、M1・M2・M3で次の36件の制約を確認しました。
+それ以外に、M1・M2・M3で次の38件の制約を確認しました。
 不足する必須動作を直接検査する場合は、規格の期待値を変えずに`:oracle: spec`で保持します。
 
 - `find_override_by_name`は、置換がない場合に`null`を返します。元の型を生成できる場合も
@@ -106,6 +106,14 @@
   その後のmaskで戻り値のbitを失います。2 wordのケースは標準TLM adapterを使い、18.4.4.10・19.1.2.3の値の復元を保持し、
   word内のbyte順の曖昧さを避けるため同じbyteを使います。
 
+- registerのpre-write／pre-read hookをfieldのhookより後で実行します。
+  18.4.8.1／.3と18.5.6.1／.3はregisterを先としているため、2件で期待する`RF`の順序を保持します。
+  busアクセス自体は成功しますが、固定版は`FR`になります。登録callback objectを使わない継承methodのhookです。
+
+- memoryのburstを物理bus記述子へ変換するとき、19.1.2.1が定めるREAD／WRITEへ変えず、
+  UVM_BURST_READ／UVM_BURST_WRITEを渡します。幅をそろえたburstの2件で各物理beatの種別と、
+  18.6.5.3／.4のデータ転送の期待値を保持します。テストベンチdriverは規定の物理READ／WRITEを扱います。
+
 これらの分岐は、固定版で再現したオラクルとしては扱いません。drop直後の一覧、transactionの
 生成直後の状態、重大度・ID別のreset、無効なfield_opの操作名取得、応答数未満の深さ変更、
 応答エラー報告の既定値、候補1件のUSER arbitration、lockの順序、kill後のhook、
@@ -114,19 +122,19 @@
 start_itemの重大度、library subtypeの構築、finish_itemの委譲・ID・入力検査、lock前のfield名検索、mapの幅・変換結果、locationごとのmemory offsetと単一mapの実効access、predictorの転送先、big endianのfrontdoor readは診断用に保持します。
 残りのライブラリの制約は、一致するテストシナリオでは避けています。
 
-スイート全体では、`verilator@5.052`を付けたテストは604件、specのみのテストは57件です。
+スイート全体では、`verilator@5.052`を付けたテストは624件、specのみのテストは61件です。
 specのみのうち1件は9.6を検証します。pre-resetフェーズ終了時に子タスクが停止する
 はずですが、固定版UVMとVerilator 5.052の組み合わせでは、後のフェーズで子タスクの遅延書き込みが
 実行されます。この差分の原因がシミュレータとライブラリのどちらかは未確定です。
 
-specのみの57件も規格から導いた期待値を保持します。通常のVerilator実行とCIはoracle付き604件を選びます。
+specのみの61件も規格から導いた期待値を保持します。通常のVerilator実行とCIはoracle付き624件を選びます。
 `--all`はspecのみも含め、不一致やビルド不可を`known`として記録します。
-実行時の50件は最初の差分であるseed 1までの記録で、seed 73の結果はありません。
+実行時の54件は最初の差分であるseed 1までの記録で、seed 73の結果はありません。
 API欠落の7件（時刻APIの1件とsequence libraryの6件）はビルド段階で失敗し、どのseedも実行できていません。
 
 ## specのみのテスト
 
-現在の57件は次のテストです。同じ制約を複数のテストで検査する場合があり、異なる不具合の個数ではありません。
+現在の61件は次のテストです。同じ制約を複数のテストで検査する場合があり、異なる不具合の個数ではありません。
 
 - field_opのaccessorの必須エラー：
   [set前](../tests/u05/test_field_op_accessors_report_errors_before_set.sv)と
@@ -211,15 +219,23 @@ API欠落の7件（時刻APIの1件とsequence libraryの6件）はビルド段�
 - big endianのfrontdoor read：
   [2つのbus word](../tests/u18/test_reg_frontdoor_big_endian_wide_read_preserves_returned_bus_words.sv)。
 
+- fieldより先のregister hook：
+  [pre-write](../tests/u18/test_reg_pre_write_hook_precedes_the_containing_fields_hook.sv)と
+  [pre-read](../tests/u18/test_reg_pre_read_hook_precedes_the_containing_fields_hook.sv)。
+
+- memory burstの物理beatの種別と転送：
+  [write](../tests/u18/test_mem_frontdoor_burst_write_advances_full_width_locations.sv)と
+  [read](../tests/u18/test_mem_frontdoor_burst_read_fills_full_width_array_in_location_order.sv)。
+
 ## シミュレータとライブラリの組み合わせ
 
-Ghostの同梱UVMはseed 1・73とも140件一致・521件不一致で、不一致になるテストも同じです。
-前回の全637件と追加24件は、同じ実行ファイル・profileの固定コピーで測定しています。
+Ghostの同梱UVMはseed 1・73とも145件一致・540件不一致で、不一致になるテストも同じです。
+指紋を確認した既存661件と追加24件は、同じ実行ファイル・profileの固定コピーで測定しています。
 過去の実行ファイルの固定版スモークは前処理を有効にした場合も不一致でしたが、今回のbuildの固定版測定は未実施です。
 同梱版の結果が対象にするのは供給されたライブラリです。不一致だけでシミュレータとライブラリの原因を分けたり、
 固定版ライブラリの結果を示したりはできません。非公開の識別情報・profile・診断は公開しません。
 
-確認したkirimasimの実行ファイルでは、654件が`uvm_object_wrapper`未実装です。
+確認したkirimasimの実行ファイルでは、678件が`uvm_object_wrapper`未実装です。
 時刻設定APIの1件とsequence libraryの6件は、その前にAPI欠落を検出して`fail`になります。
 いずれも成功ではなく、その先のUVM動作を実行できた証拠でもありません。
 
