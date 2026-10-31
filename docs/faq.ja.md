@@ -196,7 +196,9 @@ sequencerの要求や所有も後処理します。規格は停止hookの`do_kil
 実行するように定めています。固定版はこの2つのpost hookを呼ばないため、sequencerあり・なしの
 テストで必須動作をspecのみの期待値として保持します。
 
-自動objectionのdropと、`stop_sequences`後のsequencerの再利用も検査します。
+直接のkillによる自動objectionのdropと、`stop_sequences`後のsequencerの再利用も検査します。
+stopでも自動objectionを解除する必要がありますが、固定版のrootを停止する経路ではdropしません。
+単独・親子のケースで必須動作をspecのみで保持します。[既知差分](known-differences.ja.md)を参照してください。
 この操作で破棄されたdriver保持中の要求には後から完了通知せず、新しい要求を取り出してから、
 その要求について`item_done`を呼びます。
 
@@ -210,3 +212,24 @@ sequencerのパスとwrapper型名を生成の文脈にしてfactoryを呼びま
 sequencerと開始phaseを設定し、無効化しない限りrandomizeしてから実行します。
 phase終了時も実行中ならkillします。wrapperがsequence以外を生成した場合は、エラーを出して
 defaultを開始しません。固定版はwarningだけを出すため、必須エラーをspecのみで保持します。
+
+### Q23. 終了・停止したsequenceへ遅れて応答が来たらどうなりますか
+
+元のsequenceが`UVM_FINISHED`または`UVM_STOPPED`なら、`put_response`は応答を捨ててwarningを出します。
+実際の要求からIDをコピーしてからsequenceを終了させ、warningと不達の両方を検査します。
+queueは時間を区切って待ち、handlerは呼ばれないことを確認します。別の生存sequenceへの応答は、
+1つのsequenceをkillしても正常に届く必要があります。
+
+transaction IDだけが配送の識別情報ではありません。新しいsequenceでそのIDを再利用しても、
+停止したsequenceへの古い応答が混入してはいけません。この検査は遅れた配送を対象とし、
+stop前にすでに配送された応答の消去を含む、あらゆる後処理を検証したとは扱いません。
+
+### Q24. defaultに指定したinstanceはwrapperより必ず優先されますか
+
+されません。`uvm_sequence_base`と`uvm_object_wrapper`のresourceだけを残し、最高のprecedenceを選びます。
+同じならlookupのキューに残った最初の要素を使います。不適合な型を除いても、有効な要素同士の
+相対的な順序を保つ必要があります。無関係な型のnull `uvm_object`は除外し、受け入れる型の
+選択されたnullだけがdefaultを無効化します。
+
+同一優先度のテストは別々のresourceを作り、公開pool APIの低優先度の追加で順序を明示しています。
+同じ設定を更新する場合がある`config_db::set`の繰り返しから、キュー順を推測していません。

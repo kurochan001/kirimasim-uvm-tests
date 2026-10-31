@@ -227,8 +227,11 @@ hooks as well as the `do_kill` termination hook. The pinned library omits the
 two post hooks; bound and unbound tests preserve that required behavior as
 spec-only expectations.
 
-Tests also check automatic-objection drop and sequencer reuse after
-`stop_sequences`. A driver-held request flushed by that operation is not
+Tests check direct-kill automatic-objection drop and sequencer reuse after
+`stop_sequences`. The stop operation must drop automatic objections too,
+but its pinned root stop path omits the drop. Standalone and parent/child
+cases retain that requirement as spec-only; see [known differences](known-differences.md).
+A driver-held request flushed by that operation is not
 acknowledged afterwards; the test retrieves a new request before calling
 `item_done` for it.
 
@@ -245,3 +248,28 @@ The sequence receives its sequencer and starting phase, is randomized unless
 disabled and is killed if it outlives the phase. A wrapper creating a
 non-sequence must report an error and start no default. The pinned library
 only warns in that case, so the required error is retained as spec-only.
+
+### Q23. What should happen to a response sent after its sequence finishes or stops?
+
+`put_response` must drop it and report a warning when the original sequence
+is `UVM_FINISHED` or `UVM_STOPPED`. Tests copy IDs from real requests, then
+retire the sequence and check both the warning and non-delivery. Queue probes
+use a bounded wait; handler probes verify no callback. A killed sequence must
+not prevent another active sequence from receiving its own response.
+
+A transaction ID is not the whole routing identity. Reusing it in a new
+sequence must not let a stale response from the stopped sequence contaminate
+the fresh route. These checks concern late delivery, not every possible aspect
+of clearing replies that were already delivered before stop.
+
+### Q24. Does a specific default-sequence instance always outrank a wrapper?
+
+No. First keep only `uvm_sequence_base` and `uvm_object_wrapper` resources,
+then choose highest precedence. For a tie, choose the first remaining entry
+in the lookup queue. Removing wrong-type resources must preserve the relative
+order of the valid entries. An unrelated null `uvm_object` resource is filtered;
+only a selected null of an accepted resource type disables the default.
+
+The equal-precedence tests create separate resources and insert them through
+the public pool API with low priority, in explicit order. They do not infer
+that order from repeated `config_db::set` calls that may update one setting.

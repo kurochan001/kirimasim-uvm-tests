@@ -2,7 +2,7 @@
 
 [日本語](known-differences.ja.md) · [README](../README.md) · [FAQ](faq.md)
 
-This describes the current 397-test suite and the pinned Accellera UVM
+This describes the current 421-test suite and the pinned Accellera UVM
 2020.3.1 library. A mismatch is a test result; it does not by itself assign
 the cause to the simulator, the library or the expectation.
 
@@ -10,7 +10,7 @@ the cause to the simulator, the library or the expectation.
 
 The library's own `DEVIATIONS.md` lists three differences at 18.2.3.4,
 18.4.3.6 and 13.1.5.1. Current matching scenarios avoid those branches.
-The following fifteen additional limitations were identified during M1 and M2.
+The following sixteen additional limitations were identified during M1 and M2.
 Where a test directly checks a required behavior that is missing, its
 normative expectation is retained with `:oracle: spec`.
 
@@ -66,30 +66,35 @@ normative expectation is retained with `:oracle: spec`.
 - A default wrapper that creates a non-sequence object produces only a warning,
   instead of the error required by 15.3.5. Object and sequence-item wrapper
   cases retain the required error and absence of a default sequence start.
+- `stop_sequences` leaves the root sequence's automatic starting-phase
+  objection raised. Stopping is defined through kill in 15.3.2.14, so the
+  drop required by 14.2.4.3 still applies. Standalone and parent/child cases
+  retain zero counts; in the nested case only the child's objection is dropped.
 
 These branches are not treated as reproduced fixed-release oracles.
 Spec-only diagnostics preserve the required post-drop objector membership,
 initial transaction state, severity-ID reset, field-operation name errors,
 response-depth errors, response-error defaults, single-candidate USER
-arbitration, lock ordering, post-kill hooks and invalid-default errors.
+arbitration, lock ordering, post-kill hooks, invalid-default errors and
+automatic-objection drop on stop.
 Matching tests avoid the other library limitations.
 
-Across the suite, 380 tests have the `verilator@5.052` oracle tag and seventeen
+Across the suite, 402 tests have the `verilator@5.052` oracle tag and nineteen
 cases are spec-only. One of the spec-only cases checks 9.6: a child's pre-reset
 task must be killed when that phase ends, but the pinned-library run on Verilator 5.052
 lets the child perform its delayed write during a later phase. The cause of
 this combined simulator/library difference remains unassigned.
 
-The seventeen spec-only tests retain their normative expected files.
-Default Verilator runs and CI select the 380 tagged cases. An explicit run
-with `--all` includes the seventeen spec-only cases and records them as `known`.
+The nineteen spec-only tests retain their normative expected files.
+Default Verilator runs and CI select the 402 tagged cases. An explicit run
+with `--all` includes the nineteen spec-only cases and records them as `known`.
 The runner stops each test at its first differing seed; their current
 Verilator records establish seed 1 differences, without claiming a seed 73
-result for those seventeen tests.
+result for those nineteen tests.
 
 ## Spec-only tests
 
-These are the seventeen current spec-only cases. Several exercise the same
+These are the nineteen current spec-only cases. Several exercise the same
 limitation, so their count is not a count of distinct bugs.
 
 - Field-operation accessor errors:
@@ -116,10 +121,13 @@ limitation, so their count is not a count of distinct bugs.
 - Invalid-default errors:
   [object wrapper](../tests/u15/test_default_sequence_rejects_object_wrapper_with_required_error.sv)
   and [sequence-item wrapper](../tests/u15/test_default_sequence_rejects_sequence_item_wrapper_with_required_error.sv).
+- Automatic-objection drop on stop:
+  [standalone sequence](../tests/u15/test_stop_sequences_drops_automatic_objection_for_active_sequence.sv)
+  and [parent/child sequences](../tests/u15/test_stop_sequences_drops_automatic_objection_for_parent_and_child.sv).
 
 ## Simulator and library combinations
 
-Ghost's bundled-library runs have 96 matches and 301 failures with each of
+Ghost's bundled-library runs have 98 matches and 323 failures with each of
 seeds 1 and 73. The same tests fail at both seeds. Its pinned-library smoke
 test differs, including with preprocessing enabled. Bundled results do not
 establish whether the cause lies in the simulator or its supplied library,
@@ -127,7 +135,7 @@ and are not evidence for the locked library. Private identity, profiles and
 diagnostics are not published.
 
 The tested kirimasim executable reports `uvm_object_wrapper` as unsupported
-on all 397 cases. These results are not passes or proof of later UVM behavior;
+on all 421 cases. These results are not passes or proof of later UVM behavior;
 the common compilation dependency blocks those observations.
 
 See the [README results](../README.md#current-results) for execution scope

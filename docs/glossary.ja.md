@@ -74,10 +74,17 @@ lockは通常の仲裁に加わり、grabは先頭に入りますが、互換性
 **kill／`do_kill`／`stop_sequences`** — sequenceの停止／停止hook／sequencerで実行中のsequenceの停止と
 キューの後処理です。killで要求される`post_body`・`post_start`は`do_kill`とは別のhookで、
 固定版ライブラリが呼び出さない差分を既知差分として保持します。
+stopでも自動starting-phase objectionを解除する必要がありますが、固定版のrootを停止する経路では、
+直接の`kill`と異なり件数が残ります。
 
 **default phase sequence** — sequencerとphaseのscopeで型付きの`default_sequence` resourceから選ぶsequenceです。
 wrapperならfactoryで生成し、instanceならそのobjectを使います。優先度で選び、選択されたnullは無効化を示します。
 sequencerと開始phaseを設定し、無効化しない限りrandomizeして実行します。phase終了時も動いていればkillします。
+
+**resourceのprecedence／キューのpriority／型フィルタ** — 一致するresource間の優先度／
+名前や型のキュー内での順序／default sequenceの規定が認めない型の除外です。
+最高のprecedenceが同じ場合は、残ったキューの最初の要素を選びます。instanceという型だからwrapperより
+優先するわけではなく、無関係な型のnullはdefaultの無効化にはなりません。
 
 **callback／typewide登録／iterator** — 登録した拡張hook／単一instanceではなく型の組み合わせに適用する登録／
 適用可能で有効なcallbackを辿るobjectです。登録順・継承・途中終了はそれぞれ別の検査対象です。

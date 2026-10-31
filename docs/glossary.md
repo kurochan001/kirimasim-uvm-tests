@@ -101,6 +101,8 @@ different questions.
 termination hook / termination and queue cleanup for a sequencer's active
 sequences. The required post-kill `post_body`/`post_start` hooks are separate
 from `do_kill`; the pinned library's omission is retained as a known difference.
+Automatic starting-phase objections must also drop on stop; the pinned root
+stop path leaves them raised, unlike direct `kill`.
 
 **Default phase sequence** — A sequence selected from a typed `default_sequence`
 resource at a sequencer/phase scope. A wrapper requests factory creation; an
@@ -108,6 +110,12 @@ instance resource supplies the object directly. Selection uses precedence,
 and a selected null disables the default. The sequence receives its sequencer
 and starting phase, is randomized unless disabled, and is killed if still
 running at phase end.
+
+**Resource precedence / queue priority / type filtering** — The value ranking
+matching resources / their order within the name or type queue / removal of
+types not permitted by the default-sequence rule. Equal highest precedence
+selects the first remaining entry. A typed sequence instance does not inherently
+outrank a wrapper; a null of an unrelated resource type does not disable a default.
 
 **Callback / typewide registration / iterator** — A registered extension hook /
 registration applying to a callback type pairing rather than one instance /

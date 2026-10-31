@@ -2,7 +2,7 @@
 
 [English](history.md) · [README](../README.ja.md)
 
-M1と、M2の7回目（397件）までの追加作業を記録しています。以前の349件の時点は
+M1と、M2の8回目（421件）までの追加作業を記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -362,3 +362,35 @@ nullの無効化は登録順ではなく、build時のrootとtestの優先度を
 
 M1・M2は引き続き未完です。キュー上の所有の相互作用、階層的な停止と応答の後処理、
 default resource選択の残りの条件、callbackとTLM protocolの検査が残っています。
+
+### M2の8回目
+
+24件を追加し、全体で421件になりました。
+
+- 停止：8件。親子、兄弟、3階層、親のlockと子のgrabの後処理、別sequencerへの独立性、
+  単独・親子の自動objection、実行中の`get_response`待ちの中断を検査します。
+- 応答の配送：8件。自然終了・kill・stop後のqueueとhandlerへの不達、別sequenceのkill後も
+  生存する配送経路、同じtransaction IDを再利用する新しい経路への古い応答の混入防止を検査します。
+- default resource：8件。名前不一致、高優先度の不適合な型と無関係なnull object、
+  wrapper・instanceの両方向の優先度、null wrapperによる無効化、同一優先度の2通りの
+  登録順の間に不適合な型を入れた場合の選択を検査します。
+
+追加22件はVerilator 5.052のseed 1・73で一致します。残る2件はstop時の自動objection解除を
+specのみで保持し、seed 1で既知差分を記録します。固定版ではrootの件数が残り、親子のケースでは
+子だけがdropされます。観測後に独立したobjectionをclearします。指紋を確認した既存397件と
+合算し、402件一致・既知差分19件です。Ghostの同梱UVMは両seedとも98件一致・323件不一致で、
+不一致の集合も同じです。kirimasimは421件とも`uvm_object_wrapper`未実装です。
+
+階層は兄弟の停止順を指定せず、状態とobjectごとのhookを確認します。別sequencerの処理は自然終了させ、
+遅延したbodyのフラグは元の期限を過ぎてから観測します。自動objectionのnodeは実際のphase scheduleと
+独立させ、既知差分の経路でも規格の件数を検査できるようにします。
+
+遅れた応答は実際に完了通知した要求からIDをコピーします。warningは重大度の件数で確認します。
+queueは時間を区切って待ち、その読者を中断します。handlerは呼び出し件数で確認します。
+古い応答が、同じtransaction IDを使う新しい経路へ混入してはいけません。
+これだけでstopが配送済みの全応答キューを消去することまで検証したとは扱いません。
+
+default resourceは実際のmain phaseで検査し、rootとtestのbuild文脈で優先度を分けます。
+同一優先度は個別のresourceと公開pool APIの低優先度での追加を使い、型のフィルタ後も最初の
+有効な要素を選ぶことを確認します。コンストラクターの値と同一性でwrapper生成とinstanceを区別し、
+randomizationは乱数値ではなくhook件数で確認します。M1・M2は引き続き未完です。

@@ -2,8 +2,8 @@
 
 [日本語](history.ja.md) · [README](../README.md)
 
-These records cover the M1 and M2 increments through the seventh M2 increment
-(397 tests). The earlier 349-test checkpoint is
+These records cover the M1 and M2 increments through the eighth M2 increment
+(421 tests). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -472,3 +472,48 @@ errors without prescribing diagnostic text.
 M1 and M2 remain open. Queued ownership interactions, hierarchical stop and
 response cleanup, further default-resource selection and broader callback/TLM
 protocol coverage still need review and tests.
+
+### Eighth M2 increment
+
+This increment adds 24 cases, bringing the suite to 421:
+
+- Eight stop cases: parent/child, siblings and a three-level tree; parent lock
+  plus child grab cleanup; independence of another sequencer; automatic
+  objections on standalone and nested sequences; and cancellation of an
+  active `get_response` wait.
+- Eight response-route cases: queue and handler rejection after natural
+  finish, kill or stop; a live route surviving another sequence's kill; and
+  a fresh route rejecting an old reply with the same explicit transaction ID.
+- Eight default-resource cases: a nonmatching name; higher-precedence wrong
+  types, including an unrelated null object; wrapper/instance precedence in
+  both directions; null-wrapper disabling; and both equal-precedence queue
+  orders with an interposed wrong-type entry.
+
+Twenty-two match Verilator 5.052 at seeds 1 and 73. Two retain required
+automatic-objection drop as spec-only seed 1 differences. The pinned stop
+path leaves the root count raised; nested child kill drops only the child.
+After observing counts, the tests clear the isolated objection. With the
+fingerprint-verified 397-case baseline, totals are 402 matches and nineteen
+known differences. Ghost bundled runs have 98 matches and 323 failures at
+each seed, with the same failing sets. kirimasim reports all 421 unsupported
+at `uvm_object_wrapper`.
+
+Hierarchy probes inspect state and per-object hooks without assuming sibling
+termination order. Independent work is allowed to finish normally after the
+selected sequencer is stopped. Delayed body flags are sampled beyond their
+original deadlines. The automatic-objection node is isolated from the phase
+schedule, allowing its required count to be checked even on the known path.
+
+Late responses copy routing IDs from real acknowledged requests. The warning
+is checked through the severity counter. Queue probes wait for a bounded time
+and cancel their own reader; handler probes inspect call counts. A stale
+response must not contaminate a fresh route that reuses its transaction ID.
+These cases do not claim that every already-delivered response queue is
+cleared by stop.
+
+Default resources are exercised in the real main phase. Root/test build
+contexts establish distinct precedence. Equal-precedence cases use separate
+resources and the public low-priority pool insertion API; filtering must
+preserve the first valid entry's position. Constructor markers and identity
+checks distinguish wrapper creation from an instance. Randomization checks
+use hook counts rather than random values. M1 and M2 remain open.
