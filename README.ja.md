@@ -7,7 +7,7 @@ IEEE 1800.2-2020（UVM）の動作を確かめる、シミュレータ向けの�
 [kirimasim-tests](https://github.com/kurochan001/kirimasim-tests)（IEEE 1800-2023の言語の適合性）と対になります。
 英語版が正本で、この日本語版はその対訳です。
 
-> **状態：M2（TLM・sequence／sequencer・callbacksを拡充中）。** テスト325件。
+> **状態：M2（TLM・sequence／sequencer・callbacksを拡充中）。** テスト349件。
 > 固定版UVMの取得、kirimasim・Verilator・Ghostのランナー、メタデータ検査、Checkワークフローがあります。
 > M1の条項ごとの完了条件は
 > 未達のまま保持します。後述の「今回のM1追加分」と「今回のM2追加分」を参照してください。
@@ -215,13 +215,14 @@ python3 tools/run_ghost.py --simulator /path/to/private/simulator \
 M2の初回追加後は、両seedとも73/253件が一致し、同じ180件で不一致になりました。
 M2の2回目の追加後は、両seedとも79/277件が一致し、同じ198件で不一致になりました。
 M2の3回目の追加後は、両seedとも82/301件が一致し、同じ219件で不一致になりました。
-M2の4回目の追加後は、両seedとも92/325件が一致し、同じ233件で不一致になっています。
+M2の4回目の追加後は、両seedとも92/325件が一致し、同じ233件で不一致になりました。
+M2の5回目の追加後は、両seedとも93/349件が一致し、同じ256件で不一致になっています。
 
 | シミュレータ | 現在の状態 |
 | --- | --- |
-| kirimasim | ローカルの実行ファイルでは325件とも`uvm_object_wrapper`未実装でUNSUPPORTED |
-| Verilator 5.052 | `UVM_NO_DPI`で319件がseed 1・73とも一致。specのみの6件は既知の差分として保持 |
-| Ghost（kirimasim-testsと同じく、公開前のシミュレータ） | 同梱UVMでは両seedとも92/325件一致。固定版UVMのスモークテストは不一致 |
+| kirimasim | ローカルの実行ファイルでは349件とも`uvm_object_wrapper`未実装でUNSUPPORTED |
+| Verilator 5.052 | `UVM_NO_DPI`で338件がseed 1・73とも一致。specのみの11件は既知の差分として保持 |
+| Ghost（kirimasim-testsと同じく、公開前のシミュレータ） | 同梱UVMでは両seedとも93/349件一致。固定版UVMのスモークテストは不一致 |
 | Icarus Verilog 13.0 | 使わない。UVMを実行できない |
 
 ## 8. 検査
@@ -392,7 +393,8 @@ objectのストリームは同じpacker実装で生成し、マーカーの幅�
 子要素更新APIは使わず、flush後の古いハンドルも検査しません。仮想メソッドの引数名は基底宣言に合わせ、
 `do_execute_op`では`op`を使います。
 
-2〜8回目の追加では、固定版ライブラリ自身の`DEVIATIONS.md`以外にも、9件の制約を確認しました。
+M1の2〜8回目とM2の5回目の追加では、固定版ライブラリ自身の`DEVIATIONS.md`以外にも、
+12件の制約を確認しました。
 
 - `find_override_by_name`は、置換がない場合に`null`を返します。元の型を生成できる場合も
   同じです。8.3.1.7.1は生成されるオブジェクトのwrapperを返すAPIとして説明しています。
@@ -419,19 +421,28 @@ objectのストリームは同じpacker実装で生成し、マーカーの幅�
 - `uvm_field_op::get_op_name`は、`set`前と`flush`後に5.7.2.3の必須エラーを出しません。
   getterの事前条件を検査する2件は、必須エラーの期待値をspecのみで保持します。
   `get_op_type`・`get_policy`・`get_rhs`による必須エラーも同時に検査します。
+- `set_response_queue_depth`は、新しい深さがキュー内の応答数より小さい場合にも、
+  14.2.7.7の必須エラーを出しません。M2の2件で、応答2件に対する深さ1への変更と、
+  応答1件に対する深さ0への変更の必須エラーを保持します。エラー後のキュー内容は検査しません。
+- 応答キューのエラー報告フラグの既定値が0ですが、14.2.7.4・14.2.7.5は1と定めています。
+  M2の設定テスト2件は規格の既定値を保持します。一致するoverflowテストでは、
+  エラー報告の有効・無効を明示的に設定します。
+- USER arbitrationでは候補が1件の場合に`user_priority_arbitration`を呼びません。
+  15.3.2.3はこの場合もcallbackを必須とします。M2の1件で、呼び出す期待値をspecのみで保持します。
 
 これらの分岐は、固定版で再現したオラクルとしては扱いません。drop直後の一覧、transactionの
-生成直後の状態、重大度・ID別のreset、無効なfield_opの操作名取得は診断用に保持します。
+生成直後の状態、重大度・ID別のreset、無効なfield_opの操作名取得、応答数未満の深さ変更、
+応答エラー報告の既定値、候補1件のUSER arbitrationは診断用に保持します。
 残りのライブラリの制約は、一致するテストシナリオでは避けています。
 
-スイート全体では、`verilator@5.052`を付けたテストは319件、specのみのテストは6件です。
-別のspecのみのケースは9.6を検証します。pre-resetフェーズ終了時に子タスクが停止する
+スイート全体では、`verilator@5.052`を付けたテストは338件、specのみのテストは11件です。
+specのみのうち1件は9.6を検証します。pre-resetフェーズ終了時に子タスクが停止する
 はずですが、固定版UVMとVerilator 5.052の組み合わせでは、後のフェーズで子タスクの遅延書き込みが
 実行されます。この差分の原因がシミュレータとライブラリのどちらかは未確定です。
 
-specのみの6件も、規格から導いた期待値を保持します。通常のVerilator実行とCIはタグのある
-319件を選びます。`--all`を明示するとspecのみの6件も実行し、`known`として記録します。
-ランナーは各テストで最初に不一致になったseedで停止するため、この6件の現在のVerilator記録は
+specのみの11件も、規格から導いた期待値を保持します。通常のVerilator実行とCIはタグのある
+338件を選びます。`--all`を明示するとspecのみの11件も実行し、`known`として記録します。
+ランナーは各テストで最初に不一致になったseedで停止するため、この11件の現在のVerilator記録は
 seed 1の不一致を示し、seed 73の実行結果は示しません。
 
 引用した動作と期待値はIEEE 1800.2-2020の本文と照合しています。とくにcloneは、実装固有の
@@ -534,6 +545,34 @@ blocking targetは明示した2-byteのREAD要求を処理します。nonblockin
 名前によるcallback操作はcomponentの完全名で照合し、同じパターンに一致するobjectをrootの外にも
 置きます。継承は標準の基底型登録マクロを使います。途中終了のケースは後続callbackが呼ばれないことを
 検査します。期待値は階層検索の列挙順には依存しません。
+
+M2の5回目は24件を追加し、スイート全体で349件になりました。
+
+- 応答handlerとキューの既定値・設定の独立性、FIFO順・transaction ID指定の取得、
+  handlerへの配送とキューへの切り替え、clear後の再利用、overflowエラーの有効・無効、
+  無制限の容量、応答数未満への深さ変更：12件。14.2.7と14.3.3.3を対象にします。
+- `item_done`・`get`までのsequence／sequencerのcurrent item、要求・応答の履歴、
+  応答analysis portでの配送、`execute_item`、要求がない場合の`try_next_item`、
+  候補1件のUSER arbitration、子sequenceの関係：8件。14.3.3.2と15.3・15.4・15.5を対象にします。
+- 自動starting-phase objectionの有効・無効、子sequenceのpriority継承、
+  driverの要求を待たせるrelevanceの制御：4件。14.2.3・14.2.4・14.2.5を対象にします。
+
+追加24件のうち19件はVerilator 5.052の両seedで一致します。残る5件は応答エラー報告の既定値、
+深さ変更の必須エラー、USER arbitrationのcallbackをspecのみで保持し、seed 1で既知の差分を記録します。
+期待値は規格から導いており、固定版ライブラリではこれらの点が規格と異なります。
+
+応答は実際にdriverへ渡した要求を完了させ、そのID情報をコピーして作ります。
+キューの読み出し前に応答をすべて送り、内部キューを参照せずにFIFO順・ID指定取得・handler切り替えを
+競合なく確認します。overflowはエラー制御を観測し、残る応答の選択は仮定しません。
+履歴は値と明示したtransaction IDを確かめ、snapshotや同一ハンドルを仮定しません。
+範囲外の履歴indexは、設定したサイズより明確に大きい値を使います。
+
+current itemと直接実行は、driverのacknowledgement前の状態を検査します。
+relevanceは正の遅延後にゲートを開きます。自動objectionは、独立したtask-phase nodeで
+sequence callback内と自然完了後の件数を確認します。待機するテストにはwatchdogを設けます。
+
+現在の集計は、追加24件の新規実行と既存325件の結果を合算しています。
+既存分は入力・ランナーの指紋とシミュレータ設定が一致することを確認しています。
 
 M1のspecのみの6件と未達の条項は保持し、M2開始によってM1完了とは扱いません。
 sequence・sequencerとcallbackの残りの動作、TLM 1のnonblocking transport、TLM 2のより広い

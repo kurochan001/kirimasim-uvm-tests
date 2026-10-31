@@ -8,7 +8,7 @@ Methodology, IEEE 1800.2-2020 (UVM). It is written for the
 [kirimasim-tests](https://github.com/kurochan001/kirimasim-tests), which checks
 the SystemVerilog language of IEEE 1800-2023.
 
-> **Status: M2 (TLM, sequences and callbacks in progress).** 325 tests,
+> **Status: M2 (TLM, sequences and callbacks in progress).** 349 tests,
 > the pinned UVM fetcher, runners for kirimasim, Verilator and Ghost,
 > metadata checks and the Check workflow. M1's clause-by-clause target
 > remains open;
@@ -247,13 +247,14 @@ differences. The second M2 increment matches 79 of 277 tests with both
 seeds, with the same 198 differences. The third M2 increment matches
 82 of 301 tests with both seeds, with the same 219 differences. The fourth
 M2 increment matches 92 of 325 tests with both seeds, with the same 233
-differences.
+differences. The fifth M2 increment matches 93 of 349 tests with both seeds,
+with the same 256 differences.
 
 | Simulator | Current status |
 | --- | --- |
-| kirimasim | local executable reports all 325 cases as unsupported at `uvm_object_wrapper` |
-| Verilator 5.052 | `UVM_NO_DPI`: 319 oracle cases match seeds 1 and 73; six spec-only cases retain known differences |
-| Ghost (an unreleased simulator, as in kirimasim-tests) | bundled UVM: 92/325 match with both seeds; pinned UVM: smoke test differs |
+| kirimasim | local executable reports all 349 cases as unsupported at `uvm_object_wrapper` |
+| Verilator 5.052 | `UVM_NO_DPI`: 338 oracle cases match seeds 1 and 73; eleven spec-only cases retain known differences |
+| Ghost (an unreleased simulator, as in kirimasim-tests) | bundled UVM: 93/349 match with both seeds; pinned UVM: smoke test differs |
 | Icarus Verilog 13.0 | not used: it cannot run UVM |
 
 ## 8. Checks
@@ -473,8 +474,9 @@ implementation-specific child mutation APIs. They do not inspect handles
 after printer flush. Virtual overrides use the base declaration's argument
 names, including `op` for `do_execute_op`.
 
-Across the second through eighth increments, nine additional limitations
-of the pinned reference library were identified beyond its own `DEVIATIONS.md`:
+Across the second through eighth M1 increments and the fifth M2 increment,
+twelve additional limitations of the pinned reference library were identified
+beyond its own `DEVIATIONS.md`:
 
 - With no override installed, `find_override_by_name` returns null even
   when creation can instantiate the original type. Clause 8.3.1.7.1
@@ -509,24 +511,35 @@ of the pinned reference library were identified beyond its own `DEVIATIONS.md`:
   after `flush`, although 5.7.2.3 requires one. Both accessor-precondition
   cases keep the required error as spec-only; they also check the required
   errors from `get_op_type`, `get_policy` and `get_rhs`.
+- `set_response_queue_depth` does not report an error when the new depth
+  is below the queued response count, although 14.2.7.7 requires one. Two
+  M2 cases retain the required error for shrinking two replies to depth one
+  and one reply to depth zero. They do not assert the queue's post-error contents.
+- The response-queue error-report enable bit defaults to 0, although
+  14.2.7.4/14.2.7.5 require 1. Two M2 configuration cases retain the required
+  default. Matching overflow cases explicitly enable or disable reporting.
+- USER arbitration skips `user_priority_arbitration` when only one sequence
+  is available, although 15.3.2.3 requires the callback in that case. An M2
+  case retains the required invocation as a spec-only expectation.
 
-These branches are not treated as reproduced fixed-release oracles. The
-post-drop list, initial transaction state, severity-ID reset and invalid
-field-operation name cases are retained for diagnostics; the other library
-limitations are avoided by the matching test scenarios.
+These branches are not treated as reproduced fixed-release oracles.
+Spec-only diagnostics preserve the required post-drop objector membership,
+initial transaction state, severity-ID reset, field-operation name errors,
+response-depth errors, response-error defaults and single-candidate USER
+arbitration. Matching tests avoid the other library limitations.
 
-Across the suite, 319 tests have the `verilator@5.052` oracle tag and six
-cases are spec-only. Another spec-only case checks 9.6: a child's pre-reset
+Across the suite, 338 tests have the `verilator@5.052` oracle tag and eleven
+cases are spec-only. One of the spec-only cases checks 9.6: a child's pre-reset
 task must be killed when that phase ends, but the pinned-library run on Verilator 5.052
 lets the child perform its delayed write during a later phase. The cause of
 this combined simulator/library difference remains unassigned.
 
-The six spec-only tests retain their normative expected files.
-Default Verilator runs and CI select the 319 tagged cases. An explicit run
-with `--all` includes the six spec-only cases and records them as `known`.
+The eleven spec-only tests retain their normative expected files.
+Default Verilator runs and CI select the 338 tagged cases. An explicit run
+with `--all` includes the eleven spec-only cases and records them as `known`.
 The runner stops each test at its first differing seed; their current
 Verilator records establish seed 1 differences, without claiming a seed 73
-result for those six tests.
+result for those eleven tests.
 
 The cited behavior and expectations have been checked against IEEE
 1800.2-2020. In particular, the clone tests observe independent copies,
@@ -661,6 +674,42 @@ Name-based callback cases match full component paths and include matching
 objects outside the chosen root. Inheritance uses the standard superclass
 registration macro; early-exit cases verify that later callbacks are not
 called. No expected result depends on hierarchy search enumeration order.
+
+The fifth M2 increment adds 24 cases, bringing the suite to 349:
+
+- Response-handler and queue defaults, per-instance controls, FIFO and
+  transaction-ID retrieval, handler delivery and switching back to queues,
+  clear/reuse, enabled/suppressed overflow errors, unbounded storage and
+  undersized depth changes: 12 tests for 14.2.7 and 14.3.3.3.
+- Sequence/sequencer current-item lifetimes through `item_done` and `get`,
+  request/response history, response analysis-port routing, `execute_item`,
+  idle `try_next_item`, single-candidate USER arbitration and child ancestry:
+  eight tests for 14.3.3.2 and 15.3/15.4/15.5.
+- Automatic starting-phase objections enabled/disabled, inherited child
+  priority and a relevance gate that blocks the driver's request: four tests
+  for 14.2.3/14.2.4/14.2.5.
+
+Of these 24 cases, 19 match Verilator 5.052 with both seeds. The other five
+retain the required response-error default, depth-change errors and USER
+arbitration callback as spec-only expectations, with known seed 1 differences.
+Expectations come from the standard; the pinned library differs at these points.
+
+Response tests complete real driver requests and copy their IDs into replies.
+Queued responses arrive before retrieval is allowed, making FIFO, selective
+retrieval and handler switching deterministic without internal queue access.
+Overflow tests observe the error control without prescribing which reply is
+retained. History tests inspect values and explicit transaction IDs without
+assuming snapshots or handle identity. The out-of-range history index is
+strictly greater than the configured size.
+
+Current-item and direct-execution tests observe the pending request before
+acknowledgement. The relevance test uses a positive delay before opening the
+gate; phase objections are checked on an isolated task-phase node inside
+sequence callbacks and after natural completion. Waiting tests have watchdogs.
+
+Current simulator totals combine fresh runs of these 24 cases with the
+unchanged 325-case baseline after verifying test inputs, runner fingerprints
+and simulator configurations.
 
 M1's six spec-only cases and remaining clause coverage are retained;
 starting M2 does not mark M1 complete. More sequence/sequencer and callback

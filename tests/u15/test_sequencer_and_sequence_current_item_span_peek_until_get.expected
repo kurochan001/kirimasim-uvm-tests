@@ -1,0 +1,3 @@
+UT: peek_same 1 current_same 1 1
+UT: finished_before_get 0
+UT: current_null 1 1 consumed_same 1 finished 1
