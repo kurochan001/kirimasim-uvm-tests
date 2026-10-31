@@ -8,9 +8,10 @@ Methodology, IEEE 1800.2-2020 (UVM). It is written for the
 [kirimasim-tests](https://github.com/kurochan001/kirimasim-tests), which checks
 the SystemVerilog language of IEEE 1800-2023.
 
-> **Status: M2 (TLM 1 expansion started).** 253 tests, the pinned UVM
-> fetcher, runners for kirimasim, Verilator and Ghost, metadata checks and
-> the Check workflow. M1's clause-by-clause target remains open;
+> **Status: M2 (TLM and sequence expansion in progress).** 277 tests,
+> the pinned UVM fetcher, runners for kirimasim, Verilator and Ghost,
+> metadata checks and the Check workflow. M1's clause-by-clause target
+> remains open;
 > see "Current M1 increment" and "Current M2 increment" below.
 
 ## 1. What the suite checks
@@ -242,13 +243,14 @@ The seventh increment matches 53 of 181 tests with both seeds, with the same
 seeds, with the same 151 differences. The ninth increment matches 57 of 229
 tests with both seeds, with the same 172 differences. The first M2
 increment matches 73 of 253 tests with both seeds, with the same 180
-differences.
+differences. The second M2 increment matches 79 of 277 tests with both
+seeds, with the same 198 differences.
 
 | Simulator | Current status |
 | --- | --- |
-| kirimasim | local executable reports all 253 cases as unsupported at `uvm_object_wrapper` |
-| Verilator 5.052 | `UVM_NO_DPI`: 247 oracle cases match seeds 1 and 73; six spec-only cases retain known differences |
-| Ghost (an unreleased simulator, as in kirimasim-tests) | bundled UVM: 73/253 match with both seeds; pinned UVM: smoke test differs |
+| kirimasim | local executable reports all 277 cases as unsupported at `uvm_object_wrapper` |
+| Verilator 5.052 | `UVM_NO_DPI`: 271 oracle cases match seeds 1 and 73; six spec-only cases retain known differences |
+| Ghost (an unreleased simulator, as in kirimasim-tests) | bundled UVM: 79/277 match with both seeds; pinned UVM: smoke test differs |
 | Icarus Verilog 13.0 | not used: it cannot run UVM |
 
 ## 8. Checks
@@ -510,14 +512,14 @@ post-drop list, initial transaction state, severity-ID reset and invalid
 field-operation name cases are retained for diagnostics; the other library
 limitations are avoided by the matching test scenarios.
 
-Across the suite, 247 tests have the `verilator@5.052` oracle tag and six
+Across the suite, 271 tests have the `verilator@5.052` oracle tag and six
 cases are spec-only. Another spec-only case checks 9.6: a child's pre-reset
 task must be killed when that phase ends, but the pinned-library run on Verilator 5.052
 lets the child perform its delayed write during a later phase. The cause of
 this combined simulator/library difference remains unassigned.
 
 The six spec-only tests retain their normative expected files.
-Default Verilator runs and CI select the 247 tagged cases. An explicit run
+Default Verilator runs and CI select the 271 tagged cases. An explicit run
 with `--all` includes the six spec-only cases and records them as `known`.
 The runner stops each test at its first differing seed; their current
 Verilator records establish seed 1 differences, without claiming a seed 73
@@ -564,10 +566,37 @@ operations execute in separate statements before their results are printed.
 Unavailable-read cases observe return status and queue state; they do not
 claim to cover the required preservation of output arguments on failure.
 
-The first 24 M2 cases match Verilator 5.052 with seeds 1 and 73. M1's six
-spec-only cases and its remaining clause coverage are retained. Starting M2
-does not mark M1 complete. Sequences/sequencers, callbacks, TLM channels and
-TLM 2 remain future M2 work; this increment does not complete M2.
+The first 24 M2 cases match Verilator 5.052 with seeds 1 and 73.
+
+The second M2 increment adds 24 cases in `tests/u14/` and `tests/u15/`,
+bringing the suite to 277:
+
+- Sequence-item context assignment/replacement, parent/depth/root/path
+  queries, sequence-info flags, inactive sequencer references and virtual
+  item/sequence classification: eight tests for 14.1.2.
+- Sequence execution hooks and states, optional pre/post-body suppression,
+  parent hooks, priorities, restart, state waiters, randomization-enable
+  controls and starting-phase/automatic-objection controls: eight tests
+  for 14.2.
+- Sequencer arbitration and request/response-buffer size controls, explicit
+  item acknowledgements, peek/get consumption, two-item transfers and
+  response routing via item_done/put: eight tests for 15.3 and 15.5.
+
+The 24 new cases also match Verilator 5.052 with both seeds. Handshake cases
+connect the driver's pull port to the sequencer export during normal UVM
+elaboration and exercise it in run phase, with automatic item recording
+disabled. Shared request/response handles live in the test object. Positive delays make pending acknowledgements
+observable and let response waiters settle; watchdogs bound blocking cases.
+Responses copy routing IDs with set_id_info. Only explicitly assigned
+transaction IDs are printed, never allocated sequence IDs. Counters are
+initialized explicitly, and the standalone state-wait test uses a module
+handle with a positive body delay.
+
+Control-setting cases do not claim to cover automatic randomization,
+automatic phase objections, arbitration among competing sequences or buffer
+contents. M1's six spec-only cases and its remaining clause coverage are
+retained; starting M2 does not mark M1 complete. More sequence/sequencer
+behavior, callbacks, TLM channels and TLM 2 remain M2 work. M2 is not complete.
 
 ## 10. Rights and sources
 

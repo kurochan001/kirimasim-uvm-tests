@@ -7,8 +7,9 @@ IEEE 1800.2-2020（UVM）の動作を確かめる、シミュレータ向けの�
 [kirimasim-tests](https://github.com/kurochan001/kirimasim-tests)（IEEE 1800-2023の言語の適合性）と対になります。
 英語版が正本で、この日本語版はその対訳です。
 
-> **状態：M2（TLM 1の拡充を開始）。** テスト253件、固定版UVMの取得、kirimasim・Verilator・
-> Ghostのランナー、メタデータ検査、Checkワークフローがあります。M1の条項ごとの完了条件は
+> **状態：M2（TLM・sequence／sequencerを拡充中）。** テスト277件。固定版UVMの取得、
+> kirimasim・Verilator・Ghostのランナー、メタデータ検査、Checkワークフローがあります。
+> M1の条項ごとの完了条件は
 > 未達のまま保持します。後述の「今回のM1追加分」と「今回のM2追加分」を参照してください。
 
 ## 1. 確かめること
@@ -211,13 +212,14 @@ python3 tools/run_ghost.py --simulator /path/to/private/simulator \
 7回目の追加後は、両seedとも53/181件が一致し、同じ128件で不一致になりました。
 8回目の追加後は、両seedとも54/205件が一致し、同じ151件で不一致になりました。
 9回目の追加後は、両seedとも57/229件が一致し、同じ172件で不一致になりました。
-M2の初回追加後は、両seedとも73/253件が一致し、同じ180件で不一致になっています。
+M2の初回追加後は、両seedとも73/253件が一致し、同じ180件で不一致になりました。
+M2の2回目の追加後は、両seedとも79/277件が一致し、同じ198件で不一致になっています。
 
 | シミュレータ | 現在の状態 |
 | --- | --- |
-| kirimasim | ローカルの実行ファイルでは253件とも`uvm_object_wrapper`未実装でUNSUPPORTED |
-| Verilator 5.052 | `UVM_NO_DPI`で247件がseed 1・73とも一致。specのみの6件は既知の差分として保持 |
-| Ghost（kirimasim-testsと同じく、公開前のシミュレータ） | 同梱UVMでは両seedとも73/253件一致。固定版UVMのスモークテストは不一致 |
+| kirimasim | ローカルの実行ファイルでは277件とも`uvm_object_wrapper`未実装でUNSUPPORTED |
+| Verilator 5.052 | `UVM_NO_DPI`で271件がseed 1・73とも一致。specのみの6件は既知の差分として保持 |
+| Ghost（kirimasim-testsと同じく、公開前のシミュレータ） | 同梱UVMでは両seedとも79/277件一致。固定版UVMのスモークテストは不一致 |
 | Icarus Verilog 13.0 | 使わない。UVMを実行できない |
 
 ## 8. 検査
@@ -420,13 +422,13 @@ objectのストリームは同じpacker実装で生成し、マーカーの幅�
 生成直後の状態、重大度・ID別のreset、無効なfield_opの操作名取得は診断用に保持します。
 残りのライブラリの制約は、一致するテストシナリオでは避けています。
 
-スイート全体では、`verilator@5.052`を付けたテストは247件、specのみのテストは6件です。
+スイート全体では、`verilator@5.052`を付けたテストは271件、specのみのテストは6件です。
 別のspecのみのケースは9.6を検証します。pre-resetフェーズ終了時に子タスクが停止する
 はずですが、固定版UVMとVerilator 5.052の組み合わせでは、後のフェーズで子タスクの遅延書き込みが
 実行されます。この差分の原因がシミュレータとライブラリのどちらかは未確定です。
 
 specのみの6件も、規格から導いた期待値を保持します。通常のVerilator実行とCIはタグのある
-247件を選びます。`--all`を明示するとspecのみの6件も実行し、`known`として記録します。
+271件を選びます。`--all`を明示するとspecのみの6件も実行し、`known`として記録します。
 ランナーは各テストで最初に不一致になったseedで停止するため、この6件の現在のVerilator記録は
 seed 1の不一致を示し、seed 73の実行結果は示しません。
 
@@ -464,9 +466,28 @@ watchdogも設けます。状態を変える操作は別々の文で実行して
 利用できない読み出しの検査は成否とキューの状態を観測し、失敗時の出力引数の保持まで
 検証したとは扱いません。
 
-M2の初回24件はVerilator 5.052のseed 1・73で一致します。M1のspecのみの6件と未達の条項は
-引き続き保持し、M2開始によってM1完了とは扱いません。sequence・sequencer、callbacks、
-TLM channel、TLM 2は今後のM2追加範囲です。この追加分だけではM2完了ではありません。
+M2の初回24件はVerilator 5.052のseed 1・73で一致します。
+
+M2の2回目は`tests/u14/`と`tests/u15/`に24件を追加し、スイート全体で277件になりました。
+
+- sequence itemの文脈設定・置換、親・深さ・root・pathの照会、sequence情報のフラグ、
+  非実行時のsequencer参照、itemとsequenceの仮想判定：8件。14.1.2を対象にします。
+- sequenceの実行hookと状態、pre/post-bodyの省略、親hook、優先度、再実行、状態待ち、
+  randomizationの有効値、開始phaseと自動objectionの設定：8件。14.2を対象にします。
+- sequencerのarbitrationと要求・応答バッファのサイズ設定、明示的な完了通知、peek・get、
+  2件の要求転送、item_done・putによる応答の配送：8件。15.3と15.5を対象にします。
+
+追加24件もVerilator 5.052の両seedで一致します。要求・応答のケースは通常のUVM elaborationを通し、
+driverのpull portをsequencer exportに接続します。自動item recordingは無効にし、共有する要求・応答の
+ハンドルはテストobjectに置きます。完了通知の待機状態は正の遅延後に観測し、応答の待ち合わせにも
+正の遅延を設けます。blockingのケースにはwatchdogがあります。応答はset_id_infoで配送IDを引き継ぎ、
+表示するのは明示的に設定したtransaction IDだけです。割り当てられるsequence IDの数値は使いません。
+カウンターは明示初期化し、単独の状態待ちの検査はmodule寿命のハンドルと正のbody遅延を使います。
+
+設定値のケースは、自動randomization、自動phase objection、競合するsequenceのarbitration順、
+バッファ内容まで検証したとは扱いません。M1のspecのみの6件と未達の条項は保持し、M2開始によって
+M1完了とは扱いません。sequence・sequencerの残りの動作、callbacks、TLM channel、TLM 2が
+今後のM2追加範囲です。M2全体は未完です。
 
 ## 10. 権利と出典
 
