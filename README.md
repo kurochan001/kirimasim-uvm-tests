@@ -8,7 +8,7 @@ Methodology, IEEE 1800.2-2020 (UVM). It is written for the
 [kirimasim-tests](https://github.com/kurochan001/kirimasim-tests), which checks
 the SystemVerilog language of IEEE 1800-2023.
 
-> **Status: M2 (TLM, sequences and callbacks in progress).** 301 tests,
+> **Status: M2 (TLM, sequences and callbacks in progress).** 325 tests,
 > the pinned UVM fetcher, runners for kirimasim, Verilator and Ghost,
 > metadata checks and the Check workflow. M1's clause-by-clause target
 > remains open;
@@ -245,13 +245,15 @@ tests with both seeds, with the same 172 differences. The first M2
 increment matches 73 of 253 tests with both seeds, with the same 180
 differences. The second M2 increment matches 79 of 277 tests with both
 seeds, with the same 198 differences. The third M2 increment matches
-82 of 301 tests with both seeds, with the same 219 differences.
+82 of 301 tests with both seeds, with the same 219 differences. The fourth
+M2 increment matches 92 of 325 tests with both seeds, with the same 233
+differences.
 
 | Simulator | Current status |
 | --- | --- |
-| kirimasim | local executable reports all 301 cases as unsupported at `uvm_object_wrapper` |
-| Verilator 5.052 | `UVM_NO_DPI`: 295 oracle cases match seeds 1 and 73; six spec-only cases retain known differences |
-| Ghost (an unreleased simulator, as in kirimasim-tests) | bundled UVM: 82/301 match with both seeds; pinned UVM: smoke test differs |
+| kirimasim | local executable reports all 325 cases as unsupported at `uvm_object_wrapper` |
+| Verilator 5.052 | `UVM_NO_DPI`: 319 oracle cases match seeds 1 and 73; six spec-only cases retain known differences |
+| Ghost (an unreleased simulator, as in kirimasim-tests) | bundled UVM: 92/325 match with both seeds; pinned UVM: smoke test differs |
 | Icarus Verilog 13.0 | not used: it cannot run UVM |
 
 ## 8. Checks
@@ -513,14 +515,14 @@ post-drop list, initial transaction state, severity-ID reset and invalid
 field-operation name cases are retained for diagnostics; the other library
 limitations are avoided by the matching test scenarios.
 
-Across the suite, 295 tests have the `verilator@5.052` oracle tag and six
+Across the suite, 319 tests have the `verilator@5.052` oracle tag and six
 cases are spec-only. Another spec-only case checks 9.6: a child's pre-reset
 task must be killed when that phase ends, but the pinned-library run on Verilator 5.052
 lets the child perform its delayed write during a later phase. The cause of
 this combined simulator/library difference remains unassigned.
 
 The six spec-only tests retain their normative expected files.
-Default Verilator runs and CI select the 295 tagged cases. An explicit run
+Default Verilator runs and CI select the 319 tagged cases. An explicit run
 with `--all` includes the six spec-only cases and records them as `known`.
 The runner stops each test at its first differing seed; their current
 Verilator records establish seed 1 differences, without claiming a seed 73
@@ -621,13 +623,49 @@ type name. Iterators are not used to mutate callback registrations.
 Channel tests use public typed ports/exports after normal elaboration,
 without inspecting the protected FIFOs. Analysis monitors are read after
 accepted writes. Transport tests keep shared values in the test object,
-use positive delays to observe waiting and include watchdogs. Nonblocking
-transport and callback name-based registration/inheritance remain for later
-coverage.
+use positive delays to observe waiting and include watchdogs. That increment
+did not cover TLM 1 nonblocking transport or callback name-based
+registration/inheritance.
+
+The fourth M2 increment adds 24 cases, bringing the suite to 325:
+
+- TLM 2 generic-payload command/address accessors, unsigned data and
+  byte-enable array copies/replacement, response predicates, streaming width
+  and DMI hint settings: eight tests for 12.3.4.2.
+- Generic-payload extension keys, handle retrieval, replacement, selective
+  removal, payload isolation and clear/reuse: four tests for 12.3.4.2 and
+  12.3.4.5.
+- Blocking sockets with read completion and payload reuse, nonblocking
+  forward completion, and an accepted forward request completed through a
+  backward response with a phase-reference update: four TLM 2 transport
+  tests for 12.3.2 and 12.3.5/12.3.6/12.3.8.
+- Exact/glob callback registration and deletion within a search root,
+  superclass typewide callback inheritance/deletion, and early exit on
+  true/false callback results: eight tests for 10.7 and B.4.
+
+These 24 cases match Verilator 5.052 with both seeds. Payload array and
+length settings are kept consistent; mismatched independent lengths are not
+covered. Data and byte-enable checks use accessor values rather than member
+layout. DMI and streaming cases inspect settings without claiming actual DMI
+access or target streaming behavior. Extension keys are compared through
+base handles without prescribing numeric IDs.
+
+Transport tests run after normal elaboration and compare transaction/delay
+handle identity, result status and phase updates. Blocking targets fill
+explicit two-byte READ requests. Nonblocking cases use IGNORE transactions
+and complete one request either immediately or through a backward response.
+Delay annotations are passed through without asserting their numeric
+resolution or time-conversion behavior. Watchdogs bound the phase tests.
+
+Name-based callback cases match full component paths and include matching
+objects outside the chosen root. Inheritance uses the standard superclass
+registration macro; early-exit cases verify that later callbacks are not
+called. No expected result depends on hierarchy search enumeration order.
 
 M1's six spec-only cases and remaining clause coverage are retained;
 starting M2 does not mark M1 complete. More sequence/sequencer and callback
-behavior, further TLM channel cases and TLM 2 remain M2 work. M2 is not complete.
+behavior, TLM 1 nonblocking transport and broader TLM 2 timing/protocol
+coverage remain M2 work. M2 is not complete.
 
 ## 10. Rights and sources
 
