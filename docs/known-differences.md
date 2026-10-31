@@ -2,7 +2,7 @@
 
 [日本語](known-differences.ja.md) · [README](../README.md) · [FAQ](faq.md)
 
-This describes the current 445-test suite and the pinned Accellera UVM
+This describes the current 469-test suite and the pinned Accellera UVM
 2020.3.1 library. A mismatch is a test result; it does not by itself assign
 the cause to the simulator, the library or the expectation.
 
@@ -10,7 +10,7 @@ the cause to the simulator, the library or the expectation.
 
 The library's own `DEVIATIONS.md` lists three differences at 18.2.3.4,
 18.4.3.6 and 13.1.5.1. Current matching scenarios avoid those branches.
-The following nineteen additional limitations were identified during M1 and M2.
+The following twenty additional limitations were identified during M1 and M2.
 Where a test directly checks a required behavior that is missing, its
 normative expectation is retained with `:oracle: spec`.
 
@@ -79,32 +79,36 @@ normative expectation is retained with `:oracle: spec`.
 - Two nonblocking pass-through initiator sockets wire their backward exports
   in the wrong direction, leaving the outer export unbound. The nested case
   retains the automatic backward-routing requirement of 12.3.5.5.4.
+- The push sequencer leaves the completed request in its request FIFO.
+  The next request is rejected because that FIFO is still full, violating
+  the continuous request delivery of 15.6.3.3. Three cases retain ordered
+  delivery and the common request/response history requirements.
 
 These branches are not treated as reproduced fixed-release oracles.
 Spec-only diagnostics preserve the required post-drop objector membership,
 initial transaction state, severity-ID reset, field-operation name errors,
 response-depth errors, response-error defaults, single-candidate USER
 arbitration, lock ordering, post-kill hooks, invalid-default errors,
-automatic-objection drop on stop, canonical time name/API and nested
-initiator-socket routing.
+automatic-objection drop on stop, canonical time name/API, nested
+initiator-socket routing and repeated push delivery.
 Matching tests avoid the other library limitations.
 
-Across the suite, 423 tests have the `verilator@5.052` oracle tag and twenty-two
+Across the suite, 444 tests have the `verilator@5.052` oracle tag and twenty-five
 cases are spec-only. One of the spec-only cases checks 9.6: a child's pre-reset
 task must be killed when that phase ends, but the pinned-library run on Verilator 5.052
 lets the child perform its delayed write during a later phase. The cause of
 this combined simulator/library difference remains unassigned.
 
-The twenty-two spec-only tests retain their normative expected files.
-Default Verilator runs and CI select the 423 tagged cases. `--all` includes
+The twenty-five spec-only tests retain their normative expected files.
+Default Verilator runs and CI select the 444 tagged cases. `--all` includes
 spec-only cases and records mismatches or build failures as `known`.
-The runtime records for 21 cases establish the first difference at seed 1,
+The runtime records for 24 cases establish the first difference at seed 1,
 without seed 73 results. The missing-API case cannot build and has no runtime
 seed result.
 
 ## Spec-only tests
 
-These are the twenty-two current spec-only cases. Several exercise the same
+These are the twenty-five current spec-only cases. Several exercise the same
 limitation, so their count is not a count of distinct bugs.
 
 - Field-operation accessor errors:
@@ -139,10 +143,14 @@ limitation, so their count is not a count of distinct bugs.
   and [default-resolution API](../tests/u12/test_tlm2_time_standard_default_resolution_api_constructs_delay.sv).
   The latter cannot build.
 - [Nested pass-through initiator backward routing](../tests/u12/test_tlm2_nested_passthrough_initiators_route_both_directions.sv).
+- Repeated push requests:
+  [ordered delivery](../tests/u15/test_push_sequencer_delivers_each_request_once_in_sequence_order.sv),
+  [request history](../tests/u15/test_push_sequencer_common_request_history_keeps_newest_handles.sv)
+  and [response history](../tests/u15/test_push_sequencer_common_response_history_counts_analysis_replies.sv).
 
 ## Simulator and library combinations
 
-Ghost's bundled-library runs have 103 matches and 342 failures with each of
+Ghost's bundled-library runs have 105 matches and 364 failures with each of
 seeds 1 and 73. The same tests fail at both seeds. Its pinned-library smoke
 test differs, including with preprocessing enabled. Bundled results do not
 establish whether the cause lies in the simulator or its supplied library,
@@ -150,7 +158,7 @@ and are not evidence for the locked library. Private identity, profiles and
 diagnostics are not published.
 
 The tested kirimasim executable reports `uvm_object_wrapper` as unsupported
-on 444 cases. One time-API case fails earlier on the pinned library's missing
+on 468 cases. One time-API case fails earlier on the pinned library's missing
 method. Neither result is a pass or evidence of UVM execution beyond those
 compilation blockers.
 

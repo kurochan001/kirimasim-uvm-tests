@@ -302,3 +302,35 @@ Passing the other paths verifies payload/delay identity, annotations, return
 status and phase-reference propagation for those transactions. It does not
 certify every legal base-protocol or timing combination. Callback iterator
 tests likewise leave integer positions opaque and restart through public APIs.
+
+## Push delivery, sequence actions and payload packing
+
+### Q27. What completes an item sent through a push sequencer?
+
+IEEE 1800.2-2020 15.6.3.3 requires the sequence's optional item-completion
+wait to return after the driver's blocking `put` returns. The push driver
+does not use a pull port's `item_done`. A positive-delay test checks that
+`finish_item` remains blocked while `put` is still processing the request.
+Separate cases send three requests and inspect delivery and common request
+and response histories. See [known differences](known-differences.md) for
+the pinned library's repeated-request limitation.
+
+### Q28. Do all sequence action macros randomize their argument?
+
+No. `uvm_create` only creates the item or child sequence and sets its context.
+`uvm_send` executes it without randomization. `uvm_rand_send` randomizes before
+execution, except when a child sequence has randomization disabled. `uvm_do`
+combines creation with randomized execution. Child-sequence execution passes
+`call_pre_post` zero, suppressing `pre_body` and `post_body`, while still
+running `body`. The tests use singleton constraints and callback counts, so
+their expected values do not depend on which legal random value is selected.
+
+### Q29. What is included when a generic payload is packed?
+
+The standard specifies an ordered set of scalar fields and the active data
+and byte-enable prefixes. Backing-array bytes beyond the declared lengths
+and extensions are excluded by default. A declared length larger than the
+corresponding array requires a fatal report. The fatal tests finish inside
+a report catcher as soon as that severity is observed; they make no claim
+about execution after a fatal has been suppressed. Round trips and decoding
+through the public packer API avoid prescribing a binary stream encoding.

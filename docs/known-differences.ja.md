@@ -2,13 +2,13 @@
 
 [English](known-differences.md) · [README](../README.ja.md) · [FAQ](faq.ja.md)
 
-現在の445件と、固定したAccellera UVM 2020.3.1についての記録です。
+現在の469件と、固定したAccellera UVM 2020.3.1についての記録です。
 不一致はテストの結果であり、それだけではシミュレータ・ライブラリ・期待値のどれが原因かは決まりません。
 
 ## 固定版ライブラリの制約
 
 ライブラリ自身の`DEVIATIONS.md`には18.2.3.4・18.4.3.6・13.1.5.1の3件が載っています。
-現在、一致するテストはその分岐を避けています。それ以外に、M1とM2で次の19件の制約を確認しました。
+現在、一致するテストはその分岐を避けています。それ以外に、M1とM2で次の20件の制約を確認しました。
 不足する必須動作を直接検査する場合は、規格の期待値を変えずに`:oracle: spec`で保持します。
 
 - `find_override_by_name`は、置換がない場合に`null`を返します。元の型を生成できる場合も
@@ -60,27 +60,30 @@
   規格のAPIを呼ぶテストはビルド不可の既知差分です。コンパイルを通すためにAPI名を置き換えません。
 - nonblocking pass-through initiatorを二段にするとbackward exportの接続方向が逆になります。
   外側exportが未接続となる差分を、12.3.5.5.4の自動backward接続の期待値として保持します。
+- push sequencerは完了した要求を要求FIFOから取り除きません。そのため、次の要求を送ると
+  FIFOが満杯のままで拒否され、15.6.3.3の連続転送を満たしません。3件で順序どおりの転送と、
+  共通APIの要求・応答履歴を規格の期待値として保持します。
 
 これらの分岐は、固定版で再現したオラクルとしては扱いません。drop直後の一覧、transactionの
 生成直後の状態、重大度・ID別のreset、無効なfield_opの操作名取得、応答数未満の深さ変更、
 応答エラー報告の既定値、候補1件のUSER arbitration、lockの順序、kill後のhook、
 不適合なdefault型のエラー、stop時の自動objection解除、時刻の既定名・API、
-二段のinitiator socket接続は診断用に保持します。
+二段のinitiator socket接続、pushの連続転送は診断用に保持します。
 残りのライブラリの制約は、一致するテストシナリオでは避けています。
 
-スイート全体では、`verilator@5.052`を付けたテストは423件、specのみのテストは22件です。
+スイート全体では、`verilator@5.052`を付けたテストは444件、specのみのテストは25件です。
 specのみのうち1件は9.6を検証します。pre-resetフェーズ終了時に子タスクが停止する
 はずですが、固定版UVMとVerilator 5.052の組み合わせでは、後のフェーズで子タスクの遅延書き込みが
 実行されます。この差分の原因がシミュレータとライブラリのどちらかは未確定です。
 
-specのみの22件も規格から導いた期待値を保持します。通常のVerilator実行とCIはoracle付き423件を選びます。
+specのみの25件も規格から導いた期待値を保持します。通常のVerilator実行とCIはoracle付き444件を選びます。
 `--all`はspecのみも含め、不一致やビルド不可を`known`として記録します。
-実行時の21件は最初の差分であるseed 1までの記録で、seed 73の結果はありません。
+実行時の24件は最初の差分であるseed 1までの記録で、seed 73の結果はありません。
 API欠落の1件はビルド段階で失敗し、どのseedも実行できていません。
 
 ## specのみのテスト
 
-現在の22件は次のテストです。同じ制約を複数のテストで検査する場合があり、異なる不具合の個数ではありません。
+現在の25件は次のテストです。同じ制約を複数のテストで検査する場合があり、異なる不具合の個数ではありません。
 
 - field_opのaccessorの必須エラー：
   [set前](../tests/u05/test_field_op_accessors_report_errors_before_set.sv)と
@@ -114,15 +117,19 @@ API欠落の1件はビルド段階で失敗し、どのseedも実行できてい
   [default-resolution設定API](../tests/u12/test_tlm2_time_standard_default_resolution_api_constructs_delay.sv)。
   後者はビルド不可です。
 - [二段のpass-through initiatorのbackward接続](../tests/u12/test_tlm2_nested_passthrough_initiators_route_both_directions.sv)。
+- push方式の複数要求：
+  [転送順序](../tests/u15/test_push_sequencer_delivers_each_request_once_in_sequence_order.sv)、
+  [要求履歴](../tests/u15/test_push_sequencer_common_request_history_keeps_newest_handles.sv)、
+  [応答履歴](../tests/u15/test_push_sequencer_common_response_history_counts_analysis_replies.sv)。
 
 ## シミュレータとライブラリの組み合わせ
 
-Ghostの同梱UVMはseed 1・73とも103件一致・342件不一致で、不一致になるテストも同じです。
+Ghostの同梱UVMはseed 1・73とも105件一致・364件不一致で、不一致になるテストも同じです。
 固定版UVMのスモークテストは、前処理を有効にした場合も不一致でした。
 同梱版の結果だけではシミュレータと同梱ライブラリのどちらが原因かは決められず、
 固定版ライブラリの実行証拠にもなりません。非公開の識別情報・プロファイル・診断は公開しません。
 
-確認したkirimasimの実行ファイルでは、444件が`uvm_object_wrapper`未実装です。
+確認したkirimasimの実行ファイルでは、468件が`uvm_object_wrapper`未実装です。
 時刻設定APIのテスト1件は、その前に固定版ライブラリのAPI欠落を検出して`fail`になります。
 いずれも成功ではなく、その先のUVM動作を実行できた証拠でもありません。
 

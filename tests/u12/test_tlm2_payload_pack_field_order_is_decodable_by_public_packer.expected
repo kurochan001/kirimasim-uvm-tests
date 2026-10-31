@@ -1,0 +1,5 @@
+UT: address 1020304050607080
+UT: command 1 length 2 dmi 1
+UT: data 81 24
+UT: status_same 1
+UT: enable_length 1 enable ff width 2

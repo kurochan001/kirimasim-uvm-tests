@@ -124,6 +124,21 @@ inheritance and early-exit behavior are separate test subjects.
 
 ## Transaction-level communication
 
+**Push sequencer / push driver** — A sequencer that calls a driver's blocking
+`put` / a driver that receives those calls through `req_export`. Returning
+from `put` completes that request. Responses can travel independently through
+the driver's analysis `rsp_port` to the sequencer's `rsp_export`.
+
+**Sequence action macros** — `uvm_create` creates and sets context;
+`uvm_send` executes without randomization; `uvm_rand_send` randomizes and
+executes; `uvm_do` combines creation with randomized execution. Child sequences
+honor their randomization-enable bit and start with `call_pre_post` zero.
+
+**Payload packing / active array length** — Serialization of the TLM 2 generic
+payload's prescribed fields / the number of data or byte-enable bytes included
+from a backing array. Extra bytes are omitted; an undersized backing array
+requires a fatal report. Extensions are outside the default packed fields.
+
 **TLM / port / export / implementation** — Transaction-level modeling /
 a caller-side interface / a forwarding interface / the endpoint implementing
 the interface. Normal elaboration resolves bindings before traffic is observed.

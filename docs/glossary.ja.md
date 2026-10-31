@@ -123,6 +123,18 @@ static APIは終端で再開するまでnullを返します。nullのobject文�
 呼び出し中の同期的なanalysis callbackが応答を供給できます。
 0という結果だけでは、出力引数の特定の値や、要求側の途中の副作用がなかったことは示せません。
 
+**push sequencer／push driver** — driverのblocking `put`を呼ぶsequencer／
+`req_export`でその呼び出しを受けるdriverです。`put`から戻ると、その要求が完了します。
+応答はdriverのanalysis `rsp_port`からsequencerの`rsp_export`へ返せます。
+
+**sequence操作マクロ** — `uvm_create`は生成とcontext設定、`uvm_send`は乱数化なしの実行、
+`uvm_rand_send`は乱数化と実行、`uvm_do`は生成から乱数化付きの実行までを行います。
+子sequenceでは乱数化の有効・無効を尊重し、`call_pre_post`を0にして開始します。
+
+**payloadのpack／配列の有効長** — TLM 2 generic payloadの規定されたフィールドを直列化する処理／
+data・byte-enableの配列から含めるbyte数です。余分なbyteは含めず、配列が有効長より短い場合は
+fatalを報告します。extensionは既定のpack対象に含まれません。
+
 ## 実行と結果
 
 **ランナー／メタデータ** — ビルド・実行・判定を行う`tools/run_*.py`／

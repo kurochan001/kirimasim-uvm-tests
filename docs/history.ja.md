@@ -2,7 +2,7 @@
 
 [English](history.md) · [README](../README.ja.md)
 
-M1と、M2の9回目（445件）までの追加作業を記録しています。以前の349件の時点は
+M1と、M2の10回目（469件）までの追加作業を記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -425,3 +425,30 @@ payload・delayの同一性、注記、phase参照、statusを観測し、port�
 iteratorの位置の数値は指定しません。走査前に登録を完了し、規定に従って無効な要素やinstance限定の
 要素を除外します。facadeの`get_cb`は有効なアクセス後だけを確認し、終端後の値は指定しません。
 M1・M2は引き続き未完です。
+
+### M2の10回目の追加（2026-11-01）
+
+24件を追加し、全469件になりました。
+
+- push sequencer・driverを8件：型付き接続と階層、blocking完了、複数要求の転送順序、
+  応答の経路とID、共通APIの要求・応答履歴、response handler、handleの変更です。
+- sequence操作マクロを8件：item・子sequenceの生成とcontext、乱数化なしの送信、
+  item・子sequenceの乱数化付き送信、子の乱数化無効、生成から乱数化・実行までの組み合わせです。
+- generic payloadのpackを8件：公開APIで規定順序を読む検査、scalarの往復、data・byte-enableの
+  有効な先頭部分、短い配列の必須fatal、source extensionの省略、destination extensionの維持です。
+
+新規21件はVerilator 5.052のseed 1・73で一致しました。複数のpush要求と要求・応答履歴の3件は、
+規格の期待値をspecのみで保持します。固定版は完了した要求をFIFOに残し、次の要求を拒否します。
+テストを通すためにFIFOを手動で消費したり、pull方式の完了通知を加えたりはしていません。
+
+指紋を照合した既存445件と合算し、全体は444件一致・既知差分25件です。
+既知差分は実行時のseed 1差分24件と、どのseedも実行できないAPI欠落のビルド失敗1件です。
+Ghostの同梱版は各seedで105件一致・364件不一致で、不一致になるテストも同じです。
+kirimasimは468件が`uvm_object_wrapper`未実装、1件が時刻API欠落でFAILです。
+
+pushの待機は正の遅延の途中で観測し、応答は実際の要求IDと異なる要求・応答の型を使います。
+マクロの乱数化は解が1つの制約とcallback回数で検査し、item送信ではdriverが受けたhandleも確認します。
+子のhookでは`body`と任意のpre・post hookを区別します。payloadは公開packer APIで検査し、
+内部のstream表現やobject markerを指定しません。fatalの検査はcatcher内で終了を要求し、
+fatal後のpayload内容を定めません。README・用語集・FAQ・既知差分を日英で更新しました。
+M1・M2とも目標の棚卸しは未完です。

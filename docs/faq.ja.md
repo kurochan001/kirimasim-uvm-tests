@@ -255,3 +255,30 @@ nonblocking socketの`connect` APIがbackwardを自動で接続するためで�
 他の経路の成功は、そのtransactionについてpayload・delayの同一性、注記、戻り値、phase参照の伝搬を
 確認した結果です。protocolやtimingのあらゆる合法な組み合わせを保証しません。
 callback iteratorも、位置の整数値を決めつけず、公開APIで走査・再開します。
+
+## push転送・sequence操作・payloadのpack
+
+### Q27. push sequencerのitemはいつ完了しますか
+
+IEEE 1800.2-2020の15.6.3.3では、driverのblocking `put`から戻った後に、sequenceの
+item完了待ちが戻ります。push driverはpull portの`item_done`を使いません。
+正の遅延を使うテストでは、`put`が処理中の間は`finish_item`が戻らないことを確認します。
+別のテストで3要求の転送と、共通APIの要求・応答履歴を確認します。
+固定版ライブラリの複数要求に関する制限は[既知の差分](known-differences.ja.md)に記録しています。
+
+### Q28. sequence操作マクロはすべて引数を乱数化しますか
+
+`uvm_create`はitemや子sequenceの生成とcontext設定だけを行います。
+`uvm_send`は乱数化せず実行し、`uvm_rand_send`は乱数化してから実行します。
+ただし子sequenceの乱数化が無効なら、その乱数化を省略します。
+`uvm_do`は生成と乱数化付きの実行を組み合わせます。子sequenceは`call_pre_post`を0にして
+開始するため、`body`は実行しますが、`pre_body`と`post_body`は呼びません。
+テストでは解が1つの制約とcallback回数を使い、乱数の選択による期待値の変化を避けています。
+
+### Q29. generic payloadのpackには何が含まれますか
+
+規格で順序を定めたscalarフィールドと、data・byte-enableの有効長までのbyteを含みます。
+配列の余分なbyteやextensionは、既定のpack対象ではありません。
+有効長より配列が短い場合はfatalを報告します。そのテストはreport catcherがfatalを観測した時点で
+終了し、fatalを抑制した後の実行については期待値を定めません。
+往復変換と公開packer APIでの読み出しを使い、特定のバイナリ表現に依存しないようにしています。

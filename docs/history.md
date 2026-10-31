@@ -2,8 +2,8 @@
 
 [日本語](history.ja.md) · [README](../README.md)
 
-These records cover the M1 and M2 increments through the ninth M2 increment
-(445 tests). The earlier 349-test checkpoint is
+These records cover the M1 and M2 increments through the tenth M2 increment
+(469 tests). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -560,3 +560,41 @@ Iterator positions stay opaque. Registration is completed before traversal;
 disabled entries and instance-only entries are excluded where required.
 Facade `get_cb` is observed after valid accesses, without prescribing its
 value after exhaustion. M1 and M2 remain open.
+
+### Tenth M2 increment (2026-11-01)
+
+This increment adds 24 cases, bringing the suite to 469:
+
+- Eight push-sequencer/driver cases: typed connections and hierarchy,
+  blocking completion, ordered repeated requests, response routing and IDs,
+  common request/response histories, response handlers and handle mutation.
+- Eight sequence-action macro cases: item and child creation/context,
+  unrandomized sends, randomized item and child sends, disabled child
+  randomization, and combined item creation/randomization/execution.
+- Eight generic-payload packing cases: public decoding in prescribed field
+  order, scalar round trips, active data and byte-enable prefixes, fatal
+  reports for short arrays, omitted source extensions and preserved
+  destination extensions.
+
+Twenty-one new cases match Verilator 5.052 at seeds 1 and 73. Three retain
+spec-only expectations for repeated push delivery and its request/response
+histories. The library leaves a completed request in its FIFO, so sending the
+next request is rejected. No manual FIFO drain or pull acknowledgement is
+added to make the push tests pass.
+
+The suite has 444 matches and 25 known differences after combining the fresh
+increment with the fingerprint-verified 445-case baseline. Of the known
+records, 24 are runtime seed 1 differences and one is a build failure without
+a runtime seed. Ghost bundled results have 105 matches and 364 failures with
+each seed, with the same failing sets. kirimasim has 468 unsupported cases at
+`uvm_object_wrapper` and one missing-time-API failure.
+
+Push timing checks sample inside a positive blocking delay. Responses use
+real request IDs and distinct request/response types. Macro randomization
+uses singleton constraints and callback counts; item sends also check the
+driver's received handle. Child hook checks distinguish `body` from the
+optional pre/post hooks. Payload tests use public packer operations rather
+than raw stream encodings or object markers. Fatal probes request termination
+inside the report catcher and do not prescribe post-fatal payload contents.
+README, glossary, FAQ and known-difference pages are updated in both
+languages. M1 and M2 remain open.
