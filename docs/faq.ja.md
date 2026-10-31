@@ -152,9 +152,10 @@ Ghostはさらに実行ファイル・profile・供給されたライブラリ�
 
 ## 範囲・照合・修正
 
-### Q16. M1やM2は完了していますか。件数は何の網羅を示しますか
+### Q16. M1・M2・M3は完了していますか。件数は何の網羅を示しますか
 
-どちらも条項ごとの目標に未達があります。M2を始めてもM1の完了とはしていません。
+M1・M2には条項ごとの目標に未達があります。M3はレジスタモデル内の24件で開始した段階で、未完です。
+次の段階の開始によって、それまでの段階が完了したとは扱いません。
 範囲と残りの作業は[進め方](../README.ja.md#進め方)にあります。
 件数はテストの本数で、規格の全要求や組み合わせの棚卸しではありません。
 引用条項だけでは要求の網羅は示せず、要求台帳と分母の承認はM4の作業です。
@@ -454,3 +455,48 @@ payloadへの登録・置換・削除はその不透明なkeyを使います。
 [短いaliasのケース](../tests/u12/test_tlm2_gp_alias_shares_payload_and_polymorphic_extension_state.sv)は、
 `uvm_tlm_gp`と`uvm_tlm_generic_payload`のhandleが同じpayloadの登録状態を見ることも確認します。
 型の数値IDや暗黙のcloneは要求しません。
+
+## レジスタモデルの基本
+
+### Q45. set・predict・resetはDUTへアクセスしますか
+
+M3の初回はモデル内の操作です。desiredはモデルが書き込みたい値、mirroredはモデルが現在記録している値です。
+今回の表では処理中ではないfieldを使い、predictionの種類は`UVM_PREDICT_DIRECT`とします。
+
+| 操作 | desired値 | mirrored値 | DUTへのアクセス |
+| --- | --- | --- | --- |
+| `set(value)` | 設定したaccess policyを適用 | 変えない | なし |
+| `predict`（DIRECT） | 計算値に置き換える | 計算値に置き換える | なし |
+| `reset(kind)` | その種類のreset値があれば復元 | その種類のreset値があれば復元 | なし |
+
+ROの`set`はdesiredを変えず、W1Cの`set`は指定した1のbitをdesiredから消します。
+直接のpredictionはaccess policyにかかわらず値を更新し、値を設定していない種類のresetはfieldを変えません。
+`needs_update`は書き込み可能なdesired値との整合を取る必要があるかを調べるもので、それ自体は転送しません。
+[fieldのset](../tests/u18/test_reg_field_set_changes_desired_without_predicting_mirror.sv)と
+[再帰reset](../tests/u18/test_reg_block_reset_recurses_into_child_registers.sv)はbusやHDL backdoorなしで状態を観測します。
+
+### Q46. mapのアドレスはbyte単位ですか。配列が逆順になるのはなぜですか
+
+アドレス単位は`byte_addressing`で決まり、有効なら1 byte、無効なら設定したbus幅です。
+registerのlocal offsetと、外部から見た物理アドレスは別の値です。
+[word単位のケース](../tests/u18/test_reg_map_word_addressing_translates_offsets_in_bus_units.sv)では、
+複数回のbus転送に対応する連続したwordアドレスを確認します。
+
+`get_addresses`は、データの下位側から順に物理アドレスを返します。
+big endianのmapでは数値として降順になる場合があります。
+[little endian](../tests/u18/test_reg_map_little_endian_wide_register_lists_addresses_in_data_order.sv)と
+[big endian](../tests/u18/test_reg_map_big_endian_wide_register_lists_addresses_in_data_order.sv)のケースは、
+6 byteのregisterを2 byteずつの3回へ分けます。submapは親へのoffsetを加え、rootまでの最小bus幅を使います。
+これらはアドレスの計算であり、実際のbus転送は行いません。
+
+### Q47. M3の初回で何を検査していますか
+
+第18章にfieldを8件、register／blockを8件、mapを8件の計24件を追加しました。
+field名検索とmapの幅・変換結果の4件はspecのみで保持し、lock前のケースにはlock後の比較も加えます。
+構築、fieldのpolicyと配置、resetの種類、desired／mirrored値、再帰resetとlock、
+mapの単位・権限・endian順序・再配置・階層を検査します。
+
+memory model、追加のaccess policy、adapter、predictor、frontdoorの転送、backdoor／DPIの環境、
+register callback、付録Eのsequenceは今後の作業です。registerの複数map登録ではmap引数を明示します。
+ライブラリが公表するmemoryの複数map登録とnull時のmap解決の差は[既知差分](known-differences.ja.md)に記録します。
+全件が`spec_check: ai`で、初回の追加をレジスタ層の要求の網羅としては扱いません。

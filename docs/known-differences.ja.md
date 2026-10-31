@@ -2,13 +2,15 @@
 
 [English](known-differences.md) · [README](../README.ja.md) · [FAQ](faq.ja.md)
 
-現在の589件と、固定したAccellera UVM 2020.3.1についての記録です。
+現在の613件と、固定したAccellera UVM 2020.3.1についての記録です。
 不一致はテストの結果であり、それだけではシミュレータ・ライブラリ・期待値のどれが原因かは決まりません。
 
 ## 固定版ライブラリの制約
 
 ライブラリ自身の`DEVIATIONS.md`には18.2.3.4・18.4.3.6・13.1.5.1の3件が載っています。
-現在、一致するテストはその分岐を避けています。それ以外に、M1とM2で次の29件の制約を確認しました。
+現在、一致するテストはその分岐を避けています。M3初回のregisterの複数map登録ではmap引数を明示し、
+memoryの複数map登録とnull時のmap解決は対象にしていません。[M3の範囲](faq.ja.md#レジスタモデルの基本)も参照してください。
+それ以外に、M1・M2・M3で次の32件の制約を確認しました。
 不足する必須動作を直接検査する場合は、規格の期待値を変えずに`:oracle: spec`で保持します。
 
 - `find_override_by_name`は、置換がない場合に`null`を返します。元の型を生成できる場合も
@@ -83,28 +85,36 @@
   実際の要求へ通常どおり完了を通知し、1要求・2要求の明示IDを規格の期待値として保持します。
 - `finish_item`はnull・非itemの検査を省略し、sequencer不足でもFATALの後に即時returnしません。
   3件で14.2.6.3のERRORと早期returnを保持します。固定版の不正参照の経路は、期待する観測前に終了します。
+- `uvm_reg::get_field_by_name`はlock前の構築済みfieldにnullを返しますが、18.4.3.12はlockを前提にしていません。
+  固定版はlock時に完全名の索引を作ります。1件でlock前の正しいhandleを期待値に保持し、lock後の検索成功も確認します。
+- `uvm_reg_map::get_n_bytes(UVM_HIER)`はlock前のroot mapに0を返しますが、18.2.4.5はlockを前提にせずbus幅を返します。
+  1件でlock前の幅を期待値に保持し、lock後の正しい幅も確認します。
+- `get_physical_addresses`はアドレスを計算しても、18.2.4.16の転送byte数を返さず0になります。
+  戻り値の欠落はmap初期化にも影響し、幅の広い子busではlocal幅が残ります。子mapの実効幅と
+  18.4.3.15の戻り値が、18.2.4.5の最小幅2 byteに対して4 byteになります。
+  word単位と階層mapの2件で、規格の転送幅を期待値に保持します。
 
 これらの分岐は、固定版で再現したオラクルとしては扱いません。drop直後の一覧、transactionの
 生成直後の状態、重大度・ID別のreset、無効なfield_opの操作名取得、応答数未満の深さ変更、
 応答エラー報告の既定値、候補1件のUSER arbitration、lockの順序、kill後のhook、
 不適合なdefault型のエラー、stop時の自動objection解除、時刻の既定名・API、
 二段のinitiator socket接続、pushの連続転送、sequence libraryのAPIと削除、FIFOのpeek通知、
-start_itemの重大度、library subtypeの構築、finish_itemの委譲・ID・入力検査は診断用に保持します。
+start_itemの重大度、library subtypeの構築、finish_itemの委譲・ID・入力検査、lock前のfield名検索、mapの幅・変換結果は診断用に保持します。
 残りのライブラリの制約は、一致するテストシナリオでは避けています。
 
-スイート全体では、`verilator@5.052`を付けたテストは540件、specのみのテストは49件です。
+スイート全体では、`verilator@5.052`を付けたテストは560件、specのみのテストは53件です。
 specのみのうち1件は9.6を検証します。pre-resetフェーズ終了時に子タスクが停止する
 はずですが、固定版UVMとVerilator 5.052の組み合わせでは、後のフェーズで子タスクの遅延書き込みが
 実行されます。この差分の原因がシミュレータとライブラリのどちらかは未確定です。
 
-specのみの49件も規格から導いた期待値を保持します。通常のVerilator実行とCIはoracle付き540件を選びます。
+specのみの53件も規格から導いた期待値を保持します。通常のVerilator実行とCIはoracle付き560件を選びます。
 `--all`はspecのみも含め、不一致やビルド不可を`known`として記録します。
-実行時の42件は最初の差分であるseed 1までの記録で、seed 73の結果はありません。
+実行時の46件は最初の差分であるseed 1までの記録で、seed 73の結果はありません。
 API欠落の7件（時刻APIの1件とsequence libraryの6件）はビルド段階で失敗し、どのseedも実行できていません。
 
 ## specのみのテスト
 
-現在の49件は次のテストです。同じ制約を複数のテストで検査する場合があり、異なる不具合の個数ではありません。
+現在の53件は次のテストです。同じ制約を複数のテストで検査する場合があり、異なる不具合の個数ではありません。
 
 - field_opのaccessorの必須エラー：
   [set前](../tests/u05/test_field_op_accessors_report_errors_before_set.sv)と
@@ -174,15 +184,21 @@ API欠落の7件（時刻APIの1件とsequence libraryの6件）はビルド段�
   [null item](../tests/u14/test_sequence_finish_item_null_input_reports_error_before_mid_do.sv)、
   [sequence引数](../tests/u14/test_sequence_finish_item_sequence_input_reports_error_before_mid_do.sv)、
   [sequencer不足](../tests/u14/test_sequence_finish_item_missing_sequencer_input_reports_error_before_mid_do.sv)。
+- lock前のfield名の検索：
+  [構築済みfield](../tests/u18/test_reg_named_field_lookup_works_before_and_after_model_lock.sv)。
+- mapの幅と変換の戻り値：
+  [lock前の幅](../tests/u18/test_reg_map_byte_addressing_reports_width_before_and_after_lock.sv)、
+  [word単位の変換](../tests/u18/test_reg_map_word_addressing_translates_offsets_in_bus_units.sv)、
+  [階層の実効幅](../tests/u18/test_reg_submap_uses_root_base_and_narrowest_bus_width.sv)。
 
 ## シミュレータとライブラリの組み合わせ
 
-Ghostの同梱UVMはseed 1・73とも112件一致・477件不一致で、不一致になるテストも同じです。
+Ghostの同梱UVMはseed 1・73とも116件一致・497件不一致で、不一致になるテストも同じです。
 固定版UVMのスモークテストは、前処理を有効にした場合も不一致でした。
 同梱版の結果だけではシミュレータと同梱ライブラリのどちらが原因かは決められず、
 固定版ライブラリの実行証拠にもなりません。非公開の識別情報・プロファイル・診断は公開しません。
 
-確認したkirimasimの実行ファイルでは、582件が`uvm_object_wrapper`未実装です。
+確認したkirimasimの実行ファイルでは、606件が`uvm_object_wrapper`未実装です。
 時刻設定APIの1件とsequence libraryの6件は、その前にAPI欠落を検出して`fail`になります。
 いずれも成功ではなく、その先のUVM動作を実行できた証拠でもありません。
 

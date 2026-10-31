@@ -257,6 +257,38 @@ immediately. A synchronous analysis callback can supply the response during
 the call. A 0 does not establish a particular response output value or that
 no partial request-side effect occurred.
 
+## Register model
+
+**Register / field / block** — A model of a value accessed as one entity /
+a contiguous set of bits with a shared policy / a container grouping registers,
+maps and child blocks. Register byte width rounds up when its bit width is
+not a whole number of bytes. Field enumeration follows increasing bit position.
+
+**Desired / mirrored / `needs_update`** — The requested model value / the
+value currently recorded by the model / a query for writable state needing
+an update. `set` changes desired state under the access policy; direct
+prediction synchronizes both views. Neither operation reads or writes a DUT.
+
+**Access policy / map rights** — A field's read/write rules, such as RO, RW
+or W1C / the register's access restriction through one map. Both participate
+in effective field access. Model-only `set` also applies the field policy.
+
+**Reset kind / model reset** — A named reset event, such as HARD or SOFT /
+restoring desired and mirrored values for that event. An unconfigured kind
+leaves the field unchanged. Resetting a block reaches its child blocks and
+does not itself reset physical hardware.
+
+**Address map / local offset / physical address** — A model of an interface's
+address space / a register's position within it / an address visible through
+the root interface. Address units can be bytes or bus words. Returned address
+arrays follow data significance; submaps combine offsets and bus widths.
+
+**Frontdoor / backdoor / predictor** — Access through a modeled bus path /
+direct access to the design's storage / model updates derived from observed
+transactions. The initial M3 batch exercises values and address calculations;
+these DUT interaction paths remain future work. See the
+[register-model FAQ](faq.md#register-model-basics).
+
 ## Execution and result records
 
 **Runner / metadata** — A `tools/run_*.py` script that builds, executes and

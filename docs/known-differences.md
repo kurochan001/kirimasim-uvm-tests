@@ -2,7 +2,7 @@
 
 [日本語](known-differences.ja.md) · [README](../README.md) · [FAQ](faq.md)
 
-This describes the current 589-test suite and the pinned Accellera UVM
+This describes the current 613-test suite and the pinned Accellera UVM
 2020.3.1 library. A mismatch is a test result; it does not by itself assign
 the cause to the simulator, the library or the expectation.
 
@@ -10,7 +10,10 @@ the cause to the simulator, the library or the expectation.
 
 The library's own `DEVIATIONS.md` lists three differences at 18.2.3.4,
 18.4.3.6 and 13.1.5.1. Current matching scenarios avoid those branches.
-The following twenty-nine additional limitations were identified during M1 and M2.
+Initial M3 cases exercise register multi-mapping with explicit map arguments.
+Memory multi-mapping and null-map register resolution remain outside their
+matching scenarios; see the [M3 scope](faq.md#register-model-basics).
+The following thirty-two additional limitations were identified during M1, M2 and M3.
 Where a test directly checks a required behavior that is missing, its
 normative expectation is retained with `:oracle: spec`.
 
@@ -114,6 +117,19 @@ normative expectation is retained with `:oracle: spec`.
   immediate return for missing sequencer context. Three cases retain the
   ERROR and early return required by 14.2.6.3; the faulty paths terminate on
   invalid dereference before the expected observation.
+- `uvm_reg::get_field_by_name` returns null for configured fields before model
+  locking, although 18.4.3.12 gives no lock prerequisite. The library populates
+  its full-name registry only during locking. A case retains the required
+  pre-lock handles and also checks successful post-lock lookup.
+- Before model locking, `uvm_reg_map::get_n_bytes(UVM_HIER)` returns zero
+  for a configured root map. Clause 18.2.4.5 requires its bus width without
+  a lock prerequisite. A case also verifies the correct width after locking.
+- `get_physical_addresses` produces the addresses but returns zero instead
+  of the transfer-byte count required by 18.2.4.16. Its missing return also
+  makes address-map initialization retain the local width for a wider child
+  bus. The child then reports four bytes instead of the required two-byte
+  effective width in 18.2.4.5 and register-address return in 18.4.3.15.
+  Word-addressed and hierarchical cases retain both required widths.
 
 These branches are not treated as reproduced fixed-release oracles.
 Spec-only diagnostics preserve the required post-drop objector membership,
@@ -123,25 +139,26 @@ arbitration, lock ordering, post-kill hooks, invalid-default errors,
 automatic-objection drop on stop, canonical time name/API, nested
 initiator-socket routing, repeated push delivery, sequence-library APIs/removal,
 FIFO peek notifications, `start_item` error severity, library subtype
-construction and `finish_item` dispatch, IDs and guards.
+construction, `finish_item` dispatch, IDs and guards, pre-lock field lookup
+and map width/translation results.
 Matching tests avoid the other library limitations.
 
-Across the suite, 540 tests have the `verilator@5.052` oracle tag and forty-nine
+Across the suite, 560 tests have the `verilator@5.052` oracle tag and fifty-three
 cases are spec-only. One of the spec-only cases checks 9.6: a child's pre-reset
 task must be killed when that phase ends, but the pinned-library run on Verilator 5.052
 lets the child perform its delayed write during a later phase. The cause of
 this combined simulator/library difference remains unassigned.
 
-The forty-nine spec-only tests retain their normative expected files.
-Default Verilator runs and CI select the 540 tagged cases. `--all` includes
+The fifty-three spec-only tests retain their normative expected files.
+Default Verilator runs and CI select the 560 tagged cases. `--all` includes
 spec-only cases and records mismatches or build failures as `known`.
-The runtime records for 42 cases establish the first difference at seed 1,
+The runtime records for 46 cases establish the first difference at seed 1,
 without seed 73 results. Seven missing-API cases cannot build and have no
 runtime seed result: one time API and six sequence-library cases.
 
 ## Spec-only tests
 
-These are the forty-nine current spec-only cases. Several exercise the same
+These are the fifty-three current spec-only cases. Several exercise the same
 limitation, so their count is not a count of distinct bugs.
 
 - Field-operation accessor errors:
@@ -212,10 +229,16 @@ limitation, so their count is not a count of distinct bugs.
   [null item](../tests/u14/test_sequence_finish_item_null_input_reports_error_before_mid_do.sv),
   [sequence argument](../tests/u14/test_sequence_finish_item_sequence_input_reports_error_before_mid_do.sv)
   and [missing sequencer](../tests/u14/test_sequence_finish_item_missing_sequencer_input_reports_error_before_mid_do.sv).
+- Named field lookup before model locking:
+  [configured fields](../tests/u18/test_reg_named_field_lookup_works_before_and_after_model_lock.sv).
+- Map widths and translation return values:
+  [pre-lock width](../tests/u18/test_reg_map_byte_addressing_reports_width_before_and_after_lock.sv),
+  [word-address translation](../tests/u18/test_reg_map_word_addressing_translates_offsets_in_bus_units.sv)
+  and [hierarchical width](../tests/u18/test_reg_submap_uses_root_base_and_narrowest_bus_width.sv).
 
 ## Simulator and library combinations
 
-Ghost's bundled-library runs have 112 matches and 477 failures with each of
+Ghost's bundled-library runs have 116 matches and 497 failures with each of
 seeds 1 and 73. The same tests fail at both seeds. Its pinned-library smoke
 test differs, including with preprocessing enabled. Bundled results do not
 establish whether the cause lies in the simulator or its supplied library,
@@ -223,7 +246,7 @@ and are not evidence for the locked library. Private identity, profiles and
 diagnostics are not published.
 
 The tested kirimasim executable reports `uvm_object_wrapper` as unsupported
-on 582 cases. Seven cases fail earlier on missing library APIs: one time
+on 606 cases. Seven cases fail earlier on missing library APIs: one time
 setter and six sequence-library cases. Neither result is a pass or evidence
 of UVM execution beyond those compilation blockers.
 

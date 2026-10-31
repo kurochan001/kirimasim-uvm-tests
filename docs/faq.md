@@ -170,9 +170,11 @@ a claim that every test was rebuilt together.
 
 ## Scope, review and contributions
 
-### Q16. Are M1 or M2 complete, and what does the test count cover?
+### Q16. Are M1, M2 or M3 complete, and what does the test count cover?
 
-Both stages still have open clause targets. Starting M2 did not complete M1.
+M1 and M2 still have open clause targets. M3 has started with 24 model-only
+register-layer cases; it is also incomplete. Starting a stage does not complete
+the preceding stages.
 The [plan](../README.md#plan) identifies current scope and remaining work.
 Counts are test cases, not a reviewed inventory of every requirement or
 combination in the standard. Clause citations alone do not establish coverage;
@@ -543,3 +545,57 @@ Payload insertion, replacement and clearing use those opaque keys. The
 [short-alias case](../tests/u12/test_tlm2_gp_alias_shares_payload_and_polymorphic_extension_state.sv)
 also verifies that `uvm_tlm_gp` and `uvm_tlm_generic_payload` handles observe
 the same payload bindings. No numeric type ID or implicit clone is required.
+
+## Register model basics
+
+### Q45. Do set, predict and reset access the DUT?
+
+The first M3 cases use model-only operations. Desired state is what the model
+wants to write; mirrored state is what it currently records for the register.
+For the idle fields used here, prediction uses `UVM_PREDICT_DIRECT`:
+
+| Operation | Desired state | Mirrored state | DUT access |
+| --- | --- | --- | --- |
+| `set(value)` | Applies the configured access policy | Unchanged | None |
+| `predict` (DIRECT) | Replaced by the computed value | Replaced by the computed value | None |
+| `reset(kind)` | Restored if that reset kind exists | Restored if that reset kind exists | None |
+
+Read-only `set` leaves desired state unchanged; W1C `set` clears the selected
+one bits in it. Direct prediction ignores access policy. A reset kind with no
+configured value leaves the field unchanged. `needs_update` checks the need
+to reconcile writable desired state; it does not itself perform an update.
+The [field set case](../tests/u18/test_reg_field_set_changes_desired_without_predicting_mirror.sv)
+and [recursive reset case](../tests/u18/test_reg_block_reset_recurses_into_child_registers.sv)
+observe these states without a bus or HDL backdoor.
+
+### Q46. Are map addresses bytes, and why can the returned list run backwards?
+
+Address units depend on `byte_addressing`: one byte when enabled, otherwise
+the configured bus width. A register's local offset and external physical
+address have separate meanings. The
+[word-address case](../tests/u18/test_reg_map_word_addressing_translates_offsets_in_bus_units.sv)
+uses consecutive word addresses for successive bus transfers.
+
+`get_addresses` lists physical addresses in order of least-significant data
+first. A big-endian map can therefore return numerically descending addresses.
+The [little-endian](../tests/u18/test_reg_map_little_endian_wide_register_lists_addresses_in_data_order.sv)
+and [big-endian](../tests/u18/test_reg_map_big_endian_wide_register_lists_addresses_in_data_order.sv)
+cases each split a six-byte register across three two-byte accesses.
+A submap adds its parent offset and uses the narrowest bus on the route to
+the root. These calculations do not execute those bus transfers.
+
+### Q47. What does the first M3 increment establish?
+
+It adds 24 chapter 18 cases: eight field cases, eight register/block cases,
+and eight map cases. Four retain spec-only expectations for field lookup and
+map width/translation results; pre-lock probes include post-lock controls.
+It also checks construction, field policies and layout, reset kinds,
+desired/mirrored values, recursive reset and locking, and map
+units, rights, endian ordering, relocation and hierarchy.
+
+Memory models, broader access policies, adapters, predictors, frontdoor
+traffic, backdoor/DPI setups, register callbacks and annex E sequences remain
+future work. Register multi-mapping uses explicit map arguments. The declared
+memory multi-map and null-map resolution differences are documented in
+[known differences](known-differences.md). All cases retain `spec_check: ai`;
+the initial batch is not a reviewed register-layer coverage inventory.

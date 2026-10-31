@@ -2,8 +2,8 @@
 
 [日本語](history.ja.md) · [README](../README.md)
 
-These records cover the M1 and M2 increments through the fifteenth M2 increment
-(589 tests). The earlier 349-test checkpoint is
+These records cover M1, fifteen M2 increments and the initial M3 increment
+(613 tests). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -801,3 +801,42 @@ Extension probes dispatch through common base handles and compare type
 identity without numeric IDs or literal qualified-name formatting. Names
 of instances and types remain distinct concepts. Both README languages,
 glossary, FAQ and known differences are updated. M1 and M2 remain open.
+
+## M3: register model foundations (2026-11-01)
+
+The first M3 increment adds 24 chapter 18 cases, bringing the suite to 613.
+M1 remains at 229 cases and M2 at 360. Both retain open clause targets.
+
+- Eight field cases: configured identity/layout and volatility, desired versus
+  mirrored values, direct prediction of RO state, RO and W1C set policies,
+  HARD/SOFT reset values and deletion of one reset kind.
+- Eight register/block cases: rounded byte width and parent identity,
+  LSB-ordered fields, desired-value slicing, aggregate prediction and reset,
+  update need, recursive block reset, default-map selection and model locking.
+- Eight map cases: byte/word units, little/big-endian address arrays,
+  local/external addresses, independent map rights, base relocation, and
+  hierarchical offsets with the narrowest bus width.
+
+Twenty new cases match Verilator 5.052 at seeds 1 and 73. Four retain
+spec-only differences at seed 1: pre-lock field lookup, pre-lock bus width,
+the physical-address translation byte count, and hierarchical width/byte counts.
+Pre-lock probes also observe the corresponding successful lookup/width after
+locking; address arrays are checked separately from returned transfer widths.
+Combined with the fingerprint-verified 589-case baseline, there are 560 matches
+and 53 known differences: 46 runtime differences at seed 1 and seven
+missing-API build failures without runtime seeds. Ghost bundled results have
+116 matches and 497 failures per seed with identical failing sets. kirimasim has 606
+unsupported cases at `uvm_object_wrapper` and seven missing-API failures.
+
+The model-only operations do not read, write or reset a DUT. Direct prediction
+ignores access policy, whereas set applies it. Physical address arrays follow
+least-significant data order, including descending numbers for the big-endian
+case. Multi-map register checks specify their map arguments; the library's
+declared memory multi-mapping and null-map resolution deviations remain
+outside the matching scenarios. No deprecated API or DPI is requested.
+
+Both README languages now describe M3 as started. The glossary and FAQ explain
+model values, map units and the remaining interaction work, and known
+differences retain their normative expectations. Tool tests, metadata,
+library integrity, evidence fingerprints and documentation links were checked.
+All tests remain `spec_check: ai`; M1, M2 and M3 remain open.

@@ -193,6 +193,31 @@ utilitiesマクロとconstructorを使ってlibraryのsubtypeを生成するこ�
 その識別名です。名前を持つ個別のinstanceではなく型を識別します。payloadの検索にはhandleを使い、
 型名のテストは特定の修飾形式を指定せず、同一性・相違を比較します。
 
+## レジスタモデル
+
+**Register／field／block** — ひとまとまりでアクセスする値のモデル／同じpolicyで扱う連続bit／
+register・map・子blockをまとめる容器です。registerのbyte幅は端数を切り上げ、fieldの列挙はbit位置の昇順です。
+
+**Desired／mirrored／`needs_update`** — 要求するモデル値／モデルが現在記録している値／
+書き込み可能な状態を更新する必要があるかの問い合わせです。`set`はpolicyに従ってdesiredを変え、
+直接のpredictionは両方をそろえます。どちらもDUTの読み書きは行いません。
+
+**Access policy／mapの権限** — RO・RW・W1Cなどのfieldの読み書き規則／
+あるmapを通るregisterのアクセス制限です。両方からfieldの実効accessを決めます。
+モデル内の`set`にもfieldのpolicyを適用します。
+
+**Resetの種類／モデルのreset** — HARD・SOFTなどの名前付きイベント／
+そのイベントのdesired／mirrored値を復元する操作です。設定のない種類はfieldを変えません。
+blockのresetは子blockへ再帰しますが、物理的なハードウェアのresetは行いません。
+
+**Address map／local offset／物理アドレス** — interfaceのアドレス空間のモデル／
+その中のregisterの位置／rootのinterfaceから見えるアドレスです。単位はbyteかbus wordで、
+返される配列はデータの下位側から並びます。submapはoffsetとbus幅を組み合わせます。
+
+**Frontdoor／backdoor／predictor** — モデル化したbus経路のアクセス／designの記憶域への直接のアクセス／
+観測したtransactionに基づくモデルの更新です。M3初回は値とアドレスの計算を扱い、DUTとのこれらの接続は今後追加します。
+[レジスタモデルのFAQ](faq.ja.md#レジスタモデルの基本)を参照してください。
+
 ## 実行と結果
 
 **ランナー／メタデータ** — ビルド・実行・判定を行う`tools/run_*.py`／

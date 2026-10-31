@@ -2,7 +2,7 @@
 
 [English](history.md) · [README](../README.ja.md)
 
-M1と、M2の15回目（589件）までの追加作業を記録しています。以前の349件の時点は
+M1・M2の15回目と、M3初回（613件）までの追加作業を記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -601,3 +601,31 @@ fatal後の継続は指定しません。
 extensionは共通のbase handleから呼び、型の数値IDや修飾名の表記を指定せず型の同一性を比較します。
 instance名と型名は別の概念として扱います。README・用語集・FAQ・既知差分を日英で更新しました。
 M1・M2とも目標の棚卸しは未完です。
+
+## M3初回：レジスタモデルの基本（2026-11-01）
+
+第18章に24件を追加し、全613件になりました。M1は229件、M2は360件で、条項ごとの目標は未完のままです。
+
+- fieldを8件：親・配置・volatility、desiredとmirrored、ROへの直接prediction、RO・W1Cのset、
+  HARD／SOFTのreset値と、1種類のreset設定の削除です。
+- register／blockを8件：byte幅の切り上げと親、LSB順のfield列挙、desiredの分割、
+  predictionとresetによる組み立て、更新要否、再帰reset、既定mapとmodel lockです。
+- mapを8件：byte／word単位、little／big endianのアドレス配列、local／外部アドレス、
+  mapごとの権限、baseの再配置、階層のoffsetと最小bus幅です。
+
+新規20件はVerilator 5.052のseed 1・73で一致しました。4件はseed 1の既知差分です。
+lock前のfield名検索とbus幅、物理アドレス変換の転送byte数、階層mapの実効幅と転送byte数で規格の期待値を保持します。
+lock前のケースはlock後の正しい検索・幅も観測し、アドレス配列と戻り値の転送幅は別々に確認します。
+指紋を照合した既存589件と合算し、全体は560件一致・既知差分53件です。
+既知差分は実行時のseed 1差分46件と、seed未実行のAPI欠落7件です。
+Ghostの同梱版は各seedで116件一致・497件不一致で、不一致になるテストも同じです。
+kirimasimは606件が`uvm_object_wrapper`未実装、7件がAPI欠落でFAILです。
+
+モデル内の操作はDUTの読み書きやresetを行いません。直接のpredictionはaccess policyにかかわらず更新し、
+setはpolicyを適用します。物理アドレス配列はデータの下位側から並び、big endianのケースでは数値が降順です。
+registerの複数map登録ではmap引数を明示し、ライブラリが公表するmemoryの複数map登録とnull時のmap解決の
+差が出る分岐を避けています。deprecated APIとDPIは要求しません。
+
+日英のREADMEをM3開始の状態にし、用語集・FAQにモデル値・mapの単位・今後の転送検査を追記しました。
+既知差分の規格に基づく期待値を維持し、ツールの単体テスト、メタデータ、ライブラリの整合性、
+実行証拠の指紋、ドキュメントのリンクを確認しました。全件が`spec_check: ai`で、M1・M2・M3とも未完です。
