@@ -8,7 +8,7 @@ Methodology, IEEE 1800.2-2020 (UVM). It is written for the
 [kirimasim-tests](https://github.com/kurochan001/kirimasim-tests), which checks
 the SystemVerilog language of IEEE 1800-2023.
 
-> **Status: M1 (core expansion in progress).** 101 tests, the pinned UVM
+> **Status: M1 (core expansion in progress).** 133 tests, the pinned UVM
 > fetcher, runners for kirimasim, Verilator and Ghost, metadata checks and
 > the Check workflow. The clause-by-clause M1 target is not complete;
 > see "Current M1 increment" below.
@@ -233,13 +233,14 @@ These differences are recorded as failures. They do not change expectations
 or establish whether the cause is the simulator or its bundled library.
 With the second M1 increment, bundled runs match 31 of 61 tests with both
 seeds; the same 30 cases differ. The third increment matches 41 of 101
-tests with both seeds, with the same 60 differences.
+tests with both seeds, with the same 60 differences. After the fourth
+increment, both seeds match 45 of 133 tests, with the same 88 differences.
 
 | Simulator | Current status |
 | --- | --- |
-| kirimasim | local executable reports all 101 cases as unsupported at `uvm_object_wrapper` |
-| Verilator 5.052 | `UVM_NO_DPI`: 99 oracle cases match seeds 1 and 73; two spec-only cases retain known differences |
-| Ghost (an unreleased simulator, as in kirimasim-tests) | bundled UVM: 41/101 match with both seeds; pinned UVM: smoke test differs |
+| kirimasim | local executable reports all 133 cases as unsupported at `uvm_object_wrapper` |
+| Verilator 5.052 | `UVM_NO_DPI`: 130 oracle cases match seeds 1 and 73; three spec-only cases retain known differences |
+| Ghost (an unreleased simulator, as in kirimasim-tests) | bundled UVM: 45/133 match with both seeds; pinned UVM: smoke test differs |
 | Icarus Verilog 13.0 | not used: it cannot run UVM |
 
 ## 8. Checks
@@ -302,7 +303,7 @@ verified against the standard. ID tests compare identity relationships,
 not particular numeric IDs; string packer tests check round trips without
 prescribing an implementation's stream representation.
 
-The third increment adds 40 tests, bringing the suite to 101:
+The third increment added 40 tests, bringing the suite to 101:
 
 - Object pack/unpack through bit, byte, int and longint streams, including
   policy reuse and default selection, plus field-operation state and hook
@@ -326,8 +327,34 @@ checks use a custom emission string; they do not prescribe a built-in layout.
 Task-phase checks hold objections for positive delays and inspect child
 state after the child would otherwise have resumed.
 
-The second and third increments encountered six additional limitations of
-the pinned reference library, beyond its own `DEVIATIONS.md`:
+The fourth increment adds 32 tests, bringing the suite to 133:
+
+- Transaction lifecycle timestamps, hooks, identifiers, initiators and named
+  events, including the normative initial inactive state: six tests.
+- Report file selection and independent updates, severity-override precedence
+  and replacement, and shared/replaced handlers: six tests.
+- Registry convenience methods for relative instance overrides and type
+  override replacement: four tests.
+- Phase callback states, ready-to-end objections, iteration limits and state
+  waiters: four tests.
+- Objection event waiters for raised, dropped and all-dropped events, with
+  callback/drain timing and target-object isolation: four tests.
+- Real comparisons, ordered copy/compare histories, history reset and
+  integer-array packing boundaries: eight tests.
+
+Transaction cases disable recording before acceptance, keeping their
+observations independent of recording backends. Blocking phase/objection
+cases have watchdogs and positive delays before producer events. The phase
+state observer holds a run objection until it has observed main ending.
+Initialized procedural locals in this increment use automatic lifetime,
+following SystemVerilog 6.21, so their initialization executes at block entry.
+The phase-limit test samples its class default in an executable statement
+after static initialization. The previous 101 cases still need this explicit
+lifetime audit as remaining M1 work; reproduction counts alone do not settle
+the portability of their initialization order.
+
+Across the second through fourth increments, seven additional limitations
+of the pinned reference library were identified beyond its own `DEVIATIONS.md`:
 
 - With no override installed, `find_override_by_name` returns null even
   when creation can instantiate the original type. Clause 8.3.1.7.1
@@ -350,23 +377,27 @@ the pinned reference library, beyond its own `DEVIATIONS.md`:
   cleanup, while 10.5.1.5.1 describes the current objecting sources. The
   immediate post-drop list case preserves the standard's expected membership
   as a spec-only test.
+- `uvm_transaction::is_active` reports 1 immediately after construction,
+  although 5.4.2.12 requires 0 before the first begin. The initial inactive
+  state is retained as a spec-only test; matching lifecycle tests observe
+  active state only after a begin or end.
 
 These branches are not treated as reproduced fixed-release oracles. The
-post-drop list case is retained for diagnostics; the other library limitations
-are avoided by the matching test scenarios.
+post-drop list and initial transaction-state cases are retained for diagnostics;
+the other library limitations are avoided by the matching test scenarios.
 
-There are 99 tests with the `verilator@5.052` oracle tag and two spec-only
-cases. The second spec-only case checks 9.6: a child's pre-reset task must be
+There are 130 tests with the `verilator@5.052` oracle tag and three spec-only
+cases. Another spec-only case checks 9.6: a child's pre-reset task must be
 killed when that phase ends, but the pinned-library run on Verilator 5.052
 lets the child perform its delayed write during a later phase. The cause of
 this combined simulator/library difference remains unassigned.
 
-The two spec-only tests keep their normative expected files unchanged.
-Default Verilator runs and CI select the 99 tagged cases. An explicit run
-with `--all` includes the two spec-only cases and records them as `known`.
+The three spec-only tests retain their normative expected files.
+Default Verilator runs and CI select the 130 tagged cases. An explicit run
+with `--all` includes the three spec-only cases and records them as `known`.
 The runner stops each test at its first differing seed; their current
 Verilator records establish seed 1 differences, without claiming a seed 73
-result for those two tests.
+result for those three tests.
 
 The cited behavior and expectations have been checked against IEEE
 1800.2-2020. In particular, the clone tests observe independent copies,
