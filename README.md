@@ -8,7 +8,7 @@ Methodology, IEEE 1800.2-2020 (UVM). It is written for the
 [kirimasim-tests](https://github.com/kurochan001/kirimasim-tests), which checks
 the SystemVerilog language of IEEE 1800-2023.
 
-> **Status: M1 (core expansion in progress).** 27 tests, the pinned UVM
+> **Status: M1 (core expansion in progress).** 61 tests, the pinned UVM
 > fetcher, runners for kirimasim, Verilator and Ghost, metadata checks and
 > the Check workflow. The clause-by-clause M1 target is not complete;
 > see "Current M1 increment" below.
@@ -231,12 +231,14 @@ and 73; the same nine cases differ. The pinned-library smoke test does not
 match on that private executable, including with preprocessing enabled.
 These differences are recorded as failures. They do not change expectations
 or establish whether the cause is the simulator or its bundled library.
+With the second M1 increment, bundled runs match 31 of 61 tests with both
+seeds; the same 30 cases differ.
 
 | Simulator | Current status |
 | --- | --- |
-| kirimasim | local executable reports all 27 cases as unsupported at `uvm_object_wrapper` |
+| kirimasim | local executable reports all 61 cases as unsupported at `uvm_object_wrapper` |
 | Verilator 5.052 | builds and runs the library with `UVM_NO_DPI` |
-| Ghost (an unreleased simulator, as in kirimasim-tests) | bundled UVM: 18/27 match with both seeds; pinned UVM: smoke test differs |
+| Ghost (an unreleased simulator, as in kirimasim-tests) | bundled UVM: 31/61 match with both seeds; pinned UVM: smoke test differs |
 | Icarus Verilog 13.0 | not used: it cannot run UVM |
 
 ## 8. Checks
@@ -279,6 +281,46 @@ test. Expected observations are written before running the simulator:
 - Copier, comparer, printer and packer policies: two tests each. Printer
   tests capture policy inputs rather than built-in formatting; packer tests
   check values and sizes rather than an implementation-specific byte layout.
+
+The second increment adds another 34 tests, bringing the suite to 61:
+
+- Object ID lifetime, static/dynamic wrappers, copy policy selection and
+  comparison hook/results: eight tests.
+- Report action and verbosity precedence, including NO_ACTION suppression:
+  four tests.
+- Factory type/instance aliases and override/registration queries: six tests.
+- Common-phase lookup and ordering: two tests.
+- Objection drain time and re-raising during drain: two tests.
+- Configuration scope globs and blocked `wait_modified` notifications:
+  four tests, with watchdogs for the blocking cases.
+- String comparison/reset, string packing boundaries, nested deep copying
+  and copier-hook state, and printer controls: two tests each.
+
+The clause-number inventory also includes the previously omitted 6.3.5.2,
+verified against the standard. ID tests compare identity relationships,
+not particular numeric IDs; string packer tests check round trips without
+prescribing an implementation's stream representation.
+
+This increment encountered four additional limitations of the pinned
+reference library, beyond its own `DEVIATIONS.md`:
+
+- With no override installed, `find_override_by_name` returns null even
+  when creation can instantiate the original type. Clause 8.3.1.7.1
+  describes the wrapper of the object that would be created. The new
+  lookup tests install overrides; alias tests inspect created objects.
+- The default config_db implementation looks up field names literally,
+  so a configured field-name glob does not select matching names as
+  described by C.4.2.2.1. The new glob cases exercise scope patterns with
+  literal field names.
+- A nested field copied by a field macro still gets a distinct object
+  under UVM_SHALLOW, while 16.6.3 describes reference treatment of nested
+  objects. The new cases cover deep field-macro copying and the configured
+  copier/active-object state visible to a user hook.
+- `uvm_object::get_active_policy` from 5.3.14.3 is absent. The hook test
+  observes the copier's active-object stack through the APIs of 16.1.3.
+
+The differing or missing branches remain outside the fixed-library
+conformance oracles; this increment does not claim to cover them.
 
 The cited behavior and expectations have been checked against IEEE
 1800.2-2020. In particular, the clone tests observe independent copies,
