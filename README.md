@@ -8,10 +8,10 @@ Methodology, IEEE 1800.2-2020 (UVM). It is written for the
 [kirimasim-tests](https://github.com/kurochan001/kirimasim-tests), which checks
 the SystemVerilog language of IEEE 1800-2023.
 
-> **Status: M1 (core expansion in progress).** 229 tests, the pinned UVM
+> **Status: M2 (TLM 1 expansion started).** 253 tests, the pinned UVM
 > fetcher, runners for kirimasim, Verilator and Ghost, metadata checks and
-> the Check workflow. The clause-by-clause M1 target is not complete;
-> see "Current M1 increment" below.
+> the Check workflow. M1's clause-by-clause target remains open;
+> see "Current M1 increment" and "Current M2 increment" below.
 
 ## 1. What the suite checks
 
@@ -240,13 +240,15 @@ increment matches 49 of 157 tests with both seeds, with the same 108 differences
 The seventh increment matches 53 of 181 tests with both seeds, with the same
 128 differences. The eighth increment matches 54 of 205 tests with both
 seeds, with the same 151 differences. The ninth increment matches 57 of 229
-tests with both seeds, with the same 172 differences.
+tests with both seeds, with the same 172 differences. The first M2
+increment matches 73 of 253 tests with both seeds, with the same 180
+differences.
 
 | Simulator | Current status |
 | --- | --- |
-| kirimasim | local executable reports all 229 cases as unsupported at `uvm_object_wrapper` |
-| Verilator 5.052 | `UVM_NO_DPI`: 223 oracle cases match seeds 1 and 73; six spec-only cases retain known differences |
-| Ghost (an unreleased simulator, as in kirimasim-tests) | bundled UVM: 57/229 match with both seeds; pinned UVM: smoke test differs |
+| kirimasim | local executable reports all 253 cases as unsupported at `uvm_object_wrapper` |
+| Verilator 5.052 | `UVM_NO_DPI`: 247 oracle cases match seeds 1 and 73; six spec-only cases retain known differences |
+| Ghost (an unreleased simulator, as in kirimasim-tests) | bundled UVM: 73/253 match with both seeds; pinned UVM: smoke test differs |
 | Icarus Verilog 13.0 | not used: it cannot run UVM |
 
 ## 8. Checks
@@ -508,14 +510,14 @@ post-drop list, initial transaction state, severity-ID reset and invalid
 field-operation name cases are retained for diagnostics; the other library
 limitations are avoided by the matching test scenarios.
 
-There are 223 tests with the `verilator@5.052` oracle tag and six spec-only
-cases. Another spec-only case checks 9.6: a child's pre-reset task must be
-killed when that phase ends, but the pinned-library run on Verilator 5.052
+Across the suite, 247 tests have the `verilator@5.052` oracle tag and six
+cases are spec-only. Another spec-only case checks 9.6: a child's pre-reset
+task must be killed when that phase ends, but the pinned-library run on Verilator 5.052
 lets the child perform its delayed write during a later phase. The cause of
 this combined simulator/library difference remains unassigned.
 
 The six spec-only tests retain their normative expected files.
-Default Verilator runs and CI select the 223 tagged cases. An explicit run
+Default Verilator runs and CI select the 247 tagged cases. An explicit run
 with `--all` includes the six spec-only cases and records them as `known`.
 The runner stops each test at its first differing seed; their current
 Verilator records establish seed 1 differences, without claiming a seed 73
@@ -536,6 +538,36 @@ The library marks about 1,760 places with the clause of 1800.2 they implement
 (`@uvm-ieee 1800.2-2020 auto <clause>`). They can guide an inventory of the
 API, but they are the library's mapping, so a requirement is registered only
 after review.
+
+### Current M2 increment
+
+M2 starts with 24 TLM 1 tests in `tests/u12/`, bringing the suite to 253:
+
+- Bounded/unbounded FIFO capacity, occupancy and availability, arrival order,
+  non-consuming peeks, rejected writes, flush and independent storage:
+  eight tests, centered on 12.2.8.2 and the methods of 12.2.4.2.
+- Blocking FIFO get/put wait until data/space becomes available: two tests.
+- Analysis FIFO write order, unbounded capacity, interleaved reads/writes,
+  peeks, flush and independent instances: six tests for 12.2.8.3.
+- Analysis-port broadcast to two receivers, object-handle preservation,
+  zero-subscriber writes and forwarding through an analysis export:
+  four tests for 12.2.10.
+- Blocking/nonblocking put and combined get-peek ports connected to FIFO
+  exports: four tests for 12.2.5.1 and 12.2.8.1.3/12.2.8.1.4.
+
+Port tests run normal UVM elaboration before observing resolved bindings.
+Analysis receivers are inspected after write returns; no subscriber-call
+order is prescribed and subscribers do not mutate transaction objects.
+Blocking tests hold objections, use positive delays to observe the waiting
+state, keep shared values in the test object and include watchdogs. Stateful
+operations execute in separate statements before their results are printed.
+Unavailable-read cases observe return status and queue state; they do not
+claim to cover the required preservation of output arguments on failure.
+
+The first 24 M2 cases match Verilator 5.052 with seeds 1 and 73. M1's six
+spec-only cases and its remaining clause coverage are retained. Starting M2
+does not mark M1 complete. Sequences/sequencers, callbacks, TLM channels and
+TLM 2 remain future M2 work; this increment does not complete M2.
 
 ## 10. Rights and sources
 

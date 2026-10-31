@@ -1,0 +1,5 @@
+UT: initial size 2 used 0 empty 1 full 0
+UT: first_put 1 used 1 can_put 1
+UT: second_put 1 used 2 full 1 can_put 0
+UT: first_get 1 value 11 used 1 full 0
+UT: second_get 1 value 22 used 0 empty 1

@@ -1,0 +1,4 @@
+UT: available get 1 peek 1
+UT: peek 1 11 used 2
+UT: first_get 1 11 used 1
+UT: second_get 1 22 available 0 0
