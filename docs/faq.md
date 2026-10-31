@@ -355,7 +355,7 @@ warning. Both required behaviors remain in
 
 IEEE 1800.2-2020 defines getters/setters for selection mode and minimum/maximum
 random counts, plus `get_num_sequences_executed`. These seven methods are
-absent from the pinned library. Six new cases keep those standard calls and
+absent from the pinned library. Six cases keep those standard calls and
 cannot build; they have no runtime seed result. Legacy public fields are not
 substituted for required APIs. Passing registration and direct-selector cases
 does not establish execution-mode or execution-counter conformance.
@@ -369,3 +369,44 @@ The macro tests distinguish those controls, check factory overrides at
 creation, and trace parent hooks around randomization and driver delivery.
 The typed-sequencer declaration test uses an explicit cast before accessing
 the subtype member; it does not assume an automatic initialization policy.
+
+## Low-level sequence submission and transport delegation
+
+### Q33. How are grant, submission and item completion ordered?
+
+After establishing the item's context, a sequence calls `wait_for_grant`,
+then `send_request` without a simulation-time delay. It may then wait for
+completion. The default send does not rerandomize; setting its rerandomize
+argument to 1 requests that operation before driver delivery.
+
+Completion comes from `item_done` or implicitly from `get`. A waiter for a
+specific transaction ID must start before that item's acknowledgement;
+waiting afterwards can hang. The
+[two-request case](../tests/u14/test_sequence_wait_for_item_done_matches_each_explicit_transaction_id.sv)
+uses separate acknowledgements and samples while the second item is held.
+Completion notification does not itself supply a response transaction.
+
+### Q34. Which component handles a split master/slave imp call?
+
+The imp's request and response constructor arguments select the sibling
+implementations. The parent owns the imp but need not implement their
+transfer methods. A master puts requests and gets/peeks responses; a slave
+gets/peeks requests and puts responses.
+
+The [mixed master case](../tests/u12/test_master_combined_imp_routes_mixed_operations_to_split_implementations.sv)
+uses integer requests and string responses, mixes blocking/nonblocking calls
+and checks independent storage reuse. Separate cases exercise exports,
+availability and capacity. Failed reads do not assert an unspecified output.
+
+### Q35. Do ordinary TLM 2 exports connect the backward path automatically?
+
+Ordinary forward and backward paths are connected separately. A port can
+traverse an export chain to its imp, which invokes the selected implementation.
+The round-trip test explicitly binds both directions; it does not rely on
+socket connection side effects.
+
+The [custom forward case](../tests/u12/test_tlm2_nested_forward_exports_preserve_custom_transaction_and_phase_types.sv)
+uses a custom transaction and phase enum through two exports. It checks
+handle identity, typed phase-reference updates and annotations. Those generic
+binding results do not establish a legal base-protocol exchange for every
+phase or timing combination.

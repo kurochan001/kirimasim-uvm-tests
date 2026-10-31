@@ -58,6 +58,10 @@ object自身の件数、親へ伝搬した合計、objector一覧は異なる観
 **完了通知／応答** — `item_done`などによる要求の完了通知／sequenceへ返すデータです。
 `get`は要求を取り出すと同時に完了通知も行います。完了通知だけで、別の応答データも届いたとは判断できません。
 
+**grant／`send_request`／完了待ち** — itemを送信する許可／低水準の送信呼び出し／
+`item_done`または`get`の暗黙の完了通知を待つ操作です。grant後はシミュレーション時間を進めずに
+送信します。特定のtransaction IDの待機は、その完了通知より前に開始する必要があります。
+
 **transaction ID／sequence ID／`set_id_info`** — 応答を選択取得するときの要求・応答の識別子／
 sequenceへの配送に使う識別子／応答へ関連するIDをコピーするAPIです。
 テストは明示したtransaction IDを表示し、実装が割り当てるsequence IDの数値には依存しません。
@@ -146,6 +150,14 @@ hookを直接呼んでも子は実行されず、USER modeでの実行を検証�
 **fieldの`rand_mode`／子の乱数化enable** — 個々の乱数変数を変更できるか／子sequenceの操作で
 `randomize`自体を呼ぶかの制御です。fieldだけを無効にしても、乱数化のcallbackは呼ばれます。
 この2つの制御は別に検査します。
+
+**master／slave／分割imp** — TLM 1で要求を書き応答を読むinterface／要求を読み応答を書くinterface／
+要求側と応答側を別々の兄弟componentへ委譲するimpです。constructorの`req_imp`・`rsp_imp`引数で、
+親とは独立に実装componentを指定します。
+
+**通常のTLM 2 export／型parameter** — portと実装の間を中継する接続／
+その接続が扱うtransactionとnonblocking phaseの型です。forwardとbackwardは個別に接続します。
+汎用の型の伝搬とbase protocolの網羅は別の検査対象です。
 
 ## 実行と結果
 

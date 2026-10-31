@@ -2,7 +2,7 @@
 
 [English](history.md) · [README](../README.ja.md)
 
-M1と、M2の11回目（493件）までの追加作業を記録しています。以前の349件の時点は
+M1と、M2の12回目（517件）までの追加作業を記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -483,3 +483,32 @@ hookの直接呼び出しをUSER modeの実行結果とは扱わず、API欠落�
 driverの受信をtraceで区別します。factory置換は生成したsubtypeとcontextを確認し、fieldの乱数化を
 無効にしてもcallbackが呼ばれることを検査します。型付き変数は明示的なcast後にmemberへアクセスします。
 README・用語集・FAQ・既知差分を日英で更新しました。M1・M2とも目標の棚卸しは未完です。
+
+### M2の12回目の追加（2026-11-01）
+
+24件を追加し、全517件になりました。
+
+- TLM 1を8件：blocking・nonblocking・両対応のmaster／slave impを要求側・応答側の兄弟componentへ
+  委譲し、両対応exportでも同じ経路を検査します。intの要求とstringの応答で、容量・利用可否・
+  peekによる保持・領域の再利用を確認します。
+- 低水準のsequence APIを8件：driver要求までのgrant待ち、既定の乱数化なし送信、明示的な再乱数化、
+  完了通知の待機、transaction ID別の完了、`get`による暗黙の完了、grant時のlock要求、
+  現在のsequencerへの優先度・送信元の伝搬です。
+- TLM 2を8件：blocking exportの完了待ち、階層経路での時間を進めないannotation更新、
+  異なるpayloadの反復、nonblockingの両方向のphase更新、個別に接続した往復経路、
+  独自transaction・phase型を扱う両方向の階層exportです。
+
+新規24件はVerilator 5.052のseed 1・73で一致しました。指紋を照合した既存493件と合算し、
+全体は484件一致・既知差分33件です。既知差分は実行時のseed 1差分26件と、seed未実行の
+API欠落によるビルド失敗7件のままです。Ghostの同梱版は各seedで107件一致・410件不一致で、
+不一致になるテストも同じです。kirimasimは510件が`uvm_object_wrapper`未実装、7件がAPI欠落でFAILです。
+
+分割impの親には転送methodを設けず、constructorで要求・応答それぞれの兄弟FIFOを選びます。
+読み出し失敗時の未規定の出力値は検査しません。低水準の送信はgrant後に時間を進めず呼び、
+ID指定の完了待ちは対応する完了通知前に開始します。正の遅延で待機中の状態を観測し、
+grantの観測用overrideは通常のsequencerの仲裁へ委譲します。
+
+通常のTLM 2 exportは親から子への階層を使い、往復はforward・backwardを個別に接続します。
+handleの共有とcanonical annotationを観測し、blocking呼び出しではtargetが待機している途中を検査します。
+独自phase型は汎用の型の伝搬を検査し、base protocolのやり取りが成立したとは主張しません。
+README・用語集・FAQと現在の集計を日英で更新しました。M1・M2とも目標の棚卸しは未完です。

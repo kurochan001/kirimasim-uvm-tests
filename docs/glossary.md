@@ -81,6 +81,11 @@ for example `item_done` / data returned to its sequence. `get` acknowledges
 a request implicitly. Acknowledgement alone does not mean a separate response
 was delivered.
 
+**Grant / `send_request` / completion wait** — Permission to submit an item /
+the low-level submission call / waiting for `item_done` or implicit `get`
+acknowledgement. Submission follows a grant without a simulation-time delay.
+A waiter for a specific transaction ID must start before its acknowledgement.
+
 **Transaction ID / sequence ID / `set_id_info`** — The request/reply identifier
 used for selective response retrieval / the sequence-routing identity / the
 API copying the relevant IDs into a response. Tests print explicitly assigned
@@ -158,6 +163,16 @@ requires a fatal report. Extensions are outside the default packed fields.
 **TLM / port / export / implementation** — Transaction-level modeling /
 a caller-side interface / a forwarding interface / the endpoint implementing
 the interface. Normal elaboration resolves bindings before traffic is observed.
+
+**Master / slave / split imp** — A TLM 1 interface that puts requests and reads
+responses / one that reads requests and puts responses / an imp delegating
+those directions to separate sibling components. The `req_imp` and `rsp_imp`
+constructor arguments select instances independently of the parent.
+
+**Ordinary TLM 2 export / type parameters** — A forwarding connection between
+a port and an implementation / the transaction and nonblocking phase types
+carried by that connection. Forward and backward paths are connected
+separately. Generic type propagation is distinct from base-protocol coverage.
 
 **FIFO / blocking / nonblocking** — An arrival-ordered queue / an operation
 that can wait for data or space / an operation that reports availability or

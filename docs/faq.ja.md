@@ -300,7 +300,7 @@ item完了待ちが戻ります。push driverはpull portの`item_done`を使い
 
 IEEE 1800.2-2020には、選択mode・乱数化回数の下限と上限を設定・取得するAPIと、
 `get_num_sequences_executed`があります。固定版にはこの7つのmethodがありません。
-新規6件は規格の呼び出しを保持するためビルドできず、実行時のseed結果を持ちません。
+6件は規格の呼び出しを保持するためビルドできず、実行時のseed結果を持ちません。
 必須APIを旧来の公開fieldへ置き換えません。登録や選択hookの直接呼び出しが成功しても、
 実行modeや実行回数の適合を確認できたことにはなりません。
 
@@ -311,3 +311,36 @@ fieldの`rand_mode(0)`はその変数の値を維持しますが、itemの`rando
 テストはこの違い、生成時のfactory置換、乱数化とdriver転送を囲む親のhook順序を確認します。
 型付きsequencerの宣言を検査するケースは、明示的なcast後にsubtypeのmemberへアクセスし、
 自動的な初期化方針を仮定しません。
+
+## 低水準のsequence送信とtransportの委譲
+
+### Q33. grant・送信・item完了はどの順に行いますか
+
+itemのcontextを設定した後、`wait_for_grant`を呼び、シミュレーション時間を進めずに
+`send_request`を呼びます。その後、必要なら完了を待ちます。既定の送信は乱数化せず、
+rerandomize引数を1にした場合はdriverへ渡す前に乱数化します。
+
+完了は`item_done`、または`get`の暗黙の通知で伝わります。特定のtransaction IDの待機は
+その完了通知より前に開始する必要があり、後から待つと停止したままになる場合があります。
+[2要求のケース](../tests/u14/test_sequence_wait_for_item_done_matches_each_explicit_transaction_id.sv)は
+個別に完了を通知し、2つ目のitemを保持している間の状態を観測します。完了通知自体は応答を供給しません。
+
+### Q34. 分割したmaster／slave impの呼び出しはどのcomponentが処理しますか
+
+impのconstructorの要求側・応答側引数が、実装する兄弟componentを選びます。
+親はimpを所有しますが、転送methodを実装する必要はありません。
+masterは要求を書いて応答を読み、slaveは要求を読んで応答を書きます。読み出しにはpeekも含みます。
+
+[masterの混在操作ケース](../tests/u12/test_master_combined_imp_routes_mixed_operations_to_split_implementations.sv)は
+要求をint、応答をstringとし、blocking・nonblocking操作と独立した領域の再利用を検査します。
+別のケースでexport経由、利用可否、容量を確認します。失敗した読み出しの未規定の出力値は検査しません。
+
+### Q35. 通常のTLM 2 exportもbackwardを自動接続しますか
+
+通常のforward・backward経路は個別に接続します。portからexportの連鎖を通ってimpへ到達すると、
+指定した実装が呼ばれます。往復のテストは両方向を明示的に接続し、socket接続の副作用には頼りません。
+
+[custom型のforwardケース](../tests/u12/test_tlm2_nested_forward_exports_preserve_custom_transaction_and_phase_types.sv)は
+独自のtransactionとphase enumを2つのexportへ渡します。handleの同一性、型付きphase参照の更新、
+annotationを確認します。この汎用接続の結果だけで、あらゆるphase・timingの組み合わせが
+base protocolとして合法であることを示すものではありません。

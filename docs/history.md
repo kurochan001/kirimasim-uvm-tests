@@ -2,8 +2,8 @@
 
 [日本語](history.ja.md) · [README](../README.md)
 
-These records cover the M1 and M2 increments through the eleventh M2 increment
-(493 tests). The earlier 349-test checkpoint is
+These records cover the M1 and M2 increments through the twelfth M2 increment
+(517 tests). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -640,3 +640,42 @@ Factory probes inspect the created subtype and context; field-disabled
 randomization still checks its callback. The typed declaration probe uses an
 explicit cast before subtype access. Both README languages, glossary, FAQ
 and known differences are updated. M1 and M2 remain open.
+
+### Twelfth M2 increment (2026-11-01)
+
+This increment adds 24 cases, bringing the suite to 517:
+
+- Eight TLM 1 cases: blocking/nonblocking and combined master/slave imps
+  delegate to distinct request/response siblings; combined exports preserve
+  that routing. Integer requests and string responses exercise capacity,
+  availability, peek retention and storage reuse.
+- Eight low-level sequence cases: waiting for driver demand, default send
+  without rerandomization, explicit rerandomization, delayed acknowledgement,
+  selective transaction completion, implicit completion through `get`, a
+  grant lock request and forwarding priority/origin to the current sequencer.
+- Eight TLM 2 cases: blocking export completion, nested zero-wait annotation,
+  repeated payloads, nonblocking forward/backward phase updates, a round trip
+  with both paths explicitly connected, and nested exports carrying custom
+  transaction/phase types in each direction.
+
+All 24 new cases match Verilator 5.052 at seeds 1 and 73. After combining the
+fresh increment with the fingerprint-verified 493-case baseline, the suite
+has 484 matches and 33 known differences. The known records remain 26 runtime
+seed 1 differences and seven missing-API build failures with no runtime seed.
+Ghost bundled results have 107 matches and 410 failures at each seed, with
+identical failing sets. kirimasim has 510 unsupported cases at
+`uvm_object_wrapper` and seven missing-API failures.
+
+The split imp's parent supplies no transfer implementation: its constructor
+selects sibling FIFO components for the two directions. Failed reads do not
+assert unspecified output arguments. Low-level send follows grant without
+consuming time; explicit-ID waits start before the corresponding completion.
+Positive acknowledgement delays expose the waiting state, and the grant
+observer delegates to real sequencer arbitration.
+
+Ordinary TLM 2 exports use normal parent-to-child hierarchy. The round trip
+connects forward and backward paths separately. Targets expose shared handle
+identity and canonical annotations, while the blocking test samples inside
+a positive target delay. Custom phase types test generic propagation rather
+than claiming a base-protocol exchange. Both README languages, glossary, FAQ
+and current result counts are updated. M1 and M2 remain open.
