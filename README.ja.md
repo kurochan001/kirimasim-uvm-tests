@@ -14,8 +14,8 @@ IEEE 1800.2-2020（UVM）の動作を確かめる、シミュレータ向けの�
 ライブラリの制約は[既知差分](docs/known-differences.ja.md)を参照してください。
 以前の追加作業と測定は[開発履歴](docs/history.ja.md)に保存し、このREADMEは現時点の情報を説明します。
 
-> **状態：M3を開始。** 13の章・付録ディレクトリにシミュレーションテスト613件があります。
-> `verilator@5.052`のoracle付きが560件、specのみが53件です。
+> **状態：M3を開始。** 13の章・付録ディレクトリにシミュレーションテスト637件があります。
+> `verilator@5.052`のoracle付きが582件、specのみが55件です。
 > 全件が`:spec_check: ai`で、人による照合の記録はまだありません。
 > M1・M2の条項ごとの目標は未達のまま、M3のモデル内の検査を開始しました。
 
@@ -35,14 +35,13 @@ phase、objection、configurationを検査します。M2の360件はTLM 1のFIFO
 request/response channel、TLM 2のpayload・拡張・一部のsocket transport、sequenceの実行・
 応答・操作マクロとpull／push sequencerの制御、callbackの登録・継承・走査・途中終了を追加しています。
 
-M3の初回24件は第18章のregister field・register・block・address mapです。
+M3の48件は第18章のregister field・register・block・memory・address mapです。
 DUTへのアクセスやDPIを使わず、モデル内の値とアドレスの計算を検査します。
 
-M3の新規24件のうち20件がVerilatorの両seedで一致しました。lock前のfield名検索とmapの幅・変換結果の
-4件は、規格の期待値をspecのみで保持します。
-access policy、resetの種類、desired／mirrored値、fieldの組み立て、blockの再帰reset、
-mapの単位・endian順序・再配置・submapを
-対象にします。モデル内の検査範囲は[FAQ](docs/faq.ja.md#レジスタモデルの基本)で説明します。
+直近24件はmemoryのlocationとアクセス経路、READ／WRITE predictionのpolicy、再配置、
+map単位のreset、検索と設定の条件を追加します。22件がVerilatorの両seedで一致し、
+locationごとのmemory offsetと単一mapでの実効accessの2件はspecのみで保持します。
+範囲と解釈は[FAQ](docs/faq.ja.md#memorypredictionmapの制御)で説明します。
 
 対象を絞った動作検査であり、各段階で各条項2件以上という目標に対する棚卸しが残っています。
 条項の引用には準備に使うAPIや構造上の参照も含まれるため、引用件数だけでは要求の網羅は示せません。
@@ -50,24 +49,26 @@ mapの単位・endian順序・再配置・submapを
 
 ## 現在の実行結果
 
-最新のローカル記録は2026-11-01の613件を対象にします。追加24件の新規実行と、
-[6beb460](https://github.com/kurochan001/kirimasim-uvm-tests/commit/6beb460c46a1fed27954bf4fb0b5009a5b7a8a86)
-にある既存589件の結果を合算し、入力・ランナーの指紋とシミュレータ設定が一致することを確認しています。
+最新のローカル記録は2026-11-01の637件を対象にします。Verilatorとkirimasimは追加24件の新規実行と、
+[75af214](https://github.com/kurochan001/kirimasim-uvm-tests/commit/75af214aa8d171e0244ca2fc2a299e6b423da348)
+にある既存613件の結果を合算し、入力・ランナーの指紋とシミュレータ設定が一致することを確認しています。
+Ghostの同梱UVMは実行ファイルの指紋が変わったため、実行ファイルとprofileを非公開の一時コピーに固定し、
+全637件をseed 1・73で再測定しました。
 
 | シミュレータ | 観測結果 |
 | --- | --- |
-| Verilator 5.052・固定版UVM・`UVM_NO_DPI` | 560件がseed 1・73とも一致。specのみの46件はseed 1で差分。別の7件はライブラリAPI欠落でビルド不可 |
-| kirimasim・固定版UVM | 606件が`uvm_object_wrapper`未実装。7件は先にライブラリAPI欠落を検出してFAIL |
-| Ghost・同梱UVM | 各seedで116件一致・497件不一致。seed 1・73で不一致になるテストも同じ |
-| Ghost・固定版UVM | スモークテストは不一致。全件を固定版で実行した結果はない |
+| Verilator 5.052・固定版UVM・`UVM_NO_DPI` | 582件がseed 1・73とも一致。specのみの48件はseed 1で差分。別の7件はライブラリAPI欠落でビルド不可 |
+| kirimasim・固定版UVM | 630件が`uvm_object_wrapper`未実装。7件は先にライブラリAPI欠落を検出してFAIL |
+| Ghost・同梱UVM | 各seedで134件一致・503件不一致。seed 1・73で不一致になるテストも同じ |
+| Ghost・固定版UVM | 過去の実行ファイルではスモーク不一致。今回のbuildの固定版測定は未実施 |
 | Icarus Verilog 13.0 | このUVMスイートでは使わない |
 
-Verilatorは各テストで最初の不一致seedで停止します。実行時の既知差分46件はseed 1の記録で、
+Verilatorは各テストで最初の不一致seedで停止します。実行時の既知差分48件はseed 1の記録で、
 seed 73の結果は示しません。API欠落の7件（時刻APIの1件とsequence libraryの6件）には実行時のseed結果がありません。
 `known`・`unsupported`は成功に数えません。[既知差分](docs/known-differences.ja.md)を参照してください。
 
 CheckバッジはGitHub Actionsの状態を示し、上記のローカル結果とは別です。
-Checkはツール・メタデータ・ライブラリと、oracle付き560件のVerilator実行を検査します。
+Checkはツール・メタデータ・ライブラリと、oracle付き582件のVerilator実行を検査します。
 Ghostとkirimasimは実行しません。このリポジトリにはNightlyや結果の自動公開はありません。
 
 ## 確かめること
@@ -239,7 +240,7 @@ Ghostの同梱モードでは供給されたUVMを使います。ステータス
   `UVM_NO_DPI`のサポートを削除するかもしれない、という警告も出します。
   正規表現やバックドアに依存するテストは`:uvm_dpi: yes`とし、DPIを読み込めるシミュレータでだけ実行します
   （`UVM_HDL_NO_DPI`ならバックドアだけを外せます）。
-- 現在の613件はすべて`UVM_NO_DPI`で実行します。`:uvm_dpi: yes`はこのマクロを外す指定で、
+- 現在の637件はすべて`UVM_NO_DPI`で実行します。`:uvm_dpi: yes`はこのマクロを外す指定で、
   C/C++のDPI実装を自動でビルド・リンクする指定ではありません。
   現在のVerilatorランナーはDPIのC/C++ソースを追加しません。
 - `:uvm_defines:`で`UVM_ENABLE_DEPRECATED_API`を指定できますが、現在は付録Hのテストも、
@@ -265,7 +266,7 @@ python3 tools/run_verilator.py --seeds 1 73 --build-jobs 2 -j 2 --json out/veril
 すべてのseedで一致した場合だけ成功です。従来の`--seed N`も使えます。
 結果JSONのconfigurationには、指定に応じて`seed`か`seeds`を記録します。
 
-Verilatorの既定の対象はoracle付き・2値の560件です。`--all`を付けるとspecのみの53件も含めます。
+Verilatorの既定の対象はoracle付き・2値の582件です。`--all`を付けるとspecのみの55件も含めます。
 oracleのないテストの不一致は`known`で、コマンドを失敗させません。oracle付きの不一致は失敗です。
 テストのパスを明示した場合は、そのテストだけが対象です。スモークテスト1件の実行例です。
 
@@ -313,7 +314,7 @@ python3 -m unittest discover -s tools -p 'test_*.py'
 python3 tools/lint_metadata.py
 ```
 
-現在のツールの単体テストは41件、メタデータの対象はシミュレーションテスト613件です。
+現在のツールの単体テストは41件、メタデータの対象はシミュレーションテスト637件です。
 [Check](.github/workflows/check.yml)は`main`へのpush・pull request・手動実行で動きます。
 別のVerilatorジョブは5.052・`UVM_NO_DPI`・seed 1と73でoracle付きのテストを実行し、
 各モデルを一度ビルドして2回使います。Checkの成功はその検査の成功を示し、
@@ -326,7 +327,7 @@ UVMの全要求や全シミュレータの成功を示すものではありま�
 | M0 | 取得・実行・メタデータとツールの検査、Check、スモークテスト | 基盤を実装済み |
 | M1 | 基本クラス・policy・factory・phase・objection・設定・reporting | 229件。各条項2件以上という目標の棚卸しは未完 |
 | M2 | sequence・sequencer・TLM・callback | 360件。同じ目標へ拡充中 |
-| M3 | レジスタ層（17〜19、付録E） | 開始。第18章のモデル内の検査24件。転送などは今後追加 |
+| M3 | レジスタ層（17〜19、付録E） | 第18章のモデル内の検査48件。転送などは今後追加 |
 | M4 | 要求台帳とカバレッジ | 計画段階。カバレッジを主張する前に分母を承認 |
 
 M2では、キュー上の所有・停止・default resourceの残りの条件、callbackの動作、
@@ -334,7 +335,7 @@ TLM 2のより広いprotocol・timing・socketの組み合わせなどが残っ�
 注記と配送の検査だけでprotocolやtiming全体を確認したとは扱いません。ライブラリの条項注記は
 棚卸しの手がかりになりますが、規格との照合が必要です。M2開始によってM1完了とは扱いません。
 
-M3を開始してもM1・M2の目標は未完として管理します。M3にはmemory model、追加のaccess policyやmapの条件、
+M3を開始してもM1・M2の目標は未完として管理します。M3にはmemoryの転送やvirtual register、追加のaccess policyやmapの条件、
 adapter、predictor、frontdoorの転送、backdoor／DPIの環境、callback、付録Eのsequenceが残っています。
 モデル内の値と物理アドレス配列の検査だけでは、実際のDUTとのbus転送は示せません。
 

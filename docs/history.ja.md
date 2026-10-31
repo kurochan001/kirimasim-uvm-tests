@@ -2,7 +2,7 @@
 
 [English](history.md) · [README](../README.ja.md)
 
-M1・M2の15回目と、M3初回（613件）までの追加作業を記録しています。以前の349件の時点は
+M1・M2の15回目と、M3の2回目（637件）までの追加作業を記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -629,3 +629,37 @@ registerの複数map登録ではmap引数を明示し、ライブラリが公表
 日英のREADMEをM3開始の状態にし、用語集・FAQにモデル値・mapの単位・今後の転送検査を追記しました。
 既知差分の規格に基づく期待値を維持し、ツールの単体テスト、メタデータ、ライブラリの整合性、
 実行証拠の指紋、ドキュメントのリンクを確認しました。全件が`spec_check: ai`で、M1・M2・M3とも未完です。
+
+## M3の2回目：memory・prediction・mapの制御（2026-11-01）
+
+24件を追加し、全637件、M3は48件になりました。M1は229件、M2は360件で、3段階とも目標は未完です。
+
+- memoryを8件：寸法と所属map、locationごとのoffset・アドレス、幅の広いbig endianとword単位のlocation、
+  再配置、実効access、独立した2つのinterfaceへの登録です。
+- fieldのpredictionを8件：RC／RSのread、W1C／W1S／W1T・W0C／W0Sのwrite、
+  SOFT／HARD resetをまたぐwrite-onceの保護です。
+- mapを8件：register／submapの再配置、既定のSOFT resetと範囲、拒否時のアドレス配列の維持、
+  同じアドレスのRO／WO、無効なsubmap、権限の矛盾、mapごとのauto-predict flagです。
+
+新規22件はVerilator 5.052のseed 1・73で一致しました。2件はmemoryの規格に基づく期待値を保持します。
+location引数を使わないoffsetと、単一mapのRO制限を反映しない実効accessです。
+前者の外部アドレスは正しく進みます。指紋を照合した既存613件と合算し、全体は582件一致・既知差分55件です。
+既知差分は実行時のseed 1差分48件と、seed未実行のAPI欠落7件です。
+Ghostの同梱版は各seedで134件一致・503件不一致で、不一致になるテストも同じです。
+kirimasimは630件が未対応、7件がAPI欠落でFAILです。
+
+Ghostは既存記録から実行ファイルの指紋が変わったため、同梱版の全637件を両seedで再測定しました。
+最初の再測定は途中の更新で結果を破棄し、採用する記録は実行ファイルとprofileを非公開の一時コピーに固定しました。
+過去の固定版スモークは履歴であり、今回のbuildの固定版測定としては扱いません。
+Verilatorとkirimasimは既存記録と互換の実行条件を確認しています。
+
+権限とaccessのケースは、18.6.4.5の非共有memoryのRW権限と、18.6.4.6の実効accessを分けて観測します。
+2つのinterfaceのmemory登録は、add_memの引用条項の期待値にエラーなしで一致しました。
+この構成だけでは配布物の複数mapの注記や共有mapの階層を解決したとは扱いません。
+memoryのmirrorやDUTのデータは使わず、READ／WRITE predictionは観測値を模擬します。
+auto-predict flagは実転送時の自動predictionを示しません。再配置の検索はroot baseを0にし、
+不正入力では元の重大度と必須の戻り値・出力の維持を観測します。
+
+日英のREADME・用語集・FAQ・既知差分を更新しました。ツールの単体テスト、メタデータ、
+固定UVMの整合性、実行証拠の指紋、ドキュメントのリンクを確認しました。
+全件がUVM_NO_DPI・spec_check: aiで、deprecated APIを要求しません。M1・M2・M3とも未完です。

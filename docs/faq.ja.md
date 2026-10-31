@@ -154,7 +154,7 @@ Ghostはさらに実行ファイル・profile・供給されたライブラリ�
 
 ### Q16. M1・M2・M3は完了していますか。件数は何の網羅を示しますか
 
-M1・M2には条項ごとの目標に未達があります。M3はレジスタモデル内の24件で開始した段階で、未完です。
+M1・M2には条項ごとの目標に未達があります。M3はレジスタモデル内の48件まで追加した段階で、未完です。
 次の段階の開始によって、それまでの段階が完了したとは扱いません。
 範囲と残りの作業は[進め方](../README.ja.md#進め方)にあります。
 件数はテストの本数で、規格の全要求や組み合わせの棚卸しではありません。
@@ -496,7 +496,53 @@ field名検索とmapの幅・変換結果の4件はspecのみで保持し、lock
 構築、fieldのpolicyと配置、resetの種類、desired／mirrored値、再帰resetとlock、
 mapの単位・権限・endian順序・再配置・階層を検査します。
 
-memory model、追加のaccess policy、adapter、predictor、frontdoorの転送、backdoor／DPIの環境、
-register callback、付録Eのsequenceは今後の作業です。registerの複数map登録ではmap引数を明示します。
-ライブラリが公表するmemoryの複数map登録とnull時のmap解決の差は[既知差分](known-differences.ja.md)に記録します。
+2回目の追加で、下記のmemory・policy・mapのケースを追加しました。
+memoryの転送やvirtual register、追加のpolicy／mapの条件、adapter、predictor、frontdoorの転送、
+backdoor／DPIの環境、register callback、付録Eのsequenceは今後の作業です。
+register・memoryのmap検索では引数を明示します。配布物の複数mapに関する注記とnull時のmap解決は
+[既知差分](known-differences.ja.md)で説明します。
 全件が`spec_check: ai`で、初回の追加をレジスタ層の要求の網羅としては扱いません。
+
+## memory・prediction・mapの制御
+
+### Q48. memoryもregisterのようにmirrorを持ちますか。offsetは何を表しますか
+
+`uvm_mem`は連続したlocationを表しますが、全locationのmirror値は保持しません。
+構築時にlocationの数とbit幅を記録し、1 locationのbyte幅は端数を切り上げます。
+現在のmemoryテストは配置とアドレスを調べ、memoryのデータを読み書きしません。
+
+location番号が変わるとlocal offsetと外部アドレスも変わります。byte単位の2 byte locationは2ずつ、
+4 byte bus上のword単位の4 byte locationは1ずつ進みます。
+固定版の`get_offset`はlocationを使わないため、[locationのoffset検査](../tests/u18/test_mem_location_offsets_include_the_location_index_stride.sv)は
+規格の期待値を保持し、外部アドレスが進むことも別に観測します。
+
+非共有memoryの権限問い合わせは18.6.4.5のRWです。実効accessの問い合わせは別で、18.6.4.6に従って
+指定mapの制限を反映します。[単一mapのaccess検査](../tests/u18/test_mem_intrinsic_readonly_policy_and_map_rights_are_distinct.sv)は
+この区別を既知差分として保持します。
+
+[2つのinterfaceのケース](../tests/u18/test_mem_two_interface_maps_preserve_membership_addresses_and_rights.sv)では、
+明示したmapへの所属、独立したアドレスとRO／WO権限、エラーがないことを検査します。
+この結果が対象とするのは兄弟mapの構成です。共有mapの階層や配布物の複数mapの注記は、別途照合が必要です。
+
+### Q49. READ／WRITE predictionはbus転送を実行しますか
+
+predictionは計算値や観測値をモデルへ渡す操作です。`UVM_PREDICT_DIRECT`はpolicyの効果を適用せず値を写し、
+READ／WRITEは観測した操作に応じた効果を適用します。今回の検査は観測値を模擬し、driverやDUTは動かしません。
+
+READ predictionは読み出し後のRCを0、RSを全bit 1にします。
+WRITE predictionはW1C／W1S／W1Tで1のbitを消去・設定・反転し、W0C／W0Sでは0のbitを使います。
+2回の操作で前の状態を引き継ぐことも確認します。
+[write-onceのケース](../tests/u18/test_reg_field_write_once_prediction_rearms_only_after_hard_reset.sv)は、
+SOFT resetが設定値を復元しても書き込み保護を維持し、HARD resetが次の初回書き込みを許すことを調べます。
+各ケースでdesiredとmirroredの両方を観測します。
+
+### Q50. 新しいmapの制御では何を検査しますか
+
+registerとmemoryの再配置で、物理アドレスとlock済みの検索結果が更新されることを検査します。
+検索のケースはroot baseを0にします。同じアドレスのRO／WO registerは読み書きの方向で選び分け、
+fieldとmapの権限が矛盾する場合はNOACCESSになります。いずれもbus転送を伴わないモデルの問い合わせです。
+
+mapの`reset()`の既定値はSOFTで、register・fieldのHARDとは異なります。
+[map単位のreset](../tests/u18/test_reg_map_reset_defaults_to_soft_and_preserves_other_maps_registers.sv)では、
+別mapのregisterが変わらないことも確認します。不正入力の検査は元の重大度、必須の戻り値、呼び出し元の配列の維持を観測します。
+auto-predictの検査はmapごとのmode flagだけを扱い、実際の読み書きに伴う自動predictionは今後の作業です。

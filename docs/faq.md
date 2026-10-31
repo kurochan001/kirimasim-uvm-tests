@@ -172,7 +172,7 @@ a claim that every test was rebuilt together.
 
 ### Q16. Are M1, M2 or M3 complete, and what does the test count cover?
 
-M1 and M2 still have open clause targets. M3 has started with 24 model-only
+M1 and M2 still have open clause targets. M3 now has 48 model-only
 register-layer cases; it is also incomplete. Starting a stage does not complete
 the preceding stages.
 The [plan](../README.md#plan) identifies current scope and remaining work.
@@ -593,9 +593,67 @@ It also checks construction, field policies and layout, reset kinds,
 desired/mirrored values, recursive reset and locking, and map
 units, rights, endian ordering, relocation and hierarchy.
 
-Memory models, broader access policies, adapters, predictors, frontdoor
-traffic, backdoor/DPI setups, register callbacks and annex E sequences remain
-future work. Register multi-mapping uses explicit map arguments. The declared
-memory multi-map and null-map resolution differences are documented in
+The second increment adds the memory, policy and map cases described below.
+Memory transfers and virtual-register models, broader policy/map conditions,
+adapters, predictors, frontdoor traffic, backdoor/DPI setups, callbacks and
+annex E sequences remain future work. Register and memory map queries use
+explicit arguments. The release's multiple-map note and null-map resolution
+are discussed in
 [known differences](known-differences.md). All cases retain `spec_check: ai`;
 the initial batch is not a reviewed register-layer coverage inventory.
+
+## Memory, prediction and map controls
+
+### Q48. Are memories mirrored like registers, and what do their offsets mean?
+
+`uvm_mem` describes contiguous locations without storing a mirror for every
+location. Construction records the number and bit width of locations; each
+location's byte width rounds up independently. Current memory tests inspect
+layout and addresses, without reading or writing memory data.
+
+The location index selects a different local offset and external address.
+Byte-addressed two-byte locations advance by two address units; word-addressed
+four-byte locations on a four-byte bus advance by one. The pinned library
+ignores the location in `get_offset`, so its
+[location-offset case](../tests/u18/test_mem_location_offsets_include_the_location_index_stride.sv)
+retains the normative expectation even though external addresses advance.
+
+For an unshared memory, the rights query is RW under 18.6.4.5. Effective
+access is a separate query: 18.6.4.6 requires the supplied map's restrictions.
+The [single-map access case](../tests/u18/test_mem_intrinsic_readonly_policy_and_map_rights_are_distinct.sv)
+retains that distinction as a known difference.
+
+A [two-interface case](../tests/u18/test_mem_two_interface_maps_preserve_membership_addresses_and_rights.sv)
+checks explicit map membership, independent addresses and RO/WO rights with
+no errors. This result concerns that sibling-map setup; shared-map hierarchy
+behavior and the release's multiple-map note need separate review.
+
+### Q49. Do READ and WRITE predictions perform bus transactions?
+
+No. A prediction supplies a computed or observed value to the model.
+`UVM_PREDICT_DIRECT` copies it without access-policy effects; READ and WRITE
+predictions apply the effects associated with that observed operation.
+The new cases synthesize observations, without executing a driver or DUT.
+
+READ prediction leaves RC state cleared and RS state set after the sampled
+read. WRITE prediction applies selected-bit clearing, setting or toggling
+for W1C/W1S/W1T and zero-selected changes for W0C/W0S. Two successive writes
+check accumulated state. The
+[write-once case](../tests/u18/test_reg_field_write_once_prediction_rearms_only_after_hard_reset.sv)
+checks that a SOFT reset restores its configured value while retaining write
+protection, and HARD reset permits a new first write. Desired and mirrored
+values are observed separately in every case.
+
+### Q50. What do the new map controls establish?
+
+Register and memory relocation refresh both physical addresses and locked
+lookup results. Lookup probes use a zero root base. A shared RO/WO address
+selects a different register for reads and writes, and conflicting field/map
+permissions produce NOACCESS. These are model queries, without bus traffic.
+
+Map `reset()` defaults to SOFT, while register and field reset default to HARD.
+The [scoped reset case](../tests/u18/test_reg_map_reset_defaults_to_soft_and_preserves_other_maps_registers.sv)
+checks that another map's register stays unchanged. Negative probes observe
+original warning/error severities, required return values and an unchanged
+caller array. The auto-predict case checks independent mode flags only;
+automatic prediction after a real register read/write remains future work.

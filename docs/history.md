@@ -2,8 +2,8 @@
 
 [日本語](history.ja.md) · [README](../README.md)
 
-These records cover M1, fifteen M2 increments and the initial M3 increment
-(613 tests). The earlier 349-test checkpoint is
+These records cover M1, fifteen M2 increments and two M3 increments
+(637 tests). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -840,3 +840,50 @@ model values, map units and the remaining interaction work, and known
 differences retain their normative expectations. Tool tests, metadata,
 library integrity, evidence fingerprints and documentation links were checked.
 All tests remain `spec_check: ai`; M1, M2 and M3 remain open.
+
+## Second M3 increment: memory, prediction and map controls (2026-11-01)
+
+This increment adds 24 cases, bringing the suite to 637 and M3 to 48.
+M1 remains at 229 and M2 at 360; all three stages retain open targets.
+
+- Eight memory cases: dimensions, map membership, indexed offsets and
+  addresses, wide big-endian and word-addressed locations, relocation,
+  effective access and registration on two independent interface maps.
+- Eight field prediction cases: RC/RS reads, W1C/W1S/W1T and W0C/W0S writes,
+  and write-once protection across SOFT versus HARD reset.
+- Eight map cases: register/submap relocation, scoped default SOFT reset,
+  preserved address arrays on rejection, shared RO/WO addresses, invalid
+  submap lookup, conflicting permissions and independent auto-predict flags.
+
+Twenty-two additions match Verilator 5.052 at seeds 1 and 73. Two retain
+normative memory expectations at seed 1: location-specific offsets and
+single-map effective access. The first ignores the location despite correct
+external addresses; the second omits the map's RO access restriction.
+Combined with the fingerprint-verified 613-case baseline, there are 582 matches
+and 55 known differences: 48 runtime differences at seed 1 and seven missing-API
+build failures without runtime seeds. Ghost bundled results have 134 matches
+and 503 failures per seed with identical failing sets. kirimasim has 630
+unsupported cases and seven missing-API failures.
+
+The executable fingerprint for Ghost changed since the baseline. All 637
+cases were therefore rerun at both seeds for its bundled library. A first
+attempt discarded results when execution inputs changed again. The accepted
+run uses a private snapshot of the executable and profiles. Its older
+pinned-library smoke result is historical; the sampled build has no
+pinned-mode measurement. Verilator and kirimasim retain compatible baseline
+conditions.
+
+The rights/access case follows 18.6.4.5's unshared-memory RW rights contract
+separately from 18.6.4.6's effective map access. The two-interface memory case
+matches the cited add_mem rule with no error.
+That narrow setup does not resolve the release's multiple-map note or establish
+shared-map hierarchy behavior. Memory tests do not store mirrors or access
+DUT data. READ/WRITE predictions use synthetic observations, and auto-predict
+flags do not establish automatic prediction during real traffic. Lookup
+relocation cases use zero root bases; original report severity and required
+return/output preservation are observed for the negative paths.
+
+Both README languages, glossary, FAQ and known differences are updated.
+Tool tests, metadata, pinned-library integrity, evidence fingerprints and
+local documentation links were checked. All cases use UVM_NO_DPI, retain
+spec_check: ai and request no deprecated API. M1, M2 and M3 remain open.

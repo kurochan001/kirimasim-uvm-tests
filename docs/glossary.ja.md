@@ -218,6 +218,18 @@ blockのresetは子blockへ再帰しますが、物理的なハードウェア�
 観測したtransactionに基づくモデルの更新です。M3初回は値とアドレスの計算を扱い、DUTとのこれらの接続は今後追加します。
 [レジスタモデルのFAQ](faq.ja.md#レジスタモデルの基本)を参照してください。
 
+**Memory／location／location番号** — 連続した記憶域のモデル／その中の1 word／選択するwordの番号です。
+`uvm_mem`は配置を保持し、全locationのmirror値は持ちません。local offsetと外部アドレスにはlocationの間隔を反映し、
+現在の検査ではデータへアクセスしません。
+
+**READ／WRITE prediction** — 渡された観測値とaccess policyの効果でモデルを更新する操作です。
+RC／RSはreadの効果、W1C／W1S／W1TとW0C／W0Sは選んだbitへのwriteの効果を適用します。
+観測値を渡すだけではbus転送は起きません。write-onceはHARD resetで次の初回書き込みを許します。
+
+**Mapのreset／再配置／方向による検索** — 既定でSOFTのregisterモデルの復元／要素やsubmapのoffsetの変更／
+同じアドレスのregisterを読み書きの方向で選ぶことです。modeの取得やアドレスの問い合わせはbusの動作を示しません。
+[memoryとpredictionのFAQ](faq.ja.md#memorypredictionmapの制御)も参照してください。
+
 ## 実行と結果
 
 **ランナー／メタデータ** — ビルド・実行・判定を行う`tools/run_*.py`／

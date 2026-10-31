@@ -2,15 +2,16 @@
 
 [English](known-differences.md) · [README](../README.ja.md) · [FAQ](faq.ja.md)
 
-現在の613件と、固定したAccellera UVM 2020.3.1についての記録です。
+現在の637件と、固定したAccellera UVM 2020.3.1についての記録です。
 不一致はテストの結果であり、それだけではシミュレータ・ライブラリ・期待値のどれが原因かは決まりません。
 
 ## 固定版ライブラリの制約
 
 ライブラリ自身の`DEVIATIONS.md`には18.2.3.4・18.4.3.6・13.1.5.1の3件が載っています。
-現在、一致するテストはその分岐を避けています。M3初回のregisterの複数map登録ではmap引数を明示し、
-memoryの複数map登録とnull時のmap解決は対象にしていません。[M3の範囲](faq.ja.md#レジスタモデルの基本)も参照してください。
-それ以外に、M1・M2・M3で次の32件の制約を確認しました。
+現在のregister検索ではmap引数を明示します。memoryを2つの兄弟interfaceのmapに登録する単純なケースは、
+固定版でも18.2.3.4の期待値に一致しました。配布物の複数mapに関する注記と、mapを共有する階層は別途照合が必要です。
+このケースが示すのは2つのinterfaceの構成です。[memoryの範囲](faq.ja.md#memorypredictionmapの制御)も参照してください。
+それ以外に、M1・M2・M3で次の34件の制約を確認しました。
 不足する必須動作を直接検査する場合は、規格の期待値を変えずに`:oracle: spec`で保持します。
 
 - `find_override_by_name`は、置換がない場合に`null`を返します。元の型を生成できる場合も
@@ -93,28 +94,34 @@ memoryの複数map登録とnull時のmap解決は対象にしていません。[
   戻り値の欠落はmap初期化にも影響し、幅の広い子busではlocal幅が残ります。子mapの実効幅と
   18.4.3.15の戻り値が、18.2.4.5の最小幅2 byteに対して4 byteになります。
   word単位と階層mapの2件で、規格の転送幅を期待値に保持します。
+- `uvm_mem::get_offset`はlocation引数を使わず、memory先頭のmap offsetだけを返します。
+  18.6.4.15は指定locationのoffsetを返すため、location 0・1・3の異なる期待値を1件で保持します。
+  同じケースで、外部アドレスが正しく進むことも別に観測します。
+- `uvm_mem::get_access`は単一mapのmemoryで、そのmapがROに制限していても固有のRWを返します。
+  18.6.4.6の実効accessには制限の反映が必要です。同じケースで、18.6.4.5が非共有memoryへ定める
+  RWの権限問い合わせを別の観測として保持します。
 
 これらの分岐は、固定版で再現したオラクルとしては扱いません。drop直後の一覧、transactionの
 生成直後の状態、重大度・ID別のreset、無効なfield_opの操作名取得、応答数未満の深さ変更、
 応答エラー報告の既定値、候補1件のUSER arbitration、lockの順序、kill後のhook、
 不適合なdefault型のエラー、stop時の自動objection解除、時刻の既定名・API、
 二段のinitiator socket接続、pushの連続転送、sequence libraryのAPIと削除、FIFOのpeek通知、
-start_itemの重大度、library subtypeの構築、finish_itemの委譲・ID・入力検査、lock前のfield名検索、mapの幅・変換結果は診断用に保持します。
+start_itemの重大度、library subtypeの構築、finish_itemの委譲・ID・入力検査、lock前のfield名検索、mapの幅・変換結果、locationごとのmemory offsetと単一mapの実効accessは診断用に保持します。
 残りのライブラリの制約は、一致するテストシナリオでは避けています。
 
-スイート全体では、`verilator@5.052`を付けたテストは560件、specのみのテストは53件です。
+スイート全体では、`verilator@5.052`を付けたテストは582件、specのみのテストは55件です。
 specのみのうち1件は9.6を検証します。pre-resetフェーズ終了時に子タスクが停止する
 はずですが、固定版UVMとVerilator 5.052の組み合わせでは、後のフェーズで子タスクの遅延書き込みが
 実行されます。この差分の原因がシミュレータとライブラリのどちらかは未確定です。
 
-specのみの53件も規格から導いた期待値を保持します。通常のVerilator実行とCIはoracle付き560件を選びます。
+specのみの55件も規格から導いた期待値を保持します。通常のVerilator実行とCIはoracle付き582件を選びます。
 `--all`はspecのみも含め、不一致やビルド不可を`known`として記録します。
-実行時の46件は最初の差分であるseed 1までの記録で、seed 73の結果はありません。
+実行時の48件は最初の差分であるseed 1までの記録で、seed 73の結果はありません。
 API欠落の7件（時刻APIの1件とsequence libraryの6件）はビルド段階で失敗し、どのseedも実行できていません。
 
 ## specのみのテスト
 
-現在の53件は次のテストです。同じ制約を複数のテストで検査する場合があり、異なる不具合の個数ではありません。
+現在の55件は次のテストです。同じ制約を複数のテストで検査する場合があり、異なる不具合の個数ではありません。
 
 - field_opのaccessorの必須エラー：
   [set前](../tests/u05/test_field_op_accessors_report_errors_before_set.sv)と
@@ -190,15 +197,21 @@ API欠落の7件（時刻APIの1件とsequence libraryの6件）はビルド段�
   [lock前の幅](../tests/u18/test_reg_map_byte_addressing_reports_width_before_and_after_lock.sv)、
   [word単位の変換](../tests/u18/test_reg_map_word_addressing_translates_offsets_in_bus_units.sv)、
   [階層の実効幅](../tests/u18/test_reg_submap_uses_root_base_and_narrowest_bus_width.sv)。
+- locationごとのmemory offset：
+  [location 0・1・3](../tests/u18/test_mem_location_offsets_include_the_location_index_stride.sv)。
+- 単一mapでのmemoryのアクセス制限：
+  [固有policyと制限したview](../tests/u18/test_mem_intrinsic_readonly_policy_and_map_rights_are_distinct.sv)。
 
 ## シミュレータとライブラリの組み合わせ
 
-Ghostの同梱UVMはseed 1・73とも116件一致・497件不一致で、不一致になるテストも同じです。
-固定版UVMのスモークテストは、前処理を有効にした場合も不一致でした。
+Ghostの同梱UVMはseed 1・73とも134件一致・503件不一致で、不一致になるテストも同じです。
+実行ファイルの指紋が変わったため、実行ファイルとprofileを一時コピーに固定して全637件を再測定しました。
+過去の実行ファイルの固定版UVMスモークは、前処理を有効にした場合も不一致でした。
+今回のbuildでは固定版の測定を行っていません。
 同梱版の結果だけではシミュレータと同梱ライブラリのどちらが原因かは決められず、
 固定版ライブラリの実行証拠にもなりません。非公開の識別情報・プロファイル・診断は公開しません。
 
-確認したkirimasimの実行ファイルでは、606件が`uvm_object_wrapper`未実装です。
+確認したkirimasimの実行ファイルでは、630件が`uvm_object_wrapper`未実装です。
 時刻設定APIの1件とsequence libraryの6件は、その前にAPI欠落を検出して`fail`になります。
 いずれも成功ではなく、その先のUVM動作を実行できた証拠でもありません。
 

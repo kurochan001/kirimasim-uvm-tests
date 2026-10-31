@@ -289,6 +289,22 @@ transactions. The initial M3 batch exercises values and address calculations;
 these DUT interaction paths remain future work. See the
 [register-model FAQ](faq.md#register-model-basics).
 
+**Memory / location / location index** — A model of contiguous storage /
+one stored word / the word selected within that memory. `uvm_mem` records
+geometry without mirroring every location. Local offsets and external
+addresses incorporate location stride; current tests do not access data.
+
+**READ / WRITE prediction** — Updating model state from a supplied observation
+and its access-policy effects. RC/RS apply read effects; W1C/W1S/W1T and
+W0C/W0S apply selected-bit write effects. Supplying the observation does not
+execute a bus operation. A write-once field is rearmed by HARD reset.
+
+**Map reset / relocation / directional lookup** — Restoring a map's register
+models, with SOFT as the default kind / moving an element or submap's offset /
+selecting a shared-address register by read/write direction. Mode getters and
+address queries do not establish bus behavior. See the
+[memory and prediction FAQ](faq.md#memory-prediction-and-map-controls).
+
 ## Execution and result records
 
 **Runner / metadata** — A `tools/run_*.py` script that builds, executes and

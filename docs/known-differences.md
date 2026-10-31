@@ -2,18 +2,19 @@
 
 [日本語](known-differences.ja.md) · [README](../README.md) · [FAQ](faq.md)
 
-This describes the current 613-test suite and the pinned Accellera UVM
+This describes the current 637-test suite and the pinned Accellera UVM
 2020.3.1 library. A mismatch is a test result; it does not by itself assign
 the cause to the simulator, the library or the expectation.
 
 ## Pinned-library limitations
 
 The library's own `DEVIATIONS.md` lists three differences at 18.2.3.4,
-18.4.3.6 and 13.1.5.1. Current matching scenarios avoid those branches.
-Initial M3 cases exercise register multi-mapping with explicit map arguments.
-Memory multi-mapping and null-map register resolution remain outside their
-matching scenarios; see the [M3 scope](faq.md#register-model-basics).
-The following thirty-two additional limitations were identified during M1, M2 and M3.
+18.4.3.6 and 13.1.5.1. Current register queries use explicit map arguments.
+A simple memory registered on two sibling-interface maps matches 18.2.3.4 in
+the pinned release. The release's multiple-map note and shared-map hierarchies
+require separate review; this case establishes only its two-interface setup.
+See the [memory scope](faq.md#memory-prediction-and-map-controls).
+The following thirty-four additional limitations were identified during M1, M2 and M3.
 Where a test directly checks a required behavior that is missing, its
 normative expectation is retained with `:oracle: spec`.
 
@@ -130,6 +131,14 @@ normative expectation is retained with `:oracle: spec`.
   bus. The child then reports four bytes instead of the required two-byte
   effective width in 18.2.4.5 and register-address return in 18.4.3.15.
   Word-addressed and hierarchical cases retain both required widths.
+- `uvm_mem::get_offset` ignores its location argument and returns only the
+  memory's starting map offset. Clause 18.6.4.15 requires the specified
+  location's offset. A case retains distinct offsets for locations 0, 1 and 3,
+  while separately observing their correct external addresses.
+- `uvm_mem::get_access` returns intrinsic RW access for a single-map memory
+  even when the specified map restricts it to RO. Clause 18.6.4.6 requires
+  effective access to include that restriction. The case separately retains
+  the RW rights query for unshared memory specified by 18.6.4.5.
 
 These branches are not treated as reproduced fixed-release oracles.
 Spec-only diagnostics preserve the required post-drop objector membership,
@@ -139,26 +148,27 @@ arbitration, lock ordering, post-kill hooks, invalid-default errors,
 automatic-objection drop on stop, canonical time name/API, nested
 initiator-socket routing, repeated push delivery, sequence-library APIs/removal,
 FIFO peek notifications, `start_item` error severity, library subtype
-construction, `finish_item` dispatch, IDs and guards, pre-lock field lookup
-and map width/translation results.
+construction, `finish_item` dispatch, IDs and guards, pre-lock field lookup,
+map width/translation results, location-specific memory offsets and
+single-map effective access.
 Matching tests avoid the other library limitations.
 
-Across the suite, 560 tests have the `verilator@5.052` oracle tag and fifty-three
+Across the suite, 582 tests have the `verilator@5.052` oracle tag and fifty-five
 cases are spec-only. One of the spec-only cases checks 9.6: a child's pre-reset
 task must be killed when that phase ends, but the pinned-library run on Verilator 5.052
 lets the child perform its delayed write during a later phase. The cause of
 this combined simulator/library difference remains unassigned.
 
-The fifty-three spec-only tests retain their normative expected files.
-Default Verilator runs and CI select the 560 tagged cases. `--all` includes
+The fifty-five spec-only tests retain their normative expected files.
+Default Verilator runs and CI select the 582 tagged cases. `--all` includes
 spec-only cases and records mismatches or build failures as `known`.
-The runtime records for 46 cases establish the first difference at seed 1,
+The runtime records for 48 cases establish the first difference at seed 1,
 without seed 73 results. Seven missing-API cases cannot build and have no
 runtime seed result: one time API and six sequence-library cases.
 
 ## Spec-only tests
 
-These are the fifty-three current spec-only cases. Several exercise the same
+These are the fifty-five current spec-only cases. Several exercise the same
 limitation, so their count is not a count of distinct bugs.
 
 - Field-operation accessor errors:
@@ -235,18 +245,25 @@ limitation, so their count is not a count of distinct bugs.
   [pre-lock width](../tests/u18/test_reg_map_byte_addressing_reports_width_before_and_after_lock.sv),
   [word-address translation](../tests/u18/test_reg_map_word_addressing_translates_offsets_in_bus_units.sv)
   and [hierarchical width](../tests/u18/test_reg_submap_uses_root_base_and_narrowest_bus_width.sv).
+- Location-specific memory offsets:
+  [locations 0, 1 and 3](../tests/u18/test_mem_location_offsets_include_the_location_index_stride.sv).
+- Single-map memory access restrictions:
+  [intrinsic policy and restricted view](../tests/u18/test_mem_intrinsic_readonly_policy_and_map_rights_are_distinct.sv).
 
 ## Simulator and library combinations
 
-Ghost's bundled-library runs have 116 matches and 497 failures with each of
-seeds 1 and 73. The same tests fail at both seeds. Its pinned-library smoke
-test differs, including with preprocessing enabled. Bundled results do not
+Ghost's bundled-library runs have 134 matches and 503 failures with each of
+seeds 1 and 73. All 637 cases were rerun after an executable fingerprint
+change, using an executable/profile snapshot; the same tests fail at both
+seeds. Earlier pinned-library smoke runs differed, including with
+preprocessing enabled; the sampled build has no pinned-mode measurement.
+Bundled results do not
 establish whether the cause lies in the simulator or its supplied library,
 and are not evidence for the locked library. Private identity, profiles and
 diagnostics are not published.
 
 The tested kirimasim executable reports `uvm_object_wrapper` as unsupported
-on 606 cases. Seven cases fail earlier on missing library APIs: one time
+on 630 cases. Seven cases fail earlier on missing library APIs: one time
 setter and six sequence-library cases. Neither result is a pass or evidence
 of UVM execution beyond those compilation blockers.
 
