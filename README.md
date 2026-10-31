@@ -8,7 +8,7 @@ Methodology, IEEE 1800.2-2020 (UVM). It is written for the
 [kirimasim-tests](https://github.com/kurochan001/kirimasim-tests), which checks
 the SystemVerilog language of IEEE 1800-2023.
 
-> **Status: M2 (TLM and sequence expansion in progress).** 277 tests,
+> **Status: M2 (TLM, sequences and callbacks in progress).** 301 tests,
 > the pinned UVM fetcher, runners for kirimasim, Verilator and Ghost,
 > metadata checks and the Check workflow. M1's clause-by-clause target
 > remains open;
@@ -244,13 +244,14 @@ seeds, with the same 151 differences. The ninth increment matches 57 of 229
 tests with both seeds, with the same 172 differences. The first M2
 increment matches 73 of 253 tests with both seeds, with the same 180
 differences. The second M2 increment matches 79 of 277 tests with both
-seeds, with the same 198 differences.
+seeds, with the same 198 differences. The third M2 increment matches
+82 of 301 tests with both seeds, with the same 219 differences.
 
 | Simulator | Current status |
 | --- | --- |
-| kirimasim | local executable reports all 277 cases as unsupported at `uvm_object_wrapper` |
-| Verilator 5.052 | `UVM_NO_DPI`: 271 oracle cases match seeds 1 and 73; six spec-only cases retain known differences |
-| Ghost (an unreleased simulator, as in kirimasim-tests) | bundled UVM: 79/277 match with both seeds; pinned UVM: smoke test differs |
+| kirimasim | local executable reports all 301 cases as unsupported at `uvm_object_wrapper` |
+| Verilator 5.052 | `UVM_NO_DPI`: 295 oracle cases match seeds 1 and 73; six spec-only cases retain known differences |
+| Ghost (an unreleased simulator, as in kirimasim-tests) | bundled UVM: 82/301 match with both seeds; pinned UVM: smoke test differs |
 | Icarus Verilog 13.0 | not used: it cannot run UVM |
 
 ## 8. Checks
@@ -512,14 +513,14 @@ post-drop list, initial transaction state, severity-ID reset and invalid
 field-operation name cases are retained for diagnostics; the other library
 limitations are avoided by the matching test scenarios.
 
-Across the suite, 271 tests have the `verilator@5.052` oracle tag and six
+Across the suite, 295 tests have the `verilator@5.052` oracle tag and six
 cases are spec-only. Another spec-only case checks 9.6: a child's pre-reset
 task must be killed when that phase ends, but the pinned-library run on Verilator 5.052
 lets the child perform its delayed write during a later phase. The cause of
 this combined simulator/library difference remains unassigned.
 
 The six spec-only tests retain their normative expected files.
-Default Verilator runs and CI select the 271 tagged cases. An explicit run
+Default Verilator runs and CI select the 295 tagged cases. An explicit run
 with `--all` includes the six spec-only cases and records them as `known`.
 The runner stops each test at its first differing seed; their current
 Verilator records establish seed 1 differences, without claiming a seed 73
@@ -594,9 +595,39 @@ handle with a positive body delay.
 
 Control-setting cases do not claim to cover automatic randomization,
 automatic phase objections, arbitration among competing sequences or buffer
-contents. M1's six spec-only cases and its remaining clause coverage are
-retained; starting M2 does not mark M1 complete. More sequence/sequencer
-behavior, callbacks, TLM channels and TLM 2 remain M2 work. M2 is not complete.
+contents.
+
+The third M2 increment adds 24 cases, bringing the suite to 301:
+
+- Callback enable transitions, ignored mode values, append/prepend execution
+  order, instance-local registration/deletion, required duplicate/removal
+  warnings, typewide registration/deletion and get_all membership: twelve
+  tests for 10.7, with type-pair and execution macros from B.4.
+- Forward/reverse callback traversal, disabled-entry filtering, current
+  callback identity, independent iterator positions and object contexts:
+  four tests for D.1.
+- Request/response channel FIFO order, independent bounds, non-consuming
+  peeks, unbounded queues, accepted-write analysis notifications, combined
+  master/slave interfaces and blocking transport waits/reuse: eight tests
+  for 12.2.9, using int requests and string responses.
+
+These 24 cases also match Verilator 5.052 with both seeds. Callback enable
+values are assigned explicitly. Execution checks use documented
+append/prepend order, while get_all checks compare membership and preserved
+queue prefixes. The fixture type is named user_callback to avoid collision
+with the macro-local cb identifier; expected values do not depend on that
+type name. Iterators are not used to mutate callback registrations.
+
+Channel tests use public typed ports/exports after normal elaboration,
+without inspecting the protected FIFOs. Analysis monitors are read after
+accepted writes. Transport tests keep shared values in the test object,
+use positive delays to observe waiting and include watchdogs. Nonblocking
+transport and callback name-based registration/inheritance remain for later
+coverage.
+
+M1's six spec-only cases and remaining clause coverage are retained;
+starting M2 does not mark M1 complete. More sequence/sequencer and callback
+behavior, further TLM channel cases and TLM 2 remain M2 work. M2 is not complete.
 
 ## 10. Rights and sources
 

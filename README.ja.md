@@ -7,8 +7,8 @@ IEEE 1800.2-2020（UVM）の動作を確かめる、シミュレータ向けの�
 [kirimasim-tests](https://github.com/kurochan001/kirimasim-tests)（IEEE 1800-2023の言語の適合性）と対になります。
 英語版が正本で、この日本語版はその対訳です。
 
-> **状態：M2（TLM・sequence／sequencerを拡充中）。** テスト277件。固定版UVMの取得、
-> kirimasim・Verilator・Ghostのランナー、メタデータ検査、Checkワークフローがあります。
+> **状態：M2（TLM・sequence／sequencer・callbacksを拡充中）。** テスト301件。
+> 固定版UVMの取得、kirimasim・Verilator・Ghostのランナー、メタデータ検査、Checkワークフローがあります。
 > M1の条項ごとの完了条件は
 > 未達のまま保持します。後述の「今回のM1追加分」と「今回のM2追加分」を参照してください。
 
@@ -213,13 +213,14 @@ python3 tools/run_ghost.py --simulator /path/to/private/simulator \
 8回目の追加後は、両seedとも54/205件が一致し、同じ151件で不一致になりました。
 9回目の追加後は、両seedとも57/229件が一致し、同じ172件で不一致になりました。
 M2の初回追加後は、両seedとも73/253件が一致し、同じ180件で不一致になりました。
-M2の2回目の追加後は、両seedとも79/277件が一致し、同じ198件で不一致になっています。
+M2の2回目の追加後は、両seedとも79/277件が一致し、同じ198件で不一致になりました。
+M2の3回目の追加後は、両seedとも82/301件が一致し、同じ219件で不一致になっています。
 
 | シミュレータ | 現在の状態 |
 | --- | --- |
-| kirimasim | ローカルの実行ファイルでは277件とも`uvm_object_wrapper`未実装でUNSUPPORTED |
-| Verilator 5.052 | `UVM_NO_DPI`で271件がseed 1・73とも一致。specのみの6件は既知の差分として保持 |
-| Ghost（kirimasim-testsと同じく、公開前のシミュレータ） | 同梱UVMでは両seedとも79/277件一致。固定版UVMのスモークテストは不一致 |
+| kirimasim | ローカルの実行ファイルでは301件とも`uvm_object_wrapper`未実装でUNSUPPORTED |
+| Verilator 5.052 | `UVM_NO_DPI`で295件がseed 1・73とも一致。specのみの6件は既知の差分として保持 |
+| Ghost（kirimasim-testsと同じく、公開前のシミュレータ） | 同梱UVMでは両seedとも82/301件一致。固定版UVMのスモークテストは不一致 |
 | Icarus Verilog 13.0 | 使わない。UVMを実行できない |
 
 ## 8. 検査
@@ -422,13 +423,13 @@ objectのストリームは同じpacker実装で生成し、マーカーの幅�
 生成直後の状態、重大度・ID別のreset、無効なfield_opの操作名取得は診断用に保持します。
 残りのライブラリの制約は、一致するテストシナリオでは避けています。
 
-スイート全体では、`verilator@5.052`を付けたテストは271件、specのみのテストは6件です。
+スイート全体では、`verilator@5.052`を付けたテストは295件、specのみのテストは6件です。
 別のspecのみのケースは9.6を検証します。pre-resetフェーズ終了時に子タスクが停止する
 はずですが、固定版UVMとVerilator 5.052の組み合わせでは、後のフェーズで子タスクの遅延書き込みが
 実行されます。この差分の原因がシミュレータとライブラリのどちらかは未確定です。
 
 specのみの6件も、規格から導いた期待値を保持します。通常のVerilator実行とCIはタグのある
-271件を選びます。`--all`を明示するとspecのみの6件も実行し、`known`として記録します。
+295件を選びます。`--all`を明示するとspecのみの6件も実行し、`known`として記録します。
 ランナーは各テストで最初に不一致になったseedで停止するため、この6件の現在のVerilator記録は
 seed 1の不一致を示し、seed 73の実行結果は示しません。
 
@@ -485,9 +486,32 @@ driverのpull portをsequencer exportに接続します。自動item recording�
 カウンターは明示初期化し、単独の状態待ちの検査はmodule寿命のハンドルと正のbody遅延を使います。
 
 設定値のケースは、自動randomization、自動phase objection、競合するsequenceのarbitration順、
-バッファ内容まで検証したとは扱いません。M1のspecのみの6件と未達の条項は保持し、M2開始によって
-M1完了とは扱いません。sequence・sequencerの残りの動作、callbacks、TLM channel、TLM 2が
-今後のM2追加範囲です。M2全体は未完です。
+バッファ内容まで検証したとは扱いません。
+
+M2の3回目は24件を追加し、スイート全体で301件になりました。
+
+- callbackの有効・無効と無視するmode値、append・prepend順、instance別の登録・削除、
+  重複登録・再削除時の必須warning、typewide登録・削除、get_allの内容：12件。
+  10.7と、型の組み合わせの登録・実行に使うB.4のマクロを対象にします。
+- callback iteratorの前後の走査、無効な要素の除外、現在のcallback、位置とobject文脈の独立性：4件。
+  D.1を対象にします。
+- request/response channelの順序、独立した容量、消費しないpeek、無制限のキュー、
+  受理した書き込みのanalysis通知、複合master・slave、blocking transportの待機・再利用：8件。
+  12.2.9を対象とし、要求にはint、応答にはstringを使います。
+
+追加24件もVerilator 5.052の両seedで一致します。callbackの有効値は明示し、実行は規定の
+append・prepend順で検査します。get_allは集合と既存キューの保持を検査します。
+テスト用の型名はuser_callbackとし、マクロ内のローカル識別子cbとの衝突を避けます。
+期待値は型名自体には依存しません。iteratorの走査中に登録を変更することはありません。
+
+channelは通常のelaboration後に公開port・exportを通して操作し、保護された内部FIFOは参照しません。
+analysis通知は書き込みの受理後に読み出します。transportは共有値をテストobjectに置き、正の遅延で
+待機を観測してwatchdogを設けます。nonblocking transportと、名前によるcallback登録・型継承は
+今後の検証範囲です。
+
+M1のspecのみの6件と未達の条項は保持し、M2開始によってM1完了とは扱いません。
+sequence・sequencerとcallbackの残りの動作、追加のTLM channel、TLM 2が今後のM2追加範囲です。
+M2全体は未完です。
 
 ## 10. 権利と出典
 
