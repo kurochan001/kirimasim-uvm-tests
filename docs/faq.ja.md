@@ -175,8 +175,9 @@ lockは通常の要求の仲裁に加わり、grabは先頭に入ります。ど
 blockedになる場合があります。`has_lock`と`is_blocked`を別々に確認してください。
 入れ子の所有で現在実行できるsequenceは`current_grabber`が示します。
 
-現在のテストは所有、子の解放による復帰、待機中の取得を検査します。キュー上のlockとitemの順序や、
-実際のitemの排他はさらに検査が必要で、状態の照会だけで確認したとは扱いません。
+現在のテストは所有、子の解放による復帰、待機中の取得、実際のdriverへのitemの排他を検査します。
+先に待っているFIFO要求を追い越さないことと、取得済みitemの完了を待つことの2件は、specのみで保持します。
+固定版ライブラリではlockを早く付与してしまうためです。[既知差分](known-differences.ja.md)を参照してください。
 
 ### Q20. nonblocking transportはどうやって即時に応答できますか
 
@@ -187,3 +188,25 @@ blockedになる場合があります。`has_lock`と`is_blocked`を別々に確
 即時完了できない場合の戻り値は0です。期待値では、その出力引数の値や、要求の一部がキューへ
 入ったかは指定しません。再実行のテストは`try_get`で残った要求があれば回収し、
 その成否自体は検査せず、新しいtransactionを実行します。
+
+### Q21. killされたsequenceのbodyやhookはどうなりますか
+
+実行中のbodyを停止し、状態を`UVM_STOPPED`にして、待っている`start`を復帰させます。
+sequencerの要求や所有も後処理します。規格は停止hookの`do_kill`に加えて、`post_body`・`post_start`も
+実行するように定めています。固定版はこの2つのpost hookを呼ばないため、sequencerあり・なしの
+テストで必須動作をspecのみの期待値として保持します。
+
+自動objectionのdropと、`stop_sequences`後のsequencerの再利用も検査します。
+この操作で破棄されたdriver保持中の要求には後から完了通知せず、新しい要求を取り出してから、
+その要求について`item_done`を呼びます。
+
+### Q22. default phase sequenceはどう選ばれますか
+
+phase開始時に、sequencerの完全名とphase名のscopeで`default_sequence` resourceを検索します。
+例は`uvm_test_top.sequencer.main_phase`です。対象の型は`uvm_sequence_base`と`uvm_object_wrapper`です。
+優先度でresourceを選び、選択したnullは無効化を示します。instanceはそのまま使い、wrapperは
+sequencerのパスとwrapper型名を生成の文脈にしてfactoryを呼びます。
+
+sequencerと開始phaseを設定し、無効化しない限りrandomizeしてから実行します。
+phase終了時も実行中ならkillします。wrapperがsequence以外を生成した場合は、エラーを出して
+defaultを開始しません。固定版はwarningだけを出すため、必須エラーをspecのみで保持します。

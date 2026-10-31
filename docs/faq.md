@@ -200,9 +200,11 @@ ownership can temporarily block its parent even when the parent still owns
 a lock. Inspect `is_blocked` as well as `has_lock`; `current_grabber` identifies
 the sequence currently allowed to act under nested ownership.
 
-Current tests cover ownership, nested release and waiting acquisitions.
-Queued lock-versus-item ordering and actual item exclusion still need further
-tests; these state queries alone do not establish those behaviors.
+Current tests cover ownership, nested release, waiting acquisitions and real
+driver item exclusion. Two lock-order cases retain spec-only expectations:
+FIFO order behind an earlier pending item and waiting for an already granted
+item's completion. The pinned library grants these locks too early; see
+[known differences](known-differences.md).
 
 ### Q20. How can nonblocking transport return a response immediately?
 
@@ -215,3 +217,31 @@ When completion is not immediate, the return value is 0. These expectations
 do not prescribe its response output argument or whether a partial request
 was queued. The recovery case drains any residual request through `try_get`
 before a fresh transaction, without asserting that drain's return value.
+
+### Q21. What happens to a sequence's body and hooks when it is killed?
+
+Kill terminates active body work, changes the state to `UVM_STOPPED` and
+releases the waiting `start` call. It also cleans up the sequence's sequencer
+requests and ownership. The standard requires the post-body and post-start
+hooks as well as the `do_kill` termination hook. The pinned library omits the
+two post hooks; bound and unbound tests preserve that required behavior as
+spec-only expectations.
+
+Tests also check automatic-objection drop and sequencer reuse after
+`stop_sequences`. A driver-held request flushed by that operation is not
+acknowledged afterwards; the test retrieves a new request before calling
+`item_done` for it.
+
+### Q22. How is a default phase sequence selected?
+
+At phase start, the sequencer looks up `default_sequence` resources at its
+full path plus the phase name, such as `uvm_test_top.sequencer.main_phase`.
+Relevant resource types are `uvm_sequence_base` and `uvm_object_wrapper`.
+Precedence selects the resource; a selected null disables the default.
+An instance is used directly, while a wrapper uses the factory with the
+sequencer path and wrapper type name as its creation context.
+
+The sequence receives its sequencer and starting phase, is randomized unless
+disabled and is killed if it outlives the phase. A wrapper creating a
+non-sequence must report an error and start no default. The pinned library
+only warns in that case, so the required error is retained as spec-only.

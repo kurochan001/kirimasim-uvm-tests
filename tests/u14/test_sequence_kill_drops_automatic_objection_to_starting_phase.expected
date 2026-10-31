@@ -1,0 +1,4 @@
+UT: automatic_count_before 1
+UT: stopped 1 kill_calls 1 start_returned 1
+UT: automatic_count_after 0
+UT: late_write 0

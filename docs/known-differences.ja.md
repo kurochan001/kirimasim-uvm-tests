@@ -2,13 +2,13 @@
 
 [English](known-differences.md) · [README](../README.ja.md) · [FAQ](faq.ja.md)
 
-現在の373件と、固定したAccellera UVM 2020.3.1についての記録です。
+現在の397件と、固定したAccellera UVM 2020.3.1についての記録です。
 不一致はテストの結果であり、それだけではシミュレータ・ライブラリ・期待値のどれが原因かは決まりません。
 
 ## 固定版ライブラリの制約
 
 ライブラリ自身の`DEVIATIONS.md`には18.2.3.4・18.4.3.6・13.1.5.1の3件が載っています。
-現在、一致するテストはその分岐を避けています。それ以外に、M1とM2で次の12件の制約を確認しました。
+現在、一致するテストはその分岐を避けています。それ以外に、M1とM2で次の15件の制約を確認しました。
 不足する必須動作を直接検査する場合は、規格の期待値を変えずに`:oracle: spec`で保持します。
 
 - `find_override_by_name`は、置換がない場合に`null`を返します。元の型を生成できる場合も
@@ -44,25 +44,33 @@
   エラー報告の有効・無効を明示的に設定します。
 - USER arbitrationでは候補が1件の場合に`user_priority_arbitration`を呼びません。
   15.3.2.3はこの場合もcallbackを必須とします。M2の1件で、呼び出す期待値をspecのみで保持します。
+- lockの要求を、先行するFIFO上のitem要求や取得済みitemの完了通知より先に付与します。
+  15.3.2.10・14.2.5.5とFIFOのF.2.4.1に従う、2件の順序・待機の期待値をspecのみで保持します。
+- `sequence.kill`は、14.2.5.11が要求する`post_body`・`post_start`を呼びません。
+  sequencerあり・なしの2件で必須hookを保持します。`do_kill`、停止状態、bodyの中断は別に観測します。
+- default sequenceのwrapperから生成したobjectがsequenceへcastできない場合、
+  15.3.5の必須エラーではなくwarningだけを出します。通常のobjectとsequence itemを指定する
+  2件で、エラーとdefault sequenceを開始しない期待値を保持します。
 
 これらの分岐は、固定版で再現したオラクルとしては扱いません。drop直後の一覧、transactionの
 生成直後の状態、重大度・ID別のreset、無効なfield_opの操作名取得、応答数未満の深さ変更、
-応答エラー報告の既定値、候補1件のUSER arbitrationは診断用に保持します。
+応答エラー報告の既定値、候補1件のUSER arbitration、lockの順序、kill後のhook、
+不適合なdefault型のエラーは診断用に保持します。
 残りのライブラリの制約は、一致するテストシナリオでは避けています。
 
-スイート全体では、`verilator@5.052`を付けたテストは362件、specのみのテストは11件です。
+スイート全体では、`verilator@5.052`を付けたテストは380件、specのみのテストは17件です。
 specのみのうち1件は9.6を検証します。pre-resetフェーズ終了時に子タスクが停止する
 はずですが、固定版UVMとVerilator 5.052の組み合わせでは、後のフェーズで子タスクの遅延書き込みが
 実行されます。この差分の原因がシミュレータとライブラリのどちらかは未確定です。
 
-specのみの11件も、規格から導いた期待値を保持します。通常のVerilator実行とCIはタグのある
-362件を選びます。`--all`を明示するとspecのみの11件も実行し、`known`として記録します。
-ランナーは各テストで最初に不一致になったseedで停止するため、この11件の現在のVerilator記録は
+specのみの17件も、規格から導いた期待値を保持します。通常のVerilator実行とCIはタグのある
+380件を選びます。`--all`を明示するとspecのみの17件も実行し、`known`として記録します。
+ランナーは各テストで最初に不一致になったseedで停止するため、この17件の現在のVerilator記録は
 seed 1の不一致を示し、seed 73の実行結果は示しません。
 
 ## specのみのテスト
 
-現在の11件は次のテストです。同じ制約を複数のテストで検査する場合があり、異なる不具合の個数ではありません。
+現在の17件は次のテストです。同じ制約を複数のテストで検査する場合があり、異なる不具合の個数ではありません。
 
 - field_opのaccessorの必須エラー：
   [set前](../tests/u05/test_field_op_accessors_report_errors_before_set.sv)と
@@ -79,15 +87,24 @@ seed 1の不一致を示し、seed 73の実行結果は示しません。
   [応答2件を深さ1へ](../tests/u14/test_sequence_response_depth_shrink_below_two_replies_reports_error.sv)と
   [応答1件を深さ0へ](../tests/u14/test_sequence_response_depth_shrink_to_zero_with_one_reply_reports_error.sv)。
 - [候補1件のUSER arbitration](../tests/u15/test_sequencer_user_arbitration_calls_override_with_one_candidate.sv)。
+- lockの付与順：
+  [取得済みitemの完了通知を待つ](../tests/u15/test_sequencer_lock_waits_until_previously_granted_item_completes.sv)と
+  [先にキューへ入ったFIFO要求を追い越さない](../tests/u15/test_sequencer_fifo_lock_does_not_overtake_earlier_pending_item.sv)。
+- kill後の必須hook：
+  [sequencerあり](../tests/u14/test_sequence_kill_executes_required_post_hooks_when_bound.sv)と
+  [sequencerなし](../tests/u14/test_sequence_kill_executes_required_post_hooks_when_unbound.sv)。
+- 不適合なdefault sequenceの必須エラー：
+  [通常のobject](../tests/u15/test_default_sequence_rejects_object_wrapper_with_required_error.sv)と
+  [sequence item](../tests/u15/test_default_sequence_rejects_sequence_item_wrapper_with_required_error.sv)。
 
 ## シミュレータとライブラリの組み合わせ
 
-Ghostの同梱UVMはseed 1・73とも95件一致・278件不一致で、不一致になるテストも同じです。
+Ghostの同梱UVMはseed 1・73とも96件一致・301件不一致で、不一致になるテストも同じです。
 固定版UVMのスモークテストは、前処理を有効にした場合も不一致でした。
 同梱版の結果だけではシミュレータと同梱ライブラリのどちらが原因かは決められず、
 固定版ライブラリの実行証拠にもなりません。非公開の識別情報・プロファイル・診断は公開しません。
 
-確認したkirimasimの実行ファイルでは、373件とも`uvm_object_wrapper`が未実装です。
+確認したkirimasimの実行ファイルでは、397件とも`uvm_object_wrapper`が未実装です。
 これは成功でも、その後のUVM動作を検査できた証拠でもありません。
 全件が共通のコンパイル依存により先へ進めない状態です。
 

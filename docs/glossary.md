@@ -97,6 +97,18 @@ for incompatible existing ownership. A child can acquire under its parent's
 lock and temporarily block that parent. `has_lock` and `is_blocked` answer
 different questions.
 
+**Kill / `do_kill` / `stop_sequences`** — Termination of a sequence / its
+termination hook / termination and queue cleanup for a sequencer's active
+sequences. The required post-kill `post_body`/`post_start` hooks are separate
+from `do_kill`; the pinned library's omission is retained as a known difference.
+
+**Default phase sequence** — A sequence selected from a typed `default_sequence`
+resource at a sequencer/phase scope. A wrapper requests factory creation; an
+instance resource supplies the object directly. Selection uses precedence,
+and a selected null disables the default. The sequence receives its sequencer
+and starting phase, is randomized unless disabled, and is killed if still
+running at phase end.
+
 **Callback / typewide registration / iterator** — A registered extension hook /
 registration applying to a callback type pairing rather than one instance /
 an object that traverses the applicable enabled callbacks. Registration order,

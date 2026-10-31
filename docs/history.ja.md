@@ -2,7 +2,7 @@
 
 [English](history.md) · [README](../README.ja.md)
 
-M1と、M2の6回目（373件）までの追加作業を記録しています。以前の349件の時点は
+M1と、M2の7回目（397件）までの追加作業を記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -329,3 +329,36 @@ lockの照会は、明示的にsequencerへ関連付けたsequence objectで行�
 キュー状態は指定せず、再実行の前に残った要求があれば回収します。回収の成否自体は期待値にしません。
 objectは型付きハンドルとpayloadを比較します。待機するテストにはwatchdogを設け、
 保護されたFIFOや仲裁キューは参照しません。
+
+### M2の7回目
+
+24件を追加し、全体で397件になりました。
+
+- itemの排他と利用可能性：8件。lock／grab中の所有者の連続item、取得済みitemの完了を待つlock、
+  FIFOでのlock順、親lock下の子の通信、子grab中の親の待機、lock・relevanceによる
+  `has_do_available`の変化を検査します。
+- 停止：8件。sequencerあり・なしのkill、lockの解放、実行中の2つのbodyの停止、
+  driverが保持する要求を破棄した後の再実行、kill後の必須hook、killによる自動objectionのdropを検査します。
+- default phase sequence：8件。randomization無効時のinstance、wrapperからの生成と乱数hook、
+  factory instance overrideの文脈、phaseごとのresource、高優先度のnullによる無効化、
+  phase終了時のkill、不適合な2種類のwrapperに対する必須エラーを検査します。
+
+追加18件はVerilator 5.052のseed 1・73で一致します。残る6件はlock順序、kill後のhook、
+不適合なdefault型のエラーを各2件で検証し、seed 1の既知差分として規格の期待値を保持します。
+指紋を確認した既存373件との合算では、380件一致・既知差分17件です。
+Ghostの同梱UVMは両seedとも96件一致・301件不一致で、不一致の集合も同じです。
+kirimasimは397件とも`uvm_object_wrapper`未実装です。
+
+driverは有効な要求だけを完了通知します。`stop_sequences`で保持中の要求を破棄した後は、
+新しいitemを取り出してから`item_done`を呼びます。killは待ち合わせ後に停止状態とstartの復帰を
+確認し、元のbodyの遅延処理を過ぎるまでobjectionを保持して、生き残った処理を検出します。
+自動objectionは独立したtask-phase nodeで観測します。
+
+default sequenceは実際のruntime scheduleで動かします。phaseのobjectionで自然完了までの時間を確保し、
+より長いrunのobjectionでphase終了時のkill不足も検出します。randomizationはpre/post hookで確認し、
+乱数の値は表示しません。factory overrideは規定のsequencer文脈とwrapper型名で指定します。
+nullの無効化は登録順ではなく、build時のrootとtestの優先度を使います。
+不適合な型は診断の文面を指定せず、エラー件数で確認します。
+
+M1・M2は引き続き未完です。キュー上の所有の相互作用、階層的な停止と応答の後処理、
+default resource選択の残りの条件、callbackとTLM protocolの検査が残っています。

@@ -2,7 +2,7 @@
 
 [日本語](known-differences.ja.md) · [README](../README.md) · [FAQ](faq.md)
 
-This describes the current 373-test suite and the pinned Accellera UVM
+This describes the current 397-test suite and the pinned Accellera UVM
 2020.3.1 library. A mismatch is a test result; it does not by itself assign
 the cause to the simulator, the library or the expectation.
 
@@ -10,7 +10,7 @@ the cause to the simulator, the library or the expectation.
 
 The library's own `DEVIATIONS.md` lists three differences at 18.2.3.4,
 18.4.3.6 and 13.1.5.1. Current matching scenarios avoid those branches.
-The following twelve additional limitations were identified during M1 and M2.
+The following fifteen additional limitations were identified during M1 and M2.
 Where a test directly checks a required behavior that is missing, its
 normative expectation is retained with `:oracle: spec`.
 
@@ -57,29 +57,39 @@ normative expectation is retained with `:oracle: spec`.
 - USER arbitration skips `user_priority_arbitration` when only one sequence
   is available, although 15.3.2.3 requires the callback in that case. An M2
   case retains the required invocation as a spec-only expectation.
+- Lock requests overtake earlier FIFO item requests and are granted before an
+  already granted item is acknowledged. Two cases retain the ordering and
+  waiting required by 15.3.2.10/14.2.5.5 and FIFO mode in F.2.4.1.
+- `sequence.kill` omits `post_body` and `post_start`, which 14.2.5.11 requires.
+  Bound and unbound cases retain those hooks; `do_kill`, stopped state and
+  interruption of the body are observed separately.
+- A default wrapper that creates a non-sequence object produces only a warning,
+  instead of the error required by 15.3.5. Object and sequence-item wrapper
+  cases retain the required error and absence of a default sequence start.
 
 These branches are not treated as reproduced fixed-release oracles.
 Spec-only diagnostics preserve the required post-drop objector membership,
 initial transaction state, severity-ID reset, field-operation name errors,
-response-depth errors, response-error defaults and single-candidate USER
-arbitration. Matching tests avoid the other library limitations.
+response-depth errors, response-error defaults, single-candidate USER
+arbitration, lock ordering, post-kill hooks and invalid-default errors.
+Matching tests avoid the other library limitations.
 
-Across the suite, 362 tests have the `verilator@5.052` oracle tag and eleven
+Across the suite, 380 tests have the `verilator@5.052` oracle tag and seventeen
 cases are spec-only. One of the spec-only cases checks 9.6: a child's pre-reset
 task must be killed when that phase ends, but the pinned-library run on Verilator 5.052
 lets the child perform its delayed write during a later phase. The cause of
 this combined simulator/library difference remains unassigned.
 
-The eleven spec-only tests retain their normative expected files.
-Default Verilator runs and CI select the 362 tagged cases. An explicit run
-with `--all` includes the eleven spec-only cases and records them as `known`.
+The seventeen spec-only tests retain their normative expected files.
+Default Verilator runs and CI select the 380 tagged cases. An explicit run
+with `--all` includes the seventeen spec-only cases and records them as `known`.
 The runner stops each test at its first differing seed; their current
 Verilator records establish seed 1 differences, without claiming a seed 73
-result for those eleven tests.
+result for those seventeen tests.
 
 ## Spec-only tests
 
-These are the eleven current spec-only cases. Several exercise the same
+These are the seventeen current spec-only cases. Several exercise the same
 limitation, so their count is not a count of distinct bugs.
 
 - Field-operation accessor errors:
@@ -97,10 +107,19 @@ limitation, so their count is not a count of distinct bugs.
   [two replies to depth one](../tests/u14/test_sequence_response_depth_shrink_below_two_replies_reports_error.sv)
   and [one reply to depth zero](../tests/u14/test_sequence_response_depth_shrink_to_zero_with_one_reply_reports_error.sv).
 - [USER arbitration with one candidate](../tests/u15/test_sequencer_user_arbitration_calls_override_with_one_candidate.sv).
+- Lock grant ordering:
+  [wait for the granted item](../tests/u15/test_sequencer_lock_waits_until_previously_granted_item_completes.sv)
+  and [respect the earlier FIFO request](../tests/u15/test_sequencer_fifo_lock_does_not_overtake_earlier_pending_item.sv).
+- Required post-kill hooks:
+  [bound sequence](../tests/u14/test_sequence_kill_executes_required_post_hooks_when_bound.sv)
+  and [unbound sequence](../tests/u14/test_sequence_kill_executes_required_post_hooks_when_unbound.sv).
+- Invalid-default errors:
+  [object wrapper](../tests/u15/test_default_sequence_rejects_object_wrapper_with_required_error.sv)
+  and [sequence-item wrapper](../tests/u15/test_default_sequence_rejects_sequence_item_wrapper_with_required_error.sv).
 
 ## Simulator and library combinations
 
-Ghost's bundled-library runs have 95 matches and 278 failures with each of
+Ghost's bundled-library runs have 96 matches and 301 failures with each of
 seeds 1 and 73. The same tests fail at both seeds. Its pinned-library smoke
 test differs, including with preprocessing enabled. Bundled results do not
 establish whether the cause lies in the simulator or its supplied library,
@@ -108,7 +127,7 @@ and are not evidence for the locked library. Private identity, profiles and
 diagnostics are not published.
 
 The tested kirimasim executable reports `uvm_object_wrapper` as unsupported
-on all 373 cases. These results are not passes or proof of later UVM behavior;
+on all 397 cases. These results are not passes or proof of later UVM behavior;
 the common compilation dependency blocks those observations.
 
 See the [README results](../README.md#current-results) for execution scope

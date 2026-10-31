@@ -1,0 +1,3 @@
+UT: stopped 1 kill_calls 1 start_returned 1
+UT: lock_cleared 1 owner_null 1
+UT: late_write 0

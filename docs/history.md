@@ -2,8 +2,8 @@
 
 [日本語](history.ja.md) · [README](../README.md)
 
-These records cover the M1 and M2 increments through the sixth M2 increment
-(373 tests). The earlier 349-test checkpoint is
+These records cover the M1 and M2 increments through the seventh M2 increment
+(397 tests). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -430,3 +430,45 @@ Failure cases do not prescribe the response output argument or partial queue
 effects; recovery drains any residual request without asserting whether one
 was queued. Object cases compare typed handle values and payloads. Blocking
 tests retain watchdogs; no protected FIFO or arbitration queue is accessed.
+
+### Seventh M2 increment
+
+This increment adds 24 cases, bringing the suite to 397:
+
+- Eight item-exclusion and availability cases: owner streams under lock/grab,
+  lock waiting for an already granted item, FIFO lock ordering, child traffic
+  under a parent lock, parent blocking under a child grab, and
+  `has_do_available` transitions for lock and relevance gates.
+- Eight termination cases: bound/unbound kill, lock cleanup, stopping two
+  active bodies, flushing a driver-held request and accepting a fresh one,
+  required post-kill hooks, and automatic-objection drop on kill.
+- Eight default phase sequence cases: instance identity with randomization
+  disabled, wrapper creation and randomization hooks, factory instance-override
+  context, separate phase resources, higher-precedence null disabling,
+  kill at phase end and two invalid wrapper types requiring errors.
+
+Eighteen new cases match Verilator 5.052 with seeds 1 and 73. Six retain known
+seed 1 differences: two lock-ordering cases, two missing post-kill-hook cases
+and two invalid-default error cases. Their normative expected files remain
+unchanged. Together with the fingerprint-verified 373-case baseline, totals
+are 380 matches and seventeen known differences. Ghost bundled runs have
+96 matches and 301 failures with each seed, with identical failing sets;
+kirimasim reports all 397 unsupported at `uvm_object_wrapper`.
+
+The driver acknowledges only live requests. After `stop_sequences` flushes
+a held request, the test retrieves a fresh item before calling `item_done`.
+Kill tests sample stopped state and start return after settling, then retain
+an objection beyond the original delayed body action to expose surviving work.
+Automatic objections are observed on an isolated task-phase node.
+
+Default sequences run in the real runtime schedule. Phase objections leave
+time for natural completion; a longer run objection also exposes a missing
+phase-end kill. Randomization is checked through pre/post hooks, without
+printing random values. Factory override paths follow the required sequencer
+context and wrapper type name. Null-disabling uses build-time root versus
+test precedence, not insertion-order assumptions. Invalid-type cases count
+errors without prescribing diagnostic text.
+
+M1 and M2 remain open. Queued ownership interactions, hierarchical stop and
+response cleanup, further default-resource selection and broader callback/TLM
+protocol coverage still need review and tests.

@@ -71,6 +71,14 @@ lockは通常の仲裁に加わり、grabは先頭に入りますが、互換性
 子は親のlock下でも取得でき、取得中は親を一時的にblockedにできます。
 `has_lock`と`is_blocked`は別の状態を照会します。
 
+**kill／`do_kill`／`stop_sequences`** — sequenceの停止／停止hook／sequencerで実行中のsequenceの停止と
+キューの後処理です。killで要求される`post_body`・`post_start`は`do_kill`とは別のhookで、
+固定版ライブラリが呼び出さない差分を既知差分として保持します。
+
+**default phase sequence** — sequencerとphaseのscopeで型付きの`default_sequence` resourceから選ぶsequenceです。
+wrapperならfactoryで生成し、instanceならそのobjectを使います。優先度で選び、選択されたnullは無効化を示します。
+sequencerと開始phaseを設定し、無効化しない限りrandomizeして実行します。phase終了時も動いていればkillします。
+
 **callback／typewide登録／iterator** — 登録した拡張hook／単一instanceではなく型の組み合わせに適用する登録／
 適用可能で有効なcallbackを辿るobjectです。登録順・継承・途中終了はそれぞれ別の検査対象です。
 
