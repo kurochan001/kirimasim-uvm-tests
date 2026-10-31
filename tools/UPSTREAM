@@ -1,0 +1,14 @@
+tools/suite_results.py is copied from kirimasim-tests
+(https://github.com/kurochan001/kirimasim-tests), tools/suite_results.py at
+commit 19034b575e1b715c356660ac1422b45f25c15ab3, with these changes:
+
+- SIMULATORS lists kirimasim, verilator and ghost.
+- input_files() also hashes third_party/uvm.lock, which names the library
+  that every test is compiled with.
+- runner_digest() hashes tools/uvm_common.py instead of normalize_output.py,
+  which this suite does not use.
+- The module docstring says where the file comes from.
+
+The runners (run_*.py) and lint_metadata.py are written for this suite after
+the kirimasim-tests ones; they are not copies. When the judging rules of the
+two repositories start to drift, move the shared code into one package.

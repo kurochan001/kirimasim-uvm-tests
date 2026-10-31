@@ -1,0 +1,16 @@
+UT: build test
+UT: build env
+UT: connect env
+UT: connect test
+UT: end_of_elaboration env
+UT: end_of_elaboration test
+UT: start_of_simulation env
+UT: start_of_simulation test
+UT: run test
+UT: extract env
+UT: extract test
+UT: check env
+UT: check test
+UT: report env
+UT: report test
+UT: final test

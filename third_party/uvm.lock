@@ -1,0 +1,11 @@
+{
+ "version": "2020.3.1",
+ "standard": "IEEE 1800.2-2020",
+ "repository": "https://github.com/accellera-official/uvm-core",
+ "tag": "2020.3.1",
+ "commit": "78c06547a2a0a29b3dc9dcafae62b75b2ff61544",
+ "archive": "https://github.com/accellera-official/uvm-core/archive/78c06547a2a0a29b3dc9dcafae62b75b2ff61544.tar.gz",
+ "license": "Apache-2.0",
+ "content_sha256": "82e9ce0de0d8dfcae0fcc68a9115b5f3c79859af78443b88a4d754ffd918fb2b",
+ "files": 326
+}

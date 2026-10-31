@@ -1,0 +1,6 @@
+# The pinned UVM library, fetched by tools/fetch_uvm.py.
+third_party/uvm/
+__pycache__/
+*.pyc
+# Local results; the published ones go to the results branch.
+out/
