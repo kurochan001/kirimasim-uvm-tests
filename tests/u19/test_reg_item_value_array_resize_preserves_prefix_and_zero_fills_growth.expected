@@ -1,0 +1,4 @@
+UT: default_size 1
+UT: grown_size 3 values a5 0 0
+UT: shrunk_size 2 values a5 42
+UT: regrown_size 3 values a5 42 0

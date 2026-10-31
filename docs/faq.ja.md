@@ -154,7 +154,7 @@ Ghostはさらに実行ファイル・profile・供給されたライブラリ�
 
 ### Q16. M1・M2・M3は完了していますか。件数は何の網羅を示しますか
 
-M1・M2には条項ごとの目標に未達があります。M3はレジスタモデル内の48件まで追加した段階で、未完です。
+M1・M2には条項ごとの目標に未達があります。M3はbusモデルのfrontdoor経路を含め72件まで追加した段階で、未完です。
 次の段階の開始によって、それまでの段階が完了したとは扱いません。
 範囲と残りの作業は[進め方](../README.ja.md#進め方)にあります。
 件数はテストの本数で、規格の全要求や組み合わせの棚卸しではありません。
@@ -496,8 +496,8 @@ field名検索とmapの幅・変換結果の4件はspecのみで保持し、lock
 構築、fieldのpolicyと配置、resetの種類、desired／mirrored値、再帰resetとlock、
 mapの単位・権限・endian順序・再配置・階層を検査します。
 
-2回目の追加で、下記のmemory・policy・mapのケースを追加しました。
-memoryの転送やvirtual register、追加のpolicy／mapの条件、adapter、predictor、frontdoorの転送、
+以後の追加でmemory・policy・mapと、下記のadapter・predictor・busモデルのfrontdoorを検査しています。
+memoryの転送やvirtual register、追加のpolicy／mapやbus／predictorの組み合わせ、
 backdoor／DPIの環境、register callback、付録Eのsequenceは今後の作業です。
 register・memoryのmap検索では引数を明示します。配布物の複数mapに関する注記とnull時のmap解決は
 [既知差分](known-differences.ja.md)で説明します。
@@ -527,7 +527,7 @@ location番号が変わるとlocal offsetと外部アドレスも変わります
 ### Q49. READ／WRITE predictionはbus転送を実行しますか
 
 predictionは計算値や観測値をモデルへ渡す操作です。`UVM_PREDICT_DIRECT`はpolicyの効果を適用せず値を写し、
-READ／WRITEは観測した操作に応じた効果を適用します。今回の検査は観測値を模擬し、driverやDUTは動かしません。
+READ／WRITEは観測した操作に応じた効果を適用します。fieldのprediction検査は観測値を模擬し、driverやDUTは動かしません。
 
 READ predictionは読み出し後のRCを0、RSを全bit 1にします。
 WRITE predictionはW1C／W1S／W1Tで1のbitを消去・設定・反転し、W0C／W0Sでは0のbitを使います。
@@ -545,4 +545,51 @@ fieldとmapの権限が矛盾する場合はNOACCESSになります。いずれ�
 mapの`reset()`の既定値はSOFTで、register・fieldのHARDとは異なります。
 [map単位のreset](../tests/u18/test_reg_map_reset_defaults_to_soft_and_preserves_other_maps_registers.sv)では、
 別mapのregisterが変わらないことも確認します。不正入力の検査は元の重大度、必須の戻り値、呼び出し元の配列の維持を観測します。
-auto-predictの検査はmapごとのmode flagだけを扱い、実際の読み書きに伴う自動predictionは今後の作業です。
+auto-predictの検査はmapごとのmode flagだけを扱い、下記のfrontdoor検査ではbusモデルの読み書きに伴う効果も確認します。
+
+## adapter・predictor・frontdoorの経路
+
+### Q51. adapterと操作記述子では何を検査しますか
+
+7件で標準TLM adapterのcommand・address・byte長・独立した生成・byte enable・成功／エラー応答の変換・
+callback外のcontextを検査します。同じdata byteを使って数値上のbyte順を固定せず、失敗したreadのdataも指定しません。
+[操作の値配列](../tests/u19/test_reg_item_value_array_resize_preserves_prefix_and_zero_fills_growth.sv)は、
+19.1.1.2.4の既定サイズ、既存要素の維持、拡張や縮小後の再拡張で新しい要素が0になることを確認します。
+
+activeなcontext検査では、`reg2bus`内で`get_item`を読み取り、register・map・extension・操作種別・doorを観測します。
+返されたitemは変更しません。callback外では`bus2reg`内も含めてnullである必要があります。
+
+### Q52. passive predictorとfrontdoorのauto-predictionはどう違いますか
+
+別々の検査系を使います。frontdoorはsequencer／driverを通じてregisterアクセスを開始し、
+passive側はmap・adapterを設定したpredictorへ、analysis portから観測packetを入力します。
+
+```mermaid
+flowchart TB
+    subgraph active["activeなfrontdoor検査"]
+        direction TB
+        access["registerのread / write"] --> conversion["map + adapter"]
+        conversion --> transfer["sequencer + driver"]
+        transfer --> storage["テストベンチ内のbus記憶域"]
+    end
+    subgraph passive["passive predictorの検査"]
+        direction TB
+        observation["入力するbus観測packet"] --> prediction["predictor + map + adapter"]
+        prediction --> mirror["registerのmirror"]
+        prediction --> publication["reg_apのsubscriber"]
+    end
+```
+
+predictorはRW／RO・RC／W1Cの効果、公開する操作の情報、両endianでの幅の広いregisterの組み立て、
+memoryと未登録アドレスの無視を検査します。必要なbus wordが揃うまでは公開しません。
+hookの転送先変更は19.3.3.2の転送先と値の変更を期待値に保持します。[既知差分](known-differences.ja.md)を参照してください。
+
+### Q53. frontdoorはRTLのDUTやbusの全組み合わせを検査しますか
+
+テストベンチ内の記憶域モデルと実際のsequencer／driver接続を使い、正の遅延後に完了を通知します。
+auto-predictionの有効／無効、別のresponse item、狭いbusへのwriteの対応関係、adapter contextを検査します。
+addressとdataの対応を確認し、規定されていない転送順序は要求しません。
+big endianの幅の広いreadは標準TLM adapterを使い、同じpayload byteから値を復元する規格の期待値をspecのみで保持します。
+
+RTLのDUTやDPIを使わない、選択したUVM経路の検査です。実際のbus信号protocol、より広い応答・エラー・timingの
+組み合わせ、memory転送、monitorとpredictorをつないだ実転送は今後の作業です。

@@ -215,7 +215,7 @@ blockのresetは子blockへ再帰しますが、物理的なハードウェア�
 返される配列はデータの下位側から並びます。submapはoffsetとbus幅を組み合わせます。
 
 **Frontdoor／backdoor／predictor** — モデル化したbus経路のアクセス／designの記憶域への直接のアクセス／
-観測したtransactionに基づくモデルの更新です。M3初回は値とアドレスの計算を扱い、DUTとのこれらの接続は今後追加します。
+観測したtransactionに基づくモデルの更新です。M3ではbusモデルのfrontdoorと観測packetによるpassive predictionを追加しました。RTL／backdoorとの接続は今後の作業です。
 [レジスタモデルのFAQ](faq.ja.md#レジスタモデルの基本)を参照してください。
 
 **Memory／location／location番号** — 連続した記憶域のモデル／その中の1 word／選択するwordの番号です。
@@ -229,6 +229,16 @@ RC／RSはreadの効果、W1C／W1S／W1TとW0C／W0Sは選んだbitへのwrite�
 **Mapのreset／再配置／方向による検索** — 既定でSOFTのregisterモデルの復元／要素やsubmapのoffsetの変更／
 同じアドレスのregisterを読み書きの方向で選ぶことです。modeの取得やアドレスの問い合わせはbusの動作を示しません。
 [memoryとpredictionのFAQ](faq.ja.md#memorypredictionmapの制御)も参照してください。
+
+**Register adapter／操作context** — genericなbus操作とprotocol固有itemの変換／
+`reg2bus`内で読める`get_item`の参照です。`provides_responses`で別のdriver応答を選び、callback外のcontextはnullです。
+
+**Predictor／reg_ap／pre_predict** — bus観測を受け取るcomponent／genericな操作の公開port／値や転送先を変えるhookです。
+幅の広い操作はbus wordを集めてから公開し、memory観測は除外します。公開する観測値とpolicy適用後のmirrorは別です。
+
+**Frontdoorのbusモデル／auto-prediction** — adapter・sequencer・テストベンチdriverを通るregisterの読み書き／
+有効にした場合にアクセス後のmirrorを自動更新することです。RTLのbus実装を示すものではありません。
+[経路の説明](faq.ja.md#adapterpredictorfrontdoorの経路)も参照してください。
 
 ## 実行と結果
 

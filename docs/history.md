@@ -2,8 +2,8 @@
 
 [日本語](history.ja.md) · [README](../README.md)
 
-These records cover M1, fifteen M2 increments and two M3 increments
-(637 tests). The earlier 349-test checkpoint is
+These records cover M1, fifteen M2 increments and three M3 increments
+(661 tests). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -887,3 +887,41 @@ Both README languages, glossary, FAQ and known differences are updated.
 Tool tests, metadata, pinned-library integrity, evidence fingerprints and
 local documentation links were checked. All cases use UVM_NO_DPI, retain
 spec_check: ai and request no deprecated API. M1, M2 and M3 remain open.
+
+## Third M3 increment: adapters, predictors and frontdoor (2026-11-01)
+
+This increment adds 24 cases, bringing the suite to 661 and M3 to 72 across
+chapters 18–19. M1 remains at 229 and M2 at 360; all three stages remain open.
+
+- Seven TLM adapter cases and one operation-descriptor array case: command,
+  address, byte length/enables, allocation, response conversion, callback
+  scope and prescribed array resize behavior.
+- Eight predictor cases: metadata publication, RW/RO and RC/W1C policies,
+  complete wide-word accumulation in both endian modes, ignored observations
+  and target/value redirection.
+- Eight frontdoor paths: read/write auto-prediction settings, a separate
+  response, wide writes, big-endian read reconstruction and adapter context.
+
+Twenty-two additions match Verilator 5.052 at seeds 1 and 73. Two retain
+runtime differences at seed 1: predictor target redirection and big-endian
+frontdoor read reconstruction. Combined with the verified 637-case baseline,
+there are 604 matches and 57 known differences: 50 runtime seed 1 differences
+and seven missing-API builds without runtime seeds. Ghost uses the same
+executable/profile snapshot as the baseline; combined results have 140
+matches and 521 failures per seed with identical failing sets. kirimasim
+was measured over the whole suite on a newly frozen build, with corrected
+cases refreshed, giving 654 unsupported cases and seven missing-API failures.
+
+Frontdoor fixtures use real sequencer/driver handshakes and positive-delay
+acknowledgements against testbench storage. Passive predictor fixtures use
+separately supplied observations. They do not claim RTL or integrated bus
+monitor coverage. Uniform TLM data bytes avoid a numeric byte-order mapping;
+failed-read data and unspecified transfer order are left unconstrained.
+The big-endian frontdoor read uses the standard TLM adapter and repeated payload bytes.
+Virtual overrides match base argument names and extensions use a concrete token.
+
+Both README languages, glossary, FAQ and known differences are updated, with
+a diagram distinguishing active and passive fixtures. Tool tests, metadata,
+pinned-library integrity, current input/runner/configuration fingerprints,
+documentation links and diagram rendering were checked. All cases retain
+spec_check: ai, UVM_NO_DPI and no deprecated API.

@@ -2,7 +2,7 @@
 
 [English](history.md) · [README](../README.ja.md)
 
-M1・M2の15回目と、M3の2回目（637件）までの追加作業を記録しています。以前の349件の時点は
+M1・M2の15回目と、M3の3回目（661件）までの追加作業を記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -663,3 +663,26 @@ auto-predict flagは実転送時の自動predictionを示しません。再配�
 日英のREADME・用語集・FAQ・既知差分を更新しました。ツールの単体テスト、メタデータ、
 固定UVMの整合性、実行証拠の指紋、ドキュメントのリンクを確認しました。
 全件がUVM_NO_DPI・spec_check: aiで、deprecated APIを要求しません。M1・M2・M3とも未完です。
+
+## M3の3回目：adapter・predictor・frontdoor（2026-11-01）
+
+24件を追加し、全661件、M3は第18〜19章に72件となりました。M1は229件、M2は360件で、3段階とも未完です。
+
+- TLM adapterを7件と操作記述子の配列を1件：command・address・byte長／enable・生成・応答変換・callback範囲・配列のresizeです。
+- predictorを8件：操作情報の公開、RW／RO・RC／W1C、両endianのwordの収集、対象外の観測、転送先と値の変更です。
+- frontdoorを8件：read／writeのauto-prediction設定、別のresponse、幅の広いwrite、big endianのread、adapter contextです。
+
+新規22件はVerilator 5.052のseed 1・73で一致しました。転送先変更とbig endianのreadの2件はseed 1の既知差分です。
+指紋を照合した既存637件と合算し、全体は604件一致・既知差分57件です。内訳は実行時のseed 1差分50件と、seed未実行のAPI欠落7件です。
+Ghostは前回と同じ実行ファイル・profileの固定コピーを使い、合算で各seed 140件一致・521件不一致で、不一致集合も同じです。
+kirimasimは新しい固定buildで全件を測定し、修正ケースを再実行して、654件未対応・API欠落7件となりました。
+
+frontdoorは実際のsequencer／driver接続と正の遅延後の完了通知で、テストベンチ内の記憶域を読み書きします。
+passive predictorは別に用意した観測値を入力し、RTLやbus monitorをつないだ検査としては扱いません。
+TLMは同じbyteを使い、失敗したreadのdataや規定されていない転送順序を指定しません。
+big endianのfrontdoor readは標準TLM adapterと同じpayload byteを使って確認します。
+virtual overrideの引数名は基底と揃え、extension用tokenは具体クラスを使います。
+
+日英のREADME・用語集・FAQ・既知差分を更新し、activeとpassiveの検査系を分ける図を追加しました。
+単体テスト、メタデータ、固定UVM、入力・ランナー・設定の指紋、リンク、図の描画を確認しました。
+全件がspec_check: ai・UVM_NO_DPIで、deprecated APIを要求しません。

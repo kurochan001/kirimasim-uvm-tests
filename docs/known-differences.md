@@ -2,7 +2,7 @@
 
 [日本語](known-differences.ja.md) · [README](../README.md) · [FAQ](faq.md)
 
-This describes the current 637-test suite and the pinned Accellera UVM
+This describes the current 661-test suite and the pinned Accellera UVM
 2020.3.1 library. A mismatch is a test result; it does not by itself assign
 the cause to the simulator, the library or the expectation.
 
@@ -14,7 +14,7 @@ A simple memory registered on two sibling-interface maps matches 18.2.3.4 in
 the pinned release. The release's multiple-map note and shared-map hierarchies
 require separate review; this case establishes only its two-interface setup.
 See the [memory scope](faq.md#memory-prediction-and-map-controls).
-The following thirty-four additional limitations were identified during M1, M2 and M3.
+The following thirty-six additional limitations were identified during M1, M2 and M3.
 Where a test directly checks a required behavior that is missing, its
 normative expectation is retained with `:oracle: spec`.
 
@@ -139,6 +139,15 @@ normative expectation is retained with `:oracle: spec`.
   even when the specified map restricts it to RO. Clause 18.6.4.6 requires
   effective access to include that restriction. The case separately retains
   the RW rights query for unshared memory specified by 18.6.4.5.
+- `uvm_reg_predictor::pre_predict` can redirect the item, but the predictor
+  still updates the original register handle selected before the hook.
+  Clause 19.3.3.2 permits target redirection. A case changes both public
+  target and value and retains the required source/target mirror states.
+- Big-endian frontdoor reads byte-swap a narrow bus beat across the full
+  register-data type width, discarding the returned bits when masking the
+  beat. The two-word case uses the standard TLM adapter and retains the data
+  reconstruction required by 18.4.4.10 and 19.1.2.3, using repeated bytes to
+  avoid intra-word ambiguity.
 
 These branches are not treated as reproduced fixed-release oracles.
 Spec-only diagnostics preserve the required post-drop objector membership,
@@ -150,25 +159,25 @@ initiator-socket routing, repeated push delivery, sequence-library APIs/removal,
 FIFO peek notifications, `start_item` error severity, library subtype
 construction, `finish_item` dispatch, IDs and guards, pre-lock field lookup,
 map width/translation results, location-specific memory offsets and
-single-map effective access.
+single-map effective access, predictor redirection and big-endian frontdoor read data.
 Matching tests avoid the other library limitations.
 
-Across the suite, 582 tests have the `verilator@5.052` oracle tag and fifty-five
+Across the suite, 604 tests have the `verilator@5.052` oracle tag and fifty-seven
 cases are spec-only. One of the spec-only cases checks 9.6: a child's pre-reset
 task must be killed when that phase ends, but the pinned-library run on Verilator 5.052
 lets the child perform its delayed write during a later phase. The cause of
 this combined simulator/library difference remains unassigned.
 
-The fifty-five spec-only tests retain their normative expected files.
-Default Verilator runs and CI select the 582 tagged cases. `--all` includes
+The fifty-seven spec-only tests retain their normative expected files.
+Default Verilator runs and CI select the 604 tagged cases. `--all` includes
 spec-only cases and records mismatches or build failures as `known`.
-The runtime records for 48 cases establish the first difference at seed 1,
+The runtime records for 50 cases establish the first difference at seed 1,
 without seed 73 results. Seven missing-API cases cannot build and have no
 runtime seed result: one time API and six sequence-library cases.
 
 ## Spec-only tests
 
-These are the fifty-five current spec-only cases. Several exercise the same
+These are the fifty-seven current spec-only cases. Several exercise the same
 limitation, so their count is not a count of distinct bugs.
 
 - Field-operation accessor errors:
@@ -249,21 +258,24 @@ limitation, so their count is not a count of distinct bugs.
   [locations 0, 1 and 3](../tests/u18/test_mem_location_offsets_include_the_location_index_stride.sv).
 - Single-map memory access restrictions:
   [intrinsic policy and restricted view](../tests/u18/test_mem_intrinsic_readonly_policy_and_map_rights_are_distinct.sv).
+- Predictor target redirection:
+  [modified target and value](../tests/u19/test_reg_predictor_pre_predict_redirects_the_target_and_modified_value.sv).
+- Big-endian frontdoor read reconstruction:
+  [two bus words](../tests/u18/test_reg_frontdoor_big_endian_wide_read_preserves_returned_bus_words.sv).
 
 ## Simulator and library combinations
 
-Ghost's bundled-library runs have 134 matches and 503 failures with each of
-seeds 1 and 73. All 637 cases were rerun after an executable fingerprint
-change, using an executable/profile snapshot; the same tests fail at both
-seeds. Earlier pinned-library smoke runs differed, including with
-preprocessing enabled; the sampled build has no pinned-mode measurement.
-Bundled results do not
-establish whether the cause lies in the simulator or its supplied library,
-and are not evidence for the locked library. Private identity, profiles and
-diagnostics are not published.
+Ghost's bundled-library evidence has 140 matches and 521 failures with each
+of seeds 1 and 73; the same tests fail at both seeds. The previous 637-case
+full run and 24 fresh cases use the same executable/profile snapshot.
+Earlier pinned-library smoke runs differed, including with preprocessing
+enabled; the sampled build has no pinned-mode measurement. Bundled results
+cover the supplied library. Their mismatches do not distinguish a simulator
+problem from a library problem or establish results for the locked library.
+Private identity, profiles and diagnostics are not published.
 
 The tested kirimasim executable reports `uvm_object_wrapper` as unsupported
-on 630 cases. Seven cases fail earlier on missing library APIs: one time
+on 654 cases. Seven cases fail earlier on missing library APIs: one time
 setter and six sequence-library cases. Neither result is a pass or evidence
 of UVM execution beyond those compilation blockers.
 

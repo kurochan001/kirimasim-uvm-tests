@@ -285,8 +285,8 @@ arrays follow data significance; submaps combine offsets and bus widths.
 
 **Frontdoor / backdoor / predictor** — Access through a modeled bus path /
 direct access to the design's storage / model updates derived from observed
-transactions. The initial M3 batch exercises values and address calculations;
-these DUT interaction paths remain future work. See the
+transactions. M3 now exercises frontdoor paths with a testbench bus model and passive
+prediction from supplied observations. RTL/backdoor integration remains future work. See the
 [register-model FAQ](faq.md#register-model-basics).
 
 **Memory / location / location index** — A model of contiguous storage /
@@ -304,6 +304,21 @@ models, with SOFT as the default kind / moving an element or submap's offset /
 selecting a shared-address register by read/write direction. Mode getters and
 address queries do not establish bus behavior. See the
 [memory and prediction FAQ](faq.md#memory-prediction-and-map-controls).
+
+**Register adapter / operation context** — Conversion between a generic bus
+operation and a protocol-specific item / the read-only `get_item` reference
+available inside `reg2bus`. Separate driver responses are selected by
+`provides_responses`; context is absent outside the conversion callback.
+
+**Predictor / reg_ap / pre_predict** — A component consuming bus observations /
+its generic-operation publication port / a hook for value or target changes.
+Wide operations accumulate bus words before publication. Memory observations
+are excluded. The published observed value can differ from the post-policy mirror.
+
+**Frontdoor bus model / auto-prediction** — Register read/write traffic through
+an adapter, sequencer and testbench driver / automatic mirror update after
+that access when enabled. This tests UVM traffic without establishing an RTL
+bus implementation. See the [path guide](faq.md#adapter-predictor-and-frontdoor-paths).
 
 ## Execution and result records
 

@@ -172,8 +172,8 @@ a claim that every test was rebuilt together.
 
 ### Q16. Are M1, M2 or M3 complete, and what does the test count cover?
 
-M1 and M2 still have open clause targets. M3 now has 48 model-only
-register-layer cases; it is also incomplete. Starting a stage does not complete
+M1 and M2 still have open clause targets. M3 now has 72
+register-layer cases, including testbench frontdoor paths; it is also incomplete. Starting a stage does not complete
 the preceding stages.
 The [plan](../README.md#plan) identifies current scope and remaining work.
 Counts are test cases, not a reviewed inventory of every requirement or
@@ -593,9 +593,10 @@ It also checks construction, field policies and layout, reset kinds,
 desired/mirrored values, recursive reset and locking, and map
 units, rights, endian ordering, relocation and hierarchy.
 
-The second increment adds the memory, policy and map cases described below.
+Later increments add memory/policy checks and the adapter, predictor and
+testbench frontdoor cases described below.
 Memory transfers and virtual-register models, broader policy/map conditions,
-adapters, predictors, frontdoor traffic, backdoor/DPI setups, callbacks and
+broader bus/predictor combinations, backdoor/DPI setups, callbacks and
 annex E sequences remain future work. Register and memory map queries use
 explicit arguments. The release's multiple-map note and null-map resolution
 are discussed in
@@ -633,7 +634,7 @@ behavior and the release's multiple-map note need separate review.
 No. A prediction supplies a computed or observed value to the model.
 `UVM_PREDICT_DIRECT` copies it without access-policy effects; READ and WRITE
 predictions apply the effects associated with that observed operation.
-The new cases synthesize observations, without executing a driver or DUT.
+The field prediction cases synthesize observations, without executing a driver or DUT.
 
 READ prediction leaves RC state cleared and RS state set after the sampled
 read. WRITE prediction applies selected-bit clearing, setting or toggling
@@ -656,4 +657,62 @@ The [scoped reset case](../tests/u18/test_reg_map_reset_defaults_to_soft_and_pre
 checks that another map's register stays unchanged. Negative probes observe
 original warning/error severities, required return values and an unchanged
 caller array. The auto-predict case checks independent mode flags only;
-automatic prediction after a real register read/write remains future work.
+the frontdoor cases below additionally check its effect during bus-model reads and writes.
+
+## Adapter, predictor and frontdoor paths
+
+### Q51. What do the adapter and operation-descriptor cases check?
+
+Seven cases exercise the standard TLM adapter's command, address, byte
+length, allocation, byte enables, successful/error response conversion and
+out-of-callback context. Uniform data bytes avoid a numeric byte-order
+assumption; failed reads do not prescribe returned data. The
+[operation-array case](../tests/u19/test_reg_item_value_array_resize_preserves_prefix_and_zero_fills_growth.sv)
+checks the default size, prefix preservation and zero initialization during
+growth and shrink/regrowth, as specified by 19.1.1.2.4.
+
+The active context case reads `get_item` during `reg2bus` without modifying
+it. It observes the selected register, map, extension, access kind and door.
+The accessor must be null outside that callback, including in `bus2reg`.
+
+### Q52. How do passive prediction and frontdoor auto-prediction differ?
+
+These tests use separate fixtures. Frontdoor cases initiate register accesses
+through a sequencer and driver; passive cases inject observed packets through
+an analysis port into a predictor configured with its map and adapter.
+
+```mermaid
+flowchart TB
+    subgraph active["Active frontdoor cases"]
+        direction TB
+        access["Register read / write"] --> conversion["Map + adapter"]
+        conversion --> transfer["Sequencer + driver"]
+        transfer --> storage["Testbench bus storage"]
+    end
+    subgraph passive["Passive predictor cases"]
+        direction TB
+        observation["Supplied bus observations"] --> prediction["Predictor + map + adapter"]
+        prediction --> mirror["Register mirror"]
+        prediction --> publication["reg_ap subscriber"]
+    end
+```
+
+Predictor tests check RW/RO and RC/W1C effects, published operation metadata,
+wide-register accumulation in both endian modes, and ignored memory/unmapped
+addresses. A wide operation publishes only when all required bus words arrive.
+The hook-redirection case retains the target and value changes required by
+19.3.3.2; see [known differences](known-differences.md).
+
+### Q53. Do the frontdoor cases test an RTL device or every bus combination?
+
+They use a testbench storage model with real sequencer/driver handshakes and
+positive-delay acknowledgements. The tests check read/write results with
+auto-prediction enabled and disabled, a separate response item, narrow-bus
+write associations and adapter context. Address/data associations are checked
+without imposing an unspecified transfer order. The big-endian wide-read case
+uses the standard TLM adapter and retains required reconstruction of repeated
+payload bytes as spec-only.
+
+These fixtures establish selected UVM paths without an RTL DUT or DPI. Actual
+bus signal protocols, broader response/error and timing combinations, memory
+transfers and integrated monitor/predictor traffic remain future work.
