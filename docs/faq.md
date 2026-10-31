@@ -56,13 +56,15 @@ Verilator runner; it is not a shared option for the other runners.
 
 ### Q5. What do pass, fail, known and unsupported mean?
 
-- `pass`: expected output and specified exit/diagnostic conditions match.
-- `fail`: output or another condition differs, or building/running failed.
-- `known`: an untagged Verilator test differs or fails to build/run. It is not a pass.
-- `unsupported`: kirimasim returns its recognized unsupported-feature diagnostic.
-  Other compilation failures can still be `fail`.
+| Status | Meaning | Recorded by |
+| --- | --- | --- |
+| `pass` | Expected output and required exit/diagnostic conditions match | All three runners |
+| `fail` | Output or another condition differs, or building/running failed | kirimasim, Ghost; Verilator for tagged oracles |
+| `known` | An untagged Verilator case differs or fails to build/run; not a pass | Verilator only |
+| `unsupported` | The recognized unsupported-feature diagnostic and exit code are returned | kirimasim only |
 
 Ghost records mismatches as `fail`, including bundled-library differences.
+Other kirimasim compilation failures can still be `fail`.
 Do not interpret the number of failed tests as the number of distinct bugs.
 
 ### Q6. Why can Verilator exit successfully with KNOWN results?
@@ -99,9 +101,10 @@ has not been assigned to either the simulator or library. See
 
 [Check](../.github/workflows/check.yml) checks metadata, tools, the pinned
 library and tagged Verilator oracles. It does not run kirimasim or Ghost and
-does not require spec-only cases to match. The tested kirimasim executable
-currently stops all cases at `uvm_object_wrapper` as unsupported. Those
-results do not establish behavior beyond that common compilation dependency.
+does not require spec-only cases to match. Most cases in the current kirimasim
+run stop at `uvm_object_wrapper` as unsupported; the remaining cases fail
+earlier on missing library APIs. Neither result establishes behavior beyond
+those compilation blockers.
 
 ### Q10. Where is Nightly or the public results dashboard?
 
@@ -118,11 +121,14 @@ Ghost is an unreleased simulator participating under an alias. Its executable
 identity, version, paths, profiles and diagnostics stay private. Public JSON
 uses generic reasons and content fingerprints.
 
-In `pinned` mode, the runner compiles the locked library and the profile
-disables automatic bundled UVM. In `bundled` mode, the profile supplies its
-library, identified by a tree digest or an embedded-library declaration.
-The latter result is not evidence for the pinned library. A bundled mismatch
-does not by itself distinguish a simulator problem from a library problem.
+| Mode | UVM supplied by | What the result covers |
+| --- | --- | --- |
+| `pinned` | Runner compiles the locked library; profile disables automatic bundled UVM | Simulator with the locked library |
+| `bundled` | Profile supplies a library tree or declares embedded UVM | Simulator with the supplied library; not evidence for the locked library |
+
+A bundled library is identified by its tree digest or embedded-library
+declaration. A bundled mismatch does not by itself distinguish a simulator
+problem from a library problem.
 See [Ghost setup](../README.md#ghost).
 
 ### Q12. Does uvm_dpi: yes automatically enable a working DPI build?

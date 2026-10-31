@@ -214,6 +214,35 @@ So:
 4. A disagreement between a simulator and an expected output is never solved
    by copying the simulator's output; the clause decides.
 
+### From a test to a result
+
+The two paths meet at judgment: the cited clauses determine the expectation,
+and execution supplies the observation.
+
+```mermaid
+flowchart TB
+    standard["IEEE 1800.2-2020<br/>Cited clauses"]
+    test["Test source<br/>SystemVerilog + metadata"]
+    expected["Expected result<br/>.expected + metadata conditions"]
+    library["UVM library<br/>Pinned or Ghost bundled"]
+    execute["Build and run<br/>Selected simulator"]
+    judge["Runner judgment<br/>UT: lines + exit / diagnostics"]
+    result["Result JSON with --json<br/>Status + fingerprints"]
+
+    standard --> test
+    standard --> expected
+    test --> execute
+    library --> execute
+    execute --> judge
+    expected --> judge
+    judge --> result
+```
+
+Build and run failures also receive a result. The library identity remains
+part of the execution conditions; a Ghost bundled run uses its supplied UVM.
+For status meanings and command exit codes, see the
+[FAQ](docs/faq.md#understanding-a-result).
+
 ## The UVM library
 
 ### Fetching

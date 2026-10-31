@@ -186,6 +186,33 @@ kirimasim-testsと同じです。
    - Icarus Verilog 13.0はUVMを実行できないので使いません。
 4. シミュレータと期待出力が食い違っても、出力を写して解決しません。判断するのは条項です。
 
+### テストから結果までの流れ
+
+引用した条項から決める期待値と、実行から得る観測結果を、判定の段階で照合します。
+
+```mermaid
+flowchart TB
+    standard["IEEE 1800.2-2020<br/>引用した条項"]
+    test["テストのソース<br/>SystemVerilog + メタデータ"]
+    expected["期待値<br/>.expected + メタデータの条件"]
+    library["UVMライブラリ<br/>固定版またはGhost同梱版"]
+    execute["ビルドと実行<br/>選択したシミュレータ"]
+    judge["ランナーの判定<br/>UT: 行 + 終了・診断の条件"]
+    result["--json指定時の結果JSON<br/>ステータス + 指紋"]
+
+    standard --> test
+    standard --> expected
+    test --> execute
+    library --> execute
+    execute --> judge
+    expected --> judge
+    judge --> result
+```
+
+ビルド・実行の失敗も結果として記録します。ライブラリの識別情報も実行条件の一部で、
+Ghostの同梱モードでは供給されたUVMを使います。ステータスとコマンドの終了コードは
+[FAQ](docs/faq.ja.md#結果の読み方)を参照してください。
+
 ## UVMライブラリ
 
 ### 取得
