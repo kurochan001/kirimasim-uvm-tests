@@ -8,7 +8,7 @@ Methodology, IEEE 1800.2-2020 (UVM). It is written for the
 [kirimasim-tests](https://github.com/kurochan001/kirimasim-tests), which checks
 the SystemVerilog language of IEEE 1800-2023.
 
-> **Status: M1 (core expansion in progress).** 133 tests, the pinned UVM
+> **Status: M1 (core expansion in progress).** 157 tests, the pinned UVM
 > fetcher, runners for kirimasim, Verilator and Ghost, metadata checks and
 > the Check workflow. The clause-by-clause M1 target is not complete;
 > see "Current M1 increment" below.
@@ -235,13 +235,14 @@ or establish whether the cause is the simulator or its bundled library.
 With the second M1 increment, bundled runs match 31 of 61 tests with both
 seeds; the same 30 cases differ. The third increment matches 41 of 101
 tests with both seeds, with the same 60 differences. After the fourth
-increment, both seeds match 45 of 133 tests, with the same 88 differences.
+increment, both seeds match 45 of 133 tests, with the same 88 differences. The sixth
+increment matches 49 of 157 tests with both seeds, with the same 108 differences.
 
 | Simulator | Current status |
 | --- | --- |
-| kirimasim | local executable reports all 133 cases as unsupported at `uvm_object_wrapper` |
-| Verilator 5.052 | `UVM_NO_DPI`: 130 oracle cases match seeds 1 and 73; three spec-only cases retain known differences |
-| Ghost (an unreleased simulator, as in kirimasim-tests) | bundled UVM: 45/133 match with both seeds; pinned UVM: smoke test differs |
+| kirimasim | local executable reports all 157 cases as unsupported at `uvm_object_wrapper` |
+| Verilator 5.052 | `UVM_NO_DPI`: 153 oracle cases match seeds 1 and 73; four spec-only cases retain known differences |
+| Ghost (an unreleased simulator, as in kirimasim-tests) | bundled UVM: 49/157 match with both seeds; pinned UVM: smoke test differs |
 | Icarus Verilog 13.0 | not used: it cannot run UVM |
 
 ## 8. Checks
@@ -372,11 +373,29 @@ and explicit automatic/static declarations. It is a lexical source check;
 it does not expand macros, parse subroutine lifetime, or inspect the pinned
 library. Compiler execution remains part of validation.
 
-The suite stays at 133 UVM tests. Tool unit tests increase from 30 to 41.
-The changed cases are rebuilt with both Verilator seeds. Unchanged execution
-evidence is reused only when its input and runner fingerprints match.
+The fifth increment kept 133 UVM tests and increased tool unit tests from
+30 to 41. Changed cases were rebuilt with both Verilator seeds. Unchanged
+execution evidence is reused only when input and runner fingerprints match.
 
-Across the second through fourth increments, seven additional limitations
+The sixth increment adds 24 tests, bringing the suite to 157:
+
+- Policy extension insertion, dynamic type keys, replacement, individual/all
+  deletion, policy isolation, flush preservation, and use by copy/compare
+  hooks: twelve tests.
+- Configured object handle identity, class-type specializations, null values
+  and replacement while old handles remain valid: four tests.
+- Local phase schedule append, constrained insertion, parallel branches and
+  adjacent-node queries: four tests, without executing the local schedules.
+- Report-handler reset, report ID sets, and independent statistics snapshots:
+  four tests. The severity-ID reset expectation is retained as spec-only.
+
+Extension tests observe registered wrapper keys and handle relationships,
+without depending on storage layout. Hook code handles absent extensions
+explicitly. Report ID and graph-neighbor checks compare membership rather
+than iteration order. Counter snapshots are populated through report calls,
+without implementation-only ID counter setters.
+
+Across the second through sixth increments, eight additional limitations
 of the pinned reference library were identified beyond its own `DEVIATIONS.md`:
 
 - With no override installed, `find_override_by_name` returns null even
@@ -404,23 +423,28 @@ of the pinned reference library were identified beyond its own `DEVIATIONS.md`:
   although 5.4.2.12 requires 0 before the first begin. The initial inactive
   state is retained as a spec-only test; matching lifecycle tests observe
   active state only after a begin or end.
+- Report-handler reset leaves severity-ID overrides in place, although
+  6.3.8.3 requires clearing changes made through the override methods of
+  6.3.7. The new count-based reset case preserves the required original
+  severity as a spec-only expectation.
 
 These branches are not treated as reproduced fixed-release oracles. The
-post-drop list and initial transaction-state cases are retained for diagnostics;
-the other library limitations are avoided by the matching test scenarios.
+post-drop list, initial transaction state and severity-ID reset cases are
+retained for diagnostics; the other library limitations are avoided by the
+matching test scenarios.
 
-There are 130 tests with the `verilator@5.052` oracle tag and three spec-only
+There are 153 tests with the `verilator@5.052` oracle tag and four spec-only
 cases. Another spec-only case checks 9.6: a child's pre-reset task must be
 killed when that phase ends, but the pinned-library run on Verilator 5.052
 lets the child perform its delayed write during a later phase. The cause of
 this combined simulator/library difference remains unassigned.
 
-The three spec-only tests retain their normative expected files.
-Default Verilator runs and CI select the 130 tagged cases. An explicit run
-with `--all` includes the three spec-only cases and records them as `known`.
+The four spec-only tests retain their normative expected files.
+Default Verilator runs and CI select the 153 tagged cases. An explicit run
+with `--all` includes the four spec-only cases and records them as `known`.
 The runner stops each test at its first differing seed; their current
 Verilator records establish seed 1 differences, without claiming a seed 73
-result for those three tests.
+result for those four tests.
 
 The cited behavior and expectations have been checked against IEEE
 1800.2-2020. In particular, the clone tests observe independent copies,
