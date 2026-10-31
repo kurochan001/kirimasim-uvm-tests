@@ -2,13 +2,13 @@
 
 [English](known-differences.md) · [README](../README.ja.md) · [FAQ](faq.ja.md)
 
-現在の565件と、固定したAccellera UVM 2020.3.1についての記録です。
+現在の589件と、固定したAccellera UVM 2020.3.1についての記録です。
 不一致はテストの結果であり、それだけではシミュレータ・ライブラリ・期待値のどれが原因かは決まりません。
 
 ## 固定版ライブラリの制約
 
 ライブラリ自身の`DEVIATIONS.md`には18.2.3.4・18.4.3.6・13.1.5.1の3件が載っています。
-現在、一致するテストはその分岐を避けています。それ以外に、M1とM2で次の25件の制約を確認しました。
+現在、一致するテストはその分岐を避けています。それ以外に、M1とM2で次の29件の制約を確認しました。
 不足する必須動作を直接検査する場合は、規格の期待値を変えずに`:oracle: spec`で保持します。
 
 - `find_override_by_name`は、置換がない場合に`null`を返します。元の型を生成できる場合も
@@ -75,28 +75,36 @@
   2件で、peekがitemを残すことと、それでも毎回通知する規格の件数を別々に観測します。
 - `start_item`はnullのitem、itemではないsequence、sequencer不足をFATALで報告します。
   14.2.6.2はERRORと即時のreturnを要求するため、3件で重大度を変えずにcatcherで数えます。
+- libraryのsubtypeの構築時に、sequence libraryマクロで登録した型やbaseの所属を取り込みません。
+  4件で14.4.2のconstructorとB.3.2のマクロを使い、実装固有の追加の初期化呼び出しは加えません。
+- `finish_item`は14.2.6.3が要求するsequenceのvirtualな`send_request`・`wait_for_item_done`を
+  経由しません。2件で通常の実装へ委譲するoverrideを観測します。
+- `finish_item`がsequencerの完了待ちへ渡すIDは、14.2.6.3のitemのtransaction IDではなく-1です。
+  実際の要求へ通常どおり完了を通知し、1要求・2要求の明示IDを規格の期待値として保持します。
+- `finish_item`はnull・非itemの検査を省略し、sequencer不足でもFATALの後に即時returnしません。
+  3件で14.2.6.3のERRORと早期returnを保持します。固定版の不正参照の経路は、期待する観測前に終了します。
 
 これらの分岐は、固定版で再現したオラクルとしては扱いません。drop直後の一覧、transactionの
 生成直後の状態、重大度・ID別のreset、無効なfield_opの操作名取得、応答数未満の深さ変更、
 応答エラー報告の既定値、候補1件のUSER arbitration、lockの順序、kill後のhook、
 不適合なdefault型のエラー、stop時の自動objection解除、時刻の既定名・API、
 二段のinitiator socket接続、pushの連続転送、sequence libraryのAPIと削除、FIFOのpeek通知、
-start_itemの重大度は診断用に保持します。
+start_itemの重大度、library subtypeの構築、finish_itemの委譲・ID・入力検査は診断用に保持します。
 残りのライブラリの制約は、一致するテストシナリオでは避けています。
 
-スイート全体では、`verilator@5.052`を付けたテストは527件、specのみのテストは38件です。
+スイート全体では、`verilator@5.052`を付けたテストは540件、specのみのテストは49件です。
 specのみのうち1件は9.6を検証します。pre-resetフェーズ終了時に子タスクが停止する
 はずですが、固定版UVMとVerilator 5.052の組み合わせでは、後のフェーズで子タスクの遅延書き込みが
 実行されます。この差分の原因がシミュレータとライブラリのどちらかは未確定です。
 
-specのみの38件も規格から導いた期待値を保持します。通常のVerilator実行とCIはoracle付き527件を選びます。
+specのみの49件も規格から導いた期待値を保持します。通常のVerilator実行とCIはoracle付き540件を選びます。
 `--all`はspecのみも含め、不一致やビルド不可を`known`として記録します。
-実行時の31件は最初の差分であるseed 1までの記録で、seed 73の結果はありません。
+実行時の42件は最初の差分であるseed 1までの記録で、seed 73の結果はありません。
 API欠落の7件（時刻APIの1件とsequence libraryの6件）はビルド段階で失敗し、どのseedも実行できていません。
 
 ## specのみのテスト
 
-現在の38件は次のテストです。同じ制約を複数のテストで検査する場合があり、異なる不具合の個数ではありません。
+現在の49件は次のテストです。同じ制約を複数のテストで検査する場合があり、異なる不具合の個数ではありません。
 
 - field_opのaccessorの必須エラー：
   [set前](../tests/u05/test_field_op_accessors_report_errors_before_set.sv)と
@@ -151,15 +159,30 @@ API欠落の7件（時刻APIの1件とsequence libraryの6件）はビルド段�
   [null item](../tests/u14/test_sequence_start_item_null_argument_reports_error_and_returns.sv)、
   [sequence引数](../tests/u14/test_sequence_start_item_sequence_argument_reports_error_and_returns.sv)、
   [sequencer不足](../tests/u14/test_sequence_start_item_without_any_sequencer_reports_error_and_returns.sv)。
+- libraryのstatic所属の構築：
+  [2つのinstance](../tests/uB/test_sequence_library_macros_populate_two_constructed_instances.sv)、
+  [2種類のlibrary](../tests/uB/test_sequence_library_macro_registers_one_sequence_with_two_library_types.sv)、
+  [baseの所属](../tests/uB/test_sequence_library_macro_subtype_inherits_base_static_membership.sv)、
+  [instance内の追加](../tests/uB/test_sequence_library_macro_membership_combines_with_local_addition_only_on_one_instance.sv)。
+- finish_itemの必須virtual呼び出し：
+  [送信](../tests/u14/test_sequence_finish_item_invokes_sequence_send_request_override.sv)と
+  [完了待ち](../tests/u14/test_sequence_finish_item_invokes_sequence_completion_wait_override.sv)。
+- finish_itemの完了ID：
+  [1要求](../tests/u14/test_sequence_finish_item_passes_explicit_transaction_id_to_completion_wait.sv)と
+  [2要求](../tests/u14/test_sequence_finish_item_keeps_each_transaction_id_in_two_completion_waits.sv)。
+- finish_itemの必須入力検査：
+  [null item](../tests/u14/test_sequence_finish_item_null_input_reports_error_before_mid_do.sv)、
+  [sequence引数](../tests/u14/test_sequence_finish_item_sequence_input_reports_error_before_mid_do.sv)、
+  [sequencer不足](../tests/u14/test_sequence_finish_item_missing_sequencer_input_reports_error_before_mid_do.sv)。
 
 ## シミュレータとライブラリの組み合わせ
 
-Ghostの同梱UVMはseed 1・73とも110件一致・455件不一致で、不一致になるテストも同じです。
+Ghostの同梱UVMはseed 1・73とも112件一致・477件不一致で、不一致になるテストも同じです。
 固定版UVMのスモークテストは、前処理を有効にした場合も不一致でした。
 同梱版の結果だけではシミュレータと同梱ライブラリのどちらが原因かは決められず、
 固定版ライブラリの実行証拠にもなりません。非公開の識別情報・プロファイル・診断は公開しません。
 
-確認したkirimasimの実行ファイルでは、558件が`uvm_object_wrapper`未実装です。
+確認したkirimasimの実行ファイルでは、582件が`uvm_object_wrapper`未実装です。
 時刻設定APIの1件とsequence libraryの6件は、その前にAPI欠落を検出して`fail`になります。
 いずれも成功ではなく、その先のUVM動作を実行できた証拠でもありません。
 

@@ -492,3 +492,48 @@ This interpretation is recorded in the test comment and remains a review
 item. Matching the pinned library records fixed-release reproduction; it
 does not resolve the standard's spelling inconsistency or replace human
 review. The case retains `spec_check: ai` like the rest of the current suite.
+
+## Library construction, item completion and extension identity
+
+### Q42. Why test static library membership immediately after construction?
+
+The standard's library-subtype pattern uses the utilities macro and a
+constructor calling `super.new`. Static members registered with the subtype
+or its bases must then be available. Four cases check two instances, two
+library types, inherited members and a local addition beside static members.
+
+The pinned library leaves these subtype lists unpopulated. The tests keep
+public enumeration and do not invoke an additional implementation-specific
+initialization method; see [known differences](known-differences.md).
+Separate positive cases use instance registration and default RAND execution
+for ten children. Singleton selection constraints avoid distribution or
+registration-order assumptions. These results do not validate missing APIs.
+
+### Q43. Why observe finish_item calls when requests already reach the driver?
+
+Clause 14.2.6.3 requires the sequence's virtual `send_request` and
+`wait_for_item_done` calls, with rerandomization zero and the item's explicit
+transaction ID. The pinned library calls the sequencer directly and uses -1
+for the completion ID. Tests distinguish virtual-method dispatch from
+argument forwarding. Three additional guards require ERROR and an immediate
+return for invalid input; faulty pinned paths can terminate on dereference.
+These are runtime known differences, described in
+[known differences](known-differences.md), rather than missing-API builds.
+
+The [hook-order case](../tests/u14/test_sequence_finish_item_orders_mid_mutation_before_send_and_post_after_ack.sv)
+also checks that a mid-do mutation is visible at submission and post-do sees
+the delayed acknowledgement. Report catchers count severity without rewriting
+it; no post-fatal continuation policy is prescribed.
+
+### Q44. Is an extension type key the same as its instance name?
+
+The type key returned through `uvm_tlm_extension_base::get_type_handle`
+identifies the extension type. Same-type instances share the key, including
+after an instance is renamed; different types retain different keys even if
+their instance names match. Type-handle names are compared for stable and
+distinct type identity without requiring a particular qualified spelling.
+
+Payload insertion, replacement and clearing use those opaque keys. The
+[short-alias case](../tests/u12/test_tlm2_gp_alias_shares_payload_and_polymorphic_extension_state.sv)
+also verifies that `uvm_tlm_gp` and `uvm_tlm_generic_payload` handles observe
+the same payload bindings. No numeric type ID or implicit clone is required.

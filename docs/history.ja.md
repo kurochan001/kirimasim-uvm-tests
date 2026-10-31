@@ -2,7 +2,7 @@
 
 [English](history.md) · [README](../README.ja.md)
 
-M1と、M2の14回目（565件）までの追加作業を記録しています。以前の349件の時点は
+M1と、M2の15回目（589件）までの追加作業を記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -569,3 +569,35 @@ B.5.11は見出しとclassの説明がnonblocking get／peekですが、呼び�
 ケースは見出しと説明されたclassに従う解釈を採用し、sourceコメントとFAQにレビュー項目として残します。
 固定版での再現だけでは表記の不一致を解消したとは扱いません。全件の`spec_check: ai`を維持し、
 README・用語集・FAQと現在の集計を日英で更新しました。M1・M2とも目標の棚卸しは未完です。
+
+### M2の15回目の追加（2026-11-01）
+
+24件を追加し、全589件になりました。
+
+- libraryを8件：2つのinstance・2種類の型へのstatic登録、継承とinstance内の追加、
+  1種類・2種類の候補による既定のRAND実行と、どちらかを選ぶ単一解の制約です。
+- extensionを8件：多相的な型key・型名の同一性と改名、keyによる登録・置換・削除、
+  `uvm_tlm_gp` aliasによるpayload状態の共有です。
+- finish_itemを8件：明示的な完了ID、virtualな送信・待機の呼び出し、mid-doの変更とpost-doの完了通知、
+  不正入力3種類の必須検査です。
+
+新規13件はVerilator 5.052のseed 1・73で一致しました。11件はseed 1の既知差分です。
+static libraryの構築4件、virtual呼び出し2件、完了ID2件、入力検査3件で規格の期待値を保持します。
+入力検査の固定版の経路は、期待する通常のreturnより前に終了します。指紋を照合した既存565件と合算し、
+全体は540件一致・既知差分49件です。既知差分は実行時のseed 1差分42件と、seed未実行のビルド失敗7件です。
+Ghostの同梱版は各seedで112件一致・477件不一致で、不一致になるテストも同じです。
+kirimasimは582件が`uvm_object_wrapper`未実装、7件がAPI欠落でFAILです。
+
+libraryは規格のsubtype constructorと必須マクロを使い、実装固有の追加の初期化呼び出しを加えません。
+成功する実行検査はinstance登録を使い、合法な既定の10回を維持します。固定選択は公開の一覧からindexを
+見つけ、規格の選択変数へ制約を付けます。自由な選択は総数だけを確認し、分布や順序を要求しません。
+欠落した規格の制御・実行回数APIを呼んだり、別の操作に置き換えたりはしていません。
+
+finish_itemは通常のsequence・sequencer APIへ委譲し、実際のdriver要求へ正の遅延後に完了を通知します。
+必須のmethod呼び出しとtransaction IDを、データの転送成功とは別に観測します。成功するhookのケースは
+送信時の変更と完了通知後のpost-doを確認します。不正入力ではERRORとmid-do前のreturnを要求し、
+fatal後の継続は指定しません。
+
+extensionは共通のbase handleから呼び、型の数値IDや修飾名の表記を指定せず型の同一性を比較します。
+instance名と型名は別の概念として扱います。README・用語集・FAQ・既知差分を日英で更新しました。
+M1・M2とも目標の棚卸しは未完です。

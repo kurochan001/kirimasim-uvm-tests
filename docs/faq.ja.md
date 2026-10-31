@@ -411,3 +411,39 @@ blocking・nonblockingの両方で、正しい兄弟とsuffixへ届く必要が�
 この解釈はテストのコメントに記録し、レビュー項目として残します。固定版での一致は再現の記録であり、
 規格の表記の不一致を解消したり、人のレビューに代わったりはしません。
 現在の他のテストと同じく、`spec_check: ai`を保持します。
+
+## libraryの構築・itemの完了・extensionの識別
+
+### Q42. libraryの構築直後にstatic所属を検査するのはなぜですか
+
+規格のsubtypeの例はutilitiesマクロと、`super.new`を呼ぶconstructorを使っています。
+その型やbaseにstatic登録したmemberは、構築後に利用できる必要があります。4件で2つのinstance、
+2種類のlibrary、継承、static所属と並ぶinstance内の追加を検査します。
+
+固定版はこれらのsubtypeの一覧を構築時に取り込みません。テストは公開の一覧を使い、実装固有の追加の
+初期化methodを呼びません。[既知差分](known-differences.ja.md)を参照してください。
+別の成功ケースはinstance登録と既定のRANDで10回の子の実行を確認します。選択変数への単一解の制約で、
+乱数の分布や登録順への依存を避けています。これで欠落したAPIが検証済みになるわけではありません。
+
+### Q43. driverへ要求が届いてもfinish_itemの呼び出しを観測するのはなぜですか
+
+14.2.6.3はsequenceのvirtualな`send_request`・`wait_for_item_done`を呼び、再乱数化を0にし、
+itemの明示的なtransaction IDを待機へ渡すことを定めています。固定版はsequencerを直接呼び、
+完了IDに-1を使います。テストはvirtual methodの実行と引数の伝搬を区別します。
+追加の3つの不正入力ではERRORと即時のreturnが必要ですが、固定版の経路は参照時に終了する場合があります。
+これらはAPI欠落のビルド失敗ではなく、[既知差分](known-differences.ja.md)に記録する実行時の差分です。
+
+[hook順序のケース](../tests/u14/test_sequence_finish_item_orders_mid_mutation_before_send_and_post_after_ack.sv)では、
+mid-doの変更が送信時に見え、post-doが遅延した完了通知を観測することも確認します。
+catcherは重大度を書き換えずに数え、fatal後の継続の方針は指定しません。
+
+### Q44. extensionのtype keyはinstance名と同じですか
+
+`uvm_tlm_extension_base::get_type_handle`が返すkeyはextensionの型を識別します。
+同じ型のinstanceは改名後もkeyを共有し、異なる型はinstance名が同じでも別のkeyを持ちます。
+type-handle名は特定の修飾形式を要求せず、同じ型での安定性と別の型との相違を比較します。
+
+payloadへの登録・置換・削除はその不透明なkeyを使います。
+[短いaliasのケース](../tests/u12/test_tlm2_gp_alias_shares_payload_and_polymorphic_extension_state.sv)は、
+`uvm_tlm_gp`と`uvm_tlm_generic_payload`のhandleが同じpayloadの登録状態を見ることも確認します。
+型の数値IDや暗黙のcloneは要求しません。

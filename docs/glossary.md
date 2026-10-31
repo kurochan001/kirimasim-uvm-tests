@@ -148,6 +148,21 @@ random field can change / whether a child sequence action calls `randomize`
 at all. Disabling one field still permits randomization callbacks. The two
 controls are tested separately.
 
+**Static library member / subtype construction** — A sequence type registered
+by `uvm_add_to_seq_lib` / constructing a library subtype with its utilities
+macro and constructor. Registered members, including inherited members,
+must be available through public enumeration. Instance additions are separate.
+
+**`finish_item` delegation / completion ID** — The sequence's virtual send
+and wait methods used by the convenience operation / the item's transaction
+ID passed to that wait. Delivery alone does not establish that these required
+calls and argument values were preserved.
+
+**Extension type handle / type-handle name** — An opaque key identifying a
+TLM 2 extension type / its identifying name. These identify a type rather
+than one named instance. Payload lookup uses the handle, while tests compare
+type-name relationships without prescribing a qualified-name format.
+
 ## Transaction-level communication
 
 **Push sequencer / push driver** — A sequencer that calls a driver's blocking

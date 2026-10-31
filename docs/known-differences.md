@@ -2,7 +2,7 @@
 
 [日本語](known-differences.ja.md) · [README](../README.md) · [FAQ](faq.md)
 
-This describes the current 565-test suite and the pinned Accellera UVM
+This describes the current 589-test suite and the pinned Accellera UVM
 2020.3.1 library. A mismatch is a test result; it does not by itself assign
 the cause to the simulator, the library or the expectation.
 
@@ -10,7 +10,7 @@ the cause to the simulator, the library or the expectation.
 
 The library's own `DEVIATIONS.md` lists three differences at 18.2.3.4,
 18.4.3.6 and 13.1.5.1. Current matching scenarios avoid those branches.
-The following twenty-five additional limitations were identified during M1 and M2.
+The following twenty-nine additional limitations were identified during M1 and M2.
 Where a test directly checks a required behavior that is missing, its
 normative expectation is retained with `:oracle: spec`.
 
@@ -100,6 +100,20 @@ normative expectation is retained with `:oracle: spec`.
 - `start_item` uses FATAL for a null item, a non-item sequence, or missing
   sequencer context. Clause 14.2.6.2 requires ERROR and an immediate return.
   Three cases count the original severity in a catcher without changing it.
+- Library-subtype construction does not populate members registered with the
+  sequence-library macros, including base-library members. Four cases use
+  the constructor pattern of 14.4.2 and the macros of B.3.2, without adding
+  the implementation-specific initialization call.
+- `finish_item` bypasses the sequence's virtual `send_request` and
+  `wait_for_item_done` methods, although 14.2.6.3 requires those calls.
+  Two cases observe overrides that delegate to the normal implementations.
+- `finish_item` passes -1 to the sequencer's completion wait instead of the
+  item's transaction ID required by 14.2.6.3. One- and two-item cases retain
+  the explicit IDs while acknowledging real requests normally.
+- `finish_item` omits the null/non-item guards and uses FATAL without an
+  immediate return for missing sequencer context. Three cases retain the
+  ERROR and early return required by 14.2.6.3; the faulty paths terminate on
+  invalid dereference before the expected observation.
 
 These branches are not treated as reproduced fixed-release oracles.
 Spec-only diagnostics preserve the required post-drop objector membership,
@@ -108,25 +122,26 @@ response-depth errors, response-error defaults, single-candidate USER
 arbitration, lock ordering, post-kill hooks, invalid-default errors,
 automatic-objection drop on stop, canonical time name/API, nested
 initiator-socket routing, repeated push delivery, sequence-library APIs/removal,
-FIFO peek notifications and `start_item` error severity.
+FIFO peek notifications, `start_item` error severity, library subtype
+construction and `finish_item` dispatch, IDs and guards.
 Matching tests avoid the other library limitations.
 
-Across the suite, 527 tests have the `verilator@5.052` oracle tag and thirty-eight
+Across the suite, 540 tests have the `verilator@5.052` oracle tag and forty-nine
 cases are spec-only. One of the spec-only cases checks 9.6: a child's pre-reset
 task must be killed when that phase ends, but the pinned-library run on Verilator 5.052
 lets the child perform its delayed write during a later phase. The cause of
 this combined simulator/library difference remains unassigned.
 
-The thirty-eight spec-only tests retain their normative expected files.
-Default Verilator runs and CI select the 527 tagged cases. `--all` includes
+The forty-nine spec-only tests retain their normative expected files.
+Default Verilator runs and CI select the 540 tagged cases. `--all` includes
 spec-only cases and records mismatches or build failures as `known`.
-The runtime records for 31 cases establish the first difference at seed 1,
+The runtime records for 42 cases establish the first difference at seed 1,
 without seed 73 results. Seven missing-API cases cannot build and have no
 runtime seed result: one time API and six sequence-library cases.
 
 ## Spec-only tests
 
-These are the thirty-eight current spec-only cases. Several exercise the same
+These are the forty-nine current spec-only cases. Several exercise the same
 limitation, so their count is not a count of distinct bugs.
 
 - Field-operation accessor errors:
@@ -182,10 +197,25 @@ limitation, so their count is not a count of distinct bugs.
   [null item](../tests/u14/test_sequence_start_item_null_argument_reports_error_and_returns.sv),
   [sequence argument](../tests/u14/test_sequence_start_item_sequence_argument_reports_error_and_returns.sv)
   and [missing sequencer](../tests/u14/test_sequence_start_item_without_any_sequencer_reports_error_and_returns.sv).
+- Static library construction:
+  [two instances](../tests/uB/test_sequence_library_macros_populate_two_constructed_instances.sv),
+  [two library types](../tests/uB/test_sequence_library_macro_registers_one_sequence_with_two_library_types.sv),
+  [base membership](../tests/uB/test_sequence_library_macro_subtype_inherits_base_static_membership.sv)
+  and [local addition](../tests/uB/test_sequence_library_macro_membership_combines_with_local_addition_only_on_one_instance.sv).
+- Required finish-item virtual dispatch:
+  [submission](../tests/u14/test_sequence_finish_item_invokes_sequence_send_request_override.sv)
+  and [completion waiting](../tests/u14/test_sequence_finish_item_invokes_sequence_completion_wait_override.sv).
+- Finish-item completion IDs:
+  [one item](../tests/u14/test_sequence_finish_item_passes_explicit_transaction_id_to_completion_wait.sv)
+  and [two items](../tests/u14/test_sequence_finish_item_keeps_each_transaction_id_in_two_completion_waits.sv).
+- Required finish-item input guards:
+  [null item](../tests/u14/test_sequence_finish_item_null_input_reports_error_before_mid_do.sv),
+  [sequence argument](../tests/u14/test_sequence_finish_item_sequence_input_reports_error_before_mid_do.sv)
+  and [missing sequencer](../tests/u14/test_sequence_finish_item_missing_sequencer_input_reports_error_before_mid_do.sv).
 
 ## Simulator and library combinations
 
-Ghost's bundled-library runs have 110 matches and 455 failures with each of
+Ghost's bundled-library runs have 112 matches and 477 failures with each of
 seeds 1 and 73. The same tests fail at both seeds. Its pinned-library smoke
 test differs, including with preprocessing enabled. Bundled results do not
 establish whether the cause lies in the simulator or its supplied library,
@@ -193,7 +223,7 @@ and are not evidence for the locked library. Private identity, profiles and
 diagnostics are not published.
 
 The tested kirimasim executable reports `uvm_object_wrapper` as unsupported
-on 558 cases. Seven cases fail earlier on missing library APIs: one time
+on 582 cases. Seven cases fail earlier on missing library APIs: one time
 setter and six sequence-library cases. Neither result is a pass or evidence
 of UVM execution beyond those compilation blockers.
 

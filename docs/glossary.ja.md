@@ -182,6 +182,17 @@ class名と実装method名へ付ける文字列です。通常のportは引き�
 **型付きanalysis入力** — class handleもtransaction型にできるanalysis接続です。
 suffix付きwrite handlerへそのhandleを渡し、入力先の選択だけではtransactionを複製・変更しません。
 
+**libraryのstatic所属／subtypeの構築** — `uvm_add_to_seq_lib`で登録したsequence型／
+utilitiesマクロとconstructorを使ってlibraryのsubtypeを生成することです。継承分を含む登録済みの型は、
+公開の一覧で取得できる必要があります。instanceへの追加登録は別の操作です。
+
+**`finish_item`の委譲／完了ID** — convenience操作が呼ぶsequenceのvirtualな送信・待機method／
+待機へ渡すitemのtransaction IDです。データの到着だけでは、必須の呼び出しと引数が守られたとは示せません。
+
+**extensionのtype handle／type-handle名** — TLM 2 extensionの型を識別する不透明なkey／
+その識別名です。名前を持つ個別のinstanceではなく型を識別します。payloadの検索にはhandleを使い、
+型名のテストは特定の修飾形式を指定せず、同一性・相違を比較します。
+
 ## 実行と結果
 
 **ランナー／メタデータ** — ビルド・実行・判定を行う`tools/run_*.py`／

@@ -2,8 +2,8 @@
 
 [日本語](history.ja.md) · [README](../README.md)
 
-These records cover the M1 and M2 increments through the fourteenth M2 increment
-(565 tests). The earlier 349-test checkpoint is
+These records cover the M1 and M2 increments through the fifteenth M2 increment
+(589 tests). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -757,3 +757,47 @@ this interpretation as a review item; fixed-release reproduction alone does
 not resolve the spelling discrepancy. All tests remain `spec_check: ai`.
 Both README languages, glossary, FAQ and current results are updated.
 M1 and M2 remain open.
+
+### Fifteenth M2 increment (2026-11-01)
+
+This increment adds 24 cases, bringing the suite to 589:
+
+- Eight library cases: static registration on two instances or two types,
+  inherited membership and local additions, plus default RAND execution
+  with one/two eligible types and singleton constraints on either type.
+- Eight extension cases: polymorphic type-key/name identity, renaming,
+  insertion/replacement/clearing through keys, and shared payload state
+  through the `uvm_tlm_gp` alias.
+- Eight finish-item cases: explicit completion IDs, virtual submission/wait
+  dispatch, ordered mid-do mutation and post-do acknowledgement, and three
+  required invalid-input guards.
+
+Thirteen new cases match Verilator 5.052 at seeds 1 and 73. Eleven preserve
+normative expectations at seed 1: four static-library construction cases,
+two virtual-dispatch cases, two completion-ID cases and three input guards.
+The guard paths terminate before their expected normal return. Combined
+with the fingerprint-verified 565-case baseline, the suite has 540 matches
+and 49 known differences: 42 runtime seed 1 differences and seven build
+failures without runtime seeds. Ghost bundled results have 112 matches and
+477 failures per seed with identical failing sets. kirimasim has 582
+unsupported cases at `uvm_object_wrapper` and seven missing-API failures.
+
+Library construction uses the standard subtype constructor pattern and
+required macros without an extra implementation-specific initialization
+call. Positive execution probes use instance registration and retain the
+legal default count of ten. Forced choices find indices by public enumeration
+and constrain the standard selection variable; unforced execution checks
+only the total, without a distribution or order requirement. These probes
+do not call or replace the missing standard control/counter APIs.
+
+Finish-item observers delegate to real sequence/sequencer APIs and
+acknowledge actual driver requests after positive delays. Required method
+calls and transaction IDs are observed separately from successful data
+transfer. The matching hook case snapshots mutation at submission and
+checks post-do after acknowledgement. Invalid guards require ERROR and
+return before mid-do; no post-fatal continuation is prescribed.
+
+Extension probes dispatch through common base handles and compare type
+identity without numeric IDs or literal qualified-name formatting. Names
+of instances and types remain distinct concepts. Both README languages,
+glossary, FAQ and known differences are updated. M1 and M2 remain open.
