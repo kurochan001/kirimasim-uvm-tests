@@ -144,6 +144,23 @@ a timing annotation. A TLM 2 protocol phase is different from a UVM execution
 phase. Accessor and connection tests do not establish full protocol or timing
 coverage.
 
+**Canonical time / `uvm_tlm_time` / annotation** — A delay represented
+independently of a caller's time scale / the `uvm_time` typedef used by TLM 2 /
+an offset carried with a transaction timing point. Changing an annotation
+does not itself advance simulation time. Absolute APIs specify seconds per
+unit; scaled APIs also require a corresponding nonzero time-literal value.
+
+**Pass-through socket** — A hierarchical TLM 2 connection. A nonblocking
+initiator pass-through is a forward port with a backward export; a target
+pass-through is a forward export with a backward port. Socket `connect`
+methods provide the reverse connections as well as the forward path.
+
+**Callback integer iterator / facade** — An opaque integer position used by
+`uvm_callbacks::get_first/get_next/get_last/get_prev` / the object interface
+`uvm_callback_iter`. Exhausted static traversal stays null until restarted.
+A null object context searches the typewide queue. Separate positions or
+facades permit independent traversal.
+
 **Nonblocking transport / `nb_transport`** — A request/response operation
 that returns 1 for immediate completion or 0 when it cannot complete
 immediately. A synchronous analysis callback can supply the response during
@@ -160,8 +177,9 @@ The supported options and library mode are part of the execution conditions.
 matched / a check failed, or the test could not build or run. One failing test
 is not necessarily one distinct simulator bug.
 
-**`known` / `unsupported`** — In this Verilator runner, an untagged test differs
-from its expectation / kirimasim explicitly reports a construct as unsupported.
+**`known` / `unsupported`** — In this Verilator runner, an untagged test fails
+validation, including a build failure / kirimasim explicitly reports a
+construct as unsupported.
 Neither is a pass. Ghost uses `pass`/`fail`; it does not relabel bundled-library
 differences as `known`. See the [FAQ](faq.md) for command exit behavior.
 

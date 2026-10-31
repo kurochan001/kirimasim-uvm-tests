@@ -2,8 +2,8 @@
 
 [日本語](history.ja.md) · [README](../README.md)
 
-These records cover the M1 and M2 increments through the eighth M2 increment
-(421 tests). The earlier 349-test checkpoint is
+These records cover the M1 and M2 increments through the ninth M2 increment
+(445 tests). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -517,3 +517,46 @@ resources and the public low-priority pool insertion API; filtering must
 preserve the first valid entry's position. Constructor markers and identity
 checks distinguish wrapper creation from an instance. Randomization checks
 use hook counts rather than random values. M1 and M2 remain open.
+
+### Ninth M2 increment (2026-11-01)
+
+This increment adds 24 cases, bringing the suite to 445:
+
+- Eight canonical-time cases: explicit and default names, the standard
+  default-resolution API, absolute-unit conversion and replacement, reset
+  across resolutions, scaled increment/decrement, alias mutation and a
+  blocking annotation update with no simulation-time advance.
+- Eight nonblocking socket cases: pass-through initiator and target paths,
+  paired paths and nested paths, immediate completion and accepted requests
+  with automatic backward completion or an updated phase.
+- Eight callback iterator cases: static forward/backward exhaustion and
+  reset, typewide context, independent integer positions and object contexts,
+  and facade restart with valid current-callback observations.
+
+Twenty-one new cases match Verilator 5.052 at seeds 1 and 73. Three retain
+spec-only expectations: the constructor name differs at seed 1, the standard
+time setter is missing at build time, and nested initiator backward routing
+fails at seed 1. The suite has 423 matches and 22 known differences after
+combining the fresh increment with the fingerprint-verified 421-case baseline.
+Of the known records, 21 are runtime seed 1 differences and one is a build
+failure without a runtime seed. Ghost bundled results have 103 matches and
+342 failures with each seed; kirimasim has 444 unsupported and one missing-API
+failure. The failing Ghost sets match across seeds.
+
+Time comparisons use real tolerances and explicit unit conversions. The
+scaled-operation case uses a 100-second scale literal so it is nonzero at
+every legal time unit; it does not wait for that interval. Values stay within
+canonical range and do not test sub-resolution rounding or negative times.
+The standard setter is kept under its normative name rather than replaced
+with the library's legacy API.
+
+Socket cases use normal elaboration and parent-port/child-export hierarchy.
+Connect methods supply the backward wiring; a manual workaround would hide
+the nested initiator difference. Payload and delay identities, annotations,
+phase references and statuses are observed, not internal port storage.
+These cases do not establish full TLM 2 protocol or timing coverage.
+
+Iterator positions stay opaque. Registration is completed before traversal;
+disabled entries and instance-only entries are excluded where required.
+Facade `get_cb` is observed after valid accesses, without prescribing its
+value after exhaustion. M1 and M2 remain open.

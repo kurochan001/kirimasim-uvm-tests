@@ -2,7 +2,7 @@
 
 [English](history.md) · [README](../README.ja.md)
 
-M1と、M2の8回目（421件）までの追加作業を記録しています。以前の349件の時点は
+M1と、M2の9回目（445件）までの追加作業を記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -394,3 +394,34 @@ default resourceは実際のmain phaseで検査し、rootとtestのbuild文脈�
 同一優先度は個別のresourceと公開pool APIの低優先度での追加を使い、型のフィルタ後も最初の
 有効な要素を選ぶことを確認します。コンストラクターの値と同一性でwrapper生成とinstanceを区別し、
 randomizationは乱数値ではなくhook件数で確認します。M1・M2は引き続き未完です。
+
+### M2の9回目（2026-11-01）
+
+24件を追加し、全体で445件になりました。
+
+- canonical time：8件。明示・既定の名前、規格のdefault-resolution設定API、絶対単位の変換と
+  置換、異なるresolutionでのreset、scaledな増減、alias経由の変更、時間を進めないblocking注記を検査します。
+- nonblocking socket：8件。pass-through initiator・target・両者・二段の経路を使い、
+  即時完了と、受理後の自動backward完了・phase更新を検査します。
+- callback iterator：8件。static APIの前後の終端と再開、typewide文脈、integer位置と
+  object文脈の独立性、facadeの再開と有効なcurrent callbackを検査します。
+
+追加21件はVerilator 5.052のseed 1・73で一致します。3件はspecのみで保持し、既定名と二段の
+initiator backward接続はseed 1の差分、規格の時刻APIは欠落によるビルド不可です。
+指紋を確認した既存421件と合算し、423件一致・既知差分22件になりました。
+既知差分のうち21件はseed 1の実行時の記録、1件は実行前のビルド失敗です。
+Ghostの同梱UVMは両seedとも103件一致・342件不一致で、不一致の集合も同じです。
+kirimasimは444件がUNSUPPORTED、1件は時刻API欠落によるFAILです。
+
+時刻はrealの許容差と明示単位で比較します。scaledな増減は、すべての合法な時間単位でゼロに
+ならない100秒のliteralを使い、その時間は待ちません。canonical値の範囲内で検査し、
+resolution未満の丸めや負の時刻は指定しません。規格のsetter名を旧APIへ置き換えません。
+
+socketは通常のelaborationを通し、親port・子exportの階層を使います。backwardはconnectによる
+自動接続を検査し、二段initiatorの差分を隠す手動接続は追加しません。
+payload・delayの同一性、注記、phase参照、statusを観測し、portの内部格納は参照しません。
+これでTLM 2のprotocolやtiming全体の網羅とは扱いません。
+
+iteratorの位置の数値は指定しません。走査前に登録を完了し、規定に従って無効な要素やinstance限定の
+要素を除外します。facadeの`get_cb`は有効なアクセス後だけを確認し、終端後の値は指定しません。
+M1・M2は引き続き未完です。

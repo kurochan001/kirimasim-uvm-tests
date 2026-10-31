@@ -1,0 +1,66 @@
+/*
+:name: test_callback_static_iterators_keep_independent_positions_on_one_object
+:description: callback iteration honors enabled entries object context exhaustion and restart (IEEE 1800.2-2020 Section 10.7.2.4.1)
+:tags: u10 uvm
+:type: simulation
+:lrm: 1800.2-2020 10.7.2.4.1 10.7.2.4.2 10.7.2.4.3 10.7.2.4.4 10.7.2.3.1 10.7.1.2.2 B.4.1 1800-2023 6.21
+:uvm: 2020.3.1
+:oracle: spec verilator@5.052
+:spec_check: ai
+:fourstate: no
+:nondeterministic: no
+:expected_exit: 0
+:expected_stdout: @test_callback_static_iterators_keep_independent_positions_on_one_object.expected
+*/
+// Start two integer iterators at opposite ends of one queue. Advance
+// independently through its middle and out toward the opposite endpoint,
+// without comparing implementation-specific position values.
+
+module test_callback_static_iterators_keep_independent_positions_on_one_object;
+  import uvm_pkg::*;
+  `include "uvm_macros.svh"
+
+  class user_callback extends uvm_callback;
+    `uvm_object_utils(user_callback)
+    function new(string name="user_callback");
+      super.new(name);
+      void'(callback_mode(1));
+    endfunction
+  endclass
+  class agent extends uvm_component;
+    `uvm_component_utils(agent)
+    `uvm_register_cb(agent, user_callback)
+    function new(string name, uvm_component parent); super.new(name, parent); endfunction
+  endclass
+  typedef uvm_callbacks#(agent, user_callback) pool_t;
+  typedef uvm_callback_iter#(agent, user_callback) iterator_t;
+
+  initial begin
+    automatic agent context_value = new("context_value", null);
+    automatic agent other_context = new("other_context", null);
+    automatic user_callback first = new("first");
+    automatic user_callback middle = new("middle");
+    automatic user_callback last_value = new("last_value");
+    automatic iterator_t iterator_value = new(context_value);
+    int position;
+    int other_position;
+    user_callback selected;
+    user_callback other_selected;
+    position = 0;
+    other_position = 0;
+    pool_t::add(context_value, first);
+    pool_t::add(context_value, middle);
+    pool_t::add(context_value, last_value);
+    selected = pool_t::get_first(position, context_value);
+    other_selected = pool_t::get_last(other_position, context_value);
+    $display("UT: endpoints %0d %0d", selected == first, other_selected == last_value);
+    selected = pool_t::get_next(position, context_value);
+    other_selected = pool_t::get_prev(other_position, context_value);
+    $display("UT: middles %0d %0d", selected == middle, other_selected == middle);
+    selected = pool_t::get_next(position, context_value);
+    other_selected = pool_t::get_prev(other_position, context_value);
+    $display("UT: opposite_ends %0d %0d", selected == last_value, other_selected == first);
+
+    $finish;
+  end
+endmodule

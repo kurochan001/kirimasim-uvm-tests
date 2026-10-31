@@ -105,6 +105,20 @@ subscriber同士の未規定の呼び出し順は仮定しません。
 transportの接続／protocolの進行状態／時間の注記です。TLM 2のprotocol phaseとUVM実行のphaseは別です。
 accessorや接続の検査だけで、protocolやtimingの全体を検査したとは扱いません。
 
+**canonical time／`uvm_tlm_time`／annotation** — 呼び出し側の時間単位と独立した遅延の表現／
+TLM 2が使う`uvm_time`のtypedef／transactionの時点に付く時間のoffsetです。
+注記を変えるだけではシミュレーション時刻は進みません。絶対APIは1単位の秒数を指定し、
+scaled APIはそれに対応するゼロでないtime literalの値も使います。
+
+**pass-through socket** — 階層を跨ぐTLM 2の接続です。nonblockingのinitiator側はforward portと
+backward export、target側はforward exportとbackward portを持ちます。
+socketの`connect`はforwardに加え、逆方向の接続も供給します。
+
+**callbackのinteger iterator／facade** — `uvm_callbacks::get_first/get_next/get_last/get_prev`が使う
+内部表現を仮定しない整数の位置／objectのAPIを持つ`uvm_callback_iter`です。
+static APIは終端で再開するまでnullを返します。nullのobject文脈はtypewideのキューを検索します。
+別々の位置やfacadeを使えば独立して走査できます。
+
 **nonblocking transport／`nb_transport`** — 即時に要求・応答を完了できれば1、できなければ0を返す操作です。
 呼び出し中の同期的なanalysis callbackが応答を供給できます。
 0という結果だけでは、出力引数の特定の値や、要求側の途中の副作用がなかったことは示せません。
@@ -117,7 +131,7 @@ accessorや接続の検査だけで、protocolやtimingの全体を検査した�
 **`pass`／`fail`** — 期待出力と、指定した終了・診断の条件が一致した結果／
 条件に合わない、またはビルド・実行できなかった結果です。不一致1件がシミュレータの不具合1個とは限りません。
 
-**`known`／`unsupported`** — このVerilatorランナーでoracleタグのないテストが不一致になった結果／
+**`known`／`unsupported`** — このVerilatorランナーでoracleタグのないテストが判定に合わない結果（ビルド失敗も含む）／
 kirimasimが未対応と明示した構文などの結果です。どちらも成功には数えません。
 Ghostは`pass`・`fail`で記録し、同梱ライブラリの差を`known`へ変更しません。
 コマンドの終了条件は[FAQ](faq.ja.md)で説明します。

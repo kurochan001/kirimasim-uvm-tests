@@ -58,7 +58,7 @@ Verilator runner; it is not a shared option for the other runners.
 
 - `pass`: expected output and specified exit/diagnostic conditions match.
 - `fail`: output or another condition differs, or building/running failed.
-- `known`: in this Verilator runner, an untagged test differs. It is not a pass.
+- `known`: an untagged Verilator test differs or fails to build/run. It is not a pass.
 - `unsupported`: kirimasim returns its recognized unsupported-feature diagnostic.
   Other compilation failures can still be `fail`.
 
@@ -148,7 +148,8 @@ randomized initialization conditions; tests do not print random values.
 Verilator's default selection excludes X/Z-dependent cases. A two-state run
 does not establish four-state behavior, and two passing seeds do not prove all
 possible executions. A multi-seed test stops at its first mismatch; the current
-known records establish seed 1 differences, not a seed 73 result for those cases.
+runtime known records establish seed 1 differences, not seed 73 results for
+those cases. A case that cannot build has no runtime seed result.
 
 ### Q15. How do I know whether an old result still applies?
 
@@ -273,3 +274,31 @@ only a selected null of an accepted resource type disables the default.
 The equal-precedence tests create separate resources and insert them through
 the public pool API with low priority, in explicit order. They do not infer
 that order from repeated `config_db::set` calls that may update one setting.
+
+### Q25. Does a TLM delay annotation advance simulation time?
+
+The annotation object carries an offset; changing it does not wait. A target
+can add an annotation and return in the same simulation time slot, or explicitly
+wait as part of a blocking implementation. Tests observe annotation values and
+simulation-time equality separately. Absolute conversion uses an explicit
+seconds-per-unit argument. Scaled operations use the matching time literal;
+the tests' 100-second scale is only a conversion reference, not a simulation delay.
+
+Real values are compared with a small tolerance. Sub-resolution rounding,
+negative times and a particular floating-point encoding are not prescribed by
+these cases. The pinned library's default name and missing standard setter
+remain in [known differences](known-differences.md); the setter case cannot
+build and is not described as a failed seed execution.
+
+### Q26. Why not repair the nested socket backward path inside the test?
+
+The nonblocking socket `connect` API is responsible for the automatic backward
+connections. Manual wiring would bypass that behavior. The nested initiator
+case therefore keeps the required route, even though the pinned library wires
+the two backward exports in the opposite direction and fails binding checks.
+The forward hierarchy uses child ports connected to parent ports as required.
+
+Passing the other paths verifies payload/delay identity, annotations, return
+status and phase-reference propagation for those transactions. It does not
+certify every legal base-protocol or timing combination. Callback iterator
+tests likewise leave integer positions opaque and restart through public APIs.
