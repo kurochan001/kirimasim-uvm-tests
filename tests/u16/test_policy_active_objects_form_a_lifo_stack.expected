@@ -1,0 +1,4 @@
+UT: empty 1 depth 0
+UT: pushed top_second 1 depth 2
+UT: pop_second 1 top_first 1 depth 1
+UT: pop_first 1 empty 1 depth 0

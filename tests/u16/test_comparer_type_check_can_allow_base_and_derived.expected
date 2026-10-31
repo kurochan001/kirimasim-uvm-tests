@@ -1,0 +1,3 @@
+UT: default check_type 1
+UT: enabled equal 0
+UT: disabled check_type 0 equal 1

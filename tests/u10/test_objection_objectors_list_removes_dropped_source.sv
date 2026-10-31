@@ -1,0 +1,46 @@
+/*
+:name: test_objection_objectors_list_removes_dropped_source
+:description: dropping a source to zero removes it from the current objector list (IEEE 1800.2-2020 Section 10.5.1.5.1)
+:tags: u10 uvm
+:type: simulation
+:lrm: 1800.2-2020 10.5.1.5.1 10.5.1.3.4
+:uvm: 2020.3.1
+:oracle: spec
+:spec_check: ai
+:fourstate: no
+:nondeterministic: no
+:expected_exit: 0
+:expected_stdout: @test_objection_objectors_list_removes_dropped_source.expected
+*/
+// Inspect source membership after one source drops its complete count.
+// No expectation depends on asynchronous ancestor drain propagation.
+// The pinned library retains the zero-count source until drain cleanup.
+// Keep the immediate current-list expectation as a spec-only case.
+
+module test_objection_objectors_list_removes_dropped_source;
+  import uvm_pkg::*;
+  `include "uvm_macros.svh"
+
+  class item extends uvm_object;
+    `uvm_object_utils(item)
+    function new(string name="item"); super.new(name); endfunction
+  endclass
+
+  initial begin
+    uvm_objection objection = new("objection");
+    item first = new("first");
+    item second = new("second");
+    uvm_object objectors[$];
+    objection.raise_objection(first);
+    objection.raise_objection(second);
+    objection.get_objectors(objectors);
+    $display("UT: before %0d", objectors.size());
+    objection.drop_objection(first);
+    objection.get_objectors(objectors);
+    $display("UT: after %0d only_second %0d first_count %0d", objectors.size(),
+             objectors.size() == 1 && objectors[0] == second,
+             objection.get_objection_count(first));
+    objection.clear();
+    $finish;
+  end
+endmodule

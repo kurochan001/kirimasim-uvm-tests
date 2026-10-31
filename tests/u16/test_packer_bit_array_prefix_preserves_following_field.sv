@@ -1,0 +1,35 @@
+/*
+:name: test_packer_bit_array_prefix_preserves_following_field
+:description: bit array size limits the packed prefix without consuming the following field (IEEE 1800.2-2020 Section 16.5.4.1)
+:tags: u16 uvm
+:type: simulation
+:lrm: 1800.2-2020 16.5.4.1 16.5.4.18 16.5.4.9 16.5.4.17
+:uvm: 2020.3.1
+:oracle: spec verilator@5.052
+:spec_check: ai
+:fourstate: no
+:nondeterministic: no
+:expected_exit: 0
+:expected_stdout: @test_packer_bit_array_prefix_preserves_following_field.expected
+*/
+// Pack a prefix shorter than the source array and then a scalar. Unpack
+// both to observe array indexing and the boundary between the two fields.
+
+module test_packer_bit_array_prefix_preserves_following_field;
+  import uvm_pkg::*;
+  `include "uvm_macros.svh"
+
+  initial begin
+    uvm_packer packer = new;
+    bit source_bits[] = '{1, 0, 1, 1, 0};
+    bit target_bits[] = new[3];
+    int trailer;
+    packer.pack_bits(source_bits, 3);
+    packer.pack_field_int(10, 4);
+    packer.unpack_bits(target_bits, 3);
+    trailer = int'(packer.unpack_field_int(4));
+    $display("UT: prefix %0d%0d%0d trailer %0d", target_bits[0], target_bits[1],
+             target_bits[2], trailer);
+    $finish;
+  end
+endmodule

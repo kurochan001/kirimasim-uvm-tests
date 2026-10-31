@@ -8,7 +8,7 @@ Methodology, IEEE 1800.2-2020 (UVM). It is written for the
 [kirimasim-tests](https://github.com/kurochan001/kirimasim-tests), which checks
 the SystemVerilog language of IEEE 1800-2023.
 
-> **Status: M1 (core expansion in progress).** 61 tests, the pinned UVM
+> **Status: M1 (core expansion in progress).** 101 tests, the pinned UVM
 > fetcher, runners for kirimasim, Verilator and Ghost, metadata checks and
 > the Check workflow. The clause-by-clause M1 target is not complete;
 > see "Current M1 increment" below.
@@ -232,13 +232,14 @@ match on that private executable, including with preprocessing enabled.
 These differences are recorded as failures. They do not change expectations
 or establish whether the cause is the simulator or its bundled library.
 With the second M1 increment, bundled runs match 31 of 61 tests with both
-seeds; the same 30 cases differ.
+seeds; the same 30 cases differ. The third increment matches 41 of 101
+tests with both seeds, with the same 60 differences.
 
 | Simulator | Current status |
 | --- | --- |
-| kirimasim | local executable reports all 61 cases as unsupported at `uvm_object_wrapper` |
-| Verilator 5.052 | builds and runs the library with `UVM_NO_DPI` |
-| Ghost (an unreleased simulator, as in kirimasim-tests) | bundled UVM: 31/61 match with both seeds; pinned UVM: smoke test differs |
+| kirimasim | local executable reports all 101 cases as unsupported at `uvm_object_wrapper` |
+| Verilator 5.052 | `UVM_NO_DPI`: 99 oracle cases match seeds 1 and 73; two spec-only cases retain known differences |
+| Ghost (an unreleased simulator, as in kirimasim-tests) | bundled UVM: 41/101 match with both seeds; pinned UVM: smoke test differs |
 | Icarus Verilog 13.0 | not used: it cannot run UVM |
 
 ## 8. Checks
@@ -282,7 +283,7 @@ test. Expected observations are written before running the simulator:
   tests capture policy inputs rather than built-in formatting; packer tests
   check values and sizes rather than an implementation-specific byte layout.
 
-The second increment adds another 34 tests, bringing the suite to 61:
+The second increment added another 34 tests, bringing the suite to 61:
 
 - Object ID lifetime, static/dynamic wrappers, copy policy selection and
   comparison hook/results: eight tests.
@@ -301,8 +302,32 @@ verified against the standard. ID tests compare identity relationships,
 not particular numeric IDs; string packer tests check round trips without
 prescribing an implementation's stream representation.
 
-This increment encountered four additional limitations of the pinned
-reference library, beyond its own `DEVIATIONS.md`:
+The third increment adds 40 tests, bringing the suite to 101:
+
+- Object pack/unpack through bit, byte, int and longint streams, including
+  policy reuse and default selection, plus field-operation state and hook
+  suppression: eight tests.
+- Report-server severity counters, independent server state, quit limits
+  and current-count updates: four tests.
+- Object/component registry creation with parent and explicit contexts:
+  four tests.
+- Task-phase thread termination and completion while an objection is held:
+  two tests.
+- Objection source listing, zero-count removal and global clearing:
+  four tests.
+- Policy-side active-object stacks, comparer type/reference controls,
+  printer file/default selection, and array/time/real packing: fourteen tests.
+- Configuration presence, diagnostic spell checking and independent updates
+  by field and scope: four tests.
+
+Array packer tests use bit counts for explicit sizes and compare decoded
+values. The empty-array unpack explicitly requests zero bits. Printer file
+checks use a custom emission string; they do not prescribe a built-in layout.
+Task-phase checks hold objections for positive delays and inspect child
+state after the child would otherwise have resumed.
+
+The second and third increments encountered six additional limitations of
+the pinned reference library, beyond its own `DEVIATIONS.md`:
 
 - With no override installed, `find_override_by_name` returns null even
   when creation can instantiate the original type. Clause 8.3.1.7.1
@@ -318,9 +343,30 @@ reference library, beyond its own `DEVIATIONS.md`:
   copier/active-object state visible to a user hook.
 - `uvm_object::get_active_policy` from 5.3.14.3 is absent. The hook test
   observes the copier's active-object stack through the APIs of 16.1.3.
+- `uvm_field_op::user_hook_enabled` rejects calls before `set` and after
+  `flush`, although 5.7.2.7 does not state that restriction. The field-operation
+  reset test queries the bit after `set`, including after a flush/reuse cycle.
+- `get_objectors` retains a source whose count has reached zero until drain
+  cleanup, while 10.5.1.5.1 describes the current objecting sources. The
+  immediate post-drop list case preserves the standard's expected membership
+  as a spec-only test.
 
-The differing or missing branches remain outside the fixed-library
-conformance oracles; this increment does not claim to cover them.
+These branches are not treated as reproduced fixed-release oracles. The
+post-drop list case is retained for diagnostics; the other library limitations
+are avoided by the matching test scenarios.
+
+There are 99 tests with the `verilator@5.052` oracle tag and two spec-only
+cases. The second spec-only case checks 9.6: a child's pre-reset task must be
+killed when that phase ends, but the pinned-library run on Verilator 5.052
+lets the child perform its delayed write during a later phase. The cause of
+this combined simulator/library difference remains unassigned.
+
+The two spec-only tests keep their normative expected files unchanged.
+Default Verilator runs and CI select the 99 tagged cases. An explicit run
+with `--all` includes the two spec-only cases and records them as `known`.
+The runner stops each test at its first differing seed; their current
+Verilator records establish seed 1 differences, without claiming a seed 73
+result for those two tests.
 
 The cited behavior and expectations have been checked against IEEE
 1800.2-2020. In particular, the clone tests observe independent copies,
