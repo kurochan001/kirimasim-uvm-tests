@@ -79,8 +79,5 @@ jobs:
       - name: Fetch the UVM library
         run: python3 tools/fetch_uvm.py
 
-      - name: Tests recorded with Verilator 5.052, seed 1
-        run: python3 tools/run_verilator.py --seed 1 -j 2
-
-      - name: Tests recorded with Verilator 5.052, seed 73
-        run: python3 tools/run_verilator.py --seed 73 -j 2
+      - name: Tests recorded with Verilator 5.052, seeds 1 and 73
+        run: python3 tools/run_verilator.py --seeds 1 73 --build-jobs 2 -j 2

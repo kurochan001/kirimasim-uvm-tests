@@ -3,7 +3,7 @@
 with its expected output.
 
 Usage:
-    python3 tools/run_verilator.py [--verilator PATH] [--seed N] [--all] [-j N]
+    python3 tools/run_verilator.py [--verilator PATH] [--seed N | --seeds N ...] [--all] [-j N]
                                    [--build-jobs N] [--json FILE] [TEST ...]
 
 With no TEST arguments, runs the tests whose `:oracle:` lists verilator@5.052;
@@ -14,6 +14,8 @@ with the pinned UVM library (see tools/uvm_common.py) by `verilator --binary
 that depended on uninitialized values shows up as a difference. --build-jobs
 is passed to Verilator as -j (0, the default, lets it use every hardware
 thread for the C++ build of a model).
+With --seeds, each model is built once and run in a fresh process for each
+seed. Every seed must match for the test to pass.
 
 The model of a UVM test is large, so Verilator builds it with a precompiled
 header, which records the absolute path of the build directory. ccache would
@@ -58,7 +60,8 @@ def selected(tests: list[Path], everything: bool) -> list[Path]:
     return [t for t in two_state if ORACLE in suite_results.header(t).get("oracle", "").split()]
 
 
-def run(test: Path, verilator: str, seed: int, build_jobs: int) -> tuple[bool, str]:
+def run(test: Path, verilator: str, seed: int, build_jobs: int, *,
+        seeds: tuple[int, ...] | None = None) -> tuple[bool, str]:
     problem = uvm_common.version_problem(test)
     if problem:
         return False, problem
@@ -83,28 +86,39 @@ def run(test: Path, verilator: str, seed: int, build_jobs: int) -> tuple[bool, s
             err = [l for l in b.stderr.splitlines() if l.startswith("%Error")]
             compiler = [l for l in (b.stdout + b.stderr).splitlines() if ": error: " in l]
             return False, "build failed: " + (compiler[0] if compiler else err[0] if err else "")
-        try:
-            r = subprocess.run([str(obj / "Vt"), "+verilator+rand+reset+2",
-                                f"+verilator+seed+{seed}", f"+verilator+error+limit+{ERROR_LIMIT}",
-                                *suite_results.run_args(test)],
-                               capture_output=True, text=True, errors="replace", cwd=tmp,
-                               timeout=300)
-        except subprocess.TimeoutExpired:
-            return False, "timed out"
-    want = suite_results.expected_output(test, "verilator")
-    if want is None:
-        return False, "no :expected_stdout:"
-    got = uvm_common.observed(r.stdout)
-    if got != want:
-        return False, "output differs: " + suite_results.first_difference(got, want)
-    why = suite_results.judge_run(test, r.returncode, r.stdout + r.stderr)
-    return not why, why
+        want = suite_results.expected_output(test, "verilator")
+        if want is None:
+            return False, "no :expected_stdout:"
+        for current_seed in seeds if seeds is not None else (seed,):
+            try:
+                r = subprocess.run([str(obj / "Vt"), "+verilator+rand+reset+2",
+                                    f"+verilator+seed+{current_seed}",
+                                    f"+verilator+error+limit+{ERROR_LIMIT}",
+                                    *suite_results.run_args(test)],
+                                   capture_output=True, text=True, errors="replace", cwd=tmp,
+                                   timeout=300)
+            except subprocess.TimeoutExpired:
+                return False, f"seed {current_seed}: timed out"
+            if r.returncode < 0:
+                return False, f"seed {current_seed}: crashed (signal {-r.returncode})"
+            got = uvm_common.observed(r.stdout)
+            if got != want:
+                return False, f"seed {current_seed}: output differs: " + (
+                    suite_results.first_difference(got, want))
+            if "expected_exit" not in fields and r.returncode != 0:
+                return False, f"seed {current_seed}: unexpected nonzero exit code"
+            why = suite_results.judge_run(test, r.returncode, r.stdout + r.stderr)
+            if why:
+                return False, f"seed {current_seed}: {why}"
+    return True, ""
 
 
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--verilator", default="verilator", help="verilator executable")
-    ap.add_argument("--seed", type=int, default=1, help="seed for random initial values")
+    seed_options = ap.add_mutually_exclusive_group()
+    seed_options.add_argument("--seed", type=int, default=1, help="seed for random initial values")
+    seed_options.add_argument("--seeds", type=int, nargs="+", help="build once, run each seed")
     ap.add_argument("--all", action="store_true",
                     help="run every two-state test, not only those recorded with Verilator")
     ap.add_argument("-j", "--jobs", type=int, default=1, help="number of tests run at once")
@@ -113,6 +127,8 @@ def main() -> int:
     ap.add_argument("--json", type=Path, default=None, help="also write the results to this file")
     ap.add_argument("tests", nargs="*", type=Path)
     args = ap.parse_args()
+    if args.jobs < 1 or args.build_jobs < 0:
+        ap.error("--jobs must be positive and --build-jobs must be nonnegative")
 
     tests = args.tests or selected(suite_results.find_tests(), args.all)
     failed = known = 0
@@ -120,7 +136,8 @@ def main() -> int:
     runner_hash = suite_results.runner_digest("verilator") if args.json else None
     statuses = {}
     with concurrent.futures.ThreadPoolExecutor(max_workers=args.jobs) as pool:
-        results = pool.map(lambda t: run(t, args.verilator, args.seed, args.build_jobs), tests)
+        results = pool.map(lambda t: run(t, args.verilator, args.seed, args.build_jobs,
+                                        seeds=tuple(args.seeds) if args.seeds else None), tests)
         for t, (ok, why) in zip(tests, results):
             name = suite_results.test_id(t)
             recorded = ORACLE in suite_results.header(t).get("oracle", "").split()
@@ -139,7 +156,9 @@ def main() -> int:
         suite_results.write(args.json, "verilator", "Verilator",
                             suite_results.tool_version([args.verilator, "--version"]), statuses,
                             inputs=inputs, runner_sha256=runner_hash,
-                            configuration={"seed": args.seed, "uvm": uvm_common.lock()["version"]})
+                            configuration={**({"seeds": args.seeds} if args.seeds
+                                              else {"seed": args.seed}),
+                                           "uvm": uvm_common.lock()["version"]})
     return 1 if failed else 0
 
 

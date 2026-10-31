@@ -7,8 +7,9 @@ IEEE 1800.2-2020（UVM）の動作を確かめる、シミュレータ向けの�
 [kirimasim-tests](https://github.com/kurochan001/kirimasim-tests)（IEEE 1800-2023の言語の適合性）と対になります。
 英語版が正本で、この日本語版はその対訳です。
 
-> **状態：M0（骨組み）。** テスト1件、固定版のUVMライブラリの取得、kirimasimとVerilatorの
-> ランナー、メタデータの検査、Checkワークフローがあります。この後の予定は「進め方」を参照してください。
+> **状態：M1（中核テストの拡充中）。** テスト27件、固定版UVMの取得、kirimasim・Verilator・
+> Ghostのランナー、メタデータ検査、Checkワークフローがあります。M1の条項ごとの完了条件は
+> まだ満たしていません。後述の「今回のM1追加分」を参照してください。
 
 ## 1. 確かめること
 
@@ -52,6 +53,7 @@ tools/fetch_uvm.py           ライブラリを取得し、指紋を確かめる
 tools/uvm_common.py          ライブラリと一緒にコンパイルする方法、観測する行
 tools/run_kirimasim.py       kirimasimのランナー
 tools/run_verilator.py       Verilatorのランナー
+tools/run_ghost.py           非公開プロファイルを使うGhostのランナー
 tools/suite_results.py       判定と結果JSON（kirimasim-testsから写したもの）
 tools/lint_metadata.py       メタデータとテストの形式の検査
 tools/clauses_1800_2.txt     1800.2-2020の条項番号（番号だけ）
@@ -155,6 +157,7 @@ kirimasim-testsと同じです。
 python3 tools/fetch_uvm.py
 python3 tools/run_kirimasim.py --kirimasim /path/to/kirimasim -j 8 --json out/kirimasim.json
 python3 tools/run_verilator.py --all --seed 1 -j 2 --json out/verilator-1.json
+python3 tools/run_verilator.py --seeds 1 73 --build-jobs 2 -j 2 --json out/verilator.json
 ```
 
 ランナーにはPython 3.10以降が必要です。結果のJSONはkirimasim-testsと同じ形
@@ -164,11 +167,48 @@ python3 tools/run_verilator.py --all --seed 1 -j 2 --json out/verilator-1.json
 事前コンパイル済みヘッダーでビルドし、そこにビルド先の絶対パスが入るので、ccacheが別の場所で作った
 ヘッダーを返すとビルドが壊れるためです。
 
-| シミュレータ | M0での状態 |
+`--seeds 1 73`は各モデルを一度だけビルドし、seedごとに新しいプロセスで実行します。
+すべてのseedで一致した場合だけ成功です。従来の`--seed N`も使えます。
+結果JSONのconfigurationには、指定に応じて`seed`か`seeds`を記録します。
+
+### Ghost
+
+```sh
+python3 tools/run_ghost.py --simulator /path/to/private/simulator \
+  --profile /path/to/private-profile.json -j 2 --json out/ghost.json
+```
+
+非公開のJSONプロファイルに`arguments`（文字列の配列）、`environment`（文字列の対応表）、
+`uvm_mode`を明示します。
+
+- `pinned`：固定版UVMをテストより先にコンパイルします。同梱UVMの自動読み込みは
+  プロファイル側で無効にします。
+- `bundled`：UVMの供給をプロファイルとシミュレータに任せ、別のパッケージをコンパイルしません。
+  共通の規格期待値と比較しますが、**固定版ライブラリの実行証拠にはしません**。
+  テストの`:uvm:`から同梱ライブラリの版を推測しません。
+
+同梱モードのプロファイルには、ソースとヘッダーを含む非公開ディレクトリ`uvm_library_dir`も
+指定し、実行引数で同じライブラリを選びます。コードもヘッダーも実行ファイル内に組み込まれて
+いる場合だけ、代わりに`uvm_embedded: true`を指定します。この2通りのどちらかが必要です。
+ディレクトリのパスは結果に書きません。
+
+公開JSONには`uvm_source`、`uvm_pinned`、テストが前提にする版（`test_uvm`）、実行ファイルと
+プロファイルのSHA-256を記録します。固定版とディレクトリに置かれた同梱版では、ライブラリの
+内容の指紋とファイル数も記録します。
+シミュレータの名前・版・パス、プロファイルの内容、診断は公開しません。
+実行中に実行ファイル・プロファイル・ライブラリが変わったら、結果を書きません。
+固定版モードでは、実行前にライブラリの内容がlockと一致することも確かめます。
+
+最初のM1の同梱UVMでの実行はseed 1・73とも18/27件が一致し、同じ9件で不一致になりました。
+同じ実行ファイルでの固定版UVMのスモークテストは、前処理を有効にした場合も不一致でした。
+これらは失敗として記録し、期待値は変えません。原因がシミュレータと同梱ライブラリのどちらに
+あるかは、この結果だけでは決めません。
+
+| シミュレータ | 現在の状態 |
 | --- | --- |
-| kirimasim | 実行できる。ライブラリが未対応（クラスが未実装）と報告される |
+| kirimasim | ローカルの実行ファイルでは27件とも`uvm_object_wrapper`未実装でUNSUPPORTED |
 | Verilator 5.052 | `UVM_NO_DPI`でライブラリをビルドして実行できる |
-| Ghost（kirimasim-testsと同じく、公開前のシミュレータ） | まだ。固定版ではなく同梱のUVMを使うため、比べ方が未定 |
+| Ghost（kirimasim-testsと同じく、公開前のシミュレータ） | 同梱UVMでは両seedとも18/27件一致。固定版UVMのスモークテストは不一致 |
 | Icarus Verilog 13.0 | 使わない。UVMを実行できない |
 
 ## 8. 検査
@@ -180,6 +220,7 @@ python3 tools/lint_metadata.py
 ```
 
 `.github/workflows/check.yml`は、これらと、Verilator 5.052で記録したテストをseed 1・73で実行します。
+複数seedのランナーを使い、この2回の実行には各テストのビルドを一度だけ行います。
 
 ## 9. 進め方
 
@@ -190,6 +231,29 @@ python3 tools/lint_metadata.py
 | M2 | シーケンス、シーケンサ、TLM（12〜15）、コールバック（10.7、付録D） | 同上 |
 | M3 | レジスタ層（17〜19、付録E）。ライブラリの差異3件を避ける | 同上 |
 | M4 | 1800.2の要求台帳とカバレッジ（kirimasim-testsと同じ仕組み） | 分母の承認 |
+
+### 今回のM1追加分
+
+最初の追加分として、既存のフェーズのスモークテストに独立したテスト26件を加えます。
+期待する観測値はシミュレータの実行前に決めます。
+
+- オブジェクトの名前・改名、cloneと複製したデータの独立性：4件。
+- factoryの型置換の更新、インスタンス置換の範囲と優先順位：4件。
+- buildの巡回、connectの子から親への巡回：2件。既存の共通フェーズテストは別です。
+- objectionの件数、部分的なdrop、親への伝播：2件。
+- config_dbのスコープ・型、build時の優先順位、実行時の更新：4件。
+- レポートの重大度・ID別件数と冗長度による抑制：2件。
+- copy・compare・print・packのポリシー：各2件。printerは既定の表示書式ではなく入力値を、
+  packerは実装固有のバイト列ではなく値と長さを確かめます。
+
+引用した動作と期待値はIEEE 1800.2-2020の本文と照合しています。とくにcloneは、実装固有の
+生成・copyの呼び出し順に依存せず、独立した複製という結果を観測します。
+照合に使う規格PDFはローカルに置き、Gitの追跡対象から外しています。
+
+この追加分だけではM1完了ではありません。残りの条項の各2件という目標が残っています。
+Ghostの差分は別途調査するために残します。`:spec_check: ai`は、人によるレビュー済みや
+要求の網羅を意味しません。
+M4のカバレッジ分母の承認は別の段階です。
 
 ライブラリのソースには、実装する1800.2の条項を示す注記（`@uvm-ieee 1800.2-2020 auto <条項>`）が
 約1,760か所あります。APIの棚卸しの手がかりになりますが、ライブラリ側の対応付けなので、

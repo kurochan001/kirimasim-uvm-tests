@@ -21,9 +21,9 @@
 //
 // The test t creates one child, env, in its build_phase, so the child is built
 // after its parent. Every bottom-up phase prints the child before the parent.
-// §9.7 does not say in which order a top-down phase visits a parent and its
-// child, so final is printed by t only; so is run, as the run_phase tasks of
-// the components start in parallel. t raises an objection in run_phase
+// This case prints final from t only, focusing on the bottom-up ordering.
+// Only t prints run, as the run_phase tasks of the components start in
+// parallel. t raises an objection in run_phase
 // and drops it one time unit later, so the run phase lasts until then
 // (§9.6, §10.5.1). Only the lines that begin with "UT: " are compared.
 

@@ -1,0 +1,4 @@
+UT: integer 1 value 19
+UT: string 1 value ready
+UT: exists 1 missing 0
+UT: other type 0
