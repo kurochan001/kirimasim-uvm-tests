@@ -3,7 +3,7 @@
 :description: updating general verbosity preserves more specific thresholds (IEEE 1800.2-2020 Section 6.3.4.1)
 :tags: u06 uvm
 :type: simulation
-:lrm: 1800.2-2020 6.3.4.1 6.3.4.4 6.3.3.2 6.4.3.1 6.4.3.3
+:lrm: 1800.2-2020 6.3.4.1 6.3.4.4 6.3.3.2 6.4.3.1 6.4.3.3 1800-2023 6.21
 :uvm: 2020.3.1
 :oracle: spec verilator@5.052
 :spec_check: ai
@@ -20,7 +20,7 @@ module test_report_general_verbosity_keeps_specific_overrides;
   `include "uvm_macros.svh"
 
   initial begin
-    uvm_report_object reporter = new("reporter");
+    automatic uvm_report_object reporter = new("reporter");
     reporter.set_report_verbosity_level(UVM_HIGH);
     reporter.set_report_id_verbosity("selected", UVM_LOW);
     reporter.set_report_severity_id_verbosity(UVM_INFO, "selected", UVM_NONE);

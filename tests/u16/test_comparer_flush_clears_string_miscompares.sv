@@ -3,7 +3,7 @@
 :description: flushing clears accumulated string miscompares and their counter (IEEE 1800.2-2020 Section 16.3.3.6)
 :tags: u16 uvm
 :type: simulation
-:lrm: 1800.2-2020 16.3.3.6 16.3.3.9 16.3.3.8 16.3.2.2
+:lrm: 1800.2-2020 16.3.3.6 16.3.3.9 16.3.3.8 16.3.2.2 1800-2023 6.21
 :uvm: 2020.3.1
 :oracle: spec verilator@5.052
 :spec_check: ai
@@ -20,7 +20,7 @@ module test_comparer_flush_clears_string_miscompares;
   `include "uvm_macros.svh"
 
   initial begin
-    uvm_comparer comparer = new;
+    automatic uvm_comparer comparer = new;
     bit same;
     same = comparer.compare_string("first", "oak", "pine");
     same = comparer.compare_string("second", "red", "blue");

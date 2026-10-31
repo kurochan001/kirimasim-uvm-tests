@@ -3,7 +3,7 @@
 :description: a simplified scope pattern selects matching component descendants (IEEE 1800.2-2020 Section C.4.2.2.1)
 :tags: uC uvm
 :type: simulation
-:lrm: 1800.2-2020 C.4.2.2.1 C.4.2.2.2
+:lrm: 1800.2-2020 C.4.2.2.1 C.4.2.2.2 1800-2023 6.21
 :uvm: 2020.3.1
 :oracle: spec verilator@5.052
 :spec_check: ai
@@ -25,11 +25,11 @@ module test_config_db_scope_glob_matches_descendants;
   endclass
 
   initial begin
-    context_component env = new("env", null);
-    context_component first = new("first", env);
-    context_component second = new("second", env);
-    context_component other = new("other", null);
-    int value = -1;
+    automatic context_component env = new("env", null);
+    automatic context_component first = new("first", env);
+    automatic context_component second = new("second", env);
+    automatic context_component other = new("other", null);
+    automatic int value = -1;
     bit found;
     uvm_config_db#(int)::set(null, "env.*", "credit", 14);
     found = uvm_config_db#(int)::get(first, "", "credit", value);

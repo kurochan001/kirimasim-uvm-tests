@@ -3,7 +3,7 @@
 :description: an explicit object printer supersedes the installed default printer (IEEE 1800.2-2020 Section 16.2.2.2)
 :tags: u16 uvm
 :type: simulation
-:lrm: 1800.2-2020 16.2.2.2 16.2.2.3 16.2.5.11 5.3.6.1
+:lrm: 1800.2-2020 16.2.2.2 16.2.2.3 16.2.5.11 5.3.6.1 1800-2023 6.21
 :uvm: 2020.3.1
 :oracle: spec verilator@5.052
 :spec_check: ai
@@ -54,10 +54,10 @@ module test_printer_explicit_policy_supersedes_default;
   endfunction
 
   initial begin
-    capturing_printer default_policy = new("default_policy");
-    capturing_printer explicit_policy = new("explicit_policy");
-    uvm_printer saved = uvm_printer::get_default();
-    printable value = new;
+    automatic capturing_printer default_policy = new("default_policy");
+    automatic capturing_printer explicit_policy = new("explicit_policy");
+    automatic uvm_printer saved = uvm_printer::get_default();
+    automatic printable value = new;
     int default_fd;
     int explicit_fd;
     string default_line;

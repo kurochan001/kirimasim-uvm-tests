@@ -3,7 +3,7 @@
 :description: each policy owns its active-object stack and an empty pop returns null (IEEE 1800.2-2020 Section 16.1.3.1)
 :tags: u16 uvm
 :type: simulation
-:lrm: 1800.2-2020 16.1.3.1 16.1.3.2 16.1.3.3 16.1.3.4
+:lrm: 1800.2-2020 16.1.3.1 16.1.3.2 16.1.3.3 16.1.3.4 1800-2023 6.21
 :uvm: 2020.3.1
 :oracle: spec verilator@5.052
 :spec_check: ai
@@ -25,10 +25,10 @@ module test_policy_active_object_stacks_are_independent;
   endclass
 
   initial begin
-    uvm_copier first_policy = new;
-    uvm_comparer second_policy = new;
-    item first = new("first");
-    item second = new("second");
+    automatic uvm_copier first_policy = new;
+    automatic uvm_comparer second_policy = new;
+    automatic item first = new("first");
+    automatic item second = new("second");
     uvm_object popped;
     first_policy.push_active_object(first);
     second_policy.push_active_object(second);

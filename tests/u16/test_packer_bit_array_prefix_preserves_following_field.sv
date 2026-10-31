@@ -3,7 +3,7 @@
 :description: bit array size limits the packed prefix without consuming the following field (IEEE 1800.2-2020 Section 16.5.4.1)
 :tags: u16 uvm
 :type: simulation
-:lrm: 1800.2-2020 16.5.4.1 16.5.4.18 16.5.4.9 16.5.4.17
+:lrm: 1800.2-2020 16.5.4.1 16.5.4.18 16.5.4.9 16.5.4.17 1800-2023 6.21
 :uvm: 2020.3.1
 :oracle: spec verilator@5.052
 :spec_check: ai
@@ -20,9 +20,9 @@ module test_packer_bit_array_prefix_preserves_following_field;
   `include "uvm_macros.svh"
 
   initial begin
-    uvm_packer packer = new;
-    bit source_bits[] = '{1, 0, 1, 1, 0};
-    bit target_bits[] = new[3];
+    automatic uvm_packer packer = new;
+    automatic bit source_bits[] = '{1, 0, 1, 1, 0};
+    automatic bit target_bits[] = new[3];
     int trailer;
     packer.pack_bits(source_bits, 3);
     packer.pack_field_int(10, 4);

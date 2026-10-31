@@ -3,7 +3,7 @@
 :description: sprint passes the object field to the supplied printer (IEEE 1800.2-2020 Section 16.2.3.9)
 :tags: u16 uvm
 :type: simulation
-:lrm: 1800.2-2020 16.2.3.1 16.2.3.9 16.2.4.1 5.3.6.2 5.3.6.3
+:lrm: 1800.2-2020 16.2.3.1 16.2.3.9 16.2.4.1 5.3.6.2 5.3.6.3 1800-2023 6.21
 :uvm: 2020.3.1
 :oracle: spec verilator@5.052
 :spec_check: ai
@@ -46,8 +46,8 @@ class printable extends uvm_object;
 endclass
 
 initial begin
-  printable item = new;
-  capturing_printer printer = new;
+  automatic printable item = new;
+  automatic capturing_printer printer = new;
   string text;
   item.payload = 46;
   text = item.sprint(printer);

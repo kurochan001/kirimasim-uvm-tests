@@ -3,7 +3,7 @@
 :description: the compare result honors a user hook failure without field miscompares (IEEE 1800.2-2020 Section 5.3.9.1)
 :tags: u05 uvm
 :type: simulation
-:lrm: 1800.2-2020 5.3.9.1 5.3.9.2 16.3.3.4
+:lrm: 1800.2-2020 5.3.9.1 5.3.9.2 16.3.3.4 1800-2023 6.21
 :uvm: 2020.3.1
 :oracle: spec verilator@5.052
 :spec_check: ai
@@ -28,9 +28,9 @@ module test_object_compare_honors_hook_return;
     endfunction
   endclass
   initial begin
-    decision lhs = new;
-    decision rhs = new;
-    uvm_comparer comparer = new;
+    automatic decision lhs = new;
+    automatic decision rhs = new;
+    automatic uvm_comparer comparer = new;
     bit same;
     same = lhs.compare(rhs, comparer);
     $display("UT: rejected %0d miscompares %0d", same, comparer.get_result());

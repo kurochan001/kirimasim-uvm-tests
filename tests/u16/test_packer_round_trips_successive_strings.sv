@@ -3,7 +3,7 @@
 :description: successive strings retain their boundaries when unpacked (IEEE 1800.2-2020 Section 16.5.4.5)
 :tags: u16 uvm
 :type: simulation
-:lrm: 1800.2-2020 16.5.4.5 16.5.4.13
+:lrm: 1800.2-2020 16.5.4.5 16.5.4.13 1800-2023 6.21
 :uvm: 2020.3.1
 :oracle: spec verilator@5.052
 :spec_check: ai
@@ -20,7 +20,7 @@ module test_packer_round_trips_successive_strings;
   `include "uvm_macros.svh"
 
   initial begin
-    uvm_packer packer = new;
+    automatic uvm_packer packer = new;
     string first;
     string second;
     packer.pack_string("oak");

@@ -3,7 +3,7 @@
 :description: setting a severity count updates only that severity (IEEE 1800.2-2020 Section 6.5.1.2.6)
 :tags: u06 uvm
 :type: simulation
-:lrm: 1800.2-2020 6.5.1.2.6 6.5.1.2.7
+:lrm: 1800.2-2020 6.5.1.2.6 6.5.1.2.7 1800-2023 6.21
 :uvm: 2020.3.1
 :oracle: spec verilator@5.052
 :spec_check: ai
@@ -20,7 +20,7 @@ module test_report_server_severity_counts_update_independently;
   `include "uvm_macros.svh"
 
   initial begin
-    uvm_default_report_server server = new;
+    automatic uvm_default_report_server server = new;
     server.set_severity_count(UVM_INFO, 4);
     server.set_severity_count(UVM_WARNING, 2);
     $display("UT: initial info %0d warning %0d", server.get_severity_count(UVM_INFO),

@@ -3,7 +3,7 @@
 :description: reference comparison distinguishes object identity from equal field values (IEEE 1800.2-2020 Section 16.3.4.1)
 :tags: u16 uvm
 :type: simulation
-:lrm: 1800.2-2020 16.3.4.1 16.3.3.4
+:lrm: 1800.2-2020 16.3.4.1 16.3.3.4 1800-2023 6.21
 :uvm: 2020.3.1
 :oracle: spec verilator@5.052
 :spec_check: ai
@@ -36,10 +36,10 @@ module test_comparer_reference_policy_checks_handle_identity;
   endclass
 
   initial begin
-    base_value first = new;
-    base_value second = new;
-    base_value alias_value = first;
-    uvm_comparer comparer = new;
+    automatic base_value first = new;
+    automatic base_value second = new;
+    automatic base_value alias_value = first;
+    automatic uvm_comparer comparer = new;
     bit result;
     first.value = 21;
     second.value = 21;

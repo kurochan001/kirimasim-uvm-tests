@@ -3,7 +3,7 @@
 :description: printer controls start at their specified defaults and accept updates (IEEE 1800.2-2020 Section 16.2.5.1)
 :tags: u16 uvm
 :type: simulation
-:lrm: 1800.2-2020 16.2.5.1 16.2.5.2 16.2.5.3 16.2.5.4 16.2.5.5 16.2.5.10
+:lrm: 1800.2-2020 16.2.5.1 16.2.5.2 16.2.5.3 16.2.5.4 16.2.5.5 16.2.5.10 1800-2023 6.21
 :uvm: 2020.3.1
 :oracle: spec verilator@5.052
 :spec_check: ai
@@ -20,7 +20,7 @@ module test_printer_configuration_defaults_and_updates;
   `include "uvm_macros.svh"
 
   initial begin
-    uvm_table_printer printer = new;
+    automatic uvm_table_printer printer = new;
     $display("UT: defaults %0d %0d %0d %0d %0d depth %0d", printer.get_name_enabled(),
              printer.get_type_name_enabled(), printer.get_size_enabled(), printer.get_id_enabled(),
              printer.get_radix_enabled(), printer.get_max_depth());

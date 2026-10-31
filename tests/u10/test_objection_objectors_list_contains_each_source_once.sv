@@ -3,7 +3,7 @@
 :description: the objector list has one entry per source regardless of count (IEEE 1800.2-2020 Section 10.5.1.5.1)
 :tags: u10 uvm
 :type: simulation
-:lrm: 1800.2-2020 10.5.1.5.1 10.5.1.3.3 10.5.1.5.3
+:lrm: 1800.2-2020 10.5.1.5.1 10.5.1.3.3 10.5.1.5.3 1800-2023 6.21
 :uvm: 2020.3.1
 :oracle: spec verilator@5.052
 :spec_check: ai
@@ -25,12 +25,12 @@ module test_objection_objectors_list_contains_each_source_once;
   endclass
 
   initial begin
-    uvm_objection objection = new("objection");
-    item first = new("first");
-    item second = new("second");
+    automatic uvm_objection objection = new("objection");
+    automatic item first = new("first");
+    automatic item second = new("second");
     uvm_object objectors[$];
-    int first_seen = 0;
-    int second_seen = 0;
+    automatic int first_seen = 0;
+    automatic int second_seen = 0;
     objection.raise_objection(first, "first", 2);
     objection.raise_objection(second);
     objection.get_objectors(objectors);

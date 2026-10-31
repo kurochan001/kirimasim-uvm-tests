@@ -3,7 +3,7 @@
 :description: renaming preserves an object ID and cloning creates a distinct live ID (IEEE 1800.2-2020 Section 5.3.4.4)
 :tags: u05 uvm
 :type: simulation
-:lrm: 1800.2-2020 5.3.4.4 5.3.4.1 5.3.5.2
+:lrm: 1800.2-2020 5.3.4.4 5.3.4.1 5.3.5.2 1800-2023 6.21
 :uvm: 2020.3.1
 :oracle: spec verilator@5.052
 :spec_check: ai
@@ -25,9 +25,9 @@ module test_object_id_survives_rename_and_clone;
   endclass
 
   initial begin
-    item source = new("before");
+    automatic item source = new("before");
     uvm_object duplicate;
-    int saved_id = source.get_inst_id();
+    automatic int saved_id = source.get_inst_id();
     source.set_name("after");
     duplicate = source.clone();
     $display("UT: renamed stable %0d", source.get_inst_id() == saved_id);

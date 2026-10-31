@@ -3,7 +3,7 @@
 :description: object packing and unpacking select an installed default packer (IEEE 1800.2-2020 Section 5.3.10.1)
 :tags: u05 uvm
 :type: simulation
-:lrm: 1800.2-2020 5.3.10.1 5.3.10.2 5.3.11.1 5.3.11.2 16.5.2.4 16.5.2.5
+:lrm: 1800.2-2020 5.3.10.1 5.3.10.2 5.3.11.1 5.3.11.2 16.5.2.4 16.5.2.5 1800-2023 6.21
 :uvm: 2020.3.1
 :oracle: spec verilator@5.052
 :spec_check: ai
@@ -51,10 +51,10 @@ module test_object_pack_longints_selects_default_policy;
     endfunction
   endclass
   initial begin
-    packet source = new;
-    packet target = new;
-    counting_packer selected = new;
-    uvm_packer saved = uvm_packer::get_default();
+    automatic packet source = new;
+    automatic packet target = new;
+    automatic counting_packer selected = new;
+    automatic uvm_packer saved = uvm_packer::get_default();
     longint unsigned stream[];
     int count;
     uvm_packer::set_default(selected);

@@ -3,7 +3,7 @@
 :description: dropping a source to zero removes it from the current objector list (IEEE 1800.2-2020 Section 10.5.1.5.1)
 :tags: u10 uvm
 :type: simulation
-:lrm: 1800.2-2020 10.5.1.5.1 10.5.1.3.4
+:lrm: 1800.2-2020 10.5.1.5.1 10.5.1.3.4 1800-2023 6.21
 :uvm: 2020.3.1
 :oracle: spec
 :spec_check: ai
@@ -27,9 +27,9 @@ module test_objection_objectors_list_removes_dropped_source;
   endclass
 
   initial begin
-    uvm_objection objection = new("objection");
-    item first = new("first");
-    item second = new("second");
+    automatic uvm_objection objection = new("objection");
+    automatic item first = new("first");
+    automatic item second = new("second");
     uvm_object objectors[$];
     objection.raise_objection(first);
     objection.raise_objection(second);

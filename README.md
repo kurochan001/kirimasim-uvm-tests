@@ -65,6 +65,7 @@ tools/run_verilator.py       runner for Verilator
 tools/run_ghost.py           private-profile runner under the public alias Ghost
 tools/suite_results.py       judgment and result JSON, copied from kirimasim-tests
 tools/lint_metadata.py       checks of the metadata and the form of the tests
+tools/sv_lifetimes.py        lexical guard for initialized procedural locals
 tools/clauses_1800_2.txt     clause numbers of 1800.2-2020 (numbers only)
 tools/UPSTREAM               where the copied tool comes from, and what changed
 ```
@@ -327,7 +328,7 @@ checks use a custom emission string; they do not prescribe a built-in layout.
 Task-phase checks hold objections for positive delays and inspect child
 state after the child would otherwise have resumed.
 
-The fourth increment adds 32 tests, bringing the suite to 133:
+The fourth increment added 32 tests, bringing the suite to 133:
 
 - Transaction lifecycle timestamps, hooks, identifiers, initiators and named
   events, including the normative initial inactive state: six tests.
@@ -349,9 +350,31 @@ state observer holds a run objection until it has observed main ending.
 Initialized procedural locals in this increment use automatic lifetime,
 following SystemVerilog 6.21, so their initialization executes at block entry.
 The phase-limit test samples its class default in an executable statement
-after static initialization. The previous 101 cases still need this explicit
-lifetime audit as remaining M1 work; reproduction counts alone do not settle
-the portability of their initialization order.
+after static initialization.
+
+The fifth increment completes the initialized-local lifetime audit of all
+133 cases. Across 84 earlier tests, 202 declarations now use `automatic`.
+Four initialized variables in the two guarded-fork configuration tests
+instead use static storage with separate block-entry assignments, keeping
+shared state alive across the branches. All 206 initializations therefore
+execute at block entry, including constructor and getter calls. The static
+storage also avoids Verilator's rejection of potentially escaping automatic
+references in those two cases. The tests cite SystemVerilog 1800-2023 6.21.
+No expected file changes.
+The other cases already use explicit lifetime, use automatic class methods,
+or have no initialized procedural locals. The two module-level helper
+functions are explicitly automatic.
+
+The metadata check now uses `tools/sv_lifetimes.py` to catch the same implicit
+lifetime pattern in initial/always begin/fork blocks. Its regression cases
+cover nested scopes, parameterized/scoped types, arrays, comments, strings,
+and explicit automatic/static declarations. It is a lexical source check;
+it does not expand macros, parse subroutine lifetime, or inspect the pinned
+library. Compiler execution remains part of validation.
+
+The suite stays at 133 UVM tests. Tool unit tests increase from 30 to 41.
+The changed cases are rebuilt with both Verilator seeds. Unchanged execution
+evidence is reused only when its input and runner fingerprints match.
 
 Across the second through fourth increments, seven additional limitations
 of the pinned reference library were identified beyond its own `DEVIATIONS.md`:

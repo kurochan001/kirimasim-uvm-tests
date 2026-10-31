@@ -112,6 +112,13 @@ class Metadata(Sample):
         self.assertTrue(any(p.startswith("width:") for p in found), found)
         self.assertTrue(any(p.startswith("verilator:") for p in found), found)
 
+    def test_initialized_block_locals_need_an_explicit_lifetime(self):
+        found = self.check(self.make(body="module m; initial begin int value = 1; end endmodule"))
+        self.assertTrue(any(p.startswith("lifetime:") and "value" in p for p in found), found)
+        fixed = self.make(name="test_automatic", body=
+                          "module m; initial begin automatic int value = 1; end endmodule")
+        self.assertEqual(self.check(fixed), [])
+
 
 if __name__ == "__main__":
     unittest.main()

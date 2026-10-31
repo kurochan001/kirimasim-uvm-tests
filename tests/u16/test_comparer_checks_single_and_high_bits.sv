@@ -3,7 +3,7 @@
 :description: integral comparison handles one-bit and full 64-bit boundaries (IEEE 1800.2-2020 Section 16.3.3.2)
 :tags: u16 uvm
 :type: simulation
-:lrm: 1800.2-2020 16.3.3.2
+:lrm: 1800.2-2020 16.3.3.2 1800-2023 6.21
 :uvm: 2020.3.1
 :oracle: spec verilator@5.052
 :spec_check: ai
@@ -20,7 +20,7 @@ module test_comparer_checks_single_and_high_bits;
   `include "uvm_macros.svh"
 
 initial begin
-  uvm_comparer comparer = new;
+  automatic uvm_comparer comparer = new;
   bit same;
   same = comparer.compare_field_int("one", 64'hff, 64'h01, 1);
   $display("UT: one bit equal %0d", same);

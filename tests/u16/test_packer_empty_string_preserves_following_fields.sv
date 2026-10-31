@@ -3,7 +3,7 @@
 :description: an empty packed string does not consume the following string or integer (IEEE 1800.2-2020 Section 16.5.4.5)
 :tags: u16 uvm
 :type: simulation
-:lrm: 1800.2-2020 16.5.4.5 16.5.4.13 16.5.4.9 16.5.4.17
+:lrm: 1800.2-2020 16.5.4.5 16.5.4.13 16.5.4.9 16.5.4.17 1800-2023 6.21
 :uvm: 2020.3.1
 :oracle: spec verilator@5.052
 :spec_check: ai
@@ -20,7 +20,7 @@ module test_packer_empty_string_preserves_following_fields;
   `include "uvm_macros.svh"
 
   initial begin
-    uvm_packer packer = new;
+    automatic uvm_packer packer = new;
     string empty;
     string text;
     uvm_integral_t value;

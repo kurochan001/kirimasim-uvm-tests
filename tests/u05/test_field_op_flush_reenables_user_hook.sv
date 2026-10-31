@@ -3,7 +3,7 @@
 :description: disabling a user hook affects the current field operation and flush resets it (IEEE 1800.2-2020 Section 5.7.2.7)
 :tags: u05 uvm
 :type: simulation
-:lrm: 1800.2-2020 5.7.2.7 5.7.2.8 5.7.2.9 5.7.2.2
+:lrm: 1800.2-2020 5.7.2.7 5.7.2.8 5.7.2.9 5.7.2.2 1800-2023 6.21
 :uvm: 2020.3.1
 :oracle: spec verilator@5.052
 :spec_check: ai
@@ -22,8 +22,8 @@ module test_field_op_flush_reenables_user_hook;
   `include "uvm_macros.svh"
 
   initial begin
-    uvm_field_op op = new;
-    uvm_copier copier = new;
+    automatic uvm_field_op op = new;
+    automatic uvm_copier copier = new;
     op.set(UVM_COPY, copier);
     $display("UT: initial enabled %0d", op.user_hook_enabled());
     op.disable_user_hook();

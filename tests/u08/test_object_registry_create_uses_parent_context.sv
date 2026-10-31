@@ -3,7 +3,7 @@
 :description: object registry creation derives its factory context from the parent (IEEE 1800.2-2020 Section 8.2.4.2.4)
 :tags: u08 uvm
 :type: simulation
-:lrm: 1800.2-2020 8.2.4.2.4 8.3.1.4.1 5.3.4.3
+:lrm: 1800.2-2020 8.2.4.2.4 8.3.1.4.1 5.3.4.3 1800-2023 6.21
 :uvm: 2020.3.1
 :oracle: spec verilator@5.052
 :spec_check: ai
@@ -38,8 +38,8 @@ module test_object_registry_create_uses_parent_context;
   endclass
 
   initial begin
-    context_component parent = new("env", null);
-    uvm_factory factory = uvm_factory::get();
+    automatic context_component parent = new("env", null);
+    automatic uvm_factory factory = uvm_factory::get();
     base_item value;
     factory.set_inst_override_by_type(base_item::get_type(), first_item::get_type(), "env.item");
     value = base_item::type_id::create("item", parent);

@@ -3,7 +3,7 @@
 :description: factory queries resolve matching instance overrides and the type fallback (IEEE 1800.2-2020 Section 8.3.1.7.1)
 :tags: u08 uvm
 :type: simulation
-:lrm: 1800.2-2020 8.3.1.7.1 8.3.1.7.2 8.3.1.7.3 8.3.1.7.4 8.3.1.4.1 8.3.1.4.2
+:lrm: 1800.2-2020 8.3.1.7.1 8.3.1.7.2 8.3.1.7.3 8.3.1.7.4 8.3.1.4.1 8.3.1.4.2 1800-2023 6.21
 :uvm: 2020.3.1
 :oracle: spec verilator@5.052
 :spec_check: ai
@@ -34,10 +34,10 @@ module test_factory_lookup_resolves_instance_override;
   endclass
 
   initial begin
-    uvm_factory factory = uvm_factory::get();
-    uvm_object_wrapper original = base_item::get_type();
-    uvm_object_wrapper specific = second_item::get_type();
-    uvm_object_wrapper fallback = first_item::get_type();
+    automatic uvm_factory factory = uvm_factory::get();
+    automatic uvm_object_wrapper original = base_item::get_type();
+    automatic uvm_object_wrapper specific = second_item::get_type();
+    automatic uvm_object_wrapper fallback = first_item::get_type();
     factory.set_type_override_by_type(original, fallback);
     factory.set_inst_override_by_type(original, specific, "env.chosen");
     $display("UT: instance by type %0d by name %0d",

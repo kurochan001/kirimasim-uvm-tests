@@ -3,7 +3,7 @@
 :description: relative and absolute configuration scopes find the same setting (IEEE 1800.2-2020 Section C.4.2.2.1)
 :tags: uC uvm
 :type: simulation
-:lrm: 1800.2-2020 C.4.2.2.1 C.4.2.2.2
+:lrm: 1800.2-2020 C.4.2.2.1 C.4.2.2.2 1800-2023 6.21
 :uvm: 2020.3.1
 :oracle: spec verilator@5.052
 :spec_check: ai
@@ -24,10 +24,10 @@ module test_config_db_relative_and_absolute_lookup;
     function new(string name, uvm_component parent); super.new(name, parent); endfunction
   endclass
 initial begin
-    context_component parent = new("parent", null);
-    context_component child = new("child", parent);
-    context_component other = new("other", parent);
-  int value = -1;
+    automatic context_component parent = new("parent", null);
+    automatic context_component child = new("child", parent);
+    automatic context_component other = new("other", parent);
+  automatic int value = -1;
   bit found;
   uvm_config_db#(int)::set(parent, "child", "limit", 41);
   found = uvm_config_db#(int)::get(child, "", "limit", value);

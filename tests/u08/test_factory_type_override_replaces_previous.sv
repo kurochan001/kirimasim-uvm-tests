@@ -3,7 +3,7 @@
 :description: replace one installs a new type override (IEEE 1800.2-2020 Section 8.3.1.4.2)
 :tags: u08 uvm
 :type: simulation
-:lrm: 1800.2-2020 8.3.1.4.2 8.3.1.5
+:lrm: 1800.2-2020 8.3.1.4.2 8.3.1.5 1800-2023 6.21
 :uvm: 2020.3.1
 :oracle: spec verilator@5.052
 :spec_check: ai
@@ -33,7 +33,7 @@ class second_item extends base_item;
 endclass
 
 initial begin
-  uvm_factory factory = uvm_factory::get();
+  automatic uvm_factory factory = uvm_factory::get();
   uvm_object before_item;
   uvm_object after_item;
   factory.set_type_override_by_type(base_item::get_type(), first_item::get_type());

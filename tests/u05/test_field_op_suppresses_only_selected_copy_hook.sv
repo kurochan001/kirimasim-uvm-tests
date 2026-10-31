@@ -3,7 +3,7 @@
 :description: a disabled copy hook is skipped and a later operation can enable it again (IEEE 1800.2-2020 Section 5.7.2.7)
 :tags: u05 uvm
 :type: simulation
-:lrm: 1800.2-2020 5.7.2.7 5.7.2.8 16.6.4.1 5.3.13 5.3.8.2
+:lrm: 1800.2-2020 5.7.2.7 5.7.2.8 16.6.4.1 5.3.13 5.3.8.2 1800-2023 6.21
 :uvm: 2020.3.1
 :oracle: spec verilator@5.052
 :spec_check: ai
@@ -40,9 +40,9 @@ module test_field_op_suppresses_only_selected_copy_hook;
     endfunction
   endclass
   initial begin
-    probe source = new;
-    probe target = new;
-    uvm_copier copier = new;
+    automatic probe source = new;
+    automatic probe target = new;
+    automatic uvm_copier copier = new;
     source.payload = 19;
     target.payload = 3;
     copier.copy_object(target, source);

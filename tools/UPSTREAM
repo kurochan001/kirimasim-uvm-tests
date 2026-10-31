@@ -12,3 +12,7 @@ commit 19034b575e1b715c356660ac1422b45f25c15ab3, with these changes:
 The runners (run_*.py) and lint_metadata.py are written for this suite after
 the kirimasim-tests ones; they are not copies. When the judging rules of the
 two repositories start to drift, move the shared code into one package.
+
+sv_lifetimes.py and its regression tests are also original suite code. The
+helper lexically checks explicit lifetime on initialized block locals; it
+is not copied from a simulator parser or the language standard.

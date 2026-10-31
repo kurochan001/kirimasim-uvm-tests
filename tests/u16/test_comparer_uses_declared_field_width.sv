@@ -3,7 +3,7 @@
 :description: integral comparison masks bits above the declared size (IEEE 1800.2-2020 Section 16.3.3.2)
 :tags: u16 uvm
 :type: simulation
-:lrm: 1800.2-2020 16.3.3.2
+:lrm: 1800.2-2020 16.3.3.2 1800-2023 6.21
 :uvm: 2020.3.1
 :oracle: spec verilator@5.052
 :spec_check: ai
@@ -20,7 +20,7 @@ module test_comparer_uses_declared_field_width;
   `include "uvm_macros.svh"
 
 initial begin
-  uvm_comparer comparer = new;
+  automatic uvm_comparer comparer = new;
   bit same;
   same = comparer.compare_field_int("byte", 64'h1207, 64'h3407, 8);
   $display("UT: low byte equal %0d", same);

@@ -3,7 +3,7 @@
 :description: deep comparison accepts equal fields of distinct objects (IEEE 1800.2-2020 Section 16.3.4.1)
 :tags: u16 uvm
 :type: simulation
-:lrm: 1800.2-2020 16.3.4.1 16.3.3.4
+:lrm: 1800.2-2020 16.3.4.1 16.3.3.4 1800-2023 6.21
 :uvm: 2020.3.1
 :oracle: spec verilator@5.052
 :spec_check: ai
@@ -36,10 +36,10 @@ module test_comparer_deep_and_reference_policies_differ;
   endclass
 
   initial begin
-    base_value first = new;
-    base_value second = new;
-    uvm_comparer reference_policy = new;
-    uvm_comparer deep_policy = new;
+    automatic base_value first = new;
+    automatic base_value second = new;
+    automatic uvm_comparer reference_policy = new;
+    automatic uvm_comparer deep_policy = new;
     bit reference_result;
     bit deep_result;
     first.value = 21;

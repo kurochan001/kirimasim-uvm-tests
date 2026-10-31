@@ -3,7 +3,7 @@
 :description: verbosity-filtered messages do not reach the report server counts (IEEE 1800.2-2020 Section 6.5.1.2.6)
 :tags: u06 uvm
 :type: simulation
-:lrm: 1800.2-2020 6.5.1.2.6 6.5.1.2.8 6.5.1.2.16 6.3.4.3
+:lrm: 1800.2-2020 6.5.1.2.6 6.5.1.2.8 6.5.1.2.16 6.3.4.3 1800-2023 6.21
 :uvm: 2020.3.1
 :oracle: spec verilator@5.052
 :spec_check: ai
@@ -20,10 +20,10 @@ module test_report_server_verbosity_filters_counts;
   `include "uvm_macros.svh"
 
 initial begin
-  uvm_report_object reporter = new("reporter");
-  uvm_report_server server = uvm_report_server::get_server();
-  int infos = server.get_severity_count(UVM_INFO);
-  int ids = server.get_id_count("M1_FILTER");
+  automatic uvm_report_object reporter = new("reporter");
+  automatic uvm_report_server server = uvm_report_server::get_server();
+  automatic int infos = server.get_severity_count(UVM_INFO);
+  automatic int ids = server.get_id_count("M1_FILTER");
   reporter.set_report_verbosity_level(UVM_LOW);
   reporter.uvm_report_info("M1_FILTER", "filtered", UVM_HIGH);
   $display("UT: filtered info %0d id %0d", server.get_severity_count(UVM_INFO) - infos,

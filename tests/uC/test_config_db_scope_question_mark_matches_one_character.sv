@@ -3,7 +3,7 @@
 :description: a scope question mark matches exactly one character (IEEE 1800.2-2020 Section C.4.2.2.1)
 :tags: uC uvm
 :type: simulation
-:lrm: 1800.2-2020 C.4.2.2.1 C.4.2.2.2 F.3.3.1
+:lrm: 1800.2-2020 C.4.2.2.1 C.4.2.2.2 F.3.3.1 1800-2023 6.21
 :uvm: 2020.3.1
 :oracle: spec verilator@5.052
 :spec_check: ai
@@ -26,11 +26,11 @@ module test_config_db_scope_question_mark_matches_one_character;
   endclass
 
   initial begin
-    context_component env = new("env", null);
-    context_component first = new("ag0", env);
-    context_component second = new("ag1", env);
-    context_component longer = new("ag12", env);
-    int value = -1;
+    automatic context_component env = new("env", null);
+    automatic context_component first = new("ag0", env);
+    automatic context_component second = new("ag1", env);
+    automatic context_component longer = new("ag12", env);
+    automatic int value = -1;
     bit found;
     uvm_config_db#(int)::set(null, "env.ag?", "credit", 23);
     found = uvm_config_db#(int)::get(first, "", "credit", value);

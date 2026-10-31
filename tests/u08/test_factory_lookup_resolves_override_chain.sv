@@ -3,7 +3,7 @@
 :description: override queries resolve a chain while wrapper lookup preserves type identity (IEEE 1800.2-2020 Section 8.3.1.7.1)
 :tags: u08 uvm
 :type: simulation
-:lrm: 1800.2-2020 8.3.1.7.1 8.3.1.7.2 8.3.1.7.3 8.3.1.7.4 8.3.1.4.2
+:lrm: 1800.2-2020 8.3.1.7.1 8.3.1.7.2 8.3.1.7.3 8.3.1.7.4 8.3.1.4.2 1800-2023 6.21
 :uvm: 2020.3.1
 :oracle: spec verilator@5.052
 :spec_check: ai
@@ -33,9 +33,9 @@ module test_factory_lookup_resolves_override_chain;
   endclass
 
   initial begin
-    uvm_factory factory = uvm_factory::get();
-    uvm_object_wrapper original = base_item::get_type();
-    uvm_object_wrapper replacement = second_item::get_type();
+    automatic uvm_factory factory = uvm_factory::get();
+    automatic uvm_object_wrapper original = base_item::get_type();
+    automatic uvm_object_wrapper replacement = second_item::get_type();
     factory.set_type_override_by_type(original, first_item::get_type());
     factory.set_type_override_by_type(first_item::get_type(), replacement);
     $display("UT: final by type %0d by name %0d",

@@ -3,7 +3,7 @@
 :description: reusing an object packer replaces the previous integer stream (IEEE 1800.2-2020 Section 5.3.10.1)
 :tags: u05 uvm
 :type: simulation
-:lrm: 1800.2-2020 5.3.10.1 5.3.10.2 5.3.11.1 5.3.11.2
+:lrm: 1800.2-2020 5.3.10.1 5.3.10.2 5.3.11.1 5.3.11.2 1800-2023 6.21
 :uvm: 2020.3.1
 :oracle: spec verilator@5.052
 :spec_check: ai
@@ -37,9 +37,9 @@ module test_object_pack_ints_reuses_policy_without_appending;
   endclass
 
   initial begin
-    packet source = new;
-    packet target = new;
-    uvm_packer packer = new;
+    automatic packet source = new;
+    automatic packet target = new;
+    automatic uvm_packer packer = new;
     int unsigned stream[];
     int count;
     source.address = 'h11;

@@ -3,7 +3,7 @@
 :description: a field operation can be flushed and reconfigured for comparison (IEEE 1800.2-2020 Section 5.7.2.2)
 :tags: u05 uvm
 :type: simulation
-:lrm: 1800.2-2020 5.7.2.2 5.7.2.3 5.7.2.4 5.7.2.5 5.7.2.6 5.7.2.9
+:lrm: 1800.2-2020 5.7.2.2 5.7.2.3 5.7.2.4 5.7.2.5 5.7.2.6 5.7.2.9 1800-2023 6.21
 :uvm: 2020.3.1
 :oracle: spec verilator@5.052
 :spec_check: ai
@@ -25,11 +25,11 @@ module test_field_op_set_and_flush_change_copy_to_compare;
   endclass
 
   initial begin
-    uvm_field_op op = new;
-    uvm_copier copier = new;
-    uvm_comparer comparer = new;
-    item first = new("first");
-    item second = new("second");
+    automatic uvm_field_op op = new;
+    automatic uvm_copier copier = new;
+    automatic uvm_comparer comparer = new;
+    automatic item first = new("first");
+    automatic item second = new("second");
     op.set(UVM_COPY, copier, first);
     $display("UT: first %s type %0d policy %0d rhs %0d", op.get_op_name(),
              op.get_op_type() == UVM_COPY, op.get_policy() == copier, op.get_rhs() == first);

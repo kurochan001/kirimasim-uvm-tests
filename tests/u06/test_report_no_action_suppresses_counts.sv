@@ -3,7 +3,7 @@
 :description: NO_ACTION reports leave severity and ID counts unchanged (IEEE 1800.2-2020 Section 6.3.5.1)
 :tags: u06 uvm
 :type: simulation
-:lrm: 1800.2-2020 6.3.5.1 6.3.5.2 6.5.1.2.14 6.5.1.2.6 6.5.1.2.8
+:lrm: 1800.2-2020 6.3.5.1 6.3.5.2 6.5.1.2.14 6.5.1.2.6 6.5.1.2.8 1800-2023 6.21
 :uvm: 2020.3.1
 :oracle: spec verilator@5.052
 :spec_check: ai
@@ -20,10 +20,10 @@ module test_report_no_action_suppresses_counts;
   `include "uvm_macros.svh"
 
   initial begin
-    uvm_report_object reporter = new("reporter");
-    uvm_report_server server = uvm_report_server::get_server();
-    int infos = server.get_severity_count(UVM_INFO);
-    int ids = server.get_id_count("M1_ACTION");
+    automatic uvm_report_object reporter = new("reporter");
+    automatic uvm_report_server server = uvm_report_server::get_server();
+    automatic int infos = server.get_severity_count(UVM_INFO);
+    automatic int ids = server.get_id_count("M1_ACTION");
     reporter.set_report_severity_action(UVM_INFO, UVM_DISPLAY);
     reporter.set_report_id_action("M1_ACTION", UVM_NO_ACTION);
     reporter.uvm_report_info("M1_ACTION", "suppressed", UVM_NONE);

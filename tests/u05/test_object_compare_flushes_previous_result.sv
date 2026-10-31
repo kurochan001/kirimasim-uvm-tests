@@ -3,7 +3,7 @@
 :description: a new top-level comparison clears previous miscompares (IEEE 1800.2-2020 Section 5.3.9.1)
 :tags: u05 uvm
 :type: simulation
-:lrm: 1800.2-2020 5.3.9.1 5.3.9.2 16.3.2.2 16.3.3.9
+:lrm: 1800.2-2020 5.3.9.1 5.3.9.2 16.3.2.2 16.3.3.9 1800-2023 6.21
 :uvm: 2020.3.1
 :oracle: spec verilator@5.052
 :spec_check: ai
@@ -35,9 +35,9 @@ module test_object_compare_flushes_previous_result;
     endfunction
   endclass
   initial begin
-    datum lhs = new;
-    datum rhs = new;
-    uvm_comparer comparer = new;
+    automatic datum lhs = new;
+    automatic datum rhs = new;
+    automatic uvm_comparer comparer = new;
     bit same;
     lhs.value = 8;
     lhs.label = "left";

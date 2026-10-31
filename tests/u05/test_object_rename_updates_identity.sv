@@ -3,7 +3,7 @@
 :description: renaming a plain object updates its name and full name (IEEE 1800.2-2020 Section 5.3.4.1)
 :tags: u05 uvm
 :type: simulation
-:lrm: 1800.2-2020 5.3.4.1 5.3.4.2 5.3.4.3
+:lrm: 1800.2-2020 5.3.4.1 5.3.4.2 5.3.4.3 1800-2023 6.21
 :uvm: 2020.3.1
 :oracle: spec verilator@5.052
 :spec_check: ai
@@ -24,7 +24,7 @@ module test_object_rename_updates_identity;
     function new(string name=""); super.new(name); endfunction
   endclass
 initial begin
-    named_object item = new("before");
+    automatic named_object item = new("before");
   $display("UT: initial %s %s", item.get_name(), item.get_full_name());
   item.set_name("after");
   $display("UT: renamed %s %s", item.get_name(), item.get_full_name());

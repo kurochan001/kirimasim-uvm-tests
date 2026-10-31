@@ -3,7 +3,7 @@
 :description: the copier dispatches to the destination copy hook (IEEE 1800.2-2020 Section 16.6.4.1)
 :tags: u16 uvm
 :type: simulation
-:lrm: 1800.2-2020 16.6.4.1 5.3.8.2
+:lrm: 1800.2-2020 16.6.4.1 5.3.8.2 1800-2023 6.21
 :uvm: 2020.3.1
 :oracle: spec verilator@5.052
 :spec_check: ai
@@ -34,9 +34,9 @@ class sample extends uvm_object;
 endclass
 
 initial begin
-  sample source = new("source");
-  sample target = new("target");
-  uvm_copier copier = new;
+  automatic sample source = new("source");
+  automatic sample target = new("target");
+  automatic uvm_copier copier = new;
   source.payload = 61;
   target.payload = -1;
   copier.copy_object(target, source);

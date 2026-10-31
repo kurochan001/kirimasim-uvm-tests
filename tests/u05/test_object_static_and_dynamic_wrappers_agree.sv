@@ -3,7 +3,7 @@
 :description: an object and its class return the same registered wrapper (IEEE 1800.2-2020 Section 5.3.4.5)
 :tags: u05 uvm
 :type: simulation
-:lrm: 1800.2-2020 5.3.4.5 5.3.4.6 5.3.4.7 8.2.4.2.3
+:lrm: 1800.2-2020 5.3.4.5 5.3.4.6 5.3.4.7 8.2.4.2.3 1800-2023 6.21
 :uvm: 2020.3.1
 :oracle: spec verilator@5.052
 :spec_check: ai
@@ -33,8 +33,8 @@ module test_object_static_and_dynamic_wrappers_agree;
   endclass
 
   initial begin
-    base_item value = new;
-    uvm_object_wrapper static_type = base_item::get_type();
+    automatic base_item value = new;
+    automatic uvm_object_wrapper static_type = base_item::get_type();
     $display("UT: same wrapper %0d", value.get_object_type() == static_type);
     $display("UT: type name %s", value.get_type_name());
     $finish;

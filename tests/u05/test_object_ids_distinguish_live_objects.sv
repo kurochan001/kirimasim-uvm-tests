@@ -3,7 +3,7 @@
 :description: live objects have distinct IDs while aliases have the same ID (IEEE 1800.2-2020 Section 5.3.4.4)
 :tags: u05 uvm
 :type: simulation
-:lrm: 1800.2-2020 5.3.4.4
+:lrm: 1800.2-2020 5.3.4.4 1800-2023 6.21
 :uvm: 2020.3.1
 :oracle: spec verilator@5.052
 :spec_check: ai
@@ -25,10 +25,10 @@ module test_object_ids_distinguish_live_objects;
   endclass
 
   initial begin
-    item first = new("same");
-    item second = new("same");
-    item alias_handle = first;
-    int saved_id = first.get_inst_id();
+    automatic item first = new("same");
+    automatic item second = new("same");
+    automatic item alias_handle = first;
+    automatic int saved_id = first.get_inst_id();
     $display("UT: distinct %0d alias %0d", first.get_inst_id() != second.get_inst_id(),
              alias_handle.get_inst_id() == first.get_inst_id());
     $display("UT: stable %0d", first.get_inst_id() == saved_id);

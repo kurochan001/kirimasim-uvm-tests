@@ -3,7 +3,7 @@
 :description: configuration lookups distinguish types and missing fields (IEEE 1800.2-2020 Section C.4.2.2.1)
 :tags: uC uvm
 :type: simulation
-:lrm: 1800.2-2020 C.4.2.2.1 C.4.2.2.2 C.4.2.2.3
+:lrm: 1800.2-2020 C.4.2.2.1 C.4.2.2.2 C.4.2.2.3 1800-2023 6.21
 :uvm: 2020.3.1
 :oracle: spec verilator@5.052
 :spec_check: ai
@@ -20,8 +20,8 @@ module test_config_db_types_and_missing_fields;
   `include "uvm_macros.svh"
 
 initial begin
-  int number = -1;
-  string text = "untouched";
+  automatic int number = -1;
+  automatic string text = "untouched";
   bit found;
   uvm_config_db#(int)::set(null, "scope", "value", 19);
   uvm_config_db#(string)::set(null, "scope", "value", "ready");

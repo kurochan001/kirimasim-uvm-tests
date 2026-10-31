@@ -3,7 +3,7 @@
 :description: printer controls belong to their instance and survive clearing print data (IEEE 1800.2-2020 Section 16.2.5.1)
 :tags: u16 uvm
 :type: simulation
-:lrm: 1800.2-2020 16.2.5.1 16.2.5.2 16.2.5.3 16.2.5.4 16.2.5.5 16.2.5.10 16.2.4.2
+:lrm: 1800.2-2020 16.2.5.1 16.2.5.2 16.2.5.3 16.2.5.4 16.2.5.5 16.2.5.10 16.2.4.2 1800-2023 6.21
 :uvm: 2020.3.1
 :oracle: spec verilator@5.052
 :spec_check: ai
@@ -20,8 +20,8 @@ module test_printer_controls_are_per_instance_and_survive_flush;
   `include "uvm_macros.svh"
 
   initial begin
-    uvm_table_printer first = new;
-    uvm_table_printer second = new;
+    automatic uvm_table_printer first = new;
+    automatic uvm_table_printer second = new;
     first.set_name_enabled(0);
     first.set_type_name_enabled(0);
     first.set_size_enabled(0);

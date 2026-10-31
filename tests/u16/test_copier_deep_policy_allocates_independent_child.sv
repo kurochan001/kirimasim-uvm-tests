@@ -3,7 +3,7 @@
 :description: deep copying an object field creates an independent child value (IEEE 1800.2-2020 Section 16.6.3)
 :tags: u16 uvm
 :type: simulation
-:lrm: 1800.2-2020 16.6.3 16.6.4.1 B.2.2
+:lrm: 1800.2-2020 16.6.3 16.6.4.1 B.2.2 1800-2023 6.21
 :uvm: 2020.3.1
 :oracle: spec verilator@5.052
 :spec_check: ai
@@ -39,9 +39,9 @@ module test_copier_deep_policy_allocates_independent_child;
   endclass
 
   initial begin
-    box source = new("source");
-    box target = new("target");
-    uvm_copier copier = new;
+    automatic box source = new("source");
+    automatic box target = new("target");
+    automatic uvm_copier copier = new;
     source.child = new("child");
     source.child.payload = 55;
     copier.set_recursion_policy(UVM_DEEP);

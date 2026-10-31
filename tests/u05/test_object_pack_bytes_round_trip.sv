@@ -3,7 +3,7 @@
 :description: object packing and unpacking preserve fields through a bytes stream (IEEE 1800.2-2020 Section 5.3.10.1)
 :tags: u05 uvm
 :type: simulation
-:lrm: 1800.2-2020 5.3.10.1 5.3.10.2 5.3.11.1 5.3.11.2
+:lrm: 1800.2-2020 5.3.10.1 5.3.10.2 5.3.11.1 5.3.11.2 1800-2023 6.21
 :uvm: 2020.3.1
 :oracle: spec verilator@5.052
 :spec_check: ai
@@ -37,9 +37,9 @@ module test_object_pack_bytes_round_trip;
   endclass
 
   initial begin
-    packet source = new("source");
-    packet target = new("target");
-    uvm_packer packer = new;
+    automatic packet source = new("source");
+    automatic packet target = new("target");
+    automatic uvm_packer packer = new;
     byte unsigned stream[];
     int packed_count;
     int unpacked_count;

@@ -3,7 +3,7 @@
 :description: repeated clone operations return independent copies (IEEE 1800.2-2020 Section 5.3.5.2)
 :tags: u05 uvm
 :type: simulation
-:lrm: 1800.2-2020 5.3.5.2 5.3.8.2
+:lrm: 1800.2-2020 5.3.5.2 5.3.8.2 1800-2023 6.21
 :uvm: 2020.3.1
 :oracle: spec verilator@5.052
 :spec_check: ai
@@ -32,7 +32,7 @@ module test_clone_results_are_independent;
     endfunction
   endclass
   initial begin
-    sample source = new("origin");
+    automatic sample source = new("origin");
     sample first;
     sample second;
     uvm_object first_result;

@@ -3,7 +3,7 @@
 :description: a base handle retains the derived object type and wrapper (IEEE 1800.2-2020 Section 5.3.4.5)
 :tags: u05 uvm
 :type: simulation
-:lrm: 1800.2-2020 5.3.4.5 5.3.4.6 5.3.4.7 8.2.4.2.3
+:lrm: 1800.2-2020 5.3.4.5 5.3.4.6 5.3.4.7 8.2.4.2.3 1800-2023 6.21
 :uvm: 2020.3.1
 :oracle: spec verilator@5.052
 :spec_check: ai
@@ -33,10 +33,10 @@ module test_object_wrapper_follows_dynamic_type;
   endclass
 
   initial begin
-    first_item derived_value = new;
-    base_item base_handle = derived_value;
-    uvm_object_wrapper base_type = base_item::get_type();
-    uvm_object_wrapper derived_type = first_item::get_type();
+    automatic first_item derived_value = new;
+    automatic base_item base_handle = derived_value;
+    automatic uvm_object_wrapper base_type = base_item::get_type();
+    automatic uvm_object_wrapper derived_type = first_item::get_type();
     $display("UT: wrappers distinct %0d", base_type != derived_type);
     $display("UT: dynamic wrapper %0d", base_handle.get_object_type() == first_item::get_type());
     $display("UT: dynamic name %s", base_handle.get_type_name());

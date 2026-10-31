@@ -21,6 +21,8 @@ Reports, for each test:
     width        a comment line is longer than 80 columns, or code than 100
     verilator    a comment line starts with the word Verilator, which Verilator
                  reads as a directive
+    lifetime     an initialized local in an initial/always block has no
+                 explicit automatic or static lifetime (1800-2023 6.21)
 Exits with 1 if any test has a problem.
 """
 
@@ -30,6 +32,7 @@ import sys
 from pathlib import Path
 
 import suite_results
+import sv_lifetimes
 
 ROOT = Path(__file__).resolve().parent.parent
 CLAUSES = {line.strip() for line in (ROOT / "tools" / "clauses_1800_2.txt").read_text().splitlines()
@@ -101,7 +104,11 @@ def problems(test: Path, version: str) -> list[str]:
             if bad:
                 found.append(f"expected: line {bad[0]} does not begin with 'UT: '")
     in_header = True
-    for n, line in enumerate(test.read_text(encoding="utf-8").splitlines(), 1):
+    source = test.read_text(encoding="utf-8")
+    for item in sv_lifetimes.implicit_initializers(source):
+        found.append(f"lifetime: line {item.line}: initialized local {item.name} needs "
+                     "automatic or static (1800-2023 6.21)")
+    for n, line in enumerate(source.splitlines(), 1):
         if in_header:
             in_header = "*/" not in line
             continue

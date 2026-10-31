@@ -3,7 +3,7 @@
 :description: object print writes the selected printer emission to its configured file (IEEE 1800.2-2020 Section 16.2.5.11)
 :tags: u16 uvm
 :type: simulation
-:lrm: 1800.2-2020 16.2.5.11 16.2.4.1 5.3.6.1
+:lrm: 1800.2-2020 16.2.5.11 16.2.4.1 5.3.6.1 1800-2023 6.21
 :uvm: 2020.3.1
 :oracle: spec verilator@5.052
 :spec_check: ai
@@ -54,8 +54,8 @@ module test_printer_file_receives_custom_emission;
   endfunction
 
   initial begin
-    capturing_printer printer = new;
-    printable value = new;
+    automatic capturing_printer printer = new;
+    automatic printable value = new;
     int fd;
     string line;
     fd = $fopen("printer-output.txt", "w");

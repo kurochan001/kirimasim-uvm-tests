@@ -3,7 +3,7 @@
 :description: integral fields unpack in their packed order and widths (IEEE 1800.2-2020 Section 16.5.4.9)
 :tags: u16 uvm
 :type: simulation
-:lrm: 1800.2-2020 16.5.4.9 16.5.4.17 16.5.3.3
+:lrm: 1800.2-2020 16.5.4.9 16.5.4.17 16.5.3.3 1800-2023 6.21
 :uvm: 2020.3.1
 :oracle: spec verilator@5.052
 :spec_check: ai
@@ -20,7 +20,7 @@ module test_packer_round_trips_integral_fields;
   `include "uvm_macros.svh"
 
 initial begin
-  uvm_packer packer = new;
+  automatic uvm_packer packer = new;
   uvm_integral_t first;
   uvm_integral_t second;
   packer.pack_field_int(64'habc, 12);

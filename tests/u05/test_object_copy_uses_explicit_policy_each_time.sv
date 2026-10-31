@@ -3,7 +3,7 @@
 :description: successive object copies dispatch through the supplied policy (IEEE 1800.2-2020 Section 5.3.8.1)
 :tags: u05 uvm
 :type: simulation
-:lrm: 1800.2-2020 5.3.8.1 5.3.8.2
+:lrm: 1800.2-2020 5.3.8.1 5.3.8.2 1800-2023 6.21
 :uvm: 2020.3.1
 :oracle: spec verilator@5.052
 :spec_check: ai
@@ -41,9 +41,9 @@ module test_object_copy_uses_explicit_policy_each_time;
   endclass
 
   initial begin
-    datum source = new("source");
-    datum target = new("target");
-    counting_copier copier = new;
+    automatic datum source = new("source");
+    automatic datum target = new("target");
+    automatic counting_copier copier = new;
     source.value = 16;
     target.copy(source, copier);
     $display("UT: first %0d calls %0d", target.value, copier.calls);

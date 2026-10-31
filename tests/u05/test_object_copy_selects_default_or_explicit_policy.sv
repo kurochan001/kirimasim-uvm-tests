@@ -3,7 +3,7 @@
 :description: copy uses the default policy unless an explicit policy is supplied (IEEE 1800.2-2020 Section 5.3.8.1)
 :tags: u05 uvm
 :type: simulation
-:lrm: 1800.2-2020 5.3.8.1 5.3.8.2 16.6.2.3 16.6.2.4
+:lrm: 1800.2-2020 5.3.8.1 5.3.8.2 16.6.2.3 16.6.2.4 1800-2023 6.21
 :uvm: 2020.3.1
 :oracle: spec verilator@5.052
 :spec_check: ai
@@ -41,11 +41,11 @@ module test_object_copy_selects_default_or_explicit_policy;
   endclass
 
   initial begin
-    datum source = new;
-    datum target = new;
-    counting_copier default_policy = new;
-    counting_copier explicit_policy = new;
-    uvm_copier saved = uvm_copier::get_default();
+    automatic datum source = new;
+    automatic datum target = new;
+    automatic counting_copier default_policy = new;
+    automatic counting_copier explicit_policy = new;
+    automatic uvm_copier saved = uvm_copier::get_default();
     uvm_copier::set_default(default_policy);
     source.value = 21;
     target.copy(source);
