@@ -2,8 +2,8 @@
 
 [日本語](history.ja.md) · [README](../README.md)
 
-These records cover the M1 and M2 increments through the tenth M2 increment
-(469 tests). The earlier 349-test checkpoint is
+These records cover the M1 and M2 increments through the eleventh M2 increment
+(493 tests). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -598,3 +598,45 @@ than raw stream encodings or object markers. Fatal probes request termination
 inside the report catcher and do not prescribe post-fatal payload contents.
 README, glossary, FAQ and known-difference pages are updated in both
 languages. M1 and M2 remain open.
+
+### Eleventh M2 increment (2026-11-01)
+
+This increment adds 24 cases, bringing the suite to 493:
+
+- Eight library-registration cases: single/bulk duplicate suppression,
+  enumeration after a caller prefix, local removal, absent-type warnings,
+  typewide additions for future instances and static removal propagation.
+- Eight library-selection/control cases: direct default-selector wrap and
+  independent positions; standard mode defaults/updates, count-bound
+  defaults/constraints, and initial/active/completed execution counts.
+- Eight macro cases: combined child actions and alternate context, item and
+  child factory overrides, randomized/unrandomized item hook order, field
+  `rand_mode` after creation and typed-sequencer variable declaration.
+
+Sixteen new cases match Verilator 5.052 at seeds 1 and 73. Two spec-only
+removal cases differ at seed 1: absent removal does not warn, and static
+removal does not update another existing instance. Six further spec-only
+cases cannot build because seven standard sequence-library methods are
+absent. Required calls are not replaced with legacy fields.
+
+The suite has 460 matches and 33 known differences after combining the fresh
+increment with the fingerprint-verified 469-case baseline. Known records
+comprise 26 runtime seed 1 differences and seven build failures with no
+runtime seed. Ghost bundled results have 107 matches and 386 failures with
+each seed and identical failing sets. kirimasim has 486 unsupported cases at
+`uvm_object_wrapper` and seven missing-API failures: one time setter and six
+sequence-library cases.
+
+Registration probes use public enumeration and membership counts without
+assuming insertion order. Typewide additions are tested before and after
+construction; removal checks distinguish local from static registration.
+Selector calls store results in separate statements. Direct hook calls do
+not establish a USER-mode execution result, and missing API cases do not
+claim an executed counter observation.
+
+Macro constraints have one legal result. Hook traces distinguish parent
+`pre_do`/`mid_do`/`post_do`, randomization callbacks and driver receipt.
+Factory probes inspect the created subtype and context; field-disabled
+randomization still checks its callback. The typed declaration probe uses an
+explicit cast before subtype access. Both README languages, glossary, FAQ
+and known differences are updated. M1 and M2 remain open.

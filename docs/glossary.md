@@ -122,6 +122,22 @@ registration applying to a callback type pairing rather than one instance /
 an object that traverses the applicable enabled callbacks. Registration order,
 inheritance and early-exit behavior are separate test subjects.
 
+**Sequence library / registered wrapper** — A sequence that selects from a
+collection of sequence types / a factory descriptor identifying one such
+type. Instance registration is local; typewide additions affect future
+instances. Enumeration appends to the caller's queue.
+
+**Library selection mode / execution count** — The rule used to choose a
+registered sequence / the number of completed children, excluding the active
+child. The default user-selection hook visits indices zero through its
+inclusive maximum and then wraps. Calling that hook directly does not execute
+a child or establish a USER-mode run.
+
+**Field `rand_mode` / child randomization enable** — Whether a particular
+random field can change / whether a child sequence action calls `randomize`
+at all. Disabling one field still permits randomization callbacks. The two
+controls are tested separately.
+
 ## Transaction-level communication
 
 **Push sequencer / push driver** — A sequencer that calls a driver's blocking

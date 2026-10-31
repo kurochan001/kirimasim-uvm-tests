@@ -2,7 +2,7 @@
 
 [English](history.md) · [README](../README.ja.md)
 
-M1と、M2の10回目（469件）までの追加作業を記録しています。以前の349件の時点は
+M1と、M2の11回目（493件）までの追加作業を記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -452,3 +452,34 @@ pushの待機は正の遅延の途中で観測し、応答は実際の要求ID�
 内部のstream表現やobject markerを指定しません。fatalの検査はcatcher内で終了を要求し、
 fatal後のpayload内容を定めません。README・用語集・FAQ・既知差分を日英で更新しました。
 M1・M2とも目標の棚卸しは未完です。
+
+### M2の11回目の追加（2026-11-01）
+
+24件を追加し、全493件になりました。
+
+- library登録を8件：単独・一括の重複抑制、callerの既存queueへの追記、instance内の削除、
+  未登録型の必須warning、将来のinstanceへのtypewide追加、static削除の伝搬です。
+- libraryの選択・制御を8件：既定の選択hookの周回と独立した位置、規格APIによるmodeの既定・更新、
+  回数範囲の既定・制約、実行前・実行中・完了後の回数です。
+- マクロを8件：子の生成から実行までと別sequencerのcontext、item・子のfactory置換、
+  乱数化あり・なしのitemのhook順序、生成後のfield `rand_mode`、型付きsequencer変数の宣言です。
+
+新規16件はVerilator 5.052のseed 1・73で一致しました。削除の2件はseed 1の既知差分です。
+未登録型でwarningを出さず、static登録の削除も他の既存instanceへ反映されません。
+別の6件はsequence libraryの必須APIが7つ欠けるためビルドできません。
+必須APIの呼び出しを、旧来の公開fieldへ置き換えていません。
+
+指紋を照合した既存469件と合算し、全体は460件一致・既知差分33件です。
+既知差分は実行時のseed 1差分26件と、seed未実行のビルド失敗7件です。
+Ghostの同梱版は各seedで107件一致・386件不一致で、不一致になるテストも同じです。
+kirimasimは486件が`uvm_object_wrapper`未実装、時刻APIの1件とsequence libraryの6件が
+API欠落でFAILです。
+
+登録は公開の一覧と所属回数で観測し、挿入順を決めつけません。typewide追加はinstance生成の前後を
+分けて確認し、削除はinstance登録とstatic登録を区別します。選択hookの戻り値は別々の文で保存します。
+hookの直接呼び出しをUSER modeの実行結果とは扱わず、API欠落の回数検査も実行済みとは主張しません。
+
+マクロの制約は解を1つに限定します。親の`pre_do`・`mid_do`・`post_do`、乱数化callback、
+driverの受信をtraceで区別します。factory置換は生成したsubtypeとcontextを確認し、fieldの乱数化を
+無効にしてもcallbackが呼ばれることを検査します。型付き変数は明示的なcast後にmemberへアクセスします。
+README・用語集・FAQ・既知差分を日英で更新しました。M1・M2とも目標の棚卸しは未完です。

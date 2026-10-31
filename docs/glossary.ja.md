@@ -135,6 +135,18 @@ static APIは終端で再開するまでnullを返します。nullのobject文�
 data・byte-enableの配列から含めるbyte数です。余分なbyteは含めず、配列が有効長より短い場合は
 fatalを報告します。extensionは既定のpack対象に含まれません。
 
+**sequence library／登録wrapper** — sequenceの型の集合から実行するものを選ぶsequence／
+その型を識別するfactoryの記述子です。instanceへの登録は局所的で、typewideの追加は以降に生成する
+instanceへ反映されます。一覧取得は呼び出し元のqueueへ追記します。
+
+**libraryの選択mode／実行回数** — 登録sequenceを選ぶ規則／実行中の子を含めない完了済みの子の数です。
+既定のuser選択hookは0から上限値までのindexを返し、その後0へ戻ります。
+hookを直接呼んでも子は実行されず、USER modeでの実行を検証したことにはなりません。
+
+**fieldの`rand_mode`／子の乱数化enable** — 個々の乱数変数を変更できるか／子sequenceの操作で
+`randomize`自体を呼ぶかの制御です。fieldだけを無効にしても、乱数化のcallbackは呼ばれます。
+この2つの制御は別に検査します。
+
 ## 実行と結果
 
 **ランナー／メタデータ** — ビルド・実行・判定を行う`tools/run_*.py`／

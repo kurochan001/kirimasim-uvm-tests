@@ -282,3 +282,32 @@ item完了待ちが戻ります。push driverはpull portの`item_done`を使い
 有効長より配列が短い場合はfatalを報告します。そのテストはreport catcherがfatalを観測した時点で
 終了し、fatalを抑制した後の実行については期待値を定めません。
 往復変換と公開packer APIでの読み出しを使い、特定のバイナリ表現に依存しないようにしています。
+
+## sequence libraryとマクロの制御
+
+### Q30. libraryのinstance登録とtypewide登録はどう違いますか
+
+`add_sequence`と`add_sequences`は1つのlibraryへ登録します。staticのtypewide版は、
+以降に生成するlibraryへ反映され、既存instanceは変更しません。重複する型は警告なしで無視します。
+`get_sequences`は呼び出し元のqueueの既存要素の後へ一覧を追記します。
+テストは型の所属を比較し、明記されていない挿入順を決めつけません。
+
+削除は別の規則です。static登録された型を削除した場合は全instanceを更新し、未登録の型を
+削除した場合はwarningを出します。固定版は呼び出したinstanceだけから削除し、未登録時のwarningも
+出しません。どちらも[既知差分](known-differences.ja.md)に規格の期待値を保持します。
+
+### Q31. sequence libraryの一部テストがseed実行前に失敗するのはなぜですか
+
+IEEE 1800.2-2020には、選択mode・乱数化回数の下限と上限を設定・取得するAPIと、
+`get_num_sequences_executed`があります。固定版にはこの7つのmethodがありません。
+新規6件は規格の呼び出しを保持するためビルドできず、実行時のseed結果を持ちません。
+必須APIを旧来の公開fieldへ置き換えません。登録や選択hookの直接呼び出しが成功しても、
+実行modeや実行回数の適合を確認できたことにはなりません。
+
+### Q32. itemの乱数fieldを無効にすると乱数化callbackも省略しますか
+
+fieldの`rand_mode(0)`はその変数の値を維持しますが、itemの`randomize`はcallbackを呼びます。
+子sequence全体の乱数化を無効にした場合は、操作マクロが`randomize`の呼び出し自体を省略します。
+テストはこの違い、生成時のfactory置換、乱数化とdriver転送を囲む親のhook順序を確認します。
+型付きsequencerの宣言を検査するケースは、明示的なcast後にsubtypeのmemberへアクセスし、
+自動的な初期化方針を仮定しません。

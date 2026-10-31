@@ -334,3 +334,38 @@ corresponding array requires a fatal report. The fatal tests finish inside
 a report catcher as soon as that severity is observed; they make no claim
 about execution after a fatal has been suppressed. Round trips and decoding
 through the public packer API avoid prescribing a binary stream encoding.
+
+## Sequence libraries and macro controls
+
+### Q30. How do instance and typewide library registration differ?
+
+`add_sequence` and `add_sequences` affect one library. The static typewide
+forms affect libraries constructed afterwards; existing instances are not
+updated by an addition. Duplicate sequence types are silently ignored.
+`get_sequences` appends the registered list after any existing caller prefix.
+Tests compare membership without imposing an undocumented insertion order.
+
+Removal has a different rule: removing a statically registered type must
+update all instances, and removing an absent type must warn. The pinned
+library removes only from the receiving instance and omits the absent-type
+warning. Both required behaviors remain in
+[known differences](known-differences.md).
+
+### Q31. Why do some sequence-library tests fail before a seed is run?
+
+IEEE 1800.2-2020 defines getters/setters for selection mode and minimum/maximum
+random counts, plus `get_num_sequences_executed`. These seven methods are
+absent from the pinned library. Six new cases keep those standard calls and
+cannot build; they have no runtime seed result. Legacy public fields are not
+substituted for required APIs. Passing registration and direct-selector cases
+does not establish execution-mode or execution-counter conformance.
+
+### Q32. Does disabling an item's random field skip randomization callbacks?
+
+No. A field's `rand_mode(0)` keeps that field's assigned value, while the
+item's `randomize` operation still invokes its callbacks. Disabling child
+sequence randomization instead makes the action skip that operation entirely.
+The macro tests distinguish those controls, check factory overrides at
+creation, and trace parent hooks around randomization and driver delivery.
+The typed-sequencer declaration test uses an explicit cast before accessing
+the subtype member; it does not assume an automatic initialization policy.

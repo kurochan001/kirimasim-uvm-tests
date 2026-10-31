@@ -1,0 +1,2 @@
+UT: trace pre_do_item,pre_randomize,post_randomize,mid_do,driver,post_do
+UT: delivered 1 same_handle 1 code 71
