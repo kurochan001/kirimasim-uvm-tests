@@ -222,6 +222,20 @@ methods provide the reverse connections as well as the forward path.
 A null object context searches the typewide queue. Separate positions or
 facades permit independent traversal.
 
+**Imp declaration macro / suffix** — A macro creating a distinct TLM imp class
+for an interface / the text appended to that class and its implementation
+method names. Ordinary ports still call `put`, `get`, etc.; a generated imp
+delegates to methods such as `put_left` on its bound implementation object.
+
+**Implementation types / implementation handles** — Type parameters such as
+`IMP`, `REQ_IMP` and `RSP_IMP` / constructor arguments selecting the actual
+objects. A generated master imp can delegate requests and responses to two
+siblings while its parent owns the imp without transfer methods.
+
+**Typed analysis input** — An analysis connection whose transaction type may
+be a class handle. A suffixed write handler receives that handle; selecting
+another input does not itself clone or change the transaction.
+
 **Nonblocking transport / `nb_transport`** — A request/response operation
 that returns 1 for immediate completion or 0 when it cannot complete
 immediately. A synchronous analysis callback can supply the response during

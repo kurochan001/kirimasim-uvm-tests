@@ -1,0 +1,7 @@
+UT: first_heads L1 R1 first_responses L1 R1
+UT: write_reuse 1 1
+UT: full 1 1 get_ready 1 1 peek_ready 1 1
+UT: rejected 1 1 reads 1 1 1 1
+UT: requests 12 22 heads L2 R2 responses L2 R2
+UT: puts 2 2 gets 2 2 peeks 2 2
+UT: consumed_get 0 0 consumed_peek 0 0

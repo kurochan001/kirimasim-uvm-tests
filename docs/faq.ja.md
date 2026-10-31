@@ -377,3 +377,37 @@ nullのitem、`is_item`が0のsequence、3つのsequencer候補がすべてな�
 
 exit-onのテストは、trueまたはfalseの最初の一致で停止することを確認します。一致しない場合は、
 走査や呼び出しがないことを検査し、関数の不一致時の戻り値や後続文へ進む方針は指定しません。
+
+## TLM実装宣言マクロ
+
+### Q39. imp宣言マクロのsuffixは何を変えますか
+
+別のimp classを生成し、対応する名前の実装methodを選びます。接続したportのinterfaceは変わらず、
+たとえば`put`が`_left`のimpを通って`put_left`へ届きます。componentはsuffixなしの`put`を持たずに、
+2つの実装を公開できます。
+
+[両対応putのケース](../tests/uB/test_tlm_put_imp_decl_routes_two_suffixes.sv)はblocking・nonblockingの
+呼び出し、満杯時の拒否、領域を空けた後の成功を検査します。宣言のケースはAnnex B.5の22系列を、
+独立した2つの入力名で検査します。不正な接続やschedulingのあらゆる組み合わせを保証しません。
+
+### Q40. 生成したmaster impでも要求と応答を別objectへ委譲できますか
+
+`REQ_IMP`・`RSP_IMP`は型を表し、constructorの`req_imp`・`rsp_imp`は実際の兄弟instanceを
+指定します。suffixはそのobject上のmethod名に付きます。
+[分割実装のケース](../tests/uB/test_tlm_master_imp_decl_delegates_suffixed_methods_to_split_sibling_implementations.sv)は
+intの要求とstringの応答を使い、親には転送methodを設けません。
+blocking・nonblockingの両方で、正しい兄弟とsuffixへ届く必要があります。
+
+別のanalysisケースでは、suffix付きwriteへ元のclass handleを渡します。同一性と入力別の件数を
+比較し、暗黙の複製やtransactionの変更は要求しません。
+
+### Q41. B.5.11のケースでget／peekのマクロ名を使うのはなぜですか
+
+見出しは`uvm_nonblocking_get_peek_imp_decl`で、本文もnonblocking get／peek両対応のclassを
+説明しています。一方、呼び出し例はB.5.8と同じpeek専用の表記です。
+[B.5.11のケース](../tests/uB/test_tlm_nonblocking_get_peek_imp_decl_routes_two_suffixes.sv)は見出しと
+説明されたclassに従う解釈で、getとpeekの両方を呼びます。
+
+この解釈はテストのコメントに記録し、レビュー項目として残します。固定版での一致は再現の記録であり、
+規格の表記の不一致を解消したり、人のレビューに代わったりはしません。
+現在の他のテストと同じく、`spec_check: ai`を保持します。

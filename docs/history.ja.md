@@ -2,7 +2,7 @@
 
 [English](history.md) · [README](../README.ja.md)
 
-M1と、M2の13回目（541件）までの追加作業を記録しています。以前の349件の時点は
+M1と、M2の14回目（565件）までの追加作業を記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -541,3 +541,31 @@ sequencer選択は別々に接続した3つのdriverで実際の要求を処理�
 callbackマクロは安定した外部contextとfunction callbackを使い、真偽値が一致したら後続を呼ばずに
 停止します。不一致や空のcontextでは呼び出し回数を検査し、戻り値や後続文へ進む方針は指定しません。
 README・用語集・FAQ・既知差分を日英で更新しました。M1・M2とも目標の棚卸しは未完です。
+
+### M2の14回目の追加（2026-11-01）
+
+24件を追加し、全565件になりました。
+
+- put・get・peek・get_peekの宣言12系列：blocking・nonblocking・両対応を、独立した2つの
+  suffix付きhandlerへ振り分けます。
+- master・slaveの宣言6系列：intの要求とstringの応答を、両方向で正しいsuffixへ渡します。
+- transportの宣言3系列とanalysis宣言：要求・応答の組と入力別の履歴を、指定したmethodへ渡します。
+- 追加の2件：生成したanalysis入力でのclass handleの維持と、master impの要求・応答を別の兄弟へ
+  委譲するconstructor引数を確認します。
+
+新規24件はVerilator 5.052のseed 1・73で一致しました。複合master・slaveと分割masterでは、
+拒否後の領域の再利用によるnonblocking書き込みの成功と、読み出し前後の利用可否も検査します。
+強化した3件は最終sourceを全ランナーで再実行しました。指紋を照合した既存541件と合算し、
+全体は527件一致・既知差分38件です。既知差分は実行時のseed 1差分31件と、seed未実行のAPI欠落による
+ビルド失敗7件です。Ghostの同梱版は各seedで110件一致・455件不一致で、不一致になるテストも同じです。
+kirimasimは558件が`uvm_object_wrapper`未実装、7件がAPI欠落でFAILです。
+
+生成したimpは通常のportから呼び、実装にはsuffix付きmethodだけを設けます。入力ごとの値と利用可否を
+変えて振り分けを観測し、blocking handlerには正の遅延を入れて、完了後に呼び出しが戻ることを検査します。
+失敗時の出力値は確認しません。分割したケースでは親に転送methodを設けず、要求・応答の実装handleを
+constructorへ明示的に渡します。
+
+B.5.11は見出しとclassの説明がnonblocking get／peekですが、呼び出し例はpeek専用の表記です。
+ケースは見出しと説明されたclassに従う解釈を採用し、sourceコメントとFAQにレビュー項目として残します。
+固定版での再現だけでは表記の不一致を解消したとは扱いません。全件の`spec_check: ai`を維持し、
+README・用語集・FAQと現在の集計を日英で更新しました。M1・M2とも目標の棚卸しは未完です。

@@ -451,3 +451,44 @@ uses one dispatcher with two external objects and checks each chosen context.
 Exit-on tests stop at the first matching true or false result. When no
 callback matches, the tests check traversal or the absence of calls without
 prescribing the enclosing function's no-match result or fallthrough policy.
+
+## TLM implementation declaration macros
+
+### Q39. What does the suffix of an imp declaration macro change?
+
+It creates a distinct imp class and selects correspondingly named
+implementation methods. The connected port keeps its ordinary interface:
+`put` reaches `put_left` through a `_left` imp, for example. The component can
+therefore expose two implementations without an unsuffixed `put` method.
+
+The [combined put case](../tests/uB/test_tlm_put_imp_decl_routes_two_suffixes.sv)
+checks both blocking and nonblocking calls, rejection while full, and
+successful reuse after a lane is freed. The declaration cases cover the 22
+Annex B.5 families with two independently named inputs. They do not establish
+every illegal binding or scheduling combination.
+
+### Q40. Can a generated master imp use separate request and response objects?
+
+Yes. `REQ_IMP` and `RSP_IMP` describe their types; the constructor's `req_imp`
+and `rsp_imp` arguments select the sibling instances. The suffix applies to
+the methods on those objects. The
+[split implementation case](../tests/uB/test_tlm_master_imp_decl_delegates_suffixed_methods_to_split_sibling_implementations.sv)
+uses integer requests, string responses and a parent with no transfer methods.
+Blocking and nonblocking operations must reach the correct sibling and suffix.
+
+Separate analysis cases pass original class handles through suffixed write
+methods. The tests compare identity and per-input counts without requiring
+implicit cloning or transaction mutation.
+
+### Q41. Why does the B.5.11 case use the get/peek macro spelling?
+
+The clause heading names `uvm_nonblocking_get_peek_imp_decl`, and its prose
+describes the combined nonblocking get/peek class. Its displayed invocation
+instead uses the peek-only spelling from B.5.8. The
+[B.5.11 case](../tests/uB/test_tlm_nonblocking_get_peek_imp_decl_routes_two_suffixes.sv)
+follows the heading and described class, exercising both get and peek.
+
+This interpretation is recorded in the test comment and remains a review
+item. Matching the pinned library records fixed-release reproduction; it
+does not resolve the standard's spelling inconsistency or replace human
+review. The case retains `spec_check: ai` like the rest of the current suite.

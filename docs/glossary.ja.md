@@ -171,6 +171,17 @@ transactionを供給しません。
 callbackを実行する操作です。無効なentryを飛ばし、exit-onでは指定した真偽値が返ると途中終了します。
 テストは不一致時の戻り値の方針を決めつけません。
 
+**imp宣言マクロ／suffix** — interfaceに対応する別のTLM imp classを作るマクロ／
+class名と実装method名へ付ける文字列です。通常のportは引き続き`put`・`get`などを呼び、
+生成されたimpが実装objectの`put_left`などへ委譲します。
+
+**実装の型／実装のhandle** — `IMP`・`REQ_IMP`・`RSP_IMP`などの型parameter／
+実際のobjectを指定するconstructor引数です。生成したmaster impでも、要求と応答を別々の兄弟へ
+委譲できます。親はimpを所有しますが、転送methodを実装する必要はありません。
+
+**型付きanalysis入力** — class handleもtransaction型にできるanalysis接続です。
+suffix付きwrite handlerへそのhandleを渡し、入力先の選択だけではtransactionを複製・変更しません。
+
 ## 実行と結果
 
 **ランナー／メタデータ** — ビルド・実行・判定を行う`tools/run_*.py`／

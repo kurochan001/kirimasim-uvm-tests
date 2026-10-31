@@ -2,8 +2,8 @@
 
 [日本語](history.ja.md) · [README](../README.md)
 
-These records cover the M1 and M2 increments through the thirteenth M2 increment
-(541 tests). The earlier 349-test checkpoint is
+These records cover the M1 and M2 increments through the fourteenth M2 increment
+(565 tests). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -719,3 +719,41 @@ Boolean matches stop before later callbacks. No-match and empty-context
 cases inspect invocation counts without prescribing a return or fallthrough
 policy. Both README languages, glossary, FAQ and known differences are
 updated. M1 and M2 remain open.
+
+### Fourteenth M2 increment (2026-11-01)
+
+This increment adds 24 cases, bringing the suite to 565:
+
+- Twelve put/get/peek/get-peek declaration families: blocking, nonblocking
+  and combined interfaces route to two independently suffixed handlers.
+- Six master/slave declaration families: integer requests and string
+  responses retain the selected suffix in both directions.
+- Three transport declaration families and the analysis declaration:
+  request/response pairs and per-input histories reach their selected methods.
+- Two additional cases preserve class handles on generated analysis inputs
+  and bind generated master imps to separate request/response siblings.
+
+All 24 new cases match Verilator 5.052 at seeds 1 and 73. Combined master,
+slave and split-master cases also exercise successful nonblocking writes
+after rejection and storage reuse, plus readiness before and after reads.
+Their final sources were rerun on every runner. After combining this evidence
+with the fingerprint-verified 541-case baseline, the suite has 527 matches
+and 38 known differences: 31 runtime seed 1 differences and seven missing-API
+build failures without runtime seeds. Ghost bundled results have 110 matches
+and 455 failures at each seed, with identical failing sets. kirimasim has
+558 unsupported cases at `uvm_object_wrapper` and seven missing-API failures.
+
+Each generated imp is exercised through an ordinary port. Implementations
+provide suffixed methods without unsuffixed transfer methods. Different lane
+data and availability expose routing mistakes; delayed blocking handlers
+verify completion before the call returns. Failed outputs are ignored.
+The split case puts no transfer methods on the imp's parent and supplies
+the request/response implementation handles explicitly.
+
+B.5.11 has a heading and class description for nonblocking get/peek, while
+its displayed invocation uses the peek-only spelling. That case explicitly
+follows the heading and described class. The source comment and FAQ retain
+this interpretation as a review item; fixed-release reproduction alone does
+not resolve the spelling discrepancy. All tests remain `spec_check: ai`.
+Both README languages, glossary, FAQ and current results are updated.
+M1 and M2 remain open.

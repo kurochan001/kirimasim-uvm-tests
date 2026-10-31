@@ -16,8 +16,8 @@ for running and interpreting tests, and [known differences](docs/known-differenc
 for library limitations. Earlier increments and measurements are in the
 [development history](docs/history.md). This README describes the current suite.
 
-> **Status: M2 in progress.** 541 simulation tests in 12 chapter/annex
-> directories; 503 have a `verilator@5.052` oracle and 38 are spec-only.
+> **Status: M2 in progress.** 565 simulation tests in 12 chapter/annex
+> directories; 527 have a `verilator@5.052` oracle and 38 are spec-only.
 > All use `:spec_check: ai`; none records human review yet.
 > M1's clause target remains open, and M2 is not complete.
 
@@ -34,16 +34,16 @@ for library limitations. Earlier increments and measurements are in the
 
 The 229 M1 cases exercise objects and transactions, copy/compare/print/pack
 policies, reporting, the factory, phases, objections and configuration.
-The 312 M2 cases add TLM 1 FIFOs, analysis paths and request/response channels;
+The 336 M2 cases add TLM 1 FIFOs, analysis paths and request/response channels;
 TLM 2 payloads, extensions and selected socket transports; sequence execution,
 responses, action macros and pull/push sequencer controls; and callback
 registration, inheritance, iteration and early exit.
 
-The latest 24 cases cover FIFO analysis notifications, `start_item` context
-and priority selection, invalid-input reports, and explicit-object callback
-macros. Nineteen match Verilator at both seeds. Five retain spec-only
-expectations: two missing peek notifications and three required ERROR reports
-that the pinned library emits as FATAL.
+The latest 24 cases cover the 22 TLM implementation declaration macro
+families, typed analysis handles and generated master imps with split sibling
+implementations. All 24 match Verilator at both seeds. They check independent
+suffix routing, blocking/nonblocking calls, readiness, rejection and reuse.
+The B.5.11 spelling interpretation is recorded in the [FAQ](docs/faq.md).
 
 These are focused behavior tests. M1 and M2 still need a reviewed inventory
 against their target of at least two tests per clause. Citation counts include
@@ -53,16 +53,16 @@ remain planned work.
 
 ## Current results
 
-The latest local evidence covers 541 tests (2026-11-01). It combines fresh
-runs of the latest 24 cases with the unchanged 517-case baseline at
-[f7a6ea6](https://github.com/kurochan001/kirimasim-uvm-tests/commit/f7a6ea6a611625100fdf5cf481b5641741bbdc60)
+The latest local evidence covers 565 tests (2026-11-01). It combines fresh
+runs of the latest 24 cases with the unchanged 541-case baseline at
+[5e464de](https://github.com/kurochan001/kirimasim-uvm-tests/commit/5e464de2cf7a01e3c16cee66e19df3c0fd7e1baf)
 after checking test inputs, runner fingerprints and simulator configurations.
 
 | Simulator | Observed result |
 | --- | --- |
-| Verilator 5.052, pinned UVM, `UVM_NO_DPI` | 503 match seeds 1 and 73; 31 spec-only cases differ at seed 1; seven spec-only cases cannot build due to missing library APIs |
-| kirimasim, pinned UVM | 534 report `uvm_object_wrapper` as unsupported; seven fail first on missing library APIs |
-| Ghost, bundled UVM | 108 match and 433 fail at each seed; the same cases fail at seeds 1 and 73 |
+| Verilator 5.052, pinned UVM, `UVM_NO_DPI` | 527 match seeds 1 and 73; 31 spec-only cases differ at seed 1; seven spec-only cases cannot build due to missing library APIs |
+| kirimasim, pinned UVM | 558 report `uvm_object_wrapper` as unsupported; seven fail first on missing library APIs |
+| Ghost, bundled UVM | 110 match and 455 fail at each seed; the same cases fail at seeds 1 and 73 |
 | Ghost, pinned UVM | Smoke test differs; no full-suite pinned-library result |
 | Icarus Verilog 13.0 | Not used for this UVM suite |
 
@@ -73,7 +73,7 @@ and six sequence-library cases. `known` and
 `unsupported` are not passes. See [known differences](docs/known-differences.md).
 
 The Check badge reports GitHub Actions, separately from these local results.
-Check runs tool/metadata/library checks and the 503 tagged Verilator cases;
+Check runs tool/metadata/library checks and the 527 tagged Verilator cases;
 it does not run Ghost or kirimasim. This repository has no Nightly workflow
 or automatic result publication.
 
@@ -238,7 +238,7 @@ again. `--check` checks the copy that is there. The library is not committed.
   A test that depends on regular expressions or the backdoor sets
   `:uvm_dpi: yes` and runs only where the DPI code can be loaded
   (`UVM_HDL_NO_DPI` leaves out the backdoor alone).
-- All 541 current cases use `UVM_NO_DPI`. `:uvm_dpi: yes` removes that macro;
+- All 565 current cases use `UVM_NO_DPI`. `:uvm_dpi: yes` removes that macro;
   it does not automatically compile or link the C/C++ DPI implementation.
   The current Verilator runner does not add DPI C/C++ sources.
 - `:uvm_defines:` can request `UVM_ENABLE_DEPRECATED_API`. There are currently
@@ -265,7 +265,7 @@ breaks the build.
 seed. All seeds must match. `--seed N` remains available for a single seed.
 The JSON configuration records either `seed` or `seeds` accordingly.
 
-By default, Verilator selects the 503 tagged two-state cases. To include
+By default, Verilator selects the 527 tagged two-state cases. To include
 the 38 spec-only cases as well, add `--all`. A mismatch in an untagged case
 is `known` and does not fail the command; a tagged mismatch does.
 Explicit test paths select only those tests. For a single smoke test:
@@ -319,7 +319,7 @@ python3 tools/lint_metadata.py
 ```
 
 The current tool suite has 41 unit tests; metadata validation checks all
-541 simulation tests. [Check](.github/workflows/check.yml) runs on pushes to
+565 simulation tests. [Check](.github/workflows/check.yml) runs on pushes to
 `main`, pull requests and manual dispatch. Its separate Verilator job uses
 5.052, `UVM_NO_DPI` and seeds 1 and 73 for the tagged cases. Each model is
 built once for the two executions. A green Check establishes those checks,
@@ -331,7 +331,7 @@ not that every UVM requirement or every simulator passes.
 | --- | --- | --- |
 | M0 | Fetcher, runners, metadata/tools checks, Check and smoke test | Infrastructure implemented |
 | M1 | Core classes, policies, factory, phases, objections, configuration and reporting | 229 cases; reviewed two-tests-per-clause target still open |
-| M2 | Sequences, sequencers, TLM and callbacks | 312 cases; expanding toward the same target |
+| M2 | Sequences, sequencers, TLM and callbacks | 336 cases; expanding toward the same target |
 | M3 | Register layer (17–19, annex E) | Planned; account for the library's declared deviations |
 | M4 | Requirement ledger and coverage | Planned; approve the denominator before claiming coverage |
 
