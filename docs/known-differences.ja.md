@@ -2,13 +2,13 @@
 
 [English](known-differences.md) · [README](../README.ja.md) · [FAQ](faq.ja.md)
 
-現在の517件と、固定したAccellera UVM 2020.3.1についての記録です。
+現在の541件と、固定したAccellera UVM 2020.3.1についての記録です。
 不一致はテストの結果であり、それだけではシミュレータ・ライブラリ・期待値のどれが原因かは決まりません。
 
 ## 固定版ライブラリの制約
 
 ライブラリ自身の`DEVIATIONS.md`には18.2.3.4・18.4.3.6・13.1.5.1の3件が載っています。
-現在、一致するテストはその分岐を避けています。それ以外に、M1とM2で次の23件の制約を確認しました。
+現在、一致するテストはその分岐を避けています。それ以外に、M1とM2で次の25件の制約を確認しました。
 不足する必須動作を直接検査する場合は、規格の期待値を変えずに`:oracle: spec`で保持します。
 
 - `find_override_by_name`は、置換がない場合に`null`を返します。元の型を生成できる場合も
@@ -71,27 +71,32 @@
   出しません。warningと登録済みの型を維持する期待値を保持します。
 - static登録された型を削除しても、呼び出したlibrary instanceだけが変更されます。
   14.4.5.5は全instanceの更新を要求するため、別の既存instanceの一覧を公開APIで観測します。
+- FIFOの`get_ap`は、12.2.8.1.6が含める`peek`と成功した`try_peek`の通知を省略します。
+  2件で、peekがitemを残すことと、それでも毎回通知する規格の件数を別々に観測します。
+- `start_item`はnullのitem、itemではないsequence、sequencer不足をFATALで報告します。
+  14.2.6.2はERRORと即時のreturnを要求するため、3件で重大度を変えずにcatcherで数えます。
 
 これらの分岐は、固定版で再現したオラクルとしては扱いません。drop直後の一覧、transactionの
 生成直後の状態、重大度・ID別のreset、無効なfield_opの操作名取得、応答数未満の深さ変更、
 応答エラー報告の既定値、候補1件のUSER arbitration、lockの順序、kill後のhook、
 不適合なdefault型のエラー、stop時の自動objection解除、時刻の既定名・API、
-二段のinitiator socket接続、pushの連続転送、sequence libraryのAPIと削除は診断用に保持します。
+二段のinitiator socket接続、pushの連続転送、sequence libraryのAPIと削除、FIFOのpeek通知、
+start_itemの重大度は診断用に保持します。
 残りのライブラリの制約は、一致するテストシナリオでは避けています。
 
-スイート全体では、`verilator@5.052`を付けたテストは484件、specのみのテストは33件です。
+スイート全体では、`verilator@5.052`を付けたテストは503件、specのみのテストは38件です。
 specのみのうち1件は9.6を検証します。pre-resetフェーズ終了時に子タスクが停止する
 はずですが、固定版UVMとVerilator 5.052の組み合わせでは、後のフェーズで子タスクの遅延書き込みが
 実行されます。この差分の原因がシミュレータとライブラリのどちらかは未確定です。
 
-specのみの33件も規格から導いた期待値を保持します。通常のVerilator実行とCIはoracle付き484件を選びます。
+specのみの38件も規格から導いた期待値を保持します。通常のVerilator実行とCIはoracle付き503件を選びます。
 `--all`はspecのみも含め、不一致やビルド不可を`known`として記録します。
-実行時の26件は最初の差分であるseed 1までの記録で、seed 73の結果はありません。
+実行時の31件は最初の差分であるseed 1までの記録で、seed 73の結果はありません。
 API欠落の7件（時刻APIの1件とsequence libraryの6件）はビルド段階で失敗し、どのseedも実行できていません。
 
 ## specのみのテスト
 
-現在の33件は次のテストです。同じ制約を複数のテストで検査する場合があり、異なる不具合の個数ではありません。
+現在の38件は次のテストです。同じ制約を複数のテストで検査する場合があり、異なる不具合の個数ではありません。
 
 - field_opのaccessorの必須エラー：
   [set前](../tests/u05/test_field_op_accessors_report_errors_before_set.sv)と
@@ -139,15 +144,22 @@ API欠落の7件（時刻APIの1件とsequence libraryの6件）はビルド段�
   [回数の制約](../tests/u14/test_sequence_library_standard_count_bounds_constrain_randomized_count.sv)、
   [実行前の回数](../tests/u14/test_sequence_library_standard_execution_counter_starts_at_zero.sv)、
   [実行中・完了後の回数](../tests/u14/test_sequence_library_standard_execution_counter_excludes_active_child.sv)。
+- FIFOのpeek通知：
+  [blocking peek](../tests/u12/test_tlm_fifo_blocking_peek_publishes_each_observation_without_consuming.sv)と
+  [nonblocking peek](../tests/u12/test_tlm_fifo_nonblocking_peek_publishes_each_success_without_consuming.sv)。
+- start_itemの必須ERROR：
+  [null item](../tests/u14/test_sequence_start_item_null_argument_reports_error_and_returns.sv)、
+  [sequence引数](../tests/u14/test_sequence_start_item_sequence_argument_reports_error_and_returns.sv)、
+  [sequencer不足](../tests/u14/test_sequence_start_item_without_any_sequencer_reports_error_and_returns.sv)。
 
 ## シミュレータとライブラリの組み合わせ
 
-Ghostの同梱UVMはseed 1・73とも107件一致・410件不一致で、不一致になるテストも同じです。
+Ghostの同梱UVMはseed 1・73とも108件一致・438件不一致で、不一致になるテストも同じです。
 固定版UVMのスモークテストは、前処理を有効にした場合も不一致でした。
 同梱版の結果だけではシミュレータと同梱ライブラリのどちらが原因かは決められず、
 固定版ライブラリの実行証拠にもなりません。非公開の識別情報・プロファイル・診断は公開しません。
 
-確認したkirimasimの実行ファイルでは、510件が`uvm_object_wrapper`未実装です。
+確認したkirimasimの実行ファイルでは、534件が`uvm_object_wrapper`未実装です。
 時刻設定APIの1件とsequence libraryの6件は、その前にAPI欠落を検出して`fail`になります。
 いずれも成功ではなく、その先のUVM動作を実行できた証拠でもありません。
 

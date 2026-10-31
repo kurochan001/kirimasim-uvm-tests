@@ -344,3 +344,36 @@ masterは要求を書いて応答を読み、slaveは要求を読んで応答を
 独自のtransactionとphase enumを2つのexportへ渡します。handleの同一性、型付きphase参照の更新、
 annotationを確認します。この汎用接続の結果だけで、あらゆるphase・timingの組み合わせが
 base protocolとして合法であることを示すものではありません。
+
+## FIFOの通知と実行対象の指定
+
+### Q36. FIFOをpeekしたときもget_apへ通知しますか
+
+IEEE 1800.2-2020の12.2.8.1.6はget操作だけでなく、`peek`と成功した`try_peek`も含めています。
+peekはitemを残すため、通知は取り除いたことを意味しません。2つのpeekケースは、消費する前に2回の
+通知を観測します。固定版は両方のpeek通知を省略するため、必要な件数を
+[既知差分](known-differences.ja.md)に保持します。
+
+別のケースで複数subscriberへの配信、受け入れたput、成功したget、objectの同一性を検査します。
+失敗した読み出しの出力値は検査せず、利用できなかった転送は通知件数に加えません。
+
+### Q37. start_itemはどのsequencerと優先度を使いますか
+
+明示的なsequencer引数、itemのsequencer、実行中sequenceのsequencerの順で選びます。
+[3つのcontextのケース](../tests/u14/test_sequence_start_item_explicit_sequencer_overrides_item_and_parent_context.sv)は
+別々のsequencerとdriverで選択した経路を確認します。優先度が非負ならsequenceの値を上書きし、
+負なら-1以外の値でもsequenceから継承します。
+
+nullのitem、`is_item`が0のsequence、3つのsequencer候補がすべてない場合は、ERRORと即時のreturnが
+必要です。固定版はFATALを使います。テストはreport catcherで元の重大度を数え、必要なERRORを
+[既知差分](known-differences.ja.md)として保持します。
+
+### Q38. 外部objectを指定したマクロはどのcallbackを実行しますか
+
+`uvm_do_obj_callbacks`とそのexit-on版は、渡したobjectを使います。呼び出し元のdispatcherだけに
+登録したentryは含めず、適用されるtypewide・指定instanceのentryを実行し、無効なentryは飛ばします。
+[contextを切り替えるケース](../tests/uB/test_callback_object_macro_switches_between_explicit_external_contexts.sv)は
+1つのdispatcherから2つの外部objectを呼び、それぞれの実行対象を確認します。
+
+exit-onのテストは、trueまたはfalseの最初の一致で停止することを確認します。一致しない場合は、
+走査や呼び出しがないことを検査し、関数の不一致時の戻り値や後続文へ進む方針は指定しません。

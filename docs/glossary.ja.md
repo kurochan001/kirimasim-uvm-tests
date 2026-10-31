@@ -62,6 +62,10 @@ object自身の件数、親へ伝搬した合計、objector一覧は異なる観
 `item_done`または`get`の暗黙の完了通知を待つ操作です。grant後はシミュレーション時間を進めずに
 送信します。特定のtransaction IDの待機は、その完了通知より前に開始する必要があります。
 
+**`start_item`のsequencer選択** — 明示的な引数、itemに設定されたsequencer、実行中sequenceの
+sequencerの順で選びます。itemの優先度が非負ならその値を使い、負ならsequenceから継承します。
+不正なitemやcontextの不足ではERRORが必要です。
+
 **transaction ID／sequence ID／`set_id_info`** — 応答を選択取得するときの要求・応答の識別子／
 sequenceへの配送に使う識別子／応答へ関連するIDをコピーするAPIです。
 テストは明示したtransaction IDを表示し、実装が割り当てるsequence IDの数値には依存しません。
@@ -158,6 +162,14 @@ hookを直接呼んでも子は実行されず、USER modeでの実行を検証�
 **通常のTLM 2 export／型parameter** — portと実装の間を中継する接続／
 その接続が扱うtransactionとnonblocking phaseの型です。forwardとbackwardは個別に接続します。
 汎用の型の伝搬とbase protocolの網羅は別の検査対象です。
+
+**FIFOの`put_ap`／`get_ap`** — 受け入れた書き込みのanalysis通知／成功したget・peekの通知です。
+peekはキューのitemを残しながら通知する必要があります。利用可否の照会や転送の失敗は、通知対象の
+transactionを供給しません。
+
+**外部objectのcallback実行** — マクロの呼び出し元ではなく、引数で指定したobjectに登録された
+callbackを実行する操作です。無効なentryを飛ばし、exit-onでは指定した真偽値が返ると途中終了します。
+テストは不一致時の戻り値の方針を決めつけません。
 
 ## 実行と結果
 

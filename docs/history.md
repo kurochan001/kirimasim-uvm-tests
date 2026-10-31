@@ -2,8 +2,8 @@
 
 [日本語](history.ja.md) · [README](../README.md)
 
-These records cover the M1 and M2 increments through the twelfth M2 increment
-(517 tests). The earlier 349-test checkpoint is
+These records cover the M1 and M2 increments through the thirteenth M2 increment
+(541 tests). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -679,3 +679,43 @@ identity and canonical annotations, while the blocking test samples inside
 a positive target delay. Custom phase types test generic propagation rather
 than claiming a base-protocol exchange. Both README languages, glossary, FAQ
 and current result counts are updated. M1 and M2 remain open.
+
+### Thirteenth M2 increment (2026-11-01)
+
+This increment adds 24 cases, bringing the suite to 541:
+
+- Eight FIFO-analysis cases: blocking/nonblocking put and get fanout,
+  blocking/nonblocking peek notifications, rejected puts and availability
+  queries, and object-handle identity on both analysis paths.
+- Eight `start_item` cases: explicit/item/parent sequencer precedence,
+  nonnegative and negative priority selection, plus required ERROR and early
+  return for null items, non-item sequences and missing sequencer context.
+- Eight explicit-object callback macro cases: context switching, dispatcher
+  exclusion, disable/reenable, typewide plus local membership, true/false
+  early exit, traversal without a match and an empty external context.
+
+Nineteen new cases match Verilator 5.052 at seeds 1 and 73. Five retain
+spec-only expectations at seed 1: the library omits two kinds of FIFO peek
+notification and emits FATAL instead of ERROR for three invalid `start_item`
+inputs. The suite has 503 matches and 38 known differences after combining
+the fresh increment with the fingerprint-verified 517-case baseline.
+Known records comprise 31 runtime seed 1 differences and seven missing-API
+build failures without runtime seeds. Ghost bundled results have 108 matches
+and 433 failures at each seed, with identical failing sets. kirimasim has
+534 unsupported cases at `uvm_object_wrapper` and seven missing-API failures.
+
+FIFO observers keep separate histories, without assuming an order among
+subscribers. Peek tests check retained occupancy independently from required
+notification counts. Failed-read output arguments are ignored, and rejection
+or availability queries do not add transactions to observer histories.
+
+Sequencer-selection probes use real requests on three separately connected
+drivers and observe normal arbitration and pre/mid/post hooks. Invalid-input
+probes count the original report severity in a catcher without rewriting it,
+then inspect the early return and absence of `pre_do`.
+
+Callback macros receive stable external contexts and function callbacks.
+Boolean matches stop before later callbacks. No-match and empty-context
+cases inspect invocation counts without prescribing a return or fallthrough
+policy. Both README languages, glossary, FAQ and known differences are
+updated. M1 and M2 remain open.

@@ -2,7 +2,7 @@
 
 [English](history.md) · [README](../README.ja.md)
 
-M1と、M2の12回目（517件）までの追加作業を記録しています。以前の349件の時点は
+M1と、M2の13回目（541件）までの追加作業を記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -512,3 +512,32 @@ grantの観測用overrideは通常のsequencerの仲裁へ委譲します。
 handleの共有とcanonical annotationを観測し、blocking呼び出しではtargetが待機している途中を検査します。
 独自phase型は汎用の型の伝搬を検査し、base protocolのやり取りが成立したとは主張しません。
 README・用語集・FAQと現在の集計を日英で更新しました。M1・M2とも目標の棚卸しは未完です。
+
+### M2の13回目の追加（2026-11-01）
+
+24件を追加し、全541件になりました。
+
+- FIFOのanalysis通知を8件：blocking・nonblockingのput／get配信、両方のpeek通知、
+  putの拒否と利用可否の照会、両analysis経路でのobject handleの同一性です。
+- `start_item`を8件：明示引数・item・親sequenceのsequencer選択順序、非負・負の優先度、
+  null item・itemではないsequence・sequencer不足に対する必須ERRORと早期returnです。
+- 外部object指定のcallbackマクロを8件：contextの切り替え、dispatcherの除外、無効化と再有効化、
+  typewideとinstanceの所属、true・falseでの途中終了、不一致時の全走査、空の外部contextです。
+
+新規19件はVerilator 5.052のseed 1・73で一致しました。5件はseed 1の既知差分です。
+固定版は2種類のFIFO peek通知を省略し、3種類の不正な`start_item`入力をERRORではなくFATALで報告します。
+指紋を照合した既存517件と合算し、全体は503件一致・既知差分38件です。既知差分は実行時の
+seed 1差分31件と、seed未実行のAPI欠落によるビルド失敗7件です。Ghostの同梱版は各seedで
+108件一致・433件不一致で、不一致になるテストも同じです。kirimasimは534件が`uvm_object_wrapper`
+未実装、7件がAPI欠落でFAILです。
+
+FIFOのobserverは独立した履歴を保持し、subscriber間の呼び出し順を指定しません。peekではitemが
+残ることと必須通知数を別々に観測します。読み出し失敗時の出力値は検査せず、拒否や利用可否の照会を
+通知件数に加えません。
+
+sequencer選択は別々に接続した3つのdriverで実際の要求を処理し、通常の仲裁とpre・mid・post hookを
+確認します。不正入力はcatcherで元の重大度を変えずに数え、早期returnと`pre_do`がないことを観測します。
+
+callbackマクロは安定した外部contextとfunction callbackを使い、真偽値が一致したら後続を呼ばずに
+停止します。不一致や空のcontextでは呼び出し回数を検査し、戻り値や後続文へ進む方針は指定しません。
+README・用語集・FAQ・既知差分を日英で更新しました。M1・M2とも目標の棚卸しは未完です。

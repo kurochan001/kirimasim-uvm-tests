@@ -410,3 +410,44 @@ uses a custom transaction and phase enum through two exports. It checks
 handle identity, typed phase-reference updates and annotations. Those generic
 binding results do not establish a legal base-protocol exchange for every
 phase or timing combination.
+
+## FIFO notifications and explicit execution contexts
+
+### Q36. Does peeking at a FIFO publish a get_ap notification?
+
+Yes. IEEE 1800.2-2020 12.2.8.1.6 includes `peek` and successful `try_peek`,
+as well as get operations. Peeking retains the item; notification does not
+mean removal. The two peek cases observe two notifications before consuming
+the value. The pinned library omits both kinds of peek notification, so the
+required counts remain in [known differences](known-differences.md).
+
+Other cases check fanout to independent subscribers, accepted puts,
+successful gets, and shared object identity. Failed reads do not assert their
+output value, and unavailable transfers do not supply a transaction to publish.
+
+### Q37. Which sequencer and priority does start_item use?
+
+It chooses the explicit sequencer argument first, then the item's sequencer,
+then the current sequence's sequencer. The
+[three-context case](../tests/u14/test_sequence_start_item_explicit_sequencer_overrides_item_and_parent_context.sv)
+uses separate sequencers and drivers to observe the selected path. A
+nonnegative priority overrides the sequence priority; every negative value
+inherits it, including values other than -1.
+
+A null item, a sequence whose `is_item` returns zero, or the absence of all
+three sequencer contexts requires ERROR and an immediate return. The pinned
+library uses FATAL instead. Tests count the original severity with a report
+catcher and retain the required ERROR in
+[known differences](known-differences.md).
+
+### Q38. Which callbacks run when a macro names an external object?
+
+`uvm_do_obj_callbacks` and its exit-on form use the supplied object. Entries
+registered only on the calling dispatcher are excluded. Applicable typewide
+and selected-instance entries participate, with disabled entries skipped.
+The [context-switch case](../tests/uB/test_callback_object_macro_switches_between_explicit_external_contexts.sv)
+uses one dispatcher with two external objects and checks each chosen context.
+
+Exit-on tests stop at the first matching true or false result. When no
+callback matches, the tests check traversal or the absence of calls without
+prescribing the enclosing function's no-match result or fallthrough policy.

@@ -86,6 +86,11 @@ the low-level submission call / waiting for `item_done` or implicit `get`
 acknowledgement. Submission follows a grant without a simulation-time delay.
 A waiter for a specific transaction ID must start before its acknowledgement.
 
+**`start_item` sequencer selection** — An explicit sequencer argument takes
+precedence, followed by the item's sequencer and then the current sequence's
+sequencer. A nonnegative item priority is used directly; a negative value
+inherits the sequence priority. Invalid items or missing context require ERROR.
+
 **Transaction ID / sequence ID / `set_id_info`** — The request/reply identifier
 used for selective response retrieval / the sequence-routing identity / the
 API copying the relevant IDs into a response. Tests print explicitly assigned
@@ -183,6 +188,16 @@ when the standard specifies it.
 subscribers / a FIFO accepting those writes. A write can distribute an object
 handle; it does not necessarily clone that object. Tests avoid assuming an
 unspecified order among subscribers.
+
+**FIFO `put_ap` / `get_ap`** — Analysis notifications for accepted writes /
+successful get and peek observations. A peek retains the queued item while
+still requiring a notification. Availability queries and failed transfers do
+not supply a transaction to publish.
+
+**Explicit-object callback dispatch** — Calling registered callbacks for an
+object passed to the macro, independently of the calling object's own
+registration. Disabled entries are skipped; an exit-on macro stops on the
+selected boolean result. Tests do not impose a no-match return policy.
 
 **TLM 2 payload / extension / socket / phase / delay** — Transaction data /
 additional typed information / a transport connection / protocol progress /

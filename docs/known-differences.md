@@ -2,7 +2,7 @@
 
 [日本語](known-differences.ja.md) · [README](../README.md) · [FAQ](faq.md)
 
-This describes the current 517-test suite and the pinned Accellera UVM
+This describes the current 541-test suite and the pinned Accellera UVM
 2020.3.1 library. A mismatch is a test result; it does not by itself assign
 the cause to the simulator, the library or the expectation.
 
@@ -10,7 +10,7 @@ the cause to the simulator, the library or the expectation.
 
 The library's own `DEVIATIONS.md` lists three differences at 18.2.3.4,
 18.4.3.6 and 13.1.5.1. Current matching scenarios avoid those branches.
-The following twenty-three additional limitations were identified during M1 and M2.
+The following twenty-five additional limitations were identified during M1 and M2.
 Where a test directly checks a required behavior that is missing, its
 normative expectation is retained with `:oracle: spec`.
 
@@ -94,6 +94,12 @@ normative expectation is retained with `:oracle: spec`.
 - Removing a statically registered sequence type affects only the receiving
   library instance. Clause 14.4.5.5 requires updating all instances; a case
   observes a second existing instance through public enumeration.
+- FIFO `get_ap` omits notifications for `peek` and successful `try_peek`,
+  although 12.2.8.1.6 includes both. Two cases retain repeated notifications
+  while separately observing that peeking leaves the item queued.
+- `start_item` uses FATAL for a null item, a non-item sequence, or missing
+  sequencer context. Clause 14.2.6.2 requires ERROR and an immediate return.
+  Three cases count the original severity in a catcher without changing it.
 
 These branches are not treated as reproduced fixed-release oracles.
 Spec-only diagnostics preserve the required post-drop objector membership,
@@ -101,25 +107,26 @@ initial transaction state, severity-ID reset, field-operation name errors,
 response-depth errors, response-error defaults, single-candidate USER
 arbitration, lock ordering, post-kill hooks, invalid-default errors,
 automatic-objection drop on stop, canonical time name/API, nested
-initiator-socket routing, repeated push delivery and sequence-library APIs/removal.
+initiator-socket routing, repeated push delivery, sequence-library APIs/removal,
+FIFO peek notifications and `start_item` error severity.
 Matching tests avoid the other library limitations.
 
-Across the suite, 484 tests have the `verilator@5.052` oracle tag and thirty-three
+Across the suite, 503 tests have the `verilator@5.052` oracle tag and thirty-eight
 cases are spec-only. One of the spec-only cases checks 9.6: a child's pre-reset
 task must be killed when that phase ends, but the pinned-library run on Verilator 5.052
 lets the child perform its delayed write during a later phase. The cause of
 this combined simulator/library difference remains unassigned.
 
-The thirty-three spec-only tests retain their normative expected files.
-Default Verilator runs and CI select the 484 tagged cases. `--all` includes
+The thirty-eight spec-only tests retain their normative expected files.
+Default Verilator runs and CI select the 503 tagged cases. `--all` includes
 spec-only cases and records mismatches or build failures as `known`.
-The runtime records for 26 cases establish the first difference at seed 1,
+The runtime records for 31 cases establish the first difference at seed 1,
 without seed 73 results. Seven missing-API cases cannot build and have no
 runtime seed result: one time API and six sequence-library cases.
 
 ## Spec-only tests
 
-These are the thirty-three current spec-only cases. Several exercise the same
+These are the thirty-eight current spec-only cases. Several exercise the same
 limitation, so their count is not a count of distinct bugs.
 
 - Field-operation accessor errors:
@@ -168,10 +175,17 @@ limitation, so their count is not a count of distinct bugs.
   [count constraint](../tests/u14/test_sequence_library_standard_count_bounds_constrain_randomized_count.sv),
   [initial execution count](../tests/u14/test_sequence_library_standard_execution_counter_starts_at_zero.sv)
   and [active/completed counts](../tests/u14/test_sequence_library_standard_execution_counter_excludes_active_child.sv).
+- FIFO peek notifications:
+  [blocking peek](../tests/u12/test_tlm_fifo_blocking_peek_publishes_each_observation_without_consuming.sv)
+  and [nonblocking peek](../tests/u12/test_tlm_fifo_nonblocking_peek_publishes_each_success_without_consuming.sv).
+- Required `start_item` ERROR reports:
+  [null item](../tests/u14/test_sequence_start_item_null_argument_reports_error_and_returns.sv),
+  [sequence argument](../tests/u14/test_sequence_start_item_sequence_argument_reports_error_and_returns.sv)
+  and [missing sequencer](../tests/u14/test_sequence_start_item_without_any_sequencer_reports_error_and_returns.sv).
 
 ## Simulator and library combinations
 
-Ghost's bundled-library runs have 107 matches and 410 failures with each of
+Ghost's bundled-library runs have 108 matches and 433 failures with each of
 seeds 1 and 73. The same tests fail at both seeds. Its pinned-library smoke
 test differs, including with preprocessing enabled. Bundled results do not
 establish whether the cause lies in the simulator or its supplied library,
@@ -179,7 +193,7 @@ and are not evidence for the locked library. Private identity, profiles and
 diagnostics are not published.
 
 The tested kirimasim executable reports `uvm_object_wrapper` as unsupported
-on 510 cases. Seven cases fail earlier on missing library APIs: one time
+on 534 cases. Seven cases fail earlier on missing library APIs: one time
 setter and six sequence-library cases. Neither result is a pass or evidence
 of UVM execution beyond those compilation blockers.
 
