@@ -1,0 +1,2 @@
+UT: severity_warning 1 id ID_A text payload
+UT: verbosity_high 1 file source.sv line 37 context ctx.leaf

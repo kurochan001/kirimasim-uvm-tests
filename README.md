@@ -8,7 +8,7 @@ Methodology, IEEE 1800.2-2020 (UVM). It is written for the
 [kirimasim-tests](https://github.com/kurochan001/kirimasim-tests), which checks
 the SystemVerilog language of IEEE 1800-2023.
 
-> **Status: M1 (core expansion in progress).** 181 tests, the pinned UVM
+> **Status: M1 (core expansion in progress).** 205 tests, the pinned UVM
 > fetcher, runners for kirimasim, Verilator and Ghost, metadata checks and
 > the Check workflow. The clause-by-clause M1 target is not complete;
 > see "Current M1 increment" below.
@@ -238,13 +238,14 @@ tests with both seeds, with the same 60 differences. After the fourth
 increment, both seeds match 45 of 133 tests, with the same 88 differences. The sixth
 increment matches 49 of 157 tests with both seeds, with the same 108 differences.
 The seventh increment matches 53 of 181 tests with both seeds, with the same
-128 differences.
+128 differences. The eighth increment matches 54 of 205 tests with both
+seeds, with the same 151 differences.
 
 | Simulator | Current status |
 | --- | --- |
-| kirimasim | local executable reports all 181 cases as unsupported at `uvm_object_wrapper` |
-| Verilator 5.052 | `UVM_NO_DPI`: 177 oracle cases match seeds 1 and 73; four spec-only cases retain known differences |
-| Ghost (an unreleased simulator, as in kirimasim-tests) | bundled UVM: 53/181 match with both seeds; pinned UVM: smoke test differs |
+| kirimasim | local executable reports all 205 cases as unsupported at `uvm_object_wrapper` |
+| Verilator 5.052 | `UVM_NO_DPI`: 199 oracle cases match seeds 1 and 73; six spec-only cases retain known differences |
+| Ghost (an unreleased simulator, as in kirimasim-tests) | bundled UVM: 54/205 match with both seeds; pinned UVM: smoke test differs |
 | Icarus Verilog 13.0 | not used: it cannot run UVM |
 
 ## 8. Checks
@@ -415,7 +416,26 @@ are not inspected after flush, as they may be recycled. Function-phase error
 cases discard invalid return values and check reports without fixing their
 wording or identifiers. The local schedules are not executed.
 
-Across the second through sixth increments, eight additional limitations
+The eighth increment adds 24 tests, bringing the suite to 205:
+
+- Report-message common fields, independent action/file updates,
+  infrastructure references, message isolation and calling-thread RNG
+  preservation by the creation helper: eight tests.
+- Field-operation names and types, accessor preconditions, repeated set
+  calls and invalid combinations of operation flags: eight tests. The two
+  accessor-precondition cases retain the required errors as spec-only.
+- Factory registration and wrapper lookup, exact type/name queries,
+  independent factory instances and selection through the core service:
+  eight tests.
+
+Message tests inspect assigned fields and handle identities without emitting
+those messages or depending on descriptor values. RNG state is observed from
+an initial process as an opaque equality comparison. Field-operation error
+cases discard invalid return values and flush before reuse. Local factories
+keep registration checks independent of globally registered built-in types;
+selection tests restore the saved global factory handle.
+
+Across the second through eighth increments, nine additional limitations
 of the pinned reference library were identified beyond its own `DEVIATIONS.md`:
 
 - With no override installed, `find_override_by_name` returns null even
@@ -447,24 +467,28 @@ of the pinned reference library were identified beyond its own `DEVIATIONS.md`:
   6.3.8.3 requires clearing changes made through the override methods of
   6.3.7. The new count-based reset case preserves the required original
   severity as a spec-only expectation.
+- `uvm_field_op::get_op_name` does not report an error before `set` or
+  after `flush`, although 5.7.2.3 requires one. Both accessor-precondition
+  cases keep the required error as spec-only; they also check the required
+  errors from `get_op_type`, `get_policy` and `get_rhs`.
 
 These branches are not treated as reproduced fixed-release oracles. The
-post-drop list, initial transaction state and severity-ID reset cases are
-retained for diagnostics; the other library limitations are avoided by the
-matching test scenarios.
+post-drop list, initial transaction state, severity-ID reset and invalid
+field-operation name cases are retained for diagnostics; the other library
+limitations are avoided by the matching test scenarios.
 
-There are 177 tests with the `verilator@5.052` oracle tag and four spec-only
+There are 199 tests with the `verilator@5.052` oracle tag and six spec-only
 cases. Another spec-only case checks 9.6: a child's pre-reset task must be
 killed when that phase ends, but the pinned-library run on Verilator 5.052
 lets the child perform its delayed write during a later phase. The cause of
 this combined simulator/library difference remains unassigned.
 
-The four spec-only tests retain their normative expected files.
-Default Verilator runs and CI select the 177 tagged cases. An explicit run
-with `--all` includes the four spec-only cases and records them as `known`.
+The six spec-only tests retain their normative expected files.
+Default Verilator runs and CI select the 199 tagged cases. An explicit run
+with `--all` includes the six spec-only cases and records them as `known`.
 The runner stops each test at its first differing seed; their current
 Verilator records establish seed 1 differences, without claiming a seed 73
-result for those four tests.
+result for those six tests.
 
 The cited behavior and expectations have been checked against IEEE
 1800.2-2020. In particular, the clone tests observe independent copies,
