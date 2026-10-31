@@ -8,7 +8,7 @@ Methodology, IEEE 1800.2-2020 (UVM). It is written for the
 [kirimasim-tests](https://github.com/kurochan001/kirimasim-tests), which checks
 the SystemVerilog language of IEEE 1800-2023.
 
-> **Status: M1 (core expansion in progress).** 157 tests, the pinned UVM
+> **Status: M1 (core expansion in progress).** 181 tests, the pinned UVM
 > fetcher, runners for kirimasim, Verilator and Ghost, metadata checks and
 > the Check workflow. The clause-by-clause M1 target is not complete;
 > see "Current M1 increment" below.
@@ -237,12 +237,14 @@ seeds; the same 30 cases differ. The third increment matches 41 of 101
 tests with both seeds, with the same 60 differences. After the fourth
 increment, both seeds match 45 of 133 tests, with the same 88 differences. The sixth
 increment matches 49 of 157 tests with both seeds, with the same 108 differences.
+The seventh increment matches 53 of 181 tests with both seeds, with the same
+128 differences.
 
 | Simulator | Current status |
 | --- | --- |
-| kirimasim | local executable reports all 157 cases as unsupported at `uvm_object_wrapper` |
-| Verilator 5.052 | `UVM_NO_DPI`: 153 oracle cases match seeds 1 and 73; four spec-only cases retain known differences |
-| Ghost (an unreleased simulator, as in kirimasim-tests) | bundled UVM: 49/157 match with both seeds; pinned UVM: smoke test differs |
+| kirimasim | local executable reports all 181 cases as unsupported at `uvm_object_wrapper` |
+| Verilator 5.052 | `UVM_NO_DPI`: 177 oracle cases match seeds 1 and 73; four spec-only cases retain known differences |
+| Ghost (an unreleased simulator, as in kirimasim-tests) | bundled UVM: 53/181 match with both seeds; pinned UVM: smoke test differs |
 | Icarus Verilog 13.0 | not used: it cannot run UVM |
 
 ## 8. Checks
@@ -395,6 +397,24 @@ explicitly. Report ID and graph-neighbor checks compare membership rather
 than iteration order. Counter snapshots are populated through report calls,
 without implementation-only ID counter setters.
 
+The seventh increment adds 24 tests, bringing the suite to 181:
+
+- Shared UVM seeding controls, disabled-reseed RNG state preservation,
+  virtual object creation and default/custom string conversion: eight tests.
+- Packer state transfer through bit, byte, int and longint snapshots,
+  comparer reporting controls, printer array windows and element-stack
+  push/pop/flush behavior: twelve tests.
+- Task-phase objection forwarding and independent node counts, plus errors
+  for invalid objection operations on function phases: four tests.
+
+RNG state is compared only for equality on the same object; its encoding and
+random values are not prescribed. Packer snapshots come from the matching
+getter on a compatible implementation, without inspecting stream layout.
+Printer stack accessors are exposed by a test subclass. Old element handles
+are not inspected after flush, as they may be recycled. Function-phase error
+cases discard invalid return values and check reports without fixing their
+wording or identifiers. The local schedules are not executed.
+
 Across the second through sixth increments, eight additional limitations
 of the pinned reference library were identified beyond its own `DEVIATIONS.md`:
 
@@ -433,14 +453,14 @@ post-drop list, initial transaction state and severity-ID reset cases are
 retained for diagnostics; the other library limitations are avoided by the
 matching test scenarios.
 
-There are 153 tests with the `verilator@5.052` oracle tag and four spec-only
+There are 177 tests with the `verilator@5.052` oracle tag and four spec-only
 cases. Another spec-only case checks 9.6: a child's pre-reset task must be
 killed when that phase ends, but the pinned-library run on Verilator 5.052
 lets the child perform its delayed write during a later phase. The cause of
 this combined simulator/library difference remains unassigned.
 
 The four spec-only tests retain their normative expected files.
-Default Verilator runs and CI select the 153 tagged cases. An explicit run
+Default Verilator runs and CI select the 177 tagged cases. An explicit run
 with `--all` includes the four spec-only cases and records them as `known`.
 The runner stops each test at its first differing seed; their current
 Verilator records establish seed 1 differences, without claiming a seed 73
