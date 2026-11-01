@@ -2,7 +2,7 @@
 
 [日本語](known-differences.ja.md) · [README](../README.md) · [FAQ](faq.md)
 
-This describes the current 757-test suite and the pinned Accellera UVM
+This describes the current 781-test suite and the pinned Accellera UVM
 2020.3.1 library. A mismatch is a test result; it does not by itself assign
 the cause to the simulator, the library or the expectation.
 
@@ -14,7 +14,7 @@ A simple memory registered on two sibling-interface maps matches 18.2.3.4 in
 the pinned release. The release's multiple-map note and shared-map hierarchies
 require separate review; this case establishes only its two-interface setup.
 See the [memory scope](faq.md#memory-prediction-and-map-controls).
-The following forty-three additional limitations were identified during M1, M2 and M3.
+The following forty-four additional limitations were identified during M1, M2 and M3.
 Where a test directly checks a required behavior that is missing, its
 normative expectation is retained with `:oracle: spec`.
 
@@ -186,6 +186,10 @@ normative expectation is retained with `:oracle: spec`.
   The required post-read mirror follows 18.4.4.10, 18.5.4.6, 18.2.5.2,
   18.4.4.15 and 18.5.5.17. Return data and cleared storage are positive controls.
 
+- The block memory-walk wrapper checks `NO_MEM_ACCESS_TEST` instead of the
+  `NO_MEM_WALK_TEST` exclusion required by E.6.2. The case retains the required
+  idle wrapper traversal, with a directly selected memory as a working control.
+
 These branches are not treated as reproduced fixed-release oracles.
 Spec-only diagnostics preserve the required post-drop objector membership,
 initial transaction state, severity-ID reset, field-operation name errors,
@@ -199,25 +203,26 @@ map width/translation results, location-specific memory offsets and
 single-map effective access, predictor redirection, big-endian frontdoor read data
 register/field pre-access hook order, physical burst-beat kinds, virtual-register
 byte width, omitted-memory resize, region owner queries, standalone virtual-field
-post-write order and user-backdoor read-clear prediction.
+post-write order, user-backdoor read-clear prediction and the block memory-walk
+exclusion resource.
 Matching tests avoid the other library limitations.
 
-Across the suite, 691 tests have the `verilator@5.052` oracle tag and sixty-six
+Across the suite, 714 tests have the `verilator@5.052` oracle tag and sixty-seven
 cases are spec-only. One of the spec-only cases checks 9.6: a child's pre-reset
 task must be killed when that phase ends, but the pinned-library run on Verilator 5.052
 lets the child perform its delayed write during a later phase. The cause of
 this combined simulator/library difference remains unassigned.
 
-The sixty-six spec-only tests retain their normative expected files.
-Default Verilator runs and CI select the 691 tagged cases. `--all` includes
+The sixty-seven spec-only tests retain their normative expected files.
+Default Verilator runs and CI select the 714 tagged cases. `--all` includes
 spec-only cases and records mismatches or build failures as `known`.
-The runtime records for 59 cases establish the first difference at seed 1,
+The runtime records for 60 cases establish the first difference at seed 1,
 without seed 73 results. Seven missing-API cases cannot build and have no
 runtime seed result: one time API and six sequence-library cases.
 
 ## Spec-only tests
 
-These are the sixty-six current spec-only cases. Several exercise the same
+These are the sixty-seven current spec-only cases. Several exercise the same
 limitation, so their count is not a count of distinct bugs.
 
 - Field-operation accessor errors:
@@ -325,9 +330,12 @@ limitation, so their count is not a count of distinct bugs.
 - User-backdoor read-clear prediction:
   [sample, clear and post-read mirror](../tests/u19/test_reg_user_backdoor_read_applies_read_clear_after_sampling.sv).
 
+- Block-scoped memory-walk exclusion:
+  [skip wrapper, run direct control](../tests/uE/test_memory_walk_sequence_honors_a_block_specific_walk_exclusion.sv).
+
 ## Simulator and library combinations
 
-Ghost's bundled-library evidence has 150 matches and 607 failures with each
+Ghost's bundled-library evidence has 152 matches and 629 failures with each
 of seeds 1 and 73; the same tests fail at both seeds. The current executable
 snapshot has no pinned-mode measurement. [Results and methodology](results.md)
 describes the evidence assembly. Bundled results
@@ -336,7 +344,7 @@ problem from a library problem or establish results for the locked library.
 Private identity, profiles and diagnostics are not published.
 
 The tested kirimasim executable reports `uvm_object_wrapper` as unsupported
-on 750 cases. Seven cases record `fail` earlier on missing library APIs: one time
+on 774 cases. Seven cases record `fail` earlier on missing library APIs: one time
 setter and six sequence-library cases. Neither result is a pass or evidence
 of UVM execution beyond those compilation blockers.
 

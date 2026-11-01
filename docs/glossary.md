@@ -369,6 +369,20 @@ sampling storage / depositing raw data. The current subclasses use testbench
 storage without HDL DPI, with required pre/post helper dispatch. Physical-style
 `read`/`write` still apply register access policies.
 
+**Annex E built-in test sequence** — A standardized register/memory test
+such as `uvm_reg_hw_reset_seq`. The current fixtures cover reset, bit bash,
+register access and memory walk through testbench storage. See the
+[sequence FAQ](faq.md#annex-e-built-in-test-sequences).
+
+**Exclusion resource / REG namespace** — A `uvm_resource_db#(bit)` entry in
+`REG::` used by built-in sequences to omit a matched block, register or memory.
+The current fixtures use exact scopes with independent positive controls.
+
+**Fault injection / positive control** — Deliberately changing a known-working
+fixture / a successful check that establishes the observation path works.
+Annex E cases introduce data faults after a clean run and observe additional
+diagnostics without requiring exact messages or internal test patterns.
+
 ## Execution and result records
 
 **Runner / metadata** — A `tools/run_*.py` script that builds, executes and

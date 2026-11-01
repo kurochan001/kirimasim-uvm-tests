@@ -4,18 +4,18 @@
 
 ## Current snapshot
 
-The local evidence dated 2026-11-01 covers the 757 current tests. Each record
+The local evidence dated 2026-11-01 covers the 781 current tests. Each record
 identifies its test inputs and execution conditions through fingerprints.
 The suite contains
-229 M1, 360 M2 and 168 M3 cases in 14 chapter/annex directories. All record
+229 M1, 360 M2 and 192 M3 cases in 15 chapter/annex directories. All record
 `spec_check: ai`, use `UVM_NO_DPI` and request no deprecated API. None records
 human review. Counts do not establish a reviewed requirement-coverage percentage.
 
 | Simulator and library | Observation | Execution scope |
 | --- | --- | --- |
-| Verilator 5.052, pinned UVM | 691 `pass`; 66 `known` | Matches reproduced at seeds 1 and 73; runtime differences stop at seed 1 |
-| kirimasim, pinned UVM | 750 `unsupported`; seven `fail` | Fixed executable build and all current inputs |
-| Ghost, bundled UVM | 150 `pass`; 607 `fail` | Each of seeds 1 and 73; identical failing sets |
+| Verilator 5.052, pinned UVM | 714 `pass`; 67 `known` | Matches reproduced at seeds 1 and 73; runtime differences stop at seed 1 |
+| kirimasim, pinned UVM | 774 `unsupported`; seven `fail` | Fixed executable build and all current inputs |
+| Ghost, bundled UVM | 152 `pass`; 629 `fail` | Each of seeds 1 and 73; identical failing sets |
 | Ghost, pinned UVM | Not measured for the current executable snapshot | No current pinned-mode claim |
 
 The pinned library is Accellera UVM 2020.3.1, commit `78c06547a2a0`, with
@@ -27,19 +27,22 @@ Icarus Verilog is not used for this UVM suite.
 
 ## Interpretation
 
-The 66 spec-only cases retain standard-derived expected output. Of their
-Verilator records, 59 first differ at runtime seed 1. The runner stops at that
+The 67 spec-only cases retain standard-derived expected output. Of their
+Verilator records, 60 first differ at runtime seed 1. The runner stops at that
 seed, so those records contain no seed 73 result. Seven cannot build because
 of missing library APIs: one time API and six sequence-library APIs. They
 have no runtime seed result. The known-differences guide links every spec-only
 case and describes the combined simulator/library limitation where the cause
 has not been assigned.
 
-kirimasim reports `uvm_object_wrapper` as unsupported on 750 cases; the other
+kirimasim reports `uvm_object_wrapper` as unsupported on 774 cases; the other
 seven encounter missing library APIs first. Neither category establishes
 execution of the UVM behavior beyond those blockers. Ghost's bundled
 mismatches do not identify whether the simulator or its library caused them,
-and they do not establish results for the pinned library.
+and they do not establish results for the pinned library. The annex E matches
+are the [RO](../tests/uE/test_single_register_access_sequence_skips_a_readonly_register.sv)
+and [missing-backdoor](../tests/uE/test_single_register_access_sequence_skips_a_register_without_a_backdoor.sv)
+skip cases; they establish no frontdoor/backdoor transfer behavior.
 
 `known` and `unsupported` are not passes. A command's exit code alone is not
 a suite pass count; the [FAQ](faq.md#understanding-a-result) explains status
@@ -47,12 +50,12 @@ and exit-code rules. Two seeds do not prove determinism or four-state correctnes
 
 ## Evidence assembly
 
-The current snapshot combines an unchanged 733-case baseline at
-[ac008b6](https://github.com/kurochan001/kirimasim-uvm-tests/commit/ac008b6a6353a0c3bafc17348ea4cccf9759b83f)
-with 24 newly measured cases. Verilator uses the fixed release; kirimasim and
-the project's guest Ghost use fixed executable snapshots. Ghost reuses the
-same private profile snapshot for each seed as its baseline. Commercial
-simulator results are excluded under the
+The current snapshot combines an unchanged 757-case baseline at
+[4c7f452](https://github.com/kurochan001/kirimasim-uvm-tests/commit/4c7f452968ce20e3d56e5fec2bdaf7a88d99d31d)
+with 24 newly measured annex E cases. Verilator uses the fixed release;
+kirimasim and the project's guest Ghost use fixed executable snapshots.
+Ghost reuses the same private profile snapshot for each seed as its baseline.
+Commercial simulator results are excluded under the
 [reporting policy](faq.md#commercial-simulator-and-issue-reporting-policy).
 
 Before combining records, check that:
@@ -84,7 +87,7 @@ inputs, a different runner, executable, profile or library is a separate conditi
 
 [Check](../.github/workflows/check.yml) runs on pushes to `main`, pull requests
 and manual dispatch. It checks pinned-library integrity, 41 tool unit tests,
-757 metadata records and the 691 tagged Verilator cases using seeds 1 and 73.
+781 metadata records and the 714 tagged Verilator cases using seeds 1 and 73.
 It does not run kirimasim, Ghost or spec-only cases. The README's badge is the
 live CI state, separate from these local measurements. A green Check does
 not establish complete UVM conformance or a passing result for every simulator.

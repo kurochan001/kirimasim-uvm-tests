@@ -274,6 +274,17 @@ virtual配列は`implement`／`release_region`で実装先の予約を管理し�
 現在のsubclassはHDL DPIなしのテストベンチ記憶域を使い、必須のpre／post helperを呼びます。
 物理アクセスを模擬する`read`／`write`はregisterのaccess policyを適用します。
 
+**付録Eの組み込みテストsequence** — `uvm_reg_hw_reset_seq`など、規格が定めるregister／memoryのテストです。
+現在の検査系はテストベンチの記憶域でreset・bit bash・register access・memory walkを扱います。
+[sequenceのFAQ](faq.ja.md#付録eの組み込みテストsequence)も参照してください。
+
+**除外resource／REG名前空間** — `REG::`に置く`uvm_resource_db#(bit)`のentryで、
+組み込みsequenceが名前の一致するblock・register・memoryを対象から外すために使います。
+現在の検査系は完全一致のscopeと、独立して成功する比較対象を使います。
+
+**故障の注入／成功する比較対象** — 正常だと確認した検査系へ意図的に変更を加えること／観測経路が働くことを確認する検査です。
+付録Eのケースは正常実行の後にデータの故障を入れ、正確な診断文や内部パターンを要求せずに診断の増加を観測します。
+
 ## 実行と結果
 
 **ランナー／メタデータ** — ビルド・実行・判定を行う`tools/run_*.py`／

@@ -9,8 +9,8 @@ IEEE 1800.2-2020のUniversal Verification Methodology（UVM）を対象にした
 [kirimasim](https://github.com/kurochan001/kirimasim)を対象とし、IEEE 1800-2023のSystemVerilog言語を検査する
 [kirimasim-tests](https://github.com/kurochan001/kirimasim-tests)と対になります。
 
-> **状態：M3を継続中。** 14の章・付録ディレクトリにシミュレーションテスト757件があります。
-> `verilator@5.052`のoracle付きが691件、specのみが66件です。
+> **状態：M3を継続中。** 15の章・付録ディレクトリにシミュレーションテスト781件があります。
+> `verilator@5.052`のoracle付きが714件、specのみが67件です。
 > 全件が`:spec_check: ai`で、人による照合の記録はまだありません。
 > M1・M2・M3はいずれも、要求カバレッジの目標が未達です。
 
@@ -28,9 +28,9 @@ IEEE 1800.2-2020のUniversal Verification Methodology（UVM）を対象にした
   factory、phase、objection、configuration。
 - **M2：360件。** TLM 1のFIFO・analysis・request／response channel、TLM 2のpayload・拡張・
   一部のsocket transport、sequence、response、操作マクロ、pull／push sequencer、callback。
-- **M3：168件。** register／field／block・memoryのモデル、map、adapter、predictor、組み込み／custom frontdoor、
+- **M3：192件。** register／field／block・memoryのモデル、map、adapter、predictor、組み込み／custom frontdoor、
   register callback、virtual registerの配置・転送・割り当てpolicy・callback、ユーザー定義backdoor、
-  動的な実装、memory領域の管理。
+  動的な実装、memory領域の管理、付録Eのreset／bit-bash／access／memory walkのテストsequence。
 
 組み込みfrontdoorはテストベンチのadapter／sequencer／driverを接続します。
 custom frontdoorはsequence本体で記憶域をモデル化し、passive predictorは別の検査系から観測値を入力します。
@@ -54,14 +54,14 @@ python3 tools/run_verilator.py --seeds 1 73 --build-jobs 2 -j 1 \
 ```
 
 fetcherは固定したAccellera UVM 2020.3.1を取得して検査します。スモークのコマンドは1件だけを選びます。
-oracle付き691件をすべて実行する場合は、次のコマンドを使います。
+oracle付き714件をすべて実行する場合は、次のコマンドを使います。
 
 ```sh
 python3 tools/run_verilator.py --seeds 1 73 --build-jobs 2 -j 2 \
   --json out/verilator.json
 ```
 
-`--all`を付けると、specのみの66件を含め、すべての2値テストを実行します。
+`--all`を付けると、specのみの67件を含め、すべての2値テストを実行します。
 `known`ではコマンドを失敗させず、oracleタグ付きの回帰では失敗させます。
 `-j`は並行するテスト数、`--build-jobs`は各ビルド内のC++ジョブ数です。
 各モデルは一度ビルドし、seedごとに新しいプロセスで実行します。
@@ -79,15 +79,15 @@ kirimasimとGhostは既定で全件を選びます。ライブラリ／DPI設定
 
 ## 現在の実行結果
 
-2026-11-01のローカル記録は、現在の757件すべてを対象にします。Checkバッジとは別の結果です。
+2026-11-01のローカル記録は、現在の781件すべてを対象にします。Checkバッジとは別の結果です。
 
 | シミュレータとライブラリ | 観測結果 |
 | --- | --- |
-| Verilator 5.052・固定版UVM・`UVM_NO_DPI` | 691件がseed 1・73で一致、既知差分66件 |
-| kirimasim・固定版UVM | `unsupported`が750件、ライブラリAPI欠落による`fail`が7件 |
-| Ghost・同梱UVM | 各seedで150件一致・607件不一致。不一致の集合も同じ |
+| Verilator 5.052・固定版UVM・`UVM_NO_DPI` | 714件がseed 1・73で一致、既知差分67件 |
+| kirimasim・固定版UVM | `unsupported`が774件、ライブラリAPI欠落による`fail`が7件 |
+| Ghost・同梱UVM | 各seedで152件一致・629件不一致。不一致の集合も同じ |
 
-Verilatorの66件は、seed 1で記録した実行時の差分59件と、実行時のseed結果がないAPI欠落のビルド失敗7件です。
+Verilatorの67件は、seed 1で記録した実行時の差分60件と、実行時のseed結果がないAPI欠落のビルド失敗7件です。
 `known`・`unsupported`は成功に数えません。Ghostの同梱UVMの結果は、固定版ライブラリでの結果を示すものではありません。
 
 詳しい実行条件と記録の範囲は[実行結果と測定方法](docs/results.ja.md)、ライブラリの制約とspecのみのケースは
@@ -116,13 +116,14 @@ oracle付きVerilatorを検査し、kirimasimとGhostは実行しません。Nig
 | M0 | 取得・実行・metadataとツールの検査、Check、スモークテスト | 基盤を実装済み |
 | M1 | 基本クラス・policy・factory・phase・objection・設定・reporting | 229件。各条項2件以上という目標の棚卸しは未完 |
 | M2 | sequence・sequencer・TLM・callback | 360件。目標は未達 |
-| M3 | レジスタ層（17〜19、付録E） | 第18〜19章に168件。目標は未達 |
+| M3 | レジスタ層（17〜19、付録E） | 第18〜19章・付録Eに192件。目標は未達 |
 | M4 | 要求台帳とカバレッジ | 計画段階。カバレッジを主張する前に分母を承認 |
 
 M1・M2・M3はいずれも独立した未完の段階です。M2にはキュー上の所有・停止・default resourceの条件、
 callback、TLM 2のより広いprotocol・timing・socketの組み合わせが残っています。
 M3には追加の割り当てpolicyと実装・転送条件、memoryのpacking／部分beat、エラー／policy／mapの条件、
-predictorの統合、frontdoor／callbackの組み合わせ、HDL path／DPI、付録Eのsequenceが残っています。
+predictorの統合、frontdoor／callbackの組み合わせ、HDL path／DPI、shared／memory accessのsequence、
+付録Eの追加条件が残っています。
 ライブラリの条項注記は棚卸しの手がかりになりますが、規格との照合が必要です。
 RTLのprotocolやtimingの検査は別の作業です。
 

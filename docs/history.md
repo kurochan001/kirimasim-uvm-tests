@@ -2,8 +2,8 @@
 
 [日本語](history.ja.md) · [README](../README.md)
 
-These records cover M1, fifteen M2 increments and seven M3 increments
-(757 tests). The earlier 349-test checkpoint is
+These records cover M1, fifteen M2 increments and eight M3 increments
+(781 tests). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -1095,3 +1095,43 @@ known differences, provenance and this history are updated in both languages.
 Tool tests, metadata, library integrity, evidence fingerprints, bilingual
 structure, links and Issue-form YAML were checked. No commercial simulator
 results were used. All tests retain spec_check: ai and no deprecated API.
+
+## Eighth M3 increment: annex E register and memory test sequences (2026-11-01)
+
+This increment adds the first 24 annex E cases in a new directory, bringing
+M3 to 192 and the suite to 781 in 15 chapter/annex directories. Chapters 18
+and 19 remain at 135 and 33 cases; annex E has 24. M1 remains at 229 and M2
+at 360. All stages retain open targets.
+
+Six cases each exercise hardware-reset checking, bit bash, register access
+and memory walk. They cover selected single/block sequences, available maps,
+hierarchy and exclusion resources. Register access shares storage between
+custom frontdoors and user backdoors; other families use custom frontdoors.
+All handlers use positive delays without RTL, HDL paths, DPI or vendor backends.
+Reset storage is initialized before the sequence; physical DUT reset behavior
+remains untested. Expected outputs constrain traffic, data consistency and
+fault detection rather than internal patterns, order or diagnostic wording.
+
+Each data-fault case has a clean run first: wrong reset value, a stuck
+register bit, disagreement between access paths and a stuck memory bit.
+Exact-scope exclusions include peer or directly selected controls. Observation
+counters restart before each fault or direct control. The
+block-scoped memory-walk exclusion remains spec-only: E.6.2 names
+NO_MEM_WALK_TEST, while the pinned wrapper checks NO_MEM_ACCESS_TEST instead.
+The direct single-memory control still works.
+
+Twenty-three additions match Verilator 5.052 at seeds 1 and 73. Compatible
+757-case baseline evidence at 4c7f452 combines with fresh final measurements
+to give 714 matches and 67 known differences: 60 runtime seed 1 differences
+and seven missing-API builds without runtime seeds. The same fixed snapshots
+give guest Ghost 152 matches and 629 failures per seed with identical failing
+sets, and kirimasim 774 unsupported cases plus seven missing-API failures.
+The two annex E guest matches observe skip behavior without transfers.
+Current input, runner, version and configuration fingerprints were checked.
+
+README remains focused on current scope. Both languages of results, testing,
+FAQ, glossary, known differences and this history are updated. A paired FAQ
+table maps sequence families to their observations. Checks cover tool tests,
+metadata, pinned-library integrity, bilingual structure, local links, public
+privacy and staged whitespace. No commercial simulator results were used.
+All cases retain spec_check: ai, UVM_NO_DPI and no deprecated API.

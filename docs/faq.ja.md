@@ -155,7 +155,7 @@ Ghostはさらに実行ファイル・profile・供給されたライブラリ�
 
 ### Q16. M1・M2・M3は完了していますか。件数は何の網羅を示しますか
 
-M1・M2には条項ごとの目標に未達があります。M3はbusモデルのfrontdoor経路を含め168件まで追加した段階で、未完です。
+M1・M2には条項ごとの目標に未達があります。M3はbusモデルのfrontdoor経路を含め192件まで追加した段階で、未完です。
 次の段階の開始によって、それまでの段階が完了したとは扱いません。
 範囲と残りの作業は[進め方](../README.ja.md#進め方)にあります。
 件数はテストの本数で、規格の全要求や組み合わせの棚卸しではありません。
@@ -498,7 +498,9 @@ lock前のfield検索とmapの幅・変換はspecのみの期待値を保持し�
 
 memory、adapter、predictor、frontdoor、callback、virtual registerのケースは以下で説明します。
 追加のpacking／エラー・policy／map条件、predictorの統合、frontdoor／callbackの組み合わせ、HDL path／DPI、
-割り当てpolicyの追加条件、付録Eのsequenceは未完です。registerとmemoryのmap問い合わせは引数を明示します。
+割り当てpolicyの追加条件、shared／memory accessのsequence、付録Eの追加条件は未完です。
+Q68でreset・bit-bash・register access・memory walkのsequenceの範囲を説明します。
+registerとmemoryのmap問い合わせは引数を明示します。
 配布物の複数mapに関する注記とnull時のmap解決は[既知差分](known-differences.ja.md)で説明します。
 全件が`spec_check: ai`で、レビュー済みのレジスタ層の要求カバレッジ台帳ではありません。
 
@@ -793,3 +795,57 @@ ROはbitを保持し、W1Cはmaskを適用し、RCはsampleした値を返して
 自動予測を明示したRCのケースではread後のミラー値0も要求します（18.2.5.2・18.4.4.15・18.5.5.17）。
 固定版UVMはsampleした`0xa6`をミラーへ記録するためspecのみとし、sampleした返り値とclear後の記憶域を成功する比較対象にします。
 [既知差分](known-differences.ja.md)も参照してください。失敗したreadのデータは規定しません。組み込みのHDL path／DPI、自動更新thread、backdoor callbackの全組み合わせは未検証です。
+
+## 付録Eの組み込みテストsequence
+
+### Q68. どの組み込みregister／memoryテストsequenceを検査していますか
+
+`tests/uE/`の24件で、次の4系統を6件ずつ検査します。
+
+| 系統 | sequenceのclass | 主な観測 |
+| --- | --- | --- |
+| Reset | `uvm_reg_hw_reset_seq` | モデルのreset、記憶域の一致・不一致、map、階層、除外 |
+| Bit bash | `uvm_reg_single_bit_bash_seq`, `uvm_reg_bit_bash_seq` | bitの両方の値、map、stuck bit、階層、除外 |
+| Register access | `uvm_reg_single_access_seq`, `uvm_reg_access_seq` | 両アクセス経路、不一致、RO／backdoorなしのskip、階層、除外 |
+| Memory walk | `uvm_mem_single_walk_seq`, `uvm_mem_walk_seq` | locationの網羅、stuck bit、map、階層、除外 |
+
+[reset](../tests/uE/test_hw_reset_sequence_restores_model_reset_before_comparing_storage.sv)、
+[bit-bash](../tests/uE/test_single_bit_bash_sequence_exercises_both_values_of_every_rw_bit.sv)、
+[register access](../tests/uE/test_single_register_access_sequence_cross_checks_frontdoor_and_user_backdoor.sv)、
+[memory walk](../tests/uE/test_single_memory_walk_sequence_reads_and_writes_every_location.sv)の検査系を参照してください。
+選んだsequence動作の検査であり、付録E全体の台帳ではありません。
+
+### Q69. RTLのDUTを検査しますか。HDL DPIは必要ですか
+
+正の遅延を持つテストベンチの記憶域で実行します。register accessではcustom frontdoor sequenceと
+ユーザー定義backdoorが記憶域を共有し、memory walkはfrontdoorを使います。全件が`UVM_NO_DPI`です。
+resetのケースは開始前に記憶域を宣言したreset値へ初期化し、モデルのresetと比較を検査します。
+物理的なDUTのreset動作は未検証です。
+
+故障のケースは、正常なモデルでerrorなしの実行を先に確認してから、reset値の誤り、registerのstuck bit、
+registerの経路間の不一致、memoryのstuck bitを入れます。catcherはseverityを変えずにwarning／errorの診断の増加を数え、
+ID・文面・正確な件数は要求しません。故障や直接の比較対象を観測する前に転送のカウンタとbit maskを初期化します。
+ROとbackdoorなしのskipは転送の有無を規定し、診断severityは規定しません。
+bit-bashではbitの両方の値、memory walkでは4 locationすべてのアクセスを観測します。
+ライブラリ固有のパターンやtransactionの順序は要求しません。
+
+### Q70. 除外resourceはsequenceへどう影響しますか
+
+`REG::`の名前空間へ`uvm_resource_db#(bit)`のentryを置きます。今回の除外は`NO_REG_TESTS`、
+`NO_REG_HW_RESET_TEST`、`NO_REG_BIT_BASH_TEST`、`NO_REG_ACCESS_TEST`、`NO_MEM_WALK_TEST`です。
+register／memoryの完全一致のscopeは別の対象を除外せず、blockの完全一致のscopeはその走査を除外しますが、
+直接選んだ子blockや要素の名前には一致しません。残った対象が動作することも比較対象として検査します。
+今回は完全一致のscopeを使い、wildcardの組み合わせは未検証です。
+
+E.6.2はblockに指定した`NO_MEM_WALK_TEST`でblockをskipするとしますが、固定版UVMのそのguardは
+代わりに`NO_MEM_ACCESS_TEST`を調べるため、walkの除外があってもmemoryへアクセスします。
+必要なskipをspecのみで保持し、その後にmemory単独のwalkが成功することも確認します。
+[既知差分](known-differences.ja.md)を参照してください。
+
+### Q71. 付録Eには何が残っていますか
+
+register／memoryのshared access、memoryのfrontdoor／backdoor access sequence、HDL pathの検査、
+組み込みsequenceのdispatcherが未検証です（E.3.3〜E.5・E.7〜E.8）。今回の4系統にも、field policy、
+失敗status、除外の組み合わせ、map／階層の形、物理的なresetとの接続などの追加条件が残ります。
+商用シミュレータ・vendor backend・HDL DPIは使いません。全件が`spec_check: ai`で、件数や2つのseedでの一致は
+人の照合、4値の正しさ、レジスタ層全体のカバレッジを示しません。

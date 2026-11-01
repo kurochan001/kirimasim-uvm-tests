@@ -2,7 +2,7 @@
 
 [English](history.md) · [README](../README.ja.md)
 
-M1・M2の15回目と、M3の7回目（757件）までの追加作業を記録しています。以前の349件の時点は
+M1・M2の15回目と、M3の8回目（781件）までの追加作業を記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -803,3 +803,30 @@ vendor backendやHDL pathは使わず、失敗したreadのデータは規定し
 READMEは現在の状態に限定し、実行結果、テストのガイド、FAQ、用語集、既知差分、出典、この履歴を日英で更新しました。
 ツールテスト、metadata、ライブラリ整合性、実行記録の指紋、日英の構造、リンク、IssueフォームのYAMLを確認しました。
 商用シミュレータの結果は利用していません。全件がspec_check: aiで、deprecated APIを要求しません。
+
+## M3の8回目：付録Eのregister／memoryテストsequence（2026-11-01）
+
+新しいディレクトリへ付録Eの最初の24件を追加し、M3は192件、全781件・15の章／付録ディレクトリになりました。
+第18章135件・第19章33件は変わらず、付録Eが24件です。M1は229件、M2は360件で、各段階の目標は未達です。
+
+hardware resetの比較、bit bash、register access、memory walkを6件ずつ追加し、単独／blockのsequence、
+map、階層、除外resourceの選んだ条件を検査します。register accessはcustom frontdoorとユーザー定義backdoorで
+記憶域を共有し、ほかの系統はcustom frontdoorを使います。正の遅延で実行し、RTL・HDL path・DPI・vendor backendは使いません。
+resetの記憶域は開始前に初期化し、物理的なDUTのreset動作は未検証です。
+期待値は転送の有無、データの整合、故障の検出を規定し、内部パターン・順序・診断文は規定しません。
+
+データの故障は正常実行を先に確認してから入れ、reset値の誤り、registerのstuck bit、経路間の不一致、
+memoryのstuck bitを検査します。完全一致のscopeの除外には、別の要素や直接選んだ対象による比較を含めます。
+故障や直接の比較対象を観測する前にカウンタを初期化します。
+block指定のmemory-walkの除外はspecのみで保持します。E.6.2はNO_MEM_WALK_TESTを指定しますが、
+固定版のwrapperはNO_MEM_ACCESS_TESTを調べるためです。直接のsingle-memoryの比較対象は動作します。
+
+新規23件がVerilator 5.052のseed 1・73で一致します。4c7f452時点の互換な既存757件と最終入力での新規測定を合算し、
+714件一致・既知差分67件（実行時のseed 1の差分60件、実行時のseed結果がないAPI欠落7件）です。
+同じ固定コピーでゲストGhostは各seedで152件一致・629件不一致（不一致の集合も同じ）、
+kirimasimは774件未対応・API欠落7件です。付録Eのゲストの一致2件は転送なしのskipを観測するケースです。現在の入力・ランナー・版・configurationの指紋を確認しました。
+
+READMEは現在の範囲に限定し、実行結果、テストのガイド、FAQ、用語集、既知差分、この履歴を日英で更新しました。
+FAQにはsequenceの系統と観測の対応表を追加しました。ツールテスト、metadata、固定ライブラリの整合、
+日英の構造、ローカルリンク、公開内容のプライバシー、staged差分の空白を確認しました。
+商用シミュレータの結果は利用していません。全件がspec_check: ai・UVM_NO_DPIで、deprecated APIを要求しません。

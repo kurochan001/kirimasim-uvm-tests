@@ -29,7 +29,8 @@ Current counts and scope are in the [README](../README.md); measurement details 
 ```text
 tests/uNN/<name>.sv          a test with metadata; NN is the chapter of 1800.2
 tests/uNN/<name>.expected    its expected observed lines
-tests/uB/, uC/, uD/          current annex tests: macros, configuration, callbacks
+tests/uB/, uC/, uD/          annex tests: macros, configuration, callbacks
+tests/uE/                   built-in register/memory test sequences
 docs/testing*.md            test format, execution and contribution rules
 docs/results*.md            current measurement conditions and evidence
 docs/provenance*.md         related repositories and source attribution
@@ -186,7 +187,7 @@ again. `--check` checks the copy that is there. The library is not committed.
 - User-defined `uvm_reg_backdoor` storage handlers work without HDL DPI.
   Commercial simulator execution/results are excluded by the project policy;
   built-in HDL-path/DPI coverage remains open.
-- All 757 current cases use `UVM_NO_DPI`. `:uvm_dpi: yes` removes that macro;
+- All 781 current cases use `UVM_NO_DPI`. `:uvm_dpi: yes` removes that macro;
   it does not automatically compile or link the C/C++ DPI implementation.
   The current Verilator runner does not add DPI C/C++ sources.
 - `:uvm_defines:` can request `UVM_ENABLE_DEPRECATED_API`. There are currently
@@ -213,8 +214,8 @@ breaks the build.
 seed. All seeds must match. `--seed N` remains available for a single seed.
 The JSON configuration records either `seed` or `seeds` accordingly.
 
-By default, Verilator selects the 691 tagged two-state cases. To include
-the 66 spec-only cases as well, add `--all`. A mismatch in an untagged case
+By default, Verilator selects the 714 tagged two-state cases. To include
+the 67 spec-only cases as well, add `--all`. A mismatch in an untagged case
 is `known` and does not fail the command; a tagged mismatch does.
 Explicit test paths select only those tests. For a single smoke test:
 
@@ -267,7 +268,7 @@ python3 tools/lint_metadata.py
 ```
 
 The current tool suite has 41 unit tests; metadata validation checks all
-757 simulation tests. [Check](../.github/workflows/check.yml) runs on pushes to
+781 simulation tests. [Check](../.github/workflows/check.yml) runs on pushes to
 `main`, pull requests and manual dispatch. Its separate Verilator job uses
 5.052, `UVM_NO_DPI` and seeds 1 and 73 for the tagged cases. Each model is
 built once for the two executions. A green Check establishes those checks,
