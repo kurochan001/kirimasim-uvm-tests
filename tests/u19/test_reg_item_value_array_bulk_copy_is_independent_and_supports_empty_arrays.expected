@@ -1,0 +1,4 @@
+UT: copied size 3 values 11 22 33
+UT: independent internal 11 source 99
+UT: empty internal 0 returned 0
+UT: regrown size 1 value 0

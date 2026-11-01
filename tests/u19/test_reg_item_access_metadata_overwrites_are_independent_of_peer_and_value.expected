@@ -1,0 +1,3 @@
+UT: initial offset 3 priority 17 kind RTL file before.sv line 21
+UT: latest offset 12345 priority 31 kind GATE file after.sv line 47 value 5a
+UT: peer offset 7 priority 9 kind RTL file peer.sv line 12

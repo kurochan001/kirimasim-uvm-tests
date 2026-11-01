@@ -173,7 +173,7 @@ a claim that every test was rebuilt together.
 
 ### Q16. Are M1, M2 or M3 complete, and what does the test count cover?
 
-M1 and M2 still have open clause targets. M3 now has 310
+M1 and M2 still have open clause targets. M3 now has 318
 register-layer cases, including testbench frontdoor paths; it is also incomplete. Starting a stage does not complete
 the preceding stages.
 The [plan](../README.md#plan) identifies current scope and remaining work.
@@ -1136,9 +1136,9 @@ not a direct test of the requirement.
 
 ### Q77. Why is there no coverage percentage after starting M4?
 
-The 961 AI drafts cover only a partial decomposition: 957 requirements link
-directly to 916 tests, 4 have no direct test, and one separate test is a control.
-Another 148 tests are not mapped yet. The 2,504 clause identifiers are not normative requirement units.
+The 1021 AI drafts cover only a partial decomposition: 1017 requirements link
+directly to 956 tests, 4 have no direct test, and one separate test is a control.
+Another 128 tests are not mapped yet. The 2,504 clause identifiers are not normative requirement units.
 The scope is proposed, the inventory incomplete and the denominator unapproved;
 starting M4 approves none of those. Known differences and HDL/DPI limitations
 do not silently exclude obligations. See the [approval path](requirements.md#remaining-m4-work-and-approval).
@@ -2047,3 +2047,53 @@ The default specialization runs as a virtual sequence with no sequencer;
 its map supplies a delayed adapter/sequencer/driver bus. The user backdoor
 models storage with pre/post hooks, without RTL or DPI. These cases do not
 exercise the default translation body or arbitrary BASE specializations.
+
+## Matching, response clearing and register descriptors
+
+### Q122. Which string matching and enum conversion behavior is checked?
+
+Simplified matching uses star for zero or more characters, plus for one or
+more, and question for exactly one. The fixtures check the complete string
+and literal dots/brackets/parentheses. The [plus case](../tests/uF/test_is_match_plus_requires_at_least_one_character.sv)
+retains the standard expectation: the pinned no-DPI fallback treats plus
+literally. It remains spec-only; POSIX expressions and DPI-enabled execution
+are outside these fixtures.
+
+Enum conversion requires exact case-sensitive names. Sparse signed values,
+lowercase/padded/extended/empty names, independent types and the default
+active/passive specialization are checked. Only successful calls have their
+output enum inspected. A failed conversion must return zero, but these tests
+do not prescribe the output reference after failure.
+
+### Q123. What happens after a sequence response queue is cleared?
+
+The [clear-and-wait case](../tests/u14/test_sequence_clear_response_queue_discards_pending_replies_and_waits_for_a_fresh_reply.sv)
+queues two real-request replies, clears them, then waits for a fresh third
+reply. The first two must not return. Other cases retain a live peer's queue,
+refill bounded capacity after repeated clearing, and preserve separately
+selected controls. Control preservation compares before/after values; the
+known error-enable default difference is documented separately.
+
+The [matching-ID wait](../tests/u14/test_sequence_get_response_waits_for_a_matching_reply_and_retains_earlier_nonmatches.sv)
+starts with two nonmatching replies, waits until its selected ID arrives,
+and then retrieves the original nonmatches in arrival order. Routing IDs
+come from real requests. No concurrent clear/delivery race or selection
+order among multiple equal IDs is claimed.
+
+### Q124. Do register-item tests prove a physical register access?
+
+They exercise descriptor metadata and array APIs directly. The
+[defaults case](../tests/u19/test_reg_item_documented_defaults_exclude_undefined_enum_and_data_values.sv)
+reads only specified defaults. Undefined initial enum/data values are omitted.
+Explicitly assigning HAS_X checks a status enumeration, not four-state data.
+Other cases replace/clear exact model, map, parent and extension handles,
+retain independent metadata and copy arrays without caller aliasing.
+Empty arrays may grow back with zero-initialized values. Invalid set/get
+indices must warn; writes are ignored and reads return zero. The pinned
+library expands invalid writes and omits warnings, so these expectations
+remain spec-only. Separate items and small indices isolate the observations.
+
+These checks do not execute a sequence, bus or DUT. Source filenames are
+plain metadata strings. Separate integration fixtures establish physical
+access and forwarding behavior. Shared expected-output lines can support
+several draft obligations without making each observation independent.

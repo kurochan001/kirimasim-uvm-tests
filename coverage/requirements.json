@@ -37059,6 +37059,2204 @@
           ]
         }
       ]
+    },
+    {
+      "id": "UVM-MATCH-STAR-ZERO-OR-MORE",
+      "clause": "F.3.3.1",
+      "statement": {
+        "en": "Simplified star matches zero or more characters, including hierarchy separators.",
+        "ja": "簡易表記のstarは、階層区切りを含む0文字以上に一致する。"
+      },
+      "conditions": {
+        "en": "Match adjacent fixed tokens, an inserted word and nested hierarchy text.",
+        "ja": "隣接した固定token、挿入したword、入れ子の階層文字列を照合する。"
+      },
+      "expected": {
+        "en": "All three strings match.",
+        "ja": "3文字列すべてが一致する。"
+      },
+      "limitations": {
+        "en": "Only simplified notation is passed to matching: no slash-delimited POSIX expression, DPI, resource lookup or Unicode classification is exercised. Enum inputs are legal sparse signed enumerations and the default active/passive type. Values are checked only after successful conversion; the output reference on failure is deliberately unconstrained. No enum declaration/formatting conformance is inferred.",
+        "ja": "照合は簡易表記だけを渡し、slashで囲むPOSIX式、DPI、resource lookup、Unicode分類は扱わない。enum入力は合法な疎なsigned列挙型と既定active／passive型である。変換成功後だけ値を検査し、失敗時の出力参照は意図して制約しない。enum宣言／整形の適合は推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_is_match_star_matches_empty_and_multiple_characters_across_hierarchy",
+          "role": "direct",
+          "expected_observations": [
+            "UT: star empty 1 multiple 1 nested 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MATCH-SIMPLIFIED-WHOLE-STRING",
+      "clause": "F.3.3.1",
+      "statement": {
+        "en": "Simplified matching requires the complete string rather than an extra prefix or suffix.",
+        "ja": "簡易照合は、余分なprefix／suffixでなく文字列全体の一致を要求する。"
+      },
+      "conditions": {
+        "en": "Add an unmatched prefix or suffix outside the fixed ends.",
+        "ja": "固定端の外へ一致しないprefixまたはsuffixを加える。"
+      },
+      "expected": {
+        "en": "Both extended strings fail to match.",
+        "ja": "拡張した両文字列は不一致となる。"
+      },
+      "limitations": {
+        "en": "Only simplified notation is passed to matching: no slash-delimited POSIX expression, DPI, resource lookup or Unicode classification is exercised. Enum inputs are legal sparse signed enumerations and the default active/passive type. Values are checked only after successful conversion; the output reference on failure is deliberately unconstrained. No enum declaration/formatting conformance is inferred.",
+        "ja": "照合は簡易表記だけを渡し、slashで囲むPOSIX式、DPI、resource lookup、Unicode分類は扱わない。enum入力は合法な疎なsigned列挙型と既定active／passive型である。変換成功後だけ値を検査し、失敗時の出力参照は意図して制約しない。enum宣言／整形の適合は推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_is_match_star_matches_empty_and_multiple_characters_across_hierarchy",
+          "role": "direct",
+          "expected_observations": [
+            "UT: whole prefix 0 suffix 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MATCH-PLUS-ONE-OR-MORE",
+      "clause": "F.3.3.1",
+      "statement": {
+        "en": "Simplified plus matches one or more characters.",
+        "ja": "簡易表記のplusは、1文字以上に一致する。"
+      },
+      "conditions": {
+        "en": "Try zero, one and several inserted characters, plus unmatched outside text.",
+        "ja": "挿入文字数0、1、複数、および外側の不一致文字列を試す。"
+      },
+      "expected": {
+        "en": "Zero characters do not match; one/several do, and outside prefix/suffix do not.",
+        "ja": "0文字は不一致、1／複数文字は一致、外側prefix／suffixは不一致となる。"
+      },
+      "limitations": {
+        "en": "Only simplified notation is passed to matching: no slash-delimited POSIX expression, DPI, resource lookup or Unicode classification is exercised. Enum inputs are legal sparse signed enumerations and the default active/passive type. Values are checked only after successful conversion; the output reference on failure is deliberately unconstrained. No enum declaration/formatting conformance is inferred.",
+        "ja": "照合は簡易表記だけを渡し、slashで囲むPOSIX式、DPI、resource lookup、Unicode分類は扱わない。enum入力は合法な疎なsigned列挙型と既定active／passive型である。変換成功後だけ値を検査し、失敗時の出力参照は意図して制約しない。enum宣言／整形の適合は推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_is_match_plus_requires_at_least_one_character",
+          "role": "direct",
+          "expected_observations": [
+            "UT: plus empty 0 one 1 several 1",
+            "UT: whole prefix 0 suffix 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MATCH-QUESTION-EXACTLY-ONE",
+      "clause": "F.3.3.1",
+      "statement": {
+        "en": "Simplified question matches exactly one character.",
+        "ja": "簡易表記のquestionは、ちょうど1文字に一致する。"
+      },
+      "conditions": {
+        "en": "Try zero, one, two and one dot character between fixed ends.",
+        "ja": "固定端の間に0、1、2文字、およびdot 1文字を試す。"
+      },
+      "expected": {
+        "en": "Only the one-character and dot strings match.",
+        "ja": "1文字とdotの文字列だけ一致する。"
+      },
+      "limitations": {
+        "en": "Only simplified notation is passed to matching: no slash-delimited POSIX expression, DPI, resource lookup or Unicode classification is exercised. Enum inputs are legal sparse signed enumerations and the default active/passive type. Values are checked only after successful conversion; the output reference on failure is deliberately unconstrained. No enum declaration/formatting conformance is inferred.",
+        "ja": "照合は簡易表記だけを渡し、slashで囲むPOSIX式、DPI、resource lookup、Unicode分類は扱わない。enum入力は合法な疎なsigned列挙型と既定active／passive型である。変換成功後だけ値を検査し、失敗時の出力参照は意図して制約しない。enum宣言／整形の適合は推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_is_match_question_requires_exactly_one_character",
+          "role": "direct",
+          "expected_observations": [
+            "UT: question empty 0 one 1 two 0 dot 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MATCH-NONMETA-LITERALS",
+      "clause": "F.3.3.1",
+      "statement": {
+        "en": "Other simplified-notation characters retain their literal meaning.",
+        "ja": "簡易表記のその他の文字は、literalの意味を保持する。"
+      },
+      "conditions": {
+        "en": "Compare dots, brackets and parentheses literally and against regex-like alternatives.",
+        "ja": "dot、角括弧、丸括弧をliteralとregex風の別文字列へ照合する。"
+      },
+      "expected": {
+        "en": "Literal strings match; wildcard/class/group-like alternatives do not.",
+        "ja": "literal文字列は一致し、wildcard／class／group風の別文字列は不一致となる。"
+      },
+      "limitations": {
+        "en": "Only simplified notation is passed to matching: no slash-delimited POSIX expression, DPI, resource lookup or Unicode classification is exercised. Enum inputs are legal sparse signed enumerations and the default active/passive type. Values are checked only after successful conversion; the output reference on failure is deliberately unconstrained. No enum declaration/formatting conformance is inferred.",
+        "ja": "照合は簡易表記だけを渡し、slashで囲むPOSIX式、DPI、resource lookup、Unicode分類は扱わない。enum入力は合法な疎なsigned列挙型と既定active／passive型である。変換成功後だけ値を検査し、失敗時の出力参照は意図して制約しない。enum宣言／整形の適合は推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_is_match_simplified_nonmetacharacters_are_literal",
+          "role": "direct",
+          "expected_observations": [
+            "UT: literal dot 1 changed 0",
+            "UT: literal brackets 1 expanded 0",
+            "UT: literal parentheses 1 omitted 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-ENUM-NAME-SPARSE-SIGNED-VALUES",
+      "clause": "F.3.4.2",
+      "statement": {
+        "en": "Exact enumerator names convert to their corresponding sparse signed values.",
+        "ja": "正確なenumerator名は、対応する疎なsigned値へ変換される。"
+      },
+      "conditions": {
+        "en": "Convert three names with negative, positive and nonadjacent values.",
+        "ja": "負、正、非連続の値を持つ3つの名前を変換する。"
+      },
+      "expected": {
+        "en": "Every call succeeds and produces the exact enum identity.",
+        "ja": "全呼出しが成功し、正確なenumの同一性を得る。"
+      },
+      "limitations": {
+        "en": "Only simplified notation is passed to matching: no slash-delimited POSIX expression, DPI, resource lookup or Unicode classification is exercised. Enum inputs are legal sparse signed enumerations and the default active/passive type. Values are checked only after successful conversion; the output reference on failure is deliberately unconstrained. No enum declaration/formatting conformance is inferred.",
+        "ja": "照合は簡易表記だけを渡し、slashで囲むPOSIX式、DPI、resource lookup、Unicode分類は扱わない。enum入力は合法な疎なsigned列挙型と既定active／passive型である。変換成功後だけ値を検査し、失敗時の出力参照は意図して制約しない。enum宣言／整形の適合は推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_enum_from_name_roundtrip_includes_sparse_and_negative_values",
+          "role": "direct",
+          "expected_observations": [
+            "UT: cold success 1 exact 1",
+            "UT: warm success 1 exact 1",
+            "UT: hot success 1 exact 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-ENUM-NAME-EXACT-CASE",
+      "clause": "F.3.4.2",
+      "statement": {
+        "en": "Enum name conversion requires exact case-sensitive names.",
+        "ja": "enum名変換は、大文字小文字を区別する正確な名前を要求する。"
+      },
+      "conditions": {
+        "en": "Try lowercase, padded, extended and empty names before a valid name.",
+        "ja": "有効名の前に、小文字、空白付き、拡張、空の名前を試す。"
+      },
+      "expected": {
+        "en": "All invalid calls return zero; the subsequent valid call succeeds with HOT.",
+        "ja": "全不正呼出しは0を返し、その後の有効呼出しはHOTで成功する。"
+      },
+      "limitations": {
+        "en": "Only simplified notation is passed to matching: no slash-delimited POSIX expression, DPI, resource lookup or Unicode classification is exercised. Enum inputs are legal sparse signed enumerations and the default active/passive type. Values are checked only after successful conversion; the output reference on failure is deliberately unconstrained. No enum declaration/formatting conformance is inferred.",
+        "ja": "照合は簡易表記だけを渡し、slashで囲むPOSIX式、DPI、resource lookup、Unicode分類は扱わない。enum入力は合法な疎なsigned列挙型と既定active／passive型である。変換成功後だけ値を検査し、失敗時の出力参照は意図して制約しない。enum宣言／整形の適合は推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_enum_from_name_rejects_case_space_prefix_and_empty_names",
+          "role": "direct",
+          "expected_observations": [
+            "UT: invalid lower 0 padded 0 prefix 0 empty 0",
+            "UT: valid_after_rejections success 1 exact 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-ENUM-NAME-SPECIALIZATION-ISOLATION",
+      "clause": "F.3.4.2",
+      "statement": {
+        "en": "Enum wrapper name sets follow their receiving specialization.",
+        "ja": "enum wrapperの名前集合は、呼出し対象specializationに従う。"
+      },
+      "conditions": {
+        "en": "Interleave two different enum types and try the other type names.",
+        "ja": "異なる2 enum型を交互に使い、他方の型の名前を試す。"
+      },
+      "expected": {
+        "en": "Own names succeed with exact values, foreign names fail and later own conversion still succeeds.",
+        "ja": "自型の名前は正確な値で成功し、他型の名前は失敗し、後の自型の変換も成功する。"
+      },
+      "limitations": {
+        "en": "Only simplified notation is passed to matching: no slash-delimited POSIX expression, DPI, resource lookup or Unicode classification is exercised. Enum inputs are legal sparse signed enumerations and the default active/passive type. Values are checked only after successful conversion; the output reference on failure is deliberately unconstrained. No enum declaration/formatting conformance is inferred.",
+        "ja": "照合は簡易表記だけを渡し、slashで囲むPOSIX式、DPI、resource lookup、Unicode分類は扱わない。enum入力は合法な疎なsigned列挙型と既定active／passive型である。変換成功後だけ値を検査し、失敗時の出力参照は意図して制約しない。enum宣言／整形の適合は推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_enum_from_name_specializations_keep_enum_name_sets_independent",
+          "role": "direct",
+          "expected_observations": [
+            "UT: temperature success 1 exact 1",
+            "UT: activity success 1 exact 1",
+            "UT: foreign temperature 0 activity 0",
+            "UT: repeated success 1 exact 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-ENUM-WRAPPER-DEFAULT-TYPE",
+      "clause": "F.3.4.1",
+      "statement": {
+        "en": "The default enum wrapper specialization uses the active/passive enumeration.",
+        "ja": "既定enum wrapper specializationは、active／passive列挙型を使う。"
+      },
+      "conditions": {
+        "en": "Omit the type parameter and convert both standard mode names plus an unrelated name.",
+        "ja": "型parameterを省略し、標準の両mode名と無関係な名前を変換する。"
+      },
+      "expected": {
+        "en": "ACTIVE/PASSIVE succeed with exact identities and HOT is rejected.",
+        "ja": "ACTIVE／PASSIVEは正確な同一性で成功し、HOTは拒否される。"
+      },
+      "limitations": {
+        "en": "Only simplified notation is passed to matching: no slash-delimited POSIX expression, DPI, resource lookup or Unicode classification is exercised. Enum inputs are legal sparse signed enumerations and the default active/passive type. Values are checked only after successful conversion; the output reference on failure is deliberately unconstrained. No enum declaration/formatting conformance is inferred.",
+        "ja": "照合は簡易表記だけを渡し、slashで囲むPOSIX式、DPI、resource lookup、Unicode分類は扱わない。enum入力は合法な疎なsigned列挙型と既定active／passive型である。変換成功後だけ値を検査し、失敗時の出力参照は意図して制約しない。enum宣言／整形の適合は推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_enum_from_name_default_specialization_accepts_both_active_passive_names",
+          "role": "direct",
+          "expected_observations": [
+            "UT: active success 1 exact 1",
+            "UT: passive success 1 exact 1",
+            "UT: unrelated_name 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESPONSE-ID-WAIT-RETAINS-NONMATCHES",
+      "clause": "14.3.3.3",
+      "statement": {
+        "en": "A specific-ID response wait retains earlier nonmatching replies.",
+        "ja": "特定IDのresponse待機は、先に来た不一致replyを保持する。"
+      },
+      "conditions": {
+        "en": "Queue replies 101/103, wait for 102 and deliver 102 later.",
+        "ja": "reply 101／103を投入し、102を待ち、後で102を配送する。"
+      },
+      "expected": {
+        "en": "No reply is returned early; results are exact handles for 102/101/103 with values 22/11/33.",
+        "ja": "早期returnはなく、結果は値22／11／33の102／101／103の正確なhandleとなる。"
+      },
+      "limitations": {
+        "en": "Responses copy both IDs from real requests and arrive while the sequence is active. Positive delays separate probes from delivery; pending receivers are eventually released by a fresh response. No internal queue, exact numeric route ID, concurrent clearing/delivery race, stopped-route behavior or duplicate-ID selection order is asserted. Control preservation compares before/after getters and does not resolve the separately tracked error-enable default difference.",
+        "ja": "responseは実requestから両IDをコピーし、sequence実行中に到着する。正の遅延で観測と配送を分け、待機receiverは最終的に新しいresponseで解放する。内部queue、route IDの正確な数値、clear／配送の同時race、終了routeの動作、重複IDの選択順は要求しない。control保持は前後のgetter比較で、別途追跡するerror-enable既定値の差分を解決しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_get_response_waits_for_a_matching_reply_and_retains_earlier_nonmatches",
+          "role": "direct",
+          "expected_observations": [
+            "UT: before_match received 0 finished 0",
+            "UT: selected_ids 102 101 103",
+            "UT: exact_replies 1 1 1 values 22 11 33"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESPONSE-CLEAR-REMOVES-PENDING",
+      "clause": "14.2.7.8",
+      "statement": {
+        "en": "Clearing removes pending responses and allows a later response to satisfy the next wait.",
+        "ja": "clearは、保留responseを除き、後のresponseが次の待機を満たせるようにする。"
+      },
+      "conditions": {
+        "en": "Queue two responses, clear them, begin reading and later deliver a third.",
+        "ja": "2 responseをqueueに入れてclearし、読取りを開始して後から3番目を配送する。"
+      },
+      "expected": {
+        "en": "The read waits after clear and returns only the exact third response with ID 103 and value 33.",
+        "ja": "clear後は読取りが待ち、ID 103、値33の正確な3番目responseだけを返す。"
+      },
+      "limitations": {
+        "en": "Responses copy both IDs from real requests and arrive while the sequence is active. Positive delays separate probes from delivery; pending receivers are eventually released by a fresh response. No internal queue, exact numeric route ID, concurrent clearing/delivery race, stopped-route behavior or duplicate-ID selection order is asserted. Control preservation compares before/after getters and does not resolve the separately tracked error-enable default difference.",
+        "ja": "responseは実requestから両IDをコピーし、sequence実行中に到着する。正の遅延で観測と配送を分け、待機receiverは最終的に新しいresponseで解放する。内部queue、route IDの正確な数値、clear／配送の同時race、終了routeの動作、重複IDの選択順は要求しない。control保持は前後のgetter比較で、別途追跡するerror-enable既定値の差分を解決しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_clear_response_queue_discards_pending_replies_and_waits_for_a_fresh_reply",
+          "role": "direct",
+          "expected_observations": [
+            "UT: after_clear received 0 finished 0",
+            "UT: fresh_only count 1 exact 1 id 103 value 33"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESPONSE-CLEAR-INSTANCE-ISOLATION",
+      "clause": "14.2.7.8",
+      "statement": {
+        "en": "Clearing one live sequence queue leaves a peer queue available.",
+        "ja": "実行中sequenceのqueueをclearしても、peer queueを利用できる。"
+      },
+      "conditions": {
+        "en": "Queue replies for two live sequences, clear first and retrieve peer before sending first a fresh reply.",
+        "ja": "実行中の2 sequenceへreplyを投入し、firstをclearし、firstの新reply前にpeerを取得する。"
+      },
+      "expected": {
+        "en": "Peer receives its exact reply 77; first remains waiting and later receives only its fresh reply 22.",
+        "ja": "peerは正確なreply 77を受け、firstは待機を続け、後で新しいreply 22だけを受ける。"
+      },
+      "limitations": {
+        "en": "Responses copy both IDs from real requests and arrive while the sequence is active. Positive delays separate probes from delivery; pending receivers are eventually released by a fresh response. No internal queue, exact numeric route ID, concurrent clearing/delivery race, stopped-route behavior or duplicate-ID selection order is asserted. Control preservation compares before/after getters and does not resolve the separately tracked error-enable default difference.",
+        "ja": "responseは実requestから両IDをコピーし、sequence実行中に到着する。正の遅延で観測と配送を分け、待機receiverは最終的に新しいresponseで解放する。内部queue、route IDの正確な数値、clear／配送の同時race、終了routeの動作、重複IDの選択順は要求しない。control保持は前後のgetter比較で、別途追跡するerror-enable既定値の差分を解決しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_clear_response_queue_leaves_a_live_peer_queue_unchanged",
+          "role": "direct",
+          "expected_observations": [
+            "UT: peer_after_clear finished 1 exact 1 value 77",
+            "UT: cleared_first_waiting received 0 finished 0",
+            "UT: first_fresh count 1 exact 1 value 22"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESPONSE-CLEAR-RECLAIMS-CAPACITY",
+      "clause": "14.2.7.8",
+      "statement": {
+        "en": "Clearing a full response queue reclaims its bounded storage.",
+        "ja": "満杯response queueのclearは、有限storageを再利用可能にする。"
+      },
+      "conditions": {
+        "en": "Fill a depth-two queue, clear twice, refill with two fresh replies and retrieve them.",
+        "ja": "depth 2のqueueを満たし、2回clearし、新reply 2つで満たして取得する。"
+      },
+      "expected": {
+        "en": "Both exact fresh handles return in arrival order with values 55/66 and no additional error.",
+        "ja": "両新handleを値55／66とともに到着順で正確に返し、追加errorはない。"
+      },
+      "limitations": {
+        "en": "Responses copy both IDs from real requests and arrive while the sequence is active. Positive delays separate probes from delivery; pending receivers are eventually released by a fresh response. No internal queue, exact numeric route ID, concurrent clearing/delivery race, stopped-route behavior or duplicate-ID selection order is asserted. Control preservation compares before/after getters and does not resolve the separately tracked error-enable default difference.",
+        "ja": "responseは実requestから両IDをコピーし、sequence実行中に到着する。正の遅延で観測と配送を分け、待機receiverは最終的に新しいresponseで解放する。内部queue、route IDの正確な数値、clear／配送の同時race、終了routeの動作、重複IDの選択順は要求しない。control保持は前後のgetter比較で、別途追跡するerror-enable既定値の差分を解決しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_clear_response_queue_reclaims_capacity_without_resetting_controls",
+          "role": "direct",
+          "expected_observations": [
+            "UT: fresh_batch count 2 exact 1 1 values 55 66",
+            "UT: no_new_error 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESPONSE-CLEAR-PRESERVES-CONTROLS",
+      "clause": "14.2.7.8",
+      "statement": {
+        "en": "Clearing queue contents retains separately selected response controls.",
+        "ja": "queue内容のclearは、別途選択したresponse controlを保持する。"
+      },
+      "conditions": {
+        "en": "Select depth two and queue mode, snapshot reporting, then clear twice.",
+        "ja": "depth 2とqueue modeを選び、reportingを保存し、2回clearする。"
+      },
+      "expected": {
+        "en": "Depth remains two and handler/reporting getters retain their earlier values.",
+        "ja": "depthは2で、handler／reporting getterは以前の値を保持する。"
+      },
+      "limitations": {
+        "en": "Responses copy both IDs from real requests and arrive while the sequence is active. Positive delays separate probes from delivery; pending receivers are eventually released by a fresh response. No internal queue, exact numeric route ID, concurrent clearing/delivery race, stopped-route behavior or duplicate-ID selection order is asserted. Control preservation compares before/after getters and does not resolve the separately tracked error-enable default difference.",
+        "ja": "responseは実requestから両IDをコピーし、sequence実行中に到着する。正の遅延で観測と配送を分け、待機receiverは最終的に新しいresponseで解放する。内部queue、route IDの正確な数値、clear／配送の同時race、終了routeの動作、重複IDの選択順は要求しない。control保持は前後のgetter比較で、別途追跡するerror-enable既定値の差分を解決しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_clear_response_queue_reclaims_capacity_without_resetting_controls",
+          "role": "direct",
+          "expected_observations": [
+            "UT: retained depth 2 handler 1 reporting 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-ITEM-DEFAULT-ELEMENT",
+      "clause": "19.1.1.2.2",
+      "statement": {
+        "en": "The initial register-item element handle is null.",
+        "ja": "register-itemの初期element handleはnullである。"
+      },
+      "conditions": {
+        "en": "Query a freshly constructed descriptor before any setter.",
+        "ja": "setter前の新規生成記述子を照会する。"
+      },
+      "expected": {
+        "en": "The documented element handle is null.",
+        "ja": "規定されたelement handleはnullとなる。"
+      },
+      "limitations": {
+        "en": "Descriptors are exercised directly without bus, DUT or sequence execution. Undefined initial element/access/door/status enums and data values are not read. UVM_HAS_X is an explicitly assigned status enum, not a four-state data observation. Model/map/sequence/extension handles test identity only; source filenames are inert strings. Shared observation lines do not establish independent coverage for every field.",
+        "ja": "記述子を直接検査し、bus、DUT、sequence実行は伴わない。初期値が未定義のelement／access／door／status enumとdata値は読まない。UVM_HAS_Xは明示代入のstatus enumで、4状態dataの観測ではない。model／map／sequence／extension handleは同一性だけを検査し、source filenameは動作を伴わない文字列である。共有の観測行は、各fieldの独立coverageを成立させない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_item_documented_defaults_exclude_undefined_enum_and_data_values",
+          "role": "direct",
+          "expected_observations": [
+            "UT: handles element 1 local_map 1 map 1 parent 1 extension 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-ITEM-DEFAULT-OFFSET",
+      "clause": "19.1.1.2.5",
+      "statement": {
+        "en": "The initial register-item offset is zero.",
+        "ja": "register-itemの初期offsetは0である。"
+      },
+      "conditions": {
+        "en": "Query a freshly constructed descriptor before any setter.",
+        "ja": "setter前の新規生成記述子を照会する。"
+      },
+      "expected": {
+        "en": "The documented offset is zero.",
+        "ja": "規定されたoffsetは0となる。"
+      },
+      "limitations": {
+        "en": "Descriptors are exercised directly without bus, DUT or sequence execution. Undefined initial element/access/door/status enums and data values are not read. UVM_HAS_X is an explicitly assigned status enum, not a four-state data observation. Model/map/sequence/extension handles test identity only; source filenames are inert strings. Shared observation lines do not establish independent coverage for every field.",
+        "ja": "記述子を直接検査し、bus、DUT、sequence実行は伴わない。初期値が未定義のelement／access／door／status enumとdata値は読まない。UVM_HAS_Xは明示代入のstatus enumで、4状態dataの観測ではない。model／map／sequence／extension handleは同一性だけを検査し、source filenameは動作を伴わない文字列である。共有の観測行は、各fieldの独立coverageを成立させない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_item_documented_defaults_exclude_undefined_enum_and_data_values",
+          "role": "direct",
+          "expected_observations": [
+            "UT: numeric size 1 offset 0 priority -1 line 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-ITEM-DEFAULT-LOCAL-MAP",
+      "clause": "19.1.1.2.7",
+      "statement": {
+        "en": "The initial register-item local map is null.",
+        "ja": "register-itemの初期local mapはnullである。"
+      },
+      "conditions": {
+        "en": "Query a freshly constructed descriptor before any setter.",
+        "ja": "setter前の新規生成記述子を照会する。"
+      },
+      "expected": {
+        "en": "The documented local map is null.",
+        "ja": "規定されたlocal mapはnullとなる。"
+      },
+      "limitations": {
+        "en": "Descriptors are exercised directly without bus, DUT or sequence execution. Undefined initial element/access/door/status enums and data values are not read. UVM_HAS_X is an explicitly assigned status enum, not a four-state data observation. Model/map/sequence/extension handles test identity only; source filenames are inert strings. Shared observation lines do not establish independent coverage for every field.",
+        "ja": "記述子を直接検査し、bus、DUT、sequence実行は伴わない。初期値が未定義のelement／access／door／status enumとdata値は読まない。UVM_HAS_Xは明示代入のstatus enumで、4状態dataの観測ではない。model／map／sequence／extension handleは同一性だけを検査し、source filenameは動作を伴わない文字列である。共有の観測行は、各fieldの独立coverageを成立させない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_item_documented_defaults_exclude_undefined_enum_and_data_values",
+          "role": "direct",
+          "expected_observations": [
+            "UT: handles element 1 local_map 1 map 1 parent 1 extension 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-ITEM-DEFAULT-MAP",
+      "clause": "19.1.1.2.8",
+      "statement": {
+        "en": "The initial register-item original map is null.",
+        "ja": "register-itemの初期元mapはnullである。"
+      },
+      "conditions": {
+        "en": "Query a freshly constructed descriptor before any setter.",
+        "ja": "setter前の新規生成記述子を照会する。"
+      },
+      "expected": {
+        "en": "The documented original map is null.",
+        "ja": "規定された元mapはnullとなる。"
+      },
+      "limitations": {
+        "en": "Descriptors are exercised directly without bus, DUT or sequence execution. Undefined initial element/access/door/status enums and data values are not read. UVM_HAS_X is an explicitly assigned status enum, not a four-state data observation. Model/map/sequence/extension handles test identity only; source filenames are inert strings. Shared observation lines do not establish independent coverage for every field.",
+        "ja": "記述子を直接検査し、bus、DUT、sequence実行は伴わない。初期値が未定義のelement／access／door／status enumとdata値は読まない。UVM_HAS_Xは明示代入のstatus enumで、4状態dataの観測ではない。model／map／sequence／extension handleは同一性だけを検査し、source filenameは動作を伴わない文字列である。共有の観測行は、各fieldの独立coverageを成立させない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_item_documented_defaults_exclude_undefined_enum_and_data_values",
+          "role": "direct",
+          "expected_observations": [
+            "UT: handles element 1 local_map 1 map 1 parent 1 extension 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-ITEM-DEFAULT-PARENT",
+      "clause": "19.1.1.2.10",
+      "statement": {
+        "en": "The initial register-item parent sequence is null.",
+        "ja": "register-itemの初期parent sequenceはnullである。"
+      },
+      "conditions": {
+        "en": "Query a freshly constructed descriptor before any setter.",
+        "ja": "setter前の新規生成記述子を照会する。"
+      },
+      "expected": {
+        "en": "The documented parent sequence is null.",
+        "ja": "規定されたparent sequenceはnullとなる。"
+      },
+      "limitations": {
+        "en": "Descriptors are exercised directly without bus, DUT or sequence execution. Undefined initial element/access/door/status enums and data values are not read. UVM_HAS_X is an explicitly assigned status enum, not a four-state data observation. Model/map/sequence/extension handles test identity only; source filenames are inert strings. Shared observation lines do not establish independent coverage for every field.",
+        "ja": "記述子を直接検査し、bus、DUT、sequence実行は伴わない。初期値が未定義のelement／access／door／status enumとdata値は読まない。UVM_HAS_Xは明示代入のstatus enumで、4状態dataの観測ではない。model／map／sequence／extension handleは同一性だけを検査し、source filenameは動作を伴わない文字列である。共有の観測行は、各fieldの独立coverageを成立させない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_item_documented_defaults_exclude_undefined_enum_and_data_values",
+          "role": "direct",
+          "expected_observations": [
+            "UT: handles element 1 local_map 1 map 1 parent 1 extension 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-ITEM-DEFAULT-PRIORITY",
+      "clause": "19.1.1.2.11",
+      "statement": {
+        "en": "The initial register-item priority is minus one.",
+        "ja": "register-itemの初期priorityは-1である。"
+      },
+      "conditions": {
+        "en": "Query a freshly constructed descriptor before any setter.",
+        "ja": "setter前の新規生成記述子を照会する。"
+      },
+      "expected": {
+        "en": "The documented priority is minus one.",
+        "ja": "規定されたpriorityは-1となる。"
+      },
+      "limitations": {
+        "en": "Descriptors are exercised directly without bus, DUT or sequence execution. Undefined initial element/access/door/status enums and data values are not read. UVM_HAS_X is an explicitly assigned status enum, not a four-state data observation. Model/map/sequence/extension handles test identity only; source filenames are inert strings. Shared observation lines do not establish independent coverage for every field.",
+        "ja": "記述子を直接検査し、bus、DUT、sequence実行は伴わない。初期値が未定義のelement／access／door／status enumとdata値は読まない。UVM_HAS_Xは明示代入のstatus enumで、4状態dataの観測ではない。model／map／sequence／extension handleは同一性だけを検査し、source filenameは動作を伴わない文字列である。共有の観測行は、各fieldの独立coverageを成立させない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_item_documented_defaults_exclude_undefined_enum_and_data_values",
+          "role": "direct",
+          "expected_observations": [
+            "UT: numeric size 1 offset 0 priority -1 line 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-ITEM-DEFAULT-EXTENSION",
+      "clause": "19.1.1.2.12",
+      "statement": {
+        "en": "The initial register-item extension is null.",
+        "ja": "register-itemの初期extensionはnullである。"
+      },
+      "conditions": {
+        "en": "Query a freshly constructed descriptor before any setter.",
+        "ja": "setter前の新規生成記述子を照会する。"
+      },
+      "expected": {
+        "en": "The documented extension is null.",
+        "ja": "規定されたextensionはnullとなる。"
+      },
+      "limitations": {
+        "en": "Descriptors are exercised directly without bus, DUT or sequence execution. Undefined initial element/access/door/status enums and data values are not read. UVM_HAS_X is an explicitly assigned status enum, not a four-state data observation. Model/map/sequence/extension handles test identity only; source filenames are inert strings. Shared observation lines do not establish independent coverage for every field.",
+        "ja": "記述子を直接検査し、bus、DUT、sequence実行は伴わない。初期値が未定義のelement／access／door／status enumとdata値は読まない。UVM_HAS_Xは明示代入のstatus enumで、4状態dataの観測ではない。model／map／sequence／extension handleは同一性だけを検査し、source filenameは動作を伴わない文字列である。共有の観測行は、各fieldの独立coverageを成立させない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_item_documented_defaults_exclude_undefined_enum_and_data_values",
+          "role": "direct",
+          "expected_observations": [
+            "UT: handles element 1 local_map 1 map 1 parent 1 extension 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-ITEM-DEFAULT-BD-KIND",
+      "clause": "19.1.1.2.13",
+      "statement": {
+        "en": "The initial register-item backdoor kind is empty.",
+        "ja": "register-itemの初期backdoor kindは空である。"
+      },
+      "conditions": {
+        "en": "Query a freshly constructed descriptor before any setter.",
+        "ja": "setter前の新規生成記述子を照会する。"
+      },
+      "expected": {
+        "en": "The documented backdoor kind is empty.",
+        "ja": "規定されたbackdoor kindは空となる。"
+      },
+      "limitations": {
+        "en": "Descriptors are exercised directly without bus, DUT or sequence execution. Undefined initial element/access/door/status enums and data values are not read. UVM_HAS_X is an explicitly assigned status enum, not a four-state data observation. Model/map/sequence/extension handles test identity only; source filenames are inert strings. Shared observation lines do not establish independent coverage for every field.",
+        "ja": "記述子を直接検査し、bus、DUT、sequence実行は伴わない。初期値が未定義のelement／access／door／status enumとdata値は読まない。UVM_HAS_Xは明示代入のstatus enumで、4状態dataの観測ではない。model／map／sequence／extension handleは同一性だけを検査し、source filenameは動作を伴わない文字列である。共有の観測行は、各fieldの独立coverageを成立させない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_item_documented_defaults_exclude_undefined_enum_and_data_values",
+          "role": "direct",
+          "expected_observations": [
+            "UT: strings backdoor_empty 1 filename_empty 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-ITEM-DEFAULT-FNAME",
+      "clause": "19.1.1.2.14",
+      "statement": {
+        "en": "The initial register-item filename is empty.",
+        "ja": "register-itemの初期filenameは空である。"
+      },
+      "conditions": {
+        "en": "Query a freshly constructed descriptor before any setter.",
+        "ja": "setter前の新規生成記述子を照会する。"
+      },
+      "expected": {
+        "en": "The documented filename is empty.",
+        "ja": "規定されたfilenameは空となる。"
+      },
+      "limitations": {
+        "en": "Descriptors are exercised directly without bus, DUT or sequence execution. Undefined initial element/access/door/status enums and data values are not read. UVM_HAS_X is an explicitly assigned status enum, not a four-state data observation. Model/map/sequence/extension handles test identity only; source filenames are inert strings. Shared observation lines do not establish independent coverage for every field.",
+        "ja": "記述子を直接検査し、bus、DUT、sequence実行は伴わない。初期値が未定義のelement／access／door／status enumとdata値は読まない。UVM_HAS_Xは明示代入のstatus enumで、4状態dataの観測ではない。model／map／sequence／extension handleは同一性だけを検査し、source filenameは動作を伴わない文字列である。共有の観測行は、各fieldの独立coverageを成立させない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_item_documented_defaults_exclude_undefined_enum_and_data_values",
+          "role": "direct",
+          "expected_observations": [
+            "UT: strings backdoor_empty 1 filename_empty 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-ITEM-DEFAULT-LINE",
+      "clause": "19.1.1.2.15",
+      "statement": {
+        "en": "The initial register-item line number is zero.",
+        "ja": "register-itemの初期line番号は0である。"
+      },
+      "conditions": {
+        "en": "Query a freshly constructed descriptor before any setter.",
+        "ja": "setter前の新規生成記述子を照会する。"
+      },
+      "expected": {
+        "en": "The documented line number is zero.",
+        "ja": "規定されたline番号は0となる。"
+      },
+      "limitations": {
+        "en": "Descriptors are exercised directly without bus, DUT or sequence execution. Undefined initial element/access/door/status enums and data values are not read. UVM_HAS_X is an explicitly assigned status enum, not a four-state data observation. Model/map/sequence/extension handles test identity only; source filenames are inert strings. Shared observation lines do not establish independent coverage for every field.",
+        "ja": "記述子を直接検査し、bus、DUT、sequence実行は伴わない。初期値が未定義のelement／access／door／status enumとdata値は読まない。UVM_HAS_Xは明示代入のstatus enumで、4状態dataの観測ではない。model／map／sequence／extension handleは同一性だけを検査し、source filenameは動作を伴わない文字列である。共有の観測行は、各fieldの独立coverageを成立させない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_item_documented_defaults_exclude_undefined_enum_and_data_values",
+          "role": "direct",
+          "expected_observations": [
+            "UT: numeric size 1 offset 0 priority -1 line 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-ITEM-ELEMENT-KIND-LATEST-INSTANCE-VALUE",
+      "clause": "19.1.1.2.1",
+      "statement": {
+        "en": "The descriptor element kind getter returns the most recently assigned value for its instance.",
+        "ja": "記述子のelement kind getterは、そのinstanceへ直近に代入した値を返す。"
+      },
+      "conditions": {
+        "en": "Assign peer settings, set first values and overwrite first with different enum values.",
+        "ja": "peerを設定し、firstの値を設定し、firstを異なるenum値で上書きする。"
+      },
+      "expected": {
+        "en": "Both first snapshots match their selected values while peer retains its own enum values.",
+        "ja": "firstの両観測は選択値と一致し、peerは自身のenum値を保持する。"
+      },
+      "limitations": {
+        "en": "Descriptors are exercised directly without bus, DUT or sequence execution. Undefined initial element/access/door/status enums and data values are not read. UVM_HAS_X is an explicitly assigned status enum, not a four-state data observation. Model/map/sequence/extension handles test identity only; source filenames are inert strings. Shared observation lines do not establish independent coverage for every field.",
+        "ja": "記述子を直接検査し、bus、DUT、sequence実行は伴わない。初期値が未定義のelement／access／door／status enumとdata値は読まない。UVM_HAS_Xは明示代入のstatus enumで、4状態dataの観測ではない。model／map／sequence／extension handleは同一性だけを検査し、source filenameは動作を伴わない文字列である。共有の観測行は、各fieldの独立coverageを成立させない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_item_category_setters_preserve_latest_values_per_instance",
+          "role": "direct",
+          "expected_observations": [
+            "UT: first_initial element 1 kind 1 status 1 door 1",
+            "UT: first_latest element 1 kind 1 status 1 door 1",
+            "UT: peer_retained element 1 kind 1 status 1 door 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-ITEM-ACCESS-KIND-LATEST-INSTANCE-VALUE",
+      "clause": "19.1.1.2.3",
+      "statement": {
+        "en": "The descriptor access kind getter returns the most recently assigned value for its instance.",
+        "ja": "記述子のaccess kind getterは、そのinstanceへ直近に代入した値を返す。"
+      },
+      "conditions": {
+        "en": "Assign peer settings, set first values and overwrite first with different enum values.",
+        "ja": "peerを設定し、firstの値を設定し、firstを異なるenum値で上書きする。"
+      },
+      "expected": {
+        "en": "Both first snapshots match their selected values while peer retains its own enum values.",
+        "ja": "firstの両観測は選択値と一致し、peerは自身のenum値を保持する。"
+      },
+      "limitations": {
+        "en": "Descriptors are exercised directly without bus, DUT or sequence execution. Undefined initial element/access/door/status enums and data values are not read. UVM_HAS_X is an explicitly assigned status enum, not a four-state data observation. Model/map/sequence/extension handles test identity only; source filenames are inert strings. Shared observation lines do not establish independent coverage for every field.",
+        "ja": "記述子を直接検査し、bus、DUT、sequence実行は伴わない。初期値が未定義のelement／access／door／status enumとdata値は読まない。UVM_HAS_Xは明示代入のstatus enumで、4状態dataの観測ではない。model／map／sequence／extension handleは同一性だけを検査し、source filenameは動作を伴わない文字列である。共有の観測行は、各fieldの独立coverageを成立させない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_item_category_setters_preserve_latest_values_per_instance",
+          "role": "direct",
+          "expected_observations": [
+            "UT: first_initial element 1 kind 1 status 1 door 1",
+            "UT: first_latest element 1 kind 1 status 1 door 1",
+            "UT: peer_retained element 1 kind 1 status 1 door 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-ITEM-STATUS-LATEST-INSTANCE-VALUE",
+      "clause": "19.1.1.2.6",
+      "statement": {
+        "en": "The descriptor status getter returns the most recently assigned value for its instance.",
+        "ja": "記述子のstatus getterは、そのinstanceへ直近に代入した値を返す。"
+      },
+      "conditions": {
+        "en": "Assign peer settings, set first values and overwrite first with different enum values.",
+        "ja": "peerを設定し、firstの値を設定し、firstを異なるenum値で上書きする。"
+      },
+      "expected": {
+        "en": "Both first snapshots match their selected values while peer retains its own enum values.",
+        "ja": "firstの両観測は選択値と一致し、peerは自身のenum値を保持する。"
+      },
+      "limitations": {
+        "en": "Descriptors are exercised directly without bus, DUT or sequence execution. Undefined initial element/access/door/status enums and data values are not read. UVM_HAS_X is an explicitly assigned status enum, not a four-state data observation. Model/map/sequence/extension handles test identity only; source filenames are inert strings. Shared observation lines do not establish independent coverage for every field.",
+        "ja": "記述子を直接検査し、bus、DUT、sequence実行は伴わない。初期値が未定義のelement／access／door／status enumとdata値は読まない。UVM_HAS_Xは明示代入のstatus enumで、4状態dataの観測ではない。model／map／sequence／extension handleは同一性だけを検査し、source filenameは動作を伴わない文字列である。共有の観測行は、各fieldの独立coverageを成立させない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_item_category_setters_preserve_latest_values_per_instance",
+          "role": "direct",
+          "expected_observations": [
+            "UT: first_initial element 1 kind 1 status 1 door 1",
+            "UT: first_latest element 1 kind 1 status 1 door 1",
+            "UT: peer_retained element 1 kind 1 status 1 door 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-ITEM-DOOR-LATEST-INSTANCE-VALUE",
+      "clause": "19.1.1.2.9",
+      "statement": {
+        "en": "The descriptor door getter returns the most recently assigned value for its instance.",
+        "ja": "記述子のdoor getterは、そのinstanceへ直近に代入した値を返す。"
+      },
+      "conditions": {
+        "en": "Assign peer settings, set first values and overwrite first with different enum values.",
+        "ja": "peerを設定し、firstの値を設定し、firstを異なるenum値で上書きする。"
+      },
+      "expected": {
+        "en": "Both first snapshots match their selected values while peer retains its own enum values.",
+        "ja": "firstの両観測は選択値と一致し、peerは自身のenum値を保持する。"
+      },
+      "limitations": {
+        "en": "Descriptors are exercised directly without bus, DUT or sequence execution. Undefined initial element/access/door/status enums and data values are not read. UVM_HAS_X is an explicitly assigned status enum, not a four-state data observation. Model/map/sequence/extension handles test identity only; source filenames are inert strings. Shared observation lines do not establish independent coverage for every field.",
+        "ja": "記述子を直接検査し、bus、DUT、sequence実行は伴わない。初期値が未定義のelement／access／door／status enumとdata値は読まない。UVM_HAS_Xは明示代入のstatus enumで、4状態dataの観測ではない。model／map／sequence／extension handleは同一性だけを検査し、source filenameは動作を伴わない文字列である。共有の観測行は、各fieldの独立coverageを成立させない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_item_category_setters_preserve_latest_values_per_instance",
+          "role": "direct",
+          "expected_observations": [
+            "UT: first_initial element 1 kind 1 status 1 door 1",
+            "UT: first_latest element 1 kind 1 status 1 door 1",
+            "UT: peer_retained element 1 kind 1 status 1 door 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-ITEM-ELEMENT-REPLACEMENT-CLEAR",
+      "clause": "19.1.1.2.2",
+      "statement": {
+        "en": "The descriptor element handle follows replacement and null clearing.",
+        "ja": "記述子のelement handleは、置換とnull clearに従う。"
+      },
+      "conditions": {
+        "en": "Select register then field, clear first and retain a memory on peer.",
+        "ja": "register、次にfieldを選び、firstをclearしてpeerのmemoryを保持する。"
+      },
+      "expected": {
+        "en": "Exact register/field handles are selected, first clears to null and peer retains its exact memory.",
+        "ja": "正確なregister／field handleを選び、firstはnullへclearし、peerは正確なmemoryを保持する。"
+      },
+      "limitations": {
+        "en": "Descriptors are exercised directly without bus, DUT or sequence execution. Undefined initial element/access/door/status enums and data values are not read. UVM_HAS_X is an explicitly assigned status enum, not a four-state data observation. Model/map/sequence/extension handles test identity only; source filenames are inert strings. Shared observation lines do not establish independent coverage for every field.",
+        "ja": "記述子を直接検査し、bus、DUT、sequence実行は伴わない。初期値が未定義のelement／access／door／status enumとdata値は読まない。UVM_HAS_Xは明示代入のstatus enumで、4状態dataの観測ではない。model／map／sequence／extension handleは同一性だけを検査し、source filenameは動作を伴わない文字列である。共有の観測行は、各fieldの独立coverageを成立させない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_item_element_replacement_and_null_clear_preserve_peer_handle",
+          "role": "direct",
+          "expected_observations": [
+            "UT: register exact 1 kind 1",
+            "UT: field exact 1 kind 1",
+            "UT: cleared 1 peer_exact 1 peer_kind 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-ITEM-LOCAL-MAP-INDEPENDENCE",
+      "clause": "19.1.1.2.7",
+      "statement": {
+        "en": "Local-map selection and clearing do not replace the original-map selection.",
+        "ja": "local-mapの選択／clearは、元mapの選択を置換しない。"
+      },
+      "conditions": {
+        "en": "Replace alpha with beta as local map, then clear it while separately selecting the original map.",
+        "ja": "local mapをalphaからbetaへ置換し、元mapを別途選びつつclearする。"
+      },
+      "expected": {
+        "en": "Local map follows each supplied handle/null, original map retains its separately supplied value and peer maps remain gamma.",
+        "ja": "local mapは各指定handle／nullに従い、元mapは別途指定値、peer両mapはgammaを保持する。"
+      },
+      "limitations": {
+        "en": "Descriptors are exercised directly without bus, DUT or sequence execution. Undefined initial element/access/door/status enums and data values are not read. UVM_HAS_X is an explicitly assigned status enum, not a four-state data observation. Model/map/sequence/extension handles test identity only; source filenames are inert strings. Shared observation lines do not establish independent coverage for every field.",
+        "ja": "記述子を直接検査し、bus、DUT、sequence実行は伴わない。初期値が未定義のelement／access／door／status enumとdata値は読まない。UVM_HAS_Xは明示代入のstatus enumで、4状態dataの観測ではない。model／map／sequence／extension handleは同一性だけを検査し、source filenameは動作を伴わない文字列である。共有の観測行は、各fieldの独立coverageを成立させない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_item_local_and_original_map_handles_can_change_independently",
+          "role": "direct",
+          "expected_observations": [
+            "UT: selected local 1 original 1",
+            "UT: local_replaced 1 original_retained 1",
+            "UT: local_cleared 1 original_replaced 1",
+            "UT: original_cleared 1 peer_local 1 peer_original 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-ITEM-ORIGINAL-MAP-INDEPENDENCE",
+      "clause": "19.1.1.2.8",
+      "statement": {
+        "en": "Original-map selection is independent of local map and may be cleared.",
+        "ja": "元mapの選択は、local mapと独立し、clearできる。"
+      },
+      "conditions": {
+        "en": "Set original beta then alpha and null around local-map updates.",
+        "ja": "local-map更新の前後で元mapをbeta、alpha、nullに設定する。"
+      },
+      "expected": {
+        "en": "Queries identify the selected original handles and final null without changing peer.",
+        "ja": "照会は選択した元handleと最終nullを識別し、peerを変えない。"
+      },
+      "limitations": {
+        "en": "Descriptors are exercised directly without bus, DUT or sequence execution. Undefined initial element/access/door/status enums and data values are not read. UVM_HAS_X is an explicitly assigned status enum, not a four-state data observation. Model/map/sequence/extension handles test identity only; source filenames are inert strings. Shared observation lines do not establish independent coverage for every field.",
+        "ja": "記述子を直接検査し、bus、DUT、sequence実行は伴わない。初期値が未定義のelement／access／door／status enumとdata値は読まない。UVM_HAS_Xは明示代入のstatus enumで、4状態dataの観測ではない。model／map／sequence／extension handleは同一性だけを検査し、source filenameは動作を伴わない文字列である。共有の観測行は、各fieldの独立coverageを成立させない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_item_local_and_original_map_handles_can_change_independently",
+          "role": "direct",
+          "expected_observations": [
+            "UT: selected local 1 original 1",
+            "UT: local_replaced 1 original_retained 1",
+            "UT: local_cleared 1 original_replaced 1",
+            "UT: original_cleared 1 peer_local 1 peer_original 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-ITEM-PARENT-REPLACEMENT-CLEAR",
+      "clause": "19.1.1.2.10",
+      "statement": {
+        "en": "Parent-sequence metadata retains exact replacement/null handles per descriptor.",
+        "ja": "parent-sequence metadataは、記述子ごとに正確な置換／null handleを保持する。"
+      },
+      "conditions": {
+        "en": "Select alpha, beta and null on first while peer retains alpha.",
+        "ja": "peerがalphaを保持する間、firstでalpha、beta、nullを選ぶ。"
+      },
+      "expected": {
+        "en": "First follows all three selections and peer still identifies alpha.",
+        "ja": "firstは3選択すべてに従い、peerはalphaを識別し続ける。"
+      },
+      "limitations": {
+        "en": "Descriptors are exercised directly without bus, DUT or sequence execution. Undefined initial element/access/door/status enums and data values are not read. UVM_HAS_X is an explicitly assigned status enum, not a four-state data observation. Model/map/sequence/extension handles test identity only; source filenames are inert strings. Shared observation lines do not establish independent coverage for every field.",
+        "ja": "記述子を直接検査し、bus、DUT、sequence実行は伴わない。初期値が未定義のelement／access／door／status enumとdata値は読まない。UVM_HAS_Xは明示代入のstatus enumで、4状態dataの観測ではない。model／map／sequence／extension handleは同一性だけを検査し、source filenameは動作を伴わない文字列である。共有の観測行は、各fieldの独立coverageを成立させない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_item_parent_and_extension_replacement_and_clear_are_instance_local",
+          "role": "direct",
+          "expected_observations": [
+            "UT: initial parent 1 extension 1",
+            "UT: replaced parent 1 extension 1",
+            "UT: cleared parent 1 extension 1 peer_parent 1 peer_extension 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-ITEM-EXTENSION-REPLACEMENT-CLEAR",
+      "clause": "19.1.1.2.12",
+      "statement": {
+        "en": "Extension metadata retains exact replacement/null object handles per descriptor.",
+        "ja": "extension metadataは、記述子ごとに正確な置換／null object handleを保持する。"
+      },
+      "conditions": {
+        "en": "Select two tokens then null while peer retains the first token.",
+        "ja": "peerが最初のtokenを保持する間、2 token、次にnullを選ぶ。"
+      },
+      "expected": {
+        "en": "First follows both exact tokens and clears; peer retains the original token.",
+        "ja": "firstは両tokenへ正確に従いclearし、peerは元tokenを保持する。"
+      },
+      "limitations": {
+        "en": "Descriptors are exercised directly without bus, DUT or sequence execution. Undefined initial element/access/door/status enums and data values are not read. UVM_HAS_X is an explicitly assigned status enum, not a four-state data observation. Model/map/sequence/extension handles test identity only; source filenames are inert strings. Shared observation lines do not establish independent coverage for every field.",
+        "ja": "記述子を直接検査し、bus、DUT、sequence実行は伴わない。初期値が未定義のelement／access／door／status enumとdata値は読まない。UVM_HAS_Xは明示代入のstatus enumで、4状態dataの観測ではない。model／map／sequence／extension handleは同一性だけを検査し、source filenameは動作を伴わない文字列である。共有の観測行は、各fieldの独立coverageを成立させない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_item_parent_and_extension_replacement_and_clear_are_instance_local",
+          "role": "direct",
+          "expected_observations": [
+            "UT: initial parent 1 extension 1",
+            "UT: replaced parent 1 extension 1",
+            "UT: cleared parent 1 extension 1 peer_parent 1 peer_extension 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-ITEM-OFFSET-LATEST-METADATA",
+      "clause": "19.1.1.2.5",
+      "statement": {
+        "en": "The descriptor offset getter retains its most recent assignment independently of peer and data.",
+        "ja": "記述子のoffset getterは、peerとdataに独立して直近の代入を保持する。"
+      },
+      "conditions": {
+        "en": "Assign metadata on first/peer and overwrite first.",
+        "ja": "first／peerへmetadataを代入し、firstを上書きする。"
+      },
+      "expected": {
+        "en": "First returns its updated metadata, peer retains original metadata and data remains 5a hex.",
+        "ja": "firstは更新metadata、peerは元metadataを返し、dataは5a hexを保持する。"
+      },
+      "limitations": {
+        "en": "Descriptors are exercised directly without bus, DUT or sequence execution. Undefined initial element/access/door/status enums and data values are not read. UVM_HAS_X is an explicitly assigned status enum, not a four-state data observation. Model/map/sequence/extension handles test identity only; source filenames are inert strings. Shared observation lines do not establish independent coverage for every field.",
+        "ja": "記述子を直接検査し、bus、DUT、sequence実行は伴わない。初期値が未定義のelement／access／door／status enumとdata値は読まない。UVM_HAS_Xは明示代入のstatus enumで、4状態dataの観測ではない。model／map／sequence／extension handleは同一性だけを検査し、source filenameは動作を伴わない文字列である。共有の観測行は、各fieldの独立coverageを成立させない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_item_access_metadata_overwrites_are_independent_of_peer_and_value",
+          "role": "direct",
+          "expected_observations": [
+            "UT: initial offset 3 priority 17 kind RTL file before.sv line 21",
+            "UT: latest offset 12345 priority 31 kind GATE file after.sv line 47 value 5a",
+            "UT: peer offset 7 priority 9 kind RTL file peer.sv line 12"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-ITEM-PRIORITY-LATEST-METADATA",
+      "clause": "19.1.1.2.11",
+      "statement": {
+        "en": "The descriptor priority getter retains its most recent assignment independently of peer and data.",
+        "ja": "記述子のpriority getterは、peerとdataに独立して直近の代入を保持する。"
+      },
+      "conditions": {
+        "en": "Assign metadata on first/peer and overwrite first.",
+        "ja": "first／peerへmetadataを代入し、firstを上書きする。"
+      },
+      "expected": {
+        "en": "First returns its updated metadata, peer retains original metadata and data remains 5a hex.",
+        "ja": "firstは更新metadata、peerは元metadataを返し、dataは5a hexを保持する。"
+      },
+      "limitations": {
+        "en": "Descriptors are exercised directly without bus, DUT or sequence execution. Undefined initial element/access/door/status enums and data values are not read. UVM_HAS_X is an explicitly assigned status enum, not a four-state data observation. Model/map/sequence/extension handles test identity only; source filenames are inert strings. Shared observation lines do not establish independent coverage for every field.",
+        "ja": "記述子を直接検査し、bus、DUT、sequence実行は伴わない。初期値が未定義のelement／access／door／status enumとdata値は読まない。UVM_HAS_Xは明示代入のstatus enumで、4状態dataの観測ではない。model／map／sequence／extension handleは同一性だけを検査し、source filenameは動作を伴わない文字列である。共有の観測行は、各fieldの独立coverageを成立させない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_item_access_metadata_overwrites_are_independent_of_peer_and_value",
+          "role": "direct",
+          "expected_observations": [
+            "UT: initial offset 3 priority 17 kind RTL file before.sv line 21",
+            "UT: latest offset 12345 priority 31 kind GATE file after.sv line 47 value 5a",
+            "UT: peer offset 7 priority 9 kind RTL file peer.sv line 12"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-ITEM-BD-KIND-LATEST-METADATA",
+      "clause": "19.1.1.2.13",
+      "statement": {
+        "en": "The descriptor backdoor kind getter retains its most recent assignment independently of peer and data.",
+        "ja": "記述子のbackdoor kind getterは、peerとdataに独立して直近の代入を保持する。"
+      },
+      "conditions": {
+        "en": "Assign metadata on first/peer and overwrite first.",
+        "ja": "first／peerへmetadataを代入し、firstを上書きする。"
+      },
+      "expected": {
+        "en": "First returns its updated metadata, peer retains original metadata and data remains 5a hex.",
+        "ja": "firstは更新metadata、peerは元metadataを返し、dataは5a hexを保持する。"
+      },
+      "limitations": {
+        "en": "Descriptors are exercised directly without bus, DUT or sequence execution. Undefined initial element/access/door/status enums and data values are not read. UVM_HAS_X is an explicitly assigned status enum, not a four-state data observation. Model/map/sequence/extension handles test identity only; source filenames are inert strings. Shared observation lines do not establish independent coverage for every field.",
+        "ja": "記述子を直接検査し、bus、DUT、sequence実行は伴わない。初期値が未定義のelement／access／door／status enumとdata値は読まない。UVM_HAS_Xは明示代入のstatus enumで、4状態dataの観測ではない。model／map／sequence／extension handleは同一性だけを検査し、source filenameは動作を伴わない文字列である。共有の観測行は、各fieldの独立coverageを成立させない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_item_access_metadata_overwrites_are_independent_of_peer_and_value",
+          "role": "direct",
+          "expected_observations": [
+            "UT: initial offset 3 priority 17 kind RTL file before.sv line 21",
+            "UT: latest offset 12345 priority 31 kind GATE file after.sv line 47 value 5a",
+            "UT: peer offset 7 priority 9 kind RTL file peer.sv line 12"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-ITEM-FNAME-LATEST-METADATA",
+      "clause": "19.1.1.2.14",
+      "statement": {
+        "en": "The descriptor source filename getter retains its most recent assignment independently of peer and data.",
+        "ja": "記述子のsource filename getterは、peerとdataに独立して直近の代入を保持する。"
+      },
+      "conditions": {
+        "en": "Assign metadata on first/peer and overwrite first.",
+        "ja": "first／peerへmetadataを代入し、firstを上書きする。"
+      },
+      "expected": {
+        "en": "First returns its updated metadata, peer retains original metadata and data remains 5a hex.",
+        "ja": "firstは更新metadata、peerは元metadataを返し、dataは5a hexを保持する。"
+      },
+      "limitations": {
+        "en": "Descriptors are exercised directly without bus, DUT or sequence execution. Undefined initial element/access/door/status enums and data values are not read. UVM_HAS_X is an explicitly assigned status enum, not a four-state data observation. Model/map/sequence/extension handles test identity only; source filenames are inert strings. Shared observation lines do not establish independent coverage for every field.",
+        "ja": "記述子を直接検査し、bus、DUT、sequence実行は伴わない。初期値が未定義のelement／access／door／status enumとdata値は読まない。UVM_HAS_Xは明示代入のstatus enumで、4状態dataの観測ではない。model／map／sequence／extension handleは同一性だけを検査し、source filenameは動作を伴わない文字列である。共有の観測行は、各fieldの独立coverageを成立させない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_item_access_metadata_overwrites_are_independent_of_peer_and_value",
+          "role": "direct",
+          "expected_observations": [
+            "UT: initial offset 3 priority 17 kind RTL file before.sv line 21",
+            "UT: latest offset 12345 priority 31 kind GATE file after.sv line 47 value 5a",
+            "UT: peer offset 7 priority 9 kind RTL file peer.sv line 12"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-ITEM-LINE-LATEST-METADATA",
+      "clause": "19.1.1.2.15",
+      "statement": {
+        "en": "The descriptor source line getter retains its most recent assignment independently of peer and data.",
+        "ja": "記述子のsource line getterは、peerとdataに独立して直近の代入を保持する。"
+      },
+      "conditions": {
+        "en": "Assign metadata on first/peer and overwrite first.",
+        "ja": "first／peerへmetadataを代入し、firstを上書きする。"
+      },
+      "expected": {
+        "en": "First returns its updated metadata, peer retains original metadata and data remains 5a hex.",
+        "ja": "firstは更新metadata、peerは元metadataを返し、dataは5a hexを保持する。"
+      },
+      "limitations": {
+        "en": "Descriptors are exercised directly without bus, DUT or sequence execution. Undefined initial element/access/door/status enums and data values are not read. UVM_HAS_X is an explicitly assigned status enum, not a four-state data observation. Model/map/sequence/extension handles test identity only; source filenames are inert strings. Shared observation lines do not establish independent coverage for every field.",
+        "ja": "記述子を直接検査し、bus、DUT、sequence実行は伴わない。初期値が未定義のelement／access／door／status enumとdata値は読まない。UVM_HAS_Xは明示代入のstatus enumで、4状態dataの観測ではない。model／map／sequence／extension handleは同一性だけを検査し、source filenameは動作を伴わない文字列である。共有の観測行は、各fieldの独立coverageを成立させない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_item_access_metadata_overwrites_are_independent_of_peer_and_value",
+          "role": "direct",
+          "expected_observations": [
+            "UT: initial offset 3 priority 17 kind RTL file before.sv line 21",
+            "UT: latest offset 12345 priority 31 kind GATE file after.sv line 47 value 5a",
+            "UT: peer offset 7 priority 9 kind RTL file peer.sv line 12"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-ITEM-BULK-ARRAY-COPY-INDEPENDENCE",
+      "clause": "19.1.1.2.4",
+      "statement": {
+        "en": "Bulk value-array set/get copy values without aliasing the caller arrays.",
+        "ja": "value配列のbulk set／getは、caller配列とaliasせず値をcopyする。"
+      },
+      "conditions": {
+        "en": "Supply three values, mutate input after set, then mutate returned array after get.",
+        "ja": "3値を指定し、set後に入力、get後に戻り配列を変更する。"
+      },
+      "expected": {
+        "en": "Returned values remain 11/22/33 and internal first value stays 11 despite caller mutations.",
+        "ja": "callerの変更後も、戻り値は11／22／33、内部先頭値は11を保持する。"
+      },
+      "limitations": {
+        "en": "Descriptors are exercised directly without bus, DUT or sequence execution. Undefined initial element/access/door/status enums and data values are not read. UVM_HAS_X is an explicitly assigned status enum, not a four-state data observation. Model/map/sequence/extension handles test identity only; source filenames are inert strings. Shared observation lines do not establish independent coverage for every field.",
+        "ja": "記述子を直接検査し、bus、DUT、sequence実行は伴わない。初期値が未定義のelement／access／door／status enumとdata値は読まない。UVM_HAS_Xは明示代入のstatus enumで、4状態dataの観測ではない。model／map／sequence／extension handleは同一性だけを検査し、source filenameは動作を伴わない文字列である。共有の観測行は、各fieldの独立coverageを成立させない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_item_value_array_bulk_copy_is_independent_and_supports_empty_arrays",
+          "role": "direct",
+          "expected_observations": [
+            "UT: copied size 3 values 11 22 33",
+            "UT: independent internal 11 source 99"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-ITEM-BULK-ARRAY-EMPTY-REGROW",
+      "clause": "19.1.1.2.4",
+      "statement": {
+        "en": "Empty bulk arrays produce zero size and later growth initializes new values to zero.",
+        "ja": "空のbulk配列はsize 0となり、後の拡張は新値を0初期化する。"
+      },
+      "conditions": {
+        "en": "Set an empty array, retrieve it and grow to one entry.",
+        "ja": "空配列を設定して取得し、1 entryへ拡張する。"
+      },
+      "expected": {
+        "en": "Internal/returned sizes are zero, then size one holds zero.",
+        "ja": "内部／戻りsizeは0、次にsize 1の値は0となる。"
+      },
+      "limitations": {
+        "en": "Descriptors are exercised directly without bus, DUT or sequence execution. Undefined initial element/access/door/status enums and data values are not read. UVM_HAS_X is an explicitly assigned status enum, not a four-state data observation. Model/map/sequence/extension handles test identity only; source filenames are inert strings. Shared observation lines do not establish independent coverage for every field.",
+        "ja": "記述子を直接検査し、bus、DUT、sequence実行は伴わない。初期値が未定義のelement／access／door／status enumとdata値は読まない。UVM_HAS_Xは明示代入のstatus enumで、4状態dataの観測ではない。model／map／sequence／extension handleは同一性だけを検査し、source filenameは動作を伴わない文字列である。共有の観測行は、各fieldの独立coverageを成立させない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_item_value_array_bulk_copy_is_independent_and_supports_empty_arrays",
+          "role": "direct",
+          "expected_observations": [
+            "UT: empty internal 0 returned 0",
+            "UT: regrown size 1 value 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-ITEM-INVALID-VALUE-SET-IGNORED",
+      "clause": "19.1.1.2.4",
+      "statement": {
+        "en": "Out-of-range value writes warn and leave the data and size unchanged.",
+        "ja": "範囲外のvalue writeは、warningを出し、dataとsizeを保持する。"
+      },
+      "conditions": {
+        "en": "Write at count and count plus one on a two-value item, then at zero on an empty item.",
+        "ja": "2値itemの個数と個数+1、次に空itemの0へ書く。"
+      },
+      "expected": {
+        "en": "Each invalid write warns; valid data remain 11/22 and the empty item stays size zero.",
+        "ja": "各不正writeはwarningを出し、有効dataは11／22、空itemはsize 0を保持する。"
+      },
+      "limitations": {
+        "en": "Descriptors are exercised directly without bus, DUT or sequence execution. Undefined initial element/access/door/status enums and data values are not read. UVM_HAS_X is an explicitly assigned status enum, not a four-state data observation. Model/map/sequence/extension handles test identity only; source filenames are inert strings. Shared observation lines do not establish independent coverage for every field. The invalid-index oracle remains spec-only: pinned set_value expands instead of warning/ignoring and get_value omits its warning. Separate items isolate reads from expansion; count/count-plus-one probes keep erroneous allocations bounded.",
+        "ja": "記述子を直接検査し、bus、DUT、sequence実行は伴わない。初期値が未定義のelement／access／door／status enumとdata値は読まない。UVM_HAS_Xは明示代入のstatus enumで、4状態dataの観測ではない。model／map／sequence／extension handleは同一性だけを検査し、source filenameは動作を伴わない文字列である。共有の観測行は、各fieldの独立coverageを成立させない。 不正indexのoracleはspec-onlyで、固定set_valueはwarning／無視でなく拡張し、get_valueはwarningを省く。別itemで読取りを拡張から分離し、個数／個数+1の観測で誤った割当てを有限に保つ。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_item_invalid_value_indices_warn_without_changing_existing_data",
+          "role": "direct",
+          "expected_observations": [
+            "UT: invalid warnings 4 returned 0 0 size 2 values 11 22",
+            "UT: empty warnings 6 returned 0 size 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-ITEM-INVALID-VALUE-GET-ZERO",
+      "clause": "19.1.1.2.4",
+      "statement": {
+        "en": "Out-of-range value reads warn and return zero.",
+        "ja": "範囲外のvalue readは、warningを出して0を返す。"
+      },
+      "conditions": {
+        "en": "Read at count, count plus one and zero on an empty item.",
+        "ja": "個数、個数+1、空itemの0を読む。"
+      },
+      "expected": {
+        "en": "All three reads return zero; combined invalid read/write warning counts are four then six.",
+        "ja": "3 readはすべて0を返し、不正read／write合計warning数は4、次に6となる。"
+      },
+      "limitations": {
+        "en": "Descriptors are exercised directly without bus, DUT or sequence execution. Undefined initial element/access/door/status enums and data values are not read. UVM_HAS_X is an explicitly assigned status enum, not a four-state data observation. Model/map/sequence/extension handles test identity only; source filenames are inert strings. Shared observation lines do not establish independent coverage for every field. The invalid-index oracle remains spec-only: pinned set_value expands instead of warning/ignoring and get_value omits its warning. Separate items isolate reads from expansion; count/count-plus-one probes keep erroneous allocations bounded.",
+        "ja": "記述子を直接検査し、bus、DUT、sequence実行は伴わない。初期値が未定義のelement／access／door／status enumとdata値は読まない。UVM_HAS_Xは明示代入のstatus enumで、4状態dataの観測ではない。model／map／sequence／extension handleは同一性だけを検査し、source filenameは動作を伴わない文字列である。共有の観測行は、各fieldの独立coverageを成立させない。 不正indexのoracleはspec-onlyで、固定set_valueはwarning／無視でなく拡張し、get_valueはwarningを省く。別itemで読取りを拡張から分離し、個数／個数+1の観測で誤った割当てを有限に保つ。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_item_invalid_value_indices_warn_without_changing_existing_data",
+          "role": "direct",
+          "expected_observations": [
+            "UT: invalid warnings 4 returned 0 0 size 2 values 11 22",
+            "UT: empty warnings 6 returned 0 size 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESPONSE-STOPPED-DROP-HANDLER-QUEUE",
+      "clause": "15.5.2.9",
+      "statement": {
+        "en": "Responses to killed/stopped sequences are dropped with warnings in either response mode.",
+        "ja": "kill／stop済みsequenceへのresponseは、両response modeでwarningとともに破棄する。"
+      },
+      "conditions": {
+        "en": "Complete a real request, kill directly or stop its sequencer and send a copied-ID late reply.",
+        "ja": "実requestを完了し、直接killまたはsequencerをstopし、IDをcopyした遅延replyを送る。"
+      },
+      "expected": {
+        "en": "State is STOPPED, a warning occurs, no handler runs and bounded queue probes return nothing.",
+        "ja": "状態はSTOPPED、warningが出てhandlerは動かず、有限queue観測は何も受けない。"
+      },
+      "limitations": {
+        "en": "Sources, metadata, expected files and recorded inputs are unchanged. Existing stop fixtures observe finite active trees, hook counts, states, delayed-write suppression, explicit ownership or isolated phase objections without prescribing sibling stop order or numeric routing IDs. Isolated objection probes clean up after recording. USER singleton callback and response error-enable defaults remain normative spec-only differences. Queue controls alone do not establish arbitration, storage capacity or delivery.",
+        "ja": "source、metadata、期待ファイル、記録入力は変更しない。既存stop検査は、有限の実行中tree、hook数、状態、遅延write抑止、明示所有権、分離phase objectionを観測し、兄弟stop順やroute IDの数値を指定しない。分離objection検査は記録後に清掃する。USER単一候補callbackとresponse error-enable既定値は、規範的なspec-only差分を保持する。queue controlだけではarbitration、storage容量、配送は成立しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequencer_drops_response_to_killed_sequence_with_handler",
+          "role": "direct",
+          "expected_observations": [
+            "UT: warning_reported 1",
+            "UT: state_matches 1 handler_calls 0"
+          ]
+        },
+        {
+          "test": "u15/test_sequencer_drops_response_to_killed_sequence_with_queue",
+          "role": "direct",
+          "expected_observations": [
+            "UT: warning_reported 1",
+            "UT: dropped_from_queue 1",
+            "UT: state_matches 1 handler_calls 0"
+          ]
+        },
+        {
+          "test": "u15/test_sequencer_drops_response_to_stopped_sequence_with_handler",
+          "role": "direct",
+          "expected_observations": [
+            "UT: warning_reported 1",
+            "UT: state_matches 1 handler_calls 0"
+          ]
+        },
+        {
+          "test": "u15/test_sequencer_drops_response_to_stopped_sequence_with_queue",
+          "role": "direct",
+          "expected_observations": [
+            "UT: warning_reported 1",
+            "UT: dropped_from_queue 1",
+            "UT: state_matches 1 handler_calls 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCER-IS-CHILD-DIRECTION",
+      "clause": "15.3.2.2",
+      "statement": {
+        "en": "is_child recognizes the parent-to-child direction without confusing unrelated sequences.",
+        "ja": "is_childは、無関係なsequenceを混同せず、親から子の方向を認識する。"
+      },
+      "conditions": {
+        "en": "Set one direct sequence parent and compare forward, reverse and unrelated queries.",
+        "ja": "1つの直接sequence parentを設定し、順方向、逆方向、無関係の照会を比較する。"
+      },
+      "expected": {
+        "en": "Only the direct parent-to-child query returns one.",
+        "ja": "直接の親から子の照会だけが1を返す。"
+      },
+      "limitations": {
+        "en": "Sources, metadata, expected files and recorded inputs are unchanged. Existing stop fixtures observe finite active trees, hook counts, states, delayed-write suppression, explicit ownership or isolated phase objections without prescribing sibling stop order or numeric routing IDs. Isolated objection probes clean up after recording. USER singleton callback and response error-enable defaults remain normative spec-only differences. Queue controls alone do not establish arbitration, storage capacity or delivery.",
+        "ja": "source、metadata、期待ファイル、記録入力は変更しない。既存stop検査は、有限の実行中tree、hook数、状態、遅延write抑止、明示所有権、分離phase objectionを観測し、兄弟stop順やroute IDの数値を指定しない。分離objection検査は記録後に清掃する。USER単一候補callbackとresponse error-enable既定値は、規範的なspec-only差分を保持する。queue controlだけではarbitration、storage容量、配送は成立しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequencer_is_child_respects_parent_direction_and_unrelated_sequences",
+          "role": "direct",
+          "expected_observations": [
+            "UT: direct_child 1 reverse 0 unrelated 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCER-USER-SINGLETON-CALLBACK",
+      "clause": "15.3.2.3",
+      "statement": {
+        "en": "USER arbitration invokes the override even with one eligible sequence.",
+        "ja": "USER arbitrationは、候補sequenceが1つでもoverrideを呼ぶ。"
+      },
+      "conditions": {
+        "en": "Start one requester under USER mode with a callback inspecting the candidate source.",
+        "ja": "USER modeで1 requesterを開始し、callbackで候補sourceを観測する。"
+      },
+      "expected": {
+        "en": "The override is called, candidate mapping matches and the request sequence finishes.",
+        "ja": "overrideを呼び、候補mappingが一致し、request sequenceが完了する。"
+      },
+      "limitations": {
+        "en": "Sources, metadata, expected files and recorded inputs are unchanged. Existing stop fixtures observe finite active trees, hook counts, states, delayed-write suppression, explicit ownership or isolated phase objections without prescribing sibling stop order or numeric routing IDs. Isolated objection probes clean up after recording. USER singleton callback and response error-enable defaults remain normative spec-only differences. Queue controls alone do not establish arbitration, storage capacity or delivery.",
+        "ja": "source、metadata、期待ファイル、記録入力は変更しない。既存stop検査は、有限の実行中tree、hook数、状態、遅延write抑止、明示所有権、分離phase objectionを観測し、兄弟stop順やroute IDの数値を指定しない。分離objection検査は記録後に清掃する。USER単一候補callbackとresponse error-enable既定値は、規範的なspec-only差分を保持する。queue controlだけではarbitration、storage容量、配送は成立しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequencer_user_arbitration_calls_override_with_one_candidate",
+          "role": "direct",
+          "expected_observations": [
+            "UT: override_called 1 source_matches 1 finished 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCER-STOP-HELD-REQUEST-FLUSH",
+      "clause": "15.3.2.14",
+      "statement": {
+        "en": "Stopping removes a held request and allows fresh traffic on the same sequencer.",
+        "ja": "stopは、保持中requestを除き、同じsequencerの新trafficを許す。"
+      },
+      "conditions": {
+        "en": "Stop while the driver holds the old item and submit a fresh sequence without acknowledging the old item.",
+        "ja": "driverが古いitemを保持中にstopし、古いitemへacknowledgeせず新sequenceを送る。"
+      },
+      "expected": {
+        "en": "Old sequence stops/returns with one kill, fresh item 22 completes and current item becomes null.",
+        "ja": "古いsequenceはkill 1回でstop／returnし、新item 22は完了し、current itemはnullとなる。"
+      },
+      "limitations": {
+        "en": "Sources, metadata, expected files and recorded inputs are unchanged. Existing stop fixtures observe finite active trees, hook counts, states, delayed-write suppression, explicit ownership or isolated phase objections without prescribing sibling stop order or numeric routing IDs. Isolated objection probes clean up after recording. USER singleton callback and response error-enable defaults remain normative spec-only differences. Queue controls alone do not establish arbitration, storage capacity or delivery.",
+        "ja": "source、metadata、期待ファイル、記録入力は変更しない。既存stop検査は、有限の実行中tree、hook数、状態、遅延write抑止、明示所有権、分離phase objectionを観測し、兄弟stop順やroute IDの数値を指定しない。分離objection検査は記録後に清掃する。USER単一候補callbackとresponse error-enable既定値は、規範的なspec-only差分を保持する。queue controlだけではarbitration、storage容量、配送は成立しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequencer_stop_sequences_discards_held_request_and_accepts_fresh_item",
+          "role": "direct",
+          "expected_observations": [
+            "UT: payloads 11 22 stopped 1 kills 1 returned 1 fresh_finished 1",
+            "UT: current_null 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCER-STOP-ALL-ACTIVE-BODIES",
+      "clause": "15.3.2.14",
+      "statement": {
+        "en": "Stopping terminates all active bodies on the selected sequencer.",
+        "ja": "stopは、選択sequencer上の全実行中bodyを終了する。"
+      },
+      "conditions": {
+        "en": "Wait for two independent bodies to enter, then stop before their delayed writes.",
+        "ja": "独立した2 bodyの開始を待ち、遅延write前にstopする。"
+      },
+      "expected": {
+        "en": "Both stop, receive one kill, release start and never perform the delayed writes.",
+        "ja": "両方がstopし、kill 1回を受け、startを解放し、遅延writeを行わない。"
+      },
+      "limitations": {
+        "en": "Sources, metadata, expected files and recorded inputs are unchanged. Existing stop fixtures observe finite active trees, hook counts, states, delayed-write suppression, explicit ownership or isolated phase objections without prescribing sibling stop order or numeric routing IDs. Isolated objection probes clean up after recording. USER singleton callback and response error-enable defaults remain normative spec-only differences. Queue controls alone do not establish arbitration, storage capacity or delivery.",
+        "ja": "source、metadata、期待ファイル、記録入力は変更しない。既存stop検査は、有限の実行中tree、hook数、状態、遅延write抑止、明示所有権、分離phase objectionを観測し、兄弟stop順やroute IDの数値を指定しない。分離objection検査は記録後に清掃する。USER単一候補callbackとresponse error-enable既定値は、規範的なspec-only差分を保持する。queue controlだけではarbitration、storage容量、配送は成立しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequencer_stop_sequences_stops_two_active_bodies",
+          "role": "direct",
+          "expected_observations": [
+            "UT: stopped 1 1 kills 1 1 returned 1 1",
+            "UT: late_writes 0 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCER-STOP-ACTIVE-DESCENDANTS",
+      "clause": "15.3.2.14",
+      "statement": {
+        "en": "Stopping includes active child sequences throughout the selected hierarchy.",
+        "ja": "stopは、選択階層の実行中child sequenceを含む。"
+      },
+      "conditions": {
+        "en": "Exercise parent/child, three-level and sibling-child active trees.",
+        "ja": "親子、3階層、兄弟childの実行中treeを検査する。"
+      },
+      "expected": {
+        "en": "Every observed node is STOPPED with one kill and no late write; parent start returns.",
+        "ja": "全観測nodeはkill 1回のSTOPPEDで、遅延writeはなく、parent startはreturnする。"
+      },
+      "limitations": {
+        "en": "Sources, metadata, expected files and recorded inputs are unchanged. Existing stop fixtures observe finite active trees, hook counts, states, delayed-write suppression, explicit ownership or isolated phase objections without prescribing sibling stop order or numeric routing IDs. Isolated objection probes clean up after recording. USER singleton callback and response error-enable defaults remain normative spec-only differences. Queue controls alone do not establish arbitration, storage capacity or delivery.",
+        "ja": "source、metadata、期待ファイル、記録入力は変更しない。既存stop検査は、有限の実行中tree、hook数、状態、遅延write抑止、明示所有権、分離phase objectionを観測し、兄弟stop順やroute IDの数値を指定しない。分離objection検査は記録後に清掃する。USER単一候補callbackとresponse error-enable既定値は、規範的なspec-only差分を保持する。queue controlだけではarbitration、storage容量、配送は成立しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_stop_sequences_terminates_parent_and_active_child",
+          "role": "direct",
+          "expected_observations": [
+            "UT: stopped 1 1 kills 1 1 returned 1",
+            "UT: late_writes 0 0"
+          ]
+        },
+        {
+          "test": "u15/test_stop_sequences_terminates_three_level_hierarchy",
+          "role": "direct",
+          "expected_observations": [
+            "UT: stopped 1 1 1 kills 1 1 1 returned 1",
+            "UT: late_writes 0 0 0"
+          ]
+        },
+        {
+          "test": "u15/test_stop_sequences_terminates_two_sibling_children",
+          "role": "direct",
+          "expected_observations": [
+            "UT: stopped 1 1 1 kills 1 1 1 returned 1",
+            "UT: late_writes 0 0 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCER-STOP-OWNERSHIP-CLEAR",
+      "clause": "15.3.2.14",
+      "statement": {
+        "en": "Stopping removes both parent locks and nested child grabs.",
+        "ja": "stopは、parent lockと入れ子child grabの両方を除く。"
+      },
+      "conditions": {
+        "en": "Acquire a parent lock and child grab before stopping their active tree.",
+        "ja": "実行中treeをstopする前にparent lockとchild grabを取得する。"
+      },
+      "expected": {
+        "en": "Both nodes stop and no lock/grab or current owner remains.",
+        "ja": "両nodeはstopし、lock／grabもcurrent ownerも残らない。"
+      },
+      "limitations": {
+        "en": "Sources, metadata, expected files and recorded inputs are unchanged. Existing stop fixtures observe finite active trees, hook counts, states, delayed-write suppression, explicit ownership or isolated phase objections without prescribing sibling stop order or numeric routing IDs. Isolated objection probes clean up after recording. USER singleton callback and response error-enable defaults remain normative spec-only differences. Queue controls alone do not establish arbitration, storage capacity or delivery.",
+        "ja": "source、metadata、期待ファイル、記録入力は変更しない。既存stop検査は、有限の実行中tree、hook数、状態、遅延write抑止、明示所有権、分離phase objectionを観測し、兄弟stop順やroute IDの数値を指定しない。分離objection検査は記録後に清掃する。USER単一候補callbackとresponse error-enable既定値は、規範的なspec-only差分を保持する。queue controlだけではarbitration、storage容量、配送は成立しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_stop_sequences_releases_parent_lock_and_nested_child_grab",
+          "role": "direct",
+          "expected_observations": [
+            "UT: held 1 1 parent_blocked 1",
+            "UT: stopped 1 1 kills 1 1 returned 1",
+            "UT: ownership_cleared 1 owner_null 1",
+            "UT: late_writes 0 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCER-STOP-BLOCKED-RESPONSE-WAIT",
+      "clause": "15.3.2.14",
+      "statement": {
+        "en": "Stopping interrupts a response wait rather than allowing its body to resume on a late reply.",
+        "ja": "stopは、遅延replyでbodyを再開させず、response待機を中断する。"
+      },
+      "conditions": {
+        "en": "Acknowledge a real request, wait inside get_response, stop and send its late response.",
+        "ja": "実requestへacknowledgeし、get_response内で待ち、stopしてその遅延responseを送る。"
+      },
+      "expected": {
+        "en": "The sequence stops with one kill, start returns, the read does not return and the late response warns.",
+        "ja": "sequenceはkill 1回でstopし、startはreturnし、readはreturnせず、遅延responseはwarningを出す。"
+      },
+      "limitations": {
+        "en": "Sources, metadata, expected files and recorded inputs are unchanged. Existing stop fixtures observe finite active trees, hook counts, states, delayed-write suppression, explicit ownership or isolated phase objections without prescribing sibling stop order or numeric routing IDs. Isolated objection probes clean up after recording. USER singleton callback and response error-enable defaults remain normative spec-only differences. Queue controls alone do not establish arbitration, storage capacity or delivery.",
+        "ja": "source、metadata、期待ファイル、記録入力は変更しない。既存stop検査は、有限の実行中tree、hook数、状態、遅延write抑止、明示所有権、分離phase objectionを観測し、兄弟stop順やroute IDの数値を指定しない。分離objection検査は記録後に清掃する。USER単一候補callbackとresponse error-enable既定値は、規範的なspec-only差分を保持する。queue controlだけではarbitration、storage容量、配送は成立しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_stop_sequences_interrupts_a_blocked_get_response",
+          "role": "direct",
+          "expected_observations": [
+            "UT: warning_reported 1",
+            "UT: stopped 1 kills 1 returned 1 response_returned 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCER-STOP-PEER-ISOLATION",
+      "clause": "15.3.2.14",
+      "statement": {
+        "en": "Stopping one sequencer leaves a body on an independent sequencer running.",
+        "ja": "1 sequencerのstopは、独立sequencerのbodyを実行中に保つ。"
+      },
+      "conditions": {
+        "en": "Start one delayed body on each of two sequencers and stop only first.",
+        "ja": "2 sequencerで遅延bodyを各1つ開始し、firstだけをstopする。"
+      },
+      "expected": {
+        "en": "First stops with no late write while peer stays in BODY and later finishes naturally with its write.",
+        "ja": "firstは遅延writeなしでstopし、peerはBODYを保ち、後でwriteして自然完了する。"
+      },
+      "limitations": {
+        "en": "Sources, metadata, expected files and recorded inputs are unchanged. Existing stop fixtures observe finite active trees, hook counts, states, delayed-write suppression, explicit ownership or isolated phase objections without prescribing sibling stop order or numeric routing IDs. Isolated objection probes clean up after recording. USER singleton callback and response error-enable defaults remain normative spec-only differences. Queue controls alone do not establish arbitration, storage capacity or delivery.",
+        "ja": "source、metadata、期待ファイル、記録入力は変更しない。既存stop検査は、有限の実行中tree、hook数、状態、遅延write抑止、明示所有権、分離phase objectionを観測し、兄弟stop順やroute IDの数値を指定しない。分離objection検査は記録後に清掃する。USER単一候補callbackとresponse error-enable既定値は、規範的なspec-only差分を保持する。queue controlだけではarbitration、storage容量、配送は成立しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_stop_sequences_leaves_other_sequencer_body_running",
+          "role": "direct",
+          "expected_observations": [
+            "UT: selected_stopped 1 selected_kills 1 other_body 1 other_kills 0",
+            "UT: late_writes 0 1 returned 1 1 other_finished 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCER-STOP-AUTOMATIC-OBJECTION-DROP",
+      "clause": "15.3.2.14",
+      "statement": {
+        "en": "Sequencer stopping drops automatic starting-phase objections for killed active sequences.",
+        "ja": "sequencerのstopは、killした実行中sequenceの自動starting-phase objectionをdropする。"
+      },
+      "conditions": {
+        "en": "Use isolated phase nodes with automatic objections on one sequence or both parent/child.",
+        "ja": "1 sequenceまたは親子の両方で、自動objectionを持つ分離phase nodeを使う。"
+      },
+      "expected": {
+        "en": "All initial counts are one and become zero after stop, with stopped states and no late writes.",
+        "ja": "初期countはすべて1で、stop後に0、状態はstopで遅延writeはない。"
+      },
+      "limitations": {
+        "en": "Sources, metadata, expected files and recorded inputs are unchanged. Existing stop fixtures observe finite active trees, hook counts, states, delayed-write suppression, explicit ownership or isolated phase objections without prescribing sibling stop order or numeric routing IDs. Isolated objection probes clean up after recording. USER singleton callback and response error-enable defaults remain normative spec-only differences. Queue controls alone do not establish arbitration, storage capacity or delivery.",
+        "ja": "source、metadata、期待ファイル、記録入力は変更しない。既存stop検査は、有限の実行中tree、hook数、状態、遅延write抑止、明示所有権、分離phase objectionを観測し、兄弟stop順やroute IDの数値を指定しない。分離objection検査は記録後に清掃する。USER単一候補callbackとresponse error-enable既定値は、規範的なspec-only差分を保持する。queue controlだけではarbitration、storage容量、配送は成立しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_stop_sequences_drops_automatic_objection_for_active_sequence",
+          "role": "direct",
+          "expected_observations": [
+            "UT: count_before 1",
+            "UT: count_after 0 stopped 1",
+            "UT: late_write 0"
+          ]
+        },
+        {
+          "test": "u15/test_stop_sequences_drops_automatic_objection_for_parent_and_child",
+          "role": "direct",
+          "expected_observations": [
+            "UT: counts_before 1 1",
+            "UT: counts_after 0 0 stopped 1 1",
+            "UT: late_writes 0 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESPONSE-DEFAULT-MODE",
+      "clause": "14.2.7.1",
+      "statement": {
+        "en": "The initial response handler mode is off.",
+        "ja": "responseの初期handler modeはoffである。"
+      },
+      "conditions": {
+        "en": "Query a fresh sequence before any setting on that instance.",
+        "ja": "そのinstanceへの設定前に新sequenceを照会する。"
+      },
+      "expected": {
+        "en": "The default tuple is handler zero, depth eight, reporting one.",
+        "ja": "既定tupleはhandler 0、depth 8、reporting 1となる。"
+      },
+      "limitations": {
+        "en": "Sources, metadata, expected files and recorded inputs are unchanged. Existing stop fixtures observe finite active trees, hook counts, states, delayed-write suppression, explicit ownership or isolated phase objections without prescribing sibling stop order or numeric routing IDs. Isolated objection probes clean up after recording. USER singleton callback and response error-enable defaults remain normative spec-only differences. Queue controls alone do not establish arbitration, storage capacity or delivery.",
+        "ja": "source、metadata、期待ファイル、記録入力は変更しない。既存stop検査は、有限の実行中tree、hook数、状態、遅延write抑止、明示所有権、分離phase objectionを観測し、兄弟stop順やroute IDの数値を指定しない。分離objection検査は記録後に清掃する。USER単一候補callbackとresponse error-enable既定値は、規範的なspec-only差分を保持する。queue controlだけではarbitration、storage容量、配送は成立しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_response_controls_have_documented_defaults",
+          "role": "direct",
+          "expected_observations": [
+            "UT: defaults handler 0 depth 8 errors 1"
+          ]
+        },
+        {
+          "test": "u14/test_sequence_response_control_updates_are_per_instance",
+          "role": "direct",
+          "expected_observations": [
+            "UT: second handler 0 depth 8 errors 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESPONSE-DEFAULT-DEPTH",
+      "clause": "14.2.7.7",
+      "statement": {
+        "en": "The initial response maximum queue depth is eight.",
+        "ja": "responseの初期queue最大depthは8である。"
+      },
+      "conditions": {
+        "en": "Query a fresh sequence before any setting on that instance.",
+        "ja": "そのinstanceへの設定前に新sequenceを照会する。"
+      },
+      "expected": {
+        "en": "The default tuple is handler zero, depth eight, reporting one.",
+        "ja": "既定tupleはhandler 0、depth 8、reporting 1となる。"
+      },
+      "limitations": {
+        "en": "Sources, metadata, expected files and recorded inputs are unchanged. Existing stop fixtures observe finite active trees, hook counts, states, delayed-write suppression, explicit ownership or isolated phase objections without prescribing sibling stop order or numeric routing IDs. Isolated objection probes clean up after recording. USER singleton callback and response error-enable defaults remain normative spec-only differences. Queue controls alone do not establish arbitration, storage capacity or delivery.",
+        "ja": "source、metadata、期待ファイル、記録入力は変更しない。既存stop検査は、有限の実行中tree、hook数、状態、遅延write抑止、明示所有権、分離phase objectionを観測し、兄弟stop順やroute IDの数値を指定しない。分離objection検査は記録後に清掃する。USER単一候補callbackとresponse error-enable既定値は、規範的なspec-only差分を保持する。queue controlだけではarbitration、storage容量、配送は成立しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_response_controls_have_documented_defaults",
+          "role": "direct",
+          "expected_observations": [
+            "UT: defaults handler 0 depth 8 errors 1"
+          ]
+        },
+        {
+          "test": "u14/test_sequence_response_control_updates_are_per_instance",
+          "role": "direct",
+          "expected_observations": [
+            "UT: second handler 0 depth 8 errors 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESPONSE-DEFAULT-ERROR-ENABLE",
+      "clause": "14.2.7.4",
+      "statement": {
+        "en": "The initial response overflow error reporting is enabled.",
+        "ja": "responseの初期overflow error報告はenabledである。"
+      },
+      "conditions": {
+        "en": "Query a fresh sequence before any setting on that instance.",
+        "ja": "そのinstanceへの設定前に新sequenceを照会する。"
+      },
+      "expected": {
+        "en": "The default tuple is handler zero, depth eight, reporting one.",
+        "ja": "既定tupleはhandler 0、depth 8、reporting 1となる。"
+      },
+      "limitations": {
+        "en": "Sources, metadata, expected files and recorded inputs are unchanged. Existing stop fixtures observe finite active trees, hook counts, states, delayed-write suppression, explicit ownership or isolated phase objections without prescribing sibling stop order or numeric routing IDs. Isolated objection probes clean up after recording. USER singleton callback and response error-enable defaults remain normative spec-only differences. Queue controls alone do not establish arbitration, storage capacity or delivery.",
+        "ja": "source、metadata、期待ファイル、記録入力は変更しない。既存stop検査は、有限の実行中tree、hook数、状態、遅延write抑止、明示所有権、分離phase objectionを観測し、兄弟stop順やroute IDの数値を指定しない。分離objection検査は記録後に清掃する。USER単一候補callbackとresponse error-enable既定値は、規範的なspec-only差分を保持する。queue controlだけではarbitration、storage容量、配送は成立しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_response_controls_have_documented_defaults",
+          "role": "direct",
+          "expected_observations": [
+            "UT: defaults handler 0 depth 8 errors 1"
+          ]
+        },
+        {
+          "test": "u14/test_sequence_response_control_updates_are_per_instance",
+          "role": "direct",
+          "expected_observations": [
+            "UT: second handler 0 depth 8 errors 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESPONSE-MODE-SELECTED-INSTANCE-VALUE",
+      "clause": "14.2.7.1",
+      "statement": {
+        "en": "The response handler mode follows the selected instance setting.",
+        "ja": "responseのhandler modeは、選択instanceの設定に従う。"
+      },
+      "conditions": {
+        "en": "Select handler mode, finite or unbounded depth and disabled reporting while retaining a fresh peer.",
+        "ja": "新peerを保持しつつ、handler mode、有限または無制限depth、reporting無効化を選ぶ。"
+      },
+      "expected": {
+        "en": "First reflects its selected settings and the untouched peer retains the documented defaults.",
+        "ja": "firstは選択設定を反映し、未変更peerは規定既定値を保持する。"
+      },
+      "limitations": {
+        "en": "Sources, metadata, expected files and recorded inputs are unchanged. Existing stop fixtures observe finite active trees, hook counts, states, delayed-write suppression, explicit ownership or isolated phase objections without prescribing sibling stop order or numeric routing IDs. Isolated objection probes clean up after recording. USER singleton callback and response error-enable defaults remain normative spec-only differences. Queue controls alone do not establish arbitration, storage capacity or delivery.",
+        "ja": "source、metadata、期待ファイル、記録入力は変更しない。既存stop検査は、有限の実行中tree、hook数、状態、遅延write抑止、明示所有権、分離phase objectionを観測し、兄弟stop順やroute IDの数値を指定しない。分離objection検査は記録後に清掃する。USER単一候補callbackとresponse error-enable既定値は、規範的なspec-only差分を保持する。queue controlだけではarbitration、storage容量、配送は成立しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_response_controls_have_documented_defaults",
+          "role": "direct",
+          "expected_observations": [
+            "UT: updated handler 1 depth 3 errors 0"
+          ]
+        },
+        {
+          "test": "u14/test_sequence_response_control_updates_are_per_instance",
+          "role": "direct",
+          "expected_observations": [
+            "UT: first handler 1 depth -1 errors 0",
+            "UT: second handler 0 depth 8 errors 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESPONSE-DEPTH-SELECTED-INSTANCE-VALUE",
+      "clause": "14.2.7.7",
+      "statement": {
+        "en": "The response maximum queue depth follows the selected instance setting.",
+        "ja": "responseのqueue最大depthは、選択instanceの設定に従う。"
+      },
+      "conditions": {
+        "en": "Select handler mode, finite or unbounded depth and disabled reporting while retaining a fresh peer.",
+        "ja": "新peerを保持しつつ、handler mode、有限または無制限depth、reporting無効化を選ぶ。"
+      },
+      "expected": {
+        "en": "First reflects its selected settings and the untouched peer retains the documented defaults.",
+        "ja": "firstは選択設定を反映し、未変更peerは規定既定値を保持する。"
+      },
+      "limitations": {
+        "en": "Sources, metadata, expected files and recorded inputs are unchanged. Existing stop fixtures observe finite active trees, hook counts, states, delayed-write suppression, explicit ownership or isolated phase objections without prescribing sibling stop order or numeric routing IDs. Isolated objection probes clean up after recording. USER singleton callback and response error-enable defaults remain normative spec-only differences. Queue controls alone do not establish arbitration, storage capacity or delivery.",
+        "ja": "source、metadata、期待ファイル、記録入力は変更しない。既存stop検査は、有限の実行中tree、hook数、状態、遅延write抑止、明示所有権、分離phase objectionを観測し、兄弟stop順やroute IDの数値を指定しない。分離objection検査は記録後に清掃する。USER単一候補callbackとresponse error-enable既定値は、規範的なspec-only差分を保持する。queue controlだけではarbitration、storage容量、配送は成立しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_response_controls_have_documented_defaults",
+          "role": "direct",
+          "expected_observations": [
+            "UT: updated handler 1 depth 3 errors 0"
+          ]
+        },
+        {
+          "test": "u14/test_sequence_response_control_updates_are_per_instance",
+          "role": "direct",
+          "expected_observations": [
+            "UT: first handler 1 depth -1 errors 0",
+            "UT: second handler 0 depth 8 errors 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESPONSE-ERROR-ENABLE-SELECTED-INSTANCE-VALUE",
+      "clause": "14.2.7.5",
+      "statement": {
+        "en": "The response error-report enable setting follows the selected instance setting.",
+        "ja": "responseのerror-report enable設定は、選択instanceの設定に従う。"
+      },
+      "conditions": {
+        "en": "Select handler mode, finite or unbounded depth and disabled reporting while retaining a fresh peer.",
+        "ja": "新peerを保持しつつ、handler mode、有限または無制限depth、reporting無効化を選ぶ。"
+      },
+      "expected": {
+        "en": "First reflects its selected settings and the untouched peer retains the documented defaults.",
+        "ja": "firstは選択設定を反映し、未変更peerは規定既定値を保持する。"
+      },
+      "limitations": {
+        "en": "Sources, metadata, expected files and recorded inputs are unchanged. Existing stop fixtures observe finite active trees, hook counts, states, delayed-write suppression, explicit ownership or isolated phase objections without prescribing sibling stop order or numeric routing IDs. Isolated objection probes clean up after recording. USER singleton callback and response error-enable defaults remain normative spec-only differences. Queue controls alone do not establish arbitration, storage capacity or delivery.",
+        "ja": "source、metadata、期待ファイル、記録入力は変更しない。既存stop検査は、有限の実行中tree、hook数、状態、遅延write抑止、明示所有権、分離phase objectionを観測し、兄弟stop順やroute IDの数値を指定しない。分離objection検査は記録後に清掃する。USER単一候補callbackとresponse error-enable既定値は、規範的なspec-only差分を保持する。queue controlだけではarbitration、storage容量、配送は成立しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_response_controls_have_documented_defaults",
+          "role": "direct",
+          "expected_observations": [
+            "UT: updated handler 1 depth 3 errors 0"
+          ]
+        },
+        {
+          "test": "u14/test_sequence_response_control_updates_are_per_instance",
+          "role": "direct",
+          "expected_observations": [
+            "UT: first handler 1 depth -1 errors 0",
+            "UT: second handler 0 depth 8 errors 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESPONSE-HANDLER-EXACT-DELIVERY",
+      "clause": "14.2.7.3",
+      "statement": {
+        "en": "Enabled response handling receives every routed reply without queued reads.",
+        "ja": "有効なresponse handlerは、queue読取りなしに全routing replyを受ける。"
+      },
+      "conditions": {
+        "en": "Enable handling, deliver two copied-ID responses and retain typed handles in the callback.",
+        "ja": "handlerを有効化し、IDをcopyした2 responseを配送し、callbackで型付きhandleを保持する。"
+      },
+      "expected": {
+        "en": "Two handler calls retain the exact reply handles and values 11/22.",
+        "ja": "handlerは2回で、正確なreply handleと値11／22を保持する。"
+      },
+      "limitations": {
+        "en": "Sources, metadata, expected files and recorded inputs are unchanged. Existing stop fixtures observe finite active trees, hook counts, states, delayed-write suppression, explicit ownership or isolated phase objections without prescribing sibling stop order or numeric routing IDs. Isolated objection probes clean up after recording. USER singleton callback and response error-enable defaults remain normative spec-only differences. Queue controls alone do not establish arbitration, storage capacity or delivery.",
+        "ja": "source、metadata、期待ファイル、記録入力は変更しない。既存stop検査は、有限の実行中tree、hook数、状態、遅延write抑止、明示所有権、分離phase objectionを観測し、兄弟stop順やroute IDの数値を指定しない。分離objection検査は記録後に清掃する。USER単一候補callbackとresponse error-enable既定値は、規範的なspec-only差分を保持する。queue controlだけではarbitration、storage容量、配送は成立しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_response_handler_receives_each_routed_reply",
+          "role": "direct",
+          "expected_observations": [
+            "UT: handler_enabled 1 calls 2 values 11 22 same 1 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESPONSE-HANDLER-TO-QUEUE-SWITCH",
+      "clause": "14.2.7.1",
+      "statement": {
+        "en": "Disabling response handling routes later responses through the queue.",
+        "ja": "response handlerの無効化は、後のresponseをqueueへroutingする。"
+      },
+      "conditions": {
+        "en": "Deliver first to the handler, disable handling and retrieve second through get_response.",
+        "ja": "firstをhandlerへ配送し、handlerを無効化し、secondをget_responseで取得する。"
+      },
+      "expected": {
+        "en": "Final mode is zero, the handled value is 11 and queued value is 22.",
+        "ja": "最終modeは0、handler値は11、queue値は22となる。"
+      },
+      "limitations": {
+        "en": "Sources, metadata, expected files and recorded inputs are unchanged. Existing stop fixtures observe finite active trees, hook counts, states, delayed-write suppression, explicit ownership or isolated phase objections without prescribing sibling stop order or numeric routing IDs. Isolated objection probes clean up after recording. USER singleton callback and response error-enable defaults remain normative spec-only differences. Queue controls alone do not establish arbitration, storage capacity or delivery.",
+        "ja": "source、metadata、期待ファイル、記録入力は変更しない。既存stop検査は、有限の実行中tree、hook数、状態、遅延write抑止、明示所有権、分離phase objectionを観測し、兄弟stop順やroute IDの数値を指定しない。分離objection検査は記録後に清掃する。USER単一候補callbackとresponse error-enable既定値は、規範的なspec-only差分を保持する。queue controlだけではarbitration、storage容量、配送は成立しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_response_handler_can_switch_back_to_queue",
+          "role": "direct",
+          "expected_observations": [
+            "UT: final_mode 0 handled 11 queued 22"
+          ]
+        }
+      ]
     }
   ]
 }

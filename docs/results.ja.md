@@ -4,16 +4,16 @@
 
 ## 現在のスナップショット
 
-2026-11-02のローカル記録は現在の1065件を対象にし、各記録は入力と実行条件を指紋で識別します。
-21の章・付録ディレクトリにM1が343件、M2が412件、M3が310件あります。全件が`spec_check: ai`を記録し、
+2026-11-02のローカル記録は現在の1085件を対象にし、各記録は入力と実行条件を指紋で識別します。
+21の章・付録ディレクトリにM1が351件、M2が416件、M3が318件あります。全件が`spec_check: ai`を記録し、
 `UVM_NO_DPI`を使い、deprecated APIを要求しません。人による照合の記録はありません。
 件数は、レビュー済みの要求カバレッジの割合ではありません。
 
 | シミュレータとライブラリ | 観測結果 | 実行範囲 |
 | --- | --- | --- |
-| Verilator 5.052・固定版UVM | `pass`が961件、`known`が104件 | 一致ケースはseed 1・73で再現。実行時の差分はseed 1で停止 |
-| kirimasim・固定版UVM | `unsupported`が1056件、`fail`が9件 | 固定した実行ファイルのbuildと現在の全入力 |
-| Ghost・同梱UVM | `pass`が207件、`fail`が858件 | seed 1・73の各結果。不一致の集合も同じ |
+| Verilator 5.052・固定版UVM | `pass`が979件、`known`が106件 | 一致ケースはseed 1・73で再現。実行時の差分はseed 1で停止 |
+| kirimasim・固定版UVM | `unsupported`が1076件、`fail`が9件 | 固定した実行ファイルのbuildと現在の全入力 |
+| Ghost・同梱UVM | `pass`が207件、`fail`が878件 | seed 1・73の各結果。不一致の集合も同じ |
 | Ghost・固定版UVM | 現在の実行ファイルの固定コピーでは未測定 | 現在の固定版modeの結果は示さない |
 
 固定ライブラリはAccellera UVM 2020.3.1、コミット`78c06547a2a0`で、326ファイルを
@@ -23,12 +23,12 @@
 
 ## 結果の解釈
 
-specのみの104件は、規格に基づく期待出力を保持します。Verilatorの記録では、95件が実行時のseed 1で最初の差分になります。
+specのみの106件は、規格に基づく期待出力を保持します。Verilatorの記録では、97件が実行時のseed 1で最初の差分になります。
 ランナーはそのseedで停止するため、これらの記録にseed 73の結果はありません。
 9件はライブラリAPIの欠落でビルドできません。時刻APIが1件、sequence libraryのAPIが6件、HDL sliceのAPIが2件で、実行時のseed結果はありません。
 既知差分の資料は、specのみの全ケースへのリンクと、原因を割り当てていないシミュレータ／ライブラリの組み合わせの制約も記載します。
 
-kirimasimは1056件で`uvm_object_wrapper`未対応を報告し、残る9件はそれより先にライブラリAPI欠落を検出します。
+kirimasimは1076件で`uvm_object_wrapper`未対応を報告し、残る9件はそれより先にライブラリAPI欠落を検出します。
 いずれも、その障害より後のUVM動作を実行できた証拠ではありません。Ghostの同梱版の不一致だけでは、
 シミュレータとライブラリのどちらが原因かは決まらず、固定版ライブラリでの結果も示しません。ゲストの付録Eの一致は、
 [RO registerのskip](../tests/uE/test_single_register_access_sequence_skips_a_readonly_register.sv)、
@@ -41,8 +41,8 @@ frontdoor／backdoorの転送動作の成功は示しません。
 
 ## 記録の合算
 
-現在の記録は、[fdfbd57](https://github.com/kurochan001/kirimasim-uvm-tests/commit/fdfbd57d235a9fc19ede9163f23f8e9b255f5e0a)
-時点の1045件を変更せずすべて保持し、新規20件の最終入力の測定を加えます。今回、既存テストの本体、metadata、期待出力は変更しません。Verilatorは固定リリース、kirimasimと本プロジェクトのゲストGhostは
+現在の記録は、[101405a](https://github.com/kurochan001/kirimasim-uvm-tests/commit/101405abac10d45544cb9c372548cacf22c1524e)
+時点の1065件を変更せずすべて保持し、新規20件の最終入力の測定を加えます。今回、既存テストの本体、metadata、期待出力は変更しません。Verilatorは固定リリース、kirimasimと本プロジェクトのゲストGhostは
 実行ファイルの固定コピーを使い、Ghostは各seedで既存記録と同じ非公開profileの固定コピーも使います。
 商用シミュレータの結果は[投稿方針](faq.ja.md#商用シミュレータとissueの投稿方針)に従って除外します。
 
@@ -58,7 +58,7 @@ frontdoor／backdoorの転送動作の成功は示しません。
 追加時の件数と測定、過去のスモーク、build変更の詳細は[開発履歴](history.ja.md)に残します。
 更新した記録で以前の記録を置き換える場合も、現在の入力の指紋を先に確認します。
 
-[要求台帳の案](requirements.ja.md)には、新規20検査系と、既存のdefault-sequenceのresource選択と終了responseのroutingの20検査系を対応付けます。
+[要求台帳の案](requirements.ja.md)には、新規20検査系と、既存のsequencerのstop／親子／USER callbackとsequence-response制御の20検査系を対応付けます。
 新しいシミュレーション入力だけを新たに測定し、既存の入力とrunnerの指紋はすべて互換性を保ちます。
 未対応テスト0件でも、規範的な棚卸しの完了ではありません。
 台帳のanchorは期待出力であり、追加測定した成功ではありません。
@@ -73,6 +73,6 @@ frontdoor／backdoorの転送動作の成功は示しません。
 ## 継続的インテグレーション
 
 [Check](../.github/workflows/check.yml)は`main`へのpush、pull request、手動実行で動きます。
-固定ライブラリの整合性、ツールの単体テスト74件、metadata 1065件、要求台帳の案／テスト索引、seed 1・73でのoracle付きVerilator 961件を検査します。
+固定ライブラリの整合性、ツールの単体テスト74件、metadata 1085件、要求台帳の案／テスト索引、seed 1・73でのoracle付きVerilator 979件を検査します。
 kirimasim、Ghost、specのみのケースは実行しません。READMEのバッジは現在のCIで、このローカル測定とは別の状態です。
 Checkが成功しても、UVMの完全な適合性や全シミュレータの成功を示しません。Nightlyや結果の自動公開はありません。

@@ -3,7 +3,7 @@
 [日本語](history.ja.md) · [README](../README.md)
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and thirteen cross-milestone thin-area expansions (1065 simulation tests). The earlier 349-test checkpoint is
+three M4 increments and fourteen cross-milestone thin-area expansions (1085 simulation tests). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -1903,3 +1903,42 @@ independent-channel controls. Register wrappers run as virtual sequences;
 backdoors use modeled storage without HDL/DPI. No cyclic graph, same-channel
 concurrent calls, arbitrary BASE specialization or translation body is
 claimed. README retains current state; this history preserves the increment.
+
+## Fourteenth thin-area expansion across M1–M4
+
+Twenty simulations extend the 1065-case baseline at
+[101405a](https://github.com/kurochan001/kirimasim-uvm-tests/commit/101405abac10d45544cb9c372548cacf22c1524e)
+to 1085 in 21 directories: 351 M1, 416 M2 and 318 M3. All 1065 baseline
+inputs remain unchanged. M1 adds four simplified-matching and four enum-name
+conversion cases. M2 adds matching-ID waits and response queue clearing,
+peer isolation and capacity/control retention. M3 adds eight descriptor
+metadata, bulk array and invalid-index cases without physical DUT access.
+
+Eighteen additions match Verilator 5.052 at seeds 1/73; simplified plus
+and descriptor index handling retain two normative differences. The
+compatible snapshot has 979 matches and 106 known differences: 97 first runtime differences at seed 1
+and nine missing-API builds. Ghost bundled has 207 matches and 878 failures
+at each seed, with identical failing sets. kirimasim has 1076 unsupported
+and nine missing-API failures. Two fixture issues were corrected before
+final evidence: enum name lookup uses a typed value, and extension tokens
+use a concrete subclass. Final records match all current input hashes;
+runner, executable, private profile and library identities are compatible.
+No current pinned-mode Ghost or DPI-enabled matching result is inferred.
+
+M4 adds 60 AI drafts and maps twenty new plus twenty existing stop/response
+fixtures. The ledger has 1021 drafts, 1017 directly linked requirements,
+956 directly linked tests, one additional control and 128 unmapped tests.
+Of 2,504 identifiers, 684 are partially decomposed and 1,820 unassessed;
+504 have primary focus and 1,114 any citation. The 2,479-candidate census
+is 1,975 zero, 267 one and 237 at least two. Eighteen roots have no unmapped
+primary fixtures, including chapter 15. Four drafts lack direct tests;
+scope is proposed, all review is AI and denominator/percentage remain unset.
+Existing singleton USER, automatic-objection and response-default differences
+retain normative expectations. Shared anchors do not imply independent coverage.
+
+Validation covers 74 tool unit tests, 1085 metadata records, ledger/index,
+final-input evidence, 9 complete English/Japanese pairs and local links.
+The glossary has 147 entries and FAQ 124 answers. README retains current
+state; this history preserves the increment. Failed enum output, undefined
+initial descriptor fields, POSIX/DPI behavior, duplicate-ID order and
+concurrent clear/delivery races remain outside these fixtures.

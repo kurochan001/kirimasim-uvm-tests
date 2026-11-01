@@ -1554,6 +1554,18 @@
       "primary_clause": "14.2.7.8",
       "inputs_sha256": "9fc0a5ed9209c02aa44cf9e81d3c902ae3a14dd9f0248e7d3c94f4e0df990f06"
     },
+    "u14/test_sequence_clear_response_queue_discards_pending_replies_and_waits_for_a_fresh_reply": {
+      "primary_clause": "14.2.7.8",
+      "inputs_sha256": "15eeae4a3f3c069614694e1661d58a60de47990f7e252afca2bcad7439c2f8df"
+    },
+    "u14/test_sequence_clear_response_queue_leaves_a_live_peer_queue_unchanged": {
+      "primary_clause": "14.2.7.8",
+      "inputs_sha256": "8261bb27d75a65099a4c352843ae3ad4f7f580ddb084220a069d969773c90686"
+    },
+    "u14/test_sequence_clear_response_queue_reclaims_capacity_without_resetting_controls": {
+      "primary_clause": "14.2.7.8",
+      "inputs_sha256": "b5c3612b5720ec5eb4bd0f1f91f4005543d1cc34a6e1a8ebf14cd799b84dd308"
+    },
     "u14/test_sequence_explicit_depth_overrides_calculated_depth": {
       "primary_clause": "14.1.2.10",
       "inputs_sha256": "7ae04df405d21e3de63bbd9dd9eb5881ed881c1a8c9203d152bef17b38117c8e"
@@ -1601,6 +1613,10 @@
     "u14/test_sequence_get_response_selects_transaction_id_without_losing_other_reply": {
       "primary_clause": "14.3.3.3",
       "inputs_sha256": "138f2678142000a85468a80ba65ae7d4a9008b66866e0a0d8562a23f7d1a197e"
+    },
+    "u14/test_sequence_get_response_waits_for_a_matching_reply_and_retains_earlier_nonmatches": {
+      "primary_clause": "14.3.3.3",
+      "inputs_sha256": "c4e9be8291fcbf39de08208b0bb779e98b569794fd6cb528b7bfa50544c87d9b"
     },
     "u14/test_sequence_grab_blocks_other_sequence_until_ungrab": {
       "primary_clause": "14.2.5.6",
@@ -3526,6 +3542,38 @@
       "primary_clause": "19.4.2.2.1",
       "inputs_sha256": "8ee5eef8ff535c7c6282d79719d72b757aaca32acceda0749409958d96fbff6e"
     },
+    "u19/test_reg_item_access_metadata_overwrites_are_independent_of_peer_and_value": {
+      "primary_clause": "19.1.1.2.14",
+      "inputs_sha256": "39a07940247f7d909e2dcc3104dc5cd8a21922fd8004287c1335dece83611fcf"
+    },
+    "u19/test_reg_item_category_setters_preserve_latest_values_per_instance": {
+      "primary_clause": "19.1.1.2.3",
+      "inputs_sha256": "9f54cdd96d54b0e816a71ba29dbf9f734538719de659da94befdae9c0ccf1257"
+    },
+    "u19/test_reg_item_documented_defaults_exclude_undefined_enum_and_data_values": {
+      "primary_clause": "19.1.1.2.11",
+      "inputs_sha256": "3d27ea5d7acbcb85a8d0c18aa57dcf769a411bb37b0a76f42f9b59134f4a8b9c"
+    },
+    "u19/test_reg_item_element_replacement_and_null_clear_preserve_peer_handle": {
+      "primary_clause": "19.1.1.2.2",
+      "inputs_sha256": "6d17cdccf92b1c1c1d08e7ec67ebe59ee4aef873800750587e7a7e18ceddb83a"
+    },
+    "u19/test_reg_item_invalid_value_indices_warn_without_changing_existing_data": {
+      "primary_clause": "19.1.1.2.4",
+      "inputs_sha256": "fe242b4cc2ec904eaec591e890b79aed9b70dd843b6366e12677147317af7ba6"
+    },
+    "u19/test_reg_item_local_and_original_map_handles_can_change_independently": {
+      "primary_clause": "19.1.1.2.7",
+      "inputs_sha256": "10559787fa30276bd5c8f6aa366cebb85d70f2dffc6afbf42e200221bd5f8253"
+    },
+    "u19/test_reg_item_parent_and_extension_replacement_and_clear_are_instance_local": {
+      "primary_clause": "19.1.1.2.10",
+      "inputs_sha256": "4fdf4b4a21ca98a471c6b593349b6455f2e12b60bd286b5ace1915ef30da5c59"
+    },
+    "u19/test_reg_item_value_array_bulk_copy_is_independent_and_supports_empty_arrays": {
+      "primary_clause": "19.1.1.2.4",
+      "inputs_sha256": "1249dcbecda8187526d4d5755c46ea559c8fb2de94d83737783d0773591a8393"
+    },
     "u19/test_reg_item_value_array_resize_preserves_prefix_and_zero_fills_growth": {
       "primary_clause": "19.1.1.2.4",
       "inputs_sha256": "5fdb51d986cf07ee38ee006e9369ec7715511b7934da69ac54808a2aa3a4df1f"
@@ -4217,6 +4265,38 @@
     "uF/test_core_service_report_server_selection_and_restoration": {
       "primary_clause": "F.4.1.4.5",
       "inputs_sha256": "1ef96a8fc731fdf0a035fff24603e9db061a61f9438f82c33ddb7248fca55f2e"
+    },
+    "uF/test_enum_from_name_default_specialization_accepts_both_active_passive_names": {
+      "primary_clause": "F.3.4.2",
+      "inputs_sha256": "213cf0b20b9b7526fa7ef0d74e9dbecd25020640ef0a73ea3c005f3d1fc8a181"
+    },
+    "uF/test_enum_from_name_rejects_case_space_prefix_and_empty_names": {
+      "primary_clause": "F.3.4.2",
+      "inputs_sha256": "cb0d42ce416d2aacec6b48743fd5a019b17707e7b237c182ed52eee3a1215822"
+    },
+    "uF/test_enum_from_name_roundtrip_includes_sparse_and_negative_values": {
+      "primary_clause": "F.3.4.2",
+      "inputs_sha256": "2752458526c2c9b660dbfe8fe5cd4a4a1459f4ec6732d34382b0e043c7caa513"
+    },
+    "uF/test_enum_from_name_specializations_keep_enum_name_sets_independent": {
+      "primary_clause": "F.3.4.2",
+      "inputs_sha256": "009980e2839256092688f89b0c73c5c4a6e6fc7919d1336497f5347d792b0191"
+    },
+    "uF/test_is_match_plus_requires_at_least_one_character": {
+      "primary_clause": "F.3.3.1",
+      "inputs_sha256": "7dc4882d2eb6679148d36b8317cd44555817da0075c8d360e3cef94f2fa7efd3"
+    },
+    "uF/test_is_match_question_requires_exactly_one_character": {
+      "primary_clause": "F.3.3.1",
+      "inputs_sha256": "77b0fd69fece8aa13faeca52267d46257213af8b7cf24f34cb782dfda111baa8"
+    },
+    "uF/test_is_match_simplified_nonmetacharacters_are_literal": {
+      "primary_clause": "F.3.3.1",
+      "inputs_sha256": "a3ecb53de15ad4216699486c99e41dbb1962577fc277226bc4772d7cd0c18f85"
+    },
+    "uF/test_is_match_star_matches_empty_and_multiple_characters_across_hierarchy": {
+      "primary_clause": "F.3.3.1",
+      "inputs_sha256": "7e776679c2834e78a7b29a6326a043451e4b7cec611e4939c6012fb99b365e9a"
     },
     "uF/test_string_split_empty_and_single_separator_replace_prior_queue": {
       "primary_clause": "F.3.3.2",

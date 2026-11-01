@@ -1,0 +1,4 @@
+UT: temperature success 1 exact 1
+UT: activity success 1 exact 1
+UT: foreign temperature 0 activity 0
+UT: repeated success 1 exact 1

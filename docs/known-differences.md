@@ -2,7 +2,7 @@
 
 [日本語](known-differences.ja.md) · [README](../README.md) · [FAQ](faq.md)
 
-This describes the current 1065-test suite and the pinned Accellera UVM
+This describes the current 1085-test suite and the pinned Accellera UVM
 2020.3.1 library. A mismatch is a test result; it does not by itself assign
 the cause to the simulator, the library or the expectation.
 
@@ -16,9 +16,23 @@ semantics still require review. Annex E additionally checks selected two/three-m
 shared accesses and one child-block shape; see the
 [memory scope](faq.md#memory-prediction-and-map-controls) and
 [shared-access scope](faq.md#memory-access-shared-maps-and-test-selection).
-The following sixty-three additional limitations were identified during M1, M2 and M3.
+The following sixty-five additional limitations were identified during M1, M2 and M3.
 Where a test directly checks a required behavior that is missing, its
 normative expectation is retained with `:oracle: spec`.
+
+- Register-item out-of-range value writes expand the value array rather than
+  warning and ignoring the request, while out-of-range reads return zero
+  without the required warning. Clause 19.1.1.2.4 requires both warnings and
+  ignored writes. Separate read/write descriptors with count/count-plus-one
+  indices keep erroneous allocations small and isolate missing read warnings
+  from write expansion. Empty-array probes retain the same normative rules.
+
+- The no-DPI matching fallback treats simplified-notation plus as a literal
+  character. Clause F.3.3.1/Table F.1 requires one or more characters, so
+  nodeXtail and nodeXYZtail must match node+tail. The normative case remains
+  spec-only. Star, question and the tested literal characters match separately.
+  This finding is limited to the tested no-DPI configuration; it does not
+  establish POSIX-expression behavior or results with DPI enabled.
 
 - A register order policy changes physical read order, but the pinned library
   assembles returned bytes in that execution order rather than their logical
@@ -333,7 +347,7 @@ SystemVerilog 13.4, so it cannot represent a count of two. The expected two
 preserves the prose interpretation. This signature/prose conflict requires
 review and is not assigned as a confirmed simulator or library bug.
 
-Across the suite, 961 tests have the `verilator@5.052` oracle tag and 104
+Across the suite, 979 tests have the `verilator@5.052` oracle tag and 106
 cases are spec-only. One of the spec-only cases checks 9.6: a child's pre-reset
 task must be killed when that phase ends, but the pinned-library run on Verilator 5.052
 lets the child perform its delayed write during a later phase. The cause of
@@ -345,17 +359,21 @@ without callbacks. The pinned Verilator run reaches the blocked-state
 observation, then its watchdog expires. This combined simulator/library
 cause remains unassigned; the normative wakeup expectation is retained.
 
-The 104 spec-only tests retain their normative expected files.
-Default Verilator runs and CI select the 961 tagged cases. `--all` includes
+The 106 spec-only tests retain their normative expected files.
+Default Verilator runs and CI select the 979 tagged cases. `--all` includes
 spec-only cases and records mismatches or build failures as `known`.
-The runtime records for 95 cases establish the first difference at seed 1,
+The runtime records for 97 cases establish the first difference at seed 1,
 without seed 73 results. Nine missing-API cases cannot build and have no
 runtime seed result: one time API, six sequence-library cases and two HDL slice cases.
 
 ## Spec-only tests
 
-These are the 104 current spec-only cases. Several exercise the same
+These are the 106 current spec-only cases. Several exercise the same
 limitation, so their count is not a count of distinct bugs.
+
+- [Register-item invalid value indices](../tests/u19/test_reg_item_invalid_value_indices_warn_without_changing_existing_data.sv).
+
+- [Simplified plus one-or-more matching](../tests/uF/test_is_match_plus_requires_at_least_one_character.sv).
 
 - [Reordered little-endian read reconstruction](../tests/u18/test_reg_order_policy_little_endian_read_uses_requested_bus_order.sv).
 - [Big-endian ordered write bytes](../tests/u18/test_reg_order_policy_big_endian_write_uses_requested_bus_order.sv).
@@ -529,7 +547,7 @@ limitation, so their count is not a count of distinct bugs.
 
 ## Simulator and library combinations
 
-Ghost's bundled-library evidence has 207 matches and 858 failures with each
+Ghost's bundled-library evidence has 207 matches and 878 failures with each
 of seeds 1 and 73; the same tests fail at both seeds. The current executable
 snapshot has no pinned-mode measurement. [Results and methodology](results.md)
 describes the evidence assembly. Bundled results
@@ -538,7 +556,7 @@ problem from a library problem or establish results for the locked library.
 Private identity, profiles and diagnostics are not published.
 
 The tested kirimasim executable reports `uvm_object_wrapper` as unsupported
-on 1056 cases. Nine cases record `fail` earlier on missing library APIs: one time
+on 1076 cases. Nine cases record `fail` earlier on missing library APIs: one time
 setter, six sequence-library cases and two HDL slice cases. Neither result is a pass or evidence
 of UVM execution beyond those compilation blockers.
 

@@ -715,3 +715,19 @@ or child-before-parent, leaving unrelated sibling order unconstrained.
 **Register-sequence convenience method** — A wrapper for a register or memory
 access that supplies the calling sequence as parent and forwards the other
 specified access arguments.
+
+## Matching and descriptor state
+
+**Simplified matching notation** — Whole-string matching with star, plus and
+question denoting zero-or-more, one-or-more and exactly-one characters.
+Other tested nonmetacharacters retain their literal meaning.
+
+**Enum name conversion** — Conversion of an exact, case-sensitive enumerator
+name into its enum value. Failure is reported separately from the output value.
+
+**Response queue clearing** — Removal of pending replies for one sequence.
+It permits fresh replies to arrive and does not clear another sequence's queue.
+
+**Register operation descriptor** — An abstract transaction object holding
+element, access, data, map, status and origin metadata. Reading or updating
+that object alone does not perform a physical register access.

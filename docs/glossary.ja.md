@@ -543,3 +543,17 @@ wrapperのlookupはsequenceを実行せず、共通の登録順を要求しま�
 
 **register-sequenceの便利method** — 呼出しsequenceをparentとして指定し、
 その他の明示access引数を引き渡すregister／memory accessのwrapperです。
+
+## 照合と記述子の状態
+
+**簡易照合表記** — starが0文字以上、plusが1文字以上、questionがちょうど1文字を表す文字列全体の照合です。
+検査した他の非meta文字はliteralの意味を保持します。
+
+**enum名の変換** — 大文字小文字を区別する正確なenumerator名をenum値へ変換する処理です。
+失敗の通知と出力値は別に扱います。
+
+**response queueのclear** — 1 sequenceの保留replyを除く操作です。
+新しいreplyは到着でき、他のsequenceのqueueはclearしません。
+
+**register操作記述子** — element、access、data、map、status、生成元metadataを保持する抽象transaction objectです。
+そのobjectの読取り／更新だけでは、物理register accessは行いません。

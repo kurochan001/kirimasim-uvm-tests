@@ -2,7 +2,7 @@
 
 [English](history.md) · [README](../README.ja.md)
 
-M1・M2の15回目、M3の9回目、M4の3回目と段階をまたぐ薄い領域の13回目の拡充（シミュレーション1065件）までを記録しています。以前の349件の時点は
+M1・M2の15回目、M3の9回目、M4の3回目と段階をまたぐ薄い領域の14回目の拡充（シミュレーション1085件）までを記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -1361,3 +1361,31 @@ blocking transportは各channelに1 callerを使い、逐次再利用、事前re
 register wrapperはvirtual sequenceとして動き、backdoorはHDL／DPIなしでstorageをモデル化します。
 循環graph、同一channelの同時呼出し、任意BASE specialization、変換bodyは主張しません。
 READMEは現状を記載し、今回の増分はこの履歴へ保持します。
+
+## M1〜M4の薄い領域の14回目の拡充
+
+[101405a](https://github.com/kurochan001/kirimasim-uvm-tests/commit/101405abac10d45544cb9c372548cacf22c1524e)
+の1065件へシミュレーション20件を追加し、21 directoryで1085件となります。
+M1は351件、M2は416件、M3は318件で、既存1065件の入力はすべて保持します。
+M1は簡易照合4件とenum名変換4件です。M2はID待機、response queueのclear、peer独立性、容量／control保持、
+M3は物理DUT accessを伴わない記述子のmetadata、bulk配列、不正indexの8件です。
+
+追加18件はVerilator 5.052のseed 1／73と一致し、簡易plusと記述子indexは規範的な差分2件を保持します。
+互換snapshotは一致979件、既知差分106件で、seed 1の実行時初回差分97件とAPI欠落build 9件です。
+Ghost bundledは各seedで一致207件、不一致878件で、失敗集合は同じです。
+kirimasimはunsupported 1076件、API欠落fail 9件です。最終evidence前に検査系の問題2つを修正し、
+enum名のlookupは型付き値、extension tokenは具体的な派生クラスを使います。
+最終記録は現在の全入力hashと一致し、runner、実行ファイル、非公開profile、libraryの識別は互換です。
+現在のGhost pinned modeやDPI有効時の照合結果は推測しません。
+
+M4はAI要求案60件を追加し、新規20件と既存stop／response検査系20件を対応付けます。
+台帳は要求案1021件、直接対応要求1017件、直接対応テスト956件、別control 1件、未対応128件です。
+条項番号2,504件のうち684件を一部分解し、1,820件は未評価、主引用は504番号、いずれかの引用は1,114番号です。
+候補2,479番号の棚卸しは、主引用0件が1,975、1件が267、2件以上が237です。
+第15章を含む18 rootは主引用検査系の未対応0件です。直接テストのない要求案は4件で、範囲は提案、
+照合はすべてAI、分母／比率は未設定です。既存の単一候補USER、自動objection、response既定値の差分は
+規範的な期待を保持します。共有anchorは独立coverageを意味しません。
+
+検証はtool unit test 74件、metadata 1085件、台帳／索引、最終入力のevidence、日英9組とlocal linkを対象とします。
+用語集は147語、FAQは124回答です。READMEは現状を記載し、今回の増分はこの履歴へ保持します。
+失敗したenumの出力、記述子の未定義初期field、POSIX／DPI動作、重複ID順、clear／配送の同時raceは検査対象外です。

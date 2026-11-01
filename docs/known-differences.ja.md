@@ -2,7 +2,7 @@
 
 [English](known-differences.md) · [README](../README.ja.md) · [FAQ](faq.ja.md)
 
-現在の1065件と、固定したAccellera UVM 2020.3.1についての記録です。
+現在の1085件と、固定したAccellera UVM 2020.3.1についての記録です。
 不一致はテストの結果であり、それだけではシミュレータ・ライブラリ・期待値のどれが原因かは決まりません。
 
 ## 固定版ライブラリの制約
@@ -13,8 +13,18 @@
 付録Eでは選んだ2／3 mapのshared accessと1つの子blockの形も確認します。
 [memoryの範囲](faq.ja.md#memorypredictionmapの制御)と
 [shared accessの範囲](faq.ja.md#memory-accessshared-mapテストの選択)を参照してください。
-それ以外に、M1・M2・M3で次の63件の制約を確認しました。
+それ以外に、M1・M2・M3で次の65件の制約を確認しました。
 不足する必須動作を直接検査する場合は、規格の期待値を変えずに`:oracle: spec`で保持します。
+
+- register-itemの範囲外value writeは、warningと無視でなくvalue配列を拡張し、
+  範囲外readは必要なwarningなしに0を返します。19.1.1.2.4は、両warningとwriteの無視を要求します。
+  読取り／書込みの記述子を分け、個数／個数+1のindexで誤った割当てを小さく保ち、
+  readのwarning欠落をwriteの拡張から分離します。空配列の観測も同じ規範的規則を保持します。
+
+- no-DPIの照合fallbackは、簡易表記のplusをliteral文字として扱います。
+  F.3.3.1／表F.1は1文字以上を要求するため、nodeXtailとnodeXYZtailはnode+tailに一致する必要があります。
+  規範的な検査はspec-onlyを保持します。star、question、検査したliteral文字は別に一致します。
+  この知見は実測したno-DPI設定に限定し、POSIX式の動作やDPI有効時の結果は示しません。
 
 - registerのorder policyは物理readの順序を変えますが、固定libraryは論理位置でなく実行順にbyteを合成します。
   18.4.2.4はreadの並べ替えを認め、18.4.4.10はregisterの論理値を保持します。
@@ -240,7 +250,7 @@ databaseのstream列挙の検査系は、7.1.4.2のqueue数を返す事後条件
 記載された`function unsigned`のsignatureは、SystemVerilog 13.4では暗黙の1-bit logicの戻りとなり、2を表現できません。
 期待値2は本文の解釈を保持します。このsignature／本文の矛盾は要レビューとし、確認済みのsimulator／library不具合には割り当てません。
 
-スイート全体では、`verilator@5.052`を付けたテストは961件、specのみのテストは104件です。
+スイート全体では、`verilator@5.052`を付けたテストは979件、specのみのテストは106件です。
 specのみのうち1件は9.6を検証します。pre-resetフェーズ終了時に子タスクが停止する
 はずですが、固定版UVMとVerilator 5.052の組み合わせでは、後のフェーズで子タスクの遅延書き込みが
 実行されます。この差分の原因がシミュレータとライブラリのどちらかは未確定です。
@@ -249,14 +259,18 @@ wakeup resetの検査系は、trigger waiterとpersistent-trigger waiterを各1�
 10.1.1.2.8は、callbackなしで両方が起動することを要求します。固定Verilatorの実行は、待機状態の観測に到達してから
 watchdogが期限切れになります。simulator／libraryを組み合わせた原因は未確定のまま、規範的なwakeupの期待を保持します。
 
-specのみの104件も規格から導いた期待値を保持します。通常のVerilator実行とCIはoracle付き961件を選びます。
+specのみの106件も規格から導いた期待値を保持します。通常のVerilator実行とCIはoracle付き979件を選びます。
 `--all`はspecのみも含め、不一致やビルド不可を`known`として記録します。
-実行時の95件は最初の差分であるseed 1までの記録で、seed 73の結果はありません。
+実行時の97件は最初の差分であるseed 1までの記録で、seed 73の結果はありません。
 API欠落の9件（時刻APIの1件、sequence libraryの6件、HDL sliceの2件）はビルド段階で失敗し、どのseedも実行できていません。
 
 ## specのみのテスト
 
-現在の104件は次のテストです。同じ制約を複数のテストで検査する場合があり、異なる不具合の個数ではありません。
+現在の106件は次のテストです。同じ制約を複数のテストで検査する場合があり、異なる不具合の個数ではありません。
+
+- [register-itemの不正value index](../tests/u19/test_reg_item_invalid_value_indices_warn_without_changing_existing_data.sv).
+
+- [簡易表記plusの1文字以上の照合](../tests/uF/test_is_match_plus_requires_at_least_one_character.sv).
 
 - [並べ替えたlittle-endian readの再合成](../tests/u18/test_reg_order_policy_little_endian_read_uses_requested_bus_order.sv).
 - [big-endianの順序付きwrite byte](../tests/u18/test_reg_order_policy_big_endian_write_uses_requested_bus_order.sv).
@@ -430,12 +444,12 @@ API欠落の9件（時刻APIの1件、sequence libraryの6件、HDL sliceの2件
 
 ## シミュレータとライブラリの組み合わせ
 
-Ghostの同梱UVMはseed 1・73とも207件一致・858件不一致で、不一致になるテストも同じです。
+Ghostの同梱UVMはseed 1・73とも207件一致・878件不一致で、不一致になるテストも同じです。
 現在の実行ファイルの固定コピーでは固定版modeを測定していません。記録の合算は[実行結果と測定方法](results.ja.md)で説明します。
 同梱版の結果が対象にするのは供給されたライブラリです。不一致だけでシミュレータとライブラリの原因を分けたり、
 固定版ライブラリの結果を示したりはできません。非公開の識別情報・profile・診断は公開しません。
 
-確認したkirimasimの実行ファイルでは、1056件が`uvm_object_wrapper`未実装です。
+確認したkirimasimの実行ファイルでは、1076件が`uvm_object_wrapper`未実装です。
 時刻設定APIの1件、sequence libraryの6件、HDL sliceの2件は、その前にAPI欠落を検出して`fail`になります。
 いずれも成功ではなく、その先のUVM動作を実行できた証拠でもありません。
 

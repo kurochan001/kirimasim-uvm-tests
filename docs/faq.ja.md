@@ -155,7 +155,7 @@ Ghostはさらに実行ファイル・profile・供給されたライブラリ�
 
 ### Q16. M1・M2・M3は完了していますか。件数は何の網羅を示しますか
 
-M1・M2には条項ごとの目標に未達があります。M3はbusモデルのfrontdoor経路を含め310件まで追加した段階で、未完です。
+M1・M2には条項ごとの目標に未達があります。M3はbusモデルのfrontdoor経路を含め318件まで追加した段階で、未完です。
 次の段階の開始によって、それまでの段階が完了したとは扱いません。
 範囲と残りの作業は[進め方](../README.ja.md#進め方)にあります。
 件数はテストの本数で、規格の全要求や組み合わせの棚卸しではありません。
@@ -918,8 +918,8 @@ controlの対応は、その要求の直接の検査ではありません。
 
 ### Q77. M4を始めたのに、カバレッジ率がないのはなぜですか
 
-AIによる961要求案は部分的な分解で、957要求を916テストへ直接対応付け、4要求は直接未対応、別の1テストはcontrolです。
-他の148テストはまだ要求に対応付けていません。2,504の条項番号は規範的要求の単位ではありません。
+AIによる1021要求案は部分的な分解で、1017要求を956テストへ直接対応付け、4要求は直接未対応、別の1テストはcontrolです。
+他の128テストはまだ要求に対応付けていません。2,504の条項番号は規範的要求の単位ではありません。
 範囲は提案、棚卸しは未完、分母は未承認で、M4の開始はどれの承認にもなりません。
 既知差分やHDL／DPIの制約によって義務を暗黙に除外しません。[承認までの手順](requirements.ja.md#m4の残作業と承認)を参照してください。
 
@@ -1634,3 +1634,40 @@ mirrorは、明示の不一致報告と既定のno-check動作を別々に検査
 既定specializationをsequencerなしのvirtual sequenceとして動かし、mapが遅延adapter／sequencer／driver busを
 供給します。user backdoorはpre／post hookでstorageをモデル化し、RTL／DPIを使いません。
 これらは既定の変換bodyや任意BASE specializationを実行しません。
+
+## 照合、responseのclear、register記述子
+
+### Q122. 文字列照合とenum変換は、どの動作を検査しますか？
+
+簡易照合は、starが0文字以上、plusが1文字以上、questionがちょうど1文字を表します。
+検査系は文字列全体と、literalのdot／角括弧／丸括弧を検査します。
+[plusのケース](../tests/uF/test_is_match_plus_requires_at_least_one_character.sv)は規格の期待を保持し、
+固定no-DPI fallbackがplusをliteralとして扱うためspec-onlyです。POSIX式とDPI有効時の実行は扱いません。
+
+enum変換は、大文字小文字を区別する正確な名前を要求します。疎なsigned値、小文字／空白付き／拡張／空の名前、
+独立した型、既定active／passive specializationを検査します。成功した呼出しだけ出力enumを観測します。
+失敗時は0を返す必要がありますが、失敗後の出力参照の値は指定しません。
+
+### Q123. sequenceのresponse queueをclearすると、どうなりますか？
+
+[clearして待つケース](../tests/u14/test_sequence_clear_response_queue_discards_pending_replies_and_waits_for_a_fresh_reply.sv)は、
+実requestのreply 2つをqueueへ入れてclearし、新しい3番目のreplyを待ちます。最初の2つはreturnしてはいけません。
+別ケースは、実行中peerのqueue、反復clear後の有限容量の再利用、別途選択したcontrolの保持を検査します。
+control保持は前後の値を比較し、既知のerror-enable既定値の差分は別に記録します。
+
+[IDを指定した待機](../tests/u14/test_sequence_get_response_waits_for_a_matching_reply_and_retains_earlier_nonmatches.sv)は、
+不一致reply 2つから始め、選択IDが来るまで待ち、その後に元の不一致を到着順で取得します。
+route IDは実requestから取得します。clear／配送の同時raceや、同じIDが複数ある場合の選択順は主張しません。
+
+### Q124. register-itemのテストは、物理register accessを示しますか？
+
+記述子のmetadataと配列APIを直接検査します。
+[既定値](../tests/u19/test_reg_item_documented_defaults_exclude_undefined_enum_and_data_values.sv)は、
+規定された初期値だけを読み、未定義の初期enum／data値は除きます。HAS_Xの明示代入は、statusの列挙値で、
+4状態dataの検査ではありません。別ケースは、正確なmodel／map／parent／extension handleの置換／clear、
+metadataの独立性、callerとのaliasがない配列copyを検査します。空配列からの再拡張は新値を0初期化します。
+不正set／get indexはwarningを必要とし、writeを無視し、readは0を返します。固定libraryは不正writeを拡張し、
+warningを省くため、この期待はspec-onlyです。別itemと小さなindexで観測を分離します。
+
+これらはsequence、bus、DUTを実行しません。source filenameは単なるmetadata文字列です。
+物理accessと引き渡し動作は別の統合検査系で示します。共有期待出力行は、複数の要求案を支えても、各観測を独立にはしません。
