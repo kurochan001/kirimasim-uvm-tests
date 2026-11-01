@@ -2,7 +2,7 @@
 
 [English](known-differences.md) · [README](../README.ja.md) · [FAQ](faq.ja.md)
 
-現在の985件と、固定したAccellera UVM 2020.3.1についての記録です。
+現在の1005件と、固定したAccellera UVM 2020.3.1についての記録です。
 不一致はテストの結果であり、それだけではシミュレータ・ライブラリ・期待値のどれが原因かは決まりません。
 
 ## 固定版ライブラリの制約
@@ -13,8 +13,20 @@
 付録Eでは選んだ2／3 mapのshared accessと1つの子blockの形も確認します。
 [memoryの範囲](faq.ja.md#memorypredictionmapの制御)と
 [shared accessの範囲](faq.ja.md#memory-accessshared-mapテストの選択)を参照してください。
-それ以外に、M1・M2・M3で次の58件の制約を確認しました。
+それ以外に、M1・M2・M3で次の61件の制約を確認しました。
 不足する必須動作を直接検査する場合は、規格の期待値を変えずに`:oracle: spec`で保持します。
+
+- Phaseの`find`は、呼出しnodeが指定implementationを参照する場合、渡したimplementation handleを返します。
+  9.3.1.4.4はphase-node handleを要求します。検査系は正確なnodeを期待し、
+  隣接nodeの成功lookupとschedule内で存在しない結果を比較対象にします。
+- Register、memory、blockの`set_coverage`は、新たに有効化したmaskを返します。
+  18.4.7.6、18.6.8.5、18.1.4.5は、直前に有効なmaskを要求します。
+  2検査系はoffからon、置換、無効化の戻り値を保持します。搭載状況による制限、
+  peerの独立性、blockの再帰は別に観測し、固定版実行で一致します。covergroupは測定しません。
+- memory samplingは、read／writeのsampling loopが終端境界を含むため、1 locationのaccessごとに
+  余分なlocationをsampleします。18.6.8.6は完了accessにsamplingを対応させます。
+  検査系は1 locationの転送ごとにsample 1回を保持し、map、方向、data、完了は別に観測します。
+  memory offsetのgeometryは規定しません。
 
 - databaseの`open_stream`は`open_db`を呼び、閉じたdatabaseを暗黙に開く場合があります。
   7.1.4.1は、databaseが既に開いていなければ要求を無視してnullを返すことを要求します。
@@ -216,7 +228,7 @@ databaseのstream列挙の検査系は、7.1.4.2のqueue数を返す事後条件
 記載された`function unsigned`のsignatureは、SystemVerilog 13.4では暗黙の1-bit logicの戻りとなり、2を表現できません。
 期待値2は本文の解釈を保持します。このsignature／本文の矛盾は要レビューとし、確認済みのsimulator／library不具合には割り当てません。
 
-スイート全体では、`verilator@5.052`を付けたテストは889件、specのみのテストは96件です。
+スイート全体では、`verilator@5.052`を付けたテストは905件、specのみのテストは100件です。
 specのみのうち1件は9.6を検証します。pre-resetフェーズ終了時に子タスクが停止する
 はずですが、固定版UVMとVerilator 5.052の組み合わせでは、後のフェーズで子タスクの遅延書き込みが
 実行されます。この差分の原因がシミュレータとライブラリのどちらかは未確定です。
@@ -225,14 +237,19 @@ wakeup resetの検査系は、trigger waiterとpersistent-trigger waiterを各1�
 10.1.1.2.8は、callbackなしで両方が起動することを要求します。固定Verilatorの実行は、待機状態の観測に到達してから
 watchdogが期限切れになります。simulator／libraryを組み合わせた原因は未確定のまま、規範的なwakeupの期待を保持します。
 
-specのみの96件も規格から導いた期待値を保持します。通常のVerilator実行とCIはoracle付き889件を選びます。
+specのみの100件も規格から導いた期待値を保持します。通常のVerilator実行とCIはoracle付き905件を選びます。
 `--all`はspecのみも含め、不一致やビルド不可を`known`として記録します。
-実行時の87件は最初の差分であるseed 1までの記録で、seed 73の結果はありません。
+実行時の91件は最初の差分であるseed 1までの記録で、seed 73の結果はありません。
 API欠落の9件（時刻APIの1件、sequence libraryの6件、HDL sliceの2件）はビルド段階で失敗し、どのseedも実行できていません。
 
 ## specのみのテスト
 
-現在の96件は次のテストです。同じ制約を複数のテストで検査する場合があり、異なる不具合の個数ではありません。
+現在の100件は次のテストです。同じ制約を複数のテストで検査する場合があり、異なる不具合の個数ではありません。
+
+- [phase implementation lookupのnode戻り値](../tests/u09/test_phase_implementation_lookup_stays_within_each_local_schedule.sv).
+- [register／memory coverageの直前mask戻り値](../tests/u18/test_coverage_register_and_memory_controls_return_the_previously_enabled_models.sv).
+- [block coverageの直前mask戻り値](../tests/u18/test_coverage_block_control_recurses_through_nested_models_and_preserves_peer.sv).
+- [memoryの完了locationごとのsampling](../tests/u18/test_coverage_memory_sampling_observes_completed_reads_and_writes_on_the_selected_map.sv).
 
 - [closed databaseのstream-open guard](../tests/u07/test_recording_database_ignores_stream_opens_until_connection_succeeds.sv)。
 - [stream列挙の戻り件数](../tests/u07/test_recording_database_stream_enumeration_is_local_and_excludes_failed_opens.sv)。
@@ -395,12 +412,12 @@ API欠落の9件（時刻APIの1件、sequence libraryの6件、HDL sliceの2件
 
 ## シミュレータとライブラリの組み合わせ
 
-Ghostの同梱UVMはseed 1・73とも196件一致・789件不一致で、不一致になるテストも同じです。
+Ghostの同梱UVMはseed 1・73とも198件一致・807件不一致で、不一致になるテストも同じです。
 現在の実行ファイルの固定コピーでは固定版modeを測定していません。記録の合算は[実行結果と測定方法](results.ja.md)で説明します。
 同梱版の結果が対象にするのは供給されたライブラリです。不一致だけでシミュレータとライブラリの原因を分けたり、
 固定版ライブラリの結果を示したりはできません。非公開の識別情報・profile・診断は公開しません。
 
-確認したkirimasimの実行ファイルでは、976件が`uvm_object_wrapper`未実装です。
+確認したkirimasimの実行ファイルでは、996件が`uvm_object_wrapper`未実装です。
 時刻設定APIの1件、sequence libraryの6件、HDL sliceの2件は、その前にAPI欠落を検出して`fail`になります。
 いずれも成功ではなく、その先のUVM動作を実行できた証拠でもありません。
 

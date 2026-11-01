@@ -155,7 +155,7 @@ Ghostはさらに実行ファイル・profile・供給されたライブラリ�
 
 ### Q16. M1・M2・M3は完了していますか。件数は何の網羅を示しますか
 
-M1・M2には条項ごとの目標に未達があります。M3はbusモデルのfrontdoor経路を含め278件まで追加した段階で、未完です。
+M1・M2には条項ごとの目標に未達があります。M3はbusモデルのfrontdoor経路を含め286件まで追加した段階で、未完です。
 次の段階の開始によって、それまでの段階が完了したとは扱いません。
 範囲と残りの作業は[進め方](../README.ja.md#進め方)にあります。
 件数はテストの本数で、規格の全要求や組み合わせの棚卸しではありません。
@@ -918,8 +918,8 @@ controlの対応は、その要求の直接の検査ではありません。
 
 ### Q77. M4を始めたのに、カバレッジ率がないのはなぜですか
 
-AIによる760要求案は部分的な分解で、756要求を756テストへ直接対応付け、4要求は直接未対応、別の1テストはcontrolです。
-他の228テストはまだ要求に対応付けていません。2,504の条項番号は規範的要求の単位ではありません。
+AIによる811要求案は部分的な分解で、807要求を796テストへ直接対応付け、4要求は直接未対応、別の1テストはcontrolです。
+他の208テストはまだ要求に対応付けていません。2,504の条項番号は規範的要求の単位ではありません。
 範囲は提案、棚卸しは未完、分母は未承認で、M4の開始はどれの承認にもなりません。
 既知差分やHDL／DPIの制約によって義務を暗黙に除外しません。[承認までの手順](requirements.ja.md#m4の残作業と承認)を参照してください。
 
@@ -1427,3 +1427,62 @@ flowchart LR
 testbenchのadapter／sequencer／driverと、明示したmap／auto-prediction設定を使います。
 RTL／DPIの動作、範囲外indexの規則、任意の並行access、間接backdoor、array registerのfrontdoor sequenceを
 自動生成する要求は成立させません。
+
+## phase graph、型付きsocket通信、coverage hook
+
+### Q110. phase graphの照会は何を示しますか？
+
+local階層の検査系は、明示したparent edgeと囲むdomainを検査します。
+[full nameの検査系](../tests/u09/test_phase_full_name_includes_domain_and_nested_schedules.sv)は、
+domainからleafまでの名前を検査します。
+別のgraph検査系は、singleton phase implementationをlocal scheduleへ追加し、
+nodeの同一性、scope内lookup、推移順序、並列joinを検査します。
+
+```mermaid
+flowchart LR
+    S["local schedule入口"] --> A["build node"]
+    S --> B["connect node"]
+    A --> J["end-of-elaboration node"]
+    B --> J
+```
+
+並列nodeは兄弟の前後にはなく、joinは両方の後にあります。これらの検査系はphase callbackを実行しません。
+実行時のschedule、domain間の同期、任意のgraph走査は示しません。
+get_scheduleの戻り型とget_impのNODE／IMPの記載は、このassertionの範囲外です。
+
+固定libraryは、nodeが自身のimplementationをfindするとimplementation handleを返します。
+規範的な期待はnode handleを保持し、隣接lookupの成功と存在しない結果は別の比較対象とします。
+これは既知差分として記録し、oracle一致には数えません。
+
+### Q111. 検査するsocketは独自transaction型を扱えますか？
+
+[blockingのparent implementation検査系](../tests/u12/test_tlm2_custom_transaction_blocking_socket_uses_parent_implementation.sv)は、
+generic payloadと独立したobject classを使います。target socketでimplementation引数を省略したとき、
+実際に呼出しが配送されることを検査します。別の検査系は、独立した子implementationを指定します。
+どちらもtransactionとdelayのhandleを保持し、requestを渡してreply／completionを変更し、
+正のsimulation遅延後にreturnします。canonical delay annotationは別に観測します。
+
+[pass-through initiatorの検査系](../tests/u12/test_tlm2_custom_transaction_passthrough_initiator_routes_both_directions.sv)と
+対応するtarget検査系は、同じcustom objectと標準phase enumを使います。
+待機せずに、forwardの受理、自動backward route、phaseの参照引数の変更、完了、annotationを検査します。
+単一pass-through nodeでは、入れ子initiatorの既知制限は解決しません。
+これはroutingの検査であり、完全な時間付きbase protocolの検証や、任意の独自phase型の検査ではありません。
+
+### Q112. coverage hookは機能coverage比率の測定と同じですか？
+
+検査系は、宣言したmodelの搭載状況、有効な計測mask、user sampling hookの呼出しを別々に観測します。
+covergroup、bin、機能coverage比率は収集しません。[制御の検査系](../tests/u18/test_coverage_register_and_memory_controls_return_the_previously_enabled_models.sv)は、
+未搭載modelの制限とpeerの独立性を検査します。blockの制御は、入れ子block、register、memoryへ到達します。
+規格はset_coverageで直前に有効なmaskを返すことを要求しますが、固定libraryは新maskを返すため、
+その戻り値の検査はspec-onlyを保持します。
+
+[register sampling](../tests/u18/test_coverage_register_write_samples_after_bus_completion_before_mirror_update.sv)は、
+自動予測がmirrorを更新する前に、完了した1 byte bus dataを観測します。
+別の検査系はread data、memoryの方向／map／完了、非0 map baseでもblock相対となるoffset、
+拒否したwriteがretry前にblockをsampleしないことを検査します。memory samplingは完了locationごとに
+hook 1回を期待しますが、固定libraryは余分なlocationをsampleします。memory hookのoffsetは解釈しません。
+userが呼ぶsample_valuesのoverrideはsuperを呼び、選択subtree内の再帰訪問を数え、兄弟間の順序は要求しません。
+
+台帳は既存のset／reset／predict／updateも対応付けます。desired値、mirror値、sampling counter、
+testbench storageは別の観測です。W1C／W1Sのupdateは物理write maskとmodel状態を観測し、
+driver storageはhardwareのaccess policyをmodel化しません。

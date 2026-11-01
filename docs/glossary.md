@@ -644,3 +644,21 @@ fixtures complete an explicit index write before accessing the data port.
 **Selected-array prediction** — Updating the array-register mirror selected
 by an indirect index after an observed modeled transfer. Other array mirrors
 retain their previous values; the testbench storage remains a separate state.
+
+## Phase identity and coverage sampling
+
+**Phase implementation and node** — An implementation supplies a phase's
+behavior; a schedule contains nodes referring to implementations. Different
+nodes can refer to the same singleton without becoming the same handle.
+
+**Coverage model availability** — The measurement models declared by a
+register, memory or block abstraction. Availability does not mean collection
+is currently enabled or that any bins have been sampled.
+
+**Coverage enable mask** — The available models whose measurements are
+currently enabled. Changing this mask is distinct from querying availability;
+the standard specifies that set_coverage returns its previous enabled mask.
+
+**Sampling hook** — A user-overridable method that observes an access or
+current model values for measurement. Counting hook calls can check dispatch
+and timing without constructing covergroups or producing coverage percentages.

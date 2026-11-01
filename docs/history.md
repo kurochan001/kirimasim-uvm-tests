@@ -3,7 +3,7 @@
 [日本語](history.ja.md) · [README](../README.md)
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and nine cross-milestone thin-area expansions (985 simulation tests). The earlier 349-test checkpoint is
+three M4 increments and ten cross-milestone thin-area expansions (1005 simulation tests). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -1734,3 +1734,46 @@ indirect-access diagram. Earlier stream-only descriptions now distinguish
 separate recorder coverage. Random selection is not statistical coverage;
 constructor bounds are not resolved traffic. README keeps current state,
 while increment details remain here.
+
+## Tenth thin-area expansion across M1–M4
+
+Twenty simulations extend the 985-case baseline at
+[dcc6330](https://github.com/kurochan001/kirimasim-uvm-tests/commit/dcc6330034e652830fd05c4e50153d6c7017aac5)
+to 1005 cases in 21 directories: 319 M1, 400 M2 and 286 M3. All 985 baseline
+inputs remain unchanged. M1 adds eight local phase-graph metadata, identity,
+lookup and ordering cases. M2 adds four custom-transaction socket cases:
+blocking parent/explicit implementation delivery and nonblocking single
+initiator/target pass-through forward/backward routing. M3 adds eight
+coverage-control, sampling-order and recursive-value-hook cases. There are
+no covergroups or functional coverage percentages, RTL accesses or DPI.
+
+Sixteen additions match Verilator 5.052 at seeds 1 and 73. Four retain
+normative spec-only differences: current-node find returns an implementation
+instead of the node, and two coverage-control fixtures return new rather
+than previous enabled masks. Memory sampling additionally visits an extra
+location for each one-location access. The mask fixtures retain matching
+availability, recursive control and peer observations. Four initial socket
+fixtures are corrected to annotate canonical time using get_abstime/set_abstime;
+final evidence uses those corrected calls. The compatible snapshot has
+905 matches and 100 known differences: 91 runtime first differences at seed 1
+and nine missing-API builds without runtime seed results. Ghost bundled
+has 198 matches and 807 failures at each seed, with identical failing
+sets. kirimasim has 996 unsupported cases and nine missing-API failures.
+All runner/executable/profile/library identities remain compatible; no
+current pinned-mode Ghost claim is added.
+
+M4 adds 51 AI drafts and maps all twenty additions plus twenty existing
+register/field set, reset, prediction and update fixtures. The ledger has
+811 drafts, 807 directly linked requirements, 796 directly linked tests,
+one additional control and 208 unmapped tests. Of 2,504 identifiers, 592 have
+partial decomposition and 1,912 remain unassessed; 458 have primary focus and
+1,046 any citation. The 2,479-candidate census is 2,021 zero, 232 one and 226
+at least two. Four drafts still lack direct tests. Scope remains proposed,
+all review is AI and denominator/percentage remain unset.
+
+Validation covers 74 tool unit tests, all 1005 metadata records, ledger/index
+integrity, final-input evidence fingerprints and complete English/Japanese
+guides. The glossary has 131 entries and the FAQ 112 answers, including a
+phase-graph diagram. Model state, bus masks and hook counters remain distinct
+from physical DUT behavior. README keeps current state; increment details
+remain here.

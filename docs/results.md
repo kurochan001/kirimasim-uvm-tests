@@ -4,18 +4,18 @@
 
 ## Current snapshot
 
-The local evidence dated 2026-11-01 covers the 985 current tests. Each record
+The local evidence dated 2026-11-01 covers the 1005 current tests. Each record
 identifies its test inputs and execution conditions through fingerprints.
 The suite contains
-311 M1, 396 M2 and 278 M3 cases in 21 chapter/annex directories. All record
+319 M1, 400 M2 and 286 M3 cases in 21 chapter/annex directories. All record
 `spec_check: ai`, use `UVM_NO_DPI` and request no deprecated API. None records
 human review. Counts do not establish a reviewed requirement-coverage percentage.
 
 | Simulator and library | Observation | Execution scope |
 | --- | --- | --- |
-| Verilator 5.052, pinned UVM | 889 `pass`; 96 `known` | Matches reproduced at seeds 1 and 73; runtime differences stop at seed 1 |
-| kirimasim, pinned UVM | 976 `unsupported`; nine `fail` | Fixed executable build and all current inputs |
-| Ghost, bundled UVM | 196 `pass`; 789 `fail` | Each of seeds 1 and 73; identical failing sets |
+| Verilator 5.052, pinned UVM | 905 `pass`; 100 `known` | Matches reproduced at seeds 1 and 73; runtime differences stop at seed 1 |
+| kirimasim, pinned UVM | 996 `unsupported`; nine `fail` | Fixed executable build and all current inputs |
+| Ghost, bundled UVM | 198 `pass`; 807 `fail` | Each of seeds 1 and 73; identical failing sets |
 | Ghost, pinned UVM | Not measured for the current executable snapshot | No current pinned-mode claim |
 
 The pinned library is Accellera UVM 2020.3.1, commit `78c06547a2a0`, with
@@ -27,15 +27,15 @@ Icarus Verilog is not used for this UVM suite.
 
 ## Interpretation
 
-The 96 spec-only cases retain standard-derived expected output. Of their
-Verilator records, 87 first differ at runtime seed 1. The runner stops at that
+The 100 spec-only cases retain standard-derived expected output. Of their
+Verilator records, 91 first differ at runtime seed 1. The runner stops at that
 seed, so those records contain no seed 73 result. Nine cannot build because
 of missing library APIs: one time API, six sequence-library APIs and two HDL slice APIs. They
 have no runtime seed result. The known-differences guide links every spec-only
 case and describes the combined simulator/library limitation where the cause
 has not been assigned.
 
-kirimasim reports `uvm_object_wrapper` as unsupported on 976 cases; the other
+kirimasim reports `uvm_object_wrapper` as unsupported on 996 cases; the other
 nine encounter missing library APIs first. Neither category establishes
 execution of the UVM behavior beyond those blockers. Ghost's bundled
 mismatches do not identify whether the simulator or its library caused them,
@@ -51,8 +51,8 @@ and exit-code rules. Two seeds do not prove determinism or four-state correctnes
 
 ## Evidence assembly
 
-The current snapshot retains all 965 unchanged records from
-[8482f3f](https://github.com/kurochan001/kirimasim-uvm-tests/commit/8482f3f137671d1abbafdceda07f41151c671e8d)
+The current snapshot retains all 985 unchanged records from
+[dcc6330](https://github.com/kurochan001/kirimasim-uvm-tests/commit/dcc6330034e652830fd05c4e50153d6c7017aac5)
 and adds measurements of twenty new final inputs. Existing test bodies,
 metadata and expected output are unchanged by this increment. Verilator uses the fixed release;
 kirimasim and the project's guest Ghost use fixed executable snapshots.
@@ -78,7 +78,7 @@ prior smoke tests and build-change details. Refreshed records replace older
 ones only after their current input fingerprints are verified.
 
 The [draft ledger](requirements.md) maps all twenty new fixtures and twenty
-existing sequencer arbitration, lock/grab and availability fixtures. Only new simulation
+existing register/field set, reset, prediction and update fixtures. Only new simulation
 inputs are measured anew; all baseline input and runner fingerprints remain
 compatible. Zero unmapped tests is still not a completed normative inventory.
 Ledger anchors describe expected output, not additional measured passes.
@@ -95,7 +95,7 @@ inputs, a different runner, executable, profile or library is a separate conditi
 
 [Check](../.github/workflows/check.yml) runs on pushes to `main`, pull requests
 and manual dispatch. It checks pinned-library integrity, 74 tool unit tests,
-985 metadata records, the draft requirement ledger/test index and the 889
+1005 metadata records, the draft requirement ledger/test index and the 905
 tagged Verilator cases using seeds 1 and 73.
 It does not run kirimasim, Ghost or spec-only cases. The README's badge is the
 live CI state, separate from these local measurements. A green Check does

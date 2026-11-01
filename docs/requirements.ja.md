@@ -5,12 +5,12 @@
 ## 現在の状態
 
 M4を進めています。[対象範囲の案](../coverage/scope.json)、[要求台帳](../coverage/requirements.json)、
-[テスト索引](../coverage/test_index.json)を版管理します。台帳の要求案は760件で、756要求を756テストへ直接対応付け、
+[テスト索引](../coverage/test_index.json)を版管理します。台帳の要求案は811件で、807要求を796テストへ直接対応付け、
 4要求には直接対応するテストがありません。追加の1テストをcontrolとして対応付けています。
-985テストのうち残る228件は要求単位でまだ整理していませんが、規範的な動作を検査していないという意味ではありません。
+1005テストのうち残る208件は要求単位でまだ整理していませんが、規範的な動作を検査していないという意味ではありません。
 人による要求の照合記録はありません。
 
-条項catalogの番号は2,504件です。565件は要求を一部分解し、残る1,939件は未評価です。
+条項catalogの番号は2,504件です。592件は要求を一部分解し、残る1,912件は未評価です。
 どちらも完了を示しません。M4の開始は、範囲や分母の承認、M1〜M3の完了を意味しません。
 `approved_denominator`と`coverage_percentage`は`null`のままです。
 
@@ -18,7 +18,7 @@ M4を進めています。[対象範囲の案](../coverage/scope.json)、[要求
 
 適用条件を伴う、観測可能な規範的義務を1要求とする案です。methodの1条項にも、成功、失敗、default引数、
 順序、副作用など、複数の要求が必要な場合があります。見出し自体は義務ではありません。
-760件の要求案は複数領域にわたりますが、その条項内の全義務を列挙したものではありません。
+811件の要求案は複数領域にわたりますが、その条項内の全義務を列挙したものではありません。
 
 既存の番号catalogのすべてのrootを、1つずつ次に割り当てます。
 
@@ -41,10 +41,10 @@ SystemVerilog言語自体の要求はkirimasim-testsで扱い、言語やHDL機�
 ## 引用・要求・実行の証拠
 
 テストの最初のUVM `:lrm:`参照を**主引用**、後続のUVM参照を**補助引用**と呼びます。
-catalogのうち主引用がある番号は443件、どちらかの引用がある番号は1,020件です。
+catalogのうち主引用がある番号は458件、どちらかの引用がある番号は1,046件です。
 補助引用は準備に使うAPIの場合もあります。引用から要求の対応付けを自動生成せず、子条項の参照を親条項へ自動集約もしません。
 
-対象候補2,479件について、従来の「各条項2テスト」の主引用の棚卸しは、0件が2,036、1件が220、2件以上が223です。
+対象候補2,479件について、従来の「各条項2テスト」の主引用の棚卸しは、0件が2,021、1件が232、2件以上が226です。
 これはテストの配置を測るだけで、2つの独立した検査があること、規範的な義務を分解したこと、実行が成功したことを示しません。
 承認された要求の分母ではなく、主引用0件の全条項が不足だと宣言するものでもありません。
 
@@ -61,7 +61,7 @@ checkerは参照、field、期待行の存在、入力の同一性を検査し�
 
 [実行の証拠](results.ja.md)は別に扱い、入力、runner、ライブラリ、設定の同一性が必要です。
 直接の対応先にもspecのみの既知差分があり得ます。対応自体は成功や適合性の主張ではありません。
-現在の985件には新たに測定した検査系を含みます。変更していない既存テストの対応付け自体は、追加の実行結果ではありません。
+現在の1005件には新たに測定した検査系を含みます。変更していない既存テストの対応付け自体は、追加の実行結果ではありません。
 
 ## 版管理するデータと生成する棚卸し
 
@@ -74,7 +74,7 @@ JSONはUTF-8、schema versionは1です。未知のfield、重複key、重複す
   直接の対応先は要求の条項を引用する必要があり、レビューで対応を確認すれば補助引用でも構いません。
 - `coverage/test_index.json`は、全テストの`primary_clause`と`inputs_sha256`を記録します。
   指紋は既存runnerの収集処理を使い、source、宣言したhelper／include／data、期待値file、UVM lockを含めます。
-  索引は棚卸しであり、985件のレビュー済み要求対応ではありません。
+  索引は棚卸しであり、1005件のレビュー済み要求対応ではありません。
 
 照合状態は`ai`、`unreviewed`、`human`です。humanには識別可能な`reviewer`と、`reviewed_at`のISO日付が必要です。
 他の状態では両方を`null`にします。照合したという記録であり、checkerが本人性を認証するものではありません。
@@ -125,7 +125,7 @@ JSONは、`requirements_without_direct_tests`（controlのみも含む日英の�
 | 6 | 34 | 32 | 0 | 87 |
 | 7 | 30 | 13 | 0 | 45 |
 | 8 | 23 | 34 | 0 | 52 |
-| 9 | 25 | 19 | 0 | 97 |
+| 9 | 37 | 27 | 0 | 89 |
 | 10 | 50 | 54 | 0 | 80 |
 | 11 | 17 | 12 | 0 | 17 |
 | 13 | 16 | 12 | 0 | 99 |
@@ -142,7 +142,7 @@ JSONは、`requirements_without_direct_tests`（controlのみも含む日英の�
 未対応テスト0件でも、網羅の完了ではありません。付録Eには、HDL-pathの利用可否とwalking-ones algorithm自体の2要求が直接未対応です。
 location maskは、必要なlocationアクセスの特性だけに対応付け、walking algorithm全体には対応付けません。
 B.5.11の矛盾する印刷上の呼出しは、レビューが必要な解釈として記録します。既知差分の期待値も規格に従って保持し、
-760件の要求の照合状態はすべて`ai`です。
+811件の要求の照合状態はすべて`ai`です。
 
 選択したFIFOの対応は、blocking／nonblockingの動作、容量、flush、到着順、analysis通知を実際の期待観測へ結び付けます。
 失敗get／peekの出力の事後条件にはsentinel検査を追加し、規格の`output` signatureと本文の食い違いを要レビューとして残します。
@@ -171,7 +171,7 @@ memory hookは、pre-writeの値／offsetの合成、pre-readのmap／offset変�
 post-writeの順序／最後のstatus／再転送なしを分けて対応付けます。既存のmemory／register-map照会21検査系を、
 観測する親、size、幅、所属、権限、address、移動、reset、階層の性質へ対応付けます。
 共通の出力行を使っても、すべてのanchorが独立した要求の検査になるわけではありません。
-第18章には、主引用テストで未対応82件と、未評価の番号360件が残ります。
+第18章には、主引用テストで未対応62件と、未評価の番号343件が残ります。
 map変更とpost-write順序の既知差分でも必要な期待を保ち、新たな測定の合格には数えません。
 
 event／barrierの要求案を、持続するon状態、reset／offの待機、新しい／同sliceのtrigger data、既定trigger data、
@@ -197,7 +197,7 @@ HDLの利用可否やdepositを示すlinkはありません。新しい第17章�
 
 既存のpayload／extensionの21検査系を、address／data／maskの状態、述語、型keyの同一性、消去、alias、
 既定packでのextension境界へ対応付けます。これらのlinkは配列とlengthが一致する設定を保ち、
-別のlength不一致の意味は別途扱います。第12章には、主引用テストの未対応46件、未評価の番号147件が残ります。
+別のlength不一致の意味は別途扱います。第12章には、主引用テストの未対応46件、未評価の番号145件が残ります。
 新しいlinkだけで、測定の合格、人による照合、承認済み分母は作りません。
 
 型付きevent callbackの要求案は、拒否、post-triggerの状態、callbackなしのreset wakeup、無効hookのdispatchを区別します。
@@ -207,7 +207,7 @@ blocking TLM 2の要求案は、重なる呼出しの戻り境界、接続した
 
 register modelの照会は、block／regfile／registerの親handle、local／再帰的な所属、単純名の検索へ対応付けます。
 転送動作は示さず、lock前と入れ子のregfileのlookup差分は規範的な期待を保持します。
-第18章には、未対応の主引用テスト82件、未評価の番号360件が残ります。
+第18章には、未対応の主引用テスト62件、未評価の番号343件が残ります。
 
 既存sequencerの20検査系を、mode／容量の制御、counter、要求／応答履歴、current-itemの寿命、peek／getの完了、
 execute-itemのacknowledge、型付きpush traffic／response handlerへ対応付けます。
@@ -222,11 +222,11 @@ local hookがstreamを用意し、streamだけのlinkではrecorderの動作を�
 新しいrequest／response channelの検査系は、方向別routing、満杯queueでのblocking put、応答getの待機、
 要求peekの保持へ対応付けます。既存TLM 1の20検査系は、analysis broadcast、subscriberなし、export転送、
 接続port、分離implementationの委譲、型付きFIFOの方向／順序、通知、逐次transportへ対応付けます。
-第12章には、未対応の主引用検査系46件、未評価の番号147件が残ります。
+第12章には、未対応の主引用検査系46件、未評価の番号145件が残ります。
 
 field metadataの要求案は、以前のaccess、custom登録と組み込み分類、volatility／compare設定、reset値の照会、
 reset metadata／削除、定義済み／未知resetの状態、staticな最大幅を区別し、modelだけを観測します。
-第18章には、未対応の主引用検査系82件、未評価の番号360件が残ります。新しいlinkでは、
+第18章には、未対応の主引用検査系62件、未評価の番号343件が残ります。新しいlinkでは、
 人による照合、物理reset、外部記録backend、承認済み分母は作りません。
 
 recorderの要求案は、open streamでの受理、streamの同一性、明示timestamp、lifecycle flag、
@@ -244,6 +244,26 @@ array要素は等幅、有効indexを使い、RTLやarray frontdoorの自動生�
 grant前の完了、grabの優先、親子の適格性、入れ子所有権の照会、相互に使える解放、lock／relevanceの利用可否へ対応付けます。
 randomの所属は、公平性や統計的なcoverageとは区別します。第15章には、未対応の主引用検査系36件、
 未評価の番号53件が残り、要求案36件は一部分解のままです。既存lockのtiming／順序の差分は規範的な期待を保持します。
+
+phase graphのlinkは、constructorの種類、直近parent、囲むdomain／名前、full path、
+node／implementationの同一性、scope内lookup、推移順序、並列joinを扱います。
+実行しないlocal graphを照会し、get_schedule／get_impの記載の矛盾は今回の範囲外です。
+現在nodeのlookupは、要求するnodeの戻り値をspec-onlyとして保持します。
+
+custom transactionのsocket linkは、既定parentと明示blocking implementationへの実配送、
+単一nonblocking initiator／target pass-through nodeを通る両方向を検査します。
+transactionはgeneric payloadから独立し、phase引数は標準enumを使います。
+annotationの検査は、simulation時間が経過したことを示しません。
+
+coverageのlinkは、modelの搭載状況、有効mask、要求される直前maskの戻り値を区別します。
+また、blockの入れ子制御、bus完了後かつ予測前のregister hook、memory hookの方向／map、
+block相対offset、成功accessのsampling、再帰sample_valuesを扱います。
+hook counterはcovergroup、bin、測定したcoverage比率ではありません。
+直前maskと余分なmemory sampleの差分はspec-onlyを保持します。既存register／field検査系20件は、desired／mirror状態、
+reset kind、選択した予測policy、clean／dirtyのupdate、物理W1C／W1S write maskへ別途対応します。
+modelだけの操作とbus maskの観測は、policyに忠実なDUTを示しません。
+第18章は要求案164件、未対応の主引用検査系62件、未評価の番号343件、
+第12章は要求案91件、未対応検査系46件、未評価の番号145件です。どの分解も部分的です。
 
 ## 生成レポートの識別
 
@@ -288,4 +308,4 @@ hashが同じでも、既知差分を含む未完／未承認の棚卸しの場�
 割合の公開前に、規範的義務の棚卸しとレビューを終え、範囲を決定し、計数規則と固定した要求集合の明示的な承認を得ます。
 レビュー済みの検査対応と、実行成功をどう数えるかは分けて定義し、実行条件と証拠の同一性も含めます。
 承認には後続のschema／手順の更新が必要です。schema 1では意図的に、棚卸し完了や承認済み分母を表せません。
-現在のAIによる760要求案と直接の対応は、その条件を満たしていません。
+現在のAIによる811要求案と直接の対応は、その条件を満たしていません。

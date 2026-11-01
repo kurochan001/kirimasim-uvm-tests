@@ -487,3 +487,17 @@ localなimplementation hookで、外部databaseの形式を生成せず、lifecy
 
 **選択したarrayのprediction（Selected-array prediction）** — model化した転送の観測後、間接indexが選んだarray registerのmirrorを更新することです。
 他のarray mirrorは以前の値を保持し、testbenchのstorageは別の状態として残します。
+
+## phaseの同一性とcoverage sampling
+
+**phase implementationとnode** — implementationはphaseの動作を用意し、scheduleは
+implementationを参照するnodeを含みます。異なるnodeが同じsingletonを参照しても、同じhandleにはなりません。
+
+**coverage modelの搭載状況** — register、memory、blockの抽象modelが宣言した計測modelです。
+搭載していることは、現在収集が有効であることや、何らかのbinをsampleしたことを示しません。
+
+**coverage有効mask** — 現在計測を有効にしている搭載済みmodelです。このmaskの変更と搭載状況の照会は別で、
+規格はset_coverageが直前の有効maskを返すことを定めます。
+
+**sampling hook** — accessまたは現在のmodel値を計測のために観測する、userがoverrideできるmethodです。
+hookの呼出し回数を数えることで、covergroupを作ったりcoverage比率を出したりせずに、dispatchとtimingを検査できます。

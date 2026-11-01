@@ -510,6 +510,26 @@
       "primary_clause": "9.3.1.4.1",
       "inputs_sha256": "ed5c9d195921ded5115abcfe986d2a45fe63a3c3a806d22ae3c55ae8e927a659"
     },
+    "u09/test_phase_constructor_retains_default_and_explicit_node_types": {
+      "primary_clause": "9.3.1.3.1",
+      "inputs_sha256": "35e797a99cd16a5e6a42a372d0498a1a6a1b930e4919b8b8b5fdd0370b49c959"
+    },
+    "u09/test_phase_domain_queries_reach_the_enclosing_domain_or_report_unknown": {
+      "primary_clause": "9.3.1.6.6",
+      "inputs_sha256": "57e469f0266d13ea566d191900af708f506005f6adb40c426d299d5fdbab8e59"
+    },
+    "u09/test_phase_full_name_includes_domain_and_nested_schedules": {
+      "primary_clause": "9.3.1.6.3",
+      "inputs_sha256": "ac487888cb20f4fc412c717974b1683564961b92092327a5a6113db1ded9b8b8"
+    },
+    "u09/test_phase_identity_distinguishes_nodes_and_matches_their_implementation": {
+      "primary_clause": "9.3.1.4.5",
+      "inputs_sha256": "5b80e99380a3a161bedb4c2c3145fae9c91f6afb5a93a969587ea7eed82eec7f"
+    },
+    "u09/test_phase_implementation_lookup_stays_within_each_local_schedule": {
+      "primary_clause": "9.3.1.4.4",
+      "inputs_sha256": "91f1428c3cf89b1ec16517d8c90ad86bf4ad6e26bb6b40b08a57e4eb9d8812e6"
+    },
     "u09/test_phase_iteration_limits_have_instance_and_default_state": {
       "primary_clause": "9.3.1.3.3",
       "inputs_sha256": "dd90da6ea0cfe5845c8a74990fa871acd99d977b9dde85ac5ebaa79b929c99b3"
@@ -525,6 +545,18 @@
     "u09/test_phase_objection_count_forwards_to_node_objection": {
       "primary_clause": "9.3.1.7.1",
       "inputs_sha256": "06313fea8048e426d668de2a74c15432058bab9301ed33928a14e5e9872ec649"
+    },
+    "u09/test_phase_order_queries_include_transitive_edges_and_exclude_self": {
+      "primary_clause": "9.3.1.4.6",
+      "inputs_sha256": "256e4e5ee5815fe377851aaa0db50ea9141e08a1bc82e369e0aeb1793e5ab8f6"
+    },
+    "u09/test_phase_parallel_order_queries_preserve_both_join_relationships": {
+      "primary_clause": "9.3.1.4.7",
+      "inputs_sha256": "ddfa26b0a1e65c96e3143648151d3640ee4cb25660eeec89253c368090d4f5b5"
+    },
+    "u09/test_phase_parent_queries_retain_each_explicit_hierarchy_edge": {
+      "primary_clause": "9.3.1.6.2",
+      "inputs_sha256": "07473454c2ae14417820eaa03fcc136b29167a09ea5db4e855f2a952c6f3ccc1"
     },
     "u09/test_phase_ready_to_end_objection_extends_main": {
       "primary_clause": "9.6",
@@ -1009,6 +1041,22 @@
     "u12/test_tlm2_blocking_target_socket_connect_reports_error_for_each_forbidden_call": {
       "primary_clause": "12.3.5.1.4",
       "inputs_sha256": "96f7822e5917da7628c5f7862019251ddd7e377a87d03c84423c94916b412bf0"
+    },
+    "u12/test_tlm2_custom_transaction_blocking_socket_uses_explicit_implementation": {
+      "primary_clause": "12.3.5.1.3",
+      "inputs_sha256": "ab86bb62b0434521bbcb4f455d01fcad57d01074fbdc1ff7a76fb45cbdf3ed50"
+    },
+    "u12/test_tlm2_custom_transaction_blocking_socket_uses_parent_implementation": {
+      "primary_clause": "12.3.5.1.3",
+      "inputs_sha256": "e6d3edb9ba51bbb298c8a3cf6ab238ee34d283ab05d53aa86fd44c9a47529515"
+    },
+    "u12/test_tlm2_custom_transaction_passthrough_initiator_routes_both_directions": {
+      "primary_clause": "12.3.5.5.4",
+      "inputs_sha256": "2c14a1345e3d7c699d414a14a42504552d353cd3ea1f2f9e93b434627b247499"
+    },
+    "u12/test_tlm2_custom_transaction_passthrough_target_routes_both_directions": {
+      "primary_clause": "12.3.5.6.4",
+      "inputs_sha256": "69a0ecf93e9d745983a8f8f5cbbf60f4a281e158dc34d8f37f4ef2b53413524e"
     },
     "u12/test_tlm2_extension_polymorphic_type_handle_is_shared_by_same_type_instances": {
       "primary_clause": "12.3.4.4.4",
@@ -2561,6 +2609,38 @@
     "u18/test_block_subblock_enumeration_distinguishes_direct_and_recursive_children": {
       "primary_clause": "18.1.3.5",
       "inputs_sha256": "a1a63f75883dc59efca51528d6af3ad2a65497b0537c3de1f9d21fdc067ded06"
+    },
+    "u18/test_coverage_block_control_recurses_through_nested_models_and_preserves_peer": {
+      "primary_clause": "18.1.4.5",
+      "inputs_sha256": "3372b3452474c5b7188715cfe36cdbd860f06f91f39d8ced5241048bc9a4cb35"
+    },
+    "u18/test_coverage_block_sampling_uses_relative_offsets_instead_of_absolute_bus_addresses": {
+      "primary_clause": "18.1.4.6",
+      "inputs_sha256": "8b4c5301a74cddc1b9dc0cce0026395b264e29d70ae0a7ffffadaa5ce9d7e2c0"
+    },
+    "u18/test_coverage_failed_write_does_not_sample_block_until_successful_retry": {
+      "primary_clause": "18.1.4.6",
+      "inputs_sha256": "f54f02aa2be1dbaaab492922d94478149b98142593c801aa27528bedaffe026c"
+    },
+    "u18/test_coverage_memory_sampling_observes_completed_reads_and_writes_on_the_selected_map": {
+      "primary_clause": "18.6.8.6",
+      "inputs_sha256": "485ba6f7e186adeac87cb2884315e3472eb2e01dc08767ac142e6a5914a52bb4"
+    },
+    "u18/test_coverage_register_and_memory_controls_return_the_previously_enabled_models": {
+      "primary_clause": "18.4.7.6",
+      "inputs_sha256": "7d55e83c91f24a9b6158a6ea0c45c2582eace1a04111666631d2445199926424"
+    },
+    "u18/test_coverage_register_read_samples_after_bus_completion_before_mirror_update": {
+      "primary_clause": "18.4.7.7",
+      "inputs_sha256": "985b36a63b9f0f92af253906050571316204feb6124b48cafa011b22906c855e"
+    },
+    "u18/test_coverage_register_write_samples_after_bus_completion_before_mirror_update": {
+      "primary_clause": "18.4.7.7",
+      "inputs_sha256": "80a9bfa23dd20d46f397d455889b67a9684a73362b9c595376d69a39bcd60ce5"
+    },
+    "u18/test_coverage_sample_values_recurses_only_through_the_selected_subtree": {
+      "primary_clause": "18.1.4.7",
+      "inputs_sha256": "40574fbf68f582dc42466e5adb09f863993c7720bdb9dae9e674ef9ee30e85cf"
     },
     "u18/test_indirect_register_failed_data_read_keeps_prediction_until_a_successful_retry": {
       "primary_clause": "18.7.2.2",

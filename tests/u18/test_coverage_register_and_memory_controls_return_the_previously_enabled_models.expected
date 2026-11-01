@@ -1,0 +1,5 @@
+UT: available reg 1 absent 0 memory 1 initially_off 1
+UT: reg previous_off 1 bits 1 unavailable 0 peer_off 1
+UT: reg previous_bits 1 fields 1 bits_off 1
+UT: memory previous_off 1 address 1 unavailable 0
+UT: memory previous_address 1 disabled 1

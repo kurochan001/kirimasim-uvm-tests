@@ -7,13 +7,13 @@
 M4 is in progress. The [scope proposal](../coverage/scope.json),
 [requirement ledger](../coverage/requirements.json) and
 [test index](../coverage/test_index.json) are versioned inputs. The ledger
-contains 760 AI-drafted requirements: 756 link directly to 756 tests and 4
-have no direct test. One additional test is a control. The other 228 of the 985 tests have
+contains 811 AI-drafted requirements: 807 link directly to 796 tests and 4
+have no direct test. One additional test is a control. The other 208 of the 1005 tests have
 not yet been mapped at requirement level; that does not mean they test no
 normative behavior. No requirement records human review.
 
-The clause catalog has 2,504 identifiers. 565 have a partial
-requirement decomposition; the other 1,939 are unassessed. Neither group is
+The clause catalog has 2,504 identifiers. 592 have a partial
+requirement decomposition; the other 1,912 are unassessed. Neither group is
 complete. Starting M4 does not approve the scope or denominator, or complete
 M1–M3. `approved_denominator` and `coverage_percentage` remain `null`.
 
@@ -22,7 +22,7 @@ M1–M3. `approved_denominator` and `coverage_percentage` remain `null`.
 The proposed unit is one observable normative obligation together with its
 applicability conditions. A method clause may need separate requirements for
 success, failure, default arguments, ordering and side effects. Conversely,
-a heading is not an obligation. The 760 draft entries span several areas,
+a heading is not an obligation. The 811 draft entries span several areas,
 without exhausting the obligations in their clauses.
 
 The proposal assigns every root in the existing identifier catalog once:
@@ -50,14 +50,14 @@ The ledger tool consumes no simulator results.
 ## Citations, requirements and execution evidence
 
 A test's first UVM `:lrm:` reference is its **primary focus**; later UVM
-references are **supporting citations**. Of the catalog identifiers, 443
-have a primary-focus test and 1,020 have either kind of citation. Supporting
+references are **supporting citations**. Of the catalog identifiers, 458
+have a primary-focus test and 1,046 have either kind of citation. Supporting
 references often describe setup APIs. No reference creates a requirement link,
 and a child-clause reference is not automatically rolled up to its parent.
 
 For the 2,479 candidate identifiers, the historical two-tests-per-clause
-census currently shows 2,036 with zero primary-focus tests, 220 with one,
-and 223 with at least two. It measures test placement only. It does not
+census currently shows 2,021 with zero primary-focus tests, 232 with one,
+and 226 with at least two. It measures test placement only. It does not
 establish that an identifier has two independent checks, that its normative
 obligations are decomposed, or that either test passes. It is not an approved
 requirement denominator or a declaration that all zero-focus clauses are gaps.
@@ -82,7 +82,7 @@ lines are anchored once; the runner still compares the complete expected sequenc
 
 [Execution evidence](results.md) is separate and needs matching input, runner,
 library and configuration identities. A direct link may retain a spec-only
-known difference. It is not a pass or a conformance claim. The current 985-test
+known difference. It is not a pass or a conformance claim. The current 1005-test
 snapshot includes newly measured fixtures; mapping unchanged existing tests
 adds no new execution result for them.
 
@@ -102,7 +102,7 @@ duplicate requirement IDs and unknown clauses/tests are rejected.
 - `coverage/test_index.json` snapshots every current test's `primary_clause`
   and `inputs_sha256`. The fingerprint uses the existing runner collector:
   source, declared helpers/includes/data, expected files and UVM lock. The
-  index is an inventory, not 985 reviewed requirement mappings.
+  index is an inventory, not 1005 reviewed requirement mappings.
 
 Review status is `ai`, `unreviewed` or `human`. Human status requires an
 identified `reviewer` and ISO date in `reviewed_at`; other statuses must leave
@@ -166,7 +166,7 @@ link, while normative decomposition remains partial:
 | 6 | 34 | 32 | 0 | 87 |
 | 7 | 30 | 13 | 0 | 45 |
 | 8 | 23 | 34 | 0 | 52 |
-| 9 | 25 | 19 | 0 | 97 |
+| 9 | 37 | 27 | 0 | 89 |
 | 10 | 50 | 54 | 0 | 80 |
 | 11 | 17 | 12 | 0 | 17 |
 | 13 | 16 | 12 | 0 | 99 |
@@ -186,7 +186,7 @@ itself. Location masks
 are linked only to the necessary location-access property, not to the whole
 walking algorithm. B.5.11's conflicting printed invocation is recorded as an
 interpretation requiring review. Known differences retain normative oracles;
-all 760 requirement reviews are still `ai`.
+all 811 requirement reviews are still `ai`.
 
 Selected FIFO mappings bind blocking/nonblocking behavior, capacity, flush,
 arrival order and analysis notifications to their actual expected observations.
@@ -230,7 +230,7 @@ post-write ordering/final status/no retransfer. Twenty-one existing memory and
 register-map query fixtures are mapped to their observed parent, size, width,
 membership, rights, address, relocation, reset and hierarchy properties.
 A shared output line does not make every anchor an independent requirement
-check. Chapter 18 still has 82 unmapped primary-focus tests and 360 unassessed
+check. Chapter 18 still has 62 unmapped primary-focus tests and 343 unassessed
 identifiers. Known map-redirection and post-write-order differences retain
 the required expectations, without creating new measured passes.
 
@@ -268,7 +268,7 @@ Twenty-one existing payload/extension fixtures are linked to address/data/mask
 state, predicates, type-key identity, clearing, aliasing and the extension
 boundary of default packing. Array and length setup remains consistent in
 these links; unrelated mismatched-length semantics remain separate. Chapter
-12 retains 46 unmapped primary-focus tests and 147 unassessed identifiers.
+12 retains 46 unmapped primary-focus tests and 145 unassessed identifiers.
 No new link creates a measured pass, human review or approved denominator.
 
 Typed event callback drafts distinguish veto, post-trigger state, reset
@@ -281,8 +281,8 @@ endpoint timing and response generation remain fixture behavior.
 Register-model introspection now links block/regfile/register parent handles,
 local/recursive membership and simple-name searches. It does not establish
 transfer behavior; pre-lock and nested-regfile lookup differences retain
-normative expectations. Chapter 18 still has 82 unmapped primary tests and
-360 unassessed identifiers.
+normative expectations. Chapter 18 still has 62 unmapped primary tests and
+343 unassessed identifiers.
 
 Twenty existing sequencer fixtures now link mode/capacity controls, counters,
 request/response history, current-item lifetime, peek/get completion,
@@ -304,13 +304,13 @@ blocking put, response get waiting and request peek retention. Twenty existing
 TLM 1 fixtures link analysis broadcast, empty subscriptions, export forwarding,
 bound ports, split implementation delegation, typed FIFO direction/order,
 notifications and sequential transport. Chapter 12 still has 46 unmapped
-primary fixtures and 147 unassessed identifiers.
+primary fixtures and 145 unassessed identifiers.
 
 Field metadata drafts distinguish previous access, custom registration versus
 built-in classification, volatility/compare settings, reset-value queries,
 reset metadata/deletion, defined/unknown reset state and static maximum width.
-These are model-only observations. Chapter 18 still has 82 unmapped primary
-fixtures and 360 unassessed identifiers. No new link supplies a human review,
+These are model-only observations. Chapter 18 still has 62 unmapped primary
+fixtures and 343 unassessed identifiers. No new link supplies a human review,
 physical reset, external recording backend or approved denominator.
 
 Recorder drafts now link open-stream admission, stream identity, explicit
@@ -335,6 +335,31 @@ interchangeable release and lock/relevance availability. Random membership
 is distinct from fairness or statistical coverage. Chapter 15 retains 36
 unmapped primary fixtures and 53 unassessed identifiers; its 36 drafts remain
 partial. Existing lock timing/order differences retain normative expectations.
+
+Phase graph links now cover constructor kinds, immediate parents, enclosing
+domains/names, full paths, node/implementation identity, scoped lookup,
+transitive order and parallel joins. These inspect unexecuted local graphs;
+the printed get_schedule/get_imp inconsistencies remain outside this batch.
+The current-node lookup keeps its required node result as a spec-only case.
+
+Custom-transaction socket links exercise actual delivery through default
+parent and explicit blocking implementations, and both directions through
+one nonblocking initiator/target pass-through node. The transaction is
+independent of the generic payload, while phase arguments use the standard
+enumeration. Annotation checks do not imply elapsed simulation time.
+
+Coverage links distinguish model availability, enabled masks and required
+previous-mask returns. They also cover nested block control, register hooks
+after bus completion but before prediction, memory hook direction/map,
+block-relative offsets, successful-access sampling and recursive sample_values.
+Hook counters are not covergroups, bins or a measured coverage percentage.
+The previous-mask and extra-memory-sample differences remain spec-only. Twenty existing register/field
+fixtures separately link desired/mirror state, reset kinds, selected prediction
+policies, clean/dirty update and physical W1C/W1S write masks. Model-only
+operations and bus-mask observations do not establish a policy-accurate DUT.
+Chapter 18 has 164 drafts, 62 unmapped primary fixtures and 343 unassessed
+identifiers; chapter 12 has 91 drafts, 46 unmapped fixtures and 145 unassessed
+identifiers. All decompositions remain partial.
 
 ## Generated report identity
 
@@ -401,4 +426,4 @@ counting rule and frozen requirement set. Define separately what counts as
 reviewed test coverage and as execution success, including execution conditions
 and evidence identity. Approval needs a later schema/procedure update; schema
 1 intentionally cannot express a completed inventory or approved denominator.
-The current 760 AI drafts and their direct links do not satisfy that gate.
+The current 811 AI drafts and their direct links do not satisfy that gate.

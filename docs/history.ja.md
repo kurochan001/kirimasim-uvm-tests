@@ -2,7 +2,7 @@
 
 [English](history.md) · [README](../README.ja.md)
 
-M1・M2の15回目、M3の9回目、M4の3回目と段階をまたぐ薄い領域の9回目の拡充（シミュレーション985件）までを記録しています。以前の349件の時点は
+M1・M2の15回目、M3の9回目、M4の3回目と段階をまたぐ薄い領域の10回目の拡充（シミュレーション1005件）までを記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -1240,3 +1240,36 @@ toolの単体テスト74件、全985件のmetadata、台帳／索引の整合性
 用語集は127項目、FAQは109問で、間接access図も追加しました。以前のstreamだけの説明は、別のrecorderの対応範囲と区別します。
 randomの選択は統計的なcoverageではなく、constructorの接続数は解決済みtrafficではありません。
 READMEは現状を記述し、今回の追加分はここに保持します。
+
+## M1〜M4の薄い領域の10回目の拡充
+
+[dcc6330](https://github.com/kurochan001/kirimasim-uvm-tests/commit/dcc6330034e652830fd05c4e50153d6c7017aac5)
+の985件へシミュレーション20件を追加し、21 directoryで1005件となります。
+M1は319件、M2は400件、M3は286件で、既存985件の入力はすべて保持します。
+M1はlocal phase graphのmetadata・同一性・lookup・順序の8件です。
+M2はcustom transactionのsocket 4件で、blockingのparent／明示implementationへの配送と、
+nonblockingの単一initiator／target pass-throughでのforward／backward routeを扱います。
+M3はcoverage制御、sampling順序、再帰value hookの8件です。
+covergroupや機能coverage比率、RTL access、DPIは使いません。
+
+追加の16件はVerilator 5.052でseed 1・73と一致します。4件は規範的なspec-only差分を保持します。
+現在nodeのfindがnodeでなくimplementationを返すこと、coverage制御2検査系が直前でなく新しい有効maskを返すこと、
+memory samplingが1 locationのaccessごとに余分なlocationを訪問することです。
+後者は搭載状況、再帰制御、peerの一致する観測を別に保持します。
+最初のsocket 4検査系はget_abstime／set_abstimeでcanonical timeをannotateするよう修正し、
+最終evidenceは修正後の呼出しを使います。互換なsnapshotは一致905件、既知差分100件で、
+seed 1の実行時初回差分91件と、seed実行結果のないAPI欠落build 9件です。
+Ghost bundledは各seedで一致198件、不一致807件で、失敗集合は同じです。
+kirimasimはunsupported 996件、API欠落のfail 9件です。
+runner／実行ファイル／profile／libraryの識別は互換で、現在のGhost pinned modeの主張は加えません。
+
+M4はAI要求案51件を追加し、新規20件と既存register／fieldのset・reset・予測・update 20件を対応付けます。
+台帳は要求案811件、直接対応の要求807件、直接対応テスト796件、別のcontrol 1件、未対応208件です。
+条項番号2,504件のうち592件を一部分解し、1,912件は未評価、主引用は458番号、いずれかの引用は1,046番号です。
+候補2,479番号の棚卸しは主引用0件が2,021、1件が232、2件以上が226です。
+直接テストのない要求案は4件のままです。対象範囲は提案、照合はすべてAI、分母／比率は未設定です。
+
+検証はtool unit test 74件、metadata全1005件、台帳／索引の整合性、最終入力のevidence fingerprint、
+完全な日英guideを対象とします。用語集は131語、FAQは112回答で、phase graphの図を加えます。
+model状態、bus mask、hook counterは、物理DUT動作とは区別します。
+READMEは現状を記載し、今回の増分はこの履歴に保持します。

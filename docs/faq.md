@@ -173,7 +173,7 @@ a claim that every test was rebuilt together.
 
 ### Q16. Are M1, M2 or M3 complete, and what does the test count cover?
 
-M1 and M2 still have open clause targets. M3 now has 278
+M1 and M2 still have open clause targets. M3 now has 286
 register-layer cases, including testbench frontdoor paths; it is also incomplete. Starting a stage does not complete
 the preceding stages.
 The [plan](../README.md#plan) identifies current scope and remaining work.
@@ -1136,9 +1136,9 @@ not a direct test of the requirement.
 
 ### Q77. Why is there no coverage percentage after starting M4?
 
-The 760 AI drafts cover only a partial decomposition: 756 requirements link
-directly to 756 tests, 4 have no direct test, and one separate test is a control.
-Another 228 tests are not mapped yet. The 2,504 clause identifiers are not normative requirement units.
+The 811 AI drafts cover only a partial decomposition: 807 requirements link
+directly to 796 tests, 4 have no direct test, and one separate test is a control.
+Another 208 tests are not mapped yet. The 2,504 clause identifiers are not normative requirement units.
 The scope is proposed, the inventory incomplete and the denominator unapproved;
 starting M4 approves none of those. Known differences and HDL/DPI limitations
 do not silently exclude obligations. See the [approval path](requirements.md#remaining-m4-work-and-approval).
@@ -1797,3 +1797,76 @@ These cases use a testbench adapter/sequencer/driver with explicit map and
 auto-prediction settings. They establish no RTL/DPI behavior, out-of-range
 index rule, arbitrary concurrent access, indirect backdoor or requirement
 for automatically generated array-register frontdoor sequences.
+
+## Phase graphs, typed socket traffic and coverage hooks
+
+### Q110. What does phase graph introspection establish?
+
+Local hierarchy fixtures check explicit parent edges and enclosing domains.
+The [full-name case](../tests/u09/test_phase_full_name_includes_domain_and_nested_schedules.sv)
+checks names from the domain to a leaf. Separate graph cases add singleton
+phase implementations to local
+schedules and check node identity, scoped lookup, transitive ordering and a
+parallel join:
+
+```mermaid
+flowchart LR
+    S["Local schedule entry"] --> A["Build node"]
+    S --> B["Connect node"]
+    A --> J["End-of-elaboration node"]
+    B --> J
+```
+
+Neither parallel node is before/after its sibling, while the join is after
+both. No phase callbacks run in these cases. This does not establish runtime
+scheduling, cross-domain synchronization or arbitrary graph traversal.
+The printed get_schedule return type and get_imp NODE/IMP wording remain
+outside these assertions.
+
+The pinned library returns an implementation handle when a node calls find
+for its own implementation. The normative expectation retains the node
+handle; successful neighboring lookup and absent-result controls remain
+separate. This is recorded as a known difference, not an oracle match.
+
+### Q111. Do custom transaction types work through the sockets under test?
+
+The [blocking parent-implementation case](../tests/u12/test_tlm2_custom_transaction_blocking_socket_uses_parent_implementation.sv)
+uses an object class independent of the generic payload. It checks actual
+call delivery when the target socket omits its implementation argument.
+A second case supplies a separate child implementation. Both preserve the
+transaction and delay handles, carry the request, update reply/completion, and
+return after a positive simulation delay. Canonical delay annotation is a
+separate observation.
+
+The [pass-through initiator case](../tests/u12/test_tlm2_custom_transaction_passthrough_initiator_routes_both_directions.sv)
+and target counterpart use the same custom object with the standard phase
+enumeration. They check forward acceptance, automatic backward routing,
+phase-reference changes, completion and annotations without waiting. One
+pass-through node does not resolve the known nested-initiator limitation.
+These are routing checks, not a complete timed base-protocol validator or
+coverage of arbitrary custom phase types.
+
+### Q112. Are coverage hooks the same as a measured functional coverage percentage?
+
+The fixtures observe three separate things: declared model availability,
+enabled measurement masks and calls to user sampling hooks. No covergroups,
+bins or functional coverage percentage are collected. The [control case](../tests/u18/test_coverage_register_and_memory_controls_return_the_previously_enabled_models.sv)
+checks unsupported-model filtering and independent peers. Block control
+also reaches nested blocks, registers and memories. The standard requires
+set_coverage to return the previously enabled mask; the pinned library
+returns the new mask, so those return-value checks remain spec-only.
+
+[Register sampling](../tests/u18/test_coverage_register_write_samples_after_bus_completion_before_mirror_update.sv)
+observes completed one-byte bus data before auto-prediction updates the
+mirror. Separate cases check read data, memory direction/map/completion,
+block-relative offsets despite a nonzero map base, and no block sample for
+a rejected write before retry. The memory sampling case retains one hook
+per completed location; the pinned library samples an extra location.
+Memory hook offsets are not interpreted.
+User-invoked sample_values overrides call super and count recursive visits
+within the selected subtree, without imposing sibling order.
+
+The ledger also links existing set/reset/predict/update cases. A desired
+value, mirror value, sampling counter and testbench storage are separate
+observations. W1C/W1S update tests observe physical write masks and model
+state; their driver storage does not model the hardware access policy.

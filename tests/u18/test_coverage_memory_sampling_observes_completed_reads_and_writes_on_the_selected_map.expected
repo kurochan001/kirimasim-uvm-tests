@@ -1,0 +1,3 @@
+UT: write ok 1 samples 1 writes 1 reads 0
+UT: read ok 1 value a6 samples 2 writes 1 reads 1
+UT: completed 1 map 1 bus_operations 2

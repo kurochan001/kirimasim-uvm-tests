@@ -29944,6 +29944,1787 @@
           ]
         }
       ]
+    },
+    {
+      "id": "UVM-PHASE-CONSTRUCTOR-DEFAULT-METADATA",
+      "clause": "9.3.1.3.1",
+      "statement": {
+        "en": "A default phase has the prescribed name, schedule type and no parent.",
+        "ja": "既定phaseは、規定の名前、schedule型、親なしを持つ。"
+      },
+      "conditions": {
+        "en": "Construct a phase without arguments.",
+        "ja": "引数なしでphaseを生成する。"
+      },
+      "expected": {
+        "en": "The name is uvm_phase, the type is SCHEDULE and the parent is null.",
+        "ja": "名前はuvm_phase、型はSCHEDULE、親はnullとなる。"
+      },
+      "limitations": {
+        "en": "Only local, unexecuted graph metadata is observed. Explicit parents form one domain with two nested schedules; graph operations use three singleton implementations. There is no scheduler execution, cross-domain traversal, synchronization, get_schedule return-type interpretation, get_imp NODE/IMP interpretation or cross-schedule node-to-node is assertion.",
+        "ja": "実行しないlocal graphのmetadataだけを観測する。明示parentで1 domainと2段のscheduleを作り、graph操作は3つのsingleton implementationを使う。scheduler実行、domainをまたぐ走査、同期、get_scheduleの戻り型の解釈、get_impのNODE／IMPの解釈、別scheduleのnode同士のis照合は扱わない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_phase_constructor_retains_default_and_explicit_node_types",
+          "role": "direct",
+          "expected_observations": [
+            "UT: defaults name 1 schedule 1 root 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-TYPE-QUERY-EXPLICIT-KINDS",
+      "clause": "9.3.1.3.2",
+      "statement": {
+        "en": "Phase type queries retain the selected constructor kind.",
+        "ja": "phase型の照会は、constructorで選択した種類を保持する。"
+      },
+      "conditions": {
+        "en": "Construct IMP, NODE, SCHEDULE and DOMAIN phase objects.",
+        "ja": "IMP、NODE、SCHEDULE、DOMAINのphase objectを生成する。"
+      },
+      "expected": {
+        "en": "Each query equals its explicitly supplied kind.",
+        "ja": "各照会は、明示した種類と一致する。"
+      },
+      "limitations": {
+        "en": "Only local, unexecuted graph metadata is observed. Explicit parents form one domain with two nested schedules; graph operations use three singleton implementations. There is no scheduler execution, cross-domain traversal, synchronization, get_schedule return-type interpretation, get_imp NODE/IMP interpretation or cross-schedule node-to-node is assertion.",
+        "ja": "実行しないlocal graphのmetadataだけを観測する。明示parentで1 domainと2段のscheduleを作り、graph操作は3つのsingleton implementationを使う。scheduler実行、domainをまたぐ走査、同期、get_scheduleの戻り型の解釈、get_impのNODE／IMPの解釈、別scheduleのnode同士のis照合は扱わない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_phase_constructor_retains_default_and_explicit_node_types",
+          "role": "direct",
+          "expected_observations": [
+            "UT: explicit imp 1 node 1 schedule 1 domain 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-PARENT-HIERARCHY-EDGES",
+      "clause": "9.3.1.6.2",
+      "statement": {
+        "en": "Phase parent queries expose each immediate hierarchy edge.",
+        "ja": "phaseのparent照会は、直近の階層edgeを返す。"
+      },
+      "conditions": {
+        "en": "Create a domain, outer/inner schedules, a leaf and an orphan.",
+        "ja": "domain、外／内schedule、leaf、孤立nodeを生成する。"
+      },
+      "expected": {
+        "en": "The three supplied parent handles match exactly and both roots have null parents.",
+        "ja": "指定した3 parent handleは正確に一致し、両rootは親がnullとなる。"
+      },
+      "limitations": {
+        "en": "Only local, unexecuted graph metadata is observed. Explicit parents form one domain with two nested schedules; graph operations use three singleton implementations. There is no scheduler execution, cross-domain traversal, synchronization, get_schedule return-type interpretation, get_imp NODE/IMP interpretation or cross-schedule node-to-node is assertion.",
+        "ja": "実行しないlocal graphのmetadataだけを観測する。明示parentで1 domainと2段のscheduleを作り、graph操作は3つのsingleton implementationを使う。scheduler実行、domainをまたぐ走査、同期、get_scheduleの戻り型の解釈、get_impのNODE／IMPの解釈、別scheduleのnode同士のis照合は扱わない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_phase_parent_queries_retain_each_explicit_hierarchy_edge",
+          "role": "direct",
+          "expected_observations": [
+            "UT: parents leaf 1 inner 1 outer 1",
+            "UT: roots domain 1 orphan 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-ENCLOSING-DOMAIN-LOOKUP",
+      "clause": "9.3.1.6.6",
+      "statement": {
+        "en": "Nested phase domain lookup reaches its enclosing domain or null.",
+        "ja": "入れ子phaseのdomain lookupは、囲むdomainまたはnullへ到達する。"
+      },
+      "conditions": {
+        "en": "Query the two schedules, leaf and an orphan node.",
+        "ja": "2 schedule、leaf、孤立nodeを照会する。"
+      },
+      "expected": {
+        "en": "All nested handles resolve to alpha and the orphan resolves to null.",
+        "ja": "入れ子の全handleはalphaへ解決し、孤立nodeはnullとなる。"
+      },
+      "limitations": {
+        "en": "Only local, unexecuted graph metadata is observed. Explicit parents form one domain with two nested schedules; graph operations use three singleton implementations. There is no scheduler execution, cross-domain traversal, synchronization, get_schedule return-type interpretation, get_imp NODE/IMP interpretation or cross-schedule node-to-node is assertion.",
+        "ja": "実行しないlocal graphのmetadataだけを観測する。明示parentで1 domainと2段のscheduleを作り、graph操作は3つのsingleton implementationを使う。scheduler実行、domainをまたぐ走査、同期、get_scheduleの戻り型の解釈、get_impのNODE／IMPの解釈、別scheduleのnode同士のis照合は扱わない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_phase_domain_queries_reach_the_enclosing_domain_or_report_unknown",
+          "role": "direct",
+          "expected_observations": [
+            "UT: enclosing outer 1 inner 1 leaf 1",
+            "UT: names outer 1 leaf 1 orphan 1 null 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-DOMAIN-NAME-OR-UNKNOWN",
+      "clause": "9.3.1.6.8",
+      "statement": {
+        "en": "Domain-name lookup returns the enclosing name or unknown.",
+        "ja": "domain名の照会は、囲むdomainの名前またはunknownを返す。"
+      },
+      "conditions": {
+        "en": "Inspect a nested schedule/leaf and a domainless node.",
+        "ja": "入れ子schedule／leafとdomainのないnodeを照会する。"
+      },
+      "expected": {
+        "en": "Nested names are alpha and the domainless name is unknown.",
+        "ja": "入れ子の名前はalpha、domainのない名前はunknownとなる。"
+      },
+      "limitations": {
+        "en": "Only local, unexecuted graph metadata is observed. Explicit parents form one domain with two nested schedules; graph operations use three singleton implementations. There is no scheduler execution, cross-domain traversal, synchronization, get_schedule return-type interpretation, get_imp NODE/IMP interpretation or cross-schedule node-to-node is assertion.",
+        "ja": "実行しないlocal graphのmetadataだけを観測する。明示parentで1 domainと2段のscheduleを作り、graph操作は3つのsingleton implementationを使う。scheduler実行、domainをまたぐ走査、同期、get_scheduleの戻り型の解釈、get_impのNODE／IMPの解釈、別scheduleのnode同士のis照合は扱わない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_phase_domain_queries_reach_the_enclosing_domain_or_report_unknown",
+          "role": "direct",
+          "expected_observations": [
+            "UT: names outer 1 leaf 1 orphan 1 null 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-DOMAIN-TO-NODE-FULL-NAME",
+      "clause": "9.3.1.6.3",
+      "statement": {
+        "en": "Phase full names include their domain-to-node hierarchy while singleton implementations have no hierarchy.",
+        "ja": "phaseのfull nameはdomainからnodeまでの階層を含み、singleton implementationは階層を持たない。"
+      },
+      "conditions": {
+        "en": "Use alpha.outer.inner.leaf and the build singleton.",
+        "ja": "alpha.outer.inner.leafとbuild singletonを使う。"
+      },
+      "expected": {
+        "en": "Each nested name includes its enclosing path; build remains build with a null parent.",
+        "ja": "入れ子の各名前は囲むpathを含み、buildは親nullでbuildを保つ。"
+      },
+      "limitations": {
+        "en": "Only local, unexecuted graph metadata is observed. Explicit parents form one domain with two nested schedules; graph operations use three singleton implementations. There is no scheduler execution, cross-domain traversal, synchronization, get_schedule return-type interpretation, get_imp NODE/IMP interpretation or cross-schedule node-to-node is assertion.",
+        "ja": "実行しないlocal graphのmetadataだけを観測する。明示parentで1 domainと2段のscheduleを作り、graph操作は3つのsingleton implementationを使う。scheduler実行、domainをまたぐ走査、同期、get_scheduleの戻り型の解釈、get_impのNODE／IMPの解釈、別scheduleのnode同士のis照合は扱わない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_phase_full_name_includes_domain_and_nested_schedules",
+          "role": "direct",
+          "expected_observations": [
+            "UT: full outer alpha.outer inner alpha.outer.inner leaf alpha.outer.inner.leaf",
+            "UT: singleton name build parent 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-NODE-SELF-AND-IMPLEMENTATION-IDENTITY",
+      "clause": "9.3.1.4.5",
+      "statement": {
+        "en": "A phase node identifies itself and its implementation, but not an unrelated implementation.",
+        "ja": "phase nodeは自身と対応implementationを識別し、無関係なimplementationとは一致しない。"
+      },
+      "conditions": {
+        "en": "Add the build singleton to two distinct schedules.",
+        "ja": "build singletonを異なる2 scheduleへ追加する。"
+      },
+      "expected": {
+        "en": "The nodes are distinct handles; each matches build, and the first does not match connect.",
+        "ja": "nodeは異なるhandleで、各nodeはbuildと一致し、最初はconnectとは一致しない。"
+      },
+      "limitations": {
+        "en": "Only local, unexecuted graph metadata is observed. Explicit parents form one domain with two nested schedules; graph operations use three singleton implementations. There is no scheduler execution, cross-domain traversal, synchronization, get_schedule return-type interpretation, get_imp NODE/IMP interpretation or cross-schedule node-to-node is assertion.",
+        "ja": "実行しないlocal graphのmetadataだけを観測する。明示parentで1 domainと2段のscheduleを作り、graph操作は3つのsingleton implementationを使う。scheduler実行、domainをまたぐ走査、同期、get_scheduleの戻り型の解釈、get_impのNODE／IMPの解釈、別scheduleのnode同士のis照合は扱わない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_phase_identity_distinguishes_nodes_and_matches_their_implementation",
+          "role": "direct",
+          "expected_observations": [
+            "UT: node self 1 implementation 1 unrelated 0",
+            "UT: distinct nodes 1 shared implementation 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-IMPLEMENTATION-LOOKUP-SCOPE",
+      "clause": "9.3.1.4.4",
+      "statement": {
+        "en": "Default implementation lookup stays within the local schedule.",
+        "ja": "既定のimplementation lookupはlocal schedule内に留まる。"
+      },
+      "conditions": {
+        "en": "Give the left schedule build/connect and the right schedule build only.",
+        "ja": "左scheduleにbuild／connect、右scheduleにbuildだけを置く。"
+      },
+      "expected": {
+        "en": "Lookups return the correct local handles; missing implementations return null.",
+        "ja": "lookupは適切なlocal handleを返し、存在しないimplementationはnullを返す。"
+      },
+      "limitations": {
+        "en": "Only local, unexecuted graph metadata is observed. Explicit parents form one domain with two nested schedules; graph operations use three singleton implementations. There is no scheduler execution, cross-domain traversal, synchronization, get_schedule return-type interpretation, get_imp NODE/IMP interpretation or cross-schedule node-to-node is assertion.",
+        "ja": "実行しないlocal graphのmetadataだけを観測する。明示parentで1 domainと2段のscheduleを作り、graph操作は3つのsingleton implementationを使う。scheduler実行、domainをまたぐ走査、同期、get_scheduleの戻り型の解釈、get_impのNODE／IMPの解釈、別scheduleのnode同士のis照合は扱わない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_phase_implementation_lookup_stays_within_each_local_schedule",
+          "role": "direct",
+          "expected_observations": [
+            "UT: scoped left 1 right 1 distinct 1",
+            "UT: absent right 1 left 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-BEFORE-TRANSITIVE-AND-IRREFLEXIVE",
+      "clause": "9.3.1.4.6",
+      "statement": {
+        "en": "Phase before-order includes transitive predecessors and excludes self and reverse order.",
+        "ja": "phaseのbefore順序は推移する先行関係を含み、自身と逆順を除く。"
+      },
+      "conditions": {
+        "en": "Append build, connect and end_of_elaboration to a local schedule.",
+        "ja": "local scheduleにbuild、connect、end_of_elaborationを順に追加する。"
+      },
+      "expected": {
+        "en": "Adjacent/transitive before queries are true; reverse/self queries are false.",
+        "ja": "隣接／推移before照会はtrue、逆順／自身の照会はfalseとなる。"
+      },
+      "limitations": {
+        "en": "Only local, unexecuted graph metadata is observed. Explicit parents form one domain with two nested schedules; graph operations use three singleton implementations. There is no scheduler execution, cross-domain traversal, synchronization, get_schedule return-type interpretation, get_imp NODE/IMP interpretation or cross-schedule node-to-node is assertion.",
+        "ja": "実行しないlocal graphのmetadataだけを観測する。明示parentで1 domainと2段のscheduleを作り、graph操作は3つのsingleton implementationを使う。scheduler実行、domainをまたぐ走査、同期、get_scheduleの戻り型の解釈、get_impのNODE／IMPの解釈、別scheduleのnode同士のis照合は扱わない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_phase_order_queries_include_transitive_edges_and_exclude_self",
+          "role": "direct",
+          "expected_observations": [
+            "UT: before adjacent 1 transitive 1 reverse 0 self 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-AFTER-TRANSITIVE-AND-IRREFLEXIVE",
+      "clause": "9.3.1.4.7",
+      "statement": {
+        "en": "Phase after-order includes transitive successors and excludes self and reverse order.",
+        "ja": "phaseのafter順序は推移する後続関係を含み、自身と逆順を除く。"
+      },
+      "conditions": {
+        "en": "Append three phases to a local schedule.",
+        "ja": "local scheduleに3 phaseを順に追加する。"
+      },
+      "expected": {
+        "en": "Adjacent/transitive after queries are true; reverse/self queries are false.",
+        "ja": "隣接／推移after照会はtrue、逆順／自身の照会はfalseとなる。"
+      },
+      "limitations": {
+        "en": "Only local, unexecuted graph metadata is observed. Explicit parents form one domain with two nested schedules; graph operations use three singleton implementations. There is no scheduler execution, cross-domain traversal, synchronization, get_schedule return-type interpretation, get_imp NODE/IMP interpretation or cross-schedule node-to-node is assertion.",
+        "ja": "実行しないlocal graphのmetadataだけを観測する。明示parentで1 domainと2段のscheduleを作り、graph操作は3つのsingleton implementationを使う。scheduler実行、domainをまたぐ走査、同期、get_scheduleの戻り型の解釈、get_impのNODE／IMPの解釈、別scheduleのnode同士のis照合は扱わない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_phase_order_queries_include_transitive_edges_and_exclude_self",
+          "role": "direct",
+          "expected_observations": [
+            "UT: after adjacent 1 transitive 1 reverse 0 self 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-PARALLEL-BEFORE-JOIN",
+      "clause": "9.3.1.4.6",
+      "statement": {
+        "en": "Parallel phases are unordered by before and both precede a common join.",
+        "ja": "並列phaseはbeforeで互いに順序がなく、共通joinよりともに先行する。"
+      },
+      "conditions": {
+        "en": "Insert connect alongside build, then append end_of_elaboration.",
+        "ja": "buildと並列にconnectを挿入し、end_of_elaborationを後へ追加する。"
+      },
+      "expected": {
+        "en": "Both sibling before queries are false and both before-join queries are true.",
+        "ja": "兄弟間の両before照会はfalseで、join前の両照会はtrueとなる。"
+      },
+      "limitations": {
+        "en": "Only local, unexecuted graph metadata is observed. Explicit parents form one domain with two nested schedules; graph operations use three singleton implementations. There is no scheduler execution, cross-domain traversal, synchronization, get_schedule return-type interpretation, get_imp NODE/IMP interpretation or cross-schedule node-to-node is assertion.",
+        "ja": "実行しないlocal graphのmetadataだけを観測する。明示parentで1 domainと2段のscheduleを作り、graph操作は3つのsingleton implementationを使う。scheduler実行、domainをまたぐ走査、同期、get_scheduleの戻り型の解釈、get_impのNODE／IMPの解釈、別scheduleのnode同士のis照合は扱わない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_phase_parallel_order_queries_preserve_both_join_relationships",
+          "role": "direct",
+          "expected_observations": [
+            "UT: parallel before 0 0 after 0 0",
+            "UT: join before 1 1 after 1 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-PARALLEL-AFTER-JOIN",
+      "clause": "9.3.1.4.7",
+      "statement": {
+        "en": "Parallel phases are unordered by after and a common join follows both.",
+        "ja": "並列phaseはafterで互いに順序がなく、共通joinは両方の後に続く。"
+      },
+      "conditions": {
+        "en": "Use two parallel nodes and one common successor.",
+        "ja": "並列node 2つと共通の後続1つを使う。"
+      },
+      "expected": {
+        "en": "Both sibling after queries are false and both join-after queries are true.",
+        "ja": "兄弟間の両after照会はfalseで、join後の両照会はtrueとなる。"
+      },
+      "limitations": {
+        "en": "Only local, unexecuted graph metadata is observed. Explicit parents form one domain with two nested schedules; graph operations use three singleton implementations. There is no scheduler execution, cross-domain traversal, synchronization, get_schedule return-type interpretation, get_imp NODE/IMP interpretation or cross-schedule node-to-node is assertion.",
+        "ja": "実行しないlocal graphのmetadataだけを観測する。明示parentで1 domainと2段のscheduleを作り、graph操作は3つのsingleton implementationを使う。scheduler実行、domainをまたぐ走査、同期、get_scheduleの戻り型の解釈、get_impのNODE／IMPの解釈、別scheduleのnode同士のis照合は扱わない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_phase_parallel_order_queries_preserve_both_join_relationships",
+          "role": "direct",
+          "expected_observations": [
+            "UT: parallel before 0 0 after 0 0",
+            "UT: join before 1 1 after 1 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-CUSTOM-BLOCKING-PARENT-IMPLEMENTATION",
+      "clause": "12.3.5.1.3",
+      "statement": {
+        "en": "A blocking target socket delivers custom-transaction calls to its parent implementation.",
+        "ja": "blocking target socketは、custom transactionの呼出しを親implementationへ配送する。"
+      },
+      "conditions": {
+        "en": "Bind one custom-typed initiator socket to a target; omit the IMP argument.",
+        "ja": "custom型initiator socketを1 targetへ接続し、IMP引数を省略する。"
+      },
+      "expected": {
+        "en": "One call preserves transaction/delay identity, returns reply 42 and completion, waits, and leaves annotation 5 ns.",
+        "ja": "1呼出しがtransaction／delayの同一性を保持し、reply 42と完了を返し、待機し、annotationを5 nsとする。"
+      },
+      "limitations": {
+        "en": "The transaction extends uvm_object independently of the generic payload; phase arguments use the standard uvm_tlm_phase_e. Explicit delay annotations are separate from simulation waiting. The blocking endpoint waits positively; nonblocking callbacks do not wait. Single pass-through nodes do not resolve the existing nested-initiator backward-route limitation or test a complete timed base protocol.",
+        "ja": "transactionはgeneric payloadとは独立してuvm_objectを拡張し、phase引数は標準uvm_tlm_phase_eを使う。明示delay annotationとsimulationの待機は別である。blocking endpointは正の時間待ち、nonblocking callbackは待たない。単一pass-through nodeは、既存の入れ子initiatorのbackward route制限を解決したり、完全な時間付きbase protocolを検査したりはしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_custom_transaction_blocking_socket_uses_parent_implementation",
+          "role": "direct",
+          "expected_observations": [
+            "UT: calls 1 identity 1 reply 42 complete 1",
+            "UT: waited 1 annotation 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-CUSTOM-BLOCKING-EXPLICIT-IMPLEMENTATION",
+      "clause": "12.3.5.1.3",
+      "statement": {
+        "en": "A blocking target socket delivers custom-transaction calls to its explicit implementation.",
+        "ja": "blocking target socketは、custom transactionの呼出しを明示したimplementationへ配送する。"
+      },
+      "conditions": {
+        "en": "Bind one custom-typed initiator socket to a target; supply a separate child implementation handle.",
+        "ja": "custom型initiator socketを1 targetへ接続し、別の子implementation handleを指定する。"
+      },
+      "expected": {
+        "en": "One call preserves transaction/delay identity, returns reply 42 and completion, waits, and leaves annotation 5 ns.",
+        "ja": "1呼出しがtransaction／delayの同一性を保持し、reply 42と完了を返し、待機し、annotationを5 nsとする。"
+      },
+      "limitations": {
+        "en": "The transaction extends uvm_object independently of the generic payload; phase arguments use the standard uvm_tlm_phase_e. Explicit delay annotations are separate from simulation waiting. The blocking endpoint waits positively; nonblocking callbacks do not wait. Single pass-through nodes do not resolve the existing nested-initiator backward-route limitation or test a complete timed base protocol.",
+        "ja": "transactionはgeneric payloadとは独立してuvm_objectを拡張し、phase引数は標準uvm_tlm_phase_eを使う。明示delay annotationとsimulationの待機は別である。blocking endpointは正の時間待ち、nonblocking callbackは待たない。単一pass-through nodeは、既存の入れ子initiatorのbackward route制限を解決したり、完全な時間付きbase protocolを検査したりはしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_custom_transaction_blocking_socket_uses_explicit_implementation",
+          "role": "direct",
+          "expected_observations": [
+            "UT: calls 1 identity 1 reply 42 complete 1",
+            "UT: waited 1 annotation 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-CUSTOM-INITIATOR-FORWARD-ROUTE",
+      "clause": "12.3.5.5.4",
+      "statement": {
+        "en": "A custom-typed pass-through initiator socket routes the forward call.",
+        "ja": "custom型pass-through initiator socketはforward呼出しをrouteする。"
+      },
+      "conditions": {
+        "en": "Resolve normal hierarchy bindings and call BEGIN_REQ with one custom object.",
+        "ja": "通常の階層bindingを解決し、1 custom objectでBEGIN_REQを呼ぶ。"
+      },
+      "expected": {
+        "en": "The endpoint receives the original handles/phase once, writes reply 42 and returns ACCEPTED.",
+        "ja": "endpointは元のhandle／phaseを1回受け、reply 42を書き、ACCEPTEDを返す。"
+      },
+      "limitations": {
+        "en": "The transaction extends uvm_object independently of the generic payload; phase arguments use the standard uvm_tlm_phase_e. Explicit delay annotations are separate from simulation waiting. The blocking endpoint waits positively; nonblocking callbacks do not wait. Single pass-through nodes do not resolve the existing nested-initiator backward-route limitation or test a complete timed base protocol.",
+        "ja": "transactionはgeneric payloadとは独立してuvm_objectを拡張し、phase引数は標準uvm_tlm_phase_eを使う。明示delay annotationとsimulationの待機は別である。blocking endpointは正の時間待ち、nonblocking callbackは待たない。単一pass-through nodeは、既存の入れ子initiatorのbackward route制限を解決したり、完全な時間付きbase protocolを検査したりはしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_custom_transaction_passthrough_initiator_routes_both_directions",
+          "role": "direct",
+          "expected_observations": [
+            "UT: forward accepted 1 calls 1 phase 1 identity 1 reply 42"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-CUSTOM-INITIATOR-BACKWARD-ROUTE",
+      "clause": "12.3.5.5.4",
+      "statement": {
+        "en": "Pass-through connect automatically wires the custom-transaction backward route.",
+        "ja": "pass-throughのconnectは、custom transactionのbackward routeを自動接続する。"
+      },
+      "conditions": {
+        "en": "Send BEGIN_RESP from the bound target after the accepted request.",
+        "ja": "要求受理後に、binding済みtargetからBEGIN_RESPを送る。"
+      },
+      "expected": {
+        "en": "The original caller receives the original handles once; COMPLETED, END_RESP, completion and a 9 ns annotation return without waiting.",
+        "ja": "元のcallerが元のhandleを1回受け、待機せずCOMPLETED、END_RESP、完了、9 nsのannotationを返す。"
+      },
+      "limitations": {
+        "en": "The transaction extends uvm_object independently of the generic payload; phase arguments use the standard uvm_tlm_phase_e. Explicit delay annotations are separate from simulation waiting. The blocking endpoint waits positively; nonblocking callbacks do not wait. Single pass-through nodes do not resolve the existing nested-initiator backward-route limitation or test a complete timed base protocol.",
+        "ja": "transactionはgeneric payloadとは独立してuvm_objectを拡張し、phase引数は標準uvm_tlm_phase_eを使う。明示delay annotationとsimulationの待機は別である。blocking endpointは正の時間待ち、nonblocking callbackは待たない。単一pass-through nodeは、既存の入れ子initiatorのbackward route制限を解決したり、完全な時間付きbase protocolを検査したりはしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_custom_transaction_passthrough_initiator_routes_both_directions",
+          "role": "direct",
+          "expected_observations": [
+            "UT: backward completed 1 calls 1 phase 1 identity 1 end 1",
+            "UT: transaction complete 1 annotation 1 no_wait 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-CUSTOM-TARGET-FORWARD-ROUTE",
+      "clause": "12.3.5.6.4",
+      "statement": {
+        "en": "A custom-typed pass-through target socket routes the forward call.",
+        "ja": "custom型pass-through target socketはforward呼出しをrouteする。"
+      },
+      "conditions": {
+        "en": "Resolve normal hierarchy bindings and call BEGIN_REQ with one custom object.",
+        "ja": "通常の階層bindingを解決し、1 custom objectでBEGIN_REQを呼ぶ。"
+      },
+      "expected": {
+        "en": "The endpoint receives the original handles/phase once, writes reply 42 and returns ACCEPTED.",
+        "ja": "endpointは元のhandle／phaseを1回受け、reply 42を書き、ACCEPTEDを返す。"
+      },
+      "limitations": {
+        "en": "The transaction extends uvm_object independently of the generic payload; phase arguments use the standard uvm_tlm_phase_e. Explicit delay annotations are separate from simulation waiting. The blocking endpoint waits positively; nonblocking callbacks do not wait. Single pass-through nodes do not resolve the existing nested-initiator backward-route limitation or test a complete timed base protocol.",
+        "ja": "transactionはgeneric payloadとは独立してuvm_objectを拡張し、phase引数は標準uvm_tlm_phase_eを使う。明示delay annotationとsimulationの待機は別である。blocking endpointは正の時間待ち、nonblocking callbackは待たない。単一pass-through nodeは、既存の入れ子initiatorのbackward route制限を解決したり、完全な時間付きbase protocolを検査したりはしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_custom_transaction_passthrough_target_routes_both_directions",
+          "role": "direct",
+          "expected_observations": [
+            "UT: forward accepted 1 calls 1 phase 1 identity 1 reply 42"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-CUSTOM-TARGET-BACKWARD-ROUTE",
+      "clause": "12.3.5.6.4",
+      "statement": {
+        "en": "Pass-through connect automatically wires the custom-transaction backward route.",
+        "ja": "pass-throughのconnectは、custom transactionのbackward routeを自動接続する。"
+      },
+      "conditions": {
+        "en": "Send BEGIN_RESP from the bound target after the accepted request.",
+        "ja": "要求受理後に、binding済みtargetからBEGIN_RESPを送る。"
+      },
+      "expected": {
+        "en": "The original caller receives the original handles once; COMPLETED, END_RESP, completion and a 9 ns annotation return without waiting.",
+        "ja": "元のcallerが元のhandleを1回受け、待機せずCOMPLETED、END_RESP、完了、9 nsのannotationを返す。"
+      },
+      "limitations": {
+        "en": "The transaction extends uvm_object independently of the generic payload; phase arguments use the standard uvm_tlm_phase_e. Explicit delay annotations are separate from simulation waiting. The blocking endpoint waits positively; nonblocking callbacks do not wait. Single pass-through nodes do not resolve the existing nested-initiator backward-route limitation or test a complete timed base protocol.",
+        "ja": "transactionはgeneric payloadとは独立してuvm_objectを拡張し、phase引数は標準uvm_tlm_phase_eを使う。明示delay annotationとsimulationの待機は別である。blocking endpointは正の時間待ち、nonblocking callbackは待たない。単一pass-through nodeは、既存の入れ子initiatorのbackward route制限を解決したり、完全な時間付きbase protocolを検査したりはしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_custom_transaction_passthrough_target_routes_both_directions",
+          "role": "direct",
+          "expected_observations": [
+            "UT: backward completed 1 calls 1 phase 1 identity 1 end 1",
+            "UT: transaction complete 1 annotation 1 no_wait 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-COVERAGE-AVAILABLE-MODELS",
+      "clause": "18.4.7.4",
+      "statement": {
+        "en": "Register availability queries require every requested model to be present.",
+        "ja": "registerの搭載照会は、要求した各modelの存在を必要とする。"
+      },
+      "conditions": {
+        "en": "Declare REG_BITS/FIELD_VALS but not ADDR_MAP.",
+        "ja": "REG_BITS／FIELD_VALSを宣言し、ADDR_MAPは宣言しない。"
+      },
+      "expected": {
+        "en": "The pair is present and ADDR_MAP is absent.",
+        "ja": "指定pairは存在し、ADDR_MAPは存在しない。"
+      },
+      "limitations": {
+        "en": "Derived classes declare model availability and observe control masks or hook counters; no covergroups, bins, automatic coverage percentage or generated coverage database are measured. Nonzero named model masks are queried. Unsupported models cannot become enabled. Normative previous-mask returns remain required even when the pinned library returns the new mask.",
+        "ja": "派生classでモデルの有無を宣言し、制御maskまたはhook counterを観測する。covergroup、bin、自動coverage比率、生成coverage databaseは測定しない。非0の名前付きmodel maskを照会する。未搭載modelは有効化できない。固定libraryが新maskを返す場合も、規格が要求する直前maskの戻り値を保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_coverage_register_and_memory_controls_return_the_previously_enabled_models",
+          "role": "direct",
+          "expected_observations": [
+            "UT: available reg 1 absent 0 memory 1 initially_off 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-COVERAGE-ENABLE-ONLY-AVAILABLE",
+      "clause": "18.4.7.5",
+      "statement": {
+        "en": "Register coverage queries reflect enabled available models and independent peers.",
+        "ja": "register coverageの照会は、搭載済みmodelの有効状態とpeerの独立性を反映する。"
+      },
+      "conditions": {
+        "en": "Enable bits plus unavailable addresses, then replace the mask with fields.",
+        "ja": "bitsと未搭載addressesを有効化し、次にmaskをfieldsへ置換する。"
+      },
+      "expected": {
+        "en": "Only bits then only fields are enabled; the peer remains off.",
+        "ja": "bitsだけ、次にfieldsだけが有効となり、peerはoffを保つ。"
+      },
+      "limitations": {
+        "en": "Derived classes declare model availability and observe control masks or hook counters; no covergroups, bins, automatic coverage percentage or generated coverage database are measured. Nonzero named model masks are queried. Unsupported models cannot become enabled. Normative previous-mask returns remain required even when the pinned library returns the new mask.",
+        "ja": "派生classでモデルの有無を宣言し、制御maskまたはhook counterを観測する。covergroup、bin、自動coverage比率、生成coverage databaseは測定しない。非0の名前付きmodel maskを照会する。未搭載modelは有効化できない。固定libraryが新maskを返す場合も、規格が要求する直前maskの戻り値を保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_coverage_register_and_memory_controls_return_the_previously_enabled_models",
+          "role": "direct",
+          "expected_observations": [
+            "UT: available reg 1 absent 0 memory 1 initially_off 1",
+            "UT: reg previous_off 1 bits 1 unavailable 0 peer_off 1",
+            "UT: reg previous_bits 1 fields 1 bits_off 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-COVERAGE-PREVIOUS-MASK-RETURN",
+      "clause": "18.4.7.6",
+      "statement": {
+        "en": "Register set_coverage returns the previously enabled mask.",
+        "ja": "registerのset_coverageは、直前に有効なmaskを返す。"
+      },
+      "conditions": {
+        "en": "Change from off to bits and then from bits to fields.",
+        "ja": "offからbits、次にbitsからfieldsへ変更する。"
+      },
+      "expected": {
+        "en": "Return masks are NO_COVERAGE then REG_BITS.",
+        "ja": "戻りmaskはNO_COVERAGE、REG_BITSの順となる。"
+      },
+      "limitations": {
+        "en": "Derived classes declare model availability and observe control masks or hook counters; no covergroups, bins, automatic coverage percentage or generated coverage database are measured. Nonzero named model masks are queried. Unsupported models cannot become enabled. Normative previous-mask returns remain required even when the pinned library returns the new mask.",
+        "ja": "派生classでモデルの有無を宣言し、制御maskまたはhook counterを観測する。covergroup、bin、自動coverage比率、生成coverage databaseは測定しない。非0の名前付きmodel maskを照会する。未搭載modelは有効化できない。固定libraryが新maskを返す場合も、規格が要求する直前maskの戻り値を保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_coverage_register_and_memory_controls_return_the_previously_enabled_models",
+          "role": "direct",
+          "expected_observations": [
+            "UT: reg previous_off 1 bits 1 unavailable 0 peer_off 1",
+            "UT: reg previous_bits 1 fields 1 bits_off 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEM-COVERAGE-AVAILABLE-MODELS",
+      "clause": "18.6.8.3",
+      "statement": {
+        "en": "Memory coverage availability reflects the constructor models.",
+        "ja": "memory coverageの搭載照会はconstructorのmodelを反映する。"
+      },
+      "conditions": {
+        "en": "Construct a memory declaring ADDR_MAP.",
+        "ja": "ADDR_MAPを宣言してmemoryを生成する。"
+      },
+      "expected": {
+        "en": "The address-map model is available.",
+        "ja": "address-map modelは存在する。"
+      },
+      "limitations": {
+        "en": "Derived classes declare model availability and observe control masks or hook counters; no covergroups, bins, automatic coverage percentage or generated coverage database are measured. Nonzero named model masks are queried. Unsupported models cannot become enabled. Normative previous-mask returns remain required even when the pinned library returns the new mask.",
+        "ja": "派生classでモデルの有無を宣言し、制御maskまたはhook counterを観測する。covergroup、bin、自動coverage比率、生成coverage databaseは測定しない。非0の名前付きmodel maskを照会する。未搭載modelは有効化できない。固定libraryが新maskを返す場合も、規格が要求する直前maskの戻り値を保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_coverage_register_and_memory_controls_return_the_previously_enabled_models",
+          "role": "direct",
+          "expected_observations": [
+            "UT: available reg 1 absent 0 memory 1 initially_off 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEM-COVERAGE-ENABLE-ONLY-AVAILABLE",
+      "clause": "18.6.8.4",
+      "statement": {
+        "en": "Memory coverage queries distinguish enabled available models from absent models.",
+        "ja": "memory coverageの照会は、搭載済みmodelの有効状態と未搭載modelを区別する。"
+      },
+      "conditions": {
+        "en": "Request addresses plus unavailable bits, then disable all.",
+        "ja": "addressesと未搭載bitsを要求し、次に全て無効化する。"
+      },
+      "expected": {
+        "en": "Only addresses turn on and then turn off.",
+        "ja": "addressesだけがonとなり、次にoffとなる。"
+      },
+      "limitations": {
+        "en": "Derived classes declare model availability and observe control masks or hook counters; no covergroups, bins, automatic coverage percentage or generated coverage database are measured. Nonzero named model masks are queried. Unsupported models cannot become enabled. Normative previous-mask returns remain required even when the pinned library returns the new mask.",
+        "ja": "派生classでモデルの有無を宣言し、制御maskまたはhook counterを観測する。covergroup、bin、自動coverage比率、生成coverage databaseは測定しない。非0の名前付きmodel maskを照会する。未搭載modelは有効化できない。固定libraryが新maskを返す場合も、規格が要求する直前maskの戻り値を保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_coverage_register_and_memory_controls_return_the_previously_enabled_models",
+          "role": "direct",
+          "expected_observations": [
+            "UT: available reg 1 absent 0 memory 1 initially_off 1",
+            "UT: memory previous_off 1 address 1 unavailable 0",
+            "UT: memory previous_address 1 disabled 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEM-COVERAGE-PREVIOUS-MASK-RETURN",
+      "clause": "18.6.8.5",
+      "statement": {
+        "en": "Memory set_coverage returns the previously enabled mask.",
+        "ja": "memoryのset_coverageは、直前に有効なmaskを返す。"
+      },
+      "conditions": {
+        "en": "Change from off to addresses and back to off.",
+        "ja": "offからaddresses、次にoffへ変更する。"
+      },
+      "expected": {
+        "en": "Return masks are NO_COVERAGE then ADDR_MAP.",
+        "ja": "戻りmaskはNO_COVERAGE、ADDR_MAPの順となる。"
+      },
+      "limitations": {
+        "en": "Derived classes declare model availability and observe control masks or hook counters; no covergroups, bins, automatic coverage percentage or generated coverage database are measured. Nonzero named model masks are queried. Unsupported models cannot become enabled. Normative previous-mask returns remain required even when the pinned library returns the new mask.",
+        "ja": "派生classでモデルの有無を宣言し、制御maskまたはhook counterを観測する。covergroup、bin、自動coverage比率、生成coverage databaseは測定しない。非0の名前付きmodel maskを照会する。未搭載modelは有効化できない。固定libraryが新maskを返す場合も、規格が要求する直前maskの戻り値を保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_coverage_register_and_memory_controls_return_the_previously_enabled_models",
+          "role": "direct",
+          "expected_observations": [
+            "UT: memory previous_off 1 address 1 unavailable 0",
+            "UT: memory previous_address 1 disabled 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-COVERAGE-RECURSIVE-CONTROL",
+      "clause": "18.1.4.5",
+      "statement": {
+        "en": "Block coverage control reaches descendant blocks, registers and memories while respecting availability.",
+        "ja": "block coverageの制御は、搭載状況を守って子孫block、register、memoryへ到達する。"
+      },
+      "conditions": {
+        "en": "Enable address/field models at a root with two nested blocks, a register, memory and separate peer.",
+        "ja": "2段の子block、register、memory、独立peerを持つrootでaddress／field modelを有効化する。"
+      },
+      "expected": {
+        "en": "Each available descendant model turns on and off; the peer stays off and the root lacks FIELD_VALS.",
+        "ja": "各子孫の搭載modelはon／offとなり、peerはoffを保持し、rootはFIELD_VALSを持たない。"
+      },
+      "limitations": {
+        "en": "Derived classes declare model availability and observe control masks or hook counters; no covergroups, bins, automatic coverage percentage or generated coverage database are measured. Nonzero named model masks are queried. Unsupported models cannot become enabled. Normative previous-mask returns remain required even when the pinned library returns the new mask.",
+        "ja": "派生classでモデルの有無を宣言し、制御maskまたはhook counterを観測する。covergroup、bin、自動coverage比率、生成coverage databaseは測定しない。非0の名前付きmodel maskを照会する。未搭載modelは有効化できない。固定libraryが新maskを返す場合も、規格が要求する直前maskの戻り値を保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_coverage_block_control_recurses_through_nested_models_and_preserves_peer",
+          "role": "direct",
+          "expected_observations": [
+            "UT: enable previous_off 1 root 1 child 1 grandchild 1",
+            "UT: descendants register 1 memory 1 peer_off 1 unavailable 0",
+            "UT: disable previous_address 1 root 1 child 1 grandchild 1 register 1 memory 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-COVERAGE-PREVIOUS-MASK-RETURN",
+      "clause": "18.1.4.5",
+      "statement": {
+        "en": "Block set_coverage returns the previously enabled local mask.",
+        "ja": "blockのset_coverageは、直前に有効なlocal maskを返す。"
+      },
+      "conditions": {
+        "en": "Enable and then disable the root address-map model.",
+        "ja": "rootのaddress-map modelを有効化し、次に無効化する。"
+      },
+      "expected": {
+        "en": "The previous masks are NO_COVERAGE then ADDR_MAP.",
+        "ja": "直前maskはNO_COVERAGE、ADDR_MAPの順となる。"
+      },
+      "limitations": {
+        "en": "Derived classes declare model availability and observe control masks or hook counters; no covergroups, bins, automatic coverage percentage or generated coverage database are measured. Nonzero named model masks are queried. Unsupported models cannot become enabled. Normative previous-mask returns remain required even when the pinned library returns the new mask.",
+        "ja": "派生classでモデルの有無を宣言し、制御maskまたはhook counterを観測する。covergroup、bin、自動coverage比率、生成coverage databaseは測定しない。非0の名前付きmodel maskを照会する。未搭載modelは有効化できない。固定libraryが新maskを返す場合も、規格が要求する直前maskの戻り値を保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_coverage_block_control_recurses_through_nested_models_and_preserves_peer",
+          "role": "direct",
+          "expected_observations": [
+            "UT: enable previous_off 1 root 1 child 1 grandchild 1",
+            "UT: disable previous_address 1 root 1 child 1 grandchild 1 register 1 memory 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-SAMPLE-COMPLETION-BEFORE-PREDICTION",
+      "clause": "18.4.7.7",
+      "statement": {
+        "en": "Register sampling observes completed data before mirror prediction.",
+        "ja": "register samplingは、mirrorの予測前に完了したdataを観測する。"
+      },
+      "conditions": {
+        "en": "Perform separate one-byte write/read fixtures through a delayed driver with auto-prediction.",
+        "ja": "遅延driverと自動予測を使い、1 byteのwrite／readを別検査系で実行する。"
+      },
+      "expected": {
+        "en": "Each hook runs once after driver completion with matching map/data/direction and byte zero enabled; the mirror is zero in the hook and updates after return.",
+        "ja": "各hookはdriver完了後に1回動き、map／data／方向が一致しbyte 0が有効で、hook内mirrorは0、return後に更新する。"
+      },
+      "limitations": {
+        "en": "Derived classes declare model availability and observe control masks or hook counters; no covergroups, bins, automatic coverage percentage or generated coverage database are measured. Nonzero named model masks are queried. Unsupported models cannot become enabled. Normative previous-mask returns remain required even when the pinned library returns the new mask. Bus fixtures use one-byte nonvolatile fields, a single map and testbench storage with no RTL/DPI. Memory sample offsets are deliberately not interpreted. Recursive sample_values counts do not constrain sibling visit order.",
+        "ja": "派生classでモデルの有無を宣言し、制御maskまたはhook counterを観測する。covergroup、bin、自動coverage比率、生成coverage databaseは測定しない。非0の名前付きmodel maskを照会する。未搭載modelは有効化できない。固定libraryが新maskを返す場合も、規格が要求する直前maskの戻り値を保持する。 bus検査系は1 byteの非volatile field、単一map、RTL／DPIのないtestbench storageを使う。memory sampleのoffsetは意図的に解釈しない。再帰sample_valuesの回数は兄弟間の訪問順を要求しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_coverage_register_write_samples_after_bus_completion_before_mirror_update",
+          "role": "direct",
+          "expected_observations": [
+            "UT: completed 1 status 1 samples 1 read 0 map 1",
+            "UT: sample data 5a byte_enabled 1 mirror_before 0 mirror_after 5a storage 5a"
+          ]
+        },
+        {
+          "test": "u18/test_coverage_register_read_samples_after_bus_completion_before_mirror_update",
+          "role": "direct",
+          "expected_observations": [
+            "UT: completed 1 status 1 samples 1 read 1 map 1",
+            "UT: sample data 6c byte_enabled 1 mirror_before 0 mirror_after 6c storage 6c"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEM-SAMPLE-COMPLETED-ACCESS-HOOKS",
+      "clause": "18.6.8.6",
+      "statement": {
+        "en": "Memory sampling hooks observe completed accesses on the selected map.",
+        "ja": "memory sampling hookは、選択map上の完了したaccessを観測する。"
+      },
+      "conditions": {
+        "en": "Write and read byte a6 at memory index two through a delayed bus driver.",
+        "ja": "遅延bus driverでmemoryのindex 2へbyte a6を書き、読む。"
+      },
+      "expected": {
+        "en": "There is one write and one read sample, with matching map and completed bus operations; readback is a6.",
+        "ja": "writeとreadのsampleが1回ずつあり、mapと完了bus操作が一致し、読出しはa6となる。"
+      },
+      "limitations": {
+        "en": "Derived classes declare model availability and observe control masks or hook counters; no covergroups, bins, automatic coverage percentage or generated coverage database are measured. Nonzero named model masks are queried. Unsupported models cannot become enabled. Normative previous-mask returns remain required even when the pinned library returns the new mask. Bus fixtures use one-byte nonvolatile fields, a single map and testbench storage with no RTL/DPI. Memory sample offsets are deliberately not interpreted. Recursive sample_values counts do not constrain sibling visit order.",
+        "ja": "派生classでモデルの有無を宣言し、制御maskまたはhook counterを観測する。covergroup、bin、自動coverage比率、生成coverage databaseは測定しない。非0の名前付きmodel maskを照会する。未搭載modelは有効化できない。固定libraryが新maskを返す場合も、規格が要求する直前maskの戻り値を保持する。 bus検査系は1 byteの非volatile field、単一map、RTL／DPIのないtestbench storageを使う。memory sampleのoffsetは意図的に解釈しない。再帰sample_valuesの回数は兄弟間の訪問順を要求しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_coverage_memory_sampling_observes_completed_reads_and_writes_on_the_selected_map",
+          "role": "direct",
+          "expected_observations": [
+            "UT: write ok 1 samples 1 writes 1 reads 0",
+            "UT: read ok 1 value a6 samples 2 writes 1 reads 1",
+            "UT: completed 1 map 1 bus_operations 2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-SAMPLE-RELATIVE-OFFSETS",
+      "clause": "18.1.4.6",
+      "statement": {
+        "en": "Block samples use map-relative offsets in address-unit bytes rather than absolute bus addresses.",
+        "ja": "block sampleは、絶対bus addressでなくaddress-unit byteに基づくmap相対offsetを使う。"
+      },
+      "conditions": {
+        "en": "Use byte addressing, base 100 hex and register offsets 20/30 hex.",
+        "ja": "byte address、base 100 hex、register offset 20／30 hexを使う。"
+      },
+      "expected": {
+        "en": "Samples are 20/30 with write/read directions and matching maps while bus addresses are 120/130 hex.",
+        "ja": "sampleは20／30、方向はwrite／read、mapは一致し、bus addressは120／130 hexとなる。"
+      },
+      "limitations": {
+        "en": "Derived classes declare model availability and observe control masks or hook counters; no covergroups, bins, automatic coverage percentage or generated coverage database are measured. Nonzero named model masks are queried. Unsupported models cannot become enabled. Normative previous-mask returns remain required even when the pinned library returns the new mask. Bus fixtures use one-byte nonvolatile fields, a single map and testbench storage with no RTL/DPI. Memory sample offsets are deliberately not interpreted. Recursive sample_values counts do not constrain sibling visit order.",
+        "ja": "派生classでモデルの有無を宣言し、制御maskまたはhook counterを観測する。covergroup、bin、自動coverage比率、生成coverage databaseは測定しない。非0の名前付きmodel maskを照会する。未搭載modelは有効化できない。固定libraryが新maskを返す場合も、規格が要求する直前maskの戻り値を保持する。 bus検査系は1 byteの非volatile field、単一map、RTL／DPIのないtestbench storageを使う。memory sampleのoffsetは意図的に解釈しない。再帰sample_valuesの回数は兄弟間の訪問順を要求しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_coverage_block_sampling_uses_relative_offsets_instead_of_absolute_bus_addresses",
+          "role": "direct",
+          "expected_observations": [
+            "UT: block samples 2 offsets 20 30 directions 0 1",
+            "UT: bus addresses 120 130 maps 1 1 address_unit 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-SAMPLE-SUCCESS-QUALIFIER",
+      "clause": "18.1.4.6",
+      "statement": {
+        "en": "A rejected write does not sample the block; its successful retry does.",
+        "ja": "拒否したwriteはblockをsampleせず、成功したretryはsampleする。"
+      },
+      "conditions": {
+        "en": "Reject one write without committing storage, then retry successfully.",
+        "ja": "storageへcommitせずにwriteを1回拒否し、次にretryを成功させる。"
+      },
+      "expected": {
+        "en": "Failure leaves zero block samples and an unchanged mirror/storage; retry produces one block/register sample and value 5a.",
+        "ja": "失敗ではblock sampleは0でmirror／storageを保持し、retryでblock／register sampleが1回と値5aを得る。"
+      },
+      "limitations": {
+        "en": "Derived classes declare model availability and observe control masks or hook counters; no covergroups, bins, automatic coverage percentage or generated coverage database are measured. Nonzero named model masks are queried. Unsupported models cannot become enabled. Normative previous-mask returns remain required even when the pinned library returns the new mask. Bus fixtures use one-byte nonvolatile fields, a single map and testbench storage with no RTL/DPI. Memory sample offsets are deliberately not interpreted. Recursive sample_values counts do not constrain sibling visit order.",
+        "ja": "派生classでモデルの有無を宣言し、制御maskまたはhook counterを観測する。covergroup、bin、自動coverage比率、生成coverage databaseは測定しない。非0の名前付きmodel maskを照会する。未搭載modelは有効化できない。固定libraryが新maskを返す場合も、規格が要求する直前maskの戻り値を保持する。 bus検査系は1 byteの非volatile field、単一map、RTL／DPIのないtestbench storageを使う。memory sampleのoffsetは意図的に解釈しない。再帰sample_valuesの回数は兄弟間の訪問順を要求しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_coverage_failed_write_does_not_sample_block_until_successful_retry",
+          "role": "direct",
+          "expected_observations": [
+            "UT: rejected 1 block_samples 0 storage_absent 1 mirror 0",
+            "UT: retry_ok 1 block_samples 1 register_samples 1 storage 5a mirror 5a"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-SAMPLE-VALUES-RECURSIVE-SUBTREE",
+      "clause": "18.1.4.7",
+      "statement": {
+        "en": "Block sample_values recursively visits its registers and child blocks only within the selected subtree.",
+        "ja": "blockのsample_valuesは、選択subtree内だけでregisterと子blockを再帰訪問する。"
+      },
+      "conditions": {
+        "en": "Overrides call super; invoke root then child with local/deep registers and a separate peer.",
+        "ja": "overrideでsuperを呼び、local／deep registerと独立peerを持つroot、次にchildを呼ぶ。"
+      },
+      "expected": {
+        "en": "Root visits each descendant once; the second call increments only child/grandchild/deep counts and never visits the peer.",
+        "ja": "rootは各子孫を1回訪問し、2回目はchild／grandchild／deepの数だけ増え、peerを訪問しない。"
+      },
+      "limitations": {
+        "en": "Derived classes declare model availability and observe control masks or hook counters; no covergroups, bins, automatic coverage percentage or generated coverage database are measured. Nonzero named model masks are queried. Unsupported models cannot become enabled. Normative previous-mask returns remain required even when the pinned library returns the new mask. Bus fixtures use one-byte nonvolatile fields, a single map and testbench storage with no RTL/DPI. Memory sample offsets are deliberately not interpreted. Recursive sample_values counts do not constrain sibling visit order.",
+        "ja": "派生classでモデルの有無を宣言し、制御maskまたはhook counterを観測する。covergroup、bin、自動coverage比率、生成coverage databaseは測定しない。非0の名前付きmodel maskを照会する。未搭載modelは有効化できない。固定libraryが新maskを返す場合も、規格が要求する直前maskの戻り値を保持する。 bus検査系は1 byteの非volatile field、単一map、RTL／DPIのないtestbench storageを使う。memory sampleのoffsetは意図的に解釈しない。再帰sample_valuesの回数は兄弟間の訪問順を要求しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_coverage_sample_values_recurses_only_through_the_selected_subtree",
+          "role": "direct",
+          "expected_observations": [
+            "UT: root_call root 1 child 1 grandchild 1 local 1 deep 1 peer 0",
+            "UT: child_call root 1 child 2 grandchild 2 local 1 deep 2 peer 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-PREDICT-MULTIFIELD-SLICES",
+      "clause": "18.4.4.15",
+      "statement": {
+        "en": "Register direct prediction updates each field and assembled desired/mirror values.",
+        "ja": "registerの直接予測は、各fieldと合成したdesired／mirror値を更新する。"
+      },
+      "conditions": {
+        "en": "Predict b67a hex into two adjacent eight-bit RW fields.",
+        "ja": "隣接する2つの8 bit RW fieldへb67a hexを予測する。"
+      },
+      "expected": {
+        "en": "Prediction succeeds; low/high are 7a/b6 and both aggregate values are b67a.",
+        "ja": "予測は成功し、low／highは7a／b6、両合成値はb67aとなる。"
+      },
+      "limitations": {
+        "en": "Explicit eight-bit fields in one- or two-byte registers use deterministic model state. set/reset/predict cases perform no hardware transfer and cannot establish DUT state. Direct prediction ignores access policy; read/write prediction models only the stated policy/values. Update fixtures use a delayed one-byte bus and auto-prediction; W1C/W1S cases observe bus masks and model state, not a policy-accurate hardware storage model. No volatile, busy-register, byte-disabled or concurrent access behavior is established.",
+        "ja": "1または2 byte register内の明示した8 bit fieldで決定的なmodel状態を使う。set／reset／predictはhardware転送を行わず、DUT状態を示さない。直接予測はaccess policyを無視し、read／write予測は記載したpolicy／値だけをmodel化する。update検査系は遅延付き1 byte busと自動予測を使い、W1C／W1Sはbus maskとmodel状態を観測して、policyに忠実なhardware storage modelは示さない。volatile、busy register、byte無効化、同時accessは示さない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_direct_prediction_updates_both_field_slices",
+          "role": "direct",
+          "expected_observations": [
+            "UT: accepted 1 desired b67a mirror b67a low 7a high b6"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-ABSENT-RESET-PRESERVES-STATE",
+      "clause": "18.5.5.4",
+      "statement": {
+        "en": "Reset with a deleted kind leaves field state unchanged and retains other reset kinds.",
+        "ja": "削除済みkindのresetはfield状態を保持し、別kindを残す。"
+      },
+      "conditions": {
+        "en": "Delete SOFT, set desired 61 and reset SOFT before resetting HARD.",
+        "ja": "SOFTを削除しdesired 61にして、SOFT、次にHARDをresetする。"
+      },
+      "expected": {
+        "en": "SOFT leaves desired/mirror 61/35; HARD restores both to 35 hex.",
+        "ja": "SOFTはdesired／mirror 61／35を保持し、HARDは両方を35 hexへ戻す。"
+      },
+      "limitations": {
+        "en": "Explicit eight-bit fields in one- or two-byte registers use deterministic model state. set/reset/predict cases perform no hardware transfer and cannot establish DUT state. Direct prediction ignores access policy; read/write prediction models only the stated policy/values. Update fixtures use a delayed one-byte bus and auto-prediction; W1C/W1S cases observe bus masks and model state, not a policy-accurate hardware storage model. No volatile, busy-register, byte-disabled or concurrent access behavior is established.",
+        "ja": "1または2 byte register内の明示した8 bit fieldで決定的なmodel状態を使う。set／reset／predictはhardware転送を行わず、DUT状態を示さない。直接予測はaccess policyを無視し、read／write予測は記載したpolicy／値だけをmodel化する。update検査系は遅延付き1 byte busと自動予測を使い、W1C／W1Sはbus maskとmodel状態を観測して、policyに忠実なhardware storage modelは示さない。volatile、busy register、byte無効化、同時accessは示さない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_field_deleted_reset_kind_preserves_state_and_other_reset",
+          "role": "direct",
+          "expected_observations": [
+            "UT: removed 1 soft_present 0 hard_present 1 desired 61 mirror 35",
+            "UT: hard desired 35 mirror 35"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-DIRECT-PREDICT-READONLY",
+      "clause": "18.5.5.17",
+      "statement": {
+        "en": "Direct prediction updates a readonly field without policy filtering.",
+        "ja": "直接予測はpolicyで制限せずreadonly fieldを更新する。"
+      },
+      "conditions": {
+        "en": "Directly predict a6 hex into an RO field.",
+        "ja": "RO fieldへa6 hexを直接予測する。"
+      },
+      "expected": {
+        "en": "Prediction succeeds and desired/mirror both become a6.",
+        "ja": "予測は成功しdesired／mirrorはともにa6となる。"
+      },
+      "limitations": {
+        "en": "Explicit eight-bit fields in one- or two-byte registers use deterministic model state. set/reset/predict cases perform no hardware transfer and cannot establish DUT state. Direct prediction ignores access policy; read/write prediction models only the stated policy/values. Update fixtures use a delayed one-byte bus and auto-prediction; W1C/W1S cases observe bus masks and model state, not a policy-accurate hardware storage model. No volatile, busy-register, byte-disabled or concurrent access behavior is established.",
+        "ja": "1または2 byte register内の明示した8 bit fieldで決定的なmodel状態を使う。set／reset／predictはhardware転送を行わず、DUT状態を示さない。直接予測はaccess policyを無視し、read／write予測は記載したpolicy／値だけをmodel化する。update検査系は遅延付き1 byte busと自動予測を使い、W1C／W1Sはbus maskとmodel状態を観測して、policyに忠実なhardware storage modelは示さない。volatile、busy register、byte無効化、同時accessは示さない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_field_direct_prediction_updates_readonly_desired_and_mirror",
+          "role": "direct",
+          "expected_observations": [
+            "UT: accepted 1 desired a6 mirror a6"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-HARD-RESET-RESTORES-BOTH-VIEWS",
+      "clause": "18.5.5.4",
+      "statement": {
+        "en": "Default HARD reset restores desired and mirror field values.",
+        "ja": "既定HARD resetはdesiredとmirrorのfield値を復元する。"
+      },
+      "conditions": {
+        "en": "Predict a6 after reset 35, then reset without an argument.",
+        "ja": "reset値35の後a6を予測し、引数なしでresetする。"
+      },
+      "expected": {
+        "en": "Both values change from a6 back to 35 hex.",
+        "ja": "両値はa6から35 hexへ戻る。"
+      },
+      "limitations": {
+        "en": "Explicit eight-bit fields in one- or two-byte registers use deterministic model state. set/reset/predict cases perform no hardware transfer and cannot establish DUT state. Direct prediction ignores access policy; read/write prediction models only the stated policy/values. Update fixtures use a delayed one-byte bus and auto-prediction; W1C/W1S cases observe bus masks and model state, not a policy-accurate hardware storage model. No volatile, busy-register, byte-disabled or concurrent access behavior is established.",
+        "ja": "1または2 byte register内の明示した8 bit fieldで決定的なmodel状態を使う。set／reset／predictはhardware転送を行わず、DUT状態を示さない。直接予測はaccess policyを無視し、read／write予測は記載したpolicy／値だけをmodel化する。update検査系は遅延付き1 byte busと自動予測を使い、W1C／W1Sはbus maskとmodel状態を観測して、policyに忠実なhardware storage modelは示さない。volatile、busy register、byte無効化、同時accessは示さない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_field_hard_reset_restores_desired_and_mirror",
+          "role": "direct",
+          "expected_observations": [
+            "UT: predicted 1 desired a6 mirror a6",
+            "UT: reset desired 35 mirror 35"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-READ-SET-PREDICTION-ONES",
+      "clause": "18.5.5.17",
+      "statement": {
+        "en": "Read-set prediction records the post-read set state.",
+        "ja": "read-setの予測は、読出し後のset状態を記録する。"
+      },
+      "conditions": {
+        "en": "Predict a read of zero on an eight-bit RS field.",
+        "ja": "8 bit RS fieldで0のreadを予測する。"
+      },
+      "expected": {
+        "en": "Prediction succeeds and desired/mirror become ff hex.",
+        "ja": "予測は成功しdesired／mirrorはff hexとなる。"
+      },
+      "limitations": {
+        "en": "Explicit eight-bit fields in one- or two-byte registers use deterministic model state. set/reset/predict cases perform no hardware transfer and cannot establish DUT state. Direct prediction ignores access policy; read/write prediction models only the stated policy/values. Update fixtures use a delayed one-byte bus and auto-prediction; W1C/W1S cases observe bus masks and model state, not a policy-accurate hardware storage model. No volatile, busy-register, byte-disabled or concurrent access behavior is established.",
+        "ja": "1または2 byte register内の明示した8 bit fieldで決定的なmodel状態を使う。set／reset／predictはhardware転送を行わず、DUT状態を示さない。直接予測はaccess policyを無視し、read／write予測は記載したpolicy／値だけをmodel化する。update検査系は遅延付き1 byte busと自動予測を使い、W1C／W1Sはbus maskとmodel状態を観測して、policyに忠実なhardware storage modelは示さない。volatile、busy register、byte無効化、同時accessは示さない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_field_read_set_prediction_records_post_read_ones",
+          "role": "direct",
+          "expected_observations": [
+            "UT: step 1 accepted 1 desired ff mirror ff"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-READONLY-SET-PRESERVES-STATE",
+      "clause": "18.5.5.2",
+      "statement": {
+        "en": "Readonly policy prevents set from changing desired state.",
+        "ja": "readonly policyはsetによるdesired状態の変更を防ぐ。"
+      },
+      "conditions": {
+        "en": "Reset an RO field to 35 and set a6 hex.",
+        "ja": "RO fieldを35へresetしa6 hexをsetする。"
+      },
+      "expected": {
+        "en": "Desired and mirror both remain 35 hex.",
+        "ja": "desiredとmirrorはともに35 hexを保つ。"
+      },
+      "limitations": {
+        "en": "Explicit eight-bit fields in one- or two-byte registers use deterministic model state. set/reset/predict cases perform no hardware transfer and cannot establish DUT state. Direct prediction ignores access policy; read/write prediction models only the stated policy/values. Update fixtures use a delayed one-byte bus and auto-prediction; W1C/W1S cases observe bus masks and model state, not a policy-accurate hardware storage model. No volatile, busy-register, byte-disabled or concurrent access behavior is established.",
+        "ja": "1または2 byte register内の明示した8 bit fieldで決定的なmodel状態を使う。set／reset／predictはhardware転送を行わず、DUT状態を示さない。直接予測はaccess policyを無視し、read／write予測は記載したpolicy／値だけをmodel化する。update検査系は遅延付き1 byte busと自動予測を使い、W1C／W1Sはbus maskとmodel状態を観測して、policyに忠実なhardware storage modelは示さない。volatile、busy register、byte無効化、同時accessは示さない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_field_readonly_set_leaves_desired_and_mirror_unchanged",
+          "role": "direct",
+          "expected_observations": [
+            "UT: desired 35 mirror 35"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-RESET-KIND-INDEPENDENT-VALUES",
+      "clause": "18.5.5.7",
+      "statement": {
+        "en": "Adding a SOFT reset value preserves the configured HARD value.",
+        "ja": "SOFT reset値の追加は、設定済みHARD値を保持する。"
+      },
+      "conditions": {
+        "en": "Use HARD 35 and SOFT 92 hex, and apply each reset.",
+        "ja": "HARD 35、SOFT 92 hexを使い、各resetを適用する。"
+      },
+      "expected": {
+        "en": "SOFT restores 92 without changing HARD metadata; HARD later restores 35.",
+        "ja": "SOFTはHARD metadataを変えず92を復元し、後でHARDが35を復元する。"
+      },
+      "limitations": {
+        "en": "Explicit eight-bit fields in one- or two-byte registers use deterministic model state. set/reset/predict cases perform no hardware transfer and cannot establish DUT state. Direct prediction ignores access policy; read/write prediction models only the stated policy/values. Update fixtures use a delayed one-byte bus and auto-prediction; W1C/W1S cases observe bus masks and model state, not a policy-accurate hardware storage model. No volatile, busy-register, byte-disabled or concurrent access behavior is established.",
+        "ja": "1または2 byte register内の明示した8 bit fieldで決定的なmodel状態を使う。set／reset／predictはhardware転送を行わず、DUT状態を示さない。直接予測はaccess policyを無視し、read／write予測は記載したpolicy／値だけをmodel化する。update検査系は遅延付き1 byte busと自動予測を使い、W1C／W1Sはbus maskとmodel状態を観測して、policyに忠実なhardware storage modelは示さない。volatile、busy register、byte無効化、同時accessは示さない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_field_reset_kinds_keep_independent_values",
+          "role": "direct",
+          "expected_observations": [
+            "UT: soft desired 92 mirror 92 hard_value 35 soft_value 92",
+            "UT: hard desired 35 mirror 35"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-SET-DESIRED-WITHOUT-PREDICTION",
+      "clause": "18.5.5.2",
+      "statement": {
+        "en": "RW set changes desired state while retaining the mirror.",
+        "ja": "RWのsetはmirrorを保ちながらdesired状態を変更する。"
+      },
+      "conditions": {
+        "en": "Reset to 35 then set ab hex.",
+        "ja": "35へresetしてab hexをsetする。"
+      },
+      "expected": {
+        "en": "Desired is ab, mirror is 35 and needs_update is true.",
+        "ja": "desiredはab、mirrorは35、needs_updateはtrueとなる。"
+      },
+      "limitations": {
+        "en": "Explicit eight-bit fields in one- or two-byte registers use deterministic model state. set/reset/predict cases perform no hardware transfer and cannot establish DUT state. Direct prediction ignores access policy; read/write prediction models only the stated policy/values. Update fixtures use a delayed one-byte bus and auto-prediction; W1C/W1S cases observe bus masks and model state, not a policy-accurate hardware storage model. No volatile, busy-register, byte-disabled or concurrent access behavior is established.",
+        "ja": "1または2 byte register内の明示した8 bit fieldで決定的なmodel状態を使う。set／reset／predictはhardware転送を行わず、DUT状態を示さない。直接予測はaccess policyを無視し、read／write予測は記載したpolicy／値だけをmodel化する。update検査系は遅延付き1 byte busと自動予測を使い、W1C／W1Sはbus maskとmodel状態を観測して、policyに忠実なhardware storage modelは示さない。volatile、busy register、byte無効化、同時accessは示さない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_field_set_changes_desired_without_predicting_mirror",
+          "role": "direct",
+          "expected_observations": [
+            "UT: desired ab mirror 35 update 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-WRITE-ONCE-HARD-REARM",
+      "clause": "18.5.5.17",
+      "statement": {
+        "en": "Write-once prediction accepts only the first write after HARD reset.",
+        "ja": "write-once予測は、HARD reset後の最初のwriteだけを反映する。"
+      },
+      "conditions": {
+        "en": "Write 11/22, reset SOFT to 07 and write 33, then reset HARD and write 44 hex.",
+        "ja": "11／22を書き、SOFTを07へresetして33を書き、HARDをresetして44 hexを書く。"
+      },
+      "expected": {
+        "en": "State is 11 after two writes, 07 after SOFT plus ignored write, and 44 after HARD plus write.",
+        "ja": "状態は2 write後11、SOFTと無視したwrite後07、HARDとwrite後44となる。"
+      },
+      "limitations": {
+        "en": "Explicit eight-bit fields in one- or two-byte registers use deterministic model state. set/reset/predict cases perform no hardware transfer and cannot establish DUT state. Direct prediction ignores access policy; read/write prediction models only the stated policy/values. Update fixtures use a delayed one-byte bus and auto-prediction; W1C/W1S cases observe bus masks and model state, not a policy-accurate hardware storage model. No volatile, busy-register, byte-disabled or concurrent access behavior is established.",
+        "ja": "1または2 byte register内の明示した8 bit fieldで決定的なmodel状態を使う。set／reset／predictはhardware転送を行わず、DUT状態を示さない。直接予測はaccess policyを無視し、read／write予測は記載したpolicy／値だけをmodel化する。update検査系は遅延付き1 byte busと自動予測を使い、W1C／W1Sはbus maskとmodel状態を観測して、policyに忠実なhardware storage modelは示さない。volatile、busy register、byte無効化、同時accessは示さない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_field_write_once_prediction_rearms_only_after_hard_reset",
+          "role": "direct",
+          "expected_observations": [
+            "UT: writes accepted 1 desired 11 mirror 11",
+            "UT: soft accepted 1 desired 7 mirror 7",
+            "UT: hard accepted 1 desired 44 mirror 44"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-W1C-PREDICTION-ACCUMULATION",
+      "clause": "18.5.5.17",
+      "statement": {
+        "en": "W1C write prediction cumulatively clears selected one bits.",
+        "ja": "W1Cのwrite予測は、選択した1 bitを累積的にclearする。"
+      },
+      "conditions": {
+        "en": "Starting f3, predict writes 33 and 80 hex.",
+        "ja": "f3からwrite 33、80 hexを予測する。"
+      },
+      "expected": {
+        "en": "Both predictions succeed with desired/mirror c0 then 40 hex.",
+        "ja": "両予測は成功し、desired／mirrorはc0、40 hexの順となる。"
+      },
+      "limitations": {
+        "en": "Explicit eight-bit fields in one- or two-byte registers use deterministic model state. set/reset/predict cases perform no hardware transfer and cannot establish DUT state. Direct prediction ignores access policy; read/write prediction models only the stated policy/values. Update fixtures use a delayed one-byte bus and auto-prediction; W1C/W1S cases observe bus masks and model state, not a policy-accurate hardware storage model. No volatile, busy-register, byte-disabled or concurrent access behavior is established.",
+        "ja": "1または2 byte register内の明示した8 bit fieldで決定的なmodel状態を使う。set／reset／predictはhardware転送を行わず、DUT状態を示さない。直接予測はaccess policyを無視し、read／write予測は記載したpolicy／値だけをmodel化する。update検査系は遅延付き1 byte busと自動予測を使い、W1C／W1Sはbus maskとmodel状態を観測して、policyに忠実なhardware storage modelは示さない。volatile、busy register、byte無効化、同時accessは示さない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_field_write_one_clear_prediction_accumulates_selected_clears",
+          "role": "direct",
+          "expected_observations": [
+            "UT: step 1 accepted 1 desired c0 mirror c0",
+            "UT: step 2 accepted 1 desired 40 mirror 40"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-W1C-SET-DESIRED-ONLY",
+      "clause": "18.5.5.2",
+      "statement": {
+        "en": "W1C set applies clear masks only to desired state.",
+        "ja": "W1Cのsetは、desired状態だけへclear maskを適用する。"
+      },
+      "conditions": {
+        "en": "Starting ff, set masks 0f then 30 hex.",
+        "ja": "ffからmask 0f、30 hexをsetする。"
+      },
+      "expected": {
+        "en": "Desired becomes f0 then c0 while mirror remains ff hex.",
+        "ja": "desiredはf0、c0の順となりmirrorはff hexを保つ。"
+      },
+      "limitations": {
+        "en": "Explicit eight-bit fields in one- or two-byte registers use deterministic model state. set/reset/predict cases perform no hardware transfer and cannot establish DUT state. Direct prediction ignores access policy; read/write prediction models only the stated policy/values. Update fixtures use a delayed one-byte bus and auto-prediction; W1C/W1S cases observe bus masks and model state, not a policy-accurate hardware storage model. No volatile, busy-register, byte-disabled or concurrent access behavior is established.",
+        "ja": "1または2 byte register内の明示した8 bit fieldで決定的なmodel状態を使う。set／reset／predictはhardware転送を行わず、DUT状態を示さない。直接予測はaccess policyを無視し、read／write予測は記載したpolicy／値だけをmodel化する。update検査系は遅延付き1 byte busと自動予測を使い、W1C／W1Sはbus maskとmodel状態を観測して、policyに忠実なhardware storage modelは示さない。volatile、busy register、byte無効化、同時accessは示さない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_field_write_one_clear_set_applies_policy_only_to_desired",
+          "role": "direct",
+          "expected_observations": [
+            "UT: first desired f0 mirror ff",
+            "UT: second desired c0 mirror ff"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-W1S-PREDICTION-ACCUMULATION",
+      "clause": "18.5.5.17",
+      "statement": {
+        "en": "W1S write prediction preserves earlier sets while setting new one bits.",
+        "ja": "W1Sのwrite予測は、既存setを保持して新たな1 bitをsetする。"
+      },
+      "conditions": {
+        "en": "Starting 0c, predict writes 81 and 02 hex.",
+        "ja": "0cからwrite 81、02 hexを予測する。"
+      },
+      "expected": {
+        "en": "Desired/mirror become 8d then 8f hex.",
+        "ja": "desired／mirrorは8d、8f hexの順となる。"
+      },
+      "limitations": {
+        "en": "Explicit eight-bit fields in one- or two-byte registers use deterministic model state. set/reset/predict cases perform no hardware transfer and cannot establish DUT state. Direct prediction ignores access policy; read/write prediction models only the stated policy/values. Update fixtures use a delayed one-byte bus and auto-prediction; W1C/W1S cases observe bus masks and model state, not a policy-accurate hardware storage model. No volatile, busy-register, byte-disabled or concurrent access behavior is established.",
+        "ja": "1または2 byte register内の明示した8 bit fieldで決定的なmodel状態を使う。set／reset／predictはhardware転送を行わず、DUT状態を示さない。直接予測はaccess policyを無視し、read／write予測は記載したpolicy／値だけをmodel化する。update検査系は遅延付き1 byte busと自動予測を使い、W1C／W1Sはbus maskとmodel状態を観測して、policyに忠実なhardware storage modelは示さない。volatile、busy register、byte無効化、同時accessは示さない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_field_write_one_set_prediction_accumulates_selected_sets",
+          "role": "direct",
+          "expected_observations": [
+            "UT: step 1 accepted 1 desired 8d mirror 8d",
+            "UT: step 2 accepted 1 desired 8f mirror 8f"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-W1T-PREDICTION-ACCUMULATION",
+      "clause": "18.5.5.17",
+      "statement": {
+        "en": "W1T write prediction toggles selected one bits in the current state.",
+        "ja": "W1Tのwrite予測は、現在状態の選択した1 bitをtoggleする。"
+      },
+      "conditions": {
+        "en": "Starting a5, predict writes 0f and 30 hex.",
+        "ja": "a5からwrite 0f、30 hexを予測する。"
+      },
+      "expected": {
+        "en": "Desired/mirror become aa then 9a hex.",
+        "ja": "desired／mirrorはaa、9a hexの順となる。"
+      },
+      "limitations": {
+        "en": "Explicit eight-bit fields in one- or two-byte registers use deterministic model state. set/reset/predict cases perform no hardware transfer and cannot establish DUT state. Direct prediction ignores access policy; read/write prediction models only the stated policy/values. Update fixtures use a delayed one-byte bus and auto-prediction; W1C/W1S cases observe bus masks and model state, not a policy-accurate hardware storage model. No volatile, busy-register, byte-disabled or concurrent access behavior is established.",
+        "ja": "1または2 byte register内の明示した8 bit fieldで決定的なmodel状態を使う。set／reset／predictはhardware転送を行わず、DUT状態を示さない。直接予測はaccess policyを無視し、read／write予測は記載したpolicy／値だけをmodel化する。update検査系は遅延付き1 byte busと自動予測を使い、W1C／W1Sはbus maskとmodel状態を観測して、policyに忠実なhardware storage modelは示さない。volatile、busy register、byte無効化、同時accessは示さない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_field_write_one_toggle_prediction_accumulates_toggles",
+          "role": "direct",
+          "expected_observations": [
+            "UT: step 1 accepted 1 desired aa mirror aa",
+            "UT: step 2 accepted 1 desired 9a mirror 9a"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-UPDATE-NEED-FIELD-AGGREGATION",
+      "clause": "18.4.4.4",
+      "statement": {
+        "en": "Register needs_update reflects a changed field and clears after reconciliation.",
+        "ja": "registerのneeds_updateは、fieldの変更を反映し、状態の一致後に解除される。"
+      },
+      "conditions": {
+        "en": "Change low, predict the aggregate, change high and restore high desired.",
+        "ja": "lowを変更し合成値を予測して、highを変更しdesiredを戻す。"
+      },
+      "expected": {
+        "en": "The update flag follows one/zero/one/zero.",
+        "ja": "update flagは1／0／1／0と変化する。"
+      },
+      "limitations": {
+        "en": "Explicit eight-bit fields in one- or two-byte registers use deterministic model state. set/reset/predict cases perform no hardware transfer and cannot establish DUT state. Direct prediction ignores access policy; read/write prediction models only the stated policy/values. Update fixtures use a delayed one-byte bus and auto-prediction; W1C/W1S cases observe bus masks and model state, not a policy-accurate hardware storage model. No volatile, busy-register, byte-disabled or concurrent access behavior is established.",
+        "ja": "1または2 byte register内の明示した8 bit fieldで決定的なmodel状態を使う。set／reset／predictはhardware転送を行わず、DUT状態を示さない。直接予測はaccess policyを無視し、read／write予測は記載したpolicy／値だけをmodel化する。update検査系は遅延付き1 byte busと自動予測を使い、W1C／W1Sはbus maskとmodel状態を観測して、policyに忠実なhardware storage modelは示さない。volatile、busy register、byte無効化、同時accessは示さない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_needs_update_clears_after_prediction_or_restored_desired_value",
+          "role": "direct",
+          "expected_observations": [
+            "UT: changed update 1",
+            "UT: predicted 1 update 0",
+            "UT: second_change update 1",
+            "UT: restored update 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-RESET-ASSEMBLED-FIELD-VALUES",
+      "clause": "18.4.4.5",
+      "statement": {
+        "en": "Register reset restores each field and the assembled values.",
+        "ja": "register resetは、各fieldと合成値を復元する。"
+      },
+      "conditions": {
+        "en": "Predict ffff into a register whose field resets assemble to 1234 hex.",
+        "ja": "field resetが1234 hexとなるregisterへffffを予測する。"
+      },
+      "expected": {
+        "en": "Reset metadata, desired and mirror all equal 1234 hex after reset.",
+        "ja": "reset後、reset metadata、desired、mirrorは全て1234 hexとなる。"
+      },
+      "limitations": {
+        "en": "Explicit eight-bit fields in one- or two-byte registers use deterministic model state. set/reset/predict cases perform no hardware transfer and cannot establish DUT state. Direct prediction ignores access policy; read/write prediction models only the stated policy/values. Update fixtures use a delayed one-byte bus and auto-prediction; W1C/W1S cases observe bus masks and model state, not a policy-accurate hardware storage model. No volatile, busy-register, byte-disabled or concurrent access behavior is established.",
+        "ja": "1または2 byte register内の明示した8 bit fieldで決定的なmodel状態を使う。set／reset／predictはhardware転送を行わず、DUT状態を示さない。直接予測はaccess policyを無視し、read／write予測は記載したpolicy／値だけをmodel化する。update検査系は遅延付き1 byte busと自動予測を使い、W1C／W1Sはbus maskとmodel状態を観測して、policyに忠実なhardware storage modelは示さない。volatile、busy register、byte無効化、同時accessは示さない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_reset_reassembles_each_fields_configured_reset_value",
+          "role": "direct",
+          "expected_observations": [
+            "UT: predicted 1 reset_value 1234 desired 1234 mirror 1234"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-SET-FIELD-SLICES-RETAIN-MIRROR",
+      "clause": "18.4.4.2",
+      "statement": {
+        "en": "Register set distributes desired bit slices without changing the mirror.",
+        "ja": "registerのsetは、mirrorを変えずdesiredのbit sliceを分配する。"
+      },
+      "conditions": {
+        "en": "Set abcd on two eight-bit fields after reset 1234 hex.",
+        "ja": "1234 hexへresetした2つの8 bit fieldへabcdをsetする。"
+      },
+      "expected": {
+        "en": "Low/high are cd/ab, desired is abcd and mirror stays 1234 hex.",
+        "ja": "low／highはcd／ab、desiredはabcd、mirrorは1234 hexを保つ。"
+      },
+      "limitations": {
+        "en": "Explicit eight-bit fields in one- or two-byte registers use deterministic model state. set/reset/predict cases perform no hardware transfer and cannot establish DUT state. Direct prediction ignores access policy; read/write prediction models only the stated policy/values. Update fixtures use a delayed one-byte bus and auto-prediction; W1C/W1S cases observe bus masks and model state, not a policy-accurate hardware storage model. No volatile, busy-register, byte-disabled or concurrent access behavior is established.",
+        "ja": "1または2 byte register内の明示した8 bit fieldで決定的なmodel状態を使う。set／reset／predictはhardware転送を行わず、DUT状態を示さない。直接予測はaccess policyを無視し、read／write予測は記載したpolicy／値だけをmodel化する。update検査系は遅延付き1 byte busと自動予測を使い、W1C／W1Sはbus maskとmodel状態を観測して、policyに忠実なhardware storage modelは示さない。volatile、busy register、byte無効化、同時accessは示さない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_set_distributes_desired_slices_without_changing_mirror",
+          "role": "direct",
+          "expected_observations": [
+            "UT: desired abcd low cd high ab mirror 1234"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-UPDATE-CLEAN-NO-BUS-REQUEST",
+      "clause": "18.4.4.13",
+      "statement": {
+        "en": "An already clean register needs no bus write for update.",
+        "ja": "既にcleanなregisterのupdateはbus writeを必要としない。"
+      },
+      "conditions": {
+        "en": "Call frontdoor update immediately after reset.",
+        "ja": "reset直後にfrontdoor updateを呼ぶ。"
+      },
+      "expected": {
+        "en": "The model remains clean, no bus request occurs and mirror remains 11 hex.",
+        "ja": "modelはcleanを保ち、bus要求はなく、mirrorは11 hexを保つ。"
+      },
+      "limitations": {
+        "en": "Explicit eight-bit fields in one- or two-byte registers use deterministic model state. set/reset/predict cases perform no hardware transfer and cannot establish DUT state. Direct prediction ignores access policy; read/write prediction models only the stated policy/values. Update fixtures use a delayed one-byte bus and auto-prediction; W1C/W1S cases observe bus masks and model state, not a policy-accurate hardware storage model. No volatile, busy-register, byte-disabled or concurrent access behavior is established.",
+        "ja": "1または2 byte register内の明示した8 bit fieldで決定的なmodel状態を使う。set／reset／predictはhardware転送を行わず、DUT状態を示さない。直接予測はaccess policyを無視し、read／write予測は記載したpolicy／値だけをmodel化する。update検査系は遅延付き1 byte busと自動予測を使い、W1C／W1Sはbus maskとmodel状態を観測して、policyに忠実なhardware storage modelは示さない。volatile、busy register、byte無効化、同時accessは示さない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_update_clean_model_issues_no_bus_request",
+          "role": "direct",
+          "expected_observations": [
+            "UT: clean 1 requests 0 mirror 11"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-UPDATE-DIRTY-ONE-WRITE",
+      "clause": "18.4.4.13",
+      "statement": {
+        "en": "A dirty register updates once and a later clean update issues no additional write.",
+        "ja": "dirty registerは1回更新し、後のcleanなupdateは追加writeを行わない。"
+      },
+      "conditions": {
+        "en": "Set a6, then call update twice with auto-prediction.",
+        "ja": "a6をsetし、自動予測でupdateを2回呼ぶ。"
+      },
+      "expected": {
+        "en": "The first succeeds with storage/mirror a6 and a clean model; total requests remain one.",
+        "ja": "最初はstorage／mirror a6とclean modelで成功し、総要求数は1を保つ。"
+      },
+      "limitations": {
+        "en": "Explicit eight-bit fields in one- or two-byte registers use deterministic model state. set/reset/predict cases perform no hardware transfer and cannot establish DUT state. Direct prediction ignores access policy; read/write prediction models only the stated policy/values. Update fixtures use a delayed one-byte bus and auto-prediction; W1C/W1S cases observe bus masks and model state, not a policy-accurate hardware storage model. No volatile, busy-register, byte-disabled or concurrent access behavior is established.",
+        "ja": "1または2 byte register内の明示した8 bit fieldで決定的なmodel状態を使う。set／reset／predictはhardware転送を行わず、DUT状態を示さない。直接予測はaccess policyを無視し、read／write予測は記載したpolicy／値だけをmodel化する。update検査系は遅延付き1 byte busと自動予測を使い、W1C／W1Sはbus maskとmodel状態を観測して、policyに忠実なhardware storage modelは示さない。volatile、busy register、byte無効化、同時accessは示さない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_update_dirty_model_writes_once_then_becomes_clean",
+          "role": "direct",
+          "expected_observations": [
+            "UT: first ok 1 stored a6 mirror a6 clean 1",
+            "UT: requests 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-UPDATE-W1C-PHYSICAL-MASK",
+      "clause": "18.4.4.13",
+      "statement": {
+        "en": "W1C update encodes the physical clear mask needed for the desired state.",
+        "ja": "W1Cのupdateは、desired状態に必要な物理clear maskを符号化する。"
+      },
+      "conditions": {
+        "en": "Reset ff, set clear mask f0, then perform frontdoor update.",
+        "ja": "ffへresetしclear mask f0をsetしてfrontdoor updateを行う。"
+      },
+      "expected": {
+        "en": "The bus mask is f0; desired/mirror are 0f and the model is clean.",
+        "ja": "bus maskはf0、desired／mirrorは0f、modelはcleanとなる。"
+      },
+      "limitations": {
+        "en": "Explicit eight-bit fields in one- or two-byte registers use deterministic model state. set/reset/predict cases perform no hardware transfer and cannot establish DUT state. Direct prediction ignores access policy; read/write prediction models only the stated policy/values. Update fixtures use a delayed one-byte bus and auto-prediction; W1C/W1S cases observe bus masks and model state, not a policy-accurate hardware storage model. No volatile, busy-register, byte-disabled or concurrent access behavior is established.",
+        "ja": "1または2 byte register内の明示した8 bit fieldで決定的なmodel状態を使う。set／reset／predictはhardware転送を行わず、DUT状態を示さない。直接予測はaccess policyを無視し、read／write予測は記載したpolicy／値だけをmodel化する。update検査系は遅延付き1 byte busと自動予測を使い、W1C／W1Sはbus maskとmodel状態を観測して、policyに忠実なhardware storage modelは示さない。volatile、busy register、byte無効化、同時accessは示さない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_update_write_one_clear_encodes_the_physical_write_mask",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ok 1 bus f0 desired f mirror f clean 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-UPDATE-W1S-PHYSICAL-MASK",
+      "clause": "18.4.4.13",
+      "statement": {
+        "en": "W1S update encodes a physical set mask for the desired state.",
+        "ja": "W1Sのupdateは、desired状態に対応する物理set maskを符号化する。"
+      },
+      "conditions": {
+        "en": "Reset zero, set 05 and perform frontdoor update.",
+        "ja": "0へresetし05をsetしてfrontdoor updateを行う。"
+      },
+      "expected": {
+        "en": "The bus mask is 05; desired/mirror are 05 and the model is clean.",
+        "ja": "bus maskは05、desired／mirrorは05、modelはcleanとなる。"
+      },
+      "limitations": {
+        "en": "Explicit eight-bit fields in one- or two-byte registers use deterministic model state. set/reset/predict cases perform no hardware transfer and cannot establish DUT state. Direct prediction ignores access policy; read/write prediction models only the stated policy/values. Update fixtures use a delayed one-byte bus and auto-prediction; W1C/W1S cases observe bus masks and model state, not a policy-accurate hardware storage model. No volatile, busy-register, byte-disabled or concurrent access behavior is established.",
+        "ja": "1または2 byte register内の明示した8 bit fieldで決定的なmodel状態を使う。set／reset／predictはhardware転送を行わず、DUT状態を示さない。直接予測はaccess policyを無視し、read／write予測は記載したpolicy／値だけをmodel化する。update検査系は遅延付き1 byte busと自動予測を使い、W1C／W1Sはbus maskとmodel状態を観測して、policyに忠実なhardware storage modelは示さない。volatile、busy register、byte無効化、同時accessは示さない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_update_write_one_set_encodes_the_physical_write_mask",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ok 1 bus 5 desired 5 mirror 5 clean 1"
+          ]
+        }
+      ]
     }
   ]
 }

@@ -1,0 +1,2 @@
+UT: rejected 1 block_samples 0 storage_absent 1 mirror 0
+UT: retry_ok 1 block_samples 1 register_samples 1 storage 5a mirror 5a
