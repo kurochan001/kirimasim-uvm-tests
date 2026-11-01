@@ -2,7 +2,7 @@
 
 [English](history.md) · [README](../README.ja.md)
 
-M1・M2の15回目、M3の9回目、M4の3回目と段階をまたぐ薄い領域の12回目の拡充（シミュレーション1045件）までを記録しています。以前の349件の時点は
+M1・M2の15回目、M3の9回目、M4の3回目と段階をまたぐ薄い領域の13回目の拡充（シミュレーション1065件）までを記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -1333,3 +1333,31 @@ M4はAI要求案50件を追加し、新規20件と既存sequence libraryの登�
 完全な日英guideを対象とします。用語集は139語、FAQは118回答で、order-policyの図を加えます。
 既定handleの選択、型lookup、物理順序、論理再合成は別の観測です。外部database、独自core初期化、memory burst、
 端数bus word、任意の同時accessは主張しません。READMEは現状を記載し、今回の増分はこの履歴に保持します。
+
+## M1〜M4の薄い領域の13回目の拡充
+
+[fdfbd57](https://github.com/kurochan001/kirimasim-uvm-tests/commit/fdfbd57d235a9fc19ede9163f23f8e9b255f5e0a)
+の1045件へシミュレーション20件を追加し、21 directoryで1065件となります。
+M1は343件、M2は412件、M3は310件で、既存1045件の入力はすべて保持します。
+M1はvisitor／proxy／走査とcoreのvisitor選択の8件、M2はblocking transport channelの4件です。
+M3はregister-sequenceの便利APIの8件で、data動作と暗黙parent／明示transaction metadataを区別します。
+
+互換なsnapshotは、Verilator 5.052のseed 1／73で一致961件、既知差分104件です。
+内訳はseed 1の実行時初回差分95件と、seed実行結果のないAPI欠落build 9件です。
+Ghost bundledは各seedで一致207件、不一致858件で、失敗集合は同じです。
+kirimasimはunsupported 1056件、API欠落fail 9件です。runner、実行ファイル、
+非公開profile、固定libraryの識別は互換で、現在のGhost pinned modeの結果は推測しません。
+
+M4はAI要求案46件を追加し、新規20件と既存default-sequenceのresource選択／終了responseのroutingの20件を対応付けます。
+台帳は要求案961件、直接対応要求957件、直接対応テスト916件、別control 1件、未対応148件です。
+条項番号2,504件のうち663件を一部分解し、1,841件は未評価です。主引用は496番号、いずれかの引用は1,109番号です。
+候補2,479番号の棚卸しは、主引用0件が1,983、1件が263、2件以上が233です。
+直接テストのない要求案は4件のままです。対象範囲は提案、照合はすべてAIで、分母／比率は未設定です。
+既存の不正wrapperのseverity差分はspec-onlyを保持します。
+
+検証はtool unit test 74件、metadata全1065件、台帳／索引の整合性、最終入力のevidence fingerprint、
+完全な日英guideを対象とします。用語集は143語、FAQは121回答です。走査は兄弟順を固定せず必要な部分順を要求します。
+blocking transportは各channelに1 callerを使い、逐次再利用、事前reply、channel独立性を比較します。
+register wrapperはvirtual sequenceとして動き、backdoorはHDL／DPIなしでstorageをモデル化します。
+循環graph、同一channelの同時呼出し、任意BASE specialization、変換bodyは主張しません。
+READMEは現状を記載し、今回の増分はこの履歴へ保持します。

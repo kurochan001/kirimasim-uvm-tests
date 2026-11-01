@@ -699,3 +699,19 @@ the sequence and does not impose a universal registration order.
 **Register transaction-order policy** — A hook that permutes complete physical
 bus-operation structs for one logical register read/write. Address/data binding
 and logical read reconstruction must survive a change in execution order.
+
+## Traversal and access wrappers
+
+**Visitor** — An object receiving callbacks for nodes selected by a traversal
+adapter. Its begin/end callbacks surround a traversal unless disabled.
+
+**Structure proxy** — An adapter-facing object that enumerates a node's
+immediate subelements, allowing a traversal strategy to work on different
+structure types.
+
+**Traversal partial order** — Required relations such as parent-before-child
+or child-before-parent, leaving unrelated sibling order unconstrained.
+
+**Register-sequence convenience method** — A wrapper for a register or memory
+access that supplies the calling sequence as parent and forwards the other
+specified access arguments.

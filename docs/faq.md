@@ -173,7 +173,7 @@ a claim that every test was rebuilt together.
 
 ### Q16. Are M1, M2 or M3 complete, and what does the test count cover?
 
-M1 and M2 still have open clause targets. M3 now has 302
+M1 and M2 still have open clause targets. M3 now has 310
 register-layer cases, including testbench frontdoor paths; it is also incomplete. Starting a stage does not complete
 the preceding stages.
 The [plan](../README.md#plan) identifies current scope and remaining work.
@@ -1136,9 +1136,9 @@ not a direct test of the requirement.
 
 ### Q77. Why is there no coverage percentage after starting M4?
 
-The 915 AI drafts cover only a partial decomposition: 911 requirements link
-directly to 876 tests, 4 have no direct test, and one separate test is a control.
-Another 168 tests are not mapped yet. The 2,504 clause identifiers are not normative requirement units.
+The 961 AI drafts cover only a partial decomposition: 957 requirements link
+directly to 916 tests, 4 have no direct test, and one separate test is a control.
+Another 148 tests are not mapped yet. The 2,504 clause identifiers are not normative requirement units.
 The scope is proposed, the inventory incomplete and the denominator unapproved;
 starting M4 approves none of those. Known differences and HDL/DPI limitations
 do not silently exclude obligations. See the [approval path](requirements.md#remaining-m4-work-and-approval).
@@ -2003,3 +2003,47 @@ transfer order. The sorting algorithm is fixture code; the conformance
 observations concern library dispatch, bus order and data preservation.
 There are no memory bursts, partial bus words, concurrent accesses or
 child-map inheritance claims.
+
+## Visitors, blocking transport and register sequence helpers
+
+### Q119. Which traversal orders do the visitor tests require?
+
+The [top-down](../tests/uF/test_visitor_top_down_adapter_visits_each_node_in_the_required_partial_order.sv)
+and [bottom-up](../tests/uF/test_visitor_bottom_up_adapter_visits_each_node_in_the_required_partial_order.sv)
+cases check opposite ancestor/descendant relations. The
+[by-level case](../tests/uF/test_visitor_by_level_adapter_visits_each_node_in_the_required_partial_order.sv)
+requires both direct children before both grandchildren. Each of the five
+nodes is visited once; no sibling order is fixed. Begin/end callbacks
+bracket each default traversal. Disabling those callbacks retains all visits,
+and a reused visitor can traverse only the selected subtree on a later call.
+
+A custom proxy also supplies a small noncomponent tree. These fixtures use
+finite acyclic trees. Selecting/restoring the core component visitor proves
+handle selection, without establishing automatic traversal or name checking.
+
+### Q120. Does blocking transport correlate replies by packet contents?
+
+The [delayed-reply case](../tests/u12/test_blocking_transport_waits_for_response_and_preserves_both_object_handles.sv)
+checks that transport waits, enqueues the exact request object and returns
+the exact response object. The channel's request/response FIFOs are the
+mechanism; these fixtures do not claim protocol-based correlation. Sequential
+calls reuse one channel. A prequeued response can be returned while the
+original request remains available on the request side; the test does not
+assert zero elapsed time. Two independent channels complete according to
+their own delayed replies. Overlapping callers on one channel remain open.
+
+### Q121. What do the register-sequence convenience APIs add to direct access?
+
+The eight wrappers invoke register/memory accesses with the calling sequence
+as parent. The [write_reg case](../tests/u19/test_reg_sequence_write_reg_forwards_parent_map_priority_and_extension.sv)
+observes that exact parent, element and extension, plus explicit map and
+priority. Memory cases also observe the location offset. Poke/peek use a
+user backdoor and retain the requested kind, testing RO deposit and RC
+sampling without a read-clear write. Update writes dirty desired state once,
+then skips the clean access. Mirror checks explicit mismatch reporting and
+the default no-check behavior separately.
+
+The default specialization runs as a virtual sequence with no sequencer;
+its map supplies a delayed adapter/sequencer/driver bus. The user backdoor
+models storage with pre/post hooks, without RTL or DPI. These cases do not
+exercise the default translation body or arbitrary BASE specializations.

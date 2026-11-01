@@ -35382,6 +35382,1683 @@
           ]
         }
       ]
+    },
+    {
+      "id": "UVM-VISITOR-COMPONENT-IMMEDIATE-CHILDREN",
+      "clause": "F.5.7",
+      "statement": {
+        "en": "The component proxy enumerates immediate children without including deeper descendants.",
+        "ja": "component proxyは、深い子孫を含めず直下の子を列挙する。"
+      },
+      "conditions": {
+        "en": "Query a root, one child and a leaf in a five-node tree.",
+        "ja": "5 nodeのtreeでroot、子1つ、leafを照会する。"
+      },
+      "expected": {
+        "en": "Root has exactly a/b, a has its exact leaf, and a leaf has no children.",
+        "ja": "rootはa／bだけ、aは正確なleafを持ち、leafには子がない。"
+      },
+      "limitations": {
+        "en": "Finite acyclic component trees and one custom object tree are visited explicitly. Only required ancestor/depth relations are asserted, never sibling order. No cyclic/shared graph, null node, automatic core traversal, name checking or implementation-specific default visitor is claimed.",
+        "ja": "有限で非循環のcomponent treeと独自object tree 1つを明示的に走査する。必要な祖先／深さの関係だけを要求し、兄弟順は要求しない。循環／共有graph、null node、coreの自動走査、名前検査、実装固有の既定visitorは主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_visitor_component_proxy_returns_only_immediate_children",
+          "role": "direct",
+          "expected_observations": [
+            "UT: root_children 2 members 3 leaf_children 0",
+            "UT: child_children 1 exact_leaf 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VISITOR-TOP-DOWN-PARTIAL-ORDER",
+      "clause": "F.5.4",
+      "statement": {
+        "en": "Top-down traversal visits each parent before its descendants.",
+        "ja": "top-down走査は、子孫より前に各親を訪問する。"
+      },
+      "conditions": {
+        "en": "Traverse a five-component tree with two branches.",
+        "ja": "2 branchの5 component treeを走査する。"
+      },
+      "expected": {
+        "en": "Every node is visited once and each parent precedes its children.",
+        "ja": "全nodeを各1回訪問し、各親はその子より前となる。"
+      },
+      "limitations": {
+        "en": "Finite acyclic component trees and one custom object tree are visited explicitly. Only required ancestor/depth relations are asserted, never sibling order. No cyclic/shared graph, null node, automatic core traversal, name checking or implementation-specific default visitor is claimed.",
+        "ja": "有限で非循環のcomponent treeと独自object tree 1つを明示的に走査する。必要な祖先／深さの関係だけを要求し、兄弟順は要求しない。循環／共有graph、null node、coreの自動走査、名前検査、実装固有の既定visitorは主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_visitor_top_down_adapter_visits_each_node_in_the_required_partial_order",
+          "role": "direct",
+          "expected_observations": [
+            "UT: visits 5 members 1 1 1 1 1",
+            "UT: required_order 1 begin 1 end 1 bracketed 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VISITOR-BOTTOM-UP-PARTIAL-ORDER",
+      "clause": "F.5.5",
+      "statement": {
+        "en": "Bottom-up traversal visits descendants before their ancestors.",
+        "ja": "bottom-up走査は、祖先より前に子孫を訪問する。"
+      },
+      "conditions": {
+        "en": "Traverse a five-component tree with two branches.",
+        "ja": "2 branchの5 component treeを走査する。"
+      },
+      "expected": {
+        "en": "Every node is visited once and each child precedes its parent.",
+        "ja": "全nodeを各1回訪問し、各子はその親より前となる。"
+      },
+      "limitations": {
+        "en": "Finite acyclic component trees and one custom object tree are visited explicitly. Only required ancestor/depth relations are asserted, never sibling order. No cyclic/shared graph, null node, automatic core traversal, name checking or implementation-specific default visitor is claimed.",
+        "ja": "有限で非循環のcomponent treeと独自object tree 1つを明示的に走査する。必要な祖先／深さの関係だけを要求し、兄弟順は要求しない。循環／共有graph、null node、coreの自動走査、名前検査、実装固有の既定visitorは主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_visitor_bottom_up_adapter_visits_each_node_in_the_required_partial_order",
+          "role": "direct",
+          "expected_observations": [
+            "UT: visits 5 members 1 1 1 1 1",
+            "UT: required_order 1 begin 1 end 1 bracketed 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VISITOR-BY-LEVEL-DESCENDANT-DEPTH",
+      "clause": "F.5.6",
+      "statement": {
+        "en": "By-level traversal visits direct children before grandchildren.",
+        "ja": "by-level走査は、孫より前に直下の子を訪問する。"
+      },
+      "conditions": {
+        "en": "Traverse a root with two children and two grandchildren.",
+        "ja": "2つの子と2つの孫を持つrootを走査する。"
+      },
+      "expected": {
+        "en": "Each node occurs once; both direct children precede both grandchildren.",
+        "ja": "全nodeは各1回で、直下の両子は両孫より前となる。"
+      },
+      "limitations": {
+        "en": "Finite acyclic component trees and one custom object tree are visited explicitly. Only required ancestor/depth relations are asserted, never sibling order. No cyclic/shared graph, null node, automatic core traversal, name checking or implementation-specific default visitor is claimed.",
+        "ja": "有限で非循環のcomponent treeと独自object tree 1つを明示的に走査する。必要な祖先／深さの関係だけを要求し、兄弟順は要求しない。循環／共有graph、null node、coreの自動走査、名前検査、実装固有の既定visitorは主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_visitor_by_level_adapter_visits_each_node_in_the_required_partial_order",
+          "role": "direct",
+          "expected_observations": [
+            "UT: visits 5 members 1 1 1 1 1",
+            "UT: required_order 1 begin 1 end 1 bracketed 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VISITOR-ACCEPT-CALLBACK-SUPPRESSION",
+      "clause": "F.5.3.2.2",
+      "statement": {
+        "en": "Disabling accept callbacks suppresses begin/end without suppressing node visits.",
+        "ja": "accept callbackの無効化は、node訪問を抑えずbegin／endを抑える。"
+      },
+      "conditions": {
+        "en": "Call top-down accept with invoke_begin_end zero.",
+        "ja": "invoke_begin_endを0としてtop-down acceptを呼ぶ。"
+      },
+      "expected": {
+        "en": "All five nodes are visited once, with zero begin/end and five visit-only trace entries.",
+        "ja": "5 nodeを各1回訪問し、begin／endは0、traceは訪問だけの5 entryとなる。"
+      },
+      "limitations": {
+        "en": "Finite acyclic component trees and one custom object tree are visited explicitly. Only required ancestor/depth relations are asserted, never sibling order. No cyclic/shared graph, null node, automatic core traversal, name checking or implementation-specific default visitor is claimed.",
+        "ja": "有限で非循環のcomponent treeと独自object tree 1つを明示的に走査する。必要な祖先／深さの関係だけを要求し、兄弟順は要求しない。循環／共有graph、null node、coreの自動走査、名前検査、実装固有の既定visitorは主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_visitor_accept_can_suppress_begin_end_without_suppressing_visits",
+          "role": "direct",
+          "expected_observations": [
+            "UT: suppressed begin 0 end 0 visits 5 trace_length 5",
+            "UT: retained_members 1 1 1 1 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VISITOR-ACCEPT-SELECTED-SUBTREE-REUSE",
+      "clause": "F.5.3.2.2",
+      "statement": {
+        "en": "Each accept traverses its selected structure even when reusing a visitor.",
+        "ja": "visitorを再利用しても、各acceptは選択した構造を走査する。"
+      },
+      "conditions": {
+        "en": "Visit the whole tree top-down, then only branch a bottom-up with the same visitor.",
+        "ja": "同じvisitorで全treeをtop-down、次にbranch aだけをbottom-up走査する。"
+      },
+      "expected": {
+        "en": "There are seven visits; only a and its leaf occur twice, with two begin/end pairs.",
+        "ja": "訪問は7回でaとそのleafだけが2回、begin／endは2組となる。"
+      },
+      "limitations": {
+        "en": "Finite acyclic component trees and one custom object tree are visited explicitly. Only required ancestor/depth relations are asserted, never sibling order. No cyclic/shared graph, null node, automatic core traversal, name checking or implementation-specific default visitor is claimed.",
+        "ja": "有限で非循環のcomponent treeと独自object tree 1つを明示的に走査する。必要な祖先／深さの関係だけを要求し、兄弟順は要求しない。循環／共有graph、null node、coreの自動走査、名前検査、実装固有の既定visitorは主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_visitor_reused_visitor_traverses_only_each_selected_subtree",
+          "role": "direct",
+          "expected_observations": [
+            "UT: reused visits 7 begin 2 end 2",
+            "UT: subtree_members 1 2 1 2 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VISITOR-CUSTOM-STRUCTURE-PROXY",
+      "clause": "F.5.4",
+      "statement": {
+        "en": "Top-down traversal obtains a custom noncomponent tree through its supplied proxy.",
+        "ja": "top-down走査は、指定proxyを通じて独自noncomponent treeを取得する。"
+      },
+      "conditions": {
+        "en": "Supply four custom object nodes and a direct-child proxy.",
+        "ja": "独自object node 4つと直下の子を返すproxyを指定する。"
+      },
+      "expected": {
+        "en": "All four nodes occur once, proxy use is observed and required parent-before-child relations hold.",
+        "ja": "4 nodeは各1回、proxy利用を観測し、必要な親が子より前の関係を満たす。"
+      },
+      "limitations": {
+        "en": "Finite acyclic component trees and one custom object tree are visited explicitly. Only required ancestor/depth relations are asserted, never sibling order. No cyclic/shared graph, null node, automatic core traversal, name checking or implementation-specific default visitor is claimed.",
+        "ja": "有限で非循環のcomponent treeと独自object tree 1つを明示的に走査する。必要な祖先／深さの関係だけを要求し、兄弟順は要求しない。循環／共有graph、null node、coreの自動走査、名前検査、実装固有の既定visitorは主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_visitor_adapter_uses_a_custom_noncomponent_structure_proxy",
+          "role": "direct",
+          "expected_observations": [
+            "UT: custom visits 4 all_present 1 proxy_used 1",
+            "UT: custom_parent_order 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VISITOR-ACCEPT-DEFAULT-CALLBACKS",
+      "clause": "F.5.3.2.2",
+      "statement": {
+        "en": "Accept invokes begin/end by default around the complete traversal.",
+        "ja": "acceptは既定で、走査全体の前後にbegin／endを呼ぶ。"
+      },
+      "conditions": {
+        "en": "Omit invoke_begin_end for all three concrete traversal adapters.",
+        "ja": "具体的な3走査adapterでinvoke_begin_endを省略する。"
+      },
+      "expected": {
+        "en": "Each has one begin and one end enclosing all visits.",
+        "ja": "各adapterは、全訪問を囲むbegin 1回とend 1回を持つ。"
+      },
+      "limitations": {
+        "en": "Finite acyclic component trees and one custom object tree are visited explicitly. Only required ancestor/depth relations are asserted, never sibling order. No cyclic/shared graph, null node, automatic core traversal, name checking or implementation-specific default visitor is claimed.",
+        "ja": "有限で非循環のcomponent treeと独自object tree 1つを明示的に走査する。必要な祖先／深さの関係だけを要求し、兄弟順は要求しない。循環／共有graph、null node、coreの自動走査、名前検査、実装固有の既定visitorは主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_visitor_top_down_adapter_visits_each_node_in_the_required_partial_order",
+          "role": "direct",
+          "expected_observations": [
+            "UT: required_order 1 begin 1 end 1 bracketed 1"
+          ]
+        },
+        {
+          "test": "uF/test_visitor_bottom_up_adapter_visits_each_node_in_the_required_partial_order",
+          "role": "direct",
+          "expected_observations": [
+            "UT: required_order 1 begin 1 end 1 bracketed 1"
+          ]
+        },
+        {
+          "test": "uF/test_visitor_by_level_adapter_visits_each_node_in_the_required_partial_order",
+          "role": "direct",
+          "expected_observations": [
+            "UT: required_order 1 begin 1 end 1 bracketed 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VISITOR-BEGIN-BEFORE-FIRST-VISIT",
+      "clause": "F.5.1.2.1",
+      "statement": {
+        "en": "The visitor begin callback precedes the first visit.",
+        "ja": "visitorのbegin callbackは、最初の訪問より前となる。"
+      },
+      "conditions": {
+        "en": "Record callback/visit traces for three traversal strategies.",
+        "ja": "3走査方式のcallback／訪問traceを記録する。"
+      },
+      "expected": {
+        "en": "Every trace starts with its one begin callback.",
+        "ja": "各traceは、その1回のbegin callbackで始まる。"
+      },
+      "limitations": {
+        "en": "Finite acyclic component trees and one custom object tree are visited explicitly. Only required ancestor/depth relations are asserted, never sibling order. No cyclic/shared graph, null node, automatic core traversal, name checking or implementation-specific default visitor is claimed.",
+        "ja": "有限で非循環のcomponent treeと独自object tree 1つを明示的に走査する。必要な祖先／深さの関係だけを要求し、兄弟順は要求しない。循環／共有graph、null node、coreの自動走査、名前検査、実装固有の既定visitorは主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_visitor_top_down_adapter_visits_each_node_in_the_required_partial_order",
+          "role": "direct",
+          "expected_observations": [
+            "UT: required_order 1 begin 1 end 1 bracketed 1"
+          ]
+        },
+        {
+          "test": "uF/test_visitor_bottom_up_adapter_visits_each_node_in_the_required_partial_order",
+          "role": "direct",
+          "expected_observations": [
+            "UT: required_order 1 begin 1 end 1 bracketed 1"
+          ]
+        },
+        {
+          "test": "uF/test_visitor_by_level_adapter_visits_each_node_in_the_required_partial_order",
+          "role": "direct",
+          "expected_observations": [
+            "UT: required_order 1 begin 1 end 1 bracketed 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VISITOR-END-AFTER-LAST-VISIT",
+      "clause": "F.5.1.2.2",
+      "statement": {
+        "en": "The visitor end callback follows the final visit.",
+        "ja": "visitorのend callbackは、最後の訪問より後となる。"
+      },
+      "conditions": {
+        "en": "Record callback/visit traces for three traversal strategies.",
+        "ja": "3走査方式のcallback／訪問traceを記録する。"
+      },
+      "expected": {
+        "en": "Every trace ends with its one end callback.",
+        "ja": "各traceは、その1回のend callbackで終わる。"
+      },
+      "limitations": {
+        "en": "Finite acyclic component trees and one custom object tree are visited explicitly. Only required ancestor/depth relations are asserted, never sibling order. No cyclic/shared graph, null node, automatic core traversal, name checking or implementation-specific default visitor is claimed.",
+        "ja": "有限で非循環のcomponent treeと独自object tree 1つを明示的に走査する。必要な祖先／深さの関係だけを要求し、兄弟順は要求しない。循環／共有graph、null node、coreの自動走査、名前検査、実装固有の既定visitorは主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_visitor_top_down_adapter_visits_each_node_in_the_required_partial_order",
+          "role": "direct",
+          "expected_observations": [
+            "UT: required_order 1 begin 1 end 1 bracketed 1"
+          ]
+        },
+        {
+          "test": "uF/test_visitor_bottom_up_adapter_visits_each_node_in_the_required_partial_order",
+          "role": "direct",
+          "expected_observations": [
+            "UT: required_order 1 begin 1 end 1 bracketed 1"
+          ]
+        },
+        {
+          "test": "uF/test_visitor_by_level_adapter_visits_each_node_in_the_required_partial_order",
+          "role": "direct",
+          "expected_observations": [
+            "UT: required_order 1 begin 1 end 1 bracketed 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CORE-COMPONENT-VISITOR-SELECTION",
+      "clause": "F.4.1.4.9",
+      "statement": {
+        "en": "The core service selects the component visitor supplied to its setter.",
+        "ja": "core serviceは、setterへ指定したcomponent visitorを選択する。"
+      },
+      "conditions": {
+        "en": "Select two concrete visitors successively.",
+        "ja": "具体的visitor 2つを順に選択する。"
+      },
+      "expected": {
+        "en": "The getter identifies each selected handle; selection itself performs no visit.",
+        "ja": "getterは各選択handleを識別し、選択自体は訪問しない。"
+      },
+      "limitations": {
+        "en": "Finite acyclic component trees and one custom object tree are visited explicitly. Only required ancestor/depth relations are asserted, never sibling order. No cyclic/shared graph, null node, automatic core traversal, name checking or implementation-specific default visitor is claimed.",
+        "ja": "有限で非循環のcomponent treeと独自object tree 1つを明示的に走査する。必要な祖先／深さの関係だけを要求し、兄弟順は要求しない。循環／共有graph、null node、coreの自動走査、名前検査、実装固有の既定visitorは主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_core_component_visitor_selection_and_restoration",
+          "role": "direct",
+          "expected_observations": [
+            "UT: selected first 1",
+            "UT: selected second 1 first_unused 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CORE-COMPONENT-VISITOR-RESTORATION",
+      "clause": "F.4.1.4.8",
+      "statement": {
+        "en": "The component visitor getter reflects restoration of the saved selection.",
+        "ja": "component visitorのgetterは、保存した選択の復元を反映する。"
+      },
+      "conditions": {
+        "en": "Save the current handle, swap visitors and restore the saved handle.",
+        "ja": "現在のhandleを保存し、visitorを入れ替え、保存handleを復元する。"
+      },
+      "expected": {
+        "en": "The getter returns the exact saved handle, including a possible null.",
+        "ja": "getterは、nullの可能性を含め、保存した正確なhandleを返す。"
+      },
+      "limitations": {
+        "en": "Finite acyclic component trees and one custom object tree are visited explicitly. Only required ancestor/depth relations are asserted, never sibling order. No cyclic/shared graph, null node, automatic core traversal, name checking or implementation-specific default visitor is claimed.",
+        "ja": "有限で非循環のcomponent treeと独自object tree 1つを明示的に走査する。必要な祖先／深さの関係だけを要求し、兄弟順は要求しない。循環／共有graph、null node、coreの自動走査、名前検査、実装固有の既定visitorは主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_core_component_visitor_selection_and_restoration",
+          "role": "direct",
+          "expected_observations": [
+            "UT: restored exact 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCKING-TRANSPORT-WAITS-FOR-REPLY",
+      "clause": "12.2.9.2.2",
+      "statement": {
+        "en": "Blocking transport waits for its reply and preserves both object handles.",
+        "ja": "blocking transportは、replyを待ち、両object handleを保持する。"
+      },
+      "conditions": {
+        "en": "Submit payload 41 and return a delayed response carrying 42.",
+        "ja": "payload 41を送り、42を持つresponseを遅延して返す。"
+      },
+      "expected": {
+        "en": "The call is incomplete before the reply and returns 42 with exact request/reply identities.",
+        "ja": "reply前は呼出し未完了で、正確なrequest／replyの同一性を持って42を返す。"
+      },
+      "limitations": {
+        "en": "Object-valued blocking transport uses one producer per channel, finite sequential calls and delayed replies. One case prequeues a reply without asserting zero elapsed time. Cross-channel independence is exercised, but no overlapping callers on one channel, protocol-based response matching, arbitrary capacities, nonblocking transport or DUT behavior is claimed.",
+        "ja": "object値のblocking transportを、channelごとに1 producer、有限の逐次呼出し、遅延replyで検査する。1件はreplyを事前投入するが、経過時刻0は要求しない。channel間の独立性を検査し、同じchannelの同時caller、protocolに基づくresponse照合、任意capacity、nonblocking transport、DUT動作は主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_blocking_transport_waits_for_response_and_preserves_both_object_handles",
+          "role": "direct",
+          "expected_observations": [
+            "UT: before_reply completed 0",
+            "UT: returned 1 value 42 request_same 1 response_same 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCKING-TRANSPORT-SEQUENTIAL-REUSE",
+      "clause": "12.2.9.2.2",
+      "statement": {
+        "en": "A transport channel supports sequential blocking exchanges without losing requests or replies.",
+        "ja": "transport channelは、request／replyを失わず逐次blocking交換を行う。"
+      },
+      "conditions": {
+        "en": "Complete requests 11 and 22 in succession, each with a newly allocated reply.",
+        "ja": "request 11と22を順に完了させ、各replyを新規生成する。"
+      },
+      "expected": {
+        "en": "Responses are 21/32, and both observed requests and replies retain their exact handles.",
+        "ja": "responseは21／32で、観測した両requestと両replyは正確なhandleを保持する。"
+      },
+      "limitations": {
+        "en": "Object-valued blocking transport uses one producer per channel, finite sequential calls and delayed replies. One case prequeues a reply without asserting zero elapsed time. Cross-channel independence is exercised, but no overlapping callers on one channel, protocol-based response matching, arbitrary capacities, nonblocking transport or DUT behavior is claimed.",
+        "ja": "object値のblocking transportを、channelごとに1 producer、有限の逐次呼出し、遅延replyで検査する。1件はreplyを事前投入するが、経過時刻0は要求しない。channel間の独立性を検査し、同じchannelの同時caller、protocolに基づくresponse照合、任意capacity、nonblocking transport、DUT動作は主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_blocking_transport_sequential_calls_reuse_channel_without_losing_requests_or_replies",
+          "role": "direct",
+          "expected_observations": [
+            "UT: values 21 32 requests 1 1",
+            "UT: replies 1 1 distinct 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCKING-TRANSPORT-PREQUEUED-REPLY",
+      "clause": "12.2.9.2.2",
+      "statement": {
+        "en": "A prequeued reply does not suppress enqueueing the transport request.",
+        "ja": "事前投入したreplyは、transport requestの投入を抑えない。"
+      },
+      "conditions": {
+        "en": "Queue reply 31, then transport request 11 and consume the request FIFO.",
+        "ja": "reply 31をqueueへ入れ、request 11をtransportし、request FIFOを取得する。"
+      },
+      "expected": {
+        "en": "Transport returns the exact queued reply and the request FIFO yields the exact request with value 11.",
+        "ja": "transportは正確な事前replyを返し、request FIFOは値11の正確なrequestを返す。"
+      },
+      "limitations": {
+        "en": "Object-valued blocking transport uses one producer per channel, finite sequential calls and delayed replies. One case prequeues a reply without asserting zero elapsed time. Cross-channel independence is exercised, but no overlapping callers on one channel, protocol-based response matching, arbitrary capacities, nonblocking transport or DUT behavior is claimed.",
+        "ja": "object値のblocking transportを、channelごとに1 producer、有限の逐次呼出し、遅延replyで検査する。1件はreplyを事前投入するが、経過時刻0は要求しない。channel間の独立性を検査し、同じchannelの同時caller、protocolに基づくresponse照合、任意capacity、nonblocking transport、DUT動作は主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_blocking_transport_prequeued_response_still_enqueues_the_original_request",
+          "role": "direct",
+          "expected_observations": [
+            "UT: queued_reply_same 1 value 31 request_same 1 request_value 11"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCKING-TRANSPORT-CHANNEL-INDEPENDENCE",
+      "clause": "12.2.9.2.2",
+      "statement": {
+        "en": "Independent transport channels complete according to their own reply arrivals.",
+        "ja": "独立transport channelは、それぞれのreply到着に従って完了する。"
+      },
+      "conditions": {
+        "en": "Start two transports concurrently, replying after two and four delay units.",
+        "ja": "2 transportを並行開始し、2および4遅延単位の後にreplyする。"
+      },
+      "expected": {
+        "en": "Only the first is complete at the intermediate probe; both finish with 15/25 and exact handles.",
+        "ja": "中間観測ではfirstだけ完了し、最終的に両方が15／25と正確なhandleで完了する。"
+      },
+      "limitations": {
+        "en": "Object-valued blocking transport uses one producer per channel, finite sequential calls and delayed replies. One case prequeues a reply without asserting zero elapsed time. Cross-channel independence is exercised, but no overlapping callers on one channel, protocol-based response matching, arbitrary capacities, nonblocking transport or DUT behavior is claimed.",
+        "ja": "object値のblocking transportを、channelごとに1 producer、有限の逐次呼出し、遅延replyで検査する。1件はreplyを事前投入するが、経過時刻0は要求しない。channel間の独立性を検査し、同じchannelの同時caller、protocolに基づくresponse照合、任意capacity、nonblocking transport、DUT動作は主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_blocking_transport_independent_channels_complete_at_their_own_response_arrivals",
+          "role": "direct",
+          "expected_observations": [
+            "UT: intermediate first_done 1 peer_done 0",
+            "UT: final first_done 1 peer_done 1 values 15 25",
+            "UT: request_identity 1 1 reply_identity 1 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-SEQUENCE-WRITE-REG",
+      "clause": "19.4.1.5.1",
+      "statement": {
+        "en": "write_reg writes through the selected register interface.",
+        "ja": "write_regは、選択register interfaceを通じて書く。"
+      },
+      "conditions": {
+        "en": "Write 5a hex through the explicit frontdoor map.",
+        "ja": "明示frontdoor mapで5a hexを書く。"
+      },
+      "expected": {
+        "en": "Status is OK, storage/mirror are 5a and physical address is 20 hex.",
+        "ja": "statusはOK、storage／mirrorは5a、物理addressは20 hexとなる。"
+      },
+      "limitations": {
+        "en": "The default uvm_reg_sequence specialization runs as a virtual sequence with no sequencer; the selected map supplies a delayed packet bus. One eight-bit register and four-location memory use a one-byte little-endian map. User backdoors model storage with required pre/post hooks, without HDL or DPI. Explicit parent/map/priority/extension and backdoor kind are observed as applicable. No arbitrary BASE specialization, translation sequence body, multi-beat transfer, error recovery, debug filename/line or concurrent access is claimed.",
+        "ja": "既定specializationのuvm_reg_sequenceをsequencerなしのvirtual sequenceとして実行し、選択mapが遅延packet busを供給する。8 bit register 1つと4 location memoryは、1 byte little-endian mapを使う。user backdoorは、必要なpre／post hookとともにstorageをモデル化し、HDL／DPIを使わない。該当するparent／map／priority／extensionとbackdoor kindを観測する。任意BASE specialization、変換sequence body、複数beat転送、error回復、debugのfilename／line、同時accessは主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_sequence_write_reg_forwards_parent_map_priority_and_extension",
+          "role": "direct",
+          "expected_observations": [
+            "UT: write ok 1 stored 5a mirror 5a address 20"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-SEQUENCE-WRITE-REG-CALL-CONTEXT",
+      "clause": "19.4.1.5.1",
+      "statement": {
+        "en": "The write_reg convenience method supplies the calling sequence as parent and forwards explicit transaction metadata.",
+        "ja": "便利method write_regは、呼出しsequenceをparentとし、明示transaction metadataを引き渡す。"
+      },
+      "conditions": {
+        "en": "Observe the adapter item or user-backdoor item for the access.",
+        "ja": "accessのadapter itemまたはuser-backdoor itemを観測する。"
+      },
+      "expected": {
+        "en": "Every observed item has the exact parent, element and extension; frontdoor items retain map/priority 23, backdoor items retain GATE kind, and memory items retain the selected offset.",
+        "ja": "全観測itemは正確なparent、element、extensionを持つ。frontdoorはmap／priority 23、backdoorはkind GATE、memoryは選択offsetを保持する。"
+      },
+      "limitations": {
+        "en": "The default uvm_reg_sequence specialization runs as a virtual sequence with no sequencer; the selected map supplies a delayed packet bus. One eight-bit register and four-location memory use a one-byte little-endian map. User backdoors model storage with required pre/post hooks, without HDL or DPI. Explicit parent/map/priority/extension and backdoor kind are observed as applicable. No arbitrary BASE specialization, translation sequence body, multi-beat transfer, error recovery, debug filename/line or concurrent access is claimed.",
+        "ja": "既定specializationのuvm_reg_sequenceをsequencerなしのvirtual sequenceとして実行し、選択mapが遅延packet busを供給する。8 bit register 1つと4 location memoryは、1 byte little-endian mapを使う。user backdoorは、必要なpre／post hookとともにstorageをモデル化し、HDL／DPIを使わない。該当するparent／map／priority／extensionとbackdoor kindを観測する。任意BASE specialization、変換sequence body、複数beat転送、error回復、debugのfilename／line、同時accessは主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_sequence_write_reg_forwards_parent_map_priority_and_extension",
+          "role": "direct",
+          "expected_observations": [
+            "UT: context calls 1 matched 1 writes 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-SEQUENCE-READ-REG",
+      "clause": "19.4.1.5.2",
+      "statement": {
+        "en": "read_reg returns bus data and updates the register mirror.",
+        "ja": "read_regは、bus dataを返し、register mirrorを更新する。"
+      },
+      "conditions": {
+        "en": "Place 6c hex in bus storage and read through the map.",
+        "ja": "bus storageに6c hexを置き、mapで読む。"
+      },
+      "expected": {
+        "en": "Status is OK, returned value/mirror are 6c and address is 20 hex.",
+        "ja": "statusはOK、戻り値／mirrorは6c、addressは20 hexとなる。"
+      },
+      "limitations": {
+        "en": "The default uvm_reg_sequence specialization runs as a virtual sequence with no sequencer; the selected map supplies a delayed packet bus. One eight-bit register and four-location memory use a one-byte little-endian map. User backdoors model storage with required pre/post hooks, without HDL or DPI. Explicit parent/map/priority/extension and backdoor kind are observed as applicable. No arbitrary BASE specialization, translation sequence body, multi-beat transfer, error recovery, debug filename/line or concurrent access is claimed.",
+        "ja": "既定specializationのuvm_reg_sequenceをsequencerなしのvirtual sequenceとして実行し、選択mapが遅延packet busを供給する。8 bit register 1つと4 location memoryは、1 byte little-endian mapを使う。user backdoorは、必要なpre／post hookとともにstorageをモデル化し、HDL／DPIを使わない。該当するparent／map／priority／extensionとbackdoor kindを観測する。任意BASE specialization、変換sequence body、複数beat転送、error回復、debugのfilename／line、同時accessは主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_sequence_read_reg_returns_bus_data_with_the_calling_sequence_context",
+          "role": "direct",
+          "expected_observations": [
+            "UT: read ok 1 value 6c mirror 6c address 20"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-SEQUENCE-READ-REG-CALL-CONTEXT",
+      "clause": "19.4.1.5.2",
+      "statement": {
+        "en": "The read_reg convenience method supplies the calling sequence as parent and forwards explicit transaction metadata.",
+        "ja": "便利method read_regは、呼出しsequenceをparentとし、明示transaction metadataを引き渡す。"
+      },
+      "conditions": {
+        "en": "Observe the adapter item or user-backdoor item for the access.",
+        "ja": "accessのadapter itemまたはuser-backdoor itemを観測する。"
+      },
+      "expected": {
+        "en": "Every observed item has the exact parent, element and extension; frontdoor items retain map/priority 23, backdoor items retain GATE kind, and memory items retain the selected offset.",
+        "ja": "全観測itemは正確なparent、element、extensionを持つ。frontdoorはmap／priority 23、backdoorはkind GATE、memoryは選択offsetを保持する。"
+      },
+      "limitations": {
+        "en": "The default uvm_reg_sequence specialization runs as a virtual sequence with no sequencer; the selected map supplies a delayed packet bus. One eight-bit register and four-location memory use a one-byte little-endian map. User backdoors model storage with required pre/post hooks, without HDL or DPI. Explicit parent/map/priority/extension and backdoor kind are observed as applicable. No arbitrary BASE specialization, translation sequence body, multi-beat transfer, error recovery, debug filename/line or concurrent access is claimed.",
+        "ja": "既定specializationのuvm_reg_sequenceをsequencerなしのvirtual sequenceとして実行し、選択mapが遅延packet busを供給する。8 bit register 1つと4 location memoryは、1 byte little-endian mapを使う。user backdoorは、必要なpre／post hookとともにstorageをモデル化し、HDL／DPIを使わない。該当するparent／map／priority／extensionとbackdoor kindを観測する。任意BASE specialization、変換sequence body、複数beat転送、error回復、debugのfilename／line、同時accessは主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_sequence_read_reg_returns_bus_data_with_the_calling_sequence_context",
+          "role": "direct",
+          "expected_observations": [
+            "UT: context calls 1 matched 1 reads 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-SEQUENCE-POKE-REG",
+      "clause": "19.4.1.5.3",
+      "statement": {
+        "en": "poke_reg deposits data without enforcing a readonly field policy.",
+        "ja": "poke_regは、readonly field policyを強制せずdataをdepositする。"
+      },
+      "conditions": {
+        "en": "Poke a6 hex through a user backdoor on an RO register.",
+        "ja": "RO registerへuser backdoorでa6 hexをpokeする。"
+      },
+      "expected": {
+        "en": "Status is OK, storage/mirror become a6, one backdoor write occurs and no bus write occurs.",
+        "ja": "statusはOK、storage／mirrorはa6、backdoor writeは1回、bus writeはない。"
+      },
+      "limitations": {
+        "en": "The default uvm_reg_sequence specialization runs as a virtual sequence with no sequencer; the selected map supplies a delayed packet bus. One eight-bit register and four-location memory use a one-byte little-endian map. User backdoors model storage with required pre/post hooks, without HDL or DPI. Explicit parent/map/priority/extension and backdoor kind are observed as applicable. No arbitrary BASE specialization, translation sequence body, multi-beat transfer, error recovery, debug filename/line or concurrent access is claimed.",
+        "ja": "既定specializationのuvm_reg_sequenceをsequencerなしのvirtual sequenceとして実行し、選択mapが遅延packet busを供給する。8 bit register 1つと4 location memoryは、1 byte little-endian mapを使う。user backdoorは、必要なpre／post hookとともにstorageをモデル化し、HDL／DPIを使わない。該当するparent／map／priority／extensionとbackdoor kindを観測する。任意BASE specialization、変換sequence body、複数beat転送、error回復、debugのfilename／line、同時accessは主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_sequence_poke_reg_deposits_readonly_data_through_the_user_backdoor",
+          "role": "direct",
+          "expected_observations": [
+            "UT: poke ok 1 storage a6 mirror a6"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-SEQUENCE-POKE-REG-CALL-CONTEXT",
+      "clause": "19.4.1.5.3",
+      "statement": {
+        "en": "The poke_reg convenience method supplies the calling sequence as parent and forwards explicit transaction metadata.",
+        "ja": "便利method poke_regは、呼出しsequenceをparentとし、明示transaction metadataを引き渡す。"
+      },
+      "conditions": {
+        "en": "Observe the adapter item or user-backdoor item for the access.",
+        "ja": "accessのadapter itemまたはuser-backdoor itemを観測する。"
+      },
+      "expected": {
+        "en": "Every observed item has the exact parent, element and extension; frontdoor items retain map/priority 23, backdoor items retain GATE kind, and memory items retain the selected offset.",
+        "ja": "全観測itemは正確なparent、element、extensionを持つ。frontdoorはmap／priority 23、backdoorはkind GATE、memoryは選択offsetを保持する。"
+      },
+      "limitations": {
+        "en": "The default uvm_reg_sequence specialization runs as a virtual sequence with no sequencer; the selected map supplies a delayed packet bus. One eight-bit register and four-location memory use a one-byte little-endian map. User backdoors model storage with required pre/post hooks, without HDL or DPI. Explicit parent/map/priority/extension and backdoor kind are observed as applicable. No arbitrary BASE specialization, translation sequence body, multi-beat transfer, error recovery, debug filename/line or concurrent access is claimed.",
+        "ja": "既定specializationのuvm_reg_sequenceをsequencerなしのvirtual sequenceとして実行し、選択mapが遅延packet busを供給する。8 bit register 1つと4 location memoryは、1 byte little-endian mapを使う。user backdoorは、必要なpre／post hookとともにstorageをモデル化し、HDL／DPIを使わない。該当するparent／map／priority／extensionとbackdoor kindを観測する。任意BASE specialization、変換sequence body、複数beat転送、error回復、debugのfilename／line、同時accessは主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_sequence_poke_reg_deposits_readonly_data_through_the_user_backdoor",
+          "role": "direct",
+          "expected_observations": [
+            "UT: context calls 1 matched 1 backdoor_writes 1 bus_writes 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-SEQUENCE-PEEK-REG",
+      "clause": "19.4.1.5.4",
+      "statement": {
+        "en": "peek_reg samples storage without the read-clear side effect.",
+        "ja": "peek_regは、read-clear副作用なしにstorageを取得する。"
+      },
+      "conditions": {
+        "en": "Peek a user-backed RC register containing 6c hex.",
+        "ja": "6c hexを持つuser-backed RC registerをpeekする。"
+      },
+      "expected": {
+        "en": "Value, unchanged storage and mirror are 6c with one backdoor read and no write.",
+        "ja": "値、変化しないstorage、mirrorは6cで、backdoor readは1回、writeはない。"
+      },
+      "limitations": {
+        "en": "The default uvm_reg_sequence specialization runs as a virtual sequence with no sequencer; the selected map supplies a delayed packet bus. One eight-bit register and four-location memory use a one-byte little-endian map. User backdoors model storage with required pre/post hooks, without HDL or DPI. Explicit parent/map/priority/extension and backdoor kind are observed as applicable. No arbitrary BASE specialization, translation sequence body, multi-beat transfer, error recovery, debug filename/line or concurrent access is claimed.",
+        "ja": "既定specializationのuvm_reg_sequenceをsequencerなしのvirtual sequenceとして実行し、選択mapが遅延packet busを供給する。8 bit register 1つと4 location memoryは、1 byte little-endian mapを使う。user backdoorは、必要なpre／post hookとともにstorageをモデル化し、HDL／DPIを使わない。該当するparent／map／priority／extensionとbackdoor kindを観測する。任意BASE specialization、変換sequence body、複数beat転送、error回復、debugのfilename／line、同時accessは主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_sequence_peek_reg_samples_read_clear_storage_without_its_side_effect",
+          "role": "direct",
+          "expected_observations": [
+            "UT: peek ok 1 value 6c storage 6c mirror 6c"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-SEQUENCE-PEEK-REG-CALL-CONTEXT",
+      "clause": "19.4.1.5.4",
+      "statement": {
+        "en": "The peek_reg convenience method supplies the calling sequence as parent and forwards explicit transaction metadata.",
+        "ja": "便利method peek_regは、呼出しsequenceをparentとし、明示transaction metadataを引き渡す。"
+      },
+      "conditions": {
+        "en": "Observe the adapter item or user-backdoor item for the access.",
+        "ja": "accessのadapter itemまたはuser-backdoor itemを観測する。"
+      },
+      "expected": {
+        "en": "Every observed item has the exact parent, element and extension; frontdoor items retain map/priority 23, backdoor items retain GATE kind, and memory items retain the selected offset.",
+        "ja": "全観測itemは正確なparent、element、extensionを持つ。frontdoorはmap／priority 23、backdoorはkind GATE、memoryは選択offsetを保持する。"
+      },
+      "limitations": {
+        "en": "The default uvm_reg_sequence specialization runs as a virtual sequence with no sequencer; the selected map supplies a delayed packet bus. One eight-bit register and four-location memory use a one-byte little-endian map. User backdoors model storage with required pre/post hooks, without HDL or DPI. Explicit parent/map/priority/extension and backdoor kind are observed as applicable. No arbitrary BASE specialization, translation sequence body, multi-beat transfer, error recovery, debug filename/line or concurrent access is claimed.",
+        "ja": "既定specializationのuvm_reg_sequenceをsequencerなしのvirtual sequenceとして実行し、選択mapが遅延packet busを供給する。8 bit register 1つと4 location memoryは、1 byte little-endian mapを使う。user backdoorは、必要なpre／post hookとともにstorageをモデル化し、HDL／DPIを使わない。該当するparent／map／priority／extensionとbackdoor kindを観測する。任意BASE specialization、変換sequence body、複数beat転送、error回復、debugのfilename／line、同時accessは主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_sequence_peek_reg_samples_read_clear_storage_without_its_side_effect",
+          "role": "direct",
+          "expected_observations": [
+            "UT: context calls 1 matched 1 backdoor_reads 1 writes 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-SEQUENCE-UPDATE-REG",
+      "clause": "19.4.1.5.5",
+      "statement": {
+        "en": "update_reg writes dirty desired state and skips an already clean register.",
+        "ja": "update_regは、dirtyなdesired stateを書き、既にcleanなregisterを省略する。"
+      },
+      "conditions": {
+        "en": "Set desired value a6 hex, update twice.",
+        "ja": "desired値をa6 hexに設定し、2回updateする。"
+      },
+      "expected": {
+        "en": "Storage/mirror become a6 and clean; exactly one physical write occurs.",
+        "ja": "storage／mirrorはa6でcleanとなり、物理writeはちょうど1回となる。"
+      },
+      "limitations": {
+        "en": "The default uvm_reg_sequence specialization runs as a virtual sequence with no sequencer; the selected map supplies a delayed packet bus. One eight-bit register and four-location memory use a one-byte little-endian map. User backdoors model storage with required pre/post hooks, without HDL or DPI. Explicit parent/map/priority/extension and backdoor kind are observed as applicable. No arbitrary BASE specialization, translation sequence body, multi-beat transfer, error recovery, debug filename/line or concurrent access is claimed.",
+        "ja": "既定specializationのuvm_reg_sequenceをsequencerなしのvirtual sequenceとして実行し、選択mapが遅延packet busを供給する。8 bit register 1つと4 location memoryは、1 byte little-endian mapを使う。user backdoorは、必要なpre／post hookとともにstorageをモデル化し、HDL／DPIを使わない。該当するparent／map／priority／extensionとbackdoor kindを観測する。任意BASE specialization、変換sequence body、複数beat転送、error回復、debugのfilename／line、同時accessは主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_sequence_update_reg_writes_dirty_state_once_and_then_stays_clean",
+          "role": "direct",
+          "expected_observations": [
+            "UT: updated ok 1 storage a6 mirror a6 clean 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-SEQUENCE-UPDATE-REG-CALL-CONTEXT",
+      "clause": "19.4.1.5.5",
+      "statement": {
+        "en": "The update_reg convenience method supplies the calling sequence as parent and forwards explicit transaction metadata.",
+        "ja": "便利method update_regは、呼出しsequenceをparentとし、明示transaction metadataを引き渡す。"
+      },
+      "conditions": {
+        "en": "Observe the adapter item or user-backdoor item for the access.",
+        "ja": "accessのadapter itemまたはuser-backdoor itemを観測する。"
+      },
+      "expected": {
+        "en": "Every observed item has the exact parent, element and extension; frontdoor items retain map/priority 23, backdoor items retain GATE kind, and memory items retain the selected offset.",
+        "ja": "全観測itemは正確なparent、element、extensionを持つ。frontdoorはmap／priority 23、backdoorはkind GATE、memoryは選択offsetを保持する。"
+      },
+      "limitations": {
+        "en": "The default uvm_reg_sequence specialization runs as a virtual sequence with no sequencer; the selected map supplies a delayed packet bus. One eight-bit register and four-location memory use a one-byte little-endian map. User backdoors model storage with required pre/post hooks, without HDL or DPI. Explicit parent/map/priority/extension and backdoor kind are observed as applicable. No arbitrary BASE specialization, translation sequence body, multi-beat transfer, error recovery, debug filename/line or concurrent access is claimed.",
+        "ja": "既定specializationのuvm_reg_sequenceをsequencerなしのvirtual sequenceとして実行し、選択mapが遅延packet busを供給する。8 bit register 1つと4 location memoryは、1 byte little-endian mapを使う。user backdoorは、必要なpre／post hookとともにstorageをモデル化し、HDL／DPIを使わない。該当するparent／map／priority／extensionとbackdoor kindを観測する。任意BASE specialization、変換sequence body、複数beat転送、error回復、debugのfilename／line、同時accessは主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_sequence_update_reg_writes_dirty_state_once_and_then_stays_clean",
+          "role": "direct",
+          "expected_observations": [
+            "UT: context calls 1 matched 1 writes 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-SEQUENCE-MIRROR-REG",
+      "clause": "19.4.1.5.6",
+      "statement": {
+        "en": "mirror_reg forwards explicit checking and defaults to no check.",
+        "ja": "mirror_regは、明示checkを引き渡し、既定でcheckしない。"
+      },
+      "conditions": {
+        "en": "Read mismatching data first with UVM_CHECK then with the check argument omitted.",
+        "ja": "不一致dataを最初はUVM_CHECK、次にcheck引数省略で読む。"
+      },
+      "expected": {
+        "en": "The first read reports an error and mirrors 5a; the second adds no error and mirrors 6c.",
+        "ja": "最初はerrorを報告し5aをmirrorし、次はerrorを増やさず6cをmirrorする。"
+      },
+      "limitations": {
+        "en": "The default uvm_reg_sequence specialization runs as a virtual sequence with no sequencer; the selected map supplies a delayed packet bus. One eight-bit register and four-location memory use a one-byte little-endian map. User backdoors model storage with required pre/post hooks, without HDL or DPI. Explicit parent/map/priority/extension and backdoor kind are observed as applicable. No arbitrary BASE specialization, translation sequence body, multi-beat transfer, error recovery, debug filename/line or concurrent access is claimed.",
+        "ja": "既定specializationのuvm_reg_sequenceをsequencerなしのvirtual sequenceとして実行し、選択mapが遅延packet busを供給する。8 bit register 1つと4 location memoryは、1 byte little-endian mapを使う。user backdoorは、必要なpre／post hookとともにstorageをモデル化し、HDL／DPIを使わない。該当するparent／map／priority／extensionとbackdoor kindを観測する。任意BASE specialization、変換sequence body、複数beat転送、error回復、debugのfilename／line、同時accessは主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_sequence_mirror_reg_forwards_explicit_check_and_defaults_to_no_check",
+          "role": "direct",
+          "expected_observations": [
+            "UT: explicit_check reported 1 mirror 5a",
+            "UT: default_no_check silent 1 mirror 6c"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-SEQUENCE-MIRROR-REG-CALL-CONTEXT",
+      "clause": "19.4.1.5.6",
+      "statement": {
+        "en": "The mirror_reg convenience method supplies the calling sequence as parent and forwards explicit transaction metadata.",
+        "ja": "便利method mirror_regは、呼出しsequenceをparentとし、明示transaction metadataを引き渡す。"
+      },
+      "conditions": {
+        "en": "Observe the adapter item or user-backdoor item for the access.",
+        "ja": "accessのadapter itemまたはuser-backdoor itemを観測する。"
+      },
+      "expected": {
+        "en": "Every observed item has the exact parent, element and extension; frontdoor items retain map/priority 23, backdoor items retain GATE kind, and memory items retain the selected offset.",
+        "ja": "全観測itemは正確なparent、element、extensionを持つ。frontdoorはmap／priority 23、backdoorはkind GATE、memoryは選択offsetを保持する。"
+      },
+      "limitations": {
+        "en": "The default uvm_reg_sequence specialization runs as a virtual sequence with no sequencer; the selected map supplies a delayed packet bus. One eight-bit register and four-location memory use a one-byte little-endian map. User backdoors model storage with required pre/post hooks, without HDL or DPI. Explicit parent/map/priority/extension and backdoor kind are observed as applicable. No arbitrary BASE specialization, translation sequence body, multi-beat transfer, error recovery, debug filename/line or concurrent access is claimed.",
+        "ja": "既定specializationのuvm_reg_sequenceをsequencerなしのvirtual sequenceとして実行し、選択mapが遅延packet busを供給する。8 bit register 1つと4 location memoryは、1 byte little-endian mapを使う。user backdoorは、必要なpre／post hookとともにstorageをモデル化し、HDL／DPIを使わない。該当するparent／map／priority／extensionとbackdoor kindを観測する。任意BASE specialization、変換sequence body、複数beat転送、error回復、debugのfilename／line、同時accessは主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_sequence_mirror_reg_forwards_explicit_check_and_defaults_to_no_check",
+          "role": "direct",
+          "expected_observations": [
+            "UT: context calls 2 matched 1 reads 2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-SEQUENCE-WRITE-MEM",
+      "clause": "19.4.1.5.7",
+      "statement": {
+        "en": "write_mem sends data to the selected memory location.",
+        "ja": "write_memは、選択memory locationへdataを送る。"
+      },
+      "conditions": {
+        "en": "Write a5 hex at offset two through the map.",
+        "ja": "mapを通じてoffset 2へa5 hexを書く。"
+      },
+      "expected": {
+        "en": "Status is OK and storage at physical address 42 hex contains a5.",
+        "ja": "statusはOK、物理address 42 hexのstorageはa5となる。"
+      },
+      "limitations": {
+        "en": "The default uvm_reg_sequence specialization runs as a virtual sequence with no sequencer; the selected map supplies a delayed packet bus. One eight-bit register and four-location memory use a one-byte little-endian map. User backdoors model storage with required pre/post hooks, without HDL or DPI. Explicit parent/map/priority/extension and backdoor kind are observed as applicable. No arbitrary BASE specialization, translation sequence body, multi-beat transfer, error recovery, debug filename/line or concurrent access is claimed.",
+        "ja": "既定specializationのuvm_reg_sequenceをsequencerなしのvirtual sequenceとして実行し、選択mapが遅延packet busを供給する。8 bit register 1つと4 location memoryは、1 byte little-endian mapを使う。user backdoorは、必要なpre／post hookとともにstorageをモデル化し、HDL／DPIを使わない。該当するparent／map／priority／extensionとbackdoor kindを観測する。任意BASE specialization、変換sequence body、複数beat転送、error回復、debugのfilename／line、同時accessは主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_sequence_write_mem_forwards_location_and_the_calling_sequence_context",
+          "role": "direct",
+          "expected_observations": [
+            "UT: memory_write ok 1 stored a5 address 42"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-SEQUENCE-WRITE-MEM-CALL-CONTEXT",
+      "clause": "19.4.1.5.7",
+      "statement": {
+        "en": "The write_mem convenience method supplies the calling sequence as parent and forwards explicit transaction metadata.",
+        "ja": "便利method write_memは、呼出しsequenceをparentとし、明示transaction metadataを引き渡す。"
+      },
+      "conditions": {
+        "en": "Observe the adapter item or user-backdoor item for the access.",
+        "ja": "accessのadapter itemまたはuser-backdoor itemを観測する。"
+      },
+      "expected": {
+        "en": "Every observed item has the exact parent, element and extension; frontdoor items retain map/priority 23, backdoor items retain GATE kind, and memory items retain the selected offset.",
+        "ja": "全観測itemは正確なparent、element、extensionを持つ。frontdoorはmap／priority 23、backdoorはkind GATE、memoryは選択offsetを保持する。"
+      },
+      "limitations": {
+        "en": "The default uvm_reg_sequence specialization runs as a virtual sequence with no sequencer; the selected map supplies a delayed packet bus. One eight-bit register and four-location memory use a one-byte little-endian map. User backdoors model storage with required pre/post hooks, without HDL or DPI. Explicit parent/map/priority/extension and backdoor kind are observed as applicable. No arbitrary BASE specialization, translation sequence body, multi-beat transfer, error recovery, debug filename/line or concurrent access is claimed.",
+        "ja": "既定specializationのuvm_reg_sequenceをsequencerなしのvirtual sequenceとして実行し、選択mapが遅延packet busを供給する。8 bit register 1つと4 location memoryは、1 byte little-endian mapを使う。user backdoorは、必要なpre／post hookとともにstorageをモデル化し、HDL／DPIを使わない。該当するparent／map／priority／extensionとbackdoor kindを観測する。任意BASE specialization、変換sequence body、複数beat転送、error回復、debugのfilename／line、同時accessは主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_sequence_write_mem_forwards_location_and_the_calling_sequence_context",
+          "role": "direct",
+          "expected_observations": [
+            "UT: context calls 1 matched 1 writes 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-SEQUENCE-READ-MEM",
+      "clause": "19.4.1.5.8",
+      "statement": {
+        "en": "read_mem returns data from the selected memory location.",
+        "ja": "read_memは、選択memory locationからdataを返す。"
+      },
+      "conditions": {
+        "en": "Read offset one with bus storage 6c hex.",
+        "ja": "bus storageが6c hexのoffset 1を読む。"
+      },
+      "expected": {
+        "en": "Status is OK, returned data is 6c and address is 41 hex.",
+        "ja": "statusはOK、戻りdataは6c、addressは41 hexとなる。"
+      },
+      "limitations": {
+        "en": "The default uvm_reg_sequence specialization runs as a virtual sequence with no sequencer; the selected map supplies a delayed packet bus. One eight-bit register and four-location memory use a one-byte little-endian map. User backdoors model storage with required pre/post hooks, without HDL or DPI. Explicit parent/map/priority/extension and backdoor kind are observed as applicable. No arbitrary BASE specialization, translation sequence body, multi-beat transfer, error recovery, debug filename/line or concurrent access is claimed.",
+        "ja": "既定specializationのuvm_reg_sequenceをsequencerなしのvirtual sequenceとして実行し、選択mapが遅延packet busを供給する。8 bit register 1つと4 location memoryは、1 byte little-endian mapを使う。user backdoorは、必要なpre／post hookとともにstorageをモデル化し、HDL／DPIを使わない。該当するparent／map／priority／extensionとbackdoor kindを観測する。任意BASE specialization、変換sequence body、複数beat転送、error回復、debugのfilename／line、同時accessは主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_sequence_read_mem_returns_the_selected_location_and_sequence_context",
+          "role": "direct",
+          "expected_observations": [
+            "UT: memory_read ok 1 value 6c address 41"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-SEQUENCE-READ-MEM-CALL-CONTEXT",
+      "clause": "19.4.1.5.8",
+      "statement": {
+        "en": "The read_mem convenience method supplies the calling sequence as parent and forwards explicit transaction metadata.",
+        "ja": "便利method read_memは、呼出しsequenceをparentとし、明示transaction metadataを引き渡す。"
+      },
+      "conditions": {
+        "en": "Observe the adapter item or user-backdoor item for the access.",
+        "ja": "accessのadapter itemまたはuser-backdoor itemを観測する。"
+      },
+      "expected": {
+        "en": "Every observed item has the exact parent, element and extension; frontdoor items retain map/priority 23, backdoor items retain GATE kind, and memory items retain the selected offset.",
+        "ja": "全観測itemは正確なparent、element、extensionを持つ。frontdoorはmap／priority 23、backdoorはkind GATE、memoryは選択offsetを保持する。"
+      },
+      "limitations": {
+        "en": "The default uvm_reg_sequence specialization runs as a virtual sequence with no sequencer; the selected map supplies a delayed packet bus. One eight-bit register and four-location memory use a one-byte little-endian map. User backdoors model storage with required pre/post hooks, without HDL or DPI. Explicit parent/map/priority/extension and backdoor kind are observed as applicable. No arbitrary BASE specialization, translation sequence body, multi-beat transfer, error recovery, debug filename/line or concurrent access is claimed.",
+        "ja": "既定specializationのuvm_reg_sequenceをsequencerなしのvirtual sequenceとして実行し、選択mapが遅延packet busを供給する。8 bit register 1つと4 location memoryは、1 byte little-endian mapを使う。user backdoorは、必要なpre／post hookとともにstorageをモデル化し、HDL／DPIを使わない。該当するparent／map／priority／extensionとbackdoor kindを観測する。任意BASE specialization、変換sequence body、複数beat転送、error回復、debugのfilename／line、同時accessは主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_sequence_read_mem_returns_the_selected_location_and_sequence_context",
+          "role": "direct",
+          "expected_observations": [
+            "UT: context calls 1 matched 1 reads 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-DEFAULT-SEQUENCE-FILTER-WRONG-TYPES",
+      "clause": "15.3.5",
+      "statement": {
+        "en": "Default selection filters unrelated resource types before applying precedence.",
+        "ja": "default選択は、precedence適用前に無関係なresource型を除く。"
+      },
+      "conditions": {
+        "en": "Supply a higher-precedence integer or null plain-object resource above a valid candidate.",
+        "ja": "有効候補より高precedenceのintegerまたはnullのplain-object resourceを指定する。"
+      },
+      "expected": {
+        "en": "The valid instance or wrapper runs once with its prescribed randomization hooks.",
+        "ja": "有効instanceまたはwrapperが、指定randomization hookで1回動く。"
+      },
+      "limitations": {
+        "en": "Existing fixtures, metadata, expectations and measured input hashes remain unchanged. Resource tests exercise finite phase-specific configuration with controlled precedence and queue order, not arbitrary wildcard matching or random distributions. Response tests copy IDs from real requests and use bounded queue probes; exact numeric route IDs are not asserted. Existing invalid-wrapper severity differences remain spec-only.",
+        "ja": "既存検査系、metadata、期待値、実測入力hashは変更しない。resource検査は、制御したprecedence／queue順で有限のphase別設定を扱い、任意wildcard照合や乱数分布は扱わない。response検査は、実requestからIDをコピーし、有限のqueue観測を使い、route IDの正確な数値は要求しない。既存の不正wrapperのseverity差分はspec-onlyを保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_default_sequence_filters_higher_precedence_integer_resource",
+          "role": "direct",
+          "expected_observations": [
+            "UT: runs 1 marker 11 instance_runs 1 same_instance 1",
+            "UT: randomization_hooks 0 0"
+          ]
+        },
+        {
+          "test": "u15/test_default_sequence_filters_unrelated_null_object_resource",
+          "role": "direct",
+          "expected_observations": [
+            "UT: runs 1 marker 22 instance_runs 0 same_instance 0",
+            "UT: randomization_hooks 1 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-DEFAULT-SEQUENCE-FILTER-STABLE-EQUAL-PRECEDENCE",
+      "clause": "15.3.5",
+      "statement": {
+        "en": "Type filtering preserves relative resource order for equal-precedence selection.",
+        "ja": "型のfilterは、同precedence選択のresource相対順を保持する。"
+      },
+      "conditions": {
+        "en": "Place an unrelated resource between valid instance and wrapper resources in either order.",
+        "ja": "有効instanceとwrapperの両順で、間に無関係なresourceを置く。"
+      },
+      "expected": {
+        "en": "The first valid resource wins in each order, with exact instance or created-wrapper identity.",
+        "ja": "各順で最初の有効resourceが選ばれ、正確なinstanceまたは生成wrapperを識別する。"
+      },
+      "limitations": {
+        "en": "Existing fixtures, metadata, expectations and measured input hashes remain unchanged. Resource tests exercise finite phase-specific configuration with controlled precedence and queue order, not arbitrary wildcard matching or random distributions. Response tests copy IDs from real requests and use bounded queue probes; exact numeric route IDs are not asserted. Existing invalid-wrapper severity differences remain spec-only.",
+        "ja": "既存検査系、metadata、期待値、実測入力hashは変更しない。resource検査は、制御したprecedence／queue順で有限のphase別設定を扱い、任意wildcard照合や乱数分布は扱わない。response検査は、実requestからIDをコピーし、有限のqueue観測を使い、route IDの正確な数値は要求しない。既存の不正wrapperのseverity差分はspec-onlyを保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_default_sequence_equal_precedence_keeps_instance_first_after_filter",
+          "role": "direct",
+          "expected_observations": [
+            "UT: runs 1 marker 11 instance_runs 1 same_instance 1",
+            "UT: randomization_hooks 0 0"
+          ]
+        },
+        {
+          "test": "u15/test_default_sequence_equal_precedence_keeps_wrapper_first_after_filter",
+          "role": "direct",
+          "expected_observations": [
+            "UT: runs 1 marker 22 instance_runs 0 same_instance 0",
+            "UT: randomization_hooks 1 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-DEFAULT-SEQUENCE-CROSS-TYPE-PRECEDENCE",
+      "clause": "15.3.5",
+      "statement": {
+        "en": "Default selection uses resource precedence across the two permitted resource types.",
+        "ja": "default選択は、許容される2 resource型をまたいでprecedenceを使う。"
+      },
+      "conditions": {
+        "en": "Configure opposite root/test-context precedence for an instance and wrapper.",
+        "ja": "instanceとwrapperにroot／test-contextのprecedenceを逆に設定する。"
+      },
+      "expected": {
+        "en": "The higher-precedence candidate runs once regardless of its resource type.",
+        "ja": "resource型に関係なく高precedence候補が1回動く。"
+      },
+      "limitations": {
+        "en": "Existing fixtures, metadata, expectations and measured input hashes remain unchanged. Resource tests exercise finite phase-specific configuration with controlled precedence and queue order, not arbitrary wildcard matching or random distributions. Response tests copy IDs from real requests and use bounded queue probes; exact numeric route IDs are not asserted. Existing invalid-wrapper severity differences remain spec-only.",
+        "ja": "既存検査系、metadata、期待値、実測入力hashは変更しない。resource検査は、制御したprecedence／queue順で有限のphase別設定を扱い、任意wildcard照合や乱数分布は扱わない。response検査は、実requestからIDをコピーし、有限のqueue観測を使い、route IDの正確な数値は要求しない。既存の不正wrapperのseverity差分はspec-onlyを保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_default_sequence_higher_precedence_instance_beats_wrapper",
+          "role": "direct",
+          "expected_observations": [
+            "UT: runs 1 marker 11 instance_runs 1 same_instance 1",
+            "UT: randomization_hooks 0 0"
+          ]
+        },
+        {
+          "test": "u15/test_default_sequence_higher_precedence_wrapper_beats_instance",
+          "role": "direct",
+          "expected_observations": [
+            "UT: runs 1 marker 22 instance_runs 0 same_instance 0",
+            "UT: randomization_hooks 1 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-DEFAULT-SEQUENCE-SELECTED-NULL-DISABLES",
+      "clause": "15.3.5",
+      "statement": {
+        "en": "A selected null value explicitly disables the phase default.",
+        "ja": "選択されたnull値は、phase defaultを明示的に無効化する。"
+      },
+      "conditions": {
+        "en": "Place a higher-precedence null instance or null wrapper above a valid opposite-type resource.",
+        "ja": "有効な反対型resourceより高precedenceのnull instanceまたはnull wrapperを置く。"
+      },
+      "expected": {
+        "en": "No body or randomization hook runs; selection does not fall through.",
+        "ja": "bodyもrandomization hookも動かず、次候補へ移らない。"
+      },
+      "limitations": {
+        "en": "Existing fixtures, metadata, expectations and measured input hashes remain unchanged. Resource tests exercise finite phase-specific configuration with controlled precedence and queue order, not arbitrary wildcard matching or random distributions. Response tests copy IDs from real requests and use bounded queue probes; exact numeric route IDs are not asserted. Existing invalid-wrapper severity differences remain spec-only.",
+        "ja": "既存検査系、metadata、期待値、実測入力hashは変更しない。resource検査は、制御したprecedence／queue順で有限のphase別設定を扱い、任意wildcard照合や乱数分布は扱わない。response検査は、実requestからIDをコピーし、有限のqueue観測を使い、route IDの正確な数値は要求しない。既存の不正wrapperのseverity差分はspec-onlyを保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_default_sequence_higher_precedence_null_disables_lower_wrapper",
+          "role": "direct",
+          "expected_observations": [
+            "UT: runs 0 randomization_hooks 0 0"
+          ]
+        },
+        {
+          "test": "u15/test_default_sequence_higher_precedence_null_wrapper_disables_instance",
+          "role": "direct",
+          "expected_observations": [
+            "UT: runs 0 marker 0 instance_runs 0 same_instance 0",
+            "UT: randomization_hooks 0 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-DEFAULT-SEQUENCE-REQUIRED-RESOURCE-NAME",
+      "clause": "15.3.5",
+      "statement": {
+        "en": "A differently named resource does not configure a phase default.",
+        "ja": "異なる名前のresourceは、phase defaultを設定しない。"
+      },
+      "conditions": {
+        "en": "Supply a valid instance at the correct scope under other_name.",
+        "ja": "正しいscopeでother_nameに有効instanceを指定する。"
+      },
+      "expected": {
+        "en": "No body or randomization hook runs.",
+        "ja": "bodyもrandomization hookも動かない。"
+      },
+      "limitations": {
+        "en": "Existing fixtures, metadata, expectations and measured input hashes remain unchanged. Resource tests exercise finite phase-specific configuration with controlled precedence and queue order, not arbitrary wildcard matching or random distributions. Response tests copy IDs from real requests and use bounded queue probes; exact numeric route IDs are not asserted. Existing invalid-wrapper severity differences remain spec-only.",
+        "ja": "既存検査系、metadata、期待値、実測入力hashは変更しない。resource検査は、制御したprecedence／queue順で有限のphase別設定を扱い、任意wildcard照合や乱数分布は扱わない。response検査は、実requestからIDをコピーし、有限のqueue観測を使い、route IDの正確な数値は要求しない。既存の不正wrapperのseverity差分はspec-onlyを保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_default_sequence_ignores_resources_with_a_different_name",
+          "role": "direct",
+          "expected_observations": [
+            "UT: runs 0 marker 0 instance_runs 0 same_instance 0",
+            "UT: randomization_hooks 0 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-DEFAULT-SEQUENCE-INSTANCE-CONTEXT-NO-RANDOMIZE",
+      "clause": "15.3.5",
+      "statement": {
+        "en": "A configured instance is started with sequencer/phase context and honors disabled randomization.",
+        "ja": "設定instanceは、sequencer／phase contextで開始し、randomization無効化に従う。"
+      },
+      "conditions": {
+        "en": "Configure the exact instance for main with randomization disabled.",
+        "ja": "mainへ正確なinstanceを設定し、randomizationを無効にする。"
+      },
+      "expected": {
+        "en": "That instance finishes once, sees the configured sequencer/main phase and has zero randomization hooks.",
+        "ja": "そのinstanceが1回完了し、設定sequencer／main phaseを観測し、randomization hookは0となる。"
+      },
+      "limitations": {
+        "en": "Existing fixtures, metadata, expectations and measured input hashes remain unchanged. Resource tests exercise finite phase-specific configuration with controlled precedence and queue order, not arbitrary wildcard matching or random distributions. Response tests copy IDs from real requests and use bounded queue probes; exact numeric route IDs are not asserted. Existing invalid-wrapper severity differences remain spec-only.",
+        "ja": "既存検査系、metadata、期待値、実測入力hashは変更しない。resource検査は、制御したprecedence／queue順で有限のphase別設定を扱い、任意wildcard照合や乱数分布は扱わない。response検査は、実requestからIDをコピーし、有限のqueue観測を使い、route IDの正確な数値は要求しない。既存の不正wrapperのseverity差分はspec-onlyを保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_default_sequence_instance_keeps_context_and_disables_randomization",
+          "role": "direct",
+          "expected_observations": [
+            "UT: instance_same 1 ran 1 finished 1 sequencer_same 1 phase main",
+            "UT: randomization_hooks 0 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-DEFAULT-SEQUENCE-WRAPPER-CONTEXT-RANDOMIZE",
+      "clause": "15.3.5",
+      "statement": {
+        "en": "A configured wrapper creates and randomizes a default sequence with the phase context.",
+        "ja": "設定wrapperは、phase contextを持つdefault sequenceを生成してrandomizeする。"
+      },
+      "conditions": {
+        "en": "Configure a valid wrapper without disabling randomization.",
+        "ja": "randomizationを無効にせず有効wrapperを設定する。"
+      },
+      "expected": {
+        "en": "One created sequence completes with the configured sequencer/main phase and one pre/post-randomize pair.",
+        "ja": "生成sequence 1つが、設定sequencer／main phaseとpre／post-randomize 1組で完了する。"
+      },
+      "limitations": {
+        "en": "Existing fixtures, metadata, expectations and measured input hashes remain unchanged. Resource tests exercise finite phase-specific configuration with controlled precedence and queue order, not arbitrary wildcard matching or random distributions. Response tests copy IDs from real requests and use bounded queue probes; exact numeric route IDs are not asserted. Existing invalid-wrapper severity differences remain spec-only.",
+        "ja": "既存検査系、metadata、期待値、実測入力hashは変更しない。resource検査は、制御したprecedence／queue順で有限のphase別設定を扱い、任意wildcard照合や乱数分布は扱わない。response検査は、実requestからIDをコピーし、有限のqueue観測を使い、route IDの正確な数値は要求しない。既存の不正wrapperのseverity差分はspec-onlyを保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_default_sequence_wrapper_creates_randomizes_and_sets_context",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ran 1 finished 1 sequencer_same 1 phase main",
+            "UT: randomization_hooks 1 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-DEFAULT-SEQUENCE-FACTORY-CREATION-CONTEXT",
+      "clause": "15.3.5",
+      "statement": {
+        "en": "Wrapper creation uses the standard sequencer path and wrapper type name as factory context.",
+        "ja": "wrapper生成は、標準sequencer pathとwrapper型名をfactory contextに使う。"
+      },
+      "conditions": {
+        "en": "Install an instance override at the required context and configure the base wrapper.",
+        "ja": "必要なcontextへinstance overrideを置き、base wrapperを設定する。"
+      },
+      "expected": {
+        "en": "The derived instance executes and completes exactly once.",
+        "ja": "derived instanceがちょうど1回実行して完了する。"
+      },
+      "limitations": {
+        "en": "Existing fixtures, metadata, expectations and measured input hashes remain unchanged. Resource tests exercise finite phase-specific configuration with controlled precedence and queue order, not arbitrary wildcard matching or random distributions. Response tests copy IDs from real requests and use bounded queue probes; exact numeric route IDs are not asserted. Existing invalid-wrapper severity differences remain spec-only.",
+        "ja": "既存検査系、metadata、期待値、実測入力hashは変更しない。resource検査は、制御したprecedence／queue順で有限のphase別設定を扱い、任意wildcard照合や乱数分布は扱わない。response検査は、実requestからIDをコピーし、有限のqueue観測を使い、route IDの正確な数値は要求しない。既存の不正wrapperのseverity差分はspec-onlyを保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_default_sequence_factory_override_uses_required_creation_context",
+          "role": "direct",
+          "expected_observations": [
+            "UT: derived_instance 1 derived_runs 1 ran 1 finished 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-DEFAULT-SEQUENCE-INVALID-WRAPPER-ERROR",
+      "clause": "15.3.5",
+      "statement": {
+        "en": "A wrapper producing a nonsequence reports an error without starting a default.",
+        "ja": "非sequenceを生成するwrapperは、defaultを開始せずerrorを報告する。"
+      },
+      "conditions": {
+        "en": "Configure a plain-object or sequence-item wrapper.",
+        "ja": "plain-objectまたはsequence-item wrapperを設定する。"
+      },
+      "expected": {
+        "en": "An ERROR is added and no default body starts.",
+        "ja": "ERRORが増え、default bodyは開始しない。"
+      },
+      "limitations": {
+        "en": "Existing fixtures, metadata, expectations and measured input hashes remain unchanged. Resource tests exercise finite phase-specific configuration with controlled precedence and queue order, not arbitrary wildcard matching or random distributions. Response tests copy IDs from real requests and use bounded queue probes; exact numeric route IDs are not asserted. Existing invalid-wrapper severity differences remain spec-only.",
+        "ja": "既存検査系、metadata、期待値、実測入力hashは変更しない。resource検査は、制御したprecedence／queue順で有限のphase別設定を扱い、任意wildcard照合や乱数分布は扱わない。response検査は、実requestからIDをコピーし、有限のqueue観測を使い、route IDの正確な数値は要求しない。既存の不正wrapperのseverity差分はspec-onlyを保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_default_sequence_rejects_object_wrapper_with_required_error",
+          "role": "direct",
+          "expected_observations": [
+            "UT: invalid_default_error 1 starts 0"
+          ]
+        },
+        {
+          "test": "u15/test_default_sequence_rejects_sequence_item_wrapper_with_required_error",
+          "role": "direct",
+          "expected_observations": [
+            "UT: invalid_default_error 1 starts 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-DEFAULT-SEQUENCE-PHASE-PAIR-INDEPENDENCE",
+      "clause": "15.3.5",
+      "statement": {
+        "en": "Each sequencer/phase pair selects its separately configured instance.",
+        "ja": "sequencer／phaseの各組は、個別設定のinstanceを選択する。"
+      },
+      "conditions": {
+        "en": "Configure independent pre-reset and main instances on one sequencer.",
+        "ja": "1 sequencerへ独立のpre-reset／main instanceを設定する。"
+      },
+      "expected": {
+        "en": "Both instances complete once with their respective starting phases and the same sequencer.",
+        "ja": "両instanceは、対応starting phaseと同じsequencerで各1回完了する。"
+      },
+      "limitations": {
+        "en": "Existing fixtures, metadata, expectations and measured input hashes remain unchanged. Resource tests exercise finite phase-specific configuration with controlled precedence and queue order, not arbitrary wildcard matching or random distributions. Response tests copy IDs from real requests and use bounded queue probes; exact numeric route IDs are not asserted. Existing invalid-wrapper severity differences remain spec-only.",
+        "ja": "既存検査系、metadata、期待値、実測入力hashは変更しない。resource検査は、制御したprecedence／queue順で有限のphase別設定を扱い、任意wildcard照合や乱数分布は扱わない。response検査は、実requestからIDをコピーし、有限のqueue観測を使い、route IDの正確な数値は要求しない。既存の不正wrapperのseverity差分はspec-onlyを保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_default_sequence_resources_select_independent_phase_instances",
+          "role": "direct",
+          "expected_observations": [
+            "UT: runs 2 instances 1 1 phases pre_reset main",
+            "UT: contexts 1 1 finished 1 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-DEFAULT-SEQUENCE-PHASE-END-KILLS",
+      "clause": "15.3.5",
+      "statement": {
+        "en": "A default sequence still running at phase end is killed.",
+        "ja": "phase終了時に実行中のdefault sequenceはkillされる。"
+      },
+      "conditions": {
+        "en": "Let its body outlast main and keep the run phase alive beyond its planned finish.",
+        "ja": "bodyをmainより長くし、予定完了時刻を超えてrun phaseを維持する。"
+      },
+      "expected": {
+        "en": "The sequence runs once, receives one kill, becomes STOPPED and never reaches its delayed finish.",
+        "ja": "sequenceは1回動き、kill 1回を受け、STOPPEDとなり、遅延後の完了には至らない。"
+      },
+      "limitations": {
+        "en": "Existing fixtures, metadata, expectations and measured input hashes remain unchanged. Resource tests exercise finite phase-specific configuration with controlled precedence and queue order, not arbitrary wildcard matching or random distributions. Response tests copy IDs from real requests and use bounded queue probes; exact numeric route IDs are not asserted. Existing invalid-wrapper severity differences remain spec-only.",
+        "ja": "既存検査系、metadata、期待値、実測入力hashは変更しない。resource検査は、制御したprecedence／queue順で有限のphase別設定を扱い、任意wildcard照合や乱数分布は扱わない。response検査は、実requestからIDをコピーし、有限のqueue観測を使い、route IDの正確な数値は要求しない。既存の不正wrapperのseverity差分はspec-onlyを保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_default_sequence_is_killed_when_its_phase_ends",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ran 1 killed 1 stopped 1 late_finish 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESPONSE-FINISHED-DROP",
+      "clause": "15.5.2.9",
+      "statement": {
+        "en": "A response to a finished sequence is dropped with a warning.",
+        "ja": "完了したsequenceへのresponseは、warningとともに破棄する。"
+      },
+      "conditions": {
+        "en": "Complete a real request and its sequence, then submit a copied-ID response in handler and queue modes.",
+        "ja": "実requestとsequenceを完了し、handler／queue modeでIDをコピーしたresponseを送る。"
+      },
+      "expected": {
+        "en": "A warning is reported, no handler runs and the bounded queue probe receives no reply.",
+        "ja": "warningを報告し、handlerは動かず、有限queue観測はreplyを受けない。"
+      },
+      "limitations": {
+        "en": "Existing fixtures, metadata, expectations and measured input hashes remain unchanged. Resource tests exercise finite phase-specific configuration with controlled precedence and queue order, not arbitrary wildcard matching or random distributions. Response tests copy IDs from real requests and use bounded queue probes; exact numeric route IDs are not asserted. Existing invalid-wrapper severity differences remain spec-only.",
+        "ja": "既存検査系、metadata、期待値、実測入力hashは変更しない。resource検査は、制御したprecedence／queue順で有限のphase別設定を扱い、任意wildcard照合や乱数分布は扱わない。response検査は、実requestからIDをコピーし、有限のqueue観測を使い、route IDの正確な数値は要求しない。既存の不正wrapperのseverity差分はspec-onlyを保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequencer_drops_response_to_finished_sequence_with_handler",
+          "role": "direct",
+          "expected_observations": [
+            "UT: warning_reported 1",
+            "UT: state_matches 1 handler_calls 0"
+          ]
+        },
+        {
+          "test": "u15/test_sequencer_drops_response_to_finished_sequence_with_queue",
+          "role": "direct",
+          "expected_observations": [
+            "UT: warning_reported 1",
+            "UT: dropped_from_queue 1",
+            "UT: state_matches 1 handler_calls 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESPONSE-KILLED-ROUTE-ISOLATION",
+      "clause": "15.5.2.9",
+      "statement": {
+        "en": "Killing one response route leaves another active sequence able to receive its own reply.",
+        "ja": "1 response routeのkill後も、別の実行中sequenceは自身のreplyを受けられる。"
+      },
+      "conditions": {
+        "en": "Kill first after both requests complete, submit its stale response then the survivor response.",
+        "ja": "両request完了後にfirstをkillし、その古いresponse、次に生存側responseを送る。"
+      },
+      "expected": {
+        "en": "The stale response warns, first is STOPPED and the survivor finishes with exact reply handle and payload 99.",
+        "ja": "古いresponseはwarningを出し、firstはSTOPPED、生存側は正確なreply handleとpayload 99で完了する。"
+      },
+      "limitations": {
+        "en": "Existing fixtures, metadata, expectations and measured input hashes remain unchanged. Resource tests exercise finite phase-specific configuration with controlled precedence and queue order, not arbitrary wildcard matching or random distributions. Response tests copy IDs from real requests and use bounded queue probes; exact numeric route IDs are not asserted. Existing invalid-wrapper severity differences remain spec-only.",
+        "ja": "既存検査系、metadata、期待値、実測入力hashは変更しない。resource検査は、制御したprecedence／queue順で有限のphase別設定を扱い、任意wildcard照合や乱数分布は扱わない。response検査は、実requestからIDをコピーし、有限のqueue観測を使い、route IDの正確な数値は要求しない。既存の不正wrapperのseverity差分はspec-onlyを保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequencer_killing_one_sequence_preserves_other_response_route",
+          "role": "direct",
+          "expected_observations": [
+            "UT: warning_reported 1",
+            "UT: first_stopped 1 survivor_finished 1 payload 99 same 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESPONSE-STOP-FRESH-SAME-TRANSACTION",
+      "clause": "15.5.2.9",
+      "statement": {
+        "en": "A fresh route does not accept a retired route response sharing its transaction ID.",
+        "ja": "新しいrouteは、transaction IDが同じでも終了routeのresponseを受けない。"
+      },
+      "conditions": {
+        "en": "Stop the old sequence, start another using transaction ID 101, then send stale and fresh replies.",
+        "ja": "古いsequenceをstopし、transaction ID 101の別sequenceを開始し、古いreplyと新しいreplyを送る。"
+      },
+      "expected": {
+        "en": "The stale reply warns and only the fresh exact handle with payload 99 and transaction ID 101 reaches completion.",
+        "ja": "古いreplyはwarningを出し、payload 99、transaction ID 101の新しい正確なhandleだけで完了する。"
+      },
+      "limitations": {
+        "en": "Existing fixtures, metadata, expectations and measured input hashes remain unchanged. Resource tests exercise finite phase-specific configuration with controlled precedence and queue order, not arbitrary wildcard matching or random distributions. Response tests copy IDs from real requests and use bounded queue probes; exact numeric route IDs are not asserted. Existing invalid-wrapper severity differences remain spec-only.",
+        "ja": "既存検査系、metadata、期待値、実測入力hashは変更しない。resource検査は、制御したprecedence／queue順で有限のphase別設定を扱い、任意wildcard照合や乱数分布は扱わない。response検査は、実requestからIDをコピーし、有限のqueue観測を使い、route IDの正確な数値は要求しない。既存の不正wrapperのseverity差分はspec-onlyを保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequencer_stop_then_fresh_route_rejects_stale_same_transaction_id",
+          "role": "direct",
+          "expected_observations": [
+            "UT: warning_reported 1",
+            "UT: first_stopped 1 fresh_finished 1 payload 99 id 101 same 1"
+          ]
+        }
+      ]
     }
   ]
 }

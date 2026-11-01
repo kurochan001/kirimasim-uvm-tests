@@ -529,3 +529,17 @@ wrapperのlookupはsequenceを実行せず、共通の登録順を要求しま�
 
 **registerのtransaction-order policy** — 1つの論理register read／writeについて、
 完全な物理bus操作structを並べ替えるhookです。実行順が変わっても、address／dataの対応と論理readの再合成を保持する必要があります。
+
+## 走査とaccess wrapper
+
+**visitor** — 走査adapterが選ぶnodeのcallbackを受けるobjectです。
+無効化しなければ、begin／end callbackが走査の前後を囲みます。
+
+**structure proxy** — nodeの直下の構成要素を列挙する、adapter向けobjectです。
+異なる構造型へ共通の走査方式を適用できます。
+
+**走査の部分順** — 親が子より前、または子が親より前などの必要な関係です。
+無関係な兄弟間の順序は制約しません。
+
+**register-sequenceの便利method** — 呼出しsequenceをparentとして指定し、
+その他の明示access引数を引き渡すregister／memory accessのwrapperです。

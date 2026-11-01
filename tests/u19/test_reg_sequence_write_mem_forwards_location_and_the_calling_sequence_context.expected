@@ -1,0 +1,2 @@
+UT: memory_write ok 1 stored a5 address 42
+UT: context calls 1 matched 1 writes 1

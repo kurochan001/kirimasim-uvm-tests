@@ -155,7 +155,7 @@ Ghostはさらに実行ファイル・profile・供給されたライブラリ�
 
 ### Q16. M1・M2・M3は完了していますか。件数は何の網羅を示しますか
 
-M1・M2には条項ごとの目標に未達があります。M3はbusモデルのfrontdoor経路を含め302件まで追加した段階で、未完です。
+M1・M2には条項ごとの目標に未達があります。M3はbusモデルのfrontdoor経路を含め310件まで追加した段階で、未完です。
 次の段階の開始によって、それまでの段階が完了したとは扱いません。
 範囲と残りの作業は[進め方](../README.ja.md#進め方)にあります。
 件数はテストの本数で、規格の全要求や組み合わせの棚卸しではありません。
@@ -918,8 +918,8 @@ controlの対応は、その要求の直接の検査ではありません。
 
 ### Q77. M4を始めたのに、カバレッジ率がないのはなぜですか
 
-AIによる915要求案は部分的な分解で、911要求を876テストへ直接対応付け、4要求は直接未対応、別の1テストはcontrolです。
-他の168テストはまだ要求に対応付けていません。2,504の条項番号は規範的要求の単位ではありません。
+AIによる961要求案は部分的な分解で、957要求を916テストへ直接対応付け、4要求は直接未対応、別の1テストはcontrolです。
+他の148テストはまだ要求に対応付けていません。2,504の条項番号は規範的要求の単位ではありません。
 範囲は提案、棚卸しは未完、分母は未承認で、M4の開始はどれの承認にもなりません。
 既知差分やHDL／DPIの制約によって義務を暗黙に除外しません。[承認までの手順](requirements.ja.md#m4の残作業と承認)を参照してください。
 
@@ -1598,3 +1598,39 @@ big-endian write／readも既存の全幅byte反転制約を保持し、big-endi
 解除後の既定転送順は規定しません。sort algorithmは検査系のcodeであり、
 適合の観測はlibraryのdispatch、bus順、data保持を対象とします。
 memory burst、端数bus word、同時access、子mapへの継承は主張しません。
+
+## visitor、blocking transport、register sequenceの便利method
+
+### Q119. visitorのテストは、どの走査順を要求しますか？
+
+[top-down](../tests/uF/test_visitor_top_down_adapter_visits_each_node_in_the_required_partial_order.sv)と
+[bottom-up](../tests/uF/test_visitor_bottom_up_adapter_visits_each_node_in_the_required_partial_order.sv)は、
+祖先／子孫の逆の関係を検査します。[by-level](../tests/uF/test_visitor_by_level_adapter_visits_each_node_in_the_required_partial_order.sv)は、
+直下の両子が両孫より前であることを要求します。5 nodeを各1回訪問し、兄弟順は固定しません。
+begin／end callbackは既定走査の前後を囲みます。callbackを無効にしても全訪問を保持し、
+再利用したvisitorは、後の呼出しで選択subtreeだけを走査できます。
+
+独自proxyは小さなnoncomponent treeも供給します。検査系は有限で非循環のtreeを使います。
+coreのcomponent visitorの選択／復元はhandle選択を示し、自動走査や名前検査は示しません。
+
+### Q120. blocking transportは、packet内容でreplyを照合しますか？
+
+[遅延reply](../tests/u12/test_blocking_transport_waits_for_response_and_preserves_both_object_handles.sv)は、
+transportの待機、正確なrequest objectの投入、正確なresponse objectのreturnを検査します。
+channelのrequest／response FIFOがその仕組みで、これらの検査系はprotocolに基づく照合を主張しません。
+逐次呼出しは1 channelを再利用します。事前投入したresponseを返しても、元requestはrequest側に残り、
+経過時刻0は要求しません。独立した2 channelは、それぞれの遅延replyに従って完了します。
+同じchannelへの同時callerは未対応です。
+
+### Q121. register-sequenceの便利APIは、直接accessに何を加えますか？
+
+8 wrapperは、呼出しsequenceをparentとしてregister／memory accessを呼びます。
+[write_reg](../tests/u19/test_reg_sequence_write_reg_forwards_parent_map_priority_and_extension.sv)は、
+正確なparent、element、extensionに加え、明示mapとpriorityを観測します。memoryはlocation offsetも観測します。
+poke／peekはuser backdoorを使い、指定kindを保持し、ROへのdepositとread-clear writeを伴わないRCの
+samplingを検査します。updateはdirtyなdesired stateを1回書き、次のcleanなaccessを省略します。
+mirrorは、明示の不一致報告と既定のno-check動作を別々に検査します。
+
+既定specializationをsequencerなしのvirtual sequenceとして動かし、mapが遅延adapter／sequencer／driver busを
+供給します。user backdoorはpre／post hookでstorageをモデル化し、RTL／DPIを使いません。
+これらは既定の変換bodyや任意BASE specializationを実行しません。

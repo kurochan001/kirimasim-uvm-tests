@@ -898,6 +898,22 @@
       "primary_clause": "12.2.7.2.2",
       "inputs_sha256": "19cf39f23133ca86792163db679a19ed7657d898e6b9039fe98a6049b2950423"
     },
+    "u12/test_blocking_transport_independent_channels_complete_at_their_own_response_arrivals": {
+      "primary_clause": "12.2.9.2.2",
+      "inputs_sha256": "78ef1737dd8aeaa84d7c7ce6bfb68f5606446d089f5f5e740a4451b35de0501c"
+    },
+    "u12/test_blocking_transport_prequeued_response_still_enqueues_the_original_request": {
+      "primary_clause": "12.2.9.2.2",
+      "inputs_sha256": "df763f559daad11d8820bca1c6325668c5d79b68c6d4fdd8ee1b1b161078b87e"
+    },
+    "u12/test_blocking_transport_sequential_calls_reuse_channel_without_losing_requests_or_replies": {
+      "primary_clause": "12.2.9.2.2",
+      "inputs_sha256": "645c7512f51cd80b95cde621ef90671f4e92c48643f8ac50e5c0b860d4cc12f3"
+    },
+    "u12/test_blocking_transport_waits_for_response_and_preserves_both_object_handles": {
+      "primary_clause": "12.2.9.2.2",
+      "inputs_sha256": "a11a31bd867e5e07322ab35821394203eaddc8d62ac63d0c16150e57996f0cb2"
+    },
     "u12/test_hierarchical_put_port_resolves_parent_fanout_to_the_final_implementations": {
       "primary_clause": "12.2.5.1",
       "inputs_sha256": "9a5413a16933740c9ff8328ac4c955410fdd86ee4a0d2abeb0d6c8927ad816b9"
@@ -3562,6 +3578,38 @@
       "primary_clause": "19.3.2.1",
       "inputs_sha256": "feafcfdab2286624d6a1081f5c53a6a0651c22ff59a941611f115df4e6ceee41"
     },
+    "u19/test_reg_sequence_mirror_reg_forwards_explicit_check_and_defaults_to_no_check": {
+      "primary_clause": "19.4.1.5.6",
+      "inputs_sha256": "9e4931811e5f153829a2ca5b2695d1272011a1d095770afe6c5d3db7d63f6147"
+    },
+    "u19/test_reg_sequence_peek_reg_samples_read_clear_storage_without_its_side_effect": {
+      "primary_clause": "19.4.1.5.4",
+      "inputs_sha256": "e2dbc509db5cb6f78e5c7cd4258923b16092dd8073f5d9ce665bd2a2e7fb3df3"
+    },
+    "u19/test_reg_sequence_poke_reg_deposits_readonly_data_through_the_user_backdoor": {
+      "primary_clause": "19.4.1.5.3",
+      "inputs_sha256": "85adfef7c0e5e7af4b8e2a49fa0215f30180cdcb02e86fba8b18e3f65b304a7f"
+    },
+    "u19/test_reg_sequence_read_mem_returns_the_selected_location_and_sequence_context": {
+      "primary_clause": "19.4.1.5.8",
+      "inputs_sha256": "bf58563cd57c45360f990c24ac77864e9c6f32919780a7e4c8ea2e11c2b0a4e8"
+    },
+    "u19/test_reg_sequence_read_reg_returns_bus_data_with_the_calling_sequence_context": {
+      "primary_clause": "19.4.1.5.2",
+      "inputs_sha256": "d3318351859fa27af7e87ee4bc5219823a1cf5c02ea28a66d8679f0b13f793f9"
+    },
+    "u19/test_reg_sequence_update_reg_writes_dirty_state_once_and_then_stays_clean": {
+      "primary_clause": "19.4.1.5.5",
+      "inputs_sha256": "a4d39d6ca482b29877ca2b94a4ec93af5229a2548609e2ad33febc2329d88086"
+    },
+    "u19/test_reg_sequence_write_mem_forwards_location_and_the_calling_sequence_context": {
+      "primary_clause": "19.4.1.5.7",
+      "inputs_sha256": "8a4e096c4ec7f4309740830de7095d96c52b1d60e2d31a72e0f4b4dde39bb329"
+    },
+    "u19/test_reg_sequence_write_reg_forwards_parent_map_priority_and_extension": {
+      "primary_clause": "19.4.1.5.1",
+      "inputs_sha256": "a5e295c0350d5ce266bde3d36c6329a7af7d0efa5bbd64e7ae8181310683a0b9"
+    },
     "u19/test_reg_tlm_adapter_all_enabled_and_disabled_byte_masks_are_converted": {
       "primary_clause": "19.2.2.2.1",
       "inputs_sha256": "61a1ce60aac30f2bbe92f71fbf0959b8c0c258c928edd693e15d13e6e84ae6e4"
@@ -4134,6 +4182,10 @@
       "primary_clause": "E.3.1",
       "inputs_sha256": "44fb0cb94aaa4b5f0a8a3fa3cb0a971c4be0e33ca0af892aff0032f9022dcbba"
     },
+    "uF/test_core_component_visitor_selection_and_restoration": {
+      "primary_clause": "F.4.1.4.9",
+      "inputs_sha256": "de738259b419cf2aeeac459d91d2e5c69d15167e16b79292f9aca99a8b6794ec"
+    },
     "uF/test_core_service_default_comparer_replacement_and_null_fallback": {
       "primary_clause": "F.4.1.4.16",
       "inputs_sha256": "aec9af74eec4e4cb54189b7be117a4f46f30d199fe81a832d789eadaa38a61c9"
@@ -4173,6 +4225,34 @@
     "uF/test_string_split_preserves_consecutive_and_edge_empty_fields": {
       "primary_clause": "F.3.3.2",
       "inputs_sha256": "99836278e89f16d34e38862a22e99afbcd4077c16d1da9eeed6892c3cf3aef4e"
+    },
+    "uF/test_visitor_accept_can_suppress_begin_end_without_suppressing_visits": {
+      "primary_clause": "F.5.3.2.2",
+      "inputs_sha256": "1bedac1f16f34ec03870872fe0ea243b435571c0475f149fa2cc78f9017b3f8f"
+    },
+    "uF/test_visitor_adapter_uses_a_custom_noncomponent_structure_proxy": {
+      "primary_clause": "F.5.4",
+      "inputs_sha256": "2842d9571c17702f5bbda2efa7522663d2824bdac7ae26ad3c4735b67399a6a5"
+    },
+    "uF/test_visitor_bottom_up_adapter_visits_each_node_in_the_required_partial_order": {
+      "primary_clause": "F.5.5",
+      "inputs_sha256": "02b4ff533ebd2107fbeec49cdaf012ea5c0573e1cbf26c0a197ab9379b1e3bcb"
+    },
+    "uF/test_visitor_by_level_adapter_visits_each_node_in_the_required_partial_order": {
+      "primary_clause": "F.5.6",
+      "inputs_sha256": "fb6e62329ae9a9010fb76398952a73cc2d259fae8fb82cb08c255e553c806f6c"
+    },
+    "uF/test_visitor_component_proxy_returns_only_immediate_children": {
+      "primary_clause": "F.5.7",
+      "inputs_sha256": "d70cad4048f8f18c96c2498c6d6d71c927b1bf1c2d1eff2d26314e2b8c759dc4"
+    },
+    "uF/test_visitor_reused_visitor_traverses_only_each_selected_subtree": {
+      "primary_clause": "F.5.3.2.2",
+      "inputs_sha256": "bce3c2eda40e87d80f480a6e43fb1ce564703a2d5d0f1cd218c69a3632c2f4b5"
+    },
+    "uF/test_visitor_top_down_adapter_visits_each_node_in_the_required_partial_order": {
+      "primary_clause": "F.5.4",
+      "inputs_sha256": "05b83f63f39ff0767433a4906553dac0e418a7abdd4a9a484af63233bf0664c6"
     },
     "uG/test_command_arg_values_clear_on_no_match_and_repeat_without_appending": {
       "primary_clause": "G.1.4.2",

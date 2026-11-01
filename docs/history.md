@@ -3,7 +3,7 @@
 [日本語](history.ja.md) · [README](../README.md)
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and twelve cross-milestone thin-area expansions (1045 simulation tests). The earlier 349-test checkpoint is
+three M4 increments and thirteen cross-milestone thin-area expansions (1065 simulation tests). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -1865,3 +1865,41 @@ ordering and logical reconstruction are separate observations. No external
 database, custom core initialization, memory burst, partial bus word or
 arbitrary concurrent access is claimed. README retains current state and
 this history preserves the increment.
+
+## Thirteenth thin-area expansion across M1–M4
+
+Twenty simulations extend the 1045-case baseline at
+[fdfbd57](https://github.com/kurochan001/kirimasim-uvm-tests/commit/fdfbd57d235a9fc19ede9163f23f8e9b255f5e0a)
+to 1065 cases in 21 directories: 343 M1, 412 M2 and 310 M3. All 1045 baseline
+inputs remain unchanged. M1 adds eight visitor/proxy/traversal and core
+visitor-selection cases. M2 adds four blocking transport channel cases.
+M3 adds eight register-sequence convenience API cases, separating data
+behavior from the implicit parent and explicit transaction metadata.
+
+The compatible snapshot has 961 Verilator 5.052 matches at seeds 1/73
+and 104 known differences: 95 runtime first differences at seed 1 and nine
+missing-API builds without runtime seed results. Ghost bundled has 207
+matches and 858 failures at each seed, with identical failing sets.
+kirimasim has 1056 unsupported cases and nine missing-API failures.
+Runner, executable, private profile and pinned library identities remain
+compatible. No current pinned-mode Ghost result is inferred.
+
+M4 adds 46 AI drafts and maps all twenty additions plus twenty existing
+default-sequence resource selection and retired-response routing fixtures.
+The ledger has 961 drafts, 957 directly linked requirements, 916 directly
+linked tests, one additional control and 148 unmapped tests. Of 2,504
+identifiers, 663 have partial decomposition and 1,841 remain unassessed;
+496 have primary focus and 1,109 any citation. The 2,479-candidate census
+is 1,983 zero, 263 one and 233 at least two. Four drafts still lack direct
+tests. Scope is proposed, all review is AI and denominator/percentage are
+unset. Existing invalid-wrapper severity differences remain spec-only.
+
+Validation covers 74 tool unit tests, all 1065 metadata records, ledger/index
+integrity, final-input evidence fingerprints and full English/Japanese
+guides. The glossary has 143 entries and the FAQ 121 answers. Traversal
+asserts required partial orders without sibling order. Blocking transport
+uses one caller per channel, with sequential reuse, prequeued reply and
+independent-channel controls. Register wrappers run as virtual sequences;
+backdoors use modeled storage without HDL/DPI. No cyclic graph, same-channel
+concurrent calls, arbitrary BASE specialization or translation body is
+claimed. README retains current state; this history preserves the increment.
