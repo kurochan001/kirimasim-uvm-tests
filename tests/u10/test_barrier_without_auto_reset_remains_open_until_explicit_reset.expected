@@ -1,0 +1,4 @@
+UT: initial blocked 1 waiters 1
+UT: open immediate 1 waiters 0
+UT: after_reset blocked 1 waiters 1 threshold 2
+UT: rearmed_done 1 waiters 0

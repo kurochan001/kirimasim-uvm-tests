@@ -518,6 +518,22 @@
       "primary_clause": "9.6",
       "inputs_sha256": "c6dd01f4586b33b8670099c33b094cc1efb22fadc82cc3ede04d8ec0fee8c9a9"
     },
+    "u10/test_barrier_default_auto_reset_requires_a_fresh_threshold_on_each_round": {
+      "primary_clause": "10.3.2.4",
+      "inputs_sha256": "1d2e07af2b7b444a55d66a4df11b8a7b55f1150d33548c93138be72b246a08fc"
+    },
+    "u10/test_barrier_default_reset_wakes_pending_waiters_and_rearms_the_same_threshold": {
+      "primary_clause": "10.3.2.3",
+      "inputs_sha256": "f1e954853df7d7ef519ce66ee6c54fbc510808aa47652be560794ceac9863b97"
+    },
+    "u10/test_barrier_lowering_threshold_below_the_waiter_count_releases_existing_waits": {
+      "primary_clause": "10.3.2.6",
+      "inputs_sha256": "4249aa3ee4334e2bd0fbe20a1b344b8183bf90b06ac74d9aeac42e5ff9e70351"
+    },
+    "u10/test_barrier_without_auto_reset_remains_open_until_explicit_reset": {
+      "primary_clause": "10.3.2.4",
+      "inputs_sha256": "755e93dbd615dffa34e17a1e959874f9c2ba57f7d938b9176687c70b9d80042c"
+    },
     "u10/test_callback_add_by_name_glob_respects_search_root": {
       "primary_clause": "10.7.2.3.2",
       "inputs_sha256": "62f3ba18bcd61ce23c062422832774e3f23a0b9bdf8f073ac8c7a521b65441b4"
@@ -597,6 +613,22 @@
     "u10/test_callbacks_append_and_prepend_determine_execution_order": {
       "primary_clause": "10.7.2.3.1",
       "inputs_sha256": "44c98242fca7214c492c9858f431d4b8fe7021d66d93f837f5f98741ccf7f792"
+    },
+    "u10/test_event_default_data_and_explicit_trigger_values_remain_independent_between_instances": {
+      "primary_clause": "10.1.2.2.6",
+      "inputs_sha256": "1424952248f9d83173c7114a79749abced23e21e62fff5b6e2586cc939173018"
+    },
+    "u10/test_event_on_off_waits_follow_reset_and_a_second_trigger": {
+      "primary_clause": "10.1.1.2.2",
+      "inputs_sha256": "814a44453d3ffe641ea5d413d20d1121cb7613ff845da923204240b52b92fa09"
+    },
+    "u10/test_event_persistent_trigger_data_is_immediate_only_in_the_triggering_time_slice": {
+      "primary_clause": "10.1.2.2.3",
+      "inputs_sha256": "a8c978e11f7c8905482f735568b8ed4558de563e58975e4c6a20cd458a1b29f5"
+    },
+    "u10/test_event_trigger_data_waits_for_a_fresh_trigger_after_an_earlier_time_slice": {
+      "primary_clause": "10.1.2.2.2",
+      "inputs_sha256": "ad9b2a23e4432050b6885f907ba40395ce94aa2dae6272edf8ed6587d4e395f1"
     },
     "u10/test_objection_clear_argument_does_not_limit_reset": {
       "primary_clause": "10.5.1.3.5",
@@ -838,6 +870,10 @@
       "primary_clause": "12.2.7.2.2",
       "inputs_sha256": "99fbba20c6813465767fe63091adbbef3de677e9b1b85dc94113db398617834d"
     },
+    "u12/test_tlm2_backward_completion_allows_a_fresh_request_with_reused_payload_and_delay_handles": {
+      "primary_clause": "12.3.2.2.2",
+      "inputs_sha256": "c50694b80524e15a69d5b8eda58ef24e2af54571fd93a891c2d98b397006013c"
+    },
     "u12/test_tlm2_blocking_delay_annotation_updates_without_advancing_time": {
       "primary_clause": "12.3.9",
       "inputs_sha256": "b31ab0e7f456da93b588bf18d2b4c295a1c1ff891b1bb88e62bac0638ef50819"
@@ -873,6 +909,10 @@
     "u12/test_tlm2_extension_type_handle_names_distinguish_different_types": {
       "primary_clause": "12.3.4.4.5",
       "inputs_sha256": "b99780457cdb7236cbfdefd748707cddaa7fe0aea51ca6301cccd76ee327786b"
+    },
+    "u12/test_tlm2_four_phase_socket_history_preserves_delayed_forward_and_backward_annotations": {
+      "primary_clause": "12.3.2.2.1",
+      "inputs_sha256": "7d2cc8b4dd34fcabcd5af9f4a0909fb03e256f2847bc3dcda5aa8dea3da61b28"
     },
     "u12/test_tlm2_gp_alias_shares_payload_and_polymorphic_extension_state": {
       "primary_clause": "12.3.4.3",
@@ -1061,6 +1101,14 @@
     "u12/test_tlm2_time_standard_default_resolution_api_constructs_delay": {
       "primary_clause": "12.3.9",
       "inputs_sha256": "648c0dc30925909aeaffa29db770e25912b523af8c4e7763b2ef61d671805ade"
+    },
+    "u12/test_tlm2_two_outstanding_socket_responses_keep_reversed_payloads_and_annotations_separate": {
+      "primary_clause": "12.3.2.2.2",
+      "inputs_sha256": "c6ee8e706d87ca9198ac4d7f55845b8452dcadb9f05045cd68b8c4150534e1be"
+    },
+    "u12/test_tlm2_updated_request_and_response_phases_survive_a_delayed_socket_round_trip": {
+      "primary_clause": "12.3.2.2.1",
+      "inputs_sha256": "5a4631347abb657feede66cc479516df03bbbacbb6894ff2f3e4ae76630fb5ae"
     },
     "u12/test_tlm_analysis_fifo_blocked_gets_wake_only_for_their_own_writes_and_rewait_after_drain": {
       "primary_clause": "12.2.8.3.2",
@@ -2474,6 +2522,10 @@
       "primary_clause": "18.5.5.2",
       "inputs_sha256": "49b8798761a98db4ecdee39af8e91a3782260b703a8f4a026a4da917f3a51954"
     },
+    "u18/test_reg_field_write_clear_prediction_preserves_peer_through_write_read_cycles": {
+      "primary_clause": "18.5.5.17",
+      "inputs_sha256": "e3bc6bc4d86cfe81b73a2e49656bd0ff566d5c09bf809522bc592084e2d600c7"
+    },
     "u18/test_reg_field_write_once_prediction_rearms_only_after_hard_reset": {
       "primary_clause": "18.5.5.17",
       "inputs_sha256": "2991f36241bbb5dd7af9933cd0789a24036ad8a47e31c667f2877f5ceec41e14"
@@ -2481,6 +2533,10 @@
     "u18/test_reg_field_write_one_clear_prediction_accumulates_selected_clears": {
       "primary_clause": "18.5.5.17",
       "inputs_sha256": "19023403f28e590e993eb264725952a61e0d68bcd03afdb1489337bf0a6e50ca"
+    },
+    "u18/test_reg_field_write_one_clear_read_set_prediction_preserves_peer_through_write_read_cycles": {
+      "primary_clause": "18.5.5.17",
+      "inputs_sha256": "03341063d1543986b093d98e5802da574848fe3afb362d45e992e583259a5f67"
     },
     "u18/test_reg_field_write_one_clear_set_applies_policy_only_to_desired": {
       "primary_clause": "18.5.5.2",
@@ -2490,9 +2546,25 @@
       "primary_clause": "18.5.5.17",
       "inputs_sha256": "d086d28866aa4d3d705b186f51bb620564bc958cc9ea139afe54c69a7924839d"
     },
+    "u18/test_reg_field_write_one_set_read_clear_prediction_preserves_peer_through_write_read_cycles": {
+      "primary_clause": "18.5.5.17",
+      "inputs_sha256": "6f9403ea25896a9080da6ec393770529044a16182788b1a9309a17609a0774a0"
+    },
     "u18/test_reg_field_write_one_toggle_prediction_accumulates_toggles": {
       "primary_clause": "18.5.5.17",
       "inputs_sha256": "afe00da26d558855c87ae1f3557771fa52f85106d83dd140c58b5dec06fe3f51"
+    },
+    "u18/test_reg_field_write_read_clear_prediction_preserves_peer_through_write_read_cycles": {
+      "primary_clause": "18.5.5.17",
+      "inputs_sha256": "519a0e019df0d3204725db91ec85c1da52e5eaf1475906d93327b0b20bb197f4"
+    },
+    "u18/test_reg_field_write_read_set_prediction_preserves_peer_through_write_read_cycles": {
+      "primary_clause": "18.5.5.17",
+      "inputs_sha256": "a989e93d484483dce4a3419405af826daee3f947eca3b2ddbdaf3777ade27a5e"
+    },
+    "u18/test_reg_field_write_set_prediction_preserves_peer_through_write_read_cycles": {
+      "primary_clause": "18.5.5.17",
+      "inputs_sha256": "2fd4a442f6e05c80a7820ce7e78462c42b099fc332182a56cec1ff3ef2752170"
     },
     "u18/test_reg_field_write_zero_clear_prediction_preserves_only_one_bits": {
       "primary_clause": "18.5.5.17",
@@ -2501,6 +2573,14 @@
     "u18/test_reg_field_write_zero_set_prediction_accumulates_zero_selected_sets": {
       "primary_clause": "18.5.5.17",
       "inputs_sha256": "a384e1c800cd6f15e37cc8a135b8f115dbd206f856e8414c87813c16c8a100cc"
+    },
+    "u18/test_reg_field_write_zero_toggle_prediction_preserves_peer_through_write_read_cycles": {
+      "primary_clause": "18.5.5.17",
+      "inputs_sha256": "8c712b6a62c79c50397fe82dde1715497e2e7ff4be2d1f244ba986ff68370b51"
+    },
+    "u18/test_reg_field_zero_selected_write_read_side_effects_keep_complementary_slices_independent": {
+      "primary_clause": "18.5.5.17",
+      "inputs_sha256": "2ddf859ac6688ee2d904ea3344df0b2b16937b34faa2ef4fe5a28cb87316ce44"
     },
     "u18/test_reg_frontdoor_big_endian_wide_read_preserves_returned_bus_words": {
       "primary_clause": "18.4.4.10",

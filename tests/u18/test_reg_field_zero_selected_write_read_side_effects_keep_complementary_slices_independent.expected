@@ -1,0 +1,6 @@
+UT: 1 w ok 1 clear f5/f5 set 5/5 assembled 5f5
+UT: 2 w ok 1 clear ff/ff set 0/0 assembled ff
+UT: 3 r ok 1 clear 0/0 set ff/ff assembled ff00
+UT: 4 w ok 1 clear 0/0 set ff/ff assembled ff00
+UT: 5 w ok 1 clear 81/81 set 7e/7e assembled 7e81
+UT: 6 r ok 1 clear 0/0 set ff/ff assembled ff00

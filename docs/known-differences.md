@@ -2,7 +2,7 @@
 
 [日本語](known-differences.ja.md) · [README](../README.md) · [FAQ](faq.md)
 
-This describes the current 885-test suite and the pinned Accellera UVM
+This describes the current 905-test suite and the pinned Accellera UVM
 2020.3.1 library. A mismatch is a test result; it does not by itself assign
 the cause to the simulator, the library or the expectation.
 
@@ -264,14 +264,14 @@ controls report the expected byte-aligned widths 16 and 8. Sub-byte logical
 width versus rounded physical-byte width needs review; no confirmed library
 bug is assigned from these two cases. See [partial transfers](faq.md#error-contracts-and-partial-transfers).
 
-Across the suite, 798 tests have the `verilator@5.052` oracle tag and eighty-seven
+Across the suite, 818 tests have the `verilator@5.052` oracle tag and eighty-seven
 cases are spec-only. One of the spec-only cases checks 9.6: a child's pre-reset
 task must be killed when that phase ends, but the pinned-library run on Verilator 5.052
 lets the child perform its delayed write during a later phase. The cause of
 this combined simulator/library difference remains unassigned.
 
 The eighty-seven spec-only tests retain their normative expected files.
-Default Verilator runs and CI select the 798 tagged cases. `--all` includes
+Default Verilator runs and CI select the 818 tagged cases. `--all` includes
 spec-only cases and records mismatches or build failures as `known`.
 The runtime records for 80 cases establish the first difference at seed 1,
 without seed 73 results. Seven missing-API cases cannot build and have no
@@ -428,7 +428,7 @@ limitation, so their count is not a count of distinct bugs.
 
 ## Simulator and library combinations
 
-Ghost's bundled-library evidence has 170 matches and 715 failures with each
+Ghost's bundled-library evidence has 182 matches and 723 failures with each
 of seeds 1 and 73; the same tests fail at both seeds. The current executable
 snapshot has no pinned-mode measurement. [Results and methodology](results.md)
 describes the evidence assembly. Bundled results
@@ -437,7 +437,7 @@ problem from a library problem or establish results for the locked library.
 Private identity, profiles and diagnostics are not published.
 
 The tested kirimasim executable reports `uvm_object_wrapper` as unsupported
-on 878 cases. Seven cases record `fail` earlier on missing library APIs: one time
+on 898 cases. Seven cases record `fail` earlier on missing library APIs: one time
 setter and six sequence-library cases. Neither result is a pass or evidence
 of UVM execution beyond those compilation blockers.
 

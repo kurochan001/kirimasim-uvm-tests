@@ -19653,6 +19653,2003 @@
           ]
         }
       ]
+    },
+    {
+      "id": "UVM-EVENT-WAIT-ON-PERSISTENCE",
+      "clause": "10.1.1.2.2",
+      "statement": {
+        "en": "Event wait_on waits for activation and returns immediately while the event remains on.",
+        "ja": "eventのwait_onは有効になるまで待ち、onの間は直ちに戻る。"
+      },
+      "conditions": {
+        "en": "Wait before a trigger, call again while on, reset and establish a fresh wait.",
+        "ja": "trigger前に待ち、onのまま再度呼び、resetして新しい待機を成立させる。"
+      },
+      "expected": {
+        "en": "Each inactive wait blocks until its own trigger; the already-on call returns without advancing time.",
+        "ja": "各inactiveの待機は自身のtriggerまでblockし、onの呼出しは時刻を進めず戻る。"
+      },
+      "limitations": {
+        "en": "Positive delays establish blocked/released states and leave the release order unconstrained. Event delta arguments remain zero; cancellation, reset-without-wakeup, event callbacks and other threshold races are separate. Initial defaults use a two-state data type.",
+        "ja": "正の遅延で待機／再開を成立させ、解除順序は制約しない。eventのdelta引数は0とし、取消、wakeupなしのreset、event callback、他のthreshold競合は別途扱う。初期既定値には2値のdata型を使う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_event_on_off_waits_follow_reset_and_a_second_trigger",
+          "role": "direct",
+          "expected_observations": [
+            "UT: waiting_on 1",
+            "UT: on 1 returned 1 persistent 1",
+            "UT: waiting_again 1",
+            "UT: retrigger on 1 returned 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-EVENT-WAIT-OFF-RESET",
+      "clause": "10.1.1.2.3",
+      "statement": {
+        "en": "Event wait_off returns immediately when off and waits for reset when on.",
+        "ja": "eventのwait_offはoffなら直ちに戻り、onならresetを待つ。"
+      },
+      "conditions": {
+        "en": "Inspect the initially off event, then wait after a trigger and reset it.",
+        "ja": "初期offのeventを観測し、trigger後に待ってresetする。"
+      },
+      "expected": {
+        "en": "The initial wait is immediate; the active wait returns only after reset and the event is off.",
+        "ja": "初期待機は即時で、activeの待機はreset後だけに戻り、eventはoffになる。"
+      },
+      "limitations": {
+        "en": "Positive delays establish blocked/released states and leave the release order unconstrained. Event delta arguments remain zero; cancellation, reset-without-wakeup, event callbacks and other threshold races are separate. Initial defaults use a two-state data type.",
+        "ja": "正の遅延で待機／再開を成立させ、解除順序は制約しない。eventのdelta引数は0とし、取消、wakeupなしのreset、event callback、他のthreshold競合は別途扱う。初期既定値には2値のdata型を使う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_event_on_off_waits_follow_reset_and_a_second_trigger",
+          "role": "direct",
+          "expected_observations": [
+            "UT: initially_off 1 immediate 1 time_zero 1",
+            "UT: waiting_off 1",
+            "UT: reset off 1 returned 1 time_zero 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-EVENT-FRESH-TRIGGER-DATA",
+      "clause": "10.1.2.2.2",
+      "statement": {
+        "en": "Event wait_trigger_data returns data from a new trigger after an older time slice.",
+        "ja": "eventのwait_trigger_dataは、以前のtime sliceより後の新しいtriggerのdataを返す。"
+      },
+      "conditions": {
+        "en": "Trigger data 17, advance time, start a wait and then trigger data 42.",
+        "ja": "data 17でtriggerし、時刻を進めて待機を始め、data 42でtriggerする。"
+      },
+      "expected": {
+        "en": "The earlier on-state/data does not release the wait; the new trigger returns 42 and updates trigger time.",
+        "ja": "以前のon状態／dataでは待機を解除せず、新triggerで42を返してtrigger時刻を更新する。"
+      },
+      "limitations": {
+        "en": "Positive delays establish blocked/released states and leave the release order unconstrained. Event delta arguments remain zero; cancellation, reset-without-wakeup, event callbacks and other threshold races are separate. Initial defaults use a two-state data type.",
+        "ja": "正の遅延で待機／再開を成立させ、解除順序は制約しない。eventのdelta引数は0とし、取消、wakeupなしのreset、event callback、他のthreshold競合は別途扱う。初期既定値には2値のdata型を使う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_event_trigger_data_waits_for_a_fresh_trigger_after_an_earlier_time_slice",
+          "role": "direct",
+          "expected_observations": [
+            "UT: waiting_fresh 1 still_on 1 old_data 17",
+            "UT: returned 1 data 42 latest 42 trigger_time 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-EVENT-PERSISTENT-TRIGGER-DATA",
+      "clause": "10.1.2.2.3",
+      "statement": {
+        "en": "Persistent trigger-data waiting accepts an earlier trigger in the same time slice but not an old slice.",
+        "ja": "persistentなtrigger-data待機は、同じtime slice内の先行triggerを認めるが、以前のsliceは認めない。"
+      },
+      "conditions": {
+        "en": "Call after a same-slice trigger, then establish a new wait in a later time slice.",
+        "ja": "同じsliceのtrigger後に呼び、その後のtime sliceで新しく待つ。"
+      },
+      "expected": {
+        "en": "The same-slice call immediately returns 17; the later wait blocks until new data 73 arrives.",
+        "ja": "同じsliceでは直ちに17を返し、後の待機は新data 73までblockする。"
+      },
+      "limitations": {
+        "en": "Positive delays establish blocked/released states and leave the release order unconstrained. Event delta arguments remain zero; cancellation, reset-without-wakeup, event callbacks and other threshold races are separate. Initial defaults use a two-state data type.",
+        "ja": "正の遅延で待機／再開を成立させ、解除順序は制約しない。eventのdelta引数は0とし、取消、wakeupなしのreset、event callback、他のthreshold競合は別途扱う。初期既定値には2値のdata型を使う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_event_persistent_trigger_data_is_immediate_only_in_the_triggering_time_slice",
+          "role": "direct",
+          "expected_observations": [
+            "UT: same_slice immediate 1 data 17",
+            "UT: later_slice_wait 1",
+            "UT: fresh returned 1 data 73 latest 73"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-EVENT-DEFAULT-DATA-LOCAL",
+      "clause": "10.1.2.2.6",
+      "statement": {
+        "en": "Event default-data accessors retain the latest assigned default independently per instance.",
+        "ja": "eventのdefault-data accessorは、最後に設定した既定値をinstanceごとに独立して保つ。"
+      },
+      "conditions": {
+        "en": "Use two two-state events, set distinct defaults and replace one after explicit/default triggers.",
+        "ja": "2値eventを2つ用意し、別の既定値を設定して、明示／既定trigger後に片方を置換する。"
+      },
+      "expected": {
+        "en": "Initial defaults are zero; the configured defaults stay local and an explicit trigger does not overwrite them.",
+        "ja": "初期既定値は0で、設定値はlocalに保ち、明示triggerでは上書きしない。"
+      },
+      "limitations": {
+        "en": "Positive delays establish blocked/released states and leave the release order unconstrained. Event delta arguments remain zero; cancellation, reset-without-wakeup, event callbacks and other threshold races are separate. Initial defaults use a two-state data type.",
+        "ja": "正の遅延で待機／再開を成立させ、解除順序は制約しない。eventのdelta引数は0とし、取消、wakeupなしのreset、event callback、他のthreshold競合は別途扱う。初期既定値には2値のdata型を使う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_event_default_data_and_explicit_trigger_values_remain_independent_between_instances",
+          "role": "direct",
+          "expected_observations": [
+            "UT: defaults 0 0",
+            "UT: explicit latest 33 default 11 peer_default 22",
+            "UT: omitted latest 11 22 defaults 11 22",
+            "UT: replaced latest 44 peer_latest 22 peer_default 22"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-EVENT-OMITTED-TRIGGER-DATA",
+      "clause": "10.1.2.2.4",
+      "statement": {
+        "en": "Event trigger without a data argument uses its configured default data.",
+        "ja": "data引数のないevent triggerは、設定した既定dataを使う。"
+      },
+      "conditions": {
+        "en": "Trigger explicitly, then omit the argument before and after changing the default.",
+        "ja": "明示trigger後、既定値の変更前後に引数を省略する。"
+      },
+      "expected": {
+        "en": "Omitted triggers publish the configured 11/22 values and later the replacement 44.",
+        "ja": "省略triggerは、設定した11／22と、その後の置換値44を通知する。"
+      },
+      "limitations": {
+        "en": "Positive delays establish blocked/released states and leave the release order unconstrained. Event delta arguments remain zero; cancellation, reset-without-wakeup, event callbacks and other threshold races are separate. Initial defaults use a two-state data type.",
+        "ja": "正の遅延で待機／再開を成立させ、解除順序は制約しない。eventのdelta引数は0とし、取消、wakeupなしのreset、event callback、他のthreshold競合は別途扱う。初期既定値には2値のdata型を使う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_event_default_data_and_explicit_trigger_values_remain_independent_between_instances",
+          "role": "direct",
+          "expected_observations": [
+            "UT: explicit latest 33 default 11 peer_default 22",
+            "UT: omitted latest 11 22 defaults 11 22",
+            "UT: replaced latest 44 peer_latest 22 peer_default 22"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BARRIER-THRESHOLD-GATE",
+      "clause": "10.3.2.2",
+      "statement": {
+        "en": "A barrier blocks callers until the configured number reach the synchronization point, then releases them all.",
+        "ja": "barrierは、設定数が同期点へ到達するまで呼出しをblockし、その後全員を解除する。"
+      },
+      "conditions": {
+        "en": "Two processes wait at a threshold of three, then the third arrives.",
+        "ja": "threshold 3で2 processを待たせ、その後3番目を到着させる。"
+      },
+      "expected": {
+        "en": "Two waiters remain blocked before the last arrival; all three complete afterward.",
+        "ja": "最後の到着前は2待機がblockしたままで、その後3つとも完了する。"
+      },
+      "limitations": {
+        "en": "Positive delays establish blocked/released states and leave the release order unconstrained. Event delta arguments remain zero; cancellation, reset-without-wakeup, event callbacks and other threshold races are separate. Initial defaults use a two-state data type.",
+        "ja": "正の遅延で待機／再開を成立させ、解除順序は制約しない。eventのdelta引数は0とし、取消、wakeupなしのreset、event callback、他のthreshold競合は別途扱う。初期既定値には2値のdata型を使う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_barrier_default_auto_reset_requires_a_fresh_threshold_on_each_round",
+          "role": "direct",
+          "expected_observations": [
+            "UT: round 1 blocked 1 waiters 2 threshold 3",
+            "UT: round 1 all_done 1 waiters 0",
+            "UT: round 2 blocked 1 waiters 2 threshold 3",
+            "UT: round 2 all_done 1 waiters 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BARRIER-DEFAULT-AUTO-RESET",
+      "clause": "10.3.2.4",
+      "statement": {
+        "en": "A barrier automatically rearms after reaching its threshold by default.",
+        "ja": "barrierは既定で、thresholdへ達した後に再び待機状態になる。"
+      },
+      "conditions": {
+        "en": "Complete two consecutive rounds with three participants each without setting auto-reset.",
+        "ja": "auto-resetを設定せず、3参加者のroundを連続して2回完了する。"
+      },
+      "expected": {
+        "en": "Both rounds require a fresh third participant and finish with zero pending waiters.",
+        "ja": "両roundとも新しい3番目の参加者が必要で、待機数0で完了する。"
+      },
+      "limitations": {
+        "en": "Positive delays establish blocked/released states and leave the release order unconstrained. Event delta arguments remain zero; cancellation, reset-without-wakeup, event callbacks and other threshold races are separate. Initial defaults use a two-state data type.",
+        "ja": "正の遅延で待機／再開を成立させ、解除順序は制約しない。eventのdelta引数は0とし、取消、wakeupなしのreset、event callback、他のthreshold競合は別途扱う。初期既定値には2値のdata型を使う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_barrier_default_auto_reset_requires_a_fresh_threshold_on_each_round",
+          "role": "direct",
+          "expected_observations": [
+            "UT: round 1 blocked 1 waiters 2 threshold 3",
+            "UT: round 1 all_done 1 waiters 0",
+            "UT: round 2 blocked 1 waiters 2 threshold 3",
+            "UT: round 2 all_done 1 waiters 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BARRIER-DISABLED-AUTO-RESET",
+      "clause": "10.3.2.4",
+      "statement": {
+        "en": "With auto-reset disabled a reached barrier remains open until an explicit reset.",
+        "ja": "auto-resetを無効にすると、到達したbarrierは明示resetまで開いたままになる。"
+      },
+      "conditions": {
+        "en": "Reach a threshold of two, call through the open gate, reset and repeat.",
+        "ja": "threshold 2へ到達し、開いたgateを通り、resetして繰り返す。"
+      },
+      "expected": {
+        "en": "The open call returns at the same time; reset makes the next call wait for a second participant again.",
+        "ja": "開いた呼出しは同じ時刻で戻り、reset後の次の呼出しは再び2番目の参加者を待つ。"
+      },
+      "limitations": {
+        "en": "Positive delays establish blocked/released states and leave the release order unconstrained. Event delta arguments remain zero; cancellation, reset-without-wakeup, event callbacks and other threshold races are separate. Initial defaults use a two-state data type.",
+        "ja": "正の遅延で待機／再開を成立させ、解除順序は制約しない。eventのdelta引数は0とし、取消、wakeupなしのreset、event callback、他のthreshold競合は別途扱う。初期既定値には2値のdata型を使う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_barrier_without_auto_reset_remains_open_until_explicit_reset",
+          "role": "direct",
+          "expected_observations": [
+            "UT: initial blocked 1 waiters 1",
+            "UT: open immediate 1 waiters 0",
+            "UT: after_reset blocked 1 waiters 1 threshold 2",
+            "UT: rearmed_done 1 waiters 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BARRIER-LOWERED-THRESHOLD-RELEASE",
+      "clause": "10.3.2.6",
+      "statement": {
+        "en": "Lowering a barrier threshold below its pending count releases the waiters and retains the new threshold.",
+        "ja": "barrierのthresholdを待機数より下げると、待機を解除し、新thresholdを保つ。"
+      },
+      "conditions": {
+        "en": "Two processes wait against threshold four; lower it to one.",
+        "ja": "threshold 4で2 processを待たせ、1へ下げる。"
+      },
+      "expected": {
+        "en": "Both waiting processes complete; the next singleton round uses threshold one.",
+        "ja": "両待機が完了し、次の1参加者のroundはthreshold 1を使う。"
+      },
+      "limitations": {
+        "en": "Positive delays establish blocked/released states and leave the release order unconstrained. Event delta arguments remain zero; cancellation, reset-without-wakeup, event callbacks and other threshold races are separate. Initial defaults use a two-state data type.",
+        "ja": "正の遅延で待機／再開を成立させ、解除順序は制約しない。eventのdelta引数は0とし、取消、wakeupなしのreset、event callback、他のthreshold競合は別途扱う。初期既定値には2値のdata型を使う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_barrier_lowering_threshold_below_the_waiter_count_releases_existing_waits",
+          "role": "direct",
+          "expected_observations": [
+            "UT: before blocked 1 waiters 2 threshold 4",
+            "UT: after all_done 1 waiters 0 threshold 1",
+            "UT: singleton_round waiters 0 threshold 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BARRIER-RESET-WAKE-REARM",
+      "clause": "10.3.2.3",
+      "statement": {
+        "en": "Default barrier reset wakes pending callers, clears the count and rearms with the unchanged threshold.",
+        "ja": "barrierの既定resetは、待機呼出しを再開し、待機数を消去して同じthresholdで再待機する。"
+      },
+      "conditions": {
+        "en": "Reset two pending callers below threshold three, then run a fresh three-participant round.",
+        "ja": "threshold 3未満で2呼出しを待たせてresetし、新しい3参加者のroundを行う。"
+      },
+      "expected": {
+        "en": "Reset releases both and retains threshold three; the fresh round blocks until its third caller.",
+        "ja": "resetは両者を解除してthreshold 3を保ち、新roundは3番目の呼出しまでblockする。"
+      },
+      "limitations": {
+        "en": "Positive delays establish blocked/released states and leave the release order unconstrained. Event delta arguments remain zero; cancellation, reset-without-wakeup, event callbacks and other threshold races are separate. Initial defaults use a two-state data type.",
+        "ja": "正の遅延で待機／再開を成立させ、解除順序は制約しない。eventのdelta引数は0とし、取消、wakeupなしのreset、event callback、他のthreshold競合は別途扱う。初期既定値には2値のdata型を使う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_barrier_default_reset_wakes_pending_waiters_and_rearms_the_same_threshold",
+          "role": "direct",
+          "expected_observations": [
+            "UT: before_reset blocked 1 waiters 2",
+            "UT: reset released 1 waiters 0 threshold 3",
+            "UT: reuse blocked 1 waiters 2",
+            "UT: reuse all_done 1 waiters 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-FOUR-PHASE-FORWARDING",
+      "clause": "12.3.2.2.1",
+      "statement": {
+        "en": "Nonblocking socket routing preserves forward/backward calls and shared timing annotation across a four-phase history.",
+        "ja": "nonblocking socketの経路は、4-phaseの履歴を通してforward／backwardの呼出しと共有する時間注釈を保つ。"
+      },
+      "conditions": {
+        "en": "Drive BEGIN_REQ, END_REQ, BEGIN_RESP and END_RESP at successive times.",
+        "ja": "BEGIN_REQ、END_REQ、BEGIN_RESP、END_RESPを順次異なる時刻で駆動する。"
+      },
+      "expected": {
+        "en": "Callbacks receive the supplied handles/phases, return accepted/completed status and retain accumulated annotation.",
+        "ja": "callbackは指定handle／phaseを受け取り、accepted／completedのstatusを返し、累積注釈を保つ。"
+      },
+      "limitations": {
+        "en": "Testbench endpoints drive these selected histories over one paired pass-through socket layer. Positive waits occur between calls; every transport function is checked for no time advance. Supplied payload/delay identity, phase references and enum results are the obligations; no UVM-owned scheduler, transaction state, protocol validator or all topologies are inferred.",
+        "ja": "テストベンチのendpointが、対のpass-through socketを1層通して選択した履歴を駆動する。呼出し間に正の待機を入れ、各transport関数では時刻が進まないことを検査する。指定payload／delayの同一性、phase参照、enum結果を義務とし、UVMが所有するscheduler、transaction状態、protocol検査器、全topologyは推定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_four_phase_socket_history_preserves_delayed_forward_and_backward_annotations",
+          "role": "direct",
+          "expected_observations": [
+            "UT: request accepted 1 phase 1 annotation 1",
+            "UT: delayed no_response 1 pending 1",
+            "UT: request_end accepted 1 phase 1 annotation 1",
+            "UT: response accepted 1 phase 1 ok 1 annotation 1",
+            "UT: end completed 1 done 1 annotation 1 counts 1/1",
+            "UT: identity 1 no_wait 1 fw 2 bw 2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-RETURNED-PHASE-UPDATES",
+      "clause": "12.3.2.2.1",
+      "statement": {
+        "en": "Nonblocking routing returns phase-reference updates and UPDATED results from both directions.",
+        "ja": "nonblockingの経路は、両方向でphase参照の変更とUPDATEDの結果を返す。"
+      },
+      "conditions": {
+        "en": "Return END_REQ in the forward call and END_RESP in a later backward response.",
+        "ja": "forward呼出しでEND_REQを、後のbackward応答でEND_RESPを返す。"
+      },
+      "expected": {
+        "en": "Both phase updates reach the callers with the original handles and correct accumulated annotation.",
+        "ja": "両phaseの変更が、元のhandleと正しい累積注釈とともに呼出し元へ届く。"
+      },
+      "limitations": {
+        "en": "Testbench endpoints drive these selected histories over one paired pass-through socket layer. Positive waits occur between calls; every transport function is checked for no time advance. Supplied payload/delay identity, phase references and enum results are the obligations; no UVM-owned scheduler, transaction state, protocol validator or all topologies are inferred.",
+        "ja": "テストベンチのendpointが、対のpass-through socketを1層通して選択した履歴を駆動する。呼出し間に正の待機を入れ、各transport関数では時刻が進まないことを検査する。指定payload／delayの同一性、phase参照、enum結果を義務とし、UVMが所有するscheduler、transaction状態、protocol検査器、全topologyは推定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_updated_request_and_response_phases_survive_a_delayed_socket_round_trip",
+          "role": "direct",
+          "expected_observations": [
+            "UT: request updated 1 end_req 1 annotation 1",
+            "UT: delayed no_backward 1 pending 1",
+            "UT: response updated 1 end_resp 1 done 1 ok 1 annotation 1",
+            "UT: identity 1 no_wait 1 fw 1 bw 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-BACKWARD-COMPLETION-REUSE",
+      "clause": "12.3.2.2.2",
+      "statement": {
+        "en": "Backward socket forwarding preserves completion results across reuse of the same payload and delay handles.",
+        "ja": "backward socketの転送は、同じpayload／delay handleの再利用を通して完了結果を保つ。"
+      },
+      "conditions": {
+        "en": "Complete two successive requests via backward BEGIN_RESP and reinitialize response/annotation between them.",
+        "ja": "backwardのBEGIN_RESPで2 requestを順に完了し、間でresponse／注釈を再設定する。"
+      },
+      "expected": {
+        "en": "Each round reaches the intended callbacks and returns COMPLETED with its own fresh annotation.",
+        "ja": "各roundが意図したcallbackへ届き、それぞれ新しい注釈でCOMPLETEDを返す。"
+      },
+      "limitations": {
+        "en": "Testbench endpoints drive these selected histories over one paired pass-through socket layer. Positive waits occur between calls; every transport function is checked for no time advance. Supplied payload/delay identity, phase references and enum results are the obligations; no UVM-owned scheduler, transaction state, protocol validator or all topologies are inferred.",
+        "ja": "テストベンチのendpointが、対のpass-through socketを1層通して選択した履歴を駆動する。呼出し間に正の待機を入れ、各transport関数では時刻が進まないことを検査する。指定payload／delayの同一性、phase参照、enum結果を義務とし、UVMが所有するscheduler、transaction状態、protocol検査器、全topologyは推定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_backward_completion_allows_a_fresh_request_with_reused_payload_and_delay_handles",
+          "role": "direct",
+          "expected_observations": [
+            "UT: round 1 request 1 pending 1 incomplete 1",
+            "UT: round 1 completed 1 phase 1 done 1 ok 1 annotation 1",
+            "UT: round 2 request 1 pending 1 incomplete 1",
+            "UT: round 2 completed 1 phase 1 done 1 ok 1 annotation 1",
+            "UT: repeated counts 2/2",
+            "UT: identity 1 no_wait 1 fw 2 bw 4"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-REVERSED-RESPONSE-CONTEXT",
+      "clause": "12.3.2.2.2",
+      "statement": {
+        "en": "Backward socket forwarding preserves separately supplied transaction contexts when responses arrive in reverse order.",
+        "ja": "backward socketの転送は、逆順で届く応答でも、別々に渡したtransaction contextを保つ。"
+      },
+      "conditions": {
+        "en": "End each request phase before issuing the next, then respond to the second before the first.",
+        "ja": "次のrequest前に各request phaseを終え、2番目を1番目より先に応答する。"
+      },
+      "expected": {
+        "en": "The observed response order is 42 then 17, while each payload status and delay remains independent.",
+        "ja": "観測する応答順は42、17となり、各payloadのstatusとdelayを独立に保つ。"
+      },
+      "limitations": {
+        "en": "Testbench endpoints drive these selected histories over one paired pass-through socket layer. Positive waits occur between calls; every transport function is checked for no time advance. Supplied payload/delay identity, phase references and enum results are the obligations; no UVM-owned scheduler, transaction state, protocol validator or all topologies are inferred.",
+        "ja": "テストベンチのendpointが、対のpass-through socketを1層通して選択した履歴を駆動する。呼出し間に正の待機を入れ、各transport関数では時刻が進まないことを検査する。指定payload／delayの同一性、phase参照、enum結果を義務とし、UVMが所有するscheduler、transaction状態、protocol検査器、全topologyは推定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_two_outstanding_socket_responses_keep_reversed_payloads_and_annotations_separate",
+          "role": "direct",
+          "expected_observations": [
+            "UT: pending both 1 end_requests 2 responses 0",
+            "UT: second completed 1 first_pending 1 status_isolated 1 delays 1/1",
+            "UT: first completed 1 both_done 1 annotations 1/1",
+            "UT: response_order 42 17",
+            "UT: identity 1 no_wait 1 fw 2 bw 4"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-WC-WRITE-PREDICTION",
+      "clause": "18.5.5.17",
+      "statement": {
+        "en": "WC prediction: write data clears the complete field.",
+        "ja": "WCの予測では、write dataでfield全体を消去する。"
+      },
+      "conditions": {
+        "en": "Predict distinct repeated writes and a post-read write while preserving the adjacent field.",
+        "ja": "異なるwriteを反復し、read後にもwriteを予測して、隣接fieldを保つ。"
+      },
+      "expected": {
+        "en": "Each successful prediction updates desired/mirror consistently with the selected rule and preserves the peer slice.",
+        "ja": "成功する各予測が選択した規則に従ってdesired／mirrorを更新し、隣接sliceを保つ。"
+      },
+      "limitations": {
+        "en": "Two-state, byte-wide fields use all-enabled explicit frontdoor READ/WRITE predictions with no physical bus. An adjacent RW field or complementary policy provides a slice-isolation control. Field desired/mirrored values and the assembled register mirror are checked; restricted maps, byte masks, backdoors and all policies/widths remain separate.",
+        "ja": "2値のbyte幅fieldに、全byte有効の明示frontdoor READ／WRITE予測を使い、物理busは使わない。隣接RW fieldまたは相補的policyをsliceの独立性の比較対象にする。fieldのdesired／mirrorと合成registerのmirrorを検査し、制約map、byte mask、backdoor、全policy／幅は別途扱う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_field_write_clear_prediction_preserves_peer_through_write_read_cycles",
+          "role": "direct",
+          "expected_observations": [
+            "UT: 1 w ok 1 desired 0 mirror 0 peer 69 assembled 6900",
+            "UT: 2 w ok 1 desired 0 mirror 0 peer 69 assembled 6900",
+            "UT: 4 w ok 1 desired 0 mirror 0 peer 69 assembled 6900"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-WS-WRITE-PREDICTION",
+      "clause": "18.5.5.17",
+      "statement": {
+        "en": "WS prediction: write data sets the complete field.",
+        "ja": "WSの予測では、write dataでfield全体を設定する。"
+      },
+      "conditions": {
+        "en": "Predict distinct repeated writes and a post-read write while preserving the adjacent field.",
+        "ja": "異なるwriteを反復し、read後にもwriteを予測して、隣接fieldを保つ。"
+      },
+      "expected": {
+        "en": "Each successful prediction updates desired/mirror consistently with the selected rule and preserves the peer slice.",
+        "ja": "成功する各予測が選択した規則に従ってdesired／mirrorを更新し、隣接sliceを保つ。"
+      },
+      "limitations": {
+        "en": "Two-state, byte-wide fields use all-enabled explicit frontdoor READ/WRITE predictions with no physical bus. An adjacent RW field or complementary policy provides a slice-isolation control. Field desired/mirrored values and the assembled register mirror are checked; restricted maps, byte masks, backdoors and all policies/widths remain separate.",
+        "ja": "2値のbyte幅fieldに、全byte有効の明示frontdoor READ／WRITE予測を使い、物理busは使わない。隣接RW fieldまたは相補的policyをsliceの独立性の比較対象にする。fieldのdesired／mirrorと合成registerのmirrorを検査し、制約map、byte mask、backdoor、全policy／幅は別途扱う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_field_write_set_prediction_preserves_peer_through_write_read_cycles",
+          "role": "direct",
+          "expected_observations": [
+            "UT: 1 w ok 1 desired ff mirror ff peer 69 assembled 69ff",
+            "UT: 2 w ok 1 desired ff mirror ff peer 69 assembled 69ff",
+            "UT: 4 w ok 1 desired ff mirror ff peer 69 assembled 69ff"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-W0T-WRITE-PREDICTION",
+      "clause": "18.5.5.17",
+      "statement": {
+        "en": "W0T prediction: zero-selected write bits toggle the previous field state.",
+        "ja": "W0Tの予測では、writeで0を選んだbitがfieldの以前の状態を反転する。"
+      },
+      "conditions": {
+        "en": "Predict distinct repeated writes and a post-read write while preserving the adjacent field.",
+        "ja": "異なるwriteを反復し、read後にもwriteを予測して、隣接fieldを保つ。"
+      },
+      "expected": {
+        "en": "Each successful prediction updates desired/mirror consistently with the selected rule and preserves the peer slice.",
+        "ja": "成功する各予測が選択した規則に従ってdesired／mirrorを更新し、隣接sliceを保つ。"
+      },
+      "limitations": {
+        "en": "Two-state, byte-wide fields use all-enabled explicit frontdoor READ/WRITE predictions with no physical bus. An adjacent RW field or complementary policy provides a slice-isolation control. Field desired/mirrored values and the assembled register mirror are checked; restricted maps, byte masks, backdoors and all policies/widths remain separate.",
+        "ja": "2値のbyte幅fieldに、全byte有効の明示frontdoor READ／WRITE予測を使い、物理busは使わない。隣接RW fieldまたは相補的policyをsliceの独立性の比較対象にする。fieldのdesired／mirrorと合成registerのmirrorを検査し、制約map、byte mask、backdoor、全policy／幅は別途扱う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_field_write_zero_toggle_prediction_preserves_peer_through_write_read_cycles",
+          "role": "direct",
+          "expected_observations": [
+            "UT: 1 w ok 1 desired 55 mirror 55 peer 69 assembled 6955",
+            "UT: 2 w ok 1 desired 5a mirror 5a peer 69 assembled 695a",
+            "UT: 4 w ok 1 desired 5a mirror 5a peer 69 assembled 695a"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-WRC-WRITE-PREDICTION",
+      "clause": "18.5.5.17",
+      "statement": {
+        "en": "WRC prediction: write data replaces the field independently of a later read-clear.",
+        "ja": "WRCの予測では、write dataが、後のread-clearと独立してfieldを置換する。"
+      },
+      "conditions": {
+        "en": "Predict distinct repeated writes and a post-read write while preserving the adjacent field.",
+        "ja": "異なるwriteを反復し、read後にもwriteを予測して、隣接fieldを保つ。"
+      },
+      "expected": {
+        "en": "Each successful prediction updates desired/mirror consistently with the selected rule and preserves the peer slice.",
+        "ja": "成功する各予測が選択した規則に従ってdesired／mirrorを更新し、隣接sliceを保つ。"
+      },
+      "limitations": {
+        "en": "Two-state, byte-wide fields use all-enabled explicit frontdoor READ/WRITE predictions with no physical bus. An adjacent RW field or complementary policy provides a slice-isolation control. Field desired/mirrored values and the assembled register mirror are checked; restricted maps, byte masks, backdoors and all policies/widths remain separate.",
+        "ja": "2値のbyte幅fieldに、全byte有効の明示frontdoor READ／WRITE予測を使い、物理busは使わない。隣接RW fieldまたは相補的policyをsliceの独立性の比較対象にする。fieldのdesired／mirrorと合成registerのmirrorを検査し、制約map、byte mask、backdoor、全policy／幅は別途扱う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_field_write_read_clear_prediction_preserves_peer_through_write_read_cycles",
+          "role": "direct",
+          "expected_observations": [
+            "UT: 1 w ok 1 desired 3c mirror 3c peer 69 assembled 693c",
+            "UT: 2 w ok 1 desired a6 mirror a6 peer 69 assembled 69a6",
+            "UT: 4 w ok 1 desired 12 mirror 12 peer 69 assembled 6912"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-WRC-READ-PREDICTION",
+      "clause": "18.5.5.17",
+      "statement": {
+        "en": "WRC read prediction records the post-read clear state.",
+        "ja": "WRCのread予測は、read後の消去状態を記録する。"
+      },
+      "conditions": {
+        "en": "Predict reads after different writes, using the sampled pre-side-effect field value.",
+        "ja": "異なるwrite後に、副作用前にsampleしたfield値を使ってreadを予測する。"
+      },
+      "expected": {
+        "en": "Both desired and mirror become zero while the adjacent slice remains unchanged.",
+        "ja": "desiredとmirrorが両方0になり、隣接sliceは変更しない。"
+      },
+      "limitations": {
+        "en": "Two-state, byte-wide fields use all-enabled explicit frontdoor READ/WRITE predictions with no physical bus. An adjacent RW field or complementary policy provides a slice-isolation control. Field desired/mirrored values and the assembled register mirror are checked; restricted maps, byte masks, backdoors and all policies/widths remain separate.",
+        "ja": "2値のbyte幅fieldに、全byte有効の明示frontdoor READ／WRITE予測を使い、物理busは使わない。隣接RW fieldまたは相補的policyをsliceの独立性の比較対象にする。fieldのdesired／mirrorと合成registerのmirrorを検査し、制約map、byte mask、backdoor、全policy／幅は別途扱う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_field_write_read_clear_prediction_preserves_peer_through_write_read_cycles",
+          "role": "direct",
+          "expected_observations": [
+            "UT: 3 r ok 1 desired 0 mirror 0 peer 69 assembled 6900",
+            "UT: 5 r ok 1 desired 0 mirror 0 peer 69 assembled 6900"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-WRS-WRITE-PREDICTION",
+      "clause": "18.5.5.17",
+      "statement": {
+        "en": "WRS prediction: write data replaces the field independently of a later read-set.",
+        "ja": "WRSの予測では、write dataが、後のread-setと独立してfieldを置換する。"
+      },
+      "conditions": {
+        "en": "Predict distinct repeated writes and a post-read write while preserving the adjacent field.",
+        "ja": "異なるwriteを反復し、read後にもwriteを予測して、隣接fieldを保つ。"
+      },
+      "expected": {
+        "en": "Each successful prediction updates desired/mirror consistently with the selected rule and preserves the peer slice.",
+        "ja": "成功する各予測が選択した規則に従ってdesired／mirrorを更新し、隣接sliceを保つ。"
+      },
+      "limitations": {
+        "en": "Two-state, byte-wide fields use all-enabled explicit frontdoor READ/WRITE predictions with no physical bus. An adjacent RW field or complementary policy provides a slice-isolation control. Field desired/mirrored values and the assembled register mirror are checked; restricted maps, byte masks, backdoors and all policies/widths remain separate.",
+        "ja": "2値のbyte幅fieldに、全byte有効の明示frontdoor READ／WRITE予測を使い、物理busは使わない。隣接RW fieldまたは相補的policyをsliceの独立性の比較対象にする。fieldのdesired／mirrorと合成registerのmirrorを検査し、制約map、byte mask、backdoor、全policy／幅は別途扱う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_field_write_read_set_prediction_preserves_peer_through_write_read_cycles",
+          "role": "direct",
+          "expected_observations": [
+            "UT: 1 w ok 1 desired 3c mirror 3c peer 69 assembled 693c",
+            "UT: 2 w ok 1 desired a6 mirror a6 peer 69 assembled 69a6",
+            "UT: 4 w ok 1 desired 12 mirror 12 peer 69 assembled 6912"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-WRS-READ-PREDICTION",
+      "clause": "18.5.5.17",
+      "statement": {
+        "en": "WRS read prediction records the post-read set state.",
+        "ja": "WRSのread予測は、read後の設定状態を記録する。"
+      },
+      "conditions": {
+        "en": "Predict reads after different writes, using the sampled pre-side-effect field value.",
+        "ja": "異なるwrite後に、副作用前にsampleしたfield値を使ってreadを予測する。"
+      },
+      "expected": {
+        "en": "Both desired and mirror become all ones while the adjacent slice remains unchanged.",
+        "ja": "desiredとmirrorが両方全1になり、隣接sliceは変更しない。"
+      },
+      "limitations": {
+        "en": "Two-state, byte-wide fields use all-enabled explicit frontdoor READ/WRITE predictions with no physical bus. An adjacent RW field or complementary policy provides a slice-isolation control. Field desired/mirrored values and the assembled register mirror are checked; restricted maps, byte masks, backdoors and all policies/widths remain separate.",
+        "ja": "2値のbyte幅fieldに、全byte有効の明示frontdoor READ／WRITE予測を使い、物理busは使わない。隣接RW fieldまたは相補的policyをsliceの独立性の比較対象にする。fieldのdesired／mirrorと合成registerのmirrorを検査し、制約map、byte mask、backdoor、全policy／幅は別途扱う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_field_write_read_set_prediction_preserves_peer_through_write_read_cycles",
+          "role": "direct",
+          "expected_observations": [
+            "UT: 3 r ok 1 desired ff mirror ff peer 69 assembled 69ff",
+            "UT: 5 r ok 1 desired ff mirror ff peer 69 assembled 69ff"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-W1SRC-WRITE-PREDICTION",
+      "clause": "18.5.5.17",
+      "statement": {
+        "en": "W1SRC prediction: one-selected writes accumulate set bits using the current post-read state.",
+        "ja": "W1SRCの予測では、1を選んだwriteが、現在のread後の状態に対して設定bitを蓄積する。"
+      },
+      "conditions": {
+        "en": "Predict distinct repeated writes and a post-read write while preserving the adjacent field.",
+        "ja": "異なるwriteを反復し、read後にもwriteを予測して、隣接fieldを保つ。"
+      },
+      "expected": {
+        "en": "Each successful prediction updates desired/mirror consistently with the selected rule and preserves the peer slice.",
+        "ja": "成功する各予測が選択した規則に従ってdesired／mirrorを更新し、隣接sliceを保つ。"
+      },
+      "limitations": {
+        "en": "Two-state, byte-wide fields use all-enabled explicit frontdoor READ/WRITE predictions with no physical bus. An adjacent RW field or complementary policy provides a slice-isolation control. Field desired/mirrored values and the assembled register mirror are checked; restricted maps, byte masks, backdoors and all policies/widths remain separate.",
+        "ja": "2値のbyte幅fieldに、全byte有効の明示frontdoor READ／WRITE予測を使い、物理busは使わない。隣接RW fieldまたは相補的policyをsliceの独立性の比較対象にする。fieldのdesired／mirrorと合成registerのmirrorを検査し、制約map、byte mask、backdoor、全policy／幅は別途扱う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_field_write_one_set_read_clear_prediction_preserves_peer_through_write_read_cycles",
+          "role": "direct",
+          "expected_observations": [
+            "UT: 1 w ok 1 desired af mirror af peer 69 assembled 69af",
+            "UT: 2 w ok 1 desired bf mirror bf peer 69 assembled 69bf",
+            "UT: 4 w ok 1 desired 81 mirror 81 peer 69 assembled 6981"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-W1SRC-READ-PREDICTION",
+      "clause": "18.5.5.17",
+      "statement": {
+        "en": "W1SRC read prediction records the post-read clear state.",
+        "ja": "W1SRCのread予測は、read後の消去状態を記録する。"
+      },
+      "conditions": {
+        "en": "Predict reads after different writes, using the sampled pre-side-effect field value.",
+        "ja": "異なるwrite後に、副作用前にsampleしたfield値を使ってreadを予測する。"
+      },
+      "expected": {
+        "en": "Both desired and mirror become zero while the adjacent slice remains unchanged.",
+        "ja": "desiredとmirrorが両方0になり、隣接sliceは変更しない。"
+      },
+      "limitations": {
+        "en": "Two-state, byte-wide fields use all-enabled explicit frontdoor READ/WRITE predictions with no physical bus. An adjacent RW field or complementary policy provides a slice-isolation control. Field desired/mirrored values and the assembled register mirror are checked; restricted maps, byte masks, backdoors and all policies/widths remain separate.",
+        "ja": "2値のbyte幅fieldに、全byte有効の明示frontdoor READ／WRITE予測を使い、物理busは使わない。隣接RW fieldまたは相補的policyをsliceの独立性の比較対象にする。fieldのdesired／mirrorと合成registerのmirrorを検査し、制約map、byte mask、backdoor、全policy／幅は別途扱う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_field_write_one_set_read_clear_prediction_preserves_peer_through_write_read_cycles",
+          "role": "direct",
+          "expected_observations": [
+            "UT: 3 r ok 1 desired 0 mirror 0 peer 69 assembled 6900",
+            "UT: 5 r ok 1 desired 0 mirror 0 peer 69 assembled 6900"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-W1CRS-WRITE-PREDICTION",
+      "clause": "18.5.5.17",
+      "statement": {
+        "en": "W1CRS prediction: one-selected writes accumulate cleared bits using the current post-read state.",
+        "ja": "W1CRSの予測では、1を選んだwriteが、現在のread後の状態に対して消去bitを蓄積する。"
+      },
+      "conditions": {
+        "en": "Predict distinct repeated writes and a post-read write while preserving the adjacent field.",
+        "ja": "異なるwriteを反復し、read後にもwriteを予測して、隣接fieldを保つ。"
+      },
+      "expected": {
+        "en": "Each successful prediction updates desired/mirror consistently with the selected rule and preserves the peer slice.",
+        "ja": "成功する各予測が選択した規則に従ってdesired／mirrorを更新し、隣接sliceを保つ。"
+      },
+      "limitations": {
+        "en": "Two-state, byte-wide fields use all-enabled explicit frontdoor READ/WRITE predictions with no physical bus. An adjacent RW field or complementary policy provides a slice-isolation control. Field desired/mirrored values and the assembled register mirror are checked; restricted maps, byte masks, backdoors and all policies/widths remain separate.",
+        "ja": "2値のbyte幅fieldに、全byte有効の明示frontdoor READ／WRITE予測を使い、物理busは使わない。隣接RW fieldまたは相補的policyをsliceの独立性の比較対象にする。fieldのdesired／mirrorと合成registerのmirrorを検査し、制約map、byte mask、backdoor、全policy／幅は別途扱う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_field_write_one_clear_read_set_prediction_preserves_peer_through_write_read_cycles",
+          "role": "direct",
+          "expected_observations": [
+            "UT: 1 w ok 1 desired a0 mirror a0 peer 69 assembled 69a0",
+            "UT: 2 w ok 1 desired 80 mirror 80 peer 69 assembled 6980",
+            "UT: 4 w ok 1 desired fa mirror fa peer 69 assembled 69fa"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-W1CRS-READ-PREDICTION",
+      "clause": "18.5.5.17",
+      "statement": {
+        "en": "W1CRS read prediction records the post-read set state.",
+        "ja": "W1CRSのread予測は、read後の設定状態を記録する。"
+      },
+      "conditions": {
+        "en": "Predict reads after different writes, using the sampled pre-side-effect field value.",
+        "ja": "異なるwrite後に、副作用前にsampleしたfield値を使ってreadを予測する。"
+      },
+      "expected": {
+        "en": "Both desired and mirror become all ones while the adjacent slice remains unchanged.",
+        "ja": "desiredとmirrorが両方全1になり、隣接sliceは変更しない。"
+      },
+      "limitations": {
+        "en": "Two-state, byte-wide fields use all-enabled explicit frontdoor READ/WRITE predictions with no physical bus. An adjacent RW field or complementary policy provides a slice-isolation control. Field desired/mirrored values and the assembled register mirror are checked; restricted maps, byte masks, backdoors and all policies/widths remain separate.",
+        "ja": "2値のbyte幅fieldに、全byte有効の明示frontdoor READ／WRITE予測を使い、物理busは使わない。隣接RW fieldまたは相補的policyをsliceの独立性の比較対象にする。fieldのdesired／mirrorと合成registerのmirrorを検査し、制約map、byte mask、backdoor、全policy／幅は別途扱う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_field_write_one_clear_read_set_prediction_preserves_peer_through_write_read_cycles",
+          "role": "direct",
+          "expected_observations": [
+            "UT: 3 r ok 1 desired ff mirror ff peer 69 assembled 69ff",
+            "UT: 5 r ok 1 desired ff mirror ff peer 69 assembled 69ff"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-W0SRC-WRITE-PREDICTION",
+      "clause": "18.5.5.17",
+      "statement": {
+        "en": "W0SRC prediction: zero-selected write bits accumulate set bits.",
+        "ja": "W0SRCの予測では、0を選んだwrite bitで設定bitを蓄積する。"
+      },
+      "conditions": {
+        "en": "Use complementary policies in adjacent bytes and predict repeated zero-selected writes across a read side effect.",
+        "ja": "隣接byteに相補的policyを使い、readの副作用をまたいで0を選ぶwriteを反復予測する。"
+      },
+      "expected": {
+        "en": "The selected bits use the previous post-read state and each field keeps its own slice.",
+        "ja": "選択bitが以前のread後の状態を使い、各fieldが自身のsliceを保つ。"
+      },
+      "limitations": {
+        "en": "Two-state, byte-wide fields use all-enabled explicit frontdoor READ/WRITE predictions with no physical bus. An adjacent RW field or complementary policy provides a slice-isolation control. Field desired/mirrored values and the assembled register mirror are checked; restricted maps, byte masks, backdoors and all policies/widths remain separate.",
+        "ja": "2値のbyte幅fieldに、全byte有効の明示frontdoor READ／WRITE予測を使い、物理busは使わない。隣接RW fieldまたは相補的policyをsliceの独立性の比較対象にする。fieldのdesired／mirrorと合成registerのmirrorを検査し、制約map、byte mask、backdoor、全policy／幅は別途扱う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_field_zero_selected_write_read_side_effects_keep_complementary_slices_independent",
+          "role": "direct",
+          "expected_observations": [
+            "UT: 1 w ok 1 clear f5/f5 set 5/5 assembled 5f5",
+            "UT: 2 w ok 1 clear ff/ff set 0/0 assembled ff",
+            "UT: 4 w ok 1 clear 0/0 set ff/ff assembled ff00",
+            "UT: 5 w ok 1 clear 81/81 set 7e/7e assembled 7e81"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-W0SRC-READ-PREDICTION",
+      "clause": "18.5.5.17",
+      "statement": {
+        "en": "W0SRC prediction applies its clear side effect after a sampled read.",
+        "ja": "W0SRCの予測は、sampleしたread後に消去の副作用を適用する。"
+      },
+      "conditions": {
+        "en": "Read the two complementary fields after distinct write histories.",
+        "ja": "異なるwrite履歴の後、相補的な2 fieldをreadする。"
+      },
+      "expected": {
+        "en": "W0SRC becomes zero and W0CRS becomes all ones in both desired and mirror values.",
+        "ja": "W0SRCは0、W0CRSは全1へ、desired／mirrorの両方を更新する。"
+      },
+      "limitations": {
+        "en": "Two-state, byte-wide fields use all-enabled explicit frontdoor READ/WRITE predictions with no physical bus. An adjacent RW field or complementary policy provides a slice-isolation control. Field desired/mirrored values and the assembled register mirror are checked; restricted maps, byte masks, backdoors and all policies/widths remain separate.",
+        "ja": "2値のbyte幅fieldに、全byte有効の明示frontdoor READ／WRITE予測を使い、物理busは使わない。隣接RW fieldまたは相補的policyをsliceの独立性の比較対象にする。fieldのdesired／mirrorと合成registerのmirrorを検査し、制約map、byte mask、backdoor、全policy／幅は別途扱う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_field_zero_selected_write_read_side_effects_keep_complementary_slices_independent",
+          "role": "direct",
+          "expected_observations": [
+            "UT: 3 r ok 1 clear 0/0 set ff/ff assembled ff00",
+            "UT: 6 r ok 1 clear 0/0 set ff/ff assembled ff00"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-W0CRS-WRITE-PREDICTION",
+      "clause": "18.5.5.17",
+      "statement": {
+        "en": "W0CRS prediction: zero-selected write bits accumulate cleared bits.",
+        "ja": "W0CRSの予測では、0を選んだwrite bitで消去bitを蓄積する。"
+      },
+      "conditions": {
+        "en": "Use complementary policies in adjacent bytes and predict repeated zero-selected writes across a read side effect.",
+        "ja": "隣接byteに相補的policyを使い、readの副作用をまたいで0を選ぶwriteを反復予測する。"
+      },
+      "expected": {
+        "en": "The selected bits use the previous post-read state and each field keeps its own slice.",
+        "ja": "選択bitが以前のread後の状態を使い、各fieldが自身のsliceを保つ。"
+      },
+      "limitations": {
+        "en": "Two-state, byte-wide fields use all-enabled explicit frontdoor READ/WRITE predictions with no physical bus. An adjacent RW field or complementary policy provides a slice-isolation control. Field desired/mirrored values and the assembled register mirror are checked; restricted maps, byte masks, backdoors and all policies/widths remain separate.",
+        "ja": "2値のbyte幅fieldに、全byte有効の明示frontdoor READ／WRITE予測を使い、物理busは使わない。隣接RW fieldまたは相補的policyをsliceの独立性の比較対象にする。fieldのdesired／mirrorと合成registerのmirrorを検査し、制約map、byte mask、backdoor、全policy／幅は別途扱う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_field_zero_selected_write_read_side_effects_keep_complementary_slices_independent",
+          "role": "direct",
+          "expected_observations": [
+            "UT: 1 w ok 1 clear f5/f5 set 5/5 assembled 5f5",
+            "UT: 2 w ok 1 clear ff/ff set 0/0 assembled ff",
+            "UT: 4 w ok 1 clear 0/0 set ff/ff assembled ff00",
+            "UT: 5 w ok 1 clear 81/81 set 7e/7e assembled 7e81"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-W0CRS-READ-PREDICTION",
+      "clause": "18.5.5.17",
+      "statement": {
+        "en": "W0CRS prediction applies its set side effect after a sampled read.",
+        "ja": "W0CRSの予測は、sampleしたread後に設定の副作用を適用する。"
+      },
+      "conditions": {
+        "en": "Read the two complementary fields after distinct write histories.",
+        "ja": "異なるwrite履歴の後、相補的な2 fieldをreadする。"
+      },
+      "expected": {
+        "en": "W0SRC becomes zero and W0CRS becomes all ones in both desired and mirror values.",
+        "ja": "W0SRCは0、W0CRSは全1へ、desired／mirrorの両方を更新する。"
+      },
+      "limitations": {
+        "en": "Two-state, byte-wide fields use all-enabled explicit frontdoor READ/WRITE predictions with no physical bus. An adjacent RW field or complementary policy provides a slice-isolation control. Field desired/mirrored values and the assembled register mirror are checked; restricted maps, byte masks, backdoors and all policies/widths remain separate.",
+        "ja": "2値のbyte幅fieldに、全byte有効の明示frontdoor READ／WRITE予測を使い、物理busは使わない。隣接RW fieldまたは相補的policyをsliceの独立性の比較対象にする。fieldのdesired／mirrorと合成registerのmirrorを検査し、制約map、byte mask、backdoor、全policy／幅は別途扱う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_field_zero_selected_write_read_side_effects_keep_complementary_slices_independent",
+          "role": "direct",
+          "expected_observations": [
+            "UT: 3 r ok 1 clear 0/0 set ff/ff assembled ff00",
+            "UT: 6 r ok 1 clear 0/0 set ff/ff assembled ff00"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-EXPLICIT-DEPTH",
+      "clause": "14.1.2.10",
+      "statement": {
+        "en": "Explicit sequence depth overrides automatic depth and the most recent value is returned.",
+        "ja": "明示したsequence depthは自動計算を上書きし、最新の値を返す。"
+      },
+      "conditions": {
+        "en": "Read automatic depth then set nine and four on the same child.",
+        "ja": "同じ子で自動depthを読み、9と4を設定する。"
+      },
+      "expected": {
+        "en": "Depth changes from two to nine to four without changing the parent.",
+        "ja": "depthは親を変えず2、9、4へ変わる。"
+      },
+      "limitations": {
+        "en": "Only the named property and its selected fixture conditions are mapped. Control getters do not establish automatic randomization, printing/copying/recording, post-lock updates or arbitration. Hook/state fixtures use no item traffic; objection fixtures use an isolated starting task-phase node without the phase engine. Aggregate anchors do not imply independent checks of every value.",
+        "ja": "名前を付けた性質と選択した条件だけを対応付ける。制御getterは、自動randomize、print／copy／record、lock後の更新、arbitrationを示さない。hook／stateの構成はitem trafficを使わず、objectionの構成はphase engineなしで独立した開始task-phase nodeを使う。複合anchorは、全値の独立した検査を意味しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_explicit_depth_overrides_calculated_depth",
+          "role": "direct",
+          "expected_observations": [
+            "UT: automatic_depth 2",
+            "UT: first_override 9",
+            "UT: latest_override 4 parent_kept 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-AUTOMATIC-DEPTH",
+      "clause": "14.1.2.9",
+      "statement": {
+        "en": "Sequence depth follows the parent chain when no explicit override is installed.",
+        "ja": "明示overrideがなければ、sequence depthは親の連鎖に従う。"
+      },
+      "conditions": {
+        "en": "Build the full root/child/grandchild chain before querying depth.",
+        "ja": "depth照会前にroot／子／孫の連鎖全体を作る。"
+      },
+      "expected": {
+        "en": "Root, child and grandchild depths are one, two and three.",
+        "ja": "root、子、孫のdepthは1、2、3になる。"
+      },
+      "limitations": {
+        "en": "Only the named property and its selected fixture conditions are mapped. Control getters do not establish automatic randomization, printing/copying/recording, post-lock updates or arbitration. Hook/state fixtures use no item traffic; objection fixtures use an isolated starting task-phase node without the phase engine. Aggregate anchors do not imply independent checks of every value.",
+        "ja": "名前を付けた性質と選択した条件だけを対応付ける。制御getterは、自動randomize、print／copy／record、lock後の更新、arbitrationを示さない。hook／stateの構成はitem trafficを使わず、objectionの構成はphase engineなしで独立した開始task-phase nodeを使う。複合anchorは、全値の独立した検査を意味しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_parent_chain_determines_automatic_depth",
+          "role": "direct",
+          "expected_observations": [
+            "UT: depths 1 2 3",
+            "UT: parents 1 1"
+          ]
+        },
+        {
+          "test": "u14/test_sequence_explicit_depth_overrides_calculated_depth",
+          "role": "direct",
+          "expected_observations": [
+            "UT: automatic_depth 2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-ROOT-NAME",
+      "clause": "14.1.2.12",
+      "statement": {
+        "en": "The root-sequence name query returns the topmost parent name.",
+        "ja": "root-sequenceの名前照会は、最上位の親の名前を返す。"
+      },
+      "conditions": {
+        "en": "Query a named leaf under root and middle sequences.",
+        "ja": "rootとmiddleの下の名前付きleafを照会する。"
+      },
+      "expected": {
+        "en": "The root name is root.",
+        "ja": "rootの名前はrootになる。"
+      },
+      "limitations": {
+        "en": "Only the named property and its selected fixture conditions are mapped. Control getters do not establish automatic randomization, printing/copying/recording, post-lock updates or arbitration. Hook/state fixtures use no item traffic; objection fixtures use an isolated starting task-phase node without the phase engine. Aggregate anchors do not imply independent checks of every value.",
+        "ja": "名前を付けた性質と選択した条件だけを対応付ける。制御getterは、自動randomize、print／copy／record、lock後の更新、arbitrationを示さない。hook／stateの構成はitem trafficを使わず、objectionの構成はphase engineなしで独立した開始task-phase nodeを使う。複合anchorは、全値の独立した検査を意味しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_root_queries_and_path_follow_parent_chain",
+          "role": "direct",
+          "expected_observations": [
+            "UT: root_same 1 root_name root path root.middle.leaf"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-ROOT-HANDLE",
+      "clause": "14.1.2.13",
+      "statement": {
+        "en": "The root-sequence handle query returns the topmost parent object.",
+        "ja": "root-sequenceのhandle照会は、最上位の親objectを返す。"
+      },
+      "conditions": {
+        "en": "Query the leaf of a three-sequence chain.",
+        "ja": "3 sequenceの連鎖のleafを照会する。"
+      },
+      "expected": {
+        "en": "The handle equals the root sequence object.",
+        "ja": "handleがroot sequence objectに一致する。"
+      },
+      "limitations": {
+        "en": "Only the named property and its selected fixture conditions are mapped. Control getters do not establish automatic randomization, printing/copying/recording, post-lock updates or arbitration. Hook/state fixtures use no item traffic; objection fixtures use an isolated starting task-phase node without the phase engine. Aggregate anchors do not imply independent checks of every value.",
+        "ja": "名前を付けた性質と選択した条件だけを対応付ける。制御getterは、自動randomize、print／copy／record、lock後の更新、arbitrationを示さない。hook／stateの構成はitem trafficを使わず、objectionの構成はphase engineなしで独立した開始task-phase nodeを使う。複合anchorは、全値の独立した検査を意味しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_root_queries_and_path_follow_parent_chain",
+          "role": "direct",
+          "expected_observations": [
+            "UT: root_same 1 root_name root path root.middle.leaf"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-HIERARCHICAL-PATH",
+      "clause": "14.1.2.14",
+      "statement": {
+        "en": "The sequence path joins sequence names through the parent chain with dots.",
+        "ja": "sequence pathは、親の連鎖のsequence名をdotでつなぐ。"
+      },
+      "conditions": {
+        "en": "Use explicit root, middle and leaf names.",
+        "ja": "root、middle、leafの名前を明示する。"
+      },
+      "expected": {
+        "en": "The path is root.middle.leaf.",
+        "ja": "pathはroot.middle.leafになる。"
+      },
+      "limitations": {
+        "en": "Only the named property and its selected fixture conditions are mapped. Control getters do not establish automatic randomization, printing/copying/recording, post-lock updates or arbitration. Hook/state fixtures use no item traffic; objection fixtures use an isolated starting task-phase node without the phase engine. Aggregate anchors do not imply independent checks of every value.",
+        "ja": "名前を付けた性質と選択した条件だけを対応付ける。制御getterは、自動randomize、print／copy／record、lock後の更新、arbitrationを示さない。hook／stateの構成はitem trafficを使わず、objectionの構成はphase engineなしで独立した開始task-phase nodeを使う。複合anchorは、全値の独立した検査を意味しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_root_queries_and_path_follow_parent_chain",
+          "role": "direct",
+          "expected_observations": [
+            "UT: root_same 1 root_name root path root.middle.leaf"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-ITEM-EXPLICIT-EXECUTION-CONTEXT",
+      "clause": "14.1.2.2",
+      "statement": {
+        "en": "Item context assignment installs the supplied parent sequence and sequencer.",
+        "ja": "item contextの設定は、指定した親sequenceとsequencerを設定する。"
+      },
+      "conditions": {
+        "en": "Assign both arguments explicitly, including replacement while old handles remain live.",
+        "ja": "古いhandleを残したままの置換も含め、両引数を明示する。"
+      },
+      "expected": {
+        "en": "Queries return the newly supplied handles rather than the previous context.",
+        "ja": "照会は以前のcontextではなく、新しく指定したhandleを返す。"
+      },
+      "limitations": {
+        "en": "Only the named property and its selected fixture conditions are mapped. Control getters do not establish automatic randomization, printing/copying/recording, post-lock updates or arbitration. Hook/state fixtures use no item traffic; objection fixtures use an isolated starting task-phase node without the phase engine. Aggregate anchors do not imply independent checks of every value.",
+        "ja": "名前を付けた性質と選択した条件だけを対応付ける。制御getterは、自動randomize、print／copy／record、lock後の更新、arbitrationを示さない。hook／stateの構成はitem trafficを使わず、objectionの構成はphase engineなしで独立した開始task-phase nodeを使う。複合anchorは、全値の独立した検査を意味しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_item_context_sets_parent_and_sequencer",
+          "role": "direct",
+          "expected_observations": [
+            "UT: parent_same 1 sequencer_same 1"
+          ]
+        },
+        {
+          "test": "u14/test_sequence_item_context_replaces_previous_explicit_context",
+          "role": "direct",
+          "expected_observations": [
+            "UT: parents new 1 old 0 sequencers new 1 old 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-ITEM-INACTIVE-SEQUENCER-REFERENCE",
+      "clause": "14.1.2.6",
+      "statement": {
+        "en": "Setting an inactive item sequencer takes effect immediately and does not replace its parent.",
+        "ja": "inactive itemのsequencer設定は直ちに反映され、親は置換しない。"
+      },
+      "conditions": {
+        "en": "Set two sequencer handles and null without active item communication.",
+        "ja": "activeなitem通信なしで、2 sequencer handleとnullを設定する。"
+      },
+      "expected": {
+        "en": "Each query sees the current handle/null and retains the parent handle.",
+        "ja": "各照会は現在のhandle／nullを返し、親handleを保つ。"
+      },
+      "limitations": {
+        "en": "Only the named property and its selected fixture conditions are mapped. Control getters do not establish automatic randomization, printing/copying/recording, post-lock updates or arbitration. Hook/state fixtures use no item traffic; objection fixtures use an isolated starting task-phase node without the phase engine. Aggregate anchors do not imply independent checks of every value.",
+        "ja": "名前を付けた性質と選択した条件だけを対応付ける。制御getterは、自動randomize、print／copy／record、lock後の更新、arbitrationを示さない。hook／stateの構成はitem trafficを使わず、objectionの構成はphase engineなしで独立した開始task-phase nodeを使う。複合anchorは、全値の独立した検査を意味しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_item_sequencer_reference_can_change_while_inactive",
+          "role": "direct",
+          "expected_observations": [
+            "UT: first_same 1",
+            "UT: second_same 1 parent_kept 1",
+            "UT: cleared 1 parent_kept 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-RANDOMIZE-ENABLE-CONTROL",
+      "clause": "14.2.2.2",
+      "statement": {
+        "en": "The sequence randomization-enable getter defaults to one and reflects local updates.",
+        "ja": "sequenceのrandomization-enable getterは既定で1となり、localな更新を返す。"
+      },
+      "conditions": {
+        "en": "Read two new sequences and independently disable/re-enable them.",
+        "ja": "新しい2 sequenceを読み、それぞれ無効化／再有効化する。"
+      },
+      "expected": {
+        "en": "Defaults are one/one and updates affect only the chosen sequence.",
+        "ja": "既定値は1／1となり、選んだsequenceだけを更新する。"
+      },
+      "limitations": {
+        "en": "Only the named property and its selected fixture conditions are mapped. Control getters do not establish automatic randomization, printing/copying/recording, post-lock updates or arbitration. Hook/state fixtures use no item traffic; objection fixtures use an isolated starting task-phase node without the phase engine. Aggregate anchors do not imply independent checks of every value.",
+        "ja": "名前を付けた性質と選択した条件だけを対応付ける。制御getterは、自動randomize、print／copy／record、lock後の更新、arbitrationを示さない。hook／stateの構成はitem trafficを使わず、objectionの構成はphase engineなしで独立した開始task-phase nodeを使う。複合anchorは、全値の独立した検査を意味しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_randomize_enabled_defaults_and_updates_are_local",
+          "role": "direct",
+          "expected_observations": [
+            "UT: defaults 1 1",
+            "UT: first_disabled 0 1",
+            "UT: updated 1 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-ITEM-SEQUENCE-PREDICATE",
+      "clause": "14.1.2.11",
+      "statement": {
+        "en": "The virtual is_item predicate distinguishes an item from a derived sequence.",
+        "ja": "virtualなis_item述語は、itemと派生sequenceを区別する。"
+      },
+      "conditions": {
+        "en": "Call directly and through base item handles.",
+        "ja": "直接と、基底item handle経由で呼ぶ。"
+      },
+      "expected": {
+        "en": "An item returns one and a sequence zero through both call forms.",
+        "ja": "両方の呼び方でitemは1、sequenceは0を返す。"
+      },
+      "limitations": {
+        "en": "Only the named property and its selected fixture conditions are mapped. Control getters do not establish automatic randomization, printing/copying/recording, post-lock updates or arbitration. Hook/state fixtures use no item traffic; objection fixtures use an isolated starting task-phase node without the phase engine. Aggregate anchors do not imply independent checks of every value.",
+        "ja": "名前を付けた性質と選択した条件だけを対応付ける。制御getterは、自動randomize、print／copy／record、lock後の更新、arbitrationを示さない。hook／stateの構成はitem trafficを使わず、objectionの構成はphase engineなしで独立した開始task-phase nodeを使う。複合anchorは、全値の独立した検査を意味しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_is_item_dispatch_distinguishes_sequences",
+          "role": "direct",
+          "expected_observations": [
+            "UT: direct item 1 sequence 0",
+            "UT: base item 1 sequence 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-ITEM-SEQUENCE-INFO-CONTROL",
+      "clause": "14.1.2.3",
+      "statement": {
+        "en": "The sequence-info control defaults to zero and retains per-instance updates.",
+        "ja": "sequence-info制御は、既定値0でinstanceごとの更新を保つ。"
+      },
+      "conditions": {
+        "en": "Inspect a new item and sequence before using context setters.",
+        "ja": "context setterの使用前に、新しいitemとsequenceを照会する。"
+      },
+      "expected": {
+        "en": "Both defaults are zero and independent set/clear operations remain local.",
+        "ja": "両方の既定値は0で、個別の設定／消去はlocalに保つ。"
+      },
+      "limitations": {
+        "en": "Only the named property and its selected fixture conditions are mapped. Control getters do not establish automatic randomization, printing/copying/recording, post-lock updates or arbitration. Hook/state fixtures use no item traffic; objection fixtures use an isolated starting task-phase node without the phase engine. Aggregate anchors do not imply independent checks of every value.",
+        "ja": "名前を付けた性質と選択した条件だけを対応付ける。制御getterは、自動randomize、print／copy／record、lock後の更新、arbitrationを示さない。hook／stateの構成はitem trafficを使わず、objectionの構成はphase engineなしで独立した開始task-phase nodeを使う。複合anchorは、全値の独立した検査を意味しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_info_flags_default_off_and_are_per_instance",
+          "role": "direct",
+          "expected_observations": [
+            "UT: defaults 0 0",
+            "UT: item_enabled 1 0",
+            "UT: independently_updated 0 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-STARTING-PHASE-CONTROL",
+      "clause": "14.2.4.1",
+      "statement": {
+        "en": "The starting-phase getter returns the phase assigned to that sequence.",
+        "ja": "starting-phase getterは、そのsequenceに設定したphaseを返す。"
+      },
+      "conditions": {
+        "en": "Assign distinct phase handles before the first getter calls.",
+        "ja": "最初のgetter呼出し前に、異なるphase handleを設定する。"
+      },
+      "expected": {
+        "en": "Each sequence returns its own configured handle.",
+        "ja": "各sequenceは自身に設定したhandleを返す。"
+      },
+      "limitations": {
+        "en": "Only the named property and its selected fixture conditions are mapped. Control getters do not establish automatic randomization, printing/copying/recording, post-lock updates or arbitration. Hook/state fixtures use no item traffic; objection fixtures use an isolated starting task-phase node without the phase engine. Aggregate anchors do not imply independent checks of every value.",
+        "ja": "名前を付けた性質と選択した条件だけを対応付ける。制御getterは、自動randomize、print／copy／record、lock後の更新、arbitrationを示さない。hook／stateの構成はitem trafficを使わず、objectionの構成はphase engineなしで独立した開始task-phase nodeを使う。複合anchorは、全値の独立した検査を意味しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_starting_phase_and_objection_controls_are_per_instance",
+          "role": "direct",
+          "expected_observations": [
+            "UT: phases_same 1 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-AUTO-OBJECTION-CONTROL",
+      "clause": "14.2.4.4",
+      "statement": {
+        "en": "Automatic-objection settings are retained independently per sequence.",
+        "ja": "automatic-objectionの設定は、sequenceごとに独立して保持する。"
+      },
+      "conditions": {
+        "en": "Set enabled/disabled controls before reading their potentially locked values.",
+        "ja": "lockされ得る値を読む前に、有効／無効を設定する。"
+      },
+      "expected": {
+        "en": "The two sequences return one and zero respectively.",
+        "ja": "2 sequenceはそれぞれ1と0を返す。"
+      },
+      "limitations": {
+        "en": "Only the named property and its selected fixture conditions are mapped. Control getters do not establish automatic randomization, printing/copying/recording, post-lock updates or arbitration. Hook/state fixtures use no item traffic; objection fixtures use an isolated starting task-phase node without the phase engine. Aggregate anchors do not imply independent checks of every value.",
+        "ja": "名前を付けた性質と選択した条件だけを対応付ける。制御getterは、自動randomize、print／copy／record、lock後の更新、arbitrationを示さない。hook／stateの構成はitem trafficを使わず、objectionの構成はphase engineなしで独立した開始task-phase nodeを使う。複合anchorは、全値の独立した検査を意味しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_starting_phase_and_objection_controls_are_per_instance",
+          "role": "direct",
+          "expected_observations": [
+            "UT: auto_objections 1 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-OPTIONAL-BODY-HOOKS",
+      "clause": "14.2.3.1",
+      "statement": {
+        "en": "The start call_pre_post argument controls pre_body and post_body around the body.",
+        "ja": "startのcall_pre_post引数は、bodyの前後のpre_body／post_bodyを制御する。"
+      },
+      "conditions": {
+        "en": "Run otherwise identical no-traffic sequences with true and false.",
+        "ja": "他は同じでtrafficのないsequenceをtrue／falseで動かす。"
+      },
+      "expected": {
+        "en": "Both optional hooks occur only in the enabled trace while pre_start/body/post_start remain ordered.",
+        "ja": "任意の両hookは有効時だけに現れ、pre_start／body／post_startの順序を保つ。"
+      },
+      "limitations": {
+        "en": "Only the named property and its selected fixture conditions are mapped. Control getters do not establish automatic randomization, printing/copying/recording, post-lock updates or arbitration. Hook/state fixtures use no item traffic; objection fixtures use an isolated starting task-phase node without the phase engine. Aggregate anchors do not imply independent checks of every value.",
+        "ja": "名前を付けた性質と選択した条件だけを対応付ける。制御getterは、自動randomize、print／copy／record、lock後の更新、arbitrationを示さない。hook／stateの構成はitem trafficを使わず、objectionの構成はphase engineなしで独立した開始task-phase nodeを使う。複合anchorは、全値の独立した検査を意味しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_start_orders_default_hooks",
+          "role": "direct",
+          "expected_observations": [
+            "UT: pre_start state_ok 1",
+            "UT: pre_body state_ok 1",
+            "UT: body state_ok 1",
+            "UT: post_body state_ok 1",
+            "UT: post_start state_ok 1",
+            "UT: returned_finished 1"
+          ]
+        },
+        {
+          "test": "u14/test_sequence_start_orders_without_pre_post_body",
+          "role": "direct",
+          "expected_observations": [
+            "UT: pre_start state_ok 1",
+            "UT: body state_ok 1",
+            "UT: post_start state_ok 1",
+            "UT: returned_finished 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-PRE-START-ORDER",
+      "clause": "14.2.3.2",
+      "statement": {
+        "en": "pre_start executes before the optional pre_body and the sequence body.",
+        "ja": "pre_startは、任意のpre_bodyとsequence bodyより先に実行する。"
+      },
+      "conditions": {
+        "en": "Run starts with optional body hooks enabled and disabled.",
+        "ja": "任意のbody hookを有効／無効にして開始する。"
+      },
+      "expected": {
+        "en": "pre_start precedes the next executed body hook in both traces.",
+        "ja": "両traceで、pre_startは次に実行するbody hookより先になる。"
+      },
+      "limitations": {
+        "en": "Only the named property and its selected fixture conditions are mapped. Control getters do not establish automatic randomization, printing/copying/recording, post-lock updates or arbitration. Hook/state fixtures use no item traffic; objection fixtures use an isolated starting task-phase node without the phase engine. Aggregate anchors do not imply independent checks of every value.",
+        "ja": "名前を付けた性質と選択した条件だけを対応付ける。制御getterは、自動randomize、print／copy／record、lock後の更新、arbitrationを示さない。hook／stateの構成はitem trafficを使わず、objectionの構成はphase engineなしで独立した開始task-phase nodeを使う。複合anchorは、全値の独立した検査を意味しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_start_orders_default_hooks",
+          "role": "direct",
+          "expected_observations": [
+            "UT: pre_start state_ok 1",
+            "UT: pre_body state_ok 1"
+          ]
+        },
+        {
+          "test": "u14/test_sequence_start_orders_without_pre_post_body",
+          "role": "direct",
+          "expected_observations": [
+            "UT: pre_start state_ok 1",
+            "UT: body state_ok 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-POST-START-ORDER",
+      "clause": "14.2.3.9",
+      "statement": {
+        "en": "post_start executes after the body and optional post_body.",
+        "ja": "post_startは、bodyと任意のpost_bodyの後に実行する。"
+      },
+      "conditions": {
+        "en": "Run starts with optional body hooks enabled and disabled.",
+        "ja": "任意のbody hookを有効／無効にして開始する。"
+      },
+      "expected": {
+        "en": "post_start follows the last executed body hook in both traces.",
+        "ja": "両traceで、post_startは最後に実行するbody hookの後になる。"
+      },
+      "limitations": {
+        "en": "Only the named property and its selected fixture conditions are mapped. Control getters do not establish automatic randomization, printing/copying/recording, post-lock updates or arbitration. Hook/state fixtures use no item traffic; objection fixtures use an isolated starting task-phase node without the phase engine. Aggregate anchors do not imply independent checks of every value.",
+        "ja": "名前を付けた性質と選択した条件だけを対応付ける。制御getterは、自動randomize、print／copy／record、lock後の更新、arbitrationを示さない。hook／stateの構成はitem trafficを使わず、objectionの構成はphase engineなしで独立した開始task-phase nodeを使う。複合anchorは、全値の独立した検査を意味しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_start_orders_default_hooks",
+          "role": "direct",
+          "expected_observations": [
+            "UT: post_body state_ok 1",
+            "UT: post_start state_ok 1"
+          ]
+        },
+        {
+          "test": "u14/test_sequence_start_orders_without_pre_post_body",
+          "role": "direct",
+          "expected_observations": [
+            "UT: body state_ok 1",
+            "UT: post_start state_ok 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-NATURAL-START-COMPLETION",
+      "clause": "14.2.3.1",
+      "statement": {
+        "en": "Sequence start returns after natural completion and can be invoked again on a completed sequence.",
+        "ja": "sequenceのstartは自然完了後に戻り、完了済みsequenceで再び呼べる。"
+      },
+      "conditions": {
+        "en": "Run no-item bodies and restart a counter sequence sequentially.",
+        "ja": "itemなしのbodyを動かし、counter sequenceを順番に再開する。"
+      },
+      "expected": {
+        "en": "Returns observe FINISHED and each sequential invocation executes the body once.",
+        "ja": "戻り時はFINISHEDで、各順次呼出しがbodyを1回実行する。"
+      },
+      "limitations": {
+        "en": "Only the named property and its selected fixture conditions are mapped. Control getters do not establish automatic randomization, printing/copying/recording, post-lock updates or arbitration. Hook/state fixtures use no item traffic; objection fixtures use an isolated starting task-phase node without the phase engine. Aggregate anchors do not imply independent checks of every value.",
+        "ja": "名前を付けた性質と選択した条件だけを対応付ける。制御getterは、自動randomize、print／copy／record、lock後の更新、arbitrationを示さない。hook／stateの構成はitem trafficを使わず、objectionの構成はphase engineなしで独立した開始task-phase nodeを使う。複合anchorは、全値の独立した検査を意味しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_start_orders_default_hooks",
+          "role": "direct",
+          "expected_observations": [
+            "UT: returned_finished 1"
+          ]
+        },
+        {
+          "test": "u14/test_sequence_start_orders_without_pre_post_body",
+          "role": "direct",
+          "expected_observations": [
+            "UT: returned_finished 1"
+          ]
+        },
+        {
+          "test": "u14/test_sequence_can_restart_after_natural_completion",
+          "role": "direct",
+          "expected_observations": [
+            "UT: allocated_state 1",
+            "UT: first calls 1 finished 1",
+            "UT: second calls 2 finished 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-STATE-QUERY",
+      "clause": "14.2.2.4",
+      "statement": {
+        "en": "The sequence-state getter reports the state corresponding to allocation, hooks and natural completion.",
+        "ja": "sequence-state getterは、生成、hook、自然完了に対応する状態を返す。"
+      },
+      "conditions": {
+        "en": "Inspect a new sequence and state inside/after start hooks.",
+        "ja": "新しいsequenceと、start hookの中／後のstateを照会する。"
+      },
+      "expected": {
+        "en": "Observed states agree with CREATED, the executing hook and FINISHED.",
+        "ja": "観測stateがCREATED、実行hook、FINISHEDに一致する。"
+      },
+      "limitations": {
+        "en": "Only the named property and its selected fixture conditions are mapped. Control getters do not establish automatic randomization, printing/copying/recording, post-lock updates or arbitration. Hook/state fixtures use no item traffic; objection fixtures use an isolated starting task-phase node without the phase engine. Aggregate anchors do not imply independent checks of every value.",
+        "ja": "名前を付けた性質と選択した条件だけを対応付ける。制御getterは、自動randomize、print／copy／record、lock後の更新、arbitrationを示さない。hook／stateの構成はitem trafficを使わず、objectionの構成はphase engineなしで独立した開始task-phase nodeを使う。複合anchorは、全値の独立した検査を意味しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_start_orders_default_hooks",
+          "role": "direct",
+          "expected_observations": [
+            "UT: pre_start state_ok 1",
+            "UT: pre_body state_ok 1",
+            "UT: body state_ok 1",
+            "UT: post_body state_ok 1",
+            "UT: post_start state_ok 1",
+            "UT: returned_finished 1"
+          ]
+        },
+        {
+          "test": "u14/test_sequence_start_orders_without_pre_post_body",
+          "role": "direct",
+          "expected_observations": [
+            "UT: pre_start state_ok 1",
+            "UT: body state_ok 1",
+            "UT: post_start state_ok 1",
+            "UT: returned_finished 1"
+          ]
+        },
+        {
+          "test": "u14/test_sequence_can_restart_after_natural_completion",
+          "role": "direct",
+          "expected_observations": [
+            "UT: allocated_state 1",
+            "UT: first calls 1 finished 1",
+            "UT: second calls 2 finished 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-STATE-WAIT",
+      "clause": "14.2.2.5",
+      "statement": {
+        "en": "State waiting returns when a selected state is reached and accepts an already matching state mask.",
+        "ja": "state待機は選択stateへ到達すると戻り、既に一致するstate maskも受け付ける。"
+      },
+      "conditions": {
+        "en": "Make BODY observable with a delay, then wait for FINISHED and a matching OR mask.",
+        "ja": "遅延でBODYを観測可能にし、FINISHEDと、一致するOR maskを待つ。"
+      },
+      "expected": {
+        "en": "The waiters observe BODY and FINISHED and execution reaches the matching-mask return marker.",
+        "ja": "待機側はBODYとFINISHEDを観測し、一致maskの戻りmarkerへ到達する。"
+      },
+      "limitations": {
+        "en": "Only the named property and its selected fixture conditions are mapped. Control getters do not establish automatic randomization, printing/copying/recording, post-lock updates or arbitration. Hook/state fixtures use no item traffic; objection fixtures use an isolated starting task-phase node without the phase engine. Aggregate anchors do not imply independent checks of every value.",
+        "ja": "名前を付けた性質と選択した条件だけを対応付ける。制御getterは、自動randomize、print／copy／record、lock後の更新、arbitrationを示さない。hook／stateの構成はitem trafficを使わず、objectionの構成はphase engineなしで独立した開始task-phase nodeを使う。複合anchorは、全値の独立した検査を意味しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_state_waiters_observe_body_and_completion",
+          "role": "direct",
+          "expected_observations": [
+            "UT: observed_body 1",
+            "UT: observed_finished 1",
+            "UT: matching_mask_returned 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-START-PRIORITY-SELECTION",
+      "clause": "14.2.3.1",
+      "statement": {
+        "en": "Start selects root default, explicit and inherited child priorities.",
+        "ja": "startはrootの既定、明示、子の継承priorityを選ぶ。"
+      },
+      "conditions": {
+        "en": "Start independent roots and a live parent/child with explicit parent priority 37.",
+        "ja": "独立rootと、親priority 37を明示した実行中の親／子を開始する。"
+      },
+      "expected": {
+        "en": "Root default is 100, explicit root is 23 and the child inherits 37.",
+        "ja": "rootの既定は100、明示rootは23となり、子は37を継承する。"
+      },
+      "limitations": {
+        "en": "Only the named property and its selected fixture conditions are mapped. Control getters do not establish automatic randomization, printing/copying/recording, post-lock updates or arbitration. Hook/state fixtures use no item traffic; objection fixtures use an isolated starting task-phase node without the phase engine. Aggregate anchors do not imply independent checks of every value.",
+        "ja": "名前を付けた性質と選択した条件だけを対応付ける。制御getterは、自動randomize、print／copy／record、lock後の更新、arbitrationを示さない。hook／stateの構成はitem trafficを使わず、objectionの構成はphase engineなしで独立した開始task-phase nodeを使う。複合anchorは、全値の独立した検査を意味しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_start_selects_default_and_explicit_priorities",
+          "role": "direct",
+          "expected_observations": [
+            "UT: body_priority 100",
+            "UT: body_priority 23"
+          ]
+        },
+        {
+          "test": "u14/test_child_sequence_inherits_priority_from_running_parent",
+          "role": "direct",
+          "expected_observations": [
+            "UT: parent priority 37",
+            "UT: child priority 37 parent_same 1",
+            "UT: child_finished 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-PRIORITY-CONTROL-UPDATE",
+      "clause": "14.2.5.2",
+      "statement": {
+        "en": "Setting a valid sequence priority updates the value returned by its getter.",
+        "ja": "有効なsequence priorityの設定は、getterが返す値を更新する。"
+      },
+      "conditions": {
+        "en": "Set priority seven after the observed sequence completes.",
+        "ja": "観測するsequenceの完了後にpriority 7を設定する。"
+      },
+      "expected": {
+        "en": "The getter returns seven; no arbitration behavior is claimed by this fixture.",
+        "ja": "getterは7を返し、この検査系ではarbitrationの動作は主張しない。"
+      },
+      "limitations": {
+        "en": "Only the named property and its selected fixture conditions are mapped. Control getters do not establish automatic randomization, printing/copying/recording, post-lock updates or arbitration. Hook/state fixtures use no item traffic; objection fixtures use an isolated starting task-phase node without the phase engine. Aggregate anchors do not imply independent checks of every value.",
+        "ja": "名前を付けた性質と選択した条件だけを対応付ける。制御getterは、自動randomize、print／copy／record、lock後の更新、arbitrationを示さない。hook／stateの構成はitem trafficを使わず、objectionの構成はphase engineなしで独立した開始task-phase nodeを使う。複合anchorは、全値の独立した検査を意味しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_start_selects_default_and_explicit_priorities",
+          "role": "direct",
+          "expected_observations": [
+            "UT: updated_priority 7"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-CHILD-PARENT-HOOKS",
+      "clause": "14.2.3.1",
+      "statement": {
+        "en": "Starting a child sequence invokes its parent pre_do, mid_do and post_do around the child body.",
+        "ja": "子sequenceの開始は、子bodyの前後に親のpre_do／mid_do／post_doを呼ぶ。"
+      },
+      "conditions": {
+        "en": "Use explicit child priority and parent/child handles without item traffic.",
+        "ja": "item trafficなしで、子priorityと親／子handleを明示する。"
+      },
+      "expected": {
+        "en": "The ordered trace identifies a sequence pre_do and the exact child/parent handles.",
+        "ja": "順序付きtraceで、sequenceのpre_doと、正確な子／親handleを識別する。"
+      },
+      "limitations": {
+        "en": "Only the named property and its selected fixture conditions are mapped. Control getters do not establish automatic randomization, printing/copying/recording, post-lock updates or arbitration. Hook/state fixtures use no item traffic; objection fixtures use an isolated starting task-phase node without the phase engine. Aggregate anchors do not imply independent checks of every value.",
+        "ja": "名前を付けた性質と選択した条件だけを対応付ける。制御getterは、自動randomize、print／copy／record、lock後の更新、arbitrationを示さない。hook／stateの構成はitem trafficを使わず、objectionの構成はphase engineなしで独立した開始task-phase nodeを使う。複合anchorは、全値の独立した検査を意味しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_child_sequence_start_invokes_parent_execution_hooks",
+          "role": "direct",
+          "expected_observations": [
+            "UT: parent_pre is_item 0",
+            "UT: parent_mid child_same 1",
+            "UT: child_body parent_same 1",
+            "UT: parent_post child_same 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-AUTOMATIC-OBJECTION-LIFETIME",
+      "clause": "14.2.4.3",
+      "statement": {
+        "en": "Enabled automatic phase objection spans pre_start through post_start and drops after start returns.",
+        "ja": "有効なautomatic phase objectionはpre_startからpost_startまで続き、startの戻り後はdropする。"
+      },
+      "conditions": {
+        "en": "Use enabled/disabled sequences against an isolated starting task-phase node.",
+        "ja": "独立した開始task-phase nodeで有効／無効のsequenceを使う。"
+      },
+      "expected": {
+        "en": "Enabled counts are one inside the hooks and zero afterward; disabled counts stay zero.",
+        "ja": "有効時はhook内のcountが1、後は0となり、無効時は0を保つ。"
+      },
+      "limitations": {
+        "en": "Only the named property and its selected fixture conditions are mapped. Control getters do not establish automatic randomization, printing/copying/recording, post-lock updates or arbitration. Hook/state fixtures use no item traffic; objection fixtures use an isolated starting task-phase node without the phase engine. Aggregate anchors do not imply independent checks of every value.",
+        "ja": "名前を付けた性質と選択した条件だけを対応付ける。制御getterは、自動randomize、print／copy／record、lock後の更新、arbitrationを示さない。hook／stateの構成はitem trafficを使わず、objectionの構成はphase engineなしで独立した開始task-phase nodeを使う。複合anchorは、全値の独立した検査を意味しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_automatic_objection_raises_and_drops_starting_phase_objection",
+          "role": "direct",
+          "expected_observations": [
+            "UT: pre_start count 1",
+            "UT: body count 1",
+            "UT: post_start count 1",
+            "UT: after_start count 0"
+          ]
+        },
+        {
+          "test": "u14/test_sequence_automatic_objection_disabled_leaves_starting_phase_unobjected",
+          "role": "direct",
+          "expected_observations": [
+            "UT: pre_start count 0",
+            "UT: body count 0",
+            "UT: post_start count 0",
+            "UT: after_start count 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-RESPONSE-QUEUE-CLEAR",
+      "clause": "14.2.7.8",
+      "statement": {
+        "en": "Clearing a sequence response queue discards its queued replies before later retrieval.",
+        "ja": "sequenceのresponse queueのclearは、後の取得前に保存応答を破棄する。"
+      },
+      "conditions": {
+        "en": "Queue two real-ID replies without a reader, clear, then deliver and read a fresh third reply.",
+        "ja": "readerなしで実IDの応答を2つ保存し、clearしてから新しい3番目の応答を送り読む。"
+      },
+      "expected": {
+        "en": "The retrieval returns the third handle, payload 33 and transaction ID 103.",
+        "ja": "取得は3番目のhandle、payload 33、transaction ID 103を返す。"
+      },
+      "limitations": {
+        "en": "Only the named property and its selected fixture conditions are mapped. Control getters do not establish automatic randomization, printing/copying/recording, post-lock updates or arbitration. Hook/state fixtures use no item traffic; objection fixtures use an isolated starting task-phase node without the phase engine. Aggregate anchors do not imply independent checks of every value.",
+        "ja": "名前を付けた性質と選択した条件だけを対応付ける。制御getterは、自動randomize、print／copy／record、lock後の更新、arbitrationを示さない。hook／stateの構成はitem trafficを使わず、objectionの構成はphase engineなしで独立した開始task-phase nodeを使う。複合anchorは、全値の独立した検査を意味しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_clear_response_queue_allows_fresh_reply",
+          "role": "direct",
+          "expected_observations": [
+            "UT: fresh payload 33 id 103 same 1"
+          ]
+        }
+      ]
     }
   ]
 }

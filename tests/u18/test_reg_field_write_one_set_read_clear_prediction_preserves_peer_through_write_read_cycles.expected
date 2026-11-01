@@ -1,0 +1,5 @@
+UT: 1 w ok 1 desired af mirror af peer 69 assembled 69af
+UT: 2 w ok 1 desired bf mirror bf peer 69 assembled 69bf
+UT: 3 r ok 1 desired 0 mirror 0 peer 69 assembled 6900
+UT: 4 w ok 1 desired 81 mirror 81 peer 69 assembled 6981
+UT: 5 r ok 1 desired 0 mirror 0 peer 69 assembled 6900

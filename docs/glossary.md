@@ -552,3 +552,22 @@ concurrency fixtures leave the scheduler's choice of consumer unconstrained.
 descriptor before transfer, including its offset/map. Post-access callbacks and
 methods compose return data/status after transfer. Each method/callback ordering
 rule must be checked for `uvm_mem`; register behavior alone does not establish it.
+
+## Synchronization and transport histories
+
+**Event persistence** — The on-state persists until reset. A persistent trigger
+wait instead recognizes a trigger only within its current time slice; a later
+time slice needs a fresh trigger even while the on-state remains set.
+
+**Barrier threshold** — The number of participants required at a synchronization
+point. Default auto-reset requires a fresh group on reuse; disabling it keeps
+the reached barrier open until reset. Release order is not part of these tests.
+
+**Nonblocking transport history** — A testbench-driven series of forward and
+backward phase calls separated by waits. Sockets forward the supplied phase,
+payload/delay handles and enum results; the fixture owns outstanding state and
+scheduling. Timing annotation is distinct from a simulation-time wait.
+
+**Post-read prediction** — A READ prediction uses the supplied sampled value and
+records any access-policy side effect in desired/mirrored state. A predicted
+clear/set is not itself evidence of a physical read or its returned data.

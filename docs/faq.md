@@ -173,7 +173,7 @@ a claim that every test was rebuilt together.
 
 ### Q16. Are M1, M2 or M3 complete, and what does the test count cover?
 
-M1 and M2 still have open clause targets. M3 now has 238
+M1 and M2 still have open clause targets. M3 now has 246
 register-layer cases, including testbench frontdoor paths; it is also incomplete. Starting a stage does not complete
 the preceding stages.
 The [plan](../README.md#plan) identifies current scope and remaining work.
@@ -1136,9 +1136,9 @@ not a direct test of the requirement.
 
 ### Q77. Why is there no coverage percentage after starting M4?
 
-The 490 AI drafts cover only a partial decomposition: 486 requirements link
-directly to 555 tests, 4 have no direct test, and one separate test is a control.
-Another 329 tests are not mapped yet. The 2,504 clause identifiers are not normative requirement units.
+The 543 AI drafts cover only a partial decomposition: 539 requirements link
+directly to 595 tests, 4 have no direct test, and one separate test is a control.
+Another 309 tests are not mapped yet. The 2,504 clause identifiers are not normative requirement units.
 The scope is proposed, the inventory incomplete and the denominator unapproved;
 starting M4 approves none of those. Known differences and HDL/DPI limitations
 do not silently exclude obligations. See the [approval path](requirements.md#remaining-m4-work-and-approval).
@@ -1443,3 +1443,77 @@ Deleting callbacks supplies working controls. Pre-read map redirection and
 post-write order remain spec-only for the pinned library; their expectations
 are retained. These fixtures establish selected UVM hook behavior, not RTL
 protocols, HDL DPI, bursts or every callback combination.
+
+## Event/barrier synchronization and timed transport histories
+
+### Q95. Do events and barriers stay released after one trigger or threshold?
+
+For an event, `wait_on` returns immediately while the event stays on;
+`wait_off` waits until reset. After reset a new `wait_on` blocks until another
+trigger. An ordinary `wait_trigger_data` waits for a fresh trigger if the old
+trigger was in an earlier time slice. By contrast,
+[the persistent case](../tests/u10/test_event_persistent_trigger_data_is_immediate_only_in_the_triggering_time_slice.sv)
+uses `wait_ptrigger_data` immediately after a same-slice trigger, then shows
+that a later-slice call needs a new trigger. Default-data setters/getters and
+explicit versus omitted trigger arguments are checked separately per event.
+
+A barrier defaults to auto-reset: every round must reach its threshold again.
+[Disabling auto-reset](../tests/u10/test_barrier_without_auto_reset_remains_open_until_explicit_reset.sv)
+keeps the barrier open until reset. Separate cases lower a threshold below
+the pending count and reset with default wakeup, then check reuse. Positive
+delays establish waiting states, and no release order is required between
+participants. Event delta-one waits, callbacks, cancellation and reset without
+wakeup remain separate work.
+
+### Q96. Are the new TLM 2 tests protocol validators or simulator schedulers?
+
+The testbench drives selected protocol histories; sockets forward the calls.
+The [four-phase case](../tests/u12/test_tlm2_four_phase_socket_history_preserves_delayed_forward_and_backward_annotations.sv)
+sends the following calls through paired pass-through sockets, with positive
+waits between calls. Each function must return without advancing simulation
+time and preserve the supplied payload/delay handles. Timing annotation is
+measured explicitly in nanoseconds and remains separate from those waits.
+
+```mermaid
+sequenceDiagram
+    participant I as "Initiator"
+    participant T as "Target"
+    I->>T: BEGIN_REQ
+    T-->>I: ACCEPTED
+    Note over I,T: "Testbench waits"
+    T->>I: END_REQ
+    I-->>T: ACCEPTED
+    Note over I,T: "Testbench waits"
+    T->>I: BEGIN_RESP
+    I-->>T: ACCEPTED
+    Note over I,T: "Testbench waits"
+    I->>T: END_RESP
+    T-->>I: COMPLETED
+```
+
+Other cases return updated phases in each direction, reuse completed
+payload/delay handles and accept two transactions before returning their
+responses in reverse order. The
+[two-context case](../tests/u12/test_tlm2_two_outstanding_socket_responses_keep_reversed_payloads_and_annotations_separate.sv)
+ends each request phase before starting the next and finishes one response
+before the other. Payload status and accumulated delay stay independent.
+Outstanding state and response scheduling belong to the fixture. These checks
+do not imply a UVM-owned scheduler, protocol enforcement or every socket
+hierarchy and timing combination.
+
+### Q97. Do read-clear/set policy checks perform physical register reads?
+
+These fixtures call field prediction with explicit observed values. They do
+not execute a bus or assert what a physical read task returns. WRITE inputs
+exercise `WC`, `WS`, `W0T`, `WRC`, `WRS`, `W1SRC`, `W1CRS`, `W0SRC` and `W0CRS`.
+READ inputs for the clear/set policies represent the value sampled before
+the side effect; desired and mirrored values must then represent the state
+after that side effect. Later writes use that new state.
+
+The [one-set/read-clear case](../tests/u18/test_reg_field_write_one_set_read_clear_prediction_preserves_peer_through_write_read_cycles.sv)
+and complementary clear/read-set case preserve an adjacent RW field. The
+[zero-selected pair](../tests/u18/test_reg_field_zero_selected_write_read_side_effects_keep_complementary_slices_independent.sv)
+uses adjacent fields with opposite read effects. Field desired/mirrored values,
+the peer mirror and the assembled register mirror are checked across the
+selected history. All byte enables are active; restricted maps, partial
+masks, backdoors, four-state behavior and other widths remain separate work.

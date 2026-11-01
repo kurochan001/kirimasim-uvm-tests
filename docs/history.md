@@ -3,7 +3,7 @@
 [日本語](history.ja.md) · [README](../README.md)
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and four cross-milestone thin-area expansions (885 simulation tests). The earlier 349-test checkpoint is
+three M4 increments and five cross-milestone thin-area expansions (905 simulation tests). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -1534,3 +1534,42 @@ inputs and earlier history. Validation includes 74 tool unit tests, 885 metadata
 records, ledger/index integrity, current-input evidence binding and complete
 English/Japanese guides. The glossary has 107 entries and the FAQ 94 answers.
 README describes the current state; this section retains increment details.
+
+## Fifth thin-area expansion across M1–M4
+
+Twenty simulations extend the 885-case baseline at
+[631c6a4](https://github.com/kurochan001/kirimasim-uvm-tests/commit/631c6a43977444e741ddb38ed17e8cbd515c3bc4)
+to 905 cases: 279 M1, 380 M2 and 246 M3. All baseline test inputs remain
+unchanged. M1 adds eight event/barrier cases for persistent on/off state,
+fresh versus same-slice trigger data, default data, threshold rounds,
+auto-reset, lowered thresholds and reset reuse. M2 adds four delayed TLM 2
+socket histories: four phases, returned phase updates, backward completion
+with reuse and reversed responses for two outstanding contexts. M3 adds eight
+prediction histories across nine additional field policies, including
+complementary zero-selected write/read effects and adjacent-field controls.
+
+All twenty additions match Verilator 5.052 with pinned UVM at seeds 1 and 73.
+The compatible full snapshot has 818 matches and the unchanged 87 known
+differences: 80 runtime records first differ at seed 1 and seven missing-API
+builds have no runtime seed results. Ghost bundled matches twelve additions
+and differs on eight at each seed; the full set is 182 matches and 723
+failures with identical failing sets. kirimasim reports all twenty additions
+unsupported, reaching 898 unsupported and seven missing-API failures.
+Executable/profile snapshots, library and runner identities remain compatible;
+no pinned-mode Ghost result is added.
+
+M4 adds 53 AI drafts and maps all twenty additions plus twenty existing
+chapter 14 fixtures. The ledger contains 543 drafts, 539 with direct links
+to 595 tests, one additional control and 309 unmapped tests. There are 386
+partially decomposed and 2,118 unassessed clause identifiers, 389 primary-focus
+identifiers and 892 with any citation. For 2,479 candidates, the primary-focus
+census is 2,090 zero, 176 one and 213 at least two. Four drafts retain no
+direct test. Scope remains proposed, reviews remain AI-only and no denominator
+or percentage is approved.
+
+Validation covers 74 tool unit tests, 905 metadata records, canonical
+ledger/index integrity, final-input execution fingerprints and complete
+English/Japanese guides. The glossary reaches 111 entries and the FAQ 97
+answers, including a paired four-phase diagram. Control getters are separated
+from their untested side effects, and explicit prediction from physical
+traffic. README retains the current state; this section records the increment.

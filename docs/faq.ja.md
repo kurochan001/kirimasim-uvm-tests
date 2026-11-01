@@ -155,7 +155,7 @@ Ghostはさらに実行ファイル・profile・供給されたライブラリ�
 
 ### Q16. M1・M2・M3は完了していますか。件数は何の網羅を示しますか
 
-M1・M2には条項ごとの目標に未達があります。M3はbusモデルのfrontdoor経路を含め238件まで追加した段階で、未完です。
+M1・M2には条項ごとの目標に未達があります。M3はbusモデルのfrontdoor経路を含め246件まで追加した段階で、未完です。
 次の段階の開始によって、それまでの段階が完了したとは扱いません。
 範囲と残りの作業は[進め方](../README.ja.md#進め方)にあります。
 件数はテストの本数で、規格の全要求や組み合わせの棚卸しではありません。
@@ -918,8 +918,8 @@ controlの対応は、その要求の直接の検査ではありません。
 
 ### Q77. M4を始めたのに、カバレッジ率がないのはなぜですか
 
-AIによる490要求案は部分的な分解で、486要求を555テストへ直接対応付け、4要求は直接未対応、別の1テストはcontrolです。
-他の329テストはまだ要求に対応付けていません。2,504の条項番号は規範的要求の単位ではありません。
+AIによる543要求案は部分的な分解で、539要求を595テストへ直接対応付け、4要求は直接未対応、別の1テストはcontrolです。
+他の309テストはまだ要求に対応付けていません。2,504の条項番号は規範的要求の単位ではありません。
 範囲は提案、棚卸しは未完、分母は未承認で、M4の開始はどれの承認にもなりません。
 既知差分やHDL／DPIの制約によって義務を暗黙に除外しません。[承認までの手順](requirements.ja.md#m4の残作業と承認)を参照してください。
 
@@ -1152,3 +1152,66 @@ post-writeもcallbackがmethodより先の順序、最後のstatus、descriptor�
 callbackを削除して正常な比較対象を用意します。pre-readのmap変更とpost-writeの順序は固定ライブラリで
 spec-onlyに残し、期待値を維持します。選択したUVM hookの動作を示すものであり、RTL protocol、HDL DPI、
 burst、全callback組合せは示しません。
+
+## event／barrierの同期と時刻を隔てたtransport履歴
+
+### Q95. eventとbarrierは1回のtriggerやthreshold到達後も解除されたままですか？
+
+eventでは、onの間は`wait_on`が直ちに戻り、`wait_off`はresetまで待ちます。
+reset後の新しい`wait_on`は次のtriggerまでblockします。通常の`wait_trigger_data`は、以前のtriggerが
+先のtime sliceにあれば、新しいtriggerを待ちます。一方、
+[persistentの検査系](../tests/u10/test_event_persistent_trigger_data_is_immediate_only_in_the_triggering_time_slice.sv)は、
+同じsliceのtrigger直後に`wait_ptrigger_data`を使い、後のsliceでは新triggerが必要なことも確認します。
+既定dataのsetter／getterと、明示／省略したtrigger引数は、eventごとに別途検査します。
+
+barrierは既定でauto-resetなので、各roundで再びthresholdへ到達する必要があります。
+[auto-resetを無効にする検査](../tests/u10/test_barrier_without_auto_reset_remains_open_until_explicit_reset.sv)では、
+resetまでbarrierを開いたままにします。別の検査系でthresholdを待機数より下げる場合と、
+既定wakeupのresetを扱い、その後の再利用も確認します。正の遅延で待機状態を成立させ、参加者の解除順序は要求しません。
+eventのdelta 1の待機、callback、取消、wakeupなしのresetは別途扱います。
+
+### Q96. 新しいTLM 2テストはprotocol検査器やシミュレータのschedulerですか？
+
+選択したprotocolの履歴を駆動するのはテストベンチで、socketは呼出しを転送します。
+[4-phaseの検査系](../tests/u12/test_tlm2_four_phase_socket_history_preserves_delayed_forward_and_backward_annotations.sv)は、
+対のpass-through socketを通して、呼出し間に正の待機を入れ、次の順序で送ります。
+各関数はsimulation時刻を進めず戻り、指定payload／delayのhandleを保つ必要があります。
+時間注釈は明示的にnanosecond単位で測定し、これらの待機とは区別します。
+
+```mermaid
+sequenceDiagram
+    participant I as "Initiator"
+    participant T as "Target"
+    I->>T: BEGIN_REQ
+    T-->>I: ACCEPTED
+    Note over I,T: "テストベンチで待機"
+    T->>I: END_REQ
+    I-->>T: ACCEPTED
+    Note over I,T: "テストベンチで待機"
+    T->>I: BEGIN_RESP
+    I-->>T: ACCEPTED
+    Note over I,T: "テストベンチで待機"
+    I->>T: END_RESP
+    T-->>I: COMPLETED
+```
+
+他の検査系は両方向でphaseの変更を返し、完了したpayload／delay handleを再利用し、
+2 transactionを受け付けてから応答を逆順に返します。
+[2 contextの検査系](../tests/u12/test_tlm2_two_outstanding_socket_responses_keep_reversed_payloads_and_annotations_separate.sv)は、
+次のrequestを始める前に各request phaseを終え、片方のresponseを完了してから別のresponseを返します。
+payloadのstatusと累積delayは独立に保ちます。未完了の状態と応答のscheduleは検査系が担当します。
+この確認は、UVMが所有するscheduler、protocolの強制、socket階層とtimingの全組合せを意味しません。
+
+### Q97. read-clear／set policyの検査は物理registerのreadを実行しますか？
+
+この検査系は、明示した観測値を渡してfield predictionを呼びます。
+busの実行や物理read taskの戻り値の断定は行いません。WRITE入力では`WC`、`WS`、`W0T`、`WRC`、`WRS`、
+`W1SRC`、`W1CRS`、`W0SRC`、`W0CRS`を扱います。
+clear／set policyのREAD入力は、副作用前にsampleした値を表し、その後のdesired／mirrorは副作用後の状態を表す必要があります。
+後続のwriteは、その新しい状態を使います。
+
+[1を設定／readで消去する検査系](../tests/u18/test_reg_field_write_one_set_read_clear_prediction_preserves_peer_through_write_read_cycles.sv)と、
+逆に消去／readで設定する検査系は、隣接RW fieldを保持します。
+[0を選ぶ組](../tests/u18/test_reg_field_zero_selected_write_read_side_effects_keep_complementary_slices_independent.sv)では、
+逆のread副作用を持つfieldを隣接させます。選択した履歴を通して、fieldのdesired／mirror、隣接fieldのmirror、
+合成したregisterのmirrorを検査します。全byte enableを有効にし、制約map、部分mask、backdoor、4値、他の幅は別途扱います。

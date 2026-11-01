@@ -415,3 +415,19 @@ JSONの書式を正規化し、配列順とcatalogのbyteは保持します。
 **memory hookの経路変更（Memory hook routing）** — memoryのアクセス前callbackは、転送前の操作descriptorを、
 offset／mapも含めて変更できます。アクセス後のcallbackとmethodは、転送後に返すdata／statusを合成します。
 method／callbackの各順序規則は`uvm_mem`について検査する必要があり、registerの動作だけでは示せません。
+
+## 同期とtransportの履歴
+
+**eventの持続（Event persistence）** — on状態はresetまで持続します。一方、persistent triggerの待機は、
+現在のtime slice内だけでtriggerを認識し、on状態が残っていても、後のtime sliceでは新しいtriggerが必要です。
+
+**barrierのthreshold（Barrier threshold）** — 同期点で必要な参加者の数です。
+既定のauto-resetでは再利用時に新しい組が必要で、無効にすると、到達したbarrierをresetまで開いたままにします。
+これらのテストでは解除順序を要求しません。
+
+**nonblocking transportの履歴（Nonblocking transport history）** — テストベンチが駆動し、待機を隔てた
+forward／backwardのphase呼出し列です。socketは指定phase、payload／delay handle、enum結果を転送し、
+検査系が未完了の状態とscheduleを担当します。時間注釈とsimulation時刻の待機は別のものです。
+
+**read後の予測（Post-read prediction）** — READ予測は指定のsample値を使い、access policyの副作用があれば
+その後のdesired／mirrorへ記録します。予測したclear／setだけでは、物理readやその戻りdataの証拠にはなりません。

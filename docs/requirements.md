@@ -7,13 +7,13 @@
 M4 is in progress. The [scope proposal](../coverage/scope.json),
 [requirement ledger](../coverage/requirements.json) and
 [test index](../coverage/test_index.json) are versioned inputs. The ledger
-contains 490 AI-drafted requirements: 486 link directly to 555 tests and 4
-have no direct test. One additional test is a control. The other 329 of the 885 tests have
+contains 543 AI-drafted requirements: 539 link directly to 595 tests and 4
+have no direct test. One additional test is a control. The other 309 of the 905 tests have
 not yet been mapped at requirement level; that does not mean they test no
 normative behavior. No requirement records human review.
 
-The clause catalog has 2,504 identifiers. 354 have a partial
-requirement decomposition; the other 2,150 are unassessed. Neither group is
+The clause catalog has 2,504 identifiers. 386 have a partial
+requirement decomposition; the other 2,118 are unassessed. Neither group is
 complete. Starting M4 does not approve the scope or denominator, or complete
 M1–M3. `approved_denominator` and `coverage_percentage` remain `null`.
 
@@ -22,7 +22,7 @@ M1–M3. `approved_denominator` and `coverage_percentage` remain `null`.
 The proposed unit is one observable normative obligation together with its
 applicability conditions. A method clause may need separate requirements for
 success, failure, default arguments, ordering and side effects. Conversely,
-a heading is not an obligation. The 490 draft entries span several areas,
+a heading is not an obligation. The 543 draft entries span several areas,
 without exhausting the obligations in their clauses.
 
 The proposal assigns every root in the existing identifier catalog once:
@@ -50,14 +50,14 @@ The ledger tool consumes no simulator results.
 ## Citations, requirements and execution evidence
 
 A test's first UVM `:lrm:` reference is its **primary focus**; later UVM
-references are **supporting citations**. Of the catalog identifiers, 381
-have a primary-focus test and 874 have either kind of citation. Supporting
+references are **supporting citations**. Of the catalog identifiers, 389
+have a primary-focus test and 892 have either kind of citation. Supporting
 references often describe setup APIs. No reference creates a requirement link,
 and a child-clause reference is not automatically rolled up to its parent.
 
 For the 2,479 candidate identifiers, the historical two-tests-per-clause
-census currently shows 2,098 with zero primary-focus tests, 170 with one,
-and 211 with at least two. It measures test placement only. It does not
+census currently shows 2,090 with zero primary-focus tests, 176 with one,
+and 213 with at least two. It measures test placement only. It does not
 establish that an identifier has two independent checks, that its normative
 obligations are decomposed, or that either test passes. It is not an approved
 requirement denominator or a declaration that all zero-focus clauses are gaps.
@@ -82,7 +82,7 @@ lines are anchored once; the runner still compares the complete expected sequenc
 
 [Execution evidence](results.md) is separate and needs matching input, runner,
 library and configuration identities. A direct link may retain a spec-only
-known difference. It is not a pass or a conformance claim. The current 885-test
+known difference. It is not a pass or a conformance claim. The current 905-test
 snapshot includes newly measured fixtures; mapping unchanged existing tests
 adds no new execution result for them.
 
@@ -102,7 +102,7 @@ duplicate requirement IDs and unknown clauses/tests are rejected.
 - `coverage/test_index.json` snapshots every current test's `primary_clause`
   and `inputs_sha256`. The fingerprint uses the existing runner collector:
   source, declared helpers/includes/data, expected files and UVM lock. The
-  index is an inventory, not 885 reviewed requirement mappings.
+  index is an inventory, not 905 reviewed requirement mappings.
 
 Review status is `ai`, `unreviewed` or `human`. Human status requires an
 identified `reviewer` and ISO date in `reviewed_at`; other statuses must leave
@@ -167,7 +167,7 @@ link, while normative decomposition remains partial:
 | 7 | 3 | 2 | 0 | 67 |
 | 8 | 23 | 34 | 0 | 52 |
 | 9 | 25 | 19 | 0 | 97 |
-| 10 | 29 | 38 | 0 | 99 |
+| 10 | 40 | 46 | 0 | 89 |
 | 11 | 17 | 12 | 0 | 17 |
 | 13 | 4 | 4 | 0 | 108 |
 | 16 | 76 | 92 | 0 | 145 |
@@ -185,7 +185,7 @@ itself. Location masks
 are linked only to the necessary location-access property, not to the whole
 walking algorithm. B.5.11's conflicting printed invocation is recorded as an
 interpretation requiring review. Known differences retain normative oracles;
-all 490 requirement reviews are still `ai`.
+all 543 requirement reviews are still `ai`.
 
 Selected FIFO mappings bind blocking/nonblocking behavior, capacity, flush,
 arrival order and analysis notifications to their actual expected observations.
@@ -232,6 +232,23 @@ A shared output line does not make every anchor an independent requirement
 check. Chapter 18 still has 82 unmapped primary-focus tests and 396 unassessed
 identifiers. Known map-redirection and post-write-order differences retain
 the required expectations, without creating new measured passes.
+
+Event/barrier drafts now link persistent on-state, reset/off waits, fresh and
+same-slice trigger data, default trigger data, threshold release, auto-reset,
+open-gate reuse and reset wakeup/rearm. Timed TLM 2 histories link call routing,
+returned phase/status, handle identity and independent timing annotation;
+transaction scheduling remains testbench behavior.
+
+Nine additional field policies link repeated WRITE observations, with separate
+READ-side-effect drafts where applicable. These are explicit predictions,
+not physical read/write traffic. Selected existing chapter 14 fixtures now
+link context, depth/root/path, local controls, optional hook ordering,
+completion/state waits, priority selection, parent hooks, automatic objection
+lifetime and response clearing. Getter links do not establish automatic
+randomization, print/copy/record side effects, locked-control updates or
+arbitration. The already-matching state-mask fixture reaches a return marker
+but does not assert zero elapsed time. Chapter 14 retains 64 unmapped
+primary-focus tests and 82 unassessed identifiers; all decomposition is partial.
 
 ## Generated report identity
 
@@ -298,4 +315,4 @@ counting rule and frozen requirement set. Define separately what counts as
 reviewed test coverage and as execution success, including execution conditions
 and evidence identity. Approval needs a later schema/procedure update; schema
 1 intentionally cannot express a completed inventory or approved denominator.
-The current 490 AI drafts and their direct links do not satisfy that gate.
+The current 543 AI drafts and their direct links do not satisfy that gate.
