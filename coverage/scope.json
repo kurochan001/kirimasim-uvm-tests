@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "standard": "1800.2-2020",
+  "status": "proposed",
+  "normative_inventory_complete": false,
+  "approved_denominator": null,
+  "counting_unit": {
+    "en": "One observable obligation, with its applicability conditions, derived from a normative clause. A clause can contain several such obligations; headings and citations alone are not counting units.",
+    "ja": "規範条項から導く、適用条件を伴う観測可能な義務を1要求とする。1条項に複数の義務があり得るため、見出しや引用だけを計数単位にしない。"
+  },
+  "candidate_roots": [
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "10",
+    "11",
+    "12",
+    "13",
+    "14",
+    "15",
+    "16",
+    "17",
+    "18",
+    "19",
+    "B",
+    "C",
+    "D",
+    "E",
+    "F",
+    "G"
+  ],
+  "context_roots": [
+    "1",
+    "2",
+    "3",
+    "4"
+  ],
+  "deferred_roots": {
+    "H": {
+      "en": "Deprecated APIs require a separate scope decision. Deferral is provisional and is not an approved exclusion from a denominator.",
+      "ja": "非推奨APIは別途範囲を決定する。保留は暫定であり、分母からの除外を承認した意味ではない。"
+    }
+  },
+  "legacy_clause_target": 2
+}

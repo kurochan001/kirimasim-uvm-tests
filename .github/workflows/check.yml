@@ -35,6 +35,9 @@ jobs:
       - name: Metadata of the tests
         run: python3 tools/lint_metadata.py
 
+      - name: Draft requirement ledger and test index
+        run: python3 tools/requirements.py check
+
   verilator:
     runs-on: ubuntu-24.04
     timeout-minutes: 120

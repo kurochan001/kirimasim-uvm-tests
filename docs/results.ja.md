@@ -59,6 +59,10 @@ frontdoor／backdoorの転送動作の成功は示しません。
 追加時の件数と測定、過去のスモーク、build変更の詳細は[開発履歴](history.ja.md)に残します。
 更新した記録で以前の記録を置き換える場合も、現在の入力の指紋を先に確認します。
 
+M4の最初の追加は[要求台帳の案](requirements.ja.md)と検査ツールで、シミュレーション入力やrunnerは変更しません。
+記録済みの入力・runnerの指紋は引き続き一致し、新たなシミュレータ実行は主張しません。
+台帳のanchorは期待出力であり、追加測定した成功ではありません。
+
 ## 再現と結果の保存
 
 コマンド、profileのmode、ライブラリの設定は[テストと開発のガイド](testing.ja.md#スイートの実行)で説明します。
@@ -69,6 +73,6 @@ frontdoor／backdoorの転送動作の成功は示しません。
 ## 継続的インテグレーション
 
 [Check](../.github/workflows/check.yml)は`main`へのpush、pull request、手動実行で動きます。
-固定ライブラリの整合性、ツールの単体テスト41件、metadata 805件、seed 1・73でのoracle付きVerilator 737件を検査します。
+固定ライブラリの整合性、ツールの単体テスト61件、metadata 805件、要求台帳の案／テスト索引、seed 1・73でのoracle付きVerilator 737件を検査します。
 kirimasim、Ghost、specのみのケースは実行しません。READMEのバッジは現在のCIで、このローカル測定とは別の状態です。
 Checkが成功しても、UVMの完全な適合性や全シミュレータの成功を示しません。Nightlyや結果の自動公開はありません。

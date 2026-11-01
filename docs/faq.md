@@ -179,7 +179,8 @@ the preceding stages.
 The [plan](../README.md#plan) identifies current scope and remaining work.
 Counts are test cases, not a reviewed inventory of every requirement or
 combination in the standard. Clause citations alone do not establish coverage;
-the requirement ledger and its approved denominator are M4 work.
+M4 now has an [initial ledger and census](requirements.md); normative
+decomposition and denominator approval remain open.
 
 ### Q17. Does spec_check: ai mean human review or proof?
 
@@ -1117,3 +1118,32 @@ exact counts are unconstrained. See the
 [ordered selection fixture](../tests/uE/test_built_in_test_dispatcher_ored_flags_run_bit_bash_before_memory_walk.sv).
 The default mask is inspected without running all flags together; the shared
 wrapper is tested directly rather than through its dispatcher flag.
+
+## Requirement ledger and M4
+
+### Q76. Does a clause citation mean its requirements are tested?
+
+No. The first UVM citation is a primary-focus label and later citations often
+support setup. The [ledger](requirements.md) requires explicit requirement,
+condition and expected-observation links; it does not promote citations to
+coverage or roll child references up to parent clauses. A control link is
+not a direct test of the requirement.
+
+### Q77. Why is there no coverage percentage after starting M4?
+
+The 36 AI drafts cover only a partial decomposition, with 30 direct links,
+six unlinked requirements and one control test. Another 774 tests are not
+mapped yet. The 2,504 clause identifiers are not normative requirement units.
+The scope is proposed, the inventory incomplete and the denominator unapproved;
+starting M4 approves none of those. Known differences and HDL/DPI limitations
+do not silently exclude obligations. See the [approval path](requirements.md#remaining-m4-work-and-approval).
+
+### Q78. What should I do when the test index becomes stale?
+
+Run `python3 tools/requirements.py check`, then generate a separate proposal
+with `python3 tools/requirements.py sync --output out/test-index-proposal.json`.
+Recheck the affected requirement, source and expected observations before
+updating linked fingerprints. Sync preserves existing linked snapshots so
+adopting it alone cannot certify a changed mapping. Inputs include expected
+files, helpers and the library lock; see the [update procedure](requirements.md#updating-a-test-or-mapping).
+The ledger does not read execution results or add measured passes.

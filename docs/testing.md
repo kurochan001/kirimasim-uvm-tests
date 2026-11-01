@@ -33,6 +33,8 @@ tests/uB/, uC/, uD/          annex tests: macros, configuration, callbacks
 tests/uE/                   built-in register/memory test sequences
 docs/testing*.md            test format, execution and contribution rules
 docs/results*.md            current measurement conditions and evidence
+docs/requirements*.md       draft scope, requirement mapping and census
+coverage/*.json             versioned scope, requirement ledger and test index
 docs/provenance*.md         related repositories and source attribution
 docs/glossary*.md            terminology
 docs/faq*.md                 common questions
@@ -47,6 +49,7 @@ tools/run_verilator.py       runner for Verilator
 tools/run_ghost.py           private-profile runner under the public alias Ghost
 tools/suite_results.py       judgment and result JSON, copied from kirimasim-tests
 tools/lint_metadata.py       checks of the metadata and the form of the tests
+tools/requirements.py        validates and inventories the draft requirement ledger
 tools/sv_lifetimes.py        lexical guard for initialized procedural locals
 tools/clauses_1800_2.txt     clause numbers of 1800.2-2020 (numbers only)
 tools/UPSTREAM               where the copied tool comes from, and what changed
@@ -265,10 +268,12 @@ against the lock before executing.
 python3 tools/fetch_uvm.py --check
 python3 -m unittest discover -s tools -p 'test_*.py'
 python3 tools/lint_metadata.py
+python3 tools/requirements.py check
 ```
 
-The current tool suite has 41 unit tests; metadata validation checks all
-805 simulation tests. [Check](../.github/workflows/check.yml) runs on pushes to
+The current tool suite has 61 unit tests; metadata validation checks all
+805 simulation tests. The [ledger check](requirements.md) validates the draft
+scope, explicit oracle links and input fingerprints without claiming coverage. [Check](../.github/workflows/check.yml) runs on pushes to
 `main`, pull requests and manual dispatch. Its separate Verilator job uses
 5.052, `UVM_NO_DPI` and seeds 1 and 73 for the tagged cases. Each model is
 built once for the two executions. A green Check establishes those checks,

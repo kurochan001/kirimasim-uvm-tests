@@ -11,10 +11,11 @@ Verification Methodology (UVM). It targets
 [kirimasim-tests](https://github.com/kurochan001/kirimasim-tests), which tests
 the IEEE 1800-2023 SystemVerilog language.
 
-> **Status: M3 in progress.** 805 simulation tests in 15 chapter/annex
+> **Status: M4 in progress.** 805 simulation tests in 15 chapter/annex
 > directories; 737 have a `verilator@5.052` oracle and 68 are spec-only.
 > All use `:spec_check: ai`; none records human review.
 > M1, M2 and M3 retain open requirement-coverage targets.
+> M4 has 36 draft requirements and indexes all 805 tests; scope is unapproved.
 
 ## Contents
 
@@ -47,8 +48,9 @@ when a simulator/library combination differs. The SystemVerilog language
 itself belongs to kirimasim-tests.
 
 Test counts and clause citations are not a reviewed requirement-coverage
-percentage. The two-tests-per-clause inventory and an approved denominator
-remain open. See the [FAQ](docs/faq.md) for behavior and fixture limits.
+percentage. M4 provides a primary-citation census and explicit requirement links;
+normative decomposition and denominator approval remain open. See the
+[requirement ledger guide](docs/requirements.md) and [FAQ](docs/faq.md).
 
 ## Running the suite
 
@@ -117,6 +119,7 @@ its counterpart; commands and API identifiers retain their original spelling.
 | --- | --- | --- |
 | Test format, execution and contributions | [Testing guide](docs/testing.md) | [テストと開発のガイド](docs/testing.ja.md) |
 | Current measurements and methodology | [Results](docs/results.md) | [実行結果](docs/results.ja.md) |
+| Draft scope, requirement links and coverage census | [Requirement ledger](docs/requirements.md) | [要求台帳](docs/requirements.ja.md) |
 | Terminology | [Glossary](docs/glossary.md) | [用語集](docs/glossary.ja.md) |
 | Behavior and fixture scope | [FAQ](docs/faq.md) | [FAQ](docs/faq.ja.md) |
 | Library limitations and spec-only tests | [Known differences](docs/known-differences.md) | [既知差分](docs/known-differences.ja.md) |
@@ -131,7 +134,7 @@ its counterpart; commands and API identifiers retain their original spelling.
 | M1 | Core classes, policies, factory, phases, objections, configuration and reporting | 229 cases; reviewed two-tests-per-clause target open |
 | M2 | Sequences, sequencers, TLM and callbacks | 360 cases; target open |
 | M3 | Register layer (17–19, annex E) | 216 cases in chapters 18–19 and annex E; target open |
-| M4 | Requirement ledger and coverage | Planned; approve the denominator before claiming coverage |
+| M4 | Requirement ledger and coverage | In progress: 36 AI drafts, 30 direct links; denominator unapproved |
 
 M1, M2 and M3 are independently incomplete. Remaining M2 work includes queued
 ownership/termination/default-resource conditions, callbacks and broader

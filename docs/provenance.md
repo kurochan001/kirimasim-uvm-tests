@@ -43,6 +43,11 @@ using the kirimasim-tests tools as a model; they are not copies.
 That helper lexically checks explicit lifetimes on initialized block locals;
 it is not copied from a simulator parser or the language standard.
 
+`requirements.py` and its regression tests are original suite code. The
+[ledger data](requirements.md) uses original bilingual paraphrases of the
+user-provided standard, with clause numbers and expected-output anchors.
+It does not copy normative text or sample code, or import simulator results.
+
 If the two repositories' judgment rules drift, a shared package is the
 planned way to centralize them. [tools/UPSTREAM](../tools/UPSTREAM) is the
 bilingual pointer to this source record.

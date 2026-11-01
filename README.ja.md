@@ -9,10 +9,11 @@ IEEE 1800.2-2020のUniversal Verification Methodology（UVM）を対象にした
 [kirimasim](https://github.com/kurochan001/kirimasim)を対象とし、IEEE 1800-2023のSystemVerilog言語を検査する
 [kirimasim-tests](https://github.com/kurochan001/kirimasim-tests)と対になります。
 
-> **状態：M3を継続中。** 15の章・付録ディレクトリにシミュレーションテスト805件があります。
+> **状態：M4を進行中。** 15の章・付録ディレクトリにシミュレーションテスト805件があります。
 > `verilator@5.052`のoracle付きが737件、specのみが68件です。
 > 全件が`:spec_check: ai`で、人による照合の記録はまだありません。
 > M1・M2・M3はいずれも、要求カバレッジの目標が未達です。
+> M4は要求案36件と全805テストの索引を作成した段階で、対象範囲は未承認です。
 
 ## 目次
 
@@ -40,8 +41,8 @@ custom frontdoorはsequence本体で記憶域をモデル化し、passive predic
 規格の期待値を保持します。SystemVerilog言語そのものの検査はkirimasim-testsで扱います。
 
 件数や条項の引用数は、レビュー済みの要求カバレッジの割合ではありません。
-各条項2件以上という目標の棚卸しと、承認された分母の定義が残っています。
-動作と検査系の制限は[FAQ](docs/faq.ja.md)を参照してください。
+M4で主引用の棚卸しと明示的な要求の対応付けを始めましたが、規範的義務の分解と分母の承認は未完です。
+[要求台帳のガイド](docs/requirements.ja.md)と[FAQ](docs/faq.ja.md)を参照してください。
 
 ## スイートの実行
 
@@ -104,6 +105,7 @@ oracle付きVerilatorを検査し、kirimasimとGhostは実行しません。Nig
 | --- | --- | --- |
 | テスト形式・実行・変更時の規則 | [Testing guide](docs/testing.md) | [テストと開発のガイド](docs/testing.ja.md) |
 | 現在の測定と測定方法 | [Results](docs/results.md) | [実行結果](docs/results.ja.md) |
+| 対象範囲の案・要求の対応・カバレッジの棚卸し | [Requirement ledger](docs/requirements.md) | [要求台帳](docs/requirements.ja.md) |
 | 用語 | [Glossary](docs/glossary.md) | [用語集](docs/glossary.ja.md) |
 | 動作と検査系の範囲 | [FAQ](docs/faq.md) | [FAQ](docs/faq.ja.md) |
 | ライブラリの制約とspecのみのケース | [Known differences](docs/known-differences.md) | [既知差分](docs/known-differences.ja.md) |
@@ -118,7 +120,7 @@ oracle付きVerilatorを検査し、kirimasimとGhostは実行しません。Nig
 | M1 | 基本クラス・policy・factory・phase・objection・設定・reporting | 229件。各条項2件以上という目標の棚卸しは未完 |
 | M2 | sequence・sequencer・TLM・callback | 360件。目標は未達 |
 | M3 | レジスタ層（17〜19、付録E） | 第18〜19章・付録Eに216件。目標は未達 |
-| M4 | 要求台帳とカバレッジ | 計画段階。カバレッジを主張する前に分母を承認 |
+| M4 | 要求台帳とカバレッジ | 進行中。AI要求案36件、直接の対応30件。分母は未承認 |
 
 M1・M2・M3はいずれも独立した未完の段階です。M2にはキュー上の所有・停止・default resourceの条件、
 callback、TLM 2のより広いprotocol・timing・socketの組み合わせが残っています。

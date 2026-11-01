@@ -452,3 +452,22 @@ neither the test total nor the oracle count is such a percentage.
 **Check / Nightly** — This repository's validation workflow / the separate
 scheduled reporting workflow used by kirimasim-tests. This repository currently
 has Check only. Its badge does not report a full multi-simulator match rate.
+
+**Requirement ledger / stable requirement ID** — A versioned decomposition
+of normative behavior into observable obligations and conditions / a name
+independent of test filenames. The [current ledger](requirements.md) is partial
+and all entries are AI drafts; its length is not an approved denominator.
+
+**Direct link / control link / expected observation** — An explicit test of
+a requirement / a fixture or comparison control / an anchored line in expected
+output. A control does not supply direct coverage, and an oracle anchor is
+not measured execution evidence.
+
+**Primary focus / supporting citation** — The first UVM clause in `:lrm:` /
+a later UVM clause. The census counts these separately without automatically
+creating requirements or aggregating child clauses into parent coverage.
+
+**Proposed scope / approved denominator** — A reviewable candidate set and
+counting rule / a frozen requirement set accepted after decomposition and
+review. The latter remains unset; deferred deprecated APIs are not approved
+exclusions. See the [M4 approval path](requirements.md#remaining-m4-work-and-approval).

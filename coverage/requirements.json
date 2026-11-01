@@ -1,0 +1,1213 @@
+{
+  "schema_version": 1,
+  "standard": "1800.2-2020",
+  "status": "partial",
+  "requirements": [
+    {
+      "id": "UVM-CLONE-DISTINCT",
+      "clause": "5.3.5.2",
+      "statement": {
+        "en": "A successful clone creates a separate object with copied state.",
+        "ja": "cloneの成功時には、状態をコピーした別のオブジェクトを生成する。"
+      },
+      "conditions": {
+        "en": "A registered object with a working create/copy implementation and scalar value 37.",
+        "ja": "create／copyを実装した登録済みオブジェクトのscalar値が37である。"
+      },
+      "expected": {
+        "en": "The clone is a distinct handle and initially holds 37.",
+        "ja": "cloneは別handleで、初期値37を保持する。"
+      },
+      "limitations": {
+        "en": "One scalar fixture; recursive object graphs and custom creation failures are not assessed.",
+        "ja": "scalarの1構成のみ。再帰的なobject graphや独自生成処理の失敗は未評価。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_clone_copies_into_a_new_object",
+          "role": "direct",
+          "expected_observations": [
+            "UT: clone distinct 1 value 37",
+            "UT: source unchanged 37"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CLONE-INDEPENDENT",
+      "clause": "5.3.5.2",
+      "statement": {
+        "en": "Copied scalar state in separate clones remains independent after subsequent updates.",
+        "ja": "別々のcloneにコピーしたscalar状態は、後続の更新後も独立している。"
+      },
+      "conditions": {
+        "en": "Two clones start from scalar value 63, then the source and one clone change.",
+        "ja": "scalar値63から2つのcloneを作り、元と片方を変更する。"
+      },
+      "expected": {
+        "en": "All handles differ; resulting scalar values are 91, 12 and 63.",
+        "ja": "全handleが異なり、結果のscalar値は91、12、63になる。"
+      },
+      "limitations": {
+        "en": "This does not establish deep-copy behavior for nested handles.",
+        "ja": "入れ子のhandleのdeep copyは示さない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_clone_results_are_independent",
+          "role": "direct",
+          "expected_observations": [
+            "UT: distinct 1 1 1",
+            "UT: copies 63 63",
+            "UT: independent 91 12 63"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REPORT-NO-ACTION",
+      "clause": "6.5.1.2.14",
+      "statement": {
+        "en": "Report processing ends without executing the report when its action is UVM_NO_ACTION.",
+        "ja": "actionがUVM_NO_ACTIONの報告は、実行せずに処理を終了する。"
+      },
+      "conditions": {
+        "en": "An enabled info report is first suppressed by action, then restored to a counting action.",
+        "ja": "verbosity上は有効なinfo報告をactionで抑制し、その後count対象のactionに戻す。"
+      },
+      "expected": {
+        "en": "Suppression adds no severity or ID counts; the enabled control adds one to each.",
+        "ja": "抑制時はseverity／IDのcountが増えず、有効なcontrolでは各1増える。"
+      },
+      "limitations": {
+        "en": "Report catchers, file output and other early-return conditions are not decomposed here.",
+        "ja": "report catcher、file出力、他の早期return条件はこの要求では分解しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_no_action_suppresses_counts",
+          "role": "direct",
+          "expected_observations": [
+            "UT: suppressed info 0 id 0 action 1",
+            "UT: enabled info 1 id 1 action 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REPORT-OVERRIDE-PRIORITY",
+      "clause": "6.4.6",
+      "statement": {
+        "en": "A severity-and-ID override takes priority over an override for severity alone.",
+        "ja": "severityとIDの組のoverrideを、severityだけのoverrideより優先する。"
+      },
+      "conditions": {
+        "en": "A matching ID and a different ID are reported under overlapping severity overrides.",
+        "ja": "severityのoverrideが重なる状態で、一致するIDと別IDを報告する。"
+      },
+      "expected": {
+        "en": "The resulting deltas are info 1, warning 1 and error 0.",
+        "ja": "差分はinfoが1、warningが1、errorが0になる。"
+      },
+      "limitations": {
+        "en": "Other override/action combinations and hierarchical report handlers remain separate.",
+        "ja": "他のoverride／actionの組合せや階層的なreport handlerは別途扱う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_pair_severity_override_supersedes_general",
+          "role": "direct",
+          "expected_observations": [
+            "UT: deltas info 1 warning 1 error 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FACTORY-REPLACE",
+      "clause": "8.3.1.4.2",
+      "statement": {
+        "en": "A type override installed with replacement enabled supersedes the previous type override.",
+        "ja": "置換を有効にしたtype overrideは、以前のtype overrideを置き換える。"
+      },
+      "conditions": {
+        "en": "One requested type has an initial override followed by a replacement override.",
+        "ja": "要求する型に最初のoverrideを設定し、続けて置換overrideを設定する。"
+      },
+      "expected": {
+        "en": "Creation changes from first_item to second_item.",
+        "ja": "生成される型がfirst_itemからsecond_itemに変わる。"
+      },
+      "limitations": {
+        "en": "Replacement-disabled behavior and override cycles are separate requirements.",
+        "ja": "置換無効時の動作とoverrideの循環は別の要求である。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u08/test_factory_type_override_replaces_previous",
+          "role": "direct",
+          "expected_observations": [
+            "UT: before first_item after second_item",
+            "UT: name after"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FACTORY-FIRST-INSTANCE",
+      "clause": "8.3.1.4.1",
+      "statement": {
+        "en": "When instance overrides overlap, the earliest registered matching override wins.",
+        "ja": "instance overrideが重なる場合、先に登録した一致するoverrideを選ぶ。"
+      },
+      "conditions": {
+        "en": "An exact path override precedes a wildcard override that also matches that path.",
+        "ja": "あるpathに対して、exactなoverrideを、それにも一致するwildcard overrideより先に登録する。"
+      },
+      "expected": {
+        "en": "The exact path yields first_item and the independent wildcard path yields second_item.",
+        "ja": "exactなpathではfirst_item、独立したwildcardのpathではsecond_itemになる。"
+      },
+      "limitations": {
+        "en": "Only the selected registration order and path patterns are exercised.",
+        "ja": "選択した登録順とpathのpatternのみを検査する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u08/test_factory_instance_override_first_match",
+          "role": "direct",
+          "expected_observations": [
+            "UT: exact first_item wildcard second_item"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-TOPDOWN-BUILD",
+      "clause": "9.7.2.2",
+      "statement": {
+        "en": "A top-down phase traverses ancestors before their descendants.",
+        "ja": "top-down phaseは、子孫より先に祖先を走査する。"
+      },
+      "conditions": {
+        "en": "Build creates a single branch and then its leaf, avoiding sibling-order assumptions.",
+        "ja": "buildで単一のbranch、その中でleafを生成し、兄弟の順序には依存しない。"
+      },
+      "expected": {
+        "en": "Observed build order is test, branch, leaf; all observations are at time zero.",
+        "ja": "buildの観測順はtest、branch、leafで、すべて時刻0である。"
+      },
+      "limitations": {
+        "en": "Time-zero behavior also cites 9.8.1; this unit does not decompose all predefined phases.",
+        "ja": "時刻0の動作には9.8.1も引用する。この要求では全predefined phaseを分解しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_build_phase_visits_new_descendants",
+          "role": "direct",
+          "expected_observations": [
+            "UT: build test zero 1",
+            "UT: build branch zero 1",
+            "UT: build leaf zero 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-KILL-CHILD",
+      "clause": "9.6",
+      "statement": {
+        "en": "Tasks still running under a task phase are terminated when that phase finishes.",
+        "ja": "task phaseの終了時には、その下で実行中のtaskを停止する。"
+      },
+      "conditions": {
+        "en": "A phase child starts a delayed write; objections end the phase at time 5.",
+        "ja": "phaseの子taskが遅延writeを開始し、objectionにより時刻5でphaseが終了する。"
+      },
+      "expected": {
+        "en": "The child entered, its late write never occurs, and the observed elapsed time is 5.",
+        "ja": "子taskは開始するが遅延writeは行われず、経過時間の観測値は5になる。"
+      },
+      "limitations": {
+        "en": "A known implementation difference remains; other task ownership and jump paths are separate.",
+        "ja": "既知の実装差分が残る。他のtask所有関係とjump経路は別途扱う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_task_phase_kills_remaining_child_task",
+          "role": "direct",
+          "expected_observations": [
+            "UT: child entered 1 late_write 0",
+            "UT: elapsed 5"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-OBJECTION-PROPAGATE",
+      "clause": "10.5.1.3.3",
+      "statement": {
+        "en": "Raising an objection increases the source count and propagated totals of its ancestors.",
+        "ja": "objectionをraiseすると、発生元のcountと祖先に伝播するtotalが増える。"
+      },
+      "conditions": {
+        "en": "A child raises one objection under a parent with no local objection.",
+        "ja": "local objectionがないparentの下で、childが1つraiseする。"
+      },
+      "expected": {
+        "en": "Child count is 1, parent local count is 0 and parent total is 1.",
+        "ja": "childのcountは1、parentのlocal countは0、totalは1になる。"
+      },
+      "limitations": {
+        "en": "Drain time and multi-source simultaneous transitions are not covered by this unit.",
+        "ja": "drain timeや複数発生元の同時遷移はこの要求では検査しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_objection_totals_propagate_to_parent",
+          "role": "direct",
+          "expected_observations": [
+            "UT: child 1 parent local 0 total 1",
+            "UT: extract at four 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-OBJECTION-OBJECTORS",
+      "clause": "10.5.1.5.1",
+      "statement": {
+        "en": "The objector list contains sources with outstanding local objections.",
+        "ja": "objectorの一覧には、local objectionが残る発生元を含める。"
+      },
+      "conditions": {
+        "en": "Two sources raise; the first drops its last objection.",
+        "ja": "2つの発生元がraiseし、片方が最後のobjectionをdropする。"
+      },
+      "expected": {
+        "en": "The list shrinks from two to one, retaining only the second source.",
+        "ja": "一覧は2件から1件になり、2つ目の発生元だけが残る。"
+      },
+      "limitations": {
+        "en": "This does not assess every propagation mode; a known library difference remains.",
+        "ja": "全伝播modeを評価するものではなく、既知のライブラリ差分が残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_objection_objectors_list_removes_dropped_source",
+          "role": "direct",
+          "expected_observations": [
+            "UT: before 2",
+            "UT: after 1 only_second 1 first_count 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CONFIG-BUILD-PRECEDENCE",
+      "clause": "C.4.2.2.1",
+      "statement": {
+        "en": "During build, a setting from a higher hierarchy level has higher precedence.",
+        "ja": "build中は、階層の上位から行った設定を優先する。"
+      },
+      "conditions": {
+        "en": "Different hierarchy levels supply conflicting integer settings during build.",
+        "ja": "build中に異なる階層から、競合する整数設定を与える。"
+      },
+      "expected": {
+        "en": "Lookup finds the higher-precedence value 84.",
+        "ja": "lookupは優先度の高い値84を取得する。"
+      },
+      "limitations": {
+        "en": "Runtime precedence, wildcard matching and other data types remain separate.",
+        "ja": "runtimeの優先度、wildcardの照合、他の型は別途扱う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_config_db_build_hierarchy_precedence",
+          "role": "direct",
+          "expected_observations": [
+            "UT: build found 1 value 84"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PACKER-OBJECT-HOOKS",
+      "clause": "16.5.4.2",
+      "statement": {
+        "en": "Object packing invokes the operation hook before do_pack while the object is active, then restores the stack.",
+        "ja": "objectのpackでは、対象がactiveな間にoperation hook、do_packの順で呼び、最後にstackを戻す。"
+      },
+      "conditions": {
+        "en": "A pack-enabled object records policy identity, active object and stack depth in both hooks.",
+        "ja": "packを有効にしたobjectが、両hookでpolicy、active object、stackの深さを記録する。"
+      },
+      "expected": {
+        "en": "Both hooks see the same active object at depth 1; afterward the stack is empty.",
+        "ja": "両hookは深さ1で同じactive objectを観測し、その後stackは空になる。"
+      },
+      "limitations": {
+        "en": "Pack-disabled and nested-object paths are separate; no byte-layout claim is made.",
+        "ja": "pack無効時と入れ子のobjectは別途扱い、byte配置は主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_packer_pack_object_orders_hooks_inside_active_stack",
+          "role": "direct",
+          "expected_observations": [
+            "UT: execute pack policy_same 1 active_same 1 depth 1",
+            "UT: do_pack active_same 1 depth 1",
+            "UT: after execute 1 pack 1 empty 1 depth 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CALLBACK-INSERTION-ORDER",
+      "clause": "10.7.2.3.1",
+      "statement": {
+        "en": "Callback registration places appended callbacks after existing entries and prepended callbacks before them.",
+        "ja": "callback登録のappendは既存の後、prependは既存の前に追加する。"
+      },
+      "conditions": {
+        "en": "Two callbacks are appended and one is prepended to one object.",
+        "ja": "1つのobjectに2つをappendし、1つをprependする。"
+      },
+      "expected": {
+        "en": "Invocation order is ahead, first, second, with one invocation each.",
+        "ja": "呼出し順はahead、first、secondで、それぞれ1回呼ばれる。"
+      },
+      "limitations": {
+        "en": "Type-wide inheritance, duplicates and removal are separate conditions.",
+        "ja": "型全体への継承、重複、削除は別の条件である。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_callbacks_append_and_prepend_determine_execution_order",
+          "role": "direct",
+          "expected_observations": [
+            "UT: hit ahead",
+            "UT: hit first",
+            "UT: hit second",
+            "UT: counts 1 1 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CALLBACK-MODE",
+      "clause": "10.7.1.2.2",
+      "statement": {
+        "en": "Changing callback mode returns the previous state; a non-toggle query leaves the state intact.",
+        "ja": "callbackのmode変更は変更前の状態を返し、切替を指定しない照会では状態を保つ。"
+      },
+      "conditions": {
+        "en": "An enabled callback is disabled, enabled, then queried without a change.",
+        "ja": "有効なcallbackを無効化、有効化し、最後に変更せず照会する。"
+      },
+      "expected": {
+        "en": "Returned prior states are 1, 0 and 1, while current states become 0, 1 and 1.",
+        "ja": "返す直前の状態は1、0、1で、現在の状態は0、1、1になる。"
+      },
+      "limitations": {
+        "en": "Execution gating and callback-table iteration are separate requirements.",
+        "ja": "実行の抑制とcallback tableの反復は別の要求である。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_callback_mode_returns_previous_enable_state",
+          "role": "direct",
+          "expected_observations": [
+            "UT: disabled previous 1 enabled 0",
+            "UT: enabled previous 0 enabled 1",
+            "UT: unchanged previous 1 enabled 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIFO-REJECT-FULL",
+      "clause": "12.2.4.2.4",
+      "statement": {
+        "en": "A nonblocking put rejected by a full FIFO returns failure without inserting the item.",
+        "ja": "満杯のFIFOがnonblocking putを拒否する場合、itemを追加せず失敗を返す。"
+      },
+      "conditions": {
+        "en": "A capacity-one FIFO contains 11 before a second put is attempted.",
+        "ja": "容量1のFIFOに11が入った状態で、2回目のputを試す。"
+      },
+      "expected": {
+        "en": "The second put returns 0; peek/get still return 11 and the final FIFO is empty.",
+        "ja": "2回目のputは0を返し、peek／getは引き続き11を返して最後は空になる。"
+      },
+      "limitations": {
+        "en": "Unbounded queues, simultaneous put/get and blocking wake-up are separate.",
+        "ja": "無制限queue、put／getの同時実行、blockingの再開は別途扱う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm_fifo_rejected_put_keeps_existing_entry",
+          "role": "direct",
+          "expected_observations": [
+            "UT: capacity 1 put_results 1 0 full 1",
+            "UT: peek 1 value 11 used 1",
+            "UT: get 1 value 11 empty 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PAYLOAD-REPLACE-EXTENSION",
+      "clause": "12.3.4.2.44",
+      "statement": {
+        "en": "Installing an extension replaces the extension of the same type and returns its previous handle.",
+        "ja": "extensionを設定すると、同じ型のextensionを置き換えて以前のhandleを返す。"
+      },
+      "conditions": {
+        "en": "A payload receives two different extension instances of the same registered type.",
+        "ja": "payloadに、同じ登録型の異なる2つのextension instanceを設定する。"
+      },
+      "expected": {
+        "en": "The returned handle is the old instance; lookup gives the new one and the count stays 1.",
+        "ja": "戻り値は古いinstance、lookupは新しいinstanceで、countは1のままである。"
+      },
+      "limitations": {
+        "en": "Deep-copy and automatic-extension lifetime are not assessed here.",
+        "ja": "deep copyとautomatic extensionの寿命はここでは評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_payload_extension_replacement_returns_previous_handle",
+          "role": "direct",
+          "expected_observations": [
+            "UT: previous_same 1 current_same 1 count 1",
+            "UT: retained_values 11 29"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-NULL-START",
+      "clause": "14.2.6.2",
+      "statement": {
+        "en": "start_item with a null item reports an error and returns without entering item processing.",
+        "ja": "null itemのstart_itemはerrorを報告し、item処理に入らずreturnする。"
+      },
+      "conditions": {
+        "en": "An error/fatal-counting fixture calls start_item(null).",
+        "ja": "error／fatalを数える構成でstart_item(null)を呼ぶ。"
+      },
+      "expected": {
+        "en": "The call returns, pre hooks stay at zero, and one error but no fatal is observed.",
+        "ja": "呼出しはreturnし、pre hookは0回、errorが1件、fatalが0件になる。"
+      },
+      "limitations": {
+        "en": "Known library fatal behavior remains a difference; arbitration failures are separate.",
+        "ja": "ライブラリがfatalにする既知差分を保持する。arbitrationの失敗は別途扱う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_start_item_null_argument_reports_error_and_returns",
+          "role": "direct",
+          "expected_observations": [
+            "UT: returned 1 pre_calls 0 errors 1 fatals 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESPONSE-SELECT-ID",
+      "clause": "14.3.3.3",
+      "statement": {
+        "en": "Response retrieval with a transaction ID selects the matching response.",
+        "ja": "transaction IDを指定したresponse取得は、一致するresponseを選ぶ。"
+      },
+      "conditions": {
+        "en": "Two queued responses carry IDs 101 and 102; ID 102 is requested first.",
+        "ja": "IDが101と102のresponseをqueueに入れ、先に102を要求する。"
+      },
+      "expected": {
+        "en": "Retrieval yields ID/value 102/22 followed by the retained 101/11.",
+        "ja": "102／22を取得した後、残っていた101／11を取得する。"
+      },
+      "limitations": {
+        "en": "Waiting for a not-yet-arrived ID and response overflow remain separate.",
+        "ja": "まだ到着していないIDの待機とresponseのoverflowは別途扱う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_get_response_selects_transaction_id_without_losing_other_reply",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ids 102 101 values 22 11"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCER-EMPTY-TRY",
+      "clause": "15.5.2.4",
+      "statement": {
+        "en": "try_next_item returns a null request when no sequence can supply an item.",
+        "ja": "itemを供給できるsequenceがない場合、try_next_itemはnullのrequestを返す。"
+      },
+      "conditions": {
+        "en": "An idle sequencer receives two nonblocking requests with no active producer.",
+        "ja": "producerが動いていないsequencerに、2回のnonblocking要求を行う。"
+      },
+      "expected": {
+        "en": "Both requests and the current item remain null; no request is generated.",
+        "ja": "両要求とcurrent itemはnullで、requestは生成されない。"
+      },
+      "limitations": {
+        "en": "This checks selected empty calls, not arbitration fairness or all timing interleavings.",
+        "ja": "選択した空状態の呼出しを検査し、arbitrationの公平性や全タイミングは示さない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequencer_try_next_item_returns_null_when_no_sequence_is_ready",
+          "role": "direct",
+          "expected_observations": [
+            "UT: first_null 1",
+            "UT: second_null 1 current_null 1 requests 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCER-DONE-RESPONSE",
+      "clause": "15.5.2.5",
+      "statement": {
+        "en": "item_done routes a supplied response with correct copied IDs to the requesting sequence.",
+        "ja": "item_doneは、正しくIDをコピーしたresponseを要求元のsequenceへ返す。"
+      },
+      "conditions": {
+        "en": "A driver copies request IDs into a response with payload 99 and completes the item.",
+        "ja": "driverがrequestのIDをpayload 99のresponseへコピーし、itemを完了する。"
+      },
+      "expected": {
+        "en": "The sequence receives that response handle, payload 99 and transaction ID 23.",
+        "ja": "sequenceはそのresponseのhandle、payload 99、transaction ID 23を受け取る。"
+      },
+      "limitations": {
+        "en": "Null-response completion, peek behavior and all waiter conditions are separate.",
+        "ja": "null responseでの完了、peekの動作、全待機条件は別途扱う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequencer_item_done_routes_response_with_copied_ids",
+          "role": "direct",
+          "expected_observations": [
+            "UT: response_same 1 payload 99 transaction_id 23 finished 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-READ-CLEAR-PREDICTION",
+      "clause": "18.5.5.17",
+      "statement": {
+        "en": "Read prediction accounts for the post-read state of a read-clear field.",
+        "ja": "readのpredictionでは、read-clear fieldの読み出し後の状態を反映する。"
+      },
+      "conditions": {
+        "en": "An RC field accepts a successful read prediction with a nonzero sampled value.",
+        "ja": "RC fieldが非0のsample値で成功したread predictionを受け入れる。"
+      },
+      "expected": {
+        "en": "Prediction succeeds and desired/mirrored values are both zero.",
+        "ja": "predictionは成功し、desired値とmirror値がともに0になる。"
+      },
+      "limitations": {
+        "en": "The access policy is also cited at 18.5.4.6; no actual bus transfer is exercised.",
+        "ja": "access policyは18.5.4.6も引用する。実際のbus転送は行わない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_field_read_clear_prediction_records_post_read_zero",
+          "role": "direct",
+          "expected_observations": [
+            "UT: step 1 accepted 1 desired 0 mirror 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAP-LITTLE-ENDIAN-ADDRESSES",
+      "clause": "18.2.4.16",
+      "statement": {
+        "en": "Physical transfer addresses are ordered from the least significant register data in a little-endian map.",
+        "ja": "little-endian mapの物理転送addressは、register dataの下位側から並べる。"
+      },
+      "conditions": {
+        "en": "A 48-bit register at offset 0x20 uses a 2-byte bus with base 0x100.",
+        "ja": "offset 0x20の48-bit registerが、base 0x100の2-byte busを使う。"
+      },
+      "expected": {
+        "en": "get_addresses reports 2 bytes per access and addresses 0x120, 0x122, 0x124.",
+        "ja": "get_addressesは1アクセス2 bytesと、0x120、0x122、0x124を返す。"
+      },
+      "limitations": {
+        "en": "Observed through register get_addresses (18.4.3.15); submaps and partial beats remain separate.",
+        "ja": "registerのget_addresses（18.4.3.15）経由で観測する。submapと部分beatは別途扱う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_map_little_endian_wide_register_lists_addresses_in_data_order",
+          "role": "direct",
+          "expected_observations": [
+            "UT: transfer 2 count 3",
+            "UT: addresses 120 122 124"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEMORY-LOCATION-OFFSET",
+      "clause": "18.6.4.15",
+      "statement": {
+        "en": "A memory location offset reflects the selected location index within its map.",
+        "ja": "memoryのlocation offsetは、そのmap内の指定location indexを反映する。"
+      },
+      "conditions": {
+        "en": "A 16-bit memory starts at offset 0x20 on a byte-addressed map with base 0x100.",
+        "ja": "16-bit memoryが、base 0x100のbyte-addressed mapのoffset 0x20にある。"
+      },
+      "expected": {
+        "en": "Selected locations yield offsets 0x20, 0x22, 0x26 and addresses 0x120, 0x122, 0x126.",
+        "ja": "選択したlocationはoffset 0x20、0x22、0x26とaddress 0x120、0x122、0x126になる。"
+      },
+      "limitations": {
+        "en": "Known library offset behavior differs; burst and alternate addressing modes remain separate.",
+        "ja": "ライブラリのoffsetには既知差分がある。burstと他のaddressing modeは別途扱う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_mem_location_offsets_include_the_location_index_stride",
+          "role": "direct",
+          "expected_observations": [
+            "UT: offsets 20 22 26",
+            "UT: addresses 120 122 126"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PREDICTOR-REDIRECT",
+      "clause": "19.3.3.2",
+      "statement": {
+        "en": "pre_predict may redirect the register target and modify the value before prediction.",
+        "ja": "pre_predictはpredictionの前に、対象registerと値を変更できる。"
+      },
+      "conditions": {
+        "en": "A custom hook redirects one observed transaction from the source to another register.",
+        "ja": "独自hookが1つの観測transactionを元のregisterから別のregisterへ向ける。"
+      },
+      "expected": {
+        "en": "The source stays at 0x55; the target becomes 0x77 with one redirected hook call.",
+        "ja": "元は0x55を保ち、対象は0x77になって、変更hookは1回呼ばれる。"
+      },
+      "limitations": {
+        "en": "One successful observation only; status/error policies remain separate and a known difference remains.",
+        "ja": "成功する観測1件のみ。status／errorのpolicyは別途扱い、既知差分も残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_predictor_pre_predict_redirects_the_target_and_modified_value",
+          "role": "direct",
+          "expected_observations": [
+            "UT: source 55 target 77 hook 1 calls 1 value 77 redirected 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BACKDOOR-READ-CLEAR",
+      "clause": "18.4.4.10",
+      "statement": {
+        "en": "A register backdoor read emulates physical read-clear effects after sampling the value.",
+        "ja": "registerのbackdoor readは、値をsampleした後にphysical readと同様のread-clear効果を反映する。"
+      },
+      "conditions": {
+        "en": "An RC register uses a successful user backdoor whose stored value is 0xa6.",
+        "ja": "RC registerが、保存値0xa6で成功するuser backdoorを使う。"
+      },
+      "expected": {
+        "en": "The read returns 0xa6 and leaves backdoor storage at zero.",
+        "ja": "readは0xa6を返し、backdoorの保存値を0にする。"
+      },
+      "limitations": {
+        "en": "The anchor also observes mirror 0, whose separate prediction obligation is not decomposed here; no HDL DPI.",
+        "ja": "anchorはmirror 0も観測するが、そのpredictionの義務はここでは分解しない。HDL DPIは使わない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_user_backdoor_read_applies_read_clear_after_sampling",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ok 1 value a6 stored 0 mirror 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-ALLOCATE-REGION",
+      "clause": "18.9.1.1.4",
+      "statement": {
+        "en": "Virtual-register allocation returns its allocated region and implements the requested array in memory.",
+        "ja": "virtual registerのallocateは、割り当てたregionを返し、要求された配列をmemoryに実装する。"
+      },
+      "conditions": {
+        "en": "A deterministic allocation policy selects start 10 for two 16-bit elements in an 8-bit memory.",
+        "ja": "決定的な割り当てpolicyが、8-bit memory内の16-bit要素2つにstart 10を選ぶ。"
+      },
+      "expected": {
+        "en": "The returned region is selected, implementation size is 2 and region bounds are 10 through 13.",
+        "ja": "選択されたregionが返り、実装sizeは2、regionの範囲は10から13になる。"
+      },
+      "limitations": {
+        "en": "Allocation failure, replacement and broader policy constraints remain separate.",
+        "ja": "割り当て失敗、置換、追加のpolicy制約は別途扱う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_allocate_returns_the_region_and_implements_a_packed_array",
+          "role": "direct",
+          "expected_observations": [
+            "UT: selected 1 memory 1 size 2 region 10 13 4"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-FIELD-POST-WRITE-ORDER",
+      "clause": "18.10.6.2.2",
+      "statement": {
+        "en": "A virtual-field post_write callback executes before the corresponding field method.",
+        "ja": "virtual fieldのpost_write callbackを、対応するfield methodより先に実行する。"
+      },
+      "conditions": {
+        "en": "A standalone virtual-field write records one registered callback and one inherited method.",
+        "ja": "virtual field単独のwriteで、登録callbackと継承したmethodを各1つ記録する。"
+      },
+      "expected": {
+        "en": "A successful write records order cM.",
+        "ja": "成功したwriteは順序cMを記録する。"
+      },
+      "limitations": {
+        "en": "The parent-register write is linked as a control only; standalone ordering has a known library difference.",
+        "ja": "親virtual registerのwriteはcontrolとしてのみ対応付ける。単独時の順序には既知のライブラリ差分がある。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_field_standalone_post_write_callback_precedes_its_inherited_method",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ok 1 order cM"
+          ]
+        },
+        {
+          "test": "u18/test_vreg_post_write_orders_registered_callbacks_before_their_methods",
+          "role": "control",
+          "expected_observations": [
+            "UT: ok 1 order rRfF"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEMORY-WALK-BLOCK-EXCLUSION",
+      "clause": "E.6.2",
+      "statement": {
+        "en": "A block-scoped NO_MEM_WALK_TEST resource excludes that block from the memory-walk wrapper.",
+        "ja": "block scopeのNO_MEM_WALK_TEST resourceは、memory-walk wrapperからそのblockを除外する。"
+      },
+      "conditions": {
+        "en": "An exact block resource is installed, followed by a direct single-memory control.",
+        "ja": "exactなblock resourceを設定し、その後に単独memoryへの直接controlを行う。"
+      },
+      "expected": {
+        "en": "The baseline is clean, the wrapper skips, and the independent control still accesses memory.",
+        "ja": "baselineは正常、wrapperはskipし、独立したcontrolはmemoryへアクセスする。"
+      },
+      "limitations": {
+        "en": "Wildcard resources and other exclusions remain separate; the pinned wrapper has a known difference.",
+        "ja": "wildcardのresourceと他の除外は別途扱う。固定版のwrapperには既知差分がある。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uE/test_memory_walk_sequence_honors_a_block_specific_walk_exclusion",
+          "role": "direct",
+          "expected_observations": [
+            "UT: clean 1 skipped 1 control 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEMORY-ACCESS-ELEMENT-EXCLUSION",
+      "clause": "E.5.1",
+      "statement": {
+        "en": "The single-memory access sequence skips a memory with its specified NO_MEM_SHARED_ACCESS_TEST resource.",
+        "ja": "single-memory access sequenceは、指定されたNO_MEM_SHARED_ACCESS_TEST resourceのあるmemoryをskipする。"
+      },
+      "conditions": {
+        "en": "An exact resource selects one memory while an independent peer remains testable.",
+        "ja": "exactなresourceで1つのmemoryを選び、独立したpeerは検査可能なままにする。"
+      },
+      "expected": {
+        "en": "The clean baseline succeeds, the selected memory skips and the peer control succeeds.",
+        "ja": "正常なbaselineが成功し、選択したmemoryはskip、peer controlは成功する。"
+      },
+      "limitations": {
+        "en": "The similarly named block resource is a separate obligation; a pinned-library name difference remains.",
+        "ja": "似た名前のblock resourceは別の義務である。固定ライブラリのresource名には差分が残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uE/test_single_memory_access_sequence_honors_its_shared_access_exclusion_resource",
+          "role": "direct",
+          "expected_observations": [
+            "UT: clean 1 skipped 1 peer_control 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BUILTIN-SELECTION-ORDER",
+      "clause": "17.2.2.10",
+      "statement": {
+        "en": "Selected built-in test families run in the prescribed order, with register bit-bash before memory walk.",
+        "ja": "選択した組み込みtest familyを規定順で実行し、register bit-bashをmemory walkより先にする。"
+      },
+      "conditions": {
+        "en": "A derived dispatcher selects UVM_DO_REG_BIT_BASH | UVM_DO_MEM_WALK with modeled storage.",
+        "ja": "派生dispatcherが、モデル化したstorageでUVM_DO_REG_BIT_BASH | UVM_DO_MEM_WALKを選ぶ。"
+      },
+      "expected": {
+        "en": "Both families execute and register activity finishes before memory activity starts.",
+        "ja": "両familyを実行し、registerの活動が終了してからmemoryの活動を開始する。"
+      },
+      "limitations": {
+        "en": "Only one OR combination; the all-tests mask and every selection combination are not executed.",
+        "ja": "ORの組合せ1つのみ。all-tests maskや全選択の組合せは実行しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uE/test_built_in_test_dispatcher_ored_flags_run_bit_bash_before_memory_walk",
+          "role": "direct",
+          "expected_observations": [
+            "UT: clean 1 register_activity 1 memory_activity 1 ordered 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-DATABASE-OPEN-STATE",
+      "clause": "7.1.3.3",
+      "statement": {
+        "en": "Database is_open distinguishes a successful open that is still active from a closed database.",
+        "ja": "databaseのis_openは、成功したopenが継続中の状態とclosed状態を区別する。"
+      },
+      "conditions": {
+        "en": "A database implementation can report successful open and close transitions.",
+        "ja": "databaseの実装がopenの成功とcloseの遷移を報告できる。"
+      },
+      "expected": {
+        "en": "Status is 1 after successful open and 0 when no open remains.",
+        "ja": "openの成功後は1、openが残っていなければ0を返す。"
+      },
+      "limitations": {
+        "en": "No test is mapped yet; an independent database fixture is needed before assessing this unit.",
+        "ja": "まだテストを対応付けていない。評価には独立したdatabase構成が必要である。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": []
+    },
+    {
+      "id": "UVM-POOL-UNIQUE-COUNT",
+      "clause": "11.2.2.6",
+      "statement": {
+        "en": "Pool num reports how many distinct keys currently have entries.",
+        "ja": "poolのnumは、現在entryがある異なるkeyの数を返す。"
+      },
+      "conditions": {
+        "en": "A pool contains repeated writes to one key and a write to another key.",
+        "ja": "poolの1つのkeyに繰り返しwriteし、別のkeyにもwriteする。"
+      },
+      "expected": {
+        "en": "Replacing an existing key keeps the count; adding a new key increments it.",
+        "ja": "既存keyの置換ではcountを保ち、新しいkeyの追加では増やす。"
+      },
+      "limitations": {
+        "en": "No test is mapped; deletion and default-item creation require additional units.",
+        "ja": "テストは未対応。削除とdefault itemの生成には追加の要求が必要である。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": []
+    },
+    {
+      "id": "UVM-AGENT-ACTIVITY-QUERY",
+      "clause": "13.4.2.2",
+      "statement": {
+        "en": "Agent get_is_active reports the activity mode configured for that agent.",
+        "ja": "agentのget_is_activeは、そのagentに設定された活動modeを返す。"
+      },
+      "conditions": {
+        "en": "Separate agents are explicitly configured active and passive before querying.",
+        "ja": "異なるagentにactiveとpassiveを明示的に設定して照会する。"
+      },
+      "expected": {
+        "en": "Each query agrees with its configured activity enumeration.",
+        "ja": "各照会が、設定した活動modeの列挙値に一致する。"
+      },
+      "limitations": {
+        "en": "No test is mapped; default mode and command-line conversion are not included in this unit.",
+        "ja": "テストは未対応。default modeとcommand-lineからの変換はこの要求に含めない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": []
+    },
+    {
+      "id": "UVM-HDL-DEPOSIT",
+      "clause": "19.6.2.2",
+      "statement": {
+        "en": "HDL deposit sets the selected HDL object value and reports whether the operation succeeded.",
+        "ja": "HDL depositは、選択したHDL objectに値を設定して成功の有無を返す。"
+      },
+      "conditions": {
+        "en": "An allowed backend provides linked HDL DPI and both valid and invalid HDL paths.",
+        "ja": "利用が許可されたbackendがHDL DPIをlinkし、有効／無効なHDL pathを与える。"
+      },
+      "expected": {
+        "en": "A successful deposit returns 1 and changes the target; a failed deposit returns 0.",
+        "ja": "成功したdepositは1を返して対象を変更し、失敗したdepositは0を返す。"
+      },
+      "limitations": {
+        "en": "No test is mapped and current fixtures disable HDL DPI. Backend availability does not remove this candidate; commercial results remain prohibited.",
+        "ja": "テストは未対応で、現在の構成はHDL DPIを無効にする。backendの利用可否を理由にこの候補を削除しない。商用実行結果は禁止のままである。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": []
+    },
+    {
+      "id": "UVM-STRING-SPLIT-EMPTY-FIELDS",
+      "clause": "F.3.3.2",
+      "statement": {
+        "en": "String splitting preserves empty fields created by adjacent or edge separators.",
+        "ja": "stringのsplitは、隣接する区切りや端の区切りが作る空の要素を保持する。"
+      },
+      "conditions": {
+        "en": "Inputs include adjacent separators, leading/trailing separators and an empty string.",
+        "ja": "入力に、隣接する区切り、先頭／末尾の区切り、空文字列を含める。"
+      },
+      "expected": {
+        "en": "Result size is separator count plus one; empty input yields one empty field.",
+        "ja": "結果のsizeは区切りの数に1を足した値になり、空入力は空の要素1つになる。"
+      },
+      "limitations": {
+        "en": "No test is mapped; this is a candidate for a class-library-independent utility fixture.",
+        "ja": "テストは未対応。class libraryに依存しないutility構成の候補である。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": []
+    },
+    {
+      "id": "UVM-COMMAND-ARG-VALUES",
+      "clause": "G.1.4.2",
+      "statement": {
+        "en": "get_arg_values replaces the output queue with matching argument suffixes and returns the match count.",
+        "ja": "get_arg_valuesは、出力queueを一致する引数のsuffixで置き換え、一致件数を返す。"
+      },
+      "conditions": {
+        "en": "Several command-line arguments share one prefix; the output queue initially has stale contents.",
+        "ja": "複数のcommand-line引数が同じprefixを持ち、出力queueには古い内容がある。"
+      },
+      "expected": {
+        "en": "Only matching suffixes remain and the returned count equals their number.",
+        "ja": "一致したsuffixだけが残り、戻り値はその件数に等しい。"
+      },
+      "limitations": {
+        "en": "No test is mapped; regex matching and the separate single-value API need other units.",
+        "ja": "テストは未対応。正規表現の照合と別の単一値APIは他の要求で扱う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": []
+    }
+  ]
+}

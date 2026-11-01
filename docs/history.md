@@ -2,8 +2,8 @@
 
 [日本語](history.ja.md) · [README](../README.md)
 
-These records cover M1, fifteen M2 increments and nine M3 increments
-(805 tests). The earlier 349-test checkpoint is
+These records cover M1, fifteen M2 increments, nine M3 increments
+and the first M4 increment (805 simulation tests). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -1174,3 +1174,41 @@ remaining work and guest measurement scope are explicit. Checks include
 structure, local links, historical preservation, privacy and staged whitespace.
 No commercial simulator results were used. All tests retain spec_check: ai,
 UVM_NO_DPI and no deprecated API.
+
+## First M4 increment
+
+Start the [requirement ledger](requirements.md), retaining all M1–M3 targets
+as incomplete. Index all 805 unchanged tests and the existing 2,504 clause
+identifiers. Propose candidate roots 5–19/B–G (2,479 identifiers), context
+roots 1–4 (16) and deferred deprecated annex H (9). This is a scope proposal,
+not denominator approval. Normative decomposition remains incomplete and
+no percentage is published.
+
+Add 36 original bilingual AI-drafted obligations across core UVM, reporting,
+factory, phases, objections, configuration, policies, callbacks, TLM,
+sequences/sequencers, register models and annex E, plus unlinked candidates
+for databases, pools, agents, HDL deposit, string splitting and command-line
+arguments. Thirty requirements link directly to existing tests; one separate
+parent-register test is a control, leaving 774 tests without requirement links.
+Thirty-five clause identifiers have partial decompositions and 2,469 remain
+unassessed. No entry is marked human-reviewed or complete.
+
+The census distinguishes 356 primary-focus identifiers from 814 identifiers
+with any UVM citation. For candidate identifiers it reports 2,123 with zero
+primary tests, 157 with one and 199 with at least two. These placement counts
+are not a normative denominator or a sufficiency judgment. Explicit oracle
+anchors are not measured passes; direct links retain known differences.
+
+Add validation, inventory and index-proposal commands. Reject malformed or
+non-bilingual data, duplicate IDs/keys, unknown references, absent oracle
+anchors, stale input fingerprints and unsupported approval claims. Preserve
+linked snapshots during sync until reassessment; keep controls separate and
+protect canonical inputs from generated outputs. Add the ledger check to CI
+and update the paired guides, FAQ and glossary.
+
+Validation passes 61 tool unit tests, 805 metadata records, the 36-entry ledger
+and pinned-library integrity. Verify bilingual structure, local links,
+historical preservation, canonical license, privacy and whitespace. Existing
+805-case input/runner fingerprints still match the recorded Verilator,
+kirimasim and guest evidence; simulation sources, expectations, runners and
+library lock are unchanged. No new simulation or commercial result is used.

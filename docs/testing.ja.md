@@ -27,6 +27,8 @@ tests/uB/, uC/, uD/          付録テスト：マクロ、設定、callback
 tests/uE/                   組み込みregister／memoryテストsequence
 docs/testing*.md            テスト形式・実行・変更時の規則
 docs/results*.md            現在の測定条件と記録
+docs/requirements*.md       範囲の案・要求の対応付け・棚卸し
+coverage/*.json             版管理する範囲・要求台帳・テスト索引
 docs/provenance*.md         関連リポジトリとソースの由来
 docs/glossary*.md            用語集
 docs/faq*.md                 よくある質問
@@ -41,6 +43,7 @@ tools/run_verilator.py       Verilatorのランナー
 tools/run_ghost.py           非公開プロファイルを使うGhostのランナー
 tools/suite_results.py       判定と結果JSON（kirimasim-testsから写したもの）
 tools/lint_metadata.py       メタデータとテストの形式の検査
+tools/requirements.py        要求台帳の案の検査と棚卸し
 tools/sv_lifetimes.py        初期化付き手続き内ローカル変数の字句チェック
 tools/clauses_1800_2.txt     1800.2-2020の条項番号（番号だけ）
 tools/UPSTREAM               写したツールの元と、変えた点
@@ -237,9 +240,11 @@ python3 tools/run_ghost.py --simulator /path/to/private/simulator \
 python3 tools/fetch_uvm.py --check
 python3 -m unittest discover -s tools -p 'test_*.py'
 python3 tools/lint_metadata.py
+python3 tools/requirements.py check
 ```
 
-現在のツールの単体テストは41件、メタデータの対象はシミュレーションテスト805件です。
+現在のツールの単体テストは61件、メタデータの対象はシミュレーションテスト805件です。
+[台帳の検査](requirements.ja.md)は、範囲案、明示した期待値への対応、入力の指紋を検査し、カバレッジを主張しません。
 [Check](../.github/workflows/check.yml)は`main`へのpush・pull request・手動実行で動きます。
 別のVerilatorジョブは5.052・`UVM_NO_DPI`・seed 1と73でoracle付きのテストを実行し、
 各モデルを一度ビルドして2回使います。Checkの成功はその検査の成功を示し、

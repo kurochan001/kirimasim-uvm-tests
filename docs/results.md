@@ -76,6 +76,11 @@ claim that a single invocation reran the entire suite. The
 prior smoke tests and build-change details. Refreshed records replace older
 ones only after their current input fingerprints are verified.
 
+The first M4 increment adds a [draft ledger](requirements.md) and validation
+tools without changing simulation inputs or runners. The recorded input and
+runner fingerprints still match; no new simulator execution is claimed.
+Ledger anchors describe expected output, not additional measured passes.
+
 ## Reproducing and retaining results
 
 The [testing guide](testing.md#running-the-suite) documents the commands,
@@ -87,8 +92,9 @@ inputs, a different runner, executable, profile or library is a separate conditi
 ## Continuous integration
 
 [Check](../.github/workflows/check.yml) runs on pushes to `main`, pull requests
-and manual dispatch. It checks pinned-library integrity, 41 tool unit tests,
-805 metadata records and the 737 tagged Verilator cases using seeds 1 and 73.
+and manual dispatch. It checks pinned-library integrity, 61 tool unit tests,
+805 metadata records, the draft requirement ledger/test index and the 737
+tagged Verilator cases using seeds 1 and 73.
 It does not run kirimasim, Ghost or spec-only cases. The README's badge is the
 live CI state, separate from these local measurements. A green Check does
 not establish complete UVM conformance or a passing result for every simulator.
