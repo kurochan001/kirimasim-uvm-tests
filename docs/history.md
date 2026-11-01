@@ -3,7 +3,7 @@
 [日本語](history.ja.md) · [README](../README.md)
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and six cross-milestone thin-area expansions (925 simulation tests). The earlier 349-test checkpoint is
+three M4 increments and seven cross-milestone thin-area expansions (945 simulation tests). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -1611,3 +1611,46 @@ The glossary has 115 entries and the FAQ 100 answers, including a parent-port
 fanout diagram. Symbolic HDL paths remain distinct from backend accessibility;
 payload/control state remains distinct from target execution. README records
 the current state and this section preserves increment details.
+
+## Seventh thin-area expansion across M1–M4
+
+Twenty simulations extend the 925-case baseline at
+[b392959](https://github.com/kurochan001/kirimasim-uvm-tests/commit/b392959c512df803680f5b2030d6d78ca0f97956)
+to 945 cases in 21 directories: 295 M1, 388 M2 and 262 M3. All 925 baseline
+inputs remain unchanged. M1 adds eight typed event callback, wakeup reset,
+killed-waiter cancellation and dedicated event/barrier pool cases. M2 adds
+four blocking TLM 2 cases for overlapping calls, independent socket channels,
+error/reuse and a custom transaction through nested exports. M3 adds eight
+register-model introspection cases for parent handles, local/recursive
+membership and simple-name searches, including nested regfile placement.
+
+Seventeen additions match Verilator 5.052 at seeds 1 and 73. Three retain
+runtime differences at seed 1: disabled callback dispatch, wakeup reset and
+block register-name lookup. Reset's simulator/library cause remains
+unassigned. Ordinary post-lock register lookup works as a control; nested
+regfile lookup still differs. The compatible full snapshot has 852 matches
+and 93 known differences: 84 runtime first differences and nine missing-API
+builds without runtime seed results. Ghost bundled matches 5 additions and
+differs on 15 at each seed, reaching 193 matches and 752 failures with
+identical failing sets. kirimasim reports all twenty additions unsupported,
+reaching 936 unsupported and nine missing-API failures. Final measurements
+follow corrections to virtual callback argument names; superseded input
+records are not used. Runner/executable/profile/library identities remain
+compatible, with no new pinned-mode Ghost claim.
+
+M4 adds 47 AI drafts and maps all twenty additions plus twenty existing
+sequencer controls, histories and pull/push transfer fixtures. The ledger
+contains 651 drafts, 647 directly linked requirements and 676 directly linked
+tests, one additional control and 268 unmapped tests. Of 2,504 identifiers,
+480 are partially decomposed and 2,024 unassessed; 417 have primary focus and
+954 any citation. The 2,479-candidate primary census is 2,062 zero, 201 one
+and 216 at least two. Four drafts still lack direct tests. Chapter 15 retains
+56 unmapped primary fixtures and 64 unassessed identifiers. All reviews are
+AI, scope proposed and denominator/percentage unset.
+
+Validation covers 74 tool unit tests, all 945 metadata records, ledger/index
+integrity, final-input evidence fingerprints and complete English/Japanese
+guides. The glossary has 119 entries and the FAQ 103 answers. Callback enable
+state, reset wakeup, cancellation accounting, endpoint-defined blocking
+behavior and model-only queries are distinguished from broader coverage.
+README records current state; increment history is retained here.

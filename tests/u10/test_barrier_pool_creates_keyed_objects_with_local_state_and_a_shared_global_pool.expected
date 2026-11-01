@@ -1,0 +1,3 @@
+UT: identities nonnull 1 repeated 1 local 1 keys 1 counts 2/1
+UT: local_state threshold 2 peer 0 other 0
+UT: global singleton 1 shared_item 1 independent 1

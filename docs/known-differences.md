@@ -2,7 +2,7 @@
 
 [日本語](known-differences.ja.md) · [README](../README.md) · [FAQ](faq.md)
 
-This describes the current 925-test suite and the pinned Accellera UVM
+This describes the current 945-test suite and the pinned Accellera UVM
 2020.3.1 library. A mismatch is a test result; it does not by itself assign
 the cause to the simulator, the library or the expectation.
 
@@ -16,9 +16,18 @@ semantics still require review. Annex E additionally checks selected two/three-m
 shared accesses and one child-block shape; see the
 [memory scope](faq.md#memory-prediction-and-map-controls) and
 [shared-access scope](faq.md#memory-access-shared-maps-and-test-selection).
-The following fifty-four additional limitations were identified during M1, M2 and M3.
+The following fifty-six additional limitations were identified during M1, M2 and M3.
 Where a test directly checks a required behavior that is missing, its
 normative expectation is retained with `:oracle: spec`.
+
+- Event trigger dispatch calls disabled callback hooks as well as enabled
+  hooks. Clause 10.7.1.2.2 disables callbacks with `callback_mode(0)`; the
+  fixture preserves zero pre/post invocations while event data still updates.
+- Block `get_reg_by_name` uses a full-name registry populated only by model
+  locking, although 18.1.3.14 states no lock prerequisite. Ordinary local/deep
+  names become available after locking, but a register nested in a regfile
+  is still missed by its simple name. The fixture retains both pre/post-lock
+  obligations, with successful ordinary post-lock lookups as controls.
 
 - The required `uvm_hdl_path_concat::set_slices` and `get_slices` methods
   from 17.2.3.3.2/17.2.3.3.3 are absent. Two concat fixtures keep the
@@ -274,23 +283,34 @@ controls report the expected byte-aligned widths 16 and 8. Sub-byte logical
 width versus rounded physical-byte width needs review; no confirmed library
 bug is assigned from these two cases. See [partial transfers](faq.md#error-contracts-and-partial-transfers).
 
-Across the suite, 835 tests have the `verilator@5.052` oracle tag and ninety
+Across the suite, 852 tests have the `verilator@5.052` oracle tag and ninety-three
 cases are spec-only. One of the spec-only cases checks 9.6: a child's pre-reset
 task must be killed when that phase ends, but the pinned-library run on Verilator 5.052
 lets the child perform its delayed write during a later phase. The cause of
 this combined simulator/library difference remains unassigned.
 
-The ninety spec-only tests retain their normative expected files.
-Default Verilator runs and CI select the 835 tagged cases. `--all` includes
+A wakeup reset case establishes one trigger waiter and one persistent-trigger
+waiter before calling `reset(1)`. Clause 10.1.1.2.8 requires both to wake
+without callbacks. The pinned Verilator run reaches the blocked-state
+observation, then its watchdog expires. This combined simulator/library
+cause remains unassigned; the normative wakeup expectation is retained.
+
+The ninety-three spec-only tests retain their normative expected files.
+Default Verilator runs and CI select the 852 tagged cases. `--all` includes
 spec-only cases and records mismatches or build failures as `known`.
-The runtime records for 81 cases establish the first difference at seed 1,
+The runtime records for 84 cases establish the first difference at seed 1,
 without seed 73 results. Nine missing-API cases cannot build and have no
 runtime seed result: one time API, six sequence-library cases and two HDL slice cases.
 
 ## Spec-only tests
 
-These are the ninety current spec-only cases. Several exercise the same
+These are the ninety-three current spec-only cases. Several exercise the same
 limitation, so their count is not a count of distinct bugs.
+
+- [Disabled event callback dispatch](../tests/u10/test_event_disabled_callback_is_skipped_and_can_be_reenabled_for_later_triggers.sv).
+- [Wakeup reset with both event wait styles](../tests/u10/test_event_reset_with_wakeup_releases_both_wait_styles_without_callback_dispatch.sv),
+  whose simulator/library cause remains unassigned.
+- [Block register simple-name lookup before/after model locking](../tests/u18/test_block_register_name_lookup_prefers_local_scope_and_finds_descendants.sv).
 
 - Required HDL concat APIs:
   [set/readback](../tests/u17/test_hdl_concat_standard_set_slices_initializes_a_split_register_description.sv)
@@ -443,7 +463,7 @@ limitation, so their count is not a count of distinct bugs.
 
 ## Simulator and library combinations
 
-Ghost's bundled-library evidence has 188 matches and 737 failures with each
+Ghost's bundled-library evidence has 193 matches and 752 failures with each
 of seeds 1 and 73; the same tests fail at both seeds. The current executable
 snapshot has no pinned-mode measurement. [Results and methodology](results.md)
 describes the evidence assembly. Bundled results
@@ -452,7 +472,7 @@ problem from a library problem or establish results for the locked library.
 Private identity, profiles and diagnostics are not published.
 
 The tested kirimasim executable reports `uvm_object_wrapper` as unsupported
-on 916 cases. Nine cases record `fail` earlier on missing library APIs: one time
+on 936 cases. Nine cases record `fail` earlier on missing library APIs: one time
 setter, six sequence-library cases and two HDL slice cases. Neither result is a pass or evidence
 of UVM execution beyond those compilation blockers.
 

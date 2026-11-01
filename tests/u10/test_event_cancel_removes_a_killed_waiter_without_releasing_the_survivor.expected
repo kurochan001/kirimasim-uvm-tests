@@ -1,0 +1,3 @@
+UT: initial blocked 1 waiters 2
+UT: canceled waiters 1 survivor_waiting 1 victim_stopped 1
+UT: completion survivor 1 victim_returned 0 waiters 0

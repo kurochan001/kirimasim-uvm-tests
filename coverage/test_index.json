@@ -518,6 +518,10 @@
       "primary_clause": "9.6",
       "inputs_sha256": "c6dd01f4586b33b8670099c33b094cc1efb22fadc82cc3ede04d8ec0fee8c9a9"
     },
+    "u10/test_barrier_cancel_removes_a_killed_participant_before_a_fresh_threshold_group": {
+      "primary_clause": "10.3.2.8",
+      "inputs_sha256": "6837420c33cb8116a999d9994ce71de5c1acc7f212079bfdb3b5706f7e66e5d3"
+    },
     "u10/test_barrier_default_auto_reset_requires_a_fresh_threshold_on_each_round": {
       "primary_clause": "10.3.2.4",
       "inputs_sha256": "1d2e07af2b7b444a55d66a4df11b8a7b55f1150d33548c93138be72b246a08fc"
@@ -529,6 +533,10 @@
     "u10/test_barrier_lowering_threshold_below_the_waiter_count_releases_existing_waits": {
       "primary_clause": "10.3.2.6",
       "inputs_sha256": "4249aa3ee4334e2bd0fbe20a1b344b8183bf90b06ac74d9aeac42e5ff9e70351"
+    },
+    "u10/test_barrier_pool_creates_keyed_objects_with_local_state_and_a_shared_global_pool": {
+      "primary_clause": "10.4.2.2.4",
+      "inputs_sha256": "0f0a0eb5e81476a4f6bc2d478cdb1dbe08e0fdbc393f96174f1b4996ece77988"
     },
     "u10/test_barrier_without_auto_reset_remains_open_until_explicit_reset": {
       "primary_clause": "10.3.2.4",
@@ -614,9 +622,17 @@
       "primary_clause": "10.7.2.3.1",
       "inputs_sha256": "44c98242fca7214c492c9858f431d4b8fe7021d66d93f837f5f98741ccf7f792"
     },
+    "u10/test_event_cancel_removes_a_killed_waiter_without_releasing_the_survivor": {
+      "primary_clause": "10.1.1.2.9",
+      "inputs_sha256": "10ffa33a6bd0aa00eb0a3ac17f7255215ade96505bf0f9508439ad07d923c6aa"
+    },
     "u10/test_event_default_data_and_explicit_trigger_values_remain_independent_between_instances": {
       "primary_clause": "10.1.2.2.6",
       "inputs_sha256": "1424952248f9d83173c7114a79749abced23e21e62fff5b6e2586cc939173018"
+    },
+    "u10/test_event_disabled_callback_is_skipped_and_can_be_reenabled_for_later_triggers": {
+      "primary_clause": "10.7.1.2.2",
+      "inputs_sha256": "6fef1ea6050037ec97fc5412337a92335164654c55ce237a88328fc002a85b6e"
     },
     "u10/test_event_on_off_waits_follow_reset_and_a_second_trigger": {
       "primary_clause": "10.1.1.2.2",
@@ -625,6 +641,22 @@
     "u10/test_event_persistent_trigger_data_is_immediate_only_in_the_triggering_time_slice": {
       "primary_clause": "10.1.2.2.3",
       "inputs_sha256": "a8c978e11f7c8905482f735568b8ed4558de563e58975e4c6a20cd458a1b29f5"
+    },
+    "u10/test_event_pool_creates_keyed_objects_with_local_state_and_a_shared_global_pool": {
+      "primary_clause": "10.4.1.2.4",
+      "inputs_sha256": "2171d508f1102031540f22565f2bef7ecdbc5f6427673c46bad5f1e4c1e02ad4"
+    },
+    "u10/test_event_post_trigger_observes_activation_and_reset_does_not_invoke_callbacks": {
+      "primary_clause": "10.2.2.3",
+      "inputs_sha256": "1a3c5a1e6019ef64f066f3fe907423614771202dd0aee73524c01b04b4190089"
+    },
+    "u10/test_event_pre_trigger_veto_keeps_the_waiter_blocked_until_an_accepted_trigger": {
+      "primary_clause": "10.2.2.2",
+      "inputs_sha256": "85405e4efb326defe6cafb62c86d9ca8327616a7de95ff1aa3b24536def8f6a3"
+    },
+    "u10/test_event_reset_with_wakeup_releases_both_wait_styles_without_callback_dispatch": {
+      "primary_clause": "10.1.1.2.8",
+      "inputs_sha256": "43390a28394bcecd79fa5b89acf2a98aa13c647ca55016ab19f3cdc3fdf4880b"
     },
     "u10/test_event_trigger_data_waits_for_a_fresh_trigger_after_an_earlier_time_slice": {
       "primary_clause": "10.1.2.2.2",
@@ -938,9 +970,17 @@
       "primary_clause": "12.3.7.3",
       "inputs_sha256": "cffa1b931bb8a0286b1a4d44fe01855464a7541a1c63832ce3bb4149a4db729a"
     },
+    "u12/test_tlm2_nested_blocking_exports_forward_a_custom_transaction_and_its_completion": {
+      "primary_clause": "12.3.2.2.3",
+      "inputs_sha256": "19ce8c0853481ceceadb8b38a503c6f5e63efd2add778fc5cf58c67633395036"
+    },
     "u12/test_tlm2_nested_blocking_exports_forward_annotation_without_advancing_time": {
       "primary_clause": "12.3.7.1",
       "inputs_sha256": "9e175522613a09f8eb08ada9de2b39d1c3745abe7488a16ba09ddff12781d55b"
+    },
+    "u12/test_tlm2_nested_blocking_exports_return_an_error_then_reuse_the_same_transaction": {
+      "primary_clause": "12.3.2.2.3",
+      "inputs_sha256": "ae16af6d8e0fc5713b9764ae0505b6cb8579177fde745872c387535bcf6a21fa"
     },
     "u12/test_tlm2_nested_forward_exports_preserve_custom_transaction_and_phase_types": {
       "primary_clause": "12.3.7.2",
@@ -969,6 +1009,10 @@
     "u12/test_tlm2_nonblocking_round_trip_returns_backward_phase_update": {
       "primary_clause": "12.3.2.2.1",
       "inputs_sha256": "417c2103e471fb1d4b1886b7b43f41f160b925edd7e7315f9b05ace1d6e45ad4"
+    },
+    "u12/test_tlm2_one_blocking_socket_supports_overlapping_calls_with_distinct_handles": {
+      "primary_clause": "12.3.2.2.3",
+      "inputs_sha256": "6f4a857bf8a115f4f27079bb1c8a0a7f11a8e9ae62e629722093120dedf567fa"
     },
     "u12/test_tlm2_ordinary_forward_and_backward_exports_complete_one_roundtrip": {
       "primary_clause": "12.3.7.2",
@@ -1117,6 +1161,10 @@
     "u12/test_tlm2_time_standard_default_resolution_api_constructs_delay": {
       "primary_clause": "12.3.9",
       "inputs_sha256": "648c0dc30925909aeaffa29db770e25912b523af8c4e7763b2ef61d671805ade"
+    },
+    "u12/test_tlm2_two_blocking_socket_channels_keep_overlapping_calls_independent": {
+      "primary_clause": "12.3.2.2.3",
+      "inputs_sha256": "ad6b08b5d0d0d9ad433fe0416615bb8973ec60c62bf2f649b02634436aef7083"
     },
     "u12/test_tlm2_two_outstanding_socket_responses_keep_reversed_payloads_and_annotations_separate": {
       "primary_clause": "12.3.2.2.2",
@@ -2378,6 +2426,14 @@
       "primary_clause": "18.1.6.11",
       "inputs_sha256": "ffb69ac75d4975a264e96d6e737c57036f93f4d5068b5241b954b158b4785666"
     },
+    "u18/test_block_field_enumeration_includes_each_local_and_descendant_field": {
+      "primary_clause": "18.1.3.8",
+      "inputs_sha256": "5db4e635d49ff09647475cf03d67a0b78121a476532fec5314a4950f9ea8fd51"
+    },
+    "u18/test_block_field_name_lookup_finds_deep_fields_without_searching_ancestors": {
+      "primary_clause": "18.1.3.15",
+      "inputs_sha256": "aa62163460a300a59c868eb7cd447a4f1b5b39382d3743a44dd856a5cd34ebac"
+    },
     "u18/test_block_full_hdl_paths_expand_parent_duplicates_and_preserve_a_custom_separator": {
       "primary_clause": "18.1.6.8",
       "inputs_sha256": "21501f24e61d5d382a2084ce2ff2a37571484de22217b1625c09a5809139f594"
@@ -2389,6 +2445,26 @@
     "u18/test_block_hdl_default_abstraction_inherits_from_the_nearest_configured_ancestor": {
       "primary_clause": "18.1.6.9",
       "inputs_sha256": "ebefa74fb6321e54934185c0a36347677d7f758718cdb9a07d9303276cc4a2df"
+    },
+    "u18/test_block_memory_enumeration_keeps_peer_roots_outside_recursive_results": {
+      "primary_clause": "18.1.3.9",
+      "inputs_sha256": "74c92ea039618fb86624baefc0edd7b3844090d4c44d7f6894cb0b28f28d2f4c"
+    },
+    "u18/test_block_memory_name_lookup_prefers_local_scope_and_finds_descendants": {
+      "primary_clause": "18.1.3.16",
+      "inputs_sha256": "28257cd5ee6904955d7529bac322ec8b2d0e50d262c12a21f9a0f1fb333834d8"
+    },
+    "u18/test_block_register_enumeration_includes_regfiles_and_controls_recursion": {
+      "primary_clause": "18.1.3.7",
+      "inputs_sha256": "64be9e15be7ab1de0358ee119239b7c8d8bf7345eb1606f1254bfaf5aba0f331"
+    },
+    "u18/test_block_register_name_lookup_prefers_local_scope_and_finds_descendants": {
+      "primary_clause": "18.1.3.14",
+      "inputs_sha256": "23a17b261cbb9a4f821e4181de13eba819e09e71251ff74e08c0522f32c838d2"
+    },
+    "u18/test_block_subblock_enumeration_distinguishes_direct_and_recursive_children": {
+      "primary_clause": "18.1.3.5",
+      "inputs_sha256": "a1a63f75883dc59efca51528d6af3ad2a65497b0537c3de1f9d21fdc067ded06"
     },
     "u18/test_mem_big_endian_wide_location_lists_addresses_in_data_order": {
       "primary_clause": "18.6.4.17",
@@ -2861,6 +2937,10 @@
     "u18/test_reg_update_write_one_set_encodes_the_physical_write_mask": {
       "primary_clause": "18.4.4.13",
       "inputs_sha256": "92e38cef454540d0e654482a1157c2a34f37e1c2be4b78e5d7b6266e93aca858"
+    },
+    "u18/test_regfile_configured_parents_match_nested_file_and_register_placement": {
+      "primary_clause": "18.3.3.2",
+      "inputs_sha256": "aa0f964ea28d6ff4d9df7316d56e08fdbe5211ab078b72ef68a194659cd245e1"
     },
     "u18/test_vreg_allocate_can_move_to_another_memory_in_its_parent_block": {
       "primary_clause": "18.9.1.1.4",

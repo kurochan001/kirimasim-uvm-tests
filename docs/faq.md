@@ -173,7 +173,7 @@ a claim that every test was rebuilt together.
 
 ### Q16. Are M1, M2 or M3 complete, and what does the test count cover?
 
-M1 and M2 still have open clause targets. M3 now has 254
+M1 and M2 still have open clause targets. M3 now has 262
 register-layer cases, including testbench frontdoor paths; it is also incomplete. Starting a stage does not complete
 the preceding stages.
 The [plan](../README.md#plan) identifies current scope and remaining work.
@@ -1136,9 +1136,9 @@ not a direct test of the requirement.
 
 ### Q77. Why is there no coverage percentage after starting M4?
 
-The 604 AI drafts cover only a partial decomposition: 600 requirements link
-directly to 636 tests, 4 have no direct test, and one separate test is a control.
-Another 288 tests are not mapped yet. The 2,504 clause identifiers are not normative requirement units.
+The 651 AI drafts cover only a partial decomposition: 647 requirements link
+directly to 676 tests, 4 have no direct test, and one separate test is a control.
+Another 268 tests are not mapped yet. The 2,504 clause identifiers are not normative requirement units.
 The scope is proposed, the inventory incomplete and the denominator unapproved;
 starting M4 approves none of those. Known differences and HDL/DPI limitations
 do not silently exclude obligations. See the [approval path](requirements.md#remaining-m4-work-and-approval).
@@ -1583,3 +1583,69 @@ The ledger also maps selected existing generic-payload and extension cases.
 Address/data/mask state, command/status predicates, type-key identity,
 clearing and default packing are separate observations. Their getters do not
 establish target transfers, mask application, a streaming engine or DMI access.
+
+## Waiter cancellation, blocking calls and model queries
+
+### Q101. What do the event callback and cancellation cases require?
+
+Typed event callbacks are registered through `uvm_callbacks`, using the
+standard pre/post hook declarations. A pre-trigger veto leaves a waiting
+process blocked and the event off; an accepted trigger invokes post-trigger
+after the event is active with its new data. Disabling the callback must
+skip its hooks without suppressing the event itself. The pinned library
+still calls disabled hooks, so that expectation stays spec-only.
+
+[Wakeup reset](../tests/u10/test_event_reset_with_wakeup_releases_both_wait_styles_without_callback_dispatch.sv)
+must release established `wait_trigger` and `wait_ptrigger` callers without
+callback dispatch. The pinned Verilator combination times out at this step;
+the simulator/library cause is unassigned. Separate event and barrier
+cancellation cases kill one blocked process and explicitly call `cancel`.
+They check counts and surviving participants without assuming a release
+order. This is explicit accounting after process termination, not automatic
+cleanup of killed waiters.
+
+Dedicated event/barrier pools create missing keyed objects, reuse the same
+local key binding and keep other keys/local pools independent. Repeated
+`get_global_pool` calls share one pool of the selected type. These cases do
+not interpret the printed `get_global` return-type inconsistency. Event-pool
+counts measure new-key growth without asserting initial membership.
+
+### Q102. What does overlapping blocking TLM 2 traffic establish?
+
+The target implementation deliberately waits longer for one call, so a later
+shorter call can finish first. The tests observe both calls pending, the
+shorter return and final payload/delay identities, mutations, status and
+annotations. They cover a shared socket and separately bound socket pairs.
+They use distinct objects to avoid races on a shared transaction.
+
+The endpoint supplies scheduling and results. Blocking transport forwards
+the call and returns after that work; annotation values are offsets and are
+not automatically consumed as simulation delays. An error/retry case reuses
+the same payload/delay through nested exports. A
+[custom-transaction case](../tests/u12/test_tlm2_nested_blocking_exports_forward_a_custom_transaction_and_its_completion.sv)
+parameterizes the entire port/export/imp chain and returns its own reply and
+status fields. None of these calls uses a nonblocking phase or sync enum,
+models a bus or establishes arbitrary concurrent transaction safety.
+
+### Q103. How are register hierarchy queries and sequencer history scoped?
+
+The register-model cases inspect configured parent handles, direct/recursive
+block/register/field/memory sets and simple-name searches. Fresh queues and
+exact handle membership avoid assumptions about traversal order. Local
+register/memory names take precedence over descendants; missing, ancestor
+and peer-root objects remain outside the receiver's search. Regfile placement
+retains both block and enclosing-file identities. No address map, transfer,
+HDL variable or DPI is needed for these queries.
+
+[Register lookup](../tests/u18/test_block_register_name_lookup_prefers_local_scope_and_finds_descendants.sv)
+retains valid expectations before and after model locking. The pinned
+library misses pre-lock registers and still misses a nested-regfile register
+after locking. Ordinary post-lock lookups provide a working control.
+
+The ledger separately maps existing sequencer mode/capacity controls,
+request/response counts, newest-first histories, current-item lifetimes,
+repeated peek/get, direct execution and push delivery. A mode getter is not
+an arbitration test, and retained response history is not the sequence
+response queue. Push multi-request/history fixtures preserve known
+spec-only differences. Mapping these existing tests adds no execution pass
+or human review.

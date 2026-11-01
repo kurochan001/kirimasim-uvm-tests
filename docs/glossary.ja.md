@@ -445,3 +445,17 @@ elementの照会では親blockの既定を使えますが、明示kindと既定�
 
 **HDL pathの絶対root（Absolute HDL path root）** — 1 kindで祖先／incrementalのHDL pathを置換する、register blockのpath prefixです。
 暗黙のUVM component rootとは別で、名前付きHDL objectの実在も示しません。
+
+## callback dispatch、取消、modelの照会
+
+**pre-triggerの拒否（Pre-trigger veto）** — 1回のevent triggerとそのpost-trigger hookを抑止する、非0のcallbackの戻りです。
+callbackの削除や待機processの取消は行いません。
+
+**waiterの取消（Waiter cancellation）** — processがdisableされたり別の方法で起動したりした後、event／barrierの件数から
+待機participantを明示的に除くことです。processのkillとcancelの呼出しは別の操作です。
+
+**重なるblocking呼出し（Overlapping blocking calls）** — 実行区間が重なる2つのtask呼出しです。
+各呼出し側は自身のcalleeを待ち、別々のpayload／delay objectで、共有objectのraceなしにroutingと完了を検査できます。
+
+**modelの照会（Model introspection）** — 設定済みregister modelの親handle、包含object、名前の照会です。
+modelの階層を記述し、それ自体ではaddress-map転送の実行やHDL storageへのアクセスを行いません。

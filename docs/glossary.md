@@ -589,3 +589,21 @@ default argument need not select the same abstraction.
 **Absolute HDL path root** — A register-block path prefix that replaces
 ancestor/incremental HDL paths for one kind. It is distinct from the implicit
 UVM component root and does not establish that a named HDL object exists.
+
+## Callback dispatch, cancellation and model introspection
+
+**Pre-trigger veto** — A nonzero callback return that prevents one event
+trigger and its post-trigger hooks. It does not remove the callback or cancel
+a waiting process.
+
+**Waiter cancellation** — Explicit removal of a blocked participant from an
+event/barrier count after its process is disabled or otherwise activated.
+Killing a process and calling cancel are distinct operations.
+
+**Overlapping blocking calls** — Two task calls whose execution intervals
+overlap. Each caller waits for its own callee; separate payload/delay objects
+allow routing and completion to be checked without shared-object races.
+
+**Model introspection** — Queries of a configured register model's parent
+handles, contained objects or names. These describe the model hierarchy and
+do not by themselves execute an address-map transfer or access HDL storage.

@@ -1,0 +1,4 @@
+UT: before blocked 1 waiters 2
+UT: reset released 1 off 1 waiters 0 callbacks 0/0
+UT: fresh_wait 1
+UT: fresh_return 1 callbacks 1/1 data 99

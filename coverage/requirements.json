@@ -24026,6 +24026,1761 @@
           ]
         }
       ]
+    },
+    {
+      "id": "UVM-EVENT-CALLBACK-VETO",
+      "clause": "10.2.2.2",
+      "statement": {
+        "en": "A nonzero pre-trigger callback return prevents that trigger and its post-trigger callbacks.",
+        "ja": "pre-trigger callbackの非0の戻りは、そのtriggerとpost-trigger callbackを抑止する。"
+      },
+      "conditions": {
+        "en": "Veto value 17 with a waiting process, then accept value 42.",
+        "ja": "待機中のprocessがある状態で値17を拒否し、値42を受理する。"
+      },
+      "expected": {
+        "en": "The veto leaves the waiter blocked and event off; the accepted trigger releases it with data 42.",
+        "ja": "拒否ではwaiterは待機しeventはoffを保ち、受理したtriggerでdata 42とともに解放する。"
+      },
+      "limitations": {
+        "en": "Typed callbacks are registered through uvm_callbacks, with positive-delay waiter setup. No compatibility registration wrappers, callback ordering among multiple callbacks, reset data default or simultaneous trigger/wait race is specified. Wakeup reset is spec-only for the pinned Verilator configuration; disabled-callback dispatch is a pinned-library difference.",
+        "ja": "型付きcallbackはuvm_callbacks経由で登録し、正の遅延でwaiterの待機を確立する。互換の登録wrapper、複数callback間の順序、reset時のdata既定値、同時trigger／waitのraceは指定しない。wakeup resetは固定Verilator設定でspec-onlyとし、無効callbackのdispatchは固定libraryの差分として扱う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_event_pre_trigger_veto_keeps_the_waiter_blocked_until_an_accepted_trigger",
+          "role": "direct",
+          "expected_observations": [
+            "UT: veto blocked 1 off 1 pre 1 post 0 time_zero 1",
+            "UT: accepted returned 1 data 42 pre 2 post 1 order PPQ"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-EVENT-POST-CALLBACK-ACTIVATION",
+      "clause": "10.2.2.3",
+      "statement": {
+        "en": "Post-trigger callbacks observe the activated event and accepted trigger data.",
+        "ja": "post-trigger callbackは、活動状態のeventと受理したtrigger dataを観測する。"
+      },
+      "conditions": {
+        "en": "Trigger twice around a reset with one callback and explicit data.",
+        "ja": "1 callbackと明示dataを使い、resetの前後で2回triggerする。"
+      },
+      "expected": {
+        "en": "Pre/post counts and identity match; post-trigger sees is_on and the supplied latest data.",
+        "ja": "pre／post件数と同一性が一致し、post-triggerでis_onと指定した最新dataを観測する。"
+      },
+      "limitations": {
+        "en": "Typed callbacks are registered through uvm_callbacks, with positive-delay waiter setup. No compatibility registration wrappers, callback ordering among multiple callbacks, reset data default or simultaneous trigger/wait race is specified. Wakeup reset is spec-only for the pinned Verilator configuration; disabled-callback dispatch is a pinned-library difference.",
+        "ja": "型付きcallbackはuvm_callbacks経由で登録し、正の遅延でwaiterの待機を確立する。互換の登録wrapper、複数callback間の順序、reset時のdata既定値、同時trigger／waitのraceは指定しない。wakeup resetは固定Verilator設定でspec-onlyとし、無効callbackのdispatchは固定libraryの差分として扱う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_event_post_trigger_observes_activation_and_reset_does_not_invoke_callbacks",
+          "role": "direct",
+          "expected_observations": [
+            "UT: first pre 1 post 1 order PQ state 1 identity 1",
+            "UT: reset pre 1 post 1 off 1 time_zero 1",
+            "UT: second pre 2 post 2 order PQPQ data 73 state 1"
+          ]
+        },
+        {
+          "test": "u10/test_event_pre_trigger_veto_keeps_the_waiter_blocked_until_an_accepted_trigger",
+          "role": "direct",
+          "expected_observations": [
+            "UT: callback identity 1 post_state 1 last_data 42/42"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-EVENT-RESET-WAKEUP-CALLBACKS",
+      "clause": "10.1.1.2.8",
+      "statement": {
+        "en": "Wakeup reset activates existing trigger waiters, turns the event off and invokes no trigger callbacks.",
+        "ja": "wakeup resetは既存のtrigger waiterを起動し、eventをoffにしてtrigger callbackを呼ばない。"
+      },
+      "conditions": {
+        "en": "Block one wait_trigger and one wait_ptrigger, reset with wakeup, then wait for a later real trigger.",
+        "ja": "wait_triggerとwait_ptriggerを各1つ待機させ、wakeup付きでresetし、後の実triggerを待つ。"
+      },
+      "expected": {
+        "en": "Both old waiters return without callback dispatch; a fresh waiter remains blocked until trigger 99.",
+        "ja": "既存の両waiterはcallback dispatchなしで戻り、新しいwaiterはtrigger 99まで待機する。"
+      },
+      "limitations": {
+        "en": "Typed callbacks are registered through uvm_callbacks, with positive-delay waiter setup. No compatibility registration wrappers, callback ordering among multiple callbacks, reset data default or simultaneous trigger/wait race is specified. Wakeup reset is spec-only for the pinned Verilator configuration; disabled-callback dispatch is a pinned-library difference.",
+        "ja": "型付きcallbackはuvm_callbacks経由で登録し、正の遅延でwaiterの待機を確立する。互換の登録wrapper、複数callback間の順序、reset時のdata既定値、同時trigger／waitのraceは指定しない。wakeup resetは固定Verilator設定でspec-onlyとし、無効callbackのdispatchは固定libraryの差分として扱う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_event_reset_with_wakeup_releases_both_wait_styles_without_callback_dispatch",
+          "role": "direct",
+          "expected_observations": [
+            "UT: before blocked 1 waiters 2",
+            "UT: reset released 1 off 1 waiters 0 callbacks 0/0",
+            "UT: fresh_wait 1",
+            "UT: fresh_return 1 callbacks 1/1 data 99"
+          ]
+        },
+        {
+          "test": "u10/test_event_post_trigger_observes_activation_and_reset_does_not_invoke_callbacks",
+          "role": "direct",
+          "expected_observations": [
+            "UT: reset pre 1 post 1 off 1 time_zero 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-EVENT-DISABLED-CALLBACK-DISPATCH",
+      "clause": "10.7.1.2.2",
+      "statement": {
+        "en": "Disabling a registered callback prevents its hooks until it is enabled again.",
+        "ja": "登録済みcallbackを無効にすると、再び有効にするまでhookを呼ばない。"
+      },
+      "conditions": {
+        "en": "Disable, enable and disable the same callback around three distinct triggers.",
+        "ja": "同じcallbackを無効、有効、無効にして、異なる3 triggerを行う。"
+      },
+      "expected": {
+        "en": "Only the enabled trigger increments pre/post counts; event activation and latest data still update.",
+        "ja": "有効時のtriggerだけがpre／post件数を増やし、eventの活動状態と最新dataは引き続き更新する。"
+      },
+      "limitations": {
+        "en": "Typed callbacks are registered through uvm_callbacks, with positive-delay waiter setup. No compatibility registration wrappers, callback ordering among multiple callbacks, reset data default or simultaneous trigger/wait race is specified. Wakeup reset is spec-only for the pinned Verilator configuration; disabled-callback dispatch is a pinned-library difference.",
+        "ja": "型付きcallbackはuvm_callbacks経由で登録し、正の遅延でwaiterの待機を確立する。互換の登録wrapper、複数callback間の順序、reset時のdata既定値、同時trigger／waitのraceは指定しない。wakeup resetは固定Verilator設定でspec-onlyとし、無効callbackのdispatchは固定libraryの差分として扱う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_event_disabled_callback_is_skipped_and_can_be_reenabled_for_later_triggers",
+          "role": "direct",
+          "expected_observations": [
+            "UT: disabled pre 0 post 0 active 1 latest 17",
+            "UT: enabled pre 1 post 1 latest 42",
+            "UT: disabled_again pre 1 post 1 latest 73"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-EVENT-CANCEL-KILLED-WAITER",
+      "clause": "10.1.1.2.9",
+      "statement": {
+        "en": "Event cancel decrements the count after a waiting process is killed.",
+        "ja": "eventのcancelは、待機processのkill後に件数を減らす。"
+      },
+      "conditions": {
+        "en": "Kill one of two waiters, cancel it, then trigger the surviving waiter.",
+        "ja": "2 waiterの片方をkillしてcancelし、生存waiterをtriggerする。"
+      },
+      "expected": {
+        "en": "The count falls from two to one without releasing the survivor, then reaches zero after its trigger.",
+        "ja": "生存waiterを解放せず件数が2から1になり、そのtrigger後に0になる。"
+      },
+      "limitations": {
+        "en": "A killed process is explicitly removed from the waiter count using cancel; process control is cited separately to IEEE 1800. No cancellation of a live caller, implicit process bookkeeping or winner order is required.",
+        "ja": "killしたprocessをcancelでwaiter数から明示的に除く。process制御は別途IEEE 1800を引用する。生存する呼出し側の取消、暗黙のprocess管理、解放順は要求しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_event_cancel_removes_a_killed_waiter_without_releasing_the_survivor",
+          "role": "direct",
+          "expected_observations": [
+            "UT: initial blocked 1 waiters 2",
+            "UT: canceled waiters 1 survivor_waiting 1 victim_stopped 1",
+            "UT: completion survivor 1 victim_returned 0 waiters 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BARRIER-CANCEL-KILLED-PARTICIPANT",
+      "clause": "10.3.2.8",
+      "statement": {
+        "en": "Barrier cancel removes a waiting participant from threshold accounting.",
+        "ja": "barrierのcancelは、待機participantをthresholdの計数から除く。"
+      },
+      "conditions": {
+        "en": "Use threshold three, kill/cancel one of two waiters, then add two fresh live callers.",
+        "ja": "threshold 3で、2 waiterの片方をkill／cancelし、新しい生存呼出しを2つ加える。"
+      },
+      "expected": {
+        "en": "Counts change two/one/two and only three live participants complete the threshold group.",
+        "ja": "件数が2／1／2と変わり、生存する3 participantだけでthreshold groupを完了する。"
+      },
+      "limitations": {
+        "en": "A killed process is explicitly removed from the waiter count using cancel; process control is cited separately to IEEE 1800. No cancellation of a live caller, implicit process bookkeeping or winner order is required.",
+        "ja": "killしたprocessをcancelでwaiter数から明示的に除く。process制御は別途IEEE 1800を引用する。生存する呼出し側の取消、暗黙のprocess管理、解放順は要求しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_barrier_cancel_removes_a_killed_participant_before_a_fresh_threshold_group",
+          "role": "direct",
+          "expected_observations": [
+            "UT: initial waiters 2 blocked 1",
+            "UT: canceled waiters 1",
+            "UT: still_below waiters 2 blocked 1",
+            "UT: complete all 1 victim_returned 0 waiters 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-EVENT-POOL-KEYED-CREATION",
+      "clause": "10.4.1.2.4",
+      "statement": {
+        "en": "Dedicated pool get creates a missing keyed object and reuses that local key binding.",
+        "ja": "専用poolのgetは欠けたkeyのobjectを生成し、同じlocal keyのbindingを再利用する。"
+      },
+      "conditions": {
+        "en": "Use two keys in one pool and the same key in another pool.",
+        "ja": "1 poolで2 key、別poolで同じkeyを使う。"
+      },
+      "expected": {
+        "en": "Objects are non-null, repeated keys retain identity and state changes stay local to one keyed object.",
+        "ja": "objectは非nullで、同じkeyは同一性を保ち、状態変更は1つのkey付きobjectにlocalに留まる。"
+      },
+      "limitations": {
+        "en": "Only get_global_pool and keyed get are used for the dedicated pool types. The printed get_global return-type inconsistency is not interpreted here. No key traversal order, deletion policy or cross-process first-creation race is covered. Initial event-pool membership is not asserted; counts measure only new-key growth.",
+        "ja": "専用pool型でget_global_poolとkey付きgetだけを使う。記載されたget_globalの戻り型の不整合はここでは解釈しない。keyの走査順、削除policy、processをまたぐ初回生成のraceは扱わない。 event poolの初期所属は要求せず、件数は新しいkeyによる増分だけを測る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_event_pool_creates_keyed_objects_with_local_state_and_a_shared_global_pool",
+          "role": "direct",
+          "expected_observations": [
+            "UT: identities nonnull 1 repeated 1 local 1 keys 1 growth 2/1",
+            "UT: local_state active 1 peer_off 1 other_off 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-EVENT-POOL-GLOBAL-SINGLETON",
+      "clause": "10.4.1.2.2",
+      "statement": {
+        "en": "The dedicated global pool is a shared singleton of its pool type.",
+        "ja": "専用のglobal poolは、そのpool型で共有するsingletonである。"
+      },
+      "conditions": {
+        "en": "Fetch the global pool twice and query one key through each handle.",
+        "ja": "global poolを2回取得し、各handle経由で1 keyを照会する。"
+      },
+      "expected": {
+        "en": "Both pool handles and keyed object handles agree, independently of local pools.",
+        "ja": "local poolと独立して、両pool handleとkey付きobject handleが一致する。"
+      },
+      "limitations": {
+        "en": "Only get_global_pool and keyed get are used for the dedicated pool types. The printed get_global return-type inconsistency is not interpreted here. No key traversal order, deletion policy or cross-process first-creation race is covered. Initial event-pool membership is not asserted; counts measure only new-key growth.",
+        "ja": "専用pool型でget_global_poolとkey付きgetだけを使う。記載されたget_globalの戻り型の不整合はここでは解釈しない。keyの走査順、削除policy、processをまたぐ初回生成のraceは扱わない。 event poolの初期所属は要求せず、件数は新しいkeyによる増分だけを測る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_event_pool_creates_keyed_objects_with_local_state_and_a_shared_global_pool",
+          "role": "direct",
+          "expected_observations": [
+            "UT: global singleton 1 shared_item 1 independent 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BARRIER-POOL-KEYED-CREATION",
+      "clause": "10.4.2.2.4",
+      "statement": {
+        "en": "Dedicated pool get creates a missing keyed object and reuses that local key binding.",
+        "ja": "専用poolのgetは欠けたkeyのobjectを生成し、同じlocal keyのbindingを再利用する。"
+      },
+      "conditions": {
+        "en": "Use two keys in one pool and the same key in another pool.",
+        "ja": "1 poolで2 key、別poolで同じkeyを使う。"
+      },
+      "expected": {
+        "en": "Objects are non-null, repeated keys retain identity and state changes stay local to one keyed object.",
+        "ja": "objectは非nullで、同じkeyは同一性を保ち、状態変更は1つのkey付きobjectにlocalに留まる。"
+      },
+      "limitations": {
+        "en": "Only get_global_pool and keyed get are used for the dedicated pool types. The printed get_global return-type inconsistency is not interpreted here. No key traversal order, deletion policy or cross-process first-creation race is covered.",
+        "ja": "専用pool型でget_global_poolとkey付きgetだけを使う。記載されたget_globalの戻り型の不整合はここでは解釈しない。keyの走査順、削除policy、processをまたぐ初回生成のraceは扱わない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_barrier_pool_creates_keyed_objects_with_local_state_and_a_shared_global_pool",
+          "role": "direct",
+          "expected_observations": [
+            "UT: identities nonnull 1 repeated 1 local 1 keys 1 counts 2/1",
+            "UT: local_state threshold 2 peer 0 other 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BARRIER-POOL-GLOBAL-SINGLETON",
+      "clause": "10.4.2.2.2",
+      "statement": {
+        "en": "The dedicated global pool is a shared singleton of its pool type.",
+        "ja": "専用のglobal poolは、そのpool型で共有するsingletonである。"
+      },
+      "conditions": {
+        "en": "Fetch the global pool twice and query one key through each handle.",
+        "ja": "global poolを2回取得し、各handle経由で1 keyを照会する。"
+      },
+      "expected": {
+        "en": "Both pool handles and keyed object handles agree, independently of local pools.",
+        "ja": "local poolと独立して、両pool handleとkey付きobject handleが一致する。"
+      },
+      "limitations": {
+        "en": "Only get_global_pool and keyed get are used for the dedicated pool types. The printed get_global return-type inconsistency is not interpreted here. No key traversal order, deletion policy or cross-process first-creation race is covered.",
+        "ja": "専用pool型でget_global_poolとkey付きgetだけを使う。記載されたget_globalの戻り型の不整合はここでは解釈しない。keyの走査順、削除policy、processをまたぐ初回生成のraceは扱わない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_barrier_pool_creates_keyed_objects_with_local_state_and_a_shared_global_pool",
+          "role": "direct",
+          "expected_observations": [
+            "UT: global singleton 1 shared_item 1 independent 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-BLOCKING-OVERLAPPING-CALLS",
+      "clause": "12.3.2.2.3",
+      "statement": {
+        "en": "Each blocking transport call retains its own arguments and returns after its callee completes.",
+        "ja": "各blocking transport呼出しは自身の引数を保ち、calleeの完了後に戻る。"
+      },
+      "conditions": {
+        "en": "Overlap a longer and a shorter target task with distinct payload/delay handles.",
+        "ja": "異なるpayload／delay handleで、長いtarget taskと短いtarget taskを重ねる。"
+      },
+      "expected": {
+        "en": "Both calls initially block; the shorter returns first and each receives its own status, mutation and annotation.",
+        "ja": "最初は両呼出しが待機し、短い方が先に戻り、それぞれ固有のstatus、変更、annotationを受け取る。"
+      },
+      "limitations": {
+        "en": "Endpoints deliberately supply waits, mutations and success/error states. The obligations are forwarding, handle identity and blocking completion, not a library-owned scheduler, bus model or automatic annotation consumption. Distinct objects avoid concurrent shared-transaction races. No nonblocking phases or sync enum is involved.",
+        "ja": "endpointが待機、変更、成功／errorの状態を明示的に実装する。要求は転送、handleの同一性、blockingの完了であり、library独自scheduler、bus model、annotationの自動消費は扱わない。異なるobjectで並行時の共有transactionのraceを避ける。nonblocking phaseやsync enumは使わない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_one_blocking_socket_supports_overlapping_calls_with_distinct_handles",
+          "role": "direct",
+          "expected_observations": [
+            "UT: first pending 1 entered 1",
+            "UT: overlap pending 1 entered 1",
+            "UT: shorter returned 1 first pending 1",
+            "UT: complete 1 identities 1 calls 2",
+            "UT: addresses 100 101 status 1 1",
+            "UT: annotation independent 1 1"
+          ]
+        },
+        {
+          "test": "u12/test_tlm2_two_blocking_socket_channels_keep_overlapping_calls_independent",
+          "role": "direct",
+          "expected_observations": [
+            "UT: first pending 1 entered 1",
+            "UT: overlap pending 1 entered 1",
+            "UT: shorter returned 1 first pending 1",
+            "UT: complete 1 identities 1 calls 2",
+            "UT: addresses 100 111 status 1 1",
+            "UT: annotation independent 1 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-BLOCKING-SOCKET-CHANNELS",
+      "clause": "12.3.5.2.4",
+      "statement": {
+        "en": "Blocking socket connections forward to their connected target without mixing independent channels.",
+        "ja": "blocking socketの接続は、独立channelを混ぜず接続先targetへ転送する。"
+      },
+      "conditions": {
+        "en": "Exercise two concurrent calls through one socket and through two separately bound socket pairs.",
+        "ja": "1 socket経由と、別々にbindingした2 socket pair経由で、並行する2呼出しを行う。"
+      },
+      "expected": {
+        "en": "Exactly two calls reach the intended handles; separate targets produce their own address and annotation changes.",
+        "ja": "ちょうど2呼出しが意図したhandleへ到達し、別targetでは自身のaddressとannotationの変更を返す。"
+      },
+      "limitations": {
+        "en": "Endpoints deliberately supply waits, mutations and success/error states. The obligations are forwarding, handle identity and blocking completion, not a library-owned scheduler, bus model or automatic annotation consumption. Distinct objects avoid concurrent shared-transaction races. No nonblocking phases or sync enum is involved.",
+        "ja": "endpointが待機、変更、成功／errorの状態を明示的に実装する。要求は転送、handleの同一性、blockingの完了であり、library独自scheduler、bus model、annotationの自動消費は扱わない。異なるobjectで並行時の共有transactionのraceを避ける。nonblocking phaseやsync enumは使わない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_one_blocking_socket_supports_overlapping_calls_with_distinct_handles",
+          "role": "direct",
+          "expected_observations": [
+            "UT: first pending 1 entered 1",
+            "UT: overlap pending 1 entered 1",
+            "UT: shorter returned 1 first pending 1",
+            "UT: complete 1 identities 1 calls 2",
+            "UT: addresses 100 101 status 1 1",
+            "UT: annotation independent 1 1"
+          ]
+        },
+        {
+          "test": "u12/test_tlm2_two_blocking_socket_channels_keep_overlapping_calls_independent",
+          "role": "direct",
+          "expected_observations": [
+            "UT: first pending 1 entered 1",
+            "UT: overlap pending 1 entered 1",
+            "UT: shorter returned 1 first pending 1",
+            "UT: complete 1 identities 1 calls 2",
+            "UT: addresses 100 111 status 1 1",
+            "UT: annotation independent 1 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-BLOCKING-ERROR-REUSE",
+      "clause": "12.3.2.2.3",
+      "statement": {
+        "en": "A completed blocking transaction carries its execution status and can be reused for a later call.",
+        "ja": "完了したblocking transactionは実行statusを保持し、後の呼出しに再利用できる。"
+      },
+      "conditions": {
+        "en": "Reuse one payload/delay after an address error, correct the address and retry through nested exports.",
+        "ja": "address error後に1 payload／delayを再利用し、addressを修正して入れ子のexport経由で再試行する。"
+      },
+      "expected": {
+        "en": "Both calls block until target completion; error then OK status and cumulative annotation return on the original handles.",
+        "ja": "両呼出しはtarget完了まで待機し、元handleでerror、次にOKのstatusと累積annotationを返す。"
+      },
+      "limitations": {
+        "en": "Endpoints deliberately supply waits, mutations and success/error states. The obligations are forwarding, handle identity and blocking completion, not a library-owned scheduler, bus model or automatic annotation consumption. Distinct objects avoid concurrent shared-transaction races. No nonblocking phases or sync enum is involved.",
+        "ja": "endpointが待機、変更、成功／errorの状態を明示的に実装する。要求は転送、handleの同一性、blockingの完了であり、library独自scheduler、bus model、annotationの自動消費は扱わない。異なるobjectで並行時の共有transactionのraceを避ける。nonblocking phaseやsync enumは使わない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_nested_blocking_exports_return_an_error_then_reuse_the_same_transaction",
+          "role": "direct",
+          "expected_observations": [
+            "UT: error pending 1 entered 1",
+            "UT: error completed 1 status 1 annotation 1",
+            "UT: retry pending 1 entered 1",
+            "UT: retry completed 1 ok 1 annotation 1",
+            "UT: reused handles 1 calls 2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-BLOCKING-CUSTOM-TRANSACTION",
+      "clause": "12.3.2.2.3",
+      "statement": {
+        "en": "Blocking transport permits a caller-selected transaction class and its caller-visible mutations.",
+        "ja": "blocking transportは、呼出し側が選んだtransaction classと呼出し側から観測できる変更を許す。"
+      },
+      "conditions": {
+        "en": "Parameterize port, exports and imp with a custom object containing request, reply and status.",
+        "ja": "request、reply、statusを持つ独自objectでport、export、impをparameter化する。"
+      },
+      "expected": {
+        "en": "The caller remains pending during target work, then sees success, reply 42 and the same delay handle.",
+        "ja": "target処理中は呼出し側が待機し、その後success、reply 42、同じdelay handleを観測する。"
+      },
+      "limitations": {
+        "en": "Endpoints deliberately supply waits, mutations and success/error states. The obligations are forwarding, handle identity and blocking completion, not a library-owned scheduler, bus model or automatic annotation consumption. Distinct objects avoid concurrent shared-transaction races. No nonblocking phases or sync enum is involved.",
+        "ja": "endpointが待機、変更、成功／errorの状態を明示的に実装する。要求は転送、handleの同一性、blockingの完了であり、library独自scheduler、bus model、annotationの自動消費は扱わない。異なるobjectで並行時の共有transactionのraceを避ける。nonblocking phaseやsync enumは使わない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_nested_blocking_exports_forward_a_custom_transaction_and_its_completion",
+          "role": "direct",
+          "expected_observations": [
+            "UT: pending 1 calls 1 fresh 1",
+            "UT: completed 1 success 1 reply 42",
+            "UT: handles 1 1 annotation 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-BLOCKING-NESTED-EXPORT-TYPES",
+      "clause": "12.3.7.1",
+      "statement": {
+        "en": "Compatible blocking transport exports forward through nested exports to their implementation.",
+        "ja": "互換なblocking transport exportは、入れ子のexportを通してimplementationへ転送する。"
+      },
+      "conditions": {
+        "en": "Bind a port to outer/inner exports and an endpoint imp with generic or custom transaction type.",
+        "ja": "genericまたは独自のtransaction型で、port、outer／inner export、endpoint impを接続する。"
+      },
+      "expected": {
+        "en": "Callee observations and completed caller results retain the original payload/delay identities across the chain.",
+        "ja": "calleeの観測と完了した呼出し側の結果は、chain全体で元のpayload／delayの同一性を保つ。"
+      },
+      "limitations": {
+        "en": "Endpoints deliberately supply waits, mutations and success/error states. The obligations are forwarding, handle identity and blocking completion, not a library-owned scheduler, bus model or automatic annotation consumption. Distinct objects avoid concurrent shared-transaction races. No nonblocking phases or sync enum is involved.",
+        "ja": "endpointが待機、変更、成功／errorの状態を明示的に実装する。要求は転送、handleの同一性、blockingの完了であり、library独自scheduler、bus model、annotationの自動消費は扱わない。異なるobjectで並行時の共有transactionのraceを避ける。nonblocking phaseやsync enumは使わない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_nested_blocking_exports_return_an_error_then_reuse_the_same_transaction",
+          "role": "direct",
+          "expected_observations": [
+            "UT: error pending 1 entered 1",
+            "UT: error completed 1 status 1 annotation 1",
+            "UT: retry pending 1 entered 1",
+            "UT: retry completed 1 ok 1 annotation 1",
+            "UT: reused handles 1 calls 2"
+          ]
+        },
+        {
+          "test": "u12/test_tlm2_nested_blocking_exports_forward_a_custom_transaction_and_its_completion",
+          "role": "direct",
+          "expected_observations": [
+            "UT: pending 1 calls 1 fresh 1",
+            "UT: completed 1 success 1 reply 42",
+            "UT: handles 1 1 annotation 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGFILE-PARENT-BLOCK-HANDLE",
+      "clause": "18.3.3.1",
+      "statement": {
+        "en": "A configured regfile returns its parent block even when nested in another regfile.",
+        "ja": "設定済みregfileは、別regfileに入れ子でも親blockを返す。"
+      },
+      "conditions": {
+        "en": "Configure outer and inner regfiles in the same block.",
+        "ja": "同じblockにouter／inner regfileを設定する。"
+      },
+      "expected": {
+        "en": "Both parent-block queries return the root block handle.",
+        "ja": "両parent-block照会はroot block handleを返す。"
+      },
+      "limitations": {
+        "en": "Only configured model handles are inspected: no maps, bus transfers, predictors, HDL paths or DPI. Enumeration uses fresh result queues, exact membership/count and no visit-order assertion. Simple-name searches have a unique descendant match except for explicit local-over-child precedence. No dotted-name or sibling tie-break rule is inferred.",
+        "ja": "設定済みmodelのhandleだけを照会し、map、bus転送、predictor、HDL path、DPIは使わない。列挙は新しい結果queueで正確な所属／件数を照会し、訪問順を要求しない。単純名の検索はlocal優先を明示する場合以外、子孫の一致を一意にする。dot付き名や兄弟間の同名の優先規則は推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_regfile_configured_parents_match_nested_file_and_register_placement",
+          "role": "direct",
+          "expected_observations": [
+            "UT: file_blocks 1 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGFILE-CONTAINING-FILE-HANDLE",
+      "clause": "18.3.3.2",
+      "statement": {
+        "en": "A regfile returns its enclosing regfile, or null when directly in its block.",
+        "ja": "regfileは、包含するregfileを返し、blockの直下ではnullを返す。"
+      },
+      "conditions": {
+        "en": "Configure an outer regfile directly and an inner file under it.",
+        "ja": "outer regfileを直下に、inner fileをその下に設定する。"
+      },
+      "expected": {
+        "en": "Outer returns null and inner returns the exact outer handle.",
+        "ja": "outerはnullを、innerは正確なouter handleを返す。"
+      },
+      "limitations": {
+        "en": "Only configured model handles are inspected: no maps, bus transfers, predictors, HDL paths or DPI. Enumeration uses fresh result queues, exact membership/count and no visit-order assertion. Simple-name searches have a unique descendant match except for explicit local-over-child precedence. No dotted-name or sibling tie-break rule is inferred.",
+        "ja": "設定済みmodelのhandleだけを照会し、map、bus転送、predictor、HDL path、DPIは使わない。列挙は新しい結果queueで正確な所属／件数を照会し、訪問順を要求しない。単純名の検索はlocal優先を明示する場合以外、子孫の一致を一意にする。dot付き名や兄弟間の同名の優先規則は推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_regfile_configured_parents_match_nested_file_and_register_placement",
+          "role": "direct",
+          "expected_observations": [
+            "UT: file_parents outer_null 1 inner_outer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGISTER-CONTAINING-REGFILE-HANDLE",
+      "clause": "18.4.3.2",
+      "statement": {
+        "en": "A register reports its configured regfile, or null for direct block placement.",
+        "ja": "registerは設定したregfileを返し、blockへの直接配置ではnullを返す。"
+      },
+      "conditions": {
+        "en": "Place one register in the inner regfile and another directly in the block.",
+        "ja": "1 registerをinner regfileに、別registerをblock直下に配置する。"
+      },
+      "expected": {
+        "en": "The file register retains block/file parent identities; the direct register has no regfile.",
+        "ja": "file内registerはblock／fileの親の同一性を保ち、直下registerはregfileを持たない。"
+      },
+      "limitations": {
+        "en": "Only configured model handles are inspected: no maps, bus transfers, predictors, HDL paths or DPI. Enumeration uses fresh result queues, exact membership/count and no visit-order assertion. Simple-name searches have a unique descendant match except for explicit local-over-child precedence. No dotted-name or sibling tie-break rule is inferred.",
+        "ja": "設定済みmodelのhandleだけを照会し、map、bus転送、predictor、HDL path、DPIは使わない。列挙は新しい結果queueで正確な所属／件数を照会し、訪問順を要求しない。単純名の検索はlocal優先を明示する場合以外、子孫の一致を一意にする。dot付き名や兄弟間の同名の優先規則は推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_regfile_configured_parents_match_nested_file_and_register_placement",
+          "role": "direct",
+          "expected_observations": [
+            "UT: register_parents block 1 file 1 direct_null 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-CONFIGURED-PARENT-HANDLE",
+      "clause": "18.1.3.1",
+      "statement": {
+        "en": "Block parent queries return the configured enclosing block and null for a root.",
+        "ja": "blockの親の照会は、設定した包含blockを返し、rootではnullを返す。"
+      },
+      "conditions": {
+        "en": "Configure a root, child and grandchild.",
+        "ja": "root、child、grandchildを設定する。"
+      },
+      "expected": {
+        "en": "Root is parentless, child points to root and grandchild points to child.",
+        "ja": "rootは親なし、childはroot、grandchildはchildを指す。"
+      },
+      "limitations": {
+        "en": "Only configured model handles are inspected: no maps, bus transfers, predictors, HDL paths or DPI. Enumeration uses fresh result queues, exact membership/count and no visit-order assertion. Simple-name searches have a unique descendant match except for explicit local-over-child precedence. No dotted-name or sibling tie-break rule is inferred.",
+        "ja": "設定済みmodelのhandleだけを照会し、map、bus転送、predictor、HDL path、DPIは使わない。列挙は新しい結果queueで正確な所属／件数を照会し、訪問順を要求しない。単純名の検索はlocal優先を明示する場合以外、子孫の一致を一意にする。dot付き名や兄弟間の同名の優先規則は推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_regfile_configured_parents_match_nested_file_and_register_placement",
+          "role": "direct",
+          "expected_observations": [
+            "UT: block_parents root_null 1 child 1 grandchild 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-SUBBLOCK-ENUMERATION-SCOPE",
+      "clause": "18.1.3.5",
+      "statement": {
+        "en": "Block enumeration distinguishes immediate children from recursive descendants.",
+        "ja": "blockの列挙は、直接の子と再帰的な子孫を区別する。"
+      },
+      "conditions": {
+        "en": "Query two direct children and one grandchild with local and default hierarchy modes.",
+        "ja": "2つの直接の子と1つの孫を、localと既定の階層modeで照会する。"
+      },
+      "expected": {
+        "en": "Local count/mask are two/3; recursive count/mask are three/7.",
+        "ja": "localの件数／maskは2／3、再帰では3／7になる。"
+      },
+      "limitations": {
+        "en": "Only configured model handles are inspected: no maps, bus transfers, predictors, HDL paths or DPI. Enumeration uses fresh result queues, exact membership/count and no visit-order assertion. Simple-name searches have a unique descendant match except for explicit local-over-child precedence. No dotted-name or sibling tie-break rule is inferred.",
+        "ja": "設定済みmodelのhandleだけを照会し、map、bus転送、predictor、HDL path、DPIは使わない。列挙は新しい結果queueで正確な所属／件数を照会し、訪問順を要求しない。単純名の検索はlocal優先を明示する場合以外、子孫の一致を一意にする。dot付き名や兄弟間の同名の優先規則は推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_subblock_enumeration_distinguishes_direct_and_recursive_children",
+          "role": "direct",
+          "expected_observations": [
+            "UT: local count 2 members 3",
+            "UT: recursive count 3 members 7"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-REGISTER-ENUMERATION-SCOPE",
+      "clause": "18.1.3.7",
+      "statement": {
+        "en": "Register enumeration includes registers placed in regfiles and selected descendant blocks.",
+        "ja": "registerの列挙は、regfile内のregisterと、選択した子孫blockのregisterを含む。"
+      },
+      "conditions": {
+        "en": "Query root-local, root-recursive and child-recursive register sets.",
+        "ja": "root-local、root再帰、child再帰のregister集合を照会する。"
+      },
+      "expected": {
+        "en": "Results contain exactly two, four and two expected handles with no unrelated root.",
+        "ja": "結果は、無関係なrootを含まず、期待するhandleを正確に2、4、2件含む。"
+      },
+      "limitations": {
+        "en": "Only configured model handles are inspected: no maps, bus transfers, predictors, HDL paths or DPI. Enumeration uses fresh result queues, exact membership/count and no visit-order assertion. Simple-name searches have a unique descendant match except for explicit local-over-child precedence. No dotted-name or sibling tie-break rule is inferred.",
+        "ja": "設定済みmodelのhandleだけを照会し、map、bus転送、predictor、HDL path、DPIは使わない。列挙は新しい結果queueで正確な所属／件数を照会し、訪問順を要求しない。単純名の検索はlocal優先を明示する場合以外、子孫の一致を一意にする。dot付き名や兄弟間の同名の優先規則は推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_register_enumeration_includes_regfiles_and_controls_recursion",
+          "role": "direct",
+          "expected_observations": [
+            "UT: local count 2 members 3",
+            "UT: recursive count 4 members f",
+            "UT: child_scope count 2 members c"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-FIELD-ENUMERATION-SCOPE",
+      "clause": "18.1.3.8",
+      "statement": {
+        "en": "Field enumeration returns fields from the selected local or recursive block register set.",
+        "ja": "fieldの列挙は、選択したlocalまたは再帰的なblockのregister集合からfieldを返す。"
+      },
+      "conditions": {
+        "en": "Use a two-field local register, a regfile register and two descendant registers.",
+        "ja": "2 fieldのlocal register、regfile内register、2つの子孫registerを使う。"
+      },
+      "expected": {
+        "en": "Local results contain three fields and recursive results contain all five.",
+        "ja": "localの結果は3 field、再帰的な結果は全5 fieldを含む。"
+      },
+      "limitations": {
+        "en": "Only configured model handles are inspected: no maps, bus transfers, predictors, HDL paths or DPI. Enumeration uses fresh result queues, exact membership/count and no visit-order assertion. Simple-name searches have a unique descendant match except for explicit local-over-child precedence. No dotted-name or sibling tie-break rule is inferred.",
+        "ja": "設定済みmodelのhandleだけを照会し、map、bus転送、predictor、HDL path、DPIは使わない。列挙は新しい結果queueで正確な所属／件数を照会し、訪問順を要求しない。単純名の検索はlocal優先を明示する場合以外、子孫の一致を一意にする。dot付き名や兄弟間の同名の優先規則は推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_field_enumeration_includes_each_local_and_descendant_field",
+          "role": "direct",
+          "expected_observations": [
+            "UT: local count 3 members 7",
+            "UT: recursive count 5 members 1f"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-MEMORY-ENUMERATION-SCOPE",
+      "clause": "18.1.3.9",
+      "statement": {
+        "en": "Memory enumeration is confined to the receiver block and selected descendants.",
+        "ja": "memoryの列挙は、受信blockと選択した子孫の範囲に留まる。"
+      },
+      "conditions": {
+        "en": "Place memories in root, child, grandchild and an unrelated peer root.",
+        "ja": "root、child、grandchild、無関係なpeer rootにmemoryを配置する。"
+      },
+      "expected": {
+        "en": "Root-local/root-recursive/child-recursive return one/three/two expected memories and exclude the peer.",
+        "ja": "root-local／root再帰／child再帰は期待するmemoryを1／3／2件返し、peerを除外する。"
+      },
+      "limitations": {
+        "en": "Only configured model handles are inspected: no maps, bus transfers, predictors, HDL paths or DPI. Enumeration uses fresh result queues, exact membership/count and no visit-order assertion. Simple-name searches have a unique descendant match except for explicit local-over-child precedence. No dotted-name or sibling tie-break rule is inferred.",
+        "ja": "設定済みmodelのhandleだけを照会し、map、bus転送、predictor、HDL path、DPIは使わない。列挙は新しい結果queueで正確な所属／件数を照会し、訪問順を要求しない。単純名の検索はlocal優先を明示する場合以外、子孫の一致を一意にする。dot付き名や兄弟間の同名の優先規則は推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_memory_enumeration_keeps_peer_roots_outside_recursive_results",
+          "role": "direct",
+          "expected_observations": [
+            "UT: local count 1 members 1",
+            "UT: recursive count 3 members 7",
+            "UT: child_scope count 2 members 6"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-REGISTER-SIMPLE-NAME-SEARCH",
+      "clause": "18.1.3.14",
+      "statement": {
+        "en": "Register simple-name search prefers local registers, then searches child blocks and returns null when absent.",
+        "ja": "registerの単純名検索はlocal registerを優先し、次に子blockを検索して、欠けた場合はnullを返す。"
+      },
+      "conditions": {
+        "en": "Use duplicate local/child names, unique deep/regfile names and missing/ancestor/peer names before locking; recheck local/deep/regfile matches after locking.",
+        "ja": "lock前にlocal／childの同名、一意なdeep／regfile名、欠けた名／祖先名／peer名を使い、lock後にlocal／deep／regfileの一致を再確認する。"
+      },
+      "expected": {
+        "en": "Local duplicates win; descendants and regfile registers are found; out-of-scope or missing names return null.",
+        "ja": "同名ではlocalが優先され、子孫とregfile内registerを発見し、範囲外または欠けた名前はnullを返す。"
+      },
+      "limitations": {
+        "en": "Only configured model handles are inspected: no maps, bus transfers, predictors, HDL paths or DPI. Enumeration uses fresh result queues, exact membership/count and no visit-order assertion. Simple-name searches have a unique descendant match except for explicit local-over-child precedence. No dotted-name or sibling tie-break rule is inferred.",
+        "ja": "設定済みmodelのhandleだけを照会し、map、bus転送、predictor、HDL path、DPIは使わない。列挙は新しい結果queueで正確な所属／件数を照会し、訪問順を要求しない。単純名の検索はlocal優先を明示する場合以外、子孫の一致を一意にする。dot付き名や兄弟間の同名の優先規則は推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_register_name_lookup_prefers_local_scope_and_finds_descendants",
+          "role": "direct",
+          "expected_observations": [
+            "UT: local_precedence root 1 child 1",
+            "UT: descendants child 1 deep 1 regfile 1",
+            "UT: missing 1 ancestor_excluded 1 peer_excluded 1",
+            "UT: locked_local root 1 child 1",
+            "UT: locked_descendants child 1 deep 1 regfile 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-MEMORY-SIMPLE-NAME-SEARCH",
+      "clause": "18.1.3.16",
+      "statement": {
+        "en": "Memory simple-name search prefers local memories and searches descendants without searching ancestors or peer roots.",
+        "ja": "memoryの単純名検索はlocal memoryを優先し、祖先やpeer rootを検索せず子孫を検索する。"
+      },
+      "conditions": {
+        "en": "Use local/child name duplicates and unique child/grandchild memories.",
+        "ja": "local／childの同名と、一意なchild／grandchild memoryを使う。"
+      },
+      "expected": {
+        "en": "Local duplicates win, deep memories are found and missing/out-of-scope names yield null.",
+        "ja": "同名ではlocalが優先され、deep memoryを発見し、欠けた／範囲外の名前はnullになる。"
+      },
+      "limitations": {
+        "en": "Only configured model handles are inspected: no maps, bus transfers, predictors, HDL paths or DPI. Enumeration uses fresh result queues, exact membership/count and no visit-order assertion. Simple-name searches have a unique descendant match except for explicit local-over-child precedence. No dotted-name or sibling tie-break rule is inferred.",
+        "ja": "設定済みmodelのhandleだけを照会し、map、bus転送、predictor、HDL path、DPIは使わない。列挙は新しい結果queueで正確な所属／件数を照会し、訪問順を要求しない。単純名の検索はlocal優先を明示する場合以外、子孫の一致を一意にする。dot付き名や兄弟間の同名の優先規則は推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_memory_name_lookup_prefers_local_scope_and_finds_descendants",
+          "role": "direct",
+          "expected_observations": [
+            "UT: local_precedence root 1 child 1",
+            "UT: descendants child 1 deep 1",
+            "UT: missing 1 ancestor_excluded 1 peer_excluded 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-FIELD-SIMPLE-NAME-SEARCH",
+      "clause": "18.1.3.15",
+      "statement": {
+        "en": "Field simple-name search includes register-file and descendant fields within the receiver block hierarchy.",
+        "ja": "fieldの単純名検索は、受信block階層内のregfileと子孫のfieldを含む。"
+      },
+      "conditions": {
+        "en": "Query local, regfile and deep fields, then absent, ancestor and unrelated-root field names.",
+        "ja": "local、regfile、deepのfieldを照会し、次に欠けた名、祖先、無関係なrootのfield名を照会する。"
+      },
+      "expected": {
+        "en": "In-scope fields return their exact handles and all missing/out-of-scope names return null.",
+        "ja": "範囲内fieldは正確なhandleを返し、欠けた／範囲外の名前はすべてnullを返す。"
+      },
+      "limitations": {
+        "en": "Only configured model handles are inspected: no maps, bus transfers, predictors, HDL paths or DPI. Enumeration uses fresh result queues, exact membership/count and no visit-order assertion. Simple-name searches have a unique descendant match except for explicit local-over-child precedence. No dotted-name or sibling tie-break rule is inferred.",
+        "ja": "設定済みmodelのhandleだけを照会し、map、bus転送、predictor、HDL path、DPIは使わない。列挙は新しい結果queueで正確な所属／件数を照会し、訪問順を要求しない。単純名の検索はlocal優先を明示する場合以外、子孫の一致を一意にする。dot付き名や兄弟間の同名の優先規則は推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_field_name_lookup_finds_deep_fields_without_searching_ancestors",
+          "role": "direct",
+          "expected_observations": [
+            "UT: local 1 regfile 1 deep 1",
+            "UT: child_local 1 child_deep 1",
+            "UT: missing 1 ancestor_excluded 1 peer_excluded 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCER-ARBITRATION-MODE-QUERY",
+      "clause": "15.3.2.18",
+      "statement": {
+        "en": "The arbitration query defaults to FIFO and returns the current per-sequencer mode.",
+        "ja": "arbitrationの照会は既定でFIFOを返し、sequencerごとの現在modeを返す。"
+      },
+      "conditions": {
+        "en": "Change one instance to strict FIFO and another to random without issuing requests.",
+        "ja": "要求を発行せず、片方のinstanceをstrict FIFO、別instanceをrandomに変更する。"
+      },
+      "expected": {
+        "en": "Initial modes are FIFO and later settings remain independent.",
+        "ja": "初期modeはFIFOで、後の設定は独立に保つ。"
+      },
+      "limitations": {
+        "en": "Single requesting sequences or idle controls only: mode getters do not establish arbitration ordering. Request/response histories are distinct from sequence response queues, and only selected UT output lines are linked. No generated sequence ID value, multi-sequence fairness, overflow diagnostic identifier or general response routing isolation is claimed.",
+        "ja": "単一の要求sequenceまたはidle時の制御だけを扱い、mode getterでarbitration順序を成立させない。要求／応答の履歴はsequenceの応答queueと区別し、選択したUT出力行だけを対応付ける。生成sequence IDの値、複数sequenceの公平性、overflow診断ID、一般的な応答routingの独立性は主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequencer_arbitration_modes_default_and_update_per_instance",
+          "role": "direct",
+          "expected_observations": [
+            "UT: default_fifo 1 1",
+            "UT: first_updated 1 second_kept 1",
+            "UT: independent_modes 1 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCER-REQUEST-HISTORY-CAPACITY",
+      "clause": "15.3.3.2.1",
+      "statement": {
+        "en": "Request-history capacity defaults to one, accepts in-range settings and clamps oversized settings to 1024 with a warning.",
+        "ja": "要求履歴の容量は既定で1で、有効範囲の設定を受理し、過大な設定は警告とともに1024へ制限する。"
+      },
+      "conditions": {
+        "en": "Set capacities three/zero independently and request 2048 on another sequencer.",
+        "ja": "容量3／0を独立に設定し、別sequencerで2048を要求する。"
+      },
+      "expected": {
+        "en": "Getters reflect local settings and the oversized request reports 1024 with an increased warning count.",
+        "ja": "getterはlocal設定を反映し、過大要求では1024とwarning件数の増加を観測する。"
+      },
+      "limitations": {
+        "en": "Single requesting sequences or idle controls only: mode getters do not establish arbitration ordering. Request/response histories are distinct from sequence response queues, and only selected UT output lines are linked. No generated sequence ID value, multi-sequence fairness, overflow diagnostic identifier or general response routing isolation is claimed.",
+        "ja": "単一の要求sequenceまたはidle時の制御だけを扱い、mode getterでarbitration順序を成立させない。要求／応答の履歴はsequenceの応答queueと区別し、選択したUT出力行だけを対応付ける。生成sequence IDの値、複数sequenceの公平性、overflow診断ID、一般的な応答routingの独立性は主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequencer_last_item_buffer_sizes_default_and_update_independently",
+          "role": "direct",
+          "expected_observations": [
+            "UT: defaults 1 1 1 1",
+            "UT: configured 3 2 0 4"
+          ]
+        },
+        {
+          "test": "u15/test_sequencer_last_item_buffers_clamp_oversized_requests",
+          "role": "direct",
+          "expected_observations": [
+            "UT: request_size 1024 warning_reported 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCER-RESPONSE-HISTORY-CAPACITY",
+      "clause": "15.3.4.2.2",
+      "statement": {
+        "en": "Response-history capacity defaults to one, accepts in-range settings and clamps oversized settings to 1024 with a warning.",
+        "ja": "応答履歴の容量は既定で1で、有効範囲の設定を受理し、過大な設定は警告とともに1024へ制限する。"
+      },
+      "conditions": {
+        "en": "Set capacities two/four independently and request 4096 on another sequencer.",
+        "ja": "容量2／4を独立に設定し、別sequencerで4096を要求する。"
+      },
+      "expected": {
+        "en": "Getters reflect local settings independently of request capacities; overflow yields 1024 and a warning.",
+        "ja": "getterは要求容量と独立してlocal設定を反映し、overflowでは1024とwarningを観測する。"
+      },
+      "limitations": {
+        "en": "Single requesting sequences or idle controls only: mode getters do not establish arbitration ordering. Request/response histories are distinct from sequence response queues, and only selected UT output lines are linked. No generated sequence ID value, multi-sequence fairness, overflow diagnostic identifier or general response routing isolation is claimed.",
+        "ja": "単一の要求sequenceまたはidle時の制御だけを扱い、mode getterでarbitration順序を成立させない。要求／応答の履歴はsequenceの応答queueと区別し、選択したUT出力行だけを対応付ける。生成sequence IDの値、複数sequenceの公平性、overflow診断ID、一般的な応答routingの独立性は主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequencer_last_item_buffer_sizes_default_and_update_independently",
+          "role": "direct",
+          "expected_observations": [
+            "UT: defaults 1 1 1 1",
+            "UT: configured 3 2 0 4"
+          ]
+        },
+        {
+          "test": "u15/test_sequencer_last_item_buffers_clamp_oversized_requests",
+          "role": "direct",
+          "expected_observations": [
+            "UT: response_size 1024 warning_reported 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCER-REQUEST-HISTORY-ORDER",
+      "clause": "15.4.2",
+      "statement": {
+        "en": "Request history returns newest and preceding requests within its configured retention window.",
+        "ja": "要求履歴は、設定した保持範囲内で最新とその前の要求を返す。"
+      },
+      "conditions": {
+        "en": "Send three explicit-ID requests through a two-entry history.",
+        "ja": "明示ID付きの3要求を、2 entryの履歴を使って送る。"
+      },
+      "expected": {
+        "en": "Newest/previous payloads and transaction IDs are 44/43 and 103/102; an index strictly beyond capacity is null.",
+        "ja": "最新／前のpayloadとtransaction IDは44／43、103／102で、容量より明確に大きいindexはnullになる。"
+      },
+      "limitations": {
+        "en": "Single requesting sequences or idle controls only: mode getters do not establish arbitration ordering. Request/response histories are distinct from sequence response queues, and only selected UT output lines are linked. No generated sequence ID value, multi-sequence fairness, overflow diagnostic identifier or general response routing isolation is claimed.",
+        "ja": "単一の要求sequenceまたはidle時の制御だけを扱い、mode getterでarbitration順序を成立させない。要求／応答の履歴はsequenceの応答queueと区別し、選択したUT出力行だけを対応付ける。生成sequence IDの値、複数sequenceの公平性、overflow診断ID、一般的な応答routingの独立性は主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequencer_last_req_retains_newest_requests_within_capacity",
+          "role": "direct",
+          "expected_observations": [
+            "UT: history payloads 44 43 ids 103 102",
+            "UT: sent 3 beyond_null 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCER-REQUEST-SENT-COUNT",
+      "clause": "15.3.3.1",
+      "statement": {
+        "en": "The sent-request counter counts requests dispatched by the sequencer.",
+        "ja": "送信要求counterは、sequencerがdispatchした要求を数える。"
+      },
+      "conditions": {
+        "en": "Complete two sequential requests, or three requests while retaining only two in history.",
+        "ja": "2つの逐次要求を完了するか、履歴を2つだけ保持して3要求を完了する。"
+      },
+      "expected": {
+        "en": "The counters are two and three regardless of history retention length.",
+        "ja": "履歴の保持数と独立して、counterは2と3になる。"
+      },
+      "limitations": {
+        "en": "Single requesting sequences or idle controls only: mode getters do not establish arbitration ordering. Request/response histories are distinct from sequence response queues, and only selected UT output lines are linked. No generated sequence ID value, multi-sequence fairness, overflow diagnostic identifier or general response routing isolation is claimed.",
+        "ja": "単一の要求sequenceまたはidle時の制御だけを扱い、mode getterでarbitration順序を成立させない。要求／応答の履歴はsequenceの応答queueと区別し、選択したUT出力行だけを対応付ける。生成sequence IDの値、複数sequenceの公平性、overflow診断ID、一般的な応答routingの独立性は主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequencer_transfers_two_sequential_requests_and_counts_them",
+          "role": "direct",
+          "expected_observations": [
+            "UT: payloads 42 43 distinct 1 sent 2 finished 1"
+          ]
+        },
+        {
+          "test": "u15/test_sequencer_last_req_retains_newest_requests_within_capacity",
+          "role": "direct",
+          "expected_observations": [
+            "UT: sent 3 beyond_null 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCER-ANALYSIS-RESPONSE-ROUTE",
+      "clause": "15.4.3.1",
+      "statement": {
+        "en": "The sequencer response export accepts connected driver analysis responses for the requesting sequence.",
+        "ja": "sequencerのresponse exportは、接続したdriverのanalysis応答を要求元sequenceへ受け入れる。"
+      },
+      "conditions": {
+        "en": "Write two correctly identified responses through the connected driver response port.",
+        "ja": "接続したdriver response portで、正しい識別子を持つ2応答を書き込む。"
+      },
+      "expected": {
+        "en": "The sequence receives two replies and sequencer history contains the latest two response values and IDs.",
+        "ja": "sequenceは2応答を受け取り、sequencer履歴は最新2応答の値とIDを保持する。"
+      },
+      "limitations": {
+        "en": "Single requesting sequences or idle controls only: mode getters do not establish arbitration ordering. Request/response histories are distinct from sequence response queues, and only selected UT output lines are linked. No generated sequence ID value, multi-sequence fairness, overflow diagnostic identifier or general response routing isolation is claimed.",
+        "ja": "単一の要求sequenceまたはidle時の制御だけを扱い、mode getterでarbitration順序を成立させない。要求／応答の履歴はsequenceの応答queueと区別し、選択したUT出力行だけを対応付ける。生成sequence IDの値、複数sequenceの公平性、overflow診断ID、一般的な応答routingの独立性は主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequencer_rsp_export_updates_response_history_and_routes_replies",
+          "role": "direct",
+          "expected_observations": [
+            "UT: history payloads 22 11 ids 102 101",
+            "UT: responses 2 received 2 beyond_null 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCER-RESPONSE-HISTORY-ORDER",
+      "clause": "15.4.3.2",
+      "statement": {
+        "en": "Response history preserves newest-first entries independently of sequence queue retrieval.",
+        "ja": "応答履歴は、sequence queueからの取得と独立して、最新を先頭にentryを保つ。"
+      },
+      "conditions": {
+        "en": "Write and retrieve two responses, then inspect a two-entry history and a strictly oversized index.",
+        "ja": "2応答を書き込み、取得してから、2 entryの履歴と明確に過大なindexを照会する。"
+      },
+      "expected": {
+        "en": "History retains payloads 22/11 and IDs 102/101 after retrieval; the oversized index is null.",
+        "ja": "取得後も履歴はpayload 22／11とID 102／101を保持し、過大indexはnullになる。"
+      },
+      "limitations": {
+        "en": "Single requesting sequences or idle controls only: mode getters do not establish arbitration ordering. Request/response histories are distinct from sequence response queues, and only selected UT output lines are linked. No generated sequence ID value, multi-sequence fairness, overflow diagnostic identifier or general response routing isolation is claimed.",
+        "ja": "単一の要求sequenceまたはidle時の制御だけを扱い、mode getterでarbitration順序を成立させない。要求／応答の履歴はsequenceの応答queueと区別し、選択したUT出力行だけを対応付ける。生成sequence IDの値、複数sequenceの公平性、overflow診断ID、一般的な応答routingの独立性は主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequencer_rsp_export_updates_response_history_and_routes_replies",
+          "role": "direct",
+          "expected_observations": [
+            "UT: history payloads 22 11 ids 102 101",
+            "UT: responses 2 received 2 beyond_null 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCER-RESPONSE-RECEIVED-COUNT",
+      "clause": "15.3.4.1",
+      "statement": {
+        "en": "The received-response counter counts replies received by the sequencer.",
+        "ja": "受信応答counterは、sequencerが受け取った応答を数える。"
+      },
+      "conditions": {
+        "en": "Deliver two analysis replies and retrieve both from the sequence.",
+        "ja": "2つのanalysis応答を渡し、両方をsequenceから取得する。"
+      },
+      "expected": {
+        "en": "The sequencer received count and sequence retrieved count are both two.",
+        "ja": "sequencerの受信数とsequenceの取得数はともに2になる。"
+      },
+      "limitations": {
+        "en": "Single requesting sequences or idle controls only: mode getters do not establish arbitration ordering. Request/response histories are distinct from sequence response queues, and only selected UT output lines are linked. No generated sequence ID value, multi-sequence fairness, overflow diagnostic identifier or general response routing isolation is claimed.",
+        "ja": "単一の要求sequenceまたはidle時の制御だけを扱い、mode getterでarbitration順序を成立させない。要求／応答の履歴はsequenceの応答queueと区別し、選択したUT出力行だけを対応付ける。生成sequence IDの値、複数sequenceの公平性、overflow診断ID、一般的な応答routingの独立性は主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequencer_rsp_export_updates_response_history_and_routes_replies",
+          "role": "direct",
+          "expected_observations": [
+            "UT: responses 2 received 2 beyond_null 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCER-CURRENT-ITEM-LIFETIME",
+      "clause": "15.4.1",
+      "statement": {
+        "en": "Current-item queries retain a request from get_next_item or peek until item_done or get completes it.",
+        "ja": "current-itemの照会は、get_next_itemまたはpeekからitem_doneまたはgetの完了まで要求を保つ。"
+      },
+      "conditions": {
+        "en": "Observe idle, held and completed requests through sequencer and sequence queries.",
+        "ja": "sequencerとsequenceの照会で、idle、保持中、完了後の要求を観測する。"
+      },
+      "expected": {
+        "en": "Idle/completed queries are null; held queries identify the request and repeated peeks leave it current.",
+        "ja": "idle／完了後の照会はnull、保持中は要求を指し、繰り返すpeekでもcurrentを保つ。"
+      },
+      "limitations": {
+        "en": "Single requesting sequences or idle controls only: mode getters do not establish arbitration ordering. Request/response histories are distinct from sequence response queues, and only selected UT output lines are linked. No generated sequence ID value, multi-sequence fairness, overflow diagnostic identifier or general response routing isolation is claimed.",
+        "ja": "単一の要求sequenceまたはidle時の制御だけを扱い、mode getterでarbitration順序を成立させない。要求／応答の履歴はsequenceの応答queueと区別し、選択したUT出力行だけを対応付ける。生成sequence IDの値、複数sequenceの公平性、overflow診断ID、一般的な応答routingの独立性は主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequencer_and_sequence_current_item_clear_after_item_done",
+          "role": "direct",
+          "expected_observations": [
+            "UT: initial_null 1 1",
+            "UT: pending_same 1 1",
+            "UT: after_ack_null 1 1",
+            "UT: finished 1"
+          ]
+        },
+        {
+          "test": "u15/test_sequencer_and_sequence_current_item_span_peek_until_get",
+          "role": "direct",
+          "expected_observations": [
+            "UT: peek_same 1 current_same 1 1",
+            "UT: finished_before_get 0",
+            "UT: current_null 1 1 consumed_same 1 finished 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCER-REPEATED-PEEK-ACKNOWLEDGEMENT",
+      "clause": "15.5.2.7",
+      "statement": {
+        "en": "Repeated peeks return the same pending request until get implicitly acknowledges it.",
+        "ja": "繰り返すpeekは、getが暗黙にacknowledgeするまで同じ保留要求を返す。"
+      },
+      "conditions": {
+        "en": "Peek twice while finish_item remains blocked, then consume with get.",
+        "ja": "finish_itemが待機中に2回peekし、次にgetで消費する。"
+      },
+      "expected": {
+        "en": "Both peeks and get identify the same object; sequence completion follows get.",
+        "ja": "両peekとgetは同じobjectを指し、getの後にsequenceが完了する。"
+      },
+      "limitations": {
+        "en": "Single requesting sequences or idle controls only: mode getters do not establish arbitration ordering. Request/response histories are distinct from sequence response queues, and only selected UT output lines are linked. No generated sequence ID value, multi-sequence fairness, overflow diagnostic identifier or general response routing isolation is claimed.",
+        "ja": "単一の要求sequenceまたはidle時の制御だけを扱い、mode getterでarbitration順序を成立させない。要求／応答の履歴はsequenceの応答queueと区別し、選択したUT出力行だけを対応付ける。生成sequence IDの値、複数sequenceの公平性、overflow診断ID、一般的な応答routingの独立性は主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequencer_peek_keeps_current_request_until_get",
+          "role": "direct",
+          "expected_observations": [
+            "UT: peek_same 1 payload 42 finished_before_get 0",
+            "UT: consumed_same 1 finished 1"
+          ]
+        },
+        {
+          "test": "u15/test_sequencer_and_sequence_current_item_span_peek_until_get",
+          "role": "direct",
+          "expected_observations": [
+            "UT: peek_same 1 current_same 1 1",
+            "UT: finished_before_get 0",
+            "UT: current_null 1 1 consumed_same 1 finished 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCER-PULL-REQUEST-ACKNOWLEDGEMENT",
+      "clause": "15.5.2.3",
+      "statement": {
+        "en": "A retrieved request remains pending until the driver acknowledges it with item_done.",
+        "ja": "取得した要求は、driverがitem_doneでacknowledgeするまで保留される。"
+      },
+      "conditions": {
+        "en": "Retrieve one request handle and wait a positive delay before acknowledgement.",
+        "ja": "1つの要求handleを取得し、acknowledgeする前に正の遅延を待つ。"
+      },
+      "expected": {
+        "en": "The driver receives the original payload 42; finish_item remains pending before acknowledgement and completes afterwards.",
+        "ja": "driverは元のpayload 42を受け取り、acknowledge前はfinish_itemが待機し、その後に完了する。"
+      },
+      "limitations": {
+        "en": "Single requesting sequences or idle controls only: mode getters do not establish arbitration ordering. Request/response histories are distinct from sequence response queues, and only selected UT output lines are linked. No generated sequence ID value, multi-sequence fairness, overflow diagnostic identifier or general response routing isolation is claimed.",
+        "ja": "単一の要求sequenceまたはidle時の制御だけを扱い、mode getterでarbitration順序を成立させない。要求／応答の履歴はsequenceの応答queueと区別し、選択したUT出力行だけを対応付ける。生成sequence IDの値、複数sequenceの公平性、overflow診断ID、一般的な応答routingの独立性は主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequencer_get_next_item_waits_for_item_done",
+          "role": "direct",
+          "expected_observations": [
+            "UT: request payload 42 same 1 finished_before_ack 0",
+            "UT: finished_after_ack 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCER-PUT-RESPONSE-AFTER-GET",
+      "clause": "15.5.2.8",
+      "statement": {
+        "en": "put routes a correctly identified response after get has acknowledged its request.",
+        "ja": "putは、getが要求をacknowledgeした後に、正しく識別した応答をroutingする。"
+      },
+      "conditions": {
+        "en": "Retrieve with get, copy routing IDs and send response payload 73 using sequencer put.",
+        "ja": "getで取得し、routing IDをコピーして、sequencerのputでpayload 73の応答を送る。"
+      },
+      "expected": {
+        "en": "The waiting sequence receives the original response handle, payload 73 and transaction ID 23.",
+        "ja": "待機sequenceは、元の応答handle、payload 73、transaction ID 23を受け取る。"
+      },
+      "limitations": {
+        "en": "Single requesting sequences or idle controls only: mode getters do not establish arbitration ordering. Request/response histories are distinct from sequence response queues, and only selected UT output lines are linked. No generated sequence ID value, multi-sequence fairness, overflow diagnostic identifier or general response routing isolation is claimed.",
+        "ja": "単一の要求sequenceまたはidle時の制御だけを扱い、mode getterでarbitration順序を成立させない。要求／応答の履歴はsequenceの応答queueと区別し、選択したUT出力行だけを対応付ける。生成sequence IDの値、複数sequenceの公平性、overflow診断ID、一般的な応答routingの独立性は主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequencer_put_routes_response_after_get_acknowledges_request",
+          "role": "direct",
+          "expected_observations": [
+            "UT: response_same 1 payload 73 transaction_id 23 finished 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCER-DIRECT-EXECUTE-ITEM",
+      "clause": "15.3.2.5",
+      "statement": {
+        "en": "execute_item executes the supplied item through the sequencer and waits for completion.",
+        "ja": "execute_itemは指定itemをsequencer経由で実行し、完了を待つ。"
+      },
+      "conditions": {
+        "en": "Submit payload 77 directly and hold the driver acknowledgement for a positive delay.",
+        "ja": "payload 77を直接投入し、正の遅延の間driverのacknowledgeを保留する。"
+      },
+      "expected": {
+        "en": "The driver receives the exact submitted handle; execute_item returns only after item_done.",
+        "ja": "driverは投入した正確なhandleを受け取り、execute_itemはitem_doneの後だけで戻る。"
+      },
+      "limitations": {
+        "en": "Single requesting sequences or idle controls only: mode getters do not establish arbitration ordering. Request/response histories are distinct from sequence response queues, and only selected UT output lines are linked. No generated sequence ID value, multi-sequence fairness, overflow diagnostic identifier or general response routing isolation is claimed.",
+        "ja": "単一の要求sequenceまたはidle時の制御だけを扱い、mode getterでarbitration順序を成立させない。要求／応答の履歴はsequenceの応答queueと区別し、選択したUT出力行だけを対応付ける。生成sequence IDの値、複数sequenceの公平性、overflow診断ID、一般的な応答routingの独立性は主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequencer_execute_item_waits_for_driver_acknowledgement",
+          "role": "direct",
+          "expected_observations": [
+            "UT: payload 77 same 1 returned_before_ack 0",
+            "UT: returned_after_ack 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PUSH-SEQUENCER-TYPED-ENDPOINTS",
+      "clause": "15.6.2",
+      "statement": {
+        "en": "The typed push request port resolves to the driver blocking-put endpoint.",
+        "ja": "型付きpush request portは、driverのblocking-put endpointへ解決する。"
+      },
+      "conditions": {
+        "en": "Connect a push sequencer and driver with distinct request/response types.",
+        "ja": "異なる要求／応答型を持つpush sequencerとdriverを接続する。"
+      },
+      "expected": {
+        "en": "Request and response ports each resolve to one endpoint.",
+        "ja": "要求と応答のportは、それぞれ1 endpointへ解決する。"
+      },
+      "limitations": {
+        "en": "Distinct request/response classes and a single producer sequence are used. The overridden driver supplies a three-tick wait, optional mutation and responses. No arbitration across producers is claimed. Multi-request streaming/history cases remain spec-only because the pinned library rejects the second request; their normative expected outputs are retained.",
+        "ja": "異なる要求／応答classと単一producer sequenceを使う。overrideしたdriverが3 tickの待機、任意の変更、応答を実装する。producer間のarbitrationは主張しない。複数要求のstream／履歴検査は、固定libraryが2番目の要求を拒否するためspec-onlyとし、規範的な期待出力を保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_push_sequencer_connects_typed_request_and_response_ports",
+          "role": "direct",
+          "expected_observations": [
+            "UT: request_endpoints 1 response_endpoints 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PUSH-SEQUENCER-CONSTRUCTOR-PARENT",
+      "clause": "15.6.3.2",
+      "statement": {
+        "en": "The push sequencer constructor retains its configured component parent.",
+        "ja": "push sequencerのconstructorは、設定したcomponentの親を保つ。"
+      },
+      "conditions": {
+        "en": "Construct the typed sequencer and driver under a test component.",
+        "ja": "test componentの下に型付きsequencerとdriverを生成する。"
+      },
+      "expected": {
+        "en": "Both hierarchy parent queries return the test component.",
+        "ja": "両階層の親の照会はtest componentを返す。"
+      },
+      "limitations": {
+        "en": "Distinct request/response classes and a single producer sequence are used. The overridden driver supplies a three-tick wait, optional mutation and responses. No arbitration across producers is claimed. Multi-request streaming/history cases remain spec-only because the pinned library rejects the second request; their normative expected outputs are retained.",
+        "ja": "異なる要求／応答classと単一producer sequenceを使う。overrideしたdriverが3 tickの待機、任意の変更、応答を実装する。producer間のarbitrationは主張しない。複数要求のstream／履歴検査は、固定libraryが2番目の要求を拒否するためspec-onlyとし、規範的な期待出力を保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_push_sequencer_connects_typed_request_and_response_ports",
+          "role": "direct",
+          "expected_observations": [
+            "UT: hierarchy 1 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PUSH-SEQUENCER-BLOCKING-COMPLETION",
+      "clause": "15.6.3.3",
+      "statement": {
+        "en": "Push sequencing completes finish_item only after the driver blocking put returns.",
+        "ja": "push sequencingは、driverのblocking putが戻った後にだけfinish_itemを完了する。"
+      },
+      "conditions": {
+        "en": "Delay inside driver put and optionally modify the original request before returning.",
+        "ja": "driverのput内で遅延し、戻る前に元要求を任意で変更する。"
+      },
+      "expected": {
+        "en": "The producer is pending during put and observes completed driver work and the original mutated request afterwards.",
+        "ja": "put中はproducerが待機し、その後にdriver処理の完了と元要求の変更を観測する。"
+      },
+      "limitations": {
+        "en": "Distinct request/response classes and a single producer sequence are used. The overridden driver supplies a three-tick wait, optional mutation and responses. No arbitration across producers is claimed. Multi-request streaming/history cases remain spec-only because the pinned library rejects the second request; their normative expected outputs are retained.",
+        "ja": "異なる要求／応答classと単一producer sequenceを使う。overrideしたdriverが3 tickの待機、任意の変更、応答を実装する。producer間のarbitrationは主張しない。複数要求のstream／履歴検査は、固定libraryが2番目の要求を拒否するためspec-onlyとし、規範的な期待出力を保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_push_sequencer_finish_item_waits_until_driver_put_returns",
+          "role": "direct",
+          "expected_observations": [
+            "UT: blocked done 0 completed 0",
+            "UT: returned completed 1"
+          ]
+        },
+        {
+          "test": "u15/test_push_driver_mutation_is_visible_after_blocking_completion",
+          "role": "direct",
+          "expected_observations": [
+            "UT: same_handle 1 completed_value 107 puts 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PUSH-SEQUENCER-CONTINUOUS-REQUESTS",
+      "clause": "15.6.3.3",
+      "statement": {
+        "en": "The push run phase continuously delivers successive available sequence items through its request port.",
+        "ja": "pushのrun phaseは、利用可能な連続するsequence itemをrequest port経由で継続して配送する。"
+      },
+      "conditions": {
+        "en": "Send distinct values 11, 22 and 33 from one sequential producer.",
+        "ja": "1逐次producerから異なる値11、22、33を送る。"
+      },
+      "expected": {
+        "en": "Driver receives and completes three requests in sequence order and the sent counter is three.",
+        "ja": "driverはsequence順で3要求を受信／完了し、送信counterは3になる。"
+      },
+      "limitations": {
+        "en": "Distinct request/response classes and a single producer sequence are used. The overridden driver supplies a three-tick wait, optional mutation and responses. No arbitration across producers is claimed. Multi-request streaming/history cases remain spec-only because the pinned library rejects the second request; their normative expected outputs are retained.",
+        "ja": "異なる要求／応答classと単一producer sequenceを使う。overrideしたdriverが3 tickの待機、任意の変更、応答を実装する。producer間のarbitrationは主張しない。複数要求のstream／履歴検査は、固定libraryが2番目の要求を拒否するためspec-onlyとし、規範的な期待出力を保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_push_sequencer_delivers_each_request_once_in_sequence_order",
+          "role": "direct",
+          "expected_observations": [
+            "UT: received 3 completed 3 sent 3",
+            "UT: values 11 22 33"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PUSH-SEQUENCER-REQUEST-HISTORY",
+      "clause": "15.6.3.1",
+      "statement": {
+        "en": "The push sequencer implements the common request-history API.",
+        "ja": "push sequencerは、共通の要求履歴APIを実装する。"
+      },
+      "conditions": {
+        "en": "Set a two-entry history and send three original request handles.",
+        "ja": "2 entryの履歴を設定し、元の要求handleを3つ送る。"
+      },
+      "expected": {
+        "en": "Capacity is two, newest/previous identify requests three/two and the evicted oldest is unavailable.",
+        "ja": "容量は2で、最新／前は3番目／2番目の要求を指し、追い出した最古の要求は取得できない。"
+      },
+      "limitations": {
+        "en": "Distinct request/response classes and a single producer sequence are used. The overridden driver supplies a three-tick wait, optional mutation and responses. No arbitration across producers is claimed. Multi-request streaming/history cases remain spec-only because the pinned library rejects the second request; their normative expected outputs are retained.",
+        "ja": "異なる要求／応答classと単一producer sequenceを使う。overrideしたdriverが3 tickの待機、任意の変更、応答を実装する。producer間のarbitrationは主張しない。複数要求のstream／履歴検査は、固定libraryが2番目の要求を拒否するためspec-onlyとし、規範的な期待出力を保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_push_sequencer_common_request_history_keeps_newest_handles",
+          "role": "direct",
+          "expected_observations": [
+            "UT: capacity 2 newest 1 previous 1 evicted 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PUSH-SEQUENCER-RESPONSE-HISTORY",
+      "clause": "15.6.3.1",
+      "statement": {
+        "en": "The push sequencer implements common response-history retention and received-response counting.",
+        "ja": "push sequencerは、共通の応答履歴の保持と受信応答の計数を実装する。"
+      },
+      "conditions": {
+        "en": "Return/retrieve three analysis responses using a two-entry sequencer response history.",
+        "ja": "2 entryのsequencer応答履歴で、3 analysis応答を返し、取得する。"
+      },
+      "expected": {
+        "en": "Received count is three; newest/previous identify replies three/two and the oldest has been evicted.",
+        "ja": "受信数は3で、最新／前は3番目／2番目の応答を指し、最古は追い出される。"
+      },
+      "limitations": {
+        "en": "Distinct request/response classes and a single producer sequence are used. The overridden driver supplies a three-tick wait, optional mutation and responses. No arbitration across producers is claimed. Multi-request streaming/history cases remain spec-only because the pinned library rejects the second request; their normative expected outputs are retained.",
+        "ja": "異なる要求／応答classと単一producer sequenceを使う。overrideしたdriverが3 tickの待機、任意の変更、応答を実装する。producer間のarbitrationは主張しない。複数要求のstream／履歴検査は、固定libraryが2番目の要求を拒否するためspec-onlyとし、規範的な期待出力を保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_push_sequencer_common_response_history_counts_analysis_replies",
+          "role": "direct",
+          "expected_observations": [
+            "UT: responses 3 newest 1 previous 1 evicted 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PUSH-DRIVER-ANALYSIS-REPLY",
+      "clause": "13.8.2.2",
+      "statement": {
+        "en": "The push driver response port returns an identified response to the requesting sequence through the sequencer export.",
+        "ja": "push driverのresponse portは、識別した応答をsequencerのexport経由で要求元sequenceへ返す。"
+      },
+      "conditions": {
+        "en": "Copy request IDs into a distinct response type and retrieve by explicit transaction ID.",
+        "ja": "異なる応答型へ要求IDをコピーし、明示したtransaction IDで取得する。"
+      },
+      "expected": {
+        "en": "The reply carries value 1007, transaction ID 40 and the original request sequence ID.",
+        "ja": "応答は、値1007、transaction ID 40、元要求のsequence IDを保持する。"
+      },
+      "limitations": {
+        "en": "Distinct request/response classes and a single producer sequence are used. The overridden driver supplies a three-tick wait, optional mutation and responses. No arbitration across producers is claimed. Multi-request streaming/history cases remain spec-only because the pinned library rejects the second request; their normative expected outputs are retained.",
+        "ja": "異なる要求／応答classと単一producer sequenceを使う。overrideしたdriverが3 tickの待機、任意の変更、応答を実装する。producer間のarbitrationは主張しない。複数要求のstream／履歴検査は、固定libraryが2番目の要求を拒否するためspec-onlyとし、規範的な期待出力を保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_push_driver_analysis_response_preserves_origin_and_transaction",
+          "role": "direct",
+          "expected_observations": [
+            "UT: reply 1 value 1007 transaction 40 origin_same 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PUSH-ANALYSIS-RESPONSE-HANDLER",
+      "clause": "14.2.7.3",
+      "statement": {
+        "en": "The enabled sequence response handler receives analysis replies routed through a push sequencer.",
+        "ja": "有効にしたsequenceのresponse handlerは、push sequencer経由でroutingしたanalysis応答を受け取る。"
+      },
+      "conditions": {
+        "en": "Enable the handler and write one response during the blocking driver put.",
+        "ja": "handlerを有効にし、blockingなdriverのput中に1応答を書き込む。"
+      },
+      "expected": {
+        "en": "The handler observes one value 1007 and sequencer received count is one.",
+        "ja": "handlerは値1007を1回観測し、sequencerの受信数は1になる。"
+      },
+      "limitations": {
+        "en": "Distinct request/response classes and a single producer sequence are used. The overridden driver supplies a three-tick wait, optional mutation and responses. No arbitration across producers is claimed. Multi-request streaming/history cases remain spec-only because the pinned library rejects the second request; their normative expected outputs are retained.",
+        "ja": "異なる要求／応答classと単一producer sequenceを使う。overrideしたdriverが3 tickの待機、任意の変更、応答を実装する。producer間のarbitrationは主張しない。複数要求のstream／履歴検査は、固定libraryが2番目の要求を拒否するためspec-onlyとし、規範的な期待出力を保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_push_driver_response_port_invokes_sequence_response_handler",
+          "role": "direct",
+          "expected_observations": [
+            "UT: handled 1 value 1007 received 1"
+          ]
+        }
+      ]
     }
   ]
 }

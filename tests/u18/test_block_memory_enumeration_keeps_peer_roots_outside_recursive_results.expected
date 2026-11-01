@@ -1,0 +1,3 @@
+UT: local count 1 members 1
+UT: recursive count 3 members 7
+UT: child_scope count 2 members 6

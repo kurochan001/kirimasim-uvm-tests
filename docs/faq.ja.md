@@ -155,7 +155,7 @@ Ghostはさらに実行ファイル・profile・供給されたライブラリ�
 
 ### Q16. M1・M2・M3は完了していますか。件数は何の網羅を示しますか
 
-M1・M2には条項ごとの目標に未達があります。M3はbusモデルのfrontdoor経路を含め254件まで追加した段階で、未完です。
+M1・M2には条項ごとの目標に未達があります。M3はbusモデルのfrontdoor経路を含め262件まで追加した段階で、未完です。
 次の段階の開始によって、それまでの段階が完了したとは扱いません。
 範囲と残りの作業は[進め方](../README.ja.md#進め方)にあります。
 件数はテストの本数で、規格の全要求や組み合わせの棚卸しではありません。
@@ -918,8 +918,8 @@ controlの対応は、その要求の直接の検査ではありません。
 
 ### Q77. M4を始めたのに、カバレッジ率がないのはなぜですか
 
-AIによる604要求案は部分的な分解で、600要求を636テストへ直接対応付け、4要求は直接未対応、別の1テストはcontrolです。
-他の288テストはまだ要求に対応付けていません。2,504の条項番号は規範的要求の単位ではありません。
+AIによる651要求案は部分的な分解で、647要求を676テストへ直接対応付け、4要求は直接未対応、別の1テストはcontrolです。
+他の268テストはまだ要求に対応付けていません。2,504の条項番号は規範的要求の単位ではありません。
 範囲は提案、棚卸しは未完、分母は未承認で、M4の開始はどれの承認にもなりません。
 既知差分やHDL／DPIの制約によって義務を暗黙に除外しません。[承認までの手順](requirements.ja.md#m4の残作業と承認)を参照してください。
 
@@ -1266,3 +1266,51 @@ HDL depositと付録Eのpath利用可否の要求は、直接テストがない�
 台帳では、選択した既存のgeneric payload／extensionの検査系も対応付けます。
 address／data／maskの状態、command／statusの述語、型keyの同一性、消去、既定packは別々の観測です。
 getterだけでは、targetの転送、maskの適用、streaming engine、DMI accessを示しません。
+
+## waiterの取消、blocking呼出し、modelの照会
+
+### Q101. event callbackと取消の検査系は何を要求しますか？
+
+型付きevent callbackは、標準のpre／post hook宣言を使い、`uvm_callbacks`経由で登録します。
+pre-triggerの拒否では、待機processを待たせたままeventをoffに保ち、受理したtriggerでは、
+eventを新dataで活動状態にした後でpost-triggerを呼びます。callbackの無効化は、event自体を抑止せずhookを飛ばす必要があります。
+固定libraryは無効hookも呼ぶため、その期待はspec-onlyを保ちます。
+
+[wakeup reset](../tests/u10/test_event_reset_with_wakeup_releases_both_wait_styles_without_callback_dispatch.sv)は、
+確立した`wait_trigger`と`wait_ptrigger`の呼出し側を、callback dispatchなしで解放する必要があります。
+固定Verilatorの組合せはここでtimeoutし、simulator／libraryの原因は未確定です。
+別のevent／barrier取消の検査系は、待機processを1つkillして、明示的に`cancel`を呼びます。
+解放順を仮定せず、件数と生存participantを検査します。process終了後の明示的な計数であり、killしたwaiterの自動cleanupではありません。
+
+専用event／barrier poolは、欠けたkeyのobjectを生成し、同じlocal keyのbindingを再利用して、別key／local poolの独立性を保ちます。
+繰り返す`get_global_pool`は、選択した型の1つのpoolを共有します。これらの検査系では、記載された`get_global`の戻り型の不整合は解釈しません。
+event poolの件数は、初期所属を要求せず、新keyによる増分を測ります。
+
+### Q102. 重なるblocking TLM 2 trafficで何が成立しますか？
+
+targetの実装が片方の呼出しで長く待機し、後からの短い呼出しが先に完了できるようにします。
+両呼出しの待機、短い方の戻り、最終的なpayload／delayの同一性、変更、status、annotationを観測します。
+共有socketと、別々にbindingしたsocket pairを扱い、共有transactionのraceを避けるため異なるobjectを使います。
+
+endpointがscheduleと結果を実装します。blocking transportは呼出しを転送し、その処理後に戻ります。
+annotation値はoffsetであり、simulationの遅延として自動消費しません。error／retryの検査系は、
+入れ子のexportを通して同じpayload／delayを再利用します。
+[独自transactionの検査系](../tests/u12/test_tlm2_nested_blocking_exports_forward_a_custom_transaction_and_its_completion.sv)は、
+port／export／impのchain全体をparameter化し、自身のreplyとstatus fieldを返します。
+これらの呼出しはnonblockingのphaseやsync enumを使わず、busをmodel化せず、任意の並行transactionの安全性は示しません。
+
+### Q103. register階層の照会とsequencer履歴はどの範囲ですか？
+
+register modelの検査系は、設定した親handle、直接／再帰的なblock／register／field／memory集合、単純名の検索を照会します。
+新しいqueueと正確なhandle所属で、走査順の仮定を避けます。localなregister／memory名は子孫より優先し、
+欠けたobject、祖先、peer rootは受信側の検索範囲外です。regfileの配置は、blockと包含fileの両方の同一性を保ちます。
+これらの照会にaddress map、転送、HDL変数、DPIは不要です。
+
+[registerのlookup](../tests/u18/test_block_register_name_lookup_prefers_local_scope_and_finds_descendants.sv)は、
+model lock前後の有効な期待を保持します。固定libraryはlock前のregisterを発見せず、lock後も入れ子のregfile内registerを発見しません。
+通常のlock後のlookupを、動作する対照とします。
+
+台帳では、既存sequencerのmode／容量の制御、要求／応答数、最新を先頭にした履歴、current-itemの寿命、
+繰り返すpeek／get、直接実行、push配送を別々に対応付けます。mode getterはarbitrationの検査ではなく、
+保持した応答履歴はsequenceの応答queueではありません。pushの複数要求／履歴の検査系は、既知のspec-only差分を保持します。
+既存テストの対応付けで、実行の合格や人による照合は追加しません。

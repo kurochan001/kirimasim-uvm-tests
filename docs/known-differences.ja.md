@@ -2,7 +2,7 @@
 
 [English](known-differences.md) · [README](../README.ja.md) · [FAQ](faq.ja.md)
 
-現在の925件と、固定したAccellera UVM 2020.3.1についての記録です。
+現在の945件と、固定したAccellera UVM 2020.3.1についての記録です。
 不一致はテストの結果であり、それだけではシミュレータ・ライブラリ・期待値のどれが原因かは決まりません。
 
 ## 固定版ライブラリの制約
@@ -13,8 +13,16 @@
 付録Eでは選んだ2／3 mapのshared accessと1つの子blockの形も確認します。
 [memoryの範囲](faq.ja.md#memorypredictionmapの制御)と
 [shared accessの範囲](faq.ja.md#memory-accessshared-mapテストの選択)を参照してください。
-それ以外に、M1・M2・M3で次の54件の制約を確認しました。
+それ以外に、M1・M2・M3で次の56件の制約を確認しました。
 不足する必須動作を直接検査する場合は、規格の期待値を変えずに`:oracle: spec`で保持します。
+
+- eventのtrigger dispatchは、有効なhookだけでなく無効callbackのhookも呼びます。
+  10.7.1.2.2は`callback_mode(0)`でcallbackを無効にします。検査系は、event dataの更新を観測しつつ、
+  pre／postの呼出し0回を期待に保ちます。
+- blockの`get_reg_by_name`は、model lock時だけに埋めるfull-name registryを使いますが、
+  18.1.3.14はlockの前提を指定していません。通常のlocal／deep名はlock後に取得できても、
+  regfile内に入れ子のregisterは単純名で取得できません。検査系はlock前後の両要求を保ち、
+  通常のlock後の成功するlookupを対照にします。
 
 - 17.2.3.3.2／17.2.3.3.3で要求される`uvm_hdl_path_concat::set_slices`と`get_slices`がありません。
   concatの2検査系は、標準の呼出しと、最上位から最下位へ並ぶ有効なsliceの記述を保ちます。
@@ -196,19 +204,28 @@ FIFOの失敗get／peek 4件は、12.2.4.2.6／.8の出力保持の事後条件�
 byteへ丸める物理転送幅の違いは要レビューとし、この2件からライブラリの確定した不具合とは断定しません。
 [端数転送](faq.ja.md#errorの契約と端数転送)も参照してください。
 
-スイート全体では、`verilator@5.052`を付けたテストは835件、specのみのテストは90件です。
+スイート全体では、`verilator@5.052`を付けたテストは852件、specのみのテストは93件です。
 specのみのうち1件は9.6を検証します。pre-resetフェーズ終了時に子タスクが停止する
 はずですが、固定版UVMとVerilator 5.052の組み合わせでは、後のフェーズで子タスクの遅延書き込みが
 実行されます。この差分の原因がシミュレータとライブラリのどちらかは未確定です。
 
-specのみの90件も規格から導いた期待値を保持します。通常のVerilator実行とCIはoracle付き835件を選びます。
+wakeup resetの検査系は、trigger waiterとpersistent-trigger waiterを各1つ確立してから`reset(1)`を呼びます。
+10.1.1.2.8は、callbackなしで両方が起動することを要求します。固定Verilatorの実行は、待機状態の観測に到達してから
+watchdogが期限切れになります。simulator／libraryを組み合わせた原因は未確定のまま、規範的なwakeupの期待を保持します。
+
+specのみの93件も規格から導いた期待値を保持します。通常のVerilator実行とCIはoracle付き852件を選びます。
 `--all`はspecのみも含め、不一致やビルド不可を`known`として記録します。
-実行時の81件は最初の差分であるseed 1までの記録で、seed 73の結果はありません。
+実行時の84件は最初の差分であるseed 1までの記録で、seed 73の結果はありません。
 API欠落の9件（時刻APIの1件、sequence libraryの6件、HDL sliceの2件）はビルド段階で失敗し、どのseedも実行できていません。
 
 ## specのみのテスト
 
-現在の90件は次のテストです。同じ制約を複数のテストで検査する場合があり、異なる不具合の個数ではありません。
+現在の93件は次のテストです。同じ制約を複数のテストで検査する場合があり、異なる不具合の個数ではありません。
+
+- [無効event callbackのdispatch](../tests/u10/test_event_disabled_callback_is_skipped_and_can_be_reenabled_for_later_triggers.sv)。
+- [両event待機方式のwakeup reset](../tests/u10/test_event_reset_with_wakeup_releases_both_wait_styles_without_callback_dispatch.sv)。
+  simulator／libraryの原因は未確定です。
+- [model lock前後でのblockのregister単純名検索](../tests/u18/test_block_register_name_lookup_prefers_local_scope_and_finds_descendants.sv)。
 
 - 必須のHDL concat API：
   [設定／読戻し](../tests/u17/test_hdl_concat_standard_set_slices_initializes_a_split_register_description.sv)と
@@ -361,12 +378,12 @@ API欠落の9件（時刻APIの1件、sequence libraryの6件、HDL sliceの2件
 
 ## シミュレータとライブラリの組み合わせ
 
-Ghostの同梱UVMはseed 1・73とも188件一致・737件不一致で、不一致になるテストも同じです。
+Ghostの同梱UVMはseed 1・73とも193件一致・752件不一致で、不一致になるテストも同じです。
 現在の実行ファイルの固定コピーでは固定版modeを測定していません。記録の合算は[実行結果と測定方法](results.ja.md)で説明します。
 同梱版の結果が対象にするのは供給されたライブラリです。不一致だけでシミュレータとライブラリの原因を分けたり、
 固定版ライブラリの結果を示したりはできません。非公開の識別情報・profile・診断は公開しません。
 
-確認したkirimasimの実行ファイルでは、916件が`uvm_object_wrapper`未実装です。
+確認したkirimasimの実行ファイルでは、936件が`uvm_object_wrapper`未実装です。
 時刻設定APIの1件、sequence libraryの6件、HDL sliceの2件は、その前にAPI欠落を検出して`fail`になります。
 いずれも成功ではなく、その先のUVM動作を実行できた証拠でもありません。
 

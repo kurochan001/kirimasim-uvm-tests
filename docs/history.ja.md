@@ -2,7 +2,7 @@
 
 [English](history.md) · [README](../README.ja.md)
 
-M1・M2の15回目、M3の9回目、M4の3回目と段階をまたぐ薄い領域の6回目の拡充（シミュレーション925件）までを記録しています。以前の349件の時点は
+M1・M2の15回目、M3の9回目、M4の3回目と段階をまたぐ薄い領域の7回目の拡充（シミュレーション945件）までを記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -1159,3 +1159,32 @@ M4はAI要求案61件を追加し、新規20件と既存のpayload／extension 2
 toolの単体テスト74件、metadata 925件、台帳／索引の整合性、最終入力への測定の結合、完全な英日ガイドを検査します。
 用語集は115項目、FAQは100問となり、親portのfanout図も追加しました。symbolicなHDL pathとbackendの利用可否、
 payload／制御の状態とtargetの実行を区別します。READMEには現状を保ち、この節に今回の追加分を記録します。
+
+## M1〜M4の薄い領域の7回目の拡充
+
+[b392959](https://github.com/kurochan001/kirimasim-uvm-tests/commit/b392959c512df803680f5b2030d6d78ca0f97956)の925件へ
+シミュレーション20件を追加し、21ディレクトリに計945件（M1 295件、M2 388件、M3 262件）にしました。
+既存925件の全入力を保ちます。M1は、型付きevent callback、wakeup reset、killしたwaiterの取消、
+専用event／barrier poolの8件です。M2は、重なる呼出し、独立socket channel、error／再利用、
+入れ子のexportを通す独自transactionの、blocking TLM 2の4件です。M3は、親handle、local／再帰的な所属、
+単純名の検索を照会するregister modelの8件で、入れ子のregfileの配置も含めます。
+
+追加17件がVerilator 5.052のseed 1・73で一致しました。3件はseed 1で実行時の差分を保持し、
+無効callbackのdispatch、wakeup reset、blockのregister名検索を扱います。resetのsimulator／libraryの原因は未確定です。
+通常のlock後のregister検索は対照として動作し、入れ子のregfileの検索は差分が残ります。
+互換性を確認した全体記録は852件一致と既知差分93件で、実行時の最初の差分84件、実行seedのないAPI欠落build 9件です。
+Ghostの同梱UVMは、各seedで新規5件一致／15件差分、全体193件一致／752件失敗で、失敗集合は同じです。
+kirimasimは、新規20件がすべて未対応で、全体は未対応936件、API欠落の失敗9件です。
+最終測定はvirtual callbackの引数名を修正した後に行い、置換済み入力の記録は使いません。
+runner／実行ファイル／profile／libraryの識別値は互換性を保ち、Ghostの固定版modeの主張は追加しません。
+
+M4はAI要求案47件を追加し、新規20件と既存のsequencer制御・履歴・pull／push転送の20検査系を対応付けました。
+台帳は651要求案、直接対応647要求／676テスト、追加control 1件、未対応テスト268件です。
+条項番号2,504件のうち、480件は一部分解、2,024件は未評価で、主引用417番号、引用全体954番号です。
+対象候補2,479番号の主引用の棚卸しは、0件2,062番号、1件201番号、2件以上216番号です。
+直接未対応の要求案4件は残り、第15章には未対応の主引用検査系56件、未評価の番号64件が残ります。
+照合はすべてAI、範囲は提案、分母／割合は未設定です。
+
+toolの単体テスト74件、全945件のmetadata、台帳／索引の整合性、最終入力の測定fingerprint、完全な英日ガイドを検査します。
+用語集は119項目、FAQは103問です。callbackの有効状態、reset wakeup、取消の計数、endpointで定義するblocking動作、
+modelだけの照会を、より広いcoverageと区別します。READMEは現状を記述し、今回の履歴はここに保持します。

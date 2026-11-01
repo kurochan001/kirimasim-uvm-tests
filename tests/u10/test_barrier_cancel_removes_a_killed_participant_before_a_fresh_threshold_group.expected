@@ -1,0 +1,4 @@
+UT: initial waiters 2 blocked 1
+UT: canceled waiters 1
+UT: still_below waiters 2 blocked 1
+UT: complete all 1 victim_returned 0 waiters 0

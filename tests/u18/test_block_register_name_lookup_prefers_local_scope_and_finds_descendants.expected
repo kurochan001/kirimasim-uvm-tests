@@ -1,0 +1,5 @@
+UT: local_precedence root 1 child 1
+UT: descendants child 1 deep 1 regfile 1
+UT: missing 1 ancestor_excluded 1 peer_excluded 1
+UT: locked_local root 1 child 1
+UT: locked_descendants child 1 deep 1 regfile 1
