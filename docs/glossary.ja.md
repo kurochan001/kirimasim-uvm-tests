@@ -473,3 +473,17 @@ close後も有効で、free後に無効になります。正確な数値や将�
 
 **fieldのcompare制御（Field compare control）** — set_compareで選び、get_compareで返すmodelの設定です。
 設定の観測だけでは、mirror readによる比較の実行／抑止は成立しません。
+
+## recorderと間接access
+
+**recorder（Recorder）** — streamが所有するrecordであり、そのfieldを記録するpolicyでもあります。
+localなimplementation hookで、外部databaseの形式を生成せず、lifecycleとscalar引数を保持できます。
+
+**socketの宣言上の接続数（Socket declaration bounds）** — socketのconstructorが指定する最小／最大の接続数です。
+解決済み接続先の数とは別であり、transportが実行されたことを示しません。
+
+**index／data register pair（Index/data register pair）** — array要素を選ぶaddress registerと、
+その要素にアクセスするdata registerです。検査系では、data portへアクセスする前に明示したindex writeを完了します。
+
+**選択したarrayのprediction（Selected-array prediction）** — model化した転送の観測後、間接indexが選んだarray registerのmirrorを更新することです。
+他のarray mirrorは以前の値を保持し、testbenchのstorageは別の状態として残します。

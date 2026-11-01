@@ -306,6 +306,10 @@
       "primary_clause": "7.1.3.1",
       "inputs_sha256": "b9a5ccf4961585103c13e153e4c8c4562c4ffdad1c67d1c920f1c1940550c714"
     },
+    "u07/test_recorder_creation_is_ignored_on_unopened_and_closed_streams": {
+      "primary_clause": "7.2.5.1",
+      "inputs_sha256": "ccdf9e0bf598554af6d6b01d84871c2b280d4635986a49448fd253855ee1cf84"
+    },
     "u07/test_recording_database_ignores_stream_opens_until_connection_succeeds": {
       "primary_clause": "7.1.4.1",
       "inputs_sha256": "49bebb860dd77a4b07d54bbfa9964771fa93c8d2f04b6c1981989f7dcf809c35"
@@ -337,6 +341,14 @@
     "u07/test_recording_uninitialized_stream_queries_each_report_a_warning": {
       "primary_clause": "7.2.3.2",
       "inputs_sha256": "1cd56b2b7ee6d6a95fde33f6388c522b8b639347127ce4bf71606ef21cb2f238"
+    },
+    "u07/test_stream_close_dispatches_its_hook_before_closing_only_open_recorders": {
+      "primary_clause": "7.2.4.1",
+      "inputs_sha256": "76411ba58d8db38fe4da5c4fe6ce4ecce9a6b0edb3aec8aa39c15260024f8361"
+    },
+    "u07/test_stream_free_dispatches_its_hook_before_releasing_all_closed_recorders": {
+      "primary_clause": "7.2.4.2",
+      "inputs_sha256": "33a4b6c95a3695fc6a54d314b2b1496905a03530a124481a21191d12e62b25be"
     },
     "u08/test_component_registry_context_does_not_reparent": {
       "primary_clause": "8.2.3.2.4",
@@ -986,9 +998,17 @@
       "primary_clause": "12.3.2.2.3",
       "inputs_sha256": "e5696ba5f95fc4e98b64217e3cae4710bc31eaf90813325b0bef4c53b244c511"
     },
+    "u12/test_tlm2_blocking_socket_constructors_preserve_kind_bounds_and_parent": {
+      "primary_clause": "12.3.5.1.3",
+      "inputs_sha256": "552e3a61d64157cc3f04e170901773242e75912cb9d4e991c75c2d7365f6e39d"
+    },
     "u12/test_tlm2_blocking_socket_forwards_payload_delay_and_read_result": {
       "primary_clause": "12.3.2.2.3",
       "inputs_sha256": "cda6a6ad5a66a54f64717daf94fa164277c743400371dcf7b3e51876413b1cae"
+    },
+    "u12/test_tlm2_blocking_target_socket_connect_reports_error_for_each_forbidden_call": {
+      "primary_clause": "12.3.5.1.4",
+      "inputs_sha256": "96f7822e5917da7628c5f7862019251ddd7e377a87d03c84423c94916b412bf0"
     },
     "u12/test_tlm2_extension_polymorphic_type_handle_is_shared_by_same_type_instances": {
       "primary_clause": "12.3.4.4.4",
@@ -1057,6 +1077,14 @@
     "u12/test_tlm2_nonblocking_round_trip_returns_backward_phase_update": {
       "primary_clause": "12.3.2.2.1",
       "inputs_sha256": "417c2103e471fb1d4b1886b7b43f41f160b925edd7e7315f9b05ace1d6e45ad4"
+    },
+    "u12/test_tlm2_nonblocking_socket_constructors_preserve_kind_bounds_and_parent": {
+      "primary_clause": "12.3.5.3.3",
+      "inputs_sha256": "b43bc7d4d9d4894a10fd7f3b67f22816b8aa675d58432b18bcb0cb1f12d10cb0"
+    },
+    "u12/test_tlm2_nonblocking_target_socket_connect_reports_error_for_each_forbidden_call": {
+      "primary_clause": "12.3.5.3.4",
+      "inputs_sha256": "31fcf847de81625ac86c50210603018eff7a54d4d66cf81923b37f2567aa8018"
     },
     "u12/test_tlm2_one_blocking_socket_supports_overlapping_calls_with_distinct_handles": {
       "primary_clause": "12.3.2.2.3",
@@ -2462,6 +2490,26 @@
       "primary_clause": "16.2.3.1",
       "inputs_sha256": "60fbfab162d53ef28f3ad38099b9a9dd1e26d4fe606198462e7a96640f482127"
     },
+    "u16/test_recorder_attribute_methods_forward_values_widths_radices_and_names_to_hooks": {
+      "primary_clause": "16.4.6.1",
+      "inputs_sha256": "9c056982478301e9cae5fc1afbd4d0643310c8ea201cb5c2f7d714e5959f66cb"
+    },
+    "u16/test_recorder_close_retains_open_time_and_does_not_close_its_peer": {
+      "primary_clause": "16.4.4.2",
+      "inputs_sha256": "cafd61142e3028df8db4291843323825f9c90a9ffb4a17fff91108b7b621fa56"
+    },
+    "u16/test_recorder_free_automatically_closes_before_releasing_an_open_record": {
+      "primary_clause": "16.4.4.3",
+      "inputs_sha256": "d9f1cc51c946b192cc7d05d5f45e704fa36c1000967fbb656eb5c44e0efaa162"
+    },
+    "u16/test_recorder_handles_and_stream_membership_preserve_two_distinct_record_identities": {
+      "primary_clause": "16.4.5.2",
+      "inputs_sha256": "a87df4606ed13b3bae462926dd2b12814279919d0bb05f3bb9c03de4a038da33"
+    },
+    "u16/test_recorder_open_retains_stream_timestamp_and_implementation_hook_arguments": {
+      "primary_clause": "16.4.3",
+      "inputs_sha256": "2714cf51f78c1197a8214a8d631a3192c1ee79333b545f034fd25d8954e94a0b"
+    },
     "u17/test_hdl_concat_standard_get_slices_returns_the_appended_most_to_least_order": {
       "primary_clause": "17.2.3.3.3",
       "inputs_sha256": "c9d72e8c5e4801da6894678395587beeb2039f82c525984a73cec12fec1cd4cc"
@@ -2513,6 +2561,38 @@
     "u18/test_block_subblock_enumeration_distinguishes_direct_and_recursive_children": {
       "primary_clause": "18.1.3.5",
       "inputs_sha256": "a1a63f75883dc59efca51528d6af3ad2a65497b0537c3de1f9d21fdc067ded06"
+    },
+    "u18/test_indirect_register_failed_data_read_keeps_prediction_until_a_successful_retry": {
+      "primary_clause": "18.7.2.2",
+      "inputs_sha256": "8b6a399547d45932e4854eb5be9cebe058c6872b5b0db25900d1f392f64e97dd"
+    },
+    "u18/test_indirect_register_failed_data_write_preserves_storage_and_mirror_before_retry": {
+      "primary_clause": "18.7.2.2",
+      "inputs_sha256": "2ef625fe563e41fb42f0989cb9902b07e0b572c365a076d838b55bead13e4fb0"
+    },
+    "u18/test_indirect_register_pairs_keep_separate_indexes_storage_and_prediction_targets": {
+      "primary_clause": "18.7.2.2",
+      "inputs_sha256": "bf1da2015cfa1be632724d90265286f099a204bccef32a26d872cdee0cc2c929"
+    },
+    "u18/test_indirect_register_read_returns_and_predicts_the_selected_array_value": {
+      "primary_clause": "18.7.2.2",
+      "inputs_sha256": "3575425c99d22494d90e65aaaca5a927514aae2c7fde57afed7bcf596d9f817a"
+    },
+    "u18/test_indirect_register_read_uses_the_latest_of_two_completed_index_writes": {
+      "primary_clause": "18.7.2.2",
+      "inputs_sha256": "a246dec7452aa783e7835f7ece750e20aad3077141d24d920340d97ac4547586"
+    },
+    "u18/test_indirect_register_regfile_placement_preserves_block_parent_and_selected_transfer": {
+      "primary_clause": "18.7.2.2",
+      "inputs_sha256": "9d28e0bbbde62036578273d4c3ed2f1646b4738e761c1fe5ca1c95e8e61b105e"
+    },
+    "u18/test_indirect_register_reselection_preserves_other_slots_and_previous_writes": {
+      "primary_clause": "18.7.2.2",
+      "inputs_sha256": "242313e2a896a467425d403d9056af1f71fe6f0dc069bab0d54da99f723c58aa"
+    },
+    "u18/test_indirect_register_write_updates_only_the_index_selected_array_element": {
+      "primary_clause": "18.7.2.2",
+      "inputs_sha256": "266d1e5af393fb0bc8110082ddadbd2d862756320e9abf9b9b5d8536ca5c0637"
     },
     "u18/test_mem_big_endian_wide_location_lists_addresses_in_data_order": {
       "primary_clause": "18.6.4.17",

@@ -1,0 +1,3 @@
+UT: handles nonzero 1 distinct 1 members 3 size 2
+UT: closed_lookup 1 peer_lookup 1
+UT: freed_lookup 1 peer_lookup 1

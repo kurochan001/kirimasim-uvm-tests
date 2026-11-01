@@ -173,7 +173,7 @@ a claim that every test was rebuilt together.
 
 ### Q16. Are M1, M2 or M3 complete, and what does the test count cover?
 
-M1 and M2 still have open clause targets. M3 now has 270
+M1 and M2 still have open clause targets. M3 now has 278
 register-layer cases, including testbench frontdoor paths; it is also incomplete. Starting a stage does not complete
 the preceding stages.
 The [plan](../README.md#plan) identifies current scope and remaining work.
@@ -1136,9 +1136,9 @@ not a direct test of the requirement.
 
 ### Q77. Why is there no coverage percentage after starting M4?
 
-The 705 AI drafts cover only a partial decomposition: 701 requirements link
-directly to 716 tests, 4 have no direct test, and one separate test is a control.
-Another 248 tests are not mapped yet. The 2,504 clause identifiers are not normative requirement units.
+The 760 AI drafts cover only a partial decomposition: 756 requirements link
+directly to 756 tests, 4 have no direct test, and one separate test is a control.
+Another 228 tests are not mapped yet. The 2,504 clause identifiers are not normative requirement units.
 The scope is proposed, the inventory incomplete and the denominator unapproved;
 starting M4 approves none of those. Known differences and HDL/DPI limitations
 do not silently exclude obligations. See the [approval path](requirements.md#remaining-m4-work-and-approval).
@@ -1670,8 +1670,9 @@ flowchart LR
 [Handle lookup](../tests/u07/test_recording_stream_handles_identify_distinct_streams_across_databases.sv)
 retains exact identity across close; a freed handle resolves to null. The
 cases do not prescribe numeric IDs, visit order, queue append behavior or
-handle reuse. There are no open recorders, so cascading recorder close/free
-and recording contents remain untested.
+handle reuse. The original stream-only fixtures have no open recorders.
+Separate [recorder cases](#recorder-lifecycle-socket-guards-and-indirect-registers)
+now exercise cascading cleanup; external recording contents remain untested.
 
 Closed-database stream creation and fresh-stream metadata warnings retain
 pinned-library differences. Enumeration keeps queue membership separate
@@ -1720,3 +1721,79 @@ equal desired/mirrored values to avoid imposing a meaning when they differ.
 [Maximum field width](../tests/u18/test_reg_field_maximum_width_tracks_the_largest_configured_field_across_models.sv)
 is a static query: a smaller later field does not reduce the maximum. These
 cases use no physical reset signal, address-map transfer, RTL storage or DPI.
+
+## Recorder lifecycle, socket guards and indirect registers
+
+### Q107. How do recorder close/free and stream cleanup interact?
+
+The local stream creates concrete recorders with explicit stream, type and
+opening-time metadata. A recorder close retains its opening timestamp and
+stores the supplied closing timestamp, while its peer remains open. Freeing
+an open recorder first closes it with the supplied time, then releases it;
+its handle becomes invalid while the containing stream remains open.
+
+[Stream close](../tests/u07/test_stream_close_dispatches_its_hook_before_closing_only_open_recorders.sv)
+invokes the stream hook before closing still-open records. A record already
+closed is not closed again. Freeing an explicitly closed stream invokes its
+release hook before freeing all remaining records. The tests do not require
+an order among sibling recorders. Record enumeration checks exact queue
+membership, without interpreting the printed return-count width.
+
+Scalar recording calls separately check integral values, widths/radices,
+real/string/time values and generic type metadata at the implementation
+hooks. Times 17/29/31 are explicit recording timestamps; these cases do not
+test omitted-time substitution or actual simulation delays. There is no
+external database, vendor attribute macro, object-recursion format or
+serialized recording output.
+
+### Q108. What do socket constructor and forbidden-connect checks establish?
+
+All eight blocking/nonblocking terminator/pass-through socket variants
+have constructor checks for their implementation/port/export role, parent
+and one-to-one minimum/maximum bounds. These are declaration properties
+queried before elaboration; they do not count resolved destinations or
+establish forward/backward transport execution.
+
+Calling `connect` on a target terminator is forbidden in both modes. The
+[blocking case](../tests/u12/test_tlm2_blocking_target_socket_connect_reports_error_for_each_forbidden_call.sv)
+and its nonblocking counterpart call it twice with compatible provider
+handles and require a new ERROR each time. Neither diagnostic wording nor
+an invalid-provider type conversion is prescribed. The constructors use
+compatible parent implementation methods, but the cases do not separately
+establish default-IMP transport delivery.
+
+The ledger also maps selected existing arbitration and ownership fixtures.
+FIFO and strict modes assert their prescribed order. Random mode checks
+membership and completion without statistical claims. USER mode exercises
+two candidate handles. Nested lock/grab, interchangeable release and
+availability checks remain distinct from arbitrary concurrency or cleanup.
+Existing FIFO-lock and pre-ack grant differences retain their spec-only oracles.
+
+### Q109. How does an indirect register choose an array element?
+
+The configured index register selects an element; an explicit completed
+index write precedes each data-port access. The model uses equal eight-bit
+array elements and valid indices zero to two. The driver implements the
+indexed storage behavior, and auto-prediction updates the selected array
+register mirror:
+
+```mermaid
+flowchart LR
+    C["Caller"] -->|"index.write"| I["Index register"]
+    C -->|"data.read / data.write"| D["Indirect data register"]
+    I -->|"Index-address write"| B["Testbench indexed bank"]
+    D -->|"Data-address access"| B
+    D -. "Auto-prediction" .-> A["Selected array-register mirror"]
+```
+
+[Selection and write](../tests/u18/test_indirect_register_write_updates_only_the_index_selected_array_element.sv)
+leave other slots intact. Other cases cover readback, reselection, the latest
+of two index writes, two independent index/data pairs and optional regfile
+placement. Driver-rejected writes do not commit storage; UVM must return the
+error and retain the model until retry. Failed-read data is not constrained,
+while a successful retry returns and predicts the selected value.
+
+These cases use a testbench adapter/sequencer/driver with explicit map and
+auto-prediction settings. They establish no RTL/DPI behavior, out-of-range
+index rule, arbitrary concurrent access, indirect backdoor or requirement
+for automatically generated array-register frontdoor sequences.

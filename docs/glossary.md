@@ -626,3 +626,21 @@ and from asserting a physical reset signal.
 **Field compare control** — The model setting selected by set_compare and
 returned by get_compare. Observing this setting alone does not establish
 that a mirror read performed or suppressed a comparison.
+
+## Recorders and indirect access
+
+**Recorder** — A record owned by a stream and a policy for recording its
+fields. Local implementation hooks can retain lifecycle and scalar arguments
+without producing an external database format.
+
+**Socket declaration bounds** — The minimum and maximum connection counts
+specified by a socket constructor. These differ from the resolved destination
+count and do not establish that any transport has executed.
+
+**Index/data register pair** — An address register that selects an array
+element and a data register through which that element is accessed. The
+fixtures complete an explicit index write before accessing the data port.
+
+**Selected-array prediction** — Updating the array-register mirror selected
+by an indirect index after an observed modeled transfer. Other array mirrors
+retain their previous values; the testbench storage remains a separate state.

@@ -2,7 +2,7 @@
 
 [English](history.md) · [README](../README.ja.md)
 
-M1・M2の15回目、M3の9回目、M4の3回目と段階をまたぐ薄い領域の8回目の拡充（シミュレーション965件）までを記録しています。以前の349件の時点は
+M1・M2の15回目、M3の9回目、M4の3回目と段階をまたぐ薄い領域の9回目の拡充（シミュレーション985件）までを記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -1214,3 +1214,29 @@ M4はAI要求案54件を追加し、新規20件と既存のTLM 1 analysis・接�
 toolの単体テスト74件、全965件のmetadata、台帳／索引の整合性、最終入力の測定fingerprint、完全な英日ガイドを検査します。
 用語集は123項目、FAQは106問で、streamのlifecycle図も追加しました。recorder、外部databaseの内容、物理的なfieldへの作用、
 並行する応答の照合は検査系の範囲外です。READMEは現状を記述し、今回の追加分はここに保持します。
+
+## M1〜M4の薄い領域の9回目の拡充
+
+[8482f3f](https://github.com/kurochan001/kirimasim-uvm-tests/commit/8482f3f137671d1abbafdceda07f41151c671e8d)の965件に
+シミュレーション20件を追加し、21ディレクトリに計985件（M1 311件、M2 396件、M3 278件）にしました。
+既存965件の全入力を保持します。M1は、recorderの受理、metadata、close／free／handle、stream連鎖、scalar hookの8件です。
+M2は、socketのconstructorと禁止target-connectの4件です。M3は、等幅の間接registerで、選択した転送、再選択、最新index、
+独立pair、error／再試行、任意のregfile配置を扱う8件です。記録はlocal、model化したbus storageとpredictionは別で、RTL／DPIは使いません。
+
+追加20件すべてがVerilator 5.052のseed 1・73で一致し、新しいspec-onlyはありません。
+互換性を確認した全体記録は889件一致と既知差分96件で、実行時のseed 1で最初の差分87件、実行seedのないAPI欠落build 9件です。
+Ghostの同梱UVMは、両seedで新規20件すべてが差分となり、全体は196件一致／789件失敗で、失敗集合は同じです。
+kirimasimは新規20件すべてが未対応で、全体は未対応976件、API欠落の失敗9件です。
+regfile配置の検査系は、必須のnull regfile-parent引数を指定してから最終測定します。
+runner／実行ファイル／profile／libraryの識別値はすべて互換性を保ち、Ghostの現在の固定版modeの測定は追加しません。
+
+M4はAI要求案55件を追加し、新規20件と既存のsequencer arbitration・所有権・利用可否の20検査系を対応付けました。
+台帳は760要求案、直接対応756要求／756テスト、追加control 1件、未対応テスト228件です。
+条項番号2,504件のうち、565件は一部分解、1,939件は未評価で、主引用443番号、引用全体1,020番号です。
+対象候補2,479番号の棚卸しは、0件2,036番号、1件220番号、2件以上223番号です。直接未対応の要求案4件は残ります。
+範囲は提案のまま、照合はすべてAI、分母／割合は未設定です。
+
+toolの単体テスト74件、全985件のmetadata、台帳／索引の整合性、最終入力の測定fingerprint、完全な英日ガイドを検査します。
+用語集は127項目、FAQは109問で、間接access図も追加しました。以前のstreamだけの説明は、別のrecorderの対応範囲と区別します。
+randomの選択は統計的なcoverageではなく、constructorの接続数は解決済みtrafficではありません。
+READMEは現状を記述し、今回の追加分はここに保持します。

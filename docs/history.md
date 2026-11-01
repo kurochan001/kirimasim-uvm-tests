@@ -3,7 +3,7 @@
 [日本語](history.ja.md) · [README](../README.md)
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and eight cross-milestone thin-area expansions (965 simulation tests). The earlier 349-test checkpoint is
+three M4 increments and nine cross-milestone thin-area expansions (985 simulation tests). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -1694,3 +1694,43 @@ guides. The glossary has 123 entries and the FAQ 106 answers, including a
 stream lifecycle diagram. Recorders, external database contents, physical
 field effects and concurrent response matching remain outside these fixtures.
 README contains current state; increment details remain here.
+
+## Ninth thin-area expansion across M1–M4
+
+Twenty simulations extend the 965-case baseline at
+[8482f3f](https://github.com/kurochan001/kirimasim-uvm-tests/commit/8482f3f137671d1abbafdceda07f41151c671e8d)
+to 985 cases in 21 directories: 311 M1, 396 M2 and 278 M3. All 965 baseline
+inputs remain unchanged. M1 adds eight recorder admission, metadata,
+close/free/handle, stream cascade and scalar-hook cases. M2 adds four socket
+constructor and forbidden-target-connect cases. M3 adds eight equal-width
+indirect-register cases for selected transfers, reselection, latest index,
+independent pairs, error/retry and optional regfile placement. Recording is
+local and modeled bus storage is separate from prediction; no RTL/DPI is used.
+
+All twenty additions match Verilator 5.052 at seeds 1 and 73, adding no new
+spec-only case. The compatible full snapshot has 889 matches and 96 known
+differences: 87 runtime first differences at seed 1 and nine missing-API
+builds without runtime seed results. Ghost bundled differs on all twenty
+additions at both seeds, reaching 196 matches and 789 failures with identical
+failing sets. kirimasim reports all twenty additions unsupported, reaching
+976 unsupported and nine missing-API failures. The regfile placement fixture
+supplies its required null regfile-parent argument before final measurement.
+All runner/executable/profile/library identities remain compatible, and no
+current pinned-mode Ghost measurement is added.
+
+M4 adds 55 AI drafts and maps all twenty additions plus twenty existing
+sequencer arbitration, ownership and availability fixtures. The ledger has
+760 drafts, 756 directly linked requirements and 756 directly linked tests,
+one additional control and 228 unmapped tests. Of 2,504 identifiers, 565 have
+partial decomposition and 1,939 remain unassessed; 443 have primary focus and
+1,020 any citation. The 2,479-candidate census is 2,036 zero, 220 one and 223
+at least two. Four drafts still lack direct tests. Scope remains proposed,
+all review is AI and denominator/percentage remain unset.
+
+Validation covers 74 tool unit tests, all 985 metadata records, ledger/index
+integrity, final-input evidence fingerprints and complete English/Japanese
+guides. The glossary has 127 entries and the FAQ 109 answers, including an
+indirect-access diagram. Earlier stream-only descriptions now distinguish
+separate recorder coverage. Random selection is not statistical coverage;
+constructor bounds are not resolved traffic. README keeps current state,
+while increment details remain here.

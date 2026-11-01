@@ -27825,6 +27825,2125 @@
           ]
         }
       ]
+    },
+    {
+      "id": "UVM-RECORDER-OPEN-STREAM-GUARD",
+      "clause": "7.2.5.1",
+      "statement": {
+        "en": "Only an open stream creates recorders through its implementation hook.",
+        "ja": "開いたstreamだけがimplementation hook経由でrecorderを生成する。"
+      },
+      "conditions": {
+        "en": "Request records on an unopened stream, an open stream and that stream after close.",
+        "ja": "未openのstream、open中のstream、そのclose後のstreamでrecordを要求する。"
+      },
+      "expected": {
+        "en": "Unopened/closed requests return null without another hook call; the accepted record is open.",
+        "ja": "未open／closedの要求は追加hookを呼ばずnullを返し、受理したrecordはopenになる。"
+      },
+      "limitations": {
+        "en": "Custom hooks retain metadata and scalar arguments in memory. No database file, vendor attribute macro, DPI or object-recursion format is exercised. Times 17/29/31 are explicit recording metadata, not delays or default-current-time checks. Recorder enumeration checks queue contents only, without imposing visit order or resolving the printed unsigned return-width conflict.",
+        "ja": "custom hookがmetadataとscalar引数をmemory内に保持する。database file、vendorのattribute macro、DPI、object再帰の形式は扱わない。時刻17／29／31は明示した記録metadataであり、遅延や既定の現在時刻の照合ではない。recorder列挙はqueue内容だけを調べ、訪問順を要求したりunsigned戻り幅の記載の矛盾を解決したりはしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u07/test_recorder_creation_is_ignored_on_unopened_and_closed_streams",
+          "role": "direct",
+          "expected_observations": [
+            "UT: unopened null 1 hook_calls 0",
+            "UT: accepted open 1 hook_calls 1",
+            "UT: closed null 1 hook_calls 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDER-PARENT-STREAM-IDENTITY",
+      "clause": "16.4.3",
+      "statement": {
+        "en": "An initialized recorder returns the stream that created it.",
+        "ja": "初期化済みrecorderは、自身を生成したstreamを返す。"
+      },
+      "conditions": {
+        "en": "Open a recorder through a local stream.",
+        "ja": "local stream経由でrecorderを開く。"
+      },
+      "expected": {
+        "en": "The stream query returns the exact original stream handle.",
+        "ja": "streamの照会は、元の正確なstream handleを返す。"
+      },
+      "limitations": {
+        "en": "Custom hooks retain metadata and scalar arguments in memory. No database file, vendor attribute macro, DPI or object-recursion format is exercised. Times 17/29/31 are explicit recording metadata, not delays or default-current-time checks. Recorder enumeration checks queue contents only, without imposing visit order or resolving the printed unsigned return-width conflict.",
+        "ja": "custom hookがmetadataとscalar引数をmemory内に保持する。database file、vendorのattribute macro、DPI、object再帰の形式は扱わない。時刻17／29／31は明示した記録metadataであり、遅延や既定の現在時刻の照合ではない。recorder列挙はqueue内容だけを調べ、訪問順を要求したりunsigned戻り幅の記載の矛盾を解決したりはしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_recorder_open_retains_stream_timestamp_and_implementation_hook_arguments",
+          "role": "direct",
+          "expected_observations": [
+            "UT: opened 1 closed 0 stream 1 time 17"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDER-OPEN-HOOK-ARGUMENTS",
+      "clause": "16.4.7.1",
+      "statement": {
+        "en": "Recorder opening invokes its hook with stream, time and record type.",
+        "ja": "recorderのopenは、stream、時刻、record型を渡してhookを呼ぶ。"
+      },
+      "conditions": {
+        "en": "Open with explicit time 17 and type packet.",
+        "ja": "時刻17と型packetを明示して開く。"
+      },
+      "expected": {
+        "en": "The hook runs once with the exact stream, time 17 and packet type.",
+        "ja": "hookが1回動き、正確なstream、時刻17、型packetを受け取る。"
+      },
+      "limitations": {
+        "en": "Custom hooks retain metadata and scalar arguments in memory. No database file, vendor attribute macro, DPI or object-recursion format is exercised. Times 17/29/31 are explicit recording metadata, not delays or default-current-time checks. Recorder enumeration checks queue contents only, without imposing visit order or resolving the printed unsigned return-width conflict.",
+        "ja": "custom hookがmetadataとscalar引数をmemory内に保持する。database file、vendorのattribute macro、DPI、object再帰の形式は扱わない。時刻17／29／31は明示した記録metadataであり、遅延や既定の現在時刻の照合ではない。recorder列挙はqueue内容だけを調べ、訪問順を要求したりunsigned戻り幅の記載の矛盾を解決したりはしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_recorder_open_retains_stream_timestamp_and_implementation_hook_arguments",
+          "role": "direct",
+          "expected_observations": [
+            "UT: hook calls 1 args 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDER-EXPLICIT-OPEN-TIME",
+      "clause": "16.4.4.5",
+      "statement": {
+        "en": "The recorder open-time query returns its recorded opening timestamp.",
+        "ja": "recorderのopen-time照会は、記録したopen時刻を返す。"
+      },
+      "conditions": {
+        "en": "Supply time 17 and inspect it before and after closing.",
+        "ja": "時刻17を指定し、close前後に照会する。"
+      },
+      "expected": {
+        "en": "The opening timestamp remains 17.",
+        "ja": "open時刻は17を保持する。"
+      },
+      "limitations": {
+        "en": "Custom hooks retain metadata and scalar arguments in memory. No database file, vendor attribute macro, DPI or object-recursion format is exercised. Times 17/29/31 are explicit recording metadata, not delays or default-current-time checks. Recorder enumeration checks queue contents only, without imposing visit order or resolving the printed unsigned return-width conflict.",
+        "ja": "custom hookがmetadataとscalar引数をmemory内に保持する。database file、vendorのattribute macro、DPI、object再帰の形式は扱わない。時刻17／29／31は明示した記録metadataであり、遅延や既定の現在時刻の照合ではない。recorder列挙はqueue内容だけを調べ、訪問順を要求したりunsigned戻り幅の記載の矛盾を解決したりはしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_recorder_open_retains_stream_timestamp_and_implementation_hook_arguments",
+          "role": "direct",
+          "expected_observations": [
+            "UT: opened 1 closed 0 stream 1 time 17"
+          ]
+        },
+        {
+          "test": "u16/test_recorder_close_retains_open_time_and_does_not_close_its_peer",
+          "role": "direct",
+          "expected_observations": [
+            "UT: times open 17 close 29 hook 29 calls 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDER-OPEN-STATE-LIFETIME",
+      "clause": "16.4.4.4",
+      "statement": {
+        "en": "Recorder is_open is true only while the record is open.",
+        "ja": "recorderのis_openは、recordがopen中だけtrueになる。"
+      },
+      "conditions": {
+        "en": "Inspect opened, closed and freed records.",
+        "ja": "open、closed、free済みrecordを照会する。"
+      },
+      "expected": {
+        "en": "The open flag is one before close and zero after close/free.",
+        "ja": "open flagはclose前に1、close／free後に0になる。"
+      },
+      "limitations": {
+        "en": "Custom hooks retain metadata and scalar arguments in memory. No database file, vendor attribute macro, DPI or object-recursion format is exercised. Times 17/29/31 are explicit recording metadata, not delays or default-current-time checks. Recorder enumeration checks queue contents only, without imposing visit order or resolving the printed unsigned return-width conflict.",
+        "ja": "custom hookがmetadataとscalar引数をmemory内に保持する。database file、vendorのattribute macro、DPI、object再帰の形式は扱わない。時刻17／29／31は明示した記録metadataであり、遅延や既定の現在時刻の照合ではない。recorder列挙はqueue内容だけを調べ、訪問順を要求したりunsigned戻り幅の記載の矛盾を解決したりはしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_recorder_open_retains_stream_timestamp_and_implementation_hook_arguments",
+          "role": "direct",
+          "expected_observations": [
+            "UT: opened 1 closed 0 stream 1 time 17"
+          ]
+        },
+        {
+          "test": "u16/test_recorder_close_retains_open_time_and_does_not_close_its_peer",
+          "role": "direct",
+          "expected_observations": [
+            "UT: state open 0 closed 1 peer_open 1"
+          ]
+        },
+        {
+          "test": "u16/test_recorder_free_automatically_closes_before_releasing_an_open_record",
+          "role": "direct",
+          "expected_observations": [
+            "UT: freed open 0 closed 0 handle 0 lookup_null 1 stream_open 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDER-CLOSED-STATE-LIFETIME",
+      "clause": "16.4.4.6",
+      "statement": {
+        "en": "Recorder is_closed is true after close and before free.",
+        "ja": "recorderのis_closedは、close後からfree前までtrueになる。"
+      },
+      "conditions": {
+        "en": "Inspect the record through open, close and free.",
+        "ja": "recordをopen、close、freeの過程で照会する。"
+      },
+      "expected": {
+        "en": "Closed state is zero while open, one while closed and zero after free.",
+        "ja": "closed状態は、open中0、closed中1、free後0になる。"
+      },
+      "limitations": {
+        "en": "Custom hooks retain metadata and scalar arguments in memory. No database file, vendor attribute macro, DPI or object-recursion format is exercised. Times 17/29/31 are explicit recording metadata, not delays or default-current-time checks. Recorder enumeration checks queue contents only, without imposing visit order or resolving the printed unsigned return-width conflict.",
+        "ja": "custom hookがmetadataとscalar引数をmemory内に保持する。database file、vendorのattribute macro、DPI、object再帰の形式は扱わない。時刻17／29／31は明示した記録metadataであり、遅延や既定の現在時刻の照合ではない。recorder列挙はqueue内容だけを調べ、訪問順を要求したりunsigned戻り幅の記載の矛盾を解決したりはしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_recorder_open_retains_stream_timestamp_and_implementation_hook_arguments",
+          "role": "direct",
+          "expected_observations": [
+            "UT: opened 1 closed 0 stream 1 time 17"
+          ]
+        },
+        {
+          "test": "u16/test_recorder_close_retains_open_time_and_does_not_close_its_peer",
+          "role": "direct",
+          "expected_observations": [
+            "UT: state open 0 closed 1 peer_open 1"
+          ]
+        },
+        {
+          "test": "u16/test_recorder_free_automatically_closes_before_releasing_an_open_record",
+          "role": "direct",
+          "expected_observations": [
+            "UT: freed open 0 closed 0 handle 0 lookup_null 1 stream_open 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDER-EXPLICIT-CLOSE-HOOK",
+      "clause": "16.4.4.2",
+      "statement": {
+        "en": "Recorder close invokes its closing hook and leaves its peer open.",
+        "ja": "recorderのcloseは自身のclose hookを呼び、peerをopenのまま保つ。"
+      },
+      "conditions": {
+        "en": "Open two records and close the first with time 29.",
+        "ja": "2 recordを開き、最初を時刻29で閉じる。"
+      },
+      "expected": {
+        "en": "One close hook receives 29; the selected record closes and its peer remains open.",
+        "ja": "1回のclose hookが29を受け取り、選択recordは閉じてpeerはopenのままになる。"
+      },
+      "limitations": {
+        "en": "Custom hooks retain metadata and scalar arguments in memory. No database file, vendor attribute macro, DPI or object-recursion format is exercised. Times 17/29/31 are explicit recording metadata, not delays or default-current-time checks. Recorder enumeration checks queue contents only, without imposing visit order or resolving the printed unsigned return-width conflict.",
+        "ja": "custom hookがmetadataとscalar引数をmemory内に保持する。database file、vendorのattribute macro、DPI、object再帰の形式は扱わない。時刻17／29／31は明示した記録metadataであり、遅延や既定の現在時刻の照合ではない。recorder列挙はqueue内容だけを調べ、訪問順を要求したりunsigned戻り幅の記載の矛盾を解決したりはしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_recorder_close_retains_open_time_and_does_not_close_its_peer",
+          "role": "direct",
+          "expected_observations": [
+            "UT: state open 0 closed 1 peer_open 1",
+            "UT: times open 17 close 29 hook 29 calls 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDER-EXPLICIT-CLOSE-TIME",
+      "clause": "16.4.4.7",
+      "statement": {
+        "en": "The recorder close-time query returns the supplied closing timestamp.",
+        "ja": "recorderのclose-time照会は、指定したclose時刻を返す。"
+      },
+      "conditions": {
+        "en": "Close a record with time 29.",
+        "ja": "時刻29でrecordを閉じる。"
+      },
+      "expected": {
+        "en": "The getter and implementation hook both observe 29.",
+        "ja": "getterとimplementation hookはともに29を観測する。"
+      },
+      "limitations": {
+        "en": "Custom hooks retain metadata and scalar arguments in memory. No database file, vendor attribute macro, DPI or object-recursion format is exercised. Times 17/29/31 are explicit recording metadata, not delays or default-current-time checks. Recorder enumeration checks queue contents only, without imposing visit order or resolving the printed unsigned return-width conflict.",
+        "ja": "custom hookがmetadataとscalar引数をmemory内に保持する。database file、vendorのattribute macro、DPI、object再帰の形式は扱わない。時刻17／29／31は明示した記録metadataであり、遅延や既定の現在時刻の照合ではない。recorder列挙はqueue内容だけを調べ、訪問順を要求したりunsigned戻り幅の記載の矛盾を解決したりはしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_recorder_close_retains_open_time_and_does_not_close_its_peer",
+          "role": "direct",
+          "expected_observations": [
+            "UT: times open 17 close 29 hook 29 calls 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDER-FREE-AUTOMATIC-CLOSE",
+      "clause": "16.4.4.3",
+      "statement": {
+        "en": "Freeing an open recorder closes it before invoking its release hook.",
+        "ja": "open中recorderのfreeは、解放hookを呼ぶ前にrecorderを閉じる。"
+      },
+      "conditions": {
+        "en": "Free a still-open record with explicit close time 31.",
+        "ja": "open中recordを、close時刻31を明示してfreeする。"
+      },
+      "expected": {
+        "en": "Close then free hooks run once with time 31; the recorder handle becomes invalid and its stream remains open.",
+        "ja": "close、freeの順でhookが時刻31を使って1回ずつ動き、recorder handleは無効、streamはopenを保つ。"
+      },
+      "limitations": {
+        "en": "Custom hooks retain metadata and scalar arguments in memory. No database file, vendor attribute macro, DPI or object-recursion format is exercised. Times 17/29/31 are explicit recording metadata, not delays or default-current-time checks. Recorder enumeration checks queue contents only, without imposing visit order or resolving the printed unsigned return-width conflict.",
+        "ja": "custom hookがmetadataとscalar引数をmemory内に保持する。database file、vendorのattribute macro、DPI、object再帰の形式は扱わない。時刻17／29／31は明示した記録metadataであり、遅延や既定の現在時刻の照合ではない。recorder列挙はqueue内容だけを調べ、訪問順を要求したりunsigned戻り幅の記載の矛盾を解決したりはしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_recorder_free_automatically_closes_before_releasing_an_open_record",
+          "role": "direct",
+          "expected_observations": [
+            "UT: hooks close 1 free 1 close_time 31 order CF",
+            "UT: freed open 0 closed 0 handle 0 lookup_null 1 stream_open 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDER-UNIQUE-HANDLE-VALIDITY",
+      "clause": "16.4.5.1",
+      "statement": {
+        "en": "Recorder handles are nonzero unique identifiers until freeing invalidates them.",
+        "ja": "recorder handleは、freeで無効になるまで非0で一意の識別子となる。"
+      },
+      "conditions": {
+        "en": "Open two same-named records and free one.",
+        "ja": "同名の2 recordを開き、片方をfreeする。"
+      },
+      "expected": {
+        "en": "The live handles are distinct/nonzero and a freed record reports zero.",
+        "ja": "有効handleは異なる非0となり、free済みrecordは0を返す。"
+      },
+      "limitations": {
+        "en": "Custom hooks retain metadata and scalar arguments in memory. No database file, vendor attribute macro, DPI or object-recursion format is exercised. Times 17/29/31 are explicit recording metadata, not delays or default-current-time checks. Recorder enumeration checks queue contents only, without imposing visit order or resolving the printed unsigned return-width conflict.",
+        "ja": "custom hookがmetadataとscalar引数をmemory内に保持する。database file、vendorのattribute macro、DPI、object再帰の形式は扱わない。時刻17／29／31は明示した記録metadataであり、遅延や既定の現在時刻の照合ではない。recorder列挙はqueue内容だけを調べ、訪問順を要求したりunsigned戻り幅の記載の矛盾を解決したりはしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_recorder_handles_and_stream_membership_preserve_two_distinct_record_identities",
+          "role": "direct",
+          "expected_observations": [
+            "UT: handles nonzero 1 distinct 1 members 3 size 2"
+          ]
+        },
+        {
+          "test": "u16/test_recorder_free_automatically_closes_before_releasing_an_open_record",
+          "role": "direct",
+          "expected_observations": [
+            "UT: freed open 0 closed 0 handle 0 lookup_null 1 stream_open 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDER-HANDLE-LOOKUP-LIFETIME",
+      "clause": "16.4.5.2",
+      "statement": {
+        "en": "Static recorder lookup retains identity across close and returns null after free.",
+        "ja": "staticなrecorder lookupは、close後も同一性を保持し、free後にnullを返す。"
+      },
+      "conditions": {
+        "en": "Look up two handles, close/free the first and retain the second.",
+        "ja": "2 handleを照会し、最初をclose／freeして2番目を保持する。"
+      },
+      "expected": {
+        "en": "Closed and peer handles resolve exactly; the freed handle resolves to null without affecting the peer.",
+        "ja": "closedとpeerのhandleは正確に解決し、free済みhandleはpeerへ影響せずnullへ解決する。"
+      },
+      "limitations": {
+        "en": "Custom hooks retain metadata and scalar arguments in memory. No database file, vendor attribute macro, DPI or object-recursion format is exercised. Times 17/29/31 are explicit recording metadata, not delays or default-current-time checks. Recorder enumeration checks queue contents only, without imposing visit order or resolving the printed unsigned return-width conflict.",
+        "ja": "custom hookがmetadataとscalar引数をmemory内に保持する。database file、vendorのattribute macro、DPI、object再帰の形式は扱わない。時刻17／29／31は明示した記録metadataであり、遅延や既定の現在時刻の照合ではない。recorder列挙はqueue内容だけを調べ、訪問順を要求したりunsigned戻り幅の記載の矛盾を解決したりはしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_recorder_handles_and_stream_membership_preserve_two_distinct_record_identities",
+          "role": "direct",
+          "expected_observations": [
+            "UT: handles nonzero 1 distinct 1 members 3 size 2",
+            "UT: closed_lookup 1 peer_lookup 1",
+            "UT: freed_lookup 1 peer_lookup 1"
+          ]
+        },
+        {
+          "test": "u16/test_recorder_free_automatically_closes_before_releasing_an_open_record",
+          "role": "direct",
+          "expected_observations": [
+            "UT: freed open 0 closed 0 handle 0 lookup_null 1 stream_open 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-STREAM-RECORDER-QUEUE-MEMBERSHIP",
+      "clause": "7.2.5.2",
+      "statement": {
+        "en": "Stream recorder enumeration supplies the record handles belonging to that stream.",
+        "ja": "streamのrecorder列挙は、そのstreamに所属するrecord handleを返す。"
+      },
+      "conditions": {
+        "en": "Open two distinct same-named recorders and inspect a fresh queue.",
+        "ja": "異なる同名recorderを2つ開き、新しいqueueを照会する。"
+      },
+      "expected": {
+        "en": "The queue has exactly the two original handles.",
+        "ja": "queueは元の2 handleを正確に含む。"
+      },
+      "limitations": {
+        "en": "Custom hooks retain metadata and scalar arguments in memory. No database file, vendor attribute macro, DPI or object-recursion format is exercised. Times 17/29/31 are explicit recording metadata, not delays or default-current-time checks. Recorder enumeration checks queue contents only, without imposing visit order or resolving the printed unsigned return-width conflict.",
+        "ja": "custom hookがmetadataとscalar引数をmemory内に保持する。database file、vendorのattribute macro、DPI、object再帰の形式は扱わない。時刻17／29／31は明示した記録metadataであり、遅延や既定の現在時刻の照合ではない。recorder列挙はqueue内容だけを調べ、訪問順を要求したりunsigned戻り幅の記載の矛盾を解決したりはしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_recorder_handles_and_stream_membership_preserve_two_distinct_record_identities",
+          "role": "direct",
+          "expected_observations": [
+            "UT: handles nonzero 1 distinct 1 members 3 size 2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-STREAM-RECORDER-CLOSE-CASCADE",
+      "clause": "7.2.4.1",
+      "statement": {
+        "en": "Stream close calls its own hook before closing all still-open recorders.",
+        "ja": "streamのcloseは、自身のhookを呼んでから、まだopen中の全recorderを閉じる。"
+      },
+      "conditions": {
+        "en": "Use two open recorders and one previously closed recorder.",
+        "ja": "open中recorder 2つと、既に閉じたrecorder 1つを使う。"
+      },
+      "expected": {
+        "en": "The stream hook runs first; each record has exactly one close and all become closed.",
+        "ja": "stream hookが最初に動き、各recordのcloseは正確に1回で、すべてclosedになる。"
+      },
+      "limitations": {
+        "en": "Custom hooks retain metadata and scalar arguments in memory. No database file, vendor attribute macro, DPI or object-recursion format is exercised. Times 17/29/31 are explicit recording metadata, not delays or default-current-time checks. Recorder enumeration checks queue contents only, without imposing visit order or resolving the printed unsigned return-width conflict.",
+        "ja": "custom hookがmetadataとscalar引数をmemory内に保持する。database file、vendorのattribute macro、DPI、object再帰の形式は扱わない。時刻17／29／31は明示した記録metadataであり、遅延や既定の現在時刻の照合ではない。recorder列挙はqueue内容だけを調べ、訪問順を要求したりunsigned戻り幅の記載の矛盾を解決したりはしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u07/test_stream_close_dispatches_its_hook_before_closing_only_open_recorders",
+          "role": "direct",
+          "expected_observations": [
+            "UT: closed all 1 counts 1/1/1",
+            "UT: hook_first 1 close_calls 1 trace_length 3"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-STREAM-RECORDER-FREE-CASCADE",
+      "clause": "7.2.4.2",
+      "statement": {
+        "en": "Freeing a closed stream invokes its hook before releasing all contained recorders.",
+        "ja": "closed streamのfreeは、自身のhookを呼んでから、含む全recorderを解放する。"
+      },
+      "conditions": {
+        "en": "Close a stream with two records, then free it.",
+        "ja": "2 recordを持つstreamを閉じてからfreeする。"
+      },
+      "expected": {
+        "en": "The stream release hook is first, both recorder hooks run once and both recorder handles become zero.",
+        "ja": "streamの解放hookが最初で、両recorder hookが1回ずつ動き、両recorder handleが0になる。"
+      },
+      "limitations": {
+        "en": "Custom hooks retain metadata and scalar arguments in memory. No database file, vendor attribute macro, DPI or object-recursion format is exercised. Times 17/29/31 are explicit recording metadata, not delays or default-current-time checks. Recorder enumeration checks queue contents only, without imposing visit order or resolving the printed unsigned return-width conflict.",
+        "ja": "custom hookがmetadataとscalar引数をmemory内に保持する。database file、vendorのattribute macro、DPI、object再帰の形式は扱わない。時刻17／29／31は明示した記録metadataであり、遅延や既定の現在時刻の照合ではない。recorder列挙はqueue内容だけを調べ、訪問順を要求したりunsigned戻り幅の記載の矛盾を解決したりはしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u07/test_stream_free_dispatches_its_hook_before_releasing_all_closed_recorders",
+          "role": "direct",
+          "expected_observations": [
+            "UT: freed recorders 1/1 handles 0/0",
+            "UT: stream_free 1 hook_first 1 trace_length 3"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDER-FIELD-ATTRIBUTE-HOOK",
+      "clause": "16.4.6.1",
+      "statement": {
+        "en": "Recording a wide integral field forwards its supplied name and value to its hook.",
+        "ja": "幅の広い整数fieldの記録は、指定した名前と値をhookへ転送する。"
+      },
+      "conditions": {
+        "en": "Use one opened recorder and explicit width/radix or type metadata where applicable.",
+        "ja": "1つのopen済みrecorderで、必要に応じて幅／radixまたは型metadataを明示する。"
+      },
+      "expected": {
+        "en": "The selected implementation hook observes the expected name, value and applicable metadata.",
+        "ja": "選択したimplementation hookは、期待する名前、値、適用するmetadataを観測する。"
+      },
+      "limitations": {
+        "en": "Custom hooks retain metadata and scalar arguments in memory. No database file, vendor attribute macro, DPI or object-recursion format is exercised. Times 17/29/31 are explicit recording metadata, not delays or default-current-time checks. Recorder enumeration checks queue contents only, without imposing visit order or resolving the printed unsigned return-width conflict.",
+        "ja": "custom hookがmetadataとscalar引数をmemory内に保持する。database file、vendorのattribute macro、DPI、object再帰の形式は扱わない。時刻17／29／31は明示した記録metadataであり、遅延や既定の現在時刻の照合ではない。recorder列挙はqueue内容だけを調べ、訪問順を要求したりunsigned戻り幅の記載の矛盾を解決したりはしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_recorder_attribute_methods_forward_values_widths_radices_and_names_to_hooks",
+          "role": "direct",
+          "expected_observations": [
+            "UT: attributes field 1 int 1 real 1 string 1 time 1 generic 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDER-FIELD-INT-ATTRIBUTE-HOOK",
+      "clause": "16.4.6.2",
+      "statement": {
+        "en": "Recording a small integral field forwards its supplied name and value to its hook.",
+        "ja": "幅の小さい整数fieldの記録は、指定した名前と値をhookへ転送する。"
+      },
+      "conditions": {
+        "en": "Use one opened recorder and explicit width/radix or type metadata where applicable.",
+        "ja": "1つのopen済みrecorderで、必要に応じて幅／radixまたは型metadataを明示する。"
+      },
+      "expected": {
+        "en": "The selected implementation hook observes the expected name, value and applicable metadata.",
+        "ja": "選択したimplementation hookは、期待する名前、値、適用するmetadataを観測する。"
+      },
+      "limitations": {
+        "en": "Custom hooks retain metadata and scalar arguments in memory. No database file, vendor attribute macro, DPI or object-recursion format is exercised. Times 17/29/31 are explicit recording metadata, not delays or default-current-time checks. Recorder enumeration checks queue contents only, without imposing visit order or resolving the printed unsigned return-width conflict.",
+        "ja": "custom hookがmetadataとscalar引数をmemory内に保持する。database file、vendorのattribute macro、DPI、object再帰の形式は扱わない。時刻17／29／31は明示した記録metadataであり、遅延や既定の現在時刻の照合ではない。recorder列挙はqueue内容だけを調べ、訪問順を要求したりunsigned戻り幅の記載の矛盾を解決したりはしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_recorder_attribute_methods_forward_values_widths_radices_and_names_to_hooks",
+          "role": "direct",
+          "expected_observations": [
+            "UT: attributes field 1 int 1 real 1 string 1 time 1 generic 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDER-REAL-ATTRIBUTE-HOOK",
+      "clause": "16.4.6.3",
+      "statement": {
+        "en": "Recording a real field forwards its supplied name and value to its hook.",
+        "ja": "real fieldの記録は、指定した名前と値をhookへ転送する。"
+      },
+      "conditions": {
+        "en": "Use one opened recorder and explicit width/radix or type metadata where applicable.",
+        "ja": "1つのopen済みrecorderで、必要に応じて幅／radixまたは型metadataを明示する。"
+      },
+      "expected": {
+        "en": "The selected implementation hook observes the expected name, value and applicable metadata.",
+        "ja": "選択したimplementation hookは、期待する名前、値、適用するmetadataを観測する。"
+      },
+      "limitations": {
+        "en": "Custom hooks retain metadata and scalar arguments in memory. No database file, vendor attribute macro, DPI or object-recursion format is exercised. Times 17/29/31 are explicit recording metadata, not delays or default-current-time checks. Recorder enumeration checks queue contents only, without imposing visit order or resolving the printed unsigned return-width conflict.",
+        "ja": "custom hookがmetadataとscalar引数をmemory内に保持する。database file、vendorのattribute macro、DPI、object再帰の形式は扱わない。時刻17／29／31は明示した記録metadataであり、遅延や既定の現在時刻の照合ではない。recorder列挙はqueue内容だけを調べ、訪問順を要求したりunsigned戻り幅の記載の矛盾を解決したりはしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_recorder_attribute_methods_forward_values_widths_radices_and_names_to_hooks",
+          "role": "direct",
+          "expected_observations": [
+            "UT: attributes field 1 int 1 real 1 string 1 time 1 generic 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDER-STRING-ATTRIBUTE-HOOK",
+      "clause": "16.4.6.5",
+      "statement": {
+        "en": "Recording a string field forwards its supplied name and value to its hook.",
+        "ja": "string fieldの記録は、指定した名前と値をhookへ転送する。"
+      },
+      "conditions": {
+        "en": "Use one opened recorder and explicit width/radix or type metadata where applicable.",
+        "ja": "1つのopen済みrecorderで、必要に応じて幅／radixまたは型metadataを明示する。"
+      },
+      "expected": {
+        "en": "The selected implementation hook observes the expected name, value and applicable metadata.",
+        "ja": "選択したimplementation hookは、期待する名前、値、適用するmetadataを観測する。"
+      },
+      "limitations": {
+        "en": "Custom hooks retain metadata and scalar arguments in memory. No database file, vendor attribute macro, DPI or object-recursion format is exercised. Times 17/29/31 are explicit recording metadata, not delays or default-current-time checks. Recorder enumeration checks queue contents only, without imposing visit order or resolving the printed unsigned return-width conflict.",
+        "ja": "custom hookがmetadataとscalar引数をmemory内に保持する。database file、vendorのattribute macro、DPI、object再帰の形式は扱わない。時刻17／29／31は明示した記録metadataであり、遅延や既定の現在時刻の照合ではない。recorder列挙はqueue内容だけを調べ、訪問順を要求したりunsigned戻り幅の記載の矛盾を解決したりはしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_recorder_attribute_methods_forward_values_widths_radices_and_names_to_hooks",
+          "role": "direct",
+          "expected_observations": [
+            "UT: attributes field 1 int 1 real 1 string 1 time 1 generic 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDER-TIME-ATTRIBUTE-HOOK",
+      "clause": "16.4.6.6",
+      "statement": {
+        "en": "Recording a time field forwards its supplied name and value to its hook.",
+        "ja": "time fieldの記録は、指定した名前と値をhookへ転送する。"
+      },
+      "conditions": {
+        "en": "Use one opened recorder and explicit width/radix or type metadata where applicable.",
+        "ja": "1つのopen済みrecorderで、必要に応じて幅／radixまたは型metadataを明示する。"
+      },
+      "expected": {
+        "en": "The selected implementation hook observes the expected name, value and applicable metadata.",
+        "ja": "選択したimplementation hookは、期待する名前、値、適用するmetadataを観測する。"
+      },
+      "limitations": {
+        "en": "Custom hooks retain metadata and scalar arguments in memory. No database file, vendor attribute macro, DPI or object-recursion format is exercised. Times 17/29/31 are explicit recording metadata, not delays or default-current-time checks. Recorder enumeration checks queue contents only, without imposing visit order or resolving the printed unsigned return-width conflict.",
+        "ja": "custom hookがmetadataとscalar引数をmemory内に保持する。database file、vendorのattribute macro、DPI、object再帰の形式は扱わない。時刻17／29／31は明示した記録metadataであり、遅延や既定の現在時刻の照合ではない。recorder列挙はqueue内容だけを調べ、訪問順を要求したりunsigned戻り幅の記載の矛盾を解決したりはしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_recorder_attribute_methods_forward_values_widths_radices_and_names_to_hooks",
+          "role": "direct",
+          "expected_observations": [
+            "UT: attributes field 1 int 1 real 1 string 1 time 1 generic 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDER-GENERIC-ATTRIBUTE-HOOK",
+      "clause": "16.4.6.7",
+      "statement": {
+        "en": "Recording a generic field forwards its supplied name and value to its hook.",
+        "ja": "generic fieldの記録は、指定した名前と値をhookへ転送する。"
+      },
+      "conditions": {
+        "en": "Use one opened recorder and explicit width/radix or type metadata where applicable.",
+        "ja": "1つのopen済みrecorderで、必要に応じて幅／radixまたは型metadataを明示する。"
+      },
+      "expected": {
+        "en": "The selected implementation hook observes the expected name, value and applicable metadata.",
+        "ja": "選択したimplementation hookは、期待する名前、値、適用するmetadataを観測する。"
+      },
+      "limitations": {
+        "en": "Custom hooks retain metadata and scalar arguments in memory. No database file, vendor attribute macro, DPI or object-recursion format is exercised. Times 17/29/31 are explicit recording metadata, not delays or default-current-time checks. Recorder enumeration checks queue contents only, without imposing visit order or resolving the printed unsigned return-width conflict.",
+        "ja": "custom hookがmetadataとscalar引数をmemory内に保持する。database file、vendorのattribute macro、DPI、object再帰の形式は扱わない。時刻17／29／31は明示した記録metadataであり、遅延や既定の現在時刻の照合ではない。recorder列挙はqueue内容だけを調べ、訪問順を要求したりunsigned戻り幅の記載の矛盾を解決したりはしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_recorder_attribute_methods_forward_values_widths_radices_and_names_to_hooks",
+          "role": "direct",
+          "expected_observations": [
+            "UT: attributes field 1 int 1 real 1 string 1 time 1 generic 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-BLOCKING-TARGET-CONSTRUCTOR",
+      "clause": "12.3.5.1.3",
+      "statement": {
+        "en": "The socket constructor retains its specified port role and one-to-one connection bounds.",
+        "ja": "socketのconstructorは、指定したportの役割と1対1の接続数を保持する。"
+      },
+      "conditions": {
+        "en": "Construct the socket under a compatible parent and query role, min/max sizes and parent.",
+        "ja": "互換な親の下にsocketを生成し、役割、最小／最大数、親を照会する。"
+      },
+      "expected": {
+        "en": "The expected implementation/port/export predicate is true, both bounds are one and parent identity matches.",
+        "ja": "期待するimplementation／port／exportの述語はtrue、両境界は1、親の同一性は一致する。"
+      },
+      "limitations": {
+        "en": "Constructor queries run before elaboration/binding resolution and do not establish transport execution or backward routing. A compatible parent supplies the required implementation methods. Forbidden target-terminator connect calls count new ERROR reports without report text, identifiers or connection-order assumptions.",
+        "ja": "constructorの照会はelaboration／binding解決前に行い、transport実行やbackward routingは示さない。互換な親が必要なimplementation methodを用意する。禁止されたtarget terminatorのconnectは、新しいERROR reportを数え、reportの本文、ID、接続順は要求しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_blocking_socket_constructors_preserve_kind_bounds_and_parent",
+          "role": "direct",
+          "expected_observations": [
+            "UT: target kind 1 bounds 1/1 parent 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-BLOCKING-INITIATOR-CONSTRUCTOR",
+      "clause": "12.3.5.2.3",
+      "statement": {
+        "en": "The socket constructor retains its specified port role and one-to-one connection bounds.",
+        "ja": "socketのconstructorは、指定したportの役割と1対1の接続数を保持する。"
+      },
+      "conditions": {
+        "en": "Construct the socket under a compatible parent and query role, min/max sizes and parent.",
+        "ja": "互換な親の下にsocketを生成し、役割、最小／最大数、親を照会する。"
+      },
+      "expected": {
+        "en": "The expected implementation/port/export predicate is true, both bounds are one and parent identity matches.",
+        "ja": "期待するimplementation／port／exportの述語はtrue、両境界は1、親の同一性は一致する。"
+      },
+      "limitations": {
+        "en": "Constructor queries run before elaboration/binding resolution and do not establish transport execution or backward routing. A compatible parent supplies the required implementation methods. Forbidden target-terminator connect calls count new ERROR reports without report text, identifiers or connection-order assumptions.",
+        "ja": "constructorの照会はelaboration／binding解決前に行い、transport実行やbackward routingは示さない。互換な親が必要なimplementation methodを用意する。禁止されたtarget terminatorのconnectは、新しいERROR reportを数え、reportの本文、ID、接続順は要求しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_blocking_socket_constructors_preserve_kind_bounds_and_parent",
+          "role": "direct",
+          "expected_observations": [
+            "UT: initiator kind 1 bounds 1/1 parent 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-BLOCKING-RELAY-TARGET-CONSTRUCTOR",
+      "clause": "12.3.5.8.3",
+      "statement": {
+        "en": "The socket constructor retains its specified port role and one-to-one connection bounds.",
+        "ja": "socketのconstructorは、指定したportの役割と1対1の接続数を保持する。"
+      },
+      "conditions": {
+        "en": "Construct the socket under a compatible parent and query role, min/max sizes and parent.",
+        "ja": "互換な親の下にsocketを生成し、役割、最小／最大数、親を照会する。"
+      },
+      "expected": {
+        "en": "The expected implementation/port/export predicate is true, both bounds are one and parent identity matches.",
+        "ja": "期待するimplementation／port／exportの述語はtrue、両境界は1、親の同一性は一致する。"
+      },
+      "limitations": {
+        "en": "Constructor queries run before elaboration/binding resolution and do not establish transport execution or backward routing. A compatible parent supplies the required implementation methods. Forbidden target-terminator connect calls count new ERROR reports without report text, identifiers or connection-order assumptions.",
+        "ja": "constructorの照会はelaboration／binding解決前に行い、transport実行やbackward routingは示さない。互換な親が必要なimplementation methodを用意する。禁止されたtarget terminatorのconnectは、新しいERROR reportを数え、reportの本文、ID、接続順は要求しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_blocking_socket_constructors_preserve_kind_bounds_and_parent",
+          "role": "direct",
+          "expected_observations": [
+            "UT: relay_target kind 1 bounds 1/1 parent 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-BLOCKING-RELAY-INITIATOR-CONSTRUCTOR",
+      "clause": "12.3.5.7.3",
+      "statement": {
+        "en": "The socket constructor retains its specified port role and one-to-one connection bounds.",
+        "ja": "socketのconstructorは、指定したportの役割と1対1の接続数を保持する。"
+      },
+      "conditions": {
+        "en": "Construct the socket under a compatible parent and query role, min/max sizes and parent.",
+        "ja": "互換な親の下にsocketを生成し、役割、最小／最大数、親を照会する。"
+      },
+      "expected": {
+        "en": "The expected implementation/port/export predicate is true, both bounds are one and parent identity matches.",
+        "ja": "期待するimplementation／port／exportの述語はtrue、両境界は1、親の同一性は一致する。"
+      },
+      "limitations": {
+        "en": "Constructor queries run before elaboration/binding resolution and do not establish transport execution or backward routing. A compatible parent supplies the required implementation methods. Forbidden target-terminator connect calls count new ERROR reports without report text, identifiers or connection-order assumptions.",
+        "ja": "constructorの照会はelaboration／binding解決前に行い、transport実行やbackward routingは示さない。互換な親が必要なimplementation methodを用意する。禁止されたtarget terminatorのconnectは、新しいERROR reportを数え、reportの本文、ID、接続順は要求しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_blocking_socket_constructors_preserve_kind_bounds_and_parent",
+          "role": "direct",
+          "expected_observations": [
+            "UT: relay_initiator kind 1 bounds 1/1 parent 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-BLOCKING-TARGET-CONNECT-ERROR",
+      "clause": "12.3.5.1.4",
+      "statement": {
+        "en": "Calling connect on a target termination socket reports an error.",
+        "ja": "target termination socketのconnect呼出しはerrorを報告する。"
+      },
+      "conditions": {
+        "en": "Call twice with compatible initiator and relay-target provider handles.",
+        "ja": "互換なinitiatorとrelay-targetのprovider handleで2回呼ぶ。"
+      },
+      "expected": {
+        "en": "Each call increases the ERROR count; role and declared bounds remain available.",
+        "ja": "各呼出しでERROR数が増え、役割と宣言した境界は引き続き照会できる。"
+      },
+      "limitations": {
+        "en": "Constructor queries run before elaboration/binding resolution and do not establish transport execution or backward routing. A compatible parent supplies the required implementation methods. Forbidden target-terminator connect calls count new ERROR reports without report text, identifiers or connection-order assumptions.",
+        "ja": "constructorの照会はelaboration／binding解決前に行い、transport実行やbackward routingは示さない。互換な親が必要なimplementation methodを用意する。禁止されたtarget terminatorのconnectは、新しいERROR reportを数え、reportの本文、ID、接続順は要求しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_blocking_target_socket_connect_reports_error_for_each_forbidden_call",
+          "role": "direct",
+          "expected_observations": [
+            "UT: forbidden_calls errors 1 1",
+            "UT: retained_kind 1 bounds 1/1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-NONBLOCKING-TARGET-CONSTRUCTOR",
+      "clause": "12.3.5.3.3",
+      "statement": {
+        "en": "The socket constructor retains its specified port role and one-to-one connection bounds.",
+        "ja": "socketのconstructorは、指定したportの役割と1対1の接続数を保持する。"
+      },
+      "conditions": {
+        "en": "Construct the socket under a compatible parent and query role, min/max sizes and parent.",
+        "ja": "互換な親の下にsocketを生成し、役割、最小／最大数、親を照会する。"
+      },
+      "expected": {
+        "en": "The expected implementation/port/export predicate is true, both bounds are one and parent identity matches.",
+        "ja": "期待するimplementation／port／exportの述語はtrue、両境界は1、親の同一性は一致する。"
+      },
+      "limitations": {
+        "en": "Constructor queries run before elaboration/binding resolution and do not establish transport execution or backward routing. A compatible parent supplies the required implementation methods. Forbidden target-terminator connect calls count new ERROR reports without report text, identifiers or connection-order assumptions.",
+        "ja": "constructorの照会はelaboration／binding解決前に行い、transport実行やbackward routingは示さない。互換な親が必要なimplementation methodを用意する。禁止されたtarget terminatorのconnectは、新しいERROR reportを数え、reportの本文、ID、接続順は要求しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_nonblocking_socket_constructors_preserve_kind_bounds_and_parent",
+          "role": "direct",
+          "expected_observations": [
+            "UT: target kind 1 bounds 1/1 parent 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-NONBLOCKING-INITIATOR-CONSTRUCTOR",
+      "clause": "12.3.5.4.3",
+      "statement": {
+        "en": "The socket constructor retains its specified port role and one-to-one connection bounds.",
+        "ja": "socketのconstructorは、指定したportの役割と1対1の接続数を保持する。"
+      },
+      "conditions": {
+        "en": "Construct the socket under a compatible parent and query role, min/max sizes and parent.",
+        "ja": "互換な親の下にsocketを生成し、役割、最小／最大数、親を照会する。"
+      },
+      "expected": {
+        "en": "The expected implementation/port/export predicate is true, both bounds are one and parent identity matches.",
+        "ja": "期待するimplementation／port／exportの述語はtrue、両境界は1、親の同一性は一致する。"
+      },
+      "limitations": {
+        "en": "Constructor queries run before elaboration/binding resolution and do not establish transport execution or backward routing. A compatible parent supplies the required implementation methods. Forbidden target-terminator connect calls count new ERROR reports without report text, identifiers or connection-order assumptions.",
+        "ja": "constructorの照会はelaboration／binding解決前に行い、transport実行やbackward routingは示さない。互換な親が必要なimplementation methodを用意する。禁止されたtarget terminatorのconnectは、新しいERROR reportを数え、reportの本文、ID、接続順は要求しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_nonblocking_socket_constructors_preserve_kind_bounds_and_parent",
+          "role": "direct",
+          "expected_observations": [
+            "UT: initiator kind 1 bounds 1/1 parent 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-NONBLOCKING-RELAY-TARGET-CONSTRUCTOR",
+      "clause": "12.3.5.6.3",
+      "statement": {
+        "en": "The socket constructor retains its specified port role and one-to-one connection bounds.",
+        "ja": "socketのconstructorは、指定したportの役割と1対1の接続数を保持する。"
+      },
+      "conditions": {
+        "en": "Construct the socket under a compatible parent and query role, min/max sizes and parent.",
+        "ja": "互換な親の下にsocketを生成し、役割、最小／最大数、親を照会する。"
+      },
+      "expected": {
+        "en": "The expected implementation/port/export predicate is true, both bounds are one and parent identity matches.",
+        "ja": "期待するimplementation／port／exportの述語はtrue、両境界は1、親の同一性は一致する。"
+      },
+      "limitations": {
+        "en": "Constructor queries run before elaboration/binding resolution and do not establish transport execution or backward routing. A compatible parent supplies the required implementation methods. Forbidden target-terminator connect calls count new ERROR reports without report text, identifiers or connection-order assumptions.",
+        "ja": "constructorの照会はelaboration／binding解決前に行い、transport実行やbackward routingは示さない。互換な親が必要なimplementation methodを用意する。禁止されたtarget terminatorのconnectは、新しいERROR reportを数え、reportの本文、ID、接続順は要求しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_nonblocking_socket_constructors_preserve_kind_bounds_and_parent",
+          "role": "direct",
+          "expected_observations": [
+            "UT: relay_target kind 1 bounds 1/1 parent 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-NONBLOCKING-RELAY-INITIATOR-CONSTRUCTOR",
+      "clause": "12.3.5.5.3",
+      "statement": {
+        "en": "The socket constructor retains its specified port role and one-to-one connection bounds.",
+        "ja": "socketのconstructorは、指定したportの役割と1対1の接続数を保持する。"
+      },
+      "conditions": {
+        "en": "Construct the socket under a compatible parent and query role, min/max sizes and parent.",
+        "ja": "互換な親の下にsocketを生成し、役割、最小／最大数、親を照会する。"
+      },
+      "expected": {
+        "en": "The expected implementation/port/export predicate is true, both bounds are one and parent identity matches.",
+        "ja": "期待するimplementation／port／exportの述語はtrue、両境界は1、親の同一性は一致する。"
+      },
+      "limitations": {
+        "en": "Constructor queries run before elaboration/binding resolution and do not establish transport execution or backward routing. A compatible parent supplies the required implementation methods. Forbidden target-terminator connect calls count new ERROR reports without report text, identifiers or connection-order assumptions.",
+        "ja": "constructorの照会はelaboration／binding解決前に行い、transport実行やbackward routingは示さない。互換な親が必要なimplementation methodを用意する。禁止されたtarget terminatorのconnectは、新しいERROR reportを数え、reportの本文、ID、接続順は要求しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_nonblocking_socket_constructors_preserve_kind_bounds_and_parent",
+          "role": "direct",
+          "expected_observations": [
+            "UT: relay_initiator kind 1 bounds 1/1 parent 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-NONBLOCKING-TARGET-CONNECT-ERROR",
+      "clause": "12.3.5.3.4",
+      "statement": {
+        "en": "Calling connect on a target termination socket reports an error.",
+        "ja": "target termination socketのconnect呼出しはerrorを報告する。"
+      },
+      "conditions": {
+        "en": "Call twice with compatible initiator and relay-target provider handles.",
+        "ja": "互換なinitiatorとrelay-targetのprovider handleで2回呼ぶ。"
+      },
+      "expected": {
+        "en": "Each call increases the ERROR count; role and declared bounds remain available.",
+        "ja": "各呼出しでERROR数が増え、役割と宣言した境界は引き続き照会できる。"
+      },
+      "limitations": {
+        "en": "Constructor queries run before elaboration/binding resolution and do not establish transport execution or backward routing. A compatible parent supplies the required implementation methods. Forbidden target-terminator connect calls count new ERROR reports without report text, identifiers or connection-order assumptions.",
+        "ja": "constructorの照会はelaboration／binding解決前に行い、transport実行やbackward routingは示さない。互換な親が必要なimplementation methodを用意する。禁止されたtarget terminatorのconnectは、新しいERROR reportを数え、reportの本文、ID、接続順は要求しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_nonblocking_target_socket_connect_reports_error_for_each_forbidden_call",
+          "role": "direct",
+          "expected_observations": [
+            "UT: forbidden_calls errors 1 1",
+            "UT: retained_kind 1 bounds 1/1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-INDIRECT-DATA-SELECTED-WRITE",
+      "clause": "18.7.2.2",
+      "statement": {
+        "en": "An indirect data write accesses the array register selected by the completed index write.",
+        "ja": "間接data writeは、完了したindex writeが選ぶarray registerへアクセスする。"
+      },
+      "conditions": {
+        "en": "Select element one, or reselect element two then zero, before data writes.",
+        "ja": "data write前にelement 1を選ぶか、element 2、0を再選択する。"
+      },
+      "expected": {
+        "en": "Only selected storage slots change and unselected values survive reselection.",
+        "ja": "選択したstorage位置だけが変わり、再選択でも非選択値を保持する。"
+      },
+      "limitations": {
+        "en": "Equal-width eight-bit index/data/array registers, valid indices zero to two and explicit completed index writes only. A testbench adapter/sequencer/driver models two banks at separate index/data addresses. Auto-prediction is explicitly enabled. No RTL, DPI, out-of-range index, automatic array-register frontdoor creation contract, indirect backdoor or arbitrary concurrency is established. Failed-read data is left unconstrained.",
+        "ja": "幅が等しい8-bitのindex／data／array register、有効index 0〜2、明示して完了したindex writeだけを使う。testbenchのadapter／sequencer／driverが、別index／data addressの2 bankをmodel化する。auto-predictionは明示的に有効にする。RTL、DPI、範囲外index、array registerのfrontdoor自動生成の契約、間接backdoor、任意の並行性は示さない。失敗readのdataは制約しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_indirect_register_write_updates_only_the_index_selected_array_element",
+          "role": "direct",
+          "expected_observations": [
+            "UT: status 1 1 addresses 0/1 calls 2",
+            "UT: storage 11/5a/33 mirrors 0/5a/0"
+          ]
+        },
+        {
+          "test": "u18/test_indirect_register_reselection_preserves_other_slots_and_previous_writes",
+          "role": "direct",
+          "expected_observations": [
+            "UT: final ok 1 index 0 calls 4",
+            "UT: storage 42/22/73 mirrors 42/0/73"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-INDIRECT-DATA-SELECTED-READ",
+      "clause": "18.7.2.2",
+      "statement": {
+        "en": "An indirect data read returns the array value selected by the latest completed index write.",
+        "ja": "間接data readは、最新の完了したindex writeで選ぶarray値を返す。"
+      },
+      "conditions": {
+        "en": "Select element two directly or overwrite a previous index zero before reading.",
+        "ja": "element 2を直接選ぶか、read前に以前のindex 0を上書きする。"
+      },
+      "expected": {
+        "en": "The data port returns 33 at index two after the recorded index/data bus operations.",
+        "ja": "記録したindex／dataのbus処理後に、data portはindex 2の33を返す。"
+      },
+      "limitations": {
+        "en": "Equal-width eight-bit index/data/array registers, valid indices zero to two and explicit completed index writes only. A testbench adapter/sequencer/driver models two banks at separate index/data addresses. Auto-prediction is explicitly enabled. No RTL, DPI, out-of-range index, automatic array-register frontdoor creation contract, indirect backdoor or arbitrary concurrency is established. Failed-read data is left unconstrained.",
+        "ja": "幅が等しい8-bitのindex／data／array register、有効index 0〜2、明示して完了したindex writeだけを使う。testbenchのadapter／sequencer／driverが、別index／data addressの2 bankをmodel化する。auto-predictionは明示的に有効にする。RTL、DPI、範囲外index、array registerのfrontdoor自動生成の契約、間接backdoor、任意の並行性は示さない。失敗readのdataは制約しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_indirect_register_read_returns_and_predicts_the_selected_array_value",
+          "role": "direct",
+          "expected_observations": [
+            "UT: read ok 1 value 33 calls 2",
+            "UT: mirrors 0/0/33 storage 33"
+          ]
+        },
+        {
+          "test": "u18/test_indirect_register_read_uses_the_latest_of_two_completed_index_writes",
+          "role": "direct",
+          "expected_observations": [
+            "UT: latest ok 1 index 2 value 33 calls 3",
+            "UT: last_address 1 read 1 mirrors 0/0/33"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-INDIRECT-PAIR-LOCAL-SELECTION",
+      "clause": "18.7.2.2",
+      "statement": {
+        "en": "Independently configured index/data pairs keep their array selections separate.",
+        "ja": "独立に設定したindex／data pairは、arrayの選択を分離する。"
+      },
+      "conditions": {
+        "en": "Select one and two in two banks, then write through their separate data addresses.",
+        "ja": "2 bankで1と2を選び、別々のdata address経由でwriteする。"
+      },
+      "expected": {
+        "en": "Each bank uses its own index, receives its value and preserves the unselected peer slots.",
+        "ja": "各bankは自身のindexを使い、自身の値を受け取り、非選択のpeer位置を保持する。"
+      },
+      "limitations": {
+        "en": "Equal-width eight-bit index/data/array registers, valid indices zero to two and explicit completed index writes only. A testbench adapter/sequencer/driver models two banks at separate index/data addresses. Auto-prediction is explicitly enabled. No RTL, DPI, out-of-range index, automatic array-register frontdoor creation contract, indirect backdoor or arbitrary concurrency is established. Failed-read data is left unconstrained.",
+        "ja": "幅が等しい8-bitのindex／data／array register、有効index 0〜2、明示して完了したindex writeだけを使う。testbenchのadapter／sequencer／driverが、別index／data addressの2 bankをmodel化する。auto-predictionは明示的に有効にする。RTL、DPI、範囲外index、array registerのfrontdoor自動生成の契約、間接backdoor、任意の並行性は示さない。失敗readのdataは制約しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_indirect_register_pairs_keep_separate_indexes_storage_and_prediction_targets",
+          "role": "direct",
+          "expected_observations": [
+            "UT: indexes 1/2 storage 5a/42 mirrors 5a/42",
+            "UT: peers 33/62 data_addresses 1/11 calls 4"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-INDIRECT-REGFILE-PARENT-CONFIGURATION",
+      "clause": "18.7.2.2",
+      "statement": {
+        "en": "Indirect register configuration retains the block and optional regfile parent while selecting its array.",
+        "ja": "間接registerの設定は、arrayを選択しつつblockと任意regfileの親を保持する。"
+      },
+      "conditions": {
+        "en": "Configure an indirect data register in an explicit regfile and read selected element one.",
+        "ja": "明示regfileに間接data registerを設定し、選択したelement 1を読む。"
+      },
+      "expected": {
+        "en": "Parent handles match and the selected transfer returns 22.",
+        "ja": "親handleが一致し、選択した転送は22を返す。"
+      },
+      "limitations": {
+        "en": "Equal-width eight-bit index/data/array registers, valid indices zero to two and explicit completed index writes only. A testbench adapter/sequencer/driver models two banks at separate index/data addresses. Auto-prediction is explicitly enabled. No RTL, DPI, out-of-range index, automatic array-register frontdoor creation contract, indirect backdoor or arbitrary concurrency is established. Failed-read data is left unconstrained.",
+        "ja": "幅が等しい8-bitのindex／data／array register、有効index 0〜2、明示して完了したindex writeだけを使う。testbenchのadapter／sequencer／driverが、別index／data addressの2 bankをmodel化する。auto-predictionは明示的に有効にする。RTL、DPI、範囲外index、array registerのfrontdoor自動生成の契約、間接backdoor、任意の並行性は示さない。失敗readのdataは制約しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_indirect_register_regfile_placement_preserves_block_parent_and_selected_transfer",
+          "role": "direct",
+          "expected_observations": [
+            "UT: placement block 1 file 1",
+            "UT: transfer ok 1 value 22 mirror 22 calls 2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-INDIRECT-AUTO-PREDICTION-TARGET",
+      "clause": "18.2.5.2",
+      "statement": {
+        "en": "Auto-prediction of indirect data accesses updates the selected array register model.",
+        "ja": "間接data accessのauto-predictionは、選択したarray register modelを更新する。"
+      },
+      "conditions": {
+        "en": "Use explicit index writes and successful data reads/writes with auto-prediction enabled.",
+        "ja": "auto-predictionを有効にし、明示index writeと成功するdata read／writeを使う。"
+      },
+      "expected": {
+        "en": "Selected mirrors match transferred values while nonselected mirrors retain reset values.",
+        "ja": "選択mirrorは転送値に一致し、非選択mirrorはreset値を保持する。"
+      },
+      "limitations": {
+        "en": "Equal-width eight-bit index/data/array registers, valid indices zero to two and explicit completed index writes only. A testbench adapter/sequencer/driver models two banks at separate index/data addresses. Auto-prediction is explicitly enabled. No RTL, DPI, out-of-range index, automatic array-register frontdoor creation contract, indirect backdoor or arbitrary concurrency is established. Failed-read data is left unconstrained.",
+        "ja": "幅が等しい8-bitのindex／data／array register、有効index 0〜2、明示して完了したindex writeだけを使う。testbenchのadapter／sequencer／driverが、別index／data addressの2 bankをmodel化する。auto-predictionは明示的に有効にする。RTL、DPI、範囲外index、array registerのfrontdoor自動生成の契約、間接backdoor、任意の並行性は示さない。失敗readのdataは制約しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_indirect_register_write_updates_only_the_index_selected_array_element",
+          "role": "direct",
+          "expected_observations": [
+            "UT: status 1 1 addresses 0/1 calls 2",
+            "UT: storage 11/5a/33 mirrors 0/5a/0"
+          ]
+        },
+        {
+          "test": "u18/test_indirect_register_read_returns_and_predicts_the_selected_array_value",
+          "role": "direct",
+          "expected_observations": [
+            "UT: read ok 1 value 33 calls 2",
+            "UT: mirrors 0/0/33 storage 33"
+          ]
+        },
+        {
+          "test": "u18/test_indirect_register_reselection_preserves_other_slots_and_previous_writes",
+          "role": "direct",
+          "expected_observations": [
+            "UT: final ok 1 index 0 calls 4",
+            "UT: storage 42/22/73 mirrors 42/0/73"
+          ]
+        },
+        {
+          "test": "u18/test_indirect_register_read_uses_the_latest_of_two_completed_index_writes",
+          "role": "direct",
+          "expected_observations": [
+            "UT: latest ok 1 index 2 value 33 calls 3",
+            "UT: last_address 1 read 1 mirrors 0/0/33"
+          ]
+        },
+        {
+          "test": "u18/test_indirect_register_pairs_keep_separate_indexes_storage_and_prediction_targets",
+          "role": "direct",
+          "expected_observations": [
+            "UT: indexes 1/2 storage 5a/42 mirrors 5a/42",
+            "UT: peers 33/62 data_addresses 1/11 calls 4"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-INDIRECT-WRITE-ERROR-RETRY",
+      "clause": "18.4.4.9",
+      "statement": {
+        "en": "Indirect data write returns the bus error status and permits a successful retry.",
+        "ja": "間接data writeはbusのerror statusを返し、成功する再試行を許す。"
+      },
+      "conditions": {
+        "en": "Select element one, fail one data write in the driver and retry without changing the index.",
+        "ja": "element 1を選び、driverでdata writeを1回失敗させ、indexを変えず再試行する。"
+      },
+      "expected": {
+        "en": "Failure leaves storage/mirror unchanged; retry returns OK and updates both to 42.",
+        "ja": "失敗ではstorage／mirrorを変えず、再試行はOKを返して両方を42へ更新する。"
+      },
+      "limitations": {
+        "en": "Equal-width eight-bit index/data/array registers, valid indices zero to two and explicit completed index writes only. A testbench adapter/sequencer/driver models two banks at separate index/data addresses. Auto-prediction is explicitly enabled. No RTL, DPI, out-of-range index, automatic array-register frontdoor creation contract, indirect backdoor or arbitrary concurrency is established. Failed-read data is left unconstrained.",
+        "ja": "幅が等しい8-bitのindex／data／array register、有効index 0〜2、明示して完了したindex writeだけを使う。testbenchのadapter／sequencer／driverが、別index／data addressの2 bankをmodel化する。auto-predictionは明示的に有効にする。RTL、DPI、範囲外index、array registerのfrontdoor自動生成の契約、間接backdoor、任意の並行性は示さない。失敗readのdataは制約しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_indirect_register_failed_data_write_preserves_storage_and_mirror_before_retry",
+          "role": "direct",
+          "expected_observations": [
+            "UT: failed 1 storage 22 mirror 0",
+            "UT: retry 1 storage 42 mirror 42 calls 3"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-INDIRECT-READ-ERROR-RETRY",
+      "clause": "18.4.4.10",
+      "statement": {
+        "en": "Indirect data read returns the bus error status and predicts a later successful read.",
+        "ja": "間接data readはbusのerror statusを返し、後の成功readをpredictする。"
+      },
+      "conditions": {
+        "en": "Select element two, fail one driver read and retry with the same index.",
+        "ja": "element 2を選び、driver readを1回失敗させ、同じindexで再試行する。"
+      },
+      "expected": {
+        "en": "The failed status leaves mirror zero and storage 33; retry returns and predicts 33.",
+        "ja": "失敗statusではmirror 0とstorage 33を保ち、再試行で33を返してpredictする。"
+      },
+      "limitations": {
+        "en": "Equal-width eight-bit index/data/array registers, valid indices zero to two and explicit completed index writes only. A testbench adapter/sequencer/driver models two banks at separate index/data addresses. Auto-prediction is explicitly enabled. No RTL, DPI, out-of-range index, automatic array-register frontdoor creation contract, indirect backdoor or arbitrary concurrency is established. Failed-read data is left unconstrained.",
+        "ja": "幅が等しい8-bitのindex／data／array register、有効index 0〜2、明示して完了したindex writeだけを使う。testbenchのadapter／sequencer／driverが、別index／data addressの2 bankをmodel化する。auto-predictionは明示的に有効にする。RTL、DPI、範囲外index、array registerのfrontdoor自動生成の契約、間接backdoor、任意の並行性は示さない。失敗readのdataは制約しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_indirect_register_failed_data_read_keeps_prediction_until_a_successful_retry",
+          "role": "direct",
+          "expected_observations": [
+            "UT: failed 1 mirror 0 storage 33",
+            "UT: retry 1 value 33 mirror 33 calls 3"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCER-FIFO-ARRIVAL-ARBITRATION",
+      "clause": "F.2.4.1",
+      "statement": {
+        "en": "FIFO arbitration grants requests in arrival order independent of their priorities.",
+        "ja": "FIFO arbitrationは、優先度と独立して到着順に要求をgrantする。"
+      },
+      "conditions": {
+        "en": "Reverse which lower-priority sequence arrives first in two fixtures.",
+        "ja": "2検査系で、先着する低優先度sequenceを逆にする。"
+      },
+      "expected": {
+        "en": "Orders are 11/22 and 22/11 respectively and both sequences complete.",
+        "ja": "順序はそれぞれ11／22、22／11となり、両sequenceが完了する。"
+      },
+      "limitations": {
+        "en": "Two requesting sequences arrive at distinct positive times before the driver starts. Only required deterministic orders are asserted. Random mode checks membership/completion, not a seed-specific winner, uniformity, statistical weighting or fairness. USER cases have two candidates and do not cover the known single-candidate omission.",
+        "ja": "2つの要求sequenceは、driver開始前の異なる正の時刻に到着する。要求される決定的な順序だけをassertする。random modeは所属／完了を検査し、seed固有の勝者、一様性、統計的な重み、公平性は要求しない。USERは2候補で、既知の単一候補での省略は扱わない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequencer_fifo_arbitration_keeps_earlier_low_priority_request_first",
+          "role": "direct",
+          "expected_observations": [
+            "UT: order 11 22",
+            "UT: finished 1 1"
+          ]
+        },
+        {
+          "test": "u15/test_sequencer_fifo_arbitration_tracks_reversed_request_arrival",
+          "role": "direct",
+          "expected_observations": [
+            "UT: order 22 11",
+            "UT: finished 1 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCER-STRICT-FIFO-PRIORITY-SELECTION",
+      "clause": "F.2.4.1",
+      "statement": {
+        "en": "Strict FIFO selects requests at the highest available priority before lower-priority requests.",
+        "ja": "strict FIFOは、低優先度要求より利用可能な最高優先度の要求を先に選ぶ。"
+      },
+      "conditions": {
+        "en": "Queue an earlier low-priority and later high-priority request before driving.",
+        "ja": "driver開始前に、先着低優先度と後着高優先度の要求をqueueへ入れる。"
+      },
+      "expected": {
+        "en": "The later high-priority value 22 is delivered before 11.",
+        "ja": "後着高優先度の値22を11より先に配送する。"
+      },
+      "limitations": {
+        "en": "Two requesting sequences arrive at distinct positive times before the driver starts. Only required deterministic orders are asserted. Random mode checks membership/completion, not a seed-specific winner, uniformity, statistical weighting or fairness. USER cases have two candidates and do not cover the known single-candidate omission.",
+        "ja": "2つの要求sequenceは、driver開始前の異なる正の時刻に到着する。要求される決定的な順序だけをassertする。random modeは所属／完了を検査し、seed固有の勝者、一様性、統計的な重み、公平性は要求しない。USERは2候補で、既知の単一候補での省略は扱わない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequencer_strict_fifo_arbitration_selects_later_higher_priority",
+          "role": "direct",
+          "expected_observations": [
+            "UT: order 22 11",
+            "UT: finished 1 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCER-STRICT-FIFO-EQUAL-PRIORITY-ORDER",
+      "clause": "F.2.4.1",
+      "statement": {
+        "en": "Strict FIFO orders equal highest-priority requests by arrival.",
+        "ja": "strict FIFOは、同じ最高優先度の要求を到着順に並べる。"
+      },
+      "conditions": {
+        "en": "Queue equal-priority values with 22 arriving before 11.",
+        "ja": "同じ優先度の値を、22が11より先に到着するようqueueへ入れる。"
+      },
+      "expected": {
+        "en": "The driver sees 22 then 11 and both finish.",
+        "ja": "driverは22、11の順で観測し、両方が完了する。"
+      },
+      "limitations": {
+        "en": "Two requesting sequences arrive at distinct positive times before the driver starts. Only required deterministic orders are asserted. Random mode checks membership/completion, not a seed-specific winner, uniformity, statistical weighting or fairness. USER cases have two candidates and do not cover the known single-candidate omission.",
+        "ja": "2つの要求sequenceは、driver開始前の異なる正の時刻に到着する。要求される決定的な順序だけをassertする。random modeは所属／完了を検査し、seed固有の勝者、一様性、統計的な重み、公平性は要求しない。USERは2候補で、既知の単一候補での省略は扱わない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequencer_strict_fifo_arbitration_orders_equal_priorities_by_arrival",
+          "role": "direct",
+          "expected_observations": [
+            "UT: order 22 11",
+            "UT: finished 1 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCER-STRICT-RANDOM-UNIQUE-MAXIMUM",
+      "clause": "F.2.4.1",
+      "statement": {
+        "en": "Strict random arbitration chooses from highest-priority requests.",
+        "ja": "strict random arbitrationは、最高優先度の要求から選ぶ。"
+      },
+      "conditions": {
+        "en": "Provide one unique highest-priority request and an earlier lower-priority request.",
+        "ja": "一意な最高優先度要求と、先着した低優先度要求を用意する。"
+      },
+      "expected": {
+        "en": "The unique high-priority value 22 precedes 11.",
+        "ja": "一意な高優先度の値22が11より先になる。"
+      },
+      "limitations": {
+        "en": "Two requesting sequences arrive at distinct positive times before the driver starts. Only required deterministic orders are asserted. Random mode checks membership/completion, not a seed-specific winner, uniformity, statistical weighting or fairness. USER cases have two candidates and do not cover the known single-candidate omission.",
+        "ja": "2つの要求sequenceは、driver開始前の異なる正の時刻に到着する。要求される決定的な順序だけをassertする。random modeは所属／完了を検査し、seed固有の勝者、一様性、統計的な重み、公平性は要求しない。USERは2候補で、既知の単一候補での省略は扱わない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequencer_strict_random_arbitration_selects_unique_highest_priority",
+          "role": "direct",
+          "expected_observations": [
+            "UT: order 22 11",
+            "UT: finished 1 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCER-RANDOM-REQUEST-MEMBERSHIP",
+      "clause": "F.2.4.1",
+      "statement": {
+        "en": "Random arbitration selects eligible pending requests without losing or duplicating them.",
+        "ja": "random arbitrationは、適格な保留要求を損失や重複なく選ぶ。"
+      },
+      "conditions": {
+        "en": "Queue equal-priority values 11 and 22 and consume two items.",
+        "ja": "同じ優先度の値11と22をqueueへ入れ、2 itemを消費する。"
+      },
+      "expected": {
+        "en": "Both values occur once with sum 33 and both sequences finish, without requiring order.",
+        "ja": "順序を要求せず、両値が1回ずつ現れて合計33となり、両sequenceが完了する。"
+      },
+      "limitations": {
+        "en": "Two requesting sequences arrive at distinct positive times before the driver starts. Only required deterministic orders are asserted. Random mode checks membership/completion, not a seed-specific winner, uniformity, statistical weighting or fairness. USER cases have two candidates and do not cover the known single-candidate omission.",
+        "ja": "2つの要求sequenceは、driver開始前の異なる正の時刻に到着する。要求される決定的な順序だけをassertする。random modeは所属／完了を検査し、seed固有の勝者、一様性、統計的な重み、公平性は要求しない。USERは2候補で、既知の単一候補での省略は扱わない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequencer_random_arbitration_delivers_each_pending_request_once",
+          "role": "direct",
+          "expected_observations": [
+            "UT: members 1 1 sum 33",
+            "UT: finished 1 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCER-USER-COMPETING-SELECTION",
+      "clause": "15.3.2.3",
+      "statement": {
+        "en": "USER arbitration delegates the eligible candidate choice to user_priority_arbitration.",
+        "ja": "USER arbitrationは、適格候補の選択をuser_priority_arbitrationへ委譲する。"
+      },
+      "conditions": {
+        "en": "Prefer either the earlier or the later lower-priority sequence with two candidates.",
+        "ja": "2候補で、先着または後着の低優先度sequenceを優先する。"
+      },
+      "expected": {
+        "en": "The override is called with competing candidates and its selected sequence is delivered first.",
+        "ja": "競合候補でoverrideを呼び、その選択sequenceを先に配送する。"
+      },
+      "limitations": {
+        "en": "Two requesting sequences arrive at distinct positive times before the driver starts. Only required deterministic orders are asserted. Random mode checks membership/completion, not a seed-specific winner, uniformity, statistical weighting or fairness. USER cases have two candidates and do not cover the known single-candidate omission.",
+        "ja": "2つの要求sequenceは、driver開始前の異なる正の時刻に到着する。要求される決定的な順序だけをassertする。random modeは所属／完了を検査し、seed固有の勝者、一様性、統計的な重み、公平性は要求しない。USERは2候補で、既知の単一候補での省略は扱わない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequencer_user_arbitration_can_prefer_earlier_lower_priority_request",
+          "role": "direct",
+          "expected_observations": [
+            "UT: order 11 22",
+            "UT: competing_callback 1 valid_candidates 1",
+            "UT: finished 1 1"
+          ]
+        },
+        {
+          "test": "u15/test_sequencer_user_arbitration_can_prefer_later_lower_priority_request",
+          "role": "direct",
+          "expected_observations": [
+            "UT: order 22 11",
+            "UT: competing_callback 1 valid_candidates 1",
+            "UT: finished 1 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCER-ARBITRATION-CANDIDATE-HANDLES",
+      "clause": "15.3.2.4",
+      "statement": {
+        "en": "Arbitration candidate indices resolve to their sequence handles.",
+        "ja": "arbitration候補のindexは、対応するsequence handleへ解決する。"
+      },
+      "conditions": {
+        "en": "Resolve every supplied candidate index inside a two-candidate USER override.",
+        "ja": "2候補のUSER override内で、指定した全候補indexを解決する。"
+      },
+      "expected": {
+        "en": "Each candidate handle is non-null and permits the intended sequence selection.",
+        "ja": "各候補handleは非nullで、意図するsequenceを選択できる。"
+      },
+      "limitations": {
+        "en": "Two requesting sequences arrive at distinct positive times before the driver starts. Only required deterministic orders are asserted. Random mode checks membership/completion, not a seed-specific winner, uniformity, statistical weighting or fairness. USER cases have two candidates and do not cover the known single-candidate omission.",
+        "ja": "2つの要求sequenceは、driver開始前の異なる正の時刻に到着する。要求される決定的な順序だけをassertする。random modeは所属／完了を検査し、seed固有の勝者、一様性、統計的な重み、公平性は要求しない。USERは2候補で、既知の単一候補での省略は扱わない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequencer_user_arbitration_can_prefer_earlier_lower_priority_request",
+          "role": "direct",
+          "expected_observations": [
+            "UT: competing_callback 1 valid_candidates 1"
+          ]
+        },
+        {
+          "test": "u15/test_sequencer_user_arbitration_can_prefer_later_lower_priority_request",
+          "role": "direct",
+          "expected_observations": [
+            "UT: competing_callback 1 valid_candidates 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCER-LOCK-OWNER-ITEM-EXCLUSION",
+      "clause": "15.3.2.10",
+      "statement": {
+        "en": "A granted lock excludes unrelated sequence requests while its owner retains it.",
+        "ja": "grant済みlockは、ownerが保持する間、無関係なsequence要求を除外する。"
+      },
+      "conditions": {
+        "en": "Let the owner send two items with a gap while another sequence is pending.",
+        "ja": "別sequenceが保留中に、ownerが間隔を空けて2 itemを送る。"
+      },
+      "expected": {
+        "en": "Owner values 11/12 arrive before unrelated 22 and final ownership is cleared.",
+        "ja": "owner値11／12が無関係な22より先に到着し、最後に所有権を解除する。"
+      },
+      "limitations": {
+        "en": "Explicit parent/child handles, separated arrival/acknowledgement times and normal pull-port completion are used. State-only fixtures are distinguished from actual item delivery. No arbitrary ancestry depth, simultaneous request winner, cancellation or response cleanup is covered. FIFO lock-overtaking and pre-ack lock-grant fixtures retain their existing spec-only differences.",
+        "ja": "親／子handleを明示し、到着／acknowledge時刻を分け、通常のpull-port完了を使う。状態だけの検査系と実際のitem配送を区別する。任意の祖先の深さ、同時要求の勝者、取消、応答cleanupは扱わない。FIFO lockの追越しとack前のlock grantは、既存のspec-only差分を保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequencer_lock_keeps_owner_items_together_before_other_sequence",
+          "role": "direct",
+          "expected_observations": [
+            "UT: request 11",
+            "UT: request 12",
+            "UT: request 22",
+            "UT: finished 1 1 grabbed 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCER-LOCK-FIFO-REQUEST-POSITION",
+      "clause": "15.3.2.10",
+      "statement": {
+        "en": "Lock requests participate in ordinary request arbitration order.",
+        "ja": "lock要求は、通常の要求arbitration順に参加する。"
+      },
+      "conditions": {
+        "en": "Queue an ordinary item before a lock under FIFO arbitration.",
+        "ja": "FIFO arbitrationで、lockより前に通常itemをqueueへ入れる。"
+      },
+      "expected": {
+        "en": "The earlier request 22 precedes lock-owner request 11.",
+        "ja": "先着要求22がlock-owner要求11より先になる。"
+      },
+      "limitations": {
+        "en": "Explicit parent/child handles, separated arrival/acknowledgement times and normal pull-port completion are used. State-only fixtures are distinguished from actual item delivery. No arbitrary ancestry depth, simultaneous request winner, cancellation or response cleanup is covered. FIFO lock-overtaking and pre-ack lock-grant fixtures retain their existing spec-only differences.",
+        "ja": "親／子handleを明示し、到着／acknowledge時刻を分け、通常のpull-port完了を使う。状態だけの検査系と実際のitem配送を区別する。任意の祖先の深さ、同時要求の勝者、取消、応答cleanupは扱わない。FIFO lockの追越しとack前のlock grantは、既存のspec-only差分を保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequencer_fifo_lock_does_not_overtake_earlier_pending_item",
+          "role": "direct",
+          "expected_observations": [
+            "UT: request 22",
+            "UT: request 11",
+            "UT: finished 1 1 grabbed 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCER-LOCK-WAITS-FOR-GRANTED-COMPLETION",
+      "clause": "15.3.2.10",
+      "statement": {
+        "en": "Lock grant waits for previously granted item requests to complete.",
+        "ja": "lockのgrantは、以前にgrantしたitem要求の完了を待つ。"
+      },
+      "conditions": {
+        "en": "Request a lock while the driver holds an earlier unacknowledged item.",
+        "ja": "driverが以前の未acknowledge itemを保持する間にlockを要求する。"
+      },
+      "expected": {
+        "en": "The owner has not acquired the lock before acknowledgement; both sequences later finish.",
+        "ja": "acknowledge前にownerはlockを取得せず、後で両sequenceが完了する。"
+      },
+      "limitations": {
+        "en": "Explicit parent/child handles, separated arrival/acknowledgement times and normal pull-port completion are used. State-only fixtures are distinguished from actual item delivery. No arbitrary ancestry depth, simultaneous request winner, cancellation or response cleanup is covered. FIFO lock-overtaking and pre-ack lock-grant fixtures retain their existing spec-only differences.",
+        "ja": "親／子handleを明示し、到着／acknowledge時刻を分け、通常のpull-port完了を使う。状態だけの検査系と実際のitem配送を区別する。任意の祖先の深さ、同時要求の勝者、取消、応答cleanupは扱わない。FIFO lockの追越しとack前のlock grantは、既存のspec-only差分を保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequencer_lock_waits_until_previously_granted_item_completes",
+          "role": "direct",
+          "expected_observations": [
+            "UT: lock_acquired_before_ack 0",
+            "UT: request 22",
+            "UT: request 11",
+            "UT: finished 1 1 grabbed 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCER-GRAB-QUEUE-PRECEDENCE",
+      "clause": "15.3.2.11",
+      "statement": {
+        "en": "A grab request is placed ahead of pending ordinary requests and excludes unrelated work until release.",
+        "ja": "grab要求は、保留中の通常要求より前に配置し、解放まで無関係な処理を除外する。"
+      },
+      "conditions": {
+        "en": "Request a grab after an unrelated item is pending, then send two owner items.",
+        "ja": "無関係なitemが保留後にgrabを要求し、ownerの2 itemを送る。"
+      },
+      "expected": {
+        "en": "Owner values 11/12 precede unrelated 22 and ownership is cleared after completion.",
+        "ja": "owner値11／12が無関係な22より先となり、完了後に所有権を解除する。"
+      },
+      "limitations": {
+        "en": "Explicit parent/child handles, separated arrival/acknowledgement times and normal pull-port completion are used. State-only fixtures are distinguished from actual item delivery. No arbitrary ancestry depth, simultaneous request winner, cancellation or response cleanup is covered. FIFO lock-overtaking and pre-ack lock-grant fixtures retain their existing spec-only differences.",
+        "ja": "親／子handleを明示し、到着／acknowledge時刻を分け、通常のpull-port完了を使う。状態だけの検査系と実際のitem配送を区別する。任意の祖先の深さ、同時要求の勝者、取消、応答cleanupは扱わない。FIFO lockの追越しとack前のlock grantは、既存のspec-only差分を保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequencer_grab_keeps_owner_items_together_before_other_sequence",
+          "role": "direct",
+          "expected_observations": [
+            "UT: request 11",
+            "UT: request 12",
+            "UT: request 22",
+            "UT: finished 1 1 grabbed 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCER-PARENT-CHILD-BLOCKING",
+      "clause": "15.3.2.8",
+      "statement": {
+        "en": "Parent ownership admits its child while child ownership can block the parent and unrelated sequences.",
+        "ja": "親の所有権は子を許可し、子の所有権は親と無関係なsequenceをblockできる。"
+      },
+      "conditions": {
+        "en": "Use direct ancestry with nested ownership and real parent/child item delivery.",
+        "ja": "直接の祖先関係で入れ子の所有権と、実際の親／子item配送を使う。"
+      },
+      "expected": {
+        "en": "The child is eligible under its parent, nested child ownership blocks the parent, and expected traffic resumes after release.",
+        "ja": "親の下で子は適格で、子の入れ子所有権は親をblockし、解放後に期待するtrafficを再開する。"
+      },
+      "limitations": {
+        "en": "Explicit parent/child handles, separated arrival/acknowledgement times and normal pull-port completion are used. State-only fixtures are distinguished from actual item delivery. No arbitrary ancestry depth, simultaneous request winner, cancellation or response cleanup is covered. FIFO lock-overtaking and pre-ack lock-grant fixtures retain their existing spec-only differences.",
+        "ja": "親／子handleを明示し、到着／acknowledge時刻を分け、通常のpull-port完了を使う。状態だけの検査系と実際のitem配送を区別する。任意の祖先の深さ、同時要求の勝者、取消、応答cleanupは扱わない。FIFO lockの追越しとack前のlock grantは、既存のspec-only差分を保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequencer_nested_grab_selects_child_then_restores_parent",
+          "role": "direct",
+          "expected_observations": [
+            "UT: parent_held child_blocked 0 child_has_lock 0",
+            "UT: nested parent_blocked 1 child_blocked 0 child_has_lock 1 owner_child 1",
+            "UT: restored parent_blocked 0 parent_has_lock 1 owner_parent 1",
+            "UT: cleared locks 0 0 blocked 0 0 grabbed 0 owner_null 1"
+          ]
+        },
+        {
+          "test": "u15/test_sequencer_nested_lock_selects_child_then_restores_parent",
+          "role": "direct",
+          "expected_observations": [
+            "UT: parent_held child_blocked 0 child_has_lock 0",
+            "UT: nested parent_blocked 1 child_blocked 0 child_has_lock 1 owner_child 1",
+            "UT: restored parent_blocked 0 parent_has_lock 1 owner_parent 1",
+            "UT: cleared locks 0 0 blocked 0 0 grabbed 0 owner_null 1"
+          ]
+        },
+        {
+          "test": "u15/test_sequencer_child_grab_blocks_parent_item_until_child_releases",
+          "role": "direct",
+          "expected_observations": [
+            "UT: request 22",
+            "UT: request 11",
+            "UT: request 33",
+            "UT: finished 1 1 grabbed 0"
+          ]
+        },
+        {
+          "test": "u15/test_sequencer_parent_lock_allows_child_items_before_unrelated_sequence",
+          "role": "direct",
+          "expected_observations": [
+            "UT: request 11",
+            "UT: request 12",
+            "UT: request 22",
+            "UT: finished 1 1 grabbed 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCER-NESTED-LOCK-QUERY",
+      "clause": "15.3.2.9",
+      "statement": {
+        "en": "has_lock distinguishes the sequence owning a lock from an eligible unlocked child.",
+        "ja": "has_lockは、lockを持つsequenceと、適格でもlockを持たない子を区別する。"
+      },
+      "conditions": {
+        "en": "Query a child before/after nested ownership and its parent after child release.",
+        "ja": "入れ子所有権の前後の子と、子の解放後の親を照会する。"
+      },
+      "expected": {
+        "en": "The child initially has no lock, then owns one; the parent retains its lock after child release.",
+        "ja": "子は最初lockなし、次にlockを持ち、子の解放後も親はlockを保持する。"
+      },
+      "limitations": {
+        "en": "Explicit parent/child handles, separated arrival/acknowledgement times and normal pull-port completion are used. State-only fixtures are distinguished from actual item delivery. No arbitrary ancestry depth, simultaneous request winner, cancellation or response cleanup is covered. FIFO lock-overtaking and pre-ack lock-grant fixtures retain their existing spec-only differences.",
+        "ja": "親／子handleを明示し、到着／acknowledge時刻を分け、通常のpull-port完了を使う。状態だけの検査系と実際のitem配送を区別する。任意の祖先の深さ、同時要求の勝者、取消、応答cleanupは扱わない。FIFO lockの追越しとack前のlock grantは、既存のspec-only差分を保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequencer_nested_grab_selects_child_then_restores_parent",
+          "role": "direct",
+          "expected_observations": [
+            "UT: parent_held child_blocked 0 child_has_lock 0",
+            "UT: nested parent_blocked 1 child_blocked 0 child_has_lock 1 owner_child 1",
+            "UT: restored parent_blocked 0 parent_has_lock 1 owner_parent 1"
+          ]
+        },
+        {
+          "test": "u15/test_sequencer_nested_lock_selects_child_then_restores_parent",
+          "role": "direct",
+          "expected_observations": [
+            "UT: parent_held child_blocked 0 child_has_lock 0",
+            "UT: nested parent_blocked 1 child_blocked 0 child_has_lock 1 owner_child 1",
+            "UT: restored parent_blocked 0 parent_has_lock 1 owner_parent 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCER-UNLOCK-RELEASES-GRAB",
+      "clause": "15.3.2.12",
+      "statement": {
+        "en": "unlock removes a grab held by the specified sequence.",
+        "ja": "unlockは、指定sequenceが保持するgrabを除く。"
+      },
+      "conditions": {
+        "en": "Grab with one bound sequence and release it through sequencer unlock.",
+        "ja": "binding済みsequenceでgrabし、sequencerのunlockで解放する。"
+      },
+      "expected": {
+        "en": "Ownership/blocking flags clear and no current grabber remains.",
+        "ja": "所有権／blocking flagが解除され、current grabberが残らない。"
+      },
+      "limitations": {
+        "en": "Explicit parent/child handles, separated arrival/acknowledgement times and normal pull-port completion are used. State-only fixtures are distinguished from actual item delivery. No arbitrary ancestry depth, simultaneous request winner, cancellation or response cleanup is covered. FIFO lock-overtaking and pre-ack lock-grant fixtures retain their existing spec-only differences.",
+        "ja": "親／子handleを明示し、到着／acknowledge時刻を分け、通常のpull-port完了を使う。状態だけの検査系と実際のitem配送を区別する。任意の祖先の深さ、同時要求の勝者、取消、応答cleanupは扱わない。FIFO lockの追越しとack前のlock grantは、既存のspec-only差分を保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequencer_grab_can_be_released_with_unlock",
+          "role": "direct",
+          "expected_observations": [
+            "UT: held 1 0 blocked 0 1",
+            "UT: grabbed 1 owner_same 1",
+            "UT: cleared locks 0 0 blocked 0 0 grabbed 0 owner_null 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCER-UNGRAB-RELEASES-LOCK",
+      "clause": "15.3.2.13",
+      "statement": {
+        "en": "ungrab delegates removal of a held lock through unlock.",
+        "ja": "ungrabは、unlock経由で保持したlockの削除を委譲する。"
+      },
+      "conditions": {
+        "en": "Lock with one bound sequence and release through sequencer ungrab.",
+        "ja": "binding済みsequenceでlockし、sequencerのungrabで解放する。"
+      },
+      "expected": {
+        "en": "Ownership/blocking flags clear and no current grabber remains.",
+        "ja": "所有権／blocking flagが解除され、current grabberが残らない。"
+      },
+      "limitations": {
+        "en": "Explicit parent/child handles, separated arrival/acknowledgement times and normal pull-port completion are used. State-only fixtures are distinguished from actual item delivery. No arbitrary ancestry depth, simultaneous request winner, cancellation or response cleanup is covered. FIFO lock-overtaking and pre-ack lock-grant fixtures retain their existing spec-only differences.",
+        "ja": "親／子handleを明示し、到着／acknowledge時刻を分け、通常のpull-port完了を使う。状態だけの検査系と実際のitem配送を区別する。任意の祖先の深さ、同時要求の勝者、取消、応答cleanupは扱わない。FIFO lockの追越しとack前のlock grantは、既存のspec-only差分を保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequencer_lock_can_be_released_with_ungrab",
+          "role": "direct",
+          "expected_observations": [
+            "UT: held 1 0 blocked 0 1",
+            "UT: grabbed 1 owner_same 1",
+            "UT: cleared locks 0 0 blocked 0 0 grabbed 0 owner_null 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCER-OWNERSHIP-PRESENCE-QUERY",
+      "clause": "15.3.2.15",
+      "statement": {
+        "en": "is_grabbed indicates whether any sequence holds a lock or grab.",
+        "ja": "is_grabbedは、lockまたはgrabを持つsequenceがあるかを返す。"
+      },
+      "conditions": {
+        "en": "Query held and released ownership through direct and nested cases.",
+        "ja": "直接／入れ子の検査系で、保持中と解放後の所有権を照会する。"
+      },
+      "expected": {
+        "en": "Held ownership reports one and final fully released ownership reports zero.",
+        "ja": "保持中は1、最後にすべて解放した所有権は0を返す。"
+      },
+      "limitations": {
+        "en": "Explicit parent/child handles, separated arrival/acknowledgement times and normal pull-port completion are used. State-only fixtures are distinguished from actual item delivery. No arbitrary ancestry depth, simultaneous request winner, cancellation or response cleanup is covered. FIFO lock-overtaking and pre-ack lock-grant fixtures retain their existing spec-only differences.",
+        "ja": "親／子handleを明示し、到着／acknowledge時刻を分け、通常のpull-port完了を使う。状態だけの検査系と実際のitem配送を区別する。任意の祖先の深さ、同時要求の勝者、取消、応答cleanupは扱わない。FIFO lockの追越しとack前のlock grantは、既存のspec-only差分を保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequencer_grab_can_be_released_with_unlock",
+          "role": "direct",
+          "expected_observations": [
+            "UT: grabbed 1 owner_same 1",
+            "UT: cleared locks 0 0 blocked 0 0 grabbed 0 owner_null 1"
+          ]
+        },
+        {
+          "test": "u15/test_sequencer_lock_can_be_released_with_ungrab",
+          "role": "direct",
+          "expected_observations": [
+            "UT: grabbed 1 owner_same 1",
+            "UT: cleared locks 0 0 blocked 0 0 grabbed 0 owner_null 1"
+          ]
+        },
+        {
+          "test": "u15/test_sequencer_nested_grab_selects_child_then_restores_parent",
+          "role": "direct",
+          "expected_observations": [
+            "UT: cleared locks 0 0 blocked 0 0 grabbed 0 owner_null 1"
+          ]
+        },
+        {
+          "test": "u15/test_sequencer_nested_lock_selects_child_then_restores_parent",
+          "role": "direct",
+          "expected_observations": [
+            "UT: cleared locks 0 0 blocked 0 0 grabbed 0 owner_null 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCER-CURRENT-HIERARCHICAL-OWNER",
+      "clause": "15.3.2.16",
+      "statement": {
+        "en": "current_grabber returns the eligible nested child then restores its still-owning parent.",
+        "ja": "current_grabberは、適格な入れ子の子を返し、次に所有権を保つ親へ戻す。"
+      },
+      "conditions": {
+        "en": "Acquire parent ownership, acquire/release child ownership and finally release the parent.",
+        "ja": "親の所有権を取得し、子の所有権を取得／解放して、最後に親を解放する。"
+      },
+      "expected": {
+        "en": "The query identifies child, then parent, then null.",
+        "ja": "照会は、子、親、nullの順に識別する。"
+      },
+      "limitations": {
+        "en": "Explicit parent/child handles, separated arrival/acknowledgement times and normal pull-port completion are used. State-only fixtures are distinguished from actual item delivery. No arbitrary ancestry depth, simultaneous request winner, cancellation or response cleanup is covered. FIFO lock-overtaking and pre-ack lock-grant fixtures retain their existing spec-only differences.",
+        "ja": "親／子handleを明示し、到着／acknowledge時刻を分け、通常のpull-port完了を使う。状態だけの検査系と実際のitem配送を区別する。任意の祖先の深さ、同時要求の勝者、取消、応答cleanupは扱わない。FIFO lockの追越しとack前のlock grantは、既存のspec-only差分を保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequencer_nested_grab_selects_child_then_restores_parent",
+          "role": "direct",
+          "expected_observations": [
+            "UT: nested parent_blocked 1 child_blocked 0 child_has_lock 1 owner_child 1",
+            "UT: restored parent_blocked 0 parent_has_lock 1 owner_parent 1",
+            "UT: cleared locks 0 0 blocked 0 0 grabbed 0 owner_null 1"
+          ]
+        },
+        {
+          "test": "u15/test_sequencer_nested_lock_selects_child_then_restores_parent",
+          "role": "direct",
+          "expected_observations": [
+            "UT: nested parent_blocked 1 child_blocked 0 child_has_lock 1 owner_child 1",
+            "UT: restored parent_blocked 0 parent_has_lock 1 owner_parent 1",
+            "UT: cleared locks 0 0 blocked 0 0 grabbed 0 owner_null 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCER-AVAILABLE-LOCK-AND-RELEVANCE",
+      "clause": "15.3.2.17",
+      "statement": {
+        "en": "has_do_available requires pending work to be unblocked and relevant.",
+        "ja": "has_do_availableは、保留処理がblockされずrelevantであることを要求する。"
+      },
+      "conditions": {
+        "en": "Gate a pending worker with a lock or relevance bit, then open the gate and consume it.",
+        "ja": "lockまたはrelevance bitで保留workerを制限し、制限を解除して消費する。"
+      },
+      "expected": {
+        "en": "Availability changes zero/one/zero and the worker value 22 is delivered and completed.",
+        "ja": "利用可否は0／1／0と変わり、worker値22を配送して完了する。"
+      },
+      "limitations": {
+        "en": "Explicit parent/child handles, separated arrival/acknowledgement times and normal pull-port completion are used. State-only fixtures are distinguished from actual item delivery. No arbitrary ancestry depth, simultaneous request winner, cancellation or response cleanup is covered. FIFO lock-overtaking and pre-ack lock-grant fixtures retain their existing spec-only differences.",
+        "ja": "親／子handleを明示し、到着／acknowledge時刻を分け、通常のpull-port完了を使う。状態だけの検査系と実際のitem配送を区別する。任意の祖先の深さ、同時要求の勝者、取消、応答cleanupは扱わない。FIFO lockの追越しとack前のlock grantは、既存のspec-only差分を保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequencer_has_do_available_tracks_lock_eligibility",
+          "role": "direct",
+          "expected_observations": [
+            "UT: gated_available 0",
+            "UT: open_available 1",
+            "UT: payload 22 finished 1 idle_available 0"
+          ]
+        },
+        {
+          "test": "u15/test_sequencer_has_do_available_tracks_relevance_eligibility",
+          "role": "direct",
+          "expected_observations": [
+            "UT: gated_available 0",
+            "UT: open_available 1",
+            "UT: payload 22 finished 1 idle_available 0"
+          ]
+        }
+      ]
     }
   ]
 }

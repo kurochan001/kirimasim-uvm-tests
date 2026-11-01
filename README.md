@@ -11,11 +11,11 @@ Verification Methodology (UVM). It targets
 [kirimasim-tests](https://github.com/kurochan001/kirimasim-tests), which tests
 the IEEE 1800-2023 SystemVerilog language.
 
-> **Status: M4 in progress.** 965 simulation tests in 21 chapter/annex
-> directories; 869 have a `verilator@5.052` oracle and 96 are spec-only.
+> **Status: M4 in progress.** 985 simulation tests in 21 chapter/annex
+> directories; 889 have a `verilator@5.052` oracle and 96 are spec-only.
 > All use `:spec_check: ai`; none records human review.
 > M1, M2 and M3 retain open requirement-coverage targets.
-> M4 has 705 draft requirements, 716 directly linked tests and an index of all 965;
+> M4 has 760 draft requirements, 756 directly linked tests and an index of all 985;
 > scope remains unapproved.
 
 ## Contents
@@ -28,16 +28,16 @@ the IEEE 1800-2023 SystemVerilog language.
 
 ## Current scope
 
-- **M1: 303 cases.** Objects and transactions; copy/compare/print/pack policies;
+- **M1: 311 cases.** Objects and transactions; copy/compare/print/pack policies;
   reporting, component hierarchy, factory, phases, objections, events and event
-  callbacks, barriers, configuration, database connections, streams/links, pools, queues,
-  agents, string splitting and command-line argument queries.
-- **M2: 392 cases.** TLM 1 FIFOs, analysis and request/response channels;
+  callbacks, barriers, configuration, database connections, streams, links and
+  recorders, pools, queues, agents, string splitting and command-line argument queries.
+- **M2: 396 cases.** TLM 1 FIFOs, analysis and request/response channels;
   TLM 2 payloads, extensions and selected socket transports; sequences,
   responses, action macros, pull/push sequencers and callbacks.
-- **M3: 270 cases.** Register/field/block and memory models, hierarchy queries, field controls,
+- **M3: 278 cases.** Register/field/block and memory models, hierarchy queries, field controls,
   maps, adapters, predictors, HDL path descriptions, built-in/custom frontdoors,
-  register/memory callbacks, virtual-register
+  register/memory callbacks, indirect registers, virtual-register
   layout/transfers, allocation policies, virtual callbacks, user-defined
   backdoors, dynamic implementation, memory-region management, partial-width
   memory transfers, failure/retry status and annex E reset, bit-bash,
@@ -69,7 +69,7 @@ python3 tools/run_verilator.py --seeds 1 73 --build-jobs 2 -j 1 \
 ```
 
 The fetcher checks the pinned Accellera UVM 2020.3.1 library. The smoke
-command selects one test. To run all 869 tagged cases:
+command selects one test. To run all 889 tagged cases:
 
 ```sh
 python3 tools/run_verilator.py --seeds 1 73 --build-jobs 2 -j 2 \
@@ -95,14 +95,14 @@ by Git; results are not automatically published.
 
 ## Current results
 
-The local evidence dated 2026-11-01 covers all 965 current cases.
+The local evidence dated 2026-11-01 covers all 985 current cases.
 These results are separate from the Check badge.
 
 | Simulator and library | Observed result |
 | --- | --- |
-| Verilator 5.052, pinned UVM, `UVM_NO_DPI` | 869 match seeds 1 and 73; 96 known differences |
-| kirimasim, pinned UVM | 956 `unsupported`; nine `fail` on missing library APIs |
-| Ghost, bundled UVM | 196 match and 769 fail at each seed; identical failing sets |
+| Verilator 5.052, pinned UVM, `UVM_NO_DPI` | 889 match seeds 1 and 73; 96 known differences |
+| kirimasim, pinned UVM | 976 `unsupported`; nine `fail` on missing library APIs |
+| Ghost, bundled UVM | 196 match and 789 fail at each seed; identical failing sets |
 
 The 96 Verilator differences comprise 87 runtime differences recorded at
 seed 1 and nine missing-API build failures without runtime seed results.
@@ -136,10 +136,10 @@ its counterpart; commands and API identifiers retain their original spelling.
 | Stage | Scope | Current state / target |
 | --- | --- | --- |
 | M0 | Fetcher, runners, metadata/tools checks, Check and smoke test | Infrastructure implemented |
-| M1 | Core classes, policies, factory, phases, objections, configuration and reporting | 303 cases; reviewed two-tests-per-clause target open |
-| M2 | Sequences, sequencers, TLM and callbacks | 392 cases; target open |
-| M3 | Register layer (17–19, annex E) | 270 cases in chapters 17–19 and annex E; target open |
-| M4 | Requirement ledger and coverage | In progress: 705 AI drafts; 701 requirements link to 716 tests; denominator unapproved |
+| M1 | Core classes, policies, factory, phases, objections, configuration and reporting | 311 cases; reviewed two-tests-per-clause target open |
+| M2 | Sequences, sequencers, TLM and callbacks | 396 cases; target open |
+| M3 | Register layer (17–19, annex E) | 278 cases in chapters 17–19 and annex E; target open |
+| M4 | Requirement ledger and coverage | In progress: 760 AI drafts; 756 requirements link to 756 tests; denominator unapproved |
 
 M1, M2 and M3 are independently incomplete. Remaining M2 work includes queued
 ownership/termination/default-resource conditions, callbacks and broader

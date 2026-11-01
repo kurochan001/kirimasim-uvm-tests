@@ -155,7 +155,7 @@ Ghostはさらに実行ファイル・profile・供給されたライブラリ�
 
 ### Q16. M1・M2・M3は完了していますか。件数は何の網羅を示しますか
 
-M1・M2には条項ごとの目標に未達があります。M3はbusモデルのfrontdoor経路を含め270件まで追加した段階で、未完です。
+M1・M2には条項ごとの目標に未達があります。M3はbusモデルのfrontdoor経路を含め278件まで追加した段階で、未完です。
 次の段階の開始によって、それまでの段階が完了したとは扱いません。
 範囲と残りの作業は[進め方](../README.ja.md#進め方)にあります。
 件数はテストの本数で、規格の全要求や組み合わせの棚卸しではありません。
@@ -918,8 +918,8 @@ controlの対応は、その要求の直接の検査ではありません。
 
 ### Q77. M4を始めたのに、カバレッジ率がないのはなぜですか
 
-AIによる705要求案は部分的な分解で、701要求を716テストへ直接対応付け、4要求は直接未対応、別の1テストはcontrolです。
-他の248テストはまだ要求に対応付けていません。2,504の条項番号は規範的要求の単位ではありません。
+AIによる760要求案は部分的な分解で、756要求を756テストへ直接対応付け、4要求は直接未対応、別の1テストはcontrolです。
+他の228テストはまだ要求に対応付けていません。2,504の条項番号は規範的要求の単位ではありません。
 範囲は提案、棚卸しは未完、分母は未承認で、M4の開始はどれの承認にもなりません。
 既知差分やHDL／DPIの制約によって義務を暗黙に除外しません。[承認までの手順](requirements.ja.md#m4の残作業と承認)を参照してください。
 
@@ -1332,7 +1332,8 @@ flowchart LR
 
 [handle lookup](../tests/u07/test_recording_stream_handles_identify_distinct_streams_across_databases.sv)は、
 close後も正確な同一性を保持し、free済みhandleはnullへ解決します。数値ID、訪問順、queueへの追加動作、handle再利用は指定しません。
-開いたrecorderはないため、連鎖するrecorderのclose／freeや記録内容は未検査です。
+元のstreamだけの検査系には開いたrecorderがありません。別の[recorder検査系](#recorderのlifecyclesocketのguard間接register)で
+連鎖するcleanupを検査し、外部への記録内容は未検査のままです。
 
 閉じたdatabaseからのstream生成と、新しいstreamのmetadataのwarningは、固定libraryの差分を保持します。
 列挙は、queueの所属と戻り件数を区別します。queue数を返す本文は、記載された1-bit unsignedの戻りsignatureと矛盾します。
@@ -1368,3 +1369,61 @@ reset metadataは、resetの適用とは別です。HARD／SOFT値の定義は�
 
 [fieldの最大幅](../tests/u18/test_reg_field_maximum_width_tracks_the_largest_configured_field_across_models.sv)はstaticな照会で、
 後から小さいfieldを作っても最大値は減りません。物理的なreset信号、address-map転送、RTL storage、DPIは使いません。
+
+## recorderのlifecycle、socketのguard、間接register
+
+### Q107. recorderのclose／freeとstreamのcleanupはどう関係しますか？
+
+local streamは、stream、型、open時刻の明示metadataを持つ具体recorderを生成します。
+recorderのcloseは、open時刻を保持して指定close時刻を保存し、peerはopenを保ちます。
+open中recorderのfreeは、指定時刻で先に閉じてから解放し、handleを無効にしますが、包含streamはopenを保ちます。
+
+[streamのclose](../tests/u07/test_stream_close_dispatches_its_hook_before_closing_only_open_recorders.sv)は、
+まだopen中のrecordを閉じる前にstream hookを呼びます。既にclosedのrecordは再び閉じません。
+明示的に閉じたstreamのfreeは、残る全recordをfreeする前に自身の解放hookを呼びます。
+兄弟recorder間の順序は要求しません。record列挙は正確なqueue所属を調べ、記載された戻り件数の幅は解釈しません。
+
+scalarの記録呼出しは、整数値、幅／radix、real／string／time値、generic型metadataをimplementation hookで別途検査します。
+時刻17／29／31は明示した記録timestampであり、省略時刻の置換や実simulation遅延は検査しません。
+外部database、vendorのattribute macro、object再帰の形式、直列化した記録出力は使いません。
+
+### Q108. socketのconstructorと禁止connectの検査は何を示しますか？
+
+blocking／nonblocking、terminator／pass-throughの全8種で、implementation／port／exportの役割、親、
+1対1の最小／最大接続数をconstructorで検査します。elaboration前に照会する宣言上の属性であり、
+解決済み接続先を数えたり、forward／backward transportの実行を示したりはしません。
+
+両modeでtarget terminatorの`connect`は禁止されています。
+[blockingの検査系](../tests/u12/test_tlm2_blocking_target_socket_connect_reports_error_for_each_forbidden_call.sv)と
+nonblockingの対応検査系は、互換provider handleで2回呼び、毎回新しいERRORを要求します。
+診断の文言や、不正providerの型変換は指定しません。constructorには互換な親のimplementation methodを使いますが、
+既定IMPによるtransport配送は別途示しません。
+
+台帳では、選択した既存のarbitration／所有権の検査系も対応付けます。FIFOとstrict modeは要求される順序をassertし、
+random modeは統計的な主張をせず所属と完了を検査します。USER modeは2候補のhandleを使います。
+入れ子lock／grab、相互に使える解放、利用可否の検査は、任意の並行性やcleanupとは区別します。
+既存のFIFO lockとack前grantの差分は、spec-onlyのoracleを保持します。
+
+### Q109. 間接registerはarray要素をどのように選びますか？
+
+設定したindex registerが要素を選び、各data-port access前に明示したindex writeを完了します。
+modelは等しい8-bitのarray要素と、有効index 0〜2を使います。driverがindex付きstorageの動作を実装し、
+auto-predictionが選択したarray registerのmirrorを更新します。
+
+```mermaid
+flowchart LR
+    C["呼出し側"] -->|"index.write"| I["Index register"]
+    C -->|"data.read / data.write"| D["間接data register"]
+    I -->|"Index addressへのwrite"| B["testbenchのindex付きbank"]
+    D -->|"Data addressへのaccess"| B
+    D -. "Auto-prediction" .-> A["選択したarray registerのmirror"]
+```
+
+[選択とwrite](../tests/u18/test_indirect_register_write_updates_only_the_index_selected_array_element.sv)は、
+他の位置を保持します。別の検査系は、読戻し、再選択、2つのindex writeの最新値、独立した2組のindex／data pair、
+任意のregfile配置を扱います。driverが拒否したwriteはstorageへcommitせず、UVMはerrorを返して再試行までmodelを保つ必要があります。
+失敗readのdataは制約せず、成功する再試行は選択値を返してpredictします。
+
+testbenchのadapter／sequencer／driverと、明示したmap／auto-prediction設定を使います。
+RTL／DPIの動作、範囲外indexの規則、任意の並行access、間接backdoor、array registerのfrontdoor sequenceを
+自動生成する要求は成立させません。
