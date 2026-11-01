@@ -7,13 +7,13 @@
 M4 is in progress. The [scope proposal](../coverage/scope.json),
 [requirement ledger](../coverage/requirements.json) and
 [test index](../coverage/test_index.json) are versioned inputs. The ledger
-contains 36 AI-drafted requirements: 30 have direct test links and six have
-none. One additional test is a control. The other 774 of the 805 tests have
+contains 175 AI-drafted requirements: 163 link directly to 190 tests and 12
+have no direct test. One additional test is a control. The other 614 of the 805 tests have
 not yet been mapped at requirement level; that does not mean they test no
 normative behavior. No requirement records human review.
 
-The clause catalog has 2,504 identifiers. Thirty-five have a partial
-requirement decomposition; the other 2,469 are unassessed. Neither group is
+The clause catalog has 2,504 identifiers. 115 have a partial
+requirement decomposition; the other 2,389 are unassessed. Neither group is
 complete. Starting M4 does not approve the scope or denominator, or complete
 M1–M3. `approved_denominator` and `coverage_percentage` remain `null`.
 
@@ -22,8 +22,8 @@ M1–M3. `approved_denominator` and `coverage_percentage` remain `null`.
 The proposed unit is one observable normative obligation together with its
 applicability conditions. A method clause may need separate requirements for
 success, failure, default arguments, ordering and side effects. Conversely,
-a heading is not an obligation. The 36 seed entries are a sample across
-several areas, not the full inventory of obligations in their clauses.
+a heading is not an obligation. The 175 draft entries span several areas,
+without exhausting the obligations in their clauses.
 
 The proposal assigns every root in the existing identifier catalog once:
 
@@ -118,12 +118,62 @@ python3 tools/requirements.py sync --output out/test-index-proposal.json
 
 `check` validates the canonical inputs and prints a summary. `inventory` also
 writes all identifier dispositions, decomposition states, primary/supporting
-citations, requirement links, review/oracle metadata and fingerprints. A
+citations, requirement links, review/oracle metadata, fingerprints and root totals. A
 clause with entries is `partial`; one without entries is `unassessed`. Neither
 state means complete or covered. Generated denominator and percentage fields
 remain `null`. `--lang en` or `--lang ja` selects summary language; JSON keys
 and stable identifiers do not change. Generated files under `out/` are ignored
-by Git, and neither output option may overwrite the three canonical inputs.
+by Git, and no generated output may overwrite the three canonical inputs.
+
+## Review work queue and root totals
+
+Use `backlog` to extract work items without editing the ledger:
+
+```sh
+python3 tools/requirements.py backlog --json out/requirements-backlog.json --lang ja
+python3 tools/requirements.py backlog --root E --json out/requirements-backlog-E.json --lang ja
+```
+
+`--root` accepts an exact catalog root such as `5`, `17` or `E`, only with
+`backlog`. Unknown roots, subclauses and directory labels such as `u05` are
+rejected. Validation of the whole canonical ledger/index precedes extraction;
+a root filter cannot hide a stale binding elsewhere.
+
+The JSON separates `requirements_without_direct_tests` (full bilingual draft
+records, including control-only requirements), `tests_without_requirement_links`
+(test metadata and fingerprints without either link role), and
+`unassessed_identifiers` (catalog identifiers with no requirement entry).
+These are review queues, not established conformance gaps. Context/deferred
+identifiers remain visible with their disposition, and all denominator and
+percentage fields remain unset.
+
+`inventory` and `backlog` include `roots` totals. Requirements belong to their
+own clause root; tests belong to their primary-focus root. Thus chapter 17
+requirements can link to tests placed under annex E without moving those
+tests into chapter 17's primary count. Counts are not rolled up from children
+to certify a parent requirement. Multiple requirements can share a test, and
+one requirement can have multiple test links; neither implies independent
+coverage from every anchor in a shared expected-output line.
+
+The current expansion maps every existing primary-focus test in these five
+roots while leaving normative decomposition partial:
+
+| Root | Draft requirements | Primary-focus tests | Tests without links | Unassessed identifiers |
+| --- | --- | --- | --- | --- |
+| 5 | 42 | 42 | 0 | 84 |
+| B | 35 | 54 | 0 | 111 |
+| C | 9 | 16 | 0 | 80 |
+| D | 6 | 6 | 0 | 40 |
+| E | 47 | 48 | 0 | 79 |
+
+Zero unmapped tests is not complete coverage. Annex E still has six requirements
+without direct tests: block-scoped register-access exclusion, the combined
+access wrapper, HDL-path accessibility, the walking-ones algorithm itself,
+and unknown-policy skips for bit bash and register access. Location masks
+are linked only to the necessary location-access property, not to the whole
+walking algorithm. B.5.11's conflicting printed invocation is recorded as an
+interpretation requiring review. Known differences retain normative oracles;
+all 175 requirement reviews are still `ai`.
 
 ## Updating a test or mapping
 
@@ -165,4 +215,4 @@ counting rule and frozen requirement set. Define separately what counts as
 reviewed test coverage and as execution success, including execution conditions
 and evidence identity. Approval needs a later schema/procedure update; schema
 1 intentionally cannot express a completed inventory or approved denominator.
-The current 36 AI drafts and 30 direct links do not satisfy that gate.
+The current 175 AI drafts and their direct links do not satisfy that gate.

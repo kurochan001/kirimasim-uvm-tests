@@ -76,7 +76,7 @@ claim that a single invocation reran the entire suite. The
 prior smoke tests and build-change details. Refreshed records replace older
 ones only after their current input fingerprints are verified.
 
-The first M4 increment adds a [draft ledger](requirements.md) and validation
+M4 adds a [draft ledger](requirements.md), validation and review-queue
 tools without changing simulation inputs or runners. The recorded input and
 runner fingerprints still match; no new simulator execution is claimed.
 Ledger anchors describe expected output, not additional measured passes.
@@ -92,7 +92,7 @@ inputs, a different runner, executable, profile or library is a separate conditi
 ## Continuous integration
 
 [Check](../.github/workflows/check.yml) runs on pushes to `main`, pull requests
-and manual dispatch. It checks pinned-library integrity, 61 tool unit tests,
+and manual dispatch. It checks pinned-library integrity, 69 tool unit tests,
 805 metadata records, the draft requirement ledger/test index and the 737
 tagged Verilator cases using seeds 1 and 73.
 It does not run kirimasim, Ghost or spec-only cases. The README's badge is the

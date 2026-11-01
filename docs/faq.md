@@ -1131,9 +1131,9 @@ not a direct test of the requirement.
 
 ### Q77. Why is there no coverage percentage after starting M4?
 
-The 36 AI drafts cover only a partial decomposition, with 30 direct links,
-six unlinked requirements and one control test. Another 774 tests are not
-mapped yet. The 2,504 clause identifiers are not normative requirement units.
+The 175 AI drafts cover only a partial decomposition: 163 requirements link
+directly to 190 tests, 12 have no direct test, and one separate test is a control.
+Another 614 tests are not mapped yet. The 2,504 clause identifiers are not normative requirement units.
 The scope is proposed, the inventory incomplete and the denominator unapproved;
 starting M4 approves none of those. Known differences and HDL/DPI limitations
 do not silently exclude obligations. See the [approval path](requirements.md#remaining-m4-work-and-approval).
@@ -1147,3 +1147,14 @@ updating linked fingerprints. Sync preserves existing linked snapshots so
 adopting it alone cannot certify a changed mapping. Inputs include expected
 files, helpers and the library lock; see the [update procedure](requirements.md#updating-a-test-or-mapping).
 The ledger does not read execution results or add measured passes.
+
+### Q79. How can I find the next M4 review items?
+
+Use `python3 tools/requirements.py backlog --root E --lang ja`, optionally
+adding `--json out/requirements-backlog-E.json`. Omit `--root` for all roots.
+The terminal prints counts; JSON contains the item lists. The output separates requirements without direct tests, tests without either
+link role, and unassessed identifiers. A control-only requirement remains in
+the first group, while its control test is already mapped. Requirements use
+their own clause root and tests use their primary citation root. The
+[queue guide](requirements.md#review-work-queue-and-root-totals) explains those
+counts. Empty queues do not certify complete normative decomposition.

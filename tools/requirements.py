@@ -235,13 +235,65 @@ def inventory(data):
                "tests_with_direct_links": len(direct_tests),
                "tests_with_control_links": len(control_tests),
                "tests_without_requirement_links": len(data["tests"].keys() - by_test.keys())}
+    roots = {}
+    for root in dict.fromkeys(c.split(".")[0] for c in data["clauses"]):
+        clauses = [c for c in clause_records if c["clause"].split(".")[0] == root]
+        obligations = [e for e in entries if e["clause"].split(".")[0] == root]
+        tests = [name for name, t in data["tests"].items()
+                 if t["primary_clause"].split(".")[0] == root]
+        roots[root] = {
+            "scope": clauses[0]["scope"],
+            "clause_identifiers": len(clauses),
+            "partial_identifiers": sum(c["decomposition"] == "partial" for c in clauses),
+            "unassessed_identifiers": sum(c["decomposition"] == "unassessed" for c in clauses),
+            "draft_requirements": len(obligations),
+            "requirements_with_direct_tests": sum(any(l["role"] == "direct"
+                                                      for l in e["test_links"])
+                                                 for e in obligations),
+            "requirements_without_direct_tests": sum(not any(l["role"] == "direct"
+                                                              for l in e["test_links"])
+                                                    for e in obligations),
+            "primary_focus_tests": len(tests),
+            "primary_focus_tests_without_requirement_links": sum(not by_test[t] for t in tests),
+        }
     return {"schema_version": 1, "standard": STANDARD, "scope_status": "proposed",
             "normative_inventory_complete": False, "approved_denominator": None,
             "coverage_percentage": None, "catalog_sha256": data["catalog_sha256"],
-            "summary": summary, "clauses": clause_records,
+            "summary": summary, "roots": roots, "clauses": clause_records,
             "tests": {name: {**record, "requirement_links": sorted(by_test[name],
                                                                       key=lambda x: x["requirement"])}
                       for name, record in data["tests"].items()}}
+
+
+def backlog(data, root=None):
+    """Unmapped work items, never a list of established conformance gaps."""
+    report = inventory(data)
+    require(root is None or root in report["roots"], f"unknown catalog root {root}")
+
+    def selected(clause):
+        return root is None or clause.split(".")[0] == root
+
+    obligations = [e for e in data["ledger"]["requirements"] if selected(e["clause"])]
+    tests = {n: t for n, t in report["tests"].items() if selected(t["primary_clause"])}
+    unlinked = [e for e in obligations if not any(l["role"] == "direct" for l in e["test_links"])]
+    unmapped = [{"test": n, **t} for n, t in tests.items() if not t["requirement_links"]]
+    unassessed = [c["clause"] for c in report["clauses"]
+                  if selected(c["clause"]) and c["decomposition"] == "unassessed"]
+    result = {key: report[key] for key in ("schema_version", "standard", "scope_status",
+              "normative_inventory_complete", "approved_denominator", "coverage_percentage",
+              "catalog_sha256")}
+    result.update(selection={"root": root},
+                  roots={r: values for r, values in report["roots"].items()
+                         if root is None or r == root},
+                  summary={"draft_requirements": len(obligations),
+                           "requirements_without_direct_tests": len(unlinked),
+                           "primary_focus_tests": len(tests),
+                           "tests_without_requirement_links": len(unmapped),
+                           "unassessed_identifiers": len(unassessed)},
+                  requirements_without_direct_tests=unlinked,
+                  tests_without_requirement_links=unmapped,
+                  unassessed_identifiers=unassessed)
+    return result
 
 
 def sync_proposal(data):
@@ -262,16 +314,19 @@ def write_json(path, value):
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("command", choices=("check", "inventory", "sync"))
-    parser.add_argument("--json", type=Path, help="write a generated inventory")
+    parser.add_argument("command", choices=("check", "inventory", "backlog", "sync"))
+    parser.add_argument("--json", type=Path, help="write a generated inventory or backlog")
     parser.add_argument("--output", type=Path, help="write a test-index proposal (sync only)")
+    parser.add_argument("--root", help="limit backlog to one catalog root, e.g. 5 or E")
     parser.add_argument("--lang", choices=("en", "ja"), default="en")
     args = parser.parse_args(argv)
     if args.command == "sync":
         if args.output is None or args.json is not None:
             parser.error("sync requires --output and does not accept --json")
     elif args.output is not None or (args.command == "check" and args.json is not None):
-        parser.error("--output is for sync; --json is for inventory")
+        parser.error("--output is for sync; --json is for inventory or backlog")
+    if args.root is not None and args.command != "backlog":
+        parser.error("--root is for backlog only")
     destination = args.output or args.json
     if destination and destination.resolve() in {(ROOT / "coverage" / n).resolve() for n in
                                                  ("scope.json", "requirements.json", "test_index.json")}:
@@ -282,6 +337,25 @@ def main(argv=None):
             write_json(args.output, sync_proposal(data))
             print("Wrote proposal; linked snapshots remain unchanged pending reassessment."
                   if args.lang == "en" else "案を出力しました。対応付け済みの指紋は再照合まで保持します。")
+            return 0
+        if args.command == "backlog":
+            result = backlog(data, args.root)
+            if args.json:
+                write_json(args.json, result)
+            s = result["summary"]
+            selection = args.root or ("all" if args.lang == "en" else "全体")
+            if args.lang == "en":
+                print(f"Backlog ({selection}): {s['requirements_without_direct_tests']} "
+                      f"requirements without direct tests; {s['tests_without_requirement_links']} "
+                      f"tests without requirement links; {s['unassessed_identifiers']} "
+                      "unassessed identifiers")
+                print("Review work items only; scope and denominator remain unapproved.")
+            else:
+                print(f"未整理項目（{selection}）：直接の対応がない要求"
+                      f"{s['requirements_without_direct_tests']}件・要求未対応のテスト"
+                      f"{s['tests_without_requirement_links']}件・未評価の条項番号"
+                      f"{s['unassessed_identifiers']}件")
+                print("レビュー作業の一覧です。範囲と分母は未承認のままです。")
             return 0
         result = inventory(data)
         if args.json:

@@ -471,3 +471,10 @@ creating requirements or aggregating child clauses into parent coverage.
 counting rule / a frozen requirement set accepted after decomposition and
 review. The latter remains unset; deferred deprecated APIs are not approved
 exclusions. See the [M4 approval path](requirements.md#remaining-m4-work-and-approval).
+
+**Review backlog / root total** — Generated work items needing requirement
+mapping or decomposition / an inventory grouped by the first clause-number
+segment. Requirements use their own clause and tests their primary citation.
+The [backlog command](requirements.md#review-work-queue-and-root-totals) retains
+control-only requirements and context/deferred identifiers; it does not turn
+unassessed items into confirmed conformance failures.

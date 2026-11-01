@@ -200,7 +200,7 @@ class RequirementLedger(unittest.TestCase):
             requirements.sync_proposal(self.data())
 
     def test_generated_files_cannot_overwrite_any_ledger_input(self):
-        for command, option in (('sync', '--output'), ('inventory', '--json')):
+        for command, option in (('sync', '--output'), ('inventory', '--json'), ('backlog', '--json')):
             for name in ('scope.json', 'requirements.json', 'test_index.json'):
                 path = self.root / 'coverage' / name
                 original = path.read_bytes()
@@ -240,6 +240,81 @@ class RequirementLedger(unittest.TestCase):
         self.assertEqual(summary['requirements_with_direct_tests'], 2)
         self.assertEqual(summary['tests_with_direct_links'], 1)
         self.assertEqual(summary['primary_focus_identifiers'], 2)
+
+    def test_root_inventory_totals_partition_the_global_inventory(self):
+        report = requirements.inventory(self.data())
+        roots = list(report['roots'].values())
+        for root_field, total_field in (
+                ('clause_identifiers', 'clause_identifiers'),
+                ('draft_requirements', 'draft_requirements'),
+                ('primary_focus_tests', 'tests'),
+                ('requirements_with_direct_tests', 'requirements_with_direct_tests'),
+                ('requirements_without_direct_tests', 'requirements_without_direct_tests'),
+                ('primary_focus_tests_without_requirement_links', 'tests_without_requirement_links')):
+            self.assertEqual(sum(r[root_field] for r in roots), report['summary'][total_field])
+        self.assertEqual(report['roots']['H']['scope'], 'deferred')
+        self.assertEqual(report['roots']['5']['partial_identifiers'], 1)
+        self.assertEqual(report['roots']['5']['unassessed_identifiers'], 2)
+
+    def test_backlog_keeps_control_only_requirements_but_not_their_mapped_tests(self):
+        data = self.data()
+        data['ledger']['requirements'][0]['test_links'][0]['role'] = 'control'
+        report = requirements.backlog(data)
+        self.assertEqual([e['id'] for e in report['requirements_without_direct_tests']], ['UVM-FIXTURE'])
+        self.assertEqual([t['test'] for t in report['tests_without_requirement_links']], ['u06/test_second'])
+        self.assertIsNone(report['approved_denominator'])
+        self.assertIsNone(report['coverage_percentage'])
+
+    def test_backlog_root_filter_retains_unassessed_and_deferred_work(self):
+        data = self.data()
+        report = requirements.backlog(data, '6')
+        self.assertEqual(set(report['roots']), {'6'})
+        self.assertEqual(report['selection'], {'root': '6'})
+        self.assertEqual(report['summary']['tests_without_requirement_links'], 1)
+        self.assertEqual(report['unassessed_identifiers'], ['6', '6.1'])
+        deferred = requirements.backlog(data, 'H')
+        self.assertEqual(deferred['unassessed_identifiers'], ['H', 'H.1'])
+        self.assertEqual(deferred['summary']['primary_focus_tests'], 0)
+        self.assertEqual(deferred['roots']['H']['scope'], 'deferred')
+
+    def test_cross_root_links_do_not_move_primary_focus_tests(self):
+        data = self.data()
+        data['ledger']['requirements'][0]['clause'] = '6.1'
+        data['tests']['u05/test_first']['references'].append('6.1')
+        report = requirements.backlog(data, '6')
+        self.assertEqual(report['roots']['6']['requirements_with_direct_tests'], 1)
+        self.assertEqual(report['roots']['6']['primary_focus_tests'], 1)
+        self.assertEqual([t['test'] for t in report['tests_without_requirement_links']], ['u06/test_second'])
+        self.assertEqual(requirements.backlog(data, '5')['summary']['draft_requirements'], 0)
+
+    def test_backlog_rejects_unknown_or_nonroot_selectors(self):
+        for root in ('99', '5.2', 'u05', ''):
+            with self.subTest(root=root), self.assertRaisesRegex(requirements.LedgerError, 'unknown catalog root'):
+                requirements.backlog(self.data(), root)
+
+    def test_backlog_rejects_stale_bindings_before_producing_work_items(self):
+        self.first.with_suffix('.expected').write_text('UT: expected\nUT: new\n')
+        with self.assertRaisesRegex(requirements.LedgerError, 'stale index'):
+            requirements.backlog(self.data(), '6')
+
+    def test_backlog_cli_writes_selected_work_items_without_coverage_claims(self):
+        path = self.root / 'out/backlog.json'
+        with contextlib.redirect_stdout(io.StringIO()) as output:
+            self.assertEqual(requirements.main(['backlog', '--root', '6', '--json', str(path),
+                                                '--lang', 'ja']), 0)
+        self.assertIn('未承認', output.getvalue())
+        report = json.loads(path.read_text())
+        self.assertEqual(report['selection']['root'], '6')
+        self.assertEqual(report['summary']['tests_without_requirement_links'], 1)
+        self.assertEqual(report['requirements_without_direct_tests'], [])
+        self.assertFalse(report['normative_inventory_complete'])
+
+    def test_root_option_is_not_accepted_for_unfiltered_commands(self):
+        for args in (['check'], ['inventory'], ['sync', '--output', str(self.root / 'proposal.json')]):
+            with self.subTest(command=args[0]), contextlib.redirect_stderr(io.StringIO()):
+                with self.assertRaises(SystemExit) as caught:
+                    requirements.main([*args, '--root', '5'])
+                self.assertEqual(caught.exception.code, 2)
 
 
 if __name__ == '__main__':

@@ -3,7 +3,7 @@
 [日本語](history.ja.md) · [README](../README.md)
 
 These records cover M1, fifteen M2 increments, nine M3 increments
-and the first M4 increment (805 simulation tests). The earlier 349-test checkpoint is
+and two M4 increments (805 simulation tests). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -1212,3 +1212,42 @@ historical preservation, canonical license, privacy and whitespace. Existing
 805-case input/runner fingerprints still match the recorded Verilator,
 kirimasim and guest evidence; simulation sources, expectations, runners and
 library lock are unchanged. No new simulation or commercial result is used.
+
+## Second M4 increment
+
+Add 139 original bilingual AI-drafted obligations, bringing the ledger to
+175. There are 163 requirements with direct links to 190 distinct tests,
+12 without direct tests, one separate control test and 614 tests with no
+requirement link. The 36 original entries retain their identities and text.
+The scope remains proposed and the normative inventory incomplete: 115 clause
+identifiers are partially decomposed and 2,389 unassessed. No denominator,
+percentage, human review or stage completion is asserted.
+
+Map all existing primary-focus tests in chapter 5 (42), annex B (54), annex C
+(16), annex D (6) and annex E (48). Split object lifecycle time/event rules,
+invalid field-operation accessors and callback traversal operations into
+separate obligations. Use multiple fixtures where conditions differ and allow
+several independent obligations to share one test. Distinguish each exclusion
+resource's actual name and element/block scope. Preserve known library
+expectations and B.5.11's conflicting-invocation interpretation for review.
+
+Keep six new annex E obligations unlinked: register-access block exclusion,
+the combined access wrapper, HDL-path accessibility, the walking-ones
+algorithm and two unknown-policy skip rules. Existing location masks are
+linked only to a necessary access property, not promoted to full algorithm
+verification. An empty unmapped-test queue does not finish decomposition.
+
+Add root totals and a backlog command with an optional exact-root filter.
+Separate requirements without direct tests, tests without either role and
+unassessed identifiers, retaining context/deferred scope. Assign requirement
+roots by their own clauses and test roots by primary citation, including
+cross-root links from chapter 17 to annex E. Validate the whole ledger before
+filtering; protect generated-output destinations. Extend the regression suite
+with eight checks for these distinctions and update the paired guides.
+
+Validation passes 69 tool unit tests, 805 metadata checks, all 175 ledger
+entries and pinned-library integrity. Check generated full/root reports,
+root/global totals, local links, bilingual structure, history and privacy.
+Simulation inputs, runners, expectations and lock are unchanged; recorded
+Verilator, kirimasim and guest input/runner fingerprints still match all
+805 cases. No new simulation run or commercial result is used.

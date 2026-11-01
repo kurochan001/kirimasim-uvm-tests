@@ -15,7 +15,8 @@ the IEEE 1800-2023 SystemVerilog language.
 > directories; 737 have a `verilator@5.052` oracle and 68 are spec-only.
 > All use `:spec_check: ai`; none records human review.
 > M1, M2 and M3 retain open requirement-coverage targets.
-> M4 has 36 draft requirements and indexes all 805 tests; scope is unapproved.
+> M4 has 175 draft requirements, 190 directly linked tests and an index of all 805;
+> scope remains unapproved.
 
 ## Contents
 
@@ -134,7 +135,7 @@ its counterpart; commands and API identifiers retain their original spelling.
 | M1 | Core classes, policies, factory, phases, objections, configuration and reporting | 229 cases; reviewed two-tests-per-clause target open |
 | M2 | Sequences, sequencers, TLM and callbacks | 360 cases; target open |
 | M3 | Register layer (17–19, annex E) | 216 cases in chapters 18–19 and annex E; target open |
-| M4 | Requirement ledger and coverage | In progress: 36 AI drafts, 30 direct links; denominator unapproved |
+| M4 | Requirement ledger and coverage | In progress: 175 AI drafts; 163 requirements link to 190 tests; denominator unapproved |
 
 M1, M2 and M3 are independently incomplete. Remaining M2 work includes queued
 ownership/termination/default-resource conditions, callbacks and broader

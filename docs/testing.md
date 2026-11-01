@@ -271,7 +271,7 @@ python3 tools/lint_metadata.py
 python3 tools/requirements.py check
 ```
 
-The current tool suite has 61 unit tests; metadata validation checks all
+The current tool suite has 69 unit tests; metadata validation checks all
 805 simulation tests. The [ledger check](requirements.md) validates the draft
 scope, explicit oracle links and input fingerprints without claiming coverage. [Check](../.github/workflows/check.yml) runs on pushes to
 `main`, pull requests and manual dispatch. Its separate Verilator job uses
