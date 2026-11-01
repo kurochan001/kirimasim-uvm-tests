@@ -155,7 +155,7 @@ Ghostはさらに実行ファイル・profile・供給されたライブラリ�
 
 ### Q16. M1・M2・M3は完了していますか。件数は何の網羅を示しますか
 
-M1・M2には条項ごとの目標に未達があります。M3はbusモデルのfrontdoor経路を含め246件まで追加した段階で、未完です。
+M1・M2には条項ごとの目標に未達があります。M3はbusモデルのfrontdoor経路を含め254件まで追加した段階で、未完です。
 次の段階の開始によって、それまでの段階が完了したとは扱いません。
 範囲と残りの作業は[進め方](../README.ja.md#進め方)にあります。
 件数はテストの本数で、規格の全要求や組み合わせの棚卸しではありません。
@@ -918,8 +918,8 @@ controlの対応は、その要求の直接の検査ではありません。
 
 ### Q77. M4を始めたのに、カバレッジ率がないのはなぜですか
 
-AIによる543要求案は部分的な分解で、539要求を595テストへ直接対応付け、4要求は直接未対応、別の1テストはcontrolです。
-他の309テストはまだ要求に対応付けていません。2,504の条項番号は規範的要求の単位ではありません。
+AIによる604要求案は部分的な分解で、600要求を636テストへ直接対応付け、4要求は直接未対応、別の1テストはcontrolです。
+他の288テストはまだ要求に対応付けていません。2,504の条項番号は規範的要求の単位ではありません。
 範囲は提案、棚卸しは未完、分母は未承認で、M4の開始はどれの承認にもなりません。
 既知差分やHDL／DPIの制約によって義務を暗黙に除外しません。[承認までの手順](requirements.ja.md#m4の残作業と承認)を参照してください。
 
@@ -1215,3 +1215,54 @@ clear／set policyのREAD入力は、副作用前にsampleした値を表し、�
 [0を選ぶ組](../tests/u18/test_reg_field_zero_selected_write_read_side_effects_keep_complementary_slices_independent.sv)では、
 逆のread副作用を持つfieldを隣接させます。選択した履歴を通して、fieldのdesired／mirror、隣接fieldのmirror、
 合成したregisterのmirrorを検査します。全byte enableを有効にし、制約map、部分mask、backdoor、4値、他の幅は別途扱います。
+
+## 階層の照会、解決済みport、symbolicなHDL path
+
+### Q98. component階層の検査系は何を観測しますか？
+
+phase scheduleを実行せず、名前を明示したUVM componentを構築します。親handle、dotで区切るfull name、depthは、
+そのcomponent階層を指します。2 branchでlocal名slotを再利用し、leaf名だけを全pathの代わりにはできないようにします。
+相対lookupは受信側から、先頭dotは暗黙のcomponent rootから始めます。失敗したlookupはnullを返し、
+その後も階層を有効な照会に使えます。
+
+[子listの取得](../tests/u13/test_component_children_append_preserves_prefix_and_excludes_descendants.sv)は、
+呼出し側が持つprefixの後ろへ直接の子を追加します。queueを編集してもcomponentは削除しません。
+子のiteratorは、空／終端の名前保持と、交互に走査する各親の所属を、訪問順を要求せず検査します。
+wildcard lookup、動的な改名、走査途中の変更は、この検査系の範囲外です。
+
+### Q99. 親portへの1接続から、なぜ2つのTLM implementationが見えますか？
+
+binding解決はportの連鎖全体をたどります。
+[親のfanoutの検査系](../tests/u12/test_hierarchical_put_port_resolves_parent_fanout_to_the_final_implementations.sv)は、
+子から親への直接接続は1つですが、elaboration後は両portの`size()`が2になります。図は接続の形を示します。
+
+```mermaid
+flowchart LR
+    C["子port"] --> P["親port"]
+    P --> A["受信側Aのimp"]
+    P --> B["受信側Bのimp"]
+```
+
+解決後の`run_phase`で`get_if(i)`を使います。providerのindex順を仮定せず、返すhandleの所属から期待する受信側を識別します。
+選んだblockingの`put`、`get`、`peek`の呼出しは、受信側／sourceの同一性を保ちます。
+nonblockingの`can_put`と`try_put`は、別々の1 entry FIFOを満たし、満杯での置換を拒否して元の値を保ちます。
+既定のputはindex 0に照合します。これらのテストでは、`set_default_index`の呼出し、不正な接続数、
+接続errorのseverityは指定しません。
+
+### Q100. symbolicなHDL pathで、HDL objectへアクセスできることを示しますか？
+
+HDL変数を作ったりDPIを呼んだりせず、pathの記述を照会します。register／memoryのkind照会では、RTL／GATEの記述、
+親のGATEの既定、kindごとの消去を使います。既定clearはRTLを削除し、その後の既定照会もGATEを選びます。
+これらの検査系は、返すelementのslice形状ではなく、path数とkindの所属を照会します。
+
+blockの文字列照会では、重複する祖先pathの全8組合せ、独自の区切り、RTLの祖先を上書きしてGATEを保つ絶対rootを検査します。
+既定abstractionの継承は、固定ライブラリでspec-onlyの差分があります。
+[標準concat getter](../tests/u17/test_hdl_concat_standard_get_slices_returns_the_appended_most_to_least_order.sv)とsetterの検査系は、
+標準APIの呼出し、最上位から最下位のslice順序、重ならないbit範囲を保ち、method欠落でビルドできません。
+[既知差分](known-differences.ja.md#固定版ライブラリの制約)で期待を明示します。
+HDL depositと付録Eのpath利用可否の要求は、直接テストがないままで、許可されたbackendが必要です。
+商用の実行結果は引き続き除外します。
+
+台帳では、選択した既存のgeneric payload／extensionの検査系も対応付けます。
+address／data／maskの状態、command／statusの述語、型keyの同一性、消去、既定packは別々の観測です。
+getterだけでは、targetの転送、maskの適用、streaming engine、DMI accessを示しません。

@@ -3,7 +3,7 @@
 [日本語](history.ja.md) · [README](../README.md)
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and five cross-milestone thin-area expansions (905 simulation tests). The earlier 349-test checkpoint is
+three M4 increments and six cross-milestone thin-area expansions (925 simulation tests). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -1573,3 +1573,41 @@ English/Japanese guides. The glossary reaches 111 entries and the FAQ 97
 answers, including a paired four-phase diagram. Control getters are separated
 from their untested side effects, and explicit prediction from physical
 traffic. README retains the current state; this section records the increment.
+
+## Sixth thin-area expansion across M1–M4
+
+Twenty simulations extend the 905-case baseline at
+[8437db3](https://github.com/kurochan001/kirimasim-uvm-tests/commit/8437db393929aaa45d80a74f5021f68e1e8a1d0b)
+to 925 cases in 21 directories: 287 M1, 384 M2 and 254 M3. All baseline test
+inputs remain unchanged. M1 adds eight component-hierarchy cases for parent,
+name/depth, child queues, direct membership, cursor boundaries and lookup.
+M2 adds four indexed TLM 1 transfer cases, including a parent-port fanout.
+M3 adds eight symbolic HDL-description cases: two standard concat APIs and
+six kind/default/block-path cases. Chapter 17 now has its first two primary
+fixtures; neither attempts HDL or DPI access.
+
+Verilator 5.052 with pinned UVM matches seventeen additions at seeds 1 and 73.
+Two concat API fixtures cannot build and one block-default inheritance case
+retains a runtime difference at seed 1. The compatible full snapshot has
+835 matches and 90 known differences: 81 runtime first differences at seed 1
+and nine missing-API builds without runtime seed results. Ghost bundled
+matches six additions and differs on fourteen at each seed; the full set is
+188 matches and 737 failures with identical failing sets. kirimasim reports
+18 additions unsupported and two missing-API failures, reaching 916 unsupported
+and nine failures. Runner, executable/profile and library identities remain
+compatible. No pinned-mode Ghost measurement is added.
+
+M4 adds 61 AI drafts and maps all twenty additions plus 21 existing payload/
+extension fixtures. The ledger contains 604 drafts, 600 with direct links to
+636 tests, one additional control and 288 unmapped tests. Of 2,504 identifiers,
+438 have partial decomposition and 2,066 remain unassessed; 402 have primary
+focus and 931 any citation. The 2,479-candidate primary census is 2,077 zero,
+186 one and 216 at least two. Four drafts still lack direct tests. Scope is
+proposed, human review is absent and no denominator or percentage is approved.
+
+Validation includes 74 tool unit tests, 925 metadata records, ledger/index
+integrity, final-input evidence binding and complete English/Japanese guides.
+The glossary has 115 entries and the FAQ 100 answers, including a parent-port
+fanout diagram. Symbolic HDL paths remain distinct from backend accessibility;
+payload/control state remains distinct from target execution. README records
+the current state and this section preserves increment details.

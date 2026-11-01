@@ -1,0 +1,3 @@
+UT: empty returned 0 sentinel 1
+UT: singleton returned 1 named 1 handle 1
+UT: exhausted returned 0 cursor 1

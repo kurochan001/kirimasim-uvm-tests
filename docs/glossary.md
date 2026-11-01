@@ -571,3 +571,21 @@ scheduling. Timing annotation is distinct from a simulation-time wait.
 **Post-read prediction** — A READ prediction uses the supplied sampled value and
 records any access-policy side effect in desired/mirrored state. A predicted
 clear/set is not itself evidence of a physical read or its returned data.
+
+## Hierarchy, binding and HDL descriptions
+
+**Hierarchy name cursor** — The child name passed by reference to component
+iteration methods. Empty or exhausted queries preserve it; it identifies a
+position within the selected parent rather than a global component search.
+
+**Resolved implementation** — A final TLM imp reached by following compatible
+port/export connections. Post-elaboration size counts these destinations,
+and indexed interface handles identify them without requiring a provider order.
+
+**HDL path kind** — A symbolic design-abstraction selector such as RTL or GATE.
+Element queries can use their parent block default; an explicit kind and a
+default argument need not select the same abstraction.
+
+**Absolute HDL path root** — A register-block path prefix that replaces
+ancestor/incremental HDL paths for one kind. It is distinct from the implicit
+UVM component root and does not establish that a named HDL object exists.

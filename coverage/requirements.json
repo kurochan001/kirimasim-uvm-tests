@@ -21650,6 +21650,2382 @@
           ]
         }
       ]
+    },
+    {
+      "id": "UVM-COMPONENT-PARENT-HANDLE",
+      "clause": "13.1.3.1",
+      "statement": {
+        "en": "A component parent query returns its actual hierarchy parent.",
+        "ja": "componentの親の照会は、実際の階層の親を返す。"
+      },
+      "conditions": {
+        "en": "Create two branches with identically named leaves.",
+        "ja": "同じleaf名を持つ2 branchを作る。"
+      },
+      "expected": {
+        "en": "Each branch and leaf returns the configured parent handle.",
+        "ja": "各branchとleafが設定した親handleを返す。"
+      },
+      "limitations": {
+        "en": "Explicit component names/handles only, with immediate children distinguished from descendants. Returned queue edits are caller-local; traversal checks membership/count and exhausted cursors without specifying visit order. No wildcard lookup, active-iteration mutation or dynamic renaming is covered.",
+        "ja": "componentの名前／handleを明示し、直接の子と子孫を区別する。返したqueueの変更は呼出し側だけに作用し、走査は訪問順を指定せず所属／件数／終端cursorを検査する。wildcard lookup、走査途中の変更、動的な改名は扱わない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_parent_names_and_depth_follow_the_explicit_hierarchy",
+          "role": "direct",
+          "expected_observations": [
+            "UT: parents 1 1 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-FULL-NAME",
+      "clause": "13.1.3.2",
+      "statement": {
+        "en": "A component full name composes its parent path and local name with dots.",
+        "ja": "componentのfull nameは、親pathとlocal名をdotで合成する。"
+      },
+      "conditions": {
+        "en": "Use top, left/right branches and repeated slot leaf names.",
+        "ja": "top、left／right branch、繰り返すslotのleaf名を使う。"
+      },
+      "expected": {
+        "en": "Full names include the parent chain and distinguish the equal local leaf names.",
+        "ja": "full nameは親の連鎖を含み、等しいlocal leaf名を区別する。"
+      },
+      "limitations": {
+        "en": "Explicit component names/handles only, with immediate children distinguished from descendants. Returned queue edits are caller-local; traversal checks membership/count and exhausted cursors without specifying visit order. No wildcard lookup, active-iteration mutation or dynamic renaming is covered.",
+        "ja": "componentの名前／handleを明示し、直接の子と子孫を区別する。返したqueueの変更は呼出し側だけに作用し、走査は訪問順を指定せず所属／件数／終端cursorを検査する。wildcard lookup、走査途中の変更、動的な改名は扱わない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_parent_names_and_depth_follow_the_explicit_hierarchy",
+          "role": "direct",
+          "expected_observations": [
+            "UT: names top top.left top.left.slot",
+            "UT: same_leaf_names 1 distinct_full_names 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-CHILDREN-APPEND",
+      "clause": "13.1.3.3",
+      "statement": {
+        "en": "get_children appends immediate children to the supplied queue.",
+        "ja": "get_childrenは、指定queueへ直接の子を追加する。"
+      },
+      "conditions": {
+        "en": "Retain a prefix and reuse a caller-edited result queue.",
+        "ja": "prefixを保ち、呼出し側が編集した結果queueを再利用する。"
+      },
+      "expected": {
+        "en": "Prefixes survive and each appended result contains immediate children rather than descendants.",
+        "ja": "prefixを保ち、各追加結果は子孫ではなく直接の子を含む。"
+      },
+      "limitations": {
+        "en": "Explicit component names/handles only, with immediate children distinguished from descendants. Returned queue edits are caller-local; traversal checks membership/count and exhausted cursors without specifying visit order. No wildcard lookup, active-iteration mutation or dynamic renaming is covered.",
+        "ja": "componentの名前／handleを明示し、直接の子と子孫を区別する。返したqueueの変更は呼出し側だけに作用し、走査は訪問順を指定せず所属／件数／終端cursorを検査する。wildcard lookup、走査途中の変更、動的な改名は扱わない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_children_append_preserves_prefix_and_excludes_descendants",
+          "role": "direct",
+          "expected_observations": [
+            "UT: size 3 prefix 1 members 1 immediate_only 1"
+          ]
+        },
+        {
+          "test": "u13/test_component_children_results_are_caller_owned_and_scoped_to_each_parent",
+          "role": "direct",
+          "expected_observations": [
+            "UT: initial sizes 2 1 left_child 1",
+            "UT: edited_then_appended size 3 prefix 1 hierarchy_count 2",
+            "UT: peer_result unchanged 1 parent_count 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-DIRECT-CHILD-HANDLE",
+      "clause": "13.1.3.4",
+      "statement": {
+        "en": "Direct child lookup returns the named immediate child or null for an absent direct name.",
+        "ja": "直接の子の照会は、名前の一致する直接の子を返し、欠けた直接名ではnullを返す。"
+      },
+      "conditions": {
+        "en": "Query local child names on both branches and an absent name.",
+        "ja": "両branchのlocalな子名と、欠けた名前を照会する。"
+      },
+      "expected": {
+        "en": "Returned handles identify the correct branch-local child; an absent child returns null.",
+        "ja": "返すhandleは正しいbranch-localな子を識別し、欠けた子はnullを返す。"
+      },
+      "limitations": {
+        "en": "Explicit component names/handles only, with immediate children distinguished from descendants. Returned queue edits are caller-local; traversal checks membership/count and exhausted cursors without specifying visit order. No wildcard lookup, active-iteration mutation or dynamic renaming is covered.",
+        "ja": "componentの名前／handleを明示し、直接の子と子孫を区別する。返したqueueの変更は呼出し側だけに作用し、走査は訪問順を指定せず所属／件数／終端cursorを検査する。wildcard lookup、走査途中の変更、動的な改名は扱わない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_direct_child_queries_distinguish_nested_and_missing_names",
+          "role": "direct",
+          "expected_observations": [
+            "UT: direct present 1 handle 1 missing 1",
+            "UT: nested_not_direct 1 missing_handle 1",
+            "UT: local_slots 1 1 distinct 1"
+          ]
+        },
+        {
+          "test": "u13/test_component_child_iteration_preserves_empty_and_exhausted_name_cursors",
+          "role": "direct",
+          "expected_observations": [
+            "UT: singleton returned 1 named 1 handle 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-CHILD-ITERATION-CURSOR",
+      "clause": "13.1.3.4",
+      "statement": {
+        "en": "Child iteration preserves the name when empty or exhausted and advances within the selected parent.",
+        "ja": "子の走査は、空／終端で名前を保ち、選択した親の範囲で進む。"
+      },
+      "conditions": {
+        "en": "Inspect empty/singleton boundaries and interleave two parent traversals.",
+        "ja": "空／1 entryの境界を照会し、2つの親の走査を交互に行う。"
+      },
+      "expected": {
+        "en": "Sentinel/final names survive zero returns and each parent yields its own two members once.",
+        "ja": "0を返すときsentinel／最後の名前を保ち、各親で自身の2要素を1回ずつ返す。"
+      },
+      "limitations": {
+        "en": "Explicit component names/handles only, with immediate children distinguished from descendants. Returned queue edits are caller-local; traversal checks membership/count and exhausted cursors without specifying visit order. No wildcard lookup, active-iteration mutation or dynamic renaming is covered.",
+        "ja": "componentの名前／handleを明示し、直接の子と子孫を区別する。返したqueueの変更は呼出し側だけに作用し、走査は訪問順を指定せず所属／件数／終端cursorを検査する。wildcard lookup、走査途中の変更、動的な改名は扱わない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_child_iteration_preserves_empty_and_exhausted_name_cursors",
+          "role": "direct",
+          "expected_observations": [
+            "UT: empty returned 0 sentinel 1",
+            "UT: singleton returned 1 named 1 handle 1",
+            "UT: exhausted returned 0 cursor 1"
+          ]
+        },
+        {
+          "test": "u13/test_component_interleaved_child_iterators_keep_parent_membership_separate",
+          "role": "direct",
+          "expected_observations": [
+            "UT: top count 2 members 3 cursor 1",
+            "UT: left count 2 members 3 cursor 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-IMMEDIATE-CHILD-COUNT",
+      "clause": "13.1.3.5",
+      "statement": {
+        "en": "A component child count includes immediate children only.",
+        "ja": "componentの子の件数は、直接の子だけを数える。"
+      },
+      "conditions": {
+        "en": "Use top, branch and leaf nodes and edit a returned list independently.",
+        "ja": "top、branch、leafを使い、返したlistを独立に編集する。"
+      },
+      "expected": {
+        "en": "Counts remain two at top, one per branch and zero at the leaf.",
+        "ja": "件数はtopで2、各branchで1、leafで0を保つ。"
+      },
+      "limitations": {
+        "en": "Explicit component names/handles only, with immediate children distinguished from descendants. Returned queue edits are caller-local; traversal checks membership/count and exhausted cursors without specifying visit order. No wildcard lookup, active-iteration mutation or dynamic renaming is covered.",
+        "ja": "componentの名前／handleを明示し、直接の子と子孫を区別する。返したqueueの変更は呼出し側だけに作用し、走査は訪問順を指定せず所属／件数／終端cursorを検査する。wildcard lookup、走査途中の変更、動的な改名は扱わない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_children_append_preserves_prefix_and_excludes_descendants",
+          "role": "direct",
+          "expected_observations": [
+            "UT: counts top 2 left 1 leaf 0"
+          ]
+        },
+        {
+          "test": "u13/test_component_children_results_are_caller_owned_and_scoped_to_each_parent",
+          "role": "direct",
+          "expected_observations": [
+            "UT: edited_then_appended size 3 prefix 1 hierarchy_count 2",
+            "UT: peer_result unchanged 1 parent_count 1"
+          ]
+        },
+        {
+          "test": "u13/test_component_failed_lookup_keeps_hierarchy_and_does_not_search_by_leaf_suffix",
+          "role": "direct",
+          "expected_observations": [
+            "UT: unchanged counts 2 1 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-DIRECT-CHILD-MEMBERSHIP",
+      "clause": "13.1.3.6",
+      "statement": {
+        "en": "has_child tests a direct local child name rather than a descendant path.",
+        "ja": "has_childは、子孫pathではなく直接のlocalな子名を検査する。"
+      },
+      "conditions": {
+        "en": "Query a direct name, a repeated descendant name, a dotted path and an absent name.",
+        "ja": "直接名、繰り返す子孫名、dot付きpath、欠けた名前を照会する。"
+      },
+      "expected": {
+        "en": "Only the direct child name is present under the top node.",
+        "ja": "top nodeでは直接の子名だけが存在する。"
+      },
+      "limitations": {
+        "en": "Explicit component names/handles only, with immediate children distinguished from descendants. Returned queue edits are caller-local; traversal checks membership/count and exhausted cursors without specifying visit order. No wildcard lookup, active-iteration mutation or dynamic renaming is covered.",
+        "ja": "componentの名前／handleを明示し、直接の子と子孫を区別する。返したqueueの変更は呼出し側だけに作用し、走査は訪問順を指定せず所属／件数／終端cursorを検査する。wildcard lookup、走査途中の変更、動的な改名は扱わない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_direct_child_queries_distinguish_nested_and_missing_names",
+          "role": "direct",
+          "expected_observations": [
+            "UT: direct present 1 handle 1 missing 1",
+            "UT: nested_not_direct 1 missing_handle 1",
+            "UT: local_slots 1 1 distinct 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-RELATIVE-LOOKUP",
+      "clause": "13.1.3.7",
+      "statement": {
+        "en": "Component relative lookup starts at the receiver component.",
+        "ja": "componentの相対lookupは、受信側componentから開始する。"
+      },
+      "conditions": {
+        "en": "Query a local slot and a nested branch path with no leading dot.",
+        "ja": "先頭dotなしで、local slotと入れ子のbranch pathを照会する。"
+      },
+      "expected": {
+        "en": "Each query returns the intended descendant of its own receiver.",
+        "ja": "各照会は、自身の受信側の意図した子孫を返す。"
+      },
+      "limitations": {
+        "en": "Explicit component names/handles only, with immediate children distinguished from descendants. Returned queue edits are caller-local; traversal checks membership/count and exhausted cursors without specifying visit order. No wildcard lookup, active-iteration mutation or dynamic renaming is covered.",
+        "ja": "componentの名前／handleを明示し、直接の子と子孫を区別する。返したqueueの変更は呼出し側だけに作用し、走査は訪問順を指定せず所属／件数／終端cursorを検査する。wildcard lookup、走査途中の変更、動的な改名は扱わない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_lookup_resolves_relative_and_absolute_paths_from_a_descendant",
+          "role": "direct",
+          "expected_observations": [
+            "UT: relative parent 1 nested 1",
+            "UT: own_branch 1 peer_branch 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-ABSOLUTE-LOOKUP",
+      "clause": "13.1.3.7",
+      "statement": {
+        "en": "A leading-dot lookup starts at the implicit hierarchy root.",
+        "ja": "先頭dotのlookupは、暗黙の階層rootから開始する。"
+      },
+      "conditions": {
+        "en": "Perform cross-branch absolute lookups from a branch and a leaf.",
+        "ja": "branchとleafから、branchをまたぐ絶対lookupを行う。"
+      },
+      "expected": {
+        "en": "Both absolute paths return the named leaf independent of the calling branch.",
+        "ja": "両絶対pathは、呼出しbranchと独立して名前の一致するleafを返す。"
+      },
+      "limitations": {
+        "en": "Explicit component names/handles only, with immediate children distinguished from descendants. Returned queue edits are caller-local; traversal checks membership/count and exhausted cursors without specifying visit order. No wildcard lookup, active-iteration mutation or dynamic renaming is covered.",
+        "ja": "componentの名前／handleを明示し、直接の子と子孫を区別する。返したqueueの変更は呼出し側だけに作用し、走査は訪問順を指定せず所属／件数／終端cursorを検査する。wildcard lookup、走査途中の変更、動的な改名は扱わない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_lookup_resolves_relative_and_absolute_paths_from_a_descendant",
+          "role": "direct",
+          "expected_observations": [
+            "UT: absolute cross_branch 1 root_path 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-MISSING-LOOKUP",
+      "clause": "13.1.3.7",
+      "statement": {
+        "en": "An unmatched component lookup returns null and leaves the hierarchy unchanged.",
+        "ja": "一致しないcomponent lookupはnullを返し、階層を変更しない。"
+      },
+      "conditions": {
+        "en": "Query missing relative, nested and absolute paths before valid lookups.",
+        "ja": "有効なlookupの前に、欠けた相対、入れ子、絶対pathを照会する。"
+      },
+      "expected": {
+        "en": "All failed paths return null; valid branch-specific paths and child counts are retained.",
+        "ja": "失敗pathはすべてnullを返し、有効なbranch固有pathと子の件数を保つ。"
+      },
+      "limitations": {
+        "en": "Explicit component names/handles only, with immediate children distinguished from descendants. Returned queue edits are caller-local; traversal checks membership/count and exhausted cursors without specifying visit order. No wildcard lookup, active-iteration mutation or dynamic renaming is covered.",
+        "ja": "componentの名前／handleを明示し、直接の子と子孫を区別する。返したqueueの変更は呼出し側だけに作用し、走査は訪問順を指定せず所属／件数／終端cursorを検査する。wildcard lookup、走査途中の変更、動的な改名は扱わない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_failed_lookup_keeps_hierarchy_and_does_not_search_by_leaf_suffix",
+          "role": "direct",
+          "expected_observations": [
+            "UT: missing relative 1 nested 1 absolute 1",
+            "UT: valid_after_failure 1 1",
+            "UT: unchanged counts 2 1 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-HIERARCHY-DEPTH",
+      "clause": "13.1.3.8",
+      "statement": {
+        "en": "Component depth counts levels from the implicit root at depth zero.",
+        "ja": "componentのdepthは、深さ0の暗黙rootからの段数を数える。"
+      },
+      "conditions": {
+        "en": "Inspect root, top, branch and leaf nodes.",
+        "ja": "root、top、branch、leafを照会する。"
+      },
+      "expected": {
+        "en": "The observed depths are zero, one, two and three.",
+        "ja": "観測するdepthは0、1、2、3になる。"
+      },
+      "limitations": {
+        "en": "Explicit component names/handles only, with immediate children distinguished from descendants. Returned queue edits are caller-local; traversal checks membership/count and exhausted cursors without specifying visit order. No wildcard lookup, active-iteration mutation or dynamic renaming is covered.",
+        "ja": "componentの名前／handleを明示し、直接の子と子孫を区別する。返したqueueの変更は呼出し側だけに作用し、走査は訪問順を指定せず所属／件数／終端cursorを検査する。wildcard lookup、走査途中の変更、動的な改名は扱わない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_parent_names_and_depth_follow_the_explicit_hierarchy",
+          "role": "direct",
+          "expected_observations": [
+            "UT: depths 0 1 2 3"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PORT-RESOLVED-IMPLEMENTATION-COUNT",
+      "clause": "5.5.2.12",
+      "statement": {
+        "en": "Resolved port size counts the final implementation destinations.",
+        "ja": "解決後のport sizeは、最終的なimplementation接続先を数える。"
+      },
+      "conditions": {
+        "en": "Connect directly to two implementations or reach them through one parent port.",
+        "ja": "2 implementationへ直接つなぐか、1 parent portを通して到達する。"
+      },
+      "expected": {
+        "en": "Size is two after elaboration, including the child port with only one direct parent connection.",
+        "ja": "elaboration後のsizeは2で、直接の親接続が1つの子portも2になる。"
+      },
+      "limitations": {
+        "en": "Calls occur in run_phase after automatic binding resolution, using valid two-destination cardinality. Handle membership selects expected receiver data without assuming provider index order. Only compatible TLM 1 interfaces and a child-to-parent port shape are covered; default-index setters, invalid cardinalities and connection diagnostics remain separate.",
+        "ja": "自動binding解決後のrun_phaseで、接続先2つという有効な個数で呼ぶ。providerのindex順を仮定せず、handleの所属から受信dataの期待を選ぶ。互換TLM 1 interfaceと子から親へのport形状だけを扱い、既定indexのsetter、不正接続数、接続診断は別途扱う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_blocking_put_port_indexed_implementations_route_to_distinct_receivers",
+          "role": "direct",
+          "expected_observations": [
+            "UT: resolved size 2 members 1 distinct 1",
+            "UT: default first_index 1 blocking_return 1",
+            "UT: indexed routed 1 total_calls 3"
+          ]
+        },
+        {
+          "test": "u12/test_blocking_get_peek_port_indexed_implementations_preserve_each_source_head",
+          "role": "direct",
+          "expected_observations": [
+            "UT: resolved size 2 distinct 1",
+            "UT: selected_heads 1 both_drained 1"
+          ]
+        },
+        {
+          "test": "u12/test_nonblocking_put_port_indexed_capacity_and_rejection_are_endpoint_local",
+          "role": "direct",
+          "expected_observations": [
+            "UT: resolved size 2 distinct 1",
+            "UT: independent_capacity 1 both_full 1",
+            "UT: original_values 1 both_empty 1"
+          ]
+        },
+        {
+          "test": "u12/test_hierarchical_put_port_resolves_parent_fanout_to_the_final_implementations",
+          "role": "direct",
+          "expected_observations": [
+            "UT: resolved child 2 parent 2",
+            "UT: final_implementations 1 distinct 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PORT-INDEXED-IMPLEMENTATION-HANDLES",
+      "clause": "5.5.2.16",
+      "statement": {
+        "en": "get_if returns the resolved implementation port at a valid index.",
+        "ja": "get_ifは、有効indexで解決済みimplementation portを返す。"
+      },
+      "conditions": {
+        "en": "Inspect both indexes only after resolution and invoke their supported methods.",
+        "ja": "解決後だけに両indexを照会し、対応methodを呼ぶ。"
+      },
+      "expected": {
+        "en": "The two handles are distinct final implementations and methods reach their selected endpoints.",
+        "ja": "2 handleは異なる最終implementationで、methodは選んだendpointへ届く。"
+      },
+      "limitations": {
+        "en": "Calls occur in run_phase after automatic binding resolution, using valid two-destination cardinality. Handle membership selects expected receiver data without assuming provider index order. Only compatible TLM 1 interfaces and a child-to-parent port shape are covered; default-index setters, invalid cardinalities and connection diagnostics remain separate.",
+        "ja": "自動binding解決後のrun_phaseで、接続先2つという有効な個数で呼ぶ。providerのindex順を仮定せず、handleの所属から受信dataの期待を選ぶ。互換TLM 1 interfaceと子から親へのport形状だけを扱い、既定indexのsetter、不正接続数、接続診断は別途扱う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_blocking_put_port_indexed_implementations_route_to_distinct_receivers",
+          "role": "direct",
+          "expected_observations": [
+            "UT: resolved size 2 members 1 distinct 1",
+            "UT: default first_index 1 blocking_return 1",
+            "UT: indexed routed 1 total_calls 3"
+          ]
+        },
+        {
+          "test": "u12/test_blocking_get_peek_port_indexed_implementations_preserve_each_source_head",
+          "role": "direct",
+          "expected_observations": [
+            "UT: resolved size 2 distinct 1",
+            "UT: selected_heads 1 both_drained 1"
+          ]
+        },
+        {
+          "test": "u12/test_nonblocking_put_port_indexed_capacity_and_rejection_are_endpoint_local",
+          "role": "direct",
+          "expected_observations": [
+            "UT: resolved size 2 distinct 1",
+            "UT: independent_capacity 1 both_full 1",
+            "UT: original_values 1 both_empty 1"
+          ]
+        },
+        {
+          "test": "u12/test_hierarchical_put_port_resolves_parent_fanout_to_the_final_implementations",
+          "role": "direct",
+          "expected_observations": [
+            "UT: resolved child 2 parent 2",
+            "UT: final_implementations 1 distinct 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM1-INDEXED-BLOCKING-PUT",
+      "clause": "12.2.4.2.1",
+      "statement": {
+        "en": "Blocking puts through resolved interfaces deliver data to the selected implementation.",
+        "ja": "解決済みinterface経由のblocking putは、選んだimplementationへdataを渡す。"
+      },
+      "conditions": {
+        "en": "Use a default call and explicit implementation calls with delayed receiver methods.",
+        "ja": "遅延する受信methodで、既定の呼出しと明示implementationの呼出しを使う。"
+      },
+      "expected": {
+        "en": "The default reaches index zero, indexed values reach distinct receivers, and blocking return follows receiver work.",
+        "ja": "既定の呼出しはindex 0へ届き、index付きの値は別々の受信側へ届き、blockingの戻りは受信処理後になる。"
+      },
+      "limitations": {
+        "en": "Calls occur in run_phase after automatic binding resolution, using valid two-destination cardinality. Handle membership selects expected receiver data without assuming provider index order. Only compatible TLM 1 interfaces and a child-to-parent port shape are covered; default-index setters, invalid cardinalities and connection diagnostics remain separate.",
+        "ja": "自動binding解決後のrun_phaseで、接続先2つという有効な個数で呼ぶ。providerのindex順を仮定せず、handleの所属から受信dataの期待を選ぶ。互換TLM 1 interfaceと子から親へのport形状だけを扱い、既定indexのsetter、不正接続数、接続診断は別途扱う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_blocking_put_port_indexed_implementations_route_to_distinct_receivers",
+          "role": "direct",
+          "expected_observations": [
+            "UT: resolved size 2 members 1 distinct 1",
+            "UT: default first_index 1 blocking_return 1",
+            "UT: indexed routed 1 total_calls 3"
+          ]
+        },
+        {
+          "test": "u12/test_hierarchical_put_port_resolves_parent_fanout_to_the_final_implementations",
+          "role": "direct",
+          "expected_observations": [
+            "UT: resolved child 2 parent 2",
+            "UT: final_implementations 1 distinct 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM1-INDEXED-BLOCKING-GET",
+      "clause": "12.2.4.2.2",
+      "statement": {
+        "en": "A blocking get through an indexed implementation consumes that source value.",
+        "ja": "index付きimplementation経由のblocking getは、そのsourceの値を消費する。"
+      },
+      "conditions": {
+        "en": "Use two sources with values 17 and 42 and retrieve each through its resolved handle.",
+        "ja": "値17／42の2 sourceを使い、それぞれ解決済みhandle経由で取得する。"
+      },
+      "expected": {
+        "en": "Each get returns its selected head and removes exactly one entry; both sources finally drain.",
+        "ja": "各getは選んだ先頭値を返し、ちょうど1 entryを削除して、最後には両sourceが空になる。"
+      },
+      "limitations": {
+        "en": "Calls occur in run_phase after automatic binding resolution, using valid two-destination cardinality. Handle membership selects expected receiver data without assuming provider index order. Only compatible TLM 1 interfaces and a child-to-parent port shape are covered; default-index setters, invalid cardinalities and connection diagnostics remain separate.",
+        "ja": "自動binding解決後のrun_phaseで、接続先2つという有効な個数で呼ぶ。providerのindex順を仮定せず、handleの所属から受信dataの期待を選ぶ。互換TLM 1 interfaceと子から親へのport形状だけを扱い、既定indexのsetter、不正接続数、接続診断は別途扱う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_blocking_get_peek_port_indexed_implementations_preserve_each_source_head",
+          "role": "direct",
+          "expected_observations": [
+            "UT: resolved size 2 distinct 1",
+            "UT: selected_heads 1 both_drained 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM1-INDEXED-BLOCKING-PEEK",
+      "clause": "12.2.4.2.3",
+      "statement": {
+        "en": "A blocking peek through an indexed implementation observes its source without consumption.",
+        "ja": "index付きimplementation経由のblocking peekは、そのsourceを消費せず観測する。"
+      },
+      "conditions": {
+        "en": "Peek twice before each selected get.",
+        "ja": "選んだ各getの前に2回peekする。"
+      },
+      "expected": {
+        "en": "Both peeks return the same selected head without reducing total occupancy.",
+        "ja": "両peekは合計の保存件数を減らさず、同じ選択先頭値を返す。"
+      },
+      "limitations": {
+        "en": "Calls occur in run_phase after automatic binding resolution, using valid two-destination cardinality. Handle membership selects expected receiver data without assuming provider index order. Only compatible TLM 1 interfaces and a child-to-parent port shape are covered; default-index setters, invalid cardinalities and connection diagnostics remain separate.",
+        "ja": "自動binding解決後のrun_phaseで、接続先2つという有効な個数で呼ぶ。providerのindex順を仮定せず、handleの所属から受信dataの期待を選ぶ。互換TLM 1 interfaceと子から親へのport形状だけを扱い、既定indexのsetter、不正接続数、接続診断は別途扱う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_blocking_get_peek_port_indexed_implementations_preserve_each_source_head",
+          "role": "direct",
+          "expected_observations": [
+            "UT: resolved size 2 distinct 1",
+            "UT: selected_heads 1 both_drained 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM1-INDEXED-PUT-CAPACITY",
+      "clause": "12.2.4.2.5",
+      "statement": {
+        "en": "Indexed can_put reflects the selected implementation capacity independently.",
+        "ja": "index付きcan_putは、選んだimplementationの容量を独立に反映する。"
+      },
+      "conditions": {
+        "en": "Use two one-entry FIFO implementations and fill each separately.",
+        "ja": "1 entry FIFOのimplementationを2つ使い、別々に満たす。"
+      },
+      "expected": {
+        "en": "Each is initially available and becomes unavailable only after its own accepted put.",
+        "ja": "各FIFOは最初は利用でき、自身のputが受理された後に利用不可になる。"
+      },
+      "limitations": {
+        "en": "Calls occur in run_phase after automatic binding resolution, using valid two-destination cardinality. Handle membership selects expected receiver data without assuming provider index order. Only compatible TLM 1 interfaces and a child-to-parent port shape are covered; default-index setters, invalid cardinalities and connection diagnostics remain separate.",
+        "ja": "自動binding解決後のrun_phaseで、接続先2つという有効な個数で呼ぶ。providerのindex順を仮定せず、handleの所属から受信dataの期待を選ぶ。互換TLM 1 interfaceと子から親へのport形状だけを扱い、既定indexのsetter、不正接続数、接続診断は別途扱う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_nonblocking_put_port_indexed_capacity_and_rejection_are_endpoint_local",
+          "role": "direct",
+          "expected_observations": [
+            "UT: resolved size 2 distinct 1",
+            "UT: independent_capacity 1 both_full 1",
+            "UT: original_values 1 both_empty 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM1-INDEXED-PUT-REJECTION",
+      "clause": "12.2.4.2.4",
+      "statement": {
+        "en": "A full indexed FIFO implementation rejects a nonblocking put without overwriting its queued value.",
+        "ja": "満杯のindex付きFIFO implementationは、保存値を上書きせずnonblocking putを拒否する。"
+      },
+      "conditions": {
+        "en": "Accept one distinct value per endpoint then attempt value 99 while full.",
+        "ja": "endpointごとに異なる1値を受理し、満杯で値99を試す。"
+      },
+      "expected": {
+        "en": "Rejected attempts return zero and later gets return the original selected values.",
+        "ja": "拒否する試行は0を返し、後のgetは元の選択値を返す。"
+      },
+      "limitations": {
+        "en": "Calls occur in run_phase after automatic binding resolution, using valid two-destination cardinality. Handle membership selects expected receiver data without assuming provider index order. Only compatible TLM 1 interfaces and a child-to-parent port shape are covered; default-index setters, invalid cardinalities and connection diagnostics remain separate.",
+        "ja": "自動binding解決後のrun_phaseで、接続先2つという有効な個数で呼ぶ。providerのindex順を仮定せず、handleの所属から受信dataの期待を選ぶ。互換TLM 1 interfaceと子から親へのport形状だけを扱い、既定indexのsetter、不正接続数、接続診断は別途扱う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_nonblocking_put_port_indexed_capacity_and_rejection_are_endpoint_local",
+          "role": "direct",
+          "expected_observations": [
+            "UT: resolved size 2 distinct 1",
+            "UT: independent_capacity 1 both_full 1",
+            "UT: original_values 1 both_empty 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PORT-PARENT-FANOUT-RESOLUTION",
+      "clause": "5.5.2.15",
+      "statement": {
+        "en": "Binding resolution follows a child-to-parent port connection to all final implementations.",
+        "ja": "binding解決は、子から親へのport接続をたどって最終implementationすべてへ到達する。"
+      },
+      "conditions": {
+        "en": "A child port connects once to a parent port whose fanout has two receiver imps.",
+        "ja": "子portが1 parent portへ接続し、親のfanoutが2受信impを持つ。"
+      },
+      "expected": {
+        "en": "Both parent and child expose the two actual receivers and indexed traffic reaches each once.",
+        "ja": "親と子の両方が実受信側2つを公開し、index付きtrafficが各受信側へ1回届く。"
+      },
+      "limitations": {
+        "en": "Calls occur in run_phase after automatic binding resolution, using valid two-destination cardinality. Handle membership selects expected receiver data without assuming provider index order. Only compatible TLM 1 interfaces and a child-to-parent port shape are covered; default-index setters, invalid cardinalities and connection diagnostics remain separate.",
+        "ja": "自動binding解決後のrun_phaseで、接続先2つという有効な個数で呼ぶ。providerのindex順を仮定せず、handleの所属から受信dataの期待を選ぶ。互換TLM 1 interfaceと子から親へのport形状だけを扱い、既定indexのsetter、不正接続数、接続診断は別途扱う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_hierarchical_put_port_resolves_parent_fanout_to_the_final_implementations",
+          "role": "direct",
+          "expected_observations": [
+            "UT: resolved child 2 parent 2",
+            "UT: final_implementations 1 distinct 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-HDL-CONCAT-SET-SLICES",
+      "clause": "17.2.3.3.2",
+      "statement": {
+        "en": "The standard set_slices method initializes a concat from the supplied slice array.",
+        "ja": "標準のset_slices methodは、指定slice配列からconcatを初期化する。"
+      },
+      "conditions": {
+        "en": "Supply two eight-bit slices at offsets eight and zero in most-to-least order.",
+        "ja": "最上位から最下位の順で、offset 8／0に8-bit sliceを2つ渡す。"
+      },
+      "expected": {
+        "en": "The standard getter returns both supplied paths, offsets and sizes.",
+        "ja": "標準getterが、指定した両path、offset、sizeを返す。"
+      },
+      "limitations": {
+        "en": "Only symbolic path/slice metadata is mapped; no HDL variable exists and no DPI read/write/accessibility is tested. Slice inputs are most-to-least significant, nonoverlapping and use the standard APIs. Missing concat accessors remain spec-only; register/memory kind tests inspect path counts and kind membership, not returned slice geometry or full element paths.",
+        "ja": "symbolicなpath／slice metadataだけを対応付け、HDL変数はなく、DPIのread／write／利用可否は検査しない。slice入力は最上位から最下位の順で重ならず、標準APIを使う。欠けたconcat accessorはspec-onlyを保つ。register／memoryのkind検査はpath数とkindの所属を扱い、返すslice形状やelement全体のpathは検査しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u17/test_hdl_concat_standard_set_slices_initializes_a_split_register_description",
+          "role": "direct",
+          "expected_observations": [
+            "UT: slices 2 high 1 low 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-HDL-CONCAT-GET-SLICES",
+      "clause": "17.2.3.3.3",
+      "statement": {
+        "en": "The standard get_slices method returns the configured slice array.",
+        "ja": "標準のget_slices methodは、設定したslice配列を返す。"
+      },
+      "conditions": {
+        "en": "Prepare a concat using add_slice or set_slices, then call the standard getter.",
+        "ja": "add_sliceまたはset_slicesでconcatを準備し、標準getterを呼ぶ。"
+      },
+      "expected": {
+        "en": "The result contains high then low with offsets eight/zero and sizes eight.",
+        "ja": "結果はhigh、lowの順で、offset 8／0、size 8を含む。"
+      },
+      "limitations": {
+        "en": "Only symbolic path/slice metadata is mapped; no HDL variable exists and no DPI read/write/accessibility is tested. Slice inputs are most-to-least significant, nonoverlapping and use the standard APIs. Missing concat accessors remain spec-only; register/memory kind tests inspect path counts and kind membership, not returned slice geometry or full element paths.",
+        "ja": "symbolicなpath／slice metadataだけを対応付け、HDL変数はなく、DPIのread／write／利用可否は検査しない。slice入力は最上位から最下位の順で重ならず、標準APIを使う。欠けたconcat accessorはspec-onlyを保つ。register／memoryのkind検査はpath数とkindの所属を扱い、返すslice形状やelement全体のpathは検査しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u17/test_hdl_concat_standard_get_slices_returns_the_appended_most_to_least_order",
+          "role": "direct",
+          "expected_observations": [
+            "UT: slices 2 high 1 low 1"
+          ]
+        },
+        {
+          "test": "u17/test_hdl_concat_standard_set_slices_initializes_a_split_register_description",
+          "role": "direct",
+          "expected_observations": [
+            "UT: slices 2 high 1 low 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-HDL-CONCAT-APPEND-SLICES",
+      "clause": "17.2.3.3.4",
+      "statement": {
+        "en": "add_slice appends a valid next slice to the concat.",
+        "ja": "add_sliceは、次の有効sliceをconcatへ追加する。"
+      },
+      "conditions": {
+        "en": "Append high and low slices and inspect with get_slices.",
+        "ja": "highとlowのsliceを追加し、get_slicesで照会する。"
+      },
+      "expected": {
+        "en": "The resulting array retains the supplied most-to-least order and geometry.",
+        "ja": "結果の配列は、指定した最上位から最下位の順序と形状を保つ。"
+      },
+      "limitations": {
+        "en": "Only symbolic path/slice metadata is mapped; no HDL variable exists and no DPI read/write/accessibility is tested. Slice inputs are most-to-least significant, nonoverlapping and use the standard APIs. Missing concat accessors remain spec-only; register/memory kind tests inspect path counts and kind membership, not returned slice geometry or full element paths.",
+        "ja": "symbolicなpath／slice metadataだけを対応付け、HDL変数はなく、DPIのread／write／利用可否は検査しない。slice入力は最上位から最下位の順で重ならず、標準APIを使う。欠けたconcat accessorはspec-onlyを保つ。register／memoryのkind検査はpath数とkindの所属を扱い、返すslice形状やelement全体のpathは検査しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u17/test_hdl_concat_standard_get_slices_returns_the_appended_most_to_least_order",
+          "role": "direct",
+          "expected_observations": [
+            "UT: slices 2 high 1 low 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-HDL-DEFAULT-INHERITANCE",
+      "clause": "18.1.6.9",
+      "statement": {
+        "en": "An unspecified block default HDL abstraction inherits the nearest explicitly configured ancestor default.",
+        "ja": "未指定のblockの既定HDL abstractionは、最も近い明示設定済み祖先の既定を継承する。"
+      },
+      "conditions": {
+        "en": "Change the root default, set a child-local override and change the root again.",
+        "ja": "rootの既定を変更し、子でlocal overrideを設定して、再びrootを変更する。"
+      },
+      "expected": {
+        "en": "Unspecified descendants follow their nearest setting while a child override and its descendants retain RTL.",
+        "ja": "未指定の子孫は最も近い設定に従い、子のoverrideとその子孫はRTLを保つ。"
+      },
+      "limitations": {
+        "en": "Only symbolic path/slice metadata is mapped; no HDL variable exists and no DPI read/write/accessibility is tested. Slice inputs are most-to-least significant, nonoverlapping and use the standard APIs. Missing concat accessors remain spec-only; register/memory kind tests inspect path counts and kind membership, not returned slice geometry or full element paths.",
+        "ja": "symbolicなpath／slice metadataだけを対応付け、HDL変数はなく、DPIのread／write／利用可否は検査しない。slice入力は最上位から最下位の順で重ならず、標準APIを使う。欠けたconcat accessorはspec-onlyを保つ。register／memoryのkind検査はpath数とkindの所属を扱い、返すslice形状やelement全体のpathは検査しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_hdl_default_abstraction_inherits_from_the_nearest_configured_ancestor",
+          "role": "direct",
+          "expected_observations": [
+            "UT: initial RTL RTL RTL",
+            "UT: inherited GATE GATE",
+            "UT: overridden child RTL grandchild RTL sibling SYN"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-HDL-DUPLICATE-COMBINATIONS",
+      "clause": "18.1.6.8",
+      "statement": {
+        "en": "Full block HDL paths combine alternatives at each ancestor level.",
+        "ja": "blockの全HDL pathは、各祖先段の代替pathを組み合わせる。"
+      },
+      "conditions": {
+        "en": "Supply two alternatives at each of three levels.",
+        "ja": "3段それぞれに2つの代替pathを設定する。"
+      },
+      "expected": {
+        "en": "Eight unique paths contain all parent/child/grandchild combinations.",
+        "ja": "8つの一意pathが、親／子／孫の全組合せを含む。"
+      },
+      "limitations": {
+        "en": "Only symbolic path/slice metadata is mapped; no HDL variable exists and no DPI read/write/accessibility is tested. Slice inputs are most-to-least significant, nonoverlapping and use the standard APIs. Missing concat accessors remain spec-only; register/memory kind tests inspect path counts and kind membership, not returned slice geometry or full element paths.",
+        "ja": "symbolicなpath／slice metadataだけを対応付け、HDL変数はなく、DPIのread／write／利用可否は検査しない。slice入力は最上位から最下位の順で重ならず、標準APIを使う。欠けたconcat accessorはspec-onlyを保つ。register／memoryのkind検査はpath数とkindの所属を扱い、返すslice形状やelement全体のpathは検査しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_full_hdl_paths_expand_parent_duplicates_and_preserve_a_custom_separator",
+          "role": "direct",
+          "expected_observations": [
+            "UT: dotted paths 8 unique 8 combinations 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-HDL-CUSTOM-SEPARATOR",
+      "clause": "18.1.6.8",
+      "statement": {
+        "en": "Full block HDL paths use the caller-selected segment separator.",
+        "ja": "blockの全HDL pathは、呼出し側が選んだsegment区切りを使う。"
+      },
+      "conditions": {
+        "en": "Query the same duplicated hierarchy with dot and slash separators.",
+        "ja": "同じ重複階層をdotとslashの区切りで照会する。"
+      },
+      "expected": {
+        "en": "Both queries retain all eight unique combinations with their selected separators.",
+        "ja": "両照会は、選んだ区切りで一意な8組合せを保つ。"
+      },
+      "limitations": {
+        "en": "Only symbolic path/slice metadata is mapped; no HDL variable exists and no DPI read/write/accessibility is tested. Slice inputs are most-to-least significant, nonoverlapping and use the standard APIs. Missing concat accessors remain spec-only; register/memory kind tests inspect path counts and kind membership, not returned slice geometry or full element paths.",
+        "ja": "symbolicなpath／slice metadataだけを対応付け、HDL変数はなく、DPIのread／write／利用可否は検査しない。slice入力は最上位から最下位の順で重ならず、標準APIを使う。欠けたconcat accessorはspec-onlyを保つ。register／memoryのkind検査はpath数とkindの所属を扱い、返すslice形状やelement全体のpathは検査しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_full_hdl_paths_expand_parent_duplicates_and_preserve_a_custom_separator",
+          "role": "direct",
+          "expected_observations": [
+            "UT: dotted paths 8 unique 8 combinations 1",
+            "UT: custom paths 8 unique 8 combinations 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-ABSOLUTE-HDL-ROOT",
+      "clause": "18.1.6.11",
+      "statement": {
+        "en": "An absolute HDL root overrides ancestor and local incremental paths for its selected abstraction.",
+        "ja": "絶対HDL rootは、選んだabstractionで祖先とlocalなincremental pathを上書きする。"
+      },
+      "conditions": {
+        "en": "Set an RTL root on an intermediate block and add another ancestor RTL path.",
+        "ja": "中間blockにRTL rootを設定し、祖先に別のRTL pathを追加する。"
+      },
+      "expected": {
+        "en": "RTL resolves as absolute.leaf, while the GATE path retains its full original ancestry.",
+        "ja": "RTLはabsolute.leafとなり、GATEのpathは元の祖先全体を保つ。"
+      },
+      "limitations": {
+        "en": "Only symbolic path/slice metadata is mapped; no HDL variable exists and no DPI read/write/accessibility is tested. Slice inputs are most-to-least significant, nonoverlapping and use the standard APIs. Missing concat accessors remain spec-only; register/memory kind tests inspect path counts and kind membership, not returned slice geometry or full element paths.",
+        "ja": "symbolicなpath／slice metadataだけを対応付け、HDL変数はなく、DPIのread／write／利用可否は検査しない。slice入力は最上位から最下位の順で重ならず、標準APIを使う。欠けたconcat accessorはspec-onlyを保つ。register／memoryのkind検査はpath数とkindの所属を扱い、返すslice形状やelement全体のpathは検査しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_absolute_hdl_root_overrides_ancestor_and_incremental_paths_for_one_kind",
+          "role": "direct",
+          "expected_observations": [
+            "UT: before paths 1 value dut.sub.leaf",
+            "UT: rooted rtl 1 gate 0 paths 1 value absolute.leaf",
+            "UT: other_kind paths 1 value gate_dut.gate_sub.gate_leaf"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-HDL-ROOT-STATUS",
+      "clause": "18.1.6.12",
+      "statement": {
+        "en": "HDL root status distinguishes abstractions with and without an absolute root.",
+        "ja": "HDL rootの状態は、絶対rootのあるabstractionとないabstractionを区別する。"
+      },
+      "conditions": {
+        "en": "Install only an RTL absolute root.",
+        "ja": "RTLだけに絶対rootを設定する。"
+      },
+      "expected": {
+        "en": "RTL reports true and GATE reports false.",
+        "ja": "RTLはtrue、GATEはfalseを返す。"
+      },
+      "limitations": {
+        "en": "Only symbolic path/slice metadata is mapped; no HDL variable exists and no DPI read/write/accessibility is tested. Slice inputs are most-to-least significant, nonoverlapping and use the standard APIs. Missing concat accessors remain spec-only; register/memory kind tests inspect path counts and kind membership, not returned slice geometry or full element paths.",
+        "ja": "symbolicなpath／slice metadataだけを対応付け、HDL変数はなく、DPIのread／write／利用可否は検査しない。slice入力は最上位から最下位の順で重ならず、標準APIを使う。欠けたconcat accessorはspec-onlyを保つ。register／memoryのkind検査はpath数とkindの所属を扱い、返すslice形状やelement全体のpathは検査しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_absolute_hdl_root_overrides_ancestor_and_incremental_paths_for_one_kind",
+          "role": "direct",
+          "expected_observations": [
+            "UT: rooted rtl 1 gate 0 paths 1 value absolute.leaf"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-HDL-KIND-CLEAR",
+      "clause": "18.1.6.4",
+      "statement": {
+        "en": "Block path clearing removes only the selected kind from that instance.",
+        "ja": "blockのpath消去は、そのinstanceの指定kindだけを削除する。"
+      },
+      "conditions": {
+        "en": "Use RTL/GATE paths, a GATE default and an independent sibling block.",
+        "ja": "RTL／GATE path、GATEの既定、独立した兄弟blockを使う。"
+      },
+      "expected": {
+        "en": "Default clear removes RTL; explicit GATE clear removes GATE without changing the sibling paths.",
+        "ja": "既定clearはRTLを削除し、明示GATE clearは兄弟pathを変えずGATEを削除する。"
+      },
+      "limitations": {
+        "en": "Only symbolic path/slice metadata is mapped; no HDL variable exists and no DPI read/write/accessibility is tested. Slice inputs are most-to-least significant, nonoverlapping and use the standard APIs. Missing concat accessors remain spec-only; register/memory kind tests inspect path counts and kind membership, not returned slice geometry or full element paths.",
+        "ja": "symbolicなpath／slice metadataだけを対応付け、HDL変数はなく、DPIのread／write／利用可否は検査しない。slice入力は最上位から最下位の順で重ならず、標準APIを使う。欠けたconcat accessorはspec-onlyを保つ。register／memoryのkind検査はpath数とkindの所属を扱い、返すslice形状やelement全体のpathは検査しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_hdl_clear_is_kind_local_and_preserves_sibling_incremental_paths",
+          "role": "direct",
+          "expected_observations": [
+            "UT: clear_rtl absent 1 default_present 1 paths 2 members 1",
+            "UT: clear_gate absent 1 peer_rtl 1 peer_paths 1 peer_value peer_gate"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-INCREMENTAL-HDL-PATHS",
+      "clause": "18.1.6.7",
+      "statement": {
+        "en": "Block incremental path queries return only that block path components for the selected default kind.",
+        "ja": "blockのincremental path照会は、選んだ既定kindでそのblockのpath要素だけを返す。"
+      },
+      "conditions": {
+        "en": "Query two GATE alternatives and a sibling path after independent clearing.",
+        "ja": "独立にclearした後、2つのGATE代替pathと兄弟pathを照会する。"
+      },
+      "expected": {
+        "en": "The first query returns gate0/gate1 and the sibling retains peer_gate.",
+        "ja": "最初の照会はgate0／gate1を返し、兄弟はpeer_gateを保つ。"
+      },
+      "limitations": {
+        "en": "Only symbolic path/slice metadata is mapped; no HDL variable exists and no DPI read/write/accessibility is tested. Slice inputs are most-to-least significant, nonoverlapping and use the standard APIs. Missing concat accessors remain spec-only; register/memory kind tests inspect path counts and kind membership, not returned slice geometry or full element paths.",
+        "ja": "symbolicなpath／slice metadataだけを対応付け、HDL変数はなく、DPIのread／write／利用可否は検査しない。slice入力は最上位から最下位の順で重ならず、標準APIを使う。欠けたconcat accessorはspec-onlyを保つ。register／memoryのkind検査はpath数とkindの所属を扱い、返すslice形状やelement全体のpathは検査しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_hdl_clear_is_kind_local_and_preserves_sibling_incremental_paths",
+          "role": "direct",
+          "expected_observations": [
+            "UT: clear_rtl absent 1 default_present 1 paths 2 members 1",
+            "UT: clear_gate absent 1 peer_rtl 1 peer_paths 1 peer_value peer_gate"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGISTER-HDL-DEFAULT-KIND",
+      "clause": "18.4.6.7",
+      "statement": {
+        "en": "Default element path queries use the parent block default abstraction.",
+        "ja": "elementの既定path照会は、親blockの既定abstractionを使う。"
+      },
+      "conditions": {
+        "en": "Configure RTL/GATE metadata, choose GATE on the parent, then clear each kind.",
+        "ja": "RTL／GATE metadataを設定し、親でGATEを選び、各kindを消去する。"
+      },
+      "expected": {
+        "en": "A GATE-default query still returns one path after default clear removes RTL.",
+        "ja": "既定clearでRTLを削除した後も、GATEが既定の照会は1 pathを返す。"
+      },
+      "limitations": {
+        "en": "Only symbolic path/slice metadata is mapped; no HDL variable exists and no DPI read/write/accessibility is tested. Slice inputs are most-to-least significant, nonoverlapping and use the standard APIs. Missing concat accessors remain spec-only; register/memory kind tests inspect path counts and kind membership, not returned slice geometry or full element paths.",
+        "ja": "symbolicなpath／slice metadataだけを対応付け、HDL変数はなく、DPIのread／write／利用可否は検査しない。slice入力は最上位から最下位の順で重ならず、標準APIを使う。欠けたconcat accessorはspec-onlyを保つ。register／memoryのkind検査はpath数とkindの所属を扱い、返すslice形状やelement全体のpathは検査しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_hdl_path_default_kind_and_rtl_clear_preserve_the_other_abstraction",
+          "role": "direct",
+          "expected_observations": [
+            "UT: before default_present 1 paths 1 kinds 2 members 1",
+            "UT: rtl_clear absent 1 gate 1 default 1 paths 1 kinds 1 kind_ok 1",
+            "UT: gate_clear default_absent 1 kinds 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGISTER-HDL-PATH-PRESENCE",
+      "clause": "18.4.6.6",
+      "statement": {
+        "en": "Element path presence respects explicit kinds and the parent default.",
+        "ja": "elementのpathの有無は、明示kindと親の既定を反映する。"
+      },
+      "conditions": {
+        "en": "Configure RTL/GATE metadata, choose GATE on the parent, then clear each kind.",
+        "ja": "RTL／GATE metadataを設定し、親でGATEを選び、各kindを消去する。"
+      },
+      "expected": {
+        "en": "Presence follows RTL-only then GATE clearing without silently changing the default.",
+        "ja": "既定を暗黙に変えず、RTLだけの消去と、その後のGATE消去に従って有無を返す。"
+      },
+      "limitations": {
+        "en": "Only symbolic path/slice metadata is mapped; no HDL variable exists and no DPI read/write/accessibility is tested. Slice inputs are most-to-least significant, nonoverlapping and use the standard APIs. Missing concat accessors remain spec-only; register/memory kind tests inspect path counts and kind membership, not returned slice geometry or full element paths.",
+        "ja": "symbolicなpath／slice metadataだけを対応付け、HDL変数はなく、DPIのread／write／利用可否は検査しない。slice入力は最上位から最下位の順で重ならず、標準APIを使う。欠けたconcat accessorはspec-onlyを保つ。register／memoryのkind検査はpath数とkindの所属を扱い、返すslice形状やelement全体のpathは検査しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_hdl_path_default_kind_and_rtl_clear_preserve_the_other_abstraction",
+          "role": "direct",
+          "expected_observations": [
+            "UT: before default_present 1 paths 1 kinds 2 members 1",
+            "UT: rtl_clear absent 1 gate 1 default 1 paths 1 kinds 1 kind_ok 1",
+            "UT: gate_clear default_absent 1 kinds 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGISTER-HDL-PATH-KINDS",
+      "clause": "18.4.6.8",
+      "statement": {
+        "en": "Element kind enumeration returns the currently defined abstractions.",
+        "ja": "elementのkind列挙は、現在定義したabstractionを返す。"
+      },
+      "conditions": {
+        "en": "Configure RTL/GATE metadata, choose GATE on the parent, then clear each kind.",
+        "ja": "RTL／GATE metadataを設定し、親でGATEを選び、各kindを消去する。"
+      },
+      "expected": {
+        "en": "The kind set changes from RTL/GATE to GATE alone and then empty.",
+        "ja": "kindの集合はRTL／GATEからGATEだけとなり、その後空になる。"
+      },
+      "limitations": {
+        "en": "Only symbolic path/slice metadata is mapped; no HDL variable exists and no DPI read/write/accessibility is tested. Slice inputs are most-to-least significant, nonoverlapping and use the standard APIs. Missing concat accessors remain spec-only; register/memory kind tests inspect path counts and kind membership, not returned slice geometry or full element paths.",
+        "ja": "symbolicなpath／slice metadataだけを対応付け、HDL変数はなく、DPIのread／write／利用可否は検査しない。slice入力は最上位から最下位の順で重ならず、標準APIを使う。欠けたconcat accessorはspec-onlyを保つ。register／memoryのkind検査はpath数とkindの所属を扱い、返すslice形状やelement全体のpathは検査しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_hdl_path_default_kind_and_rtl_clear_preserve_the_other_abstraction",
+          "role": "direct",
+          "expected_observations": [
+            "UT: before default_present 1 paths 1 kinds 2 members 1",
+            "UT: rtl_clear absent 1 gate 1 default 1 paths 1 kinds 1 kind_ok 1",
+            "UT: gate_clear default_absent 1 kinds 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGISTER-HDL-KIND-CLEAR",
+      "clause": "18.4.6.3",
+      "statement": {
+        "en": "Default element path clear removes RTL even when its parent default is another kind.",
+        "ja": "elementの既定path clearは、親の既定が別kindでもRTLを削除する。"
+      },
+      "conditions": {
+        "en": "Configure RTL/GATE metadata, choose GATE on the parent, then clear each kind.",
+        "ja": "RTL／GATE metadataを設定し、親でGATEを選び、各kindを消去する。"
+      },
+      "expected": {
+        "en": "GATE survives the default clear and disappears only after explicit GATE clear.",
+        "ja": "既定clearではGATEを保ち、明示GATE clear後だけに消える。"
+      },
+      "limitations": {
+        "en": "Only symbolic path/slice metadata is mapped; no HDL variable exists and no DPI read/write/accessibility is tested. Slice inputs are most-to-least significant, nonoverlapping and use the standard APIs. Missing concat accessors remain spec-only; register/memory kind tests inspect path counts and kind membership, not returned slice geometry or full element paths.",
+        "ja": "symbolicなpath／slice metadataだけを対応付け、HDL変数はなく、DPIのread／write／利用可否は検査しない。slice入力は最上位から最下位の順で重ならず、標準APIを使う。欠けたconcat accessorはspec-onlyを保つ。register／memoryのkind検査はpath数とkindの所属を扱い、返すslice形状やelement全体のpathは検査しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_hdl_path_default_kind_and_rtl_clear_preserve_the_other_abstraction",
+          "role": "direct",
+          "expected_observations": [
+            "UT: before default_present 1 paths 1 kinds 2 members 1",
+            "UT: rtl_clear absent 1 gate 1 default 1 paths 1 kinds 1 kind_ok 1",
+            "UT: gate_clear default_absent 1 kinds 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEMORY-HDL-DEFAULT-KIND",
+      "clause": "18.6.7.7",
+      "statement": {
+        "en": "Default element path queries use the parent block default abstraction.",
+        "ja": "elementの既定path照会は、親blockの既定abstractionを使う。"
+      },
+      "conditions": {
+        "en": "Configure RTL/GATE metadata, choose GATE on the parent, then clear each kind.",
+        "ja": "RTL／GATE metadataを設定し、親でGATEを選び、各kindを消去する。"
+      },
+      "expected": {
+        "en": "A GATE-default query still returns one path after default clear removes RTL.",
+        "ja": "既定clearでRTLを削除した後も、GATEが既定の照会は1 pathを返す。"
+      },
+      "limitations": {
+        "en": "Only symbolic path/slice metadata is mapped; no HDL variable exists and no DPI read/write/accessibility is tested. Slice inputs are most-to-least significant, nonoverlapping and use the standard APIs. Missing concat accessors remain spec-only; register/memory kind tests inspect path counts and kind membership, not returned slice geometry or full element paths.",
+        "ja": "symbolicなpath／slice metadataだけを対応付け、HDL変数はなく、DPIのread／write／利用可否は検査しない。slice入力は最上位から最下位の順で重ならず、標準APIを使う。欠けたconcat accessorはspec-onlyを保つ。register／memoryのkind検査はpath数とkindの所属を扱い、返すslice形状やelement全体のpathは検査しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_mem_hdl_path_default_kind_and_rtl_clear_preserve_the_other_abstraction",
+          "role": "direct",
+          "expected_observations": [
+            "UT: before default_present 1 paths 1 kinds 2 members 1",
+            "UT: rtl_clear absent 1 gate 1 default 1 paths 1 kinds 1 kind_ok 1",
+            "UT: gate_clear default_absent 1 kinds 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEMORY-HDL-PATH-PRESENCE",
+      "clause": "18.6.7.6",
+      "statement": {
+        "en": "Element path presence respects explicit kinds and the parent default.",
+        "ja": "elementのpathの有無は、明示kindと親の既定を反映する。"
+      },
+      "conditions": {
+        "en": "Configure RTL/GATE metadata, choose GATE on the parent, then clear each kind.",
+        "ja": "RTL／GATE metadataを設定し、親でGATEを選び、各kindを消去する。"
+      },
+      "expected": {
+        "en": "Presence follows RTL-only then GATE clearing without silently changing the default.",
+        "ja": "既定を暗黙に変えず、RTLだけの消去と、その後のGATE消去に従って有無を返す。"
+      },
+      "limitations": {
+        "en": "Only symbolic path/slice metadata is mapped; no HDL variable exists and no DPI read/write/accessibility is tested. Slice inputs are most-to-least significant, nonoverlapping and use the standard APIs. Missing concat accessors remain spec-only; register/memory kind tests inspect path counts and kind membership, not returned slice geometry or full element paths.",
+        "ja": "symbolicなpath／slice metadataだけを対応付け、HDL変数はなく、DPIのread／write／利用可否は検査しない。slice入力は最上位から最下位の順で重ならず、標準APIを使う。欠けたconcat accessorはspec-onlyを保つ。register／memoryのkind検査はpath数とkindの所属を扱い、返すslice形状やelement全体のpathは検査しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_mem_hdl_path_default_kind_and_rtl_clear_preserve_the_other_abstraction",
+          "role": "direct",
+          "expected_observations": [
+            "UT: before default_present 1 paths 1 kinds 2 members 1",
+            "UT: rtl_clear absent 1 gate 1 default 1 paths 1 kinds 1 kind_ok 1",
+            "UT: gate_clear default_absent 1 kinds 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEMORY-HDL-PATH-KINDS",
+      "clause": "18.6.7.8",
+      "statement": {
+        "en": "Element kind enumeration returns the currently defined abstractions.",
+        "ja": "elementのkind列挙は、現在定義したabstractionを返す。"
+      },
+      "conditions": {
+        "en": "Configure RTL/GATE metadata, choose GATE on the parent, then clear each kind.",
+        "ja": "RTL／GATE metadataを設定し、親でGATEを選び、各kindを消去する。"
+      },
+      "expected": {
+        "en": "The kind set changes from RTL/GATE to GATE alone and then empty.",
+        "ja": "kindの集合はRTL／GATEからGATEだけとなり、その後空になる。"
+      },
+      "limitations": {
+        "en": "Only symbolic path/slice metadata is mapped; no HDL variable exists and no DPI read/write/accessibility is tested. Slice inputs are most-to-least significant, nonoverlapping and use the standard APIs. Missing concat accessors remain spec-only; register/memory kind tests inspect path counts and kind membership, not returned slice geometry or full element paths.",
+        "ja": "symbolicなpath／slice metadataだけを対応付け、HDL変数はなく、DPIのread／write／利用可否は検査しない。slice入力は最上位から最下位の順で重ならず、標準APIを使う。欠けたconcat accessorはspec-onlyを保つ。register／memoryのkind検査はpath数とkindの所属を扱い、返すslice形状やelement全体のpathは検査しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_mem_hdl_path_default_kind_and_rtl_clear_preserve_the_other_abstraction",
+          "role": "direct",
+          "expected_observations": [
+            "UT: before default_present 1 paths 1 kinds 2 members 1",
+            "UT: rtl_clear absent 1 gate 1 default 1 paths 1 kinds 1 kind_ok 1",
+            "UT: gate_clear default_absent 1 kinds 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEMORY-HDL-KIND-CLEAR",
+      "clause": "18.6.7.3",
+      "statement": {
+        "en": "Default element path clear removes RTL even when its parent default is another kind.",
+        "ja": "elementの既定path clearは、親の既定が別kindでもRTLを削除する。"
+      },
+      "conditions": {
+        "en": "Configure RTL/GATE metadata, choose GATE on the parent, then clear each kind.",
+        "ja": "RTL／GATE metadataを設定し、親でGATEを選び、各kindを消去する。"
+      },
+      "expected": {
+        "en": "GATE survives the default clear and disappears only after explicit GATE clear.",
+        "ja": "既定clearではGATEを保ち、明示GATE clear後だけに消える。"
+      },
+      "limitations": {
+        "en": "Only symbolic path/slice metadata is mapped; no HDL variable exists and no DPI read/write/accessibility is tested. Slice inputs are most-to-least significant, nonoverlapping and use the standard APIs. Missing concat accessors remain spec-only; register/memory kind tests inspect path counts and kind membership, not returned slice geometry or full element paths.",
+        "ja": "symbolicなpath／slice metadataだけを対応付け、HDL変数はなく、DPIのread／write／利用可否は検査しない。slice入力は最上位から最下位の順で重ならず、標準APIを使う。欠けたconcat accessorはspec-onlyを保つ。register／memoryのkind検査はpath数とkindの所属を扱い、返すslice形状やelement全体のpathは検査しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_mem_hdl_path_default_kind_and_rtl_clear_preserve_the_other_abstraction",
+          "role": "direct",
+          "expected_observations": [
+            "UT: before default_present 1 paths 1 kinds 2 members 1",
+            "UT: rtl_clear absent 1 gate 1 default 1 paths 1 kinds 1 kind_ok 1",
+            "UT: gate_clear default_absent 1 kinds 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-GP-ADDRESS-STATE",
+      "clause": "12.3.4.2.22",
+      "statement": {
+        "en": "Payload address accessors preserve all assigned address bits independently per instance.",
+        "ja": "payloadのaddress accessorは、指定addressの全bitをinstanceごとに独立して保つ。"
+      },
+      "conditions": {
+        "en": "Assign distinct high-bit 64-bit addresses and zero one payload.",
+        "ja": "上位bitを持つ異なる64-bit addressを設定し、片方を0にする。"
+      },
+      "expected": {
+        "en": "Both original addresses are exact and the unchanged payload retains its address.",
+        "ja": "両元addressが正確で、未変更payloadは自身のaddressを保つ。"
+      },
+      "limitations": {
+        "en": "Selected matching array/length values, explicit commands/statuses and public extension handles only. Scalar/control getters do not establish target execution, byte-enable application, streaming or DMI access. Type-name spelling, private extension tables, arbitrary object copy/compare and mismatched length interpretation are not claimed; default packing links concern extensions only.",
+        "ja": "配列とlengthが一致する選択値、明示command／status、公開extension handleだけを扱う。scalar／制御getterは、target実行、byte enableの適用、streaming、DMI accessを示さない。型名の綴り、非公開extension table、任意objectのcopy／compare、length不一致の解釈は主張せず、既定packのlinkはextensionだけを扱う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_payload_address_preserves_high_bits_and_instance_state",
+          "role": "direct",
+          "expected_observations": [
+            "UT: addresses fedcba9876543210 8000000012345678",
+            "UT: updated 0 retained 8000000012345678"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-GP-COMMAND-STATE",
+      "clause": "12.3.4.2.16",
+      "statement": {
+        "en": "The command getter reflects explicit generic/read/write setters.",
+        "ja": "command getterは、明示した汎用／read／writeのsetterを反映する。"
+      },
+      "conditions": {
+        "en": "Select IGNORE, READ and WRITE successively.",
+        "ja": "IGNORE、READ、WRITEを順に選ぶ。"
+      },
+      "expected": {
+        "en": "Each query returns the selected enumeration.",
+        "ja": "各照会は、選んだenumを返す。"
+      },
+      "limitations": {
+        "en": "Selected matching array/length values, explicit commands/statuses and public extension handles only. Scalar/control getters do not establish target execution, byte-enable application, streaming or DMI access. Type-name spelling, private extension tables, arbitrary object copy/compare and mismatched length interpretation are not claimed; default packing links concern extensions only.",
+        "ja": "配列とlengthが一致する選択値、明示command／status、公開extension handleだけを扱う。scalar／制御getterは、target実行、byte enableの適用、streaming、DMI accessを示さない。型名の綴り、非公開extension table、任意objectのcopy／compare、length不一致の解釈は主張せず、既定packのlinkはextensionだけを扱う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_payload_command_accessors_select_read_write_and_ignore",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ignore 1 read 0 write 0",
+            "UT: read_command 1 read 1 write 0",
+            "UT: write_command 1 read 0 write 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-GP-READ-PREDICATE",
+      "clause": "12.3.4.2.18",
+      "statement": {
+        "en": "is_read is true only for the READ command.",
+        "ja": "is_readはREAD commandだけでtrueになる。"
+      },
+      "conditions": {
+        "en": "Observe all three standard commands.",
+        "ja": "標準の3 commandを観測する。"
+      },
+      "expected": {
+        "en": "Only the READ stage reports read true.",
+        "ja": "READ段階だけでreadがtrueになる。"
+      },
+      "limitations": {
+        "en": "Selected matching array/length values, explicit commands/statuses and public extension handles only. Scalar/control getters do not establish target execution, byte-enable application, streaming or DMI access. Type-name spelling, private extension tables, arbitrary object copy/compare and mismatched length interpretation are not claimed; default packing links concern extensions only.",
+        "ja": "配列とlengthが一致する選択値、明示command／status、公開extension handleだけを扱う。scalar／制御getterは、target実行、byte enableの適用、streaming、DMI accessを示さない。型名の綴り、非公開extension table、任意objectのcopy／compare、length不一致の解釈は主張せず、既定packのlinkはextensionだけを扱う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_payload_command_accessors_select_read_write_and_ignore",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ignore 1 read 0 write 0",
+            "UT: read_command 1 read 1 write 0",
+            "UT: write_command 1 read 0 write 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-GP-WRITE-PREDICATE",
+      "clause": "12.3.4.2.20",
+      "statement": {
+        "en": "is_write is true only for the WRITE command.",
+        "ja": "is_writeはWRITE commandだけでtrueになる。"
+      },
+      "conditions": {
+        "en": "Observe all three standard commands.",
+        "ja": "標準の3 commandを観測する。"
+      },
+      "expected": {
+        "en": "Only the WRITE stage reports write true.",
+        "ja": "WRITE段階だけでwriteがtrueになる。"
+      },
+      "limitations": {
+        "en": "Selected matching array/length values, explicit commands/statuses and public extension handles only. Scalar/control getters do not establish target execution, byte-enable application, streaming or DMI access. Type-name spelling, private extension tables, arbitrary object copy/compare and mismatched length interpretation are not claimed; default packing links concern extensions only.",
+        "ja": "配列とlengthが一致する選択値、明示command／status、公開extension handleだけを扱う。scalar／制御getterは、target実行、byte enableの適用、streaming、DMI accessを示さない。型名の綴り、非公開extension table、任意objectのcopy／compare、length不一致の解釈は主張せず、既定packのlinkはextensionだけを扱う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_payload_command_accessors_select_read_write_and_ignore",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ignore 1 read 0 write 0",
+            "UT: read_command 1 read 1 write 0",
+            "UT: write_command 1 read 0 write 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-GP-DATA-ARRAY-STATE",
+      "clause": "12.3.4.2.24",
+      "statement": {
+        "en": "Data accessors return the assigned unsigned-byte array without sharing caller array mutation.",
+        "ja": "data accessorは、呼出し側の配列変更を共有せず、指定したunsigned-byte配列を返す。"
+      },
+      "conditions": {
+        "en": "Use bytes spanning zero/high bits and replace the array with empty data.",
+        "ja": "0／上位bitを含むbyteを使い、空dataで配列を置換する。"
+      },
+      "expected": {
+        "en": "The stored bytes survive input/output-array edits and explicit empty replacement is reflected.",
+        "ja": "保存byteは入出力配列の編集後も保ち、明示した空の置換を反映する。"
+      },
+      "limitations": {
+        "en": "Selected matching array/length values, explicit commands/statuses and public extension handles only. Scalar/control getters do not establish target execution, byte-enable application, streaming or DMI access. Type-name spelling, private extension tables, arbitrary object copy/compare and mismatched length interpretation are not claimed; default packing links concern extensions only.",
+        "ja": "配列とlengthが一致する選択値、明示command／status、公開extension handleだけを扱う。scalar／制御getterは、target実行、byte enableの適用、streaming、DMI accessを示さない。型名の綴り、非公開extension table、任意objectのcopy／compare、length不一致の解釈は主張せず、既定packのlinkはextensionだけを扱う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_payload_data_accessors_copy_unsigned_bytes",
+          "role": "direct",
+          "expected_observations": [
+            "UT: length 4 array_size 4 data 0 7f 80 ff",
+            "UT: retained_last ff"
+          ]
+        },
+        {
+          "test": "u12/test_tlm2_payload_data_replacement_accepts_empty_array",
+          "role": "direct",
+          "expected_observations": [
+            "UT: first length 2 size 2 data 91 2",
+            "UT: cleared length 0 size 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-GP-CONSISTENT-DATA-LENGTH",
+      "clause": "12.3.4.2.26",
+      "statement": {
+        "en": "The data-length query agrees with an explicitly matching array/length setup.",
+        "ja": "data-length照会は、明示的に一致させた配列／lengthの設定に一致する。"
+      },
+      "conditions": {
+        "en": "Set matching lengths four, two and zero with their arrays.",
+        "ja": "対応する配列と一致するlength 4、2、0を設定する。"
+      },
+      "expected": {
+        "en": "Reported length and returned array size agree for each setup.",
+        "ja": "各設定で、報告lengthと返す配列sizeが一致する。"
+      },
+      "limitations": {
+        "en": "Selected matching array/length values, explicit commands/statuses and public extension handles only. Scalar/control getters do not establish target execution, byte-enable application, streaming or DMI access. Type-name spelling, private extension tables, arbitrary object copy/compare and mismatched length interpretation are not claimed; default packing links concern extensions only.",
+        "ja": "配列とlengthが一致する選択値、明示command／status、公開extension handleだけを扱う。scalar／制御getterは、target実行、byte enableの適用、streaming、DMI accessを示さない。型名の綴り、非公開extension table、任意objectのcopy／compare、length不一致の解釈は主張せず、既定packのlinkはextensionだけを扱う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_payload_data_accessors_copy_unsigned_bytes",
+          "role": "direct",
+          "expected_observations": [
+            "UT: length 4 array_size 4 data 0 7f 80 ff",
+            "UT: retained_last ff"
+          ]
+        },
+        {
+          "test": "u12/test_tlm2_payload_data_replacement_accepts_empty_array",
+          "role": "direct",
+          "expected_observations": [
+            "UT: first length 2 size 2 data 91 2",
+            "UT: cleared length 0 size 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-GP-BYTE-ENABLE-ARRAY-STATE",
+      "clause": "12.3.4.2.30",
+      "statement": {
+        "en": "Byte-enable accessors preserve assigned mask values independently of caller-array edits and another payload.",
+        "ja": "byte-enable accessorは、呼出し配列の編集や別payloadと独立して、指定mask値を保つ。"
+      },
+      "conditions": {
+        "en": "Assign ff/zero masks, mutate caller arrays and clear one payload.",
+        "ja": "ff／0のmaskを設定し、呼出し配列を編集して片方のpayloadを消去する。"
+      },
+      "expected": {
+        "en": "Stored masks survive caller edits and the peer mask survives local clearing.",
+        "ja": "保存maskは呼出し側の編集後も保ち、localな消去後も別payloadのmaskを保つ。"
+      },
+      "limitations": {
+        "en": "Selected matching array/length values, explicit commands/statuses and public extension handles only. Scalar/control getters do not establish target execution, byte-enable application, streaming or DMI access. Type-name spelling, private extension tables, arbitrary object copy/compare and mismatched length interpretation are not claimed; default packing links concern extensions only.",
+        "ja": "配列とlengthが一致する選択値、明示command／status、公開extension handleだけを扱う。scalar／制御getterは、target実行、byte enableの適用、streaming、DMI accessを示さない。型名の綴り、非公開extension table、任意objectのcopy／compare、length不一致の解釈は主張せず、既定packのlinkはextensionだけを扱う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_payload_byte_enable_accessors_copy_mask_values",
+          "role": "direct",
+          "expected_observations": [
+            "UT: mask length 2 size 2 values ff 0",
+            "UT: retained_mask ff 0"
+          ]
+        },
+        {
+          "test": "u12/test_tlm2_payload_byte_enable_replacement_and_clear_are_local",
+          "role": "direct",
+          "expected_observations": [
+            "UT: first length 0 size 0",
+            "UT: second length 1 size 1 value ff"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-GP-CONSISTENT-MASK-LENGTH",
+      "clause": "12.3.4.2.32",
+      "statement": {
+        "en": "The byte-enable length query agrees with an explicitly matching mask/length setup.",
+        "ja": "byte-enable length照会は、明示的に一致させたmask／length設定に一致する。"
+      },
+      "conditions": {
+        "en": "Use two-byte, one-byte and empty masks with matching lengths.",
+        "ja": "対応lengthで2-byte、1-byte、空のmaskを使う。"
+      },
+      "expected": {
+        "en": "Returned lengths and array sizes agree and clearing remains instance-local.",
+        "ja": "返すlengthと配列sizeが一致し、消去はinstance-localに保つ。"
+      },
+      "limitations": {
+        "en": "Selected matching array/length values, explicit commands/statuses and public extension handles only. Scalar/control getters do not establish target execution, byte-enable application, streaming or DMI access. Type-name spelling, private extension tables, arbitrary object copy/compare and mismatched length interpretation are not claimed; default packing links concern extensions only.",
+        "ja": "配列とlengthが一致する選択値、明示command／status、公開extension handleだけを扱う。scalar／制御getterは、target実行、byte enableの適用、streaming、DMI accessを示さない。型名の綴り、非公開extension table、任意objectのcopy／compare、length不一致の解釈は主張せず、既定packのlinkはextensionだけを扱う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_payload_byte_enable_accessors_copy_mask_values",
+          "role": "direct",
+          "expected_observations": [
+            "UT: mask length 2 size 2 values ff 0",
+            "UT: retained_mask ff 0"
+          ]
+        },
+        {
+          "test": "u12/test_tlm2_payload_byte_enable_replacement_and_clear_are_local",
+          "role": "direct",
+          "expected_observations": [
+            "UT: first length 0 size 0",
+            "UT: second length 1 size 1 value ff"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-GP-STREAMING-WIDTH-CONTROL",
+      "clause": "12.3.4.2.28",
+      "statement": {
+        "en": "The streaming-width getter returns the latest assigned local width.",
+        "ja": "streaming-width getterは、最新のlocalな設定幅を返す。"
+      },
+      "conditions": {
+        "en": "Set widths two/four on separate payloads then change only the first to one.",
+        "ja": "別payloadに幅2／4を設定し、最初だけを1へ変える。"
+      },
+      "expected": {
+        "en": "The first returns one while the second retains four.",
+        "ja": "最初は1を返し、2番目は4を保つ。"
+      },
+      "limitations": {
+        "en": "Selected matching array/length values, explicit commands/statuses and public extension handles only. Scalar/control getters do not establish target execution, byte-enable application, streaming or DMI access. Type-name spelling, private extension tables, arbitrary object copy/compare and mismatched length interpretation are not claimed; default packing links concern extensions only.",
+        "ja": "配列とlengthが一致する選択値、明示command／status、公開extension handleだけを扱う。scalar／制御getterは、target実行、byte enableの適用、streaming、DMI accessを示さない。型名の綴り、非公開extension table、任意objectのcopy／compare、length不一致の解釈は主張せず、既定packのlinkはextensionだけを扱う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_payload_streaming_width_and_dmi_hint_are_independent",
+          "role": "direct",
+          "expected_observations": [
+            "UT: first width 2 dmi 1 second width 4 dmi 0",
+            "UT: updated width 1 dmi 0 retained_width 4"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-GP-DMI-HINT-CONTROL",
+      "clause": "12.3.4.2.35",
+      "statement": {
+        "en": "The DMI hint query reflects its assigned local enable bit.",
+        "ja": "DMI hintの照会は、設定したlocal enable bitを反映する。"
+      },
+      "conditions": {
+        "en": "Enable the first payload, disable the second and later clear the first.",
+        "ja": "最初のpayloadを有効、2番目を無効にし、後で最初を消去する。"
+      },
+      "expected": {
+        "en": "Hint values reflect the local settings independently of streaming widths.",
+        "ja": "hint値は、streaming幅と独立してlocal設定を反映する。"
+      },
+      "limitations": {
+        "en": "Selected matching array/length values, explicit commands/statuses and public extension handles only. Scalar/control getters do not establish target execution, byte-enable application, streaming or DMI access. Type-name spelling, private extension tables, arbitrary object copy/compare and mismatched length interpretation are not claimed; default packing links concern extensions only.",
+        "ja": "配列とlengthが一致する選択値、明示command／status、公開extension handleだけを扱う。scalar／制御getterは、target実行、byte enableの適用、streaming、DMI accessを示さない。型名の綴り、非公開extension table、任意objectのcopy／compare、length不一致の解釈は主張せず、既定packのlinkはextensionだけを扱う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_payload_streaming_width_and_dmi_hint_are_independent",
+          "role": "direct",
+          "expected_observations": [
+            "UT: first width 2 dmi 1 second width 4 dmi 0",
+            "UT: updated width 1 dmi 0 retained_width 4"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-GP-RESPONSE-STATUS-STATE",
+      "clause": "12.3.4.2.36",
+      "statement": {
+        "en": "The response-status getter returns the assigned standard enum.",
+        "ja": "response-status getterは、設定した標準enumを返す。"
+      },
+      "conditions": {
+        "en": "Assign OK, INCOMPLETE and ADDRESS_ERROR statuses.",
+        "ja": "OK、INCOMPLETE、ADDRESS_ERRORのstatusを設定する。"
+      },
+      "expected": {
+        "en": "Each getter result equals the assigned enum.",
+        "ja": "各getterの結果が、設定enumに一致する。"
+      },
+      "limitations": {
+        "en": "Selected matching array/length values, explicit commands/statuses and public extension handles only. Scalar/control getters do not establish target execution, byte-enable application, streaming or DMI access. Type-name spelling, private extension tables, arbitrary object copy/compare and mismatched length interpretation are not claimed; default packing links concern extensions only.",
+        "ja": "配列とlengthが一致する選択値、明示command／status、公開extension handleだけを扱う。scalar／制御getterは、target実行、byte enableの適用、streaming、DMI accessを示さない。型名の綴り、非公開extension table、任意objectのcopy／compare、length不一致の解釈は主張せず、既定packのlinkはextensionだけを扱う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_payload_response_status_predicates_follow_explicit_status",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ok status_same 1 ok 1 error 0",
+            "UT: incomplete status_same 1 ok 0 error 1",
+            "UT: address_error status_same 1 ok 0 error 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-GP-RESPONSE-OK-PREDICATE",
+      "clause": "12.3.4.2.38",
+      "statement": {
+        "en": "The response-OK predicate is true only for OK_RESPONSE.",
+        "ja": "response-OK述語は、OK_RESPONSEだけでtrueになる。"
+      },
+      "conditions": {
+        "en": "Inspect explicit successful, incomplete and error states.",
+        "ja": "明示した成功、未完了、errorの状態を照会する。"
+      },
+      "expected": {
+        "en": "Only the successful status reports OK.",
+        "ja": "成功statusだけでOKを返す。"
+      },
+      "limitations": {
+        "en": "Selected matching array/length values, explicit commands/statuses and public extension handles only. Scalar/control getters do not establish target execution, byte-enable application, streaming or DMI access. Type-name spelling, private extension tables, arbitrary object copy/compare and mismatched length interpretation are not claimed; default packing links concern extensions only.",
+        "ja": "配列とlengthが一致する選択値、明示command／status、公開extension handleだけを扱う。scalar／制御getterは、target実行、byte enableの適用、streaming、DMI accessを示さない。型名の綴り、非公開extension table、任意objectのcopy／compare、length不一致の解釈は主張せず、既定packのlinkはextensionだけを扱う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_payload_response_status_predicates_follow_explicit_status",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ok status_same 1 ok 1 error 0",
+            "UT: incomplete status_same 1 ok 0 error 1",
+            "UT: address_error status_same 1 ok 0 error 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-GP-RESPONSE-ERROR-PREDICATE",
+      "clause": "12.3.4.2.39",
+      "statement": {
+        "en": "The response-error predicate is true for a non-OK response status.",
+        "ja": "response-error述語は、非OKのresponse statusでtrueになる。"
+      },
+      "conditions": {
+        "en": "Inspect successful, incomplete and address-error states.",
+        "ja": "成功、未完了、address-errorの状態を照会する。"
+      },
+      "expected": {
+        "en": "Incomplete and address-error report error while OK does not.",
+        "ja": "未完了とaddress-errorはerrorを返し、OKは返さない。"
+      },
+      "limitations": {
+        "en": "Selected matching array/length values, explicit commands/statuses and public extension handles only. Scalar/control getters do not establish target execution, byte-enable application, streaming or DMI access. Type-name spelling, private extension tables, arbitrary object copy/compare and mismatched length interpretation are not claimed; default packing links concern extensions only.",
+        "ja": "配列とlengthが一致する選択値、明示command／status、公開extension handleだけを扱う。scalar／制御getterは、target実行、byte enableの適用、streaming、DMI accessを示さない。型名の綴り、非公開extension table、任意objectのcopy／compare、length不一致の解釈は主張せず、既定packのlinkはextensionだけを扱う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_payload_response_status_predicates_follow_explicit_status",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ok status_same 1 ok 1 error 0",
+            "UT: incomplete status_same 1 ok 0 error 1",
+            "UT: address_error status_same 1 ok 0 error 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-EXTENSION-POLYMORPHIC-TYPE-KEY",
+      "clause": "12.3.4.4.4",
+      "statement": {
+        "en": "Polymorphic extension type handles identify a type rather than a named instance.",
+        "ja": "polymorphicなextension type handleは、名前付きinstanceではなく型を識別する。"
+      },
+      "conditions": {
+        "en": "Compare same/different types, replace a named instance and clear through another same-type key.",
+        "ja": "同型／異型を比較し、名前付きinstanceを置換して、同型の別key経由で消去する。"
+      },
+      "expected": {
+        "en": "Same-type keys remain equal across instances/renames and different types remain distinct.",
+        "ja": "同型keyはinstance／改名をまたいで等しく、異型は異なるままになる。"
+      },
+      "limitations": {
+        "en": "Selected matching array/length values, explicit commands/statuses and public extension handles only. Scalar/control getters do not establish target execution, byte-enable application, streaming or DMI access. Type-name spelling, private extension tables, arbitrary object copy/compare and mismatched length interpretation are not claimed; default packing links concern extensions only.",
+        "ja": "配列とlengthが一致する選択値、明示command／status、公開extension handleだけを扱う。scalar／制御getterは、target実行、byte enableの適用、streaming、DMI accessを示さない。型名の綴り、非公開extension table、任意objectのcopy／compare、length不一致の解釈は主張せず、既定packのlinkはextensionだけを扱う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_extension_polymorphic_type_handle_is_shared_by_same_type_instances",
+          "role": "direct",
+          "expected_observations": [
+            "UT: instances_distinct 1 key_nonnull 1 same_key 1 static_same 1"
+          ]
+        },
+        {
+          "test": "u12/test_tlm2_extension_polymorphic_type_handles_distinguish_types_with_same_instance_name",
+          "role": "direct",
+          "expected_observations": [
+            "UT: names_same 1 keys_distinct 1"
+          ]
+        },
+        {
+          "test": "u12/test_tlm2_payload_extension_insertion_uses_polymorphically_retrieved_key",
+          "role": "direct",
+          "expected_observations": [
+            "UT: previous_null 1 same_instance 1 count 1"
+          ]
+        },
+        {
+          "test": "u12/test_tlm2_payload_extension_replacement_retains_key_across_instance_names",
+          "role": "direct",
+          "expected_observations": [
+            "UT: previous_same 1 key_same 1 replacement_same 1 count 1"
+          ]
+        },
+        {
+          "test": "u12/test_tlm2_payload_extension_clear_accepts_type_key_from_another_instance",
+          "role": "direct",
+          "expected_observations": [
+            "UT: label_absent 1 route_same 1 count 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-EXTENSION-STATIC-TYPE-KEY",
+      "clause": "12.3.4.5.4",
+      "statement": {
+        "en": "The static extension ID returns a stable unique type key.",
+        "ja": "staticなextension IDは、安定した一意の型keyを返す。"
+      },
+      "conditions": {
+        "en": "Compare repeated static IDs with polymorphic same-type keys and another type.",
+        "ja": "繰り返すstatic IDを、polymorphicな同型keyと別型に比較する。"
+      },
+      "expected": {
+        "en": "Repeated/same-type IDs agree and different-type IDs do not.",
+        "ja": "繰り返す／同型のIDは一致し、別型のIDは一致しない。"
+      },
+      "limitations": {
+        "en": "Selected matching array/length values, explicit commands/statuses and public extension handles only. Scalar/control getters do not establish target execution, byte-enable application, streaming or DMI access. Type-name spelling, private extension tables, arbitrary object copy/compare and mismatched length interpretation are not claimed; default packing links concern extensions only.",
+        "ja": "配列とlengthが一致する選択値、明示command／status、公開extension handleだけを扱う。scalar／制御getterは、target実行、byte enableの適用、streaming、DMI accessを示さない。型名の綴り、非公開extension table、任意objectのcopy／compare、length不一致の解釈は主張せず、既定packのlinkはextensionだけを扱う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_extension_polymorphic_type_handle_is_shared_by_same_type_instances",
+          "role": "direct",
+          "expected_observations": [
+            "UT: instances_distinct 1 key_nonnull 1 same_key 1 static_same 1"
+          ]
+        },
+        {
+          "test": "u12/test_tlm2_payload_extension_uses_unique_type_key",
+          "role": "direct",
+          "expected_observations": [
+            "UT: inserted previous_null 1 count 1 handle_same 1",
+            "UT: stable_key 1 distinct_keys 1 absent_route 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-EXTENSION-POLYMORPHIC-TYPE-NAME",
+      "clause": "12.3.4.4.5",
+      "statement": {
+        "en": "The polymorphic type name identifies the extension type independently of the instance name.",
+        "ja": "polymorphicな型名は、instance名と独立してextension型を識別する。"
+      },
+      "conditions": {
+        "en": "Rename an instance and compare two types given equal instance names.",
+        "ja": "instanceを改名し、同じinstance名を持つ2型を比較する。"
+      },
+      "expected": {
+        "en": "Type names are nonempty, stable within a type and distinct across these two types.",
+        "ja": "型名は空でなく、同型で安定し、この2型間では異なる。"
+      },
+      "limitations": {
+        "en": "Selected matching array/length values, explicit commands/statuses and public extension handles only. Scalar/control getters do not establish target execution, byte-enable application, streaming or DMI access. Type-name spelling, private extension tables, arbitrary object copy/compare and mismatched length interpretation are not claimed; default packing links concern extensions only.",
+        "ja": "配列とlengthが一致する選択値、明示command／status、公開extension handleだけを扱う。scalar／制御getterは、target実行、byte enableの適用、streaming、DMI accessを示さない。型名の綴り、非公開extension table、任意objectのcopy／compare、length不一致の解釈は主張せず、既定packのlinkはextensionだけを扱う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_extension_type_handle_name_is_stable_across_instance_rename",
+          "role": "direct",
+          "expected_observations": [
+            "UT: nonempty 1 stable 1 same_type 1 renamed renamed"
+          ]
+        },
+        {
+          "test": "u12/test_tlm2_extension_type_handle_names_distinguish_different_types",
+          "role": "direct",
+          "expected_observations": [
+            "UT: nonempty 1 1 distinct 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-GP-EXTENSION-INSERTION",
+      "clause": "12.3.4.2.44",
+      "statement": {
+        "en": "Installing an unbound extension stores that exact instance under its type and returns null.",
+        "ja": "未保存のextensionを設定すると、その型で正確なinstanceを保存してnullを返す。"
+      },
+      "conditions": {
+        "en": "Insert through concrete/base handles with a fresh payload.",
+        "ja": "新しいpayloadで、具体／基底handle経由で挿入する。"
+      },
+      "expected": {
+        "en": "Previous is null, the extension count is one and retrieval returns the supplied handle.",
+        "ja": "以前の値はnull、extension数は1で、取得は指定handleを返す。"
+      },
+      "limitations": {
+        "en": "Selected matching array/length values, explicit commands/statuses and public extension handles only. Scalar/control getters do not establish target execution, byte-enable application, streaming or DMI access. Type-name spelling, private extension tables, arbitrary object copy/compare and mismatched length interpretation are not claimed; default packing links concern extensions only.",
+        "ja": "配列とlengthが一致する選択値、明示command／status、公開extension handleだけを扱う。scalar／制御getterは、target実行、byte enableの適用、streaming、DMI accessを示さない。型名の綴り、非公開extension table、任意objectのcopy／compare、length不一致の解釈は主張せず、既定packのlinkはextensionだけを扱う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_payload_extension_insertion_uses_polymorphically_retrieved_key",
+          "role": "direct",
+          "expected_observations": [
+            "UT: previous_null 1 same_instance 1 count 1"
+          ]
+        },
+        {
+          "test": "u12/test_tlm2_payload_extension_uses_unique_type_key",
+          "role": "direct",
+          "expected_observations": [
+            "UT: inserted previous_null 1 count 1 handle_same 1",
+            "UT: stable_key 1 distinct_keys 1 absent_route 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-GP-EXTENSION-KEYED-RETRIEVAL",
+      "clause": "12.3.4.2.43",
+      "statement": {
+        "en": "Extension retrieval uses the type key and returns null when that type is absent.",
+        "ja": "extension取得は型keyを使い、その型が欠ければnullを返す。"
+      },
+      "conditions": {
+        "en": "Retrieve an installed/replaced type and another uninstalled type.",
+        "ja": "設定／置換した型と、別の未設定型を取得する。"
+      },
+      "expected": {
+        "en": "The installed current handle is returned and the absent type yields null.",
+        "ja": "現在設定したhandleを返し、欠けた型ではnullを返す。"
+      },
+      "limitations": {
+        "en": "Selected matching array/length values, explicit commands/statuses and public extension handles only. Scalar/control getters do not establish target execution, byte-enable application, streaming or DMI access. Type-name spelling, private extension tables, arbitrary object copy/compare and mismatched length interpretation are not claimed; default packing links concern extensions only.",
+        "ja": "配列とlengthが一致する選択値、明示command／status、公開extension handleだけを扱う。scalar／制御getterは、target実行、byte enableの適用、streaming、DMI accessを示さない。型名の綴り、非公開extension table、任意objectのcopy／compare、length不一致の解釈は主張せず、既定packのlinkはextensionだけを扱う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_payload_extension_uses_unique_type_key",
+          "role": "direct",
+          "expected_observations": [
+            "UT: inserted previous_null 1 count 1 handle_same 1",
+            "UT: stable_key 1 distinct_keys 1 absent_route 1"
+          ]
+        },
+        {
+          "test": "u12/test_tlm2_payload_extension_insertion_uses_polymorphically_retrieved_key",
+          "role": "direct",
+          "expected_observations": [
+            "UT: previous_null 1 same_instance 1 count 1"
+          ]
+        },
+        {
+          "test": "u12/test_tlm2_payload_extension_replacement_retains_key_across_instance_names",
+          "role": "direct",
+          "expected_observations": [
+            "UT: previous_same 1 key_same 1 replacement_same 1 count 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-GP-EXTENSION-COUNT",
+      "clause": "12.3.4.2.42",
+      "statement": {
+        "en": "The extension count reflects distinct currently installed instance-specific types.",
+        "ja": "extension数は、現在設定したinstance固有の異なる型数を反映する。"
+      },
+      "conditions": {
+        "en": "Insert, selectively clear, fully clear and reuse payload extension bindings.",
+        "ja": "payload extensionのbindingを挿入、個別消去、全消去、再利用する。"
+      },
+      "expected": {
+        "en": "Counts change with the observed current set and remain local to each payload.",
+        "ja": "件数は観測する現在の集合に従って変わり、各payloadにlocalなままになる。"
+      },
+      "limitations": {
+        "en": "Selected matching array/length values, explicit commands/statuses and public extension handles only. Scalar/control getters do not establish target execution, byte-enable application, streaming or DMI access. Type-name spelling, private extension tables, arbitrary object copy/compare and mismatched length interpretation are not claimed; default packing links concern extensions only.",
+        "ja": "配列とlengthが一致する選択値、明示command／status、公開extension handleだけを扱う。scalar／制御getterは、target実行、byte enableの適用、streaming、DMI accessを示さない。型名の綴り、非公開extension table、任意objectのcopy／compare、length不一致の解釈は主張せず、既定packのlinkはextensionだけを扱う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_payload_extension_uses_unique_type_key",
+          "role": "direct",
+          "expected_observations": [
+            "UT: inserted previous_null 1 count 1 handle_same 1",
+            "UT: stable_key 1 distinct_keys 1 absent_route 1"
+          ]
+        },
+        {
+          "test": "u12/test_tlm2_payload_clear_extension_preserves_other_types",
+          "role": "direct",
+          "expected_observations": [
+            "UT: initial_count 2",
+            "UT: after_clear count 1 tag_absent 1 route_same 1"
+          ]
+        },
+        {
+          "test": "u12/test_tlm2_payload_clear_extensions_is_local_and_allows_reuse",
+          "role": "direct",
+          "expected_observations": [
+            "UT: cleared_first count 0 absent 1 second_count 1 second_same 1",
+            "UT: reused previous_null 1 count 1 same 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-GP-SELECTIVE-EXTENSION-CLEAR",
+      "clause": "12.3.4.2.45",
+      "statement": {
+        "en": "Clearing one extension type removes that binding while preserving other types.",
+        "ja": "1 extension型の消去は、そのbindingを削除して別型を保つ。"
+      },
+      "conditions": {
+        "en": "Use two types and clear with either the static key or another same-type instance key.",
+        "ja": "2型を使い、static keyまたは同型の別instance keyで消去する。"
+      },
+      "expected": {
+        "en": "The selected type is absent and the other original handle remains bound.",
+        "ja": "選択型は欠けた状態になり、別の元handleのbindingは残る。"
+      },
+      "limitations": {
+        "en": "Selected matching array/length values, explicit commands/statuses and public extension handles only. Scalar/control getters do not establish target execution, byte-enable application, streaming or DMI access. Type-name spelling, private extension tables, arbitrary object copy/compare and mismatched length interpretation are not claimed; default packing links concern extensions only.",
+        "ja": "配列とlengthが一致する選択値、明示command／status、公開extension handleだけを扱う。scalar／制御getterは、target実行、byte enableの適用、streaming、DMI accessを示さない。型名の綴り、非公開extension table、任意objectのcopy／compare、length不一致の解釈は主張せず、既定packのlinkはextensionだけを扱う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_payload_clear_extension_preserves_other_types",
+          "role": "direct",
+          "expected_observations": [
+            "UT: initial_count 2",
+            "UT: after_clear count 1 tag_absent 1 route_same 1"
+          ]
+        },
+        {
+          "test": "u12/test_tlm2_payload_extension_clear_accepts_type_key_from_another_instance",
+          "role": "direct",
+          "expected_observations": [
+            "UT: label_absent 1 route_same 1 count 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-GP-ALL-EXTENSIONS-CLEAR",
+      "clause": "12.3.4.2.46",
+      "statement": {
+        "en": "Clearing all extensions removes that payload bindings without affecting a different payload.",
+        "ja": "全extensionの消去は、別payloadに影響せず、そのpayloadのbindingを削除する。"
+      },
+      "conditions": {
+        "en": "Use two payloads and reinsert a retained extension after clearing one.",
+        "ja": "2 payloadを使い、片方を消去後、保持していたextensionを再挿入する。"
+      },
+      "expected": {
+        "en": "The cleared set is empty, the peer remains bound and fresh insertion returns null.",
+        "ja": "消去した集合は空、別payloadのbindingは残り、新しい挿入はnullを返す。"
+      },
+      "limitations": {
+        "en": "Selected matching array/length values, explicit commands/statuses and public extension handles only. Scalar/control getters do not establish target execution, byte-enable application, streaming or DMI access. Type-name spelling, private extension tables, arbitrary object copy/compare and mismatched length interpretation are not claimed; default packing links concern extensions only.",
+        "ja": "配列とlengthが一致する選択値、明示command／status、公開extension handleだけを扱う。scalar／制御getterは、target実行、byte enableの適用、streaming、DMI accessを示さない。型名の綴り、非公開extension table、任意objectのcopy／compare、length不一致の解釈は主張せず、既定packのlinkはextensionだけを扱う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_payload_clear_extensions_is_local_and_allows_reuse",
+          "role": "direct",
+          "expected_observations": [
+            "UT: cleared_first count 0 absent 1 second_count 1 second_same 1",
+            "UT: reused previous_null 1 count 1 same 1"
+          ]
+        },
+        {
+          "test": "u12/test_tlm2_gp_alias_shares_payload_and_polymorphic_extension_state",
+          "role": "direct",
+          "expected_observations": [
+            "UT: alias_same 1 retrieved_same 1 count 1",
+            "UT: cleared 0 key_stable 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-GP-TYPEDEF-ALIAS-IDENTITY",
+      "clause": "12.3.4.3",
+      "statement": {
+        "en": "The short payload typedef is the same type as the canonical generic payload.",
+        "ja": "短いpayload typedefは、正規のgeneric payloadと同じ型である。"
+      },
+      "conditions": {
+        "en": "Assign an alias handle to the canonical type and mutate extensions through each.",
+        "ja": "alias handleを正規型へ代入し、双方経由でextensionを変更する。"
+      },
+      "expected": {
+        "en": "Both handles identify the same object and observe the same extension set.",
+        "ja": "両handleが同じobjectを識別し、同じextension集合を観測する。"
+      },
+      "limitations": {
+        "en": "Selected matching array/length values, explicit commands/statuses and public extension handles only. Scalar/control getters do not establish target execution, byte-enable application, streaming or DMI access. Type-name spelling, private extension tables, arbitrary object copy/compare and mismatched length interpretation are not claimed; default packing links concern extensions only.",
+        "ja": "配列とlengthが一致する選択値、明示command／status、公開extension handleだけを扱う。scalar／制御getterは、target実行、byte enableの適用、streaming、DMI accessを示さない。型名の綴り、非公開extension table、任意objectのcopy／compare、length不一致の解釈は主張せず、既定packのlinkはextensionだけを扱う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_gp_alias_shares_payload_and_polymorphic_extension_state",
+          "role": "direct",
+          "expected_observations": [
+            "UT: alias_same 1 retrieved_same 1 count 1",
+            "UT: cleared 0 key_stable 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-GP-DEFAULT-PACK-EXCLUDES-EXTENSIONS",
+      "clause": "12.3.4.2.4",
+      "statement": {
+        "en": "Default generic-payload packing does not serialize its extensions.",
+        "ja": "generic payloadの既定packは、extensionを直列化しない。"
+      },
+      "conditions": {
+        "en": "Pack a source with an extension whose pack/unpack hooks are observable.",
+        "ja": "pack／unpack hookを観測できるextensionを付けたsourceをpackする。"
+      },
+      "expected": {
+        "en": "Source binding is retained, hooks stay unused and unpacking creates no destination extension.",
+        "ja": "sourceのbindingを保ち、hookは使わず、unpackでも転送先extensionを作らない。"
+      },
+      "limitations": {
+        "en": "Selected matching array/length values, explicit commands/statuses and public extension handles only. Scalar/control getters do not establish target execution, byte-enable application, streaming or DMI access. Type-name spelling, private extension tables, arbitrary object copy/compare and mismatched length interpretation are not claimed; default packing links concern extensions only.",
+        "ja": "配列とlengthが一致する選択値、明示command／status、公開extension handleだけを扱う。scalar／制御getterは、target実行、byte enableの適用、streaming、DMI accessを示さない。型名の綴り、非公開extension table、任意objectのcopy／compare、length不一致の解釈は主張せず、既定packのlinkはextensionだけを扱う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_payload_pack_does_not_serialize_source_extensions",
+          "role": "direct",
+          "expected_observations": [
+            "UT: source_same 1 destination_extensions 0 hooks 0 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-GP-DEFAULT-UNPACK-PRESERVES-EXTENSIONS",
+      "clause": "12.3.4.2.5",
+      "statement": {
+        "en": "Default generic-payload unpacking leaves preinstalled destination extensions untouched.",
+        "ja": "generic payloadの既定unpackは、転送先に事前設定したextensionを変更しない。"
+      },
+      "conditions": {
+        "en": "Unpack ordinary payload fields into a target with an existing valued extension.",
+        "ja": "値を持つ既存extension付きtargetへ、通常のpayload fieldをunpackする。"
+      },
+      "expected": {
+        "en": "Address updates while extension identity/value remain and its unpack hook is not called.",
+        "ja": "addressは更新し、extensionの同一性／値を保ち、そのunpack hookは呼ばない。"
+      },
+      "limitations": {
+        "en": "Selected matching array/length values, explicit commands/statuses and public extension handles only. Scalar/control getters do not establish target execution, byte-enable application, streaming or DMI access. Type-name spelling, private extension tables, arbitrary object copy/compare and mismatched length interpretation are not claimed; default packing links concern extensions only.",
+        "ja": "配列とlengthが一致する選択値、明示command／status、公開extension handleだけを扱う。scalar／制御getterは、target実行、byte enableの適用、streaming、DMI accessを示さない。型名の綴り、非公開extension table、任意objectのcopy／compare、length不一致の解釈は主張せず、既定packのlinkはextensionだけを扱う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_payload_unpack_leaves_existing_destination_extension_untouched",
+          "role": "direct",
+          "expected_observations": [
+            "UT: address 91 extension_same 1 value 63 unpack_calls 0"
+          ]
+        }
+      ]
     }
   ]
 }

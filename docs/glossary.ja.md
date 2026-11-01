@@ -431,3 +431,17 @@ forward／backwardのphase呼出し列です。socketは指定phase、payload／
 
 **read後の予測（Post-read prediction）** — READ予測は指定のsample値を使い、access policyの副作用があれば
 その後のdesired／mirrorへ記録します。予測したclear／setだけでは、物理readやその戻りdataの証拠にはなりません。
+
+## 階層、binding、HDLの記述
+
+**階層名のcursor（Hierarchy name cursor）** — componentの走査methodへ参照で渡す子の名前です。
+空／終端の照会ではその値を保ち、globalなcomponent検索ではなく、選択した親の中の位置を表します。
+
+**解決済みimplementation（Resolved implementation）** — 互換port／exportの接続をたどって到達する、最終的なTLM impです。
+elaboration後のsizeはこれらの接続先を数え、index付きinterface handleは、provider順を要求せずそれらを識別します。
+
+**HDL pathのkind（HDL path kind）** — RTLやGATEのような、symbolicなdesign-abstractionの選択子です。
+elementの照会では親blockの既定を使えますが、明示kindと既定引数が同じabstractionを選ぶとは限りません。
+
+**HDL pathの絶対root（Absolute HDL path root）** — 1 kindで祖先／incrementalのHDL pathを置換する、register blockのpath prefixです。
+暗黙のUVM component rootとは別で、名前付きHDL objectの実在も示しません。

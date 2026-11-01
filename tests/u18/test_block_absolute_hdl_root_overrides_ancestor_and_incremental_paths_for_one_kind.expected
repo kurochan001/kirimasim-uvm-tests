@@ -1,0 +1,3 @@
+UT: before paths 1 value dut.sub.leaf
+UT: rooted rtl 1 gate 0 paths 1 value absolute.leaf
+UT: other_kind paths 1 value gate_dut.gate_sub.gate_leaf

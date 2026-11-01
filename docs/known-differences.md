@@ -2,7 +2,7 @@
 
 [日本語](known-differences.ja.md) · [README](../README.md) · [FAQ](faq.md)
 
-This describes the current 905-test suite and the pinned Accellera UVM
+This describes the current 925-test suite and the pinned Accellera UVM
 2020.3.1 library. A mismatch is a test result; it does not by itself assign
 the cause to the simulator, the library or the expectation.
 
@@ -16,9 +16,19 @@ semantics still require review. Annex E additionally checks selected two/three-m
 shared accesses and one child-block shape; see the
 [memory scope](faq.md#memory-prediction-and-map-controls) and
 [shared-access scope](faq.md#memory-access-shared-maps-and-test-selection).
-The following fifty-two additional limitations were identified during M1, M2 and M3.
+The following fifty-four additional limitations were identified during M1, M2 and M3.
 Where a test directly checks a required behavior that is missing, its
 normative expectation is retained with `:oracle: spec`.
+
+- The required `uvm_hdl_path_concat::set_slices` and `get_slices` methods
+  from 17.2.3.3.2/17.2.3.3.3 are absent. Two concat fixtures keep the
+  standard calls and valid most-to-least-significant slice descriptions.
+  Both cannot build with the pinned library.
+- A block initializes a local RTL default instead of inheriting the nearest
+  ancestor's explicitly configured HDL abstraction. The 18.1.6.9 fixture
+  retains inherited GATE, a child-local RTL override and a separately
+  inheriting sibling after the root changes to SYN. This is metadata
+  inheritance; no HDL access is attempted.
 
 - Empty `uvm_queue::pop_front` and `pop_back` delegate to native queue
   operations without issuing the warning required by 11.3.2.8/11.3.2.9.
@@ -264,23 +274,28 @@ controls report the expected byte-aligned widths 16 and 8. Sub-byte logical
 width versus rounded physical-byte width needs review; no confirmed library
 bug is assigned from these two cases. See [partial transfers](faq.md#error-contracts-and-partial-transfers).
 
-Across the suite, 818 tests have the `verilator@5.052` oracle tag and eighty-seven
+Across the suite, 835 tests have the `verilator@5.052` oracle tag and ninety
 cases are spec-only. One of the spec-only cases checks 9.6: a child's pre-reset
 task must be killed when that phase ends, but the pinned-library run on Verilator 5.052
 lets the child perform its delayed write during a later phase. The cause of
 this combined simulator/library difference remains unassigned.
 
-The eighty-seven spec-only tests retain their normative expected files.
-Default Verilator runs and CI select the 818 tagged cases. `--all` includes
+The ninety spec-only tests retain their normative expected files.
+Default Verilator runs and CI select the 835 tagged cases. `--all` includes
 spec-only cases and records mismatches or build failures as `known`.
-The runtime records for 80 cases establish the first difference at seed 1,
-without seed 73 results. Seven missing-API cases cannot build and have no
-runtime seed result: one time API and six sequence-library cases.
+The runtime records for 81 cases establish the first difference at seed 1,
+without seed 73 results. Nine missing-API cases cannot build and have no
+runtime seed result: one time API, six sequence-library cases and two HDL slice cases.
 
 ## Spec-only tests
 
-These are the eighty-seven current spec-only cases. Several exercise the same
+These are the ninety current spec-only cases. Several exercise the same
 limitation, so their count is not a count of distinct bugs.
+
+- Required HDL concat APIs:
+  [set/readback](../tests/u17/test_hdl_concat_standard_set_slices_initializes_a_split_register_description.sv)
+  and [append/readback](../tests/u17/test_hdl_concat_standard_get_slices_returns_the_appended_most_to_least_order.sv).
+- [Nearest-ancestor default HDL abstraction](../tests/u18/test_block_hdl_default_abstraction_inherits_from_the_nearest_configured_ancestor.sv).
 
 - Empty queue pop warnings:
   [front](../tests/u11/test_queue_empty_pop_front_warns_returns_default_and_allows_refill.sv)
@@ -428,7 +443,7 @@ limitation, so their count is not a count of distinct bugs.
 
 ## Simulator and library combinations
 
-Ghost's bundled-library evidence has 182 matches and 723 failures with each
+Ghost's bundled-library evidence has 188 matches and 737 failures with each
 of seeds 1 and 73; the same tests fail at both seeds. The current executable
 snapshot has no pinned-mode measurement. [Results and methodology](results.md)
 describes the evidence assembly. Bundled results
@@ -437,8 +452,8 @@ problem from a library problem or establish results for the locked library.
 Private identity, profiles and diagnostics are not published.
 
 The tested kirimasim executable reports `uvm_object_wrapper` as unsupported
-on 898 cases. Seven cases record `fail` earlier on missing library APIs: one time
-setter and six sequence-library cases. Neither result is a pass or evidence
+on 916 cases. Nine cases record `fail` earlier on missing library APIs: one time
+setter, six sequence-library cases and two HDL slice cases. Neither result is a pass or evidence
 of UVM execution beyond those compilation blockers.
 
 See the [README results](../README.md#current-results) for execution scope

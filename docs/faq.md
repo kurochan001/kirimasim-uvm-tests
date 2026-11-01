@@ -173,7 +173,7 @@ a claim that every test was rebuilt together.
 
 ### Q16. Are M1, M2 or M3 complete, and what does the test count cover?
 
-M1 and M2 still have open clause targets. M3 now has 246
+M1 and M2 still have open clause targets. M3 now has 254
 register-layer cases, including testbench frontdoor paths; it is also incomplete. Starting a stage does not complete
 the preceding stages.
 The [plan](../README.md#plan) identifies current scope and remaining work.
@@ -1136,9 +1136,9 @@ not a direct test of the requirement.
 
 ### Q77. Why is there no coverage percentage after starting M4?
 
-The 543 AI drafts cover only a partial decomposition: 539 requirements link
-directly to 595 tests, 4 have no direct test, and one separate test is a control.
-Another 309 tests are not mapped yet. The 2,504 clause identifiers are not normative requirement units.
+The 604 AI drafts cover only a partial decomposition: 600 requirements link
+directly to 636 tests, 4 have no direct test, and one separate test is a control.
+Another 288 tests are not mapped yet. The 2,504 clause identifiers are not normative requirement units.
 The scope is proposed, the inventory incomplete and the denominator unapproved;
 starting M4 approves none of those. Known differences and HDL/DPI limitations
 do not silently exclude obligations. See the [approval path](requirements.md#remaining-m4-work-and-approval).
@@ -1517,3 +1517,69 @@ uses adjacent fields with opposite read effects. Field desired/mirrored values,
 the peer mirror and the assembled register mirror are checked across the
 selected history. All byte enables are active; restricted maps, partial
 masks, backdoors, four-state behavior and other widths remain separate work.
+
+## Hierarchy queries, resolved ports and symbolic HDL paths
+
+### Q98. What do the component hierarchy cases observe?
+
+They construct explicitly named UVM components without executing a phase
+schedule. Parent handles, dot-separated full names and depth refer to that
+component hierarchy. Two branches reuse the local name slot so that a leaf
+name alone cannot stand in for a full path. Relative lookup starts at the
+receiver, while a leading dot starts at the implicit component root. Failed
+lookups return null and leave the hierarchy available for valid queries.
+
+[Child-list retrieval](../tests/u13/test_component_children_append_preserves_prefix_and_excludes_descendants.sv)
+appends immediate children after a caller-owned prefix. Editing that queue
+does not delete components. Child iterators check empty/exhausted name
+preservation and interleaved parent membership without requiring a visit
+order. Wildcard lookup, dynamic renaming and mutation during an active
+iteration are outside these fixtures.
+
+### Q99. How can one parent-port connection expose two TLM implementations?
+
+Binding resolution follows the complete port chain. In the
+[parent fanout case](../tests/u12/test_hierarchical_put_port_resolves_parent_fanout_to_the_final_implementations.sv),
+the child has one direct parent connection but both ports have `size()` two
+after elaboration. The diagram shows the connection graph:
+
+```mermaid
+flowchart LR
+    C["Child port"] --> P["Parent port"]
+    P --> A["Receiver A imp"]
+    P --> B["Receiver B imp"]
+```
+
+The fixtures use `get_if(i)` in `run_phase` after resolution. Returned handle
+membership identifies the expected receiver instead of assuming provider
+index order. Selected blocking `put`, `get` and `peek` calls preserve
+receiver/source identity. Nonblocking `can_put` and `try_put` calls fill
+separate one-entry FIFOs, reject replacement while full and retain their
+original values. The default put is checked against index zero. No
+`set_default_index` call, invalid cardinality or connection-error severity
+is prescribed by these tests.
+
+### Q100. Do symbolic HDL paths establish that an HDL object can be accessed?
+
+The path fixtures inspect descriptions without creating HDL variables or
+calling DPI. Register/memory kind queries use RTL and GATE descriptions,
+a GATE parent default and kind-local clearing. Default clear removes RTL;
+subsequent default queries still select GATE. These fixtures inspect path
+counts and kind membership, rather than returned element slice geometry.
+
+Block string queries check all eight combinations of duplicated ancestor
+paths, a custom separator and an absolute root that overrides RTL ancestry
+while preserving GATE. Default-abstraction inheritance has a spec-only
+difference in the pinned library. The
+[standard concat getter](../tests/u17/test_hdl_concat_standard_get_slices_returns_the_appended_most_to_least_order.sv)
+and setter cases retain standard API calls, most-to-least-significant slice
+order and nonoverlapping bit ranges; missing methods prevent their build.
+The [known differences](known-differences.md#pinned-library-limitations)
+keep these expectations visible. HDL deposit and annex E path-accessibility
+requirements remain without direct tests and still need an allowed backend.
+Commercial results remain excluded.
+
+The ledger also maps selected existing generic-payload and extension cases.
+Address/data/mask state, command/status predicates, type-key identity,
+clearing and default packing are separate observations. Their getters do not
+establish target transfers, mask application, a streaming engine or DMI access.
