@@ -7981,15 +7981,33 @@
         "ja": "宛先だけのentryは残り、元だけのentryは追加され、重なるcountは元に一致する。"
       },
       "limitations": {
-        "en": "No direct test is mapped to this merge shape; independent snapshots alone do not exercise it.",
-        "ja": "このmerge構成に直接テストを対応付けていない。独立snapshotだけではこの条件を実行しない。"
+        "en": "Independent default servers are populated through public message execution and explicit severity setters; no global server replacement, quit-limit or database-copy behavior is inferred.",
+        "ja": "独立したdefault serverへ公開message実行と明示的なseverity setterで値を入れる。global serverの置換、quit上限、database copyは示さない。"
       },
       "review": {
         "status": "ai",
         "reviewer": null,
         "reviewed_at": null
       },
-      "test_links": []
+      "test_links": [
+        {
+          "test": "u06/test_report_server_copy_merges_disjoint_and_overlapping_ids",
+          "role": "direct",
+          "expected_observations": [
+            "UT: merged shared 2 source 1 destination 3",
+            "UT: membership 1 1 1 size 3",
+            "UT: independent source 3 destination 2"
+          ]
+        },
+        {
+          "test": "u06/test_report_server_repeated_copy_merges_ids_and_overwrites_severity_with_zero",
+          "role": "direct",
+          "expected_observations": [
+            "UT: severities warning 2 error 0",
+            "UT: repeated warning 5 source 1 destination 2 later 3"
+          ]
+        }
+      ]
     },
     {
       "id": "UVM-REPORT-QUIT-LIMIT-TERMINATION",
@@ -10870,15 +10888,34 @@
         "ja": "状態をresetする一方、dropped callback countは変わらない。"
       },
       "limitations": {
-        "en": "No direct test is mapped; observing cleared counters alone does not establish callback absence.",
-        "ja": "直接テストは未対応。clearしたcounterの観測だけでは、callbackを呼ばないことは示せない。"
+        "en": "Method and registered callback probes observe source-level events; normal partial drops prove both probes work. Positive delays check clear suppression with default and source arguments; all-dropped drain behavior remains separate.",
+        "ja": "methodと登録callbackのprobeでsource段階を観測し、通常の部分dropで両probeの動作を確認する。正の遅延でdefault／source引数のclear抑制を検査し、all-droppedのdrain動作は別途扱う。"
       },
       "review": {
         "status": "ai",
         "reviewer": null,
         "reviewed_at": null
       },
-      "test_links": []
+      "test_links": [
+        {
+          "test": "u10/test_objection_clear_omits_dropped_hooks_before_and_after_partial_drop",
+          "role": "direct",
+          "expected_observations": [
+            "UT: cleared source 0 total 0 hooks 0 0",
+            "UT: control remaining 1 hooks 1 1",
+            "UT: recleared total 0 hooks 1 1"
+          ]
+        },
+        {
+          "test": "u10/test_objection_clear_source_argument_omits_all_dropped_hooks_and_preserves_peer",
+          "role": "direct",
+          "expected_observations": [
+            "UT: sources 0 0 total 0 hooks 0 0 peer 1",
+            "UT: control total 2 hooks 2 2",
+            "UT: final total 0 hooks 2 2"
+          ]
+        }
+      ]
     },
     {
       "id": "UVM-POLICY-EXTENSION-PRESENCE",
@@ -13962,15 +13999,33 @@
         "ja": "errorを出し、以前のobject／深さを保つ。"
       },
       "limitations": {
-        "en": "No direct test is mapped; existing stack fixtures push nonnull objects only.",
-        "ja": "直接テストは未対応。既存stack構成はnonnull objectだけをpushする。"
+        "en": "Empty and two-entry policy-side stacks use original ERROR severity and public depth/top/pop observations. Object-side policy synchronization and exact diagnostics remain separate.",
+        "ja": "空／2 entryのpolicy側stackを、元のERROR severityと公開の深さ／top／popで検査する。object側のpolicy同期と診断の詳細は別途扱う。"
       },
       "review": {
         "status": "ai",
         "reviewer": null,
         "reviewed_at": null
       },
-      "test_links": []
+      "test_links": [
+        {
+          "test": "u16/test_policy_null_active_push_reports_error_without_creating_an_entry",
+          "role": "direct",
+          "expected_observations": [
+            "UT: error 1 depth 0 empty 1",
+            "UT: control 1 depth 0"
+          ]
+        },
+        {
+          "test": "u16/test_policy_null_active_push_preserves_two_existing_stack_entries",
+          "role": "direct",
+          "expected_observations": [
+            "UT: error 1 depth 2 top_second 1",
+            "UT: pop_second 1 top_first 1 depth 1",
+            "UT: pop_first 1 empty 1"
+          ]
+        }
+      ]
     },
     {
       "id": "UVM-POLICY-ACTIVE-POLICY-SYNC",
@@ -14040,15 +14095,32 @@
         "ja": "呼出しはerrorを報告し、未定義のcopy結果は調べない。"
       },
       "limitations": {
-        "en": "No direct test is mapped; deep copy and shallow hook configuration exercise different modes.",
-        "ja": "直接テストは未対応。deep copyとshallow hook設定は別modeの検査である。"
+        "en": "Distinct and aliased operands are used without inspecting either invalid copy result. A separate copier and fresh objects provide a valid deep-copy control; diagnostics are normalized by original ERROR severity.",
+        "ja": "別objectとaliasの引数を使い、不正copyの結果は調べない。別copierと新objectで正常なdeep-copyを確認し、診断は元のERROR severityで正規化する。"
       },
       "review": {
         "status": "ai",
         "reviewer": null,
         "reviewed_at": null
       },
-      "test_links": []
+      "test_links": [
+        {
+          "test": "u16/test_copier_reference_copy_reports_error_for_distinct_objects",
+          "role": "direct",
+          "expected_observations": [
+            "UT: reference_error 1",
+            "UT: deep_control 1 distinct 1"
+          ]
+        },
+        {
+          "test": "u16/test_copier_reference_copy_reports_error_for_an_aliased_object",
+          "role": "direct",
+          "expected_observations": [
+            "UT: reference_error 1",
+            "UT: deep_control 1 distinct 1"
+          ]
+        }
+      ]
     },
     {
       "id": "UVM-PRINTER-ARRAY-ALL-ELEMENTS",
@@ -14118,15 +14190,34 @@
         "ja": "結果のpack表現を仮定せず、不正呼出しがerrorを出す。"
       },
       "limitations": {
-        "en": "No direct test is mapped; a successful 64-bit boundary round trip does not test oversize rejection.",
-        "ja": "直接テストは未対応。64-bit境界の成功する往復では、上限超過の拒否を検査しない。"
+        "en": "Sizes 65 and 128 are invalid; packed state after either call remains uninspected. A fresh packer round-trips the 64-bit boundary without assuming invalid-state recovery.",
+        "ja": "size 65／128の不正呼出し後のpack状態は調べない。新しいpackerで64-bit境界を往復し、不正状態からの復旧を仮定しない。"
       },
       "review": {
         "status": "ai",
         "reviewer": null,
         "reviewed_at": null
       },
-      "test_links": []
+      "test_links": [
+        {
+          "test": "u16/test_packer_integral_size_65_reports_error_before_independent_boundary_control",
+          "role": "direct",
+          "expected_observations": [
+            "UT: oversize_error 1",
+            "UT: boundary_bits 64",
+            "UT: boundary_value 1 remaining 0"
+          ]
+        },
+        {
+          "test": "u16/test_packer_integral_size_128_reports_error_before_independent_boundary_control",
+          "role": "direct",
+          "expected_observations": [
+            "UT: oversize_error 1",
+            "UT: boundary_bits 64",
+            "UT: boundary_value 1 remaining 0"
+          ]
+        }
+      ]
     },
     {
       "id": "UVM-DATABASE-OPEN-IDEMPOTENCE",
@@ -15033,6 +15124,1293 @@
             "UT: first 1 5",
             "UT: second 1 7",
             "UT: third 1 9 empty 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIFO-FAILED-GET-OUTPUT",
+      "clause": "12.2.4.2.6",
+      "statement": {
+        "en": "An unavailable nonblocking get leaves the caller output unchanged.",
+        "ja": "取得不可のnonblocking getは、呼出し側の出力を変更しない。"
+      },
+      "conditions": {
+        "en": "Call on an empty FIFO with a nondefault two-state value or nonnull handle, then enqueue a different transaction and retry.",
+        "ja": "空FIFOに、既定値でない2状態値／nonnull handleを渡して呼び、別transactionを保存して再試行する。"
+      },
+      "expected": {
+        "en": "The failed call returns 0 and preserves the sentinel; the successful control returns the queued value and the specified occupancy.",
+        "ja": "失敗時は0を返してsentinelを保持し、成功する比較対象は保存値と所定の占有数を返す。"
+      },
+      "limitations": {
+        "en": "The prose says unchanged although the UVM signature declares output, whose return copies a formal value under SystemVerilog 13.5. Preserve the stated postcondition and flag this language/signature tension for review; do not assign a simulator bug from it.",
+        "ja": "本文は変更しないとする一方、UVMのsignatureはoutputであり、SystemVerilog 13.5はreturn時にformal値を代入する。記載された事後条件を保持し、この言語／signatureの食い違いは要レビューとする。シミュレータの不具合と断定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm_fifo_failed_try_get_preserves_two_state_value_before_success",
+          "role": "direct",
+          "expected_observations": [
+            "UT: failed 1 preserved 1 used 0",
+            "UT: accepted 1 succeeded 1 returned 1 used 0"
+          ]
+        },
+        {
+          "test": "u12/test_tlm_fifo_failed_try_get_preserves_object_handle_before_success",
+          "role": "direct",
+          "expected_observations": [
+            "UT: failed 1 preserved 1 used 0",
+            "UT: accepted 1 succeeded 1 returned 1 used 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIFO-FAILED-PEEK-OUTPUT",
+      "clause": "12.2.4.2.8",
+      "statement": {
+        "en": "An unavailable nonblocking peek leaves the caller output unchanged.",
+        "ja": "取得不可のnonblocking peekは、呼出し側の出力を変更しない。"
+      },
+      "conditions": {
+        "en": "Call on an empty FIFO with a nondefault two-state value or nonnull handle, then enqueue a different transaction and retry.",
+        "ja": "空FIFOに、既定値でない2状態値／nonnull handleを渡して呼び、別transactionを保存して再試行する。"
+      },
+      "expected": {
+        "en": "The failed call returns 0 and preserves the sentinel; the successful control returns the queued value and the specified occupancy.",
+        "ja": "失敗時は0を返してsentinelを保持し、成功する比較対象は保存値と所定の占有数を返す。"
+      },
+      "limitations": {
+        "en": "The prose says unchanged although the UVM signature declares output, whose return copies a formal value under SystemVerilog 13.5. Preserve the stated postcondition and flag this language/signature tension for review; do not assign a simulator bug from it.",
+        "ja": "本文は変更しないとする一方、UVMのsignatureはoutputであり、SystemVerilog 13.5はreturn時にformal値を代入する。記載された事後条件を保持し、この言語／signatureの食い違いは要レビューとする。シミュレータの不具合と断定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm_fifo_failed_try_peek_preserves_two_state_value_before_success",
+          "role": "direct",
+          "expected_observations": [
+            "UT: failed 1 preserved 1 used 0",
+            "UT: accepted 1 succeeded 1 returned 1 used 1"
+          ]
+        },
+        {
+          "test": "u12/test_tlm_fifo_failed_try_peek_preserves_object_handle_before_success",
+          "role": "direct",
+          "expected_observations": [
+            "UT: failed 1 preserved 1 used 0",
+            "UT: accepted 1 succeeded 1 returned 1 used 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEMORY-FRONTDOOR-WRITE",
+      "clause": "18.6.5.1",
+      "statement": {
+        "en": "A frontdoor write transfers the selected memory location through its configured map.",
+        "ja": "frontdoorのwriteは、設定したmap経由で選択memory locationを転送する。"
+      },
+      "conditions": {
+        "en": "Use byte/word-addressed maps, single or multiple physical beats and known testbench data.",
+        "ja": "byte／wordアドレスのmap、単一／複数の物理beat、既知のテストベンチdataを使う。"
+      },
+      "expected": {
+        "en": "The selected location, declared data bits and physical addresses agree with the model and map.",
+        "ja": "選択location、宣言したdata bit、物理addressがmodel／mapに一致する。"
+      },
+      "limitations": {
+        "en": "Only the listed little-endian testbench buses, widths and locations are mapped; RTL, HDL DPI, broad timing and all transfer combinations remain unassessed. The 24-bit case prepares storage from public address lists; its address translation is not independently asserted.",
+        "ja": "列挙したlittle-endianのテストベンチbus、幅、locationのみを対応付け、RTL、HDL DPI、追加のtiming、全転送の組合せは未評価とする。 24-bitのケースは公開address一覧で記憶域を準備し、そのaddress変換を独立にassertしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_mem_frontdoor_wide_write_routes_each_byte_to_its_location",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ok 1 requests 4 bytes 44 33 22 11"
+          ]
+        },
+        {
+          "test": "u18/test_mem_frontdoor_word_addressing_uses_bus_word_units",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ok 1 requests 1 address 22 stored aabbccdd"
+          ]
+        },
+        {
+          "test": "u18/test_mem_frontdoor_write_routes_location_and_data",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ok 1 requests 1 address 23 stored a6"
+          ]
+        },
+        {
+          "test": "u18/test_mem_frontdoor_twenty_bit_write_preserves_location_boundaries_and_partial_width",
+          "role": "direct",
+          "expected_observations": [
+            "UT: statuses 1 1 beats 6 addresses 1 directions 1",
+            "UT: widths 8 8 4 8 8 4",
+            "UT: first de bc a second 79 35 1",
+            "UT: neighbors aa bb"
+          ]
+        },
+        {
+          "test": "u18/test_mem_frontdoor_twenty_four_bit_write_uses_one_byte_in_final_bus_word",
+          "role": "direct",
+          "expected_observations": [
+            "UT: statuses 1 1 beats 4 directions 1",
+            "UT: widths 16 8 16 8",
+            "UT: words b2c3 a1 579b 13"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEMORY-FRONTDOOR-READ",
+      "clause": "18.6.5.2",
+      "statement": {
+        "en": "A frontdoor read transfers the selected memory location through its configured map.",
+        "ja": "frontdoorのreadは、設定したmap経由で選択memory locationを転送する。"
+      },
+      "conditions": {
+        "en": "Use byte/word-addressed maps, single or multiple physical beats and known testbench data.",
+        "ja": "byte／wordアドレスのmap、単一／複数の物理beat、既知のテストベンチdataを使う。"
+      },
+      "expected": {
+        "en": "The selected location, declared data bits and physical addresses agree with the model and map.",
+        "ja": "選択location、宣言したdata bit、物理addressがmodel／mapに一致する。"
+      },
+      "limitations": {
+        "en": "Only the listed little-endian testbench buses, widths and locations are mapped; RTL, HDL DPI, broad timing and all transfer combinations remain unassessed. The 24-bit case prepares storage from public address lists; its address translation is not independently asserted.",
+        "ja": "列挙したlittle-endianのテストベンチbus、幅、locationのみを対応付け、RTL、HDL DPI、追加のtiming、全転送の組合せは未評価とする。 24-bitのケースは公開address一覧で記憶域を準備し、そのaddress変換を独立にassertしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_mem_frontdoor_read_accepts_a_separate_driver_response",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ok 1 requests 1 address 25 value bc"
+          ]
+        },
+        {
+          "test": "u18/test_mem_frontdoor_read_returns_selected_location",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ok 1 requests 1 address 23 value a6"
+          ]
+        },
+        {
+          "test": "u18/test_mem_frontdoor_wide_read_assembles_little_endian_bytes",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ok 1 requests 4 value 11223344"
+          ]
+        },
+        {
+          "test": "u18/test_mem_frontdoor_twenty_bit_read_assembles_declared_bits_and_partial_width",
+          "role": "direct",
+          "expected_observations": [
+            "UT: statuses 1 1 beats 6 addresses 1 directions 1",
+            "UT: widths 8 8 4 8 8 4",
+            "UT: declared_values abcde 13579"
+          ]
+        },
+        {
+          "test": "u18/test_mem_frontdoor_twenty_four_bit_read_uses_one_byte_in_final_bus_word",
+          "role": "direct",
+          "expected_observations": [
+            "UT: statuses 1 1 beats 4 directions 1",
+            "UT: widths 16 8 16 8",
+            "UT: declared_values a1b2c3 13579b"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEMORY-FRONTDOOR-WRITE-STATUS",
+      "clause": "18.6.5.1",
+      "statement": {
+        "en": "Memory write returns the success or failure of the physical operation.",
+        "ja": "memoryのwriteは、物理操作の成功／失敗を返す。"
+      },
+      "conditions": {
+        "en": "Return UVM_NOT_OK on the first access and UVM_IS_OK on a later access with controlled storage.",
+        "ja": "記憶域を制御し、最初のアクセスでUVM_NOT_OK、後のアクセスでUVM_IS_OKを返す。"
+      },
+      "expected": {
+        "en": "The first status reports failure and a fresh successful retry returns current data or performs the requested write.",
+        "ja": "最初のstatusは失敗を示し、成功する新しい再試行は現在のdataを返すか要求writeを実行する。"
+      },
+      "limitations": {
+        "en": "Failed-read data and generic failed-hardware side effects remain unconstrained; the rejecting driver storage policy is only a fixture control.",
+        "ja": "失敗readのdataと一般の故障hardwareの副作用は制約しない。拒否するdriverの記憶域policyは検査系の比較対象だけである。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_mem_frontdoor_write_propagates_failure_before_successful_retry",
+          "role": "direct",
+          "expected_observations": [
+            "UT: rejected 1 requests 1 retained 91",
+            "UT: retry 1 requests 2 value 53 neighbor 77"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEMORY-FRONTDOOR-READ-STATUS",
+      "clause": "18.6.5.2",
+      "statement": {
+        "en": "Memory read returns the success or failure of the physical operation.",
+        "ja": "memoryのreadは、物理操作の成功／失敗を返す。"
+      },
+      "conditions": {
+        "en": "Return UVM_NOT_OK on the first access and UVM_IS_OK on a later access with controlled storage.",
+        "ja": "記憶域を制御し、最初のアクセスでUVM_NOT_OK、後のアクセスでUVM_IS_OKを返す。"
+      },
+      "expected": {
+        "en": "The first status reports failure and a fresh successful retry returns current data or performs the requested write.",
+        "ja": "最初のstatusは失敗を示し、成功する新しい再試行は現在のdataを返すか要求writeを実行する。"
+      },
+      "limitations": {
+        "en": "Failed-read data and generic failed-hardware side effects remain unconstrained; the rejecting driver storage policy is only a fixture control.",
+        "ja": "失敗readのdataと一般の故障hardwareの副作用は制約しない。拒否するdriverの記憶域policyは検査系の比較対象だけである。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_mem_frontdoor_read_propagates_failure_without_constraining_failed_data",
+          "role": "direct",
+          "expected_observations": [
+            "UT: rejected 1 requests 1",
+            "UT: retry 1 requests 2 value 3c"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEMORY-PARTIAL-BEAT-WIDTH",
+      "clause": "19.1.2.4",
+      "statement": {
+        "en": "Each physical bus descriptor reports the number of model bits carried by that beat.",
+        "ja": "物理bus descriptorは、そのbeatが転送するmodel bit数を示す。"
+      },
+      "conditions": {
+        "en": "Compare adjacent 20-bit locations on an 8-bit bus with 24-bit locations on a 16-bit bus.",
+        "ja": "8-bit busの隣接20-bit locationと、16-bit busの24-bit locationを比較する。"
+      },
+      "expected": {
+        "en": "The logical-bit interpretation expects widths 8, 8, 4 for 20 bits and byte-aligned widths 16, 8 for 24 bits, preserving declared data.",
+        "ja": "logical bitの解釈では20 bitに幅8・8・4を期待し、byteに整列する24 bitには16・8を期待する。宣言dataを保持する。"
+      },
+      "limitations": {
+        "en": "The sub-byte n_bits interpretation versus rounded byte transfer width requires review; retain the logical-bit oracle without assigning a confirmed library bug. Unused data bits are unconstrained. The 24-bit fixtures use public address lists to prepare storage, not independently certify translation.",
+        "ja": "sub-byteのn_bitsをlogical bit数とする解釈と、byteへ丸める転送幅との違いは要レビューとする。logical bitの期待値を保持し、ライブラリの確定した不具合と断定しない。未使用data bitは制約しない。24-bit構成の公開address一覧は記憶域の準備に使い、変換の独立した証明にはしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_mem_frontdoor_twenty_bit_write_preserves_location_boundaries_and_partial_width",
+          "role": "direct",
+          "expected_observations": [
+            "UT: statuses 1 1 beats 6 addresses 1 directions 1",
+            "UT: widths 8 8 4 8 8 4",
+            "UT: first de bc a second 79 35 1",
+            "UT: neighbors aa bb"
+          ]
+        },
+        {
+          "test": "u18/test_mem_frontdoor_twenty_bit_read_assembles_declared_bits_and_partial_width",
+          "role": "direct",
+          "expected_observations": [
+            "UT: statuses 1 1 beats 6 addresses 1 directions 1",
+            "UT: widths 8 8 4 8 8 4",
+            "UT: declared_values abcde 13579"
+          ]
+        },
+        {
+          "test": "u18/test_mem_frontdoor_twenty_four_bit_write_uses_one_byte_in_final_bus_word",
+          "role": "direct",
+          "expected_observations": [
+            "UT: statuses 1 1 beats 4 directions 1",
+            "UT: widths 16 8 16 8",
+            "UT: words b2c3 a1 579b 13"
+          ]
+        },
+        {
+          "test": "u18/test_mem_frontdoor_twenty_four_bit_read_uses_one_byte_in_final_bus_word",
+          "role": "direct",
+          "expected_observations": [
+            "UT: statuses 1 1 beats 4 directions 1",
+            "UT: widths 16 8 16 8",
+            "UT: declared_values a1b2c3 13579b"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEMORY-FULL-WIDTH-BURST-WRITE",
+      "clause": "18.6.5.3",
+      "statement": {
+        "en": "A full-width burst write transfers array elements through successive memory locations.",
+        "ja": "full-widthのburst writeは、配列要素を順次のmemory location経由で転送する。"
+      },
+      "conditions": {
+        "en": "Use three 64-bit array entries on a full-width testbench bus.",
+        "ja": "full-widthのテストベンチbusで、64-bit配列entryを3つ使う。"
+      },
+      "expected": {
+        "en": "All three values retain their selected location order and operation status.",
+        "ja": "3つの値が選択locationの順序と操作statusを保つ。"
+      },
+      "limitations": {
+        "en": "Sub-word burst packing, partial final burst elements and arbitrary array sizes remain unassessed; known physical-kind differences retain the normative oracle.",
+        "ja": "sub-wordのburst packing、最終burst要素の端数、任意の配列sizeは未評価とし、既知の物理kind差分も規格の期待値を保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_mem_frontdoor_burst_write_advances_full_width_locations",
+          "role": "direct",
+          "expected_observations": [
+            "UT: plain_kinds 1",
+            "UT: ok 1 requests 3 stored 1122334455667788 99aabbccddeeff00 123456789abcdef0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEMORY-FULL-WIDTH-BURST-READ",
+      "clause": "18.6.5.4",
+      "statement": {
+        "en": "A full-width burst read transfers array elements through successive memory locations.",
+        "ja": "full-widthのburst readは、配列要素を順次のmemory location経由で転送する。"
+      },
+      "conditions": {
+        "en": "Use three 64-bit array entries on a full-width testbench bus.",
+        "ja": "full-widthのテストベンチbusで、64-bit配列entryを3つ使う。"
+      },
+      "expected": {
+        "en": "All three values retain their selected location order and operation status.",
+        "ja": "3つの値が選択locationの順序と操作statusを保つ。"
+      },
+      "limitations": {
+        "en": "Sub-word burst packing, partial final burst elements and arbitrary array sizes remain unassessed; known physical-kind differences retain the normative oracle.",
+        "ja": "sub-wordのburst packing、最終burst要素の端数、任意の配列sizeは未評価とし、既知の物理kind差分も規格の期待値を保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_mem_frontdoor_burst_read_fills_full_width_array_in_location_order",
+          "role": "direct",
+          "expected_observations": [
+            "UT: plain_kinds 1",
+            "UT: ok 1 size 3 requests 3 values 1122334455667788 99aabbccddeeff00 123456789abcdef0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEMORY-PHYSICAL-ACCESS-KINDS",
+      "clause": "19.1.2.1",
+      "statement": {
+        "en": "Physical memory bus descriptors use plain READ or WRITE access kinds.",
+        "ja": "物理memory bus descriptorは、通常のREAD／WRITE kindを使う。"
+      },
+      "conditions": {
+        "en": "Observe full-width bursts and partial-width single-location transfers at the adapter boundary.",
+        "ja": "adapter境界で、full-widthのburstと端数幅の単一location転送を観測する。"
+      },
+      "expected": {
+        "en": "Each observed beat has its required plain direction, rather than a burst-only operation kind.",
+        "ja": "観測する各beatが、burst専用kindではなく必要な通常の方向を持つ。"
+      },
+      "limitations": {
+        "en": "Only the listed memory paths are linked; this does not establish all register or adapter kinds.",
+        "ja": "列挙したmemory経路だけを対応付け、全register／adapterのkindを示さない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_mem_frontdoor_burst_write_advances_full_width_locations",
+          "role": "direct",
+          "expected_observations": [
+            "UT: plain_kinds 1",
+            "UT: ok 1 requests 3 stored 1122334455667788 99aabbccddeeff00 123456789abcdef0"
+          ]
+        },
+        {
+          "test": "u18/test_mem_frontdoor_burst_read_fills_full_width_array_in_location_order",
+          "role": "direct",
+          "expected_observations": [
+            "UT: plain_kinds 1",
+            "UT: ok 1 size 3 requests 3 values 1122334455667788 99aabbccddeeff00 123456789abcdef0"
+          ]
+        },
+        {
+          "test": "u18/test_mem_frontdoor_twenty_bit_write_preserves_location_boundaries_and_partial_width",
+          "role": "direct",
+          "expected_observations": [
+            "UT: statuses 1 1 beats 6 addresses 1 directions 1",
+            "UT: widths 8 8 4 8 8 4",
+            "UT: first de bc a second 79 35 1",
+            "UT: neighbors aa bb"
+          ]
+        },
+        {
+          "test": "u18/test_mem_frontdoor_twenty_bit_read_assembles_declared_bits_and_partial_width",
+          "role": "direct",
+          "expected_observations": [
+            "UT: statuses 1 1 beats 6 addresses 1 directions 1",
+            "UT: widths 8 8 4 8 8 4",
+            "UT: declared_values abcde 13579"
+          ]
+        },
+        {
+          "test": "u18/test_mem_frontdoor_twenty_four_bit_write_uses_one_byte_in_final_bus_word",
+          "role": "direct",
+          "expected_observations": [
+            "UT: statuses 1 1 beats 4 directions 1",
+            "UT: widths 16 8 16 8",
+            "UT: words b2c3 a1 579b 13"
+          ]
+        },
+        {
+          "test": "u18/test_mem_frontdoor_twenty_four_bit_read_uses_one_byte_in_final_bus_word",
+          "role": "direct",
+          "expected_observations": [
+            "UT: statuses 1 1 beats 4 directions 1",
+            "UT: widths 16 8 16 8",
+            "UT: declared_values a1b2c3 13579b"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGISTER-FRONTDOOR-WRITE",
+      "clause": "18.4.4.9",
+      "statement": {
+        "en": "Register frontdoor write transfers model data through the selected physical access path.",
+        "ja": "registerのfrontdoor writeは、選択した物理アクセス経路でmodel dataを転送する。"
+      },
+      "conditions": {
+        "en": "Use single/wide transfers and inline or separate driver completions in the listed fixtures.",
+        "ja": "列挙した構成で、単一／広幅の転送と、直接／別responseのdriver完了を使う。"
+      },
+      "expected": {
+        "en": "Successful operations preserve the requested or returned data and status; failed-read data is not inspected.",
+        "ja": "成功した操作は要求／返却dataとstatusを保ち、失敗readのdataは調べない。"
+      },
+      "limitations": {
+        "en": "Selected testbench adapter/sequencer/driver connections and data are mapped; all map, endian, error and prediction combinations remain partial.",
+        "ja": "選択したテストベンチのadapter／sequencer／driver接続とdataを対応付ける。全map／endian／error／predictionの組合せは部分的なままである。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_frontdoor_wide_write_routes_each_bus_word_to_its_address",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ok 1 count 2 low 1 high 1 mirror 11223344"
+          ]
+        },
+        {
+          "test": "u18/test_reg_frontdoor_write_propagates_bus_error_and_allows_next_access",
+          "role": "direct",
+          "expected_observations": [
+            "UT: rejected 1 requests 1",
+            "UT: retry ok 1 mirror a6 requests 2"
+          ]
+        },
+        {
+          "test": "u18/test_reg_frontdoor_write_with_auto_predict_updates_bus_storage_and_mirror",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ok 1 storage 5a desired 5a mirror 5a writes 1 address 20"
+          ]
+        },
+        {
+          "test": "u18/test_reg_frontdoor_write_without_auto_predict_leaves_mirror_unchanged",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ok 1 storage 5a desired 5a mirror 11"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGISTER-FRONTDOOR-READ",
+      "clause": "18.4.4.10",
+      "statement": {
+        "en": "Register frontdoor read transfers model data through the selected physical access path.",
+        "ja": "registerのfrontdoor readは、選択した物理アクセス経路でmodel dataを転送する。"
+      },
+      "conditions": {
+        "en": "Use single/wide transfers and inline or separate driver completions in the listed fixtures.",
+        "ja": "列挙した構成で、単一／広幅の転送と、直接／別responseのdriver完了を使う。"
+      },
+      "expected": {
+        "en": "Successful operations preserve the requested or returned data and status; failed-read data is not inspected.",
+        "ja": "成功した操作は要求／返却dataとstatusを保ち、失敗readのdataは調べない。"
+      },
+      "limitations": {
+        "en": "Selected testbench adapter/sequencer/driver connections and data are mapped; all map, endian, error and prediction combinations remain partial.",
+        "ja": "選択したテストベンチのadapter／sequencer／driver接続とdataを対応付ける。全map／endian／error／predictionの組合せは部分的なままである。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_frontdoor_big_endian_wide_read_preserves_returned_bus_words",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ok 1 count 2 value 3c3c3c3c mirror 3c3c3c3c"
+          ]
+        },
+        {
+          "test": "u18/test_reg_frontdoor_read_accepts_a_separate_driver_response",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ok 1 value a6 mirror a6 requests 1"
+          ]
+        },
+        {
+          "test": "u18/test_reg_frontdoor_read_propagates_bus_error_and_allows_next_access",
+          "role": "direct",
+          "expected_observations": [
+            "UT: rejected 1 requests 1",
+            "UT: retry ok 1 mirror a6 requests 2"
+          ]
+        },
+        {
+          "test": "u18/test_reg_frontdoor_read_with_auto_predict_returns_bus_data_and_updates_mirror",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ok 1 value a6 mirror a6 reads 1 read_kind 1"
+          ]
+        },
+        {
+          "test": "u18/test_reg_frontdoor_read_without_auto_predict_returns_data_without_mirror_update",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ok 1 value a6 mirror 11"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGISTER-FRONTDOOR-WRITE-STATUS",
+      "clause": "18.4.4.9",
+      "statement": {
+        "en": "The register write status reflects physical success or failure.",
+        "ja": "registerのwrite statusは、物理操作の成功／失敗を反映する。"
+      },
+      "conditions": {
+        "en": "The driver first rejects an access, then accepts a new one.",
+        "ja": "driverが最初のアクセスを拒否し、次の新しいアクセスを受け入れる。"
+      },
+      "expected": {
+        "en": "UVM_NOT_OK is followed by a successful UVM_IS_OK retry with a real additional request.",
+        "ja": "UVM_NOT_OKの後、実際に別requestを送る再試行がUVM_IS_OKで成功する。"
+      },
+      "limitations": {
+        "en": "Selected testbench adapter/sequencer/driver connections and data are mapped; all map, endian, error and prediction combinations remain partial.",
+        "ja": "選択したテストベンチのadapter／sequencer／driver接続とdataを対応付ける。全map／endian／error／predictionの組合せは部分的なままである。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_frontdoor_write_propagates_bus_error_and_allows_next_access",
+          "role": "direct",
+          "expected_observations": [
+            "UT: rejected 1 requests 1",
+            "UT: retry ok 1 mirror a6 requests 2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGISTER-FRONTDOOR-READ-STATUS",
+      "clause": "18.4.4.10",
+      "statement": {
+        "en": "The register read status reflects physical success or failure.",
+        "ja": "registerのread statusは、物理操作の成功／失敗を反映する。"
+      },
+      "conditions": {
+        "en": "The driver first rejects an access, then accepts a new one.",
+        "ja": "driverが最初のアクセスを拒否し、次の新しいアクセスを受け入れる。"
+      },
+      "expected": {
+        "en": "UVM_NOT_OK is followed by a successful UVM_IS_OK retry with a real additional request.",
+        "ja": "UVM_NOT_OKの後、実際に別requestを送る再試行がUVM_IS_OKで成功する。"
+      },
+      "limitations": {
+        "en": "Selected testbench adapter/sequencer/driver connections and data are mapped; all map, endian, error and prediction combinations remain partial.",
+        "ja": "選択したテストベンチのadapter／sequencer／driver接続とdataを対応付ける。全map／endian／error／predictionの組合せは部分的なままである。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_frontdoor_read_propagates_bus_error_and_allows_next_access",
+          "role": "direct",
+          "expected_observations": [
+            "UT: rejected 1 requests 1",
+            "UT: retry ok 1 mirror a6 requests 2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGISTER-AUTO-PREDICTION-ENABLED",
+      "clause": "18.2.5.2",
+      "statement": {
+        "en": "Enabled auto-prediction updates the mirror before bus operations return.",
+        "ja": "auto-prediction有効時はbus操作が戻る前にmirrorを更新する。"
+      },
+      "conditions": {
+        "en": "Explicitly configure the map mode before a successful read or write; do not connect a passive predictor.",
+        "ja": "成功するread／writeの前にmap modeを明示し、passive predictorは接続しない。"
+      },
+      "expected": {
+        "en": "The enabled mirror equals transferred data while data delivery still succeeds.",
+        "ja": "data配送が成功し、mirrorが転送dataと一致する。"
+      },
+      "limitations": {
+        "en": "Selected testbench adapter/sequencer/driver connections and data are mapped; all map, endian, error and prediction combinations remain partial.",
+        "ja": "選択したテストベンチのadapter／sequencer／driver接続とdataを対応付ける。全map／endian／error／predictionの組合せは部分的なままである。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_frontdoor_write_with_auto_predict_updates_bus_storage_and_mirror",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ok 1 storage 5a desired 5a mirror 5a writes 1 address 20"
+          ]
+        },
+        {
+          "test": "u18/test_reg_frontdoor_read_with_auto_predict_returns_bus_data_and_updates_mirror",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ok 1 value a6 mirror a6 reads 1 read_kind 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGISTER-AUTO-PREDICTION-DISABLED",
+      "clause": "18.2.5.2",
+      "statement": {
+        "en": "Disabled auto-prediction leaves the mirror untouched by the bus operation alone.",
+        "ja": "auto-prediction無効時はbus操作だけではmirrorを変更しない。"
+      },
+      "conditions": {
+        "en": "Explicitly configure the map mode before a successful read or write; do not connect a passive predictor.",
+        "ja": "成功するread／writeの前にmap modeを明示し、passive predictorは接続しない。"
+      },
+      "expected": {
+        "en": "Data delivery succeeds while the original mirror is retained.",
+        "ja": "data配送が成功し、元のmirrorを保持する。"
+      },
+      "limitations": {
+        "en": "Selected testbench adapter/sequencer/driver connections and data are mapped; all map, endian, error and prediction combinations remain partial.",
+        "ja": "選択したテストベンチのadapter／sequencer／driver接続とdataを対応付ける。全map／endian／error／predictionの組合せは部分的なままである。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_frontdoor_write_without_auto_predict_leaves_mirror_unchanged",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ok 1 storage 5a desired 5a mirror 11"
+          ]
+        },
+        {
+          "test": "u18/test_reg_frontdoor_read_without_auto_predict_returns_data_without_mirror_update",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ok 1 value a6 mirror 11"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGISTER-MIRROR-MISMATCH-CHECK",
+      "clause": "18.4.4.14",
+      "statement": {
+        "en": "Mirror checking reports a mismatching value and then updates the mirror.",
+        "ja": "mirror検査は不一致値をerror報告し、その後mirrorを更新する。"
+      },
+      "conditions": {
+        "en": "Read changed testbench data with UVM_CHECK and an explicitly selected field comparison mode.",
+        "ja": "fieldの比較modeを明示し、変更したテストベンチdataをUVM_CHECKでreadする。"
+      },
+      "expected": {
+        "en": "An error occurs and the mirror takes the current read value.",
+        "ja": "errorが発生し、mirrorは現在のread値になる。"
+      },
+      "limitations": {
+        "en": "Selected testbench adapter/sequencer/driver connections and data are mapped; all map, endian, error and prediction combinations remain partial.",
+        "ja": "選択したテストベンチのadapter／sequencer／driver接続とdataを対応付ける。全map／endian／error／predictionの組合せは部分的なままである。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_mirror_check_reports_mismatch_and_updates_mirror",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ok 1 errors 1 mirror a6 requests 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGISTER-MIRROR-DISABLED-FIELD-CHECK",
+      "clause": "18.4.4.14",
+      "statement": {
+        "en": "Fields with disabled comparison are excluded from mirror checking.",
+        "ja": "比較を無効にしたfieldはmirror検査から除外する。"
+      },
+      "conditions": {
+        "en": "Read changed testbench data with UVM_CHECK and an explicitly selected field comparison mode.",
+        "ja": "fieldの比較modeを明示し、変更したテストベンチdataをUVM_CHECKでreadする。"
+      },
+      "expected": {
+        "en": "No mismatch error occurs for the excluded field and the mirror still updates.",
+        "ja": "除外したfieldに不一致errorを出さず、mirrorは更新する。"
+      },
+      "limitations": {
+        "en": "Selected testbench adapter/sequencer/driver connections and data are mapped; all map, endian, error and prediction combinations remain partial.",
+        "ja": "選択したテストベンチのadapter／sequencer／driver接続とdataを対応付ける。全map／endian／error／predictionの組合せは部分的なままである。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_mirror_disabled_field_comparison_suppresses_mismatch_error",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ok 1 errors 0 mirror a6 requests 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VIRTUAL-REGISTER-FRONTDOOR-WRITE",
+      "clause": "18.9.1.3.1",
+      "statement": {
+        "en": "Virtual-register write uses the implementing memory locations for the selected index.",
+        "ja": "virtual-registerのwriteは、選択indexを実装するmemory locationを使う。"
+      },
+      "conditions": {
+        "en": "Use explicit array indices, byte-split locations, selected stride and a failed-read retry where listed.",
+        "ja": "明示した配列index、byte分割location、選択したstride、列挙した失敗readの再試行を使う。"
+      },
+      "expected": {
+        "en": "The selected element data and location relationships hold; failure status precedes a fresh successful read where tested.",
+        "ja": "選択要素のdata／location関係を保ち、検査する条件では失敗statusの後に新しいreadが成功する。"
+      },
+      "limitations": {
+        "en": "Only these frontdoor layouts are mapped; no virtual mirror, HDL DPI, general burst packing or arbitrary stride claim is made.",
+        "ja": "これらのfrontdoor配置だけを対応付け、virtual mirror、HDL DPI、一般のburst packing、任意のstrideは主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_frontdoor_explicit_stride_preserves_the_gap_between_elements",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ok 1 bytes 88 77 gap 55"
+          ]
+        },
+        {
+          "test": "u18/test_vreg_frontdoor_wide_memory_locations_split_into_narrow_bus_accesses",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ok 1 bytes 44 33 22 11"
+          ]
+        },
+        {
+          "test": "u18/test_vreg_frontdoor_write_splits_selected_array_element_into_memory_bytes",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ok 1 bytes 44 33"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VIRTUAL-REGISTER-FRONTDOOR-READ",
+      "clause": "18.9.1.3.2",
+      "statement": {
+        "en": "Virtual-register read uses the implementing memory locations for the selected index.",
+        "ja": "virtual-registerのreadは、選択indexを実装するmemory locationを使う。"
+      },
+      "conditions": {
+        "en": "Use explicit array indices, byte-split locations, selected stride and a failed-read retry where listed.",
+        "ja": "明示した配列index、byte分割location、選択したstride、列挙した失敗readの再試行を使う。"
+      },
+      "expected": {
+        "en": "The selected element data and location relationships hold; failure status precedes a fresh successful read where tested.",
+        "ja": "選択要素のdata／location関係を保ち、検査する条件では失敗statusの後に新しいreadが成功する。"
+      },
+      "limitations": {
+        "en": "Only these frontdoor layouts are mapped; no virtual mirror, HDL DPI, general burst packing or arbitrary stride claim is made.",
+        "ja": "これらのfrontdoor配置だけを対応付け、virtual mirror、HDL DPI、一般のburst packing、任意のstrideは主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_frontdoor_read_assembles_selected_array_element_from_memory_bytes",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ok 1 value 3344"
+          ]
+        },
+        {
+          "test": "u18/test_vreg_frontdoor_read_propagates_memory_error_then_allows_retry",
+          "role": "direct",
+          "expected_observations": [
+            "UT: rejected 1",
+            "UT: retry_ok 1 value 3344"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VIRTUAL-FIELD-FRONTDOOR-WRITE",
+      "clause": "18.10.4.1",
+      "statement": {
+        "en": "Virtual-field write transfers only its selected slice through the implementing memory.",
+        "ja": "virtual-fieldのwriteは、実装memory経由で選択したsliceを転送する。"
+      },
+      "conditions": {
+        "en": "Use a selected field/index with explicit surrounding storage.",
+        "ja": "周囲の記憶域を明示したfield／indexを選ぶ。"
+      },
+      "expected": {
+        "en": "Unselected bits and the neighbor location retain their values.",
+        "ja": "選択していないbitと隣接locationの値を保つ。"
+      },
+      "limitations": {
+        "en": "Selected testbench adapter/sequencer/driver connections and data are mapped; all map, endian, error and prediction combinations remain partial.",
+        "ja": "選択したテストベンチのadapter／sequencer／driver接続とdataを対応付ける。全map／endian／error／predictionの組合せは部分的なままである。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_field_frontdoor_write_preserves_unselected_bits_and_neighbor_location",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ok 1 byte ac neighbor 55"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VIRTUAL-FIELD-FRONTDOOR-READ",
+      "clause": "18.10.4.2",
+      "statement": {
+        "en": "Virtual-field read transfers only its selected slice through the implementing memory.",
+        "ja": "virtual-fieldのreadは、実装memory経由で選択したsliceを転送する。"
+      },
+      "conditions": {
+        "en": "Use a selected field/index with explicit surrounding storage.",
+        "ja": "周囲の記憶域を明示したfield／indexを選ぶ。"
+      },
+      "expected": {
+        "en": "The field value is extracted correctly.",
+        "ja": "field値を正しく取り出す。"
+      },
+      "limitations": {
+        "en": "Selected testbench adapter/sequencer/driver connections and data are mapped; all map, endian, error and prediction combinations remain partial.",
+        "ja": "選択したテストベンチのadapter／sequencer／driver接続とdataを対応付ける。全map／endian／error／predictionの組合せは部分的なままである。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_field_frontdoor_read_extracts_a_slice_across_two_memory_locations",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ok 1 value 5b"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGISTER-CUSTOM-FRONTDOOR-DESCRIPTOR",
+      "clause": "19.4.2.2.1",
+      "statement": {
+        "en": "Custom register frontdoors receive the operation data through rw_info.",
+        "ja": "custom register frontdoorは、rw_infoで操作dataを受け取る。"
+      },
+      "conditions": {
+        "en": "Run the explicitly selected custom-frontdoor fixture with controlled descriptor fields and storage.",
+        "ja": "descriptor fieldと記憶域を制御し、明示して選択したcustom-frontdoor検査系を実行する。"
+      },
+      "expected": {
+        "en": "The sequence consumes the requested write value or supplies the returned read value.",
+        "ja": "sequenceが要求write値を受け取るか、readの返却値を供給する。"
+      },
+      "limitations": {
+        "en": "Custom sequences use testbench storage with no RTL or HDL DPI. Only the named descriptor/context, selection or status observations are linked; broader frontdoor combinations remain partial.",
+        "ja": "custom sequenceはRTL／HDL DPIなしのテストベンチ記憶域を使う。明記したdescriptor／context、選択、statusの観測だけを対応付け、追加のfrontdoor組合せは部分的なままとする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_custom_frontdoor_read_returns_value_and_updates_mirror",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ok 1 calls 1 value bc mirror bc"
+          ]
+        },
+        {
+          "test": "u19/test_reg_custom_frontdoor_write_consumes_operation_value",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ok 1 calls 1 stored a6 mirror a6"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEMORY-CUSTOM-FRONTDOOR-DESCRIPTOR",
+      "clause": "19.4.2.2.1",
+      "statement": {
+        "en": "Custom memory frontdoors receive the selected location and operation data.",
+        "ja": "custom memory frontdoorは、選択locationと操作dataを受け取る。"
+      },
+      "conditions": {
+        "en": "Run the explicitly selected custom-frontdoor fixture with controlled descriptor fields and storage.",
+        "ja": "descriptor fieldと記憶域を制御し、明示して選択したcustom-frontdoor検査系を実行する。"
+      },
+      "expected": {
+        "en": "Offset 5 selects the requested storage and read/write value.",
+        "ja": "offset 5で要求した記憶域とread／write値を選ぶ。"
+      },
+      "limitations": {
+        "en": "Custom sequences use testbench storage with no RTL or HDL DPI. Only the named descriptor/context, selection or status observations are linked; broader frontdoor combinations remain partial.",
+        "ja": "custom sequenceはRTL／HDL DPIなしのテストベンチ記憶域を使う。明記したdescriptor／context、選択、statusの観測だけを対応付け、追加のfrontdoor組合せは部分的なままとする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_mem_custom_frontdoor_read_returns_the_selected_location",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ok 1 calls 1 offset 5 value bc"
+          ]
+        },
+        {
+          "test": "u19/test_mem_custom_frontdoor_write_receives_the_selected_location",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ok 1 calls 1 memory 1 offset 5 stored a6"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CUSTOM-FRONTDOOR-OPERATION-CONTEXT",
+      "clause": "19.4.2.2.1",
+      "statement": {
+        "en": "The custom frontdoor operation descriptor identifies the accessed model, map and path.",
+        "ja": "custom frontdoorの操作descriptorは、アクセスするmodel／map／pathを識別する。"
+      },
+      "conditions": {
+        "en": "Run the explicitly selected custom-frontdoor fixture with controlled descriptor fields and storage.",
+        "ja": "descriptor fieldと記憶域を制御し、明示して選択したcustom-frontdoor検査系を実行する。"
+      },
+      "expected": {
+        "en": "The descriptor holds the supplied register, map and frontdoor path.",
+        "ja": "descriptorが渡したregister／map／frontdoor pathを保持する。"
+      },
+      "limitations": {
+        "en": "Custom sequences use testbench storage with no RTL or HDL DPI. Only the named descriptor/context, selection or status observations are linked; broader frontdoor combinations remain partial.",
+        "ja": "custom sequenceはRTL／HDL DPIなしのテストベンチ記憶域を使う。明記したdescriptor／context、選択、statusの観測だけを対応付け、追加のfrontdoor組合せは部分的なままとする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_custom_frontdoor_receives_extension_map_element_and_sequencer_context",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ok 1 element 1 extension 1 map 1 path 1 sequencer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CUSTOM-FRONTDOOR-SEQUENCER",
+      "clause": "19.4.2.2.2",
+      "statement": {
+        "en": "The custom frontdoor exposes the sequencer executing its operation.",
+        "ja": "custom frontdoorは、その操作を実行するsequencerを公開する。"
+      },
+      "conditions": {
+        "en": "Run the explicitly selected custom-frontdoor fixture with controlled descriptor fields and storage.",
+        "ja": "descriptor fieldと記憶域を制御し、明示して選択したcustom-frontdoor検査系を実行する。"
+      },
+      "expected": {
+        "en": "The executing sequence and public sequencer handle agree with the configured sequencer.",
+        "ja": "実行sequenceと公開sequencer handleが、設定したsequencerに一致する。"
+      },
+      "limitations": {
+        "en": "Custom sequences use testbench storage with no RTL or HDL DPI. Only the named descriptor/context, selection or status observations are linked; broader frontdoor combinations remain partial.",
+        "ja": "custom sequenceはRTL／HDL DPIなしのテストベンチ記憶域を使う。明記したdescriptor／context、選択、statusの観測だけを対応付け、追加のfrontdoor組合せは部分的なままとする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_custom_frontdoor_receives_extension_map_element_and_sequencer_context",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ok 1 element 1 extension 1 map 1 path 1 sequencer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CUSTOM-FRONTDOOR-EXTENSION",
+      "clause": "19.1.1.2.12",
+      "statement": {
+        "en": "The operation descriptor carries the extension supplied to the initiating access.",
+        "ja": "操作descriptorは、開始したアクセスに渡したextensionを保持する。"
+      },
+      "conditions": {
+        "en": "Run the explicitly selected custom-frontdoor fixture with controlled descriptor fields and storage.",
+        "ja": "descriptor fieldと記憶域を制御し、明示して選択したcustom-frontdoor検査系を実行する。"
+      },
+      "expected": {
+        "en": "The frontdoor observes the same extension handle.",
+        "ja": "frontdoorが同じextension handleを観測する。"
+      },
+      "limitations": {
+        "en": "Custom sequences use testbench storage with no RTL or HDL DPI. Only the named descriptor/context, selection or status observations are linked; broader frontdoor combinations remain partial.",
+        "ja": "custom sequenceはRTL／HDL DPIなしのテストベンチ記憶域を使う。明記したdescriptor／context、選択、statusの観測だけを対応付け、追加のfrontdoor組合せは部分的なままとする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_custom_frontdoor_receives_extension_map_element_and_sequencer_context",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ok 1 element 1 extension 1 map 1 path 1 sequencer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CUSTOM-FRONTDOOR-REPLACEMENT",
+      "clause": "18.4.5.2",
+      "statement": {
+        "en": "Replacing the register frontdoor selects the new access handler for subsequent operations.",
+        "ja": "registerのfrontdoor置換は、後の操作で新しいaccess handlerを選ぶ。"
+      },
+      "conditions": {
+        "en": "Run the explicitly selected custom-frontdoor fixture with controlled descriptor fields and storage.",
+        "ja": "descriptor fieldと記憶域を制御し、明示して選択したcustom-frontdoor検査系を実行する。"
+      },
+      "expected": {
+        "en": "The next read uses only the replacement, with the new value and selected handle.",
+        "ja": "次のreadは置換先だけを使い、新しい値と選択handleを持つ。"
+      },
+      "limitations": {
+        "en": "Custom sequences use testbench storage with no RTL or HDL DPI. Only the named descriptor/context, selection or status observations are linked; broader frontdoor combinations remain partial.",
+        "ja": "custom sequenceはRTL／HDL DPIなしのテストベンチ記憶域を使う。明記したdescriptor／context、選択、statusの観測だけを対応付け、追加のfrontdoor組合せは部分的なままとする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_custom_frontdoor_replacement_changes_subsequent_access_handler",
+          "role": "direct",
+          "expected_observations": [
+            "UT: first ok 1 value 33",
+            "UT: second ok 1 value 77 old_calls 1 new_calls 1 selected 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-UNMAPPED-REGISTER-CUSTOM-FRONTDOOR",
+      "clause": "18.2.3.3",
+      "statement": {
+        "en": "An unmapped register can be accessed using its supplied custom frontdoor.",
+        "ja": "unmapped registerは、指定したcustom frontdoorでアクセスできる。"
+      },
+      "conditions": {
+        "en": "Run the explicitly selected custom-frontdoor fixture with controlled descriptor fields and storage.",
+        "ja": "descriptor fieldと記憶域を制御し、明示して選択したcustom-frontdoor検査系を実行する。"
+      },
+      "expected": {
+        "en": "The sequence handles the write despite the absence of a physical address mapping.",
+        "ja": "物理addressのmappingがなくても、sequenceがwriteを処理する。"
+      },
+      "limitations": {
+        "en": "Custom sequences use testbench storage with no RTL or HDL DPI. Only the named descriptor/context, selection or status observations are linked; broader frontdoor combinations remain partial.",
+        "ja": "custom sequenceはRTL／HDL DPIなしのテストベンチ記憶域を使う。明記したdescriptor／context、選択、statusの観測だけを対応付け、追加のfrontdoor組合せは部分的なままとする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_custom_frontdoor_unmapped_register_uses_its_access_sequence",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ok 1 calls 1 stored 5a frontdoor 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CUSTOM-FRONTDOOR-FAILURE-STATUS",
+      "clause": "19.4.2.2.1",
+      "statement": {
+        "en": "The status supplied through a custom frontdoor operation is returned to the initiating register access.",
+        "ja": "custom frontdoorの操作を介したstatusは、開始したregisterアクセスへ返す。"
+      },
+      "conditions": {
+        "en": "Run the explicitly selected custom-frontdoor fixture with controlled descriptor fields and storage.",
+        "ja": "descriptor fieldと記憶域を制御し、明示して選択したcustom-frontdoor検査系を実行する。"
+      },
+      "expected": {
+        "en": "The deliberately failed sequence returns UVM_NOT_OK and the rejecting fixture storage stays unchanged.",
+        "ja": "意図して失敗するsequenceはUVM_NOT_OKを返し、拒否する検査系の記憶域は変わらない。"
+      },
+      "limitations": {
+        "en": "Custom sequences use testbench storage with no RTL or HDL DPI. Only the named descriptor/context, selection or status observations are linked; broader frontdoor combinations remain partial.",
+        "ja": "custom sequenceはRTL／HDL DPIなしのテストベンチ記憶域を使う。明記したdescriptor／context、選択、statusの観測だけを対応付け、追加のfrontdoor組合せは部分的なままとする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_custom_frontdoor_propagates_sequence_failure_status",
+          "role": "direct",
+          "expected_observations": [
+            "UT: rejected 1 calls 1 stored 33"
           ]
         }
       ]

@@ -1,9 +1,9 @@
 /*
 :name: test_reg_frontdoor_read_with_auto_predict_returns_bus_data_and_updates_mirror
-:description: frontdoor read with auto predict returns bus data and updates mirror (IEEE 1800.2-2020 Section 18.4.4.9)
+:description: frontdoor read with auto predict returns bus data and updates mirror (IEEE 1800.2-2020 Section 18.4.4.10)
 :tags: u18 uvm
 :type: simulation
-:lrm: 1800.2-2020 18.4.4.9 18.4.4.10 18.2.3.6 18.2.5.2 18.4.4.1 18.4.4.3 19.2.1.2.5 19.2.1.2.6 19.1.2 18.1.2.1 18.1.2.2 18.1.2.3 18.1.2.6 18.2.3.3 18.4.2.1 18.4.2.2 18.5.3.2 1800-2023 6.21 8.19
+:lrm: 1800.2-2020 18.4.4.10 18.4.4.9 18.2.3.6 18.2.5.2 18.4.4.1 18.4.4.3 19.2.1.2.5 19.2.1.2.6 19.1.2 18.1.2.1 18.1.2.2 18.1.2.3 18.1.2.6 18.2.3.3 18.4.2.1 18.4.2.2 18.5.3.2 1800-2023 6.21 8.19
 :uvm: 2020.3.1
 :oracle: spec verilator@5.052
 :spec_check: ai

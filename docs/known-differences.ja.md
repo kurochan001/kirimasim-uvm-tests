@@ -2,7 +2,7 @@
 
 [English](known-differences.md) · [README](../README.ja.md) · [FAQ](faq.ja.md)
 
-現在の825件と、固定したAccellera UVM 2020.3.1についての記録です。
+現在の845件と、固定したAccellera UVM 2020.3.1についての記録です。
 不一致はテストの結果であり、それだけではシミュレータ・ライブラリ・期待値のどれが原因かは決まりません。
 
 ## 固定版ライブラリの制約
@@ -13,7 +13,7 @@
 付録Eでは選んだ2／3 mapのshared accessと1つの子blockの形も確認します。
 [memoryの範囲](faq.ja.md#memorypredictionmapの制御)と
 [shared accessの範囲](faq.ja.md#memory-accessshared-mapテストの選択)を参照してください。
-それ以外に、M1・M2・M3で次の47件の制約を確認しました。
+それ以外に、M1・M2・M3で次の48件の制約を確認しました。
 不足する必須動作を直接検査する場合は、規格の期待値を変えずに`:oracle: spec`で保持します。
 
 - `find_override_by_name`は、置換がない場合に`null`を返します。元の型を生成できる場合も
@@ -148,6 +148,9 @@
   E.2.1は未知policyのregisterを検査できないとします。アクセスなしの期待値を保ち、
   既知RWの別対象が動作することを比較対象にします。
 
+- `pack_field_int`はsize 65／128で、16.5.4.9が要求するERRORを出しません。
+  2件とも不正packの状態は調べず、新しいpackerで64-bitの往復が動作することを比較対象にします。
+
 これらの分岐は、固定版で再現したオラクルとしては扱いません。drop直後の一覧、transactionの
 生成直後の状態、重大度・ID別のreset、無効なfield_opの操作名取得、応答数未満の深さ変更、
 応答エラー報告の既定値、候補1件のUSER arbitration、lockの順序、kill後のhook、
@@ -160,19 +163,29 @@ start_itemの重大度、library subtypeの構築、finish_itemの委譲・ID・
 固定ライブラリの引数列挙stubが空の一覧を返すためです。一致とqueue置換の期待値は規格から保持します。
 これは実行設定の制約であり、suffixの照合algorithm自体の不具合を実証したものではありません。
 
-スイート全体では、`verilator@5.052`を付けたテストは753件、specのみのテストは72件です。
+FIFOの失敗get／peek 4件は、12.2.4.2.6／.8の出力保持の事後条件を維持します。固定版実行は呼出し側のsentinelを置き換え、
+成功する比較対象は動作します。宣言する`output` signatureとSystemVerilog 13.5のreturn時の代入は本文と食い違い、
+シミュレータの不具合とは断定せず、解釈の作業として残します。
+
+20-bit memory 2件は、19.1.2.4の`n_bits`をlogical model bit数と解釈し、8-bit busで幅8・8・4を期待します。
+固定版実行は8・8・8を返しますが、address、方向、宣言dataの検査は一致します。
+24-bit memory／16-bit busの比較対象は、byteに整列する幅16・8と一致します。sub-byteのlogical幅と
+byteへ丸める物理転送幅の違いは要レビューとし、この2件からライブラリの確定した不具合とは断定しません。
+[端数転送](faq.ja.md#errorの契約と端数転送)も参照してください。
+
+スイート全体では、`verilator@5.052`を付けたテストは765件、specのみのテストは80件です。
 specのみのうち1件は9.6を検証します。pre-resetフェーズ終了時に子タスクが停止する
 はずですが、固定版UVMとVerilator 5.052の組み合わせでは、後のフェーズで子タスクの遅延書き込みが
 実行されます。この差分の原因がシミュレータとライブラリのどちらかは未確定です。
 
-specのみの72件も規格から導いた期待値を保持します。通常のVerilator実行とCIはoracle付き753件を選びます。
+specのみの80件も規格から導いた期待値を保持します。通常のVerilator実行とCIはoracle付き765件を選びます。
 `--all`はspecのみも含め、不一致やビルド不可を`known`として記録します。
-実行時の65件は最初の差分であるseed 1までの記録で、seed 73の結果はありません。
+実行時の73件は最初の差分であるseed 1までの記録で、seed 73の結果はありません。
 API欠落の7件（時刻APIの1件とsequence libraryの6件）はビルド段階で失敗し、どのseedも実行できていません。
 
 ## specのみのテスト
 
-現在の72件は次のテストです。同じ制約を複数のテストで検査する場合があり、異なる不具合の個数ではありません。
+現在の80件は次のテストです。同じ制約を複数のテストで検査する場合があり、異なる不具合の個数ではありません。
 
 - field_opのaccessorの必須エラー：
   [set前](../tests/u05/test_field_op_accessors_report_errors_before_set.sv)と
@@ -293,14 +306,26 @@ API欠落の7件（時刻APIの1件とsequence libraryの6件）はビルド段�
   [複数の一致suffix](../tests/uG/test_command_arg_values_collect_matching_suffixes_without_stale_entries.sv)、
   [欠落／繰り返しの照会](../tests/uG/test_command_arg_values_clear_on_no_match_and_repeat_without_appending.sv)。
 
+- 上限を超える整数packで必要なERROR：
+  [65 bit](../tests/u16/test_packer_integral_size_65_reports_error_before_independent_boundary_control.sv)、
+  [128 bit](../tests/u16/test_packer_integral_size_128_reports_error_before_independent_boundary_control.sv)。
+- 取得不可FIFOの出力保持（signature／本文の解釈）：
+  [値のget](../tests/u12/test_tlm_fifo_failed_try_get_preserves_two_state_value_before_success.sv)、
+  [handleのget](../tests/u12/test_tlm_fifo_failed_try_get_preserves_object_handle_before_success.sv)、
+  [値のpeek](../tests/u12/test_tlm_fifo_failed_try_peek_preserves_two_state_value_before_success.sv)、
+  [handleのpeek](../tests/u12/test_tlm_fifo_failed_try_peek_preserves_object_handle_before_success.sv)。
+- sub-byteのlogical幅の解釈：
+  [20-bit write](../tests/u18/test_mem_frontdoor_twenty_bit_write_preserves_location_boundaries_and_partial_width.sv)、
+  [20-bit read](../tests/u18/test_mem_frontdoor_twenty_bit_read_assembles_declared_bits_and_partial_width.sv)。
+
 ## シミュレータとライブラリの組み合わせ
 
-Ghostの同梱UVMはseed 1・73とも158件一致・667件不一致で、不一致になるテストも同じです。
+Ghostの同梱UVMはseed 1・73とも162件一致・683件不一致で、不一致になるテストも同じです。
 現在の実行ファイルの固定コピーでは固定版modeを測定していません。記録の合算は[実行結果と測定方法](results.ja.md)で説明します。
 同梱版の結果が対象にするのは供給されたライブラリです。不一致だけでシミュレータとライブラリの原因を分けたり、
 固定版ライブラリの結果を示したりはできません。非公開の識別情報・profile・診断は公開しません。
 
-確認したkirimasimの実行ファイルでは、818件が`uvm_object_wrapper`未実装です。
+確認したkirimasimの実行ファイルでは、838件が`uvm_object_wrapper`未実装です。
 時刻設定APIの1件とsequence libraryの6件は、その前にAPI欠落を検出して`fail`になります。
 いずれも成功ではなく、その先のUVM動作を実行できた証拠でもありません。
 

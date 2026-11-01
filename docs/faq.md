@@ -173,7 +173,7 @@ a claim that every test was rebuilt together.
 
 ### Q16. Are M1, M2 or M3 complete, and what does the test count cover?
 
-M1 and M2 still have open clause targets. M3 now has 222
+M1 and M2 still have open clause targets. M3 now has 228
 register-layer cases, including testbench frontdoor paths; it is also incomplete. Starting a stage does not complete
 the preceding stages.
 The [plan](../README.md#plan) identifies current scope and remaining work.
@@ -1136,9 +1136,9 @@ not a direct test of the requirement.
 
 ### Q77. Why is there no coverage percentage after starting M4?
 
-The 376 AI drafts cover only a partial decomposition: 361 requirements link
-directly to 417 tests, 15 have no direct test, and one separate test is a control.
-Another 407 tests are not mapped yet. The 2,504 clause identifiers are not normative requirement units.
+The 406 AI drafts cover only a partial decomposition: 396 requirements link
+directly to 471 tests, 10 have no direct test, and one separate test is a control.
+Another 373 tests are not mapped yet. The 2,504 clause identifiers are not normative requirement units.
 The scope is proposed, the inventory incomplete and the denominator unapproved;
 starting M4 approves none of those. Known differences and HDL/DPI limitations
 do not silently exclude obligations. See the [approval path](requirements.md#remaining-m4-work-and-approval).
@@ -1241,3 +1241,74 @@ matches the E.3.1 skip. The
 [bit-bash case](../tests/uE/test_single_bit_bash_sequence_skips_user_defined_unknown_policy.sv)
 retains the E.2.1 skip as spec-only because the pinned library still accesses
 the custom-policy register. Mixed policies and broader map rights remain open.
+
+## Error contracts and partial transfers
+
+### Q85. How do the core error and cleanup fixtures go beyond control getters?
+
+Report-server copying starts with independent servers containing destination-only,
+source-only and overlapping IDs with unequal counts. It checks cumulative merge,
+including repeated copy and explicitly copied zero severity counts. The
+[merge case](../tests/u06/test_report_server_copy_merges_disjoint_and_overlapping_ids.sv)
+uses public message execution without replacing the global server.
+
+Objection clear checks both an overridden dropped method and a registered
+callback. A normal partial drop proves the probes work; clear must reset counts
+without increasing either probe, including after a source argument is supplied.
+See the [clear/control case](../tests/u10/test_objection_clear_omits_dropped_hooks_before_and_after_partial_drop.sv).
+Positive delays also expose callbacks incorrectly deferred beyond clear's return.
+
+Other cases require original ERROR severity for a
+[null active-object push](../tests/u16/test_policy_null_active_push_preserves_two_existing_stack_entries.sv),
+[reference-mode copy](../tests/u16/test_copier_reference_copy_reports_error_for_an_aliased_object.sv)
+and [oversize integral pack](../tests/u16/test_packer_integral_size_65_reports_error_before_independent_boundary_control.sv).
+They do not prescribe diagnostic IDs or text. The null push must preserve the
+public stack; invalid copy results and invalid packed state are left uninspected.
+Fresh independent objects or policies provide valid controls. These observations
+do not establish object-side policy synchronization or all error/recovery paths.
+
+### Q86. Why check unchanged outputs after failed FIFO reads despite output formals?
+
+IEEE 1800.2-2020 12.2.4.2.6 and 12.2.4.2.8 state that unavailable nonblocking
+reads leave the output unchanged, while declaring the parameter as `output`.
+SystemVerilog 13.5 copies the formal output value back at return; it does not
+copy the caller's sentinel in. That signature/prose tension needs review.
+The fixtures retain the stated unchanged-output postcondition and do not
+attribute a mismatch to a simulator bug.
+
+An empty FIFO receives a nondefault two-state value or nonnull handle.
+A subsequent successful get/peek uses a different queued transaction to show
+that the FIFO works, with occupancy zero after get or one after peek. See the
+[value get](../tests/u12/test_tlm_fifo_failed_try_get_preserves_two_state_value_before_success.sv)
+and [handle peek](../tests/u12/test_tlm_fifo_failed_try_peek_preserves_object_handle_before_success.sv) cases.
+This explicit TLM postcondition is not inferred for register/memory read errors;
+those fixtures leave failed-read data unconstrained.
+
+### Q87. What do the twenty-bit memory and failure/retry cases establish?
+
+Two adjacent twenty-bit locations use an eight-bit little-endian bus. Each
+location needs three addresses; the two accesses must preserve their location
+boundary. Interpreting `n_bits` as logical model bits expects widths 8, 8 and 4.
+That sub-byte interpretation versus rounded physical-byte width needs review;
+the tests retain it explicitly, with address, direction and width observations
+separated rather than assigning a confirmed library bug. The
+[write](../tests/u18/test_mem_frontdoor_twenty_bit_write_preserves_location_boundaries_and_partial_width.sv)
+checks valid beat data and unchanged neighboring storage. The
+[read](../tests/u18/test_mem_frontdoor_twenty_bit_read_assembles_declared_bits_and_partial_width.sv)
+checks declared model bits even when the last physical byte has nonzero padding.
+Unused beat bits and returned bits above the declared width remain unconstrained.
+This is a partial physical beat, not a partial final element in burst-array packing.
+
+The byte-aligned [24-bit write](../tests/u18/test_mem_frontdoor_twenty_four_bit_write_uses_one_byte_in_final_bus_word.sv)
+and [read](../tests/u18/test_mem_frontdoor_twenty_four_bit_read_uses_one_byte_in_final_bus_word.sv)
+use a sixteen-bit bus and expect widths 16 and 8. Public address lists prepare
+storage for these controls; they do not independently certify translation.
+
+Separate single-byte memory
+[write](../tests/u18/test_mem_frontdoor_write_propagates_failure_before_successful_retry.sv)
+and [read](../tests/u18/test_mem_frontdoor_read_propagates_failure_without_constraining_failed_data.sv)
+cases return an adapter failure before a successful fresh retry. They inspect
+status and real request counts; failed-read data is not inspected. The driver
+chooses to preserve storage on its rejected write, which is a fixture control
+rather than a universal guarantee about failed hardware. These remain testbench
+adapter/sequencer/driver checks without RTL or HDL DPI.

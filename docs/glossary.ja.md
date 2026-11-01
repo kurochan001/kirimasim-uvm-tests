@@ -129,6 +129,9 @@ streamや外部backendを開きません。接続状態の検査はrecordingの�
 **待機中の所有権要求の解放** — sequenceのkillやsequencerの全sequence停止によって、待機するlock／grab要求を削除することです。
 後の転送成功と別の待機者の生存によって、何もない状態のstopと区別します。
 
+**統計の累積copy** — report-serverのcopyは元の統計を宛先へmergeし、元のentryで一致するcountを置き換え、
+宛先だけのIDを保持します。元のcountが0でも、0でない宛先countを置き換えます。
+
 ## Transaction単位の通信
 
 **push sequencer／push driver** — driverのblocking `put`を呼ぶsequencer／
@@ -201,6 +204,10 @@ suffix付きwrite handlerへそのhandleを渡し、入力先の選択だけで�
 **nonblocking transport／`nb_transport`** — 即時に要求・応答を完了できれば1、できなければ0を返す操作です。
 呼び出し中の同期的なanalysis callbackが応答を供給できます。
 0という結果だけでは、出力引数の特定の値や、要求側の途中の副作用がなかったことは示せません。
+
+**失敗readのsentinel** — 取得不可のnonblocking TLM readへ渡す、既定値でない値／nonnull handleです。
+記載された出力保持の契約を観測します。UVMの`output` formalとSystemVerilogのreturn時の代入には別途解釈の論点があり、
+register／memoryの失敗readの値は推定しません。
 
 ## レジスタモデル
 
@@ -308,6 +315,10 @@ frontdoorでのwriteとbackdoorでのreadを比較し、次に経路を逆にし
 
 **登録した独自access policy** — `uvm_reg_field::define_access`で登録した有効なfield policy名です。
 組み込みテストsequenceには動作が未知の場合があり、skip検査では既知policyの別対象を動作する比較対象にします。
+
+**物理beatの端数** — bus幅より少ない有効model bitを運ぶ物理アクセスです。16-bit busの24-bit memoryでは、
+`n_bits`の幅16・8を期待します。20-bit modelには、sub-byteのlogical幅とbyteへ丸める幅の要レビューの解釈があります。
+未使用data bitは制約しません。burst配列要素のpackingは別の条件です。
 
 ## 実行と結果
 

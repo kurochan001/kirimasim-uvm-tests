@@ -3,7 +3,7 @@
 [日本語](history.ja.md) · [README](../README.md)
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and cross-milestone thin-area fixtures (825 simulation tests). The earlier 349-test checkpoint is
+three M4 increments and two cross-milestone thin-area expansions (845 simulation tests). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -1352,3 +1352,73 @@ Update all current paired guides, add four FAQs and four glossary terms
 (84 FAQs and 96 terms), and preserve previous history. Validate 74 tool tests,
 825 metadata records, 376 ledger entries, pinned-library integrity, bilingual
 structure, local links, canonical license, evidence fingerprints and whitespace.
+
+## Second thin-area expansion across M1–M4
+
+Add twenty simulations: ten M1 cases for cumulative report-server statistics,
+objection clear without dropped callbacks, null active-object pushes,
+reference-mode copy errors and oversize integral-pack errors; four M2 cases
+for unavailable FIFO get/peek output preservation with two-state values and
+object handles; and six M3 cases for sub-byte/byte-aligned partial memory
+transfers and failure/retry status. Stage totals become M1 249, M2 368 and
+M3 228, with 845 simulations in the same twenty directories.
+
+Each negative contract has independent working controls. Server setup uses
+public message execution and explicit severity setters, without global server
+replacement. Clear checks both method and registered callback probes, with
+positive delays and normal partial drops. Null pushes observe stack depth,
+top and real pops. Invalid copy operands/results and invalid packed state
+remain uninspected; fresh objects or policies prove valid deep-copy/64-bit
+boundary operation. Diagnostic IDs/text and undefined recovery are unconstrained.
+
+FIFO cases retain the standard's unchanged-output postcondition, while flagging
+the declared output formal and SystemVerilog 13.5 copy-out semantics as a
+signature/prose interpretation issue. Successful get/peek controls still
+check delivery and occupancy. For 20-bit memory on an 8-bit bus, separate
+address, direction and data observations from the logical-bit width expectation
+8, 8 and 4; the pinned run reports 8, 8 and 8. Keep the sub-byte interpretation
+open for review, without assigning a confirmed library bug. The 24-bit/16-bit
+bus controls expect and reproduce byte-aligned widths 16 and 8. They prepare
+storage through public address lists rather than independently certifying
+translation. Upper padding, failed-read data and general burst-array packing
+remain unconstrained or unassessed.
+
+Map all twenty new cases and thirty-four previously unlinked register/memory,
+virtual-register/field and custom-frontdoor fixtures. Add thirty requirements
+and provide direct tests for five previously unlinked drafts. The ledger has
+406 AI drafts, 396 directly linked requirements, 471 directly linked tests,
+ten requirements without direct tests, one separate control and 373 tests
+with neither link role. There are 292 partial and 2,212 unassessed identifiers;
+363 have primary-focus tests and 843 have any citation. Candidate primary-focus
+counts are 2,116 zero, 156 one and 207 at least two. No stage, normative inventory,
+review target, scope or denominator is declared complete/approved.
+
+Correct three existing read fixtures whose primary citation and description
+named the write clause. Their bodies and expected outputs stay unchanged;
+reassess the index and rerun all three at both seeds. Preserve all other 822
+baseline input snapshots. Compatible evidence combines those unchanged records
+from [2100ad5](https://github.com/kurochan001/kirimasim-uvm-tests/commit/2100ad5315fe595c262be4f8040912cef82ebd55)
+with measurements of twenty new and three citation-corrected final inputs,
+using unchanged runners and fixed executable/profile snapshots.
+
+Twelve new cases match Verilator 5.052 at seeds 1 and 73. Eight remain known:
+two required oversize-pack errors are missing, four FIFO output cases retain
+the signature/prose tension, and two sub-byte width cases retain the logical-bit
+interpretation. The 24-bit controls match. Including the baseline, there are
+765 matches and eighty known differences: 73 runtime differences at seed 1
+and seven missing-API builds with no runtime seed. Standard-derived and explicitly stated
+interpretation oracles are not replaced with backend output.
+
+New Ghost bundled runs match the four FIFO sentinel cases and fail sixteen
+other cases at each seed; the failing sets agree. The three citation-corrected
+cases retain their previous two matches/one failure. Combined results are
+162 matches and 683 failures; these do not identify simulator/library causes,
+confirm the pinned library or establish new annex E transfers. kirimasim adds
+twenty unsupported records, for 838 unsupported and seven missing-API failures.
+Guest identity and raw diagnostics remain private; commercial results are unused.
+
+Update current paired guides and retain all earlier historical records. Add
+three FAQs and three glossary terms, reaching 87 questions and 99 terms.
+Validate 74 tool tests, 845 metadata records, 406 ledger entries, library integrity,
+609 local links, language-pair structure, canonical license, whitespace and all
+current input/runner/configuration fingerprints before combining evidence.

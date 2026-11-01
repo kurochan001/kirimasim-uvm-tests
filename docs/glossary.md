@@ -175,6 +175,10 @@ key deletion can change the count.
 sequence is killed or a sequencer stops its sequences. A later successful
 transfer and a surviving waiter distinguish cleanup from an idle stop.
 
+**Cumulative statistics copy** — Report-server copying merges source statistics
+into destination state: source entries replace matching counts while
+destination-only IDs survive. A source zero count can overwrite a nonzero count.
+
 ## Transaction-level communication
 
 **Push sequencer / push driver** — A sequencer that calls a driver's blocking
@@ -268,6 +272,11 @@ that returns 1 for immediate completion or 0 when it cannot complete
 immediately. A synchronous analysis callback can supply the response during
 the call. A 0 does not establish a particular response output value or that
 no partial request-side effect occurred.
+
+**Failed-read sentinel** — A nondefault value or nonnull handle passed into an
+unavailable nonblocking TLM read to observe its stated unchanged-output contract.
+The UVM `output` formal and SystemVerilog copy-out semantics create a separate
+interpretation issue; failure values for register/memory reads are not inferred.
 
 ## Register model
 
@@ -413,6 +422,12 @@ bitwise OR combines selections in the order defined by 17.2.2.10. See the
 **Registered custom access policy** — A valid field-policy name introduced by
 `uvm_reg_field::define_access`, whose behavior may still be unknown to a built-in
 test sequence. Skip checks use a known-policy peer as a positive control.
+
+**Partial physical beat** — A physical access carrying fewer valid model bits
+than the bus width. A twenty-four-bit memory on a sixteen-bit bus expects
+`n_bits` widths 16 and 8. A twenty-bit model introduces a sub-byte logical-width
+versus rounded-byte interpretation requiring review. Unused data bits remain
+unconstrained; burst-array element packing is separate.
 
 ## Execution and result records
 

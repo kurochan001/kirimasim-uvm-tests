@@ -155,7 +155,7 @@ Ghostはさらに実行ファイル・profile・供給されたライブラリ�
 
 ### Q16. M1・M2・M3は完了していますか。件数は何の網羅を示しますか
 
-M1・M2には条項ごとの目標に未達があります。M3はbusモデルのfrontdoor経路を含め222件まで追加した段階で、未完です。
+M1・M2には条項ごとの目標に未達があります。M3はbusモデルのfrontdoor経路を含め228件まで追加した段階で、未完です。
 次の段階の開始によって、それまでの段階が完了したとは扱いません。
 範囲と残りの作業は[進め方](../README.ja.md#進め方)にあります。
 件数はテストの本数で、規格の全要求や組み合わせの棚卸しではありません。
@@ -918,8 +918,8 @@ controlの対応は、その要求の直接の検査ではありません。
 
 ### Q77. M4を始めたのに、カバレッジ率がないのはなぜですか
 
-AIによる376要求案は部分的な分解で、361要求を417テストへ直接対応付け、15要求は直接未対応、別の1テストはcontrolです。
-他の407テストはまだ要求に対応付けていません。2,504の条項番号は規範的要求の単位ではありません。
+AIによる406要求案は部分的な分解で、396要求を471テストへ直接対応付け、10要求は直接未対応、別の1テストはcontrolです。
+他の373テストはまだ要求に対応付けていません。2,504の条項番号は規範的要求の単位ではありません。
 範囲は提案、棚卸しは未完、分母は未承認で、M4の開始はどれの承認にもなりません。
 既知差分やHDL／DPIの制約によって義務を暗黙に除外しません。[承認までの手順](requirements.ja.md#m4の残作業と承認)を参照してください。
 
@@ -997,3 +997,55 @@ fieldの設定前に`uvm_reg_field::define_access`で独自名を登録します
 skipの診断は固定しません。[単独access](../tests/uE/test_single_register_access_sequence_skips_user_defined_unknown_policy.sv)はE.3.1のskipと一致します。
 [bit-bash](../tests/uE/test_single_bit_bash_sequence_skips_user_defined_unknown_policy.sv)は、固定ライブラリが独自policyのregisterにもアクセスするため、
 E.2.1のskipをspecのみで保持します。policyの混在や追加のmap権限は未検証です。
+
+## errorの契約と端数転送
+
+### Q85. 基本APIのerror・解放の検査は、制御値のgetterから何を進めましたか
+
+report-serverのcopyは、宛先のみ、元のみ、重複するIDを持つ独立したserverから始め、重複countを異なる値にします。
+copyの繰り返しと、severity countの明示した0への置換も含め、累積するmergeを検査します。
+[mergeのケース](../tests/u06/test_report_server_copy_merges_disjoint_and_overlapping_ids.sv)は、global serverを置き換えず公開のmessage実行を使います。
+
+objectionのclearは、overrideしたdropped methodと登録callbackの両方を検査します。通常の部分dropでprobeの動作を確認し、
+source引数を渡す場合も、clearがどちらのprobeも増やさずcountをresetすることを要求します。
+[clearと比較対象](../tests/u10/test_objection_clear_omits_dropped_hooks_before_and_after_partial_drop.sv)を参照してください。
+正の遅延により、clearのreturnより後へ誤って遅延したcallbackも観測します。
+
+他のケースでは、[active objectへのnull push](../tests/u16/test_policy_null_active_push_preserves_two_existing_stack_entries.sv)、
+[reference modeのcopy](../tests/u16/test_copier_reference_copy_reports_error_for_an_aliased_object.sv)、
+[上限を超える整数pack](../tests/u16/test_packer_integral_size_65_reports_error_before_independent_boundary_control.sv)に、元のERROR severityを要求します。
+診断IDや文面は固定しません。null pushは公開stackを保持する必要があり、不正copyの結果と不正packの状態は調べません。
+独立した新object／policyを正常な比較対象にします。object側のpolicy同期や、全error／復旧経路を示すものではありません。
+
+### Q86. outputのformalなのに、失敗したFIFO readの出力保持を検査する理由は何ですか
+
+IEEE 1800.2-2020の12.2.4.2.6／12.2.4.2.8は、取得不可のnonblocking readで出力を変更しないとし、
+引数を`output`として宣言します。SystemVerilog 13.5ではreturn時にformalの出力値を呼出し側へ代入し、
+呼出し側のsentinelを中へ読み込みません。このsignatureと本文の食い違いはレビューが必要です。
+検査系は記載された出力保持の事後条件を保持し、不一致をシミュレータの不具合と断定しません。
+
+空FIFOへ既定値でない2状態値／nonnull handleを渡します。その後、別のtransactionを保存してget／peekを成功させ、
+FIFOが動作することも確認します。占有数はget後に0、peek後に1です。
+[値のget](../tests/u12/test_tlm_fifo_failed_try_get_preserves_two_state_value_before_success.sv)と
+[handleのpeek](../tests/u12/test_tlm_fifo_failed_try_peek_preserves_object_handle_before_success.sv)を参照してください。
+このTLMの明示した事後条件をregister／memoryのread errorへ推定せず、それらの検査系では失敗readのdataを制約しません。
+
+### Q87. 20-bit memoryと失敗／再試行のケースは何を示しますか
+
+隣接する20-bit location 2つを、8-bitのlittle-endian busで転送します。各locationは3 addressを使い、
+2回のアクセスがlocationの境界を保つ必要があります。`n_bits`をlogical model bit数とする解釈では幅8・8・4を期待しますが、
+byteへ丸めた物理転送幅との違いはレビューが必要です。その期待値を明示して保持し、address／方向／幅を分けて観測し、
+ライブラリの確定した不具合とは断定しません。
+[write](../tests/u18/test_mem_frontdoor_twenty_bit_write_preserves_location_boundaries_and_partial_width.sv)は、有効なbeat dataと隣接記憶域の保持を検査します。
+[read](../tests/u18/test_mem_frontdoor_twenty_bit_read_assembles_declared_bits_and_partial_width.sv)は、最終物理byteのpaddingが0でなくても、
+宣言したmodel bitを検査します。beatの未使用bitと、返却値の宣言幅より上のbitは制約しません。
+物理beatの端数であり、burst配列のpackingにおける最終要素の端数とは別です。
+
+byteに整列する[24-bit write](../tests/u18/test_mem_frontdoor_twenty_four_bit_write_uses_one_byte_in_final_bus_word.sv)と
+[read](../tests/u18/test_mem_frontdoor_twenty_four_bit_read_uses_one_byte_in_final_bus_word.sv)は16-bit busを使い、幅16・8を期待します。
+この比較では公開address一覧で記憶域を準備し、address変換を独立に証明するものではありません。
+
+別の1-byte memoryの[write](../tests/u18/test_mem_frontdoor_write_propagates_failure_before_successful_retry.sv)と
+[read](../tests/u18/test_mem_frontdoor_read_propagates_failure_without_constraining_failed_data.sv)では、adapterの失敗後に新しい再試行を成功させます。
+statusと実request数を調べ、失敗readのdataは調べません。拒否したwriteで記憶域を保つのはdriverが選んだ検査系の比較対象であり、
+故障hardware全般の保証ではありません。RTLやHDL DPIなしのテストベンチのadapter／sequencer／driverの検査です。

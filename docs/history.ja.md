@@ -2,7 +2,7 @@
 
 [English](history.md) · [README](../README.ja.md)
 
-M1・M2の15回目、M3の9回目、M4の3回目と段階をまたぐ薄い領域の拡充（シミュレーション825件）までを記録しています。以前の349件の時点は
+M1・M2の15回目、M3の9回目、M4の3回目と段階をまたぐ薄い領域の2回目の拡充（シミュレーション845件）までを記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -985,3 +985,46 @@ kirimasimは未対応20件を追加し、全体で未対応818件・API欠落の
 日英の現状資料を更新し、FAQと用語を4件ずつ追加して84問・96語とし、従来の履歴を保持します。
 ツール単体テスト74件、metadata 825件、要求台帳376件、固定ライブラリ、日英の構造、local link、
 ライセンス原文、実行記録の指紋、空白を検査します。
+
+## M1〜M4の薄い領域の2回目の拡充
+
+シミュレーション20件を追加します。M1はreport-server統計の累積merge、dropped callbackを呼ばないobjection clear、
+active objectのnull push、reference modeのcopy error、整数packの上限超過errorの10件です。
+M2は2状態値／object handleによる、取得不可のFIFO get／peekの出力保持4件、M3はsub-byte／byte整列のmemory端数転送と
+失敗／再試行statusの6件です。段階別にM1が249、M2が368、M3が228、同じ20ディレクトリに845件となります。
+
+各negative契約に、独立した動作する比較対象を用意します。serverはglobalを置き換えず、公開message実行と明示したseverity setterで準備します。
+clearはmethodと登録callbackの両probeを、正の遅延と通常の部分dropで確認します。null pushはstackの深さ、top、実popを観測します。
+不正copyの引数／結果、不正packの状態は調べず、新object／policyで正常なdeep-copy／64-bit境界を確認します。
+診断ID／文面、未定義の復旧動作は制約しません。
+
+FIFOは規格の出力保持の事後条件を維持し、宣言するoutput formalとSystemVerilog 13.5のreturn時の代入との食い違いを、
+signature／本文の解釈の論点とします。成功するget／peekで配送と占有数も検査します。8-bit busの20-bit memoryでは、
+address／方向／dataの観測をlogical bit幅8・8・4の期待値から分け、固定版は8・8・8を返します。
+sub-byteの解釈は要レビューとして残し、ライブラリの確定した不具合とは断定しません。
+16-bit busの24-bit比較対象は、byteに整列する幅16・8を期待し再現します。公開address一覧で記憶域を準備し、
+変換を独立に証明するものではありません。上位padding、失敗readのdata、一般のburst配列packingは制約せず、または未評価です。
+
+新規20件と、以前は要求未対応だったregister／memory、virtual register／field、custom frontdoorの34検査系を対応付けます。
+要求案を30件追加し、以前は直接未対応だった5要求にもテストを付けます。台帳はAIの406要求案で、直接対応する要求396件・テスト471件、
+直接未対応10要求、別のcontrol 1テスト、どちらの対応もない373テストです。部分分解は292番号、未評価は2,212番号、
+主引用ありは363番号、いずれかの引用ありは843番号です。候補の主引用は0件が2,116番号、1件が156番号、2件以上が207番号です。
+段階、規範的棚卸し、照合目標、範囲、分母の完了／承認は宣言しません。
+
+既存read 3検査系の主引用と説明がwrite条項だったため訂正します。本体と期待出力は変えず、索引を再照合して両seedで再実行します。
+他の既存822件の入力snapshotを保持します。[2100ad5](https://github.com/kurochan001/kirimasim-uvm-tests/commit/2100ad5315fe595c262be4f8040912cef82ebd55)
+時点の変更のない記録と、新規20件・引用訂正3件の最終入力の測定を、変更のないrunnerと固定した実行ファイル／profileで合算します。
+
+新規12件がVerilator 5.052のseed 1・73で一致します。既知差分は8件で、整数packの上限超過で必要なerrorがない2件、
+FIFO出力のsignature／本文の食い違い4件、sub-byteのlogical幅の解釈2件です。24-bit比較対象は一致します。
+既存分を含め765件一致・既知差分80件で、seed 1の実行時差分73件、実行seedのないAPI欠落build 7件です。
+規格／明示してレビュー対象とした解釈の期待値をbackend出力へ置き換えません。
+
+新規Ghost同梱実行は、各seedでFIFOのsentinel 4件が一致し、他の16件は不一致で、その集合も同じです。
+引用訂正3件は従来の2件一致・1件不一致を保ちます。合算は162件一致・683件不一致で、原因の割当、固定ライブラリ、
+付録Eの新しい転送成功は示しません。kirimasimは未対応20件を加え、未対応838件・API欠落の失敗7件です。
+guestの識別情報と生の診断は非公開とし、商用の結果は使いません。
+
+日英の現状資料を更新し、以前の履歴をすべて保持します。FAQと用語を3件ずつ追加し、87問・99語にします。
+ツール単体テスト74件、metadata 845件、台帳406件、ライブラリ、local link 609件、日英の構造、ライセンス原文、
+空白、現在の入力／runner／設定の指紋を検査してから実行記録を合算します。

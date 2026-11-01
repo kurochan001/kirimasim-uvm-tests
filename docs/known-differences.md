@@ -2,7 +2,7 @@
 
 [日本語](known-differences.ja.md) · [README](../README.md) · [FAQ](faq.md)
 
-This describes the current 825-test suite and the pinned Accellera UVM
+This describes the current 845-test suite and the pinned Accellera UVM
 2020.3.1 library. A mismatch is a test result; it does not by itself assign
 the cause to the simulator, the library or the expectation.
 
@@ -16,7 +16,7 @@ semantics still require review. Annex E additionally checks selected two/three-m
 shared accesses and one child-block shape; see the
 [memory scope](faq.md#memory-prediction-and-map-controls) and
 [shared-access scope](faq.md#memory-access-shared-maps-and-test-selection).
-The following forty-seven additional limitations were identified during M1, M2 and M3.
+The following forty-eight additional limitations were identified during M1, M2 and M3.
 Where a test directly checks a required behavior that is missing, its
 normative expectation is retained with `:oracle: spec`.
 
@@ -204,6 +204,10 @@ normative expectation is retained with `:oracle: spec`.
   custom field policy, although E.2.1 says unknown policies cannot be tested.
   The case retains no accesses, with a known-RW peer as a working control.
 
+- `pack_field_int` accepts sizes 65 and 128 without the ERROR required by
+  16.5.4.9. Two cases leave the invalid packed state uninspected and use a
+  fresh packer for a working 64-bit round-trip control.
+
 These branches are not treated as reproduced fixed-release oracles.
 Spec-only diagnostics preserve the required post-drop objector membership,
 initial transaction state, severity-ID reset, field-operation name errors,
@@ -227,22 +231,35 @@ enumeration stub supplies an empty list. Their expected matches and queue
 replacement remain standard-derived; this records an execution-configuration
 constraint, not a demonstrated failure of the suffix-matching algorithm.
 
-Across the suite, 753 tests have the `verilator@5.052` oracle tag and seventy-two
+Four FIFO failed-get/peek cases retain the unchanged-output postcondition of
+12.2.4.2.6/.8. The pinned run replaces the caller sentinel, while the successful
+control works. The declared `output` signature and SystemVerilog 13.5 copy-out
+semantics are in tension with that prose; these remain interpretation work,
+not assigned simulator bugs.
+
+Two 20-bit memory cases retain a logical-model-bit interpretation of `n_bits`
+in 19.1.2.4: widths 8, 8 and 4 on an 8-bit bus. The pinned run reports 8, 8 and 8;
+address, direction and declared data checks still match. The 24-bit/16-bit-bus
+controls report the expected byte-aligned widths 16 and 8. Sub-byte logical
+width versus rounded physical-byte width needs review; no confirmed library
+bug is assigned from these two cases. See [partial transfers](faq.md#error-contracts-and-partial-transfers).
+
+Across the suite, 765 tests have the `verilator@5.052` oracle tag and eighty
 cases are spec-only. One of the spec-only cases checks 9.6: a child's pre-reset
 task must be killed when that phase ends, but the pinned-library run on Verilator 5.052
 lets the child perform its delayed write during a later phase. The cause of
 this combined simulator/library difference remains unassigned.
 
-The seventy-two spec-only tests retain their normative expected files.
-Default Verilator runs and CI select the 753 tagged cases. `--all` includes
+The eighty spec-only tests retain their normative expected files.
+Default Verilator runs and CI select the 765 tagged cases. `--all` includes
 spec-only cases and records mismatches or build failures as `known`.
-The runtime records for 65 cases establish the first difference at seed 1,
+The runtime records for 73 cases establish the first difference at seed 1,
 without seed 73 results. Seven missing-API cases cannot build and have no
 runtime seed result: one time API and six sequence-library cases.
 
 ## Spec-only tests
 
-These are the seventy-two current spec-only cases. Several exercise the same
+These are the eighty current spec-only cases. Several exercise the same
 limitation, so their count is not a count of distinct bugs.
 
 - Field-operation accessor errors:
@@ -364,9 +381,21 @@ limitation, so their count is not a count of distinct bugs.
   [multiple matching suffixes](../tests/uG/test_command_arg_values_collect_matching_suffixes_without_stale_entries.sv)
   and [missing/repeated queries](../tests/uG/test_command_arg_values_clear_on_no_match_and_repeat_without_appending.sv).
 
+- Required oversize integral-pack ERROR:
+  [65 bits](../tests/u16/test_packer_integral_size_65_reports_error_before_independent_boundary_control.sv)
+  and [128 bits](../tests/u16/test_packer_integral_size_128_reports_error_before_independent_boundary_control.sv).
+- Unavailable FIFO output preservation (signature/prose interpretation):
+  [value get](../tests/u12/test_tlm_fifo_failed_try_get_preserves_two_state_value_before_success.sv),
+  [handle get](../tests/u12/test_tlm_fifo_failed_try_get_preserves_object_handle_before_success.sv),
+  [value peek](../tests/u12/test_tlm_fifo_failed_try_peek_preserves_two_state_value_before_success.sv)
+  and [handle peek](../tests/u12/test_tlm_fifo_failed_try_peek_preserves_object_handle_before_success.sv).
+- Sub-byte logical-width interpretation:
+  [20-bit write](../tests/u18/test_mem_frontdoor_twenty_bit_write_preserves_location_boundaries_and_partial_width.sv)
+  and [20-bit read](../tests/u18/test_mem_frontdoor_twenty_bit_read_assembles_declared_bits_and_partial_width.sv).
+
 ## Simulator and library combinations
 
-Ghost's bundled-library evidence has 158 matches and 667 failures with each
+Ghost's bundled-library evidence has 162 matches and 683 failures with each
 of seeds 1 and 73; the same tests fail at both seeds. The current executable
 snapshot has no pinned-mode measurement. [Results and methodology](results.md)
 describes the evidence assembly. Bundled results
@@ -375,7 +404,7 @@ problem from a library problem or establish results for the locked library.
 Private identity, profiles and diagnostics are not published.
 
 The tested kirimasim executable reports `uvm_object_wrapper` as unsupported
-on 818 cases. Seven cases record `fail` earlier on missing library APIs: one time
+on 838 cases. Seven cases record `fail` earlier on missing library APIs: one time
 setter and six sequence-library cases. Neither result is a pass or evidence
 of UVM execution beyond those compilation blockers.
 
