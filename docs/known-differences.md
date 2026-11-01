@@ -2,7 +2,7 @@
 
 [日本語](known-differences.ja.md) · [README](../README.md) · [FAQ](faq.md)
 
-This describes the current 781-test suite and the pinned Accellera UVM
+This describes the current 805-test suite and the pinned Accellera UVM
 2020.3.1 library. A mismatch is a test result; it does not by itself assign
 the cause to the simulator, the library or the expectation.
 
@@ -11,10 +11,12 @@ the cause to the simulator, the library or the expectation.
 The library's own `DEVIATIONS.md` lists three differences at 18.2.3.4,
 18.4.3.6 and 13.1.5.1. Current register queries use explicit map arguments.
 A simple memory registered on two sibling-interface maps matches 18.2.3.4 in
-the pinned release. The release's multiple-map note and shared-map hierarchies
-require separate review; this case establishes only its two-interface setup.
-See the [memory scope](faq.md#memory-prediction-and-map-controls).
-The following forty-four additional limitations were identified during M1, M2 and M3.
+the pinned release. The release's multiple-map note and broader hierarchy
+semantics still require review. Annex E additionally checks selected two/three-map
+shared accesses and one child-block shape; see the
+[memory scope](faq.md#memory-prediction-and-map-controls) and
+[shared-access scope](faq.md#memory-access-shared-maps-and-test-selection).
+The following forty-five additional limitations were identified during M1, M2 and M3.
 Where a test directly checks a required behavior that is missing, its
 normative expectation is retained with `:oracle: spec`.
 
@@ -190,6 +192,10 @@ normative expectation is retained with `:oracle: spec`.
   `NO_MEM_WALK_TEST` exclusion required by E.6.2. The case retains the required
   idle wrapper traversal, with a directly selected memory as a working control.
 
+- The individual-memory access sequence checks `NO_MEM_ACCESS_TEST` instead
+  of `NO_MEM_SHARED_ACCESS_TEST` as named by E.5.1. The required skip is retained,
+  with a separately scoped peer providing a working access-path control.
+
 These branches are not treated as reproduced fixed-release oracles.
 Spec-only diagnostics preserve the required post-drop objector membership,
 initial transaction state, severity-ID reset, field-operation name errors,
@@ -203,26 +209,26 @@ map width/translation results, location-specific memory offsets and
 single-map effective access, predictor redirection, big-endian frontdoor read data
 register/field pre-access hook order, physical burst-beat kinds, virtual-register
 byte width, omitted-memory resize, region owner queries, standalone virtual-field
-post-write order, user-backdoor read-clear prediction and the block memory-walk
-exclusion resource.
+post-write order, user-backdoor read-clear prediction, the block memory-walk
+exclusion resource and the individual-memory access exclusion.
 Matching tests avoid the other library limitations.
 
-Across the suite, 714 tests have the `verilator@5.052` oracle tag and sixty-seven
+Across the suite, 737 tests have the `verilator@5.052` oracle tag and sixty-eight
 cases are spec-only. One of the spec-only cases checks 9.6: a child's pre-reset
 task must be killed when that phase ends, but the pinned-library run on Verilator 5.052
 lets the child perform its delayed write during a later phase. The cause of
 this combined simulator/library difference remains unassigned.
 
-The sixty-seven spec-only tests retain their normative expected files.
-Default Verilator runs and CI select the 714 tagged cases. `--all` includes
+The sixty-eight spec-only tests retain their normative expected files.
+Default Verilator runs and CI select the 737 tagged cases. `--all` includes
 spec-only cases and records mismatches or build failures as `known`.
-The runtime records for 60 cases establish the first difference at seed 1,
+The runtime records for 61 cases establish the first difference at seed 1,
 without seed 73 results. Seven missing-API cases cannot build and have no
 runtime seed result: one time API and six sequence-library cases.
 
 ## Spec-only tests
 
-These are the sixty-seven current spec-only cases. Several exercise the same
+These are the sixty-eight current spec-only cases. Several exercise the same
 limitation, so their count is not a count of distinct bugs.
 
 - Field-operation accessor errors:
@@ -333,9 +339,12 @@ limitation, so their count is not a count of distinct bugs.
 - Block-scoped memory-walk exclusion:
   [skip wrapper, run direct control](../tests/uE/test_memory_walk_sequence_honors_a_block_specific_walk_exclusion.sv).
 
+- Individual-memory access exclusion:
+  [specified shared-access resource and peer control](../tests/uE/test_single_memory_access_sequence_honors_its_shared_access_exclusion_resource.sv).
+
 ## Simulator and library combinations
 
-Ghost's bundled-library evidence has 152 matches and 629 failures with each
+Ghost's bundled-library evidence has 153 matches and 652 failures with each
 of seeds 1 and 73; the same tests fail at both seeds. The current executable
 snapshot has no pinned-mode measurement. [Results and methodology](results.md)
 describes the evidence assembly. Bundled results
@@ -344,7 +353,7 @@ problem from a library problem or establish results for the locked library.
 Private identity, profiles and diagnostics are not published.
 
 The tested kirimasim executable reports `uvm_object_wrapper` as unsupported
-on 774 cases. Seven cases record `fail` earlier on missing library APIs: one time
+on 798 cases. Seven cases record `fail` earlier on missing library APIs: one time
 setter and six sequence-library cases. Neither result is a pass or evidence
 of UVM execution beyond those compilation blockers.
 

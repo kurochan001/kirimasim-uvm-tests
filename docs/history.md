@@ -2,8 +2,8 @@
 
 [日本語](history.ja.md) · [README](../README.md)
 
-These records cover M1, fifteen M2 increments and eight M3 increments
-(781 tests). The earlier 349-test checkpoint is
+These records cover M1, fifteen M2 increments and nine M3 increments
+(805 tests). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -1135,3 +1135,42 @@ table maps sequence families to their observations. Checks cover tool tests,
 metadata, pinned-library integrity, bilingual structure, local links, public
 privacy and staged whitespace. No commercial simulator results were used.
 All cases retain spec_check: ai, UVM_NO_DPI and no deprecated API.
+
+## Ninth M3 increment: memory/shared access and test selection (2026-11-01)
+
+This increment adds 24 annex E cases, bringing M3 to 216 and the suite to
+805 in 15 chapter/annex directories. Chapters 18 and 19 remain at 135 and 33;
+annex E reaches 48. M1 remains at 229 and M2 at 360. All stage targets stay open.
+
+Six cases each cover memory frontdoor/backdoor access, shared-register
+access, shared-memory access and dispatcher selection. The fixtures check
+four memory locations, two/three maps and directed writer/reader observations,
+hierarchy, exact-scope exclusions and read-data faults after clean controls.
+Observation windows clear counts, masks and last-writer metadata without
+changing shared storage. Random payloads and internal access order/counts
+are not printed as oracles. No RTL, HDL DPI or vendor backend is involved.
+
+The dispatcher uses a subclass of the standard's virtual base. It checks the
+default 64-bit all-tests mask without running all selections, zero selection
+with a reset control, individual reset/register-access/memory-access flags,
+and ORed bit-bash/memory-walk flags in the order specified by 17.2.2.10.
+The combined access wrapper and HDL-path sequence remain open.
+
+Twenty-three additions match Verilator 5.052 at seeds 1 and 73. One retains
+E.5.1's NO_MEM_SHARED_ACCESS_TEST exclusion as spec-only; pinned UVM checks
+NO_MEM_ACCESS_TEST instead. A separately scoped memory remains a successful
+control. Compatible 781-case records at c253fc9 combine with final fresh
+measurements to give 737 matches and 68 known differences: 61 runtime seed 1
+differences and seven missing-API builds without runtime seeds. The same fixed
+snapshots give guest Ghost 153 matches and 652 failures per seed with identical
+failing sets, and kirimasim 798 unsupported cases plus seven missing-API failures.
+Guest annex E matches cover only skip conditions. Current
+input, runner, version and configuration fingerprints were checked.
+
+Both languages of README, results, FAQ, glossary, known differences and
+history are updated. The FAQ table covers all eight selected sequence groups;
+remaining work and guest measurement scope are explicit. Checks include
+41 tool tests, 805 metadata records, pinned-library integrity, bilingual
+structure, local links, historical preservation, privacy and staged whitespace.
+No commercial simulator results were used. All tests retain spec_check: ai,
+UVM_NO_DPI and no deprecated API.

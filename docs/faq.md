@@ -173,7 +173,7 @@ a claim that every test was rebuilt together.
 
 ### Q16. Are M1, M2 or M3 complete, and what does the test count cover?
 
-M1 and M2 still have open clause targets. M3 now has 192
+M1 and M2 still have open clause targets. M3 now has 216
 register-layer cases, including testbench frontdoor paths; it is also incomplete. Starting a stage does not complete
 the preceding stages.
 The [plan](../README.md#plan) identifies current scope and remaining work.
@@ -597,8 +597,8 @@ Memory, adapter, predictor, frontdoor, callback and virtual-register cases
 are described below. Remaining work includes broader packing/error and
 policy/map conditions, integrated prediction, more frontdoor/callback
 combinations, HDL-path/DPI setups, broader allocation-policy conditions and
-shared/memory access sequences and broader annex E conditions. Q68 covers
-selected reset, bit-bash, register access and memory-walk sequences. Register
+the combined register/memory access wrapper and broader annex E conditions.
+Q68 covers selected built-in test sequences and dispatch masks. Register
 and memory map queries use explicit arguments.
 The release's multiple-map note and null-map resolution are explained in
 [known differences](known-differences.md). All cases retain `spec_check: ai`;
@@ -994,7 +994,7 @@ automatic backdoor update threads or every backdoor callback combination.
 
 ### Q68. Which built-in register and memory test sequences are covered?
 
-Twenty-four cases in `tests/uE/` cover four families, six cases each:
+Forty-eight cases in `tests/uE/` cover eight groups, six cases each:
 
 | Family | Sequence classes | Selected observations |
 | --- | --- | --- |
@@ -1002,6 +1002,10 @@ Twenty-four cases in `tests/uE/` cover four families, six cases each:
 | Bit bash | `uvm_reg_single_bit_bash_seq`, `uvm_reg_bit_bash_seq` | Both bit values, maps, a stuck bit, hierarchy and exclusions |
 | Register access | `uvm_reg_single_access_seq`, `uvm_reg_access_seq` | Both access paths, disagreement, RO/no-backdoor skips, hierarchy and exclusions |
 | Memory walk | `uvm_mem_single_walk_seq`, `uvm_mem_walk_seq` | Location coverage, a stuck bit, maps, hierarchy and exclusions |
+| Memory access | `uvm_mem_single_access_seq`, `uvm_mem_access_seq` | Four-location frontdoor/backdoor checks, disagreement, hierarchy and exclusions |
+| Shared register | `uvm_reg_shared_access_seq`, `uvm_reg_mem_shared_access_seq` | Two/three maps, cross-map observations, disagreement and exclusions |
+| Shared memory | `uvm_mem_shared_access_seq`, `uvm_reg_mem_shared_access_seq` | Four locations through two/three maps, disagreement, hierarchy and exclusions |
+| Test selection | `uvm_reg_mem_built_in_seq` | Default/zero masks, individual flags and ordered OR selection |
 
 See the [reset](../tests/uE/test_hw_reset_sequence_restores_model_reset_before_comparing_storage.sv),
 [bit-bash](../tests/uE/test_single_bit_bash_sequence_exercises_both_values_of_every_rw_bit.sv),
@@ -1013,24 +1017,29 @@ fixtures. This is selected sequence behavior, not a complete annex E inventory.
 
 The sequences run against positive-delay testbench storage. Custom frontdoor
 sequences and user backdoors share storage for register access checks, while
-memory walks use frontdoors. All cases keep `UVM_NO_DPI`. Reset cases initialize
+shared-map checks and memory walks use frontdoors. Memory access also uses
+user backdoors. All cases keep `UVM_NO_DPI`. Reset cases initialize
 storage to declared reset values before starting; they check model reset and
 comparison of prepared storage. Physical DUT reset behavior remains untested.
 
 Each fault case first runs a working model without errors, then injects a
 wrong reset bit, a stuck register bit, disagreement between register paths or
-a stuck memory bit. The catcher counts additional warning/error diagnostics
+a stuck memory bit or inconsistent memory/interface read data. The catcher
+counts additional warning/error diagnostics
 without changing their severity or prescribing IDs, text or exact counts.
 Traffic counters and bit masks restart for each fault or direct-control
 observation. RO and missing-backdoor skips constrain traffic, not diagnostic severity.
 Bit-bash checks observe both bit values; memory-walk checks observe all four
-locations. They do not prescribe library-specific patterns or transaction order.
+locations. They do not prescribe library-specific patterns or within-family transaction
+order. The selected dispatcher combination checks the family order that
+17.2.2.10 prescribes (Q75).
 
 ### Q70. How do exclusion resources affect these sequences?
 
 The tests install `uvm_resource_db#(bit)` entries in the `REG::` namespace.
 Selected exclusions are `NO_REG_TESTS`, `NO_REG_HW_RESET_TEST`,
-`NO_REG_BIT_BASH_TEST`, `NO_REG_ACCESS_TEST` and `NO_MEM_WALK_TEST`.
+`NO_REG_BIT_BASH_TEST`, `NO_REG_ACCESS_TEST`, `NO_MEM_WALK_TEST`,
+`NO_MEM_ACCESS_TEST`, `NO_REG_SHARED_ACCESS_TEST` and `NO_MEM_SHARED_ACCESS_TEST`.
 An exact register/memory scope leaves a peer testable; an exact block scope
 excludes its traversal without making a directly selected child/element match
 the resource. Positive controls check that the remaining target still runs.
@@ -1044,10 +1053,67 @@ spec-only, followed by a successful direct single-memory walk. See
 
 ### Q71. What remains open in annex E?
 
-Shared-register/memory access, memory frontdoor/backdoor access sequences,
-HDL-path checks and the built-in sequence dispatcher remain open (E.3.3–E.5,
-E.7–E.8). The selected families still need broader field policies, failure
-statuses, exclusion combinations, map/hierarchy shapes and physical reset
-integration. No case uses a commercial simulator, vendor backend or HDL DPI.
-All retain `spec_check: ai`; counts and two matching seeds do not establish
-human review, four-state correctness or full register-layer coverage.
+The combined register/memory access wrapper (E.3.3), HDL-path checking (E.7),
+and broader policy/status/mask combinations remain open. The dispatcher
+checks selected flags and one OR combination; its default all-tests mask is
+inspected without executing every combination. Physical DUT reset, mixed map
+rights, unknown field policies, wildcard exclusions and broader hierarchy
+shapes remain separate work. No case uses a commercial simulator, vendor
+backend or HDL DPI. All retain `spec_check: ai`; counts and two matching seeds
+do not establish human review, four-state correctness or full coverage.
+
+## Memory access, shared maps and test selection
+
+### Q72. What do the memory frontdoor/backdoor access sequences check?
+
+Six cases cover four locations through both paths, read-data disagreement,
+a missing-backdoor skip, the individual-memory exclusion, root/child traversal
+and a block exclusion with a direct control. Positive-delay handlers share
+storage; no RTL or HDL DPI is involved. Coverage masks and diagnostic changes
+are observed instead of random payloads or exact transaction counts. See the
+[memory-access fixture](../tests/uE/test_single_memory_access_sequence_cross_checks_all_locations_through_both_paths.sv).
+
+E.5.1 names `NO_MEM_SHARED_ACCESS_TEST` for an individual memory. Pinned UVM
+checks `NO_MEM_ACCESS_TEST` instead, so that case retains the required skip
+as spec-only with an independent peer control. E.5.2 separately names
+`NO_MEM_ACCESS_TEST` for a block; the two scopes and names are not treated as
+interchangeable. See [known differences](known-differences.md).
+
+### Q73. How is register visibility between maps observed?
+
+Six cases use two or three RW maps, a corrupted interface read, an individual
+register exclusion, the shared block wrapper and a block exclusion with
+direct controls. Each interface records which other interface last wrote
+the value it reads. The two-map and three-map cases require every directed
+cross-map pair, without fixing map iteration order. There is no RTL bus.
+See the [three-map fixture](../tests/uE/test_shared_register_sequence_checks_all_pairs_of_three_maps.sv).
+
+### Q74. Are shared memories given a per-location mirror?
+
+No. Six cases check two/three maps over four locations, corrupt one interface
+read, apply either shared-access exclusion to an individual memory, and walk
+a hierarchy through the shared wrapper. Both directions, or all six directed
+pairs for three maps, must be observed at every location. Sequence comparisons
+use transient expected data; the fixture adds no persistent memory mirror.
+See the [shared-memory fixture](../tests/uE/test_shared_memory_sequence_checks_all_location_pairs_across_three_maps.sv).
+
+The fault runs begin with a clean control. Observation masks, counts and
+last-writer metadata restart before the fault or direct control, while storage
+remains shared. Exact scope exclusions keep the independent peer testable.
+Read/write rights combinations and unknown policies remain open.
+
+### Q75. Which dispatcher selections are covered?
+
+Six cases extend `uvm_reg_mem_built_in_seq`, which the standard declares
+virtual. They inspect the 64-bit default `UVM_DO_ALL_REG_MEM_TESTS`, then check
+zero selection with a reset control; `UVM_DO_REG_HW_RESET`,
+`UVM_DO_REG_ACCESS`, `UVM_DO_MEM_ACCESS`; and
+`UVM_DO_REG_BIT_BASH | UVM_DO_MEM_WALK`.
+
+The individual flags require activity only in the selected model family.
+The OR case checks both families and that register activity finishes before
+memory activity begins, as ordered by 17.2.2.10. Internal access patterns and
+exact counts are unconstrained. See the
+[ordered selection fixture](../tests/uE/test_built_in_test_dispatcher_ored_flags_run_bit_bash_before_memory_walk.sv).
+The default mask is inspected without running all flags together; the shared
+wrapper is tested directly rather than through its dispatcher flag.

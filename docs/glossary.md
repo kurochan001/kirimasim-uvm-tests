@@ -383,6 +383,21 @@ fixture / a successful check that establishes the observation path works.
 Annex E cases introduce data faults after a clean run and observe additional
 diagnostics without requiring exact messages or internal test patterns.
 
+**Memory access sequence** — `uvm_mem_single_access_seq` or
+`uvm_mem_access_seq`, comparing frontdoor writes with backdoor reads and
+then reversing the paths. Current fixtures cover four testbench locations.
+See the [memory-access FAQ](faq.md#memory-access-shared-maps-and-test-selection).
+
+**Cross-map visibility** — A write through one map becomes readable through
+another map of the same register or memory. The fixtures record writer/reader
+pairs per location, independently of map iteration order or random payloads.
+See the [shared-map FAQ](faq.md#memory-access-shared-maps-and-test-selection).
+
+**Built-in test selection mask** — The 64-bit `tests` property of
+`uvm_reg_mem_built_in_seq`. Flags from `uvm_reg_mem_tests_e` select families;
+bitwise OR combines selections in the order defined by 17.2.2.10. See the
+[dispatcher FAQ](faq.md#memory-access-shared-maps-and-test-selection).
+
 ## Execution and result records
 
 **Runner / metadata** — A `tools/run_*.py` script that builds, executes and

@@ -285,6 +285,18 @@ virtual配列は`implement`／`release_region`で実装先の予約を管理し�
 **故障の注入／成功する比較対象** — 正常だと確認した検査系へ意図的に変更を加えること／観測経路が働くことを確認する検査です。
 付録Eのケースは正常実行の後にデータの故障を入れ、正確な診断文や内部パターンを要求せずに診断の増加を観測します。
 
+**Memory access sequence** — `uvm_mem_single_access_seq`または`uvm_mem_access_seq`で、
+frontdoorでのwriteとbackdoorでのreadを比較し、次に経路を逆にします。現在の検査系はテストベンチの4 locationを扱います。
+[memory accessのFAQ](faq.ja.md#memory-accessshared-mapテストの選択)を参照してください。
+
+**map間の可視性** — あるmapで書いた値を、同じregister／memoryの別のmapから読めることです。
+検査系はmapの列挙順序や乱数payloadに依存せず、locationごとに書き込み元と読み手の組を記録します。
+[shared mapのFAQ](faq.ja.md#memory-accessshared-mapテストの選択)を参照してください。
+
+**組み込みテストの選択mask** — `uvm_reg_mem_built_in_seq`の64 bitの`tests` propertyです。
+`uvm_reg_mem_tests_e`のflagで系統を選び、bitwise ORで17.2.2.10の順序に従って組み合わせます。
+[dispatcherのFAQ](faq.ja.md#memory-accessshared-mapテストの選択)を参照してください。
+
 ## 実行と結果
 
 **ランナー／メタデータ** — ビルド・実行・判定を行う`tools/run_*.py`／
