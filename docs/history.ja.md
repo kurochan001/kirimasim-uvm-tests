@@ -2,7 +2,7 @@
 
 [English](history.md) · [README](../README.ja.md)
 
-M1・M2の15回目、M3の9回目、M4の3回目と段階をまたぐ薄い領域の2回目の拡充（シミュレーション845件）までを記録しています。以前の349件の時点は
+M1・M2の15回目、M3の9回目、M4の3回目と段階をまたぐ薄い領域の3回目の拡充（シミュレーション865件）までを記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -1028,3 +1028,50 @@ guestの識別情報と生の診断は非公開とし、商用の結果は使い
 日英の現状資料を更新し、以前の履歴をすべて保持します。FAQと用語を3件ずつ追加し、87問・99語にします。
 ツール単体テスト74件、metadata 845件、台帳406件、ライブラリ、local link 609件、日英の構造、ライセンス原文、
 空白、現在の入力／runner／設定の指紋を検査してから実行記録を合算します。
+
+## M1〜M4の薄い領域の3回目の拡充
+
+20件を追加します。M1はprinterのfield／配列の出力、比較message上限、overrideなしのfactory照会、有限quit上限、
+実際のready反復上限の12件です。M2は特定ID／空／重複IDの応答取得と実行中sequenceのroute分離4件、
+M3は広幅registerの交互のpredictionとwrite／read byte enableの4件です。M1が261、M2が372、M3が232、
+20ディレクトリにシミュレーション865件となります。
+
+printerの所属検査は組み込みtable／line出力、実field-macro配列、固有値、再利用の比較対象を使います。
+有限windowの中央省略は任意のままです。比較probeはfieldを短絡せず、hook内の個別reportだけを数えて、後の集約報告を除きます。
+全不一致の結果を保ち、上限5の比較対象でreport経路を確認します。factoryはobject／componentのwrapperを通常の実生成と比較します。
+overrideなしの名前照会とcomparer上限0は、規格の期待値を維持します。
+
+quit上限はUVM_COUNT、実pre_abortの走査、後の時刻へ継続しない遅延guardを使い、終了要求後の同一評価内の順序は指定しません。
+未宣言のUVM_QUITという表記はF.2.2.2／F.7.3.2で解釈します。component hookの実際の条項は13.1.4.6で、
+F.7.3.2の印刷上の参照13.1.4.1.6とは区別します。ready callbackは常にraise／遅延dropを対応させ、上限がなければ反復を再起動します。
+設定した2／3で実callback数を制限してphase_endedへ進み、永久にdropしないobjectionや兄弟phaseの条件は未評価とします。
+
+応答は正の遅延で待機を成立させ、実際にacknowledgeしたrequestからrouting IDを両方copyします。
+不一致到着は特定IDの待機を完了せず、同じIDの一致同士は順序を固定せず所属を確認します。空の待機は取得後も再び成立させます。
+実行中の2 sequenceでtransaction IDが同じでも別々に配送します。predictorはlittle／big-endian mapの広幅register 2つを交互に観測し、
+address到着順を逆にする条件も使いますが、非公開の待機mapは読みません。byteに整列する2 fieldを、active predictionを無効にして、
+RW write／RO readの下位／上位／全無効laneで検査します。未完了検出の診断、field内のmask、RTL timing、全protocol／policy組合せは未完です。
+
+31要求案を追加し、新規20件と、第19章に残っていた既存未対応23件を対応付け、以前は未対応だった基本APIの6要求にも直接linkを付けます。
+台帳はAIの437要求案で、直接対応する要求433件・テスト514件、直接未対応4要求、別のcontrol 1テスト、どちらの対応もない350テストです。
+第19章の主引用37テストはすべて対応がありますが、分解は部分的なままです。value配列の既定size／prefix／拡張時0、
+adapterのcontext／変換、prediction／通知、backdoorのアクセス／policyを明示した観測へ対応付けます。
+
+catalogは部分分解305番号、未評価2,199番号、主引用あり365番号、いずれかの引用あり853番号です。
+候補の主引用は0件が2,114番号、1件が156番号、2件以上が209番号です。既存の全テスト／索引snapshot、runner、library lockを保持します。
+object側のpolicy同期、HDL deposit、HDL-pathの利用可否、memory-walk algorithm全体は直接未対応のままです。
+範囲、分母、規範的な棚卸し、各段階の目標は未完／未承認とします。
+
+新規の最終入力17件がVerilator 5.052のseed 1・73で一致し、overrideなしの名前照会2件とcomparer上限0の3件は既知差分を保持します。
+backendの出力から期待値をコピーしません。変更のない
+[9112476](https://github.com/kurochan001/kirimasim-uvm-tests/commit/91124768db9f537c763d1ca67afc88feec66f65b)
+時点の845件と合算すると782件一致・既知差分83件です。内訳はseed 1の実行時76件、実行seedのないAPI欠落build 7件です。
+互換な記録の合算であり、全件を単一の実行で再測定したという主張ではありません。
+
+新規Ghost同梱実行は、各seedでoverrideなしの照会2件と重複ID応答の所属1件が一致し、他の17件は不一致で、その集合も同じです。
+合算は165件一致・700件不一致です。kirimasimは未対応20件を加え、未対応858件・API欠落の失敗7件です。
+合算前に実行ファイル／profile／設定と、現在の入力／runnerの同一性を確認します。guestの識別情報と生の診断は非公開を保ち、商用の結果は使いません。
+
+日英の資料を更新し、FAQ／用語を4件ずつ追加して91問・103語とし、以前の履歴をすべて保持します。
+ツール単体テスト74件、metadata 865件、台帳437件、固定ライブラリ、日英の構造、local link、ライセンス原文、
+空白、現在の実行記録の指紋を検査します。

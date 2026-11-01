@@ -3,7 +3,7 @@
 [日本語](history.ja.md) · [README](../README.md)
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and two cross-milestone thin-area expansions (845 simulation tests). The earlier 349-test checkpoint is
+three M4 increments and three cross-milestone thin-area expansions (865 simulation tests). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -1422,3 +1422,77 @@ three FAQs and three glossary terms, reaching 87 questions and 99 terms.
 Validate 74 tool tests, 845 metadata records, 406 ledger entries, library integrity,
 609 local links, language-pair structure, canonical license, whitespace and all
 current input/runner/configuration fingerprints before combining evidence.
+
+## Third thin-area expansion across M1–M4
+
+Add twenty cases: twelve M1 cases for printer field/array emission, comparison
+message caps, no-override factory queries, finite quit limits and actual
+ready-iteration caps; four M2 cases for targeted/empty/duplicate-ID response
+retrieval and live sequence-route isolation; four M3 cases for interleaved
+wide-register prediction and write/read byte enables. Stage totals become
+M1 261, M2 372 and M3 232, with 865 simulations in twenty directories.
+
+Printer membership checks use built-in table/line emitters, real field-macro
+arrays, unique values and reuse controls. Finite-window middle omission remains
+optional. Comparison probes count individual reports inside the hook, without
+short-circuiting fields or counting later rollups; all mismatch results remain
+visible and a cap-five control proves the report path. Factory lookup is
+compared with real ordinary creation for object/component wrappers. The
+no-override name query and zero comparer cap retain normative expectations.
+
+Quit-limit cases use UVM_COUNT, actual pre_abort traversal and a delayed guard
+against later-time continuation. They do not impose same-evaluation ordering
+after a simulator finish request. Interpret the undeclared UVM_QUIT wording
+using F.2.2.2/F.7.3.2; the actual component hook is 13.1.4.6, despite F.7.3.2's
+printed reference to 13.1.4.1.6. Ready callbacks always pair their raise with a
+delayed drop, which would keep re-arming without the configured cap. Limits
+two/three bound the real callback count and reach phase_ended; permanent
+undropped objections and sibling-phase conditions remain unassessed.
+
+Response fixtures establish waits with positive delays and copy both routing
+IDs from real acknowledged requests. Nonmatching arrivals do not complete a
+targeted wait; duplicate matching IDs are checked by membership without a tie
+order. Empty waits re-arm after consumption. Equal transaction IDs across two
+live sequences still route separately. Predictor fixtures interleave two wide
+registers on little/big-endian maps, including reversed address arrival, without
+private pending-map access. Two byte-aligned fields exercise low/high/disabled
+lanes for RW writes and RO reads, with active prediction off. Pending-check
+reporting, sub-field masks, RTL timing and all protocol/policy combinations
+remain open.
+
+Add 31 draft requirements, map all twenty new cases and the remaining 23
+unmapped existing chapter 19 tests, and provide direct links for six previously
+unlinked core drafts. The ledger has 437 AI drafts: 433 directly linked
+requirements, 514 directly linked tests, four requirements without direct tests,
+one separate control and 350 tests with neither link role. Chapter 19's 37
+primary-focus tests all have links, while its decomposition is still partial.
+Value-array defaults/prefix/zero growth, adapter context and conversion,
+prediction/publication and backdoor access/policies have explicit observations.
+
+The catalog has 305 partial and 2,199 unassessed identifiers; 365 have primary
+focus and 853 any citation. Candidate primary-focus counts are 2,114 zero,
+156 one and 209 at least two. Preserve every existing test/index snapshot,
+runner and library lock. Object-side policy synchronization, HDL deposit,
+HDL-path accessibility and the full memory-walk algorithm remain without direct
+tests. Scope, denominator, normative inventory and milestone targets stay open.
+
+Seventeen new final inputs match Verilator 5.052 at seeds 1 and 73; three
+retain known differences: two no-override name lookups and the zero comparer
+cap. No expectation is copied from backend output. Combined with the unchanged
+845-case baseline at [9112476](https://github.com/kurochan001/kirimasim-uvm-tests/commit/91124768db9f537c763d1ca67afc88feec66f65b),
+there are 782 matches and 83 known differences: 76 runtime seed-1 records and
+seven missing-API builds without runtime seeds. This is compatible evidence,
+not a single rerun of all cases.
+
+New Ghost bundled runs match both no-override queries and the duplicate-ID
+response membership case, and fail seventeen others at each seed. Failing sets
+agree, giving 165 matches and 700 failures overall. kirimasim adds twenty
+unsupported cases, for 858 unsupported and seven missing-API failures.
+Executable/profile/configuration and current input/runner identities are checked
+before combining. Guest identity and raw diagnostics stay private; commercial
+simulator results are not used.
+
+Update paired guides, add four FAQs and four glossary terms (91 questions,
+103 terms), and retain all earlier history. Validate 74 tool tests, 865 metadata
+records, 437 ledger entries, pinned-library integrity, language-pair structure,
+local links, canonical license, whitespace and current evidence fingerprints.

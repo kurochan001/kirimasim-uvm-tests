@@ -155,7 +155,7 @@ Ghostはさらに実行ファイル・profile・供給されたライブラリ�
 
 ### Q16. M1・M2・M3は完了していますか。件数は何の網羅を示しますか
 
-M1・M2には条項ごとの目標に未達があります。M3はbusモデルのfrontdoor経路を含め228件まで追加した段階で、未完です。
+M1・M2には条項ごとの目標に未達があります。M3はbusモデルのfrontdoor経路を含め232件まで追加した段階で、未完です。
 次の段階の開始によって、それまでの段階が完了したとは扱いません。
 範囲と残りの作業は[進め方](../README.ja.md#進め方)にあります。
 件数はテストの本数で、規格の全要求や組み合わせの棚卸しではありません。
@@ -918,8 +918,8 @@ controlの対応は、その要求の直接の検査ではありません。
 
 ### Q77. M4を始めたのに、カバレッジ率がないのはなぜですか
 
-AIによる406要求案は部分的な分解で、396要求を471テストへ直接対応付け、10要求は直接未対応、別の1テストはcontrolです。
-他の373テストはまだ要求に対応付けていません。2,504の条項番号は規範的要求の単位ではありません。
+AIによる437要求案は部分的な分解で、433要求を514テストへ直接対応付け、4要求は直接未対応、別の1テストはcontrolです。
+他の350テストはまだ要求に対応付けていません。2,504の条項番号は規範的要求の単位ではありません。
 範囲は提案、棚卸しは未完、分母は未承認で、M4の開始はどれの承認にもなりません。
 既知差分やHDL／DPIの制約によって義務を暗黙に除外しません。[承認までの手順](requirements.ja.md#m4の残作業と承認)を参照してください。
 
@@ -1049,3 +1049,57 @@ byteに整列する[24-bit write](../tests/u18/test_mem_frontdoor_twenty_four_bi
 [read](../tests/u18/test_mem_frontdoor_read_propagates_failure_without_constraining_failed_data.sv)では、adapterの失敗後に新しい再試行を成功させます。
 statusと実request数を調べ、失敗readのdataは調べません。拒否したwriteで記憶域を保つのはdriverが選んだ検査系の比較対象であり、
 故障hardware全般の保証ではありません。RTLやHDL DPIなしのテストベンチのadapter／sequencer／driverの検査です。
+
+## 出力・上限・応答の観測
+
+### Q88. printerの配置を固定せずに、どう出力を検査しますか
+
+組み込みtable／line printerで、固有のfield名と10進の値を出力します。
+[名前の出力](../tests/u16/test_printer_name_enable_changes_emitted_field_membership.sv)は、有効時に名前があり、無効時に名前がなく、
+値はどちらでも見えることを検査します。別policyと、値を変更した再利用で、localな設定と古い出力を確認します。
+列、空白、句読点は固定しません。
+
+field-macro配列は、begin／endそれぞれの負の境界で実際に出力し、固有の全要素を確認します。中央値の変更と、
+[空／再設定の再利用](../tests/u16/test_printer_negative_end_renders_all_elements_without_stale_empty_output.sv)を比較対象にします。
+16.2.6では有限windowの中央省略は任意なので、その省略は要求しません。選択した整数配列の出力であり、全型、radix、再帰形式の検査ではありません。
+
+### Q89. comparison・quit・phaseの上限は、具体的に何を制限しますか
+
+comparerは短絡せず3 fieldを不一致にし、`do_compare`中の個別reportだけを数えて、後のframeworkの集約報告を区間外にします。
+上限1は上界の検査とし、上限5の比較対象で3 reportが出て、不一致の記録も3件残ることを確認します。
+[上限0](../tests/u16/test_comparer_zero_message_limit_suppresses_reports_before_a_visible_control.sv)は個別reportなしを期待しますが、
+固定UVMは0を無制限として扱うため、規格の期待値をspecのみで保持します。
+
+[quit上限](../tests/u06/test_report_quit_limit_2_terminates_at_boundary_through_pre_abort.sv)は有限境界で`UVM_COUNT`を使い、
+実際の`pre_abort`の走査と、後の時刻へ到達しないことを検査します。simulation終了を要求した同じ評価内の実行順序は制約しません。
+F.7.3.2のhookは13.1.4.6のcomponent methodで、印刷上の参照13.1.4.1.6はextract phaseを指します。
+COUNT actionの解釈は[要求台帳の説明](requirements.ja.md#レビュー用の未整理項目とroot別集計)にも記載します。
+
+[ready反復上限](../tests/u13/test_phase_ready_iteration_cap_2_bounds_repeated_raise_drop_callbacks.sv)では、
+各callbackでobjectionのraiseと遅延dropを対応させます。上限がなければcallbackが次の反復を再起動し続けますが、
+設定した上限2／3で追加callbackを止め、`phase_ended`へ進むことを確認します。
+ユーザーが永久にobjectionを保持した場合の終了や、兄弟phaseの条件は要求しません。
+
+### Q90. 応答待ちのケースは、保存済み応答の選択から何を追加しますか
+
+[特定IDの待機](../tests/u14/test_sequence_targeted_response_wait_ignores_two_unmatched_arrivals.sv)は、
+不一致の2応答が到着してもblockを保ち、要求IDを受け取ってから、残った応答をFIFO順で取得します。
+別のケースでは、同じ明示transaction IDを持つ2応答を両方取得し、一致同士の順序を固定せず所属を検査して、別IDも保持します。
+空のFIFO待機は、最初の応答を消費した後も再びblockすることを確認します。
+
+[実行中の2受信側](../tests/u15/test_sequencer_response_routes_separate_live_sequences_with_the_same_transaction_id.sv)は、
+transaction IDを同じにしてsequenceの起点を分けます。片方の応答で宛先sequenceだけが再開する必要があります。
+全応答のrouting IDは実際にacknowledgeしたrequestからcopyし、正の遅延で待機を確認します。
+handleの同一性により、偶然dataが同じ場合と配送を区別します。非公開queue、一致応答の同順位内の順序、追加の公平性は仮定しません。
+
+### Q91. predictorの途中値とbyte enableはどう検査しますか
+
+little／big-endian mapで、広幅register 2つへbus wordを交互に送ります。
+[交互の観測](../tests/u19/test_reg_predictor_interleaved_little_endian_registers_keep_partial_values_independent.sv)では、
+未完了registerのmirrorを保持し、完了時に自身の組立値だけを通知することを要求します。
+big-endianでは下位wordを低い物理addressより先に供給し、addressの到着順は仮定せず、非公開の待機状態は読みません。
+
+[write mask](../tests/u19/test_reg_predictor_write_byte_enables_preserve_unobserved_fields.sv)と
+[read mask](../tests/u19/test_reg_predictor_read_byte_enables_preserve_unobserved_fields.sv)は、byteに整列する2 fieldの下位のみ、上位のみ、全無効のlaneを選びます。
+RW write／RO readは有効fieldだけを更新し、全無効ではmirrorを保ったまま、対応したtransactionを`reg_ap`から通知します。
+active predictionを無効にしたpassive analysisの観測です。RTL timing、未完了検出の診断、field内のbyte mask、全access policyは別の作業です。

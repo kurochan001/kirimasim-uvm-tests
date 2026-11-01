@@ -2,7 +2,7 @@
 
 [日本語](known-differences.ja.md) · [README](../README.md) · [FAQ](faq.md)
 
-This describes the current 845-test suite and the pinned Accellera UVM
+This describes the current 865-test suite and the pinned Accellera UVM
 2020.3.1 library. A mismatch is a test result; it does not by itself assign
 the cause to the simulator, the library or the expectation.
 
@@ -16,14 +16,15 @@ semantics still require review. Annex E additionally checks selected two/three-m
 shared accesses and one child-block shape; see the
 [memory scope](faq.md#memory-prediction-and-map-controls) and
 [shared-access scope](faq.md#memory-access-shared-maps-and-test-selection).
-The following forty-eight additional limitations were identified during M1, M2 and M3.
+The following forty-nine additional limitations were identified during M1, M2 and M3.
 Where a test directly checks a required behavior that is missing, its
 normative expectation is retained with `:oracle: spec`.
 
 - With no override installed, `find_override_by_name` returns `null` even
   when creation can instantiate the original type. Clause 8.3.1.7.1
   describes the wrapper of the object that would be created. The
-  lookup tests install overrides; alias tests inspect created objects.
+  no-override object/component tests retain the required ordinary-creation
+  wrapper; matching override-query and alias cases provide separate controls.
 - The default config_db implementation looks up field names literally,
   so a configured field-name glob does not select matching names as
   described by C.4.2.2.1. The glob cases exercise scope patterns with
@@ -208,6 +209,11 @@ normative expectation is retained with `:oracle: spec`.
   16.5.4.9. Two cases leave the invalid packed state uninspected and use a
   fresh packer for a working 64-bit round-trip control.
 
+- A comparer configured with `set_show_max(0)` emits individual miscompare
+  reports as if zero meant unlimited. Clauses 16.3.5.1 and 16.3.3.7 specify a
+  maximum with no zero-as-unlimited exception. The zero-cap case retains no
+  reports, counts all three mismatches and uses a visible cap-five control.
+
 These branches are not treated as reproduced fixed-release oracles.
 Spec-only diagnostics preserve the required post-drop objector membership,
 initial transaction state, severity-ID reset, field-operation name errors,
@@ -244,22 +250,22 @@ controls report the expected byte-aligned widths 16 and 8. Sub-byte logical
 width versus rounded physical-byte width needs review; no confirmed library
 bug is assigned from these two cases. See [partial transfers](faq.md#error-contracts-and-partial-transfers).
 
-Across the suite, 765 tests have the `verilator@5.052` oracle tag and eighty
+Across the suite, 782 tests have the `verilator@5.052` oracle tag and eighty-three
 cases are spec-only. One of the spec-only cases checks 9.6: a child's pre-reset
 task must be killed when that phase ends, but the pinned-library run on Verilator 5.052
 lets the child perform its delayed write during a later phase. The cause of
 this combined simulator/library difference remains unassigned.
 
-The eighty spec-only tests retain their normative expected files.
-Default Verilator runs and CI select the 765 tagged cases. `--all` includes
+The eighty-three spec-only tests retain their normative expected files.
+Default Verilator runs and CI select the 782 tagged cases. `--all` includes
 spec-only cases and records mismatches or build failures as `known`.
-The runtime records for 73 cases establish the first difference at seed 1,
+The runtime records for 76 cases establish the first difference at seed 1,
 without seed 73 results. Seven missing-API cases cannot build and have no
 runtime seed result: one time API and six sequence-library cases.
 
 ## Spec-only tests
 
-These are the eighty current spec-only cases. Several exercise the same
+These are the eighty-three current spec-only cases. Several exercise the same
 limitation, so their count is not a count of distinct bugs.
 
 - Field-operation accessor errors:
@@ -393,9 +399,16 @@ limitation, so their count is not a count of distinct bugs.
   [20-bit write](../tests/u18/test_mem_frontdoor_twenty_bit_write_preserves_location_boundaries_and_partial_width.sv)
   and [20-bit read](../tests/u18/test_mem_frontdoor_twenty_bit_read_assembles_declared_bits_and_partial_width.sv).
 
+- No-override name lookup:
+  [object](../tests/u08/test_factory_no_override_object_queries_agree_with_ordinary_creation.sv)
+  and [component](../tests/u08/test_factory_no_override_component_queries_agree_with_ordinary_creation.sv).
+- Comparer zero message cap:
+  [individual reports and a visible control](../tests/u16/test_comparer_zero_message_limit_suppresses_reports_before_a_visible_control.sv).
+  See [output and limits](faq.md#output-limits-and-routed-observations).
+
 ## Simulator and library combinations
 
-Ghost's bundled-library evidence has 162 matches and 683 failures with each
+Ghost's bundled-library evidence has 165 matches and 700 failures with each
 of seeds 1 and 73; the same tests fail at both seeds. The current executable
 snapshot has no pinned-mode measurement. [Results and methodology](results.md)
 describes the evidence assembly. Bundled results
@@ -404,7 +417,7 @@ problem from a library problem or establish results for the locked library.
 Private identity, profiles and diagnostics are not published.
 
 The tested kirimasim executable reports `uvm_object_wrapper` as unsupported
-on 838 cases. Seven cases record `fail` earlier on missing library APIs: one time
+on 858 cases. Seven cases record `fail` earlier on missing library APIs: one time
 setter and six sequence-library cases. Neither result is a pass or evidence
 of UVM execution beyond those compilation blockers.
 

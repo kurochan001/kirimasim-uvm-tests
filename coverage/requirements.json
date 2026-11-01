@@ -8017,23 +8017,40 @@
         "ja": "処理したquit actionが設定した有限limitに達すると、serverはrootの終了処理を呼ぶ。"
       },
       "conditions": {
-        "en": "Process reports with UVM_COUNT and a finite nonzero maximum while observing a controlled root termination hook.",
-        "ja": "0でない有限最大値でUVM_COUNT付きの報告を処理し、制御したrootの終了hookを観測する。"
+        "en": "Process UVM_COUNT reports at finite limits one/two, observing real pre_abort traversal and no later-time continuation.",
+        "ja": "有限上限1／2でUVM_COUNT reportを処理し、実pre_abortの走査と後の時刻へ継続しないことを観測する。"
       },
       "expected": {
         "en": "The configured boundary triggers termination rather than only changing a stored counter.",
         "ja": "設定した境界で、保存counterを変えるだけでなく終了をtriggerする。"
       },
       "limitations": {
-        "en": "No direct test is mapped. The quit-action wording in 6.5.1.2.3 uses undeclared UVM_QUIT; interpret it using the declared UVM_COUNT in F.2.2.2 and die at the limit in F.7.3.2. Configuration getters do not establish this behavior.",
-        "ja": "直接テストは未対応。6.5.1.2.3のquit actionの表記は未定義のUVM_QUITを使うため、F.2.2.2で宣言するUVM_COUNTと、F.7.3.2の上限でのdieを照合して解釈する。設定getterではこの動作を示せない。"
+        "en": "Limits one and two use real component pre_abort callbacks and a delayed continuation guard. UVM_COUNT is interpreted from F.2.2.2/F.7.3.2 rather than undeclared UVM_QUIT in 6.5.1.2.3; the component hook is 13.1.4.6. This does not specify same-evaluation ordering after a simulator finish request.",
+        "ja": "上限1／2で実componentのpre_abortと遅延した継続guardを使う。6.5.1.2.3の未宣言UVM_QUITではなくF.2.2.2／F.7.3.2からUVM_COUNTと解釈し、component hookは13.1.4.6を参照する。終了要求後の同一評価内の実行順序は指定しない。"
       },
       "review": {
         "status": "ai",
         "reviewer": null,
         "reviewed_at": null
       },
-      "test_links": []
+      "test_links": [
+        {
+          "test": "u06/test_report_quit_limit_1_terminates_at_boundary_through_pre_abort",
+          "role": "direct",
+          "expected_observations": [
+            "UT: initial_count 0",
+            "UT: pre_abort boundary 1"
+          ]
+        },
+        {
+          "test": "u06/test_report_quit_limit_2_terminates_at_boundary_through_pre_abort",
+          "role": "direct",
+          "expected_observations": [
+            "UT: below_boundary 1",
+            "UT: pre_abort boundary 1"
+          ]
+        }
+      ]
     },
     {
       "id": "UVM-REGISTRY-COMPONENT-CREATE",
@@ -8877,15 +8894,30 @@
         "ja": "overrideの設定を必要とせず、通常生成と同じwrapperを選ぶ。"
       },
       "limitations": {
-        "en": "No direct test is mapped. Existing override-query fixtures deliberately install replacements and do not cover this branch.",
-        "ja": "直接テストは未対応。既存のoverride照会は意図的に置換を設定しており、この分岐を検査しない。"
+        "en": "Registered object and component wrappers are queried by type and name without installing overrides; ordinary creation is the proxy-selection control. Unknown names and override conflicts remain separate.",
+        "ja": "overrideを設定せず、登録したobject／componentのwrapperを型／名前で照会し、通常生成をproxy選択の比較対象にする。未知名とoverrideの競合は別途扱う。"
       },
       "review": {
         "status": "ai",
         "reviewer": null,
         "reviewed_at": null
       },
-      "test_links": []
+      "test_links": [
+        {
+          "test": "u08/test_factory_no_override_object_queries_agree_with_ordinary_creation",
+          "role": "direct",
+          "expected_observations": [
+            "UT: by_type 1 by_name 1 created 1"
+          ]
+        },
+        {
+          "test": "u08/test_factory_no_override_component_queries_agree_with_ordinary_creation",
+          "role": "direct",
+          "expected_observations": [
+            "UT: by_type 1 by_name 1 created 1"
+          ]
+        }
+      ]
     },
     {
       "id": "UVM-PHASE-BOTTOM-UP",
@@ -9860,23 +9892,38 @@
         "ja": "ready-to-end反復上限は、objectionが繰り返し追加されてもphase_endedへの進行を強制する。"
       },
       "conditions": {
-        "en": "Raise from successive ready callbacks through the configured maximum iteration count.",
-        "ja": "設定した最大反復数まで、連続するready callbackからraiseする。"
+        "en": "Raise and later drop an objection from every ready callback through the configured maximum.",
+        "ja": "全ready callbackでobjectionをraiseして後でdropし、設定した最大反復数まで継続する。"
       },
       "expected": {
         "en": "The capped iteration reaches phase_ended without unbounded callback retries.",
         "ja": "上限に達した反復で、無制限にretryせずphase_endedへ達する。"
       },
       "limitations": {
-        "en": "No direct test is mapped; querying limits and observing one extra iteration do not establish cap enforcement.",
-        "ja": "直接テストは未対応。上限の照会と1回の追加反復だけでは、上限の強制を示せない。"
+        "en": "One main phase repeats correctly paired raise/delayed-drop callbacks at limits two and three. Every callback would re-arm another iteration without the cap. No claim is made about ending while a user permanently retains an objection or about sibling-phase conditions.",
+        "ja": "1つのmain phaseで、上限2／3までraiseと遅延dropを正しく対応させて反復する。上限がなければ全callbackが次の反復を再起動する。ユーザーが永久にobjectionを保持した場合の終了や、兄弟phaseの条件は主張しない。"
       },
       "review": {
         "status": "ai",
         "reviewer": null,
         "reviewed_at": null
       },
-      "test_links": []
+      "test_links": [
+        {
+          "test": "u13/test_phase_ready_iteration_cap_2_bounds_repeated_raise_drop_callbacks",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ready_calls 2 ended_calls 1"
+          ]
+        },
+        {
+          "test": "u13/test_phase_ready_iteration_cap_3_bounds_repeated_raise_drop_callbacks",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ready_calls 3 ended_calls 1"
+          ]
+        }
+      ]
     },
     {
       "id": "UVM-CALLBACK-INSTANCE-REGISTRATION",
@@ -14069,15 +14116,32 @@
         "ja": "message生成を制限する一方、不一致状態は比較した全失敗を記録する。"
       },
       "limitations": {
-        "en": "No direct test is mapped; control getters and verbosity filtering do not prove cap enforcement.",
-        "ja": "直接テストは未対応。制御値のgetterやverbosity抑制では、上限の強制を示せない。"
+        "en": "Catch individual reports only during do_compare, excluding later framework rollups. Limits one and zero preserve all three recorded failures; a limit-five control proves visible reports. The positive cap checks an upper bound, not an exact positive report count.",
+        "ja": "do_compare中の個別reportだけを数え、後のframeworkの集約報告を除く。上限1／0でも3不一致の記録を保ち、上限5の比較対象でreportが見えることを確認する。正の上限は上界だけを検査し、正確な正のreport数は要求しない。"
       },
       "review": {
         "status": "ai",
         "reviewer": null,
         "reviewed_at": null
       },
-      "test_links": []
+      "test_links": [
+        {
+          "test": "u16/test_comparer_caps_individual_reports_while_recording_all_three_miscompares",
+          "role": "direct",
+          "expected_observations": [
+            "UT: matched 0 failures 3 within_cap 1",
+            "UT: control matched 0 failures 3 reports 3"
+          ]
+        },
+        {
+          "test": "u16/test_comparer_zero_message_limit_suppresses_reports_before_a_visible_control",
+          "role": "direct",
+          "expected_observations": [
+            "UT: matched 0 failures 3 within_cap 1",
+            "UT: control matched 0 failures 3 reports 3"
+          ]
+        }
+      ]
     },
     {
       "id": "UVM-COPIER-REFERENCE-MODE-ERROR",
@@ -14138,15 +14202,33 @@
         "ja": "中央の要素を省略せず、すべての配列要素を表す。"
       },
       "limitations": {
-        "en": "No direct test is mapped; existing fixtures query control values without rendering arrays.",
-        "ja": "直接テストは未対応。既存構成は配列を出力せず制御値を照会する。"
+        "en": "Field-macro dynamic arrays exercise each negative bound, updated middle elements and empty/refilled reuse. Finite-window middle omission is optional and is not required by these fixtures.",
+        "ja": "field macroの動的配列で、両方の負の境界、中央要素の変更、空／再設定の再利用を検査する。有限windowの中央省略は任意なので要求しない。"
       },
       "review": {
         "status": "ai",
         "reviewer": null,
         "reviewed_at": null
       },
-      "test_links": []
+      "test_links": [
+        {
+          "test": "u16/test_printer_negative_begin_renders_every_array_element_and_updated_middle",
+          "role": "direct",
+          "expected_observations": [
+            "UT: all_elements 6",
+            "UT: updated fresh 1 stale 0 retained 5"
+          ]
+        },
+        {
+          "test": "u16/test_printer_negative_end_renders_all_elements_without_stale_empty_output",
+          "role": "direct",
+          "expected_observations": [
+            "UT: all_elements 6",
+            "UT: empty_stale 0",
+            "UT: refilled 3 stale 0"
+          ]
+        }
+      ]
     },
     {
       "id": "UVM-PRINTER-NAME-EMISSION",
@@ -14164,15 +14246,32 @@
         "ja": "有効時は名前を含み、無効時は省略する。"
       },
       "limitations": {
-        "en": "No direct test is mapped; storing/getting enable bits alone does not establish emitted behavior.",
-        "ja": "直接テストは未対応。有効bitの保存／取得だけでは出力動作を示せない。"
+        "en": "Built-in table/line emitters are checked through unique field/value membership across reuse and independent policies. Exact layout and punctuation are unconstrained.",
+        "ja": "組み込みtable／lineの出力を、固有のfield／値の所属で、再利用と独立policyも含めて検査する。正確な配置や句読点は制約しない。"
       },
       "review": {
         "status": "ai",
         "reviewer": null,
         "reviewed_at": null
       },
-      "test_links": []
+      "test_links": [
+        {
+          "test": "u16/test_printer_name_enable_changes_emitted_field_membership",
+          "role": "direct",
+          "expected_observations": [
+            "UT: names enabled 1 disabled 0",
+            "UT: values enabled 1 disabled 1"
+          ]
+        },
+        {
+          "test": "u16/test_printer_name_emission_is_local_across_line_printer_reuse",
+          "role": "direct",
+          "expected_observations": [
+            "UT: names hidden 0 visible 1 reused 0",
+            "UT: replacement fresh 1 stale 0"
+          ]
+        }
+      ]
     },
     {
       "id": "UVM-PACKER-INTEGRAL-OVERSIZE-ERROR",
@@ -16411,6 +16510,1142 @@
           "role": "direct",
           "expected_observations": [
             "UT: rejected 1 calls 1 stored 33"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-TARGETED-RESPONSE-WAIT",
+      "clause": "14.3.3.3",
+      "statement": {
+        "en": "A targeted response wait blocks until the requested transaction ID arrives.",
+        "ja": "特定応答の待機は、要求transaction IDが届くまでblockする。"
+      },
+      "conditions": {
+        "en": "Queue two nonmatching replies around an established wait, then send the matching one.",
+        "ja": "成立した待機の前後に不一致応答を2つ入れ、その後一致する応答を送る。"
+      },
+      "expected": {
+        "en": "Neither nonmatching arrival completes the wait; both remain available in their FIFO order.",
+        "ja": "どちらの不一致到着でも待機を完了せず、両方をFIFO順で後から取得できる。"
+      },
+      "limitations": {
+        "en": "All replies copy real request IDs; positive delays establish blocked states. No private queue, response tie order, broader priority/fairness or arbitrary concurrent scheduling is assumed.",
+        "ja": "全応答は実requestのIDをcopyし、正の遅延で待機状態を確認する。非公開queue、応答の同順位内の順序、追加のpriority／公平性、任意の並行scheduleは仮定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_targeted_response_wait_ignores_two_unmatched_arrivals",
+          "role": "direct",
+          "expected_observations": [
+            "UT: first_unmatched_blocked 1",
+            "UT: second_unmatched_blocked 1",
+            "UT: identities target 1 retained_first 1 retained_last 1",
+            "UT: values 222 111 333"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-MATCHING-DUPLICATE-RESPONSES",
+      "clause": "14.3.3.3",
+      "statement": {
+        "en": "Repeated targeted reads retrieve distinct matching queued replies without discarding another ID.",
+        "ja": "特定IDの繰り返し取得は、別IDを捨てずに、一致する別々の保存応答を取得する。"
+      },
+      "conditions": {
+        "en": "Two replies share an explicit transaction ID and one has another ID.",
+        "ja": "2応答に同じ明示transaction IDを付け、別の1応答は異なるIDにする。"
+      },
+      "expected": {
+        "en": "Both matching handles are returned once and the unmatched handle remains; matching tie order is unconstrained.",
+        "ja": "一致する両handleを1回ずつ返して不一致handleを保ち、一致同士の順序は制約しない。"
+      },
+      "limitations": {
+        "en": "All replies copy real request IDs; positive delays establish blocked states. No private queue, response tie order, broader priority/fairness or arbitrary concurrent scheduling is assumed.",
+        "ja": "全応答は実requestのIDをcopyし、正の遅延で待機状態を確認する。非公開queue、応答の同順位内の順序、追加のpriority／公平性、任意の並行scheduleは仮定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_targeted_reads_retain_both_matching_duplicate_ids_and_unmatched_reply",
+          "role": "direct",
+          "expected_observations": [
+            "UT: matching_membership 1 1 ids 1 unmatched 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-EMPTY-RESPONSE-REWAIT",
+      "clause": "14.3.3.3",
+      "statement": {
+        "en": "A FIFO response retrieval blocks whenever no response is queued, including after prior consumption.",
+        "ja": "FIFOの応答取得は、以前の取得後も含め、応答が空ならblockする。"
+      },
+      "conditions": {
+        "en": "Let the first waiting call consume its only reply, then begin a second empty wait.",
+        "ja": "最初の待機が唯一の応答を消費した後、2回目の空の待機を始める。"
+      },
+      "expected": {
+        "en": "Both waits remain blocked until their fresh arrivals and return the supplied handles.",
+        "ja": "両待機は新しい到着までblockし、渡したhandleを返す。"
+      },
+      "limitations": {
+        "en": "All replies copy real request IDs; positive delays establish blocked states. No private queue, response tie order, broader priority/fairness or arbitrary concurrent scheduling is assumed.",
+        "ja": "全応答は実requestのIDをcopyし、正の遅延で待機状態を確認する。非公開queue、応答の同順位内の順序、追加のpriority／公平性、任意の並行scheduleは仮定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_fifo_response_wait_blocks_again_after_draining_its_first_reply",
+          "role": "direct",
+          "expected_observations": [
+            "UT: first_empty_blocked 1",
+            "UT: drained_empty_blocked 1",
+            "UT: identities 1 1 completed 2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCER-LIVE-RESPONSE-ISOLATION",
+      "clause": "15.5.2.9",
+      "statement": {
+        "en": "Responses are routed to their originating live sequence, not merely by transaction ID.",
+        "ja": "応答はtransaction IDだけでなく、元の実行中sequenceへ配送する。"
+      },
+      "conditions": {
+        "en": "Two live sequences wait with equal transaction IDs; send the second sequence reply first.",
+        "ja": "同じtransaction IDで実行中の2 sequenceを待たせ、2つ目の応答を先に送る。"
+      },
+      "expected": {
+        "en": "Only the intended receiver wakes, and both eventually receive their original handles/data.",
+        "ja": "宛先の受信側だけが再開し、最後には両方が元のhandle／dataを受け取る。"
+      },
+      "limitations": {
+        "en": "All replies copy real request IDs; positive delays establish blocked states. No private queue, response tie order, broader priority/fairness or arbitrary concurrent scheduling is assumed.",
+        "ja": "全応答は実requestのIDをcopyし、正の遅延で待機状態を確認する。非公開queue、応答の同順位内の順序、追加のpriority／公平性、任意の並行scheduleは仮定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequencer_response_routes_separate_live_sequences_with_the_same_transaction_id",
+          "role": "direct",
+          "expected_observations": [
+            "UT: isolated first_waiting 1 second_returned 1",
+            "UT: identities 1 1 values 111 222"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PREDICTOR-PARTIAL-ISOLATION",
+      "clause": "19.3.2.1",
+      "statement": {
+        "en": "Partial observations for different wide registers keep independent data/completion state.",
+        "ja": "異なる広幅registerの部分観測は、data／完了状態を独立に保つ。"
+      },
+      "conditions": {
+        "en": "Interleave two 32-bit registers on a 16-bit bus in little/big-endian maps.",
+        "ja": "16-bit busで32-bit register 2つを、little／big-endian map上で交互に観測する。"
+      },
+      "expected": {
+        "en": "Completing one register leaves the other unmodified until its own last beat; each publishes its own value.",
+        "ja": "片方が完了しても別の最後のbeatまでは値を変更せず、それぞれ自身の値を通知する。"
+      },
+      "limitations": {
+        "en": "Passive testbench analysis only, with explicit maps, values and access policies; no private pending-state, RTL timing, pending-check diagnostics or all protocol combinations are inferred.",
+        "ja": "明示したmap／値／access policyでpassiveなテストベンチanalysisだけを扱う。非公開の待機状態、RTL timing、未完了検出の診断、全protocol組合せは推定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_predictor_interleaved_little_endian_registers_keep_partial_values_independent",
+          "role": "direct",
+          "expected_observations": [
+            "UT: partial mirrors 0 0 calls 0",
+            "UT: first_complete mirrors 11223344 0 calls 1 target 1 value 11223344",
+            "UT: second_complete mirrors 11223344 55667788 calls 2 target 1 value 55667788"
+          ]
+        },
+        {
+          "test": "u19/test_reg_predictor_interleaved_big_endian_registers_keep_partial_values_independent",
+          "role": "direct",
+          "expected_observations": [
+            "UT: partial mirrors 0 0 calls 0",
+            "UT: first_complete mirrors 11223344 0 calls 1 target 1 value 11223344",
+            "UT: second_complete mirrors 11223344 55667788 calls 2 target 1 value 55667788"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PREDICTOR-BYTE-ENABLE-FIELDS",
+      "clause": "19.3.2.1",
+      "statement": {
+        "en": "Passive prediction respects enabled byte lanes when updating corresponding fields.",
+        "ja": "passive predictionは、対応fieldの更新で有効なbyte laneを反映する。"
+      },
+      "conditions": {
+        "en": "Observe low-only, high-only and all-disabled lanes of two byte-aligned fields, using RW writes and RO reads.",
+        "ja": "byteに整列する2 fieldで、RW write／RO readの下位のみ、上位のみ、全無効のlaneを観測する。"
+      },
+      "expected": {
+        "en": "Only enabled field bytes update; an all-disabled observation leaves the mirror unchanged while publishing its transaction.",
+        "ja": "有効field byteだけを更新し、全無効の観測ではmirrorを変えずtransactionを通知する。"
+      },
+      "limitations": {
+        "en": "Passive testbench analysis only, with explicit maps, values and access policies; no private pending-state, RTL timing, pending-check diagnostics or all protocol combinations are inferred.",
+        "ja": "明示したmap／値／access policyでpassiveなテストベンチanalysisだけを扱う。非公開の待機状態、RTL timing、未完了検出の診断、全protocol組合せは推定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_predictor_write_byte_enables_preserve_unobserved_fields",
+          "role": "direct",
+          "expected_observations": [
+            "UT: low_enabled mirror 12cd low cd high 12 calls 1",
+            "UT: high_enabled mirror efcd low cd high ef calls 2",
+            "UT: disabled mirror efcd calls 3 target 1"
+          ]
+        },
+        {
+          "test": "u19/test_reg_predictor_read_byte_enables_preserve_unobserved_fields",
+          "role": "direct",
+          "expected_observations": [
+            "UT: low_enabled mirror 12cd low cd high 12 calls 1",
+            "UT: high_enabled mirror efcd low cd high ef calls 2",
+            "UT: disabled mirror efcd calls 3 target 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-ITEM-DEFAULT-VALUE-SIZE",
+      "clause": "19.1.1.2.4",
+      "statement": {
+        "en": "A new register item contains one value element.",
+        "ja": "新しいregister itemは、value要素を1つ持つ。"
+      },
+      "conditions": {
+        "en": "Inspect default size and explicit grow/shrink/regrow operations on one item.",
+        "ja": "1 itemの既定sizeと明示した拡張／縮小／再拡張を観測する。"
+      },
+      "expected": {
+        "en": "The initial value array size is one.",
+        "ja": "初期value配列sizeは1である。"
+      },
+      "limitations": {
+        "en": "Only value-array size/prefix/new entries are mapped; invalid indexes and bulk-array equivalence remain separate.",
+        "ja": "value配列のsize／prefix／新entryだけを対応付け、不正indexやbulk配列操作との同値性は別途扱う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_item_value_array_resize_preserves_prefix_and_zero_fills_growth",
+          "role": "direct",
+          "expected_observations": [
+            "UT: default_size 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-ITEM-RESIZE-PREFIX",
+      "clause": "19.1.1.2.4",
+      "statement": {
+        "en": "Resizing a register item retains the surviving value prefix.",
+        "ja": "register itemのsize変更は、残るvalueのprefixを保つ。"
+      },
+      "conditions": {
+        "en": "Inspect default size and explicit grow/shrink/regrow operations on one item.",
+        "ja": "1 itemの既定sizeと明示した拡張／縮小／再拡張を観測する。"
+      },
+      "expected": {
+        "en": "Existing surviving values remain a5 and 42 through shrink/regrow.",
+        "ja": "縮小／再拡張でも残る既存値a5／42を保つ。"
+      },
+      "limitations": {
+        "en": "Only value-array size/prefix/new entries are mapped; invalid indexes and bulk-array equivalence remain separate.",
+        "ja": "value配列のsize／prefix／新entryだけを対応付け、不正indexやbulk配列操作との同値性は別途扱う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_item_value_array_resize_preserves_prefix_and_zero_fills_growth",
+          "role": "direct",
+          "expected_observations": [
+            "UT: grown_size 3 values a5 0 0",
+            "UT: shrunk_size 2 values a5 42",
+            "UT: regrown_size 3 values a5 42 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-ITEM-GROW-ZERO",
+      "clause": "19.1.1.2.4",
+      "statement": {
+        "en": "New value elements introduced by growth are initialized to zero.",
+        "ja": "拡張で新しく追加するvalue要素は0に初期化する。"
+      },
+      "conditions": {
+        "en": "Inspect default size and explicit grow/shrink/regrow operations on one item.",
+        "ja": "1 itemの既定sizeと明示した拡張／縮小／再拡張を観測する。"
+      },
+      "expected": {
+        "en": "Growth and regrowth create zero-valued new entries.",
+        "ja": "拡張／再拡張で新しいentryを0にする。"
+      },
+      "limitations": {
+        "en": "Only value-array size/prefix/new entries are mapped; invalid indexes and bulk-array equivalence remain separate.",
+        "ja": "value配列のsize／prefix／新entryだけを対応付け、不正indexやbulk配列操作との同値性は別途扱う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_item_value_array_resize_preserves_prefix_and_zero_fills_growth",
+          "role": "direct",
+          "expected_observations": [
+            "UT: grown_size 3 values a5 0 0",
+            "UT: regrown_size 3 values a5 42 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-ADAPTER-OUTSIDE-CONTEXT",
+      "clause": "19.2.1.2.7",
+      "statement": {
+        "en": "Adapter get_item returns null outside library-driven reg2bus translation.",
+        "ja": "adapterのget_itemは、libraryが実行するreg2bus変換の外ではnullを返す。"
+      },
+      "conditions": {
+        "en": "Use standalone conversion and a real adapter/sequencer/driver register access.",
+        "ja": "単独の変換と、実adapter／sequencer／driverのregisterアクセスを使う。"
+      },
+      "expected": {
+        "en": "Before/after calls and bus2reg context are null where observed.",
+        "ja": "観測する呼出し前後とbus2regのcontextはnullになる。"
+      },
+      "limitations": {
+        "en": "The descriptor is inspected without modification; no context is required during standalone conversion itself.",
+        "ja": "descriptorは変更せずに観測する。単独変換の内部にcontextがあるとは要求しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_adapter_get_item_is_null_outside_translation_callback",
+          "role": "direct",
+          "expected_observations": [
+            "UT: before_null 1",
+            "UT: after_null 1"
+          ]
+        },
+        {
+          "test": "u19/test_reg_adapter_operation_context_is_scoped_to_reg2bus_callback",
+          "role": "direct",
+          "expected_observations": [
+            "UT: before_null 1",
+            "UT: ok 1 seen 1 element 1 extension 1 map 1 write 1 frontdoor 1",
+            "UT: after_null 1 response_outside 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-ADAPTER-INSIDE-CONTEXT",
+      "clause": "19.2.1.2.7",
+      "statement": {
+        "en": "Library-driven reg2bus can inspect the initiating operation descriptor.",
+        "ja": "libraryが実行するreg2busは、開始した操作descriptorを観測できる。"
+      },
+      "conditions": {
+        "en": "Use standalone conversion and a real adapter/sequencer/driver register access.",
+        "ja": "単独の変換と、実adapter／sequencer／driverのregisterアクセスを使う。"
+      },
+      "expected": {
+        "en": "The callback sees the supplied element, extension, map, kind and frontdoor path.",
+        "ja": "callbackが指定したelement／extension／map／kind／frontdoor pathを観測する。"
+      },
+      "limitations": {
+        "en": "The descriptor is inspected without modification; no context is required during standalone conversion itself.",
+        "ja": "descriptorは変更せずに観測する。単独変換の内部にcontextがあるとは要求しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_adapter_operation_context_is_scoped_to_reg2bus_callback",
+          "role": "direct",
+          "expected_observations": [
+            "UT: before_null 1",
+            "UT: ok 1 seen 1 element 1 extension 1 map 1 write 1 frontdoor 1",
+            "UT: after_null 1 response_outside 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM-ADAPTER-READ-CONVERSION",
+      "clause": "19.2.2.2.1",
+      "statement": {
+        "en": "The TLM adapter translates a generic read into a read payload.",
+        "ja": "TLM adapterは、generic readをread payloadへ変換する。"
+      },
+      "conditions": {
+        "en": "Provide explicit generic fields or a constructed payload and inspect the returned conversion.",
+        "ja": "generic fieldまたは構築したpayloadを明示し、変換結果を観測する。"
+      },
+      "expected": {
+        "en": "Read command, address 240 and length four are retained.",
+        "ja": "read command、address 240、length 4を保つ。"
+      },
+      "limitations": {
+        "en": "Only the stated command/address/length/data/mask/status observations are linked. Repeated-byte data avoids imposing unexamined byte ordering; arbitrary payload widths and errors remain partial.",
+        "ja": "明記したcommand／address／length／data／mask／statusの観測だけを対応付ける。同じbyteの反復で未検討のbyte順を固定せず、任意のpayload幅とerrorは部分的なままとする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_tlm_adapter_read_conversion_preserves_command_address_and_length",
+          "role": "direct",
+          "expected_observations": [
+            "UT: read 1 address 240 length 4"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM-ADAPTER-WRITE-CONVERSION",
+      "clause": "19.2.2.2.1",
+      "statement": {
+        "en": "The TLM adapter translates generic write command/address/data into a payload.",
+        "ja": "TLM adapterは、generic writeのcommand／address／dataをpayloadへ変換する。"
+      },
+      "conditions": {
+        "en": "Provide explicit generic fields or a constructed payload and inspect the returned conversion.",
+        "ja": "generic fieldまたは構築したpayloadを明示し、変換結果を観測する。"
+      },
+      "expected": {
+        "en": "Write command, address 120, length two and repeated a5 bytes agree.",
+        "ja": "write command、address 120、length 2、反復するa5 byteが一致する。"
+      },
+      "limitations": {
+        "en": "Only the stated command/address/length/data/mask/status observations are linked. Repeated-byte data avoids imposing unexamined byte ordering; arbitrary payload widths and errors remain partial.",
+        "ja": "明記したcommand／address／length／data／mask／statusの観測だけを対応付ける。同じbyteの反復で未検討のbyte順を固定せず、任意のpayload幅とerrorは部分的なままとする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_tlm_adapter_write_conversion_preserves_command_address_and_length",
+          "role": "direct",
+          "expected_observations": [
+            "UT: write 1 address 120 length 2 bytes 2",
+            "UT: data a5 a5"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM-ADAPTER-BYTE-MASKS",
+      "clause": "19.2.2.2.1",
+      "statement": {
+        "en": "The TLM adapter translates enabled/disabled generic byte lanes into payload masks.",
+        "ja": "TLM adapterは、genericの有効／無効byte laneをpayloadのmaskへ変換する。"
+      },
+      "conditions": {
+        "en": "Provide explicit generic fields or a constructed payload and inspect the returned conversion.",
+        "ja": "generic fieldまたは構築したpayloadを明示し、変換結果を観測する。"
+      },
+      "expected": {
+        "en": "All-enabled bytes become ff and all-disabled bytes become zero.",
+        "ja": "全有効byteはff、全無効byteは0になる。"
+      },
+      "limitations": {
+        "en": "Only the stated command/address/length/data/mask/status observations are linked. Repeated-byte data avoids imposing unexamined byte ordering; arbitrary payload widths and errors remain partial.",
+        "ja": "明記したcommand／address／length／data／mask／statusの観測だけを対応付ける。同じbyteの反復で未検討のbyte順を固定せず、任意のpayload幅とerrorは部分的なままとする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_tlm_adapter_all_enabled_and_disabled_byte_masks_are_converted",
+          "role": "direct",
+          "expected_observations": [
+            "UT: enabled length 2 count 2",
+            "UT: enabled ff ff",
+            "UT: disabled 0 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-ADAPTER-FRESH-BUS-ITEM",
+      "clause": "19.2.1.2.5",
+      "statement": {
+        "en": "Each reg2bus conversion allocates a new bus-specific item.",
+        "ja": "各reg2bus変換は、新しいbus固有itemを割り当てる。"
+      },
+      "conditions": {
+        "en": "Provide explicit generic fields or a constructed payload and inspect the returned conversion.",
+        "ja": "generic fieldまたは構築したpayloadを明示し、変換結果を観測する。"
+      },
+      "expected": {
+        "en": "Successive payload handles differ and the first address survives the next conversion.",
+        "ja": "連続payloadのhandleが異なり、次の変換後も最初のaddressを保つ。"
+      },
+      "limitations": {
+        "en": "Only the stated command/address/length/data/mask/status observations are linked. Repeated-byte data avoids imposing unexamined byte ordering; arbitrary payload widths and errors remain partial.",
+        "ja": "明記したcommand／address／length／data／mask／statusの観測だけを対応付ける。同じbyteの反復で未検討のbyte順を固定せず、任意のpayload幅とerrorは部分的なままとする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_tlm_adapter_allocates_distinct_payloads_for_successive_operations",
+          "role": "direct",
+          "expected_observations": [
+            "UT: distinct 1 first 400 second 280"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM-ADAPTER-READ-RESPONSE",
+      "clause": "19.2.2.2.2",
+      "statement": {
+        "en": "The TLM adapter translates a failed read payload into generic read status/context.",
+        "ja": "TLM adapterは、失敗read payloadをgeneric readのstatus／contextへ変換する。"
+      },
+      "conditions": {
+        "en": "Provide explicit generic fields or a constructed payload and inspect the returned conversion.",
+        "ja": "generic fieldまたは構築したpayloadを明示し、変換結果を観測する。"
+      },
+      "expected": {
+        "en": "The result has READ kind, address 320 and UVM_NOT_OK.",
+        "ja": "結果はREAD kind、address 320、UVM_NOT_OKになる。"
+      },
+      "limitations": {
+        "en": "Only the stated command/address/length/data/mask/status observations are linked. Repeated-byte data avoids imposing unexamined byte ordering; arbitrary payload widths and errors remain partial.",
+        "ja": "明記したcommand／address／length／data／mask／statusの観測だけを対応付ける。同じbyteの反復で未検討のbyte順を固定せず、任意のpayload幅とerrorは部分的なままとする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_tlm_adapter_read_response_updates_generic_operation_fields",
+          "role": "direct",
+          "expected_observations": [
+            "UT: kind 1 address 320 status 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM-ADAPTER-WRITE-RESPONSE",
+      "clause": "19.2.2.2.2",
+      "statement": {
+        "en": "The TLM adapter translates a successful write payload into generic operation fields.",
+        "ja": "TLM adapterは、成功write payloadをgeneric操作fieldへ変換する。"
+      },
+      "conditions": {
+        "en": "Provide explicit generic fields or a constructed payload and inspect the returned conversion.",
+        "ja": "generic fieldまたは構築したpayloadを明示し、変換結果を観測する。"
+      },
+      "expected": {
+        "en": "WRITE kind, address 320, dede data, byte mask three and UVM_IS_OK agree.",
+        "ja": "WRITE kind、address 320、data dede、byte mask 3、UVM_IS_OKが一致する。"
+      },
+      "limitations": {
+        "en": "Only the stated command/address/length/data/mask/status observations are linked. Repeated-byte data avoids imposing unexamined byte ordering; arbitrary payload widths and errors remain partial.",
+        "ja": "明記したcommand／address／length／data／mask／statusの観測だけを対応付ける。同じbyteの反復で未検討のbyte順を固定せず、任意のpayload幅とerrorは部分的なままとする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_tlm_adapter_write_response_updates_generic_operation_fields",
+          "role": "direct",
+          "expected_observations": [
+            "UT: kind 1 address 320 data dede enables 3 status 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PREDICTOR-WIDE-COMPLETION",
+      "clause": "19.3.2.1",
+      "statement": {
+        "en": "A wide-register predictor waits for all required bus words before updating and publishing that value.",
+        "ja": "広幅registerのpredictorは、必要な全bus wordを待ってから値を更新／通知する。"
+      },
+      "conditions": {
+        "en": "Observe two 16-bit words of 32-bit registers using little/big-endian maps.",
+        "ja": "little／big-endian mapで32-bit registerの16-bit word 2つを観測する。"
+      },
+      "expected": {
+        "en": "Partial observations leave the mirror/publication count unchanged; completion assembles the configured value.",
+        "ja": "部分観測ではmirror／通知数を保ち、完了時に設定した値を組み立てる。"
+      },
+      "limitations": {
+        "en": "Passive testbench analysis only, with explicit maps, values and access policies; no private pending-state, RTL timing, pending-check diagnostics or all protocol combinations are inferred.",
+        "ja": "明示したmap／値／access policyでpassiveなテストベンチanalysisだけを扱う。非公開の待機状態、RTL timing、未完了検出の診断、全protocol組合せは推定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_predictor_little_endian_collects_complete_wide_register",
+          "role": "direct",
+          "expected_observations": [
+            "UT: partial mirror 0 calls 0",
+            "UT: complete mirror 11223344 calls 1 value 11223344"
+          ]
+        },
+        {
+          "test": "u19/test_reg_predictor_big_endian_collects_complete_wide_register",
+          "role": "direct",
+          "expected_observations": [
+            "UT: partial mirror 0 calls 0",
+            "UT: complete mirror 11223344 calls 1 value 11223344"
+          ]
+        },
+        {
+          "test": "u19/test_reg_predictor_interleaved_little_endian_registers_keep_partial_values_independent",
+          "role": "direct",
+          "expected_observations": [
+            "UT: partial mirrors 0 0 calls 0",
+            "UT: first_complete mirrors 11223344 0 calls 1 target 1 value 11223344",
+            "UT: second_complete mirrors 11223344 55667788 calls 2 target 1 value 55667788"
+          ]
+        },
+        {
+          "test": "u19/test_reg_predictor_interleaved_big_endian_registers_keep_partial_values_independent",
+          "role": "direct",
+          "expected_observations": [
+            "UT: partial mirrors 0 0 calls 0",
+            "UT: first_complete mirrors 11223344 0 calls 1 target 1 value 11223344",
+            "UT: second_complete mirrors 11223344 55667788 calls 2 target 1 value 55667788"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PREDICTOR-IGNORE-NONREGISTER",
+      "clause": "19.3.2.1",
+      "statement": {
+        "en": "Bus observations not mapped to registers do not predict a register value.",
+        "ja": "registerへ対応しないbus観測は、register値をpredictしない。"
+      },
+      "conditions": {
+        "en": "Send memory-address and unmapped-address observations beside a known register.",
+        "ja": "既知registerと並べて、memory address／未対応addressの観測を送る。"
+      },
+      "expected": {
+        "en": "The register mirror remains 55 and no register item is published.",
+        "ja": "register mirrorは55のままで、register itemを通知しない。"
+      },
+      "limitations": {
+        "en": "Passive testbench analysis only, with explicit maps, values and access policies; no private pending-state, RTL timing, pending-check diagnostics or all protocol combinations are inferred.",
+        "ja": "明示したmap／値／access policyでpassiveなテストベンチanalysisだけを扱う。非公開の待機状態、RTL timing、未完了検出の診断、全protocol組合せは推定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_predictor_ignores_memory_and_unmapped_bus_observations",
+          "role": "direct",
+          "expected_observations": [
+            "UT: mirror 55 calls 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PREDICTOR-PUBLICATION-METADATA",
+      "clause": "19.3.2.2",
+      "statement": {
+        "en": "The predictor publishes the observed transaction as a generic register item.",
+        "ja": "predictorは、観測transactionをgeneric register itemとして通知する。"
+      },
+      "conditions": {
+        "en": "Observe a known register read/write through an analysis monitor.",
+        "ja": "analysis monitorから既知registerのread／writeを観測する。"
+      },
+      "expected": {
+        "en": "Publication values and the checked element/map/kind identify the observed operation.",
+        "ja": "通知値と検査するelement／map／kindが、観測した操作を識別する。"
+      },
+      "limitations": {
+        "en": "Passive testbench analysis only, with explicit maps, values and access policies; no private pending-state, RTL timing, pending-check diagnostics or all protocol combinations are inferred.",
+        "ja": "明示したmap／値／access policyでpassiveなテストベンチanalysisだけを扱う。非公開の待機状態、RTL timing、未完了検出の診断、全protocol組合せは推定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_predictor_read_updates_readonly_mirror",
+          "role": "direct",
+          "expected_observations": [
+            "UT: mirror a6 calls 1 value a6 read 1"
+          ]
+        },
+        {
+          "test": "u19/test_reg_predictor_write_updates_mirror_and_publishes_generic_metadata",
+          "role": "direct",
+          "expected_observations": [
+            "UT: mirror ab calls 1 value ab element 1 map 1 write 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PREDICTOR-READONLY-READ",
+      "clause": "19.3.2.1",
+      "statement": {
+        "en": "A physical read observation updates a read-only register mirror.",
+        "ja": "物理readの観測は、read-only registerのmirrorを更新する。"
+      },
+      "conditions": {
+        "en": "Read observed a6 from a configured read-only field.",
+        "ja": "read-only fieldで観測するa6をreadする。"
+      },
+      "expected": {
+        "en": "The mirror and published read value become a6.",
+        "ja": "mirrorと通知するread値がa6になる。"
+      },
+      "limitations": {
+        "en": "Passive testbench analysis only, with explicit maps, values and access policies; no private pending-state, RTL timing, pending-check diagnostics or all protocol combinations are inferred.",
+        "ja": "明示したmap／値／access policyでpassiveなテストベンチanalysisだけを扱う。非公開の待機状態、RTL timing、未完了検出の診断、全protocol組合せは推定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_predictor_read_updates_readonly_mirror",
+          "role": "direct",
+          "expected_observations": [
+            "UT: mirror a6 calls 1 value a6 read 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PREDICTOR-READ-CLEAR",
+      "clause": "19.3.2.1",
+      "statement": {
+        "en": "Read-clear prediction distinguishes sampled data from post-read mirror state.",
+        "ja": "read-clearのpredictionは、sampled dataとread後のmirror状態を区別する。"
+      },
+      "conditions": {
+        "en": "Observe the explicitly configured access policy without active bus operations.",
+        "ja": "active bus操作なしで、明示したaccess policyの観測を行う。"
+      },
+      "expected": {
+        "en": "The published observation is a5 while the post-read mirror is zero.",
+        "ja": "通知する観測値はa5、read後のmirrorは0になる。"
+      },
+      "limitations": {
+        "en": "Passive testbench analysis only, with explicit maps, values and access policies; no private pending-state, RTL timing, pending-check diagnostics or all protocol combinations are inferred.",
+        "ja": "明示したmap／値／access policyでpassiveなテストベンチanalysisだけを扱う。非公開の待機状態、RTL timing、未完了検出の診断、全protocol組合せは推定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_predictor_read_clear_distinguishes_observation_from_mirror",
+          "role": "direct",
+          "expected_observations": [
+            "UT: mirror 0 observed a5 calls 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PREDICTOR-WRITE-ONE-CLEAR",
+      "clause": "19.3.2.1",
+      "statement": {
+        "en": "Write-one-clear prediction applies the observed mask to the prior mirror.",
+        "ja": "write-one-clearのpredictionは、観測maskを以前のmirrorへ適用する。"
+      },
+      "conditions": {
+        "en": "Observe the explicitly configured access policy without active bus operations.",
+        "ja": "active bus操作なしで、明示したaccess policyの観測を行う。"
+      },
+      "expected": {
+        "en": "The published write mask is f and the resulting mirror is f0.",
+        "ja": "通知write maskはf、結果のmirrorはf0になる。"
+      },
+      "limitations": {
+        "en": "Passive testbench analysis only, with explicit maps, values and access policies; no private pending-state, RTL timing, pending-check diagnostics or all protocol combinations are inferred.",
+        "ja": "明示したmap／値／access policyでpassiveなテストベンチanalysisだけを扱う。非公開の待機状態、RTL timing、未完了検出の診断、全protocol組合せは推定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_predictor_write_one_clear_distinguishes_observation_from_mirror",
+          "role": "direct",
+          "expected_observations": [
+            "UT: mirror f0 observed f calls 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEMORY-BACKDOOR-POKE",
+      "clause": "18.6.5.5",
+      "statement": {
+        "en": "Memory poke deposits the supplied value as-is at the selected location.",
+        "ja": "memoryのpokeは、選択locationへ指定値をそのままdepositする。"
+      },
+      "conditions": {
+        "en": "Use explicit locations in a read-only memory with a user backdoor.",
+        "ja": "user backdoor付きread-only memoryで明示locationを使う。"
+      },
+      "expected": {
+        "en": "Read-only storage takes a6 while its neighboring location stays 33.",
+        "ja": "read-onlyの記憶域がa6になり、隣接locationは33を保つ。"
+      },
+      "limitations": {
+        "en": "User-defined storage backdoors require no HDL DPI or RTL. Only the listed single-location policies, selection and status observations are linked; broad callback and automatic-update behavior remain unassessed.",
+        "ja": "ユーザー定義の記憶域backdoorはHDL DPI／RTLを使わない。列挙した単一locationのpolicy／選択／statusの観測だけを対応付け、追加callbackや自動更新は未評価とする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_mem_user_backdoor_poke_and_peek_use_the_selected_readonly_location",
+          "role": "direct",
+          "expected_observations": [
+            "UT: poke_ok 1 stored a6 neighbor 33"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEMORY-BACKDOOR-PEEK",
+      "clause": "18.6.5.6",
+      "statement": {
+        "en": "Memory peek returns the selected stored value.",
+        "ja": "memoryのpeekは、選択した記憶値を返す。"
+      },
+      "conditions": {
+        "en": "Use explicit locations in a read-only memory with a user backdoor.",
+        "ja": "user backdoor付きread-only memoryで明示locationを使う。"
+      },
+      "expected": {
+        "en": "The selected peek succeeds and returns a6.",
+        "ja": "選択したpeekが成功してa6を返す。"
+      },
+      "limitations": {
+        "en": "User-defined storage backdoors require no HDL DPI or RTL. Only the listed single-location policies, selection and status observations are linked; broad callback and automatic-update behavior remain unassessed.",
+        "ja": "ユーザー定義の記憶域backdoorはHDL DPI／RTLを使わない。列挙した単一locationのpolicy／選択／statusの観測だけを対応付け、追加callbackや自動更新は未評価とする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_mem_user_backdoor_poke_and_peek_use_the_selected_readonly_location",
+          "role": "direct",
+          "expected_observations": [
+            "UT: peek_ok 1 value a6"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGISTER-BACKDOOR-PEEK-STATUS",
+      "clause": "18.4.4.12",
+      "statement": {
+        "en": "Register peek returns the user-backdoor success/failure status.",
+        "ja": "registerのpeekは、user backdoorの成功／失敗statusを返す。"
+      },
+      "conditions": {
+        "en": "Use a selected register, explicit user-backdoor storage and the stated access or handler configuration.",
+        "ja": "選択register、明示したuser-backdoor記憶域、記載したaccess／handler設定を使う。"
+      },
+      "expected": {
+        "en": "A failed peek is followed by successful retry returning bc.",
+        "ja": "失敗peekの後、bcを返す再試行が成功する。"
+      },
+      "limitations": {
+        "en": "User-defined storage backdoors require no HDL DPI or RTL. Only the listed single-location policies, selection and status observations are linked; broad callback and automatic-update behavior remain unassessed.",
+        "ja": "ユーザー定義の記憶域backdoorはHDL DPI／RTLを使わない。列挙した単一locationのpolicy／選択／statusの観測だけを対応付け、追加callbackや自動更新は未評価とする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_user_backdoor_failure_status_is_returned_and_retry_can_succeed",
+          "role": "direct",
+          "expected_observations": [
+            "UT: rejected 1",
+            "UT: retry_ok 1 value bc"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGISTER-BACKDOOR-INHERITANCE",
+      "clause": "18.4.6.1",
+      "statement": {
+        "en": "A register-specific backdoor takes precedence over its inherited block handler.",
+        "ja": "register固有のbackdoorは、blockから継承したhandlerより優先する。"
+      },
+      "conditions": {
+        "en": "Use a selected register, explicit user-backdoor storage and the stated access or handler configuration.",
+        "ja": "選択register、明示したuser-backdoor記憶域、記載したaccess／handler設定を使う。"
+      },
+      "expected": {
+        "en": "Inherited access returns bc; installing a local handler selects it and returns 77 without reusing the inherited handler.",
+        "ja": "継承アクセスはbcを返し、local handlerの設定後は継承handlerを再利用せず選択先から77を返す。"
+      },
+      "limitations": {
+        "en": "User-defined storage backdoors require no HDL DPI or RTL. Only the listed single-location policies, selection and status observations are linked; broad callback and automatic-update behavior remain unassessed.",
+        "ja": "ユーザー定義の記憶域backdoorはHDL DPI／RTLを使わない。列挙した単一locationのpolicy／選択／statusの観測だけを対応付け、追加callbackや自動更新は未評価とする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_user_backdoor_inheritance_yields_to_a_register_specific_handler",
+          "role": "direct",
+          "expected_observations": [
+            "UT: inherited_ok 1 value bc inherited 1",
+            "UT: local_ok 1 value 77 selected 1 reads 1 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGISTER-BACKDOOR-PEEK-NO-CLEAR",
+      "clause": "18.4.4.12",
+      "statement": {
+        "en": "Register peek samples storage without physical read-clear side effects.",
+        "ja": "registerのpeekは、物理read-clearの副作用なしで記憶域をsampleする。"
+      },
+      "conditions": {
+        "en": "Use a selected register, explicit user-backdoor storage and the stated access or handler configuration.",
+        "ja": "選択register、明示したuser-backdoor記憶域、記載したaccess／handler設定を使う。"
+      },
+      "expected": {
+        "en": "Returned value and storage remain a6 while the mirror updates to a6.",
+        "ja": "返却値と記憶域はa6を保ち、mirrorがa6になる。"
+      },
+      "limitations": {
+        "en": "User-defined storage backdoors require no HDL DPI or RTL. Only the listed single-location policies, selection and status observations are linked; broad callback and automatic-update behavior remain unassessed.",
+        "ja": "ユーザー定義の記憶域backdoorはHDL DPI／RTLを使わない。列挙した単一locationのpolicy／選択／statusの観測だけを対応付け、追加callbackや自動更新は未評価とする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_user_backdoor_peek_samples_without_read_clear_side_effects",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ok 1 value a6 stored a6 mirror a6"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGISTER-BACKDOOR-POKE-READONLY",
+      "clause": "18.4.4.11",
+      "statement": {
+        "en": "Register poke deposits data as-is despite a read-only field policy.",
+        "ja": "registerのpokeは、read-only field policyでもdataをそのままdepositする。"
+      },
+      "conditions": {
+        "en": "Use a selected register, explicit user-backdoor storage and the stated access or handler configuration.",
+        "ja": "選択register、明示したuser-backdoor記憶域、記載したaccess／handler設定を使う。"
+      },
+      "expected": {
+        "en": "Storage and the mirrored value become a6.",
+        "ja": "記憶域とmirrorがa6になる。"
+      },
+      "limitations": {
+        "en": "User-defined storage backdoors require no HDL DPI or RTL. Only the listed single-location policies, selection and status observations are linked; broad callback and automatic-update behavior remain unassessed.",
+        "ja": "ユーザー定義の記憶域backdoorはHDL DPI／RTLを使わない。列挙した単一locationのpolicy／選択／statusの観測だけを対応付け、追加callbackや自動更新は未評価とする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_user_backdoor_poke_deposits_data_despite_readonly_field_policy",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ok 1 stored a6 mirror a6"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGISTER-BACKDOOR-WRITE-ONE-CLEAR",
+      "clause": "18.4.4.9",
+      "statement": {
+        "en": "Backdoor register write emulates physical write-one-clear behavior.",
+        "ja": "backdoor register writeは、物理write-one-clearの動作を模擬する。"
+      },
+      "conditions": {
+        "en": "Use a selected register, explicit user-backdoor storage and the stated access or handler configuration.",
+        "ja": "選択register、明示したuser-backdoor記憶域、記載したaccess／handler設定を使う。"
+      },
+      "expected": {
+        "en": "Writing f0 into ff storage leaves f in storage and mirror.",
+        "ja": "ffの記憶域へf0をwriteすると、記憶域／mirrorがfになる。"
+      },
+      "limitations": {
+        "en": "User-defined storage backdoors require no HDL DPI or RTL. Only the listed single-location policies, selection and status observations are linked; broad callback and automatic-update behavior remain unassessed.",
+        "ja": "ユーザー定義の記憶域backdoorはHDL DPI／RTLを使わない。列挙した単一locationのpolicy／選択／statusの観測だけを対応付け、追加callbackや自動更新は未評価とする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_user_backdoor_write_applies_write_one_clear_policy",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ok 1 stored f mirror f"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGISTER-BACKDOOR-WRITE-READONLY",
+      "clause": "18.4.4.9",
+      "statement": {
+        "en": "Backdoor register write leaves read-only field bits unchanged.",
+        "ja": "backdoor register writeは、read-only field bitを変更しない。"
+      },
+      "conditions": {
+        "en": "Use a selected register, explicit user-backdoor storage and the stated access or handler configuration.",
+        "ja": "選択register、明示したuser-backdoor記憶域、記載したaccess／handler設定を使う。"
+      },
+      "expected": {
+        "en": "Storage and mirror retain 11 despite a6 write data.",
+        "ja": "write dataがa6でも、記憶域／mirrorは11を保つ。"
+      },
+      "limitations": {
+        "en": "User-defined storage backdoors require no HDL DPI or RTL. Only the listed single-location policies, selection and status observations are linked; broad callback and automatic-update behavior remain unassessed.",
+        "ja": "ユーザー定義の記憶域backdoorはHDL DPI／RTLを使わない。列挙した単一locationのpolicy／選択／statusの観測だけを対応付け、追加callbackや自動更新は未評価とする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_user_backdoor_write_preserves_readonly_bits",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ok 1 stored 11 mirror 11"
           ]
         }
       ]

@@ -132,6 +132,12 @@ streamや外部backendを開きません。接続状態の検査はrecordingの�
 **統計の累積copy** — report-serverのcopyは元の統計を宛先へmergeし、元のentryで一致するcountを置き換え、
 宛先だけのIDを保持します。元のcountが0でも、0でない宛先countを置き換えます。
 
+**出力への所属** — printerの出力に、選択したfield名や値があることです。固有markerにより、配置を固定せずに、
+名前の制御、配列の負の境界、再利用を検査します。
+
+**comparisonのreport観測区間** — 比較hookの中で個別の不一致reportを数える区間です。後のframeworkの集約報告は区間外にし、
+comparerの結果は全fieldの不一致を引き続き数えます。
+
 ## Transaction単位の通信
 
 **push sequencer／push driver** — driverのblocking `put`を呼ぶsequencer／
@@ -208,6 +214,9 @@ suffix付きwrite handlerへそのhandleを渡し、入力先の選択だけで�
 **失敗readのsentinel** — 取得不可のnonblocking TLM readへ渡す、既定値でない値／nonnull handleです。
 記載された出力保持の契約を観測します。UVMの`output` formalとSystemVerilogのreturn時の代入には別途解釈の論点があり、
 register／memoryの失敗readの値は推定しません。
+
+**応答の識別** — 通常はrequestからcopyする、応答のsequence／transactionのrouting IDです。
+実行中のsequence間でtransaction IDが同じでも別々に配送し、一致の重複が同順位内の順序を意味するとは限りません。
 
 ## レジスタモデル
 
@@ -319,6 +328,9 @@ frontdoorでのwriteとbackdoorでのreadを比較し、次に経路を逆にし
 **物理beatの端数** — bus幅より少ない有効model bitを運ぶ物理アクセスです。16-bit busの24-bit memoryでは、
 `n_bits`の幅16・8を期待します。20-bit modelには、sub-byteのlogical幅とbyteへ丸める幅の要レビューの解釈があります。
 未使用data bitは制約しません。burst配列要素のpackingは別の条件です。
+
+**部分predictionの分離** — 異なる広幅registerのbus wordを、別々に蓄積することです。
+片方の完了で通知しても、別のregisterは自身の最後のwordが来るまで以前のmirrorを保ちます。
 
 ## 実行と結果
 

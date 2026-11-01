@@ -173,7 +173,7 @@ a claim that every test was rebuilt together.
 
 ### Q16. Are M1, M2 or M3 complete, and what does the test count cover?
 
-M1 and M2 still have open clause targets. M3 now has 228
+M1 and M2 still have open clause targets. M3 now has 232
 register-layer cases, including testbench frontdoor paths; it is also incomplete. Starting a stage does not complete
 the preceding stages.
 The [plan](../README.md#plan) identifies current scope and remaining work.
@@ -1136,9 +1136,9 @@ not a direct test of the requirement.
 
 ### Q77. Why is there no coverage percentage after starting M4?
 
-The 406 AI drafts cover only a partial decomposition: 396 requirements link
-directly to 471 tests, 10 have no direct test, and one separate test is a control.
-Another 373 tests are not mapped yet. The 2,504 clause identifiers are not normative requirement units.
+The 437 AI drafts cover only a partial decomposition: 433 requirements link
+directly to 514 tests, 4 have no direct test, and one separate test is a control.
+Another 350 tests are not mapped yet. The 2,504 clause identifiers are not normative requirement units.
 The scope is proposed, the inventory incomplete and the denominator unapproved;
 starting M4 approves none of those. Known differences and HDL/DPI limitations
 do not silently exclude obligations. See the [approval path](requirements.md#remaining-m4-work-and-approval).
@@ -1312,3 +1312,78 @@ status and real request counts; failed-read data is not inspected. The driver
 chooses to preserve storage on its rejected write, which is a fixture control
 rather than a universal guarantee about failed hardware. These remain testbench
 adapter/sequencer/driver checks without RTL or HDL DPI.
+
+## Output, limits and routed observations
+
+### Q88. How do printer tests inspect output without fixing its layout?
+
+Built-in table and line printers render a unique field name and decimal value.
+The [name-emission case](../tests/u16/test_printer_name_enable_changes_emitted_field_membership.sv)
+checks name presence with the control enabled and absence when disabled, while
+the value remains visible. A second policy and changed-value reuse check local
+settings and stale output. They do not prescribe columns, whitespace or punctuation.
+
+Field-macro arrays exercise negative begin and end bounds through actual
+emission, checking every distinct element. Updated middle values and
+[empty/refilled reuse](../tests/u16/test_printer_negative_end_renders_all_elements_without_stale_empty_output.sv)
+provide controls. Finite-window middle omission is optional in 16.2.6, so these
+cases do not require that omission. This covers selected integer-array emission,
+not every type, radix or recursive format.
+
+### Q89. What do comparison, quit and phase limits actually bound?
+
+Comparer fixtures cause three field failures without short-circuiting and count
+individual reports only during `do_compare`; later framework rollups are outside
+the window. A cap of one is an upper-bound check, and a cap-five control emits
+three reports while all three failures remain recorded. The
+[zero-cap case](../tests/u16/test_comparer_zero_message_limit_suppresses_reports_before_a_visible_control.sv)
+expects no individual reports. Pinned UVM instead treats zero as unlimited; its
+normative expectation remains spec-only.
+
+The [quit-limit case](../tests/u06/test_report_quit_limit_2_terminates_at_boundary_through_pre_abort.sv)
+uses `UVM_COUNT` at finite boundaries, observes real `pre_abort` traversal and
+checks that a later time step is never reached. It does not constrain execution
+ordering within the evaluation that requests simulation finish. F.7.3.2's hook
+is the component method in 13.1.4.6; its printed reference to 13.1.4.1.6 instead
+names extract phase. The COUNT action interpretation remains explained in the
+[ledger guide](requirements.md#review-work-queue-and-root-totals).
+
+For the [ready-iteration cap](../tests/u13/test_phase_ready_iteration_cap_2_bounds_repeated_raise_drop_callbacks.sv),
+every callback pairs a raised objection with a delayed drop. The callback would
+re-arm forever without a limit; configured bounds two and three stop further
+callbacks and reach `phase_ended`. These cases do not require ending a phase
+while a user permanently retains an objection or cover sibling-phase conditions.
+
+### Q90. What do the response-wait cases add to queued response selection?
+
+A [targeted waiter](../tests/u14/test_sequence_targeted_response_wait_ignores_two_unmatched_arrivals.sv)
+stays blocked through two nonmatching arrivals, then receives its requested ID
+and retrieves the retained replies in FIFO order. Another case retrieves both
+responses sharing an explicit transaction ID, checks membership without imposing
+a matching tie order, and keeps the other ID. Empty FIFO waits also block again
+after consuming the first reply.
+
+Two [live receivers](../tests/u15/test_sequencer_response_routes_separate_live_sequences_with_the_same_transaction_id.sv)
+use equal transaction IDs but distinct sequence origins. Delivering one response
+must wake only its intended sequence. All replies copy routing IDs from real
+acknowledged requests; positive delays establish waiting, and handle identity
+checks distinguish routing from coincidentally equal data. No private queues,
+response tie ordering or broader fairness conditions are assumed.
+
+### Q91. How are partial predictor values and byte enables checked?
+
+Two wide registers receive interleaved bus words on little- and big-endian maps.
+The [interleaving case](../tests/u19/test_reg_predictor_interleaved_little_endian_registers_keep_partial_values_independent.sv)
+requires each incomplete register to retain its mirror, then publish only its own
+assembled value at completion. The big-endian case also supplies the less
+significant word before the lower physical address, without assuming address
+arrival order or inspecting private pending state.
+
+The [write-mask case](../tests/u19/test_reg_predictor_write_byte_enables_preserve_unobserved_fields.sv)
+and [read-mask case](../tests/u19/test_reg_predictor_read_byte_enables_preserve_unobserved_fields.sv)
+select low-only, high-only and all-disabled lanes of two byte-aligned fields.
+RW writes and RO reads update only enabled fields; an all-disabled observation
+leaves the mirror unchanged but still publishes the matched transaction through
+`reg_ap`. These are passive analysis observations, with active prediction off.
+RTL timing, incomplete-check diagnostics, sub-field byte masks and every access
+policy remain separate work.

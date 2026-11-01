@@ -179,6 +179,14 @@ transfer and a surviving waiter distinguish cleanup from an idle stop.
 into destination state: source entries replace matching counts while
 destination-only IDs survive. A source zero count can overwrite a nonzero count.
 
+**Emission membership** — Presence of a chosen field name or value in emitted
+printer output. Distinct markers allow checks across name controls, negative
+array bounds and reuse without prescribing layout.
+
+**Comparison report window** — The interval inside a comparison hook during
+which individual miscompare reports are counted. Later framework rollups are
+outside that interval; the comparer result still counts every field failure.
+
 ## Transaction-level communication
 
 **Push sequencer / push driver** — A sequencer that calls a driver's blocking
@@ -277,6 +285,10 @@ no partial request-side effect occurred.
 unavailable nonblocking TLM read to observe its stated unchanged-output contract.
 The UVM `output` formal and SystemVerilog copy-out semantics create a separate
 interpretation issue; failure values for register/memory reads are not inferred.
+
+**Response identity** — A response's sequence and transaction routing IDs,
+usually copied from its request. Equal transaction IDs across live sequences
+must still route separately; duplicate matches need not imply a tie order.
 
 ## Register model
 
@@ -428,6 +440,10 @@ than the bus width. A twenty-four-bit memory on a sixteen-bit bus expects
 `n_bits` widths 16 and 8. A twenty-bit model introduces a sub-byte logical-width
 versus rounded-byte interpretation requiring review. Unused data bits remain
 unconstrained; burst-array element packing is separate.
+
+**Partial prediction isolation** — Separate accumulation of observed bus words
+for different wide registers. One completed register may publish while another
+retains its prior mirror until its own final word arrives.
 
 ## Execution and result records
 
