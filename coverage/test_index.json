@@ -1442,6 +1442,14 @@
       "primary_clause": "13.4.2.2",
       "inputs_sha256": "27dc287bafcd5b1094f16ddcbaa6d657036bb99dc8918f5073a3ddac4b1ddbdf"
     },
+    "u13/test_component_accept_transaction_ignores_null_and_updates_time_before_its_hook": {
+      "primary_clause": "13.1.7.1",
+      "inputs_sha256": "cb404890e98eaf40c4c213742e54bd4b0205c894ad584e20f5eb95fd1bd21e74"
+    },
+    "u13/test_component_begin_transaction_without_recording_passes_zero_handle_after_begin": {
+      "primary_clause": "13.1.7.3",
+      "inputs_sha256": "854fa6b771d07f37a009d250b7876fa4f067681c22e8d54ccb635d1df63b49bf"
+    },
     "u13/test_component_child_iteration_preserves_empty_and_exhausted_name_cursors": {
       "primary_clause": "13.1.3.4",
       "inputs_sha256": "e16e7b823acf219bcfe0a1a5f3d79ac4c147a1a85eac7744c03ee27651edce69"
@@ -1458,9 +1466,21 @@
       "primary_clause": "13.1.3.6",
       "inputs_sha256": "94720f5bfb35cfac718f449cdab8bf175925f83440c86179e7727f6b8e5e3208"
     },
+    "u13/test_component_enabled_recording_defers_properties_until_end_and_honors_free_handle": {
+      "primary_clause": "13.1.7.5",
+      "inputs_sha256": "bf4c6f53401f98d8b4abd75eb806b1e022f21750119c92576014fbe0fcfccbbc"
+    },
+    "u13/test_component_end_transaction_without_recording_ignores_null_and_updates_before_its_hook": {
+      "primary_clause": "13.1.7.5",
+      "inputs_sha256": "2655ffe5771ba99477be5b871035f2bb169cfe42d0cf2a8e363cdf6a0aecccfb"
+    },
     "u13/test_component_failed_lookup_keeps_hierarchy_and_does_not_search_by_leaf_suffix": {
       "primary_clause": "13.1.3.7",
       "inputs_sha256": "e2a78f26c8a904ecca458b549a7691a8db78dfe6650e3a7cb11393de2913e9c7"
+    },
+    "u13/test_component_free_recording_stream_invalidates_only_its_cached_pair": {
+      "primary_clause": "13.1.7.10",
+      "inputs_sha256": "84d286c42a2993fbf09d3886ec38baf78f8f000d09e8bd8ce948afba695ac7a2"
     },
     "u13/test_component_interleaved_child_iterators_keep_parent_membership_separate": {
       "primary_clause": "13.1.3.4",
@@ -1473,6 +1493,18 @@
     "u13/test_component_parent_names_and_depth_follow_the_explicit_hierarchy": {
       "primary_clause": "13.1.3.2",
       "inputs_sha256": "8b580fabd705683753fc9eb9c210832e28e4caed21328ab8ff75506dc945429c"
+    },
+    "u13/test_component_recording_database_selection_is_local_and_preserves_the_core_default": {
+      "primary_clause": "13.1.7.12",
+      "inputs_sha256": "cd77888a458fe734cf201195df98c0c5a8f9e79cf8b7d0e18a16a28343b1b8d8"
+    },
+    "u13/test_component_recording_enable_defaults_off_and_changes_only_the_selected_component": {
+      "primary_clause": "13.1.7.14",
+      "inputs_sha256": "9f4cb36c302272bda88895365ae40c8364816c3391fc832abd5f0b995174f3e7"
+    },
+    "u13/test_component_recording_stream_cache_keys_name_type_and_component_scope": {
+      "primary_clause": "13.1.7.9",
+      "inputs_sha256": "b702b9426091fd218d1f4feeb93ddd9bcc3fc76b4470a1fc05b7ee105a3f6e48"
     },
     "u13/test_phase_ready_iteration_cap_2_bounds_repeated_raise_drop_callbacks": {
       "primary_clause": "13.1.4.3.2",
@@ -1717,6 +1749,22 @@
     "u14/test_sequence_relevance_gate_blocks_request_until_relevant": {
       "primary_clause": "14.2.5.3",
       "inputs_sha256": "bd9b74588e72016a8e6345cb18d0728cb115a650410502f8a488d5cc55478416"
+    },
+    "u14/test_sequence_reporting_enabled_query_uses_current_reporter_and_specific_verbosity": {
+      "primary_clause": "14.1.3.2",
+      "inputs_sha256": "61b5451a41b37b7f113e793eb200f38af4a470dae921aebee7842cbf1020261b"
+    },
+    "u14/test_sequence_reporting_methods_populate_messages_and_filter_before_virtual_processing": {
+      "primary_clause": "14.1.3.3",
+      "inputs_sha256": "da739061df0d086b072272927c2a2397651d9df9244a88c4621551fe2909ed2e"
+    },
+    "u14/test_sequence_reporting_object_follows_current_sequencer_and_returns_to_root": {
+      "primary_clause": "14.1.3.1",
+      "inputs_sha256": "96489f0e37f089a07547d05a4f0a9f9e57ba602d8568ac0d03860750055b127f"
+    },
+    "u14/test_sequence_reporting_preformed_messages_use_sequence_path_or_preserve_explicit_context": {
+      "primary_clause": "14.1.3.4",
+      "inputs_sha256": "7357f5a22ca651109bc31079e0c0db150edf2f319dcfe8a74f31fc45abf6f6d4"
     },
     "u14/test_sequence_response_control_updates_are_per_instance": {
       "primary_clause": "14.2.7.1",
@@ -2609,6 +2657,38 @@
     "u18/test_block_subblock_enumeration_distinguishes_direct_and_recursive_children": {
       "primary_clause": "18.1.3.5",
       "inputs_sha256": "a1a63f75883dc59efca51528d6af3ad2a65497b0537c3de1f9d21fdc067ded06"
+    },
+    "u18/test_check_on_read_default_enable_argument_reports_mismatch_before_replacing_the_mirror": {
+      "primary_clause": "18.2.5.3",
+      "inputs_sha256": "58ffecbd442cf8fa577c9fe7e7573e97b2e324f30f29463bd2c0423688d982f0"
+    },
+    "u18/test_check_on_read_defaults_off_but_successful_read_still_updates_the_mirror": {
+      "primary_clause": "18.2.5.3",
+      "inputs_sha256": "b6c347682250e3ec5346390cf42e2c8b517587c753d5b8fd1ff4d25613d33e53"
+    },
+    "u18/test_check_on_read_disable_suppresses_later_mismatch_without_disabling_prediction": {
+      "primary_clause": "18.2.5.3",
+      "inputs_sha256": "cd25f9a19c2a5ba12f47ff4fef4fd313ae4b3fb05f60a64a55e1dced7b47dd80"
+    },
+    "u18/test_check_on_read_enabled_matching_read_does_not_report_a_discrepancy": {
+      "primary_clause": "18.2.5.3",
+      "inputs_sha256": "56fdeb18846163f1d4b048f901a884f6e2fc0ac27fae3682c5889562011eb484"
+    },
+    "u18/test_check_on_read_field_compare_mask_excludes_only_the_selected_field": {
+      "primary_clause": "18.2.5.3",
+      "inputs_sha256": "c4fddcaf2e39924eead4208378fa3d82b2f211222fcdad644374c10d70d90393"
+    },
+    "u18/test_check_on_read_independent_maps_keep_different_comparison_settings": {
+      "primary_clause": "18.2.5.3",
+      "inputs_sha256": "1919bcfe5b92466ad70551fb0efe95c295cc65cf5946d9388572b95e222fed88"
+    },
+    "u18/test_check_on_read_read_clear_compares_returned_data_before_predicting_the_clear": {
+      "primary_clause": "18.2.5.3",
+      "inputs_sha256": "b215dd5bd614ddb697ba08bf1d92f704cb171bc35fc99b42031dfd342d86157f"
+    },
+    "u18/test_check_on_read_root_setting_recurses_to_an_existing_submap": {
+      "primary_clause": "18.2.5.3",
+      "inputs_sha256": "3fe8f23048f37353fa17c426712e8ade856f64e1621b2e9b60ef11007661fdc5"
     },
     "u18/test_coverage_block_control_recurses_through_nested_models_and_preserves_peer": {
       "primary_clause": "18.1.4.5",

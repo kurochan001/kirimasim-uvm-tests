@@ -155,7 +155,7 @@ Ghostはさらに実行ファイル・profile・供給されたライブラリ�
 
 ### Q16. M1・M2・M3は完了していますか。件数は何の網羅を示しますか
 
-M1・M2には条項ごとの目標に未達があります。M3はbusモデルのfrontdoor経路を含め286件まで追加した段階で、未完です。
+M1・M2には条項ごとの目標に未達があります。M3はbusモデルのfrontdoor経路を含め294件まで追加した段階で、未完です。
 次の段階の開始によって、それまでの段階が完了したとは扱いません。
 範囲と残りの作業は[進め方](../README.ja.md#進め方)にあります。
 件数はテストの本数で、規格の全要求や組み合わせの棚卸しではありません。
@@ -918,8 +918,8 @@ controlの対応は、その要求の直接の検査ではありません。
 
 ### Q77. M4を始めたのに、カバレッジ率がないのはなぜですか
 
-AIによる811要求案は部分的な分解で、807要求を796テストへ直接対応付け、4要求は直接未対応、別の1テストはcontrolです。
-他の208テストはまだ要求に対応付けていません。2,504の条項番号は規範的要求の単位ではありません。
+AIによる865要求案は部分的な分解で、861要求を836テストへ直接対応付け、4要求は直接未対応、別の1テストはcontrolです。
+他の188テストはまだ要求に対応付けていません。2,504の条項番号は規範的要求の単位ではありません。
 範囲は提案、棚卸しは未完、分母は未承認で、M4の開始はどれの承認にもなりません。
 既知差分やHDL／DPIの制約によって義務を暗黙に除外しません。[承認までの手順](requirements.ja.md#m4の残作業と承認)を参照してください。
 
@@ -1486,3 +1486,58 @@ userが呼ぶsample_valuesのoverrideはsuperを呼び、選択subtree内の再�
 台帳は既存のset／reset／predict／updateも対応付けます。desired値、mirror値、sampling counter、
 testbench storageは別の観測です。W1C／W1Sのupdateは物理write maskとmodel状態を観測し、
 driver storageはhardwareのaccess policyをmodel化しません。
+
+## componentの記録、sequenceのreport、readの照合
+
+### Q113. componentの記録とtransaction自身の記録はどう関係しますか？
+
+component記録の既定はoffで、有効化とdatabase選択はcomponentごとに独立します。
+transaction自身の記録を無効化していても、componentは自身のstream経由で記録できます。
+[lifecycleの検査系](../tests/u13/test_component_enabled_recording_defers_properties_until_end_and_honors_free_handle.sv)は、
+内部で選ぶstream型を指定せず、begin hookからrecorderを得ます。
+beginはtransaction属性を記録せずrecordを開きます。endはtransactionを更新し、componentのpost hookを呼び、
+属性を記録してからfree_handleに応じてrecorderをcloseまたはfreeします。
+明示した時刻はmetadataであり、その時刻まで待つ検査ではありません。
+
+別のaccept／begin／endのnull guardと時刻転送はcomponent hookを観測し、component eventの起動や
+transaction linkは示しません。streamのcacheは名前／型pairとcomponent scopeを区別します。
+[参照解放の検査系](../tests/u13/test_component_free_recording_stream_invalidates_only_its_cached_pair.sv)は、
+peer pairを保持し、次の同じ要求で新しいstreamを得ることを要求します。
+固定版は検査したpairで元cache entryを残すため、spec-onlyを保持します。外部記録形式は生成しません。
+
+### Q114. sequenceのmessageはどのreporterを使い、contextは何を意味しますか？
+
+[report objectの検査系](../tests/u14/test_sequence_reporting_object_follows_current_sequencer_and_returns_to_root.sv)は、
+binding／再binding後のsequencerの正確な同一性と、参照解除後の暗黙root reporterを検査します。
+verbosity照会は、現在reporterとそのID／severity設定を使います。
+これは、componentの親でなくsequenceの親をたどる、ドット区切りのsequence pathとは別です。
+
+message生成のprobeは、virtual処理を捕捉してfieldと抑止を照合し、FATALを含むhandler actionを実行しません。
+別の[事前生成messageの検査系](../tests/u14/test_sequence_reporting_preformed_messages_use_sequence_path_or_preserve_explicit_context.sv)は、
+実handlerとcatcherを使います。空contextはparent_sequence.itemとなり、
+manual contextはreporterが変わっても保持します。
+
+M4は既存のstart／finish／grant／送信も対応付けます。itemのgrant、sequencerのacknowledge、
+物理driverの完了は別の観測です。既知の不正入力severity、virtual dispatch、明示IDの差分は規範的な期待を保持します。
+
+### Q115. check-on-readは何を比較し、mirrorはいつ更新しますか？
+
+check-on-readの既定はoffです。引数なしでsetterを呼ぶと、mapと既存submapの比較を有効化します。
+[有効時の不一致の検査系](../tests/u18/test_check_on_read_default_enable_argument_reports_mismatch_before_replacing_the_mirror.sv)は、
+元のmirrorとの不一致にERRORを要求します。一致dataや明示的に無効化した比較は、新しい不一致を報告しません。
+独立したinterface mapは自身の設定を保持し、比較を無効化したfieldは、隣のfieldの不一致を隠しません。
+
+```mermaid
+flowchart LR
+    R["bus read data"] --> C{"比較は有効？"}
+    C -->|"はい"| K["元mirrorを比較しfield maskを適用"]
+    C -->|"いいえ"| P["dataとaccess policyからmirrorを予測"]
+    K --> P
+    P --> O["sampleしたread値を返す"]
+```
+
+検査系の全root interfaceで、自動予測を明示的に有効化します。比較のoffは予測をoffにしません。
+[read-clearの検査系](../tests/u18/test_check_on_read_read_clear_compares_returned_data_before_predicting_the_clear.sv)は、
+sampleした5aをmirror 5aと比較してERRORを出さず、mirrorを0へ予測し、callerには元の5aを返します。
+これは読出し後の効果をmodel化し、driverは単純なstorageなのでRTLのclearは示しません。
+不一致の報告とbus転送の失敗は別です。受動predictorの統合は検査系の範囲外です。

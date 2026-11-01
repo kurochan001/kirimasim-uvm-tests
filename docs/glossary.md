@@ -662,3 +662,22 @@ the standard specifies that set_coverage returns its previous enabled mask.
 **Sampling hook** — A user-overridable method that observes an access or
 current model values for measurement. Counting hook calls can check dispatch
 and timing without constructing covergroups or producing coverage percentages.
+
+## Component streams, report context and read comparison
+
+**Component recording** — Recording through a component's selected database
+and streams. It has a separate enable control from a transaction's own
+recording path and can invoke transaction property hooks at component end.
+
+**Stream cache key** — The requested stream-name/type pair within one
+component. Repeated requests preserve identity until the reference is released
+or the stream is freed; another component has a different scope.
+
+**Sequence report context** — A message context string, filled from the
+sequence-parent path when empty. It is distinct from the sequencer or root
+report object that supplies the handler and verbosity configuration.
+
+**Check-on-read** — A map setting that compares sampled register/field data
+against the existing mirror and reports discrepancies. Comparison control
+and auto-prediction are separate settings; the fixtures enable prediction
+explicitly and respect per-field compare masks.

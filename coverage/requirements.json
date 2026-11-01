@@ -31725,6 +31725,1884 @@
           ]
         }
       ]
+    },
+    {
+      "id": "UVM-COMPONENT-RECORDING-DEFAULT-OFF",
+      "clause": "13.1.7.14",
+      "statement": {
+        "en": "A component that has not enabled recording reports it disabled.",
+        "ja": "記録を有効化していないcomponentは、無効と報告する。"
+      },
+      "conditions": {
+        "en": "Construct two independent components.",
+        "ja": "独立した2 componentを生成する。"
+      },
+      "expected": {
+        "en": "Both recording-enabled queries return zero.",
+        "ja": "両componentの記録有効の照会は0を返す。"
+      },
+      "limitations": {
+        "en": "Explicit nonzero timestamps are recording metadata, not waits. Concrete local database/stream/recorder hooks observe identities and lifecycle without a file format, vendor attribute macro, object-field serialization, transaction links, events or DPI. Transaction self-recording is disabled separately from component recording. Returned begin handles have application-specific meaning; only null-input zero and hook recorder-handle identity are asserted.",
+        "ja": "明示した非0時刻は記録metadataであり待機ではない。具体的なlocal database／stream／recorder hookで同一性とlifecycleを観測し、file形式、vendorのattribute macro、object fieldの直列化、transaction link、event、DPIは扱わない。transaction自身の記録はcomponentの記録とは別に無効化する。beginの戻りhandleの意味はapplication固有であり、null入力の0とhookのrecorder handleの同一性だけをassertする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_recording_enable_defaults_off_and_changes_only_the_selected_component",
+          "role": "direct",
+          "expected_observations": [
+            "UT: default first 0 peer 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-RECORDING-ENABLE-ISOLATION",
+      "clause": "13.1.7.13",
+      "statement": {
+        "en": "Recording enable changes the selected component independently.",
+        "ja": "記録の有効化は、選択したcomponentを独立して変更する。"
+      },
+      "conditions": {
+        "en": "Enable the first, then disable it and enable its peer.",
+        "ja": "最初を有効化し、次に最初を無効化してpeerを有効化する。"
+      },
+      "expected": {
+        "en": "The states change from one/zero to zero/one.",
+        "ja": "状態は1／0から0／1へ変化する。"
+      },
+      "limitations": {
+        "en": "Explicit nonzero timestamps are recording metadata, not waits. Concrete local database/stream/recorder hooks observe identities and lifecycle without a file format, vendor attribute macro, object-field serialization, transaction links, events or DPI. Transaction self-recording is disabled separately from component recording. Returned begin handles have application-specific meaning; only null-input zero and hook recorder-handle identity are asserted.",
+        "ja": "明示した非0時刻は記録metadataであり待機ではない。具体的なlocal database／stream／recorder hookで同一性とlifecycleを観測し、file形式、vendorのattribute macro、object fieldの直列化、transaction link、event、DPIは扱わない。transaction自身の記録はcomponentの記録とは別に無効化する。beginの戻りhandleの意味はapplication固有であり、null入力の0とhookのrecorder handleの同一性だけをassertする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_recording_enable_defaults_off_and_changes_only_the_selected_component",
+          "role": "direct",
+          "expected_observations": [
+            "UT: enabled first 1 peer 0",
+            "UT: swapped first 0 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-RECORDING-DATABASE-DEFAULT",
+      "clause": "13.1.7.12",
+      "statement": {
+        "en": "An unconfigured component returns the core service default recording database.",
+        "ja": "未設定componentは、core serviceの既定記録databaseを返す。"
+      },
+      "conditions": {
+        "en": "Query two fresh components and the core default.",
+        "ja": "新しい2 componentとcoreの既定値を照会する。"
+      },
+      "expected": {
+        "en": "Both component handles equal the exact default database.",
+        "ja": "両componentのhandleは、正確な既定databaseと一致する。"
+      },
+      "limitations": {
+        "en": "Explicit nonzero timestamps are recording metadata, not waits. Concrete local database/stream/recorder hooks observe identities and lifecycle without a file format, vendor attribute macro, object-field serialization, transaction links, events or DPI. Transaction self-recording is disabled separately from component recording. Returned begin handles have application-specific meaning; only null-input zero and hook recorder-handle identity are asserted.",
+        "ja": "明示した非0時刻は記録metadataであり待機ではない。具体的なlocal database／stream／recorder hookで同一性とlifecycleを観測し、file形式、vendorのattribute macro、object fieldの直列化、transaction link、event、DPIは扱わない。transaction自身の記録はcomponentの記録とは別に無効化する。beginの戻りhandleの意味はapplication固有であり、null入力の0とhookのrecorder handleの同一性だけをassertする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_recording_database_selection_is_local_and_preserves_the_core_default",
+          "role": "direct",
+          "expected_observations": [
+            "UT: defaults first 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-RECORDING-DATABASE-SELECTION",
+      "clause": "13.1.7.11",
+      "statement": {
+        "en": "An explicit component recording database does not replace peers or the core default.",
+        "ja": "componentの明示記録databaseは、peerやcoreの既定値を置換しない。"
+      },
+      "conditions": {
+        "en": "Assign one local database to the first component.",
+        "ja": "最初のcomponentへlocal databaseを1つ指定する。"
+      },
+      "expected": {
+        "en": "The first returns the assigned handle while its peer and core retain the default.",
+        "ja": "最初は指定handleを返し、peerとcoreは既定値を保持する。"
+      },
+      "limitations": {
+        "en": "Explicit nonzero timestamps are recording metadata, not waits. Concrete local database/stream/recorder hooks observe identities and lifecycle without a file format, vendor attribute macro, object-field serialization, transaction links, events or DPI. Transaction self-recording is disabled separately from component recording. Returned begin handles have application-specific meaning; only null-input zero and hook recorder-handle identity are asserted.",
+        "ja": "明示した非0時刻は記録metadataであり待機ではない。具体的なlocal database／stream／recorder hookで同一性とlifecycleを観測し、file形式、vendorのattribute macro、object fieldの直列化、transaction link、event、DPIは扱わない。transaction自身の記録はcomponentの記録とは別に無効化する。beginの戻りhandleの意味はapplication固有であり、null入力の0とhookのrecorder handleの同一性だけをassertする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_recording_database_selection_is_local_and_preserves_the_core_default",
+          "role": "direct",
+          "expected_observations": [
+            "UT: selected first 1 peer 1 core 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-STREAM-CACHE-PAIR-IDENTITY",
+      "clause": "13.1.7.9",
+      "statement": {
+        "en": "Component stream caching distinguishes the name/type pair and the owning component.",
+        "ja": "componentのstream cacheは、名前／型のpairと所有componentを区別する。"
+      },
+      "conditions": {
+        "en": "Request repeated and differing name/type pairs on two components.",
+        "ja": "2 componentで同じpairと異なる名前／型pairを要求する。"
+      },
+      "expected": {
+        "en": "Repeated requests reuse identity; differing names, types and component scopes create distinct streams with four creations.",
+        "ja": "反復要求は同一性を再利用し、異なる名前、型、component scopeは異なるstreamを作り、生成は4回となる。"
+      },
+      "limitations": {
+        "en": "Explicit nonzero timestamps are recording metadata, not waits. Concrete local database/stream/recorder hooks observe identities and lifecycle without a file format, vendor attribute macro, object-field serialization, transaction links, events or DPI. Transaction self-recording is disabled separately from component recording. Returned begin handles have application-specific meaning; only null-input zero and hook recorder-handle identity are asserted.",
+        "ja": "明示した非0時刻は記録metadataであり待機ではない。具体的なlocal database／stream／recorder hookで同一性とlifecycleを観測し、file形式、vendorのattribute macro、object fieldの直列化、transaction link、event、DPIは扱わない。transaction自身の記録はcomponentの記録とは別に無効化する。beginの戻りhandleの意味はapplication固有であり、null入力の0とhookのrecorder handleの同一性だけをassertする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_recording_stream_cache_keys_name_type_and_component_scope",
+          "role": "direct",
+          "expected_observations": [
+            "UT: reused 1 distinct_type 1 distinct_name 1 distinct_scope 1 calls 4"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-STREAM-CREATION-METADATA",
+      "clause": "13.1.7.9",
+      "statement": {
+        "en": "New component streams carry their requested name/type and the component full-name scope.",
+        "ja": "新しいcomponent streamは、要求した名前／型とcomponentのfull-name scopeを持つ。"
+      },
+      "conditions": {
+        "en": "Request main/packet streams on first and peer, including a replacement.",
+        "ja": "firstとpeerで、置換を含めmain／packet streamを要求する。"
+      },
+      "expected": {
+        "en": "Names/types match and scopes are first or peer as appropriate.",
+        "ja": "名前／型は一致し、scopeは対応するfirstまたはpeerとなる。"
+      },
+      "limitations": {
+        "en": "Explicit nonzero timestamps are recording metadata, not waits. Concrete local database/stream/recorder hooks observe identities and lifecycle without a file format, vendor attribute macro, object-field serialization, transaction links, events or DPI. Transaction self-recording is disabled separately from component recording. Returned begin handles have application-specific meaning; only null-input zero and hook recorder-handle identity are asserted.",
+        "ja": "明示した非0時刻は記録metadataであり待機ではない。具体的なlocal database／stream／recorder hookで同一性とlifecycleを観測し、file形式、vendorのattribute macro、object fieldの直列化、transaction link、event、DPIは扱わない。transaction自身の記録はcomponentの記録とは別に無効化する。beginの戻りhandleの意味はapplication固有であり、null入力の0とhookのrecorder handleの同一性だけをassertする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_recording_stream_cache_keys_name_type_and_component_scope",
+          "role": "direct",
+          "expected_observations": [
+            "UT: metadata name main type packet scope first peer_scope peer"
+          ]
+        },
+        {
+          "test": "u13/test_component_free_recording_stream_invalidates_only_its_cached_pair",
+          "role": "direct",
+          "expected_observations": [
+            "UT: replacement name main type packet scope first"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-STREAM-REFERENCE-RELEASE",
+      "clause": "13.1.7.10",
+      "statement": {
+        "en": "Releasing a cached stream reference causes its next request to create a fresh stream.",
+        "ja": "cacheしたstream参照を解放すると、次の要求で新しいstreamを作る。"
+      },
+      "conditions": {
+        "en": "Release main/packet while retaining side/packet.",
+        "ja": "side／packetを保持してmain／packetを解放する。"
+      },
+      "expected": {
+        "en": "The replacement is distinct and cached, the peer pair is stable and total creations are three.",
+        "ja": "置換は異なるhandleでcacheされ、peer pairは安定し、総生成数は3となる。"
+      },
+      "limitations": {
+        "en": "Explicit nonzero timestamps are recording metadata, not waits. Concrete local database/stream/recorder hooks observe identities and lifecycle without a file format, vendor attribute macro, object-field serialization, transaction links, events or DPI. Transaction self-recording is disabled separately from component recording. Returned begin handles have application-specific meaning; only null-input zero and hook recorder-handle identity are asserted.",
+        "ja": "明示した非0時刻は記録metadataであり待機ではない。具体的なlocal database／stream／recorder hookで同一性とlifecycleを観測し、file形式、vendorのattribute macro、object fieldの直列化、transaction link、event、DPIは扱わない。transaction自身の記録はcomponentの記録とは別に無効化する。beginの戻りhandleの意味はapplication固有であり、null入力の0とhookのrecorder handleの同一性だけをassertする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_free_recording_stream_invalidates_only_its_cached_pair",
+          "role": "direct",
+          "expected_observations": [
+            "UT: fresh 1 stable_peer 1 cached_replacement 1 calls 3"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-ACCEPT-NULL-GUARD",
+      "clause": "13.1.7.1",
+      "statement": {
+        "en": "Component accept returns without invoking its hook for a null transaction.",
+        "ja": "componentのacceptは、null transactionでhookを呼ばずにreturnする。"
+      },
+      "conditions": {
+        "en": "Pass null with explicit acceptance time.",
+        "ja": "nullと明示したaccept時刻を渡す。"
+      },
+      "expected": {
+        "en": "The component acceptance-hook count remains zero.",
+        "ja": "componentのaccept hookの回数は0を保持する。"
+      },
+      "limitations": {
+        "en": "Explicit nonzero timestamps are recording metadata, not waits. Concrete local database/stream/recorder hooks observe identities and lifecycle without a file format, vendor attribute macro, object-field serialization, transaction links, events or DPI. Transaction self-recording is disabled separately from component recording. Returned begin handles have application-specific meaning; only null-input zero and hook recorder-handle identity are asserted.",
+        "ja": "明示した非0時刻は記録metadataであり待機ではない。具体的なlocal database／stream／recorder hookで同一性とlifecycleを観測し、file形式、vendorのattribute macro、object fieldの直列化、transaction link、event、DPIは扱わない。transaction自身の記録はcomponentの記録とは別に無効化する。beginの戻りhandleの意味はapplication固有であり、null入力の0とhookのrecorder handleの同一性だけをassertする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_accept_transaction_ignores_null_and_updates_time_before_its_hook",
+          "role": "direct",
+          "expected_observations": [
+            "UT: null calls 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-ACCEPT-TIME-FORWARDING",
+      "clause": "13.1.7.1",
+      "statement": {
+        "en": "Component acceptance forwards the supplied time to the transaction.",
+        "ja": "componentのacceptは、指定時刻をtransactionへ転送する。"
+      },
+      "conditions": {
+        "en": "Accept a concrete transaction at time 17.",
+        "ja": "具体的なtransactionを時刻17でacceptする。"
+      },
+      "expected": {
+        "en": "The transaction acceptance time is 17.",
+        "ja": "transactionのaccept時刻は17となる。"
+      },
+      "limitations": {
+        "en": "Explicit nonzero timestamps are recording metadata, not waits. Concrete local database/stream/recorder hooks observe identities and lifecycle without a file format, vendor attribute macro, object-field serialization, transaction links, events or DPI. Transaction self-recording is disabled separately from component recording. Returned begin handles have application-specific meaning; only null-input zero and hook recorder-handle identity are asserted.",
+        "ja": "明示した非0時刻は記録metadataであり待機ではない。具体的なlocal database／stream／recorder hookで同一性とlifecycleを観測し、file形式、vendorのattribute macro、object fieldの直列化、transaction link、event、DPIは扱わない。transaction自身の記録はcomponentの記録とは別に無効化する。beginの戻りhandleの意味はapplication固有であり、null入力の0とhookのrecorder handleの同一性だけをassertする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_accept_transaction_ignores_null_and_updates_time_before_its_hook",
+          "role": "direct",
+          "expected_observations": [
+            "UT: accepted calls 1 identity 1 transaction_time 17 hook_time 17 peer 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-POST-ACCEPT-HOOK",
+      "clause": "13.1.7.2",
+      "statement": {
+        "en": "The component acceptance hook runs after transaction acceptance with the original handle.",
+        "ja": "componentのaccept hookは、transactionのaccept後に元のhandleで動く。"
+      },
+      "conditions": {
+        "en": "Accept one transaction while leaving a peer component untouched.",
+        "ja": "peer componentには触れず、transactionを1つacceptする。"
+      },
+      "expected": {
+        "en": "One hook sees the exact transaction and time 17; the peer has no call.",
+        "ja": "1回のhookは正確なtransactionと時刻17を観測し、peerは呼ばれない。"
+      },
+      "limitations": {
+        "en": "Explicit nonzero timestamps are recording metadata, not waits. Concrete local database/stream/recorder hooks observe identities and lifecycle without a file format, vendor attribute macro, object-field serialization, transaction links, events or DPI. Transaction self-recording is disabled separately from component recording. Returned begin handles have application-specific meaning; only null-input zero and hook recorder-handle identity are asserted.",
+        "ja": "明示した非0時刻は記録metadataであり待機ではない。具体的なlocal database／stream／recorder hookで同一性とlifecycleを観測し、file形式、vendorのattribute macro、object fieldの直列化、transaction link、event、DPIは扱わない。transaction自身の記録はcomponentの記録とは別に無効化する。beginの戻りhandleの意味はapplication固有であり、null入力の0とhookのrecorder handleの同一性だけをassertする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_accept_transaction_ignores_null_and_updates_time_before_its_hook",
+          "role": "direct",
+          "expected_observations": [
+            "UT: accepted calls 1 identity 1 transaction_time 17 hook_time 17 peer 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-BEGIN-NULL-GUARD",
+      "clause": "13.1.7.3",
+      "statement": {
+        "en": "Component begin returns zero without invoking its hook for null.",
+        "ja": "componentのbeginは、nullでhookを呼ばず0を返す。"
+      },
+      "conditions": {
+        "en": "Call begin with null and explicit stream/time arguments.",
+        "ja": "nullと明示したstream／時刻でbeginを呼ぶ。"
+      },
+      "expected": {
+        "en": "The returned handle is zero and the hook count is zero.",
+        "ja": "戻りhandleは0でhookの回数は0となる。"
+      },
+      "limitations": {
+        "en": "Explicit nonzero timestamps are recording metadata, not waits. Concrete local database/stream/recorder hooks observe identities and lifecycle without a file format, vendor attribute macro, object-field serialization, transaction links, events or DPI. Transaction self-recording is disabled separately from component recording. Returned begin handles have application-specific meaning; only null-input zero and hook recorder-handle identity are asserted.",
+        "ja": "明示した非0時刻は記録metadataであり待機ではない。具体的なlocal database／stream／recorder hookで同一性とlifecycleを観測し、file形式、vendorのattribute macro、object fieldの直列化、transaction link、event、DPIは扱わない。transaction自身の記録はcomponentの記録とは別に無効化する。beginの戻りhandleの意味はapplication固有であり、null入力の0とhookのrecorder handleの同一性だけをassertする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_begin_transaction_without_recording_passes_zero_handle_after_begin",
+          "role": "direct",
+          "expected_observations": [
+            "UT: null handle 0 hook_calls 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-BEGIN-TRANSACTION-FORWARDING",
+      "clause": "13.1.7.3",
+      "statement": {
+        "en": "Component begin starts the supplied transaction before its component hook.",
+        "ja": "componentのbeginは、component hookの前に指定transactionを開始する。"
+      },
+      "conditions": {
+        "en": "Disable both recording paths and begin at time 23 on traffic.",
+        "ja": "両記録経路を無効化しtraffic上で時刻23にbeginする。"
+      },
+      "expected": {
+        "en": "The transaction is active with time 23, one hook observes the same handle/time, and no properties are recorded.",
+        "ja": "transactionは時刻23でactiveとなり、1回のhookは同じhandle／時刻を観測し、属性は記録されない。"
+      },
+      "limitations": {
+        "en": "Explicit nonzero timestamps are recording metadata, not waits. Concrete local database/stream/recorder hooks observe identities and lifecycle without a file format, vendor attribute macro, object-field serialization, transaction links, events or DPI. Transaction self-recording is disabled separately from component recording. Returned begin handles have application-specific meaning; only null-input zero and hook recorder-handle identity are asserted.",
+        "ja": "明示した非0時刻は記録metadataであり待機ではない。具体的なlocal database／stream／recorder hookで同一性とlifecycleを観測し、file形式、vendorのattribute macro、object fieldの直列化、transaction link、event、DPIは扱わない。transaction自身の記録はcomponentの記録とは別に無効化する。beginの戻りhandleの意味はapplication固有であり、null入力の0とhookのrecorder handleの同一性だけをassertする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_begin_transaction_without_recording_passes_zero_handle_after_begin",
+          "role": "direct",
+          "expected_observations": [
+            "UT: begun calls 1 identity 1 time 23 hook_time 23",
+            "UT: recording hook_handle 0 stream traffic active 1 records 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-BEGIN-DISABLED-HOOK-HANDLE",
+      "clause": "13.1.7.4",
+      "statement": {
+        "en": "A recording-disabled component supplies zero as its begin hook recorder handle.",
+        "ja": "記録を無効化したcomponentは、begin hookへrecorder handleとして0を渡す。"
+      },
+      "conditions": {
+        "en": "Begin on explicitly named stream traffic while disabled.",
+        "ja": "無効状態で明示したtraffic stream上のbeginを行う。"
+      },
+      "expected": {
+        "en": "The hook handle is zero and stream name is traffic.",
+        "ja": "hook handleは0、stream名はtrafficとなる。"
+      },
+      "limitations": {
+        "en": "Explicit nonzero timestamps are recording metadata, not waits. Concrete local database/stream/recorder hooks observe identities and lifecycle without a file format, vendor attribute macro, object-field serialization, transaction links, events or DPI. Transaction self-recording is disabled separately from component recording. Returned begin handles have application-specific meaning; only null-input zero and hook recorder-handle identity are asserted.",
+        "ja": "明示した非0時刻は記録metadataであり待機ではない。具体的なlocal database／stream／recorder hookで同一性とlifecycleを観測し、file形式、vendorのattribute macro、object fieldの直列化、transaction link、event、DPIは扱わない。transaction自身の記録はcomponentの記録とは別に無効化する。beginの戻りhandleの意味はapplication固有であり、null入力の0とhookのrecorder handleの同一性だけをassertする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_begin_transaction_without_recording_passes_zero_handle_after_begin",
+          "role": "direct",
+          "expected_observations": [
+            "UT: recording hook_handle 0 stream traffic active 1 records 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-END-NULL-GUARD",
+      "clause": "13.1.7.5",
+      "statement": {
+        "en": "Component end ignores null without invoking its hook.",
+        "ja": "componentのendは、hookを呼ばずnullを無視する。"
+      },
+      "conditions": {
+        "en": "Call end with null after starting a separate transaction.",
+        "ja": "別transactionを開始後、nullでendを呼ぶ。"
+      },
+      "expected": {
+        "en": "The end-hook count remains zero.",
+        "ja": "end hookの回数は0を保持する。"
+      },
+      "limitations": {
+        "en": "Explicit nonzero timestamps are recording metadata, not waits. Concrete local database/stream/recorder hooks observe identities and lifecycle without a file format, vendor attribute macro, object-field serialization, transaction links, events or DPI. Transaction self-recording is disabled separately from component recording. Returned begin handles have application-specific meaning; only null-input zero and hook recorder-handle identity are asserted.",
+        "ja": "明示した非0時刻は記録metadataであり待機ではない。具体的なlocal database／stream／recorder hookで同一性とlifecycleを観測し、file形式、vendorのattribute macro、object fieldの直列化、transaction link、event、DPIは扱わない。transaction自身の記録はcomponentの記録とは別に無効化する。beginの戻りhandleの意味はapplication固有であり、null入力の0とhookのrecorder handleの同一性だけをassertする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_end_transaction_without_recording_ignores_null_and_updates_before_its_hook",
+          "role": "direct",
+          "expected_observations": [
+            "UT: null end_calls 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-END-TRANSACTION-FORWARDING",
+      "clause": "13.1.7.5",
+      "statement": {
+        "en": "Component end updates the transaction end time before the component hook.",
+        "ja": "componentのendは、component hookの前にtransactionのend時刻を更新する。"
+      },
+      "conditions": {
+        "en": "End a recording-disabled transaction at time 29 after begin 23.",
+        "ja": "begin 23の後、記録を無効化したtransactionを時刻29にendする。"
+      },
+      "expected": {
+        "en": "Transaction and hook times are 29 and the transaction becomes inactive without recording properties.",
+        "ja": "transactionとhookの時刻は29となり、属性を記録せずtransactionはinactiveとなる。"
+      },
+      "limitations": {
+        "en": "Explicit nonzero timestamps are recording metadata, not waits. Concrete local database/stream/recorder hooks observe identities and lifecycle without a file format, vendor attribute macro, object-field serialization, transaction links, events or DPI. Transaction self-recording is disabled separately from component recording. Returned begin handles have application-specific meaning; only null-input zero and hook recorder-handle identity are asserted.",
+        "ja": "明示した非0時刻は記録metadataであり待機ではない。具体的なlocal database／stream／recorder hookで同一性とlifecycleを観測し、file形式、vendorのattribute macro、object fieldの直列化、transaction link、event、DPIは扱わない。transaction自身の記録はcomponentの記録とは別に無効化する。beginの戻りhandleの意味はapplication固有であり、null入力の0とhookのrecorder handleの同一性だけをassertする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_end_transaction_without_recording_ignores_null_and_updates_before_its_hook",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ended calls 1 identity 1 time 29 hook_time 29",
+            "UT: recording hook_handle 0 inactive 1 records 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-POST-END-DISABLED-HOOK",
+      "clause": "13.1.7.6",
+      "statement": {
+        "en": "Component post-end receives the original transaction and a zero handle when recording is disabled.",
+        "ja": "componentのpost-endは、記録が無効なら元transactionと0のhandleを受ける。"
+      },
+      "conditions": {
+        "en": "End one transaction with component recording off.",
+        "ja": "componentの記録をoffにしてtransactionを1つendする。"
+      },
+      "expected": {
+        "en": "One hook receives the original transaction, time 29 and handle zero.",
+        "ja": "1回のhookは、元transaction、時刻29、handle 0を受け取る。"
+      },
+      "limitations": {
+        "en": "Explicit nonzero timestamps are recording metadata, not waits. Concrete local database/stream/recorder hooks observe identities and lifecycle without a file format, vendor attribute macro, object-field serialization, transaction links, events or DPI. Transaction self-recording is disabled separately from component recording. Returned begin handles have application-specific meaning; only null-input zero and hook recorder-handle identity are asserted.",
+        "ja": "明示した非0時刻は記録metadataであり待機ではない。具体的なlocal database／stream／recorder hookで同一性とlifecycleを観測し、file形式、vendorのattribute macro、object fieldの直列化、transaction link、event、DPIは扱わない。transaction自身の記録はcomponentの記録とは別に無効化する。beginの戻りhandleの意味はapplication固有であり、null入力の0とhookのrecorder handleの同一性だけをassertする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_end_transaction_without_recording_ignores_null_and_updates_before_its_hook",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ended calls 1 identity 1 time 29 hook_time 29",
+            "UT: recording hook_handle 0 inactive 1 records 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-BEGIN-DEFERS-PROPERTY-RECORDING",
+      "clause": "13.1.7.3",
+      "statement": {
+        "en": "Enabled component begin opens a recorder without recording transaction properties.",
+        "ja": "有効なcomponentのbeginは、transaction属性を記録せずrecorderを開く。"
+      },
+      "conditions": {
+        "en": "Enable component recording but disable transaction self-recording.",
+        "ja": "component記録を有効化し、transaction自身の記録は無効化する。"
+      },
+      "expected": {
+        "en": "The recorder is open, the begin hook receives its nonzero handle and property-hook count remains zero.",
+        "ja": "recorderはopenで、begin hookはその非0 handleを受け、属性hookの回数は0を保持する。"
+      },
+      "limitations": {
+        "en": "Explicit nonzero timestamps are recording metadata, not waits. Concrete local database/stream/recorder hooks observe identities and lifecycle without a file format, vendor attribute macro, object-field serialization, transaction links, events or DPI. Transaction self-recording is disabled separately from component recording. Returned begin handles have application-specific meaning; only null-input zero and hook recorder-handle identity are asserted.",
+        "ja": "明示した非0時刻は記録metadataであり待機ではない。具体的なlocal database／stream／recorder hookで同一性とlifecycleを観測し、file形式、vendorのattribute macro、object fieldの直列化、transaction link、event、DPIは扱わない。transaction自身の記録はcomponentの記録とは別に無効化する。beginの戻りhandleの意味はapplication固有であり、null入力の0とhookのrecorder handleの同一性だけをassertする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_enabled_recording_defers_properties_until_end_and_honors_free_handle",
+          "role": "direct",
+          "expected_observations": [
+            "UT: begin properties 0 open 1 hook_handle 1 nonzero 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-END-RECORDS-AFTER-POST-HOOK",
+      "clause": "13.1.7.5",
+      "statement": {
+        "en": "Enabled component end records properties after its post-end hook.",
+        "ja": "有効なcomponentのendは、post-end hookの後に属性を記録する。"
+      },
+      "conditions": {
+        "en": "End two transactions with the same local stream.",
+        "ja": "同じlocal streamで2 transactionをendする。"
+      },
+      "expected": {
+        "en": "Each transaction records once and the first post-end hook observes no prior property record.",
+        "ja": "各transactionは1回記録し、最初のpost-end hookは、それ以前の属性記録がないことを観測する。"
+      },
+      "limitations": {
+        "en": "Explicit nonzero timestamps are recording metadata, not waits. Concrete local database/stream/recorder hooks observe identities and lifecycle without a file format, vendor attribute macro, object-field serialization, transaction links, events or DPI. Transaction self-recording is disabled separately from component recording. Returned begin handles have application-specific meaning; only null-input zero and hook recorder-handle identity are asserted.",
+        "ja": "明示した非0時刻は記録metadataであり待機ではない。具体的なlocal database／stream／recorder hookで同一性とlifecycleを観測し、file形式、vendorのattribute macro、object fieldの直列化、transaction link、event、DPIは扱わない。transaction自身の記録はcomponentの記録とは別に無効化する。beginの戻りhandleの意味はapplication固有であり、null入力の0とhookのrecorder handleの同一性だけをassertする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_enabled_recording_defers_properties_until_end_and_honors_free_handle",
+          "role": "direct",
+          "expected_observations": [
+            "UT: kept records 1 hook_before_record 1 closed 1 frees 0 lookup 1",
+            "UT: freed records 1 closes 1 frees 1 lookup_null 1 kept_valid 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-END-RETAINS-CLOSED-RECORDER",
+      "clause": "13.1.7.5",
+      "statement": {
+        "en": "Ending with free_handle zero closes the recorder without freeing it.",
+        "ja": "free_handle 0でのendは、recorderをfreeせずcloseする。"
+      },
+      "conditions": {
+        "en": "End the first transaction with free_handle explicitly zero.",
+        "ja": "最初のtransactionをfree_handle 0で明示してendする。"
+      },
+      "expected": {
+        "en": "The recorder is closed, has no free hook and its handle still resolves exactly.",
+        "ja": "recorderはclosedでfree hookはなく、handleは正確に解決し続ける。"
+      },
+      "limitations": {
+        "en": "Explicit nonzero timestamps are recording metadata, not waits. Concrete local database/stream/recorder hooks observe identities and lifecycle without a file format, vendor attribute macro, object-field serialization, transaction links, events or DPI. Transaction self-recording is disabled separately from component recording. Returned begin handles have application-specific meaning; only null-input zero and hook recorder-handle identity are asserted.",
+        "ja": "明示した非0時刻は記録metadataであり待機ではない。具体的なlocal database／stream／recorder hookで同一性とlifecycleを観測し、file形式、vendorのattribute macro、object fieldの直列化、transaction link、event、DPIは扱わない。transaction自身の記録はcomponentの記録とは別に無効化する。beginの戻りhandleの意味はapplication固有であり、null入力の0とhookのrecorder handleの同一性だけをassertする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_enabled_recording_defers_properties_until_end_and_honors_free_handle",
+          "role": "direct",
+          "expected_observations": [
+            "UT: kept records 1 hook_before_record 1 closed 1 frees 0 lookup 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-END-DEFAULT-FREES-RECORDER",
+      "clause": "13.1.7.5",
+      "statement": {
+        "en": "Default component end frees its recorder after closing it.",
+        "ja": "既定のcomponent endは、close後にrecorderをfreeする。"
+      },
+      "conditions": {
+        "en": "End a second transaction without a free_handle argument.",
+        "ja": "free_handle引数なしで2番目のtransactionをendする。"
+      },
+      "expected": {
+        "en": "There is one close and one free, its old handle becomes invalid and the retained peer remains valid.",
+        "ja": "closeとfreeは1回ずつで、元handleは無効となり、保持したpeerは有効を保つ。"
+      },
+      "limitations": {
+        "en": "Explicit nonzero timestamps are recording metadata, not waits. Concrete local database/stream/recorder hooks observe identities and lifecycle without a file format, vendor attribute macro, object-field serialization, transaction links, events or DPI. Transaction self-recording is disabled separately from component recording. Returned begin handles have application-specific meaning; only null-input zero and hook recorder-handle identity are asserted.",
+        "ja": "明示した非0時刻は記録metadataであり待機ではない。具体的なlocal database／stream／recorder hookで同一性とlifecycleを観測し、file形式、vendorのattribute macro、object fieldの直列化、transaction link、event、DPIは扱わない。transaction自身の記録はcomponentの記録とは別に無効化する。beginの戻りhandleの意味はapplication固有であり、null入力の0とhookのrecorder handleの同一性だけをassertする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_enabled_recording_defers_properties_until_end_and_honors_free_handle",
+          "role": "direct",
+          "expected_observations": [
+            "UT: freed records 1 closes 1 frees 1 lookup_null 1 kept_valid 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-REPORT-OBJECT-CURRENT-CONTEXT",
+      "clause": "14.1.3.1",
+      "statement": {
+        "en": "Sequence/item reporting selects the current sequencer or the implicit root.",
+        "ja": "sequence／itemのreportは、現在sequencerまたは暗黙rootを選ぶ。"
+      },
+      "conditions": {
+        "en": "Bind, rebind and clear sequencer references on one sequence and item.",
+        "ja": "sequenceとitemのsequencer参照を設定、再設定、解除する。"
+      },
+      "expected": {
+        "en": "Exact reporter identities track each binding and return to root when cleared.",
+        "ja": "正確なreporterの同一性は各bindingに追従し、解除でrootへ戻る。"
+      },
+      "limitations": {
+        "en": "Explicit inactive sequence/item context is configured without a driver. Message-construction probes override virtual processing and deliberately stop before handler actions, including FATAL; they do not establish handler execution. Separate preformed INFO messages pass through real handlers and a catcher checks reporter/context, without depending on report text, formatting, file output or fatal termination. Tests use explicit verbosity values, not all default-argument behavior.",
+        "ja": "driverなしで、非実行sequence／itemのcontextを明示設定する。message生成probeはvirtualな処理をoverrideし、FATALを含むhandler動作の前で意図的に止め、handler実行は示さない。別の事前生成INFO messageは実際のhandlerを通り、catcherでreporter／contextを検査して、report本文、書式、file出力、fatal終了には依存しない。verbosityは明示値であり、既定引数の全動作は扱わない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_reporting_object_follows_current_sequencer_and_returns_to_root",
+          "role": "direct",
+          "expected_observations": [
+            "UT: unbound item_root 1 sequence_root 1",
+            "UT: bound item_first 1 sequence_peer 1",
+            "UT: rebound item_peer 1 sequence_root 1",
+            "UT: cleared item_root 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-REPORT-ENABLED-DELEGATION",
+      "clause": "14.1.3.2",
+      "statement": {
+        "en": "Report-enabled queries use the current reporter verbosity and its ID/severity overrides.",
+        "ja": "report-enabled照会は、現在reporterのverbosityとID／severityのoverrideを使う。"
+      },
+      "conditions": {
+        "en": "Use root threshold 10, first threshold 20 with ID 40 and severity/ID 50, and peer threshold 30.",
+        "ja": "root境界10、first境界20とID 40／severity-ID 50、peer境界30を使う。"
+      },
+      "expected": {
+        "en": "Equal thresholds enable and one-above thresholds disable; first-specific overrides do not leak to the peer.",
+        "ja": "等しい境界は有効、1上の値は無効となり、first固有のoverrideはpeerへ漏れない。"
+      },
+      "limitations": {
+        "en": "Explicit inactive sequence/item context is configured without a driver. Message-construction probes override virtual processing and deliberately stop before handler actions, including FATAL; they do not establish handler execution. Separate preformed INFO messages pass through real handlers and a catcher checks reporter/context, without depending on report text, formatting, file output or fatal termination. Tests use explicit verbosity values, not all default-argument behavior.",
+        "ja": "driverなしで、非実行sequence／itemのcontextを明示設定する。message生成probeはvirtualな処理をoverrideし、FATALを含むhandler動作の前で意図的に止め、handler実行は示さない。別の事前生成INFO messageは実際のhandlerを通り、catcherでreporter／contextを検査して、report本文、書式、file出力、fatal終了には依存しない。verbosityは明示値であり、既定引数の全動作は扱わない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_reporting_enabled_query_uses_current_reporter_and_specific_verbosity",
+          "role": "direct",
+          "expected_observations": [
+            "UT: root equal 1 above 0",
+            "UT: first equal 1 above 0 id_equal 1 id_above 0 warning_equal 1 warning_above 0",
+            "UT: peer equal 1 above 0 no_first_override 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-REPORT-MESSAGE-FIELD-CONSTRUCTION",
+      "clause": "14.1.3.3",
+      "statement": {
+        "en": "Sequence reporting methods populate a message and call virtual processing.",
+        "ja": "sequenceのreport methodは、messageを設定してvirtual処理を呼ぶ。"
+      },
+      "conditions": {
+        "en": "Call generic and four severity-specific methods with explicit identical source/context arguments.",
+        "ja": "genericと4 severity固有methodを、同じ明示source／context引数で呼ぶ。"
+      },
+      "expected": {
+        "en": "Five messages preserve their supplied fields and the correct severity order.",
+        "ja": "5 messageは指定fieldと適切なseverity順を保持する。"
+      },
+      "limitations": {
+        "en": "Explicit inactive sequence/item context is configured without a driver. Message-construction probes override virtual processing and deliberately stop before handler actions, including FATAL; they do not establish handler execution. Separate preformed INFO messages pass through real handlers and a catcher checks reporter/context, without depending on report text, formatting, file output or fatal termination. Tests use explicit verbosity values, not all default-argument behavior.",
+        "ja": "driverなしで、非実行sequence／itemのcontextを明示設定する。message生成probeはvirtualな処理をoverrideし、FATALを含むhandler動作の前で意図的に止め、handler実行は示さない。別の事前生成INFO messageは実際のhandlerを通り、catcherでreporter／contextを検査して、report本文、書式、file出力、fatal終了には依存しない。verbosityは明示値であり、既定引数の全動作は扱わない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_reporting_methods_populate_messages_and_filter_before_virtual_processing",
+          "role": "direct",
+          "expected_observations": [
+            "UT: messages 5 arguments 1 severities 1 filtered 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-REPORT-FILTER-BEFORE-PROCESSING",
+      "clause": "14.1.3.3",
+      "statement": {
+        "en": "A disabled report does not invoke virtual message processing.",
+        "ja": "無効なreportはvirtualなmessage処理を呼ばない。"
+      },
+      "conditions": {
+        "en": "Follow five enabled calls with INFO verbosity 101 against reporter threshold 100.",
+        "ja": "5つの有効呼出し後、reporter境界100に対しverbosity 101のINFOを呼ぶ。"
+      },
+      "expected": {
+        "en": "The virtual processing count stays five.",
+        "ja": "virtual処理の回数は5を保つ。"
+      },
+      "limitations": {
+        "en": "Explicit inactive sequence/item context is configured without a driver. Message-construction probes override virtual processing and deliberately stop before handler actions, including FATAL; they do not establish handler execution. Separate preformed INFO messages pass through real handlers and a catcher checks reporter/context, without depending on report text, formatting, file output or fatal termination. Tests use explicit verbosity values, not all default-argument behavior.",
+        "ja": "driverなしで、非実行sequence／itemのcontextを明示設定する。message生成probeはvirtualな処理をoverrideし、FATALを含むhandler動作の前で意図的に止め、handler実行は示さない。別の事前生成INFO messageは実際のhandlerを通り、catcherでreporter／contextを検査して、report本文、書式、file出力、fatal終了には依存しない。verbosityは明示値であり、既定引数の全動作は扱わない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_reporting_methods_populate_messages_and_filter_before_virtual_processing",
+          "role": "direct",
+          "expected_observations": [
+            "UT: messages 5 arguments 1 severities 1 filtered 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-PREFORMED-REPORT-HANDLER-ROUTING",
+      "clause": "14.1.3.4",
+      "statement": {
+        "en": "Preformed sequence messages use the handler of the current report object.",
+        "ja": "事前生成sequence messageは、現在report objectのhandlerを使う。"
+      },
+      "conditions": {
+        "en": "Process messages while bound to first, peer and then root.",
+        "ja": "first、peer、次にrootに対応する状態でmessageを処理する。"
+      },
+      "expected": {
+        "en": "Three caught messages have the exact expected clients.",
+        "ja": "catchした3 messageのclientは、正確な期待値となる。"
+      },
+      "limitations": {
+        "en": "Explicit inactive sequence/item context is configured without a driver. Message-construction probes override virtual processing and deliberately stop before handler actions, including FATAL; they do not establish handler execution. Separate preformed INFO messages pass through real handlers and a catcher checks reporter/context, without depending on report text, formatting, file output or fatal termination. Tests use explicit verbosity values, not all default-argument behavior.",
+        "ja": "driverなしで、非実行sequence／itemのcontextを明示設定する。message生成probeはvirtualな処理をoverrideし、FATALを含むhandler動作の前で意図的に止め、handler実行は示さない。別の事前生成INFO messageは実際のhandlerを通り、catcherでreporter／contextを検査して、report本文、書式、file出力、fatal終了には依存しない。verbosityは明示値であり、既定引数の全動作は扱わない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_reporting_preformed_messages_use_sequence_path_or_preserve_explicit_context",
+          "role": "direct",
+          "expected_observations": [
+            "UT: routed 3 clients 1 contexts 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-PREFORMED-REPORT-CONTEXT-FILL",
+      "clause": "14.1.3.4",
+      "statement": {
+        "en": "Preformed message processing fills empty context with sequence path and retains explicit context.",
+        "ja": "事前生成messageの処理は、空contextをsequence pathで埋め、明示contextを保持する。"
+      },
+      "conditions": {
+        "en": "Use parent_sequence.item and empty/manual/empty contexts across reporter changes.",
+        "ja": "reporterを変更しながらparent_sequence.itemと空／manual／空のcontextを使う。"
+      },
+      "expected": {
+        "en": "Contexts are parent_sequence.item, manual and parent_sequence.item in both catcher and messages.",
+        "ja": "catcherとmessageの両方で、contextはparent_sequence.item、manual、parent_sequence.itemとなる。"
+      },
+      "limitations": {
+        "en": "Explicit inactive sequence/item context is configured without a driver. Message-construction probes override virtual processing and deliberately stop before handler actions, including FATAL; they do not establish handler execution. Separate preformed INFO messages pass through real handlers and a catcher checks reporter/context, without depending on report text, formatting, file output or fatal termination. Tests use explicit verbosity values, not all default-argument behavior.",
+        "ja": "driverなしで、非実行sequence／itemのcontextを明示設定する。message生成probeはvirtualな処理をoverrideし、FATALを含むhandler動作の前で意図的に止め、handler実行は示さない。別の事前生成INFO messageは実際のhandlerを通り、catcherでreporter／contextを検査して、report本文、書式、file出力、fatal終了には依存しない。verbosityは明示値であり、既定引数の全動作は扱わない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_reporting_preformed_messages_use_sequence_path_or_preserve_explicit_context",
+          "role": "direct",
+          "expected_observations": [
+            "UT: routed 3 clients 1 contexts 1",
+            "UT: message_contexts implicit parent_sequence.item explicit manual root parent_sequence.item"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAP-CHECK-READ-DEFAULT-DISABLED",
+      "clause": "18.2.5.3",
+      "statement": {
+        "en": "Check-on-read defaults to no discrepancy check.",
+        "ja": "check-on-readの既定は、不一致を照合しない。"
+      },
+      "conditions": {
+        "en": "Read 5a after model reset 11 without calling set_check_on_read.",
+        "ja": "set_check_on_readを呼ばず、model reset 11の後に5aを読む。"
+      },
+      "expected": {
+        "en": "No ERROR occurs, returned/mirror values become 5a and one bus read completes.",
+        "ja": "ERRORはなく、戻り／mirror値は5aとなり、bus readは1回完了する。"
+      },
+      "limitations": {
+        "en": "One-byte register reads use delayed testbench storage and explicit auto-prediction on each root interface map. Catchers count ERROR presence or absence, not diagnostic IDs/text or an exact mismatch-message count. Field compare masking and read-clear effects are model behavior; no RTL/DPI, physical reset or passive-predictor integration is established. Submap propagation uses one existing child; dynamic addition and arbitrary depths remain outside the fixture.",
+        "ja": "1 byte registerのreadは遅延付きtestbench storageを使い、各root interface mapで自動予測を明示的に有効化する。catcherはERRORの有無を数え、診断ID／本文や不一致messageの正確な個数は要求しない。fieldの比較maskとread-clear効果はmodelの動作であり、RTL／DPI、物理reset、受動predictor統合は示さない。submapへの伝播は既存の子1つで、動的追加と任意の深さは範囲外である。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_check_on_read_defaults_off_but_successful_read_still_updates_the_mirror",
+          "role": "direct",
+          "expected_observations": [
+            "UT: default silent 1 value 5a mirror 5a reads 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAP-CHECK-READ-DEFAULT-ENABLE-ARGUMENT",
+      "clause": "18.2.5.3",
+      "statement": {
+        "en": "The default setter argument enables discrepancy checking.",
+        "ja": "setterの既定引数は不一致の照合を有効化する。"
+      },
+      "conditions": {
+        "en": "Call the setter without an argument, then read 5a against mirror 11.",
+        "ja": "引数なしでsetterを呼び、mirror 11に対し5aを読む。"
+      },
+      "expected": {
+        "en": "An ERROR is reported and returned/mirror values become 5a.",
+        "ja": "ERRORを報告し、戻り／mirror値は5aとなる。"
+      },
+      "limitations": {
+        "en": "One-byte register reads use delayed testbench storage and explicit auto-prediction on each root interface map. Catchers count ERROR presence or absence, not diagnostic IDs/text or an exact mismatch-message count. Field compare masking and read-clear effects are model behavior; no RTL/DPI, physical reset or passive-predictor integration is established. Submap propagation uses one existing child; dynamic addition and arbitrary depths remain outside the fixture.",
+        "ja": "1 byte registerのreadは遅延付きtestbench storageを使い、各root interface mapで自動予測を明示的に有効化する。catcherはERRORの有無を数え、診断ID／本文や不一致messageの正確な個数は要求しない。fieldの比較maskとread-clear効果はmodelの動作であり、RTL／DPI、物理reset、受動predictor統合は示さない。submapへの伝播は既存の子1つで、動的追加と任意の深さは範囲外である。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_check_on_read_default_enable_argument_reports_mismatch_before_replacing_the_mirror",
+          "role": "direct",
+          "expected_observations": [
+            "UT: enabled reported 1 value 5a mirror 5a reads 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAP-CHECK-READ-MATCH-SILENT",
+      "clause": "18.2.5.3",
+      "statement": {
+        "en": "An enabled comparison does not report a discrepancy for matching data.",
+        "ja": "有効な比較は、一致dataを不一致として報告しない。"
+      },
+      "conditions": {
+        "en": "Enable checking and read the unchanged reset value 11.",
+        "ja": "照合を有効化し、変更していないreset値11を読む。"
+      },
+      "expected": {
+        "en": "The read is silent with return/mirror 11 and one bus read.",
+        "ja": "readは無報告で戻り／mirrorは11、bus readは1回となる。"
+      },
+      "limitations": {
+        "en": "One-byte register reads use delayed testbench storage and explicit auto-prediction on each root interface map. Catchers count ERROR presence or absence, not diagnostic IDs/text or an exact mismatch-message count. Field compare masking and read-clear effects are model behavior; no RTL/DPI, physical reset or passive-predictor integration is established. Submap propagation uses one existing child; dynamic addition and arbitrary depths remain outside the fixture.",
+        "ja": "1 byte registerのreadは遅延付きtestbench storageを使い、各root interface mapで自動予測を明示的に有効化する。catcherはERRORの有無を数え、診断ID／本文や不一致messageの正確な個数は要求しない。fieldの比較maskとread-clear効果はmodelの動作であり、RTL／DPI、物理reset、受動predictor統合は示さない。submapへの伝播は既存の子1つで、動的追加と任意の深さは範囲外である。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_check_on_read_enabled_matching_read_does_not_report_a_discrepancy",
+          "role": "direct",
+          "expected_observations": [
+            "UT: matched silent 1 value 11 mirror 11 reads 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAP-CHECK-READ-DISABLE-RETAINS-PREDICTION",
+      "clause": "18.2.5.3",
+      "statement": {
+        "en": "Disabling comparison suppresses later discrepancy reports without disabling mirror updates.",
+        "ja": "比較の無効化は、mirror更新を止めず、後の不一致報告を抑止する。"
+      },
+      "conditions": {
+        "en": "Read mismatched 5a while enabled, disable checking and read 6c.",
+        "ja": "有効時に不一致5aを読み、照合を無効化して6cを読む。"
+      },
+      "expected": {
+        "en": "The first read reports; the second adds no ERROR and updates return/mirror to 6c.",
+        "ja": "最初は報告し、2番目はERRORを増やさず戻り／mirrorを6cへ更新する。"
+      },
+      "limitations": {
+        "en": "One-byte register reads use delayed testbench storage and explicit auto-prediction on each root interface map. Catchers count ERROR presence or absence, not diagnostic IDs/text or an exact mismatch-message count. Field compare masking and read-clear effects are model behavior; no RTL/DPI, physical reset or passive-predictor integration is established. Submap propagation uses one existing child; dynamic addition and arbitrary depths remain outside the fixture.",
+        "ja": "1 byte registerのreadは遅延付きtestbench storageを使い、各root interface mapで自動予測を明示的に有効化する。catcherはERRORの有無を数え、診断ID／本文や不一致messageの正確な個数は要求しない。fieldの比較maskとread-clear効果はmodelの動作であり、RTL／DPI、物理reset、受動predictor統合は示さない。submapへの伝播は既存の子1つで、動的追加と任意の深さは範囲外である。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_check_on_read_disable_suppresses_later_mismatch_without_disabling_prediction",
+          "role": "direct",
+          "expected_observations": [
+            "UT: first reported 1 mirror 5a",
+            "UT: disabled no_new_error 1 value 6c mirror 6c reads 2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAP-CHECK-READ-EXISTING-SUBMAP-RECURSION",
+      "clause": "18.2.5.3",
+      "statement": {
+        "en": "A map check-on-read setting propagates to its existing submap.",
+        "ja": "mapのcheck-on-read設定は、既存submapへ伝播する。"
+      },
+      "conditions": {
+        "en": "Enable and disable at the root before two child-register mismatching reads.",
+        "ja": "子registerの不一致read 2回の前に、rootで有効化、無効化する。"
+      },
+      "expected": {
+        "en": "The enabled child read reports and the disabled child read adds no ERROR; both update the mirror.",
+        "ja": "有効時の子readは報告し、無効時の子readはERRORを増やさず、両方mirrorを更新する。"
+      },
+      "limitations": {
+        "en": "One-byte register reads use delayed testbench storage and explicit auto-prediction on each root interface map. Catchers count ERROR presence or absence, not diagnostic IDs/text or an exact mismatch-message count. Field compare masking and read-clear effects are model behavior; no RTL/DPI, physical reset or passive-predictor integration is established. Submap propagation uses one existing child; dynamic addition and arbitrary depths remain outside the fixture.",
+        "ja": "1 byte registerのreadは遅延付きtestbench storageを使い、各root interface mapで自動予測を明示的に有効化する。catcherはERRORの有無を数え、診断ID／本文や不一致messageの正確な個数は要求しない。fieldの比較maskとread-clear効果はmodelの動作であり、RTL／DPI、物理reset、受動predictor統合は示さない。submapへの伝播は既存の子1つで、動的追加と任意の深さは範囲外である。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_check_on_read_root_setting_recurses_to_an_existing_submap",
+          "role": "direct",
+          "expected_observations": [
+            "UT: child enabled_report 1 value 5a mirror 5a",
+            "UT: child disabled_silent 1 value 6c mirror 6c reads 2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAP-CHECK-READ-INTERFACE-INDEPENDENCE",
+      "clause": "18.2.5.3",
+      "statement": {
+        "en": "Independent interface maps retain their own check-on-read modes.",
+        "ja": "独立したinterface mapは、それぞれのcheck-on-read modeを保持する。"
+      },
+      "conditions": {
+        "en": "Map the same register on enabled primary and disabled alternate interfaces.",
+        "ja": "同じregisterを、有効なprimaryと無効なalternate interfaceへmapする。"
+      },
+      "expected": {
+        "en": "Alternate mismatch is silent; primary mismatch reports; each returns and predicts its interface data.",
+        "ja": "alternateの不一致は無報告、primaryの不一致は報告し、各interface dataを返して予測する。"
+      },
+      "limitations": {
+        "en": "One-byte register reads use delayed testbench storage and explicit auto-prediction on each root interface map. Catchers count ERROR presence or absence, not diagnostic IDs/text or an exact mismatch-message count. Field compare masking and read-clear effects are model behavior; no RTL/DPI, physical reset or passive-predictor integration is established. Submap propagation uses one existing child; dynamic addition and arbitrary depths remain outside the fixture.",
+        "ja": "1 byte registerのreadは遅延付きtestbench storageを使い、各root interface mapで自動予測を明示的に有効化する。catcherはERRORの有無を数え、診断ID／本文や不一致messageの正確な個数は要求しない。fieldの比較maskとread-clear効果はmodelの動作であり、RTL／DPI、物理reset、受動predictor統合は示さない。submapへの伝播は既存の子1つで、動的追加と任意の深さは範囲外である。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_check_on_read_independent_maps_keep_different_comparison_settings",
+          "role": "direct",
+          "expected_observations": [
+            "UT: alternate silent 1 value 6c mirror 6c",
+            "UT: primary reported 1 value 5a mirror 5a reads 2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-COMPARE-MASK-IN-MAP-READ-CHECK",
+      "clause": "18.5.5.15",
+      "statement": {
+        "en": "A disabled field compare policy excludes only that field from a map read comparison.",
+        "ja": "無効なfield比較policyは、map readの比較からそのfieldだけを除く。"
+      },
+      "conditions": {
+        "en": "Disable the low nibble and retain checking on high; read low-only then high differences.",
+        "ja": "下位nibbleを無効化し上位の照合を保持して、下位だけ、次に上位の差を読む。"
+      },
+      "expected": {
+        "en": "The low difference is silent and predicts 12; the high difference reports and predicts 22.",
+        "ja": "下位の差は無報告で12を予測し、上位の差は報告して22を予測する。"
+      },
+      "limitations": {
+        "en": "One-byte register reads use delayed testbench storage and explicit auto-prediction on each root interface map. Catchers count ERROR presence or absence, not diagnostic IDs/text or an exact mismatch-message count. Field compare masking and read-clear effects are model behavior; no RTL/DPI, physical reset or passive-predictor integration is established. Submap propagation uses one existing child; dynamic addition and arbitrary depths remain outside the fixture.",
+        "ja": "1 byte registerのreadは遅延付きtestbench storageを使い、各root interface mapで自動予測を明示的に有効化する。catcherはERRORの有無を数え、診断ID／本文や不一致messageの正確な個数は要求しない。fieldの比較maskとread-clear効果はmodelの動作であり、RTL／DPI、物理reset、受動predictor統合は示さない。submapへの伝播は既存の子1つで、動的追加と任意の深さは範囲外である。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_check_on_read_field_compare_mask_excludes_only_the_selected_field",
+          "role": "direct",
+          "expected_observations": [
+            "UT: low_difference silent 1 value 12 mirror 12",
+            "UT: high_difference reported 1 value 22 mirror 22 reads 2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAP-READ-CHECK-PRECEDES-READ-CLEAR-PREDICTION",
+      "clause": "18.2.5.3",
+      "statement": {
+        "en": "Read-clear checking compares sampled data before the modeled post-read clear.",
+        "ja": "read-clearの照合は、model上の読出し後clearより前にsample dataを比較する。"
+      },
+      "conditions": {
+        "en": "Read reset value 5a from an RC field with checking enabled.",
+        "ja": "照合を有効化し、RC fieldのreset値5aを読む。"
+      },
+      "expected": {
+        "en": "No ERROR occurs, the caller receives 5a and the mirror becomes zero.",
+        "ja": "ERRORはなく、callerは5aを受け、mirrorは0となる。"
+      },
+      "limitations": {
+        "en": "One-byte register reads use delayed testbench storage and explicit auto-prediction on each root interface map. Catchers count ERROR presence or absence, not diagnostic IDs/text or an exact mismatch-message count. Field compare masking and read-clear effects are model behavior; no RTL/DPI, physical reset or passive-predictor integration is established. Submap propagation uses one existing child; dynamic addition and arbitrary depths remain outside the fixture.",
+        "ja": "1 byte registerのreadは遅延付きtestbench storageを使い、各root interface mapで自動予測を明示的に有効化する。catcherはERRORの有無を数え、診断ID／本文や不一致messageの正確な個数は要求しない。fieldの比較maskとread-clear効果はmodelの動作であり、RTL／DPI、物理reset、受動predictor統合は示さない。submapへの伝播は既存の子1つで、動的追加と任意の深さは範囲外である。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_check_on_read_read_clear_compares_returned_data_before_predicting_the_clear",
+          "role": "direct",
+          "expected_observations": [
+            "UT: read_clear silent 1 returned 5a mirror 0 reads 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-FINISH-NULL-ERROR-RETURN",
+      "clause": "14.2.6.3",
+      "statement": {
+        "en": "finish_item rejects null with ERROR and returns before mid_do.",
+        "ja": "finish_itemは、nullをERRORで拒否してmid_do前にreturnする。"
+      },
+      "conditions": {
+        "en": "Pass null to an unbound sequence finish call.",
+        "ja": "bindingのないsequenceのfinishへnullを渡す。"
+      },
+      "expected": {
+        "en": "The call returns with one ERROR, no FATAL and no mid_do call.",
+        "ja": "呼出しはERROR 1回、FATALなし、mid_doなしでreturnする。"
+      },
+      "limitations": {
+        "en": "Existing fixtures and their normative expected outputs remain unchanged. Positive-delay driver acknowledgements separate ordering observations from same-delta races. Finish virtual-dispatch, explicit-ID and invalid-input fixtures retain their existing spec-only differences. Completion means sequencer acknowledgement, not that a physical driver finished all processing. Three invalid-input classes do not cover every malformed item. Constraint probes use a unique legal value, not a random distribution.",
+        "ja": "既存検査系と規範的な期待出力は変更しない。正の遅延後のdriver acknowledgeで、順序の観測を同一deltaの競合から分ける。finishのvirtual dispatch、明示ID、不正入力は既存spec-only差分を保持する。完了はsequencerのacknowledgeであり、物理driverの全処理完了ではない。3種類の不正入力は全ての不正itemを扱うものではない。constraintの検査は一意な合法値を使い、乱数分布は検査しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_finish_item_null_input_reports_error_before_mid_do",
+          "role": "direct",
+          "expected_observations": [
+            "UT: returned 1 mid_calls 0 errors 1 fatals 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-FINISH-SEQUENCE-ERROR-RETURN",
+      "clause": "14.2.6.3",
+      "statement": {
+        "en": "finish_item rejects a sequence argument before mid_do.",
+        "ja": "finish_itemは、mid_do前にsequence引数を拒否する。"
+      },
+      "conditions": {
+        "en": "Pass a child sequence instead of an item.",
+        "ja": "itemの代わりに子sequenceを渡す。"
+      },
+      "expected": {
+        "en": "The call returns with one ERROR, no FATAL and no mid_do call.",
+        "ja": "呼出しはERROR 1回、FATALなし、mid_doなしでreturnする。"
+      },
+      "limitations": {
+        "en": "Existing fixtures and their normative expected outputs remain unchanged. Positive-delay driver acknowledgements separate ordering observations from same-delta races. Finish virtual-dispatch, explicit-ID and invalid-input fixtures retain their existing spec-only differences. Completion means sequencer acknowledgement, not that a physical driver finished all processing. Three invalid-input classes do not cover every malformed item. Constraint probes use a unique legal value, not a random distribution.",
+        "ja": "既存検査系と規範的な期待出力は変更しない。正の遅延後のdriver acknowledgeで、順序の観測を同一deltaの競合から分ける。finishのvirtual dispatch、明示ID、不正入力は既存spec-only差分を保持する。完了はsequencerのacknowledgeであり、物理driverの全処理完了ではない。3種類の不正入力は全ての不正itemを扱うものではない。constraintの検査は一意な合法値を使い、乱数分布は検査しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_finish_item_sequence_input_reports_error_before_mid_do",
+          "role": "direct",
+          "expected_observations": [
+            "UT: returned 1 mid_calls 0 errors 1 fatals 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-FINISH-MISSING-SEQUENCER-ERROR",
+      "clause": "14.2.6.3",
+      "statement": {
+        "en": "finish_item rejects an item without a sequencer before mid_do.",
+        "ja": "finish_itemは、sequencerのないitemをmid_do前に拒否する。"
+      },
+      "conditions": {
+        "en": "Pass an ordinary item whose sequencer is null.",
+        "ja": "sequencerがnullの通常itemを渡す。"
+      },
+      "expected": {
+        "en": "The call returns with one ERROR, no FATAL and no mid_do call.",
+        "ja": "呼出しはERROR 1回、FATALなし、mid_doなしでreturnする。"
+      },
+      "limitations": {
+        "en": "Existing fixtures and their normative expected outputs remain unchanged. Positive-delay driver acknowledgements separate ordering observations from same-delta races. Finish virtual-dispatch, explicit-ID and invalid-input fixtures retain their existing spec-only differences. Completion means sequencer acknowledgement, not that a physical driver finished all processing. Three invalid-input classes do not cover every malformed item. Constraint probes use a unique legal value, not a random distribution.",
+        "ja": "既存検査系と規範的な期待出力は変更しない。正の遅延後のdriver acknowledgeで、順序の観測を同一deltaの競合から分ける。finishのvirtual dispatch、明示ID、不正入力は既存spec-only差分を保持する。完了はsequencerのacknowledgeであり、物理driverの全処理完了ではない。3種類の不正入力は全ての不正itemを扱うものではない。constraintの検査は一意な合法値を使い、乱数分布は検査しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_finish_item_missing_sequencer_input_reports_error_before_mid_do",
+          "role": "direct",
+          "expected_observations": [
+            "UT: returned 1 mid_calls 0 errors 1 fatals 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-FINISH-VIRTUAL-SEND-DISPATCH",
+      "clause": "14.2.6.3",
+      "statement": {
+        "en": "finish_item calls the sequence virtual send_request with rerandomize zero.",
+        "ja": "finish_itemは、rerandomize 0でsequenceのvirtual send_requestを呼ぶ。"
+      },
+      "conditions": {
+        "en": "Override sequence sending while retaining normal driver completion.",
+        "ja": "通常のdriver完了を保ち、sequenceの送信をoverrideする。"
+      },
+      "expected": {
+        "en": "The override runs once with rerandomize zero and value 17 reaches the driver.",
+        "ja": "overrideはrerandomize 0で1回動き、値17がdriverへ到達する。"
+      },
+      "limitations": {
+        "en": "Existing fixtures and their normative expected outputs remain unchanged. Positive-delay driver acknowledgements separate ordering observations from same-delta races. Finish virtual-dispatch, explicit-ID and invalid-input fixtures retain their existing spec-only differences. Completion means sequencer acknowledgement, not that a physical driver finished all processing. Three invalid-input classes do not cover every malformed item. Constraint probes use a unique legal value, not a random distribution.",
+        "ja": "既存検査系と規範的な期待出力は変更しない。正の遅延後のdriver acknowledgeで、順序の観測を同一deltaの競合から分ける。finishのvirtual dispatch、明示ID、不正入力は既存spec-only差分を保持する。完了はsequencerのacknowledgeであり、物理driverの全処理完了ではない。3種類の不正入力は全ての不正itemを扱うものではない。constraintの検査は一意な合法値を使い、乱数分布は検査しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_finish_item_invokes_sequence_send_request_override",
+          "role": "direct",
+          "expected_observations": [
+            "UT: sequence_send_calls 1 rerandomize 0 delivered 17"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-FINISH-VIRTUAL-WAIT-DISPATCH",
+      "clause": "14.2.6.3",
+      "statement": {
+        "en": "finish_item calls the sequence virtual completion wait with the item ID.",
+        "ja": "finish_itemは、item IDでsequenceのvirtual完了待機を呼ぶ。"
+      },
+      "conditions": {
+        "en": "Override completion waiting for transaction 33.",
+        "ja": "transaction 33の完了待機をoverrideする。"
+      },
+      "expected": {
+        "en": "The sequence override runs once with transaction 33.",
+        "ja": "sequenceのoverrideはtransaction 33で1回動く。"
+      },
+      "limitations": {
+        "en": "Existing fixtures and their normative expected outputs remain unchanged. Positive-delay driver acknowledgements separate ordering observations from same-delta races. Finish virtual-dispatch, explicit-ID and invalid-input fixtures retain their existing spec-only differences. Completion means sequencer acknowledgement, not that a physical driver finished all processing. Three invalid-input classes do not cover every malformed item. Constraint probes use a unique legal value, not a random distribution.",
+        "ja": "既存検査系と規範的な期待出力は変更しない。正の遅延後のdriver acknowledgeで、順序の観測を同一deltaの競合から分ける。finishのvirtual dispatch、明示ID、不正入力は既存spec-only差分を保持する。完了はsequencerのacknowledgeであり、物理driverの全処理完了ではない。3種類の不正入力は全ての不正itemを扱うものではない。constraintの検査は一意な合法値を使い、乱数分布は検査しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_finish_item_invokes_sequence_completion_wait_override",
+          "role": "direct",
+          "expected_observations": [
+            "UT: sequence_wait_calls 1 transaction 33"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-FINISH-EXPLICIT-COMPLETION-ID",
+      "clause": "14.2.6.3",
+      "statement": {
+        "en": "finish_item forwards each explicit item transaction ID to completion waiting.",
+        "ja": "finish_itemは、各itemの明示transaction IDを完了待機へ転送する。"
+      },
+      "conditions": {
+        "en": "Use one item ID 33 and two sequential item IDs 41/42.",
+        "ja": "item ID 33の1件と、連続item ID 41／42の2件を使う。"
+      },
+      "expected": {
+        "en": "Sequencer wait observations are 33 and then 41/42 in the corresponding fixtures.",
+        "ja": "対応する検査系のsequencer待機の観測は、33、および41／42となる。"
+      },
+      "limitations": {
+        "en": "Existing fixtures and their normative expected outputs remain unchanged. Positive-delay driver acknowledgements separate ordering observations from same-delta races. Finish virtual-dispatch, explicit-ID and invalid-input fixtures retain their existing spec-only differences. Completion means sequencer acknowledgement, not that a physical driver finished all processing. Three invalid-input classes do not cover every malformed item. Constraint probes use a unique legal value, not a random distribution.",
+        "ja": "既存検査系と規範的な期待出力は変更しない。正の遅延後のdriver acknowledgeで、順序の観測を同一deltaの競合から分ける。finishのvirtual dispatch、明示ID、不正入力は既存spec-only差分を保持する。完了はsequencerのacknowledgeであり、物理driverの全処理完了ではない。3種類の不正入力は全ての不正itemを扱うものではない。constraintの検査は一意な合法値を使い、乱数分布は検査しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_finish_item_passes_explicit_transaction_id_to_completion_wait",
+          "role": "direct",
+          "expected_observations": [
+            "UT: waits 1 transaction 33"
+          ]
+        },
+        {
+          "test": "u14/test_sequence_finish_item_keeps_each_transaction_id_in_two_completion_waits",
+          "role": "direct",
+          "expected_observations": [
+            "UT: waits 2 transactions 41 42"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-FINISH-MID-BEFORE-SUBMISSION",
+      "clause": "14.2.6.3",
+      "statement": {
+        "en": "finish_item invokes mid_do before request submission with the original item.",
+        "ja": "finish_itemは、元itemで要求送信前にmid_doを呼ぶ。"
+      },
+      "conditions": {
+        "en": "Let mid_do mutate the request value from 17 to 55.",
+        "ja": "mid_doで要求値を17から55へ変更する。"
+      },
+      "expected": {
+        "en": "One mid hook has the original handle and both submitted/delivered data are 55.",
+        "ja": "mid hookは元handleで1回動き、送信／配送dataはともに55となる。"
+      },
+      "limitations": {
+        "en": "Existing fixtures and their normative expected outputs remain unchanged. Positive-delay driver acknowledgements separate ordering observations from same-delta races. Finish virtual-dispatch, explicit-ID and invalid-input fixtures retain their existing spec-only differences. Completion means sequencer acknowledgement, not that a physical driver finished all processing. Three invalid-input classes do not cover every malformed item. Constraint probes use a unique legal value, not a random distribution.",
+        "ja": "既存検査系と規範的な期待出力は変更しない。正の遅延後のdriver acknowledgeで、順序の観測を同一deltaの競合から分ける。finishのvirtual dispatch、明示ID、不正入力は既存spec-only差分を保持する。完了はsequencerのacknowledgeであり、物理driverの全処理完了ではない。3種類の不正入力は全ての不正itemを扱うものではない。constraintの検査は一意な合法値を使い、乱数分布は検査しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_finish_item_orders_mid_mutation_before_send_and_post_after_ack",
+          "role": "direct",
+          "expected_observations": [
+            "UT: mid_before_send 1 submitted 55 received 55",
+            "UT: hooks 1 1 same_arguments 1 1 post_after_ack 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-FINISH-POST-AFTER-ACKNOWLEDGEMENT",
+      "clause": "14.2.6.3",
+      "statement": {
+        "en": "finish_item invokes post_do after sequencer acknowledgement with the original item.",
+        "ja": "finish_itemは、sequencerのacknowledge後に元itemでpost_doを呼ぶ。"
+      },
+      "conditions": {
+        "en": "Acknowledge the driver item after positive delay.",
+        "ja": "正の遅延後にdriver itemをacknowledgeする。"
+      },
+      "expected": {
+        "en": "One post hook receives the original handle and observes acknowledgement already complete.",
+        "ja": "post hookは元handleで1回動き、acknowledge済みを観測する。"
+      },
+      "limitations": {
+        "en": "Existing fixtures and their normative expected outputs remain unchanged. Positive-delay driver acknowledgements separate ordering observations from same-delta races. Finish virtual-dispatch, explicit-ID and invalid-input fixtures retain their existing spec-only differences. Completion means sequencer acknowledgement, not that a physical driver finished all processing. Three invalid-input classes do not cover every malformed item. Constraint probes use a unique legal value, not a random distribution.",
+        "ja": "既存検査系と規範的な期待出力は変更しない。正の遅延後のdriver acknowledgeで、順序の観測を同一deltaの競合から分ける。finishのvirtual dispatch、明示ID、不正入力は既存spec-only差分を保持する。完了はsequencerのacknowledgeであり、物理driverの全処理完了ではない。3種類の不正入力は全ての不正itemを扱うものではない。constraintの検査は一意な合法値を使い、乱数分布は検査しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_finish_item_orders_mid_mutation_before_send_and_post_after_ack",
+          "role": "direct",
+          "expected_observations": [
+            "UT: hooks 1 1 same_arguments 1 1 post_after_ack 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-START-EXPLICIT-SEQUENCER-PRECEDENCE",
+      "clause": "14.2.6.2",
+      "statement": {
+        "en": "An explicit start_item sequencer takes precedence over item and parent contexts.",
+        "ja": "start_itemの明示sequencerは、itemと親contextより優先する。"
+      },
+      "conditions": {
+        "en": "Supply three distinct sequencers and a compatible bound driver for each.",
+        "ja": "異なる3 sequencerと各々へbindingした互換driverを指定する。"
+      },
+      "expected": {
+        "en": "Only the explicit sequencer receives the grant; the item retains its sequence parent and value 17 completes.",
+        "ja": "明示sequencerだけがgrantを受け、itemはsequence parentを保持し、値17が完了する。"
+      },
+      "limitations": {
+        "en": "Existing fixtures and their normative expected outputs remain unchanged. Positive-delay driver acknowledgements separate ordering observations from same-delta races. Finish virtual-dispatch, explicit-ID and invalid-input fixtures retain their existing spec-only differences. Completion means sequencer acknowledgement, not that a physical driver finished all processing. Three invalid-input classes do not cover every malformed item. Constraint probes use a unique legal value, not a random distribution.",
+        "ja": "既存検査系と規範的な期待出力は変更しない。正の遅延後のdriver acknowledgeで、順序の観測を同一deltaの競合から分ける。finishのvirtual dispatch、明示ID、不正入力は既存spec-only差分を保持する。完了はsequencerのacknowledgeであり、物理driverの全処理完了ではない。3種類の不正入力は全ての不正itemを扱うものではない。constraintの検査は一意な合法値を使い、乱数分布は検査しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_start_item_explicit_sequencer_overrides_item_and_parent_context",
+          "role": "direct",
+          "expected_observations": [
+            "UT: selected 1 parent_same 1 priority 78 pre_calls 1 pre_is_item 1",
+            "UT: grants 0 0 1",
+            "UT: hooks 1 1 1 value 17"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-START-ITEM-SEQUENCER-PRECEDENCE",
+      "clause": "14.2.6.2",
+      "statement": {
+        "en": "Without an explicit argument start_item prefers the item sequencer over its parent sequence sequencer.",
+        "ja": "明示引数がなければ、start_itemは親sequenceのsequencerよりitemのsequencerを優先する。"
+      },
+      "conditions": {
+        "en": "Set distinct item and parent sequencers.",
+        "ja": "itemと親に異なるsequencerを設定する。"
+      },
+      "expected": {
+        "en": "Only the item sequencer receives the grant and the request completes normally.",
+        "ja": "itemのsequencerだけがgrantを受け、要求は通常完了する。"
+      },
+      "limitations": {
+        "en": "Existing fixtures and their normative expected outputs remain unchanged. Positive-delay driver acknowledgements separate ordering observations from same-delta races. Finish virtual-dispatch, explicit-ID and invalid-input fixtures retain their existing spec-only differences. Completion means sequencer acknowledgement, not that a physical driver finished all processing. Three invalid-input classes do not cover every malformed item. Constraint probes use a unique legal value, not a random distribution.",
+        "ja": "既存検査系と規範的な期待出力は変更しない。正の遅延後のdriver acknowledgeで、順序の観測を同一deltaの競合から分ける。finishのvirtual dispatch、明示ID、不正入力は既存spec-only差分を保持する。完了はsequencerのacknowledgeであり、物理driverの全処理完了ではない。3種類の不正入力は全ての不正itemを扱うものではない。constraintの検査は一意な合法値を使い、乱数分布は検査しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_start_item_uses_item_sequencer_before_parent_fallback",
+          "role": "direct",
+          "expected_observations": [
+            "UT: selected 1 parent_same 1 priority 78 pre_calls 1 pre_is_item 1",
+            "UT: grants 0 1 0",
+            "UT: hooks 1 1 1 value 17"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-START-CURRENT-SEQUENCER-FALLBACK",
+      "clause": "14.2.6.2",
+      "statement": {
+        "en": "start_item falls back to its current sequence sequencer when other references are null.",
+        "ja": "start_itemは、他の参照がnullなら現在sequenceのsequencerへfallbackする。"
+      },
+      "conditions": {
+        "en": "Omit explicit and item sequencer references.",
+        "ja": "明示sequencerとitemのsequencer参照を省略する。"
+      },
+      "expected": {
+        "en": "Only the parent/current sequencer receives the grant and context identifies that sequencer.",
+        "ja": "親／現在sequencerだけがgrantを受け、contextはそのsequencerを識別する。"
+      },
+      "limitations": {
+        "en": "Existing fixtures and their normative expected outputs remain unchanged. Positive-delay driver acknowledgements separate ordering observations from same-delta races. Finish virtual-dispatch, explicit-ID and invalid-input fixtures retain their existing spec-only differences. Completion means sequencer acknowledgement, not that a physical driver finished all processing. Three invalid-input classes do not cover every malformed item. Constraint probes use a unique legal value, not a random distribution.",
+        "ja": "既存検査系と規範的な期待出力は変更しない。正の遅延後のdriver acknowledgeで、順序の観測を同一deltaの競合から分ける。finishのvirtual dispatch、明示ID、不正入力は既存spec-only差分を保持する。完了はsequencerのacknowledgeであり、物理driverの全処理完了ではない。3種類の不正入力は全ての不正itemを扱うものではない。constraintの検査は一意な合法値を使い、乱数分布は検査しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_start_item_falls_back_to_current_sequence_sequencer",
+          "role": "direct",
+          "expected_observations": [
+            "UT: selected 1 parent_same 1 priority 78 pre_calls 1 pre_is_item 1",
+            "UT: grants 1 0 0",
+            "UT: hooks 1 1 1 value 17"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-START-NEGATIVE-PRIORITY-INHERITANCE",
+      "clause": "14.2.6.2",
+      "statement": {
+        "en": "Any negative start_item priority inherits the sequence priority.",
+        "ja": "負のstart_item優先度は、sequence優先度を継承する。"
+      },
+      "conditions": {
+        "en": "Use argument minus seven with sequence priority 78.",
+        "ja": "引数-7とsequence優先度78を使う。"
+      },
+      "expected": {
+        "en": "The selected grant priority is 78 and pre_do receives is_item one.",
+        "ja": "選択grant優先度は78、pre_doのis_itemは1となる。"
+      },
+      "limitations": {
+        "en": "Existing fixtures and their normative expected outputs remain unchanged. Positive-delay driver acknowledgements separate ordering observations from same-delta races. Finish virtual-dispatch, explicit-ID and invalid-input fixtures retain their existing spec-only differences. Completion means sequencer acknowledgement, not that a physical driver finished all processing. Three invalid-input classes do not cover every malformed item. Constraint probes use a unique legal value, not a random distribution.",
+        "ja": "既存検査系と規範的な期待出力は変更しない。正の遅延後のdriver acknowledgeで、順序の観測を同一deltaの競合から分ける。finishのvirtual dispatch、明示ID、不正入力は既存spec-only差分を保持する。完了はsequencerのacknowledgeであり、物理driverの全処理完了ではない。3種類の不正入力は全ての不正itemを扱うものではない。constraintの検査は一意な合法値を使い、乱数分布は検査しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_start_item_any_negative_priority_inherits_sequence_priority",
+          "role": "direct",
+          "expected_observations": [
+            "UT: selected 1 parent_same 1 priority 78 pre_calls 1 pre_is_item 1",
+            "UT: grants 1 0 0",
+            "UT: hooks 1 1 1 value 17"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-START-NONNEGATIVE-PRIORITY-OVERRIDE",
+      "clause": "14.2.6.2",
+      "statement": {
+        "en": "A nonnegative start_item priority replaces the sequence priority.",
+        "ja": "非負のstart_item優先度は、sequence優先度に優先する。"
+      },
+      "conditions": {
+        "en": "Use item priority 13 with sequence priority 78.",
+        "ja": "item優先度13とsequence優先度78を使う。"
+      },
+      "expected": {
+        "en": "The selected grant priority is 13 and the request completes.",
+        "ja": "選択grant優先度は13となり要求は完了する。"
+      },
+      "limitations": {
+        "en": "Existing fixtures and their normative expected outputs remain unchanged. Positive-delay driver acknowledgements separate ordering observations from same-delta races. Finish virtual-dispatch, explicit-ID and invalid-input fixtures retain their existing spec-only differences. Completion means sequencer acknowledgement, not that a physical driver finished all processing. Three invalid-input classes do not cover every malformed item. Constraint probes use a unique legal value, not a random distribution.",
+        "ja": "既存検査系と規範的な期待出力は変更しない。正の遅延後のdriver acknowledgeで、順序の観測を同一deltaの競合から分ける。finishのvirtual dispatch、明示ID、不正入力は既存spec-only差分を保持する。完了はsequencerのacknowledgeであり、物理driverの全処理完了ではない。3種類の不正入力は全ての不正itemを扱うものではない。constraintの検査は一意な合法値を使い、乱数分布は検査しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_start_item_nonnegative_priority_overrides_sequence_priority",
+          "role": "direct",
+          "expected_observations": [
+            "UT: selected 1 parent_same 1 priority 13 pre_calls 1 pre_is_item 1",
+            "UT: grants 1 0 0",
+            "UT: hooks 1 1 1 value 17"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-START-SEQUENCE-ARGUMENT-ERROR",
+      "clause": "14.2.6.2",
+      "statement": {
+        "en": "start_item rejects a sequence argument before pre_do.",
+        "ja": "start_itemは、pre_do前にsequence引数を拒否する。"
+      },
+      "conditions": {
+        "en": "Pass an unbound child sequence as the item argument.",
+        "ja": "bindingのない子sequenceをitem引数として渡す。"
+      },
+      "expected": {
+        "en": "The call returns with one ERROR, no FATAL and no pre_do call.",
+        "ja": "呼出しはERROR 1回、FATALなし、pre_doなしでreturnする。"
+      },
+      "limitations": {
+        "en": "Existing fixtures and their normative expected outputs remain unchanged. Positive-delay driver acknowledgements separate ordering observations from same-delta races. Finish virtual-dispatch, explicit-ID and invalid-input fixtures retain their existing spec-only differences. Completion means sequencer acknowledgement, not that a physical driver finished all processing. Three invalid-input classes do not cover every malformed item. Constraint probes use a unique legal value, not a random distribution.",
+        "ja": "既存検査系と規範的な期待出力は変更しない。正の遅延後のdriver acknowledgeで、順序の観測を同一deltaの競合から分ける。finishのvirtual dispatch、明示ID、不正入力は既存spec-only差分を保持する。完了はsequencerのacknowledgeであり、物理driverの全処理完了ではない。3種類の不正入力は全ての不正itemを扱うものではない。constraintの検査は一意な合法値を使い、乱数分布は検査しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_start_item_sequence_argument_reports_error_and_returns",
+          "role": "direct",
+          "expected_observations": [
+            "UT: returned 1 pre_calls 0 errors 1 fatals 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-START-MISSING-SEQUENCER-ERROR",
+      "clause": "14.2.6.2",
+      "statement": {
+        "en": "start_item reports an error and returns when no sequencer can be resolved.",
+        "ja": "start_itemは、sequencerを解決できなければerrorを報告してreturnする。"
+      },
+      "conditions": {
+        "en": "Leave explicit, item and current sequencer references null.",
+        "ja": "明示、item、現在のsequencer参照をnullにする。"
+      },
+      "expected": {
+        "en": "The call returns with one ERROR, no FATAL and no pre_do call.",
+        "ja": "呼出しはERROR 1回、FATALなし、pre_doなしでreturnする。"
+      },
+      "limitations": {
+        "en": "Existing fixtures and their normative expected outputs remain unchanged. Positive-delay driver acknowledgements separate ordering observations from same-delta races. Finish virtual-dispatch, explicit-ID and invalid-input fixtures retain their existing spec-only differences. Completion means sequencer acknowledgement, not that a physical driver finished all processing. Three invalid-input classes do not cover every malformed item. Constraint probes use a unique legal value, not a random distribution.",
+        "ja": "既存検査系と規範的な期待出力は変更しない。正の遅延後のdriver acknowledgeで、順序の観測を同一deltaの競合から分ける。finishのvirtual dispatch、明示ID、不正入力は既存spec-only差分を保持する。完了はsequencerのacknowledgeであり、物理driverの全処理完了ではない。3種類の不正入力は全ての不正itemを扱うものではない。constraintの検査は一意な合法値を使い、乱数分布は検査しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_start_item_without_any_sequencer_reports_error_and_returns",
+          "role": "direct",
+          "expected_observations": [
+            "UT: returned 1 pre_calls 0 errors 1 fatals 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-SEND-DEFAULT-NO-RERANDOMIZATION",
+      "clause": "14.2.6.5",
+      "statement": {
+        "en": "Sequence send_request forwards the original item with its default rerandomize disabled.",
+        "ja": "sequenceのsend_requestは、既定でrerandomizeを無効にして元itemを転送する。"
+      },
+      "conditions": {
+        "en": "Manually set code 37 on an item constrained to 91, acquire a grant and use the default send call.",
+        "ja": "91へconstraintしたitemへ手動でcode 37を設定し、grant取得後に既定の送信を呼ぶ。"
+      },
+      "expected": {
+        "en": "The same handle arrives with code 37, no randomization and transaction ID 50.",
+        "ja": "同じhandleがcode 37、randomizationなし、transaction ID 50で到着する。"
+      },
+      "limitations": {
+        "en": "Existing fixtures and their normative expected outputs remain unchanged. Positive-delay driver acknowledgements separate ordering observations from same-delta races. Finish virtual-dispatch, explicit-ID and invalid-input fixtures retain their existing spec-only differences. Completion means sequencer acknowledgement, not that a physical driver finished all processing. Three invalid-input classes do not cover every malformed item. Constraint probes use a unique legal value, not a random distribution.",
+        "ja": "既存検査系と規範的な期待出力は変更しない。正の遅延後のdriver acknowledgeで、順序の観測を同一deltaの競合から分ける。finishのvirtual dispatch、明示ID、不正入力は既存spec-only差分を保持する。完了はsequencerのacknowledgeであり、物理driverの全処理完了ではない。3種類の不正入力は全ての不正itemを扱うものではない。constraintの検査は一意な合法値を使い、乱数分布は検査しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_send_request_default_preserves_manual_data_and_handle",
+          "role": "direct",
+          "expected_observations": [
+            "UT: same_handle 1 code 37 randomized 0 transaction 50"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-SEND-RERANDOMIZATION-FORWARDING",
+      "clause": "14.2.6.5",
+      "statement": {
+        "en": "Sequence send_request forwards the rerandomize request before driver delivery.",
+        "ja": "sequenceのsend_requestは、driver配送前のrerandomize要求を転送する。"
+      },
+      "conditions": {
+        "en": "Acquire a grant and send with rerandomize one and a unique-value item constraint.",
+        "ja": "grantを取得し、一意な値のitem constraintとrerandomize 1で送る。"
+      },
+      "expected": {
+        "en": "The same handle arrives with constrained code 91 and one post_randomize call.",
+        "ja": "同じhandleがconstraintしたcode 91、post_randomize 1回で到着する。"
+      },
+      "limitations": {
+        "en": "Existing fixtures and their normative expected outputs remain unchanged. Positive-delay driver acknowledgements separate ordering observations from same-delta races. Finish virtual-dispatch, explicit-ID and invalid-input fixtures retain their existing spec-only differences. Completion means sequencer acknowledgement, not that a physical driver finished all processing. Three invalid-input classes do not cover every malformed item. Constraint probes use a unique legal value, not a random distribution.",
+        "ja": "既存検査系と規範的な期待出力は変更しない。正の遅延後のdriver acknowledgeで、順序の観測を同一deltaの競合から分ける。finishのvirtual dispatch、明示ID、不正入力は既存spec-only差分を保持する。完了はsequencerのacknowledgeであり、物理driverの全処理完了ではない。3種類の不正入力は全ての不正itemを扱うものではない。constraintの検査は一意な合法値を使い、乱数分布は検査しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_send_request_rerandomize_uses_request_constraint_once",
+          "role": "direct",
+          "expected_observations": [
+            "UT: same_handle 1 code 91 randomized 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-GRANT-WAIT-DRIVER-BLOCKING",
+      "clause": "14.2.6.4",
+      "statement": {
+        "en": "Sequence grant waiting remains blocked until the driver requests an item.",
+        "ja": "sequenceのgrant待機は、driverがitemを要求するまでblockする。"
+      },
+      "conditions": {
+        "en": "Start one producer and delay driver polling.",
+        "ja": "producerを1つ開始し、driverのpollingを遅らせる。"
+      },
+      "expected": {
+        "en": "No grant/completion occurs before polling; one of each occurs after acknowledgement.",
+        "ja": "polling前はgrant／完了がなく、acknowledge後は各1回となる。"
+      },
+      "limitations": {
+        "en": "Existing fixtures and their normative expected outputs remain unchanged. Positive-delay driver acknowledgements separate ordering observations from same-delta races. Finish virtual-dispatch, explicit-ID and invalid-input fixtures retain their existing spec-only differences. Completion means sequencer acknowledgement, not that a physical driver finished all processing. Three invalid-input classes do not cover every malformed item. Constraint probes use a unique legal value, not a random distribution.",
+        "ja": "既存検査系と規範的な期待出力は変更しない。正の遅延後のdriver acknowledgeで、順序の観測を同一deltaの競合から分ける。finishのvirtual dispatch、明示ID、不正入力は既存spec-only差分を保持する。完了はsequencerのacknowledgeであり、物理driverの全処理完了ではない。3種類の不正入力は全ての不正itemを扱うものではない。constraintの検査は一意な合法値を使い、乱数分布は検査しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_wait_for_grant_blocks_until_driver_requests_an_item",
+          "role": "direct",
+          "expected_observations": [
+            "UT: before_driver granted 0 completed 0",
+            "UT: after granted 1 completed 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-GRANT-PRIORITY-ORIGIN-FORWARDING",
+      "clause": "14.2.6.4",
+      "statement": {
+        "en": "Sequence grant waiting forwards its priority and originating sequence to the current sequencer.",
+        "ja": "sequenceのgrant待機は、優先度と要求元sequenceを現在sequencerへ転送する。"
+      },
+      "conditions": {
+        "en": "Request priority 123 on a bound sequence.",
+        "ja": "bindingしたsequenceから優先度123を要求する。"
+      },
+      "expected": {
+        "en": "The sequencer sees priority 123 and the exact origin; delivered context identifies that sequencer.",
+        "ja": "sequencerは優先度123と正確な要求元を観測し、配送contextはそのsequencerを識別する。"
+      },
+      "limitations": {
+        "en": "Existing fixtures and their normative expected outputs remain unchanged. Positive-delay driver acknowledgements separate ordering observations from same-delta races. Finish virtual-dispatch, explicit-ID and invalid-input fixtures retain their existing spec-only differences. Completion means sequencer acknowledgement, not that a physical driver finished all processing. Three invalid-input classes do not cover every malformed item. Constraint probes use a unique legal value, not a random distribution.",
+        "ja": "既存検査系と規範的な期待出力は変更しない。正の遅延後のdriver acknowledgeで、順序の観測を同一deltaの競合から分ける。finishのvirtual dispatch、明示ID、不正入力は既存spec-only差分を保持する。完了はsequencerのacknowledgeであり、物理driverの全処理完了ではない。3種類の不正入力は全ての不正itemを扱うものではない。constraintの検査は一意な合法値を使い、乱数分布は検査しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_wait_for_grant_forwards_priority_and_sequence_to_current_sequencer",
+          "role": "direct",
+          "expected_observations": [
+            "UT: priority 123 origin_same 1 sequencer_same 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-GRANT-LOCK-REQUEST-FORWARDING",
+      "clause": "14.2.6.4",
+      "statement": {
+        "en": "Sequence grant waiting forwards lock_request and obtains ownership before item delivery.",
+        "ja": "sequenceのgrant待機は、lock_requestを転送し、item配送前に所有権を取得する。"
+      },
+      "conditions": {
+        "en": "Request a lock with the grant and unlock after acknowledgement.",
+        "ja": "grantとともにlockを要求し、acknowledge後にunlockする。"
+      },
+      "expected": {
+        "en": "The forwarded lock bit and held-lock flag are one at delivery and ownership is zero after release.",
+        "ja": "配送時の転送lock bitと保持flagは1で、解放後の所有権は0となる。"
+      },
+      "limitations": {
+        "en": "Existing fixtures and their normative expected outputs remain unchanged. Positive-delay driver acknowledgements separate ordering observations from same-delta races. Finish virtual-dispatch, explicit-ID and invalid-input fixtures retain their existing spec-only differences. Completion means sequencer acknowledgement, not that a physical driver finished all processing. Three invalid-input classes do not cover every malformed item. Constraint probes use a unique legal value, not a random distribution.",
+        "ja": "既存検査系と規範的な期待出力は変更しない。正の遅延後のdriver acknowledgeで、順序の観測を同一deltaの競合から分ける。finishのvirtual dispatch、明示ID、不正入力は既存spec-only差分を保持する。完了はsequencerのacknowledgeであり、物理driverの全処理完了ではない。3種類の不正入力は全ての不正itemを扱うものではない。constraintの検査は一意な合法値を使い、乱数分布は検査しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_wait_for_grant_lock_request_holds_lock_until_explicit_unlock",
+          "role": "direct",
+          "expected_observations": [
+            "UT: held_lock 1 forwarded_lock 1",
+            "UT: released_lock 0"
+          ]
+        }
+      ]
     }
   ]
 }

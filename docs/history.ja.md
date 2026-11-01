@@ -2,7 +2,7 @@
 
 [English](history.md) · [README](../README.ja.md)
 
-M1・M2の15回目、M3の9回目、M4の3回目と段階をまたぐ薄い領域の10回目の拡充（シミュレーション1005件）までを記録しています。以前の349件の時点は
+M1・M2の15回目、M3の9回目、M4の3回目と段階をまたぐ薄い領域の11回目の拡充（シミュレーション1025件）までを記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -1272,4 +1272,34 @@ M4はAI要求案51件を追加し、新規20件と既存register／fieldのset�
 検証はtool unit test 74件、metadata全1005件、台帳／索引の整合性、最終入力のevidence fingerprint、
 完全な日英guideを対象とします。用語集は131語、FAQは112回答で、phase graphの図を加えます。
 model状態、bus mask、hook counterは、物理DUT動作とは区別します。
+READMEは現状を記載し、今回の増分はこの履歴に保持します。
+
+## M1〜M4の薄い領域の11回目の拡充
+
+[34b4ba0](https://github.com/kurochan001/kirimasim-uvm-tests/commit/34b4ba002f28005aa38a8d56e686aa24febf4d75)
+の1005件へシミュレーション20件を追加し、21 directoryで1025件となります。
+M1は327件、M2は404件、M3は294件で、既存1005件の入力はすべて保持します。
+M1はcomponent記録の制御、database／streamのcache、null guard、時刻／hook、属性記録のlifecycleの8件です。
+M2はsequenceのreport context、verbosity、message生成、handler routingの4件です。
+M3はmap check-on-readの既定値、切替、submap、独立interface、field mask、RC順序の8件です。
+local storage／hookは、外部記録形式、component eventの起動、受動predictor統合、RTL access、DPIを示しません。
+
+追加19件はVerilator 5.052でseed 1・73と一致します。1件は13.1.7.10の新規stream要求を保持します。
+free_tr_streamが誤った型keyを使い、固定版は元cache entryを残します。有効記録の検査系は、
+component hookへ渡したrecorder handleから実際のstreamを得て、内部で選ぶ型への仮定を避けます。
+2026-11-02の互換なsnapshotは一致924件、既知差分101件で、seed 1の実行時初回差分92件と、
+seed実行結果のないAPI欠落build 9件です。Ghost bundledは各seedで一致199件、不一致826件で、失敗集合は同じです。
+kirimasimはunsupported 1016件、API欠落のfail 9件です。runner、実行ファイル、profile、libraryの識別は互換で、
+現在のGhost pinned modeの主張は加えません。
+
+M4はAI要求案54件を追加し、新規20件と既存sequenceのstart／finish／grant／送信20件を対応付けます。
+台帳は要求案865件、直接対応の要求861件、直接対応テスト836件、別のcontrol 1件、未対応188件です。
+条項番号2,504件のうち612件を一部分解し、1,892件は未評価、主引用は470番号、いずれかの引用は1,068番号です。
+候補2,479番号の棚卸しは主引用0件が2,009、1件が242、2件以上が228です。直接テストのない要求案は4件のままです。
+対象範囲は提案、照合はすべてAI、分母／比率は未設定です。既知の不正入力severity、finishのvirtual dispatch、
+完了IDの差分は保持します。
+
+検証はtool unit test 74件、metadata全1025件、台帳／索引の整合性、最終入力のevidence fingerprint、
+完全な日英guideを対象とします。用語集は135語、FAQは115回答で、read照合／予測の図を加えます。
+report生成のprobeと実handlerの実行は区別します。不一致の報告、戻りdata、予測mirror状態、bus完了は別の観測です。
 READMEは現状を記載し、今回の増分はこの履歴に保持します。

@@ -501,3 +501,17 @@ implementationを参照するnodeを含みます。異なるnodeが同じsinglet
 
 **sampling hook** — accessまたは現在のmodel値を計測のために観測する、userがoverrideできるmethodです。
 hookの呼出し回数を数えることで、covergroupを作ったりcoverage比率を出したりせずに、dispatchとtimingを検査できます。
+
+## component stream、report context、readの比較
+
+**componentの記録** — componentが選択したdatabaseとstream経由の記録です。
+transaction自身の記録経路とは別の有効化制御を持ち、componentのendでtransaction属性のhookを呼べます。
+
+**stream cacheのkey** — 1 component内で要求したstreamの名前／型pairです。
+参照を解放するかstreamをfreeするまで、同じ要求は同一性を保持し、別componentは異なるscopeを持ちます。
+
+**sequenceのreport context** — 空ならsequence-parentのpathで埋めるmessageのcontext文字列です。
+handlerとverbosity設定を用意するsequencerまたはrootのreport objectとは別です。
+
+**check-on-read** — sampleしたregister／field dataを既存mirrorと比較して、不一致を報告するmap設定です。
+比較制御と自動予測は別の設定であり、検査系は予測を明示的に有効化し、fieldごとの比較maskを適用します。

@@ -173,7 +173,7 @@ a claim that every test was rebuilt together.
 
 ### Q16. Are M1, M2 or M3 complete, and what does the test count cover?
 
-M1 and M2 still have open clause targets. M3 now has 286
+M1 and M2 still have open clause targets. M3 now has 294
 register-layer cases, including testbench frontdoor paths; it is also incomplete. Starting a stage does not complete
 the preceding stages.
 The [plan](../README.md#plan) identifies current scope and remaining work.
@@ -1136,9 +1136,9 @@ not a direct test of the requirement.
 
 ### Q77. Why is there no coverage percentage after starting M4?
 
-The 811 AI drafts cover only a partial decomposition: 807 requirements link
-directly to 796 tests, 4 have no direct test, and one separate test is a control.
-Another 208 tests are not mapped yet. The 2,504 clause identifiers are not normative requirement units.
+The 865 AI drafts cover only a partial decomposition: 861 requirements link
+directly to 836 tests, 4 have no direct test, and one separate test is a control.
+Another 188 tests are not mapped yet. The 2,504 clause identifiers are not normative requirement units.
 The scope is proposed, the inventory incomplete and the denominator unapproved;
 starting M4 approves none of those. Known differences and HDL/DPI limitations
 do not silently exclude obligations. See the [approval path](requirements.md#remaining-m4-work-and-approval).
@@ -1870,3 +1870,68 @@ The ledger also links existing set/reset/predict/update cases. A desired
 value, mirror value, sampling counter and testbench storage are separate
 observations. W1C/W1S update tests observe physical write masks and model
 state; their driver storage does not model the hardware access policy.
+
+## Component recording, sequence reporting and read checks
+
+### Q113. How does component recording relate to transaction self-recording?
+
+Component recording defaults off and its enable/database selection is local
+to each component. A component can record a transaction through its own
+stream while that transaction's self-recording is disabled. The [lifecycle case](../tests/u13/test_component_enabled_recording_defers_properties_until_end_and_honors_free_handle.sv)
+obtains the recorder from the begin hook, without prescribing the stream type
+chosen internally. Begin opens the record without recording transaction
+properties. End updates the transaction, calls the component's post hook,
+records properties, then closes or frees the recorder according to free_handle.
+Explicit timestamps are metadata; these cases do not wait for those times.
+
+Separate accept/begin/end null guards and time-forwarding cases observe
+component hooks, without claiming component-event wakeup or transaction links.
+Stream caching distinguishes name/type pairs and component scopes. The
+[reference-release case](../tests/u13/test_component_free_recording_stream_invalidates_only_its_cached_pair.sv)
+requires a fresh stream on the next matching request while retaining a peer
+pair. The pinned release retains the old cache entry for the tested pair;
+this remains spec-only. No external recording format is produced.
+
+### Q114. Which reporter handles sequence messages, and what does context mean?
+
+The [report-object case](../tests/u14/test_sequence_reporting_object_follows_current_sequencer_and_returns_to_root.sv)
+checks exact sequencer identity after binding/rebinding, and the implicit
+root reporter after clearing that reference. Verbosity queries use the
+current reporter and its ID/severity settings. This differs from the dotted
+sequence path, which follows sequence parents rather than component parents.
+
+A message-construction probe intercepts virtual processing to inspect fields
+and filtering; it does not execute handler actions, including FATAL.
+The separate [preformed-message case](../tests/u14/test_sequence_reporting_preformed_messages_use_sequence_path_or_preserve_explicit_context.sv)
+uses real handlers and a catcher. Empty context becomes parent_sequence.item;
+manual context is preserved even when the reporter changes.
+
+M4 also maps existing start/finish/grant/submission fixtures. An item grant,
+sequencer acknowledgement and physical driver completion are different
+observations. Known invalid-input severity, virtual-dispatch and explicit-ID
+differences retain their normative expectations.
+
+### Q115. What does check-on-read compare, and when is the mirror updated?
+
+Check-on-read defaults off. Calling its setter without an argument enables
+comparison for the map and existing submaps. The [enabled mismatch case](../tests/u18/test_check_on_read_default_enable_argument_reports_mismatch_before_replacing_the_mirror.sv)
+requires an ERROR for a mismatch against the old mirror. Matching data and
+explicitly disabled comparisons produce no new discrepancy report. Independent
+interface maps keep their own settings, and a field with comparison disabled
+does not hide a neighboring field's mismatch.
+
+```mermaid
+flowchart LR
+    R["Bus read data"] --> C{"Check enabled?"}
+    C -->|"Yes"| K["Compare old mirror; apply field mask"]
+    C -->|"No"| P["Predict mirror from data and access policy"]
+    K --> P
+    P --> O["Return sampled read value"]
+```
+
+All root interfaces in these fixtures explicitly enable auto-prediction.
+Turning comparison off does not turn prediction off. The [read-clear case](../tests/u18/test_check_on_read_read_clear_compares_returned_data_before_predicting_the_clear.sv)
+compares sampled 5a against mirror 5a without an ERROR and predicts zero;
+the caller receives the original 5a. This models the post-read effect; the
+driver is simple storage and does not establish an RTL clear. A discrepancy report is separate
+from a failed bus transfer. Passive predictor integration is outside these cases.

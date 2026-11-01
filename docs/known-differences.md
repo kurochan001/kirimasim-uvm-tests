@@ -2,7 +2,7 @@
 
 [日本語](known-differences.ja.md) · [README](../README.md) · [FAQ](faq.md)
 
-This describes the current 1005-test suite and the pinned Accellera UVM
+This describes the current 1025-test suite and the pinned Accellera UVM
 2020.3.1 library. A mismatch is a test result; it does not by itself assign
 the cause to the simulator, the library or the expectation.
 
@@ -16,9 +16,16 @@ semantics still require review. Annex E additionally checks selected two/three-m
 shared accesses and one child-block shape; see the
 [memory scope](faq.md#memory-prediction-and-map-controls) and
 [shared-access scope](faq.md#memory-access-shared-maps-and-test-selection).
-The following sixty-one additional limitations were identified during M1, M2 and M3.
+The following sixty-two additional limitations were identified during M1, M2 and M3.
 Where a test directly checks a required behavior that is missing, its
 normative expectation is retained with `:oracle: spec`.
+
+- Component `free_tr_stream` deletes a cache entry using the stream object's
+  class type name instead of the cached stream-type key. A later request
+  for the same nonempty name/type pair returns the old stream. Clause
+  13.1.7.10 requires a newly created stream after reference release. The
+  fixture retains fresh identity and one new creation, with a separate
+  cached pair left intact.
 
 - Phase `find` returns the supplied implementation handle when the calling
   node already refers to that implementation. Clause 9.3.1.4.4 requires a
@@ -315,7 +322,7 @@ SystemVerilog 13.4, so it cannot represent a count of two. The expected two
 preserves the prose interpretation. This signature/prose conflict requires
 review and is not assigned as a confirmed simulator or library bug.
 
-Across the suite, 905 tests have the `verilator@5.052` oracle tag and one hundred
+Across the suite, 924 tests have the `verilator@5.052` oracle tag and 101
 cases are spec-only. One of the spec-only cases checks 9.6: a child's pre-reset
 task must be killed when that phase ends, but the pinned-library run on Verilator 5.052
 lets the child perform its delayed write during a later phase. The cause of
@@ -327,17 +334,19 @@ without callbacks. The pinned Verilator run reaches the blocked-state
 observation, then its watchdog expires. This combined simulator/library
 cause remains unassigned; the normative wakeup expectation is retained.
 
-The one hundred spec-only tests retain their normative expected files.
-Default Verilator runs and CI select the 905 tagged cases. `--all` includes
+The 101 spec-only tests retain their normative expected files.
+Default Verilator runs and CI select the 924 tagged cases. `--all` includes
 spec-only cases and records mismatches or build failures as `known`.
-The runtime records for 91 cases establish the first difference at seed 1,
+The runtime records for 92 cases establish the first difference at seed 1,
 without seed 73 results. Nine missing-API cases cannot build and have no
 runtime seed result: one time API, six sequence-library cases and two HDL slice cases.
 
 ## Spec-only tests
 
-These are the one hundred current spec-only cases. Several exercise the same
+These are the 101 current spec-only cases. Several exercise the same
 limitation, so their count is not a count of distinct bugs.
+
+- [Component stream reference release creates a fresh stream](../tests/u13/test_component_free_recording_stream_invalidates_only_its_cached_pair.sv).
 
 - [Phase implementation lookup returns a node](../tests/u09/test_phase_implementation_lookup_stays_within_each_local_schedule.sv).
 - [Register/memory coverage previous-mask return](../tests/u18/test_coverage_register_and_memory_controls_return_the_previously_enabled_models.sv).
@@ -505,7 +514,7 @@ limitation, so their count is not a count of distinct bugs.
 
 ## Simulator and library combinations
 
-Ghost's bundled-library evidence has 198 matches and 807 failures with each
+Ghost's bundled-library evidence has 199 matches and 826 failures with each
 of seeds 1 and 73; the same tests fail at both seeds. The current executable
 snapshot has no pinned-mode measurement. [Results and methodology](results.md)
 describes the evidence assembly. Bundled results
@@ -514,7 +523,7 @@ problem from a library problem or establish results for the locked library.
 Private identity, profiles and diagnostics are not published.
 
 The tested kirimasim executable reports `uvm_object_wrapper` as unsupported
-on 996 cases. Nine cases record `fail` earlier on missing library APIs: one time
+on 1016 cases. Nine cases record `fail` earlier on missing library APIs: one time
 setter, six sequence-library cases and two HDL slice cases. Neither result is a pass or evidence
 of UVM execution beyond those compilation blockers.
 
