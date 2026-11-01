@@ -120,8 +120,8 @@ utilitiesマクロとconstructorを使ってlibraryのsubtypeを生成するこ�
 その識別名です。名前を持つ個別のinstanceではなく型を識別します。payloadの検索にはhandleを使い、
 型名のテストは特定の修飾形式を指定せず、同一性・相違を比較します。
 
-**databaseの接続hook** — database拡張が実装するopen／close処理です。local検査系で呼出し数と成否を制御し、
-streamや外部backendを開きません。接続状態の検査はrecordingの動作を示しません。
+**databaseの接続hook** — database拡張が実装するopen／close処理です。接続だけの検査系で外部backendを使わず呼出し数と成否を制御します。
+別のmemory内stream hookがlifecycleのmetadataを検査し、接続状態だけではrecordingの動作を示しません。
 
 **異なるkey数** — poolの占有数は、保存する異なるkey数を数えます。既存keyの値の置換ではentryは増えず、
 欠落keyの生成やkeyの削除では件数が変わり得ます。
@@ -459,3 +459,17 @@ callbackの削除や待機processの取消は行いません。
 
 **modelの照会（Model introspection）** — 設定済みregister modelの親handle、包含object、名前の照会です。
 modelの階層を記述し、それ自体ではaddress-map転送の実行やHDL storageへのアクセスを行いません。
+
+## 記録のlifecycleとfield metadata
+
+**記録stream（Recording stream）** — databaseが所有する、transaction recorderのcontainerです。
+local hookでmemory内streamを用意し、外部databaseや記録したtransaction内容なしでlifecycleを検査できます。
+
+**stream handle（Stream handle）** — staticなlookupでstreamへ解決する整数識別子です。
+close後も有効で、free後に無効になります。正確な数値や将来のID再利用は検査系の範囲外です。
+
+**reset metadata（Reset metadata）** — kindで索引するfieldのreset値です。
+このmetadataの代入／削除は、liveなdesired／mirror状態のresetや物理reset信号のassertとは別です。
+
+**fieldのcompare制御（Field compare control）** — set_compareで選び、get_compareで返すmodelの設定です。
+設定の観測だけでは、mirror readによる比較の実行／抑止は成立しません。

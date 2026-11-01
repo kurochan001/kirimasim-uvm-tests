@@ -1,0 +1,3 @@
+UT: handles valid 1 unique 1 stable 1
+UT: lookup same 1 1
+UT: closed_still_valid 1 peer_valid 1

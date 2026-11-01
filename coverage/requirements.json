@@ -25781,6 +25781,2050 @@
           ]
         }
       ]
+    },
+    {
+      "id": "UVM-RECORDING-CLOSED-STREAM-OPEN-GUARD",
+      "clause": "7.1.4.1",
+      "statement": {
+        "en": "Only an open database accepts stream creation requests.",
+        "ja": "開いたdatabaseだけがstream生成の要求を受け付ける。"
+      },
+      "conditions": {
+        "en": "Attempt stream creation before opening, after connection failure and after successful opening.",
+        "ja": "open前、接続失敗後、open成功後にstream生成を試みる。"
+      },
+      "expected": {
+        "en": "Closed/failed states return null without a stream-hook call; successful opening permits one open stream.",
+        "ja": "closed／failedの状態ではstream hookを呼ばずnullを返し、open成功後に1つの開いたstreamを作れる。"
+      },
+      "limitations": {
+        "en": "Local hooks create in-memory streams and return deterministic connection results; no external database, files or recorder contents are involved. Enumeration uses fresh queues and membership/count without an order or append claim. Stream close/free cases have no open recorders, so cascading recorder cleanup remains separate. Integer handle values and reuse policies are not prescribed.",
+        "ja": "local hookがmemory内streamを生成し、決定的な接続結果を返す。外部database、file、recorder内容は使わない。列挙は新しいqueueで所属／件数を調べ、順序や追加動作を主張しない。streamのclose／freeでは開いたrecorderがなく、連鎖するrecorderのcleanupは別途扱う。整数handleの値や再利用policyは指定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u07/test_recording_database_ignores_stream_opens_until_connection_succeeds",
+          "role": "direct",
+          "expected_observations": [
+            "UT: closed null 1 calls 0",
+            "UT: failed open 0 null 1 calls 0",
+            "UT: connected 1 stream 1 calls 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDING-STREAM-DATABASE-IDENTITY",
+      "clause": "7.2.3.1",
+      "statement": {
+        "en": "An initialized stream reports the database that opened it.",
+        "ja": "初期化済みstreamは、自身を開いたdatabaseを返す。"
+      },
+      "conditions": {
+        "en": "Open explicit-metadata and default-metadata streams from one local database.",
+        "ja": "1つのlocal databaseから、明示metadataと既定metadataのstreamを開く。"
+      },
+      "expected": {
+        "en": "Both database queries return the original database handle.",
+        "ja": "両database照会が元のdatabase handleを返す。"
+      },
+      "limitations": {
+        "en": "Local hooks create in-memory streams and return deterministic connection results; no external database, files or recorder contents are involved. Enumeration uses fresh queues and membership/count without an order or append claim. Stream close/free cases have no open recorders, so cascading recorder cleanup remains separate. Integer handle values and reuse policies are not prescribed.",
+        "ja": "local hookがmemory内streamを生成し、決定的な接続結果を返す。外部database、file、recorder内容は使わない。列挙は新しいqueueで所属／件数を調べ、順序や追加動作を主張しない。streamのclose／freeでは開いたrecorderがなく、連鎖するrecorderのcleanupは別途扱う。整数handleの値や再利用policyは指定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u07/test_recording_stream_open_preserves_database_scope_type_and_hook_arguments",
+          "role": "direct",
+          "expected_observations": [
+            "UT: metadata db 1 name lane scope env.bus type packet",
+            "UT: defaults db 1 scope_empty 1 type_empty 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDING-STREAM-SCOPE-METADATA",
+      "clause": "7.2.3.2",
+      "statement": {
+        "en": "An initialized stream retains the scope supplied on opening.",
+        "ja": "初期化済みstreamは、open時に指定したscopeを保持する。"
+      },
+      "conditions": {
+        "en": "Use explicit env.bus and scope values plus an omitted scope; close one stream.",
+        "ja": "明示したenv.busとscopeの値、および省略scopeを使い、1 streamを閉じる。"
+      },
+      "expected": {
+        "en": "Explicit scopes survive and an omitted scope is empty, including retained closed-stream metadata.",
+        "ja": "明示scopeを保ち、省略scopeは空となり、閉じたstreamのmetadataも保持する。"
+      },
+      "limitations": {
+        "en": "Local hooks create in-memory streams and return deterministic connection results; no external database, files or recorder contents are involved. Enumeration uses fresh queues and membership/count without an order or append claim. Stream close/free cases have no open recorders, so cascading recorder cleanup remains separate. Integer handle values and reuse policies are not prescribed.",
+        "ja": "local hookがmemory内streamを生成し、決定的な接続結果を返す。外部database、file、recorder内容は使わない。列挙は新しいqueueで所属／件数を調べ、順序や追加動作を主張しない。streamのclose／freeでは開いたrecorderがなく、連鎖するrecorderのcleanupは別途扱う。整数handleの値や再利用policyは指定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u07/test_recording_stream_open_preserves_database_scope_type_and_hook_arguments",
+          "role": "direct",
+          "expected_observations": [
+            "UT: metadata db 1 name lane scope env.bus type packet",
+            "UT: defaults db 1 scope_empty 1 type_empty 1"
+          ]
+        },
+        {
+          "test": "u07/test_recording_stream_close_keeps_peer_open_and_retains_closed_metadata",
+          "role": "direct",
+          "expected_observations": [
+            "UT: peer open 1 metadata 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDING-STREAM-TYPE-METADATA",
+      "clause": "7.2.3.3",
+      "statement": {
+        "en": "An initialized stream retains its supplied record type name.",
+        "ja": "初期化済みstreamは、指定したrecordの型名を保持する。"
+      },
+      "conditions": {
+        "en": "Open with packet and with an omitted type name.",
+        "ja": "packetを指定し、別の場合は型名を省略して開く。"
+      },
+      "expected": {
+        "en": "Type names are packet and empty respectively.",
+        "ja": "型名はそれぞれpacketと空になる。"
+      },
+      "limitations": {
+        "en": "Local hooks create in-memory streams and return deterministic connection results; no external database, files or recorder contents are involved. Enumeration uses fresh queues and membership/count without an order or append claim. Stream close/free cases have no open recorders, so cascading recorder cleanup remains separate. Integer handle values and reuse policies are not prescribed.",
+        "ja": "local hookがmemory内streamを生成し、決定的な接続結果を返す。外部database、file、recorder内容は使わない。列挙は新しいqueueで所属／件数を調べ、順序や追加動作を主張しない。streamのclose／freeでは開いたrecorderがなく、連鎖するrecorderのcleanupは別途扱う。整数handleの値や再利用policyは指定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u07/test_recording_stream_open_preserves_database_scope_type_and_hook_arguments",
+          "role": "direct",
+          "expected_observations": [
+            "UT: metadata db 1 name lane scope env.bus type packet",
+            "UT: defaults db 1 scope_empty 1 type_empty 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDING-STREAM-OPEN-HOOK-ARGUMENTS",
+      "clause": "7.2.7.1",
+      "statement": {
+        "en": "A successful stream open invokes do_open with database, scope and stream type.",
+        "ja": "streamのopen成功時は、database、scope、stream型を渡してdo_openを呼ぶ。"
+      },
+      "conditions": {
+        "en": "Return a new local stream from the database hook.",
+        "ja": "database hookから新しいlocal streamを返す。"
+      },
+      "expected": {
+        "en": "The stream hook runs once with the original database and explicit metadata.",
+        "ja": "stream hookを1回呼び、元databaseと明示metadataを渡す。"
+      },
+      "limitations": {
+        "en": "Local hooks create in-memory streams and return deterministic connection results; no external database, files or recorder contents are involved. Enumeration uses fresh queues and membership/count without an order or append claim. Stream close/free cases have no open recorders, so cascading recorder cleanup remains separate. Integer handle values and reuse policies are not prescribed.",
+        "ja": "local hookがmemory内streamを生成し、決定的な接続結果を返す。外部database、file、recorder内容は使わない。列挙は新しいqueueで所属／件数を調べ、順序や追加動作を主張しない。streamのclose／freeでは開いたrecorderがなく、連鎖するrecorderのcleanupは別途扱う。整数handleの値や再利用policyは指定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u07/test_recording_stream_open_preserves_database_scope_type_and_hook_arguments",
+          "role": "direct",
+          "expected_observations": [
+            "UT: hook calls 1 args 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDING-DATABASE-STREAM-ENUMERATION",
+      "clause": "7.1.4.2",
+      "statement": {
+        "en": "Database stream enumeration returns its successful streams and their count.",
+        "ja": "databaseのstream列挙は、自身の生成に成功したstreamと件数を返す。"
+      },
+      "conditions": {
+        "en": "Create two streams, reject a third in the hook and create one in a peer database.",
+        "ja": "2 streamを生成し、3つ目をhookで拒否して、peer databaseに1つ生成する。"
+      },
+      "expected": {
+        "en": "The first database returns exactly its two handles and the peer returns only its own stream.",
+        "ja": "最初のdatabaseは自身の2 handleを正確に返し、peerは自身のstreamだけを返す。"
+      },
+      "limitations": {
+        "en": "Local hooks create in-memory streams and return deterministic connection results; no external database, files or recorder contents are involved. Enumeration uses fresh queues and membership/count without an order or append claim. Stream close/free cases have no open recorders, so cascading recorder cleanup remains separate. Integer handle values and reuse policies are not prescribed. Queue-size prose conflicts with the printed unsigned return signature, an implicit one-bit logic type under IEEE 1800-2023 13.4. The two-entry expected count retains the prose interpretation; this is not assigned as a confirmed library or simulator bug.",
+        "ja": "local hookがmemory内streamを生成し、決定的な接続結果を返す。外部database、file、recorder内容は使わない。列挙は新しいqueueで所属／件数を調べ、順序や追加動作を主張しない。streamのclose／freeでは開いたrecorderがなく、連鎖するrecorderのcleanupは別途扱う。整数handleの値や再利用policyは指定しない。 queue数の本文は、IEEE 1800-2023 13.4では暗黙の1-bit logic型になるunsigned戻り値の記載と矛盾する。2 entryの期待件数は本文の解釈を保ち、確認済みのlibrary／simulatorの不具合には割り当てない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u07/test_recording_database_stream_enumeration_is_local_and_excludes_failed_opens",
+          "role": "direct",
+          "expected_observations": [
+            "UT: local count 2 size 2 members 3",
+            "UT: peer count 1 isolated 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDING-STREAM-CLOSE-HOOK",
+      "clause": "7.2.4.1",
+      "statement": {
+        "en": "Closing a stream invokes its close hook without closing a separate stream.",
+        "ja": "streamを閉じると自身のclose hookを呼び、別streamは閉じない。"
+      },
+      "conditions": {
+        "en": "Open two local streams and explicitly close one.",
+        "ja": "2つのlocal streamを開き、片方を明示的に閉じる。"
+      },
+      "expected": {
+        "en": "The selected hook runs once and the peer stays open.",
+        "ja": "選択したhookは1回動き、peerは開いたままになる。"
+      },
+      "limitations": {
+        "en": "Local hooks create in-memory streams and return deterministic connection results; no external database, files or recorder contents are involved. Enumeration uses fresh queues and membership/count without an order or append claim. Stream close/free cases have no open recorders, so cascading recorder cleanup remains separate. Integer handle values and reuse policies are not prescribed.",
+        "ja": "local hookがmemory内streamを生成し、決定的な接続結果を返す。外部database、file、recorder内容は使わない。列挙は新しいqueueで所属／件数を調べ、順序や追加動作を主張しない。streamのclose／freeでは開いたrecorderがなく、連鎖するrecorderのcleanupは別途扱う。整数handleの値や再利用policyは指定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u07/test_recording_stream_close_keeps_peer_open_and_retains_closed_metadata",
+          "role": "direct",
+          "expected_observations": [
+            "UT: after open 0 closed 1 closes 1",
+            "UT: peer open 1 metadata 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDING-STREAM-OPEN-STATE",
+      "clause": "7.2.4.3",
+      "statement": {
+        "en": "Stream is_open is true only between opening and closing.",
+        "ja": "streamのis_openは、openからcloseまでだけtrueとなる。"
+      },
+      "conditions": {
+        "en": "Observe open, closed and freed stream states.",
+        "ja": "開いた、閉じた、解放したstreamの状態を観測する。"
+      },
+      "expected": {
+        "en": "The open stream reports one and closed/freed states report zero.",
+        "ja": "開いたstreamは1を、閉じた／解放した状態は0を返す。"
+      },
+      "limitations": {
+        "en": "Local hooks create in-memory streams and return deterministic connection results; no external database, files or recorder contents are involved. Enumeration uses fresh queues and membership/count without an order or append claim. Stream close/free cases have no open recorders, so cascading recorder cleanup remains separate. Integer handle values and reuse policies are not prescribed.",
+        "ja": "local hookがmemory内streamを生成し、決定的な接続結果を返す。外部database、file、recorder内容は使わない。列挙は新しいqueueで所属／件数を調べ、順序や追加動作を主張しない。streamのclose／freeでは開いたrecorderがなく、連鎖するrecorderのcleanupは別途扱う。整数handleの値や再利用policyは指定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u07/test_recording_stream_close_keeps_peer_open_and_retains_closed_metadata",
+          "role": "direct",
+          "expected_observations": [
+            "UT: before open 1 closed 0",
+            "UT: after open 0 closed 1 closes 1"
+          ]
+        },
+        {
+          "test": "u07/test_recording_stream_free_invalidates_its_handle_after_explicit_close",
+          "role": "direct",
+          "expected_observations": [
+            "UT: freed open 0 closed 0 handle 0 frees 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDING-STREAM-CLOSED-STATE",
+      "clause": "7.2.4.4",
+      "statement": {
+        "en": "Stream is_closed is true after closing and before freeing.",
+        "ja": "streamのis_closedは、close後からfree前までtrueとなる。"
+      },
+      "conditions": {
+        "en": "Observe the same stream through open, close and free.",
+        "ja": "同じstreamをopen、close、freeの過程で観測する。"
+      },
+      "expected": {
+        "en": "Closed state is zero while open, one after close and zero after free.",
+        "ja": "closedの状態は、open中に0、close後に1、free後に0となる。"
+      },
+      "limitations": {
+        "en": "Local hooks create in-memory streams and return deterministic connection results; no external database, files or recorder contents are involved. Enumeration uses fresh queues and membership/count without an order or append claim. Stream close/free cases have no open recorders, so cascading recorder cleanup remains separate. Integer handle values and reuse policies are not prescribed.",
+        "ja": "local hookがmemory内streamを生成し、決定的な接続結果を返す。外部database、file、recorder内容は使わない。列挙は新しいqueueで所属／件数を調べ、順序や追加動作を主張しない。streamのclose／freeでは開いたrecorderがなく、連鎖するrecorderのcleanupは別途扱う。整数handleの値や再利用policyは指定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u07/test_recording_stream_close_keeps_peer_open_and_retains_closed_metadata",
+          "role": "direct",
+          "expected_observations": [
+            "UT: before open 1 closed 0",
+            "UT: after open 0 closed 1 closes 1"
+          ]
+        },
+        {
+          "test": "u07/test_recording_stream_free_invalidates_its_handle_after_explicit_close",
+          "role": "direct",
+          "expected_observations": [
+            "UT: freed open 0 closed 0 handle 0 frees 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDING-STREAM-FREE-HOOK",
+      "clause": "7.2.4.2",
+      "statement": {
+        "en": "Freeing a stream invokes its release hook.",
+        "ja": "streamのfreeは、自身の解放hookを呼ぶ。"
+      },
+      "conditions": {
+        "en": "Explicitly close an initialized stream before freeing it.",
+        "ja": "初期化済みstreamを明示的に閉じてから解放する。"
+      },
+      "expected": {
+        "en": "The release hook runs once and the freed lifecycle state is visible.",
+        "ja": "解放hookが1回動き、解放済みのlifecycle状態を観測する。"
+      },
+      "limitations": {
+        "en": "Local hooks create in-memory streams and return deterministic connection results; no external database, files or recorder contents are involved. Enumeration uses fresh queues and membership/count without an order or append claim. Stream close/free cases have no open recorders, so cascading recorder cleanup remains separate. Integer handle values and reuse policies are not prescribed.",
+        "ja": "local hookがmemory内streamを生成し、決定的な接続結果を返す。外部database、file、recorder内容は使わない。列挙は新しいqueueで所属／件数を調べ、順序や追加動作を主張しない。streamのclose／freeでは開いたrecorderがなく、連鎖するrecorderのcleanupは別途扱う。整数handleの値や再利用policyは指定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u07/test_recording_stream_free_invalidates_its_handle_after_explicit_close",
+          "role": "direct",
+          "expected_observations": [
+            "UT: freed open 0 closed 0 handle 0 frees 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDING-STREAM-UNIQUE-HANDLE",
+      "clause": "7.2.6.1",
+      "statement": {
+        "en": "Stream handles are unique and remain valid through close until free invalidates them.",
+        "ja": "streamのhandleは一意で、close後も有効であり、freeによって無効となる。"
+      },
+      "conditions": {
+        "en": "Use equal stream names in different databases and retain an old handle across close/free.",
+        "ja": "異なるdatabaseで同じstream名を使い、close／freeをまたいで以前のhandleを保持する。"
+      },
+      "expected": {
+        "en": "Active handles are nonzero, distinct and stable; a freed stream reports zero.",
+        "ja": "有効handleは非0、互いに異なり安定し、freeしたstreamは0を返す。"
+      },
+      "limitations": {
+        "en": "Local hooks create in-memory streams and return deterministic connection results; no external database, files or recorder contents are involved. Enumeration uses fresh queues and membership/count without an order or append claim. Stream close/free cases have no open recorders, so cascading recorder cleanup remains separate. Integer handle values and reuse policies are not prescribed.",
+        "ja": "local hookがmemory内streamを生成し、決定的な接続結果を返す。外部database、file、recorder内容は使わない。列挙は新しいqueueで所属／件数を調べ、順序や追加動作を主張しない。streamのclose／freeでは開いたrecorderがなく、連鎖するrecorderのcleanupは別途扱う。整数handleの値や再利用policyは指定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u07/test_recording_stream_handles_identify_distinct_streams_across_databases",
+          "role": "direct",
+          "expected_observations": [
+            "UT: handles valid 1 unique 1 stable 1",
+            "UT: closed_still_valid 1 peer_valid 1"
+          ]
+        },
+        {
+          "test": "u07/test_recording_stream_free_invalidates_its_handle_after_explicit_close",
+          "role": "direct",
+          "expected_observations": [
+            "UT: freed open 0 closed 0 handle 0 frees 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDING-STREAM-HANDLE-LOOKUP",
+      "clause": "7.2.6.2",
+      "statement": {
+        "en": "Static handle lookup returns the matching stream until that stream is freed.",
+        "ja": "staticなhandle lookupは、そのstreamをfreeするまで一致するstreamを返す。"
+      },
+      "conditions": {
+        "en": "Look up two active handles, retain one through close and query an old freed handle.",
+        "ja": "2つの有効handleを照会し、片方をclose後も保持して、free済みの以前のhandleを照会する。"
+      },
+      "expected": {
+        "en": "Active/closed lookups preserve exact identities and a freed handle resolves to null.",
+        "ja": "有効／closedのlookupは正確な同一性を保ち、free済みhandleはnullへ解決する。"
+      },
+      "limitations": {
+        "en": "Local hooks create in-memory streams and return deterministic connection results; no external database, files or recorder contents are involved. Enumeration uses fresh queues and membership/count without an order or append claim. Stream close/free cases have no open recorders, so cascading recorder cleanup remains separate. Integer handle values and reuse policies are not prescribed.",
+        "ja": "local hookがmemory内streamを生成し、決定的な接続結果を返す。外部database、file、recorder内容は使わない。列挙は新しいqueueで所属／件数を調べ、順序や追加動作を主張しない。streamのclose／freeでは開いたrecorderがなく、連鎖するrecorderのcleanupは別途扱う。整数handleの値や再利用policyは指定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u07/test_recording_stream_handles_identify_distinct_streams_across_databases",
+          "role": "direct",
+          "expected_observations": [
+            "UT: lookup same 1 1",
+            "UT: closed_still_valid 1 peer_valid 1"
+          ]
+        },
+        {
+          "test": "u07/test_recording_stream_free_invalidates_its_handle_after_explicit_close",
+          "role": "direct",
+          "expected_observations": [
+            "UT: old_handle_missing 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDING-UNINITIALIZED-DATABASE-WARNING",
+      "clause": "7.2.3.1",
+      "statement": {
+        "en": "get_db reports a warning when its stream has not been initialized.",
+        "ja": "get_dbは、streamが未初期化の場合にwarningを報告する。"
+      },
+      "conditions": {
+        "en": "Query each accessor on a fresh stream, then use an opened stream as a control.",
+        "ja": "新しいstreamで各accessorを照会し、開いたstreamを対照として使う。"
+      },
+      "expected": {
+        "en": "The selected pre-initialization query increases the warning count; initialized control queries do not.",
+        "ja": "対象の初期化前の照会でwarning数が増え、初期化済みの対照の照会では増えない。"
+      },
+      "limitations": {
+        "en": "Local hooks create in-memory streams and return deterministic connection results; no external database, files or recorder contents are involved. Enumeration uses fresh queues and membership/count without an order or append claim. Stream close/free cases have no open recorders, so cascading recorder cleanup remains separate. Integer handle values and reuse policies are not prescribed.",
+        "ja": "local hookがmemory内streamを生成し、決定的な接続結果を返す。外部database、file、recorder内容は使わない。列挙は新しいqueueで所属／件数を調べ、順序や追加動作を主張しない。streamのclose／freeでは開いたrecorderがなく、連鎖するrecorderのcleanupは別途扱う。整数handleの値や再利用policyは指定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u07/test_recording_uninitialized_stream_queries_each_report_a_warning",
+          "role": "direct",
+          "expected_observations": [
+            "UT: db warning 1",
+            "UT: initialized no_warning 1 db 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDING-UNINITIALIZED-SCOPE-WARNING",
+      "clause": "7.2.3.2",
+      "statement": {
+        "en": "get_scope reports a warning when its stream has not been initialized.",
+        "ja": "get_scopeは、streamが未初期化の場合にwarningを報告する。"
+      },
+      "conditions": {
+        "en": "Query each accessor on a fresh stream, then use an opened stream as a control.",
+        "ja": "新しいstreamで各accessorを照会し、開いたstreamを対照として使う。"
+      },
+      "expected": {
+        "en": "The selected pre-initialization query increases the warning count; initialized control queries do not.",
+        "ja": "対象の初期化前の照会でwarning数が増え、初期化済みの対照の照会では増えない。"
+      },
+      "limitations": {
+        "en": "Local hooks create in-memory streams and return deterministic connection results; no external database, files or recorder contents are involved. Enumeration uses fresh queues and membership/count without an order or append claim. Stream close/free cases have no open recorders, so cascading recorder cleanup remains separate. Integer handle values and reuse policies are not prescribed.",
+        "ja": "local hookがmemory内streamを生成し、決定的な接続結果を返す。外部database、file、recorder内容は使わない。列挙は新しいqueueで所属／件数を調べ、順序や追加動作を主張しない。streamのclose／freeでは開いたrecorderがなく、連鎖するrecorderのcleanupは別途扱う。整数handleの値や再利用policyは指定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u07/test_recording_uninitialized_stream_queries_each_report_a_warning",
+          "role": "direct",
+          "expected_observations": [
+            "UT: scope warning 1",
+            "UT: initialized no_warning 1 db 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDING-UNINITIALIZED-TYPE-WARNING",
+      "clause": "7.2.3.3",
+      "statement": {
+        "en": "get_stream_type_name reports a warning when its stream has not been initialized.",
+        "ja": "get_stream_type_nameは、streamが未初期化の場合にwarningを報告する。"
+      },
+      "conditions": {
+        "en": "Query each accessor on a fresh stream, then use an opened stream as a control.",
+        "ja": "新しいstreamで各accessorを照会し、開いたstreamを対照として使う。"
+      },
+      "expected": {
+        "en": "The selected pre-initialization query increases the warning count; initialized control queries do not.",
+        "ja": "対象の初期化前の照会でwarning数が増え、初期化済みの対照の照会では増えない。"
+      },
+      "limitations": {
+        "en": "Local hooks create in-memory streams and return deterministic connection results; no external database, files or recorder contents are involved. Enumeration uses fresh queues and membership/count without an order or append claim. Stream close/free cases have no open recorders, so cascading recorder cleanup remains separate. Integer handle values and reuse policies are not prescribed.",
+        "ja": "local hookがmemory内streamを生成し、決定的な接続結果を返す。外部database、file、recorder内容は使わない。列挙は新しいqueueで所属／件数を調べ、順序や追加動作を主張しない。streamのclose／freeでは開いたrecorderがなく、連鎖するrecorderのcleanupは別途扱う。整数handleの値や再利用policyは指定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u07/test_recording_uninitialized_stream_queries_each_report_a_warning",
+          "role": "direct",
+          "expected_observations": [
+            "UT: type warning 1",
+            "UT: initialized no_warning 1 db 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDING-LINK-LEFT-SET",
+      "clause": "7.3.1.3.2",
+      "statement": {
+        "en": "Link left-endpoint assignment invokes its setter hook.",
+        "ja": "linkの左endpointの代入は、そのsetter hookを呼ぶ。"
+      },
+      "conditions": {
+        "en": "Assign two distinct objects together, replace the endpoints individually and retrieve both.",
+        "ja": "異なる2 objectをまとめて代入し、endpointを個別に置換して両方を取得する。"
+      },
+      "expected": {
+        "en": "Replacement reaches the stored left endpoint and left setter counts include direct and combined calls.",
+        "ja": "置換は保存した左endpointへ届き、左setterの件数は直接呼出しとまとめた呼出しを含む。"
+      },
+      "limitations": {
+        "en": "A user subtype supplies endpoint storage and counts virtual hook calls. Combined set requires both sides without fixing callback order. Concrete prefills use explicit names and exact object handles. These are link descriptors, not database link persistence or transaction recordings; printed default-name/example inconsistencies are not interpreted.",
+        "ja": "user subtypeがendpointの保存とvirtual hookの呼出し計数を実装する。まとめたsetはcallback順を固定せず両側を要求する。具体型のprefillは明示名と正確なobject handleを使う。linkのdescriptorであり、database内linkの永続化やtransactionの記録ではない。記載された既定名／例の不整合は解釈しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u07/test_recording_links_dispatch_endpoint_hooks_and_preserve_prefilled_identities",
+          "role": "direct",
+          "expected_observations": [
+            "UT: replaced identity 1 1",
+            "UT: hooks sets 2/2 gets 2/2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDING-LINK-RIGHT-SET",
+      "clause": "7.3.1.3.4",
+      "statement": {
+        "en": "Link right-endpoint assignment invokes its setter hook.",
+        "ja": "linkの右endpointの代入は、そのsetter hookを呼ぶ。"
+      },
+      "conditions": {
+        "en": "Assign two distinct objects together, replace the endpoints individually and retrieve both.",
+        "ja": "異なる2 objectをまとめて代入し、endpointを個別に置換して両方を取得する。"
+      },
+      "expected": {
+        "en": "Replacement reaches the stored right endpoint and right setter counts include direct and combined calls.",
+        "ja": "置換は保存した右endpointへ届き、右setterの件数は直接呼出しとまとめた呼出しを含む。"
+      },
+      "limitations": {
+        "en": "A user subtype supplies endpoint storage and counts virtual hook calls. Combined set requires both sides without fixing callback order. Concrete prefills use explicit names and exact object handles. These are link descriptors, not database link persistence or transaction recordings; printed default-name/example inconsistencies are not interpreted.",
+        "ja": "user subtypeがendpointの保存とvirtual hookの呼出し計数を実装する。まとめたsetはcallback順を固定せず両側を要求する。具体型のprefillは明示名と正確なobject handleを使う。linkのdescriptorであり、database内linkの永続化やtransactionの記録ではない。記載された既定名／例の不整合は解釈しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u07/test_recording_links_dispatch_endpoint_hooks_and_preserve_prefilled_identities",
+          "role": "direct",
+          "expected_observations": [
+            "UT: replaced identity 1 1",
+            "UT: hooks sets 2/2 gets 2/2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDING-LINK-LEFT-GET",
+      "clause": "7.3.1.3.1",
+      "statement": {
+        "en": "Link left-endpoint retrieval invokes its getter hook and returns that object.",
+        "ja": "linkの左endpointの取得は、そのgetter hookを呼んでobjectを返す。"
+      },
+      "conditions": {
+        "en": "Assign two distinct objects together, replace the endpoints individually and retrieve both.",
+        "ja": "異なる2 objectをまとめて代入し、endpointを個別に置換して両方を取得する。"
+      },
+      "expected": {
+        "en": "Both observed left handles match and the getter count is two.",
+        "ja": "観測する両左handleが一致し、getter件数は2になる。"
+      },
+      "limitations": {
+        "en": "A user subtype supplies endpoint storage and counts virtual hook calls. Combined set requires both sides without fixing callback order. Concrete prefills use explicit names and exact object handles. These are link descriptors, not database link persistence or transaction recordings; printed default-name/example inconsistencies are not interpreted.",
+        "ja": "user subtypeがendpointの保存とvirtual hookの呼出し計数を実装する。まとめたsetはcallback順を固定せず両側を要求する。具体型のprefillは明示名と正確なobject handleを使う。linkのdescriptorであり、database内linkの永続化やtransactionの記録ではない。記載された既定名／例の不整合は解釈しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u07/test_recording_links_dispatch_endpoint_hooks_and_preserve_prefilled_identities",
+          "role": "direct",
+          "expected_observations": [
+            "UT: combined identity 1 1",
+            "UT: replaced identity 1 1",
+            "UT: hooks sets 2/2 gets 2/2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDING-LINK-RIGHT-GET",
+      "clause": "7.3.1.3.3",
+      "statement": {
+        "en": "Link right-endpoint retrieval invokes its getter hook and returns that object.",
+        "ja": "linkの右endpointの取得は、そのgetter hookを呼んでobjectを返す。"
+      },
+      "conditions": {
+        "en": "Assign two distinct objects together, replace the endpoints individually and retrieve both.",
+        "ja": "異なる2 objectをまとめて代入し、endpointを個別に置換して両方を取得する。"
+      },
+      "expected": {
+        "en": "Both observed right handles match and the getter count is two.",
+        "ja": "観測する両右handleが一致し、getter件数は2になる。"
+      },
+      "limitations": {
+        "en": "A user subtype supplies endpoint storage and counts virtual hook calls. Combined set requires both sides without fixing callback order. Concrete prefills use explicit names and exact object handles. These are link descriptors, not database link persistence or transaction recordings; printed default-name/example inconsistencies are not interpreted.",
+        "ja": "user subtypeがendpointの保存とvirtual hookの呼出し計数を実装する。まとめたsetはcallback順を固定せず両側を要求する。具体型のprefillは明示名と正確なobject handleを使う。linkのdescriptorであり、database内linkの永続化やtransactionの記録ではない。記載された既定名／例の不整合は解釈しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u07/test_recording_links_dispatch_endpoint_hooks_and_preserve_prefilled_identities",
+          "role": "direct",
+          "expected_observations": [
+            "UT: combined identity 1 1",
+            "UT: replaced identity 1 1",
+            "UT: hooks sets 2/2 gets 2/2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDING-LINK-COMBINED-SET",
+      "clause": "7.3.1.3.5",
+      "statement": {
+        "en": "Combined link set passes both supplied endpoints through their setter hooks.",
+        "ja": "まとめたlinkのsetは、指定した両endpointをそれぞれのsetter hookへ渡す。"
+      },
+      "conditions": {
+        "en": "Assign two distinct objects together, replace the endpoints individually and retrieve both.",
+        "ja": "異なる2 objectをまとめて代入し、endpointを個別に置換して両方を取得する。"
+      },
+      "expected": {
+        "en": "Both original handles are returned and each setter is counted for combined plus direct assignment.",
+        "ja": "両元handleを返し、各setterをまとめた代入と直接代入について数える。"
+      },
+      "limitations": {
+        "en": "A user subtype supplies endpoint storage and counts virtual hook calls. Combined set requires both sides without fixing callback order. Concrete prefills use explicit names and exact object handles. These are link descriptors, not database link persistence or transaction recordings; printed default-name/example inconsistencies are not interpreted.",
+        "ja": "user subtypeがendpointの保存とvirtual hookの呼出し計数を実装する。まとめたsetはcallback順を固定せず両側を要求する。具体型のprefillは明示名と正確なobject handleを使う。linkのdescriptorであり、database内linkの永続化やtransactionの記録ではない。記載された既定名／例の不整合は解釈しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u07/test_recording_links_dispatch_endpoint_hooks_and_preserve_prefilled_identities",
+          "role": "direct",
+          "expected_observations": [
+            "UT: combined identity 1 1",
+            "UT: hooks sets 2/2 gets 2/2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDING-PARENT-CHILD-PREFILLED-LINK",
+      "clause": "7.3.2.2.2",
+      "statement": {
+        "en": "The concrete get_link helper creates a link initialized with the supplied endpoints and name.",
+        "ja": "具体型のget_link helperは、指定endpointと名前で初期化したlinkを生成する。"
+      },
+      "conditions": {
+        "en": "Pass two distinct object handles and an explicit helper name.",
+        "ja": "異なる2 object handleとhelperの明示名を渡す。"
+      },
+      "expected": {
+        "en": "The resulting link retains both exact handles and the explicit name.",
+        "ja": "生成したlinkは、両方の正確なhandleと明示名を保持する。"
+      },
+      "limitations": {
+        "en": "A user subtype supplies endpoint storage and counts virtual hook calls. Combined set requires both sides without fixing callback order. Concrete prefills use explicit names and exact object handles. These are link descriptors, not database link persistence or transaction recordings; printed default-name/example inconsistencies are not interpreted.",
+        "ja": "user subtypeがendpointの保存とvirtual hookの呼出し計数を実装する。まとめたsetはcallback順を固定せず両側を要求する。具体型のprefillは明示名と正確なobject handleを使う。linkのdescriptorであり、database内linkの永続化やtransactionの記録ではない。記載された既定名／例の不整合は解釈しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u07/test_recording_links_dispatch_endpoint_hooks_and_preserve_prefilled_identities",
+          "role": "direct",
+          "expected_observations": [
+            "UT: prefilled 0 identity 1 1 name parent_child"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDING-CAUSE-EFFECT-PREFILLED-LINK",
+      "clause": "7.3.3.2.2",
+      "statement": {
+        "en": "The concrete get_link helper creates a link initialized with the supplied endpoints and name.",
+        "ja": "具体型のget_link helperは、指定endpointと名前で初期化したlinkを生成する。"
+      },
+      "conditions": {
+        "en": "Pass two distinct object handles and an explicit helper name.",
+        "ja": "異なる2 object handleとhelperの明示名を渡す。"
+      },
+      "expected": {
+        "en": "The resulting link retains both exact handles and the explicit name.",
+        "ja": "生成したlinkは、両方の正確なhandleと明示名を保持する。"
+      },
+      "limitations": {
+        "en": "A user subtype supplies endpoint storage and counts virtual hook calls. Combined set requires both sides without fixing callback order. Concrete prefills use explicit names and exact object handles. These are link descriptors, not database link persistence or transaction recordings; printed default-name/example inconsistencies are not interpreted.",
+        "ja": "user subtypeがendpointの保存とvirtual hookの呼出し計数を実装する。まとめたsetはcallback順を固定せず両側を要求する。具体型のprefillは明示名と正確なobject handleを使う。linkのdescriptorであり、database内linkの永続化やtransactionの記録ではない。記載された既定名／例の不整合は解釈しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u07/test_recording_links_dispatch_endpoint_hooks_and_preserve_prefilled_identities",
+          "role": "direct",
+          "expected_observations": [
+            "UT: prefilled 1 identity 1 1 name cause_effect"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDING-RELATED-PREFILLED-LINK",
+      "clause": "7.3.4.2.2",
+      "statement": {
+        "en": "The concrete get_link helper creates a link initialized with the supplied endpoints and name.",
+        "ja": "具体型のget_link helperは、指定endpointと名前で初期化したlinkを生成する。"
+      },
+      "conditions": {
+        "en": "Pass two distinct object handles and an explicit helper name.",
+        "ja": "異なる2 object handleとhelperの明示名を渡す。"
+      },
+      "expected": {
+        "en": "The resulting link retains both exact handles and the explicit name.",
+        "ja": "生成したlinkは、両方の正確なhandleと明示名を保持する。"
+      },
+      "limitations": {
+        "en": "A user subtype supplies endpoint storage and counts virtual hook calls. Combined set requires both sides without fixing callback order. Concrete prefills use explicit names and exact object handles. These are link descriptors, not database link persistence or transaction recordings; printed default-name/example inconsistencies are not interpreted.",
+        "ja": "user subtypeがendpointの保存とvirtual hookの呼出し計数を実装する。まとめたsetはcallback順を固定せず両側を要求する。具体型のprefillは明示名と正確なobject handleを使う。linkのdescriptorであり、database内linkの永続化やtransactionの記録ではない。記載された既定名／例の不整合は解釈しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u07/test_recording_links_dispatch_endpoint_hooks_and_preserve_prefilled_identities",
+          "role": "direct",
+          "expected_observations": [
+            "UT: prefilled 2 identity 1 1 name related"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-ACCESS-POLICY-REPLACEMENT",
+      "clause": "18.5.4.6",
+      "statement": {
+        "en": "set_access returns the previous field policy and installs its new local policy.",
+        "ja": "set_accessは以前のfield policyを返し、新しいlocal policyを設定する。"
+      },
+      "conditions": {
+        "en": "Change RW to RO to W1C while another field and register remain configured RW.",
+        "ja": "別fieldとregisterをRWのまま保ち、RWからRO、W1Cへ変更する。"
+      },
+      "expected": {
+        "en": "Previous values are RW/RO; neighbors remain RW and stored desired/mirrored data are unchanged.",
+        "ja": "以前の値はRW／ROで、隣接fieldはRWを保ち、保存したdesired／mirror dataは変わらない。"
+      },
+      "limitations": {
+        "en": "Configured field metadata and desired/mirrored values only; no RTL storage, reset signal, bus access or physical compare operation. Custom policies are registered names without a user access algorithm. Compare/volatility controls establish their stored settings only. Absent-reset fallback is checked with equal desired/mirrored values to avoid interpreting an unspecified divergence.",
+        "ja": "設定したfield metadataとdesired／mirror値だけを扱い、RTL storage、reset信号、bus access、物理的なcompare処理は使わない。custom policyは登録名であり、userのaccess algorithmはない。compare／volatilityの制御は保存設定だけを示す。resetがない場合のfallbackはdesired／mirror値を等しくして、未指定の乖離を解釈しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_field_access_changes_return_the_previous_policy_and_stay_instance_local",
+          "role": "direct",
+          "expected_observations": [
+            "UT: first previous RW current RO peer RW",
+            "UT: second previous RO current W1C neighbor RW",
+            "UT: stored desired 11 mirror 11 peer 33"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-CUSTOM-ACCESS-REGISTRATION",
+      "clause": "18.5.4.7",
+      "statement": {
+        "en": "Access registration normalizes policy names to uppercase and reports whether a name was newly defined.",
+        "ja": "access登録はpolicy名を大文字に正規化し、名前が新しく定義されたかを返す。"
+      },
+      "conditions": {
+        "en": "Register a lowercase custom name, repeat in uppercase and register built-in RW.",
+        "ja": "小文字のcustom名を登録し、大文字で繰り返し、組み込みRWを登録する。"
+      },
+      "expected": {
+        "en": "The first registration returns one, duplicates return zero and stored custom access uses uppercase.",
+        "ja": "最初の登録は1、重複は0を返し、保存したcustom accessは大文字になる。"
+      },
+      "limitations": {
+        "en": "Configured field metadata and desired/mirrored values only; no RTL storage, reset signal, bus access or physical compare operation. Custom policies are registered names without a user access algorithm. Compare/volatility controls establish their stored settings only. Absent-reset fallback is checked with equal desired/mirrored values to avoid interpreting an unspecified divergence.",
+        "ja": "設定したfield metadataとdesired／mirror値だけを扱い、RTL storage、reset信号、bus access、物理的なcompare処理は使わない。custom policyは登録名であり、userのaccess algorithmはない。compare／volatilityの制御は保存設定だけを示す。resetがない場合のfallbackはdesired／mirror値を等しくして、未指定の乖離を解釈しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_field_custom_access_registration_normalizes_names_and_distinguishes_builtins",
+          "role": "direct",
+          "expected_observations": [
+            "UT: registration new 1 duplicate 0 builtin 0",
+            "UT: custom previous RW current LOCAL_POLICY known 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-BUILTIN-ACCESS-CLASSIFICATION",
+      "clause": "18.5.4.8",
+      "statement": {
+        "en": "is_known_access classifies built-in policies rather than every registered name.",
+        "ja": "is_known_accessは、登録済みの全名前ではなく、組み込みpolicyを分類する。"
+      },
+      "conditions": {
+        "en": "Select a registered custom policy, then restore built-in RW with an RW peer.",
+        "ja": "登録したcustom policyを選び、RWのpeerとともに組み込みRWへ戻す。"
+      },
+      "expected": {
+        "en": "The custom policy is not built-in; restored and peer RW policies are known.",
+        "ja": "custom policyは組み込みではなく、戻したRWとpeerのRWは既知となる。"
+      },
+      "limitations": {
+        "en": "Configured field metadata and desired/mirrored values only; no RTL storage, reset signal, bus access or physical compare operation. Custom policies are registered names without a user access algorithm. Compare/volatility controls establish their stored settings only. Absent-reset fallback is checked with equal desired/mirrored values to avoid interpreting an unspecified divergence.",
+        "ja": "設定したfield metadataとdesired／mirror値だけを扱い、RTL storage、reset信号、bus access、物理的なcompare処理は使わない。custom policyは登録名であり、userのaccess algorithmはない。compare／volatilityの制御は保存設定だけを示す。resetがない場合のfallbackはdesired／mirror値を等しくして、未指定の乖離を解釈しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_field_custom_access_registration_normalizes_names_and_distinguishes_builtins",
+          "role": "direct",
+          "expected_observations": [
+            "UT: custom previous RW current LOCAL_POLICY known 0",
+            "UT: restored previous LOCAL_POLICY known 1 peer_known 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-VOLATILITY-LOCAL-CONTROL",
+      "clause": "18.5.4.9",
+      "statement": {
+        "en": "Volatility updates affect only the selected field setting.",
+        "ja": "volatility更新は、選択したfieldの設定だけに作用する。"
+      },
+      "conditions": {
+        "en": "Enable, disable and move the volatile setting between two fields.",
+        "ja": "2 field間でvolatile設定を有効、無効にし、移す。"
+      },
+      "expected": {
+        "en": "Settings stay local and desired/mirrored data remain 11.",
+        "ja": "設定はlocalを保ち、desired／mirror dataは11を保持する。"
+      },
+      "limitations": {
+        "en": "Configured field metadata and desired/mirrored values only; no RTL storage, reset signal, bus access or physical compare operation. Custom policies are registered names without a user access algorithm. Compare/volatility controls establish their stored settings only. Absent-reset fallback is checked with equal desired/mirrored values to avoid interpreting an unspecified divergence.",
+        "ja": "設定したfield metadataとdesired／mirror値だけを扱い、RTL storage、reset信号、bus access、物理的なcompare処理は使わない。custom policyは登録名であり、userのaccess algorithmはない。compare／volatilityの制御は保存設定だけを示す。resetがない場合のfallbackはdesired／mirror値を等しくして、未指定の乖離を解釈しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_field_volatility_updates_do_not_modify_desired_or_mirrored_values",
+          "role": "direct",
+          "expected_observations": [
+            "UT: volatile first 1 neighbor 0 peer 0",
+            "UT: switched first 0 peer 1 desired 11 mirror 11"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-COMPARE-LOCAL-CONTROL",
+      "clause": "18.5.5.15",
+      "statement": {
+        "en": "Field compare settings retain explicit values and the setter default UVM_CHECK independently.",
+        "ja": "fieldのcompare設定は、明示値とsetter既定のUVM_CHECKを独立に保持する。"
+      },
+      "conditions": {
+        "en": "Set one field to NO_CHECK and its peer to CHECK, then call the first setter without arguments.",
+        "ja": "片方をNO_CHECK、peerをCHECKとし、最初のsetterを引数なしで呼ぶ。"
+      },
+      "expected": {
+        "en": "The first returns to CHECK while the peer can independently become NO_CHECK.",
+        "ja": "最初はCHECKに戻り、peerは独立にNO_CHECKへ変更できる。"
+      },
+      "limitations": {
+        "en": "Configured field metadata and desired/mirrored values only; no RTL storage, reset signal, bus access or physical compare operation. Custom policies are registered names without a user access algorithm. Compare/volatility controls establish their stored settings only. Absent-reset fallback is checked with equal desired/mirrored values to avoid interpreting an unspecified divergence.",
+        "ja": "設定したfield metadataとdesired／mirror値だけを扱い、RTL storage、reset信号、bus access、物理的なcompare処理は使わない。custom policyは登録名であり、userのaccess algorithmはない。compare／volatilityの制御は保存設定だけを示す。resetがない場合のfallbackはdesired／mirror値を等しくして、未指定の乖離を解釈しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_field_compare_policy_setter_default_and_peer_controls_are_independent",
+          "role": "direct",
+          "expected_observations": [
+            "UT: explicit first_no_check 1 peer_check 1",
+            "UT: default first_check 1 peer_no_check 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-RESET-VALUE-QUERY-FALLBACK",
+      "clause": "18.5.5.6",
+      "statement": {
+        "en": "Reset queries return the configured kind value or current field value for an absent kind.",
+        "ja": "reset照会は、設定したkindの値を返し、欠けたkindでは現在のfield値を返す。"
+      },
+      "conditions": {
+        "en": "Predict equal current values, query an absent kind, then define HARD and SOFT metadata.",
+        "ja": "等しい現在値をpredictし、欠けたkindを照会してから、HARD／SOFT metadataを定義する。"
+      },
+      "expected": {
+        "en": "Absent kind returns 42 and configured kinds return 17/29, independently of live data.",
+        "ja": "欠けたkindは42、設定したkindは17／29を返し、live dataとは独立する。"
+      },
+      "limitations": {
+        "en": "Configured field metadata and desired/mirrored values only; no RTL storage, reset signal, bus access or physical compare operation. Custom policies are registered names without a user access algorithm. Compare/volatility controls establish their stored settings only. Absent-reset fallback is checked with equal desired/mirrored values to avoid interpreting an unspecified divergence.",
+        "ja": "設定したfield metadataとdesired／mirror値だけを扱い、RTL storage、reset信号、bus access、物理的なcompare処理は使わない。custom policyは登録名であり、userのaccess algorithmはない。compare／volatilityの制御は保存設定だけを示す。resetがない場合のfallbackはdesired／mirror値を等しくして、未指定の乖離を解釈しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_field_reset_queries_preserve_kind_values_and_fall_back_when_absent",
+          "role": "direct",
+          "expected_observations": [
+            "UT: absent has 0 value 42 current 42",
+            "UT: metadata hard 17 soft 29 peer 33",
+            "UT: unchanged desired 42 mirror 42"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-RESET-METADATA-ASSIGNMENT",
+      "clause": "18.5.5.7",
+      "statement": {
+        "en": "Setting reset metadata retains separate kind values without applying a reset.",
+        "ja": "reset metadataの設定は、resetを適用せず、kindごとの値を保持する。"
+      },
+      "conditions": {
+        "en": "Set default HARD and explicit SOFT values after prediction.",
+        "ja": "predict後に既定HARDと明示SOFTの値を設定する。"
+      },
+      "expected": {
+        "en": "Queries return the new reset values while desired and mirror remain 42 and the peer retains 33.",
+        "ja": "照会は新しいreset値を返し、desiredとmirrorは42、peerは33を保持する。"
+      },
+      "limitations": {
+        "en": "Configured field metadata and desired/mirrored values only; no RTL storage, reset signal, bus access or physical compare operation. Custom policies are registered names without a user access algorithm. Compare/volatility controls establish their stored settings only. Absent-reset fallback is checked with equal desired/mirrored values to avoid interpreting an unspecified divergence.",
+        "ja": "設定したfield metadataとdesired／mirror値だけを扱い、RTL storage、reset信号、bus access、物理的なcompare処理は使わない。custom policyは登録名であり、userのaccess algorithmはない。compare／volatilityの制御は保存設定だけを示す。resetがない場合のfallbackはdesired／mirror値を等しくして、未指定の乖離を解釈しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_field_reset_queries_preserve_kind_values_and_fall_back_when_absent",
+          "role": "direct",
+          "expected_observations": [
+            "UT: metadata hard 17 soft 29 peer 33",
+            "UT: unchanged desired 42 mirror 42"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-RESET-KIND-DELETION",
+      "clause": "18.5.5.5",
+      "statement": {
+        "en": "has_reset with delete reports prior existence and removes only the selected kind.",
+        "ja": "delete付きhas_resetは以前の有無を返し、指定kindだけを削除する。"
+      },
+      "conditions": {
+        "en": "Define HARD/SOFT, delete HARD twice and retain peer reset metadata.",
+        "ja": "HARD／SOFTを定義し、HARDを2回削除して、peerのreset metadataを保つ。"
+      },
+      "expected": {
+        "en": "First deletion returns one, later deletion returns zero; SOFT/peer metadata and live values remain.",
+        "ja": "最初の削除は1、後の削除は0を返し、SOFT／peerのmetadataとlive値を保持する。"
+      },
+      "limitations": {
+        "en": "Configured field metadata and desired/mirrored values only; no RTL storage, reset signal, bus access or physical compare operation. Custom policies are registered names without a user access algorithm. Compare/volatility controls establish their stored settings only. Absent-reset fallback is checked with equal desired/mirrored values to avoid interpreting an unspecified divergence.",
+        "ja": "設定したfield metadataとdesired／mirror値だけを扱い、RTL storage、reset信号、bus access、物理的なcompare処理は使わない。custom policyは登録名であり、userのaccess algorithmはない。compare／volatilityの制御は保存設定だけを示す。resetがない場合のfallbackはdesired／mirror値を等しくして、未指定の乖離を解釈しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_field_reset_deletion_returns_prior_presence_and_preserves_other_kinds",
+          "role": "direct",
+          "expected_observations": [
+            "UT: deleted prior 1 hard 0 soft 1 peer 1",
+            "UT: removed_kind desired 42 mirror 42 soft_value 29",
+            "UT: absent_delete 0 peer_value 33"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-UNKNOWN-RESET-PRESERVES-STATE",
+      "clause": "18.5.5.4",
+      "statement": {
+        "en": "Reset with an undefined kind leaves desired and mirrored field values unchanged.",
+        "ja": "未定義kindでのresetは、desired／mirrorのfield値を変更しない。"
+      },
+      "conditions": {
+        "en": "Use an unknown kind with divergent values or delete HARD before its default reset.",
+        "ja": "値が乖離した状態で未知kindを使うか、既定reset前にHARDを削除する。"
+      },
+      "expected": {
+        "en": "Unknown reset preserves desired 73/mirror 42; deleted HARD preserves equal values 42.",
+        "ja": "未知resetはdesired 73／mirror 42を保ち、削除済みHARDでは等しい値42を保つ。"
+      },
+      "limitations": {
+        "en": "Configured field metadata and desired/mirrored values only; no RTL storage, reset signal, bus access or physical compare operation. Custom policies are registered names without a user access algorithm. Compare/volatility controls establish their stored settings only. Absent-reset fallback is checked with equal desired/mirrored values to avoid interpreting an unspecified divergence.",
+        "ja": "設定したfield metadataとdesired／mirror値だけを扱い、RTL storage、reset信号、bus access、物理的なcompare処理は使わない。custom policyは登録名であり、userのaccess algorithmはない。compare／volatilityの制御は保存設定だけを示す。resetがない場合のfallbackはdesired／mirror値を等しくして、未指定の乖離を解釈しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_field_reset_kinds_restore_both_model_values_without_touching_neighbors",
+          "role": "direct",
+          "expected_observations": [
+            "UT: unknown desired 73 mirror 42"
+          ]
+        },
+        {
+          "test": "u18/test_reg_field_reset_deletion_returns_prior_presence_and_preserves_other_kinds",
+          "role": "direct",
+          "expected_observations": [
+            "UT: removed_kind desired 42 mirror 42 soft_value 29"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-KIND-RESET-RESTORES-STATE",
+      "clause": "18.5.5.4",
+      "statement": {
+        "en": "A configured field reset restores both desired and mirrored values for its selected kind.",
+        "ja": "設定済みfieldのresetは、選択したkindでdesired／mirrorの両値を復元する。"
+      },
+      "conditions": {
+        "en": "Apply SOFT then default HARD with independent neighboring fields.",
+        "ja": "独立した隣接fieldとともに、SOFT、次に既定HARDを適用する。"
+      },
+      "expected": {
+        "en": "Both values become 29 for SOFT and 11 for HARD, without resetting neighbors or peers.",
+        "ja": "両値はSOFTで29、HARDで11となり、隣接fieldやpeerはresetしない。"
+      },
+      "limitations": {
+        "en": "Configured field metadata and desired/mirrored values only; no RTL storage, reset signal, bus access or physical compare operation. Custom policies are registered names without a user access algorithm. Compare/volatility controls establish their stored settings only. Absent-reset fallback is checked with equal desired/mirrored values to avoid interpreting an unspecified divergence.",
+        "ja": "設定したfield metadataとdesired／mirror値だけを扱い、RTL storage、reset信号、bus access、物理的なcompare処理は使わない。custom policyは登録名であり、userのaccess algorithmはない。compare／volatilityの制御は保存設定だけを示す。resetがない場合のfallbackはdesired／mirror値を等しくして、未指定の乖離を解釈しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_field_reset_kinds_restore_both_model_values_without_touching_neighbors",
+          "role": "direct",
+          "expected_observations": [
+            "UT: soft desired 29 mirror 29 neighbor 22",
+            "UT: hard desired 11 mirror 11 peer 33"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-STATIC-MAXIMUM-WIDTH",
+      "clause": "18.5.4.4",
+      "statement": {
+        "en": "The static field maximum width retains the largest configured field width.",
+        "ja": "staticなfieldの最大幅は、設定したfieldの最大幅を保持する。"
+      },
+      "conditions": {
+        "en": "Create a 20-bit field then a 4-bit field, accounting for any earlier maximum.",
+        "ja": "以前の最大値を考慮し、20-bit field、次に4-bit fieldを生成する。"
+      },
+      "expected": {
+        "en": "The maximum becomes max(previous,20) and does not shrink; individual getters retain 20/4/8 widths.",
+        "ja": "最大値はmax(previous,20)となって減らず、個別getterは20／4／8の幅を保持する。"
+      },
+      "limitations": {
+        "en": "Configured field metadata and desired/mirrored values only; no RTL storage, reset signal, bus access or physical compare operation. Custom policies are registered names without a user access algorithm. Compare/volatility controls establish their stored settings only. Absent-reset fallback is checked with equal desired/mirrored values to avoid interpreting an unspecified divergence.",
+        "ja": "設定したfield metadataとdesired／mirror値だけを扱い、RTL storage、reset信号、bus access、物理的なcompare処理は使わない。custom policyは登録名であり、userのaccess algorithmはない。compare／volatilityの制御は保存設定だけを示す。resetがない場合のfallbackはdesired／mirror値を等しくして、未指定の乖離を解釈しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_field_maximum_width_tracks_the_largest_configured_field_across_models",
+          "role": "direct",
+          "expected_observations": [
+            "UT: largest matched 1 local_width 20",
+            "UT: retained 1 small_width 4 peer_width 8"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM1-CHANNEL-MASTER-DIRECTION-ROUTING",
+      "clause": "12.2.9.1.9",
+      "statement": {
+        "en": "The channel master interface puts requests and retrieves responses from their respective queues.",
+        "ja": "channelのmaster interfaceは、それぞれのqueueへ要求をputし、応答を取得する。"
+      },
+      "conditions": {
+        "en": "Use combined ports with nonblocking traffic and blocked request-put/response-get calls.",
+        "ja": "nonblocking trafficと、待機する要求put／応答getの呼出しでcombined portを使う。"
+      },
+      "expected": {
+        "en": "Values reach the correct typed direction and opposite traffic does not satisfy a pending response get.",
+        "ja": "値は正しい型付き方向へ到達し、逆方向のtrafficでは保留する応答getを満たさない。"
+      },
+      "limitations": {
+        "en": "Normal UVM binding resolution and compatible int-request/string-response types only. Positive delays establish blocked states; one waiter per direction avoids winner-order assumptions. Directions have distinct FIFO storage and no automatic request-ID matching or bus timing is claimed. Existing transport fixtures are sequential, not multiple-outstanding protocols.",
+        "ja": "通常のUVM binding解決と、互換なint要求／string応答型だけを使う。正の遅延で待機状態を確立し、各方向1 waiterとして勝者の順序を仮定しない。方向ごとにFIFO storageを分け、要求IDの自動照合やbus timingは主張しない。既存transport検査系は逐次で、複数outstanding protocolではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_request_response_channel_master_slave_interfaces_route_both_directions",
+          "role": "direct",
+          "expected_observations": [
+            "UT: request 17 17 response answer answer",
+            "UT: empty_request 1 empty_response 1"
+          ]
+        },
+        {
+          "test": "u12/test_request_response_channel_full_request_put_waits_for_request_space_only",
+          "role": "direct",
+          "expected_observations": [
+            "UT: pending 1 request_full 1 response_ready 1",
+            "UT: requests 17 42 response held returned 1"
+          ]
+        },
+        {
+          "test": "u12/test_request_response_channel_master_get_ignores_request_arrivals_until_a_response",
+          "role": "direct",
+          "expected_observations": [
+            "UT: wrong_direction blocked 1 request_ready 1",
+            "UT: response answer request 17 returned 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM1-CHANNEL-SLAVE-DIRECTION-ROUTING",
+      "clause": "12.2.9.1.10",
+      "statement": {
+        "en": "The channel slave interface reads or peeks requests and puts responses in their respective queues.",
+        "ja": "channelのslave interfaceは、各queueで要求のread／peekと応答のputを行う。"
+      },
+      "conditions": {
+        "en": "Use combined ports with a blocked response put or request peek.",
+        "ja": "応答putまたは要求peekが待機するcombined portを使う。"
+      },
+      "expected": {
+        "en": "Values and blocking behavior remain direction-local; response writes do not release a request peeker.",
+        "ja": "値と待機動作は方向ごとにlocalで、応答のwriteでは要求のpeekerを解放しない。"
+      },
+      "limitations": {
+        "en": "Normal UVM binding resolution and compatible int-request/string-response types only. Positive delays establish blocked states; one waiter per direction avoids winner-order assumptions. Directions have distinct FIFO storage and no automatic request-ID matching or bus timing is claimed. Existing transport fixtures are sequential, not multiple-outstanding protocols.",
+        "ja": "通常のUVM binding解決と、互換なint要求／string応答型だけを使う。正の遅延で待機状態を確立し、各方向1 waiterとして勝者の順序を仮定しない。方向ごとにFIFO storageを分け、要求IDの自動照合やbus timingは主張しない。既存transport検査系は逐次で、複数outstanding protocolではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_request_response_channel_master_slave_interfaces_route_both_directions",
+          "role": "direct",
+          "expected_observations": [
+            "UT: request 17 17 response answer answer",
+            "UT: empty_request 1 empty_response 1"
+          ]
+        },
+        {
+          "test": "u12/test_request_response_channel_full_response_put_waits_for_response_space_only",
+          "role": "direct",
+          "expected_observations": [
+            "UT: pending 1 response_full 1 request_ready 1",
+            "UT: first_response first",
+            "UT: second_response second request 17 returned 1"
+          ]
+        },
+        {
+          "test": "u12/test_request_response_channel_slave_peek_waits_for_a_request_and_preserves_its_head",
+          "role": "direct",
+          "expected_observations": [
+            "UT: wrong_direction blocked 1 response_ready 1",
+            "UT: peek 42 retained 1",
+            "UT: request 42 response held drained 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM1-CHANNEL-BLOCKED-PUT-CAPACITY",
+      "clause": "12.2.4.2.1",
+      "statement": {
+        "en": "A blocking put to a full direction waits until that queue has space.",
+        "ja": "満杯の方向へのblocking putは、そのqueueに空きができるまで待つ。"
+      },
+      "conditions": {
+        "en": "Fill both one-entry directions and launch a second put in one direction.",
+        "ja": "両方向の1 entryを満たし、片方向で2番目のputを開始する。"
+      },
+      "expected": {
+        "en": "The put remains pending, returns after its own queue drains and preserves both original direction values.",
+        "ja": "putは保留し、自身のqueueの消費後に戻り、両方向の元の値を保持する。"
+      },
+      "limitations": {
+        "en": "Normal UVM binding resolution and compatible int-request/string-response types only. Positive delays establish blocked states; one waiter per direction avoids winner-order assumptions. Directions have distinct FIFO storage and no automatic request-ID matching or bus timing is claimed. Existing transport fixtures are sequential, not multiple-outstanding protocols.",
+        "ja": "通常のUVM binding解決と、互換なint要求／string応答型だけを使う。正の遅延で待機状態を確立し、各方向1 waiterとして勝者の順序を仮定しない。方向ごとにFIFO storageを分け、要求IDの自動照合やbus timingは主張しない。既存transport検査系は逐次で、複数outstanding protocolではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_request_response_channel_full_request_put_waits_for_request_space_only",
+          "role": "direct",
+          "expected_observations": [
+            "UT: pending 1 request_full 1 response_ready 1",
+            "UT: requests 17 42 response held returned 1"
+          ]
+        },
+        {
+          "test": "u12/test_request_response_channel_full_response_put_waits_for_response_space_only",
+          "role": "direct",
+          "expected_observations": [
+            "UT: pending 1 response_full 1 request_ready 1",
+            "UT: first_response first",
+            "UT: second_response second request 17 returned 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM1-CHANNEL-BLOCKED-RESPONSE-GET",
+      "clause": "12.2.4.2.2",
+      "statement": {
+        "en": "A response get blocks until a response becomes available.",
+        "ja": "応答getは、応答が利用可能になるまで待つ。"
+      },
+      "conditions": {
+        "en": "Start a master get, provide only a request, then write its response.",
+        "ja": "master getを開始し、要求だけを渡してから、応答を書く。"
+      },
+      "expected": {
+        "en": "The get remains pending after the request and returns answer only after the response write.",
+        "ja": "要求の後もgetは保留し、応答writeの後だけでanswerを返す。"
+      },
+      "limitations": {
+        "en": "Normal UVM binding resolution and compatible int-request/string-response types only. Positive delays establish blocked states; one waiter per direction avoids winner-order assumptions. Directions have distinct FIFO storage and no automatic request-ID matching or bus timing is claimed. Existing transport fixtures are sequential, not multiple-outstanding protocols.",
+        "ja": "通常のUVM binding解決と、互換なint要求／string応答型だけを使う。正の遅延で待機状態を確立し、各方向1 waiterとして勝者の順序を仮定しない。方向ごとにFIFO storageを分け、要求IDの自動照合やbus timingは主張しない。既存transport検査系は逐次で、複数outstanding protocolではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_request_response_channel_master_get_ignores_request_arrivals_until_a_response",
+          "role": "direct",
+          "expected_observations": [
+            "UT: wrong_direction blocked 1 request_ready 1",
+            "UT: response answer request 17 returned 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM1-CHANNEL-BLOCKED-REQUEST-PEEK",
+      "clause": "12.2.4.2.3",
+      "statement": {
+        "en": "A request peek blocks until a request exists and leaves that request available.",
+        "ja": "要求peekは要求が存在するまで待ち、その要求を取得可能なまま残す。"
+      },
+      "conditions": {
+        "en": "Start a slave peek, provide only a response, then put request 42 and get it afterwards.",
+        "ja": "slave peekを開始し、応答だけを渡してから、要求42をputし、その後でgetする。"
+      },
+      "expected": {
+        "en": "Opposite traffic does not release the peek; peek/get both return 42 and the queues finally drain.",
+        "ja": "逆方向のtrafficではpeekを解放せず、peek／getはともに42を返し、最後にはqueueが空になる。"
+      },
+      "limitations": {
+        "en": "Normal UVM binding resolution and compatible int-request/string-response types only. Positive delays establish blocked states; one waiter per direction avoids winner-order assumptions. Directions have distinct FIFO storage and no automatic request-ID matching or bus timing is claimed. Existing transport fixtures are sequential, not multiple-outstanding protocols.",
+        "ja": "通常のUVM binding解決と、互換なint要求／string応答型だけを使う。正の遅延で待機状態を確立し、各方向1 waiterとして勝者の順序を仮定しない。方向ごとにFIFO storageを分け、要求IDの自動照合やbus timingは主張しない。既存transport検査系は逐次で、複数outstanding protocolではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_request_response_channel_slave_peek_waits_for_a_request_and_preserves_its_head",
+          "role": "direct",
+          "expected_observations": [
+            "UT: wrong_direction blocked 1 response_ready 1",
+            "UT: peek 42 retained 1",
+            "UT: request 42 response held drained 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM1-ANALYSIS-BOUND-BROADCAST",
+      "clause": "12.2.10.1.4",
+      "statement": {
+        "en": "Analysis write sends the supplied value to every connected receiver.",
+        "ja": "analysis writeは、接続した全受信側へ指定値を送る。"
+      },
+      "conditions": {
+        "en": "Connect two FIFO receivers and write ordered scalar values or one object handle.",
+        "ja": "2 FIFO受信側を接続し、順序付きscalar値または1 object handleを書く。"
+      },
+      "expected": {
+        "en": "Both receivers see every value in source order and the original object handle without modification.",
+        "ja": "両受信側は、source順で全値と、変更しない元のobject handleを観測する。"
+      },
+      "limitations": {
+        "en": "Compatible typed ports/exports/imps are connected before elaboration completes, then called in run_phase. Subscriber membership and FIFO contents are checked without subscriber-order assumptions. Split master/slave imps use sibling request/response implementations whose parent does not implement traffic methods. Failed nonblocking output arguments and diagnostic formats are not inspected.",
+        "ja": "互換な型付きport／export／impをelaboration終了前に接続し、run_phaseで呼ぶ。subscriber順を仮定せず、subscriberの所属とFIFO内容を照会する。分離master／slave impは、親がtraffic methodを実装しない兄弟の要求／応答implementationを使う。失敗するnonblockingの出力引数や診断形式は照会しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_analysis_port_broadcasts_each_write_to_all_receivers",
+          "role": "direct",
+          "expected_observations": [
+            "UT: bindings 2 queued 2 2",
+            "UT: left 81 13 remaining 0",
+            "UT: right 81 13 remaining 0"
+          ]
+        },
+        {
+          "test": "u12/test_analysis_port_broadcast_preserves_object_handle_value",
+          "role": "direct",
+          "expected_observations": [
+            "UT: handles_same 1 1 payloads 17 17"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM1-ANALYSIS-ZERO-SUBSCRIBERS",
+      "clause": "12.2.10.1.3",
+      "statement": {
+        "en": "The analysis port permits zero receivers with an unbounded maximum.",
+        "ja": "analysis portは、最大数を無制限として受信側0件を許す。"
+      },
+      "conditions": {
+        "en": "Construct an unconnected analysis port and write after elaboration.",
+        "ja": "未接続analysis portを生成し、elaboration後にwriteする。"
+      },
+      "expected": {
+        "en": "Bounds are zero/minimum zero/maximum minus one and write returns without a new error.",
+        "ja": "接続数0／最小0／最大-1となり、新しいerrorなしでwriteが戻る。"
+      },
+      "limitations": {
+        "en": "Compatible typed ports/exports/imps are connected before elaboration completes, then called in run_phase. Subscriber membership and FIFO contents are checked without subscriber-order assumptions. Split master/slave imps use sibling request/response implementations whose parent does not implement traffic methods. Failed nonblocking output arguments and diagnostic formats are not inspected.",
+        "ja": "互換な型付きport／export／impをelaboration終了前に接続し、run_phaseで呼ぶ。subscriber順を仮定せず、subscriberの所属とFIFO内容を照会する。分離master／slave impは、親がtraffic methodを実装しない兄弟の要求／応答implementationを使う。失敗するnonblockingの出力引数や診断形式は照会しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_analysis_port_without_subscribers_accepts_write",
+          "role": "direct",
+          "expected_observations": [
+            "UT: bindings 0 minimum 0 maximum -1",
+            "UT: write_returned 1 error_delta 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM1-ANALYSIS-EXPORT-FORWARDING",
+      "clause": "12.2.10.3",
+      "statement": {
+        "en": "An analysis export forwards writes to its terminal receiver.",
+        "ja": "analysis exportは、終端の受信側へwriteを転送する。"
+      },
+      "conditions": {
+        "en": "Connect a port through one export to an analysis FIFO and write 71 then 41.",
+        "ja": "portを1 export経由でanalysis FIFOへ接続し、71、41の順で書く。"
+      },
+      "expected": {
+        "en": "Each binding resolves to one receiver and exactly two queued values are retrieved in order.",
+        "ja": "各bindingは1受信側へ解決し、保存した正確な2値を順番に取得する。"
+      },
+      "limitations": {
+        "en": "Compatible typed ports/exports/imps are connected before elaboration completes, then called in run_phase. Subscriber membership and FIFO contents are checked without subscriber-order assumptions. Split master/slave imps use sibling request/response implementations whose parent does not implement traffic methods. Failed nonblocking output arguments and diagnostic formats are not inspected.",
+        "ja": "互換な型付きport／export／impをelaboration終了前に接続し、run_phaseで呼ぶ。subscriber順を仮定せず、subscriberの所属とFIFO内容を照会する。分離master／slave impは、親がtraffic methodを実装しない兄弟の要求／応答implementationを使う。失敗するnonblockingの出力引数や診断形式は照会しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_analysis_export_forwards_writes_to_fifo_receiver",
+          "role": "direct",
+          "expected_observations": [
+            "UT: bindings port 1 export 1 queued 2",
+            "UT: received 71 41 remaining 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM1-BOUND-BLOCKING-PORT-TRANSFERS",
+      "clause": "12.2.5.1",
+      "statement": {
+        "en": "Compatible blocking port variants forward their supported put/get/peek methods.",
+        "ja": "互換なblocking portの各種型は、対応するput／get／peek methodを転送する。"
+      },
+      "conditions": {
+        "en": "Bind put or combined get/peek ports to two-entry FIFOs.",
+        "ja": "putまたはcombined get／peek portを2 entry FIFOへ接続する。"
+      },
+      "expected": {
+        "en": "Puts retain 13/29, peeks retain 11 without consuming and gets drain 11/22.",
+        "ja": "putは13／29を保持し、peekは消費せず11を保持して、getは11／22を消費する。"
+      },
+      "limitations": {
+        "en": "Compatible typed ports/exports/imps are connected before elaboration completes, then called in run_phase. Subscriber membership and FIFO contents are checked without subscriber-order assumptions. Split master/slave imps use sibling request/response implementations whose parent does not implement traffic methods. Failed nonblocking output arguments and diagnostic formats are not inspected.",
+        "ja": "互換な型付きport／export／impをelaboration終了前に接続し、run_phaseで呼ぶ。subscriber順を仮定せず、subscriberの所属とFIFO内容を照会する。分離master／slave impは、親がtraffic methodを実装しない兄弟の要求／応答implementationを使う。失敗するnonblockingの出力引数や診断形式は照会しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_blocking_put_port_forwards_values_to_fifo",
+          "role": "direct",
+          "expected_observations": [
+            "UT: bindings 1 queued 2",
+            "UT: received 13 29 empty 1"
+          ]
+        },
+        {
+          "test": "u12/test_blocking_get_peek_port_peeks_then_consumes_in_order",
+          "role": "direct",
+          "expected_observations": [
+            "UT: peeks 11 11 used 2",
+            "UT: gets 11 22 empty 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM1-BOUND-NONBLOCKING-PORT-TRANSFERS",
+      "clause": "12.2.5.1",
+      "statement": {
+        "en": "Compatible nonblocking ports forward availability, acceptance and get/peek results.",
+        "ja": "互換なnonblocking portは、利用可否、受理、get／peekの結果を転送する。"
+      },
+      "conditions": {
+        "en": "Use a one-entry put FIFO and a two-entry get/peek FIFO.",
+        "ja": "1 entryのput FIFOと2 entryのget／peek FIFOを使う。"
+      },
+      "expected": {
+        "en": "A full put is rejected without replacement; successful peek/get values and capacity transitions match their endpoint.",
+        "ja": "満杯のputは置換せず拒否し、成功するpeek／getの値と容量の変化はendpointと一致する。"
+      },
+      "limitations": {
+        "en": "Compatible typed ports/exports/imps are connected before elaboration completes, then called in run_phase. Subscriber membership and FIFO contents are checked without subscriber-order assumptions. Split master/slave imps use sibling request/response implementations whose parent does not implement traffic methods. Failed nonblocking output arguments and diagnostic formats are not inspected.",
+        "ja": "互換な型付きport／export／impをelaboration終了前に接続し、run_phaseで呼ぶ。subscriber順を仮定せず、subscriberの所属とFIFO内容を照会する。分離master／slave impは、親がtraffic methodを実装しない兄弟の要求／応答implementationを使う。失敗するnonblockingの出力引数や診断形式は照会しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_nonblocking_put_port_forwards_acceptance_and_capacity",
+          "role": "direct",
+          "expected_observations": [
+            "UT: initially_available 1",
+            "UT: put_results 1 0 available 0 used 1",
+            "UT: get 1 value 13 available 1"
+          ]
+        },
+        {
+          "test": "u12/test_nonblocking_get_peek_port_preserves_head_until_get",
+          "role": "direct",
+          "expected_observations": [
+            "UT: available get 1 peek 1",
+            "UT: peek 1 11 used 2",
+            "UT: first_get 1 11 used 1",
+            "UT: second_get 1 22 available 0 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM1-SPLIT-BLOCKING-IMP-IMPLEMENTATIONS",
+      "clause": "12.2.7.2.2",
+      "statement": {
+        "en": "Blocking master/slave imps delegate request and response methods to their supplied implementation objects.",
+        "ja": "blocking master／slave impは、指定したimplementation objectへ要求／応答methodを委譲する。"
+      },
+      "conditions": {
+        "en": "Use different request/response types and separate sibling FIFO implementations.",
+        "ja": "異なる要求／応答型と、別々の兄弟FIFO implementationを使う。"
+      },
+      "expected": {
+        "en": "Master puts request 11 and reads answer; slave reads request 17 and puts reply through the correct siblings.",
+        "ja": "masterは正しい兄弟経由で要求11をputしanswerを読み、slaveは要求17を読んでreplyをputする。"
+      },
+      "limitations": {
+        "en": "Compatible typed ports/exports/imps are connected before elaboration completes, then called in run_phase. Subscriber membership and FIFO contents are checked without subscriber-order assumptions. Split master/slave imps use sibling request/response implementations whose parent does not implement traffic methods. Failed nonblocking output arguments and diagnostic formats are not inspected.",
+        "ja": "互換な型付きport／export／impをelaboration終了前に接続し、run_phaseで呼ぶ。subscriber順を仮定せず、subscriberの所属とFIFO内容を照会する。分離master／slave impは、親がtraffic methodを実装しない兄弟の要求／応答implementationを使う。失敗するnonblockingの出力引数や診断形式は照会しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_blocking_master_imp_delegates_requests_and_responses_to_distinct_siblings",
+          "role": "direct",
+          "expected_observations": [
+            "UT: request 11 response_head answer response answer"
+          ]
+        },
+        {
+          "test": "u12/test_blocking_slave_imp_delegates_requests_and_responses_to_distinct_siblings",
+          "role": "direct",
+          "expected_observations": [
+            "UT: request_head 17 request 17 response reply"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM1-SPLIT-NONBLOCKING-IMP-IMPLEMENTATIONS",
+      "clause": "12.2.7.2.2",
+      "statement": {
+        "en": "Nonblocking master/slave imps delegate availability and traffic to the supplied request/response implementations.",
+        "ja": "nonblocking master／slave impは、利用可否とtrafficを指定した要求／応答implementationへ委譲する。"
+      },
+      "conditions": {
+        "en": "Independently fill request/response siblings, then peek and get through the imp.",
+        "ja": "要求／応答の兄弟を独立に満たし、imp経由でpeek／getする。"
+      },
+      "expected": {
+        "en": "Capacity/rejection and typed head values stay with their selected sibling; unavailable reads return false.",
+        "ja": "容量／拒否と型付きの先頭値は選択した兄弟に留まり、取得不能のreadはfalseを返す。"
+      },
+      "limitations": {
+        "en": "Compatible typed ports/exports/imps are connected before elaboration completes, then called in run_phase. Subscriber membership and FIFO contents are checked without subscriber-order assumptions. Split master/slave imps use sibling request/response implementations whose parent does not implement traffic methods. Failed nonblocking output arguments and diagnostic formats are not inspected.",
+        "ja": "互換な型付きport／export／impをelaboration終了前に接続し、run_phaseで呼ぶ。subscriber順を仮定せず、subscriberの所属とFIFO内容を照会する。分離master／slave impは、親がtraffic methodを実装しない兄弟の要求／応答implementationを使う。失敗するnonblockingの出力引数や診断形式は照会しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_nonblocking_master_imp_routes_capacity_and_response_peek_to_correct_siblings",
+          "role": "direct",
+          "expected_observations": [
+            "UT: accepted 1 rejected 1 request_full 1 response_empty 1",
+            "UT: peek_ok 1 get_ok 1 response ready ready request 21 empty 1"
+          ]
+        },
+        {
+          "test": "u12/test_nonblocking_slave_imp_routes_request_availability_and_response_capacity",
+          "role": "direct",
+          "expected_observations": [
+            "UT: unavailable 1 cannot_peek 1",
+            "UT: read 1 1 values 31 31 accepted 1 rejected 1 response first"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM1-CHANNEL-REQUEST-FIFO-ORDER",
+      "clause": "12.2.9.1.3",
+      "statement": {
+        "en": "The request export stores accepted requests in its configured FIFO.",
+        "ja": "request exportは、設定したFIFOへ受理した要求を保存する。"
+      },
+      "conditions": {
+        "en": "Queue two ordered int requests or fill a one-entry request queue.",
+        "ja": "順序付きint要求を2つ保存するか、1 entry要求queueを満たす。"
+      },
+      "expected": {
+        "en": "Reads preserve source order; a full queue rejects an extra request and retains its first value.",
+        "ja": "readはsource順を保ち、満杯queueは追加要求を拒否して最初の値を保持する。"
+      },
+      "limitations": {
+        "en": "Normal UVM binding resolution and compatible int-request/string-response types only. Positive delays establish blocked states; one waiter per direction avoids winner-order assumptions. Directions have distinct FIFO storage and no automatic request-ID matching or bus timing is claimed. Existing transport fixtures are sequential, not multiple-outstanding protocols.",
+        "ja": "通常のUVM binding解決と、互換なint要求／string応答型だけを使う。正の遅延で待機状態を確立し、各方向1 waiterとして勝者の順序を仮定しない。方向ごとにFIFO storageを分け、要求IDの自動照合やbus timingは主張しない。既存transport検査系は逐次で、複数outstanding protocolではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_request_response_channel_preserves_typed_fifo_order",
+          "role": "direct",
+          "expected_observations": [
+            "UT: requests 11 22 responses reply_a reply_b",
+            "UT: empty_requests 1 empty_responses 1"
+          ]
+        },
+        {
+          "test": "u12/test_request_response_channel_capacities_are_independent",
+          "role": "direct",
+          "expected_observations": [
+            "UT: request_puts 1 0 available 0",
+            "UT: response_puts 1 1 available 0",
+            "UT: extra_response 0",
+            "UT: heads 11 a space_restored 1 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM1-CHANNEL-RESPONSE-FIFO-ORDER",
+      "clause": "12.2.9.1.6",
+      "statement": {
+        "en": "The response export stores accepted responses independently in its configured FIFO.",
+        "ja": "response exportは、設定したFIFOへ受理した応答を独立に保存する。"
+      },
+      "conditions": {
+        "en": "Queue two strings and try an extra response at capacity.",
+        "ja": "2 stringを保存し、容量いっぱいで追加応答を試みる。"
+      },
+      "expected": {
+        "en": "Responses retain source order and rejection preserves the existing response head.",
+        "ja": "応答はsource順を保ち、拒否しても既存の応答先頭を保持する。"
+      },
+      "limitations": {
+        "en": "Normal UVM binding resolution and compatible int-request/string-response types only. Positive delays establish blocked states; one waiter per direction avoids winner-order assumptions. Directions have distinct FIFO storage and no automatic request-ID matching or bus timing is claimed. Existing transport fixtures are sequential, not multiple-outstanding protocols.",
+        "ja": "通常のUVM binding解決と、互換なint要求／string応答型だけを使う。正の遅延で待機状態を確立し、各方向1 waiterとして勝者の順序を仮定しない。方向ごとにFIFO storageを分け、要求IDの自動照合やbus timingは主張しない。既存transport検査系は逐次で、複数outstanding protocolではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_request_response_channel_preserves_typed_fifo_order",
+          "role": "direct",
+          "expected_observations": [
+            "UT: requests 11 22 responses reply_a reply_b",
+            "UT: empty_requests 1 empty_responses 1"
+          ]
+        },
+        {
+          "test": "u12/test_request_response_channel_capacities_are_independent",
+          "role": "direct",
+          "expected_observations": [
+            "UT: request_puts 1 0 available 0",
+            "UT: response_puts 1 1 available 0",
+            "UT: extra_response 0",
+            "UT: heads 11 a space_restored 1 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM1-CHANNEL-RESPONSE-PEEK-RETENTION",
+      "clause": "12.2.9.1.4",
+      "statement": {
+        "en": "Repeated response peeks retain the response head until a get consumes it.",
+        "ja": "繰り返す応答peekは、getが消費するまで応答の先頭を保持する。"
+      },
+      "conditions": {
+        "en": "Peek a response twice then retrieve it.",
+        "ja": "応答を2回peekしてから取得する。"
+      },
+      "expected": {
+        "en": "Both peeks and get return ok and the response queue becomes empty only after get.",
+        "ja": "両peekとgetはokを返し、応答queueはget後にだけ空になる。"
+      },
+      "limitations": {
+        "en": "Normal UVM binding resolution and compatible int-request/string-response types only. Positive delays establish blocked states; one waiter per direction avoids winner-order assumptions. Directions have distinct FIFO storage and no automatic request-ID matching or bus timing is claimed. Existing transport fixtures are sequential, not multiple-outstanding protocols.",
+        "ja": "通常のUVM binding解決と、互換なint要求／string応答型だけを使う。正の遅延で待機状態を確立し、各方向1 waiterとして勝者の順序を仮定しない。方向ごとにFIFO storageを分け、要求IDの自動照合やbus timingは主張しない。既存transport検査系は逐次で、複数outstanding protocolではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_request_response_channel_peeks_retain_both_fifo_heads",
+          "role": "direct",
+          "expected_observations": [
+            "UT: response_peeks ok ok available 1",
+            "UT: consumed 7 ok empty 1 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM1-CHANNEL-REQUEST-PEEK-RETENTION",
+      "clause": "12.2.9.1.5",
+      "statement": {
+        "en": "Repeated request peeks retain the request head until a get consumes it.",
+        "ja": "繰り返す要求peekは、getが消費するまで要求の先頭を保持する。"
+      },
+      "conditions": {
+        "en": "Peek request 7 twice then retrieve it.",
+        "ja": "要求7を2回peekしてから取得する。"
+      },
+      "expected": {
+        "en": "Both peeks and get return 7 and request availability persists through peeks.",
+        "ja": "両peekとgetは7を返し、peek中は要求の利用可否を保つ。"
+      },
+      "limitations": {
+        "en": "Normal UVM binding resolution and compatible int-request/string-response types only. Positive delays establish blocked states; one waiter per direction avoids winner-order assumptions. Directions have distinct FIFO storage and no automatic request-ID matching or bus timing is claimed. Existing transport fixtures are sequential, not multiple-outstanding protocols.",
+        "ja": "通常のUVM binding解決と、互換なint要求／string応答型だけを使う。正の遅延で待機状態を確立し、各方向1 waiterとして勝者の順序を仮定しない。方向ごとにFIFO storageを分け、要求IDの自動照合やbus timingは主張しない。既存transport検査系は逐次で、複数outstanding protocolではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_request_response_channel_peeks_retain_both_fifo_heads",
+          "role": "direct",
+          "expected_observations": [
+            "UT: request_peeks 7 7 available 1",
+            "UT: consumed 7 ok empty 1 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM1-CHANNEL-ZERO-SIZED-REQUEST-FIFO",
+      "clause": "12.2.8.2.1",
+      "statement": {
+        "en": "A zero-sized request FIFO is unbounded.",
+        "ja": "size 0の要求FIFOは無制限となる。"
+      },
+      "conditions": {
+        "en": "Configure both channel queues with size zero and accept three requests before retrieval.",
+        "ja": "channelの両queueをsize 0に設定し、取得前に3要求を受理する。"
+      },
+      "expected": {
+        "en": "Further request puts remain possible and the first head is zero with more data available.",
+        "ja": "さらに要求putが可能なままで、最初の先頭値は0、後続dataも利用可能となる。"
+      },
+      "limitations": {
+        "en": "Normal UVM binding resolution and compatible int-request/string-response types only. Positive delays establish blocked states; one waiter per direction avoids winner-order assumptions. Directions have distinct FIFO storage and no automatic request-ID matching or bus timing is claimed. Existing transport fixtures are sequential, not multiple-outstanding protocols.",
+        "ja": "通常のUVM binding解決と、互換なint要求／string応答型だけを使う。正の遅延で待機状態を確立し、各方向1 waiterとして勝者の順序を仮定しない。方向ごとにFIFO storageを分け、要求IDの自動照合やbus timingは主張しない。既存transport検査系は逐次で、複数outstanding protocolではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_request_response_channel_zero_sizes_allow_unbounded_queues",
+          "role": "direct",
+          "expected_observations": [
+            "UT: can_put request 1 response 1",
+            "UT: heads 0 r0 still_available 1 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM1-CHANNEL-REQUEST-ANALYSIS-NOTIFICATION",
+      "clause": "12.2.9.1.7",
+      "statement": {
+        "en": "Accepted request writes are broadcast through the channel request analysis port.",
+        "ja": "受理した要求のwriteは、channelのrequest analysis portでbroadcastする。"
+      },
+      "conditions": {
+        "en": "Connect a typed monitor and accept request values 11 then 22.",
+        "ja": "型付きmonitorを接続し、要求値11、22を順に受理する。"
+      },
+      "expected": {
+        "en": "The request monitor receives exactly two ordered notifications with those values.",
+        "ja": "要求monitorは、その値で正確な2通知を順に受け取る。"
+      },
+      "limitations": {
+        "en": "Normal UVM binding resolution and compatible int-request/string-response types only. Positive delays establish blocked states; one waiter per direction avoids winner-order assumptions. Directions have distinct FIFO storage and no automatic request-ID matching or bus timing is claimed. Existing transport fixtures are sequential, not multiple-outstanding protocols.",
+        "ja": "通常のUVM binding解決と、互換なint要求／string応答型だけを使う。正の遅延で待機状態を確立し、各方向1 waiterとして勝者の順序を仮定しない。方向ごとにFIFO storageを分け、要求IDの自動照合やbus timingは主張しない。既存transport検査系は逐次で、複数outstanding protocolではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_request_response_channel_analysis_ports_publish_accepted_writes",
+          "role": "direct",
+          "expected_observations": [
+            "UT: notification_counts 2 2",
+            "UT: request_notifications 11 22"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM1-CHANNEL-RESPONSE-ANALYSIS-NOTIFICATION",
+      "clause": "12.2.9.1.8",
+      "statement": {
+        "en": "Accepted response writes are broadcast through the channel response analysis port.",
+        "ja": "受理した応答のwriteは、channelのresponse analysis portでbroadcastする。"
+      },
+      "conditions": {
+        "en": "Connect a typed monitor and accept done1 then done2.",
+        "ja": "型付きmonitorを接続し、done1、done2を順に受理する。"
+      },
+      "expected": {
+        "en": "The response monitor receives exactly two ordered notifications with those values.",
+        "ja": "応答monitorは、その値で正確な2通知を順に受け取る。"
+      },
+      "limitations": {
+        "en": "Normal UVM binding resolution and compatible int-request/string-response types only. Positive delays establish blocked states; one waiter per direction avoids winner-order assumptions. Directions have distinct FIFO storage and no automatic request-ID matching or bus timing is claimed. Existing transport fixtures are sequential, not multiple-outstanding protocols.",
+        "ja": "通常のUVM binding解決と、互換なint要求／string応答型だけを使う。正の遅延で待機状態を確立し、各方向1 waiterとして勝者の順序を仮定しない。方向ごとにFIFO storageを分け、要求IDの自動照合やbus timingは主張しない。既存transport検査系は逐次で、複数outstanding protocolではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_request_response_channel_analysis_ports_publish_accepted_writes",
+          "role": "direct",
+          "expected_observations": [
+            "UT: notification_counts 2 2",
+            "UT: response_notifications done1 done2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM1-CHANNEL-BLOCKING-TRANSPORT-RESPONSE",
+      "clause": "12.2.9.2.2",
+      "statement": {
+        "en": "Blocking transport returns its request response and supports subsequent sequential transactions.",
+        "ja": "blocking transportは要求への応答を返し、後続の逐次transactionも扱う。"
+      },
+      "conditions": {
+        "en": "Delay a single response, then run two sequential request/response pairs.",
+        "ja": "1応答を遅延させ、次に2組の要求／応答を逐次実行する。"
+      },
+      "expected": {
+        "en": "The caller remains blocked until the response and sequential requests 11/22 return first/second respectively.",
+        "ja": "呼出し側は応答まで待機し、逐次の要求11／22はそれぞれfirst／secondを返す。"
+      },
+      "limitations": {
+        "en": "Normal UVM binding resolution and compatible int-request/string-response types only. Positive delays establish blocked states; one waiter per direction avoids winner-order assumptions. Directions have distinct FIFO storage and no automatic request-ID matching or bus timing is claimed. Existing transport fixtures are sequential, not multiple-outstanding protocols.",
+        "ja": "通常のUVM binding解決と、互換なint要求／string応答型だけを使う。正の遅延で待機状態を確立し、各方向1 waiterとして勝者の順序を仮定しない。方向ごとにFIFO storageを分け、要求IDの自動照合やbus timingは主張しない。既存transport検査系は逐次で、複数outstanding protocolではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_transport_channel_waits_for_matching_response",
+          "role": "direct",
+          "expected_observations": [
+            "UT: waiting request 7 returned 0",
+            "UT: completed returned 1 response ack"
+          ]
+        },
+        {
+          "test": "u12/test_transport_channel_reuses_storage_for_sequential_transactions",
+          "role": "direct",
+          "expected_observations": [
+            "UT: requests 11 22 responses first second returned 1"
+          ]
+        }
+      ]
     }
   ]
 }

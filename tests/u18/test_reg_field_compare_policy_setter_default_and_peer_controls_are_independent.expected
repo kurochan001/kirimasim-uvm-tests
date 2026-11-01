@@ -1,0 +1,2 @@
+UT: explicit first_no_check 1 peer_check 1
+UT: default first_check 1 peer_no_check 1

@@ -2,7 +2,7 @@
 
 [English](known-differences.md) · [README](../README.ja.md) · [FAQ](faq.ja.md)
 
-現在の945件と、固定したAccellera UVM 2020.3.1についての記録です。
+現在の965件と、固定したAccellera UVM 2020.3.1についての記録です。
 不一致はテストの結果であり、それだけではシミュレータ・ライブラリ・期待値のどれが原因かは決まりません。
 
 ## 固定版ライブラリの制約
@@ -13,8 +13,15 @@
 付録Eでは選んだ2／3 mapのshared accessと1つの子blockの形も確認します。
 [memoryの範囲](faq.ja.md#memorypredictionmapの制御)と
 [shared accessの範囲](faq.ja.md#memory-accessshared-mapテストの選択)を参照してください。
-それ以外に、M1・M2・M3で次の56件の制約を確認しました。
+それ以外に、M1・M2・M3で次の58件の制約を確認しました。
 不足する必須動作を直接検査する場合は、規格の期待値を変えずに`:oracle: spec`で保持します。
+
+- databaseの`open_stream`は`open_db`を呼び、閉じたdatabaseを暗黙に開く場合があります。
+  7.1.4.1は、databaseが既に開いていなければ要求を無視してnullを返すことを要求します。
+  検査系は、closed、接続失敗、open成功のdatabaseを別々にして独立した対照を保ちます。
+- 新しいstreamは、7.2.3.1〜7.2.3.3が要求する未初期化の`get_db`、`get_scope`、
+  `get_stream_type_name`でのwarningを抑止します。warning gateの初期値が無効です。
+  検査系は、各照会のwarningを1つずつ保持し、初期化済みstreamが静かに有効metadataを返す対照を使います。
 
 - eventのtrigger dispatchは、有効なhookだけでなく無効callbackのhookも呼びます。
   10.7.1.2.2は`callback_mode(0)`でcallbackを無効にします。検査系は、event dataの更新を観測しつつ、
@@ -204,7 +211,12 @@ FIFOの失敗get／peek 4件は、12.2.4.2.6／.8の出力保持の事後条件�
 byteへ丸める物理転送幅の違いは要レビューとし、この2件からライブラリの確定した不具合とは断定しません。
 [端数転送](faq.ja.md#errorの契約と端数転送)も参照してください。
 
-スイート全体では、`verilator@5.052`を付けたテストは852件、specのみのテストは93件です。
+databaseのstream列挙の検査系は、7.1.4.2のqueue数を返す事後条件を保持します。
+2 streamは返すqueueに正しく入りますが、関数は0を返し、1 streamでは1を返します。
+記載された`function unsigned`のsignatureは、SystemVerilog 13.4では暗黙の1-bit logicの戻りとなり、2を表現できません。
+期待値2は本文の解釈を保持します。このsignature／本文の矛盾は要レビューとし、確認済みのsimulator／library不具合には割り当てません。
+
+スイート全体では、`verilator@5.052`を付けたテストは869件、specのみのテストは96件です。
 specのみのうち1件は9.6を検証します。pre-resetフェーズ終了時に子タスクが停止する
 はずですが、固定版UVMとVerilator 5.052の組み合わせでは、後のフェーズで子タスクの遅延書き込みが
 実行されます。この差分の原因がシミュレータとライブラリのどちらかは未確定です。
@@ -213,14 +225,19 @@ wakeup resetの検査系は、trigger waiterとpersistent-trigger waiterを各1�
 10.1.1.2.8は、callbackなしで両方が起動することを要求します。固定Verilatorの実行は、待機状態の観測に到達してから
 watchdogが期限切れになります。simulator／libraryを組み合わせた原因は未確定のまま、規範的なwakeupの期待を保持します。
 
-specのみの93件も規格から導いた期待値を保持します。通常のVerilator実行とCIはoracle付き852件を選びます。
+specのみの96件も規格から導いた期待値を保持します。通常のVerilator実行とCIはoracle付き869件を選びます。
 `--all`はspecのみも含め、不一致やビルド不可を`known`として記録します。
-実行時の84件は最初の差分であるseed 1までの記録で、seed 73の結果はありません。
+実行時の87件は最初の差分であるseed 1までの記録で、seed 73の結果はありません。
 API欠落の9件（時刻APIの1件、sequence libraryの6件、HDL sliceの2件）はビルド段階で失敗し、どのseedも実行できていません。
 
 ## specのみのテスト
 
-現在の93件は次のテストです。同じ制約を複数のテストで検査する場合があり、異なる不具合の個数ではありません。
+現在の96件は次のテストです。同じ制約を複数のテストで検査する場合があり、異なる不具合の個数ではありません。
+
+- [closed databaseのstream-open guard](../tests/u07/test_recording_database_ignores_stream_opens_until_connection_succeeds.sv)。
+- [stream列挙の戻り件数](../tests/u07/test_recording_database_stream_enumeration_is_local_and_excludes_failed_opens.sv)。
+  1-bit signatureとの矛盾を残し、queue数の本文を保持します。
+- [未初期化stream照会のwarning](../tests/u07/test_recording_uninitialized_stream_queries_each_report_a_warning.sv)。
 
 - [無効event callbackのdispatch](../tests/u10/test_event_disabled_callback_is_skipped_and_can_be_reenabled_for_later_triggers.sv)。
 - [両event待機方式のwakeup reset](../tests/u10/test_event_reset_with_wakeup_releases_both_wait_styles_without_callback_dispatch.sv)。
@@ -378,12 +395,12 @@ API欠落の9件（時刻APIの1件、sequence libraryの6件、HDL sliceの2件
 
 ## シミュレータとライブラリの組み合わせ
 
-Ghostの同梱UVMはseed 1・73とも193件一致・752件不一致で、不一致になるテストも同じです。
+Ghostの同梱UVMはseed 1・73とも196件一致・769件不一致で、不一致になるテストも同じです。
 現在の実行ファイルの固定コピーでは固定版modeを測定していません。記録の合算は[実行結果と測定方法](results.ja.md)で説明します。
 同梱版の結果が対象にするのは供給されたライブラリです。不一致だけでシミュレータとライブラリの原因を分けたり、
 固定版ライブラリの結果を示したりはできません。非公開の識別情報・profile・診断は公開しません。
 
-確認したkirimasimの実行ファイルでは、936件が`uvm_object_wrapper`未実装です。
+確認したkirimasimの実行ファイルでは、956件が`uvm_object_wrapper`未実装です。
 時刻設定APIの1件、sequence libraryの6件、HDL sliceの2件は、その前にAPI欠落を検出して`fail`になります。
 いずれも成功ではなく、その先のUVM動作を実行できた証拠でもありません。
 

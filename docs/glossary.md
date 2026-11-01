@@ -164,8 +164,9 @@ than one named instance. Payload lookup uses the handle, while tests compare
 type-name relationships without prescribing a qualified-name format.
 
 **Database connection hook** — A database extension's open/close implementation.
-Local fixtures count calls and control success without opening streams or an
-external backend; connection state does not establish recording behavior.
+Connection-only fixtures count calls and control success without an external
+backend. Separate in-memory stream hooks check lifecycle metadata; connection
+state alone does not establish recording behavior.
 
 **Unique-key count** — Pool occupancy counts distinct stored keys. Replacing a
 value for an existing key does not add an entry; missing-key creation and
@@ -607,3 +608,21 @@ allow routing and completion to be checked without shared-object races.
 **Model introspection** — Queries of a configured register model's parent
 handles, contained objects or names. These describe the model hierarchy and
 do not by themselves execute an address-map transfer or access HDL storage.
+
+## Recording lifecycle and field metadata
+
+**Recording stream** — A database-owned container for transaction recorders.
+A local hook can supply an in-memory stream for lifecycle checks without an
+external database or any recorded transaction contents.
+
+**Stream handle** — An integer identifier resolved to a stream by a static
+lookup. It remains valid through close and becomes invalid after free;
+exact numeric values and future ID reuse are outside the fixtures.
+
+**Reset metadata** — A field's reset values indexed by kind. Assigning or
+removing this metadata is distinct from resetting live desired/mirrored state
+and from asserting a physical reset signal.
+
+**Field compare control** — The model setting selected by set_compare and
+returned by get_compare. Observing this setting alone does not establish
+that a mirror read performed or suppressed a comparison.

@@ -2,7 +2,7 @@
 
 [日本語](known-differences.ja.md) · [README](../README.md) · [FAQ](faq.md)
 
-This describes the current 945-test suite and the pinned Accellera UVM
+This describes the current 965-test suite and the pinned Accellera UVM
 2020.3.1 library. A mismatch is a test result; it does not by itself assign
 the cause to the simulator, the library or the expectation.
 
@@ -16,9 +16,18 @@ semantics still require review. Annex E additionally checks selected two/three-m
 shared accesses and one child-block shape; see the
 [memory scope](faq.md#memory-prediction-and-map-controls) and
 [shared-access scope](faq.md#memory-access-shared-maps-and-test-selection).
-The following fifty-six additional limitations were identified during M1, M2 and M3.
+The following fifty-eight additional limitations were identified during M1, M2 and M3.
 Where a test directly checks a required behavior that is missing, its
 normative expectation is retained with `:oracle: spec`.
+
+- Database `open_stream` calls `open_db` and can open a closed database
+  implicitly. Clause 7.1.4.1 instead requires an ignored request and null
+  unless the database is already open. The fixture keeps separate closed,
+  failed-connection and successfully opened databases as independent controls.
+- A fresh stream suppresses the warnings required for uninitialized
+  `get_db`, `get_scope` and `get_stream_type_name` calls by 7.2.3.1–7.2.3.3.
+  Its warning gate starts disabled. The fixture retains one warning for each
+  query, with an initialized stream that returns valid metadata quietly.
 
 - Event trigger dispatch calls disabled callback hooks as well as enabled
   hooks. Clause 10.7.1.2.2 disables callbacks with `callback_mode(0)`; the
@@ -283,7 +292,15 @@ controls report the expected byte-aligned widths 16 and 8. Sub-byte logical
 width versus rounded physical-byte width needs review; no confirmed library
 bug is assigned from these two cases. See [partial transfers](faq.md#error-contracts-and-partial-transfers).
 
-Across the suite, 852 tests have the `verilator@5.052` oracle tag and ninety-three
+The database stream-enumeration fixture retains the queue-size return
+postcondition of 7.1.4.2. Two streams populate the returned queue correctly,
+but the function returns zero; one stream returns one. The printed
+`function unsigned` signature is an implicit one-bit logic return under
+SystemVerilog 13.4, so it cannot represent a count of two. The expected two
+preserves the prose interpretation. This signature/prose conflict requires
+review and is not assigned as a confirmed simulator or library bug.
+
+Across the suite, 869 tests have the `verilator@5.052` oracle tag and ninety-six
 cases are spec-only. One of the spec-only cases checks 9.6: a child's pre-reset
 task must be killed when that phase ends, but the pinned-library run on Verilator 5.052
 lets the child perform its delayed write during a later phase. The cause of
@@ -295,17 +312,22 @@ without callbacks. The pinned Verilator run reaches the blocked-state
 observation, then its watchdog expires. This combined simulator/library
 cause remains unassigned; the normative wakeup expectation is retained.
 
-The ninety-three spec-only tests retain their normative expected files.
-Default Verilator runs and CI select the 852 tagged cases. `--all` includes
+The ninety-six spec-only tests retain their normative expected files.
+Default Verilator runs and CI select the 869 tagged cases. `--all` includes
 spec-only cases and records mismatches or build failures as `known`.
-The runtime records for 84 cases establish the first difference at seed 1,
+The runtime records for 87 cases establish the first difference at seed 1,
 without seed 73 results. Nine missing-API cases cannot build and have no
 runtime seed result: one time API, six sequence-library cases and two HDL slice cases.
 
 ## Spec-only tests
 
-These are the ninety-three current spec-only cases. Several exercise the same
+These are the ninety-six current spec-only cases. Several exercise the same
 limitation, so their count is not a count of distinct bugs.
+
+- [Closed-database stream-open guard](../tests/u07/test_recording_database_ignores_stream_opens_until_connection_succeeds.sv).
+- [Stream enumeration return count](../tests/u07/test_recording_database_stream_enumeration_is_local_and_excludes_failed_opens.sv),
+  retaining the queue-size prose despite its one-bit signature conflict.
+- [Uninitialized stream query warnings](../tests/u07/test_recording_uninitialized_stream_queries_each_report_a_warning.sv).
 
 - [Disabled event callback dispatch](../tests/u10/test_event_disabled_callback_is_skipped_and_can_be_reenabled_for_later_triggers.sv).
 - [Wakeup reset with both event wait styles](../tests/u10/test_event_reset_with_wakeup_releases_both_wait_styles_without_callback_dispatch.sv),
@@ -463,7 +485,7 @@ limitation, so their count is not a count of distinct bugs.
 
 ## Simulator and library combinations
 
-Ghost's bundled-library evidence has 193 matches and 752 failures with each
+Ghost's bundled-library evidence has 196 matches and 769 failures with each
 of seeds 1 and 73; the same tests fail at both seeds. The current executable
 snapshot has no pinned-mode measurement. [Results and methodology](results.md)
 describes the evidence assembly. Bundled results
@@ -472,7 +494,7 @@ problem from a library problem or establish results for the locked library.
 Private identity, profiles and diagnostics are not published.
 
 The tested kirimasim executable reports `uvm_object_wrapper` as unsupported
-on 936 cases. Nine cases record `fail` earlier on missing library APIs: one time
+on 956 cases. Nine cases record `fail` earlier on missing library APIs: one time
 setter, six sequence-library cases and two HDL slice cases. Neither result is a pass or evidence
 of UVM execution beyond those compilation blockers.
 

@@ -3,7 +3,7 @@
 [日本語](history.ja.md) · [README](../README.md)
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and seven cross-milestone thin-area expansions (945 simulation tests). The earlier 349-test checkpoint is
+three M4 increments and eight cross-milestone thin-area expansions (965 simulation tests). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -1654,3 +1654,43 @@ guides. The glossary has 119 entries and the FAQ 103 answers. Callback enable
 state, reset wakeup, cancellation accounting, endpoint-defined blocking
 behavior and model-only queries are distinguished from broader coverage.
 README records current state; increment history is retained here.
+
+## Eighth thin-area expansion across M1–M4
+
+Twenty simulations extend the 945-case baseline at
+[888203c](https://github.com/kurochan001/kirimasim-uvm-tests/commit/888203cdc404b75cc7a64abdf6cd004558da5894)
+to 965 cases in 21 directories: 303 M1, 392 M2 and 270 M3. All 945 baseline
+inputs remain unchanged. M1 adds eight recording stream/link cases using
+local hooks, covering lifecycle, metadata, enumeration, handles, warnings and
+endpoint dispatch. M2 adds four directional request/response blocking cases.
+M3 adds eight field access, compare/volatility, reset metadata/state and
+maximum-width cases, without physical resets or bus transfers.
+
+Seventeen additions match Verilator 5.052 at seeds 1 and 73. Three retain
+runtime differences at seed 1: implicit database opening, stream-count return
+and pre-initialization warnings. The stream-count case is a queue-size prose
+versus one-bit unsigned signature interpretation requiring review, not a
+confirmed library/simulator bug. The compatible full snapshot has 869 matches
+and 96 known differences: 87 runtime first differences and nine missing-API
+builds without runtime seed results. Ghost bundled has 196 matches and
+769 failures at each seed, with identical failing sets. kirimasim has
+956 unsupported cases and nine missing-API failures. Measurements bind to
+final inputs after the link fixture uses a concrete endpoint subtype; all
+runner/executable/profile/library identities remain compatible. No current
+pinned-mode Ghost claim is added.
+
+M4 adds 54 AI drafts and maps all twenty additions plus twenty existing TLM 1
+analysis, bound-port, split-imp and channel fixtures. The ledger contains
+705 drafts, 701 directly linked requirements and 716 directly linked tests,
+one additional control and 248 unmapped tests. Of 2,504 identifiers, 524 are
+partially decomposed and 1,980 unassessed; 432 have primary focus and 985 any
+citation. The 2,479-candidate census is 2,047 zero, 212 one and 220 at least
+two. Four drafts still lack direct tests. Scope is proposed, all review is
+AI and denominator/percentage remain unset.
+
+Validation covers 74 tool unit tests, all 965 metadata records, ledger/index
+integrity, final-input evidence fingerprints and complete English/Japanese
+guides. The glossary has 123 entries and the FAQ 106 answers, including a
+stream lifecycle diagram. Recorders, external database contents, physical
+field effects and concurrent response matching remain outside these fixtures.
+README contains current state; increment details remain here.

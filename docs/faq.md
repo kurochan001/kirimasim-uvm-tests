@@ -173,7 +173,7 @@ a claim that every test was rebuilt together.
 
 ### Q16. Are M1, M2 or M3 complete, and what does the test count cover?
 
-M1 and M2 still have open clause targets. M3 now has 262
+M1 and M2 still have open clause targets. M3 now has 270
 register-layer cases, including testbench frontdoor paths; it is also incomplete. Starting a stage does not complete
 the preceding stages.
 The [plan](../README.md#plan) identifies current scope and remaining work.
@@ -1136,9 +1136,9 @@ not a direct test of the requirement.
 
 ### Q77. Why is there no coverage percentage after starting M4?
 
-The 651 AI drafts cover only a partial decomposition: 647 requirements link
-directly to 676 tests, 4 have no direct test, and one separate test is a control.
-Another 268 tests are not mapped yet. The 2,504 clause identifiers are not normative requirement units.
+The 705 AI drafts cover only a partial decomposition: 701 requirements link
+directly to 716 tests, 4 have no direct test, and one separate test is a control.
+Another 248 tests are not mapped yet. The 2,504 clause identifiers are not normative requirement units.
 The scope is proposed, the inventory incomplete and the denominator unapproved;
 starting M4 approves none of those. Known differences and HDL/DPI limitations
 do not silently exclude obligations. See the [approval path](requirements.md#remaining-m4-work-and-approval).
@@ -1178,9 +1178,10 @@ approve a denominator, record human review or replace execution fingerprints.
 
 ### Q81. What do the new database, pool, agent and utility fixtures establish?
 
-Database fixtures override connection hooks, observe failed/successful open,
+Database connection fixtures override connection hooks, observe failed/successful open,
 repeated open/close and independent instance state. They do not open streams or
-an external backend. Pool checks count distinct keys through replacement,
+an external backend. Separate [stream cases](#recording-streams-channel-waits-and-field-controls)
+check lifecycle metadata. Pool checks count distinct keys through replacement,
 missing-key creation and deletion; the default-value fixture uses an explicitly
 two-state element type. Agent checks use derived agents and enum-valued
 configuration before child build, without driver traffic.
@@ -1649,3 +1650,73 @@ an arbitration test, and retained response history is not the sequence
 response queue. Push multi-request/history fixtures preserve known
 spec-only differences. Mapping these existing tests adds no execution pass
 or human review.
+
+## Recording streams, channel waits and field controls
+
+### Q104. What do stream close, free and handles establish?
+
+Local database hooks create in-memory streams with explicit database, scope
+and record-type metadata. There is no external database or recorder data.
+Closing one stream invokes its close hook and leaves its peer open. Freeing
+a closed stream invokes its release hook and invalidates its integer handle.
+The tested lifecycle is:
+
+```mermaid
+flowchart LR
+    O["Open: is_open=1"] -->|"close"| C["Closed: is_closed=1"]
+    C -->|"free"| F["Freed: both flags=0, handle=0"]
+```
+
+[Handle lookup](../tests/u07/test_recording_stream_handles_identify_distinct_streams_across_databases.sv)
+retains exact identity across close; a freed handle resolves to null. The
+cases do not prescribe numeric IDs, visit order, queue append behavior or
+handle reuse. There are no open recorders, so cascading recorder close/free
+and recording contents remain untested.
+
+Closed-database stream creation and fresh-stream metadata warnings retain
+pinned-library differences. Enumeration keeps queue membership separate
+from its returned count: the queue-size prose conflicts with the printed
+one-bit unsigned return signature. This remains an interpretation requiring
+review; see [known differences](known-differences.md).
+
+Link cases separately count endpoint getter/setter hooks and check prefilled
+parent/child, cause/effect and related descriptors with explicit names. A
+link descriptor does not establish persistent recording in a database.
+
+### Q105. Can opposite-direction traffic release a channel waiter?
+
+Request and response FIFOs have separate storage. A full request put waits
+for request space while a response remains queued; a full response put waits
+for response space while a request remains queued. A master response get is
+not satisfied by a new request. A slave request peek is not satisfied by a
+new response, and the eventual request remains available for get.
+
+The [request-peek case](../tests/u12/test_request_response_channel_slave_peek_waits_for_a_request_and_preserves_its_head.sv)
+uses positive delays to establish these blocked states. Each direction has
+only one waiting caller, so no waiter selection order is prescribed. The
+channel does not automatically match transaction IDs or model a bus protocol.
+
+Existing analysis, port and channel fixtures also have explicit ledger links.
+Broadcast checks do not prescribe subscriber order. Split master/slave imps
+route typed requests and responses to distinct implementation objects.
+Sequential blocking transport checks do not establish multiple-outstanding
+request matching; zero-sized queue checks do not prove unlimited resources.
+
+### Q106. Do field policy and reset controls access the DUT?
+
+They inspect model metadata and desired/mirrored values. Access replacement
+returns the previous policy; registration normalizes names and distinguishes
+valid custom names from built-in policies. No custom access algorithm is
+supplied. Volatility and compare setters retain local settings, without
+establishing physical value changes or a mirror comparison.
+
+Reset metadata is distinct from applying a reset. Defining HARD/SOFT values
+does not change live desired/mirrored data. Deleting one kind reports prior
+presence and preserves another kind and peer metadata. A reset with an
+undefined/deleted kind leaves both live values unchanged; defined SOFT and
+default HARD resets restore both values locally. An absent reset query uses
+equal desired/mirrored values to avoid imposing a meaning when they differ.
+
+[Maximum field width](../tests/u18/test_reg_field_maximum_width_tracks_the_largest_configured_field_across_models.sv)
+is a static query: a smaller later field does not reduce the maximum. These
+cases use no physical reset signal, address-map transfer, RTL storage or DPI.

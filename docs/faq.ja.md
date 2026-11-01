@@ -155,7 +155,7 @@ Ghostはさらに実行ファイル・profile・供給されたライブラリ�
 
 ### Q16. M1・M2・M3は完了していますか。件数は何の網羅を示しますか
 
-M1・M2には条項ごとの目標に未達があります。M3はbusモデルのfrontdoor経路を含め262件まで追加した段階で、未完です。
+M1・M2には条項ごとの目標に未達があります。M3はbusモデルのfrontdoor経路を含め270件まで追加した段階で、未完です。
 次の段階の開始によって、それまでの段階が完了したとは扱いません。
 範囲と残りの作業は[進め方](../README.ja.md#進め方)にあります。
 件数はテストの本数で、規格の全要求や組み合わせの棚卸しではありません。
@@ -918,8 +918,8 @@ controlの対応は、その要求の直接の検査ではありません。
 
 ### Q77. M4を始めたのに、カバレッジ率がないのはなぜですか
 
-AIによる651要求案は部分的な分解で、647要求を676テストへ直接対応付け、4要求は直接未対応、別の1テストはcontrolです。
-他の268テストはまだ要求に対応付けていません。2,504の条項番号は規範的要求の単位ではありません。
+AIによる705要求案は部分的な分解で、701要求を716テストへ直接対応付け、4要求は直接未対応、別の1テストはcontrolです。
+他の248テストはまだ要求に対応付けていません。2,504の条項番号は規範的要求の単位ではありません。
 範囲は提案、棚卸しは未完、分母は未承認で、M4の開始はどれの承認にもなりません。
 既知差分やHDL／DPIの制約によって義務を暗黙に除外しません。[承認までの手順](requirements.ja.md#m4の残作業と承認)を参照してください。
 
@@ -954,8 +954,9 @@ JSONに`ledger_inputs_sha256`を記録し、同じ範囲、台帳、テスト索
 
 ### Q81. database・pool・agent・utilityの追加検査は何を示しますか
 
-databaseの検査系は接続hookをoverrideし、openの失敗／成功、open／closeの繰り返し、instanceの独立した状態を観測します。
-streamや外部backendは開きません。poolは置換、欠落keyの生成、削除を通して異なるkey数を数え、
+databaseの接続検査系は接続hookをoverrideし、openの失敗／成功、open／closeの繰り返し、instanceの独立した状態を観測します。
+streamや外部backendは開きません。別の[stream検査系](#記録streamchannel待機field制御)が
+lifecycleのmetadataを検査します。poolは置換、欠落keyの生成、削除を通して異なるkey数を数え、
 default値の検査では明示的な2状態の要素型を使います。agentは派生agentを使い、child build前にenum値で設定し、driverの転送は行いません。
 
 文字列の分割は、連続／先頭／末尾の空fieldと空入力を保ち、以前のqueue内容を置き換えます。
@@ -1314,3 +1315,56 @@ model lock前後の有効な期待を保持します。固定libraryはlock前�
 繰り返すpeek／get、直接実行、push配送を別々に対応付けます。mode getterはarbitrationの検査ではなく、
 保持した応答履歴はsequenceの応答queueではありません。pushの複数要求／履歴の検査系は、既知のspec-only差分を保持します。
 既存テストの対応付けで、実行の合格や人による照合は追加しません。
+
+## 記録stream、channel待機、field制御
+
+### Q104. streamのclose・free・handleで何が成立しますか？
+
+localなdatabase hookが、database、scope、record型の明示metadataを持つmemory内streamを生成します。
+外部databaseやrecorder dataはありません。1 streamのcloseは、そのclose hookを呼び、peerを開いたまま保ちます。
+閉じたstreamのfreeは、解放hookを呼び、整数handleを無効にします。検査するlifecycleは次のとおりです。
+
+```mermaid
+flowchart LR
+    O["開いた状態: is_open=1"] -->|"close"| C["閉じた状態: is_closed=1"]
+    C -->|"free"| F["解放済み: 両flag=0, handle=0"]
+```
+
+[handle lookup](../tests/u07/test_recording_stream_handles_identify_distinct_streams_across_databases.sv)は、
+close後も正確な同一性を保持し、free済みhandleはnullへ解決します。数値ID、訪問順、queueへの追加動作、handle再利用は指定しません。
+開いたrecorderはないため、連鎖するrecorderのclose／freeや記録内容は未検査です。
+
+閉じたdatabaseからのstream生成と、新しいstreamのmetadataのwarningは、固定libraryの差分を保持します。
+列挙は、queueの所属と戻り件数を区別します。queue数を返す本文は、記載された1-bit unsignedの戻りsignatureと矛盾します。
+要レビューの解釈を残し、[既知差分](known-differences.ja.md)に記載します。
+
+link検査では、endpointのgetter／setter hookを別途数え、明示名でprefillしたparent／child、cause／effect、relatedのdescriptorを検査します。
+link descriptorだけでは、databaseへの記録の永続化は成立しません。
+
+### Q105. 逆方向のtrafficでchannelのwaiterを解放できますか？
+
+要求と応答のFIFOはstorageを分けます。満杯の要求putは、応答を保存したまま要求の空きを待ち、
+満杯の応答putは、要求を保存したまま応答の空きを待ちます。masterの応答getは、新しい要求では満たしません。
+slaveの要求peekは、新しい応答では満たさず、最終的な要求はgetで取得可能なまま残ります。
+
+[要求peekの検査系](../tests/u12/test_request_response_channel_slave_peek_waits_for_a_request_and_preserves_its_head.sv)は、
+正の遅延で待機状態を確立します。各方向で待機する呼出し側は1つだけで、waiterの選択順は指定しません。
+channelは、transaction IDを自動照合したり、bus protocolをmodel化したりはしません。
+
+既存のanalysis、port、channelの検査系も、台帳で明示的に対応付けます。broadcastではsubscriber順を指定しません。
+分離したmaster／slave impは、型付きの要求と応答を別のimplementation objectへroutingします。
+逐次blocking transportの検査では複数outstanding要求の照合を示さず、size 0のqueueの検査では無限のresourceを証明しません。
+
+### Q106. fieldのpolicyとresetの制御はDUTへアクセスしますか？
+
+modelのmetadataとdesired／mirror値を照会します。accessの置換は以前のpolicyを返し、登録は名前を正規化して、
+有効なcustom名と組み込みpolicyを区別します。custom access algorithmは実装しません。
+volatilityとcompareのsetterはlocal設定を保持し、物理的な値の変更やmirror比較は示しません。
+
+reset metadataは、resetの適用とは別です。HARD／SOFT値の定義は、liveなdesired／mirror dataを変更しません。
+1 kindの削除は以前の有無を返し、別kindとpeerのmetadataを保持します。未定義／削除済みkindのresetは両live値を変更せず、
+定義済みSOFTと既定HARDのresetは両値をlocalに復元します。欠けたresetの照会は、desired／mirror値を等しくし、
+乖離した場合の意味を要求しません。
+
+[fieldの最大幅](../tests/u18/test_reg_field_maximum_width_tracks_the_largest_configured_field_across_models.sv)はstaticな照会で、
+後から小さいfieldを作っても最大値は減りません。物理的なreset信号、address-map転送、RTL storage、DPIは使いません。

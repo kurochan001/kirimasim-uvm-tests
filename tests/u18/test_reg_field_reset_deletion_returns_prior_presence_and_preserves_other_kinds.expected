@@ -1,0 +1,3 @@
+UT: deleted prior 1 hard 0 soft 1 peer 1
+UT: removed_kind desired 42 mirror 42 soft_value 29
+UT: absent_delete 0 peer_value 33
