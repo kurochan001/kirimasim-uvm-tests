@@ -2,7 +2,7 @@
 
 [日本語](known-differences.ja.md) · [README](../README.md) · [FAQ](faq.md)
 
-This describes the current 1025-test suite and the pinned Accellera UVM
+This describes the current 1045-test suite and the pinned Accellera UVM
 2020.3.1 library. A mismatch is a test result; it does not by itself assign
 the cause to the simulator, the library or the expectation.
 
@@ -16,9 +16,16 @@ semantics still require review. Annex E additionally checks selected two/three-m
 shared accesses and one child-block shape; see the
 [memory scope](faq.md#memory-prediction-and-map-controls) and
 [shared-access scope](faq.md#memory-access-shared-maps-and-test-selection).
-The following sixty-two additional limitations were identified during M1, M2 and M3.
+The following sixty-three additional limitations were identified during M1, M2 and M3.
 Where a test directly checks a required behavior that is missing, its
 normative expectation is retained with `:oracle: spec`.
+
+- A register order policy changes physical read order, but the pinned library
+  assembles returned bytes in that execution order rather than their logical
+  positions. Clause 18.4.2.4 permits reordering reads while 18.4.4.10 retains
+  the register's logical value. A little-endian four-byte read observes the
+  requested addresses and bytes but returns/predicts 78563412 instead of
+  12345678 hex. The normative value remains spec-only.
 
 - Component `free_tr_stream` deletes a cache entry using the stream object's
   class type name instead of the cached stream-type key. A later request
@@ -210,11 +217,15 @@ normative expectation is retained with `:oracle: spec`.
   still updates the original register handle selected before the hook.
   Clause 19.3.3.2 permits target redirection. A case changes both public
   target and value and retains the required source/target mirror states.
-- Big-endian frontdoor reads byte-swap a narrow bus beat across the full
-  register-data type width, discarding the returned bits when masking the
-  beat. The two-word case uses the standard TLM adapter and retains the data
-  reconstruction required by 18.4.4.10 and 19.1.2.3, using repeated bytes to
-  avoid intra-word ambiguity.
+- Big-endian frontdoor accesses byte-swap a narrow bus beat across the full
+  register-data type width, losing active bits when the beat is masked.
+  The existing two-word read preserves the reconstruction required by
+  18.4.4.10 and 19.1.2.3, using repeated bytes to avoid intra-word ambiguity.
+  New eight-bit-bus order-policy cases also retain the required write bytes
+  from 18.4.4.9 and read value from 18.4.4.10. The read combines this byte-swap
+  limitation with order-dependent reconstruction; it does not isolate both
+  causes independently. Policy dispatch, geometry and requested address
+  order are observed separately from failed data checks.
 
 - Register pre-write and pre-read hooks run after the field hooks. Clauses
   18.4.8.1/.3 and 18.5.6.1/.3 require the register hooks first. Two cases
@@ -288,9 +299,9 @@ initiator-socket routing, repeated push delivery, sequence-library APIs/removal,
 FIFO peek notifications, `start_item` error severity, library subtype
 construction, `finish_item` dispatch, IDs and guards, pre-lock field lookup,
 map width/translation results, location-specific memory offsets and
-single-map effective access, predictor redirection, big-endian frontdoor read data
-register/field pre-access hook order, physical burst-beat kinds, virtual-register
-byte width, omitted-memory resize, region owner queries, standalone virtual-field
+single-map effective access, predictor redirection, big-endian frontdoor data,
+order-dependent read reconstruction, register/field pre-access hook order,
+physical burst-beat kinds, virtual-register byte width, omitted-memory resize, region owner queries, standalone virtual-field
 post-write order, user-backdoor read-clear prediction, the block memory-walk
 exclusion resource and the individual-memory access exclusion.
 Matching tests avoid the other library limitations.
@@ -322,7 +333,7 @@ SystemVerilog 13.4, so it cannot represent a count of two. The expected two
 preserves the prose interpretation. This signature/prose conflict requires
 review and is not assigned as a confirmed simulator or library bug.
 
-Across the suite, 924 tests have the `verilator@5.052` oracle tag and 101
+Across the suite, 941 tests have the `verilator@5.052` oracle tag and 104
 cases are spec-only. One of the spec-only cases checks 9.6: a child's pre-reset
 task must be killed when that phase ends, but the pinned-library run on Verilator 5.052
 lets the child perform its delayed write during a later phase. The cause of
@@ -334,17 +345,21 @@ without callbacks. The pinned Verilator run reaches the blocked-state
 observation, then its watchdog expires. This combined simulator/library
 cause remains unassigned; the normative wakeup expectation is retained.
 
-The 101 spec-only tests retain their normative expected files.
-Default Verilator runs and CI select the 924 tagged cases. `--all` includes
+The 104 spec-only tests retain their normative expected files.
+Default Verilator runs and CI select the 941 tagged cases. `--all` includes
 spec-only cases and records mismatches or build failures as `known`.
-The runtime records for 92 cases establish the first difference at seed 1,
+The runtime records for 95 cases establish the first difference at seed 1,
 without seed 73 results. Nine missing-API cases cannot build and have no
 runtime seed result: one time API, six sequence-library cases and two HDL slice cases.
 
 ## Spec-only tests
 
-These are the 101 current spec-only cases. Several exercise the same
+These are the 104 current spec-only cases. Several exercise the same
 limitation, so their count is not a count of distinct bugs.
+
+- [Reordered little-endian read reconstruction](../tests/u18/test_reg_order_policy_little_endian_read_uses_requested_bus_order.sv).
+- [Big-endian ordered write bytes](../tests/u18/test_reg_order_policy_big_endian_write_uses_requested_bus_order.sv).
+- [Big-endian ordered read value](../tests/u18/test_reg_order_policy_big_endian_read_uses_requested_bus_order.sv).
 
 - [Component stream reference release creates a fresh stream](../tests/u13/test_component_free_recording_stream_invalidates_only_its_cached_pair.sv).
 
@@ -514,7 +529,7 @@ limitation, so their count is not a count of distinct bugs.
 
 ## Simulator and library combinations
 
-Ghost's bundled-library evidence has 199 matches and 826 failures with each
+Ghost's bundled-library evidence has 203 matches and 842 failures with each
 of seeds 1 and 73; the same tests fail at both seeds. The current executable
 snapshot has no pinned-mode measurement. [Results and methodology](results.md)
 describes the evidence assembly. Bundled results
@@ -523,7 +538,7 @@ problem from a library problem or establish results for the locked library.
 Private identity, profiles and diagnostics are not published.
 
 The tested kirimasim executable reports `uvm_object_wrapper` as unsupported
-on 1016 cases. Nine cases record `fail` earlier on missing library APIs: one time
+on 1036 cases. Nine cases record `fail` earlier on missing library APIs: one time
 setter, six sequence-library cases and two HDL slice cases. Neither result is a pass or evidence
 of UVM execution beyond those compilation blockers.
 

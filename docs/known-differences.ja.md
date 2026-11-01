@@ -2,7 +2,7 @@
 
 [English](known-differences.md) · [README](../README.ja.md) · [FAQ](faq.ja.md)
 
-現在の1025件と、固定したAccellera UVM 2020.3.1についての記録です。
+現在の1045件と、固定したAccellera UVM 2020.3.1についての記録です。
 不一致はテストの結果であり、それだけではシミュレータ・ライブラリ・期待値のどれが原因かは決まりません。
 
 ## 固定版ライブラリの制約
@@ -13,8 +13,13 @@
 付録Eでは選んだ2／3 mapのshared accessと1つの子blockの形も確認します。
 [memoryの範囲](faq.ja.md#memorypredictionmapの制御)と
 [shared accessの範囲](faq.ja.md#memory-accessshared-mapテストの選択)を参照してください。
-それ以外に、M1・M2・M3で次の62件の制約を確認しました。
+それ以外に、M1・M2・M3で次の63件の制約を確認しました。
 不足する必須動作を直接検査する場合は、規格の期待値を変えずに`:oracle: spec`で保持します。
+
+- registerのorder policyは物理readの順序を変えますが、固定libraryは論理位置でなく実行順にbyteを合成します。
+  18.4.2.4はreadの並べ替えを認め、18.4.4.10はregisterの論理値を保持します。
+  little-endianの4 byte readは、要求addressとbyteを観測しても、12345678 hexでなく78563412を返し予測します。
+  規範的な値はspec-onlyとして保持します。
 
 - componentの`free_tr_stream`は、cacheしたstream型のkeyでなく、stream objectのclass型名でentryを削除します。
   同じ非空の名前／型pairを後で要求すると、元のstreamを返します。13.1.7.10は参照解放後に
@@ -154,9 +159,12 @@
   RWの権限問い合わせを別の観測として保持します。
 - `uvm_reg_predictor::pre_predict`で公開itemの転送先を変更しても、hook前に選んだ元のregisterを更新します。
   19.3.3.2は転送先の変更を認めるため、転送先と値を変更する1件で、元と転送先のmirrorの期待値を保持します。
-- big endianのfrontdoor readは、狭いbusのデータをregister-data型全体の幅でbyte反転し、
-  その後のmaskで戻り値のbitを失います。2 wordのケースは標準TLM adapterを使い、18.4.4.10・19.1.2.3の値の復元を保持し、
-  word内のbyte順の曖昧さを避けるため同じbyteを使います。
+- big endianのfrontdoor accessは、狭いbusのデータをregister-data型全体の幅でbyte反転し、
+  その後のmaskで有効bitを失います。既存の2 word readは、18.4.4.10・19.1.2.3の値の復元を保持し、
+  word内のbyte順の曖昧さを避けるため同じbyteを使います。新しい8 bit busのorder-policy検査系は、
+  18.4.4.9のwrite byteと18.4.4.10のread値も保持します。readは、このbyte反転制約と
+  順序に依存する再合成を組み合わせ、両原因を独立して切り分けるものではありません。
+  policyのdispatch、geometry、要求address順は、失敗するdata検査とは別に観測します。
 
 - registerのpre-write／pre-read hookをfieldのhookより後で実行します。
   18.4.8.1／.3と18.5.6.1／.3はregisterを先としているため、2件で期待する`RF`の順序を保持します。
@@ -210,7 +218,7 @@
 応答エラー報告の既定値、候補1件のUSER arbitration、lockの順序、kill後のhook、
 不適合なdefault型のエラー、stop時の自動objection解除、時刻の既定名・API、
 二段のinitiator socket接続、pushの連続転送、sequence libraryのAPIと削除、FIFOのpeek通知、
-start_itemの重大度、library subtypeの構築、finish_itemの委譲・ID・入力検査、lock前のfield名検索、mapの幅・変換結果、locationごとのmemory offsetと単一mapの実効access、predictorの転送先、big endianのfrontdoor readは診断用に保持します。
+start_itemの重大度、library subtypeの構築、finish_itemの委譲・ID・入力検査、lock前のfield名検索、mapの幅・変換結果、locationごとのmemory offsetと単一mapの実効access、predictorの転送先、big endianのfrontdoor data、順序を変更したreadの再合成は診断用に保持します。
 残りのライブラリの制約は、一致するテストシナリオでは避けています。
 
 さらにcommand-lineのsuffix照会2件では、現在の`UVM_NO_DPI`設定で渡した引数を観測できません。
@@ -232,7 +240,7 @@ databaseのstream列挙の検査系は、7.1.4.2のqueue数を返す事後条件
 記載された`function unsigned`のsignatureは、SystemVerilog 13.4では暗黙の1-bit logicの戻りとなり、2を表現できません。
 期待値2は本文の解釈を保持します。このsignature／本文の矛盾は要レビューとし、確認済みのsimulator／library不具合には割り当てません。
 
-スイート全体では、`verilator@5.052`を付けたテストは924件、specのみのテストは101件です。
+スイート全体では、`verilator@5.052`を付けたテストは941件、specのみのテストは104件です。
 specのみのうち1件は9.6を検証します。pre-resetフェーズ終了時に子タスクが停止する
 はずですが、固定版UVMとVerilator 5.052の組み合わせでは、後のフェーズで子タスクの遅延書き込みが
 実行されます。この差分の原因がシミュレータとライブラリのどちらかは未確定です。
@@ -241,14 +249,18 @@ wakeup resetの検査系は、trigger waiterとpersistent-trigger waiterを各1�
 10.1.1.2.8は、callbackなしで両方が起動することを要求します。固定Verilatorの実行は、待機状態の観測に到達してから
 watchdogが期限切れになります。simulator／libraryを組み合わせた原因は未確定のまま、規範的なwakeupの期待を保持します。
 
-specのみの101件も規格から導いた期待値を保持します。通常のVerilator実行とCIはoracle付き924件を選びます。
+specのみの104件も規格から導いた期待値を保持します。通常のVerilator実行とCIはoracle付き941件を選びます。
 `--all`はspecのみも含め、不一致やビルド不可を`known`として記録します。
-実行時の92件は最初の差分であるseed 1までの記録で、seed 73の結果はありません。
+実行時の95件は最初の差分であるseed 1までの記録で、seed 73の結果はありません。
 API欠落の9件（時刻APIの1件、sequence libraryの6件、HDL sliceの2件）はビルド段階で失敗し、どのseedも実行できていません。
 
 ## specのみのテスト
 
-現在の101件は次のテストです。同じ制約を複数のテストで検査する場合があり、異なる不具合の個数ではありません。
+現在の104件は次のテストです。同じ制約を複数のテストで検査する場合があり、異なる不具合の個数ではありません。
+
+- [並べ替えたlittle-endian readの再合成](../tests/u18/test_reg_order_policy_little_endian_read_uses_requested_bus_order.sv).
+- [big-endianの順序付きwrite byte](../tests/u18/test_reg_order_policy_big_endian_write_uses_requested_bus_order.sv).
+- [big-endianの順序付きread値](../tests/u18/test_reg_order_policy_big_endian_read_uses_requested_bus_order.sv).
 
 - [componentのstream参照解放後の新規生成](../tests/u13/test_component_free_recording_stream_invalidates_only_its_cached_pair.sv).
 
@@ -418,12 +430,12 @@ API欠落の9件（時刻APIの1件、sequence libraryの6件、HDL sliceの2件
 
 ## シミュレータとライブラリの組み合わせ
 
-Ghostの同梱UVMはseed 1・73とも199件一致・826件不一致で、不一致になるテストも同じです。
+Ghostの同梱UVMはseed 1・73とも203件一致・842件不一致で、不一致になるテストも同じです。
 現在の実行ファイルの固定コピーでは固定版modeを測定していません。記録の合算は[実行結果と測定方法](results.ja.md)で説明します。
 同梱版の結果が対象にするのは供給されたライブラリです。不一致だけでシミュレータとライブラリの原因を分けたり、
 固定版ライブラリの結果を示したりはできません。非公開の識別情報・profile・診断は公開しません。
 
-確認したkirimasimの実行ファイルでは、1016件が`uvm_object_wrapper`未実装です。
+確認したkirimasimの実行ファイルでは、1036件が`uvm_object_wrapper`未実装です。
 時刻設定APIの1件、sequence libraryの6件、HDL sliceの2件は、その前にAPI欠落を検出して`fail`になります。
 いずれも成功ではなく、その先のUVM動作を実行できた証拠でもありません。
 

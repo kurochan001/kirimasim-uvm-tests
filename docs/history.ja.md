@@ -2,7 +2,7 @@
 
 [English](history.md) · [README](../README.ja.md)
 
-M1・M2の15回目、M3の9回目、M4の3回目と段階をまたぐ薄い領域の11回目の拡充（シミュレーション1025件）までを記録しています。以前の349件の時点は
+M1・M2の15回目、M3の9回目、M4の3回目と段階をまたぐ薄い領域の12回目の拡充（シミュレーション1045件）までを記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -1303,3 +1303,33 @@ M4はAI要求案54件を追加し、新規20件と既存sequenceのstart／finis
 完全な日英guideを対象とします。用語集は135語、FAQは115回答で、read照合／予測の図を加えます。
 report生成のprobeと実handlerの実行は区別します。不一致の報告、戻りdata、予測mirror状態、bus完了は別の観測です。
 READMEは現状を記載し、今回の増分はこの履歴に保持します。
+
+## M1〜M4の薄い領域の12回目の拡充
+
+[c731bc9](https://github.com/kurochan001/kirimasim-uvm-tests/commit/c731bc919f105ed8aa6c71ff19257a98b1aaf2c9)
+の1025件へシミュレーション20件を追加し、21 directoryで1045件となります。
+M1は335件、M2は408件、M3は302件で、既存1025件の入力はすべて保持します。
+M1はcore-serviceのpolicy／既定fallback、serviceの置換／復元、seed不変性の8件です。
+M2はsequence-libraryのwrapper index、範囲、instance、削除の4件です。
+M3はregisterのtransaction-order policyの照会と、endian、方向、interface独立性、置換、解除を扱うbus統合の8件です。
+
+追加17件はVerilator 5.052でseed 1・73と一致します。3件は規範的なspec-only差分を保持します。
+little-endian readは要求bus順に従っても、実行順にdataを再合成します。
+big-endian write／readは既存の全幅byte反転制約も示し、readは両原因を組み合わせます。
+policyのdispatchと要求geometry／順序は、失敗するdata保持とは別です。
+互換なsnapshotは一致941件、既知差分104件で、seed 1の実行時初回差分95件と、seed実行結果のないAPI欠落build 9件です。
+Ghost bundledは各seedで一致203件、不一致842件で、失敗集合は同じです。
+kirimasimはunsupported 1036件、API欠落のfail 9件です。runner、実行ファイル、profile、libraryの識別は互換で、
+現在のGhost pinned modeの主張は加えません。
+
+M4はAI要求案50件を追加し、新規20件と既存sequence libraryの登録、選択、境界、counter、既定RAND実行の20件を対応付けます。
+台帳は要求案915件、直接対応の要求911件、直接対応テスト876件、別のcontrol 1件、未対応168件です。
+条項番号2,504件のうち645件を一部分解し、1,859件は未評価、主引用は482番号、いずれかの引用は1,084番号です。
+候補2,479番号の棚卸しは主引用0件が1,997、1件が251、2件以上が231です。直接テストのない要求案は4件のままです。
+対象範囲は提案、照合はすべてAI、分母／比率は未設定です。標準APIの欠落と既存のstatic削除／warningの差分は、
+明示した制約として残します。
+
+検証はtool unit test 74件、metadata全1045件、台帳／索引の整合性、最終入力のevidence fingerprint、
+完全な日英guideを対象とします。用語集は139語、FAQは118回答で、order-policyの図を加えます。
+既定handleの選択、型lookup、物理順序、論理再合成は別の観測です。外部database、独自core初期化、memory burst、
+端数bus word、任意の同時accessは主張しません。READMEは現状を記載し、今回の増分はこの履歴に保持します。

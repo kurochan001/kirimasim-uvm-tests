@@ -3,7 +3,7 @@
 [日本語](history.ja.md) · [README](../README.md)
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and eleven cross-milestone thin-area expansions (1025 simulation tests). The earlier 349-test checkpoint is
+three M4 increments and twelve cross-milestone thin-area expansions (1045 simulation tests). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -1821,3 +1821,47 @@ read-check/prediction diagram. Report construction probes remain distinct
 from real handler execution. Discrepancy reports, returned data, predicted
 mirror state and bus completion are separate observations. README contains
 current state and this history retains the increment details.
+
+## Twelfth thin-area expansion across M1–M4
+
+Twenty simulations extend the 1025-case baseline at
+[c731bc9](https://github.com/kurochan001/kirimasim-uvm-tests/commit/c731bc919f105ed8aa6c71ff19257a98b1aaf2c9)
+to 1045 cases in 21 directories: 335 M1, 408 M2 and 302 M3. All 1025 baseline
+inputs remain unchanged. M1 adds eight core-service policy/default-fallback,
+service replacement/restoration and seed-immutability cases. M2 adds four
+sequence-library wrapper-index, range, instance and removal cases. M3 adds
+eight register transaction-order policy queries and bus integrations across
+endiannesses, directions, interface isolation, replacement and clearing.
+
+Seventeen additions match Verilator 5.052 at seeds 1 and 73. Three preserve
+normative spec-only differences. The little-endian read follows the requested
+bus order but reconstructs data in execution order. Big-endian write/read
+also expose the existing full-width byte-swap limitation, with the read
+combining both causes. Policy dispatch and requested geometry/order remain
+separate from failed data preservation. The compatible snapshot has 941
+matches and 104 known differences: 95 runtime first differences at seed 1
+and nine missing-API builds without runtime seed results. Ghost bundled
+has 203 matches and 842 failures at each seed, with identical failing sets.
+kirimasim has 1036 unsupported cases and nine missing-API failures. Runner,
+executable, profile and library identities remain compatible; no current
+pinned-mode Ghost claim is added.
+
+M4 adds 50 AI drafts and maps all twenty additions plus twenty existing
+sequence-library registration, selection, bounds, counter and default-RAND
+execution fixtures. The ledger has 915 drafts, 911 directly linked
+requirements, 876 directly linked tests, one additional control and 168
+unmapped tests. Of 2,504 identifiers, 645 have partial decomposition and
+1,859 remain unassessed; 482 have primary focus and 1,084 any citation.
+The 2,479-candidate census is 1,997 zero, 251 one and 231 at least two.
+Four drafts still lack direct tests. Scope remains proposed, all review is
+AI and denominator/percentage remain unset. Standard API omissions and
+existing static-removal/warning differences remain explicit limitations.
+
+Validation covers 74 tool unit tests, all 1045 metadata records, ledger/index
+integrity, final-input evidence fingerprints and complete English/Japanese
+guides. The glossary has 139 entries and the FAQ 118 answers, including an
+order-policy diagram. Default handle selection, type lookup, physical
+ordering and logical reconstruction are separate observations. No external
+database, custom core initialization, memory burst, partial bus word or
+arbitrary concurrent access is claimed. README retains current state and
+this history preserves the increment.

@@ -155,7 +155,7 @@ Ghostはさらに実行ファイル・profile・供給されたライブラリ�
 
 ### Q16. M1・M2・M3は完了していますか。件数は何の網羅を示しますか
 
-M1・M2には条項ごとの目標に未達があります。M3はbusモデルのfrontdoor経路を含め294件まで追加した段階で、未完です。
+M1・M2には条項ごとの目標に未達があります。M3はbusモデルのfrontdoor経路を含め302件まで追加した段階で、未完です。
 次の段階の開始によって、それまでの段階が完了したとは扱いません。
 範囲と残りの作業は[進め方](../README.ja.md#進め方)にあります。
 件数はテストの本数で、規格の全要求や組み合わせの棚卸しではありません。
@@ -918,8 +918,8 @@ controlの対応は、その要求の直接の検査ではありません。
 
 ### Q77. M4を始めたのに、カバレッジ率がないのはなぜですか
 
-AIによる865要求案は部分的な分解で、861要求を836テストへ直接対応付け、4要求は直接未対応、別の1テストはcontrolです。
-他の188テストはまだ要求に対応付けていません。2,504の条項番号は規範的要求の単位ではありません。
+AIによる915要求案は部分的な分解で、911要求を876テストへ直接対応付け、4要求は直接未対応、別の1テストはcontrolです。
+他の168テストはまだ要求に対応付けていません。2,504の条項番号は規範的要求の単位ではありません。
 範囲は提案、棚卸しは未完、分母は未承認で、M4の開始はどれの承認にもなりません。
 既知差分やHDL／DPIの制約によって義務を暗黙に除外しません。[承認までの手順](requirements.ja.md#m4の残作業と承認)を参照してください。
 
@@ -1541,3 +1541,60 @@ flowchart LR
 sampleした5aをmirror 5aと比較してERRORを出さず、mirrorを0へ予測し、callerには元の5aを返します。
 これは読出し後の効果をmodel化し、driverは単純なstorageなのでRTLのclearは示しません。
 不一致の報告とbus転送の失敗は別です。受動predictorの統合は検査系の範囲外です。
+
+## coreの既定値、library index、registerの転送順序
+
+### Q116. core-serviceの既定値テストは何を示しますか？
+
+core serviceは、globalなUVM serviceの共通access pointです。
+[既定printerの検査系](../tests/uF/test_core_service_default_printer_replacement_and_null_fallback.sv)と
+packer／comparer／copierの対応する検査系は、2つの明示policyを選択してからnullを渡します。
+照会は、選択handle、次に非nullの実装既定値を返す必要があります。
+特定の既定classや、元の既定handleの復元は要求しません。
+
+factory、report-server、記録databaseの検査系は、有効なservice instanceを置換して保存handleへ戻します。
+object生成、report数の移行、database I/Oは検査しません。[seedの検査系](../tests/uF/test_core_service_global_seed_is_immutable_within_one_simulation.sv)は、
+乱数取得、object生成、遅延を挟んでも、1 simulation内でglobal seedの反復照会が一致することだけを検査します。
+seedの数値を固定せず、別のseed 1／73 process間の一致も要求しません。
+独自core serviceの初期化は検査系の範囲外です。
+
+### Q117. library wrapperのlookupはsequenceを実行しますか？
+
+[indexの検査系](../tests/u14/test_sequence_library_index_lookup_matches_public_enumeration_and_repeated_identity.sv)は、
+member sequenceを生成／実行せず、登録した型wrapperを照会します。有効indexは新しい公開列挙と比較し、
+登録順は仮定しません。別の検査系は独立libraryと削除後のlookupを検査します。
+不正な検査値は個数+1とunsigned最大値で、各呼出しへERROR／nullを要求し、有効な所属を保持します。
+空のlibraryと、記載された個数と同じindexの境界は、この検査では示しません。
+
+M4は既存の登録、selector、実行を別に対応付けます。既定selectorを直接呼ぶ検査は、
+固定rangeの戻り列と独立した位置を示し、USER modeの実行は示しません。
+実際の既定RAND検査系は、合法な10 childの回数を保持し、alpha／betaのconstraintと単一／非強制の候補は
+乱数分布を示しません。標準mode／count／counter APIの欠落はbuild差分のままです。
+対応する検査系では、その必須の標準呼出しをlegacy fieldで置換しません。
+
+### Q118. registerのbus accessは値を変えずに並べ替えられますか？
+
+registerのtransaction-order policyは物理操作structのqueueを受け、完全な操作を並べ替えられます。
+[little-endian write](../tests/u18/test_reg_order_policy_little_endian_write_uses_requested_bus_order.sv)は、
+32 bit register 1つの4つの8 bit操作をaddress降順で並べます。address／dataのpairを保ち、
+論理値12345678 hexについてaddress 23／22／21／20がbyte 12／34／56／78を運びます。
+
+設定したpolicyの意図する経路は次のとおりです。
+
+```mermaid
+flowchart LR
+    R["32 bit register access"] --> Q["4つの8 bit操作"]
+    Q --> P["userのorder policy"]
+    P -->|"address／data pairを保持"| B["adapter、sequencer、driver"]
+    B --> V["readの再合成とmodel予測"]
+```
+
+[並べ替えたread](../tests/u18/test_reg_order_policy_little_endian_read_uses_requested_bus_order.sv)は、
+要求したbus順とbyte dataを観測しますが、固定libraryは12345678 hexでなく78563412へ合成します。
+big-endian write／readも既存の全幅byte反転制約を保持し、big-endian readは両原因を組み合わせます。
+この3件は規範的なspec-only oracleを保持します。
+
+別の比較対象で、未設定のpeer interface、policyの置換、byteを失わない解除を検査します。
+解除後の既定転送順は規定しません。sort algorithmは検査系のcodeであり、
+適合の観測はlibraryのdispatch、bus順、data保持を対象とします。
+memory burst、端数bus word、同時access、子mapへの継承は主張しません。

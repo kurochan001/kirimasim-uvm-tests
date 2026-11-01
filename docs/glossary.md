@@ -681,3 +681,21 @@ report object that supplies the handler and verbosity configuration.
 against the existing mirror and reports discrepancies. Comparison control
 and auto-prediction are separate settings; the fixtures enable prediction
 explicitly and respect per-field compare masks.
+
+## Core services, wrapper indices and ordered bus operations
+
+**Core service** — The shared access point for central UVM services and
+default policies. Selecting a service handle does not itself establish the
+service's behavior or a custom initialization procedure.
+
+**Implementation default policy** — The policy instance returned when no
+explicit default is selected or after a null reset. Its concrete type and
+identity are implementation choices; it differs from a per-call policy argument.
+
+**Sequence wrapper index** — A position resolving to a registered sequence
+type wrapper within one library. Looking up that wrapper does not execute
+the sequence and does not impose a universal registration order.
+
+**Register transaction-order policy** — A hook that permutes complete physical
+bus-operation structs for one logical register read/write. Address/data binding
+and logical read reconstruction must survive a change in execution order.

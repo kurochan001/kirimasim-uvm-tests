@@ -1686,6 +1686,22 @@
       "primary_clause": "14.4.5.6",
       "inputs_sha256": "9f098dff68132d33120f711b9b7f855177d5334a1df45bb3dc09aab8c325ac51"
     },
+    "u14/test_sequence_library_index_invalid_probes_preserve_valid_types": {
+      "primary_clause": "14.4.4.10",
+      "inputs_sha256": "a720af8a693a2cb78237c9c1e4cfc397ac2947f35f20d2204a9a42d8353e3ffc"
+    },
+    "u14/test_sequence_library_index_lookup_matches_public_enumeration_and_repeated_identity": {
+      "primary_clause": "14.4.4.10",
+      "inputs_sha256": "5b2ac835d03c9c99aceab7191799da6a2b9a7027e31cbea5db97d625ef744673"
+    },
+    "u14/test_sequence_library_index_lookup_tracks_instance_removal_without_changing_a_peer": {
+      "primary_clause": "14.4.4.10",
+      "inputs_sha256": "3039d500bb10cb9144d64c56f15b62dc2530ab828e32351b15cd35cd8f7c785f"
+    },
+    "u14/test_sequence_library_index_membership_is_local_to_each_library_instance": {
+      "primary_clause": "14.4.4.10",
+      "inputs_sha256": "134c1b1d3e1ccb3a368fd9f17fca9c44741b290e8dfe682089a9e58274bae776"
+    },
     "u14/test_sequence_library_remove_instance_type_preserves_other_library": {
       "primary_clause": "14.4.5.5",
       "inputs_sha256": "a11035916cd2eed7a97c225439d8b585ce1acc4a4a1edfaa90b2ae5ec5bd38b3"
@@ -3158,6 +3174,38 @@
       "primary_clause": "18.4.4.4",
       "inputs_sha256": "186b138e9455927867fa6fa2f7d630adf87f2b16423e594e81bd4136cd760091"
     },
+    "u18/test_reg_order_policy_big_endian_read_uses_requested_bus_order": {
+      "primary_clause": "18.4.2.4",
+      "inputs_sha256": "578a95fb0be582ee19565f9e88e82a5add43a4e7c87148dd3a6b368dbcd39d9a"
+    },
+    "u18/test_reg_order_policy_big_endian_write_uses_requested_bus_order": {
+      "primary_clause": "18.4.2.4",
+      "inputs_sha256": "a937a709b8efcc7470fc4009555ecb9e0509e159cf5ef76ca6da7b5ff7f4fe57"
+    },
+    "u18/test_reg_order_policy_clearing_stops_hook_calls_without_losing_bus_bytes": {
+      "primary_clause": "18.2.5.5",
+      "inputs_sha256": "bb6c662445ee682a24cf3133e2b5284ebd6f2b9ae1f5e49553250879c9f8653c"
+    },
+    "u18/test_reg_order_policy_getter_replacement_and_clear_are_map_local": {
+      "primary_clause": "18.2.5.4",
+      "inputs_sha256": "62343294b5574ad819160d74d011525ac478514ab9c5f734f536379d6cef0601"
+    },
+    "u18/test_reg_order_policy_little_endian_read_uses_requested_bus_order": {
+      "primary_clause": "18.4.2.4",
+      "inputs_sha256": "93fe41f863044e0482e0d4876a427a6e07bd4b953ec14e20220c0aeed972b084"
+    },
+    "u18/test_reg_order_policy_little_endian_write_uses_requested_bus_order": {
+      "primary_clause": "18.4.2.4",
+      "inputs_sha256": "12e4f269dde447025935fc4846c4a3510035f2d46f1c52c760c0425fa1db55f8"
+    },
+    "u18/test_reg_order_policy_one_interface_policy_does_not_reorder_an_unconfigured_peer": {
+      "primary_clause": "18.2.5.5",
+      "inputs_sha256": "3a588036611b90c69a9a2a1d272778bdd81ede3f9c2ce7f673631a53c0c85e3a"
+    },
+    "u18/test_reg_order_policy_replacement_changes_the_policy_used_by_the_next_access": {
+      "primary_clause": "18.2.5.5",
+      "inputs_sha256": "c2d60f78e76776cc0d632311c60e2255e55ffe09c15b7a556f45b53ae10a5680"
+    },
     "u18/test_reg_post_read_hook_replaces_the_returned_status": {
       "primary_clause": "18.4.8.4",
       "inputs_sha256": "471d1ce665cc6570560b43adf98150e5741e53e5f50c35968947c1511ae8f1f2"
@@ -4085,6 +4133,38 @@
     "uE/test_single_register_access_sequence_skips_user_defined_unknown_policy": {
       "primary_clause": "E.3.1",
       "inputs_sha256": "44fb0cb94aaa4b5f0a8a3fa3cb0a971c4be0e33ca0af892aff0032f9022dcbba"
+    },
+    "uF/test_core_service_default_comparer_replacement_and_null_fallback": {
+      "primary_clause": "F.4.1.4.16",
+      "inputs_sha256": "aec9af74eec4e4cb54189b7be117a4f46f30d199fe81a832d789eadaa38a61c9"
+    },
+    "uF/test_core_service_default_copier_replacement_and_null_fallback": {
+      "primary_clause": "F.4.1.4.18",
+      "inputs_sha256": "9902d71afa87947beff6e4d0c8862ec37e532b1a7c34a66cdf52c9212d7834c3"
+    },
+    "uF/test_core_service_default_packer_replacement_and_null_fallback": {
+      "primary_clause": "F.4.1.4.14",
+      "inputs_sha256": "3bb87db89517075b333b35c8ba8c1ba24e23d199e22e325fd184b4cbf48e02a4"
+    },
+    "uF/test_core_service_default_printer_replacement_and_null_fallback": {
+      "primary_clause": "F.4.1.4.12",
+      "inputs_sha256": "9aea14368f2eb2f1fe3ef430962a9eae4e4bd5606dfaa7847105d5b4665df1d8"
+    },
+    "uF/test_core_service_factory_selection_and_restoration": {
+      "primary_clause": "F.4.1.4.3",
+      "inputs_sha256": "d9d13610282ed94f6eb0cdc25d89cd0f06cf09b0bc047b40457373e7e70138ea"
+    },
+    "uF/test_core_service_global_seed_is_immutable_within_one_simulation": {
+      "primary_clause": "F.4.1.4.20",
+      "inputs_sha256": "80430fe80027b4ad525e3c3097e93662f6eda0e318e9fcf6569bad7b8e7a59ef"
+    },
+    "uF/test_core_service_recording_database_selection_and_restoration": {
+      "primary_clause": "F.4.1.4.7",
+      "inputs_sha256": "69a9e71f8521a10ca682057bff147547ede2bb4b02b6ac2405ede6cf0a0b15a8"
+    },
+    "uF/test_core_service_report_server_selection_and_restoration": {
+      "primary_clause": "F.4.1.4.5",
+      "inputs_sha256": "1ef96a8fc731fdf0a035fff24603e9db061a61f9438f82c33ddb7248fca55f2e"
     },
     "uF/test_string_split_empty_and_single_separator_replace_prior_queue": {
       "primary_clause": "F.3.3.2",

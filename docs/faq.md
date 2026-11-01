@@ -173,7 +173,7 @@ a claim that every test was rebuilt together.
 
 ### Q16. Are M1, M2 or M3 complete, and what does the test count cover?
 
-M1 and M2 still have open clause targets. M3 now has 294
+M1 and M2 still have open clause targets. M3 now has 302
 register-layer cases, including testbench frontdoor paths; it is also incomplete. Starting a stage does not complete
 the preceding stages.
 The [plan](../README.md#plan) identifies current scope and remaining work.
@@ -1136,9 +1136,9 @@ not a direct test of the requirement.
 
 ### Q77. Why is there no coverage percentage after starting M4?
 
-The 865 AI drafts cover only a partial decomposition: 861 requirements link
-directly to 836 tests, 4 have no direct test, and one separate test is a control.
-Another 188 tests are not mapped yet. The 2,504 clause identifiers are not normative requirement units.
+The 915 AI drafts cover only a partial decomposition: 911 requirements link
+directly to 876 tests, 4 have no direct test, and one separate test is a control.
+Another 168 tests are not mapped yet. The 2,504 clause identifiers are not normative requirement units.
 The scope is proposed, the inventory incomplete and the denominator unapproved;
 starting M4 approves none of those. Known differences and HDL/DPI limitations
 do not silently exclude obligations. See the [approval path](requirements.md#remaining-m4-work-and-approval).
@@ -1935,3 +1935,71 @@ compares sampled 5a against mirror 5a without an ERROR and predicts zero;
 the caller receives the original 5a. This models the post-read effect; the
 driver is simple storage and does not establish an RTL clear. A discrepancy report is separate
 from a failed bus transfer. Passive predictor integration is outside these cases.
+
+## Core defaults, library indices and register transaction order
+
+### Q116. What do the core-service default tests establish?
+
+The core service is the common access point for global UVM services. The
+[default-printer case](../tests/uF/test_core_service_default_printer_replacement_and_null_fallback.sv)
+and packer/comparer/copier counterparts select two explicit policies and
+then pass null. Queries must return the selected handles, then a non-null
+implementation default. The tests do not require a particular default class
+or restoration of the original default handle.
+
+Factory, report-server and recording-database cases replace valid service
+instances and restore saved handles. They do not exercise object creation,
+report-count migration or database I/O. The [seed case](../tests/uF/test_core_service_global_seed_is_immutable_within_one_simulation.sv)
+checks only that repeated global-seed queries agree within one simulation,
+despite random draws, object construction and a delay. It fixes no numeric
+seed and requires no equality between separate seed-1/seed-73 processes.
+Custom core-service initialization remains outside these fixtures.
+
+### Q117. Does a library wrapper lookup execute a sequence?
+
+The [index case](../tests/u14/test_sequence_library_index_lookup_matches_public_enumeration_and_repeated_identity.sv)
+queries registered type wrappers, without constructing or executing member
+sequences. Valid indices are compared with fresh public enumeration, so no
+registration order is assumed. Other cases check independent libraries and
+lookup after removal. Invalid probes use count plus one and maximum unsigned;
+each requires ERROR/null while valid membership stays intact. Empty and
+printed equal-count index boundaries are not established by these probes.
+
+M4 separately maps existing registration, selector and execution fixtures.
+Calling the default selector directly establishes its fixed-range return
+sequence and independent position, not USER-mode execution. Actual default
+RAND fixtures retain a legal ten-child budget; constrained alpha/beta and
+single/unforced choices do not establish a random distribution. Missing
+standard mode/count/counter APIs remain build differences. No legacy fields
+replace those required standard calls in the corresponding fixtures.
+
+### Q118. Can register bus accesses be reordered without changing the value?
+
+A register transaction-order policy receives a queue of physical operation
+structs and may reorder complete operations. The [little-endian write](../tests/u18/test_reg_order_policy_little_endian_write_uses_requested_bus_order.sv)
+sorts four eight-bit operations into descending address order for one
+32-bit register. Address/data pairs stay together: addresses 23/22/21/20
+carry bytes 12/34/56/78 for logical value 12345678 hex.
+
+The intended path for a configured policy is:
+
+```mermaid
+flowchart LR
+    R["32-bit register access"] --> Q["Four 8-bit operations"]
+    Q --> P["User order policy"]
+    P -->|"Preserve address/data pairs"| B["Adapter, sequencer and driver"]
+    B --> V["Read assembly and model prediction"]
+```
+
+The [reordered read](../tests/u18/test_reg_order_policy_little_endian_read_uses_requested_bus_order.sv)
+observes the requested bus order and byte data, but the pinned library
+assembles 78563412 rather than 12345678 hex. Big-endian write/read cases also
+retain the existing full-width byte-swap limitation; the big-endian read
+combines both causes. These three retain their normative spec-only oracles.
+
+Separate controls check an unconfigured peer interface, replacing a policy,
+and clearing it without losing bytes. Clearing does not prescribe a default
+transfer order. The sorting algorithm is fixture code; the conformance
+observations concern library dispatch, bus order and data preservation.
+There are no memory bursts, partial bus words, concurrent accesses or
+child-map inheritance claims.

@@ -515,3 +515,17 @@ handlerとverbosity設定を用意するsequencerまたはrootのreport object�
 
 **check-on-read** — sampleしたregister／field dataを既存mirrorと比較して、不一致を報告するmap設定です。
 比較制御と自動予測は別の設定であり、検査系は予測を明示的に有効化し、fieldごとの比較maskを適用します。
+
+## core service、wrapper index、bus操作の順序
+
+**core service** — 中央のUVM serviceと既定policyへの共有access pointです。
+service handleの選択自体は、そのserviceの動作や独自初期化手順を示しません。
+
+**実装既定policy** — 明示した既定値がない場合やnull reset後に返すpolicy instanceです。
+具体的な型と同一性は実装が選び、呼出しごとに渡すpolicy引数とは別です。
+
+**sequence wrapperのindex** — 1 library内で登録sequence型のwrapperへ解決する位置です。
+wrapperのlookupはsequenceを実行せず、共通の登録順を要求しません。
+
+**registerのtransaction-order policy** — 1つの論理register read／writeについて、
+完全な物理bus操作structを並べ替えるhookです。実行順が変わっても、address／dataの対応と論理readの再合成を保持する必要があります。
