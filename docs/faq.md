@@ -173,7 +173,7 @@ a claim that every test was rebuilt together.
 
 ### Q16. Are M1, M2 or M3 complete, and what does the test count cover?
 
-M1 and M2 still have open clause targets. M3 now has 232
+M1 and M2 still have open clause targets. M3 now has 238
 register-layer cases, including testbench frontdoor paths; it is also incomplete. Starting a stage does not complete
 the preceding stages.
 The [plan](../README.md#plan) identifies current scope and remaining work.
@@ -1136,9 +1136,9 @@ not a direct test of the requirement.
 
 ### Q77. Why is there no coverage percentage after starting M4?
 
-The 437 AI drafts cover only a partial decomposition: 433 requirements link
-directly to 514 tests, 4 have no direct test, and one separate test is a control.
-Another 350 tests are not mapped yet. The 2,504 clause identifiers are not normative requirement units.
+The 490 AI drafts cover only a partial decomposition: 486 requirements link
+directly to 555 tests, 4 have no direct test, and one separate test is a control.
+Another 329 tests are not mapped yet. The 2,504 clause identifiers are not normative requirement units.
 The scope is proposed, the inventory incomplete and the denominator unapproved;
 starting M4 approves none of those. Known differences and HDL/DPI limitations
 do not silently exclude obligations. See the [approval path](requirements.md#remaining-m4-work-and-approval).
@@ -1387,3 +1387,59 @@ leaves the mirror unchanged but still publishes the matched transaction through
 `reg_ap`. These are passive analysis observations, with active prediction off.
 RTL timing, incomplete-check diagnostics, sub-field byte masks and every access
 policy remain separate work.
+
+## Containers, waiting FIFOs and memory hooks
+
+### Q92. Do container counts establish iteration, global sharing and empty behavior?
+
+Counts alone do not. The
+[forward traversal](../tests/u11/test_pool_forward_iteration_visits_each_key_and_preserves_the_exhausted_cursor.sv)
+and backward counterpart check every key once, associated values, boundary
+return values and an unchanged exhausted cursor. Empty/singleton checks preserve
+reference sentinels. A fresh traversal after deletion checks the surviving set,
+without adding a required visit order or mutating an active traversal.
+
+Global pool/queue accessors must return shared singleton handles. Independent
+local containers provide controls for replacement, deletion and indexed/keyed
+access. Valid queue insertions shift entries; insertion at or above size warns
+without mutation. Empty front/back pops must warn and return the two-state
+zero default; these two warning cases remain spec-only. Front/back insertion
+waits cover an empty queue, an unrelated peer, a non-consuming wakeup, immediate
+return on a nonempty queue and a fresh wait after draining. See the
+[queue wait](../tests/u11/test_queue_wait_until_not_empty_reblocks_after_draining_and_front_insertion.sv)
+and [known differences](known-differences.md#pinned-library-limitations).
+
+### Q93. Do simultaneous FIFO waiters have to wake in a fixed order?
+
+These fixtures require no winner or fairness between pending readers.
+[Two consumers](../tests/u12/test_tlm_fifo_two_waiting_consumers_remove_distinct_arrivals_without_assuming_a_winner.sv)
+must consume distinct arrivals exactly once; after the first arrival exactly
+one is complete. Two pending peeks both observe one new head and retain it
+for a later get. Positive delays establish the blocked states and avoid
+assertions about ordering within one scheduler evaluation.
+
+A [flush case](../tests/u12/test_tlm_fifo_flush_releases_capacity_to_an_already_blocked_producer.sv)
+starts a put against a full bounded FIFO. Removing its old contents must free
+capacity for that pending put, whose new value remains available afterward.
+Two analysis FIFOs separately wake only for their own writes, then block again
+after consumption. These cases add concurrency observations, not all possible
+flush races, cancellation or scheduling combinations.
+
+### Q94. What do the memory hook fixtures establish beyond register callbacks?
+
+They operate on `uvm_mem` through deterministic testbench custom frontdoors.
+A [pre-write composition](../tests/u18/test_mem_registered_pre_write_callback_changes_offset_and_follows_the_method_value_change.sv)
+requires the method before its callback, composes noncommuting data changes,
+and changes the written offset. Pre-read redirects both offset and map between
+distinct storage banks. Pre-read/pre-write failure hooks must prevent a
+transfer; a clean retry demonstrates that later access still works. Failed
+read data is not constrained by the abort case.
+
+The [post-read case](../tests/u18/test_mem_post_read_callback_and_method_compose_returned_data_and_status_in_order.sv)
+requires callback before method and returns their composed value/final status
+without modifying storage. Post-write similarly checks callback before method,
+final status and the absence of a new transfer after descriptor edits.
+Deleting callbacks supplies working controls. Pre-read map redirection and
+post-write order remain spec-only for the pinned library; their expectations
+are retained. These fixtures establish selected UVM hook behavior, not RTL
+protocols, HDL DPI, bursts or every callback combination.

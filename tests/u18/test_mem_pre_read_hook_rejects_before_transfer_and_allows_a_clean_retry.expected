@@ -1,0 +1,2 @@
+UT: rejected 1 order M n 0 stored 5a
+UT: retry ok 1 order MF n 1 offset 2 value 5a

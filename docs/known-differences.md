@@ -2,7 +2,7 @@
 
 [日本語](known-differences.ja.md) · [README](../README.md) · [FAQ](faq.md)
 
-This describes the current 865-test suite and the pinned Accellera UVM
+This describes the current 885-test suite and the pinned Accellera UVM
 2020.3.1 library. A mismatch is a test result; it does not by itself assign
 the cause to the simulator, the library or the expectation.
 
@@ -16,9 +16,23 @@ semantics still require review. Annex E additionally checks selected two/three-m
 shared accesses and one child-block shape; see the
 [memory scope](faq.md#memory-prediction-and-map-controls) and
 [shared-access scope](faq.md#memory-access-shared-maps-and-test-selection).
-The following forty-nine additional limitations were identified during M1, M2 and M3.
+The following fifty-two additional limitations were identified during M1, M2 and M3.
 Where a test directly checks a required behavior that is missing, its
 normative expectation is retained with `:oracle: spec`.
+
+- Empty `uvm_queue::pop_front` and `pop_back` delegate to native queue
+  operations without issuing the warning required by 11.3.2.8/11.3.2.9.
+  Both fixtures retain a warning per empty call, a two-state default result,
+  successful refill/drain controls and a second empty call. They do not
+  prescribe simulator diagnostic text.
+- A memory `pre_read` callback can change the descriptor map, but the pinned
+  library uses the original cached local map/frontdoor. The 18.11.2.4 fixture
+  retains the selected alternate map and modified offset, with distinct
+  storage in both maps and a callback-removal control.
+- Memory `post_write` invokes the inherited method before registered callbacks,
+  contrary to 18.6.9.2/18.11.2.3. The fixture retains callback-before-method
+  order and the method's final status. Completed storage is checked separately
+  from post-write descriptor edits; callback deletion restores the control.
 
 - With no override installed, `find_override_by_name` returns `null` even
   when creation can instantiate the original type. Clause 8.3.1.7.1
@@ -250,23 +264,29 @@ controls report the expected byte-aligned widths 16 and 8. Sub-byte logical
 width versus rounded physical-byte width needs review; no confirmed library
 bug is assigned from these two cases. See [partial transfers](faq.md#error-contracts-and-partial-transfers).
 
-Across the suite, 782 tests have the `verilator@5.052` oracle tag and eighty-three
+Across the suite, 798 tests have the `verilator@5.052` oracle tag and eighty-seven
 cases are spec-only. One of the spec-only cases checks 9.6: a child's pre-reset
 task must be killed when that phase ends, but the pinned-library run on Verilator 5.052
 lets the child perform its delayed write during a later phase. The cause of
 this combined simulator/library difference remains unassigned.
 
-The eighty-three spec-only tests retain their normative expected files.
-Default Verilator runs and CI select the 782 tagged cases. `--all` includes
+The eighty-seven spec-only tests retain their normative expected files.
+Default Verilator runs and CI select the 798 tagged cases. `--all` includes
 spec-only cases and records mismatches or build failures as `known`.
-The runtime records for 76 cases establish the first difference at seed 1,
+The runtime records for 80 cases establish the first difference at seed 1,
 without seed 73 results. Seven missing-API cases cannot build and have no
 runtime seed result: one time API and six sequence-library cases.
 
 ## Spec-only tests
 
-These are the eighty-three current spec-only cases. Several exercise the same
+These are the eighty-seven current spec-only cases. Several exercise the same
 limitation, so their count is not a count of distinct bugs.
+
+- Empty queue pop warnings:
+  [front](../tests/u11/test_queue_empty_pop_front_warns_returns_default_and_allows_refill.sv)
+  and [back](../tests/u11/test_queue_empty_pop_back_warns_returns_default_and_allows_refill.sv).
+- [Memory pre-read map/offset redirection](../tests/u18/test_mem_registered_pre_read_callback_redirects_the_offset_and_map_before_transfer.sv).
+- [Memory post-write callback order and final status](../tests/u18/test_mem_post_write_callback_precedes_final_status_hook_without_rewriting_storage.sv).
 
 - Field-operation accessor errors:
   [before set](../tests/u05/test_field_op_accessors_report_errors_before_set.sv)
@@ -408,7 +428,7 @@ limitation, so their count is not a count of distinct bugs.
 
 ## Simulator and library combinations
 
-Ghost's bundled-library evidence has 165 matches and 700 failures with each
+Ghost's bundled-library evidence has 170 matches and 715 failures with each
 of seeds 1 and 73; the same tests fail at both seeds. The current executable
 snapshot has no pinned-mode measurement. [Results and methodology](results.md)
 describes the evidence assembly. Bundled results
@@ -417,7 +437,7 @@ problem from a library problem or establish results for the locked library.
 Private identity, profiles and diagnostics are not published.
 
 The tested kirimasim executable reports `uvm_object_wrapper` as unsupported
-on 858 cases. Seven cases record `fail` earlier on missing library APIs: one time
+on 878 cases. Seven cases record `fail` earlier on missing library APIs: one time
 setter and six sequence-library cases. Neither result is a pass or evidence
 of UVM execution beyond those compilation blockers.
 

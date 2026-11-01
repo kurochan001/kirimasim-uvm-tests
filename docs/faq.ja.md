@@ -155,7 +155,7 @@ Ghostはさらに実行ファイル・profile・供給されたライブラリ�
 
 ### Q16. M1・M2・M3は完了していますか。件数は何の網羅を示しますか
 
-M1・M2には条項ごとの目標に未達があります。M3はbusモデルのfrontdoor経路を含め232件まで追加した段階で、未完です。
+M1・M2には条項ごとの目標に未達があります。M3はbusモデルのfrontdoor経路を含め238件まで追加した段階で、未完です。
 次の段階の開始によって、それまでの段階が完了したとは扱いません。
 範囲と残りの作業は[進め方](../README.ja.md#進め方)にあります。
 件数はテストの本数で、規格の全要求や組み合わせの棚卸しではありません。
@@ -918,8 +918,8 @@ controlの対応は、その要求の直接の検査ではありません。
 
 ### Q77. M4を始めたのに、カバレッジ率がないのはなぜですか
 
-AIによる437要求案は部分的な分解で、433要求を514テストへ直接対応付け、4要求は直接未対応、別の1テストはcontrolです。
-他の350テストはまだ要求に対応付けていません。2,504の条項番号は規範的要求の単位ではありません。
+AIによる490要求案は部分的な分解で、486要求を555テストへ直接対応付け、4要求は直接未対応、別の1テストはcontrolです。
+他の329テストはまだ要求に対応付けていません。2,504の条項番号は規範的要求の単位ではありません。
 範囲は提案、棚卸しは未完、分母は未承認で、M4の開始はどれの承認にもなりません。
 既知差分やHDL／DPIの制約によって義務を暗黙に除外しません。[承認までの手順](requirements.ja.md#m4の残作業と承認)を参照してください。
 
@@ -1103,3 +1103,52 @@ big-endianでは下位wordを低い物理addressより先に供給し、address�
 [read mask](../tests/u19/test_reg_predictor_read_byte_enables_preserve_unobserved_fields.sv)は、byteに整列する2 fieldの下位のみ、上位のみ、全無効のlaneを選びます。
 RW write／RO readは有効fieldだけを更新し、全無効ではmirrorを保ったまま、対応したtransactionを`reg_ap`から通知します。
 active predictionを無効にしたpassive analysisの観測です。RTL timing、未完了検出の診断、field内のbyte mask、全access policyは別の作業です。
+
+## コンテナ、待機するFIFO、memory hook
+
+### Q92. コンテナの件数だけで走査、global共有、空の動作も示せますか？
+
+件数だけでは示せません。
+[順方向の走査](../tests/u11/test_pool_forward_iteration_visits_each_key_and_preserves_the_exhausted_cursor.sv)と
+逆方向の検査系で、全keyを1回ずつ訪問すること、対応する値、境界での戻り値、終端cursorの保持を検査します。
+空／1 entryの検査では参照引数のsentinelを保ちます。削除後の新たな走査で残った集合を検査し、
+追加の訪問順序を要求したり、走査の途中で変更したりはしません。
+
+globalのpool／queueのaccessorは、共有するsingletonのhandleを返す必要があります。
+独立したlocalコンテナを、置換、削除、index／keyによる取得の比較対象にします。
+有効なqueue挿入は後続entryを移動し、size以上への挿入はwarningを出して変更しません。
+空queueの先頭／末尾からのpopはwarningを出して2値の既定値0を返す必要があり、
+この2つのwarning検査はspec-onlyに残します。先頭／末尾への挿入の待機では、空queue、
+無関係な別queue、消費しない再開、空でないqueueでの即時の戻り、空にした後の新たな待機を扱います。
+[queueの待機](../tests/u11/test_queue_wait_until_not_empty_reblocks_after_draining_and_front_insertion.sv)と
+[既知差分](known-differences.ja.md#固定版ライブラリの制約)を参照してください。
+
+### Q93. 同時に待つFIFOの呼出しは決まった順序で再開する必要がありますか？
+
+この検査系では、待機reader間の勝者や公平性は要求しません。
+[2つのconsumer](../tests/u12/test_tlm_fifo_two_waiting_consumers_remove_distinct_arrivals_without_assuming_a_winner.sv)は、
+異なる到着値を各1回消費する必要があり、最初の到着後は片方だけが完了します。
+2つの待機peekは1つの新しい先頭値を両方で観測し、後のgetのために保持します。
+正の遅延で待機状態を成立させ、schedulerの同じ評価内での順序は断定しません。
+
+[flushの検査系](../tests/u12/test_tlm_fifo_flush_releases_capacity_to_an_already_blocked_producer.sv)は、
+満杯の有限FIFOにputを開始します。古い内容を削除すると待機put用の容量が空き、
+新しく入った値を後から取得できる必要があります。
+2つのanalysis FIFOはそれぞれ自身のwriteだけで再開し、取得後は再び待機します。
+並行動作の観測を追加するものであり、flushの全競合、取消、scheduleの全組合せは扱いません。
+
+### Q94. memory hookの検査はregister callbackに加えて何を示しますか？
+
+決定的なテストベンチのcustom frontdoorを通して`uvm_mem`を操作します。
+[pre-writeの合成](../tests/u18/test_mem_registered_pre_write_callback_changes_offset_and_follows_the_method_value_change.sv)は、
+methodがcallbackより先であること、交換不能なdata変更の合成、write先offsetの変更を要求します。
+pre-readでは別々のstorageを持つmap間で、offsetとmapの両方を変更します。
+pre-read／pre-writeの失敗hookは転送を防ぐ必要があり、正常なretryで後のアクセスが動作することを確認します。
+中止するreadの失敗時のdataは制約しません。
+
+[post-readの検査系](../tests/u18/test_mem_post_read_callback_and_method_compose_returned_data_and_status_in_order.sv)は、
+callbackがmethodより先であることを要求し、storageを変えずに合成した値と最後のstatusを返します。
+post-writeもcallbackがmethodより先の順序、最後のstatus、descriptor変更後に再転送しないことを検査します。
+callbackを削除して正常な比較対象を用意します。pre-readのmap変更とpost-writeの順序は固定ライブラリで
+spec-onlyに残し、期待値を維持します。選択したUVM hookの動作を示すものであり、RTL protocol、HDL DPI、
+burst、全callback組合せは示しません。

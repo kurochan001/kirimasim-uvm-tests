@@ -670,6 +670,22 @@
       "primary_clause": "10.7.2.3.1",
       "inputs_sha256": "c36d364152636281f7a5fe7f9416d3def905721c4499889676d25112980105cf"
     },
+    "u11/test_pool_backward_iteration_visits_each_key_and_preserves_the_exhausted_cursor": {
+      "primary_clause": "11.2.2.12",
+      "inputs_sha256": "d3c1be757a5eb54f7314bf94738d855c427d66d74b9988eaae30444404914bed"
+    },
+    "u11/test_pool_empty_and_singleton_endpoints_preserve_reference_arguments": {
+      "primary_clause": "11.2.2.9",
+      "inputs_sha256": "6c03da0418a3f03118200480035f430daca7c291725586a697f541be09d75c7a"
+    },
+    "u11/test_pool_forward_iteration_visits_each_key_and_preserves_the_exhausted_cursor": {
+      "primary_clause": "11.2.2.11",
+      "inputs_sha256": "a263a5ac79e75dd71754aa8630cca3e3d8cbd37b739b10c3cd3612397d22f4c0"
+    },
+    "u11/test_pool_global_accessors_share_a_singleton_and_leave_local_storage_independent": {
+      "primary_clause": "11.2.2.2",
+      "inputs_sha256": "56b62b17bb9a0033e95d6e9a7b0c82e864d91ecd90558a97381f16cc9e6fe325"
+    },
     "u11/test_pool_num_counts_distinct_keys_after_replacement": {
       "primary_clause": "11.2.2.6",
       "inputs_sha256": "399146f431e9193fe4b1707e3973bb6dcbc2244f1337e533c7a67a2422e509b3"
@@ -677,6 +693,30 @@
     "u11/test_pool_num_tracks_implicit_creation_deletion_and_instance_scope": {
       "primary_clause": "11.2.2.6",
       "inputs_sha256": "14b0bd6d748d4803c83e4748a1da09abdb72a1952f1896d6a7e062ddc0f90fd2"
+    },
+    "u11/test_queue_empty_pop_back_warns_returns_default_and_allows_refill": {
+      "primary_clause": "11.3.2.9",
+      "inputs_sha256": "9c595d6859e0baa0c21943f56828a1f78cccf88c4cc9bd9b2dfb4f8f907ec09f"
+    },
+    "u11/test_queue_empty_pop_front_warns_returns_default_and_allows_refill": {
+      "primary_clause": "11.3.2.8",
+      "inputs_sha256": "3567eb3e02c46e0a6b88d384f2bc6919b142201a5eeca671c604214f005f4999"
+    },
+    "u11/test_queue_global_accessors_share_mutations_without_changing_a_local_queue": {
+      "primary_clause": "11.3.2.2",
+      "inputs_sha256": "53beaca70ef75ba089606fb1a3ba2b4939c862b1344d3f506a2856a72f921cd4"
+    },
+    "u11/test_queue_insert_shifts_valid_entries_and_rejects_size_and_larger_indexes": {
+      "primary_clause": "11.3.2.6",
+      "inputs_sha256": "4a7804d2af7a0a67f421b8c93c4dd16fa6a443f6e376519c5963c593689aac1a"
+    },
+    "u11/test_queue_wait_until_not_empty_reblocks_after_draining_and_back_insertion": {
+      "primary_clause": "11.3.2.12",
+      "inputs_sha256": "1285af5b29e86b005c936d36b3d20e2e9a7371a58bce8c6c1f878596a4775972"
+    },
+    "u11/test_queue_wait_until_not_empty_reblocks_after_draining_and_front_insertion": {
+      "primary_clause": "11.3.2.12",
+      "inputs_sha256": "1d925824b68f79ae0518ca101848c56656bdde2ac08a8178ef7dc38fc350c053"
     },
     "u12/test_analysis_export_forwards_writes_to_fifo_receiver": {
       "primary_clause": "12.2.10.3",
@@ -1022,6 +1062,10 @@
       "primary_clause": "12.3.9",
       "inputs_sha256": "648c0dc30925909aeaffa29db770e25912b523af8c4e7763b2ef61d671805ade"
     },
+    "u12/test_tlm_analysis_fifo_blocked_gets_wake_only_for_their_own_writes_and_rewait_after_drain": {
+      "primary_clause": "12.2.8.3.2",
+      "inputs_sha256": "d8b02245688085d365512b11cc4c0ada8ffef4fcafd005b0a638211add7b8a62"
+    },
     "u12/test_tlm_analysis_fifo_flush_allows_fresh_writes": {
       "primary_clause": "12.2.8.3",
       "inputs_sha256": "6a57f3a9c8b8f42ab0c60f217b55a1a100e651e55205992915319a1eb72848df"
@@ -1098,6 +1142,10 @@
       "primary_clause": "12.2.8.2.6",
       "inputs_sha256": "83caf772772be74e94b76008c0984e8da18b4d9ad6dcb6c416d91979441ef77e"
     },
+    "u12/test_tlm_fifo_flush_releases_capacity_to_an_already_blocked_producer": {
+      "primary_clause": "12.2.8.2.6",
+      "inputs_sha256": "43a4e20a2f9cfdc25e5d1920ad6f1c1f0c683907aeaa77ed197ba8f4a7649398"
+    },
     "u12/test_tlm_fifo_flush_removes_entries_and_allows_reuse": {
       "primary_clause": "12.2.8.2.6",
       "inputs_sha256": "204882cde0f2083a65435fbf19c3307e0e91f7fc8b38163605e5c753aa870441"
@@ -1129,6 +1177,14 @@
     "u12/test_tlm_fifo_repeated_try_peek_does_not_consume": {
       "primary_clause": "12.2.4.2.8",
       "inputs_sha256": "c63dcd3ae2a8725a3a5b6ca2d8c748047f3b950760d5af315b5aeabd2caab9b0"
+    },
+    "u12/test_tlm_fifo_two_waiting_consumers_remove_distinct_arrivals_without_assuming_a_winner": {
+      "primary_clause": "12.2.4.2.2",
+      "inputs_sha256": "f436d6aade132910e302e93927b7774d580b14a2e89da29314aeb353b38c5595"
+    },
+    "u12/test_tlm_fifo_two_waiting_peekers_share_one_arrival_without_consuming_it": {
+      "primary_clause": "12.2.4.2.3",
+      "inputs_sha256": "bb324c51a00c768f733279e4ad57f1d9322a75a59aa4746e1a92dcb319167b24"
     },
     "u12/test_tlm_fifo_zero_capacity_is_unbounded": {
       "primary_clause": "12.2.8.2.1",
@@ -2285,6 +2341,30 @@
     "u18/test_mem_location_offsets_include_the_location_index_stride": {
       "primary_clause": "18.6.4.15",
       "inputs_sha256": "e6cc172a4501c0bc0226137c03d2834fd643e83698c727396c974f6d8a9cc43c"
+    },
+    "u18/test_mem_post_read_callback_and_method_compose_returned_data_and_status_in_order": {
+      "primary_clause": "18.6.9.4",
+      "inputs_sha256": "af2c488d22853cf3154002f05b9337872a6ae28d94e46b36d3954d58921a692b"
+    },
+    "u18/test_mem_post_write_callback_precedes_final_status_hook_without_rewriting_storage": {
+      "primary_clause": "18.6.9.2",
+      "inputs_sha256": "bfd203163acdc8c4e1f27dc815366a3887e545b329b372de2a466da4d4788cbf"
+    },
+    "u18/test_mem_pre_read_hook_rejects_before_transfer_and_allows_a_clean_retry": {
+      "primary_clause": "18.6.9.3",
+      "inputs_sha256": "53e019291039b686b2b89ae965f6fa10b38b9b38e1f21e463d5971b510c2705d"
+    },
+    "u18/test_mem_pre_write_hook_rejects_before_transfer_and_allows_a_clean_retry": {
+      "primary_clause": "18.6.9.1",
+      "inputs_sha256": "43ee29c8408811f3483738163f6ef804ee824eaacfdc4e0bee0cf1726ae3049d"
+    },
+    "u18/test_mem_registered_pre_read_callback_redirects_the_offset_and_map_before_transfer": {
+      "primary_clause": "18.11.2.4",
+      "inputs_sha256": "c4991e94cb88fa687dfc1f03aff8a737a1a06815baac1d8f3672f5fa9e778c28"
+    },
+    "u18/test_mem_registered_pre_write_callback_changes_offset_and_follows_the_method_value_change": {
+      "primary_clause": "18.11.2.2",
+      "inputs_sha256": "d20cc05cfe5feb4a7184d307229922ed566bcf433dfec5f63e34726ac233c961"
     },
     "u18/test_mem_set_offset_relocates_addresses_and_locked_lookup_range": {
       "primary_clause": "18.6.3.3",

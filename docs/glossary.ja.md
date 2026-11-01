@@ -398,3 +398,20 @@ controlのみの要求や文脈／保留の番号も残し、未評価の項目�
 JSONの書式を正規化し、配列順とcatalogのbyteは保持します。
 [レポートの識別](requirements.ja.md#生成レポートの識別)を参照してください。
 表示間で同じ値でも、カバレッジの承認や測定したシミュレータ実行の識別にはなりません。
+
+## コンテナとmemory hookの観測
+
+**コンテナのcursor（Container cursor）** — poolの端点／step methodへ参照で渡すkeyです。
+空の端点や終端のstepが不成功なら、その値を保ちます。
+走査テストは追加の順序規則を指定せず、所属と一意性を検査します。
+
+**globalコンテナのsingleton（Global container singleton）** — 特殊化ごとのstaticなglobal accessorが返す、
+共有するpool／queueです。local instanceは独立したままで、key／indexによるglobal取得は共有内容を観測します。
+
+**待機するconsumerとobserver（Waiting consumers and observers）** — 待機するFIFO getは各到着を1回消費し、
+待機するpeekは1つの先頭値を削除せず全員で観測できます。
+並行動作の検査では、schedulerがどのconsumerを選ぶかは制約しません。
+
+**memory hookの経路変更（Memory hook routing）** — memoryのアクセス前callbackは、転送前の操作descriptorを、
+offset／mapも含めて変更できます。アクセス後のcallbackとmethodは、転送後に返すdata／statusを合成します。
+method／callbackの各順序規則は`uvm_mem`について検査する必要があり、registerの動作だけでは示せません。

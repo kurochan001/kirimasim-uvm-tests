@@ -3,7 +3,7 @@
 [日本語](history.ja.md) · [README](../README.md)
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and three cross-milestone thin-area expansions (865 simulation tests). The earlier 349-test checkpoint is
+three M4 increments and four cross-milestone thin-area expansions (885 simulation tests). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -1496,3 +1496,41 @@ Update paired guides, add four FAQs and four glossary terms (91 questions,
 103 terms), and retain all earlier history. Validate 74 tool tests, 865 metadata
 records, 437 ledger entries, pinned-library integrity, language-pair structure,
 local links, canonical license, whitespace and current evidence fingerprints.
+
+## Fourth thin-area expansion across M1–M4
+
+This increment adds twenty simulations to the 865-case baseline at
+[b77962b](https://github.com/kurochan001/kirimasim-uvm-tests/commit/b77962bb48072147a5b196e5afbf3401538cc1d8),
+reaching 885 cases: 271 M1, 376 M2 and 238 M3. All prior test inputs remain
+unchanged. M1 adds ten pool/queue fixtures for traversal endpoints/cursors,
+global sharing, insertion boundaries, empty pops and repeatable waiting.
+M2 adds four FIFO concurrency fixtures: flush with a blocked producer,
+two consumers, two peeking observers and independent analysis-FIFO wakeups.
+M3 adds six memory hook fixtures for data/offset/map changes, abort/retry,
+post-read composition and post-write order/status.
+
+Verilator 5.052 with pinned UVM matches sixteen new cases at seeds 1 and 73.
+Four retain spec-only expectations: front/back empty-pop warnings, memory
+pre-read map redirection and memory post-write callback order. The compatible
+full snapshot has 798 matches and 87 known differences (80 runtime records
+first differ at seed 1; seven missing-API builds have no runtime seed results).
+Ghost bundled matches five additions and differs on fifteen at each seed;
+the full set is 170 matches and 715 differences, with identical failing sets.
+kirimasim marks all twenty additions unsupported, reaching 878 unsupported
+and seven missing-API failures. Executable/profile snapshots and runner/library
+fingerprints remain compatible; no new pinned-mode Ghost result is claimed.
+
+M4 adds 53 AI drafts and maps all twenty additions plus 21 existing
+memory/register-map query fixtures. The ledger has 490 drafts, 486 with direct
+links to 555 tests, one additional control and 329 unmapped tests. Of 2,504
+identifiers, 354 have partial decomposition and 2,150 remain unassessed.
+There are 381 primary-focus identifiers and 874 with any citation. The 2,479
+candidate identifiers have a primary-focus census of 2,098 zero, 170 one and
+211 at least two. Four drafts still lack direct tests. Scope remains proposed;
+no human review, denominator approval or conformance percentage is implied.
+
+The update preserves all baseline input fingerprints, all runner/tool/library
+inputs and earlier history. Validation includes 74 tool unit tests, 885 metadata
+records, ledger/index integrity, current-input evidence binding and complete
+English/Japanese guides. The glossary has 107 entries and the FAQ 94 answers.
+README describes the current state; this section retains increment details.

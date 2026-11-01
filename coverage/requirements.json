@@ -14680,8 +14680,8 @@
         "ja": "満杯の間はputがblockし、空きができると新しい値を保存して完了する。"
       },
       "limitations": {
-        "en": "Only the listed fixtures and conditions are mapped; broader concurrency and failed-read outputs remain unassessed.",
-        "ja": "列挙した構成と条件のみを対応付け、追加の並行性と失敗したreadの出力は未評価とする。"
+        "en": "Positive delays establish pending/completed calls. Multiple consumers are checked as an unordered value pair, with no scheduling winner or fairness requirement. Flush races, cancellation and all simultaneous enqueue/dequeue combinations remain separate.",
+        "ja": "正の遅延で待機／完了を成立させる。複数consumerは順序のない値の組で検査し、schedule上の勝者や公平性は要求しない。flushの競合、取消、同時enqueue／dequeueの全組合せは別途扱う。"
       },
       "review": {
         "status": "ai",
@@ -14695,6 +14695,16 @@
           "expected_observations": [
             "UT: waiting returned 0 used 1 full 1",
             "UT: completed returned 1 removed 3 final 9 empty 1"
+          ]
+        },
+        {
+          "test": "u12/test_tlm_fifo_flush_releases_capacity_to_an_already_blocked_producer",
+          "role": "direct",
+          "expected_observations": [
+            "UT: before_flush blocked 1 full 1 used 1",
+            "UT: resumed 1 full 1 used 1",
+            "UT: value 42 empty 1",
+            "UT: reusable value 73 empty 1"
           ]
         }
       ]
@@ -14715,8 +14725,8 @@
         "ja": "最初はblockし、その後7を返してFIFOを空にする。"
       },
       "limitations": {
-        "en": "Only the listed fixtures and conditions are mapped; broader concurrency and failed-read outputs remain unassessed.",
-        "ja": "列挙した構成と条件のみを対応付け、追加の並行性と失敗したreadの出力は未評価とする。"
+        "en": "Positive delays establish pending/completed calls. Multiple consumers are checked as an unordered value pair, with no scheduling winner or fairness requirement. Flush races, cancellation and all simultaneous enqueue/dequeue combinations remain separate.",
+        "ja": "正の遅延で待機／完了を成立させる。複数consumerは順序のない値の組で検査し、schedule上の勝者や公平性は要求しない。flushの競合、取消、同時enqueue／dequeueの全組合せは別途扱う。"
       },
       "review": {
         "status": "ai",
@@ -14730,6 +14740,26 @@
           "expected_observations": [
             "UT: waiting returned 0 used 0",
             "UT: completed returned 1 value 7 empty 1"
+          ]
+        },
+        {
+          "test": "u12/test_tlm_fifo_two_waiting_consumers_remove_distinct_arrivals_without_assuming_a_winner",
+          "role": "direct",
+          "expected_observations": [
+            "UT: initially_waiting 1 empty 1",
+            "UT: one_arrival one_done 1 empty 1",
+            "UT: both_done 1 correct_pair 1 empty 1"
+          ]
+        },
+        {
+          "test": "u12/test_tlm_analysis_fifo_blocked_gets_wake_only_for_their_own_writes_and_rewait_after_drain",
+          "role": "direct",
+          "expected_observations": [
+            "UT: both_waiting 1",
+            "UT: first_only 1 second_waiting 1",
+            "UT: both_done 1 second_value 42 both_empty 1",
+            "UT: rewait 1",
+            "UT: fresh_value 73 empty 1"
           ]
         }
       ]
@@ -14750,8 +14780,8 @@
         "ja": "両peekと後のgetが61を返し、peekでは占有数が変わらない。"
       },
       "limitations": {
-        "en": "Only the listed fixtures and conditions are mapped; broader concurrency and failed-read outputs remain unassessed.",
-        "ja": "列挙した構成と条件のみを対応付け、追加の並行性と失敗したreadの出力は未評価とする。"
+        "en": "Positive delays establish pending/completed calls. Multiple consumers are checked as an unordered value pair, with no scheduling winner or fairness requirement. Flush races, cancellation and all simultaneous enqueue/dequeue combinations remain separate.",
+        "ja": "正の遅延で待機／完了を成立させる。複数consumerは順序のない値の組で検査し、schedule上の勝者や公平性は要求しない。flushの競合、取消、同時enqueue／dequeueの全組合せは別途扱う。"
       },
       "review": {
         "status": "ai",
@@ -14765,6 +14795,17 @@
           "expected_observations": [
             "UT: peeked 61 61 used 1 notifications 2 2",
             "UT: removed 61 total_notifications 3 3"
+          ]
+        },
+        {
+          "test": "u12/test_tlm_fifo_two_waiting_peekers_share_one_arrival_without_consuming_it",
+          "role": "direct",
+          "expected_observations": [
+            "UT: initially_waiting 1 empty 1",
+            "UT: both_done 1 same_head 1 retained 1",
+            "UT: consumed value 73 empty 1",
+            "UT: rewait 1",
+            "UT: fresh_head 91 retained 1"
           ]
         }
       ]
@@ -17646,6 +17687,1969 @@
           "role": "direct",
           "expected_observations": [
             "UT: ok 1 stored 11 mirror 11"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-POOL-FIRST-ENDPOINT",
+      "clause": "11.2.2.9",
+      "statement": {
+        "en": "Pool first returns an available first key, or returns zero and leaves the key unchanged when empty.",
+        "ja": "poolのfirstは、存在する先頭keyを返し、空なら0を返してkeyを変更しない。"
+      },
+      "conditions": {
+        "en": "Inspect an empty pool, a singleton and a three-key traversal.",
+        "ja": "空、1 entry、3 keyの走査を観測する。"
+      },
+      "expected": {
+        "en": "Empty sentinels survive, a singleton key is returned, and traversal includes all entries.",
+        "ja": "空ではsentinelを保ち、1 entryではそのkeyを返し、走査で全entryを含む。"
+      },
+      "limitations": {
+        "en": "Selected integer/string keys and two-state elements, with independent local storage and fresh-process singleton state. Traversal checks membership, uniqueness and terminal cursors without imposing an extra visit order; no mutation during an active traversal or four-state defaults are covered.",
+        "ja": "選択した整数／文字列keyと2値要素を使い、local storageを独立させ、別processの初期singleton状態を使う。走査は追加の訪問順序を指定せず、所属、一意性、終端cursorを検査する。走査途中の変更や4値の既定値は対象外。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u11/test_pool_empty_and_singleton_endpoints_preserve_reference_arguments",
+          "role": "direct",
+          "expected_observations": [
+            "UT: empty first 0 last 0 sentinels 1",
+            "UT: singleton first 1 last 1 same_key 1",
+            "UT: emptied first 0 last 0 retained 1"
+          ]
+        },
+        {
+          "test": "u11/test_pool_forward_iteration_visits_each_key_and_preserves_the_exhausted_cursor",
+          "role": "direct",
+          "expected_observations": [
+            "UT: traversal count 3 membership 7 unique 1 values 1 count_unchanged 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-POOL-LAST-ENDPOINT",
+      "clause": "11.2.2.10",
+      "statement": {
+        "en": "Pool last returns an available last key, or returns zero and leaves the key unchanged when empty.",
+        "ja": "poolのlastは、存在する末尾keyを返し、空なら0を返してkeyを変更しない。"
+      },
+      "conditions": {
+        "en": "Inspect empty/singleton endpoints and a backward traversal.",
+        "ja": "空／1 entryの端点と逆方向の走査を観測する。"
+      },
+      "expected": {
+        "en": "Empty sentinels survive, a singleton is both endpoints, and backward traversal reaches each entry.",
+        "ja": "空ではsentinelを保ち、1 entryは両端点になり、逆方向の走査で全entryに到達する。"
+      },
+      "limitations": {
+        "en": "Selected integer/string keys and two-state elements, with independent local storage and fresh-process singleton state. Traversal checks membership, uniqueness and terminal cursors without imposing an extra visit order; no mutation during an active traversal or four-state defaults are covered.",
+        "ja": "選択した整数／文字列keyと2値要素を使い、local storageを独立させ、別processの初期singleton状態を使う。走査は追加の訪問順序を指定せず、所属、一意性、終端cursorを検査する。走査途中の変更や4値の既定値は対象外。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u11/test_pool_empty_and_singleton_endpoints_preserve_reference_arguments",
+          "role": "direct",
+          "expected_observations": [
+            "UT: empty first 0 last 0 sentinels 1",
+            "UT: singleton first 1 last 1 same_key 1",
+            "UT: emptied first 0 last 0 retained 1"
+          ]
+        },
+        {
+          "test": "u11/test_pool_backward_iteration_visits_each_key_and_preserves_the_exhausted_cursor",
+          "role": "direct",
+          "expected_observations": [
+            "UT: traversal count 3 membership 7 unique 1 values 1 count_unchanged 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-POOL-NEXT-CURSOR",
+      "clause": "11.2.2.11",
+      "statement": {
+        "en": "Pool next advances to the next available key and preserves the key when already at the end.",
+        "ja": "poolのnextは次のkeyへ進み、末尾ではkeyを保つ。"
+      },
+      "conditions": {
+        "en": "Traverse three entries, remove a middle key before a fresh traversal, and inspect a singleton boundary.",
+        "ja": "3 entryを走査し、中間keyを削除して新しく走査し、1 entryの境界も観測する。"
+      },
+      "expected": {
+        "en": "Every surviving key appears once; exhaustion returns zero without changing the final cursor.",
+        "ja": "残る全keyは1回ずつ現れ、終端では最後のcursorを変えず0を返す。"
+      },
+      "limitations": {
+        "en": "Selected integer/string keys and two-state elements, with independent local storage and fresh-process singleton state. Traversal checks membership, uniqueness and terminal cursors without imposing an extra visit order; no mutation during an active traversal or four-state defaults are covered.",
+        "ja": "選択した整数／文字列keyと2値要素を使い、local storageを独立させ、別processの初期singleton状態を使う。走査は追加の訪問順序を指定せず、所属、一意性、終端cursorを検査する。走査途中の変更や4値の既定値は対象外。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u11/test_pool_forward_iteration_visits_each_key_and_preserves_the_exhausted_cursor",
+          "role": "direct",
+          "expected_observations": [
+            "UT: traversal count 3 membership 7 unique 1 values 1 count_unchanged 1",
+            "UT: exhausted 1 cursor_preserved 1",
+            "UT: after_delete count 2 membership 5 absent 1"
+          ]
+        },
+        {
+          "test": "u11/test_pool_empty_and_singleton_endpoints_preserve_reference_arguments",
+          "role": "direct",
+          "expected_observations": [
+            "UT: boundaries before 0 after 0 unchanged 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-POOL-PREV-CURSOR",
+      "clause": "11.2.2.12",
+      "statement": {
+        "en": "Pool prev advances to the previous available key and preserves the key at the beginning.",
+        "ja": "poolのprevは前のkeyへ進み、先頭ではkeyを保つ。"
+      },
+      "conditions": {
+        "en": "Traverse backward before/after deletion and inspect a singleton boundary.",
+        "ja": "削除の前後で逆方向に走査し、1 entryの境界も観測する。"
+      },
+      "expected": {
+        "en": "Every surviving key appears once; the boundary returns zero without changing the cursor.",
+        "ja": "残る全keyは1回ずつ現れ、境界ではcursorを変えず0を返す。"
+      },
+      "limitations": {
+        "en": "Selected integer/string keys and two-state elements, with independent local storage and fresh-process singleton state. Traversal checks membership, uniqueness and terminal cursors without imposing an extra visit order; no mutation during an active traversal or four-state defaults are covered.",
+        "ja": "選択した整数／文字列keyと2値要素を使い、local storageを独立させ、別processの初期singleton状態を使う。走査は追加の訪問順序を指定せず、所属、一意性、終端cursorを検査する。走査途中の変更や4値の既定値は対象外。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u11/test_pool_backward_iteration_visits_each_key_and_preserves_the_exhausted_cursor",
+          "role": "direct",
+          "expected_observations": [
+            "UT: traversal count 3 membership 7 unique 1 values 1 count_unchanged 1",
+            "UT: exhausted 1 cursor_preserved 1",
+            "UT: after_delete count 2 membership 5 absent 1"
+          ]
+        },
+        {
+          "test": "u11/test_pool_empty_and_singleton_endpoints_preserve_reference_arguments",
+          "role": "direct",
+          "expected_observations": [
+            "UT: boundaries before 0 after 0 unchanged 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-POOL-GLOBAL-SINGLETON",
+      "clause": "11.2.2.2",
+      "statement": {
+        "en": "Repeated global-pool access returns the same shared pool instance.",
+        "ja": "global poolの繰り返し取得は、同じ共有pool instanceを返す。"
+      },
+      "conditions": {
+        "en": "Acquire two global handles and create an independent local pool of the same specialization.",
+        "ja": "global handleを2つ取得し、同じ特殊化の独立したlocal poolを作る。"
+      },
+      "expected": {
+        "en": "Handles are identical and their updates/deletion are shared while local contents stay unchanged.",
+        "ja": "handleが一致し、更新／削除を共有する一方、localの内容を保つ。"
+      },
+      "limitations": {
+        "en": "Selected integer/string keys and two-state elements, with independent local storage and fresh-process singleton state. Traversal checks membership, uniqueness and terminal cursors without imposing an extra visit order; no mutation during an active traversal or four-state defaults are covered.",
+        "ja": "選択した整数／文字列keyと2値要素を使い、local storageを独立させ、別processの初期singleton状態を使う。走査は追加の訪問順序を指定せず、所属、一意性、終端cursorを検査する。走査途中の変更や4値の既定値は対象外。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u11/test_pool_global_accessors_share_a_singleton_and_leave_local_storage_independent",
+          "role": "direct",
+          "expected_observations": [
+            "UT: singleton 1 value 42 local 91",
+            "UT: replacement shared 1 count 1",
+            "UT: recreate default 0 present 1 count 1 local 91"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-POOL-GLOBAL-KEYED-ACCESS",
+      "clause": "11.2.2.3",
+      "statement": {
+        "en": "Pool get_global retrieves from the singleton pool by the supplied key.",
+        "ja": "poolのget_globalは、指定keyでsingleton poolから取得する。"
+      },
+      "conditions": {
+        "en": "Read a present key and read again after deleting it through a global handle.",
+        "ja": "存在するkeyを読み、global handleで削除した後に再び読む。"
+      },
+      "expected": {
+        "en": "The present value is returned; a later missing read creates the two-state default entry in the shared pool.",
+        "ja": "存在する値を返し、後の欠損keyの取得では共有poolに2値の既定entryを作る。"
+      },
+      "limitations": {
+        "en": "Selected integer/string keys and two-state elements, with independent local storage and fresh-process singleton state. Traversal checks membership, uniqueness and terminal cursors without imposing an extra visit order; no mutation during an active traversal or four-state defaults are covered.",
+        "ja": "選択した整数／文字列keyと2値要素を使い、local storageを独立させ、別processの初期singleton状態を使う。走査は追加の訪問順序を指定せず、所属、一意性、終端cursorを検査する。走査途中の変更や4値の既定値は対象外。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u11/test_pool_global_accessors_share_a_singleton_and_leave_local_storage_independent",
+          "role": "direct",
+          "expected_observations": [
+            "UT: singleton 1 value 42 local 91",
+            "UT: recreate default 0 present 1 count 1 local 91"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-QUEUE-GLOBAL-SINGLETON",
+      "clause": "11.3.2.2",
+      "statement": {
+        "en": "Repeated global-queue access returns the same shared queue instance.",
+        "ja": "global queueの繰り返し取得は、同じ共有queue instanceを返す。"
+      },
+      "conditions": {
+        "en": "Acquire two global handles and a separate local queue.",
+        "ja": "global handleを2つ取得し、別のlocal queueを作る。"
+      },
+      "expected": {
+        "en": "Front/back insertions, indexed deletion and clearing are shared, while the local queue is unchanged.",
+        "ja": "前後への挿入、indexでの削除、全削除を共有し、local queueは変更しない。"
+      },
+      "limitations": {
+        "en": "Selected integer/string keys and two-state elements, with independent local storage and fresh-process singleton state. Traversal checks membership, uniqueness and terminal cursors without imposing an extra visit order; no mutation during an active traversal or four-state defaults are covered.",
+        "ja": "選択した整数／文字列keyと2値要素を使い、local storageを独立させ、別processの初期singleton状態を使う。走査は追加の訪問順序を指定せず、所属、一意性、終端cursorを検査する。走査途中の変更や4値の既定値は対象外。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u11/test_queue_global_accessors_share_mutations_without_changing_a_local_queue",
+          "role": "direct",
+          "expected_observations": [
+            "UT: singleton 1 front 73 second 42 size 2",
+            "UT: delete shared 42 size 1 local 91",
+            "UT: cleared shared 0 local_size 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-QUEUE-GLOBAL-INDEXED-ACCESS",
+      "clause": "11.3.2.3",
+      "statement": {
+        "en": "Queue get_global retrieves the indexed entry from the singleton queue.",
+        "ja": "queueのget_globalは、singleton queueから指定indexのentryを取得する。"
+      },
+      "conditions": {
+        "en": "Push to the back and then the front through separate global handles.",
+        "ja": "別々のglobal handleで末尾、先頭の順に挿入する。"
+      },
+      "expected": {
+        "en": "Indexed global access sees the element displaced to index one.",
+        "ja": "globalのindex照会で、index 1へ移動した要素を取得する。"
+      },
+      "limitations": {
+        "en": "Selected integer/string keys and two-state elements, with independent local storage and fresh-process singleton state. Traversal checks membership, uniqueness and terminal cursors without imposing an extra visit order; no mutation during an active traversal or four-state defaults are covered.",
+        "ja": "選択した整数／文字列keyと2値要素を使い、local storageを独立させ、別processの初期singleton状態を使う。走査は追加の訪問順序を指定せず、所属、一意性、終端cursorを検査する。走査途中の変更や4値の既定値は対象外。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u11/test_queue_global_accessors_share_mutations_without_changing_a_local_queue",
+          "role": "direct",
+          "expected_observations": [
+            "UT: singleton 1 front 73 second 42 size 2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-QUEUE-INSERT-VALID-INDEX",
+      "clause": "11.3.2.6",
+      "statement": {
+        "en": "Queue insert places the new item at a valid existing index and shifts later entries.",
+        "ja": "queueのinsertは、有効な既存indexに新要素を入れ、後続entryを移動する。"
+      },
+      "conditions": {
+        "en": "Insert at an interior index and then at the front of a nonempty queue.",
+        "ja": "空でないqueueの中間indexと先頭に挿入する。"
+      },
+      "expected": {
+        "en": "The queue grows in the observed order 5, 10, 20, 30 without warnings.",
+        "ja": "warningなしで、観測する順序5、10、20、30へqueueが拡張する。"
+      },
+      "limitations": {
+        "en": "Selected integer/string keys and two-state elements, with independent local storage and fresh-process singleton state. Traversal checks membership, uniqueness and terminal cursors without imposing an extra visit order; no mutation during an active traversal or four-state defaults are covered.",
+        "ja": "選択した整数／文字列keyと2値要素を使い、local storageを独立させ、別processの初期singleton状態を使う。走査は追加の訪問順序を指定せず、所属、一意性、終端cursorを検査する。走査途中の変更や4値の既定値は対象外。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u11/test_queue_insert_shifts_valid_entries_and_rejects_size_and_larger_indexes",
+          "role": "direct",
+          "expected_observations": [
+            "UT: inserted size 4 values 5 10 20 30 warnings 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-QUEUE-INSERT-OUT-OF-RANGE",
+      "clause": "11.3.2.6",
+      "statement": {
+        "en": "An insertion at or above queue size warns and leaves the queue unchanged.",
+        "ja": "queueのsize以上への挿入は、warningを出してqueueを変更しない。"
+      },
+      "conditions": {
+        "en": "Call insert at exactly size and at a larger positive index after valid insertions.",
+        "ja": "有効な挿入の後、sizeと等しいindexとそれより大きい正のindexでinsertを呼ぶ。"
+      },
+      "expected": {
+        "en": "Two warnings are observed and the four stored values remain unchanged.",
+        "ja": "warningを2回観測し、保存した4値を変更しない。"
+      },
+      "limitations": {
+        "en": "Selected integer/string keys and two-state elements, with independent local storage and fresh-process singleton state. Traversal checks membership, uniqueness and terminal cursors without imposing an extra visit order; no mutation during an active traversal or four-state defaults are covered.",
+        "ja": "選択した整数／文字列keyと2値要素を使い、local storageを独立させ、別processの初期singleton状態を使う。走査は追加の訪問順序を指定せず、所属、一意性、終端cursorを検査する。走査途中の変更や4値の既定値は対象外。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u11/test_queue_insert_shifts_valid_entries_and_rejects_size_and_larger_indexes",
+          "role": "direct",
+          "expected_observations": [
+            "UT: inserted size 4 values 5 10 20 30 warnings 0",
+            "UT: rejected warnings 2 size 4 values 5 10 20 30"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-QUEUE-WAIT-EMPTY",
+      "clause": "11.3.2.12",
+      "statement": {
+        "en": "Queue wait_until_not_empty blocks while its queue is empty and returns after an insertion.",
+        "ja": "queueのwait_until_not_emptyは、自身のqueueが空の間はblockし、挿入後に戻る。"
+      },
+      "conditions": {
+        "en": "Establish an empty wait, mutate a peer, insert at the front/back, drain and wait again.",
+        "ja": "空の待機を成立させ、別queueを変更し、先頭／末尾に挿入し、空にして再び待つ。"
+      },
+      "expected": {
+        "en": "Peer insertion does not release the wait; each own insertion releases it without consuming the entry.",
+        "ja": "別queueへの挿入では待機を解除せず、自身への各挿入でentryを消費せず再開する。"
+      },
+      "limitations": {
+        "en": "Selected integer/string keys and two-state elements, with independent local storage and fresh-process singleton state. Traversal checks membership, uniqueness and terminal cursors without imposing an extra visit order; no mutation during an active traversal or four-state defaults are covered.",
+        "ja": "選択した整数／文字列keyと2値要素を使い、local storageを独立させ、別processの初期singleton状態を使う。走査は追加の訪問順序を指定せず、所属、一意性、終端cursorを検査する。走査途中の変更や4値の既定値は対象外。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u11/test_queue_wait_until_not_empty_reblocks_after_draining_and_front_insertion",
+          "role": "direct",
+          "expected_observations": [
+            "UT: first_wait 1 size 0",
+            "UT: peer_did_not_wake 1",
+            "UT: first_done 1 retained 1 value 42",
+            "UT: second_wait 1",
+            "UT: second_done 1 retained 1 value 73 peer 91"
+          ]
+        },
+        {
+          "test": "u11/test_queue_wait_until_not_empty_reblocks_after_draining_and_back_insertion",
+          "role": "direct",
+          "expected_observations": [
+            "UT: first_wait 1 size 0",
+            "UT: peer_did_not_wake 1",
+            "UT: first_done 1 retained 1 value 42",
+            "UT: second_wait 1",
+            "UT: second_done 1 retained 1 value 73 peer 91"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-QUEUE-WAIT-NONEMPTY",
+      "clause": "11.3.2.12",
+      "statement": {
+        "en": "Queue wait_until_not_empty returns immediately when an entry is already available.",
+        "ja": "queueのwait_until_not_emptyは、entryが既に存在すると直ちに戻る。"
+      },
+      "conditions": {
+        "en": "Call wait again while the first inserted entry remains available.",
+        "ja": "最初に挿入したentryが残ったまま再びwaitを呼ぶ。"
+      },
+      "expected": {
+        "en": "The call returns at the same simulation time and retains the entry.",
+        "ja": "同じsimulation時刻で戻り、entryを保持する。"
+      },
+      "limitations": {
+        "en": "Selected integer/string keys and two-state elements, with independent local storage and fresh-process singleton state. Traversal checks membership, uniqueness and terminal cursors without imposing an extra visit order; no mutation during an active traversal or four-state defaults are covered.",
+        "ja": "選択した整数／文字列keyと2値要素を使い、local storageを独立させ、別processの初期singleton状態を使う。走査は追加の訪問順序を指定せず、所属、一意性、終端cursorを検査する。走査途中の変更や4値の既定値は対象外。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u11/test_queue_wait_until_not_empty_reblocks_after_draining_and_front_insertion",
+          "role": "direct",
+          "expected_observations": [
+            "UT: first_done 1 retained 1 value 42",
+            "UT: nonempty_immediate same_time 1 size 1"
+          ]
+        },
+        {
+          "test": "u11/test_queue_wait_until_not_empty_reblocks_after_draining_and_back_insertion",
+          "role": "direct",
+          "expected_observations": [
+            "UT: first_done 1 retained 1 value 42",
+            "UT: nonempty_immediate same_time 1 size 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-QUEUE-EMPTY-POP-FRONT",
+      "clause": "11.3.2.8",
+      "statement": {
+        "en": "Popping an empty queue at the front warns and returns the element type default.",
+        "ja": "空queueのfrontからのpopは、warningを出して要素型の既定値を返す。"
+      },
+      "conditions": {
+        "en": "Pop an initially empty two-state queue, refill/drain it, and pop again.",
+        "ja": "初めて空の2値queueでpopし、再設定／全取得して再びpopする。"
+      },
+      "expected": {
+        "en": "Both empty calls return zero and each warns; successful removals retain front/back order.",
+        "ja": "両方の空での呼出しは0を返して各1 warningを出し、成功する取得では前後の順序を保つ。"
+      },
+      "limitations": {
+        "en": "The pinned library delegates to native queue pops without the required UVM warnings; normative expectations remain spec-only. No simulator warning text or four-state default is assumed.",
+        "ja": "固定ライブラリはnative queueのpopへ委譲し、要求されるUVM warningを出さない。規格上の期待をspec-onlyで維持する。シミュレータのwarning文面や4値の既定値は仮定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u11/test_queue_empty_pop_front_warns_returns_default_and_allows_refill",
+          "role": "direct",
+          "expected_observations": [
+            "UT: empty default 0 warnings 1 size 0",
+            "UT: refilled value 17 warnings 1 remaining 1",
+            "UT: drained value 42 size 0",
+            "UT: empty_again default 0 warnings 2 size 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-QUEUE-EMPTY-POP-BACK",
+      "clause": "11.3.2.9",
+      "statement": {
+        "en": "Popping an empty queue at the back warns and returns the element type default.",
+        "ja": "空queueのbackからのpopは、warningを出して要素型の既定値を返す。"
+      },
+      "conditions": {
+        "en": "Pop an initially empty two-state queue, refill/drain it, and pop again.",
+        "ja": "初めて空の2値queueでpopし、再設定／全取得して再びpopする。"
+      },
+      "expected": {
+        "en": "Both empty calls return zero and each warns; successful removals retain front/back order.",
+        "ja": "両方の空での呼出しは0を返して各1 warningを出し、成功する取得では前後の順序を保つ。"
+      },
+      "limitations": {
+        "en": "The pinned library delegates to native queue pops without the required UVM warnings; normative expectations remain spec-only. No simulator warning text or four-state default is assumed.",
+        "ja": "固定ライブラリはnative queueのpopへ委譲し、要求されるUVM warningを出さない。規格上の期待をspec-onlyで維持する。シミュレータのwarning文面や4値の既定値は仮定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u11/test_queue_empty_pop_back_warns_returns_default_and_allows_refill",
+          "role": "direct",
+          "expected_observations": [
+            "UT: empty default 0 warnings 1 size 0",
+            "UT: refilled value 42 warnings 1 remaining 1",
+            "UT: drained value 17 size 0",
+            "UT: empty_again default 0 warnings 2 size 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-ANALYSIS-FIFO-WRITE-WAKES-READER",
+      "clause": "12.2.8.3.2",
+      "statement": {
+        "en": "An analysis FIFO write makes the transaction available to its blocked reader.",
+        "ja": "analysis FIFOのwriteは、待機するreaderにtransactionを提供する。"
+      },
+      "conditions": {
+        "en": "Two instances each have an empty blocking get; write one before the other, then repeat after draining.",
+        "ja": "2 instanceそれぞれに空のblocking getを用意し、片方を先にwriteして、全取得後にも反復する。"
+      },
+      "expected": {
+        "en": "Only the written instance wakes; both receive their values and a drained instance blocks until a new write.",
+        "ja": "writeしたinstanceだけが再開し、両方が自身の値を受け取り、空にしたinstanceは新しいwriteまでblockする。"
+      },
+      "limitations": {
+        "en": "Positive delays establish pending/completed calls. Multiple consumers are checked as an unordered value pair, with no scheduling winner or fairness requirement. Flush races, cancellation and all simultaneous enqueue/dequeue combinations remain separate.",
+        "ja": "正の遅延で待機／完了を成立させる。複数consumerは順序のない値の組で検査し、schedule上の勝者や公平性は要求しない。flushの競合、取消、同時enqueue／dequeueの全組合せは別途扱う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm_analysis_fifo_blocked_gets_wake_only_for_their_own_writes_and_rewait_after_drain",
+          "role": "direct",
+          "expected_observations": [
+            "UT: both_waiting 1",
+            "UT: first_only 1 second_waiting 1",
+            "UT: both_done 1 second_value 42 both_empty 1",
+            "UT: rewait 1",
+            "UT: fresh_value 73 empty 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEMORY-PRE-WRITE-VALUE",
+      "clause": "18.6.9.1",
+      "statement": {
+        "en": "A memory pre_write method can modify the value used by the later write.",
+        "ja": "memoryのpre_write methodは、後のwriteに使う値を変更できる。"
+      },
+      "conditions": {
+        "en": "Add to the value in the method and apply a noncommuting XOR in a registered callback.",
+        "ja": "methodで値に加算し、登録callbackで交換不能なXORを適用する。"
+      },
+      "expected": {
+        "en": "The frontdoor sees the composed value 3e instead of the caller value 21.",
+        "ja": "frontdoorは呼出し元の値21ではなく、合成した値3eを受け取る。"
+      },
+      "limitations": {
+        "en": "Explicit memory/map/offsets use testbench custom frontdoors with transfer counters and deterministic storage. Callback deletion or a clean retry supplies a control. This checks selected hook composition, not RTL protocols, bursts, DPI, every error source or arbitrary callback combinations.",
+        "ja": "明示したmemory／map／offsetを、転送数と決定的storageを持つテストベンチのcustom frontdoorで扱う。callbackの削除または正常なretryを比較対象にする。選択したhookの合成を検査し、RTL protocol、burst、DPI、全エラー源、任意のcallback組合せは扱わない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_mem_registered_pre_write_callback_changes_offset_and_follows_the_method_value_change",
+          "role": "direct",
+          "expected_observations": [
+            "UT: write ok 1 order MCF calls 1 n 1 offset 5 data 3e orig 22",
+            "UT: control ok 1 order MF calls 1 n 2 offset 2 data 21 redirected 3e"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEMORY-PRE-WRITE-CALLBACK-OFFSET",
+      "clause": "18.11.2.2",
+      "statement": {
+        "en": "A memory pre_write callback runs after its method and can redirect the write offset.",
+        "ja": "memoryのpre_write callbackはmethodの後に実行され、writeのoffsetを変更できる。"
+      },
+      "conditions": {
+        "en": "Change offset two to five in the callback after the method value transform.",
+        "ja": "methodの値変更の後、callbackでoffset 2を5へ変更する。"
+      },
+      "expected": {
+        "en": "The trace is method/callback/frontdoor and only the redirected location is written.",
+        "ja": "traceはmethod／callback／frontdoorになり、変更後のlocationだけへ書く。"
+      },
+      "limitations": {
+        "en": "Explicit memory/map/offsets use testbench custom frontdoors with transfer counters and deterministic storage. Callback deletion or a clean retry supplies a control. This checks selected hook composition, not RTL protocols, bursts, DPI, every error source or arbitrary callback combinations.",
+        "ja": "明示したmemory／map／offsetを、転送数と決定的storageを持つテストベンチのcustom frontdoorで扱う。callbackの削除または正常なretryを比較対象にする。選択したhookの合成を検査し、RTL protocol、burst、DPI、全エラー源、任意のcallback組合せは扱わない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_mem_registered_pre_write_callback_changes_offset_and_follows_the_method_value_change",
+          "role": "direct",
+          "expected_observations": [
+            "UT: write ok 1 order MCF calls 1 n 1 offset 5 data 3e orig 22",
+            "UT: control ok 1 order MF calls 1 n 2 offset 2 data 21 redirected 3e"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEMORY-PRE-READ-CALLBACK-REDIRECT",
+      "clause": "18.11.2.4",
+      "statement": {
+        "en": "A memory pre_read callback runs after its method and can redirect the offset and map.",
+        "ja": "memoryのpre_read callbackはmethodの後に実行され、offsetとmapを変更できる。"
+      },
+      "conditions": {
+        "en": "Select another of two explicit maps and another memory offset in the callback.",
+        "ja": "callbackで明示した2 mapの別の方と、別のmemory offsetを選ぶ。"
+      },
+      "expected": {
+        "en": "Only the new map frontdoor executes at offset six, returning a6; removing the callback restores the original map/offset.",
+        "ja": "新mapのfrontdoorだけがoffset 6で動作してa6を返し、callback削除後は元のmap／offsetへ戻る。"
+      },
+      "limitations": {
+        "en": "Explicit memory/map/offsets use testbench custom frontdoors with transfer counters and deterministic storage. Callback deletion or a clean retry supplies a control. This checks selected hook composition, not RTL protocols, bursts, DPI, every error source or arbitrary callback combinations.",
+        "ja": "明示したmemory／map／offsetを、転送数と決定的storageを持つテストベンチのcustom frontdoorで扱う。callbackの削除または正常なretryを比較対象にする。選択したhookの合成を検査し、RTL protocol、burst、DPI、全エラー源、任意のcallback組合せは扱わない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_mem_registered_pre_read_callback_redirects_the_offset_and_map_before_transfer",
+          "role": "direct",
+          "expected_observations": [
+            "UT: redirect ok 1 order MCF calls 1 first 0 second 1 offset 6 value a6",
+            "UT: control ok 1 order MF calls 1 first 1 second 1 offset 3 value 33"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEMORY-POST-READ-COMPOSITION",
+      "clause": "18.6.9.4",
+      "statement": {
+        "en": "The memory post_read method follows registered callbacks and its final data/status changes are returned.",
+        "ja": "memoryのpost_read methodは登録callbackの後に実行され、最後のdata／status変更を返す。"
+      },
+      "conditions": {
+        "en": "The callback XORs read data and sets HAS_X; the method adds to that data and sets NOT_OK.",
+        "ja": "callbackがread dataをXORしてHAS_Xを設定し、methodがそのdataへ加算してNOT_OKを設定する。"
+      },
+      "expected": {
+        "en": "The method sees the callback status and the caller receives 5a/NOT_OK while storage remains 45.",
+        "ja": "methodがcallbackのstatusを受け、storageは45のまま、呼出し元には5a／NOT_OKを返す。"
+      },
+      "limitations": {
+        "en": "Explicit memory/map/offsets use testbench custom frontdoors with transfer counters and deterministic storage. Callback deletion or a clean retry supplies a control. This checks selected hook composition, not RTL protocols, bursts, DPI, every error source or arbitrary callback combinations.",
+        "ja": "明示したmemory／map／offsetを、転送数と決定的storageを持つテストベンチのcustom frontdoorで扱う。callbackの削除または正常なretryを比較対象にする。選択したhookの合成を検査し、RTL protocol、burst、DPI、全エラー源、任意のcallback組合せは扱わない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_mem_post_read_callback_and_method_compose_returned_data_and_status_in_order",
+          "role": "direct",
+          "expected_observations": [
+            "UT: read failed 1 order FCM seen 1 value 5a stored 45 calls 1 n 1",
+            "UT: control ok 1 order FM value 45 calls 1 n 2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEMORY-POST-WRITE-STATUS",
+      "clause": "18.6.9.2",
+      "statement": {
+        "en": "The memory post_write method follows registered callbacks and determines the final returned status.",
+        "ja": "memoryのpost_write methodは登録callbackの後に実行され、最後に返すstatusを決める。"
+      },
+      "conditions": {
+        "en": "The callback sets NOT_OK after the write and the method observes it and changes it to HAS_X.",
+        "ja": "write後にcallbackがNOT_OKを設定し、methodがそれを観測してHAS_Xへ変更する。"
+      },
+      "expected": {
+        "en": "The trace is frontdoor/callback/method and HAS_X reaches the caller.",
+        "ja": "traceがfrontdoor／callback／methodになり、HAS_Xが呼出し元へ届く。"
+      },
+      "limitations": {
+        "en": "Explicit memory/map/offsets use testbench custom frontdoors with transfer counters and deterministic storage. Callback deletion or a clean retry supplies a control. This checks selected hook composition, not RTL protocols, bursts, DPI, every error source or arbitrary callback combinations.",
+        "ja": "明示したmemory／map／offsetを、転送数と決定的storageを持つテストベンチのcustom frontdoorで扱う。callbackの削除または正常なretryを比較対象にする。選択したhookの合成を検査し、RTL protocol、burst、DPI、全エラー源、任意のcallback組合せは扱わない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_mem_post_write_callback_precedes_final_status_hook_without_rewriting_storage",
+          "role": "direct",
+          "expected_observations": [
+            "UT: write status 1 order FCM seen 1 stored 21 other 66 calls 1 n 1",
+            "UT: control ok 1 order FM stored 42 other 66 calls 1 n 2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEMORY-POST-WRITE-NO-RETRANSFER",
+      "clause": "18.11.2.3",
+      "statement": {
+        "en": "Changing value or offset in a memory post_write callback does not alter the already completed transfer.",
+        "ja": "memoryのpost_write callbackで値やoffsetを変更しても、完了済みの転送を変更しない。"
+      },
+      "conditions": {
+        "en": "After writing location two, mutate the descriptor to another value/offset.",
+        "ja": "location 2へのwriteの後、descriptorを別の値／offsetへ変更する。"
+      },
+      "expected": {
+        "en": "There is one transfer; location two retains 21 and the other location retains 66.",
+        "ja": "転送は1回で、location 2は21を保ち、別locationは66を保つ。"
+      },
+      "limitations": {
+        "en": "Explicit memory/map/offsets use testbench custom frontdoors with transfer counters and deterministic storage. Callback deletion or a clean retry supplies a control. This checks selected hook composition, not RTL protocols, bursts, DPI, every error source or arbitrary callback combinations.",
+        "ja": "明示したmemory／map／offsetを、転送数と決定的storageを持つテストベンチのcustom frontdoorで扱う。callbackの削除または正常なretryを比較対象にする。選択したhookの合成を検査し、RTL protocol、burst、DPI、全エラー源、任意のcallback組合せは扱わない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_mem_post_write_callback_precedes_final_status_hook_without_rewriting_storage",
+          "role": "direct",
+          "expected_observations": [
+            "UT: write status 1 order FCM seen 1 stored 21 other 66 calls 1 n 1",
+            "UT: control ok 1 order FM stored 42 other 66 calls 1 n 2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEMORY-PRE-WRITE-ABORT",
+      "clause": "18.6.9.1",
+      "statement": {
+        "en": "A non-OK status from memory pre_write aborts the operation before physical access.",
+        "ja": "memoryのpre_writeが設定する非OK statusは、物理アクセス前に操作を中止する。"
+      },
+      "conditions": {
+        "en": "Reject one operation in the method, then disable rejection and retry.",
+        "ja": "methodで1操作を拒否し、その後拒否を無効にしてretryする。"
+      },
+      "expected": {
+        "en": "The failed attempt makes no transfer and preserves storage; the retry executes once and succeeds.",
+        "ja": "失敗した試行は転送せずstorageを保ち、retryは1回動作して成功する。"
+      },
+      "limitations": {
+        "en": "Explicit memory/map/offsets use testbench custom frontdoors with transfer counters and deterministic storage. Callback deletion or a clean retry supplies a control. This checks selected hook composition, not RTL protocols, bursts, DPI, every error source or arbitrary callback combinations.",
+        "ja": "明示したmemory／map／offsetを、転送数と決定的storageを持つテストベンチのcustom frontdoorで扱う。callbackの削除または正常なretryを比較対象にする。選択したhookの合成を検査し、RTL protocol、burst、DPI、全エラー源、任意のcallback組合せは扱わない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_mem_pre_write_hook_rejects_before_transfer_and_allows_a_clean_retry",
+          "role": "direct",
+          "expected_observations": [
+            "UT: rejected 1 order M n 0 stored 5a",
+            "UT: retry ok 1 order MF n 1 offset 2 data a6"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEMORY-PRE-READ-ABORT",
+      "clause": "18.6.9.3",
+      "statement": {
+        "en": "A non-OK status from memory pre_read aborts the operation before physical access.",
+        "ja": "memoryのpre_readが設定する非OK statusは、物理アクセス前に操作を中止する。"
+      },
+      "conditions": {
+        "en": "Reject one operation in the method, then disable rejection and retry.",
+        "ja": "methodで1操作を拒否し、その後拒否を無効にしてretryする。"
+      },
+      "expected": {
+        "en": "The failed attempt makes no transfer and preserves storage; the retry executes once and succeeds.",
+        "ja": "失敗した試行は転送せずstorageを保ち、retryは1回動作して成功する。"
+      },
+      "limitations": {
+        "en": "Explicit memory/map/offsets use testbench custom frontdoors with transfer counters and deterministic storage. Callback deletion or a clean retry supplies a control. This checks selected hook composition, not RTL protocols, bursts, DPI, every error source or arbitrary callback combinations.",
+        "ja": "明示したmemory／map／offsetを、転送数と決定的storageを持つテストベンチのcustom frontdoorで扱う。callbackの削除または正常なretryを比較対象にする。選択したhookの合成を検査し、RTL protocol、burst、DPI、全エラー源、任意のcallback組合せは扱わない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_mem_pre_read_hook_rejects_before_transfer_and_allows_a_clean_retry",
+          "role": "direct",
+          "expected_observations": [
+            "UT: rejected 1 order M n 0 stored 5a",
+            "UT: retry ok 1 order MF n 1 offset 2 value 5a"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEMORY-PARENT-QUERY",
+      "clause": "18.6.4.1",
+      "statement": {
+        "en": "Memory get_parent returns its configured parent block.",
+        "ja": "memoryのget_parentは、設定した親blockを返す。"
+      },
+      "conditions": {
+        "en": "Configure a five-location, thirteen-bit memory.",
+        "ja": "5 location、13-bitのmemoryを設定する。"
+      },
+      "expected": {
+        "en": "The returned parent is the configured block handle.",
+        "ja": "設定したblockのhandleを返す。"
+      },
+      "limitations": {
+        "en": "Selected explicit maps, widths and offsets only. Aggregate output lines contain multiple observations; each link claims only the named property. No transfer, RTL timing, complete hierarchy or missing-map behavior is inferred unless explicitly observed; spec-only expectations remain normative.",
+        "ja": "選択した明示map／幅／offsetだけを扱う。複合出力行は複数観測を含むが、各linkは名前を付けた性質だけを主張する。明示して観測しない限り、転送、RTL timing、階層全体、欠損mapの動作は推定せず、spec-onlyの期待も規格に基づくまま維持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_mem_constructor_reports_location_count_rounded_width_and_parent",
+          "role": "direct",
+          "expected_observations": [
+            "UT: parent 1 size 5 bits 13 bytes 2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEMORY-SIZE-QUERY",
+      "clause": "18.6.4.7",
+      "statement": {
+        "en": "Memory get_size returns its location count.",
+        "ja": "memoryのget_sizeは、location数を返す。"
+      },
+      "conditions": {
+        "en": "Construct a memory with five locations.",
+        "ja": "5 locationのmemoryを構築する。"
+      },
+      "expected": {
+        "en": "The reported location count is five.",
+        "ja": "報告するlocation数は5になる。"
+      },
+      "limitations": {
+        "en": "Selected explicit maps, widths and offsets only. Aggregate output lines contain multiple observations; each link claims only the named property. No transfer, RTL timing, complete hierarchy or missing-map behavior is inferred unless explicitly observed; spec-only expectations remain normative.",
+        "ja": "選択した明示map／幅／offsetだけを扱う。複合出力行は複数観測を含むが、各linkは名前を付けた性質だけを主張する。明示して観測しない限り、転送、RTL timing、階層全体、欠損mapの動作は推定せず、spec-onlyの期待も規格に基づくまま維持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_mem_constructor_reports_location_count_rounded_width_and_parent",
+          "role": "direct",
+          "expected_observations": [
+            "UT: parent 1 size 5 bits 13 bytes 2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEMORY-BIT-WIDTH-QUERY",
+      "clause": "18.6.4.9",
+      "statement": {
+        "en": "Memory get_n_bits returns the configured location width.",
+        "ja": "memoryのget_n_bitsは、設定したlocationのbit幅を返す。"
+      },
+      "conditions": {
+        "en": "Construct a thirteen-bit memory.",
+        "ja": "13-bitのmemoryを構築する。"
+      },
+      "expected": {
+        "en": "The reported bit width is thirteen.",
+        "ja": "報告するbit幅は13になる。"
+      },
+      "limitations": {
+        "en": "Selected explicit maps, widths and offsets only. Aggregate output lines contain multiple observations; each link claims only the named property. No transfer, RTL timing, complete hierarchy or missing-map behavior is inferred unless explicitly observed; spec-only expectations remain normative.",
+        "ja": "選択した明示map／幅／offsetだけを扱う。複合出力行は複数観測を含むが、各linkは名前を付けた性質だけを主張する。明示して観測しない限り、転送、RTL timing、階層全体、欠損mapの動作は推定せず、spec-onlyの期待も規格に基づくまま維持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_mem_constructor_reports_location_count_rounded_width_and_parent",
+          "role": "direct",
+          "expected_observations": [
+            "UT: parent 1 size 5 bits 13 bytes 2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEMORY-BYTE-WIDTH-ROUNDING",
+      "clause": "18.6.4.8",
+      "statement": {
+        "en": "Memory get_n_bytes rounds its location width up to complete bytes.",
+        "ja": "memoryのget_n_bytesは、location幅を完全なbyte数へ切り上げる。"
+      },
+      "conditions": {
+        "en": "Inspect a thirteen-bit location.",
+        "ja": "13-bitのlocationを照会する。"
+      },
+      "expected": {
+        "en": "The reported width is two bytes.",
+        "ja": "報告する幅は2 byteになる。"
+      },
+      "limitations": {
+        "en": "Selected explicit maps, widths and offsets only. Aggregate output lines contain multiple observations; each link claims only the named property. No transfer, RTL timing, complete hierarchy or missing-map behavior is inferred unless explicitly observed; spec-only expectations remain normative.",
+        "ja": "選択した明示map／幅／offsetだけを扱う。複合出力行は複数観測を含むが、各linkは名前を付けた性質だけを主張する。明示して観測しない限り、転送、RTL timing、階層全体、欠損mapの動作は推定せず、spec-onlyの期待も規格に基づくまま維持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_mem_constructor_reports_location_count_rounded_width_and_parent",
+          "role": "direct",
+          "expected_observations": [
+            "UT: parent 1 size 5 bits 13 bytes 2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEMORY-MAP-COUNT",
+      "clause": "18.6.4.2",
+      "statement": {
+        "en": "Memory map count reports the number of maps containing the memory.",
+        "ja": "memoryのmap数は、そのmemoryを含むmap数を返す。"
+      },
+      "conditions": {
+        "en": "Register one memory in one map or two sibling-interface maps.",
+        "ja": "1 memoryを1 mapまたは兄弟interfaceの2 mapに登録する。"
+      },
+      "expected": {
+        "en": "The counts are one and two for the respective fixtures.",
+        "ja": "各構成でmap数は1と2になる。"
+      },
+      "limitations": {
+        "en": "Selected explicit maps, widths and offsets only. Aggregate output lines contain multiple observations; each link claims only the named property. No transfer, RTL timing, complete hierarchy or missing-map behavior is inferred unless explicitly observed; spec-only expectations remain normative.",
+        "ja": "選択した明示map／幅／offsetだけを扱う。複合出力行は複数観測を含むが、各linkは名前を付けた性質だけを主張する。明示して観測しない限り、転送、RTL timing、階層全体、欠損mapの動作は推定せず、spec-onlyの期待も規格に基づくまま維持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_mem_single_map_membership_preserves_the_registered_map_handle",
+          "role": "direct",
+          "expected_observations": [
+            "UT: count 1 listed 1 handle 1 member 1 other_member 0 null_member 0"
+          ]
+        },
+        {
+          "test": "u18/test_mem_two_interface_maps_preserve_membership_addresses_and_rights",
+          "role": "direct",
+          "expected_observations": [
+            "UT: maps 2 listed 2 members 1 1 errors 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEMORY-MAP-LIST",
+      "clause": "18.6.4.4",
+      "statement": {
+        "en": "Memory get_maps returns the maps where that memory is registered.",
+        "ja": "memoryのget_mapsは、そのmemoryを登録したmapを返す。"
+      },
+      "conditions": {
+        "en": "Start with an empty map queue and inspect one/two registered maps.",
+        "ja": "空のmap queueから、登録した1／2 mapを照会する。"
+      },
+      "expected": {
+        "en": "The returned handles/list sizes agree with the registered maps.",
+        "ja": "返すhandle／list sizeが登録mapと一致する。"
+      },
+      "limitations": {
+        "en": "Selected explicit maps, widths and offsets only. Aggregate output lines contain multiple observations; each link claims only the named property. No transfer, RTL timing, complete hierarchy or missing-map behavior is inferred unless explicitly observed; spec-only expectations remain normative.",
+        "ja": "選択した明示map／幅／offsetだけを扱う。複合出力行は複数観測を含むが、各linkは名前を付けた性質だけを主張する。明示して観測しない限り、転送、RTL timing、階層全体、欠損mapの動作は推定せず、spec-onlyの期待も規格に基づくまま維持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_mem_single_map_membership_preserves_the_registered_map_handle",
+          "role": "direct",
+          "expected_observations": [
+            "UT: count 1 listed 1 handle 1 member 1 other_member 0 null_member 0"
+          ]
+        },
+        {
+          "test": "u18/test_mem_two_interface_maps_preserve_membership_addresses_and_rights",
+          "role": "direct",
+          "expected_observations": [
+            "UT: maps 2 listed 2 members 1 1 errors 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEMORY-MAP-MEMBERSHIP",
+      "clause": "18.6.4.3",
+      "statement": {
+        "en": "Memory is_in_map distinguishes member maps from nonmembers.",
+        "ja": "memoryのis_in_mapは、所属mapと非所属mapを区別する。"
+      },
+      "conditions": {
+        "en": "Query registered maps, a different map and null in the single-map fixture.",
+        "ja": "登録mapを照会し、単一mapの構成では別mapとnullも照会する。"
+      },
+      "expected": {
+        "en": "Registered maps are members; the unrelated/null handles are not.",
+        "ja": "登録mapは所属し、無関係／nullのhandleは所属しない。"
+      },
+      "limitations": {
+        "en": "Selected explicit maps, widths and offsets only. Aggregate output lines contain multiple observations; each link claims only the named property. No transfer, RTL timing, complete hierarchy or missing-map behavior is inferred unless explicitly observed; spec-only expectations remain normative.",
+        "ja": "選択した明示map／幅／offsetだけを扱う。複合出力行は複数観測を含むが、各linkは名前を付けた性質だけを主張する。明示して観測しない限り、転送、RTL timing、階層全体、欠損mapの動作は推定せず、spec-onlyの期待も規格に基づくまま維持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_mem_single_map_membership_preserves_the_registered_map_handle",
+          "role": "direct",
+          "expected_observations": [
+            "UT: count 1 listed 1 handle 1 member 1 other_member 0 null_member 0"
+          ]
+        },
+        {
+          "test": "u18/test_mem_two_interface_maps_preserve_membership_addresses_and_rights",
+          "role": "direct",
+          "expected_observations": [
+            "UT: maps 2 listed 2 members 1 1 errors 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEMORY-MAP-RIGHTS",
+      "clause": "18.6.4.5",
+      "statement": {
+        "en": "Memory get_rights reports map-specific accessibility independently of intrinsic memory policy.",
+        "ja": "memoryのget_rightsは、memory固有policyとは独立してmap固有のaccessibilityを返す。"
+      },
+      "conditions": {
+        "en": "Use RO/WO interface maps and separately an intrinsic RO memory with RW maps.",
+        "ja": "RO／WOのinterface mapと、別構成でRW mapを持つ固有RO memoryを使う。"
+      },
+      "expected": {
+        "en": "Interface rights remain RO/WO, while the intrinsic-RO fixture reports RW rights.",
+        "ja": "interfaceの権限はRO／WOとなり、固有ROの構成ではRWの権限を返す。"
+      },
+      "limitations": {
+        "en": "Selected explicit maps, widths and offsets only. Aggregate output lines contain multiple observations; each link claims only the named property. No transfer, RTL timing, complete hierarchy or missing-map behavior is inferred unless explicitly observed; spec-only expectations remain normative.",
+        "ja": "選択した明示map／幅／offsetだけを扱う。複合出力行は複数観測を含むが、各linkは名前を付けた性質だけを主張する。明示して観測しない限り、転送、RTL timing、階層全体、欠損mapの動作は推定せず、spec-onlyの期待も規格に基づくまま維持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_mem_two_interface_maps_preserve_membership_addresses_and_rights",
+          "role": "direct",
+          "expected_observations": [
+            "UT: addresses 110 320 rights RO WO"
+          ]
+        },
+        {
+          "test": "u18/test_mem_intrinsic_readonly_policy_and_map_rights_are_distinct",
+          "role": "direct",
+          "expected_observations": [
+            "UT: rights RW RW access RO RO"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEMORY-EFFECTIVE-ACCESS",
+      "clause": "18.6.4.6",
+      "statement": {
+        "en": "Memory get_access includes intrinsic memory access restrictions.",
+        "ja": "memoryのget_accessは、memory固有のaccess制約を含む。"
+      },
+      "conditions": {
+        "en": "Map an intrinsic read-only memory through RW maps.",
+        "ja": "固有のread-only memoryをRW mapへ登録する。"
+      },
+      "expected": {
+        "en": "Effective access remains RO even though map rights are RW.",
+        "ja": "mapの権限がRWでも、有効accessはROのままになる。"
+      },
+      "limitations": {
+        "en": "Selected explicit maps, widths and offsets only. Aggregate output lines contain multiple observations; each link claims only the named property. No transfer, RTL timing, complete hierarchy or missing-map behavior is inferred unless explicitly observed; spec-only expectations remain normative.",
+        "ja": "選択した明示map／幅／offsetだけを扱う。複合出力行は複数観測を含むが、各linkは名前を付けた性質だけを主張する。明示して観測しない限り、転送、RTL timing、階層全体、欠損mapの動作は推定せず、spec-onlyの期待も規格に基づくまま維持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_mem_intrinsic_readonly_policy_and_map_rights_are_distinct",
+          "role": "direct",
+          "expected_observations": [
+            "UT: rights RW RW access RO RO"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEMORY-OFFSET-RELOCATION",
+      "clause": "18.6.3.3",
+      "statement": {
+        "en": "Memory set_offset relocates the memory within the specified map.",
+        "ja": "memoryのset_offsetは、指定map内でmemoryを移動する。"
+      },
+      "conditions": {
+        "en": "Relocate a locked memory map range from offset ten to thirty.",
+        "ja": "lockしたmemoryのmap範囲をoffset 10から30へ移動する。"
+      },
+      "expected": {
+        "en": "A queried location moves from address 12 to 32 and locked lookup uses the new range.",
+        "ja": "照会するlocationがaddress 12から32へ移動し、lock後の照会も新範囲を使う。"
+      },
+      "limitations": {
+        "en": "Selected explicit maps, widths and offsets only. Aggregate output lines contain multiple observations; each link claims only the named property. No transfer, RTL timing, complete hierarchy or missing-map behavior is inferred unless explicitly observed; spec-only expectations remain normative.",
+        "ja": "選択した明示map／幅／offsetだけを扱う。複合出力行は複数観測を含むが、各linkは名前を付けた性質だけを主張する。明示して観測しない限り、転送、RTL timing、階層全体、欠損mapの動作は推定せず、spec-onlyの期待も規格に基づくまま維持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_mem_set_offset_relocates_addresses_and_locked_lookup_range",
+          "role": "direct",
+          "expected_observations": [
+            "UT: before 12 lookup 1",
+            "UT: after 32 old_missing 1 new_lookup 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEMORY-DATA-ORDER-ADDRESSES",
+      "clause": "18.6.4.17",
+      "statement": {
+        "en": "Memory get_addresses lists the physical addresses in least-significant-data order and returns transfer width.",
+        "ja": "memoryのget_addressesは、dataの下位側から物理addressを列挙し、転送幅を返す。"
+      },
+      "conditions": {
+        "en": "Inspect a wide big-endian location and a word-addressed location.",
+        "ja": "広幅big-endian locationとword-addressed locationを照会する。"
+      },
+      "expected": {
+        "en": "Big-endian addresses are 126 then 124 with width two; the word-addressed case returns address 26 and width four.",
+        "ja": "big-endianでは幅2でaddress 126、124の順となり、word-addressedではaddress 26と幅4を返す。"
+      },
+      "limitations": {
+        "en": "Selected explicit maps, widths and offsets only. Aggregate output lines contain multiple observations; each link claims only the named property. No transfer, RTL timing, complete hierarchy or missing-map behavior is inferred unless explicitly observed; spec-only expectations remain normative.",
+        "ja": "選択した明示map／幅／offsetだけを扱う。複合出力行は複数観測を含むが、各linkは名前を付けた性質だけを主張する。明示して観測しない限り、転送、RTL timing、階層全体、欠損mapの動作は推定せず、spec-onlyの期待も規格に基づくまま維持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_mem_big_endian_wide_location_lists_addresses_in_data_order",
+          "role": "direct",
+          "expected_observations": [
+            "UT: transfer 2 count 2",
+            "UT: addresses 126 124"
+          ]
+        },
+        {
+          "test": "u18/test_mem_word_addressing_advances_one_bus_word_per_location",
+          "role": "direct",
+          "expected_observations": [
+            "UT: unit 4 transfer 4 count 1",
+            "UT: address 26"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGISTER-BIT-WIDTH-QUERY",
+      "clause": "18.4.3.8",
+      "statement": {
+        "en": "Register get_n_bits returns its configured bit width.",
+        "ja": "registerのget_n_bitsは、設定したbit幅を返す。"
+      },
+      "conditions": {
+        "en": "Construct a twelve-bit register.",
+        "ja": "12-bitのregisterを構築する。"
+      },
+      "expected": {
+        "en": "The returned bit width is twelve.",
+        "ja": "返すbit幅は12になる。"
+      },
+      "limitations": {
+        "en": "Selected explicit maps, widths and offsets only. Aggregate output lines contain multiple observations; each link claims only the named property. No transfer, RTL timing, complete hierarchy or missing-map behavior is inferred unless explicitly observed; spec-only expectations remain normative.",
+        "ja": "選択した明示map／幅／offsetだけを扱う。複合出力行は複数観測を含むが、各linkは名前を付けた性質だけを主張する。明示して観測しない限り、転送、RTL timing、階層全体、欠損mapの動作は推定せず、spec-onlyの期待も規格に基づくまま維持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_constructor_rounds_byte_width_and_records_parent",
+          "role": "direct",
+          "expected_observations": [
+            "UT: bits 12 bytes 2 parent 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGISTER-BYTE-WIDTH-ROUNDING",
+      "clause": "18.4.3.9",
+      "statement": {
+        "en": "Register get_n_bytes rounds up to complete bytes.",
+        "ja": "registerのget_n_bytesは、完全なbyte数へ切り上げる。"
+      },
+      "conditions": {
+        "en": "Inspect a twelve-bit register.",
+        "ja": "12-bitのregisterを照会する。"
+      },
+      "expected": {
+        "en": "The returned byte width is two.",
+        "ja": "返すbyte幅は2になる。"
+      },
+      "limitations": {
+        "en": "Selected explicit maps, widths and offsets only. Aggregate output lines contain multiple observations; each link claims only the named property. No transfer, RTL timing, complete hierarchy or missing-map behavior is inferred unless explicitly observed; spec-only expectations remain normative.",
+        "ja": "選択した明示map／幅／offsetだけを扱う。複合出力行は複数観測を含むが、各linkは名前を付けた性質だけを主張する。明示して観測しない限り、転送、RTL timing、階層全体、欠損mapの動作は推定せず、spec-onlyの期待も規格に基づくまま維持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_constructor_rounds_byte_width_and_records_parent",
+          "role": "direct",
+          "expected_observations": [
+            "UT: bits 12 bytes 2 parent 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGISTER-PARENT-QUERY",
+      "clause": "18.4.3.1",
+      "statement": {
+        "en": "Register get_parent returns its configured block.",
+        "ja": "registerのget_parentは、設定したblockを返す。"
+      },
+      "conditions": {
+        "en": "Configure one register in a block.",
+        "ja": "1 registerをblockへ設定する。"
+      },
+      "expected": {
+        "en": "The returned handle equals that block.",
+        "ja": "返すhandleはそのblockに一致する。"
+      },
+      "limitations": {
+        "en": "Selected explicit maps, widths and offsets only. Aggregate output lines contain multiple observations; each link claims only the named property. No transfer, RTL timing, complete hierarchy or missing-map behavior is inferred unless explicitly observed; spec-only expectations remain normative.",
+        "ja": "選択した明示map／幅／offsetだけを扱う。複合出力行は複数観測を含むが、各linkは名前を付けた性質だけを主張する。明示して観測しない限り、転送、RTL timing、階層全体、欠損mapの動作は推定せず、spec-onlyの期待も規格に基づくまま維持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_constructor_rounds_byte_width_and_records_parent",
+          "role": "direct",
+          "expected_observations": [
+            "UT: bits 12 bytes 2 parent 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGISTER-UNMAPPED-ADDRESSES",
+      "clause": "18.4.3.15",
+      "statement": {
+        "en": "Querying register addresses with an unrelated map warns, returns minus one and preserves the output array.",
+        "ja": "無関係のmapでregisterのaddressを照会すると、warningを出して-1を返し、出力配列を保つ。"
+      },
+      "conditions": {
+        "en": "Supply an unrelated map and a sentinel output address array.",
+        "ja": "無関係のmapとsentinelの出力address配列を渡す。"
+      },
+      "expected": {
+        "en": "The sentinel cafe and array size one survive and the warning/rejection are observed.",
+        "ja": "sentinelのcafeと配列size 1を保持し、warningと拒否を観測する。"
+      },
+      "limitations": {
+        "en": "Selected explicit maps, widths and offsets only. Aggregate output lines contain multiple observations; each link claims only the named property. No transfer, RTL timing, complete hierarchy or missing-map behavior is inferred unless explicitly observed; spec-only expectations remain normative.",
+        "ja": "選択した明示map／幅／offsetだけを扱う。複合出力行は複数観測を含むが、各linkは名前を付けた性質だけを主張する。明示して観測しない限り、転送、RTL timing、階層全体、欠損mapの動作は推定せず、spec-onlyの期待も規格に基づくまま維持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_get_addresses_unmapped_argument_preserves_output_array_and_warns",
+          "role": "direct",
+          "expected_observations": [
+            "UT: rejected 1 count 1 warned 1",
+            "UT: sentinel cafe"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAP-AUTO-PREDICT-SETTING",
+      "clause": "18.2.5.1",
+      "statement": {
+        "en": "Map get_auto_predict reflects that map configuration independently of another map.",
+        "ja": "mapのget_auto_predictは、別mapと独立して自身の設定を返す。"
+      },
+      "conditions": {
+        "en": "Read defaults, enable one map and disable it again.",
+        "ja": "既定値を読み、片方を有効にして再び無効にする。"
+      },
+      "expected": {
+        "en": "Both default to zero; only the selected map changes to one and back.",
+        "ja": "両方の既定値は0で、選んだmapだけが1になって戻る。"
+      },
+      "limitations": {
+        "en": "Selected explicit maps, widths and offsets only. Aggregate output lines contain multiple observations; each link claims only the named property. No transfer, RTL timing, complete hierarchy or missing-map behavior is inferred unless explicitly observed; spec-only expectations remain normative.",
+        "ja": "選択した明示map／幅／offsetだけを扱う。複合出力行は複数観測を含むが、各linkは名前を付けた性質だけを主張する。明示して観測しない限り、転送、RTL timing、階層全体、欠損mapの動作は推定せず、spec-onlyの期待も規格に基づくまま維持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_map_auto_predict_configuration_is_independent_per_map",
+          "role": "direct",
+          "expected_observations": [
+            "UT: defaults 0 0",
+            "UT: enabled 1 0",
+            "UT: disabled 0 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAP-BASE-RELOCATION",
+      "clause": "18.2.3.9",
+      "statement": {
+        "en": "Changing the map base relocates the external register address while preserving its local offset.",
+        "ja": "mapのbase変更は、local offsetを保って外部register addressを移動する。"
+      },
+      "conditions": {
+        "en": "Change map base from 100 to 400 with register offset 20.",
+        "ja": "register offset 20のまま、map baseを100から400へ変更する。"
+      },
+      "expected": {
+        "en": "The external address changes from 120 to 420 while offset stays 20.",
+        "ja": "外部addressは120から420へ変わり、offsetは20のままになる。"
+      },
+      "limitations": {
+        "en": "Selected explicit maps, widths and offsets only. Aggregate output lines contain multiple observations; each link claims only the named property. No transfer, RTL timing, complete hierarchy or missing-map behavior is inferred unless explicitly observed; spec-only expectations remain normative.",
+        "ja": "選択した明示map／幅／offsetだけを扱う。複合出力行は複数観測を含むが、各linkは名前を付けた性質だけを主張する。明示して観測しない限り、転送、RTL timing、階層全体、欠損mapの動作は推定せず、spec-onlyの期待も規格に基づくまま維持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_map_base_relocation_updates_external_register_address",
+          "role": "direct",
+          "expected_observations": [
+            "UT: before 120",
+            "UT: base 400 offset 20 address 420"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAP-DATA-ORDER-PHYSICAL-ADDRESSES",
+      "clause": "18.2.4.16",
+      "statement": {
+        "en": "Physical-address translation returns addresses in least-significant-data order with the transfer width.",
+        "ja": "物理address変換は、dataの下位側からaddressを転送幅とともに返す。"
+      },
+      "conditions": {
+        "en": "Use a wide big-endian register and a word-addressed register.",
+        "ja": "広幅big-endian registerとword-addressed registerを使う。"
+      },
+      "expected": {
+        "en": "The big-endian address list descends by two; word addressing advances one unit per four-byte transfer.",
+        "ja": "big-endianのaddress列は2ずつ減り、word addressingでは4-byte転送ごとに1 unit進む。"
+      },
+      "limitations": {
+        "en": "Selected explicit maps, widths and offsets only. Aggregate output lines contain multiple observations; each link claims only the named property. No transfer, RTL timing, complete hierarchy or missing-map behavior is inferred unless explicitly observed; spec-only expectations remain normative.",
+        "ja": "選択した明示map／幅／offsetだけを扱う。複合出力行は複数観測を含むが、各linkは名前を付けた性質だけを主張する。明示して観測しない限り、転送、RTL timing、階層全体、欠損mapの動作は推定せず、spec-onlyの期待も規格に基づくまま維持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_map_big_endian_wide_register_lists_addresses_in_data_order",
+          "role": "direct",
+          "expected_observations": [
+            "UT: transfer 2 count 3",
+            "UT: addresses 124 122 120"
+          ]
+        },
+        {
+          "test": "u18/test_reg_map_word_addressing_translates_offsets_in_bus_units",
+          "role": "direct",
+          "expected_observations": [
+            "UT: unit 4 transfer 4 count 2",
+            "UT: addresses 22 23"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAP-MISSING-SUBMAP-QUERY",
+      "clause": "18.2.3.7",
+      "statement": {
+        "en": "A missing-submap offset query reports an error and returns minus one.",
+        "ja": "欠損submapのoffset照会は、errorを出して-1を返す。"
+      },
+      "conditions": {
+        "en": "Query a map that was not added as a submap.",
+        "ja": "submapとして追加していないmapを照会する。"
+      },
+      "expected": {
+        "en": "The result is minus one and an error is caught.",
+        "ja": "結果は-1になり、errorを捕捉する。"
+      },
+      "limitations": {
+        "en": "Selected explicit maps, widths and offsets only. Aggregate output lines contain multiple observations; each link claims only the named property. No transfer, RTL timing, complete hierarchy or missing-map behavior is inferred unless explicitly observed; spec-only expectations remain normative.",
+        "ja": "選択した明示map／幅／offsetだけを扱う。複合出力行は複数観測を含むが、各linkは名前を付けた性質だけを主張する。明示して観測しない限り、転送、RTL timing、階層全体、欠損mapの動作は推定せず、spec-onlyの期待も規格に基づくまま維持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_map_missing_submap_query_reports_error_and_returns_minus_one",
+          "role": "direct",
+          "expected_observations": [
+            "UT: rejected 1 error 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGISTER-MAP-LOCAL-OFFSET",
+      "clause": "18.4.3.13",
+      "statement": {
+        "en": "Register get_offset returns the offset local to the specified map.",
+        "ja": "registerのget_offsetは、指定map内のlocal offsetを返す。"
+      },
+      "conditions": {
+        "en": "Use nonzero map bases and distinct offsets in two interface maps.",
+        "ja": "0でないmap baseと、2 interface mapの異なるoffsetを使う。"
+      },
+      "expected": {
+        "en": "The returned local offsets exclude the external base and stay distinct across maps.",
+        "ja": "返すlocal offsetは外部baseを含まず、mapごとの差を保つ。"
+      },
+      "limitations": {
+        "en": "Selected explicit maps, widths and offsets only. Aggregate output lines contain multiple observations; each link claims only the named property. No transfer, RTL timing, complete hierarchy or missing-map behavior is inferred unless explicitly observed; spec-only expectations remain normative.",
+        "ja": "選択した明示map／幅／offsetだけを扱う。複合出力行は複数観測を含むが、各linkは名前を付けた性質だけを主張する。明示して観測しない限り、転送、RTL timing、階層全体、欠損mapの動作は推定せず、spec-onlyの期待も規格に基づくまま維持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_map_register_offset_and_external_address_remain_distinct",
+          "role": "direct",
+          "expected_observations": [
+            "UT: offset 18 address 218"
+          ]
+        },
+        {
+          "test": "u18/test_reg_maps_keep_independent_offsets_rights_and_field_access",
+          "role": "direct",
+          "expected_observations": [
+            "UT: maps 2 offsets 10 20 addresses 110 320"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGISTER-EXTERNAL-ADDRESS",
+      "clause": "18.4.3.14",
+      "statement": {
+        "en": "Register get_address returns the external physical address through the specified map.",
+        "ja": "registerのget_addressは、指定mapを通した外部物理addressを返す。"
+      },
+      "conditions": {
+        "en": "Inspect register placement in one/two maps with nonzero bases.",
+        "ja": "0でないbaseを持つ1／2 mapでregisterの配置を照会する。"
+      },
+      "expected": {
+        "en": "External addresses include each selected map base and its register offset.",
+        "ja": "外部addressは、選んだ各mapのbaseとregister offsetを含む。"
+      },
+      "limitations": {
+        "en": "Selected explicit maps, widths and offsets only. Aggregate output lines contain multiple observations; each link claims only the named property. No transfer, RTL timing, complete hierarchy or missing-map behavior is inferred unless explicitly observed; spec-only expectations remain normative.",
+        "ja": "選択した明示map／幅／offsetだけを扱う。複合出力行は複数観測を含むが、各linkは名前を付けた性質だけを主張する。明示して観測しない限り、転送、RTL timing、階層全体、欠損mapの動作は推定せず、spec-onlyの期待も規格に基づくまま維持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_map_register_offset_and_external_address_remain_distinct",
+          "role": "direct",
+          "expected_observations": [
+            "UT: offset 18 address 218"
+          ]
+        },
+        {
+          "test": "u18/test_reg_maps_keep_independent_offsets_rights_and_field_access",
+          "role": "direct",
+          "expected_observations": [
+            "UT: maps 2 offsets 10 20 addresses 110 320"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAP-RESET-SOFT-DEFAULT",
+      "clause": "18.2.3.10",
+      "statement": {
+        "en": "Map reset defaults to SOFT and resets only registers belonging to that map.",
+        "ja": "mapのresetはSOFTを既定とし、自身のmapに所属するregisterだけをresetする。"
+      },
+      "conditions": {
+        "en": "Configure distinct HARD/SOFT values and a register in another map, then use default/explicit HARD reset.",
+        "ja": "異なるHARD／SOFT値と別mapのregisterを設定し、既定／明示HARDのresetを行う。"
+      },
+      "expected": {
+        "en": "Default reset yields 78, HARD yields 12, and the other-map register retains bb.",
+        "ja": "既定resetでは78、HARDでは12となり、別mapのregisterはbbを保つ。"
+      },
+      "limitations": {
+        "en": "Selected explicit maps, widths and offsets only. Aggregate output lines contain multiple observations; each link claims only the named property. No transfer, RTL timing, complete hierarchy or missing-map behavior is inferred unless explicitly observed; spec-only expectations remain normative.",
+        "ja": "選択した明示map／幅／offsetだけを扱う。複合出力行は複数観測を含むが、各linkは名前を付けた性質だけを主張する。明示して観測しない限り、転送、RTL timing、階層全体、欠損mapの動作は推定せず、spec-onlyの期待も規格に基づくまま維持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_map_reset_defaults_to_soft_and_preserves_other_maps_registers",
+          "role": "direct",
+          "expected_observations": [
+            "UT: predicted 1 soft 78 other bb",
+            "UT: hard 12 other bb"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAP-DIRECTIONAL-REGISTER-LOOKUP",
+      "clause": "18.2.4.17",
+      "statement": {
+        "en": "Locked map lookup selects the register at a shared offset according to read/write direction.",
+        "ja": "lockしたmapの照会は、共有offsetのregisterをread／write方向に応じて選ぶ。"
+      },
+      "conditions": {
+        "en": "Place separate read-only and write-only registers at one address.",
+        "ja": "read-onlyとwrite-onlyの別registerを同じaddressに配置する。"
+      },
+      "expected": {
+        "en": "The read and write queries return their respective handles and an unused address returns null.",
+        "ja": "read／writeの照会はそれぞれのhandleを返し、未使用addressではnullを返す。"
+      },
+      "limitations": {
+        "en": "Selected explicit maps, widths and offsets only. Aggregate output lines contain multiple observations; each link claims only the named property. No transfer, RTL timing, complete hierarchy or missing-map behavior is inferred unless explicitly observed; spec-only expectations remain normative.",
+        "ja": "選択した明示map／幅／offsetだけを扱う。複合出力行は複数観測を含むが、各linkは名前を付けた性質だけを主張する。明示して観測しない限り、転送、RTL timing、階層全体、欠損mapの動作は推定せず、spec-onlyの期待も規格に基づくまま維持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_map_shared_address_uses_read_write_direction_to_select_register",
+          "role": "direct",
+          "expected_observations": [
+            "UT: read 1 write 1 missing 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGISTER-MAP-RIGHTS-QUERY",
+      "clause": "18.4.3.7",
+      "statement": {
+        "en": "Register get_rights returns the accessibility of the selected interface map.",
+        "ja": "registerのget_rightsは、選んだinterface mapのaccessibilityを返す。"
+      },
+      "conditions": {
+        "en": "Place one register in read-only and write-only maps.",
+        "ja": "1 registerをread-only／write-onlyのmapに配置する。"
+      },
+      "expected": {
+        "en": "The respective rights are RO and WO.",
+        "ja": "それぞれの権限はROとWOになる。"
+      },
+      "limitations": {
+        "en": "Selected explicit maps, widths and offsets only. Aggregate output lines contain multiple observations; each link claims only the named property. No transfer, RTL timing, complete hierarchy or missing-map behavior is inferred unless explicitly observed; spec-only expectations remain normative.",
+        "ja": "選択した明示map／幅／offsetだけを扱う。複合出力行は複数観測を含むが、各linkは名前を付けた性質だけを主張する。明示して観測しない限り、転送、RTL timing、階層全体、欠損mapの動作は推定せず、spec-onlyの期待も規格に基づくまま維持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_maps_keep_independent_offsets_rights_and_field_access",
+          "role": "direct",
+          "expected_observations": [
+            "UT: rights RO WO field_access RO WO"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGISTER-OFFSET-RELOCATION",
+      "clause": "18.4.2.3",
+      "statement": {
+        "en": "Register set_offset moves its placement in the selected map and updates locked lookup.",
+        "ja": "registerのset_offsetは、選んだmapで配置を移動し、lock後の照会を更新する。"
+      },
+      "conditions": {
+        "en": "Move a locked register from offset 10 to 30.",
+        "ja": "lockしたregisterをoffset 10から30へ移動する。"
+      },
+      "expected": {
+        "en": "The old lookup is empty, the new lookup returns the register and the address is 30.",
+        "ja": "旧照会は空になり、新照会がregisterを返し、addressは30になる。"
+      },
+      "limitations": {
+        "en": "Selected explicit maps, widths and offsets only. Aggregate output lines contain multiple observations; each link claims only the named property. No transfer, RTL timing, complete hierarchy or missing-map behavior is inferred unless explicitly observed; spec-only expectations remain normative.",
+        "ja": "選択した明示map／幅／offsetだけを扱う。複合出力行は複数観測を含むが、各linkは名前を付けた性質だけを主張する。明示して観測しない限り、転送、RTL timing、階層全体、欠損mapの動作は推定せず、spec-onlyの期待も規格に基づくまま維持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_set_offset_reindexes_locked_map_lookup",
+          "role": "direct",
+          "expected_observations": [
+            "UT: before 10 lookup 1",
+            "UT: offset 30 address 30 old_missing 1 new_lookup 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SUBMAP-OFFSET-RELOCATION",
+      "clause": "18.2.3.8",
+      "statement": {
+        "en": "Changing a submap offset relocates its child base and descendant external register address.",
+        "ja": "submapのoffset変更は、子のbaseと子孫の外部register addressを移動する。"
+      },
+      "conditions": {
+        "en": "Move the child offset from 40 to 80 under the same root.",
+        "ja": "同じrootの下で子のoffsetを40から80へ移動する。"
+      },
+      "expected": {
+        "en": "The child base becomes 180 and the register external address changes from 150 to 190.",
+        "ja": "子のbaseは180となり、registerの外部addressは150から190へ変わる。"
+      },
+      "limitations": {
+        "en": "Selected explicit maps, widths and offsets only. Aggregate output lines contain multiple observations; each link claims only the named property. No transfer, RTL timing, complete hierarchy or missing-map behavior is inferred unless explicitly observed; spec-only expectations remain normative.",
+        "ja": "選択した明示map／幅／offsetだけを扱う。複合出力行は複数観測を含むが、各linkは名前を付けた性質だけを主張する。明示して観測しない限り、転送、RTL timing、階層全体、欠損mapの動作は推定せず、spec-onlyの期待も規格に基づくまま維持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_submap_relocation_updates_child_base_and_register_address",
+          "role": "direct",
+          "expected_observations": [
+            "UT: before 150 offset 40",
+            "UT: after 190 base 180 offset 80"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAP-ROOT-HANDLE",
+      "clause": "18.2.4.1",
+      "statement": {
+        "en": "A child map get_root_map returns the externally visible top-level map.",
+        "ja": "子mapのget_root_mapは、外部に見える最上位mapを返す。"
+      },
+      "conditions": {
+        "en": "Nest one child map beneath a root map.",
+        "ja": "1つの子mapをroot mapの下に置く。"
+      },
+      "expected": {
+        "en": "The returned handle equals the root.",
+        "ja": "返すhandleはrootに一致する。"
+      },
+      "limitations": {
+        "en": "Selected explicit maps, widths and offsets only. Aggregate output lines contain multiple observations; each link claims only the named property. No transfer, RTL timing, complete hierarchy or missing-map behavior is inferred unless explicitly observed; spec-only expectations remain normative.",
+        "ja": "選択した明示map／幅／offsetだけを扱う。複合出力行は複数観測を含むが、各linkは名前を付けた性質だけを主張する。明示して観測しない限り、転送、RTL timing、階層全体、欠損mapの動作は推定せず、spec-onlyの期待も規格に基づくまま維持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_submap_uses_root_base_and_narrowest_bus_width",
+          "role": "direct",
+          "expected_observations": [
+            "UT: root 1 parent 1 base 140 local_width 4 effective_width 2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAP-PARENT-HANDLE",
+      "clause": "18.2.4.3",
+      "statement": {
+        "en": "A child map get_parent_map returns the map containing it.",
+        "ja": "子mapのget_parent_mapは、自身を含むmapを返す。"
+      },
+      "conditions": {
+        "en": "Nest one child map beneath a root map.",
+        "ja": "1つの子mapをroot mapの下に置く。"
+      },
+      "expected": {
+        "en": "The returned parent handle equals the root map.",
+        "ja": "返すparent handleはroot mapに一致する。"
+      },
+      "limitations": {
+        "en": "Selected explicit maps, widths and offsets only. Aggregate output lines contain multiple observations; each link claims only the named property. No transfer, RTL timing, complete hierarchy or missing-map behavior is inferred unless explicitly observed; spec-only expectations remain normative.",
+        "ja": "選択した明示map／幅／offsetだけを扱う。複合出力行は複数観測を含むが、各linkは名前を付けた性質だけを主張する。明示して観測しない限り、転送、RTL timing、階層全体、欠損mapの動作は推定せず、spec-onlyの期待も規格に基づくまま維持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_submap_uses_root_base_and_narrowest_bus_width",
+          "role": "direct",
+          "expected_observations": [
+            "UT: root 1 parent 1 base 140 local_width 4 effective_width 2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAP-HIERARCHICAL-BASE",
+      "clause": "18.2.4.4",
+      "statement": {
+        "en": "A child map base includes the parent base and the child map offset.",
+        "ja": "子mapのbaseは、親baseと子mapのoffsetを含む。"
+      },
+      "conditions": {
+        "en": "Query a nonzero root base and relocate a child offset in another fixture.",
+        "ja": "0でないroot baseを照会し、別の構成で子のoffsetを移動する。"
+      },
+      "expected": {
+        "en": "The base includes both offsets and tracks relocation.",
+        "ja": "baseは両offsetを含み、移動に追随する。"
+      },
+      "limitations": {
+        "en": "Selected explicit maps, widths and offsets only. Aggregate output lines contain multiple observations; each link claims only the named property. No transfer, RTL timing, complete hierarchy or missing-map behavior is inferred unless explicitly observed; spec-only expectations remain normative.",
+        "ja": "選択した明示map／幅／offsetだけを扱う。複合出力行は複数観測を含むが、各linkは名前を付けた性質だけを主張する。明示して観測しない限り、転送、RTL timing、階層全体、欠損mapの動作は推定せず、spec-onlyの期待も規格に基づくまま維持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_submap_uses_root_base_and_narrowest_bus_width",
+          "role": "direct",
+          "expected_observations": [
+            "UT: root 1 parent 1 base 140 local_width 4 effective_width 2"
+          ]
+        },
+        {
+          "test": "u18/test_reg_submap_relocation_updates_child_base_and_register_address",
+          "role": "direct",
+          "expected_observations": [
+            "UT: before 150 offset 40",
+            "UT: after 190 base 180 offset 80"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAP-NARROWEST-EFFECTIVE-WIDTH",
+      "clause": "18.2.4.5",
+      "statement": {
+        "en": "A hierarchical map effective bus width is the narrowest width on the path to the root.",
+        "ja": "階層mapの有効bus幅は、rootまでの経路で最も狭い幅になる。"
+      },
+      "conditions": {
+        "en": "Expose a four-byte child through a two-byte root.",
+        "ja": "4-byteの子を2-byteのrootを通して公開する。"
+      },
+      "expected": {
+        "en": "The child local width is four, effective width two, and a four-byte register requires two transfers.",
+        "ja": "子のlocal幅は4、有効幅は2になり、4-byte registerには2転送が必要になる。"
+      },
+      "limitations": {
+        "en": "Selected explicit maps, widths and offsets only. Aggregate output lines contain multiple observations; each link claims only the named property. No transfer, RTL timing, complete hierarchy or missing-map behavior is inferred unless explicitly observed; spec-only expectations remain normative.",
+        "ja": "選択した明示map／幅／offsetだけを扱う。複合出力行は複数観測を含むが、各linkは名前を付けた性質だけを主張する。明示して観測しない限り、転送、RTL timing、階層全体、欠損mapの動作は推定せず、spec-onlyの期待も規格に基づくまま維持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_submap_uses_root_base_and_narrowest_bus_width",
+          "role": "direct",
+          "expected_observations": [
+            "UT: root 1 parent 1 base 140 local_width 4 effective_width 2",
+            "UT: transfer 2 count 2"
           ]
         }
       ]

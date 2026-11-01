@@ -1,0 +1,3 @@
+UT: singleton 1 value 42 local 91
+UT: replacement shared 1 count 1
+UT: recreate default 0 present 1 count 1 local 91

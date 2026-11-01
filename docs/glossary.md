@@ -532,3 +532,23 @@ and catalog. JSON formatting is normalized; array order and catalog bytes are
 retained. See [report identity](requirements.md#generated-report-identity).
 The same identity across views does not approve coverage or identify measured
 simulator execution.
+
+## Container and memory-hook observations
+
+**Container cursor** — The key passed by reference to pool endpoint/step
+methods. An unsuccessful empty endpoint or terminal step preserves it.
+Traversal tests check membership and uniqueness without prescribing an extra
+ordering convention.
+
+**Global container singleton** — The shared pool or queue returned by its
+static global accessor for a specialization. Local instances remain independent;
+keyed/indexed global retrieval observes the shared contents.
+
+**Waiting consumers and observers** — Pending FIFO gets consume each arrival
+once, while pending peeks may all observe one head without removal. The
+concurrency fixtures leave the scheduler's choice of consumer unconstrained.
+
+**Memory hook routing** — A memory pre-access callback can change the operation
+descriptor before transfer, including its offset/map. Post-access callbacks and
+methods compose return data/status after transfer. Each method/callback ordering
+rule must be checked for `uvm_mem`; register behavior alone does not establish it.

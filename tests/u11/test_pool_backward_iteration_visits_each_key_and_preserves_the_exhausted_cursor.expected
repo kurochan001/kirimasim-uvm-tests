@@ -1,0 +1,3 @@
+UT: traversal count 3 membership 7 unique 1 values 1 count_unchanged 1
+UT: exhausted 1 cursor_preserved 1
+UT: after_delete count 2 membership 5 absent 1

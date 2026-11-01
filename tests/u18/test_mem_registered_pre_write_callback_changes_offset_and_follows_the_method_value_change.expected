@@ -1,0 +1,2 @@
+UT: write ok 1 order MCF calls 1 n 1 offset 5 data 3e orig 22
+UT: control ok 1 order MF calls 1 n 2 offset 2 data 21 redirected 3e

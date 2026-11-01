@@ -1,0 +1,5 @@
+UT: both_waiting 1
+UT: first_only 1 second_waiting 1
+UT: both_done 1 second_value 42 both_empty 1
+UT: rewait 1
+UT: fresh_value 73 empty 1
