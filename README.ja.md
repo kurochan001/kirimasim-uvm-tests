@@ -103,6 +103,7 @@ oracle付きVerilatorを検査し、kirimasimとGhostは実行しません。Nig
 
 | 資料 | English | 日本語 |
 | --- | --- | --- |
+| 作業の再開と残課題 | [Handoff](docs/handoff.md) | [ハンドオフ](docs/handoff.ja.md) |
 | テスト形式・実行・変更時の規則 | [Testing guide](docs/testing.md) | [テストと開発のガイド](docs/testing.ja.md) |
 | 現在の測定と測定方法 | [Results](docs/results.md) | [実行結果](docs/results.ja.md) |
 | 対象範囲の案・要求の対応・カバレッジの棚卸し | [Requirement ledger](docs/requirements.md) | [要求台帳](docs/requirements.ja.md) |

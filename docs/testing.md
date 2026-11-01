@@ -40,6 +40,7 @@ docs/provenance*.md         related repositories and source attribution
 docs/glossary*.md            terminology
 docs/faq*.md                 common questions
 docs/known-differences*.md   current limitations and spec-only expectations
+docs/handoff*.md            development handoff and restart workflow
 docs/history*.md             earlier increments and measurements
 third_party/uvm.lock         the pinned library: release, source, commit, digest
 third_party/uvm/<version>/   the library itself, fetched, not committed

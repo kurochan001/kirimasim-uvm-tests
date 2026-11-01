@@ -124,6 +124,7 @@ its counterpart; commands and API identifiers retain their original spelling.
 
 | Guide | English | 日本語 |
 | --- | --- | --- |
+| Resuming development and remaining work | [Handoff](docs/handoff.md) | [ハンドオフ](docs/handoff.ja.md) |
 | Test format, execution and contributions | [Testing guide](docs/testing.md) | [テストと開発のガイド](docs/testing.ja.md) |
 | Current measurements and methodology | [Results](docs/results.md) | [実行結果](docs/results.ja.md) |
 | Draft scope, requirement links and coverage census | [Requirement ledger](docs/requirements.md) | [要求台帳](docs/requirements.ja.md) |

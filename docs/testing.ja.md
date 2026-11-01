@@ -34,6 +34,7 @@ docs/provenance*.md         関連リポジトリとソースの由来
 docs/glossary*.md            用語集
 docs/faq*.md                 よくある質問
 docs/known-differences*.md   現在の制約とspecのみの期待値
+docs/handoff*.md            作業の引継ぎと再開手順
 docs/history*.md             過去の追加作業と測定
 third_party/uvm.lock         固定したライブラリ：リリース、取得元、コミット、指紋
 third_party/uvm/<version>/   ライブラリ本体（取得するもので、コミットしない）
