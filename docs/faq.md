@@ -173,7 +173,7 @@ a claim that every test was rebuilt together.
 
 ### Q16. Are M1, M2 or M3 complete, and what does the test count cover?
 
-M1 and M2 still have open clause targets. M3 now has 216
+M1 and M2 still have open clause targets. M3 now has 222
 register-layer cases, including testbench frontdoor paths; it is also incomplete. Starting a stage does not complete
 the preceding stages.
 The [plan](../README.md#plan) identifies current scope and remaining work.
@@ -598,7 +598,7 @@ Memory, adapter, predictor, frontdoor, callback and virtual-register cases
 are described below. Remaining work includes broader packing/error and
 policy/map conditions, integrated prediction, more frontdoor/callback
 combinations, HDL-path/DPI setups, broader allocation-policy conditions and
-the combined register/memory access wrapper and broader annex E conditions.
+broader annex E conditions.
 Q68 covers selected built-in test sequences and dispatch masks. Register
 and memory map queries use explicit arguments.
 The release's multiple-map note and null-map resolution are explained in
@@ -995,7 +995,9 @@ automatic backdoor update threads or every backdoor callback combination.
 
 ### Q68. Which built-in register and memory test sequences are covered?
 
-Forty-eight cases in `tests/uE/` cover eight groups, six cases each:
+Fifty-four cases in `tests/uE/` cover the following families. The combined
+wrapper has three fixtures; bit bash and register access also check
+user-defined unknown policies, and register access checks a block exclusion:
 
 | Family | Sequence classes | Selected observations |
 | --- | --- | --- |
@@ -1006,6 +1008,7 @@ Forty-eight cases in `tests/uE/` cover eight groups, six cases each:
 | Memory access | `uvm_mem_single_access_seq`, `uvm_mem_access_seq` | Four-location frontdoor/backdoor checks, disagreement, hierarchy and exclusions |
 | Shared register | `uvm_reg_shared_access_seq`, `uvm_reg_mem_shared_access_seq` | Two/three maps, cross-map observations, disagreement and exclusions |
 | Shared memory | `uvm_mem_shared_access_seq`, `uvm_reg_mem_shared_access_seq` | Four locations through two/three maps, disagreement, hierarchy and exclusions |
+| Combined access | `uvm_reg_mem_access_seq` | Both model families, child hierarchy and block exclusion with direct controls |
 | Test selection | `uvm_reg_mem_built_in_seq` | Default/zero masks, individual flags and ordered OR selection |
 
 See the [reset](../tests/uE/test_hw_reset_sequence_restores_model_reset_before_comparing_storage.sv),
@@ -1054,11 +1057,13 @@ spec-only, followed by a successful direct single-memory walk. See
 
 ### Q71. What remains open in annex E?
 
-The combined register/memory access wrapper (E.3.3), HDL-path checking (E.7),
-and broader policy/status/mask combinations remain open. The dispatcher
+HDL-path checking (E.7), the full walking-ones algorithm and broader
+policy/status/mask combinations remain open. E.3.3 has direct combined-wrapper
+fixtures; unknown-policy skips are checked for single bit bash and single
+register access, without exhausting other policy conditions. The dispatcher
 checks selected flags and one OR combination; its default all-tests mask is
 inspected without executing every combination. Physical DUT reset, mixed map
-rights, unknown field policies, wildcard exclusions and broader hierarchy
+rights, further field-policy combinations, wildcard exclusions and broader hierarchy
 shapes remain separate work. No case uses a commercial simulator, vendor
 backend or HDL DPI. All retain `spec_check: ai`; counts and two matching seeds
 do not establish human review, four-state correctness or full coverage.
@@ -1131,9 +1136,9 @@ not a direct test of the requirement.
 
 ### Q77. Why is there no coverage percentage after starting M4?
 
-The 355 AI drafts cover only a partial decomposition: 331 requirements link
-directly to 374 tests, 24 have no direct test, and one separate test is a control.
-Another 430 tests are not mapped yet. The 2,504 clause identifiers are not normative requirement units.
+The 376 AI drafts cover only a partial decomposition: 361 requirements link
+directly to 417 tests, 15 have no direct test, and one separate test is a control.
+Another 407 tests are not mapped yet. The 2,504 clause identifiers are not normative requirement units.
 The scope is proposed, the inventory incomplete and the denominator unapproved;
 starting M4 approves none of those. Known differences and HDL/DPI limitations
 do not silently exclude obligations. See the [approval path](requirements.md#remaining-m4-work-and-approval).
@@ -1168,3 +1173,71 @@ JSON formatting and repository location do not change it. Compare schema and
 selection too, since this identifies inputs rather than an entire output file.
 See [report identity](requirements.md#generated-report-identity). It does not
 approve a denominator, record human review or replace execution fingerprints.
+
+## Foundation and cleanup fixtures
+
+### Q81. What do the new database, pool, agent and utility fixtures establish?
+
+Database fixtures override connection hooks, observe failed/successful open,
+repeated open/close and independent instance state. They do not open streams or
+an external backend. Pool checks count distinct keys through replacement,
+missing-key creation and deletion; the default-value fixture uses an explicitly
+two-state element type. Agent checks use derived agents and enum-valued
+configuration before child build, without driver traffic.
+
+String splitting keeps consecutive, leading and trailing empty fields,
+including an empty input, while replacing prior queue contents. Command-line
+queries check literal suffix membership, no-match clearing and repeated
+replacement without assuming argument enumeration order. Their pinned-library
+run cannot enumerate passed arguments under `UVM_NO_DPI`; these remain
+spec-only. See the [database](../tests/u07/test_database_repeated_open_close_preserves_peer_state_and_hook_counts.sv),
+[pool](../tests/u11/test_pool_num_tracks_implicit_creation_deletion_and_instance_scope.sv),
+[agent](../tests/u13/test_agent_activity_uses_independent_enum_configuration.sv),
+[string](../tests/uF/test_string_split_preserves_consecutive_and_edge_empty_fields.sv) and
+[argument](../tests/uG/test_command_arg_values_collect_matching_suffixes_without_stale_entries.sv) fixtures.
+
+### Q82. How is pending ownership cleanup distinguished from an idle stop?
+
+An owner first holds the sequencer. A positive delay establishes that a lock
+or grab waiter has entered but has not acquired ownership. Killing that
+waiter must leave it stopped and allow a real subsequent driver transfer.
+A two-waiter case also checks that killing one pending lock preserves the
+other. The sequencer-wide stop case cancels the owner and both kinds of
+waiter, then transfers through a fresh sequence. See the
+[surviving-waiter](../tests/u14/test_sequence_kill_of_queued_lock_preserves_another_waiter.sv)
+and [stop](../tests/u15/test_stop_sequences_cancels_queued_lock_and_grab_before_fresh_transfer.sv) cases.
+
+These fixtures inspect public ownership/state and payload delivery, without
+reading private arbitration queues. They check cleanup separately from the
+required post-kill hooks, which retain their own known differences (Q21).
+They do not establish every response/default-resource or fairness condition.
+
+### Q83. What does the combined register/memory access wrapper add?
+
+The direct `uvm_reg_mem_access_seq` fixtures require both model families to
+use frontdoor and user-backdoor paths, including a child hierarchy. They
+check every memory location through masks while aggregating the available
+frontdoor maps; they do not require access through every map for this
+wrapper. See the [root](../tests/uE/test_combined_access_wrapper_checks_register_and_memory_paths.sv)
+and [hierarchy](../tests/uE/test_combined_access_wrapper_recurses_into_child_registers_and_memories.sv) cases.
+
+An exact block `NO_REG_ACCESS_TEST` case requires no combined-window accesses,
+then separately runs single-register and single-memory controls. Observation
+counters and masks restart between windows. The pinned library still tests
+memory in that wrapper window, so the
+[exclusion case](../tests/uE/test_combined_access_wrapper_honors_block_exclusion_with_direct_controls.sv)
+retains the E.3.3 skip expectation as spec-only. These are no-DPI testbench
+storage checks, not physical DUT reset or complete annex E coverage.
+
+### Q84. Is an unknown access policy just a misspelled policy name?
+
+The fixtures register a custom name through `uvm_reg_field::define_access`
+before configuring the field. It is a valid user-defined policy, but its
+behavior is unknown to the built-in checking algorithm. Each skip test
+observes no accesses and then runs a known-RW peer as a working control,
+without prescribing skipped diagnostics. The
+[single-access case](../tests/uE/test_single_register_access_sequence_skips_user_defined_unknown_policy.sv)
+matches the E.3.1 skip. The
+[bit-bash case](../tests/uE/test_single_bit_bash_sequence_skips_user_defined_unknown_policy.sv)
+retains the E.2.1 skip as spec-only because the pinned library still accesses
+the custom-policy register. Mixed policies and broader map rights remain open.

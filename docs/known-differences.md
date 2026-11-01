@@ -2,7 +2,7 @@
 
 [日本語](known-differences.ja.md) · [README](../README.md) · [FAQ](faq.md)
 
-This describes the current 805-test suite and the pinned Accellera UVM
+This describes the current 825-test suite and the pinned Accellera UVM
 2020.3.1 library. A mismatch is a test result; it does not by itself assign
 the cause to the simulator, the library or the expectation.
 
@@ -16,7 +16,7 @@ semantics still require review. Annex E additionally checks selected two/three-m
 shared accesses and one child-block shape; see the
 [memory scope](faq.md#memory-prediction-and-map-controls) and
 [shared-access scope](faq.md#memory-access-shared-maps-and-test-selection).
-The following forty-five additional limitations were identified during M1, M2 and M3.
+The following forty-seven additional limitations were identified during M1, M2 and M3.
 Where a test directly checks a required behavior that is missing, its
 normative expectation is retained with `:oracle: spec`.
 
@@ -196,6 +196,14 @@ normative expectation is retained with `:oracle: spec`.
   of `NO_MEM_SHARED_ACCESS_TEST` as named by E.5.1. The required skip is retained,
   with a separately scoped peer providing a working access-path control.
 
+- The combined access wrapper checks `NO_MEM_ACCESS_TEST` for memory traversal
+  even when the block matches `NO_REG_ACCESS_TEST`. Clause E.3.3 excludes that
+  block from the combined check. A case retains an idle wrapper window and
+  working direct register/memory controls.
+- Single-register bit bash still accesses a register containing a registered
+  custom field policy, although E.2.1 says unknown policies cannot be tested.
+  The case retains no accesses, with a known-RW peer as a working control.
+
 These branches are not treated as reproduced fixed-release oracles.
 Spec-only diagnostics preserve the required post-drop objector membership,
 initial transaction state, severity-ID reset, field-operation name errors,
@@ -213,22 +221,28 @@ post-write order, user-backdoor read-clear prediction, the block memory-walk
 exclusion resource and the individual-memory access exclusion.
 Matching tests avoid the other library limitations.
 
-Across the suite, 737 tests have the `verilator@5.052` oracle tag and sixty-eight
+Two command-line suffix-query cases additionally cannot observe their passed
+arguments under the current `UVM_NO_DPI` setting: the pinned library's argument
+enumeration stub supplies an empty list. Their expected matches and queue
+replacement remain standard-derived; this records an execution-configuration
+constraint, not a demonstrated failure of the suffix-matching algorithm.
+
+Across the suite, 753 tests have the `verilator@5.052` oracle tag and seventy-two
 cases are spec-only. One of the spec-only cases checks 9.6: a child's pre-reset
 task must be killed when that phase ends, but the pinned-library run on Verilator 5.052
 lets the child perform its delayed write during a later phase. The cause of
 this combined simulator/library difference remains unassigned.
 
-The sixty-eight spec-only tests retain their normative expected files.
-Default Verilator runs and CI select the 737 tagged cases. `--all` includes
+The seventy-two spec-only tests retain their normative expected files.
+Default Verilator runs and CI select the 753 tagged cases. `--all` includes
 spec-only cases and records mismatches or build failures as `known`.
-The runtime records for 61 cases establish the first difference at seed 1,
+The runtime records for 65 cases establish the first difference at seed 1,
 without seed 73 results. Seven missing-API cases cannot build and have no
 runtime seed result: one time API and six sequence-library cases.
 
 ## Spec-only tests
 
-These are the sixty-eight current spec-only cases. Several exercise the same
+These are the seventy-two current spec-only cases. Several exercise the same
 limitation, so their count is not a count of distinct bugs.
 
 - Field-operation accessor errors:
@@ -342,9 +356,17 @@ limitation, so their count is not a count of distinct bugs.
 - Individual-memory access exclusion:
   [specified shared-access resource and peer control](../tests/uE/test_single_memory_access_sequence_honors_its_shared_access_exclusion_resource.sv).
 
+- Combined access block exclusion:
+  [idle wrapper and direct register/memory controls](../tests/uE/test_combined_access_wrapper_honors_block_exclusion_with_direct_controls.sv).
+- Unknown-policy bit-bash skip:
+  [registered custom policy and known-RW peer](../tests/uE/test_single_bit_bash_sequence_skips_user_defined_unknown_policy.sv).
+- Command-line suffix collection under `UVM_NO_DPI`:
+  [multiple matching suffixes](../tests/uG/test_command_arg_values_collect_matching_suffixes_without_stale_entries.sv)
+  and [missing/repeated queries](../tests/uG/test_command_arg_values_clear_on_no_match_and_repeat_without_appending.sv).
+
 ## Simulator and library combinations
 
-Ghost's bundled-library evidence has 153 matches and 652 failures with each
+Ghost's bundled-library evidence has 158 matches and 667 failures with each
 of seeds 1 and 73; the same tests fail at both seeds. The current executable
 snapshot has no pinned-mode measurement. [Results and methodology](results.md)
 describes the evidence assembly. Bundled results
@@ -353,7 +375,7 @@ problem from a library problem or establish results for the locked library.
 Private identity, profiles and diagnostics are not published.
 
 The tested kirimasim executable reports `uvm_object_wrapper` as unsupported
-on 798 cases. Seven cases record `fail` earlier on missing library APIs: one time
+on 818 cases. Seven cases record `fail` earlier on missing library APIs: one time
 setter and six sequence-library cases. Neither result is a pass or evidence
 of UVM execution beyond those compilation blockers.
 

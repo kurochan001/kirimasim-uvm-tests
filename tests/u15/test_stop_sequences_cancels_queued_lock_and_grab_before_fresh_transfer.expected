@@ -1,0 +1,5 @@
+UT: second_waiting 1 second_acquired 0
+UT: waiting 1 acquired 0 owner_held 1
+UT: all_stopped 1 1 clear 1
+UT: stopped 1 acquired 0 returned 1
+UT: survivor 1 payload 66 ownership_clear 1

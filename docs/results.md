@@ -4,18 +4,18 @@
 
 ## Current snapshot
 
-The local evidence dated 2026-11-01 covers the 805 current tests. Each record
+The local evidence dated 2026-11-01 covers the 825 current tests. Each record
 identifies its test inputs and execution conditions through fingerprints.
 The suite contains
-229 M1, 360 M2 and 216 M3 cases in 15 chapter/annex directories. All record
+239 M1, 364 M2 and 222 M3 cases in 20 chapter/annex directories. All record
 `spec_check: ai`, use `UVM_NO_DPI` and request no deprecated API. None records
 human review. Counts do not establish a reviewed requirement-coverage percentage.
 
 | Simulator and library | Observation | Execution scope |
 | --- | --- | --- |
-| Verilator 5.052, pinned UVM | 737 `pass`; 68 `known` | Matches reproduced at seeds 1 and 73; runtime differences stop at seed 1 |
-| kirimasim, pinned UVM | 798 `unsupported`; seven `fail` | Fixed executable build and all current inputs |
-| Ghost, bundled UVM | 153 `pass`; 652 `fail` | Each of seeds 1 and 73; identical failing sets |
+| Verilator 5.052, pinned UVM | 753 `pass`; 72 `known` | Matches reproduced at seeds 1 and 73; runtime differences stop at seed 1 |
+| kirimasim, pinned UVM | 818 `unsupported`; seven `fail` | Fixed executable build and all current inputs |
+| Ghost, bundled UVM | 158 `pass`; 667 `fail` | Each of seeds 1 and 73; identical failing sets |
 | Ghost, pinned UVM | Not measured for the current executable snapshot | No current pinned-mode claim |
 
 The pinned library is Accellera UVM 2020.3.1, commit `78c06547a2a0`, with
@@ -27,15 +27,15 @@ Icarus Verilog is not used for this UVM suite.
 
 ## Interpretation
 
-The 68 spec-only cases retain standard-derived expected output. Of their
-Verilator records, 61 first differ at runtime seed 1. The runner stops at that
+The 72 spec-only cases retain standard-derived expected output. Of their
+Verilator records, 65 first differ at runtime seed 1. The runner stops at that
 seed, so those records contain no seed 73 result. Seven cannot build because
 of missing library APIs: one time API and six sequence-library APIs. They
 have no runtime seed result. The known-differences guide links every spec-only
 case and describes the combined simulator/library limitation where the cause
 has not been assigned.
 
-kirimasim reports `uvm_object_wrapper` as unsupported on 798 cases; the other
+kirimasim reports `uvm_object_wrapper` as unsupported on 818 cases; the other
 seven encounter missing library APIs first. Neither category establishes
 execution of the UVM behavior beyond those blockers. Ghost's bundled
 mismatches do not identify whether the simulator or its library caused them,
@@ -51,9 +51,9 @@ and exit-code rules. Two seeds do not prove determinism or four-state correctnes
 
 ## Evidence assembly
 
-The current snapshot combines an unchanged 781-case baseline at
-[c253fc9](https://github.com/kurochan001/kirimasim-uvm-tests/commit/c253fc993a82a95fa1def615b4f4315292d6d127)
-with 24 newly measured annex E cases. Verilator uses the fixed release;
+The current snapshot combines an unchanged 805-case baseline at
+[a7522cc](https://github.com/kurochan001/kirimasim-uvm-tests/commit/a7522cc1345dc80babca37d55c0b255f2df01350)
+with 20 newly measured M1–M3 cases. Verilator uses the fixed release;
 kirimasim and the project's guest Ghost use fixed executable snapshots.
 Ghost reuses the same private profile snapshot for each seed as its baseline.
 Commercial simulator results are excluded under the
@@ -76,9 +76,9 @@ claim that a single invocation reran the entire suite. The
 prior smoke tests and build-change details. Refreshed records replace older
 ones only after their current input fingerprints are verified.
 
-M4 adds a [draft ledger](requirements.md), validation and review-queue
-tools without changing simulation inputs or runners. The recorded input and
-runner fingerprints still match; no new simulator execution is claimed.
+The [draft ledger](requirements.md) maps all 20 new fixtures and selected
+existing FIFO fixtures. The new simulation inputs were measured separately;
+unchanged baseline records retain matching input and runner fingerprints.
 Ledger anchors describe expected output, not additional measured passes.
 
 ## Reproducing and retaining results
@@ -93,7 +93,7 @@ inputs, a different runner, executable, profile or library is a separate conditi
 
 [Check](../.github/workflows/check.yml) runs on pushes to `main`, pull requests
 and manual dispatch. It checks pinned-library integrity, 74 tool unit tests,
-805 metadata records, the draft requirement ledger/test index and the 737
+825 metadata records, the draft requirement ledger/test index and the 753
 tagged Verilator cases using seeds 1 and 73.
 It does not run kirimasim, Ghost or spec-only cases. The README's badge is the
 live CI state, separate from these local measurements. A green Check does

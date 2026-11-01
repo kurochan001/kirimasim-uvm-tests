@@ -1,0 +1,4 @@
+UT: initially_closed 1
+UT: failed result 0 open 0 calls 1
+UT: opened result 1 open 1 calls 2
+UT: closed result 1 open 0 calls 1

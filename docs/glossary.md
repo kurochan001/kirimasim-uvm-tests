@@ -163,6 +163,18 @@ TLM 2 extension type / its identifying name. These identify a type rather
 than one named instance. Payload lookup uses the handle, while tests compare
 type-name relationships without prescribing a qualified-name format.
 
+**Database connection hook** — A database extension's open/close implementation.
+Local fixtures count calls and control success without opening streams or an
+external backend; connection state does not establish recording behavior.
+
+**Unique-key count** — Pool occupancy counts distinct stored keys. Replacing a
+value for an existing key does not add an entry; missing-key creation and
+key deletion can change the count.
+
+**Pending ownership cleanup** — Removing queued lock/grab requests when a
+sequence is killed or a sequencer stops its sequences. A later successful
+transfer and a surviving waiter distinguish cleanup from an idle stop.
+
 ## Transaction-level communication
 
 **Push sequencer / push driver** — A sequencer that calls a driver's blocking
@@ -397,6 +409,10 @@ See the [shared-map FAQ](faq.md#memory-access-shared-maps-and-test-selection).
 `uvm_reg_mem_built_in_seq`. Flags from `uvm_reg_mem_tests_e` select families;
 bitwise OR combines selections in the order defined by 17.2.2.10. See the
 [dispatcher FAQ](faq.md#memory-access-shared-maps-and-test-selection).
+
+**Registered custom access policy** — A valid field-policy name introduced by
+`uvm_reg_field::define_access`, whose behavior may still be unknown to a built-in
+test sequence. Skip checks use a known-policy peer as a positive control.
 
 ## Execution and result records
 

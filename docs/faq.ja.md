@@ -155,7 +155,7 @@ Ghostはさらに実行ファイル・profile・供給されたライブラリ�
 
 ### Q16. M1・M2・M3は完了していますか。件数は何の網羅を示しますか
 
-M1・M2には条項ごとの目標に未達があります。M3はbusモデルのfrontdoor経路を含め216件まで追加した段階で、未完です。
+M1・M2には条項ごとの目標に未達があります。M3はbusモデルのfrontdoor経路を含め222件まで追加した段階で、未完です。
 次の段階の開始によって、それまでの段階が完了したとは扱いません。
 範囲と残りの作業は[進め方](../README.ja.md#進め方)にあります。
 件数はテストの本数で、規格の全要求や組み合わせの棚卸しではありません。
@@ -499,7 +499,7 @@ lock前のfield検索とmapの幅・変換はspecのみの期待値を保持し�
 
 memory、adapter、predictor、frontdoor、callback、virtual registerのケースは以下で説明します。
 追加のpacking／エラー・policy／map条件、predictorの統合、frontdoor／callbackの組み合わせ、HDL path／DPI、
-割り当てpolicyの追加条件、register・memory accessの統合wrapper、付録Eの追加条件は未完です。
+割り当てpolicyの追加条件、付録Eの追加条件は未完です。
 Q68で組み込みテストsequenceと選択maskの範囲を説明します。
 registerとmemoryのmap問い合わせは引数を明示します。
 配布物の複数mapに関する注記とnull時のmap解決は[既知差分](known-differences.ja.md)で説明します。
@@ -801,7 +801,8 @@ ROはbitを保持し、W1Cはmaskを適用し、RCはsampleした値を返して
 
 ### Q68. どの組み込みregister／memoryテストsequenceを検査していますか
 
-`tests/uE/`の48件で、次の8区分を6件ずつ検査します。
+`tests/uE/`の54件で、次の系統を検査します。統合wrapperは3検査系、bit bashとregister accessは
+ユーザー定義の未知policy、register accessはblock除外も検査します。
 
 | 系統 | sequenceのclass | 主な観測 |
 | --- | --- | --- |
@@ -812,6 +813,7 @@ ROはbitを保持し、W1Cはmaskを適用し、RCはsampleした値を返して
 | Memory access | `uvm_mem_single_access_seq`, `uvm_mem_access_seq` | 4 locationのfrontdoor／backdoor照合、不一致、階層、除外 |
 | Shared register | `uvm_reg_shared_access_seq`, `uvm_reg_mem_shared_access_seq` | 2／3 map、map間の観測、不一致、除外 |
 | Shared memory | `uvm_mem_shared_access_seq`, `uvm_reg_mem_shared_access_seq` | 2／3 mapの4 location、不一致、階層、除外 |
+| 統合access | `uvm_reg_mem_access_seq` | 両model family、child階層、直接の比較対象を持つblock除外 |
 | Test selection | `uvm_reg_mem_built_in_seq` | 既定／0のmask、個別flag、ORによる選択と順序 |
 
 [reset](../tests/uE/test_hw_reset_sequence_restores_model_reset_before_comparing_storage.sv)、
@@ -852,9 +854,10 @@ E.6.2はblockに指定した`NO_MEM_WALK_TEST`でblockをskipするとします�
 
 ### Q71. 付録Eには何が残っていますか
 
-register・memory accessの統合wrapper（E.3.3）、HDL pathの検査（E.7）、追加のpolicy／status／maskの組み合わせは未検証です。
+HDL pathの検査（E.7）、walking-ones algorithm全体、追加のpolicy／status／maskの組み合わせは未検証です。
+E.3.3は統合wrapperを直接検査し、単独bit bashとregister accessは未知policyのskipも検査しますが、全policy条件は網羅しません。
 dispatcherは選んだflagと1つのORの組み合わせを検査し、既定の全テストmaskは値を検査するだけで、全組み合わせを実行していません。
-物理的なDUTのreset、混在するmap権限、未知のfield policy、wildcardの除外、追加の階層形状も別の作業です。
+物理的なDUTのreset、混在するmap権限、追加のfield policyの組み合わせ、wildcardの除外、追加の階層形状も別の作業です。
 商用シミュレータ・vendor backend・HDL DPIは使いません。全件が`spec_check: ai`で、件数や2つのseedでの一致は
 人の照合、4値の正しさ、完全なカバレッジを示しません。
 
@@ -915,8 +918,8 @@ controlの対応は、その要求の直接の検査ではありません。
 
 ### Q77. M4を始めたのに、カバレッジ率がないのはなぜですか
 
-AIによる355要求案は部分的な分解で、331要求を374テストへ直接対応付け、24要求は直接未対応、別の1テストはcontrolです。
-他の430テストはまだ要求に対応付けていません。2,504の条項番号は規範的要求の単位ではありません。
+AIによる376要求案は部分的な分解で、361要求を417テストへ直接対応付け、15要求は直接未対応、別の1テストはcontrolです。
+他の407テストはまだ要求に対応付けていません。2,504の条項番号は規範的要求の単位ではありません。
 範囲は提案、棚卸しは未完、分母は未承認で、M4の開始はどれの承認にもなりません。
 既知差分やHDL／DPIの制約によって義務を暗黙に除外しません。[承認までの手順](requirements.ja.md#m4の残作業と承認)を参照してください。
 
@@ -946,3 +949,51 @@ JSONに`ledger_inputs_sha256`を記録し、同じ範囲、台帳、テスト索
 出力file全体ではなく入力を識別するため、schemaと選択条件も比較します。
 [レポートの識別](requirements.ja.md#生成レポートの識別)を参照してください。
 分母の承認、人による照合の記録、実行の指紋の代わりにはなりません。
+
+## 基本APIと停止後の検査系
+
+### Q81. database・pool・agent・utilityの追加検査は何を示しますか
+
+databaseの検査系は接続hookをoverrideし、openの失敗／成功、open／closeの繰り返し、instanceの独立した状態を観測します。
+streamや外部backendは開きません。poolは置換、欠落keyの生成、削除を通して異なるkey数を数え、
+default値の検査では明示的な2状態の要素型を使います。agentは派生agentを使い、child build前にenum値で設定し、driverの転送は行いません。
+
+文字列の分割は、連続／先頭／末尾の空fieldと空入力を保ち、以前のqueue内容を置き換えます。
+command-lineの照会は、引数の列挙順を固定せず、literalなsuffixの所属、一致なしでの消去、繰り返しによる置換を検査します。
+固定ライブラリでは`UVM_NO_DPI`で渡した引数を列挙できず、specのみで保持します。
+[database](../tests/u07/test_database_repeated_open_close_preserves_peer_state_and_hook_counts.sv)、
+[pool](../tests/u11/test_pool_num_tracks_implicit_creation_deletion_and_instance_scope.sv)、
+[agent](../tests/u13/test_agent_activity_uses_independent_enum_configuration.sv)、
+[文字列](../tests/uF/test_string_split_preserves_consecutive_and_edge_empty_fields.sv)、
+[引数](../tests/uG/test_command_arg_values_collect_matching_suffixes_without_stale_entries.sv)の検査系を参照してください。
+
+### Q82. 所有権待機の解放は、何もない状態のstopとどう区別しますか
+
+最初に所有者がsequencerを保持します。正の遅延によって、lock／grab待機者が開始済みで、まだ所有権を得ていないことを確認します。
+その待機者をkillすると停止を保ち、後続の実driver転送を許可する必要があります。待機者2つのケースでは、
+待機lockの片方のkillが、もう片方を残すことも検査します。sequencer全体のstopでは所有者と両種の待機者を取り消し、
+新しいsequenceで転送します。[生存する待機者](../tests/u14/test_sequence_kill_of_queued_lock_preserves_another_waiter.sv)と
+[stop](../tests/u15/test_stop_sequences_cancels_queued_lock_and_grab_before_fresh_transfer.sv)を参照してください。
+
+非公開のarbitration queueを読まず、公開の所有権／状態とpayloadの配送を検査します。停止後に必要なhookとは分けて検査し、
+hookの既知差分は別に保持します（Q21）。全response／default-resource条件や公平性を示すものではありません。
+
+### Q83. register／memory accessの統合wrapperは何を追加しますか
+
+`uvm_reg_mem_access_seq`を直接使い、両model familyにfrontdoorとuser backdoorの両経路を要求し、child階層も含めます。
+利用可能なfrontdoor mapの観測を合算し、maskで全memory locationを確認します。このwrapperでは全map経由のアクセスは要求しません。
+[root](../tests/uE/test_combined_access_wrapper_checks_register_and_memory_paths.sv)と
+[階層](../tests/uE/test_combined_access_wrapper_recurses_into_child_registers_and_memories.sv)のケースを参照してください。
+
+blockのexactな`NO_REG_ACCESS_TEST`では統合wrapper区間のアクセスなしを要求し、その後register／memory単独の比較対象を別々に実行します。
+区間の間で観測counterとmaskを初期化します。固定ライブラリはwrapper区間でmemoryを検査するため、
+[除外ケース](../tests/uE/test_combined_access_wrapper_honors_block_exclusion_with_direct_controls.sv)はE.3.3のskip期待値をspecのみで保持します。
+DPIを使わないテストベンチの記憶域の検査であり、物理DUTのresetや付録E全体の網羅ではありません。
+
+### Q84. 未知access policyは、policy名の綴り誤りと同じですか
+
+fieldの設定前に`uvm_reg_field::define_access`で独自名を登録します。有効なユーザー定義policyですが、
+組み込み検査algorithmにとって動作が未知です。各skip検査ではアクセスなしを観測し、続いて既知RWの別対象が動作することを確認します。
+skipの診断は固定しません。[単独access](../tests/uE/test_single_register_access_sequence_skips_user_defined_unknown_policy.sv)はE.3.1のskipと一致します。
+[bit-bash](../tests/uE/test_single_bit_bash_sequence_skips_user_defined_unknown_policy.sv)は、固定ライブラリが独自policyのregisterにもアクセスするため、
+E.2.1のskipをspecのみで保持します。policyの混在や追加のmap権限は未検証です。

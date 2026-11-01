@@ -1,0 +1,4 @@
+UT: fresh_close 1 hook_calls 0
+UT: repeated_open 1 hook_calls 1
+UT: independent first_closed 1 second_open 1
+UT: repeated_close 1 hook_calls 1

@@ -2,8 +2,8 @@
 
 [日本語](history.ja.md) · [README](../README.md)
 
-These records cover M1, fifteen M2 increments, nine M3 increments
-and three M4 increments (805 simulation tests). The earlier 349-test checkpoint is
+These records cover M1, fifteen M2 increments, nine M3 increments,
+three M4 increments and cross-milestone thin-area fixtures (825 simulation tests). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -1295,3 +1295,60 @@ history, privacy and whitespace. The 805 simulation inputs, expectations,
 runners and lock are unchanged; recorded Verilator, kirimasim and guest
 input/runner fingerprints still match. No simulator rerun or commercial result
 is used. Update README, the paired guides, FAQ and glossary to this state.
+
+## Thin-area expansion across M1–M4
+
+Add 20 fixtures where draft requirements lacked direct tests or execution
+conditions were thin. M1 adds ten cases for database connection hooks, distinct
+pool-key counts, agent activity, string splitting and command-line suffix
+queries, opening chapter/annex directories 7, 11, 13, F and G. M2 adds four
+cases that stop established pending lock/grab waiters, check another waiter's
+survival and complete fresh transfers. M3 adds six cases for the combined
+register/memory access wrapper, register-access block exclusion and registered
+custom-policy skips. Stage allocations become M1 239, M2 364 and M3 222;
+there are 825 simulations in 20 directories.
+
+Recheck the affected standard clauses before mapping expectations. Database
+fixtures control connection hooks without streams or a real backend. Empty
+string fields retain delimiter boundaries, and argument tests compare suffix
+membership without imposing order. Queued ownership tests use positive delays,
+public state and actual driver traffic, without private queue inspection.
+Combined access fixtures share frontdoor/user-backdoor storage, including a
+child hierarchy, and use location masks rather than exact randomized data.
+Skip tests restart observation windows and retain independent working controls.
+
+Map all 20 new cases and 24 selected existing FIFO fixtures, 23 of which
+previously had no requirement link. Add 21 requirement drafts and supply direct
+tests for nine formerly unlinked drafts. The ledger becomes 376 AI drafts:
+361 directly linked requirements, 417 directly linked tests, 15 requirements
+without direct tests, one separate control and 407 tests with neither link role.
+The catalog has 274 partially decomposed and 2,230 unassessed identifiers;
+363 have primary-focus tests and 840 have any citation. Candidate primary-focus
+counts are 2,116 zero, 159 one and 204 at least two. Preserve all 805 existing
+index snapshots and add only the 20 new input identities after reassessment.
+Scope, inventory and M1–M4 remain incomplete; no denominator is approved.
+
+Measure new final inputs with unchanged runners and fixed simulator snapshots.
+Sixteen new cases match Verilator 5.052 at seeds 1 and 73. Two command-line
+cases differ under the pinned library's empty no-DPI argument enumeration.
+The combined wrapper's block exclusion still permits memory accesses, and
+single bit bash accesses a registered custom-policy register; both keep the
+standard skip expectation. Combined with the unchanged 805-case baseline at
+[a7522cc](https://github.com/kurochan001/kirimasim-uvm-tests/commit/a7522cc1345dc80babca37d55c0b255f2df01350),
+there are 753 matches and 72 known differences: 65 runtime seed-1 differences
+and seven missing-API builds without runtime seeds. Do not weaken expectations
+to match these differences.
+
+New Ghost bundled runs have five matches and fifteen failures at each seed;
+the failing sets agree. Combined results are 158 matches and 667 failures.
+The new matches are one pool-count case, two agent cases and both argument
+queries; no new annex E transfer claim is established. kirimasim adds twenty
+unsupported results, for 818 unsupported and seven missing-API failures overall.
+Input, runner, configuration, executable/profile identities are checked before
+combining batches. Guest identity and raw diagnostics remain private; commercial
+simulator results are not used.
+
+Update all current paired guides, add four FAQs and four glossary terms
+(84 FAQs and 96 terms), and preserve previous history. Validate 74 tool tests,
+825 metadata records, 376 ledger entries, pinned-library integrity, bilingual
+structure, local links, canonical license, evidence fingerprints and whitespace.

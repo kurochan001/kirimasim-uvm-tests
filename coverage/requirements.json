@@ -1069,23 +1069,44 @@
         "ja": "databaseのis_openは、成功したopenが継続中の状態とclosed状態を区別する。"
       },
       "conditions": {
-        "en": "A database implementation can report successful open and close transitions.",
-        "ja": "databaseの実装がopenの成功とcloseの遷移を報告できる。"
+        "en": "A database fixture supplies failed/successful open results and successful close, including repeated operations and a peer database.",
+        "ja": "database検査系がopen失敗／成功とclose成功を返し、操作の繰り返しと別databaseも含める。"
       },
       "expected": {
         "en": "Status is 1 after successful open and 0 when no open remains.",
         "ja": "openの成功後は1、openが残っていなければ0を返す。"
       },
       "limitations": {
-        "en": "No test is mapped yet; an independent database fixture is needed before assessing this unit.",
-        "ja": "まだテストを対応付けていない。評価には独立したdatabase構成が必要である。"
+        "en": "Deterministic connection hooks with no streams or external database; stream close/free and real backend behavior remain unassessed.",
+        "ja": "streamや外部databaseを使わず、決定的な接続hookで検査する。streamのclose／freeや実backendは未評価。"
       },
       "review": {
         "status": "ai",
         "reviewer": null,
         "reviewed_at": null
       },
-      "test_links": []
+      "test_links": [
+        {
+          "test": "u07/test_database_open_state_tracks_failed_and_successful_connections",
+          "role": "direct",
+          "expected_observations": [
+            "UT: initially_closed 1",
+            "UT: failed result 0 open 0 calls 1",
+            "UT: opened result 1 open 1 calls 2",
+            "UT: closed result 1 open 0 calls 1"
+          ]
+        },
+        {
+          "test": "u07/test_database_repeated_open_close_preserves_peer_state_and_hook_counts",
+          "role": "direct",
+          "expected_observations": [
+            "UT: fresh_close 1 hook_calls 0",
+            "UT: repeated_open 1 hook_calls 1",
+            "UT: independent first_closed 1 second_open 1",
+            "UT: repeated_close 1 hook_calls 1"
+          ]
+        }
+      ]
     },
     {
       "id": "UVM-POOL-UNIQUE-COUNT",
@@ -1095,23 +1116,42 @@
         "ja": "poolのnumは、現在entryがある異なるkeyの数を返す。"
       },
       "conditions": {
-        "en": "A pool contains repeated writes to one key and a write to another key.",
-        "ja": "poolの1つのkeyに繰り返しwriteし、別のkeyにもwriteする。"
+        "en": "Replace a key, insert a different key, implicitly create one through get and delete it while preserving another pool.",
+        "ja": "keyの置換、別keyの挿入、getによる暗黙生成、削除を行い、別poolを保つ。"
       },
       "expected": {
-        "en": "Replacing an existing key keeps the count; adding a new key increments it.",
-        "ja": "既存keyの置換ではcountを保ち、新しいkeyの追加では増やす。"
+        "en": "Counts follow unique stored keys rather than operation count, and deleting one pool entry leaves the peer pool unchanged.",
+        "ja": "countは操作数ではなく保存する異なるkey数に従い、片方のentryを削除しても別poolは変わらない。"
       },
       "limitations": {
-        "en": "No test is mapped; deletion and default-item creation require additional units.",
-        "ja": "テストは未対応。削除とdefault itemの生成には追加の要求が必要である。"
+        "en": "Local keyed pools with explicitly assigned integer values and a two-state missing-value fixture; global pools and iterators remain separate.",
+        "ja": "明示した整数値のlocal poolと、2状態の欠落値構成を使う。global poolとiteratorは別途扱う。"
       },
       "review": {
         "status": "ai",
         "reviewer": null,
         "reviewed_at": null
       },
-      "test_links": []
+      "test_links": [
+        {
+          "test": "u11/test_pool_num_counts_distinct_keys_after_replacement",
+          "role": "direct",
+          "expected_observations": [
+            "UT: empty 0",
+            "UT: count 2 first 37 second 22"
+          ]
+        },
+        {
+          "test": "u11/test_pool_num_tracks_implicit_creation_deletion_and_instance_scope",
+          "role": "direct",
+          "expected_observations": [
+            "UT: implicit count 1 default 0",
+            "UT: replaced count 1 value 9",
+            "UT: removed count 0 absent 1",
+            "UT: peer count 1 value 77"
+          ]
+        }
+      ]
     },
     {
       "id": "UVM-AGENT-ACTIVITY-QUERY",
@@ -1129,15 +1169,23 @@
         "ja": "各照会が、設定した活動modeの列挙値に一致する。"
       },
       "limitations": {
-        "en": "No test is mapped; default mode and command-line conversion are not included in this unit.",
-        "ja": "テストは未対応。default modeとcommand-lineからの変換はこの要求に含めない。"
+        "en": "Two local agents use enum-valued configuration before child build; custom overrides and legacy configuration commands remain separate.",
+        "ja": "child build前にenum値を設定する2つのlocal agentを使う。独自overrideと旧configurationコマンドは別途扱う。"
       },
       "review": {
         "status": "ai",
         "reviewer": null,
         "reviewed_at": null
       },
-      "test_links": []
+      "test_links": [
+        {
+          "test": "u13/test_agent_activity_uses_independent_enum_configuration",
+          "role": "direct",
+          "expected_observations": [
+            "UT: first_passive 1 second_active 1"
+          ]
+        }
+      ]
     },
     {
       "id": "UVM-HDL-DEPOSIT",
@@ -1181,15 +1229,34 @@
         "ja": "結果のsizeは区切りの数に1を足した値になり、空入力は空の要素1つになる。"
       },
       "limitations": {
-        "en": "No test is mapped; this is a candidate for a class-library-independent utility fixture.",
-        "ja": "テストは未対応。class libraryに依存しないutility構成の候補である。"
+        "en": "Single-byte delimiters and empty strings with prior queue contents; no regex or DPI is needed.",
+        "ja": "既存のqueue内容を用い、1-byteの区切りと空文字列を検査する。regexやDPIは不要。"
       },
       "review": {
         "status": "ai",
         "reviewer": null,
         "reviewed_at": null
       },
-      "test_links": []
+      "test_links": [
+        {
+          "test": "uF/test_string_split_preserves_consecutive_and_edge_empty_fields",
+          "role": "direct",
+          "expected_observations": [
+            "UT: count 5",
+            "UT: positions 1 1 1 1 1"
+          ]
+        },
+        {
+          "test": "uF/test_string_split_empty_and_single_separator_replace_prior_queue",
+          "role": "direct",
+          "expected_observations": [
+            "UT: empty_count 1",
+            "UT: empty_value 1",
+            "UT: separator_count 2",
+            "UT: separator_values 1 1"
+          ]
+        }
+      ]
     },
     {
       "id": "UVM-COMMAND-ARG-VALUES",
@@ -1199,23 +1266,42 @@
         "ja": "get_arg_valuesは、出力queueを一致する引数のsuffixで置き換え、一致件数を返す。"
       },
       "conditions": {
-        "en": "Several command-line arguments share one prefix; the output queue initially has stale contents.",
-        "ja": "複数のcommand-line引数が同じprefixを持ち、出力queueには古い内容がある。"
+        "en": "Pass distinct matching/irrelevant arguments and prepopulate the output queue before multiple, missing or repeated queries.",
+        "ja": "一致／無関係な引数を渡し、複数一致、欠落、繰り返しの照会前に出力queueへ以前の値を入れる。"
       },
       "expected": {
         "en": "Only matching suffixes remain and the returned count equals their number.",
         "ja": "一致したsuffixだけが残り、戻り値はその件数に等しい。"
       },
       "limitations": {
-        "en": "No test is mapped; regex matching and the separate single-value API need other units.",
-        "ja": "テストは未対応。正規表現の照合と別の単一値APIは他の要求で扱う。"
+        "en": "Explicit literal prefixes with multiple, missing and repeated singleton queries; suffix membership is checked without fixing iteration order. The current pinned UVM_NO_DPI run supplies an empty argument list, so matching suffix behavior is not executed successfully under that configuration.",
+        "ja": "literalのprefixで、複数一致、欠落、singletonの繰り返しを検査する。順序を固定せずsuffixの所属を確認する。 現在の固定UVM_NO_DPI実行は空の引数一覧を返すため、その設定でsuffix一致の動作が成功したことは示さない。"
       },
       "review": {
         "status": "ai",
         "reviewer": null,
         "reviewed_at": null
       },
-      "test_links": []
+      "test_links": [
+        {
+          "test": "uG/test_command_arg_values_collect_matching_suffixes_without_stale_entries",
+          "role": "direct",
+          "expected_observations": [
+            "UT: matches 2 size 2 alpha 1 beta 1 stale 0"
+          ]
+        },
+        {
+          "test": "uG/test_command_arg_values_clear_on_no_match_and_repeat_without_appending",
+          "role": "direct",
+          "expected_observations": [
+            "UT: missing count 0 size 0",
+            "UT: first count 1 size 1",
+            "UT: first_value 1",
+            "UT: repeated count 1 size 1",
+            "UT: repeated_value 1"
+          ]
+        }
+      ]
     },
     {
       "id": "UVM-SEEDING-GET",
@@ -6422,15 +6508,23 @@
         "ja": "wrapperはそのblockを省略し、独立した直接controlは実行する。"
       },
       "limitations": {
-        "en": "No direct test is mapped; the existing register-specific exclusion does not establish block-scoped behavior.",
-        "ja": "直接テストは未対応。既存のregister単位の除外では、block scopeの動作は示せない。"
+        "en": "Exact block-scoped NO_REG_ACCESS_TEST with an independent child control; skip diagnostics are not constrained, and observation windows are reset.",
+        "ja": "block scopeのexactなNO_REG_ACCESS_TESTと独立したchild controlを使う。skipの診断は制約せず、観測区間をresetする。"
       },
       "review": {
         "status": "ai",
         "reviewer": null,
         "reviewed_at": null
       },
-      "test_links": []
+      "test_links": [
+        {
+          "test": "uE/test_register_access_wrapper_honors_block_exclusion_before_child_control",
+          "role": "direct",
+          "expected_observations": [
+            "UT: skipped 1 child_control 1 clean 1"
+          ]
+        }
+      ]
     },
     {
       "id": "UVM-COMBINED-ACCESS-WRAPPER",
@@ -6448,15 +6542,30 @@
         "ja": "両familyでそれぞれのaccess検査を実行する。"
       },
       "limitations": {
-        "en": "No test is mapped; invoking the register and memory wrappers separately does not test this wrapper.",
-        "ja": "テストは未対応。register／memoryのwrapperを別々に呼んでも、このwrapperの検査にはならない。"
+        "en": "Both model families use shared custom-frontdoor/user-backdoor storage, including a child hierarchy. Only the default access map is required; no RTL or HDL DPI.",
+        "ja": "child階層も含め、両model familyに共有storageのcustom frontdoor／user backdoorを使う。default access mapだけを要求し、RTLやHDL DPIは使わない。"
       },
       "review": {
         "status": "ai",
         "reviewer": null,
         "reviewed_at": null
       },
-      "test_links": []
+      "test_links": [
+        {
+          "test": "uE/test_combined_access_wrapper_checks_register_and_memory_paths",
+          "role": "direct",
+          "expected_observations": [
+            "UT: clean 1 registers 1 memories 1"
+          ]
+        },
+        {
+          "test": "uE/test_combined_access_wrapper_recurses_into_child_registers_and_memories",
+          "role": "direct",
+          "expected_observations": [
+            "UT: clean 1 registers 1 memories 1"
+          ]
+        }
+      ]
     },
     {
       "id": "UVM-HDL-PATH-ACCESSIBILITY",
@@ -6526,15 +6635,23 @@
         "ja": "このtestからそのregisterを省略する。"
       },
       "limitations": {
-        "en": "No test is mapped; the read-only and missing-backdoor fixtures exercise different conditions.",
-        "ja": "テストは未対応。read-onlyやbackdoor欠落の構成とは異なる条件である。"
+        "en": "The custom policy is registered via define_access, so this is not a misspelled invalid field policy. Check access absence and a separate clean RW control, without fixing skip diagnostics.",
+        "ja": "define_accessで独自policyを登録し、綴り誤りの不正field policyとは区別する。skip診断を固定せず、アクセス不在と別の正常なRW controlを検査する。"
       },
       "review": {
         "status": "ai",
         "reviewer": null,
         "reviewed_at": null
       },
-      "test_links": []
+      "test_links": [
+        {
+          "test": "uE/test_single_bit_bash_sequence_skips_user_defined_unknown_policy",
+          "role": "direct",
+          "expected_observations": [
+            "UT: custom_policy 1 skipped 1 control 1 clean 1"
+          ]
+        }
+      ]
     },
     {
       "id": "UVM-REGISTER-ACCESS-UNKNOWN-POLICY-SKIP",
@@ -6552,15 +6669,23 @@
         "ja": "このtestからそのregisterを省略する。"
       },
       "limitations": {
-        "en": "No test is mapped; the read-only and missing-backdoor fixtures exercise different conditions.",
-        "ja": "テストは未対応。read-onlyやbackdoor欠落の構成とは異なる条件である。"
+        "en": "The custom policy is registered via define_access and unknown only to the built-in access test. A separate RW control checks the fixture; skipped diagnostics are unconstrained.",
+        "ja": "define_accessで登録した独自policyが、組み込みaccess testにとって未知である場合を扱う。別のRW controlで構成を確認し、skip診断は制約しない。"
       },
       "review": {
         "status": "ai",
         "reviewer": null,
         "reviewed_at": null
       },
-      "test_links": []
+      "test_links": [
+        {
+          "test": "uE/test_single_register_access_sequence_skips_user_defined_unknown_policy",
+          "role": "direct",
+          "expected_observations": [
+            "UT: custom_policy 1 skipped 1 control 1 clean 1"
+          ]
+        }
+      ]
     },
     {
       "id": "UVM-REPORT-MESSAGE-CREATE",
@@ -14002,6 +14127,915 @@
         "reviewed_at": null
       },
       "test_links": []
+    },
+    {
+      "id": "UVM-DATABASE-OPEN-IDEMPOTENCE",
+      "clause": "7.1.3.1",
+      "statement": {
+        "en": "Opening an already open database succeeds without reopening its backend.",
+        "ja": "open済みdatabaseのopenは、backendを再openせず成功する。"
+      },
+      "conditions": {
+        "en": "Use two local hook-backed databases and repeat calls while preserving the peer state.",
+        "ja": "hookを持つlocal databaseを2つ使い、相手の状態を保ちながら呼出しを繰り返す。"
+      },
+      "expected": {
+        "en": "The second open returns 1 while the open-hook count stays 1.",
+        "ja": "2回目のopenは1を返し、open hookのcountは1のままである。"
+      },
+      "limitations": {
+        "en": "No stream or recording activity is exercised.",
+        "ja": "streamやrecordingの動作は検査しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u07/test_database_repeated_open_close_preserves_peer_state_and_hook_counts",
+          "role": "direct",
+          "expected_observations": [
+            "UT: fresh_close 1 hook_calls 0",
+            "UT: repeated_open 1 hook_calls 1",
+            "UT: independent first_closed 1 second_open 1",
+            "UT: repeated_close 1 hook_calls 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-DATABASE-CLOSE-IDEMPOTENCE",
+      "clause": "7.1.3.2",
+      "statement": {
+        "en": "Closing an already closed database succeeds without calling the close hook.",
+        "ja": "close済みdatabaseのcloseは、close hookを呼ばず成功する。"
+      },
+      "conditions": {
+        "en": "Use two local hook-backed databases and repeat calls while preserving the peer state.",
+        "ja": "hookを持つlocal databaseを2つ使い、相手の状態を保ちながら呼出しを繰り返す。"
+      },
+      "expected": {
+        "en": "A fresh closed database needs zero close hooks; a repeated close retains one previous close call.",
+        "ja": "新しいclosed databaseのclose hookは0回で、再closeでは以前のclose 1回を保つ。"
+      },
+      "limitations": {
+        "en": "No stream or recording activity is exercised.",
+        "ja": "streamやrecordingの動作は検査しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u07/test_database_repeated_open_close_preserves_peer_state_and_hook_counts",
+          "role": "direct",
+          "expected_observations": [
+            "UT: fresh_close 1 hook_calls 0",
+            "UT: repeated_open 1 hook_calls 1",
+            "UT: independent first_closed 1 second_open 1",
+            "UT: repeated_close 1 hook_calls 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-POOL-MISSING-GET-CREATES-DEFAULT",
+      "clause": "11.2.2.4",
+      "statement": {
+        "en": "Getting a missing pool key creates an entry with the element type default value.",
+        "ja": "poolの欠落keyをgetすると、要素型のdefault値でentryを作る。"
+      },
+      "conditions": {
+        "en": "Use an explicitly two-state 32-bit element type so the default zero is defined.",
+        "ja": "default 0が定まる明示的な2状態32-bit要素型を使う。"
+      },
+      "expected": {
+        "en": "The returned value is zero and the pool gains one entry.",
+        "ja": "戻り値は0で、poolのentryが1つ増える。"
+      },
+      "limitations": {
+        "en": "No claim is made about uninitialized four-state elements.",
+        "ja": "未初期化の4状態要素については主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u11/test_pool_num_tracks_implicit_creation_deletion_and_instance_scope",
+          "role": "direct",
+          "expected_observations": [
+            "UT: implicit count 1 default 0",
+            "UT: replaced count 1 value 9",
+            "UT: removed count 0 absent 1",
+            "UT: peer count 1 value 77"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-POOL-DELETE-KEY",
+      "clause": "11.2.2.7",
+      "statement": {
+        "en": "Pool deletion removes the selected key from that pool.",
+        "ja": "poolのdeleteは、そのpoolの選択keyを削除する。"
+      },
+      "conditions": {
+        "en": "Delete a populated key shared in name only with another pool.",
+        "ja": "別poolに同じ名前だけのkeyを残して、値のあるkeyを削除する。"
+      },
+      "expected": {
+        "en": "The key becomes absent, the first count becomes zero and the peer retains its value.",
+        "ja": "keyは欠落し、片方のcountは0になり、別poolは値を保つ。"
+      },
+      "limitations": {
+        "en": "Deletion of an already absent key and global-pool behavior remain separate.",
+        "ja": "欠落keyの削除とglobal poolの動作は別途扱う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u11/test_pool_num_tracks_implicit_creation_deletion_and_instance_scope",
+          "role": "direct",
+          "expected_observations": [
+            "UT: implicit count 1 default 0",
+            "UT: replaced count 1 value 9",
+            "UT: removed count 0 absent 1",
+            "UT: peer count 1 value 77"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-AGENT-DEFAULT-ACTIVE",
+      "clause": "13.4.2.2",
+      "statement": {
+        "en": "An agent with no configuration override reports UVM_ACTIVE by default.",
+        "ja": "configurationのoverrideがないagentは、既定でUVM_ACTIVEを返す。"
+      },
+      "conditions": {
+        "en": "Construct two independent derived agents without configuring is_active.",
+        "ja": "is_activeを設定せず、独立した派生agentを2つ生成する。"
+      },
+      "expected": {
+        "en": "Both status queries return UVM_ACTIVE.",
+        "ja": "両方の状態照会がUVM_ACTIVEを返す。"
+      },
+      "limitations": {
+        "en": "Status is checked without driver construction or transaction activity.",
+        "ja": "driverの生成やtransactionの動作なしで、状態だけを検査する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_agent_activity_defaults_to_active_for_independent_instances",
+          "role": "direct",
+          "expected_observations": [
+            "UT: active 1 1 distinct 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMBINED-ACCESS-BLOCK-EXCLUSION",
+      "clause": "E.3.3",
+      "statement": {
+        "en": "A matching block access exclusion prevents the combined wrapper from testing that block.",
+        "ja": "一致するblockのaccess除外は、統合wrapperによるそのblockの検査を止める。"
+      },
+      "conditions": {
+        "en": "Set exact NO_REG_ACCESS_TEST on the block and run direct single-register/single-memory controls afterwards.",
+        "ja": "blockにexactなNO_REG_ACCESS_TESTを設定し、その後単独register／memoryの直接controlを行う。"
+      },
+      "expected": {
+        "en": "The combined window has no accesses, while both direct controls still work.",
+        "ja": "統合wrapperの区間にはアクセスがなく、両直接controlは動作する。"
+      },
+      "limitations": {
+        "en": "Counters and masks restart between windows; no wildcard or nested exclusion combinations are assessed.",
+        "ja": "区間の間でcounter／maskを初期化する。wildcardや入れ子の除外組合せは評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uE/test_combined_access_wrapper_honors_block_exclusion_with_direct_controls",
+          "role": "direct",
+          "expected_observations": [
+            "UT: skipped 1 register_control 1 memory_control 1 clean 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-KILL-PENDING-OWNERSHIP",
+      "clause": "14.2.5.11",
+      "statement": {
+        "en": "Sequence kill removes its pending lock/grab requests from the default sequencer.",
+        "ja": "sequenceのkillは、default sequencerから自身の待機中のlock／grab要求を削除する。"
+      },
+      "conditions": {
+        "en": "Hold ownership, arm a blocked waiter, kill it before grant, then permit an actual transfer.",
+        "ja": "所有権を保持して待機者をblockし、grant前にkillしてから実転送を許可する。"
+      },
+      "expected": {
+        "en": "The killed waiter stays STOPPED without acquiring; a fresh or surviving request completes.",
+        "ja": "killした待機者は取得せずSTOPPEDを保ち、新しい要求または生存要求は完了する。"
+      },
+      "limitations": {
+        "en": "Queue cleanup/state are checked separately from required post_body/post_start callbacks and private queue representation.",
+        "ja": "queueの解放／状態を、必要なpost_body／post_start callbackや非公開queue表現とは分けて検査する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_kill_cancels_queued_lock_before_fresh_transfer",
+          "role": "direct",
+          "expected_observations": [
+            "UT: waiting 1 acquired 0 owner_held 1",
+            "UT: stopped 1 acquired 0 returned 1",
+            "UT: survivor 1 payload 66 ownership_clear 1"
+          ]
+        },
+        {
+          "test": "u14/test_sequence_kill_cancels_queued_grab_before_fresh_transfer",
+          "role": "direct",
+          "expected_observations": [
+            "UT: waiting 1 acquired 0 owner_held 1",
+            "UT: stopped 1 acquired 0 returned 1",
+            "UT: survivor 1 payload 66 ownership_clear 1"
+          ]
+        },
+        {
+          "test": "u14/test_sequence_kill_of_queued_lock_preserves_another_waiter",
+          "role": "direct",
+          "expected_observations": [
+            "UT: peer_waiting 1 peer_acquired 0",
+            "UT: waiting 1 acquired 0 owner_held 1",
+            "UT: stopped 1 acquired 0 returned 1",
+            "UT: survivor 1 payload 66 ownership_clear 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-KILL-PENDING-SCOPE",
+      "clause": "14.2.5.11",
+      "statement": {
+        "en": "Killing one pending sequence leaves another sequence ownership request intact.",
+        "ja": "待機するsequenceの片方をkillしても、別sequenceの所有権要求は残る。"
+      },
+      "conditions": {
+        "en": "Two independent lock waiters block behind an owner before one is killed.",
+        "ja": "所有者の後ろで独立したlock待機者2つをblockし、片方をkillする。"
+      },
+      "expected": {
+        "en": "The surviving waiter acquires after release and delivers payload 66.",
+        "ja": "生存した待機者は解放後に取得し、payload 66を配送する。"
+      },
+      "limitations": {
+        "en": "Only one surviving waiter is used; broader priority/fairness combinations remain separate.",
+        "ja": "生存する待機者は1つだけとし、追加のpriority／公平性の組合せは別途扱う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_kill_of_queued_lock_preserves_another_waiter",
+          "role": "direct",
+          "expected_observations": [
+            "UT: peer_waiting 1 peer_acquired 0",
+            "UT: waiting 1 acquired 0 owner_held 1",
+            "UT: stopped 1 acquired 0 returned 1",
+            "UT: survivor 1 payload 66 ownership_clear 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCER-STOP-PENDING-OWNERSHIP",
+      "clause": "15.3.2.14",
+      "statement": {
+        "en": "Sequencer stop removes active ownership and pending lock/grab requests before new traffic.",
+        "ja": "sequencerのstopは、新しい転送の前に、保持中の所有権と待機中のlock／grab要求を削除する。"
+      },
+      "conditions": {
+        "en": "Stop an owner plus blocked lock/grab waiters, then start a fresh sequence through the driver.",
+        "ja": "所有者とblock中のlock／grab待機者を停止し、その後driver経由で新sequenceを開始する。"
+      },
+      "expected": {
+        "en": "All stopped sequences stay stopped, ownership clears and fresh payload 66 completes.",
+        "ja": "停止した全sequenceは停止を保ち、所有権は消去され、新payload 66が完了する。"
+      },
+      "limitations": {
+        "en": "This tests queued ownership, not every queued response or default-sequence resource condition.",
+        "ja": "所有権の待機を検査し、全response queueやdefault-sequence resourceの条件は扱わない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_stop_sequences_cancels_queued_lock_and_grab_before_fresh_transfer",
+          "role": "direct",
+          "expected_observations": [
+            "UT: second_waiting 1 second_acquired 0",
+            "UT: waiting 1 acquired 0 owner_held 1",
+            "UT: all_stopped 1 1 clear 1",
+            "UT: stopped 1 acquired 0 returned 1",
+            "UT: survivor 1 payload 66 ownership_clear 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIFO-BLOCKING-PUT",
+      "clause": "12.2.4.2.1",
+      "statement": {
+        "en": "Blocking put waits until storage can accept its transaction.",
+        "ja": "blocking putは、storageがtransactionを受け取れるまで待つ。"
+      },
+      "conditions": {
+        "en": "Fill a one-entry FIFO, issue put, then remove the old entry after a delay.",
+        "ja": "容量1のFIFOを満たしてputし、遅延後に以前のentryを取り出す。"
+      },
+      "expected": {
+        "en": "Put stays blocked while full and completes with the new value stored after space is freed.",
+        "ja": "満杯の間はputがblockし、空きができると新しい値を保存して完了する。"
+      },
+      "limitations": {
+        "en": "Only the listed fixtures and conditions are mapped; broader concurrency and failed-read outputs remain unassessed.",
+        "ja": "列挙した構成と条件のみを対応付け、追加の並行性と失敗したreadの出力は未評価とする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm_fifo_blocking_put_waits_until_space",
+          "role": "direct",
+          "expected_observations": [
+            "UT: waiting returned 0 used 1 full 1",
+            "UT: completed returned 1 removed 3 final 9 empty 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIFO-BLOCKING-GET",
+      "clause": "12.2.4.2.2",
+      "statement": {
+        "en": "Blocking get waits for an available transaction and consumes it.",
+        "ja": "blocking getは、利用可能なtransactionを待ち、消費する。"
+      },
+      "conditions": {
+        "en": "Start get on an empty FIFO, then put value 7 after a positive delay.",
+        "ja": "空FIFOでgetを開始し、正の遅延後に値7をputする。"
+      },
+      "expected": {
+        "en": "Get blocks initially, then returns 7 and leaves the FIFO empty.",
+        "ja": "最初はblockし、その後7を返してFIFOを空にする。"
+      },
+      "limitations": {
+        "en": "Only the listed fixtures and conditions are mapped; broader concurrency and failed-read outputs remain unassessed.",
+        "ja": "列挙した構成と条件のみを対応付け、追加の並行性と失敗したreadの出力は未評価とする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm_fifo_blocking_get_waits_until_put",
+          "role": "direct",
+          "expected_observations": [
+            "UT: waiting returned 0 used 0",
+            "UT: completed returned 1 value 7 empty 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIFO-BLOCKING-PEEK",
+      "clause": "12.2.4.2.3",
+      "statement": {
+        "en": "Blocking peek returns the head without consuming it.",
+        "ja": "blocking peekは、先頭を消費せず返す。"
+      },
+      "conditions": {
+        "en": "Peek twice at one stored entry, then get it.",
+        "ja": "1つの保存entryを2回peekし、その後getする。"
+      },
+      "expected": {
+        "en": "Both peeks and the later get return 61, with occupancy unchanged by peeks.",
+        "ja": "両peekと後のgetが61を返し、peekでは占有数が変わらない。"
+      },
+      "limitations": {
+        "en": "Only the listed fixtures and conditions are mapped; broader concurrency and failed-read outputs remain unassessed.",
+        "ja": "列挙した構成と条件のみを対応付け、追加の並行性と失敗したreadの出力は未評価とする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm_fifo_blocking_peek_publishes_each_observation_without_consuming",
+          "role": "direct",
+          "expected_observations": [
+            "UT: peeked 61 61 used 1 notifications 2 2",
+            "UT: removed 61 total_notifications 3 3"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIFO-NONBLOCKING-GET",
+      "clause": "12.2.4.2.6",
+      "statement": {
+        "en": "Nonblocking get reports availability and consumes a transaction when successful.",
+        "ja": "nonblocking getは、利用可否を返し、成功時にtransactionを消費する。"
+      },
+      "conditions": {
+        "en": "Use empty and populated FIFOs with interleaved calls.",
+        "ja": "空と値のあるFIFOで、呼出しを交互に行う。"
+      },
+      "expected": {
+        "en": "Unavailable gets return 0; successful gets return 1 and the expected next value.",
+        "ja": "取得不可なら0、成功時は1と期待する次の値を返す。"
+      },
+      "limitations": {
+        "en": "Only the listed fixtures and conditions are mapped; broader concurrency and failed-read outputs remain unassessed.",
+        "ja": "列挙した構成と条件のみを対応付け、追加の並行性と失敗したreadの出力は未評価とする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm_fifo_empty_nonblocking_reads_report_unavailable",
+          "role": "direct",
+          "expected_observations": [
+            "UT: results get 0 peek 0 availability 0 0",
+            "UT: used 0 empty 1 can_put 1"
+          ]
+        },
+        {
+          "test": "u12/test_tlm_fifo_interleaved_puts_and_gets_preserve_order",
+          "role": "direct",
+          "expected_observations": [
+            "UT: first 1 1",
+            "UT: peek 1 2 used 2",
+            "UT: second 1 2",
+            "UT: third 1 3 empty 1"
+          ]
+        },
+        {
+          "test": "u12/test_tlm_fifo_nonblocking_get_publishes_successes_and_omits_empty_reads",
+          "role": "direct",
+          "expected_observations": [
+            "UT: success 1 1 unavailable 1 1 counts 2 2 values 51 52"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIFO-NONBLOCKING-PEEK",
+      "clause": "12.2.4.2.8",
+      "statement": {
+        "en": "Nonblocking peek reports availability without consuming a successful head observation.",
+        "ja": "nonblocking peekは、成功した先頭の観測を消費せず、利用可否を返す。"
+      },
+      "conditions": {
+        "en": "Use empty queues and repeated peeks before a get.",
+        "ja": "空queueと、get前の繰り返しpeekを使う。"
+      },
+      "expected": {
+        "en": "Empty peeks return 0; successful repeated peeks retain the same head and occupancy.",
+        "ja": "空のpeekは0、成功する繰り返しpeekは同じ先頭と占有数を保つ。"
+      },
+      "limitations": {
+        "en": "Only the listed fixtures and conditions are mapped; broader concurrency and failed-read outputs remain unassessed.",
+        "ja": "列挙した構成と条件のみを対応付け、追加の並行性と失敗したreadの出力は未評価とする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm_fifo_empty_nonblocking_reads_report_unavailable",
+          "role": "direct",
+          "expected_observations": [
+            "UT: results get 0 peek 0 availability 0 0",
+            "UT: used 0 empty 1 can_put 1"
+          ]
+        },
+        {
+          "test": "u12/test_tlm_fifo_repeated_try_peek_does_not_consume",
+          "role": "direct",
+          "expected_observations": [
+            "UT: peeks 1 1 values 11 11 used 2 can_peek 1",
+            "UT: get 1 value 11 used 1"
+          ]
+        },
+        {
+          "test": "u12/test_tlm_fifo_nonblocking_peek_publishes_each_success_without_consuming",
+          "role": "direct",
+          "expected_observations": [
+            "UT: success 1 1 peeked 71 71 used 1 notifications 2 2",
+            "UT: removed_ok 1 value 71 total_notifications 3 3"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIFO-ARRIVAL-ORDER",
+      "clause": "12.2.8.2",
+      "statement": {
+        "en": "FIFO retrieval follows transaction arrival order.",
+        "ja": "FIFOの取得は、transactionの到着順に従う。"
+      },
+      "conditions": {
+        "en": "Interleave puts, gets and a non-consuming peek.",
+        "ja": "put、get、非消費のpeekを交互に行う。"
+      },
+      "expected": {
+        "en": "Retrieved values remain in arrival order even with the intervening peek.",
+        "ja": "途中にpeekがあっても、取得値は到着順を保つ。"
+      },
+      "limitations": {
+        "en": "Only the listed fixtures and conditions are mapped; broader concurrency and failed-read outputs remain unassessed.",
+        "ja": "列挙した構成と条件のみを対応付け、追加の並行性と失敗したreadの出力は未評価とする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm_fifo_interleaved_puts_and_gets_preserve_order",
+          "role": "direct",
+          "expected_observations": [
+            "UT: first 1 1",
+            "UT: peek 1 2 used 2",
+            "UT: second 1 2",
+            "UT: third 1 3 empty 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIFO-BOUNDED-CAPACITY",
+      "clause": "12.2.8.2.1",
+      "statement": {
+        "en": "A positive configured FIFO size bounds its capacity.",
+        "ja": "正に設定したFIFO sizeは、容量の上限になる。"
+      },
+      "conditions": {
+        "en": "Fill capacity two and remove both entries while querying used/empty/full state.",
+        "ja": "容量2を満たし、used／empty／fullを照会しながら両entryを取り出す。"
+      },
+      "expected": {
+        "en": "Used/full/can_put follow the two-entry bound and return to empty after removal.",
+        "ja": "used／full／can_putは容量2に従い、取り出し後はemptyへ戻る。"
+      },
+      "limitations": {
+        "en": "Only the listed fixtures and conditions are mapped; broader concurrency and failed-read outputs remain unassessed.",
+        "ja": "列挙した構成と条件のみを対応付け、追加の並行性と失敗したreadの出力は未評価とする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm_fifo_capacity_and_flags_follow_occupancy",
+          "role": "direct",
+          "expected_observations": [
+            "UT: initial size 2 used 0 empty 1 full 0",
+            "UT: first_put 1 used 1 can_put 1",
+            "UT: second_put 1 used 2 full 1 can_put 0",
+            "UT: first_get 1 value 11 used 1 full 0",
+            "UT: second_get 1 value 22 used 0 empty 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIFO-ZERO-UNBOUNDED",
+      "clause": "12.2.8.2.1",
+      "statement": {
+        "en": "A FIFO size of zero removes the storage upper bound.",
+        "ja": "FIFO size 0は、storageの上限をなくす。"
+      },
+      "conditions": {
+        "en": "Insert four entries into a zero-size FIFO.",
+        "ja": "size 0のFIFOに4 entryを入れる。"
+      },
+      "expected": {
+        "en": "All entries fit, full stays false, and capacity remains reported as zero.",
+        "ja": "全entryが入り、fullはfalseを保ち、容量の報告値は0を保つ。"
+      },
+      "limitations": {
+        "en": "Only the listed fixtures and conditions are mapped; broader concurrency and failed-read outputs remain unassessed.",
+        "ja": "列挙した構成と条件のみを対応付け、追加の並行性と失敗したreadの出力は未評価とする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm_fifo_zero_capacity_is_unbounded",
+          "role": "direct",
+          "expected_observations": [
+            "UT: size 0 used 4 full 0 can_put 1",
+            "UT: first_get 1 value 10 remaining 3"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIFO-FLUSH-LOCAL",
+      "clause": "12.2.8.2.6",
+      "statement": {
+        "en": "FIFO flush removes all entries from that instance without changing configured size.",
+        "ja": "FIFOのflushは、設定sizeを変えず、そのinstanceの全entryを削除する。"
+      },
+      "conditions": {
+        "en": "Flush one populated FIFO, retain a second FIFO, then reuse the cleared instance.",
+        "ja": "値のある片方をflushし、別FIFOを保ってからclearした側を再利用する。"
+      },
+      "expected": {
+        "en": "Used becomes zero and empty true; the peer retains order and a later put/get succeeds.",
+        "ja": "usedは0、emptyはtrueになり、peerは順序を保ち、後のput／getは成功する。"
+      },
+      "limitations": {
+        "en": "Only the listed fixtures and conditions are mapped; broader concurrency and failed-read outputs remain unassessed.",
+        "ja": "列挙した構成と条件のみを対応付け、追加の並行性と失敗したreadの出力は未評価とする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm_fifo_flush_removes_entries_and_allows_reuse",
+          "role": "direct",
+          "expected_observations": [
+            "UT: flushed size 3 used 0 empty 1 can_get 0",
+            "UT: reuse put 1 get 1 value 71 empty 1"
+          ]
+        },
+        {
+          "test": "u12/test_tlm_fifo_flush_is_local_to_one_instance",
+          "role": "direct",
+          "expected_observations": [
+            "UT: states first 2 0 second 3 2",
+            "UT: second_head 1 22",
+            "UT: second_tail 1 33 empty 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIFO-PUT-ANALYSIS",
+      "clause": "12.2.8.1.5",
+      "statement": {
+        "en": "Accepted FIFO puts publish the transaction to every connected put-analysis subscriber.",
+        "ja": "FIFOが受け入れたputは、接続した全put-analysis購読先へtransactionを通知する。"
+      },
+      "conditions": {
+        "en": "Use blocking/nonblocking puts, a full rejection, availability-only queries and class handles.",
+        "ja": "blocking／nonblocking put、満杯の拒否、利用可否の照会、class handleを使う。"
+      },
+      "expected": {
+        "en": "All subscribers see accepted values/handles only; failed puts and availability queries add no transactions.",
+        "ja": "全購読先が受理した値／handleだけを観測し、失敗putや利用可否照会では追加しない。"
+      },
+      "limitations": {
+        "en": "Only the listed fixtures and conditions are mapped; broader concurrency and failed-read outputs remain unassessed.",
+        "ja": "列挙した構成と条件のみを対応付け、追加の並行性と失敗したreadの出力は未評価とする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm_fifo_blocking_put_publishes_each_value_to_all_analysis_subscribers",
+          "role": "direct",
+          "expected_observations": [
+            "UT: put_counts 2 2 values 11 22 11 22 used 2",
+            "UT: no_gets 0 0"
+          ]
+        },
+        {
+          "test": "u12/test_tlm_fifo_nonblocking_put_publishes_each_accepted_value_to_all_subscribers",
+          "role": "direct",
+          "expected_observations": [
+            "UT: accepted 1 1 counts 2 2 values 31 32 31 32 used 2"
+          ]
+        },
+        {
+          "test": "u12/test_tlm_fifo_full_rejection_and_availability_queries_do_not_publish_transactions",
+          "role": "direct",
+          "expected_observations": [
+            "UT: accepted 1 rejected 1 full 1 available 1",
+            "UT: put_counts 1 1 get_counts 0 0 stored 1"
+          ]
+        },
+        {
+          "test": "u12/test_tlm_fifo_analysis_notifications_preserve_the_queued_object_handle",
+          "role": "direct",
+          "expected_observations": [
+            "UT: put_same 1 get_same 1 reader_same 1 calls 1 1 value 93"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIFO-GET-PEEK-ANALYSIS",
+      "clause": "12.2.8.1.6",
+      "statement": {
+        "en": "Successful FIFO gets and peeks publish each observed transaction to all get-analysis subscribers.",
+        "ja": "FIFOの成功したget／peekは、観測する各transactionを全get-analysis購読先へ通知する。"
+      },
+      "conditions": {
+        "en": "Use blocking/nonblocking removal and repeated non-consuming observation, including empty calls.",
+        "ja": "blocking／nonblockingの取り出しと、繰り返す非消費の観測を、空の呼出しも含めて行う。"
+      },
+      "expected": {
+        "en": "Every successful observation publishes, including peeks; failed empty calls publish nothing and handles are preserved.",
+        "ja": "peekも含む成功観測ごとに通知し、空の失敗呼出しは通知せず、handleを保つ。"
+      },
+      "limitations": {
+        "en": "Only the listed fixtures and conditions are mapped; broader concurrency and failed-read outputs remain unassessed.",
+        "ja": "列挙した構成と条件のみを対応付け、追加の並行性と失敗したreadの出力は未評価とする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm_fifo_blocking_get_publishes_each_removed_value_to_all_subscribers",
+          "role": "direct",
+          "expected_observations": [
+            "UT: removed 41 42 counts 2 2 values 41 42 41 42 empty 1"
+          ]
+        },
+        {
+          "test": "u12/test_tlm_fifo_blocking_peek_publishes_each_observation_without_consuming",
+          "role": "direct",
+          "expected_observations": [
+            "UT: peeked 61 61 used 1 notifications 2 2",
+            "UT: removed 61 total_notifications 3 3"
+          ]
+        },
+        {
+          "test": "u12/test_tlm_fifo_nonblocking_get_publishes_successes_and_omits_empty_reads",
+          "role": "direct",
+          "expected_observations": [
+            "UT: success 1 1 unavailable 1 1 counts 2 2 values 51 52"
+          ]
+        },
+        {
+          "test": "u12/test_tlm_fifo_nonblocking_peek_publishes_each_success_without_consuming",
+          "role": "direct",
+          "expected_observations": [
+            "UT: success 1 1 peeked 71 71 used 1 notifications 2 2",
+            "UT: removed_ok 1 value 71 total_notifications 3 3"
+          ]
+        },
+        {
+          "test": "u12/test_tlm_fifo_analysis_notifications_preserve_the_queued_object_handle",
+          "role": "direct",
+          "expected_observations": [
+            "UT: put_same 1 get_same 1 reader_same 1 calls 1 1 value 93"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-ANALYSIS-FIFO-WRITE-STORAGE",
+      "clause": "12.2.8.3",
+      "statement": {
+        "en": "Analysis FIFO writes buffer transactions in an unbounded FIFO.",
+        "ja": "analysis FIFOのwriteは、上限のないFIFOにtransactionを保存する。"
+      },
+      "conditions": {
+        "en": "Interleave writes/reads/peeks, exceed the ordinary bounded capacity, flush and compare two instances.",
+        "ja": "write／read／peekを交互に行い、通常の有限容量を超えて保存し、flushと2 instanceの比較を行う。"
+      },
+      "expected": {
+        "en": "Writes preserve arrival order, peeks retain the head, instances stay independent and flush permits fresh writes.",
+        "ja": "writeは到着順を保ち、peekは先頭を残し、instanceは独立し、flush後に新writeができる。"
+      },
+      "limitations": {
+        "en": "Only the listed fixtures and conditions are mapped; broader concurrency and failed-read outputs remain unassessed.",
+        "ja": "列挙した構成と条件のみを対応付け、追加の並行性と失敗したreadの出力は未評価とする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm_analysis_fifo_flush_allows_fresh_writes",
+          "role": "direct",
+          "expected_observations": [
+            "UT: flushed size 0 used 0 empty 1",
+            "UT: fresh 1 73 empty 1"
+          ]
+        },
+        {
+          "test": "u12/test_tlm_analysis_fifo_has_unbounded_capacity",
+          "role": "direct",
+          "expected_observations": [
+            "UT: size 0 used 6 full 0 can_put 1",
+            "UT: first 1 0 remaining 5"
+          ]
+        },
+        {
+          "test": "u12/test_tlm_analysis_fifo_instances_store_writes_independently",
+          "role": "direct",
+          "expected_observations": [
+            "UT: first_get 1 11 occupancies 0 2",
+            "UT: first_head 1 44",
+            "UT: second_head 1 22 used 2"
+          ]
+        },
+        {
+          "test": "u12/test_tlm_analysis_fifo_interleaves_writes_and_reads",
+          "role": "direct",
+          "expected_observations": [
+            "UT: first 1 11",
+            "UT: second 1 22",
+            "UT: third 1 33 used 0"
+          ]
+        },
+        {
+          "test": "u12/test_tlm_analysis_fifo_try_peek_keeps_queued_entry",
+          "role": "direct",
+          "expected_observations": [
+            "UT: peeks 1 1 values 41 41 used 2",
+            "UT: get 1 41 remaining 1",
+            "UT: next_peek 1 43 remaining 1"
+          ]
+        },
+        {
+          "test": "u12/test_tlm_analysis_fifo_write_preserves_arrival_order",
+          "role": "direct",
+          "expected_observations": [
+            "UT: written 3",
+            "UT: first 1 5",
+            "UT: second 1 7",
+            "UT: third 1 9 empty 1"
+          ]
+        }
+      ]
     }
   ]
 }

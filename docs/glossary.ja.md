@@ -120,6 +120,15 @@ utilitiesマクロとconstructorを使ってlibraryのsubtypeを生成するこ�
 その識別名です。名前を持つ個別のinstanceではなく型を識別します。payloadの検索にはhandleを使い、
 型名のテストは特定の修飾形式を指定せず、同一性・相違を比較します。
 
+**databaseの接続hook** — database拡張が実装するopen／close処理です。local検査系で呼出し数と成否を制御し、
+streamや外部backendを開きません。接続状態の検査はrecordingの動作を示しません。
+
+**異なるkey数** — poolの占有数は、保存する異なるkey数を数えます。既存keyの値の置換ではentryは増えず、
+欠落keyの生成やkeyの削除では件数が変わり得ます。
+
+**待機中の所有権要求の解放** — sequenceのkillやsequencerの全sequence停止によって、待機するlock／grab要求を削除することです。
+後の転送成功と別の待機者の生存によって、何もない状態のstopと区別します。
+
 ## Transaction単位の通信
 
 **push sequencer／push driver** — driverのblocking `put`を呼ぶsequencer／
@@ -296,6 +305,9 @@ frontdoorでのwriteとbackdoorでのreadを比較し、次に経路を逆にし
 **組み込みテストの選択mask** — `uvm_reg_mem_built_in_seq`の64 bitの`tests` propertyです。
 `uvm_reg_mem_tests_e`のflagで系統を選び、bitwise ORで17.2.2.10の順序に従って組み合わせます。
 [dispatcherのFAQ](faq.ja.md#memory-accessshared-mapテストの選択)を参照してください。
+
+**登録した独自access policy** — `uvm_reg_field::define_access`で登録した有効なfield policy名です。
+組み込みテストsequenceには動作が未知の場合があり、skip検査では既知policyの別対象を動作する比較対象にします。
 
 ## 実行と結果
 
