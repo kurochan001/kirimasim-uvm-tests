@@ -215,7 +215,7 @@ blockのresetは子blockへ再帰しますが、物理的なハードウェア�
 返される配列はデータの下位側から並びます。submapはoffsetとbus幅を組み合わせます。
 
 **Frontdoor／backdoor／predictor** — モデル化したbus経路のアクセス／designの記憶域への直接のアクセス／
-観測したtransactionに基づくモデルの更新です。M3ではbusモデルのfrontdoorと観測packetによるpassive predictionを追加しました。RTL／backdoorとの接続は今後の作業です。
+観測したtransactionに基づくモデルの更新です。M3ではbusモデルのfrontdoorと観測packetによるpassive predictionを追加しました。ユーザー定義の記憶域backdoorも追加しました。RTL／HDL path／DPIとの接続は今後の作業です。
 [レジスタモデルのFAQ](faq.ja.md#レジスタモデルの基本)を参照してください。
 
 **Memory／location／location番号** — 連続した記憶域のモデル／その中の1 word／選択するwordの番号です。
@@ -262,6 +262,17 @@ memory word単位の配列要素の間隔です。byte幅は実装先memoryのlo
 予約範囲の記述子／範囲内のlocation番号です。byte要求はmemory location単位へ切り上げます。
 virtual配列は`implement`／`release_region`で実装先の予約を管理し、regionの所有者の問い合わせは別の契約です。
 [転送と実装状態のFAQ](faq.ja.md#virtual-registerの転送とmemory領域)も参照してください。
+
+**Virtual配列の割り当て／指定policy** — `uvm_vreg::allocate`とmemory allocation managerで実装先の領域を選ぶ操作です。
+現在のpolicy検査は有効な開始位置を1つに固定し、統計的な割り当て動作は確認しません。
+
+**Virtualのwrite-hook順序** — pre-writeはfieldからvirtual register、post-writeはregisterからfieldです。
+登録pre callbackはmethodの後、登録post callbackはmethodの前です。field単独のpostには固定版の差分を保持します。
+[callbackのFAQ](faq.ja.md#virtual配列の割り当てcallbackユーザー定義backdoor)も参照してください。
+
+**ユーザー定義backdoor／peek／poke** — `uvm_reg_backdoor`の実装／記憶域のsample／rawなdepositです。
+現在のsubclassはHDL DPIなしのテストベンチ記憶域を使い、必須のpre／post helperを呼びます。
+物理アクセスを模擬する`read`／`write`はregisterのaccess policyを適用します。
 
 ## 実行と結果
 

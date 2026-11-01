@@ -125,6 +125,7 @@ Ghostは公開前のシミュレータの仮名です。実行ファイルの識
 現在のVerilatorランナーはそのソースを追加しません。現在の全テストは`UVM_NO_DPI`を使っており、
 DPIに依存するテストを実行証拠にするには、対応する実装と実行環境が必要です。
 DPIなしのglobによる照合も、完全な正規表現への対応とは異なります。
+ユーザー定義の`uvm_reg_backdoor` handlerはHDL DPIなしで動作できます（Q67）。
 
 ### Q13. ビルドが重い理由と2種類の並列数の違いは何ですか
 
@@ -154,7 +155,7 @@ Ghostはさらに実行ファイル・profile・供給されたライブラリ�
 
 ### Q16. M1・M2・M3は完了していますか。件数は何の網羅を示しますか
 
-M1・M2には条項ごとの目標に未達があります。M3はbusモデルのfrontdoor経路を含め144件まで追加した段階で、未完です。
+M1・M2には条項ごとの目標に未達があります。M3はbusモデルのfrontdoor経路を含め168件まで追加した段階で、未完です。
 次の段階の開始によって、それまでの段階が完了したとは扱いません。
 範囲と残りの作業は[進め方](../README.ja.md#進め方)にあります。
 件数はテストの本数で、規格の全要求や組み合わせの棚卸しではありません。
@@ -496,8 +497,8 @@ field／register／blockの構築と配置、access policy、resetの種類、de
 lock前のfield検索とmapの幅・変換はspecのみの期待値を保持し、lock前の検査にはlock後の比較も含みます。
 
 memory、adapter、predictor、frontdoor、callback、virtual registerのケースは以下で説明します。
-追加のpacking／エラー・policy／map条件、predictorの統合、frontdoor／callbackの組み合わせ、backdoor／DPI、
-virtual registerのランダム割り当て、付録Eのsequenceは未完です。registerとmemoryのmap問い合わせは引数を明示します。
+追加のpacking／エラー・policy／map条件、predictorの統合、frontdoor／callbackの組み合わせ、HDL path／DPI、
+割り当てpolicyの追加条件、付録Eのsequenceは未完です。registerとmemoryのmap問い合わせは引数を明示します。
 配布物の複数mapに関する注記とnull時のmap解決は[既知差分](known-differences.ja.md)で説明します。
 全件が`spec_check: ai`で、レビュー済みのレジスタ層の要求カバレッジ台帳ではありません。
 
@@ -658,7 +659,7 @@ pre methodは登録callbackより先、登録post callbackはpost methodより�
 8件で、親と未実装のmemory、詰めた／間隔を明示した静的配列、memoryのmapへの所属と外部アドレス、
 virtual fieldの親・幅・位置、fieldの順序と名前検索、幅の広い実装先memoryでのbyte幅を確認します。
 virtual fieldはfactoryで生成します。この8件はモデルの問い合わせです。Q60〜Q62で転送、選択した動的な実装とmemory managerを追加します。
-virtual registerのランダム割り当てや、virtual配列の領域をmanagerから直接解放することへの保護は未検証です。
+Q65で指定policyによる割り当てを追加します。追加の割り当てpolicy条件や、virtual配列の領域をmanagerから直接解放することへの保護は未検証です。
 
 間隔を明示したケースでは、16 bitの要素がbyte幅memoryの2 locationを使います。
 先頭locationは2、増分は3 memory wordなので、`location(i) = 2 + 3*i`です。
@@ -703,7 +704,8 @@ flowchart TB
 
 図は成功時の状態遷移です。静的な実装は動的な解放を試みても予約を保持します。
 動的なケースはmanagerから直接ではなく、`uvm_vreg`を通じて解放します。
-managerからの直接解放への保護、virtual registerの`allocate`、memoryを明示した同じ位置での拡大、追加の失敗条件は未検証です。
+managerからの直接解放への保護、memoryを明示した同じ位置での拡大、追加の失敗条件は未検証です。
+Q65で有効な開始位置を1つに固定した指定policyによる`allocate`を検査します。
 
 2件は規格の結果をspecのみで保持します。18.9.1.1.3は既存配列のresizeでmemoryを省略した場合に配置を保持しますが、
 固定版UVMはnull引数を拒否します。18.12.7.2.7はregionから実装しているvirtual配列を返すとしますが、固定版は所有者がnullです。
@@ -719,3 +721,75 @@ requestのpolicyは開始offsetを有効な1 locationに固定し、両seedで�
 policyの受け渡しと予約の検査であり、統計的な割り当て、GREEDY／THRIFTYの違い、BROAD／NEARBYの局所性は未検証です。
 独立したregionのmemoryとvirtual配列の所有者はnullです。memoryに接続したregionのデータアクセスはQ60で説明します。
 予約の拒否には、引用した条項が定めていない診断severityを要求しません。
+
+## 商用シミュレータとIssueの投稿方針
+
+### Q63. 商用シミュレータを実行したり、その結果を利用したりしますか
+
+本プロジェクトでは商用SystemVerilogシミュレータの実行・比較を行いません。
+第三者が得たものも含め、商用製品の実行結果・出力・診断を、期待値、テストの設計、実装判断へ流用しません。
+結果を非公開にするだけで利用許諾が成立するとは扱いません。結果の公表、製品の挙動分析、競合製品の開発に関する
+契約上の問題を避けるための運用方針であり、通常の動作確認が常に禁止されるという断定ではありません。
+条件は製品・契約・法域によって異なります。
+
+期待値はIEEE 1800.2-2020の条項と独立に書いたモデルから導きます。`verilator@5.052`は固定版での再現を記録し、
+kirimasimと公開用に整えたゲストGhostの結果も、記録した条件での結果に限ります。
+Ghostは本プロジェクトの公開前のゲストであり、商用結果を仮名で投稿するための枠ではありません。
+このスイートは商用製品での実行可否や結果の一致を示しません。
+
+[kirimasim-tests](https://github.com/kurochan001/kirimasim-tests)の投稿方針を、このスイートのUVM規格と確認対象のランナーへ合わせて踏襲します。
+[期待値の決め方](testing.ja.md#期待出力の決め方)と[現在の記録の範囲](results.ja.md)も参照してください。
+
+### Q64. Issueに商用シミュレータの出力・診断を載せてもよいですか
+
+受け付けません。Issue本文・コメント、ログ、添付、画像、波形、外部の貼付け先や実行環境へのリンクも対象です。
+匿名化した抜粋・要約や第三者の商用結果の転載も含めないでください。
+報告のために商用シミュレータの実行を求めず、対象外の資料を実行証拠として利用しません。
+
+IEEE 1800.2-2020の条項番号、自分の言葉による説明、独立に書いた最小再現コードを使います。
+実行証拠はVerilator・kirimasim・本プロジェクトのゲストGhostの公開用に整えた結果に限定します。
+ツールの版とスイートのコミットを添え、Ghostの非公開の識別情報は保護してください。規格本文や個人情報も含めません。
+
+日英の[Issueフォーム](../.github/ISSUE_TEMPLATE/report.yml)には、案内、必須の確認欄、内容・スイートの版・自作の再現例の入力欄があります。
+[テンプレート設定](../.github/ISSUE_TEMPLATE/config.yml)は`blank_issues_enabled: false`とし、一般投稿者へフォームの利用を促します。
+ただし内容の自動検査ではなく、管理者・API・CLIによる投稿、投稿後のコメント・添付まで防ぐものではありません。
+[GitHubのテンプレート設定の説明](https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/configuring-issue-templates-for-your-repository)も参照してください。
+対象外の資料が投稿されても転載・要約・取り込みは行わず、投稿者または管理者による対応を求めます。
+
+## virtual配列の割り当て・callback・ユーザー定義backdoor
+
+### Q65. virtual registerの割り当てでは何を検査していますか
+
+8件で、有効な開始位置が1つになる指定policyを`uvm_vreg::allocate`へ渡し、戻り領域の同一性と配置、
+配列の位置とアドレス、解放と再利用、同じmemory内／同じblockの別memoryへの移動、矛盾したpolicy、
+静的な実装の再割り当て拒否、幅の広いmemoryでの予約単位を確認します。解放はmanagerから直接ではなくvirtual配列を通じて行います。
+
+制御されたpolicyの受け渡しであり、既定の割り当て、GREEDY／THRIFTYの再利用、BROAD／NEARBYの局所性の統計的な検査ではありません。
+padding付き間隔を持つ既存配列の割り当て、同じ位置での拡大、追加の失敗の組み合わせは未検証です。
+
+### Q66. virtual registerとfieldのどのcallbackを検査していますか
+
+8件で、virtual registerのpre-writeの値、post-readの値、post-writeのstatus、親のwrite／read時のfieldのbit範囲の変更、
+親とfield単独のAPI経由のwrite-hook順序を確認します。`uvm_vreg_cb`と`uvm_vreg_field_cb`で登録します。
+
+virtualのwrite-hookではpre-writeはfieldがregisterより先、post-writeはregisterがfieldより先です。
+登録pre callbackは継承methodの後、登録post callbackは継承methodの前です。
+親の操作では`FfRr`と`rRfF`を期待し、大文字は継承method、小文字は登録callbackを示します。
+
+field単独のwriteは`cM`を期待しますが、固定版UVMは`Mc`になります。
+18.10.6.2.2と18.10.5.2はcallbackをmethodより先とするため、この1件をspecのみで保持します。
+親のvirtual write経路は成功する比較対象です。[既知差分](known-differences.ja.md)も参照してください。
+read-hookの順序と追加のcallbackの組み合わせは別の作業です。
+
+### Q67. ユーザー定義backdoorにHDL DPIは必要ですか。peek／pokeはどう違いますか
+
+8件で`uvm_reg_backdoor`のsubclassを使い、正の遅延でテストベンチの記憶域を読み書きします。
+overrideは最初に必須のpre helper、最後にpost helperを呼びます。registerのrawなpoke／peek、物理アクセスを模擬する
+RO／W1CのwriteとRCのread、memoryのlocationを選ぶpoke／peek、blockからの継承とローカルでの上書き、失敗statusと再試行を確認します。
+HDL path、vendorのbackend、RTLのDUTは使わず、全件で`UVM_NO_DPI`を保持します。
+
+`peek`は直接sampleし、`poke`は直接depositします。backdoor経由のregisterの`read`／`write`は物理アクセスのpolicyを模擬し、
+ROはbitを保持し、W1Cはmaskを適用し、RCはsampleした値を返してから記憶域をclearします。
+自動予測を明示したRCのケースではread後のミラー値0も要求します（18.2.5.2・18.4.4.15・18.5.5.17）。
+固定版UVMはsampleした`0xa6`をミラーへ記録するためspecのみとし、sampleした返り値とclear後の記憶域を成功する比較対象にします。
+[既知差分](known-differences.ja.md)も参照してください。失敗したreadのデータは規定しません。組み込みのHDL path／DPI、自動更新thread、backdoor callbackの全組み合わせは未検証です。

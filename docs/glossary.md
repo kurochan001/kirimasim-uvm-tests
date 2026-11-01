@@ -286,7 +286,8 @@ arrays follow data significance; submaps combine offsets and bus widths.
 **Frontdoor / backdoor / predictor** — Access through a modeled bus path /
 direct access to the design's storage / model updates derived from observed
 transactions. M3 now exercises frontdoor paths with a testbench bus model and passive
-prediction from supplied observations. RTL/backdoor integration remains future work. See the
+prediction from supplied observations, plus user-defined storage backdoors.
+RTL/HDL-path/DPI integration remains future work. See the
 [register-model FAQ](faq.md#register-model-basics).
 
 **Memory / location / location index** — A model of contiguous storage /
@@ -352,6 +353,21 @@ location index within that range. Byte requests round to complete memory
 locations. Virtual arrays use `implement`/`release_region` to manage their
 backing reservation. The descriptor's owner query is a separate contract.
 See the [transfer and lifecycle FAQ](faq.md#virtual-register-transfers-and-memory-regions).
+
+**Virtual allocation / supplied policy** — Selecting a backing region through
+`uvm_vreg::allocate` and a memory allocation manager. Current policy fixtures
+fix one legal start; they do not establish statistical allocation behavior.
+
+**Virtual write-hook order** — Field before virtual register on pre-write,
+register before field on post-write; registered pre callbacks follow their
+method and registered post callbacks precede it. The standalone field post
+case retains a library difference. See the
+[callback FAQ](faq.md#virtual-allocation-callbacks-and-user-backdoors).
+
+**User backdoor / peek / poke** — A `uvm_reg_backdoor` implementation /
+sampling storage / depositing raw data. The current subclasses use testbench
+storage without HDL DPI, with required pre/post helper dispatch. Physical-style
+`read`/`write` still apply register access policies.
 
 ## Execution and result records
 

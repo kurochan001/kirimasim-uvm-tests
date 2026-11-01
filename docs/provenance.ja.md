@@ -50,3 +50,11 @@ UVMのテストが言語機能（クラス、パラメータ化クラス、制�
 IEEEの条項は番号を引用し、自分の言葉で説明します。規格の本文・図・サンプルコードはテストや資料へ転載しません。
 GPL／LGPLシミュレータの実装ソースは読みません。非公開シミュレータの識別情報、版、profile、パスは公開しません。
 これらの変更時の規則は[テストと開発のガイド](testing.ja.md#権利と出典)にあります。
+
+## Issueの投稿方針とフォーム
+
+商用結果の方針は[kirimasim-tests](https://github.com/kurochan001/kirimasim-tests)のFAQと日英の報告フォームを踏襲します。
+[元のフォーム](https://github.com/kurochan001/kirimasim-tests/blob/0ca2ff7c922a257b1db681e96352a169625ebb9b/.github/ISSUE_TEMPLATE/report.yml)を、
+IEEE 1800.2-2020、このリポジトリの確認対象ランナー、ローカルの投稿方針リンクへ合わせました。
+必須の確認欄と、空欄Issueを選ばせない設定を維持しています。
+[このリポジトリの方針](faq.ja.md#商用シミュレータとissueの投稿方針)と[フォーム](../.github/ISSUE_TEMPLATE/report.yml)を参照してください。

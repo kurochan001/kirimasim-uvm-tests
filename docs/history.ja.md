@@ -2,7 +2,7 @@
 
 [English](history.md) · [README](../README.ja.md)
 
-M1・M2の15回目と、M3の6回目（733件）までの追加作業を記録しています。以前の349件の時点は
+M1・M2の15回目と、M3の7回目（757件）までの追加作業を記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -772,3 +772,34 @@ virtual registerのランダム割り当ては未検証です。列挙のアド�
 すべてのガイドで英語と日本語の内容を対応させ、用語集の項目順も揃えました。LICENSEの原文は変更せず、全文の非公式な日本語訳を用意しました。
 tools/UPSTREAMは、対になる出典ガイドへ両言語で案内します。ドキュメントだけの変更であり、テスト733件、
 oracle付き669件、specのみ64件と、測定記録は変わりません。
+
+## M3の7回目：割り当て・virtual callback・ユーザー定義backdoor（2026-11-01）
+
+24件を追加し、全757件、M3は168件（第18章135件・第19章33件）になりました。
+M1は229件、M2は360件のままで、3段階とも未完です。
+
+- virtual配列の割り当てを8件：指定policy、領域と配列の配置・アドレス、解放と再利用、同じ／別memoryへの移動、
+  矛盾policyと静的な実装の拒否、幅の広いmemoryの単位。
+- virtual callbackを8件：registerの値とstatus、field範囲の変更、親経由のwrite-hook順序とfield単独のpost-write順序。
+- ユーザー定義backdoorを8件：rawなpoke／peek、RO／W1CのwriteとRCのreadの効果、memoryのlocation、
+  blockとローカルhandlerの優先、失敗と再試行。
+
+22件がVerilator 5.052のseed 1・73で一致します。field単独のpost-writeは規格の`cM`をspecのみで保持し、
+固定版は`Mc`になります。親の操作経由の比較対象は一致します。
+RCのユーザー定義backdoorも自動予測を明示し、read後のミラー値0を保持します。
+固定版は記憶域をclearしますがsampleした値をミラーに記録します。ac008b6時点の互換な既存733件と新規測定を合算すると、
+691件一致、既知差分66件（実行時のseed 1の差分59件、実行時のseed結果がないAPI欠落7件）です。
+同じ固定コピーで本プロジェクトのゲストGhostは各seedで150件一致・607件不一致（不一致の集合も同じ）、
+kirimasimは750件未対応・API欠落7件です。入力・ランナー・版・configurationの指紋を確認します。
+
+割り当てpolicyは有効な開始位置を1つとし、制御した受け渡しを検査して統計的な割り当て動作は確認しません。
+ユーザー定義backdoorは必須のpre／post helperを呼ぶ記憶域モデルで、UVM_NO_DPIを保持します。
+vendor backendやHDL pathは使わず、失敗したreadのデータは規定しません。
+
+投稿方針と日英Issueフォームはkirimasim-testsを踏襲し、商用製品の実行・比較、第三者の出力・診断や匿名化した要約の流用を除外します。
+フォームに必須の確認欄を設け、一般投稿者の空欄Issueを無効にしますが、内容の自動検査ではありません。
+ゲストGhostの公開とプライバシーは商用製品の結果とは別の枠であり、仮名による投稿の迂回は認めません。
+
+READMEは現在の状態に限定し、実行結果、テストのガイド、FAQ、用語集、既知差分、出典、この履歴を日英で更新しました。
+ツールテスト、metadata、ライブラリ整合性、実行記録の指紋、日英の構造、リンク、IssueフォームのYAMLを確認しました。
+商用シミュレータの結果は利用していません。全件がspec_check: aiで、deprecated APIを要求しません。

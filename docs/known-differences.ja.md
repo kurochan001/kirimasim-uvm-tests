@@ -2,7 +2,7 @@
 
 [English](known-differences.md) · [README](../README.ja.md) · [FAQ](faq.ja.md)
 
-現在の733件と、固定したAccellera UVM 2020.3.1についての記録です。
+現在の757件と、固定したAccellera UVM 2020.3.1についての記録です。
 不一致はテストの結果であり、それだけではシミュレータ・ライブラリ・期待値のどれが原因かは決まりません。
 
 ## 固定版ライブラリの制約
@@ -11,7 +11,7 @@
 現在のregister検索ではmap引数を明示します。memoryを2つの兄弟interfaceのmapに登録する単純なケースは、
 固定版でも18.2.3.4の期待値に一致しました。配布物の複数mapに関する注記と、mapを共有する階層は別途照合が必要です。
 このケースが示すのは2つのinterfaceの構成です。[memoryの範囲](faq.ja.md#memorypredictionmapの制御)も参照してください。
-それ以外に、M1・M2・M3で次の41件の制約を確認しました。
+それ以外に、M1・M2・M3で次の43件の制約を確認しました。
 不足する必須動作を直接検査する場合は、規格の期待値を変えずに`:oracle: spec`で保持します。
 
 - `find_override_by_name`は、置換がない場合に`null`を返します。元の型を生成できる場合も
@@ -123,6 +123,15 @@
 - `uvm_mem_region::get_virtual_registers`は実装したvirtual配列の所有者を記録せず、`null`を返します。
   18.12.7.2.7はvirtual配列のhandleを返すとするため、その期待値を保持し、実装の成功とmemoryのhandleも観測します。
 
+- field単独の`uvm_vreg_field::write`は登録callbackより先に継承`post_write`を呼びます。
+  18.10.6.2.2と18.10.5.2はcallbackを先とするため、`cM`を期待し、`Mc`を観測する差分を保持します。
+  親のvirtual write経路ではcallbackを先に呼ぶことを比較対象として確認します。
+
+- ユーザー定義backdoorのRC registerのreadはsampleと記憶域のclearには成功しますが、
+  自動予測を有効にしても、0の代わりにsampleした値をミラーに記録します。
+  read後のミラーの期待値は18.4.4.10・18.5.4.6・18.2.5.2・18.4.4.15・18.5.5.17から導きます。
+  返り値とclear後の記憶域は成功する比較対象です。
+
 これらの分岐は、固定版で再現したオラクルとしては扱いません。drop直後の一覧、transactionの
 生成直後の状態、重大度・ID別のreset、無効なfield_opの操作名取得、応答数未満の深さ変更、
 応答エラー報告の既定値、候補1件のUSER arbitration、lockの順序、kill後のhook、
@@ -131,19 +140,19 @@
 start_itemの重大度、library subtypeの構築、finish_itemの委譲・ID・入力検査、lock前のfield名検索、mapの幅・変換結果、locationごとのmemory offsetと単一mapの実効access、predictorの転送先、big endianのfrontdoor readは診断用に保持します。
 残りのライブラリの制約は、一致するテストシナリオでは避けています。
 
-スイート全体では、`verilator@5.052`を付けたテストは669件、specのみのテストは64件です。
+スイート全体では、`verilator@5.052`を付けたテストは691件、specのみのテストは66件です。
 specのみのうち1件は9.6を検証します。pre-resetフェーズ終了時に子タスクが停止する
 はずですが、固定版UVMとVerilator 5.052の組み合わせでは、後のフェーズで子タスクの遅延書き込みが
 実行されます。この差分の原因がシミュレータとライブラリのどちらかは未確定です。
 
-specのみの64件も規格から導いた期待値を保持します。通常のVerilator実行とCIはoracle付き669件を選びます。
+specのみの66件も規格から導いた期待値を保持します。通常のVerilator実行とCIはoracle付き691件を選びます。
 `--all`はspecのみも含め、不一致やビルド不可を`known`として記録します。
-実行時の57件は最初の差分であるseed 1までの記録で、seed 73の結果はありません。
+実行時の59件は最初の差分であるseed 1までの記録で、seed 73の結果はありません。
 API欠落の7件（時刻APIの1件とsequence libraryの6件）はビルド段階で失敗し、どのseedも実行できていません。
 
 ## specのみのテスト
 
-現在の64件は次のテストです。同じ制約を複数のテストで検査する場合があり、異なる不具合の個数ではありません。
+現在の66件は次のテストです。同じ制約を複数のテストで検査する場合があり、異なる不具合の個数ではありません。
 
 - field_opのaccessorの必須エラー：
   [set前](../tests/u05/test_field_op_accessors_report_errors_before_set.sv)と
@@ -244,14 +253,20 @@ API欠落の7件（時刻APIの1件とsequence libraryの6件）はビルド段�
 - 実装したregionのvirtual配列の所有者：
   [所有者とmemoryのhandle](../tests/u18/test_vreg_implementation_region_identifies_its_virtual_register_array.sv)。
 
+- field単独のvirtual post-write callback順序：
+  [callbackがmethodより先](../tests/u18/test_vreg_field_standalone_post_write_callback_precedes_its_inherited_method.sv)。
+
+- ユーザー定義backdoorのread-clear予測：
+  [sample・clear・read後のミラー](../tests/u19/test_reg_user_backdoor_read_applies_read_clear_after_sampling.sv)。
+
 ## シミュレータとライブラリの組み合わせ
 
-Ghostの同梱UVMはseed 1・73とも150件一致・583件不一致で、不一致になるテストも同じです。
+Ghostの同梱UVMはseed 1・73とも150件一致・607件不一致で、不一致になるテストも同じです。
 現在の実行ファイルの固定コピーでは固定版modeを測定していません。記録の合算は[実行結果と測定方法](results.ja.md)で説明します。
 同梱版の結果が対象にするのは供給されたライブラリです。不一致だけでシミュレータとライブラリの原因を分けたり、
 固定版ライブラリの結果を示したりはできません。非公開の識別情報・profile・診断は公開しません。
 
-確認したkirimasimの実行ファイルでは、726件が`uvm_object_wrapper`未実装です。
+確認したkirimasimの実行ファイルでは、750件が`uvm_object_wrapper`未実装です。
 時刻設定APIの1件とsequence libraryの6件は、その前にAPI欠落を検出して`fail`になります。
 いずれも成功ではなく、その先のUVM動作を実行できた証拠でもありません。
 

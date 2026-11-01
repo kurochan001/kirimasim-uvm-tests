@@ -1,0 +1,42 @@
+name: "Issue report / 報告・提案・質問"
+description: "Report a UVM suite problem, suggest an improvement or ask a question. / UVMスイートの不具合・提案・質問。"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Do not post commercial simulator outputs or diagnostics. / 商用シミュレータの出力・診断は投稿しないでください。**
+
+        This applies to the issue body, comments, attachments, screenshots, waveforms and linked resources,
+        including anonymized excerpts or summaries and reposted third-party results. Do not run a commercial simulator for this report or reuse its results to derive expectations or implementation decisions.
+        Describe expected behavior in your own words using IEEE 1800.2-2020 clause references and an independently written example.
+
+        本文・コメント・添付ファイル・画像・波形・リンク先を含め、匿名化した抜粋・要約や第三者の結果の転載も持ち込まないでください。
+        この報告のために商用シミュレータを実行せず、その結果を期待値や実装判断へ流用しないでください。
+        IEEE 1800.2-2020の条項番号と自作の再現例を使い、期待する動作を自分の言葉で説明してください。
+
+        [Posting policy (English)](https://github.com/kurochan001/kirimasim-uvm-tests/blob/main/docs/faq.md#commercial-simulator-and-issue-reporting-policy)
+        / [投稿方針（日本語）](https://github.com/kurochan001/kirimasim-uvm-tests/blob/main/docs/faq.ja.md#商用シミュレータとissueの投稿方針)
+  - type: checkboxes
+    id: posting-policy
+    attributes:
+      label: "Before posting / 投稿前の確認"
+      options:
+        - label: "I have excluded commercial simulator outputs and diagnostics and will keep them out of comments and attachments. / 商用シミュレータの出力・診断を含めず、コメント・添付にも持ち込まないことを確認しました。"
+          required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: "Report, proposal or question / 報告・提案・質問の内容"
+      description: "Explain the problem or proposal in your own words. Cite test paths and standard clause numbers when relevant. / 内容を自分の言葉で説明し、必要に応じてテストのパスと規格の条項番号を示してください。"
+    validations:
+      required: true
+  - type: input
+    id: suite-commit
+    attributes:
+      label: "Suite commit / スイートのコミット"
+      description: "If relevant, record the suite revision used. / 実行結果に関する報告では、使用したスイートのコミットを記載してください。"
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: "Independent reproducer and permitted results / 自作の再現例・確認対象ツールの結果"
+      description: "Use independently written code and permitted Verilator, kirimasim or publication-ready guest Ghost results; record versions and suite commit. Exclude commercial simulator outputs and diagnostics. / 自作コードとVerilator・kirimasim・公開用ゲストGhostの許可された結果に版・スイートのコミットを添え、商用シミュレータの出力・診断は含めないでください。"

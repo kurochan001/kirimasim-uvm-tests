@@ -11,8 +11,8 @@ Verification Methodology (UVM). It targets
 [kirimasim-tests](https://github.com/kurochan001/kirimasim-tests), which tests
 the IEEE 1800-2023 SystemVerilog language.
 
-> **Status: M3 in progress.** 733 simulation tests in 14 chapter/annex
-> directories; 669 have a `verilator@5.052` oracle and 64 are spec-only.
+> **Status: M3 in progress.** 757 simulation tests in 14 chapter/annex
+> directories; 691 have a `verilator@5.052` oracle and 66 are spec-only.
 > All use `:spec_check: ai`; none records human review.
 > M1, M2 and M3 retain open requirement-coverage targets.
 
@@ -22,7 +22,7 @@ the IEEE 1800-2023 SystemVerilog language.
 - [Running the suite](#running-the-suite)
 - [Current results](#current-results)
 - [Documentation](#documentation)
-- [Plan](#plan) and [license](#license)
+- [Plan](#plan), [reporting issues](#reporting-issues) and [license](#license)
 
 ## Current scope
 
@@ -31,13 +31,15 @@ the IEEE 1800-2023 SystemVerilog language.
 - **M2: 360 cases.** TLM 1 FIFOs, analysis and request/response channels;
   TLM 2 payloads, extensions and selected socket transports; sequences,
   responses, action macros, pull/push sequencers and callbacks.
-- **M3: 144 cases.** Register/field/block and memory models, maps, adapters,
+- **M3: 168 cases.** Register/field/block and memory models, maps, adapters,
   predictors, built-in/custom frontdoors, register callbacks, virtual-register
-  layout/transfers, dynamic implementation and memory-region management.
+  layout/transfers, allocation policies, virtual callbacks, user-defined
+  backdoors, dynamic implementation and memory-region management.
 
 Built-in frontdoors use testbench adapter/sequencer/driver connections.
 Custom frontdoors model storage in their sequence bodies; passive predictor
-fixtures supply observations separately. The fixtures use no RTL DUT or DPI.
+fixtures supply observations separately. User backdoors model storage through
+`uvm_reg_backdoor` extensions; the fixtures use no RTL DUT or DPI.
 Expected results follow the cited standard, and normative expectations remain
 when a simulator/library combination differs. The SystemVerilog language
 itself belongs to kirimasim-tests.
@@ -58,14 +60,14 @@ python3 tools/run_verilator.py --seeds 1 73 --build-jobs 2 -j 1 \
 ```
 
 The fetcher checks the pinned Accellera UVM 2020.3.1 library. The smoke
-command selects one test. To run all 669 tagged cases:
+command selects one test. To run all 691 tagged cases:
 
 ```sh
 python3 tools/run_verilator.py --seeds 1 73 --build-jobs 2 -j 2 \
   --json out/verilator.json
 ```
 
-Add `--all` to include all two-state cases, including the 64 spec-only cases.
+Add `--all` to include all two-state cases, including the 66 spec-only cases.
 `known` results do not fail that command; tagged regressions do. `-j` controls
 concurrent tests and `--build-jobs` controls C++ jobs within each build.
 Each model is built once and run in a fresh process for each seed.
@@ -84,16 +86,16 @@ by Git; results are not automatically published.
 
 ## Current results
 
-The local evidence dated 2026-11-01 covers all 733 current cases.
+The local evidence dated 2026-11-01 covers all 757 current cases.
 These results are separate from the Check badge.
 
 | Simulator and library | Observed result |
 | --- | --- |
-| Verilator 5.052, pinned UVM, `UVM_NO_DPI` | 669 match seeds 1 and 73; 64 known differences |
-| kirimasim, pinned UVM | 726 `unsupported`; seven `fail` on missing library APIs |
-| Ghost, bundled UVM | 150 match and 583 fail at each seed; identical failing sets |
+| Verilator 5.052, pinned UVM, `UVM_NO_DPI` | 691 match seeds 1 and 73; 66 known differences |
+| kirimasim, pinned UVM | 750 `unsupported`; seven `fail` on missing library APIs |
+| Ghost, bundled UVM | 150 match and 607 fail at each seed; identical failing sets |
 
-The 64 Verilator differences comprise 57 runtime differences recorded at
+The 66 Verilator differences comprise 59 runtime differences recorded at
 seed 1 and seven missing-API build failures without runtime seed results.
 `known` and `unsupported` are not passes. Ghost bundled results do not establish
 results for the pinned library.
@@ -126,17 +128,25 @@ its counterpart; commands and API identifiers retain their original spelling.
 | M0 | Fetcher, runners, metadata/tools checks, Check and smoke test | Infrastructure implemented |
 | M1 | Core classes, policies, factory, phases, objections, configuration and reporting | 229 cases; reviewed two-tests-per-clause target open |
 | M2 | Sequences, sequencers, TLM and callbacks | 360 cases; target open |
-| M3 | Register layer (17–19, annex E) | 144 cases in chapters 18–19; target open |
+| M3 | Register layer (17–19, annex E) | 168 cases in chapters 18–19; target open |
 | M4 | Requirement ledger and coverage | Planned; approve the denominator before claiming coverage |
 
 M1, M2 and M3 are independently incomplete. Remaining M2 work includes queued
 ownership/termination/default-resource conditions, callbacks and broader
 TLM 2 protocol, timing and socket combinations. Remaining M3 work includes
-virtual-register random allocation, further lifecycle/transfer conditions,
+broader allocation-policy and lifecycle/transfer conditions,
 memory packing/partial beats, error/policy/map combinations, integrated
-prediction, frontdoor/callback combinations, backdoor/DPI and annex E sequences.
+prediction, frontdoor/callback combinations, HDL-path/DPI and annex E sequences.
 Library annotations can guide the inventory but need review against the
 standard. RTL protocol and timing coverage remain separate work.
+
+## Reporting issues
+
+Commercial simulator results, outputs and diagnostics are not used or accepted,
+including third-party material, anonymized summaries, attachments and links.
+Use the [posting policy](docs/faq.md#commercial-simulator-and-issue-reporting-policy)
+and bilingual [Issue form](.github/ISSUE_TEMPLATE/report.yml). Describe expected
+behavior using IEEE 1800.2-2020 clauses and an independent reproducer.
 
 ## License
 

@@ -2,8 +2,8 @@
 
 [日本語](history.ja.md) · [README](../README.md)
 
-These records cover M1, fifteen M2 increments and six M3 increments
-(733 tests). The earlier 349-test checkpoint is
+These records cover M1, fifteen M2 increments and seven M3 increments
+(757 tests). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -1051,3 +1051,47 @@ LICENSE is unchanged; a complete, non-authoritative Japanese translation is
 available. tools/UPSTREAM points to the paired provenance guides in both
 languages. This changes documentation only: 733 tests, 669 tagged oracles,
 64 spec-only cases and the recorded measurements remain unchanged.
+
+## Seventh M3 increment: allocation, virtual callbacks and user backdoors (2026-11-01)
+
+This increment adds 24 cases, bringing the suite to 757 and M3 to 168:
+135 in chapter 18 and 33 in chapter 19. M1 remains at 229 and M2 at 360;
+all three stages remain open.
+
+- Eight virtual-allocation cases: supplied policy, region/array geometry and
+  address, release/reuse, same-memory and cross-memory relocation,
+  contradictory-policy and static rejection, and wide-memory units.
+- Eight virtual callback cases: register data/status, field-slice changes,
+  parent write-hook order and standalone field post-write order.
+- Eight user backdoor cases: raw poke/peek, RO/W1C write and RC read effects,
+  memory locations, block/local handler precedence and error/retry.
+
+Twenty-two additions match Verilator 5.052 at seeds 1 and 73. The standalone
+field post-write callback order retains its required `cM` result as spec-only;
+the library runs `Mc`, while the parent-operation control matches. The RC user-
+backdoor case also retains a zero post-read mirror with explicit auto-prediction;
+the library instead mirrors the sampled value despite correctly clearing storage. Compatible
+733-case baseline records at ac008b6 combine with fresh measurements to give
+691 matches and 66 known differences: 59 runtime seed 1 differences and seven
+missing-API builds without runtime seeds. The same fixed snapshots give the
+project's guest Ghost 150 matches and 607 failures per seed with identical
+failing sets, and kirimasim 750 unsupported cases plus seven missing-API
+failures. Input, runner, version and configuration fingerprints are checked.
+
+The allocation policies have one legal start and establish controlled
+handoff rather than statistical allocation behavior. User backdoors model
+storage with required pre/post helper calls and keep UVM_NO_DPI; they do not
+exercise a vendor backend or HDL path. Failed-read data is unconstrained.
+
+The reporting policy and bilingual Issue form follow kirimasim-tests:
+commercial simulator execution/comparison and reuse of third-party outputs,
+diagnostics or anonymized summaries are excluded. The form includes required
+confirmation; blank issues are disabled for ordinary contributors. It is
+not an automatic content filter. Guest Ghost publication and privacy remain
+separate from commercial-product results; the alias is not a posting bypass.
+
+README stays current-state only. Results, testing guide, FAQ, glossary,
+known differences, provenance and this history are updated in both languages.
+Tool tests, metadata, library integrity, evidence fingerprints, bilingual
+structure, links and Issue-form YAML were checked. No commercial simulator
+results were used. All tests retain spec_check: ai and no deprecated API.

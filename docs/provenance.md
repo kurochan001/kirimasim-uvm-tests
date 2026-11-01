@@ -22,7 +22,6 @@ classes, constraints, process control and so on), the minimal case goes to
 kirimasim-tests as a language test. The UVM suite thus also finds what the
 language tests are missing.
 
-
 ## Shared judgment and result code
 
 `tools/suite_results.py` comes from
@@ -61,3 +60,13 @@ figures and example code are not copied into tests or documentation.
 GPL/LGPL simulator implementation source is not read. Private simulator
 identity, version, profile and paths are not published. The
 [testing guide](testing.md#rights-and-sources) records these contribution rules.
+
+## Issue reporting policy and form
+
+The commercial-result policy follows the FAQ and the bilingual reporting form
+in [kirimasim-tests](https://github.com/kurochan001/kirimasim-tests). The
+[upstream form](https://github.com/kurochan001/kirimasim-tests/blob/0ca2ff7c922a257b1db681e96352a169625ebb9b/.github/ISSUE_TEMPLATE/report.yml)
+was adapted to IEEE 1800.2-2020, this repository's permitted runners and local
+policy links. The required confirmation and disabled blank-issue chooser are
+retained. See the [local policy](faq.md#commercial-simulator-and-issue-reporting-policy)
+and [form](../.github/ISSUE_TEMPLATE/report.yml).

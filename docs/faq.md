@@ -137,6 +137,7 @@ It removes `UVM_NO_DPI` from the default macro list. It does not supply or link
 UVM's C/C++ implementation. The current Verilator runner does not add those
 sources. All current tests use `UVM_NO_DPI`; a DPI-dependent test needs an
 appropriate implementation and execution setup before it can be used as evidence.
+User-defined `uvm_reg_backdoor` handlers can operate without HDL DPI (Q67).
 Glob matching without DPI is also not the same as full regular-expression support.
 
 ### Q13. Why is compilation heavy, and what do the two job options control?
@@ -172,7 +173,7 @@ a claim that every test was rebuilt together.
 
 ### Q16. Are M1, M2 or M3 complete, and what does the test count cover?
 
-M1 and M2 still have open clause targets. M3 now has 144
+M1 and M2 still have open clause targets. M3 now has 168
 register-layer cases, including testbench frontdoor paths; it is also incomplete. Starting a stage does not complete
 the preceding stages.
 The [plan](../README.md#plan) identifies current scope and remaining work.
@@ -595,7 +596,7 @@ pre-lock probes include post-lock controls.
 Memory, adapter, predictor, frontdoor, callback and virtual-register cases
 are described below. Remaining work includes broader packing/error and
 policy/map conditions, integrated prediction, more frontdoor/callback
-combinations, backdoor/DPI setups, virtual-register random allocation and
+combinations, HDL-path/DPI setups, broader allocation-policy conditions and
 annex E sequences. Register and memory map queries use explicit arguments.
 The release's multiple-map note and null-map resolution are explained in
 [known differences](known-differences.md). All cases retain `spec_check: ai`;
@@ -801,9 +802,8 @@ packed or explicit increments, memory-map membership and external addresses,
 virtual-field parent/width/position, field ordering and name lookup, and byte
 width in a wider implementing memory. Virtual fields use factory creation.
 Those eight cases query models. Q60–Q62 add transfers, selected dynamic
-implementation paths and memory-manager operations. Virtual-register random
-allocation and protection against direct manager release of virtual-owned
-regions remain open.
+implementation paths and memory-manager operations. Q65 adds supplied-policy allocation; broader allocation-policy behavior and
+protection against direct manager release of virtual-owned regions remain open.
 
 For the explicit-stride fixture, each 16-bit element occupies two byte-wide
 memory locations. The base location is 2 and the increment is 3 memory words:
@@ -859,8 +859,8 @@ flowchart TB
 The diagram shows successful lifecycle paths; static implementations retain
 their reservation when dynamic release is attempted. Dynamic cases release
 through `uvm_vreg`, not directly through the manager. Direct manager release
-protection, virtual-register `allocate`, in-place growth with explicit memory
-and further failure conditions remain open.
+protection, in-place growth with explicit memory and further failure conditions
+remain open. Q65 covers `allocate` with supplied singleton policies.
 
 Two cases retain required results as spec-only. Clause 18.9.1.1.3 permits
 omitting memory when resizing an existing array while keeping its placement;
@@ -883,3 +883,107 @@ or BROAD/NEARBY locality. Standalone regions have no memory or virtual-array
 owner. Direct region data accesses are covered by the attached-memory case
 in Q60. Negative reservation cases do not require a diagnostic severity that
 the cited clause does not prescribe.
+
+## Commercial simulator and Issue reporting policy
+
+### Q63. Does this project run or reuse results from commercial simulators?
+
+The project does not run or compare commercial SystemVerilog simulators.
+Their results, outputs and diagnostics, including material obtained by third
+parties, are not used to derive expectations, design tests or make
+implementation decisions. Keeping results private does not by itself establish
+permission to use them. This operational policy avoids contractual issues
+around publication, product-behavior analysis and competing-product development;
+it is not a claim that ordinary testing is always prohibited. Conditions
+vary by product, contract and jurisdiction.
+
+Expectations come from IEEE 1800.2-2020 clauses and independently written
+models. The `verilator@5.052` oracle records fixed-release reproduction;
+kirimasim and publication-ready guest Ghost results describe only their recorded
+conditions. Ghost is the project's pre-release guest, not a way to submit
+commercial results under an alias. Commercial executability and agreement
+are not established by this suite.
+
+This follows the reporting policy of
+[kirimasim-tests](https://github.com/kurochan001/kirimasim-tests), adapted to
+this suite's UVM standard and supported runners. See
+[expectation derivation](testing.md#where-the-expected-outputs-come-from) and
+[current evidence scope](results.md).
+
+### Q64. May an Issue include commercial simulator output or diagnostics?
+
+No. The policy covers Issue bodies and comments, logs, attachments,
+screenshots, waveforms, external pastes and execution-environment links.
+Do not include anonymized excerpts or summaries, or repost third-party
+commercial results. The project does not ask reporters to run a commercial
+simulator and does not reuse prohibited material as evidence.
+
+Use IEEE 1800.2-2020 clause numbers, your own explanation and an independently
+written minimal reproducer. Permitted execution evidence is limited to
+Verilator, kirimasim and publication-ready results from the project's guest
+Ghost; include the tool version and suite commit, while preserving Ghost's
+private identity. Do not copy standard text or include personal data.
+
+The bilingual [Issue form](../.github/ISSUE_TEMPLATE/report.yml) provides a
+notice, a required confirmation and fields for the report, suite revision and
+independent reproducer. [Template configuration](../.github/ISSUE_TEMPLATE/config.yml)
+sets `blank_issues_enabled: false`. This encourages ordinary contributors to
+use the form; it does not inspect content or prevent maintainer/API/CLI posts,
+later comments or attachments. See
+[GitHub's template documentation](https://docs.github.com/en/communities/using-templates-to-encourage-useful-issues-and-pull-requests/configuring-issue-templates-for-your-repository).
+If prohibited material appears, do not reproduce, summarize or incorporate it;
+ask its author or a maintainer to handle it.
+
+## Virtual allocation, callbacks and user backdoors
+
+### Q65. What does virtual-register allocation establish?
+
+Eight cases call `uvm_vreg::allocate` with a supplied policy whose start has
+one legal value. They check returned-region identity and geometry, array
+placement/address, release and reuse, relocation within one memory or to
+another in the same block, a contradictory policy, static reallocation
+rejection, and wide-memory reservation units. An allocation releases through
+the virtual array rather than directly through the manager.
+
+These are controlled policy handoffs, not statistical checks of default
+allocation, GREEDY/THRIFTY reuse or BROAD/NEARBY locality. Allocation of arrays with existing padded strides, in-place growth and wider
+failure combinations remain open.
+
+### Q66. Which virtual-register and field callbacks are covered?
+
+Eight cases check virtual-register pre-write value replacement, post-read
+value replacement and post-write status replacement; field-slice replacement
+on a parent write/read; and write-hook ordering through both the parent and
+the standalone field API. Callbacks are attached through `uvm_vreg_cb` and
+`uvm_vreg_field_cb`.
+
+For virtual write hooks, the field runs before its register on pre-write;
+the register runs before its field on post-write. Registered pre callbacks
+follow their inherited method, and registered post callbacks precede it.
+The parent-operation controls expect `FfRr` and `rRfF`, where uppercase marks
+inherited methods and lowercase marks registered callbacks.
+
+The standalone field-write case expects `cM`, but pinned UVM runs `Mc`.
+Clauses 18.10.6.2.2 and 18.10.5.2 require the callback before the method;
+that case remains spec-only. The parent virtual-write path is a positive
+control. See [known differences](known-differences.md). Read-hook ordering
+and further callback combinations are separate work.
+
+### Q67. Do user backdoors require HDL DPI, and how do peek/poke differ?
+
+Eight cases use a `uvm_reg_backdoor` subclass with positive-delay reads and
+writes into testbench storage. The overrides call the required pre helpers
+first and post helpers last. They check raw register poke/peek, physical-style
+RO/W1C writes and RC reads, memory-location poke/peek, block inheritance with
+local override, and failure status followed by retry. No HDL path, vendor
+backend or RTL DUT is involved; all cases keep `UVM_NO_DPI`.
+
+`peek` samples and `poke` deposits directly. Register `read`/`write` through
+a backdoor mimic physical access-policy effects: the RO write retains bits,
+the W1C write applies its mask, and the RC read returns sampled data before
+clearing storage. With auto-prediction explicitly enabled, that case also
+requires the post-read mirror to be zero (18.2.5.2, 18.4.4.15, 18.5.5.17).
+Pinned UVM instead mirrors the sampled `0xa6`; the case remains spec-only,
+with the sampled return value and cleared storage as positive controls. See
+[known differences](known-differences.md). Failed-read data remains unconstrained. These cases do not establish built-in HDL-path/DPI access,
+automatic backdoor update threads or every backdoor callback combination.
