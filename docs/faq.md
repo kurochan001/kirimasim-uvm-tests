@@ -172,7 +172,7 @@ a claim that every test was rebuilt together.
 
 ### Q16. Are M1, M2 or M3 complete, and what does the test count cover?
 
-M1 and M2 still have open clause targets. M3 now has 120
+M1 and M2 still have open clause targets. M3 now has 144
 register-layer cases, including testbench frontdoor paths; it is also incomplete. Starting a stage does not complete
 the preceding stages.
 The [plan](../README.md#plan) identifies current scope and remaining work.
@@ -595,9 +595,9 @@ units, rights, endian ordering, relocation and hierarchy.
 
 Later increments add memory/policy checks and the adapter, predictor and
 testbench frontdoor cases described below.
-Virtual-register transfers and dynamic allocation, broader memory packing/error
-and policy/map conditions, bus/predictor integration, further custom-frontdoor
-and callback combinations, backdoor/DPI setups and
+Virtual-register random allocation and further lifecycle/transfer conditions,
+broader memory packing/error and policy/map combinations, bus/predictor
+integration, more custom-frontdoor and callback combinations, backdoor/DPI setups and
 annex E sequences remain future work. Register and memory map queries use
 explicit arguments. The release's multiple-map note and null-map resolution
 are discussed in
@@ -803,8 +803,10 @@ Eight cases check parent/unimplemented-memory state, static arrays with
 packed or explicit increments, memory-map membership and external addresses,
 virtual-field parent/width/position, field ordering and name lookup, and byte
 width in a wider implementing memory. Virtual fields use factory creation.
-These are model queries; virtual-register reads/writes, dynamic allocation,
-relocation and memory-reservation ownership are not established by this batch.
+Those eight cases query models. Q60–Q62 add transfers, selected dynamic
+implementation paths and memory-manager operations. Virtual-register random
+allocation and protection against direct manager release of virtual-owned
+regions remain open.
 
 For the explicit-stride fixture, each 16-bit element occupies two byte-wide
 memory locations. The base location is 2 and the increment is 3 memory words:
@@ -823,3 +825,64 @@ an integral number of implementing memory locations. A 16-bit virtual register
 in 32-bit memory therefore reports four bytes. Pinned UVM reports two, so
 that case retains its required result as spec-only; see
 [known differences](known-differences.md).
+
+## Virtual-register transfers and memory regions
+
+### Q60. Which virtual-register and region transfers are now exercised?
+
+Seven cases access virtual-register/field data through the existing adapter,
+sequencer and positive-delay testbench driver. They check packed-element
+reads/writes, an explicit stride with untouched padding, a partial-field
+write preserving other bits, a field read spanning memory locations, and
+16-bit memory locations split over a byte-wide bus. A failed virtual read
+is followed by a successful retry without asserting failed-read data.
+
+An eighth case writes and reads a `uvm_mem_region` using an offset relative
+to the region. A region starting at memory location 12 and relative offset 2
+selects location 14, at physical byte address `0x2e` in that fixture.
+These are selected frontdoor paths without an RTL DUT, virtual-register
+mirror or backdoor integration.
+
+### Q61. What does dynamic virtual-register implementation cover?
+
+Eight cases check implementation and region geometry, moving within one
+memory or to another memory in the same block, dynamic release and reuse,
+static release rejection, overlap rejection, resize with an omitted memory
+argument, and the region's virtual-array owner query.
+
+```mermaid
+flowchart TB
+    config["Configure virtual array"] -->|"memory omitted"| unimplemented["Unimplemented"]
+    config -->|"memory supplied"| static["Static implementation + reserved region"]
+    unimplemented -->|"implement(...)"| dynamic["Dynamic implementation + reserved region"]
+    dynamic -->|"successful relocation"| dynamic
+    dynamic -->|"release_region()"| unimplemented
+```
+
+The diagram shows successful lifecycle paths; static implementations retain
+their reservation when dynamic release is attempted. Dynamic cases release
+through `uvm_vreg`, not directly through the manager. Direct manager release
+protection, virtual-register `allocate`, in-place growth with explicit memory
+and further failure conditions remain open.
+
+Two cases retain required results as spec-only. Clause 18.9.1.1.3 permits
+omitting memory when resizing an existing array while keeping its placement;
+pinned UVM rejects the null argument. Clause 18.12.7.2.7 requires the region
+to return its implementing virtual array; pinned UVM leaves that owner null.
+See [known differences](known-differences.md).
+
+### Q62. What do the memory-manager cases check?
+
+Eight standalone-manager cases cover byte requests rounded to memory-location
+units, overlap and address bounds, per-region release and reuse, iteration
+and reset, release-all, compatible reconfiguration, and a supplied allocation
+policy. Iterator checks require each region once without imposing an address
+order. Reconfiguration checks values rather than descriptor identity.
+
+The request policy constrains the starting offset to one legal location,
+so both seeds have the same result. This establishes policy handoff and
+reservation, not statistical allocation behavior, GREEDY/THRIFTY differences
+or BROAD/NEARBY locality. Standalone regions have no memory or virtual-array
+owner. Direct region data accesses are covered by the attached-memory case
+in Q60. Negative reservation cases do not require a diagnostic severity that
+the cited clause does not prescribe.

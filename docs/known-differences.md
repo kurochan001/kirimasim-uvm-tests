@@ -2,7 +2,7 @@
 
 [日本語](known-differences.ja.md) · [README](../README.md) · [FAQ](faq.md)
 
-This describes the current 709-test suite and the pinned Accellera UVM
+This describes the current 733-test suite and the pinned Accellera UVM
 2020.3.1 library. A mismatch is a test result; it does not by itself assign
 the cause to the simulator, the library or the expectation.
 
@@ -14,7 +14,7 @@ A simple memory registered on two sibling-interface maps matches 18.2.3.4 in
 the pinned release. The release's multiple-map note and shared-map hierarchies
 require separate review; this case establishes only its two-interface setup.
 See the [memory scope](faq.md#memory-prediction-and-map-controls).
-The following thirty-nine additional limitations were identified during M1, M2 and M3.
+The following forty-one additional limitations were identified during M1, M2 and M3.
 Where a test directly checks a required behavior that is missing, its
 normative expectation is retained with `:oracle: spec`.
 
@@ -167,6 +167,15 @@ normative expectation is retained with `:oracle: spec`.
   retaining four bytes rather than the library's two. Location count and
   increment remain one in both the required and observed results.
 
+- `uvm_vreg::implement` rejects a null memory argument even for an already
+  implemented dynamic array. Clause 18.9.1.1.3 permits resizing without that
+  argument while preserving memory, offset and increment. The case keeps
+  that resize result and placement as its required expectation.
+- `uvm_mem_region::get_virtual_registers` returns null for a region backing
+  a virtual array because that owner is not recorded. Clause 18.12.7.2.7
+  requires the implementing virtual-array handle; the case also observes
+  the correct memory and successful implementation as controls.
+
 These branches are not treated as reproduced fixed-release oracles.
 Spec-only diagnostics preserve the required post-drop objector membership,
 initial transaction state, severity-ID reset, field-operation name errors,
@@ -178,25 +187,26 @@ FIFO peek notifications, `start_item` error severity, library subtype
 construction, `finish_item` dispatch, IDs and guards, pre-lock field lookup,
 map width/translation results, location-specific memory offsets and
 single-map effective access, predictor redirection, big-endian frontdoor read data
-register/field pre-access hook order, physical burst-beat kinds and virtual-register byte width.
+register/field pre-access hook order, physical burst-beat kinds, virtual-register
+byte width, omitted-memory resize and region owner queries.
 Matching tests avoid the other library limitations.
 
-Across the suite, 647 tests have the `verilator@5.052` oracle tag and sixty-two
+Across the suite, 669 tests have the `verilator@5.052` oracle tag and sixty-four
 cases are spec-only. One of the spec-only cases checks 9.6: a child's pre-reset
 task must be killed when that phase ends, but the pinned-library run on Verilator 5.052
 lets the child perform its delayed write during a later phase. The cause of
 this combined simulator/library difference remains unassigned.
 
-The sixty-two spec-only tests retain their normative expected files.
-Default Verilator runs and CI select the 647 tagged cases. `--all` includes
+The sixty-four spec-only tests retain their normative expected files.
+Default Verilator runs and CI select the 669 tagged cases. `--all` includes
 spec-only cases and records mismatches or build failures as `known`.
-The runtime records for 55 cases establish the first difference at seed 1,
+The runtime records for 57 cases establish the first difference at seed 1,
 without seed 73 results. Seven missing-API cases cannot build and have no
 runtime seed result: one time API and six sequence-library cases.
 
 ## Spec-only tests
 
-These are the sixty-two current spec-only cases. Several exercise the same
+These are the sixty-four current spec-only cases. Several exercise the same
 limitation, so their count is not a count of distinct bugs.
 
 - Field-operation accessor errors:
@@ -293,10 +303,15 @@ limitation, so their count is not a count of distinct bugs.
 - Virtual-register width rounded to its implementing memory:
   [narrow virtual register in wider memory](../tests/u18/test_vreg_byte_width_rounds_up_to_the_implementing_memory_location_width.sv).
 
+- Dynamic virtual resize without a memory argument:
+  [preserved placement](../tests/u18/test_vreg_dynamic_resize_without_memory_preserves_placement.sv).
+- Implementing region's virtual-array owner:
+  [owner and memory handles](../tests/u18/test_vreg_implementation_region_identifies_its_virtual_register_array.sv).
+
 ## Simulator and library combinations
 
-Ghost's bundled-library evidence has 149 matches and 560 failures with each
-of seeds 1 and 73; the same tests fail at both seeds. The verified 685-case
+Ghost's bundled-library evidence has 150 matches and 583 failures with each
+of seeds 1 and 73; the same tests fail at both seeds. The verified 709-case
 baseline and 24 fresh cases use the same executable/profile snapshot.
 Earlier pinned-library smoke runs differed, including with preprocessing
 enabled; the sampled build has no pinned-mode measurement. Bundled results
@@ -305,7 +320,7 @@ problem from a library problem or establish results for the locked library.
 Private identity, profiles and diagnostics are not published.
 
 The tested kirimasim executable reports `uvm_object_wrapper` as unsupported
-on 702 cases. Seven cases fail earlier on missing library APIs: one time
+on 726 cases. Seven cases fail earlier on missing library APIs: one time
 setter and six sequence-library cases. Neither result is a pass or evidence
 of UVM execution beyond those compilation blockers.
 

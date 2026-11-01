@@ -255,8 +255,13 @@ READ／WRITE predictionの結果を変えられるhookです。要素の継承me
 
 **Virtual register／virtual field／増分** — memory上に重ねる論理的なfieldの集まり／そのbit範囲／
 memory word単位の配列要素の間隔です。byte幅は実装先memoryのlocation幅の整数倍になります。
-現在は静的な配置とhandleを調べ、virtual registerのデータ転送は行いません。
+現在は静的な配置に加え、選択したfrontdoor転送と動的な実装・解放も検査します。
 [配置例](faq.ja.md#custom-frontdoor登録callbackvirtual-register)も参照してください。
+
+**Memory allocation manager／region／相対offset** — memory locationの排他的な予約を管理するもの／
+予約範囲の記述子／範囲内のlocation番号です。byte要求はmemory location単位へ切り上げます。
+virtual配列は`implement`／`release_region`で実装先の予約を管理し、regionの所有者の問い合わせは別の契約です。
+[転送と実装状態のFAQ](faq.ja.md#virtual-registerの転送とmemory領域)も参照してください。
 
 ## 実行と結果
 

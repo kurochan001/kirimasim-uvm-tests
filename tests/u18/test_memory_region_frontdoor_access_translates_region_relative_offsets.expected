@@ -1,0 +1,2 @@
+UT: write_ok 1 stored a6
+UT: read_ok 1 value a6

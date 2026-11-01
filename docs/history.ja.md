@@ -2,7 +2,7 @@
 
 [English](history.md) · [README](../README.ja.md)
 
-M1・M2の15回目と、M3の5回目（709件）までの追加作業を記録しています。以前の349件の時点は
+M1・M2の15回目と、M3の6回目（733件）までの追加作業を記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -738,3 +738,29 @@ virtual registerは静的な配置の問い合わせであり、データ転送�
 
 日英README、用語集、FAQ、既知差分を更新しました。ツールテスト、metadata、固定ライブラリの整合性、
 実行記録の指紋、ローカルリンクを確認しました。全件がspec_check: ai、UVM_NO_DPIで、deprecated APIは要求しません。
+
+## M3の6回目：virtual registerの転送とmemory領域（2026-11-01）
+
+第18章に24件を追加し、全733件、M3は144件（第18章119件・第19章25件）になりました。
+M1は229件、M2は360件のままで、3段階とも未完です。
+
+- frontdoorを8件：詰めた／間隔を明示したvirtual配列、fieldの部分writeとlocationをまたぐread、
+  狭いbusへ分割する幅の広いmemory、regionの相対read／write、virtual readの失敗と再試行。
+- virtual配列の実装を8件：領域の配置、同じ／別memoryへの移動、解放と再利用、静的な実装の解放拒否、
+  重複の拒否、memory省略時のresize、regionから所有者の取得。
+- memory managerを8件：予約の切り上げ、重複と範囲、個別／全解放、順序を要求しない列挙とreset、
+  互換な再設定、有効な開始位置を1つに固定したpolicy。
+
+22件がVerilator 5.052のseed 1・73で一致します。残る2件はmemory引数を省略したresizeと、実装領域からvirtual配列の所有者を返す
+規格の結果をspecのみで保持します。変更のない92ee613時点の709件と合算すると、669件一致、既知差分64件です。
+内訳は実行時のseed 1の差分57件と、実行時のseed結果がないAPI欠落7件です。
+同じ実行ファイル・profileの固定コピーでGhostは各seedで150件一致・583件不一致（不一致の集合も同じ）、
+kirimasimは726件未対応・API欠落7件です。合算前に入力・ランナー・版・設定の指紋を確認しています。
+
+転送はadapter・sequencer・正の遅延を持つテストベンチdriverを使い、RTLのDUTやvirtual registerのmirrorは使いません。
+失敗したreadのデータには期待値を置きません。動的な解放はvirtual registerを通じて行い、managerからの直接解放への保護と
+virtual registerのランダム割り当ては未検証です。列挙のアドレス順を要求せず、再設定は値で確認し、requestのpolicyの開始位置は1つです。
+日英FAQに、動的／静的な実装状態を区別する図を追加しました。
+
+日英README、用語集、FAQ、既知差分を更新しました。ツールテスト、metadata、固定ライブラリの整合性、
+実行記録の指紋、ローカルリンクと新しい図の描画を確認しました。全件がspec_check: ai、UVM_NO_DPIで、deprecated APIは要求しません。

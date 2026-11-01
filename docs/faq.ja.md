@@ -154,7 +154,7 @@ Ghostはさらに実行ファイル・profile・供給されたライブラリ�
 
 ### Q16. M1・M2・M3は完了していますか。件数は何の網羅を示しますか
 
-M1・M2には条項ごとの目標に未達があります。M3はbusモデルのfrontdoor経路を含め120件まで追加した段階で、未完です。
+M1・M2には条項ごとの目標に未達があります。M3はbusモデルのfrontdoor経路を含め144件まで追加した段階で、未完です。
 次の段階の開始によって、それまでの段階が完了したとは扱いません。
 範囲と残りの作業は[進め方](../README.ja.md#進め方)にあります。
 件数はテストの本数で、規格の全要求や組み合わせの棚卸しではありません。
@@ -497,7 +497,7 @@ field名検索とmapの幅・変換結果の4件はspecのみで保持し、lock
 mapの単位・権限・endian順序・再配置・階層を検査します。
 
 以後の追加でmemory・policy・mapと、下記のadapter・predictor・busモデルのfrontdoorを検査しています。
-virtual registerの転送と動的な割り当て、追加のmemory packing／エラーやpolicy／map、bus／predictorの統合、
+virtual registerのランダム割り当てと追加の実装・転送条件、memory packing／エラーやpolicy／map、bus／predictorの統合、
 custom frontdoorやcallbackの追加の組み合わせ、backdoor／DPI、付録Eのsequenceは今後の作業です。
 register・memoryのmap検索では引数を明示します。配布物の複数mapに関する注記とnull時のmap解決は
 [既知差分](known-differences.ja.md)で説明します。
@@ -659,8 +659,8 @@ pre methodは登録callbackより先、登録post callbackはpost methodより�
 
 8件で、親と未実装のmemory、詰めた／間隔を明示した静的配列、memoryのmapへの所属と外部アドレス、
 virtual fieldの親・幅・位置、fieldの順序と名前検索、幅の広い実装先memoryでのbyte幅を確認します。
-virtual fieldはfactoryで生成します。モデルの問い合わせが対象であり、virtual registerの読み書き、動的な割り当て、
-再配置、予約したmemory領域の所有権の検査は含みません。
+virtual fieldはfactoryで生成します。この8件はモデルの問い合わせです。Q60〜Q62で転送、選択した動的な実装とmemory managerを追加します。
+virtual registerのランダム割り当てや、virtual配列の領域をmanagerから直接解放することへの保護は未検証です。
 
 間隔を明示したケースでは、16 bitの要素がbyte幅memoryの2 locationを使います。
 先頭locationは2、増分は3 memory wordなので、`location(i) = 2 + 3*i`です。
@@ -675,3 +675,49 @@ byte単位のmapのbaseを`0x100`、memoryのoffsetを`0x20`とすると、次�
 [アドレスのケース](../tests/u18/test_vreg_static_array_inherits_memory_map_membership_and_external_address.sv)はmapを明示します。
 18.9.1.2.9のbyte幅は実装先memoryのlocation幅の整数倍です。16 bitのvirtual registerを32 bit memoryで実装すると4 byteになります。
 固定版UVMは2 byteを返すため、この1件は規格の結果をspecのみで保持します。[既知差分](known-differences.ja.md)も参照してください。
+
+## virtual registerの転送とmemory領域
+
+### Q60. virtual registerとregionのどの転送を検査していますか
+
+7件で、既存のadapter・sequencer・正の遅延を持つテストベンチdriverを通じ、virtual register／fieldを読み書きします。
+詰めた配列要素、間隔を明示した配列と未変更のpadding、他のbitを保持するfieldの部分write、
+memory locationをまたぐfieldのread、byte幅busへ分割する16 bit memoryを検査します。
+失敗したvirtual readの後に再試行し、失敗時のデータには期待値を置きません。
+
+残る1件は`uvm_mem_region`に対する相対offsetでwrite／readします。
+memory location 12から始まるregionの相対offset 2はlocation 14で、この検査系の物理byteアドレスは`0x2e`です。
+RTLのDUT、virtual registerのmirror、backdoorの統合を含まない、選択したfrontdoor経路の検査です。
+
+### Q61. virtual registerの動的な実装はどこまで検査していますか
+
+8件で、実装と領域の配置、同じmemory内／同じblockの別memoryへの移動、動的な解放と再利用、
+静的な実装の解放拒否、重複の拒否、memory引数を省略したresize、領域からvirtual配列の所有者を取得する問い合わせを検査します。
+
+```mermaid
+flowchart TB
+    config["virtual配列をconfigure"] -->|"memory省略"| unimplemented["未実装"]
+    config -->|"memory指定"| static["静的な実装 + 予約領域"]
+    unimplemented -->|"implement(...)"| dynamic["動的な実装 + 予約領域"]
+    dynamic -->|"移動に成功"| dynamic
+    dynamic -->|"release_region()"| unimplemented
+```
+
+図は成功時の状態遷移です。静的な実装は動的な解放を試みても予約を保持します。
+動的なケースはmanagerから直接ではなく、`uvm_vreg`を通じて解放します。
+managerからの直接解放への保護、virtual registerの`allocate`、memoryを明示した同じ位置での拡大、追加の失敗条件は未検証です。
+
+2件は規格の結果をspecのみで保持します。18.9.1.1.3は既存配列のresizeでmemoryを省略した場合に配置を保持しますが、
+固定版UVMはnull引数を拒否します。18.12.7.2.7はregionから実装しているvirtual配列を返すとしますが、固定版は所有者がnullです。
+[既知差分](known-differences.ja.md)も参照してください。
+
+### Q62. memory managerでは何を検査していますか
+
+独立したmanagerの8件で、byte要求をmemory location単位へ切り上げること、重複とアドレスの範囲、
+個別の解放と再利用、列挙とreset、全解放、互換な再設定、指定した割り当てpolicyを検査します。
+列挙では各regionが1回ずつ現れることを要求し、アドレスの順序は要求しません。再設定は記述子の同一性ではなく値で確認します。
+
+requestのpolicyは開始offsetを有効な1 locationに固定し、両seedで同じ結果になります。
+policyの受け渡しと予約の検査であり、統計的な割り当て、GREEDY／THRIFTYの違い、BROAD／NEARBYの局所性は未検証です。
+独立したregionのmemoryとvirtual配列の所有者はnullです。memoryに接続したregionのデータアクセスはQ60で説明します。
+予約の拒否には、引用した条項が定めていない診断severityを要求しません。

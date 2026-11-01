@@ -342,9 +342,16 @@ prediction's result. This is separate from overriding the element's methods.
 **Virtual register / virtual field / increment** — Logical fields overlaid
 on memory / one bit slice of that logical register / the spacing of array
 elements in memory words. The byte width is rounded to whole implementing
-memory locations. Current tests inspect static layout and handles, with no
-virtual-register data transfers. See the
+memory locations. Current tests include static layout, selected frontdoor
+transfers and dynamic implementation/release. See the
 [layout example](faq.md#custom-frontdoors-registered-callbacks-and-virtual-registers).
+
+**Memory allocation manager / region / relative offset** — Exclusive
+reservation of memory locations / a descriptor for a reserved range / a
+location index within that range. Byte requests round to complete memory
+locations. Virtual arrays use `implement`/`release_region` to manage their
+backing reservation. The descriptor's owner query is a separate contract.
+See the [transfer and lifecycle FAQ](faq.md#virtual-register-transfers-and-memory-regions).
 
 ## Execution and result records
 
