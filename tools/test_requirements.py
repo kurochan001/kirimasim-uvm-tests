@@ -5,6 +5,7 @@ import copy
 import io
 import json
 from pathlib import Path
+import shutil
 import tempfile
 import unittest
 from unittest import mock
@@ -315,6 +316,62 @@ class RequirementLedger(unittest.TestCase):
                 with self.assertRaises(SystemExit) as caught:
                     requirements.main([*args, '--root', '5'])
                 self.assertEqual(caught.exception.code, 2)
+
+    def test_report_identity_is_shared_by_full_and_filtered_reports(self):
+        data = self.data()
+        digest = requirements.inventory(data)['ledger_inputs_sha256']
+        self.assertRegex(digest, r'^[0-9a-f]{64}$')
+        self.assertEqual(requirements.inventory(data)['ledger_inputs_sha256'], digest)
+        for root in (None, '5', '6', 'H'):
+            self.assertEqual(requirements.backlog(data, root)['ledger_inputs_sha256'], digest)
+
+    def test_report_identity_changes_with_requirement_text_review_or_mapping(self):
+        original = self.data()
+        digest = requirements.inventory(original)['ledger_inputs_sha256']
+        for field in ('statement', 'conditions', 'expected', 'limitations', 'review', 'test_links'):
+            data = copy.deepcopy(original)
+            entry = data['ledger']['requirements'][0]
+            if field == 'review':
+                entry[field]['status'] = 'unreviewed'
+            elif field == 'test_links':
+                entry[field][0]['role'] = 'control'
+            else:
+                entry[field]['ja'] += ' 変更。'
+            with self.subTest(field=field):
+                self.assertNotEqual(requirements.inventory(data)['ledger_inputs_sha256'], digest)
+
+    def test_report_identity_binds_scope_catalog_and_current_test_snapshots(self):
+        original = self.data()
+        digest = requirements.inventory(original)['ledger_inputs_sha256']
+        data = copy.deepcopy(original)
+        data['scope']['legacy_clause_target'] = 3
+        self.assertNotEqual(requirements.inventory(data)['ledger_inputs_sha256'], digest)
+        catalog = self.root / 'tools/clauses_1800_2.txt'
+        catalog_text = catalog.read_text()
+        catalog.write_text(catalog_text + '# catalog annotation\n')
+        self.assertNotEqual(requirements.inventory(self.data())['ledger_inputs_sha256'], digest)
+        catalog.write_text(catalog_text)
+        self.second.with_suffix('.expected').write_text('UT: expected\nUT: added\n')
+        data = self.data()
+        data['index'] = requirements.sync_proposal(data)
+        self.assertNotEqual(requirements.inventory(data)['ledger_inputs_sha256'], digest)
+
+    def test_report_identity_ignores_json_formatting_and_object_key_order(self):
+        digest = requirements.inventory(self.data())['ledger_inputs_sha256']
+        for path in (self.root / 'coverage').glob('*.json'):
+            value = json.loads(path.read_text())
+            path.write_text(json.dumps(value, ensure_ascii=True, indent=4, sort_keys=True) + '\n')
+        self.assertEqual(requirements.inventory(self.data())['ledger_inputs_sha256'], digest)
+
+    def test_report_identity_is_portable_between_repository_locations(self):
+        digest = requirements.inventory(self.data())['ledger_inputs_sha256']
+        temp = tempfile.TemporaryDirectory()
+        self.addCleanup(temp.cleanup)
+        relocated = Path(temp.name).resolve() / 'relocated'
+        shutil.copytree(self.root, relocated)
+        with mock.patch.object(suite_results, 'ROOT', relocated):
+            report = requirements.inventory(requirements.load(relocated))
+        self.assertEqual(report['ledger_inputs_sha256'], digest)
 
 
 if __name__ == '__main__':

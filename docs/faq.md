@@ -1131,9 +1131,9 @@ not a direct test of the requirement.
 
 ### Q77. Why is there no coverage percentage after starting M4?
 
-The 175 AI drafts cover only a partial decomposition: 163 requirements link
-directly to 190 tests, 12 have no direct test, and one separate test is a control.
-Another 614 tests are not mapped yet. The 2,504 clause identifiers are not normative requirement units.
+The 355 AI drafts cover only a partial decomposition: 331 requirements link
+directly to 374 tests, 24 have no direct test, and one separate test is a control.
+Another 430 tests are not mapped yet. The 2,504 clause identifiers are not normative requirement units.
 The scope is proposed, the inventory incomplete and the denominator unapproved;
 starting M4 approves none of those. Known differences and HDL/DPI limitations
 do not silently exclude obligations. See the [approval path](requirements.md#remaining-m4-work-and-approval).
@@ -1158,3 +1158,13 @@ the first group, while its control test is already mapped. Requirements use
 their own clause root and tests use their primary citation root. The
 [queue guide](requirements.md#review-work-queue-and-root-totals) explains those
 counts. Empty queues do not certify complete normative decomposition.
+
+### Q80. How can I identify the ledger behind a generated report?
+
+The JSON records `ledger_inputs_sha256`, shared by full and filtered reports
+from the same validated scope, ledger, test index and catalog. It changes
+with semantic input changes, including requirement wording, review and links;
+JSON formatting and repository location do not change it. Compare schema and
+selection too, since this identifies inputs rather than an entire output file.
+See [report identity](requirements.md#generated-report-identity). It does not
+approve a denominator, record human review or replace execution fingerprints.

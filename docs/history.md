@@ -3,7 +3,7 @@
 [日本語](history.ja.md) · [README](../README.md)
 
 These records cover M1, fifteen M2 increments, nine M3 increments
-and two M4 increments (805 simulation tests). The earlier 349-test checkpoint is
+and three M4 increments (805 simulation tests). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -1251,3 +1251,47 @@ root/global totals, local links, bilingual structure, history and privacy.
 Simulation inputs, runners, expectations and lock are unchanged; recorded
 Verilator, kirimasim and guest input/runner fingerprints still match all
 805 cases. No new simulation run or commercial result is used.
+
+## Third M4 increment
+
+Add 180 original bilingual AI-drafted requirements for reporting, factory,
+phasing, objections/callbacks and policies. The ledger now has 355 entries:
+331 requirements directly linked to 374 tests, 24 without direct tests, one
+separate control and 430 tests with neither link role. Partially decomposed
+clause identifiers increase to 257, with 2,247 unassessed. Scope and denominator
+remain unapproved and every requirement review remains AI-only.
+
+Map all existing primary-focus tests in chapters 6 (28), 8 (32), 9 (19),
+10 (36) and 16 (80), in addition to the five roots mapped previously. Refine
+the existing callback-mode requirement's conditions/expectations and add an
+out-of-range-argument fixture rather than duplicating its contract. Keep the
+other 174 earlier entries unchanged. Cross-root links assign print/sprint
+requirements to chapter 5, inheritance to annex B and phase-retry behavior
+to chapter 13, without changing the tests' primary focus.
+
+Separate configuration witnesses from behavior: report-statistic merging,
+quit termination, ready-to-end cap enforcement, clear without dropped
+callbacks, null active-object pushes, object-side active-policy synchronization,
+comparer message caps, reference-mode copy errors, array/name output controls
+and oversize integral rejection form 12 newly unlinked obligations. Getter
+values, one retry, successful boundary tests and policy-side stacks are not
+promoted to those claims. Retain a default-ready-accessor spelling conflict
+as an explicit interpretation for review. Cross-check quit-action wording
+against the declared UVM_COUNT and root termination clauses rather than
+introducing an undeclared action. Repeated identical expected lines
+are anchored once while the runner continues to check the full sequence.
+
+Add ledger_inputs_sha256 to generated inventory/backlog JSON. Hash normalized
+scope/ledger/index objects plus catalog identity, including existing test
+fingerprints. Full and filtered views share the input identity; formatting,
+Japanese escaping and repository location do not change it. Semantic edits,
+review/link changes and accepted snapshot changes do. The identity approves
+neither coverage nor execution success and is distinct from runtime evidence.
+
+Validation passes 74 tool unit tests, including five new identity regressions,
+805 metadata checks, 355 ledger entries and pinned-library integrity. Reconcile
+root/global queues, generated identities, bilingual structure, local links,
+history, privacy and whitespace. The 805 simulation inputs, expectations,
+runners and lock are unchanged; recorded Verilator, kirimasim and guest
+input/runner fingerprints still match. No simulator rerun or commercial result
+is used. Update README, the paired guides, FAQ and glossary to this state.

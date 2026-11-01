@@ -185,6 +185,14 @@ def snapshot_for(test):
     return {key: test[key] for key in ("primary_clause", "inputs_sha256")}
 
 
+def ledger_digest(data):
+    """Portable semantic identity of scope, obligations, index and catalog."""
+    inputs = {key: data[key] for key in ("scope", "ledger", "index", "catalog_sha256")}
+    canonical = json.dumps(inputs, ensure_ascii=False, sort_keys=True,
+                           separators=(",", ":"), allow_nan=False).encode("utf-8")
+    return hashlib.sha256(canonical).hexdigest()
+
+
 def inventory(data):
     validate(data)
     primary, supporting, by_clause, by_test = (defaultdict(list) for _ in range(4))
@@ -259,6 +267,7 @@ def inventory(data):
     return {"schema_version": 1, "standard": STANDARD, "scope_status": "proposed",
             "normative_inventory_complete": False, "approved_denominator": None,
             "coverage_percentage": None, "catalog_sha256": data["catalog_sha256"],
+            "ledger_inputs_sha256": ledger_digest(data),
             "summary": summary, "roots": roots, "clauses": clause_records,
             "tests": {name: {**record, "requirement_links": sorted(by_test[name],
                                                                       key=lambda x: x["requirement"])}
@@ -281,7 +290,7 @@ def backlog(data, root=None):
                   if selected(c["clause"]) and c["decomposition"] == "unassessed"]
     result = {key: report[key] for key in ("schema_version", "standard", "scope_status",
               "normative_inventory_complete", "approved_denominator", "coverage_percentage",
-              "catalog_sha256")}
+              "catalog_sha256", "ledger_inputs_sha256")}
     result.update(selection={"root": root},
                   roots={r: values for r, values in report["roots"].items()
                          if root is None or r == root},

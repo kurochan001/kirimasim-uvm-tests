@@ -73,6 +73,6 @@ M4では[要求台帳の案](requirements.ja.md)、検査、レビュー一覧�
 ## 継続的インテグレーション
 
 [Check](../.github/workflows/check.yml)は`main`へのpush、pull request、手動実行で動きます。
-固定ライブラリの整合性、ツールの単体テスト69件、metadata 805件、要求台帳の案／テスト索引、seed 1・73でのoracle付きVerilator 737件を検査します。
+固定ライブラリの整合性、ツールの単体テスト74件、metadata 805件、要求台帳の案／テスト索引、seed 1・73でのoracle付きVerilator 737件を検査します。
 kirimasim、Ghost、specのみのケースは実行しません。READMEのバッジは現在のCIで、このローカル測定とは別の状態です。
 Checkが成功しても、UVMの完全な適合性や全シミュレータの成功を示しません。Nightlyや結果の自動公開はありません。

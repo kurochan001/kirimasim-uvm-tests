@@ -2,7 +2,7 @@
 
 [English](history.md) · [README](../README.ja.md)
 
-M1・M2の15回目、M3の9回目、M4の2回目（シミュレーション805件）までを記録しています。以前の349件の時点は
+M1・M2の15回目、M3の9回目、M4の3回目（シミュレーション805件）までを記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -914,3 +914,35 @@ filter前に台帳全体を検査し、生成先を保護します。
 全体／root別の生成物、rootと全体の集計、ローカルリンク、日英の構造、履歴、非公開情報を検査します。
 シミュレーション入力、runner、期待値、lockは変更せず、記録済みのVerilator、kirimasim、guestの
 入力／runner指紋は全805件で引き続き一致します。新たなシミュレーションや商用の結果は使いません。
+
+## M4の3回目
+
+reporting、factory、phase、objection／callback、policyに、独自の日英の要約によるAIの要求案180件を追加します。
+台帳は355件で、331要求を374テストへ直接対応付け、直接未対応は24要求、別のcontrolは1テスト、
+どちらの役割の対応もないテストは430件です。部分的に分解した条項番号は257件、未評価は2,247件になります。
+範囲と分母は未承認で、全要求の照合はAIのみのままです。
+
+以前の5つのrootに加え、第6章28件、第8章32件、第9章19件、第10章36件、第16章80件の既存主引用テストをすべて対応付けます。
+既存のcallback-mode要求の条件／期待値を整理し、範囲外の引数の構成を追加して、同じ契約の重複登録を避けます。
+他の既存174件は変更しません。rootをまたぐ対応では、print／sprintの要求を第5章、継承を付録B、
+phaseのretry動作を第13章に割り当て、テストの主引用は変更しません。
+
+設定値の証拠と実動作を分けます。報告統計のmerge、quit終了、ready-to-end上限の強制、dropped callbackなしのclear、
+nullのactive-object push、object側のactive-policy同期、comparerのmessage上限、reference modeのcopy error、
+配列／名前の出力制御、整数の上限超過拒否を、新しい未対応12義務とします。
+getterの値、1回のretry、境界値の成功、policy側stackだけでは、それらを主張しません。
+readyのdefault accessorの表記の矛盾は、レビューが必要な解釈として明示します。
+quit actionの表記も宣言されたUVM_COUNTとroot終了の条項を照合し、未定義のactionは導入しません。
+同じ期待行はanchorに1回だけ登録し、runnerは引き続き全行の並びを検査します。
+
+生成inventory／backlogのJSONにledger_inputs_sha256を加えます。
+既存のテスト指紋を含むscope／ledger／indexの正規化objectとcatalogの識別値をhash化します。
+全体／filterの表示は同じ入力識別値を共有し、書式、日本語のescape、リポジトリの配置先では変わりません。
+意味の変更、照合／対応、確認済みsnapshotの変更では変わります。
+この識別値はカバレッジや実行成功を承認せず、実行の証拠とは別です。
+
+新しい識別値の回帰検査5件を含む単体テスト74件、metadata 805件、台帳355件、固定ライブラリの整合性の検査が成功しました。
+rootと全体の一覧、生成した識別値、日英の構造、ローカルリンク、履歴、非公開情報、空白を確認します。
+805件のシミュレーション入力、期待値、runner、lockは変更せず、記録済みのVerilator、kirimasim、guestの
+入力／runner指紋は引き続き一致します。シミュレータの再実行や商用の結果は使いません。
+README、対になるガイド、FAQ、用語集をこの状態へ更新します。

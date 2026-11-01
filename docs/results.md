@@ -92,7 +92,7 @@ inputs, a different runner, executable, profile or library is a separate conditi
 ## Continuous integration
 
 [Check](../.github/workflows/check.yml) runs on pushes to `main`, pull requests
-and manual dispatch. It checks pinned-library integrity, 69 tool unit tests,
+and manual dispatch. It checks pinned-library integrity, 74 tool unit tests,
 805 metadata records, the draft requirement ledger/test index and the 737
 tagged Verilator cases using seeds 1 and 73.
 It does not run kirimasim, Ghost or spec-only cases. The README's badge is the

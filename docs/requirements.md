@@ -7,13 +7,13 @@
 M4 is in progress. The [scope proposal](../coverage/scope.json),
 [requirement ledger](../coverage/requirements.json) and
 [test index](../coverage/test_index.json) are versioned inputs. The ledger
-contains 175 AI-drafted requirements: 163 link directly to 190 tests and 12
-have no direct test. One additional test is a control. The other 614 of the 805 tests have
+contains 355 AI-drafted requirements: 331 link directly to 374 tests and 24
+have no direct test. One additional test is a control. The other 430 of the 805 tests have
 not yet been mapped at requirement level; that does not mean they test no
 normative behavior. No requirement records human review.
 
-The clause catalog has 2,504 identifiers. 115 have a partial
-requirement decomposition; the other 2,389 are unassessed. Neither group is
+The clause catalog has 2,504 identifiers. 257 have a partial
+requirement decomposition; the other 2,247 are unassessed. Neither group is
 complete. Starting M4 does not approve the scope or denominator, or complete
 M1–M3. `approved_denominator` and `coverage_percentage` remain `null`.
 
@@ -22,7 +22,7 @@ M1–M3. `approved_denominator` and `coverage_percentage` remain `null`.
 The proposed unit is one observable normative obligation together with its
 applicability conditions. A method clause may need separate requirements for
 success, failure, default arguments, ordering and side effects. Conversely,
-a heading is not an obligation. The 175 draft entries span several areas,
+a heading is not an obligation. The 355 draft entries span several areas,
 without exhausting the obligations in their clauses.
 
 The proposal assigns every root in the existing identifier catalog once:
@@ -77,7 +77,8 @@ references, fields, anchor membership and input identities. It cannot prove
 that the test actually exercises the requirement or that its assertion is
 sufficient. That needs review of the test, fixture and standard. Ordering in
 an oracle remains a runner check; the ledger's anchor-membership check alone
-does not establish ordering.
+does not establish ordering or repetition counts. Repeated identical expected
+lines are anchored once; the runner still compares the complete expected sequence.
 
 [Execution evidence](results.md) is separate and needs matching input, runner,
 library and configuration identities. A direct link may retain a spec-only
@@ -155,13 +156,18 @@ to certify a parent requirement. Multiple requirements can share a test, and
 one requirement can have multiple test links; neither implies independent
 coverage from every anchor in a shared expected-output line.
 
-The current expansion maps every existing primary-focus test in these five
-roots while leaving normative decomposition partial:
+Every existing primary-focus test in these ten roots now has a requirement
+link, while normative decomposition remains partial:
 
 | Root | Draft requirements | Primary-focus tests | Tests without links | Unassessed identifiers |
 | --- | --- | --- | --- | --- |
-| 5 | 42 | 42 | 0 | 84 |
-| B | 35 | 54 | 0 | 111 |
+| 5 | 44 | 42 | 0 | 82 |
+| 6 | 34 | 28 | 0 | 87 |
+| 8 | 23 | 32 | 0 | 52 |
+| 9 | 25 | 19 | 0 | 97 |
+| 10 | 29 | 36 | 0 | 99 |
+| 16 | 76 | 80 | 0 | 145 |
+| B | 36 | 54 | 0 | 110 |
 | C | 9 | 16 | 0 | 80 |
 | D | 6 | 6 | 0 | 40 |
 | E | 47 | 48 | 0 | 79 |
@@ -173,7 +179,41 @@ and unknown-policy skips for bit bash and register access. Location masks
 are linked only to the necessary location-access property, not to the whole
 walking algorithm. B.5.11's conflicting printed invocation is recorded as an
 interpretation requiring review. Known differences retain normative oracles;
-all 175 requirement reviews are still `ai`.
+all 355 requirement reviews are still `ai`.
+
+Newly explicit unlinked work also distinguishes report-statistic merging and
+quit-limit termination from getters, ready-to-end cap enforcement from one
+retry, clear from dropped callbacks, object-side policy synchronization from
+policy-side stacks, and printer/comparer output behavior from control values.
+Factory no-override lookup, reference-mode copy errors and oversize integral
+packing are retained as separate unlinked branches. The quit-action wording
+in 6.5.1.2.3 is interpreted using declared `UVM_COUNT` in F.2.2.2 and root
+termination in F.7.3.2; its printed `UVM_QUIT` is not a declared action value.
+
+## Generated report identity
+
+Every generated inventory and backlog carries `ledger_inputs_sha256`. It
+identifies the complete validated input state: `coverage/scope.json`,
+`coverage/requirements.json`, `coverage/test_index.json` and the catalog's
+`catalog_sha256`. The index contains the current test-input fingerprints;
+ledger validation binds those snapshots to the actual test inputs first.
+
+The tool hashes UTF-8 canonical JSON with sorted object keys and compact
+separators. JSON whitespace, key order and escaped versus literal Japanese
+text do not affect this identity. Array order is retained, and catalog byte
+changes affect its own fingerprint. Absolute repository paths, generated
+output paths, report language and a backlog root filter are not input fields.
+The identity is shared by full and filtered reports from the same inputs.
+Compare the report schema and selection as well when comparing different views;
+this is an input identity, not a hash of the generated output file.
+
+Requirement wording, applicability, expectations, limitations, review or link
+changes affect the identity, as do scope or accepted snapshot changes. A digest
+is neither review approval nor an execution result. It is separate from each
+test's `inputs_sha256` and the runner's `runner_sha256`. Old generated reports
+need regeneration after a semantic ledger change even when the simulation
+sources stay unchanged. A same-hash report can still describe an incomplete,
+unapproved inventory with known differences.
 
 ## Updating a test or mapping
 
@@ -215,4 +255,4 @@ counting rule and frozen requirement set. Define separately what counts as
 reviewed test coverage and as execution success, including execution conditions
 and evidence identity. Approval needs a later schema/procedure update; schema
 1 intentionally cannot express a completed inventory or approved denominator.
-The current 175 AI drafts and their direct links do not satisfy that gate.
+The current 355 AI drafts and their direct links do not satisfy that gate.
