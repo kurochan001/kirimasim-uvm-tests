@@ -1,18 +1,8 @@
-tools/suite_results.py is copied from kirimasim-tests
-(https://github.com/kurochan001/kirimasim-tests), tools/suite_results.py at
-commit 19034b575e1b715c356660ac1422b45f25c15ab3, with these changes:
+Source provenance / ソースの出典
 
-- SIMULATORS lists kirimasim, verilator and ghost.
-- input_files() also hashes third_party/uvm.lock, which names the library
-  that every test is compiled with.
-- runner_digest() hashes tools/uvm_common.py instead of normalize_output.py,
-  which this suite does not use.
-- The module docstring says where the file comes from.
+English: ../docs/provenance.md
+日本語: ../docs/provenance.ja.md
 
-The runners (run_*.py) and lint_metadata.py are written for this suite after
-the kirimasim-tests ones; they are not copies. When the judging rules of the
-two repositories start to drift, move the shared code into one package.
-
-sv_lifetimes.py and its regression tests are also original suite code. The
-helper lexically checks explicit lifetime on initialized block locals; it
-is not copied from a simulator parser or the language standard.
+The paired documents record the exact upstream revision, local changes,
+and tools written specifically for this suite.
+対になる資料に、取得元の正確な版、ローカルでの変更、このスイート独自のツールを記録しています。

@@ -18,7 +18,7 @@ The following forty-one additional limitations were identified during M1, M2 and
 Where a test directly checks a required behavior that is missing, its
 normative expectation is retained with `:oracle: spec`.
 
-- With no override installed, `find_override_by_name` returns null even
+- With no override installed, `find_override_by_name` returns `null` even
   when creation can instantiate the original type. Clause 8.3.1.7.1
   describes the wrapper of the object that would be created. The
   lookup tests install overrides; alias tests inspect created objects.
@@ -101,7 +101,7 @@ normative expectation is retained with `:oracle: spec`.
 - FIFO `get_ap` omits notifications for `peek` and successful `try_peek`,
   although 12.2.8.1.6 includes both. Two cases retain repeated notifications
   while separately observing that peeking leaves the item queued.
-- `start_item` uses FATAL for a null item, a non-item sequence, or missing
+- `start_item` uses FATAL for a `null` item, a non-item sequence, or missing
   sequencer context. Clause 14.2.6.2 requires ERROR and an immediate return.
   Three cases count the original severity in a catcher without changing it.
 - Library-subtype construction does not populate members registered with the
@@ -114,11 +114,11 @@ normative expectation is retained with `:oracle: spec`.
 - `finish_item` passes -1 to the sequencer's completion wait instead of the
   item's transaction ID required by 14.2.6.3. One- and two-item cases retain
   the explicit IDs while acknowledging real requests normally.
-- `finish_item` omits the null/non-item guards and uses FATAL without an
+- `finish_item` omits the `null`/non-item guards and uses FATAL without an
   immediate return for missing sequencer context. Three cases retain the
   ERROR and early return required by 14.2.6.3; the faulty paths terminate on
   invalid dereference before the expected observation.
-- `uvm_reg::get_field_by_name` returns null for configured fields before model
+- `uvm_reg::get_field_by_name` returns `null` for configured fields before model
   locking, although 18.4.3.12 gives no lock prerequisite. The library populates
   its full-name registry only during locking. A case retains the required
   pre-lock handles and also checks successful post-lock lookup.
@@ -167,11 +167,11 @@ normative expectation is retained with `:oracle: spec`.
   retaining four bytes rather than the library's two. Location count and
   increment remain one in both the required and observed results.
 
-- `uvm_vreg::implement` rejects a null memory argument even for an already
+- `uvm_vreg::implement` rejects a `null` memory argument even for an already
   implemented dynamic array. Clause 18.9.1.1.3 permits resizing without that
   argument while preserving memory, offset and increment. The case keeps
   that resize result and placement as its required expectation.
-- `uvm_mem_region::get_virtual_registers` returns null for a region backing
+- `uvm_mem_region::get_virtual_registers` returns `null` for a region backing
   a virtual array because that owner is not recorded. Clause 18.12.7.2.7
   requires the implementing virtual-array handle; the case also observes
   the correct memory and successful implementation as controls.
@@ -259,7 +259,7 @@ limitation, so their count is not a count of distinct bugs.
   [blocking peek](../tests/u12/test_tlm_fifo_blocking_peek_publishes_each_observation_without_consuming.sv)
   and [nonblocking peek](../tests/u12/test_tlm_fifo_nonblocking_peek_publishes_each_success_without_consuming.sv).
 - Required `start_item` ERROR reports:
-  [null item](../tests/u14/test_sequence_start_item_null_argument_reports_error_and_returns.sv),
+  [`null` item](../tests/u14/test_sequence_start_item_null_argument_reports_error_and_returns.sv),
   [sequence argument](../tests/u14/test_sequence_start_item_sequence_argument_reports_error_and_returns.sv)
   and [missing sequencer](../tests/u14/test_sequence_start_item_without_any_sequencer_reports_error_and_returns.sv).
 - Static library construction:
@@ -274,7 +274,7 @@ limitation, so their count is not a count of distinct bugs.
   [one item](../tests/u14/test_sequence_finish_item_passes_explicit_transaction_id_to_completion_wait.sv)
   and [two items](../tests/u14/test_sequence_finish_item_keeps_each_transaction_id_in_two_completion_waits.sv).
 - Required finish-item input guards:
-  [null item](../tests/u14/test_sequence_finish_item_null_input_reports_error_before_mid_do.sv),
+  [`null` item](../tests/u14/test_sequence_finish_item_null_input_reports_error_before_mid_do.sv),
   [sequence argument](../tests/u14/test_sequence_finish_item_sequence_input_reports_error_before_mid_do.sv)
   and [missing sequencer](../tests/u14/test_sequence_finish_item_missing_sequencer_input_reports_error_before_mid_do.sv).
 - Named field lookup before model locking:
@@ -311,16 +311,15 @@ limitation, so their count is not a count of distinct bugs.
 ## Simulator and library combinations
 
 Ghost's bundled-library evidence has 150 matches and 583 failures with each
-of seeds 1 and 73; the same tests fail at both seeds. The verified 709-case
-baseline and 24 fresh cases use the same executable/profile snapshot.
-Earlier pinned-library smoke runs differed, including with preprocessing
-enabled; the sampled build has no pinned-mode measurement. Bundled results
+of seeds 1 and 73; the same tests fail at both seeds. The current executable
+snapshot has no pinned-mode measurement. [Results and methodology](results.md)
+describes the evidence assembly. Bundled results
 cover the supplied library. Their mismatches do not distinguish a simulator
 problem from a library problem or establish results for the locked library.
 Private identity, profiles and diagnostics are not published.
 
 The tested kirimasim executable reports `uvm_object_wrapper` as unsupported
-on 726 cases. Seven cases fail earlier on missing library APIs: one time
+on 726 cases. Seven cases record `fail` earlier on missing library APIs: one time
 setter and six sequence-library cases. Neither result is a pass or evidence
 of UVM execution beyond those compilation blockers.
 

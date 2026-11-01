@@ -76,7 +76,7 @@
   14.4.5.5は全instanceの更新を要求するため、別の既存instanceの一覧を公開APIで観測します。
 - FIFOの`get_ap`は、12.2.8.1.6が含める`peek`と成功した`try_peek`の通知を省略します。
   2件で、peekがitemを残すことと、それでも毎回通知する規格の件数を別々に観測します。
-- `start_item`はnullのitem、itemではないsequence、sequencer不足をFATALで報告します。
+- `start_item`は`null`のitem、itemではないsequence、sequencer不足をFATALで報告します。
   14.2.6.2はERRORと即時のreturnを要求するため、3件で重大度を変えずにcatcherで数えます。
 - libraryのsubtypeの構築時に、sequence libraryマクロで登録した型やbaseの所属を取り込みません。
   4件で14.4.2のconstructorとB.3.2のマクロを使い、実装固有の追加の初期化呼び出しは加えません。
@@ -84,9 +84,9 @@
   経由しません。2件で通常の実装へ委譲するoverrideを観測します。
 - `finish_item`がsequencerの完了待ちへ渡すIDは、14.2.6.3のitemのtransaction IDではなく-1です。
   実際の要求へ通常どおり完了を通知し、1要求・2要求の明示IDを規格の期待値として保持します。
-- `finish_item`はnull・非itemの検査を省略し、sequencer不足でもFATALの後に即時returnしません。
+- `finish_item`は`null`・非itemの検査を省略し、sequencer不足でもFATALの後に即時returnしません。
   3件で14.2.6.3のERRORと早期returnを保持します。固定版の不正参照の経路は、期待する観測前に終了します。
-- `uvm_reg::get_field_by_name`はlock前の構築済みfieldにnullを返しますが、18.4.3.12はlockを前提にしていません。
+- `uvm_reg::get_field_by_name`はlock前の構築済みfieldに`null`を返しますが、18.4.3.12はlockを前提にしていません。
   固定版はlock時に完全名の索引を作ります。1件でlock前の正しいhandleを期待値に保持し、lock後の検索成功も確認します。
 - `uvm_reg_map::get_n_bytes(UVM_HIER)`はlock前のroot mapに0を返しますが、18.2.4.5はlockを前提にせずbus幅を返します。
   1件でlock前の幅を期待値に保持し、lock後の正しい幅も確認します。
@@ -118,9 +118,9 @@
   実装先memoryのlocation幅には切り上げません。16 bitのvirtual registerを32 bit memoryに置く1件で、
   固定版の2 byteに対し4 byteの期待値を保持します。location数と増分は期待値・観測値とも1です。
 
-- `uvm_vreg::implement`は実装済みの動的配列でもmemoryのnull引数を拒否します。
+- `uvm_vreg::implement`は実装済みの動的配列でもmemoryの`null`引数を拒否します。
   18.9.1.1.3はmemoryを省略したresizeでmemory・offset・増分を保持するため、そのresize結果と配置を期待値にします。
-- `uvm_mem_region::get_virtual_registers`は実装したvirtual配列の所有者を記録せず、nullを返します。
+- `uvm_mem_region::get_virtual_registers`は実装したvirtual配列の所有者を記録せず、`null`を返します。
   18.12.7.2.7はvirtual配列のhandleを返すとするため、その期待値を保持し、実装の成功とmemoryのhandleも観測します。
 
 これらの分岐は、固定版で再現したオラクルとしては扱いません。drop直後の一覧、transactionの
@@ -194,8 +194,8 @@ API欠落の7件（時刻APIの1件とsequence libraryの6件）はビルド段�
 - FIFOのpeek通知：
   [blocking peek](../tests/u12/test_tlm_fifo_blocking_peek_publishes_each_observation_without_consuming.sv)と
   [nonblocking peek](../tests/u12/test_tlm_fifo_nonblocking_peek_publishes_each_success_without_consuming.sv)。
-- start_itemの必須ERROR：
-  [null item](../tests/u14/test_sequence_start_item_null_argument_reports_error_and_returns.sv)、
+- `start_item`の必須ERROR：
+  [`null` item](../tests/u14/test_sequence_start_item_null_argument_reports_error_and_returns.sv)、
   [sequence引数](../tests/u14/test_sequence_start_item_sequence_argument_reports_error_and_returns.sv)、
   [sequencer不足](../tests/u14/test_sequence_start_item_without_any_sequencer_reports_error_and_returns.sv)。
 - libraryのstatic所属の構築：
@@ -210,7 +210,7 @@ API欠落の7件（時刻APIの1件とsequence libraryの6件）はビルド段�
   [1要求](../tests/u14/test_sequence_finish_item_passes_explicit_transaction_id_to_completion_wait.sv)と
   [2要求](../tests/u14/test_sequence_finish_item_keeps_each_transaction_id_in_two_completion_waits.sv)。
 - finish_itemの必須入力検査：
-  [null item](../tests/u14/test_sequence_finish_item_null_input_reports_error_before_mid_do.sv)、
+  [`null` item](../tests/u14/test_sequence_finish_item_null_input_reports_error_before_mid_do.sv)、
   [sequence引数](../tests/u14/test_sequence_finish_item_sequence_input_reports_error_before_mid_do.sv)、
   [sequencer不足](../tests/u14/test_sequence_finish_item_missing_sequencer_input_reports_error_before_mid_do.sv)。
 - lock前のfield名の検索：
@@ -247,8 +247,7 @@ API欠落の7件（時刻APIの1件とsequence libraryの6件）はビルド段�
 ## シミュレータとライブラリの組み合わせ
 
 Ghostの同梱UVMはseed 1・73とも150件一致・583件不一致で、不一致になるテストも同じです。
-指紋を確認した既存709件と追加24件は、同じ実行ファイル・profileの固定コピーで測定しています。
-過去の実行ファイルの固定版スモークは前処理を有効にした場合も不一致でしたが、今回のbuildの固定版測定は未実施です。
+現在の実行ファイルの固定コピーでは固定版modeを測定していません。記録の合算は[実行結果と測定方法](results.ja.md)で説明します。
 同梱版の結果が対象にするのは供給されたライブラリです。不一致だけでシミュレータとライブラリの原因を分けたり、
 固定版ライブラリの結果を示したりはできません。非公開の識別情報・profile・診断は公開しません。
 

@@ -97,10 +97,53 @@ sequencerと開始phaseを設定し、無効化しない限りrandomizeして実
 **callback／typewide登録／iterator** — 登録した拡張hook／単一instanceではなく型の組み合わせに適用する登録／
 適用可能で有効なcallbackを辿るobjectです。登録順・継承・途中終了はそれぞれ別の検査対象です。
 
+**sequence library／登録wrapper** — sequenceの型の集合から実行するものを選ぶsequence／
+その型を識別するfactoryの記述子です。instanceへの登録は局所的で、typewideの追加は以降に生成する
+instanceへ反映されます。一覧取得は呼び出し元のqueueへ追記します。
+
+**libraryの選択mode／実行回数** — 登録sequenceを選ぶ規則／実行中の子を含めない完了済みの子の数です。
+既定のuser選択hookは0から上限値までのindexを返し、その後0へ戻ります。
+hookを直接呼んでも子は実行されず、USER modeでの実行を検証したことにはなりません。
+
+**fieldの`rand_mode`／子の乱数化enable** — 個々の乱数変数を変更できるか／子sequenceの操作で
+`randomize`自体を呼ぶかの制御です。fieldだけを無効にしても、乱数化のcallbackは呼ばれます。
+この2つの制御は別に検査します。
+
+**libraryのstatic所属／subtypeの構築** — `uvm_add_to_seq_lib`で登録したsequence型／
+utilitiesマクロとconstructorを使ってlibraryのsubtypeを生成することです。継承分を含む登録済みの型は、
+公開の一覧で取得できる必要があります。instanceへの追加登録は別の操作です。
+
+**`finish_item`の委譲／完了ID** — convenience操作が呼ぶsequenceのvirtualな送信・待機method／
+待機へ渡すitemのtransaction IDです。データの到着だけでは、必須の呼び出しと引数が守られたとは示せません。
+
+**extensionのtype handle／type-handle名** — TLM 2 extensionの型を識別する不透明なkey／
+その識別名です。名前を持つ個別のinstanceではなく型を識別します。payloadの検索にはhandleを使い、
+型名のテストは特定の修飾形式を指定せず、同一性・相違を比較します。
+
 ## Transaction単位の通信
+
+**push sequencer／push driver** — driverのblocking `put`を呼ぶsequencer／
+`req_export`でその呼び出しを受けるdriverです。`put`から戻ると、その要求が完了します。
+応答はdriverのanalysis `rsp_port`からsequencerの`rsp_export`へ返せます。
+
+**sequence操作マクロ** — `uvm_create`は生成とcontext設定、`uvm_send`は乱数化なしの実行、
+`uvm_rand_send`は乱数化と実行、`uvm_do`は生成から乱数化付きの実行までを行います。
+子sequenceでは乱数化の有効・無効を尊重し、`call_pre_post`を0にして開始します。
+
+**payloadのpack／配列の有効長** — TLM 2 generic payloadの規定されたフィールドを直列化する処理／
+data・byte-enableの配列から含めるbyte数です。余分なbyteは含めず、配列が有効長より短い場合は
+fatalを報告します。extensionは既定のpack対象に含まれません。
 
 **TLM／port／export／implementation** — Transaction-level modeling／呼び出し側の口／
 呼び出しを転送する口／APIを実装する終端です。通常のelaborationで接続を解決してから通信を観測します。
+
+**master／slave／分割imp** — TLM 1で要求を書き応答を読むinterface／要求を読み応答を書くinterface／
+要求側と応答側を別々の兄弟componentへ委譲するimpです。constructorの`req_imp`・`rsp_imp`引数で、
+親とは独立に実装componentを指定します。
+
+**通常のTLM 2 export／型parameter** — portと実装の間を中継する接続／
+その接続が扱うtransactionとnonblocking phaseの型です。forwardとbackwardは個別に接続します。
+汎用の型の伝搬とbase protocolの網羅は別の検査対象です。
 
 **FIFO／blocking／nonblocking** — 到着順のキュー／データや空き容量を待てる操作／
 その待機をせずに利用可否や成否を返す操作です。失敗した読み出しの出力引数は、規格が定める場合だけ検査します。
@@ -108,6 +151,14 @@ sequencerと開始phaseを設定し、無効化しない限りrandomizeして実
 **analysis port／analysis FIFO** — 値をsubscriberへ配送するwriteの口／そのwriteを受けるFIFOです。
 objectはハンドルのまま配送される場合があり、必ずcloneされるとは限りません。
 subscriber同士の未規定の呼び出し順は仮定しません。
+
+**FIFOの`put_ap`／`get_ap`** — 受け入れた書き込みのanalysis通知／成功したget・peekの通知です。
+peekはキューのitemを残しながら通知する必要があります。利用可否の照会や転送の失敗は、通知対象の
+transactionを供給しません。
+
+**外部objectのcallback実行** — マクロの呼び出し元ではなく、引数で指定したobjectに登録された
+callbackを実行する操作です。無効なentryを飛ばし、exit-onでは指定した真偽値が返ると途中終了します。
+テストは不一致時の戻り値の方針を決めつけません。
 
 **TLM 2のpayload／extension／socket／phase／delay** — transactionのデータ／型付きの追加情報／
 transportの接続／protocolの進行状態／時間の注記です。TLM 2のprotocol phaseとUVM実行のphaseは別です。
@@ -127,50 +178,6 @@ socketの`connect`はforwardに加え、逆方向の接続も供給します。
 static APIは終端で再開するまでnullを返します。nullのobject文脈はtypewideのキューを検索します。
 別々の位置やfacadeを使えば独立して走査できます。
 
-**nonblocking transport／`nb_transport`** — 即時に要求・応答を完了できれば1、できなければ0を返す操作です。
-呼び出し中の同期的なanalysis callbackが応答を供給できます。
-0という結果だけでは、出力引数の特定の値や、要求側の途中の副作用がなかったことは示せません。
-
-**push sequencer／push driver** — driverのblocking `put`を呼ぶsequencer／
-`req_export`でその呼び出しを受けるdriverです。`put`から戻ると、その要求が完了します。
-応答はdriverのanalysis `rsp_port`からsequencerの`rsp_export`へ返せます。
-
-**sequence操作マクロ** — `uvm_create`は生成とcontext設定、`uvm_send`は乱数化なしの実行、
-`uvm_rand_send`は乱数化と実行、`uvm_do`は生成から乱数化付きの実行までを行います。
-子sequenceでは乱数化の有効・無効を尊重し、`call_pre_post`を0にして開始します。
-
-**payloadのpack／配列の有効長** — TLM 2 generic payloadの規定されたフィールドを直列化する処理／
-data・byte-enableの配列から含めるbyte数です。余分なbyteは含めず、配列が有効長より短い場合は
-fatalを報告します。extensionは既定のpack対象に含まれません。
-
-**sequence library／登録wrapper** — sequenceの型の集合から実行するものを選ぶsequence／
-その型を識別するfactoryの記述子です。instanceへの登録は局所的で、typewideの追加は以降に生成する
-instanceへ反映されます。一覧取得は呼び出し元のqueueへ追記します。
-
-**libraryの選択mode／実行回数** — 登録sequenceを選ぶ規則／実行中の子を含めない完了済みの子の数です。
-既定のuser選択hookは0から上限値までのindexを返し、その後0へ戻ります。
-hookを直接呼んでも子は実行されず、USER modeでの実行を検証したことにはなりません。
-
-**fieldの`rand_mode`／子の乱数化enable** — 個々の乱数変数を変更できるか／子sequenceの操作で
-`randomize`自体を呼ぶかの制御です。fieldだけを無効にしても、乱数化のcallbackは呼ばれます。
-この2つの制御は別に検査します。
-
-**master／slave／分割imp** — TLM 1で要求を書き応答を読むinterface／要求を読み応答を書くinterface／
-要求側と応答側を別々の兄弟componentへ委譲するimpです。constructorの`req_imp`・`rsp_imp`引数で、
-親とは独立に実装componentを指定します。
-
-**通常のTLM 2 export／型parameter** — portと実装の間を中継する接続／
-その接続が扱うtransactionとnonblocking phaseの型です。forwardとbackwardは個別に接続します。
-汎用の型の伝搬とbase protocolの網羅は別の検査対象です。
-
-**FIFOの`put_ap`／`get_ap`** — 受け入れた書き込みのanalysis通知／成功したget・peekの通知です。
-peekはキューのitemを残しながら通知する必要があります。利用可否の照会や転送の失敗は、通知対象の
-transactionを供給しません。
-
-**外部objectのcallback実行** — マクロの呼び出し元ではなく、引数で指定したobjectに登録された
-callbackを実行する操作です。無効なentryを飛ばし、exit-onでは指定した真偽値が返ると途中終了します。
-テストは不一致時の戻り値の方針を決めつけません。
-
 **imp宣言マクロ／suffix** — interfaceに対応する別のTLM imp classを作るマクロ／
 class名と実装method名へ付ける文字列です。通常のportは引き続き`put`・`get`などを呼び、
 生成されたimpが実装objectの`put_left`などへ委譲します。
@@ -182,16 +189,9 @@ class名と実装method名へ付ける文字列です。通常のportは引き�
 **型付きanalysis入力** — class handleもtransaction型にできるanalysis接続です。
 suffix付きwrite handlerへそのhandleを渡し、入力先の選択だけではtransactionを複製・変更しません。
 
-**libraryのstatic所属／subtypeの構築** — `uvm_add_to_seq_lib`で登録したsequence型／
-utilitiesマクロとconstructorを使ってlibraryのsubtypeを生成することです。継承分を含む登録済みの型は、
-公開の一覧で取得できる必要があります。instanceへの追加登録は別の操作です。
-
-**`finish_item`の委譲／完了ID** — convenience操作が呼ぶsequenceのvirtualな送信・待機method／
-待機へ渡すitemのtransaction IDです。データの到着だけでは、必須の呼び出しと引数が守られたとは示せません。
-
-**extensionのtype handle／type-handle名** — TLM 2 extensionの型を識別する不透明なkey／
-その識別名です。名前を持つ個別のinstanceではなく型を識別します。payloadの検索にはhandleを使い、
-型名のテストは特定の修飾形式を指定せず、同一性・相違を比較します。
+**nonblocking transport／`nb_transport`** — 即時に要求・応答を完了できれば1、できなければ0を返す操作です。
+呼び出し中の同期的なanalysis callbackが応答を供給できます。
+0という結果だけでは、出力引数の特定の値や、要求側の途中の副作用がなかったことは示せません。
 
 ## レジスタモデル
 

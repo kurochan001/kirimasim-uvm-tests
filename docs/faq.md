@@ -73,8 +73,8 @@ Its exit status tracks regressions in tagged fixed-release oracles. An untagged
 mismatch is recorded as `known` in JSON and does not make the command fail.
 An untagged match is recorded as `pass`, but remains outside the terminal's
 tagged-oracle denominator and does not automatically receive an oracle tag.
-kirimasim exits unsuccessfully for either failures or unsupported results;
-Ghost does so for failures. Read JSON statuses as well as the command exit code.
+kirimasim exits unsuccessfully for either `fail` or `unsupported` results;
+Ghost does so for `fail` results. Read JSON statuses as well as the command exit code.
 
 ### Q7. Why compare UT lines rather than all UVM messages?
 
@@ -82,7 +82,7 @@ Default UVM report layout, paths, line numbers and time formatting vary.
 The runner selects only lines beginning exactly with `UT: ` and preserves
 their order, spaces and values. Tests expose specified behavior through those
 lines, including report counts. They may also specify exit/diagnostic checks.
-See [what is observed](../README.md#what-is-observed).
+See [what is observed](testing.md#what-is-observed).
 
 Some tests intentionally request an operation that must report a UVM error,
 then check the resulting count. That error alone does not make a test fail;
@@ -129,7 +129,7 @@ uses generic reasons and content fingerprints.
 A bundled library is identified by its tree digest or embedded-library
 declaration. A bundled mismatch does not by itself distinguish a simulator
 problem from a library problem.
-See [Ghost setup](../README.md#ghost).
+See [Ghost setup](testing.md#ghost).
 
 ### Q12. Does uvm_dpi: yes automatically enable a working DPI build?
 
@@ -192,7 +192,7 @@ Identify the test, cited clause, expected observation and execution conditions.
 Separate changes needed in the test from simulator or library discrepancies.
 Preserve privacy for Ghost. After a correction, run metadata and tool checks,
 then reproduce any fixed-release oracle with both seeds. See
-[adding or correcting a test](../README.md#adding-or-correcting-a-test).
+[adding or correcting a test](testing.md#adding-or-correcting-a-test).
 
 The IEEE PDFs used for review remain local and ignored by Git; do not copy
 their text or examples into the suite. Describe behavior in your own words
@@ -231,7 +231,7 @@ before a fresh transaction, without asserting that drain's return value.
 
 Kill terminates active body work, changes the state to `UVM_STOPPED` and
 releases the waiting `start` call. It also cleans up the sequence's sequencer
-requests and ownership. The standard requires the post-body and post-start
+requests and ownership. The standard requires the `post_body` and `post_start`
 hooks as well as the `do_kill` termination hook. The pinned library omits the
 two post hooks; bound and unbound tests preserve that required behavior as
 spec-only expectations.
@@ -584,25 +584,22 @@ cases each split a six-byte register across three two-byte accesses.
 A submap adds its parent offset and uses the narrowest bus on the route to
 the root. These calculations do not execute those bus transfers.
 
-### Q47. What does the first M3 increment establish?
+### Q47. Which register-model foundations are covered?
 
-It adds 24 chapter 18 cases: eight field cases, eight register/block cases,
-and eight map cases. Four retain spec-only expectations for field lookup and
-map width/translation results; pre-lock probes include post-lock controls.
-It also checks construction, field policies and layout, reset kinds,
-desired/mirrored values, recursive reset and locking, and map
-units, rights, endian ordering, relocation and hierarchy.
+The suite checks field/register/block construction and layout, access
+policies, reset kinds, desired/mirrored state, recursive reset and locking,
+and map units, rights, endianness, relocation and hierarchy. Pre-lock field
+lookup and map width/translation cases retain spec-only expectations;
+pre-lock probes include post-lock controls.
 
-Later increments add memory/policy checks and the adapter, predictor and
-testbench frontdoor cases described below.
-Virtual-register random allocation and further lifecycle/transfer conditions,
-broader memory packing/error and policy/map combinations, bus/predictor
-integration, more custom-frontdoor and callback combinations, backdoor/DPI setups and
-annex E sequences remain future work. Register and memory map queries use
-explicit arguments. The release's multiple-map note and null-map resolution
-are discussed in
+Memory, adapter, predictor, frontdoor, callback and virtual-register cases
+are described below. Remaining work includes broader packing/error and
+policy/map conditions, integrated prediction, more frontdoor/callback
+combinations, backdoor/DPI setups, virtual-register random allocation and
+annex E sequences. Register and memory map queries use explicit arguments.
+The release's multiple-map note and null-map resolution are explained in
 [known differences](known-differences.md). All cases retain `spec_check: ai`;
-the initial batch is not a reviewed register-layer coverage inventory.
+this is not a reviewed register-layer requirement-coverage inventory.
 
 ## Memory, prediction and map controls
 
@@ -647,7 +644,7 @@ checks that a SOFT reset restores its configured value while retaining write
 protection, and HARD reset permits a new first write. Desired and mirrored
 values are observed separately in every case.
 
-### Q50. What do the new map controls establish?
+### Q50. What do the map controls establish?
 
 Register and memory relocation refresh both physical addresses and locked
 lookup results. Lookup probes use a zero root base. A shared RO/WO address
@@ -679,7 +676,7 @@ The accessor must be null outside that callback, including in `bus2reg`.
 
 ### Q52. How do passive prediction and frontdoor auto-prediction differ?
 
-These earlier tests use separate fixtures. Built-in frontdoor cases initiate register accesses
+These tests use separate fixtures. Built-in frontdoor cases initiate register accesses
 through a sequencer and driver; passive cases inject observed packets through
 an analysis port into a predictor configured with its map and adapter.
 

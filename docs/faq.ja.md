@@ -77,7 +77,7 @@ kirimasimでも、それ以外のコンパイル失敗は`fail`になる場合�
 UVMの既定の表示形式・パス・行番号・時刻の形式は変わり得ます。
 ランナーは行頭が正確に`UT: `で始まる行だけを選び、順序・空白・値を保持して比較します。
 テストはreport件数など、規格が定める動作をこの行で観測し、必要なら終了・診断の条件も指定します。
-[何を観測するか](../README.ja.md#何を観測するか)を参照してください。
+[何を観測するか](testing.ja.md#何を観測するか)を参照してください。
 
 必須のUVMエラーを起こす操作を意図的に行い、その件数を確認するテストもあります。
 そのエラーだけで失敗にはならず、要求する観測結果と終了条件で判定します。
@@ -117,7 +117,7 @@ Ghostは公開前のシミュレータの仮名です。実行ファイルの識
 
 同梱版の識別にはtreeの指紋または組み込みの宣言を使います。
 同梱版の不一致だけでシミュレータとライブラリのどちらが原因かは決まりません。
-[Ghostの設定](../README.ja.md#ghost)を参照してください。
+[Ghostの設定](testing.ja.md#ghost)を参照してください。
 
 ### Q12. uvm_dpi: yesだけでDPIを使うビルドが完成しますか
 
@@ -169,7 +169,7 @@ AIが引用した規格と期待値を照合した記録です。人によるレ
 
 テスト、引用した条項、期待する観測、実行条件を特定します。テストに必要な修正と、シミュレータや
 ライブラリの差分を分けて扱い、Ghostの非公開情報を守ります。修正後はメタデータとツールを検査し、
-固定版のoracleは両seedで再現します。[テストの追加・修正](../README.ja.md#テストの追加修正)を参照してください。
+固定版のoracleは両seedで再現します。[テストの追加・修正](testing.ja.md#テストの追加修正)を参照してください。
 
 照合に使うIEEEのPDFはローカルに置き、Gitの対象にしません。本文や例を転載せず、自分の言葉で
 動作を説明して条項番号を引用します。UVMライブラリはApache-2.0で別に取得します。
@@ -489,19 +489,17 @@ big endianのmapでは数値として降順になる場合があります。
 6 byteのregisterを2 byteずつの3回へ分けます。submapは親へのoffsetを加え、rootまでの最小bus幅を使います。
 これらはアドレスの計算であり、実際のbus転送は行いません。
 
-### Q47. M3の初回で何を検査していますか
+### Q47. レジスタモデルのどの基礎を検査していますか
 
-第18章にfieldを8件、register／blockを8件、mapを8件の計24件を追加しました。
-field名検索とmapの幅・変換結果の4件はspecのみで保持し、lock前のケースにはlock後の比較も加えます。
-構築、fieldのpolicyと配置、resetの種類、desired／mirrored値、再帰resetとlock、
-mapの単位・権限・endian順序・再配置・階層を検査します。
+field／register／blockの構築と配置、access policy、resetの種類、desired／mirroredの状態、
+再帰resetとlock、mapの単位・権限・endian・再配置・階層を検査します。
+lock前のfield検索とmapの幅・変換はspecのみの期待値を保持し、lock前の検査にはlock後の比較も含みます。
 
-以後の追加でmemory・policy・mapと、下記のadapter・predictor・busモデルのfrontdoorを検査しています。
-virtual registerのランダム割り当てと追加の実装・転送条件、memory packing／エラーやpolicy／map、bus／predictorの統合、
-custom frontdoorやcallbackの追加の組み合わせ、backdoor／DPI、付録Eのsequenceは今後の作業です。
-register・memoryのmap検索では引数を明示します。配布物の複数mapに関する注記とnull時のmap解決は
-[既知差分](known-differences.ja.md)で説明します。
-全件が`spec_check: ai`で、初回の追加をレジスタ層の要求の網羅としては扱いません。
+memory、adapter、predictor、frontdoor、callback、virtual registerのケースは以下で説明します。
+追加のpacking／エラー・policy／map条件、predictorの統合、frontdoor／callbackの組み合わせ、backdoor／DPI、
+virtual registerのランダム割り当て、付録Eのsequenceは未完です。registerとmemoryのmap問い合わせは引数を明示します。
+配布物の複数mapに関する注記とnull時のmap解決は[既知差分](known-differences.ja.md)で説明します。
+全件が`spec_check: ai`で、レビュー済みのレジスタ層の要求カバレッジ台帳ではありません。
 
 ## memory・prediction・mapの制御
 
@@ -536,7 +534,7 @@ WRITE predictionはW1C／W1S／W1Tで1のbitを消去・設定・反転し、W0C
 SOFT resetが設定値を復元しても書き込み保護を維持し、HARD resetが次の初回書き込みを許すことを調べます。
 各ケースでdesiredとmirroredの両方を観測します。
 
-### Q50. 新しいmapの制御では何を検査しますか
+### Q50. mapの制御では何を検査しますか
 
 registerとmemoryの再配置で、物理アドレスとlock済みの検索結果が更新されることを検査します。
 検索のケースはroot baseを0にします。同じアドレスのRO／WO registerは読み書きの方向で選び分け、
@@ -561,7 +559,7 @@ activeなcontext検査では、`reg2bus`内で`get_item`を読み取り、regist
 
 ### Q52. passive predictorとfrontdoorのauto-predictionはどう違いますか
 
-以前のケースは別々の検査系を使います。組み込みfrontdoorはsequencer／driverを通じてregisterアクセスを開始し、
+別々の検査系を使います。組み込みfrontdoorはsequencer／driverを通じてregisterアクセスを開始し、
 passive側はmap・adapterを設定したpredictorへ、analysis portから観測packetを入力します。
 
 ```mermaid

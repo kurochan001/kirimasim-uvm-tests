@@ -1039,3 +1039,15 @@ Both README languages, glossary, FAQ and known differences are updated.
 Tool tests, metadata, pinned-library integrity, evidence fingerprints,
 local documentation links and the new diagram rendering were checked.
 All cases retain spec_check: ai, UVM_NO_DPI and no deprecated API.
+
+## Documentation organization (2026-11-01)
+
+Both README files now describe current scope, prerequisites, commands,
+results and open work. Increment narratives remain in this history.
+Detailed test/development instructions, current evidence methodology and
+source provenance have paired guides. All guides have corresponding English
+and Japanese content, and glossary entries use the same order. The original
+LICENSE is unchanged; a complete, non-authoritative Japanese translation is
+available. tools/UPSTREAM points to the paired provenance guides in both
+languages. This changes documentation only: 733 tests, 669 tagged oracles,
+64 spec-only cases and the recorded measurements remain unchanged.
