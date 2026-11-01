@@ -154,7 +154,7 @@ Ghostはさらに実行ファイル・profile・供給されたライブラリ�
 
 ### Q16. M1・M2・M3は完了していますか。件数は何の網羅を示しますか
 
-M1・M2には条項ごとの目標に未達があります。M3はbusモデルのfrontdoor経路を含め96件まで追加した段階で、未完です。
+M1・M2には条項ごとの目標に未達があります。M3はbusモデルのfrontdoor経路を含め120件まで追加した段階で、未完です。
 次の段階の開始によって、それまでの段階が完了したとは扱いません。
 範囲と残りの作業は[進め方](../README.ja.md#進め方)にあります。
 件数はテストの本数で、規格の全要求や組み合わせの棚卸しではありません。
@@ -497,8 +497,8 @@ field名検索とmapの幅・変換結果の4件はspecのみで保持し、lock
 mapの単位・権限・endian順序・再配置・階層を検査します。
 
 以後の追加でmemory・policy・mapと、下記のadapter・predictor・busモデルのfrontdoorを検査しています。
-virtual register、追加のmemory packing／エラーやpolicy／map、bus／predictorの統合、
-custom frontdoor、backdoor／DPI、登録callback、付録Eのsequenceは今後の作業です。
+virtual registerの転送と動的な割り当て、追加のmemory packing／エラーやpolicy／map、bus／predictorの統合、
+custom frontdoorやcallbackの追加の組み合わせ、backdoor／DPI、付録Eのsequenceは今後の作業です。
 register・memoryのmap検索では引数を明示します。配布物の複数mapに関する注記とnull時のmap解決は
 [既知差分](known-differences.ja.md)で説明します。
 全件が`spec_check: ai`で、初回の追加をレジスタ層の要求の網羅としては扱いません。
@@ -561,7 +561,7 @@ activeなcontext検査では、`reg2bus`内で`get_item`を読み取り、regist
 
 ### Q52. passive predictorとfrontdoorのauto-predictionはどう違いますか
 
-別々の検査系を使います。frontdoorはsequencer／driverを通じてregisterアクセスを開始し、
+以前のケースは別々の検査系を使います。組み込みfrontdoorはsequencer／driverを通じてregisterアクセスを開始し、
 passive側はmap・adapterを設定したpredictorへ、analysis portから観測packetを入力します。
 
 ```mermaid
@@ -586,7 +586,7 @@ hookの転送先変更は19.3.3.2の転送先と値の変更を期待値に保�
 
 ### Q53. frontdoorはRTLのDUTやbusの全組み合わせを検査しますか
 
-テストベンチ内の記憶域モデルと実際のsequencer／driver接続を使い、正の遅延後に完了を通知します。
+組み込みfrontdoorの検査系はテストベンチ内の記憶域モデルと実際のsequencer／driver接続を使い、正の遅延後に完了を通知します。
 auto-predictionの有効／無効、別のresponse item、狭いbusへのwriteの対応関係、adapter contextを検査します。
 addressとdataの対応を確認し、規定されていない転送順序は要求しません。
 big endianの幅の広いreadは標準TLM adapterを使い、同じpayload byteから値を復元する規格の期待値をspecのみで保持します。
@@ -628,5 +628,50 @@ post-readの値のケースは呼び出し元の値を確認し、hook後のmirr
 18.4.8.1／.3と18.5.6.1／.3はregisterのhookをfieldより先としています。
 順序の2件は`RF`を期待しますが、固定版UVMは`FR`になるためspecのみで保持します。
 [既知差分](known-differences.ja.md)も参照してください。
-今回の検査は継承methodのoverrideです。`uvm_reg_cb`／`uvm_reg_field_cb`への登録、callbackでの転送先変更、
-追加のpost-hook順序の組み合わせは今後の作業です。
+この8件は継承methodのoverrideです。追加した登録callbackはQ58で説明します。callbackでの転送先変更、
+登録callbackを含むfield／registerの順序や追加のpost-hookの組み合わせは今後の作業です。
+
+## custom frontdoor・登録callback・virtual register
+
+### Q57. custom frontdoorは組み込みの経路とどう違いますか
+
+8件で、registerやmemoryへ`uvm_reg_frontdoor`のsequenceを関連付けます。
+本体は`rw_info`を受け取り、正の遅延の後に自分の記憶域を読み書きします。
+register／memoryのデータとstatus、unmapped register、element／map／extensionのcontext、
+実行先sequencer、registerのmapごとのhandlerの置き換えを検査します。
+
+今回のsequence本体はcustom accessの接点をモデル化し、adapterのitemをbus driverへ送りません。
+以前の組み込みfrontdoorのケースでは、別途sequencer／driverの接続を検査しています。どちらもRTLのprotocolの証拠ではありません。
+[操作contextのケース](../tests/u19/test_reg_custom_frontdoor_receives_extension_map_element_and_sequencer_context.sv)も参照してください。
+
+### Q58. 登録型register callbackでは何を追加していますか
+
+instanceごとの`uvm_reg_cb`を7件追加し、pre-writeの値、pre-readでの中止、post-readの値、
+post-writeのstatus、削除、同じregisterの継承pre／post methodとの順序を検査します。
+pre methodは登録callbackより先、登録post callbackはpost methodより先です。
+以前のregister対fieldの順序のケースとは別の条件です。
+
+残る1件はfieldへ`post_predict` callbackを登録し、以前のmirrorとREAD predictionを受け取って、予測後の値を変更します。
+これはbus転送なしで観測値を入力する検査です。追加のmemory／backdoor objectへの登録、encode／decodeの連鎖、
+転送先変更、追加のfield／register順序の組み合わせは未検証です。
+
+### Q59. virtual registerのケースはどこまで検査していますか
+
+8件で、親と未実装のmemory、詰めた／間隔を明示した静的配列、memoryのmapへの所属と外部アドレス、
+virtual fieldの親・幅・位置、fieldの順序と名前検索、幅の広い実装先memoryでのbyte幅を確認します。
+virtual fieldはfactoryで生成します。モデルの問い合わせが対象であり、virtual registerの読み書き、動的な割り当て、
+再配置、予約したmemory領域の所有権の検査は含みません。
+
+間隔を明示したケースでは、16 bitの要素がbyte幅memoryの2 locationを使います。
+先頭locationは2、増分は3 memory wordなので、`location(i) = 2 + 3*i`です。
+byte単位のmapのbaseを`0x100`、memoryのoffsetを`0x20`とすると、次の配置になります。アドレスのケースは要素2を観測します。
+
+| 配列番号 | 使用するmemory location | 最初の外部アドレス |
+| --- | --- | --- |
+| 0 | 2〜3 | `0x122` |
+| 1 | 5〜6 | `0x125` |
+| 2 | 8〜9 | `0x128` |
+
+[アドレスのケース](../tests/u18/test_vreg_static_array_inherits_memory_map_membership_and_external_address.sv)はmapを明示します。
+18.9.1.2.9のbyte幅は実装先memoryのlocation幅の整数倍です。16 bitのvirtual registerを32 bit memoryで実装すると4 byteになります。
+固定版UVMは2 byteを返すため、この1件は規格の結果をspecのみで保持します。[既知差分](known-differences.ja.md)も参照してください。

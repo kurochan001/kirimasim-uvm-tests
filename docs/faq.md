@@ -172,7 +172,7 @@ a claim that every test was rebuilt together.
 
 ### Q16. Are M1, M2 or M3 complete, and what does the test count cover?
 
-M1 and M2 still have open clause targets. M3 now has 96
+M1 and M2 still have open clause targets. M3 now has 120
 register-layer cases, including testbench frontdoor paths; it is also incomplete. Starting a stage does not complete
 the preceding stages.
 The [plan](../README.md#plan) identifies current scope and remaining work.
@@ -595,8 +595,9 @@ units, rights, endian ordering, relocation and hierarchy.
 
 Later increments add memory/policy checks and the adapter, predictor and
 testbench frontdoor cases described below.
-Virtual-register models, broader memory packing/error and policy/map conditions,
-bus/predictor integration, custom frontdoors, backdoor/DPI setups, registered callbacks and
+Virtual-register transfers and dynamic allocation, broader memory packing/error
+and policy/map conditions, bus/predictor integration, further custom-frontdoor
+and callback combinations, backdoor/DPI setups and
 annex E sequences remain future work. Register and memory map queries use
 explicit arguments. The release's multiple-map note and null-map resolution
 are discussed in
@@ -678,7 +679,7 @@ The accessor must be null outside that callback, including in `bus2reg`.
 
 ### Q52. How do passive prediction and frontdoor auto-prediction differ?
 
-These tests use separate fixtures. Frontdoor cases initiate register accesses
+These earlier tests use separate fixtures. Built-in frontdoor cases initiate register accesses
 through a sequencer and driver; passive cases inject observed packets through
 an analysis port into a predictor configured with its map and adapter.
 
@@ -706,7 +707,7 @@ The hook-redirection case retains the target and value changes required by
 
 ### Q53. Do the frontdoor cases test an RTL device or every bus combination?
 
-They use a testbench storage model with real sequencer/driver handshakes and
+The built-in fixtures use testbench storage with real sequencer/driver handshakes and
 positive-delay acknowledgements. The tests check read/write results with
 auto-prediction enabled and disabled, a separate response item, narrow-bus
 write associations and adapter context. Address/data associations are checked
@@ -762,6 +763,63 @@ the caller result without prescribing the mirror after the hook.
 Clauses 18.4.8.1/.3 and 18.5.6.1/.3 place register hooks before field hooks.
 The two ordering cases expect `RF`; pinned UVM runs `FR`, so they retain
 spec-only oracles. See [known differences](known-differences.md).
-These tests override the inherited methods; registration with
-`uvm_reg_cb`/`uvm_reg_field_cb`, callback redirection and further post-hook
-ordering combinations remain separate work.
+These eight tests override inherited methods. Q58 describes the added
+registered callbacks; redirection, field/register ordering with registered
+callbacks and further post-hook combinations remain separate work.
+
+## Custom frontdoors, registered callbacks and virtual registers
+
+### Q57. How are the custom frontdoor cases different from the built-in path?
+
+Eight cases associate a `uvm_reg_frontdoor` sequence with a register or
+memory. Its body receives `rw_info`, waits a positive delay and reads or
+writes its own storage. These cases check register/memory data and status,
+an unmapped register, element/map/extension context, the executing sequencer,
+and replacing a register's map-specific handler.
+
+The sequence body models the custom-access seam; it does not send adapter
+items to a bus driver. The earlier built-in cases exercise that separate
+sequencer/driver path. Neither fixture establishes an RTL protocol.
+See the [operation-context case](../tests/u19/test_reg_custom_frontdoor_receives_extension_map_element_and_sequencer_context.sv).
+
+### Q58. What do registered callbacks for registers add?
+
+Seven instance-specific `uvm_reg_cb` cases check pre-write value replacement,
+pre-read rejection, post-read value replacement, post-write status replacement,
+removal, and ordering relative to the same register's inherited pre/post
+methods. The pre method runs before the registered callback; the registered
+post callback runs before the post method. These are distinct from the earlier
+register-versus-field ordering cases.
+
+An eighth case registers a field `post_predict` callback. It observes the
+previous mirror and a READ prediction, then changes the resulting predicted
+value. That fixture supplies an observation without bus traffic. Registration
+on further memory/backdoor objects, encode/decode chains, redirection and
+more field/register ordering combinations remain open.
+
+### Q59. What do the virtual-register cases establish?
+
+Eight cases check parent/unimplemented-memory state, static arrays with
+packed or explicit increments, memory-map membership and external addresses,
+virtual-field parent/width/position, field ordering and name lookup, and byte
+width in a wider implementing memory. Virtual fields use factory creation.
+These are model queries; virtual-register reads/writes, dynamic allocation,
+relocation and memory-reservation ownership are not established by this batch.
+
+For the explicit-stride fixture, each 16-bit element occupies two byte-wide
+memory locations. The base location is 2 and the increment is 3 memory words:
+`location(i) = 2 + 3*i`. A byte-addressed map base of `0x100` and memory offset
+of `0x20` give the following layout; the address case observes element 2.
+
+| Array index | Memory locations occupied | First external address |
+| --- | --- | --- |
+| 0 | 2–3 | `0x122` |
+| 1 | 5–6 | `0x125` |
+| 2 | 8–9 | `0x128` |
+
+The [address case](../tests/u18/test_vreg_static_array_inherits_memory_map_membership_and_external_address.sv)
+uses explicit map arguments. Clause 18.9.1.2.9 makes the reported byte width
+an integral number of implementing memory locations. A 16-bit virtual register
+in 32-bit memory therefore reports four bytes. Pinned UVM reports two, so
+that case retains its required result as spec-only; see
+[known differences](known-differences.md).

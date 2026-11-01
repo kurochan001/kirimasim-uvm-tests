@@ -2,8 +2,8 @@
 
 [日本語](history.ja.md) · [README](../README.md)
 
-These records cover M1, fifteen M2 increments and four M3 increments
-(685 tests). The earlier 349-test checkpoint is
+These records cover M1, fifteen M2 increments and five M3 increments
+(709 tests). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -960,6 +960,41 @@ unconstrained. The storage driver is not an RTL DUT or UVM memory mirror.
 Access-hook cases override inherited methods without registering callback
 objects. Broader memory/error/policy conditions and integrated prediction
 remain open.
+
+Both README languages, glossary, FAQ and known differences are updated.
+Tool tests, metadata, pinned-library integrity, evidence fingerprints and
+local documentation links were checked. All cases retain spec_check: ai,
+UVM_NO_DPI and no deprecated API.
+
+## Fifth M3 increment: custom frontdoors, callbacks and virtual layout (2026-11-01)
+
+This increment adds 24 cases, bringing the suite to 709 and M3 to 120:
+95 in chapter 18 and 25 in chapter 19. M1 remains at 229 and M2 at 360;
+all three stages remain open.
+
+- Eight custom frontdoor cases: register/memory data and status, an unmapped
+  register, operation and sequencer context, and map-specific replacement.
+- Eight registered callback cases: value/status changes, early rejection,
+  removal, same-register method/callback order and field post-prediction.
+- Eight virtual-register/field foundations: parent/unimplemented state,
+  static packing/stride, map/address queries, field layout/order/name lookup
+  and byte width rounded to the implementing memory.
+
+Twenty-three additions match Verilator 5.052 at seeds 1 and 73. One retains
+the memory-rounded byte width required by 18.9.1.2.9 as spec-only. Combined
+with the unchanged 685-case baseline at 7206861, there are 647 matches and
+62 known differences: 55 runtime seed 1 differences and seven missing-API
+builds without runtime seeds. The same fixed executable/profile snapshots
+give Ghost 149 matches and 560 failures per seed with identical failing sets,
+and kirimasim 702 unsupported cases plus seven missing-API failures. Input,
+runner, version and configuration fingerprints were checked before merging.
+
+The custom sequence models storage in its body; it does not exercise the
+adapter/driver path. Registered callback cases distinguish inherited methods
+from registration and supply one field prediction without bus traffic.
+Virtual-register cases query static model layout without data transfers,
+dynamic allocation or reservation-ownership checks. A bilingual FAQ table
+explains memory-word stride and external-address calculation.
 
 Both README languages, glossary, FAQ and known differences are updated.
 Tool tests, metadata, pinned-library integrity, evidence fingerprints and

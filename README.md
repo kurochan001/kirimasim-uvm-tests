@@ -16,11 +16,11 @@ for running and interpreting tests, and [known differences](docs/known-differenc
 for library limitations. Earlier increments and measurements are in the
 [development history](docs/history.md). This README describes the current suite.
 
-> **Status: M3 in progress.** 685 simulation tests in 14 chapter/annex
-> directories; 624 have a `verilator@5.052` oracle and 61 are spec-only.
+> **Status: M3 in progress.** 709 simulation tests in 14 chapter/annex
+> directories; 647 have a `verilator@5.052` oracle and 62 are spec-only.
 > All use `:spec_check: ai`; none records human review yet.
-> M1 and M2 retain open clause targets; M3 includes memory frontdoor
-> transfers, register update/mirror and access hooks.
+> M1 and M2 retain open clause targets; M3 includes custom frontdoors,
+> registered callbacks and virtual-register layout.
 
 ## Contents
 
@@ -40,18 +40,19 @@ TLM 2 payloads, extensions and selected socket transports; sequence execution,
 responses, action macros and pull/push sequencer controls; and callback
 registration, inheritance, iteration and early exit.
 
-The 96 M3 cases cover register fields, registers and blocks, memories,
+The 120 M3 cases cover register fields, registers and blocks, memories,
 address maps, transaction descriptors, adapters and predictors in chapters
-18–19. Frontdoor cases use a testbench bus model with real sequencer/driver
-handshakes; passive predictor cases supply observed transactions separately.
+18–19. Built-in frontdoor cases use a testbench bus model with real
+sequencer/driver handshakes; custom frontdoors model storage in their
+sequence bodies. Passive predictor cases supply observations separately.
 No RTL DUT or DPI implementation is required by these fixtures.
 
-The latest 24 add eight memory frontdoor paths, eight register update,
-mirror and bus-error cases, and eight register access-hook cases. Twenty
-match Verilator at both seeds. Four retain spec-only expectations for physical
-burst-beat kinds and register hooks preceding field hooks. The new
-[FAQ](docs/faq.md#memory-transfers-and-register-access-hooks) explains the
-fixture limits and the known ordering difference.
+The latest 24 add eight custom frontdoor cases, eight cases for registered
+callbacks and eight virtual-register/field foundations. Twenty-three
+match Verilator at both seeds. One retains the required virtual-register
+byte width rounded to the implementing memory's location width as spec-only.
+The [FAQ](docs/faq.md#custom-frontdoors-registered-callbacks-and-virtual-registers)
+describes the fixtures and includes an array-layout example.
 
 These are focused behavior tests. The stages still need a reviewed inventory
 against their target of at least two tests per clause. Citation counts include
@@ -61,29 +62,29 @@ denominator remain planned work.
 
 ## Current results
 
-The latest local evidence covers 685 tests (2026-11-01). Each simulator
-combines the latest 24 cases with the unchanged 661-case baseline at
-[256d873](https://github.com/kurochan001/kirimasim-uvm-tests/commit/256d8733015a93ca12537536446cb429324b0d00)
+The latest local evidence covers 709 tests (2026-11-01). Each simulator
+combines the latest 24 cases with the unchanged 685-case baseline at
+[7206861](https://github.com/kurochan001/kirimasim-uvm-tests/commit/7206861516e581b95bc60720158b0b54df61290b)
 after checking input, runner, version and configuration fingerprints.
-Ghost retains the executable/profile snapshot used for its preceding
-measurement; kirimasim also reuses the baseline's fixed build.
+Ghost retains the preceding executable/profile snapshot, and kirimasim
+also reuses the baseline's fixed build.
 
 | Simulator | Observed result |
 | --- | --- |
-| Verilator 5.052, pinned UVM, `UVM_NO_DPI` | 624 match seeds 1 and 73; 54 spec-only cases differ at seed 1; seven spec-only cases cannot build due to missing library APIs |
-| kirimasim, pinned UVM | 678 report `uvm_object_wrapper` as unsupported; seven fail first on missing library APIs |
-| Ghost, bundled UVM | 145 match and 540 fail at each seed; the same cases fail at seeds 1 and 73 |
+| Verilator 5.052, pinned UVM, `UVM_NO_DPI` | 647 match seeds 1 and 73; 55 spec-only cases differ at seed 1; seven spec-only cases cannot build due to missing library APIs |
+| kirimasim, pinned UVM | 702 report `uvm_object_wrapper` as unsupported; seven fail first on missing library APIs |
+| Ghost, bundled UVM | 149 match and 560 fail at each seed; the same cases fail at seeds 1 and 73 |
 | Ghost, pinned UVM | Earlier executable's smoke test differs; no pinned-mode measurement for the sampled build |
 | Icarus Verilog 13.0 | Not used for this UVM suite |
 
 The Verilator runner stops a test at its first differing seed. The runtime
-records establish seed 1 differences for 54 known cases, without seed 73
+records establish seed 1 differences for 55 known cases, without seed 73
 results. Seven missing-API cases have no runtime seed result: one time API
 and six sequence-library cases. `known` and
 `unsupported` are not passes. See [known differences](docs/known-differences.md).
 
 The Check badge reports GitHub Actions, separately from these local results.
-Check runs tool/metadata/library checks and the 624 tagged Verilator cases;
+Check runs tool/metadata/library checks and the 647 tagged Verilator cases;
 it does not run Ghost or kirimasim. This repository has no Nightly workflow
 or automatic result publication.
 
@@ -277,7 +278,7 @@ again. `--check` checks the copy that is there. The library is not committed.
   A test that depends on regular expressions or the backdoor sets
   `:uvm_dpi: yes` and runs only where the DPI code can be loaded
   (`UVM_HDL_NO_DPI` leaves out the backdoor alone).
-- All 685 current cases use `UVM_NO_DPI`. `:uvm_dpi: yes` removes that macro;
+- All 709 current cases use `UVM_NO_DPI`. `:uvm_dpi: yes` removes that macro;
   it does not automatically compile or link the C/C++ DPI implementation.
   The current Verilator runner does not add DPI C/C++ sources.
 - `:uvm_defines:` can request `UVM_ENABLE_DEPRECATED_API`. There are currently
@@ -304,8 +305,8 @@ breaks the build.
 seed. All seeds must match. `--seed N` remains available for a single seed.
 The JSON configuration records either `seed` or `seeds` accordingly.
 
-By default, Verilator selects the 624 tagged two-state cases. To include
-the 61 spec-only cases as well, add `--all`. A mismatch in an untagged case
+By default, Verilator selects the 647 tagged two-state cases. To include
+the 62 spec-only cases as well, add `--all`. A mismatch in an untagged case
 is `known` and does not fail the command; a tagged mismatch does.
 Explicit test paths select only those tests. For a single smoke test:
 
@@ -358,7 +359,7 @@ python3 tools/lint_metadata.py
 ```
 
 The current tool suite has 41 unit tests; metadata validation checks all
-685 simulation tests. [Check](.github/workflows/check.yml) runs on pushes to
+709 simulation tests. [Check](.github/workflows/check.yml) runs on pushes to
 `main`, pull requests and manual dispatch. Its separate Verilator job uses
 5.052, `UVM_NO_DPI` and seeds 1 and 73 for the tagged cases. Each model is
 built once for the two executions. A green Check establishes those checks,
@@ -371,7 +372,7 @@ not that every UVM requirement or every simulator passes.
 | M0 | Fetcher, runners, metadata/tools checks, Check and smoke test | Infrastructure implemented |
 | M1 | Core classes, policies, factory, phases, objections, configuration and reporting | 229 cases; reviewed two-tests-per-clause target still open |
 | M2 | Sequences, sequencers, TLM and callbacks | 360 cases; expanding toward the same target |
-| M3 | Register layer (17–19, annex E) | 96 cases across chapters 18–19; broader bus interactions remain |
+| M3 | Register layer (17–19, annex E) | 120 cases across chapters 18–19; broader bus interactions remain |
 | M4 | Requirement ledger and coverage | Planned; approve the denominator before claiming coverage |
 
 Remaining M2 work includes further queued ownership, termination and
@@ -381,11 +382,11 @@ full protocol or timing coverage. Library clause annotations can guide the
 inventory, but require review against the standard. Starting M2 does not mark
 M1 complete. Starting M3 likewise leaves M1 and M2 open.
 
-Remaining M3 work includes virtual-register models, broader memory packing,
-error, policy and map conditions, adapter/predictor integration, custom
-frontdoors, backdoor/DPI setups, registered register-layer callbacks and
-annex E sequences. The current bus-model fixtures establish selected UVM
-paths; RTL protocol and timing coverage remain separate work.
+Remaining M3 work includes virtual-register transfers and dynamic allocation,
+broader memory packing, error, policy and map conditions, adapter/predictor
+integration, more custom-frontdoor and callback combinations, backdoor/DPI
+setups and annex E sequences. The current fixtures establish selected UVM
+paths and model queries; RTL protocol and timing coverage remain separate work.
 
 ## Adding or correcting a test
 

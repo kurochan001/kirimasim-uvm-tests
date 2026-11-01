@@ -331,6 +331,21 @@ change a value or status, or reject an access before a bus request.
 They are distinct from registering callback objects. See the
 [access-hook FAQ](faq.md#memory-transfers-and-register-access-hooks).
 
+**Custom frontdoor / rw_info** — A user access sequence associated with a
+register or memory / its abstract operation descriptor. Current custom cases
+model storage in that sequence, separately from adapter/driver handshakes.
+
+**Registered register callback / post_predict** — A callback object attached
+to a register or field / a hook that can change a successful READ/WRITE
+prediction's result. This is separate from overriding the element's methods.
+
+**Virtual register / virtual field / increment** — Logical fields overlaid
+on memory / one bit slice of that logical register / the spacing of array
+elements in memory words. The byte width is rounded to whole implementing
+memory locations. Current tests inspect static layout and handles, with no
+virtual-register data transfers. See the
+[layout example](faq.md#custom-frontdoors-registered-callbacks-and-virtual-registers).
+
 ## Execution and result records
 
 **Runner / metadata** — A `tools/run_*.py` script that builds, executes and

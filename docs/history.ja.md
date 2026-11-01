@@ -2,7 +2,7 @@
 
 [English](history.md) · [README](../README.ja.md)
 
-M1・M2の15回目と、M3の4回目（685件）までの追加作業を記録しています。以前の349件の時点は
+M1・M2の15回目と、M3の5回目（709件）までの追加作業を記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -709,6 +709,32 @@ memoryのburstはmemory・bus・配列要素を64 bitにそろえており、狭
 失敗したreadのデータと失敗時点のmirrorには期待値を置きません。driverの記憶域はRTLのDUTやUVMのmemory mirrorではありません。
 アクセスhookは継承methodのoverrideであり、callback objectの登録は含みません。
 追加のmemory／エラー／policy条件やpredictorとの統合は未完です。
+
+日英README、用語集、FAQ、既知差分を更新しました。ツールテスト、metadata、固定ライブラリの整合性、
+実行記録の指紋、ローカルリンクを確認しました。全件がspec_check: ai、UVM_NO_DPIで、deprecated APIは要求しません。
+
+## M3の5回目：custom frontdoor・callback・virtual registerの配置（2026-11-01）
+
+24件を追加し、全709件、M3は120件（第18章95件・第19章25件）になりました。
+M1は229件、M2は360件のままで、3段階とも未完です。
+
+- custom frontdoorを8件：register／memoryのデータとstatus、unmapped register、
+  操作とsequencerのcontext、mapごとのhandlerの置き換え。
+- 登録callbackを8件：値とstatusの変更、事前の中止、削除、同じregisterの継承methodとの順序、
+  fieldのpost-prediction。
+- virtual register／fieldの基礎を8件：親と未実装の状態、静的なpackingと間隔、mapとアドレス、
+  fieldの配置・順序・名前検索、実装先memoryの幅に切り上げたbyte幅。
+
+23件がVerilator 5.052のseed 1・73で一致します。残る1件は18.9.1.2.9が定めるmemory幅に切り上げたbyte幅をspecのみで保持します。
+変更のない7206861時点の685件と合算すると、647件一致、既知差分62件です。
+内訳は実行時のseed 1の差分55件と、実行時のseed結果がないAPI欠落7件です。
+同じ実行ファイル・profileの固定コピーでGhostは各seedで149件一致・560件不一致（不一致の集合も同じ）、
+kirimasimは702件未対応・API欠落7件です。合算前に入力・ランナー・版・設定の指紋を確認しています。
+
+custom sequenceは本体で記憶域をモデル化し、adapter／driverの経路を使いません。
+登録callbackは継承methodとの違いを区別し、1件でbus転送なしにfieldのpredictionを入力します。
+virtual registerは静的な配置の問い合わせであり、データ転送、動的な割り当て、予約領域の所有権は検査しません。
+日英FAQの表に、memory word単位の間隔と外部アドレスの計算例を追加しました。
 
 日英README、用語集、FAQ、既知差分を更新しました。ツールテスト、metadata、固定ライブラリの整合性、
 実行記録の指紋、ローカルリンクを確認しました。全件がspec_check: ai、UVM_NO_DPIで、deprecated APIは要求しません。

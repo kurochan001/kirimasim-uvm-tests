@@ -247,6 +247,17 @@ updateはfieldのpolicyからbusのwriteデータを組み立てます。失敗�
 **Registerのアクセスhook** — 値やstatusの変更、bus要求前の中止を行える継承pre／post read／write methodです。
 callback objectの登録とは別です。[アクセスhookのFAQ](faq.ja.md#memory転送とregisterのアクセスhook)も参照してください。
 
+**Custom frontdoor／rw_info** — registerやmemoryに関連付けるユーザー定義のアクセスsequence／
+その抽象的な操作記述子です。現在のcustomケースはsequence内の記憶域を使い、adapter／driverの接続とは別に検査します。
+
+**登録型register callback／post_predict** — registerやfieldへ登録するcallback object／
+READ／WRITE predictionの結果を変えられるhookです。要素の継承methodをoverrideすることとは別です。
+
+**Virtual register／virtual field／増分** — memory上に重ねる論理的なfieldの集まり／そのbit範囲／
+memory word単位の配列要素の間隔です。byte幅は実装先memoryのlocation幅の整数倍になります。
+現在は静的な配置とhandleを調べ、virtual registerのデータ転送は行いません。
+[配置例](faq.ja.md#custom-frontdoor登録callbackvirtual-register)も参照してください。
+
 ## 実行と結果
 
 **ランナー／メタデータ** — ビルド・実行・判定を行う`tools/run_*.py`／
