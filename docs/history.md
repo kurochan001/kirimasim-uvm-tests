@@ -3,7 +3,8 @@
 [日本語](history.ja.md) · [README](../README.md)
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and fifteen cross-milestone thin-area expansions (1105 simulation tests). The earlier 349-test checkpoint is
+three M4 increments and fifteen cross-milestone thin-area expansions, followed by completion of
+the existing-test requirement-link backlog (1106 simulation tests). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -1980,3 +1981,43 @@ are corrected to the canonical 182 drafts. Fixture syntax and direct field
 waits were corrected before final measurements, without changing expectations.
 No sibling ordering, ambiguous multiple-match winner, failed-read data,
 default backdoor-kind resolution or physical DUT access is inferred.
+
+## Existing-test requirement-link backlog cleared
+
+On 2026-11-03, all 108 remaining unlinked fixtures received explicit
+requirement/expected-observation mappings: 46 in chapter 12 and 62 in
+chapter 18. The original simulation inputs remain unchanged. TLM mappings
+cover split implementations, nonblocking replies, exports/socket relays,
+payload packing and canonical time. Register mappings cover metadata,
+methods/callbacks, virtual-array allocation/lifecycle and memory regions.
+
+One original policy/object synchronization fixture checks two nested policy
+pushes and pops through the standard object-side getter. It directly links
+the previously untested push-synchronization draft and a new pop-restoration
+draft. The pinned library lacks the getter; the new case remains spec-only
+with a known build failure. No legacy getter or policy-only substitute is used.
+
+The suite has 1106 cases: M1 360, M2 420 and M3 326. Verilator 5.052 retains
+999 matches at seeds 1/73 and has 107 known cases: 97 runtime first differences
+at seed 1 and ten missing-API builds. All 1105 prior records match unchanged
+current inputs. Guest execution snapshots remain unavailable; the previous
+1085-case records are retained, with 21 current cases explicitly unmeasured.
+Ghost bundled remains 207 pass/878 fail per seed; kirimasim remains 1076
+unsupported/nine fail on that subset. No new guest result is claimed.
+
+The ledger adds 100 AI drafts, reaching 1163: 1160 have direct links to 1105
+tests and one additional test is a control. Unlinked tests decrease from
+108 to zero across all 21 primary-focus roots. Three drafts still lack direct
+tests: HDL deposit, HDL-path accessibility and the full memory-walk algorithm.
+The catalog retains 2,504 identifiers, with 735 partially decomposed and
+1,769 unassessed. Primary-focus identifiers remain 507, any-citation identifiers
+are 1,119 and the candidate census remains zero 1,972 / one 266 / at least two 241.
+Scope remains proposed; every review is AI and the denominator/percentage
+remain null. This clears a mapping queue, not M1–M4 completion.
+
+Current bilingual guides and the handoff are refreshed; repeated increment
+narratives in the requirement guide give way to current totals and explicit
+remaining observations. The FAQ has 128 answers, including the distinction
+between zero unlinked tests and complete normative coverage; the glossary
+retains 151 terms. Validation covers 74 tool unit tests, all metadata,
+ledger/index, library integrity, final-input evidence and all ten language pairs.

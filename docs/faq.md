@@ -1136,9 +1136,9 @@ not a direct test of the requirement.
 
 ### Q77. Why is there no coverage percentage after starting M4?
 
-The 1063 AI drafts cover only a partial decomposition: 1059 requirements link
-directly to 996 tests, 4 have no direct test, and one separate test is a control.
-Another 108 tests are not mapped yet. The 2,504 clause identifiers are not normative requirement units.
+The 1163 AI drafts cover only a partial decomposition: 1160 requirements link
+directly to 1105 tests, 3 have no direct test, and one separate test is a control.
+All 1106 tests have requirement links. The 2,504 clause identifiers are not normative requirement units.
 The scope is proposed, the inventory incomplete and the denominator unapproved;
 starting M4 approves none of those. Known differences and HDL/DPI limitations
 do not silently exclude obligations. See the [approval path](requirements.md#remaining-m4-work-and-approval).
@@ -2129,3 +2129,20 @@ and two concurrent sequences on distinct memories. Failed-read data and
 default-kind resolution are not prescribed. No HDL/DPI, physical bus or
 memory mirror is claimed. All twenty additions match Verilator; fresh
 kirimasim/Ghost results are unavailable for this increment.
+
+## After mapping all existing tests
+
+### Q128. Does zero unmapped tests mean M1–M4 are complete?
+
+No. `tests_without_requirement_links` is zero: every current test has an
+explicit direct or control link. The separate counter
+`requirements_without_direct_tests` is three, covering HDL deposit, actual
+HDL-path accessibility and the full memory-walk algorithm. Another 1,769
+catalog identifiers remain unassessed; decomposition and human review are
+incomplete, and the denominator remains unapproved.
+
+The [new policy test](../tests/u16/test_policy_object_stack_tracks_nested_active_policy_push_and_pop.sv)
+closes the previous object-side synchronization mapping gap using the standard
+getter, which is missing from the pinned library. Its build is `known`, not
+`pass`. Mapping existing evidence does not create a fresh run or convert a
+known difference into success. See the [current ledger](requirements.md).

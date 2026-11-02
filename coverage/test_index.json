@@ -2554,6 +2554,10 @@
       "primary_clause": "16.1.3.1",
       "inputs_sha256": "923fc7ca2ee8bdac17f5d00bb1ab971950539d3043fe9f3d5e8d117b08335e19"
     },
+    "u16/test_policy_object_stack_tracks_nested_active_policy_push_and_pop": {
+      "primary_clause": "16.1.3.1",
+      "inputs_sha256": "ae60577737b6090bcb84a0d7b6902183f46e52d27c045c06a5c9ae91724e3e29"
+    },
     "u16/test_printer_array_window_defaults_and_negative_bound": {
       "primary_clause": "16.2.6",
       "inputs_sha256": "f0c82fa420fb7e33d3020859faec25a0b45d0ca8addfbec7f8ce600a553d5b79"

@@ -918,8 +918,8 @@ controlの対応は、その要求の直接の検査ではありません。
 
 ### Q77. M4を始めたのに、カバレッジ率がないのはなぜですか
 
-AIによる1063要求案は部分的な分解で、1059要求を996テストへ直接対応付け、4要求は直接未対応、別の1テストはcontrolです。
-他の108テストはまだ要求に対応付けていません。2,504の条項番号は規範的要求の単位ではありません。
+AIによる1163要求案は部分的な分解で、1160要求を1105テストへ直接対応付け、3要求は直接未対応、別の1テストはcontrolです。
+全1106テストに要求の対応付けがあります。2,504の条項番号は規範的要求の単位ではありません。
 範囲は提案、棚卸しは未完、分母は未承認で、M4の開始はどれの承認にもなりません。
 既知差分やHDL／DPIの制約によって義務を暗黙に除外しません。[承認までの手順](requirements.ja.md#m4の残作業と承認)を参照してください。
 
@@ -1697,3 +1697,17 @@ user backdoorは16 bit locationをモデル化します。location独立性、�
 機能に影響しないdebug引数、異なるmemory上の並行2 sequenceも検査します。失敗readのdataと既定kindの解決は
 指定しません。HDL／DPI、物理bus、memory mirrorは主張しません。追加20件はVerilatorと一致し、
 今回の新しいkirimasim／Ghost結果はありません。
+
+## 全既存テストの対応付け後
+
+### Q128. 未対応テスト0件なら、M1〜M4は完了ですか？
+
+いいえ。`tests_without_requirement_links`は0で、現在の全テストに、明示的なdirectまたはcontrolの対応があります。
+別の集計`requirements_without_direct_tests`は3件で、HDL deposit、実際のHDL-path利用可否、
+memory-walk algorithm全体が対象です。catalogの識別子1,769件も未評価です。
+分解と人のレビューは未完で、分母は未承認です。
+
+[新しいpolicyテスト](../tests/u16/test_policy_object_stack_tracks_nested_active_policy_push_and_pop.sv)は、
+標準getterを使って、以前のobject側同期の未対応付けを解消します。固定libraryにはそのgetterがなく、
+buildは`known`で、`pass`ではありません。既存evidenceへの対応付けは、新たな実行や既知差分の成功への変換にはなりません。
+[現在の台帳](requirements.ja.md)を参照してください。

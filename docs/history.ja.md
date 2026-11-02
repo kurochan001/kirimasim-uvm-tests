@@ -2,7 +2,7 @@
 
 [English](history.md) · [README](../README.ja.md)
 
-M1・M2の15回目、M3の9回目、M4の3回目と段階をまたぐ薄い領域の15回目の拡充（シミュレーション1105件）までを記録しています。以前の349件の時点は
+M1・M2の15回目、M3の9回目、M4の3回目と段階をまたぐ薄い領域の15回目の拡充、その後の既存テストの要求への未対応付け解消（シミュレーション1106件）までを記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -1416,3 +1416,32 @@ M4はAI要求案42件を追加し、新規20件と第14章の既存20検査系�
 用語集は151語、FAQは127回答です。ハンドオフも最新backlogと部分的なguest対象へ更新します。
 第18章の本文集計は、正規の要求案182件へ修正します。検査系の構文と直接field待機を最終測定前に修正し、期待値は変更しません。
 兄弟順、曖昧な複数一致の選択順、失敗readのdata、既定backdoor kindの解決、物理DUT accessは推測しません。
+
+## 既存テストの要求への未対応付けを解消
+
+2026-11-03に、残る未対応108検査系すべてへ、要求と期待観測の明示的な対応を追加しました。
+第12章46件、第18章62件です。元のsimulation入力は変更しません。
+TLMの対応は、分離implementation、nonblocking reply、export／socket中継、payload packing、canonical timeを扱います。
+registerの対応は、metadata、method／callback、virtual配列のallocation／lifecycle、memory regionを扱います。
+
+独自のpolicy／object同期検査系1件を追加し、標準のobject側getterで、入れ子の2 policyのpush／popを検査します。
+以前直接未対応だったpush同期要求案と、新しいpop復元要求案へ直接対応付けます。
+固定libraryはgetterを欠くため、新テストはspec-onlyの既知build失敗を保持します。
+legacy getterやpolicy側だけの代替は使いません。
+
+スイートは1106件で、M1 360件、M2 420件、M3 326件です。Verilator 5.052はseed 1／73での一致999件を保持し、
+既知差分は107件です。seed 1で最初に異なる実行時97件、API欠落build 10件です。
+以前の1105記録は、変更していない現在入力と一致します。guestの実行snapshotは復元できず、以前の1085件の記録を保持し、
+現在の21件は明示的に未測定です。部分集合でGhost同梱は各seed pass 207件／fail 878件、
+kirimasimはunsupported 1076件／fail 9件のままです。新しいguest結果は主張しません。
+
+台帳はAI要求案100件を加えて1163件となり、1160要求を1105テストへ直接対応し、追加の1テストはcontrolです。
+未対応テストは108件から0件となり、主引用テストのある21 rootすべてで解消します。
+直接テストのない要求案は、HDL deposit、HDL-path利用可否、memory-walk algorithm全体の3件です。
+catalogの2,504識別子は、735件を一部分解し、1,769件は未評価です。
+主引用ありは507番号、引用ありは1,119番号、候補の集計は0件1,972番号／1件266番号／2件以上241番号です。
+範囲は提案、照合はすべてAI、分母／比率はnullのままです。対応付けqueueの解消で、M1〜M4の完了ではありません。
+
+現在の日英ガイドとハンドオフを更新し、要求ガイドの重複する拡充経緯を、現在集計と残る観測へ整理しました。
+FAQは、未対応テスト0件と規範的coverage完了の違いを含む128回答となり、用語集は151語を保持します。
+検証は、tool単体74件、全metadata、台帳／索引、library整合性、最終入力evidence、日英10組を対象とします。

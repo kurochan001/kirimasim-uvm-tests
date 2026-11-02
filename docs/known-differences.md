@@ -2,7 +2,7 @@
 
 [日本語](known-differences.ja.md) · [README](../README.md) · [FAQ](faq.md)
 
-This describes the current 1105-test suite and the pinned Accellera UVM
+This describes the current 1106-test suite and the pinned Accellera UVM
 2020.3.1 library. A mismatch is a test result; it does not by itself assign
 the cause to the simulator, the library or the expectation.
 
@@ -118,8 +118,11 @@ normative expectation is retained with `:oracle: spec`.
   under UVM_SHALLOW, while 16.6.3 describes reference treatment of nested
   objects. Matching cases cover deep field-macro copying and the configured
   copier/active-object state visible to a user hook.
-- `uvm_object::get_active_policy` from 5.3.14.3 is absent. The hook test
-  observes the copier's active-object stack through the APIs of 16.1.3.
+- `uvm_object::get_active_policy` from 5.3.14.3 is absent. The earlier hook
+  test observes the copier's active-object stack through 16.1.3. The new
+  two-policy synchronization test calls the required object-side getter
+  directly and retains a spec-only build difference; policy-side stack
+  observations alone do not establish object-side synchronization.
 - `uvm_field_op::user_hook_enabled` rejects calls before `set` and after
   `flush`, although 5.7.2.7 does not state that restriction. The field-operation
   reset test queries the bit after `set`, including after a flush/reuse cycle.
@@ -347,7 +350,7 @@ SystemVerilog 13.4, so it cannot represent a count of two. The expected two
 preserves the prose interpretation. This signature/prose conflict requires
 review and is not assigned as a confirmed simulator or library bug.
 
-Across the suite, 999 tests have the `verilator@5.052` oracle tag and 106
+Across the suite, 999 tests have the `verilator@5.052` oracle tag and 107
 cases are spec-only. One of the spec-only cases checks 9.6: a child's pre-reset
 task must be killed when that phase ends, but the pinned-library run on Verilator 5.052
 lets the child perform its delayed write during a later phase. The cause of
@@ -359,17 +362,20 @@ without callbacks. The pinned Verilator run reaches the blocked-state
 observation, then its watchdog expires. This combined simulator/library
 cause remains unassigned; the normative wakeup expectation is retained.
 
-The 106 spec-only tests retain their normative expected files.
+The 107 spec-only tests retain their normative expected files.
 Default Verilator runs and CI select the 999 tagged cases. `--all` includes
 spec-only cases and records mismatches or build failures as `known`.
 The runtime records for 97 cases establish the first difference at seed 1,
-without seed 73 results. Nine missing-API cases cannot build and have no
-runtime seed result: one time API, six sequence-library cases and two HDL slice cases.
+without seed 73 results. Ten missing-API cases cannot build and have no
+runtime seed result: one time API, six sequence-library cases, two HDL
+slice cases and one object active-policy case.
 
 ## Spec-only tests
 
-These are the 106 current spec-only cases. Several exercise the same
+These are the 107 current spec-only cases. Several exercise the same
 limitation, so their count is not a count of distinct bugs.
+
+- [Policy/object active-policy push/pop synchronization](../tests/u16/test_policy_object_stack_tracks_nested_active_policy_push_and_pop.sv).
 
 - [Register-item invalid value indices](../tests/u19/test_reg_item_invalid_value_indices_warn_without_changing_existing_data.sv).
 
@@ -547,8 +553,8 @@ limitation, so their count is not a count of distinct bugs.
 
 ## Simulator and library combinations
 
-The suite has 1105 cases, but the kirimasim/Ghost records below cover only
-1085 unchanged current-input cases. The twenty new cases are unmeasured
+The suite has 1106 cases, but the kirimasim/Ghost records below cover only
+1085 unchanged current-input cases. The twenty-one new cases are unmeasured
 because prior temporary executable/profile snapshots are unavailable. Do
 not treat this as a fresh full-suite guest result. See [results](results.md).
 

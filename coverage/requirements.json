@@ -14090,15 +14090,25 @@
         "ja": "両側が新しくactiveになった同じobject／policy関係を示す。"
       },
       "limitations": {
-        "en": "No direct test is mapped; policy-side depth/top checks do not establish the object-side bookkeeping. Library API limitations are not scope exclusions.",
-        "ja": "直接テストは未対応。policy側の深さ／topではobject側の管理は示せない。ライブラリAPIの制約で対象から除外しない。"
+        "en": "AI draft. Observes the standard object-side getter and two independent policy stacks. The pinned library lacks this public getter, so this remains a normative spec-only build difference. Policy-side depth alone is not used to establish synchronization.",
+        "ja": "AI要求案。標準のobject側getterと、独立した2 policy stackを観測する。固定libraryはこの公開getterを欠くため、規範的なspec-onlyのbuild差分を保持する。policy側depthだけで同期の成立を判断しない。"
       },
       "review": {
         "status": "ai",
         "reviewer": null,
         "reviewed_at": null
       },
-      "test_links": []
+      "test_links": [
+        {
+          "test": "u16/test_policy_object_stack_tracks_nested_active_policy_push_and_pop",
+          "role": "direct",
+          "expected_observations": [
+            "UT: initial object_empty 1",
+            "UT: first object_policy 1 policy_object 1",
+            "UT: second object_policy 1 first_top 1 second_top 1"
+          ]
+        }
+      ]
     },
     {
       "id": "UVM-COMPARER-MESSAGE-CAP",
@@ -40747,6 +40757,3536 @@
           "role": "direct",
           "expected_observations": [
             "UT: same_handle 1 code 37 completed 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM1-SPLIT-MASTER-MIXED",
+      "clause": "12.2.7.2.2",
+      "statement": {
+        "en": "A master interface delegates request and response methods to its distinct configured implementations.",
+        "ja": "master interfaceは、request／response methodを別々の設定implementationへ委譲する。"
+      },
+      "conditions": {
+        "en": "Mix blocking/nonblocking writes and response peek/get through a direct imp or intervening export.",
+        "ja": "直接impまたは途中exportで、blocking／nonblocking writeとresponse peek／getを混在させる。"
+      },
+      "expected": {
+        "en": "Requests are 41/42; responses remain alpha/beta with retained peek data, reusable request storage and empty response storage.",
+        "ja": "requestは41／42、responseはalpha／betaでpeek dataを保持し、request storageを再利用でき、response storageは空となる。"
+      },
+      "limitations": {
+        "en": "Typed public TLM 1 ports/exports/imps and bounded channel storage are exercised. Synchronous analysis responders are fixture code. Failed nb_transport calls assert only completion, not failed output or whether a partial request was queued. Request retirement uses public get APIs; no same-channel concurrent callers, hidden FIFO inspection or arbitrary protocol correlation is claimed. Existing measured inputs remain unchanged.",
+        "ja": "型付きの公開TLM 1 port／export／impと有限channel storageを検査する。同期analysis responderは検査系のcodeである。nb_transport失敗時は完了bitだけを要求し、失敗出力や部分requestの有無は指定しない。requestの回収は公開get APIを使い、同じchannelの同時caller、内部FIFOの観測、任意protocol照合は主張しない。既存の実測入力は変更しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_master_combined_imp_routes_mixed_operations_to_split_implementations",
+          "role": "direct",
+          "expected_observations": [
+            "UT: requests 41 42 accepted 1 response_peek 1 response_get 1",
+            "UT: responses alpha beta beta reusable 1 empty 1"
+          ]
+        },
+        {
+          "test": "u12/test_master_export_routes_mixed_operations_to_split_implementations",
+          "role": "direct",
+          "expected_observations": [
+            "UT: requests 41 42 accepted 1 response_peek 1 response_get 1",
+            "UT: responses alpha beta beta reusable 1 empty 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM1-SPLIT-SLAVE-MIXED",
+      "clause": "12.2.7.2.2",
+      "statement": {
+        "en": "A slave interface delegates request reads and response writes to the selected implementations.",
+        "ja": "slave interfaceは、request readとresponse writeを選択implementationへ委譲する。"
+      },
+      "conditions": {
+        "en": "Read/peek requests 51/52 and write alpha/beta through a direct imp or export.",
+        "ja": "直接impまたはexportでrequest 51／52をread／peekし、alpha／betaを書く。"
+      },
+      "expected": {
+        "en": "Peek retains request 52; both response writes succeed, storage is reusable and request storage ends empty.",
+        "ja": "peekはrequest 52を保持し、両response writeは成功し、storageを再利用でき、request storageは最後に空となる。"
+      },
+      "limitations": {
+        "en": "Typed public TLM 1 ports/exports/imps and bounded channel storage are exercised. Synchronous analysis responders are fixture code. Failed nb_transport calls assert only completion, not failed output or whether a partial request was queued. Request retirement uses public get APIs; no same-channel concurrent callers, hidden FIFO inspection or arbitrary protocol correlation is claimed. Existing measured inputs remain unchanged.",
+        "ja": "型付きの公開TLM 1 port／export／impと有限channel storageを検査する。同期analysis responderは検査系のcodeである。nb_transport失敗時は完了bitだけを要求し、失敗出力や部分requestの有無は指定しない。requestの回収は公開get APIを使い、同じchannelの同時caller、内部FIFOの観測、任意protocol照合は主張しない。既存の実測入力は変更しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_slave_combined_imp_routes_mixed_operations_to_split_implementations",
+          "role": "direct",
+          "expected_observations": [
+            "UT: requests 51 52 52 read 1 peek 1 accepted 1",
+            "UT: responses alpha beta reusable 1 empty 1"
+          ]
+        },
+        {
+          "test": "u12/test_slave_export_routes_mixed_operations_to_split_implementations",
+          "role": "direct",
+          "expected_observations": [
+            "UT: requests 51 52 52 read 1 peek 1 accepted 1",
+            "UT: responses alpha beta reusable 1 empty 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM1-NB-TRANSPORT-IMMEDIATE-RESPONSE",
+      "clause": "12.2.9.2.2",
+      "statement": {
+        "en": "Nonblocking transport returns an immediately generated response through either compatible port variant.",
+        "ja": "nonblocking transportは、互換な両port形態で即時生成responseを返す。"
+      },
+      "conditions": {
+        "en": "An accepted request synchronously invokes an analysis responder, then retire the request.",
+        "ja": "受理requestが同期analysis responderを呼び、次にrequestを回収する。"
+      },
+      "expected": {
+        "en": "Completion is true with reply_42; request 42 is available exactly once and the one responder reply is accepted.",
+        "ja": "完了はtrueでreply_42となり、request 42を回収でき、responderは1回でそのreplyが受理される。"
+      },
+      "limitations": {
+        "en": "Typed public TLM 1 ports/exports/imps and bounded channel storage are exercised. Synchronous analysis responders are fixture code. Failed nb_transport calls assert only completion, not failed output or whether a partial request was queued. Request retirement uses public get APIs; no same-channel concurrent callers, hidden FIFO inspection or arbitrary protocol correlation is claimed. Existing measured inputs remain unchanged.",
+        "ja": "型付きの公開TLM 1 port／export／impと有限channel storageを検査する。同期analysis responderは検査系のcodeである。nb_transport失敗時は完了bitだけを要求し、失敗出力や部分requestの有無は指定しない。requestの回収は公開get APIを使い、同じchannelの同時caller、内部FIFOの観測、任意protocol照合は主張しない。既存の実測入力は変更しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_nonblocking_transport_combined_port_returns_analysis_generated_response",
+          "role": "direct",
+          "expected_observations": [
+            "UT: completed 1 response reply_42",
+            "UT: retired 1 request 42 calls 1 replies_accepted 1"
+          ]
+        },
+        {
+          "test": "u12/test_nonblocking_transport_nonblocking_port_returns_analysis_generated_response",
+          "role": "direct",
+          "expected_observations": [
+            "UT: completed 1 response reply_42",
+            "UT: retired 1 request 42 calls 1 replies_accepted 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM1-NB-TRANSPORT-REQUEST-FULL",
+      "clause": "12.2.9.2.2",
+      "statement": {
+        "en": "Nonblocking transport cannot complete when request storage cannot accept its request.",
+        "ja": "request storageが要求を受理できなければ、nonblocking transportは完了しない。"
+      },
+      "conditions": {
+        "en": "Fill the one-entry request FIFO and stage an older reply before a fresh request.",
+        "ja": "1 entryのrequest FIFOを満たし、新要求前に古いreplyを置く。"
+      },
+      "expected": {
+        "en": "Both setup writes succeed but the fresh transport returns false.",
+        "ja": "両準備writeは成功し、新transportはfalseを返す。"
+      },
+      "limitations": {
+        "en": "Typed public TLM 1 ports/exports/imps and bounded channel storage are exercised. Synchronous analysis responders are fixture code. Failed nb_transport calls assert only completion, not failed output or whether a partial request was queued. Request retirement uses public get APIs; no same-channel concurrent callers, hidden FIFO inspection or arbitrary protocol correlation is claimed. Existing measured inputs remain unchanged.",
+        "ja": "型付きの公開TLM 1 port／export／impと有限channel storageを検査する。同期analysis responderは検査系のcodeである。nb_transport失敗時は完了bitだけを要求し、失敗出力や部分requestの有無は指定しない。requestの回収は公開get APIを使い、同じchannelの同時caller、内部FIFOの観測、任意protocol照合は主張しない。既存の実測入力は変更しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_nonblocking_transport_returns_false_when_request_storage_is_full",
+          "role": "direct",
+          "expected_observations": [
+            "UT: request_staged 1",
+            "UT: response_staged 1",
+            "UT: completed_with_full_request_storage 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM1-NB-TRANSPORT-NO-IMMEDIATE-REPLY",
+      "clause": "12.2.9.2.2",
+      "statement": {
+        "en": "A nonblocking transport without an available immediate reply returns false.",
+        "ja": "即時に利用できるreplyがないnonblocking transportはfalseを返す。"
+      },
+      "conditions": {
+        "en": "Disable the only responder before making the call.",
+        "ja": "呼出し前に唯一のresponderを無効にする。"
+      },
+      "expected": {
+        "en": "The completion bit is zero.",
+        "ja": "完了bitは0となる。"
+      },
+      "limitations": {
+        "en": "Typed public TLM 1 ports/exports/imps and bounded channel storage are exercised. Synchronous analysis responders are fixture code. Failed nb_transport calls assert only completion, not failed output or whether a partial request was queued. Request retirement uses public get APIs; no same-channel concurrent callers, hidden FIFO inspection or arbitrary protocol correlation is claimed. Existing measured inputs remain unchanged.",
+        "ja": "型付きの公開TLM 1 port／export／impと有限channel storageを検査する。同期analysis responderは検査系のcodeである。nb_transport失敗時は完了bitだけを要求し、失敗出力や部分requestの有無は指定しない。requestの回収は公開get APIを使い、同じchannelの同時caller、内部FIFOの観測、任意protocol照合は主張しない。既存の実測入力は変更しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_nonblocking_transport_returns_false_without_an_immediate_response",
+          "role": "direct",
+          "expected_observations": [
+            "UT: completed_without_reply 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM1-NB-TRANSPORT-AFTER-RETIRED-FAILURE",
+      "clause": "12.2.9.2.2",
+      "statement": {
+        "en": "A subsequent transport can complete after a failed call has been retired.",
+        "ja": "失敗呼出しを回収した後、次のtransportは完了できる。"
+      },
+      "conditions": {
+        "en": "Suppress the first response, retire any remaining request through try_get, then enable replies.",
+        "ja": "最初のresponseを抑え、残るrequestをtry_getで回収してreplyを有効化する。"
+      },
+      "expected": {
+        "en": "First completion is false; the next returns reply_9 and request 9 can be retired.",
+        "ja": "最初の完了はfalse、次はreply_9を返し、request 9を回収できる。"
+      },
+      "limitations": {
+        "en": "Typed public TLM 1 ports/exports/imps and bounded channel storage are exercised. Synchronous analysis responders are fixture code. Failed nb_transport calls assert only completion, not failed output or whether a partial request was queued. Request retirement uses public get APIs; no same-channel concurrent callers, hidden FIFO inspection or arbitrary protocol correlation is claimed. Existing measured inputs remain unchanged.",
+        "ja": "型付きの公開TLM 1 port／export／impと有限channel storageを検査する。同期analysis responderは検査系のcodeである。nb_transport失敗時は完了bitだけを要求し、失敗出力や部分requestの有無は指定しない。requestの回収は公開get APIを使い、同じchannelの同時caller、内部FIFOの観測、任意protocol照合は主張しない。既存の実測入力は変更しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_nonblocking_transport_can_complete_after_a_failed_call_is_retired",
+          "role": "direct",
+          "expected_observations": [
+            "UT: first completed 0",
+            "UT: next completed 1 response reply_9",
+            "UT: next retired 1 request 9"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM1-NB-TRANSPORT-REUSE",
+      "clause": "12.2.9.2.2",
+      "statement": {
+        "en": "Retiring accepted requests allows transport request/response storage to be reused.",
+        "ja": "受理requestの回収によりtransportのrequest／response storageを再利用できる。"
+      },
+      "conditions": {
+        "en": "Send request 4, retire it, then send and retire request 9.",
+        "ja": "request 4を送って回収し、次にrequest 9を送って回収する。"
+      },
+      "expected": {
+        "en": "Both complete with reply_4/reply_9 and two responder calls.",
+        "ja": "両方がreply_4／reply_9で完了し、responderは2回となる。"
+      },
+      "limitations": {
+        "en": "Typed public TLM 1 ports/exports/imps and bounded channel storage are exercised. Synchronous analysis responders are fixture code. Failed nb_transport calls assert only completion, not failed output or whether a partial request was queued. Request retirement uses public get APIs; no same-channel concurrent callers, hidden FIFO inspection or arbitrary protocol correlation is claimed. Existing measured inputs remain unchanged.",
+        "ja": "型付きの公開TLM 1 port／export／impと有限channel storageを検査する。同期analysis responderは検査系のcodeである。nb_transport失敗時は完了bitだけを要求し、失敗出力や部分requestの有無は指定しない。requestの回収は公開get APIを使い、同じchannelの同時caller、内部FIFOの観測、任意protocol照合は主張しない。既存の実測入力は変更しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_nonblocking_transport_reuses_request_and_response_slots",
+          "role": "direct",
+          "expected_observations": [
+            "UT: first completed 1 response reply_4",
+            "UT: first retired 1 request 4",
+            "UT: second completed 1 response reply_9",
+            "UT: second retired 1 request 9 calls 2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM1-NB-TRANSPORT-CHANNEL-ISOLATION",
+      "clause": "12.2.9.2.2",
+      "statement": {
+        "en": "Independent transport channels retain their own immediate responders and requests.",
+        "ja": "独立transport channelは、自身の即時responderとrequestを保持する。"
+      },
+      "conditions": {
+        "en": "Send request one to two channels with different responder offsets.",
+        "ja": "異なるresponder offsetの2 channelへrequest 1を送る。"
+      },
+      "expected": {
+        "en": "Replies are reply_101/reply_201, each request is one and each responder runs once.",
+        "ja": "replyはreply_101／reply_201で、各requestは1、各responderは1回となる。"
+      },
+      "limitations": {
+        "en": "Typed public TLM 1 ports/exports/imps and bounded channel storage are exercised. Synchronous analysis responders are fixture code. Failed nb_transport calls assert only completion, not failed output or whether a partial request was queued. Request retirement uses public get APIs; no same-channel concurrent callers, hidden FIFO inspection or arbitrary protocol correlation is claimed. Existing measured inputs remain unchanged.",
+        "ja": "型付きの公開TLM 1 port／export／impと有限channel storageを検査する。同期analysis responderは検査系のcodeである。nb_transport失敗時は完了bitだけを要求し、失敗出力や部分requestの有無は指定しない。requestの回収は公開get APIを使い、同じchannelの同時caller、内部FIFOの観測、任意protocol照合は主張しない。既存の実測入力は変更しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_nonblocking_transport_channels_keep_immediate_responses_independent",
+          "role": "direct",
+          "expected_observations": [
+            "UT: first completed 1 response reply_101",
+            "UT: first retired 1 request 1",
+            "UT: second completed 1 response reply_201",
+            "UT: second retired 1 request 1 calls 1 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM1-NB-TRANSPORT-OBJECT-IDENTITY",
+      "clause": "12.2.9.2.2",
+      "statement": {
+        "en": "Transport preserves the supplied request handle and returns the generated response handle.",
+        "ja": "transportは、指定request handleを保持し、生成response handleを返す。"
+      },
+      "conditions": {
+        "en": "Use an object request 41 and a distinct object reply 42 through public ports.",
+        "ja": "公開portを通じ、object request 41と別object reply 42を使う。"
+      },
+      "expected": {
+        "en": "Both exact handles and the retired request identity match; completion and reply acceptance succeed.",
+        "ja": "両handleと回収requestの同一性が正確に一致し、完了とreply受理が成功する。"
+      },
+      "limitations": {
+        "en": "Typed public TLM 1 ports/exports/imps and bounded channel storage are exercised. Synchronous analysis responders are fixture code. Failed nb_transport calls assert only completion, not failed output or whether a partial request was queued. Request retirement uses public get APIs; no same-channel concurrent callers, hidden FIFO inspection or arbitrary protocol correlation is claimed. Existing measured inputs remain unchanged.",
+        "ja": "型付きの公開TLM 1 port／export／impと有限channel storageを検査する。同期analysis responderは検査系のcodeである。nb_transport失敗時は完了bitだけを要求し、失敗出力や部分requestの有無は指定しない。requestの回収は公開get APIを使い、同じchannelの同時caller、内部FIFOの観測、任意protocol照合は主張しない。既存の実測入力は変更しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_nonblocking_transport_preserves_request_and_response_object_handles",
+          "role": "direct",
+          "expected_observations": [
+            "UT: completed 1 payload 42 accepted 1",
+            "UT: request_same 1 response_same 1 distinct 1 retired 1 retired_same 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-BLOCKING-SOCKET-READ",
+      "clause": "12.3.2.2.3",
+      "statement": {
+        "en": "Blocking sockets forward original transaction/delay handles and return the completed read data.",
+        "ja": "blocking socketは、元transaction／delay handleを引き渡し、完了したread dataを返す。"
+      },
+      "conditions": {
+        "en": "Execute one valid two-byte read through ordinary sockets.",
+        "ja": "通常socketで合法な2 byte readを1回実行する。"
+      },
+      "expected": {
+        "en": "Target sees both exact handles once; caller gets OK and bytes 01/80 hex.",
+        "ja": "targetは両handleを正確に1回観測し、callerはOKとbyte 01／80 hexを受ける。"
+      },
+      "limitations": {
+        "en": "Public TLM 2 binding and interface propagation are checked after normal connection resolution. Payload modifications and annotation arithmetic inside endpoints are fixture behavior, not independent protocol conformance. Custom phase types are generic-interface checks; IGNORE transactions assert selected status/phase paths only. No full four-phase timing protocol, payload lifetime ownership, concurrent transaction exclusion or arbitrary topology is established.",
+        "ja": "通常の接続解決後に公開TLM 2のbindingとinterface伝播を検査する。endpoint内のpayload変更とannotation計算は検査系の動作で、独立したprotocol適合ではない。独自phase型はgeneric-interface検査、IGNORE transactionは選択したstatus／phase経路だけを要求する。完全な4 phase timing protocol、payload lifetime所有権、並行transaction排他、任意topologyは成立させない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_blocking_socket_forwards_payload_delay_and_read_result",
+          "role": "direct",
+          "expected_observations": [
+            "UT: target call 1 payload_same 1 delay_same 1",
+            "UT: returned ok 1 data 1 80 calls 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-BLOCKING-PAYLOAD-REUSE",
+      "clause": "12.3.2.2.3",
+      "statement": {
+        "en": "A caller may reuse transaction and delay objects across completed blocking calls.",
+        "ja": "callerは、完了したblocking呼出し間でtransactionとdelay objectを再利用できる。"
+      },
+      "conditions": {
+        "en": "Change address and reset response status between two reads on the same handles.",
+        "ja": "同じhandleの2 read間でaddressを変え、response statusをresetする。"
+      },
+      "expected": {
+        "en": "The target receives the same handles at addresses 100/200 hex, returning first bytes one/two with OK.",
+        "ja": "targetはaddress 100／200 hexで同じhandleを受け、先頭byte 1／2とOKを返す。"
+      },
+      "limitations": {
+        "en": "Public TLM 2 binding and interface propagation are checked after normal connection resolution. Payload modifications and annotation arithmetic inside endpoints are fixture behavior, not independent protocol conformance. Custom phase types are generic-interface checks; IGNORE transactions assert selected status/phase paths only. No full four-phase timing protocol, payload lifetime ownership, concurrent transaction exclusion or arbitrary topology is established.",
+        "ja": "通常の接続解決後に公開TLM 2のbindingとinterface伝播を検査する。endpoint内のpayload変更とannotation計算は検査系の動作で、独立したprotocol適合ではない。独自phase型はgeneric-interface検査、IGNORE transactionは選択したstatus／phase経路だけを要求する。完全な4 phase timing protocol、payload lifetime所有権、並行transaction排他、任意topologyは成立させない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_blocking_socket_allows_payload_reuse",
+          "role": "direct",
+          "expected_observations": [
+            "UT: target call 1 payload_same 1 delay_same 1",
+            "UT: target call 2 payload_same 1 delay_same 1",
+            "UT: reused calls 2 addresses 100 200 bytes 1 2 ok 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-BLOCKING-EXPORT-WAITS",
+      "clause": "12.3.7.1",
+      "statement": {
+        "en": "A blocking export forwards handles and keeps its caller blocked until implementation return.",
+        "ja": "blocking exportはhandleを引き渡し、implementationのreturnまでcallerを待たせる。"
+      },
+      "conditions": {
+        "en": "Call through an export into an implementation with a positive delay.",
+        "ja": "exportから正の遅延を持つimplementationを呼ぶ。"
+      },
+      "expected": {
+        "en": "Caller remains blocked during the delay; one call returns exact handles, OK and updated annotation.",
+        "ja": "遅延中はcallerがblockされ、1呼出しが正確なhandle、OK、更新annotationを返す。"
+      },
+      "limitations": {
+        "en": "Public TLM 2 binding and interface propagation are checked after normal connection resolution. Payload modifications and annotation arithmetic inside endpoints are fixture behavior, not independent protocol conformance. Custom phase types are generic-interface checks; IGNORE transactions assert selected status/phase paths only. No full four-phase timing protocol, payload lifetime ownership, concurrent transaction exclusion or arbitrary topology is established.",
+        "ja": "通常の接続解決後に公開TLM 2のbindingとinterface伝播を検査する。endpoint内のpayload変更とannotation計算は検査系の動作で、独立したprotocol適合ではない。独自phase型はgeneric-interface検査、IGNORE transactionは選択したstatus／phase経路だけを要求する。完全な4 phase timing protocol、payload lifetime所有権、並行transaction排他、任意topologyは成立させない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_blocking_export_preserves_handles_and_waits_for_implementation_return",
+          "role": "direct",
+          "expected_observations": [
+            "UT: blocked returned 0 completed 0",
+            "UT: calls 1 payload_same 1 delay_same 1 ok 1 annotation 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-BLOCKING-EXPORT-REPEATED",
+      "clause": "12.3.7.1",
+      "statement": {
+        "en": "Repeated blocking-export calls route each supplied transaction independently.",
+        "ja": "反復するblocking-export呼出しは、指定した各transactionを個別にroutingする。"
+      },
+      "conditions": {
+        "en": "Send distinct payloads at addresses 101/202 and reuse the delay handle.",
+        "ja": "address 101／202の別payloadを送り、delay handleを再利用する。"
+      },
+      "expected": {
+        "en": "Two calls see ordered addresses, the final exact payload, both OK and accumulated annotation.",
+        "ja": "2呼出しが順番のaddress、最後の正確なpayload、両OK、累積annotationを示す。"
+      },
+      "limitations": {
+        "en": "Public TLM 2 binding and interface propagation are checked after normal connection resolution. Payload modifications and annotation arithmetic inside endpoints are fixture behavior, not independent protocol conformance. Custom phase types are generic-interface checks; IGNORE transactions assert selected status/phase paths only. No full four-phase timing protocol, payload lifetime ownership, concurrent transaction exclusion or arbitrary topology is established.",
+        "ja": "通常の接続解決後に公開TLM 2のbindingとinterface伝播を検査する。endpoint内のpayload変更とannotation計算は検査系の動作で、独立したprotocol適合ではない。独自phase型はgeneric-interface検査、IGNORE transactionは選択したstatus／phase経路だけを要求する。完全な4 phase timing protocol、payload lifetime所有権、並行transaction排他、任意topologyは成立させない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_blocking_export_routes_distinct_payloads_on_repeated_calls",
+          "role": "direct",
+          "expected_observations": [
+            "UT: calls 2 addresses 101 202 final_same 1 both_ok 1 annotation 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-NESTED-BLOCKING-ANNOTATION",
+      "clause": "12.3.7.1",
+      "statement": {
+        "en": "Nested blocking exports preserve identity and annotation without imposing a simulation wait.",
+        "ja": "入れ子blocking exportは、simulation待機を課さず同一性とannotationを保持する。"
+      },
+      "conditions": {
+        "en": "Bind two exports to a nonwaiting annotating implementation.",
+        "ja": "2 exportを待機しないannotation implementationへ接続する。"
+      },
+      "expected": {
+        "en": "Simulation time is unchanged, one callback sees both exact handles and annotation propagates.",
+        "ja": "simulation時刻は不変で、1 callbackが両正確なhandleを観測し、annotationが伝播する。"
+      },
+      "limitations": {
+        "en": "Public TLM 2 binding and interface propagation are checked after normal connection resolution. Payload modifications and annotation arithmetic inside endpoints are fixture behavior, not independent protocol conformance. Custom phase types are generic-interface checks; IGNORE transactions assert selected status/phase paths only. No full four-phase timing protocol, payload lifetime ownership, concurrent transaction exclusion or arbitrary topology is established.",
+        "ja": "通常の接続解決後に公開TLM 2のbindingとinterface伝播を検査する。endpoint内のpayload変更とannotation計算は検査系の動作で、独立したprotocol適合ではない。独自phase型はgeneric-interface検査、IGNORE transactionは選択したstatus／phase経路だけを要求する。完全な4 phase timing protocol、payload lifetime所有権、並行transaction排他、任意topologyは成立させない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_nested_blocking_exports_forward_annotation_without_advancing_time",
+          "role": "direct",
+          "expected_observations": [
+            "UT: time_same 1 calls 1 payload_same 1 delay_same 1 annotation 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-DELAY-ANNOTATION-NO-SCHEDULED-WAIT",
+      "clause": "12.3.9",
+      "statement": {
+        "en": "Mutating a transported delay object annotates time without requiring simulation time to advance.",
+        "ja": "転送delay objectの変更は、simulation時刻の進行を要求せず時刻を注記する。"
+      },
+      "conditions": {
+        "en": "A normal socket target adds five nanoseconds to an initial two without waiting.",
+        "ja": "通常socket targetが待機せず、初期2 nsへ5 nsを加える。"
+      },
+      "expected": {
+        "en": "The same delay reports seven nanoseconds, simulation time is unchanged and response is OK.",
+        "ja": "同じdelayは7 nsを示し、simulation時刻は不変、responseはOKとなる。"
+      },
+      "limitations": {
+        "en": "Public TLM 2 binding and interface propagation are checked after normal connection resolution. Payload modifications and annotation arithmetic inside endpoints are fixture behavior, not independent protocol conformance. Custom phase types are generic-interface checks; IGNORE transactions assert selected status/phase paths only. No full four-phase timing protocol, payload lifetime ownership, concurrent transaction exclusion or arbitrary topology is established.",
+        "ja": "通常の接続解決後に公開TLM 2のbindingとinterface伝播を検査する。endpoint内のpayload変更とannotation計算は検査系の動作で、独立したprotocol適合ではない。独自phase型はgeneric-interface検査、IGNORE transactionは選択したstatus／phase経路だけを要求する。完全な4 phase timing protocol、payload lifetime所有権、並行transaction排他、任意topologyは成立させない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_blocking_delay_annotation_updates_without_advancing_time",
+          "role": "direct",
+          "expected_observations": [
+            "UT: annotation 1 same_delay 1 no_wait 1 ok 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-FORWARD-PORT-COMPLETION",
+      "clause": "12.3.2.2.1",
+      "statement": {
+        "en": "A forward transport port propagates completion status and transaction changes.",
+        "ja": "forward transport portは、完了statusとtransaction変更を伝播する。"
+      },
+      "conditions": {
+        "en": "Send an IGNORE payload through a normal forward port.",
+        "ja": "通常forward portでIGNORE payloadを送る。"
+      },
+      "expected": {
+        "en": "Exact handles and BEGIN_REQ reach the target; COMPLETED, retained phase and OK return.",
+        "ja": "正確なhandleとBEGIN_REQがtargetへ届き、COMPLETED、保持phase、OKを返す。"
+      },
+      "limitations": {
+        "en": "Public TLM 2 binding and interface propagation are checked after normal connection resolution. Payload modifications and annotation arithmetic inside endpoints are fixture behavior, not independent protocol conformance. Custom phase types are generic-interface checks; IGNORE transactions assert selected status/phase paths only. No full four-phase timing protocol, payload lifetime ownership, concurrent transaction exclusion or arbitrary topology is established.",
+        "ja": "通常の接続解決後に公開TLM 2のbindingとinterface伝播を検査する。endpoint内のpayload変更とannotation計算は検査系の動作で、独立したprotocol適合ではない。独自phase型はgeneric-interface検査、IGNORE transactionは選択したstatus／phase経路だけを要求する。完全な4 phase timing protocol、payload lifetime所有権、並行transaction排他、任意topologyは成立させない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_nonblocking_forward_port_returns_completion_status",
+          "role": "direct",
+          "expected_observations": [
+            "UT: forward payload_same 1 delay_same 1 begin_req 1",
+            "UT: completed 1 phase_kept 1 ok 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-NONBLOCKING-RETURN-PATH",
+      "clause": "12.3.2.2.1",
+      "statement": {
+        "en": "A forward-accepted transaction can complete through the bound backward interface.",
+        "ja": "forwardで受理されたtransactionは、接続されたbackward interfaceを通じて完了できる。"
+      },
+      "conditions": {
+        "en": "Retain the request handles and issue one backward response.",
+        "ja": "request handleを保持し、backward responseを1回出す。"
+      },
+      "expected": {
+        "en": "Forward returns ACCEPTED; backward returns COMPLETED with END_RESP, OK and one callback.",
+        "ja": "forwardはACCEPTED、backwardはEND_RESP、OK、1 callbackとともにCOMPLETEDを返す。"
+      },
+      "limitations": {
+        "en": "Public TLM 2 binding and interface propagation are checked after normal connection resolution. Payload modifications and annotation arithmetic inside endpoints are fixture behavior, not independent protocol conformance. Custom phase types are generic-interface checks; IGNORE transactions assert selected status/phase paths only. No full four-phase timing protocol, payload lifetime ownership, concurrent transaction exclusion or arbitrary topology is established.",
+        "ja": "通常の接続解決後に公開TLM 2のbindingとinterface伝播を検査する。endpoint内のpayload変更とannotation計算は検査系の動作で、独立したprotocol適合ではない。独自phase型はgeneric-interface検査、IGNORE transactionは選択したstatus／phase経路だけを要求する。完全な4 phase timing protocol、payload lifetime所有権、並行transaction排他、任意topologyは成立させない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_nonblocking_round_trip_returns_backward_phase_update",
+          "role": "direct",
+          "expected_observations": [
+            "UT: accepted 1 stored_payload 1 stored_delay 1",
+            "UT: backward payload_same 1 delay_same 1 begin_resp 1",
+            "UT: completed 1 end_response 1 ok 1 callbacks 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-FORWARD-EXPORT-PHASE-UPDATE",
+      "clause": "12.3.7.2",
+      "statement": {
+        "en": "Forward exports propagate the phase reference, handles, annotation and returned status.",
+        "ja": "forward exportは、phase参照、handle、annotation、戻りstatusを伝播する。"
+      },
+      "conditions": {
+        "en": "Connect an export to an implementation returning UPDATED.",
+        "ja": "UPDATEDを返すimplementationへexportを接続する。"
+      },
+      "expected": {
+        "en": "Input/output phases, exact payload/delay and one callback with updated annotation match.",
+        "ja": "入出力phase、正確なpayload／delay、更新annotationを持つ1 callbackが一致する。"
+      },
+      "limitations": {
+        "en": "Public TLM 2 binding and interface propagation are checked after normal connection resolution. Payload modifications and annotation arithmetic inside endpoints are fixture behavior, not independent protocol conformance. Custom phase types are generic-interface checks; IGNORE transactions assert selected status/phase paths only. No full four-phase timing protocol, payload lifetime ownership, concurrent transaction exclusion or arbitrary topology is established.",
+        "ja": "通常の接続解決後に公開TLM 2のbindingとinterface伝播を検査する。endpoint内のpayload変更とannotation計算は検査系の動作で、独立したprotocol適合ではない。独自phase型はgeneric-interface検査、IGNORE transactionは選択したstatus／phase経路だけを要求する。完全な4 phase timing protocol、payload lifetime所有権、並行transaction排他、任意topologyは成立させない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_nonblocking_forward_export_propagates_updated_phase",
+          "role": "direct",
+          "expected_observations": [
+            "UT: updated 1 input_phase 1 output_phase 1 calls 1",
+            "UT: payload_same 1 delay_same 1 annotation 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-BACKWARD-EXPORT-PHASE-UPDATE",
+      "clause": "12.3.7.3",
+      "statement": {
+        "en": "Backward exports propagate phase changes and the returned synchronization status.",
+        "ja": "backward exportは、phase変更と戻り同期statusを伝播する。"
+      },
+      "conditions": {
+        "en": "Send BEGIN_RESP through a backward export to an UPDATED implementation.",
+        "ja": "backward exportからUPDATED implementationへBEGIN_RESPを送る。"
+      },
+      "expected": {
+        "en": "UPDATED and END_RESP return with exact handles and the changed annotation.",
+        "ja": "正確なhandleと変更annotationとともにUPDATEDとEND_RESPを返す。"
+      },
+      "limitations": {
+        "en": "Public TLM 2 binding and interface propagation are checked after normal connection resolution. Payload modifications and annotation arithmetic inside endpoints are fixture behavior, not independent protocol conformance. Custom phase types are generic-interface checks; IGNORE transactions assert selected status/phase paths only. No full four-phase timing protocol, payload lifetime ownership, concurrent transaction exclusion or arbitrary topology is established.",
+        "ja": "通常の接続解決後に公開TLM 2のbindingとinterface伝播を検査する。endpoint内のpayload変更とannotation計算は検査系の動作で、独立したprotocol適合ではない。独自phase型はgeneric-interface検査、IGNORE transactionは選択したstatus／phase経路だけを要求する。完全な4 phase timing protocol、payload lifetime所有権、並行transaction排他、任意topologyは成立させない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_nonblocking_backward_export_propagates_updated_phase",
+          "role": "direct",
+          "expected_observations": [
+            "UT: updated 1 input_phase 1 output_phase 1 calls 1",
+            "UT: payload_same 1 delay_same 1 annotation 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-CUSTOM-FORWARD-EXPORT-TYPES",
+      "clause": "12.3.7.2",
+      "statement": {
+        "en": "Nested forward exports preserve custom transaction and phase specializations.",
+        "ja": "入れ子forward exportは、独自transaction／phase specializationを保持する。"
+      },
+      "conditions": {
+        "en": "Send a custom value-nine message through two exports and update it to thirteen.",
+        "ja": "2 exportを通じて値9の独自messageを送り、13へ更新する。"
+      },
+      "expected": {
+        "en": "One call returns UPDATED, the custom output phase, exact handles and the updated annotation/value.",
+        "ja": "1呼出しがUPDATED、独自出力phase、正確なhandle、更新annotation／値を返す。"
+      },
+      "limitations": {
+        "en": "Public TLM 2 binding and interface propagation are checked after normal connection resolution. Payload modifications and annotation arithmetic inside endpoints are fixture behavior, not independent protocol conformance. Custom phase types are generic-interface checks; IGNORE transactions assert selected status/phase paths only. No full four-phase timing protocol, payload lifetime ownership, concurrent transaction exclusion or arbitrary topology is established.",
+        "ja": "通常の接続解決後に公開TLM 2のbindingとinterface伝播を検査する。endpoint内のpayload変更とannotation計算は検査系の動作で、独立したprotocol適合ではない。独自phase型はgeneric-interface検査、IGNORE transactionは選択したstatus／phase経路だけを要求する。完全な4 phase timing protocol、payload lifetime所有権、並行transaction排他、任意topologyは成立させない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_nested_forward_exports_preserve_custom_transaction_and_phase_types",
+          "role": "direct",
+          "expected_observations": [
+            "UT: updated 1 input_phase 1 output_phase 1 value 13 calls 1",
+            "UT: message_same 1 delay_same 1 annotation 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-CUSTOM-BACKWARD-EXPORT-TYPES",
+      "clause": "12.3.7.3",
+      "statement": {
+        "en": "Nested backward exports preserve custom transaction and phase specializations.",
+        "ja": "入れ子backward exportは、独自transaction／phase specializationを保持する。"
+      },
+      "conditions": {
+        "en": "Use the same custom transaction/phase types through two backward exports.",
+        "ja": "2 backward exportで同じ独自transaction／phase型を使う。"
+      },
+      "expected": {
+        "en": "UPDATED, custom phase mutation, value thirteen and exact message/delay handles propagate.",
+        "ja": "UPDATED、独自phase変更、値13、正確なmessage／delay handleが伝播する。"
+      },
+      "limitations": {
+        "en": "Public TLM 2 binding and interface propagation are checked after normal connection resolution. Payload modifications and annotation arithmetic inside endpoints are fixture behavior, not independent protocol conformance. Custom phase types are generic-interface checks; IGNORE transactions assert selected status/phase paths only. No full four-phase timing protocol, payload lifetime ownership, concurrent transaction exclusion or arbitrary topology is established.",
+        "ja": "通常の接続解決後に公開TLM 2のbindingとinterface伝播を検査する。endpoint内のpayload変更とannotation計算は検査系の動作で、独立したprotocol適合ではない。独自phase型はgeneric-interface検査、IGNORE transactionは選択したstatus／phase経路だけを要求する。完全な4 phase timing protocol、payload lifetime所有権、並行transaction排他、任意topologyは成立させない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_nested_backward_exports_preserve_custom_transaction_and_phase_types",
+          "role": "direct",
+          "expected_observations": [
+            "UT: updated 1 input_phase 1 output_phase 1 value 13 calls 1",
+            "UT: message_same 1 delay_same 1 annotation 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-ORDINARY-EXPORT-ROUNDTRIP",
+      "clause": "12.3.7.2",
+      "statement": {
+        "en": "Ordinary forward/backward exports preserve one transaction round trip.",
+        "ja": "通常forward／backward exportは、1 transactionの往復を保持する。"
+      },
+      "conditions": {
+        "en": "Forward an IGNORE request, then explicitly initiate its backward response.",
+        "ja": "IGNORE requestをforwardし、次にそのbackward responseを明示開始する。"
+      },
+      "expected": {
+        "en": "ACCEPTED then COMPLETED/END_RESP propagate with one call each, exact handles, OK and annotation.",
+        "ja": "ACCEPTED、次にCOMPLETED／END_RESPが各1呼出し、正確なhandle、OK、annotationとともに伝播する。"
+      },
+      "limitations": {
+        "en": "Public TLM 2 binding and interface propagation are checked after normal connection resolution. Payload modifications and annotation arithmetic inside endpoints are fixture behavior, not independent protocol conformance. Custom phase types are generic-interface checks; IGNORE transactions assert selected status/phase paths only. No full four-phase timing protocol, payload lifetime ownership, concurrent transaction exclusion or arbitrary topology is established.",
+        "ja": "通常の接続解決後に公開TLM 2のbindingとinterface伝播を検査する。endpoint内のpayload変更とannotation計算は検査系の動作で、独立したprotocol適合ではない。独自phase型はgeneric-interface検査、IGNORE transactionは選択したstatus／phase経路だけを要求する。完全な4 phase timing protocol、payload lifetime所有権、並行transaction排他、任意topologyは成立させない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_ordinary_forward_and_backward_exports_complete_one_roundtrip",
+          "role": "direct",
+          "expected_observations": [
+            "UT: accepted 1 request_phase 1 phase_kept 1",
+            "UT: completed 1 response_phase 1 ended 1 calls 1 1",
+            "UT: payload_same 1 delay_same 1 ok 1 annotation 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-PASSTHROUGH-IMMEDIATE-COMPLETION",
+      "clause": "12.3.5.5.4",
+      "statement": {
+        "en": "Compatible passthrough socket topologies propagate immediate forward completion.",
+        "ja": "互換passthrough socket topologyは、即時forward完了を伝播する。"
+      },
+      "conditions": {
+        "en": "Use initiator-side, target-side and paired socket relays for a nonwaiting IGNORE target.",
+        "ja": "待機しないIGNORE targetで、initiator側、target側、両側のsocket中継を使う。"
+      },
+      "expected": {
+        "en": "Forward identity/phase/annotation are preserved, COMPLETED and OK return, no backward callback or time advance occurs.",
+        "ja": "forwardの同一性／phase／annotationを保持し、COMPLETEDとOKを返し、backward callbackも時刻進行もない。"
+      },
+      "limitations": {
+        "en": "Public TLM 2 binding and interface propagation are checked after normal connection resolution. Payload modifications and annotation arithmetic inside endpoints are fixture behavior, not independent protocol conformance. Custom phase types are generic-interface checks; IGNORE transactions assert selected status/phase paths only. No full four-phase timing protocol, payload lifetime ownership, concurrent transaction exclusion or arbitrary topology is established.",
+        "ja": "通常の接続解決後に公開TLM 2のbindingとinterface伝播を検査する。endpoint内のpayload変更とannotation計算は検査系の動作で、独立したprotocol適合ではない。独自phase型はgeneric-interface検査、IGNORE transactionは選択したstatus／phase経路だけを要求する。完全な4 phase timing protocol、payload lifetime所有権、並行transaction排他、任意topologyは成立させない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_passthrough_initiator_forwards_immediate_completion",
+          "role": "direct",
+          "expected_observations": [
+            "UT: forward_identity 1 request_phase 1 calls 1 annotation 1",
+            "UT: completed 1 ok 1 backward_calls 0 no_wait 1"
+          ]
+        },
+        {
+          "test": "u12/test_tlm2_passthrough_target_forwards_immediate_completion",
+          "role": "direct",
+          "expected_observations": [
+            "UT: forward_identity 1 request_phase 1 calls 1 annotation 1",
+            "UT: completed 1 ok 1 backward_calls 0 no_wait 1"
+          ]
+        },
+        {
+          "test": "u12/test_tlm2_paired_passthrough_sockets_forward_immediate_completion",
+          "role": "direct",
+          "expected_observations": [
+            "UT: forward_identity 1 request_phase 1 calls 1 annotation 1",
+            "UT: completed 1 ok 1 backward_calls 0 no_wait 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-PASSTHROUGH-BACKWARD-COMPLETION",
+      "clause": "12.3.5.5.4",
+      "statement": {
+        "en": "Socket connect establishes backward routing through single and nested passthrough relays.",
+        "ja": "socket connectは、単一／入れ子passthrough中継のbackward routingを成立させる。"
+      },
+      "conditions": {
+        "en": "Accept a forward request, then issue the stored transaction backward without waiting.",
+        "ja": "forward requestを受理し、保持transactionを待機せずbackwardへ出す。"
+      },
+      "expected": {
+        "en": "Both paths preserve handles/phases/annotations; one backward callback returns COMPLETED with END_RESP and OK without advancing time.",
+        "ja": "両経路がhandle／phase／annotationを保持し、1 backward callbackが時刻を進めずEND_RESPとOKでCOMPLETEDを返す。"
+      },
+      "limitations": {
+        "en": "Public TLM 2 binding and interface propagation are checked after normal connection resolution. Payload modifications and annotation arithmetic inside endpoints are fixture behavior, not independent protocol conformance. Custom phase types are generic-interface checks; IGNORE transactions assert selected status/phase paths only. No full four-phase timing protocol, payload lifetime ownership, concurrent transaction exclusion or arbitrary topology is established.",
+        "ja": "通常の接続解決後に公開TLM 2のbindingとinterface伝播を検査する。endpoint内のpayload変更とannotation計算は検査系の動作で、独立したprotocol適合ではない。独自phase型はgeneric-interface検査、IGNORE transactionは選択したstatus／phase経路だけを要求する。完全な4 phase timing protocol、payload lifetime所有権、並行transaction排他、任意topologyは成立させない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_passthrough_initiator_routes_backward_completion",
+          "role": "direct",
+          "expected_observations": [
+            "UT: forward_identity 1 request_phase 1 calls 1 annotation 1",
+            "UT: accepted 1",
+            "UT: backward_identity 1 response_phase 1 calls 1 annotation 1",
+            "UT: returned_status 1 end_response 1 final_annotation 1 ok 1 no_wait 1"
+          ]
+        },
+        {
+          "test": "u12/test_tlm2_passthrough_target_routes_backward_completion",
+          "role": "direct",
+          "expected_observations": [
+            "UT: forward_identity 1 request_phase 1 calls 1 annotation 1",
+            "UT: accepted 1",
+            "UT: backward_identity 1 response_phase 1 calls 1 annotation 1",
+            "UT: returned_status 1 end_response 1 final_annotation 1 ok 1 no_wait 1"
+          ]
+        },
+        {
+          "test": "u12/test_tlm2_nested_passthrough_initiators_route_both_directions",
+          "role": "direct",
+          "expected_observations": [
+            "UT: forward_identity 1 request_phase 1 calls 1 annotation 1",
+            "UT: accepted 1",
+            "UT: backward_identity 1 response_phase 1 calls 1 annotation 1",
+            "UT: returned_status 1 end_response 1 final_annotation 1 ok 1 no_wait 1"
+          ]
+        },
+        {
+          "test": "u12/test_tlm2_nested_passthrough_targets_route_both_directions",
+          "role": "direct",
+          "expected_observations": [
+            "UT: forward_identity 1 request_phase 1 calls 1 annotation 1",
+            "UT: accepted 1",
+            "UT: backward_identity 1 response_phase 1 calls 1 annotation 1",
+            "UT: returned_status 1 end_response 1 final_annotation 1 ok 1 no_wait 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-PASSTHROUGH-BACKWARD-UPDATED",
+      "clause": "12.3.5.5.4",
+      "statement": {
+        "en": "Paired passthrough sockets return a backward UPDATED phase change to the target.",
+        "ja": "両側passthrough socketは、backwardのUPDATED phase変更をtargetへ返す。"
+      },
+      "conditions": {
+        "en": "Accept a forward transaction and have its backward receiver return UPDATED/END_RESP.",
+        "ja": "forward transactionを受理し、backward receiverがUPDATED／END_RESPを返す。"
+      },
+      "expected": {
+        "en": "Exact identities, one call per path, updated phase, final annotation and OK propagate without waiting.",
+        "ja": "正確な同一性、各経路1呼出し、更新phase、最終annotation、OKが待機なしに伝播する。"
+      },
+      "limitations": {
+        "en": "Public TLM 2 binding and interface propagation are checked after normal connection resolution. Payload modifications and annotation arithmetic inside endpoints are fixture behavior, not independent protocol conformance. Custom phase types are generic-interface checks; IGNORE transactions assert selected status/phase paths only. No full four-phase timing protocol, payload lifetime ownership, concurrent transaction exclusion or arbitrary topology is established.",
+        "ja": "通常の接続解決後に公開TLM 2のbindingとinterface伝播を検査する。endpoint内のpayload変更とannotation計算は検査系の動作で、独立したprotocol適合ではない。独自phase型はgeneric-interface検査、IGNORE transactionは選択したstatus／phase経路だけを要求する。完全な4 phase timing protocol、payload lifetime所有権、並行transaction排他、任意topologyは成立させない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_paired_passthrough_sockets_return_backward_updated_phase",
+          "role": "direct",
+          "expected_observations": [
+            "UT: forward_identity 1 request_phase 1 calls 1 annotation 1",
+            "UT: accepted 1",
+            "UT: backward_identity 1 response_phase 1 calls 1 annotation 1",
+            "UT: returned_status 1 end_response 1 final_annotation 1 ok 1 no_wait 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-PAYLOAD-PACK-FIELD-ORDER",
+      "clause": "12.3.4.2.4",
+      "statement": {
+        "en": "Payload packing emits declared fields in their prescribed order.",
+        "ja": "payload packingは、規定順に宣言fieldを出力する。"
+      },
+      "conditions": {
+        "en": "Pack an initialized WRITE payload and decode each field through the public packer.",
+        "ja": "初期化したWRITE payloadをpackし、公開packerで各fieldをdecodeする。"
+      },
+      "expected": {
+        "en": "Address, command, active data, DMI, status, enables and streaming width decode to their supplied values in order.",
+        "ja": "address、command、active data、DMI、status、enable、streaming widthを順に指定値としてdecodeする。"
+      },
+      "limitations": {
+        "en": "Direct payload pack/unpack hooks and the public packer are used without object markers or assumptions about raw bit order. Active prefixes, declared widths and scalar values are checked. Short-array fatal probes finish inside the catcher, prescribing no post-fatal continuation or message text. Extensions, stream endianness and arbitrary payload encodings remain outside these links.",
+        "ja": "object markerや生bit順を仮定せず、payloadの直接pack／unpack hookと公開packerを使う。active prefix、宣言幅、scalar値を検査する。短い配列のfatalはcatcher内で終了し、fatal後の継続やmessage本文を指定しない。extension、streamのendian、任意payload encodingは対象外である。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_payload_pack_field_order_is_decodable_by_public_packer",
+          "role": "direct",
+          "expected_observations": [
+            "UT: address 1020304050607080",
+            "UT: command 1 length 2 dmi 1",
+            "UT: data 81 24",
+            "UT: status_same 1",
+            "UT: enable_length 1 enable ff width 2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-PAYLOAD-PACK-SHORT-ARRAY-FATAL",
+      "clause": "12.3.4.2.4",
+      "statement": {
+        "en": "Packing reports FATAL when a backing array is shorter than its declared active length.",
+        "ja": "pack時にbacking配列が宣言active長より短ければFATALを報告する。"
+      },
+      "conditions": {
+        "en": "Provide one data or enable byte while declaring two active bytes.",
+        "ja": "dataまたはenableを1 byteだけ指定し、active長を2 byteとする。"
+      },
+      "expected": {
+        "en": "The catcher observes FATAL and ends the simulation.",
+        "ja": "catcherはFATALを観測してsimulationを終了する。"
+      },
+      "limitations": {
+        "en": "Direct payload pack/unpack hooks and the public packer are used without object markers or assumptions about raw bit order. Active prefixes, declared widths and scalar values are checked. Short-array fatal probes finish inside the catcher, prescribing no post-fatal continuation or message text. Extensions, stream endianness and arbitrary payload encodings remain outside these links.",
+        "ja": "object markerや生bit順を仮定せず、payloadの直接pack／unpack hookと公開packerを使う。active prefix、宣言幅、scalar値を検査する。短い配列のfatalはcatcher内で終了し、fatal後の継続やmessage本文を指定しない。extension、streamのendian、任意payload encodingは対象外である。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_payload_pack_rejects_short_byte_enable_array",
+          "role": "direct",
+          "expected_observations": [
+            "UT: fatal_for_short_array 1"
+          ]
+        },
+        {
+          "test": "u12/test_tlm2_payload_pack_rejects_short_data_array",
+          "role": "direct",
+          "expected_observations": [
+            "UT: fatal_for_short_array 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-PAYLOAD-PACK-DATA-PREFIX",
+      "clause": "12.3.4.2.4",
+      "statement": {
+        "en": "Only the active data prefix is packed without modifying the source backing array.",
+        "ja": "元backing配列を変えず、active data prefixだけをpackする。"
+      },
+      "conditions": {
+        "en": "Supply four bytes but declare two, then unpack into a fresh payload.",
+        "ja": "4 byteを指定して2 byteを宣言し、新payloadへunpackする。"
+      },
+      "expected": {
+        "en": "Decoded length/prefix are two and 00/fe hex; original size is four and tail remains 93 hex.",
+        "ja": "decode長／prefixは2と00／fe hexで、元sizeは4、末尾は93 hexを保持する。"
+      },
+      "limitations": {
+        "en": "Direct payload pack/unpack hooks and the public packer are used without object markers or assumptions about raw bit order. Active prefixes, declared widths and scalar values are checked. Short-array fatal probes finish inside the catcher, prescribing no post-fatal continuation or message text. Extensions, stream endianness and arbitrary payload encodings remain outside these links.",
+        "ja": "object markerや生bit順を仮定せず、payloadの直接pack／unpack hookと公開packerを使う。active prefix、宣言幅、scalar値を検査する。短い配列のfatalはcatcher内で終了し、fatal後の継続やmessage本文を指定しない。extension、streamのendian、任意payload encodingは対象外である。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_payload_pack_uses_only_active_data_prefix",
+          "role": "direct",
+          "expected_observations": [
+            "UT: length 2 prefix 00 fe source_size 4 source_tail 93"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-PAYLOAD-PACK-ENABLE-PREFIX",
+      "clause": "12.3.4.2.4",
+      "statement": {
+        "en": "Only the active byte-enable prefix is packed, preserving the following field alignment.",
+        "ja": "active byte-enable prefixだけをpackし、後続fieldの位置を保持する。"
+      },
+      "conditions": {
+        "en": "Declare two active enable bytes from a three-byte array and round-trip the payload.",
+        "ja": "3 byte配列からactive enable 2 byteを宣言し、payloadを往復変換する。"
+      },
+      "expected": {
+        "en": "Enable length two, bytes ff/00 and streaming width one are returned.",
+        "ja": "enable長2、byte ff／00、streaming width 1を返す。"
+      },
+      "limitations": {
+        "en": "Direct payload pack/unpack hooks and the public packer are used without object markers or assumptions about raw bit order. Active prefixes, declared widths and scalar values are checked. Short-array fatal probes finish inside the catcher, prescribing no post-fatal continuation or message text. Extensions, stream endianness and arbitrary payload encodings remain outside these links.",
+        "ja": "object markerや生bit順を仮定せず、payloadの直接pack／unpack hookと公開packerを使う。active prefix、宣言幅、scalar値を検査する。短い配列のfatalはcatcher内で終了し、fatal後の継続やmessage本文を指定しない。extension、streamのendian、任意payload encodingは対象外である。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_payload_pack_uses_only_active_byte_enable_prefix",
+          "role": "direct",
+          "expected_observations": [
+            "UT: enable_length 2 prefix ff 00 width 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-PAYLOAD-UNPACK-SCALAR-ROUNDTRIP",
+      "clause": "12.3.4.2.4",
+      "statement": {
+        "en": "Payload unpack restores the scalar fields supplied by pack.",
+        "ja": "payload unpackは、packで指定したscalar fieldを復元する。"
+      },
+      "conditions": {
+        "en": "Round-trip an IGNORE payload with empty arrays and nondefault scalars.",
+        "ja": "空配列と非既定scalarを持つIGNORE payloadを往復変換する。"
+      },
+      "expected": {
+        "en": "Address, IGNORE command, DMI, response status and width nineteen are retained.",
+        "ja": "address、IGNORE command、DMI、response status、width 19を保持する。"
+      },
+      "limitations": {
+        "en": "Direct payload pack/unpack hooks and the public packer are used without object markers or assumptions about raw bit order. Active prefixes, declared widths and scalar values are checked. Short-array fatal probes finish inside the catcher, prescribing no post-fatal continuation or message text. Extensions, stream endianness and arbitrary payload encodings remain outside these links.",
+        "ja": "object markerや生bit順を仮定せず、payloadの直接pack／unpack hookと公開packerを使う。active prefix、宣言幅、scalar値を検査する。短い配列のfatalはcatcher内で終了し、fatal後の継続やmessage本文を指定しない。extension、streamのendian、任意payload encodingは対象外である。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_payload_unpack_roundtrip_preserves_scalar_fields",
+          "role": "direct",
+          "expected_observations": [
+            "UT: address_same 1 ignore 1 dmi 1 status_same 1 width 19"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM-TIME-ABSOLUTE-CONVERSION-REPLACEMENT",
+      "clause": "5.6.2.9",
+      "statement": {
+        "en": "Absolute time assignment replaces the old value and supports unit conversion.",
+        "ja": "絶対時刻の代入は、元値を置換し、単位変換を可能にする。"
+      },
+      "conditions": {
+        "en": "Set 2.5 microseconds, query nanoseconds, then assign seven nanoseconds.",
+        "ja": "2.5 microsecondを設定してnanosecondで照会し、次に7 nanosecondを代入する。"
+      },
+      "expected": {
+        "en": "Queries return 2.5 microseconds/2500 nanoseconds, then seven nanoseconds.",
+        "ja": "照会は2.5 microsecond／2500 nanosecond、次に7 nanosecondとなる。"
+      },
+      "limitations": {
+        "en": "The TLM delay is the canonical uvm_time alias. Explicit positive resolutions, representable values and relative-tolerance comparisons avoid prescribing rounding or a caller time scale. Alias mutations are object identity checks. The standard default-resolution spelling and constructor-name differences remain spec-only; legacy APIs are not substituted. Numeric annotations do not establish protocol timing or clock advancement.",
+        "ja": "TLM delayはcanonicalなuvm_time aliasである。正の明示resolution、表現可能値、相対許容差で、丸めやcallerのtime scaleを指定しない。alias変更はobject同一性の検査である。標準default-resolution APIの綴りとconstructor名の差分はspec-onlyを保持し、legacy APIで代用しない。数値annotationはprotocol timingやclock進行を示さない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_time_absolute_units_convert_and_replace_value",
+          "role": "direct",
+          "expected_observations": [
+            "UT: microseconds 1 nanoseconds 1",
+            "UT: replaced 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM-TIME-ALIAS-MUTATION",
+      "clause": "12.3.9",
+      "statement": {
+        "en": "The canonical and TLM time aliases refer to the same mutable object.",
+        "ja": "canonical型とTLM time aliasは、同じ変更可能objectを参照する。"
+      },
+      "conditions": {
+        "en": "Assign through the base alias and reset through the TLM alias.",
+        "ja": "base aliasから代入し、TLM aliasからresetする。"
+      },
+      "expected": {
+        "en": "Both views observe nine nanoseconds then zero.",
+        "ja": "両参照が9 nanosecond、次に0を観測する。"
+      },
+      "limitations": {
+        "en": "The TLM delay is the canonical uvm_time alias. Explicit positive resolutions, representable values and relative-tolerance comparisons avoid prescribing rounding or a caller time scale. Alias mutations are object identity checks. The standard default-resolution spelling and constructor-name differences remain spec-only; legacy APIs are not substituted. Numeric annotations do not establish protocol timing or clock advancement.",
+        "ja": "TLM delayはcanonicalなuvm_time aliasである。正の明示resolution、表現可能値、相対許容差で、丸めやcallerのtime scaleを指定しない。alias変更はobject同一性の検査である。標準default-resolution APIの綴りとconstructor名の差分はspec-onlyを保持し、legacy APIで代用しない。数値annotationはprotocol timingやclock進行を示さない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_time_alias_mutation_is_visible_through_both_handles",
+          "role": "direct",
+          "expected_observations": [
+            "UT: mutation_visible 1",
+            "UT: reset_visible 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM-TIME-DEFAULT-CONSTRUCTOR-NAME",
+      "clause": "5.6.2.1",
+      "statement": {
+        "en": "The default canonical time constructor name is uvm_time through its TLM alias.",
+        "ja": "TLM alias経由でも、canonical time constructorの既定名はuvm_timeである。"
+      },
+      "conditions": {
+        "en": "Construct without an explicit name.",
+        "ja": "名前を明示せず生成する。"
+      },
+      "expected": {
+        "en": "The name getter returns uvm_time.",
+        "ja": "name getterはuvm_timeを返す。"
+      },
+      "limitations": {
+        "en": "The TLM delay is the canonical uvm_time alias. Explicit positive resolutions, representable values and relative-tolerance comparisons avoid prescribing rounding or a caller time scale. Alias mutations are object identity checks. The standard default-resolution spelling and constructor-name differences remain spec-only; legacy APIs are not substituted. Numeric annotations do not establish protocol timing or clock advancement.",
+        "ja": "TLM delayはcanonicalなuvm_time aliasである。正の明示resolution、表現可能値、相対許容差で、丸めやcallerのtime scaleを指定しない。alias変更はobject同一性の検査である。標準default-resolution APIの綴りとconstructor名の差分はspec-onlyを保持し、legacy APIで代用しない。数値annotationはprotocol timingやclock進行を示さない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_time_default_constructor_uses_canonical_type_name",
+          "role": "direct",
+          "expected_observations": [
+            "UT: default_name uvm_time"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM-TIME-EXPLICIT-NAME-ZERO-ALIAS",
+      "clause": "5.6.2.1",
+      "statement": {
+        "en": "An explicitly named canonical delay starts at zero and retains alias identity.",
+        "ja": "名前を明示したcanonical delayは、0で始まりaliasの同一性を保持する。"
+      },
+      "conditions": {
+        "en": "Construct alpha with a positive resolution and assign its base alias.",
+        "ja": "正のresolutionでalphaを生成し、base aliasを代入する。"
+      },
+      "expected": {
+        "en": "Alias handles are identical, name is alpha and time is zero.",
+        "ja": "alias handleは同一で、名前はalpha、時刻は0となる。"
+      },
+      "limitations": {
+        "en": "The TLM delay is the canonical uvm_time alias. Explicit positive resolutions, representable values and relative-tolerance comparisons avoid prescribing rounding or a caller time scale. Alias mutations are object identity checks. The standard default-resolution spelling and constructor-name differences remain spec-only; legacy APIs are not substituted. Numeric annotations do not establish protocol timing or clock advancement.",
+        "ja": "TLM delayはcanonicalなuvm_time aliasである。正の明示resolution、表現可能値、相対許容差で、丸めやcallerのtime scaleを指定しない。alias変更はobject同一性の検査である。標準default-resolution APIの綴りとconstructor名の差分はspec-onlyを保持し、legacy APIで代用しない。数値annotationはprotocol timingやclock進行を示さない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_time_explicit_name_zero_and_base_alias",
+          "role": "direct",
+          "expected_observations": [
+            "UT: alias_same 1 name alpha zero 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM-TIME-INSTANCE-RESET",
+      "clause": "5.6.2.4",
+      "statement": {
+        "en": "Reset clears only the receiving canonical delay.",
+        "ja": "resetは、呼出し対象のcanonical delayだけを0にする。"
+      },
+      "conditions": {
+        "en": "Give two distinct resolutions the same twelve-nanosecond value and reset first.",
+        "ja": "異なる2 resolutionで同じ12 nanosecondを設定し、firstをresetする。"
+      },
+      "expected": {
+        "en": "Initial values agree; first becomes zero while peer remains twelve.",
+        "ja": "初期値は一致し、firstは0、peerは12を保持する。"
+      },
+      "limitations": {
+        "en": "The TLM delay is the canonical uvm_time alias. Explicit positive resolutions, representable values and relative-tolerance comparisons avoid prescribing rounding or a caller time scale. Alias mutations are object identity checks. The standard default-resolution spelling and constructor-name differences remain spec-only; legacy APIs are not substituted. Numeric annotations do not establish protocol timing or clock advancement.",
+        "ja": "TLM delayはcanonicalなuvm_time aliasである。正の明示resolution、表現可能値、相対許容差で、丸めやcallerのtime scaleを指定しない。alias変更はobject同一性の検査である。標準default-resolution APIの綴りとconstructor名の差分はspec-onlyを保持し、legacy APIで代用しない。数値annotationはprotocol timingやclock進行を示さない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_time_reset_is_local_across_explicit_resolutions",
+          "role": "direct",
+          "expected_observations": [
+            "UT: equal_values 1 1 distinct 1",
+            "UT: reset_local 1 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM-TIME-SCALED-ARITHMETIC",
+      "clause": "5.6.2.6",
+      "statement": {
+        "en": "Scaled increments, decrements and realtime queries represent consistent canonical values.",
+        "ja": "scale付きincrement、decrement、realtime照会は、一貫したcanonical値を表す。"
+      },
+      "conditions": {
+        "en": "Use a legal 100-second scale, add two plus three units, then subtract two.",
+        "ja": "合法な100 second scaleで2と3単位を加え、次に2を引く。"
+      },
+      "expected": {
+        "en": "Canonical and realtime views agree at five then three units.",
+        "ja": "canonicalとrealtimeの参照は、5、次に3単位で一致する。"
+      },
+      "limitations": {
+        "en": "The TLM delay is the canonical uvm_time alias. Explicit positive resolutions, representable values and relative-tolerance comparisons avoid prescribing rounding or a caller time scale. Alias mutations are object identity checks. The standard default-resolution spelling and constructor-name differences remain spec-only; legacy APIs are not substituted. Numeric annotations do not establish protocol timing or clock advancement.",
+        "ja": "TLM delayはcanonicalなuvm_time aliasである。正の明示resolution、表現可能値、相対許容差で、丸めやcallerのtime scaleを指定しない。alias変更はobject同一性の検査である。標準default-resolution APIの綴りとconstructor名の差分はspec-onlyを保持し、legacy APIで代用しない。数値annotationはprotocol timingやclock進行を示さない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_time_scaled_increment_decrement_and_realtime_agree",
+          "role": "direct",
+          "expected_observations": [
+            "UT: accumulated 1 realtime 1",
+            "UT: decremented 1 realtime 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM-TIME-STANDARD-DEFAULT-RESOLUTION",
+      "clause": "5.6.2.2",
+      "statement": {
+        "en": "The standard default-resolution setter configures later delay construction.",
+        "ja": "標準default-resolution setterは、後のdelay生成を設定する。"
+      },
+      "conditions": {
+        "en": "Set a nanosecond resolution, construct/query a delay and restore the default.",
+        "ja": "nanosecond resolutionを設定し、delayを生成／照会して既定を復元する。"
+      },
+      "expected": {
+        "en": "The configured seven-nanosecond value round-trips.",
+        "ja": "設定した7 nanosecond値を往復変換できる。"
+      },
+      "limitations": {
+        "en": "The TLM delay is the canonical uvm_time alias. Explicit positive resolutions, representable values and relative-tolerance comparisons avoid prescribing rounding or a caller time scale. Alias mutations are object identity checks. The standard default-resolution spelling and constructor-name differences remain spec-only; legacy APIs are not substituted. Numeric annotations do not establish protocol timing or clock advancement.",
+        "ja": "TLM delayはcanonicalなuvm_time aliasである。正の明示resolution、表現可能値、相対許容差で、丸めやcallerのtime scaleを指定しない。alias変更はobject同一性の検査である。標準default-resolution APIの綴りとconstructor名の差分はspec-onlyを保持し、legacy APIで代用しない。数値annotationはprotocol timingやclock進行を示さない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_time_standard_default_resolution_api_constructs_delay",
+          "role": "direct",
+          "expected_observations": [
+            "UT: configured_roundtrip 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAM-EXPLICIT-RELEASE-REUSE",
+      "clause": "18.12.5.3",
+      "statement": {
+        "en": "Explicit release makes a reserved range available to a later reservation.",
+        "ja": "明示releaseは、予約rangeを後の予約へ再利用可能にする。"
+      },
+      "conditions": {
+        "en": "Reserve four locations at six, release and reserve the same range.",
+        "ja": "6から4 locationを予約し、releaseして同じrangeを予約する。"
+      },
+      "expected": {
+        "en": "The range is available again and exactly one region remains active.",
+        "ja": "rangeを再利用でき、active regionは1つとなる。"
+      },
+      "limitations": {
+        "en": "Only bounded public memory-manager operations are observed. Reservations use byte counts and memory-location addresses; allocation policies constrain a single legal start, without random-distribution assertions. Iterator order and diagnostic wording are unspecified here. Region accesses use a modeled frontdoor, not a physical DUT. These links do not establish the memory-walk algorithm or HDL access.",
+        "ja": "有限の公開memory-manager操作だけを観測する。予約はbyte数とmemory-location addressを使い、allocation policyは合法な開始位置1つへ制約し、乱数分布を要求しない。iterator順や診断本文は指定しない。region accessはmodel化frontdoorで、物理DUTではない。memory-walk algorithmやHDL accessの成立は示さない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_manager_explicit_release_makes_the_same_range_available",
+          "role": "direct",
+          "expected_observations": [
+            "UT: available 1 active 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAM-ITERATION-RESET-MEMBERSHIP",
+      "clause": "18.12.6.2",
+      "statement": {
+        "en": "Iteration visits each active region and reset starts a new traversal.",
+        "ja": "iterationは、各active regionを訪れ、resetは新たな走査を始める。"
+      },
+      "conditions": {
+        "en": "Reserve three disjoint regions and traverse to null before resetting.",
+        "ja": "重ならない3 regionを予約し、nullまで走査してresetする。"
+      },
+      "expected": {
+        "en": "Exactly three regions are visited once each; reset returns a nonnull region.",
+        "ja": "3 regionを各1回訪れ、resetはnonnull regionを返す。"
+      },
+      "limitations": {
+        "en": "Only bounded public memory-manager operations are observed. Reservations use byte counts and memory-location addresses; allocation policies constrain a single legal start, without random-distribution assertions. Iterator order and diagnostic wording are unspecified here. Region accesses use a modeled frontdoor, not a physical DUT. These links do not establish the memory-walk algorithm or HDL access.",
+        "ja": "有限の公開memory-manager操作だけを観測する。予約はbyte数とmemory-location addressを使い、allocation policyは合法な開始位置1つへ制約し、乱数分布を要求しない。iterator順や診断本文は指定しない。region accessはmodel化frontdoorで、物理DUTではない。memory-walk algorithmやHDL accessの成立は示さない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_manager_iteration_visits_each_region_once_without_assuming_order",
+          "role": "direct",
+          "expected_observations": [
+            "UT: count 3 visits 1 1 1 reset_nonnull 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAM-COMPATIBLE-RECONFIGURATION",
+      "clause": "18.12.4.2",
+      "statement": {
+        "en": "Compatible reconfiguration returns the previous configuration and retains existing regions.",
+        "ja": "互換reconfigurationは、以前のconfigurationを返し、既存regionを保持する。"
+      },
+      "conditions": {
+        "en": "Keep the byte width and change bounds from 0..15 to 2..31 around region 4..5.",
+        "ja": "byte幅を保持し、region 4..5の周囲のboundsを0..15から2..31へ変える。"
+      },
+      "expected": {
+        "en": "Returned bounds are 0..15, current bounds are 2..31 and the region stays 4..5.",
+        "ja": "返却boundsは0..15、現在boundsは2..31、regionは4..5を保持する。"
+      },
+      "limitations": {
+        "en": "Only bounded public memory-manager operations are observed. Reservations use byte counts and memory-location addresses; allocation policies constrain a single legal start, without random-distribution assertions. Iterator order and diagnostic wording are unspecified here. Region accesses use a modeled frontdoor, not a physical DUT. These links do not establish the memory-walk algorithm or HDL access.",
+        "ja": "有限の公開memory-manager操作だけを観測する。予約はbyte数とmemory-location addressを使い、allocation policyは合法な開始位置1つへ制約し、乱数分布を要求しない。iterator順や診断本文は指定しない。region accessはmodel化frontdoorで、物理DUTではない。memory-walk algorithmやHDL accessの成立は示さない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_manager_reconfiguration_returns_previous_config_and_preserves_regions",
+          "role": "direct",
+          "expected_observations": [
+            "UT: previous 0 15 current 2 31 region 4 5"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAM-OVERLAP-AND-ADJACENCY",
+      "clause": "18.12.5.1",
+      "statement": {
+        "en": "Overlapping reservations fail while adjacent free memory remains reservable.",
+        "ja": "重複予約は失敗し、隣接する空きmemoryは予約できる。"
+      },
+      "conditions": {
+        "en": "Use four-byte locations, reserve locations 4..5, then try starts five and six.",
+        "ja": "4 byte locationで4..5を予約し、開始5と6を試す。"
+      },
+      "expected": {
+        "en": "Overlap is rejected, adjacency succeeds and two regions remain active.",
+        "ja": "重複は拒否、隣接は成功し、active regionは2つとなる。"
+      },
+      "limitations": {
+        "en": "Only bounded public memory-manager operations are observed. Reservations use byte counts and memory-location addresses; allocation policies constrain a single legal start, without random-distribution assertions. Iterator order and diagnostic wording are unspecified here. Region accesses use a modeled frontdoor, not a physical DUT. These links do not establish the memory-walk algorithm or HDL access.",
+        "ja": "有限の公開memory-manager操作だけを観測する。予約はbyte数とmemory-location addressを使い、allocation policyは合法な開始位置1つへ制約し、乱数分布を要求しない。iterator順や診断本文は指定しない。region accessはmodel化frontdoorで、物理DUTではない。memory-walk algorithmやHDL accessの成立は示さない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_manager_rejects_overlap_and_accepts_an_adjacent_region",
+          "role": "direct",
+          "expected_observations": [
+            "UT: first 1 overlap_rejected 1 adjacent 1 active 2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAM-OUTSIDE-BOUNDS-REJECTION",
+      "clause": "18.12.5.1",
+      "statement": {
+        "en": "A requested range outside configured memory bounds cannot be reserved.",
+        "ja": "設定memory boundsの外へ出るrangeは予約できない。"
+      },
+      "conditions": {
+        "en": "With bounds 4..15, try one location at three and two at fifteen.",
+        "ja": "bounds 4..15で、3から1 location、15から2 locationを試す。"
+      },
+      "expected": {
+        "en": "Both return null and active-region count remains zero.",
+        "ja": "両方がnullを返し、active-region数は0を保持する。"
+      },
+      "limitations": {
+        "en": "Only bounded public memory-manager operations are observed. Reservations use byte counts and memory-location addresses; allocation policies constrain a single legal start, without random-distribution assertions. Iterator order and diagnostic wording are unspecified here. Region accesses use a modeled frontdoor, not a physical DUT. These links do not establish the memory-walk algorithm or HDL access.",
+        "ja": "有限の公開memory-manager操作だけを観測する。予約はbyte数とmemory-location addressを使い、allocation policyは合法な開始位置1つへ制約し、乱数分布を要求しない。iterator順や診断本文は指定しない。region accessはmodel化frontdoorで、物理DUTではない。memory-walk algorithmやHDL accessの成立は示さない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_manager_rejects_reservations_outside_its_address_range",
+          "role": "direct",
+          "expected_observations": [
+            "UT: below_rejected 1 beyond_rejected 1 active 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAM-RELEASE-ALL-REUSE",
+      "clause": "18.12.5.4",
+      "statement": {
+        "en": "Releasing all regions returns the whole managed range to the free pool.",
+        "ja": "全regionのreleaseは、管理range全体を空きpoolへ戻す。"
+      },
+      "conditions": {
+        "en": "Reserve two disjoint ranges, release all and reserve all thirty-two locations.",
+        "ja": "重ならない2 rangeを予約し、全release後に32 location全体を予約する。"
+      },
+      "expected": {
+        "en": "Iteration is initially empty after release; the full-range reservation succeeds alone.",
+        "ja": "release後のiterationは空で、全range予約だけが成功して残る。"
+      },
+      "limitations": {
+        "en": "Only bounded public memory-manager operations are observed. Reservations use byte counts and memory-location addresses; allocation policies constrain a single legal start, without random-distribution assertions. Iterator order and diagnostic wording are unspecified here. Region accesses use a modeled frontdoor, not a physical DUT. These links do not establish the memory-walk algorithm or HDL access.",
+        "ja": "有限の公開memory-manager操作だけを観測する。予約はbyte数とmemory-location addressを使い、allocation policyは合法な開始位置1つへ制約し、乱数分布を要求しない。iterator順や診断本文は指定しない。region accessはmodel化frontdoorで、物理DUTではない。memory-walk algorithmやHDL accessの成立は示さない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_manager_release_all_returns_the_entire_pool",
+          "role": "direct",
+          "expected_observations": [
+            "UT: empty 1",
+            "UT: locations 32 active 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAM-REQUEST-SINGLETON-POLICY",
+      "clause": "18.12.5.2",
+      "statement": {
+        "en": "A region request honors a legal allocation-policy constraint.",
+        "ja": "region requestは、合法なallocation-policy制約に従う。"
+      },
+      "conditions": {
+        "en": "Reserve locations 0..3 and constrain a four-location request to start ten.",
+        "ja": "location 0..3を予約し、4 location requestの開始を10へ制約する。"
+      },
+      "expected": {
+        "en": "Start ten, length four, policy length/bounds and two active regions are reported.",
+        "ja": "開始10、長さ4、policyの長さ／bounds、active region 2つを示す。"
+      },
+      "limitations": {
+        "en": "Only bounded public memory-manager operations are observed. Reservations use byte counts and memory-location addresses; allocation policies constrain a single legal start, without random-distribution assertions. Iterator order and diagnostic wording are unspecified here. Region accesses use a modeled frontdoor, not a physical DUT. These links do not establish the memory-walk algorithm or HDL access.",
+        "ja": "有限の公開memory-manager操作だけを観測する。予約はbyte数とmemory-location addressを使い、allocation policyは合法な開始位置1つへ制約し、乱数分布を要求しない。iterator順や診断本文は指定しない。region accessはmodel化frontdoorで、物理DUTではない。memory-walk algorithmやHDL accessの成立は示さない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_manager_request_region_uses_a_singleton_allocation_policy",
+          "role": "direct",
+          "expected_observations": [
+            "UT: start 10 locations 4 policy_len 4 bounds 0 31 active 2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAM-RESERVATION-WHOLE-LOCATIONS",
+      "clause": "18.12.5.1",
+      "statement": {
+        "en": "A byte-sized reservation occupies enough complete memory locations.",
+        "ja": "byte数での予約は、十分な数の完全なmemory locationを占める。"
+      },
+      "conditions": {
+        "en": "Reserve five bytes at location three with four-byte locations and no backing memory.",
+        "ja": "backing memoryなし、4 byte locationで、location 3から5 byteを予約する。"
+      },
+      "expected": {
+        "en": "The descriptor spans 3..4, length two, eight bytes, and null memory/owner handles.",
+        "ja": "descriptorは3..4、長さ2、8 byte、nullのmemory／owner handleとなる。"
+      },
+      "limitations": {
+        "en": "Only bounded public memory-manager operations are observed. Reservations use byte counts and memory-location addresses; allocation policies constrain a single legal start, without random-distribution assertions. Iterator order and diagnostic wording are unspecified here. Region accesses use a modeled frontdoor, not a physical DUT. These links do not establish the memory-walk algorithm or HDL access.",
+        "ja": "有限の公開memory-manager操作だけを観測する。予約はbyte数とmemory-location addressを使い、allocation policyは合法な開始位置1つへ制約し、乱数分布を要求しない。iterator順や診断本文は指定しない。region accessはmodel化frontdoorで、物理DUTではない。memory-walk algorithmやHDL accessの成立は示さない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_manager_reservation_rounds_bytes_to_whole_memory_locations",
+          "role": "direct",
+          "expected_observations": [
+            "UT: region 3 4 locations 2 bytes 8 memory_null 1 owner_null 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAM-REGION-RELATIVE-FRONTDOOR",
+      "clause": "18.12.7.2.8",
+      "statement": {
+        "en": "Region frontdoor access translates a relative offset through the implementing memory.",
+        "ja": "region frontdoor accessは、相対offsetを実装memory経由で変換する。"
+      },
+      "conditions": {
+        "en": "Access relative location two in a region starting twelve in a mapped memory.",
+        "ja": "mapped memoryで、開始12のregionの相対location 2へaccessする。"
+      },
+      "expected": {
+        "en": "The driver sees location fourteen at physical address 2e hex, and write/read a6 hex return OK.",
+        "ja": "driverは物理address 2e hexでlocation 14を観測し、write／read a6 hexはOKを返す。"
+      },
+      "limitations": {
+        "en": "Only bounded public memory-manager operations are observed. Reservations use byte counts and memory-location addresses; allocation policies constrain a single legal start, without random-distribution assertions. Iterator order and diagnostic wording are unspecified here. Region accesses use a modeled frontdoor, not a physical DUT. These links do not establish the memory-walk algorithm or HDL access.",
+        "ja": "有限の公開memory-manager操作だけを観測する。予約はbyte数とmemory-location addressを使い、allocation policyは合法な開始位置1つへ制約し、乱数分布を要求しない。iterator順や診断本文は指定しない。region accessはmodel化frontdoorで、物理DUTではない。memory-walk algorithmやHDL accessの成立は示さない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_region_frontdoor_access_translates_region_relative_offsets",
+          "role": "direct",
+          "expected_observations": [
+            "UT: write_ok 1 stored a6",
+            "UT: read_ok 1 value a6"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-BLOCK-DEFAULT-MAP-RECURSIVE-LOCK",
+      "clause": "18.1.2.5",
+      "statement": {
+        "en": "Default map selection and model locking preserve the configured block hierarchy.",
+        "ja": "既定map選択とmodel lockは、設定block階層を保持する。"
+      },
+      "conditions": {
+        "en": "Create two maps, select the second explicitly and lock a root with one child.",
+        "ja": "2 mapを生成し、2つ目を明示選択し、child 1つを持つrootをlockする。"
+      },
+      "expected": {
+        "en": "No initial default exists, first creation supplies it, explicit selection wins and root/child become locked.",
+        "ja": "初期defaultはなく、最初の生成でdefaultとなり、明示選択が反映され、root／childはlockされる。"
+      },
+      "limitations": {
+        "en": "Only the configured public register-model APIs and explicitly selected hooks are observed. Frontdoor effects use fixture bus drivers, not HDL. Prediction-only cases do not imply bus access. Map rights are intersections of configured policies; no unsupported rights conversion, unnamed lookup selection, diagnostic text or hardware implementation is prescribed.",
+        "ja": "設定した公開register-model APIと明示選択hookだけを観測する。frontdoorの作用は検査系のbus driverで、HDLではない。predictionだけの検査はbus accessを意味しない。map rightsは設定policyの共通部分で、未対応のrights変換、名前未指定lookupの選択、診断本文、hardware実装は指定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_block_default_map_selection_and_recursive_model_lock",
+          "role": "direct",
+          "expected_observations": [
+            "UT: no_default 1 unlocked 1 1",
+            "UT: first_default 1",
+            "UT: selected 1 locked 1 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-BLOCK-RECURSIVE-RESET",
+      "clause": "18.1.5.3",
+      "statement": {
+        "en": "Block reset recursively resets child register desired and mirrored values.",
+        "ja": "block resetは、child registerのdesired／mirrored値を再帰resetする。"
+      },
+      "conditions": {
+        "en": "Dirty root and child fields, then reset the root block.",
+        "ja": "root／child fieldを変更し、root blockをresetする。"
+      },
+      "expected": {
+        "en": "Reset values 12/34 hex return in both views and neither register needs update.",
+        "ja": "両参照がreset値12／34 hexへ戻り、両registerのneeds updateはfalseとなる。"
+      },
+      "limitations": {
+        "en": "Only the configured public register-model APIs and explicitly selected hooks are observed. Frontdoor effects use fixture bus drivers, not HDL. Prediction-only cases do not imply bus access. Map rights are intersections of configured policies; no unsupported rights conversion, unnamed lookup selection, diagnostic text or hardware implementation is prescribed.",
+        "ja": "設定した公開register-model APIと明示選択hookだけを観測する。frontdoorの作用は検査系のbus driverで、HDLではない。predictionだけの検査はbus accessを意味しない。map rightsは設定policyの共通部分で、未対応のrights変換、名前未指定lookupの選択、診断本文、hardware実装は指定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_block_reset_recurses_into_child_registers",
+          "role": "direct",
+          "expected_observations": [
+            "UT: predicted 1 root_update 1 child_update 1",
+            "UT: outer 12 12 inner 34 34 update 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-FIELD-CONFIGURATION-METADATA",
+      "clause": "18.5.3.2",
+      "statement": {
+        "en": "Field configuration records parent, size, position, access and volatility.",
+        "ja": "field configurationは、parent、size、position、access、volatilityを記録する。"
+      },
+      "conditions": {
+        "en": "Configure an eight-bit RW field at bit four and later enable volatility.",
+        "ja": "bit 4に8 bit RW fieldを設定し、後でvolatilityを有効にする。"
+      },
+      "expected": {
+        "en": "The exact parent, width eight, position four, RW and volatility zero then one are returned.",
+        "ja": "正確なparent、幅8、位置4、RW、volatility 0から1を返す。"
+      },
+      "limitations": {
+        "en": "Only the configured public register-model APIs and explicitly selected hooks are observed. Frontdoor effects use fixture bus drivers, not HDL. Prediction-only cases do not imply bus access. Map rights are intersections of configured policies; no unsupported rights conversion, unnamed lookup selection, diagnostic text or hardware implementation is prescribed.",
+        "ja": "設定した公開register-model APIと明示選択hookだけを観測する。frontdoorの作用は検査系のbus driverで、HDLではない。predictionだけの検査はbus accessを意味しない。map rightsは設定policyの共通部分で、未対応のrights変換、名前未指定lookupの選択、診断本文、hardware実装は指定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_field_configure_preserves_parent_width_position_and_access",
+          "role": "direct",
+          "expected_observations": [
+            "UT: parent 1 bits 8 lsb 4 access RW volatile 0",
+            "UT: volatile 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-FIELD-CONFLICTING-MAP-RIGHTS",
+      "clause": "18.5.4.5",
+      "statement": {
+        "en": "A field access policy is restricted by its containing register map rights.",
+        "ja": "field access policyは、所属registerのmap rightsで制限される。"
+      },
+      "conditions": {
+        "en": "Map a register containing WO/RO fields into separate RO/WO maps.",
+        "ja": "WO／RO fieldを持つregisterを別々のRO／WO mapへ配置する。"
+      },
+      "expected": {
+        "en": "WO in RO and RO in WO become NOACCESS; compatible combinations remain WO/RO.",
+        "ja": "WOとRO、ROとWOの組合せはNOACCESS、互換な組合せはWO／ROを保持する。"
+      },
+      "limitations": {
+        "en": "Only the configured public register-model APIs and explicitly selected hooks are observed. Frontdoor effects use fixture bus drivers, not HDL. Prediction-only cases do not imply bus access. Map rights are intersections of configured policies; no unsupported rights conversion, unnamed lookup selection, diagnostic text or hardware implementation is prescribed.",
+        "ja": "設定した公開register-model APIと明示選択hookだけを観測する。frontdoorの作用は検査系のbus driverで、HDLではない。predictionだけの検査はbus accessを意味しない。map rightsは設定policyの共通部分で、未対応のrights変換、名前未指定lookupの選択、診断本文、hardware実装は指定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_field_conflicting_map_rights_report_noaccess",
+          "role": "direct",
+          "expected_observations": [
+            "UT: low NOACCESS WO high RO NOACCESS"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-FIELD-W0C-PREDICTION",
+      "clause": "18.5.5.17",
+      "statement": {
+        "en": "Write prediction for W0C clears selected zero bits and retains one bits.",
+        "ja": "W0Cのwrite predictionは、選択された0 bitをclearし、1 bitを保持する。"
+      },
+      "conditions": {
+        "en": "Start at f3 hex and predict writes cc then 0f hex.",
+        "ja": "f3 hexから始め、write cc、次に0f hexをpredictする。"
+      },
+      "expected": {
+        "en": "Desired and mirrored values are c0 hex then zero.",
+        "ja": "desired／mirrored値はc0 hex、次に0となる。"
+      },
+      "limitations": {
+        "en": "Only the configured public register-model APIs and explicitly selected hooks are observed. Frontdoor effects use fixture bus drivers, not HDL. Prediction-only cases do not imply bus access. Map rights are intersections of configured policies; no unsupported rights conversion, unnamed lookup selection, diagnostic text or hardware implementation is prescribed.",
+        "ja": "設定した公開register-model APIと明示選択hookだけを観測する。frontdoorの作用は検査系のbus driverで、HDLではない。predictionだけの検査はbus accessを意味しない。map rightsは設定policyの共通部分で、未対応のrights変換、名前未指定lookupの選択、診断本文、hardware実装は指定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_field_write_zero_clear_prediction_preserves_only_one_bits",
+          "role": "direct",
+          "expected_observations": [
+            "UT: step 1 accepted 1 desired c0 mirror c0",
+            "UT: step 2 accepted 1 desired 0 mirror 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-FIELD-W0S-PREDICTION",
+      "clause": "18.5.5.17",
+      "statement": {
+        "en": "Write prediction for W0S sets selected zero bits and retains prior one bits.",
+        "ja": "W0Sのwrite predictionは、選択された0 bitをsetし、以前の1 bitを保持する。"
+      },
+      "conditions": {
+        "en": "Start at 0c hex and predict writes cc then 7f hex.",
+        "ja": "0c hexから始め、write cc、次に7f hexをpredictする。"
+      },
+      "expected": {
+        "en": "Desired and mirrored values are 3f hex then bf hex.",
+        "ja": "desired／mirrored値は3f hex、次にbf hexとなる。"
+      },
+      "limitations": {
+        "en": "Only the configured public register-model APIs and explicitly selected hooks are observed. Frontdoor effects use fixture bus drivers, not HDL. Prediction-only cases do not imply bus access. Map rights are intersections of configured policies; no unsupported rights conversion, unnamed lookup selection, diagnostic text or hardware implementation is prescribed.",
+        "ja": "設定した公開register-model APIと明示選択hookだけを観測する。frontdoorの作用は検査系のbus driverで、HDLではない。predictionだけの検査はbus accessを意味しない。map rightsは設定policyの共通部分で、未対応のrights変換、名前未指定lookupの選択、診断本文、hardware実装は指定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_field_write_zero_set_prediction_accumulates_zero_selected_sets",
+          "role": "direct",
+          "expected_observations": [
+            "UT: step 1 accepted 1 desired 3f mirror 3f",
+            "UT: step 2 accepted 1 desired bf mirror bf"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-MAP-WIDTH-BEFORE-AND-AFTER-LOCK",
+      "clause": "18.2.4.2",
+      "statement": {
+        "en": "A configured map reports its bus width independently of model locking.",
+        "ja": "設定mapは、model lockとは独立にbus幅を報告する。"
+      },
+      "conditions": {
+        "en": "Query a little-endian four-byte map before and after lock.",
+        "ja": "little-endian 4 byte mapをlock前後で照会する。"
+      },
+      "expected": {
+        "en": "Width is four both times; byte address unit and exact parent/root handles agree.",
+        "ja": "幅は両方4で、byte address unitと正確なparent／root handleが一致する。"
+      },
+      "limitations": {
+        "en": "Only the configured public register-model APIs and explicitly selected hooks are observed. Frontdoor effects use fixture bus drivers, not HDL. Prediction-only cases do not imply bus access. Map rights are intersections of configured policies; no unsupported rights conversion, unnamed lookup selection, diagnostic text or hardware implementation is prescribed.",
+        "ja": "設定した公開register-model APIと明示選択hookだけを観測する。frontdoorの作用は検査系のbus driverで、HDLではない。predictionだけの検査はbus accessを意味しない。map rightsは設定policyの共通部分で、未対応のrights変換、名前未指定lookupの選択、診断本文、hardware実装は指定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_map_byte_addressing_reports_width_before_and_after_lock",
+          "role": "direct",
+          "expected_observations": [
+            "UT: parent 1 root 1 base 100 bytes 4 unit 1 little 1",
+            "UT: locked bytes 4"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-NAMED-FIELD-LOOKUP-BEFORE-AND-AFTER-LOCK",
+      "clause": "18.4.3.12",
+      "statement": {
+        "en": "Named field lookup returns configured field handles before and after lock.",
+        "ja": "名前によるfield lookupは、lock前後で設定field handleを返す。"
+      },
+      "conditions": {
+        "en": "Configure high before low, enumerate and look up both names around locking.",
+        "ja": "highをlowより先に設定し、lock前後で列挙と両名前のlookupを行う。"
+      },
+      "expected": {
+        "en": "Enumeration is in bit order and every named lookup preserves the exact handle.",
+        "ja": "列挙はbit順で、全named lookupは正確なhandleを保持する。"
+      },
+      "limitations": {
+        "en": "Only the configured public register-model APIs and explicitly selected hooks are observed. Frontdoor effects use fixture bus drivers, not HDL. Prediction-only cases do not imply bus access. Map rights are intersections of configured policies; no unsupported rights conversion, unnamed lookup selection, diagnostic text or hardware implementation is prescribed.",
+        "ja": "設定した公開register-model APIと明示選択hookだけを観測する。frontdoorの作用は検査系のbus driverで、HDLではない。predictionだけの検査はbus accessを意味しない。map rightsは設定policyの共通部分で、未対応のrights変換、名前未指定lookupの選択、診断本文、hardware実装は指定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_named_field_lookup_works_before_and_after_model_lock",
+          "role": "direct",
+          "expected_observations": [
+            "UT: fields 2 low_first 1 high_second 1 names 1 1",
+            "UT: locked_names 1 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-POST-READ-STATUS",
+      "clause": "18.4.8.4",
+      "statement": {
+        "en": "A post_read method can change the returned read status.",
+        "ja": "post_read methodは、readの返却statusを変更できる。"
+      },
+      "conditions": {
+        "en": "Set NOT_OK after one successful modeled read.",
+        "ja": "成功したmodel化read 1回の後にNOT_OKを設定する。"
+      },
+      "expected": {
+        "en": "Read returns failure after exactly one bus request.",
+        "ja": "bus要求は正確に1回で、readは失敗を返す。"
+      },
+      "limitations": {
+        "en": "One register/field and deterministic modeled frontdoor are used. Trace letters observe only the named method/callback pair; no sibling or cross-register ordering is inferred. Pre-abort probes assert no bus request, not failed-read data. Post-read data checks assert the returned value, not an unobserved final mirror. Post-write failure preserves already-observed bus side effects. Callback deletion checks only the registered instance.",
+        "ja": "1 register／fieldと決定的なmodel化frontdoorを使う。trace文字は指定method／callbackの組だけを観測し、兄弟間やregister間の順序を推測しない。pre-abortはbus要求なしを検査し、失敗read dataは指定しない。post-read dataは返却値を検査し、未観測の最終mirrorを指定しない。post-write失敗では既観測bus作用を保持する。callback削除は登録したinstanceだけを検査する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_post_read_hook_replaces_the_returned_status",
+          "role": "direct",
+          "expected_observations": [
+            "UT: rejected 1 requests 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-POST-READ-RETURN-VALUE",
+      "clause": "18.4.8.4",
+      "statement": {
+        "en": "A post_read method can replace the returned read data.",
+        "ja": "post_read methodは、readの返却dataを置換できる。"
+      },
+      "conditions": {
+        "en": "Replace bus data 33 hex with a6 hex in post_read.",
+        "ja": "post_readでbus data 33 hexをa6 hexへ置換する。"
+      },
+      "expected": {
+        "en": "The caller receives a6 hex with OK after one request.",
+        "ja": "callerは1要求後にa6 hexとOKを受ける。"
+      },
+      "limitations": {
+        "en": "One register/field and deterministic modeled frontdoor are used. Trace letters observe only the named method/callback pair; no sibling or cross-register ordering is inferred. Pre-abort probes assert no bus request, not failed-read data. Post-read data checks assert the returned value, not an unobserved final mirror. Post-write failure preserves already-observed bus side effects. Callback deletion checks only the registered instance.",
+        "ja": "1 register／fieldと決定的なmodel化frontdoorを使う。trace文字は指定method／callbackの組だけを観測し、兄弟間やregister間の順序を推測しない。pre-abortはbus要求なしを検査し、失敗read dataは指定しない。post-read dataは返却値を検査し、未観測の最終mirrorを指定しない。post-write失敗では既観測bus作用を保持する。callback削除は登録したinstanceだけを検査する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_post_read_hook_replaces_the_returned_value",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ok 1 value a6 requests 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-POST-WRITE-STATUS",
+      "clause": "18.4.8.2",
+      "statement": {
+        "en": "A post_write method can change the returned write status.",
+        "ja": "post_write methodは、writeの返却statusを変更できる。"
+      },
+      "conditions": {
+        "en": "Set NOT_OK after successful modeled bus access.",
+        "ja": "成功したmodel化bus accessの後にNOT_OKを設定する。"
+      },
+      "expected": {
+        "en": "Write returns failure after exactly one bus request.",
+        "ja": "bus要求は正確に1回で、writeは失敗を返す。"
+      },
+      "limitations": {
+        "en": "One register/field and deterministic modeled frontdoor are used. Trace letters observe only the named method/callback pair; no sibling or cross-register ordering is inferred. Pre-abort probes assert no bus request, not failed-read data. Post-read data checks assert the returned value, not an unobserved final mirror. Post-write failure preserves already-observed bus side effects. Callback deletion checks only the registered instance.",
+        "ja": "1 register／fieldと決定的なmodel化frontdoorを使う。trace文字は指定method／callbackの組だけを観測し、兄弟間やregister間の順序を推測しない。pre-abortはbus要求なしを検査し、失敗read dataは指定しない。post-read dataは返却値を検査し、未観測の最終mirrorを指定しない。post-write失敗では既観測bus作用を保持する。callback削除は登録したinstanceだけを検査する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_post_write_hook_replaces_the_returned_status",
+          "role": "direct",
+          "expected_observations": [
+            "UT: rejected 1 requests 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-PRE-READ-ABORT",
+      "clause": "18.4.8.3",
+      "statement": {
+        "en": "A failing pre_read method aborts a read before bus access.",
+        "ja": "失敗するpre_read methodは、bus access前にreadを中断する。"
+      },
+      "conditions": {
+        "en": "Assign NOT_OK in the containing register method.",
+        "ja": "所属register methodでNOT_OKを代入する。"
+      },
+      "expected": {
+        "en": "Read fails and no bus request occurs.",
+        "ja": "readは失敗し、bus要求はない。"
+      },
+      "limitations": {
+        "en": "One register/field and deterministic modeled frontdoor are used. Trace letters observe only the named method/callback pair; no sibling or cross-register ordering is inferred. Pre-abort probes assert no bus request, not failed-read data. Post-read data checks assert the returned value, not an unobserved final mirror. Post-write failure preserves already-observed bus side effects. Callback deletion checks only the registered instance.",
+        "ja": "1 register／fieldと決定的なmodel化frontdoorを使う。trace文字は指定method／callbackの組だけを観測し、兄弟間やregister間の順序を推測しない。pre-abortはbus要求なしを検査し、失敗read dataは指定しない。post-read dataは返却値を検査し、未観測の最終mirrorを指定しない。post-write失敗では既観測bus作用を保持する。callback削除は登録したinstanceだけを検査する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_pre_read_hook_aborts_before_any_bus_request",
+          "role": "direct",
+          "expected_observations": [
+            "UT: rejected 1 requests 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-PRE-READ-REGISTER-BEFORE-FIELD",
+      "clause": "18.4.8.3",
+      "statement": {
+        "en": "Register pre_read runs before its field pre_read.",
+        "ja": "register pre_readは、自身のfield pre_readより先に実行される。"
+      },
+      "conditions": {
+        "en": "Record the two hooks for a one-field register read.",
+        "ja": "1 field registerのreadで両hookを記録する。"
+      },
+      "expected": {
+        "en": "Trace is RF, one request occurs and status is OK.",
+        "ja": "traceはRF、要求は1回、statusはOKとなる。"
+      },
+      "limitations": {
+        "en": "One register/field and deterministic modeled frontdoor are used. Trace letters observe only the named method/callback pair; no sibling or cross-register ordering is inferred. Pre-abort probes assert no bus request, not failed-read data. Post-read data checks assert the returned value, not an unobserved final mirror. Post-write failure preserves already-observed bus side effects. Callback deletion checks only the registered instance.",
+        "ja": "1 register／fieldと決定的なmodel化frontdoorを使う。trace文字は指定method／callbackの組だけを観測し、兄弟間やregister間の順序を推測しない。pre-abortはbus要求なしを検査し、失敗read dataは指定しない。post-read dataは返却値を検査し、未観測の最終mirrorを指定しない。post-write失敗では既観測bus作用を保持する。callback削除は登録したinstanceだけを検査する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_pre_read_hook_precedes_the_containing_fields_hook",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ok 1 order RF requests 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-PRE-WRITE-ABORT",
+      "clause": "18.4.8.1",
+      "statement": {
+        "en": "A failing pre_write method aborts a write before bus access.",
+        "ja": "失敗するpre_write methodは、bus access前にwriteを中断する。"
+      },
+      "conditions": {
+        "en": "Assign NOT_OK in the containing register method.",
+        "ja": "所属register methodでNOT_OKを代入する。"
+      },
+      "expected": {
+        "en": "Write fails and no bus request occurs.",
+        "ja": "writeは失敗し、bus要求はない。"
+      },
+      "limitations": {
+        "en": "One register/field and deterministic modeled frontdoor are used. Trace letters observe only the named method/callback pair; no sibling or cross-register ordering is inferred. Pre-abort probes assert no bus request, not failed-read data. Post-read data checks assert the returned value, not an unobserved final mirror. Post-write failure preserves already-observed bus side effects. Callback deletion checks only the registered instance.",
+        "ja": "1 register／fieldと決定的なmodel化frontdoorを使う。trace文字は指定method／callbackの組だけを観測し、兄弟間やregister間の順序を推測しない。pre-abortはbus要求なしを検査し、失敗read dataは指定しない。post-read dataは返却値を検査し、未観測の最終mirrorを指定しない。post-write失敗では既観測bus作用を保持する。callback削除は登録したinstanceだけを検査する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_pre_write_hook_aborts_before_any_bus_request",
+          "role": "direct",
+          "expected_observations": [
+            "UT: rejected 1 requests 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-PRE-WRITE-REGISTER-BEFORE-FIELD",
+      "clause": "18.4.8.1",
+      "statement": {
+        "en": "Register pre_write runs before its field pre_write.",
+        "ja": "register pre_writeは、自身のfield pre_writeより先に実行される。"
+      },
+      "conditions": {
+        "en": "Record the two hooks for one register write.",
+        "ja": "1 register writeで両hookを記録する。"
+      },
+      "expected": {
+        "en": "Trace is RF, one request occurs and status is OK.",
+        "ja": "traceはRF、要求は1回、statusはOKとなる。"
+      },
+      "limitations": {
+        "en": "One register/field and deterministic modeled frontdoor are used. Trace letters observe only the named method/callback pair; no sibling or cross-register ordering is inferred. Pre-abort probes assert no bus request, not failed-read data. Post-read data checks assert the returned value, not an unobserved final mirror. Post-write failure preserves already-observed bus side effects. Callback deletion checks only the registered instance.",
+        "ja": "1 register／fieldと決定的なmodel化frontdoorを使う。trace文字は指定method／callbackの組だけを観測し、兄弟間やregister間の順序を推測しない。pre-abortはbus要求なしを検査し、失敗read dataは指定しない。post-read dataは返却値を検査し、未観測の最終mirrorを指定しない。post-write失敗では既観測bus作用を保持する。callback削除は登録したinstanceだけを検査する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_pre_write_hook_precedes_the_containing_fields_hook",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ok 1 order RF requests 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-PRE-WRITE-DATA",
+      "clause": "18.4.8.1",
+      "statement": {
+        "en": "A register pre_write method can replace the value sent to the bus.",
+        "ja": "register pre_write methodは、busへ送る値を置換できる。"
+      },
+      "conditions": {
+        "en": "Change requested 22 hex to a6 hex before access.",
+        "ja": "要求22 hexをaccess前にa6 hexへ変える。"
+      },
+      "expected": {
+        "en": "The bus and mirrored register report a6 hex.",
+        "ja": "busとmirrored registerはa6 hexを示す。"
+      },
+      "limitations": {
+        "en": "One register/field and deterministic modeled frontdoor are used. Trace letters observe only the named method/callback pair; no sibling or cross-register ordering is inferred. Pre-abort probes assert no bus request, not failed-read data. Post-read data checks assert the returned value, not an unobserved final mirror. Post-write failure preserves already-observed bus side effects. Callback deletion checks only the registered instance.",
+        "ja": "1 register／fieldと決定的なmodel化frontdoorを使う。trace文字は指定method／callbackの組だけを観測し、兄弟間やregister間の順序を推測しない。pre-abortはbus要求なしを検査し、失敗read dataは指定しない。post-read dataは返却値を検査し、未観測の最終mirrorを指定しない。post-write失敗では既観測bus作用を保持する。callback削除は登録したinstanceだけを検査する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_pre_write_hook_replaces_the_value_sent_to_the_bus",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ok 1 bus a6 mirror a6"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-PRE-WRITE-CALLBACK-REMOVAL",
+      "clause": "18.11.2.2",
+      "statement": {
+        "en": "Removing a pre_write callback stops its later payload modification.",
+        "ja": "pre_write callbackの削除は、後のpayload変更を停止する。"
+      },
+      "conditions": {
+        "en": "Write once with the callback, delete it and write again.",
+        "ja": "callback付きで1回writeし、削除して再度writeする。"
+      },
+      "expected": {
+        "en": "One callback invocation and two bus requests carry a6 hex then unchanged 44 hex.",
+        "ja": "callback 1回、bus要求2回で、a6 hex、次に変更なし44 hexを送る。"
+      },
+      "limitations": {
+        "en": "One register/field and deterministic modeled frontdoor are used. Trace letters observe only the named method/callback pair; no sibling or cross-register ordering is inferred. Pre-abort probes assert no bus request, not failed-read data. Post-read data checks assert the returned value, not an unobserved final mirror. Post-write failure preserves already-observed bus side effects. Callback deletion checks only the registered instance.",
+        "ja": "1 register／fieldと決定的なmodel化frontdoorを使う。trace文字は指定method／callbackの組だけを観測し、兄弟間やregister間の順序を推測しない。pre-abortはbus要求なしを検査し、失敗read dataは指定しない。post-read dataは返却値を検査し、未観測の最終mirrorを指定しない。post-write失敗では既観測bus作用を保持する。callback削除は登録したinstanceだけを検査する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_registered_callback_removal_restores_unmodified_bus_payload",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ok 1 calls 1 requests 2 payloads a6 44"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-POST-PREDICT-CALLBACK-DATA",
+      "clause": "18.11.2.6",
+      "statement": {
+        "en": "A post_predict callback can replace the predicted field value.",
+        "ja": "post_predict callbackは、fieldのpredict値を置換できる。"
+      },
+      "conditions": {
+        "en": "Predict a read from previous 11 hex and input a6 hex, replacing it with 5c hex.",
+        "ja": "以前の11 hexと入力a6 hexからreadをpredictし、5c hexへ置換する。"
+      },
+      "expected": {
+        "en": "One callback sees the exact field, previous value and READ kind; desired/mirrored values become 5c hex.",
+        "ja": "1 callbackが正確なfield、以前の値、READ kindを観測し、desired／mirrored値は5c hexとなる。"
+      },
+      "limitations": {
+        "en": "One register/field and deterministic modeled frontdoor are used. Trace letters observe only the named method/callback pair; no sibling or cross-register ordering is inferred. Pre-abort probes assert no bus request, not failed-read data. Post-read data checks assert the returned value, not an unobserved final mirror. Post-write failure preserves already-observed bus side effects. Callback deletion checks only the registered instance.",
+        "ja": "1 register／fieldと決定的なmodel化frontdoorを使う。trace文字は指定method／callbackの組だけを観測し、兄弟間やregister間の順序を推測しない。pre-abortはbus要求なしを検査し、失敗read dataは指定しない。post-read dataは返却値を検査し、未観測の最終mirrorを指定しない。post-write失敗では既観測bus作用を保持する。callback削除は登録したinstanceだけを検査する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_registered_post_predict_callback_changes_the_predicted_field_value",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ok 1 calls 1 field 1 previous 11 read 1 desired 5c mirror 5c"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-POST-READ-CALLBACK-DATA",
+      "clause": "18.11.2.5",
+      "statement": {
+        "en": "A registered post_read callback can replace the returned data.",
+        "ja": "登録post_read callbackは、返却dataを置換できる。"
+      },
+      "conditions": {
+        "en": "Change modeled bus result 33 hex to bc hex.",
+        "ja": "model化bus結果33 hexをbc hexへ変える。"
+      },
+      "expected": {
+        "en": "One request and one callback return bc hex with OK.",
+        "ja": "1要求、1 callbackで、bc hexとOKを返す。"
+      },
+      "limitations": {
+        "en": "One register/field and deterministic modeled frontdoor are used. Trace letters observe only the named method/callback pair; no sibling or cross-register ordering is inferred. Pre-abort probes assert no bus request, not failed-read data. Post-read data checks assert the returned value, not an unobserved final mirror. Post-write failure preserves already-observed bus side effects. Callback deletion checks only the registered instance.",
+        "ja": "1 register／fieldと決定的なmodel化frontdoorを使う。trace文字は指定method／callbackの組だけを観測し、兄弟間やregister間の順序を推測しない。pre-abortはbus要求なしを検査し、失敗read dataは指定しない。post-read dataは返却値を検査し、未観測の最終mirrorを指定しない。post-write失敗では既観測bus作用を保持する。callback削除は登録したinstanceだけを検査する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_registered_post_read_callback_replaces_the_returned_value",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ok 1 calls 1 value bc requests 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-POST-WRITE-CALLBACK-BEFORE-METHOD",
+      "clause": "18.11.2.3",
+      "statement": {
+        "en": "Registered post_write callbacks precede the containing register post_write method.",
+        "ja": "登録post_write callbackは、所属registerのpost_write methodに先行する。"
+      },
+      "conditions": {
+        "en": "Record callback C and method R during one write.",
+        "ja": "1 writeでcallback Cとmethod Rを記録する。"
+      },
+      "expected": {
+        "en": "The trace is CR.",
+        "ja": "traceはCRとなる。"
+      },
+      "limitations": {
+        "en": "One register/field and deterministic modeled frontdoor are used. Trace letters observe only the named method/callback pair; no sibling or cross-register ordering is inferred. Pre-abort probes assert no bus request, not failed-read data. Post-read data checks assert the returned value, not an unobserved final mirror. Post-write failure preserves already-observed bus side effects. Callback deletion checks only the registered instance.",
+        "ja": "1 register／fieldと決定的なmodel化frontdoorを使う。trace文字は指定method／callbackの組だけを観測し、兄弟間やregister間の順序を推測しない。pre-abortはbus要求なしを検査し、失敗read dataは指定しない。post-read dataは返却値を検査し、未観測の最終mirrorを指定しない。post-write失敗では既観測bus作用を保持する。callback削除は登録したinstanceだけを検査する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_registered_post_write_callback_follows_method_order",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ok 1 calls 1 order CR"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-POST-WRITE-CALLBACK-STATUS",
+      "clause": "18.11.2.3",
+      "statement": {
+        "en": "A registered post_write callback can change the returned status after bus completion.",
+        "ja": "登録post_write callbackは、bus完了後に返却statusを変更できる。"
+      },
+      "conditions": {
+        "en": "Store a6 hex and then assign NOT_OK.",
+        "ja": "a6 hexを格納し、その後NOT_OKを代入する。"
+      },
+      "expected": {
+        "en": "One callback produces failure while the modeled stored value remains a6 hex.",
+        "ja": "1 callbackで失敗となり、model化格納値はa6 hexを保持する。"
+      },
+      "limitations": {
+        "en": "One register/field and deterministic modeled frontdoor are used. Trace letters observe only the named method/callback pair; no sibling or cross-register ordering is inferred. Pre-abort probes assert no bus request, not failed-read data. Post-read data checks assert the returned value, not an unobserved final mirror. Post-write failure preserves already-observed bus side effects. Callback deletion checks only the registered instance.",
+        "ja": "1 register／fieldと決定的なmodel化frontdoorを使う。trace文字は指定method／callbackの組だけを観測し、兄弟間やregister間の順序を推測しない。pre-abortはbus要求なしを検査し、失敗read dataは指定しない。post-read dataは返却値を検査し、未観測の最終mirrorを指定しない。post-write失敗では既観測bus作用を保持する。callback削除は登録したinstanceだけを検査する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_registered_post_write_callback_replaces_the_returned_status",
+          "role": "direct",
+          "expected_observations": [
+            "UT: rejected 1 calls 1 stored a6"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-PRE-READ-CALLBACK-ABORT",
+      "clause": "18.11.2.4",
+      "statement": {
+        "en": "A failing registered pre_read callback aborts before bus access.",
+        "ja": "失敗する登録pre_read callbackは、bus access前に中断する。"
+      },
+      "conditions": {
+        "en": "Set NOT_OK in the callback.",
+        "ja": "callbackでNOT_OKを設定する。"
+      },
+      "expected": {
+        "en": "One callback occurs, read fails and bus request count is zero.",
+        "ja": "callbackは1回、readは失敗し、bus要求数は0となる。"
+      },
+      "limitations": {
+        "en": "One register/field and deterministic modeled frontdoor are used. Trace letters observe only the named method/callback pair; no sibling or cross-register ordering is inferred. Pre-abort probes assert no bus request, not failed-read data. Post-read data checks assert the returned value, not an unobserved final mirror. Post-write failure preserves already-observed bus side effects. Callback deletion checks only the registered instance.",
+        "ja": "1 register／fieldと決定的なmodel化frontdoorを使う。trace文字は指定method／callbackの組だけを観測し、兄弟間やregister間の順序を推測しない。pre-abortはbus要求なしを検査し、失敗read dataは指定しない。post-read dataは返却値を検査し、未観測の最終mirrorを指定しない。post-write失敗では既観測bus作用を保持する。callback削除は登録したinstanceだけを検査する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_registered_pre_read_callback_rejects_before_bus_access",
+          "role": "direct",
+          "expected_observations": [
+            "UT: rejected 1 calls 1 requests 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-PRE-WRITE-CALLBACK-DATA",
+      "clause": "18.11.2.2",
+      "statement": {
+        "en": "A registered pre_write callback can replace bus write data.",
+        "ja": "登録pre_write callbackは、bus write dataを置換できる。"
+      },
+      "conditions": {
+        "en": "Replace data with a6 hex in one callback.",
+        "ja": "1 callbackでdataをa6 hexへ置換する。"
+      },
+      "expected": {
+        "en": "The bus and mirrored register report a6 hex and callback count is one.",
+        "ja": "busとmirrored registerはa6 hex、callback数は1となる。"
+      },
+      "limitations": {
+        "en": "One register/field and deterministic modeled frontdoor are used. Trace letters observe only the named method/callback pair; no sibling or cross-register ordering is inferred. Pre-abort probes assert no bus request, not failed-read data. Post-read data checks assert the returned value, not an unobserved final mirror. Post-write failure preserves already-observed bus side effects. Callback deletion checks only the registered instance.",
+        "ja": "1 register／fieldと決定的なmodel化frontdoorを使う。trace文字は指定method／callbackの組だけを観測し、兄弟間やregister間の順序を推測しない。pre-abortはbus要求なしを検査し、失敗read dataは指定しない。post-read dataは返却値を検査し、未観測の最終mirrorを指定しない。post-write失敗では既観測bus作用を保持する。callback削除は登録したinstanceだけを検査する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_registered_pre_write_callback_changes_the_bus_value",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ok 1 calls 1 bus a6 mirror a6"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-PRE-WRITE-METHOD-BEFORE-CALLBACK",
+      "clause": "18.11.2.2",
+      "statement": {
+        "en": "The register pre_write method precedes its registered pre_write callbacks.",
+        "ja": "register pre_write methodは、登録pre_write callbackに先行する。"
+      },
+      "conditions": {
+        "en": "Record method R and callback C during one write.",
+        "ja": "1 writeでmethod Rとcallback Cを記録する。"
+      },
+      "expected": {
+        "en": "The trace is RC.",
+        "ja": "traceはRCとなる。"
+      },
+      "limitations": {
+        "en": "One register/field and deterministic modeled frontdoor are used. Trace letters observe only the named method/callback pair; no sibling or cross-register ordering is inferred. Pre-abort probes assert no bus request, not failed-read data. Post-read data checks assert the returned value, not an unobserved final mirror. Post-write failure preserves already-observed bus side effects. Callback deletion checks only the registered instance.",
+        "ja": "1 register／fieldと決定的なmodel化frontdoorを使う。trace文字は指定method／callbackの組だけを観測し、兄弟間やregister間の順序を推測しない。pre-abortはbus要求なしを検査し、失敗read dataは指定しない。post-read dataは返却値を検査し、未観測の最終mirrorを指定しない。post-write失敗では既観測bus作用を保持する。callback削除は登録したinstanceだけを検査する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_registered_pre_write_callback_follows_method_order",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ok 1 calls 1 order RC"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-ALLOCATE-MOVE-SAME-BLOCK",
+      "clause": "18.9.1.1.4",
+      "statement": {
+        "en": "Dynamic allocation can move a virtual array to another memory in its parent block.",
+        "ja": "動的allocationは、virtual配列を親block内の別memoryへ移動できる。"
+      },
+      "conditions": {
+        "en": "Allocate two elements in the first memory, then three in another.",
+        "ja": "最初のmemoryに2要素をallocateし、次に別memoryへ3要素をallocateする。"
+      },
+      "expected": {
+        "en": "The exact new memory and size three are reported, the old range is available and one new region is active.",
+        "ja": "正確な新memoryとsize 3を示し、旧rangeは利用可能、新active regionは1つとなる。"
+      },
+      "limitations": {
+        "en": "Virtual-register arrays use public allocation/configuration APIs and bounded modeled memories in one block. Fixed-start policies make placement deterministic, not a random-quality test. Relocation checks release through public reservations; no hidden free-list order is inferred. Bus callbacks use fixture drivers and only selected value slices/statuses. No physical DUT, HDL access or memory-walk algorithm is exercised.",
+        "ja": "virtual-register配列は、同じblock内の公開allocation／configuration APIと有限model化memoryを使う。固定開始policyで配置を決定し、乱数品質は検査しない。再配置のreleaseは公開予約で検査し、内部free-list順は推測しない。bus callbackは検査系driverと選択した値slice／statusだけを使う。物理DUT、HDL access、memory-walk algorithmは実行しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_allocate_can_move_to_another_memory_in_its_parent_block",
+          "role": "direct",
+          "expected_observations": [
+            "UT: memory 1 size 3 old_available 1 new_active 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-STATIC-ALLOCATION-REJECTION",
+      "clause": "18.9.1.1.2",
+      "statement": {
+        "en": "A static implementation cannot be replaced by dynamic allocation.",
+        "ja": "static実装は、動的allocationで置換できない。"
+      },
+      "conditions": {
+        "en": "Try allocating over a configured static implementation.",
+        "ja": "設定したstatic実装へ重ねてallocateを試す。"
+      },
+      "expected": {
+        "en": "Allocation returns null, the exact region and offset two remain, and one region stays active.",
+        "ja": "allocationはnullを返し、正確なregionとoffset 2、active region 1つを保持する。"
+      },
+      "limitations": {
+        "en": "Virtual-register arrays use public allocation/configuration APIs and bounded modeled memories in one block. Fixed-start policies make placement deterministic, not a random-quality test. Relocation checks release through public reservations; no hidden free-list order is inferred. Bus callbacks use fixture drivers and only selected value slices/statuses. No physical DUT, HDL access or memory-walk algorithm is exercised.",
+        "ja": "virtual-register配列は、同じblock内の公開allocation／configuration APIと有限model化memoryを使う。固定開始policyで配置を決定し、乱数品質は検査しない。再配置のreleaseは公開予約で検査し、内部free-list順は推測しない。bus callbackは検査系driverと選択した値slice／statusだけを使う。物理DUT、HDL access、memory-walk algorithmは実行しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_allocate_cannot_replace_a_static_implementation",
+          "role": "direct",
+          "expected_observations": [
+            "UT: rejected 1 same_region 1 offset 2 active 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-ALLOCATED-EXTERNAL-ADDRESS",
+      "clause": "18.9.1.1.4",
+      "statement": {
+        "en": "An allocated array element exposes its translated external address.",
+        "ja": "allocateした配列要素は、変換された外部addressを示す。"
+      },
+      "conditions": {
+        "en": "Allocate at memory location ten with two locations per element in a mapped memory.",
+        "ja": "mapped memoryで、要素ごと2 locationとしてmemory location 10にallocateする。"
+      },
+      "expected": {
+        "en": "The second element is at offset twelve and physical address 12c hex.",
+        "ja": "2つ目の要素はoffset 12、物理address 12c hexとなる。"
+      },
+      "limitations": {
+        "en": "Virtual-register arrays use public allocation/configuration APIs and bounded modeled memories in one block. Fixed-start policies make placement deterministic, not a random-quality test. Relocation checks release through public reservations; no hidden free-list order is inferred. Bus callbacks use fixture drivers and only selected value slices/statuses. No physical DUT, HDL access or memory-walk algorithm is exercised.",
+        "ja": "virtual-register配列は、同じblock内の公開allocation／configuration APIと有限model化memoryを使う。固定開始policyで配置を決定し、乱数品質は検査しない。再配置のreleaseは公開予約で検査し、内部free-list順は推測しない。bus callbackは検査系driverと選択した値slice／statusだけを使う。物理DUT、HDL access、memory-walk algorithmは実行しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_allocate_exposes_the_selected_array_element_external_address",
+          "role": "direct",
+          "expected_observations": [
+            "UT: offset 12 address 12c"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-ALLOCATE-RELOCATION-RELEASE",
+      "clause": "18.9.1.1.4",
+      "statement": {
+        "en": "Successful reallocation releases the former virtual-array region.",
+        "ja": "成功した再allocationは、以前のvirtual配列regionをreleaseする。"
+      },
+      "conditions": {
+        "en": "Move from constrained start ten to twenty and reserve the former range.",
+        "ja": "制約開始10から20へ移動し、以前のrangeを予約する。"
+      },
+      "expected": {
+        "en": "New offset is twenty with the selected region; the old range is available and two regions are active after probing it.",
+        "ja": "新offsetは20で選択regionと一致し、旧rangeは利用可能、その確認予約後のactive regionは2つとなる。"
+      },
+      "limitations": {
+        "en": "Virtual-register arrays use public allocation/configuration APIs and bounded modeled memories in one block. Fixed-start policies make placement deterministic, not a random-quality test. Relocation checks release through public reservations; no hidden free-list order is inferred. Bus callbacks use fixture drivers and only selected value slices/statuses. No physical DUT, HDL access or memory-walk algorithm is exercised.",
+        "ja": "virtual-register配列は、同じblock内の公開allocation／configuration APIと有限model化memoryを使う。固定開始policyで配置を決定し、乱数品質は検査しない。再配置のreleaseは公開予約で検査し、内部free-list順は推測しない。bus callbackは検査系driverと選択した値slice／statusだけを使う。物理DUT、HDL access、memory-walk algorithmは実行しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_allocate_relocation_releases_its_previous_region",
+          "role": "direct",
+          "expected_observations": [
+            "UT: offset 20 selected 1 old_available 1 active 2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-ALLOCATE-WHOLE-MEMORY-LOCATIONS",
+      "clause": "18.9.1.1.4",
+      "statement": {
+        "en": "Allocation reserves complete implementing-memory locations for every array element.",
+        "ja": "allocationは、全配列要素について完全な実装memory locationを予約する。"
+      },
+      "conditions": {
+        "en": "Allocate three 32-bit elements over 16-bit locations starting at six.",
+        "ja": "16 bit locationで、開始6から32 bit要素3つをallocateする。"
+      },
+      "expected": {
+        "en": "The region is 6..11, six locations/twelve bytes, with two locations per element.",
+        "ja": "regionは6..11、6 location／12 byteで、要素ごと2 locationとなる。"
+      },
+      "limitations": {
+        "en": "Virtual-register arrays use public allocation/configuration APIs and bounded modeled memories in one block. Fixed-start policies make placement deterministic, not a random-quality test. Relocation checks release through public reservations; no hidden free-list order is inferred. Bus callbacks use fixture drivers and only selected value slices/statuses. No physical DUT, HDL access or memory-walk algorithm is exercised.",
+        "ja": "virtual-register配列は、同じblock内の公開allocation／configuration APIと有限model化memoryを使う。固定開始policyで配置を決定し、乱数品質は検査しない。再配置のreleaseは公開予約で検査し、内部free-list順は推測しない。bus callbackは検査系driverと選択した値slice／statusだけを使う。物理DUT、HDL access、memory-walk algorithmは実行しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_allocate_reserves_whole_wide_memory_locations",
+          "role": "direct",
+          "expected_observations": [
+            "UT: region 6 11 locations 6 bytes 12 per_element 2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-ALLOCATE-NO-FREE-POLICY-START",
+      "clause": "18.9.1.1.4",
+      "statement": {
+        "en": "Allocation returns null when its constrained starting range is already reserved.",
+        "ja": "制約した開始rangeが予約済みなら、allocationはnullを返す。"
+      },
+      "conditions": {
+        "en": "Reserve the only policy-selected range before allocation.",
+        "ja": "allocation前に、policyが選ぶ唯一のrangeを予約する。"
+      },
+      "expected": {
+        "en": "Allocation fails and only the prior region remains active.",
+        "ja": "allocationは失敗し、以前のregionだけがactiveに残る。"
+      },
+      "limitations": {
+        "en": "Virtual-register arrays use public allocation/configuration APIs and bounded modeled memories in one block. Fixed-start policies make placement deterministic, not a random-quality test. Relocation checks release through public reservations; no hidden free-list order is inferred. Bus callbacks use fixture drivers and only selected value slices/statuses. No physical DUT, HDL access or memory-walk algorithm is exercised.",
+        "ja": "virtual-register配列は、同じblock内の公開allocation／configuration APIと有限model化memoryを使う。固定開始policyで配置を決定し、乱数品質は検査しない。再配置のreleaseは公開予約で検査し、内部free-list順は推測しない。bus callbackは検査系driverと選択した値slice／statusだけを使う。物理DUT、HDL access、memory-walk algorithmは実行しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_allocate_returns_null_when_its_policy_has_no_free_start",
+          "role": "direct",
+          "expected_observations": [
+            "UT: rejected 1 active 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-ALLOCATED-REGION-RELEASE",
+      "clause": "18.9.1.1.6",
+      "statement": {
+        "en": "An allocated virtual array releases its region through the virtual-register API.",
+        "ja": "allocateしたvirtual配列は、virtual-register APIを通じてregionをreleaseする。"
+      },
+      "conditions": {
+        "en": "Allocate three elements, call release_region and reserve the old six-location range.",
+        "ja": "3要素をallocateし、release_regionを呼び、以前の6 location rangeを予約する。"
+      },
+      "expected": {
+        "en": "Memory and region become null, the range is available and only the probe reservation is active.",
+        "ja": "memory／regionはnull、rangeは利用可能で、確認予約だけがactiveとなる。"
+      },
+      "limitations": {
+        "en": "Virtual-register arrays use public allocation/configuration APIs and bounded modeled memories in one block. Fixed-start policies make placement deterministic, not a random-quality test. Relocation checks release through public reservations; no hidden free-list order is inferred. Bus callbacks use fixture drivers and only selected value slices/statuses. No physical DUT, HDL access or memory-walk algorithm is exercised.",
+        "ja": "virtual-register配列は、同じblock内の公開allocation／configuration APIと有限model化memoryを使う。固定開始policyで配置を決定し、乱数品質は検査しない。再配置のreleaseは公開予約で検査し、内部free-list順は推測しない。bus callbackは検査系driverと選択した値slice／statusだけを使う。物理DUT、HDL access、memory-walk algorithmは実行しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_allocated_region_release_returns_its_memory_to_the_pool",
+          "role": "direct",
+          "expected_observations": [
+            "UT: memory_null 1 region_null 1 available 1 active 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-BYTE-WIDTH-MEMORY-ROUNDING",
+      "clause": "18.9.1.2.9",
+      "statement": {
+        "en": "Virtual-register byte width rounds up to whole implementing-memory locations.",
+        "ja": "virtual-registerのbyte幅は、完全な実装memory locationへ切り上げる。"
+      },
+      "conditions": {
+        "en": "Implement a 16-bit register over a 32-bit memory.",
+        "ja": "16 bit registerを32 bit memoryで実装する。"
+      },
+      "expected": {
+        "en": "Width is four bytes, one location and increment one.",
+        "ja": "幅は4 byte、1 location、increment 1となる。"
+      },
+      "limitations": {
+        "en": "Virtual-register arrays use public allocation/configuration APIs and bounded modeled memories in one block. Fixed-start policies make placement deterministic, not a random-quality test. Relocation checks release through public reservations; no hidden free-list order is inferred. Bus callbacks use fixture drivers and only selected value slices/statuses. No physical DUT, HDL access or memory-walk algorithm is exercised.",
+        "ja": "virtual-register配列は、同じblock内の公開allocation／configuration APIと有限model化memoryを使う。固定開始policyで配置を決定し、乱数品質は検査しない。再配置のreleaseは公開予約で検査し、内部free-list順は推測しない。bus callbackは検査系driverと選択した値slice／statusだけを使う。物理DUT、HDL access、memory-walk algorithmは実行しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_byte_width_rounds_up_to_the_implementing_memory_location_width",
+          "role": "direct",
+          "expected_observations": [
+            "UT: bytes 4 locations 1 increment 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-UNIMPLEMENTED-PARENT-METADATA",
+      "clause": "18.9.1.2.1",
+      "statement": {
+        "en": "Configuration records the virtual register parent before memory implementation.",
+        "ja": "configurationは、memory実装前にvirtual registerのparentを記録する。"
+      },
+      "conditions": {
+        "en": "Configure only the parent block of a named virtual register.",
+        "ja": "名前付きvirtual registerのparent blockだけを設定する。"
+      },
+      "expected": {
+        "en": "Parent is the exact block, memory is null and the name is vr.",
+        "ja": "parentは正確なblock、memoryはnull、名前はvrとなる。"
+      },
+      "limitations": {
+        "en": "Virtual-register arrays use public allocation/configuration APIs and bounded modeled memories in one block. Fixed-start policies make placement deterministic, not a random-quality test. Relocation checks release through public reservations; no hidden free-list order is inferred. Bus callbacks use fixture drivers and only selected value slices/statuses. No physical DUT, HDL access or memory-walk algorithm is exercised.",
+        "ja": "virtual-register配列は、同じblock内の公開allocation／configuration APIと有限model化memoryを使う。固定開始policyで配置を決定し、乱数品質は検査しない。再配置のreleaseは公開予約で検査し、内部free-list順は推測しない。bus callbackは検査系driverと選択した値slice／statusだけを使う。物理DUT、HDL access、memory-walk algorithmは実行しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_configuration_records_parent_and_unimplemented_memory",
+          "role": "direct",
+          "expected_observations": [
+            "UT: parent 1 memory_null 1 name vr"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-IMPLEMENT-MOVE-SAME-BLOCK",
+      "clause": "18.9.1.1.3",
+      "statement": {
+        "en": "Dynamic implementation can move and resize within its parent block.",
+        "ja": "動的実装は、親block内で移動とresizeができる。"
+      },
+      "conditions": {
+        "en": "Move two elements in one memory to three in another.",
+        "ja": "あるmemoryの2要素から、別memoryの3要素へ移動する。"
+      },
+      "expected": {
+        "en": "Move succeeds, exact new memory/size match, old storage is free and one new region is active.",
+        "ja": "移動が成功し、正確な新memory／sizeが一致し、旧storageは空き、新active regionは1つとなる。"
+      },
+      "limitations": {
+        "en": "Virtual-register arrays use public allocation/configuration APIs and bounded modeled memories in one block. Fixed-start policies make placement deterministic, not a random-quality test. Relocation checks release through public reservations; no hidden free-list order is inferred. Bus callbacks use fixture drivers and only selected value slices/statuses. No physical DUT, HDL access or memory-walk algorithm is exercised.",
+        "ja": "virtual-register配列は、同じblock内の公開allocation／configuration APIと有限model化memoryを使う。固定開始policyで配置を決定し、乱数品質は検査しない。再配置のreleaseは公開予約で検査し、内部free-list順は推測しない。bus callbackは検査系driverと選択した値slice／statusだけを使う。物理DUT、HDL access、memory-walk algorithmは実行しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_dynamic_implementation_moves_between_memories_in_the_same_block",
+          "role": "direct",
+          "expected_observations": [
+            "UT: moved 1 memory 1 size 3 old_available 1 new_active 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-IMPLEMENT-OVERLAP-REJECTION",
+      "clause": "18.9.1.1.3",
+      "statement": {
+        "en": "A dynamic implementation cannot occupy an already reserved destination.",
+        "ja": "動的実装は、予約済みdestinationを占有できない。"
+      },
+      "conditions": {
+        "en": "Reserve the intended range before implementing two elements there.",
+        "ja": "2要素の実装前に、意図するrangeを予約する。"
+      },
+      "expected": {
+        "en": "Implementation returns false and the one original reservation stays active.",
+        "ja": "実装はfalseを返し、元の予約1つがactiveを保持する。"
+      },
+      "limitations": {
+        "en": "Virtual-register arrays use public allocation/configuration APIs and bounded modeled memories in one block. Fixed-start policies make placement deterministic, not a random-quality test. Relocation checks release through public reservations; no hidden free-list order is inferred. Bus callbacks use fixture drivers and only selected value slices/statuses. No physical DUT, HDL access or memory-walk algorithm is exercised.",
+        "ja": "virtual-register配列は、同じblock内の公開allocation／configuration APIと有限model化memoryを使う。固定開始policyで配置を決定し、乱数品質は検査しない。再配置のreleaseは公開予約で検査し、内部free-list順は推測しない。bus callbackは検査系driverと選択した値slice／statusだけを使う。物理DUT、HDL access、memory-walk algorithmは実行しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_dynamic_implementation_rejects_an_overlapping_destination",
+          "role": "direct",
+          "expected_observations": [
+            "UT: rejected 1 active 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-IMPLEMENT-REGION-DESCRIPTOR",
+      "clause": "18.9.1.1.3",
+      "statement": {
+        "en": "Successful dynamic implementation exposes its reserved region descriptor.",
+        "ja": "成功した動的実装は、予約region descriptorを示す。"
+      },
+      "conditions": {
+        "en": "Implement two two-location elements at offset two.",
+        "ja": "offset 2に、各2 locationの要素2つを実装する。"
+      },
+      "expected": {
+        "en": "Exact memory/size agree and the active region spans 2..5 with length four.",
+        "ja": "正確なmemory／sizeが一致し、active regionは2..5、長さ4となる。"
+      },
+      "limitations": {
+        "en": "Virtual-register arrays use public allocation/configuration APIs and bounded modeled memories in one block. Fixed-start policies make placement deterministic, not a random-quality test. Relocation checks release through public reservations; no hidden free-list order is inferred. Bus callbacks use fixture drivers and only selected value slices/statuses. No physical DUT, HDL access or memory-walk algorithm is exercised.",
+        "ja": "virtual-register配列は、同じblock内の公開allocation／configuration APIと有限model化memoryを使う。固定開始policyで配置を決定し、乱数品質は検査しない。再配置のreleaseは公開予約で検査し、内部free-list順は推測しない。bus callbackは検査系driverと選択した値slice／statusだけを使う。物理DUT、HDL access、memory-walk algorithmは実行しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_dynamic_implementation_returns_a_reserved_region",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ok 1 memory 1 size 2 region 2 5 4 active 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-DYNAMIC-RELEASE-INVALIDATION",
+      "clause": "18.9.1.1.6",
+      "statement": {
+        "en": "Dynamic release invalidates the implementation and makes its old range available.",
+        "ja": "動的releaseは、実装を無効にし、旧rangeを利用可能にする。"
+      },
+      "conditions": {
+        "en": "Implement two elements at offset two and release_region.",
+        "ja": "offset 2に2要素を実装し、release_regionを呼ぶ。"
+      },
+      "expected": {
+        "en": "Memory/region become null and a later reservation of the same range succeeds.",
+        "ja": "memory／regionはnullとなり、後の同range予約が成功する。"
+      },
+      "limitations": {
+        "en": "Virtual-register arrays use public allocation/configuration APIs and bounded modeled memories in one block. Fixed-start policies make placement deterministic, not a random-quality test. Relocation checks release through public reservations; no hidden free-list order is inferred. Bus callbacks use fixture drivers and only selected value slices/statuses. No physical DUT, HDL access or memory-walk algorithm is exercised.",
+        "ja": "virtual-register配列は、同じblock内の公開allocation／configuration APIと有限model化memoryを使う。固定開始policyで配置を決定し、乱数品質は検査しない。再配置のreleaseは公開予約で検査し、内部free-list順は推測しない。bus callbackは検査系driverと選択した値slice／statusだけを使う。物理DUT、HDL access、memory-walk algorithmは実行しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_dynamic_release_clears_the_implementation_and_returns_the_region",
+          "role": "direct",
+          "expected_observations": [
+            "UT: memory_null 1 region_null 1 available 1 active 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-DYNAMIC-RELOCATION-RELEASE",
+      "clause": "18.9.1.1.3",
+      "statement": {
+        "en": "Dynamic relocation releases the previous memory range.",
+        "ja": "動的再配置は、以前のmemory rangeをreleaseする。"
+      },
+      "conditions": {
+        "en": "Move a two-element implementation from two to twelve and reserve its former range.",
+        "ja": "2要素実装を2から12へ移動し、以前のrangeを予約する。"
+      },
+      "expected": {
+        "en": "Move succeeds at offset twelve and the old range is available; two regions remain after probing.",
+        "ja": "offset 12への移動は成功し、旧rangeは利用可能、確認予約後に2 regionが残る。"
+      },
+      "limitations": {
+        "en": "Virtual-register arrays use public allocation/configuration APIs and bounded modeled memories in one block. Fixed-start policies make placement deterministic, not a random-quality test. Relocation checks release through public reservations; no hidden free-list order is inferred. Bus callbacks use fixture drivers and only selected value slices/statuses. No physical DUT, HDL access or memory-walk algorithm is exercised.",
+        "ja": "virtual-register配列は、同じblock内の公開allocation／configuration APIと有限model化memoryを使う。固定開始policyで配置を決定し、乱数品質は検査しない。再配置のreleaseは公開予約で検査し、内部free-list順は推測しない。bus callbackは検査系driverと選択した値slice／statusだけを使う。物理DUT、HDL access、memory-walk algorithmは実行しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_dynamic_relocation_releases_the_previous_memory_range",
+          "role": "direct",
+          "expected_observations": [
+            "UT: moved 1 offset 12 old_available 1 active 2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-RESIZE-OMITTED-MEMORY-PLACEMENT",
+      "clause": "18.9.1.1.3",
+      "statement": {
+        "en": "Omitting memory while resizing retains the current implementation placement.",
+        "ja": "resize時にmemoryを省略すると、現在の実装配置を保持する。"
+      },
+      "conditions": {
+        "en": "Implement two elements at offset/increment two, then request size three without memory.",
+        "ja": "offset／increment 2で2要素を実装し、memoryなしでsize 3を要求する。"
+      },
+      "expected": {
+        "en": "Resize succeeds, exact memory remains and size/offset/increment are 3/2/2.",
+        "ja": "resizeは成功し、正確なmemoryを保持し、size／offset／incrementは3／2／2となる。"
+      },
+      "limitations": {
+        "en": "Virtual-register arrays use public allocation/configuration APIs and bounded modeled memories in one block. Fixed-start policies make placement deterministic, not a random-quality test. Relocation checks release through public reservations; no hidden free-list order is inferred. Bus callbacks use fixture drivers and only selected value slices/statuses. No physical DUT, HDL access or memory-walk algorithm is exercised.",
+        "ja": "virtual-register配列は、同じblock内の公開allocation／configuration APIと有限model化memoryを使う。固定開始policyで配置を決定し、乱数品質は検査しない。再配置のreleaseは公開予約で検査し、内部free-list順は推測しない。bus callbackは検査系driverと選択した値slice／statusだけを使う。物理DUT、HDL access、memory-walk algorithmは実行しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_dynamic_resize_without_memory_preserves_placement",
+          "role": "direct",
+          "expected_observations": [
+            "UT: resized 1 memory 1 size 3 offset 2 increment 2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-FIELD-CONFIGURATION-METADATA",
+      "clause": "18.10.2.1",
+      "statement": {
+        "en": "A virtual field retains its configured parent, width and least-significant position.",
+        "ja": "virtual fieldは、設定parent、幅、最下位位置を保持する。"
+      },
+      "conditions": {
+        "en": "Configure a five-bit field starting at bit seven.",
+        "ja": "bit 7から5 bit fieldを設定する。"
+      },
+      "expected": {
+        "en": "Exact parent, width five and position seven are returned.",
+        "ja": "正確なparent、幅5、位置7を返す。"
+      },
+      "limitations": {
+        "en": "Virtual-register arrays use public allocation/configuration APIs and bounded modeled memories in one block. Fixed-start policies make placement deterministic, not a random-quality test. Relocation checks release through public reservations; no hidden free-list order is inferred. Bus callbacks use fixture drivers and only selected value slices/statuses. No physical DUT, HDL access or memory-walk algorithm is exercised.",
+        "ja": "virtual-register配列は、同じblock内の公開allocation／configuration APIと有限model化memoryを使う。固定開始policyで配置を決定し、乱数品質は検査しない。再配置のreleaseは公開予約で検査し、内部free-list順は推測しない。bus callbackは検査系driverと選択した値slice／statusだけを使う。物理DUT、HDL access、memory-walk algorithmは実行しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_field_configuration_preserves_parent_width_and_bit_position",
+          "role": "direct",
+          "expected_observations": [
+            "UT: parent 1 bits 5 lsb 7"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-FIELD-NAMED-LOOKUP",
+      "clause": "18.9.1.2.13",
+      "statement": {
+        "en": "Virtual-field named lookup preserves found identity and returns null for a missing name.",
+        "ja": "virtual-fieldの名前lookupは、発見した同一性を保持し、存在しない名前にはnullを返す。"
+      },
+      "conditions": {
+        "en": "Look up one configured field and one missing name.",
+        "ja": "設定field 1つと、存在しない名前1つをlookupする。"
+      },
+      "expected": {
+        "en": "The found handle is exact and the missing handle is null.",
+        "ja": "発見handleは正確で、存在しないhandleはnullとなる。"
+      },
+      "limitations": {
+        "en": "Virtual-register arrays use public allocation/configuration APIs and bounded modeled memories in one block. Fixed-start policies make placement deterministic, not a random-quality test. Relocation checks release through public reservations; no hidden free-list order is inferred. Bus callbacks use fixture drivers and only selected value slices/statuses. No physical DUT, HDL access or memory-walk algorithm is exercised.",
+        "ja": "virtual-register配列は、同じblock内の公開allocation／configuration APIと有限model化memoryを使う。固定開始policyで配置を決定し、乱数品質は検査しない。再配置のreleaseは公開予約で検査し、内部free-list順は推測しない。bus callbackは検査系driverと選択した値slice／statusだけを使う。物理DUT、HDL access、memory-walk algorithmは実行しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_field_name_lookup_preserves_handle_and_returns_null_for_missing_name",
+          "role": "direct",
+          "expected_observations": [
+            "UT: found 1 missing 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-FIELD-POST-READ-SLICE",
+      "clause": "18.10.6.2.4",
+      "statement": {
+        "en": "A virtual-field post_read callback can replace its slice in the parent result.",
+        "ja": "virtual-field post_read callbackは、親結果内の自身のsliceを置換できる。"
+      },
+      "conditions": {
+        "en": "Read 3344 hex and replace bits 7..4 with a hex.",
+        "ja": "3344 hexをreadし、bit 7..4をa hexへ置換する。"
+      },
+      "expected": {
+        "en": "One callback returns 33a4 hex with OK.",
+        "ja": "1 callbackが33a4 hexとOKを返す。"
+      },
+      "limitations": {
+        "en": "Virtual-register arrays use public allocation/configuration APIs and bounded modeled memories in one block. Fixed-start policies make placement deterministic, not a random-quality test. Relocation checks release through public reservations; no hidden free-list order is inferred. Bus callbacks use fixture drivers and only selected value slices/statuses. No physical DUT, HDL access or memory-walk algorithm is exercised.",
+        "ja": "virtual-register配列は、同じblock内の公開allocation／configuration APIと有限model化memoryを使う。固定開始policyで配置を決定し、乱数品質は検査しない。再配置のreleaseは公開予約で検査し、内部free-list順は推測しない。bus callbackは検査系driverと選択した値slice／statusだけを使う。物理DUT、HDL access、memory-walk algorithmは実行しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_field_registered_post_read_callback_updates_its_parent_result_slice",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ok 1 calls 1 value 33a4"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-FIELD-PRE-WRITE-SLICE",
+      "clause": "18.10.6.2.1",
+      "statement": {
+        "en": "A virtual-field pre_write callback can replace only its parent write slice.",
+        "ja": "virtual-field pre_write callbackは、親write内の自身のsliceだけを置換できる。"
+      },
+      "conditions": {
+        "en": "Write 3344 hex while replacing bits 7..4 with a hex.",
+        "ja": "bit 7..4をa hexへ置換しながら、3344 hexを書く。"
+      },
+      "expected": {
+        "en": "One callback writes bytes a4/33 hex with OK.",
+        "ja": "1 callbackがbyte a4／33 hexとOKでwriteする。"
+      },
+      "limitations": {
+        "en": "Virtual-register arrays use public allocation/configuration APIs and bounded modeled memories in one block. Fixed-start policies make placement deterministic, not a random-quality test. Relocation checks release through public reservations; no hidden free-list order is inferred. Bus callbacks use fixture drivers and only selected value slices/statuses. No physical DUT, HDL access or memory-walk algorithm is exercised.",
+        "ja": "virtual-register配列は、同じblock内の公開allocation／configuration APIと有限model化memoryを使う。固定開始policyで配置を決定し、乱数品質は検査しない。再配置のreleaseは公開予約で検査し、内部free-list順は推測しない。bus callbackは検査系driverと選択した値slice／statusだけを使う。物理DUT、HDL access、memory-walk algorithmは実行しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_field_registered_pre_write_callback_updates_its_parent_value_slice",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ok 1 calls 1 bytes a4 33"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-FIELD-ENUMERATION-BIT-ORDER",
+      "clause": "18.9.1.2.12",
+      "statement": {
+        "en": "Virtual-field enumeration returns handles in increasing bit position.",
+        "ja": "virtual-field列挙は、bit位置の昇順でhandleを返す。"
+      },
+      "conditions": {
+        "en": "Configure high, low and middle fields out of bit order.",
+        "ja": "high、low、middle fieldをbit順以外で設定する。"
+      },
+      "expected": {
+        "en": "Three exact handles are returned low/middle/high.",
+        "ja": "3つの正確なhandleをlow／middle／highで返す。"
+      },
+      "limitations": {
+        "en": "Virtual-register arrays use public allocation/configuration APIs and bounded modeled memories in one block. Fixed-start policies make placement deterministic, not a random-quality test. Relocation checks release through public reservations; no hidden free-list order is inferred. Bus callbacks use fixture drivers and only selected value slices/statuses. No physical DUT, HDL access or memory-walk algorithm is exercised.",
+        "ja": "virtual-register配列は、同じblock内の公開allocation／configuration APIと有限model化memoryを使う。固定開始policyで配置を決定し、乱数品質は検査しない。再配置のreleaseは公開予約で検査し、内部free-list順は推測しない。bus callbackは検査系driverと選択した値slice／statusだけを使う。物理DUT、HDL access、memory-walk algorithmは実行しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_get_fields_orders_handles_by_bit_position",
+          "role": "direct",
+          "expected_observations": [
+            "UT: size 3 order 1 1 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAM-REGION-VIRTUAL-OWNER",
+      "clause": "18.12.7.2.7",
+      "statement": {
+        "en": "A virtual implementation region identifies its owning array and memory.",
+        "ja": "virtual実装regionは、所有する配列とmemoryを識別する。"
+      },
+      "conditions": {
+        "en": "Implement a virtual-register array and query its region.",
+        "ja": "virtual-register配列を実装し、そのregionを照会する。"
+      },
+      "expected": {
+        "en": "Owner and memory are the exact configured handles.",
+        "ja": "owner／memoryは、正確な設定handleとなる。"
+      },
+      "limitations": {
+        "en": "Virtual-register arrays use public allocation/configuration APIs and bounded modeled memories in one block. Fixed-start policies make placement deterministic, not a random-quality test. Relocation checks release through public reservations; no hidden free-list order is inferred. Bus callbacks use fixture drivers and only selected value slices/statuses. No physical DUT, HDL access or memory-walk algorithm is exercised.",
+        "ja": "virtual-register配列は、同じblock内の公開allocation／configuration APIと有限model化memoryを使う。固定開始policyで配置を決定し、乱数品質は検査しない。再配置のreleaseは公開予約で検査し、内部free-list順は推測しない。bus callbackは検査系driverと選択した値slice／statusだけを使う。物理DUT、HDL access、memory-walk algorithmは実行しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_implementation_region_identifies_its_virtual_register_array",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ok 1 owner 1 memory 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-PRE-WRITE-FIELD-REGISTER-CALLBACK-ORDER",
+      "clause": "18.10.5.1",
+      "statement": {
+        "en": "Virtual-field pre_write runs before the parent virtual-register hook, each method preceding its callbacks.",
+        "ja": "virtual-field pre_writeは、親virtual-register hookより先で、各methodは自身のcallbackに先行する。"
+      },
+      "conditions": {
+        "en": "Trace the field method/callback and register method/callback in one write.",
+        "ja": "1 writeで、field method／callbackとregister method／callbackをtraceする。"
+      },
+      "expected": {
+        "en": "The trace is FfRr.",
+        "ja": "traceはFfRrとなる。"
+      },
+      "limitations": {
+        "en": "Virtual-register arrays use public allocation/configuration APIs and bounded modeled memories in one block. Fixed-start policies make placement deterministic, not a random-quality test. Relocation checks release through public reservations; no hidden free-list order is inferred. Bus callbacks use fixture drivers and only selected value slices/statuses. No physical DUT, HDL access or memory-walk algorithm is exercised.",
+        "ja": "virtual-register配列は、同じblock内の公開allocation／configuration APIと有限model化memoryを使う。固定開始policyで配置を決定し、乱数品質は検査しない。再配置のreleaseは公開予約で検査し、内部free-list順は推測しない。bus callbackは検査系driverと選択した値slice／statusだけを使う。物理DUT、HDL access、memory-walk algorithmは実行しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_pre_write_orders_field_and_register_methods_before_their_registered_callbacks",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ok 1 order FfRr"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-POST-READ-CALLBACK-VALUE",
+      "clause": "18.9.2.2.4",
+      "statement": {
+        "en": "A virtual-register post_read callback can replace the returned value.",
+        "ja": "virtual-register post_read callbackは、返却値を置換できる。"
+      },
+      "conditions": {
+        "en": "Replace modeled bus read 3344 hex with 5ca6 hex.",
+        "ja": "model化bus read 3344 hexを5ca6 hexへ置換する。"
+      },
+      "expected": {
+        "en": "One callback returns 5ca6 hex with OK.",
+        "ja": "1 callbackが5ca6 hexとOKを返す。"
+      },
+      "limitations": {
+        "en": "Virtual-register arrays use public allocation/configuration APIs and bounded modeled memories in one block. Fixed-start policies make placement deterministic, not a random-quality test. Relocation checks release through public reservations; no hidden free-list order is inferred. Bus callbacks use fixture drivers and only selected value slices/statuses. No physical DUT, HDL access or memory-walk algorithm is exercised.",
+        "ja": "virtual-register配列は、同じblock内の公開allocation／configuration APIと有限model化memoryを使う。固定開始policyで配置を決定し、乱数品質は検査しない。再配置のreleaseは公開予約で検査し、内部free-list順は推測しない。bus callbackは検査系driverと選択した値slice／statusだけを使う。物理DUT、HDL access、memory-walk algorithmは実行しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_registered_post_read_callback_replaces_the_returned_value",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ok 1 calls 1 value 5ca6"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-POST-WRITE-CALLBACK-STATUS",
+      "clause": "18.9.2.2.2",
+      "statement": {
+        "en": "A virtual-register post_write callback can change the returned status after the physical write.",
+        "ja": "virtual-register post_write callbackは、物理write後に返却statusを変更できる。"
+      },
+      "conditions": {
+        "en": "Write 3344 hex, then assign NOT_OK.",
+        "ja": "3344 hexを書き、次にNOT_OKを代入する。"
+      },
+      "expected": {
+        "en": "One callback returns failure while stored bytes remain 44/33 hex.",
+        "ja": "1 callbackが失敗を返し、格納byteは44／33 hexを保持する。"
+      },
+      "limitations": {
+        "en": "Virtual-register arrays use public allocation/configuration APIs and bounded modeled memories in one block. Fixed-start policies make placement deterministic, not a random-quality test. Relocation checks release through public reservations; no hidden free-list order is inferred. Bus callbacks use fixture drivers and only selected value slices/statuses. No physical DUT, HDL access or memory-walk algorithm is exercised.",
+        "ja": "virtual-register配列は、同じblock内の公開allocation／configuration APIと有限model化memoryを使う。固定開始policyで配置を決定し、乱数品質は検査しない。再配置のreleaseは公開予約で検査し、内部free-list順は推測しない。bus callbackは検査系driverと選択した値slice／statusだけを使う。物理DUT、HDL access、memory-walk algorithmは実行しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_registered_post_write_callback_replaces_the_returned_status",
+          "role": "direct",
+          "expected_observations": [
+            "UT: rejected 1 calls 1 bytes 44 33"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-PRE-WRITE-CALLBACK-VALUE",
+      "clause": "18.9.2.2.1",
+      "statement": {
+        "en": "A virtual-register pre_write callback can replace the complete value sent to memory.",
+        "ja": "virtual-register pre_write callbackは、memoryへ送る値全体を置換できる。"
+      },
+      "conditions": {
+        "en": "Replace requested 3344 hex with 5ca6 hex before access.",
+        "ja": "access前に要求3344 hexを5ca6 hexへ置換する。"
+      },
+      "expected": {
+        "en": "One callback writes bytes a6/5c hex with OK.",
+        "ja": "1 callbackがbyte a6／5c hexとOKでwriteする。"
+      },
+      "limitations": {
+        "en": "Virtual-register arrays use public allocation/configuration APIs and bounded modeled memories in one block. Fixed-start policies make placement deterministic, not a random-quality test. Relocation checks release through public reservations; no hidden free-list order is inferred. Bus callbacks use fixture drivers and only selected value slices/statuses. No physical DUT, HDL access or memory-walk algorithm is exercised.",
+        "ja": "virtual-register配列は、同じblock内の公開allocation／configuration APIと有限model化memoryを使う。固定開始policyで配置を決定し、乱数品質は検査しない。再配置のreleaseは公開予約で検査し、内部free-list順は推測しない。bus callbackは検査系driverと選択した値slice／statusだけを使う。物理DUT、HDL access、memory-walk algorithmは実行しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_registered_pre_write_callback_replaces_the_virtual_value",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ok 1 calls 1 bytes a6 5c"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-STATIC-DEFAULT-PACKING",
+      "clause": "18.9.1.1.2",
+      "statement": {
+        "en": "A zero static increment selects closest packing in whole memory locations.",
+        "ja": "static increment 0は、完全なmemory locationで最密配置を選ぶ。"
+      },
+      "conditions": {
+        "en": "Configure three 16-bit elements over eight-bit memory at offset two.",
+        "ja": "8 bit memoryのoffset 2から、16 bit要素3つを設定する。"
+      },
+      "expected": {
+        "en": "Two locations per element give increment two and offsets 2/4/6.",
+        "ja": "要素ごと2 locationで、incrementは2、offsetは2／4／6となる。"
+      },
+      "limitations": {
+        "en": "Virtual-register arrays use public allocation/configuration APIs and bounded modeled memories in one block. Fixed-start policies make placement deterministic, not a random-quality test. Relocation checks release through public reservations; no hidden free-list order is inferred. Bus callbacks use fixture drivers and only selected value slices/statuses. No physical DUT, HDL access or memory-walk algorithm is exercised.",
+        "ja": "virtual-register配列は、同じblock内の公開allocation／configuration APIと有限model化memoryを使う。固定開始policyで配置を決定し、乱数品質は検査しない。再配置のreleaseは公開予約で検査し、内部free-list順は推測しない。bus callbackは検査系driverと選択した値slice／statusだけを使う。物理DUT、HDL access、memory-walk algorithmは実行しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_static_array_default_increment_packs_complete_memory_locations",
+          "role": "direct",
+          "expected_observations": [
+            "UT: memory 1 size 3 locations 2 increment 2 offsets 2 4 6"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-STATIC-EXPLICIT-PADDING",
+      "clause": "18.9.1.1.2",
+      "statement": {
+        "en": "A legal explicit static increment preserves padding between elements.",
+        "ja": "合法な明示static incrementは、要素間のpaddingを保持する。"
+      },
+      "conditions": {
+        "en": "Use two-location elements at offset two with increment three.",
+        "ja": "offset 2で、2 location要素とincrement 3を使う。"
+      },
+      "expected": {
+        "en": "Width is two bytes/locations and offsets are 2/5/8.",
+        "ja": "幅は2 byte／location、offsetは2／5／8となる。"
+      },
+      "limitations": {
+        "en": "Virtual-register arrays use public allocation/configuration APIs and bounded modeled memories in one block. Fixed-start policies make placement deterministic, not a random-quality test. Relocation checks release through public reservations; no hidden free-list order is inferred. Bus callbacks use fixture drivers and only selected value slices/statuses. No physical DUT, HDL access or memory-walk algorithm is exercised.",
+        "ja": "virtual-register配列は、同じblock内の公開allocation／configuration APIと有限model化memoryを使う。固定開始policyで配置を決定し、乱数品質は検査しない。再配置のreleaseは公開予約で検査し、内部free-list順は推測しない。bus callbackは検査系driverと選択した値slice／statusだけを使う。物理DUT、HDL access、memory-walk algorithmは実行しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_static_array_explicit_increment_preserves_padding",
+          "role": "direct",
+          "expected_observations": [
+            "UT: bytes 2 locations 2 increment 3 offsets 2 5 8"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-STATIC-MAP-EXTERNAL-ADDRESS",
+      "clause": "18.9.1.2.3",
+      "statement": {
+        "en": "A static virtual array inherits implementing-memory map membership and address translation.",
+        "ja": "static virtual配列は、実装memoryのmap所属とaddress変換を引き継ぐ。"
+      },
+      "conditions": {
+        "en": "Map memory at offset 20 hex under base 100 hex and use virtual base two/increment three.",
+        "ja": "base 100 hex下のoffset 20 hexにmemoryをmapし、virtual base 2／increment 3を使う。"
+      },
+      "expected": {
+        "en": "The exact map is inherited and element two has external address 128 hex.",
+        "ja": "正確なmapを引き継ぎ、要素2の外部addressは128 hexとなる。"
+      },
+      "limitations": {
+        "en": "Virtual-register arrays use public allocation/configuration APIs and bounded modeled memories in one block. Fixed-start policies make placement deterministic, not a random-quality test. Relocation checks release through public reservations; no hidden free-list order is inferred. Bus callbacks use fixture drivers and only selected value slices/statuses. No physical DUT, HDL access or memory-walk algorithm is exercised.",
+        "ja": "virtual-register配列は、同じblock内の公開allocation／configuration APIと有限model化memoryを使う。固定開始policyで配置を決定し、乱数品質は検査しない。再配置のreleaseは公開予約で検査し、内部free-list順は推測しない。bus callbackは検査系driverと選択した値slice／statusだけを使う。物理DUT、HDL access、memory-walk algorithmは実行しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_static_array_inherits_memory_map_membership_and_external_address",
+          "role": "direct",
+          "expected_observations": [
+            "UT: count 1 member 1 maps 1 handle 1 address 128"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-STATIC-RELEASE-PRESERVES-IMPLEMENTATION",
+      "clause": "18.9.1.1.6",
+      "statement": {
+        "en": "A static virtual implementation cannot be dynamically released.",
+        "ja": "static virtual実装は、動的releaseができない。"
+      },
+      "conditions": {
+        "en": "Call release_region on a configured static array.",
+        "ja": "設定static配列でrelease_regionを呼ぶ。"
+      },
+      "expected": {
+        "en": "Exact memory/region remain and one region stays active.",
+        "ja": "正確なmemory／regionを保持し、active regionは1つを保持する。"
+      },
+      "limitations": {
+        "en": "Virtual-register arrays use public allocation/configuration APIs and bounded modeled memories in one block. Fixed-start policies make placement deterministic, not a random-quality test. Relocation checks release through public reservations; no hidden free-list order is inferred. Bus callbacks use fixture drivers and only selected value slices/statuses. No physical DUT, HDL access or memory-walk algorithm is exercised.",
+        "ja": "virtual-register配列は、同じblock内の公開allocation／configuration APIと有限model化memoryを使う。固定開始policyで配置を決定し、乱数品質は検査しない。再配置のreleaseは公開予約で検査し、内部free-list順は推測しない。bus callbackは検査系driverと選択した値slice／statusだけを使う。物理DUT、HDL access、memory-walk algorithmは実行しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_static_implementation_cannot_be_released_dynamically",
+          "role": "direct",
+          "expected_observations": [
+            "UT: memory 1 same_region 1 active 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-POLICY-POP-ACTIVE-POLICY-SYNC",
+      "clause": "16.1.3.2",
+      "statement": {
+        "en": "Popping an active object also pops the policy from that object active-policy stack.",
+        "ja": "active objectのpopは、そのobjectのactive-policy stackからpolicyもpopする。"
+      },
+      "conditions": {
+        "en": "Push one object through two distinct policies, then pop the second and first in order.",
+        "ja": "1 objectを異なる2 policyへpushし、second、firstの順にpopする。"
+      },
+      "expected": {
+        "en": "Object active policy restores the first then null; popped objects are exact and each emptied policy reports null.",
+        "ja": "objectのactive policyはfirst、次にnullへ戻り、pop objectは正確で、空になった各policyはnullを返す。"
+      },
+      "limitations": {
+        "en": "AI draft. Observes the standard object-side getter and two independent policy stacks. The pinned library lacks this public getter, so this remains a normative spec-only build difference. Policy-side depth alone is not used to establish synchronization.",
+        "ja": "AI要求案。標準のobject側getterと、独立した2 policy stackを観測する。固定libraryはこの公開getterを欠くため、規範的なspec-onlyのbuild差分を保持する。policy側depthだけで同期の成立を判断しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_policy_object_stack_tracks_nested_active_policy_push_and_pop",
+          "role": "direct",
+          "expected_observations": [
+            "UT: popped_second object_policy 1 popped_same 1 second_empty 1",
+            "UT: popped_first object_empty 1 popped_same 1 first_empty 1"
           ]
         }
       ]

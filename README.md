@@ -11,12 +11,12 @@ Verification Methodology (UVM). It targets
 [kirimasim-tests](https://github.com/kurochan001/kirimasim-tests), which tests
 the IEEE 1800-2023 SystemVerilog language.
 
-> **Status: M4 in progress.** 1105 simulation tests in 21 chapter/annex
-> directories; 999 have a `verilator@5.052` oracle and 106 are spec-only.
+> **Status: M4 in progress.** 1106 simulation tests in 21 chapter/annex
+> directories; 999 have a `verilator@5.052` oracle and 107 are spec-only.
 > All use `:spec_check: ai`; none records human review.
 > M1, M2 and M3 retain open requirement-coverage targets.
-> M4 has 1063 draft requirements, 996 directly linked tests and an index of all 1105;
-> scope remains unapproved.
+> M4 has 1163 draft requirements, 1105 directly linked tests and an index of all 1106;
+> 0 tests remain without requirement links; scope remains unapproved.
 
 ## Contents
 
@@ -28,7 +28,7 @@ the IEEE 1800-2023 SystemVerilog language.
 
 ## Current scope
 
-- **M1: 359 cases.** Objects, transactions and copy/compare/print/pack policies;
+- **M1: 360 cases.** Objects, transactions and copy/compare/print/pack policies;
   reporting, hierarchy, factory, phases and graphs, objections, events and
   callbacks, barriers, configuration, database connections/streams/links/
   recorders, component recording, core services, visitors, component searches, pools, queues,
@@ -78,7 +78,7 @@ python3 tools/run_verilator.py --seeds 1 73 --build-jobs 2 -j 2 \
   --json out/verilator.json
 ```
 
-Add `--all` to include all two-state cases, including the 106 spec-only cases.
+Add `--all` to include all two-state cases, including the 107 spec-only cases.
 `known` results do not fail that command; tagged regressions do. `-j` controls
 concurrent tests and `--build-jobs` controls C++ jobs within each build.
 Each model is built once and run in a fresh process for each seed.
@@ -97,18 +97,18 @@ by Git; results are not automatically published.
 
 ## Current results
 
-The Verilator evidence dated 2026-11-02 covers all 1105 current cases.
-Guest records cover 1085 unchanged cases; twenty additions are unmeasured.
+The Verilator evidence dated 2026-11-03 covers all 1106 current cases.
+Guest records cover 1085 unchanged cases; twenty-one additions are unmeasured.
 These results are separate from the Check badge.
 
 | Simulator and library | Observed result |
 | --- | --- |
-| Verilator 5.052, pinned UVM, `UVM_NO_DPI` | 999 match seeds 1 and 73; 106 known differences |
-| kirimasim, pinned UVM | 1076 `unsupported`; nine missing-API `fail` in 1085 cases; 20 unmeasured |
-| Ghost, bundled UVM | 207 match and 878 fail at each seed in 1085 cases; 20 unmeasured |
+| Verilator 5.052, pinned UVM, `UVM_NO_DPI` | 999 match seeds 1 and 73; 107 known differences |
+| kirimasim, pinned UVM | 1076 `unsupported`; nine missing-API `fail` in 1085 cases; 21 unmeasured |
+| Ghost, bundled UVM | 207 match and 878 fail at each seed in 1085 cases; 21 unmeasured |
 
-The 106 Verilator differences comprise 97 runtime differences recorded at
-seed 1 and nine missing-API build failures without runtime seed results.
+The 107 Verilator differences comprise 97 runtime differences recorded at
+seed 1 and ten missing-API build failures without runtime seed results.
 `known` and `unsupported` are not passes. Ghost bundled results do not establish
 results for the pinned library.
 
@@ -140,10 +140,10 @@ its counterpart; commands and API identifiers retain their original spelling.
 | Stage | Scope | Current state / target |
 | --- | --- | --- |
 | M0 | Fetcher, runners, metadata/tools checks, Check and smoke test | Infrastructure implemented |
-| M1 | Core classes, policies, factory, phases and their graphs, objections, configuration and reporting | 359 cases; reviewed two-tests-per-clause target open |
+| M1 | Core classes, policies, factory, phases and their graphs, objections, configuration and reporting | 360 cases; reviewed two-tests-per-clause target open |
 | M2 | Sequences, sequencers, TLM and callbacks | 420 cases; target open |
 | M3 | Register layer (17–19, annex E) | 326 cases in chapters 17–19 and annex E; target open |
-| M4 | Requirement ledger and coverage | In progress: 1063 AI drafts; 1059 requirements link to 996 tests; denominator unapproved |
+| M4 | Requirement ledger and coverage | In progress: 1163 AI drafts; 1160 requirements link to 1105 tests; denominator unapproved |
 
 M1, M2 and M3 are independently incomplete. Remaining M2 work includes queued
 ownership/termination/default-resource conditions, callbacks and broader

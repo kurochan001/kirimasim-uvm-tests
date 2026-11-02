@@ -1,0 +1,5 @@
+UT: initial object_empty 1
+UT: first object_policy 1 policy_object 1
+UT: second object_policy 1 first_top 1 second_top 1
+UT: popped_second object_policy 1 popped_same 1 second_empty 1
+UT: popped_first object_empty 1 popped_same 1 first_empty 1
