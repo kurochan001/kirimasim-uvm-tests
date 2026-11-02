@@ -2,7 +2,7 @@
 
 [日本語](known-differences.ja.md) · [README](../README.md) · [FAQ](faq.md)
 
-This describes the current 1085-test suite and the pinned Accellera UVM
+This describes the current 1105-test suite and the pinned Accellera UVM
 2020.3.1 library. A mismatch is a test result; it does not by itself assign
 the cause to the simulator, the library or the expectation.
 
@@ -294,7 +294,7 @@ normative expectation is retained with `:oracle: spec`.
   custom field policy, although E.2.1 says unknown policies cannot be tested.
   The case retains no accesses, with a known-RW peer as a working control.
 
-- `pack_field_int` accepts sizes 65 and 128 without the ERROR required by
+- `pack_field_int` accepts sizes 65 and 108 without the ERROR required by
   16.5.4.9. Two cases leave the invalid packed state uninspected and use a
   fresh packer for a working 64-bit round-trip control.
 
@@ -347,7 +347,7 @@ SystemVerilog 13.4, so it cannot represent a count of two. The expected two
 preserves the prose interpretation. This signature/prose conflict requires
 review and is not assigned as a confirmed simulator or library bug.
 
-Across the suite, 979 tests have the `verilator@5.052` oracle tag and 106
+Across the suite, 999 tests have the `verilator@5.052` oracle tag and 106
 cases are spec-only. One of the spec-only cases checks 9.6: a child's pre-reset
 task must be killed when that phase ends, but the pinned-library run on Verilator 5.052
 lets the child perform its delayed write during a later phase. The cause of
@@ -360,7 +360,7 @@ observation, then its watchdog expires. This combined simulator/library
 cause remains unassigned; the normative wakeup expectation is retained.
 
 The 106 spec-only tests retain their normative expected files.
-Default Verilator runs and CI select the 979 tagged cases. `--all` includes
+Default Verilator runs and CI select the 999 tagged cases. `--all` includes
 spec-only cases and records mismatches or build failures as `known`.
 The runtime records for 97 cases establish the first difference at seed 1,
 without seed 73 results. Nine missing-API cases cannot build and have no
@@ -528,7 +528,7 @@ limitation, so their count is not a count of distinct bugs.
 
 - Required oversize integral-pack ERROR:
   [65 bits](../tests/u16/test_packer_integral_size_65_reports_error_before_independent_boundary_control.sv)
-  and [128 bits](../tests/u16/test_packer_integral_size_128_reports_error_before_independent_boundary_control.sv).
+  and [108 bits](../tests/u16/test_packer_integral_size_128_reports_error_before_independent_boundary_control.sv).
 - Unavailable FIFO output preservation (signature/prose interpretation):
   [value get](../tests/u12/test_tlm_fifo_failed_try_get_preserves_two_state_value_before_success.sv),
   [handle get](../tests/u12/test_tlm_fifo_failed_try_get_preserves_object_handle_before_success.sv),
@@ -546,6 +546,11 @@ limitation, so their count is not a count of distinct bugs.
   See [output and limits](faq.md#output-limits-and-routed-observations).
 
 ## Simulator and library combinations
+
+The suite has 1105 cases, but the kirimasim/Ghost records below cover only
+1085 unchanged current-input cases. The twenty new cases are unmeasured
+because prior temporary executable/profile snapshots are unavailable. Do
+not treat this as a fresh full-suite guest result. See [results](results.md).
 
 Ghost's bundled-library evidence has 207 matches and 878 failures with each
 of seeds 1 and 73; the same tests fail at both seeds. The current executable

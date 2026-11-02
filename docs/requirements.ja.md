@@ -5,12 +5,12 @@
 ## 現在の状態
 
 M4を進めています。[対象範囲の案](../coverage/scope.json)、[要求台帳](../coverage/requirements.json)、
-[テスト索引](../coverage/test_index.json)を版管理します。台帳の要求案は1021件で、1017要求を956テストへ直接対応付け、
+[テスト索引](../coverage/test_index.json)を版管理します。台帳の要求案は1063件で、1059要求を996テストへ直接対応付け、
 4要求には直接対応するテストがありません。追加の1テストをcontrolとして対応付けています。
-1085テストのうち残る128件は要求単位でまだ整理していませんが、規範的な動作を検査していないという意味ではありません。
+1105テストのうち残る108件は要求単位でまだ整理していませんが、規範的な動作を検査していないという意味ではありません。
 人による要求の照合記録はありません。
 
-条項catalogの番号は2,504件です。684件は要求を一部分解し、残る1,820件は未評価です。
+条項catalogの番号は2,504件です。692件は要求を一部分解し、残る1,812件は未評価です。
 どちらも完了を示しません。M4の開始は、範囲や分母の承認、M1〜M3の完了を意味しません。
 `approved_denominator`と`coverage_percentage`は`null`のままです。
 
@@ -18,7 +18,7 @@ M4を進めています。[対象範囲の案](../coverage/scope.json)、[要求
 
 適用条件を伴う、観測可能な規範的義務を1要求とする案です。methodの1条項にも、成功、失敗、default引数、
 順序、副作用など、複数の要求が必要な場合があります。見出し自体は義務ではありません。
-1021件の要求案は複数領域にわたりますが、その条項内の全義務を列挙したものではありません。
+1063件の要求案は複数領域にわたりますが、その条項内の全義務を列挙したものではありません。
 
 既存の番号catalogのすべてのrootを、1つずつ次に割り当てます。
 
@@ -41,10 +41,10 @@ SystemVerilog言語自体の要求はkirimasim-testsで扱い、言語やHDL機�
 ## 引用・要求・実行の証拠
 
 テストの最初のUVM `:lrm:`参照を**主引用**、後続のUVM参照を**補助引用**と呼びます。
-catalogのうち主引用がある番号は504件、どちらかの引用がある番号は1,114件です。
+catalogのうち主引用がある番号は507件、どちらかの引用がある番号は1,116件です。
 補助引用は準備に使うAPIの場合もあります。引用から要求の対応付けを自動生成せず、子条項の参照を親条項へ自動集約もしません。
 
-対象候補2,479件について、従来の「各条項2テスト」の主引用の棚卸しは、0件が1,975、1件が267、2件以上が237です。
+対象候補2,479件について、従来の「各条項2テスト」の主引用の棚卸しは、0件が1,972、1件が266、2件以上が241です。
 これはテストの配置を測るだけで、2つの独立した検査があること、規範的な義務を分解したこと、実行が成功したことを示しません。
 承認された要求の分母ではなく、主引用0件の全条項が不足だと宣言するものでもありません。
 
@@ -61,7 +61,7 @@ checkerは参照、field、期待行の存在、入力の同一性を検査し�
 
 [実行の証拠](results.ja.md)は別に扱い、入力、runner、ライブラリ、設定の同一性が必要です。
 直接の対応先にもspecのみの既知差分があり得ます。対応自体は成功や適合性の主張ではありません。
-現在の1085件には新たに測定した検査系を含みます。変更していない既存テストの対応付け自体は、追加の実行結果ではありません。
+現在の1105件には新たに測定した検査系を含みます。変更していない既存テストの対応付け自体は、追加の実行結果ではありません。
 
 ## 版管理するデータと生成する棚卸し
 
@@ -74,7 +74,7 @@ JSONはUTF-8、schema versionは1です。未知のfield、重複key、重複す
   直接の対応先は要求の条項を引用する必要があり、レビューで対応を確認すれば補助引用でも構いません。
 - `coverage/test_index.json`は、全テストの`primary_clause`と`inputs_sha256`を記録します。
   指紋は既存runnerの収集処理を使い、source、宣言したhelper／include／data、期待値file、UVM lockを含めます。
-  索引は棚卸しであり、1085件のレビュー済み要求対応ではありません。
+  索引は棚卸しであり、1105件のレビュー済み要求対応ではありません。
 
 照合状態は`ai`、`unreviewed`、`human`です。humanには識別可能な`reviewer`と、`reviewed_at`のISO日付が必要です。
 他の状態では両方を`null`にします。照合したという記録であり、checkerが本人性を認証するものではありません。
@@ -117,7 +117,7 @@ JSONは、`requirements_without_direct_tests`（controlのみも含む日英の�
 子条項の件数を親要求の認定へ集約しません。複数の要求が1テストを共有でき、1要求に複数のテストを対応付けることもできますが、
 共有する期待出力の1行にある全anchorで独立した網羅を示す意味にはなりません。
 
-次の18個のrootの既存主引用テストをすべて対応付けましたが、規範的義務の分解は部分的なままです。
+次の19個のrootの既存主引用テストをすべて対応付けましたが、規範的義務の分解は部分的なままです。
 
 | Root | 要求案 | 主引用テスト | 対応のないテスト | 未評価の番号 |
 | --- | --- | --- | --- | --- |
@@ -129,21 +129,22 @@ JSONは、`requirements_without_direct_tests`（controlのみも含む日英の�
 | 10 | 50 | 54 | 0 | 80 |
 | 11 | 17 | 12 | 0 | 17 |
 | 13 | 36 | 20 | 0 | 87 |
+| 14 | 118 | 108 | 0 | 51 |
 | 15 | 60 | 80 | 0 | 51 |
 | 16 | 92 | 97 | 0 | 129 |
 | 17 | 7 | 2 | 0 | 26 |
-| 19 | 73 | 53 | 0 | 76 |
+| 19 | 84 | 61 | 0 | 74 |
 | B | 36 | 54 | 0 | 110 |
 | C | 9 | 16 | 0 | 80 |
 | D | 6 | 6 | 0 | 40 |
 | E | 48 | 54 | 0 | 79 |
-| F | 43 | 26 | 0 | 107 |
+| F | 51 | 34 | 0 | 106 |
 | G | 1 | 2 | 0 | 21 |
 
 未対応テスト0件でも、網羅の完了ではありません。付録Eには、HDL-pathの利用可否とwalking-ones algorithm自体の2要求が直接未対応です。
 location maskは、必要なlocationアクセスの特性だけに対応付け、walking algorithm全体には対応付けません。
 B.5.11の矛盾する印刷上の呼出しは、レビューが必要な解釈として記録します。既知差分の期待値も規格に従って保持し、
-1021件の要求の照合状態はすべて`ai`です。
+1063件の要求の照合状態はすべて`ai`です。
 
 選択したFIFOの対応は、blocking／nonblockingの動作、容量、flush、到着順、analysis通知を実際の期待観測へ結び付けます。
 失敗get／peekの出力の事後条件にはsentinel検査を追加し、規格の`output` signatureと本文の食い違いを要レビューとして残します。
@@ -185,7 +186,7 @@ transactionのscheduleはテストベンチの動作として扱います。
 local制御、任意hookの順序、完了／state待機、priority選択、親hook、automatic objectionの期間、responseのclearへ対応付けます。
 getterのlinkでは、自動randomize、print／copy／recordの副作用、lockした制御の更新、arbitrationを示しません。
 既に一致するstate maskの検査系は、戻りmarkerへ到達しますが、経過時刻0は断定しません。
-第14章には、主引用テストで未対応20件、未評価の番号56件が残り、要求分解はすべて部分的です。
+第14章には、主引用テストで未対応0件、未評価の番号51件が残り、要求分解はすべて部分的です。
 
 階層の要求案は、componentの親／full name／depth、子listの追加、直接の子の所属、cursor境界、
 相対／絶対／失敗のlookupを区別します。index付きTLM 1の検査系は、解決済みendpointの数／handle、
@@ -277,7 +278,7 @@ sequenceのreport linkは、reporter選択、verbosity照会の委譲、virtual�
 virtual処理のprobeはreport actionを実行しません。既存sequence 20検査系は、start itemの優先順位、
 優先度、guard、context、finishのvirtual dispatch、ID転送、hook順序、低levelのgrant／送信へ別途対応します。
 既知のERROR severity、virtual dispatch、完了IDの差分は保持します。
-第14章は要求案95件、未対応の主引用検査系20件、未評価の番号56件で、
+第14章は要求案118件、未対応の主引用検査系0件、未評価の番号51件で、
 新しいreport linkも既存の送信linkも部分的です。
 
 map readのlinkは、比較の既定off、既定引数での有効化、一致／不一致read、予測を止めない無効化、
@@ -289,14 +290,14 @@ map readのlinkは、比較の既定off、既定引数での有効化、一致�
 core-serviceの要求案は、既定printer／packer／comparer／copierの選択とnull fallback、
 factory／report-server／databaseの置換と復元、共有serviceの同一性、process内のglobal seed不変性へ対応します。
 handleを直接照会し、具体的な既定型、元の既定値の再利用、RNGの値、独自coreの初期化、serviceの動作は推測しません。
-付録Fは要求案43件、主引用検査系26件、未評価の番号107件です。
+付録Fは要求案51件、主引用検査系34件、未評価の番号106件です。
 
 新しいlibrary indexのlinkは、有効wrapperの同一性、個数を明確に超えるERROR／nullの結果、
 instance所属、削除を扱います。既存library 20検査系は、instance／typewideの登録と重複排除、
 queueへの追加、削除／warning、直接呼ぶ既定selector、標準mode／count API、counter、
 選択した／既定のRAND実行へ対応します。列挙順や非強制の勝者は要求しません。
 記載された、個数と同じindexの境界は未解決です。標準APIの綴りの欠落、static削除、warning欠落は、
-元のspec-only期待値を保持します。第14章は要求案95件、未対応の主引用検査系20件、未評価の番号56件です。
+元のspec-only期待値を保持します。第14章は要求案118件、未対応の主引用検査系0件、未評価の番号51件です。
 
 transaction-orderのlinkは、mapのgetter／選択状態と、実際のpolicy dispatch／物理転送順を区別します。
 8 bit bus上の32 bit registerで、完全な操作structをaddressで並べます。write／readは、両endianについて
@@ -309,7 +310,7 @@ sortは検査系のcodeであり、それ自体を適合の主張とはしませ
 visitorのlinkは、直下の子の列挙、top-down／bottom-up／by-levelの部分順、既定begin／endの囲み、
 callbackの抑制、再利用したsubtree走査、独自noncomponent proxyを区別します。
 core-serviceのvisitor選択／復元は、自動の名前検査を実行せず照会します。兄弟順、循環／共有graph、
-具体的な既定visitorは仮定しません。付録Fは要求案43件、未評価の番号107件です。
+具体的な既定visitorは仮定しません。付録Fは要求案51件、未評価の番号106件です。
 
 blocking-transportのlinkは、遅延replyの待機、正確なrequest／response handle、逐次再利用、
 requestも投入する事前reply、2 channelの完了独立性を扱います。各channelは1 callerを使い、
@@ -321,7 +322,7 @@ register-sequenceの便利methodのlinkは、register／memory access wrapper全
 poke／peekのstorageをモデル化します。parent、element、extensionに加え、frontdoorのmap／priority、
 backdoor kind、memory offsetを観測します。updateは2回目のcleanなwriteを省略し、mirrorは明示比較と
 既定offを別々に確認します。変換bodyの実行、任意BASE specialization、HDL／DPI、複数beat access、
-同時実行は主張しません。第19章は要求案73件、対応済みの主引用検査系53件、未評価の番号76件です。
+同時実行は主張しません。第19章は要求案84件、対応済みの主引用検査系61件、未評価の番号74件です。
 
 既存20検査系は、default-sequence resourceのfilter、同precedenceの安定順、型をまたぐprecedence、
 選択nullの無効化、必要な名前、wrapperのfactory context、instance／wrapperのrandomization、
@@ -340,7 +341,7 @@ response-queueのlinkは、不一致を保持した特定IDの待機、保留ent
 重複IDの選択順は要求しません。既存20検査系は、実行中treeのstop、保持request、入れ子所有権、response待機、
 独立sequencer、自動objection、stop済みrouteへの破棄、親子、単一候補USER dispatch、response control／handlerを対応付けます。
 第15章の未対応主引用検査系は0となり、要求案60件、未評価の番号51件です。
-第14章は要求案95件、未対応の主引用検査系20件、未評価の番号56件です。
+第14章は要求案118件、未対応の主引用検査系0件、未評価の番号51件です。
 既存の単一候補dispatch、自動objection、error-enableの差分はspec-onlyを保持し、control getterだけでは配送を示しません。
 
 register-itemのlinkは、規定既定値、直近enum値、element／map／parent／extension handleの選択／clear、
@@ -348,8 +349,22 @@ register-itemのlinkは、規定既定値、直近enum値、element／map／pare
 不正indexのwarning／無視の期待はspec-onlyで、固定libraryはwriteを拡張し、warningを省きます。
 別itemで読取りを拡張から分離し、個数／個数+1の有限な観測を使います。未定義の初期enum／dataは除外します。代入したHAS_Xはenumの同一性で、4状態の観測ではありません。
 これらは記述子の直接検査で、bus／DUT accessではなく、filenameは動作を伴わない文字列です。
-共有期待行は、各fieldの独立coverageを示しません。第19章は要求案73件、対応済みの主引用検査系53件、未評価の番号76件です。
-付録Fは要求案43件、対応済みの主引用検査系26件、未評価の番号107件です。新しい照合はすべてAIで、対象範囲／分母は未承認です。
+共有期待行は、各fieldの独立coverageを示しません。第19章は要求案84件、対応済みの主引用検査系61件、未評価の番号74件です。
+付録Fは要求案51件、対応済みの主引用検査系34件、未評価の番号106件です。新しい照合はすべてAIで、対象範囲／分母は未承認です。
+
+root検索のlinkは、正確／不在の名前、wildcard所属、scope開始点の包含／除外、prefix保持、反復追加、
+subtree内のfull-name照合、唯一の一致での一致結果を扱います。兄弟順や複数一致の選択順は指定しません。
+state待機は、OR mask、STOPPEDと既に一致する状態でのreturn、instance独立性、再実行を扱います。
+既存の第14章20検査系は、lock／grab、killとpost hook、relevance、FIFO response、depth／overflow制御、
+item完了待機へ対応付けます。第14章の主引用108検査系はすべて対応済みですが、要求案118件と未評価51番号の
+棚卸しは引き続き部分的です。
+
+memory便利methodのlinkは、poke／peek値、readonlyへのdeposit、location独立性、非破壊sampling、失敗／retry status、
+暗黙parentと明示offset／extension／kind、null-extension既定値、debug引数の中立性、独立した並行accessor contextを扱います。
+既定kindの解決と失敗readのdataは制約しません。user backdoorが16 bit locationをモデル化し、HDL／DPI、
+memory mirror、物理bus trafficは伴いません。第19章は要求案84件、対応済み主引用61件、未評価74番号、
+付録Fは要求案51件、対応済み主引用34件、未評価106番号です。これらのAI linkは、guest実測、人の照合、
+承認済み分母、完全な規範的分解を加えません。
 
 ## 生成レポートの識別
 
@@ -394,4 +409,4 @@ hashが同じでも、既知差分を含む未完／未承認の棚卸しの場�
 割合の公開前に、規範的義務の棚卸しとレビューを終え、範囲を決定し、計数規則と固定した要求集合の明示的な承認を得ます。
 レビュー済みの検査対応と、実行成功をどう数えるかは分けて定義し、実行条件と証拠の同一性も含めます。
 承認には後続のschema／手順の更新が必要です。schema 1では意図的に、棚卸し完了や承認済み分母を表せません。
-現在のAIによる1021要求案と直接の対応は、その条件を満たしていません。
+現在のAIによる1063要求案と直接の対応は、その条件を満たしていません。

@@ -39257,6 +39257,1499 @@
           ]
         }
       ]
+    },
+    {
+      "id": "UVM-ROOT-FIND-EXACT-HANDLES",
+      "clause": "F.7.4.1",
+      "statement": {
+        "en": "Root find resolves matching full names to the original components.",
+        "ja": "root findは、一致するfull nameを元のcomponentへ解決する。"
+      },
+      "conditions": {
+        "en": "Query the root environment, one branch and one leaf.",
+        "ja": "環境root、branch 1つ、leaf 1つを照会する。"
+      },
+      "expected": {
+        "en": "Each result is the exact corresponding handle.",
+        "ja": "各結果は、対応する正確なhandleとなる。"
+      },
+      "limitations": {
+        "en": "Explicit finite component trees are searched through public root methods. Set membership and exact handles are observed without prescribing sibling order or the first member of multiple matches. Prefix queues are retained; scoped patterns still use full names. No topology printing, arbitrary POSIX expression, global-root enumeration, runtime hierarchy mutation or missing-name report severity is asserted.",
+        "ja": "明示した有限component treeを公開root methodで検索する。兄弟順や複数一致の最初を固定せず、集合所属と正確なhandleを観測する。prefix queueを保持し、scope付きpatternもfull nameを使う。topology表示、任意POSIX式、global-root列挙、実行時の階層変更、不在名のreport severityは要求しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_root_find_exact_full_names_return_the_original_component_handles",
+          "role": "direct",
+          "expected_observations": [
+            "UT: exact env 1 branch 1 leaf 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-ROOT-FIND-MISSING-NULL",
+      "clause": "F.7.4.1",
+      "statement": {
+        "en": "Root find returns null when no component matches.",
+        "ja": "root findは、一致componentがないとnullを返す。"
+      },
+      "conditions": {
+        "en": "Query a missing name then an existing full name.",
+        "ja": "不在名、次に存在するfull nameを照会する。"
+      },
+      "expected": {
+        "en": "The missing query is null and the later existing query still returns its exact leaf.",
+        "ja": "不在照会はnullで、後の存在する照会は正確なleafを返す。"
+      },
+      "limitations": {
+        "en": "Explicit finite component trees are searched through public root methods. Set membership and exact handles are observed without prescribing sibling order or the first member of multiple matches. Prefix queues are retained; scoped patterns still use full names. No topology printing, arbitrary POSIX expression, global-root enumeration, runtime hierarchy mutation or missing-name report severity is asserted.",
+        "ja": "明示した有限component treeを公開root methodで検索する。兄弟順や複数一致の最初を固定せず、集合所属と正確なhandleを観測する。prefix queueを保持し、scope付きpatternもfull nameを使う。topology表示、任意POSIX式、global-root列挙、実行時の階層変更、不在名のreport severityは要求しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_root_find_missing_name_returns_null_without_changing_later_lookup",
+          "role": "direct",
+          "expected_observations": [
+            "UT: missing_null 1",
+            "UT: later_exact 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-ROOT-FIND-ALL-MATCHING-MEMBERS",
+      "clause": "F.7.4.1",
+      "statement": {
+        "en": "Root find_all appends every matching component.",
+        "ja": "root find_allは、一致する全componentを追加する。"
+      },
+      "conditions": {
+        "en": "Match two same-named leaves on separate branches with a simplified wildcard.",
+        "ja": "別branchの同名leaf 2つを簡易wildcardで照合する。"
+      },
+      "expected": {
+        "en": "The result has exactly two entries, each expected leaf occurring once.",
+        "ja": "結果はちょうど2 entryで、期待するleafが各1回現れる。"
+      },
+      "limitations": {
+        "en": "Explicit finite component trees are searched through public root methods. Set membership and exact handles are observed without prescribing sibling order or the first member of multiple matches. Prefix queues are retained; scoped patterns still use full names. No topology printing, arbitrary POSIX expression, global-root enumeration, runtime hierarchy mutation or missing-name report severity is asserted.",
+        "ja": "明示した有限component treeを公開root methodで検索する。兄弟順や複数一致の最初を固定せず、集合所属と正確なhandleを観測する。prefix queueを保持し、scope付きpatternもfull nameを使う。topology表示、任意POSIX式、global-root列挙、実行時の階層変更、不在名のreport severityは要求しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_root_find_all_glob_enumerates_leaf_members_without_sibling_order",
+          "role": "direct",
+          "expected_observations": [
+            "UT: leaves size 2 alpha 1 beta 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-ROOT-FIND-ALL-SUBTREE-SCOPE",
+      "clause": "F.7.4.1",
+      "statement": {
+        "en": "A non-null search start restricts find_all to that subtree.",
+        "ja": "非nullの検索開始点は、find_allをそのsubtreeに限定する。"
+      },
+      "conditions": {
+        "en": "Search a two-branch matching pattern from alpha only.",
+        "ja": "2 branchに一致するpatternをalphaだけから検索する。"
+      },
+      "expected": {
+        "en": "Only alpha leaf is returned; the peer leaf is absent.",
+        "ja": "alpha leafだけを返し、peer leafは含まない。"
+      },
+      "limitations": {
+        "en": "Explicit finite component trees are searched through public root methods. Set membership and exact handles are observed without prescribing sibling order or the first member of multiple matches. Prefix queues are retained; scoped patterns still use full names. No topology printing, arbitrary POSIX expression, global-root enumeration, runtime hierarchy mutation or missing-name report severity is asserted.",
+        "ja": "明示した有限component treeを公開root methodで検索する。兄弟順や複数一致の最初を固定せず、集合所属と正確なhandleを観測する。prefix queueを保持し、scope付きpatternもfull nameを使う。topology表示、任意POSIX式、global-root列挙、実行時の階層変更、不在名のreport severityは要求しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_root_find_all_scoped_search_excludes_the_peer_branch",
+          "role": "direct",
+          "expected_observations": [
+            "UT: scoped size 1 selected 1 peer 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-ROOT-FIND-ALL-INCLUDES-START",
+      "clause": "F.7.4.1",
+      "statement": {
+        "en": "A matching starting component is included in its scoped search.",
+        "ja": "開始componentが一致する場合、そのscope付き検索に含まれる。"
+      },
+      "conditions": {
+        "en": "Use alpha as both the starting component and exact full-name pattern.",
+        "ja": "alphaを開始componentと正確なfull-name patternの両方に使う。"
+      },
+      "expected": {
+        "en": "The sole result is alpha itself.",
+        "ja": "唯一の結果はalpha自身となる。"
+      },
+      "limitations": {
+        "en": "Explicit finite component trees are searched through public root methods. Set membership and exact handles are observed without prescribing sibling order or the first member of multiple matches. Prefix queues are retained; scoped patterns still use full names. No topology printing, arbitrary POSIX expression, global-root enumeration, runtime hierarchy mutation or missing-name report severity is asserted.",
+        "ja": "明示した有限component treeを公開root methodで検索する。兄弟順や複数一致の最初を固定せず、集合所属と正確なhandleを観測する。prefix queueを保持し、scope付きpatternもfull nameを使う。topology表示、任意POSIX式、global-root列挙、実行時の階層変更、不在名のreport severityは要求しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_root_find_all_scoped_search_includes_its_starting_component",
+          "role": "direct",
+          "expected_observations": [
+            "UT: starting_node size 1 exact 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-ROOT-FIND-ALL-PREFIX-AND-REPEAT",
+      "clause": "F.7.4.1",
+      "statement": {
+        "en": "Root find_all preserves existing queue entries and appends on each call.",
+        "ja": "root find_allは、既存queue entryを保持し、各呼出しで追加する。"
+      },
+      "conditions": {
+        "en": "Start with a beta prefix and perform the same two-leaf search twice.",
+        "ja": "betaのprefixから始め、同じ2 leafの検索を2回行う。"
+      },
+      "expected": {
+        "en": "Sizes are three then five, prefix remains beta and each leaf occurs once then twice.",
+        "ja": "sizeは3、次に5、prefixはbetaのままで、各leafは1回、次に2回となる。"
+      },
+      "limitations": {
+        "en": "Explicit finite component trees are searched through public root methods. Set membership and exact handles are observed without prescribing sibling order or the first member of multiple matches. Prefix queues are retained; scoped patterns still use full names. No topology printing, arbitrary POSIX expression, global-root enumeration, runtime hierarchy mutation or missing-name report severity is asserted.",
+        "ja": "明示した有限component treeを公開root methodで検索する。兄弟順や複数一致の最初を固定せず、集合所属と正確なhandleを観測する。prefix queueを保持し、scope付きpatternもfull nameを使う。topology表示、任意POSIX式、global-root列挙、実行時の階層変更、不在名のreport severityは要求しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_root_find_all_appends_and_repeated_calls_retain_the_caller_prefix",
+          "role": "direct",
+          "expected_observations": [
+            "UT: first size 3 prefix 1 alpha 1 beta 1",
+            "UT: repeated size 5 prefix 1 alpha 2 beta 2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-ROOT-FIND-ALL-SCOPED-FULL-NAME",
+      "clause": "F.7.4.1",
+      "statement": {
+        "en": "Scoped find_all matches full names and preserves the caller queue on a nonmatch.",
+        "ja": "scope付きfind_allはfull nameを照合し、不一致時はcaller queueを保持する。"
+      },
+      "conditions": {
+        "en": "Search relative leaf text then the full path from alpha with a beta prefix.",
+        "ja": "betaのprefixを持ち、alphaから相対leaf文字列、次にfull pathを検索する。"
+      },
+      "expected": {
+        "en": "Relative text appends nothing; full path appends the exact alpha leaf after the unchanged prefix.",
+        "ja": "相対文字列は追加せず、full pathは不変prefixの後へ正確なalpha leafを追加する。"
+      },
+      "limitations": {
+        "en": "Explicit finite component trees are searched through public root methods. Set membership and exact handles are observed without prescribing sibling order or the first member of multiple matches. Prefix queues are retained; scoped patterns still use full names. No topology printing, arbitrary POSIX expression, global-root enumeration, runtime hierarchy mutation or missing-name report severity is asserted.",
+        "ja": "明示した有限component treeを公開root methodで検索する。兄弟順や複数一致の最初を固定せず、集合所属と正確なhandleを観測する。prefix queueを保持し、scope付きpatternもfull nameを使う。topology表示、任意POSIX式、global-root列挙、実行時の階層変更、不在名のreport severityは要求しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_root_find_all_scoping_keeps_full_name_matching_and_preserves_a_nonmatch",
+          "role": "direct",
+          "expected_observations": [
+            "UT: relative_nonmatch size 1 prefix 1",
+            "UT: full_match size 2 prefix 1 exact 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-ROOT-FIND-UNIQUE-ENUMERATION-AGREEMENT",
+      "clause": "F.7.4.1",
+      "statement": {
+        "en": "Root find agrees with find_all when the pattern has one matching component.",
+        "ja": "patternの一致componentが1つなら、root findはfind_allと一致する。"
+      },
+      "conditions": {
+        "en": "Use a wildcard uniquely selecting alpha leaf.",
+        "ja": "alpha leafだけを選ぶwildcardを使う。"
+      },
+      "expected": {
+        "en": "Enumeration has one exact leaf and find returns that same handle.",
+        "ja": "列挙は正確なleaf 1つで、findは同じhandleを返す。"
+      },
+      "limitations": {
+        "en": "Explicit finite component trees are searched through public root methods. Set membership and exact handles are observed without prescribing sibling order or the first member of multiple matches. Prefix queues are retained; scoped patterns still use full names. No topology printing, arbitrary POSIX expression, global-root enumeration, runtime hierarchy mutation or missing-name report severity is asserted.",
+        "ja": "明示した有限component treeを公開root methodで検索する。兄弟順や複数一致の最初を固定せず、集合所属と正確なhandleを観測する。prefix queueを保持し、scope付きpatternもfull nameを使う。topology表示、任意POSIX式、global-root列挙、実行時の階層変更、不在名のreport severityは要求しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_root_find_unique_wildcard_matches_the_public_find_all_result",
+          "role": "direct",
+          "expected_observations": [
+            "UT: unique size 1 enumerated 1 found 1 same 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-STATE-OR-FIRST-MATCH",
+      "clause": "14.2.2.5",
+      "statement": {
+        "en": "An OR-mask state wait returns on the first matching current state.",
+        "ja": "OR maskのstate待機は、最初の一致する現在状態でreturnする。"
+      },
+      "conditions": {
+        "en": "Wait for BODY or FINISHED before running a delayed sequence.",
+        "ja": "遅延sequenceの実行前からBODYまたはFINISHEDを待つ。"
+      },
+      "expected": {
+        "en": "The first return observes BODY before any body exit; later FINISHED has one entry and exit.",
+        "ja": "最初はbody終了前のBODYを観測し、後のFINISHEDは開始／終了各1回となる。"
+      },
+      "limitations": {
+        "en": "Unbound virtual sequences have positive body delays and are observed with public wait/state methods. No driver, task-phase execution, polling count, kill post-hook order or initial state before start is asserted. Instance isolation and reuse are finite; zero/invalid state masks are outside these fixtures.",
+        "ja": "sequencerなしのvirtual sequenceに正のbody遅延を与え、公開wait／state methodで観測する。driver、task-phase実行、poll数、kill post-hook順、start前の初期状態は要求しない。instance独立性と再利用は有限で、0／不正state maskは扱わない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_state_or_mask_returns_at_body_before_finished",
+          "role": "direct",
+          "expected_observations": [
+            "UT: first_match body 1 exits 0",
+            "UT: completed entries 1 exits 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-STATE-STOPPED-WAIT",
+      "clause": "14.2.2.5",
+      "statement": {
+        "en": "A STOPPED-or-FINISHED wait accepts a killed sequence STOPPED state.",
+        "ja": "STOPPEDまたはFINISHEDの待機は、killしたsequenceのSTOPPED状態を受け入れる。"
+      },
+      "conditions": {
+        "en": "Kill during a delayed body after observing BODY.",
+        "ja": "BODY観測後、遅延body中にkillする。"
+      },
+      "expected": {
+        "en": "State is STOPPED, waiter and start return, and body exit remains zero.",
+        "ja": "状態はSTOPPED、waiterとstartはreturnし、body終了は0を保持する。"
+      },
+      "limitations": {
+        "en": "Unbound virtual sequences have positive body delays and are observed with public wait/state methods. No driver, task-phase execution, polling count, kill post-hook order or initial state before start is asserted. Instance isolation and reuse are finite; zero/invalid state masks are outside these fixtures.",
+        "ja": "sequencerなしのvirtual sequenceに正のbody遅延を与え、公開wait／state methodで観測する。driver、task-phase実行、poll数、kill post-hook順、start前の初期状態は要求しない。instance独立性と再利用は有限で、0／不正state maskは扱わない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_state_stopped_mask_returns_on_kill_and_again_when_already_stopped",
+          "role": "direct",
+          "expected_observations": [
+            "UT: killed stopped 1 waiter 1 start_returned 1 exits 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-STATE-ALREADY-MATCHING-STOPPED",
+      "clause": "14.2.2.5",
+      "statement": {
+        "en": "A state wait returns immediately when already in the selected STOPPED state.",
+        "ja": "選択したSTOPPED状態に既にいる場合、state待機は直ちにreturnする。"
+      },
+      "conditions": {
+        "en": "Call a STOPPED wait after the kill has settled.",
+        "ja": "killが落ち着いた後にSTOPPED待機を呼ぶ。"
+      },
+      "expected": {
+        "en": "The matching wait returns without another state transition.",
+        "ja": "一致待機は、追加の状態遷移なしにreturnする。"
+      },
+      "limitations": {
+        "en": "Unbound virtual sequences have positive body delays and are observed with public wait/state methods. No driver, task-phase execution, polling count, kill post-hook order or initial state before start is asserted. Instance isolation and reuse are finite; zero/invalid state masks are outside these fixtures.",
+        "ja": "sequencerなしのvirtual sequenceに正のbody遅延を与え、公開wait／state methodで観測する。driver、task-phase実行、poll数、kill post-hook順、start前の初期状態は要求しない。instance独立性と再利用は有限で、0／不正state maskは扱わない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_state_stopped_mask_returns_on_kill_and_again_when_already_stopped",
+          "role": "direct",
+          "expected_observations": [
+            "UT: already_stopped returned 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-STATE-WAIT-INSTANCE-ISOLATION",
+      "clause": "14.2.2.5",
+      "statement": {
+        "en": "State waits follow their receiving sequence instances independently.",
+        "ja": "state待機は、呼出し対象sequence instanceに独立して従う。"
+      },
+      "conditions": {
+        "en": "Wait for BODY on two sequences, starting first before peer.",
+        "ja": "2 sequenceでBODYを待ち、peerより前にfirstを開始する。"
+      },
+      "expected": {
+        "en": "Only first waiter returns before peer starts; both return after their own body entries.",
+        "ja": "peer開始前はfirst waiterだけがreturnし、各body開始後に両waiterがreturnする。"
+      },
+      "limitations": {
+        "en": "Unbound virtual sequences have positive body delays and are observed with public wait/state methods. No driver, task-phase execution, polling count, kill post-hook order or initial state before start is asserted. Instance isolation and reuse are finite; zero/invalid state masks are outside these fixtures.",
+        "ja": "sequencerなしのvirtual sequenceに正のbody遅延を与え、公開wait／state methodで観測する。driver、task-phase実行、poll数、kill post-hook順、start前の初期状態は要求しない。instance独立性と再利用は有限で、0／不正state maskは扱わない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_state_body_waiters_follow_their_own_sequence_instances",
+          "role": "direct",
+          "expected_observations": [
+            "UT: before_peer first_waiter 1 peer_waiter 0 peer_entries 0",
+            "UT: both_waiters 1 1 entries 1 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-STATE-WAIT-RESTART",
+      "clause": "14.2.2.5",
+      "statement": {
+        "en": "State waits observe a new execution on a reused sequence handle.",
+        "ja": "state待機は、再利用したsequence handleの新しい実行を観測する。"
+      },
+      "conditions": {
+        "en": "Complete one run, restart the same handle and wait for BODY then FINISHED.",
+        "ja": "1回完了し、同じhandleを再開してBODY、次にFINISHEDを待つ。"
+      },
+      "expected": {
+        "en": "The second BODY precedes its exit, and final entry/exit counts are both two.",
+        "ja": "2回目BODYは自身の終了前で、最終開始／終了数は両方2となる。"
+      },
+      "limitations": {
+        "en": "Unbound virtual sequences have positive body delays and are observed with public wait/state methods. No driver, task-phase execution, polling count, kill post-hook order or initial state before start is asserted. Instance isolation and reuse are finite; zero/invalid state masks are outside these fixtures.",
+        "ja": "sequencerなしのvirtual sequenceに正のbody遅延を与え、公開wait／state methodで観測する。driver、task-phase実行、poll数、kill post-hook順、start前の初期状態は要求しない。instance独立性と再利用は有限で、0／不正state maskは扱わない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_state_body_and_finished_waits_track_a_restarted_sequence",
+          "role": "direct",
+          "expected_observations": [
+            "UT: first_run finished 1 entries 1 exits 1",
+            "UT: second_body body 1 exits 1",
+            "UT: second_run entries 2 exits 2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-SEQUENCE-POKE-MEM-RO-DEPOSIT",
+      "clause": "19.4.1.5.9",
+      "statement": {
+        "en": "poke_mem deposits the selected location without enforcing readonly physical access.",
+        "ja": "poke_memは、readonlyの物理accessを強制せず選択locationへdepositする。"
+      },
+      "conditions": {
+        "en": "Poke a55a hex into location two of a readonly memory with neighbor 1122 hex.",
+        "ja": "隣接値1122 hexを持つreadonly memoryのlocation 2へa55a hexをpokeする。"
+      },
+      "expected": {
+        "en": "Status is OK, selected storage is a55a and the neighbor remains 1122.",
+        "ja": "statusはOK、選択storageはa55a、隣接値は1122を保持する。"
+      },
+      "limitations": {
+        "en": "The default register-sequence specialization runs as a virtual sequence with no sequencer. Two sixteen-bit modeled memories use user backdoors with required pre/post hooks and delayed operations, without HDL/DPI or physical bus traffic. No memory mirror, failed-read data, arbitrary BASE specialization or shared-memory access race is prescribed. Only explicitly supplied abstraction kinds are checked; default-kind resolution and debug metadata representation are not constrained.",
+        "ja": "既定register-sequence specializationをsequencerなしのvirtual sequenceとして実行する。16 bitのmodel memory 2つは、必要なpre／post hookと遅延操作を持つuser backdoorを使い、HDL／DPIと物理bus trafficを伴わない。memory mirror、失敗readのdata、任意BASE specialization、共有memoryのaccess raceは指定しない。明示指定のabstraction kindだけを検査し、既定kindの解決とdebug metadataの表現は制約しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_sequence_poke_mem_deposits_readonly_data_with_parent_offset_and_extension",
+          "role": "direct",
+          "expected_observations": [
+            "UT: poke ok 1 selected a55a neighbor 1122"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-SEQUENCE-PEEK-MEM-VALUE",
+      "clause": "19.4.1.5.10",
+      "statement": {
+        "en": "peek_mem returns the full value of the selected modeled location.",
+        "ja": "peek_memは、選択model locationの全値を返す。"
+      },
+      "conditions": {
+        "en": "Place 6c9e hex at location three and peek it.",
+        "ja": "location 3へ6c9e hexを置いてpeekする。"
+      },
+      "expected": {
+        "en": "Status is OK and returned/storage values are both 6c9e.",
+        "ja": "statusはOK、戻り値／storageは両方6c9eとなる。"
+      },
+      "limitations": {
+        "en": "The default register-sequence specialization runs as a virtual sequence with no sequencer. Two sixteen-bit modeled memories use user backdoors with required pre/post hooks and delayed operations, without HDL/DPI or physical bus traffic. No memory mirror, failed-read data, arbitrary BASE specialization or shared-memory access race is prescribed. Only explicitly supplied abstraction kinds are checked; default-kind resolution and debug metadata representation are not constrained.",
+        "ja": "既定register-sequence specializationをsequencerなしのvirtual sequenceとして実行する。16 bitのmodel memory 2つは、必要なpre／post hookと遅延操作を持つuser backdoorを使い、HDL／DPIと物理bus trafficを伴わない。memory mirror、失敗readのdata、任意BASE specialization、共有memoryのaccess raceは指定しない。明示指定のabstraction kindだけを検査し、既定kindの解決とdebug metadataの表現は制約しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_sequence_peek_mem_returns_full_location_with_parent_offset_and_extension",
+          "role": "direct",
+          "expected_observations": [
+            "UT: peek ok 1 value 6c9e stored 6c9e"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-SEQUENCE-MEM-LOCATION-INDEPENDENCE",
+      "clause": "19.4.1.5.9",
+      "statement": {
+        "en": "Successive convenience accesses retain independent selected memory locations.",
+        "ja": "逐次の便利accessは、選択したmemory locationを独立に保持する。"
+      },
+      "conditions": {
+        "en": "Poke 1234/abcd hex into locations one/two, then peek both.",
+        "ja": "location 1／2へ1234／abcd hexをpokeし、両方peekする。"
+      },
+      "expected": {
+        "en": "Each read returns its own value and all four calls retain the expected access context.",
+        "ja": "各readは自身の値を返し、4呼出しすべてが期待access contextを保持する。"
+      },
+      "limitations": {
+        "en": "The default register-sequence specialization runs as a virtual sequence with no sequencer. Two sixteen-bit modeled memories use user backdoors with required pre/post hooks and delayed operations, without HDL/DPI or physical bus traffic. No memory mirror, failed-read data, arbitrary BASE specialization or shared-memory access race is prescribed. Only explicitly supplied abstraction kinds are checked; default-kind resolution and debug metadata representation are not constrained.",
+        "ja": "既定register-sequence specializationをsequencerなしのvirtual sequenceとして実行する。16 bitのmodel memory 2つは、必要なpre／post hookと遅延操作を持つuser backdoorを使い、HDL／DPIと物理bus trafficを伴わない。memory mirror、失敗readのdata、任意BASE specialization、共有memoryのaccess raceは指定しない。明示指定のabstraction kindだけを検査し、既定kindの解決とdebug metadataの表現は制約しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_sequence_poke_and_peek_mem_preserve_independent_successive_locations",
+          "role": "direct",
+          "expected_observations": [
+            "UT: first ok 1 value 1234",
+            "UT: second ok 1 value abcd",
+            "UT: context matched 1 reads 2 writes 2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-SEQUENCE-PEEK-MEM-NONDESTRUCTIVE",
+      "clause": "19.4.1.5.10",
+      "statement": {
+        "en": "peek_mem samples locations without modifying modeled storage.",
+        "ja": "peek_memは、model storageを変更せずlocationを取得する。"
+      },
+      "conditions": {
+        "en": "Peek two initialized locations in succession.",
+        "ja": "初期化した2 locationを順にpeekする。"
+      },
+      "expected": {
+        "en": "Values are 12ab/34cd hex, storage stays unchanged and only two reads occur.",
+        "ja": "値は12ab／34cd hex、storageは不変でreadだけが2回となる。"
+      },
+      "limitations": {
+        "en": "The default register-sequence specialization runs as a virtual sequence with no sequencer. Two sixteen-bit modeled memories use user backdoors with required pre/post hooks and delayed operations, without HDL/DPI or physical bus traffic. No memory mirror, failed-read data, arbitrary BASE specialization or shared-memory access race is prescribed. Only explicitly supplied abstraction kinds are checked; default-kind resolution and debug metadata representation are not constrained.",
+        "ja": "既定register-sequence specializationをsequencerなしのvirtual sequenceとして実行する。16 bitのmodel memory 2つは、必要なpre／post hookと遅延操作を持つuser backdoorを使い、HDL／DPIと物理bus trafficを伴わない。memory mirror、失敗readのdata、任意BASE specialization、共有memoryのaccess raceは指定しない。明示指定のabstraction kindだけを検査し、既定kindの解決とdebug metadataの表現は制約しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_sequence_peek_mem_samples_each_location_without_modifying_storage",
+          "role": "direct",
+          "expected_observations": [
+            "UT: first ok 1 value 12ab",
+            "UT: second ok 1 value 34cd",
+            "UT: unchanged 12ab 34cd reads 2 writes 0 matched 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-SEQUENCE-POKE-MEM-FAILURE-RETRY",
+      "clause": "19.4.1.5.9",
+      "statement": {
+        "en": "poke_mem returns the user-backdoor failure status and permits a later successful retry.",
+        "ja": "poke_memは、user-backdoorの失敗statusを返し、後の成功retryを許す。"
+      },
+      "conditions": {
+        "en": "Return NOT_OK on the first write and OK on the second.",
+        "ja": "最初のwriteをNOT_OK、次をOKで返す。"
+      },
+      "expected": {
+        "en": "The failure status is returned, then retry stores 5678 hex with two writes and correct context.",
+        "ja": "失敗statusを返し、次のretryは正しいcontextとwrite 2回で5678 hexを格納する。"
+      },
+      "limitations": {
+        "en": "The default register-sequence specialization runs as a virtual sequence with no sequencer. Two sixteen-bit modeled memories use user backdoors with required pre/post hooks and delayed operations, without HDL/DPI or physical bus traffic. No memory mirror, failed-read data, arbitrary BASE specialization or shared-memory access race is prescribed. Only explicitly supplied abstraction kinds are checked; default-kind resolution and debug metadata representation are not constrained.",
+        "ja": "既定register-sequence specializationをsequencerなしのvirtual sequenceとして実行する。16 bitのmodel memory 2つは、必要なpre／post hookと遅延操作を持つuser backdoorを使い、HDL／DPIと物理bus trafficを伴わない。memory mirror、失敗readのdata、任意BASE specialization、共有memoryのaccess raceは指定しない。明示指定のabstraction kindだけを検査し、既定kindの解決とdebug metadataの表現は制約しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_sequence_poke_mem_propagates_backdoor_failure_and_allows_a_retry",
+          "role": "direct",
+          "expected_observations": [
+            "UT: failed_status 1",
+            "UT: retry ok 1 stored 5678 writes 2 matched 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-SEQUENCE-PEEK-MEM-FAILURE-RETRY",
+      "clause": "19.4.1.5.10",
+      "statement": {
+        "en": "peek_mem returns a failure status without fixing failed data and allows retry.",
+        "ja": "peek_memは、失敗dataを固定せず失敗statusを返し、retryを許す。"
+      },
+      "conditions": {
+        "en": "Return NOT_OK once, then read initialized location two successfully.",
+        "ja": "1回NOT_OKとし、次に初期化したlocation 2を成功して読む。"
+      },
+      "expected": {
+        "en": "First status is NOT_OK, then OK returns 789a hex with unchanged storage and correct context.",
+        "ja": "最初のstatusはNOT_OK、次はOKで789a hexを返し、storageは不変、contextは正しい。"
+      },
+      "limitations": {
+        "en": "The default register-sequence specialization runs as a virtual sequence with no sequencer. Two sixteen-bit modeled memories use user backdoors with required pre/post hooks and delayed operations, without HDL/DPI or physical bus traffic. No memory mirror, failed-read data, arbitrary BASE specialization or shared-memory access race is prescribed. Only explicitly supplied abstraction kinds are checked; default-kind resolution and debug metadata representation are not constrained.",
+        "ja": "既定register-sequence specializationをsequencerなしのvirtual sequenceとして実行する。16 bitのmodel memory 2つは、必要なpre／post hookと遅延操作を持つuser backdoorを使い、HDL／DPIと物理bus trafficを伴わない。memory mirror、失敗readのdata、任意BASE specialization、共有memoryのaccess raceは指定しない。明示指定のabstraction kindだけを検査し、既定kindの解決とdebug metadataの表現は制約しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_sequence_peek_mem_propagates_backdoor_failure_without_fixing_failed_data",
+          "role": "direct",
+          "expected_observations": [
+            "UT: failed_status 1",
+            "UT: retry ok 1 value 789a stored 789a reads 2 matched 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-SEQUENCE-MEM-DEFAULT-EXTENSION",
+      "clause": "19.4.1.5.9",
+      "statement": {
+        "en": "Memory convenience defaults supply null extension while retaining the calling sequence context.",
+        "ja": "memory便利methodの既定は、呼出しsequence contextを保持しつつnull extensionを指定する。"
+      },
+      "conditions": {
+        "en": "Omit kind and extension for poke/peek calls.",
+        "ja": "poke／peekでkindとextensionを省略する。"
+      },
+      "expected": {
+        "en": "Operations return selected data with exact parent/element/offset and null extension.",
+        "ja": "操作は、正確なparent／element／offsetとnull extensionで選択dataを返す。"
+      },
+      "limitations": {
+        "en": "The default register-sequence specialization runs as a virtual sequence with no sequencer. Two sixteen-bit modeled memories use user backdoors with required pre/post hooks and delayed operations, without HDL/DPI or physical bus traffic. No memory mirror, failed-read data, arbitrary BASE specialization or shared-memory access race is prescribed. Only explicitly supplied abstraction kinds are checked; default-kind resolution and debug metadata representation are not constrained.",
+        "ja": "既定register-sequence specializationをsequencerなしのvirtual sequenceとして実行する。16 bitのmodel memory 2つは、必要なpre／post hookと遅延操作を持つuser backdoorを使い、HDL／DPIと物理bus trafficを伴わない。memory mirror、失敗readのdata、任意BASE specialization、共有memoryのaccess raceは指定しない。明示指定のabstraction kindだけを検査し、既定kindの解決とdebug metadataの表現は制約しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_sequence_memory_default_extension_and_debug_arguments_keep_functional_results",
+          "role": "direct",
+          "expected_observations": [
+            "UT: defaults ok 1 value 1234",
+            "UT: debug_neutral ok 1 value 5678 reads 2 writes 2 matched 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-SEQUENCE-MEM-DEBUG-NEUTRAL",
+      "clause": "19.4.1.5.10",
+      "statement": {
+        "en": "Debug filename and line arguments have no functional effect on memory convenience accesses.",
+        "ja": "debugのfilenameとline引数は、memory便利accessの機能に影響しない。"
+      },
+      "conditions": {
+        "en": "Supply different inert filename/line arguments to poke and peek.",
+        "ja": "pokeとpeekへ異なる、動作を伴わないfilename／line引数を指定する。"
+      },
+      "expected": {
+        "en": "Status remains OK, selected value is 5678 hex and all four accesses have correct context.",
+        "ja": "statusはOK、選択値は5678 hex、4 accessすべてのcontextが正しい。"
+      },
+      "limitations": {
+        "en": "The default register-sequence specialization runs as a virtual sequence with no sequencer. Two sixteen-bit modeled memories use user backdoors with required pre/post hooks and delayed operations, without HDL/DPI or physical bus traffic. No memory mirror, failed-read data, arbitrary BASE specialization or shared-memory access race is prescribed. Only explicitly supplied abstraction kinds are checked; default-kind resolution and debug metadata representation are not constrained.",
+        "ja": "既定register-sequence specializationをsequencerなしのvirtual sequenceとして実行する。16 bitのmodel memory 2つは、必要なpre／post hookと遅延操作を持つuser backdoorを使い、HDL／DPIと物理bus trafficを伴わない。memory mirror、失敗readのdata、任意BASE specialization、共有memoryのaccess raceは指定しない。明示指定のabstraction kindだけを検査し、既定kindの解決とdebug metadataの表現は制約しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_sequence_memory_default_extension_and_debug_arguments_keep_functional_results",
+          "role": "direct",
+          "expected_observations": [
+            "UT: debug_neutral ok 1 value 5678 reads 2 writes 2 matched 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-SEQUENCE-MEM-CONCURRENT-CONTEXT-ISOLATION",
+      "clause": "19.4.1.5.10",
+      "statement": {
+        "en": "Independent concurrent accessor sequences retain their own parent, extension and backdoor contexts.",
+        "ja": "独立した並行accessor sequenceは、自身のparent、extension、backdoor contextを保持する。"
+      },
+      "conditions": {
+        "en": "Run two virtual sequences against distinct memories/backdoors at the same offset.",
+        "ja": "同じoffsetで、異なるmemory／backdoorに対して2 virtual sequenceを動かす。"
+      },
+      "expected": {
+        "en": "Each has one read/write, exact independent context and its own 5aa5/3cc3 hex value.",
+        "ja": "各sequenceはread／write各1回、正確で独立したcontext、自身の5aa5／3cc3 hex値を持つ。"
+      },
+      "limitations": {
+        "en": "The default register-sequence specialization runs as a virtual sequence with no sequencer. Two sixteen-bit modeled memories use user backdoors with required pre/post hooks and delayed operations, without HDL/DPI or physical bus traffic. No memory mirror, failed-read data, arbitrary BASE specialization or shared-memory access race is prescribed. Only explicitly supplied abstraction kinds are checked; default-kind resolution and debug metadata representation are not constrained.",
+        "ja": "既定register-sequence specializationをsequencerなしのvirtual sequenceとして実行する。16 bitのmodel memory 2つは、必要なpre／post hookと遅延操作を持つuser backdoorを使い、HDL／DPIと物理bus trafficを伴わない。memory mirror、失敗readのdata、任意BASE specialization、共有memoryのaccess raceは指定しない。明示指定のabstraction kindだけを検査し、既定kindの解決とdebug metadataの表現は制約しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_sequence_memory_accessors_keep_concurrent_parent_and_backdoor_contexts_independent",
+          "role": "direct",
+          "expected_observations": [
+            "UT: independent first 5aa5 peer 3cc3",
+            "UT: first_context 1 peer_context 1 reads 1 1 writes 1 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-SEQUENCE-POKE-MEM-CALL-CONTEXT",
+      "clause": "19.4.1.5.9",
+      "statement": {
+        "en": "The memory convenience method supplies the calling sequence as parent and forwards the selected access context.",
+        "ja": "memory便利methodは、呼出しsequenceをparentとし、選択access contextを引き渡す。"
+      },
+      "conditions": {
+        "en": "Observe the user-backdoor operation item with explicit GATE kind and extension.",
+        "ja": "明示GATE kindとextensionを持つuser-backdoor操作itemを観測する。"
+      },
+      "expected": {
+        "en": "Parent, memory element/kind, offset, extension, access kind and backdoor door/kind all match exactly.",
+        "ja": "parent、memory element／kind、offset、extension、access kind、backdoor door／kindがすべて正確に一致する。"
+      },
+      "limitations": {
+        "en": "The default register-sequence specialization runs as a virtual sequence with no sequencer. Two sixteen-bit modeled memories use user backdoors with required pre/post hooks and delayed operations, without HDL/DPI or physical bus traffic. No memory mirror, failed-read data, arbitrary BASE specialization or shared-memory access race is prescribed. Only explicitly supplied abstraction kinds are checked; default-kind resolution and debug metadata representation are not constrained.",
+        "ja": "既定register-sequence specializationをsequencerなしのvirtual sequenceとして実行する。16 bitのmodel memory 2つは、必要なpre／post hookと遅延操作を持つuser backdoorを使い、HDL／DPIと物理bus trafficを伴わない。memory mirror、失敗readのdata、任意BASE specialization、共有memoryのaccess raceは指定しない。明示指定のabstraction kindだけを検査し、既定kindの解決とdebug metadataの表現は制約しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_sequence_poke_mem_deposits_readonly_data_with_parent_offset_and_extension",
+          "role": "direct",
+          "expected_observations": [
+            "UT: context matched 1 writes 1 reads 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-SEQUENCE-PEEK-MEM-CALL-CONTEXT",
+      "clause": "19.4.1.5.10",
+      "statement": {
+        "en": "The memory convenience method supplies the calling sequence as parent and forwards the selected access context.",
+        "ja": "memory便利methodは、呼出しsequenceをparentとし、選択access contextを引き渡す。"
+      },
+      "conditions": {
+        "en": "Observe the user-backdoor operation item with explicit GATE kind and extension.",
+        "ja": "明示GATE kindとextensionを持つuser-backdoor操作itemを観測する。"
+      },
+      "expected": {
+        "en": "Parent, memory element/kind, offset, extension, access kind and backdoor door/kind all match exactly.",
+        "ja": "parent、memory element／kind、offset、extension、access kind、backdoor door／kindがすべて正確に一致する。"
+      },
+      "limitations": {
+        "en": "The default register-sequence specialization runs as a virtual sequence with no sequencer. Two sixteen-bit modeled memories use user backdoors with required pre/post hooks and delayed operations, without HDL/DPI or physical bus traffic. No memory mirror, failed-read data, arbitrary BASE specialization or shared-memory access race is prescribed. Only explicitly supplied abstraction kinds are checked; default-kind resolution and debug metadata representation are not constrained.",
+        "ja": "既定register-sequence specializationをsequencerなしのvirtual sequenceとして実行する。16 bitのmodel memory 2つは、必要なpre／post hookと遅延操作を持つuser backdoorを使い、HDL／DPIと物理bus trafficを伴わない。memory mirror、失敗readのdata、任意BASE specialization、共有memoryのaccess raceは指定しない。明示指定のabstraction kindだけを検査し、既定kindの解決とdebug metadataの表現は制約しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_sequence_peek_mem_returns_full_location_with_parent_offset_and_extension",
+          "role": "direct",
+          "expected_observations": [
+            "UT: context matched 1 reads 1 writes 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-LOCK-IDLE-EXCLUSION",
+      "clause": "14.2.5.5",
+      "statement": {
+        "en": "A granted lock excludes unrelated sequences until its release.",
+        "ja": "許可されたlockは、解放まで無関係なsequenceを排除する。"
+      },
+      "conditions": {
+        "en": "Request ownership on an idle bound sequencer and then release it.",
+        "ja": "idleの設定済みsequencerへ所有権を要求し、次に解放する。"
+      },
+      "expected": {
+        "en": "The owner holds the lock, its peer is blocked, and all ownership/blocking clears after release.",
+        "ja": "ownerはlockを持ち、peerはblockされ、解放後に全所有権／blockが解除される。"
+      },
+      "limitations": {
+        "en": "Existing sources, expectations, metadata and recorded input hashes remain unchanged. Idle lock/grab queries do not exercise arbitration queue ordering. Wait probes use positive delays; no numeric internal route IDs or post-overflow retained replies are prescribed. Kill post-hook, overflow-control and undersized-depth differences keep their spec-only expectations. Mapping creates no new runtime evidence or human review.",
+        "ja": "既存source、期待値、metadata、記録入力hashは変更しない。idleのlock／grab照会はarbitration queue順を検査しない。待機は正の遅延で観測し、内部route IDの数値やoverflow後の保持replyを指定しない。kill post-hook、overflow制御、過小depthの差分はspec-only期待値を保持する。対応付け自体は新たな実行証拠や人の照合を作らない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_lock_blocks_other_sequence_until_unlock",
+          "role": "direct",
+          "expected_observations": [
+            "UT: held 1 0 blocked 0 1",
+            "UT: grabbed 1 owner_same 1",
+            "UT: cleared locks 0 0 blocked 0 0 grabbed 0 owner_null 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-LOCK-WAIT-FOR-OWNER",
+      "clause": "14.2.5.5",
+      "statement": {
+        "en": "A lock waits while an existing owner blocks it and returns after acquisition.",
+        "ja": "lockは、既存ownerがblockする間待ち、取得後にreturnする。"
+      },
+      "conditions": {
+        "en": "Hold first lock, request second lock, probe before release and after transfer.",
+        "ja": "firstのlockを保持し、secondのlockを要求し、解放前と移行後を観測する。"
+      },
+      "expected": {
+        "en": "Second remains blocked initially, becomes exact owner after release, and final release clears ownership.",
+        "ja": "secondは初めblockされ、解放後に正確なownerとなり、最終解放で所有権が解除される。"
+      },
+      "limitations": {
+        "en": "Existing sources, expectations, metadata and recorded input hashes remain unchanged. Idle lock/grab queries do not exercise arbitration queue ordering. Wait probes use positive delays; no numeric internal route IDs or post-overflow retained replies are prescribed. Kill post-hook, overflow-control and undersized-depth differences keep their spec-only expectations. Mapping creates no new runtime evidence or human review.",
+        "ja": "既存source、期待値、metadata、記録入力hashは変更しない。idleのlock／grab照会はarbitration queue順を検査しない。待機は正の遅延で観測し、内部route IDの数値やoverflow後の保持replyを指定しない。kill post-hook、overflow制御、過小depthの差分はspec-only期待値を保持する。対応付け自体は新たな実行証拠や人の照合を作らない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_lock_waits_for_existing_owner_to_unlock",
+          "role": "direct",
+          "expected_observations": [
+            "UT: waiting granted 0 first_held 1 second_blocked 1",
+            "UT: transferred second_held 1 first_blocked 1 owner_second 1",
+            "UT: cleared locks 0 0 blocked 0 0 grabbed 0 owner_null 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-GRAB-IDLE-EXCLUSION",
+      "clause": "14.2.5.6",
+      "statement": {
+        "en": "A granted grab excludes unrelated sequences until its release.",
+        "ja": "許可されたgrabは、解放まで無関係なsequenceを排除する。"
+      },
+      "conditions": {
+        "en": "Request ownership on an idle bound sequencer and then release it.",
+        "ja": "idleの設定済みsequencerへ所有権を要求し、次に解放する。"
+      },
+      "expected": {
+        "en": "The owner holds the lock, its peer is blocked, and all ownership/blocking clears after release.",
+        "ja": "ownerはlockを持ち、peerはblockされ、解放後に全所有権／blockが解除される。"
+      },
+      "limitations": {
+        "en": "Existing sources, expectations, metadata and recorded input hashes remain unchanged. Idle lock/grab queries do not exercise arbitration queue ordering. Wait probes use positive delays; no numeric internal route IDs or post-overflow retained replies are prescribed. Kill post-hook, overflow-control and undersized-depth differences keep their spec-only expectations. Mapping creates no new runtime evidence or human review.",
+        "ja": "既存source、期待値、metadata、記録入力hashは変更しない。idleのlock／grab照会はarbitration queue順を検査しない。待機は正の遅延で観測し、内部route IDの数値やoverflow後の保持replyを指定しない。kill post-hook、overflow制御、過小depthの差分はspec-only期待値を保持する。対応付け自体は新たな実行証拠や人の照合を作らない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_grab_blocks_other_sequence_until_ungrab",
+          "role": "direct",
+          "expected_observations": [
+            "UT: held 1 0 blocked 0 1",
+            "UT: grabbed 1 owner_same 1",
+            "UT: cleared locks 0 0 blocked 0 0 grabbed 0 owner_null 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-GRAB-WAIT-FOR-OWNER",
+      "clause": "14.2.5.6",
+      "statement": {
+        "en": "A grab waits while an existing owner blocks it and returns after acquisition.",
+        "ja": "grabは、既存ownerがblockする間待ち、取得後にreturnする。"
+      },
+      "conditions": {
+        "en": "Hold first lock, request second grab, probe before release and after transfer.",
+        "ja": "firstのlockを保持し、secondのgrabを要求し、解放前と移行後を観測する。"
+      },
+      "expected": {
+        "en": "Second remains blocked initially, becomes exact owner after release, and final release clears ownership.",
+        "ja": "secondは初めblockされ、解放後に正確なownerとなり、最終解放で所有権が解除される。"
+      },
+      "limitations": {
+        "en": "Existing sources, expectations, metadata and recorded input hashes remain unchanged. Idle lock/grab queries do not exercise arbitration queue ordering. Wait probes use positive delays; no numeric internal route IDs or post-overflow retained replies are prescribed. Kill post-hook, overflow-control and undersized-depth differences keep their spec-only expectations. Mapping creates no new runtime evidence or human review.",
+        "ja": "既存source、期待値、metadata、記録入力hashは変更しない。idleのlock／grab照会はarbitration queue順を検査しない。待機は正の遅延で観測し、内部route IDの数値やoverflow後の保持replyを指定しない。kill post-hook、overflow制御、過小depthの差分はspec-only期待値を保持する。対応付け自体は新たな実行証拠や人の照合を作らない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_grab_waits_for_existing_owner_to_unlock",
+          "role": "direct",
+          "expected_observations": [
+            "UT: waiting granted 0 first_held 1 second_blocked 1",
+            "UT: transferred second_held 1 first_blocked 1 owner_second 1",
+            "UT: cleared locks 0 0 blocked 0 0 grabbed 0 owner_null 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-RESPONSE-FIFO-HANDLE-ORDER",
+      "clause": "14.3.3.3",
+      "statement": {
+        "en": "Default response retrieval preserves arrival order and exact reply handles.",
+        "ja": "既定response取得は、到着順と正確なreply handleを保持する。"
+      },
+      "conditions": {
+        "en": "Queue two matched replies before allowing two default reads.",
+        "ja": "既定read 2回を許す前に、一致reply 2つをqueueへ入れる。"
+      },
+      "expected": {
+        "en": "Values 11/22 return with both exact handles and sequence completion.",
+        "ja": "値11／22を両方の正確なhandleで返し、sequenceが完了する。"
+      },
+      "limitations": {
+        "en": "Existing sources, expectations, metadata and recorded input hashes remain unchanged. Idle lock/grab queries do not exercise arbitration queue ordering. Wait probes use positive delays; no numeric internal route IDs or post-overflow retained replies are prescribed. Kill post-hook, overflow-control and undersized-depth differences keep their spec-only expectations. Mapping creates no new runtime evidence or human review.",
+        "ja": "既存source、期待値、metadata、記録入力hashは変更しない。idleのlock／grab照会はarbitration queue順を検査しない。待機は正の遅延で観測し、内部route IDの数値やoverflow後の保持replyを指定しない。kill post-hook、overflow制御、過小depthの差分はspec-only期待値を保持する。対応付け自体は新たな実行証拠や人の照合を作らない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_get_response_preserves_arrival_order",
+          "role": "direct",
+          "expected_observations": [
+            "UT: values 11 22 same 1 1 finished 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-KILL-ACTIVE-STOP-RETURN",
+      "clause": "14.2.5.11",
+      "statement": {
+        "en": "Killing an active bound or unbound sequence stops its body and releases start.",
+        "ja": "実行中の設定済み／未設定sequenceのkillは、bodyを停止しstartを解放する。"
+      },
+      "conditions": {
+        "en": "Kill during a positive body delay and observe beyond its original deadline.",
+        "ja": "正のbody遅延中にkillし、元の期限を超えて観測する。"
+      },
+      "expected": {
+        "en": "State is STOPPED, one kill hook runs, start returns and no delayed write occurs.",
+        "ja": "状態はSTOPPED、kill hookは1回、startはreturnし、遅延writeはない。"
+      },
+      "limitations": {
+        "en": "Existing sources, expectations, metadata and recorded input hashes remain unchanged. Idle lock/grab queries do not exercise arbitration queue ordering. Wait probes use positive delays; no numeric internal route IDs or post-overflow retained replies are prescribed. Kill post-hook, overflow-control and undersized-depth differences keep their spec-only expectations. Mapping creates no new runtime evidence or human review.",
+        "ja": "既存source、期待値、metadata、記録入力hashは変更しない。idleのlock／grab照会はarbitration queue順を検査しない。待機は正の遅延で観測し、内部route IDの数値やoverflow後の保持replyを指定しない。kill post-hook、overflow制御、過小depthの差分はspec-only期待値を保持する。対応付け自体は新たな実行証拠や人の照合を作らない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_kill_stops_bound_body_and_releases_start",
+          "role": "direct",
+          "expected_observations": [
+            "UT: stopped 1 kill_calls 1 start_returned 1",
+            "UT: late_write 0"
+          ]
+        },
+        {
+          "test": "u14/test_sequence_kill_stops_unbound_body_and_releases_start",
+          "role": "direct",
+          "expected_observations": [
+            "UT: stopped 1 kill_calls 1 start_returned 1",
+            "UT: late_write 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-KILL-REQUIRED-POST-BODY",
+      "clause": "14.2.5.11",
+      "statement": {
+        "en": "Killing a sequence executes its required post_body callback.",
+        "ja": "sequenceのkillは、必要なpost_body callbackを実行する。"
+      },
+      "conditions": {
+        "en": "Kill bound and unbound active sequences with zero-delay hook counters.",
+        "ja": "遅延なしhook counterを持つ設定済み／未設定の実行中sequenceをkillする。"
+      },
+      "expected": {
+        "en": "Each fixture records one post_body call.",
+        "ja": "各検査系はpost_body呼出し1回を記録する。"
+      },
+      "limitations": {
+        "en": "Existing sources, expectations, metadata and recorded input hashes remain unchanged. Idle lock/grab queries do not exercise arbitration queue ordering. Wait probes use positive delays; no numeric internal route IDs or post-overflow retained replies are prescribed. Kill post-hook, overflow-control and undersized-depth differences keep their spec-only expectations. Mapping creates no new runtime evidence or human review.",
+        "ja": "既存source、期待値、metadata、記録入力hashは変更しない。idleのlock／grab照会はarbitration queue順を検査しない。待機は正の遅延で観測し、内部route IDの数値やoverflow後の保持replyを指定しない。kill post-hook、overflow制御、過小depthの差分はspec-only期待値を保持する。対応付け自体は新たな実行証拠や人の照合を作らない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_kill_executes_required_post_hooks_when_bound",
+          "role": "direct",
+          "expected_observations": [
+            "UT: post_hooks 1 1"
+          ]
+        },
+        {
+          "test": "u14/test_sequence_kill_executes_required_post_hooks_when_unbound",
+          "role": "direct",
+          "expected_observations": [
+            "UT: post_hooks 1 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-KILL-REQUIRED-POST-START",
+      "clause": "14.2.5.11",
+      "statement": {
+        "en": "Killing a sequence executes its required post_start callback.",
+        "ja": "sequenceのkillは、必要なpost_start callbackを実行する。"
+      },
+      "conditions": {
+        "en": "Kill bound and unbound active sequences with zero-delay hook counters.",
+        "ja": "遅延なしhook counterを持つ設定済み／未設定の実行中sequenceをkillする。"
+      },
+      "expected": {
+        "en": "Each fixture records one post_start call.",
+        "ja": "各検査系はpost_start呼出し1回を記録する。"
+      },
+      "limitations": {
+        "en": "Existing sources, expectations, metadata and recorded input hashes remain unchanged. Idle lock/grab queries do not exercise arbitration queue ordering. Wait probes use positive delays; no numeric internal route IDs or post-overflow retained replies are prescribed. Kill post-hook, overflow-control and undersized-depth differences keep their spec-only expectations. Mapping creates no new runtime evidence or human review.",
+        "ja": "既存source、期待値、metadata、記録入力hashは変更しない。idleのlock／grab照会はarbitration queue順を検査しない。待機は正の遅延で観測し、内部route IDの数値やoverflow後の保持replyを指定しない。kill post-hook、overflow制御、過小depthの差分はspec-only期待値を保持する。対応付け自体は新たな実行証拠や人の照合を作らない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_kill_executes_required_post_hooks_when_bound",
+          "role": "direct",
+          "expected_observations": [
+            "UT: post_hooks 1 1"
+          ]
+        },
+        {
+          "test": "u14/test_sequence_kill_executes_required_post_hooks_when_unbound",
+          "role": "direct",
+          "expected_observations": [
+            "UT: post_hooks 1 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-KILL-RELEASES-LOCK",
+      "clause": "14.2.5.11",
+      "statement": {
+        "en": "Killing removes the sequence active lock before its ordinary unlock can execute.",
+        "ja": "killは、通常unlockを実行する前にsequenceのactive lockを除く。"
+      },
+      "conditions": {
+        "en": "Acquire a lock inside the body and kill before the delayed unlock.",
+        "ja": "body内でlockを取り、遅延unlock前にkillする。"
+      },
+      "expected": {
+        "en": "Lock ownership is cleared and current owner is null.",
+        "ja": "lock所有権は解除され、current ownerはnullとなる。"
+      },
+      "limitations": {
+        "en": "Existing sources, expectations, metadata and recorded input hashes remain unchanged. Idle lock/grab queries do not exercise arbitration queue ordering. Wait probes use positive delays; no numeric internal route IDs or post-overflow retained replies are prescribed. Kill post-hook, overflow-control and undersized-depth differences keep their spec-only expectations. Mapping creates no new runtime evidence or human review.",
+        "ja": "既存source、期待値、metadata、記録入力hashは変更しない。idleのlock／grab照会はarbitration queue順を検査しない。待機は正の遅延で観測し、内部route IDの数値やoverflow後の保持replyを指定しない。kill post-hook、overflow制御、過小depthの差分はspec-only期待値を保持する。対応付け自体は新たな実行証拠や人の照合を作らない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_kill_releases_its_active_lock",
+          "role": "direct",
+          "expected_observations": [
+            "UT: lock_cleared 1 owner_null 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-KILL-AUTOMATIC-OBJECTION",
+      "clause": "14.2.4.3",
+      "statement": {
+        "en": "Kill drops the automatic starting-phase objection.",
+        "ja": "killは、自動starting-phase objectionをdropする。"
+      },
+      "conditions": {
+        "en": "Assign an isolated phase node, enable automatic objection and kill during the body.",
+        "ja": "分離phase nodeを設定し、自動objectionを有効化してbody中にkillする。"
+      },
+      "expected": {
+        "en": "Count changes from one to zero, sequence stops and no delayed write occurs.",
+        "ja": "countは1から0となり、sequenceはstopし、遅延writeはない。"
+      },
+      "limitations": {
+        "en": "Existing sources, expectations, metadata and recorded input hashes remain unchanged. Idle lock/grab queries do not exercise arbitration queue ordering. Wait probes use positive delays; no numeric internal route IDs or post-overflow retained replies are prescribed. Kill post-hook, overflow-control and undersized-depth differences keep their spec-only expectations. Mapping creates no new runtime evidence or human review.",
+        "ja": "既存source、期待値、metadata、記録入力hashは変更しない。idleのlock／grab照会はarbitration queue順を検査しない。待機は正の遅延で観測し、内部route IDの数値やoverflow後の保持replyを指定しない。kill post-hook、overflow制御、過小depthの差分はspec-only期待値を保持する。対応付け自体は新たな実行証拠や人の照合を作らない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_kill_drops_automatic_objection_to_starting_phase",
+          "role": "direct",
+          "expected_observations": [
+            "UT: automatic_count_before 1",
+            "UT: stopped 1 kill_calls 1 start_returned 1",
+            "UT: automatic_count_after 0",
+            "UT: late_write 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-RELEVANCE-GATED-REQUEST",
+      "clause": "14.2.5.3",
+      "statement": {
+        "en": "An irrelevant requesting sequence is withheld until relevance becomes true.",
+        "ja": "relevantでない要求sequenceは、relevanceがtrueになるまで保留される。"
+      },
+      "conditions": {
+        "en": "Start a request with a custom relevance wait and open the gate after a positive delay.",
+        "ja": "独自relevance待機で要求を開始し、正の遅延後にgateを開く。"
+      },
+      "expected": {
+        "en": "Driver receives nothing before opening and later receives payload 42 with completion.",
+        "ja": "gate前にdriverは受けず、後でpayload 42を受けて完了する。"
+      },
+      "limitations": {
+        "en": "Existing sources, expectations, metadata and recorded input hashes remain unchanged. Idle lock/grab queries do not exercise arbitration queue ordering. Wait probes use positive delays; no numeric internal route IDs or post-overflow retained replies are prescribed. Kill post-hook, overflow-control and undersized-depth differences keep their spec-only expectations. Mapping creates no new runtime evidence or human review.",
+        "ja": "既存source、期待値、metadata、記録入力hashは変更しない。idleのlock／grab照会はarbitration queue順を検査しない。待機は正の遅延で観測し、内部route IDの数値やoverflow後の保持replyを指定しない。kill post-hook、overflow制御、過小depthの差分はspec-only期待値を保持する。対応付け自体は新たな実行証拠や人の照合を作らない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_relevance_gate_blocks_request_until_relevant",
+          "role": "direct",
+          "expected_observations": [
+            "UT: before_open received 0 relevant 0",
+            "UT: after_open received 1 payload 42 finished 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-RESPONSE-UNDERSIZED-DEPTH-ERROR",
+      "clause": "14.2.7.7",
+      "statement": {
+        "en": "Setting maximum response depth below queued occupancy reports an error.",
+        "ja": "queue占有数より小さな最大response depthの設定は、errorを報告する。"
+      },
+      "conditions": {
+        "en": "Shrink two pending replies to one or one pending reply to zero, then clear without reading post-error contents.",
+        "ja": "保留2 replyを1、または保留1 replyを0へ縮小し、error後の内容を読まずclearする。"
+      },
+      "expected": {
+        "en": "An ERROR is reported and the sequence can finish after cleanup.",
+        "ja": "ERRORを報告し、清掃後にsequenceは完了できる。"
+      },
+      "limitations": {
+        "en": "Existing sources, expectations, metadata and recorded input hashes remain unchanged. Idle lock/grab queries do not exercise arbitration queue ordering. Wait probes use positive delays; no numeric internal route IDs or post-overflow retained replies are prescribed. Kill post-hook, overflow-control and undersized-depth differences keep their spec-only expectations. Mapping creates no new runtime evidence or human review.",
+        "ja": "既存source、期待値、metadata、記録入力hashは変更しない。idleのlock／grab照会はarbitration queue順を検査しない。待機は正の遅延で観測し、内部route IDの数値やoverflow後の保持replyを指定しない。kill post-hook、overflow制御、過小depthの差分はspec-only期待値を保持する。対応付け自体は新たな実行証拠や人の照合を作らない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_response_depth_shrink_below_two_replies_reports_error",
+          "role": "direct",
+          "expected_observations": [
+            "UT: undersized_depth_reports_error 1",
+            "UT: finished 1"
+          ]
+        },
+        {
+          "test": "u14/test_sequence_response_depth_shrink_to_zero_with_one_reply_reports_error",
+          "role": "direct",
+          "expected_observations": [
+            "UT: undersized_depth_reports_error 1",
+            "UT: finished 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-RESPONSE-OVERFLOW-REPORT-ENABLED",
+      "clause": "14.2.7.5",
+      "statement": {
+        "en": "Explicitly enabled reporting emits an error on response overflow.",
+        "ja": "明示的に有効なreportingは、response overflowでerrorを出す。"
+      },
+      "conditions": {
+        "en": "Enable reporting and send two replies to a depth-one queue before reading.",
+        "ja": "reportingを有効化し、読取り前にdepth 1 queueへ2 replyを送る。"
+      },
+      "expected": {
+        "en": "The overflow error is reported and cleanup allows completion.",
+        "ja": "overflow errorを報告し、清掃後に完了できる。"
+      },
+      "limitations": {
+        "en": "Existing sources, expectations, metadata and recorded input hashes remain unchanged. Idle lock/grab queries do not exercise arbitration queue ordering. Wait probes use positive delays; no numeric internal route IDs or post-overflow retained replies are prescribed. Kill post-hook, overflow-control and undersized-depth differences keep their spec-only expectations. Mapping creates no new runtime evidence or human review.",
+        "ja": "既存source、期待値、metadata、記録入力hashは変更しない。idleのlock／grab照会はarbitration queue順を検査しない。待機は正の遅延で観測し、内部route IDの数値やoverflow後の保持replyを指定しない。kill post-hook、overflow制御、過小depthの差分はspec-only期待値を保持する。対応付け自体は新たな実行証拠や人の照合を作らない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_response_queue_overflow_reports_error",
+          "role": "direct",
+          "expected_observations": [
+            "UT: overflow_error_reported 1",
+            "UT: finished 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-RESPONSE-OVERFLOW-REPORT-DISABLED",
+      "clause": "14.2.7.5",
+      "statement": {
+        "en": "Disabled reporting suppresses the response overflow error.",
+        "ja": "無効なreportingは、response overflowのerrorを抑える。"
+      },
+      "conditions": {
+        "en": "Disable reporting and send two replies to a depth-one queue before reading.",
+        "ja": "reportingを無効化し、読取り前にdepth 1 queueへ2 replyを送る。"
+      },
+      "expected": {
+        "en": "No overflow error is reported and cleanup allows completion.",
+        "ja": "overflow errorは報告せず、清掃後に完了できる。"
+      },
+      "limitations": {
+        "en": "Existing sources, expectations, metadata and recorded input hashes remain unchanged. Idle lock/grab queries do not exercise arbitration queue ordering. Wait probes use positive delays; no numeric internal route IDs or post-overflow retained replies are prescribed. Kill post-hook, overflow-control and undersized-depth differences keep their spec-only expectations. Mapping creates no new runtime evidence or human review.",
+        "ja": "既存source、期待値、metadata、記録入力hashは変更しない。idleのlock／grab照会はarbitration queue順を検査しない。待機は正の遅延で観測し、内部route IDの数値やoverflow後の保持replyを指定しない。kill post-hook、overflow制御、過小depthの差分はspec-only期待値を保持する。対応付け自体は新たな実行証拠や人の照合を作らない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_response_queue_overflow_can_suppress_error",
+          "role": "direct",
+          "expected_observations": [
+            "UT: overflow_error_reported 0",
+            "UT: finished 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-RESPONSE-UNBOUNDED-STORAGE",
+      "clause": "14.2.7.6",
+      "statement": {
+        "en": "Depth minus one permits more replies than the default capacity without a maximum-depth error.",
+        "ja": "depth -1は、最大depth errorなしに既定容量を超えるreplyを許す。"
+      },
+      "conditions": {
+        "en": "Queue nine matched replies at depth minus one before retrieval.",
+        "ja": "取得前にdepth -1で一致reply 9つをqueueへ入れる。"
+      },
+      "expected": {
+        "en": "No error is added, all nine return and endpoint values are 11/99.",
+        "ja": "errorは増えず、9つすべてreturnし、端の値は11／99となる。"
+      },
+      "limitations": {
+        "en": "Existing sources, expectations, metadata and recorded input hashes remain unchanged. Idle lock/grab queries do not exercise arbitration queue ordering. Wait probes use positive delays; no numeric internal route IDs or post-overflow retained replies are prescribed. Kill post-hook, overflow-control and undersized-depth differences keep their spec-only expectations. Mapping creates no new runtime evidence or human review.",
+        "ja": "既存source、期待値、metadata、記録入力hashは変更しない。idleのlock／grab照会はarbitration queue順を検査しない。待機は正の遅延で観測し、内部route IDの数値やoverflow後の保持replyを指定しない。kill post-hook、overflow制御、過小depthの差分はspec-only期待値を保持する。対応付け自体は新たな実行証拠や人の照合を作らない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_unbounded_response_queue_exceeds_default_depth",
+          "role": "direct",
+          "expected_observations": [
+            "UT: depth -1 error_delta 0",
+            "UT: received 9 endpoints 11 99 finished 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-ITEM-DONE-DEFAULT-WAIT",
+      "clause": "14.2.6.6",
+      "statement": {
+        "en": "The default completion wait remains blocked until item acknowledgement.",
+        "ja": "既定の完了待機は、item acknowledgeまでblockされる。"
+      },
+      "conditions": {
+        "en": "Hold a retrieved item for two positive delays before item_done.",
+        "ja": "取得itemをitem_done前に正の遅延2つの間保持する。"
+      },
+      "expected": {
+        "en": "Completion/done remain zero while held and both become one after acknowledgement.",
+        "ja": "保持中のcompletion／doneは0で、acknowledge後は両方1となる。"
+      },
+      "limitations": {
+        "en": "Existing sources, expectations, metadata and recorded input hashes remain unchanged. Idle lock/grab queries do not exercise arbitration queue ordering. Wait probes use positive delays; no numeric internal route IDs or post-overflow retained replies are prescribed. Kill post-hook, overflow-control and undersized-depth differences keep their spec-only expectations. Mapping creates no new runtime evidence or human review.",
+        "ja": "既存source、期待値、metadata、記録入力hashは変更しない。idleのlock／grab照会はarbitration queue順を検査しない。待機は正の遅延で観測し、内部route IDの数値やoverflow後の保持replyを指定しない。kill post-hook、overflow制御、過小depthの差分はspec-only期待値を保持する。対応付け自体は新たな実行証拠や人の照合を作らない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_wait_for_item_done_default_stays_blocked_until_acknowledgement",
+          "role": "direct",
+          "expected_observations": [
+            "UT: held completed 0 done 0",
+            "UT: acknowledged completed 1 done 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-ITEM-DONE-EXPLICIT-IDS",
+      "clause": "14.2.6.6",
+      "statement": {
+        "en": "Explicit-ID completion waits follow each corresponding acknowledgement.",
+        "ja": "明示IDの完了待機は、対応する各acknowledgeに従う。"
+      },
+      "conditions": {
+        "en": "Send items 50/51, acknowledge first and hold second before its acknowledgement.",
+        "ja": "item 50／51を送り、firstへacknowledgeし、secondを自身のacknowledge前に保持する。"
+      },
+      "expected": {
+        "en": "Only one completion exists while second is held; final completion/sent counts are two.",
+        "ja": "second保持中は完了1回で、最終completion／sentは2となる。"
+      },
+      "limitations": {
+        "en": "Existing sources, expectations, metadata and recorded input hashes remain unchanged. Idle lock/grab queries do not exercise arbitration queue ordering. Wait probes use positive delays; no numeric internal route IDs or post-overflow retained replies are prescribed. Kill post-hook, overflow-control and undersized-depth differences keep their spec-only expectations. Mapping creates no new runtime evidence or human review.",
+        "ja": "既存source、期待値、metadata、記録入力hashは変更しない。idleのlock／grab照会はarbitration queue順を検査しない。待機は正の遅延で観測し、内部route IDの数値やoverflow後の保持replyを指定しない。kill post-hook、overflow制御、過小depthの差分はspec-only期待値を保持する。対応付け自体は新たな実行証拠や人の照合を作らない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_wait_for_item_done_matches_each_explicit_transaction_id",
+          "role": "direct",
+          "expected_observations": [
+            "UT: first_id 50",
+            "UT: second_id 51 completed 1 done 0",
+            "UT: final_completed 2 sent 2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-ITEM-DONE-IMPLICIT-GET",
+      "clause": "14.2.6.6",
+      "statement": {
+        "en": "A driver get acknowledgement releases the completion wait without separate item_done.",
+        "ja": "driverのget acknowledgeは、別item_doneなしに完了待機を解放する。"
+      },
+      "conditions": {
+        "en": "Retrieve the sent item using get.",
+        "ja": "送ったitemをgetで取得する。"
+      },
+      "expected": {
+        "en": "The exact item handle/code 37 is observed and one completion is recorded.",
+        "ja": "正確なitem handle／code 37を観測し、完了1回を記録する。"
+      },
+      "limitations": {
+        "en": "Existing sources, expectations, metadata and recorded input hashes remain unchanged. Idle lock/grab queries do not exercise arbitration queue ordering. Wait probes use positive delays; no numeric internal route IDs or post-overflow retained replies are prescribed. Kill post-hook, overflow-control and undersized-depth differences keep their spec-only expectations. Mapping creates no new runtime evidence or human review.",
+        "ja": "既存source、期待値、metadata、記録入力hashは変更しない。idleのlock／grab照会はarbitration queue順を検査しない。待機は正の遅延で観測し、内部route IDの数値やoverflow後の保持replyを指定しない。kill post-hook、overflow制御、過小depthの差分はspec-only期待値を保持する。対応付け自体は新たな実行証拠や人の照合を作らない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_wait_for_item_done_returns_when_get_implicitly_acknowledges",
+          "role": "direct",
+          "expected_observations": [
+            "UT: same_handle 1 code 37 completed 1"
+          ]
+        }
+      ]
     }
   ]
 }

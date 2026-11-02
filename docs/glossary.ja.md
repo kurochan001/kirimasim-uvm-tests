@@ -557,3 +557,15 @@ wrapperのlookupはsequenceを実行せず、共通の登録順を要求しま�
 
 **register操作記述子** — element、access、data、map、status、生成元metadataを保持する抽象transaction objectです。
 そのobjectの読取り／更新だけでは、物理register accessは行いません。
+
+## 検索範囲とstate mask
+
+**rootのcomponent検索** — componentのfull nameをpatternと比較し、一致handleを返す公開root lookupです。
+
+**検索開始component** — scope付き検索が下へ辿る開始点で、一致する場合は自身も含みます。
+patternは引き続きfull nameを使います。
+
+**sequence-state mask** — 許容するsequence状態のbit結合で、呼出し対象が選択状態のいずれかになると待機がreturnします。
+
+**memoryの便利accessor** — 選択memory locationへaccessし、自身のsequenceをparentとして指定する、
+register-sequenceのpoke／peek wrapperです。

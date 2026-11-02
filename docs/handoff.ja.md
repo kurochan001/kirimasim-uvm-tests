@@ -4,10 +4,9 @@
 
 ## 引継ぎ時点と目的
 
-2026-11-02に、M1〜M4の14回目の拡充後の`main`、
-[3329a52](https://github.com/kurochan001/kirimasim-uvm-tests/commit/3329a52addc6d09b4979c757af5af45dc87f5bf4)
-を対象として作成しました。この資料の追加前は作業ツリーに差分がありませんでした。
-今回は資料の追加で、シミュレーションや実測の追加はありません。再開時にbranchと作業ツリーを確認してください。
+2026-11-02に、`main`の[e58bd5a](https://github.com/kurochan001/kirimasim-uvm-tests/commit/e58bd5afbe1d9cda33c7a9db3e065a8710eeca92)
+を基に、M1〜M4の15回目の拡充へ更新しました。件数は以下の追加20件を含みます。
+再開時に最新の公開commitと作業ツリーを確認してください。
 
 このプロジェクトは、kirimasimを対象にIEEE 1800.2-2020 UVMの適合性を検査します。
 SystemVerilog言語だけの再現ケースは[kirimasim-tests](https://github.com/kurochan001/kirimasim-tests)で扱います。
@@ -15,17 +14,17 @@ SystemVerilog言語だけの再現ケースは[kirimasim-tests](https://github.c
 
 | 領域 | 現在の記録 |
 | --- | --- |
-| M1 | 351件：基本object、policy、report、階層、factory、phase、同期、記録、utility |
-| M2 | 416件：sequence、sequencer、callback、TLM |
-| M3 | 318件：register／memory層と付録E |
-| 全体 | 章・付録21 directoryに1085件。照合はすべてAIで、人による照合は未記録 |
-| M4 | AI要求案1021件。1017要求を956テストへ直接対応。別control 1件、未対応テスト128件 |
-| 規範的な棚卸し | 2,504番号のうち684を一部分解、1,820は未評価。直接テストのない要求案4件 |
+| M1 | 359件：基本object、policy、report、階層、factory、phase、同期、記録、utility |
+| M2 | 420件：sequence、sequencer、callback、TLM |
+| M3 | 326件：register／memory層と付録E |
+| 全体 | 章・付録21 directoryに1105件。照合はすべてAIで、人による照合は未記録 |
+| M4 | AI要求案1063件。1059要求を996テストへ直接対応。別control 1件、未対応テスト108件 |
+| 規範的な棚卸し | 2,504番号のうち692を一部分解、1,812は未評価。直接テストのない要求案4件 |
 
 `scope_status`は提案、`normative_inventory_complete`はfalse、
 `approved_denominator`／`coverage_percentage`はnullのままです。
 条項の引用、条項あたり2テスト、未対応テスト0件という状態だけでは、完全な要求カバレッジになりません。
-第15章を含む18 rootで既存主引用テストの未対応は0件ですが、規範的義務の分解は部分的です。
+第14・15章を含む19 rootで既存主引用テストの未対応は0件ですが、規範的義務の分解は部分的です。
 
 ## 維持する方針
 
@@ -57,7 +56,7 @@ SystemVerilog言語だけの再現ケースは[kirimasim-tests](https://github.c
 - ユーザーがrepository rootへ`IEEE_Std_1800.2-2020.pdf`と
   `IEEE_Std_1800-2023_SystemVerilog.pdf`を配置済みです。Git対象外のlocalファイルで、
   新規cloneにはなく、再配布しません。`/tmp`内の抽出済みtextも一時資料です。
-- `out/`の結果はGit対象外のlocal資料です。`/tmp/kirimasim-uvm-thin-fourteenth-*.py`の一時helperは、
+- `out/`の結果はGit対象外のlocal資料です。`/tmp/kirimasim-uvm-thin-fifteenth-*.py`の一時helperは、
   あれば使える補助で、保守対象の入口ではありません。台帳／履歴へ追記するものがあり、無条件に再実行しません。
   不在なら版管理するtoolから必要な処理を組み立てます。
 
@@ -76,8 +75,9 @@ python3 tools/requirements.py inventory --json out/requirements-inventory.json
 python3 tools/requirements.py backlog --json out/requirements-backlog.json --lang ja
 ```
 
-この記録は、tool単体テスト74件、全1085件のmetadata、台帳／索引、library整合性、現在の入力とevidenceの照合を
-通過しています。資料だけの変更では、全シミュレーションの再buildは不要です。実行のsmoke確認は次のとおりです。
+この記録は、tool単体テスト74件、全1105件のmetadata、台帳／索引、library整合性、現在の入力とevidenceの照合を
+通過しています。資料だけの変更では、全シミュレーションの再buildは不要です。
+全件evidenceはVerilatorだけで、他2系統は未変更1085件の記録、新規20件は未測定です。実行のsmoke確認は次のとおりです。
 
 ```sh
 python3 tools/run_verilator.py --seeds 1 73 --build-jobs 2 -j 1 \
@@ -94,9 +94,9 @@ Nightly workflowや結果の自動公開はありません。
 
 | シミュレータ／library | 記録した結果 |
 | --- | --- |
-| Verilator 5.052／固定UVM | seed 1・73でpass 979件、known 106件 |
-| kirimasim／固定UVM | object-wrapper未対応1076件、それ以前のAPI欠落fail 9件 |
-| Ghost／同梱UVM | 各seedでpass 207件、fail 878件。失敗集合は同じ |
+| Verilator 5.052／固定UVM | seed 1・73でpass 999件、known 106件 |
+| kirimasim／固定UVM | 未変更1085件で未対応1076件・API欠落fail 9件。新規20件は未測定 |
+| Ghost／同梱UVM | 未変更1085件で各seed pass 207件・fail 878件。新規20件は未測定 |
 | Ghost／固定UVM | 現在の実行ファイルsnapshotでは未測定 |
 
 Verilatorのknown 106件は、seed 1で最初に異なる実行時97件と、API欠落build 9件です。
@@ -104,8 +104,9 @@ Verilatorのknown 106件は、seed 1で最初に異なる実行時97件と、API
 `known`と`unsupported`は成功ではなく、106ケースは独立した不具合106件という意味でもありません。
 Ghost同梱の結果は固定libraryの動作を示さず、simulatorとlibraryの原因を切り分けません。
 
-直近20件は、簡易照合／enum名変換、response待機／queue clear、register操作記述子です。
-18件は両seedで一致し、2件は規範的なspec-only期待値を保持します。
+直近20件は、root検索、sequence-state待機、memory poke／peek wrapperで、Verilatorの両seedに一致します。
+一時実行snapshotが失われ、互換環境も見つからず、新しいguest実測はありません。
+以前の規範的なspec-only期待値2件も、引き続き注意が必要です。
 
 - [簡易plus](../tests/uF/test_is_match_plus_requires_at_least_one_character.sv)：F.3.3.1／表F.1は1文字以上を要求しますが、
   実測したno-DPI fallbackはplusをliteralとして扱います。DPI有効時やPOSIX式の結果は主張しません。
@@ -117,15 +118,16 @@ Ghost同梱の結果は固定libraryの動作を示さず、simulatorとlibrary�
 現在のhostでは、互換なlocal記録は次にあります。
 
 ```text
-out/thin-fourteenth-verilator-combined.json
+out/thin-fifteenth-verilator-combined.json
 out/thin-fourteenth-ghost-final-1.json
 out/thin-fourteenth-ghost-final-73.json
 out/thin-fourteenth-kirimasim-final.json
-out/thin-fourteenth-inventory.json
-out/thin-fourteenth-backlog-final.json
+out/thin-fifteenth-inventory.json
+out/thin-fifteenth-backlog-final.json
+out/thin-fifteenth-evidence-scope.json
 ```
 
-再利用前に、test ID集合の完全一致、現在の`inputs_sha256`、simulatorの版／設定／libraryの同一性、
+再利用前に、宣言した全件／部分の対象ごとのtest ID集合の完全一致、現在の`inputs_sha256`、simulatorの版／設定／libraryの同一性、
 `runner_sha256`の一致、`runner_changed`がfalseであることを確認します。互換でない記録を合算しません。
 Git対象外のファイルなので別hostにはない場合があり、許可された設定と版管理するrunnerで再測定します。
 [記録の集約](results.ja.md#記録の合算)も参照してください。
@@ -136,7 +138,6 @@ Git対象外のファイルなので別hostにはない場合があり、許可�
 
 | Root | 要求対応のない既存テスト | 優先候補 |
 | --- | --- | --- |
-| 14 | 20 | 残るresponse、lock／grab、kill、relevance、完了待機。有限の1 batchでこのrootの対応付けを完了可能 |
 | 18 | 62 | register／virtual-register callback、動的割当て、region、model制御 |
 | 12 | 46 | TLM 2の時刻、export／socket、payload packing、nonblocking transport |
 
@@ -191,6 +192,6 @@ python3 tools/requirements.py sync --output out/test-index-proposal.json
 
 > READMEと日英のハンドオフを読み、作業ツリーと最新Checkを確認して、要求backlogを再生成してください。
 > ユーザーが配置したIEEE規格を使い、M1〜M4の薄い領域の補強を続けてください。
-> 第14章の残る対応付けを優先候補にし、M1〜M3でも意味のある新しい動作を追加してください。
+> 第18章・第12章の残る対応付けを優先候補にし、M1〜M3でも意味のある新しい動作を追加してください。
 > 規格に基づく期待値、商用結果の除外、Ghostの非公開性、AI照合状態、完全な日英文書を維持してください。
 > 最終入力を測定し、有効なspec-only差分を残して、完了した変更・検証・残る制約を報告してください。

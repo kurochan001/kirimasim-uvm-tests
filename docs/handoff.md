@@ -4,12 +4,10 @@
 
 ## Snapshot and objective
 
-Prepared on 2026-11-02 for the code snapshot
-[3329a52](https://github.com/kurochan001/kirimasim-uvm-tests/commit/3329a52addc6d09b4979c757af5af45dc87f5bf4)
-on `main`, after the fourteenth expansion across M1–M4. The working tree
-was clean before adding this document. This handoff adds documentation;
-it does not add simulations or measurements. Recheck the branch and
-working tree before resuming.
+Updated on 2026-11-02 for the fifteenth expansion across M1–M4, based on
+[e58bd5a](https://github.com/kurochan001/kirimasim-uvm-tests/commit/e58bd5afbe1d9cda33c7a9db3e065a8710eeca92)
+on `main`. Counts include the twenty additions documented below. Verify
+the current publishing commit and working tree before resuming.
 
 The project tests IEEE 1800.2-2020 UVM conformance, targeting kirimasim.
 SystemVerilog language-only reproducers belong in
@@ -19,17 +17,17 @@ progress; M1–M3 remain independently incomplete.
 
 | Area | Current snapshot |
 | --- | --- |
-| M1 | 351 simulations: core objects, policies, reporting, hierarchy, factory, phases, synchronization, recording and utilities |
-| M2 | 416 simulations: sequences, sequencers, callbacks and TLM |
-| M3 | 318 simulations: register/memory layer and annex E |
-| Entire suite | 1085 simulations in 21 chapter/annex directories; all AI-reviewed, none human-reviewed |
-| M4 | 1021 AI requirement drafts; 1017 have direct links to 956 tests; one additional control test; 128 tests without requirement links |
-| Normative inventory | 684 of 2,504 identifiers partially decomposed; 1,820 unassessed; four drafts without direct tests |
+| M1 | 359 simulations: core objects, policies, reporting, hierarchy, factory, phases, synchronization, recording and utilities |
+| M2 | 420 simulations: sequences, sequencers, callbacks and TLM |
+| M3 | 326 simulations: register/memory layer and annex E |
+| Entire suite | 1105 simulations in 21 chapter/annex directories; all AI-reviewed, none human-reviewed |
+| M4 | 1063 AI requirement drafts; 1059 have direct links to 996 tests; one additional control test; 108 tests without requirement links |
+| Normative inventory | 692 of 2,504 identifiers partially decomposed; 1,812 unassessed; four drafts without direct tests |
 
 `scope_status` remains proposed, `normative_inventory_complete` is false,
 and `approved_denominator` / `coverage_percentage` remain null. A clause
 citation, two tests on a clause, or zero unmapped tests does not establish
-complete requirement coverage. Eighteen roots, including chapter 15, have
+complete requirement coverage. Nineteen roots, including chapters 14 and 15, have
 no unmapped primary-focus tests; their normative decomposition is partial.
 
 ## Policies to preserve
@@ -75,7 +73,7 @@ no unmapped primary-focus tests; their normative decomposition is partial.
   ignored local files, unavailable in a fresh clone, and must not be
   redistributed. Existing extracted text under `/tmp` is also transient.
 - Results under `out/` are ignored and local. Temporary expansion helpers
-  under `/tmp/kirimasim-uvm-thin-fourteenth-*.py` are optional local aids,
+  under `/tmp/kirimasim-uvm-thin-fifteenth-*.py` are optional local aids,
   not maintained entry points. Some append drafts/history and must not be
   rerun blindly. Recreate missing helpers using the tracked tools.
 
@@ -94,9 +92,11 @@ python3 tools/requirements.py inventory --json out/requirements-inventory.json
 python3 tools/requirements.py backlog --json out/requirements-backlog.json --lang ja
 ```
 
-The snapshot passed 74 tool unit tests, metadata for all 1085 simulations,
+The snapshot passed 74 tool unit tests, metadata for all 1105 simulations,
 ledger/index validation, library integrity and current-input evidence checks.
 A documentation-only change does not require rebuilding the entire suite.
+Current full-suite evidence is available for Verilator only; guest records
+cover 1085 unchanged inputs, with twenty new cases unmeasured.
 For a simulator smoke check:
 
 ```sh
@@ -116,9 +116,9 @@ publication.
 
 | Simulator / library | Recorded result |
 | --- | --- |
-| Verilator 5.052 / pinned UVM | 979 pass at seeds 1 and 73; 106 known |
-| kirimasim / pinned UVM | 1076 unsupported at the object-wrapper blocker; nine earlier missing-API failures |
-| Ghost / bundled UVM | 207 pass and 878 fail at each seed; identical failing sets |
+| Verilator 5.052 / pinned UVM | 999 pass at seeds 1 and 73; 106 known |
+| kirimasim / pinned UVM | 1085 unchanged cases: 1076 unsupported and nine missing-API failures; twenty new cases unmeasured |
+| Ghost / bundled UVM | 1085 unchanged cases: 207 pass and 878 fail at each seed; twenty new cases unmeasured |
 | Ghost / pinned UVM | No measurement for the current executable snapshot |
 
 The 106 known Verilator cases comprise 97 runtime first differences at seed
@@ -128,9 +128,11 @@ HDL-slice cases. `known` and `unsupported` are not passes, and 106 cases do
 not mean 106 independent bugs. Ghost bundled results do not establish
 pinned-library behavior or isolate simulator from library causes.
 
-The latest twenty additions cover simplified matching / enum-name conversion,
-response waits / queue clearing, and register-operation descriptors.
-Eighteen reproduce at both seeds. Two keep normative spec-only expectations:
+The latest twenty additions cover root searches, sequence-state waits and
+memory poke/peek wrappers. All reproduce at both Verilator seeds. No new
+guest measurement is available because temporary execution snapshots were
+lost and no compatible replacement was found. Two earlier normative
+spec-only expectations remain relevant:
 
 - [Simplified plus](../tests/uF/test_is_match_plus_requires_at_least_one_character.sv):
   F.3.3.1/Table F.1 requires one-or-more characters; the tested no-DPI fallback
@@ -141,20 +143,21 @@ Eighteen reproduce at both seeds. Two keep normative spec-only expectations:
   reads from write expansion; small count/count-plus-one probes bound
   erroneous allocations.
 
-The assembled snapshot retains unchanged prior inputs and replaces only
+The assembled Verilator snapshot retains unchanged prior inputs and replaces only
 remeasured records. It is not one invocation rerunning the entire suite.
 On the current host, the compatible local records are:
 
 ```text
-out/thin-fourteenth-verilator-combined.json
+out/thin-fifteenth-verilator-combined.json
 out/thin-fourteenth-ghost-final-1.json
 out/thin-fourteenth-ghost-final-73.json
 out/thin-fourteenth-kirimasim-final.json
-out/thin-fourteenth-inventory.json
-out/thin-fourteenth-backlog-final.json
+out/thin-fifteenth-inventory.json
+out/thin-fifteenth-backlog-final.json
+out/thin-fifteenth-evidence-scope.json
 ```
 
-Before reuse, verify complete test-ID sets, current `inputs_sha256`, identical
+Before reuse, verify test-ID sets within each declared full/subset scope, current `inputs_sha256`, identical
 simulator version/configuration/library identity and `runner_sha256`, and
 false `runner_changed`. Do not merge incompatible records. These ignored
 files may be absent on another host; use the tracked runners to regenerate
@@ -167,7 +170,6 @@ percentage. Generate a fresh backlog before choosing the next increment.
 
 | Root | Existing tests without requirement links | Suggested focus |
 | --- | --- | --- |
-| 14 | 20 | Remaining response, lock/grab, kill, relevance and completion-wait fixtures; a bounded batch can finish mapping this root |
 | 18 | 62 | Register/virtual-register callbacks, dynamic allocation, regions and model controls |
 | 12 | 46 | TLM 2 timing, exports/sockets, payload packing and nonblocking transport |
 
@@ -236,7 +238,7 @@ python3 tools/requirements.py sync --output out/test-index-proposal.json
 > Read README and the bilingual handoff, verify the working tree and latest
 > Check status, and regenerate the requirement backlog. Continue strengthening
 > thin areas across M1–M4 using the supplied IEEE standards. Consider the
-> remaining chapter-14 mappings first, while adding meaningful new behaviors
+> remaining chapter-18 and chapter-12 mappings next, while adding meaningful new behaviors
 > in M1–M3. Preserve standard-derived expectations, the commercial-result
 > exclusion, Ghost privacy, AI review status and complete bilingual docs.
 > Measure final inputs, retain valid spec-only differences and report the

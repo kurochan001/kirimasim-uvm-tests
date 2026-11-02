@@ -4,18 +4,19 @@
 
 ## Current snapshot
 
-The local evidence dated 2026-11-02 covers the 1085 current tests. Each record
-identifies its test inputs and execution conditions through fingerprints.
+The Verilator evidence dated 2026-11-02 covers all 1105 current tests.
+Guest records cover 1085 unchanged current-input tests, with twenty new
+tests unmeasured. Each record fingerprints its inputs and conditions.
 The suite contains
-351 M1, 416 M2 and 318 M3 cases in 21 chapter/annex directories. All record
+359 M1, 420 M2 and 326 M3 cases in 21 chapter/annex directories. All record
 `spec_check: ai`, use `UVM_NO_DPI` and request no deprecated API. None records
 human review. Counts do not establish a reviewed requirement-coverage percentage.
 
 | Simulator and library | Observation | Execution scope |
 | --- | --- | --- |
-| Verilator 5.052, pinned UVM | 979 `pass`; 106 `known` | Matches reproduced at seeds 1 and 73; runtime differences stop at seed 1 |
-| kirimasim, pinned UVM | 1076 `unsupported`; nine `fail` | Fixed executable build and all current inputs |
-| Ghost, bundled UVM | 207 `pass`; 878 `fail` | Each of seeds 1 and 73; identical failing sets |
+| Verilator 5.052, pinned UVM | 999 `pass`; 106 `known` | Matches reproduced at seeds 1 and 73; runtime differences stop at seed 1 |
+| kirimasim, pinned UVM | 1076 `unsupported`; nine `fail` | 1085 unchanged inputs; twenty new tests unmeasured |
+| Ghost, bundled UVM | 207 `pass`; 878 `fail` | 1085 unchanged inputs at each seed; identical failing sets; twenty new tests unmeasured |
 | Ghost, pinned UVM | Not measured for the current executable snapshot | No current pinned-mode claim |
 
 The pinned library is Accellera UVM 2020.3.1, commit `78c06547a2a0`, with
@@ -51,18 +52,26 @@ and exit-code rules. Two seeds do not prove determinism or four-state correctnes
 
 ## Evidence assembly
 
-The current snapshot retains all 1065 unchanged records from
-[101405a](https://github.com/kurochan001/kirimasim-uvm-tests/commit/101405abac10d45544cb9c372548cacf22c1524e)
+The current snapshot retains all 1085 unchanged Verilator records from
+[e58bd5a](https://github.com/kurochan001/kirimasim-uvm-tests/commit/e58bd5afbe1d9cda33c7a9db3e065a8710eeca92)
 and adds measurements of twenty new final inputs. Existing test bodies,
-metadata and expected output are unchanged by this increment. Verilator uses the fixed release;
-kirimasim and the project's guest Ghost use fixed executable snapshots.
-Ghost reuses the same private profile snapshot for each seed as its baseline.
+metadata and expected output are unchanged by this increment. Verilator uses
+the fixed release. The retained kirimasim/Ghost records were collected with
+fixed executable snapshots and Ghost's seed-specific private profiles.
 Commercial simulator results are excluded under the
 [reporting policy](faq.md#commercial-simulator-and-issue-reporting-policy).
 
+The prior temporary kirimasim/Ghost executable/profile snapshots are no
+longer available, and no compatible local replacement was found. No new
+guest run is claimed. Their existing 1085 records still match current
+inputs; the twenty new test IDs are explicitly unmeasured. The local
+scope record is `out/thin-fifteenth-evidence-scope.json`. Preserve this
+partial scope until the authorized execution environment is restored.
+
 Before combining records, check that:
 
-- Test IDs cover the current suite exactly, without missing or extra cases.
+- Verilator IDs cover the current suite exactly. Retained guest IDs match
+  their declared 1085-case subset; twenty new IDs remain unmeasured.
 - Each record's `inputs_sha256` matches its current source, expected output,
   associated inputs and library lock as collected by the runner.
 - Simulator version, configuration and `runner_sha256` match between batches,
@@ -78,8 +87,9 @@ prior smoke tests and build-change details. Refreshed records replace older
 ones only after their current input fingerprints are verified.
 
 The [draft ledger](requirements.md) maps all twenty new fixtures and twenty
-existing sequencer stop/ancestry/USER-callback and sequence-response control fixtures. Only new simulation
-inputs are measured anew; all baseline input and runner fingerprints remain
+existing sequence ownership, termination, response-capacity and completion-wait fixtures. Only new simulation
+inputs are measured anew with Verilator; no new guest measurement is added.
+All baseline input and runner fingerprints remain
 compatible. Zero unmapped tests is still not a completed normative inventory.
 Ledger anchors describe expected output, not additional measured passes.
 
@@ -95,7 +105,7 @@ inputs, a different runner, executable, profile or library is a separate conditi
 
 [Check](../.github/workflows/check.yml) runs on pushes to `main`, pull requests
 and manual dispatch. It checks pinned-library integrity, 74 tool unit tests,
-1085 metadata records, the draft requirement ledger/test index and the 979
+1105 metadata records, the draft requirement ledger/test index and the 999
 tagged Verilator cases using seeds 1 and 73.
 It does not run kirimasim, Ghost or spec-only cases. The README's badge is the
 live CI state, separate from these local measurements. A green Check does

@@ -3,7 +3,7 @@
 [日本語](history.ja.md) · [README](../README.md)
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and fourteen cross-milestone thin-area expansions (1085 simulation tests). The earlier 349-test checkpoint is
+three M4 increments and fifteen cross-milestone thin-area expansions (1105 simulation tests). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -1942,3 +1942,41 @@ The glossary has 147 entries and FAQ 124 answers. README retains current
 state; this history preserves the increment. Failed enum output, undefined
 initial descriptor fields, POSIX/DPI behavior, duplicate-ID order and
 concurrent clear/delivery races remain outside these fixtures.
+
+## Fifteenth thin-area expansion across M1–M4
+
+Twenty simulations extend the 1085-case baseline at
+[e58bd5a](https://github.com/kurochan001/kirimasim-uvm-tests/commit/e58bd5afbe1d9cda33c7a9db3e065a8710eeca92)
+to 1105 in 21 directories: 359 M1, 420 M2 and 326 M3. All baseline inputs
+remain unchanged. M1 adds eight root component-search cases, M2 four
+state-mask/wait cases, and M3 eight memory sequence poke/peek integrations.
+All twenty additions reproduce with Verilator 5.052 at seeds 1/73. The
+compatible snapshot has 999 pass and 106 known: 97 runtime first differences
+at seed 1 and nine missing-API builds. No additional known case is added.
+
+Temporary kirimasim/Ghost executable/profile snapshots and compatible local
+replacements were unavailable. Prior records for 1085 unchanged current
+inputs are retained: kirimasim has 1076 unsupported and nine fail; Ghost
+bundled has 207 pass/878 fail at each seed, with identical failing sets.
+The twenty new guest cases are explicitly unmeasured. No fresh full-suite
+guest run, pinned-mode Ghost result or substitute configuration is claimed.
+The evidence-scope JSON records missing IDs separately from measured results.
+
+M4 adds 42 AI drafts and maps twenty new plus twenty existing chapter-14
+fixtures. The ledger has 1063 drafts, 1059 directly linked requirements,
+996 directly linked tests, one additional control and 108 unmapped tests.
+Of 2,504 identifiers, 692 are partially decomposed and 1,812 unassessed;
+507 have primary focus and 1,116 any citation. The 2,479-candidate census
+is 1,972 zero, 266 one and 241 at least two. Nineteen roots have no unmapped
+primary fixtures, including chapters 14/15. Remaining unmapped tests are
+62 in chapter 18 and 46 in chapter 12. Four drafts lack direct tests;
+all review is AI, scope is proposed and denominator/percentage remain null.
+
+Validation covers 74 tool unit tests, all 1105 metadata records, ledger/index,
+library integrity, final-input evidence and ten complete language pairs.
+The glossary has 151 definitions and FAQ 127 answers. The handoff is refreshed
+with the current backlog and partial guest scope. Chapter-18 prose totals
+are corrected to the canonical 182 drafts. Fixture syntax and direct field
+waits were corrected before final measurements, without changing expectations.
+No sibling ordering, ambiguous multiple-match winner, failed-read data,
+default backdoor-kind resolution or physical DUT access is inferred.

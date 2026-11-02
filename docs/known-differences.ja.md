@@ -2,7 +2,7 @@
 
 [English](known-differences.md) · [README](../README.ja.md) · [FAQ](faq.ja.md)
 
-現在の1085件と、固定したAccellera UVM 2020.3.1についての記録です。
+現在の1105件と、固定したAccellera UVM 2020.3.1についての記録です。
 不一致はテストの結果であり、それだけではシミュレータ・ライブラリ・期待値のどれが原因かは決まりません。
 
 ## 固定版ライブラリの制約
@@ -216,7 +216,7 @@
   E.2.1は未知policyのregisterを検査できないとします。アクセスなしの期待値を保ち、
   既知RWの別対象が動作することを比較対象にします。
 
-- `pack_field_int`はsize 65／128で、16.5.4.9が要求するERRORを出しません。
+- `pack_field_int`はsize 65／108で、16.5.4.9が要求するERRORを出しません。
   2件とも不正packの状態は調べず、新しいpackerで64-bitの往復が動作することを比較対象にします。
 
 - comparerの`set_show_max(0)`は、0を無制限として個別の不一致reportを出します。
@@ -250,7 +250,7 @@ databaseのstream列挙の検査系は、7.1.4.2のqueue数を返す事後条件
 記載された`function unsigned`のsignatureは、SystemVerilog 13.4では暗黙の1-bit logicの戻りとなり、2を表現できません。
 期待値2は本文の解釈を保持します。このsignature／本文の矛盾は要レビューとし、確認済みのsimulator／library不具合には割り当てません。
 
-スイート全体では、`verilator@5.052`を付けたテストは979件、specのみのテストは106件です。
+スイート全体では、`verilator@5.052`を付けたテストは999件、specのみのテストは106件です。
 specのみのうち1件は9.6を検証します。pre-resetフェーズ終了時に子タスクが停止する
 はずですが、固定版UVMとVerilator 5.052の組み合わせでは、後のフェーズで子タスクの遅延書き込みが
 実行されます。この差分の原因がシミュレータとライブラリのどちらかは未確定です。
@@ -259,7 +259,7 @@ wakeup resetの検査系は、trigger waiterとpersistent-trigger waiterを各1�
 10.1.1.2.8は、callbackなしで両方が起動することを要求します。固定Verilatorの実行は、待機状態の観測に到達してから
 watchdogが期限切れになります。simulator／libraryを組み合わせた原因は未確定のまま、規範的なwakeupの期待を保持します。
 
-specのみの106件も規格から導いた期待値を保持します。通常のVerilator実行とCIはoracle付き979件を選びます。
+specのみの106件も規格から導いた期待値を保持します。通常のVerilator実行とCIはoracle付き999件を選びます。
 `--all`はspecのみも含め、不一致やビルド不可を`known`として記録します。
 実行時の97件は最初の差分であるseed 1までの記録で、seed 73の結果はありません。
 API欠落の9件（時刻APIの1件、sequence libraryの6件、HDL sliceの2件）はビルド段階で失敗し、どのseedも実行できていません。
@@ -425,7 +425,7 @@ API欠落の9件（時刻APIの1件、sequence libraryの6件、HDL sliceの2件
 
 - 上限を超える整数packで必要なERROR：
   [65 bit](../tests/u16/test_packer_integral_size_65_reports_error_before_independent_boundary_control.sv)、
-  [128 bit](../tests/u16/test_packer_integral_size_128_reports_error_before_independent_boundary_control.sv)。
+  [108 bit](../tests/u16/test_packer_integral_size_128_reports_error_before_independent_boundary_control.sv)。
 - 取得不可FIFOの出力保持（signature／本文の解釈）：
   [値のget](../tests/u12/test_tlm_fifo_failed_try_get_preserves_two_state_value_before_success.sv)、
   [handleのget](../tests/u12/test_tlm_fifo_failed_try_get_preserves_object_handle_before_success.sv)、
@@ -443,6 +443,10 @@ API欠落の9件（時刻APIの1件、sequence libraryの6件、HDL sliceの2件
   [出力と上限](faq.ja.md#出力上限応答の観測)も参照してください。
 
 ## シミュレータとライブラリの組み合わせ
+
+スイートは1105件ですが、以下のkirimasim／Ghost記録は未変更の現在入力1085件だけを対象とします。
+以前の一時実行ファイル／profile snapshotがないため、新規20件は未測定です。
+新しい全件guest実測とは扱いません。[実行結果](results.ja.md)を参照してください。
 
 Ghostの同梱UVMはseed 1・73とも207件一致・878件不一致で、不一致になるテストも同じです。
 現在の実行ファイルの固定コピーでは固定版modeを測定していません。記録の合算は[実行結果と測定方法](results.ja.md)で説明します。

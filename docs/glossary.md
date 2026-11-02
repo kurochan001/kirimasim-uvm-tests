@@ -731,3 +731,17 @@ It permits fresh replies to arrive and does not clear another sequence's queue.
 **Register operation descriptor** — An abstract transaction object holding
 element, access, data, map, status and origin metadata. Reading or updating
 that object alone does not perform a physical register access.
+
+## Search scope and state masks
+
+**Root component search** — A public root lookup comparing component full
+names with a pattern and returning matching handles.
+
+**Search starting component** — The component from which a scoped search
+descends, including that component when it matches. Patterns still use full names.
+
+**Sequence-state mask** — A bitwise combination of accepted sequence states;
+a wait returns when the receiver reaches any selected state.
+
+**Memory convenience accessor** — A register-sequence poke/peek wrapper that
+supplies its sequence as parent while accessing a selected memory location.

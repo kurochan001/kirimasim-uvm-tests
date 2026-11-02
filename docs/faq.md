@@ -173,7 +173,7 @@ a claim that every test was rebuilt together.
 
 ### Q16. Are M1, M2 or M3 complete, and what does the test count cover?
 
-M1 and M2 still have open clause targets. M3 now has 318
+M1 and M2 still have open clause targets. M3 now has 326
 register-layer cases, including testbench frontdoor paths; it is also incomplete. Starting a stage does not complete
 the preceding stages.
 The [plan](../README.md#plan) identifies current scope and remaining work.
@@ -1136,9 +1136,9 @@ not a direct test of the requirement.
 
 ### Q77. Why is there no coverage percentage after starting M4?
 
-The 1021 AI drafts cover only a partial decomposition: 1017 requirements link
-directly to 956 tests, 4 have no direct test, and one separate test is a control.
-Another 128 tests are not mapped yet. The 2,504 clause identifiers are not normative requirement units.
+The 1063 AI drafts cover only a partial decomposition: 1059 requirements link
+directly to 996 tests, 4 have no direct test, and one separate test is a control.
+Another 108 tests are not mapped yet. The 2,504 clause identifiers are not normative requirement units.
 The scope is proposed, the inventory incomplete and the denominator unapproved;
 starting M4 approves none of those. Known differences and HDL/DPI limitations
 do not silently exclude obligations. See the [approval path](requirements.md#remaining-m4-work-and-approval).
@@ -2097,3 +2097,35 @@ These checks do not execute a sequence, bus or DUT. Source filenames are
 plain metadata strings. Separate integration fixtures establish physical
 access and forwarding behavior. Shared expected-output lines can support
 several draft obligations without making each observation independent.
+
+## Component searches, state waits and memory helpers
+
+### Q125. Does a scoped component search use relative names?
+
+Root searches compare the component full name with the pattern, even when
+starting from a subtree. The [scoped search](../tests/uF/test_root_find_all_scoping_keeps_full_name_matching_and_preserves_a_nonmatch.sv)
+leaves the caller prefix intact for relative leaf text, then appends the
+full-name match. Other cases check starting-node inclusion, peer exclusion,
+exact handles and repeated append. Membership is checked without sibling
+order; find/find_all agreement is required only for a unique match.
+
+### Q126. What do the new sequence-state waits establish?
+
+An OR mask accepts any selected state. The [BODY-or-FINISHED case](../tests/u14/test_sequence_state_or_mask_returns_at_body_before_finished.sv)
+returns during BODY before its delayed exit. Other cases wait for STOPPED
+after kill, return when already STOPPED, keep two instance waiters separate
+and observe a second execution on the same handle. These are unbound
+virtual sequences using public state methods. No driver, task-phase run,
+initial state, polling count or kill post-hook order is inferred.
+
+### Q127. How do memory sequence helpers preserve access context?
+
+The [poke_mem case](../tests/u19/test_reg_sequence_poke_mem_deposits_readonly_data_with_parent_offset_and_extension.sv)
+and peek counterparts supply the calling sequence as parent, with exact
+memory, offset, extension and explicit backdoor kind. User backdoors model
+sixteen-bit locations. Tests also cover independent locations, nondestructive
+peeks, status failure/retry, null-extension defaults, inert debug arguments
+and two concurrent sequences on distinct memories. Failed-read data and
+default-kind resolution are not prescribed. No HDL/DPI, physical bus or
+memory mirror is claimed. All twenty additions match Verilator; fresh
+kirimasim/Ghost results are unavailable for this increment.

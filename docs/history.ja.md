@@ -2,7 +2,7 @@
 
 [English](history.md) · [README](../README.ja.md)
 
-M1・M2の15回目、M3の9回目、M4の3回目と段階をまたぐ薄い領域の14回目の拡充（シミュレーション1085件）までを記録しています。以前の349件の時点は
+M1・M2の15回目、M3の9回目、M4の3回目と段階をまたぐ薄い領域の15回目の拡充（シミュレーション1105件）までを記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -1389,3 +1389,30 @@ M4はAI要求案60件を追加し、新規20件と既存stop／response検査系
 検証はtool unit test 74件、metadata 1085件、台帳／索引、最終入力のevidence、日英9組とlocal linkを対象とします。
 用語集は147語、FAQは124回答です。READMEは現状を記載し、今回の増分はこの履歴へ保持します。
 失敗したenumの出力、記述子の未定義初期field、POSIX／DPI動作、重複ID順、clear／配送の同時raceは検査対象外です。
+
+## M1〜M4の薄い領域の15回目の拡充
+
+[e58bd5a](https://github.com/kurochan001/kirimasim-uvm-tests/commit/e58bd5afbe1d9cda33c7a9db3e065a8710eeca92)
+の1085件へ20件を追加し、21 directoryで1105件となります。M1は359件、M2は420件、M3は326件です。
+既存入力はすべて保持します。M1はrootのcomponent検索8件、M2はstate mask／待機4件、
+M3はmemory sequenceのpoke／peek統合8件です。追加20件はVerilator 5.052のseed 1／73で一致します。
+互換snapshotはpass 999件、known 106件で、seed 1の実行時初回差分97件とAPI欠落build 9件です。
+追加のknownはありません。
+
+kirimasim／Ghostの一時実行ファイル／profile snapshotと、互換なlocal環境が利用できませんでした。
+現在の未変更入力1085件の記録を保持し、kirimasimはunsupported 1076件、fail 9件、
+Ghost bundledは各seedでpass 207件／fail 878件、失敗集合は同じです。新規20件のguestは明示的に未測定です。
+新しい全件guest実行、Ghost pinned modeの結果、代替設定の使用は主張しません。
+evidence-scope JSONは、未測定IDを実測結果と別に記録します。
+
+M4はAI要求案42件を追加し、新規20件と第14章の既存20検査系を対応付けます。
+台帳は要求案1063件、直接対応要求1059件、直接対応テスト996件、別control 1件、未対応108件です。
+条項番号2,504件のうち692件を一部分解し、1,812件は未評価、主引用は507番号、いずれかの引用は1,116番号です。
+候補2,479番号の棚卸しは、主引用0件が1,972、1件が266、2件以上が241です。
+第14／15章を含む19 rootは主引用検査系の未対応0件です。未対応テストは第18章62件と第12章46件に残ります。
+直接テストのない要求案は4件で、照合はすべてAI、範囲は提案、分母／比率はnullです。
+
+検証はtool単体74件、metadata全1105件、台帳／索引、library整合性、最終入力evidence、完全な日英10組を対象とします。
+用語集は151語、FAQは127回答です。ハンドオフも最新backlogと部分的なguest対象へ更新します。
+第18章の本文集計は、正規の要求案182件へ修正します。検査系の構文と直接field待機を最終測定前に修正し、期待値は変更しません。
+兄弟順、曖昧な複数一致の選択順、失敗readのdata、既定backdoor kindの解決、物理DUT accessは推測しません。

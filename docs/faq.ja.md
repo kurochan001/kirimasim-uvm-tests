@@ -155,7 +155,7 @@ Ghostはさらに実行ファイル・profile・供給されたライブラリ�
 
 ### Q16. M1・M2・M3は完了していますか。件数は何の網羅を示しますか
 
-M1・M2には条項ごとの目標に未達があります。M3はbusモデルのfrontdoor経路を含め318件まで追加した段階で、未完です。
+M1・M2には条項ごとの目標に未達があります。M3はbusモデルのfrontdoor経路を含め326件まで追加した段階で、未完です。
 次の段階の開始によって、それまでの段階が完了したとは扱いません。
 範囲と残りの作業は[進め方](../README.ja.md#進め方)にあります。
 件数はテストの本数で、規格の全要求や組み合わせの棚卸しではありません。
@@ -918,8 +918,8 @@ controlの対応は、その要求の直接の検査ではありません。
 
 ### Q77. M4を始めたのに、カバレッジ率がないのはなぜですか
 
-AIによる1021要求案は部分的な分解で、1017要求を956テストへ直接対応付け、4要求は直接未対応、別の1テストはcontrolです。
-他の128テストはまだ要求に対応付けていません。2,504の条項番号は規範的要求の単位ではありません。
+AIによる1063要求案は部分的な分解で、1059要求を996テストへ直接対応付け、4要求は直接未対応、別の1テストはcontrolです。
+他の108テストはまだ要求に対応付けていません。2,504の条項番号は規範的要求の単位ではありません。
 範囲は提案、棚卸しは未完、分母は未承認で、M4の開始はどれの承認にもなりません。
 既知差分やHDL／DPIの制約によって義務を暗黙に除外しません。[承認までの手順](requirements.ja.md#m4の残作業と承認)を参照してください。
 
@@ -1671,3 +1671,29 @@ warningを省くため、この期待はspec-onlyです。別itemと小さなind
 
 これらはsequence、bus、DUTを実行しません。source filenameは単なるmetadata文字列です。
 物理accessと引き渡し動作は別の統合検査系で示します。共有期待出力行は、複数の要求案を支えても、各観測を独立にはしません。
+
+## component検索、state待機、memory便利method
+
+### Q125. scope付きcomponent検索は、相対名を使いますか？
+
+root検索は、subtreeから開始してもcomponentのfull nameとpatternを比較します。
+[scope付き検索](../tests/uF/test_root_find_all_scoping_keeps_full_name_matching_and_preserves_a_nonmatch.sv)は、
+相対leaf文字列ではcaller prefixを保持し、次にfull-name一致を追加します。別ケースは、開始nodeの包含、peerの除外、
+正確なhandle、反復追加を検査します。兄弟順を固定せず所属を確認し、find／find_allの一致は唯一の一致の場合だけ要求します。
+
+### Q126. 新しいsequence-state待機は、何を示しますか？
+
+OR maskは、選択したいずれかの状態を受け入れます。
+[BODYまたはFINISHED](../tests/u14/test_sequence_state_or_mask_returns_at_body_before_finished.sv)は、
+遅延終了前のBODY中にreturnします。別ケースは、kill後のSTOPPED待機、既にSTOPPEDの場合のreturn、
+2 instanceのwaiter独立性、同じhandleの2回目の実行を観測します。公開state methodを使う未設定virtual sequenceで、
+driver、task-phase実行、初期状態、poll数、kill post-hook順は推測しません。
+
+### Q127. memory sequenceの便利methodは、access contextをどう保持しますか？
+
+[poke_mem](../tests/u19/test_reg_sequence_poke_mem_deposits_readonly_data_with_parent_offset_and_extension.sv)と
+peekの各ケースは、呼出しsequenceをparentとして、正確なmemory、offset、extension、明示backdoor kindを指定します。
+user backdoorは16 bit locationをモデル化します。location独立性、非破壊peek、status失敗／retry、null-extension既定値、
+機能に影響しないdebug引数、異なるmemory上の並行2 sequenceも検査します。失敗readのdataと既定kindの解決は
+指定しません。HDL／DPI、物理bus、memory mirrorは主張しません。追加20件はVerilatorと一致し、
+今回の新しいkirimasim／Ghost結果はありません。
