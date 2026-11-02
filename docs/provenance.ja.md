@@ -42,6 +42,12 @@ UVMのテストが言語機能（クラス、パラメータ化クラス、制�
 [台帳のデータ](requirements.ja.md)は、ユーザー提供の規格を独自の日英の言葉で要約し、条項番号と期待出力のanchorを添えます。
 規範本文やサンプルコードの転載、シミュレータ結果の取り込みは行いません。
 
+`run_verilator_hdl.py`、その回帰テスト、`uvm_hdl_vpi.cpp`は、本スイート独自のcodeです。
+runnerは、既存スイートのcompile／判定の流れを、別のevidence同一性で扱います。
+限定backendは、標準DPI／VPI interfaceと実際のsimulator handleを使い、商用overlayやsimulator実装から複製しません。
+統合には[公開VPI文書](https://verilator.org/guide/latest/connecting.html#verification-procedural-interface-vpi)を参照し、
+期待する動作は、ユーザーが与えたIEEE条項から導きます。
+
 両リポジトリの判定規則が分岐した場合は、共通packageへ集約する計画です。
 [tools/UPSTREAM](../tools/UPSTREAM)は、この出典記録への日英の案内です。
 

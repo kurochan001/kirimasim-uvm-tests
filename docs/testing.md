@@ -89,6 +89,8 @@ The metadata follows kirimasim-tests and sv-tests, with these UVM-specific field
 | `:uvm:` | the library release the test is written for; it must be the locked one |
 | `:uvm_dpi:` | `yes` requests DPI-enabled macros; supplying/linking the implementation is separate; see [compiling](#compiling) |
 | `:uvm_defines:` | macros for the library, such as `UVM_ENABLE_DEPRECATED_API` |
+| `:uvm_hdl_backend:` | `vpi` opts into the separate HDL runner; other runners do not link it |
+| `:dpi_c:` | `@../../tools/uvm_hdl_vpi.cpp` declares and fingerprints the original backend |
 | `:args:` | run-time arguments such as `+UVM_TESTNAME=…` |
 
 `:oracle:`, `:spec_check:`, `:fourstate:`, `:nondeterministic:`,
@@ -192,11 +194,44 @@ again. `--check` checks the copy that is there. The library is not committed.
 - User-defined `uvm_reg_backdoor` storage handlers work without HDL DPI.
   Commercial simulator execution/results are excluded by the project policy;
   built-in HDL-path/DPI coverage remains open.
-- All 1106 current cases use `UVM_NO_DPI`. `:uvm_dpi: yes` removes that macro;
+- 1111 current cases use `UVM_NO_DPI`; four explicitly enable HDL DPI.
+  `:uvm_dpi: yes` removes that macro;
   it does not automatically compile or link the C/C++ DPI implementation.
   The current Verilator runner does not add DPI C/C++ sources.
 - `:uvm_defines:` can request `UVM_ENABLE_DEPRECATED_API`. There are currently
   no annex H tests or cases requesting this macro.
+
+### Verilator VPI HDL subset
+
+The separate [HDL runner](../tools/run_verilator_hdl.py) links the original
+[backend](../tools/uvm_hdl_vpi.cpp) through public VPI, using actual HDL storage.
+It requires exactly Verilator 5.052. The four opt-in fixtures set
+`:uvm_dpi: yes`, `:uvm_hdl_backend: vpi` and the declared `:dpi_c:` path,
+while `UVM_REGEX_NO_DPI` and `UVM_CMDLINE_NO_DPI` disable unrelated imports.
+The runner rejects HDL disabling macros and an override of the default
+1024-bit UVM DPI ABI in either defines field.
+
+```sh
+python3 tools/run_verilator_hdl.py --seeds 1 73 --build-jobs 2 -j 1 \
+  --json out/verilator-hdl.json
+```
+
+Only packed variables up to 64 bits are supported by this backend; fixtures
+use 8/40 bits and explicitly expose them through VPI. Check/read/deposit
+reach actual simulator handles. Force/release return failure and are outside
+the selected tests, as are arrays, four-state values and fine-grained
+permissions. This is an original limited backend, not an imported vendor
+overlay or proof of another simulator's HDL implementation.
+
+See the [public VPI documentation](https://verilator.org/guide/latest/connecting.html#verification-procedural-interface-vpi)
+for visibility and evaluation constraints. Fixtures allow reevaluation after
+deposits before inspecting HDL values. No simulator implementation source is read.
+The ordinary runner is unchanged and does not link this backend; these four
+fixtures remain `:oracle: spec`. The separate runner records `verilator_hdl`,
+its own `runner_sha256` and backend configuration, and uses the same generic
+expectations. It returns failure for any selected mismatch. Three cases match
+both seeds; the E.7 warning/no-transfer case differs. Keep this overlapping
+four-case condition separate from ordinary-runner evidence.
 
 ## Running the suite
 
@@ -219,8 +254,8 @@ breaks the build.
 seed. All seeds must match. `--seed N` remains available for a single seed.
 The JSON configuration records either `seed` or `seeds` accordingly.
 
-By default, Verilator selects the 999 tagged two-state cases. To include
-the 107 spec-only cases as well, add `--all`. A mismatch in an untagged case
+By default, Verilator selects the 1002 tagged two-state cases. To include
+the 113 spec-only cases as well, add `--all`. A mismatch in an untagged case
 is `known` and does not fail the command; a tagged mismatch does.
 Explicit test paths select only those tests. For a single smoke test:
 
@@ -274,7 +309,7 @@ python3 tools/requirements.py check
 ```
 
 The current tool suite has 74 unit tests; metadata validation checks all
-1106 simulation tests. The [ledger check](requirements.md) validates the draft
+1115 simulation tests. The [ledger check](requirements.md) validates the draft
 scope, explicit oracle links and input fingerprints without claiming coverage. [Check](../.github/workflows/check.yml) runs on pushes to
 `main`, pull requests and manual dispatch. Its separate Verilator job uses
 5.052, `UVM_NO_DPI` and seeds 1 and 73 for the tagged cases. Each model is

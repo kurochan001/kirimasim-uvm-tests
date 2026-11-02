@@ -2,7 +2,7 @@
 
 [日本語](known-differences.ja.md) · [README](../README.md) · [FAQ](faq.md)
 
-This describes the current 1106-test suite and the pinned Accellera UVM
+This describes the current 1115-test suite and the pinned Accellera UVM
 2020.3.1 library. A mismatch is a test result; it does not by itself assign
 the cause to the simulator, the library or the expectation.
 
@@ -16,9 +16,17 @@ semantics still require review. Annex E additionally checks selected two/three-m
 shared accesses and one child-block shape; see the
 [memory scope](faq.md#memory-prediction-and-map-controls) and
 [shared-access scope](faq.md#memory-access-shared-maps-and-test-selection).
-The following sixty-five additional limitations were identified during M1, M2 and M3.
+The following sixty-eight additional limitations were identified during M1, M2 and M3.
 Where a test directly checks a required behavior that is missing, its
 normative expectation is retained with `:oracle: spec`.
+
+- Generic `uvm_port_base::get_type_name` results omit the `uvm_` prefix
+  prescribed by 5.5.2.5 for subtypes without an override.
+- `set_default_index` records the index but does not redirect the tested
+  blocking export calls after elaboration, contrary to 5.5.2.13.
+- With the original VPI backend, the E.7 sequence reports ERROR for inaccessible
+  paths and attempts HDL reads. The warning/no-transfer interpretation is
+  retained; an accessible default-abstraction control matches separately.
 
 - Register-item out-of-range value writes expand the value array rather than
   warning and ignoring the request, while out-of-range reads return zero
@@ -350,7 +358,7 @@ SystemVerilog 13.4, so it cannot represent a count of two. The expected two
 preserves the prose interpretation. This signature/prose conflict requires
 review and is not assigned as a confirmed simulator or library bug.
 
-Across the suite, 999 tests have the `verilator@5.052` oracle tag and 107
+Across the suite, 1002 tests have the `verilator@5.052` oracle tag and 113
 cases are spec-only. One of the spec-only cases checks 9.6: a child's pre-reset
 task must be killed when that phase ends, but the pinned-library run on Verilator 5.052
 lets the child perform its delayed write during a later phase. The cause of
@@ -362,18 +370,28 @@ without callbacks. The pinned Verilator run reaches the blocked-state
 observation, then its watchdog expires. This combined simulator/library
 cause remains unassigned; the normative wakeup expectation is retained.
 
-The 107 spec-only tests retain their normative expected files.
-Default Verilator runs and CI select the 999 tagged cases. `--all` includes
+The 113 spec-only tests retain their normative expected files.
+Default Verilator runs and CI select the 1002 tagged cases. `--all` includes
 spec-only cases and records mismatches or build failures as `known`.
-The runtime records for 97 cases establish the first difference at seed 1,
-without seed 73 results. Ten missing-API cases cannot build and have no
-runtime seed result: one time API, six sequence-library cases, two HDL
-slice cases and one object active-policy case.
+The ordinary runtime records for 99 cases establish their first difference
+at seed 1, without seed 73 results. Ten missing-API builds have no ordinary
+runtime seed result: one time API, six sequence-library cases, two HDL slice
+cases and one object active-policy case. Four HDL-DPI fixtures also cannot
+link in the ordinary runner. Their separate VPI condition matches three at
+both seeds and fails the E.7 warning/no-transfer expectation at seed 1.
+These overlapping configurations are not summed.
 
 ## Spec-only tests
 
-These are the 107 current spec-only cases. Several exercise the same
+These are the 113 current spec-only cases. Several exercise the same
 limitation, so their count is not a count of distinct bugs.
+
+- [port base preserves names parents and each interface role](../tests/u05/test_port_base_preserves_names_parents_and_each_interface_role.sv).
+- [blocking export default index switches the selected implementation after elaboration](../tests/u12/test_blocking_export_default_index_switches_the_selected_implementation_after_elaboration.sv).
+- [hdl deposit sets only the selected variable and reports missing paths](../tests/u19/test_hdl_deposit_sets_only_the_selected_variable_and_reports_missing_paths.sv).
+- [hdl path sequence warns for inaccessible register paths without storage access](../tests/uE/test_hdl_path_sequence_warns_for_inaccessible_register_paths_without_storage_access.sv).
+- [hdl read returns actual wide storage without modifying either variable](../tests/u19/test_hdl_read_returns_actual_wide_storage_without_modifying_either_variable.sv).
+- [hdl path sequence accepts an accessible default abstraction without advancing time](../tests/uE/test_hdl_path_sequence_accepts_an_accessible_default_abstraction_without_advancing_time.sv).
 
 - [Policy/object active-policy push/pop synchronization](../tests/u16/test_policy_object_stack_tracks_nested_active_policy_push_and_pop.sv).
 
@@ -553,8 +571,8 @@ limitation, so their count is not a count of distinct bugs.
 
 ## Simulator and library combinations
 
-The suite has 1106 cases, but the kirimasim/Ghost records below cover only
-1085 unchanged current-input cases. The twenty-one new cases are unmeasured
+The suite has 1115 cases, but the kirimasim/Ghost records below cover only
+1085 unchanged current-input cases. The thirty new cases are unmeasured
 because prior temporary executable/profile snapshots are unavailable. Do
 not treat this as a fresh full-suite guest result. See [results](results.md).
 

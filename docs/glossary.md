@@ -745,3 +745,13 @@ a wait returns when the receiver reaches any selected state.
 
 **Memory convenience accessor** — A register-sequence poke/peek wrapper that
 supplies its sequence as parent while accessing a selected memory location.
+
+## HDL execution conditions
+
+**VPI (Verification Procedural Interface)** — A public simulator API for
+finding HDL objects and inspecting or changing supported values. A real
+handle lookup differs from a fixture that maps path strings to local storage.
+
+**HDL backend evidence condition** — The specific runner, linked DPI/backend,
+HDL visibility and supported types used for a measurement. Results under an
+original limited backend do not establish another backend's behavior.

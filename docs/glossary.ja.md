@@ -569,3 +569,11 @@ patternは引き続きfull nameを使います。
 
 **memoryの便利accessor** — 選択memory locationへaccessし、自身のsequenceをparentとして指定する、
 register-sequenceのpoke／peek wrapperです。
+
+## HDLの実行条件
+
+**VPI（Verification Procedural Interface）** — HDL objectの検索や、対応する値の観測／変更に使う、
+simulatorの公開APIです。実際のhandle lookupは、path文字列をlocal storageへ対応付ける検査系とは異なります。
+
+**HDL backendの実測条件** — 測定に用いたrunner、linkしたDPI／backend、HDLの可視性、対応する型の組合せです。
+独自の限定backendでの結果は、別のbackendの動作を示しません。

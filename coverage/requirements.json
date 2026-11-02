@@ -1203,15 +1203,25 @@
         "ja": "成功したdepositは1を返して対象を変更し、失敗したdepositは0を返す。"
       },
       "limitations": {
-        "en": "No test is mapped and current fixtures disable HDL DPI. Backend availability does not remove this candidate; commercial results remain prohibited.",
-        "ja": "テストは未対応で、現在の構成はHDL DPIを無効にする。backendの利用可否を理由にこの候補を削除しない。商用実行結果は禁止のままである。"
+        "en": "Requires the separate Verilator 5.052 VPI runner and original 64-bit packed-variable check/read/deposit backend, with the standard 1024-bit UVM DPI ABI. Actual HDL storage is used, without path/value mocks. This measures the explicitly supplied backend, not a vendor overlay, kirimasim or Ghost. Ordinary execution does not link it. Force/release, arrays, other HDL types, four-state data and fine-grained permissions remain outside the observations.",
+        "ja": "別のVerilator 5.052 VPI runnerと、独自の64 bit packed変数用check／read／deposit backend、標準1024 bit UVM DPI ABIが必要である。path／valueのmockを使わず、実際のHDL storageを使う。明示的に与えたbackendの実測で、vendor overlay、kirimasim、Ghostの実測ではない。通常の実行系はlinkしない。force／release、配列、他のHDL型、4値data、細かな権限は観測対象外である。"
       },
       "review": {
         "status": "ai",
         "reviewer": null,
         "reviewed_at": null
       },
-      "test_links": []
+      "test_links": [
+        {
+          "test": "u19/test_hdl_deposit_sets_only_the_selected_variable_and_reports_missing_paths",
+          "role": "direct",
+          "expected_observations": [
+            "UT: deposit success 1 value 1 peer 1",
+            "UT: missing failed 1 selected_unchanged 1 peer_unchanged 1",
+            "UT: wide success 1 crosses_word 1 narrow_unchanged 1"
+          ]
+        }
+      ]
     },
     {
       "id": "UVM-STRING-SPLIT-EMPTY-FIELDS",
@@ -6583,15 +6593,32 @@
         "ja": "無効pathにはsimulation時刻を進めずwarningを出し、storageの転送は行わない。"
       },
       "limitations": {
-        "en": "No test is mapped. Current no-DPI fixtures do not supply this capability; commercial results remain prohibited.",
-        "ja": "テストは未対応。現在のDPIなし構成はこの機能を提供しない。商用の実行結果は禁止のままである。"
+        "en": "Requires the separate Verilator 5.052 VPI runner and original 64-bit packed-variable check/read/deposit backend, with the standard 1024-bit UVM DPI ABI. Actual HDL storage is used, without path/value mocks. This measures the explicitly supplied backend, not a vendor overlay, kirimasim or Ghost. Ordinary execution does not link it. Force/release, arrays, other HDL types, four-state data and fine-grained permissions remain outside the observations. The warning/no-storage-transfer expectation retains the E.7 interpretation. The pinned sequence reports ERROR and attempts reads, so its normative expectation remains a measured difference.",
+        "ja": "別のVerilator 5.052 VPI runnerと、独自の64 bit packed変数用check／read／deposit backend、標準1024 bit UVM DPI ABIが必要である。path／valueのmockを使わず、実際のHDL storageを使う。明示的に与えたbackendの実測で、vendor overlay、kirimasim、Ghostの実測ではない。通常の実行系はlinkしない。force／release、配列、他のHDL型、4値data、細かな権限は観測対象外である。 warning／storage転送なしの期待は、E.7の解釈を保持する。固定sequenceはERRORを報告してreadを試みるため、規範的な期待値を実測差分として保持する。"
       },
       "review": {
         "status": "ai",
         "reviewer": null,
         "reviewed_at": null
       },
-      "test_links": []
+      "test_links": [
+        {
+          "test": "uE/test_hdl_path_sequence_warns_for_inaccessible_register_paths_without_storage_access",
+          "role": "direct",
+          "expected_observations": [
+            "UT: inaccessible warning 1 zero_time 1",
+            "UT: checked 1 no_reads 1 no_deposits 1 no_other 1 storage 1"
+          ]
+        },
+        {
+          "test": "uE/test_hdl_path_sequence_accepts_an_accessible_default_abstraction_without_advancing_time",
+          "role": "control",
+          "expected_observations": [
+            "UT: accessible no_warnings 1 no_errors 1 zero_time 1",
+            "UT: checked 1 no_deposits 1 no_other 1 storage 1"
+          ]
+        }
+      ]
     },
     {
       "id": "UVM-MEMORY-WALK-ALGORITHM",
@@ -44287,6 +44314,698 @@
           "expected_observations": [
             "UT: popped_second object_policy 1 popped_same 1 second_empty 1",
             "UT: popped_first object_empty 1 popped_same 1 first_empty 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PORT-LEAF-NAMES",
+      "clause": "5.5.2.2",
+      "statement": {
+        "en": "A port base returns its configured leaf name for each role.",
+        "ja": "port baseは、各roleの設定leaf名を返す。"
+      },
+      "conditions": {
+        "en": "Create three concrete base subclasses with distinct roles and no query overrides under owner.",
+        "ja": "owner下に異なる3 roleの具象base subclassを生成し、queryはoverrideしない。"
+      },
+      "expected": {
+        "en": "Names are p/e/i for the three configured handles.",
+        "ja": "3設定handleの名前はp／e／iとなる。"
+      },
+      "limitations": {
+        "en": "Uses original concrete subclasses without replacing the observed base queries. Constructor-bound probes precede binding resolution; interface counts/handles are queried only after elaboration. Connection-list membership is handle-based without prescribing string keys, enumeration order or transitive closure. Valid compatible connections do not establish invalid-type or relationship-warning handling. Generic type-name and export default-selection differences retain normative expectations.",
+        "ja": "観測するbase queryを置き換えず、独自の具象subclassを使う。constructor boundsの検査はbinding解決前、interface数／handleの照会はelaboration後だけである。接続listはhandleの所属を検査し、文字列key、列挙順、推移的閉包は指定しない。合法な互換接続は、不正な型や関係warningの処理を示さない。generic型名とexportの既定選択の差分は、規範的な期待値を保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_port_base_preserves_names_parents_and_each_interface_role",
+          "role": "direct",
+          "expected_observations": [
+            "UT: names 1 fullnames 1 parents 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PORT-FULL-HIERARCHICAL-NAMES",
+      "clause": "5.5.2.3",
+      "statement": {
+        "en": "Port full names include their parent hierarchy and leaf names.",
+        "ja": "portの完全名は、親階層とleaf名を含む。"
+      },
+      "conditions": {
+        "en": "Create three concrete base subclasses with distinct roles and no query overrides under owner.",
+        "ja": "owner下に異なる3 roleの具象base subclassを生成し、queryはoverrideしない。"
+      },
+      "expected": {
+        "en": "Full names are owner.p/owner.e/owner.i.",
+        "ja": "完全名はowner.p／owner.e／owner.iとなる。"
+      },
+      "limitations": {
+        "en": "Uses original concrete subclasses without replacing the observed base queries. Constructor-bound probes precede binding resolution; interface counts/handles are queried only after elaboration. Connection-list membership is handle-based without prescribing string keys, enumeration order or transitive closure. Valid compatible connections do not establish invalid-type or relationship-warning handling. Generic type-name and export default-selection differences retain normative expectations.",
+        "ja": "観測するbase queryを置き換えず、独自の具象subclassを使う。constructor boundsの検査はbinding解決前、interface数／handleの照会はelaboration後だけである。接続listはhandleの所属を検査し、文字列key、列挙順、推移的閉包は指定しない。合法な互換接続は、不正な型や関係warningの処理を示さない。generic型名とexportの既定選択の差分は、規範的な期待値を保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_port_base_preserves_names_parents_and_each_interface_role",
+          "role": "direct",
+          "expected_observations": [
+            "UT: names 1 fullnames 1 parents 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PORT-EXACT-PARENT-HANDLES",
+      "clause": "5.5.2.4",
+      "statement": {
+        "en": "A port base exposes the exact configured parent component.",
+        "ja": "port baseは、正確な設定parent componentを示す。"
+      },
+      "conditions": {
+        "en": "Create three concrete base subclasses with distinct roles and no query overrides under owner.",
+        "ja": "owner下に異なる3 roleの具象base subclassを生成し、queryはoverrideしない。"
+      },
+      "expected": {
+        "en": "All three parent queries return the same exact owner handle.",
+        "ja": "3つのparent照会は、同じ正確なowner handleを返す。"
+      },
+      "limitations": {
+        "en": "Uses original concrete subclasses without replacing the observed base queries. Constructor-bound probes precede binding resolution; interface counts/handles are queried only after elaboration. Connection-list membership is handle-based without prescribing string keys, enumeration order or transitive closure. Valid compatible connections do not establish invalid-type or relationship-warning handling. Generic type-name and export default-selection differences retain normative expectations.",
+        "ja": "観測するbase queryを置き換えず、独自の具象subclassを使う。constructor boundsの検査はbinding解決前、interface数／handleの照会はelaboration後だけである。接続listはhandleの所属を検査し、文字列key、列挙順、推移的閉包は指定しない。合法な互換接続は、不正な型や関係warningの処理を示さない。generic型名とexportの既定選択の差分は、規範的な期待値を保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_port_base_preserves_names_parents_and_each_interface_role",
+          "role": "direct",
+          "expected_observations": [
+            "UT: names 1 fullnames 1 parents 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PORT-ROLE-PREDICATES",
+      "clause": "5.5.2.11",
+      "statement": {
+        "en": "Role predicates identify port, export and implementation kinds exclusively.",
+        "ja": "role predicateは、port、export、implementationの種別を排他的に識別する。"
+      },
+      "conditions": {
+        "en": "Create three concrete base subclasses with distinct roles and no query overrides under owner.",
+        "ja": "owner下に異なる3 roleの具象base subclassを生成し、queryはoverrideしない。"
+      },
+      "expected": {
+        "en": "Only the matching predicate is true for each of the three roles.",
+        "ja": "3 roleそれぞれで、一致するpredicateだけがtrueとなる。"
+      },
+      "limitations": {
+        "en": "Uses original concrete subclasses without replacing the observed base queries. Constructor-bound probes precede binding resolution; interface counts/handles are queried only after elaboration. Connection-list membership is handle-based without prescribing string keys, enumeration order or transitive closure. Valid compatible connections do not establish invalid-type or relationship-warning handling. Generic type-name and export default-selection differences retain normative expectations.",
+        "ja": "観測するbase queryを置き換えず、独自の具象subclassを使う。constructor boundsの検査はbinding解決前、interface数／handleの照会はelaboration後だけである。接続listはhandleの所属を検査し、文字列key、列挙順、推移的閉包は指定しない。合法な互換接続は、不正な型や関係warningの処理を示さない。generic型名とexportの既定選択の差分は、規範的な期待値を保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_port_base_preserves_names_parents_and_each_interface_role",
+          "role": "direct",
+          "expected_observations": [
+            "UT: roles port 1 export 1 imp 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PORT-GENERIC-TYPE-NAMES",
+      "clause": "5.5.2.5",
+      "statement": {
+        "en": "A subtype without a type-name override receives the prescribed generic role name.",
+        "ja": "型名overrideのないsubtypeは、規定のgeneric role名を受ける。"
+      },
+      "conditions": {
+        "en": "Create three concrete base subclasses with distinct roles and no query overrides under owner.",
+        "ja": "owner下に異なる3 roleの具象base subclassを生成し、queryはoverrideしない。"
+      },
+      "expected": {
+        "en": "Generic names are uvm_port, uvm_export and uvm_implementation.",
+        "ja": "generic名はuvm_port、uvm_export、uvm_implementationとなる。"
+      },
+      "limitations": {
+        "en": "Uses original concrete subclasses without replacing the observed base queries. Constructor-bound probes precede binding resolution; interface counts/handles are queried only after elaboration. Connection-list membership is handle-based without prescribing string keys, enumeration order or transitive closure. Valid compatible connections do not establish invalid-type or relationship-warning handling. Generic type-name and export default-selection differences retain normative expectations.",
+        "ja": "観測するbase queryを置き換えず、独自の具象subclassを使う。constructor boundsの検査はbinding解決前、interface数／handleの照会はelaboration後だけである。接続listはhandleの所属を検査し、文字列key、列挙順、推移的閉包は指定しない。合法な互換接続は、不正な型や関係warningの処理を示さない。generic型名とexportの既定選択の差分は、規範的な期待値を保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_port_base_preserves_names_parents_and_each_interface_role",
+          "role": "direct",
+          "expected_observations": [
+            "UT: generic_types port 1 export 1 imp 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PORT-CONSTRUCTOR-DEFAULT-BOUNDS",
+      "clause": "5.5.2.1",
+      "statement": {
+        "en": "Omitted base constructor bounds default to zero minimum and one maximum.",
+        "ja": "base constructorで省略したboundsは、最小0、最大1を既定とする。"
+      },
+      "conditions": {
+        "en": "Query a default constructor that omits base bounds and explicit 2/3, 0/-1 and 0/0 configurations before resolution.",
+        "ja": "base boundsを省略した既定constructorと、明示2／3、0／-1、0／0の設定を、解決前に照会する。"
+      },
+      "expected": {
+        "en": "The default probe reports minimum zero and maximum one.",
+        "ja": "default probeは、最小0、最大1を報告する。"
+      },
+      "limitations": {
+        "en": "Uses original concrete subclasses without replacing the observed base queries. Constructor-bound probes precede binding resolution; interface counts/handles are queried only after elaboration. Connection-list membership is handle-based without prescribing string keys, enumeration order or transitive closure. Valid compatible connections do not establish invalid-type or relationship-warning handling. Generic type-name and export default-selection differences retain normative expectations.",
+        "ja": "観測するbase queryを置き換えず、独自の具象subclassを使う。constructor boundsの検査はbinding解決前、interface数／handleの照会はelaboration後だけである。接続listはhandleの所属を検査し、文字列key、列挙順、推移的閉包は指定しない。合法な互換接続は、不正な型や関係warningの処理を示さない。generic型名とexportの既定選択の差分は、規範的な期待値を保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_port_base_default_and_explicit_bounds_report_unbounded_only_for_minus_one",
+          "role": "direct",
+          "expected_observations": [
+            "UT: default min 0 max 1 bounded 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PORT-MINIMUM-BOUND-QUERY",
+      "clause": "5.5.2.6",
+      "statement": {
+        "en": "Minimum-bound queries preserve the configured lower limits.",
+        "ja": "最小boundの照会は、設定した下限を保持する。"
+      },
+      "conditions": {
+        "en": "Query a default constructor that omits base bounds and explicit 2/3, 0/-1 and 0/0 configurations before resolution.",
+        "ja": "base boundsを省略した既定constructorと、明示2／3、0／-1、0／0の設定を、解決前に照会する。"
+      },
+      "expected": {
+        "en": "The default/bounded/unlimited/closed minima are 0/2/0/0.",
+        "ja": "default／bounded／unlimited／closedの最小値は0／2／0／0となる。"
+      },
+      "limitations": {
+        "en": "Uses original concrete subclasses without replacing the observed base queries. Constructor-bound probes precede binding resolution; interface counts/handles are queried only after elaboration. Connection-list membership is handle-based without prescribing string keys, enumeration order or transitive closure. Valid compatible connections do not establish invalid-type or relationship-warning handling. Generic type-name and export default-selection differences retain normative expectations.",
+        "ja": "観測するbase queryを置き換えず、独自の具象subclassを使う。constructor boundsの検査はbinding解決前、interface数／handleの照会はelaboration後だけである。接続listはhandleの所属を検査し、文字列key、列挙順、推移的閉包は指定しない。合法な互換接続は、不正な型や関係warningの処理を示さない。generic型名とexportの既定選択の差分は、規範的な期待値を保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_port_base_default_and_explicit_bounds_report_unbounded_only_for_minus_one",
+          "role": "direct",
+          "expected_observations": [
+            "UT: default min 0 max 1 bounded 1",
+            "UT: explicit min 2 max 3 bounded 1",
+            "UT: unlimited min 0 max -1 unbounded 1",
+            "UT: closed min 0 max 0 bounded 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PORT-MAXIMUM-BOUND-QUERY",
+      "clause": "5.5.2.7",
+      "statement": {
+        "en": "Maximum-bound queries preserve finite, zero and unbounded settings.",
+        "ja": "最大boundの照会は、有限、0、無制限の設定を保持する。"
+      },
+      "conditions": {
+        "en": "Query a default constructor that omits base bounds and explicit 2/3, 0/-1 and 0/0 configurations before resolution.",
+        "ja": "base boundsを省略した既定constructorと、明示2／3、0／-1、0／0の設定を、解決前に照会する。"
+      },
+      "expected": {
+        "en": "The maxima are 1/3/-1/0 for the four probes.",
+        "ja": "4 probeの最大値は1／3／-1／0となる。"
+      },
+      "limitations": {
+        "en": "Uses original concrete subclasses without replacing the observed base queries. Constructor-bound probes precede binding resolution; interface counts/handles are queried only after elaboration. Connection-list membership is handle-based without prescribing string keys, enumeration order or transitive closure. Valid compatible connections do not establish invalid-type or relationship-warning handling. Generic type-name and export default-selection differences retain normative expectations.",
+        "ja": "観測するbase queryを置き換えず、独自の具象subclassを使う。constructor boundsの検査はbinding解決前、interface数／handleの照会はelaboration後だけである。接続listはhandleの所属を検査し、文字列key、列挙順、推移的閉包は指定しない。合法な互換接続は、不正な型や関係warningの処理を示さない。generic型名とexportの既定選択の差分は、規範的な期待値を保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_port_base_default_and_explicit_bounds_report_unbounded_only_for_minus_one",
+          "role": "direct",
+          "expected_observations": [
+            "UT: default min 0 max 1 bounded 1",
+            "UT: explicit min 2 max 3 bounded 1",
+            "UT: unlimited min 0 max -1 unbounded 1",
+            "UT: closed min 0 max 0 bounded 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PORT-UNBOUNDED-MINUS-ONE",
+      "clause": "5.5.2.8",
+      "statement": {
+        "en": "Only a maximum of minus one makes the configured port unbounded.",
+        "ja": "設定portは、最大値-1の場合だけ無制限となる。"
+      },
+      "conditions": {
+        "en": "Query a default constructor that omits base bounds and explicit 2/3, 0/-1 and 0/0 configurations before resolution.",
+        "ja": "base boundsを省略した既定constructorと、明示2／3、0／-1、0／0の設定を、解決前に照会する。"
+      },
+      "expected": {
+        "en": "Only the minus-one probe reports unbounded; zero and positive limits do not.",
+        "ja": "-1のprobeだけがunboundedを報告し、0や正の上限では報告しない。"
+      },
+      "limitations": {
+        "en": "Uses original concrete subclasses without replacing the observed base queries. Constructor-bound probes precede binding resolution; interface counts/handles are queried only after elaboration. Connection-list membership is handle-based without prescribing string keys, enumeration order or transitive closure. Valid compatible connections do not establish invalid-type or relationship-warning handling. Generic type-name and export default-selection differences retain normative expectations.",
+        "ja": "観測するbase queryを置き換えず、独自の具象subclassを使う。constructor boundsの検査はbinding解決前、interface数／handleの照会はelaboration後だけである。接続listはhandleの所属を検査し、文字列key、列挙順、推移的閉包は指定しない。合法な互換接続は、不正な型や関係warningの処理を示さない。generic型名とexportの既定選択の差分は、規範的な期待値を保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_port_base_default_and_explicit_bounds_report_unbounded_only_for_minus_one",
+          "role": "direct",
+          "expected_observations": [
+            "UT: default min 0 max 1 bounded 1",
+            "UT: explicit min 2 max 3 bounded 1",
+            "UT: unlimited min 0 max -1 unbounded 1",
+            "UT: closed min 0 max 0 bounded 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PORT-CONNECTED-PROVIDER-MEMBERSHIP",
+      "clause": "5.5.2.9",
+      "statement": {
+        "en": "Connection queries include each exact immediate provider handle.",
+        "ja": "接続照会は、正確な直接provider handleを含む。"
+      },
+      "conditions": {
+        "en": "Connect one int blocking-put port to an export and that export to a matching implementation.",
+        "ja": "int blocking-put port 1つをexportへ、そのexportを一致するimplementationへ接続する。"
+      },
+      "expected": {
+        "en": "Port lists its export and export lists its implementation.",
+        "ja": "portのlistはexport、exportのlistはimplementationを含む。"
+      },
+      "limitations": {
+        "en": "Uses original concrete subclasses without replacing the observed base queries. Constructor-bound probes precede binding resolution; interface counts/handles are queried only after elaboration. Connection-list membership is handle-based without prescribing string keys, enumeration order or transitive closure. Valid compatible connections do not establish invalid-type or relationship-warning handling. Generic type-name and export default-selection differences retain normative expectations.",
+        "ja": "観測するbase queryを置き換えず、独自の具象subclassを使う。constructor boundsの検査はbinding解決前、interface数／handleの照会はelaboration後だけである。接続listはhandleの所属を検査し、文字列key、列挙順、推移的閉包は指定しない。合法な互換接続は、不正な型や関係warningの処理を示さない。generic型名とexportの既定選択の差分は、規範的な期待値を保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_port_connection_queries_include_the_connected_and_served_handles",
+          "role": "direct",
+          "expected_observations": [
+            "UT: provider 1 client 1 implementation 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PORT-PROVIDED-CLIENT-MEMBERSHIP",
+      "clause": "5.5.2.10",
+      "statement": {
+        "en": "A provider query includes the exact client port served by the export.",
+        "ja": "provider照会は、exportが提供する正確なclient portを含む。"
+      },
+      "conditions": {
+        "en": "Connect one int blocking-put port to an export and that export to a matching implementation.",
+        "ja": "int blocking-put port 1つをexportへ、そのexportを一致するimplementationへ接続する。"
+      },
+      "expected": {
+        "en": "The export provided-to list contains the exact requesting port.",
+        "ja": "exportのprovided-to listは、正確な要求portを含む。"
+      },
+      "limitations": {
+        "en": "Uses original concrete subclasses without replacing the observed base queries. Constructor-bound probes precede binding resolution; interface counts/handles are queried only after elaboration. Connection-list membership is handle-based without prescribing string keys, enumeration order or transitive closure. Valid compatible connections do not establish invalid-type or relationship-warning handling. Generic type-name and export default-selection differences retain normative expectations.",
+        "ja": "観測するbase queryを置き換えず、独自の具象subclassを使う。constructor boundsの検査はbinding解決前、interface数／handleの照会はelaboration後だけである。接続listはhandleの所属を検査し、文字列key、列挙順、推移的閉包は指定しない。合法な互換接続は、不正な型や関係warningの処理を示さない。generic型名とexportの既定選択の差分は、規範的な期待値を保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_port_connection_queries_include_the_connected_and_served_handles",
+          "role": "direct",
+          "expected_observations": [
+            "UT: provider 1 client 1 implementation 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PORT-COMPATIBLE-CONNECTION-CHAIN",
+      "clause": "5.5.2.14",
+      "statement": {
+        "en": "Compatible typed port/export/implementation bindings establish the selected provider chain.",
+        "ja": "互換な型付きport／export／implementationのbindingは、選択provider chainを確立する。"
+      },
+      "conditions": {
+        "en": "Connect one int blocking-put port to an export and that export to a matching implementation.",
+        "ja": "int blocking-put port 1つをexportへ、そのexportを一致するimplementationへ接続する。"
+      },
+      "expected": {
+        "en": "Exact provider, client and implementation memberships are observed after connect.",
+        "ja": "connect後に、正確なprovider、client、implementationの所属を観測する。"
+      },
+      "limitations": {
+        "en": "Uses original concrete subclasses without replacing the observed base queries. Constructor-bound probes precede binding resolution; interface counts/handles are queried only after elaboration. Connection-list membership is handle-based without prescribing string keys, enumeration order or transitive closure. Valid compatible connections do not establish invalid-type or relationship-warning handling. Generic type-name and export default-selection differences retain normative expectations.",
+        "ja": "観測するbase queryを置き換えず、独自の具象subclassを使う。constructor boundsの検査はbinding解決前、interface数／handleの照会はelaboration後だけである。接続listはhandleの所属を検査し、文字列key、列挙順、推移的閉包は指定しない。合法な互換接続は、不正な型や関係warningの処理を示さない。generic型名とexportの既定選択の差分は、規範的な期待値を保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_port_connection_queries_include_the_connected_and_served_handles",
+          "role": "direct",
+          "expected_observations": [
+            "UT: provider 1 client 1 implementation 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM1-EXPORT-TYPED-IMPLEMENTATION-FORWARDING",
+      "clause": "12.2.6.1",
+      "statement": {
+        "en": "A typed blocking export forwards an interface call to its resolved implementation.",
+        "ja": "型付きblocking exportは、interface呼出しを解決済みimplementationへ転送する。"
+      },
+      "conditions": {
+        "en": "Resolve one export to two distinct int sinks, identify indices by handles, then call default, index one and index zero.",
+        "ja": "1 exportを異なる2 int sinkへ解決し、handleでindexを識別して、default、index 1、index 0を呼ぶ。"
+      },
+      "expected": {
+        "en": "One completed call delivers value eleven to exactly the implementation at index zero.",
+        "ja": "完了した1呼出しは、index 0のimplementationだけへ値11を届ける。"
+      },
+      "limitations": {
+        "en": "Uses original concrete subclasses without replacing the observed base queries. Constructor-bound probes precede binding resolution; interface counts/handles are queried only after elaboration. Connection-list membership is handle-based without prescribing string keys, enumeration order or transitive closure. Valid compatible connections do not establish invalid-type or relationship-warning handling. Generic type-name and export default-selection differences retain normative expectations.",
+        "ja": "観測するbase queryを置き換えず、独自の具象subclassを使う。constructor boundsの検査はbinding解決前、interface数／handleの照会はelaboration後だけである。接続listはhandleの所属を検査し、文字列key、列挙順、推移的閉包は指定しない。合法な互換接続は、不正な型や関係warningの処理を示さない。generic型名とexportの既定選択の差分は、規範的な期待値を保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_blocking_export_default_index_switches_the_selected_implementation_after_elaboration",
+          "role": "direct",
+          "expected_observations": [
+            "UT: default_zero selected 1 total 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PORT-EXPORT-DEFAULT-INDEX-ZERO",
+      "clause": "5.5.2.13",
+      "statement": {
+        "en": "An export without explicit selection uses implementation index zero.",
+        "ja": "明示選択のないexportは、implementation index 0を使う。"
+      },
+      "conditions": {
+        "en": "Resolve one export to two distinct int sinks, identify indices by handles, then call default, index one and index zero.",
+        "ja": "1 exportを異なる2 int sinkへ解決し、handleでindexを識別して、default、index 1、index 0を呼ぶ。"
+      },
+      "expected": {
+        "en": "The first call is delivered exactly once to the handle obtained at index zero.",
+        "ja": "最初の呼出しを、index 0で取得したhandleへ正確に1回届ける。"
+      },
+      "limitations": {
+        "en": "Uses original concrete subclasses without replacing the observed base queries. Constructor-bound probes precede binding resolution; interface counts/handles are queried only after elaboration. Connection-list membership is handle-based without prescribing string keys, enumeration order or transitive closure. Valid compatible connections do not establish invalid-type or relationship-warning handling. Generic type-name and export default-selection differences retain normative expectations.",
+        "ja": "観測するbase queryを置き換えず、独自の具象subclassを使う。constructor boundsの検査はbinding解決前、interface数／handleの照会はelaboration後だけである。接続listはhandleの所属を検査し、文字列key、列挙順、推移的閉包は指定しない。合法な互換接続は、不正な型や関係warningの処理を示さない。generic型名とexportの既定選択の差分は、規範的な期待値を保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_blocking_export_default_index_switches_the_selected_implementation_after_elaboration",
+          "role": "direct",
+          "expected_observations": [
+            "UT: default_zero selected 1 total 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PORT-EXPORT-DEFAULT-INDEX-RESELECTION",
+      "clause": "5.5.2.13",
+      "statement": {
+        "en": "Changing an export default index after elaboration changes the invoked implementation.",
+        "ja": "elaboration後にexportのdefault indexを変えると、呼び出すimplementationが変わる。"
+      },
+      "conditions": {
+        "en": "Resolve one export to two distinct int sinks, identify indices by handles, then call default, index one and index zero.",
+        "ja": "1 exportを異なる2 int sinkへ解決し、handleでindexを識別して、default、index 1、index 0を呼ぶ。"
+      },
+      "expected": {
+        "en": "Index one receives twenty-two once, then index zero receives thirty-three on reuse; total calls reach three.",
+        "ja": "index 1が22を1回受け、再利用時にindex 0が33を受け、合計呼出しは3となる。"
+      },
+      "limitations": {
+        "en": "Uses original concrete subclasses without replacing the observed base queries. Constructor-bound probes precede binding resolution; interface counts/handles are queried only after elaboration. Connection-list membership is handle-based without prescribing string keys, enumeration order or transitive closure. Valid compatible connections do not establish invalid-type or relationship-warning handling. Generic type-name and export default-selection differences retain normative expectations.",
+        "ja": "観測するbase queryを置き換えず、独自の具象subclassを使う。constructor boundsの検査はbinding解決前、interface数／handleの照会はelaboration後だけである。接続listはhandleの所属を検査し、文字列key、列挙順、推移的閉包は指定しない。合法な互換接続は、不正な型や関係warningの処理を示さない。generic型名とexportの既定選択の差分は、規範的な期待値を保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_blocking_export_default_index_switches_the_selected_implementation_after_elaboration",
+          "role": "direct",
+          "expected_observations": [
+            "UT: selected_one changed 1 total 2",
+            "UT: selected_zero reused 1 total 3"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-HDL-CHECK-PATH-PRESENCE",
+      "clause": "19.6.2.1",
+      "statement": {
+        "en": "HDL path checks distinguish an accessible object from a missing path.",
+        "ja": "HDL path検査は、利用可能objectと存在しないpathを区別する。"
+      },
+      "conditions": {
+        "en": "Provide a public packed variable and a nonexistent leaf under the same module.",
+        "ja": "同じmodule下に公開packed変数と存在しないleafを与える。"
+      },
+      "expected": {
+        "en": "The valid path returns one and the missing path zero.",
+        "ja": "有効pathは1、存在しないpathは0を返す。"
+      },
+      "limitations": {
+        "en": "Requires the separate Verilator 5.052 VPI runner and original 64-bit packed-variable check/read/deposit backend, with the standard 1024-bit UVM DPI ABI. Actual HDL storage is used, without path/value mocks. This measures the explicitly supplied backend, not a vendor overlay, kirimasim or Ghost. Ordinary execution does not link it. Force/release, arrays, other HDL types, four-state data and fine-grained permissions remain outside the observations.",
+        "ja": "別のVerilator 5.052 VPI runnerと、独自の64 bit packed変数用check／read／deposit backend、標準1024 bit UVM DPI ABIが必要である。path／valueのmockを使わず、実際のHDL storageを使う。明示的に与えたbackendの実測で、vendor overlay、kirimasim、Ghostの実測ではない。通常の実行系はlinkしない。force／release、配列、他のHDL型、4値data、細かな権限は観測対象外である。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_hdl_deposit_sets_only_the_selected_variable_and_reports_missing_paths",
+          "role": "direct",
+          "expected_observations": [
+            "UT: paths valid 1 missing 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-HDL-READ-CURRENT-VALUE",
+      "clause": "19.6.2.7",
+      "statement": {
+        "en": "A successful HDL read returns the current selected object value without modifying storage.",
+        "ja": "成功したHDL readは、storageを変更せず、選択objectの現在値を返す。"
+      },
+      "conditions": {
+        "en": "Read a 40-bit variable twice around a direct HDL reassignment, with an independent peer.",
+        "ja": "独立peerを用意し、HDLからの直接再代入の前後で40 bit変数を2回readする。"
+      },
+      "expected": {
+        "en": "Both reads succeed with the respective current value; selected and peer storage remain unchanged by each read.",
+        "ja": "両readは、それぞれの現在値で成功し、各readは選択先とpeerのstorageを保持する。"
+      },
+      "limitations": {
+        "en": "Requires the separate Verilator 5.052 VPI runner and original 64-bit packed-variable check/read/deposit backend, with the standard 1024-bit UVM DPI ABI. Actual HDL storage is used, without path/value mocks. This measures the explicitly supplied backend, not a vendor overlay, kirimasim or Ghost. Ordinary execution does not link it. Force/release, arrays, other HDL types, four-state data and fine-grained permissions remain outside the observations.",
+        "ja": "別のVerilator 5.052 VPI runnerと、独自の64 bit packed変数用check／read／deposit backend、標準1024 bit UVM DPI ABIが必要である。path／valueのmockを使わず、実際のHDL storageを使う。明示的に与えたbackendの実測で、vendor overlay、kirimasim、Ghostの実測ではない。通常の実行系はlinkしない。force／release、配列、他のHDL型、4値data、細かな権限は観測対象外である。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_hdl_read_returns_actual_wide_storage_without_modifying_either_variable",
+          "role": "direct",
+          "expected_observations": [
+            "UT: read success 1 value 1 selected 1 peer 1",
+            "UT: fresh success 1 value 1 selected 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-HDL-READ-MISSING-PATH-FAILURE",
+      "clause": "19.6.2.7",
+      "statement": {
+        "en": "An HDL read of a missing path returns failure.",
+        "ja": "存在しないpathのHDL readは、失敗を返す。"
+      },
+      "conditions": {
+        "en": "Read a nonexistent leaf after two successful reads.",
+        "ja": "成功read 2回の後に、存在しないleafをreadする。"
+      },
+      "expected": {
+        "en": "Return is zero and both real variables are unchanged; failed output data is unconstrained.",
+        "ja": "戻りは0で、実際の両変数は不変となり、失敗出力dataは指定しない。"
+      },
+      "limitations": {
+        "en": "Requires the separate Verilator 5.052 VPI runner and original 64-bit packed-variable check/read/deposit backend, with the standard 1024-bit UVM DPI ABI. Actual HDL storage is used, without path/value mocks. This measures the explicitly supplied backend, not a vendor overlay, kirimasim or Ghost. Ordinary execution does not link it. Force/release, arrays, other HDL types, four-state data and fine-grained permissions remain outside the observations.",
+        "ja": "別のVerilator 5.052 VPI runnerと、独自の64 bit packed変数用check／read／deposit backend、標準1024 bit UVM DPI ABIが必要である。path／valueのmockを使わず、実際のHDL storageを使う。明示的に与えたbackendの実測で、vendor overlay、kirimasim、Ghostの実測ではない。通常の実行系はlinkしない。force／release、配列、他のHDL型、4値data、細かな権限は観測対象外である。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_hdl_read_returns_actual_wide_storage_without_modifying_either_variable",
+          "role": "direct",
+          "expected_observations": [
+            "UT: missing failed 1 selected 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-HDL-PATH-ACCESSIBLE-DEFAULT-ABSTRACTION",
+      "clause": "E.7",
+      "statement": {
+        "en": "The path sequence accepts an accessible path under the default abstraction without advancing time.",
+        "ja": "path sequenceは、時刻を進めず、既定abstractionの利用可能pathを受け入れる。"
+      },
+      "conditions": {
+        "en": "Configure one register to an actual public HDL variable and leave the abstraction list empty.",
+        "ja": "1 registerを実際の公開HDL変数へ設定し、abstraction listを空のままにする。"
+      },
+      "expected": {
+        "en": "There are no warnings/errors, time is unchanged, path checks occur and storage is not changed.",
+        "ja": "warning／errorはなく、時刻は不変でpath検査が行われ、storageは変更しない。"
+      },
+      "limitations": {
+        "en": "Requires the separate Verilator 5.052 VPI runner and original 64-bit packed-variable check/read/deposit backend, with the standard 1024-bit UVM DPI ABI. Actual HDL storage is used, without path/value mocks. This measures the explicitly supplied backend, not a vendor overlay, kirimasim or Ghost. Ordinary execution does not link it. Force/release, arrays, other HDL types, four-state data and fine-grained permissions remain outside the observations.",
+        "ja": "別のVerilator 5.052 VPI runnerと、独自の64 bit packed変数用check／read／deposit backend、標準1024 bit UVM DPI ABIが必要である。path／valueのmockを使わず、実際のHDL storageを使う。明示的に与えたbackendの実測で、vendor overlay、kirimasim、Ghostの実測ではない。通常の実行系はlinkしない。force／release、配列、他のHDL型、4値data、細かな権限は観測対象外である。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uE/test_hdl_path_sequence_accepts_an_accessible_default_abstraction_without_advancing_time",
+          "role": "direct",
+          "expected_observations": [
+            "UT: accessible no_warnings 1 no_errors 1 zero_time 1",
+            "UT: checked 1 no_deposits 1 no_other 1 storage 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PORT-EXPORT-FANOUT-RESOLUTION",
+      "clause": "5.5.2.15",
+      "statement": {
+        "en": "Automatic binding resolution follows an export fanout to its distinct final implementations.",
+        "ja": "自動binding解決は、exportのfanoutを異なる最終implementationまでたどる。"
+      },
+      "conditions": {
+        "en": "Connect one export to two distinct implementations, then query only after elaboration.",
+        "ja": "1 exportを異なる2 implementationへ接続し、elaboration後だけ照会する。"
+      },
+      "expected": {
+        "en": "Resolved size is two; both indexed handles are the exact distinct implementations and default get_if agrees with index zero.",
+        "ja": "解決後のsizeは2、両index handleは正確な別々のimplementationで、既定get_ifはindex 0と一致する。"
+      },
+      "limitations": {
+        "en": "An export-only topology is observed, not the child-to-parent port case. Handle membership avoids prescribing index ordering. These queries do not themselves invoke interface traffic or establish all binding diagnostics.",
+        "ja": "childからparentへのportの検査ではなく、exportだけのtopologyを観測する。handleの所属で、index順の指定を避ける。照会自体はinterface trafficを呼ばず、全binding診断の成立も示さない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_port_binding_resolution_returns_distinct_implementation_handles_after_elaboration",
+          "role": "direct",
+          "expected_observations": [
+            "UT: resolved size 2 exact_membership 1 distinct 1 default_zero 1"
           ]
         }
       ]

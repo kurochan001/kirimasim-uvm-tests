@@ -122,8 +122,8 @@ Ghostは公開前のシミュレータの仮名です。実行ファイルの識
 ### Q12. uvm_dpi: yesだけでDPIを使うビルドが完成しますか
 
 既定のマクロ一覧から`UVM_NO_DPI`を外す指定です。UVMのC/C++実装の供給・リンクは行いません。
-現在のVerilatorランナーはそのソースを追加しません。現在の全テストは`UVM_NO_DPI`を使っており、
-DPIに依存するテストを実行証拠にするには、対応する実装と実行環境が必要です。
+通常のVerilator runnerは、そのsourceを追加しません。`UVM_NO_DPI`が1111件、HDL DPIの明示選択が4件です。
+[別のVPI runner](testing.ja.md#verilatorのvpi-hdl部分集合)は独自の限定backendをlinkし、結果は宣言した実行条件だけに適用します。
 DPIなしのglobによる照合も、完全な正規表現への対応とは異なります。
 ユーザー定義の`uvm_reg_backdoor` handlerはHDL DPIなしで動作できます（Q67）。
 
@@ -918,8 +918,8 @@ controlの対応は、その要求の直接の検査ではありません。
 
 ### Q77. M4を始めたのに、カバレッジ率がないのはなぜですか
 
-AIによる1163要求案は部分的な分解で、1160要求を1105テストへ直接対応付け、3要求は直接未対応、別の1テストはcontrolです。
-全1106テストに要求の対応付けがあります。2,504の条項番号は規範的要求の単位ではありません。
+AIによる1183要求案は部分的な分解で、1182要求を1114テストへ直接対応付け、1要求は直接未対応、別の1テストはcontrolです。
+全1115テストに要求の対応付けがあります。2,504の条項番号は規範的要求の単位ではありません。
 範囲は提案、棚卸しは未完、分母は未承認で、M4の開始はどれの承認にもなりません。
 既知差分やHDL／DPIの制約によって義務を暗黙に除外しません。[承認までの手順](requirements.ja.md#m4の残作業と承認)を参照してください。
 
@@ -1703,11 +1703,37 @@ user backdoorは16 bit locationをモデル化します。location独立性、�
 ### Q128. 未対応テスト0件なら、M1〜M4は完了ですか？
 
 いいえ。`tests_without_requirement_links`は0で、現在の全テストに、明示的なdirectまたはcontrolの対応があります。
-別の集計`requirements_without_direct_tests`は3件で、HDL deposit、実際のHDL-path利用可否、
-memory-walk algorithm全体が対象です。catalogの識別子1,769件も未評価です。
+別の集計`requirements_without_direct_tests`は1件で、memory-walk algorithm全体が対象です。
+HDL depositとHDL-path利用可否には、明示的なVPI検査系を追加しました。catalogの識別子1,753件も未評価です。
 分解と人のレビューは未完で、分母は未承認です。
 
 [新しいpolicyテスト](../tests/u16/test_policy_object_stack_tracks_nested_active_policy_push_and_pop.sv)は、
 標準getterを使って、以前のobject側同期の未対応付けを解消します。固定libraryにはそのgetterがなく、
 buildは`known`で、`pass`ではありません。既存evidenceへの対応付けは、新たな実行や既知差分の成功への変換にはなりません。
 [現在の台帳](requirements.ja.md)を参照してください。
+
+## 明示的なHDL backendとport-baseの観測
+
+### Q129. 商用シミュレータの結果なしで、HDL動作をどう検査しますか？
+
+4検査系が、[別のVPI runner](testing.ja.md#verilatorのvpi-hdl部分集合)と独自の限定backendを使い、
+実際の公開HDL変数へaccessします。depositは、対象／peerの独立性、存在しないpath、word境界をまたぐ40 bit値を検査します。
+readは、新しい値、非破壊の観測、失敗出力を制約しない失敗を検査します。
+与えたbackendの動作記録で、vendor overlay、kirimasim、Ghostの記録ではありません。
+
+path-sequenceの比較対象は、既定abstractionで利用可能なpathを受け入れます。
+負の検査は、時刻0でのwarningとstorage転送なしを期待しますが、固定sequenceはERRORを報告し、readを試みます。
+期待値は保持します。3件は両seed一致、1件はseed 1で差分です。通常の実行ではbackendをlinkしないため、
+4件とも`:oracle: spec`を保持し、厳格なHDL runnerは不一致を`fail`として報告します。重複する結果は別条件です。
+force／release、配列、4値、細かな権限は未対応です。
+
+### Q130. port-baseとexport-indexの検査は、何を示しますか？
+
+具象base subclassで、queryをoverrideせず、名前、parent、role／型、boundsを照会します。
+別のconstructorは、base boundsを省略して、実際の既定値を観測します。
+所属検査は、文字列keyや列挙順を指定せず、正確なprovider／client handleを使います。
+export fanoutはelaboration後だけ照会します。blocking exportは、既定選択と再選択を検査する前に、
+各解決済みindexをhandleで識別するため、provider順を仮定しません。
+
+固定libraryのgeneric型名は必要な接頭辞を省き、実測したdefault-index setterは呼出し先を切り替えません。
+両方とも規範的な期待値を保持します。queryだけでは、全接続診断、関係検査、interface trafficの成立は示しません。

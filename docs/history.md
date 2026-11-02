@@ -3,8 +3,8 @@
 [日本語](history.ja.md) · [README](../README.md)
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and fifteen cross-milestone thin-area expansions, followed by completion of
-the existing-test requirement-link backlog (1106 simulation tests). The earlier 349-test checkpoint is
+three M4 increments and sixteen cross-milestone thin-area expansions, including the
+existing-test requirement-link backlog checkpoint (1115 simulation tests). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -2021,3 +2021,43 @@ remaining observations. The FAQ has 128 answers, including the distinction
 between zero unlinked tests and complete normative coverage; the glossary
 retains 151 terms. Validation covers 74 tool unit tests, all metadata,
 ledger/index, library integrity, final-input evidence and all ten language pairs.
+
+## Sixteenth thin-area expansion across M1–M4
+
+On 2026-11-03, nine original standard-derived fixtures add port-base names,
+parents, roles/type names, default/explicit bounds, connection membership and
+export fanout queries; export default-index selection/reselection; and actual
+HDL deposit/read/path checks. A dedicated constructor omits base bounds so
+the default probe observes the standard API rather than a wrapper default.
+The suite reaches 1115 cases: M1 364, M2 421 and M3 330.
+
+A separate original VPI HDL backend/runner accesses actual public 8/40-bit
+variables without commercial results or simulator implementation source.
+It supports check/read/deposit on packed variables up to 64 bits under the
+standard 1024-bit UVM DPI ABI. Force/release, arrays, other types, four-state
+values and fine-grained permissions remain outside scope. Nine regression
+tests cover opt-in, ABI guards, backend fingerprints and seed judgments.
+Ordinary runner inputs are unchanged, preserving all 1106 prior records.
+
+The ordinary Verilator 5.052 snapshot has 1002 matches at seeds 1/73 and
+113 known cases: 99 runtime first differences at seed 1, ten missing-API builds
+and four unlinked-DPI builds. Generic type names omit the prescribed prefix,
+and the tested export default-index setter does not redirect calls. The
+separate VPI condition matches three cases at both seeds; E.7 instead reports
+ERROR and attempts reads under the retained warning/no-transfer interpretation.
+Its one failure stops at seed 1. The two overlapping conditions are not summed.
+The unchanged 1085 guest records remain, with thirty current cases unmeasured.
+
+Twenty AI drafts raise the ledger to 1183: 1182 requirements link directly to
+1114 tests and one additional test is a control. Unlinked tests remain zero.
+Actual-storage HDL fixtures reduce drafts without direct tests from three to
+one: the full memory-walk algorithm. Of 2,504 identifiers, 751 are partially
+decomposed and 1,753 unassessed. Primary focus reaches 515 identifiers, any
+citation 1,135, and candidate counts are zero 1,964 / one 273 / at least two 242.
+Scope remains proposed, all reviews AI and denominator/percentage null.
+
+Current English/Japanese guides, handoff, FAQ and glossary are refreshed,
+including separate evidence conditions and remaining limitations. There are
+130 FAQ answers and 153 terms. Validation covers 83 tool unit tests, all
+1115 metadata records, ledger/index and library integrity, final-input evidence,
+all ten language pairs and local references. M1–M4 remain incomplete.

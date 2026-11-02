@@ -48,6 +48,13 @@ it is not copied from a simulator parser or the language standard.
 user-provided standard, with clause numbers and expected-output anchors.
 It does not copy normative text or sample code, or import simulator results.
 
+`run_verilator_hdl.py`, its regression tests and `uvm_hdl_vpi.cpp` are original
+suite code. The runner follows the existing suite's compilation/judgment flow
+under a distinct evidence identity. The limited backend uses standard DPI/VPI
+interfaces and actual simulator handles; it is not copied from a commercial
+overlay or a simulator implementation. Public [VPI documentation](https://verilator.org/guide/latest/connecting.html#verification-procedural-interface-vpi)
+informs integration; the user-provided IEEE clauses define expected behavior.
+
 If the two repositories' judgment rules drift, a shared package is the
 planned way to centralize them. [tools/UPSTREAM](../tools/UPSTREAM) is the
 bilingual pointer to this source record.

@@ -135,8 +135,9 @@ See [Ghost setup](testing.md#ghost).
 
 It removes `UVM_NO_DPI` from the default macro list. It does not supply or link
 UVM's C/C++ implementation. The current Verilator runner does not add those
-sources. All current tests use `UVM_NO_DPI`; a DPI-dependent test needs an
-appropriate implementation and execution setup before it can be used as evidence.
+sources. There are 1111 `UVM_NO_DPI` cases and four explicit HDL-DPI cases.
+The [separate VPI runner](testing.md#verilator-vpi-hdl-subset) links the original
+limited backend; results apply only to that declared execution condition.
 User-defined `uvm_reg_backdoor` handlers can operate without HDL DPI (Q67).
 Glob matching without DPI is also not the same as full regular-expression support.
 
@@ -1136,9 +1137,9 @@ not a direct test of the requirement.
 
 ### Q77. Why is there no coverage percentage after starting M4?
 
-The 1163 AI drafts cover only a partial decomposition: 1160 requirements link
-directly to 1105 tests, 3 have no direct test, and one separate test is a control.
-All 1106 tests have requirement links. The 2,504 clause identifiers are not normative requirement units.
+The 1183 AI drafts cover only a partial decomposition: 1182 requirements link
+directly to 1114 tests, 1 has no direct test, and one separate test is a control.
+All 1115 tests have requirement links. The 2,504 clause identifiers are not normative requirement units.
 The scope is proposed, the inventory incomplete and the denominator unapproved;
 starting M4 approves none of those. Known differences and HDL/DPI limitations
 do not silently exclude obligations. See the [approval path](requirements.md#remaining-m4-work-and-approval).
@@ -2136,8 +2137,8 @@ kirimasim/Ghost results are unavailable for this increment.
 
 No. `tests_without_requirement_links` is zero: every current test has an
 explicit direct or control link. The separate counter
-`requirements_without_direct_tests` is three, covering HDL deposit, actual
-HDL-path accessibility and the full memory-walk algorithm. Another 1,769
+`requirements_without_direct_tests` is one, for the full memory-walk
+algorithm. HDL deposit and path accessibility now have explicit VPI fixtures. Another 1,753
 catalog identifiers remain unassessed; decomposition and human review are
 incomplete, and the denominator remains unapproved.
 
@@ -2146,3 +2147,37 @@ closes the previous object-side synchronization mapping gap using the standard
 getter, which is missing from the pinned library. Its build is `known`, not
 `pass`. Mapping existing evidence does not create a fresh run or convert a
 known difference into success. See the [current ledger](requirements.md).
+
+## Explicit HDL backend and port-base observations
+
+### Q129. How can HDL behavior be tested without commercial simulator results?
+
+Four fixtures use the [separate VPI runner](testing.md#verilator-vpi-hdl-subset)
+and the original limited backend, which accesses real public HDL variables.
+Deposit checks target/peer isolation, missing paths and a 40-bit value crossing
+a word boundary; read checks fresh values, nondestructive sampling and failure
+without constraining failed output. This records the supplied backend's
+behavior, not a vendor overlay, kirimasim or Ghost.
+
+The path-sequence control accepts an accessible default-abstraction path.
+The negative case expects warning and no storage transfer in zero time;
+the pinned sequence instead reports ERROR and attempts reads. Its expectation
+is retained. Three cases match both seeds and one differs at seed 1. Ordinary
+runs do not link this backend, so all four retain `:oracle: spec`; the strict
+HDL runner reports mismatches as `fail`. Its overlapping results are separate.
+Force/release, arrays, four-state values and finer permissions remain open.
+
+### Q130. What do the port-base and export-index tests establish?
+
+Concrete base subclasses query names, parents, role/type and bounds without
+overriding those queries. A separate constructor omits the base bounds to
+observe its actual defaults. Membership checks use exact provider/client
+handles without prescribing string keys or iteration order. Export fanout
+is queried only after elaboration. A blocking export identifies each resolved
+index by handle before testing default selection and reselection, so no
+provider ordering is assumed.
+
+Generic type names omit the required prefix in the pinned library, and the
+tested default-index setter does not redirect calls. Both retain normative
+expectations. Queries alone do not establish all connection diagnostics,
+relationship checks or interface traffic.
