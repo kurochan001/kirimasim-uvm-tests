@@ -1,0 +1,3 @@
+UT: map_redirect first 1 value 5111 address 1 next_unused 1
+UT: map_redirect next 1 value 5122 address 1 old_idle 1 old_value 5111
+UT: map_redirect adapters 1 selected_element 1 selected_map 1 mirror 1

@@ -99907,6 +99907,1974 @@
           ]
         }
       ]
+    },
+    {
+      "id": "UVM-MAP-SCOPE-NEW-DEFAULT",
+      "clause": "18.2.3.1",
+      "statement": {
+        "en": "An omitted map constructor name uses the declared uvm_reg_map default.",
+        "ja": "map constructor名の省略は宣言されたuvm_reg_map既定値を使う。"
+      },
+      "conditions": {
+        "en": "Original configured blocks, owned maps and selected explicit public calls. Parent/child maps use valid ownership and are locked before width-dependent queries. Getter-only observers do not override the library algorithms.",
+        "ja": "独自configure済みblock、所有map、選択した明示公開callを使う。parent／child mapの所有関係は合法で、幅依存照会の前にlockする。getter専用observerはlibrary algorithmをoverrideしない。"
+      },
+      "expected": {
+        "en": "An omitted map constructor name uses the declared uvm_reg_map default.",
+        "ja": "map constructor名の省略は宣言されたuvm_reg_map既定値を使う。"
+      },
+      "limitations": {
+        "en": "Selected two-state symbolic settings and handles, not complete physical bus behavior, invalid hierarchy responses, all widths or all endian beat orders. Empty output queues are used; no prepopulated-queue append/replace behavior or enumeration order is prescribed.",
+        "ja": "選択した2状態symbolic設定とhandleだけで、完全な物理bus動作、不正階層の応答、全幅、全endian beat順ではない。空の出力queueを使い、内容のあるqueueへの追加／置換動作や列挙順は規定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_map_constructor_object_views_and_backdoor_singleton_are_distinct_from_real_maps",
+          "role": "direct",
+          "expected_observations": [
+            "UT: map_new default_name 1 selected_name 1 distinct 1 object 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAP-SCOPE-NEW-NAME-IDENTITY",
+      "clause": "18.2.3.1",
+      "statement": {
+        "en": "Constructed maps preserve the selected name and have distinct instance identities.",
+        "ja": "構築したmapは選択名を保持し、別々のinstance同一性を持つ。"
+      },
+      "conditions": {
+        "en": "Original configured blocks, owned maps and selected explicit public calls. Parent/child maps use valid ownership and are locked before width-dependent queries. Getter-only observers do not override the library algorithms.",
+        "ja": "独自configure済みblock、所有map、選択した明示公開callを使う。parent／child mapの所有関係は合法で、幅依存照会の前にlockする。getter専用observerはlibrary algorithmをoverrideしない。"
+      },
+      "expected": {
+        "en": "Constructed maps preserve the selected name and have distinct instance identities.",
+        "ja": "構築したmapは選択名を保持し、別々のinstance同一性を持つ。"
+      },
+      "limitations": {
+        "en": "Selected two-state symbolic settings and handles, not complete physical bus behavior, invalid hierarchy responses, all widths or all endian beat orders. Empty output queues are used; no prepopulated-queue append/replace behavior or enumeration order is prescribed.",
+        "ja": "選択した2状態symbolic設定とhandleだけで、完全な物理bus動作、不正階層の応答、全幅、全endian beat順ではない。空の出力queueを使い、内容のあるqueueへの追加／置換動作や列挙順は規定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_map_constructor_object_views_and_backdoor_singleton_are_distinct_from_real_maps",
+          "role": "direct",
+          "expected_observations": [
+            "UT: map_new default_name 1 selected_name 1 distinct 1 object 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAP-SCOPE-OBJECT-BASE",
+      "clause": "18.2.1",
+      "statement": {
+        "en": "A map instance is usable as an object and casts back to the same map handle.",
+        "ja": "map instanceはobjectとして利用でき、同じmap handleへcastして戻せる。"
+      },
+      "conditions": {
+        "en": "Original configured blocks, owned maps and selected explicit public calls. Parent/child maps use valid ownership and are locked before width-dependent queries. Getter-only observers do not override the library algorithms.",
+        "ja": "独自configure済みblock、所有map、選択した明示公開callを使う。parent／child mapの所有関係は合法で、幅依存照会の前にlockする。getter専用observerはlibrary algorithmをoverrideしない。"
+      },
+      "expected": {
+        "en": "A map instance is usable as an object and casts back to the same map handle.",
+        "ja": "map instanceはobjectとして利用でき、同じmap handleへcastして戻せる。"
+      },
+      "limitations": {
+        "en": "Selected two-state symbolic settings and handles, not complete physical bus behavior, invalid hierarchy responses, all widths or all endian beat orders. Empty output queues are used; no prepopulated-queue append/replace behavior or enumeration order is prescribed.",
+        "ja": "選択した2状態symbolic設定とhandleだけで、完全な物理bus動作、不正階層の応答、全幅、全endian beat順ではない。空の出力queueを使い、内容のあるqueueへの追加／置換動作や列挙順は規定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_map_constructor_object_views_and_backdoor_singleton_are_distinct_from_real_maps",
+          "role": "direct",
+          "expected_observations": [
+            "UT: map_new default_name 1 selected_name 1 distinct 1 object 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAP-SCOPE-BACKDOOR-SINGLETON",
+      "clause": "18.2.2",
+      "statement": {
+        "en": "Repeated backdoor calls return the same nonnull pseudo-map, distinct from the selected real address map.",
+        "ja": "反復backdoor callは選択した実address mapと異なる同じ非null pseudo-mapを返す。"
+      },
+      "conditions": {
+        "en": "Original configured blocks, owned maps and selected explicit public calls. Parent/child maps use valid ownership and are locked before width-dependent queries. Getter-only observers do not override the library algorithms.",
+        "ja": "独自configure済みblock、所有map、選択した明示公開callを使う。parent／child mapの所有関係は合法で、幅依存照会の前にlockする。getter専用observerはlibrary algorithmをoverrideしない。"
+      },
+      "expected": {
+        "en": "Repeated backdoor calls return the same nonnull pseudo-map, distinct from the selected real address map.",
+        "ja": "反復backdoor callは選択した実address mapと異なる同じ非null pseudo-mapを返す。"
+      },
+      "limitations": {
+        "en": "Selected two-state symbolic settings and handles, not complete physical bus behavior, invalid hierarchy responses, all widths or all endian beat orders. Empty output queues are used; no prepopulated-queue append/replace behavior or enumeration order is prescribed.",
+        "ja": "選択した2状態symbolic設定とhandleだけで、完全な物理bus動作、不正階層の応答、全幅、全endian beat順ではない。空の出力queueを使い、内容のあるqueueへの追加／置換動作や列挙順は規定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_map_constructor_object_views_and_backdoor_singleton_are_distinct_from_real_maps",
+          "role": "direct",
+          "expected_observations": [
+            "UT: map_backdoor nonnull 1 singleton 1 separate 1 real_list 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAP-SCOPE-UNIT-BYTE",
+      "clause": "18.2.4.6",
+      "statement": {
+        "en": "A byte-addressed map reports one byte per smallest addressable unit.",
+        "ja": "byte addressingのmapは最小address単位あたり1 byteを報告する。"
+      },
+      "conditions": {
+        "en": "Original configured blocks, owned maps and selected explicit public calls. Parent/child maps use valid ownership and are locked before width-dependent queries. Getter-only observers do not override the library algorithms.",
+        "ja": "独自configure済みblock、所有map、選択した明示公開callを使う。parent／child mapの所有関係は合法で、幅依存照会の前にlockする。getter専用observerはlibrary algorithmをoverrideしない。"
+      },
+      "expected": {
+        "en": "A byte-addressed map reports one byte per smallest addressable unit.",
+        "ja": "byte addressingのmapは最小address単位あたり1 byteを報告する。"
+      },
+      "limitations": {
+        "en": "The nested word case is a qualified literal reading: 18.2.4.6 refers to get_n_bytes without overriding its HIER default. A local configured-width interpretation is plausible and remains a review issue; do not silently replace the oracle. The flat word and byte controls are separate. No physical beat/address translation is inferred from this getter. If the effective-width query also differs, the numeric word-unit difference alone does not isolate a separate unit defect.",
+        "ja": "入れ子word条件は限定した字面の読み方で、18.2.4.6はHIER既定値を変更せずget_n_bytesを参照する。local設定幅の解釈もあり得るため照合課題を保持し、黙ってoracleを置換しない。平坦wordとbyteのcontrolは別で、このgetterから物理beat／address変換を導かない。 有効幅照会も異なる場合、数値のword単位差分だけで独立した単位の欠陥を特定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_map_address_units_distinguish_bytes_and_the_printed_default_effective_word_width",
+          "role": "direct",
+          "expected_observations": [
+            "UT: map_unit byte 1 flat_word 8 local_word_width 8 effective_width 2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAP-SCOPE-UNIT-FLAT-WORD",
+      "clause": "18.2.4.6",
+      "statement": {
+        "en": "The selected standalone word-addressed map reports its eight-byte configured width as its addressable unit.",
+        "ja": "選択した独立word addressing mapは設定した8-byte幅をaddress単位として報告する。"
+      },
+      "conditions": {
+        "en": "Original configured blocks, owned maps and selected explicit public calls. Parent/child maps use valid ownership and are locked before width-dependent queries. Getter-only observers do not override the library algorithms.",
+        "ja": "独自configure済みblock、所有map、選択した明示公開callを使う。parent／child mapの所有関係は合法で、幅依存照会の前にlockする。getter専用observerはlibrary algorithmをoverrideしない。"
+      },
+      "expected": {
+        "en": "The selected standalone word-addressed map reports its eight-byte configured width as its addressable unit.",
+        "ja": "選択した独立word addressing mapは設定した8-byte幅をaddress単位として報告する。"
+      },
+      "limitations": {
+        "en": "The nested word case is a qualified literal reading: 18.2.4.6 refers to get_n_bytes without overriding its HIER default. A local configured-width interpretation is plausible and remains a review issue; do not silently replace the oracle. The flat word and byte controls are separate. No physical beat/address translation is inferred from this getter. If the effective-width query also differs, the numeric word-unit difference alone does not isolate a separate unit defect.",
+        "ja": "入れ子word条件は限定した字面の読み方で、18.2.4.6はHIER既定値を変更せずget_n_bytesを参照する。local設定幅の解釈もあり得るため照合課題を保持し、黙ってoracleを置換しない。平坦wordとbyteのcontrolは別で、このgetterから物理beat／address変換を導かない。 有効幅照会も異なる場合、数値のword単位差分だけで独立した単位の欠陥を特定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_map_address_units_distinguish_bytes_and_the_printed_default_effective_word_width",
+          "role": "direct",
+          "expected_observations": [
+            "UT: map_unit byte 1 flat_word 8 local_word_width 8 effective_width 2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAP-SCOPE-UNIT-WORD-DEFAULT-WIDTH",
+      "clause": "18.2.4.6",
+      "statement": {
+        "en": "Under the printed get_n_bytes reference and its declared HIER default, the selected word-addressed map reports that effective width as its addressable unit.",
+        "ja": "印刷されたget_n_bytes参照と宣言されたHIER既定値の読み方では、選択word addressing mapは有効幅をaddress単位として報告する。"
+      },
+      "conditions": {
+        "en": "Original configured blocks, owned maps and selected explicit public calls. Parent/child maps use valid ownership and are locked before width-dependent queries. Getter-only observers do not override the library algorithms.",
+        "ja": "独自configure済みblock、所有map、選択した明示公開callを使う。parent／child mapの所有関係は合法で、幅依存照会の前にlockする。getter専用observerはlibrary algorithmをoverrideしない。"
+      },
+      "expected": {
+        "en": "Under the printed get_n_bytes reference and its declared HIER default, the selected word-addressed map reports that effective width as its addressable unit.",
+        "ja": "印刷されたget_n_bytes参照と宣言されたHIER既定値の読み方では、選択word addressing mapは有効幅をaddress単位として報告する。"
+      },
+      "limitations": {
+        "en": "The nested word case is a qualified literal reading: 18.2.4.6 refers to get_n_bytes without overriding its HIER default. A local configured-width interpretation is plausible and remains a review issue; do not silently replace the oracle. The flat word and byte controls are separate. No physical beat/address translation is inferred from this getter. If the effective-width query also differs, the numeric word-unit difference alone does not isolate a separate unit defect.",
+        "ja": "入れ子word条件は限定した字面の読み方で、18.2.4.6はHIER既定値を変更せずget_n_bytesを参照する。local設定幅の解釈もあり得るため照合課題を保持し、黙ってoracleを置換しない。平坦wordとbyteのcontrolは別で、このgetterから物理beat／address変換を導かない。 有効幅照会も異なる場合、数値のword単位差分だけで独立した単位の欠陥を特定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_map_address_units_distinguish_bytes_and_the_printed_default_effective_word_width",
+          "role": "direct",
+          "expected_observations": [
+            "UT: map_unit printed_get_n_bytes_relation 1 word_unit 2"
+          ]
+        },
+        {
+          "test": "u18/test_map_populated_word_addressing_separates_effective_bus_width_from_local_address_units",
+          "role": "direct",
+          "expected_observations": [
+            "UT: populated_unit printed_get_n_bytes_relation 1 word_unit 2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAP-SCOPE-EFFECTIVE-WIDTH-EMPTY",
+      "clause": "18.2.4.5",
+      "statement": {
+        "en": "The selected empty child map reports the narrowest width from itself to its two-byte root map when hier is omitted.",
+        "ja": "選択した空child mapはhier省略時に自身から2-byte root mapまでの最小幅を報告する。"
+      },
+      "conditions": {
+        "en": "Original configured blocks, owned maps and selected explicit public calls. Parent/child maps use valid ownership and are locked before width-dependent queries. Getter-only observers do not override the library algorithms.",
+        "ja": "独自configure済みblock、所有map、選択した明示公開callを使う。parent／child mapの所有関係は合法で、幅依存照会の前にlockする。getter専用observerはlibrary algorithmをoverrideしない。"
+      },
+      "expected": {
+        "en": "The selected empty child map reports the narrowest width from itself to its two-byte root map when hier is omitted.",
+        "ja": "選択した空child mapはhier省略時に自身から2-byte root mapまでの最小幅を報告する。"
+      },
+      "limitations": {
+        "en": "Selected two-state symbolic settings and handles, not complete physical bus behavior, invalid hierarchy responses, all widths or all endian beat orders. Empty output queues are used; no prepopulated-queue append/replace behavior or enumeration order is prescribed.",
+        "ja": "選択した2状態symbolic設定とhandleだけで、完全な物理bus動作、不正階層の応答、全幅、全endian beat順ではない。空の出力queueを使い、内容のあるqueueへの追加／置換動作や列挙順は規定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_map_address_units_distinguish_bytes_and_the_printed_default_effective_word_width",
+          "role": "direct",
+          "expected_observations": [
+            "UT: map_unit byte 1 flat_word 8 local_word_width 8 effective_width 2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAP-SCOPE-EFFECTIVE-WIDTH-POPULATED",
+      "clause": "18.2.4.5",
+      "statement": {
+        "en": "The selected populated child map keeps its explicit local width while the omitted-hier query returns the narrowest root-path width.",
+        "ja": "選択したregister配置済みchild mapは明示local幅を保持し、hier省略照会はroot経路の最小幅を返す。"
+      },
+      "conditions": {
+        "en": "Original configured blocks, owned maps and selected explicit public calls. Parent/child maps use valid ownership and are locked before width-dependent queries. Getter-only observers do not override the library algorithms.",
+        "ja": "独自configure済みblock、所有map、選択した明示公開callを使う。parent／child mapの所有関係は合法で、幅依存照会の前にlockする。getter専用observerはlibrary algorithmをoverrideしない。"
+      },
+      "expected": {
+        "en": "The selected populated child map keeps its explicit local width while the omitted-hier query returns the narrowest root-path width.",
+        "ja": "選択したregister配置済みchild mapは明示local幅を保持し、hier省略照会はroot経路の最小幅を返す。"
+      },
+      "limitations": {
+        "en": "Selected two-state symbolic settings and handles, not complete physical bus behavior, invalid hierarchy responses, all widths or all endian beat orders. Empty output queues are used; no prepopulated-queue append/replace behavior or enumeration order is prescribed.",
+        "ja": "選択した2状態symbolic設定とhandleだけで、完全な物理bus動作、不正階層の応答、全幅、全endian beat順ではない。空の出力queueを使い、内容のあるqueueへの追加／置換動作や列挙順は規定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_map_populated_word_addressing_separates_effective_bus_width_from_local_address_units",
+          "role": "direct",
+          "expected_observations": [
+            "UT: populated_unit local_width 8 effective_width 2 parent_width 2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAP-SCOPE-ENDIAN-LOCAL",
+      "clause": "18.2.4.7",
+      "statement": {
+        "en": "Explicit NO_HIER endian queries report each selected locally configured bus endianness.",
+        "ja": "明示NO_HIER endian照会は選択した各local設定busのendiannessを報告する。"
+      },
+      "conditions": {
+        "en": "Original configured blocks, owned maps and selected explicit public calls. Parent/child maps use valid ownership and are locked before width-dependent queries. Getter-only observers do not override the library algorithms.",
+        "ja": "独自configure済みblock、所有map、選択した明示公開callを使う。parent／child mapの所有関係は合法で、幅依存照会の前にlockする。getter専用observerはlibrary algorithmをoverrideしない。"
+      },
+      "expected": {
+        "en": "Explicit NO_HIER endian queries report each selected locally configured bus endianness.",
+        "ja": "明示NO_HIER endian照会は選択した各local設定busのendiannessを報告する。"
+      },
+      "limitations": {
+        "en": "Selected two-state symbolic settings and handles, not complete physical bus behavior, invalid hierarchy responses, all widths or all endian beat orders. Empty output queues are used; no prepopulated-queue append/replace behavior or enumeration order is prescribed.",
+        "ja": "選択した2状態symbolic設定とhandleだけで、完全な物理bus動作、不正階層の応答、全幅、全endian beat順ではない。空の出力queueを使い、内容のあるqueueへの追加／置換動作や列挙順は規定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_map_endianness_queries_distinguish_local_settings_and_default_system_level",
+          "role": "direct",
+          "expected_observations": [
+            "UT: map_endian local_root 1 local_child 1 local_leaf 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAP-SCOPE-ENDIAN-SYSTEM",
+      "clause": "18.2.4.7",
+      "statement": {
+        "en": "Explicit HIER endian queries return the system-level bus endianness through selected nested maps.",
+        "ja": "明示HIER endian照会は選択した入れ子mapを通じてsystem-level busのendiannessを返す。"
+      },
+      "conditions": {
+        "en": "Original configured blocks, owned maps and selected explicit public calls. Parent/child maps use valid ownership and are locked before width-dependent queries. Getter-only observers do not override the library algorithms.",
+        "ja": "独自configure済みblock、所有map、選択した明示公開callを使う。parent／child mapの所有関係は合法で、幅依存照会の前にlockする。getter専用observerはlibrary algorithmをoverrideしない。"
+      },
+      "expected": {
+        "en": "Explicit HIER endian queries return the system-level bus endianness through selected nested maps.",
+        "ja": "明示HIER endian照会は選択した入れ子mapを通じてsystem-level busのendiannessを返す。"
+      },
+      "limitations": {
+        "en": "Selected two-state symbolic settings and handles, not complete physical bus behavior, invalid hierarchy responses, all widths or all endian beat orders. Empty output queues are used; no prepopulated-queue append/replace behavior or enumeration order is prescribed.",
+        "ja": "選択した2状態symbolic設定とhandleだけで、完全な物理bus動作、不正階層の応答、全幅、全endian beat順ではない。空の出力queueを使い、内容のあるqueueへの追加／置換動作や列挙順は規定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_map_endianness_queries_distinguish_local_settings_and_default_system_level",
+          "role": "direct",
+          "expected_observations": [
+            "UT: map_endian inherited 1 explicit_hier 1 root_stable 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAP-SCOPE-ENDIAN-DEFAULT",
+      "clause": "18.2.4.7",
+      "statement": {
+        "en": "Omitting get_endian hier uses the selected system-level endian setting.",
+        "ja": "get_endianのhier省略は選択system-level endian設定を使う。"
+      },
+      "conditions": {
+        "en": "Original configured blocks, owned maps and selected explicit public calls. Parent/child maps use valid ownership and are locked before width-dependent queries. Getter-only observers do not override the library algorithms.",
+        "ja": "独自configure済みblock、所有map、選択した明示公開callを使う。parent／child mapの所有関係は合法で、幅依存照会の前にlockする。getter専用observerはlibrary algorithmをoverrideしない。"
+      },
+      "expected": {
+        "en": "Omitting get_endian hier uses the selected system-level endian setting.",
+        "ja": "get_endianのhier省略は選択system-level endian設定を使う。"
+      },
+      "limitations": {
+        "en": "Selected two-state symbolic settings and handles, not complete physical bus behavior, invalid hierarchy responses, all widths or all endian beat orders. Empty output queues are used; no prepopulated-queue append/replace behavior or enumeration order is prescribed.",
+        "ja": "選択した2状態symbolic設定とhandleだけで、完全な物理bus動作、不正階層の応答、全幅、全endian beat順ではない。空の出力queueを使い、内容のあるqueueへの追加／置換動作や列挙順は規定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_map_endianness_queries_distinguish_local_settings_and_default_system_level",
+          "role": "direct",
+          "expected_observations": [
+            "UT: map_endian inherited 1 explicit_hier 1 root_stable 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAP-SCOPE-SET-SEQUENCER-ADAPTER",
+      "clause": "18.2.3.6",
+      "statement": {
+        "en": "set_sequencer associates the selected sequencer and adapter pair with the map.",
+        "ja": "set_sequencerは選択sequencer／adapter組をmapへ関連付ける。"
+      },
+      "conditions": {
+        "en": "Use the selected getter-only map settings or the separate original four-byte adapter/sequencer/driver path to a 32-bit RW child-map register. In the real path both root sequencers connect to distinct live original drivers, and replacement follows a completed write/read pair. Adapter context and original stores independently observe selection.",
+        "ja": "選択したgetter専用map設定、または別の独自4-byte adapter／sequencer／driverから32-bit RW child-map registerへの経路を使う。実経路のroot sequencer 2つは別々の動作中独自driverへ接続し、write／read組の完了後に置換する。adapter contextと独自storageが選択を独立に観測する。"
+      },
+      "expected": {
+        "en": "set_sequencer associates the selected sequencer and adapter pair with the map.",
+        "ja": "set_sequencerは選択sequencer／adapter組をmapへ関連付ける。"
+      },
+      "limitations": {
+        "en": "One nested full-width little-endian RW path and original in-memory stores. No concurrent/in-flight replacement, cancellation, all error policies, all partial beats, physical HDL or exact callback/read count is certified. This complements getter metadata rather than making every getter a transport proof.",
+        "ja": "入れ子の全幅little-endian RW経路1つと独自memory内storageだけ。並行／処理中の置換、取消、全error policy、全端数beat、物理HDL、正確なcallback／read件数は認定しない。getter metadataを補完するもので、全getterをtransportの証拠としない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_map_sequencer_and_adapter_queries_keep_local_and_system_settings_distinct_after_replacement",
+          "role": "direct",
+          "expected_observations": [
+            "UT: map_bus local_sequence 1 local_adapter 1 omitted_adapter 1"
+          ]
+        },
+        {
+          "test": "u18/test_map_sequencer_replacement_redirects_nested_frontdoor_access_and_preserves_old_storage",
+          "role": "direct",
+          "expected_observations": [
+            "UT: map_redirect first 1 value 5111 address 1 next_unused 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAP-SCOPE-SET-OMITTED-ADAPTER",
+      "clause": "18.2.3.6",
+      "statement": {
+        "en": "Omitting the set_sequencer adapter argument supplies null for the selected map.",
+        "ja": "set_sequencerのadapter引数省略は選択mapへnullを供給する。"
+      },
+      "conditions": {
+        "en": "Use the selected getter-only map settings or the separate original four-byte adapter/sequencer/driver path to a 32-bit RW child-map register. In the real path both root sequencers connect to distinct live original drivers, and replacement follows a completed write/read pair. Adapter context and original stores independently observe selection.",
+        "ja": "選択したgetter専用map設定、または別の独自4-byte adapter／sequencer／driverから32-bit RW child-map registerへの経路を使う。実経路のroot sequencer 2つは別々の動作中独自driverへ接続し、write／read組の完了後に置換する。adapter contextと独自storageが選択を独立に観測する。"
+      },
+      "expected": {
+        "en": "Omitting the set_sequencer adapter argument supplies null for the selected map.",
+        "ja": "set_sequencerのadapter引数省略は選択mapへnullを供給する。"
+      },
+      "limitations": {
+        "en": "One nested full-width little-endian RW path and original in-memory stores. No concurrent/in-flight replacement, cancellation, all error policies, all partial beats, physical HDL or exact callback/read count is certified. This complements getter metadata rather than making every getter a transport proof.",
+        "ja": "入れ子の全幅little-endian RW経路1つと独自memory内storageだけ。並行／処理中の置換、取消、全error policy、全端数beat、物理HDL、正確なcallback／read件数は認定しない。getter metadataを補完するもので、全getterをtransportの証拠としない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_map_sequencer_and_adapter_queries_keep_local_and_system_settings_distinct_after_replacement",
+          "role": "direct",
+          "expected_observations": [
+            "UT: map_bus local_sequence 1 local_adapter 1 omitted_adapter 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAP-SCOPE-SET-REPLACEMENT",
+      "clause": "18.2.3.6",
+      "statement": {
+        "en": "Replacing a root map sequencer/adapter redirects the selected later child-map transfers and preserves the old driver storage.",
+        "ja": "root mapのsequencer／adapter置換は選択した後続child-map転送を切り替え、以前のdriver storageを保持する。"
+      },
+      "conditions": {
+        "en": "Use the selected getter-only map settings or the separate original four-byte adapter/sequencer/driver path to a 32-bit RW child-map register. In the real path both root sequencers connect to distinct live original drivers, and replacement follows a completed write/read pair. Adapter context and original stores independently observe selection.",
+        "ja": "選択したgetter専用map設定、または別の独自4-byte adapter／sequencer／driverから32-bit RW child-map registerへの経路を使う。実経路のroot sequencer 2つは別々の動作中独自driverへ接続し、write／read組の完了後に置換する。adapter contextと独自storageが選択を独立に観測する。"
+      },
+      "expected": {
+        "en": "Replacing a root map sequencer/adapter redirects the selected later child-map transfers and preserves the old driver storage.",
+        "ja": "root mapのsequencer／adapter置換は選択した後続child-map転送を切り替え、以前のdriver storageを保持する。"
+      },
+      "limitations": {
+        "en": "One nested full-width little-endian RW path and original in-memory stores. No concurrent/in-flight replacement, cancellation, all error policies, all partial beats, physical HDL or exact callback/read count is certified. This complements getter metadata rather than making every getter a transport proof.",
+        "ja": "入れ子の全幅little-endian RW経路1つと独自memory内storageだけ。並行／処理中の置換、取消、全error policy、全端数beat、物理HDL、正確なcallback／read件数は認定しない。getter metadataを補完するもので、全getterをtransportの証拠としない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_map_sequencer_and_adapter_queries_keep_local_and_system_settings_distinct_after_replacement",
+          "role": "direct",
+          "expected_observations": [
+            "UT: map_bus replace_sequence 1 replace_adapter 1 local_kept 1 peer_kept 1"
+          ]
+        },
+        {
+          "test": "u18/test_map_sequencer_replacement_redirects_nested_frontdoor_access_and_preserves_old_storage",
+          "role": "direct",
+          "expected_observations": [
+            "UT: map_redirect next 1 value 5122 address 1 old_idle 1 old_value 5111",
+            "UT: map_redirect adapters 1 selected_element 1 selected_map 1 mirror 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAP-SCOPE-SEQUENCER-LOCAL",
+      "clause": "18.2.4.8",
+      "statement": {
+        "en": "Explicit NO_HIER get_sequencer returns the selected local association.",
+        "ja": "明示NO_HIERのget_sequencerは選択local関連を返す。"
+      },
+      "conditions": {
+        "en": "Original configured blocks, owned maps and selected explicit public calls. Parent/child maps use valid ownership and are locked before width-dependent queries. Getter-only observers do not override the library algorithms.",
+        "ja": "独自configure済みblock、所有map、選択した明示公開callを使う。parent／child mapの所有関係は合法で、幅依存照会の前にlockする。getter専用observerはlibrary algorithmをoverrideしない。"
+      },
+      "expected": {
+        "en": "Explicit NO_HIER get_sequencer returns the selected local association.",
+        "ja": "明示NO_HIERのget_sequencerは選択local関連を返す。"
+      },
+      "limitations": {
+        "en": "Selected two-state symbolic settings and handles, not complete physical bus behavior, invalid hierarchy responses, all widths or all endian beat orders. Empty output queues are used; no prepopulated-queue append/replace behavior or enumeration order is prescribed.",
+        "ja": "選択した2状態symbolic設定とhandleだけで、完全な物理bus動作、不正階層の応答、全幅、全endian beat順ではない。空の出力queueを使い、内容のあるqueueへの追加／置換動作や列挙順は規定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_map_sequencer_and_adapter_queries_keep_local_and_system_settings_distinct_after_replacement",
+          "role": "direct",
+          "expected_observations": [
+            "UT: map_bus local_sequence 1 local_adapter 1 omitted_adapter 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAP-SCOPE-SEQUENCER-SYSTEM",
+      "clause": "18.2.4.8",
+      "statement": {
+        "en": "Explicit HIER get_sequencer returns the selected system bus association.",
+        "ja": "明示HIERのget_sequencerは選択system bus関連を返す。"
+      },
+      "conditions": {
+        "en": "Original configured blocks, owned maps and selected explicit public calls. Parent/child maps use valid ownership and are locked before width-dependent queries. Getter-only observers do not override the library algorithms.",
+        "ja": "独自configure済みblock、所有map、選択した明示公開callを使う。parent／child mapの所有関係は合法で、幅依存照会の前にlockする。getter専用observerはlibrary algorithmをoverrideしない。"
+      },
+      "expected": {
+        "en": "Explicit HIER get_sequencer returns the selected system bus association.",
+        "ja": "明示HIERのget_sequencerは選択system bus関連を返す。"
+      },
+      "limitations": {
+        "en": "Selected two-state symbolic settings and handles, not complete physical bus behavior, invalid hierarchy responses, all widths or all endian beat orders. Empty output queues are used; no prepopulated-queue append/replace behavior or enumeration order is prescribed.",
+        "ja": "選択した2状態symbolic設定とhandleだけで、完全な物理bus動作、不正階層の応答、全幅、全endian beat順ではない。空の出力queueを使い、内容のあるqueueへの追加／置換動作や列挙順は規定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_map_sequencer_and_adapter_queries_keep_local_and_system_settings_distinct_after_replacement",
+          "role": "direct",
+          "expected_observations": [
+            "UT: map_bus system_sequence 1 system_adapter 1 explicit_hier 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAP-SCOPE-SEQUENCER-DEFAULT-AND-ISOLATION",
+      "clause": "18.2.4.8",
+      "statement": {
+        "en": "Omitted get_sequencer hier follows the selected root association after replacement while the explicit local and peer settings remain intact.",
+        "ja": "get_sequencerのhier省略は置換後の選択root関連へ従い、明示local／peer設定を保持する。"
+      },
+      "conditions": {
+        "en": "Original configured blocks, owned maps and selected explicit public calls. Parent/child maps use valid ownership and are locked before width-dependent queries. Getter-only observers do not override the library algorithms.",
+        "ja": "独自configure済みblock、所有map、選択した明示公開callを使う。parent／child mapの所有関係は合法で、幅依存照会の前にlockする。getter専用observerはlibrary algorithmをoverrideしない。"
+      },
+      "expected": {
+        "en": "Omitted get_sequencer hier follows the selected root association after replacement while the explicit local and peer settings remain intact.",
+        "ja": "get_sequencerのhier省略は置換後の選択root関連へ従い、明示local／peer設定を保持する。"
+      },
+      "limitations": {
+        "en": "Selected two-state symbolic settings and handles, not complete physical bus behavior, invalid hierarchy responses, all widths or all endian beat orders. Empty output queues are used; no prepopulated-queue append/replace behavior or enumeration order is prescribed.",
+        "ja": "選択した2状態symbolic設定とhandleだけで、完全な物理bus動作、不正階層の応答、全幅、全endian beat順ではない。空の出力queueを使い、内容のあるqueueへの追加／置換動作や列挙順は規定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_map_sequencer_and_adapter_queries_keep_local_and_system_settings_distinct_after_replacement",
+          "role": "direct",
+          "expected_observations": [
+            "UT: map_bus replace_sequence 1 replace_adapter 1 local_kept 1 peer_kept 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAP-SCOPE-ADAPTER-LOCAL",
+      "clause": "18.2.4.9",
+      "statement": {
+        "en": "Explicit NO_HIER get_adapter returns the selected local association.",
+        "ja": "明示NO_HIERのget_adapterは選択local関連を返す。"
+      },
+      "conditions": {
+        "en": "Original configured blocks, owned maps and selected explicit public calls. Parent/child maps use valid ownership and are locked before width-dependent queries. Getter-only observers do not override the library algorithms.",
+        "ja": "独自configure済みblock、所有map、選択した明示公開callを使う。parent／child mapの所有関係は合法で、幅依存照会の前にlockする。getter専用observerはlibrary algorithmをoverrideしない。"
+      },
+      "expected": {
+        "en": "Explicit NO_HIER get_adapter returns the selected local association.",
+        "ja": "明示NO_HIERのget_adapterは選択local関連を返す。"
+      },
+      "limitations": {
+        "en": "Selected two-state symbolic settings and handles, not complete physical bus behavior, invalid hierarchy responses, all widths or all endian beat orders. Empty output queues are used; no prepopulated-queue append/replace behavior or enumeration order is prescribed.",
+        "ja": "選択した2状態symbolic設定とhandleだけで、完全な物理bus動作、不正階層の応答、全幅、全endian beat順ではない。空の出力queueを使い、内容のあるqueueへの追加／置換動作や列挙順は規定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_map_sequencer_and_adapter_queries_keep_local_and_system_settings_distinct_after_replacement",
+          "role": "direct",
+          "expected_observations": [
+            "UT: map_bus local_sequence 1 local_adapter 1 omitted_adapter 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAP-SCOPE-ADAPTER-SYSTEM",
+      "clause": "18.2.4.9",
+      "statement": {
+        "en": "Explicit HIER get_adapter returns the selected system bus association.",
+        "ja": "明示HIERのget_adapterは選択system bus関連を返す。"
+      },
+      "conditions": {
+        "en": "Original configured blocks, owned maps and selected explicit public calls. Parent/child maps use valid ownership and are locked before width-dependent queries. Getter-only observers do not override the library algorithms.",
+        "ja": "独自configure済みblock、所有map、選択した明示公開callを使う。parent／child mapの所有関係は合法で、幅依存照会の前にlockする。getter専用observerはlibrary algorithmをoverrideしない。"
+      },
+      "expected": {
+        "en": "Explicit HIER get_adapter returns the selected system bus association.",
+        "ja": "明示HIERのget_adapterは選択system bus関連を返す。"
+      },
+      "limitations": {
+        "en": "Selected two-state symbolic settings and handles, not complete physical bus behavior, invalid hierarchy responses, all widths or all endian beat orders. Empty output queues are used; no prepopulated-queue append/replace behavior or enumeration order is prescribed.",
+        "ja": "選択した2状態symbolic設定とhandleだけで、完全な物理bus動作、不正階層の応答、全幅、全endian beat順ではない。空の出力queueを使い、内容のあるqueueへの追加／置換動作や列挙順は規定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_map_sequencer_and_adapter_queries_keep_local_and_system_settings_distinct_after_replacement",
+          "role": "direct",
+          "expected_observations": [
+            "UT: map_bus system_sequence 1 system_adapter 1 explicit_hier 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAP-SCOPE-ADAPTER-DEFAULT-AND-ISOLATION",
+      "clause": "18.2.4.9",
+      "statement": {
+        "en": "Omitted get_adapter hier follows the selected root association after replacement while the explicit local and peer settings remain intact.",
+        "ja": "get_adapterのhier省略は置換後の選択root関連へ従い、明示local／peer設定を保持する。"
+      },
+      "conditions": {
+        "en": "Original configured blocks, owned maps and selected explicit public calls. Parent/child maps use valid ownership and are locked before width-dependent queries. Getter-only observers do not override the library algorithms.",
+        "ja": "独自configure済みblock、所有map、選択した明示公開callを使う。parent／child mapの所有関係は合法で、幅依存照会の前にlockする。getter専用observerはlibrary algorithmをoverrideしない。"
+      },
+      "expected": {
+        "en": "Omitted get_adapter hier follows the selected root association after replacement while the explicit local and peer settings remain intact.",
+        "ja": "get_adapterのhier省略は置換後の選択root関連へ従い、明示local／peer設定を保持する。"
+      },
+      "limitations": {
+        "en": "Selected two-state symbolic settings and handles, not complete physical bus behavior, invalid hierarchy responses, all widths or all endian beat orders. Empty output queues are used; no prepopulated-queue append/replace behavior or enumeration order is prescribed.",
+        "ja": "選択した2状態symbolic設定とhandleだけで、完全な物理bus動作、不正階層の応答、全幅、全endian beat順ではない。空の出力queueを使い、内容のあるqueueへの追加／置換動作や列挙順は規定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_map_sequencer_and_adapter_queries_keep_local_and_system_settings_distinct_after_replacement",
+          "role": "direct",
+          "expected_observations": [
+            "UT: map_bus replace_sequence 1 replace_adapter 1 local_kept 1 peer_kept 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAP-SCOPE-SUBMAP-COMPOSITION",
+      "clause": "18.2.3.5",
+      "statement": {
+        "en": "Adding the selected child map composes its register address with the parent map base and submap offset.",
+        "ja": "選択child mapの追加はregister addressをparent map baseとsubmap offsetから合成する。"
+      },
+      "conditions": {
+        "en": "Use the selected getter-only map settings or the separate original four-byte adapter/sequencer/driver path to a 32-bit RW child-map register. In the real path both root sequencers connect to distinct live original drivers, and replacement follows a completed write/read pair. Adapter context and original stores independently observe selection.",
+        "ja": "選択したgetter専用map設定、または別の独自4-byte adapter／sequencer／driverから32-bit RW child-map registerへの経路を使う。実経路のroot sequencer 2つは別々の動作中独自driverへ接続し、write／read組の完了後に置換する。adapter contextと独自storageが選択を独立に観測する。"
+      },
+      "expected": {
+        "en": "Adding the selected child map composes its register address with the parent map base and submap offset.",
+        "ja": "選択child mapの追加はregister addressをparent map baseとsubmap offsetから合成する。"
+      },
+      "limitations": {
+        "en": "One nested full-width little-endian RW path and original in-memory stores. No concurrent/in-flight replacement, cancellation, all error policies, all partial beats, physical HDL or exact callback/read count is certified. This complements getter metadata rather than making every getter a transport proof.",
+        "ja": "入れ子の全幅little-endian RW経路1つと独自memory内storageだけ。並行／処理中の置換、取消、全error policy、全端数beat、物理HDL、正確なcallback／read件数は認定しない。getter metadataを補完するもので、全getterをtransportの証拠としない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_map_sequencer_replacement_redirects_nested_frontdoor_access_and_preserves_old_storage",
+          "role": "direct",
+          "expected_observations": [
+            "UT: map_redirect first 1 value 5111 address 1 next_unused 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAP-SCOPE-SUBMAP-DIRECT-REGISTRATION",
+      "clause": "18.2.3.5",
+      "statement": {
+        "en": "Adding the selected child map registers it as a direct submap while its own nested map is recursively available.",
+        "ja": "選択child mapの追加はそのmapを直接submapとして登録し、その内側のmapは再帰的に参照できる。"
+      },
+      "conditions": {
+        "en": "Original configured blocks, owned maps and selected explicit public calls. Parent/child maps use valid ownership and are locked before width-dependent queries. Getter-only observers do not override the library algorithms.",
+        "ja": "独自configure済みblock、所有map、選択した明示公開callを使う。parent／child mapの所有関係は合法で、幅依存照会の前にlockする。getter専用observerはlibrary algorithmをoverrideしない。"
+      },
+      "expected": {
+        "en": "Adding the selected child map registers it as a direct submap while its own nested map is recursively available.",
+        "ja": "選択child mapの追加はそのmapを直接submapとして登録し、その内側のmapは再帰的に参照できる。"
+      },
+      "limitations": {
+        "en": "Selected two-state symbolic settings and handles, not complete physical bus behavior, invalid hierarchy responses, all widths or all endian beat orders. Empty output queues are used; no prepopulated-queue append/replace behavior or enumeration order is prescribed.",
+        "ja": "選択した2状態symbolic設定とhandleだけで、完全な物理bus動作、不正階層の応答、全幅、全endian beat順ではない。空の出力queueを使い、内容のあるqueueへの追加／置換動作や列挙順は規定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_map_submaps_enumeration_restricts_membership_to_selected_map_and_requested_hierarchy",
+          "role": "direct",
+          "expected_observations": [
+            "UT: map_submaps local_count 1 local_members 1",
+            "UT: map_submaps recursive_count 2 recursive_members 3"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAP-SCOPE-SUBMAPS-LOCAL",
+      "clause": "18.2.4.10",
+      "statement": {
+        "en": "NO_HIER get_submaps returns the selected directly instantiated map members.",
+        "ja": "NO_HIER get_submapsは選択した直接のmap memberを返す。"
+      },
+      "conditions": {
+        "en": "One original three-level hierarchy contains same-name distinct registers, memories and implemented virtual registers. Each physical register has two fields; each virtual register has one field. An alternative map of the same root block owns separate contents and is not a submap. All output queues start empty.",
+        "ja": "独自3階層には同名だが別handleのregister、memory、実装済みvirtual registerを置く。各物理registerは2 field、各virtual registerは1 fieldを持つ。同じroot blockの別mapは別の内容を持ち、submapではない。出力queueは全て空で始める。"
+      },
+      "expected": {
+        "en": "NO_HIER get_submaps returns the selected directly instantiated map members.",
+        "ja": "NO_HIER get_submapsは選択した直接のmap memberを返す。"
+      },
+      "limitations": {
+        "en": "Handle sets and exact selected counts, with no iteration order. Count plus a complete handle bitset rules out selected duplicates/foreign members. The cases do not establish all topology, prepopulated queue behavior, detached/unregistered state or runtime transfer through every member. A missing getter remains an unexecuted build difference with its independent oracle unchanged.",
+        "ja": "反復順を課さずhandle集合と選択した正確な件数を使う。件数と全handle bitsetで選択重複／外部memberを排除する。全topology、内容のあるqueue、切離し／登録解除状態、全memberの実行時転送は立証しない。getter欠落は独立oracleを変えず未実行build差分に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_map_submaps_enumeration_restricts_membership_to_selected_map_and_requested_hierarchy",
+          "role": "direct",
+          "expected_observations": [
+            "UT: map_submaps local_count 1 local_members 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAP-SCOPE-SUBMAPS-RECURSIVE",
+      "clause": "18.2.4.10",
+      "statement": {
+        "en": "HIER get_submaps recursively includes the selected descendants.",
+        "ja": "HIER get_submapsは選択した子孫を再帰的に含める。"
+      },
+      "conditions": {
+        "en": "One original three-level hierarchy contains same-name distinct registers, memories and implemented virtual registers. Each physical register has two fields; each virtual register has one field. An alternative map of the same root block owns separate contents and is not a submap. All output queues start empty.",
+        "ja": "独自3階層には同名だが別handleのregister、memory、実装済みvirtual registerを置く。各物理registerは2 field、各virtual registerは1 fieldを持つ。同じroot blockの別mapは別の内容を持ち、submapではない。出力queueは全て空で始める。"
+      },
+      "expected": {
+        "en": "HIER get_submaps recursively includes the selected descendants.",
+        "ja": "HIER get_submapsは選択した子孫を再帰的に含める。"
+      },
+      "limitations": {
+        "en": "Handle sets and exact selected counts, with no iteration order. Count plus a complete handle bitset rules out selected duplicates/foreign members. The cases do not establish all topology, prepopulated queue behavior, detached/unregistered state or runtime transfer through every member. A missing getter remains an unexecuted build difference with its independent oracle unchanged.",
+        "ja": "反復順を課さずhandle集合と選択した正確な件数を使う。件数と全handle bitsetで選択重複／外部memberを排除する。全topology、内容のあるqueue、切離し／登録解除状態、全memberの実行時転送は立証しない。getter欠落は独立oracleを変えず未実行build差分に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_map_submaps_enumeration_restricts_membership_to_selected_map_and_requested_hierarchy",
+          "role": "direct",
+          "expected_observations": [
+            "UT: map_submaps recursive_count 2 recursive_members 3"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAP-SCOPE-SUBMAPS-DEFAULT",
+      "clause": "18.2.4.10",
+      "statement": {
+        "en": "Omitting get_submaps hier returns the same selected recursive membership.",
+        "ja": "get_submapsのhier省略は同じ選択再帰memberを返す。"
+      },
+      "conditions": {
+        "en": "One original three-level hierarchy contains same-name distinct registers, memories and implemented virtual registers. Each physical register has two fields; each virtual register has one field. An alternative map of the same root block owns separate contents and is not a submap. All output queues start empty.",
+        "ja": "独自3階層には同名だが別handleのregister、memory、実装済みvirtual registerを置く。各物理registerは2 field、各virtual registerは1 fieldを持つ。同じroot blockの別mapは別の内容を持ち、submapではない。出力queueは全て空で始める。"
+      },
+      "expected": {
+        "en": "Omitting get_submaps hier returns the same selected recursive membership.",
+        "ja": "get_submapsのhier省略は同じ選択再帰memberを返す。"
+      },
+      "limitations": {
+        "en": "Handle sets and exact selected counts, with no iteration order. Count plus a complete handle bitset rules out selected duplicates/foreign members. The cases do not establish all topology, prepopulated queue behavior, detached/unregistered state or runtime transfer through every member. A missing getter remains an unexecuted build difference with its independent oracle unchanged.",
+        "ja": "反復順を課さずhandle集合と選択した正確な件数を使う。件数と全handle bitsetで選択重複／外部memberを排除する。全topology、内容のあるqueue、切離し／登録解除状態、全memberの実行時転送は立証しない。getter欠落は独立oracleを変えず未実行build差分に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_map_submaps_enumeration_restricts_membership_to_selected_map_and_requested_hierarchy",
+          "role": "direct",
+          "expected_observations": [
+            "UT: map_submaps default_count 2 default_members 3"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAP-SCOPE-SUBMAPS-MAP-SCOPE",
+      "clause": "18.2.4.10",
+      "statement": {
+        "en": "Selected get_submaps excludes an alternative map of the same block, and a child-map query excludes ancestor contents.",
+        "ja": "選択get_submapsは同じblockの別mapを除外し、child-map照会は祖先の内容を除外する。"
+      },
+      "conditions": {
+        "en": "One original three-level hierarchy contains same-name distinct registers, memories and implemented virtual registers. Each physical register has two fields; each virtual register has one field. An alternative map of the same root block owns separate contents and is not a submap. All output queues start empty.",
+        "ja": "独自3階層には同名だが別handleのregister、memory、実装済みvirtual registerを置く。各物理registerは2 field、各virtual registerは1 fieldを持つ。同じroot blockの別mapは別の内容を持ち、submapではない。出力queueは全て空で始める。"
+      },
+      "expected": {
+        "en": "Selected get_submaps excludes an alternative map of the same block, and a child-map query excludes ancestor contents.",
+        "ja": "選択get_submapsは同じblockの別mapを除外し、child-map照会は祖先の内容を除外する。"
+      },
+      "limitations": {
+        "en": "Handle sets and exact selected counts, with no iteration order. Count plus a complete handle bitset rules out selected duplicates/foreign members. The cases do not establish all topology, prepopulated queue behavior, detached/unregistered state or runtime transfer through every member. A missing getter remains an unexecuted build difference with its independent oracle unchanged.",
+        "ja": "反復順を課さずhandle集合と選択した正確な件数を使う。件数と全handle bitsetで選択重複／外部memberを排除する。全topology、内容のあるqueue、切離し／登録解除状態、全memberの実行時転送は立証しない。getter欠落は独立oracleを変えず未実行build差分に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_map_submaps_enumeration_restricts_membership_to_selected_map_and_requested_hierarchy",
+          "role": "direct",
+          "expected_observations": [
+            "UT: map_submaps child_count 1 child_members 2",
+            "UT: map_submaps recursive_count 2 recursive_members 3"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAP-SCOPE-REGISTERS-LOCAL",
+      "clause": "18.2.4.11",
+      "statement": {
+        "en": "NO_HIER get_registers returns the selected directly instantiated map members.",
+        "ja": "NO_HIER get_registersは選択した直接のmap memberを返す。"
+      },
+      "conditions": {
+        "en": "One original three-level hierarchy contains same-name distinct registers, memories and implemented virtual registers. Each physical register has two fields; each virtual register has one field. An alternative map of the same root block owns separate contents and is not a submap. All output queues start empty.",
+        "ja": "独自3階層には同名だが別handleのregister、memory、実装済みvirtual registerを置く。各物理registerは2 field、各virtual registerは1 fieldを持つ。同じroot blockの別mapは別の内容を持ち、submapではない。出力queueは全て空で始める。"
+      },
+      "expected": {
+        "en": "NO_HIER get_registers returns the selected directly instantiated map members.",
+        "ja": "NO_HIER get_registersは選択した直接のmap memberを返す。"
+      },
+      "limitations": {
+        "en": "Handle sets and exact selected counts, with no iteration order. Count plus a complete handle bitset rules out selected duplicates/foreign members. The cases do not establish all topology, prepopulated queue behavior, detached/unregistered state or runtime transfer through every member. A missing getter remains an unexecuted build difference with its independent oracle unchanged.",
+        "ja": "反復順を課さずhandle集合と選択した正確な件数を使う。件数と全handle bitsetで選択重複／外部memberを排除する。全topology、内容のあるqueue、切離し／登録解除状態、全memberの実行時転送は立証しない。getter欠落は独立oracleを変えず未実行build差分に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_map_registers_enumeration_restricts_membership_to_selected_map_and_requested_hierarchy",
+          "role": "direct",
+          "expected_observations": [
+            "UT: map_registers local_count 1 local_members 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAP-SCOPE-REGISTERS-RECURSIVE",
+      "clause": "18.2.4.11",
+      "statement": {
+        "en": "HIER get_registers recursively includes the selected descendants.",
+        "ja": "HIER get_registersは選択した子孫を再帰的に含める。"
+      },
+      "conditions": {
+        "en": "One original three-level hierarchy contains same-name distinct registers, memories and implemented virtual registers. Each physical register has two fields; each virtual register has one field. An alternative map of the same root block owns separate contents and is not a submap. All output queues start empty.",
+        "ja": "独自3階層には同名だが別handleのregister、memory、実装済みvirtual registerを置く。各物理registerは2 field、各virtual registerは1 fieldを持つ。同じroot blockの別mapは別の内容を持ち、submapではない。出力queueは全て空で始める。"
+      },
+      "expected": {
+        "en": "HIER get_registers recursively includes the selected descendants.",
+        "ja": "HIER get_registersは選択した子孫を再帰的に含める。"
+      },
+      "limitations": {
+        "en": "Handle sets and exact selected counts, with no iteration order. Count plus a complete handle bitset rules out selected duplicates/foreign members. The cases do not establish all topology, prepopulated queue behavior, detached/unregistered state or runtime transfer through every member. A missing getter remains an unexecuted build difference with its independent oracle unchanged.",
+        "ja": "反復順を課さずhandle集合と選択した正確な件数を使う。件数と全handle bitsetで選択重複／外部memberを排除する。全topology、内容のあるqueue、切離し／登録解除状態、全memberの実行時転送は立証しない。getter欠落は独立oracleを変えず未実行build差分に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_map_registers_enumeration_restricts_membership_to_selected_map_and_requested_hierarchy",
+          "role": "direct",
+          "expected_observations": [
+            "UT: map_registers recursive_count 3 recursive_members 7"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAP-SCOPE-REGISTERS-DEFAULT",
+      "clause": "18.2.4.11",
+      "statement": {
+        "en": "Omitting get_registers hier returns the same selected recursive membership.",
+        "ja": "get_registersのhier省略は同じ選択再帰memberを返す。"
+      },
+      "conditions": {
+        "en": "One original three-level hierarchy contains same-name distinct registers, memories and implemented virtual registers. Each physical register has two fields; each virtual register has one field. An alternative map of the same root block owns separate contents and is not a submap. All output queues start empty.",
+        "ja": "独自3階層には同名だが別handleのregister、memory、実装済みvirtual registerを置く。各物理registerは2 field、各virtual registerは1 fieldを持つ。同じroot blockの別mapは別の内容を持ち、submapではない。出力queueは全て空で始める。"
+      },
+      "expected": {
+        "en": "Omitting get_registers hier returns the same selected recursive membership.",
+        "ja": "get_registersのhier省略は同じ選択再帰memberを返す。"
+      },
+      "limitations": {
+        "en": "Handle sets and exact selected counts, with no iteration order. Count plus a complete handle bitset rules out selected duplicates/foreign members. The cases do not establish all topology, prepopulated queue behavior, detached/unregistered state or runtime transfer through every member. A missing getter remains an unexecuted build difference with its independent oracle unchanged.",
+        "ja": "反復順を課さずhandle集合と選択した正確な件数を使う。件数と全handle bitsetで選択重複／外部memberを排除する。全topology、内容のあるqueue、切離し／登録解除状態、全memberの実行時転送は立証しない。getter欠落は独立oracleを変えず未実行build差分に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_map_registers_enumeration_restricts_membership_to_selected_map_and_requested_hierarchy",
+          "role": "direct",
+          "expected_observations": [
+            "UT: map_registers default_count 3 default_members 7"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAP-SCOPE-REGISTERS-MAP-SCOPE",
+      "clause": "18.2.4.11",
+      "statement": {
+        "en": "Selected get_registers excludes an alternative map of the same block, and a child-map query excludes ancestor contents.",
+        "ja": "選択get_registersは同じblockの別mapを除外し、child-map照会は祖先の内容を除外する。"
+      },
+      "conditions": {
+        "en": "One original three-level hierarchy contains same-name distinct registers, memories and implemented virtual registers. Each physical register has two fields; each virtual register has one field. An alternative map of the same root block owns separate contents and is not a submap. All output queues start empty.",
+        "ja": "独自3階層には同名だが別handleのregister、memory、実装済みvirtual registerを置く。各物理registerは2 field、各virtual registerは1 fieldを持つ。同じroot blockの別mapは別の内容を持ち、submapではない。出力queueは全て空で始める。"
+      },
+      "expected": {
+        "en": "Selected get_registers excludes an alternative map of the same block, and a child-map query excludes ancestor contents.",
+        "ja": "選択get_registersは同じblockの別mapを除外し、child-map照会は祖先の内容を除外する。"
+      },
+      "limitations": {
+        "en": "Handle sets and exact selected counts, with no iteration order. Count plus a complete handle bitset rules out selected duplicates/foreign members. The cases do not establish all topology, prepopulated queue behavior, detached/unregistered state or runtime transfer through every member. A missing getter remains an unexecuted build difference with its independent oracle unchanged.",
+        "ja": "反復順を課さずhandle集合と選択した正確な件数を使う。件数と全handle bitsetで選択重複／外部memberを排除する。全topology、内容のあるqueue、切離し／登録解除状態、全memberの実行時転送は立証しない。getter欠落は独立oracleを変えず未実行build差分に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_map_registers_enumeration_restricts_membership_to_selected_map_and_requested_hierarchy",
+          "role": "direct",
+          "expected_observations": [
+            "UT: map_registers child_count 2 child_members 6",
+            "UT: map_registers recursive_count 3 recursive_members 7"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAP-SCOPE-FIELDS-LOCAL",
+      "clause": "18.2.4.12",
+      "statement": {
+        "en": "NO_HIER get_fields returns the selected directly instantiated map members.",
+        "ja": "NO_HIER get_fieldsは選択した直接のmap memberを返す。"
+      },
+      "conditions": {
+        "en": "One original three-level hierarchy contains same-name distinct registers, memories and implemented virtual registers. Each physical register has two fields; each virtual register has one field. An alternative map of the same root block owns separate contents and is not a submap. All output queues start empty.",
+        "ja": "独自3階層には同名だが別handleのregister、memory、実装済みvirtual registerを置く。各物理registerは2 field、各virtual registerは1 fieldを持つ。同じroot blockの別mapは別の内容を持ち、submapではない。出力queueは全て空で始める。"
+      },
+      "expected": {
+        "en": "NO_HIER get_fields returns the selected directly instantiated map members.",
+        "ja": "NO_HIER get_fieldsは選択した直接のmap memberを返す。"
+      },
+      "limitations": {
+        "en": "Handle sets and exact selected counts, with no iteration order. Count plus a complete handle bitset rules out selected duplicates/foreign members. The cases do not establish all topology, prepopulated queue behavior, detached/unregistered state or runtime transfer through every member. A missing getter remains an unexecuted build difference with its independent oracle unchanged.",
+        "ja": "反復順を課さずhandle集合と選択した正確な件数を使う。件数と全handle bitsetで選択重複／外部memberを排除する。全topology、内容のあるqueue、切離し／登録解除状態、全memberの実行時転送は立証しない。getter欠落は独立oracleを変えず未実行build差分に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_map_fields_enumeration_restricts_membership_to_selected_map_and_requested_hierarchy",
+          "role": "direct",
+          "expected_observations": [
+            "UT: map_fields local_count 2 local_members 3"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAP-SCOPE-FIELDS-RECURSIVE",
+      "clause": "18.2.4.12",
+      "statement": {
+        "en": "HIER get_fields recursively includes the selected descendants.",
+        "ja": "HIER get_fieldsは選択した子孫を再帰的に含める。"
+      },
+      "conditions": {
+        "en": "One original three-level hierarchy contains same-name distinct registers, memories and implemented virtual registers. Each physical register has two fields; each virtual register has one field. An alternative map of the same root block owns separate contents and is not a submap. All output queues start empty.",
+        "ja": "独自3階層には同名だが別handleのregister、memory、実装済みvirtual registerを置く。各物理registerは2 field、各virtual registerは1 fieldを持つ。同じroot blockの別mapは別の内容を持ち、submapではない。出力queueは全て空で始める。"
+      },
+      "expected": {
+        "en": "HIER get_fields recursively includes the selected descendants.",
+        "ja": "HIER get_fieldsは選択した子孫を再帰的に含める。"
+      },
+      "limitations": {
+        "en": "Handle sets and exact selected counts, with no iteration order. Count plus a complete handle bitset rules out selected duplicates/foreign members. The cases do not establish all topology, prepopulated queue behavior, detached/unregistered state or runtime transfer through every member. A missing getter remains an unexecuted build difference with its independent oracle unchanged.",
+        "ja": "反復順を課さずhandle集合と選択した正確な件数を使う。件数と全handle bitsetで選択重複／外部memberを排除する。全topology、内容のあるqueue、切離し／登録解除状態、全memberの実行時転送は立証しない。getter欠落は独立oracleを変えず未実行build差分に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_map_fields_enumeration_restricts_membership_to_selected_map_and_requested_hierarchy",
+          "role": "direct",
+          "expected_observations": [
+            "UT: map_fields recursive_count 6 recursive_members 63"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAP-SCOPE-FIELDS-DEFAULT",
+      "clause": "18.2.4.12",
+      "statement": {
+        "en": "Omitting get_fields hier returns the same selected recursive membership.",
+        "ja": "get_fieldsのhier省略は同じ選択再帰memberを返す。"
+      },
+      "conditions": {
+        "en": "One original three-level hierarchy contains same-name distinct registers, memories and implemented virtual registers. Each physical register has two fields; each virtual register has one field. An alternative map of the same root block owns separate contents and is not a submap. All output queues start empty.",
+        "ja": "独自3階層には同名だが別handleのregister、memory、実装済みvirtual registerを置く。各物理registerは2 field、各virtual registerは1 fieldを持つ。同じroot blockの別mapは別の内容を持ち、submapではない。出力queueは全て空で始める。"
+      },
+      "expected": {
+        "en": "Omitting get_fields hier returns the same selected recursive membership.",
+        "ja": "get_fieldsのhier省略は同じ選択再帰memberを返す。"
+      },
+      "limitations": {
+        "en": "Handle sets and exact selected counts, with no iteration order. Count plus a complete handle bitset rules out selected duplicates/foreign members. The cases do not establish all topology, prepopulated queue behavior, detached/unregistered state or runtime transfer through every member. A missing getter remains an unexecuted build difference with its independent oracle unchanged.",
+        "ja": "反復順を課さずhandle集合と選択した正確な件数を使う。件数と全handle bitsetで選択重複／外部memberを排除する。全topology、内容のあるqueue、切離し／登録解除状態、全memberの実行時転送は立証しない。getter欠落は独立oracleを変えず未実行build差分に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_map_fields_enumeration_restricts_membership_to_selected_map_and_requested_hierarchy",
+          "role": "direct",
+          "expected_observations": [
+            "UT: map_fields default_count 6 default_members 63"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAP-SCOPE-FIELDS-MAP-SCOPE",
+      "clause": "18.2.4.12",
+      "statement": {
+        "en": "Selected get_fields excludes an alternative map of the same block, and a child-map query excludes ancestor contents.",
+        "ja": "選択get_fieldsは同じblockの別mapを除外し、child-map照会は祖先の内容を除外する。"
+      },
+      "conditions": {
+        "en": "One original three-level hierarchy contains same-name distinct registers, memories and implemented virtual registers. Each physical register has two fields; each virtual register has one field. An alternative map of the same root block owns separate contents and is not a submap. All output queues start empty.",
+        "ja": "独自3階層には同名だが別handleのregister、memory、実装済みvirtual registerを置く。各物理registerは2 field、各virtual registerは1 fieldを持つ。同じroot blockの別mapは別の内容を持ち、submapではない。出力queueは全て空で始める。"
+      },
+      "expected": {
+        "en": "Selected get_fields excludes an alternative map of the same block, and a child-map query excludes ancestor contents.",
+        "ja": "選択get_fieldsは同じblockの別mapを除外し、child-map照会は祖先の内容を除外する。"
+      },
+      "limitations": {
+        "en": "Handle sets and exact selected counts, with no iteration order. Count plus a complete handle bitset rules out selected duplicates/foreign members. The cases do not establish all topology, prepopulated queue behavior, detached/unregistered state or runtime transfer through every member. A missing getter remains an unexecuted build difference with its independent oracle unchanged.",
+        "ja": "反復順を課さずhandle集合と選択した正確な件数を使う。件数と全handle bitsetで選択重複／外部memberを排除する。全topology、内容のあるqueue、切離し／登録解除状態、全memberの実行時転送は立証しない。getter欠落は独立oracleを変えず未実行build差分に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_map_fields_enumeration_restricts_membership_to_selected_map_and_requested_hierarchy",
+          "role": "direct",
+          "expected_observations": [
+            "UT: map_fields child_count 4 child_members 60",
+            "UT: map_fields recursive_count 6 recursive_members 63"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAP-SCOPE-MEMORIES-LOCAL",
+      "clause": "18.2.4.13",
+      "statement": {
+        "en": "NO_HIER get_memories returns the selected directly instantiated map members.",
+        "ja": "NO_HIER get_memoriesは選択した直接のmap memberを返す。"
+      },
+      "conditions": {
+        "en": "One original three-level hierarchy contains same-name distinct registers, memories and implemented virtual registers. Each physical register has two fields; each virtual register has one field. An alternative map of the same root block owns separate contents and is not a submap. All output queues start empty.",
+        "ja": "独自3階層には同名だが別handleのregister、memory、実装済みvirtual registerを置く。各物理registerは2 field、各virtual registerは1 fieldを持つ。同じroot blockの別mapは別の内容を持ち、submapではない。出力queueは全て空で始める。"
+      },
+      "expected": {
+        "en": "NO_HIER get_memories returns the selected directly instantiated map members.",
+        "ja": "NO_HIER get_memoriesは選択した直接のmap memberを返す。"
+      },
+      "limitations": {
+        "en": "Handle sets and exact selected counts, with no iteration order. Count plus a complete handle bitset rules out selected duplicates/foreign members. The cases do not establish all topology, prepopulated queue behavior, detached/unregistered state or runtime transfer through every member. A missing getter remains an unexecuted build difference with its independent oracle unchanged.",
+        "ja": "反復順を課さずhandle集合と選択した正確な件数を使う。件数と全handle bitsetで選択重複／外部memberを排除する。全topology、内容のあるqueue、切離し／登録解除状態、全memberの実行時転送は立証しない。getter欠落は独立oracleを変えず未実行build差分に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_map_memories_enumeration_restricts_membership_to_selected_map_and_requested_hierarchy",
+          "role": "direct",
+          "expected_observations": [
+            "UT: map_memories local_count 1 local_members 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAP-SCOPE-MEMORIES-RECURSIVE",
+      "clause": "18.2.4.13",
+      "statement": {
+        "en": "HIER get_memories recursively includes the selected descendants.",
+        "ja": "HIER get_memoriesは選択した子孫を再帰的に含める。"
+      },
+      "conditions": {
+        "en": "One original three-level hierarchy contains same-name distinct registers, memories and implemented virtual registers. Each physical register has two fields; each virtual register has one field. An alternative map of the same root block owns separate contents and is not a submap. All output queues start empty.",
+        "ja": "独自3階層には同名だが別handleのregister、memory、実装済みvirtual registerを置く。各物理registerは2 field、各virtual registerは1 fieldを持つ。同じroot blockの別mapは別の内容を持ち、submapではない。出力queueは全て空で始める。"
+      },
+      "expected": {
+        "en": "HIER get_memories recursively includes the selected descendants.",
+        "ja": "HIER get_memoriesは選択した子孫を再帰的に含める。"
+      },
+      "limitations": {
+        "en": "Handle sets and exact selected counts, with no iteration order. Count plus a complete handle bitset rules out selected duplicates/foreign members. The cases do not establish all topology, prepopulated queue behavior, detached/unregistered state or runtime transfer through every member. A missing getter remains an unexecuted build difference with its independent oracle unchanged.",
+        "ja": "反復順を課さずhandle集合と選択した正確な件数を使う。件数と全handle bitsetで選択重複／外部memberを排除する。全topology、内容のあるqueue、切離し／登録解除状態、全memberの実行時転送は立証しない。getter欠落は独立oracleを変えず未実行build差分に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_map_memories_enumeration_restricts_membership_to_selected_map_and_requested_hierarchy",
+          "role": "direct",
+          "expected_observations": [
+            "UT: map_memories recursive_count 3 recursive_members 7"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAP-SCOPE-MEMORIES-DEFAULT",
+      "clause": "18.2.4.13",
+      "statement": {
+        "en": "Omitting get_memories hier returns the same selected recursive membership.",
+        "ja": "get_memoriesのhier省略は同じ選択再帰memberを返す。"
+      },
+      "conditions": {
+        "en": "One original three-level hierarchy contains same-name distinct registers, memories and implemented virtual registers. Each physical register has two fields; each virtual register has one field. An alternative map of the same root block owns separate contents and is not a submap. All output queues start empty.",
+        "ja": "独自3階層には同名だが別handleのregister、memory、実装済みvirtual registerを置く。各物理registerは2 field、各virtual registerは1 fieldを持つ。同じroot blockの別mapは別の内容を持ち、submapではない。出力queueは全て空で始める。"
+      },
+      "expected": {
+        "en": "Omitting get_memories hier returns the same selected recursive membership.",
+        "ja": "get_memoriesのhier省略は同じ選択再帰memberを返す。"
+      },
+      "limitations": {
+        "en": "Handle sets and exact selected counts, with no iteration order. Count plus a complete handle bitset rules out selected duplicates/foreign members. The cases do not establish all topology, prepopulated queue behavior, detached/unregistered state or runtime transfer through every member. A missing getter remains an unexecuted build difference with its independent oracle unchanged.",
+        "ja": "反復順を課さずhandle集合と選択した正確な件数を使う。件数と全handle bitsetで選択重複／外部memberを排除する。全topology、内容のあるqueue、切離し／登録解除状態、全memberの実行時転送は立証しない。getter欠落は独立oracleを変えず未実行build差分に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_map_memories_enumeration_restricts_membership_to_selected_map_and_requested_hierarchy",
+          "role": "direct",
+          "expected_observations": [
+            "UT: map_memories default_count 3 default_members 7"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAP-SCOPE-MEMORIES-MAP-SCOPE",
+      "clause": "18.2.4.13",
+      "statement": {
+        "en": "Selected get_memories excludes an alternative map of the same block, and a child-map query excludes ancestor contents.",
+        "ja": "選択get_memoriesは同じblockの別mapを除外し、child-map照会は祖先の内容を除外する。"
+      },
+      "conditions": {
+        "en": "One original three-level hierarchy contains same-name distinct registers, memories and implemented virtual registers. Each physical register has two fields; each virtual register has one field. An alternative map of the same root block owns separate contents and is not a submap. All output queues start empty.",
+        "ja": "独自3階層には同名だが別handleのregister、memory、実装済みvirtual registerを置く。各物理registerは2 field、各virtual registerは1 fieldを持つ。同じroot blockの別mapは別の内容を持ち、submapではない。出力queueは全て空で始める。"
+      },
+      "expected": {
+        "en": "Selected get_memories excludes an alternative map of the same block, and a child-map query excludes ancestor contents.",
+        "ja": "選択get_memoriesは同じblockの別mapを除外し、child-map照会は祖先の内容を除外する。"
+      },
+      "limitations": {
+        "en": "Handle sets and exact selected counts, with no iteration order. Count plus a complete handle bitset rules out selected duplicates/foreign members. The cases do not establish all topology, prepopulated queue behavior, detached/unregistered state or runtime transfer through every member. A missing getter remains an unexecuted build difference with its independent oracle unchanged.",
+        "ja": "反復順を課さずhandle集合と選択した正確な件数を使う。件数と全handle bitsetで選択重複／外部memberを排除する。全topology、内容のあるqueue、切離し／登録解除状態、全memberの実行時転送は立証しない。getter欠落は独立oracleを変えず未実行build差分に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_map_memories_enumeration_restricts_membership_to_selected_map_and_requested_hierarchy",
+          "role": "direct",
+          "expected_observations": [
+            "UT: map_memories child_count 2 child_members 6",
+            "UT: map_memories recursive_count 3 recursive_members 7"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAP-SCOPE-VIRTUAL-REGISTERS-LOCAL",
+      "clause": "18.2.4.14",
+      "statement": {
+        "en": "NO_HIER get_virtual_registers returns the selected directly instantiated map members.",
+        "ja": "NO_HIER get_virtual_registersは選択した直接のmap memberを返す。"
+      },
+      "conditions": {
+        "en": "One original three-level hierarchy contains same-name distinct registers, memories and implemented virtual registers. Each physical register has two fields; each virtual register has one field. An alternative map of the same root block owns separate contents and is not a submap. All output queues start empty.",
+        "ja": "独自3階層には同名だが別handleのregister、memory、実装済みvirtual registerを置く。各物理registerは2 field、各virtual registerは1 fieldを持つ。同じroot blockの別mapは別の内容を持ち、submapではない。出力queueは全て空で始める。"
+      },
+      "expected": {
+        "en": "NO_HIER get_virtual_registers returns the selected directly instantiated map members.",
+        "ja": "NO_HIER get_virtual_registersは選択した直接のmap memberを返す。"
+      },
+      "limitations": {
+        "en": "Handle sets and exact selected counts, with no iteration order. Count plus a complete handle bitset rules out selected duplicates/foreign members. The cases do not establish all topology, prepopulated queue behavior, detached/unregistered state or runtime transfer through every member. A missing getter remains an unexecuted build difference with its independent oracle unchanged.",
+        "ja": "反復順を課さずhandle集合と選択した正確な件数を使う。件数と全handle bitsetで選択重複／外部memberを排除する。全topology、内容のあるqueue、切離し／登録解除状態、全memberの実行時転送は立証しない。getter欠落は独立oracleを変えず未実行build差分に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_map_virtual_registers_enumeration_restricts_membership_to_selected_map_and_hierarchy",
+          "role": "direct",
+          "expected_observations": [
+            "UT: map_virtual_registers local_count 1 local_members 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAP-SCOPE-VIRTUAL-REGISTERS-RECURSIVE",
+      "clause": "18.2.4.14",
+      "statement": {
+        "en": "HIER get_virtual_registers recursively includes the selected descendants.",
+        "ja": "HIER get_virtual_registersは選択した子孫を再帰的に含める。"
+      },
+      "conditions": {
+        "en": "One original three-level hierarchy contains same-name distinct registers, memories and implemented virtual registers. Each physical register has two fields; each virtual register has one field. An alternative map of the same root block owns separate contents and is not a submap. All output queues start empty.",
+        "ja": "独自3階層には同名だが別handleのregister、memory、実装済みvirtual registerを置く。各物理registerは2 field、各virtual registerは1 fieldを持つ。同じroot blockの別mapは別の内容を持ち、submapではない。出力queueは全て空で始める。"
+      },
+      "expected": {
+        "en": "HIER get_virtual_registers recursively includes the selected descendants.",
+        "ja": "HIER get_virtual_registersは選択した子孫を再帰的に含める。"
+      },
+      "limitations": {
+        "en": "Handle sets and exact selected counts, with no iteration order. Count plus a complete handle bitset rules out selected duplicates/foreign members. The cases do not establish all topology, prepopulated queue behavior, detached/unregistered state or runtime transfer through every member. A missing getter remains an unexecuted build difference with its independent oracle unchanged.",
+        "ja": "反復順を課さずhandle集合と選択した正確な件数を使う。件数と全handle bitsetで選択重複／外部memberを排除する。全topology、内容のあるqueue、切離し／登録解除状態、全memberの実行時転送は立証しない。getter欠落は独立oracleを変えず未実行build差分に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_map_virtual_registers_enumeration_restricts_membership_to_selected_map_and_hierarchy",
+          "role": "direct",
+          "expected_observations": [
+            "UT: map_virtual_registers recursive_count 3 recursive_members 7"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAP-SCOPE-VIRTUAL-REGISTERS-DEFAULT",
+      "clause": "18.2.4.14",
+      "statement": {
+        "en": "Omitting get_virtual_registers hier returns the same selected recursive membership.",
+        "ja": "get_virtual_registersのhier省略は同じ選択再帰memberを返す。"
+      },
+      "conditions": {
+        "en": "One original three-level hierarchy contains same-name distinct registers, memories and implemented virtual registers. Each physical register has two fields; each virtual register has one field. An alternative map of the same root block owns separate contents and is not a submap. All output queues start empty.",
+        "ja": "独自3階層には同名だが別handleのregister、memory、実装済みvirtual registerを置く。各物理registerは2 field、各virtual registerは1 fieldを持つ。同じroot blockの別mapは別の内容を持ち、submapではない。出力queueは全て空で始める。"
+      },
+      "expected": {
+        "en": "Omitting get_virtual_registers hier returns the same selected recursive membership.",
+        "ja": "get_virtual_registersのhier省略は同じ選択再帰memberを返す。"
+      },
+      "limitations": {
+        "en": "Handle sets and exact selected counts, with no iteration order. Count plus a complete handle bitset rules out selected duplicates/foreign members. The cases do not establish all topology, prepopulated queue behavior, detached/unregistered state or runtime transfer through every member. A missing getter remains an unexecuted build difference with its independent oracle unchanged.",
+        "ja": "反復順を課さずhandle集合と選択した正確な件数を使う。件数と全handle bitsetで選択重複／外部memberを排除する。全topology、内容のあるqueue、切離し／登録解除状態、全memberの実行時転送は立証しない。getter欠落は独立oracleを変えず未実行build差分に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_map_virtual_registers_enumeration_restricts_membership_to_selected_map_and_hierarchy",
+          "role": "direct",
+          "expected_observations": [
+            "UT: map_virtual_registers default_count 3 default_members 7"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAP-SCOPE-VIRTUAL-REGISTERS-MAP-SCOPE",
+      "clause": "18.2.4.14",
+      "statement": {
+        "en": "Selected get_virtual_registers excludes an alternative map of the same block, and a child-map query excludes ancestor contents.",
+        "ja": "選択get_virtual_registersは同じblockの別mapを除外し、child-map照会は祖先の内容を除外する。"
+      },
+      "conditions": {
+        "en": "One original three-level hierarchy contains same-name distinct registers, memories and implemented virtual registers. Each physical register has two fields; each virtual register has one field. An alternative map of the same root block owns separate contents and is not a submap. All output queues start empty.",
+        "ja": "独自3階層には同名だが別handleのregister、memory、実装済みvirtual registerを置く。各物理registerは2 field、各virtual registerは1 fieldを持つ。同じroot blockの別mapは別の内容を持ち、submapではない。出力queueは全て空で始める。"
+      },
+      "expected": {
+        "en": "Selected get_virtual_registers excludes an alternative map of the same block, and a child-map query excludes ancestor contents.",
+        "ja": "選択get_virtual_registersは同じblockの別mapを除外し、child-map照会は祖先の内容を除外する。"
+      },
+      "limitations": {
+        "en": "Handle sets and exact selected counts, with no iteration order. Count plus a complete handle bitset rules out selected duplicates/foreign members. The cases do not establish all topology, prepopulated queue behavior, detached/unregistered state or runtime transfer through every member. A missing getter remains an unexecuted build difference with its independent oracle unchanged.",
+        "ja": "反復順を課さずhandle集合と選択した正確な件数を使う。件数と全handle bitsetで選択重複／外部memberを排除する。全topology、内容のあるqueue、切離し／登録解除状態、全memberの実行時転送は立証しない。getter欠落は独立oracleを変えず未実行build差分に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_map_virtual_registers_enumeration_restricts_membership_to_selected_map_and_hierarchy",
+          "role": "direct",
+          "expected_observations": [
+            "UT: map_virtual_registers child_count 2 child_members 6",
+            "UT: map_virtual_registers recursive_count 3 recursive_members 7"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAP-SCOPE-VIRTUAL-FIELDS-LOCAL",
+      "clause": "18.2.4.15",
+      "statement": {
+        "en": "NO_HIER get_virtual_fields returns the selected directly instantiated map members.",
+        "ja": "NO_HIER get_virtual_fieldsは選択した直接のmap memberを返す。"
+      },
+      "conditions": {
+        "en": "One original three-level hierarchy contains same-name distinct registers, memories and implemented virtual registers. Each physical register has two fields; each virtual register has one field. An alternative map of the same root block owns separate contents and is not a submap. All output queues start empty.",
+        "ja": "独自3階層には同名だが別handleのregister、memory、実装済みvirtual registerを置く。各物理registerは2 field、各virtual registerは1 fieldを持つ。同じroot blockの別mapは別の内容を持ち、submapではない。出力queueは全て空で始める。"
+      },
+      "expected": {
+        "en": "NO_HIER get_virtual_fields returns the selected directly instantiated map members.",
+        "ja": "NO_HIER get_virtual_fieldsは選択した直接のmap memberを返す。"
+      },
+      "limitations": {
+        "en": "Handle sets and exact selected counts, with no iteration order. Count plus a complete handle bitset rules out selected duplicates/foreign members. The cases do not establish all topology, prepopulated queue behavior, detached/unregistered state or runtime transfer through every member. A missing getter remains an unexecuted build difference with its independent oracle unchanged.",
+        "ja": "反復順を課さずhandle集合と選択した正確な件数を使う。件数と全handle bitsetで選択重複／外部memberを排除する。全topology、内容のあるqueue、切離し／登録解除状態、全memberの実行時転送は立証しない。getter欠落は独立oracleを変えず未実行build差分に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_map_virtual_fields_enumeration_restricts_membership_to_selected_map_and_hierarchy",
+          "role": "direct",
+          "expected_observations": [
+            "UT: map_virtual_fields local_count 1 local_members 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAP-SCOPE-VIRTUAL-FIELDS-RECURSIVE",
+      "clause": "18.2.4.15",
+      "statement": {
+        "en": "HIER get_virtual_fields recursively includes the selected descendants.",
+        "ja": "HIER get_virtual_fieldsは選択した子孫を再帰的に含める。"
+      },
+      "conditions": {
+        "en": "One original three-level hierarchy contains same-name distinct registers, memories and implemented virtual registers. Each physical register has two fields; each virtual register has one field. An alternative map of the same root block owns separate contents and is not a submap. All output queues start empty.",
+        "ja": "独自3階層には同名だが別handleのregister、memory、実装済みvirtual registerを置く。各物理registerは2 field、各virtual registerは1 fieldを持つ。同じroot blockの別mapは別の内容を持ち、submapではない。出力queueは全て空で始める。"
+      },
+      "expected": {
+        "en": "HIER get_virtual_fields recursively includes the selected descendants.",
+        "ja": "HIER get_virtual_fieldsは選択した子孫を再帰的に含める。"
+      },
+      "limitations": {
+        "en": "Handle sets and exact selected counts, with no iteration order. Count plus a complete handle bitset rules out selected duplicates/foreign members. The cases do not establish all topology, prepopulated queue behavior, detached/unregistered state or runtime transfer through every member. A missing getter remains an unexecuted build difference with its independent oracle unchanged.",
+        "ja": "反復順を課さずhandle集合と選択した正確な件数を使う。件数と全handle bitsetで選択重複／外部memberを排除する。全topology、内容のあるqueue、切離し／登録解除状態、全memberの実行時転送は立証しない。getter欠落は独立oracleを変えず未実行build差分に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_map_virtual_fields_enumeration_restricts_membership_to_selected_map_and_hierarchy",
+          "role": "direct",
+          "expected_observations": [
+            "UT: map_virtual_fields recursive_count 3 recursive_members 7"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAP-SCOPE-VIRTUAL-FIELDS-DEFAULT",
+      "clause": "18.2.4.15",
+      "statement": {
+        "en": "Omitting get_virtual_fields hier returns the same selected recursive membership.",
+        "ja": "get_virtual_fieldsのhier省略は同じ選択再帰memberを返す。"
+      },
+      "conditions": {
+        "en": "One original three-level hierarchy contains same-name distinct registers, memories and implemented virtual registers. Each physical register has two fields; each virtual register has one field. An alternative map of the same root block owns separate contents and is not a submap. All output queues start empty.",
+        "ja": "独自3階層には同名だが別handleのregister、memory、実装済みvirtual registerを置く。各物理registerは2 field、各virtual registerは1 fieldを持つ。同じroot blockの別mapは別の内容を持ち、submapではない。出力queueは全て空で始める。"
+      },
+      "expected": {
+        "en": "Omitting get_virtual_fields hier returns the same selected recursive membership.",
+        "ja": "get_virtual_fieldsのhier省略は同じ選択再帰memberを返す。"
+      },
+      "limitations": {
+        "en": "Handle sets and exact selected counts, with no iteration order. Count plus a complete handle bitset rules out selected duplicates/foreign members. The cases do not establish all topology, prepopulated queue behavior, detached/unregistered state or runtime transfer through every member. A missing getter remains an unexecuted build difference with its independent oracle unchanged.",
+        "ja": "反復順を課さずhandle集合と選択した正確な件数を使う。件数と全handle bitsetで選択重複／外部memberを排除する。全topology、内容のあるqueue、切離し／登録解除状態、全memberの実行時転送は立証しない。getter欠落は独立oracleを変えず未実行build差分に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_map_virtual_fields_enumeration_restricts_membership_to_selected_map_and_hierarchy",
+          "role": "direct",
+          "expected_observations": [
+            "UT: map_virtual_fields default_count 3 default_members 7"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAP-SCOPE-VIRTUAL-FIELDS-MAP-SCOPE",
+      "clause": "18.2.4.15",
+      "statement": {
+        "en": "Selected get_virtual_fields excludes an alternative map of the same block, and a child-map query excludes ancestor contents.",
+        "ja": "選択get_virtual_fieldsは同じblockの別mapを除外し、child-map照会は祖先の内容を除外する。"
+      },
+      "conditions": {
+        "en": "One original three-level hierarchy contains same-name distinct registers, memories and implemented virtual registers. Each physical register has two fields; each virtual register has one field. An alternative map of the same root block owns separate contents and is not a submap. All output queues start empty.",
+        "ja": "独自3階層には同名だが別handleのregister、memory、実装済みvirtual registerを置く。各物理registerは2 field、各virtual registerは1 fieldを持つ。同じroot blockの別mapは別の内容を持ち、submapではない。出力queueは全て空で始める。"
+      },
+      "expected": {
+        "en": "Selected get_virtual_fields excludes an alternative map of the same block, and a child-map query excludes ancestor contents.",
+        "ja": "選択get_virtual_fieldsは同じblockの別mapを除外し、child-map照会は祖先の内容を除外する。"
+      },
+      "limitations": {
+        "en": "Handle sets and exact selected counts, with no iteration order. Count plus a complete handle bitset rules out selected duplicates/foreign members. The cases do not establish all topology, prepopulated queue behavior, detached/unregistered state or runtime transfer through every member. A missing getter remains an unexecuted build difference with its independent oracle unchanged.",
+        "ja": "反復順を課さずhandle集合と選択した正確な件数を使う。件数と全handle bitsetで選択重複／外部memberを排除する。全topology、内容のあるqueue、切離し／登録解除状態、全memberの実行時転送は立証しない。getter欠落は独立oracleを変えず未実行build差分に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_map_virtual_fields_enumeration_restricts_membership_to_selected_map_and_hierarchy",
+          "role": "direct",
+          "expected_observations": [
+            "UT: map_virtual_fields child_count 2 child_members 6",
+            "UT: map_virtual_fields recursive_count 3 recursive_members 7"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAP-SCOPE-MEMORY-LOOKUP-BYTE-INTERIOR",
+      "clause": "18.2.4.18",
+      "statement": {
+        "en": "Memory lookup in selected byte units returns the same memory for first, interior and last occupied locations.",
+        "ja": "選択byte単位のmemory lookupは先頭・内部・最後の占有locationで同じmemoryを返す。"
+      },
+      "conditions": {
+        "en": "Locked zero-base maps avoid conflating the offset contract with external-base wording. Byte addressing uses four 16-bit entries on a one-byte bus; word addressing uses three 64-bit entries on a four-byte bus. A separate map contains a different memory at the same offset.",
+        "ja": "lock済みbase 0 mapを使い、offset契約とexternal-base文言を混同しない。byte addressingは1-byte bus上の16-bit 4 entry、word addressingは4-byte bus上の64-bit 3 entryを使う。別mapには同offsetの別memoryを置く。"
+      },
+      "expected": {
+        "en": "Memory lookup in selected byte units returns the same memory for first, interior and last occupied locations.",
+        "ja": "選択byte単位のmemory lookupは先頭・内部・最後の占有locationで同じmemoryを返す。"
+      },
+      "limitations": {
+        "en": "Selected contiguous aligned full-beat ranges and explicit known empty neighboring addresses. No root-base ambiguity, all partial-byte layouts, overlapping physical memories, unaligned mapping, invalid ownership or actual memory bus transfer is certified.",
+        "ja": "選択した連続・整列・全beat範囲と、空と分かる隣接addressだけ。root-baseの曖昧さ、全端数byte layout、重複物理memory、非整列map、不正所有、実memory bus転送は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_map_memory_lookup_byte_units_cover_interior_and_last_locations_and_exclude_gaps",
+          "role": "direct",
+          "expected_observations": [
+            "UT: mem_lookup_byte first 1 interior 1 last 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAP-SCOPE-MEMORY-LOOKUP-BYTE-MISSING",
+      "clause": "18.2.4.18",
+      "statement": {
+        "en": "Memory lookup in selected byte units returns null immediately before and after the occupied range.",
+        "ja": "選択byte単位のmemory lookupは占有範囲の直前／直後でnullを返す。"
+      },
+      "conditions": {
+        "en": "Locked zero-base maps avoid conflating the offset contract with external-base wording. Byte addressing uses four 16-bit entries on a one-byte bus; word addressing uses three 64-bit entries on a four-byte bus. A separate map contains a different memory at the same offset.",
+        "ja": "lock済みbase 0 mapを使い、offset契約とexternal-base文言を混同しない。byte addressingは1-byte bus上の16-bit 4 entry、word addressingは4-byte bus上の64-bit 3 entryを使う。別mapには同offsetの別memoryを置く。"
+      },
+      "expected": {
+        "en": "Memory lookup in selected byte units returns null immediately before and after the occupied range.",
+        "ja": "選択byte単位のmemory lookupは占有範囲の直前／直後でnullを返す。"
+      },
+      "limitations": {
+        "en": "Selected contiguous aligned full-beat ranges and explicit known empty neighboring addresses. No root-base ambiguity, all partial-byte layouts, overlapping physical memories, unaligned mapping, invalid ownership or actual memory bus transfer is certified.",
+        "ja": "選択した連続・整列・全beat範囲と、空と分かる隣接addressだけ。root-baseの曖昧さ、全端数byte layout、重複物理memory、非整列map、不正所有、実memory bus転送は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_map_memory_lookup_byte_units_cover_interior_and_last_locations_and_exclude_gaps",
+          "role": "direct",
+          "expected_observations": [
+            "UT: mem_lookup_byte before_null 1 after_null 1 other_map 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAP-SCOPE-MEMORY-LOOKUP-BYTE-MAP-LOCAL",
+      "clause": "18.2.4.18",
+      "statement": {
+        "en": "Memory lookup at the same selected byte offset is local to each distinct map.",
+        "ja": "同じ選択byte offsetのmemory lookupは各別mapにlocalである。"
+      },
+      "conditions": {
+        "en": "Locked zero-base maps avoid conflating the offset contract with external-base wording. Byte addressing uses four 16-bit entries on a one-byte bus; word addressing uses three 64-bit entries on a four-byte bus. A separate map contains a different memory at the same offset.",
+        "ja": "lock済みbase 0 mapを使い、offset契約とexternal-base文言を混同しない。byte addressingは1-byte bus上の16-bit 4 entry、word addressingは4-byte bus上の64-bit 3 entryを使う。別mapには同offsetの別memoryを置く。"
+      },
+      "expected": {
+        "en": "Memory lookup at the same selected byte offset is local to each distinct map.",
+        "ja": "同じ選択byte offsetのmemory lookupは各別mapにlocalである。"
+      },
+      "limitations": {
+        "en": "Selected contiguous aligned full-beat ranges and explicit known empty neighboring addresses. No root-base ambiguity, all partial-byte layouts, overlapping physical memories, unaligned mapping, invalid ownership or actual memory bus transfer is certified.",
+        "ja": "選択した連続・整列・全beat範囲と、空と分かる隣接addressだけ。root-baseの曖昧さ、全端数byte layout、重複物理memory、非整列map、不正所有、実memory bus転送は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_map_memory_lookup_byte_units_cover_interior_and_last_locations_and_exclude_gaps",
+          "role": "direct",
+          "expected_observations": [
+            "UT: mem_lookup_byte before_null 1 after_null 1 other_map 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAP-SCOPE-MEMORY-LOOKUP-WORD-INTERIOR",
+      "clause": "18.2.4.18",
+      "statement": {
+        "en": "Memory lookup in selected word units returns the same memory for first, interior and last occupied locations.",
+        "ja": "選択word単位のmemory lookupは先頭・内部・最後の占有locationで同じmemoryを返す。"
+      },
+      "conditions": {
+        "en": "Locked zero-base maps avoid conflating the offset contract with external-base wording. Byte addressing uses four 16-bit entries on a one-byte bus; word addressing uses three 64-bit entries on a four-byte bus. A separate map contains a different memory at the same offset.",
+        "ja": "lock済みbase 0 mapを使い、offset契約とexternal-base文言を混同しない。byte addressingは1-byte bus上の16-bit 4 entry、word addressingは4-byte bus上の64-bit 3 entryを使う。別mapには同offsetの別memoryを置く。"
+      },
+      "expected": {
+        "en": "Memory lookup in selected word units returns the same memory for first, interior and last occupied locations.",
+        "ja": "選択word単位のmemory lookupは先頭・内部・最後の占有locationで同じmemoryを返す。"
+      },
+      "limitations": {
+        "en": "Selected contiguous aligned full-beat ranges and explicit known empty neighboring addresses. No root-base ambiguity, all partial-byte layouts, overlapping physical memories, unaligned mapping, invalid ownership or actual memory bus transfer is certified.",
+        "ja": "選択した連続・整列・全beat範囲と、空と分かる隣接addressだけ。root-baseの曖昧さ、全端数byte layout、重複物理memory、非整列map、不正所有、実memory bus転送は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_map_memory_lookup_word_units_cover_interior_and_last_locations_and_exclude_gaps",
+          "role": "direct",
+          "expected_observations": [
+            "UT: mem_lookup_word first 1 interior 1 last 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAP-SCOPE-MEMORY-LOOKUP-WORD-MISSING",
+      "clause": "18.2.4.18",
+      "statement": {
+        "en": "Memory lookup in selected word units returns null immediately before and after the occupied range.",
+        "ja": "選択word単位のmemory lookupは占有範囲の直前／直後でnullを返す。"
+      },
+      "conditions": {
+        "en": "Locked zero-base maps avoid conflating the offset contract with external-base wording. Byte addressing uses four 16-bit entries on a one-byte bus; word addressing uses three 64-bit entries on a four-byte bus. A separate map contains a different memory at the same offset.",
+        "ja": "lock済みbase 0 mapを使い、offset契約とexternal-base文言を混同しない。byte addressingは1-byte bus上の16-bit 4 entry、word addressingは4-byte bus上の64-bit 3 entryを使う。別mapには同offsetの別memoryを置く。"
+      },
+      "expected": {
+        "en": "Memory lookup in selected word units returns null immediately before and after the occupied range.",
+        "ja": "選択word単位のmemory lookupは占有範囲の直前／直後でnullを返す。"
+      },
+      "limitations": {
+        "en": "Selected contiguous aligned full-beat ranges and explicit known empty neighboring addresses. No root-base ambiguity, all partial-byte layouts, overlapping physical memories, unaligned mapping, invalid ownership or actual memory bus transfer is certified.",
+        "ja": "選択した連続・整列・全beat範囲と、空と分かる隣接addressだけ。root-baseの曖昧さ、全端数byte layout、重複物理memory、非整列map、不正所有、実memory bus転送は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_map_memory_lookup_word_units_cover_interior_and_last_locations_and_exclude_gaps",
+          "role": "direct",
+          "expected_observations": [
+            "UT: mem_lookup_word before_null 1 after_null 1 other_map 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAP-SCOPE-MEMORY-LOOKUP-WORD-MAP-LOCAL",
+      "clause": "18.2.4.18",
+      "statement": {
+        "en": "Memory lookup at the same selected word offset is local to each distinct map.",
+        "ja": "同じ選択word offsetのmemory lookupは各別mapにlocalである。"
+      },
+      "conditions": {
+        "en": "Locked zero-base maps avoid conflating the offset contract with external-base wording. Byte addressing uses four 16-bit entries on a one-byte bus; word addressing uses three 64-bit entries on a four-byte bus. A separate map contains a different memory at the same offset.",
+        "ja": "lock済みbase 0 mapを使い、offset契約とexternal-base文言を混同しない。byte addressingは1-byte bus上の16-bit 4 entry、word addressingは4-byte bus上の64-bit 3 entryを使う。別mapには同offsetの別memoryを置く。"
+      },
+      "expected": {
+        "en": "Memory lookup at the same selected word offset is local to each distinct map.",
+        "ja": "同じ選択word offsetのmemory lookupは各別mapにlocalである。"
+      },
+      "limitations": {
+        "en": "Selected contiguous aligned full-beat ranges and explicit known empty neighboring addresses. No root-base ambiguity, all partial-byte layouts, overlapping physical memories, unaligned mapping, invalid ownership or actual memory bus transfer is certified.",
+        "ja": "選択した連続・整列・全beat範囲と、空と分かる隣接addressだけ。root-baseの曖昧さ、全端数byte layout、重複物理memory、非整列map、不正所有、実memory bus転送は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_map_memory_lookup_word_units_cover_interior_and_last_locations_and_exclude_gaps",
+          "role": "direct",
+          "expected_observations": [
+            "UT: mem_lookup_word before_null 1 after_null 1 other_map 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAP-SCOPE-MEMORY-MULTI-INTERFACE",
+      "clause": "18.2.3.4",
+      "statement": {
+        "en": "The selected memory can belong to two interfaces with independent offsets and rights.",
+        "ja": "選択memoryは独立offset／rightsを持つ2 interfaceへ所属できる。"
+      },
+      "conditions": {
+        "en": "Selected valid memory ownership, multiple interfaces or an explicitly supplied original custom frontdoor. The unmapped memory has a nominal offset overlapping a real mapped memory, while its custom sequence implements logical location storage and reports successful completion.",
+        "ja": "選択した合法memory所有、複数interface、または明示供給した独自custom frontdoorを使う。unmapped memoryの名目offsetは実mapped memoryと重ね、custom sequenceが論理location storageを実装して成功完了を報告する。"
+      },
+      "expected": {
+        "en": "The selected memory can belong to two interfaces with independent offsets and rights.",
+        "ja": "選択memoryは独立offset／rightsを持つ2 interfaceへ所属できる。"
+      },
+      "limitations": {
+        "en": "Selected RW/default rights and separate RO/WO interface metadata only. Custom sequence storage is not a physical HDL or built-in bus backend. No missing-frontdoor diagnostic, invalid owner response, all access policies or complete failure protocol is imposed. Unmapped content does not occupy a physical address despite its nominal offset.",
+        "ja": "選択RW／既定rightsと別RO／WO interface metadataだけ。custom sequence storageは物理HDL／組み込みbus backendではない。frontdoor欠落診断、不正owner応答、全access policy、完全な失敗protocolを課さない。unmapped内容は名目offsetがあっても物理addressを占有しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_mem_two_interface_maps_preserve_membership_addresses_and_rights",
+          "role": "direct",
+          "expected_observations": [
+            "UT: maps 2 listed 2 members 1 1 errors 0",
+            "UT: addresses 110 320 rights RO WO"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAP-SCOPE-MEMORY-DEFAULT-RIGHTS",
+      "clause": "18.2.3.4",
+      "statement": {
+        "en": "Omitting add_mem rights gives the selected mapped memory RW rights.",
+        "ja": "add_memのrights省略は選択mapped memoryをRW rightsにする。"
+      },
+      "conditions": {
+        "en": "Selected valid memory ownership, multiple interfaces or an explicitly supplied original custom frontdoor. The unmapped memory has a nominal offset overlapping a real mapped memory, while its custom sequence implements logical location storage and reports successful completion.",
+        "ja": "選択した合法memory所有、複数interface、または明示供給した独自custom frontdoorを使う。unmapped memoryの名目offsetは実mapped memoryと重ね、custom sequenceが論理location storageを実装して成功完了を報告する。"
+      },
+      "expected": {
+        "en": "Omitting add_mem rights gives the selected mapped memory RW rights.",
+        "ja": "add_memのrights省略は選択mapped memoryをRW rightsにする。"
+      },
+      "limitations": {
+        "en": "Selected RW/default rights and separate RO/WO interface metadata only. Custom sequence storage is not a physical HDL or built-in bus backend. No missing-frontdoor diagnostic, invalid owner response, all access policies or complete failure protocol is imposed. Unmapped content does not occupy a physical address despite its nominal offset.",
+        "ja": "選択RW／既定rightsと別RO／WO interface metadataだけ。custom sequence storageは物理HDL／組み込みbus backendではない。frontdoor欠落診断、不正owner応答、全access policy、完全な失敗protocolを課さない。unmapped内容は名目offsetがあっても物理addressを占有しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_map_unmapped_memory_uses_custom_frontdoor_and_ignores_its_nominal_physical_offset",
+          "role": "direct",
+          "expected_observations": [
+            "UT: unmapped_memory physical_only 1 after_null 1 default_rights 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAP-SCOPE-MEMORY-UNMAPPED-NO-ADDRESS",
+      "clause": "18.2.3.4",
+      "statement": {
+        "en": "An unmapped memory does not replace the real physical lookup entry at its ignored nominal offset.",
+        "ja": "unmapped memoryは無視される名目offsetの実physical lookup entryを置換しない。"
+      },
+      "conditions": {
+        "en": "Selected valid memory ownership, multiple interfaces or an explicitly supplied original custom frontdoor. The unmapped memory has a nominal offset overlapping a real mapped memory, while its custom sequence implements logical location storage and reports successful completion.",
+        "ja": "選択した合法memory所有、複数interface、または明示供給した独自custom frontdoorを使う。unmapped memoryの名目offsetは実mapped memoryと重ね、custom sequenceが論理location storageを実装して成功完了を報告する。"
+      },
+      "expected": {
+        "en": "An unmapped memory does not replace the real physical lookup entry at its ignored nominal offset.",
+        "ja": "unmapped memoryは無視される名目offsetの実physical lookup entryを置換しない。"
+      },
+      "limitations": {
+        "en": "Selected RW/default rights and separate RO/WO interface metadata only. Custom sequence storage is not a physical HDL or built-in bus backend. No missing-frontdoor diagnostic, invalid owner response, all access policies or complete failure protocol is imposed. Unmapped content does not occupy a physical address despite its nominal offset.",
+        "ja": "選択RW／既定rightsと別RO／WO interface metadataだけ。custom sequence storageは物理HDL／組み込みbus backendではない。frontdoor欠落診断、不正owner応答、全access policy、完全な失敗protocolを課さない。unmapped内容は名目offsetがあっても物理addressを占有しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_map_unmapped_memory_uses_custom_frontdoor_and_ignores_its_nominal_physical_offset",
+          "role": "direct",
+          "expected_observations": [
+            "UT: unmapped_memory physical_only 1 after_null 1 default_rights 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAP-SCOPE-MEMORY-UNMAPPED-FRONTDOOR",
+      "clause": "18.2.3.4",
+      "statement": {
+        "en": "The explicitly supplied frontdoor accesses the selected unmapped memory logical location.",
+        "ja": "明示供給したfrontdoorは選択unmapped memoryの論理locationへアクセスする。"
+      },
+      "conditions": {
+        "en": "Selected valid memory ownership, multiple interfaces or an explicitly supplied original custom frontdoor. The unmapped memory has a nominal offset overlapping a real mapped memory, while its custom sequence implements logical location storage and reports successful completion.",
+        "ja": "選択した合法memory所有、複数interface、または明示供給した独自custom frontdoorを使う。unmapped memoryの名目offsetは実mapped memoryと重ね、custom sequenceが論理location storageを実装して成功完了を報告する。"
+      },
+      "expected": {
+        "en": "The explicitly supplied frontdoor accesses the selected unmapped memory logical location.",
+        "ja": "明示供給したfrontdoorは選択unmapped memoryの論理locationへアクセスする。"
+      },
+      "limitations": {
+        "en": "Selected RW/default rights and separate RO/WO interface metadata only. Custom sequence storage is not a physical HDL or built-in bus backend. No missing-frontdoor diagnostic, invalid owner response, all access policies or complete failure protocol is imposed. Unmapped content does not occupy a physical address despite its nominal offset.",
+        "ja": "選択RW／既定rightsと別RO／WO interface metadataだけ。custom sequence storageは物理HDL／組み込みbus backendではない。frontdoor欠落診断、不正owner応答、全access policy、完全な失敗protocolを課さない。unmapped内容は名目offsetがあっても物理addressを占有しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_map_unmapped_memory_uses_custom_frontdoor_and_ignores_its_nominal_physical_offset",
+          "role": "direct",
+          "expected_observations": [
+            "UT: unmapped_memory access 1 value 51a3 element 1 offset 3 used 1"
+          ]
+        }
+      ]
     }
   ]
 }

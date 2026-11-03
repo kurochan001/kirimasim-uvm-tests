@@ -1,0 +1,4 @@
+UT: map_virtual_fields local_count 1 local_members 1
+UT: map_virtual_fields recursive_count 3 recursive_members 7
+UT: map_virtual_fields default_count 3 default_members 7
+UT: map_virtual_fields child_count 2 child_members 6

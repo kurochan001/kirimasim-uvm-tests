@@ -1210,3 +1210,16 @@ consults its parent. A nearer explicit block or register definition takes priori
 
 **Flattened block path**: An intermediate block has no HDL segment to contribute;
 its descendants still combine the surrounding configured path components.
+
+**Map membership boundary**: Contents belong to a selected physical-interface
+map. A different map in the same block is not automatically in that map's subtree.
+
+**System bus association**: A hierarchical map query selects the top-level bus
+sequencer/adapter; an explicit local query observes the map's own association.
+
+**Unmapped logical frontdoor**: An original access sequence services logical
+memory locations while the memory occupies no physical map addresses.
+
+**Qualified address-unit relation**: A literal reading connects word units to
+the default hierarchical get_n_bytes result. Local-width interpretations and
+an observed effective-width difference remain separate review considerations.

@@ -4314,9 +4314,69 @@
       "primary_clause": "18.7.2.2",
       "inputs_sha256": "266d1e5af393fb0bc8110082ddadbd2d862756320e9abf9b9b5d8536ca5c0637"
     },
+    "u18/test_map_address_units_distinguish_bytes_and_the_printed_default_effective_word_width": {
+      "primary_clause": "18.2.4.5",
+      "inputs_sha256": "0465bc5b1768c5c4057c6fad5a068d884db873d51c717f12093f911333a99bff"
+    },
+    "u18/test_map_constructor_object_views_and_backdoor_singleton_are_distinct_from_real_maps": {
+      "primary_clause": "18.2.3.1",
+      "inputs_sha256": "ecf59dbe24026e74ef5dd3ab6ae0f34875b3fed68abbc509e1a0645cf99fbce8"
+    },
+    "u18/test_map_endianness_queries_distinguish_local_settings_and_default_system_level": {
+      "primary_clause": "18.2.4.7",
+      "inputs_sha256": "27b28649d8775acb826c26fff1aacfcc800f03ff948340047933a81490af24d0"
+    },
+    "u18/test_map_fields_enumeration_restricts_membership_to_selected_map_and_requested_hierarchy": {
+      "primary_clause": "18.2.4.12",
+      "inputs_sha256": "e4918b28115916188491cb8889f01d7fd3838417a545590cd258acf94a5ae0de"
+    },
+    "u18/test_map_memories_enumeration_restricts_membership_to_selected_map_and_requested_hierarchy": {
+      "primary_clause": "18.2.4.13",
+      "inputs_sha256": "fafc90dcf4483f6f40b48e1dc04bf8c5bfe0c6f8c727f3951331f0afed753740"
+    },
+    "u18/test_map_memory_lookup_byte_units_cover_interior_and_last_locations_and_exclude_gaps": {
+      "primary_clause": "18.2.4.18",
+      "inputs_sha256": "fb1049aecfdfff8b89efda47619af839558dfc2105d7615ca4d88657d71da272"
+    },
+    "u18/test_map_memory_lookup_word_units_cover_interior_and_last_locations_and_exclude_gaps": {
+      "primary_clause": "18.2.4.18",
+      "inputs_sha256": "0450c056ee0200e8746595f1ba2f1465be62758674a6023a7fcf17525ff7fefa"
+    },
+    "u18/test_map_populated_word_addressing_separates_effective_bus_width_from_local_address_units": {
+      "primary_clause": "18.2.4.6",
+      "inputs_sha256": "0cdcf79ffb35833e18e8c2bf42a608bd632f0e37c35b15ff5a7b8f1a257bb466"
+    },
+    "u18/test_map_registers_enumeration_restricts_membership_to_selected_map_and_requested_hierarchy": {
+      "primary_clause": "18.2.4.11",
+      "inputs_sha256": "849d2953f00d0ddf251997b6f0189d573df0ed44c0111ac8dd5829d06c9e1022"
+    },
+    "u18/test_map_sequencer_and_adapter_queries_keep_local_and_system_settings_distinct_after_replacement": {
+      "primary_clause": "18.2.3.6",
+      "inputs_sha256": "275673e4d8bd62ec7093d72df5a0070a3d7bfac5afa617d82a25b1d85a8908af"
+    },
+    "u18/test_map_sequencer_replacement_redirects_nested_frontdoor_access_and_preserves_old_storage": {
+      "primary_clause": "18.2.3.6",
+      "inputs_sha256": "579cf4334337d1da3edd77893d7e5c7900f2a40901edfe6b94258bc6c0d7c990"
+    },
+    "u18/test_map_submaps_enumeration_restricts_membership_to_selected_map_and_requested_hierarchy": {
+      "primary_clause": "18.2.4.10",
+      "inputs_sha256": "236e905f0723bd470295610a8e09f2b91a6a1810c7f3a105871da25d0cff5d72"
+    },
+    "u18/test_map_unmapped_memory_uses_custom_frontdoor_and_ignores_its_nominal_physical_offset": {
+      "primary_clause": "18.2.3.4",
+      "inputs_sha256": "e9ac2b68db0ce09fa755b13aa359671c2e43fca085f8a84504616db0c77b45ff"
+    },
     "u18/test_map_unregister_disassociates_registers_memories_and_submaps_without_touching_a_peer": {
       "primary_clause": "18.2.3.11",
       "inputs_sha256": "3579d114c0f1cc7788ebf628f65c75db63d0974225b1f1728c6c7615f3b6337e"
+    },
+    "u18/test_map_virtual_fields_enumeration_restricts_membership_to_selected_map_and_hierarchy": {
+      "primary_clause": "18.2.4.15",
+      "inputs_sha256": "ef20675a9174b3fa8ad69652114938e0b60613785fde67a5c636686e036087cd"
+    },
+    "u18/test_map_virtual_registers_enumeration_restricts_membership_to_selected_map_and_hierarchy": {
+      "primary_clause": "18.2.4.14",
+      "inputs_sha256": "eef1ac7151c4806ae0c98e0e689338ef8426ce8576b6f1858cbd35b51f747ddb"
     },
     "u18/test_mem_big_endian_wide_location_lists_addresses_in_data_order": {
       "primary_clause": "18.6.4.17",

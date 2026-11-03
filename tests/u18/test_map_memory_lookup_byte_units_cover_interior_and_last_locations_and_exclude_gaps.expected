@@ -1,0 +1,2 @@
+UT: mem_lookup_byte first 1 interior 1 last 1
+UT: mem_lookup_byte before_null 1 after_null 1 other_map 1

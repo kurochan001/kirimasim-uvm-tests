@@ -1,0 +1,3 @@
+UT: map_bus local_sequence 1 local_adapter 1 omitted_adapter 1
+UT: map_bus system_sequence 1 system_adapter 1 explicit_hier 1
+UT: map_bus replace_sequence 1 replace_adapter 1 local_kept 1 peer_kept 1

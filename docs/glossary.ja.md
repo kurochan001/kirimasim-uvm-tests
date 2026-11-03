@@ -930,3 +930,11 @@ D.3の名前モデルアクセスはfileをuDに置いてもM3へ属します。
 **Inherited backdoor query（継承backdoor照会）**: local user-backdoor定義のないblockがparentを参照すること。より近い明示block／register定義が優先されます。
 
 **Flattened block path（flattened blockのpath）**: 中間blockは寄与するHDL segmentを持たず、子孫は周囲の設定済みpath成分を結合します。
+
+**Map membership boundary（mapの所属境界）**: 内容は選択した物理interface mapに属し、同じblockの別mapはそのmapのsubtreeへ自動的には入りません。
+
+**System bus association（system busの関連）**: 階層map照会は最上位busのsequencer／adapterを選び、明示local照会はmap自身の関連を観測します。
+
+**Unmapped logical frontdoor（unmapped論理frontdoor）**: memoryが物理map addressを占有せず、独自access sequenceが論理memory locationを処理すること。
+
+**Qualified address-unit relation（限定したaddress単位の関係）**: 字面の読み方でword単位を既定の階層get_n_bytes結果へ結び付けます。local幅の解釈と観測した有効幅差分は別の照合課題として残します。

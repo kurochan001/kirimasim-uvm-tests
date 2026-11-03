@@ -1,0 +1,4 @@
+UT: map_submaps local_count 1 local_members 1
+UT: map_submaps recursive_count 2 recursive_members 3
+UT: map_submaps default_count 2 default_members 3
+UT: map_submaps child_count 1 child_members 2

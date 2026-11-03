@@ -1,0 +1,4 @@
+UT: map_registers local_count 1 local_members 1
+UT: map_registers recursive_count 3 recursive_members 7
+UT: map_registers default_count 3 default_members 7
+UT: map_registers child_count 2 child_members 6

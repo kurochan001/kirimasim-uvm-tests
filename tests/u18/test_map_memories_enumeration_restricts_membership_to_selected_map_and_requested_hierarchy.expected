@@ -1,0 +1,4 @@
+UT: map_memories local_count 1 local_members 1
+UT: map_memories recursive_count 3 recursive_members 7
+UT: map_memories default_count 3 default_members 7
+UT: map_memories child_count 2 child_members 6

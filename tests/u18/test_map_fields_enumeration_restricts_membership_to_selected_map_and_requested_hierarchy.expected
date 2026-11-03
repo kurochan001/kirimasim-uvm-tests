@@ -1,0 +1,4 @@
+UT: map_fields local_count 2 local_members 3
+UT: map_fields recursive_count 6 recursive_members 63
+UT: map_fields default_count 6 default_members 63
+UT: map_fields child_count 4 child_members 60

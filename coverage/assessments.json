@@ -4333,6 +4333,37 @@
         "reviewer": null,
         "reviewed_at": null
       }
+    },
+    {
+      "clause": "18.2",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The map introduction describes collections of registers/memories associated with physical interfaces, hierarchical map composition and creation through the owning block API. Concrete ownership, creation, composition, membership, introspection and bus settings retain their numbered duties. This architectural context adds no independent transfer algorithm and removes none of those obligations.",
+        "ja": "map導入は物理interfaceに関連するregister／memory集合、階層map合成、所有block APIによる生成を説明する。具体的な所有、生成、合成、member、照会、bus設定は各番号付き義務へ保持する。この構成の文脈は独立転送algorithmを加えず、義務を除去しない。"
+      },
+      "related_requirements": [
+        "UVM-MAP-SCOPE-SUBMAP-COMPOSITION",
+        "UVM-MAP-SCOPE-MEMORY-MULTI-INTERFACE"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "18.2.5",
+      "classification": "structural",
+      "rationale": {
+        "en": "Bus access is a grouping heading immediately followed by five numbered auto-predict, read-check and transaction-order policy methods. The heading has no separate declaration or behavioral condition; the individual method obligations remain in their own clauses and are not certified complete.",
+        "ja": "Bus accessは直後に5つのauto-predict、read-check、transaction-order policy methodが続く分類見出しである。見出し自体に別宣言や動作条件はなく、各method義務を各条項へ保持し、完了したとは認定しない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
     }
   ]
 }

@@ -122,7 +122,7 @@ Ghostは公開前のシミュレータの仮名です。実行ファイルの識
 ### Q12. uvm_dpi: yesだけでDPIを使うビルドが完成しますか
 
 既定のマクロ一覧から`UVM_NO_DPI`を外す指定です。UVMのC/C++実装の供給・リンクは行いません。
-通常のVerilator runnerは、そのsourceを追加しません。`UVM_NO_DPI`が1583件、HDL DPIの明示選択が8件です。
+通常のVerilator runnerは、そのsourceを追加しません。`UVM_NO_DPI`が1598件、HDL DPIの明示選択が8件です。
 別の18検査系はHDLを無効にしてcommand-line／regex DPIを明示して有効化し、
 [command-line runner](testing.ja.md#verilatorのcommand-line部分集合)がその別backendをlinkします。
 [別のVPI runner](testing.ja.md#verilatorのvpi-hdl部分集合)は独自の限定backendをlinkし、結果は宣言した実行条件だけに適用します。
@@ -923,8 +923,8 @@ controlの対応は、その要求の直接の検査ではありません。
 
 ### Q77. M4を始めたのに、カバレッジ率がないのはなぜですか
 
-AIによる2716要求案は部分的な分解で、2716要求を1608テストへ直接対応付け、直接未対応は0要求、別の1テストはcontrolです。
-全1609テストに要求の対応付けがあります。2,507の条項番号は規範的要求の単位ではありません。
+AIによる2773要求案は部分的な分解で、2773要求を1623テストへ直接対応付け、直接未対応は0要求、別の1テストはcontrolです。
+全1624テストに要求の対応付けがあります。2,507の条項番号は規範的要求の単位ではありません。
 範囲は提案、棚卸しは未完、分母は未承認で、M4の開始はどれの承認にもなりません。
 既知差分やHDL／DPIの制約によって義務を暗黙に除外しません。[承認までの手順](requirements.ja.md#m4の残作業と承認)を参照してください。
 
@@ -1709,7 +1709,7 @@ user backdoorは16 bit locationをモデル化します。location独立性、�
 
 いいえ。`tests_without_requirement_links`は0で、現在の全テストに、明示的なdirectまたはcontrolの対応があります。
 別の集計`requirements_without_direct_tests`も0件です。memory-walkの対応はQ134の限定した歴史的解釈で、
-省略されたIEEEの詳細の承認ではありません。HDL depositと利用可否には、明示VPI検査系があります。catalogの識別子743件も未評価です。
+省略されたIEEEの詳細の承認ではありません。HDL depositと利用可否には、明示VPI検査系があります。catalogの識別子724件も未評価です。
 分解と人のレビューは未完で、分母は未承認です。
 
 [新しいpolicyテスト](../tests/u16/test_policy_object_stack_tracks_nested_active_policy_push_and_pop.sv)は、
@@ -1786,7 +1786,7 @@ frontdoor保護のwarningはalgorithm oracleの対象外で、ERRORと観測し�
 個別に読んだ後、日英の根拠とAI／人のレビューを[番号の分類](../coverage/assessments.json)へ記録すれば可能です。
 構造上の見出しは関連要求を持たず、文脈の説明は既存要求を指定します。
 未レビューの記録、推測した分類、親への集約では外せません。生成状態は`assessed`で、要求条項の`partial`と区別します。
-現在の分類は283件で、分母承認や新たなpassを加えません。第11章の未評価0件でも、その要求の完了ではありません。
+現在の分類は285件で、分母承認や新たなpassを加えません。第11章の未評価0件でも、その要求の完了ではありません。
 
 ### Q136. 明示strict configurationで新規検査は成功しますか？
 
@@ -2279,7 +2279,7 @@ bound get／peek portはobject headを消費せずavailabilityを報告し、liv
 ### Q193. 互換なguest部分集合が1083件へ減った理由は？
 
 command enum引用とBoolean rerandomization観測の2入力で指紋が変わり、両方をVerilatorで測定してstale guest記録を除外しました。
-歴史的な1085記録の出典fileは保持します。現在の再利用は1083入力、未測定526件は追加524件と修正した既存2入力です。
+歴史的な1085記録の出典fileは保持します。現在の再利用は1083入力、未測定541件は追加539件と修正した既存2入力です。
 guest再実行や新しい結果は主張しません。
 
 ### Q194. predicateの実装が別のvirtual照会へ委譲してもよいですか？
@@ -2322,9 +2322,9 @@ pure-method／const参照検査は追加のnegative条件であり、それぞ�
 いいえ。schema 2は以前の出力link形式を保持し、compile stageと正確な宣言regexの診断形式を追加します。不正elaboration metadataでruntime期待がないことを要求します。
 schema 1も引き続き読め、混在／未知fieldや古いpatternは拒否します。検証はcompiler実測結果を読みません。個別要求の照合で直接anchorを追加する場合も、既存linkは保持して変更を明示します。
 
-### Q201. 全1609テストを2 seedで実行しましたか？
+### Q201. 全1624テストを2 seedで実行しましたか？
 
-いいえ。simulation 1566件とelaboration 43件があります。通常記録はruntime両seed一致1368件、期待compiler拒否41件、既知simulation差分198件、不正compile受理の既知差分2件です。
+いいえ。simulation 1581件とelaboration 43件があります。通常記録はruntime両seed一致1381件、期待compiler拒否41件、既知simulation差分200件、不正compile受理の既知差分2件です。
 不正design 43件は、compileを受理された場合もruntime seedを実行しません。
 
 ### Q202. 以前の合法controlは何を示しますか？
@@ -2369,7 +2369,7 @@ entry-depth境界matrixは限定した読み方で、別の超過済みscopeは�
 
 ### Q209. 第6章の未評価0でreportingやM1〜M4は完了ですか？
 
-いいえ。第6章には部分分解98番号・分類19番号があり、選択print probeで残る条件は完了しません。全体の未評価は743番号です。
+いいえ。第6章には部分分解98番号・分類19番号があり、選択print probeで残る条件は完了しません。全体の未評価は724番号です。
 printer 16.2節にはtable-format概要が残り、第16章の広いpolicyでは未評価3番号があります。範囲と分母は未承認で、link queue 0件でもgoalは完了しません。
 
 ### Q210. flush時の設定規則は全printer controlで同じですか？
@@ -2455,7 +2455,7 @@ INFO 3／WARNING 6の配送は引用規則に従い、他の全override／report
 ### Q224. D.3 fileをM3に数える理由と、付録Dは完了したのか？
 
 主引用がdirectoryを決めるため、名前によるregister／memoryのD.3 fixtureはuDに置きます。機能対象はregister層なので名前アクセス6 fixtureをM3に数えます。
-章別の棚卸しとmilestone分類は同じテストに対する異なる観点です。付録Dの未評価は0ですが部分39番号が残り、条件と元のM1〜M4目標は未完了です。全体の未評価は743番号です。
+章別の棚卸しとmilestone分類は同じテストに対する異なる観点です。付録Dの未評価は0ですが部分39番号が残り、条件と元のM1〜M4目標は未完了です。全体の未評価は724番号です。
 
 ### Q225. block coverageのmetadataでcovergroupを測定しますか？
 
@@ -2468,3 +2468,14 @@ covergroup binのsamplingやcoverage率の立証ではありません。peerは�
 [backdoor置換case](../tests/u18/test_block_inherited_backdoor_queries_follow_later_ancestor_replacement_without_local_assignment.sv)は先行継承照会後も両seedで一致します。
 別の継承HDL kind存在caseは最寄り祖先oracleを変えず既知差分を保持します。独自storageへの実アクセスは選択backdoor定義を検証しますが、symbolic HDL path metadataで物理transportを立証しません。
 18.1配下の未評価0で部分義務は完了しません。
+
+### Q227. map幅の2 fixtureは独立に特定した2つのbugですか？
+
+いいえ。[空map case](../tests/u18/test_map_address_units_distinguish_bytes_and_the_printed_default_effective_word_width.sv)と
+[register配置済みcase](../tests/u18/test_map_populated_word_addressing_separates_effective_bus_width_from_local_address_units.sv)は、適用条件を変えて同じ有効幅義務を保持します。
+fixture全体のknown件数は欠陥件数ではありません。word単位の期待値は印刷されたget_n_bytes参照とHIER既定値の限定解釈で、有効幅が既に異なる場合、数値の単位不一致で別の欠陥は特定しません。
+
+### Q228. clone_and_updateを未評価に残す理由は？
+
+18.2.3.12は内容のrightsを変更した新mapを説明しますが、印刷prototypeには明示map返却型がありません。SystemVerilog 13.4では空の暗黙返却型はscalar logicの意味になります。
+clone観測のためにmap handle返却や未規定の登録経路を作らないでください。単なるcallable markerではclone内容／rightsを立証できず、観測契約に照合が必要なため未評価queueへ残します。
