@@ -3,8 +3,8 @@
 [日本語](history.ja.md) · [README](../README.md)
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and twenty-two cross-milestone thin-area expansions, including the
-existing-test requirement-link backlog checkpoint (1201 simulation tests). The earlier 349-test checkpoint is
+three M4 increments and twenty-three cross-milestone thin-area expansions, including the
+existing-test requirement-link backlog checkpoint (1214 simulation tests). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -2283,3 +2283,44 @@ metadata records, ledger/assessment/index checks, library integrity,
 documentation parity and evidence fingerprints. Existing simulation inputs,
 runners, backend, previous ledger records and historical sections are preserved.
 Empty mapping queues do not complete M1–M4.
+
+## Twenty-third thin-area expansion across M1–M4
+
+Thirteen fixtures add five heartbeat cases, three base-typed payload-accessor
+cases and five abstract register-FIFO cases. The suite reaches 1214:
+M1 406, M2 440 and M3 368. Heartbeats cover explicit mode selection/query,
+missing/replaced/reused events and healthy ALL_ACTIVE participant changes.
+Payload overrides observe fourteen selected virtual methods. FIFO cases cover
+constructor dimensions, public queue views, non-popping get, debug arguments,
+instance isolation and inline/subtype constraint conditions without DUT access.
+
+Ten additions match Verilator 5.052 at seeds 1/73. Three retain seed-1 runtime
+differences. A running omitted heartbeat event is dereferenced while forming
+an error, after stopped/default and explicit same-event controls match. An
+exact-capacity FIFO inline randomize succeeds with an empty queue; its
+oversized inline request is correctly rejected. A declared exact-capacity
+subtype matches, while a declared oversized subtype reports success. The FIFO
+observations do not assign cause to simulator or library. Compatible ordinary
+evidence retains 1201 prior records and adds thirteen final measurements:
+1083 pass, 131 known (113 runtime first differences, ten missing-API and eight
+unlinked-DPI builds). Separate VPI evidence remains seven pass/one fail.
+Guest records cover 1085 unchanged inputs, with 129 current cases unmeasured.
+
+Fifty-six AI drafts bring the ledger to 1451, all directly linked to 1213
+tests; one additional control leaves zero unlinked tests. Seven unchanged
+fixtures add six transaction hook/time obligations and eleven payload setter
+obligations without fresh measurements. Seven structural classifications and
+one contextual payload-member introduction bring assessments to fifty-four
+(fifty-two structural, two contextual). Of 2,504 identifiers, 903 are partly
+decomposed and 1,547 unassessed. The decrease of thirty-seven is twenty-nine
+new decompositions and eight explicit classifications. Primary focus is 588,
+any citation 1,225; the candidate census is 1,891 zero, 329 one and 259 at least
+two. Human review and denominator approval remain open.
+
+Paired guides retain all six SVG assets and add scoped explanations, a FIFO
+constraint comparison, 172 glossary terms and 151 FAQs. Validation covers
+88 tool tests, all 1214 metadata records, ledger/assessment/index checks,
+library integrity, bilingual references and evidence fingerprints. Existing
+simulation inputs, runners, backend, previous ledger records and historical
+sections are preserved. FIFO transfer/compare/setup and broader heartbeat,
+payload protocol and requirement-decomposition work remain open.

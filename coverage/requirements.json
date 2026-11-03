@@ -52504,6 +52504,1959 @@
           ]
         }
       ]
+    },
+    {
+      "id": "UVM-HEARTBEAT-CONSTRUCTOR-NAME",
+      "clause": "10.6.2.1",
+      "statement": {
+        "en": "Heartbeat construction preserves its supplied instance name.",
+        "ja": "heartbeatの生成は、指定したinstance名を保持する。"
+      },
+      "conditions": {
+        "en": "Two heartbeat objects share a valid context and supplied objection.",
+        "ja": "2つのheartbeat objectへ、有効なcontextとobjectionを指定する。"
+      },
+      "expected": {
+        "en": "Their names remain first and second.",
+        "ja": "名前firstとsecondを保持する。"
+      },
+      "limitations": {
+        "en": "Selected modes, configuration guards or healthy ALL_ACTIVE windows only; no missed-window diagnostic severity or full liveness proof is asserted.",
+        "ja": "選択したmode、設定guard、正常なALL_ACTIVE windowのみ。未参加windowの診断severityや完全な生存性の証明は要求しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_heartbeat_mode_queries_preserve_explicit_modes_and_peer_state",
+          "role": "direct",
+          "expected_observations": [
+            "UT: names first second"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-HEARTBEAT-MODE-OMITTED-QUERY",
+      "clause": "10.6.2.2",
+      "statement": {
+        "en": "Calling set_mode without an argument retrieves the current selected mode.",
+        "ja": "set_modeを引数なしで呼ぶと、現在選択したmodeを取得する。"
+      },
+      "conditions": {
+        "en": "ALL_ACTIVE and ONE_ACTIVE are explicitly selected on two objects before querying.",
+        "ja": "照会前に2つのobjectでALL_ACTIVEとONE_ACTIVEを明示選択する。"
+      },
+      "expected": {
+        "en": "The omitted-argument queries return the two selected modes.",
+        "ja": "引数省略の照会は、選択した2つのmodeを返す。"
+      },
+      "limitations": {
+        "en": "Selected modes, configuration guards or healthy ALL_ACTIVE windows only; no missed-window diagnostic severity or full liveness proof is asserted.",
+        "ja": "選択したmode、設定guard、正常なALL_ACTIVE windowのみ。未参加windowの診断severityや完全な生存性の証明は要求しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_heartbeat_mode_queries_preserve_explicit_modes_and_peer_state",
+          "role": "direct",
+          "expected_observations": [
+            "UT: selected first 1 second 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-HEARTBEAT-MODE-EXPLICIT-QUERY-SENTINEL",
+      "clause": "10.6.2.2",
+      "statement": {
+        "en": "The explicit UVM_NO_HB_MODE query preserves and returns the selected heartbeat mode.",
+        "ja": "UVM_NO_HB_MODEを明示する照会は、選択済みheartbeat modeを保持して返す。"
+      },
+      "conditions": {
+        "en": "The peer has explicitly selected ONE_ACTIVE.",
+        "ja": "peerでONE_ACTIVEを明示選択済みである。"
+      },
+      "expected": {
+        "en": "The explicit query still returns ONE_ACTIVE.",
+        "ja": "明示照会でもONE_ACTIVEを返す。"
+      },
+      "limitations": {
+        "en": "Selected modes, configuration guards or healthy ALL_ACTIVE windows only; no missed-window diagnostic severity or full liveness proof is asserted.",
+        "ja": "選択したmode、設定guard、正常なALL_ACTIVE windowのみ。未参加windowの診断severityや完全な生存性の証明は要求しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_heartbeat_mode_queries_preserve_explicit_modes_and_peer_state",
+          "role": "direct",
+          "expected_observations": [
+            "UT: changed first 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-HEARTBEAT-MODE-INSTANCE-LOCAL-UPDATE",
+      "clause": "10.6.2.2",
+      "statement": {
+        "en": "An explicitly changed heartbeat mode affects that object independently of a peer.",
+        "ja": "heartbeat modeの明示変更は、そのobjectだけに適用し、peerと独立している。"
+      },
+      "conditions": {
+        "en": "The first object changes from ALL_ACTIVE to ANY_ACTIVE while the peer remains ONE_ACTIVE.",
+        "ja": "一方をALL_ACTIVEからANY_ACTIVEへ変え、peerはONE_ACTIVEを保つ。"
+      },
+      "expected": {
+        "en": "Queries show ANY_ACTIVE for the first and ONE_ACTIVE for the peer.",
+        "ja": "照会結果は一方がANY_ACTIVE、peerがONE_ACTIVEである。"
+      },
+      "limitations": {
+        "en": "Selected modes, configuration guards or healthy ALL_ACTIVE windows only; no missed-window diagnostic severity or full liveness proof is asserted.",
+        "ja": "選択したmode、設定guard、正常なALL_ACTIVE windowのみ。未参加windowの診断severityや完全な生存性の証明は要求しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_heartbeat_mode_queries_preserve_explicit_modes_and_peer_state",
+          "role": "direct",
+          "expected_observations": [
+            "UT: changed first 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-HEARTBEAT-MISSING-EVENT-WARNING",
+      "clause": "10.6.2.6",
+      "statement": {
+        "en": "Starting a heartbeat without a current or supplied trigger event emits a warning.",
+        "ja": "現在のtrigger eventも指定eventもないheartbeatのstartはwarningを出す。"
+      },
+      "conditions": {
+        "en": "An initial null-event configuration is followed by start, stop and another start.",
+        "ja": "初回のnull event設定後に、start、stop、再startを行う。"
+      },
+      "expected": {
+        "en": "Each start with no event adds one warning.",
+        "ja": "eventのない各startはwarningを1件加える。"
+      },
+      "limitations": {
+        "en": "Selected modes, configuration guards or healthy ALL_ACTIVE windows only; no missed-window diagnostic severity or full liveness proof is asserted.",
+        "ja": "選択したmode、設定guard、正常なALL_ACTIVE windowのみ。未参加windowの診断severityや完全な生存性の証明は要求しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_heartbeat_start_without_any_event_warns_after_null_configuration",
+          "role": "direct",
+          "expected_observations": [
+            "UT: missing_event warnings 1",
+            "UT: still_missing warnings 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-HEARTBEAT-RUNNING-EVENT-REPLACEMENT-ERROR",
+      "clause": "10.6.2.6",
+      "statement": {
+        "en": "A running heartbeat reports an error when start specifies a different trigger event.",
+        "ja": "動作中のheartbeatでstartに別のtrigger eventを指定するとerrorを報告する。"
+      },
+      "conditions": {
+        "en": "The first event is active before a second event is supplied.",
+        "ja": "最初のeventで動作中に、2つ目のeventを指定する。"
+      },
+      "expected": {
+        "en": "The replacement attempt adds one error.",
+        "ja": "置換の試行でerrorが1件増える。"
+      },
+      "limitations": {
+        "en": "Selected modes, configuration guards or healthy ALL_ACTIVE windows only; no missed-window diagnostic severity or full liveness proof is asserted.",
+        "ja": "選択したmode、設定guard、正常なALL_ACTIVE windowのみ。未参加windowの診断severityや完全な生存性の証明は要求しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_heartbeat_rejects_a_different_running_event_but_accepts_it_after_stop",
+          "role": "direct",
+          "expected_observations": [
+            "UT: running_replacement errors 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-HEARTBEAT-STOPPED-EVENT-REPLACEMENT",
+      "clause": "10.6.2.6",
+      "statement": {
+        "en": "After stopping, start accepts a newly selected heartbeat trigger event.",
+        "ja": "stop後のstartは、新しく選択したheartbeat trigger eventを受け付ける。"
+      },
+      "conditions": {
+        "en": "The first monitor is stopped and allowed to finish before the second event is selected.",
+        "ja": "最初のmonitorをstopし、終了する時間を置いてから2つ目のeventを選ぶ。"
+      },
+      "expected": {
+        "en": "The stopped-event replacement adds no error.",
+        "ja": "stop後のevent置換はerrorを加えない。"
+      },
+      "limitations": {
+        "en": "Selected modes, configuration guards or healthy ALL_ACTIVE windows only; no missed-window diagnostic severity or full liveness proof is asserted.",
+        "ja": "選択したmode、設定guard、正常なALL_ACTIVE windowのみ。未参加windowの診断severityや完全な生存性の証明は要求しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_heartbeat_rejects_a_different_running_event_but_accepts_it_after_stop",
+          "role": "direct",
+          "expected_observations": [
+            "UT: stopped_replacement errors 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-HEARTBEAT-ACTIVE-DEFAULT-EVENT-REUSE",
+      "clause": "10.6.2.6",
+      "statement": {
+        "en": "An omitted start event reuses the selected event rather than requesting a different event while running.",
+        "ja": "動作中のstartでeventを省略すると、別eventを要求せず選択済みeventを再利用する。"
+      },
+      "conditions": {
+        "en": "Stopped reuse and explicit same-event controls precede an omitted-event call on the running monitor.",
+        "ja": "stop後の再利用と明示same-eventのcontrolの後、動作中のmonitorへevent省略で呼ぶ。"
+      },
+      "expected": {
+        "en": "The running default-event reuse returns without adding an error.",
+        "ja": "動作中の既定event再利用はerrorを加えずに戻る。"
+      },
+      "limitations": {
+        "en": "Selected modes, configuration guards or healthy ALL_ACTIVE windows only; no missed-window diagnostic severity or full liveness proof is asserted.",
+        "ja": "選択したmode、設定guard、正常なALL_ACTIVE windowのみ。未参加windowの診断severityや完全な生存性の証明は要求しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_heartbeat_default_start_reuses_its_event_while_running_and_after_stop",
+          "role": "direct",
+          "expected_observations": [
+            "UT: running_reuse errors 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-HEARTBEAT-STOPPED-DEFAULT-EVENT-REUSE",
+      "clause": "10.6.2.6",
+      "statement": {
+        "en": "Starting with an omitted event after stop reuses the previously configured event.",
+        "ja": "stop後にeventを省略してstartすると、以前設定したeventを再利用する。"
+      },
+      "conditions": {
+        "en": "A configured event is stopped, then start is called without an argument.",
+        "ja": "設定済みeventをstopし、引数なしでstartを呼ぶ。"
+      },
+      "expected": {
+        "en": "Stopped default reuse adds no error; the explicit same-event control also returns normally.",
+        "ja": "stop後の既定再利用はerrorを加えず、明示same-eventのcontrolも正常に戻る。"
+      },
+      "limitations": {
+        "en": "Selected modes, configuration guards or healthy ALL_ACTIVE windows only; no missed-window diagnostic severity or full liveness proof is asserted.",
+        "ja": "選択したmode、設定guard、正常なALL_ACTIVE windowのみ。未参加windowの診断severityや完全な生存性の証明は要求しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_heartbeat_default_start_reuses_its_event_while_running_and_after_stop",
+          "role": "direct",
+          "expected_observations": [
+            "UT: stopped_reuse errors 0",
+            "UT: explicit_same_event errors 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-HEARTBEAT-CONFIGURED-PARTICIPANTS-HEALTHY-WINDOWS",
+      "clause": "10.6.2.3",
+      "statement": {
+        "en": "A configured heartbeat event and participating list accept the tested healthy activity windows.",
+        "ja": "設定したheartbeat eventと参加listは、対象の正常な活動windowを受け付ける。"
+      },
+      "conditions": {
+        "en": "Two listed descendants raise/drop the supplied objection between separated event triggers.",
+        "ja": "list内の子孫2個が、時間を隔てたevent trigger間で指定objectionをraise／dropする。"
+      },
+      "expected": {
+        "en": "The three selected healthy windows add no error or fatal.",
+        "ja": "対象の正常window 3個でerror／fatalが増えない。"
+      },
+      "limitations": {
+        "en": "Selected modes, configuration guards or healthy ALL_ACTIVE windows only; no missed-window diagnostic severity or full liveness proof is asserted.",
+        "ja": "選択したmode、設定guard、正常なALL_ACTIVE windowのみ。未参加windowの診断severityや完全な生存性の証明は要求しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_heartbeat_all_active_windows_accept_participation_after_remove_and_add",
+          "role": "direct",
+          "expected_observations": [
+            "UT: healthy_windows 3 errors 0 fatals 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-HEARTBEAT-REMOVE-ACTIVE-PARTICIPANT",
+      "clause": "10.6.2.5",
+      "statement": {
+        "en": "Removing a component from an active heartbeat excludes its later nonparticipation from the monitored list.",
+        "ja": "動作中のheartbeatからcomponentを除くと、それ以降の非参加は監視listの対象外となる。"
+      },
+      "conditions": {
+        "en": "After a healthy two-participant window, the second component is removed and only the first participates.",
+        "ja": "2参加者の正常window後に2つ目を除き、1つ目だけを参加させる。"
+      },
+      "expected": {
+        "en": "The next selected window remains healthy.",
+        "ja": "次の対象windowも正常のままである。"
+      },
+      "limitations": {
+        "en": "Selected modes, configuration guards or healthy ALL_ACTIVE windows only; no missed-window diagnostic severity or full liveness proof is asserted.",
+        "ja": "選択したmode、設定guard、正常なALL_ACTIVE windowのみ。未参加windowの診断severityや完全な生存性の証明は要求しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_heartbeat_all_active_windows_accept_participation_after_remove_and_add",
+          "role": "direct",
+          "expected_observations": [
+            "UT: healthy_windows 3 errors 0 fatals 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-HEARTBEAT-ADD-HEALTHY-PARTICIPANT",
+      "clause": "10.6.2.4",
+      "statement": {
+        "en": "Adding a currently participating component to an active heartbeat does not invalidate a healthy all-active window.",
+        "ja": "現在参加しているcomponentを動作中のheartbeatへ加えても、正常なall-active windowを無効にしない。"
+      },
+      "conditions": {
+        "en": "The removed component is added again and both components participate before the next trigger.",
+        "ja": "除いたcomponentを再び加え、次のtrigger前に両componentを参加させる。"
+      },
+      "expected": {
+        "en": "The selected added-participant window has no error or fatal.",
+        "ja": "追加参加者を含む対象windowでerror／fatalが出ない。"
+      },
+      "limitations": {
+        "en": "Selected modes, configuration guards or healthy ALL_ACTIVE windows only; no missed-window diagnostic severity or full liveness proof is asserted.",
+        "ja": "選択したmode、設定guard、正常なALL_ACTIVE windowのみ。未参加windowの診断severityや完全な生存性の証明は要求しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_heartbeat_all_active_windows_accept_participation_after_remove_and_add",
+          "role": "direct",
+          "expected_observations": [
+            "UT: healthy_windows 3 errors 0 fatals 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-HEARTBEAT-STOP-PERMITS-NEW-EVENT-START",
+      "clause": "10.6.2.7",
+      "statement": {
+        "en": "Stopping a heartbeat permits a subsequent start with a different trigger event.",
+        "ja": "heartbeatをstopすると、その後に別のtrigger eventでstartできる。"
+      },
+      "conditions": {
+        "en": "A running-event replacement first errors; stop precedes a fresh start with that same replacement.",
+        "ja": "動作中のevent置換がerrorとなった後、stopして同じ置換eventで新しくstartする。"
+      },
+      "expected": {
+        "en": "The fresh start adds no replacement error.",
+        "ja": "新しいstartで置換errorが増えない。"
+      },
+      "limitations": {
+        "en": "Selected modes, configuration guards or healthy ALL_ACTIVE windows only; no missed-window diagnostic severity or full liveness proof is asserted.",
+        "ja": "選択したmode、設定guard、正常なALL_ACTIVE windowのみ。未参加windowの診断severityや完全な生存性の証明は要求しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_heartbeat_rejects_a_different_running_event_but_accepts_it_after_stop",
+          "role": "direct",
+          "expected_observations": [
+            "UT: stopped_replacement errors 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-HEARTBEAT-ALL-ACTIVE-POSITIVE-PARTICIPATION",
+      "clause": "10.6",
+      "statement": {
+        "en": "The tested all-active heartbeat condition is satisfied when every currently tracked component raises or drops the synchronizing objection.",
+        "ja": "対象のall-active heartbeat条件は、現在監視中の全componentが同期objectionをraiseまたはdropすると満たされる。"
+      },
+      "conditions": {
+        "en": "All current participants are active in each of three windows, including remove/add transitions.",
+        "ja": "remove／addの変化を含む3つのwindowで、現在の全参加者を活動させる。"
+      },
+      "expected": {
+        "en": "No error or fatal is generated in the selected healthy windows.",
+        "ja": "対象の正常windowでerror／fatalが生成されない。"
+      },
+      "limitations": {
+        "en": "Selected modes, configuration guards or healthy ALL_ACTIVE windows only; no missed-window diagnostic severity or full liveness proof is asserted.",
+        "ja": "選択したmode、設定guard、正常なALL_ACTIVE windowのみ。未参加windowの診断severityや完全な生存性の証明は要求しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_heartbeat_all_active_windows_accept_participation_after_remove_and_add",
+          "role": "direct",
+          "expected_observations": [
+            "UT: healthy_windows 3 errors 0 fatals 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TRANSACTION-ACCEPT-HOOK-INVOCATION",
+      "clause": "5.4.2.3",
+      "statement": {
+        "en": "The accept transaction operation invokes the corresponding user lifecycle hook.",
+        "ja": "transactionのaccept操作は、対応するユーザーlifecycle hookを呼ぶ。"
+      },
+      "conditions": {
+        "en": "An unchanged fixture disables recording and performs one accept, begin and end with explicit valid times.",
+        "ja": "未変更の検査系でrecordingを無効化し、有効な明示時刻でaccept、begin、endを各1回行う。"
+      },
+      "expected": {
+        "en": "Each selected hook is invoked once.",
+        "ja": "対象の各hookは1回ずつ呼ばれる。"
+      },
+      "limitations": {
+        "en": "Invocation counts only; no event/hook order is inferred, including the accept ordering conflict in 5.4.2.2/5.4.2.3. No new measurement is added.",
+        "ja": "呼出し回数のみ。5.4.2.2／5.4.2.3のaccept順序の不整合を含め、event／hookの順序は推測しない。新測定は加えない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_transaction_explicit_times_and_hooks",
+          "role": "direct",
+          "expected_observations": [
+            "UT: hooks 1 1 1 inactive 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TRANSACTION-BEGIN-HOOK-INVOCATION",
+      "clause": "5.4.2.5",
+      "statement": {
+        "en": "The begin transaction operation invokes the corresponding user lifecycle hook.",
+        "ja": "transactionのbegin操作は、対応するユーザーlifecycle hookを呼ぶ。"
+      },
+      "conditions": {
+        "en": "An unchanged fixture disables recording and performs one accept, begin and end with explicit valid times.",
+        "ja": "未変更の検査系でrecordingを無効化し、有効な明示時刻でaccept、begin、endを各1回行う。"
+      },
+      "expected": {
+        "en": "Each selected hook is invoked once.",
+        "ja": "対象の各hookは1回ずつ呼ばれる。"
+      },
+      "limitations": {
+        "en": "Invocation counts only; no event/hook order is inferred, including the accept ordering conflict in 5.4.2.2/5.4.2.3. No new measurement is added.",
+        "ja": "呼出し回数のみ。5.4.2.2／5.4.2.3のaccept順序の不整合を含め、event／hookの順序は推測しない。新測定は加えない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_transaction_explicit_times_and_hooks",
+          "role": "direct",
+          "expected_observations": [
+            "UT: hooks 1 1 1 inactive 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TRANSACTION-END-HOOK-INVOCATION",
+      "clause": "5.4.2.7",
+      "statement": {
+        "en": "The end transaction operation invokes the corresponding user lifecycle hook.",
+        "ja": "transactionのend操作は、対応するユーザーlifecycle hookを呼ぶ。"
+      },
+      "conditions": {
+        "en": "An unchanged fixture disables recording and performs one accept, begin and end with explicit valid times.",
+        "ja": "未変更の検査系でrecordingを無効化し、有効な明示時刻でaccept、begin、endを各1回行う。"
+      },
+      "expected": {
+        "en": "Each selected hook is invoked once.",
+        "ja": "対象の各hookは1回ずつ呼ばれる。"
+      },
+      "limitations": {
+        "en": "Invocation counts only; no event/hook order is inferred, including the accept ordering conflict in 5.4.2.2/5.4.2.3. No new measurement is added.",
+        "ja": "呼出し回数のみ。5.4.2.2／5.4.2.3のaccept順序の不整合を含め、event／hookの順序は推測しない。新測定は加えない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_transaction_explicit_times_and_hooks",
+          "role": "direct",
+          "expected_observations": [
+            "UT: hooks 1 1 1 inactive 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TRANSACTION-ACCEPT-TIME-QUERY",
+      "clause": "5.4.2.16",
+      "statement": {
+        "en": "The accept-time query returns the timestamp recorded by the corresponding lifecycle operation.",
+        "ja": "accept時刻の照会は、対応するlifecycle操作で記録したtimestampを返す。"
+      },
+      "conditions": {
+        "en": "The existing nonrecording fixture uses explicit accept/begin/end times 17/23/29.",
+        "ja": "既存の記録なしの検査系で、accept／begin／endに明示時刻17／23／29を使う。"
+      },
+      "expected": {
+        "en": "The selected getter returns 17.",
+        "ja": "対象getterは17を返す。"
+      },
+      "limitations": {
+        "en": "Explicit valid times only; callback ordering, invalid timestamps and additional execution evidence are outside this link.",
+        "ja": "有効な明示時刻のみ。callback順序、無効timestamp、追加実行の証拠はこの対応の対象外。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_transaction_explicit_times_and_hooks",
+          "role": "direct",
+          "expected_observations": [
+            "UT: times 17 23 29"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TRANSACTION-BEGIN-TIME-QUERY",
+      "clause": "5.4.2.16",
+      "statement": {
+        "en": "The begin-time query returns the timestamp recorded by the corresponding lifecycle operation.",
+        "ja": "begin時刻の照会は、対応するlifecycle操作で記録したtimestampを返す。"
+      },
+      "conditions": {
+        "en": "The existing nonrecording fixture uses explicit accept/begin/end times 17/23/29.",
+        "ja": "既存の記録なしの検査系で、accept／begin／endに明示時刻17／23／29を使う。"
+      },
+      "expected": {
+        "en": "The selected getter returns 23.",
+        "ja": "対象getterは23を返す。"
+      },
+      "limitations": {
+        "en": "Explicit valid times only; callback ordering, invalid timestamps and additional execution evidence are outside this link.",
+        "ja": "有効な明示時刻のみ。callback順序、無効timestamp、追加実行の証拠はこの対応の対象外。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_transaction_explicit_times_and_hooks",
+          "role": "direct",
+          "expected_observations": [
+            "UT: times 17 23 29"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TRANSACTION-END-TIME-QUERY",
+      "clause": "5.4.2.16",
+      "statement": {
+        "en": "The end-time query returns the timestamp recorded by the corresponding lifecycle operation.",
+        "ja": "end時刻の照会は、対応するlifecycle操作で記録したtimestampを返す。"
+      },
+      "conditions": {
+        "en": "The existing nonrecording fixture uses explicit accept/begin/end times 17/23/29.",
+        "ja": "既存の記録なしの検査系で、accept／begin／endに明示時刻17／23／29を使う。"
+      },
+      "expected": {
+        "en": "The selected getter returns 29.",
+        "ja": "対象getterは29を返す。"
+      },
+      "limitations": {
+        "en": "Explicit valid times only; callback ordering, invalid timestamps and additional execution evidence are outside this link.",
+        "ja": "有効な明示時刻のみ。callback順序、無効timestamp、追加実行の証拠はこの対応の対象外。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_transaction_explicit_times_and_hooks",
+          "role": "direct",
+          "expected_observations": [
+            "UT: times 17 23 29"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PAYLOAD-VIRTUAL-SET-ADDRESS",
+      "clause": "12.3.4.2.15",
+      "statement": {
+        "en": "A base-typed generic-payload call to set_address dispatches to its derived override.",
+        "ja": "generic payloadの基底型handleからset_addressを呼ぶと、派生overrideへdispatchする。"
+      },
+      "conditions": {
+        "en": "A derived payload forwards to the standard implementation; counters are reset after construction and each selected public method is called once.",
+        "ja": "派生payloadは標準実装へ転送し、生成後にcounterをresetして各対象公開methodを1回呼ぶ。"
+      },
+      "expected": {
+        "en": "The set_address override records one call and the selected values are preserved.",
+        "ja": "set_addressのoverrideは1回の呼出しを記録し、選択した値を保持する。"
+      },
+      "limitations": {
+        "en": "Selected accessor methods only; transport, packing, DMI grants and internal delegation by other methods are not inferred.",
+        "ja": "選択したaccessorのみ。transport、pack、DMIの許可、他method内部からの委譲は推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_payload_base_handle_dispatches_virtual_address_and_command_accessors",
+          "role": "direct",
+          "expected_observations": [
+            "UT: dispatch address 1 1 command 1 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PAYLOAD-VIRTUAL-GET-ADDRESS",
+      "clause": "12.3.4.2.15",
+      "statement": {
+        "en": "A base-typed generic-payload call to get_address dispatches to its derived override.",
+        "ja": "generic payloadの基底型handleからget_addressを呼ぶと、派生overrideへdispatchする。"
+      },
+      "conditions": {
+        "en": "A derived payload forwards to the standard implementation; counters are reset after construction and each selected public method is called once.",
+        "ja": "派生payloadは標準実装へ転送し、生成後にcounterをresetして各対象公開methodを1回呼ぶ。"
+      },
+      "expected": {
+        "en": "The get_address override records one call and the selected values are preserved.",
+        "ja": "get_addressのoverrideは1回の呼出しを記録し、選択した値を保持する。"
+      },
+      "limitations": {
+        "en": "Selected accessor methods only; transport, packing, DMI grants and internal delegation by other methods are not inferred.",
+        "ja": "選択したaccessorのみ。transport、pack、DMIの許可、他method内部からの委譲は推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_payload_base_handle_dispatches_virtual_address_and_command_accessors",
+          "role": "direct",
+          "expected_observations": [
+            "UT: dispatch address 1 1 command 1 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PAYLOAD-VIRTUAL-SET-COMMAND",
+      "clause": "12.3.4.2.15",
+      "statement": {
+        "en": "A base-typed generic-payload call to set_command dispatches to its derived override.",
+        "ja": "generic payloadの基底型handleからset_commandを呼ぶと、派生overrideへdispatchする。"
+      },
+      "conditions": {
+        "en": "A derived payload forwards to the standard implementation; counters are reset after construction and each selected public method is called once.",
+        "ja": "派生payloadは標準実装へ転送し、生成後にcounterをresetして各対象公開methodを1回呼ぶ。"
+      },
+      "expected": {
+        "en": "The set_command override records one call and the selected values are preserved.",
+        "ja": "set_commandのoverrideは1回の呼出しを記録し、選択した値を保持する。"
+      },
+      "limitations": {
+        "en": "Selected accessor methods only; transport, packing, DMI grants and internal delegation by other methods are not inferred.",
+        "ja": "選択したaccessorのみ。transport、pack、DMIの許可、他method内部からの委譲は推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_payload_base_handle_dispatches_virtual_address_and_command_accessors",
+          "role": "direct",
+          "expected_observations": [
+            "UT: dispatch address 1 1 command 1 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PAYLOAD-VIRTUAL-GET-COMMAND",
+      "clause": "12.3.4.2.15",
+      "statement": {
+        "en": "A base-typed generic-payload call to get_command dispatches to its derived override.",
+        "ja": "generic payloadの基底型handleからget_commandを呼ぶと、派生overrideへdispatchする。"
+      },
+      "conditions": {
+        "en": "A derived payload forwards to the standard implementation; counters are reset after construction and each selected public method is called once.",
+        "ja": "派生payloadは標準実装へ転送し、生成後にcounterをresetして各対象公開methodを1回呼ぶ。"
+      },
+      "expected": {
+        "en": "The get_command override records one call and the selected values are preserved.",
+        "ja": "get_commandのoverrideは1回の呼出しを記録し、選択した値を保持する。"
+      },
+      "limitations": {
+        "en": "Selected accessor methods only; transport, packing, DMI grants and internal delegation by other methods are not inferred.",
+        "ja": "選択したaccessorのみ。transport、pack、DMIの許可、他method内部からの委譲は推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_payload_base_handle_dispatches_virtual_address_and_command_accessors",
+          "role": "direct",
+          "expected_observations": [
+            "UT: dispatch address 1 1 command 1 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PAYLOAD-VIRTUAL-SET-DATA",
+      "clause": "12.3.4.2.15",
+      "statement": {
+        "en": "A base-typed generic-payload call to set_data dispatches to its derived override.",
+        "ja": "generic payloadの基底型handleからset_dataを呼ぶと、派生overrideへdispatchする。"
+      },
+      "conditions": {
+        "en": "A derived payload forwards to the standard implementation; counters are reset after construction and each selected public method is called once.",
+        "ja": "派生payloadは標準実装へ転送し、生成後にcounterをresetして各対象公開methodを1回呼ぶ。"
+      },
+      "expected": {
+        "en": "The set_data override records one call and the selected values are preserved.",
+        "ja": "set_dataのoverrideは1回の呼出しを記録し、選択した値を保持する。"
+      },
+      "limitations": {
+        "en": "Selected accessor methods only; transport, packing, DMI grants and internal delegation by other methods are not inferred.",
+        "ja": "選択したaccessorのみ。transport、pack、DMIの許可、他method内部からの委譲は推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_payload_base_handle_dispatches_virtual_data_and_byte_enable_accessors",
+          "role": "direct",
+          "expected_observations": [
+            "UT: dispatch data 1 1 mask 1 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PAYLOAD-VIRTUAL-GET-DATA",
+      "clause": "12.3.4.2.15",
+      "statement": {
+        "en": "A base-typed generic-payload call to get_data dispatches to its derived override.",
+        "ja": "generic payloadの基底型handleからget_dataを呼ぶと、派生overrideへdispatchする。"
+      },
+      "conditions": {
+        "en": "A derived payload forwards to the standard implementation; counters are reset after construction and each selected public method is called once.",
+        "ja": "派生payloadは標準実装へ転送し、生成後にcounterをresetして各対象公開methodを1回呼ぶ。"
+      },
+      "expected": {
+        "en": "The get_data override records one call and the selected values are preserved.",
+        "ja": "get_dataのoverrideは1回の呼出しを記録し、選択した値を保持する。"
+      },
+      "limitations": {
+        "en": "Selected accessor methods only; transport, packing, DMI grants and internal delegation by other methods are not inferred.",
+        "ja": "選択したaccessorのみ。transport、pack、DMIの許可、他method内部からの委譲は推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_payload_base_handle_dispatches_virtual_data_and_byte_enable_accessors",
+          "role": "direct",
+          "expected_observations": [
+            "UT: dispatch data 1 1 mask 1 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PAYLOAD-VIRTUAL-SET-BYTE-ENABLE",
+      "clause": "12.3.4.2.15",
+      "statement": {
+        "en": "A base-typed generic-payload call to set_byte_enable dispatches to its derived override.",
+        "ja": "generic payloadの基底型handleからset_byte_enableを呼ぶと、派生overrideへdispatchする。"
+      },
+      "conditions": {
+        "en": "A derived payload forwards to the standard implementation; counters are reset after construction and each selected public method is called once.",
+        "ja": "派生payloadは標準実装へ転送し、生成後にcounterをresetして各対象公開methodを1回呼ぶ。"
+      },
+      "expected": {
+        "en": "The set_byte_enable override records one call and the selected values are preserved.",
+        "ja": "set_byte_enableのoverrideは1回の呼出しを記録し、選択した値を保持する。"
+      },
+      "limitations": {
+        "en": "Selected accessor methods only; transport, packing, DMI grants and internal delegation by other methods are not inferred.",
+        "ja": "選択したaccessorのみ。transport、pack、DMIの許可、他method内部からの委譲は推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_payload_base_handle_dispatches_virtual_data_and_byte_enable_accessors",
+          "role": "direct",
+          "expected_observations": [
+            "UT: dispatch data 1 1 mask 1 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PAYLOAD-VIRTUAL-GET-BYTE-ENABLE",
+      "clause": "12.3.4.2.15",
+      "statement": {
+        "en": "A base-typed generic-payload call to get_byte_enable dispatches to its derived override.",
+        "ja": "generic payloadの基底型handleからget_byte_enableを呼ぶと、派生overrideへdispatchする。"
+      },
+      "conditions": {
+        "en": "A derived payload forwards to the standard implementation; counters are reset after construction and each selected public method is called once.",
+        "ja": "派生payloadは標準実装へ転送し、生成後にcounterをresetして各対象公開methodを1回呼ぶ。"
+      },
+      "expected": {
+        "en": "The get_byte_enable override records one call and the selected values are preserved.",
+        "ja": "get_byte_enableのoverrideは1回の呼出しを記録し、選択した値を保持する。"
+      },
+      "limitations": {
+        "en": "Selected accessor methods only; transport, packing, DMI grants and internal delegation by other methods are not inferred.",
+        "ja": "選択したaccessorのみ。transport、pack、DMIの許可、他method内部からの委譲は推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_payload_base_handle_dispatches_virtual_data_and_byte_enable_accessors",
+          "role": "direct",
+          "expected_observations": [
+            "UT: dispatch data 1 1 mask 1 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PAYLOAD-VIRTUAL-SET-STREAMING-WIDTH",
+      "clause": "12.3.4.2.15",
+      "statement": {
+        "en": "A base-typed generic-payload call to set_streaming_width dispatches to its derived override.",
+        "ja": "generic payloadの基底型handleからset_streaming_widthを呼ぶと、派生overrideへdispatchする。"
+      },
+      "conditions": {
+        "en": "A derived payload forwards to the standard implementation; counters are reset after construction and each selected public method is called once.",
+        "ja": "派生payloadは標準実装へ転送し、生成後にcounterをresetして各対象公開methodを1回呼ぶ。"
+      },
+      "expected": {
+        "en": "The set_streaming_width override records one call and the selected values are preserved.",
+        "ja": "set_streaming_widthのoverrideは1回の呼出しを記録し、選択した値を保持する。"
+      },
+      "limitations": {
+        "en": "Selected accessor methods only; transport, packing, DMI grants and internal delegation by other methods are not inferred.",
+        "ja": "選択したaccessorのみ。transport、pack、DMIの許可、他method内部からの委譲は推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_payload_base_handle_dispatches_virtual_width_dmi_and_status_accessors",
+          "role": "direct",
+          "expected_observations": [
+            "UT: dispatch width 1 1 dmi 1 1 status 1 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PAYLOAD-VIRTUAL-GET-STREAMING-WIDTH",
+      "clause": "12.3.4.2.15",
+      "statement": {
+        "en": "A base-typed generic-payload call to get_streaming_width dispatches to its derived override.",
+        "ja": "generic payloadの基底型handleからget_streaming_widthを呼ぶと、派生overrideへdispatchする。"
+      },
+      "conditions": {
+        "en": "A derived payload forwards to the standard implementation; counters are reset after construction and each selected public method is called once.",
+        "ja": "派生payloadは標準実装へ転送し、生成後にcounterをresetして各対象公開methodを1回呼ぶ。"
+      },
+      "expected": {
+        "en": "The get_streaming_width override records one call and the selected values are preserved.",
+        "ja": "get_streaming_widthのoverrideは1回の呼出しを記録し、選択した値を保持する。"
+      },
+      "limitations": {
+        "en": "Selected accessor methods only; transport, packing, DMI grants and internal delegation by other methods are not inferred.",
+        "ja": "選択したaccessorのみ。transport、pack、DMIの許可、他method内部からの委譲は推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_payload_base_handle_dispatches_virtual_width_dmi_and_status_accessors",
+          "role": "direct",
+          "expected_observations": [
+            "UT: dispatch width 1 1 dmi 1 1 status 1 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PAYLOAD-VIRTUAL-SET-DMI-ALLOWED",
+      "clause": "12.3.4.2.15",
+      "statement": {
+        "en": "A base-typed generic-payload call to set_dmi_allowed dispatches to its derived override.",
+        "ja": "generic payloadの基底型handleからset_dmi_allowedを呼ぶと、派生overrideへdispatchする。"
+      },
+      "conditions": {
+        "en": "A derived payload forwards to the standard implementation; counters are reset after construction and each selected public method is called once.",
+        "ja": "派生payloadは標準実装へ転送し、生成後にcounterをresetして各対象公開methodを1回呼ぶ。"
+      },
+      "expected": {
+        "en": "The set_dmi_allowed override records one call and the selected values are preserved.",
+        "ja": "set_dmi_allowedのoverrideは1回の呼出しを記録し、選択した値を保持する。"
+      },
+      "limitations": {
+        "en": "Selected accessor methods only; transport, packing, DMI grants and internal delegation by other methods are not inferred.",
+        "ja": "選択したaccessorのみ。transport、pack、DMIの許可、他method内部からの委譲は推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_payload_base_handle_dispatches_virtual_width_dmi_and_status_accessors",
+          "role": "direct",
+          "expected_observations": [
+            "UT: dispatch width 1 1 dmi 1 1 status 1 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PAYLOAD-VIRTUAL-IS-DMI-ALLOWED",
+      "clause": "12.3.4.2.15",
+      "statement": {
+        "en": "A base-typed generic-payload call to is_dmi_allowed dispatches to its derived override.",
+        "ja": "generic payloadの基底型handleからis_dmi_allowedを呼ぶと、派生overrideへdispatchする。"
+      },
+      "conditions": {
+        "en": "A derived payload forwards to the standard implementation; counters are reset after construction and each selected public method is called once.",
+        "ja": "派生payloadは標準実装へ転送し、生成後にcounterをresetして各対象公開methodを1回呼ぶ。"
+      },
+      "expected": {
+        "en": "The is_dmi_allowed override records one call and the selected values are preserved.",
+        "ja": "is_dmi_allowedのoverrideは1回の呼出しを記録し、選択した値を保持する。"
+      },
+      "limitations": {
+        "en": "Selected accessor methods only; transport, packing, DMI grants and internal delegation by other methods are not inferred.",
+        "ja": "選択したaccessorのみ。transport、pack、DMIの許可、他method内部からの委譲は推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_payload_base_handle_dispatches_virtual_width_dmi_and_status_accessors",
+          "role": "direct",
+          "expected_observations": [
+            "UT: dispatch width 1 1 dmi 1 1 status 1 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PAYLOAD-VIRTUAL-SET-RESPONSE-STATUS",
+      "clause": "12.3.4.2.15",
+      "statement": {
+        "en": "A base-typed generic-payload call to set_response_status dispatches to its derived override.",
+        "ja": "generic payloadの基底型handleからset_response_statusを呼ぶと、派生overrideへdispatchする。"
+      },
+      "conditions": {
+        "en": "A derived payload forwards to the standard implementation; counters are reset after construction and each selected public method is called once.",
+        "ja": "派生payloadは標準実装へ転送し、生成後にcounterをresetして各対象公開methodを1回呼ぶ。"
+      },
+      "expected": {
+        "en": "The set_response_status override records one call and the selected values are preserved.",
+        "ja": "set_response_statusのoverrideは1回の呼出しを記録し、選択した値を保持する。"
+      },
+      "limitations": {
+        "en": "Selected accessor methods only; transport, packing, DMI grants and internal delegation by other methods are not inferred.",
+        "ja": "選択したaccessorのみ。transport、pack、DMIの許可、他method内部からの委譲は推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_payload_base_handle_dispatches_virtual_width_dmi_and_status_accessors",
+          "role": "direct",
+          "expected_observations": [
+            "UT: dispatch width 1 1 dmi 1 1 status 1 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PAYLOAD-VIRTUAL-GET-RESPONSE-STATUS",
+      "clause": "12.3.4.2.15",
+      "statement": {
+        "en": "A base-typed generic-payload call to get_response_status dispatches to its derived override.",
+        "ja": "generic payloadの基底型handleからget_response_statusを呼ぶと、派生overrideへdispatchする。"
+      },
+      "conditions": {
+        "en": "A derived payload forwards to the standard implementation; counters are reset after construction and each selected public method is called once.",
+        "ja": "派生payloadは標準実装へ転送し、生成後にcounterをresetして各対象公開methodを1回呼ぶ。"
+      },
+      "expected": {
+        "en": "The get_response_status override records one call and the selected values are preserved.",
+        "ja": "get_response_statusのoverrideは1回の呼出しを記録し、選択した値を保持する。"
+      },
+      "limitations": {
+        "en": "Selected accessor methods only; transport, packing, DMI grants and internal delegation by other methods are not inferred.",
+        "ja": "選択したaccessorのみ。transport、pack、DMIの許可、他method内部からの委譲は推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_payload_base_handle_dispatches_virtual_width_dmi_and_status_accessors",
+          "role": "direct",
+          "expected_observations": [
+            "UT: dispatch width 1 1 dmi 1 1 status 1 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PAYLOAD-SET-COMMAND-EXPLICIT-UPDATE",
+      "clause": "12.3.4.2.17",
+      "statement": {
+        "en": "The public setter specifies the selected payload command.",
+        "ja": "公開setterは、選択したpayloadのcommandを指定する。"
+      },
+      "conditions": {
+        "en": "The existing accessor fixture selects IGNORE; the new base-typed virtual-accessor fixture explicitly selects WRITE and reads it back.",
+        "ja": "既存accessor検査系でIGNOREを選び、新しい基底型経由のvirtual-accessor検査系でWRITEを明示選択して読み出す。"
+      },
+      "expected": {
+        "en": "IGNORE reads back with read/write predicates false; the new explicit WRITE call reads back as WRITE with the exact override argument.",
+        "ja": "IGNOREを読み出すとread／writeがfalseとなり、新しい明示WRITE呼出しは正確なoverride引数とWRITEの読み出しを示す。"
+      },
+      "limitations": {
+        "en": "Stored accessor values only; target/interconnect ownership, burst/mask/stream semantics and fresh execution evidence are not established.",
+        "ja": "accessorによる値の保持のみ。target／interconnectの所有規則、burst／mask／streamの動作、新規実行の証拠は示さない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_payload_command_accessors_select_read_write_and_ignore",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ignore 1 read 0 write 0"
+          ]
+        },
+        {
+          "test": "u12/test_tlm2_payload_base_handle_dispatches_virtual_address_and_command_accessors",
+          "role": "direct",
+          "expected_observations": [
+            "UT: values address fedcba9876543210 command 1 arguments 1 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PAYLOAD-SET-READ-EXPLICIT-UPDATE",
+      "clause": "12.3.4.2.19",
+      "statement": {
+        "en": "The public setter specifies the selected payload read command.",
+        "ja": "公開setterは、選択したpayloadのread commandを指定する。"
+      },
+      "conditions": {
+        "en": "An unchanged accessor fixture assigns explicit values and reads them back through public methods.",
+        "ja": "未変更のaccessor検査系で明示値を設定し、公開methodで読み出す。"
+      },
+      "expected": {
+        "en": "The selected command is READ, with read true and write false.",
+        "ja": "選択commandはREADで、readがtrue、writeがfalseとなる。"
+      },
+      "limitations": {
+        "en": "Stored accessor values only; target/interconnect ownership, burst/mask/stream semantics and fresh execution evidence are not established.",
+        "ja": "accessorによる値の保持のみ。target／interconnectの所有規則、burst／mask／streamの動作、新規実行の証拠は示さない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_payload_command_accessors_select_read_write_and_ignore",
+          "role": "direct",
+          "expected_observations": [
+            "UT: read_command 1 read 1 write 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PAYLOAD-SET-WRITE-EXPLICIT-UPDATE",
+      "clause": "12.3.4.2.21",
+      "statement": {
+        "en": "The public setter specifies the selected payload write command.",
+        "ja": "公開setterは、選択したpayloadのwrite commandを指定する。"
+      },
+      "conditions": {
+        "en": "An unchanged accessor fixture assigns explicit values and reads them back through public methods.",
+        "ja": "未変更のaccessor検査系で明示値を設定し、公開methodで読み出す。"
+      },
+      "expected": {
+        "en": "The selected command is WRITE, with write true and read false.",
+        "ja": "選択commandはWRITEで、writeがtrue、readがfalseとなる。"
+      },
+      "limitations": {
+        "en": "Stored accessor values only; target/interconnect ownership, burst/mask/stream semantics and fresh execution evidence are not established.",
+        "ja": "accessorによる値の保持のみ。target／interconnectの所有規則、burst／mask／streamの動作、新規実行の証拠は示さない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_payload_command_accessors_select_read_write_and_ignore",
+          "role": "direct",
+          "expected_observations": [
+            "UT: write_command 1 read 0 write 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PAYLOAD-SET-ADDRESS-EXPLICIT-UPDATE",
+      "clause": "12.3.4.2.23",
+      "statement": {
+        "en": "The public setter specifies the selected payload address.",
+        "ja": "公開setterは、選択したpayloadのaddressを指定する。"
+      },
+      "conditions": {
+        "en": "An unchanged accessor fixture assigns explicit values and reads them back through public methods.",
+        "ja": "未変更のaccessor検査系で明示値を設定し、公開methodで読み出す。"
+      },
+      "expected": {
+        "en": "Both selected 64-bit addresses retain their high bits; replacing one with zero preserves the peer.",
+        "ja": "選択した2つの64 bit addressは上位bitを保持し、一方を0に変えてもpeerを保持する。"
+      },
+      "limitations": {
+        "en": "Stored accessor values only; target/interconnect ownership, burst/mask/stream semantics and fresh execution evidence are not established.",
+        "ja": "accessorによる値の保持のみ。target／interconnectの所有規則、burst／mask／streamの動作、新規実行の証拠は示さない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_payload_address_preserves_high_bits_and_instance_state",
+          "role": "direct",
+          "expected_observations": [
+            "UT: addresses fedcba9876543210 8000000012345678",
+            "UT: updated 0 retained 8000000012345678"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PAYLOAD-SET-DATA-EXPLICIT-UPDATE",
+      "clause": "12.3.4.2.25",
+      "statement": {
+        "en": "The public setter specifies the selected payload data array.",
+        "ja": "公開setterは、選択したpayloadのdata配列を指定する。"
+      },
+      "conditions": {
+        "en": "An unchanged accessor fixture assigns explicit values and reads them back through public methods.",
+        "ja": "未変更のaccessor検査系で明示値を設定し、公開methodで読み出す。"
+      },
+      "expected": {
+        "en": "The four unsigned bytes 00/7f/80/ff are retained independently of a caller-side mutation.",
+        "ja": "符号なしbyte 00／7f／80／ffの4個を保持し、呼出元側の変更と独立する。"
+      },
+      "limitations": {
+        "en": "Stored accessor values only; target/interconnect ownership, burst/mask/stream semantics and fresh execution evidence are not established.",
+        "ja": "accessorによる値の保持のみ。target／interconnectの所有規則、burst／mask／streamの動作、新規実行の証拠は示さない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_payload_data_accessors_copy_unsigned_bytes",
+          "role": "direct",
+          "expected_observations": [
+            "UT: length 4 array_size 4 data 0 7f 80 ff",
+            "UT: retained_last ff"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PAYLOAD-SET-DATA-LENGTH-EXPLICIT-UPDATE",
+      "clause": "12.3.4.2.27",
+      "statement": {
+        "en": "The public setter specifies the selected payload data length.",
+        "ja": "公開setterは、選択したpayloadのdata lengthを指定する。"
+      },
+      "conditions": {
+        "en": "An unchanged accessor fixture assigns explicit values and reads them back through public methods.",
+        "ja": "未変更のaccessor検査系で明示値を設定し、公開methodで読み出す。"
+      },
+      "expected": {
+        "en": "The explicitly selected length is four with a four-byte array.",
+        "ja": "4 byte配列で明示した長さ4を保持する。"
+      },
+      "limitations": {
+        "en": "Stored accessor values only; target/interconnect ownership, burst/mask/stream semantics and fresh execution evidence are not established.",
+        "ja": "accessorによる値の保持のみ。target／interconnectの所有規則、burst／mask／streamの動作、新規実行の証拠は示さない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_payload_data_accessors_copy_unsigned_bytes",
+          "role": "direct",
+          "expected_observations": [
+            "UT: length 4 array_size 4 data 0 7f 80 ff"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PAYLOAD-SET-STREAMING-WIDTH-EXPLICIT-UPDATE",
+      "clause": "12.3.4.2.29",
+      "statement": {
+        "en": "The public setter specifies the selected payload streaming width.",
+        "ja": "公開setterは、選択したpayloadのstreaming widthを指定する。"
+      },
+      "conditions": {
+        "en": "An unchanged accessor fixture assigns explicit values and reads them back through public methods.",
+        "ja": "未変更のaccessor検査系で明示値を設定し、公開methodで読み出す。"
+      },
+      "expected": {
+        "en": "Widths two/four and the subsequent one/four update are retained independently.",
+        "ja": "width 2／4と、後続の1／4への変更を独立に保持する。"
+      },
+      "limitations": {
+        "en": "Stored accessor values only; target/interconnect ownership, burst/mask/stream semantics and fresh execution evidence are not established.",
+        "ja": "accessorによる値の保持のみ。target／interconnectの所有規則、burst／mask／streamの動作、新規実行の証拠は示さない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_payload_streaming_width_and_dmi_hint_are_independent",
+          "role": "direct",
+          "expected_observations": [
+            "UT: first width 2 dmi 1 second width 4 dmi 0",
+            "UT: updated width 1 dmi 0 retained_width 4"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PAYLOAD-SET-BYTE-ENABLE-EXPLICIT-UPDATE",
+      "clause": "12.3.4.2.31",
+      "statement": {
+        "en": "The public setter specifies the selected payload byte-enable array.",
+        "ja": "公開setterは、選択したpayloadのbyte-enable配列を指定する。"
+      },
+      "conditions": {
+        "en": "An unchanged accessor fixture assigns explicit values and reads them back through public methods.",
+        "ja": "未変更のaccessor検査系で明示値を設定し、公開methodで読み出す。"
+      },
+      "expected": {
+        "en": "The two ff/00 mask bytes are retained independently of caller-side changes.",
+        "ja": "ff／00のmask byte 2個を保持し、呼出元側の変更と独立する。"
+      },
+      "limitations": {
+        "en": "Stored accessor values only; target/interconnect ownership, burst/mask/stream semantics and fresh execution evidence are not established.",
+        "ja": "accessorによる値の保持のみ。target／interconnectの所有規則、burst／mask／streamの動作、新規実行の証拠は示さない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_payload_byte_enable_accessors_copy_mask_values",
+          "role": "direct",
+          "expected_observations": [
+            "UT: mask length 2 size 2 values ff 0",
+            "UT: retained_mask ff 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PAYLOAD-SET-BYTE-ENABLE-LENGTH-EXPLICIT-UPDATE",
+      "clause": "12.3.4.2.33",
+      "statement": {
+        "en": "The public setter specifies the selected payload byte-enable length.",
+        "ja": "公開setterは、選択したpayloadのbyte-enable lengthを指定する。"
+      },
+      "conditions": {
+        "en": "An unchanged accessor fixture assigns explicit values and reads them back through public methods.",
+        "ja": "未変更のaccessor検査系で明示値を設定し、公開methodで読み出す。"
+      },
+      "expected": {
+        "en": "The explicitly selected length is two with a two-byte mask.",
+        "ja": "2 byte maskで明示した長さ2を保持する。"
+      },
+      "limitations": {
+        "en": "Stored accessor values only; target/interconnect ownership, burst/mask/stream semantics and fresh execution evidence are not established.",
+        "ja": "accessorによる値の保持のみ。target／interconnectの所有規則、burst／mask／streamの動作、新規実行の証拠は示さない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_payload_byte_enable_accessors_copy_mask_values",
+          "role": "direct",
+          "expected_observations": [
+            "UT: mask length 2 size 2 values ff 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PAYLOAD-SET-DMI-HINT-EXPLICIT-UPDATE",
+      "clause": "12.3.4.2.34",
+      "statement": {
+        "en": "The public setter specifies the selected payload DMI hint.",
+        "ja": "公開setterは、選択したpayloadのDMI hintを指定する。"
+      },
+      "conditions": {
+        "en": "An unchanged accessor fixture assigns explicit values and reads them back through public methods.",
+        "ja": "未変更のaccessor検査系で明示値を設定し、公開methodで読み出す。"
+      },
+      "expected": {
+        "en": "The first hint is one, the peer hint zero, and disabling the first preserves the peer width.",
+        "ja": "一方のhintは1、peerは0で、一方を無効化してもpeerのwidthを保持する。"
+      },
+      "limitations": {
+        "en": "Stored accessor values only; target/interconnect ownership, burst/mask/stream semantics and fresh execution evidence are not established.",
+        "ja": "accessorによる値の保持のみ。target／interconnectの所有規則、burst／mask／streamの動作、新規実行の証拠は示さない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_payload_streaming_width_and_dmi_hint_are_independent",
+          "role": "direct",
+          "expected_observations": [
+            "UT: first width 2 dmi 1 second width 4 dmi 0",
+            "UT: updated width 1 dmi 0 retained_width 4"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PAYLOAD-SET-RESPONSE-STATUS-EXPLICIT-UPDATE",
+      "clause": "12.3.4.2.37",
+      "statement": {
+        "en": "The public setter specifies the selected payload response status.",
+        "ja": "公開setterは、選択したpayloadのresponse statusを指定する。"
+      },
+      "conditions": {
+        "en": "An unchanged accessor fixture assigns explicit values and reads them back through public methods.",
+        "ja": "未変更のaccessor検査系で明示値を設定し、公開methodで読み出す。"
+      },
+      "expected": {
+        "en": "OK, INCOMPLETE and ADDRESS_ERROR statuses read back with their selected status predicates.",
+        "ja": "OK、INCOMPLETE、ADDRESS_ERRORを読み出せ、選択statusに応じたpredicateとなる。"
+      },
+      "limitations": {
+        "en": "Stored accessor values only; target/interconnect ownership, burst/mask/stream semantics and fresh execution evidence are not established.",
+        "ja": "accessorによる値の保持のみ。target／interconnectの所有規則、burst／mask／streamの動作、新規実行の証拠は示さない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_payload_response_status_predicates_follow_explicit_status",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ok status_same 1 ok 1 error 0",
+            "UT: incomplete status_same 1 ok 0 error 1",
+            "UT: address_error status_same 1 ok 0 error 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-FIFO-CONSTRUCTOR-DEFAULT-NAME",
+      "clause": "18.8.3.1",
+      "statement": {
+        "en": "Omitting the FIFO name uses its specified reg_fifo constructor default.",
+        "ja": "FIFO名を省略すると、constructorの規定既定名reg_fifoを使う。"
+      },
+      "conditions": {
+        "en": "Required size, width and coverage arguments are supplied by name without a name argument.",
+        "ja": "必須のsize、width、coverage引数を名前付きで指定し、name引数は省略する。"
+      },
+      "expected": {
+        "en": "The omitted-name instance is named reg_fifo and its named peer remains peer.",
+        "ja": "name省略のinstanceはreg_fifo、名前を指定したpeerはpeerとなる。"
+      },
+      "limitations": {
+        "en": "Public abstract queue, metadata and selected constraints only; no implementation-specific build, FIFO bus transfer, compare policy, prediction or DUT storage is exercised.",
+        "ja": "公開abstract queue、metadata、選択した制約のみ。実装固有build、FIFO bus転送、compare policy、prediction、DUT storageは実行しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_fifo_constructor_preserves_depth_width_name_and_empty_state",
+          "role": "direct",
+          "expected_observations": [
+            "UT: names reg_fifo peer"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-FIFO-CONSTRUCTOR-CAPACITY-AND-WIDTH",
+      "clause": "18.8.3.1",
+      "statement": {
+        "en": "FIFO construction establishes the selected entry capacity and register width.",
+        "ja": "FIFOの生成は、選択したentry容量とregister幅を定める。"
+      },
+      "conditions": {
+        "en": "Two FIFOs use capacities four/two and widths eight/sixteen.",
+        "ja": "2つのFIFOに容量4／2、幅8／16を指定する。"
+      },
+      "expected": {
+        "en": "The metadata queries return exactly those supplied dimensions.",
+        "ja": "metadata照会は指定した寸法を正確に返す。"
+      },
+      "limitations": {
+        "en": "Public abstract queue, metadata and selected constraints only; no implementation-specific build, FIFO bus transfer, compare policy, prediction or DUT storage is exercised.",
+        "ja": "公開abstract queue、metadata、選択した制約のみ。実装固有build、FIFO bus転送、compare policy、prediction、DUT storageは実行しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_fifo_constructor_preserves_depth_width_name_and_empty_state",
+          "role": "direct",
+          "expected_observations": [
+            "UT: first capacity 4 bits 8 size 0 queue 0",
+            "UT: peer capacity 2 bits 16 size 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-FIFO-SIZE-REFLECTS-ABSTRACT-OCCUPANCY",
+      "clause": "18.8.4.1",
+      "statement": {
+        "en": "The FIFO size query reports the number of abstract queue entries.",
+        "ja": "FIFOのsize照会は、abstract queueのentry数を返す。"
+      },
+      "conditions": {
+        "en": "Constructed empty queues and a valid queue of three entries are queried; an explicit fixture pop removes one.",
+        "ja": "生成直後の空queueと、有効な3 entry queueを照会し、検査系の明示popで1個除く。"
+      },
+      "expected": {
+        "en": "Sizes are initially zero, then three and two for the selected prepared queue.",
+        "ja": "sizeは初期0で、対象の準備済みqueueでは3、続いて2となる。"
+      },
+      "limitations": {
+        "en": "Public abstract queue, metadata and selected constraints only; no implementation-specific build, FIFO bus transfer, compare policy, prediction or DUT storage is exercised.",
+        "ja": "公開abstract queue、metadata、選択した制約のみ。実装固有build、FIFO bus転送、compare policy、prediction、DUT storageは実行しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_fifo_constructor_preserves_depth_width_name_and_empty_state",
+          "role": "direct",
+          "expected_observations": [
+            "UT: first capacity 4 bits 8 size 0 queue 0",
+            "UT: peer capacity 2 bits 16 size 0"
+          ]
+        },
+        {
+          "test": "u18/test_reg_fifo_get_observes_public_queue_front_without_popping_or_affecting_peer",
+          "role": "direct",
+          "expected_observations": [
+            "UT: front 17 repeated 17 size 3 peer 99 peer_size 1",
+            "UT: explicit_pop removed 17 front 34 size 2 capacity 4"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-FIFO-CAPACITY-REMAINS-CONFIGURED-DEPTH",
+      "clause": "18.8.4.2",
+      "statement": {
+        "en": "The capacity query reports the configured maximum entry count independently of occupancy.",
+        "ja": "capacity照会は、現在の要素数と独立して設定済み最大entry数を返す。"
+      },
+      "conditions": {
+        "en": "A capacity-four FIFO changes from a three-entry public queue to two entries.",
+        "ja": "容量4のFIFOの公開queueを3 entryから2 entryへ変える。"
+      },
+      "expected": {
+        "en": "Capacity stays four while the occupied size changes.",
+        "ja": "現在sizeが変わってもcapacityは4を保持する。"
+      },
+      "limitations": {
+        "en": "Public abstract queue, metadata and selected constraints only; no implementation-specific build, FIFO bus transfer, compare policy, prediction or DUT storage is exercised.",
+        "ja": "公開abstract queue、metadata、選択した制約のみ。実装固有build、FIFO bus転送、compare policy、prediction、DUT storageは実行しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_fifo_constructor_preserves_depth_width_name_and_empty_state",
+          "role": "direct",
+          "expected_observations": [
+            "UT: first capacity 4 bits 8 size 0 queue 0"
+          ]
+        },
+        {
+          "test": "u18/test_reg_fifo_get_observes_public_queue_front_without_popping_or_affecting_peer",
+          "role": "direct",
+          "expected_observations": [
+            "UT: explicit_pop removed 17 front 34 size 2 capacity 4"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-FIFO-PUBLIC-QUEUE-REPRESENTATION",
+      "clause": "18.8.2",
+      "statement": {
+        "en": "The public FIFO queue supplies the abstract representation observed by its queries.",
+        "ja": "公開FIFO queueは、照会で観測するabstract表現を与える。"
+      },
+      "conditions": {
+        "en": "The original fixture prepares in-bound queues and changes only the first queue explicitly.",
+        "ja": "独自の検査系で容量内のqueueを準備し、一方だけを明示的に変更する。"
+      },
+      "expected": {
+        "en": "Public queue contents, front values and occupied sizes agree in the selected states.",
+        "ja": "対象状態で公開queueの内容、先頭値、現在sizeが一致する。"
+      },
+      "limitations": {
+        "en": "Public abstract queue, metadata and selected constraints only; no implementation-specific build, FIFO bus transfer, compare policy, prediction or DUT storage is exercised.",
+        "ja": "公開abstract queue、metadata、選択した制約のみ。実装固有build、FIFO bus転送、compare policy、prediction、DUT storageは実行しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_fifo_get_observes_public_queue_front_without_popping_or_affecting_peer",
+          "role": "direct",
+          "expected_observations": [
+            "UT: front 17 repeated 17 size 3 peer 99 peer_size 1",
+            "UT: explicit_pop removed 17 front 34 size 2 capacity 4"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-FIFO-GET-DOES-NOT-POP",
+      "clause": "18.8.5.1",
+      "statement": {
+        "en": "A nonempty FIFO get returns its next abstract value without removing it.",
+        "ja": "空でないFIFOのgetは、次のabstract値を除去せずに返す。"
+      },
+      "conditions": {
+        "en": "Two gets inspect the prepared 17/34/51 queue before a separate explicit fixture pop.",
+        "ja": "別の明示popの前に、準備した17／34／51のqueueをgetで2回調べる。"
+      },
+      "expected": {
+        "en": "Both gets return 17 with size three; only the explicit pop changes the next front to 34.",
+        "ja": "両getはsize 3のまま17を返し、明示popだけが次の先頭を34へ変える。"
+      },
+      "limitations": {
+        "en": "Public abstract queue, metadata and selected constraints only; no implementation-specific build, FIFO bus transfer, compare policy, prediction or DUT storage is exercised.",
+        "ja": "公開abstract queue、metadata、選択した制約のみ。実装固有build、FIFO bus転送、compare policy、prediction、DUT storageは実行しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_fifo_get_observes_public_queue_front_without_popping_or_affecting_peer",
+          "role": "direct",
+          "expected_observations": [
+            "UT: front 17 repeated 17 size 3 peer 99 peer_size 1",
+            "UT: explicit_pop removed 17 front 34 size 2 capacity 4"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-FIFO-GET-DEBUG-ARGUMENTS-NONFUNCTIONAL",
+      "clause": "18.8.5.1",
+      "statement": {
+        "en": "FIFO get filename and line-number arguments do not change its functional result.",
+        "ja": "FIFO getのfilename／line-number引数は、機能的な結果を変えない。"
+      },
+      "conditions": {
+        "en": "A default call and a call with debug_only.sv/73 inspect the same valid queue.",
+        "ja": "既定呼出しとdebug_only.sv／73を指定した呼出しで、同じ有効queueを調べる。"
+      },
+      "expected": {
+        "en": "Both calls return 17 without popping.",
+        "ja": "両呼出しはpopせず17を返す。"
+      },
+      "limitations": {
+        "en": "Public abstract queue, metadata and selected constraints only; no implementation-specific build, FIFO bus transfer, compare policy, prediction or DUT storage is exercised.",
+        "ja": "公開abstract queue、metadata、選択した制約のみ。実装固有build、FIFO bus転送、compare policy、prediction、DUT storageは実行しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_fifo_get_observes_public_queue_front_without_popping_or_affecting_peer",
+          "role": "direct",
+          "expected_observations": [
+            "UT: front 17 repeated 17 size 3 peer 99 peer_size 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-FIFO-RANDOMIZATION-ACCEPTS-CAPACITY",
+      "clause": "18.8.2",
+      "statement": {
+        "en": "The FIFO queue capacity constraint permits the selected exact-capacity state.",
+        "ja": "FIFO queueの容量制約は、対象の容量ちょうどの状態を許す。"
+      },
+      "conditions": {
+        "en": "Inline and subtype-declared constraints request three entries in a capacity-three FIFO.",
+        "ja": "容量3のFIFOで、inline制約とsubtype宣言制約から3 entryを要求する。"
+      },
+      "expected": {
+        "en": "Randomization succeeds and the abstract queue has exactly three entries.",
+        "ja": "randomizeは成功し、abstract queueは正確に3 entryとなる。"
+      },
+      "limitations": {
+        "en": "Public abstract queue, metadata and selected constraints only; no implementation-specific build, FIFO bus transfer, compare policy, prediction or DUT storage is exercised.",
+        "ja": "公開abstract queue、metadata、選択した制約のみ。実装固有build、FIFO bus転送、compare policy、prediction、DUT storageは実行しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_fifo_randomization_accepts_capacity_and_rejects_an_oversized_queue",
+          "role": "direct",
+          "expected_observations": [
+            "UT: at_capacity accepted 1 size 3 capacity 3"
+          ]
+        },
+        {
+          "test": "u18/test_reg_fifo_capacity_constraint_applies_to_subtype_declared_queue_sizes",
+          "role": "direct",
+          "expected_observations": [
+            "UT: declared_capacity accepted 1 size 3 capacity 3"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-FIFO-RANDOMIZATION-REJECTS-OVERSIZE",
+      "clause": "18.8.2",
+      "statement": {
+        "en": "The inherited FIFO capacity constraint rejects a selected queue size above capacity.",
+        "ja": "継承したFIFO容量制約は、容量を超える対象queue sizeを拒否する。"
+      },
+      "conditions": {
+        "en": "Inline and subtype-declared constraints request four entries in a capacity-three FIFO.",
+        "ja": "容量3のFIFOで、inline制約とsubtype宣言制約から4 entryを要求する。"
+      },
+      "expected": {
+        "en": "Both oversized randomization requests return failure.",
+        "ja": "両方の過大randomize要求は失敗を返す。"
+      },
+      "limitations": {
+        "en": "Public abstract queue, metadata and selected constraints only; no implementation-specific build, FIFO bus transfer, compare policy, prediction or DUT storage is exercised.",
+        "ja": "公開abstract queue、metadata、選択した制約のみ。実装固有build、FIFO bus転送、compare policy、prediction、DUT storageは実行しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_fifo_randomization_accepts_capacity_and_rejects_an_oversized_queue",
+          "role": "direct",
+          "expected_observations": [
+            "UT: oversized rejected 1"
+          ]
+        },
+        {
+          "test": "u18/test_reg_fifo_capacity_constraint_applies_to_subtype_declared_queue_sizes",
+          "role": "direct",
+          "expected_observations": [
+            "UT: declared_oversized rejected 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-FIFO-SUBTYPE-PUBLIC-QUEUE-CONSTRAINTS",
+      "clause": "18.8.2",
+      "statement": {
+        "en": "A FIFO subtype can refine its public queue using additional constraints.",
+        "ja": "FIFOのsubtypeは、追加制約で公開queueを細かく指定できる。"
+      },
+      "conditions": {
+        "en": "A concrete subtype constrains three entries to 17/18/19 inside capacity four.",
+        "ja": "具体的subtypeで、容量4の範囲内に3 entryの17／18／19を制約する。"
+      },
+      "expected": {
+        "en": "Both instances randomize successfully and the selected values match.",
+        "ja": "両instanceのrandomizeは成功し、選択した値が一致する。"
+      },
+      "limitations": {
+        "en": "Public abstract queue, metadata and selected constraints only; no implementation-specific build, FIFO bus transfer, compare policy, prediction or DUT storage is exercised.",
+        "ja": "公開abstract queue、metadata、選択した制約のみ。実装固有build、FIFO bus転送、compare policy、prediction、DUT storageは実行しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_fifo_subtype_constraints_refine_the_public_queue_and_keep_instances_independent",
+          "role": "direct",
+          "expected_observations": [
+            "UT: randomized 1 1 first 17 18 19"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-FIFO-ABSTRACT-QUEUE-INSTANCE-ISOLATION",
+      "clause": "18.8.2",
+      "statement": {
+        "en": "Separate FIFO instances retain independent abstract queue storage.",
+        "ja": "別々のFIFO instanceは、abstract queueの保持を独立させる。"
+      },
+      "conditions": {
+        "en": "Two identically constrained FIFOs are randomized before changing the first front to 99.",
+        "ja": "同じ制約の2つのFIFOをrandomizeした後、一方の先頭を99へ変える。"
+      },
+      "expected": {
+        "en": "The changed front is 99 while the peer still returns 17 and retains size three.",
+        "ja": "変更した先頭は99で、peerは17を返しsize 3を保持する。"
+      },
+      "limitations": {
+        "en": "Public abstract queue, metadata and selected constraints only; no implementation-specific build, FIFO bus transfer, compare policy, prediction or DUT storage is exercised.",
+        "ja": "公開abstract queue、metadata、選択した制約のみ。実装固有build、FIFO bus転送、compare policy、prediction、DUT storageは実行しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_fifo_subtype_constraints_refine_the_public_queue_and_keep_instances_independent",
+          "role": "direct",
+          "expected_observations": [
+            "UT: local_change front 99 peer 17 size 3 capacity 4"
+          ]
+        }
+      ]
     }
   ]
 }

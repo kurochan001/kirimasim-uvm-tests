@@ -649,6 +649,133 @@
         "reviewer": null,
         "reviewed_at": null
       }
+    },
+    {
+      "clause": "5.4.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "Transaction methods is an individually read grouping heading or forward pointer to numbered child APIs. It contains no separate operation or unnumbered constructor.",
+        "ja": "transactionのMethodsは、個別に読んだ分類用見出しまたは番号付き下位APIへの導入である。別の操作や番号のないconstructorを含まない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "10.6.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "Heartbeat methods is an individually read grouping heading or forward pointer to numbered child APIs. It contains no separate operation or unnumbered constructor.",
+        "ja": "heartbeatのMethodsは、個別に読んだ分類用見出しまたは番号付き下位APIへの導入である。別の操作や番号のないconstructorを含まない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "12.3.4.2.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "Payload common-method introduction is an individually read grouping heading or forward pointer to numbered child APIs. It contains no separate operation or unnumbered constructor.",
+        "ja": "payloadのCommon methods導入は、個別に読んだ分類用見出しまたは番号付き下位APIへの導入である。別の操作や番号のないconstructorを含まない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "12.3.4.2.41",
+      "classification": "structural",
+      "rationale": {
+        "en": "Payload extension-mechanism introduction is an individually read grouping heading or forward pointer to numbered child APIs. It contains no separate operation or unnumbered constructor.",
+        "ja": "payloadのExtension mechanism導入は、個別に読んだ分類用見出しまたは番号付き下位APIへの導入である。別の操作や番号のないconstructorを含まない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "18.8.3",
+      "classification": "structural",
+      "rationale": {
+        "en": "FIFO methods is an individually read grouping heading or forward pointer to numbered child APIs. It contains no separate operation or unnumbered constructor.",
+        "ja": "FIFOのMethodsは、個別に読んだ分類用見出しまたは番号付き下位APIへの導入である。別の操作や番号のないconstructorを含まない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "18.8.4",
+      "classification": "structural",
+      "rationale": {
+        "en": "FIFO introspection is an individually read grouping heading or forward pointer to numbered child APIs. It contains no separate operation or unnumbered constructor.",
+        "ja": "FIFOのIntrospectionは、個別に読んだ分類用見出しまたは番号付き下位APIへの導入である。別の操作や番号のないconstructorを含まない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "18.8.5",
+      "classification": "structural",
+      "rationale": {
+        "en": "FIFO access is an individually read grouping heading or forward pointer to numbered child APIs. It contains no separate operation or unnumbered constructor.",
+        "ja": "FIFOのAccessは、個別に読んだ分類用見出しまたは番号付き下位APIへの導入である。別の操作や番号のないconstructorを含まない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "12.3.4.2.6",
+      "classification": "contextual",
+      "rationale": {
+        "en": "This introduction groups the member declarations and recommends accessor use for compatibility with derived payloads. The related virtual-dispatch requirements observe that API property. This classification does not remove any child attribute ownership, target or transport obligation.",
+        "ja": "この導入はmember宣言をまとめ、派生payloadとの互換性のためにaccessorの利用を勧める。関連するvirtual-dispatch要求でそのAPI特性を観測する。下位のattribute所有規則、target、transportの義務は、この分類で除かない。"
+      },
+      "related_requirements": [
+        "UVM-PAYLOAD-VIRTUAL-SET-ADDRESS",
+        "UVM-PAYLOAD-VIRTUAL-GET-ADDRESS",
+        "UVM-PAYLOAD-VIRTUAL-SET-COMMAND",
+        "UVM-PAYLOAD-VIRTUAL-GET-COMMAND",
+        "UVM-PAYLOAD-VIRTUAL-SET-DATA",
+        "UVM-PAYLOAD-VIRTUAL-GET-DATA",
+        "UVM-PAYLOAD-VIRTUAL-SET-BYTE-ENABLE",
+        "UVM-PAYLOAD-VIRTUAL-GET-BYTE-ENABLE",
+        "UVM-PAYLOAD-VIRTUAL-SET-STREAMING-WIDTH",
+        "UVM-PAYLOAD-VIRTUAL-GET-STREAMING-WIDTH",
+        "UVM-PAYLOAD-VIRTUAL-SET-DMI-ALLOWED",
+        "UVM-PAYLOAD-VIRTUAL-IS-DMI-ALLOWED",
+        "UVM-PAYLOAD-VIRTUAL-SET-RESPONSE-STATUS",
+        "UVM-PAYLOAD-VIRTUAL-GET-RESPONSE-STATUS"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
     }
   ]
 }

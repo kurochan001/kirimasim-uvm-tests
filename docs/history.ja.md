@@ -2,7 +2,7 @@
 
 [English](history.md) · [README](../README.ja.md)
 
-M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の22回目の拡充（シミュレーション1201件）までを記録しています。以前の349件の時点は
+M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の23回目の拡充（シミュレーション1214件）までを記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -1620,3 +1620,29 @@ AI要求案44件を加えて1395件となり、すべて1200テストへ直接�
 日英の資料はSVG図を維持し、APIごとの説明を追加して用語169語、FAQ 148回答です。toolテスト88件、全1201 metadata、台帳／分類／索引、
 library整合性、日英対応、evidence指紋を検査します。既存simulation入力、runner、backend、以前の台帳記録と履歴の節は保持します。
 対応付けqueueが空でもM1〜M4の完了ではありません。
+
+## M1〜M4の薄い領域の23回目の拡充
+
+heartbeat 5件、基底型経由のpayload accessor 3件、abstract register FIFO 5件の、計13検査系を追加します。
+全体1214件、M1 406件、M2 440件、M3 368件です。heartbeatはmodeの明示選択／照会、不在／置換／再利用するevent、
+正常なALL_ACTIVEでの参加者変更を扱います。payload overrideで選択したvirtual method 14個を観測します。
+FIFOはconstructorの寸法、公開queueの照会、popしないget、debug引数、instanceの独立性、inline／subtype制約を扱い、DUT accessを行いません。
+
+追加10件はVerilator 5.052のseed 1／73で一致します。3件はseed 1の実行時差分を保持します。
+動作中に省略したheartbeat eventはerror整形中に参照されますが、その前のstop後の既定再利用と明示same-eventの対照は一致します。
+容量ちょうどのFIFO inline randomizeは成功してqueueが空のままですが、過大inline要求は正しく拒否します。
+容量ちょうどを宣言したsubtypeは一致し、過大なsubtypeも成功を返します。FIFO観測だけではsimulator／libraryのどちらが原因かを決めません。
+互換な通常evidenceは以前の1201記録を保持し、最終入力13測定を加え、pass 1083件、known 131件です。
+knownは実行時初回差分113件、API欠落build 10件、DPI未link build 8件です。別条件VPIはpass 7件・fail 1件を保持します。
+guestは未変更1085入力の記録を保持し、現在の129件は未測定です。
+
+AI要求案56件を加えて1451件となり、すべて1213テストへ直接対応します。追加control 1件を含め、未対応テストは0件です。
+未変更検査系7件に、transactionのhook／時刻の義務6件とpayload setterの義務11件を加え、新測定は与えません。
+構造の分類7件とpayload member導入の文脈分類1件を加え、分類54件（構造52件・文脈2件）です。
+2,504番号のうち部分分解903件、未評価1,547件で、減少37件は新しい分解29件と明示分類8件です。
+主引用588番号、いずれかの引用1,225番号、候補の棚卸しは0件1,891、1件329、2件以上259です。人の照合と分母の承認は未完です。
+
+日英資料はSVG 6個を維持し、検査範囲の説明、FIFO制約の比較、用語172語、FAQ 151回答を揃えます。
+toolテスト88件、全1214 metadata、台帳／分類／索引、library整合性、日英参照、evidence指紋を検査します。
+既存simulation入力、runner、backend、以前の台帳記録と履歴の節は保持します。
+FIFOの転送／compare／初期化と、広いheartbeat、payload protocol、要求分解の作業は未完です。

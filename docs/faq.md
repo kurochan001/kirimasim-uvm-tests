@@ -135,7 +135,7 @@ See [Ghost setup](testing.md#ghost).
 
 It removes `UVM_NO_DPI` from the default macro list. It does not supply or link
 UVM's C/C++ implementation. The current Verilator runner does not add those
-sources. There are 1193 `UVM_NO_DPI` cases and eight explicit HDL-DPI cases.
+sources. There are 1206 `UVM_NO_DPI` cases and eight explicit HDL-DPI cases.
 The [separate VPI runner](testing.md#verilator-vpi-hdl-subset) links the original
 limited backend; results apply only to that declared execution condition.
 User-defined `uvm_reg_backdoor` handlers can operate without HDL DPI (Q67).
@@ -174,7 +174,7 @@ a claim that every test was rebuilt together.
 
 ### Q16. Are M1, M2 or M3 complete, and what does the test count cover?
 
-M1 and M2 still have open clause targets. M3 now has 363
+M1 and M2 still have open clause targets. M3 now has 368
 register-layer cases, including testbench frontdoor paths; it is also incomplete. Starting a stage does not complete
 the preceding stages.
 The [plan](../README.md#plan) identifies current scope and remaining work.
@@ -1141,9 +1141,9 @@ not a direct test of the requirement.
 
 ### Q77. Why is there no coverage percentage after starting M4?
 
-The 1395 AI drafts cover only a partial decomposition: 1395 requirements link
-directly to 1200 tests; all drafts have direct tests, and one separate test is a control.
-All 1201 tests have requirement links. The 2,504 clause identifiers are not normative requirement units.
+The 1451 AI drafts cover only a partial decomposition: 1451 requirements link
+directly to 1213 tests; all drafts have direct tests, and one separate test is a control.
+All 1214 tests have requirement links. The 2,504 clause identifiers are not normative requirement units.
 The scope is proposed, the inventory incomplete and the denominator unapproved;
 starting M4 approves none of those. Known differences and HDL/DPI limitations
 do not silently exclude obligations. See the [approval path](requirements.md#remaining-m4-work-and-approval).
@@ -2143,7 +2143,7 @@ No. `tests_without_requirement_links` is zero: every current test has an
 explicit direct or control link. The separate counter
 `requirements_without_direct_tests` is zero. The memory-walk link uses the
 qualified historical interpretation in Q134. It is not approval of missing
-IEEE detail. HDL deposit and accessibility use explicit VPI fixtures. Another 1,584
+IEEE detail. HDL deposit and accessibility use explicit VPI fixtures. Another 1,547
 catalog identifiers remain unassessed; decomposition and human review are
 incomplete, and the denominator remains unapproved.
 
@@ -2244,7 +2244,7 @@ in [identifier assessments](../coverage/assessments.json). Structural headings
 have no related requirements; contextual descriptions name existing requirements.
 An unreviewed record, guessed classification or parent rollup cannot do this.
 The generated state is `assessed`, separate from `partial` requirement clauses.
-Forty-six classifications currently exist, with no denominator approval or new pass.
+Fifty-four classifications currently exist, with no denominator approval or new pass.
 Chapter 11's zero unassessed identifiers still does not complete its requirements.
 
 ### Q136. Does explicit strict configuration make the new cases pass?
@@ -2404,3 +2404,51 @@ The local query still has only two components. Flattened files contribute no
 logical-name segment. These observations do not look up storage, use DPI or
 perform bus transfers. Actual HDL access has a separate
 [backend and execution condition](testing.md#verilator-vpi-hdl-subset).
+
+## Heartbeats, payload dispatch and abstract FIFOs
+
+### Q149. Does an omitted heartbeat start event replace the selected event?
+
+In `start()`, a null event reuses the previously selected event. A different
+explicit event is an error while running, and is accepted after stop. The
+fixture observes stopped reuse and explicit same-event controls before the
+running omitted-event call. The pinned running guard dereferences that null
+argument while formatting an error; the normative reuse expectation remains.
+See [known differences](known-differences.md#pinned-library-limitations).
+
+Mode tests query after explicit selection. `UVM_NO_HB_MODE` is used with
+`set_mode` as a query, and the return value of a mode-changing call is not
+asserted. Healthy `UVM_ALL_ACTIVE` windows include participant removal and
+addition. These cases leave missing-participant failure modes and diagnostic
+severity, ONE/ANY window combinations and broader concurrency open.
+
+### Q150. Why call payload accessors through a base-typed handle?
+
+A `uvm_tlm_generic_payload` handle bound to a derived instance observes the
+API's virtual dispatch. Fourteen selected setter/getter overrides count direct
+public calls and forward values to the standard implementation. Counters reset
+after construction. Address/command, array and width/DMI/status fixtures each
+preserve their selected values. Eleven existing setter observations also gain
+explicit requirements without additional measurements. Transport, target
+ownership, packing and DMI grants remain separate obligations; see
+[requirement links](requirements.md#citations-requirements-and-execution-evidence).
+
+### Q151. Why are inline and subtype-declared FIFO constraints recorded separately?
+
+Both fixtures retain the inherited FIFO capacity requirement. Their seed-1
+observations differ under Verilator 5.052 with the pinned UVM library:
+
+| Constraint condition, capacity 3 | Required observation | Measured observation |
+| --- | --- | --- |
+| Inline `fifo.size() == 3` | Success; size 3 | Success; size 0 |
+| Inline `fifo.size() == 4` | Rejected | Rejected |
+| Subtype-declared `fifo.size() == 3` | Success; size 3 | Success; size 3 |
+| Subtype-declared `fifo.size() == 4` | Rejected | Reports success |
+
+See the [inline fixture](../tests/u18/test_reg_fifo_randomization_accepts_capacity_and_rejects_an_oversized_queue.sv)
+and [subtype-bound fixture](../tests/u18/test_reg_fifo_capacity_constraint_applies_to_subtype_declared_queue_sizes.sv).
+These observations do not assign cause to simulator or library. Other FIFO
+cases observe constructor metadata, a public queue refinement, instance
+isolation and a non-popping get. Direct queue preparation/pop is fixture
+stimulus. FIFO bus reads/writes, update, comparison, prediction and their
+initialization conditions remain open; no DUT FIFO storage is exercised.

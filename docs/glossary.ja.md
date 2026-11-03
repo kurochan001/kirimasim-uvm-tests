@@ -637,3 +637,15 @@ flattenされたfileはscope名を加えず、親／localの代替成分から�
 **Enclosing abstraction default（包含abstractionの既定値）** — register fileのlocal path／存在APIが選ぶ、最も近い包含register file／blockの既定値。
 現在file自体で明示した既定値の照会とは異なる。
 [Q147](faq.ja.md#q147-register-fileの照会はどのhdl-abstractionの既定値を使いますか)を参照。
+
+## Heartbeat・virtual accessor・FIFOモデル
+
+**Heartbeat window（heartbeatのwindow）** — trigger eventで区切り、監視componentが同期objectionを通じて参加する区間。
+新しい正常windowの検査系はALL_ACTIVEを明示選択し、広いmode／失敗条件は別に残す。
+
+**Virtual accessor dispatch（virtual accessorのdispatch）** — 基底型のpayload handleからvirtual accessorの派生overrideを呼ぶこと。
+counterと転送値で選択した公開呼出しを観測し、transport／pack動作とは分ける。
+
+**Abstract register FIFO（register FIFOの抽象表現）** — register-layer FIFO modelの公開queueと容量。
+対象getは先頭をpopせず観測し、queueの直接変更は検査系の刺激とする。
+inlineとsubtypeの制約条件は[Q151](faq.ja.md#q151-fifoのinline制約とsubtype宣言制約をなぜ分けて記録しますか)で分けて示す。

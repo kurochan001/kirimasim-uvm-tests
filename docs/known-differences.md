@@ -2,7 +2,7 @@
 
 [日本語](known-differences.ja.md) · [README](../README.md) · [FAQ](faq.md)
 
-This describes the current 1201-test suite and the pinned Accellera UVM
+This describes the current 1214-test suite and the pinned Accellera UVM
 2020.3.1 library. A mismatch is a test result; it does not by itself assign
 the cause to the simulator, the library or the expectation.
 
@@ -19,6 +19,20 @@ shared accesses and one child-block shape; see the
 Further limitations and observations were identified during M1, M2 and M3.
 Where a test directly checks a required behavior that is missing, its
 normative expectation is retained with `:oracle: spec`.
+
+- Heartbeat start with an omitted event while already running dereferences
+  that null argument while forming a replacement-event error in the pinned
+  implementation. Clause 10.6.2.6 selects the previously configured event.
+  Stopped default-event reuse and an explicit same-event start both match
+  before the running default call fails.
+- In the Verilator/pinned condition, FIFO inline randomization reports success
+  for an exact-capacity request but leaves the queue empty. Its separate
+  oversized inline request is rejected as expected.
+- In a separate FIFO subtype-constraint case, the exact-capacity subtype
+  matches, while the subtype requesting four entries at capacity three
+  reports randomization success instead of rejection. These two FIFO
+  observations retain 18.8.2 expectations without assigning the cause to
+  simulator or library; abstract queues establish no DUT FIFO transfer.
 
 - Register-file get_default_hdl_path retains its initial RTL value after the
   enclosing block selects GATE and later CPU, despite no explicit file default.
@@ -396,7 +410,7 @@ SystemVerilog 13.4, so it cannot represent a count of two. The expected two
 preserves the prose interpretation. This signature/prose conflict requires
 review and is not assigned as a confirmed simulator or library bug.
 
-Across the suite, 1073 tests have the `verilator@5.052` oracle tag and 128
+Across the suite, 1083 tests have the `verilator@5.052` oracle tag and 131
 cases are spec-only. One of the spec-only cases checks 9.6: a child's pre-reset
 task must be killed when that phase ends, but the pinned-library run on Verilator 5.052
 lets the child perform its delayed write during a later phase. The cause of
@@ -408,10 +422,10 @@ without callbacks. The pinned Verilator run reaches the blocked-state
 observation, then its watchdog expires. This combined simulator/library
 cause remains unassigned; the normative wakeup expectation is retained.
 
-The 128 spec-only tests retain their normative expected files.
-Default Verilator runs and CI select the 1073 tagged cases. `--all` includes
+The 131 spec-only tests retain their normative expected files.
+Default Verilator runs and CI select the 1083 tagged cases. `--all` includes
 spec-only cases and records mismatches or build failures as `known`.
-The ordinary runtime records for 110 cases establish their first difference
+The ordinary runtime records for 113 cases establish their first difference
 at seed 1, without seed 73 results. Ten missing-API builds have no ordinary
 runtime seed result: one time API, six sequence-library cases, two HDL slice
 cases and one object active-policy case. Eight HDL-DPI fixtures also cannot
@@ -421,7 +435,7 @@ These overlapping configurations are not summed.
 
 ## Spec-only tests
 
-These are the 128 current spec-only cases. Several exercise the same
+These are the 131 current spec-only cases. Several exercise the same
 limitation, so their count is not a count of distinct bugs.
 
 - [Explicit HDL abstraction selection](../tests/uE/test_hdl_path_sequence_uses_an_explicit_abstraction_instead_of_the_invalid_default.sv).
@@ -635,10 +649,16 @@ Additional register-file abstraction cases:
 - [nearest ancestor default](../tests/u18/test_regfile_default_hdl_abstraction_follows_nearest_ancestor_and_local_override.sv)
 - [flattened full path with inherited kind](../tests/u18/test_flattened_regfile_omits_its_name_from_full_paths_for_each_selected_abstraction.sv)
 
+Additional heartbeat and FIFO cases:
+
+- [running default-event reuse](../tests/u10/test_heartbeat_default_start_reuses_its_event_while_running_and_after_stop.sv)
+- [inline FIFO constraint observations](../tests/u18/test_reg_fifo_randomization_accepts_capacity_and_rejects_an_oversized_queue.sv)
+- [subtype-declared FIFO bounds](../tests/u18/test_reg_fifo_capacity_constraint_applies_to_subtype_declared_queue_sizes.sv)
+
 ## Simulator and library combinations
 
-The suite has 1201 cases, but the kirimasim/Ghost records below cover only
-1085 unchanged current-input cases. The 116 new cases are unmeasured
+The suite has 1214 cases, but the kirimasim/Ghost records below cover only
+1085 unchanged current-input cases. The 129 new cases are unmeasured
 because prior temporary executable/profile snapshots are unavailable. Do
 not treat this as a fresh full-suite guest result. See [results](results.md).
 

@@ -825,3 +825,19 @@ local components can yield several full symbolic paths.
 default selected by a register file's local path/presence APIs. It differs from
 querying the current file's own explicit default. See
 [Q147](faq.md#q147-which-hdl-abstraction-default-does-a-register-file-query-use).
+
+## Heartbeats, virtual accessors and FIFO models
+
+**Heartbeat window** — An interval bounded by trigger events in which monitored
+components participate through a synchronizing objection. The new healthy
+window fixture explicitly selects ALL_ACTIVE; broader mode/failure conditions
+remain separate.
+
+**Virtual accessor dispatch** — A base-typed payload handle invoking the
+derived override of a virtual accessor. Counters and forwarded values observe
+selected public calls, separately from transport or packing behavior.
+
+**Abstract register FIFO** — The public queue and capacity of a register-layer
+FIFO model. The selected get observes its front without popping; direct queue
+mutation is fixture stimulus. Inline and subtype constraint conditions are
+reported separately in [Q151](faq.md#q151-why-are-inline-and-subtype-declared-fifo-constraints-recorded-separately).

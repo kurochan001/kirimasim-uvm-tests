@@ -1,0 +1,3 @@
+UT: names reg_fifo peer
+UT: first capacity 4 bits 8 size 0 queue 0
+UT: peer capacity 2 bits 16 size 0

@@ -846,6 +846,26 @@
       "primary_clause": "10.1.2.2.2",
       "inputs_sha256": "ad9b2a23e4432050b6885f907ba40395ce94aa2dae6272edf8ed6587d4e395f1"
     },
+    "u10/test_heartbeat_all_active_windows_accept_participation_after_remove_and_add": {
+      "primary_clause": "10.6.2.3",
+      "inputs_sha256": "ed90bf0664c9b68b1f0cd3851f35010ff92a8324d3b2a1246e3a0946862e65a0"
+    },
+    "u10/test_heartbeat_default_start_reuses_its_event_while_running_and_after_stop": {
+      "primary_clause": "10.6.2.6",
+      "inputs_sha256": "be3f484d4b4d31ef5fd9300faacc6068ae6f867d42b341770f4e0d3904b5efef"
+    },
+    "u10/test_heartbeat_mode_queries_preserve_explicit_modes_and_peer_state": {
+      "primary_clause": "10.6.2.2",
+      "inputs_sha256": "94d4d433b3ed545406408d615acf5b77446fb05075224d2d55cd5b6f3d87279d"
+    },
+    "u10/test_heartbeat_rejects_a_different_running_event_but_accepts_it_after_stop": {
+      "primary_clause": "10.6.2.6",
+      "inputs_sha256": "886cfa3adb6a09915fbef0e965f17e8d05370306d249fbc8f04cf54f9f21ac2d"
+    },
+    "u10/test_heartbeat_start_without_any_event_warns_after_null_configuration": {
+      "primary_clause": "10.6.2.6",
+      "inputs_sha256": "cf51227b25055327325821cafaa8b31419ddf596691f37af007546f32ad516df"
+    },
     "u10/test_objection_clear_argument_does_not_limit_reset": {
       "primary_clause": "10.5.1.3.5",
       "inputs_sha256": "984798e753377de3ad1468330de3159c51fe080a3c790ababd01f467fa832ccd"
@@ -1341,6 +1361,18 @@
     "u12/test_tlm2_payload_address_preserves_high_bits_and_instance_state": {
       "primary_clause": "12.3.4.2.22",
       "inputs_sha256": "59d22deeb7238643bc14710b78e4cd5d174817a65746e7c1d21c3616edf227f3"
+    },
+    "u12/test_tlm2_payload_base_handle_dispatches_virtual_address_and_command_accessors": {
+      "primary_clause": "12.3.4.2.15",
+      "inputs_sha256": "90d17e2125614eefdfac1d72ae7437d5437d653710b9faf8e06c9ff788e791a7"
+    },
+    "u12/test_tlm2_payload_base_handle_dispatches_virtual_data_and_byte_enable_accessors": {
+      "primary_clause": "12.3.4.2.15",
+      "inputs_sha256": "22b79e02a4a7e389a75a8c3577917624b8ed08b2a2989970bb7e0700321a3faf"
+    },
+    "u12/test_tlm2_payload_base_handle_dispatches_virtual_width_dmi_and_status_accessors": {
+      "primary_clause": "12.3.4.2.15",
+      "inputs_sha256": "c20f30a7d212a73104ae7a3487df1c450617fb5588ddf8ad0777e1240864a64a"
     },
     "u12/test_tlm2_payload_byte_enable_accessors_copy_mask_values": {
       "primary_clause": "12.3.4.2.30",
@@ -3445,6 +3477,26 @@
     "u18/test_reg_field_zero_selected_write_read_side_effects_keep_complementary_slices_independent": {
       "primary_clause": "18.5.5.17",
       "inputs_sha256": "2ddf859ac6688ee2d904ea3344df0b2b16937b34faa2ef4fe5a28cb87316ce44"
+    },
+    "u18/test_reg_fifo_capacity_constraint_applies_to_subtype_declared_queue_sizes": {
+      "primary_clause": "18.8.2",
+      "inputs_sha256": "e121069d482a0b60fe00229817d4801af1a72ab59c8961f342e0f758746f472f"
+    },
+    "u18/test_reg_fifo_constructor_preserves_depth_width_name_and_empty_state": {
+      "primary_clause": "18.8.3.1",
+      "inputs_sha256": "5a0db1f4a6386b3337c2d847e549bb7e8b1443b6abba220edc2cfa8628da4ae3"
+    },
+    "u18/test_reg_fifo_get_observes_public_queue_front_without_popping_or_affecting_peer": {
+      "primary_clause": "18.8.5.1",
+      "inputs_sha256": "a863a555b6dbd272865da3ceea49556bbee9bd111b2e7bb3c05c1198b9f17b20"
+    },
+    "u18/test_reg_fifo_randomization_accepts_capacity_and_rejects_an_oversized_queue": {
+      "primary_clause": "18.8.2",
+      "inputs_sha256": "a76f39b677f22f8740593a8193406fd44646f3e9f3ec2037239ce15609af1b49"
+    },
+    "u18/test_reg_fifo_subtype_constraints_refine_the_public_queue_and_keep_instances_independent": {
+      "primary_clause": "18.8.2",
+      "inputs_sha256": "ed4a4319b5fd366df82965c2c555e664c9ced16e8e792b2b92c42616e6888a88"
     },
     "u18/test_reg_frontdoor_big_endian_wide_read_preserves_returned_bus_words": {
       "primary_clause": "18.4.4.10",
