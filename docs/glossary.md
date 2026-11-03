@@ -1105,3 +1105,9 @@ kept separate from a scope that already exceeds its maximum.
 **Printer format defaults after flush**: Defaults explicitly specified after
 flush for table/tree indentation and tree/line separators. They are distinct
 from selected observations of other base printer controls.
+
+**Policy hook stage**: A field, user or completion step in the standard policy
+operation order. History can become FINISHED before the active object is popped.
+
+**Independent post-error control**: A separately constructed valid policy used
+after testing an invalid request, without relying on the invalid policy's state.

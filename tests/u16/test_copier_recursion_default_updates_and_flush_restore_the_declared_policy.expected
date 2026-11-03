@@ -1,0 +1,3 @@
+UT: copy_policy_default 1
+UT: copy_policy_changed selected 1 peer 1
+UT: copy_policy_flushed 1

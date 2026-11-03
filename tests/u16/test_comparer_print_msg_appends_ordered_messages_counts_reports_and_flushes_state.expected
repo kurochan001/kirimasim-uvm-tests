@@ -1,0 +1,4 @@
+UT: messages_initial count 0 empty 1
+UT: messages_stored count 2 first 1 second 1 order 1 newline 1
+UT: messages_reported count 2 first 1 second 1 info 1
+UT: messages_flushed count 0 empty 1

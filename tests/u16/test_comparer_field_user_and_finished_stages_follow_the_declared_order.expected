@@ -1,0 +1,4 @@
+UT: policy_execute op compare exact 1 active 1 depth 1 started 1
+UT: policy_user exact 1 rhs 1 active 1 started 1 unfinished 1
+UT: policy_end trace EUX executes 1 users 1 finished 1 consistent 1 empty 1
+UT: finished_before_pop 1

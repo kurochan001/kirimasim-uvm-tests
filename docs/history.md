@@ -3,8 +3,8 @@
 [日本語](history.ja.md) · [README](../README.md)
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and forty-two cross-milestone thin-area expansions, including the
-existing-test requirement-link backlog checkpoint (1472 tests: 1447 simulation and 25 elaboration). The earlier 349-test checkpoint is
+three M4 increments and forty-three cross-milestone thin-area expansions, including the
+existing-test requirement-link backlog checkpoint (1501 tests: 1469 simulation and 32 elaboration). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -3000,3 +3000,34 @@ The earlier packer link label is corrected to its actual 128-bit fixture width;
 that fixture and its evidence are unchanged. Schema, runners/library/catalog,
 workflow and SVGs remain unchanged. No new guest run, human review or scope/
 denominator approval is claimed.
+
+## Forty-third thin-area expansion across M1–M4
+
+Twenty-nine M1 fixtures add comparer/copier/packer constructors, base/type
+identity and default wrappers, wide comparison and packing, comparer messages
+and thresholds, copy ownership, field/user/history order, recorder configuration,
+open-record flush, default object hooks, attribute overrides and seven isolated
+abstract/pure-hook declaration prohibitions. Fifteen runtime cases match seeds
+1/73; seven compiler rejections match without runtime. Seven runtime cases
+first differ at seed 1: copier naming, comparer/copy reset, SHALLOW child
+compare/copy, wide-size error and recorder radix reset. The SHALLOW/default-field
+flag reading stays qualified. Original observer errors were fixed before final
+measurement; no mismatch replaces a normative expected value.
+
+All 1472 prior inputs/records and 204 assessments remain unchanged. Seventy-four
+new bilingual drafts reach 2348; eight older duties gain direct links with
+their other fields and prior links retained. Thirteen structural and five
+contextual assessments retain explicit rationales and related duties. Totals
+are 1315 partial/222 assessed/970 unassessed. Chapter 16 is 174/31/3; remaining
+chapter, table-format and recorder-lifecycle/link overviews are open. Goal
+iteration 15 reduces unassessed by 60 this increment and by 493 since activation.
+
+The suite is 1501 (1469 simulation/32 elaboration): M1 553 (529/24), M2 516
+(513/3), M3 432 (427/5). Ordinary Verilator is 1312 pass (1282 two-seed runtime,
+30 expected compiler rejections), 189 known (144 runtime, 43 simulation builds,
+two illegal compile acceptances). Guest evidence retains 1084 compatible
+runtime inputs with 417 unmeasured (385 simulation/32 elaboration). Separate
+VPI evidence is unchanged. All 110 tool tests and metadata, ledger/library,
+evidence and bilingual checks pass. Schema, runner/library/catalog, workflow
+and SVGs are unchanged. No guest execution, human review, denominator approval
+or goal completion is claimed.

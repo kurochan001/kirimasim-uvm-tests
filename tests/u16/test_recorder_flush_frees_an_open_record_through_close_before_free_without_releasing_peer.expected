@@ -1,0 +1,2 @@
+UT: recorder_flush_hooks order CF close 1 free 1 freed 1 peer_open 1
+UT: recorder_flush_handles selected 0 peer 1

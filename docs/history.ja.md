@@ -2,7 +2,7 @@
 
 [English](history.md) · [README](../README.ja.md)
 
-M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の42回目の拡充（全1472件：simulation 1447・elaboration 25）までを記録しています。以前の349件の時点は
+M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の43回目の拡充（全1501件：simulation 1469・elaboration 32）までを記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -2014,3 +2014,19 @@ runtime 16件はseed 1／73一致、virtual生成2件は対象errorで拒否さ�
 guest evidenceは互換なruntime 1084入力を保持し、未測定388件（simulation 363／elaboration 25）です。別HDL／command-line evidenceは未変更です。
 tool test 110件、metadata、台帳／library、互換evidence、日英資料の検査は成功します。以前のpacker link labelを実fixture幅の128-bitへ訂正し、fixtureとevidence自体は変えません。
 schema、runner／library／catalog、workflow、SVGは未変更です。新guest実行、人のレビュー、範囲／分母承認は主張しません。
+
+## M1〜M4の薄い領域の43回目の拡充
+
+M1 29 fixtureでcomparer／copier／packer constructor、base／type同一性、default wrapper、wide比較／pack、comparer message／threshold、copy所有関係、field／user／history順序、recorder設定、open-record flush、既定object hook、attribute override、分離したabstract／pure-hook宣言禁止7件を追加します。
+runtime 15件はseed 1／73一致、compiler拒否7件はruntimeなしで一致します。runtime 7件はcopier名、comparer／copy reset、SHALLOW child compare／copy、wide-size error、recorder radix resetでseed 1の初回差分です。
+SHALLOWと既定field flagの読み方は限定して保持します。独自observerの誤りは最終測定前に修正し、不一致で規範的期待値を置換しません。
+
+以前の1472入力／記録と分類204件は全て未変更です。日英案74件で2348件とし、既存義務8件へ他fieldと元linkを保持して直接linkを追加します。
+構造13件と文脈5件の分類は明示根拠と関連義務を保持します。全体は部分分解1315／分類222／未評価970、第16章は174／31／3です。
+章、table-format、recorder lifecycle／link概要は未完了です。goal第15反復で未評価60番号、有効化以降493番号減ります。
+
+全1501件はsimulation 1469／elaboration 32、M1 553（529／24）、M2 516（513／3）、M3 432（427／5）です。
+通常Verilatorは1312 pass（runtime両seed一致1282、期待compiler拒否30）、known 189（runtime 144、simulation build 43、不正compile受理2）です。
+guest evidenceは互換なruntime 1084入力を保持し、未測定417件（simulation 385／elaboration 32）です。別VPI evidenceは未変更です。
+tool test 110件、metadata、台帳／library、evidence、日英検査は成功します。schema、runner／library／catalog、workflow、SVGは未変更です。
+guest実行、人のレビュー、分母承認、goal完了は主張しません。

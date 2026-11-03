@@ -3060,6 +3060,282 @@
         "reviewer": null,
         "reviewed_at": null
       }
+    },
+    {
+      "clause": "16.3.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "Methods groups the separately numbered comparer constructor, flush, type and default-selection APIs.",
+        "ja": "Methodsは個別番号付きcomparer constructor、flush、type、default選択APIを整理する。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "16.3.3",
+      "classification": "structural",
+      "rationale": {
+        "en": "Methods for comparer usage groups the individually specified comparison and result APIs.",
+        "ja": "Methods for comparer usageは個々に規定された比較／結果APIを整理する。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "16.3.4",
+      "classification": "structural",
+      "rationale": {
+        "en": "Methods for comparer configuration groups recursion and type-checking controls; defaults remain in their child clauses.",
+        "ja": "Methods for comparer configurationはrecursionとtype-checking controlを整理し、既定値は下位条項に残す。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "16.3.5",
+      "classification": "structural",
+      "rationale": {
+        "en": "Methods for comparer reporting control groups maximum count, verbosity and severity without an additional rule.",
+        "ja": "Methods for comparer reporting controlは追加規則なしに最大数、verbosity、severityを整理する。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "16.4.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "Methods for recorder configuration is the parent heading for the three specified controls.",
+        "ja": "Methods for recorder configurationは規定control 3つの親見出しである。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "16.4.5",
+      "classification": "structural",
+      "rationale": {
+        "en": "Handles is a grouping heading; unique-ID and lookup duties are explicitly in its two children.",
+        "ja": "Handlesは整理見出しで、unique-IDとlookup義務は下位2条項に明記される。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "16.4.6",
+      "classification": "structural",
+      "rationale": {
+        "en": "Attribute recording groups the nine individually specified public recording and attribute APIs.",
+        "ja": "Attribute recordingは個々に規定された公開recording／attribute API 9つを整理する。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "16.4.7",
+      "classification": "structural",
+      "rationale": {
+        "en": "Implementation agnostic API is a heading for the callbacks and history accessor below; pure hooks remain normative child requirements.",
+        "ja": "Implementation agnostic APIは下位callbackとhistory accessorの見出しで、pure hookは規範的な下位要求に残す。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "16.5.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "Methods groups the numbered packer construction, flush, type and default-policy APIs.",
+        "ja": "Methodsは番号付きpacker生成、flush、type、default-policy APIを整理する。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "16.5.3",
+      "classification": "structural",
+      "rationale": {
+        "en": "Methods for packer subtyping groups state assignment, retrieval and size queries; compatible-stream limitations remain in the children.",
+        "ja": "Methods for packer subtypingはstate設定、取得、size照会を整理し、互換stream制限は下位に残す。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "16.5.4",
+      "classification": "structural",
+      "rationale": {
+        "en": "Packing and unpacking is the heading for the separately numbered operations, without its own additional behavior.",
+        "ja": "Packing and unpackingは個別番号付き操作の見出しで、独立した追加動作を持たない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "16.6.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "Methods groups copier construction, type and default-policy helpers; it adds no separate obligation.",
+        "ja": "Methodsはcopier生成、type、default-policy helperを整理し、独立した義務を追加しない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "16.6.4",
+      "classification": "structural",
+      "rationale": {
+        "en": "Methods for copier usage groups the specified copy operation and ordered-pair history query.",
+        "ja": "Methods for copier usageは規定copy操作と順序付きpair履歴照会を整理する。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "16.1",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The overview identifies the abstract common base. Abstract construction and the five declared policy base relationships remain explicit requirements; this explanatory summary does not close their method contracts.",
+        "ja": "概要はabstract共通baseを示す。abstract生成と宣言policy 5種のbase関係は明示要求に保持し、この説明概要でmethod契約を完了しない。"
+      },
+      "related_requirements": [
+        "UVM-PRINTER-AUDIT-UVM-POLICY-DIRECT-CONSTRUCTION",
+        "UVM-PRINTER-AUDIT-PRINTER-POLICY-BASE",
+        "UVM-POLICY-AUDIT-COMPARER-BASE",
+        "UVM-POLICY-AUDIT-RECORDER-BASE",
+        "UVM-POLICY-AUDIT-PACKER-BASE",
+        "UVM-POLICY-AUDIT-COPIER-BASE"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "16.3",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The introduction explains comparison policy, counted and retained results and the object comparison APIs. Those duties remain in linked comparison/history requirements and their partial conditions; it adds no separate result format.",
+        "ja": "導入は比較policy、計数し保持する結果、object比較APIを説明する。これらの義務はlinkした比較／履歴要求と部分条件に保持し、独立した結果formatを追加しない。"
+      },
+      "related_requirements": [
+        "UVM-COMPARER-HISTORY",
+        "UVM-COMPARER-INTEGRAL-WIDTH",
+        "UVM-POLICY-AUDIT-COMPARER-PRINT-MSG-COUNT"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "16.4",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The introduction explains the recorder as a stream record and a recording policy. Stream identity, legal policy base and field recording stay in the related requirements; no concrete database format or constructor contract is introduced here.",
+        "ja": "導入はrecorderをstream record兼recording policyとして説明する。stream同一性、合法policy base、field recordingは関連要求に保持し、ここで具体database formatやconstructor契約を導入しない。"
+      },
+      "related_requirements": [
+        "UVM-RECORDER-PARENT-STREAM-IDENTITY",
+        "UVM-POLICY-AUDIT-RECORDER-BASE",
+        "UVM-RECORDER-FIELD-ATTRIBUTE-HOOK"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "16.5",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The introduction describes packing and unpacking objects under a policy. Actual object hooks, stream state and field operations remain separate partial requirements; this purpose statement does not prescribe serialized layout.",
+        "ja": "導入はpolicyによるobject pack／unpackを説明する。実object hook、stream state、field操作は独立した部分要求に残し、この目的説明は直列layoutを規定しない。"
+      },
+      "related_requirements": [
+        "UVM-PACKER-OBJECT-HOOKS",
+        "UVM-PACKER-UNPACK-HOOK-ORDER",
+        "UVM-PACKER-STATE-ASSIGN",
+        "UVM-POLICY-AUDIT-PACKER-WIDE-PACK"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "16.6",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The introduction states the copier purpose and that policies select how copying is done. The actual hook, recursion and ownership rules stay in the linked requirements; all copy applicability is not certified by this summary assessment.",
+        "ja": "導入はcopierの目的とpolicyがcopy方法を選ぶことを説明する。実hook、再帰、所有関係の規則はlink要求に保持し、この概要分類で全copy適用条件を認定しない。"
+      },
+      "related_requirements": [
+        "UVM-COPIER-COPY-HOOK",
+        "UVM-COPIER-DEEP-CHILD",
+        "UVM-POLICY-AUDIT-COPIER-SHALLOW-CHILD-ALIAS"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
     }
   ]
 }

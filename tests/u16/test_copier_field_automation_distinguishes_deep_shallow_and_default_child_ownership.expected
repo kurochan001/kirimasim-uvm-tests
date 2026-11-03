@@ -1,0 +1,6 @@
+UT: nested_copy 0 field 1 alias 0 value 1 empty 1
+UT: nested_copy_source 0 payload 17
+UT: nested_copy 1 field 1 alias 1 value 1 empty 1
+UT: nested_copy_source 1 payload 99
+UT: nested_copy 2 field 1 alias 0 value 1 empty 1
+UT: nested_copy_source 2 payload 17

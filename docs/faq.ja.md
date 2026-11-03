@@ -923,8 +923,8 @@ controlの対応は、その要求の直接の検査ではありません。
 
 ### Q77. M4を始めたのに、カバレッジ率がないのはなぜですか
 
-AIによる2274要求案は部分的な分解で、2274要求を1471テストへ直接対応付け、直接未対応は0要求、別の1テストはcontrolです。
-全1472テストに要求の対応付けがあります。2,507の条項番号は規範的要求の単位ではありません。
+AIによる2348要求案は部分的な分解で、2348要求を1500テストへ直接対応付け、直接未対応は0要求、別の1テストはcontrolです。
+全1501テストに要求の対応付けがあります。2,507の条項番号は規範的要求の単位ではありません。
 範囲は提案、棚卸しは未完、分母は未承認で、M4の開始はどれの承認にもなりません。
 既知差分やHDL／DPIの制約によって義務を暗黙に除外しません。[承認までの手順](requirements.ja.md#m4の残作業と承認)を参照してください。
 
@@ -1709,7 +1709,7 @@ user backdoorは16 bit locationをモデル化します。location独立性、�
 
 いいえ。`tests_without_requirement_links`は0で、現在の全テストに、明示的なdirectまたはcontrolの対応があります。
 別の集計`requirements_without_direct_tests`も0件です。memory-walkの対応はQ134の限定した歴史的解釈で、
-省略されたIEEEの詳細の承認ではありません。HDL depositと利用可否には、明示VPI検査系があります。catalogの識別子1,030件も未評価です。
+省略されたIEEEの詳細の承認ではありません。HDL depositと利用可否には、明示VPI検査系があります。catalogの識別子970件も未評価です。
 分解と人のレビューは未完で、分母は未承認です。
 
 [新しいpolicyテスト](../tests/u16/test_policy_object_stack_tracks_nested_active_policy_push_and_pop.sv)は、
@@ -1786,7 +1786,7 @@ frontdoor保護のwarningはalgorithm oracleの対象外で、ERRORと観測し�
 個別に読んだ後、日英の根拠とAI／人のレビューを[番号の分類](../coverage/assessments.json)へ記録すれば可能です。
 構造上の見出しは関連要求を持たず、文脈の説明は既存要求を指定します。
 未レビューの記録、推測した分類、親への集約では外せません。生成状態は`assessed`で、要求条項の`partial`と区別します。
-現在の分類は204件で、分母承認や新たなpassを加えません。第11章の未評価0件でも、その要求の完了ではありません。
+現在の分類は222件で、分母承認や新たなpassを加えません。第11章の未評価0件でも、その要求の完了ではありません。
 
 ### Q136. 明示strict configurationで新規検査は成功しますか？
 
@@ -2279,7 +2279,7 @@ bound get／peek portはobject headを消費せずavailabilityを報告し、liv
 ### Q193. 互換なguest部分集合が1084件へ減った理由は？
 
 command 1検査系にenum補助引用を追加し、Verilatorで再測定しました。metadataだけのsource編集でも入力指紋は変わるため、
-古いguest記録は除外します。元の歴史的fileは1085記録のままです。現在の互換範囲は1084件、未測定388入力は追加387件と変更した既存1件です。
+古いguest記録は除外します。元の歴史的fileは1085記録のままです。現在の互換範囲は1084件、未測定417入力は追加416件と変更した既存1件です。
 guest再実行や新たな失敗は主張しません。
 
 ### Q194. predicateの実装が別のvirtual照会へ委譲してもよいですか？
@@ -2322,10 +2322,10 @@ pure-method／const参照検査は追加のnegative条件であり、それぞ�
 いいえ。schema 2は以前の出力link形式を保持し、compile stageと正確な宣言regexの診断形式を追加します。不正elaboration metadataでruntime期待がないことを要求します。
 schema 1も引き続き読め、混在／未知fieldや古いpatternは拒否します。検証はcompiler実測結果を読みません。個別要求の照合で直接anchorを追加する場合も、既存linkは保持して変更を明示します。
 
-### Q201. 全1472テストを2 seedで実行しましたか？
+### Q201. 全1501テストを2 seedで実行しましたか？
 
-いいえ。simulation 1447件とelaboration 25件があります。通常記録はruntime両seed一致1267件、期待compiler拒否23件、既知simulation差分180件、不正compile受理の既知差分2件です。
-不正design 25件は、compileを受理された場合もruntime seedを実行しません。
+いいえ。simulation 1469件とelaboration 32件があります。通常記録はruntime両seed一致1282件、期待compiler拒否30件、既知simulation差分187件、不正compile受理の既知差分2件です。
+不正design 32件は、compileを受理された場合もruntime seedを実行しません。
 
 ### Q202. 以前の合法controlは何を示しますか？
 
@@ -2369,10 +2369,20 @@ entry-depth境界matrixは限定した読み方で、別の超過済みscopeは�
 
 ### Q209. 第6章の未評価0でreportingやM1〜M4は完了ですか？
 
-いいえ。第6章には部分分解98番号・分類19番号があり、選択print probeで残る条件は完了しません。全体の未評価は1,030番号です。
-printer 16.2節にはtable-format概要が残り、第16章の広いpolicyでは未評価63番号があります。範囲と分母は未承認で、link queue 0件でもgoalは完了しません。
+いいえ。第6章には部分分解98番号・分類19番号があり、選択print probeで残る条件は完了しません。全体の未評価は970番号です。
+printer 16.2節にはtable-format概要が残り、第16章の広いpolicyでは未評価3番号があります。範囲と分母は未承認で、link queue 0件でもgoalは完了しません。
 
 ### Q210. flush時の設定規則は全printer controlで同じですか？
 
 いいえ。引用した各controlの規則を保ちます。table／tree indentとtree／line separator条項は、後続setterがなければflush後の既定値を明示します。
 新fixtureは固定libraryが変更値を保持しても、その期待を維持します。以前のbase-control観測で種類別条項を上書きせず、全flush／formatting動作も承認しません。
+
+### Q211. recorder pure hookはruntime失敗をoracleにしますか？
+
+いいえ。不正具象subtypeごとに必須pure hook 1つだけを省略し、他を実装します。対象compile診断が直接oracleで、compilerが不正designを受理してもruntime seedは実行しません。
+別の合法recorderで生成controlを行い、callback動作は別テストで確認します。
+
+### Q212. attribute-handle overrideでtool互換性が証明されますか？
+
+いいえ。独自overrideはdummy token 4343を返し、recorder base view経由のvirtual dispatchを観測します。
+vendor macroを呼ばず、専用handleやrecording backendを検証しません。既定対応状態とhandle等値は別の公開API観測です。

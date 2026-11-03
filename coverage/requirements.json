@@ -11667,6 +11667,13 @@
             "UT: reverse never 1 result 0",
             "UT: flushed never 1 result 0"
           ]
+        },
+        {
+          "test": "u16/test_comparer_print_msg_appends_ordered_messages_counts_reports_and_flushes_state",
+          "role": "direct",
+          "expected_observations": [
+            "UT: messages_flushed count 0 empty 1"
+          ]
         }
       ]
     },
@@ -11712,6 +11719,23 @@
             "UT: reverse never 1 result 0",
             "UT: flushed never 1 result 0"
           ]
+        },
+        {
+          "test": "u16/test_comparer_field_user_and_finished_stages_follow_the_declared_order",
+          "role": "direct",
+          "expected_observations": [
+            "UT: policy_execute op compare exact 1 active 1 depth 1 started 1",
+            "UT: policy_user exact 1 rhs 1 active 1 started 1 unfinished 1",
+            "UT: policy_end trace EUX executes 1 users 1 finished 1 consistent 1 empty 1"
+          ]
+        },
+        {
+          "test": "u16/test_comparer_disabled_user_hook_finishes_history_and_unwinds_the_active_object",
+          "role": "direct",
+          "expected_observations": [
+            "UT: policy_execute op compare exact 1 active 1 depth 1 started 1",
+            "UT: policy_end trace EX executes 1 users 0 finished 1 consistent 1 empty 1"
+          ]
         }
       ]
     },
@@ -11753,6 +11777,18 @@
           "expected_observations": [
             "UT: same handle 1",
             "UT: distinct equal fields 0"
+          ]
+        },
+        {
+          "test": "u16/test_comparer_field_automation_distinguishes_nested_recursion_and_alias_conditions",
+          "role": "direct",
+          "expected_observations": [
+            "UT: nested_compare 0 equal 1 alias 0 empty 1",
+            "UT: nested_compare 1 equal 0 alias 0 empty 1",
+            "UT: nested_compare 2 equal 0 alias 0 empty 1",
+            "UT: nested_compare 3 equal 1 alias 0 empty 1",
+            "UT: nested_compare 4 equal 1 alias 1 empty 1",
+            "UT: nested_compare 5 equal 0 alias 0 empty 1"
           ]
         }
       ]
@@ -12039,6 +12075,13 @@
             "UT: copied 28 28",
             "UT: independent 28 28"
           ]
+        },
+        {
+          "test": "u16/test_copier_field_user_and_finished_stages_follow_the_declared_order",
+          "role": "direct",
+          "expected_observations": [
+            "UT: policy_user rhs 1 active 1 started 1"
+          ]
         }
       ]
     },
@@ -12073,6 +12116,14 @@
           "expected_observations": [
             "UT: separate child 1 payload 55",
             "UT: source unchanged 55"
+          ]
+        },
+        {
+          "test": "u16/test_copier_field_automation_distinguishes_deep_shallow_and_default_child_ownership",
+          "role": "direct",
+          "expected_observations": [
+            "UT: nested_copy 0 field 1 alias 0 value 1 empty 1",
+            "UT: nested_copy_source 0 payload 17"
           ]
         }
       ]
@@ -12109,6 +12160,15 @@
             "UT: before depth 0",
             "UT: hook target 1 shallow 1 depth 1 payload 55",
             "UT: after depth 0"
+          ]
+        },
+        {
+          "test": "u16/test_copier_field_user_and_finished_stages_follow_the_declared_order",
+          "role": "direct",
+          "expected_observations": [
+            "UT: policy_execute op copy exact 1 active 1 depth 1 started 1",
+            "UT: policy_user rhs 1 active 1 started 1",
+            "UT: policy_end trace EUX executes 1 users 1 finished 1 payload 35 empty 1"
           ]
         }
       ]
@@ -12162,6 +12222,23 @@
           "expected_observations": [
             "UT: copied 19 finished 1",
             "UT: flushed never 1 retained 1"
+          ]
+        },
+        {
+          "test": "u16/test_copier_field_user_and_finished_stages_follow_the_declared_order",
+          "role": "direct",
+          "expected_observations": [
+            "UT: policy_execute op copy exact 1 active 1 depth 1 started 1",
+            "UT: policy_user rhs 1 active 1 started 1",
+            "UT: policy_end trace EUX executes 1 users 1 finished 1 payload 35 empty 1"
+          ]
+        },
+        {
+          "test": "u16/test_copier_disabled_user_hook_finishes_history_and_unwinds_the_active_object",
+          "role": "direct",
+          "expected_observations": [
+            "UT: policy_execute op copy exact 1 active 1 depth 1 started 1",
+            "UT: policy_end trace EX executes 1 users 0 finished 1 payload 0 empty 1"
           ]
         }
       ]
@@ -13275,6 +13352,16 @@
             "UT: packed bits 19",
             "UT: values abc 35",
             "UT: remaining bits 0"
+          ]
+        },
+        {
+          "test": "u16/test_packer_wide_fields_round_trip_boundary_bits_before_a_separate_tail",
+          "role": "direct",
+          "expected_observations": [
+            "UT: wide_pack 0 count 1 value 1 tail 1 empty 1",
+            "UT: wide_pack 1 count 1 value 1 tail 1 empty 1",
+            "UT: wide_pack 2 count 1 value 1 tail 1 empty 1",
+            "UT: wide_pack 3 count 1 value 1 tail 1 empty 1"
           ]
         }
       ]
@@ -83878,6 +83965,2629 @@
           "role": "direct",
           "expected_observations": [
             "UT: proxy_names default 1 named 1 empty 1 base 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-POLICY-AUDIT-COMPARER-BASE",
+      "clause": "16.3.1",
+      "statement": {
+        "en": "The concrete comparer is usable through its declared uvm_policy base.",
+        "ja": "具象comparerを宣言されたuvm_policy baseから使える。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixtures, explicit arguments and stage observations in the linked anchors; each fresh policy and peer is independently constructed.",
+        "ja": "linkしたanchorの独自fixture、明示引数、段階観測を使い、新policyとpeerは各々独立に生成する。"
+      },
+      "expected": {
+        "en": "The concrete comparer is usable through its declared uvm_policy base.",
+        "ja": "具象comparerを宣言されたuvm_policy baseから使える。"
+      },
+      "limitations": {
+        "en": "Selected public API conditions only; no private representation, arbitrary user subtype, four-state behavior or complete clause coverage is certified. Original hooks only supply inputs or observe dispatch. A later mismatch retains the whole fixture as known.",
+        "ja": "選択した公開API条件だけで、非公開表現、任意user subtype、4-state動作、条項全体の網羅は認定しない。独自hookは入力供給かdispatch観測だけを行う。後段で不一致があればfixture全体をknownに保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_policy_comparer_packer_and_copier_constructors_preserve_names_types_and_policy_bases",
+          "role": "direct",
+          "expected_observations": [
+            "UT: comparer_constructor default 1 named 1 empty 1 type 1 base 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-POLICY-AUDIT-COMPARER-CONSTRUCTOR",
+      "clause": "16.3.2.1",
+      "statement": {
+        "en": "The comparer constructor defaults to unnamed and preserves explicit and empty names.",
+        "ja": "comparer constructorは既定で無名となり、明示名と空名を保持する。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixtures, explicit arguments and stage observations in the linked anchors; each fresh policy and peer is independently constructed.",
+        "ja": "linkしたanchorの独自fixture、明示引数、段階観測を使い、新policyとpeerは各々独立に生成する。"
+      },
+      "expected": {
+        "en": "The comparer constructor defaults to unnamed and preserves explicit and empty names.",
+        "ja": "comparer constructorは既定で無名となり、明示名と空名を保持する。"
+      },
+      "limitations": {
+        "en": "Selected public API conditions only; no private representation, arbitrary user subtype, four-state behavior or complete clause coverage is certified. Original hooks only supply inputs or observe dispatch. A later mismatch retains the whole fixture as known.",
+        "ja": "選択した公開API条件だけで、非公開表現、任意user subtype、4-state動作、条項全体の網羅は認定しない。独自hookは入力供給かdispatch観測だけを行う。後段で不一致があればfixture全体をknownに保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_policy_comparer_packer_and_copier_constructors_preserve_names_types_and_policy_bases",
+          "role": "direct",
+          "expected_observations": [
+            "UT: comparer_constructor default 1 named 1 empty 1 type 1 base 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-POLICY-AUDIT-COMPARER-TYPE",
+      "clause": "16.3.2.3",
+      "statement": {
+        "en": "The comparer returns the fixed type name uvm_comparer.",
+        "ja": "comparerは固定type名uvm_comparerを返す。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixtures, explicit arguments and stage observations in the linked anchors; each fresh policy and peer is independently constructed.",
+        "ja": "linkしたanchorの独自fixture、明示引数、段階観測を使い、新policyとpeerは各々独立に生成する。"
+      },
+      "expected": {
+        "en": "The comparer returns the fixed type name uvm_comparer.",
+        "ja": "comparerは固定type名uvm_comparerを返す。"
+      },
+      "limitations": {
+        "en": "Selected public API conditions only; no private representation, arbitrary user subtype, four-state behavior or complete clause coverage is certified. Original hooks only supply inputs or observe dispatch. A later mismatch retains the whole fixture as known.",
+        "ja": "選択した公開API条件だけで、非公開表現、任意user subtype、4-state動作、条項全体の網羅は認定しない。独自hookは入力供給かdispatch観測だけを行う。後段で不一致があればfixture全体をknownに保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_policy_comparer_packer_and_copier_constructors_preserve_names_types_and_policy_bases",
+          "role": "direct",
+          "expected_observations": [
+            "UT: comparer_constructor default 1 named 1 empty 1 type 1 base 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-POLICY-AUDIT-COMPARER-SET-DEFAULT",
+      "clause": "16.3.2.4",
+      "statement": {
+        "en": "Setting the default comparer through its wrapper selects the exact instance in the core service.",
+        "ja": "comparerのdefault wrapperによる設定はcore serviceでも同一instanceを選ぶ。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixtures, explicit arguments and stage observations in the linked anchors; each fresh policy and peer is independently constructed.",
+        "ja": "linkしたanchorの独自fixture、明示引数、段階観測を使い、新policyとpeerは各々独立に生成する。"
+      },
+      "expected": {
+        "en": "Setting the default comparer through its wrapper selects the exact instance in the core service.",
+        "ja": "comparerのdefault wrapperによる設定はcore serviceでも同一instanceを選ぶ。"
+      },
+      "limitations": {
+        "en": "Only non-null explicit selections and exact restoration. The test does not establish that a getter had never run during library startup, the never-called allocation branch or explicit-null recovery.",
+        "ja": "nullでない明示選択とexact復帰だけ。library startup中にgetterが未実行だったこと、未呼出し時の割当分岐、明示nullからの回復は立証しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_policy_comparer_default_wrappers_share_core_selection_and_restore_exact_identity",
+          "role": "direct",
+          "expected_observations": [
+            "UT: policy_default_selected wrapper 1 core 1",
+            "UT: policy_default_reverse wrapper 1 core 1",
+            "UT: policy_default_restored 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-POLICY-AUDIT-COMPARER-GET-DEFAULT",
+      "clause": "16.3.2.5",
+      "statement": {
+        "en": "The comparer default getter returns the instance selected through the core service and restores the saved selection.",
+        "ja": "comparerのdefault getterはcore serviceで選択したinstanceを返し、保存した選択を復帰できる。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixtures, explicit arguments and stage observations in the linked anchors; each fresh policy and peer is independently constructed.",
+        "ja": "linkしたanchorの独自fixture、明示引数、段階観測を使い、新policyとpeerは各々独立に生成する。"
+      },
+      "expected": {
+        "en": "The comparer default getter returns the instance selected through the core service and restores the saved selection.",
+        "ja": "comparerのdefault getterはcore serviceで選択したinstanceを返し、保存した選択を復帰できる。"
+      },
+      "limitations": {
+        "en": "Only non-null explicit selections and exact restoration. The test does not establish that a getter had never run during library startup, the never-called allocation branch or explicit-null recovery.",
+        "ja": "nullでない明示選択とexact復帰だけ。library startup中にgetterが未実行だったこと、未呼出し時の割当分岐、明示nullからの回復は立証しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_policy_comparer_default_wrappers_share_core_selection_and_restore_exact_identity",
+          "role": "direct",
+          "expected_observations": [
+            "UT: policy_default_selected wrapper 1 core 1",
+            "UT: policy_default_reverse wrapper 1 core 1",
+            "UT: policy_default_restored 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-POLICY-AUDIT-PACKER-BASE",
+      "clause": "16.5.1",
+      "statement": {
+        "en": "The concrete packer is usable through its declared uvm_policy base.",
+        "ja": "具象packerを宣言されたuvm_policy baseから使える。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixtures, explicit arguments and stage observations in the linked anchors; each fresh policy and peer is independently constructed.",
+        "ja": "linkしたanchorの独自fixture、明示引数、段階観測を使い、新policyとpeerは各々独立に生成する。"
+      },
+      "expected": {
+        "en": "The concrete packer is usable through its declared uvm_policy base.",
+        "ja": "具象packerを宣言されたuvm_policy baseから使える。"
+      },
+      "limitations": {
+        "en": "Selected public API conditions only; no private representation, arbitrary user subtype, four-state behavior or complete clause coverage is certified. Original hooks only supply inputs or observe dispatch. A later mismatch retains the whole fixture as known.",
+        "ja": "選択した公開API条件だけで、非公開表現、任意user subtype、4-state動作、条項全体の網羅は認定しない。独自hookは入力供給かdispatch観測だけを行う。後段で不一致があればfixture全体をknownに保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_policy_comparer_packer_and_copier_constructors_preserve_names_types_and_policy_bases",
+          "role": "direct",
+          "expected_observations": [
+            "UT: packer_constructor default 1 named 1 empty 1 type 1 base 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-POLICY-AUDIT-PACKER-CONSTRUCTOR",
+      "clause": "16.5.2.1",
+      "statement": {
+        "en": "The packer constructor defaults to unnamed and preserves explicit and empty names.",
+        "ja": "packer constructorは既定で無名となり、明示名と空名を保持する。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixtures, explicit arguments and stage observations in the linked anchors; each fresh policy and peer is independently constructed.",
+        "ja": "linkしたanchorの独自fixture、明示引数、段階観測を使い、新policyとpeerは各々独立に生成する。"
+      },
+      "expected": {
+        "en": "The packer constructor defaults to unnamed and preserves explicit and empty names.",
+        "ja": "packer constructorは既定で無名となり、明示名と空名を保持する。"
+      },
+      "limitations": {
+        "en": "Selected public API conditions only; no private representation, arbitrary user subtype, four-state behavior or complete clause coverage is certified. Original hooks only supply inputs or observe dispatch. A later mismatch retains the whole fixture as known.",
+        "ja": "選択した公開API条件だけで、非公開表現、任意user subtype、4-state動作、条項全体の網羅は認定しない。独自hookは入力供給かdispatch観測だけを行う。後段で不一致があればfixture全体をknownに保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_policy_comparer_packer_and_copier_constructors_preserve_names_types_and_policy_bases",
+          "role": "direct",
+          "expected_observations": [
+            "UT: packer_constructor default 1 named 1 empty 1 type 1 base 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-POLICY-AUDIT-PACKER-TYPE",
+      "clause": "16.5.2.3",
+      "statement": {
+        "en": "The packer returns the fixed type name uvm_packer.",
+        "ja": "packerは固定type名uvm_packerを返す。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixtures, explicit arguments and stage observations in the linked anchors; each fresh policy and peer is independently constructed.",
+        "ja": "linkしたanchorの独自fixture、明示引数、段階観測を使い、新policyとpeerは各々独立に生成する。"
+      },
+      "expected": {
+        "en": "The packer returns the fixed type name uvm_packer.",
+        "ja": "packerは固定type名uvm_packerを返す。"
+      },
+      "limitations": {
+        "en": "Selected public API conditions only; no private representation, arbitrary user subtype, four-state behavior or complete clause coverage is certified. Original hooks only supply inputs or observe dispatch. A later mismatch retains the whole fixture as known.",
+        "ja": "選択した公開API条件だけで、非公開表現、任意user subtype、4-state動作、条項全体の網羅は認定しない。独自hookは入力供給かdispatch観測だけを行う。後段で不一致があればfixture全体をknownに保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_policy_comparer_packer_and_copier_constructors_preserve_names_types_and_policy_bases",
+          "role": "direct",
+          "expected_observations": [
+            "UT: packer_constructor default 1 named 1 empty 1 type 1 base 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-POLICY-AUDIT-PACKER-SET-DEFAULT",
+      "clause": "16.5.2.4",
+      "statement": {
+        "en": "Setting the default packer through its wrapper selects the exact instance in the core service.",
+        "ja": "packerのdefault wrapperによる設定はcore serviceでも同一instanceを選ぶ。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixtures, explicit arguments and stage observations in the linked anchors; each fresh policy and peer is independently constructed.",
+        "ja": "linkしたanchorの独自fixture、明示引数、段階観測を使い、新policyとpeerは各々独立に生成する。"
+      },
+      "expected": {
+        "en": "Setting the default packer through its wrapper selects the exact instance in the core service.",
+        "ja": "packerのdefault wrapperによる設定はcore serviceでも同一instanceを選ぶ。"
+      },
+      "limitations": {
+        "en": "Only non-null explicit selections and exact restoration. The test does not establish that a getter had never run during library startup, the never-called allocation branch or explicit-null recovery.",
+        "ja": "nullでない明示選択とexact復帰だけ。library startup中にgetterが未実行だったこと、未呼出し時の割当分岐、明示nullからの回復は立証しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_policy_packer_default_wrappers_share_core_selection_and_restore_exact_identity",
+          "role": "direct",
+          "expected_observations": [
+            "UT: policy_default_selected wrapper 1 core 1",
+            "UT: policy_default_reverse wrapper 1 core 1",
+            "UT: policy_default_restored 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-POLICY-AUDIT-PACKER-GET-DEFAULT",
+      "clause": "16.5.2.5",
+      "statement": {
+        "en": "The packer default getter returns the instance selected through the core service and restores the saved selection.",
+        "ja": "packerのdefault getterはcore serviceで選択したinstanceを返し、保存した選択を復帰できる。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixtures, explicit arguments and stage observations in the linked anchors; each fresh policy and peer is independently constructed.",
+        "ja": "linkしたanchorの独自fixture、明示引数、段階観測を使い、新policyとpeerは各々独立に生成する。"
+      },
+      "expected": {
+        "en": "The packer default getter returns the instance selected through the core service and restores the saved selection.",
+        "ja": "packerのdefault getterはcore serviceで選択したinstanceを返し、保存した選択を復帰できる。"
+      },
+      "limitations": {
+        "en": "Only non-null explicit selections and exact restoration. The test does not establish that a getter had never run during library startup, the never-called allocation branch or explicit-null recovery.",
+        "ja": "nullでない明示選択とexact復帰だけ。library startup中にgetterが未実行だったこと、未呼出し時の割当分岐、明示nullからの回復は立証しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_policy_packer_default_wrappers_share_core_selection_and_restore_exact_identity",
+          "role": "direct",
+          "expected_observations": [
+            "UT: policy_default_selected wrapper 1 core 1",
+            "UT: policy_default_reverse wrapper 1 core 1",
+            "UT: policy_default_restored 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-POLICY-AUDIT-COPIER-BASE",
+      "clause": "16.6.1",
+      "statement": {
+        "en": "The concrete copier is usable through its declared uvm_policy base.",
+        "ja": "具象copierを宣言されたuvm_policy baseから使える。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixtures, explicit arguments and stage observations in the linked anchors; each fresh policy and peer is independently constructed.",
+        "ja": "linkしたanchorの独自fixture、明示引数、段階観測を使い、新policyとpeerは各々独立に生成する。"
+      },
+      "expected": {
+        "en": "The concrete copier is usable through its declared uvm_policy base.",
+        "ja": "具象copierを宣言されたuvm_policy baseから使える。"
+      },
+      "limitations": {
+        "en": "Selected public API conditions only; no private representation, arbitrary user subtype, four-state behavior or complete clause coverage is certified. Original hooks only supply inputs or observe dispatch. A later mismatch retains the whole fixture as known.",
+        "ja": "選択した公開API条件だけで、非公開表現、任意user subtype、4-state動作、条項全体の網羅は認定しない。独自hookは入力供給かdispatch観測だけを行う。後段で不一致があればfixture全体をknownに保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_policy_comparer_packer_and_copier_constructors_preserve_names_types_and_policy_bases",
+          "role": "direct",
+          "expected_observations": [
+            "UT: copier_constructor default 1 named 1 empty 1 type 1 base 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-POLICY-AUDIT-COPIER-CONSTRUCTOR",
+      "clause": "16.6.2.1",
+      "statement": {
+        "en": "The copier constructor defaults to unnamed and preserves explicit and empty names.",
+        "ja": "copier constructorは既定で無名となり、明示名と空名を保持する。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixtures, explicit arguments and stage observations in the linked anchors; each fresh policy and peer is independently constructed.",
+        "ja": "linkしたanchorの独自fixture、明示引数、段階観測を使い、新policyとpeerは各々独立に生成する。"
+      },
+      "expected": {
+        "en": "The copier constructor defaults to unnamed and preserves explicit and empty names.",
+        "ja": "copier constructorは既定で無名となり、明示名と空名を保持する。"
+      },
+      "limitations": {
+        "en": "Selected public API conditions only; no private representation, arbitrary user subtype, four-state behavior or complete clause coverage is certified. Original hooks only supply inputs or observe dispatch. A later mismatch retains the whole fixture as known.",
+        "ja": "選択した公開API条件だけで、非公開表現、任意user subtype、4-state動作、条項全体の網羅は認定しない。独自hookは入力供給かdispatch観測だけを行う。後段で不一致があればfixture全体をknownに保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_policy_comparer_packer_and_copier_constructors_preserve_names_types_and_policy_bases",
+          "role": "direct",
+          "expected_observations": [
+            "UT: copier_constructor default 1 named 1 empty 1 type 1 base 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-POLICY-AUDIT-COPIER-TYPE",
+      "clause": "16.6.2.2",
+      "statement": {
+        "en": "The copier returns the fixed type name uvm_copier.",
+        "ja": "copierは固定type名uvm_copierを返す。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixtures, explicit arguments and stage observations in the linked anchors; each fresh policy and peer is independently constructed.",
+        "ja": "linkしたanchorの独自fixture、明示引数、段階観測を使い、新policyとpeerは各々独立に生成する。"
+      },
+      "expected": {
+        "en": "The copier returns the fixed type name uvm_copier.",
+        "ja": "copierは固定type名uvm_copierを返す。"
+      },
+      "limitations": {
+        "en": "Selected public API conditions only; no private representation, arbitrary user subtype, four-state behavior or complete clause coverage is certified. Original hooks only supply inputs or observe dispatch. A later mismatch retains the whole fixture as known.",
+        "ja": "選択した公開API条件だけで、非公開表現、任意user subtype、4-state動作、条項全体の網羅は認定しない。独自hookは入力供給かdispatch観測だけを行う。後段で不一致があればfixture全体をknownに保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_policy_comparer_packer_and_copier_constructors_preserve_names_types_and_policy_bases",
+          "role": "direct",
+          "expected_observations": [
+            "UT: copier_constructor default 1 named 1 empty 1 type 1 base 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-POLICY-AUDIT-COPIER-SET-DEFAULT",
+      "clause": "16.6.2.3",
+      "statement": {
+        "en": "Setting the default copier through its wrapper selects the exact instance in the core service.",
+        "ja": "copierのdefault wrapperによる設定はcore serviceでも同一instanceを選ぶ。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixtures, explicit arguments and stage observations in the linked anchors; each fresh policy and peer is independently constructed.",
+        "ja": "linkしたanchorの独自fixture、明示引数、段階観測を使い、新policyとpeerは各々独立に生成する。"
+      },
+      "expected": {
+        "en": "Setting the default copier through its wrapper selects the exact instance in the core service.",
+        "ja": "copierのdefault wrapperによる設定はcore serviceでも同一instanceを選ぶ。"
+      },
+      "limitations": {
+        "en": "Only non-null explicit selections and exact restoration. The test does not establish that a getter had never run during library startup, the never-called allocation branch or explicit-null recovery.",
+        "ja": "nullでない明示選択とexact復帰だけ。library startup中にgetterが未実行だったこと、未呼出し時の割当分岐、明示nullからの回復は立証しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_policy_copier_default_wrappers_share_core_selection_and_restore_exact_identity",
+          "role": "direct",
+          "expected_observations": [
+            "UT: policy_default_selected wrapper 1 core 1",
+            "UT: policy_default_reverse wrapper 1 core 1",
+            "UT: policy_default_restored 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-POLICY-AUDIT-COPIER-GET-DEFAULT",
+      "clause": "16.6.2.4",
+      "statement": {
+        "en": "The copier default getter returns the instance selected through the core service and restores the saved selection.",
+        "ja": "copierのdefault getterはcore serviceで選択したinstanceを返し、保存した選択を復帰できる。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixtures, explicit arguments and stage observations in the linked anchors; each fresh policy and peer is independently constructed.",
+        "ja": "linkしたanchorの独自fixture、明示引数、段階観測を使い、新policyとpeerは各々独立に生成する。"
+      },
+      "expected": {
+        "en": "The copier default getter returns the instance selected through the core service and restores the saved selection.",
+        "ja": "copierのdefault getterはcore serviceで選択したinstanceを返し、保存した選択を復帰できる。"
+      },
+      "limitations": {
+        "en": "Only non-null explicit selections and exact restoration. The test does not establish that a getter had never run during library startup, the never-called allocation branch or explicit-null recovery.",
+        "ja": "nullでない明示選択とexact復帰だけ。library startup中にgetterが未実行だったこと、未呼出し時の割当分岐、明示nullからの回復は立証しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_policy_copier_default_wrappers_share_core_selection_and_restore_exact_identity",
+          "role": "direct",
+          "expected_observations": [
+            "UT: policy_default_selected wrapper 1 core 1",
+            "UT: policy_default_reverse wrapper 1 core 1",
+            "UT: policy_default_restored 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-POLICY-AUDIT-COMPARER-WIDE-IN-RANGE",
+      "clause": "16.3.3.1",
+      "statement": {
+        "en": "Wide comparison distinguishes equality from an in-range mismatch at widths one, 64, 65, 129 and the stream maximum.",
+        "ja": "wide比較は幅1／64／65／129／stream最大で等値と範囲内不一致を区別する。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixtures, explicit arguments and stage observations in the linked anchors; each fresh policy and peer is independently constructed.",
+        "ja": "linkしたanchorの独自fixture、明示引数、段階観測を使い、新policyとpeerは各々独立に生成する。"
+      },
+      "expected": {
+        "en": "Wide comparison distinguishes equality from an in-range mismatch at widths one, 64, 65, 129 and the stream maximum.",
+        "ja": "wide比較は幅1／64／65／129／stream最大で等値と範囲内不一致を区別する。"
+      },
+      "limitations": {
+        "en": "Selected public API conditions only; no private representation, arbitrary user subtype, four-state behavior or complete clause coverage is certified. Original hooks only supply inputs or observe dispatch. A later mismatch retains the whole fixture as known.",
+        "ja": "選択した公開API条件だけで、非公開表現、任意user subtype、4-state動作、条項全体の網羅は認定しない。独自hookは入力供給かdispatch観測だけを行う。後段で不一致があればfixture全体をknownに保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_comparer_wide_integral_fields_check_inside_bits_and_ignore_outside_declared_width",
+          "role": "direct",
+          "expected_observations": [
+            "UT: wide_compare 0 equal 1 mismatch 0 count 1 checked 1 outside 1",
+            "UT: wide_compare 1 equal 1 mismatch 0 count 1 checked 1 outside 1",
+            "UT: wide_compare 2 equal 1 mismatch 0 count 1 checked 1 outside 1",
+            "UT: wide_compare 3 equal 1 mismatch 0 count 1 checked 1 outside 1",
+            "UT: wide_compare 4 equal 1 mismatch 0 count 1 checked 0 outside 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-POLICY-AUDIT-COMPARER-WIDE-OUTSIDE",
+      "clause": "16.3.3.1",
+      "statement": {
+        "en": "Bits outside the declared comparison width are ignored where that width is below the stream maximum.",
+        "ja": "宣言比較幅がstream最大未満なら、その幅外のbitを無視する。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixtures, explicit arguments and stage observations in the linked anchors; each fresh policy and peer is independently constructed.",
+        "ja": "linkしたanchorの独自fixture、明示引数、段階観測を使い、新policyとpeerは各々独立に生成する。"
+      },
+      "expected": {
+        "en": "Bits outside the declared comparison width are ignored where that width is below the stream maximum.",
+        "ja": "宣言比較幅がstream最大未満なら、その幅外のbitを無視する。"
+      },
+      "limitations": {
+        "en": "No out-of-range bit is indexed at the maximum width; that row explicitly marks the outside-bit condition as not exercised. Invalid sizes and every data pattern remain separate.",
+        "ja": "最大幅では範囲外bitをindexせず、その行は幅外条件を未実施と明示する。不正sizeと全data patternは別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_comparer_wide_integral_fields_check_inside_bits_and_ignore_outside_declared_width",
+          "role": "direct",
+          "expected_observations": [
+            "UT: wide_compare 0 equal 1 mismatch 0 count 1 checked 1 outside 1",
+            "UT: wide_compare 1 equal 1 mismatch 0 count 1 checked 1 outside 1",
+            "UT: wide_compare 2 equal 1 mismatch 0 count 1 checked 1 outside 1",
+            "UT: wide_compare 3 equal 1 mismatch 0 count 1 checked 1 outside 1",
+            "UT: wide_compare 4 equal 1 mismatch 0 count 1 checked 0 outside 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-POLICY-AUDIT-COMPARER-PRINT-MSG-COUNT",
+      "clause": "16.3.3.7",
+      "statement": {
+        "en": "Each direct print_msg contributes one mismatch count.",
+        "ja": "直接print_msg 1回ごとに不一致数が1増える。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixtures, explicit arguments and stage observations in the linked anchors; each fresh policy and peer is independently constructed.",
+        "ja": "linkしたanchorの独自fixture、明示引数、段階観測を使い、新policyとpeerは各々独立に生成する。"
+      },
+      "expected": {
+        "en": "Each direct print_msg contributes one mismatch count.",
+        "ja": "直接print_msg 1回ごとに不一致数が1増える。"
+      },
+      "limitations": {
+        "en": "The catcher counts only the two original message tokens, excluding unrelated startup reports. The show_max equality boundary is not tested; a trailing newline is allowed.",
+        "ja": "catcherは独自message token 2つだけを数え、無関係なstartup reportを除外する。show_max等号境界は検査せず、末尾改行は許容する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_comparer_print_msg_appends_ordered_messages_counts_reports_and_flushes_state",
+          "role": "direct",
+          "expected_observations": [
+            "UT: messages_stored count 2 first 1 second 1 order 1 newline 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-POLICY-AUDIT-COMPARER-MISCOMPARE-TEXT",
+      "clause": "16.3.3.8",
+      "statement": {
+        "en": "Two print_msg strings are retained in call order with a newline between them.",
+        "ja": "print_msg文字列2つを呼出順に保持し、その間を改行する。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixtures, explicit arguments and stage observations in the linked anchors; each fresh policy and peer is independently constructed.",
+        "ja": "linkしたanchorの独自fixture、明示引数、段階観測を使い、新policyとpeerは各々独立に生成する。"
+      },
+      "expected": {
+        "en": "Two print_msg strings are retained in call order with a newline between them.",
+        "ja": "print_msg文字列2つを呼出順に保持し、その間を改行する。"
+      },
+      "limitations": {
+        "en": "The catcher counts only the two original message tokens, excluding unrelated startup reports. The show_max equality boundary is not tested; a trailing newline is allowed.",
+        "ja": "catcherは独自message token 2つだけを数え、無関係なstartup reportを除外する。show_max等号境界は検査せず、末尾改行は許容する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_comparer_print_msg_appends_ordered_messages_counts_reports_and_flushes_state",
+          "role": "direct",
+          "expected_observations": [
+            "UT: messages_stored count 2 first 1 second 1 order 1 newline 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-POLICY-AUDIT-COMPARER-PRINT-MSG-REPORT",
+      "clause": "16.3.3.7",
+      "statement": {
+        "en": "Two selected messages below a maximum of five report at the configured severity and verbosity.",
+        "ja": "最大5未満の選択message 2つを設定severityとverbosityでreportする。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixtures, explicit arguments and stage observations in the linked anchors; each fresh policy and peer is independently constructed.",
+        "ja": "linkしたanchorの独自fixture、明示引数、段階観測を使い、新policyとpeerは各々独立に生成する。"
+      },
+      "expected": {
+        "en": "Two selected messages below a maximum of five report at the configured severity and verbosity.",
+        "ja": "最大5未満の選択message 2つを設定severityとverbosityでreportする。"
+      },
+      "limitations": {
+        "en": "The catcher counts only the two original message tokens, excluding unrelated startup reports. The show_max equality boundary is not tested; a trailing newline is allowed.",
+        "ja": "catcherは独自message token 2つだけを数え、無関係なstartup reportを除外する。show_max等号境界は検査せず、末尾改行は許容する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_comparer_print_msg_appends_ordered_messages_counts_reports_and_flushes_state",
+          "role": "direct",
+          "expected_observations": [
+            "UT: messages_reported count 2 first 1 second 1 info 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-POLICY-AUDIT-COMPARER-GET-RESULT-INITIAL",
+      "clause": "16.3.3.9",
+      "statement": {
+        "en": "A fresh comparer has zero counted miscompares.",
+        "ja": "新comparerの計数不一致は0である。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixtures, explicit arguments and stage observations in the linked anchors; each fresh policy and peer is independently constructed.",
+        "ja": "linkしたanchorの独自fixture、明示引数、段階観測を使い、新policyとpeerは各々独立に生成する。"
+      },
+      "expected": {
+        "en": "A fresh comparer has zero counted miscompares.",
+        "ja": "新comparerの計数不一致は0である。"
+      },
+      "limitations": {
+        "en": "The catcher counts only the two original message tokens, excluding unrelated startup reports. The show_max equality boundary is not tested; a trailing newline is allowed.",
+        "ja": "catcherは独自message token 2つだけを数え、無関係なstartup reportを除外する。show_max等号境界は検査せず、末尾改行は許容する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_comparer_print_msg_appends_ordered_messages_counts_reports_and_flushes_state",
+          "role": "direct",
+          "expected_observations": [
+            "UT: messages_initial count 0 empty 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-POLICY-AUDIT-COMPARER-THRESHOLD-INITIAL",
+      "clause": "16.3.6",
+      "statement": {
+        "en": "A fresh comparer threshold is one.",
+        "ja": "新comparerのthresholdは1である。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixtures, explicit arguments and stage observations in the linked anchors; each fresh policy and peer is independently constructed.",
+        "ja": "linkしたanchorの独自fixture、明示引数、段階観測を使い、新policyとpeerは各々独立に生成する。"
+      },
+      "expected": {
+        "en": "A fresh comparer threshold is one.",
+        "ja": "新comparerのthresholdは1である。"
+      },
+      "limitations": {
+        "en": "Getter/default/reset obligations only. A positive threshold permits early return but does not require a particular field short-circuit count; no such count is asserted.",
+        "ja": "getter／既定値／reset義務だけ。正thresholdは早期returnを許すが特定field打切り回数を要求しないため、その回数は検査しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_comparer_threshold_default_updates_and_flush_restore_the_declared_boundary",
+          "role": "direct",
+          "expected_observations": [
+            "UT: threshold_default 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-POLICY-AUDIT-COMPARER-THRESHOLD-UPDATE",
+      "clause": "16.3.6",
+      "statement": {
+        "en": "The comparer threshold accepts zero and five independently of a fresh peer.",
+        "ja": "comparer thresholdは新peerに影響せず0と5を受け付ける。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixtures, explicit arguments and stage observations in the linked anchors; each fresh policy and peer is independently constructed.",
+        "ja": "linkしたanchorの独自fixture、明示引数、段階観測を使い、新policyとpeerは各々独立に生成する。"
+      },
+      "expected": {
+        "en": "The comparer threshold accepts zero and five independently of a fresh peer.",
+        "ja": "comparer thresholdは新peerに影響せず0と5を受け付ける。"
+      },
+      "limitations": {
+        "en": "Getter/default/reset obligations only. A positive threshold permits early return but does not require a particular field short-circuit count; no such count is asserted.",
+        "ja": "getter／既定値／reset義務だけ。正thresholdは早期returnを許すが特定field打切り回数を要求しないため、その回数は検査しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_comparer_threshold_default_updates_and_flush_restore_the_declared_boundary",
+          "role": "direct",
+          "expected_observations": [
+            "UT: threshold_default 1",
+            "UT: threshold_zero selected 1 peer 1",
+            "UT: threshold_five selected 1 peer 1",
+            "UT: threshold_flushed 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-POLICY-AUDIT-COMPARER-THRESHOLD-FLUSH",
+      "clause": "16.3.6",
+      "statement": {
+        "en": "Flush restores the declared comparer threshold of one.",
+        "ja": "flushは宣言されたcomparer threshold 1へ復帰する。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixtures, explicit arguments and stage observations in the linked anchors; each fresh policy and peer is independently constructed.",
+        "ja": "linkしたanchorの独自fixture、明示引数、段階観測を使い、新policyとpeerは各々独立に生成する。"
+      },
+      "expected": {
+        "en": "Flush restores the declared comparer threshold of one.",
+        "ja": "flushは宣言されたcomparer threshold 1へ復帰する。"
+      },
+      "limitations": {
+        "en": "Getter/default/reset obligations only. A positive threshold permits early return but does not require a particular field short-circuit count; no such count is asserted.",
+        "ja": "getter／既定値／reset義務だけ。正thresholdは早期returnを許すが特定field打切り回数を要求しないため、その回数は検査しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_comparer_threshold_default_updates_and_flush_restore_the_declared_boundary",
+          "role": "direct",
+          "expected_observations": [
+            "UT: threshold_flushed 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-POLICY-AUDIT-COPIER-RECURSION-INITIAL",
+      "clause": "16.6.3",
+      "statement": {
+        "en": "A fresh copier recursion getter returns UVM_DEFAULT_POLICY.",
+        "ja": "新copierのrecursion getterはUVM_DEFAULT_POLICYを返す。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixtures, explicit arguments and stage observations in the linked anchors; each fresh policy and peer is independently constructed.",
+        "ja": "linkしたanchorの独自fixture、明示引数、段階観測を使い、新policyとpeerは各々独立に生成する。"
+      },
+      "expected": {
+        "en": "A fresh copier recursion getter returns UVM_DEFAULT_POLICY.",
+        "ja": "新copierのrecursion getterはUVM_DEFAULT_POLICYを返す。"
+      },
+      "limitations": {
+        "en": "Selected public API conditions only; no private representation, arbitrary user subtype, four-state behavior or complete clause coverage is certified. Original hooks only supply inputs or observe dispatch. A later mismatch retains the whole fixture as known.",
+        "ja": "選択した公開API条件だけで、非公開表現、任意user subtype、4-state動作、条項全体の網羅は認定しない。独自hookは入力供給かdispatch観測だけを行う。後段で不一致があればfixture全体をknownに保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_copier_recursion_default_updates_and_flush_restore_the_declared_policy",
+          "role": "direct",
+          "expected_observations": [
+            "UT: copy_policy_default 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-POLICY-AUDIT-COPIER-RECURSION-UPDATE",
+      "clause": "16.6.3",
+      "statement": {
+        "en": "A selected copier stores SHALLOW independently of a peer.",
+        "ja": "選択copierはpeerに影響せずSHALLOWを保持する。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixtures, explicit arguments and stage observations in the linked anchors; each fresh policy and peer is independently constructed.",
+        "ja": "linkしたanchorの独自fixture、明示引数、段階観測を使い、新policyとpeerは各々独立に生成する。"
+      },
+      "expected": {
+        "en": "A selected copier stores SHALLOW independently of a peer.",
+        "ja": "選択copierはpeerに影響せずSHALLOWを保持する。"
+      },
+      "limitations": {
+        "en": "Selected public API conditions only; no private representation, arbitrary user subtype, four-state behavior or complete clause coverage is certified. Original hooks only supply inputs or observe dispatch. A later mismatch retains the whole fixture as known.",
+        "ja": "選択した公開API条件だけで、非公開表現、任意user subtype、4-state動作、条項全体の網羅は認定しない。独自hookは入力供給かdispatch観測だけを行う。後段で不一致があればfixture全体をknownに保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_copier_recursion_default_updates_and_flush_restore_the_declared_policy",
+          "role": "direct",
+          "expected_observations": [
+            "UT: copy_policy_changed selected 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-POLICY-AUDIT-COPIER-RECURSION-FLUSH",
+      "clause": "16.6.3",
+      "statement": {
+        "en": "Flush restores the declared copier recursion default.",
+        "ja": "flushは宣言されたcopier recursion既定値へ復帰する。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixtures, explicit arguments and stage observations in the linked anchors; each fresh policy and peer is independently constructed.",
+        "ja": "linkしたanchorの独自fixture、明示引数、段階観測を使い、新policyとpeerは各々独立に生成する。"
+      },
+      "expected": {
+        "en": "Flush restores the declared copier recursion default.",
+        "ja": "flushは宣言されたcopier recursion既定値へ復帰する。"
+      },
+      "limitations": {
+        "en": "Selected public API conditions only; no private representation, arbitrary user subtype, four-state behavior or complete clause coverage is certified. Original hooks only supply inputs or observe dispatch. A later mismatch retains the whole fixture as known.",
+        "ja": "選択した公開API条件だけで、非公開表現、任意user subtype、4-state動作、条項全体の網羅は認定しない。独自hookは入力供給かdispatch観測だけを行う。後段で不一致があればfixture全体をknownに保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_copier_recursion_default_updates_and_flush_restore_the_declared_policy",
+          "role": "direct",
+          "expected_observations": [
+            "UT: copy_policy_flushed 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-POLICY-AUDIT-COMPARER-FIELD-OP",
+      "clause": "16.3.3.4",
+      "statement": {
+        "en": "The comparer field hook receives the selected operation and exact policy while the target is active and STARTED.",
+        "ja": "comparer field hookはtargetがactiveかつSTARTEDの間に選択operationと同一policyを受ける。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixtures, explicit arguments and stage observations in the linked anchors; each fresh policy and peer is independently constructed.",
+        "ja": "linkしたanchorの独自fixture、明示引数、段階観測を使い、新policyとpeerは各々独立に生成する。"
+      },
+      "expected": {
+        "en": "The comparer field hook receives the selected operation and exact policy while the target is active and STARTED.",
+        "ja": "comparer field hookはtargetがactiveかつSTARTEDの間に選択operationと同一policyを受ける。"
+      },
+      "limitations": {
+        "en": "Selected public API conditions only; no private representation, arbitrary user subtype, four-state behavior or complete clause coverage is certified. Original hooks only supply inputs or observe dispatch. A later mismatch retains the whole fixture as known.",
+        "ja": "選択した公開API条件だけで、非公開表現、任意user subtype、4-state動作、条項全体の網羅は認定しない。独自hookは入力供給かdispatch観測だけを行う。後段で不一致があればfixture全体をknownに保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_comparer_field_user_and_finished_stages_follow_the_declared_order",
+          "role": "direct",
+          "expected_observations": [
+            "UT: policy_execute op compare exact 1 active 1 depth 1 started 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-POLICY-AUDIT-COMPARER-FINISH-BEFORE-POP",
+      "clause": "16.3.3.4",
+      "statement": {
+        "en": "The comparer completes its remembered state before popping the active target.",
+        "ja": "comparerはactive targetをpopする前に記憶stateを完了する。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixtures, explicit arguments and stage observations in the linked anchors; each fresh policy and peer is independently constructed.",
+        "ja": "linkしたanchorの独自fixture、明示引数、段階観測を使い、新policyとpeerは各々独立に生成する。"
+      },
+      "expected": {
+        "en": "The comparer completes its remembered state before popping the active target.",
+        "ja": "comparerはactive targetをpopする前に記憶stateを完了する。"
+      },
+      "limitations": {
+        "en": "Selected public API conditions only; no private representation, arbitrary user subtype, four-state behavior or complete clause coverage is certified. Original hooks only supply inputs or observe dispatch. A later mismatch retains the whole fixture as known.",
+        "ja": "選択した公開API条件だけで、非公開表現、任意user subtype、4-state動作、条項全体の網羅は認定しない。独自hookは入力供給かdispatch観測だけを行う。後段で不一致があればfixture全体をknownに保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_comparer_field_user_and_finished_stages_follow_the_declared_order",
+          "role": "direct",
+          "expected_observations": [
+            "UT: finished_before_pop 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-POLICY-AUDIT-COMPARER-DISABLED-HOOK-CLEANUP",
+      "clause": "16.3.3.4",
+      "statement": {
+        "en": "Disabling the comparer user hook still completes history and restores the active stack.",
+        "ja": "comparer user hookを無効にしても履歴を完了しactive stackへ復帰する。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixtures, explicit arguments and stage observations in the linked anchors; each fresh policy and peer is independently constructed.",
+        "ja": "linkしたanchorの独自fixture、明示引数、段階観測を使い、新policyとpeerは各々独立に生成する。"
+      },
+      "expected": {
+        "en": "Disabling the comparer user hook still completes history and restores the active stack.",
+        "ja": "comparer user hookを無効にしても履歴を完了しactive stackへ復帰する。"
+      },
+      "limitations": {
+        "en": "The disabled comparison case checks that stored history agrees with the actual returned bit, without prescribing an undocumented success bit when do_compare is skipped. Copy user payload is only an original hook marker.",
+        "ja": "比較無効条件ではdo_compare省略時の未規定success bitを固定せず、履歴と実際のreturn bitの一致を確認する。copy user payloadは独自hook markerに限る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_comparer_disabled_user_hook_finishes_history_and_unwinds_the_active_object",
+          "role": "direct",
+          "expected_observations": [
+            "UT: policy_execute op compare exact 1 active 1 depth 1 started 1",
+            "UT: policy_end trace EX executes 1 users 0 finished 1 consistent 1 empty 1",
+            "UT: finished_before_pop 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-POLICY-AUDIT-COPIER-FIELD-OP",
+      "clause": "16.6.4.1",
+      "statement": {
+        "en": "The copier field hook receives the selected operation and exact policy while the target is active and STARTED.",
+        "ja": "copier field hookはtargetがactiveかつSTARTEDの間に選択operationと同一policyを受ける。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixtures, explicit arguments and stage observations in the linked anchors; each fresh policy and peer is independently constructed.",
+        "ja": "linkしたanchorの独自fixture、明示引数、段階観測を使い、新policyとpeerは各々独立に生成する。"
+      },
+      "expected": {
+        "en": "The copier field hook receives the selected operation and exact policy while the target is active and STARTED.",
+        "ja": "copier field hookはtargetがactiveかつSTARTEDの間に選択operationと同一policyを受ける。"
+      },
+      "limitations": {
+        "en": "Selected public API conditions only; no private representation, arbitrary user subtype, four-state behavior or complete clause coverage is certified. Original hooks only supply inputs or observe dispatch. A later mismatch retains the whole fixture as known.",
+        "ja": "選択した公開API条件だけで、非公開表現、任意user subtype、4-state動作、条項全体の網羅は認定しない。独自hookは入力供給かdispatch観測だけを行う。後段で不一致があればfixture全体をknownに保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_copier_field_user_and_finished_stages_follow_the_declared_order",
+          "role": "direct",
+          "expected_observations": [
+            "UT: policy_execute op copy exact 1 active 1 depth 1 started 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-POLICY-AUDIT-COPIER-FINISH-BEFORE-POP",
+      "clause": "16.6.4.1",
+      "statement": {
+        "en": "The copier completes its remembered state before popping the active target.",
+        "ja": "copierはactive targetをpopする前に記憶stateを完了する。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixtures, explicit arguments and stage observations in the linked anchors; each fresh policy and peer is independently constructed.",
+        "ja": "linkしたanchorの独自fixture、明示引数、段階観測を使い、新policyとpeerは各々独立に生成する。"
+      },
+      "expected": {
+        "en": "The copier completes its remembered state before popping the active target.",
+        "ja": "copierはactive targetをpopする前に記憶stateを完了する。"
+      },
+      "limitations": {
+        "en": "Selected public API conditions only; no private representation, arbitrary user subtype, four-state behavior or complete clause coverage is certified. Original hooks only supply inputs or observe dispatch. A later mismatch retains the whole fixture as known.",
+        "ja": "選択した公開API条件だけで、非公開表現、任意user subtype、4-state動作、条項全体の網羅は認定しない。独自hookは入力供給かdispatch観測だけを行う。後段で不一致があればfixture全体をknownに保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_copier_field_user_and_finished_stages_follow_the_declared_order",
+          "role": "direct",
+          "expected_observations": [
+            "UT: finished_before_pop 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-POLICY-AUDIT-COPIER-DISABLED-HOOK-CLEANUP",
+      "clause": "16.6.4.1",
+      "statement": {
+        "en": "Disabling the copier user hook still completes history and restores the active stack.",
+        "ja": "copier user hookを無効にしても履歴を完了しactive stackへ復帰する。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixtures, explicit arguments and stage observations in the linked anchors; each fresh policy and peer is independently constructed.",
+        "ja": "linkしたanchorの独自fixture、明示引数、段階観測を使い、新policyとpeerは各々独立に生成する。"
+      },
+      "expected": {
+        "en": "Disabling the copier user hook still completes history and restores the active stack.",
+        "ja": "copier user hookを無効にしても履歴を完了しactive stackへ復帰する。"
+      },
+      "limitations": {
+        "en": "The disabled comparison case checks that stored history agrees with the actual returned bit, without prescribing an undocumented success bit when do_compare is skipped. Copy user payload is only an original hook marker.",
+        "ja": "比較無効条件ではdo_compare省略時の未規定success bitを固定せず、履歴と実際のreturn bitの一致を確認する。copy user payloadは独自hook markerに限る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_copier_disabled_user_hook_finishes_history_and_unwinds_the_active_object",
+          "role": "direct",
+          "expected_observations": [
+            "UT: policy_execute op copy exact 1 active 1 depth 1 started 1",
+            "UT: policy_end trace EX executes 1 users 0 finished 1 payload 0 empty 1",
+            "UT: finished_before_pop 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-POLICY-AUDIT-COMPARER-RESULT-GATE",
+      "clause": "16.3.3.4",
+      "statement": {
+        "en": "Comparison succeeds only when fields add no mismatch and the enabled user hook returns true.",
+        "ja": "比較はfield不一致が増えず有効user hookがtrueを返したとき成功する。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixtures, explicit arguments and stage observations in the linked anchors; each fresh policy and peer is independently constructed.",
+        "ja": "linkしたanchorの独自fixture、明示引数、段階観測を使い、新policyとpeerは各々独立に生成する。"
+      },
+      "expected": {
+        "en": "Comparison succeeds only when fields add no mismatch and the enabled user hook returns true.",
+        "ja": "比較はfield不一致が増えず有効user hookがtrueを返したとき成功する。"
+      },
+      "limitations": {
+        "en": "Selected independent field-failure/user-return combinations and stored results only. The counter is observed before the user return; no aggregate counter value after a false user return is prescribed.",
+        "ja": "独立した選択field失敗／user return組合せと保持結果だけ。counterはuser return前に観測し、false user return後の総counter値は規定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_comparer_object_result_combines_field_failures_and_the_user_return",
+          "role": "direct",
+          "expected_observations": [
+            "UT: result_gate 0 field_failure 1 user 1 result 0 history 0 finished 1",
+            "UT: result_gate 1 field_failure 0 user 0 result 0 history 0 finished 1",
+            "UT: result_gate 2 field_failure 0 user 1 result 1 history 1 finished 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-POLICY-AUDIT-COMPARER-SHALLOW-CHILD-IDENTITY",
+      "clause": "16.3.4.1",
+      "statement": {
+        "en": "SHALLOW compares child handles while DEEP compares selected child fields.",
+        "ja": "SHALLOWはchild handleを比較し、DEEPは選択child fieldを比較する。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixtures, explicit arguments and stage observations in the linked anchors; each fresh policy and peer is independently constructed.",
+        "ja": "linkしたanchorの独自fixture、明示引数、段階観測を使い、新policyとpeerは各々独立に生成する。"
+      },
+      "expected": {
+        "en": "SHALLOW compares child handles while DEEP compares selected child fields.",
+        "ja": "SHALLOWはchild handleを比較し、DEEPは選択child fieldを比較する。"
+      },
+      "limitations": {
+        "en": "Qualified combined interpretation of the policy SHALLOW rule with B.2.2 field macros that have no explicit recursion override and therefore use UVM_DEFAULT_POLICY flags. The original fixture delegates actual copying/comparison to standard field automation. A mismatch is not assigned a confirmed defect cause; other explicit flag-precedence conditions remain partial.",
+        "ja": "policyのSHALLOW規則と、明示再帰overrideがなくUVM_DEFAULT_POLICY flagを使うB.2.2 field macroの限定した組合せ解釈。独自fixtureは実copy／compareを標準field automationへ委ねる。不一致の原因を確定不具合とはせず、他の明示flag優先条件は部分対応に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_comparer_field_automation_distinguishes_nested_recursion_and_alias_conditions",
+          "role": "direct",
+          "expected_observations": [
+            "UT: nested_compare 0 equal 1 alias 0 empty 1",
+            "UT: nested_compare 1 equal 0 alias 0 empty 1",
+            "UT: nested_compare 2 equal 0 alias 0 empty 1",
+            "UT: nested_compare 3 equal 1 alias 0 empty 1",
+            "UT: nested_compare 4 equal 1 alias 1 empty 1",
+            "UT: nested_compare 5 equal 0 alias 0 empty 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-POLICY-AUDIT-COMPARER-DEFAULT-AS-DEEP",
+      "clause": "16.3.4.1",
+      "statement": {
+        "en": "UVM_DEFAULT_POLICY comparison treats the selected equal distinct children as DEEP.",
+        "ja": "UVM_DEFAULT_POLICY比較は選択した別handleの等値childをDEEPとして扱う。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixtures, explicit arguments and stage observations in the linked anchors; each fresh policy and peer is independently constructed.",
+        "ja": "linkしたanchorの独自fixture、明示引数、段階観測を使い、新policyとpeerは各々独立に生成する。"
+      },
+      "expected": {
+        "en": "UVM_DEFAULT_POLICY comparison treats the selected equal distinct children as DEEP.",
+        "ja": "UVM_DEFAULT_POLICY比較は選択した別handleの等値childをDEEPとして扱う。"
+      },
+      "limitations": {
+        "en": "Selected public API conditions only; no private representation, arbitrary user subtype, four-state behavior or complete clause coverage is certified. Original hooks only supply inputs or observe dispatch. A later mismatch retains the whole fixture as known.",
+        "ja": "選択した公開API条件だけで、非公開表現、任意user subtype、4-state動作、条項全体の網羅は認定しない。独自hookは入力供給かdispatch観測だけを行う。後段で不一致があればfixture全体をknownに保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_comparer_field_automation_distinguishes_nested_recursion_and_alias_conditions",
+          "role": "direct",
+          "expected_observations": [
+            "UT: nested_compare 3 equal 1 alias 0 empty 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-POLICY-AUDIT-COPIER-SHALLOW-CHILD-ALIAS",
+      "clause": "16.6.3",
+      "statement": {
+        "en": "SHALLOW copies the root field and aliases the original child handle.",
+        "ja": "SHALLOWはroot fieldをcopyし、元child handleを共有する。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixtures, explicit arguments and stage observations in the linked anchors; each fresh policy and peer is independently constructed.",
+        "ja": "linkしたanchorの独自fixture、明示引数、段階観測を使い、新policyとpeerは各々独立に生成する。"
+      },
+      "expected": {
+        "en": "SHALLOW copies the root field and aliases the original child handle.",
+        "ja": "SHALLOWはroot fieldをcopyし、元child handleを共有する。"
+      },
+      "limitations": {
+        "en": "Qualified combined interpretation of the policy SHALLOW rule with B.2.2 field macros that have no explicit recursion override and therefore use UVM_DEFAULT_POLICY flags. The original fixture delegates actual copying/comparison to standard field automation. A mismatch is not assigned a confirmed defect cause; other explicit flag-precedence conditions remain partial.",
+        "ja": "policyのSHALLOW規則と、明示再帰overrideがなくUVM_DEFAULT_POLICY flagを使うB.2.2 field macroの限定した組合せ解釈。独自fixtureは実copy／compareを標準field automationへ委ねる。不一致の原因を確定不具合とはせず、他の明示flag優先条件は部分対応に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_copier_field_automation_distinguishes_deep_shallow_and_default_child_ownership",
+          "role": "direct",
+          "expected_observations": [
+            "UT: nested_copy 1 field 1 alias 1 value 1 empty 1",
+            "UT: nested_copy_source 1 payload 99"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-POLICY-AUDIT-COPIER-DEFAULT-AS-DEEP",
+      "clause": "16.6.3",
+      "statement": {
+        "en": "UVM_DEFAULT_POLICY copy creates an independent selected child as DEEP does.",
+        "ja": "UVM_DEFAULT_POLICY copyはDEEPと同様に選択childを独立生成する。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixtures, explicit arguments and stage observations in the linked anchors; each fresh policy and peer is independently constructed.",
+        "ja": "linkしたanchorの独自fixture、明示引数、段階観測を使い、新policyとpeerは各々独立に生成する。"
+      },
+      "expected": {
+        "en": "UVM_DEFAULT_POLICY copy creates an independent selected child as DEEP does.",
+        "ja": "UVM_DEFAULT_POLICY copyはDEEPと同様に選択childを独立生成する。"
+      },
+      "limitations": {
+        "en": "Selected public API conditions only; no private representation, arbitrary user subtype, four-state behavior or complete clause coverage is certified. Original hooks only supply inputs or observe dispatch. A later mismatch retains the whole fixture as known.",
+        "ja": "選択した公開API条件だけで、非公開表現、任意user subtype、4-state動作、条項全体の網羅は認定しない。独自hookは入力供給かdispatch観測だけを行う。後段で不一致があればfixture全体をknownに保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_copier_field_automation_distinguishes_deep_shallow_and_default_child_ownership",
+          "role": "direct",
+          "expected_observations": [
+            "UT: nested_copy 2 field 1 alias 0 value 1 empty 1",
+            "UT: nested_copy_source 2 payload 17"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-POLICY-AUDIT-PACKER-WIDE-PACK",
+      "clause": "16.5.4.8",
+      "statement": {
+        "en": "Wide packing preserves selected boundary bits and does not consume the separate seven-bit tail.",
+        "ja": "wide packは選択境界bitを保持し、別の7-bit tailを取り込まない。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixtures, explicit arguments and stage observations in the linked anchors; each fresh policy and peer is independently constructed.",
+        "ja": "linkしたanchorの独自fixture、明示引数、段階観測を使い、新policyとpeerは各々独立に生成する。"
+      },
+      "expected": {
+        "en": "Wide packing preserves selected boundary bits and does not consume the separate seven-bit tail.",
+        "ja": "wide packは選択境界bitを保持し、別の7-bit tailを取り込まない。"
+      },
+      "limitations": {
+        "en": "Only valid selected widths through UVM_MAX_STREAMBITS. The test uses public pack/unpack operations, never an implementation-dependent serialized state layout.",
+        "ja": "UVM_MAX_STREAMBITSまでの選択有効幅だけ。公開pack／unpack操作を使い、実装依存の直列state layoutには依存しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_packer_wide_fields_round_trip_boundary_bits_before_a_separate_tail",
+          "role": "direct",
+          "expected_observations": [
+            "UT: wide_pack 0 count 1 value 1 tail 1 empty 1",
+            "UT: wide_pack 1 count 1 value 1 tail 1 empty 1",
+            "UT: wide_pack 2 count 1 value 1 tail 1 empty 1",
+            "UT: wide_pack 3 count 1 value 1 tail 1 empty 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-POLICY-AUDIT-PACKER-WIDE-UNPACK",
+      "clause": "16.5.4.16",
+      "statement": {
+        "en": "Wide unpack restores fields of 64, 65, 129 and maximum stream bits before reading the separate tail.",
+        "ja": "wide unpackは64／65／129／stream最大bitのfieldを復元してから別tailを読む。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixtures, explicit arguments and stage observations in the linked anchors; each fresh policy and peer is independently constructed.",
+        "ja": "linkしたanchorの独自fixture、明示引数、段階観測を使い、新policyとpeerは各々独立に生成する。"
+      },
+      "expected": {
+        "en": "Wide unpack restores fields of 64, 65, 129 and maximum stream bits before reading the separate tail.",
+        "ja": "wide unpackは64／65／129／stream最大bitのfieldを復元してから別tailを読む。"
+      },
+      "limitations": {
+        "en": "Only valid selected widths through UVM_MAX_STREAMBITS. The test uses public pack/unpack operations, never an implementation-dependent serialized state layout.",
+        "ja": "UVM_MAX_STREAMBITSまでの選択有効幅だけ。公開pack／unpack操作を使い、実装依存の直列state layoutには依存しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_packer_wide_fields_round_trip_boundary_bits_before_a_separate_tail",
+          "role": "direct",
+          "expected_observations": [
+            "UT: wide_pack 0 count 1 value 1 tail 1 empty 1",
+            "UT: wide_pack 1 count 1 value 1 tail 1 empty 1",
+            "UT: wide_pack 2 count 1 value 1 tail 1 empty 1",
+            "UT: wide_pack 3 count 1 value 1 tail 1 empty 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-POLICY-AUDIT-PACKER-WIDE-OVERSIZE",
+      "clause": "16.5.4.8",
+      "statement": {
+        "en": "pack_field reports an error for a size above UVM_MAX_STREAMBITS.",
+        "ja": "pack_fieldはUVM_MAX_STREAMBITSを超えるsizeでerrorをreportする。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixtures, explicit arguments and stage observations in the linked anchors; each fresh policy and peer is independently constructed.",
+        "ja": "linkしたanchorの独自fixture、明示引数、段階観測を使い、新policyとpeerは各々独立に生成する。"
+      },
+      "expected": {
+        "en": "pack_field reports an error for a size above UVM_MAX_STREAMBITS.",
+        "ja": "pack_fieldはUVM_MAX_STREAMBITSを超えるsizeでerrorをreportする。"
+      },
+      "limitations": {
+        "en": "Only the rejected call is checked on the invalid policy. A separately constructed maximum-width control supplies all later data checks; no post-error stream state is inspected or reused.",
+        "ja": "不正policyでは拒否呼出だけを確認する。後続data検査は別生成した最大幅controlで行い、error後のstream状態は検査も再利用もしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_packer_wide_oversize_reports_error_before_an_independent_maximum_width_control",
+          "role": "direct",
+          "expected_observations": [
+            "UT: wide_size_error 1",
+            "UT: wide_size_control value 1 empty 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-POLICY-AUDIT-RECORDER-BASE",
+      "clause": "16.4.1",
+      "statement": {
+        "en": "A legal concrete recorder retains its declared uvm_policy base.",
+        "ja": "合法な具象recorderは宣言されたuvm_policy baseを保持する。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixtures, explicit arguments and stage observations in the linked anchors; each fresh policy and peer is independently constructed.",
+        "ja": "linkしたanchorの独自fixture、明示引数、段階観測を使い、新policyとpeerは各々独立に生成する。"
+      },
+      "expected": {
+        "en": "A legal concrete recorder retains its declared uvm_policy base.",
+        "ja": "合法な具象recorderは宣言されたuvm_policy baseを保持する。"
+      },
+      "limitations": {
+        "en": "Selected public API conditions only; no private representation, arbitrary user subtype, four-state behavior or complete clause coverage is certified. Original hooks only supply inputs or observe dispatch. A later mismatch retains the whole fixture as known.",
+        "ja": "選択した公開API条件だけで、非公開表現、任意user subtype、4-state動作、条項全体の網羅は認定しない。独自hookは入力供給かdispatch観測だけを行う。後段で不一致があればfixture全体をknownに保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_recorder_configuration_defaults_updates_and_flush_restore_the_declared_values",
+          "role": "direct",
+          "expected_observations": [
+            "UT: recorder_defaults recursion 1 id 1 radix 1 base 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-POLICY-AUDIT-RECORDER-RECURSION-INITIAL",
+      "clause": "16.4.2.1",
+      "statement": {
+        "en": "A fresh recorder recursion getter returns UVM_DEFAULT_POLICY.",
+        "ja": "新recorderのrecursion getterはUVM_DEFAULT_POLICYを返す。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixtures, explicit arguments and stage observations in the linked anchors; each fresh policy and peer is independently constructed.",
+        "ja": "linkしたanchorの独自fixture、明示引数、段階観測を使い、新policyとpeerは各々独立に生成する。"
+      },
+      "expected": {
+        "en": "A fresh recorder recursion getter returns UVM_DEFAULT_POLICY.",
+        "ja": "新recorderのrecursion getterはUVM_DEFAULT_POLICYを返す。"
+      },
+      "limitations": {
+        "en": "Accessor/default/reset obligations only. This does not establish record text, ID emission, every recursion path or a recorder get_radix_enabled API; the printed cross-reference to the printer getter is not invented as a recorder method.",
+        "ja": "accessor／既定値／reset義務だけ。record文面、ID出力、全再帰経路、recorderのget_radix_enabled APIは立証しない。印刷されたprinter getterへの相互参照からrecorder methodを創作しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_recorder_configuration_defaults_updates_and_flush_restore_the_declared_values",
+          "role": "direct",
+          "expected_observations": [
+            "UT: recorder_defaults recursion 1 id 1 radix 1 base 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-POLICY-AUDIT-RECORDER-RECURSION-UPDATE",
+      "clause": "16.4.2.1",
+      "statement": {
+        "en": "A selected recorder recursion setter changes its getter while a fresh peer keeps its default.",
+        "ja": "選択recorderのrecursion setterはgetterを変更し、新peerは既定値を保つ。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixtures, explicit arguments and stage observations in the linked anchors; each fresh policy and peer is independently constructed.",
+        "ja": "linkしたanchorの独自fixture、明示引数、段階観測を使い、新policyとpeerは各々独立に生成する。"
+      },
+      "expected": {
+        "en": "A selected recorder recursion setter changes its getter while a fresh peer keeps its default.",
+        "ja": "選択recorderのrecursion setterはgetterを変更し、新peerは既定値を保つ。"
+      },
+      "limitations": {
+        "en": "Accessor/default/reset obligations only. This does not establish record text, ID emission, every recursion path or a recorder get_radix_enabled API; the printed cross-reference to the printer getter is not invented as a recorder method.",
+        "ja": "accessor／既定値／reset義務だけ。record文面、ID出力、全再帰経路、recorderのget_radix_enabled APIは立証しない。印刷されたprinter getterへの相互参照からrecorder methodを創作しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_recorder_configuration_defaults_updates_and_flush_restore_the_declared_values",
+          "role": "direct",
+          "expected_observations": [
+            "UT: recorder_changed recursion 1 id 1 radix 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-POLICY-AUDIT-RECORDER-RECURSION-FLUSH",
+      "clause": "16.4.2.1",
+      "statement": {
+        "en": "Recorder flush restores the declared recursion default UVM_DEFAULT_POLICY.",
+        "ja": "recorder flushは宣言recursion既定値UVM_DEFAULT_POLICYへ復帰する。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixtures, explicit arguments and stage observations in the linked anchors; each fresh policy and peer is independently constructed.",
+        "ja": "linkしたanchorの独自fixture、明示引数、段階観測を使い、新policyとpeerは各々独立に生成する。"
+      },
+      "expected": {
+        "en": "Recorder flush restores the declared recursion default UVM_DEFAULT_POLICY.",
+        "ja": "recorder flushは宣言recursion既定値UVM_DEFAULT_POLICYへ復帰する。"
+      },
+      "limitations": {
+        "en": "Accessor/default/reset obligations only. This does not establish record text, ID emission, every recursion path or a recorder get_radix_enabled API; the printed cross-reference to the printer getter is not invented as a recorder method.",
+        "ja": "accessor／既定値／reset義務だけ。record文面、ID出力、全再帰経路、recorderのget_radix_enabled APIは立証しない。印刷されたprinter getterへの相互参照からrecorder methodを創作しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_recorder_configuration_defaults_updates_and_flush_restore_the_declared_values",
+          "role": "direct",
+          "expected_observations": [
+            "UT: recorder_flushed recursion 1 id 1 radix 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-POLICY-AUDIT-RECORDER-ID-INITIAL",
+      "clause": "16.4.2.2",
+      "statement": {
+        "en": "A fresh recorder id getter returns one.",
+        "ja": "新recorderのid getterは1を返す。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixtures, explicit arguments and stage observations in the linked anchors; each fresh policy and peer is independently constructed.",
+        "ja": "linkしたanchorの独自fixture、明示引数、段階観測を使い、新policyとpeerは各々独立に生成する。"
+      },
+      "expected": {
+        "en": "A fresh recorder id getter returns one.",
+        "ja": "新recorderのid getterは1を返す。"
+      },
+      "limitations": {
+        "en": "Accessor/default/reset obligations only. This does not establish record text, ID emission, every recursion path or a recorder get_radix_enabled API; the printed cross-reference to the printer getter is not invented as a recorder method.",
+        "ja": "accessor／既定値／reset義務だけ。record文面、ID出力、全再帰経路、recorderのget_radix_enabled APIは立証しない。印刷されたprinter getterへの相互参照からrecorder methodを創作しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_recorder_configuration_defaults_updates_and_flush_restore_the_declared_values",
+          "role": "direct",
+          "expected_observations": [
+            "UT: recorder_defaults recursion 1 id 1 radix 1 base 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-POLICY-AUDIT-RECORDER-ID-UPDATE",
+      "clause": "16.4.2.2",
+      "statement": {
+        "en": "A selected recorder id setter changes its getter while a fresh peer keeps its default.",
+        "ja": "選択recorderのid setterはgetterを変更し、新peerは既定値を保つ。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixtures, explicit arguments and stage observations in the linked anchors; each fresh policy and peer is independently constructed.",
+        "ja": "linkしたanchorの独自fixture、明示引数、段階観測を使い、新policyとpeerは各々独立に生成する。"
+      },
+      "expected": {
+        "en": "A selected recorder id setter changes its getter while a fresh peer keeps its default.",
+        "ja": "選択recorderのid setterはgetterを変更し、新peerは既定値を保つ。"
+      },
+      "limitations": {
+        "en": "Accessor/default/reset obligations only. This does not establish record text, ID emission, every recursion path or a recorder get_radix_enabled API; the printed cross-reference to the printer getter is not invented as a recorder method.",
+        "ja": "accessor／既定値／reset義務だけ。record文面、ID出力、全再帰経路、recorderのget_radix_enabled APIは立証しない。印刷されたprinter getterへの相互参照からrecorder methodを創作しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_recorder_configuration_defaults_updates_and_flush_restore_the_declared_values",
+          "role": "direct",
+          "expected_observations": [
+            "UT: recorder_changed recursion 1 id 1 radix 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-POLICY-AUDIT-RECORDER-ID-FLUSH",
+      "clause": "16.4.2.2",
+      "statement": {
+        "en": "Recorder flush restores the declared id default one.",
+        "ja": "recorder flushは宣言id既定値1へ復帰する。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixtures, explicit arguments and stage observations in the linked anchors; each fresh policy and peer is independently constructed.",
+        "ja": "linkしたanchorの独自fixture、明示引数、段階観測を使い、新policyとpeerは各々独立に生成する。"
+      },
+      "expected": {
+        "en": "Recorder flush restores the declared id default one.",
+        "ja": "recorder flushは宣言id既定値1へ復帰する。"
+      },
+      "limitations": {
+        "en": "Accessor/default/reset obligations only. This does not establish record text, ID emission, every recursion path or a recorder get_radix_enabled API; the printed cross-reference to the printer getter is not invented as a recorder method.",
+        "ja": "accessor／既定値／reset義務だけ。record文面、ID出力、全再帰経路、recorderのget_radix_enabled APIは立証しない。印刷されたprinter getterへの相互参照からrecorder methodを創作しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_recorder_configuration_defaults_updates_and_flush_restore_the_declared_values",
+          "role": "direct",
+          "expected_observations": [
+            "UT: recorder_flushed recursion 1 id 1 radix 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-POLICY-AUDIT-RECORDER-RADIX-INITIAL",
+      "clause": "16.4.2.3",
+      "statement": {
+        "en": "A fresh recorder radix getter returns UVM_HEX.",
+        "ja": "新recorderのradix getterはUVM_HEXを返す。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixtures, explicit arguments and stage observations in the linked anchors; each fresh policy and peer is independently constructed.",
+        "ja": "linkしたanchorの独自fixture、明示引数、段階観測を使い、新policyとpeerは各々独立に生成する。"
+      },
+      "expected": {
+        "en": "A fresh recorder radix getter returns UVM_HEX.",
+        "ja": "新recorderのradix getterはUVM_HEXを返す。"
+      },
+      "limitations": {
+        "en": "Accessor/default/reset obligations only. This does not establish record text, ID emission, every recursion path or a recorder get_radix_enabled API; the printed cross-reference to the printer getter is not invented as a recorder method.",
+        "ja": "accessor／既定値／reset義務だけ。record文面、ID出力、全再帰経路、recorderのget_radix_enabled APIは立証しない。印刷されたprinter getterへの相互参照からrecorder methodを創作しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_recorder_configuration_defaults_updates_and_flush_restore_the_declared_values",
+          "role": "direct",
+          "expected_observations": [
+            "UT: recorder_defaults recursion 1 id 1 radix 1 base 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-POLICY-AUDIT-RECORDER-RADIX-UPDATE",
+      "clause": "16.4.2.3",
+      "statement": {
+        "en": "A selected recorder radix setter changes its getter while a fresh peer keeps its default.",
+        "ja": "選択recorderのradix setterはgetterを変更し、新peerは既定値を保つ。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixtures, explicit arguments and stage observations in the linked anchors; each fresh policy and peer is independently constructed.",
+        "ja": "linkしたanchorの独自fixture、明示引数、段階観測を使い、新policyとpeerは各々独立に生成する。"
+      },
+      "expected": {
+        "en": "A selected recorder radix setter changes its getter while a fresh peer keeps its default.",
+        "ja": "選択recorderのradix setterはgetterを変更し、新peerは既定値を保つ。"
+      },
+      "limitations": {
+        "en": "Accessor/default/reset obligations only. This does not establish record text, ID emission, every recursion path or a recorder get_radix_enabled API; the printed cross-reference to the printer getter is not invented as a recorder method.",
+        "ja": "accessor／既定値／reset義務だけ。record文面、ID出力、全再帰経路、recorderのget_radix_enabled APIは立証しない。印刷されたprinter getterへの相互参照からrecorder methodを創作しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_recorder_configuration_defaults_updates_and_flush_restore_the_declared_values",
+          "role": "direct",
+          "expected_observations": [
+            "UT: recorder_changed recursion 1 id 1 radix 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-POLICY-AUDIT-RECORDER-RADIX-FLUSH",
+      "clause": "16.4.2.3",
+      "statement": {
+        "en": "Recorder flush restores the declared radix default UVM_HEX.",
+        "ja": "recorder flushは宣言radix既定値UVM_HEXへ復帰する。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixtures, explicit arguments and stage observations in the linked anchors; each fresh policy and peer is independently constructed.",
+        "ja": "linkしたanchorの独自fixture、明示引数、段階観測を使い、新policyとpeerは各々独立に生成する。"
+      },
+      "expected": {
+        "en": "Recorder flush restores the declared radix default UVM_HEX.",
+        "ja": "recorder flushは宣言radix既定値UVM_HEXへ復帰する。"
+      },
+      "limitations": {
+        "en": "Accessor/default/reset obligations only. This does not establish record text, ID emission, every recursion path or a recorder get_radix_enabled API; the printed cross-reference to the printer getter is not invented as a recorder method.",
+        "ja": "accessor／既定値／reset義務だけ。record文面、ID出力、全再帰経路、recorderのget_radix_enabled APIは立証しない。印刷されたprinter getterへの相互参照からrecorder methodを創作しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_recorder_configuration_defaults_updates_and_flush_restore_the_declared_values",
+          "role": "direct",
+          "expected_observations": [
+            "UT: recorder_flushed recursion 1 id 1 radix 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-POLICY-AUDIT-RECORDER-OPEN-FLUSH",
+      "clause": "16.4.4.1",
+      "statement": {
+        "en": "Flushing an open recorder closes and frees that record while leaving its independent peer open.",
+        "ja": "open recorderのflushはそのrecordをcloseしてfreeし、独立peerはopenを保つ。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixtures, explicit arguments and stage observations in the linked anchors; each fresh policy and peer is independently constructed.",
+        "ja": "linkしたanchorの独自fixture、明示引数、段階観測を使い、新policyとpeerは各々独立に生成する。"
+      },
+      "expected": {
+        "en": "Flushing an open recorder closes and frees that record while leaving its independent peer open.",
+        "ja": "open recorderのflushはそのrecordをcloseしてfreeし、独立peerはopenを保つ。"
+      },
+      "limitations": {
+        "en": "Callback order, handle invalidation and lookup only. The fixture does not require unspecified zero-time interpretation, stream membership after release, database file content or post-free recording.",
+        "ja": "callback順序、handle無効化、lookupだけ。未規定のzero-time解釈、解放後のstream所属、database file内容、free後のrecordingは要求しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_recorder_flush_frees_an_open_record_through_close_before_free_without_releasing_peer",
+          "role": "direct",
+          "expected_observations": [
+            "UT: recorder_flush_hooks order CF close 1 free 1 freed 1 peer_open 1",
+            "UT: recorder_flush_handles selected 0 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-POLICY-AUDIT-RECORDER-OBJECT-DISPATCH",
+      "clause": "16.4.6.4",
+      "statement": {
+        "en": "record_object passes the explicit field name and exact object to its default implementation hook once.",
+        "ja": "record_objectは明示field名と同一objectを既定実装hookへ1回渡す。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixtures, explicit arguments and stage observations in the linked anchors; each fresh policy and peer is independently constructed.",
+        "ja": "linkしたanchorの独自fixture、明示引数、段階観測を使い、新policyとpeerは各々独立に生成する。"
+      },
+      "expected": {
+        "en": "record_object passes the explicit field name and exact object to its default implementation hook once.",
+        "ja": "record_objectは明示field名と同一objectを既定実装hookへ1回渡す。"
+      },
+      "limitations": {
+        "en": "The original backend observes the inherited default object hook via super and supplies real stream initialization. It does not replace the library algorithm or certify a proprietary backend format. Repeated objects, other recursion modes and null values remain separate.",
+        "ja": "独自backendはsuper経由で継承された既定object hookを観測し、実stream初期化を行う。library algorithmを置換せず、専用backend形式を認定しない。反復object、他再帰mode、null値は別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_recorder_default_object_hook_orders_field_user_history_and_active_pop",
+          "role": "direct",
+          "expected_observations": [
+            "UT: record_end trace HEUX fields 1 users 1 hook 1 name 1 value 1 finished 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-POLICY-AUDIT-RECORDER-FIELD-OP",
+      "clause": "16.4.7.7",
+      "statement": {
+        "en": "The default recorder hook supplies UVM_RECORD and the exact policy to field execution before user recording.",
+        "ja": "既定recorder hookはuser recording前のfield実行へUVM_RECORDと同一policyを渡す。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixtures, explicit arguments and stage observations in the linked anchors; each fresh policy and peer is independently constructed.",
+        "ja": "linkしたanchorの独自fixture、明示引数、段階観測を使い、新policyとpeerは各々独立に生成する。"
+      },
+      "expected": {
+        "en": "The default recorder hook supplies UVM_RECORD and the exact policy to field execution before user recording.",
+        "ja": "既定recorder hookはuser recording前のfield実行へUVM_RECORDと同一policyを渡す。"
+      },
+      "limitations": {
+        "en": "The original backend observes the inherited default object hook via super and supplies real stream initialization. It does not replace the library algorithm or certify a proprietary backend format. Repeated objects, other recursion modes and null values remain separate.",
+        "ja": "独自backendはsuper経由で継承された既定object hookを観測し、実stream初期化を行う。library algorithmを置換せず、専用backend形式を認定しない。反復object、他再帰mode、null値は別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_recorder_default_object_hook_orders_field_user_history_and_active_pop",
+          "role": "direct",
+          "expected_observations": [
+            "UT: record_execute op record exact 1 active 1 depth 1 started 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-POLICY-AUDIT-RECORDER-USER-HOOK",
+      "clause": "16.4.7.7",
+      "statement": {
+        "en": "The enabled recorder user hook receives the exact recorder while the target is active and STARTED.",
+        "ja": "有効recorder user hookはtargetがactiveかつSTARTEDの間に同一recorderを受ける。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixtures, explicit arguments and stage observations in the linked anchors; each fresh policy and peer is independently constructed.",
+        "ja": "linkしたanchorの独自fixture、明示引数、段階観測を使い、新policyとpeerは各々独立に生成する。"
+      },
+      "expected": {
+        "en": "The enabled recorder user hook receives the exact recorder while the target is active and STARTED.",
+        "ja": "有効recorder user hookはtargetがactiveかつSTARTEDの間に同一recorderを受ける。"
+      },
+      "limitations": {
+        "en": "The original backend observes the inherited default object hook via super and supplies real stream initialization. It does not replace the library algorithm or certify a proprietary backend format. Repeated objects, other recursion modes and null values remain separate.",
+        "ja": "独自backendはsuper経由で継承された既定object hookを観測し、実stream初期化を行う。library algorithmを置換せず、専用backend形式を認定しない。反復object、他再帰mode、null値は別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_recorder_default_object_hook_orders_field_user_history_and_active_pop",
+          "role": "direct",
+          "expected_observations": [
+            "UT: record_user exact 1 active 1 started 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-POLICY-AUDIT-RECORDER-HISTORY-NEVER",
+      "clause": "16.4.7.8",
+      "statement": {
+        "en": "A never-recorded object has NEVER history for the selected recursion.",
+        "ja": "未record objectは選択再帰でNEVER履歴を持つ。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixtures, explicit arguments and stage observations in the linked anchors; each fresh policy and peer is independently constructed.",
+        "ja": "linkしたanchorの独自fixture、明示引数、段階観測を使い、新policyとpeerは各々独立に生成する。"
+      },
+      "expected": {
+        "en": "A never-recorded object has NEVER history for the selected recursion.",
+        "ja": "未record objectは選択再帰でNEVER履歴を持つ。"
+      },
+      "limitations": {
+        "en": "The original backend observes the inherited default object hook via super and supplies real stream initialization. It does not replace the library algorithm or certify a proprietary backend format. Repeated objects, other recursion modes and null values remain separate.",
+        "ja": "独自backendはsuper経由で継承された既定object hookを観測し、実stream初期化を行う。library algorithmを置換せず、専用backend形式を認定しない。反復object、他再帰mode、null値は別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_recorder_default_object_hook_orders_field_user_history_and_active_pop",
+          "role": "direct",
+          "expected_observations": [
+            "UT: record_history_never 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-POLICY-AUDIT-RECORDER-HISTORY-STARTED",
+      "clause": "16.4.7.8",
+      "statement": {
+        "en": "The object recording history is STARTED during field execution.",
+        "ja": "object recording履歴はfield実行中STARTEDである。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixtures, explicit arguments and stage observations in the linked anchors; each fresh policy and peer is independently constructed.",
+        "ja": "linkしたanchorの独自fixture、明示引数、段階観測を使い、新policyとpeerは各々独立に生成する。"
+      },
+      "expected": {
+        "en": "The object recording history is STARTED during field execution.",
+        "ja": "object recording履歴はfield実行中STARTEDである。"
+      },
+      "limitations": {
+        "en": "The original backend observes the inherited default object hook via super and supplies real stream initialization. It does not replace the library algorithm or certify a proprietary backend format. Repeated objects, other recursion modes and null values remain separate.",
+        "ja": "独自backendはsuper経由で継承された既定object hookを観測し、実stream初期化を行う。library algorithmを置換せず、専用backend形式を認定しない。反復object、他再帰mode、null値は別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_recorder_default_object_hook_orders_field_user_history_and_active_pop",
+          "role": "direct",
+          "expected_observations": [
+            "UT: record_execute op record exact 1 active 1 depth 1 started 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-POLICY-AUDIT-RECORDER-HISTORY-FINISHED",
+      "clause": "16.4.7.8",
+      "statement": {
+        "en": "The selected object recording history becomes FINISHED on return.",
+        "ja": "選択object recording履歴はreturn時にFINISHEDとなる。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixtures, explicit arguments and stage observations in the linked anchors; each fresh policy and peer is independently constructed.",
+        "ja": "linkしたanchorの独自fixture、明示引数、段階観測を使い、新policyとpeerは各々独立に生成する。"
+      },
+      "expected": {
+        "en": "The selected object recording history becomes FINISHED on return.",
+        "ja": "選択object recording履歴はreturn時にFINISHEDとなる。"
+      },
+      "limitations": {
+        "en": "The original backend observes the inherited default object hook via super and supplies real stream initialization. It does not replace the library algorithm or certify a proprietary backend format. Repeated objects, other recursion modes and null values remain separate.",
+        "ja": "独自backendはsuper経由で継承された既定object hookを観測し、実stream初期化を行う。library algorithmを置換せず、専用backend形式を認定しない。反復object、他再帰mode、null値は別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_recorder_default_object_hook_orders_field_user_history_and_active_pop",
+          "role": "direct",
+          "expected_observations": [
+            "UT: record_end trace HEUX fields 1 users 1 hook 1 name 1 value 1 finished 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-POLICY-AUDIT-RECORDER-FINISH-BEFORE-POP",
+      "clause": "16.4.6.4",
+      "statement": {
+        "en": "Recording becomes FINISHED before the active object is popped and the stack is restored.",
+        "ja": "recordingはactive objectをpopする前にFINISHEDとなりstackへ復帰する。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixtures, explicit arguments and stage observations in the linked anchors; each fresh policy and peer is independently constructed.",
+        "ja": "linkしたanchorの独自fixture、明示引数、段階観測を使い、新policyとpeerは各々独立に生成する。"
+      },
+      "expected": {
+        "en": "Recording becomes FINISHED before the active object is popped and the stack is restored.",
+        "ja": "recordingはactive objectをpopする前にFINISHEDとなりstackへ復帰する。"
+      },
+      "limitations": {
+        "en": "The original backend observes the inherited default object hook via super and supplies real stream initialization. It does not replace the library algorithm or certify a proprietary backend format. Repeated objects, other recursion modes and null values remain separate.",
+        "ja": "独自backendはsuper経由で継承された既定object hookを観測し、実stream初期化を行う。library algorithmを置換せず、専用backend形式を認定しない。反復object、他再帰mode、null値は別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_recorder_default_object_hook_orders_field_user_history_and_active_pop",
+          "role": "direct",
+          "expected_observations": [
+            "UT: record_cleanup finished_before_pop 1 empty 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-POLICY-AUDIT-RECORDER-DISABLED-HOOK",
+      "clause": "16.4.7.7",
+      "statement": {
+        "en": "Disabling user recording omits do_record while preserving field execution, FINISHED history and active-stack cleanup.",
+        "ja": "user recording無効化はfield実行、FINISHED履歴、active-stack復帰を保ちdo_recordを省略する。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixtures, explicit arguments and stage observations in the linked anchors; each fresh policy and peer is independently constructed.",
+        "ja": "linkしたanchorの独自fixture、明示引数、段階観測を使い、新policyとpeerは各々独立に生成する。"
+      },
+      "expected": {
+        "en": "Disabling user recording omits do_record while preserving field execution, FINISHED history and active-stack cleanup.",
+        "ja": "user recording無効化はfield実行、FINISHED履歴、active-stack復帰を保ちdo_recordを省略する。"
+      },
+      "limitations": {
+        "en": "The printed otherwise sentence names do_record_object while the surrounding steps name the optional do_record user hook. The fixture checks the latter gate and ordered cleanup, not an invented recursive self-call.",
+        "ja": "印刷されたotherwise文はdo_record_objectと記す一方、前後の手順は任意do_record user hookを示す。本fixtureは後者のgateと順序付きcleanupを確認し、再帰的自己呼出を創作しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_recorder_disabled_user_hook_finishes_history_and_unwinds_the_active_object",
+          "role": "direct",
+          "expected_observations": [
+            "UT: record_history_never 1",
+            "UT: record_execute op record exact 1 active 1 depth 1 started 1",
+            "UT: record_end trace HEX fields 1 users 0 hook 1 name 1 value 1 finished 1",
+            "UT: record_cleanup finished_before_pop 1 empty 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-POLICY-AUDIT-RECORDER-ATTRIBUTE-DEFAULT",
+      "clause": "16.4.6.8",
+      "statement": {
+        "en": "The default recorder reports attribute-macro support disabled.",
+        "ja": "既定recorderはattribute macro対応を無効と報告する。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixtures, explicit arguments and stage observations in the linked anchors; each fresh policy and peer is independently constructed.",
+        "ja": "linkしたanchorの独自fixture、明示引数、段階観測を使い、新policyとpeerは各々独立に生成する。"
+      },
+      "expected": {
+        "en": "The default recorder reports attribute-macro support disabled.",
+        "ja": "既定recorderはattribute macro対応を無効と報告する。"
+      },
+      "limitations": {
+        "en": "The override returns the original dummy token 4343 as a dispatch control. No vendor macro, commercial tool, actual proprietary handle or uvm_record_attribute compatibility is exercised or claimed.",
+        "ja": "overrideはdispatch controlとして独自dummy token 4343を返す。vendor macro、商用tool、実専用handle、uvm_record_attribute互換性は実行も主張もしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_recorder_attribute_defaults_match_the_public_handle_and_allow_separate_virtual_overrides",
+          "role": "direct",
+          "expected_observations": [
+            "UT: record_attribute_default disabled 1 handle 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-POLICY-AUDIT-RECORDER-ATTRIBUTE-HANDLE",
+      "clause": "16.4.6.9",
+      "statement": {
+        "en": "The default record-attribute handle equals the public record handle.",
+        "ja": "既定record-attribute handleは公開record handleと等しい。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixtures, explicit arguments and stage observations in the linked anchors; each fresh policy and peer is independently constructed.",
+        "ja": "linkしたanchorの独自fixture、明示引数、段階観測を使い、新policyとpeerは各々独立に生成する。"
+      },
+      "expected": {
+        "en": "The default record-attribute handle equals the public record handle.",
+        "ja": "既定record-attribute handleは公開record handleと等しい。"
+      },
+      "limitations": {
+        "en": "The override returns the original dummy token 4343 as a dispatch control. No vendor macro, commercial tool, actual proprietary handle or uvm_record_attribute compatibility is exercised or claimed.",
+        "ja": "overrideはdispatch controlとして独自dummy token 4343を返す。vendor macro、商用tool、実専用handle、uvm_record_attribute互換性は実行も主張もしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_recorder_attribute_defaults_match_the_public_handle_and_allow_separate_virtual_overrides",
+          "role": "direct",
+          "expected_observations": [
+            "UT: record_attribute_default disabled 1 handle 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-POLICY-AUDIT-RECORDER-ATTRIBUTE-SUPPORT-OVERRIDE",
+      "clause": "16.4.6.8",
+      "statement": {
+        "en": "A legal recorder override can advertise attribute support through a base view.",
+        "ja": "合法recorder overrideはbase view経由でattribute対応を表明できる。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixtures, explicit arguments and stage observations in the linked anchors; each fresh policy and peer is independently constructed.",
+        "ja": "linkしたanchorの独自fixture、明示引数、段階観測を使い、新policyとpeerは各々独立に生成する。"
+      },
+      "expected": {
+        "en": "A legal recorder override can advertise attribute support through a base view.",
+        "ja": "合法recorder overrideはbase view経由でattribute対応を表明できる。"
+      },
+      "limitations": {
+        "en": "The override returns the original dummy token 4343 as a dispatch control. No vendor macro, commercial tool, actual proprietary handle or uvm_record_attribute compatibility is exercised or claimed.",
+        "ja": "overrideはdispatch controlとして独自dummy token 4343を返す。vendor macro、商用tool、実専用handle、uvm_record_attribute互換性は実行も主張もしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_recorder_attribute_defaults_match_the_public_handle_and_allow_separate_virtual_overrides",
+          "role": "direct",
+          "expected_observations": [
+            "UT: record_attribute_override enabled 1 token 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-POLICY-AUDIT-RECORDER-ATTRIBUTE-HANDLE-OVERRIDE",
+      "clause": "16.4.6.9",
+      "statement": {
+        "en": "A legal recorder override supplies its separate handle through virtual dispatch.",
+        "ja": "合法recorder overrideはvirtual dispatchで独自handleを供給する。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixtures, explicit arguments and stage observations in the linked anchors; each fresh policy and peer is independently constructed.",
+        "ja": "linkしたanchorの独自fixture、明示引数、段階観測を使い、新policyとpeerは各々独立に生成する。"
+      },
+      "expected": {
+        "en": "A legal recorder override supplies its separate handle through virtual dispatch.",
+        "ja": "合法recorder overrideはvirtual dispatchで独自handleを供給する。"
+      },
+      "limitations": {
+        "en": "The override returns the original dummy token 4343 as a dispatch control. No vendor macro, commercial tool, actual proprietary handle or uvm_record_attribute compatibility is exercised or claimed.",
+        "ja": "overrideはdispatch controlとして独自dummy token 4343を返す。vendor macro、商用tool、実専用handle、uvm_record_attribute互換性は実行も主張もしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_recorder_attribute_defaults_match_the_public_handle_and_allow_separate_virtual_overrides",
+          "role": "direct",
+          "expected_observations": [
+            "UT: record_attribute_override enabled 1 token 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-POLICY-AUDIT-RECORDER-ILLEGAL-DO-RECORD-FIELD",
+      "clause": "16.4.7.4",
+      "statement": {
+        "en": "A concrete recorder must implement the pure do_record_field hook.",
+        "ja": "具象recorderはpure do_record_field hookを実装しなければならない。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixtures, explicit arguments and stage observations in the linked anchors; each fresh policy and peer is independently constructed.",
+        "ja": "linkしたanchorの独自fixture、明示引数、段階観測を使い、新policyとpeerは各々独立に生成する。"
+      },
+      "expected": {
+        "en": "Compile rejects the targeted abstract construction or isolated missing hook with the declared diagnostic; no runtime seeds execute.",
+        "ja": "宣言診断で対象abstract生成または分離したhook欠落をcompile拒否し、runtime seedは実行しない。"
+      },
+      "limitations": {
+        "en": "One isolated prohibition with all other pure hooks supplied and a separate legal recorder control. Compiler acceptance remains known; no accepted illegal model is executed and no runtime callback behavior follows from this negative fixture.",
+        "ja": "他pure hookを全て実装して分離した禁止1条件と別の合法recorder controlだけ。compiler受理はknownに保ち、受理した不正modelを実行せず、このnegative fixtureからruntime callback動作を導かない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_recorder_concrete_subclass_must_implement_do_record_field",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?i)^(?=.*test_recorder_concrete_subclass_must_implement_do_record_field\\.sv:[0-9]+:[0-9]+:)(?=.*\\b(?:pure|virtual|abstract|missing implementation)\\b)(?=.*\\bdo_record_field\\b).*error"
+          }
+        },
+        {
+          "test": "u16/test_recorder_configuration_defaults_updates_and_flush_restore_the_declared_values",
+          "role": "control",
+          "expected_observations": [
+            "UT: recorder_defaults recursion 1 id 1 radix 1 base 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-POLICY-AUDIT-RECORDER-ILLEGAL-DO-RECORD-FIELD-INT",
+      "clause": "16.4.7.5",
+      "statement": {
+        "en": "A concrete recorder must implement the pure do_record_field_int hook.",
+        "ja": "具象recorderはpure do_record_field_int hookを実装しなければならない。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixtures, explicit arguments and stage observations in the linked anchors; each fresh policy and peer is independently constructed.",
+        "ja": "linkしたanchorの独自fixture、明示引数、段階観測を使い、新policyとpeerは各々独立に生成する。"
+      },
+      "expected": {
+        "en": "Compile rejects the targeted abstract construction or isolated missing hook with the declared diagnostic; no runtime seeds execute.",
+        "ja": "宣言診断で対象abstract生成または分離したhook欠落をcompile拒否し、runtime seedは実行しない。"
+      },
+      "limitations": {
+        "en": "One isolated prohibition with all other pure hooks supplied and a separate legal recorder control. Compiler acceptance remains known; no accepted illegal model is executed and no runtime callback behavior follows from this negative fixture.",
+        "ja": "他pure hookを全て実装して分離した禁止1条件と別の合法recorder controlだけ。compiler受理はknownに保ち、受理した不正modelを実行せず、このnegative fixtureからruntime callback動作を導かない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_recorder_concrete_subclass_must_implement_do_record_field_int",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?i)^(?=.*test_recorder_concrete_subclass_must_implement_do_record_field_int\\.sv:[0-9]+:[0-9]+:)(?=.*\\b(?:pure|virtual|abstract|missing implementation)\\b)(?=.*\\bdo_record_field_int\\b).*error"
+          }
+        },
+        {
+          "test": "u16/test_recorder_configuration_defaults_updates_and_flush_restore_the_declared_values",
+          "role": "control",
+          "expected_observations": [
+            "UT: recorder_defaults recursion 1 id 1 radix 1 base 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-POLICY-AUDIT-RECORDER-ILLEGAL-DO-RECORD-FIELD-REAL",
+      "clause": "16.4.7.6",
+      "statement": {
+        "en": "A concrete recorder must implement the pure do_record_field_real hook.",
+        "ja": "具象recorderはpure do_record_field_real hookを実装しなければならない。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixtures, explicit arguments and stage observations in the linked anchors; each fresh policy and peer is independently constructed.",
+        "ja": "linkしたanchorの独自fixture、明示引数、段階観測を使い、新policyとpeerは各々独立に生成する。"
+      },
+      "expected": {
+        "en": "Compile rejects the targeted abstract construction or isolated missing hook with the declared diagnostic; no runtime seeds execute.",
+        "ja": "宣言診断で対象abstract生成または分離したhook欠落をcompile拒否し、runtime seedは実行しない。"
+      },
+      "limitations": {
+        "en": "One isolated prohibition with all other pure hooks supplied and a separate legal recorder control. Compiler acceptance remains known; no accepted illegal model is executed and no runtime callback behavior follows from this negative fixture.",
+        "ja": "他pure hookを全て実装して分離した禁止1条件と別の合法recorder controlだけ。compiler受理はknownに保ち、受理した不正modelを実行せず、このnegative fixtureからruntime callback動作を導かない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_recorder_concrete_subclass_must_implement_do_record_field_real",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?i)^(?=.*test_recorder_concrete_subclass_must_implement_do_record_field_real\\.sv:[0-9]+:[0-9]+:)(?=.*\\b(?:pure|virtual|abstract|missing implementation)\\b)(?=.*\\bdo_record_field_real\\b).*error"
+          }
+        },
+        {
+          "test": "u16/test_recorder_configuration_defaults_updates_and_flush_restore_the_declared_values",
+          "role": "control",
+          "expected_observations": [
+            "UT: recorder_defaults recursion 1 id 1 radix 1 base 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-POLICY-AUDIT-RECORDER-ILLEGAL-DO-RECORD-STRING",
+      "clause": "16.4.7.9",
+      "statement": {
+        "en": "A concrete recorder must implement the pure do_record_string hook.",
+        "ja": "具象recorderはpure do_record_string hookを実装しなければならない。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixtures, explicit arguments and stage observations in the linked anchors; each fresh policy and peer is independently constructed.",
+        "ja": "linkしたanchorの独自fixture、明示引数、段階観測を使い、新policyとpeerは各々独立に生成する。"
+      },
+      "expected": {
+        "en": "Compile rejects the targeted abstract construction or isolated missing hook with the declared diagnostic; no runtime seeds execute.",
+        "ja": "宣言診断で対象abstract生成または分離したhook欠落をcompile拒否し、runtime seedは実行しない。"
+      },
+      "limitations": {
+        "en": "One isolated prohibition with all other pure hooks supplied and a separate legal recorder control. Compiler acceptance remains known; no accepted illegal model is executed and no runtime callback behavior follows from this negative fixture.",
+        "ja": "他pure hookを全て実装して分離した禁止1条件と別の合法recorder controlだけ。compiler受理はknownに保ち、受理した不正modelを実行せず、このnegative fixtureからruntime callback動作を導かない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_recorder_concrete_subclass_must_implement_do_record_string",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?i)^(?=.*test_recorder_concrete_subclass_must_implement_do_record_string\\.sv:[0-9]+:[0-9]+:)(?=.*\\b(?:pure|virtual|abstract|missing implementation)\\b)(?=.*\\bdo_record_string\\b).*error"
+          }
+        },
+        {
+          "test": "u16/test_recorder_configuration_defaults_updates_and_flush_restore_the_declared_values",
+          "role": "control",
+          "expected_observations": [
+            "UT: recorder_defaults recursion 1 id 1 radix 1 base 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-POLICY-AUDIT-RECORDER-ILLEGAL-DO-RECORD-TIME",
+      "clause": "16.4.7.10",
+      "statement": {
+        "en": "A concrete recorder must implement the pure do_record_time hook.",
+        "ja": "具象recorderはpure do_record_time hookを実装しなければならない。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixtures, explicit arguments and stage observations in the linked anchors; each fresh policy and peer is independently constructed.",
+        "ja": "linkしたanchorの独自fixture、明示引数、段階観測を使い、新policyとpeerは各々独立に生成する。"
+      },
+      "expected": {
+        "en": "Compile rejects the targeted abstract construction or isolated missing hook with the declared diagnostic; no runtime seeds execute.",
+        "ja": "宣言診断で対象abstract生成または分離したhook欠落をcompile拒否し、runtime seedは実行しない。"
+      },
+      "limitations": {
+        "en": "One isolated prohibition with all other pure hooks supplied and a separate legal recorder control. Compiler acceptance remains known; no accepted illegal model is executed and no runtime callback behavior follows from this negative fixture.",
+        "ja": "他pure hookを全て実装して分離した禁止1条件と別の合法recorder controlだけ。compiler受理はknownに保ち、受理した不正modelを実行せず、このnegative fixtureからruntime callback動作を導かない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_recorder_concrete_subclass_must_implement_do_record_time",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?i)^(?=.*test_recorder_concrete_subclass_must_implement_do_record_time\\.sv:[0-9]+:[0-9]+:)(?=.*\\b(?:pure|virtual|abstract|missing implementation)\\b)(?=.*\\bdo_record_time\\b).*error"
+          }
+        },
+        {
+          "test": "u16/test_recorder_configuration_defaults_updates_and_flush_restore_the_declared_values",
+          "role": "control",
+          "expected_observations": [
+            "UT: recorder_defaults recursion 1 id 1 radix 1 base 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-POLICY-AUDIT-RECORDER-ILLEGAL-DO-RECORD-GENERIC",
+      "clause": "16.4.7.11",
+      "statement": {
+        "en": "A concrete recorder must implement the pure do_record_generic hook.",
+        "ja": "具象recorderはpure do_record_generic hookを実装しなければならない。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixtures, explicit arguments and stage observations in the linked anchors; each fresh policy and peer is independently constructed.",
+        "ja": "linkしたanchorの独自fixture、明示引数、段階観測を使い、新policyとpeerは各々独立に生成する。"
+      },
+      "expected": {
+        "en": "Compile rejects the targeted abstract construction or isolated missing hook with the declared diagnostic; no runtime seeds execute.",
+        "ja": "宣言診断で対象abstract生成または分離したhook欠落をcompile拒否し、runtime seedは実行しない。"
+      },
+      "limitations": {
+        "en": "One isolated prohibition with all other pure hooks supplied and a separate legal recorder control. Compiler acceptance remains known; no accepted illegal model is executed and no runtime callback behavior follows from this negative fixture.",
+        "ja": "他pure hookを全て実装して分離した禁止1条件と別の合法recorder controlだけ。compiler受理はknownに保ち、受理した不正modelを実行せず、このnegative fixtureからruntime callback動作を導かない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_recorder_concrete_subclass_must_implement_do_record_generic",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?i)^(?=.*test_recorder_concrete_subclass_must_implement_do_record_generic\\.sv:[0-9]+:[0-9]+:)(?=.*\\b(?:pure|virtual|abstract|missing implementation)\\b)(?=.*\\bdo_record_generic\\b).*error"
+          }
+        },
+        {
+          "test": "u16/test_recorder_configuration_defaults_updates_and_flush_restore_the_declared_values",
+          "role": "control",
+          "expected_observations": [
+            "UT: recorder_defaults recursion 1 id 1 radix 1 base 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-POLICY-AUDIT-RECORDER-ILLEGAL-ABSTRACT",
+      "clause": "16.4.1",
+      "statement": {
+        "en": "Direct construction of the abstract recorder is rejected.",
+        "ja": "abstract recorderの直接生成を拒否する。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixtures, explicit arguments and stage observations in the linked anchors; each fresh policy and peer is independently constructed.",
+        "ja": "linkしたanchorの独自fixture、明示引数、段階観測を使い、新policyとpeerは各々独立に生成する。"
+      },
+      "expected": {
+        "en": "Compile rejects the targeted abstract construction or isolated missing hook with the declared diagnostic; no runtime seeds execute.",
+        "ja": "宣言診断で対象abstract生成または分離したhook欠落をcompile拒否し、runtime seedは実行しない。"
+      },
+      "limitations": {
+        "en": "One isolated prohibition with all other pure hooks supplied and a separate legal recorder control. Compiler acceptance remains known; no accepted illegal model is executed and no runtime callback behavior follows from this negative fixture.",
+        "ja": "他pure hookを全て実装して分離した禁止1条件と別の合法recorder controlだけ。compiler受理はknownに保ち、受理した不正modelを実行せず、このnegative fixtureからruntime callback動作を導かない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_uvm_recorder_abstract_declaration_rejects_direct_construction",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?i)^(?=.*test_uvm_recorder_abstract_declaration_rejects_direct_construction\\.sv:[0-9]+:[0-9]+:)(?=.*\\b(?:virtual|abstract)\\b)(?=.*\\buvm_recorder\\b).*error"
+          }
+        },
+        {
+          "test": "u16/test_recorder_configuration_defaults_updates_and_flush_restore_the_declared_values",
+          "role": "control",
+          "expected_observations": [
+            "UT: recorder_defaults recursion 1 id 1 radix 1 base 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-POLICY-AUDIT-COMMON-RECURSION-STATES",
+      "clause": "16.1.4",
+      "statement": {
+        "en": "The recursion enum distinguishes never processed, processing and completed stages in the selected recording operation.",
+        "ja": "recursion enumは選択recording操作で未処理、処理中、完了の段階を区別する。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixtures, explicit arguments and stage observations in the linked anchors; each fresh policy and peer is independently constructed.",
+        "ja": "linkしたanchorの独自fixture、明示引数、段階観測を使い、新policyとpeerは各々独立に生成する。"
+      },
+      "expected": {
+        "en": "The recursion enum distinguishes never processed, processing and completed stages in the selected recording operation.",
+        "ja": "recursion enumは選択recording操作で未処理、処理中、完了の段階を区別する。"
+      },
+      "limitations": {
+        "en": "The fixture checks enum meanings through public history and hook stages without assuming numeric enum values. Other operations, cyclic graphs and every history key remain separate.",
+        "ja": "fixtureはenum数値を仮定せず公開historyとhook段階で意味を確認する。他operation、循環graph、全history keyは別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_recorder_default_object_hook_orders_field_user_history_and_active_pop",
+          "role": "direct",
+          "expected_observations": [
+            "UT: record_history_never 1",
+            "UT: record_execute op record exact 1 active 1 depth 1 started 1",
+            "UT: record_user exact 1 active 1 started 1",
+            "UT: record_end trace HEUX fields 1 users 1 hook 1 name 1 value 1 finished 1",
+            "UT: record_cleanup finished_before_pop 1 empty 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-POLICY-AUDIT-RECORDER-CLOSE-CALLBACK",
+      "clause": "16.4.7.2",
+      "statement": {
+        "en": "Closing through open-record flush triggers do_close once before the free callback.",
+        "ja": "open-record flushによるcloseはfree callback前にdo_closeを1回呼ぶ。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixtures, explicit arguments and stage observations in the linked anchors; each fresh policy and peer is independently constructed.",
+        "ja": "linkしたanchorの独自fixture、明示引数、段階観測を使い、新policyとpeerは各々独立に生成する。"
+      },
+      "expected": {
+        "en": "Closing through open-record flush triggers do_close once before the free callback.",
+        "ja": "open-record flushによるcloseはfree callback前にdo_closeを1回呼ぶ。"
+      },
+      "limitations": {
+        "en": "One callback path and order only. The fixture does not inspect unspecified zero-time conversion, repeated close/free, callback metadata or arbitrary backend output.",
+        "ja": "callbackの1経路と順序だけ。未規定zero-time変換、反復close／free、callback metadata、任意backend出力は検査しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_recorder_flush_frees_an_open_record_through_close_before_free_without_releasing_peer",
+          "role": "direct",
+          "expected_observations": [
+            "UT: recorder_flush_hooks order CF close 1 free 1 freed 1 peer_open 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-POLICY-AUDIT-RECORDER-FREE-CALLBACK",
+      "clause": "16.4.7.3",
+      "statement": {
+        "en": "Freeing through open-record flush triggers do_free once after automatic close.",
+        "ja": "open-record flushによるfreeは自動close後にdo_freeを1回呼ぶ。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixtures, explicit arguments and stage observations in the linked anchors; each fresh policy and peer is independently constructed.",
+        "ja": "linkしたanchorの独自fixture、明示引数、段階観測を使い、新policyとpeerは各々独立に生成する。"
+      },
+      "expected": {
+        "en": "Freeing through open-record flush triggers do_free once after automatic close.",
+        "ja": "open-record flushによるfreeは自動close後にdo_freeを1回呼ぶ。"
+      },
+      "limitations": {
+        "en": "One callback path and order only. The fixture does not inspect unspecified zero-time conversion, repeated close/free, callback metadata or arbitrary backend output.",
+        "ja": "callbackの1経路と順序だけ。未規定zero-time変換、反復close／free、callback metadata、任意backend出力は検査しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_recorder_flush_frees_an_open_record_through_close_before_free_without_releasing_peer",
+          "role": "direct",
+          "expected_observations": [
+            "UT: recorder_flush_hooks order CF close 1 free 1 freed 1 peer_open 1"
           ]
         }
       ]

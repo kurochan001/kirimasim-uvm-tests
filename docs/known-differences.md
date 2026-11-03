@@ -2,15 +2,15 @@
 
 [日本語](known-differences.ja.md) · [README](../README.md) · [FAQ](faq.md)
 
-This describes the current 1472-test suite and the pinned Accellera UVM
+This describes the current 1501-test suite and the pinned Accellera UVM
 2020.3.1 library. A mismatch is a test result; it does not by itself assign
 the cause to the simulator, the library or the expectation.
 
-Twenty-five elaboration fixtures expect rejection: eleven direct abstract
-constructions and fourteen pure-interface/const-reference violations. Twenty-three
+Thirty-two elaboration fixtures expect rejection: twelve direct abstract
+constructions and twenty pure-interface/const-reference violations. Thirty
 match. Subscriber and visitor omissions remain accepted and spec-only without
-runtime. These two compiler acceptances are separate from 180 known simulation
-differences. The new policy/printer direct constructions reject correctly.
+runtime. These two compiler acceptances are separate from 187 known simulation
+differences. The new recorder direct-construction and six pure-hook omissions reject correctly.
 
 ## Pinned-library limitations
 
@@ -565,7 +565,7 @@ warning. The YES control changes the limit to nine without a warning. This
 is a diagnostic-severity difference, not failed limit enforcement. The older
 two no-DPI argument cases remain unchanged ordinary runtime differences.
 
-Across the suite, 1290 tests have the `verilator@5.052` oracle tag and 182
+Across the suite, 1312 tests have the `verilator@5.052` oracle tag and 189
 cases are spec-only. One of the spec-only cases checks 9.6: a child's pre-reset
 task must be killed when that phase ends, but the pinned-library run on Verilator 5.052
 lets the child perform its delayed write during a later phase. The cause of
@@ -577,10 +577,10 @@ without callbacks. The pinned Verilator run reaches the blocked-state
 observation, then its watchdog expires. This combined simulator/library
 cause remains unassigned; the normative wakeup expectation is retained.
 
-The 182 spec-only tests retain their normative expected files.
-Default Verilator runs and CI select 1290 tagged checks (1267 runtime, 23 compile rejection). `--all` includes
+The 189 spec-only tests retain their normative expected files.
+Default Verilator runs and CI select 1312 tagged checks (1282 runtime, 30 compile rejection). `--all` includes
 spec-only cases and records mismatches or build failures as `known`.
-The ordinary runtime records for 137 cases establish their first difference
+The ordinary runtime records for 144 cases establish their first difference
 at seed 1, without seed 73 results. Sixteen missing-API builds have no ordinary
 runtime seed result: one time API, six sequence-library cases, four HDL slice
 cases, one named-concat-constructor case, one object active-policy case and
@@ -591,9 +591,21 @@ link in the ordinary runner. Their separate VPI condition matches seven at
 both seeds and fails the E.7 warning/no-transfer expectation at seed 1.
 These overlapping configurations are not summed.
 
+Seven policy fixtures first differ at seed 1 without seed 73: the copier's
+omitted name is nonempty, comparer threshold/copy recursion/recorder radix do
+not return to their specified defaults after flush, and pack_field above the
+stream maximum does not report the required error. SHALLOW field-automation
+cases compare distinct equal children as equal and copy an independent child,
+under the retained combined policy/default-field-flag interpretation. These
+are combined simulator/library observations, not assigned defect causes.
+The invalid packer is never inspected or reused; a separate valid control is
+used. Fifteen new runtime fixtures match both seeds and seven recorder illegal
+declarations reject without runtime. Attribute override controls use an original
+dummy token and establish no proprietary macro or backend compatibility.
+
 ## Spec-only tests
 
-These are the 182 current spec-only cases. Several exercise the same
+These are the 189 current spec-only cases. Several exercise the same
 limitation, so their count is not a count of distinct bugs.
 
 - [Printed provider acceptance for blocking initiator relay](../tests/u12/test_tlm2_blocking_passthrough_initiator_connect_accepts_its_spec_listed_provider_families.sv).
@@ -870,13 +882,21 @@ Additional message-handle and endian cases:
 One existing command fixture now adds its command-enum citation without
 changing behavior or expected output and is remeasured on Verilator. The
 historical guest record for that input has a stale fingerprint. The current
-guest subset excludes it: 1084 compatible records and 388 unmeasured inputs,
+guest subset excludes it: 1084 compatible records and 417 unmeasured inputs,
 including that revised input. This is evidence scope, not a new guest failure.
+
+- [Copier default name](../tests/u16/test_policy_comparer_packer_and_copier_constructors_preserve_names_types_and_policy_bases.sv)
+- [Comparer threshold after flush](../tests/u16/test_comparer_threshold_default_updates_and_flush_restore_the_declared_boundary.sv)
+- [Copier recursion after flush](../tests/u16/test_copier_recursion_default_updates_and_flush_restore_the_declared_policy.sv)
+- [SHALLOW child comparison](../tests/u16/test_comparer_field_automation_distinguishes_nested_recursion_and_alias_conditions.sv)
+- [SHALLOW child ownership](../tests/u16/test_copier_field_automation_distinguishes_deep_shallow_and_default_child_ownership.sv)
+- [Wide pack oversize error](../tests/u16/test_packer_wide_oversize_reports_error_before_an_independent_maximum_width_control.sv)
+- [Recorder radix after flush](../tests/u16/test_recorder_configuration_defaults_updates_and_flush_restore_the_declared_values.sv)
 
 ## Simulator and library combinations
 
-The suite has 1472 cases, but the kirimasim/Ghost records below cover only
-1084 unchanged current-input cases. The 388 inputs are unmeasured
+The suite has 1501 cases, but the kirimasim/Ghost records below cover only
+1084 unchanged current-input cases. The 417 inputs are unmeasured
 because prior temporary executable/profile snapshots are unavailable. Do
 not treat this as a fresh full-suite guest result. See [results](results.md).
 

@@ -851,3 +851,8 @@ entry-depth等号の読み方を、既にmaximumを超えるscopeと分けて保
 
 **flush後のprinter形式既定値（Printer format defaults after flush）**：table／tree indentとtree／line separatorでflush後に明示された既定値です。
 他のbase printer controlを選択して観測した結果と区別します。
+
+**policy hook段階（Policy hook stage）**：標準policy操作順序におけるfield、user、完了の手順です。
+active objectをpopする前に履歴がFINISHEDになる場合があります。
+
+**独立したerror後control（Independent post-error control）**：不正要求を検査した後、不正policyの状態に依存せず使う別生成の有効policyです。

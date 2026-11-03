@@ -1,0 +1,5 @@
+UT: wide_compare 0 equal 1 mismatch 0 count 1 checked 1 outside 1
+UT: wide_compare 1 equal 1 mismatch 0 count 1 checked 1 outside 1
+UT: wide_compare 2 equal 1 mismatch 0 count 1 checked 1 outside 1
+UT: wide_compare 3 equal 1 mismatch 0 count 1 checked 1 outside 1
+UT: wide_compare 4 equal 1 mismatch 0 count 1 checked 0 outside 0

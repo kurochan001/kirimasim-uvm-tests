@@ -100,7 +100,7 @@ The metadata follows kirimasim-tests and sv-tests, with these UVM-specific field
 `:files:`, `:defines:`, `:incdirs:` and `:top_module:` mean what they mean in
 kirimasim-tests; the [tool provenance](provenance.md) identifies the shared implementation.
 
-The 25 negative fixtures use `:type: elaboration` and
+The 32 negative fixtures use `:type: elaboration` and
 `:should_fail_because:`. Their `:expected_stderr_regex:` identifies the fixture,
 class/method or const-reference diagnostic. They have no expected runtime output
 or exit. A match requires compiler rejection plus a matching error; an accepted
@@ -292,9 +292,9 @@ For runtime cases, `--seeds 1 73` builds once and runs a fresh process for
 each seed. All requested runtime seeds must match. `--seed N` remains available for a single seed.
 The JSON configuration records either `seed` or `seeds` accordingly.
 
-By default, Verilator selects 1290 tagged two-state checks: 1267 runtime
-cases and 23 expected compiler rejections. To include
-the 182 spec-only cases as well, add `--all`. A mismatch in an untagged case
+By default, Verilator selects 1312 tagged two-state checks: 1282 runtime
+cases and 30 expected compiler rejections. To include
+the 189 spec-only cases as well, add `--all`. A mismatch in an untagged case
 is `known` and does not fail the command; a tagged mismatch does.
 Explicit test paths select only those tests. For a single smoke test:
 
@@ -348,7 +348,7 @@ python3 tools/requirements.py check
 ```
 
 The current tool suite has 110 unit tests; metadata validation checks all
-1472 tests (1447 simulation, 25 elaboration). The [ledger check](requirements.md) validates the draft
+1501 tests (1469 simulation, 32 elaboration). The [ledger check](requirements.md) validates the draft
 scope, explicit oracle links and input fingerprints without claiming coverage. [Check](../.github/workflows/check.yml) runs on pushes to
 `main`, pull requests and manual dispatch. Its separate Verilator job uses
 5.052, `UVM_NO_DPI` and seeds 1 and 73 for the tagged cases. Each model is

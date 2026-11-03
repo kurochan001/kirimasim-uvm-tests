@@ -1143,9 +1143,9 @@ not a direct test of the requirement.
 
 ### Q77. Why is there no coverage percentage after starting M4?
 
-The 2274 AI drafts cover only a partial decomposition: 2274 requirements link
-directly to 1471 tests; all drafts have direct tests, and one separate test is a control.
-All 1472 tests have requirement links. The 2,507 clause identifiers are not normative requirement units.
+The 2348 AI drafts cover only a partial decomposition: 2348 requirements link
+directly to 1500 tests; all drafts have direct tests, and one separate test is a control.
+All 1501 tests have requirement links. The 2,507 clause identifiers are not normative requirement units.
 The scope is proposed, the inventory incomplete and the denominator unapproved;
 starting M4 approves none of those. Known differences and HDL/DPI limitations
 do not silently exclude obligations. See the [approval path](requirements.md#remaining-m4-work-and-approval).
@@ -2145,7 +2145,7 @@ No. `tests_without_requirement_links` is zero: every current test has an
 explicit direct or control link. The separate counter
 `requirements_without_direct_tests` is zero. The memory-walk link uses the
 qualified historical interpretation in Q134. It is not approval of missing
-IEEE detail. HDL deposit and accessibility use explicit VPI fixtures. Another 1,030
+IEEE detail. HDL deposit and accessibility use explicit VPI fixtures. Another 970
 catalog identifiers remain unassessed; decomposition and human review are
 incomplete, and the denominator remains unapproved.
 
@@ -2246,7 +2246,7 @@ in [identifier assessments](../coverage/assessments.json). Structural headings
 have no related requirements; contextual descriptions name existing requirements.
 An unreviewed record, guessed classification or parent rollup cannot do this.
 The generated state is `assessed`, separate from `partial` requirement clauses.
-204 classifications currently exist, with no denominator approval or new pass.
+222 classifications currently exist, with no denominator approval or new pass.
 Chapter 11's zero unassessed identifiers still does not complete its requirements.
 
 ### Q136. Does explicit strict configuration make the new cases pass?
@@ -2933,8 +2933,8 @@ the unassessed count or approve an exclusion. All earlier requirements remain.
 A command fixture gained a supporting enum citation and was remeasured on
 Verilator. Even a metadata-only source edit changes its input fingerprint.
 Its old guest record is excluded; the original historical file still has
-1085 records. Current compatible scope is 1084, with 388 inputs unmeasured:
-387 additions and the revised old input. No guest rerun or new failure is claimed.
+1085 records. Current compatible scope is 1084, with 417 inputs unmeasured:
+416 additions and the revised old input. No guest rerun or new failure is claimed.
 
 ### Q194. May a predicate implementation delegate to another virtual query?
 
@@ -2994,12 +2994,12 @@ and stale patterns are rejected. Validation does not consume compiler results.
 Individual requirement reviews may add direct anchors while preserving existing
 links and identifying those changes explicitly.
 
-### Q201. Did all 1472 tests run at two seeds?
+### Q201. Did all 1501 tests run at two seeds?
 
-No. There are 1447 simulation and 25 elaboration fixtures. Ordinary evidence
-has 1267 two-seed runtime matches, 23 expected compiler rejections, 180 known
+No. There are 1469 simulation and 32 elaboration fixtures. Ordinary evidence
+has 1282 two-seed runtime matches, 30 expected compiler rejections, 187 known
 simulation differences and two known illegal compile acceptances. None of the
-25 illegal designs executes a runtime seed, even when compilation accepts it.
+32 illegal designs executes a runtime seed, even when compilation accepts it.
 
 ### Q202. What do the older legal controls establish?
 
@@ -3064,9 +3064,9 @@ already-exceeded scope does not depend on equality. See [known differences](know
 ### Q209. Does zero unassessed in chapter 6 complete reporting or M1–M4?
 
 No. Chapter 6 has 98 partial and 19 assessed identifiers. Selected print probes
-do not finish its remaining conditions. Overall 1,030 identifiers remain
+do not finish its remaining conditions. Overall 970 identifiers remain
 unassessed. Printer subclause 16.2 retains the table-format overview; chapter 16
-has 63 unassessed identifiers in the broader policies. Scope and denominator
+has 3 unassessed identifiers in the broader policies. Scope and denominator
 are unapproved; zero link queues do not complete the goal.
 
 ### Q210. Does flush have the same configuration rule for every printer control?
@@ -3076,3 +3076,17 @@ separator clauses explicitly state defaults after flush when no later setter
 runs. The new fixtures retain those expectations even when the pinned library
 keeps changed values. Older base-control observations do not override the
 format-specific clauses or approve all flush/formatting behavior.
+
+### Q211. Do pure recorder hooks use runtime failure as their oracle?
+
+No. Each illegal concrete subtype omits one required pure hook while supplying
+the others. A targeted compile diagnostic is the direct oracle; no runtime
+seed executes, even if a compiler accepts the illegal design. A separate legal
+recorder provides a construction control. Callback behavior has separate tests.
+
+### Q212. Does an attribute-handle override prove tool compatibility?
+
+No. The original override returns dummy token 4343 to observe virtual dispatch
+through a recorder base view. It does not call a vendor macro or validate any
+proprietary handle or recording backend. Default support and handle equality
+are separate public-API observations.

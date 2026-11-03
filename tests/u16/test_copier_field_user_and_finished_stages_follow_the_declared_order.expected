@@ -1,0 +1,4 @@
+UT: policy_execute op copy exact 1 active 1 depth 1 started 1
+UT: policy_user rhs 1 active 1 started 1
+UT: policy_end trace EUX executes 1 users 1 finished 1 payload 35 empty 1
+UT: finished_before_pop 1

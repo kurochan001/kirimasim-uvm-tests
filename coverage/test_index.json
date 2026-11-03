@@ -3162,6 +3162,18 @@
       "primary_clause": "16.3.4.2",
       "inputs_sha256": "c3e24f8b73df125f1ff7b33c5c6318800f0c19651c3305936b0bcf63ac8ff94f"
     },
+    "u16/test_comparer_disabled_user_hook_finishes_history_and_unwinds_the_active_object": {
+      "primary_clause": "16.3.3.4",
+      "inputs_sha256": "871dbe715bba347cdad36b5d94464e86c7a6094aed48033e5cc07ee8b21620fc"
+    },
+    "u16/test_comparer_field_automation_distinguishes_nested_recursion_and_alias_conditions": {
+      "primary_clause": "16.3.4.1",
+      "inputs_sha256": "34123b077fa12457a8b49adb5753bf091f6ca258eb928ba3b63aeadba22808f1"
+    },
+    "u16/test_comparer_field_user_and_finished_stages_follow_the_declared_order": {
+      "primary_clause": "16.3.3.4",
+      "inputs_sha256": "ea13666d69091bcadf3232d363d912764933585b246f0886c77e85ce2af8bf86"
+    },
     "u16/test_comparer_flush_clears_string_miscompares": {
       "primary_clause": "16.3.3.6",
       "inputs_sha256": "2e171a6f10807fcdda1b0c8e0ef7857410a95cefe6ea3185576812b1f6a5aca9"
@@ -3181,6 +3193,14 @@
     "u16/test_comparer_miscompare_uses_configured_severity": {
       "primary_clause": "16.3.5.3",
       "inputs_sha256": "730564e9afeb3d8754466375a16121673f36ae59856b9b240ab877c9cc9371b7"
+    },
+    "u16/test_comparer_object_result_combines_field_failures_and_the_user_return": {
+      "primary_clause": "16.3.3.4",
+      "inputs_sha256": "00d2e99cd826157155bcaf1add4f3c9e4e4f529d952ef34104eb009bce02cdec"
+    },
+    "u16/test_comparer_print_msg_appends_ordered_messages_counts_reports_and_flushes_state": {
+      "primary_clause": "16.3.3.7",
+      "inputs_sha256": "3523905e7dee7de229e938dcaba39cf43ca4415095e39fd9a83354c19a47abd4"
     },
     "u16/test_comparer_real_values_compare_by_value": {
       "primary_clause": "16.3.3.3",
@@ -3206,6 +3226,10 @@
       "primary_clause": "16.3.3.6",
       "inputs_sha256": "874fe76b0917fb5eb15d46b866ed73ee054bf25061ee6c478d21feedda2bd952"
     },
+    "u16/test_comparer_threshold_default_updates_and_flush_restore_the_declared_boundary": {
+      "primary_clause": "16.3.6",
+      "inputs_sha256": "2b2cd23db41793e404e01497328038c6789931d789b76aaa9960e75a9ae88ca9"
+    },
     "u16/test_comparer_type_check_can_allow_base_and_derived": {
       "primary_clause": "16.3.4.2",
       "inputs_sha256": "e7784de5c2bdf6e203d81cc0b30f8d204aae17e9ba10bca324b95f5c09ce9da6"
@@ -3218,6 +3242,10 @@
       "primary_clause": "16.3.5.2",
       "inputs_sha256": "e87e932bb919d03886798422b887755b86dbdbce0575e430b01bd384de54882c"
     },
+    "u16/test_comparer_wide_integral_fields_check_inside_bits_and_ignore_outside_declared_width": {
+      "primary_clause": "16.3.3.1",
+      "inputs_sha256": "5f9d8932e0fb21d6f8dafc22b8fb7e40f8ef15d9034ba018a0f83204ff635be1"
+    },
     "u16/test_comparer_zero_message_limit_suppresses_reports_before_a_visible_control": {
       "primary_clause": "16.3.5.1",
       "inputs_sha256": "a8e2879dde17782dc591745a8c7514bf1f244accafd17527120215133ce3c3c9"
@@ -3229,6 +3257,18 @@
     "u16/test_copier_deep_policy_allocates_independent_child": {
       "primary_clause": "16.6.3",
       "inputs_sha256": "6cde9a56f99e40e1bbfe18f466d2836315bcb9121b84a93b0e55bca2b4df24c7"
+    },
+    "u16/test_copier_disabled_user_hook_finishes_history_and_unwinds_the_active_object": {
+      "primary_clause": "16.6.4.1",
+      "inputs_sha256": "88f442d35154f91f6f2a30d24ccba98ae99b86a37b6da208b7a593952770662b"
+    },
+    "u16/test_copier_field_automation_distinguishes_deep_shallow_and_default_child_ownership": {
+      "primary_clause": "16.6.3",
+      "inputs_sha256": "bfe3bce5eb9e4be280dac74c808f0ebefb79fa15f5b1b2ca6997680beb607b7f"
+    },
+    "u16/test_copier_field_user_and_finished_stages_follow_the_declared_order": {
+      "primary_clause": "16.6.4.1",
+      "inputs_sha256": "402689df6d7315062c04de42317dfa3d7abdfed4d5a6df9b165c64b686aef5f7"
     },
     "u16/test_copier_flush_preserves_extension_and_resets_history": {
       "primary_clause": "16.1.2.3",
@@ -3245,6 +3285,10 @@
     "u16/test_copier_invokes_copy_hook": {
       "primary_clause": "16.6.4.1",
       "inputs_sha256": "f76fadbbe527e14570906c23d5a6905ece14cfd033161195acfc076b5210dc62"
+    },
+    "u16/test_copier_recursion_default_updates_and_flush_restore_the_declared_policy": {
+      "primary_clause": "16.6.3",
+      "inputs_sha256": "b440abd30cbda129f941201fff80c2579bd9af0f6909ef1609cecd9dc04e2e2c"
     },
     "u16/test_copier_reference_copy_reports_error_for_an_aliased_object": {
       "primary_clause": "16.6.4.1",
@@ -3362,6 +3406,14 @@
       "primary_clause": "16.5.4.4",
       "inputs_sha256": "e0bc4b18de85bfca7b482e7032e35ca6955cccf95ac0b1183c00f55a4557d2fa"
     },
+    "u16/test_packer_wide_fields_round_trip_boundary_bits_before_a_separate_tail": {
+      "primary_clause": "16.5.4.8",
+      "inputs_sha256": "1ca5750693f55420fe584b0587e0ce0953977e95ac6b43dfb582d55696c86273"
+    },
+    "u16/test_packer_wide_oversize_reports_error_before_an_independent_maximum_width_control": {
+      "primary_clause": "16.5.4.8",
+      "inputs_sha256": "f3d80103e8123aaf1647cd64256ab497544ba5561af36ed281cd30ac7cc4d58b"
+    },
     "u16/test_policy_active_object_stacks_are_independent": {
       "primary_clause": "16.1.3.1",
       "inputs_sha256": "b0a1b433114876b208ab9937044dd5c289fb34da97c39d0a0c1e2dbd82fd7dd7"
@@ -3382,9 +3434,21 @@
       "primary_clause": "16.1.2.3.4",
       "inputs_sha256": "f1c898df70e28ab1407610f58e1f6fd66d04bdd0a597cd7afa88a9aa45ad28c9"
     },
+    "u16/test_policy_comparer_default_wrappers_share_core_selection_and_restore_exact_identity": {
+      "primary_clause": "16.3.2.4",
+      "inputs_sha256": "bc30aa713f14bb2ed5264183f0e84843b5e1b454152a013f6e58f299a6256e66"
+    },
+    "u16/test_policy_comparer_packer_and_copier_constructors_preserve_names_types_and_policy_bases": {
+      "primary_clause": "16.3.2.1",
+      "inputs_sha256": "e2cb1862659152447178a281bd575b4b5adbdcd91c17a02ff95d0db69a2c564f"
+    },
     "u16/test_policy_concrete_constructor_preserves_unnamed_explicit_empty_names_and_object_base": {
       "primary_clause": "16.1.2.1",
       "inputs_sha256": "0e73e8c23167c765e65857ddf4e00734249b46c8ec5040ec40f8604bc853d1b2"
+    },
+    "u16/test_policy_copier_default_wrappers_share_core_selection_and_restore_exact_identity": {
+      "primary_clause": "16.6.2.3",
+      "inputs_sha256": "970a0aa2237b54e4bdafcadc2279d80df189c532ceaf296654b282433feb86f7"
     },
     "u16/test_policy_extension_controls_comparison_after_flush": {
       "primary_clause": "16.1.2.3.3",
@@ -3425,6 +3489,10 @@
     "u16/test_policy_object_stack_tracks_nested_active_policy_push_and_pop": {
       "primary_clause": "16.1.3.1",
       "inputs_sha256": "ae60577737b6090bcb84a0d7b6902183f46e52d27c045c06a5c9ae91724e3e29"
+    },
+    "u16/test_policy_packer_default_wrappers_share_core_selection_and_restore_exact_identity": {
+      "primary_clause": "16.5.2.4",
+      "inputs_sha256": "c8194ff2b863910f8fb3a0d0aff71252f1a71f5808557c55aac2a2bd38245d66"
     },
     "u16/test_printer_array_header_range_and_footer_keep_nested_element_structure": {
       "primary_clause": "16.2.3.5",
@@ -3606,6 +3674,10 @@
       "primary_clause": "16.2.11.3.1",
       "inputs_sha256": "d990494a51329170238e14994da7260ba63ec984b56e1aec479f20cee1d5cf19"
     },
+    "u16/test_recorder_attribute_defaults_match_the_public_handle_and_allow_separate_virtual_overrides": {
+      "primary_clause": "16.4.6.8",
+      "inputs_sha256": "2b9bb6a22ad4c61d0e0df9dc2b7227121e7d5ca3cea6e2736a6123c33618c0bd"
+    },
     "u16/test_recorder_attribute_methods_forward_values_widths_radices_and_names_to_hooks": {
       "primary_clause": "16.4.6.1",
       "inputs_sha256": "9c056982478301e9cae5fc1afbd4d0643310c8ea201cb5c2f7d714e5959f66cb"
@@ -3613,6 +3685,46 @@
     "u16/test_recorder_close_retains_open_time_and_does_not_close_its_peer": {
       "primary_clause": "16.4.4.2",
       "inputs_sha256": "cafd61142e3028df8db4291843323825f9c90a9ffb4a17fff91108b7b621fa56"
+    },
+    "u16/test_recorder_concrete_subclass_must_implement_do_record_field": {
+      "primary_clause": "16.4.7.4",
+      "inputs_sha256": "8aeff3a4d378f29c07989d3d59b01144cbf8f82215a4b8edbd889f47bce4ac3d"
+    },
+    "u16/test_recorder_concrete_subclass_must_implement_do_record_field_int": {
+      "primary_clause": "16.4.7.5",
+      "inputs_sha256": "a5ff649b8a359ad8e6b4dcca41e889a30264430c156855686de91d75c1bd29b3"
+    },
+    "u16/test_recorder_concrete_subclass_must_implement_do_record_field_real": {
+      "primary_clause": "16.4.7.6",
+      "inputs_sha256": "a8df5d0af7b8f3fea70e936ffd8f1f4726e6002fdc423b7544cc1b81b6a3ba86"
+    },
+    "u16/test_recorder_concrete_subclass_must_implement_do_record_generic": {
+      "primary_clause": "16.4.7.11",
+      "inputs_sha256": "b06f72694cac559bf2a01f5fd7addd6a6592281ed6d49e49f09d564abd834cc2"
+    },
+    "u16/test_recorder_concrete_subclass_must_implement_do_record_string": {
+      "primary_clause": "16.4.7.9",
+      "inputs_sha256": "1defb9dac4e66a1c84271658a12b91603c9d44e9a8b1ba4a97cdb49dbca81a25"
+    },
+    "u16/test_recorder_concrete_subclass_must_implement_do_record_time": {
+      "primary_clause": "16.4.7.10",
+      "inputs_sha256": "54814a36420db8cd625719e20b9e4ac2c218acc72ef0fe0805fe48db8f82ae23"
+    },
+    "u16/test_recorder_configuration_defaults_updates_and_flush_restore_the_declared_values": {
+      "primary_clause": "16.4.2.1",
+      "inputs_sha256": "89c5d9902f457070bbb0518582bcb993ecc08a9e6a7a252c32699f38b66322bd"
+    },
+    "u16/test_recorder_default_object_hook_orders_field_user_history_and_active_pop": {
+      "primary_clause": "16.4.6.4",
+      "inputs_sha256": "1c31e0712570a4e389cb34e006472f818454c0aec8ef4bea40727ecb8453a83c"
+    },
+    "u16/test_recorder_disabled_user_hook_finishes_history_and_unwinds_the_active_object": {
+      "primary_clause": "16.4.6.4",
+      "inputs_sha256": "691056939ea3f3b50f9c73a65d5483b14597cc765935d84a257772122e0d0c40"
+    },
+    "u16/test_recorder_flush_frees_an_open_record_through_close_before_free_without_releasing_peer": {
+      "primary_clause": "16.4.4.1",
+      "inputs_sha256": "e6ba589b680147d036735d0a364ce292984ab2fc009981c0dd129b7096d4b7a8"
     },
     "u16/test_recorder_free_automatically_closes_before_releasing_an_open_record": {
       "primary_clause": "16.4.4.3",
@@ -3633,6 +3745,10 @@
     "u16/test_uvm_printer_abstract_declaration_rejects_direct_construction": {
       "primary_clause": "16.2.1",
       "inputs_sha256": "e23e994aa4106dcaf290c054f4e1790a1b3d6966393a8863d9f8127f2dd8811f"
+    },
+    "u16/test_uvm_recorder_abstract_declaration_rejects_direct_construction": {
+      "primary_clause": "16.4.1",
+      "inputs_sha256": "2aa99b5966071960782d7e0f884bf59859584d5f87f679fc1202fa42b4f51ae0"
     },
     "u17/test_hdl_concat_standard_add_slice_appends_after_replacement_and_preserves_peer": {
       "primary_clause": "17.2.3.3.4",
