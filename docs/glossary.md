@@ -965,3 +965,19 @@ mode-controlled execution selects children through that field.
 request is ineligible. Stopped state, start return, survivor preservation and
 subsequent real traffic are distinct observations, not a complete proof of
 all termination hooks.
+
+## User-backdoor and predictor observations
+
+**Default-read delegation** — The inherited backdoor read task calls a user
+function for the peek step while retaining its pre/post processing. Observing
+this route does not test a task-based read override's boundary placement.
+
+**Backdoor hook trace** — An original testbench observation of user hooks,
+registered callbacks and the storage operation, including descriptor identity
+and selected value/status propagation. It does not describe private library
+queues or establish encode/decode-array behavior.
+
+**Pre-run predictor configuration** — Map and adapter selection completed
+before the run phase, with effects checked through actual mirror updates and
+analysis publication. It does not promise that changing configuration during
+run is supported.

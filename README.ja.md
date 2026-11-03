@@ -9,13 +9,13 @@ IEEE 1800.2-2020のUniversal Verification Methodology（UVM）を対象にした
 [kirimasim](https://github.com/kurochan001/kirimasim)を対象とし、IEEE 1800-2023のSystemVerilog言語を検査する
 [kirimasim-tests](https://github.com/kurochan001/kirimasim-tests)と対になります。
 
-> **状態：M4を進行中。** 21の章・付録ディレクトリにシミュレーションテスト1313件があります。
-> `verilator@5.052`のoracle付きが1154件、specのみが159件です。
+> **状態：M4を進行中。** 21の章・付録ディレクトリにシミュレーションテスト1326件があります。
+> `verilator@5.052`のoracle付きが1167件、specのみが159件です。
 > 全件が`:spec_check: ai`で、人による照合の記録はまだありません。
 > M1・M2・M3はいずれも、要求カバレッジの目標が未達です。
-> M4は要求案1802件、直接対応するテスト1312件と全1313件の索引があります。
+> M4は要求案1828件、直接対応するテスト1325件と全1326件の索引があります。
 > 未対応テスト0件、直接テストのない要求案0件です。memory-walkは歴史的解釈を明示しています。
-> 未評価の識別子1,401件が残り、別の91件をAIで明示的に分類しました。対象範囲は未承認です。
+> 未評価の識別子1,365件が残り、別の104件をAIで明示的に分類しました。対象範囲は未承認です。
 
 ## 目次
 
@@ -31,7 +31,7 @@ IEEE 1800.2-2020のUniversal Verification Methodology（UVM）を対象にした
   component階層、factory、phaseとgraph、objection、eventとそのcallback、barrier、heartbeat、configuration、databaseの接続・stream・link・recorder・componentの記録、core service・visitor・component検索、pool、queue、agent、文字列の分割／照合、enum名の変換、command-line引数の照会。
 - **M2：470件。** TLM 1のFIFO・analysis・request／response・blocking transport channel、TLM 2のpayload・拡張・
   一部のsocket transport、sequence・sequence library・既定request／response印字・状態待機、response queue／handler、sequenceのreport、操作マクロ、pull／push sequencer、callback。
-- **M3：396件。** register／field／block・memoryのモデル、階層の照会、fieldの制御とbyte-enableアクセス、操作記述子、map・readの照合・transaction-order policy・sequence便利API、adapter、predictor、HDL pathの記述、register FIFOのabstract queue／制約、組み込み／custom frontdoor、
+- **M3：409件。** register／field／block・memoryのモデル、階層の照会、fieldの制御とbyte-enableアクセス、操作記述子、map・readの照合・transaction-order policy・sequence便利API、adapter、predictor、HDL pathの記述、register FIFOのabstract queue／制約、組み込み／custom frontdoor、
   register／memory callback、coverage制御・sampling hook、間接register、virtual registerの配置・転送・割り当てpolicy・callback、ユーザー定義backdoor、
   動的な実装、memory領域の管理、端数幅のmemory転送、失敗／再試行のstatus、付録Eのreset／bit-bash／register・memory access／shared access／memory walk、
   統合access wrapper、未知policyのskip、テストの選択mask。
@@ -61,7 +61,7 @@ python3 tools/run_verilator.py --seeds 1 73 --build-jobs 2 -j 1 \
 ```
 
 fetcherは固定したAccellera UVM 2020.3.1を取得して検査します。スモークのコマンドは1件だけを選びます。
-oracle付き1154件をすべて実行する場合は、次のコマンドを使います。
+oracle付き1167件をすべて実行する場合は、次のコマンドを使います。
 
 ```sh
 python3 tools/run_verilator.py --seeds 1 73 --build-jobs 2 -j 2 \
@@ -86,16 +86,16 @@ kirimasimとGhostは既定で全件を選びます。ライブラリ／DPI設定
 
 ## 現在の実行結果
 
-2026-11-03のVerilator記録は、現在の1313件すべてを対象にします。
-他2系統は未変更1085件の記録で、新規228件は未測定です。Checkバッジとは別の結果です。
+2026-11-03のVerilator記録は、現在の1326件すべてを対象にします。
+他2系統は未変更1085件の記録で、新規241件は未測定です。Checkバッジとは別の結果です。
 
 | シミュレータとライブラリ | 観測結果 |
 | --- | --- |
-| Verilator 5.052・固定版UVM・通常runner | 1154件がseed 1・73で一致、既知差分159件 |
+| Verilator 5.052・固定版UVM・通常runner | 1167件がseed 1・73で一致、既知差分159件 |
 | Verilator 5.052・独自VPI HDL backend | 別条件の部分集合8件で、7件が両seed一致、1件が差分 |
 | Verilator 5.052・VPI command-line bridge・固定regex DPI | 別条件の18件で17件が両seed一致、1件は既知差分 |
-| kirimasim・固定版UVM | 1085件で`unsupported` 1076件・API欠落`fail` 9件、新規228件は未測定 |
-| Ghost・同梱UVM | 1085件で各seed一致207件・不一致878件、新規228件は未測定 |
+| kirimasim・固定版UVM | 1085件で`unsupported` 1076件・API欠落`fail` 9件、新規241件は未測定 |
+| Ghost・同梱UVM | 1085件で各seed一致207件・不一致878件、新規241件は未測定 |
 
 通常runnerの159件は、seed 1の実行時差分117件、API欠落build 16件、DPI未linkのbuild 26件（HDL 8件・command-line 18件）です。2種類のVPI部分集合は別条件です。
 `known`・`unsupported`は成功に数えません。Ghostの同梱UVMの結果は、固定版ライブラリでの結果を示すものではありません。
@@ -128,8 +128,8 @@ kirimasimとGhostは既定で全件を選びます。ライブラリ／DPI設定
 | M0 | 取得・実行・metadataとツールの検査、Check、スモークテスト | 基盤を実装済み |
 | M1 | 基本クラス・policy・factory・phase・objection・設定・reporting | 447件。各条項2件以上という目標の棚卸しは未完 |
 | M2 | sequence・sequencer・TLM・callback | 470件。目標は未達 |
-| M3 | レジスタ層（17〜19、付録E） | 第17〜19章・付録Eに396件。目標は未達 |
-| M4 | 要求台帳とカバレッジ | 進行中。AI要求案1802件、1802要求を1312テストへ直接対応。分母は未承認 |
+| M3 | レジスタ層（17〜19、付録E） | 第17〜19章・付録Eに409件。目標は未達 |
+| M4 | 要求台帳とカバレッジ | 進行中。AI要求案1828件、1828要求を1325テストへ直接対応。分母は未承認 |
 
 M1〜M3は未完です。sequenceの所有／lifecycle、default resource、callback、TLM 2のprotocol／timing／socketの組合せ、
 registerの割当／lifecycle、memory packing／端数beat、error／policy／map／prediction／frontdoor／callback／HDL／annex Eの組合せが残ります。

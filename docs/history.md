@@ -3,8 +3,8 @@
 [日本語](history.ja.md) · [README](../README.md)
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and thirty-one cross-milestone thin-area expansions, including the
-existing-test requirement-link backlog checkpoint (1313 simulation tests). The earlier 349-test checkpoint is
+three M4 increments and thirty-two cross-milestone thin-area expansions, including the
+existing-test requirement-link backlog checkpoint (1326 simulation tests). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -2607,3 +2607,41 @@ compatible evidence and ten guide pairs with 176 FAQ answers and 197 glossary
 entries. Previous inputs, all runners/tools, CI, catalog, backend, scope, lock,
 licenses, Issue policy, six SVG assets and separate VPI records are unchanged.
 The goal remains active, including the remaining partial obligations.
+
+## Thirty-second thin-area expansion across M1–M4
+
+The fourth persistent-goal iteration adds thirteen M3 fixtures: four item/
+adapter name/type/conversion cases, one backdoor name/type case, three default
+read/callback cases, two original write cases and three predictor type/config
+cases. All final inputs match seeds 1 and 73. The suite reaches 1326: M1 447,
+M2 470 and M3 409. The initial predictor packet setup lacked a correctly typed
+factory registration; adding it fixes the pinned library type-name path
+without changing expected observations. Default read invokes an original
+function, with exact descriptor identity, pre/post order, current callback
+registration and success/failure status. Write hooks pass transformed data
+through protected helpers to original storage via a real register model.
+Independent configured maps/decoders affect real mirror and publication values.
+
+Twenty-six AI drafts bring the ledger to 1828, directly linked to 1325 tests
+plus one control. All earlier drafts remain unchanged. Six structural and
+seven contextual individual assessments bring the total to 104: 87 structural
+and 17 contextual. Chapter 19 has 70 partial, 15 assessed and 26 unassessed
+identifiers. Overall, 1038 of 2,507 identifiers are partial, 104 assessed and
+1,365 unassessed: 36 fewer this iteration and 98 fewer since goal activation.
+Primary focus is 653, any citation 1,318; the candidate census is 1,829 zero,
+375 one and 278 at least two. Decomposition, milestone targets, scope and
+human review remain incomplete; no percentage or approval is invented.
+
+Compatible ordinary evidence retains all 1313 prior inputs: 1167 pass and
+159 known (117 runtime first differences, sixteen missing-API builds and
+26 unlinked-DPI builds). Separate command-line evidence remains 17 pass/
+1 known and HDL VPI 7 pass/1 fail. Guest evidence retains 1085 unchanged
+inputs; 241 current IDs are unmeasured. Validation covers 101 tool tests,
+1326 metadata records, ledger/index/library identity, compatible execution
+records and ten guide pairs with 179 FAQ answers and 200 glossary entries.
+All runners/tools, prior simulation inputs, CI, catalog, scope, library lock,
+licenses, Issue policy, six SVG assets and separate VPI records are unchanged.
+The active goal retains task-read boundary conditions, encode/decode arrays,
+default formatter completeness, printed write visibility/virtuality,
+parent-sequence do_clone, predictor diagnostic severity and all remaining
+partial obligations.

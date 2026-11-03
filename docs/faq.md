@@ -135,7 +135,7 @@ See [Ghost setup](testing.md#ghost).
 
 It removes `UVM_NO_DPI` from the default macro list. It does not supply or link
 UVM's C/C++ implementation. The current Verilator runner does not add those
-sources. There are 1287 `UVM_NO_DPI` cases and eight explicit HDL-DPI cases.
+sources. There are 1300 `UVM_NO_DPI` cases and eight explicit HDL-DPI cases.
 Eighteen more fixtures explicitly enable command-line/regex DPI with HDL disabled.
 The [command-line runner](testing.md#verilator-command-line-subset) links that separate backend.
 The [separate VPI runner](testing.md#verilator-vpi-hdl-subset) links the original
@@ -176,7 +176,7 @@ a claim that every test was rebuilt together.
 
 ### Q16. Are M1, M2 or M3 complete, and what does the test count cover?
 
-M1 and M2 still have open clause targets. M3 now has 396
+M1 and M2 still have open clause targets. M3 now has 409
 register-layer cases, including testbench frontdoor paths; it is also incomplete. Starting a stage does not complete
 the preceding stages.
 The [plan](../README.md#plan) identifies current scope and remaining work.
@@ -1143,9 +1143,9 @@ not a direct test of the requirement.
 
 ### Q77. Why is there no coverage percentage after starting M4?
 
-The 1802 AI drafts cover only a partial decomposition: 1802 requirements link
-directly to 1312 tests; all drafts have direct tests, and one separate test is a control.
-All 1313 tests have requirement links. The 2,507 clause identifiers are not normative requirement units.
+The 1828 AI drafts cover only a partial decomposition: 1828 requirements link
+directly to 1325 tests; all drafts have direct tests, and one separate test is a control.
+All 1326 tests have requirement links. The 2,507 clause identifiers are not normative requirement units.
 The scope is proposed, the inventory incomplete and the denominator unapproved;
 starting M4 approves none of those. Known differences and HDL/DPI limitations
 do not silently exclude obligations. See the [approval path](requirements.md#remaining-m4-work-and-approval).
@@ -2145,7 +2145,7 @@ No. `tests_without_requirement_links` is zero: every current test has an
 explicit direct or control link. The separate counter
 `requirements_without_direct_tests` is zero. The memory-walk link uses the
 qualified historical interpretation in Q134. It is not approval of missing
-IEEE detail. HDL deposit and accessibility use explicit VPI fixtures. Another 1,401
+IEEE detail. HDL deposit and accessibility use explicit VPI fixtures. Another 1,365
 catalog identifiers remain unassessed; decomposition and human review are
 incomplete, and the denominator remains unapproved.
 
@@ -2246,7 +2246,7 @@ in [identifier assessments](../coverage/assessments.json). Structural headings
 have no related requirements; contextual descriptions name existing requirements.
 An unreviewed record, guessed classification or parent rollup cannot do this.
 The generated state is `assessed`, separate from `partial` requirement clauses.
-Ninety-one classifications currently exist, with no denominator approval or new pass.
+104 classifications currently exist, with no denominator approval or new pass.
 Chapter 11's zero unassessed identifiers still does not complete its requirements.
 
 ### Q136. Does explicit strict configuration make the new cases pass?
@@ -2744,3 +2744,38 @@ checks a parent/child active tree, both stopped states and kill hooks, followed
 by fresh traffic. No private request queue or exact polling/hook count is
 used. Required post-body/post-start hooks remain separate spec-only differences;
 these successful cleanup cases do not make the whole kill contract pass.
+
+## User backdoors and configured predictors
+
+### Q177. What do the default user-backdoor read fixtures establish?
+
+They invoke the inherited library read task through a base handle. An original
+function supplies storage data/status, and original hooks/callbacks expose the
+order: pre hook, registered pre callback, function, registered post callback,
+post hook. The same descriptor carries offset/value changes. Success, failure
+and removal/readdition of the same callback are checked; failed-read data is
+unconstrained. These are user-backdoor checks without physical HDL or a new
+DPI backend. A task-based read override's first/last helper placement and
+encode/decode-array behavior remain separate obligations.
+
+### Q178. Does a passing user write settle its printed visibility declaration?
+
+No. The standard's write declaration and extension prose need further review.
+The fixtures call an original public virtual extension through a real register
+model and place the standard protected helpers first/last. They check hook/
+callback order, transformed data reaching original storage and returned status.
+This validates that selected extension path without certifying a default
+base-write implementation or resolving visibility/virtuality from observed
+library behavior. The ambiguity remains recorded in the draft limitations.
+
+### Q179. What do the predictor map and adapter checks establish?
+
+Both configurations are set before run, as required. Independent maps isolate
+register lookup and publication at different addresses; independent decoders
+on a shared map turn the same raw item into different selected mirror and
+publication values. Original producers and sinks observe real predictor ports
+and register mirrors. A separate constructor case checks component identity,
+parent/name and exact selected port types. Packet factory registration is setup
+for the pinned library; the oracle remains standard-derived. These checks do
+not establish live reconfiguration, physical bus traffic, default-int conversion
+usability or an unspecified pending-transaction diagnostic severity.

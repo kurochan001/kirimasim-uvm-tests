@@ -1318,6 +1318,211 @@
         "reviewer": null,
         "reviewed_at": null
       }
+    },
+    {
+      "clause": "19",
+      "classification": "structural",
+      "rationale": {
+        "en": "Chapter title only; the register interaction obligations occur in the subordinate descriptor, adapter, predictor, sequence, user-backdoor and HDL-support clauses.",
+        "ja": "章題のみ。register連携の義務は下位のdescriptor、adapter、predictor、sequence、user-backdoor、HDL-support条項にある。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "19.1.1.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "An organizing heading for item-use methods; each getter/setter obligation remains in its own subordinate clause.",
+        "ja": "item利用methodを整理する見出し。各getter／setter義務はそれぞれの下位条項に残る。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "19.1.1.3",
+      "classification": "structural",
+      "rationale": {
+        "en": "An organizing heading for subtype construction and string conversion; it adds no independent executable method.",
+        "ja": "subtype生成と文字列変換を整理する見出し。独立の実行methodを追加しない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "19.3.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "Variables heading only; input/output ports and pre-run map/adapter configuration retain their own subordinate obligations.",
+        "ja": "Variables見出しのみ。入出力portとrun前map／adapter設定の義務は下位に保持する。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "19.3.3",
+      "classification": "structural",
+      "rationale": {
+        "en": "Methods heading only; constructor, pre_predict and pending-transaction checking remain separately specified.",
+        "ja": "Methods見出しのみ。constructor、pre_predict、待機transaction検査は個別の規定に残る。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "19.5.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "Methods heading only; the constructor and protected helpers plus read/write hooks retain their subordinate contracts and unresolved conditions.",
+        "ja": "Methods見出しのみ。constructor、protected helper、read／write hookは下位契約と未解決条件を保持する。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "19.1",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The overview introduces abstract and physical operation descriptors and their role at adapter boundaries. Related item and conversion requirements decompose selected observable contracts; bus-width/endianness conditions in 19.1.2 remain separately open.",
+        "ja": "概要は抽象／物理operation descriptorとadapter境界での役割を導入する。関連item／変換要求は選択した観測可能契約を分解し、19.1.2のbus幅／endianness条件は別に未完とする。"
+      },
+      "related_requirements": [
+        "UVM-REG-INTERACTION-ITEM-BASE",
+        "UVM-ADAPTER-INSIDE-CONTEXT"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "19.1.1",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The overview describes a bus-independent transaction and a map handle for optional custom translation. The related descriptor/map obligations cover those selected properties without requiring a new custom-translation algorithm or asserting every content field.",
+        "ja": "概要はbus-independent transactionと任意のcustom変換用map handleを説明する。関連descriptor／map義務は選択した性質を扱い、新たなcustom変換algorithmや全内容fieldを要求しない。"
+      },
+      "related_requirements": [
+        "UVM-REG-INTERACTION-ITEM-BASE",
+        "UVM-REG-ITEM-ORIGINAL-MAP-INDEPENDENCE"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "19.2",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The overview names conversion between generic register operations and bus accesses. Selected conversion obligations are decomposed under the adapter methods rather than duplicated as an additional stream algorithm.",
+        "ja": "概要はgeneric register operationとbus accessの変換を示す。選択した変換義務はadapter methodへ分解し、追加のstream algorithmとして重複計数しない。"
+      },
+      "related_requirements": [
+        "UVM-ADAPTER-FRESH-BUS-ITEM",
+        "UVM-ADAPTER-BUS2REG-SEPARATE-IDENTITY"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "19.2.1",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The overview introduces the generic-to-bus conversion interface; concrete declaration and selected reg2bus/bus2reg contracts are decomposed by related requirements. It does not resolve the separate parent_sequence do_clone wording.",
+        "ja": "概要はgeneric-to-bus変換interfaceを導入する。具象宣言と選択したreg2bus／bus2reg契約は関連要求へ分解する。別のparent_sequenceのdo_clone文言は解決しない。"
+      },
+      "related_requirements": [
+        "UVM-REG-INTERACTION-ADAPTER-BASE",
+        "UVM-ADAPTER-FRESH-BUS-ITEM"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "19.2.2",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The overview identifies the generic-payload adapter interface. Its inheritance and selected conversions are decomposed by the related requirements; absolute one-way byte/lane interpretation remains open.",
+        "ja": "概要はgeneric-payload adapter interfaceを示す。継承と選択した変換は関連要求へ分解し、片方向の絶対byte／lane解釈は未完に残す。"
+      },
+      "related_requirements": [
+        "UVM-REG-INTERACTION-TLM-ADAPTER-BASE",
+        "UVM-TLM-ADAPTER-READ-CONVERSION",
+        "UVM-TLM-ADAPTER-WRITE-RESPONSE"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "19.3",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The overview describes bus-observation-based prediction subject to access policy, excluding memories. The related mirror/publication and nonregister-ignore requirements decompose these obligations; this is not a second all-policy conformance claim.",
+        "ja": "概要はaccess policyに従うbus観測による予測とmemoryの除外を説明する。関連mirror／公開とnonregister無視の要求へ義務を分解し、全policy適合を重ねて主張しない。"
+      },
+      "related_requirements": [
+        "UVM-PREDICTOR-IGNORE-NONREGISTER",
+        "UVM-PREDICTOR-PUBLICATION-METADATA",
+        "UVM-PREDICTOR-WRITE-ONE-CLEAR"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "19.5",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The overview permits custom backdoors when default pure-SystemVerilog/DPI access is unsuitable. Related original-storage extensions exercise this customization route without requiring a physical HDL target or interpreting the native HDL API contracts.",
+        "ja": "概要は既定のpure-SystemVerilog／DPI accessが適さない場合のcustom backdoorを認める。関連する独自記憶域の拡張でこのcustom経路を検査し、物理HDL対象の必須化やnative HDL API契約の解釈はしない。"
+      },
+      "related_requirements": [
+        "UVM-REG-INTERACTION-DEFAULT-READ-FUNCTION-DISPATCH",
+        "UVM-REG-INTERACTION-USER-WRITE-RESULT"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
     }
   ]
 }

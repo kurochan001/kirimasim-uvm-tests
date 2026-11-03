@@ -67092,6 +67092,985 @@
           ]
         }
       ]
+    },
+    {
+      "id": "UVM-REG-INTERACTION-ITEM-BASE",
+      "clause": "19.1.1.1",
+      "statement": {
+        "en": "A register item derives from the sequence-item base.",
+        "ja": "register itemはsequence-item基底から派生する。"
+      },
+      "conditions": {
+        "en": "Assign a named register item to a sequence-item handle.",
+        "ja": "名前付きregister itemをsequence-item handleへ代入する。"
+      },
+      "expected": {
+        "en": "The nonnull base view denotes the same object.",
+        "ja": "nonnull基底viewは同じobjectを指す。"
+      },
+      "limitations": {
+        "en": "Positive concrete subtype/base compatibility and selected optional names only; invalid types, abstract construction, layout, factory creation and unspecified initial metadata remain separate.",
+        "ja": "具象subtype／基底の正の互換性と選択した省略可能名のみ。不正型、抽象型の生成、配置、factory生成、未規定の初期metadataは別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_item_constructor_names_and_sequence_item_base_preserve_identity",
+          "role": "direct",
+          "expected_observations": [
+            "UT: item_base nonnull 1 identity 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-INTERACTION-ITEM-NAMES",
+      "clause": "19.1.1.3.1",
+      "statement": {
+        "en": "The register-item constructor accepts an optional name.",
+        "ja": "register-item constructorは省略可能な名前を受け付ける。"
+      },
+      "conditions": {
+        "en": "Construct omitted-name, selected-name and explicitly empty-name objects.",
+        "ja": "名前省略、指定名、明示的な空名のobjectを生成する。"
+      },
+      "expected": {
+        "en": "Names are respectively empty, selected and empty.",
+        "ja": "名前は順に空、指定値、空である。"
+      },
+      "limitations": {
+        "en": "Positive concrete subtype/base compatibility and selected optional names only; invalid types, abstract construction, layout, factory creation and unspecified initial metadata remain separate.",
+        "ja": "具象subtype／基底の正の互換性と選択した省略可能名のみ。不正型、抽象型の生成、配置、factory生成、未規定の初期metadataは別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_item_constructor_names_and_sequence_item_base_preserve_identity",
+          "role": "direct",
+          "expected_observations": [
+            "UT: item_names omitted 1 named 1 empty 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-INTERACTION-ITEM-VIRTUAL-STRING",
+      "clause": "19.1.1.3.2",
+      "statement": {
+        "en": "The transaction string formatter is virtual and can represent current subtype contents.",
+        "ja": "transactionの文字列formatterはvirtualで、現在のsubtype内容を表せる。"
+      },
+      "conditions": {
+        "en": "Call an original formatter through a register-item base view before and after changing name and data.",
+        "ja": "名前とdataを変える前後で、register-item基底viewから独自formatterを呼ぶ。"
+      },
+      "expected": {
+        "en": "Each call reflects current original contents; an earlier string value stays unchanged.",
+        "ja": "各呼出しは現在の独自内容を反映し、以前の文字列値は変わらない。"
+      },
+      "limitations": {
+        "en": "Only virtual dispatch to an original formatter is checked. The default formatter layout, complete default field representation and special character handling remain unassessed.",
+        "ja": "独自formatterへのvirtual委譲だけを検査する。既定formatterの配置、既定field表現の完全性、特殊文字の扱いは未評価に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_item_convert2string_dispatches_to_the_current_subtype_contents",
+          "role": "direct",
+          "expected_observations": [
+            "UT: virtual_string first 1 current 1 retained 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-INTERACTION-ADAPTER-BASE",
+      "clause": "19.2.1.1",
+      "statement": {
+        "en": "A concrete register-adapter extension is usable as an object.",
+        "ja": "具象register-adapter拡張はobjectとして利用できる。"
+      },
+      "conditions": {
+        "en": "Assign a concrete converter to an object base view.",
+        "ja": "具象converterをobject基底viewへ代入する。"
+      },
+      "expected": {
+        "en": "The view retains the adapter identity.",
+        "ja": "viewはadapterの同一性を保持する。"
+      },
+      "limitations": {
+        "en": "Positive concrete subtype/base compatibility and selected optional names only; invalid types, abstract construction, layout, factory creation and unspecified initial metadata remain separate.",
+        "ja": "具象subtype／基底の正の互換性と選択した省略可能名のみ。不正型、抽象型の生成、配置、factory生成、未規定の初期metadataは別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_adapter_constructor_forwards_names_and_inherits_the_object_base",
+          "role": "direct",
+          "expected_observations": [
+            "UT: adapter_base 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-INTERACTION-ADAPTER-NAMES",
+      "clause": "19.2.1.2.1",
+      "statement": {
+        "en": "The register-adapter constructor accepts an optional name.",
+        "ja": "register-adapter constructorは省略可能な名前を受け付ける。"
+      },
+      "conditions": {
+        "en": "A subtype without a constructor uses the omitted base name; another forwards selected or empty names.",
+        "ja": "constructorなしのsubtypeは基底の省略名を使い、別subtypeは指定名または空名を渡す。"
+      },
+      "expected": {
+        "en": "The observed names are empty, selected and empty.",
+        "ja": "観測した名前は空、指定値、空である。"
+      },
+      "limitations": {
+        "en": "Positive concrete subtype/base compatibility and selected optional names only; invalid types, abstract construction, layout, factory creation and unspecified initial metadata remain separate.",
+        "ja": "具象subtype／基底の正の互換性と選択した省略可能名のみ。不正型、抽象型の生成、配置、factory生成、未規定の初期metadataは別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_adapter_constructor_forwards_names_and_inherits_the_object_base",
+          "role": "direct",
+          "expected_observations": [
+            "UT: adapter_names omitted 1 named 1 empty 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-INTERACTION-TLM-ADAPTER-BASE",
+      "clause": "19.2.2.1",
+      "statement": {
+        "en": "The TLM register adapter derives from the generic adapter.",
+        "ja": "TLM register adapterはgeneric adapterから派生する。"
+      },
+      "conditions": {
+        "en": "Use the actual TLM adapter through a generic-adapter handle for a selected sixteen-bit round trip.",
+        "ja": "実際のTLM adapterをgeneric-adapter handleで使い、選択した16-bit変換対を実行する。"
+      },
+      "expected": {
+        "en": "The base denotes the concrete adapter and dispatches consistent kind, address, valid data/enables and successful status conversion.",
+        "ja": "基底は具象adapterを指し、整合したkind、address、有効data／enable、成功statusの変換へ委譲する。"
+      },
+      "limitations": {
+        "en": "Paired-conversion consistency through the base type only. Absolute payload byte order, independent one-way lane correspondence, padding, unused bits and inverse n_bits reconstruction remain unconstrained.",
+        "ja": "基底型を通す変換対の整合性のみ。payloadの絶対byte順、片方向lane対応の独立検証、padding、未使用bit、n_bitsの逆再構築は固定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_tlm_adapter_base_view_dispatches_consistent_payload_conversion",
+          "role": "direct",
+          "expected_observations": [
+            "UT: tlm_base identity 1 kind 1 addr 1 data 1 enables 1 status 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-INTERACTION-BACKDOOR-BASE",
+      "clause": "19.5.1",
+      "statement": {
+        "en": "A concrete user backdoor derives from the object base.",
+        "ja": "具象user backdoorはobject基底から派生する。"
+      },
+      "conditions": {
+        "en": "Upcast an original user backdoor to an object handle.",
+        "ja": "独自user backdoorをobject handleへupcastする。"
+      },
+      "expected": {
+        "en": "The base view denotes the same backdoor.",
+        "ja": "基底viewは同じbackdoorを指す。"
+      },
+      "limitations": {
+        "en": "Positive concrete subtype/base compatibility and selected optional names only; invalid types, abstract construction, layout, factory creation and unspecified initial metadata remain separate.",
+        "ja": "具象subtype／基底の正の互換性と選択した省略可能名のみ。不正型、抽象型の生成、配置、factory生成、未規定の初期metadataは別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_user_backdoor_constructor_preserves_optional_names_and_object_base_identity",
+          "role": "direct",
+          "expected_observations": [
+            "UT: backdoor_base 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-INTERACTION-BACKDOOR-NAMES",
+      "clause": "19.5.2.1",
+      "statement": {
+        "en": "The user-backdoor constructor accepts the declared optional name.",
+        "ja": "user-backdoor constructorは宣言された省略可能名を受け付ける。"
+      },
+      "conditions": {
+        "en": "An implicit subtype constructor and explicit forwarding constructors select omitted, named and empty cases.",
+        "ja": "暗黙のsubtype constructorと明示的に名前を渡すconstructorで、省略、指定名、空名を選ぶ。"
+      },
+      "expected": {
+        "en": "Names are empty, selected and empty.",
+        "ja": "名前は空、指定値、空である。"
+      },
+      "limitations": {
+        "en": "Positive concrete subtype/base compatibility and selected optional names only; invalid types, abstract construction, layout, factory creation and unspecified initial metadata remain separate.",
+        "ja": "具象subtype／基底の正の互換性と選択した省略可能名のみ。不正型、抽象型の生成、配置、factory生成、未規定の初期metadataは別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_user_backdoor_constructor_preserves_optional_names_and_object_base_identity",
+          "role": "direct",
+          "expected_observations": [
+            "UT: backdoor_names omitted 1 named 1 empty 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-INTERACTION-PREDICTOR-COMPONENT-BASE",
+      "clause": "19.3.1",
+      "statement": {
+        "en": "An item-typed predictor derives from the component base.",
+        "ja": "item型のpredictorはcomponent基底から派生する。"
+      },
+      "conditions": {
+        "en": "Construct a predictor specialized with an original sequence-item subtype.",
+        "ja": "独自sequence-item subtypeでspecializeしたpredictorを生成する。"
+      },
+      "expected": {
+        "en": "Its component view preserves identity.",
+        "ja": "component viewは同一性を保持する。"
+      },
+      "limitations": {
+        "en": "A positive sequence-item-derived BUSTYPE specialization only. Default-int conversion usability, arbitrary bus types, pending-transaction diagnostic severity and physical DUT observation remain separate.",
+        "ja": "sequence-item派生BUSTYPE specializationの正の検査のみ。既定int変換の利用可否、任意bus型、待機transactionの診断severity、物理DUT観測は別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_predictor_constructor_preserves_component_parent_name_and_typed_ports",
+          "role": "direct",
+          "expected_observations": [
+            "UT: predictor_constructor parent 1 name 1 full_name 1 base 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-INTERACTION-PREDICTOR-PARENT-NAME",
+      "clause": "19.3.3.1",
+      "statement": {
+        "en": "Predictor construction associates its supplied name and component parent.",
+        "ja": "predictor生成は指定した名前とcomponent親を関連付ける。"
+      },
+      "conditions": {
+        "en": "Create selected under the named scope component.",
+        "ja": "名前付きscope componentの下にselectedを生成する。"
+      },
+      "expected": {
+        "en": "Parent, local name, full hierarchical name and base identity agree.",
+        "ja": "親、local名、階層全名、基底の同一性が一致する。"
+      },
+      "limitations": {
+        "en": "A positive sequence-item-derived BUSTYPE specialization only. Default-int conversion usability, arbitrary bus types, pending-transaction diagnostic severity and physical DUT observation remain separate.",
+        "ja": "sequence-item派生BUSTYPE specializationの正の検査のみ。既定int変換の利用可否、任意bus型、待機transactionの診断severity、物理DUT観測は別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_predictor_constructor_preserves_component_parent_name_and_typed_ports",
+          "role": "direct",
+          "expected_observations": [
+            "UT: predictor_constructor parent 1 name 1 full_name 1 base 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-INTERACTION-PREDICTOR-TYPED-INPUT",
+      "clause": "19.3.2.1",
+      "statement": {
+        "en": "The predictor input is an analysis implementation specialized for its selected bus type.",
+        "ja": "predictor入力は選択したbus型でspecializeしたanalysis implementationである。"
+      },
+      "conditions": {
+        "en": "Assign bus_in to the exact item-derived analysis implementation type.",
+        "ja": "bus_inを正確なitem派生analysis implementation型へ代入する。"
+      },
+      "expected": {
+        "en": "The correctly typed input handle is nonnull.",
+        "ja": "正しい型の入力handleはnonnullである。"
+      },
+      "limitations": {
+        "en": "A positive sequence-item-derived BUSTYPE specialization only. Default-int conversion usability, arbitrary bus types, pending-transaction diagnostic severity and physical DUT observation remain separate.",
+        "ja": "sequence-item派生BUSTYPE specializationの正の検査のみ。既定int変換の利用可否、任意bus型、待機transactionの診断severity、物理DUT観測は別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_predictor_constructor_preserves_component_parent_name_and_typed_ports",
+          "role": "direct",
+          "expected_observations": [
+            "UT: predictor_ports input 1 output 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-INTERACTION-PREDICTOR-TYPED-OUTPUT",
+      "clause": "19.3.2.2",
+      "statement": {
+        "en": "The predictor output is a register-item analysis port.",
+        "ja": "predictor出力はregister-item analysis portである。"
+      },
+      "conditions": {
+        "en": "Assign reg_ap to an analysis port of uvm_reg_item.",
+        "ja": "reg_apをuvm_reg_itemのanalysis portへ代入する。"
+      },
+      "expected": {
+        "en": "The correctly typed output handle is nonnull.",
+        "ja": "正しい型の出力handleはnonnullである。"
+      },
+      "limitations": {
+        "en": "A positive sequence-item-derived BUSTYPE specialization only. Default-int conversion usability, arbitrary bus types, pending-transaction diagnostic severity and physical DUT observation remain separate.",
+        "ja": "sequence-item派生BUSTYPE specializationの正の検査のみ。既定int変換の利用可否、任意bus型、待機transactionの診断severity、物理DUT観測は別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_predictor_constructor_preserves_component_parent_name_and_typed_ports",
+          "role": "direct",
+          "expected_observations": [
+            "UT: predictor_ports input 1 output 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-INTERACTION-PREDICTOR-CONFIGURED-MAP",
+      "clause": "19.3.2.3",
+      "statement": {
+        "en": "Prediction uses the map configured before run to resolve bus addresses.",
+        "ja": "予測はrun前に設定したmapでbus addressを解決する。"
+      },
+      "conditions": {
+        "en": "Two predictors use independent maps containing registers at different addresses.",
+        "ja": "2つのpredictorが、異なるaddressのregisterを含む独立mapを使う。"
+      },
+      "expected": {
+        "en": "Each observation updates and publishes only the register found by that predictor map.",
+        "ja": "各観測は、そのpredictorのmapで見つかるregisterだけを更新・公開する。"
+      },
+      "limitations": {
+        "en": "Original protocol codecs and analysis producers exercise real register maps, predictor inputs, mirrors and publication sinks. Both map and adapter are selected before run. No live reconfiguration, physical DUT, arbitrary protocol or complete access-policy coverage is established.",
+        "ja": "独自protocol codecとanalysis送信側で、実際のregister map、predictor入力、mirror、公開sinkを検査する。mapとadapterはともにrun前に選択する。実行中の再設定、物理DUT、任意protocol、access-policy全体のcoverageは認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_predictor_independent_maps_use_configuration_selected_before_run",
+          "role": "direct",
+          "expected_observations": [
+            "UT: first left 2b right 0 publications 1 0",
+            "UT: second left 2b right 18 publications 1 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-INTERACTION-PREDICTOR-CONFIGURED-ADAPTER",
+      "clause": "19.3.2.4",
+      "statement": {
+        "en": "Prediction converts incoming bus items through the adapter configured before run.",
+        "ja": "予測はrun前に設定したadapterで入力bus itemを変換する。"
+      },
+      "conditions": {
+        "en": "Two predictors share one map but use independently selected XOR decoders.",
+        "ja": "2つのpredictorが1つのmapを共有し、独立に選んだXOR decoderを使う。"
+      },
+      "expected": {
+        "en": "The same raw observation produces the selected decoded mirror/publication values while the earlier sink snapshot stays unchanged.",
+        "ja": "同じraw観測から選択した復号mirror／公開値が得られ、以前のsink snapshotは変わらない。"
+      },
+      "limitations": {
+        "en": "Original protocol codecs and analysis producers exercise real register maps, predictor inputs, mirrors and publication sinks. Both map and adapter are selected before run. No live reconfiguration, physical DUT, arbitrary protocol or complete access-policy coverage is established.",
+        "ja": "独自protocol codecとanalysis送信側で、実際のregister map、predictor入力、mirror、公開sinkを検査する。mapとadapterはともにrun前に選択する。実行中の再設定、物理DUT、任意protocol、access-policy全体のcoverageは認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_predictor_shared_map_decoders_use_configuration_selected_before_run",
+          "role": "direct",
+          "expected_observations": [
+            "UT: first mirror 2b published 2b calls 1 0",
+            "UT: second mirror 18 left_snapshot 2b right_snapshot 18 calls 1 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-INTERACTION-DEFAULT-READ-FUNCTION-DISPATCH",
+      "clause": "19.5.2.7",
+      "statement": {
+        "en": "The default backdoor read delegates its peek step to the virtual read_func extension.",
+        "ja": "既定backdoor readはpeek段階をvirtual read_func拡張へ委譲する。"
+      },
+      "conditions": {
+        "en": "Invoke the inherited read task through a base handle with success, failure and callback lifecycle cases.",
+        "ja": "成功、失敗、callback lifecycleの条件で、基底handleから継承したread taskを呼ぶ。"
+      },
+      "expected": {
+        "en": "The same supplied descriptor reaches the original function once per read and retains its selected success or failure result.",
+        "ja": "同じ指定descriptorがreadごとに1回独自functionへ渡り、選択した成功または失敗の結果を保持する。"
+      },
+      "limitations": {
+        "en": "The default library read wraps an original function-based backdoor with original storage and registered pre/post callbacks. Only selected status, descriptor identity, offset and value propagation are observed. Failed-read data, physical HDL, encode/decode-array transformations, task-read extension boundary placement and arbitrary callback combinations remain separate.",
+        "ja": "libraryの既定readが、独自記憶域と登録pre／post callbackを持つ独自function-based backdoorを包む。選択したstatus、descriptorの同一性、offset、値の伝播だけを観測する。失敗read data、物理HDL、encode／decode配列変換、task-read拡張の境界配置、任意callback組合せは別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_user_backdoor_default_read_success_preserves_hook_and_callback_contracts",
+          "role": "direct",
+          "expected_observations": [
+            "UT: read_trace RCFcr identity 1 pre 1 body 1 post 1",
+            "UT: read_success status 1 value b5 reads 1"
+          ]
+        },
+        {
+          "test": "u19/test_user_backdoor_default_read_failure_preserves_hook_and_callback_contracts",
+          "role": "direct",
+          "expected_observations": [
+            "UT: read_trace RCFcr identity 1 pre 1 body 1 post 1",
+            "UT: read_failure status 1 reads 1 callbacks 1 1"
+          ]
+        },
+        {
+          "test": "u19/test_user_backdoor_default_read_registration_lifecycle_preserves_hook_and_callback_contracts",
+          "role": "direct",
+          "expected_observations": [
+            "UT: read_trace RCFcr identity 1 pre 1 body 1 post 1",
+            "UT: read_success status 1 value b5 reads 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-INTERACTION-READ-PRE-HELPER-CALLBACKS",
+      "clause": "19.5.2.2",
+      "statement": {
+        "en": "The protected pre-read helper executes the registered pre-read callbacks.",
+        "ja": "protected pre-read helperは登録pre-read callbackを実行する。"
+      },
+      "conditions": {
+        "en": "The default read uses a registered callback, then the same callback is removed and readded.",
+        "ja": "既定readで登録callbackを使い、その同じcallbackを削除・再登録する。"
+      },
+      "expected": {
+        "en": "A registered callback occurs before the peek; deletion removes that invocation and readdition restores it.",
+        "ja": "登録callbackはpeek前に実行され、削除でその呼出しが消え、再登録で復元する。"
+      },
+      "limitations": {
+        "en": "The default library read wraps an original function-based backdoor with original storage and registered pre/post callbacks. Only selected status, descriptor identity, offset and value propagation are observed. Failed-read data, physical HDL, encode/decode-array transformations, task-read extension boundary placement and arbitrary callback combinations remain separate.",
+        "ja": "libraryの既定readが、独自記憶域と登録pre／post callbackを持つ独自function-based backdoorを包む。選択したstatus、descriptorの同一性、offset、値の伝播だけを観測する。失敗read data、物理HDL、encode／decode配列変換、task-read拡張の境界配置、任意callback組合せは別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_user_backdoor_default_read_registration_lifecycle_preserves_hook_and_callback_contracts",
+          "role": "direct",
+          "expected_observations": [
+            "UT: read_trace RCFcr identity 1 pre 1 body 1 post 1",
+            "UT: removed trace RFr value 24 reads 2 callbacks 1 1",
+            "UT: readded trace RCFcr value d6 reads 3 callbacks 2 2 state 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-INTERACTION-READ-POST-HELPER-CALLBACKS",
+      "clause": "19.5.2.3",
+      "statement": {
+        "en": "The protected post-read helper executes the registered post-read callbacks.",
+        "ja": "protected post-read helperは登録post-read callbackを実行する。"
+      },
+      "conditions": {
+        "en": "The same descriptor is read with a callback registered, removed and readded.",
+        "ja": "callbackを登録、削除、再登録した状態で同じdescriptorをreadする。"
+      },
+      "expected": {
+        "en": "A registered post callback occurs after the peek; its selected value change is visible to the later post hook.",
+        "ja": "登録post callbackはpeek後に実行され、選択した値の変更が後続post hookから見える。"
+      },
+      "limitations": {
+        "en": "The default library read wraps an original function-based backdoor with original storage and registered pre/post callbacks. Only selected status, descriptor identity, offset and value propagation are observed. Failed-read data, physical HDL, encode/decode-array transformations, task-read extension boundary placement and arbitrary callback combinations remain separate.",
+        "ja": "libraryの既定readが、独自記憶域と登録pre／post callbackを持つ独自function-based backdoorを包む。選択したstatus、descriptorの同一性、offset、値の伝播だけを観測する。失敗read data、物理HDL、encode／decode配列変換、task-read拡張の境界配置、任意callback組合せは別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_user_backdoor_default_read_registration_lifecycle_preserves_hook_and_callback_contracts",
+          "role": "direct",
+          "expected_observations": [
+            "UT: read_trace RCFcr identity 1 pre 1 body 1 post 1",
+            "UT: removed trace RFr value 24 reads 2 callbacks 1 1",
+            "UT: readded trace RCFcr value d6 reads 3 callbacks 2 2 state 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-INTERACTION-READ-FUNCTION-RESULT",
+      "clause": "19.5.2.8",
+      "statement": {
+        "en": "A function-based backdoor supplies the current value and operation status through its descriptor.",
+        "ja": "function-based backdoorはdescriptorへ現在値とoperation statusを設定する。"
+      },
+      "conditions": {
+        "en": "The default read invokes an original function using the offset selected by pre processing.",
+        "ja": "既定readが、pre処理で選択したoffsetを使う独自functionを呼ぶ。"
+      },
+      "expected": {
+        "en": "Success returns the selected stored value after the original callback transform; failure returns NOT_OK without constraining data.",
+        "ja": "成功は独自callback変換後の選択記憶値を返し、失敗はdataを固定せずNOT_OKを返す。"
+      },
+      "limitations": {
+        "en": "The default library read wraps an original function-based backdoor with original storage and registered pre/post callbacks. Only selected status, descriptor identity, offset and value propagation are observed. Failed-read data, physical HDL, encode/decode-array transformations, task-read extension boundary placement and arbitrary callback combinations remain separate.",
+        "ja": "libraryの既定readが、独自記憶域と登録pre／post callbackを持つ独自function-based backdoorを包む。選択したstatus、descriptorの同一性、offset、値の伝播だけを観測する。失敗read data、物理HDL、encode／decode配列変換、task-read拡張の境界配置、任意callback組合せは別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_user_backdoor_default_read_success_preserves_hook_and_callback_contracts",
+          "role": "direct",
+          "expected_observations": [
+            "UT: read_success status 1 value b5 reads 1"
+          ]
+        },
+        {
+          "test": "u19/test_user_backdoor_default_read_failure_preserves_hook_and_callback_contracts",
+          "role": "direct",
+          "expected_observations": [
+            "UT: read_failure status 1 reads 1 callbacks 1 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-INTERACTION-READ-PRE-HOOK-ORDER",
+      "clause": "19.5.2.9",
+      "statement": {
+        "en": "The user pre-read hook precedes registered callbacks and the backdoor peek.",
+        "ja": "user pre-read hookは登録callbackとbackdoor peekに先行する。"
+      },
+      "conditions": {
+        "en": "An original hook sets offset one and a callback verifies it before changing it to two.",
+        "ja": "独自hookがoffsetを1にし、callbackがそれを検査してから2へ変える。"
+      },
+      "expected": {
+        "en": "Trace RCFcr and the body-offset check show hook, callback and function ordering with the same descriptor.",
+        "ja": "trace RCFcrとbody-offset検査は、同じdescriptorでhook、callback、functionの順序を示す。"
+      },
+      "limitations": {
+        "en": "The default library read wraps an original function-based backdoor with original storage and registered pre/post callbacks. Only selected status, descriptor identity, offset and value propagation are observed. Failed-read data, physical HDL, encode/decode-array transformations, task-read extension boundary placement and arbitrary callback combinations remain separate.",
+        "ja": "libraryの既定readが、独自記憶域と登録pre／post callbackを持つ独自function-based backdoorを包む。選択したstatus、descriptorの同一性、offset、値の伝播だけを観測する。失敗read data、物理HDL、encode／decode配列変換、task-read拡張の境界配置、任意callback組合せは別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_user_backdoor_default_read_success_preserves_hook_and_callback_contracts",
+          "role": "direct",
+          "expected_observations": [
+            "UT: read_trace RCFcr identity 1 pre 1 body 1 post 1"
+          ]
+        },
+        {
+          "test": "u19/test_user_backdoor_default_read_failure_preserves_hook_and_callback_contracts",
+          "role": "direct",
+          "expected_observations": [
+            "UT: read_trace RCFcr identity 1 pre 1 body 1 post 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-INTERACTION-READ-POST-HOOK-ORDER",
+      "clause": "19.5.2.10",
+      "statement": {
+        "en": "Registered post-read callbacks precede the user post-read hook after the peek.",
+        "ja": "peek後の登録post-read callbackはuser post-read hookに先行する。"
+      },
+      "conditions": {
+        "en": "The post callback modifies successful data before the original post hook inspects it.",
+        "ja": "独自post hookの検査前に、post callbackが成功dataを変更する。"
+      },
+      "expected": {
+        "en": "Trace and the post-value check show the callback change at the final hook.",
+        "ja": "traceとpost-value検査は、最後のhookでcallbackの変更を示す。"
+      },
+      "limitations": {
+        "en": "The default library read wraps an original function-based backdoor with original storage and registered pre/post callbacks. Only selected status, descriptor identity, offset and value propagation are observed. Failed-read data, physical HDL, encode/decode-array transformations, task-read extension boundary placement and arbitrary callback combinations remain separate.",
+        "ja": "libraryの既定readが、独自記憶域と登録pre／post callbackを持つ独自function-based backdoorを包む。選択したstatus、descriptorの同一性、offset、値の伝播だけを観測する。失敗read data、物理HDL、encode／decode配列変換、task-read拡張の境界配置、任意callback組合せは別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_user_backdoor_default_read_success_preserves_hook_and_callback_contracts",
+          "role": "direct",
+          "expected_observations": [
+            "UT: read_trace RCFcr identity 1 pre 1 body 1 post 1"
+          ]
+        },
+        {
+          "test": "u19/test_user_backdoor_default_read_failure_preserves_hook_and_callback_contracts",
+          "role": "direct",
+          "expected_observations": [
+            "UT: read_trace RCFcr identity 1 pre 1 body 1 post 1"
+          ]
+        },
+        {
+          "test": "u19/test_user_backdoor_default_read_registration_lifecycle_preserves_hook_and_callback_contracts",
+          "role": "direct",
+          "expected_observations": [
+            "UT: readded trace RCFcr value d6 reads 3 callbacks 2 2 state 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-INTERACTION-USER-WRITE-RESULT",
+      "clause": "19.5.2.6",
+      "statement": {
+        "en": "A user-defined backdoor write reports its selected deposit result after pre/post processing.",
+        "ja": "user-defined backdoor writeはpre／post処理後に、選択したdeposit結果を報告する。"
+      },
+      "conditions": {
+        "en": "Invoke an original successful or failing backdoor write through register write.",
+        "ja": "register writeから独自の成功または失敗backdoor writeを呼ぶ。"
+      },
+      "expected": {
+        "en": "Success stores transformed value 0x20 and reports OK; failure preserves original storage and reports NOT_OK.",
+        "ja": "成功は変換値0x20を格納してOKを報告し、失敗は元記憶域を保持してNOT_OKを報告する。"
+      },
+      "limitations": {
+        "en": "A real register-model backdoor access invokes an original public virtual write extension whose first/last statements are the standard protected helpers. Original storage and pre/post callbacks isolate the helper/order/value/status contract. The printed protected write signature versus extension visibility/virtuality, a default base-write algorithm, physical HDL and encode/decode-array behavior remain unresolved or unmeasured.",
+        "ja": "実際のregister-model backdoor accessが、最初／最後の文を標準protected helperにした独自public virtual write拡張を呼ぶ。独自記憶域とpre／post callbackでhelper／順序／値／status契約を分離する。印刷されたprotected write signatureと拡張の可視性／virtual性、既定base-write algorithm、物理HDL、encode／decode配列動作は未解決または未測定に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_user_backdoor_write_success_propagates_pre_hook_changes_and_post_callbacks",
+          "role": "direct",
+          "expected_observations": [
+            "UT: write_result ok 1 failed 0 stored 20 writes 1"
+          ]
+        },
+        {
+          "test": "u19/test_user_backdoor_write_failure_propagates_pre_hook_changes_and_post_callbacks",
+          "role": "direct",
+          "expected_observations": [
+            "UT: write_result ok 0 failed 1 stored 55 writes 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-INTERACTION-WRITE-PRE-HELPER-CALLBACKS",
+      "clause": "19.5.2.4",
+      "statement": {
+        "en": "The pre-write helper invoked first by a user write executes its pre callbacks before deposit.",
+        "ja": "user writeが最初に呼ぶpre-write helperはdeposit前にpre callbackを実行する。"
+      },
+      "conditions": {
+        "en": "The original write starts with do_pre_write on the register layer supplied descriptor.",
+        "ja": "独自writeはregister layerが渡すdescriptorへのdo_pre_writeで開始する。"
+      },
+      "expected": {
+        "en": "Trace and identity checks place the callback before the original storage operation.",
+        "ja": "traceと同一性の検査は、独自記憶操作より前にcallbackを示す。"
+      },
+      "limitations": {
+        "en": "A real register-model backdoor access invokes an original public virtual write extension whose first/last statements are the standard protected helpers. Original storage and pre/post callbacks isolate the helper/order/value/status contract. The printed protected write signature versus extension visibility/virtuality, a default base-write algorithm, physical HDL and encode/decode-array behavior remain unresolved or unmeasured.",
+        "ja": "実際のregister-model backdoor accessが、最初／最後の文を標準protected helperにした独自public virtual write拡張を呼ぶ。独自記憶域とpre／post callbackでhelper／順序／値／status契約を分離する。印刷されたprotected write signatureと拡張の可視性／virtual性、既定base-write algorithm、物理HDL、encode／decode配列動作は未解決または未測定に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_user_backdoor_write_success_propagates_pre_hook_changes_and_post_callbacks",
+          "role": "direct",
+          "expected_observations": [
+            "UT: write_trace WCBcw identity 1 pre 1 body 1 post 1"
+          ]
+        },
+        {
+          "test": "u19/test_user_backdoor_write_failure_propagates_pre_hook_changes_and_post_callbacks",
+          "role": "direct",
+          "expected_observations": [
+            "UT: write_trace WCBcw identity 1 pre 1 body 1 post 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-INTERACTION-WRITE-POST-HELPER-CALLBACKS",
+      "clause": "19.5.2.5",
+      "statement": {
+        "en": "The post-write helper invoked last by a user write executes its post callbacks after deposit.",
+        "ja": "user writeが最後に呼ぶpost-write helperはdeposit後にpost callbackを実行する。"
+      },
+      "conditions": {
+        "en": "The original write ends with do_post_write after selecting its result status.",
+        "ja": "独自writeは結果statusの選択後にdo_post_writeで終わる。"
+      },
+      "expected": {
+        "en": "Trace places the callback after the body for both selected statuses.",
+        "ja": "traceは、選択した両statusでbodyの後にcallbackを示す。"
+      },
+      "limitations": {
+        "en": "A real register-model backdoor access invokes an original public virtual write extension whose first/last statements are the standard protected helpers. Original storage and pre/post callbacks isolate the helper/order/value/status contract. The printed protected write signature versus extension visibility/virtuality, a default base-write algorithm, physical HDL and encode/decode-array behavior remain unresolved or unmeasured.",
+        "ja": "実際のregister-model backdoor accessが、最初／最後の文を標準protected helperにした独自public virtual write拡張を呼ぶ。独自記憶域とpre／post callbackでhelper／順序／値／status契約を分離する。印刷されたprotected write signatureと拡張の可視性／virtual性、既定base-write algorithm、物理HDL、encode／decode配列動作は未解決または未測定に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_user_backdoor_write_success_propagates_pre_hook_changes_and_post_callbacks",
+          "role": "direct",
+          "expected_observations": [
+            "UT: write_trace WCBcw identity 1 pre 1 body 1 post 1"
+          ]
+        },
+        {
+          "test": "u19/test_user_backdoor_write_failure_propagates_pre_hook_changes_and_post_callbacks",
+          "role": "direct",
+          "expected_observations": [
+            "UT: write_trace WCBcw identity 1 pre 1 body 1 post 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-INTERACTION-WRITE-PRE-HOOK-ORDER",
+      "clause": "19.5.2.11",
+      "statement": {
+        "en": "The user pre-write hook precedes registered pre-write callbacks.",
+        "ja": "user pre-write hookは登録pre-write callbackに先行する。"
+      },
+      "conditions": {
+        "en": "The hook adds 0x10 to input 0x13 and the callback checks that intermediate value.",
+        "ja": "hookが入力0x13へ0x10を加え、callbackがその中間値を検査する。"
+      },
+      "expected": {
+        "en": "The callback sees 0x23 and precedes the write body on the same descriptor.",
+        "ja": "callbackは0x23を観測し、同じdescriptorのwrite bodyに先行する。"
+      },
+      "limitations": {
+        "en": "A real register-model backdoor access invokes an original public virtual write extension whose first/last statements are the standard protected helpers. Original storage and pre/post callbacks isolate the helper/order/value/status contract. The printed protected write signature versus extension visibility/virtuality, a default base-write algorithm, physical HDL and encode/decode-array behavior remain unresolved or unmeasured.",
+        "ja": "実際のregister-model backdoor accessが、最初／最後の文を標準protected helperにした独自public virtual write拡張を呼ぶ。独自記憶域とpre／post callbackでhelper／順序／値／status契約を分離する。印刷されたprotected write signatureと拡張の可視性／virtual性、既定base-write algorithm、物理HDL、encode／decode配列動作は未解決または未測定に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_user_backdoor_write_success_propagates_pre_hook_changes_and_post_callbacks",
+          "role": "direct",
+          "expected_observations": [
+            "UT: write_trace WCBcw identity 1 pre 1 body 1 post 1"
+          ]
+        },
+        {
+          "test": "u19/test_user_backdoor_write_failure_propagates_pre_hook_changes_and_post_callbacks",
+          "role": "direct",
+          "expected_observations": [
+            "UT: write_trace WCBcw identity 1 pre 1 body 1 post 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-INTERACTION-WRITE-MODIFIED-VALUE",
+      "clause": "19.5.2.11",
+      "statement": {
+        "en": "Changing the written value in pre processing changes the value supplied to the deposit.",
+        "ja": "pre処理でwrite値を変えると、depositへ渡す値が変わる。"
+      },
+      "conditions": {
+        "en": "The user hook and original callback transform 0x13 into 0x20.",
+        "ja": "user hookと独自callbackが0x13を0x20へ変換する。"
+      },
+      "expected": {
+        "en": "The write body receives 0x20; successful storage contains 0x20.",
+        "ja": "write bodyは0x20を受け取り、成功した記憶域は0x20を持つ。"
+      },
+      "limitations": {
+        "en": "A real register-model backdoor access invokes an original public virtual write extension whose first/last statements are the standard protected helpers. Original storage and pre/post callbacks isolate the helper/order/value/status contract. The printed protected write signature versus extension visibility/virtuality, a default base-write algorithm, physical HDL and encode/decode-array behavior remain unresolved or unmeasured.",
+        "ja": "実際のregister-model backdoor accessが、最初／最後の文を標準protected helperにした独自public virtual write拡張を呼ぶ。独自記憶域とpre／post callbackでhelper／順序／値／status契約を分離する。印刷されたprotected write signatureと拡張の可視性／virtual性、既定base-write algorithm、物理HDL、encode／decode配列動作は未解決または未測定に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_user_backdoor_write_success_propagates_pre_hook_changes_and_post_callbacks",
+          "role": "direct",
+          "expected_observations": [
+            "UT: write_trace WCBcw identity 1 pre 1 body 1 post 1",
+            "UT: write_result ok 1 failed 0 stored 20 writes 1"
+          ]
+        },
+        {
+          "test": "u19/test_user_backdoor_write_failure_propagates_pre_hook_changes_and_post_callbacks",
+          "role": "direct",
+          "expected_observations": [
+            "UT: write_trace WCBcw identity 1 pre 1 body 1 post 1",
+            "UT: write_result ok 0 failed 1 stored 55 writes 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-INTERACTION-WRITE-POST-HOOK-ORDER",
+      "clause": "19.5.2.12",
+      "statement": {
+        "en": "Registered post-write callbacks precede the user post-write hook after deposit.",
+        "ja": "deposit後の登録post-write callbackはuser post-write hookに先行する。"
+      },
+      "conditions": {
+        "en": "The original body selects its status before calling the protected post helper.",
+        "ja": "独自bodyがstatusを選択してからprotected post helperを呼ぶ。"
+      },
+      "expected": {
+        "en": "Trace WCBcw and descriptor/value checks show callback then hook after the body.",
+        "ja": "trace WCBcwとdescriptor／値の検査は、body後にcallback、hookの順を示す。"
+      },
+      "limitations": {
+        "en": "A real register-model backdoor access invokes an original public virtual write extension whose first/last statements are the standard protected helpers. Original storage and pre/post callbacks isolate the helper/order/value/status contract. The printed protected write signature versus extension visibility/virtuality, a default base-write algorithm, physical HDL and encode/decode-array behavior remain unresolved or unmeasured.",
+        "ja": "実際のregister-model backdoor accessが、最初／最後の文を標準protected helperにした独自public virtual write拡張を呼ぶ。独自記憶域とpre／post callbackでhelper／順序／値／status契約を分離する。印刷されたprotected write signatureと拡張の可視性／virtual性、既定base-write algorithm、物理HDL、encode／decode配列動作は未解決または未測定に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_user_backdoor_write_success_propagates_pre_hook_changes_and_post_callbacks",
+          "role": "direct",
+          "expected_observations": [
+            "UT: write_trace WCBcw identity 1 pre 1 body 1 post 1"
+          ]
+        },
+        {
+          "test": "u19/test_user_backdoor_write_failure_propagates_pre_hook_changes_and_post_callbacks",
+          "role": "direct",
+          "expected_observations": [
+            "UT: write_trace WCBcw identity 1 pre 1 body 1 post 1"
+          ]
+        }
+      ]
     }
   ]
 }

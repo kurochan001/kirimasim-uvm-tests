@@ -1,0 +1,2 @@
+UT: write_trace WCBcw identity 1 pre 1 body 1 post 1
+UT: write_result ok 1 failed 0 stored 20 writes 1

@@ -746,3 +746,14 @@ libraryがmodeで制御する実行時に、そのfieldで子を選ぶことは�
 
 **Relevance-wait cancellation（relevance待ちの中止）** — 待機要求が実行不可の間にsequenceを終了することです。
 停止状態、startの戻り、生存側の保持、その後の実trafficは別々の観測で、全終了hookの完全な証明ではありません。
+
+## User-backdoorとpredictorの観測
+
+**Default-read delegation（既定readの委譲）** — 継承したbackdoor read taskがpre／post処理を保持し、peek段階でuser functionを呼ぶことです。
+この経路の観測は、task-based read overrideの境界配置を検査しません。
+
+**Backdoor hook trace（backdoor hookのtrace）** — user hook、登録callback、記憶操作を独自testbenchで観測し、
+descriptorの同一性と選択した値／status伝播も含めることです。非公開library queueの説明やencode／decode配列動作の認定ではありません。
+
+**Pre-run predictor configuration（run前のpredictor設定）** — run phase前にmapとadapterの選択を完了し、
+実際のmirror更新とanalysis公開を通して効果を検査することです。run中の設定変更が対応済みであるとは約束しません。

@@ -122,7 +122,7 @@ Ghostは公開前のシミュレータの仮名です。実行ファイルの識
 ### Q12. uvm_dpi: yesだけでDPIを使うビルドが完成しますか
 
 既定のマクロ一覧から`UVM_NO_DPI`を外す指定です。UVMのC/C++実装の供給・リンクは行いません。
-通常のVerilator runnerは、そのsourceを追加しません。`UVM_NO_DPI`が1287件、HDL DPIの明示選択が8件です。
+通常のVerilator runnerは、そのsourceを追加しません。`UVM_NO_DPI`が1300件、HDL DPIの明示選択が8件です。
 別の18検査系はHDLを無効にしてcommand-line／regex DPIを明示して有効化し、
 [command-line runner](testing.ja.md#verilatorのcommand-line部分集合)がその別backendをlinkします。
 [別のVPI runner](testing.ja.md#verilatorのvpi-hdl部分集合)は独自の限定backendをlinkし、結果は宣言した実行条件だけに適用します。
@@ -157,7 +157,7 @@ Ghostはさらに実行ファイル・profile・供給されたライブラリ�
 
 ### Q16. M1・M2・M3は完了していますか。件数は何の網羅を示しますか
 
-M1・M2には条項ごとの目標に未達があります。M3はbusモデルのfrontdoor経路を含め396件まで追加した段階で、未完です。
+M1・M2には条項ごとの目標に未達があります。M3はbusモデルのfrontdoor経路を含め409件まで追加した段階で、未完です。
 次の段階の開始によって、それまでの段階が完了したとは扱いません。
 範囲と残りの作業は[進め方](../README.ja.md#進め方)にあります。
 件数はテストの本数で、規格の全要求や組み合わせの棚卸しではありません。
@@ -923,8 +923,8 @@ controlの対応は、その要求の直接の検査ではありません。
 
 ### Q77. M4を始めたのに、カバレッジ率がないのはなぜですか
 
-AIによる1802要求案は部分的な分解で、1802要求を1312テストへ直接対応付け、直接未対応は0要求、別の1テストはcontrolです。
-全1313テストに要求の対応付けがあります。2,507の条項番号は規範的要求の単位ではありません。
+AIによる1828要求案は部分的な分解で、1828要求を1325テストへ直接対応付け、直接未対応は0要求、別の1テストはcontrolです。
+全1326テストに要求の対応付けがあります。2,507の条項番号は規範的要求の単位ではありません。
 範囲は提案、棚卸しは未完、分母は未承認で、M4の開始はどれの承認にもなりません。
 既知差分やHDL／DPIの制約によって義務を暗黙に除外しません。[承認までの手順](requirements.ja.md#m4の残作業と承認)を参照してください。
 
@@ -1709,7 +1709,7 @@ user backdoorは16 bit locationをモデル化します。location独立性、�
 
 いいえ。`tests_without_requirement_links`は0で、現在の全テストに、明示的なdirectまたはcontrolの対応があります。
 別の集計`requirements_without_direct_tests`も0件です。memory-walkの対応はQ134の限定した歴史的解釈で、
-省略されたIEEEの詳細の承認ではありません。HDL depositと利用可否には、明示VPI検査系があります。catalogの識別子1,401件も未評価です。
+省略されたIEEEの詳細の承認ではありません。HDL depositと利用可否には、明示VPI検査系があります。catalogの識別子1,365件も未評価です。
 分解と人のレビューは未完で、分母は未承認です。
 
 [新しいpolicyテスト](../tests/u16/test_policy_object_stack_tracks_nested_active_policy_push_and_pop.sv)は、
@@ -1786,7 +1786,7 @@ frontdoor保護のwarningはalgorithm oracleの対象外で、ERRORと観測し�
 個別に読んだ後、日英の根拠とAI／人のレビューを[番号の分類](../coverage/assessments.json)へ記録すれば可能です。
 構造上の見出しは関連要求を持たず、文脈の説明は既存要求を指定します。
 未レビューの記録、推測した分類、親への集約では外せません。生成状態は`assessed`で、要求条項の`partial`と区別します。
-現在の分類は91件で、分母承認や新たなpassを加えません。第11章の未評価0件でも、その要求の完了ではありません。
+現在の分類は104件で、分母承認や新たなpassを加えません。第11章の未評価0件でも、その要求の完了ではありません。
 
 ### Q136. 明示strict configurationで新規検査は成功しますか？
 
@@ -2161,3 +2161,26 @@ driverが独自relevance待ちへ入った後、そのsequenceをkillすると�
 生存側または新規peerが、その後実際のitem転送を完了します。[親子stopの検査系](../tests/u15/test_stop_sequences_cancels_a_child_relevance_wait_and_allows_fresh_traffic.sv)は、
 activeな親子tree、両停止状態、kill hook、その後の新規trafficを検査します。非公開request queueや正確なpoll／hook回数は使いません。
 必要なpost-body／post-start hookは別のspec-only差分のままで、cleanupの成功をkill契約全体のpassへ変えません。
+
+## User backdoorと設定済みpredictor
+
+### Q177. 既定user-backdoor readの検査系は何を示しますか？
+
+基底handleからlibraryの継承read taskを呼びます。独自functionが記憶data／statusを設定し、独自hook／callbackで、
+pre hook、登録pre callback、function、登録post callback、post hookの順序を観測します。同じdescriptorがoffset／値の変更を運びます。
+成功、失敗、同じcallbackの削除／再登録を検査し、失敗read dataは固定しません。物理HDLや新しいDPI backendを使わないuser-backdoor検査です。
+task-based read overrideの最初／最後のhelper配置とencode／decode配列の動作は別の義務に残します。
+
+### Q178. user writeの一致で、印刷された可視性宣言も解決しますか？
+
+いいえ。規格のwrite宣言と拡張の本文は追加レビューが必要です。検査系は実際のregister modelから独自public virtual拡張を呼び、
+標準protected helperを最初／最後に置きます。hook／callbackの順序、変換dataが独自記憶域へ渡ること、戻るstatusを検査します。
+この選択した拡張経路を検証し、既定base-write実装の認定や、観測したlibrary動作からの可視性／virtual性の解決は行いません。
+曖昧さは要求案の制限に保持します。
+
+### Q179. predictorのmap／adapter検査は何を示しますか？
+
+両設定は規定どおりrun前に行います。独立mapで異なるaddressのregister検索と公開を分離し、共有map上の独立decoderで、
+同じraw itemから異なる選択mirror／公開値を得ます。独自送信側とsinkで実際のpredictor portとregister mirrorを観測します。
+別のconstructor検査ではcomponentの同一性、親／名前、選択したportの正確な型を調べます。packetのfactory登録は固定library向けの設定で、oracleは規格から導きます。
+実行中の再設定、物理bus traffic、既定int変換の利用可否、未規定の待機transaction診断severityは示しません。

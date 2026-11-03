@@ -2,7 +2,7 @@
 
 [English](history.md) · [README](../README.ja.md)
 
-M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の31回目の拡充（シミュレーション1313件）までを記録しています。以前の349件の時点は
+M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の32回目の拡充（シミュレーション1326件）までを記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -1803,3 +1803,24 @@ AI要求案23件で台帳1802件、1312テストへ直接対応し、別control 
 tool単体101件、全1313 metadata、台帳／索引／library同一性、互換evidence、日英10組のFAQ 176回答・用語197語を照合します。
 以前の入力、全runner／tool、CI、catalog、backend、scope、lock、license、Issue方針、SVG 6 asset、別VPI記録は未変更です。
 部分分解した残る義務を含め、goalは有効なままです。
+
+## M1〜M4の薄い領域の32回目の拡充
+
+継続goalの4反復目でM3の13検査系を追加し、item／adapterの名前・型・変換4件、backdoorの名前・型1件、既定read／callback 3件、独自write 2件、predictorの型・設定3件を扱います。
+最終入力はすべてseed 1・73一致で、全体1326件、M1 447件、M2 470件、M3 409件です。初期predictor packetの設定には正しい型のfactory登録がなく、
+追加によって固定libraryのtype-name経路を直し、期待観測は変えていません。既定readは独自functionを呼び、正確なdescriptor同一性、pre／post順序、
+現在のcallback登録、成功／失敗statusを観測します。write hookは実際のregister modelからprotected helperを通し、変換dataを独自記憶域へ渡します。
+独立に設定したmap／decoderは、実際のmirrorと公開値へ反映されます。
+
+AI要求案26件で台帳1828件、1325テストへ直接対応し、別control 1件があります。以前の要求案はすべて保持します。
+個別の構造6件・文脈7件の分類で計104件、構造87件・文脈17件です。第19章は部分分解70番号・分類15番号・未評価26番号です。
+全体2,507番号は部分分解1038件、分類104件、未評価1,365件で、今回36件減、goal有効化から98件減です。
+主引用653番号、いずれかの引用1,318番号、候補の棚卸しは0件1,829、1件375、2件以上278です。
+分解、milestone目標、範囲、人のreviewは未完で、率や承認を捏造しません。
+
+互換な通常evidenceは以前の1313入力をすべて保持し、pass 1167件、known 159件です。内訳は実行時初回差分117件、API欠落build 16件、DPI未link build 26件です。
+別command-line evidenceはpass 17／known 1、HDL VPIはpass 7／fail 1のままです。guest evidenceは未変更1085入力で、現在の241 IDは未測定です。
+tool単体101件、全1326 metadata、台帳／索引／library同一性、互換実行記録、日英10組のFAQ 179回答・用語200語を照合します。
+全runner／tool、以前のsimulation入力、CI、catalog、scope、library lock、license、Issue方針、SVG 6 asset、別VPI記録は未変更です。
+goalは有効で、task-readの境界条件、encode／decode配列、既定formatterの完全性、印刷されたwriteの可視性／virtual性、
+parent-sequenceのdo_clone、predictorの診断severity、その他すべての部分分解した義務を保持します。

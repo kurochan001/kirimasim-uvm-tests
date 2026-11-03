@@ -4,22 +4,22 @@
 
 ## Current snapshot
 
-The Verilator evidence dated 2026-11-03 covers all 1313 current tests.
-Guest records cover 1085 unchanged current-input tests, with 228 new
+The Verilator evidence dated 2026-11-03 covers all 1326 current tests.
+Guest records cover 1085 unchanged current-input tests, with 241 new
 tests unmeasured. Each record fingerprints its inputs and conditions.
-The suite contains 447 M1, 470 M2 and 396 M3 cases in 21 chapter/annex
+The suite contains 447 M1, 470 M2 and 409 M3 cases in 21 chapter/annex
 directories. All record `spec_check: ai`; none records human review or asks
-for deprecated APIs. Of these, 1287 use `UVM_NO_DPI` and eight explicitly
+for deprecated APIs. Of these, 1300 use `UVM_NO_DPI` and eight explicitly
 request HDL DPI. Eighteen more enable command-line/regex DPI with HDL disabled.
 Counts do not establish a reviewed coverage percentage.
 
 | Simulator and library | Observation | Execution scope |
 | --- | --- | --- |
-| Verilator 5.052, pinned UVM | 1154 `pass`; 159 `known` | Matches reproduced at seeds 1 and 73; runtime differences stop at seed 1 |
+| Verilator 5.052, pinned UVM | 1167 `pass`; 159 `known` | Matches reproduced at seeds 1 and 73; runtime differences stop at seed 1 |
 | Verilator 5.052, original VPI HDL backend | 7 `pass`; 1 `fail` | Separate overlapping 8-case condition; matches at seeds 1/73, difference at seed 1 |
 | Verilator 5.052, original command-line VPI bridge and pinned regex DPI | 17 `pass`; 1 `known` | Separate overlapping 18-case condition; matches at seeds 1/73, difference at seed 1 |
-| kirimasim, pinned UVM | 1076 `unsupported`; nine `fail` | 1085 unchanged inputs; 228 new tests unmeasured |
-| Ghost, bundled UVM | 207 `pass`; 878 `fail` | 1085 unchanged inputs at each seed; identical failing sets; 228 new tests unmeasured |
+| kirimasim, pinned UVM | 1076 `unsupported`; nine `fail` | 1085 unchanged inputs; 241 new tests unmeasured |
+| Ghost, bundled UVM | 207 `pass`; 878 `fail` | 1085 unchanged inputs at each seed; identical failing sets; 241 new tests unmeasured |
 | Ghost, pinned UVM | Not measured for the current executable snapshot | No current pinned-mode claim |
 
 The pinned library is Accellera UVM 2020.3.1, commit `78c06547a2a0`, with
@@ -67,17 +67,18 @@ and exit-code rules. Two seeds do not prove determinism or four-state correctnes
 
 ## Evidence assembly
 
-The ordinary snapshot retains all 1301 unchanged records from
-[0b0388e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/0b0388e5ce95187cf548812db84dc9f2352ee8bb)
-and adds twelve final-input measurements, all matching seeds 1 and 73.
-They observe sequence inheritance/type parameters, a standard protected
-execution-counter field, selected randc cycles, kill during relevance waits,
-and nested sequencer stop followed by actual fresh traffic. The counter field
-is observed in a bound library and does not replace the missing public getter.
-Cyclic field draws do not establish mode-controlled RANDC library execution.
-Existing simulation inputs, all runners, catalog and both separate VPI evidence
-conditions remain unchanged. No overlapping subset pass count is added to the
-ordinary total.
+The ordinary snapshot retains all 1313 unchanged records from
+[538f1bb](https://github.com/kurochan001/kirimasim-uvm-tests/commit/538f1bb24b0aedf5985adad0d15f9f436b3701aa)
+and adds thirteen final-input measurements, all matching seeds 1 and 73.
+They observe item/adapter/backdoor names and base types, virtual subtype
+formatting, default backdoor read delegation and callback lifecycle, original
+write hooks/status, and configured predictor maps/adapters with real mirror
+and publication effects. Predictor packet types include factory registration
+needed by the pinned library's type-name path; that setup is not an oracle.
+All runners, catalog and both separate VPI evidence conditions remain unchanged.
+Write declaration ambiguity, physical HDL, default formatter completeness
+and arbitrary callback/protocol combinations remain separate. No overlapping
+subset pass count is added to the ordinary total.
 
 Retained kirimasim/Ghost records were collected with fixed executable
 snapshots and Ghost's seed-specific private profiles.
@@ -88,8 +89,8 @@ Commercial simulator results are excluded under the
 The prior temporary kirimasim/Ghost executable/profile snapshots are no
 longer available, and no compatible local replacement was found. No new
 guest run is claimed. Their existing 1085 records still match current
-inputs; the 228 new test IDs are explicitly unmeasured. The local
-scope record is `out/thin-thirty-first-evidence-scope.json`. Preserve this
+inputs; the 241 new test IDs are explicitly unmeasured. The local
+scope record is `out/thin-thirty-second-evidence-scope.json`. Preserve this
 partial scope until the authorized execution environment is restored.
 
 The fingerprints identify different inputs:
@@ -107,7 +108,7 @@ simulator, configuration and library identities before reusing execution records
 Before combining records, check that:
 
 - Verilator IDs cover the current suite exactly. Retained guest IDs match
-  their declared 1085-case subset; 228 new IDs remain unmeasured.
+  their declared 1085-case subset; 241 new IDs remain unmeasured.
 - Each record's `inputs_sha256` matches its current source, expected output,
   associated inputs and library lock as collected by the runner.
 - Simulator version, configuration and `runner_sha256` match between batches,
@@ -122,14 +123,12 @@ claim that a single invocation reran the entire suite. The
 prior smoke tests and build-change details. Refreshed records replace older
 ones only after their current input fingerprints are verified.
 
-The [draft requirement ledger](requirements.md) adds twenty-three AI drafts
-for twelve new fixtures and three unchanged default-RAND fixtures. Six existing
-requirements retain their original links and gain nine direct links; the budget
-record clarifies that its manual two-count note refers to the earlier getter
-fixture. Five contextual assessments retain individually read rationale and
-related requirements. Chapter 14 has zero unassessed identifiers while all 89
-behavior/declaration identifiers remain partial. The persistent M1–M4 goal is
-active, with no guest measurement added.
+The [draft requirement ledger](requirements.md) adds twenty-six AI drafts
+for thirteen new fixtures without changing any earlier requirement. Six
+structural and seven contextual assessments retain individually read rationale.
+Chapter 19 now has 70 partial, 15 assessed and 26 unassessed identifiers. The
+persistent M1–M4 goal remains active: 1,365 identifiers are unassessed and
+1,038 partially decomposed. No guest measurement is added.
 
 All baseline input and runner fingerprints remain
 compatible. Zero unmapped tests is still not a completed normative inventory.
@@ -147,7 +146,7 @@ inputs, a different runner, executable, profile or library is a separate conditi
 
 [Check](../.github/workflows/check.yml) runs on pushes to `main`, pull requests
 and manual dispatch. It checks pinned-library integrity, 101 tool unit tests,
-1313 metadata records, the draft requirement ledger/test index and the 1154
+1326 metadata records, the draft requirement ledger/test index and the 1167
 tagged ordinary Verilator cases using seeds 1 and 73, plus seventeen
 explicit command-line checks under their separate condition.
 It does not run kirimasim, Ghost or spec-only cases. The README's badge is the

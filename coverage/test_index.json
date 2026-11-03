@@ -4230,6 +4230,10 @@
       "primary_clause": "19.5.2.6",
       "inputs_sha256": "c0a6ed39f4da74f4044bd7bc0e356a1aad77d5f1c5d74cfcd9204469adabd6bf"
     },
+    "u19/test_reg_adapter_constructor_forwards_names_and_inherits_the_object_base": {
+      "primary_clause": "19.2.1.2.1",
+      "inputs_sha256": "e29c675eee6886cae2ff594064a91dc9f781b9197d3c74896d15e9e2a961be94"
+    },
     "u19/test_reg_adapter_get_item_is_null_outside_translation_callback": {
       "primary_clause": "19.2.1.2.7",
       "inputs_sha256": "4defc50dfc17f219f3e652ea39194668352d79a42ff659633bc8ff962fd7b8dc"
@@ -4270,6 +4274,14 @@
       "primary_clause": "19.1.1.2.3",
       "inputs_sha256": "9f54cdd96d54b0e816a71ba29dbf9f734538719de659da94befdae9c0ccf1257"
     },
+    "u19/test_reg_item_constructor_names_and_sequence_item_base_preserve_identity": {
+      "primary_clause": "19.1.1.3.1",
+      "inputs_sha256": "f6a983fe6af34c80f9852d4c20dcdcbf9e7d472fa2508ffdca6d397ce4343c02"
+    },
+    "u19/test_reg_item_convert2string_dispatches_to_the_current_subtype_contents": {
+      "primary_clause": "19.1.1.3.2",
+      "inputs_sha256": "176c0707a33ab4a95c65fe6af5cedb1457751a2cb9f6922446f2c623061a31f2"
+    },
     "u19/test_reg_item_documented_defaults_exclude_undefined_enum_and_data_values": {
       "primary_clause": "19.1.1.2.11",
       "inputs_sha256": "3d27ea5d7acbcb85a8d0c18aa57dcf769a411bb37b0a76f42f9b59134f4a8b9c"
@@ -4302,9 +4314,17 @@
       "primary_clause": "19.3.2.1",
       "inputs_sha256": "7e964ea1c22ee082f79370c32e7d904d5645fd3b9e46b9381abce83f7ff344a2"
     },
+    "u19/test_reg_predictor_constructor_preserves_component_parent_name_and_typed_ports": {
+      "primary_clause": "19.3.3.1",
+      "inputs_sha256": "c201c02cd408a00366af35bb1eeae29059fce605b386b5e238f44b908f3a93f7"
+    },
     "u19/test_reg_predictor_ignores_memory_and_unmapped_bus_observations": {
       "primary_clause": "19.3.2.1",
       "inputs_sha256": "5336ac01430ff1c86efe970a321989713df91e0487afa4e390795f66da9689d5"
+    },
+    "u19/test_reg_predictor_independent_maps_use_configuration_selected_before_run": {
+      "primary_clause": "19.3.2.3",
+      "inputs_sha256": "d05123bdc94a75258a8dbe8aae9a2332c701fc0740d7a2c20caebfe2c507a1cf"
     },
     "u19/test_reg_predictor_interleaved_big_endian_registers_keep_partial_values_independent": {
       "primary_clause": "19.3.2.1",
@@ -4333,6 +4353,10 @@
     "u19/test_reg_predictor_read_updates_readonly_mirror": {
       "primary_clause": "19.3.2.1",
       "inputs_sha256": "d4073f4a53bd38a688dab342b8296a9133249ce9ca35a5a979f39dba2583a490"
+    },
+    "u19/test_reg_predictor_shared_map_decoders_use_configuration_selected_before_run": {
+      "primary_clause": "19.3.2.4",
+      "inputs_sha256": "fd2533cbc2d786217dff9138b860ceb7e41eff593e4c3dedadfdd36636b99f13"
     },
     "u19/test_reg_predictor_write_byte_enables_preserve_unobserved_fields": {
       "primary_clause": "19.3.2.1",
@@ -4422,6 +4446,10 @@
       "primary_clause": "19.2.2.2.1",
       "inputs_sha256": "2d0390b9784d9473db5770e2101b53e8e5d8a4af275e38a3c97755e6b6977349"
     },
+    "u19/test_reg_tlm_adapter_base_view_dispatches_consistent_payload_conversion": {
+      "primary_clause": "19.2.2.1",
+      "inputs_sha256": "4f9d9b85baccdfa196585c4e01ad6191fec724da9d97db564bb2b113135583db"
+    },
     "u19/test_reg_tlm_adapter_error_statuses_preserve_conversion_contracts": {
       "primary_clause": "19.2.2.2.2",
       "inputs_sha256": "257bca20b3d94229f6aeba3595a087e99c0a0a40a7a7cb8dbb896cad008804cf"
@@ -4493,6 +4521,30 @@
     "u19/test_reg_user_backdoor_write_preserves_readonly_bits": {
       "primary_clause": "19.5.2.6",
       "inputs_sha256": "47ada3b3bfb267fb5425bb71bbef9c439db630b3c45d25ef2c09f4fe333ded52"
+    },
+    "u19/test_user_backdoor_constructor_preserves_optional_names_and_object_base_identity": {
+      "primary_clause": "19.5.2.1",
+      "inputs_sha256": "1e81d18bb318ea0565b57983ba56105e4d64fd3734209df2fbb3360acbf37e0c"
+    },
+    "u19/test_user_backdoor_default_read_failure_preserves_hook_and_callback_contracts": {
+      "primary_clause": "19.5.2.7",
+      "inputs_sha256": "3fcecbead8f42200533557e7374d3a782e9ec46131a8cc1ee4149c5cb6c2630e"
+    },
+    "u19/test_user_backdoor_default_read_registration_lifecycle_preserves_hook_and_callback_contracts": {
+      "primary_clause": "19.5.2.7",
+      "inputs_sha256": "fa5181bc85da53d659e110c88c3efe5f2dca39a9a162c8d5c2ec52652a25c297"
+    },
+    "u19/test_user_backdoor_default_read_success_preserves_hook_and_callback_contracts": {
+      "primary_clause": "19.5.2.7",
+      "inputs_sha256": "2a036768a9b84d917e9de3dcb3a0c2723f357cd33b90ac904c37c2d84c043f62"
+    },
+    "u19/test_user_backdoor_write_failure_propagates_pre_hook_changes_and_post_callbacks": {
+      "primary_clause": "19.5.2.6",
+      "inputs_sha256": "e95763af150ca9786ab750fa1ad5bf8153cbe1af939e0ac6d3019a9cabaa3987"
+    },
+    "u19/test_user_backdoor_write_success_propagates_pre_hook_changes_and_post_callbacks": {
+      "primary_clause": "19.5.2.6",
+      "inputs_sha256": "1d445564ead6c6c710326d6505a6d0445ee2812de69718faef1b30d3707c6c4c"
     },
     "uB/test_callback_exit_on_false_stops_before_later_callbacks": {
       "primary_clause": "B.4.5",
