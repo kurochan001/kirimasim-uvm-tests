@@ -1,0 +1,9 @@
+UT: hierarchy_verbosity 0 id 1 pair 1 other 1
+UT: hierarchy_pair_enabled 0 boundary 1 above 0
+UT: hierarchy_verbosity 1 id 1 pair 1 other 1
+UT: hierarchy_pair_enabled 1 boundary 1 above 0
+UT: hierarchy_verbosity 2 id 1 pair 1 other 1
+UT: hierarchy_pair_enabled 2 boundary 1 above 0
+UT: hierarchy_verbosity_delivery info 3 warning 6 total 9
+UT: hierarchy_verbosity_narrowed 1 peer 1
+UT: hierarchy_verbosity_narrowed_delivery 1

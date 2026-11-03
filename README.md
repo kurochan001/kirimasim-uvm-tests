@@ -11,13 +11,13 @@ Verification Methodology (UVM). It targets
 [kirimasim-tests](https://github.com/kurochan001/kirimasim-tests), which tests
 the IEEE 1800-2023 SystemVerilog language.
 
-> **Status: M4 in progress.** 1560 tests: 1521 simulation and 39 elaboration,
-> in 21 chapter/annex directories; 1368 tagged oracles and 192 spec-only cases.
+> **Status: M4 in progress.** 1577 tests: 1538 simulation and 39 elaboration,
+> in 21 chapter/annex directories; 1379 tagged oracles and 198 spec-only cases.
 > All use `:spec_check: ai`; none records human review. M1–M3 targets remain open.
-> M4 has 2520 AI drafts, 1559 directly linked tests and an index of all 1560.
+> M4 has 2571 AI drafts, 1576 directly linked tests and an index of all 1577.
 > 0 tests lack requirement links and 0 drafts lack direct tests; the historical
-> memory-walk interpretation requires review. 831 identifiers remain unassessed;
-> 260 have explicit AI classifications. Scope and denominator remain unapproved.
+> memory-walk interpretation requires review. 809 identifiers remain unassessed;
+> 264 have explicit AI classifications. Scope and denominator remain unapproved.
 
 ## Contents
 
@@ -29,7 +29,7 @@ the IEEE 1800-2023 SystemVerilog language.
 
 ## Current scope
 
-- **M1: 573 tests (544 simulation, 29 elaboration).** Objects, transactions and copy/compare/print/pack policies;
+- **M1: 590 tests (561 simulation, 29 elaboration).** Objects, transactions and copy/compare/print/pack policies;
   reporting and catcher mutation/helper/issue paths, hierarchy, factory, phases and
   graphs, objections, events and
   callbacks, barriers, heartbeats, configuration, database connections/streams/links/
@@ -78,14 +78,14 @@ python3 tools/run_verilator.py --seeds 1 73 --build-jobs 2 -j 1 \
 ```
 
 The fetcher checks the pinned Accellera UVM 2020.3.1 library. The smoke
-command selects one test. To run all 1368 tagged checks (1331 runtime, 37 compile rejection):
+command selects one test. To run all 1379 tagged checks (1342 runtime, 37 compile rejection):
 
 ```sh
 python3 tools/run_verilator.py --seeds 1 73 --build-jobs 2 -j 2 \
   --json out/verilator.json
 ```
 
-Add `--all` to include all two-state cases, including the 192 spec-only cases.
+Add `--all` to include all two-state cases, including the 198 spec-only cases.
 `known` results do not fail that command; tagged regressions do. `-j` controls
 concurrent tests and `--build-jobs` controls C++ jobs within each build.
 Each runtime model is built once and run in a fresh process for each seed.
@@ -104,20 +104,20 @@ by Git; results are not automatically published.
 
 ## Current results
 
-The Verilator snapshot assembled on 2026-11-04 covers all 1560 current cases.
-Guest records retain 1083 compatible inputs; 477 inputs are unmeasured.
+The Verilator snapshot assembled on 2026-11-04 covers all 1577 current cases.
+Guest records retain 1083 compatible inputs; 494 inputs are unmeasured.
 These results are separate from the Check badge.
 
 | Simulator and library | Observed result |
 | --- | --- |
-| Verilator 5.052, pinned UVM, ordinary runner | 1331 runtime matches at seeds 1/73; 37 expected compile rejections; 192 known differences |
+| Verilator 5.052, pinned UVM, ordinary runner | 1342 runtime matches at seeds 1/73; 37 expected compile rejections; 198 known differences |
 | Verilator 5.052, original VPI HDL backend | Separate 8-case subset: 7 match both seeds; 1 differs |
 | Verilator 5.052, VPI command-line bridge and pinned regex DPI | Separate 18-case subset: 17 match both seeds; 1 known difference |
-| kirimasim, pinned UVM | 1074 `unsupported`; nine missing-API `fail` in 1083 cases; 477 unmeasured |
-| Ghost, bundled UVM | 207 match and 876 fail at each seed in 1083 cases; 477 unmeasured |
+| kirimasim, pinned UVM | 1074 `unsupported`; nine missing-API `fail` in 1083 cases; 494 unmeasured |
+| Ghost, bundled UVM | 207 match and 876 fail at each seed in 1083 cases; 494 unmeasured |
 
-The ordinary runner records 145 runtime differences at seed 1, 17 missing-API builds,
-two type-default declaration builds and 26 unlinked-DPI builds (8 HDL, 18 command-line),
+The ordinary runner records 150 runtime differences at seed 1, 17 missing-API builds,
+two type-default declaration builds, one printed hook-signature build and 26 unlinked-DPI builds (8 HDL, 18 command-line),
 plus two accepted illegal elaboration designs without runtime execution.
 The two VPI subsets are separate conditions.
 `known` and `unsupported` are not passes. Ghost bundled results do not establish
@@ -152,10 +152,10 @@ its counterpart; commands and API identifiers retain their original spelling.
 | Stage | Scope | Current state / target |
 | --- | --- | --- |
 | M0 | Fetcher, runners, metadata/tools checks, Check and smoke test | Infrastructure implemented |
-| M1 | Core classes, policies, factory, phases and their graphs, objections, configuration and reporting | 573 tests; reviewed two-tests-per-clause target open |
+| M1 | Core classes, policies, factory, phases and their graphs, objections, configuration and reporting | 590 tests; reviewed two-tests-per-clause target open |
 | M2 | Sequences, sequencers, TLM and callbacks | 538 tests; target open |
 | M3 | Register layer (17–19, annex E) | 449 tests in chapters 17–19 and annex E; target open |
-| M4 | Requirement ledger and coverage | In progress: 2520 AI drafts; 2520 requirements link to 1559 tests; denominator unapproved |
+| M4 | Requirement ledger and coverage | In progress: 2571 AI drafts; 2571 requirements link to 1576 tests; denominator unapproved |
 
 M1–M3 remain incomplete. Further work covers sequence ownership/lifecycle,
 default resources, callbacks and TLM 2 protocol/timing/socket combinations;

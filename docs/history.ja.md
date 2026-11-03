@@ -2,7 +2,7 @@
 
 [English](history.md) · [README](../README.ja.md)
 
-M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の46回目の拡充（全1560件：simulation 1521・elaboration 39）までを記録しています。以前の349件の時点は
+M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の47回目の拡充（全1577件：simulation 1538・elaboration 39）までを記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -2080,3 +2080,23 @@ runtime 15件はVerilator 5.052のseed 1／73に一致し、対象compiler拒否
 
 tool test 110件、metadata、台帳／索引／library同一性、native生結果とcompiler診断、互換な保持evidence、日英guide 10組の用語239語・FAQ 218回答を検査します。
 schema、runner、library／catalog、workflow、SVG 6つは未変更です。範囲は提案、棚卸し未完、分母／割合null、AI照合、goal有効を保持し、人の承認やgoal完了は主張しません。
+
+## M1〜M4の薄い領域の47回目の拡充
+
+M1 runtime 17 fixtureでphase task／forkとcallback-thread寿命、印刷all_dropped function宣言、名前によるtest選択、factory便宜method 6つ、
+階層verbosity／action／maximum、実選択log file、virtual recording setterを補強します。11件はVerilator 5.052の両seedで一致します。
+runtime差分5件はtask終了、ready-thread完了、型／名前によるreplace 0と名前生成の期待を保持します。
+印刷function／task食違い1件はbuildできずruntime seedを実行せず、確定原因は割り当てません。WARNING verbosityは明示的に無視し、設定照会と実reportを分けて観測します。
+独自constructorの既定を空にして、user fallback名のpolicyを課さないようにします。
+
+新AI案51件で2571件です。component objection hook義務3つは互換な既存伝播evidenceを再利用し、新実行を主張しません。
+以前の全2520要求・260分類・1560 fixture・native記録を未変更で保持します。文脈分類4件で264（183／81）となり、全体は部分1434／分類264／未評価809です。
+第13章は87／21／2でerror／event記録番号を残し、付録Dは18／1／28です。未評価は今回22減、goal 19反復で654減で、全ての部分条件は未完了です。
+
+全1577件はsimulation 1538／elaboration 39、M1 590（561／29）、M2 538（533／5）、M3 449（444／5）です。
+通常evidenceは1379 pass（runtime両seed一致1342、compiler拒否37）と198 known（runtime 150、simulation build 46、不正受理2）です。
+新signature buildはAPI欠落17、型既定build 2、DPI未link 26と区別します。guest fileは1083記録をbyte単位で保持し、以前の修正2入力を含む未測定494（455／39）です。
+別HDL／command-line evidenceは7／1と17／1のままで、新guest測定は主張しません。
+
+tool test 110件、metadata、台帳／索引／library同一性、native生結果／compile evidence、用語244語・FAQ 220回答の日英guide 10組を検査します。
+schema、runner／library／catalog、workflow、SVG 6つは未変更です。範囲は提案、棚卸し未完、分母／割合null、照合AI、継続goal有効を保持します。

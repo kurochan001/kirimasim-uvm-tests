@@ -2218,9 +2218,17 @@
       "primary_clause": "13.1.2.1",
       "inputs_sha256": "711fc420e910527ec3af029b76e3126ceaa35c615057faccf7ac2af0d41b6f64"
     },
+    "u13/test_component_phase_callback_threads_survive_their_runtime_phase_end": {
+      "primary_clause": "13.1.4.3",
+      "inputs_sha256": "67a2c1a97e4b2532353b0137d17ba931a24d6e811cf0b11ce94120c1a9def8c4"
+    },
     "u13/test_component_print_enable_controls_automatic_descendants_and_direct_root_printing": {
       "primary_clause": "13.1.2.2",
       "inputs_sha256": "8c88d20bfb2edc4fcb6925f35fccf74bbb54c7c2d704edf77fde128907eaaa82"
+    },
+    "u13/test_component_printed_all_dropped_function_signature_dispatches_through_a_base_view": {
+      "primary_clause": "13.1.6.3",
+      "inputs_sha256": "38cd0fc878c86807c438de6c5b91303612551dfc902724a07faf091dfe987eba"
     },
     "u13/test_component_recording_database_selection_is_local_and_preserves_the_core_default": {
       "primary_clause": "13.1.7.12",
@@ -2233,6 +2241,18 @@
     "u13/test_component_recording_stream_cache_keys_name_type_and_component_scope": {
       "primary_clause": "13.1.7.9",
       "inputs_sha256": "b702b9426091fd218d1f4feeb93ddd9bcc3fc76b4470a1fc05b7ee105a3f6e48"
+    },
+    "u13/test_component_run_phase_kills_remaining_task_and_descendant_after_all_objections_drop": {
+      "primary_clause": "13.1.4.1.5",
+      "inputs_sha256": "f2e7474ff78e9c31feade85ca645c6ffda6f945ac036e3e60cb979419c80c7eb"
+    },
+    "u13/test_component_run_phase_return_does_not_end_an_objection_held_phase": {
+      "primary_clause": "13.1.4.1.5",
+      "inputs_sha256": "afe8e1cd113ea00eb667514bd1558ac0d61392e945bb003404aa5e937818ea40"
+    },
+    "u13/test_component_runtime_phase_kills_a_nonreturning_task_and_its_forked_descendant": {
+      "primary_clause": "13.1.4.2",
+      "inputs_sha256": "2560b00cd6b1235bcf26c76d5ba345c06f682329c01ce69de6eac2c1a0201aa8"
     },
     "u13/test_component_runtime_phases_dispatch_in_domain_order_with_matching_callbacks": {
       "primary_clause": "13.1.4.2",
@@ -2277,6 +2297,10 @@
     "u13/test_subscriber_descendant_inherits_write_through_default_typed_analysis_export": {
       "primary_clause": "13.9",
       "inputs_sha256": "fd200a87cbd4e5894850c6050094807cbda8a82cc26043b8335fb5633bf4fc1a"
+    },
+    "u13/test_test_argument_selection_creates_the_registered_test_under_the_implicit_root": {
+      "primary_clause": "13.2",
+      "inputs_sha256": "9f325c470f0c68245b75f7f2565c77063443b7125c86c3b42b6c89716cc1fbf5"
     },
     "u13/test_uvm_agent_abstract_declaration_rejects_direct_construction": {
       "primary_clause": "13.4.1",
@@ -5781,6 +5805,50 @@
     "uD/test_callback_iterators_keep_independent_positions": {
       "primary_clause": "D.1.2.1",
       "inputs_sha256": "b8a531b054c30b618297b964f626f4cacefdb8423b32d9aa987384f9b56363f7"
+    },
+    "uD/test_component_factory_create_component_preserves_owner_name_and_registered_type": {
+      "primary_clause": "D.2.1.1",
+      "inputs_sha256": "d024b5ea5e1111894adadee8cee374ed53d0b173d388bda26269f549d7ff31a7"
+    },
+    "uD/test_component_factory_create_object_preserves_explicit_and_omitted_names": {
+      "primary_clause": "D.2.1.2",
+      "inputs_sha256": "cf8f5c0535b14726d578db471ef8bb22c318f9c3b8d810aaa0fd1df49c9273fe"
+    },
+    "uD/test_component_factory_named_instance_override_scopes_exact_objects_and_nested_wildcards": {
+      "primary_clause": "D.2.1.6",
+      "inputs_sha256": "7ba85fef7ebc2c40e9fc69249ff4d6d31788e2c5ffa4dcf111f9b1612a822236"
+    },
+    "uD/test_component_factory_named_type_override_forwards_default_and_explicit_replace": {
+      "primary_clause": "D.2.1.5",
+      "inputs_sha256": "d3514ebf7a74552f018cc174e3b9dc9148326ef5ea8ec7517f9b54d0dab0aa88"
+    },
+    "uD/test_component_factory_typed_instance_override_scopes_exact_objects_and_nested_wildcards": {
+      "primary_clause": "D.2.1.4",
+      "inputs_sha256": "48548ad945f2ceeaff71a7b1e7f471b0fc51408a922fab7c1950edc95de8f0ad"
+    },
+    "uD/test_component_factory_typed_type_override_forwards_default_and_explicit_replace": {
+      "primary_clause": "D.2.1.3",
+      "inputs_sha256": "b3f7112bbb5b5c40804b4ebbd865be428ac76accfb69b5e5034dfc32efbae787"
+    },
+    "uD/test_component_hierarchical_actions_preserve_pair_id_severity_precedence_and_outside_peers": {
+      "primary_clause": "D.2.2.2",
+      "inputs_sha256": "a0e90f73b0fdc5615a7dc3fbaed5546afc054dbb874faf1a6590b5560315872d"
+    },
+    "uD/test_component_hierarchical_id_and_pair_verbosity_preserve_subtree_precedence_and_live_filtering": {
+      "primary_clause": "D.2.2.1",
+      "inputs_sha256": "cb3935c5d50b995c8d173aafca10eb44d6c3ad94ed953e3fc8ac176b0d665121"
+    },
+    "uD/test_component_hierarchical_log_routes_current_ancestor_child_and_peer_files": {
+      "primary_clause": "D.2.2",
+      "inputs_sha256": "315c99de2e884d1195a396cb8644b4a347e134f5d1e0514ed14cb7c66c9605ea"
+    },
+    "uD/test_component_hierarchical_maximum_verbosity_filters_current_subtrees_at_the_boundary": {
+      "primary_clause": "D.2.2.4",
+      "inputs_sha256": "10702b7f4eb505f1cd4f5cf54fb6c40fb2fc2e3562e42b33ca9094b6cdd80f19"
+    },
+    "uD/test_component_hierarchical_recording_calls_virtual_setters_and_preserves_outside_state": {
+      "primary_clause": "D.2.3",
+      "inputs_sha256": "3dc34e848313ea365834cb6c4e62ab0f2c6163dd25923c09d66e23ce4c4994d0"
     },
     "uD/test_report_file_hierarchy_propagates_each_scope_and_preserves_outside_peers": {
       "primary_clause": "D.2.2.3",

@@ -3,8 +3,8 @@
 [日本語](history.ja.md) · [README](../README.md)
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and forty-six cross-milestone thin-area expansions, including the
-existing-test requirement-link backlog checkpoint (1560 tests: 1521 simulation and 39 elaboration). The earlier 349-test checkpoint is
+three M4 increments and forty-seven cross-milestone thin-area expansions, including the
+existing-test requirement-link backlog checkpoint (1577 tests: 1538 simulation and 39 elaboration). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -3128,3 +3128,39 @@ ten bilingual guide pairs with 239 glossary terms and 218 FAQs. Schema, runners,
 library/catalog, workflow and six SVGs remain unchanged. Scope stays proposed,
 inventory incomplete, denominator/percentage null, AI reviews and active goal.
 No human approval or goal completion is claimed.
+
+## Forty-seventh thin-area expansion across M1–M4
+
+Seventeen M1 runtime fixtures strengthen phase task/fork and callback-thread
+lifetimes, a printed all_dropped function declaration, named test selection,
+six factory convenience methods, hierarchical verbosity/actions/maximum,
+actual selected log files and virtual recording setters. Eleven match both
+Verilator 5.052 seeds. Five runtime differences retain task termination,
+ready-thread completion and typed/named replace-zero/name-creation expectations.
+One printed function/task conflict cannot build and executes no runtime seed.
+No confirmed cause is assigned. WARNING verbosity is ignored explicitly;
+configuration-query and actual-report observations are separate. An original
+empty constructor default avoids imposing a user fallback-name policy.
+
+Fifty-one new AI drafts reach 2571. Three component objection-hook duties reuse
+compatible existing propagation evidence without a new run. All 2520 older
+requirements, 260 assessments, 1560 fixtures and prior native records remain
+unchanged. Four contextual assessments reach 264 (183/81). Overall is 1434
+partial/264 assessed/809 unassessed. Chapter 13 is 87/21/2, retaining error/event
+recording identifiers; annex D is 18/1/28. Unassessed falls by 22, or 654 across
+nineteen goal iterations. All partial conditions remain open.
+
+The suite is 1577 (1538 simulation/39 elaboration): M1 590 (561/29), M2 538
+(533/5), M3 449 (444/5). Ordinary evidence has 1379 pass (1342 runtime at both
+seeds and 37 compiler rejections) and 198 known (150 runtime, 46 simulation
+builds, two illegal acceptances). The new signature build is distinct from
+17 missing APIs, two type-default builds and 26 unlinked-DPI builds.
+Guest files remain byte-identical with 1083 records and 494 unmeasured inputs
+(455/39), including both earlier revised inputs. Separate HDL/command-line
+evidence stays 7/1 and 17/1. No new guest measurement is claimed.
+
+Validation covers 110 tool tests, metadata, ledger/index/library identities,
+raw native/compile evidence and ten bilingual guide pairs with 244 glossary
+terms and 220 FAQs. Schema, runners/library/catalog, workflow and six SVGs
+remain unchanged. Scope stays proposed, inventory incomplete, denominator/
+percentage null and reviews AI. The persistent goal remains active.

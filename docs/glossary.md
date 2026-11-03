@@ -1140,3 +1140,22 @@ a generic library process-control algorithm.
 **Terminal error observer**: An original report catcher that terminates its
 own simulation after observing a required generic error. It avoids prescribing
 invalid-call recovery, return behavior or post-error object state.
+
+**Phase-task descendant**: A process forked by a component's phase task.
+Selected lifetime probes observe whether its later writes stop after that phase,
+without depending on private process handles or exact tick counts.
+
+**Callback-spawned thread**: A process created by a phase start, ready-to-end
+or end callback. Its required persistence differs from the phase task lifetime.
+
+**Hook signature conflict**: A printed API declaration and an available callable
+shape disagree, such as function versus task. A qualified declaration probe
+retains build evidence separately from runtime hook-dispatch observations.
+
+**Severity verbosity exception**: Actual warning/error/fatal reporting ignores
+verbosity under the explicit report rule. A severity-ID configuration query
+can still report its threshold; that query is not the actual report path.
+
+**Empty convenience name**: The empty default at a convenience creation API.
+A selected original constructor also defaults empty; that fixture does not
+impose an empty name on every application constructor's fallback behavior.

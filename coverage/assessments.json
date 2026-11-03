@@ -3931,6 +3931,85 @@
         "reviewer": null,
         "reviewed_at": null
       }
+    },
+    {
+      "clause": "13.1",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The overview enumerates inherited hierarchy, phasing, reporting, recording and factory interfaces. Their selected normative duties remain explicit in linked children/convenience APIs; no entire interface is excluded or certified complete.",
+        "ja": "概要は継承hierarchy・phasing・reporting・recording・factory interfaceを列挙する。選択規範義務はlinkした下位／便宜APIへ明示保持し、interface全体を除外／完了認定しない。"
+      },
+      "related_requirements": [
+        "UVM-COMPONENT-PARENT-HANDLE",
+        "UVM-COMPONENT-EXT-TASK-LIFETIME-INTERFACE",
+        "UVM-COMPONENT-AUDIT-REPORT-BASE-TYPE",
+        "UVM-COMPONENT-AUDIT-DUPLICATE-CHILD-ERROR",
+        "UVM-COMPONENT-RECORDING-DATABASE-SELECTION",
+        "UVM-COMPONENT-EXT-FACTORY-COMPONENT-TYPE"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "13.1.6",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The objection introduction identifies component hooks into the objection mechanism; raised/dropped/all-dropped dispatch stays in the three concrete duties. The printed all_dropped function-versus-task conflict remains partial rather than being discarded.",
+        "ja": "objection導入はobjection機構へのcomponent hookを示し、raised／dropped／all-dropped dispatchは具体的3義務に保持する。印刷all_droppedのfunction／task食違いは破棄せず部分対応に残す。"
+      },
+      "related_requirements": [
+        "UVM-COMPONENT-EXT-OBJECTION-RAISED-HOOK",
+        "UVM-COMPONENT-EXT-OBJECTION-DROPPED-HOOK",
+        "UVM-COMPONENT-EXT-OBJECTION-ALL-DROPPED-HOOK",
+        "UVM-COMPONENT-EXT-PRINTED-ALL-DROPPED-FUNCTION"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "13.1.8",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The paragraph points to the factory and hierarchical-report convenience interfaces. Their public calls, scope and effective report behavior remain explicit in D.2 duties; this does not close every inherited API or application topology.",
+        "ja": "本段落はfactory／階層report便宜interfaceを参照する。公開call・scope・有効report動作はD.2義務に明示保持し、全継承APIやapplication topologyを完了しない。"
+      },
+      "related_requirements": [
+        "UVM-COMPONENT-EXT-FACTORY-COMPONENT-TYPE",
+        "UVM-COMPONENT-EXT-FACTORY-OBJECT-EXPLICIT-NAME",
+        "UVM-COMPONENT-EXT-REPORT-ID-VERBOSITY-RECURSION",
+        "UVM-COMPONENT-EXT-REPORT-SEVERITY-ACTION-RECURSION",
+        "UVM-COMPONENT-EXT-REPORT-HIER-LOG-FILE"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "D.2.1",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The introduction explains convenience access and recommends wrappers; six numbered methods retain the concrete API duties. Preferred usage adds no mandatory wrapper-only restriction, and the printed create_object equivalent-call arity remains unresolved.",
+        "ja": "導入は便宜アクセスを説明してwrapperを推奨し、番号付き6 methodに具体的API義務を保持する。推奨利用からwrapper専用の必須制約を追加せず、印刷create_object等価callの引数数は未解決に保持する。"
+      },
+      "related_requirements": [
+        "UVM-COMPONENT-EXT-FACTORY-COMPONENT-TYPE",
+        "UVM-COMPONENT-EXT-FACTORY-OBJECT-EXPLICIT-NAME",
+        "UVM-COMPONENT-EXT-FACTORY-TYPED-INSTALL",
+        "UVM-COMPONENT-EXT-FACTORY-NAMED-INSTALL"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
     }
   ]
 }

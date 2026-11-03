@@ -878,3 +878,18 @@ active objectをpopする前に履歴がFINISHEDになる場合があります�
 
 **Terminal error observer（errorで終了するobserver）**: 要求された一般errorを観測した後、自身のsimulationを終了する独自report catcher。
 不正呼出の回復、return動作、error後のobject状態を規定せずに済みます。
+
+**Phase-task descendant（phase taskの子孫）**: component phase taskがforkするprocess。
+選択寿命probeは非公開process handleや正確なtick数によらず、phase後のwriteが止まるかを観測します。
+
+**Callback-spawned thread（callbackがspawnするthread）**: phaseのstart／ready-to-end／end callbackが作るprocess。
+要求される継続性はphase taskの寿命と異なります。
+
+**Hook signature conflict（hook signatureの食違い）**: function／taskのように、印刷API宣言と利用可能な呼出形式が異なること。
+限定した宣言probeはruntime hook-dispatch観測と別にbuild evidenceを保持します。
+
+**Severity verbosity exception（severityによるverbosity例外）**: 明示報告規則では実warning／error／fatal報告はverbosityを無視します。
+severity-ID設定照会は閾値を返せても、その照会は実report経路ではありません。
+
+**Empty convenience name（便宜APIの空名）**: 便宜生成APIの空の既定名。
+選択した独自constructorも空を既定とし、そのfixtureは全application constructorのfallbackを空に制約しません。

@@ -2,14 +2,14 @@
 
 [日本語](known-differences.ja.md) · [README](../README.md) · [FAQ](faq.md)
 
-This describes the current 1560-test suite and the pinned Accellera UVM
+This describes the current 1577-test suite and the pinned Accellera UVM
 2020.3.1 library. A mismatch is a test result; it does not by itself assign
 the cause to the simulator, the library or the expectation.
 
 Thirty-nine elaboration fixtures expect rejection: nineteen direct abstract
 constructions and twenty pure-interface/const-reference violations. Thirty-seven
 match. Subscriber and visitor omissions remain accepted and spec-only without
-runtime. These two compiler acceptances are separate from 190 known simulation
+runtime. These two compiler acceptances are separate from 196 known simulation
 differences. All five new component-family direct constructions reject correctly.
 
 ## Pinned-library limitations
@@ -565,7 +565,7 @@ warning. The YES control changes the limit to nine without a warning. This
 is a diagnostic-severity difference, not failed limit enforcement. The older
 two no-DPI argument cases remain unchanged ordinary runtime differences.
 
-Across the suite, 1368 tests have the `verilator@5.052` oracle tag and 192
+Across the suite, 1379 tests have the `verilator@5.052` oracle tag and 198
 cases are spec-only. One of the spec-only cases checks 9.6: a child's pre-reset
 task must be killed when that phase ends, but the pinned-library run on Verilator 5.052
 lets the child perform its delayed write during a later phase. The cause of
@@ -577,10 +577,10 @@ without callbacks. The pinned Verilator run reaches the blocked-state
 observation, then its watchdog expires. This combined simulator/library
 cause remains unassigned; the normative wakeup expectation is retained.
 
-The 192 spec-only tests retain their normative expected files.
-Default Verilator runs and CI select 1368 tagged checks (1331 runtime, 37 compile rejection). `--all` includes
+The 198 spec-only tests retain their normative expected files.
+Default Verilator runs and CI select 1379 tagged checks (1342 runtime, 37 compile rejection). `--all` includes
 spec-only cases and records mismatches or build failures as `known`.
-The ordinary runtime records for 145 cases establish their first difference
+The ordinary runtime records for 150 cases establish their first difference
 at seed 1, without seed 73 results. Seventeen missing-API builds have no ordinary runtime seed result: one time
 API, six sequence-library cases, four HDL slice cases, one named-concat constructor,
 one object active-policy case, three catcher message-handle cases and the printed
@@ -614,9 +614,33 @@ remain partial, and no confirmed defect cause is assigned. Seventeen new
 runtime cases and the corrected rerandomization case match both seeds; two
 abstract constructions reject without runtime execution.
 
+## Component lifetime and convenience interface observations
+
+Two lifetime probes retain writes and ticking descendants after common/runtime
+phase end. The callback probe observes all three callback dispatches, but its
+ready-to-end thread does not complete while start/end threads do. The exact
+printed all_dropped function caller cannot build against the available task;
+this is a qualified signature reading, with no runtime seed. Typed and named
+convenience replace-zero conditions select the later type in subsequent
+name-based creation. Preserve all five runtime expectations at seed 1 without
+claiming seed 73 or a confirmed simulator/library cause.
+
+WARNING verbosity is explicitly ignored by 6.3.3.3, so the hierarchical reporting
+fixture expects three INFO and six WARNING deliveries. Pair configuration-query
+boundaries are separate. The omitted-object-name fixture supplies an empty
+original constructor default instead of constraining arbitrary user defaults.
+The printed create_object equivalent call's extra this argument remains partial.
+
+- [Runtime phase task/fork termination](../tests/u13/test_component_runtime_phase_kills_a_nonreturning_task_and_its_forked_descendant.sv)
+- [Common run task/fork termination](../tests/u13/test_component_run_phase_kills_remaining_task_and_descendant_after_all_objections_drop.sv)
+- [Callback thread survival](../tests/u13/test_component_phase_callback_threads_survive_their_runtime_phase_end.sv)
+- [Printed all_dropped function](../tests/u13/test_component_printed_all_dropped_function_signature_dispatches_through_a_base_view.sv)
+- [Typed convenience replace zero](../tests/uD/test_component_factory_typed_type_override_forwards_default_and_explicit_replace.sv)
+- [Named convenience replace zero](../tests/uD/test_component_factory_named_type_override_forwards_default_and_explicit_replace.sv)
+
 ## Spec-only tests
 
-These are the 192 current spec-only cases. Several exercise the same
+These are the 198 current spec-only cases. Several exercise the same
 limitation, so their count is not a count of distinct bugs.
 
 - [Printed provider acceptance for blocking initiator relay](../tests/u12/test_tlm2_blocking_passthrough_initiator_connect_accepts_its_spec_listed_provider_families.sv).
@@ -892,7 +916,7 @@ Additional message-handle and endian cases:
 
 Two existing inputs have revised fingerprints: the command-enum citation and
 the corrected Boolean rerandomization observation. Their historical guest
-records are excluded. The compatible subset has 1083 records and 477 inputs
+records are excluded. The compatible subset has 1083 records and 494 inputs
 are unmeasured, including both revised inputs. This filtering is evidence scope,
 not a new guest failure, pass or simulator improvement.
 
@@ -910,8 +934,8 @@ not a new guest failure, pass or simulator improvement.
 
 ## Simulator and library combinations
 
-The suite has 1560 cases, but the kirimasim/Ghost records below cover only
-1083 unchanged current-input cases. The 477 inputs are unmeasured
+The suite has 1577 cases, but the kirimasim/Ghost records below cover only
+1083 unchanged current-input cases. The 494 inputs are unmeasured
 because prior temporary executable/profile snapshots are unavailable. Do
 not treat this as a fresh full-suite guest result. See [results](results.md).
 

@@ -135,7 +135,7 @@ See [Ghost setup](testing.md#ghost).
 
 It removes `UVM_NO_DPI` from the default macro list. It does not supply or link
 UVM's C/C++ implementation. The current Verilator runner does not add those
-sources. There are 1534 `UVM_NO_DPI` cases and eight explicit HDL-DPI cases.
+sources. There are 1551 `UVM_NO_DPI` cases and eight explicit HDL-DPI cases.
 Eighteen more fixtures explicitly enable command-line/regex DPI with HDL disabled.
 The [command-line runner](testing.md#verilator-command-line-subset) links that separate backend.
 The [separate VPI runner](testing.md#verilator-vpi-hdl-subset) links the original
@@ -1143,9 +1143,9 @@ not a direct test of the requirement.
 
 ### Q77. Why is there no coverage percentage after starting M4?
 
-The 2520 AI drafts cover only a partial decomposition: 2520 requirements link
-directly to 1559 tests; all drafts have direct tests, and one separate test is a control.
-All 1560 tests have requirement links. The 2,507 clause identifiers are not normative requirement units.
+The 2571 AI drafts cover only a partial decomposition: 2571 requirements link
+directly to 1576 tests; all drafts have direct tests, and one separate test is a control.
+All 1577 tests have requirement links. The 2,507 clause identifiers are not normative requirement units.
 The scope is proposed, the inventory incomplete and the denominator unapproved;
 starting M4 approves none of those. Known differences and HDL/DPI limitations
 do not silently exclude obligations. See the [approval path](requirements.md#remaining-m4-work-and-approval).
@@ -2145,7 +2145,7 @@ No. `tests_without_requirement_links` is zero: every current test has an
 explicit direct or control link. The separate counter
 `requirements_without_direct_tests` is zero. The memory-walk link uses the
 qualified historical interpretation in Q134. It is not approval of missing
-IEEE detail. HDL deposit and accessibility use explicit VPI fixtures. Another 831
+IEEE detail. HDL deposit and accessibility use explicit VPI fixtures. Another 809
 catalog identifiers remain unassessed; decomposition and human review are
 incomplete, and the denominator remains unapproved.
 
@@ -2246,7 +2246,7 @@ in [identifier assessments](../coverage/assessments.json). Structural headings
 have no related requirements; contextual descriptions name existing requirements.
 An unreviewed record, guessed classification or parent rollup cannot do this.
 The generated state is `assessed`, separate from `partial` requirement clauses.
-260 classifications currently exist, with no denominator approval or new pass.
+264 classifications currently exist, with no denominator approval or new pass.
 Chapter 11's zero unassessed identifiers still does not complete its requirements.
 
 ### Q136. Does explicit strict configuration make the new cases pass?
@@ -2933,7 +2933,7 @@ the unassessed count or approve an exclusion. All earlier requirements remain.
 Two inputs have new fingerprints: the command enum citation and the Boolean
 rerandomization observation. Both were measured on Verilator; their stale guest
 records are excluded. The historical 1085-record source files remain intact.
-Current reuse covers 1083 inputs, with 477 unmeasured: 475 additions and two
+Current reuse covers 1083 inputs, with 494 unmeasured: 492 additions and two
 revised old inputs. No guest rerun or new result is claimed.
 
 ### Q194. May a predicate implementation delegate to another virtual query?
@@ -2994,10 +2994,10 @@ and stale patterns are rejected. Validation does not consume compiler results.
 Individual requirement reviews may add direct anchors while preserving existing
 links and identifying those changes explicitly.
 
-### Q201. Did all 1560 tests run at two seeds?
+### Q201. Did all 1577 tests run at two seeds?
 
-No. There are 1521 simulation and 39 elaboration fixtures. Ordinary evidence
-has 1331 two-seed runtime matches, 37 expected compiler rejections, 190 known
+No. There are 1538 simulation and 39 elaboration fixtures. Ordinary evidence
+has 1342 two-seed runtime matches, 37 expected compiler rejections, 196 known
 simulation differences and two known illegal compile acceptances. None of the
 39 illegal designs executes a runtime seed, even when compilation accepts it.
 
@@ -3064,7 +3064,7 @@ already-exceeded scope does not depend on equality. See [known differences](know
 ### Q209. Does zero unassessed in chapter 6 complete reporting or M1–M4?
 
 No. Chapter 6 has 98 partial and 19 assessed identifiers. Selected print probes
-do not finish its remaining conditions. Overall 831 identifiers remain
+do not finish its remaining conditions. Overall 809 identifiers remain
 unassessed. Printer subclause 16.2 retains the table-format overview; chapter 16
 has 3 unassessed identifiers in the broader policies. Scope and denominator
 are unapproved; zero link queues do not complete the goal.
@@ -3142,3 +3142,25 @@ alive. Separate exit hooks observe descendant-before-ancestor pre_abort.
 Duplicate-child and default-put probes terminate inside their own generic error
 catchers, so they require no invalid-call return, recovery state or exact error
 text/severity. These selected contracts do not complete chapter 13 or M1–M4.
+
+### Q219. Do phase-task and callback threads have the same lifetime?
+
+No. The [runtime task probe](../tests/u13/test_component_runtime_phase_kills_a_nonreturning_task_and_its_forked_descendant.sv)
+expects unfinished phase tasks and descendants to end with the phase. The
+[callback probe](../tests/u13/test_component_phase_callback_threads_survive_their_runtime_phase_end.sv)
+expects callback-spawned threads to survive it. The pinned combination retains
+differences in both selected conditions. The
+[printed hook probe](../tests/u13/test_component_printed_all_dropped_function_signature_dispatches_through_a_base_view.sv)
+separately preserves the component function declaration versus task conflict as
+build evidence; it executes no runtime seed. No confirmed cause is assigned.
+
+### Q220. Do convenience helpers remove constructor and severity rules?
+
+No. The [object omission probe](../tests/uD/test_component_factory_create_object_preserves_explicit_and_omitted_names.sv)
+uses an empty original constructor default; it does not constrain every user's
+fallback name. The [typed override probe](../tests/uD/test_component_factory_typed_type_override_forwards_default_and_explicit_replace.sv)
+retains replace-zero behavior for subsequent name creation as a difference.
+The [hierarchical report probe](../tests/uD/test_component_hierarchical_id_and_pair_verbosity_preserve_subtree_precedence_and_live_filtering.sv)
+distinguishes configuration queries from actual WARNING calls, whose verbosity
+is ignored. Its three INFO/six WARNING deliveries follow the cited rule,
+leaving all other override/report combinations partial.

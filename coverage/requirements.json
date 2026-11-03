@@ -92938,6 +92938,1788 @@
           ]
         }
       ]
+    },
+    {
+      "id": "UVM-COMPONENT-EXT-COMMON-RETURN-NOT-END",
+      "clause": "13.1.4.1.5",
+      "statement": {
+        "en": "A returned component run task does not end a phase held by another component objection.",
+        "ja": "componentのrun taskがreturnしても、別componentのobjectionで保持されたphaseは終了しない。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures and their explicit public phase, factory or hierarchy calls. Preserve the declared original types, scope, arguments and expected observations; no private implementation state supplies an oracle.",
+        "ja": "linkした独自fixtureと明示した公開phase／factory／hierarchy呼出を使う。宣言された独自型、scope、引数、期待観測を保持し、非公開実装状態をoracleにしない。"
+      },
+      "expected": {
+        "en": "A returned component run task does not end a phase held by another component objection.",
+        "ja": "componentのrun taskがreturnしても、別componentのobjectionで保持されたphaseは終了しない。"
+      },
+      "limitations": {
+        "en": "Positive time delays separate observations. The original worker and its forked descendant never raise an objection or kill themselves. Post-phase observations check writes/counter changes, not private process handles or exact tick counts. The common probe uses finish-on-completion zero and an explicit later observer. No jumps or asynchronous domains are tested; retained mismatches have no confirmed cause assignment.",
+        "ja": "正の遅延で観測を分ける。独自workerとforkした子孫はobjectionを上げず、自らkillしない。phase後にwrite／counter変化を確認し、非公開process handleや正確なtick数を見ない。common probeはfinish-on-completion 0と明示した後続observerを使う。jumpや非同期domainは検査せず、保持する不一致に確定原因を割り当てない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_run_phase_return_does_not_end_an_objection_held_phase",
+          "role": "direct",
+          "expected_observations": [
+            "UT: common_held returned 1 ended 0",
+            "UT: common_after_drop ended 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-EXT-RUNTIME-TASK-KILL",
+      "clause": "13.1.4.2",
+      "statement": {
+        "en": "An ended runtime phase kills its selected unreturned component task.",
+        "ja": "終了したruntime phaseは選択した未returnのcomponent taskをkillする。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures and their explicit public phase, factory or hierarchy calls. Preserve the declared original types, scope, arguments and expected observations; no private implementation state supplies an oracle.",
+        "ja": "linkした独自fixtureと明示した公開phase／factory／hierarchy呼出を使う。宣言された独自型、scope、引数、期待観測を保持し、非公開実装状態をoracleにしない。"
+      },
+      "expected": {
+        "en": "An ended runtime phase kills its selected unreturned component task.",
+        "ja": "終了したruntime phaseは選択した未returnのcomponent taskをkillする。"
+      },
+      "limitations": {
+        "en": "Positive time delays separate observations. The original worker and its forked descendant never raise an objection or kill themselves. Post-phase observations check writes/counter changes, not private process handles or exact tick counts. The common probe uses finish-on-completion zero and an explicit later observer. No jumps or asynchronous domains are tested; retained mismatches have no confirmed cause assignment.",
+        "ja": "正の遅延で観測を分ける。独自workerとforkした子孫はobjectionを上げず、自らkillしない。phase後にwrite／counter変化を確認し、非公開process handleや正確なtick数を見ない。common probeはfinish-on-completion 0と明示した後続observerを使う。jumpや非同期domainは検査せず、保持する不一致に確定原因を割り当てない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_runtime_phase_kills_a_nonreturning_task_and_its_forked_descendant",
+          "role": "direct",
+          "expected_observations": [
+            "UT: runtime_lifetime entered 1 forked 1 late 0 fork_alive 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-EXT-RUNTIME-DESCENDANT-KILL",
+      "clause": "13.1.4.2",
+      "statement": {
+        "en": "An ended runtime phase kills the selected descendant forked by its component task.",
+        "ja": "終了したruntime phaseはcomponent taskがforkした選択子孫をkillする。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures and their explicit public phase, factory or hierarchy calls. Preserve the declared original types, scope, arguments and expected observations; no private implementation state supplies an oracle.",
+        "ja": "linkした独自fixtureと明示した公開phase／factory／hierarchy呼出を使う。宣言された独自型、scope、引数、期待観測を保持し、非公開実装状態をoracleにしない。"
+      },
+      "expected": {
+        "en": "An ended runtime phase kills the selected descendant forked by its component task.",
+        "ja": "終了したruntime phaseはcomponent taskがforkした選択子孫をkillする。"
+      },
+      "limitations": {
+        "en": "Positive time delays separate observations. The original worker and its forked descendant never raise an objection or kill themselves. Post-phase observations check writes/counter changes, not private process handles or exact tick counts. The common probe uses finish-on-completion zero and an explicit later observer. No jumps or asynchronous domains are tested; retained mismatches have no confirmed cause assignment.",
+        "ja": "正の遅延で観測を分ける。独自workerとforkした子孫はobjectionを上げず、自らkillしない。phase後にwrite／counter変化を確認し、非公開process handleや正確なtick数を見ない。common probeはfinish-on-completion 0と明示した後続observerを使う。jumpや非同期domainは検査せず、保持する不一致に確定原因を割り当てない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_runtime_phase_kills_a_nonreturning_task_and_its_forked_descendant",
+          "role": "direct",
+          "expected_observations": [
+            "UT: runtime_lifetime entered 1 forked 1 late 0 fork_alive 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-EXT-COMMON-TASK-KILL",
+      "clause": "13.1.4.1.5",
+      "statement": {
+        "en": "The common run phase can end without its selected task returning and kills its later write.",
+        "ja": "共通run phaseは選択taskのreturnなしで終了でき、その後のwriteをkillする。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures and their explicit public phase, factory or hierarchy calls. Preserve the declared original types, scope, arguments and expected observations; no private implementation state supplies an oracle.",
+        "ja": "linkした独自fixtureと明示した公開phase／factory／hierarchy呼出を使う。宣言された独自型、scope、引数、期待観測を保持し、非公開実装状態をoracleにしない。"
+      },
+      "expected": {
+        "en": "The common run phase can end without its selected task returning and kills its later write.",
+        "ja": "共通run phaseは選択taskのreturnなしで終了でき、その後のwriteをkillする。"
+      },
+      "limitations": {
+        "en": "Positive time delays separate observations. The original worker and its forked descendant never raise an objection or kill themselves. Post-phase observations check writes/counter changes, not private process handles or exact tick counts. The common probe uses finish-on-completion zero and an explicit later observer. No jumps or asynchronous domains are tested; retained mismatches have no confirmed cause assignment.",
+        "ja": "正の遅延で観測を分ける。独自workerとforkした子孫はobjectionを上げず、自らkillしない。phase後にwrite／counter変化を確認し、非公開process handleや正確なtick数を見ない。common probeはfinish-on-completion 0と明示した後続observerを使う。jumpや非同期domainは検査せず、保持する不一致に確定原因を割り当てない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_run_phase_kills_remaining_task_and_descendant_after_all_objections_drop",
+          "role": "direct",
+          "expected_observations": [
+            "UT: common_lifetime entered 1 forked 1 late 0 fork_alive 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-EXT-COMMON-DESCENDANT-KILL",
+      "clause": "13.1.4.1.5",
+      "statement": {
+        "en": "The ended common run phase kills its selected task descendant instead of permitting later counter updates.",
+        "ja": "終了した共通run phaseは選択task子孫をkillし、その後のcounter更新を許さない。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures and their explicit public phase, factory or hierarchy calls. Preserve the declared original types, scope, arguments and expected observations; no private implementation state supplies an oracle.",
+        "ja": "linkした独自fixtureと明示した公開phase／factory／hierarchy呼出を使う。宣言された独自型、scope、引数、期待観測を保持し、非公開実装状態をoracleにしない。"
+      },
+      "expected": {
+        "en": "The ended common run phase kills its selected task descendant instead of permitting later counter updates.",
+        "ja": "終了した共通run phaseは選択task子孫をkillし、その後のcounter更新を許さない。"
+      },
+      "limitations": {
+        "en": "Positive time delays separate observations. The original worker and its forked descendant never raise an objection or kill themselves. Post-phase observations check writes/counter changes, not private process handles or exact tick counts. The common probe uses finish-on-completion zero and an explicit later observer. No jumps or asynchronous domains are tested; retained mismatches have no confirmed cause assignment.",
+        "ja": "正の遅延で観測を分ける。独自workerとforkした子孫はobjectionを上げず、自らkillしない。phase後にwrite／counter変化を確認し、非公開process handleや正確なtick数を見ない。common probeはfinish-on-completion 0と明示した後続observerを使う。jumpや非同期domainは検査せず、保持する不一致に確定原因を割り当てない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_run_phase_kills_remaining_task_and_descendant_after_all_objections_drop",
+          "role": "direct",
+          "expected_observations": [
+            "UT: common_lifetime entered 1 forked 1 late 0 fork_alive 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-EXT-TASK-LIFETIME-INTERFACE",
+      "clause": "13.1.4",
+      "statement": {
+        "en": "The component phase interface separates objection-controlled phase lifetime from task return and ends selected task processes with the phase.",
+        "ja": "component phase interfaceはobjectionで制御するphase寿命をtaskのreturnと分け、選択task processをphaseと共に終える。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures and their explicit public phase, factory or hierarchy calls. Preserve the declared original types, scope, arguments and expected observations; no private implementation state supplies an oracle.",
+        "ja": "linkした独自fixtureと明示した公開phase／factory／hierarchy呼出を使う。宣言された独自型、scope、引数、期待観測を保持し、非公開実装状態をoracleにしない。"
+      },
+      "expected": {
+        "en": "The component phase interface separates objection-controlled phase lifetime from task return and ends selected task processes with the phase.",
+        "ja": "component phase interfaceはobjectionで制御するphase寿命をtaskのreturnと分け、選択task processをphaseと共に終える。"
+      },
+      "limitations": {
+        "en": "Positive time delays separate observations. The original worker and its forked descendant never raise an objection or kill themselves. Post-phase observations check writes/counter changes, not private process handles or exact tick counts. The common probe uses finish-on-completion zero and an explicit later observer. No jumps or asynchronous domains are tested; retained mismatches have no confirmed cause assignment.",
+        "ja": "正の遅延で観測を分ける。独自workerとforkした子孫はobjectionを上げず、自らkillしない。phase後にwrite／counter変化を確認し、非公開process handleや正確なtick数を見ない。common probeはfinish-on-completion 0と明示した後続observerを使う。jumpや非同期domainは検査せず、保持する不一致に確定原因を割り当てない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_run_phase_return_does_not_end_an_objection_held_phase",
+          "role": "direct",
+          "expected_observations": [
+            "UT: common_held returned 1 ended 0",
+            "UT: common_after_drop ended 1"
+          ]
+        },
+        {
+          "test": "u13/test_component_runtime_phase_kills_a_nonreturning_task_and_its_forked_descendant",
+          "role": "direct",
+          "expected_observations": [
+            "UT: runtime_lifetime entered 1 forked 1 late 0 fork_alive 0"
+          ]
+        },
+        {
+          "test": "u13/test_component_run_phase_kills_remaining_task_and_descendant_after_all_objections_drop",
+          "role": "direct",
+          "expected_observations": [
+            "UT: common_lifetime entered 1 forked 1 late 0 fork_alive 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-EXT-CALLBACK-STARTED-THREAD-PERSISTS",
+      "clause": "13.1.4.3",
+      "statement": {
+        "en": "The selected thread spawned in phase_started survives that runtime phase ending.",
+        "ja": "phaseのstart callbackがspawnした選択threadはそのruntime phase終了後も継続する。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures and their explicit public phase, factory or hierarchy calls. Preserve the declared original types, scope, arguments and expected observations; no private implementation state supplies an oracle.",
+        "ja": "linkした独自fixtureと明示した公開phase／factory／hierarchy呼出を使う。宣言された独自型、scope、引数、期待観測を保持し、非公開実装状態をoracleにしない。"
+      },
+      "expected": {
+        "en": "The selected thread spawned in phase_started survives that runtime phase ending.",
+        "ja": "phaseのstart callbackがspawnした選択threadはそのruntime phase終了後も継続する。"
+      },
+      "limitations": {
+        "en": "The pre-reset callback dispatch flags are observed before checking delayed completion in a later held main phase. Callback threads do not hold the earlier phase. No exact callback retry count, arbitrary callback task or full schedule is certified; the ready-thread mismatch remains evidence without assigning a confirmed cause.",
+        "ja": "pre-reset callbackのdispatch flagを観測した上で、後続の保持したmain phaseで遅延完了を確認する。callback threadは前のphaseを保持しない。正確なcallback retry数、任意callback task、全scheduleを認定せず、ready-thread不一致は確定原因を割り当てないevidenceに保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_phase_callback_threads_survive_their_runtime_phase_end",
+          "role": "direct",
+          "expected_observations": [
+            "UT: callback_dispatch started 1 ready 1 ended 1",
+            "UT: callback_threads started 1 ready 1 ended 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-EXT-CALLBACK-READY-THREAD-PERSISTS",
+      "clause": "13.1.4.3",
+      "statement": {
+        "en": "The selected thread spawned in phase_ready_to_end survives that runtime phase ending.",
+        "ja": "phaseのready-to-end callbackがspawnした選択threadはそのruntime phase終了後も継続する。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures and their explicit public phase, factory or hierarchy calls. Preserve the declared original types, scope, arguments and expected observations; no private implementation state supplies an oracle.",
+        "ja": "linkした独自fixtureと明示した公開phase／factory／hierarchy呼出を使う。宣言された独自型、scope、引数、期待観測を保持し、非公開実装状態をoracleにしない。"
+      },
+      "expected": {
+        "en": "The selected thread spawned in phase_ready_to_end survives that runtime phase ending.",
+        "ja": "phaseのready-to-end callbackがspawnした選択threadはそのruntime phase終了後も継続する。"
+      },
+      "limitations": {
+        "en": "The pre-reset callback dispatch flags are observed before checking delayed completion in a later held main phase. Callback threads do not hold the earlier phase. No exact callback retry count, arbitrary callback task or full schedule is certified; the ready-thread mismatch remains evidence without assigning a confirmed cause.",
+        "ja": "pre-reset callbackのdispatch flagを観測した上で、後続の保持したmain phaseで遅延完了を確認する。callback threadは前のphaseを保持しない。正確なcallback retry数、任意callback task、全scheduleを認定せず、ready-thread不一致は確定原因を割り当てないevidenceに保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_phase_callback_threads_survive_their_runtime_phase_end",
+          "role": "direct",
+          "expected_observations": [
+            "UT: callback_dispatch started 1 ready 1 ended 1",
+            "UT: callback_threads started 1 ready 1 ended 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-EXT-CALLBACK-ENDED-THREAD-PERSISTS",
+      "clause": "13.1.4.3",
+      "statement": {
+        "en": "The selected thread spawned in phase_ended survives that runtime phase ending.",
+        "ja": "phaseのend callbackがspawnした選択threadはそのruntime phase終了後も継続する。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures and their explicit public phase, factory or hierarchy calls. Preserve the declared original types, scope, arguments and expected observations; no private implementation state supplies an oracle.",
+        "ja": "linkした独自fixtureと明示した公開phase／factory／hierarchy呼出を使う。宣言された独自型、scope、引数、期待観測を保持し、非公開実装状態をoracleにしない。"
+      },
+      "expected": {
+        "en": "The selected thread spawned in phase_ended survives that runtime phase ending.",
+        "ja": "phaseのend callbackがspawnした選択threadはそのruntime phase終了後も継続する。"
+      },
+      "limitations": {
+        "en": "The pre-reset callback dispatch flags are observed before checking delayed completion in a later held main phase. Callback threads do not hold the earlier phase. No exact callback retry count, arbitrary callback task or full schedule is certified; the ready-thread mismatch remains evidence without assigning a confirmed cause.",
+        "ja": "pre-reset callbackのdispatch flagを観測した上で、後続の保持したmain phaseで遅延完了を確認する。callback threadは前のphaseを保持しない。正確なcallback retry数、任意callback task、全scheduleを認定せず、ready-thread不一致は確定原因を割り当てないevidenceに保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_phase_callback_threads_survive_their_runtime_phase_end",
+          "role": "direct",
+          "expected_observations": [
+            "UT: callback_dispatch started 1 ready 1 ended 1",
+            "UT: callback_threads started 1 ready 1 ended 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-EXT-OBJECTION-RAISED-HOOK",
+      "clause": "13.1.6.1",
+      "statement": {
+        "en": "Default objection raised dispatch reaches the selected component hooks with exact objection/source/description/count.",
+        "ja": "既定objectionのraised dispatchは正確なobjection／source／description／countで選択component hookへ届く。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures and their explicit public phase, factory or hierarchy calls. Preserve the declared original types, scope, arguments and expected observations; no private implementation state supplies an oracle.",
+        "ja": "linkした独自fixtureと明示した公開phase／factory／hierarchy呼出を使う。宣言された独自型、scope、引数、期待観測を保持し、非公開実装状態をoracleにしない。"
+      },
+      "expected": {
+        "en": "Default objection raised dispatch reaches the selected component hooks with exact objection/source/description/count.",
+        "ja": "既定objectionのraised dispatchは正確なobjection／source／description／countで選択component hookへ届く。"
+      },
+      "limitations": {
+        "en": "Compatible retained full-propagation fixture, with public component hooks and independently registered callbacks. No new run is claimed for that unchanged input. The existing all_dropped implementation is a task and can delay; the printed component function declaration remains a separate unresolved signature probe.",
+        "ja": "互換な保持済みfull-propagation fixtureで、公開component hookと独立登録callbackを使う。未変更入力の新実行を主張しない。既存all_dropped実装は遅延可能なtaskであり、印刷されたcomponent function宣言は別の未解決signature probeに保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_objection_full_propagation_delivers_default_and_registered_hooks_with_context",
+          "role": "direct",
+          "expected_observations": [
+            "UT: component_hooks raised 1/1/1 dropped 2/2/2 all 1/1/1",
+            "UT: registered_all 1/1/1/1 meta 1/1 totals 0/0 drain 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-EXT-OBJECTION-DROPPED-HOOK",
+      "clause": "13.1.6.2",
+      "statement": {
+        "en": "Default objection dropped dispatch reaches the selected component hooks for partial and final drops.",
+        "ja": "既定objectionのdropped dispatchは部分／最終dropで選択component hookへ届く。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures and their explicit public phase, factory or hierarchy calls. Preserve the declared original types, scope, arguments and expected observations; no private implementation state supplies an oracle.",
+        "ja": "linkした独自fixtureと明示した公開phase／factory／hierarchy呼出を使う。宣言された独自型、scope、引数、期待観測を保持し、非公開実装状態をoracleにしない。"
+      },
+      "expected": {
+        "en": "Default objection dropped dispatch reaches the selected component hooks for partial and final drops.",
+        "ja": "既定objectionのdropped dispatchは部分／最終dropで選択component hookへ届く。"
+      },
+      "limitations": {
+        "en": "Compatible retained full-propagation fixture, with public component hooks and independently registered callbacks. No new run is claimed for that unchanged input. The existing all_dropped implementation is a task and can delay; the printed component function declaration remains a separate unresolved signature probe.",
+        "ja": "互換な保持済みfull-propagation fixtureで、公開component hookと独立登録callbackを使う。未変更入力の新実行を主張しない。既存all_dropped実装は遅延可能なtaskであり、印刷されたcomponent function宣言は別の未解決signature probeに保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_objection_full_propagation_delivers_default_and_registered_hooks_with_context",
+          "role": "direct",
+          "expected_observations": [
+            "UT: component_hooks raised 1/1/1 dropped 2/2/2 all 1/1/1",
+            "UT: registered_all 1/1/1/1 meta 1/1 totals 0/0 drain 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-EXT-OBJECTION-ALL-DROPPED-HOOK",
+      "clause": "13.1.6.3",
+      "statement": {
+        "en": "Default objection all_dropped dispatch reaches the selected component hooks with the original context after drain.",
+        "ja": "既定objectionのall_dropped dispatchはdrain後に元のcontextで選択component hookへ届く。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures and their explicit public phase, factory or hierarchy calls. Preserve the declared original types, scope, arguments and expected observations; no private implementation state supplies an oracle.",
+        "ja": "linkした独自fixtureと明示した公開phase／factory／hierarchy呼出を使う。宣言された独自型、scope、引数、期待観測を保持し、非公開実装状態をoracleにしない。"
+      },
+      "expected": {
+        "en": "Default objection all_dropped dispatch reaches the selected component hooks with the original context after drain.",
+        "ja": "既定objectionのall_dropped dispatchはdrain後に元のcontextで選択component hookへ届く。"
+      },
+      "limitations": {
+        "en": "Compatible retained full-propagation fixture, with public component hooks and independently registered callbacks. No new run is claimed for that unchanged input. The existing all_dropped implementation is a task and can delay; the printed component function declaration remains a separate unresolved signature probe.",
+        "ja": "互換な保持済みfull-propagation fixtureで、公開component hookと独立登録callbackを使う。未変更入力の新実行を主張しない。既存all_dropped実装は遅延可能なtaskであり、印刷されたcomponent function宣言は別の未解決signature probeに保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_objection_full_propagation_delivers_default_and_registered_hooks_with_context",
+          "role": "direct",
+          "expected_observations": [
+            "UT: component_hooks raised 1/1/1 dropped 2/2/2 all 1/1/1",
+            "UT: registered_all 1/1/1/1 meta 1/1 totals 0/0 drain 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-EXT-PRINTED-ALL-DROPPED-FUNCTION",
+      "clause": "13.1.6.3",
+      "statement": {
+        "en": "The printed component all_dropped function declaration supports its selected nonblocking override and function caller.",
+        "ja": "印刷されたcomponent all_droppedのfunction宣言は選択した非blocking overrideとfunction callerを扱える。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures and their explicit public phase, factory or hierarchy calls. Preserve the declared original types, scope, arguments and expected observations; no private implementation state supplies an oracle.",
+        "ja": "linkした独自fixtureと明示した公開phase／factory／hierarchy呼出を使う。宣言された独自型、scope、引数、期待観測を保持し、非公開実装状態をoracleにしない。"
+      },
+      "expected": {
+        "en": "The printed component all_dropped function declaration supports its selected nonblocking override and function caller.",
+        "ja": "印刷されたcomponent all_droppedのfunction宣言は選択した非blocking overrideとfunction callerを扱える。"
+      },
+      "limitations": {
+        "en": "A qualified literal signature probe: 13.1.6.3 prints function while the objection callback in 10.5.1.4.3 is a task. The pinned combination rejects a function calling the base task. Preserve the printed expectation as build evidence without runtime seeds, an alternate task spelling or a confirmed defect attribution.",
+        "ja": "限定した字義的signature probeで、13.1.6.3はfunction、10.5.1.4.3のobjection callbackはtaskと印刷する。固定組合せはbase taskを呼ぶfunctionを拒否する。runtime seed、別task表記への置換、確定不具合断定を伴わず、印刷された期待をbuild evidenceとして保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_printed_all_dropped_function_signature_dispatches_through_a_base_view",
+          "role": "direct",
+          "expected_observations": [
+            "UT: printed_all_dropped calls 1 context 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-EXT-TEST-ARGUMENT-SELECTION",
+      "clause": "13.2",
+      "statement": {
+        "en": "A registered test selected by the run_test argument is instantiated as the root child uvm_test_top and executes its selected subtype.",
+        "ja": "run_test引数で選択した登録testはrootのchild uvm_test_topとして生成され、選択subtypeを実行する。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures and their explicit public phase, factory or hierarchy calls. Preserve the declared original types, scope, arguments and expected observations; no private implementation state supplies an oracle.",
+        "ja": "linkした独自fixtureと明示した公開phase／factory／hierarchy呼出を使う。宣言された独自型、scope、引数、期待観測を保持し、非公開実装状態をoracleにしない。"
+      },
+      "expected": {
+        "en": "A registered test selected by the run_test argument is instantiated as the root child uvm_test_top and executes its selected subtype.",
+        "ja": "run_test引数で選択した登録testはrootのchild uvm_test_topとして生成され、選択subtypeを実行する。"
+      },
+      "limitations": {
+        "en": "Explicit named-argument selection only. Command-line precedence and warnings remain in separate G.2.1 fixtures; no implicit registration, arbitrary subtype or every test-selection failure is certified.",
+        "ja": "明示した名前引数による選択だけ。command-line優先順位／警告は別G.2.1 fixtureに保持し、暗黙登録、任意subtype、全test選択失敗を認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_test_argument_selection_creates_the_registered_test_under_the_implicit_root",
+          "role": "direct",
+          "expected_observations": [
+            "UT: argument_test name 1 parent 1 registered 1 selected_type 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-EXT-FACTORY-COMPONENT-TYPE",
+      "clause": "D.2.1.1",
+      "statement": {
+        "en": "Component create_component creates the registered requested component type.",
+        "ja": "componentのcreate_componentは登録された要求component型を生成する。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures and their explicit public phase, factory or hierarchy calls. Preserve the declared original types, scope, arguments and expected observations; no private implementation state supplies an oracle.",
+        "ja": "linkした独自fixtureと明示した公開phase／factory／hierarchy呼出を使う。宣言された独自型、scope、引数、期待観測を保持し、非公開実装状態をoracleにしない。"
+      },
+      "expected": {
+        "en": "Component create_component creates the registered requested component type.",
+        "ja": "componentのcreate_componentは登録された要求component型を生成する。"
+      },
+      "limitations": {
+        "en": "Public component convenience methods call the real factory with registered original types. Exact type, name, scope and replace observations only; invalid types, all chains and races remain partial. For create_object, use its public two-argument declaration and the factory three-argument contract; the printed equivalent call has an extra this argument and is not silently declared resolved.",
+        "ja": "公開component便宜methodから登録済み独自型で実factoryを呼ぶ。正確な型・名・scope・replaceの観測だけで、不正型、全chain、raceは部分対応に残す。create_objectは公開2引数宣言とfactory 3引数契約を使い、印刷された等価callの余分なthis引数を解決済みとしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_component_factory_create_component_preserves_owner_name_and_registered_type",
+          "role": "direct",
+          "expected_observations": [
+            "UT: helper_component typed 1 name 1 parent 1 child 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-EXT-FACTORY-COMPONENT-NAME-PARENT",
+      "clause": "D.2.1.1",
+      "statement": {
+        "en": "Component create_component preserves the leaf name and inserts the same child under the calling component.",
+        "ja": "componentのcreate_componentはleaf名を保持し、呼出component下へ同じchildを挿入する。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures and their explicit public phase, factory or hierarchy calls. Preserve the declared original types, scope, arguments and expected observations; no private implementation state supplies an oracle.",
+        "ja": "linkした独自fixtureと明示した公開phase／factory／hierarchy呼出を使う。宣言された独自型、scope、引数、期待観測を保持し、非公開実装状態をoracleにしない。"
+      },
+      "expected": {
+        "en": "Component create_component preserves the leaf name and inserts the same child under the calling component.",
+        "ja": "componentのcreate_componentはleaf名を保持し、呼出component下へ同じchildを挿入する。"
+      },
+      "limitations": {
+        "en": "Public component convenience methods call the real factory with registered original types. Exact type, name, scope and replace observations only; invalid types, all chains and races remain partial. For create_object, use its public two-argument declaration and the factory three-argument contract; the printed equivalent call has an extra this argument and is not silently declared resolved.",
+        "ja": "公開component便宜methodから登録済み独自型で実factoryを呼ぶ。正確な型・名・scope・replaceの観測だけで、不正型、全chain、raceは部分対応に残す。create_objectは公開2引数宣言とfactory 3引数契約を使い、印刷された等価callの余分なthis引数を解決済みとしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_component_factory_create_component_preserves_owner_name_and_registered_type",
+          "role": "direct",
+          "expected_observations": [
+            "UT: helper_component typed 1 name 1 parent 1 child 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-EXT-FACTORY-OBJECT-EXPLICIT-NAME",
+      "clause": "D.2.1.2",
+      "statement": {
+        "en": "Component create_object creates the registered original object with its explicit name.",
+        "ja": "componentのcreate_objectは明示名で登録済み独自objectを生成する。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures and their explicit public phase, factory or hierarchy calls. Preserve the declared original types, scope, arguments and expected observations; no private implementation state supplies an oracle.",
+        "ja": "linkした独自fixtureと明示した公開phase／factory／hierarchy呼出を使う。宣言された独自型、scope、引数、期待観測を保持し、非公開実装状態をoracleにしない。"
+      },
+      "expected": {
+        "en": "Component create_object creates the registered original object with its explicit name.",
+        "ja": "componentのcreate_objectは明示名で登録済み独自objectを生成する。"
+      },
+      "limitations": {
+        "en": "Public component convenience methods call the real factory with registered original types. Exact type, name, scope and replace observations only; invalid types, all chains and races remain partial. For create_object, use its public two-argument declaration and the factory three-argument contract; the printed equivalent call has an extra this argument and is not silently declared resolved.",
+        "ja": "公開component便宜methodから登録済み独自型で実factoryを呼ぶ。正確な型・名・scope・replaceの観測だけで、不正型、全chain、raceは部分対応に残す。create_objectは公開2引数宣言とfactory 3引数契約を使い、印刷された等価callの余分なthis引数を解決済みとしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_component_factory_create_object_preserves_explicit_and_omitted_names",
+          "role": "direct",
+          "expected_observations": [
+            "UT: helper_objects typed 1 named 1 omitted_empty 1 independent 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-EXT-FACTORY-OBJECT-OMITTED-NAME",
+      "clause": "D.2.1.2",
+      "statement": {
+        "en": "An omitted create_object name can create an independent object whose original constructor also defaults to an empty name.",
+        "ja": "create_object名の省略で、独自constructorも空名を既定とする独立objectを生成できる。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures and their explicit public phase, factory or hierarchy calls. Preserve the declared original types, scope, arguments and expected observations; no private implementation state supplies an oracle.",
+        "ja": "linkした独自fixtureと明示した公開phase／factory／hierarchy呼出を使う。宣言された独自型、scope、引数、期待観測を保持し、非公開実装状態をoracleにしない。"
+      },
+      "expected": {
+        "en": "An omitted create_object name can create an independent object whose original constructor also defaults to an empty name.",
+        "ja": "create_object名の省略で、独自constructorも空名を既定とする独立objectを生成できる。"
+      },
+      "limitations": {
+        "en": "Public component convenience methods call the real factory with registered original types. Exact type, name, scope and replace observations only; invalid types, all chains and races remain partial. For create_object, use its public two-argument declaration and the factory three-argument contract; the printed equivalent call has an extra this argument and is not silently declared resolved.",
+        "ja": "公開component便宜methodから登録済み独自型で実factoryを呼ぶ。正確な型・名・scope・replaceの観測だけで、不正型、全chain、raceは部分対応に残す。create_objectは公開2引数宣言とfactory 3引数契約を使い、印刷された等価callの余分なthis引数を解決済みとしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_component_factory_create_object_preserves_explicit_and_omitted_names",
+          "role": "direct",
+          "expected_observations": [
+            "UT: helper_objects typed 1 named 1 omitted_empty 1 independent 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-EXT-FACTORY-TYPED-INSTALL",
+      "clause": "D.2.1.3",
+      "statement": {
+        "en": "The selected convenience type override replaces the requested original type.",
+        "ja": "選択便宜type overrideは要求された元の型を置換する。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures and their explicit public phase, factory or hierarchy calls. Preserve the declared original types, scope, arguments and expected observations; no private implementation state supplies an oracle.",
+        "ja": "linkした独自fixtureと明示した公開phase／factory／hierarchy呼出を使う。宣言された独自型、scope、引数、期待観測を保持し、非公開実装状態をoracleにしない。"
+      },
+      "expected": {
+        "en": "The selected convenience type override replaces the requested original type.",
+        "ja": "選択便宜type overrideは要求された元の型を置換する。"
+      },
+      "limitations": {
+        "en": "Public component convenience methods call the real factory with registered original types. Exact type, name, scope and replace observations only; invalid types, all chains and races remain partial. For create_object, use its public two-argument declaration and the factory three-argument contract; the printed equivalent call has an extra this argument and is not silently declared resolved.",
+        "ja": "公開component便宜methodから登録済み独自型で実factoryを呼ぶ。正確な型・名・scope・replaceの観測だけで、不正型、全chain、raceは部分対応に残す。create_objectは公開2引数宣言とfactory 3引数契約を使い、印刷された等価callの余分なthis引数を解決済みとしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_component_factory_typed_type_override_forwards_default_and_explicit_replace",
+          "role": "direct",
+          "expected_observations": [
+            "UT: helper_override 0 correct 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-EXT-FACTORY-TYPED-KEEP-ZERO",
+      "clause": "D.2.1.3",
+      "statement": {
+        "en": "A convenience type override with replace zero preserves the existing replacement in subsequent name-based creation.",
+        "ja": "replace 0の便宜type overrideは後続の名前による生成で既存置換を保持する。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures and their explicit public phase, factory or hierarchy calls. Preserve the declared original types, scope, arguments and expected observations; no private implementation state supplies an oracle.",
+        "ja": "linkした独自fixtureと明示した公開phase／factory／hierarchy呼出を使う。宣言された独自型、scope、引数、期待観測を保持し、非公開実装状態をoracleにしない。"
+      },
+      "expected": {
+        "en": "A convenience type override with replace zero preserves the existing replacement in subsequent name-based creation.",
+        "ja": "replace 0の便宜type overrideは後続の名前による生成で既存置換を保持する。"
+      },
+      "limitations": {
+        "en": "Public component convenience methods call the real factory with registered original types. Exact type, name, scope and replace observations only; invalid types, all chains and races remain partial. For create_object, use its public two-argument declaration and the factory three-argument contract; the printed equivalent call has an extra this argument and is not silently declared resolved.",
+        "ja": "公開component便宜methodから登録済み独自型で実factoryを呼ぶ。正確な型・名・scope・replaceの観測だけで、不正型、全chain、raceは部分対応に残す。create_objectは公開2引数宣言とfactory 3引数契約を使い、印刷された等価callの余分なthis引数を解決済みとしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_component_factory_typed_type_override_forwards_default_and_explicit_replace",
+          "role": "direct",
+          "expected_observations": [
+            "UT: helper_override 1 correct 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-EXT-FACTORY-TYPED-DEFAULT-REPLACE",
+      "clause": "D.2.1.3",
+      "statement": {
+        "en": "Omitting the convenience replace argument replaces the previous override.",
+        "ja": "便宜replace引数の省略は以前のoverrideを置換する。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures and their explicit public phase, factory or hierarchy calls. Preserve the declared original types, scope, arguments and expected observations; no private implementation state supplies an oracle.",
+        "ja": "linkした独自fixtureと明示した公開phase／factory／hierarchy呼出を使う。宣言された独自型、scope、引数、期待観測を保持し、非公開実装状態をoracleにしない。"
+      },
+      "expected": {
+        "en": "Omitting the convenience replace argument replaces the previous override.",
+        "ja": "便宜replace引数の省略は以前のoverrideを置換する。"
+      },
+      "limitations": {
+        "en": "Public component convenience methods call the real factory with registered original types. Exact type, name, scope and replace observations only; invalid types, all chains and races remain partial. For create_object, use its public two-argument declaration and the factory three-argument contract; the printed equivalent call has an extra this argument and is not silently declared resolved.",
+        "ja": "公開component便宜methodから登録済み独自型で実factoryを呼ぶ。正確な型・名・scope・replaceの観測だけで、不正型、全chain、raceは部分対応に残す。create_objectは公開2引数宣言とfactory 3引数契約を使い、印刷された等価callの余分なthis引数を解決済みとしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_component_factory_typed_type_override_forwards_default_and_explicit_replace",
+          "role": "direct",
+          "expected_observations": [
+            "UT: helper_override 2 correct 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-EXT-FACTORY-TYPED-EXPLICIT-REPLACE",
+      "clause": "D.2.1.3",
+      "statement": {
+        "en": "Explicit convenience replace one replaces the previous override.",
+        "ja": "便宜replaceの明示1は以前のoverrideを置換する。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures and their explicit public phase, factory or hierarchy calls. Preserve the declared original types, scope, arguments and expected observations; no private implementation state supplies an oracle.",
+        "ja": "linkした独自fixtureと明示した公開phase／factory／hierarchy呼出を使う。宣言された独自型、scope、引数、期待観測を保持し、非公開実装状態をoracleにしない。"
+      },
+      "expected": {
+        "en": "Explicit convenience replace one replaces the previous override.",
+        "ja": "便宜replaceの明示1は以前のoverrideを置換する。"
+      },
+      "limitations": {
+        "en": "Public component convenience methods call the real factory with registered original types. Exact type, name, scope and replace observations only; invalid types, all chains and races remain partial. For create_object, use its public two-argument declaration and the factory three-argument contract; the printed equivalent call has an extra this argument and is not silently declared resolved.",
+        "ja": "公開component便宜methodから登録済み独自型で実factoryを呼ぶ。正確な型・名・scope・replaceの観測だけで、不正型、全chain、raceは部分対応に残す。create_objectは公開2引数宣言とfactory 3引数契約を使い、印刷された等価callの余分なthis引数を解決済みとしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_component_factory_typed_type_override_forwards_default_and_explicit_replace",
+          "role": "direct",
+          "expected_observations": [
+            "UT: helper_override 3 correct 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-EXT-FACTORY-NAMED-INSTALL",
+      "clause": "D.2.1.5",
+      "statement": {
+        "en": "The selected convenience type override replaces the requested original type.",
+        "ja": "選択便宜type overrideは要求された元の型を置換する。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures and their explicit public phase, factory or hierarchy calls. Preserve the declared original types, scope, arguments and expected observations; no private implementation state supplies an oracle.",
+        "ja": "linkした独自fixtureと明示した公開phase／factory／hierarchy呼出を使う。宣言された独自型、scope、引数、期待観測を保持し、非公開実装状態をoracleにしない。"
+      },
+      "expected": {
+        "en": "The selected convenience type override replaces the requested original type.",
+        "ja": "選択便宜type overrideは要求された元の型を置換する。"
+      },
+      "limitations": {
+        "en": "Public component convenience methods call the real factory with registered original types. Exact type, name, scope and replace observations only; invalid types, all chains and races remain partial. For create_object, use its public two-argument declaration and the factory three-argument contract; the printed equivalent call has an extra this argument and is not silently declared resolved.",
+        "ja": "公開component便宜methodから登録済み独自型で実factoryを呼ぶ。正確な型・名・scope・replaceの観測だけで、不正型、全chain、raceは部分対応に残す。create_objectは公開2引数宣言とfactory 3引数契約を使い、印刷された等価callの余分なthis引数を解決済みとしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_component_factory_named_type_override_forwards_default_and_explicit_replace",
+          "role": "direct",
+          "expected_observations": [
+            "UT: helper_override 0 correct 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-EXT-FACTORY-NAMED-KEEP-ZERO",
+      "clause": "D.2.1.5",
+      "statement": {
+        "en": "A convenience type override with replace zero preserves the existing replacement in subsequent name-based creation.",
+        "ja": "replace 0の便宜type overrideは後続の名前による生成で既存置換を保持する。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures and their explicit public phase, factory or hierarchy calls. Preserve the declared original types, scope, arguments and expected observations; no private implementation state supplies an oracle.",
+        "ja": "linkした独自fixtureと明示した公開phase／factory／hierarchy呼出を使う。宣言された独自型、scope、引数、期待観測を保持し、非公開実装状態をoracleにしない。"
+      },
+      "expected": {
+        "en": "A convenience type override with replace zero preserves the existing replacement in subsequent name-based creation.",
+        "ja": "replace 0の便宜type overrideは後続の名前による生成で既存置換を保持する。"
+      },
+      "limitations": {
+        "en": "Public component convenience methods call the real factory with registered original types. Exact type, name, scope and replace observations only; invalid types, all chains and races remain partial. For create_object, use its public two-argument declaration and the factory three-argument contract; the printed equivalent call has an extra this argument and is not silently declared resolved.",
+        "ja": "公開component便宜methodから登録済み独自型で実factoryを呼ぶ。正確な型・名・scope・replaceの観測だけで、不正型、全chain、raceは部分対応に残す。create_objectは公開2引数宣言とfactory 3引数契約を使い、印刷された等価callの余分なthis引数を解決済みとしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_component_factory_named_type_override_forwards_default_and_explicit_replace",
+          "role": "direct",
+          "expected_observations": [
+            "UT: helper_override 1 correct 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-EXT-FACTORY-NAMED-DEFAULT-REPLACE",
+      "clause": "D.2.1.5",
+      "statement": {
+        "en": "Omitting the convenience replace argument replaces the previous override.",
+        "ja": "便宜replace引数の省略は以前のoverrideを置換する。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures and their explicit public phase, factory or hierarchy calls. Preserve the declared original types, scope, arguments and expected observations; no private implementation state supplies an oracle.",
+        "ja": "linkした独自fixtureと明示した公開phase／factory／hierarchy呼出を使う。宣言された独自型、scope、引数、期待観測を保持し、非公開実装状態をoracleにしない。"
+      },
+      "expected": {
+        "en": "Omitting the convenience replace argument replaces the previous override.",
+        "ja": "便宜replace引数の省略は以前のoverrideを置換する。"
+      },
+      "limitations": {
+        "en": "Public component convenience methods call the real factory with registered original types. Exact type, name, scope and replace observations only; invalid types, all chains and races remain partial. For create_object, use its public two-argument declaration and the factory three-argument contract; the printed equivalent call has an extra this argument and is not silently declared resolved.",
+        "ja": "公開component便宜methodから登録済み独自型で実factoryを呼ぶ。正確な型・名・scope・replaceの観測だけで、不正型、全chain、raceは部分対応に残す。create_objectは公開2引数宣言とfactory 3引数契約を使い、印刷された等価callの余分なthis引数を解決済みとしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_component_factory_named_type_override_forwards_default_and_explicit_replace",
+          "role": "direct",
+          "expected_observations": [
+            "UT: helper_override 2 correct 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-EXT-FACTORY-NAMED-EXPLICIT-REPLACE",
+      "clause": "D.2.1.5",
+      "statement": {
+        "en": "Explicit convenience replace one replaces the previous override.",
+        "ja": "便宜replaceの明示1は以前のoverrideを置換する。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures and their explicit public phase, factory or hierarchy calls. Preserve the declared original types, scope, arguments and expected observations; no private implementation state supplies an oracle.",
+        "ja": "linkした独自fixtureと明示した公開phase／factory／hierarchy呼出を使う。宣言された独自型、scope、引数、期待観測を保持し、非公開実装状態をoracleにしない。"
+      },
+      "expected": {
+        "en": "Explicit convenience replace one replaces the previous override.",
+        "ja": "便宜replaceの明示1は以前のoverrideを置換する。"
+      },
+      "limitations": {
+        "en": "Public component convenience methods call the real factory with registered original types. Exact type, name, scope and replace observations only; invalid types, all chains and races remain partial. For create_object, use its public two-argument declaration and the factory three-argument contract; the printed equivalent call has an extra this argument and is not silently declared resolved.",
+        "ja": "公開component便宜methodから登録済み独自型で実factoryを呼ぶ。正確な型・名・scope・replaceの観測だけで、不正型、全chain、raceは部分対応に残す。create_objectは公開2引数宣言とfactory 3引数契約を使い、印刷された等価callの余分なthis引数を解決済みとしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_component_factory_named_type_override_forwards_default_and_explicit_replace",
+          "role": "direct",
+          "expected_observations": [
+            "UT: helper_override 3 correct 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-EXT-FACTORY-NAMED-UNREGISTERED-ORIGINAL",
+      "clause": "D.2.1.5",
+      "statement": {
+        "en": "The named convenience type override accepts an unregistered original string when its replacement is registered.",
+        "ja": "名前による便宜type overrideは置換先が登録済みなら未登録の元stringを扱える。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures and their explicit public phase, factory or hierarchy calls. Preserve the declared original types, scope, arguments and expected observations; no private implementation state supplies an oracle.",
+        "ja": "linkした独自fixtureと明示した公開phase／factory／hierarchy呼出を使う。宣言された独自型、scope、引数、期待観測を保持し、非公開実装状態をoracleにしない。"
+      },
+      "expected": {
+        "en": "The named convenience type override accepts an unregistered original string when its replacement is registered.",
+        "ja": "名前による便宜type overrideは置換先が登録済みなら未登録の元stringを扱える。"
+      },
+      "limitations": {
+        "en": "Public component convenience methods call the real factory with registered original types. Exact type, name, scope and replace observations only; invalid types, all chains and races remain partial. For create_object, use its public two-argument declaration and the factory three-argument contract; the printed equivalent call has an extra this argument and is not silently declared resolved.",
+        "ja": "公開component便宜methodから登録済み独自型で実factoryを呼ぶ。正確な型・名・scope・replaceの観測だけで、不正型、全chain、raceは部分対応に残す。create_objectは公開2引数宣言とfactory 3引数契約を使い、印刷された等価callの余分なthis引数を解決済みとしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_component_factory_named_type_override_forwards_default_and_explicit_replace",
+          "role": "direct",
+          "expected_observations": [
+            "UT: helper_unregistered_alias 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-EXT-FACTORY-TYPED-INSTANCE-EXACT-SCOPE",
+      "clause": "D.2.1.4",
+      "statement": {
+        "en": "A relative exact object override selects the matching creation and preserves other names and outside peers.",
+        "ja": "相対exact object overrideは一致する生成を選択し、他の名と外部peerを保持する。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures and their explicit public phase, factory or hierarchy calls. Preserve the declared original types, scope, arguments and expected observations; no private implementation state supplies an oracle.",
+        "ja": "linkした独自fixtureと明示した公開phase／factory／hierarchy呼出を使う。宣言された独自型、scope、引数、期待観測を保持し、非公開実装状態をoracleにしない。"
+      },
+      "expected": {
+        "en": "A relative exact object override selects the matching creation and preserves other names and outside peers.",
+        "ja": "相対exact object overrideは一致する生成を選択し、他の名と外部peerを保持する。"
+      },
+      "limitations": {
+        "en": "Public component convenience methods call the real factory with registered original types. Exact type, name, scope and replace observations only; invalid types, all chains and races remain partial. For create_object, use its public two-argument declaration and the factory three-argument contract; the printed equivalent call has an extra this argument and is not silently declared resolved.",
+        "ja": "公開component便宜methodから登録済み独自型で実factoryを呼ぶ。正確な型・名・scope・replaceの観測だけで、不正型、全chain、raceは部分対応に残す。create_objectは公開2引数宣言とfactory 3引数契約を使い、印刷された等価callの余分なthis引数を解決済みとしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_component_factory_typed_instance_override_scopes_exact_objects_and_nested_wildcards",
+          "role": "direct",
+          "expected_observations": [
+            "UT: helper_instance selected 1 other 1 outside 1 nested 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-EXT-FACTORY-TYPED-INSTANCE-NESTED-WILDCARD",
+      "clause": "D.2.1.4",
+      "statement": {
+        "en": "A relative nested wildcard override selects a descendant component without changing the outside peer type.",
+        "ja": "相対nested wildcard overrideは外部peer型を変えず子孫componentを選択する。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures and their explicit public phase, factory or hierarchy calls. Preserve the declared original types, scope, arguments and expected observations; no private implementation state supplies an oracle.",
+        "ja": "linkした独自fixtureと明示した公開phase／factory／hierarchy呼出を使う。宣言された独自型、scope、引数、期待観測を保持し、非公開実装状態をoracleにしない。"
+      },
+      "expected": {
+        "en": "A relative nested wildcard override selects a descendant component without changing the outside peer type.",
+        "ja": "相対nested wildcard overrideは外部peer型を変えず子孫componentを選択する。"
+      },
+      "limitations": {
+        "en": "Public component convenience methods call the real factory with registered original types. Exact type, name, scope and replace observations only; invalid types, all chains and races remain partial. For create_object, use its public two-argument declaration and the factory three-argument contract; the printed equivalent call has an extra this argument and is not silently declared resolved.",
+        "ja": "公開component便宜methodから登録済み独自型で実factoryを呼ぶ。正確な型・名・scope・replaceの観測だけで、不正型、全chain、raceは部分対応に残す。create_objectは公開2引数宣言とfactory 3引数契約を使い、印刷された等価callの余分なthis引数を解決済みとしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_component_factory_typed_instance_override_scopes_exact_objects_and_nested_wildcards",
+          "role": "direct",
+          "expected_observations": [
+            "UT: helper_instance selected 1 other 1 outside 1 nested 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-EXT-FACTORY-NAMED-INSTANCE-EXACT-SCOPE",
+      "clause": "D.2.1.6",
+      "statement": {
+        "en": "A relative exact object override selects the matching creation and preserves other names and outside peers.",
+        "ja": "相対exact object overrideは一致する生成を選択し、他の名と外部peerを保持する。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures and their explicit public phase, factory or hierarchy calls. Preserve the declared original types, scope, arguments and expected observations; no private implementation state supplies an oracle.",
+        "ja": "linkした独自fixtureと明示した公開phase／factory／hierarchy呼出を使う。宣言された独自型、scope、引数、期待観測を保持し、非公開実装状態をoracleにしない。"
+      },
+      "expected": {
+        "en": "A relative exact object override selects the matching creation and preserves other names and outside peers.",
+        "ja": "相対exact object overrideは一致する生成を選択し、他の名と外部peerを保持する。"
+      },
+      "limitations": {
+        "en": "Public component convenience methods call the real factory with registered original types. Exact type, name, scope and replace observations only; invalid types, all chains and races remain partial. For create_object, use its public two-argument declaration and the factory three-argument contract; the printed equivalent call has an extra this argument and is not silently declared resolved.",
+        "ja": "公開component便宜methodから登録済み独自型で実factoryを呼ぶ。正確な型・名・scope・replaceの観測だけで、不正型、全chain、raceは部分対応に残す。create_objectは公開2引数宣言とfactory 3引数契約を使い、印刷された等価callの余分なthis引数を解決済みとしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_component_factory_named_instance_override_scopes_exact_objects_and_nested_wildcards",
+          "role": "direct",
+          "expected_observations": [
+            "UT: helper_instance selected 1 other 1 outside 1 nested 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-EXT-FACTORY-NAMED-INSTANCE-NESTED-WILDCARD",
+      "clause": "D.2.1.6",
+      "statement": {
+        "en": "A relative nested wildcard override selects a descendant component without changing the outside peer type.",
+        "ja": "相対nested wildcard overrideは外部peer型を変えず子孫componentを選択する。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures and their explicit public phase, factory or hierarchy calls. Preserve the declared original types, scope, arguments and expected observations; no private implementation state supplies an oracle.",
+        "ja": "linkした独自fixtureと明示した公開phase／factory／hierarchy呼出を使う。宣言された独自型、scope、引数、期待観測を保持し、非公開実装状態をoracleにしない。"
+      },
+      "expected": {
+        "en": "A relative nested wildcard override selects a descendant component without changing the outside peer type.",
+        "ja": "相対nested wildcard overrideは外部peer型を変えず子孫componentを選択する。"
+      },
+      "limitations": {
+        "en": "Public component convenience methods call the real factory with registered original types. Exact type, name, scope and replace observations only; invalid types, all chains and races remain partial. For create_object, use its public two-argument declaration and the factory three-argument contract; the printed equivalent call has an extra this argument and is not silently declared resolved.",
+        "ja": "公開component便宜methodから登録済み独自型で実factoryを呼ぶ。正確な型・名・scope・replaceの観測だけで、不正型、全chain、raceは部分対応に残す。create_objectは公開2引数宣言とfactory 3引数契約を使い、印刷された等価callの余分なthis引数を解決済みとしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_component_factory_named_instance_override_scopes_exact_objects_and_nested_wildcards",
+          "role": "direct",
+          "expected_observations": [
+            "UT: helper_instance selected 1 other 1 outside 1 nested 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-EXT-FACTORY-OVERRIDDEN-PARENT",
+      "clause": "D.2.1.1",
+      "statement": {
+        "en": "Component creation after a relative instance override preserves the actual calling descendant as parent.",
+        "ja": "相対instance override後のcomponent生成は実際の呼出子孫をparentとして保持する。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures and their explicit public phase, factory or hierarchy calls. Preserve the declared original types, scope, arguments and expected observations; no private implementation state supplies an oracle.",
+        "ja": "linkした独自fixtureと明示した公開phase／factory／hierarchy呼出を使う。宣言された独自型、scope、引数、期待観測を保持し、非公開実装状態をoracleにしない。"
+      },
+      "expected": {
+        "en": "Component creation after a relative instance override preserves the actual calling descendant as parent.",
+        "ja": "相対instance override後のcomponent生成は実際の呼出子孫をparentとして保持する。"
+      },
+      "limitations": {
+        "en": "Public component convenience methods call the real factory with registered original types. Exact type, name, scope and replace observations only; invalid types, all chains and races remain partial. For create_object, use its public two-argument declaration and the factory three-argument contract; the printed equivalent call has an extra this argument and is not silently declared resolved.",
+        "ja": "公開component便宜methodから登録済み独自型で実factoryを呼ぶ。正確な型・名・scope・replaceの観測だけで、不正型、全chain、raceは部分対応に残す。create_objectは公開2引数宣言とfactory 3引数契約を使い、印刷された等価callの余分なthis引数を解決済みとしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_component_factory_typed_instance_override_scopes_exact_objects_and_nested_wildcards",
+          "role": "direct",
+          "expected_observations": [
+            "UT: helper_instance_parent 1"
+          ]
+        },
+        {
+          "test": "uD/test_component_factory_named_instance_override_scopes_exact_objects_and_nested_wildcards",
+          "role": "direct",
+          "expected_observations": [
+            "UT: helper_instance_parent 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-EXT-REPORT-ID-VERBOSITY-RECURSION",
+      "clause": "D.2.2.1",
+      "statement": {
+        "en": "The hierarchical ID verbosity setter reaches the receiver and current descendants.",
+        "ja": "階層ID verbosity setterはreceiverと現在の子孫へ届く。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures and their explicit public phase, factory or hierarchy calls. Preserve the declared original types, scope, arguments and expected observations; no private implementation state supplies an oracle.",
+        "ja": "linkした独自fixtureと明示した公開phase／factory／hierarchy呼出を使う。宣言された独自型、scope、引数、期待観測を保持し、非公開実装状態をoracleにしない。"
+      },
+      "expected": {
+        "en": "The hierarchical ID verbosity setter reaches the receiver and current descendants.",
+        "ja": "階層ID verbosity setterはreceiverと現在の子孫へ届く。"
+      },
+      "limitations": {
+        "en": "A three-component chain and an outside peer use public getters and actual report calls. Original formatting/execution observers check filtering and effective action delivery, not default text or the action engine statistical/physical side effects. No assumption about future children, sibling order or every action/verbosity combination is made.",
+        "ja": "component 3つの鎖と外部peerで公開getterと実report callを使う。独自format／execute observerはfilterと有効action配送を確認し、既定文面やaction engineの統計／物理的副作用を認定しない。将来のchild、兄弟順、全action／verbosity組合せを仮定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_component_hierarchical_id_and_pair_verbosity_preserve_subtree_precedence_and_live_filtering",
+          "role": "direct",
+          "expected_observations": [
+            "UT: hierarchy_verbosity 0 id 1 pair 1 other 1",
+            "UT: hierarchy_verbosity 1 id 1 pair 1 other 1",
+            "UT: hierarchy_verbosity 2 id 1 pair 1 other 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-EXT-REPORT-PAIR-VERBOSITY-RECURSION",
+      "clause": "D.2.2.1",
+      "statement": {
+        "en": "The hierarchical severity-ID verbosity setter reaches the selected subtree.",
+        "ja": "階層severity-ID verbosity setterは選択subtreeへ届く。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures and their explicit public phase, factory or hierarchy calls. Preserve the declared original types, scope, arguments and expected observations; no private implementation state supplies an oracle.",
+        "ja": "linkした独自fixtureと明示した公開phase／factory／hierarchy呼出を使う。宣言された独自型、scope、引数、期待観測を保持し、非公開実装状態をoracleにしない。"
+      },
+      "expected": {
+        "en": "The hierarchical severity-ID verbosity setter reaches the selected subtree.",
+        "ja": "階層severity-ID verbosity setterは選択subtreeへ届く。"
+      },
+      "limitations": {
+        "en": "A three-component chain and an outside peer use public getters and actual report calls. Original formatting/execution observers check filtering and effective action delivery, not default text or the action engine statistical/physical side effects. No assumption about future children, sibling order or every action/verbosity combination is made.",
+        "ja": "component 3つの鎖と外部peerで公開getterと実report callを使う。独自format／execute observerはfilterと有効action配送を確認し、既定文面やaction engineの統計／物理的副作用を認定しない。将来のchild、兄弟順、全action／verbosity組合せを仮定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_component_hierarchical_id_and_pair_verbosity_preserve_subtree_precedence_and_live_filtering",
+          "role": "direct",
+          "expected_observations": [
+            "UT: hierarchy_verbosity 0 id 1 pair 1 other 1",
+            "UT: hierarchy_verbosity 1 id 1 pair 1 other 1",
+            "UT: hierarchy_verbosity 2 id 1 pair 1 other 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-EXT-REPORT-PAIR-VERBOSITY-PRECEDENCE",
+      "clause": "D.2.2.1",
+      "statement": {
+        "en": "The selected severity-ID verbosity takes precedence over ID and general thresholds.",
+        "ja": "選択severity-ID verbosityはID／一般閾値より優先する。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures and their explicit public phase, factory or hierarchy calls. Preserve the declared original types, scope, arguments and expected observations; no private implementation state supplies an oracle.",
+        "ja": "linkした独自fixtureと明示した公開phase／factory／hierarchy呼出を使う。宣言された独自型、scope、引数、期待観測を保持し、非公開実装状態をoracleにしない。"
+      },
+      "expected": {
+        "en": "The selected severity-ID verbosity takes precedence over ID and general thresholds.",
+        "ja": "選択severity-ID verbosityはID／一般閾値より優先する。"
+      },
+      "limitations": {
+        "en": "A three-component chain and an outside peer use public getters and actual report calls. Original formatting/execution observers check filtering and effective action delivery, not default text or the action engine statistical/physical side effects. No assumption about future children, sibling order or every action/verbosity combination is made.",
+        "ja": "component 3つの鎖と外部peerで公開getterと実report callを使う。独自format／execute observerはfilterと有効action配送を確認し、既定文面やaction engineの統計／物理的副作用を認定しない。将来のchild、兄弟順、全action／verbosity組合せを仮定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_component_hierarchical_id_and_pair_verbosity_preserve_subtree_precedence_and_live_filtering",
+          "role": "direct",
+          "expected_observations": [
+            "UT: hierarchy_verbosity 0 id 1 pair 1 other 1",
+            "UT: hierarchy_verbosity 1 id 1 pair 1 other 1",
+            "UT: hierarchy_verbosity 2 id 1 pair 1 other 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-EXT-REPORT-VERBOSITY-NARROWING",
+      "clause": "D.2.2.1",
+      "statement": {
+        "en": "Changing a descendant ID threshold preserves its ancestor and more specific pair thresholds.",
+        "ja": "子孫ID閾値の変更は祖先と、よりspecificなpair閾値を保持する。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures and their explicit public phase, factory or hierarchy calls. Preserve the declared original types, scope, arguments and expected observations; no private implementation state supplies an oracle.",
+        "ja": "linkした独自fixtureと明示した公開phase／factory／hierarchy呼出を使う。宣言された独自型、scope、引数、期待観測を保持し、非公開実装状態をoracleにしない。"
+      },
+      "expected": {
+        "en": "Changing a descendant ID threshold preserves its ancestor and more specific pair thresholds.",
+        "ja": "子孫ID閾値の変更は祖先と、よりspecificなpair閾値を保持する。"
+      },
+      "limitations": {
+        "en": "A three-component chain and an outside peer use public getters and actual report calls. Original formatting/execution observers check filtering and effective action delivery, not default text or the action engine statistical/physical side effects. No assumption about future children, sibling order or every action/verbosity combination is made.",
+        "ja": "component 3つの鎖と外部peerで公開getterと実report callを使う。独自format／execute observerはfilterと有効action配送を確認し、既定文面やaction engineの統計／物理的副作用を認定しない。将来のchild、兄弟順、全action／verbosity組合せを仮定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_component_hierarchical_id_and_pair_verbosity_preserve_subtree_precedence_and_live_filtering",
+          "role": "direct",
+          "expected_observations": [
+            "UT: hierarchy_verbosity_narrowed 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-EXT-REPORT-VERBOSITY-LIVE-FILTER",
+      "clause": "D.2.2.1",
+      "statement": {
+        "en": "The current hierarchical ID threshold admits INFO reports at its boundary and rejects higher INFO verbosity.",
+        "ja": "現在の階層ID閾値は境界のINFO reportを許可し、より高いINFO verbosityを拒否する。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures and their explicit public phase, factory or hierarchy calls. Preserve the declared original types, scope, arguments and expected observations; no private implementation state supplies an oracle.",
+        "ja": "linkした独自fixtureと明示した公開phase／factory／hierarchy呼出を使う。宣言された独自型、scope、引数、期待観測を保持し、非公開実装状態をoracleにしない。"
+      },
+      "expected": {
+        "en": "The current hierarchical ID threshold admits INFO reports at its boundary and rejects higher INFO verbosity.",
+        "ja": "現在の階層ID閾値は境界のINFO reportを許可し、より高いINFO verbosityを拒否する。"
+      },
+      "limitations": {
+        "en": "A three-component chain and an outside peer use public getters and actual report calls. Original formatting/execution observers check filtering and effective action delivery, not default text or the action engine statistical/physical side effects. No assumption about future children, sibling order or every action/verbosity combination is made. Actual WARNING reports ignore verbosity under 6.3.3.3; the pair configuration query is separate.",
+        "ja": "component 3つの鎖と外部peerで公開getterと実report callを使う。独自format／execute observerはfilterと有効action配送を確認し、既定文面やaction engineの統計／物理的副作用を認定しない。将来のchild、兄弟順、全action／verbosity組合せを仮定しない。 6.3.3.3に従い実WARNING reportはverbosityを無視し、pair設定照会は別に観測する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_component_hierarchical_id_and_pair_verbosity_preserve_subtree_precedence_and_live_filtering",
+          "role": "direct",
+          "expected_observations": [
+            "UT: hierarchy_verbosity_delivery info 3 warning 6 total 9"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-EXT-REPORT-VERBOSITY-PEER-ISOLATION",
+      "clause": "D.2.2.1",
+      "statement": {
+        "en": "Narrowing the selected verbosity subtree preserves the outside peer and changes live filtering.",
+        "ja": "選択verbosity subtreeを狭める操作は外部peerを保持し、実filterを変更する。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures and their explicit public phase, factory or hierarchy calls. Preserve the declared original types, scope, arguments and expected observations; no private implementation state supplies an oracle.",
+        "ja": "linkした独自fixtureと明示した公開phase／factory／hierarchy呼出を使う。宣言された独自型、scope、引数、期待観測を保持し、非公開実装状態をoracleにしない。"
+      },
+      "expected": {
+        "en": "Narrowing the selected verbosity subtree preserves the outside peer and changes live filtering.",
+        "ja": "選択verbosity subtreeを狭める操作は外部peerを保持し、実filterを変更する。"
+      },
+      "limitations": {
+        "en": "A three-component chain and an outside peer use public getters and actual report calls. Original formatting/execution observers check filtering and effective action delivery, not default text or the action engine statistical/physical side effects. No assumption about future children, sibling order or every action/verbosity combination is made.",
+        "ja": "component 3つの鎖と外部peerで公開getterと実report callを使う。独自format／execute observerはfilterと有効action配送を確認し、既定文面やaction engineの統計／物理的副作用を認定しない。将来のchild、兄弟順、全action／verbosity組合せを仮定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_component_hierarchical_id_and_pair_verbosity_preserve_subtree_precedence_and_live_filtering",
+          "role": "direct",
+          "expected_observations": [
+            "UT: hierarchy_verbosity_narrowed 1 peer 1",
+            "UT: hierarchy_verbosity_narrowed_delivery 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-EXT-REPORT-SEVERITY-ACTION-RECURSION",
+      "clause": "D.2.2.2",
+      "statement": {
+        "en": "The hierarchical severity action reaches the receiver and descendants.",
+        "ja": "階層severity actionはreceiverと子孫へ届く。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures and their explicit public phase, factory or hierarchy calls. Preserve the declared original types, scope, arguments and expected observations; no private implementation state supplies an oracle.",
+        "ja": "linkした独自fixtureと明示した公開phase／factory／hierarchy呼出を使う。宣言された独自型、scope、引数、期待観測を保持し、非公開実装状態をoracleにしない。"
+      },
+      "expected": {
+        "en": "The hierarchical severity action reaches the receiver and descendants.",
+        "ja": "階層severity actionはreceiverと子孫へ届く。"
+      },
+      "limitations": {
+        "en": "A three-component chain and an outside peer use public getters and actual report calls. Original formatting/execution observers check filtering and effective action delivery, not default text or the action engine statistical/physical side effects. No assumption about future children, sibling order or every action/verbosity combination is made.",
+        "ja": "component 3つの鎖と外部peerで公開getterと実report callを使う。独自format／execute observerはfilterと有効action配送を確認し、既定文面やaction engineの統計／物理的副作用を認定しない。将来のchild、兄弟順、全action／verbosity組合せを仮定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_component_hierarchical_actions_preserve_pair_id_severity_precedence_and_outside_peers",
+          "role": "direct",
+          "expected_observations": [
+            "UT: hierarchy_action 0 severity 1 id 1 pair 1",
+            "UT: hierarchy_action 1 severity 1 id 1 pair 1",
+            "UT: hierarchy_action 2 severity 1 id 1 pair 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-EXT-REPORT-ID-ACTION-RECURSION",
+      "clause": "D.2.2.2",
+      "statement": {
+        "en": "The hierarchical ID action reaches the selected subtree.",
+        "ja": "階層ID actionは選択subtreeへ届く。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures and their explicit public phase, factory or hierarchy calls. Preserve the declared original types, scope, arguments and expected observations; no private implementation state supplies an oracle.",
+        "ja": "linkした独自fixtureと明示した公開phase／factory／hierarchy呼出を使う。宣言された独自型、scope、引数、期待観測を保持し、非公開実装状態をoracleにしない。"
+      },
+      "expected": {
+        "en": "The hierarchical ID action reaches the selected subtree.",
+        "ja": "階層ID actionは選択subtreeへ届く。"
+      },
+      "limitations": {
+        "en": "A three-component chain and an outside peer use public getters and actual report calls. Original formatting/execution observers check filtering and effective action delivery, not default text or the action engine statistical/physical side effects. No assumption about future children, sibling order or every action/verbosity combination is made.",
+        "ja": "component 3つの鎖と外部peerで公開getterと実report callを使う。独自format／execute observerはfilterと有効action配送を確認し、既定文面やaction engineの統計／物理的副作用を認定しない。将来のchild、兄弟順、全action／verbosity組合せを仮定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_component_hierarchical_actions_preserve_pair_id_severity_precedence_and_outside_peers",
+          "role": "direct",
+          "expected_observations": [
+            "UT: hierarchy_action 0 severity 1 id 1 pair 1",
+            "UT: hierarchy_action 1 severity 1 id 1 pair 1",
+            "UT: hierarchy_action 2 severity 1 id 1 pair 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-EXT-REPORT-PAIR-ACTION-PRECEDENCE",
+      "clause": "D.2.2.2",
+      "statement": {
+        "en": "The hierarchical pair action overrides the selected ID and severity actions.",
+        "ja": "階層pair actionは選択ID／severity actionより優先する。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures and their explicit public phase, factory or hierarchy calls. Preserve the declared original types, scope, arguments and expected observations; no private implementation state supplies an oracle.",
+        "ja": "linkした独自fixtureと明示した公開phase／factory／hierarchy呼出を使う。宣言された独自型、scope、引数、期待観測を保持し、非公開実装状態をoracleにしない。"
+      },
+      "expected": {
+        "en": "The hierarchical pair action overrides the selected ID and severity actions.",
+        "ja": "階層pair actionは選択ID／severity actionより優先する。"
+      },
+      "limitations": {
+        "en": "A three-component chain and an outside peer use public getters and actual report calls. Original formatting/execution observers check filtering and effective action delivery, not default text or the action engine statistical/physical side effects. No assumption about future children, sibling order or every action/verbosity combination is made.",
+        "ja": "component 3つの鎖と外部peerで公開getterと実report callを使う。独自format／execute observerはfilterと有効action配送を確認し、既定文面やaction engineの統計／物理的副作用を認定しない。将来のchild、兄弟順、全action／verbosity組合せを仮定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_component_hierarchical_actions_preserve_pair_id_severity_precedence_and_outside_peers",
+          "role": "direct",
+          "expected_observations": [
+            "UT: hierarchy_action 0 severity 1 id 1 pair 1",
+            "UT: hierarchy_action 1 severity 1 id 1 pair 1",
+            "UT: hierarchy_action 2 severity 1 id 1 pair 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-EXT-REPORT-ACTION-LIVE-DELIVERY",
+      "clause": "D.2.2.2",
+      "statement": {
+        "en": "Real reports deliver the selected effective actions while NO_ACTION reports are suppressed.",
+        "ja": "実reportは選択有効actionを配送し、NO_ACTION reportは抑制される。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures and their explicit public phase, factory or hierarchy calls. Preserve the declared original types, scope, arguments and expected observations; no private implementation state supplies an oracle.",
+        "ja": "linkした独自fixtureと明示した公開phase／factory／hierarchy呼出を使う。宣言された独自型、scope、引数、期待観測を保持し、非公開実装状態をoracleにしない。"
+      },
+      "expected": {
+        "en": "Real reports deliver the selected effective actions while NO_ACTION reports are suppressed.",
+        "ja": "実reportは選択有効actionを配送し、NO_ACTION reportは抑制される。"
+      },
+      "limitations": {
+        "en": "A three-component chain and an outside peer use public getters and actual report calls. Original formatting/execution observers check filtering and effective action delivery, not default text or the action engine statistical/physical side effects. No assumption about future children, sibling order or every action/verbosity combination is made.",
+        "ja": "component 3つの鎖と外部peerで公開getterと実report callを使う。独自format／execute observerはfilterと有効action配送を確認し、既定文面やaction engineの統計／物理的副作用を認定しない。将来のchild、兄弟順、全action／verbosity組合せを仮定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_component_hierarchical_actions_preserve_pair_id_severity_precedence_and_outside_peers",
+          "role": "direct",
+          "expected_observations": [
+            "UT: hierarchy_action_delivery total 6 id 3 severity 3"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-EXT-REPORT-ACTION-NARROWING",
+      "clause": "D.2.2.2",
+      "statement": {
+        "en": "A descendant severity-action change preserves its ancestor and the more specific ID action.",
+        "ja": "子孫severity-actionの変更は祖先と、よりspecificなID actionを保持する。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures and their explicit public phase, factory or hierarchy calls. Preserve the declared original types, scope, arguments and expected observations; no private implementation state supplies an oracle.",
+        "ja": "linkした独自fixtureと明示した公開phase／factory／hierarchy呼出を使う。宣言された独自型、scope、引数、期待観測を保持し、非公開実装状態をoracleにしない。"
+      },
+      "expected": {
+        "en": "A descendant severity-action change preserves its ancestor and the more specific ID action.",
+        "ja": "子孫severity-actionの変更は祖先と、よりspecificなID actionを保持する。"
+      },
+      "limitations": {
+        "en": "A three-component chain and an outside peer use public getters and actual report calls. Original formatting/execution observers check filtering and effective action delivery, not default text or the action engine statistical/physical side effects. No assumption about future children, sibling order or every action/verbosity combination is made.",
+        "ja": "component 3つの鎖と外部peerで公開getterと実report callを使う。独自format／execute observerはfilterと有効action配送を確認し、既定文面やaction engineの統計／物理的副作用を認定しない。将来のchild、兄弟順、全action／verbosity組合せを仮定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_component_hierarchical_actions_preserve_pair_id_severity_precedence_and_outside_peers",
+          "role": "direct",
+          "expected_observations": [
+            "UT: hierarchy_action_narrowed 1 peer 1",
+            "UT: hierarchy_action_narrowed_delivery 2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-EXT-REPORT-ACTION-PEER-ISOLATION",
+      "clause": "D.2.2.2",
+      "statement": {
+        "en": "Selected hierarchical action updates preserve the outside peer.",
+        "ja": "選択階層action更新は外部peerを保持する。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures and their explicit public phase, factory or hierarchy calls. Preserve the declared original types, scope, arguments and expected observations; no private implementation state supplies an oracle.",
+        "ja": "linkした独自fixtureと明示した公開phase／factory／hierarchy呼出を使う。宣言された独自型、scope、引数、期待観測を保持し、非公開実装状態をoracleにしない。"
+      },
+      "expected": {
+        "en": "Selected hierarchical action updates preserve the outside peer.",
+        "ja": "選択階層action更新は外部peerを保持する。"
+      },
+      "limitations": {
+        "en": "A three-component chain and an outside peer use public getters and actual report calls. Original formatting/execution observers check filtering and effective action delivery, not default text or the action engine statistical/physical side effects. No assumption about future children, sibling order or every action/verbosity combination is made.",
+        "ja": "component 3つの鎖と外部peerで公開getterと実report callを使う。独自format／execute observerはfilterと有効action配送を確認し、既定文面やaction engineの統計／物理的副作用を認定しない。将来のchild、兄弟順、全action／verbosity組合せを仮定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_component_hierarchical_actions_preserve_pair_id_severity_precedence_and_outside_peers",
+          "role": "direct",
+          "expected_observations": [
+            "UT: hierarchy_action_narrowed 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-EXT-REPORT-MAX-RECURSION",
+      "clause": "D.2.2.4",
+      "statement": {
+        "en": "Hierarchical maximum verbosity reaches the receiver and current descendants.",
+        "ja": "階層最大verbosityはreceiverと現在の子孫へ届く。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures and their explicit public phase, factory or hierarchy calls. Preserve the declared original types, scope, arguments and expected observations; no private implementation state supplies an oracle.",
+        "ja": "linkした独自fixtureと明示した公開phase／factory／hierarchy呼出を使う。宣言された独自型、scope、引数、期待観測を保持し、非公開実装状態をoracleにしない。"
+      },
+      "expected": {
+        "en": "Hierarchical maximum verbosity reaches the receiver and current descendants.",
+        "ja": "階層最大verbosityはreceiverと現在の子孫へ届く。"
+      },
+      "limitations": {
+        "en": "A three-component chain and an outside peer use public getters and actual report calls. Original formatting/execution observers check filtering and effective action delivery, not default text or the action engine statistical/physical side effects. No assumption about future children, sibling order or every action/verbosity combination is made.",
+        "ja": "component 3つの鎖と外部peerで公開getterと実report callを使う。独自format／execute observerはfilterと有効action配送を確認し、既定文面やaction engineの統計／物理的副作用を認定しない。将来のchild、兄弟順、全action／verbosity組合せを仮定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_component_hierarchical_maximum_verbosity_filters_current_subtrees_at_the_boundary",
+          "role": "direct",
+          "expected_observations": [
+            "UT: hierarchy_max selected 1 peer 1 delivered 3"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-EXT-REPORT-MAX-BOUNDARY",
+      "clause": "D.2.2.4",
+      "statement": {
+        "en": "Selected subtree reports at the maximum are delivered while reports above it are filtered.",
+        "ja": "選択subtreeの最大値reportは配送され、それを超えるreportはfilterされる。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures and their explicit public phase, factory or hierarchy calls. Preserve the declared original types, scope, arguments and expected observations; no private implementation state supplies an oracle.",
+        "ja": "linkした独自fixtureと明示した公開phase／factory／hierarchy呼出を使う。宣言された独自型、scope、引数、期待観測を保持し、非公開実装状態をoracleにしない。"
+      },
+      "expected": {
+        "en": "Selected subtree reports at the maximum are delivered while reports above it are filtered.",
+        "ja": "選択subtreeの最大値reportは配送され、それを超えるreportはfilterされる。"
+      },
+      "limitations": {
+        "en": "A three-component chain and an outside peer use public getters and actual report calls. Original formatting/execution observers check filtering and effective action delivery, not default text or the action engine statistical/physical side effects. No assumption about future children, sibling order or every action/verbosity combination is made.",
+        "ja": "component 3つの鎖と外部peerで公開getterと実report callを使う。独自format／execute observerはfilterと有効action配送を確認し、既定文面やaction engineの統計／物理的副作用を認定しない。将来のchild、兄弟順、全action／verbosity組合せを仮定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_component_hierarchical_maximum_verbosity_filters_current_subtrees_at_the_boundary",
+          "role": "direct",
+          "expected_observations": [
+            "UT: hierarchy_max selected 1 peer 1 delivered 3"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-EXT-REPORT-MAX-NARROWING",
+      "clause": "D.2.2.4",
+      "statement": {
+        "en": "A later maximum update on a child changes its subtree while preserving the ancestor and outside peer.",
+        "ja": "後続のchild最大値更新は祖先／外部peerを保持して自身のsubtreeを変更する。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures and their explicit public phase, factory or hierarchy calls. Preserve the declared original types, scope, arguments and expected observations; no private implementation state supplies an oracle.",
+        "ja": "linkした独自fixtureと明示した公開phase／factory／hierarchy呼出を使う。宣言された独自型、scope、引数、期待観測を保持し、非公開実装状態をoracleにしない。"
+      },
+      "expected": {
+        "en": "A later maximum update on a child changes its subtree while preserving the ancestor and outside peer.",
+        "ja": "後続のchild最大値更新は祖先／外部peerを保持して自身のsubtreeを変更する。"
+      },
+      "limitations": {
+        "en": "A three-component chain and an outside peer use public getters and actual report calls. Original formatting/execution observers check filtering and effective action delivery, not default text or the action engine statistical/physical side effects. No assumption about future children, sibling order or every action/verbosity combination is made.",
+        "ja": "component 3つの鎖と外部peerで公開getterと実report callを使う。独自format／execute observerはfilterと有効action配送を確認し、既定文面やaction engineの統計／物理的副作用を認定しない。将来のchild、兄弟順、全action／verbosity組合せを仮定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_component_hierarchical_maximum_verbosity_filters_current_subtrees_at_the_boundary",
+          "role": "direct",
+          "expected_observations": [
+            "UT: hierarchy_max_narrowed 1 peer 1 delivered 2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-EXT-RECORDING-HIER-VIRTUAL-SETTER",
+      "clause": "D.2.3",
+      "statement": {
+        "en": "Hierarchical recording enable invokes the selected nodes virtual recording setters with the supplied value.",
+        "ja": "階層記録enableは指定値で選択nodeのvirtual recording setterを呼ぶ。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures and their explicit public phase, factory or hierarchy calls. Preserve the declared original types, scope, arguments and expected observations; no private implementation state supplies an oracle.",
+        "ja": "linkした独自fixtureと明示した公開phase／factory／hierarchy呼出を使う。宣言された独自型、scope、引数、期待観測を保持し、非公開実装状態をoracleにしない。"
+      },
+      "expected": {
+        "en": "Hierarchical recording enable invokes the selected nodes virtual recording setters with the supplied value.",
+        "ja": "階層記録enableは指定値で選択nodeのvirtual recording setterを呼ぶ。"
+      },
+      "limitations": {
+        "en": "A three-component chain and an outside peer use public getters and actual report calls. Original formatting/execution observers check filtering and effective action delivery, not default text or the action engine statistical/physical side effects. No assumption about future children, sibling order or every action/verbosity combination is made.",
+        "ja": "component 3つの鎖と外部peerで公開getterと実report callを使う。独自format／execute observerはfilterと有効action配送を確認し、既定文面やaction engineの統計／物理的副作用を認定しない。将来のchild、兄弟順、全action／verbosity組合せを仮定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_component_hierarchical_recording_calls_virtual_setters_and_preserves_outside_state",
+          "role": "direct",
+          "expected_observations": [
+            "UT: hierarchy_record_enabled values 1 calls 1 peer 1",
+            "UT: hierarchy_record_narrowed values 1 calls 1 arguments 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-EXT-RECORDING-HIER-NARROWING",
+      "clause": "D.2.3",
+      "statement": {
+        "en": "Disabling a child recording subtree preserves its enabled ancestor and untouched outside peer.",
+        "ja": "child記録subtreeの無効化はenabled祖先と未変更の外部peerを保持する。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures and their explicit public phase, factory or hierarchy calls. Preserve the declared original types, scope, arguments and expected observations; no private implementation state supplies an oracle.",
+        "ja": "linkした独自fixtureと明示した公開phase／factory／hierarchy呼出を使う。宣言された独自型、scope、引数、期待観測を保持し、非公開実装状態をoracleにしない。"
+      },
+      "expected": {
+        "en": "Disabling a child recording subtree preserves its enabled ancestor and untouched outside peer.",
+        "ja": "child記録subtreeの無効化はenabled祖先と未変更の外部peerを保持する。"
+      },
+      "limitations": {
+        "en": "A three-component chain and an outside peer use public getters and actual report calls. Original formatting/execution observers check filtering and effective action delivery, not default text or the action engine statistical/physical side effects. No assumption about future children, sibling order or every action/verbosity combination is made.",
+        "ja": "component 3つの鎖と外部peerで公開getterと実report callを使う。独自format／execute observerはfilterと有効action配送を確認し、既定文面やaction engineの統計／物理的副作用を認定しない。将来のchild、兄弟順、全action／verbosity組合せを仮定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_component_hierarchical_recording_calls_virtual_setters_and_preserves_outside_state",
+          "role": "direct",
+          "expected_observations": [
+            "UT: hierarchy_record_enabled values 1 calls 1 peer 1",
+            "UT: hierarchy_record_narrowed values 1 calls 1 arguments 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-EXT-REPORT-HIER-LOG-FILE",
+      "clause": "D.2.2",
+      "statement": {
+        "en": "Reports with LOG use the actual file association selected by current hierarchical file settings.",
+        "ja": "LOG付きreportは現在の階層file設定が選ぶ実file対応を使う。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures and their explicit public phase, factory or hierarchy calls. Preserve the declared original types, scope, arguments and expected observations; no private implementation state supplies an oracle.",
+        "ja": "linkした独自fixtureと明示した公開phase／factory／hierarchy呼出を使う。宣言された独自型、scope、引数、期待観測を保持し、非公開実装状態をoracleにしない。"
+      },
+      "expected": {
+        "en": "Reports with LOG use the actual file association selected by current hierarchical file settings.",
+        "ja": "LOG付きreportは現在の階層file設定が選ぶ実file対応を使う。"
+      },
+      "limitations": {
+        "en": "Actual ancestor, nested-child and peer files with an original formatter and the inherited default execution engine. Check own payload presence/exclusion, not default formatting, numeric descriptors, newline layout, all action combinations or every route.",
+        "ja": "独自formatterと継承した既定execute engineで実ancestor／nested-child／peer fileを使う。独自payloadの存在／除外を確認し、既定書式、数値descriptor、改行layout、全action組合せ、全経路を認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_component_hierarchical_log_routes_current_ancestor_child_and_peer_files",
+          "role": "direct",
+          "expected_observations": [
+            "UT: hierarchy_log ancestor 1 nested 1 peer 1 isolation 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-EXT-WARNING-VERBOSITY-IGNORED",
+      "clause": "6.3.3.3",
+      "statement": {
+        "en": "Actual WARNING reports ignore verbosity even when the selected severity-ID configuration query reports an exceeded threshold.",
+        "ja": "実WARNING reportは選択severity-ID設定照会が閾値超過を示してもverbosityを無視する。"
+      },
+      "conditions": {
+        "en": "Use the original hierarchical reporting fixture with INFO and WARNING boundary/above-boundary calls and a public report-enabled query.",
+        "ja": "INFO／WARNINGの境界・境界超過callと公開report-enabled照会を備えた独自階層report fixtureを使う。"
+      },
+      "expected": {
+        "en": "Three INFO and six WARNING calls reach the original execution observer; above-threshold INFO calls do not.",
+        "ja": "INFO 3件とWARNING 6件が独自execute observerへ届き、閾値超過INFOは届かない。"
+      },
+      "limitations": {
+        "en": "Selected WARNING exception only. No error/fatal demotion, all severity overrides, default formatting or universal action behavior is certified. Configuration-query results do not by themselves establish actual-report filtering.",
+        "ja": "選択WARNING例外だけ。error／fatalのdemotion、全severity override、既定書式、普遍的action動作を認定しない。設定照会結果だけで実reportのfilterを立証しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_component_hierarchical_id_and_pair_verbosity_preserve_subtree_precedence_and_live_filtering",
+          "role": "direct",
+          "expected_observations": [
+            "UT: hierarchy_pair_enabled 0 boundary 1 above 0",
+            "UT: hierarchy_pair_enabled 1 boundary 1 above 0",
+            "UT: hierarchy_pair_enabled 2 boundary 1 above 0",
+            "UT: hierarchy_verbosity_delivery info 3 warning 6 total 9"
+          ]
+        }
+      ]
     }
   ]
 }
