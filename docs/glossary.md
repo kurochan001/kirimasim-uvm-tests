@@ -1038,3 +1038,15 @@ measurement or a resolution of the empty unbounded is_full wording.
 **Interface-view forwarding** — Calling actual standard ports or exports
 through their public virtual interface base. It checks selected type/dispatch
 and forwarding paths; an original backend algorithm is not a library oracle.
+
+**Default type argument**: The declared type selected when a parameterized
+class omits a type argument. REQ-dependent RSP defaults in channels do not
+settle a separate regular-port declaration's independent integer default.
+
+**Inherited rand member**: A randomized member inherited by a derived class.
+Selected payload constraints fix every reported value before public accessor
+observations; they do not implement a physical bus target.
+
+**Classification reassessment**: Re-reading a previously classified clause
+and replacing the classification when a distinct normative duty is found.
+The original identifier remains in scope and gains direct requirements.

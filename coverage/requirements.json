@@ -72598,6 +72598,1604 @@
           ]
         }
       ]
+    },
+    {
+      "id": "UVM-TLM-DECL-CHANNEL-DEFAULT-REQ",
+      "clause": "12.2.9.1.1",
+      "statement": {
+        "en": "The request/response channel defaults REQ to int.",
+        "ja": "要求／応答channelはREQの既定値をintとする。"
+      },
+      "conditions": {
+        "en": "Construct default int/int, REQ-only string/string and explicit int/string channels, with static or actual component parents.",
+        "ja": "既定int／int、REQのみ指定のstring／string、明示int／string channelを、staticまたは実component親で生成する。"
+      },
+      "expected": {
+        "en": "The default instance fits an exact int/int channel view.",
+        "ja": "既定instanceは正確なint／int channel viewに適合する。"
+      },
+      "limitations": {
+        "en": "Positive selected type/constructor compatibility only. Constructor-only probes precede binding; they do not certify runtime resolution, invalid types or all class specializations. Static parent omission does not prescribe a null get_parent result.",
+        "ja": "選択した型／constructorの正の互換性のみ。constructor専用probeはbinding前で、実行時解決、不正型、全specializationを認定しない。static親省略からget_parentのnull結果は規定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_request_response_channel_defaults_preserve_component_constructor_identity",
+          "role": "direct",
+          "expected_observations": [
+            "UT: channel_types defaults 1 inherited_response 1 component 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM-DECL-CHANNEL-DEFAULT-RSP",
+      "clause": "12.2.9.1.1",
+      "statement": {
+        "en": "The channel defaults RSP to the selected REQ type.",
+        "ja": "channelはRSPの既定値を選択したREQ型とする。"
+      },
+      "conditions": {
+        "en": "Construct default int/int, REQ-only string/string and explicit int/string channels, with static or actual component parents.",
+        "ja": "既定int／int、REQのみ指定のstring／string、明示int／string channelを、staticまたは実component親で生成する。"
+      },
+      "expected": {
+        "en": "A string-only specialization fits the exact string/string view.",
+        "ja": "stringのみ指定したspecializationは正確なstring／string viewに適合する。"
+      },
+      "limitations": {
+        "en": "Positive selected type/constructor compatibility only. Constructor-only probes precede binding; they do not certify runtime resolution, invalid types or all class specializations. Static parent omission does not prescribe a null get_parent result.",
+        "ja": "選択した型／constructorの正の互換性のみ。constructor専用probeはbinding前で、実行時解決、不正型、全specializationを認定しない。static親省略からget_parentのnull結果は規定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_request_response_channel_defaults_preserve_component_constructor_identity",
+          "role": "direct",
+          "expected_observations": [
+            "UT: channel_types defaults 1 inherited_response 1 component 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM-DECL-CHANNEL-COMPONENT-BASE",
+      "clause": "12.2.9.1.1",
+      "statement": {
+        "en": "The request/response channel derives from uvm_component.",
+        "ja": "要求／応答channelはuvm_componentから派生する。"
+      },
+      "conditions": {
+        "en": "Construct default int/int, REQ-only string/string and explicit int/string channels, with static or actual component parents.",
+        "ja": "既定int／int、REQのみ指定のstring／string、明示int／string channelを、staticまたは実component親で生成する。"
+      },
+      "expected": {
+        "en": "A component view retains the explicit int/string channel identity.",
+        "ja": "component viewは明示int／string channelの同一性を保持する。"
+      },
+      "limitations": {
+        "en": "Positive selected type/constructor compatibility only. Constructor-only probes precede binding; they do not certify runtime resolution, invalid types or all class specializations. Static parent omission does not prescribe a null get_parent result.",
+        "ja": "選択した型／constructorの正の互換性のみ。constructor専用probeはbinding前で、実行時解決、不正型、全specializationを認定しない。static親省略からget_parentのnull結果は規定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_request_response_channel_defaults_preserve_component_constructor_identity",
+          "role": "direct",
+          "expected_observations": [
+            "UT: channel_types defaults 1 inherited_response 1 component 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM-DECL-CHANNEL-STATIC-PARENT",
+      "clause": "12.2.9.1.11",
+      "statement": {
+        "en": "The channel constructor permits an omitted static parent.",
+        "ja": "channel constructorはstatic親の省略を認める。"
+      },
+      "conditions": {
+        "en": "Construct default int/int, REQ-only string/string and explicit int/string channels, with static or actual component parents.",
+        "ja": "既定int／int、REQのみ指定のstring／string、明示int／string channelを、staticまたは実component親で生成する。"
+      },
+      "expected": {
+        "en": "The default channel constructs and retains its selected local name.",
+        "ja": "既定channelを生成でき、選択local名を保持する。"
+      },
+      "limitations": {
+        "en": "Positive selected type/constructor compatibility only. Constructor-only probes precede binding; they do not certify runtime resolution, invalid types or all class specializations. Static parent omission does not prescribe a null get_parent result.",
+        "ja": "選択した型／constructorの正の互換性のみ。constructor専用probeはbinding前で、実行時解決、不正型、全specializationを認定しない。static親省略からget_parentのnull結果は規定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_request_response_channel_defaults_preserve_component_constructor_identity",
+          "role": "direct",
+          "expected_observations": [
+            "UT: channel_names standalone 1 child 1 distinct 1 parent 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM-DECL-CHANNEL-NAME-PARENT",
+      "clause": "12.2.9.1.11",
+      "statement": {
+        "en": "The channel constructor retains the selected component name and parent.",
+        "ja": "channel constructorは選択したcomponent名と親を保持する。"
+      },
+      "conditions": {
+        "en": "Construct default int/int, REQ-only string/string and explicit int/string channels, with static or actual component parents.",
+        "ja": "既定int／int、REQのみ指定のstring／string、明示int／string channelを、staticまたは実component親で生成する。"
+      },
+      "expected": {
+        "en": "Explicit children retain selected local/full names and actual parent identities.",
+        "ja": "明示childは選択local／full名と実親同一性を保持する。"
+      },
+      "limitations": {
+        "en": "Positive selected type/constructor compatibility only. Constructor-only probes precede binding; they do not certify runtime resolution, invalid types or all class specializations. Static parent omission does not prescribe a null get_parent result.",
+        "ja": "選択した型／constructorの正の互換性のみ。constructor専用probeはbinding前で、実行時解決、不正型、全specializationを認定しない。static親省略からget_parentのnull結果は規定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_request_response_channel_defaults_preserve_component_constructor_identity",
+          "role": "direct",
+          "expected_observations": [
+            "UT: channel_names standalone 1 child 1 distinct 1 parent 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM-DECL-CHANNEL-DEFAULT-REQUEST-CAPACITY",
+      "clause": "12.2.9.1.11",
+      "statement": {
+        "en": "The default request FIFO capacity is one.",
+        "ja": "既定要求 FIFO容量は1である。"
+      },
+      "conditions": {
+        "en": "Bind four actual nonblocking ports to an all-default request/response channel; fill and drain each direction.",
+        "ja": "全既定の要求／応答channelへ実nonblocking port 4個をbindし、各方向を充填・排出する。"
+      },
+      "expected": {
+        "en": "One value is accepted, the second refused, and consumption restores only its own capacity.",
+        "ja": "1値を受理し、次を拒否し、消費は自身の容量だけを回復する。"
+      },
+      "limitations": {
+        "en": "Actual selected public interface forwarding, storage and isolation only. No arbitrary arbitration winner, transport pairing, all concurrency, modifying subscriber or enforcement of user obligations is inferred.",
+        "ja": "選択した実公開interfaceの転送、保存、分離のみ。任意arbitration勝者、transport対応付け、全並行性、変更するsubscriber、利用者義務の強制は推論しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_request_response_channel_omitted_sizes_provide_one_independent_slot_per_direction",
+          "role": "direct",
+          "expected_observations": [
+            "UT: capacity_one accepted 1 rejected 1 request_full 1 response_full 1",
+            "UT: request_removed value 13 request_space 1 response_full 1",
+            "UT: response_removed value 27 response_space 1 both_empty 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM-DECL-CHANNEL-DEFAULT-RESPONSE-CAPACITY",
+      "clause": "12.2.9.1.11",
+      "statement": {
+        "en": "The default response FIFO capacity is one.",
+        "ja": "既定応答 FIFO容量は1である。"
+      },
+      "conditions": {
+        "en": "Bind four actual nonblocking ports to an all-default request/response channel; fill and drain each direction.",
+        "ja": "全既定の要求／応答channelへ実nonblocking port 4個をbindし、各方向を充填・排出する。"
+      },
+      "expected": {
+        "en": "One value is accepted, the second refused, and consumption restores only its own capacity.",
+        "ja": "1値を受理し、次を拒否し、消費は自身の容量だけを回復する。"
+      },
+      "limitations": {
+        "en": "Actual selected public interface forwarding, storage and isolation only. No arbitrary arbitration winner, transport pairing, all concurrency, modifying subscriber or enforcement of user obligations is inferred.",
+        "ja": "選択した実公開interfaceの転送、保存、分離のみ。任意arbitration勝者、transport対応付け、全並行性、変更するsubscriber、利用者義務の強制は推論しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_request_response_channel_omitted_sizes_provide_one_independent_slot_per_direction",
+          "role": "direct",
+          "expected_observations": [
+            "UT: capacity_one accepted 1 rejected 1 request_full 1 response_full 1",
+            "UT: request_removed value 13 request_space 1 response_full 1",
+            "UT: response_removed value 27 response_space 1 both_empty 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM-DECL-TRANSPORT-DEFAULT-REQ",
+      "clause": "12.2.9.2.1",
+      "statement": {
+        "en": "The transport channel defaults REQ to int.",
+        "ja": "transport channelはREQの既定値をintとする。"
+      },
+      "conditions": {
+        "en": "Construct default and REQ-only transport channels, assigning exact request/response parent views and explicit parents.",
+        "ja": "既定とREQのみ指定のtransport channelを生成し、正確な要求／応答親viewへ代入し、明示親を指定する。"
+      },
+      "expected": {
+        "en": "The exact int/int transport view retains identity.",
+        "ja": "正確なint／int transport viewは同一性を保持する。"
+      },
+      "limitations": {
+        "en": "Positive selected type/constructor compatibility only. Constructor-only probes precede binding; they do not certify runtime resolution, invalid types or all class specializations. Static parent omission does not prescribe a null get_parent result.",
+        "ja": "選択した型／constructorの正の互換性のみ。constructor専用probeはbinding前で、実行時解決、不正型、全specializationを認定しない。static親省略からget_parentのnull結果は規定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_transport_channel_defaults_and_request_only_response_preserve_base_identity",
+          "role": "direct",
+          "expected_observations": [
+            "UT: transport_types defaults 1 inherited_response 1 distinct_base 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM-DECL-TRANSPORT-DEFAULT-RSP",
+      "clause": "12.2.9.2.1",
+      "statement": {
+        "en": "The transport channel defaults RSP to REQ.",
+        "ja": "transport channelはRSPの既定値をREQとする。"
+      },
+      "conditions": {
+        "en": "Construct default and REQ-only transport channels, assigning exact request/response parent views and explicit parents.",
+        "ja": "既定とREQのみ指定のtransport channelを生成し、正確な要求／応答親viewへ代入し、明示親を指定する。"
+      },
+      "expected": {
+        "en": "The REQ-only string channel fits the exact string/string parent view.",
+        "ja": "REQのみstring指定のchannelは正確なstring／string親viewに適合する。"
+      },
+      "limitations": {
+        "en": "Positive selected type/constructor compatibility only. Constructor-only probes precede binding; they do not certify runtime resolution, invalid types or all class specializations. Static parent omission does not prescribe a null get_parent result.",
+        "ja": "選択した型／constructorの正の互換性のみ。constructor専用probeはbinding前で、実行時解決、不正型、全specializationを認定しない。static親省略からget_parentのnull結果は規定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_transport_channel_defaults_and_request_only_response_preserve_base_identity",
+          "role": "direct",
+          "expected_observations": [
+            "UT: transport_types defaults 1 inherited_response 1 distinct_base 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM-DECL-TRANSPORT-CHANNEL-BASE",
+      "clause": "12.2.9.2.1",
+      "statement": {
+        "en": "The transport channel derives from its matching request/response channel.",
+        "ja": "transport channelは対応する要求／応答channelから派生する。"
+      },
+      "conditions": {
+        "en": "Construct default and REQ-only transport channels, assigning exact request/response parent views and explicit parents.",
+        "ja": "既定とREQのみ指定のtransport channelを生成し、正確な要求／応答親viewへ代入し、明示親を指定する。"
+      },
+      "expected": {
+        "en": "REQ-only and distinct-type exact parent views retain channel identity.",
+        "ja": "REQのみ指定および異なる型の正確な親viewはchannel同一性を保持する。"
+      },
+      "limitations": {
+        "en": "Positive selected type/constructor compatibility only. Constructor-only probes precede binding; they do not certify runtime resolution, invalid types or all class specializations. Static parent omission does not prescribe a null get_parent result.",
+        "ja": "選択した型／constructorの正の互換性のみ。constructor専用probeはbinding前で、実行時解決、不正型、全specializationを認定しない。static親省略からget_parentのnull結果は規定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_transport_channel_defaults_and_request_only_response_preserve_base_identity",
+          "role": "direct",
+          "expected_observations": [
+            "UT: transport_types defaults 1 inherited_response 1 distinct_base 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM-DECL-TRANSPORT-STATIC-PARENT",
+      "clause": "12.2.9.2.3",
+      "statement": {
+        "en": "The transport constructor permits omitted parent for static use.",
+        "ja": "transport constructorはstatic利用で親省略を認める。"
+      },
+      "conditions": {
+        "en": "Construct default and REQ-only transport channels, assigning exact request/response parent views and explicit parents.",
+        "ja": "既定とREQのみ指定のtransport channelを生成し、正確な要求／応答親viewへ代入し、明示親を指定する。"
+      },
+      "expected": {
+        "en": "Construction succeeds and the local name is retained.",
+        "ja": "生成に成功し、local名を保持する。"
+      },
+      "limitations": {
+        "en": "Positive selected type/constructor compatibility only. Constructor-only probes precede binding; they do not certify runtime resolution, invalid types or all class specializations. Static parent omission does not prescribe a null get_parent result.",
+        "ja": "選択した型／constructorの正の互換性のみ。constructor専用probeはbinding前で、実行時解決、不正型、全specializationを認定しない。static親省略からget_parentのnull結果は規定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_transport_channel_defaults_and_request_only_response_preserve_base_identity",
+          "role": "direct",
+          "expected_observations": [
+            "UT: transport_names standalone 1 child 1 distinct 1 parent 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM-DECL-TRANSPORT-NAME-PARENT",
+      "clause": "12.2.9.2.3",
+      "statement": {
+        "en": "The transport constructor retains its selected component name and parent.",
+        "ja": "transport constructorは選択component名と親を保持する。"
+      },
+      "conditions": {
+        "en": "Construct default and REQ-only transport channels, assigning exact request/response parent views and explicit parents.",
+        "ja": "既定とREQのみ指定のtransport channelを生成し、正確な要求／応答親viewへ代入し、明示親を指定する。"
+      },
+      "expected": {
+        "en": "Explicit children retain names and actual parent identities.",
+        "ja": "明示childは名前と実親同一性を保持する。"
+      },
+      "limitations": {
+        "en": "Positive selected type/constructor compatibility only. Constructor-only probes precede binding; they do not certify runtime resolution, invalid types or all class specializations. Static parent omission does not prescribe a null get_parent result.",
+        "ja": "選択した型／constructorの正の互換性のみ。constructor専用probeはbinding前で、実行時解決、不正型、全specializationを認定しない。static親省略からget_parentのnull結果は規定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_transport_channel_defaults_and_request_only_response_preserve_base_identity",
+          "role": "direct",
+          "expected_observations": [
+            "UT: transport_names standalone 1 child 1 distinct 1 parent 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM-DECL-TRANSPORT-FIXED-REQUEST-CAPACITY",
+      "clause": "12.2.9.2",
+      "statement": {
+        "en": "The coupled transport channel fixes its request FIFO size to one.",
+        "ja": "結合transport channelは要求 FIFO sizeを1に固定する。"
+      },
+      "conditions": {
+        "en": "Use real channel exports with one accepted and one refused value in each direction, then consume each head independently.",
+        "ja": "実channel exportで各方向の1値を受理、次の値を拒否し、各headを独立に消費する。"
+      },
+      "expected": {
+        "en": "One entry fills the selected queue; refusal preserves its head and draining restores space independently.",
+        "ja": "1 entryで選択queueが満たされ、拒否後もheadを保持し、排出で独立に空きを回復する。"
+      },
+      "limitations": {
+        "en": "Actual selected public interface forwarding, storage and isolation only. No arbitrary arbitration winner, transport pairing, all concurrency, modifying subscriber or enforcement of user obligations is inferred.",
+        "ja": "選択した実公開interfaceの転送、保存、分離のみ。任意arbitration勝者、transport対応付け、全並行性、変更するsubscriber、利用者義務の強制は推論しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_transport_channel_fixed_request_and_response_slots_recover_independently",
+          "role": "direct",
+          "expected_observations": [
+            "UT: capacity_one accepted 1 rejected 1 request_full 1 response_full 1",
+            "UT: request_removed value 13 request_space 1 response_full 1",
+            "UT: response_removed value 27 response_space 1 both_empty 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM-DECL-TRANSPORT-FIXED-RESPONSE-CAPACITY",
+      "clause": "12.2.9.2",
+      "statement": {
+        "en": "The coupled transport channel fixes its response FIFO size to one.",
+        "ja": "結合transport channelは応答 FIFO sizeを1に固定する。"
+      },
+      "conditions": {
+        "en": "Use real channel exports with one accepted and one refused value in each direction, then consume each head independently.",
+        "ja": "実channel exportで各方向の1値を受理、次の値を拒否し、各headを独立に消費する。"
+      },
+      "expected": {
+        "en": "One entry fills the selected queue; refusal preserves its head and draining restores space independently.",
+        "ja": "1 entryで選択queueが満たされ、拒否後もheadを保持し、排出で独立に空きを回復する。"
+      },
+      "limitations": {
+        "en": "Actual selected public interface forwarding, storage and isolation only. No arbitrary arbitration winner, transport pairing, all concurrency, modifying subscriber or enforcement of user obligations is inferred.",
+        "ja": "選択した実公開interfaceの転送、保存、分離のみ。任意arbitration勝者、transport対応付け、全並行性、変更するsubscriber、利用者義務の強制は推論しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_transport_channel_fixed_request_and_response_slots_recover_independently",
+          "role": "direct",
+          "expected_observations": [
+            "UT: capacity_one accepted 1 rejected 1 request_full 1 response_full 1",
+            "UT: request_removed value 13 request_space 1 response_full 1",
+            "UT: response_removed value 27 response_space 1 both_empty 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM-DECL-ANALYSIS-PORT-DEFAULT-T",
+      "clause": "12.2.10.1.1",
+      "statement": {
+        "en": "The analysis port defaults T to int and derives from the matching interface port base.",
+        "ja": "analysis portはTの既定値をintとし、対応interface port基底から派生する。"
+      },
+      "conditions": {
+        "en": "Construct the default analysis port under an actual owner, then inspect its exact integer interface and metadata before binding.",
+        "ja": "実ownerの下で既定analysis portを生成し、binding前に正確なinteger interfaceとmetadataを調べる。"
+      },
+      "expected": {
+        "en": "The exact int/int port-base view retains identity.",
+        "ja": "正確なint／int port-base viewは同一性を保持する。"
+      },
+      "limitations": {
+        "en": "Positive selected type/constructor compatibility only. Constructor-only probes precede binding; they do not certify runtime resolution, invalid types or all class specializations. Static parent omission does not prescribe a null get_parent result.",
+        "ja": "選択した型／constructorの正の互換性のみ。constructor専用probeはbinding前で、実行時解決、不正型、全specializationを認定しない。static親省略からget_parentのnull結果は規定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_analysis_port_default_type_and_constructor_preserve_zero_unbounded_bounds",
+          "role": "direct",
+          "expected_observations": [
+            "UT: analysis_port default_type 1 name 1 parent 1 role 1 bounds 0/-1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM-DECL-ANALYSIS-PORT-NAME-PARENT",
+      "clause": "12.2.10.1.3",
+      "statement": {
+        "en": "Analysis-port construction retains its selected leaf name and actual parent.",
+        "ja": "analysis-port生成は選択leaf名と実親を保持する。"
+      },
+      "conditions": {
+        "en": "Construct the default analysis port under an actual owner, then inspect its exact integer interface and metadata before binding.",
+        "ja": "実ownerの下で既定analysis portを生成し、binding前に正確なinteger interfaceとmetadataを調べる。"
+      },
+      "expected": {
+        "en": "The constructed port returns the supplied name and owner.",
+        "ja": "生成portは指定名とownerを返す。"
+      },
+      "limitations": {
+        "en": "Positive selected type/constructor compatibility only. Constructor-only probes precede binding; they do not certify runtime resolution, invalid types or all class specializations. Static parent omission does not prescribe a null get_parent result.",
+        "ja": "選択した型／constructorの正の互換性のみ。constructor専用probeはbinding前で、実行時解決、不正型、全specializationを認定しない。static親省略からget_parentのnull結果は規定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_analysis_port_default_type_and_constructor_preserve_zero_unbounded_bounds",
+          "role": "direct",
+          "expected_observations": [
+            "UT: analysis_port default_type 1 name 1 parent 1 role 1 bounds 0/-1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM-DECL-ANALYSIS-IMP-DEFAULT-T",
+      "clause": "12.2.10.2.1",
+      "statement": {
+        "en": "The analysis imp defaults T to int with an explicitly selected implementation type.",
+        "ja": "implementation型を明示選択したanalysis impはTの既定値をintとする。"
+      },
+      "conditions": {
+        "en": "Select an actual receiver IMP, omit T, construct two imps and call their real write methods with read-only receivers.",
+        "ja": "実receiver IMPを選択し、Tを省略して2 impを生成し、read-only receiverで実write methodを呼ぶ。"
+      },
+      "expected": {
+        "en": "The exact integer interface port-base view retains imp identity.",
+        "ja": "正確なinteger interface port-base viewはimp同一性を保持する。"
+      },
+      "limitations": {
+        "en": "Actual selected public interface forwarding, storage and isolation only. No arbitrary arbitration winner, transport pairing, all concurrency, modifying subscriber or enforcement of user obligations is inferred.",
+        "ja": "選択した実公開interfaceの転送、保存、分離のみ。任意arbitration勝者、transport対応付け、全並行性、変更するsubscriber、利用者義務の強制は推論しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_analysis_imp_default_integer_type_binds_parent_and_forwards_each_write_without_time",
+          "role": "direct",
+          "expected_observations": [
+            "UT: analysis_imp default_type 1 name 1 parent 1 role 1 bounds 1/1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM-DECL-ANALYSIS-IMP-CTOR-IDENTITY",
+      "clause": "12.2.10.2.2",
+      "statement": {
+        "en": "The analysis imp constructor binds its supplied implementation as parent with the selected name.",
+        "ja": "analysis imp constructorは指定implementationを親として選択名でbindする。"
+      },
+      "conditions": {
+        "en": "Select an actual receiver IMP, omit T, construct two imps and call their real write methods with read-only receivers.",
+        "ja": "実receiver IMPを選択し、Tを省略して2 impを生成し、read-only receiverで実write methodを呼ぶ。"
+      },
+      "expected": {
+        "en": "The selected name and implementation parent match.",
+        "ja": "選択名とimplementation親が一致する。"
+      },
+      "limitations": {
+        "en": "Actual selected public interface forwarding, storage and isolation only. No arbitrary arbitration winner, transport pairing, all concurrency, modifying subscriber or enforcement of user obligations is inferred.",
+        "ja": "選択した実公開interfaceの転送、保存、分離のみ。任意arbitration勝者、transport対応付け、全並行性、変更するsubscriber、利用者義務の強制は推論しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_analysis_imp_default_integer_type_binds_parent_and_forwards_each_write_without_time",
+          "role": "direct",
+          "expected_observations": [
+            "UT: analysis_imp default_type 1 name 1 parent 1 role 1 bounds 1/1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM-DECL-ANALYSIS-IMP-ROLE-BOUNDS",
+      "clause": "12.2.10.2.2",
+      "statement": {
+        "en": "The analysis imp uses implementation role and one-to-one bounds.",
+        "ja": "analysis impはimplementation役割と1対1のboundsを使う。"
+      },
+      "conditions": {
+        "en": "Select an actual receiver IMP, omit T, construct two imps and call their real write methods with read-only receivers.",
+        "ja": "実receiver IMPを選択し、Tを省略して2 impを生成し、read-only receiverで実write methodを呼ぶ。"
+      },
+      "expected": {
+        "en": "The actual imp reports implementation role and one/one bounds.",
+        "ja": "実impはimplementation役割と1／1 boundsを返す。"
+      },
+      "limitations": {
+        "en": "Actual selected public interface forwarding, storage and isolation only. No arbitrary arbitration winner, transport pairing, all concurrency, modifying subscriber or enforcement of user obligations is inferred.",
+        "ja": "選択した実公開interfaceの転送、保存、分離のみ。任意arbitration勝者、transport対応付け、全並行性、変更するsubscriber、利用者義務の強制は推論しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_analysis_imp_default_integer_type_binds_parent_and_forwards_each_write_without_time",
+          "role": "direct",
+          "expected_observations": [
+            "UT: analysis_imp default_type 1 name 1 parent 1 role 1 bounds 1/1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM-DECL-ANALYSIS-IMP-WRITE-DELEGATION",
+      "clause": "12.2.10.2",
+      "statement": {
+        "en": "An analysis imp invokes write in its supplied subscriber implementation.",
+        "ja": "analysis impは指定subscriber implementation内のwriteを呼ぶ。"
+      },
+      "conditions": {
+        "en": "Select an actual receiver IMP, omit T, construct two imps and call their real write methods with read-only receivers.",
+        "ja": "実receiver IMPを選択し、Tを省略して2 impを生成し、read-only receiverで実write methodを呼ぶ。"
+      },
+      "expected": {
+        "en": "Thirteen and twenty-seven reach only the selected receiver, forty-one its peer, without time advance.",
+        "ja": "13と27は選択receiverだけへ、41はpeerへ届き、時刻は進まない。"
+      },
+      "limitations": {
+        "en": "Actual selected public interface forwarding, storage and isolation only. No arbitrary arbitration winner, transport pairing, all concurrency, modifying subscriber or enforcement of user obligations is inferred.",
+        "ja": "選択した実公開interfaceの転送、保存、分離のみ。任意arbitration勝者、transport対応付け、全並行性、変更するsubscriber、利用者義務の強制は推論しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_analysis_imp_default_integer_type_binds_parent_and_forwards_each_write_without_time",
+          "role": "direct",
+          "expected_observations": [
+            "UT: analysis_imp_delivery count 2 values 13/27 peer 1/41 immediate 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM-DECL-ANALYSIS-EXPORT-DEFAULT-T",
+      "clause": "12.2.10.3.1",
+      "statement": {
+        "en": "The analysis export defaults T to int and derives from the matching interface port base.",
+        "ja": "analysis exportはTの既定値をintとし、対応interface port基底から派生する。"
+      },
+      "conditions": {
+        "en": "Construct default analysis exports with omitted static and explicit actual component parents before binding.",
+        "ja": "binding前に、static親省略と実component親明示で既定analysis exportを生成する。"
+      },
+      "expected": {
+        "en": "The exact integer port-base view retains export identity.",
+        "ja": "正確なinteger port-base viewはexport同一性を保持する。"
+      },
+      "limitations": {
+        "en": "Positive selected type/constructor compatibility only. Constructor-only probes precede binding; they do not certify runtime resolution, invalid types or all class specializations. Static parent omission does not prescribe a null get_parent result.",
+        "ja": "選択した型／constructorの正の互換性のみ。constructor専用probeはbinding前で、実行時解決、不正型、全specializationを認定しない。static親省略からget_parentのnull結果は規定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_analysis_export_default_integer_type_and_omitted_parent_preserve_constructor_metadata",
+          "role": "direct",
+          "expected_observations": [
+            "UT: analysis_export default_type 1 name 1 parent 1 role 1 bounds 1/-1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM-DECL-ANALYSIS-EXPORT-STATIC-PARENT",
+      "clause": "12.2.10.3.2",
+      "statement": {
+        "en": "The analysis export constructor permits an omitted static parent.",
+        "ja": "analysis export constructorはstatic親省略を認める。"
+      },
+      "conditions": {
+        "en": "Construct default analysis exports with omitted static and explicit actual component parents before binding.",
+        "ja": "binding前に、static親省略と実component親明示で既定analysis exportを生成する。"
+      },
+      "expected": {
+        "en": "The standalone export constructs and retains its selected name.",
+        "ja": "単独exportを生成でき、選択名を保持する。"
+      },
+      "limitations": {
+        "en": "Positive selected type/constructor compatibility only. Constructor-only probes precede binding; they do not certify runtime resolution, invalid types or all class specializations. Static parent omission does not prescribe a null get_parent result.",
+        "ja": "選択した型／constructorの正の互換性のみ。constructor専用probeはbinding前で、実行時解決、不正型、全specializationを認定しない。static親省略からget_parentのnull結果は規定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_analysis_export_default_integer_type_and_omitted_parent_preserve_constructor_metadata",
+          "role": "direct",
+          "expected_observations": [
+            "UT: analysis_export_static name 1 role 1 bounds 1/-1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM-DECL-ANALYSIS-EXPORT-NAME-PARENT",
+      "clause": "12.2.10.3.2",
+      "statement": {
+        "en": "The analysis export constructor retains its supplied name and parent.",
+        "ja": "analysis export constructorは指定名と親を保持する。"
+      },
+      "conditions": {
+        "en": "Construct default analysis exports with omitted static and explicit actual component parents before binding.",
+        "ja": "binding前に、static親省略と実component親明示で既定analysis exportを生成する。"
+      },
+      "expected": {
+        "en": "The selected export returns the given local name and actual owner.",
+        "ja": "選択exportは指定local名と実ownerを返す。"
+      },
+      "limitations": {
+        "en": "Positive selected type/constructor compatibility only. Constructor-only probes precede binding; they do not certify runtime resolution, invalid types or all class specializations. Static parent omission does not prescribe a null get_parent result.",
+        "ja": "選択した型／constructorの正の互換性のみ。constructor専用probeはbinding前で、実行時解決、不正型、全specializationを認定しない。static親省略からget_parentのnull結果は規定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_analysis_export_default_integer_type_and_omitted_parent_preserve_constructor_metadata",
+          "role": "direct",
+          "expected_observations": [
+            "UT: analysis_export default_type 1 name 1 parent 1 role 1 bounds 1/-1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM-DECL-ANALYSIS-EXPORT-ROLE-BOUNDS",
+      "clause": "12.2.10.3.2",
+      "statement": {
+        "en": "The analysis export uses export role with minimum one and unbounded maximum.",
+        "ja": "analysis exportはexport役割、minimum 1、無制限maximumを使う。"
+      },
+      "conditions": {
+        "en": "Construct default analysis exports with omitted static and explicit actual component parents before binding.",
+        "ja": "binding前に、static親省略と実component親明示で既定analysis exportを生成する。"
+      },
+      "expected": {
+        "en": "Both exports report export role and one/minus-one bounds.",
+        "ja": "両exportはexport役割と1／−1 boundsを返す。"
+      },
+      "limitations": {
+        "en": "Positive selected type/constructor compatibility only. Constructor-only probes precede binding; they do not certify runtime resolution, invalid types or all class specializations. Static parent omission does not prescribe a null get_parent result.",
+        "ja": "選択した型／constructorの正の互換性のみ。constructor専用probeはbinding前で、実行時解決、不正型、全specializationを認定しない。static親省略からget_parentのnull結果は規定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_analysis_export_default_integer_type_and_omitted_parent_preserve_constructor_metadata",
+          "role": "direct",
+          "expected_observations": [
+            "UT: analysis_export default_type 1 name 1 parent 1 role 1 bounds 1/-1",
+            "UT: analysis_export_static name 1 role 1 bounds 1/-1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM-DECL-ANALYSIS-NESTED-FANOUT",
+      "clause": "12.2.10.3",
+      "statement": {
+        "en": "Analysis exports forward writes through a selected export hierarchy to all bound imp subscribers.",
+        "ja": "analysis exportは選択したexport階層を通して全bound imp subscriberへwriteを転送する。"
+      },
+      "conditions": {
+        "en": "Bind a real writer through two actual exports to two read-only imps; write the same object before and after mutation.",
+        "ja": "実writerを2段の実export経由でread-only imp 2個へbindし、同じobjectを変更前後にwriteする。"
+      },
+      "expected": {
+        "en": "Each subscriber receives thirteen then twenty-seven without time advance, retaining the same live handle.",
+        "ja": "各subscriberは時刻進行なく13、27の順で受信し、同じlive handleを保持する。"
+      },
+      "limitations": {
+        "en": "Actual selected public interface forwarding, storage and isolation only. No arbitrary arbitration winner, transport pairing, all concurrency, modifying subscriber or enforcement of user obligations is inferred.",
+        "ja": "選択した実公開interfaceの転送、保存、分離のみ。任意arbitration勝者、transport対応付け、全並行性、変更するsubscriber、利用者義務の強制は推論しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_analysis_nested_exports_broadcast_each_live_handle_to_all_bound_implementations",
+          "role": "direct",
+          "expected_observations": [
+            "UT: nested_analysis counts 2/2 values 13/27/13/27 immediate 1",
+            "UT: nested_analysis_handles all_same 1 source 27 live 27/27"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM-DECL-TLM2-DEFAULT-T",
+      "clause": "12.3.2.1",
+      "statement": {
+        "en": "The omitted TLM 2 interface transaction type is the generic payload.",
+        "ja": "TLM 2 interfaceのtransaction型省略時はgeneric payloadである。"
+      },
+      "conditions": {
+        "en": "Call original default and T-only concrete TLM 2 interfaces through exact base views with real payload/delay handles.",
+        "ja": "実payload／delay handleを使い、正確な基底viewから独自の既定およびTのみ指定の具象TLM 2 interfaceを呼ぶ。"
+      },
+      "expected": {
+        "en": "The exact generic-payload/phase base view retains identity and dispatches its blocking task.",
+        "ja": "正確なgeneric-payload／phase基底viewは同一性を保持しblocking taskへ委譲する。"
+      },
+      "limitations": {
+        "en": "Original interface algorithms are setup. These check declared type compatibility, virtual dispatch and argument forms, not a prescribed target algorithm, real port/socket forwarding or complete protocol behavior.",
+        "ja": "独自interface algorithmは設定である。宣言型互換性、virtual委譲、引数形式を検査し、規定target algorithm、実port／socket転送、全protocol動作は示さない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_interface_default_and_request_only_types_preserve_virtual_blocking_dispatch",
+          "role": "direct",
+          "expected_observations": [
+            "UT: tlm2_default identity 1 calls 1 delayed 1 status 1 annotation 1",
+            "UT: tlm2_request_only identity 1 calls 1 delayed 1 value 20 annotation 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM-DECL-TLM2-DEFAULT-P",
+      "clause": "12.3.2.1",
+      "statement": {
+        "en": "The omitted TLM 2 phase type is uvm_tlm_phase_e even when only T changes.",
+        "ja": "Tだけを変更しても、TLM 2 phase型省略時はuvm_tlm_phase_eである。"
+      },
+      "conditions": {
+        "en": "Call original default and T-only concrete TLM 2 interfaces through exact base views with real payload/delay handles.",
+        "ja": "実payload／delay handleを使い、正確な基底viewから独自の既定およびTのみ指定の具象TLM 2 interfaceを呼ぶ。"
+      },
+      "expected": {
+        "en": "Both default and custom-T instances fit exact standard-phase base views.",
+        "ja": "既定と独自Tの両instanceは正確な標準phase基底viewに適合する。"
+      },
+      "limitations": {
+        "en": "Original interface algorithms are setup. These check declared type compatibility, virtual dispatch and argument forms, not a prescribed target algorithm, real port/socket forwarding or complete protocol behavior.",
+        "ja": "独自interface algorithmは設定である。宣言型互換性、virtual委譲、引数形式を検査し、規定target algorithm、実port／socket転送、全protocol動作は示さない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_interface_default_and_request_only_types_preserve_virtual_blocking_dispatch",
+          "role": "direct",
+          "expected_observations": [
+            "UT: tlm2_default identity 1 calls 1 delayed 1 status 1 annotation 1",
+            "UT: tlm2_request_only identity 1 calls 1 delayed 1 value 20 annotation 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM-DECL-TLM2-TRANSPORT-INTERFACE-FORMS",
+      "clause": "12.3.2",
+      "statement": {
+        "en": "The TLM 2 base interface supports selected blocking and nonblocking transaction transport forms.",
+        "ja": "TLM 2基底interfaceは選択したblockingおよびnonblocking transaction transport形式を受け付ける。"
+      },
+      "conditions": {
+        "en": "Call original default/T-only blocking and custom-T/P nonblocking concrete interfaces through exact declared base views.",
+        "ja": "正確な宣言基底viewから、独自の既定／Tのみ指定のblockingと独自T／Pのnonblocking具象interfaceを呼ぶ。"
+      },
+      "expected": {
+        "en": "Exact concrete base views accept the selected virtual method definitions and calls.",
+        "ja": "正確な具象基底viewは選択virtual methodの定義と呼出しを受け付ける。"
+      },
+      "limitations": {
+        "en": "Original interface algorithms are setup. These check declared type compatibility, virtual dispatch and argument forms, not a prescribed target algorithm, real port/socket forwarding or complete protocol behavior.",
+        "ja": "独自interface algorithmは設定である。宣言型互換性、virtual委譲、引数形式を検査し、規定target algorithm、実port／socket転送、全protocol動作は示さない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_interface_default_and_request_only_types_preserve_virtual_blocking_dispatch",
+          "role": "direct",
+          "expected_observations": [
+            "UT: tlm2_default identity 1 calls 1 delayed 1 status 1 annotation 1",
+            "UT: tlm2_request_only identity 1 calls 1 delayed 1 value 20 annotation 1"
+          ]
+        },
+        {
+          "test": "u12/test_tlm2_interface_custom_phase_reference_and_status_dispatch_in_both_directions",
+          "role": "direct",
+          "expected_observations": [
+            "UT: custom_accepted status 1 phase 1 value 13 immediate 1",
+            "UT: custom_forward status 1 phase 1 value 20 calls 2 annotation 1",
+            "UT: custom_backward status 1 phase 1 value 31 calls 1 delay 1 immediate 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM-DECL-TLM2-TRANSACTION-DELAY-HANDLES",
+      "clause": "12.3.2.2",
+      "statement": {
+        "en": "The selected transport methods accept transaction and delay object handles.",
+        "ja": "選択transport methodはtransactionとdelayのobject handleを受け付ける。"
+      },
+      "conditions": {
+        "en": "Call original default and T-only concrete TLM 2 interfaces through exact base views with real payload/delay handles.",
+        "ja": "実payload／delay handleを使い、正確な基底viewから独自の既定およびTのみ指定の具象TLM 2 interfaceを呼ぶ。"
+      },
+      "expected": {
+        "en": "Callee mutations and completion are observed through the original caller handles.",
+        "ja": "calleeによる変更と完了を、元のcaller handleで観測する。"
+      },
+      "limitations": {
+        "en": "Original interface algorithms are setup. These check declared type compatibility, virtual dispatch and argument forms, not a prescribed target algorithm, real port/socket forwarding or complete protocol behavior.",
+        "ja": "独自interface algorithmは設定である。宣言型互換性、virtual委譲、引数形式を検査し、規定target algorithm、実port／socket転送、全protocol動作は示さない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_interface_default_and_request_only_types_preserve_virtual_blocking_dispatch",
+          "role": "direct",
+          "expected_observations": [
+            "UT: tlm2_default identity 1 calls 1 delayed 1 status 1 annotation 1",
+            "UT: tlm2_request_only identity 1 calls 1 delayed 1 value 20 annotation 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM-DECL-TLM2-CUSTOM-T-P",
+      "clause": "12.3.2.1",
+      "statement": {
+        "en": "The TLM 2 interface accepts explicitly distinct custom transaction and phase types.",
+        "ja": "TLM 2 interfaceは明示した独自transaction型とphase型を受け付ける。"
+      },
+      "conditions": {
+        "en": "Call both original virtual directions through an exact custom transaction/phase interface, returning all three standard status types.",
+        "ja": "正確な独自transaction／phase interfaceから独自virtual両方向を呼び、3種の標準status型を返す。"
+      },
+      "expected": {
+        "en": "The exact base dispatches both virtual functions and preserves reference phase changes.",
+        "ja": "正確な基底は両virtual functionへ委譲し、reference phase変更を保持する。"
+      },
+      "limitations": {
+        "en": "Original interface algorithms are setup. These check declared type compatibility, virtual dispatch and argument forms, not a prescribed target algorithm, real port/socket forwarding or complete protocol behavior.",
+        "ja": "独自interface algorithmは設定である。宣言型互換性、virtual委譲、引数形式を検査し、規定target algorithm、実port／socket転送、全protocol動作は示さない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_interface_custom_phase_reference_and_status_dispatch_in_both_directions",
+          "role": "direct",
+          "expected_observations": [
+            "UT: custom_accepted status 1 phase 1 value 13 immediate 1",
+            "UT: custom_forward status 1 phase 1 value 20 calls 2 annotation 1",
+            "UT: custom_backward status 1 phase 1 value 31 calls 1 delay 1 immediate 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM-DECL-TLM2-SYNC-ENUMERATION",
+      "clause": "12.3.3.2",
+      "statement": {
+        "en": "The TLM 2 status type exposes accepted, updated and completed states.",
+        "ja": "TLM 2 status型はaccepted、updated、completed状態を提供する。"
+      },
+      "conditions": {
+        "en": "Call both original virtual directions through an exact custom transaction/phase interface, returning all three standard status types.",
+        "ja": "正確な独自transaction／phase interfaceから独自virtual両方向を呼び、3種の標準status型を返す。"
+      },
+      "expected": {
+        "en": "All three named statuses are returned through the declared virtual interface functions.",
+        "ja": "宣言virtual interface function経由で、名前付き3 statusが全て戻る。"
+      },
+      "limitations": {
+        "en": "Original interface algorithms are setup. These check declared type compatibility, virtual dispatch and argument forms, not a prescribed target algorithm, real port/socket forwarding or complete protocol behavior.",
+        "ja": "独自interface algorithmは設定である。宣言型互換性、virtual委譲、引数形式を検査し、規定target algorithm、実port／socket転送、全protocol動作は示さない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_interface_custom_phase_reference_and_status_dispatch_in_both_directions",
+          "role": "direct",
+          "expected_observations": [
+            "UT: custom_accepted status 1 phase 1 value 13 immediate 1",
+            "UT: custom_forward status 1 phase 1 value 20 calls 2 annotation 1",
+            "UT: custom_backward status 1 phase 1 value 31 calls 1 delay 1 immediate 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM-DECL-TLM2-PHASE-ENUMERATION",
+      "clause": "12.3.3.1",
+      "statement": {
+        "en": "The standard phase type supports request/response begin/end identities across selected forward/backward calls.",
+        "ja": "標準phase型は選択forward／backward呼出しで要求／応答のbegin／end同一性を受け付ける。"
+      },
+      "conditions": {
+        "en": "Use unchanged real standard-interface fixtures with explicit selected enum states.",
+        "ja": "明示した選択enum状態で、未変更の実標準interface検査系を使う。"
+      },
+      "expected": {
+        "en": "The unchanged real socket history preserves all four selected named phases.",
+        "ja": "未変更の実socket履歴は、選択した名前付き4 phaseを保持する。"
+      },
+      "limitations": {
+        "en": "Selected real four-phase forwarding only; UNINITIALIZED_PHASE constructor semantics, numeric encodings and all protocol conditions remain separate.",
+        "ja": "選択した実4-phase転送のみ。UNINITIALIZED_PHASEのconstructor意味、数値表現、全protocol条件は別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_four_phase_socket_history_preserves_delayed_forward_and_backward_annotations",
+          "role": "direct",
+          "expected_observations": [
+            "UT: request accepted 1 phase 1 annotation 1",
+            "UT: request_end accepted 1 phase 1 annotation 1",
+            "UT: response accepted 1 phase 1 ok 1 annotation 1",
+            "UT: end completed 1 done 1 annotation 1 counts 1/1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM-DECL-PAYLOAD-RAND-ADDRESS",
+      "clause": "12.3.4.2.7",
+      "statement": {
+        "en": "The payload exposes an inherited 64-bit rand address for constraints.",
+        "ja": "payloadは制約用に継承可能な64-bit rand addressを提供する。"
+      },
+      "conditions": {
+        "en": "Randomize an original derived payload with every observed inherited rand member fixed by constraints; read real base accessors.",
+        "ja": "観測する継承rand memberを全て制約で固定した独自派生payloadをrandomizeし、実基底accessorで読む。"
+      },
+      "expected": {
+        "en": "The constrained high-bit address is observed exactly through the base getter.",
+        "ja": "制約した上位bit付きaddressを基底getterで正確に観測する。"
+      },
+      "limitations": {
+        "en": "Only constrained declarations and public observations are checked. Lengths equal array sizes; no mismatched-length interpretation, physical bus address/stream/byte-enable algorithm, interconnect preservation or target-error selection is certified.",
+        "ja": "制約した宣言と公開観測だけを検査する。lengthとarray sizeは一致させ、長さ不一致の解釈、物理busのaddress／stream／byte-enable algorithm、interconnect保持、target error選択は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_payload_inherited_rand_fields_constrain_public_scalar_and_array_observations",
+          "role": "direct",
+          "expected_observations": [
+            "UT: payload_rand_scalars address 1 write 1 length 3 width 2 incomplete 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM-DECL-PAYLOAD-RAND-COMMAND",
+      "clause": "12.3.4.2.8",
+      "statement": {
+        "en": "The payload command member can be constrained as a rand command enumeration.",
+        "ja": "payload command memberはrand command enumとして制約できる。"
+      },
+      "conditions": {
+        "en": "Randomize an original derived payload with every observed inherited rand member fixed by constraints; read real base accessors.",
+        "ja": "観測する継承rand memberを全て制約で固定した独自派生payloadをrandomizeし、実基底accessorで読む。"
+      },
+      "expected": {
+        "en": "The constrained WRITE command is observed through the actual predicate.",
+        "ja": "制約したWRITE commandを実predicateで観測する。"
+      },
+      "limitations": {
+        "en": "Only constrained declarations and public observations are checked. Lengths equal array sizes; no mismatched-length interpretation, physical bus address/stream/byte-enable algorithm, interconnect preservation or target-error selection is certified.",
+        "ja": "制約した宣言と公開観測だけを検査する。lengthとarray sizeは一致させ、長さ不一致の解釈、物理busのaddress／stream／byte-enable algorithm、interconnect保持、target error選択は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_payload_inherited_rand_fields_constrain_public_scalar_and_array_observations",
+          "role": "direct",
+          "expected_observations": [
+            "UT: payload_rand_scalars address 1 write 1 length 3 width 2 incomplete 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM-DECL-PAYLOAD-RAND-DATA",
+      "clause": "12.3.4.2.9",
+      "statement": {
+        "en": "The payload data is an inherited rand unsigned-byte array.",
+        "ja": "payload dataは継承可能なrand unsigned-byte arrayである。"
+      },
+      "conditions": {
+        "en": "Randomize an original derived payload with every observed inherited rand member fixed by constraints; read real base accessors.",
+        "ja": "観測する継承rand memberを全て制約で固定した独自派生payloadをrandomizeし、実基底accessorで読む。"
+      },
+      "expected": {
+        "en": "The selected three bytes are observed as unsigned 165, zero and 255.",
+        "ja": "選択した3 byteをunsigned 165、0、255として観測する。"
+      },
+      "limitations": {
+        "en": "Only constrained declarations and public observations are checked. Lengths equal array sizes; no mismatched-length interpretation, physical bus address/stream/byte-enable algorithm, interconnect preservation or target-error selection is certified.",
+        "ja": "制約した宣言と公開観測だけを検査する。lengthとarray sizeは一致させ、長さ不一致の解釈、物理busのaddress／stream／byte-enable algorithm、interconnect保持、target error選択は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_payload_inherited_rand_fields_constrain_public_scalar_and_array_observations",
+          "role": "direct",
+          "expected_observations": [
+            "UT: payload_rand_arrays data 3/165/0/255 enable 2/255/0 length 2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM-DECL-PAYLOAD-RAND-LENGTH",
+      "clause": "12.3.4.2.10",
+      "statement": {
+        "en": "The payload transfer length is an inherited rand unsigned integer.",
+        "ja": "payload転送lengthは継承可能なrand unsigned integerである。"
+      },
+      "conditions": {
+        "en": "Randomize an original derived payload with every observed inherited rand member fixed by constraints; read real base accessors.",
+        "ja": "観測する継承rand memberを全て制約で固定した独自派生payloadをrandomizeし、実基底accessorで読む。"
+      },
+      "expected": {
+        "en": "The constrained three-byte length is observed with a matching-size data array.",
+        "ja": "sizeが一致するdata arrayで、制約した3-byte lengthを観測する。"
+      },
+      "limitations": {
+        "en": "Only constrained declarations and public observations are checked. Lengths equal array sizes; no mismatched-length interpretation, physical bus address/stream/byte-enable algorithm, interconnect preservation or target-error selection is certified.",
+        "ja": "制約した宣言と公開観測だけを検査する。lengthとarray sizeは一致させ、長さ不一致の解釈、物理busのaddress／stream／byte-enable algorithm、interconnect保持、target error選択は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_payload_inherited_rand_fields_constrain_public_scalar_and_array_observations",
+          "role": "direct",
+          "expected_observations": [
+            "UT: payload_rand_scalars address 1 write 1 length 3 width 2 incomplete 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM-DECL-PAYLOAD-RAND-STATUS",
+      "clause": "12.3.4.2.11",
+      "statement": {
+        "en": "The payload response member can be constrained as a rand status enumeration.",
+        "ja": "payload応答memberはrand status enumとして制約できる。"
+      },
+      "conditions": {
+        "en": "Randomize an original derived payload with every observed inherited rand member fixed by constraints; read real base accessors.",
+        "ja": "観測する継承rand memberを全て制約で固定した独自派生payloadをrandomizeし、実基底accessorで読む。"
+      },
+      "expected": {
+        "en": "The selected incomplete status is observed through the real base getter.",
+        "ja": "選択したincomplete statusを実基底getterで観測する。"
+      },
+      "limitations": {
+        "en": "Only constrained declarations and public observations are checked. Lengths equal array sizes; no mismatched-length interpretation, physical bus address/stream/byte-enable algorithm, interconnect preservation or target-error selection is certified.",
+        "ja": "制約した宣言と公開観測だけを検査する。lengthとarray sizeは一致させ、長さ不一致の解釈、物理busのaddress／stream／byte-enable algorithm、interconnect保持、target error選択は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_payload_inherited_rand_fields_constrain_public_scalar_and_array_observations",
+          "role": "direct",
+          "expected_observations": [
+            "UT: payload_rand_scalars address 1 write 1 length 3 width 2 incomplete 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM-DECL-PAYLOAD-RAND-BYTE-ENABLE",
+      "clause": "12.3.4.2.12",
+      "statement": {
+        "en": "The byte-enable member is an inherited rand unsigned-byte array.",
+        "ja": "byte-enable memberは継承可能なrand unsigned-byte arrayである。"
+      },
+      "conditions": {
+        "en": "Randomize an original derived payload with every observed inherited rand member fixed by constraints; read real base accessors.",
+        "ja": "観測する継承rand memberを全て制約で固定した独自派生payloadをrandomizeし、実基底accessorで読む。"
+      },
+      "expected": {
+        "en": "The selected two-element mask is observed as unsigned 255 and zero.",
+        "ja": "選択した2要素maskをunsigned 255と0として観測する。"
+      },
+      "limitations": {
+        "en": "Only constrained declarations and public observations are checked. Lengths equal array sizes; no mismatched-length interpretation, physical bus address/stream/byte-enable algorithm, interconnect preservation or target-error selection is certified.",
+        "ja": "制約した宣言と公開観測だけを検査する。lengthとarray sizeは一致させ、長さ不一致の解釈、物理busのaddress／stream／byte-enable algorithm、interconnect保持、target error選択は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_payload_inherited_rand_fields_constrain_public_scalar_and_array_observations",
+          "role": "direct",
+          "expected_observations": [
+            "UT: payload_rand_arrays data 3/165/0/255 enable 2/255/0 length 2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM-DECL-PAYLOAD-RAND-ENABLE-LENGTH",
+      "clause": "12.3.4.2.13",
+      "statement": {
+        "en": "The byte-enable length is an inherited rand unsigned integer.",
+        "ja": "byte-enable lengthは継承可能なrand unsigned integerである。"
+      },
+      "conditions": {
+        "en": "Randomize an original derived payload with every observed inherited rand member fixed by constraints; read real base accessors.",
+        "ja": "観測する継承rand memberを全て制約で固定した独自派生payloadをrandomizeし、実基底accessorで読む。"
+      },
+      "expected": {
+        "en": "The constrained value two is observed with a matching-size enable array.",
+        "ja": "sizeが一致するenable arrayで、制約値2を観測する。"
+      },
+      "limitations": {
+        "en": "Only constrained declarations and public observations are checked. Lengths equal array sizes; no mismatched-length interpretation, physical bus address/stream/byte-enable algorithm, interconnect preservation or target-error selection is certified.",
+        "ja": "制約した宣言と公開観測だけを検査する。lengthとarray sizeは一致させ、長さ不一致の解釈、物理busのaddress／stream／byte-enable algorithm、interconnect保持、target error選択は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_payload_inherited_rand_fields_constrain_public_scalar_and_array_observations",
+          "role": "direct",
+          "expected_observations": [
+            "UT: payload_rand_arrays data 3/165/0/255 enable 2/255/0 length 2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM-DECL-PAYLOAD-RAND-STREAM-WIDTH",
+      "clause": "12.3.4.2.14",
+      "statement": {
+        "en": "The streaming-width member is an inherited rand unsigned integer.",
+        "ja": "streaming-width memberは継承可能なrand unsigned integerである。"
+      },
+      "conditions": {
+        "en": "Randomize an original derived payload with every observed inherited rand member fixed by constraints; read real base accessors.",
+        "ja": "観測する継承rand memberを全て制約で固定した独自派生payloadをrandomizeし、実基底accessorで読む。"
+      },
+      "expected": {
+        "en": "The selected two-byte width is returned by the actual base getter.",
+        "ja": "選択した2-byte widthを実基底getterが返す。"
+      },
+      "limitations": {
+        "en": "Only constrained declarations and public observations are checked. Lengths equal array sizes; no mismatched-length interpretation, physical bus address/stream/byte-enable algorithm, interconnect preservation or target-error selection is certified.",
+        "ja": "制約した宣言と公開観測だけを検査する。lengthとarray sizeは一致させ、長さ不一致の解釈、物理busのaddress／stream／byte-enable algorithm、interconnect保持、target error選択は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_payload_inherited_rand_fields_constrain_public_scalar_and_array_observations",
+          "role": "direct",
+          "expected_observations": [
+            "UT: payload_rand_scalars address 1 write 1 length 3 width 2 incomplete 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM-DECL-PAYLOAD-SEQUENCE-ITEM-BASE",
+      "clause": "12.3.4.2.1",
+      "statement": {
+        "en": "The generic payload derives from the sequence-item base.",
+        "ja": "generic payloadはsequence-item基底から派生する。"
+      },
+      "conditions": {
+        "en": "Create omitted-name and named payloads after configuring a separate peer, and assign the fresh payload to a sequence-item view.",
+        "ja": "別peerを設定後、名前省略および名前付きpayloadを生成し、新payloadをsequence-item viewへ代入する。"
+      },
+      "expected": {
+        "en": "The exact sequence-item view retains the new payload identity.",
+        "ja": "正確なsequence-item viewは新payload同一性を保持する。"
+      },
+      "limitations": {
+        "en": "Positive selected type/constructor compatibility only. Constructor-only probes precede binding; they do not certify runtime resolution, invalid types or all class specializations. Static parent omission does not prescribe a null get_parent result.",
+        "ja": "選択した型／constructorの正の互換性のみ。constructor専用probeはbinding前で、実行時解決、不正型、全specializationを認定しない。static親省略からget_parentのnull結果は規定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_payload_constructor_names_and_initial_response_preserve_sequence_item_identity",
+          "role": "direct",
+          "expected_observations": [
+            "UT: payload_constructor name 1/1 base 1 incomplete 1/1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM-DECL-PAYLOAD-CONSTRUCTOR-NAME",
+      "clause": "12.3.4.2.3",
+      "statement": {
+        "en": "The payload constructor defaults its name to empty and accepts an explicit name.",
+        "ja": "payload constructorは名前の既定値を空にし、明示名も受け付ける。"
+      },
+      "conditions": {
+        "en": "Create omitted-name and named payloads after configuring a separate peer, and assign the fresh payload to a sequence-item view.",
+        "ja": "別peerを設定後、名前省略および名前付きpayloadを生成し、新payloadをsequence-item viewへ代入する。"
+      },
+      "expected": {
+        "en": "Fresh omitted-name and named objects retain the respective names without mutating a peer.",
+        "ja": "名前省略と名前付きの新objectは各名を保持し、peerを変更しない。"
+      },
+      "limitations": {
+        "en": "Selected constructor name and peer isolation only; unspecified scalar/enum/array defaults and all common object policies remain open.",
+        "ja": "選択constructor名とpeer分離のみ。未規定のscalar／enum／array既定値と全共通object policyは未完に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_payload_constructor_names_and_initial_response_preserve_sequence_item_identity",
+          "role": "direct",
+          "expected_observations": [
+            "UT: payload_constructor name 1/1 base 1 incomplete 1/1",
+            "UT: payload_constructor_peer address 1 write 1 status 1 distinct 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM-DECL-PAYLOAD-INITIAL-RESPONSE",
+      "clause": "12.3.4.2.11",
+      "statement": {
+        "en": "The payload initial response status is incomplete.",
+        "ja": "payload応答statusの初期値はincompleteである。"
+      },
+      "conditions": {
+        "en": "Create omitted-name and named payloads after configuring a separate peer, and assign the fresh payload to a sequence-item view.",
+        "ja": "別peerを設定後、名前省略および名前付きpayloadを生成し、新payloadをsequence-item viewへ代入する。"
+      },
+      "expected": {
+        "en": "Both fresh objects have incomplete status while the configured peer retains its address error.",
+        "ja": "両新objectはincomplete statusで、設定済みpeerはaddress errorを保持する。"
+      },
+      "limitations": {
+        "en": "Selected stated response default and peer isolation only; no other default or target execution behavior is inferred.",
+        "ja": "選択した明示応答既定値とpeer分離のみ。他の既定値やtarget実行動作は推論しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_payload_constructor_names_and_initial_response_preserve_sequence_item_identity",
+          "role": "direct",
+          "expected_observations": [
+            "UT: payload_constructor name 1/1 base 1 incomplete 1/1",
+            "UT: payload_constructor_peer address 1 write 1 status 1 distinct 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM-DECL-PAYLOAD-RESPONSE-STRING-VIRTUAL",
+      "clause": "12.3.4.2.40",
+      "statement": {
+        "en": "The response-string query is a virtual string-returning accessor.",
+        "ja": "response-string照会はstringを返すvirtual accessorである。"
+      },
+      "conditions": {
+        "en": "Query all seven explicit standard response states through a base payload with original virtual counters/prefix; count selected external calls only.",
+        "ja": "独自virtual counter／prefixを持つ基底payloadから明示した標準応答7状態を照会し、選択した外部呼出しだけを数える。"
+      },
+      "expected": {
+        "en": "All seven base-typed calls reach the original override and retain its prefix.",
+        "ja": "基底型の全7呼出しが独自overrideへ届き、そのprefixを保持する。"
+      },
+      "limitations": {
+        "en": "Virtual signature/dispatch only. The original prefix does not prescribe the underlying base response-string spelling or format. Internal predicate call counts are unrestricted.",
+        "ja": "virtual signature／委譲のみ。独自prefixは基底response-stringの表記や形式を規定しない。内部predicate呼出し回数は制約しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_payload_base_response_queries_dispatch_virtual_methods_for_all_statuses",
+          "role": "direct",
+          "expected_observations": [
+            "UT: response_query_dispatch string 7 ok 7 error 7 all_statuses 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM-DECL-PAYLOAD-RESPONSE-ENUMERATION",
+      "clause": "12.3.4.1.2",
+      "statement": {
+        "en": "The standard response enumeration exposes OK, incomplete and five named error states.",
+        "ja": "標準応答enumはOK、incomplete、名前付き5 error状態を提供する。"
+      },
+      "conditions": {
+        "en": "Query all seven explicit standard response states through a base payload with original virtual counters/prefix; count selected external calls only.",
+        "ja": "独自virtual counter／prefixを持つ基底payloadから明示した標準応答7状態を照会し、選択した外部呼出しだけを数える。"
+      },
+      "expected": {
+        "en": "Real predicates identify only OK as successful for all seven explicit states.",
+        "ja": "実predicateは明示7状態のうちOKだけを成功とする。"
+      },
+      "limitations": {
+        "en": "Selected enumeration and actual predicate identity only; diagnostic strings, target response timing and correct error choice for a physical bus remain open.",
+        "ja": "選択enumと実predicate同一性のみ。診断string、target応答時点、物理busに対する正しいerror選択は未完に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_payload_base_response_queries_dispatch_virtual_methods_for_all_statuses",
+          "role": "direct",
+          "expected_observations": [
+            "UT: response_query_dispatch string 7 ok 7 error 7 all_statuses 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM-DECL-PAYLOAD-COMMAND-ENUMERATION",
+      "clause": "12.3.4.1.1",
+      "statement": {
+        "en": "The command enumeration exposes read, write and ignore identities.",
+        "ja": "command enumはread、write、ignore同一性を提供する。"
+      },
+      "conditions": {
+        "en": "Use unchanged real standard-interface fixtures with explicit selected enum states.",
+        "ja": "明示した選択enum状態で、未変更の実標準interface検査系を使う。"
+      },
+      "expected": {
+        "en": "Unchanged real setters/getters/predicates distinguish all three named commands.",
+        "ja": "未変更の実setter／getter／predicateが名前付き3 commandを区別する。"
+      },
+      "limitations": {
+        "en": "Only enum/accessor identity; no target/interconnect command semantics or numeric encoding is assumed.",
+        "ja": "enum／accessor同一性のみ。target／interconnectのcommand意味や数値表現は仮定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_payload_command_accessors_select_read_write_and_ignore",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ignore 1 read 0 write 0",
+            "UT: read_command 1 read 1 write 0",
+            "UT: write_command 1 read 0 write 1"
+          ]
+        }
+      ]
     }
   ]
 }

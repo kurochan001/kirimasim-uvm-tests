@@ -2463,24 +2463,6 @@
       }
     },
     {
-      "clause": "12.2.9.2",
-      "classification": "contextual",
-      "rationale": {
-        "en": "The overview describes the transport channel as coupled one-to-one request/reply behavior. Existing completion, sequential reuse and request-full requirements decompose selected behavior; exact declared inheritance and constructors remain separate.",
-        "ja": "概要はtransport channelの結合した1対1要求／応答動作を説明する。既存完了、逐次再利用、要求満杯の要求が選択動作を分解し、正確な宣言継承とconstructorは別に残す。"
-      },
-      "related_requirements": [
-        "UVM-BLOCKING-TRANSPORT-WAITS-FOR-REPLY",
-        "UVM-BLOCKING-TRANSPORT-SEQUENTIAL-REUSE",
-        "UVM-TLM1-NB-TRANSPORT-REQUEST-FULL"
-      ],
-      "review": {
-        "status": "ai",
-        "reviewer": null,
-        "reviewed_at": null
-      }
-    },
-    {
       "clause": "12.2.10.1",
       "classification": "contextual",
       "rationale": {
@@ -2490,6 +2472,98 @@
       "related_requirements": [
         "UVM-TLM1-ANALYSIS-BOUND-BROADCAST",
         "UVM-TLM1-REVIEW-INTERFACE-WRITE-BROADCAST"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "12.3",
+      "classification": "structural",
+      "rationale": {
+        "en": "TLM 2 section heading only; its introduction, interface and payload/socket contracts remain subordinate.",
+        "ja": "TLM 2節の見出しのみ。導入、interface、payload／socket契約は下位に残る。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "12.3.3",
+      "classification": "structural",
+      "rationale": {
+        "en": "Enumeration grouping heading only; named phase and status contracts remain in the two child clauses.",
+        "ja": "enumのグループ見出しのみ。名前付きphase／status契約は2つの子条項に残る。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "12.3.4.1",
+      "classification": "structural",
+      "rationale": {
+        "en": "Grouping statement for constants/enums only; the two child enum clauses retain their actual type/value contracts.",
+        "ja": "定数／enumをまとめる記述のみ。実際の型／値契約は2つの子enum条項に残る。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "12.3.1",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The overview locates generic payloads, ports/exports/imps and two-direction sockets. Related existing actual forwarding and new interface-declaration requirements retain those roles; this overview introduces no additional transport operation.",
+        "ja": "概要はgeneric payload、port／export／imp、双方向socketの位置付けを示す。関連する既存の実転送と新interface宣言要求が役割を保持し、概要は追加transport操作を導入しない。"
+      },
+      "related_requirements": [
+        "UVM-TLM-DECL-TLM2-DEFAULT-T",
+        "UVM-TLM2-FOUR-PHASE-FORWARDING"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "12.3.4",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The overview characterizes the generic bus transaction and states its default use in transport interfaces. The actual default interface declaration and inherited payload members retain selected obligations; physical bus interpretation remains in subordinate member clauses.",
+        "ja": "概要はgeneric bus transactionとtransport interfaceでの既定利用を説明する。実際の既定interface宣言と継承payload memberが選択義務を保持し、物理bus解釈は下位member条項に残る。"
+      },
+      "related_requirements": [
+        "UVM-TLM-DECL-TLM2-DEFAULT-T",
+        "UVM-TLM-DECL-PAYLOAD-RAND-ADDRESS"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "12.3.4.2",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The overview describes a reusable memory-mapped transaction and its sequence-item inheritance. The specific class-declaration requirement now directly checks that inheritance; target data/command semantics remain in the member clauses.",
+        "ja": "概要は再利用可能なmemory-mapped transactionとsequence-item継承を説明する。固有class宣言要求が継承を直接検査し、target data／command意味はmember条項に残る。"
+      },
+      "related_requirements": [
+        "UVM-TLM-DECL-PAYLOAD-SEQUENCE-ITEM-BASE"
       ],
       "review": {
         "status": "ai",

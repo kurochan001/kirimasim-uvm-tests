@@ -1218,6 +1218,10 @@
       "primary_clause": "11.3.2.12",
       "inputs_sha256": "1d925824b68f79ae0518ca101848c56656bdde2ac08a8178ef7dc38fc350c053"
     },
+    "u12/test_analysis_export_default_integer_type_and_omitted_parent_preserve_constructor_metadata": {
+      "primary_clause": "12.2.10.3.2",
+      "inputs_sha256": "2830ff6cbd33fa0ee5857ad3a1b23389c47f4636f443213f54f36b7c5d35ee32"
+    },
     "u12/test_analysis_export_forwards_writes_to_fifo_receiver": {
       "primary_clause": "12.2.10.3",
       "inputs_sha256": "7634a68669cc1d7e4c1c92f240210490f2f06006a86e4a51d4433e3266cd59f2"
@@ -1226,6 +1230,14 @@
       "primary_clause": "12.2.8.3.1",
       "inputs_sha256": "65e5d159192c625f01ae854991f09c6d104ac08978567dce2ae4160767a05b22"
     },
+    "u12/test_analysis_imp_default_integer_type_binds_parent_and_forwards_each_write_without_time": {
+      "primary_clause": "12.2.10.2.2",
+      "inputs_sha256": "54251db2fc5cbd340fa2fba470964f8bb9bd28b500f57bb80c954f245c7da193"
+    },
+    "u12/test_analysis_nested_exports_broadcast_each_live_handle_to_all_bound_implementations": {
+      "primary_clause": "12.2.10.2",
+      "inputs_sha256": "21dc9e0fa196ee0146d6c2148d00d29b41e13df9ee7c18ac15736d6b3bd4551b"
+    },
     "u12/test_analysis_port_broadcast_preserves_object_handle_value": {
       "primary_clause": "12.2.10.1.4",
       "inputs_sha256": "bf94b438f41c23480f2783f463d7f97cb4e946c57e7595717e1172f4cf404e95"
@@ -1233,6 +1245,10 @@
     "u12/test_analysis_port_broadcasts_each_write_to_all_receivers": {
       "primary_clause": "12.2.10.1.4",
       "inputs_sha256": "788ed13091913a1a221bcc65bc84045a9e691419bf08965f48fe761f7bc20561"
+    },
+    "u12/test_analysis_port_default_type_and_constructor_preserve_zero_unbounded_bounds": {
+      "primary_clause": "12.2.10.1.1",
+      "inputs_sha256": "e29936145f28fae34418bbdecf27bcc48f1df7e832de05ff89c8e25ce7eae671"
     },
     "u12/test_analysis_port_without_subscribers_accepts_write": {
       "primary_clause": "12.2.10.1.3",
@@ -1366,6 +1382,10 @@
       "primary_clause": "12.2.9.1.3",
       "inputs_sha256": "8bb9f43c19498c72911f95edef4a5dafc68d8d6a128b4e737406b8f5a115fb3c"
     },
+    "u12/test_request_response_channel_defaults_preserve_component_constructor_identity": {
+      "primary_clause": "12.2.9.1.1",
+      "inputs_sha256": "f810d7a94e72a166b0de2c2d649a5e2dac5980f98c46214b10420185c1ed45d2"
+    },
     "u12/test_request_response_channel_full_request_put_waits_for_request_space_only": {
       "primary_clause": "12.2.9.1.9",
       "inputs_sha256": "8a08071a140270fa97b69e4320115572bb6a580522cc2f7c94396e6f698e3bed"
@@ -1381,6 +1401,10 @@
     "u12/test_request_response_channel_master_slave_interfaces_route_both_directions": {
       "primary_clause": "12.2.9.1.9",
       "inputs_sha256": "21ea963c32dceb5f66ac408e60bc8fbde4ccbcb4c7d905ef099f669783c5f36a"
+    },
+    "u12/test_request_response_channel_omitted_sizes_provide_one_independent_slot_per_direction": {
+      "primary_clause": "12.2.9.1.11",
+      "inputs_sha256": "a3e3453cb8ea3234f1e07b8c4ef1b9ae8dcf6dd19754e246fb18d7f7b8dfb72d"
     },
     "u12/test_request_response_channel_peeks_retain_both_fifo_heads": {
       "primary_clause": "12.2.9.1.4",
@@ -1477,6 +1501,14 @@
     "u12/test_tlm2_gp_alias_shares_payload_and_polymorphic_extension_state": {
       "primary_clause": "12.3.4.3",
       "inputs_sha256": "394be8178bbb13aec400d3e4c7d9307f6c6e9d85f47724b873927407a3d341c5"
+    },
+    "u12/test_tlm2_interface_custom_phase_reference_and_status_dispatch_in_both_directions": {
+      "primary_clause": "12.3.2.1",
+      "inputs_sha256": "15b7c9cd398a6cf9a6fb5abfc8a7fbce603b9b1503cae50ff520c636bf90739d"
+    },
+    "u12/test_tlm2_interface_default_and_request_only_types_preserve_virtual_blocking_dispatch": {
+      "primary_clause": "12.3.2.1",
+      "inputs_sha256": "0d72b39a9566020a5cef4c86d281515504c011418129c7f939435aec54f5723e"
     },
     "u12/test_tlm2_nested_backward_exports_preserve_custom_transaction_and_phase_types": {
       "primary_clause": "12.3.7.3",
@@ -1578,6 +1610,10 @@
       "primary_clause": "12.3.4.2.15",
       "inputs_sha256": "c20f30a7d212a73104ae7a3487df1c450617fb5588ddf8ad0777e1240864a64a"
     },
+    "u12/test_tlm2_payload_base_response_queries_dispatch_virtual_methods_for_all_statuses": {
+      "primary_clause": "12.3.4.2.40",
+      "inputs_sha256": "7d75ba42279f8908f96a2b2f1fe1f1a80c6ecbbb8771e1e8c40591bf4880dbe3"
+    },
     "u12/test_tlm2_payload_byte_enable_accessors_copy_mask_values": {
       "primary_clause": "12.3.4.2.30",
       "inputs_sha256": "da96ef1bb28a77ae2ad6947ed0320531124def578325bae08781c475366d997c"
@@ -1596,7 +1632,11 @@
     },
     "u12/test_tlm2_payload_command_accessors_select_read_write_and_ignore": {
       "primary_clause": "12.3.4.2.16",
-      "inputs_sha256": "44a260556ac26a9545f8c2724e131f0d87da5fd399526df9fc3b21b0521c69ab"
+      "inputs_sha256": "1407b3b9b155c257be92ff990df213ecce8ca33336f4361662b06b8116e421d8"
+    },
+    "u12/test_tlm2_payload_constructor_names_and_initial_response_preserve_sequence_item_identity": {
+      "primary_clause": "12.3.4.2.3",
+      "inputs_sha256": "722b9e2f519059629dcdca4b5fd1a535151b077c3132b6ca6025eb895b9d6a6e"
     },
     "u12/test_tlm2_payload_data_accessors_copy_unsigned_bytes": {
       "primary_clause": "12.3.4.2.24",
@@ -1625,6 +1665,10 @@
     "u12/test_tlm2_payload_extension_uses_unique_type_key": {
       "primary_clause": "12.3.4.2.44",
       "inputs_sha256": "8e99280bcab3f56afada7daa3c95a41574f1ceff78f588022c2e46029bc36b6f"
+    },
+    "u12/test_tlm2_payload_inherited_rand_fields_constrain_public_scalar_and_array_observations": {
+      "primary_clause": "12.3.4.2.7",
+      "inputs_sha256": "38ee08f5f5689c94219cb19665765e071b673ff11504560fc23219cfe373c632"
     },
     "u12/test_tlm2_payload_pack_does_not_serialize_source_extensions": {
       "primary_clause": "12.3.4.2.4",
@@ -1881,6 +1925,14 @@
     "u12/test_tlm_unidirectional_port_defaults_preserve_integer_interface_and_constructor_metadata": {
       "primary_clause": "12.2.2.3",
       "inputs_sha256": "cde9bc5fc7bda19029a601c420a3083b85f5671d9496ec5ec29162afce44a152"
+    },
+    "u12/test_transport_channel_defaults_and_request_only_response_preserve_base_identity": {
+      "primary_clause": "12.2.9.2.1",
+      "inputs_sha256": "6a6048876c1e1654cc4b5de131bb3864c1b5b5b969cb8cdf8e62d7bb6374ffe9"
+    },
+    "u12/test_transport_channel_fixed_request_and_response_slots_recover_independently": {
+      "primary_clause": "12.2.9.2",
+      "inputs_sha256": "926da7eb576c4171827e5e7320700c2add581228ce3d784e3d2853b460b2b6e6"
     },
     "u12/test_transport_channel_reuses_storage_for_sequential_transactions": {
       "primary_clause": "12.2.9.2.2",

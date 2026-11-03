@@ -135,7 +135,7 @@ See [Ghost setup](testing.md#ghost).
 
 It removes `UVM_NO_DPI` from the default macro list. It does not supply or link
 UVM's C/C++ implementation. The current Verilator runner does not add those
-sources. There are 1357 `UVM_NO_DPI` cases and eight explicit HDL-DPI cases.
+sources. There are 1370 `UVM_NO_DPI` cases and eight explicit HDL-DPI cases.
 Eighteen more fixtures explicitly enable command-line/regex DPI with HDL disabled.
 The [command-line runner](testing.md#verilator-command-line-subset) links that separate backend.
 The [separate VPI runner](testing.md#verilator-vpi-hdl-subset) links the original
@@ -1143,9 +1143,9 @@ not a direct test of the requirement.
 
 ### Q77. Why is there no coverage percentage after starting M4?
 
-The 1955 AI drafts cover only a partial decomposition: 1955 requirements link
-directly to 1382 tests; all drafts have direct tests, and one separate test is a control.
-All 1383 tests have requirement links. The 2,507 clause identifiers are not normative requirement units.
+The 2001 AI drafts cover only a partial decomposition: 2001 requirements link
+directly to 1395 tests; all drafts have direct tests, and one separate test is a control.
+All 1396 tests have requirement links. The 2,507 clause identifiers are not normative requirement units.
 The scope is proposed, the inventory incomplete and the denominator unapproved;
 starting M4 approves none of those. Known differences and HDL/DPI limitations
 do not silently exclude obligations. See the [approval path](requirements.md#remaining-m4-work-and-approval).
@@ -2145,7 +2145,7 @@ No. `tests_without_requirement_links` is zero: every current test has an
 explicit direct or control link. The separate counter
 `requirements_without_direct_tests` is zero. The memory-walk link uses the
 qualified historical interpretation in Q134. It is not approval of missing
-IEEE detail. HDL deposit and accessibility use explicit VPI fixtures. Another 1,229
+IEEE detail. HDL deposit and accessibility use explicit VPI fixtures. Another 1,196
 catalog identifiers remain unassessed; decomposition and human review are
 incomplete, and the denominator remains unapproved.
 
@@ -2246,7 +2246,7 @@ in [identifier assessments](../coverage/assessments.json). Structural headings
 have no related requirements; contextual descriptions name existing requirements.
 An unreviewed record, guessed classification or parent rollup cannot do this.
 The generated state is `assessed`, separate from `partial` requirement clauses.
-165 classifications currently exist, with no denominator approval or new pass.
+170 classifications currently exist, with no denominator approval or new pass.
 Chapter 11's zero unassessed identifiers still does not complete its requirements.
 
 ### Q136. Does explicit strict configuration make the new cases pass?
@@ -2920,3 +2920,26 @@ occupancy growth/consumption and availability without asserting is_full.
 Positive finite-size fullness has a separate direct test. The unresolved
 condition stays open rather than taking the pinned implementation as the
 oracle. Broader protocol, concurrency and malformed-size conditions also remain.
+
+### Q192. Can a contextual classification be corrected later?
+
+Yes. Re-reading 12.2.9.2 found that the coupled transport channel fixes both
+FIFO sizes to one. The earlier contextual record is replaced by two direct
+requirements and an actual bound-interface capacity test. It does not reduce
+the unassessed count or approve an exclusion. All earlier requirements remain.
+
+### Q193. Why did the compatible guest subset decrease to 1084?
+
+A command fixture gained a supporting enum citation and was remeasured on
+Verilator. Even a metadata-only source edit changes its input fingerprint.
+Its old guest record is excluded; the original historical file still has
+1085 records. Current compatible scope is 1084, with 312 inputs unmeasured:
+311 additions and the revised old input. No guest rerun or new failure is claimed.
+
+### Q194. May a predicate implementation delegate to another virtual query?
+
+Yes, unless the standard constrains that internal algorithm. The response
+query fixture counts only selected external calls to the virtual OK predicate;
+it allows the error predicate to delegate internally. All seven response
+statuses are checked. The original response-string prefix checks virtual
+dispatch and does not prescribe the underlying string format.

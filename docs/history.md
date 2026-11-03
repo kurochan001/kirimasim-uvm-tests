@@ -3,8 +3,8 @@
 [日本語](history.ja.md) · [README](../README.md)
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and thirty-six cross-milestone thin-area expansions, including the
-existing-test requirement-link backlog checkpoint (1383 simulation tests). The earlier 349-test checkpoint is
+three M4 increments and thirty-seven cross-milestone thin-area expansions, including the
+existing-test requirement-link backlog checkpoint (1396 simulation tests). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -2800,3 +2800,38 @@ answers and 212 glossary entries. All runners/tools, prior simulation inputs,
 CI, catalog, scope, library lock, licenses, Issue policy, six SVG assets and
 separate VPI records are unchanged. The goal remains active, including the
 remaining partial obligations.
+
+## Thirty-seventh thin-area expansion across M1–M4
+
+Thirteen M2 fixtures add channel default/type inheritance and constructor
+identity, omitted/fixed one-slot queue capacities, analysis type/constructor
+metadata, direct imp delivery and nested export fanout. TLM 2 probes cover
+exact default/custom interface types and virtual paths, inherited constrained
+rand fields, payload names/sequence-item inheritance/initial incomplete status,
+and virtual response queries for seven statuses. Original interface algorithms
+are setup; no full bus target or complete protocol is certified.
+
+All thirteen additions and one citation-revised command fixture match seeds
+1 and 73. A predicate counter initially constrained internal OK-query calls
+made by the error query; a guard now counts only external selected calls,
+without changing normative output, and was remeasured. The ordinary snapshot
+retains 1382 unchanged old records and reaches 1396: 1228 pass/168 known,
+with M1 470, M2 500 and M3 426. Separate HDL and command-line conditions remain
+7 pass/1 fail and 17 pass/1 known. All runners/library/other old inputs remain.
+
+Forty-six drafts reach 2001; all 1955 prior requirements remain unchanged.
+Six individual assessments are added. Re-reading 12.2.9.2 found distinct
+fixed-capacity duties, so its prior contextual classification is removed and
+two direct requirements replace it. There are 1141 partial, 170 assessed
+(119 structural/51 contextual) and 1196 unassessed identifiers. Chapter 12 is
+136/33/45. Persistent-goal iteration nine reduces unassessed by 33, or 267
+since activation. TLM 1 has no unassessed identifier, while its partial
+obligations and all milestone targets remain open.
+
+One metadata-revised command input invalidates its old guest fingerprint.
+The historical 1085-record files remain; current compatible copies retain
+1084 inputs. Ghost is 207 pass/877 fail per seed; kirimasim 1075 unsupported/
+nine fail. There are 312 unmeasured inputs, including 311 additions and the
+revised old fixture. No guest run is claimed. All 101 tool tests, metadata,
+ledger/library checks and bilingual documentation checks pass. Scope and
+denominator remain unapproved; the goal stays active.

@@ -2,7 +2,7 @@
 
 [English](history.md) · [README](../README.ja.md)
 
-M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の36回目の拡充（シミュレーション1383件）までを記録しています。以前の349件の時点は
+M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の37回目の拡充（シミュレーション1396件）までを記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -1907,3 +1907,25 @@ AI要求案35件で台帳1955件、1382テストへ直接対応し、別control 
 tool単体101件、全1383 metadata、台帳／索引／library同一性、互換実行記録、日英10組のFAQ 191回答・用語212語を照合します。
 全runner／tool、以前のsimulation入力、CI、catalog、scope、library lock、license、Issue方針、SVG 6 asset、別VPI記録は未変更です。
 部分分解した残る義務を含め、goalは有効なままです。
+
+## M1〜M4の薄い領域の37回目の拡充
+
+M2の13検査系で、channel既定型／継承とconstructor同一性、省略／固定1枠のqueue容量、analysis型／constructor metadata、直接imp配送、多段export fanoutを追加しました。
+TLM 2 probeは、正確な既定／独自interface型とvirtual経路、継承した制約付きrand field、payload名／sequence-item継承／初期incomplete status、7 statusのvirtual応答照会を扱います。
+独自interface algorithmは設定で、全bus targetや全protocolを認定しません。
+
+新規13件と引用を修正した既存command 1件はseed 1・73で一致します。
+初期predicate counterがerror照会から内部呼出しするOK照会まで制約していた点を、選択した外部呼出しだけを数えるguardへ修正し、規範的出力を変えず再測定しました。
+通常snapshotは旧入力の未変更1382記録を保持し、全1396件（pass 1228／known 168）、M1 470件、M2 500件、M3 426件となります。
+別HDL／command-line条件はpass 7／fail 1、pass 17／known 1のままで、全runner／library／他の旧入力は未変更です。
+
+要求案46件を追加して計2001件となり、以前の1955要求は全て保持します。個別分類6件を追加します。
+12.2.9.2の再読で独立した固定容量義務を確認したため、以前の文脈分類を削除して直接要求2件へ置き換えます。
+部分分解1141番号・分類170番号（構造119／文脈51）・未評価1196番号で、第12章は136／33／45です。
+継続goalの9反復目は未評価33番号を減らし、有効化以降267番号を減らしました。
+TLM 1の未評価番号は0ですが、部分分解の義務と全milestone目標は未完です。
+
+引用を変更したcommand 1入力は旧guest指紋と一致しなくなりました。歴史的1085記録のfileは保持し、現在と互換なcopyは1084入力です。
+Ghostは各seedでpass 207／fail 877、kirimasimはunsupported 1075／fail 9で、未測定312入力は追加311件と変更した既存1件を含みます。
+guest実行は主張しません。tool unit 101件、metadata、台帳／library、日英資料の検査を通過しました。
+範囲と分母は未承認で、goalは継続します。

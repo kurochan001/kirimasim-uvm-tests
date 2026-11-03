@@ -3,7 +3,7 @@
 :description: generic payload command accessors select mutually exclusive command states (IEEE 1800.2-2020 Section 12.3.4.2.16)
 :tags: u12 uvm
 :type: simulation
-:lrm: 1800.2-2020 12.3.4.2.16 12.3.4.2.17 12.3.4.2.18 12.3.4.2.19 12.3.4.2.20 12.3.4.2.21 1800-2023 6.21
+:lrm: 1800.2-2020 12.3.4.2.16 12.3.4.2.17 12.3.4.2.18 12.3.4.2.19 12.3.4.2.20 12.3.4.2.21 12.3.4.1.1 1800-2023 6.21
 :uvm: 2020.3.1
 :oracle: spec verilator@5.052
 :spec_check: ai

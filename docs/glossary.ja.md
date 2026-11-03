@@ -801,3 +801,12 @@ hookを省略するだけで、異なるtotal照会の定義は認定しませ�
 
 **Interface-view forwarding（interface view経由の転送）** — 公開virtual interface基底を通して実際の標準port／exportを呼ぶことです。
 選択型／委譲と転送経路を検査し、独自backend algorithmをlibrary oracleにはしません。
+
+**既定型引数（Default type argument）**：parameterized classで型引数を省略したときに選ぶ宣言型です。
+channelのREQ依存RSP既定値から、通常port宣言の独立integer既定値は決まりません。
+
+**継承rand member（Inherited rand member）**：派生classが継承するrandomized memberです。
+選択payload制約は公開accessorで観測する全値を固定しますが、物理bus targetを実装しません。
+
+**分類の再評価（Classification reassessment）**：以前に分類した条項を再読し、独立した規範的義務が見つかれば分類を置き換えることです。
+元の識別子は範囲に残り、直接要求を追加します。

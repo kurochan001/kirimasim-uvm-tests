@@ -2,7 +2,7 @@
 
 [日本語](known-differences.ja.md) · [README](../README.md) · [FAQ](faq.md)
 
-This describes the current 1383-test suite and the pinned Accellera UVM
+This describes the current 1396-test suite and the pinned Accellera UVM
 2020.3.1 library. A mismatch is a test result; it does not by itself assign
 the cause to the simulator, the library or the expectation.
 
@@ -508,7 +508,7 @@ warning. The YES control changes the limit to nine without a warning. This
 is a diagnostic-severity difference, not failed limit enforcement. The older
 two no-DPI argument cases remain unchanged ordinary runtime differences.
 
-Across the suite, 1215 tests have the `verilator@5.052` oracle tag and 168
+Across the suite, 1228 tests have the `verilator@5.052` oracle tag and 168
 cases are spec-only. One of the spec-only cases checks 9.6: a child's pre-reset
 task must be killed when that phase ends, but the pinned-library run on Verilator 5.052
 lets the child perform its delayed write during a later phase. The cause of
@@ -521,7 +521,7 @@ observation, then its watchdog expires. This combined simulator/library
 cause remains unassigned; the normative wakeup expectation is retained.
 
 The 168 spec-only tests retain their normative expected files.
-Default Verilator runs and CI select the 1215 tagged cases. `--all` includes
+Default Verilator runs and CI select the 1228 tagged cases. `--all` includes
 spec-only cases and records mismatches or build failures as `known`.
 The ordinary runtime records for 125 cases establish their first difference
 at seed 1, without seed 73 results. Sixteen missing-API builds have no ordinary
@@ -806,14 +806,20 @@ Additional message-handle and endian cases:
 - [command default sequence runs on the named sequencer and phase](../tests/uG/test_command_default_sequence_runs_on_the_named_sequencer_and_phase.sv).
 - [command fresh processors populate independent argument snapshots at construction](../tests/uG/test_command_fresh_processors_populate_independent_argument_snapshots_at_construction.sv).
 
+One existing command fixture now adds its command-enum citation without
+changing behavior or expected output and is remeasured on Verilator. The
+historical guest record for that input has a stale fingerprint. The current
+guest subset excludes it: 1084 compatible records and 312 unmeasured inputs,
+including that revised input. This is evidence scope, not a new guest failure.
+
 ## Simulator and library combinations
 
-The suite has 1383 cases, but the kirimasim/Ghost records below cover only
-1085 unchanged current-input cases. The 298 new cases are unmeasured
+The suite has 1396 cases, but the kirimasim/Ghost records below cover only
+1084 unchanged current-input cases. The 312 inputs are unmeasured
 because prior temporary executable/profile snapshots are unavailable. Do
 not treat this as a fresh full-suite guest result. See [results](results.md).
 
-Ghost's bundled-library evidence has 207 matches and 878 failures with each
+Ghost's bundled-library evidence has 207 matches and 877 failures with each
 of seeds 1 and 73; the same tests fail at both seeds. The current executable
 snapshot has no pinned-mode measurement. [Results and methodology](results.md)
 describes the evidence assembly. Bundled results
@@ -822,7 +828,7 @@ problem from a library problem or establish results for the locked library.
 Private identity, profiles and diagnostics are not published.
 
 The tested kirimasim executable reports `uvm_object_wrapper` as unsupported
-on 1076 cases. Nine cases record `fail` earlier on missing library APIs: one time
+on 1075 cases. Nine cases record `fail` earlier on missing library APIs: one time
 setter, six sequence-library cases and two HDL slice cases. Neither result is a pass or evidence
 of UVM execution beyond those compilation blockers.
 
