@@ -1,0 +1,2 @@
+UT: default_clear rtl 0 gate 1 default 0 own GATE peer_rtl 1 peer_gate 1
+UT: explicit_clear default 0 peer_gate 1

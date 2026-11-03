@@ -135,7 +135,7 @@ See [Ghost setup](testing.md#ghost).
 
 It removes `UVM_NO_DPI` from the default macro list. It does not supply or link
 UVM's C/C++ implementation. The current Verilator runner does not add those
-sources. There are 1180 `UVM_NO_DPI` cases and eight explicit HDL-DPI cases.
+sources. There are 1193 `UVM_NO_DPI` cases and eight explicit HDL-DPI cases.
 The [separate VPI runner](testing.md#verilator-vpi-hdl-subset) links the original
 limited backend; results apply only to that declared execution condition.
 User-defined `uvm_reg_backdoor` handlers can operate without HDL DPI (Q67).
@@ -174,7 +174,7 @@ a claim that every test was rebuilt together.
 
 ### Q16. Are M1, M2 or M3 complete, and what does the test count cover?
 
-M1 and M2 still have open clause targets. M3 now has 357
+M1 and M2 still have open clause targets. M3 now has 363
 register-layer cases, including testbench frontdoor paths; it is also incomplete. Starting a stage does not complete
 the preceding stages.
 The [plan](../README.md#plan) identifies current scope and remaining work.
@@ -1141,9 +1141,9 @@ not a direct test of the requirement.
 
 ### Q77. Why is there no coverage percentage after starting M4?
 
-The 1351 AI drafts cover only a partial decomposition: 1351 requirements link
-directly to 1187 tests; all drafts have direct tests, and one separate test is a control.
-All 1188 tests have requirement links. The 2,504 clause identifiers are not normative requirement units.
+The 1395 AI drafts cover only a partial decomposition: 1395 requirements link
+directly to 1200 tests; all drafts have direct tests, and one separate test is a control.
+All 1201 tests have requirement links. The 2,504 clause identifiers are not normative requirement units.
 The scope is proposed, the inventory incomplete and the denominator unapproved;
 starting M4 approves none of those. Known differences and HDL/DPI limitations
 do not silently exclude obligations. See the [approval path](requirements.md#remaining-m4-work-and-approval).
@@ -2143,7 +2143,7 @@ No. `tests_without_requirement_links` is zero: every current test has an
 explicit direct or control link. The separate counter
 `requirements_without_direct_tests` is zero. The memory-walk link uses the
 qualified historical interpretation in Q134. It is not approval of missing
-IEEE detail. HDL deposit and accessibility use explicit VPI fixtures. Another 1,615
+IEEE detail. HDL deposit and accessibility use explicit VPI fixtures. Another 1,584
 catalog identifiers remain unassessed; decomposition and human review are
 incomplete, and the denominator remains unapproved.
 
@@ -2244,7 +2244,7 @@ in [identifier assessments](../coverage/assessments.json). Structural headings
 have no related requirements; contextual descriptions name existing requirements.
 An unreviewed record, guessed classification or parent rollup cannot do this.
 The generated state is `assessed`, separate from `partial` requirement clauses.
-Thirty-six classifications currently exist, with no denominator approval or new pass.
+Forty-six classifications currently exist, with no denominator approval or new pass.
 Chapter 11's zero unassessed identifiers still does not complete its requirements.
 
 ### Q136. Does explicit strict configuration make the new cases pass?
@@ -2363,3 +2363,44 @@ grandchild from the root despite direct-child controls. Virtual-register/field
 queries separately match local/default/explicit subtree membership and names.
 Map unregister clears local registers, memories and submaps while preserving
 an independent map's exact content; no bus or HDL behavior is established.
+
+### Q146. Which constructor naming conditions are observed?
+
+Omitted, explicit and explicitly empty names are separate inputs. Concrete
+extensions call super.new() without an argument to expose abstract-base
+defaults; separate named extensions forward the supplied string. Tests cover
+recording databases/streams, all three link constructors, sequence items/base/
+typed sequences/libraries and register files. Prefilled-link helpers also keep
+their specified pc_link/ce_link/ce_link defaults and independent endpoints.
+The related-link ce_link spelling is specified in both 7.3.4.2.2 signature and
+prose. Naming controls do not establish sequence execution, backend recording,
+factory construction or unspecified initial field values.
+
+### Q147. Which HDL abstraction default does a register-file query use?
+
+The API contracts select defaults differently:
+
+| API | Design-abstraction selection |
+| --- | --- |
+| `add_hdl_path` / `clear_hdl_path` | Omitted kind means `RTL` |
+| `has_hdl_path` / `get_hdl_path` | Omitted kind uses the nearest enclosing register-file/block default |
+| `get_default_hdl_path` | Current-file explicit default; otherwise nearest ancestor default, with `RTL` as fallback |
+| `get_full_hdl_path` | Omitted kind uses the current file's default abstraction |
+
+The presence control deliberately selects GATE on the current file while its
+block retains RTL: clearing RTL makes omitted-kind presence false even though
+explicit GATE presence stays true. Separate fixtures retain two pinned-library
+differences: a file default that was not explicitly set stays RTL instead of following GATE/CPU,
+and an omitted full-path kind misses the flattened parent's GATE selection.
+Explicit local overrides and explicit RTL/GATE flattening are matching controls.
+See [known differences](known-differences.md#pinned-library-limitations).
+
+### Q148. Do eight full register-file paths establish duplicated HDL storage?
+
+They are symbolic strings: two block alternatives, two outer-file alternatives
+and two inner-file alternatives produce eight full combinations. Fresh queues
+are checked for exact membership and size without fixing enumeration order.
+The local query still has only two components. Flattened files contribute no
+logical-name segment. These observations do not look up storage, use DPI or
+perform bus transfers. Actual HDL access has a separate
+[backend and execution condition](testing.md#verilator-vpi-hdl-subset).

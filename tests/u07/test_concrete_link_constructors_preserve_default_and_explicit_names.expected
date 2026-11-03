@@ -1,0 +1,3 @@
+UT: defaults unnamed-uvm_parent_child_link unnamed-uvm_cause_effect_link unnamed-uvm_related_link
+UT: explicit named_pc named_ce named_related
+UT: distinct 1 1 1

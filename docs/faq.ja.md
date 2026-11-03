@@ -122,7 +122,7 @@ Ghostは公開前のシミュレータの仮名です。実行ファイルの識
 ### Q12. uvm_dpi: yesだけでDPIを使うビルドが完成しますか
 
 既定のマクロ一覧から`UVM_NO_DPI`を外す指定です。UVMのC/C++実装の供給・リンクは行いません。
-通常のVerilator runnerは、そのsourceを追加しません。`UVM_NO_DPI`が1180件、HDL DPIの明示選択が8件です。
+通常のVerilator runnerは、そのsourceを追加しません。`UVM_NO_DPI`が1193件、HDL DPIの明示選択が8件です。
 [別のVPI runner](testing.ja.md#verilatorのvpi-hdl部分集合)は独自の限定backendをlinkし、結果は宣言した実行条件だけに適用します。
 DPIなしのglobによる照合も、完全な正規表現への対応とは異なります。
 ユーザー定義の`uvm_reg_backdoor` handlerはHDL DPIなしで動作できます（Q67）。
@@ -155,7 +155,7 @@ Ghostはさらに実行ファイル・profile・供給されたライブラリ�
 
 ### Q16. M1・M2・M3は完了していますか。件数は何の網羅を示しますか
 
-M1・M2には条項ごとの目標に未達があります。M3はbusモデルのfrontdoor経路を含め357件まで追加した段階で、未完です。
+M1・M2には条項ごとの目標に未達があります。M3はbusモデルのfrontdoor経路を含め363件まで追加した段階で、未完です。
 次の段階の開始によって、それまでの段階が完了したとは扱いません。
 範囲と残りの作業は[進め方](../README.ja.md#進め方)にあります。
 件数はテストの本数で、規格の全要求や組み合わせの棚卸しではありません。
@@ -921,8 +921,8 @@ controlの対応は、その要求の直接の検査ではありません。
 
 ### Q77. M4を始めたのに、カバレッジ率がないのはなぜですか
 
-AIによる1351要求案は部分的な分解で、1351要求を1187テストへ直接対応付け、直接未対応は0要求、別の1テストはcontrolです。
-全1188テストに要求の対応付けがあります。2,504の条項番号は規範的要求の単位ではありません。
+AIによる1395要求案は部分的な分解で、1395要求を1200テストへ直接対応付け、直接未対応は0要求、別の1テストはcontrolです。
+全1201テストに要求の対応付けがあります。2,504の条項番号は規範的要求の単位ではありません。
 範囲は提案、棚卸しは未完、分母は未承認で、M4の開始はどれの承認にもなりません。
 既知差分やHDL／DPIの制約によって義務を暗黙に除外しません。[承認までの手順](requirements.ja.md#m4の残作業と承認)を参照してください。
 
@@ -1707,7 +1707,7 @@ user backdoorは16 bit locationをモデル化します。location独立性、�
 
 いいえ。`tests_without_requirement_links`は0で、現在の全テストに、明示的なdirectまたはcontrolの対応があります。
 別の集計`requirements_without_direct_tests`も0件です。memory-walkの対応はQ134の限定した歴史的解釈で、
-省略されたIEEEの詳細の承認ではありません。HDL depositと利用可否には、明示VPI検査系があります。catalogの識別子1,615件も未評価です。
+省略されたIEEEの詳細の承認ではありません。HDL depositと利用可否には、明示VPI検査系があります。catalogの識別子1,584件も未評価です。
 分解と人のレビューは未完で、分母は未承認です。
 
 [新しいpolicyテスト](../tests/u16/test_policy_object_stack_tracks_nested_active_policy_push_and_pop.sv)は、
@@ -1784,7 +1784,7 @@ frontdoor保護のwarningはalgorithm oracleの対象外で、ERRORと観測し�
 個別に読んだ後、日英の根拠とAI／人のレビューを[番号の分類](../coverage/assessments.json)へ記録すれば可能です。
 構造上の見出しは関連要求を持たず、文脈の説明は既存要求を指定します。
 未レビューの記録、推測した分類、親への集約では外せません。生成状態は`assessed`で、要求条項の`partial`と区別します。
-現在の分類は36件で、分母承認や新たなpassを加えません。第11章の未評価0件でも、その要求の完了ではありません。
+現在の分類は46件で、分母承認や新たなpassを加えません。第11章の未評価0件でも、その要求の完了ではありません。
 
 ### Q136. 明示strict configurationで新規検査は成功しますか？
 
@@ -1873,3 +1873,34 @@ blockはchild blockを持ち、mapは独立してsubmapを持ちます。新map�
 直接childの対照は一致しても、rootから今回のgrandchildを見つけません。virtual register／field照会は別に、
 local／既定／明示subtreeの所属と名前に一致します。map unregisterはlocal register／memory／submapを除き、独立mapの正確な内容を保持します。
 busやHDLの動作を示すものではありません。
+
+### Q146. constructorの命名では、どの条件を観測しますか？
+
+名前の省略、明示、明示的な空文字を別入力として扱います。具体的な拡張は引数なしのsuper.new()で抽象基底の既定値を観測し、
+別の名前付き拡張は指定文字列を転送します。recording database／stream、3種類のlink constructor、sequence item／base／
+型付きsequence／library、register fileを検査します。prefilled linkのhelperも、規定のpc_link／ce_link／ce_linkという既定名と
+endpointの独立性を保持します。related linkのce_linkは、7.3.4.2.2のsignatureと本文の両方で規定されています。
+命名のcontrolは、sequence実行、backend記録、factory生成、規定のない初期field値を示しません。
+
+### Q147. register fileの照会は、どのHDL abstractionの既定値を使いますか？
+
+APIごとに、既定値の選択が異なります。
+
+| API | Design abstractionの選択 |
+| --- | --- |
+| `add_hdl_path`／`clear_hdl_path` | kindを省略すると`RTL` |
+| `has_hdl_path`／`get_hdl_path` | kindを省略すると、最も近い包含register file／blockの既定値 |
+| `get_default_hdl_path` | 現在fileで明示した既定値。未設定なら最も近い祖先の既定値を使い、fallbackは`RTL` |
+| `get_full_hdl_path` | kindを省略すると、現在fileの既定abstraction |
+
+存在のcontrolでは、blockがRTLのまま、現在fileでGATEを選択します。RTLをclearすると、明示GATEの存在はtrueでも、
+kind省略の存在はfalseです。別の検査系2件は、既定値を設定していないのにGATE／CPUを継承せずRTLを保持する差分と、
+full pathのkind省略がflattenされた親のGATE選択に従わない差分を保持します。明示local overrideと明示RTL／GATEのflattenは一致します。
+[既知差分](known-differences.ja.md#固定版ライブラリの制約)を参照してください。
+
+### Q148. register fileの完全pathが8個なら、複製されたHDL storageを検査したことになりますか？
+
+symbolicな文字列です。blockの代替2個、outer fileの代替2個、inner fileの代替2個から、完全な組合せ8個を作ります。
+毎回新しいqueueの正確な所属と件数を検査し、列挙順序を固定しません。local照会は成分2個のままで、flattenされたfileは論理名のsegmentを加えません。
+storageを検索せず、DPIやbus転送も行いません。実際のHDL accessは、別の
+[backendと実行条件](testing.ja.md#verilatorのvpi-hdl部分集合)で扱います。

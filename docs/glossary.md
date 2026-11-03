@@ -810,3 +810,18 @@ call_pre_post. Start hooks and parent callbacks follow separate contracts.
 **Block hierarchy / map hierarchy** — Register-model block ancestry versus
 address-map submap connections. A child block's map need not be a local map's
 submap for logical block-name introspection.
+
+## Constructor arguments and register-file paths
+
+**Omitted name / explicitly empty name** — Calling a base constructor without
+its name argument selects the base default; supplying an empty string is an
+explicit argument. Concrete forwarding extensions keep these cases distinct.
+
+**Register-file HDL contribution** — A local path component contributed by a
+logical register file. Flattened files add no scope name; alternative parent/
+local components can yield several full symbolic paths.
+
+**Enclosing abstraction default** — The nearest enclosing register-file/block
+default selected by a register file's local path/presence APIs. It differs from
+querying the current file's own explicit default. See
+[Q147](faq.md#q147-which-hdl-abstraction-default-does-a-register-file-query-use).

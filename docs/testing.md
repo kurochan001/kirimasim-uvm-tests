@@ -177,7 +177,7 @@ again. `--check` checks the copy that is there. The library is not committed.
 - User-defined `uvm_reg_backdoor` storage handlers work without HDL DPI.
   Commercial simulator execution/results are excluded by the project policy;
   built-in HDL-path/DPI coverage remains open.
-- 1180 current cases use `UVM_NO_DPI`; eight explicitly enable HDL DPI.
+- 1193 current cases use `UVM_NO_DPI`; eight explicitly enable HDL DPI.
   `:uvm_dpi: yes` removes that macro;
   it does not automatically compile or link the C/C++ DPI implementation.
   The current Verilator runner does not add DPI C/C++ sources.
@@ -243,8 +243,8 @@ breaks the build.
 seed. All seeds must match. `--seed N` remains available for a single seed.
 The JSON configuration records either `seed` or `seeds` accordingly.
 
-By default, Verilator selects the 1062 tagged two-state cases. To include
-the 126 spec-only cases as well, add `--all`. A mismatch in an untagged case
+By default, Verilator selects the 1073 tagged two-state cases. To include
+the 128 spec-only cases as well, add `--all`. A mismatch in an untagged case
 is `known` and does not fail the command; a tagged mismatch does.
 Explicit test paths select only those tests. For a single smoke test:
 
@@ -298,7 +298,7 @@ python3 tools/requirements.py check
 ```
 
 The current tool suite has 88 unit tests; metadata validation checks all
-1188 simulation tests. The [ledger check](requirements.md) validates the draft
+1201 simulation tests. The [ledger check](requirements.md) validates the draft
 scope, explicit oracle links and input fingerprints without claiming coverage. [Check](../.github/workflows/check.yml) runs on pushes to
 `main`, pull requests and manual dispatch. Its separate Verilator job uses
 5.052, `UVM_NO_DPI` and seeds 1 and 73 for the tagged cases. Each model is

@@ -330,9 +330,17 @@
       "primary_clause": "6.3.4.1",
       "inputs_sha256": "d835fb92cd146f8df176fa66f6c9046e320b21e331db7ca125a7ca11f4438cfb"
     },
+    "u07/test_concrete_link_constructors_preserve_default_and_explicit_names": {
+      "primary_clause": "7.3.2.2.1",
+      "inputs_sha256": "4b01e1e7ac046894e76abb409241bdc84f7a205dfe47ad261631f33721579b8e"
+    },
     "u07/test_database_close_hook_failure_preserves_open_state_until_a_successful_retry": {
       "primary_clause": "7.1.6.2",
       "inputs_sha256": "eadc21b3471535324e6c21cdc4b346cd9849b7ef5c06d1c4d3be8bb4932ad138"
+    },
+    "u07/test_database_constructor_forwards_default_and_explicit_names": {
+      "primary_clause": "7.1.2",
+      "inputs_sha256": "e4500144fd775b2621f78b6658709749c3c7faa2c87a647ef1a3ae57aa7b4d21"
     },
     "u07/test_database_link_hook_receives_exact_relation_before_and_after_stream_close": {
       "primary_clause": "7.1.6.4",
@@ -349,6 +357,10 @@
     "u07/test_database_stream_hook_forwards_arguments_and_initializes_only_a_successful_result": {
       "primary_clause": "7.1.6.3",
       "inputs_sha256": "2fc75d2678bb65912f71a68406d44852ef73bab591f012b63328342f57606abb"
+    },
+    "u07/test_prefilled_link_default_names_and_endpoint_updates_preserve_peer_links": {
+      "primary_clause": "7.3.2.2.2",
+      "inputs_sha256": "2606dd0c12f7d9bce756dd099fbd11f66a4bf5c290863290956cf6b78fb5483f"
     },
     "u07/test_recorder_creation_is_ignored_on_unopened_and_closed_streams": {
       "primary_clause": "7.2.5.1",
@@ -389,6 +401,10 @@
     "u07/test_stream_close_dispatches_its_hook_before_closing_only_open_recorders": {
       "primary_clause": "7.2.4.1",
       "inputs_sha256": "76411ba58d8db38fe4da5c4fe6ce4ecce9a6b0edb3aec8aa39c15260024f8361"
+    },
+    "u07/test_stream_constructor_forwards_default_and_explicit_names": {
+      "primary_clause": "7.2.2",
+      "inputs_sha256": "33c7c6267188fc0dcfd61a08ebf47ba259218ba3c424d78ef9975d3cf640f6de"
     },
     "u07/test_stream_free_dispatches_its_hook_before_releasing_all_closed_recorders": {
       "primary_clause": "7.2.4.2",
@@ -1722,6 +1738,10 @@
       "primary_clause": "14.2.4.3",
       "inputs_sha256": "64d3f9b93994188b14ddc04d9d3e0e0ffdb3229548296cd4136571f34683e09b"
     },
+    "u14/test_sequence_base_and_typed_sequence_constructors_forward_base_name_defaults": {
+      "primary_clause": "14.2.2.1",
+      "inputs_sha256": "b1de3d1e2c6582de9b34e49a339170e1b965b871aa0cb68ca57bed5f19e34280"
+    },
     "u14/test_sequence_can_restart_after_natural_completion": {
       "primary_clause": "14.2.3.1",
       "inputs_sha256": "88a7e59ddbc1b2d36101dededa7aa691700479901a67401ecc473ab8a20d53d7"
@@ -1810,6 +1830,10 @@
       "primary_clause": "14.1.2.11",
       "inputs_sha256": "16369efbd4d9e3317333ecca2f8484bd2f835ceee19ce6ededd27575704e6a3f"
     },
+    "u14/test_sequence_item_constructor_preserves_default_explicit_and_empty_names": {
+      "primary_clause": "14.1.2.1",
+      "inputs_sha256": "12f8468b68a91b59cc305a39d04e69298184bf9882410d62497aac10381447b4"
+    },
     "u14/test_sequence_item_context_replaces_previous_explicit_context": {
       "primary_clause": "14.1.2.2",
       "inputs_sha256": "683ef143d2467d93dea9df7c0cc38deea93cd081fd239e8c794d4ef670e82e9c"
@@ -1869,6 +1893,10 @@
     "u14/test_sequence_library_add_sequences_deduplicates_without_changing_input_queue": {
       "primary_clause": "14.4.5.4",
       "inputs_sha256": "d28f8ac3f04b207708af06b7ac74973fb696b76a15c8eff1b9ad4ced064ce3ab"
+    },
+    "u14/test_sequence_library_constructor_distinguishes_omitted_and_explicit_names": {
+      "primary_clause": "14.4.3",
+      "inputs_sha256": "ff7bd7d00838d72b76413b3a206fb10bccb7450406cd7599b95f9da70b3c8ec2"
     },
     "u14/test_sequence_library_default_rand_executes_alpha_selection": {
       "primary_clause": "14.4",
@@ -3062,6 +3090,10 @@
       "primary_clause": "18.1.4.7",
       "inputs_sha256": "40574fbf68f582dc42466e5adb09f863993c7720bdb9dae9e674ef9ee30e85cf"
     },
+    "u18/test_flattened_regfile_omits_its_name_from_full_paths_for_each_selected_abstraction": {
+      "primary_clause": "18.3.2.2",
+      "inputs_sha256": "7719d721eb17a245947ce5410ea68fb8b084274f6007ffe98c20f495b3d39076"
+    },
     "u18/test_indirect_register_failed_data_read_keeps_prediction_until_a_successful_retry": {
       "primary_clause": "18.7.2.2",
       "inputs_sha256": "8b6a399547d45932e4854eb5be9cebe058c6872b5b0db25900d1f392f64e97dd"
@@ -3650,9 +3682,29 @@
       "primary_clause": "18.4.4.13",
       "inputs_sha256": "92e38cef454540d0e654482a1157c2a34f37e1c2be4b78e5d7b6266e93aca858"
     },
+    "u18/test_regfile_clear_hdl_path_defaults_to_rtl_and_preserves_other_kinds_and_peers": {
+      "primary_clause": "18.3.4.1",
+      "inputs_sha256": "72d644eabcd45793c18b991719da69cd6a412a03201d936d5721dd400f5c3305"
+    },
     "u18/test_regfile_configured_parents_match_nested_file_and_register_placement": {
       "primary_clause": "18.3.3.2",
       "inputs_sha256": "aa0f964ea28d6ff4d9df7316d56e08fdbe5211ab078b72ef68a194659cd245e1"
+    },
+    "u18/test_regfile_constructor_names_and_configured_parents_are_instance_local": {
+      "primary_clause": "18.3.2.1",
+      "inputs_sha256": "4a7db0e002bba6f26033f496824c018ebca034171402aae0f3a63f2017935f0c"
+    },
+    "u18/test_regfile_default_hdl_abstraction_follows_nearest_ancestor_and_local_override": {
+      "primary_clause": "18.3.4.6",
+      "inputs_sha256": "f69930516756a0524d5c1f4201176b969f111d6668d6617df7e0f65a167d26ae"
+    },
+    "u18/test_regfile_full_hdl_paths_combine_parent_and_local_alternatives_without_ordering": {
+      "primary_clause": "18.3.4.5",
+      "inputs_sha256": "ad30bba55796eff607af6b695f22e0327be745539dc4d0ffdcfe08302f94ac3f"
+    },
+    "u18/test_regfile_local_hdl_paths_keep_duplicate_instances_and_abstractions_separate": {
+      "primary_clause": "18.3.4.2",
+      "inputs_sha256": "ef648b4212da939faa0f21f35682d378aaa3c7aa87cf04f0cd13a2b6fbe4a788"
     },
     "u18/test_vreg_allocate_can_move_to_another_memory_in_its_parent_block": {
       "primary_clause": "18.9.1.1.4",

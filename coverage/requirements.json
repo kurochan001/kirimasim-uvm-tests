@@ -50974,6 +50974,1536 @@
           ]
         }
       ]
+    },
+    {
+      "id": "UVM-DATABASE-CONSTRUCTOR-DEFAULT-NAME",
+      "clause": "7.1.2",
+      "statement": {
+        "en": "The database constructor uses its specified default name when the name argument is omitted.",
+        "ja": "databaseのconstructorは、名前引数を省略すると規定の既定名を使う。"
+      },
+      "conditions": {
+        "en": "Concrete extensions forward omitted and explicit arguments to the base constructor.",
+        "ja": "具体的な拡張classが、省略した引数と明示した引数を基底constructorへ転送する。"
+      },
+      "expected": {
+        "en": "The omitted-name instance has the name unnamed-uvm_tr_database.",
+        "ja": "引数を省略したinstanceはunnamed-uvm_tr_databaseという名前を持つ。"
+      },
+      "limitations": {
+        "en": "Constructor naming only; creation through the factory, execution and backend operations are not assessed.",
+        "ja": "constructorの命名のみ。factory経由の生成、実行、backend操作は未評価。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u07/test_database_constructor_forwards_default_and_explicit_names",
+          "role": "direct",
+          "expected_observations": [
+            "UT: names default unnamed-uvm_tr_database explicit named_db empty 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-DATABASE-CONSTRUCTOR-EXPLICIT-NAME",
+      "clause": "7.1.2",
+      "statement": {
+        "en": "The database constructor preserves an explicitly supplied instance name.",
+        "ja": "databaseのconstructorは、明示したinstance名を保持する。"
+      },
+      "conditions": {
+        "en": "Concrete extensions forward omitted and explicit arguments to the base constructor.",
+        "ja": "具体的な拡張classが、省略した引数と明示した引数を基底constructorへ転送する。"
+      },
+      "expected": {
+        "en": "The explicit name is named_db and an explicitly empty name remains empty.",
+        "ja": "明示名はnamed_dbで、明示した空の名前も空のままである。"
+      },
+      "limitations": {
+        "en": "Naming controls only; distinct-handle observations are fixture controls, not an independent language-coverage claim.",
+        "ja": "命名の制御のみ。別handleの観測は検査系のcontrolであり、独立した言語coverageの主張ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u07/test_database_constructor_forwards_default_and_explicit_names",
+          "role": "direct",
+          "expected_observations": [
+            "UT: names default unnamed-uvm_tr_database explicit named_db empty 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-STREAM-CONSTRUCTOR-DEFAULT-NAME",
+      "clause": "7.2.2",
+      "statement": {
+        "en": "The stream constructor uses its specified default name when the name argument is omitted.",
+        "ja": "streamのconstructorは、名前引数を省略すると規定の既定名を使う。"
+      },
+      "conditions": {
+        "en": "Concrete extensions forward omitted and explicit arguments to the base constructor.",
+        "ja": "具体的な拡張classが、省略した引数と明示した引数を基底constructorへ転送する。"
+      },
+      "expected": {
+        "en": "The omitted-name instance has the name unnamed-uvm_tr_stream.",
+        "ja": "引数を省略したinstanceはunnamed-uvm_tr_streamという名前を持つ。"
+      },
+      "limitations": {
+        "en": "Constructor naming only; creation through the factory, execution and backend operations are not assessed.",
+        "ja": "constructorの命名のみ。factory経由の生成、実行、backend操作は未評価。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u07/test_stream_constructor_forwards_default_and_explicit_names",
+          "role": "direct",
+          "expected_observations": [
+            "UT: names default unnamed-uvm_tr_stream explicit named_stream empty 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-STREAM-CONSTRUCTOR-EXPLICIT-NAME",
+      "clause": "7.2.2",
+      "statement": {
+        "en": "The stream constructor preserves an explicitly supplied instance name.",
+        "ja": "streamのconstructorは、明示したinstance名を保持する。"
+      },
+      "conditions": {
+        "en": "Concrete extensions forward omitted and explicit arguments to the base constructor.",
+        "ja": "具体的な拡張classが、省略した引数と明示した引数を基底constructorへ転送する。"
+      },
+      "expected": {
+        "en": "The explicit name is named_stream and an explicitly empty name remains empty.",
+        "ja": "明示名はnamed_streamで、明示した空の名前も空のままである。"
+      },
+      "limitations": {
+        "en": "Naming controls only; distinct-handle observations are fixture controls, not an independent language-coverage claim.",
+        "ja": "命名の制御のみ。別handleの観測は検査系のcontrolであり、独立した言語coverageの主張ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u07/test_stream_constructor_forwards_default_and_explicit_names",
+          "role": "direct",
+          "expected_observations": [
+            "UT: names default unnamed-uvm_tr_stream explicit named_stream empty 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PARENT-CHILD-LINK-CONSTRUCTOR-DEFAULT-NAME",
+      "clause": "7.3.2.2.1",
+      "statement": {
+        "en": "The parent/child link constructor uses its specified default name when the name argument is omitted.",
+        "ja": "parent/child linkのconstructorは、名前引数を省略すると規定の既定名を使う。"
+      },
+      "conditions": {
+        "en": "Independent instances are constructed with omitted and explicit name arguments.",
+        "ja": "名前引数を省略したinstanceと明示したinstanceを別々に生成する。"
+      },
+      "expected": {
+        "en": "The omitted-name instance has the name unnamed-uvm_parent_child_link.",
+        "ja": "引数を省略したinstanceはunnamed-uvm_parent_child_linkという名前を持つ。"
+      },
+      "limitations": {
+        "en": "Constructor naming only; creation through the factory, execution and backend operations are not assessed.",
+        "ja": "constructorの命名のみ。factory経由の生成、実行、backend操作は未評価。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u07/test_concrete_link_constructors_preserve_default_and_explicit_names",
+          "role": "direct",
+          "expected_observations": [
+            "UT: defaults unnamed-uvm_parent_child_link unnamed-uvm_cause_effect_link unnamed-uvm_related_link"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PARENT-CHILD-LINK-CONSTRUCTOR-EXPLICIT-NAME",
+      "clause": "7.3.2.2.1",
+      "statement": {
+        "en": "The parent/child link constructor preserves an explicitly supplied instance name.",
+        "ja": "parent/child linkのconstructorは、明示したinstance名を保持する。"
+      },
+      "conditions": {
+        "en": "Independent instances are constructed with omitted and explicit name arguments.",
+        "ja": "名前引数を省略したinstanceと明示したinstanceを別々に生成する。"
+      },
+      "expected": {
+        "en": "The explicit name remains named_pc.",
+        "ja": "明示名named_pcを保持する。"
+      },
+      "limitations": {
+        "en": "Naming controls only; distinct-handle observations are fixture controls, not an independent language-coverage claim.",
+        "ja": "命名の制御のみ。別handleの観測は検査系のcontrolであり、独立した言語coverageの主張ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u07/test_concrete_link_constructors_preserve_default_and_explicit_names",
+          "role": "direct",
+          "expected_observations": [
+            "UT: explicit named_pc named_ce named_related"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CAUSE-EFFECT-LINK-CONSTRUCTOR-DEFAULT-NAME",
+      "clause": "7.3.3.2.1",
+      "statement": {
+        "en": "The cause/effect link constructor uses its specified default name when the name argument is omitted.",
+        "ja": "cause/effect linkのconstructorは、名前引数を省略すると規定の既定名を使う。"
+      },
+      "conditions": {
+        "en": "Independent instances are constructed with omitted and explicit name arguments.",
+        "ja": "名前引数を省略したinstanceと明示したinstanceを別々に生成する。"
+      },
+      "expected": {
+        "en": "The omitted-name instance has the name unnamed-uvm_cause_effect_link.",
+        "ja": "引数を省略したinstanceはunnamed-uvm_cause_effect_linkという名前を持つ。"
+      },
+      "limitations": {
+        "en": "Constructor naming only; creation through the factory, execution and backend operations are not assessed.",
+        "ja": "constructorの命名のみ。factory経由の生成、実行、backend操作は未評価。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u07/test_concrete_link_constructors_preserve_default_and_explicit_names",
+          "role": "direct",
+          "expected_observations": [
+            "UT: defaults unnamed-uvm_parent_child_link unnamed-uvm_cause_effect_link unnamed-uvm_related_link"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CAUSE-EFFECT-LINK-CONSTRUCTOR-EXPLICIT-NAME",
+      "clause": "7.3.3.2.1",
+      "statement": {
+        "en": "The cause/effect link constructor preserves an explicitly supplied instance name.",
+        "ja": "cause/effect linkのconstructorは、明示したinstance名を保持する。"
+      },
+      "conditions": {
+        "en": "Independent instances are constructed with omitted and explicit name arguments.",
+        "ja": "名前引数を省略したinstanceと明示したinstanceを別々に生成する。"
+      },
+      "expected": {
+        "en": "The explicit name remains named_ce.",
+        "ja": "明示名named_ceを保持する。"
+      },
+      "limitations": {
+        "en": "Naming controls only; distinct-handle observations are fixture controls, not an independent language-coverage claim.",
+        "ja": "命名の制御のみ。別handleの観測は検査系のcontrolであり、独立した言語coverageの主張ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u07/test_concrete_link_constructors_preserve_default_and_explicit_names",
+          "role": "direct",
+          "expected_observations": [
+            "UT: explicit named_pc named_ce named_related"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RELATED-LINK-CONSTRUCTOR-DEFAULT-NAME",
+      "clause": "7.3.4.2.1",
+      "statement": {
+        "en": "The related link constructor uses its specified default name when the name argument is omitted.",
+        "ja": "related linkのconstructorは、名前引数を省略すると規定の既定名を使う。"
+      },
+      "conditions": {
+        "en": "Independent instances are constructed with omitted and explicit name arguments.",
+        "ja": "名前引数を省略したinstanceと明示したinstanceを別々に生成する。"
+      },
+      "expected": {
+        "en": "The omitted-name instance has the name unnamed-uvm_related_link.",
+        "ja": "引数を省略したinstanceはunnamed-uvm_related_linkという名前を持つ。"
+      },
+      "limitations": {
+        "en": "Constructor naming only; creation through the factory, execution and backend operations are not assessed.",
+        "ja": "constructorの命名のみ。factory経由の生成、実行、backend操作は未評価。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u07/test_concrete_link_constructors_preserve_default_and_explicit_names",
+          "role": "direct",
+          "expected_observations": [
+            "UT: defaults unnamed-uvm_parent_child_link unnamed-uvm_cause_effect_link unnamed-uvm_related_link"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RELATED-LINK-CONSTRUCTOR-EXPLICIT-NAME",
+      "clause": "7.3.4.2.1",
+      "statement": {
+        "en": "The related link constructor preserves an explicitly supplied instance name.",
+        "ja": "related linkのconstructorは、明示したinstance名を保持する。"
+      },
+      "conditions": {
+        "en": "Independent instances are constructed with omitted and explicit name arguments.",
+        "ja": "名前引数を省略したinstanceと明示したinstanceを別々に生成する。"
+      },
+      "expected": {
+        "en": "The explicit name remains named_related.",
+        "ja": "明示名named_relatedを保持する。"
+      },
+      "limitations": {
+        "en": "Naming controls only; distinct-handle observations are fixture controls, not an independent language-coverage claim.",
+        "ja": "命名の制御のみ。別handleの観測は検査系のcontrolであり、独立した言語coverageの主張ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u07/test_concrete_link_constructors_preserve_default_and_explicit_names",
+          "role": "direct",
+          "expected_observations": [
+            "UT: explicit named_pc named_ce named_related"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PARENT-CHILD-PREFILLED-DEFAULT-NAME",
+      "clause": "7.3.2.2.2",
+      "statement": {
+        "en": "The prefilled-link helper uses the specified default link name when its optional name is omitted.",
+        "ja": "prefilled linkのhelperは、任意の名前を省略すると規定の既定名を使う。"
+      },
+      "conditions": {
+        "en": "The helper receives exact left/right objects with no name argument.",
+        "ja": "helperへ正確な左右のobjectを渡し、名前引数は省略する。"
+      },
+      "expected": {
+        "en": "The resulting link name is pc_link.",
+        "ja": "生成したlinkの名前はpc_linkである。"
+      },
+      "limitations": {
+        "en": "Only the specified default is asserted; the related-link ce_link spelling follows both signature and prose in 7.3.4.2.2.",
+        "ja": "規定の既定名のみを要求する。related linkのce_link表記は7.3.4.2.2のsignatureと本文の両方に従う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u07/test_prefilled_link_default_names_and_endpoint_updates_preserve_peer_links",
+          "role": "direct",
+          "expected_observations": [
+            "UT: default_names pc_link ce_link ce_link"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PARENT-CHILD-PREFILLED-FRESH-INSTANCE",
+      "clause": "7.3.2.2.2",
+      "statement": {
+        "en": "Repeated prefilled-link construction creates independent links initialized with the supplied endpoint handles.",
+        "ja": "prefilled linkを繰り返し生成すると、渡したendpoint handleで初期化した独立したlinkを生成する。"
+      },
+      "conditions": {
+        "en": "Two helpers receive reversed endpoint handles; one link is then changed through public accessors.",
+        "ja": "2回のhelperへ左右を逆にしたendpoint handleを渡し、一方を公開accessorで変更する。"
+      },
+      "expected": {
+        "en": "The links are distinct, the initial endpoints are exact, and the peer retains its original handles.",
+        "ja": "linkは別handleで、初期endpointは正確に一致し、peerは元のhandleを保持する。"
+      },
+      "limitations": {
+        "en": "Selected valid instances and arguments only; other lifecycle, error and concurrency conditions remain open.",
+        "ja": "選択した有効なinstanceと引数のみ。他のlifecycle、error、並行条件は未評価。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u07/test_prefilled_link_default_names_and_endpoint_updates_preserve_peer_links",
+          "role": "direct",
+          "expected_observations": [
+            "UT: prefilled 0 exact 1 1 distinct 1",
+            "UT: updated 0 exact 1 1 peer 1 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CAUSE-EFFECT-PREFILLED-DEFAULT-NAME",
+      "clause": "7.3.3.2.2",
+      "statement": {
+        "en": "The prefilled-link helper uses the specified default link name when its optional name is omitted.",
+        "ja": "prefilled linkのhelperは、任意の名前を省略すると規定の既定名を使う。"
+      },
+      "conditions": {
+        "en": "The helper receives exact left/right objects with no name argument.",
+        "ja": "helperへ正確な左右のobjectを渡し、名前引数は省略する。"
+      },
+      "expected": {
+        "en": "The resulting link name is ce_link.",
+        "ja": "生成したlinkの名前はce_linkである。"
+      },
+      "limitations": {
+        "en": "Only the specified default is asserted; the related-link ce_link spelling follows both signature and prose in 7.3.4.2.2.",
+        "ja": "規定の既定名のみを要求する。related linkのce_link表記は7.3.4.2.2のsignatureと本文の両方に従う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u07/test_prefilled_link_default_names_and_endpoint_updates_preserve_peer_links",
+          "role": "direct",
+          "expected_observations": [
+            "UT: default_names pc_link ce_link ce_link"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CAUSE-EFFECT-PREFILLED-FRESH-INSTANCE",
+      "clause": "7.3.3.2.2",
+      "statement": {
+        "en": "Repeated prefilled-link construction creates independent links initialized with the supplied endpoint handles.",
+        "ja": "prefilled linkを繰り返し生成すると、渡したendpoint handleで初期化した独立したlinkを生成する。"
+      },
+      "conditions": {
+        "en": "Two helpers receive reversed endpoint handles; one link is then changed through public accessors.",
+        "ja": "2回のhelperへ左右を逆にしたendpoint handleを渡し、一方を公開accessorで変更する。"
+      },
+      "expected": {
+        "en": "The links are distinct, the initial endpoints are exact, and the peer retains its original handles.",
+        "ja": "linkは別handleで、初期endpointは正確に一致し、peerは元のhandleを保持する。"
+      },
+      "limitations": {
+        "en": "Selected valid instances and arguments only; other lifecycle, error and concurrency conditions remain open.",
+        "ja": "選択した有効なinstanceと引数のみ。他のlifecycle、error、並行条件は未評価。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u07/test_prefilled_link_default_names_and_endpoint_updates_preserve_peer_links",
+          "role": "direct",
+          "expected_observations": [
+            "UT: prefilled 1 exact 1 1 distinct 1",
+            "UT: updated 1 exact 1 1 peer 1 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RELATED-PREFILLED-DEFAULT-NAME",
+      "clause": "7.3.4.2.2",
+      "statement": {
+        "en": "The prefilled-link helper uses the specified default link name when its optional name is omitted.",
+        "ja": "prefilled linkのhelperは、任意の名前を省略すると規定の既定名を使う。"
+      },
+      "conditions": {
+        "en": "The helper receives exact left/right objects with no name argument.",
+        "ja": "helperへ正確な左右のobjectを渡し、名前引数は省略する。"
+      },
+      "expected": {
+        "en": "The resulting link name is ce_link.",
+        "ja": "生成したlinkの名前はce_linkである。"
+      },
+      "limitations": {
+        "en": "Only the specified default is asserted; the related-link ce_link spelling follows both signature and prose in 7.3.4.2.2.",
+        "ja": "規定の既定名のみを要求する。related linkのce_link表記は7.3.4.2.2のsignatureと本文の両方に従う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u07/test_prefilled_link_default_names_and_endpoint_updates_preserve_peer_links",
+          "role": "direct",
+          "expected_observations": [
+            "UT: default_names pc_link ce_link ce_link"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RELATED-PREFILLED-FRESH-INSTANCE",
+      "clause": "7.3.4.2.2",
+      "statement": {
+        "en": "Repeated prefilled-link construction creates independent links initialized with the supplied endpoint handles.",
+        "ja": "prefilled linkを繰り返し生成すると、渡したendpoint handleで初期化した独立したlinkを生成する。"
+      },
+      "conditions": {
+        "en": "Two helpers receive reversed endpoint handles; one link is then changed through public accessors.",
+        "ja": "2回のhelperへ左右を逆にしたendpoint handleを渡し、一方を公開accessorで変更する。"
+      },
+      "expected": {
+        "en": "The links are distinct, the initial endpoints are exact, and the peer retains its original handles.",
+        "ja": "linkは別handleで、初期endpointは正確に一致し、peerは元のhandleを保持する。"
+      },
+      "limitations": {
+        "en": "Selected valid instances and arguments only; other lifecycle, error and concurrency conditions remain open.",
+        "ja": "選択した有効なinstanceと引数のみ。他のlifecycle、error、並行条件は未評価。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u07/test_prefilled_link_default_names_and_endpoint_updates_preserve_peer_links",
+          "role": "direct",
+          "expected_observations": [
+            "UT: prefilled 2 exact 1 1 distinct 1",
+            "UT: updated 2 exact 1 1 peer 1 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-ITEM-CONSTRUCTOR-DEFAULT-NAME",
+      "clause": "14.1.2.1",
+      "statement": {
+        "en": "The sequence item constructor uses its specified default name when the name argument is omitted.",
+        "ja": "sequence itemのconstructorは、名前引数を省略すると規定の既定名を使う。"
+      },
+      "conditions": {
+        "en": "Independent instances are constructed with omitted and explicit name arguments.",
+        "ja": "名前引数を省略したinstanceと明示したinstanceを別々に生成する。"
+      },
+      "expected": {
+        "en": "The omitted-name instance has the name uvm_sequence_item.",
+        "ja": "引数を省略したinstanceはuvm_sequence_itemという名前を持つ。"
+      },
+      "limitations": {
+        "en": "Constructor naming only; creation through the factory, execution and backend operations are not assessed.",
+        "ja": "constructorの命名のみ。factory経由の生成、実行、backend操作は未評価。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_item_constructor_preserves_default_explicit_and_empty_names",
+          "role": "direct",
+          "expected_observations": [
+            "UT: names default uvm_sequence_item explicit named_item empty 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-ITEM-CONSTRUCTOR-EXPLICIT-NAME",
+      "clause": "14.1.2.1",
+      "statement": {
+        "en": "The sequence item constructor preserves an explicitly supplied instance name.",
+        "ja": "sequence itemのconstructorは、明示したinstance名を保持する。"
+      },
+      "conditions": {
+        "en": "Independent instances are constructed with omitted and explicit name arguments.",
+        "ja": "名前引数を省略したinstanceと明示したinstanceを別々に生成する。"
+      },
+      "expected": {
+        "en": "The explicit name is named_item and an explicitly empty name remains empty.",
+        "ja": "明示名はnamed_itemで、明示した空の名前も空のままである。"
+      },
+      "limitations": {
+        "en": "Naming controls only; distinct-handle observations are fixture controls, not an independent language-coverage claim.",
+        "ja": "命名の制御のみ。別handleの観測は検査系のcontrolであり、独立した言語coverageの主張ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_item_constructor_preserves_default_explicit_and_empty_names",
+          "role": "direct",
+          "expected_observations": [
+            "UT: names default uvm_sequence_item explicit named_item empty 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-BASE-CONSTRUCTOR-DEFAULT-NAME",
+      "clause": "14.2.2.1",
+      "statement": {
+        "en": "The sequence base constructor uses its specified default name when the name argument is omitted.",
+        "ja": "sequence baseのconstructorは、名前引数を省略すると規定の既定名を使う。"
+      },
+      "conditions": {
+        "en": "Concrete extensions forward omitted and explicit arguments to the base constructor.",
+        "ja": "具体的な拡張classが、省略した引数と明示した引数を基底constructorへ転送する。"
+      },
+      "expected": {
+        "en": "The omitted-name instance has the name uvm_sequence.",
+        "ja": "引数を省略したinstanceはuvm_sequenceという名前を持つ。"
+      },
+      "limitations": {
+        "en": "Constructor naming only; creation through the factory, execution and backend operations are not assessed.",
+        "ja": "constructorの命名のみ。factory経由の生成、実行、backend操作は未評価。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_base_and_typed_sequence_constructors_forward_base_name_defaults",
+          "role": "direct",
+          "expected_observations": [
+            "UT: default_names uvm_sequence uvm_sequence"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-BASE-CONSTRUCTOR-EXPLICIT-NAME",
+      "clause": "14.2.2.1",
+      "statement": {
+        "en": "The sequence base constructor preserves an explicitly supplied instance name.",
+        "ja": "sequence baseのconstructorは、明示したinstance名を保持する。"
+      },
+      "conditions": {
+        "en": "Concrete extensions forward omitted and explicit arguments to the base constructor.",
+        "ja": "具体的な拡張classが、省略した引数と明示した引数を基底constructorへ転送する。"
+      },
+      "expected": {
+        "en": "The explicitly named base extension keeps base_named.",
+        "ja": "明示名を与えた基底拡張はbase_namedを保持する。"
+      },
+      "limitations": {
+        "en": "Naming controls only; distinct-handle observations are fixture controls, not an independent language-coverage claim.",
+        "ja": "命名の制御のみ。別handleの観測は検査系のcontrolであり、独立した言語coverageの主張ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_base_and_typed_sequence_constructors_forward_base_name_defaults",
+          "role": "direct",
+          "expected_observations": [
+            "UT: explicit base base_named typed_empty 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TYPED-SEQUENCE-CONSTRUCTOR-DEFAULT-NAME",
+      "clause": "14.3.3.1",
+      "statement": {
+        "en": "The typed sequence constructor uses its specified default name when the name argument is omitted.",
+        "ja": "型付きsequenceのconstructorは、名前引数を省略すると規定の既定名を使う。"
+      },
+      "conditions": {
+        "en": "Concrete extensions forward omitted and explicit arguments to the base constructor.",
+        "ja": "具体的な拡張classが、省略した引数と明示した引数を基底constructorへ転送する。"
+      },
+      "expected": {
+        "en": "The omitted-name instance has the name uvm_sequence.",
+        "ja": "引数を省略したinstanceはuvm_sequenceという名前を持つ。"
+      },
+      "limitations": {
+        "en": "Constructor naming only; creation through the factory, execution and backend operations are not assessed.",
+        "ja": "constructorの命名のみ。factory経由の生成、実行、backend操作は未評価。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_base_and_typed_sequence_constructors_forward_base_name_defaults",
+          "role": "direct",
+          "expected_observations": [
+            "UT: default_names uvm_sequence uvm_sequence"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TYPED-SEQUENCE-CONSTRUCTOR-EXPLICIT-NAME",
+      "clause": "14.3.3.1",
+      "statement": {
+        "en": "The typed sequence constructor preserves an explicitly supplied instance name.",
+        "ja": "型付きsequenceのconstructorは、明示したinstance名を保持する。"
+      },
+      "conditions": {
+        "en": "Concrete extensions forward omitted and explicit arguments to the base constructor.",
+        "ja": "具体的な拡張classが、省略した引数と明示した引数を基底constructorへ転送する。"
+      },
+      "expected": {
+        "en": "The explicitly empty name stays empty in the typed extension.",
+        "ja": "型付き拡張で明示した空の名前を保持する。"
+      },
+      "limitations": {
+        "en": "Naming controls only; distinct-handle observations are fixture controls, not an independent language-coverage claim.",
+        "ja": "命名の制御のみ。別handleの観測は検査系のcontrolであり、独立した言語coverageの主張ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_base_and_typed_sequence_constructors_forward_base_name_defaults",
+          "role": "direct",
+          "expected_observations": [
+            "UT: explicit base base_named typed_empty 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-LIBRARY-CONSTRUCTOR-DEFAULT-NAME",
+      "clause": "14.4.3",
+      "statement": {
+        "en": "The sequence library constructor uses its specified default name when the name argument is omitted.",
+        "ja": "sequence libraryのconstructorは、名前引数を省略すると規定の既定名を使う。"
+      },
+      "conditions": {
+        "en": "Independent instances are constructed with omitted and explicit name arguments.",
+        "ja": "名前引数を省略したinstanceと明示したinstanceを別々に生成する。"
+      },
+      "expected": {
+        "en": "The omitted-name instance has an empty name.",
+        "ja": "引数を省略したinstanceは空の名前を持つ。"
+      },
+      "limitations": {
+        "en": "Constructor naming only; creation through the factory, execution and backend operations are not assessed.",
+        "ja": "constructorの命名のみ。factory経由の生成、実行、backend操作は未評価。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_library_constructor_distinguishes_omitted_and_explicit_names",
+          "role": "direct",
+          "expected_observations": [
+            "UT: default_empty 1 explicit_name named_library explicit_empty 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-LIBRARY-CONSTRUCTOR-EXPLICIT-NAME",
+      "clause": "14.4.3",
+      "statement": {
+        "en": "The sequence library constructor preserves an explicitly supplied instance name.",
+        "ja": "sequence libraryのconstructorは、明示したinstance名を保持する。"
+      },
+      "conditions": {
+        "en": "Independent instances are constructed with omitted and explicit name arguments.",
+        "ja": "名前引数を省略したinstanceと明示したinstanceを別々に生成する。"
+      },
+      "expected": {
+        "en": "The explicit name is named_library and an explicitly empty name remains empty.",
+        "ja": "明示名はnamed_libraryで、明示した空の名前も空のままである。"
+      },
+      "limitations": {
+        "en": "Naming controls only; distinct-handle observations are fixture controls, not an independent language-coverage claim.",
+        "ja": "命名の制御のみ。別handleの観測は検査系のcontrolであり、独立した言語coverageの主張ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_library_constructor_distinguishes_omitted_and_explicit_names",
+          "role": "direct",
+          "expected_observations": [
+            "UT: default_empty 1 explicit_name named_library explicit_empty 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-RANDOMIZATION-ENABLE-SETTER",
+      "clause": "14.2.2.3",
+      "statement": {
+        "en": "The randomization-enable setter updates the current sequence control independently of a peer.",
+        "ja": "randomization-enableのsetterは、peerと独立して現在sequenceの制御値を更新する。"
+      },
+      "conditions": {
+        "en": "Two existing sequence instances are disabled and reenabled through public setters.",
+        "ja": "既存の2つのsequence instanceを、公開setterで無効化・再有効化する。"
+      },
+      "expected": {
+        "en": "The disabled/reconfigured controls read back as 0/1 and then 1/0.",
+        "ja": "無効化／再設定した制御値は0／1、続いて1／0として読み出せる。"
+      },
+      "limitations": {
+        "en": "Control storage only; this link does not establish every automatic-randomization caller.",
+        "ja": "制御値の保持のみ。この対応だけでは全自動randomization呼出元の動作は示さない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_randomize_enabled_defaults_and_updates_are_local",
+          "role": "direct",
+          "expected_observations": [
+            "UT: first_disabled 0 1",
+            "UT: updated 1 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-RAND-SEND-DISABLED-RANDOMIZATION",
+      "clause": "14.2.2.3",
+      "statement": {
+        "en": "Automatic rand-send execution skips randomization when the child sequence disables randomization.",
+        "ja": "child sequenceがrandomizationを無効にすると、自動rand-send実行はrandomizationを省略する。"
+      },
+      "conditions": {
+        "en": "An existing macro fixture sets code to 44, disables randomization and supplies a conflicting inline constraint.",
+        "ja": "既存macro検査系でcodeを44にし、randomizationを無効化して矛盾するinline制約を渡す。"
+      },
+      "expected": {
+        "en": "The child body executes once, code stays 44 and its randomization count remains zero.",
+        "ja": "child bodyは1回実行し、codeは44を保持し、randomization回数は0のままである。"
+      },
+      "limitations": {
+        "en": "One disabled rand-send path; this does not add execution evidence or cover every macro/default-sequence condition.",
+        "ja": "無効化したrand-sendの1経路のみ。実行証拠の追加や、全macro／default sequence条件の網羅ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_sequence_macro_rand_send_child_honors_randomize_disabled",
+          "role": "direct",
+          "expected_observations": [
+            "UT: code 44 enabled 0 randomizations 0 bodies 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-RESPONSE-HANDLER-CONTROL-QUERY",
+      "clause": "14.2.7.2",
+      "statement": {
+        "en": "The handler-control query returns the current response-handler selection for that sequence.",
+        "ja": "handler制御の照会は、そのsequenceの現在のresponse handler選択を返す。"
+      },
+      "conditions": {
+        "en": "One existing sequence enables its handler while an independent peer retains queue mode.",
+        "ja": "既存の一方のsequenceでhandlerを有効にし、独立peerはqueue modeを保つ。"
+      },
+      "expected": {
+        "en": "The current handler query is one for the first sequence and zero for the peer.",
+        "ja": "現在のhandler照会は一方で1、peerで0になる。"
+      },
+      "limitations": {
+        "en": "Control query only; response delivery and callback invocation have separate obligations.",
+        "ja": "制御値の照会のみ。response配送とcallback呼出しは別の義務で扱う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_response_control_updates_are_per_instance",
+          "role": "direct",
+          "expected_observations": [
+            "UT: first handler 1 depth -1 errors 0",
+            "UT: second handler 0 depth 8 errors 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-CURRENT-ITEM-ACTIVE-HANDLE",
+      "clause": "14.3.3.2",
+      "statement": {
+        "en": "The sequence current-item query returns the exact request currently held by its sequencer.",
+        "ja": "sequenceのcurrent-item照会は、そのsequencerが保持して実行中の正確なrequestを返す。"
+      },
+      "conditions": {
+        "en": "Existing fixtures hold a request through get_next_item or peek before acknowledging/consuming it.",
+        "ja": "既存検査系で、get_next_itemまたはpeek後、確認応答／消費前のrequestを保持する。"
+      },
+      "expected": {
+        "en": "Both public current-item views identify the held request.",
+        "ja": "両方の公開current-item照会は保持中のrequestを正確に示す。"
+      },
+      "limitations": {
+        "en": "These bound sequence/sequencer fixtures do not assert ownership behavior for unrelated sequences or unbound calls.",
+        "ja": "結び付いたsequence／sequencerの構成のみ。無関係なsequenceの所有規則や未結合の呼出しは要求しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequencer_and_sequence_current_item_clear_after_item_done",
+          "role": "direct",
+          "expected_observations": [
+            "UT: pending_same 1 1"
+          ]
+        },
+        {
+          "test": "u15/test_sequencer_and_sequence_current_item_span_peek_until_get",
+          "role": "direct",
+          "expected_observations": [
+            "UT: peek_same 1 current_same 1 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-CURRENT-ITEM-IDLE-NULL",
+      "clause": "14.3.3.2",
+      "statement": {
+        "en": "The sequence current-item query returns null when its sequencer is not executing an item.",
+        "ja": "sequencerがitemを実行していなければ、sequenceのcurrent-item照会はnullを返す。"
+      },
+      "conditions": {
+        "en": "Existing fixtures query the bound idle sequencer and query again after item_done or get.",
+        "ja": "既存検査系で結合済みのidle sequencerを照会し、item_doneまたはgetの後にも照会する。"
+      },
+      "expected": {
+        "en": "The sequence-side query is null before a request and after the tested completion operations.",
+        "ja": "sequence側の照会は、request前と対象の完了操作後にnullとなる。"
+      },
+      "limitations": {
+        "en": "No scheduler-order or driver-processing completion claim is inferred from the current-item transition.",
+        "ja": "current-itemの変化からscheduler順序やdriverの全処理完了を推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequencer_and_sequence_current_item_clear_after_item_done",
+          "role": "direct",
+          "expected_observations": [
+            "UT: initial_null 1 1",
+            "UT: after_ack_null 1 1"
+          ]
+        },
+        {
+          "test": "u15/test_sequencer_and_sequence_current_item_span_peek_until_get",
+          "role": "direct",
+          "expected_observations": [
+            "UT: current_null 1 1 consumed_same 1 finished 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGFILE-CONSTRUCTOR-DEFAULT-NAME",
+      "clause": "18.3.2.1",
+      "statement": {
+        "en": "The register file constructor uses its specified default name when the name argument is omitted.",
+        "ja": "register fileのconstructorは、名前引数を省略すると規定の既定名を使う。"
+      },
+      "conditions": {
+        "en": "Independent instances are constructed with omitted and explicit name arguments.",
+        "ja": "名前引数を省略したinstanceと明示したinstanceを別々に生成する。"
+      },
+      "expected": {
+        "en": "The omitted-name instance has an empty name.",
+        "ja": "引数を省略したinstanceは空の名前を持つ。"
+      },
+      "limitations": {
+        "en": "Constructor naming only; creation through the factory, execution and backend operations are not assessed.",
+        "ja": "constructorの命名のみ。factory経由の生成、実行、backend操作は未評価。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_regfile_constructor_names_and_configured_parents_are_instance_local",
+          "role": "direct",
+          "expected_observations": [
+            "UT: names default_empty 1 explicit outer inner"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGFILE-CONSTRUCTOR-EXPLICIT-NAME",
+      "clause": "18.3.2.1",
+      "statement": {
+        "en": "The register file constructor preserves an explicitly supplied instance name.",
+        "ja": "register fileのconstructorは、明示したinstance名を保持する。"
+      },
+      "conditions": {
+        "en": "Independent instances are constructed with omitted and explicit name arguments.",
+        "ja": "名前引数を省略したinstanceと明示したinstanceを別々に生成する。"
+      },
+      "expected": {
+        "en": "Named files retain outer and inner.",
+        "ja": "明示名outerとinnerを保持する。"
+      },
+      "limitations": {
+        "en": "Naming controls only; distinct-handle observations are fixture controls, not an independent language-coverage claim.",
+        "ja": "命名の制御のみ。別handleの観測は検査系のcontrolであり、独立した言語coverageの主張ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_regfile_constructor_names_and_configured_parents_are_instance_local",
+          "role": "direct",
+          "expected_observations": [
+            "UT: names default_empty 1 explicit outer inner"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGFILE-CONFIGURED-PARENT-RELATIONSHIPS",
+      "clause": "18.3.2.2",
+      "statement": {
+        "en": "Register-file configuration records the supplied block and optional containing register file.",
+        "ja": "register fileのconfigureは、指定したblockと任意の包含register fileを記録する。"
+      },
+      "conditions": {
+        "en": "Root-level and nested files are configured once with valid same-block ancestry and a separate peer block.",
+        "ja": "root直下と入れ子のfileを、同じblockの有効な親子関係と別peer blockで1回ずつconfigureする。"
+      },
+      "expected": {
+        "en": "Exact block/file handles match; top-level files report a null containing file and the peer stays independent.",
+        "ja": "block／fileのhandleが正確に一致し、block直下のfileは包含fileがnullで、peerも独立している。"
+      },
+      "limitations": {
+        "en": "Selected valid instances and arguments only; other lifecycle, error and concurrency conditions remain open.",
+        "ja": "選択した有効なinstanceと引数のみ。他のlifecycle、error、並行条件は未評価。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_regfile_constructor_names_and_configured_parents_are_instance_local",
+          "role": "direct",
+          "expected_observations": [
+            "UT: block_parents 1 1 1",
+            "UT: file_parents 1 1 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGFILE-CONFIGURED-HDL-CONTRIBUTION",
+      "clause": "18.3.2.2",
+      "statement": {
+        "en": "The configured HDL path supplies the register file contribution for its RTL abstraction.",
+        "ja": "configureで指定するHDL pathは、register fileのRTL abstractionの寄与を与える。"
+      },
+      "conditions": {
+        "en": "A file is configured with bank_a, then another RTL alternative and a GATE path are added.",
+        "ja": "fileをbank_aでconfigureし、別のRTL代替pathとGATE pathを加える。"
+      },
+      "expected": {
+        "en": "Its local RTL set contains bank_a and bank_b, independently of the GATE path.",
+        "ja": "local RTL集合はbank_aとbank_bを含み、GATE pathとは独立している。"
+      },
+      "limitations": {
+        "en": "Symbolic strings and fresh queue membership only; no actual HDL object, DPI, bus transfer or four-state behavior is established.",
+        "ja": "symbolicな文字列と新しいqueueの所属のみ。実際のHDL object、DPI、bus転送、4値の動作は示さない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_regfile_local_hdl_paths_keep_duplicate_instances_and_abstractions_separate",
+          "role": "direct",
+          "expected_observations": [
+            "UT: local rtl_count 2 members 3 gate_count 1 gate 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGFILE-ADD-HDL-ALTERNATIVES",
+      "clause": "18.3.4.2",
+      "statement": {
+        "en": "Repeated HDL path additions retain the register-file alternatives for the selected abstraction.",
+        "ja": "HDL pathを繰り返し追加すると、選択したabstractionのregister fileの代替pathを保持する。"
+      },
+      "conditions": {
+        "en": "A configured RTL bank_a receives bank_b through add_hdl_path with its kind omitted.",
+        "ja": "RTLのbank_aを設定済みのfileへ、kindを省略してadd_hdl_pathでbank_bを加える。"
+      },
+      "expected": {
+        "en": "The RTL list contains exactly the two distinct local alternatives.",
+        "ja": "RTL一覧は2つの異なるlocal代替pathを正確に含む。"
+      },
+      "limitations": {
+        "en": "Symbolic strings and fresh queue membership only; no actual HDL object, DPI, bus transfer or four-state behavior is established.",
+        "ja": "symbolicな文字列と新しいqueueの所属のみ。実際のHDL object、DPI、bus転送、4値の動作は示さない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_regfile_local_hdl_paths_keep_duplicate_instances_and_abstractions_separate",
+          "role": "direct",
+          "expected_observations": [
+            "UT: local rtl_count 2 members 3 gate_count 1 gate 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGFILE-ADD-HDL-ABSTRACTION-ISOLATION",
+      "clause": "18.3.4.2",
+      "statement": {
+        "en": "An explicitly selected design abstraction keeps its added path separate from RTL paths.",
+        "ja": "明示したdesign abstractionに追加するpathは、RTL pathとは別に保持する。"
+      },
+      "conditions": {
+        "en": "The file receives net_bank for GATE while two RTL alternatives already exist.",
+        "ja": "2つのRTL代替pathがあるfileへ、GATEのnet_bankを追加する。"
+      },
+      "expected": {
+        "en": "The GATE list has only net_bank and the RTL list still has both original alternatives.",
+        "ja": "GATE一覧はnet_bankだけを持ち、RTL一覧は元の2つの代替pathを保持する。"
+      },
+      "limitations": {
+        "en": "Symbolic strings and fresh queue membership only; no actual HDL object, DPI, bus transfer or four-state behavior is established.",
+        "ja": "symbolicな文字列と新しいqueueの所属のみ。実際のHDL object、DPI、bus転送、4値の動作は示さない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_regfile_local_hdl_paths_keep_duplicate_instances_and_abstractions_separate",
+          "role": "direct",
+          "expected_observations": [
+            "UT: local rtl_count 2 members 3 gate_count 1 gate 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGFILE-LOCAL-HDL-QUERY-EXCLUDES-ANCESTORS",
+      "clause": "18.3.4.4",
+      "statement": {
+        "en": "The local path query returns the selected register-file components without ancestor prefixes.",
+        "ja": "local pathの照会は、祖先のprefixを付けずに選択したregister fileの成分を返す。"
+      },
+      "conditions": {
+        "en": "A parent block has dut, and the file has two local RTL paths and one GATE path; each output queue is fresh.",
+        "ja": "親blockにdut、fileに2つのlocal RTL pathと1つのGATE pathがあり、出力queueは毎回新しくする。"
+      },
+      "expected": {
+        "en": "Local results contain only bank_a/bank_b or net_bank, and a repeated RTL query has two entries.",
+        "ja": "localの結果はbank_a／bank_bまたはnet_bankだけで、RTLの再照会も2要素となる。"
+      },
+      "limitations": {
+        "en": "Symbolic strings and fresh queue membership only; no actual HDL object, DPI, bus transfer or four-state behavior is established.",
+        "ja": "symbolicな文字列と新しいqueueの所属のみ。実際のHDL object、DPI、bus転送、4値の動作は示さない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_regfile_local_hdl_paths_keep_duplicate_instances_and_abstractions_separate",
+          "role": "direct",
+          "expected_observations": [
+            "UT: local rtl_count 2 members 3 gate_count 1 gate 1",
+            "UT: repeated_count 2 has_default 1 has_gate 1 has_missing 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGFILE-HDL-PRESENCE-QUERY",
+      "clause": "18.3.4.3",
+      "statement": {
+        "en": "Path presence is reported for the selected abstraction; an omitted kind uses the nearest enclosing register-file or block default.",
+        "ja": "選択したabstractionのpath存在を返し、kindを省略すると最も近い包含register fileまたはblockの既定値を使う。"
+      },
+      "conditions": {
+        "en": "Known RTL/GATE paths and a missing kind are queried; another file selects GATE before clearing paths.",
+        "ja": "既知のRTL／GATE pathと未登録のkindを照会し、別fileではGATEを既定にしてpathをclearする。"
+      },
+      "expected": {
+        "en": "Known paths report true and a missing kind false. After RTL is cleared, omitted-kind presence is false even though the current file selects GATE and the explicit GATE path exists.",
+        "ja": "既知pathはtrue、未登録kindはfalseである。RTLをclearすると、現在fileがGATEを選択し明示GATE pathが存在しても、kind省略の存在判定はfalseとなる。"
+      },
+      "limitations": {
+        "en": "Symbolic strings and fresh queue membership only; no actual HDL object, DPI, bus transfer or four-state behavior is established.",
+        "ja": "symbolicな文字列と新しいqueueの所属のみ。実際のHDL object、DPI、bus転送、4値の動作は示さない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_regfile_local_hdl_paths_keep_duplicate_instances_and_abstractions_separate",
+          "role": "direct",
+          "expected_observations": [
+            "UT: repeated_count 2 has_default 1 has_gate 1 has_missing 0"
+          ]
+        },
+        {
+          "test": "u18/test_regfile_clear_hdl_path_defaults_to_rtl_and_preserves_other_kinds_and_peers",
+          "role": "direct",
+          "expected_observations": [
+            "UT: default_clear rtl 0 gate 1 default 0 own GATE peer_rtl 1 peer_gate 1",
+            "UT: explicit_clear default 0 peer_gate 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGFILE-CLEAR-HDL-DEFAULT-RTL",
+      "clause": "18.3.4.1",
+      "statement": {
+        "en": "Omitting kind in clear_hdl_path removes RTL paths even when the file default selects another abstraction.",
+        "ja": "clear_hdl_pathのkindを省略すると、fileの既定が別abstractionでもRTL pathを除去する。"
+      },
+      "conditions": {
+        "en": "The file has RTL/GATE paths, selects GATE as default, then calls clear_hdl_path without kind.",
+        "ja": "fileにRTL／GATE pathを設定し、既定をGATEにしてkindなしでclear_hdl_pathを呼ぶ。"
+      },
+      "expected": {
+        "en": "RTL becomes absent while explicit GATE presence stays true. The enclosing RTL default gives false for an omitted-kind presence query; the current-file default remains GATE and peer paths are retained.",
+        "ja": "RTLがなくなり、明示GATEの存在はtrueを保つ。包含RTL既定によるkind省略の存在照会はfalseで、現在fileの既定はGATE、peerのpathも保持する。"
+      },
+      "limitations": {
+        "en": "Symbolic strings and fresh queue membership only; no actual HDL object, DPI, bus transfer or four-state behavior is established.",
+        "ja": "symbolicな文字列と新しいqueueの所属のみ。実際のHDL object、DPI、bus転送、4値の動作は示さない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_regfile_clear_hdl_path_defaults_to_rtl_and_preserves_other_kinds_and_peers",
+          "role": "direct",
+          "expected_observations": [
+            "UT: default_clear rtl 0 gate 1 default 0 own GATE peer_rtl 1 peer_gate 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGFILE-CLEAR-HDL-SELECTED-KIND-ISOLATION",
+      "clause": "18.3.4.1",
+      "statement": {
+        "en": "Explicit HDL path clearing removes only the chosen file/abstraction entries.",
+        "ja": "HDL pathを明示的にclearすると、選択したfile／abstractionのentryだけを除去する。"
+      },
+      "conditions": {
+        "en": "After the RTL control, GATE is explicitly cleared on one of two independent files.",
+        "ja": "RTLのcontrol後、独立した2つのfileの一方でGATEを明示的にclearする。"
+      },
+      "expected": {
+        "en": "The selected default GATE path becomes absent while the peer GATE path remains present.",
+        "ja": "選択した既定GATE pathはなくなるが、peerのGATE pathは存在し続ける。"
+      },
+      "limitations": {
+        "en": "Symbolic strings and fresh queue membership only; no actual HDL object, DPI, bus transfer or four-state behavior is established.",
+        "ja": "symbolicな文字列と新しいqueueの所属のみ。実際のHDL object、DPI、bus転送、4値の動作は示さない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_regfile_clear_hdl_path_defaults_to_rtl_and_preserves_other_kinds_and_peers",
+          "role": "direct",
+          "expected_observations": [
+            "UT: explicit_clear default 0 peer_gate 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGFILE-DEFAULT-HDL-NEAREST-ANCESTOR",
+      "clause": "18.3.4.6",
+      "statement": {
+        "en": "An unset register-file default follows the nearest register-file or block ancestor default.",
+        "ja": "register fileで未設定の既定値は、最も近いregister fileまたはblock祖先の既定値に従う。"
+      },
+      "conditions": {
+        "en": "Nested files start without overrides; block defaults change, then an outer override is introduced.",
+        "ja": "入れ子fileをoverrideなしで始め、blockの既定を変更し、その後outerにoverrideを設定する。"
+      },
+      "expected": {
+        "en": "Initial defaults are RTL; all inherit GATE before overrides, and the peer later follows CPU.",
+        "ja": "初期値はRTLで、override前は全fileがGATEを継承し、後でpeerはCPUに従う。"
+      },
+      "limitations": {
+        "en": "Symbolic strings and fresh queue membership only; no actual HDL object, DPI, bus transfer or four-state behavior is established.",
+        "ja": "symbolicな文字列と新しいqueueの所属のみ。実際のHDL object、DPI、bus転送、4値の動作は示さない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_regfile_default_hdl_abstraction_follows_nearest_ancestor_and_local_override",
+          "role": "direct",
+          "expected_observations": [
+            "UT: initial RTL RTL RTL",
+            "UT: block_default GATE GATE GATE",
+            "UT: nearest TLM RTL CPU"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGFILE-SET-DEFAULT-HDL-LOCAL-OVERRIDE",
+      "clause": "18.3.4.7",
+      "statement": {
+        "en": "Setting a file default makes that abstraction take precedence over farther ancestor defaults.",
+        "ja": "fileの既定を設定すると、そのabstractionが遠い祖先の既定より優先する。"
+      },
+      "conditions": {
+        "en": "Outer selects TLM and inner selects RTL before the block changes to CPU.",
+        "ja": "outerでTLM、innerでRTLを設定した後、blockをCPUへ変更する。"
+      },
+      "expected": {
+        "en": "The resulting defaults are TLM for outer, RTL for inner and CPU for the independent peer.",
+        "ja": "結果の既定はouterがTLM、innerがRTL、独立peerがCPUである。"
+      },
+      "limitations": {
+        "en": "Symbolic strings and fresh queue membership only; no actual HDL object, DPI, bus transfer or four-state behavior is established.",
+        "ja": "symbolicな文字列と新しいqueueの所属のみ。実際のHDL object、DPI、bus転送、4値の動作は示さない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_regfile_default_hdl_abstraction_follows_nearest_ancestor_and_local_override",
+          "role": "direct",
+          "expected_observations": [
+            "UT: nearest TLM RTL CPU"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGFILE-FULL-HDL-ANCESTOR-ALTERNATIVES",
+      "clause": "18.3.4.5",
+      "statement": {
+        "en": "Full register-file paths include every tested combination of parent and local HDL alternatives.",
+        "ja": "register fileの完全pathは、対象の親とlocalのHDL代替pathの全組合せを含む。"
+      },
+      "conditions": {
+        "en": "The block, outer file and inner file each have two distinct RTL contributions.",
+        "ja": "block、outer file、inner fileが、それぞれ異なる2つのRTL寄与を持つ。"
+      },
+      "expected": {
+        "en": "The eight full strings are exactly the two-by-two-by-two combinations; local enumeration still has two entries.",
+        "ja": "完全文字列8個は2×2×2の組合せに正確に一致し、local一覧は2要素のままである。"
+      },
+      "limitations": {
+        "en": "Symbolic strings and fresh queue membership only; no actual HDL object, DPI, bus transfer or four-state behavior is established.",
+        "ja": "symbolicな文字列と新しいqueueの所属のみ。実際のHDL object、DPI、bus転送、4値の動作は示さない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_regfile_full_hdl_paths_combine_parent_and_local_alternatives_without_ordering",
+          "role": "direct",
+          "expected_observations": [
+            "UT: full_count 8 members 255 local_count 2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGFILE-CONFIGURED-FLATTENED-HDL-SCOPE",
+      "clause": "18.3.2.2",
+      "statement": {
+        "en": "A register file configured without an HDL contribution does not add its logical name to descendant HDL paths.",
+        "ja": "HDL寄与を指定せずにconfigureしたregister fileは、子孫HDL pathへ論理名を追加しない。"
+      },
+      "conditions": {
+        "en": "A logical not_an_hdl_scope file is flattened between a dut block and a leaf file.",
+        "ja": "論理名not_an_hdl_scopeのfileを、dut blockとleaf fileの間でflattenする。"
+      },
+      "expected": {
+        "en": "The RTL descendant path is dut.leaf with no logical-file component.",
+        "ja": "RTLの子孫pathはdut.leafで、論理fileの成分を含まない。"
+      },
+      "limitations": {
+        "en": "Symbolic strings and fresh queue membership only; no actual HDL object, DPI, bus transfer or four-state behavior is established.",
+        "ja": "symbolicな文字列と新しいqueueの所属のみ。実際のHDL object、DPI、bus転送、4値の動作は示さない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_flattened_regfile_omits_its_name_from_full_paths_for_each_selected_abstraction",
+          "role": "direct",
+          "expected_observations": [
+            "UT: rtl_count 1 flattened 1 gate_count 1 flattened 1",
+            "UT: explicit_gate count 1 flattened 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGFILE-FULL-HDL-DEFAULT-ABSTRACTION-SELECTION",
+      "clause": "18.3.4.5",
+      "statement": {
+        "en": "An omitted full-path kind uses the nearest enclosing default abstraction through flattened file scopes.",
+        "ja": "完全path照会でkindを省略すると、flattenされたfile scopeを経由して最も近い包含既定abstractionを使う。"
+      },
+      "conditions": {
+        "en": "A flattened parent selects GATE while its child has distinct RTL leaf and GATE cell contributions.",
+        "ja": "flattenされた親でGATEを選択し、子にはRTLのleafとGATEのcellという別の寄与を設定する。"
+      },
+      "expected": {
+        "en": "The explicit RTL path is dut.leaf and both selected and explicit GATE paths are net.cell; the explicit GATE query controls for path assembly.",
+        "ja": "明示RTL pathはdut.leaf、選択した既定GATEと明示GATEのpathはnet.cellで、明示GATE照会をpath組立てのcontrolとする。"
+      },
+      "limitations": {
+        "en": "Symbolic strings and fresh queue membership only; no actual HDL object, DPI, bus transfer or four-state behavior is established.",
+        "ja": "symbolicな文字列と新しいqueueの所属のみ。実際のHDL object、DPI、bus転送、4値の動作は示さない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_flattened_regfile_omits_its_name_from_full_paths_for_each_selected_abstraction",
+          "role": "direct",
+          "expected_observations": [
+            "UT: rtl_count 1 flattened 1 gate_count 1 flattened 1",
+            "UT: explicit_gate count 1 flattened 1"
+          ]
+        }
+      ]
     }
   ]
 }

@@ -2,7 +2,7 @@
 
 [日本語](known-differences.ja.md) · [README](../README.md) · [FAQ](faq.md)
 
-This describes the current 1188-test suite and the pinned Accellera UVM
+This describes the current 1201-test suite and the pinned Accellera UVM
 2020.3.1 library. A mismatch is a test result; it does not by itself assign
 the cause to the simulator, the library or the expectation.
 
@@ -19,6 +19,15 @@ shared accesses and one child-block shape; see the
 Further limitations and observations were identified during M1, M2 and M3.
 Where a test directly checks a required behavior that is missing, its
 normative expectation is retained with `:oracle: spec`.
+
+- Register-file get_default_hdl_path retains its initial RTL value after the
+  enclosing block selects GATE and later CPU, despite no explicit file default.
+  Clause 18.3.4.6 requires the nearest ancestor default in that condition.
+  Explicit file overrides TLM/RTL match in the same fixture.
+- A nested file's omitted-kind get_full_hdl_path query retains RTL instead of
+  inheriting its flattened parent's GATE default. The retained 18.3.4.5/18.3.4.6
+  expectation is net.cell; the pinned result follows dut.leaf. Explicit RTL and GATE
+  flattening match. These are symbolic paths, with no HDL access claim.
 
 - Block get_map_by_name misses the tested maps belonging to child blocks
   when they are not installed as submaps of a local map. Clause 18.1.3.13
@@ -387,7 +396,7 @@ SystemVerilog 13.4, so it cannot represent a count of two. The expected two
 preserves the prose interpretation. This signature/prose conflict requires
 review and is not assigned as a confirmed simulator or library bug.
 
-Across the suite, 1062 tests have the `verilator@5.052` oracle tag and 126
+Across the suite, 1073 tests have the `verilator@5.052` oracle tag and 128
 cases are spec-only. One of the spec-only cases checks 9.6: a child's pre-reset
 task must be killed when that phase ends, but the pinned-library run on Verilator 5.052
 lets the child perform its delayed write during a later phase. The cause of
@@ -399,10 +408,10 @@ without callbacks. The pinned Verilator run reaches the blocked-state
 observation, then its watchdog expires. This combined simulator/library
 cause remains unassigned; the normative wakeup expectation is retained.
 
-The 126 spec-only tests retain their normative expected files.
-Default Verilator runs and CI select the 1062 tagged cases. `--all` includes
+The 128 spec-only tests retain their normative expected files.
+Default Verilator runs and CI select the 1073 tagged cases. `--all` includes
 spec-only cases and records mismatches or build failures as `known`.
-The ordinary runtime records for 108 cases establish their first difference
+The ordinary runtime records for 110 cases establish their first difference
 at seed 1, without seed 73 results. Ten missing-API builds have no ordinary
 runtime seed result: one time API, six sequence-library cases, two HDL slice
 cases and one object active-policy case. Eight HDL-DPI fixtures also cannot
@@ -412,7 +421,7 @@ These overlapping configurations are not summed.
 
 ## Spec-only tests
 
-These are the 126 current spec-only cases. Several exercise the same
+These are the 128 current spec-only cases. Several exercise the same
 limitation, so their count is not a count of distinct bugs.
 
 - [Explicit HDL abstraction selection](../tests/uE/test_hdl_path_sequence_uses_an_explicit_abstraction_instead_of_the_invalid_default.sv).
@@ -621,10 +630,15 @@ Additional model descendant-name cases:
 - [child-block map search](../tests/u18/test_block_map_name_lookup_selects_local_maps_then_unique_descendants.sv)
 - [simple descendant block search](../tests/u18/test_block_name_lookup_uses_simple_descendant_names_and_excludes_external_roots.sv)
 
+Additional register-file abstraction cases:
+
+- [nearest ancestor default](../tests/u18/test_regfile_default_hdl_abstraction_follows_nearest_ancestor_and_local_override.sv)
+- [flattened full path with inherited kind](../tests/u18/test_flattened_regfile_omits_its_name_from_full_paths_for_each_selected_abstraction.sv)
+
 ## Simulator and library combinations
 
-The suite has 1188 cases, but the kirimasim/Ghost records below cover only
-1085 unchanged current-input cases. The 103 new cases are unmeasured
+The suite has 1201 cases, but the kirimasim/Ghost records below cover only
+1085 unchanged current-input cases. The 116 new cases are unmeasured
 because prior temporary executable/profile snapshots are unavailable. Do
 not treat this as a fresh full-suite guest result. See [results](results.md).
 

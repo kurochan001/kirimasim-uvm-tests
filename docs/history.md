@@ -3,8 +3,8 @@
 [日本語](history.ja.md) · [README](../README.md)
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and twenty-one cross-milestone thin-area expansions, including the
-existing-test requirement-link backlog checkpoint (1188 simulation tests). The earlier 349-test checkpoint is
+three M4 increments and twenty-two cross-milestone thin-area expansions, including the
+existing-test requirement-link backlog checkpoint (1201 simulation tests). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -2246,3 +2246,40 @@ All guides are paired, with 166 glossary terms and 145 FAQs. Validation covers
 library integrity, bilingual references and evidence fingerprints. Existing
 simulation inputs, runners, backend, earlier requirements/assessments and
 history are preserved. Empty mapping queues do not complete M1–M4.
+
+## Twenty-second thin-area expansion across M1–M4
+
+Thirteen fixtures add four recording constructor/link cases, three sequence
+constructor cases and six register-file cases. The suite reaches 1201:
+M1 401, M2 437 and M3 363. Naming cases distinguish omitted base arguments,
+explicit names and explicit empty names. Prefilled links retain specified
+default names and independent handles. Register files add configuration,
+local/full symbolic paths, multiple abstractions, clearing, nearest defaults,
+Cartesian alternatives and flattened scopes without HDL/DPI transfers.
+
+Eleven additions match Verilator 5.052 at seeds 1/73. Two retain runtime
+seed-1 differences in register-file default inheritance and omitted-kind full
+paths under a flattened parent. Explicit RTL/GATE and local override controls match.
+Presence/local-path APIs are separately interpreted using the nearest enclosing
+default, as the standard specifies. Compatible ordinary evidence retains all
+1188 prior records and adds thirteen final measurements: 1073 pass, 128 known
+(110 runtime first differences, ten missing-API and eight unlinked-DPI builds).
+The separate VPI condition remains seven pass/one fail. Guest records cover
+1085 unchanged inputs, with 116 current cases explicitly unmeasured.
+
+Forty-four AI drafts bring the ledger to 1395, all directly linked to 1200
+tests; one additional control leaves zero unlinked tests. Five unchanged M2
+fixtures gain five explicit obligations without new measurements. Ten
+individually read structural headings bring assessments to forty-six
+(forty-five structural, one contextual). Of 2,504 identifiers, 874 are partly
+decomposed and 1,584 unassessed. The decrease of thirty-one is twenty-one
+new decompositions and ten structural assessments. Primary focus is 581,
+any citation 1,212; the candidate census is 1,898 zero, 325 one and 256 at
+least two. Human review and denominator approval remain open.
+
+Paired guides retain the SVG diagrams and add API-specific explanations,
+169 glossary terms and 148 FAQs. Validation covers 88 tool tests, all 1201
+metadata records, ledger/assessment/index checks, library integrity,
+documentation parity and evidence fingerprints. Existing simulation inputs,
+runners, backend, previous ledger records and historical sections are preserved.
+Empty mapping queues do not complete M1–M4.

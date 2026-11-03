@@ -509,6 +509,146 @@
         "reviewer": null,
         "reviewed_at": null
       }
+    },
+    {
+      "clause": "7.3.2.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "Parent/child link common methods is an individually read grouping heading. It introduces the numbered child clauses without an independent operation or unnumbered constructor.",
+        "ja": "parent／child linkの共通methodは個別に読んだ分類用の見出しである。番号付きの下位条項を導入し、独立した操作や番号のないconstructorを含まない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "7.3.3.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "Cause/effect link common methods is an individually read grouping heading. It introduces the numbered child clauses without an independent operation or unnumbered constructor.",
+        "ja": "cause／effect linkの共通methodは個別に読んだ分類用の見出しである。番号付きの下位条項を導入し、独立した操作や番号のないconstructorを含まない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "7.3.4.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "Related-link common methods is an individually read grouping heading. It introduces the numbered child clauses without an independent operation or unnumbered constructor.",
+        "ja": "related linkの共通methodは個別に読んだ分類用の見出しである。番号付きの下位条項を導入し、独立した操作や番号のないconstructorを含まない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "14.2.7",
+      "classification": "structural",
+      "rationale": {
+        "en": "Sequence response API is an individually read grouping heading. It introduces the numbered child clauses without an independent operation or unnumbered constructor.",
+        "ja": "sequenceのResponse APIは個別に読んだ分類用の見出しである。番号付きの下位条項を導入し、独立した操作や番号のないconstructorを含まない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "14.3.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "Typed sequence variables is an individually read grouping heading. It introduces the numbered child clauses without an independent operation or unnumbered constructor.",
+        "ja": "型付きsequenceのVariablesは個別に読んだ分類用の見出しである。番号付きの下位条項を導入し、独立した操作や番号のないconstructorを含まない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "14.4.4",
+      "classification": "structural",
+      "rationale": {
+        "en": "Sequence library selection is an individually read grouping heading. It introduces the numbered child clauses without an independent operation or unnumbered constructor.",
+        "ja": "sequence libraryのSequence selectionは個別に読んだ分類用の見出しである。番号付きの下位条項を導入し、独立した操作や番号のないconstructorを含まない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "14.4.5",
+      "classification": "structural",
+      "rationale": {
+        "en": "Sequence library registration is an individually read grouping heading. It introduces the numbered child clauses without an independent operation or unnumbered constructor.",
+        "ja": "sequence libraryのSequence registrationは個別に読んだ分類用の見出しである。番号付きの下位条項を導入し、独立した操作や番号のないconstructorを含まない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "18.3.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "Register-file methods is an individually read grouping heading. It introduces the numbered child clauses without an independent operation or unnumbered constructor.",
+        "ja": "register fileのMethodsは個別に読んだ分類用の見出しである。番号付きの下位条項を導入し、独立した操作や番号のないconstructorを含まない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "18.3.3",
+      "classification": "structural",
+      "rationale": {
+        "en": "Register-file introspection is an individually read grouping heading. It introduces the numbered child clauses without an independent operation or unnumbered constructor.",
+        "ja": "register fileのIntrospectionは個別に読んだ分類用の見出しである。番号付きの下位条項を導入し、独立した操作や番号のないconstructorを含まない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "18.3.4",
+      "classification": "structural",
+      "rationale": {
+        "en": "Register-file backdoor path APIs is an individually read grouping heading. It introduces the numbered child clauses without an independent operation or unnumbered constructor.",
+        "ja": "register fileのBack door path APIは個別に読んだ分類用の見出しである。番号付きの下位条項を導入し、独立した操作や番号のないconstructorを含まない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
     }
   ]
 }

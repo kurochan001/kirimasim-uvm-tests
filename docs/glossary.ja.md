@@ -625,3 +625,15 @@ start hookとparent callbackには、それぞれ別の契約がある。
 
 **Block hierarchy / map hierarchy（block階層／map階層）** — register-model blockの親子関係と、address-map submapの接続。
 論理的なblock名照会のために、child blockのmapをlocal mapのsubmapへ接続する必要はない。
+
+## Constructor引数とregister fileのpath
+
+**Omitted name / explicitly empty name（名前省略／明示的な空の名前）** — 基底constructorで名前引数を省略すると基底の既定値を使う。
+空文字を渡す場合は明示引数である。具体的な転送用拡張で、この2条件を区別する。
+
+**Register-file HDL contribution（register fileのHDL寄与）** — 論理register fileが与えるlocal pathの成分。
+flattenされたfileはscope名を加えず、親／localの代替成分から複数の完全なsymbolic pathが得られる。
+
+**Enclosing abstraction default（包含abstractionの既定値）** — register fileのlocal path／存在APIが選ぶ、最も近い包含register file／blockの既定値。
+現在file自体で明示した既定値の照会とは異なる。
+[Q147](faq.ja.md#q147-register-fileの照会はどのhdl-abstractionの既定値を使いますか)を参照。
