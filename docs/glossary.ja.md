@@ -866,3 +866,15 @@ active objectをpopする前に履歴がFINISHEDになる場合があります�
 **sequencer interface view（Sequencer interface view）**：解決済みpull connectorを通じて実sequencer実装から取得する、公開された型付sequence-driver interfaceです。
 
 **rerandomization Boolean観測（Rerandomization Boolean observation）**：retryやcallbackの回数を固定せず、requestが1回以上randomizeされたかを確認する述語です。
+
+**Component domain（component domain）**: componentへ割り当てた公開phase-domain handle。
+階層割当では子孫へ伝播でき、schedule定義と実際の非同期実行は別条件です。
+
+**Child print gate（child印刷gate）**: componentのprint_enabled bitはchildとしての自動印刷を制御します。
+明示printer policyでrootとして直接印刷する呼出を禁止しません。
+
+**User protocol dispatch（user protocolへのdispatch）**: component base viewからuserが提供するvirtual suspend／resume実装を呼びます。
+自身の状態はdispatchのobserverで、共通library process制御algorithmではありません。
+
+**Terminal error observer（errorで終了するobserver）**: 要求された一般errorを観測した後、自身のsimulationを終了する独自report catcher。
+不正呼出の回復、return動作、error後のobject状態を規定せずに済みます。

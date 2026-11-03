@@ -3,8 +3,8 @@
 [日本語](history.ja.md) · [README](../README.md)
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and forty-five cross-milestone thin-area expansions, including the
-existing-test requirement-link backlog checkpoint (1540 tests: 1506 simulation and 34 elaboration). The earlier 349-test checkpoint is
+three M4 increments and forty-six cross-milestone thin-area expansions, including the
+existing-test requirement-link backlog checkpoint (1560 tests: 1521 simulation and 39 elaboration). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -3095,3 +3095,36 @@ are filtering, not new execution or improvement. Separate VPI records remain.
 All 110 tool tests and metadata, ledger/library, evidence and bilingual checks
 pass. Schema, runners/library/catalog, workflow and SVGs remain unchanged.
 No human review, denominator approval or goal completion is claimed.
+
+## Forty-sixth thin-area expansion across M1–M4
+
+Twenty M1 fixtures strengthen chapter 13 components: family constructors and
+nominal types, five abstract direct constructions, environment defaults,
+permitted names and duplicate errors, child printing, domain selection/definition,
+user protocol dispatch, exact driver endpoints/default put, string agent
+configuration, common/runtime phase callbacks and exit/pre_abort direction.
+The error observers terminate themselves without assuming invalid-call recovery.
+Phase chains are preconstructed; function direction is checked while concurrent
+task entry order stays unspecified. Suspend/resume observes only user dispatch.
+
+Fifteen runtime fixtures match Verilator 5.052 seeds 1/73 and five targeted
+compiler rejections execute no runtime. All 1540 earlier fixtures/input hashes,
+records, 2443 requirements and 243 assessments remain unchanged. Seventy-seven
+new AI drafts reach 2520; seven structural and ten contextual assessments reach
+260 (183/77). Chapter 13 is 80 partial/18 assessed/12 unassessed. Overall is
+1416/260/831, reducing unassessed by 67 this increment and 632 across eighteen
+goal iterations. All partial conditions and milestone targets remain open.
+
+The suite is 1560 (1521 simulation/39 elaboration): M1 573 (544/29), M2 538
+(533/5), M3 449 (444/5). Ordinary Verilator has 1368 pass (1331 two-seed runtime,
+37 compiler rejections) and the unchanged 192 known. Compatible guest files
+remain byte-identical with 1083 records; 477 inputs are unmeasured (438/39),
+including both earlier revised inputs. Separate HDL and command-line evidence
+remain unchanged at 7/1 and 17/1. No new guest run is claimed.
+
+Validation covers 110 tool tests, metadata, ledger/index/library identities,
+native raw results and compiler diagnostics, compatible retained evidence and
+ten bilingual guide pairs with 239 glossary terms and 218 FAQs. Schema, runners,
+library/catalog, workflow and six SVGs remain unchanged. Scope stays proposed,
+inventory incomplete, denominator/percentage null, AI reviews and active goal.
+No human approval or goal completion is claimed.

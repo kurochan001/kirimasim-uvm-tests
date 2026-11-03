@@ -90081,6 +90081,2863 @@
           ]
         }
       ]
+    },
+    {
+      "id": "UVM-COMPONENT-AUDIT-REPORT-BASE-TYPE",
+      "clause": "13.1.1",
+      "statement": {
+        "en": "A concrete component subtype is usable through uvm_report_object.",
+        "ja": "具象component subtypeをuvm_report_objectから使用できる。"
+      },
+      "conditions": {
+        "en": "Use the selected original concrete component subtypes, legal unique names, declared public types and linked observations. Construct the hierarchy before phasing where phase callbacks are observed.",
+        "ja": "選択した独自の具象component subtype、合法で一意の名、宣言された公開型、linkした観測を使う。phase callback観測時はphasing前に階層を生成する。"
+      },
+      "expected": {
+        "en": "A concrete component subtype is usable through uvm_report_object.",
+        "ja": "具象component subtypeをuvm_report_objectから使用できる。"
+      },
+      "limitations": {
+        "en": "Selected public conditions only. No private hierarchy/phase storage, exact diagnostic text, printer layout, sibling traversal order or complete clause coverage is certified. Direct public getters and original hook observations are used independently of implementation source.",
+        "ja": "選択した公開条件だけ。非公開hierarchy／phase格納、正確な診断文、printer layout、兄弟の走査順、条項全体の網羅は認定しない。実装sourceから独立した公開getterと独自hook観測を使う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_family_named_constructors_preserve_component_and_report_object_views",
+          "role": "direct",
+          "expected_observations": [
+            "UT: component_family 0 name 1 parent 1 registered 1 report_base 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-AUDIT-CONSTRUCTOR-NAME",
+      "clause": "13.1.2.1",
+      "statement": {
+        "en": "The component constructor preserves its selected legal leaf name.",
+        "ja": "component constructorは選択した合法leaf名を保持する。"
+      },
+      "conditions": {
+        "en": "Use the selected original concrete component subtypes, legal unique names, declared public types and linked observations. Construct the hierarchy before phasing where phase callbacks are observed.",
+        "ja": "選択した独自の具象component subtype、合法で一意の名、宣言された公開型、linkした観測を使う。phase callback観測時はphasing前に階層を生成する。"
+      },
+      "expected": {
+        "en": "The component constructor preserves its selected legal leaf name.",
+        "ja": "component constructorは選択した合法leaf名を保持する。"
+      },
+      "limitations": {
+        "en": "Selected public conditions only. No private hierarchy/phase storage, exact diagnostic text, printer layout, sibling traversal order or complete clause coverage is certified. Direct public getters and original hook observations are used independently of implementation source.",
+        "ja": "選択した公開条件だけ。非公開hierarchy／phase格納、正確な診断文、printer layout、兄弟の走査順、条項全体の網羅は認定しない。実装sourceから独立した公開getterと独自hook観測を使う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_family_named_constructors_preserve_component_and_report_object_views",
+          "role": "direct",
+          "expected_observations": [
+            "UT: component_family 0 name 1 parent 1 registered 1 report_base 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-AUDIT-CONSTRUCTOR-CHILD-INSERTION",
+      "clause": "13.1.2.1",
+      "statement": {
+        "en": "A new component is registered under its supplied parent with the same handle.",
+        "ja": "新componentは指定parent下へ同じhandleで登録される。"
+      },
+      "conditions": {
+        "en": "Use the selected original concrete component subtypes, legal unique names, declared public types and linked observations. Construct the hierarchy before phasing where phase callbacks are observed.",
+        "ja": "選択した独自の具象component subtype、合法で一意の名、宣言された公開型、linkした観測を使う。phase callback観測時はphasing前に階層を生成する。"
+      },
+      "expected": {
+        "en": "A new component is registered under its supplied parent with the same handle.",
+        "ja": "新componentは指定parent下へ同じhandleで登録される。"
+      },
+      "limitations": {
+        "en": "Selected public conditions only. No private hierarchy/phase storage, exact diagnostic text, printer layout, sibling traversal order or complete clause coverage is certified. Direct public getters and original hook observations are used independently of implementation source.",
+        "ja": "選択した公開条件だけ。非公開hierarchy／phase格納、正確な診断文、printer layout、兄弟の走査順、条項全体の網羅は認定しない。実装sourceから独立した公開getterと独自hook観測を使う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_family_named_constructors_preserve_component_and_report_object_views",
+          "role": "direct",
+          "expected_observations": [
+            "UT: component_family 0 name 1 parent 1 registered 1 report_base 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-AUDIT-TEST-COMPONENT-BASE",
+      "clause": "13.2.1",
+      "statement": {
+        "en": "A legal concrete uvm_test subtype retains the component base.",
+        "ja": "合法な具象uvm_test subtypeはcomponent baseを保持する。"
+      },
+      "conditions": {
+        "en": "Use the selected original concrete component subtypes, legal unique names, declared public types and linked observations. Construct the hierarchy before phasing where phase callbacks are observed.",
+        "ja": "選択した独自の具象component subtype、合法で一意の名、宣言された公開型、linkした観測を使う。phase callback観測時はphasing前に階層を生成する。"
+      },
+      "expected": {
+        "en": "A legal concrete uvm_test subtype retains the component base.",
+        "ja": "合法な具象uvm_test subtypeはcomponent baseを保持する。"
+      },
+      "limitations": {
+        "en": "Selected public conditions only. No private hierarchy/phase storage, exact diagnostic text, printer layout, sibling traversal order or complete clause coverage is certified. Direct public getters and original hook observations are used independently of implementation source.",
+        "ja": "選択した公開条件だけ。非公開hierarchy／phase格納、正確な診断文、printer layout、兄弟の走査順、条項全体の網羅は認定しない。実装sourceから独立した公開getterと独自hook観測を使う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_family_named_constructors_preserve_component_and_report_object_views",
+          "role": "direct",
+          "expected_observations": [
+            "UT: component_family 1 name 1 parent 1 registered 1 report_base 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-AUDIT-TEST-NAMED-CONSTRUCTOR",
+      "clause": "13.2.2",
+      "statement": {
+        "en": "The uvm_test constructor preserves its explicit name and component parent.",
+        "ja": "uvm_test constructorは明示した名とcomponent parentを保持する。"
+      },
+      "conditions": {
+        "en": "Use the selected original concrete component subtypes, legal unique names, declared public types and linked observations. Construct the hierarchy before phasing where phase callbacks are observed.",
+        "ja": "選択した独自の具象component subtype、合法で一意の名、宣言された公開型、linkした観測を使う。phase callback観測時はphasing前に階層を生成する。"
+      },
+      "expected": {
+        "en": "The uvm_test constructor preserves its explicit name and component parent.",
+        "ja": "uvm_test constructorは明示した名とcomponent parentを保持する。"
+      },
+      "limitations": {
+        "en": "Selected public conditions only. No private hierarchy/phase storage, exact diagnostic text, printer layout, sibling traversal order or complete clause coverage is certified. Direct public getters and original hook observations are used independently of implementation source.",
+        "ja": "選択した公開条件だけ。非公開hierarchy／phase格納、正確な診断文、printer layout、兄弟の走査順、条項全体の網羅は認定しない。実装sourceから独立した公開getterと独自hook観測を使う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_family_named_constructors_preserve_component_and_report_object_views",
+          "role": "direct",
+          "expected_observations": [
+            "UT: component_family 1 name 1 parent 1 registered 1 report_base 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-AUDIT-TEST-ABSTRACT",
+      "clause": "13.2.1",
+      "statement": {
+        "en": "The declared virtual uvm_test rejects direct construction.",
+        "ja": "virtualと宣言されたuvm_testは直接生成を拒否する。"
+      },
+      "conditions": {
+        "en": "Use the selected original concrete component subtypes, legal unique names, declared public types and linked observations. Construct the hierarchy before phasing where phase callbacks are observed.",
+        "ja": "選択した独自の具象component subtype、合法で一意の名、宣言された公開型、linkした観測を使う。phase callback観測時はphasing前に階層を生成する。"
+      },
+      "expected": {
+        "en": "The declared virtual uvm_test rejects direct construction.",
+        "ja": "virtualと宣言されたuvm_testは直接生成を拒否する。"
+      },
+      "limitations": {
+        "en": "One direct virtual-class construction prohibition with a separate legal subtype. Compiler diagnostics must name the declared base class, not merely the fixture filename. No illegal accepted model executes and no runtime seed is assigned.",
+        "ja": "別の合法subtypeを伴う、virtual-class直接生成禁止1条件。compiler診断はfixture filenameだけでなく宣言されたbase classを示す必要がある。受理された不正modelを実行せず、runtime seedを割り当てない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_uvm_test_abstract_declaration_rejects_direct_construction",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?i)(?=.*(?:virtual|abstract))(?=.*\\bclass\\s+[\\'\\\"]?uvm_test\\b).*"
+          }
+        },
+        {
+          "test": "u13/test_component_family_named_constructors_preserve_component_and_report_object_views",
+          "role": "control",
+          "expected_observations": [
+            "UT: component_family 1 name 1 parent 1 registered 1 report_base 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-AUDIT-ENV-COMPONENT-BASE",
+      "clause": "13.3.1",
+      "statement": {
+        "en": "A legal concrete uvm_env subtype retains the component base.",
+        "ja": "合法な具象uvm_env subtypeはcomponent baseを保持する。"
+      },
+      "conditions": {
+        "en": "Use the selected original concrete component subtypes, legal unique names, declared public types and linked observations. Construct the hierarchy before phasing where phase callbacks are observed.",
+        "ja": "選択した独自の具象component subtype、合法で一意の名、宣言された公開型、linkした観測を使う。phase callback観測時はphasing前に階層を生成する。"
+      },
+      "expected": {
+        "en": "A legal concrete uvm_env subtype retains the component base.",
+        "ja": "合法な具象uvm_env subtypeはcomponent baseを保持する。"
+      },
+      "limitations": {
+        "en": "Selected public conditions only. No private hierarchy/phase storage, exact diagnostic text, printer layout, sibling traversal order or complete clause coverage is certified. Direct public getters and original hook observations are used independently of implementation source.",
+        "ja": "選択した公開条件だけ。非公開hierarchy／phase格納、正確な診断文、printer layout、兄弟の走査順、条項全体の網羅は認定しない。実装sourceから独立した公開getterと独自hook観測を使う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_family_named_constructors_preserve_component_and_report_object_views",
+          "role": "direct",
+          "expected_observations": [
+            "UT: component_family 2 name 1 parent 1 registered 1 report_base 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-AUDIT-ENV-NAMED-CONSTRUCTOR",
+      "clause": "13.3.2",
+      "statement": {
+        "en": "The uvm_env constructor preserves its explicit name and component parent.",
+        "ja": "uvm_env constructorは明示した名とcomponent parentを保持する。"
+      },
+      "conditions": {
+        "en": "Use the selected original concrete component subtypes, legal unique names, declared public types and linked observations. Construct the hierarchy before phasing where phase callbacks are observed.",
+        "ja": "選択した独自の具象component subtype、合法で一意の名、宣言された公開型、linkした観測を使う。phase callback観測時はphasing前に階層を生成する。"
+      },
+      "expected": {
+        "en": "The uvm_env constructor preserves its explicit name and component parent.",
+        "ja": "uvm_env constructorは明示した名とcomponent parentを保持する。"
+      },
+      "limitations": {
+        "en": "Selected public conditions only. No private hierarchy/phase storage, exact diagnostic text, printer layout, sibling traversal order or complete clause coverage is certified. Direct public getters and original hook observations are used independently of implementation source.",
+        "ja": "選択した公開条件だけ。非公開hierarchy／phase格納、正確な診断文、printer layout、兄弟の走査順、条項全体の網羅は認定しない。実装sourceから独立した公開getterと独自hook観測を使う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_family_named_constructors_preserve_component_and_report_object_views",
+          "role": "direct",
+          "expected_observations": [
+            "UT: component_family 2 name 1 parent 1 registered 1 report_base 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-AUDIT-ENV-ABSTRACT",
+      "clause": "13.3.1",
+      "statement": {
+        "en": "The declared virtual uvm_env rejects direct construction.",
+        "ja": "virtualと宣言されたuvm_envは直接生成を拒否する。"
+      },
+      "conditions": {
+        "en": "Use the selected original concrete component subtypes, legal unique names, declared public types and linked observations. Construct the hierarchy before phasing where phase callbacks are observed.",
+        "ja": "選択した独自の具象component subtype、合法で一意の名、宣言された公開型、linkした観測を使う。phase callback観測時はphasing前に階層を生成する。"
+      },
+      "expected": {
+        "en": "The declared virtual uvm_env rejects direct construction.",
+        "ja": "virtualと宣言されたuvm_envは直接生成を拒否する。"
+      },
+      "limitations": {
+        "en": "One direct virtual-class construction prohibition with a separate legal subtype. Compiler diagnostics must name the declared base class, not merely the fixture filename. No illegal accepted model executes and no runtime seed is assigned.",
+        "ja": "別の合法subtypeを伴う、virtual-class直接生成禁止1条件。compiler診断はfixture filenameだけでなく宣言されたbase classを示す必要がある。受理された不正modelを実行せず、runtime seedを割り当てない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_uvm_env_abstract_declaration_rejects_direct_construction",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?i)(?=.*(?:virtual|abstract))(?=.*\\bclass\\s+[\\'\\\"]?uvm_env\\b).*"
+          }
+        },
+        {
+          "test": "u13/test_component_family_named_constructors_preserve_component_and_report_object_views",
+          "role": "control",
+          "expected_observations": [
+            "UT: component_family 2 name 1 parent 1 registered 1 report_base 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-AUDIT-AGENT-COMPONENT-BASE",
+      "clause": "13.4.1",
+      "statement": {
+        "en": "A legal concrete uvm_agent subtype retains the component base.",
+        "ja": "合法な具象uvm_agent subtypeはcomponent baseを保持する。"
+      },
+      "conditions": {
+        "en": "Use the selected original concrete component subtypes, legal unique names, declared public types and linked observations. Construct the hierarchy before phasing where phase callbacks are observed.",
+        "ja": "選択した独自の具象component subtype、合法で一意の名、宣言された公開型、linkした観測を使う。phase callback観測時はphasing前に階層を生成する。"
+      },
+      "expected": {
+        "en": "A legal concrete uvm_agent subtype retains the component base.",
+        "ja": "合法な具象uvm_agent subtypeはcomponent baseを保持する。"
+      },
+      "limitations": {
+        "en": "Selected public conditions only. No private hierarchy/phase storage, exact diagnostic text, printer layout, sibling traversal order or complete clause coverage is certified. Direct public getters and original hook observations are used independently of implementation source.",
+        "ja": "選択した公開条件だけ。非公開hierarchy／phase格納、正確な診断文、printer layout、兄弟の走査順、条項全体の網羅は認定しない。実装sourceから独立した公開getterと独自hook観測を使う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_family_named_constructors_preserve_component_and_report_object_views",
+          "role": "direct",
+          "expected_observations": [
+            "UT: component_family 3 name 1 parent 1 registered 1 report_base 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-AUDIT-AGENT-NAMED-CONSTRUCTOR",
+      "clause": "13.4.2.1",
+      "statement": {
+        "en": "The uvm_agent constructor preserves its explicit name and component parent.",
+        "ja": "uvm_agent constructorは明示した名とcomponent parentを保持する。"
+      },
+      "conditions": {
+        "en": "Use the selected original concrete component subtypes, legal unique names, declared public types and linked observations. Construct the hierarchy before phasing where phase callbacks are observed.",
+        "ja": "選択した独自の具象component subtype、合法で一意の名、宣言された公開型、linkした観測を使う。phase callback観測時はphasing前に階層を生成する。"
+      },
+      "expected": {
+        "en": "The uvm_agent constructor preserves its explicit name and component parent.",
+        "ja": "uvm_agent constructorは明示した名とcomponent parentを保持する。"
+      },
+      "limitations": {
+        "en": "Selected public conditions only. No private hierarchy/phase storage, exact diagnostic text, printer layout, sibling traversal order or complete clause coverage is certified. Direct public getters and original hook observations are used independently of implementation source.",
+        "ja": "選択した公開条件だけ。非公開hierarchy／phase格納、正確な診断文、printer layout、兄弟の走査順、条項全体の網羅は認定しない。実装sourceから独立した公開getterと独自hook観測を使う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_family_named_constructors_preserve_component_and_report_object_views",
+          "role": "direct",
+          "expected_observations": [
+            "UT: component_family 3 name 1 parent 1 registered 1 report_base 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-AUDIT-AGENT-ABSTRACT",
+      "clause": "13.4.1",
+      "statement": {
+        "en": "The declared virtual uvm_agent rejects direct construction.",
+        "ja": "virtualと宣言されたuvm_agentは直接生成を拒否する。"
+      },
+      "conditions": {
+        "en": "Use the selected original concrete component subtypes, legal unique names, declared public types and linked observations. Construct the hierarchy before phasing where phase callbacks are observed.",
+        "ja": "選択した独自の具象component subtype、合法で一意の名、宣言された公開型、linkした観測を使う。phase callback観測時はphasing前に階層を生成する。"
+      },
+      "expected": {
+        "en": "The declared virtual uvm_agent rejects direct construction.",
+        "ja": "virtualと宣言されたuvm_agentは直接生成を拒否する。"
+      },
+      "limitations": {
+        "en": "One direct virtual-class construction prohibition with a separate legal subtype. Compiler diagnostics must name the declared base class, not merely the fixture filename. No illegal accepted model executes and no runtime seed is assigned.",
+        "ja": "別の合法subtypeを伴う、virtual-class直接生成禁止1条件。compiler診断はfixture filenameだけでなく宣言されたbase classを示す必要がある。受理された不正modelを実行せず、runtime seedを割り当てない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_uvm_agent_abstract_declaration_rejects_direct_construction",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?i)(?=.*(?:virtual|abstract))(?=.*\\bclass\\s+[\\'\\\"]?uvm_agent\\b).*"
+          }
+        },
+        {
+          "test": "u13/test_component_family_named_constructors_preserve_component_and_report_object_views",
+          "role": "control",
+          "expected_observations": [
+            "UT: component_family 3 name 1 parent 1 registered 1 report_base 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-AUDIT-MONITOR-COMPONENT-BASE",
+      "clause": "13.5.1",
+      "statement": {
+        "en": "A legal concrete uvm_monitor subtype retains the component base.",
+        "ja": "合法な具象uvm_monitor subtypeはcomponent baseを保持する。"
+      },
+      "conditions": {
+        "en": "Use the selected original concrete component subtypes, legal unique names, declared public types and linked observations. Construct the hierarchy before phasing where phase callbacks are observed.",
+        "ja": "選択した独自の具象component subtype、合法で一意の名、宣言された公開型、linkした観測を使う。phase callback観測時はphasing前に階層を生成する。"
+      },
+      "expected": {
+        "en": "A legal concrete uvm_monitor subtype retains the component base.",
+        "ja": "合法な具象uvm_monitor subtypeはcomponent baseを保持する。"
+      },
+      "limitations": {
+        "en": "Selected public conditions only. No private hierarchy/phase storage, exact diagnostic text, printer layout, sibling traversal order or complete clause coverage is certified. Direct public getters and original hook observations are used independently of implementation source.",
+        "ja": "選択した公開条件だけ。非公開hierarchy／phase格納、正確な診断文、printer layout、兄弟の走査順、条項全体の網羅は認定しない。実装sourceから独立した公開getterと独自hook観測を使う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_family_named_constructors_preserve_component_and_report_object_views",
+          "role": "direct",
+          "expected_observations": [
+            "UT: component_family 4 name 1 parent 1 registered 1 report_base 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-AUDIT-MONITOR-NAMED-CONSTRUCTOR",
+      "clause": "13.5.2",
+      "statement": {
+        "en": "The uvm_monitor constructor preserves its explicit name and component parent.",
+        "ja": "uvm_monitor constructorは明示した名とcomponent parentを保持する。"
+      },
+      "conditions": {
+        "en": "Use the selected original concrete component subtypes, legal unique names, declared public types and linked observations. Construct the hierarchy before phasing where phase callbacks are observed.",
+        "ja": "選択した独自の具象component subtype、合法で一意の名、宣言された公開型、linkした観測を使う。phase callback観測時はphasing前に階層を生成する。"
+      },
+      "expected": {
+        "en": "The uvm_monitor constructor preserves its explicit name and component parent.",
+        "ja": "uvm_monitor constructorは明示した名とcomponent parentを保持する。"
+      },
+      "limitations": {
+        "en": "Selected public conditions only. No private hierarchy/phase storage, exact diagnostic text, printer layout, sibling traversal order or complete clause coverage is certified. Direct public getters and original hook observations are used independently of implementation source.",
+        "ja": "選択した公開条件だけ。非公開hierarchy／phase格納、正確な診断文、printer layout、兄弟の走査順、条項全体の網羅は認定しない。実装sourceから独立した公開getterと独自hook観測を使う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_family_named_constructors_preserve_component_and_report_object_views",
+          "role": "direct",
+          "expected_observations": [
+            "UT: component_family 4 name 1 parent 1 registered 1 report_base 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-AUDIT-MONITOR-ABSTRACT",
+      "clause": "13.5.1",
+      "statement": {
+        "en": "The declared virtual uvm_monitor rejects direct construction.",
+        "ja": "virtualと宣言されたuvm_monitorは直接生成を拒否する。"
+      },
+      "conditions": {
+        "en": "Use the selected original concrete component subtypes, legal unique names, declared public types and linked observations. Construct the hierarchy before phasing where phase callbacks are observed.",
+        "ja": "選択した独自の具象component subtype、合法で一意の名、宣言された公開型、linkした観測を使う。phase callback観測時はphasing前に階層を生成する。"
+      },
+      "expected": {
+        "en": "The declared virtual uvm_monitor rejects direct construction.",
+        "ja": "virtualと宣言されたuvm_monitorは直接生成を拒否する。"
+      },
+      "limitations": {
+        "en": "One direct virtual-class construction prohibition with a separate legal subtype. Compiler diagnostics must name the declared base class, not merely the fixture filename. No illegal accepted model executes and no runtime seed is assigned.",
+        "ja": "別の合法subtypeを伴う、virtual-class直接生成禁止1条件。compiler診断はfixture filenameだけでなく宣言されたbase classを示す必要がある。受理された不正modelを実行せず、runtime seedを割り当てない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_uvm_monitor_abstract_declaration_rejects_direct_construction",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?i)(?=.*(?:virtual|abstract))(?=.*\\bclass\\s+[\\'\\\"]?uvm_monitor\\b).*"
+          }
+        },
+        {
+          "test": "u13/test_component_family_named_constructors_preserve_component_and_report_object_views",
+          "role": "control",
+          "expected_observations": [
+            "UT: component_family 4 name 1 parent 1 registered 1 report_base 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-AUDIT-SCOREBOARD-COMPONENT-BASE",
+      "clause": "13.6.1",
+      "statement": {
+        "en": "A legal concrete uvm_scoreboard subtype retains the component base.",
+        "ja": "合法な具象uvm_scoreboard subtypeはcomponent baseを保持する。"
+      },
+      "conditions": {
+        "en": "Use the selected original concrete component subtypes, legal unique names, declared public types and linked observations. Construct the hierarchy before phasing where phase callbacks are observed.",
+        "ja": "選択した独自の具象component subtype、合法で一意の名、宣言された公開型、linkした観測を使う。phase callback観測時はphasing前に階層を生成する。"
+      },
+      "expected": {
+        "en": "A legal concrete uvm_scoreboard subtype retains the component base.",
+        "ja": "合法な具象uvm_scoreboard subtypeはcomponent baseを保持する。"
+      },
+      "limitations": {
+        "en": "Selected public conditions only. No private hierarchy/phase storage, exact diagnostic text, printer layout, sibling traversal order or complete clause coverage is certified. Direct public getters and original hook observations are used independently of implementation source.",
+        "ja": "選択した公開条件だけ。非公開hierarchy／phase格納、正確な診断文、printer layout、兄弟の走査順、条項全体の網羅は認定しない。実装sourceから独立した公開getterと独自hook観測を使う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_family_named_constructors_preserve_component_and_report_object_views",
+          "role": "direct",
+          "expected_observations": [
+            "UT: component_family 5 name 1 parent 1 registered 1 report_base 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-AUDIT-SCOREBOARD-NAMED-CONSTRUCTOR",
+      "clause": "13.6.2",
+      "statement": {
+        "en": "The uvm_scoreboard constructor preserves its explicit name and component parent.",
+        "ja": "uvm_scoreboard constructorは明示した名とcomponent parentを保持する。"
+      },
+      "conditions": {
+        "en": "Use the selected original concrete component subtypes, legal unique names, declared public types and linked observations. Construct the hierarchy before phasing where phase callbacks are observed.",
+        "ja": "選択した独自の具象component subtype、合法で一意の名、宣言された公開型、linkした観測を使う。phase callback観測時はphasing前に階層を生成する。"
+      },
+      "expected": {
+        "en": "The uvm_scoreboard constructor preserves its explicit name and component parent.",
+        "ja": "uvm_scoreboard constructorは明示した名とcomponent parentを保持する。"
+      },
+      "limitations": {
+        "en": "Selected public conditions only. No private hierarchy/phase storage, exact diagnostic text, printer layout, sibling traversal order or complete clause coverage is certified. Direct public getters and original hook observations are used independently of implementation source.",
+        "ja": "選択した公開条件だけ。非公開hierarchy／phase格納、正確な診断文、printer layout、兄弟の走査順、条項全体の網羅は認定しない。実装sourceから独立した公開getterと独自hook観測を使う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_family_named_constructors_preserve_component_and_report_object_views",
+          "role": "direct",
+          "expected_observations": [
+            "UT: component_family 5 name 1 parent 1 registered 1 report_base 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-AUDIT-SCOREBOARD-ABSTRACT",
+      "clause": "13.6.1",
+      "statement": {
+        "en": "The declared virtual uvm_scoreboard rejects direct construction.",
+        "ja": "virtualと宣言されたuvm_scoreboardは直接生成を拒否する。"
+      },
+      "conditions": {
+        "en": "Use the selected original concrete component subtypes, legal unique names, declared public types and linked observations. Construct the hierarchy before phasing where phase callbacks are observed.",
+        "ja": "選択した独自の具象component subtype、合法で一意の名、宣言された公開型、linkした観測を使う。phase callback観測時はphasing前に階層を生成する。"
+      },
+      "expected": {
+        "en": "The declared virtual uvm_scoreboard rejects direct construction.",
+        "ja": "virtualと宣言されたuvm_scoreboardは直接生成を拒否する。"
+      },
+      "limitations": {
+        "en": "One direct virtual-class construction prohibition with a separate legal subtype. Compiler diagnostics must name the declared base class, not merely the fixture filename. No illegal accepted model executes and no runtime seed is assigned.",
+        "ja": "別の合法subtypeを伴う、virtual-class直接生成禁止1条件。compiler診断はfixture filenameだけでなく宣言されたbase classを示す必要がある。受理された不正modelを実行せず、runtime seedを割り当てない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_uvm_scoreboard_abstract_declaration_rejects_direct_construction",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?i)(?=.*(?:virtual|abstract))(?=.*\\bclass\\s+[\\'\\\"]?uvm_scoreboard\\b).*"
+          }
+        },
+        {
+          "test": "u13/test_component_family_named_constructors_preserve_component_and_report_object_views",
+          "role": "control",
+          "expected_observations": [
+            "UT: component_family 5 name 1 parent 1 registered 1 report_base 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-AUDIT-ENV-DEFAULT-NAME",
+      "clause": "13.3.2",
+      "statement": {
+        "en": "Omitting the environment name selects env.",
+        "ja": "environment名の省略はenvを選ぶ。"
+      },
+      "conditions": {
+        "en": "Use the selected original concrete component subtypes, legal unique names, declared public types and linked observations. Construct the hierarchy before phasing where phase callbacks are observed.",
+        "ja": "選択した独自の具象component subtype、合法で一意の名、宣言された公開型、linkした観測を使う。phase callback観測時はphasing前に階層を生成する。"
+      },
+      "expected": {
+        "en": "Omitting the environment name selects env.",
+        "ja": "environment名の省略はenvを選ぶ。"
+      },
+      "limitations": {
+        "en": "Selected public conditions only. No private hierarchy/phase storage, exact diagnostic text, printer layout, sibling traversal order or complete clause coverage is certified. Direct public getters and original hook observations are used independently of implementation source.",
+        "ja": "選択した公開条件だけ。非公開hierarchy／phase格納、正確な診断文、printer layout、兄弟の走査順、条項全体の網羅は認定しない。実装sourceから独立した公開getterと独自hook観測を使う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_environment_omitted_constructor_arguments_use_env_name_and_implicit_root_parent",
+          "role": "direct",
+          "expected_observations": [
+            "UT: environment_defaults name 1 parent 1 registered 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-AUDIT-ENV-DEFAULT-PARENT",
+      "clause": "13.3.2",
+      "statement": {
+        "en": "Omitting the environment parent registers it under the implicit root.",
+        "ja": "environment parentの省略はimplicit root下へ登録する。"
+      },
+      "conditions": {
+        "en": "Use the selected original concrete component subtypes, legal unique names, declared public types and linked observations. Construct the hierarchy before phasing where phase callbacks are observed.",
+        "ja": "選択した独自の具象component subtype、合法で一意の名、宣言された公開型、linkした観測を使う。phase callback観測時はphasing前に階層を生成する。"
+      },
+      "expected": {
+        "en": "Omitting the environment parent registers it under the implicit root.",
+        "ja": "environment parentの省略はimplicit root下へ登録する。"
+      },
+      "limitations": {
+        "en": "Selected public conditions only. No private hierarchy/phase storage, exact diagnostic text, printer layout, sibling traversal order or complete clause coverage is certified. Direct public getters and original hook observations are used independently of implementation source.",
+        "ja": "選択した公開条件だけ。非公開hierarchy／phase格納、正確な診断文、printer layout、兄弟の走査順、条項全体の網羅は認定しない。実装sourceから独立した公開getterと独自hook観測を使う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_environment_omitted_constructor_arguments_use_env_name_and_implicit_root_parent",
+          "role": "direct",
+          "expected_observations": [
+            "UT: environment_defaults name 1 parent 1 registered 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-AUDIT-PERMITTED-LEAF-CHARACTERS",
+      "clause": "13.1.2.1",
+      "statement": {
+        "en": "The selected permitted letters, digits and special characters are preserved in registered leaf names.",
+        "ja": "選択した許可文字の英字・数字・特殊文字は、登録leaf名に保持される。"
+      },
+      "conditions": {
+        "en": "Use the selected original concrete component subtypes, legal unique names, declared public types and linked observations. Construct the hierarchy before phasing where phase callbacks are observed.",
+        "ja": "選択した独自の具象component subtype、合法で一意の名、宣言された公開型、linkした観測を使う。phase callback観測時はphasing前に階層を生成する。"
+      },
+      "expected": {
+        "en": "The selected permitted letters, digits and special characters are preserved in registered leaf names.",
+        "ja": "選択した許可文字の英字・数字・特殊文字は、登録leaf名に保持される。"
+      },
+      "limitations": {
+        "en": "Seven legal samples include each listed special character. This does not invent an error requirement for prohibited names or exhaust all legal strings.",
+        "ja": "合法sample 7つに列挙された全特殊文字を含める。禁止名のerror要求を創作せず、全合法文字列を尽くさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_permitted_leaf_names_register_without_changing_their_characters",
+          "role": "direct",
+          "expected_observations": [
+            "UT: permitted_leaf 0 name 1 child 1",
+            "UT: permitted_leaf 1 name 1 child 1",
+            "UT: permitted_leaf 2 name 1 child 1",
+            "UT: permitted_leaf 3 name 1 child 1",
+            "UT: permitted_leaf 4 name 1 child 1",
+            "UT: permitted_leaf 5 name 1 child 1",
+            "UT: permitted_leaf 6 name 1 child 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-AUDIT-DUPLICATE-CHILD-ERROR",
+      "clause": "13.1.2.1",
+      "statement": {
+        "en": "Constructing a second child with the same name under one parent generates an error.",
+        "ja": "同一parent下で同名の2つ目のchildを生成するとerrorを生じる。"
+      },
+      "conditions": {
+        "en": "Use the selected original concrete component subtypes, legal unique names, declared public types and linked observations. Construct the hierarchy before phasing where phase callbacks are observed.",
+        "ja": "選択した独自の具象component subtype、合法で一意の名、宣言された公開型、linkした観測を使う。phase callback観測時はphasing前に階層を生成する。"
+      },
+      "expected": {
+        "en": "Constructing a second child with the same name under one parent generates an error.",
+        "ja": "同一parent下で同名の2つ目のchildを生成するとerrorを生じる。"
+      },
+      "limitations": {
+        "en": "An independent valid control runs first. The original catcher accepts ERROR or FATAL and terminates its own simulation when observed. No exact severity/message, constructor return, recovery or post-invalid hierarchy state is prescribed.",
+        "ja": "独立した合法controlを先に実行する。独自catcherはERRORまたはFATALを許容し、観測時に自らsimulationを終了する。正確なseverity／message、constructorのreturn、回復、不正操作後の階層状態を規定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_duplicate_child_name_reports_an_error_after_an_independent_control",
+          "role": "direct",
+          "expected_observations": [
+            "UT: unique_child_control 1",
+            "UT: duplicate_child_error 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-AUDIT-PRINT-DEFAULT-ENABLED",
+      "clause": "13.1.2.2",
+      "statement": {
+        "en": "Selected new children have print_enabled set to one.",
+        "ja": "選択した新childのprint_enabledは1である。"
+      },
+      "conditions": {
+        "en": "Use the selected original concrete component subtypes, legal unique names, declared public types and linked observations. Construct the hierarchy before phasing where phase callbacks are observed.",
+        "ja": "選択した独自の具象component subtype、合法で一意の名、宣言された公開型、linkした観測を使う。phase callback観測時はphasing前に階層を生成する。"
+      },
+      "expected": {
+        "en": "Selected new children have print_enabled set to one.",
+        "ja": "選択した新childのprint_enabledは1である。"
+      },
+      "limitations": {
+        "en": "An original printer observes component do_print calls with explicit DEEP recursion and unlimited depth after each flush. The fixture never implements its own child walk. Exact rendered text, default flush policy, alternate recursion modes and arbitrary graphs remain separate.",
+        "ja": "独自printerは各flush後にDEEP recursionと深さ無制限を明示し、componentのdo_printを観測する。fixture自体はchild walkを実装しない。正確な描画文、flush既定policy、別recursion mode、任意graphは別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_print_enable_controls_automatic_descendants_and_direct_root_printing",
+          "role": "direct",
+          "expected_observations": [
+            "UT: child_print_defaults selected 1 peer 1 grand 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-AUDIT-PRINT-DISABLED-SUBTREE",
+      "clause": "13.1.2.2",
+      "statement": {
+        "en": "Disabling one child suppresses its automatic printing and descendants while an enabled peer remains printed.",
+        "ja": "child 1つの無効化はその自動印刷と子孫を抑え、enabled peerは印刷される。"
+      },
+      "conditions": {
+        "en": "Use the selected original concrete component subtypes, legal unique names, declared public types and linked observations. Construct the hierarchy before phasing where phase callbacks are observed.",
+        "ja": "選択した独自の具象component subtype、合法で一意の名、宣言された公開型、linkした観測を使う。phase callback観測時はphasing前に階層を生成する。"
+      },
+      "expected": {
+        "en": "Disabling one child suppresses its automatic printing and descendants while an enabled peer remains printed.",
+        "ja": "child 1つの無効化はその自動印刷と子孫を抑え、enabled peerは印刷される。"
+      },
+      "limitations": {
+        "en": "An original printer observes component do_print calls with explicit DEEP recursion and unlimited depth after each flush. The fixture never implements its own child walk. Exact rendered text, default flush policy, alternate recursion modes and arbitrary graphs remain separate.",
+        "ja": "独自printerは各flush後にDEEP recursionと深さ無制限を明示し、componentのdo_printを観測する。fixture自体はchild walkを実装しない。正確な描画文、flush既定policy、別recursion mode、任意graphは別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_print_enable_controls_automatic_descendants_and_direct_root_printing",
+          "role": "direct",
+          "expected_observations": [
+            "UT: child_print_disabled root 1 selected 0 peer 1 grand 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-AUDIT-PRINT-DISABLED-DIRECT-ROOT",
+      "clause": "13.1.2.2",
+      "statement": {
+        "en": "A child disabled for its parent can still be printed directly as a root with its enabled descendant.",
+        "ja": "parentに対して無効にしたchildも、enabled descendantを伴いrootとして直接印刷できる。"
+      },
+      "conditions": {
+        "en": "Use the selected original concrete component subtypes, legal unique names, declared public types and linked observations. Construct the hierarchy before phasing where phase callbacks are observed.",
+        "ja": "選択した独自の具象component subtype、合法で一意の名、宣言された公開型、linkした観測を使う。phase callback観測時はphasing前に階層を生成する。"
+      },
+      "expected": {
+        "en": "A child disabled for its parent can still be printed directly as a root with its enabled descendant.",
+        "ja": "parentに対して無効にしたchildも、enabled descendantを伴いrootとして直接印刷できる。"
+      },
+      "limitations": {
+        "en": "An original printer observes component do_print calls with explicit DEEP recursion and unlimited depth after each flush. The fixture never implements its own child walk. Exact rendered text, default flush policy, alternate recursion modes and arbitrary graphs remain separate.",
+        "ja": "独自printerは各flush後にDEEP recursionと深さ無制限を明示し、componentのdo_printを観測する。fixture自体はchild walkを実装しない。正確な描画文、flush既定policy、別recursion mode、任意graphは別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_print_enable_controls_automatic_descendants_and_direct_root_printing",
+          "role": "direct",
+          "expected_observations": [
+            "UT: child_print_direct selected 1 grand 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-AUDIT-PRINT-FIELD-OP-CHILDREN",
+      "clause": "13.1.2.3",
+      "statement": {
+        "en": "The component UVM_PRINT field-operation stage prints enabled children even when its own user hook is suppressed.",
+        "ja": "componentのUVM_PRINT field-operation段階は自身のuser hookを抑制してもenabled childを印刷する。"
+      },
+      "conditions": {
+        "en": "Use the selected original concrete component subtypes, legal unique names, declared public types and linked observations. Construct the hierarchy before phasing where phase callbacks are observed.",
+        "ja": "選択した独自の具象component subtype、合法で一意の名、宣言された公開型、linkした観測を使う。phase callback観測時はphasing前に階層を生成する。"
+      },
+      "expected": {
+        "en": "The component UVM_PRINT field-operation stage prints enabled children even when its own user hook is suppressed.",
+        "ja": "componentのUVM_PRINT field-operation段階は自身のuser hookを抑制してもenabled childを印刷する。"
+      },
+      "limitations": {
+        "en": "An original printer observes component do_print calls with explicit DEEP recursion and unlimited depth after each flush. The fixture never implements its own child walk. Exact rendered text, default flush policy, alternate recursion modes and arbitrary graphs remain separate.",
+        "ja": "独自printerは各flush後にDEEP recursionと深さ無制限を明示し、componentのdo_printを観測する。fixture自体はchild walkを実装しない。正確な描画文、flush既定policy、別recursion mode、任意graphは別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_print_enable_controls_automatic_descendants_and_direct_root_printing",
+          "role": "direct",
+          "expected_observations": [
+            "UT: child_print_field_stage root 0 selected 1 peer 1 grand 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-AUDIT-DOMAIN-DEFAULT",
+      "clause": "13.1.4.4.1",
+      "statement": {
+        "en": "New selected components use the registered uvm domain.",
+        "ja": "選択した新componentは登録されたuvm domainを使う。"
+      },
+      "conditions": {
+        "en": "Use the selected original concrete component subtypes, legal unique names, declared public types and linked observations. Construct the hierarchy before phasing where phase callbacks are observed.",
+        "ja": "選択した独自の具象component subtype、合法で一意の名、宣言された公開型、linkした観測を使う。phase callback観測時はphasing前に階層を生成する。"
+      },
+      "expected": {
+        "en": "New selected components use the registered uvm domain.",
+        "ja": "選択した新componentは登録されたuvm domainを使う。"
+      },
+      "limitations": {
+        "en": "Use registered public domain handles and find/add APIs. Hook observation tests virtual dispatch; it does not prescribe a private schedule graph, an exact callback count, every phase node or actual execution in multiple asynchronous domains.",
+        "ja": "登録された公開domain handleとfind／add APIを使う。hook観測はvirtual dispatchを検査し、非公開schedule graph、正確なcallback数、全phase node、非同期な複数domainの実行を規定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_domain_selection_inherits_by_default_and_distinguishes_local_updates",
+          "role": "direct",
+          "expected_observations": [
+            "UT: default_domains root 1 child 1 grand 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-AUDIT-DOMAIN-HIER-DEFAULT",
+      "clause": "13.1.4.4.1",
+      "statement": {
+        "en": "The omitted hier argument recursively applies the selected domain to the receiver and descendants.",
+        "ja": "hier引数の省略はreceiverと子孫へ選択domainを再帰適用する。"
+      },
+      "conditions": {
+        "en": "Use the selected original concrete component subtypes, legal unique names, declared public types and linked observations. Construct the hierarchy before phasing where phase callbacks are observed.",
+        "ja": "選択した独自の具象component subtype、合法で一意の名、宣言された公開型、linkした観測を使う。phase callback観測時はphasing前に階層を生成する。"
+      },
+      "expected": {
+        "en": "The omitted hier argument recursively applies the selected domain to the receiver and descendants.",
+        "ja": "hier引数の省略はreceiverと子孫へ選択domainを再帰適用する。"
+      },
+      "limitations": {
+        "en": "Use registered public domain handles and find/add APIs. Hook observation tests virtual dispatch; it does not prescribe a private schedule graph, an exact callback count, every phase node or actual execution in multiple asynchronous domains.",
+        "ja": "登録された公開domain handleとfind／add APIを使う。hook観測はvirtual dispatchを検査し、非公開schedule graph、正確なcallback数、全phase node、非同期な複数domainの実行を規定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_domain_selection_inherits_by_default_and_distinguishes_local_updates",
+          "role": "direct",
+          "expected_observations": [
+            "UT: inherited_domains root 1 child 1 grand 1 peer 1 callback 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-AUDIT-DOMAIN-LOCAL-UPDATE",
+      "clause": "13.1.4.4.1",
+      "statement": {
+        "en": "Explicit hier zero changes only the receiver and preserves its parent, child and independent peer domains.",
+        "ja": "明示hier 0はreceiverだけを変更し、parent・child・独立peerのdomainを保持する。"
+      },
+      "conditions": {
+        "en": "Use the selected original concrete component subtypes, legal unique names, declared public types and linked observations. Construct the hierarchy before phasing where phase callbacks are observed.",
+        "ja": "選択した独自の具象component subtype、合法で一意の名、宣言された公開型、linkした観測を使う。phase callback観測時はphasing前に階層を生成する。"
+      },
+      "expected": {
+        "en": "Explicit hier zero changes only the receiver and preserves its parent, child and independent peer domains.",
+        "ja": "明示hier 0はreceiverだけを変更し、parent・child・独立peerのdomainを保持する。"
+      },
+      "limitations": {
+        "en": "Use registered public domain handles and find/add APIs. Hook observation tests virtual dispatch; it does not prescribe a private schedule graph, an exact callback count, every phase node or actual execution in multiple asynchronous domains.",
+        "ja": "登録された公開domain handleとfind／add APIを使う。hook観測はvirtual dispatchを検査し、非公開schedule graph、正確なcallback数、全phase node、非同期な複数domainの実行を規定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_domain_selection_inherits_by_default_and_distinguishes_local_updates",
+          "role": "direct",
+          "expected_observations": [
+            "UT: local_domain root 1 child 1 grand 1 peer 1 callback 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-AUDIT-DOMAIN-GET-HANDLE",
+      "clause": "13.1.4.4.2",
+      "statement": {
+        "en": "The public domain getter returns the exact selected domain after inherited and local updates.",
+        "ja": "公開domain getterは階層／local更新後の選択domainを同じhandleで返す。"
+      },
+      "conditions": {
+        "en": "Use the selected original concrete component subtypes, legal unique names, declared public types and linked observations. Construct the hierarchy before phasing where phase callbacks are observed.",
+        "ja": "選択した独自の具象component subtype、合法で一意の名、宣言された公開型、linkした観測を使う。phase callback観測時はphasing前に階層を生成する。"
+      },
+      "expected": {
+        "en": "The public domain getter returns the exact selected domain after inherited and local updates.",
+        "ja": "公開domain getterは階層／local更新後の選択domainを同じhandleで返す。"
+      },
+      "limitations": {
+        "en": "Use registered public domain handles and find/add APIs. Hook observation tests virtual dispatch; it does not prescribe a private schedule graph, an exact callback count, every phase node or actual execution in multiple asynchronous domains.",
+        "ja": "登録された公開domain handleとfind／add APIを使う。hook観測はvirtual dispatchを検査し、非公開schedule graph、正確なcallback数、全phase node、非同期な複数domainの実行を規定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_domain_selection_inherits_by_default_and_distinguishes_local_updates",
+          "role": "direct",
+          "expected_observations": [
+            "UT: default_domains root 1 child 1 grand 1 peer 1",
+            "UT: inherited_domains root 1 child 1 grand 1 peer 1 callback 1",
+            "UT: local_domain root 1 child 1 grand 1 peer 1 callback 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-AUDIT-DOMAIN-DEFINE-CALLBACK",
+      "clause": "13.1.4.4.1",
+      "statement": {
+        "en": "set_domain invokes the selected component virtual define_domain hook with the supplied domain.",
+        "ja": "set_domainは指定domainで選択componentのvirtual define_domain hookを呼ぶ。"
+      },
+      "conditions": {
+        "en": "Use the selected original concrete component subtypes, legal unique names, declared public types and linked observations. Construct the hierarchy before phasing where phase callbacks are observed.",
+        "ja": "選択した独自の具象component subtype、合法で一意の名、宣言された公開型、linkした観測を使う。phase callback観測時はphasing前に階層を生成する。"
+      },
+      "expected": {
+        "en": "set_domain invokes the selected component virtual define_domain hook with the supplied domain.",
+        "ja": "set_domainは指定domainで選択componentのvirtual define_domain hookを呼ぶ。"
+      },
+      "limitations": {
+        "en": "Use registered public domain handles and find/add APIs. Hook observation tests virtual dispatch; it does not prescribe a private schedule graph, an exact callback count, every phase node or actual execution in multiple asynchronous domains.",
+        "ja": "登録された公開domain handleとfind／add APIを使う。hook観測はvirtual dispatchを検査し、非公開schedule graph、正確なcallback数、全phase node、非同期な複数domainの実行を規定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_domain_selection_inherits_by_default_and_distinguishes_local_updates",
+          "role": "direct",
+          "expected_observations": [
+            "UT: inherited_domains root 1 child 1 grand 1 peer 1 callback 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-AUDIT-DOMAIN-POPULATE-EMPTY",
+      "clause": "13.1.4.4.3",
+      "statement": {
+        "en": "Default domain definition adds selected standard run-time phases to an empty domain.",
+        "ja": "既定domain定義は空domainへ選択した標準runtime phaseを追加する。"
+      },
+      "conditions": {
+        "en": "Use the selected original concrete component subtypes, legal unique names, declared public types and linked observations. Construct the hierarchy before phasing where phase callbacks are observed.",
+        "ja": "選択した独自の具象component subtype、合法で一意の名、宣言された公開型、linkした観測を使う。phase callback観測時はphasing前に階層を生成する。"
+      },
+      "expected": {
+        "en": "Default domain definition adds selected standard run-time phases to an empty domain.",
+        "ja": "既定domain定義は空domainへ選択した標準runtime phaseを追加する。"
+      },
+      "limitations": {
+        "en": "Use registered public domain handles and find/add APIs. Hook observation tests virtual dispatch; it does not prescribe a private schedule graph, an exact callback count, every phase node or actual execution in multiple asynchronous domains.",
+        "ja": "登録された公開domain handleとfind／add APIを使う。hook観測はvirtual dispatchを検査し、非公開schedule graph、正確なcallback数、全phase node、非同期な複数domainの実行を規定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_default_domain_definition_populates_only_an_empty_schedule",
+          "role": "direct",
+          "expected_observations": [
+            "UT: domain_after has_reset 1 has_main 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-AUDIT-DOMAIN-KEEP-NONEMPTY",
+      "clause": "13.1.4.4.3",
+      "statement": {
+        "en": "Default domain definition preserves the existing selected schedule and skips an added default schedule when the domain is nonempty.",
+        "ja": "既定domain定義はdomainが空でない場合に既存の選択scheduleを保持し、既定schedule追加を省略する。"
+      },
+      "conditions": {
+        "en": "Use the selected original concrete component subtypes, legal unique names, declared public types and linked observations. Construct the hierarchy before phasing where phase callbacks are observed.",
+        "ja": "選択した独自の具象component subtype、合法で一意の名、宣言された公開型、linkした観測を使う。phase callback観測時はphasing前に階層を生成する。"
+      },
+      "expected": {
+        "en": "Default domain definition preserves the existing selected schedule and skips an added default schedule when the domain is nonempty.",
+        "ja": "既定domain定義はdomainが空でない場合に既存の選択scheduleを保持し、既定schedule追加を省略する。"
+      },
+      "limitations": {
+        "en": "Use registered public domain handles and find/add APIs. Hook observation tests virtual dispatch; it does not prescribe a private schedule graph, an exact callback count, every phase node or actual execution in multiple asynchronous domains.",
+        "ja": "登録された公開domain handleとfind／add APIを使う。hook観測はvirtual dispatchを検査し、非公開schedule graph、正確なcallback数、全phase node、非同期な複数domainの実行を規定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_default_domain_definition_populates_only_an_empty_schedule",
+          "role": "direct",
+          "expected_observations": [
+            "UT: domain_populated same_main 1 no_reset 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-AUDIT-DOMAIN-OVERRIDE-REPLACE",
+      "clause": "13.1.4.4.3",
+      "statement": {
+        "en": "An original define_domain override can replace the inherited schedule through a component base view.",
+        "ja": "独自define_domain overrideはcomponent base view経由で継承scheduleを置換できる。"
+      },
+      "conditions": {
+        "en": "Use the selected original concrete component subtypes, legal unique names, declared public types and linked observations. Construct the hierarchy before phasing where phase callbacks are observed.",
+        "ja": "選択した独自の具象component subtype、合法で一意の名、宣言された公開型、linkした観測を使う。phase callback観測時はphasing前に階層を生成する。"
+      },
+      "expected": {
+        "en": "An original define_domain override can replace the inherited schedule through a component base view.",
+        "ja": "独自define_domain overrideはcomponent base view経由で継承scheduleを置換できる。"
+      },
+      "limitations": {
+        "en": "Use registered public domain handles and find/add APIs. Hook observation tests virtual dispatch; it does not prescribe a private schedule graph, an exact callback count, every phase node or actual execution in multiple asynchronous domains.",
+        "ja": "登録された公開domain handleとfind／add APIを使う。hook観測はvirtual dispatchを検査し、非公開schedule graph、正確なcallback数、全phase node、非同期な複数domainの実行を規定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_domain_override_can_replace_the_default_phase_schedule",
+          "role": "direct",
+          "expected_observations": [
+            "UT: domain_override callback 1 selected 1 main 1 no_reset 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-AUDIT-SUSPEND-VIRTUAL-PROTOCOL",
+      "clause": "13.1.4.5.1",
+      "statement": {
+        "en": "The public suspend task dispatches through a component base view to the user-implemented protocol.",
+        "ja": "公開suspend taskはcomponent base viewからuser実装protocolへdispatchする。"
+      },
+      "conditions": {
+        "en": "Use the selected original concrete component subtypes, legal unique names, declared public types and linked observations. Construct the hierarchy before phasing where phase callbacks are observed.",
+        "ja": "選択した独自の具象component subtype、合法で一意の名、宣言された公開型、linkした観測を使う。phase callback観測時はphasing前に階層を生成する。"
+      },
+      "expected": {
+        "en": "The public suspend task dispatches through a component base view to the user-implemented protocol.",
+        "ja": "公開suspend taskはcomponent base viewからuser実装protocolへdispatchする。"
+      },
+      "limitations": {
+        "en": "The standard requires a user implementation. Original pause/trace state observes API availability and virtual dispatch only; this does not assert a generic library process-suspension algorithm or certify an external protocol.",
+        "ja": "規格はuser実装を要求する。独自pause／trace状態はAPIの存在とvirtual dispatchだけを観測し、library共通のprocess停止algorithmや外部protocolを認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_suspend_resume_dispatch_to_the_original_protocol_through_a_base_view",
+          "role": "direct",
+          "expected_observations": [
+            "UT: protocol_suspended selected 1 peer 0 trace S"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-AUDIT-RESUME-VIRTUAL-PROTOCOL",
+      "clause": "13.1.4.5.2",
+      "statement": {
+        "en": "The public resume task dispatches through a component base view to the user-implemented protocol.",
+        "ja": "公開resume taskはcomponent base viewからuser実装protocolへdispatchする。"
+      },
+      "conditions": {
+        "en": "Use the selected original concrete component subtypes, legal unique names, declared public types and linked observations. Construct the hierarchy before phasing where phase callbacks are observed.",
+        "ja": "選択した独自の具象component subtype、合法で一意の名、宣言された公開型、linkした観測を使う。phase callback観測時はphasing前に階層を生成する。"
+      },
+      "expected": {
+        "en": "The public resume task dispatches through a component base view to the user-implemented protocol.",
+        "ja": "公開resume taskはcomponent base viewからuser実装protocolへdispatchする。"
+      },
+      "limitations": {
+        "en": "The standard requires a user implementation. Original pause/trace state observes API availability and virtual dispatch only; this does not assert a generic library process-suspension algorithm or certify an external protocol.",
+        "ja": "規格はuser実装を要求する。独自pause／trace状態はAPIの存在とvirtual dispatchだけを観測し、library共通のprocess停止algorithmや外部protocolを認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_suspend_resume_dispatch_to_the_original_protocol_through_a_base_view",
+          "role": "direct",
+          "expected_observations": [
+            "UT: protocol_resumed selected 0 peer 0 trace SR"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-AUDIT-PULL-DRIVER-BASE-TYPE",
+      "clause": "13.7.1",
+      "statement": {
+        "en": "The selected pull driver is usable through uvm_component.",
+        "ja": "選択pull driverをuvm_componentから使用できる。"
+      },
+      "conditions": {
+        "en": "Use the selected original concrete component subtypes, legal unique names, declared public types and linked observations. Construct the hierarchy before phasing where phase callbacks are observed.",
+        "ja": "選択した独自の具象component subtype、合法で一意の名、宣言された公開型、linkした観測を使う。phase callback観測時はphasing前に階層を生成する。"
+      },
+      "expected": {
+        "en": "The selected pull driver is usable through uvm_component.",
+        "ja": "選択pull driverをuvm_componentから使用できる。"
+      },
+      "limitations": {
+        "en": "Selected public conditions only. No private hierarchy/phase storage, exact diagnostic text, printer layout, sibling traversal order or complete clause coverage is certified. Direct public getters and original hook observations are used independently of implementation source.",
+        "ja": "選択した公開条件だけ。非公開hierarchy／phase格納、正確な診断文、printer layout、兄弟の走査順、条項全体の網羅は認定しない。実装sourceから独立した公開getterと独自hook観測を使う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_driver_variants_preserve_constructor_defaults_and_exact_typed_public_endpoints",
+          "role": "direct",
+          "expected_observations": [
+            "UT: driver_constructors pull 1 push 1 bases 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-AUDIT-PULL-DRIVER-DEFAULT-REQUEST",
+      "clause": "13.7.1",
+      "statement": {
+        "en": "The omitted pull driver request type is uvm_sequence_item.",
+        "ja": "省略したpull driver request型はuvm_sequence_itemである。"
+      },
+      "conditions": {
+        "en": "Use the selected original concrete component subtypes, legal unique names, declared public types and linked observations. Construct the hierarchy before phasing where phase callbacks are observed.",
+        "ja": "選択した独自の具象component subtype、合法で一意の名、宣言された公開型、linkした観測を使う。phase callback観測時はphasing前に階層を生成する。"
+      },
+      "expected": {
+        "en": "The omitted pull driver request type is uvm_sequence_item.",
+        "ja": "省略したpull driver request型はuvm_sequence_itemである。"
+      },
+      "limitations": {
+        "en": "Selected public conditions only. No private hierarchy/phase storage, exact diagnostic text, printer layout, sibling traversal order or complete clause coverage is certified. Direct public getters and original hook observations are used independently of implementation source.",
+        "ja": "選択した公開条件だけ。非公開hierarchy／phase格納、正確な診断文、printer layout、兄弟の走査順、条項全体の網羅は認定しない。実装sourceから独立した公開getterと独自hook観測を使う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_driver_variants_preserve_constructor_defaults_and_exact_typed_public_endpoints",
+          "role": "direct",
+          "expected_observations": [
+            "UT: driver_defaults pull 1 push 1 req_pull 1 req_push 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-AUDIT-PULL-DRIVER-DEFAULT-RESPONSE",
+      "clause": "13.7.1",
+      "statement": {
+        "en": "The omitted pull driver response type follows its selected request type.",
+        "ja": "省略したpull driver response型は選択request型に従う。"
+      },
+      "conditions": {
+        "en": "Use the selected original concrete component subtypes, legal unique names, declared public types and linked observations. Construct the hierarchy before phasing where phase callbacks are observed.",
+        "ja": "選択した独自の具象component subtype、合法で一意の名、宣言された公開型、linkした観測を使う。phase callback観測時はphasing前に階層を生成する。"
+      },
+      "expected": {
+        "en": "The omitted pull driver response type follows its selected request type.",
+        "ja": "省略したpull driver response型は選択request型に従う。"
+      },
+      "limitations": {
+        "en": "Selected public conditions only. No private hierarchy/phase storage, exact diagnostic text, printer layout, sibling traversal order or complete clause coverage is certified. Direct public getters and original hook observations are used independently of implementation source.",
+        "ja": "選択した公開条件だけ。非公開hierarchy／phase格納、正確な診断文、printer layout、兄弟の走査順、条項全体の網羅は認定しない。実装sourceから独立した公開getterと独自hook観測を使う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_driver_variants_preserve_constructor_defaults_and_exact_typed_public_endpoints",
+          "role": "direct",
+          "expected_observations": [
+            "UT: driver_defaults pull 1 push 1 req_pull 1 req_push 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-AUDIT-PULL-DRIVER-CONSTRUCTOR",
+      "clause": "13.7.3",
+      "statement": {
+        "en": "The pull driver constructor preserves its supplied name and component parent.",
+        "ja": "pull driver constructorは指定された名とcomponent parentを保持する。"
+      },
+      "conditions": {
+        "en": "Use the selected original concrete component subtypes, legal unique names, declared public types and linked observations. Construct the hierarchy before phasing where phase callbacks are observed.",
+        "ja": "選択した独自の具象component subtype、合法で一意の名、宣言された公開型、linkした観測を使う。phase callback観測時はphasing前に階層を生成する。"
+      },
+      "expected": {
+        "en": "The pull driver constructor preserves its supplied name and component parent.",
+        "ja": "pull driver constructorは指定された名とcomponent parentを保持する。"
+      },
+      "limitations": {
+        "en": "Selected public conditions only. No private hierarchy/phase storage, exact diagnostic text, printer layout, sibling traversal order or complete clause coverage is certified. Direct public getters and original hook observations are used independently of implementation source.",
+        "ja": "選択した公開条件だけ。非公開hierarchy／phase格納、正確な診断文、printer layout、兄弟の走査順、条項全体の網羅は認定しない。実装sourceから独立した公開getterと独自hook観測を使う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_driver_variants_preserve_constructor_defaults_and_exact_typed_public_endpoints",
+          "role": "direct",
+          "expected_observations": [
+            "UT: driver_constructors pull 1 push 1 bases 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-AUDIT-PULL-DRIVER-REQUEST-TYPE",
+      "clause": "13.7.2.1",
+      "statement": {
+        "en": "The pull driver creates its declared exact request/response-specific request endpoint.",
+        "ja": "pull driverは宣言された正確なrequest／response固有型のrequest endpointを生成する。"
+      },
+      "conditions": {
+        "en": "Use the selected original concrete component subtypes, legal unique names, declared public types and linked observations. Construct the hierarchy before phasing where phase callbacks are observed.",
+        "ja": "選択した独自の具象component subtype、合法で一意の名、宣言された公開型、linkした観測を使う。phase callback観測時はphasing前に階層を生成する。"
+      },
+      "expected": {
+        "en": "The pull driver creates its declared exact request/response-specific request endpoint.",
+        "ja": "pull driverは宣言された正確なrequest／response固有型のrequest endpointを生成する。"
+      },
+      "limitations": {
+        "en": "Nominal type assignment and nonnull construction only. No phasing of unconnected required ports, immediate member ownership, invalid type matrix or complete transport semantics is claimed; separate real traffic fixtures remain.",
+        "ja": "名目的型代入とnonnull生成だけ。未接続の必須portのphasing、直接member所有、不正type matrix、全transport意味を主張しない。別の実traffic fixtureを保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_driver_variants_preserve_constructor_defaults_and_exact_typed_public_endpoints",
+          "role": "direct",
+          "expected_observations": [
+            "UT: driver_endpoints pull_request 1 pull_response 1 push_request 1 push_response 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-AUDIT-PULL-DRIVER-RESPONSE-TYPE",
+      "clause": "13.7.2.2",
+      "statement": {
+        "en": "The pull driver creates its declared exact request/response-specific response analysis port.",
+        "ja": "pull driverは宣言された正確なrequest／response固有型のresponse analysis portを生成する。"
+      },
+      "conditions": {
+        "en": "Use the selected original concrete component subtypes, legal unique names, declared public types and linked observations. Construct the hierarchy before phasing where phase callbacks are observed.",
+        "ja": "選択した独自の具象component subtype、合法で一意の名、宣言された公開型、linkした観測を使う。phase callback観測時はphasing前に階層を生成する。"
+      },
+      "expected": {
+        "en": "The pull driver creates its declared exact request/response-specific response analysis port.",
+        "ja": "pull driverは宣言された正確なrequest／response固有型のresponse analysis portを生成する。"
+      },
+      "limitations": {
+        "en": "Nominal type assignment and nonnull construction only. No phasing of unconnected required ports, immediate member ownership, invalid type matrix or complete transport semantics is claimed; separate real traffic fixtures remain.",
+        "ja": "名目的型代入とnonnull生成だけ。未接続の必須portのphasing、直接member所有、不正type matrix、全transport意味を主張しない。別の実traffic fixtureを保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_driver_variants_preserve_constructor_defaults_and_exact_typed_public_endpoints",
+          "role": "direct",
+          "expected_observations": [
+            "UT: driver_endpoints pull_request 1 pull_response 1 push_request 1 push_response 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-AUDIT-PUSH-DRIVER-BASE-TYPE",
+      "clause": "13.8.1",
+      "statement": {
+        "en": "The selected push driver is usable through uvm_component.",
+        "ja": "選択push driverをuvm_componentから使用できる。"
+      },
+      "conditions": {
+        "en": "Use the selected original concrete component subtypes, legal unique names, declared public types and linked observations. Construct the hierarchy before phasing where phase callbacks are observed.",
+        "ja": "選択した独自の具象component subtype、合法で一意の名、宣言された公開型、linkした観測を使う。phase callback観測時はphasing前に階層を生成する。"
+      },
+      "expected": {
+        "en": "The selected push driver is usable through uvm_component.",
+        "ja": "選択push driverをuvm_componentから使用できる。"
+      },
+      "limitations": {
+        "en": "Selected public conditions only. No private hierarchy/phase storage, exact diagnostic text, printer layout, sibling traversal order or complete clause coverage is certified. Direct public getters and original hook observations are used independently of implementation source.",
+        "ja": "選択した公開条件だけ。非公開hierarchy／phase格納、正確な診断文、printer layout、兄弟の走査順、条項全体の網羅は認定しない。実装sourceから独立した公開getterと独自hook観測を使う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_driver_variants_preserve_constructor_defaults_and_exact_typed_public_endpoints",
+          "role": "direct",
+          "expected_observations": [
+            "UT: driver_constructors pull 1 push 1 bases 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-AUDIT-PUSH-DRIVER-DEFAULT-REQUEST",
+      "clause": "13.8.1",
+      "statement": {
+        "en": "The omitted push driver request type is uvm_sequence_item.",
+        "ja": "省略したpush driver request型はuvm_sequence_itemである。"
+      },
+      "conditions": {
+        "en": "Use the selected original concrete component subtypes, legal unique names, declared public types and linked observations. Construct the hierarchy before phasing where phase callbacks are observed.",
+        "ja": "選択した独自の具象component subtype、合法で一意の名、宣言された公開型、linkした観測を使う。phase callback観測時はphasing前に階層を生成する。"
+      },
+      "expected": {
+        "en": "The omitted push driver request type is uvm_sequence_item.",
+        "ja": "省略したpush driver request型はuvm_sequence_itemである。"
+      },
+      "limitations": {
+        "en": "Selected public conditions only. No private hierarchy/phase storage, exact diagnostic text, printer layout, sibling traversal order or complete clause coverage is certified. Direct public getters and original hook observations are used independently of implementation source.",
+        "ja": "選択した公開条件だけ。非公開hierarchy／phase格納、正確な診断文、printer layout、兄弟の走査順、条項全体の網羅は認定しない。実装sourceから独立した公開getterと独自hook観測を使う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_driver_variants_preserve_constructor_defaults_and_exact_typed_public_endpoints",
+          "role": "direct",
+          "expected_observations": [
+            "UT: driver_defaults pull 1 push 1 req_pull 1 req_push 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-AUDIT-PUSH-DRIVER-DEFAULT-RESPONSE",
+      "clause": "13.8.1",
+      "statement": {
+        "en": "The omitted push driver response type follows its selected request type.",
+        "ja": "省略したpush driver response型は選択request型に従う。"
+      },
+      "conditions": {
+        "en": "Use the selected original concrete component subtypes, legal unique names, declared public types and linked observations. Construct the hierarchy before phasing where phase callbacks are observed.",
+        "ja": "選択した独自の具象component subtype、合法で一意の名、宣言された公開型、linkした観測を使う。phase callback観測時はphasing前に階層を生成する。"
+      },
+      "expected": {
+        "en": "The omitted push driver response type follows its selected request type.",
+        "ja": "省略したpush driver response型は選択request型に従う。"
+      },
+      "limitations": {
+        "en": "Selected public conditions only. No private hierarchy/phase storage, exact diagnostic text, printer layout, sibling traversal order or complete clause coverage is certified. Direct public getters and original hook observations are used independently of implementation source.",
+        "ja": "選択した公開条件だけ。非公開hierarchy／phase格納、正確な診断文、printer layout、兄弟の走査順、条項全体の網羅は認定しない。実装sourceから独立した公開getterと独自hook観測を使う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_driver_variants_preserve_constructor_defaults_and_exact_typed_public_endpoints",
+          "role": "direct",
+          "expected_observations": [
+            "UT: driver_defaults pull 1 push 1 req_pull 1 req_push 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-AUDIT-PUSH-DRIVER-CONSTRUCTOR",
+      "clause": "13.8.3",
+      "statement": {
+        "en": "The push driver constructor preserves its supplied name and component parent.",
+        "ja": "push driver constructorは指定された名とcomponent parentを保持する。"
+      },
+      "conditions": {
+        "en": "Use the selected original concrete component subtypes, legal unique names, declared public types and linked observations. Construct the hierarchy before phasing where phase callbacks are observed.",
+        "ja": "選択した独自の具象component subtype、合法で一意の名、宣言された公開型、linkした観測を使う。phase callback観測時はphasing前に階層を生成する。"
+      },
+      "expected": {
+        "en": "The push driver constructor preserves its supplied name and component parent.",
+        "ja": "push driver constructorは指定された名とcomponent parentを保持する。"
+      },
+      "limitations": {
+        "en": "Selected public conditions only. No private hierarchy/phase storage, exact diagnostic text, printer layout, sibling traversal order or complete clause coverage is certified. Direct public getters and original hook observations are used independently of implementation source.",
+        "ja": "選択した公開条件だけ。非公開hierarchy／phase格納、正確な診断文、printer layout、兄弟の走査順、条項全体の網羅は認定しない。実装sourceから独立した公開getterと独自hook観測を使う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_driver_variants_preserve_constructor_defaults_and_exact_typed_public_endpoints",
+          "role": "direct",
+          "expected_observations": [
+            "UT: driver_constructors pull 1 push 1 bases 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-AUDIT-PUSH-DRIVER-REQUEST-TYPE",
+      "clause": "13.8.2.1",
+      "statement": {
+        "en": "The push driver creates its declared exact request/response-specific request endpoint.",
+        "ja": "push driverは宣言された正確なrequest／response固有型のrequest endpointを生成する。"
+      },
+      "conditions": {
+        "en": "Use the selected original concrete component subtypes, legal unique names, declared public types and linked observations. Construct the hierarchy before phasing where phase callbacks are observed.",
+        "ja": "選択した独自の具象component subtype、合法で一意の名、宣言された公開型、linkした観測を使う。phase callback観測時はphasing前に階層を生成する。"
+      },
+      "expected": {
+        "en": "The push driver creates its declared exact request/response-specific request endpoint.",
+        "ja": "push driverは宣言された正確なrequest／response固有型のrequest endpointを生成する。"
+      },
+      "limitations": {
+        "en": "Nominal type assignment and nonnull construction only. No phasing of unconnected required ports, immediate member ownership, invalid type matrix or complete transport semantics is claimed; separate real traffic fixtures remain.",
+        "ja": "名目的型代入とnonnull生成だけ。未接続の必須portのphasing、直接member所有、不正type matrix、全transport意味を主張しない。別の実traffic fixtureを保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_driver_variants_preserve_constructor_defaults_and_exact_typed_public_endpoints",
+          "role": "direct",
+          "expected_observations": [
+            "UT: driver_endpoints pull_request 1 pull_response 1 push_request 1 push_response 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-AUDIT-PUSH-DRIVER-RESPONSE-TYPE",
+      "clause": "13.8.2.2",
+      "statement": {
+        "en": "The push driver creates its declared exact request/response-specific response analysis port.",
+        "ja": "push driverは宣言された正確なrequest／response固有型のresponse analysis portを生成する。"
+      },
+      "conditions": {
+        "en": "Use the selected original concrete component subtypes, legal unique names, declared public types and linked observations. Construct the hierarchy before phasing where phase callbacks are observed.",
+        "ja": "選択した独自の具象component subtype、合法で一意の名、宣言された公開型、linkした観測を使う。phase callback観測時はphasing前に階層を生成する。"
+      },
+      "expected": {
+        "en": "The push driver creates its declared exact request/response-specific response analysis port.",
+        "ja": "push driverは宣言された正確なrequest／response固有型のresponse analysis portを生成する。"
+      },
+      "limitations": {
+        "en": "Nominal type assignment and nonnull construction only. No phasing of unconnected required ports, immediate member ownership, invalid type matrix or complete transport semantics is claimed; separate real traffic fixtures remain.",
+        "ja": "名目的型代入とnonnull生成だけ。未接続の必須portのphasing、直接member所有、不正type matrix、全transport意味を主張しない。別の実traffic fixtureを保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_driver_variants_preserve_constructor_defaults_and_exact_typed_public_endpoints",
+          "role": "direct",
+          "expected_observations": [
+            "UT: driver_endpoints pull_request 1 pull_response 1 push_request 1 push_response 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-AUDIT-PUSH-OVERRIDE-DISPATCH",
+      "clause": "13.8.2.1",
+      "statement": {
+        "en": "The push request export dispatches blocking put to an original derived implementation.",
+        "ja": "push request exportはblocking putを独自派生実装へdispatchする。"
+      },
+      "conditions": {
+        "en": "Use the selected original concrete component subtypes, legal unique names, declared public types and linked observations. Construct the hierarchy before phasing where phase callbacks are observed.",
+        "ja": "選択した独自の具象component subtype、合法で一意の名、宣言された公開型、linkした観測を使う。phase callback観測時はphasing前に階層を生成する。"
+      },
+      "expected": {
+        "en": "The push request export dispatches blocking put to an original derived implementation.",
+        "ja": "push request exportはblocking putを独自派生実装へdispatchする。"
+      },
+      "limitations": {
+        "en": "The legal override receives the same item, delays acceptance and omits super.put. A generic ERROR/FATAL catcher checks no error in that control, then terminates itself on the stock error. No default error text/severity, post-error return or real DUT protocol is prescribed.",
+        "ja": "合法overrideは同じitemを受け、受理を遅延し、super.putを省略する。一般ERROR／FATAL catcherはcontrolの無errorを確認し、その後stock errorで自ら終了する。既定error文／severity、error後return、実DUT protocolを規定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_push_driver_export_dispatches_an_override_before_the_default_put_error",
+          "role": "direct",
+          "expected_observations": [
+            "UT: overridden_push_put same 1 completed 1 blocked 1 no_error 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-AUDIT-PUSH-DEFAULT-PUT-ERROR",
+      "clause": "13.8.2.1",
+      "statement": {
+        "en": "The default push-driver put implementation produces an error.",
+        "ja": "既定push-driver put実装はerrorを生じる。"
+      },
+      "conditions": {
+        "en": "Use the selected original concrete component subtypes, legal unique names, declared public types and linked observations. Construct the hierarchy before phasing where phase callbacks are observed.",
+        "ja": "選択した独自の具象component subtype、合法で一意の名、宣言された公開型、linkした観測を使う。phase callback観測時はphasing前に階層を生成する。"
+      },
+      "expected": {
+        "en": "The default push-driver put implementation produces an error.",
+        "ja": "既定push-driver put実装はerrorを生じる。"
+      },
+      "limitations": {
+        "en": "The legal override receives the same item, delays acceptance and omits super.put. A generic ERROR/FATAL catcher checks no error in that control, then terminates itself on the stock error. No default error text/severity, post-error return or real DUT protocol is prescribed.",
+        "ja": "合法overrideは同じitemを受け、受理を遅延し、super.putを省略する。一般ERROR／FATAL catcherはcontrolの無errorを確認し、その後stock errorで自ら終了する。既定error文／severity、error後return、実DUT protocolを規定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_push_driver_export_dispatches_an_override_before_the_default_put_error",
+          "role": "direct",
+          "expected_observations": [
+            "UT: default_push_put_error 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-AUDIT-AGENT-STRING-ACTIVITY",
+      "clause": "13.4.2.2",
+      "statement": {
+        "en": "Agent activity supports independent valid string configuration values before build.",
+        "ja": "agent activityはbuild前に独立した合法string設定値を扱える。"
+      },
+      "conditions": {
+        "en": "Use the selected original concrete component subtypes, legal unique names, declared public types and linked observations. Construct the hierarchy before phasing where phase callbacks are observed.",
+        "ja": "選択した独自の具象component subtype、合法で一意の名、宣言された公開型、linkした観測を使う。phase callback観測時はphasing前に階層を生成する。"
+      },
+      "expected": {
+        "en": "Agent activity supports independent valid string configuration values before build.",
+        "ja": "agent activityはbuild前に独立した合法string設定値を扱える。"
+      },
+      "limitations": {
+        "en": "Selected UVM_ACTIVE/UVM_PASSIVE strings through config_db#(string), set before child construction/build and queried after build. No command-line bridge, invalid-string policy, late reconfiguration or derived override algorithm is certified.",
+        "ja": "child生成／build前にconfig_db#(string)で設定し、build後に照会するUVM_ACTIVE／UVM_PASSIVE文字列だけ。command-line bridge、不正string policy、後からの再設定、派生override algorithmは認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_agent_activity_accepts_independent_string_configuration_before_build",
+          "role": "direct",
+          "expected_observations": [
+            "UT: string_activity passive 1 active 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-AUDIT-COMMON-BUILD-DISPATCH",
+      "clause": "13.1.4.1.1",
+      "statement": {
+        "en": "The common build phase invokes the matching component method between its phase callbacks in the selected hierarchy. Its function traversal is top-down.",
+        "ja": "共通build phaseは選択階層でphase callback間に対応するcomponent methodを呼ぶ。 function走査はtop-downである。"
+      },
+      "conditions": {
+        "en": "Use the selected original concrete component subtypes, legal unique names, declared public types and linked observations. Construct the hierarchy before phasing where phase callbacks are observed.",
+        "ja": "選択した独自の具象component subtype、合法で一意の名、宣言された公開型、linkした観測を使う。phase callback観測時はphasing前に階層を生成する。"
+      },
+      "expected": {
+        "en": "The common build phase invokes the matching component method between its phase callbacks in the selected hierarchy. Its function traversal is top-down.",
+        "ja": "共通build phaseは選択階層でphase callback間に対応するcomponent methodを呼ぶ。 function走査はtop-downである。"
+      },
+      "limitations": {
+        "en": "One preconstructed three-component chain in the default schedule, without jumps or custom synchronization. Per-component start/method/end traces are observed. Function phases check the prescribed hierarchy direction; task phases impose no component entry order. Objections explicitly keep selected task phases alive. No exact delta count, sibling order or all task/thread lifetime cases are certified.",
+        "ja": "jumpや独自同期のない既定scheduleで事前生成したcomponent 3つの鎖1つ。componentごとのstart／method／end traceを観測する。function phaseは規定階層方向を検査し、task phaseにはcomponent開始順を課さない。objectionで選択task phaseを明示維持する。正確なdelta数、兄弟順、全task／thread寿命条件は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_common_phases_dispatch_with_matching_callbacks_and_hierarchy_direction",
+          "role": "direct",
+          "expected_observations": [
+            "UT: phase_trace build A SME",
+            "UT: phase_trace build B SME",
+            "UT: phase_trace build C SME",
+            "UT: common_method_order build ABC"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-AUDIT-COMMON-CONNECT-DISPATCH",
+      "clause": "13.1.4.1.2",
+      "statement": {
+        "en": "The common connect phase invokes the matching component method between its phase callbacks in the selected hierarchy. Its function traversal is bottom-up.",
+        "ja": "共通connect phaseは選択階層でphase callback間に対応するcomponent methodを呼ぶ。 function走査はbottom-upである。"
+      },
+      "conditions": {
+        "en": "Use the selected original concrete component subtypes, legal unique names, declared public types and linked observations. Construct the hierarchy before phasing where phase callbacks are observed.",
+        "ja": "選択した独自の具象component subtype、合法で一意の名、宣言された公開型、linkした観測を使う。phase callback観測時はphasing前に階層を生成する。"
+      },
+      "expected": {
+        "en": "The common connect phase invokes the matching component method between its phase callbacks in the selected hierarchy. Its function traversal is bottom-up.",
+        "ja": "共通connect phaseは選択階層でphase callback間に対応するcomponent methodを呼ぶ。 function走査はbottom-upである。"
+      },
+      "limitations": {
+        "en": "One preconstructed three-component chain in the default schedule, without jumps or custom synchronization. Per-component start/method/end traces are observed. Function phases check the prescribed hierarchy direction; task phases impose no component entry order. Objections explicitly keep selected task phases alive. No exact delta count, sibling order or all task/thread lifetime cases are certified.",
+        "ja": "jumpや独自同期のない既定scheduleで事前生成したcomponent 3つの鎖1つ。componentごとのstart／method／end traceを観測する。function phaseは規定階層方向を検査し、task phaseにはcomponent開始順を課さない。objectionで選択task phaseを明示維持する。正確なdelta数、兄弟順、全task／thread寿命条件は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_common_phases_dispatch_with_matching_callbacks_and_hierarchy_direction",
+          "role": "direct",
+          "expected_observations": [
+            "UT: phase_trace connect A SME",
+            "UT: phase_trace connect B SME",
+            "UT: phase_trace connect C SME",
+            "UT: common_method_order connect CBA"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-AUDIT-COMMON-END-OF-ELABORATION-DISPATCH",
+      "clause": "13.1.4.1.3",
+      "statement": {
+        "en": "The common end_of_elaboration phase invokes the matching component method between its phase callbacks in the selected hierarchy. Its function traversal is bottom-up.",
+        "ja": "共通end_of_elaboration phaseは選択階層でphase callback間に対応するcomponent methodを呼ぶ。 function走査はbottom-upである。"
+      },
+      "conditions": {
+        "en": "Use the selected original concrete component subtypes, legal unique names, declared public types and linked observations. Construct the hierarchy before phasing where phase callbacks are observed.",
+        "ja": "選択した独自の具象component subtype、合法で一意の名、宣言された公開型、linkした観測を使う。phase callback観測時はphasing前に階層を生成する。"
+      },
+      "expected": {
+        "en": "The common end_of_elaboration phase invokes the matching component method between its phase callbacks in the selected hierarchy. Its function traversal is bottom-up.",
+        "ja": "共通end_of_elaboration phaseは選択階層でphase callback間に対応するcomponent methodを呼ぶ。 function走査はbottom-upである。"
+      },
+      "limitations": {
+        "en": "One preconstructed three-component chain in the default schedule, without jumps or custom synchronization. Per-component start/method/end traces are observed. Function phases check the prescribed hierarchy direction; task phases impose no component entry order. Objections explicitly keep selected task phases alive. No exact delta count, sibling order or all task/thread lifetime cases are certified.",
+        "ja": "jumpや独自同期のない既定scheduleで事前生成したcomponent 3つの鎖1つ。componentごとのstart／method／end traceを観測する。function phaseは規定階層方向を検査し、task phaseにはcomponent開始順を課さない。objectionで選択task phaseを明示維持する。正確なdelta数、兄弟順、全task／thread寿命条件は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_common_phases_dispatch_with_matching_callbacks_and_hierarchy_direction",
+          "role": "direct",
+          "expected_observations": [
+            "UT: phase_trace end_of_elaboration A SME",
+            "UT: phase_trace end_of_elaboration B SME",
+            "UT: phase_trace end_of_elaboration C SME",
+            "UT: common_method_order end_of_elaboration CBA"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-AUDIT-COMMON-START-OF-SIMULATION-DISPATCH",
+      "clause": "13.1.4.1.4",
+      "statement": {
+        "en": "The common start_of_simulation phase invokes the matching component method between its phase callbacks in the selected hierarchy. Its function traversal is bottom-up.",
+        "ja": "共通start_of_simulation phaseは選択階層でphase callback間に対応するcomponent methodを呼ぶ。 function走査はbottom-upである。"
+      },
+      "conditions": {
+        "en": "Use the selected original concrete component subtypes, legal unique names, declared public types and linked observations. Construct the hierarchy before phasing where phase callbacks are observed.",
+        "ja": "選択した独自の具象component subtype、合法で一意の名、宣言された公開型、linkした観測を使う。phase callback観測時はphasing前に階層を生成する。"
+      },
+      "expected": {
+        "en": "The common start_of_simulation phase invokes the matching component method between its phase callbacks in the selected hierarchy. Its function traversal is bottom-up.",
+        "ja": "共通start_of_simulation phaseは選択階層でphase callback間に対応するcomponent methodを呼ぶ。 function走査はbottom-upである。"
+      },
+      "limitations": {
+        "en": "One preconstructed three-component chain in the default schedule, without jumps or custom synchronization. Per-component start/method/end traces are observed. Function phases check the prescribed hierarchy direction; task phases impose no component entry order. Objections explicitly keep selected task phases alive. No exact delta count, sibling order or all task/thread lifetime cases are certified.",
+        "ja": "jumpや独自同期のない既定scheduleで事前生成したcomponent 3つの鎖1つ。componentごとのstart／method／end traceを観測する。function phaseは規定階層方向を検査し、task phaseにはcomponent開始順を課さない。objectionで選択task phaseを明示維持する。正確なdelta数、兄弟順、全task／thread寿命条件は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_common_phases_dispatch_with_matching_callbacks_and_hierarchy_direction",
+          "role": "direct",
+          "expected_observations": [
+            "UT: phase_trace start_of_simulation A SME",
+            "UT: phase_trace start_of_simulation B SME",
+            "UT: phase_trace start_of_simulation C SME",
+            "UT: common_method_order start_of_simulation CBA"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-AUDIT-COMMON-RUN-DISPATCH",
+      "clause": "13.1.4.1.5",
+      "statement": {
+        "en": "The common run phase invokes the matching component method between its phase callbacks in the selected hierarchy.",
+        "ja": "共通run phaseは選択階層でphase callback間に対応するcomponent methodを呼ぶ。"
+      },
+      "conditions": {
+        "en": "Use the selected original concrete component subtypes, legal unique names, declared public types and linked observations. Construct the hierarchy before phasing where phase callbacks are observed.",
+        "ja": "選択した独自の具象component subtype、合法で一意の名、宣言された公開型、linkした観測を使う。phase callback観測時はphasing前に階層を生成する。"
+      },
+      "expected": {
+        "en": "The common run phase invokes the matching component method between its phase callbacks in the selected hierarchy.",
+        "ja": "共通run phaseは選択階層でphase callback間に対応するcomponent methodを呼ぶ。"
+      },
+      "limitations": {
+        "en": "One preconstructed three-component chain in the default schedule, without jumps or custom synchronization. Per-component start/method/end traces are observed. Function phases check the prescribed hierarchy direction; task phases impose no component entry order. Objections explicitly keep selected task phases alive. No exact delta count, sibling order or all task/thread lifetime cases are certified.",
+        "ja": "jumpや独自同期のない既定scheduleで事前生成したcomponent 3つの鎖1つ。componentごとのstart／method／end traceを観測する。function phaseは規定階層方向を検査し、task phaseにはcomponent開始順を課さない。objectionで選択task phaseを明示維持する。正確なdelta数、兄弟順、全task／thread寿命条件は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_common_phases_dispatch_with_matching_callbacks_and_hierarchy_direction",
+          "role": "direct",
+          "expected_observations": [
+            "UT: phase_trace run A SME",
+            "UT: phase_trace run B SME",
+            "UT: phase_trace run C SME"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-AUDIT-COMMON-EXTRACT-DISPATCH",
+      "clause": "13.1.4.1.6",
+      "statement": {
+        "en": "The common extract phase invokes the matching component method between its phase callbacks in the selected hierarchy. Its function traversal is bottom-up.",
+        "ja": "共通extract phaseは選択階層でphase callback間に対応するcomponent methodを呼ぶ。 function走査はbottom-upである。"
+      },
+      "conditions": {
+        "en": "Use the selected original concrete component subtypes, legal unique names, declared public types and linked observations. Construct the hierarchy before phasing where phase callbacks are observed.",
+        "ja": "選択した独自の具象component subtype、合法で一意の名、宣言された公開型、linkした観測を使う。phase callback観測時はphasing前に階層を生成する。"
+      },
+      "expected": {
+        "en": "The common extract phase invokes the matching component method between its phase callbacks in the selected hierarchy. Its function traversal is bottom-up.",
+        "ja": "共通extract phaseは選択階層でphase callback間に対応するcomponent methodを呼ぶ。 function走査はbottom-upである。"
+      },
+      "limitations": {
+        "en": "One preconstructed three-component chain in the default schedule, without jumps or custom synchronization. Per-component start/method/end traces are observed. Function phases check the prescribed hierarchy direction; task phases impose no component entry order. Objections explicitly keep selected task phases alive. No exact delta count, sibling order or all task/thread lifetime cases are certified.",
+        "ja": "jumpや独自同期のない既定scheduleで事前生成したcomponent 3つの鎖1つ。componentごとのstart／method／end traceを観測する。function phaseは規定階層方向を検査し、task phaseにはcomponent開始順を課さない。objectionで選択task phaseを明示維持する。正確なdelta数、兄弟順、全task／thread寿命条件は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_common_phases_dispatch_with_matching_callbacks_and_hierarchy_direction",
+          "role": "direct",
+          "expected_observations": [
+            "UT: phase_trace extract A SME",
+            "UT: phase_trace extract B SME",
+            "UT: phase_trace extract C SME",
+            "UT: common_method_order extract CBA"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-AUDIT-COMMON-CHECK-DISPATCH",
+      "clause": "13.1.4.1.7",
+      "statement": {
+        "en": "The common check phase invokes the matching component method between its phase callbacks in the selected hierarchy. Its function traversal is bottom-up.",
+        "ja": "共通check phaseは選択階層でphase callback間に対応するcomponent methodを呼ぶ。 function走査はbottom-upである。"
+      },
+      "conditions": {
+        "en": "Use the selected original concrete component subtypes, legal unique names, declared public types and linked observations. Construct the hierarchy before phasing where phase callbacks are observed.",
+        "ja": "選択した独自の具象component subtype、合法で一意の名、宣言された公開型、linkした観測を使う。phase callback観測時はphasing前に階層を生成する。"
+      },
+      "expected": {
+        "en": "The common check phase invokes the matching component method between its phase callbacks in the selected hierarchy. Its function traversal is bottom-up.",
+        "ja": "共通check phaseは選択階層でphase callback間に対応するcomponent methodを呼ぶ。 function走査はbottom-upである。"
+      },
+      "limitations": {
+        "en": "One preconstructed three-component chain in the default schedule, without jumps or custom synchronization. Per-component start/method/end traces are observed. Function phases check the prescribed hierarchy direction; task phases impose no component entry order. Objections explicitly keep selected task phases alive. No exact delta count, sibling order or all task/thread lifetime cases are certified.",
+        "ja": "jumpや独自同期のない既定scheduleで事前生成したcomponent 3つの鎖1つ。componentごとのstart／method／end traceを観測する。function phaseは規定階層方向を検査し、task phaseにはcomponent開始順を課さない。objectionで選択task phaseを明示維持する。正確なdelta数、兄弟順、全task／thread寿命条件は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_common_phases_dispatch_with_matching_callbacks_and_hierarchy_direction",
+          "role": "direct",
+          "expected_observations": [
+            "UT: phase_trace check A SME",
+            "UT: phase_trace check B SME",
+            "UT: phase_trace check C SME",
+            "UT: common_method_order check CBA"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-AUDIT-COMMON-REPORT-DISPATCH",
+      "clause": "13.1.4.1.8",
+      "statement": {
+        "en": "The common report phase invokes the matching component method between its phase callbacks in the selected hierarchy. Its function traversal is bottom-up.",
+        "ja": "共通report phaseは選択階層でphase callback間に対応するcomponent methodを呼ぶ。 function走査はbottom-upである。"
+      },
+      "conditions": {
+        "en": "Use the selected original concrete component subtypes, legal unique names, declared public types and linked observations. Construct the hierarchy before phasing where phase callbacks are observed.",
+        "ja": "選択した独自の具象component subtype、合法で一意の名、宣言された公開型、linkした観測を使う。phase callback観測時はphasing前に階層を生成する。"
+      },
+      "expected": {
+        "en": "The common report phase invokes the matching component method between its phase callbacks in the selected hierarchy. Its function traversal is bottom-up.",
+        "ja": "共通report phaseは選択階層でphase callback間に対応するcomponent methodを呼ぶ。 function走査はbottom-upである。"
+      },
+      "limitations": {
+        "en": "One preconstructed three-component chain in the default schedule, without jumps or custom synchronization. Per-component start/method/end traces are observed. Function phases check the prescribed hierarchy direction; task phases impose no component entry order. Objections explicitly keep selected task phases alive. No exact delta count, sibling order or all task/thread lifetime cases are certified.",
+        "ja": "jumpや独自同期のない既定scheduleで事前生成したcomponent 3つの鎖1つ。componentごとのstart／method／end traceを観測する。function phaseは規定階層方向を検査し、task phaseにはcomponent開始順を課さない。objectionで選択task phaseを明示維持する。正確なdelta数、兄弟順、全task／thread寿命条件は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_common_phases_dispatch_with_matching_callbacks_and_hierarchy_direction",
+          "role": "direct",
+          "expected_observations": [
+            "UT: phase_trace report A SME",
+            "UT: phase_trace report B SME",
+            "UT: phase_trace report C SME",
+            "UT: common_method_order report CBA"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-AUDIT-COMMON-FINAL-DISPATCH",
+      "clause": "13.1.4.1.9",
+      "statement": {
+        "en": "The common final phase invokes the matching component method between its phase callbacks in the selected hierarchy. Its function traversal is top-down.",
+        "ja": "共通final phaseは選択階層でphase callback間に対応するcomponent methodを呼ぶ。 function走査はtop-downである。"
+      },
+      "conditions": {
+        "en": "Use the selected original concrete component subtypes, legal unique names, declared public types and linked observations. Construct the hierarchy before phasing where phase callbacks are observed.",
+        "ja": "選択した独自の具象component subtype、合法で一意の名、宣言された公開型、linkした観測を使う。phase callback観測時はphasing前に階層を生成する。"
+      },
+      "expected": {
+        "en": "The common final phase invokes the matching component method between its phase callbacks in the selected hierarchy. Its function traversal is top-down.",
+        "ja": "共通final phaseは選択階層でphase callback間に対応するcomponent methodを呼ぶ。 function走査はtop-downである。"
+      },
+      "limitations": {
+        "en": "One preconstructed three-component chain in the default schedule, without jumps or custom synchronization. Per-component start/method/end traces are observed. Function phases check the prescribed hierarchy direction; task phases impose no component entry order. Objections explicitly keep selected task phases alive. No exact delta count, sibling order or all task/thread lifetime cases are certified.",
+        "ja": "jumpや独自同期のない既定scheduleで事前生成したcomponent 3つの鎖1つ。componentごとのstart／method／end traceを観測する。function phaseは規定階層方向を検査し、task phaseにはcomponent開始順を課さない。objectionで選択task phaseを明示維持する。正確なdelta数、兄弟順、全task／thread寿命条件は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_common_phases_dispatch_with_matching_callbacks_and_hierarchy_direction",
+          "role": "direct",
+          "expected_observations": [
+            "UT: phase_trace final A SME",
+            "UT: phase_trace final B SME",
+            "UT: phase_trace final C SME",
+            "UT: common_method_order final ABC"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-AUDIT-RUNTIME-PRE-RESET-DISPATCH",
+      "clause": "13.1.4.2.1",
+      "statement": {
+        "en": "The run-time pre_reset phase invokes the matching component task between its phase callbacks.",
+        "ja": "runtimeのpre_reset phaseはphase callback間に対応するcomponent taskを呼ぶ。"
+      },
+      "conditions": {
+        "en": "Use the selected original concrete component subtypes, legal unique names, declared public types and linked observations. Construct the hierarchy before phasing where phase callbacks are observed.",
+        "ja": "選択した独自の具象component subtype、合法で一意の名、宣言された公開型、linkした観測を使う。phase callback観測時はphasing前に階層を生成する。"
+      },
+      "expected": {
+        "en": "The run-time pre_reset phase invokes the matching component task between its phase callbacks.",
+        "ja": "runtimeのpre_reset phaseはphase callback間に対応するcomponent taskを呼ぶ。"
+      },
+      "limitations": {
+        "en": "One preconstructed three-component chain in the default schedule, without jumps or custom synchronization. Per-component start/method/end traces are observed. Function phases check the prescribed hierarchy direction; task phases impose no component entry order. Objections explicitly keep selected task phases alive. No exact delta count, sibling order or all task/thread lifetime cases are certified.",
+        "ja": "jumpや独自同期のない既定scheduleで事前生成したcomponent 3つの鎖1つ。componentごとのstart／method／end traceを観測する。function phaseは規定階層方向を検査し、task phaseにはcomponent開始順を課さない。objectionで選択task phaseを明示維持する。正確なdelta数、兄弟順、全task／thread寿命条件は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_runtime_phases_dispatch_in_domain_order_with_matching_callbacks",
+          "role": "direct",
+          "expected_observations": [
+            "UT: phase_trace pre_reset A SME",
+            "UT: phase_trace pre_reset B SME",
+            "UT: phase_trace pre_reset C SME"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-AUDIT-RUNTIME-RESET-DISPATCH",
+      "clause": "13.1.4.2.2",
+      "statement": {
+        "en": "The run-time reset phase invokes the matching component task between its phase callbacks.",
+        "ja": "runtimeのreset phaseはphase callback間に対応するcomponent taskを呼ぶ。"
+      },
+      "conditions": {
+        "en": "Use the selected original concrete component subtypes, legal unique names, declared public types and linked observations. Construct the hierarchy before phasing where phase callbacks are observed.",
+        "ja": "選択した独自の具象component subtype、合法で一意の名、宣言された公開型、linkした観測を使う。phase callback観測時はphasing前に階層を生成する。"
+      },
+      "expected": {
+        "en": "The run-time reset phase invokes the matching component task between its phase callbacks.",
+        "ja": "runtimeのreset phaseはphase callback間に対応するcomponent taskを呼ぶ。"
+      },
+      "limitations": {
+        "en": "One preconstructed three-component chain in the default schedule, without jumps or custom synchronization. Per-component start/method/end traces are observed. Function phases check the prescribed hierarchy direction; task phases impose no component entry order. Objections explicitly keep selected task phases alive. No exact delta count, sibling order or all task/thread lifetime cases are certified.",
+        "ja": "jumpや独自同期のない既定scheduleで事前生成したcomponent 3つの鎖1つ。componentごとのstart／method／end traceを観測する。function phaseは規定階層方向を検査し、task phaseにはcomponent開始順を課さない。objectionで選択task phaseを明示維持する。正確なdelta数、兄弟順、全task／thread寿命条件は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_runtime_phases_dispatch_in_domain_order_with_matching_callbacks",
+          "role": "direct",
+          "expected_observations": [
+            "UT: phase_trace reset A SME",
+            "UT: phase_trace reset B SME",
+            "UT: phase_trace reset C SME"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-AUDIT-RUNTIME-POST-RESET-DISPATCH",
+      "clause": "13.1.4.2.3",
+      "statement": {
+        "en": "The run-time post_reset phase invokes the matching component task between its phase callbacks.",
+        "ja": "runtimeのpost_reset phaseはphase callback間に対応するcomponent taskを呼ぶ。"
+      },
+      "conditions": {
+        "en": "Use the selected original concrete component subtypes, legal unique names, declared public types and linked observations. Construct the hierarchy before phasing where phase callbacks are observed.",
+        "ja": "選択した独自の具象component subtype、合法で一意の名、宣言された公開型、linkした観測を使う。phase callback観測時はphasing前に階層を生成する。"
+      },
+      "expected": {
+        "en": "The run-time post_reset phase invokes the matching component task between its phase callbacks.",
+        "ja": "runtimeのpost_reset phaseはphase callback間に対応するcomponent taskを呼ぶ。"
+      },
+      "limitations": {
+        "en": "One preconstructed three-component chain in the default schedule, without jumps or custom synchronization. Per-component start/method/end traces are observed. Function phases check the prescribed hierarchy direction; task phases impose no component entry order. Objections explicitly keep selected task phases alive. No exact delta count, sibling order or all task/thread lifetime cases are certified.",
+        "ja": "jumpや独自同期のない既定scheduleで事前生成したcomponent 3つの鎖1つ。componentごとのstart／method／end traceを観測する。function phaseは規定階層方向を検査し、task phaseにはcomponent開始順を課さない。objectionで選択task phaseを明示維持する。正確なdelta数、兄弟順、全task／thread寿命条件は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_runtime_phases_dispatch_in_domain_order_with_matching_callbacks",
+          "role": "direct",
+          "expected_observations": [
+            "UT: phase_trace post_reset A SME",
+            "UT: phase_trace post_reset B SME",
+            "UT: phase_trace post_reset C SME"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-AUDIT-RUNTIME-PRE-CONFIGURE-DISPATCH",
+      "clause": "13.1.4.2.4",
+      "statement": {
+        "en": "The run-time pre_configure phase invokes the matching component task between its phase callbacks.",
+        "ja": "runtimeのpre_configure phaseはphase callback間に対応するcomponent taskを呼ぶ。"
+      },
+      "conditions": {
+        "en": "Use the selected original concrete component subtypes, legal unique names, declared public types and linked observations. Construct the hierarchy before phasing where phase callbacks are observed.",
+        "ja": "選択した独自の具象component subtype、合法で一意の名、宣言された公開型、linkした観測を使う。phase callback観測時はphasing前に階層を生成する。"
+      },
+      "expected": {
+        "en": "The run-time pre_configure phase invokes the matching component task between its phase callbacks.",
+        "ja": "runtimeのpre_configure phaseはphase callback間に対応するcomponent taskを呼ぶ。"
+      },
+      "limitations": {
+        "en": "One preconstructed three-component chain in the default schedule, without jumps or custom synchronization. Per-component start/method/end traces are observed. Function phases check the prescribed hierarchy direction; task phases impose no component entry order. Objections explicitly keep selected task phases alive. No exact delta count, sibling order or all task/thread lifetime cases are certified.",
+        "ja": "jumpや独自同期のない既定scheduleで事前生成したcomponent 3つの鎖1つ。componentごとのstart／method／end traceを観測する。function phaseは規定階層方向を検査し、task phaseにはcomponent開始順を課さない。objectionで選択task phaseを明示維持する。正確なdelta数、兄弟順、全task／thread寿命条件は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_runtime_phases_dispatch_in_domain_order_with_matching_callbacks",
+          "role": "direct",
+          "expected_observations": [
+            "UT: phase_trace pre_configure A SME",
+            "UT: phase_trace pre_configure B SME",
+            "UT: phase_trace pre_configure C SME"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-AUDIT-RUNTIME-CONFIGURE-DISPATCH",
+      "clause": "13.1.4.2.5",
+      "statement": {
+        "en": "The run-time configure phase invokes the matching component task between its phase callbacks.",
+        "ja": "runtimeのconfigure phaseはphase callback間に対応するcomponent taskを呼ぶ。"
+      },
+      "conditions": {
+        "en": "Use the selected original concrete component subtypes, legal unique names, declared public types and linked observations. Construct the hierarchy before phasing where phase callbacks are observed.",
+        "ja": "選択した独自の具象component subtype、合法で一意の名、宣言された公開型、linkした観測を使う。phase callback観測時はphasing前に階層を生成する。"
+      },
+      "expected": {
+        "en": "The run-time configure phase invokes the matching component task between its phase callbacks.",
+        "ja": "runtimeのconfigure phaseはphase callback間に対応するcomponent taskを呼ぶ。"
+      },
+      "limitations": {
+        "en": "One preconstructed three-component chain in the default schedule, without jumps or custom synchronization. Per-component start/method/end traces are observed. Function phases check the prescribed hierarchy direction; task phases impose no component entry order. Objections explicitly keep selected task phases alive. No exact delta count, sibling order or all task/thread lifetime cases are certified.",
+        "ja": "jumpや独自同期のない既定scheduleで事前生成したcomponent 3つの鎖1つ。componentごとのstart／method／end traceを観測する。function phaseは規定階層方向を検査し、task phaseにはcomponent開始順を課さない。objectionで選択task phaseを明示維持する。正確なdelta数、兄弟順、全task／thread寿命条件は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_runtime_phases_dispatch_in_domain_order_with_matching_callbacks",
+          "role": "direct",
+          "expected_observations": [
+            "UT: phase_trace configure A SME",
+            "UT: phase_trace configure B SME",
+            "UT: phase_trace configure C SME"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-AUDIT-RUNTIME-POST-CONFIGURE-DISPATCH",
+      "clause": "13.1.4.2.6",
+      "statement": {
+        "en": "The run-time post_configure phase invokes the matching component task between its phase callbacks.",
+        "ja": "runtimeのpost_configure phaseはphase callback間に対応するcomponent taskを呼ぶ。"
+      },
+      "conditions": {
+        "en": "Use the selected original concrete component subtypes, legal unique names, declared public types and linked observations. Construct the hierarchy before phasing where phase callbacks are observed.",
+        "ja": "選択した独自の具象component subtype、合法で一意の名、宣言された公開型、linkした観測を使う。phase callback観測時はphasing前に階層を生成する。"
+      },
+      "expected": {
+        "en": "The run-time post_configure phase invokes the matching component task between its phase callbacks.",
+        "ja": "runtimeのpost_configure phaseはphase callback間に対応するcomponent taskを呼ぶ。"
+      },
+      "limitations": {
+        "en": "One preconstructed three-component chain in the default schedule, without jumps or custom synchronization. Per-component start/method/end traces are observed. Function phases check the prescribed hierarchy direction; task phases impose no component entry order. Objections explicitly keep selected task phases alive. No exact delta count, sibling order or all task/thread lifetime cases are certified.",
+        "ja": "jumpや独自同期のない既定scheduleで事前生成したcomponent 3つの鎖1つ。componentごとのstart／method／end traceを観測する。function phaseは規定階層方向を検査し、task phaseにはcomponent開始順を課さない。objectionで選択task phaseを明示維持する。正確なdelta数、兄弟順、全task／thread寿命条件は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_runtime_phases_dispatch_in_domain_order_with_matching_callbacks",
+          "role": "direct",
+          "expected_observations": [
+            "UT: phase_trace post_configure A SME",
+            "UT: phase_trace post_configure B SME",
+            "UT: phase_trace post_configure C SME"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-AUDIT-RUNTIME-PRE-MAIN-DISPATCH",
+      "clause": "13.1.4.2.7",
+      "statement": {
+        "en": "The run-time pre_main phase invokes the matching component task between its phase callbacks.",
+        "ja": "runtimeのpre_main phaseはphase callback間に対応するcomponent taskを呼ぶ。"
+      },
+      "conditions": {
+        "en": "Use the selected original concrete component subtypes, legal unique names, declared public types and linked observations. Construct the hierarchy before phasing where phase callbacks are observed.",
+        "ja": "選択した独自の具象component subtype、合法で一意の名、宣言された公開型、linkした観測を使う。phase callback観測時はphasing前に階層を生成する。"
+      },
+      "expected": {
+        "en": "The run-time pre_main phase invokes the matching component task between its phase callbacks.",
+        "ja": "runtimeのpre_main phaseはphase callback間に対応するcomponent taskを呼ぶ。"
+      },
+      "limitations": {
+        "en": "One preconstructed three-component chain in the default schedule, without jumps or custom synchronization. Per-component start/method/end traces are observed. Function phases check the prescribed hierarchy direction; task phases impose no component entry order. Objections explicitly keep selected task phases alive. No exact delta count, sibling order or all task/thread lifetime cases are certified.",
+        "ja": "jumpや独自同期のない既定scheduleで事前生成したcomponent 3つの鎖1つ。componentごとのstart／method／end traceを観測する。function phaseは規定階層方向を検査し、task phaseにはcomponent開始順を課さない。objectionで選択task phaseを明示維持する。正確なdelta数、兄弟順、全task／thread寿命条件は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_runtime_phases_dispatch_in_domain_order_with_matching_callbacks",
+          "role": "direct",
+          "expected_observations": [
+            "UT: phase_trace pre_main A SME",
+            "UT: phase_trace pre_main B SME",
+            "UT: phase_trace pre_main C SME"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-AUDIT-RUNTIME-MAIN-DISPATCH",
+      "clause": "13.1.4.2.8",
+      "statement": {
+        "en": "The run-time main phase invokes the matching component task between its phase callbacks.",
+        "ja": "runtimeのmain phaseはphase callback間に対応するcomponent taskを呼ぶ。"
+      },
+      "conditions": {
+        "en": "Use the selected original concrete component subtypes, legal unique names, declared public types and linked observations. Construct the hierarchy before phasing where phase callbacks are observed.",
+        "ja": "選択した独自の具象component subtype、合法で一意の名、宣言された公開型、linkした観測を使う。phase callback観測時はphasing前に階層を生成する。"
+      },
+      "expected": {
+        "en": "The run-time main phase invokes the matching component task between its phase callbacks.",
+        "ja": "runtimeのmain phaseはphase callback間に対応するcomponent taskを呼ぶ。"
+      },
+      "limitations": {
+        "en": "One preconstructed three-component chain in the default schedule, without jumps or custom synchronization. Per-component start/method/end traces are observed. Function phases check the prescribed hierarchy direction; task phases impose no component entry order. Objections explicitly keep selected task phases alive. No exact delta count, sibling order or all task/thread lifetime cases are certified.",
+        "ja": "jumpや独自同期のない既定scheduleで事前生成したcomponent 3つの鎖1つ。componentごとのstart／method／end traceを観測する。function phaseは規定階層方向を検査し、task phaseにはcomponent開始順を課さない。objectionで選択task phaseを明示維持する。正確なdelta数、兄弟順、全task／thread寿命条件は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_runtime_phases_dispatch_in_domain_order_with_matching_callbacks",
+          "role": "direct",
+          "expected_observations": [
+            "UT: phase_trace main A SME",
+            "UT: phase_trace main B SME",
+            "UT: phase_trace main C SME"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-AUDIT-RUNTIME-POST-MAIN-DISPATCH",
+      "clause": "13.1.4.2.9",
+      "statement": {
+        "en": "The run-time post_main phase invokes the matching component task between its phase callbacks.",
+        "ja": "runtimeのpost_main phaseはphase callback間に対応するcomponent taskを呼ぶ。"
+      },
+      "conditions": {
+        "en": "Use the selected original concrete component subtypes, legal unique names, declared public types and linked observations. Construct the hierarchy before phasing where phase callbacks are observed.",
+        "ja": "選択した独自の具象component subtype、合法で一意の名、宣言された公開型、linkした観測を使う。phase callback観測時はphasing前に階層を生成する。"
+      },
+      "expected": {
+        "en": "The run-time post_main phase invokes the matching component task between its phase callbacks.",
+        "ja": "runtimeのpost_main phaseはphase callback間に対応するcomponent taskを呼ぶ。"
+      },
+      "limitations": {
+        "en": "One preconstructed three-component chain in the default schedule, without jumps or custom synchronization. Per-component start/method/end traces are observed. Function phases check the prescribed hierarchy direction; task phases impose no component entry order. Objections explicitly keep selected task phases alive. No exact delta count, sibling order or all task/thread lifetime cases are certified.",
+        "ja": "jumpや独自同期のない既定scheduleで事前生成したcomponent 3つの鎖1つ。componentごとのstart／method／end traceを観測する。function phaseは規定階層方向を検査し、task phaseにはcomponent開始順を課さない。objectionで選択task phaseを明示維持する。正確なdelta数、兄弟順、全task／thread寿命条件は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_runtime_phases_dispatch_in_domain_order_with_matching_callbacks",
+          "role": "direct",
+          "expected_observations": [
+            "UT: phase_trace post_main A SME",
+            "UT: phase_trace post_main B SME",
+            "UT: phase_trace post_main C SME"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-AUDIT-RUNTIME-PRE-SHUTDOWN-DISPATCH",
+      "clause": "13.1.4.2.10",
+      "statement": {
+        "en": "The run-time pre_shutdown phase invokes the matching component task between its phase callbacks.",
+        "ja": "runtimeのpre_shutdown phaseはphase callback間に対応するcomponent taskを呼ぶ。"
+      },
+      "conditions": {
+        "en": "Use the selected original concrete component subtypes, legal unique names, declared public types and linked observations. Construct the hierarchy before phasing where phase callbacks are observed.",
+        "ja": "選択した独自の具象component subtype、合法で一意の名、宣言された公開型、linkした観測を使う。phase callback観測時はphasing前に階層を生成する。"
+      },
+      "expected": {
+        "en": "The run-time pre_shutdown phase invokes the matching component task between its phase callbacks.",
+        "ja": "runtimeのpre_shutdown phaseはphase callback間に対応するcomponent taskを呼ぶ。"
+      },
+      "limitations": {
+        "en": "One preconstructed three-component chain in the default schedule, without jumps or custom synchronization. Per-component start/method/end traces are observed. Function phases check the prescribed hierarchy direction; task phases impose no component entry order. Objections explicitly keep selected task phases alive. No exact delta count, sibling order or all task/thread lifetime cases are certified.",
+        "ja": "jumpや独自同期のない既定scheduleで事前生成したcomponent 3つの鎖1つ。componentごとのstart／method／end traceを観測する。function phaseは規定階層方向を検査し、task phaseにはcomponent開始順を課さない。objectionで選択task phaseを明示維持する。正確なdelta数、兄弟順、全task／thread寿命条件は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_runtime_phases_dispatch_in_domain_order_with_matching_callbacks",
+          "role": "direct",
+          "expected_observations": [
+            "UT: phase_trace pre_shutdown A SME",
+            "UT: phase_trace pre_shutdown B SME",
+            "UT: phase_trace pre_shutdown C SME"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-AUDIT-RUNTIME-SHUTDOWN-DISPATCH",
+      "clause": "13.1.4.2.11",
+      "statement": {
+        "en": "The run-time shutdown phase invokes the matching component task between its phase callbacks.",
+        "ja": "runtimeのshutdown phaseはphase callback間に対応するcomponent taskを呼ぶ。"
+      },
+      "conditions": {
+        "en": "Use the selected original concrete component subtypes, legal unique names, declared public types and linked observations. Construct the hierarchy before phasing where phase callbacks are observed.",
+        "ja": "選択した独自の具象component subtype、合法で一意の名、宣言された公開型、linkした観測を使う。phase callback観測時はphasing前に階層を生成する。"
+      },
+      "expected": {
+        "en": "The run-time shutdown phase invokes the matching component task between its phase callbacks.",
+        "ja": "runtimeのshutdown phaseはphase callback間に対応するcomponent taskを呼ぶ。"
+      },
+      "limitations": {
+        "en": "One preconstructed three-component chain in the default schedule, without jumps or custom synchronization. Per-component start/method/end traces are observed. Function phases check the prescribed hierarchy direction; task phases impose no component entry order. Objections explicitly keep selected task phases alive. No exact delta count, sibling order or all task/thread lifetime cases are certified.",
+        "ja": "jumpや独自同期のない既定scheduleで事前生成したcomponent 3つの鎖1つ。componentごとのstart／method／end traceを観測する。function phaseは規定階層方向を検査し、task phaseにはcomponent開始順を課さない。objectionで選択task phaseを明示維持する。正確なdelta数、兄弟順、全task／thread寿命条件は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_runtime_phases_dispatch_in_domain_order_with_matching_callbacks",
+          "role": "direct",
+          "expected_observations": [
+            "UT: phase_trace shutdown A SME",
+            "UT: phase_trace shutdown B SME",
+            "UT: phase_trace shutdown C SME"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-AUDIT-RUNTIME-POST-SHUTDOWN-DISPATCH",
+      "clause": "13.1.4.2.12",
+      "statement": {
+        "en": "The run-time post_shutdown phase invokes the matching component task between its phase callbacks.",
+        "ja": "runtimeのpost_shutdown phaseはphase callback間に対応するcomponent taskを呼ぶ。"
+      },
+      "conditions": {
+        "en": "Use the selected original concrete component subtypes, legal unique names, declared public types and linked observations. Construct the hierarchy before phasing where phase callbacks are observed.",
+        "ja": "選択した独自の具象component subtype、合法で一意の名、宣言された公開型、linkした観測を使う。phase callback観測時はphasing前に階層を生成する。"
+      },
+      "expected": {
+        "en": "The run-time post_shutdown phase invokes the matching component task between its phase callbacks.",
+        "ja": "runtimeのpost_shutdown phaseはphase callback間に対応するcomponent taskを呼ぶ。"
+      },
+      "limitations": {
+        "en": "One preconstructed three-component chain in the default schedule, without jumps or custom synchronization. Per-component start/method/end traces are observed. Function phases check the prescribed hierarchy direction; task phases impose no component entry order. Objections explicitly keep selected task phases alive. No exact delta count, sibling order or all task/thread lifetime cases are certified.",
+        "ja": "jumpや独自同期のない既定scheduleで事前生成したcomponent 3つの鎖1つ。componentごとのstart／method／end traceを観測する。function phaseは規定階層方向を検査し、task phaseにはcomponent開始順を課さない。objectionで選択task phaseを明示維持する。正確なdelta数、兄弟順、全task／thread寿命条件は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_runtime_phases_dispatch_in_domain_order_with_matching_callbacks",
+          "role": "direct",
+          "expected_observations": [
+            "UT: phase_trace post_shutdown A SME",
+            "UT: phase_trace post_shutdown B SME",
+            "UT: phase_trace post_shutdown C SME"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-AUDIT-PHASE-START-CALLBACK",
+      "clause": "13.1.4.3.1",
+      "statement": {
+        "en": "The selected common and run-time phase start callbacks identify their phase before its component method.",
+        "ja": "選択common／runtime phaseのstart callbackはcomponent method前にそのphaseを示す。"
+      },
+      "conditions": {
+        "en": "Use the selected original concrete component subtypes, legal unique names, declared public types and linked observations. Construct the hierarchy before phasing where phase callbacks are observed.",
+        "ja": "選択した独自の具象component subtype、合法で一意の名、宣言された公開型、linkした観測を使う。phase callback観測時はphasing前に階層を生成する。"
+      },
+      "expected": {
+        "en": "The selected common and run-time phase start callbacks identify their phase before its component method.",
+        "ja": "選択common／runtime phaseのstart callbackはcomponent method前にそのphaseを示す。"
+      },
+      "limitations": {
+        "en": "One preconstructed three-component chain in the default schedule, without jumps or custom synchronization. Per-component start/method/end traces are observed. Function phases check the prescribed hierarchy direction; task phases impose no component entry order. Objections explicitly keep selected task phases alive. No exact delta count, sibling order or all task/thread lifetime cases are certified.",
+        "ja": "jumpや独自同期のない既定scheduleで事前生成したcomponent 3つの鎖1つ。componentごとのstart／method／end traceを観測する。function phaseは規定階層方向を検査し、task phaseにはcomponent開始順を課さない。objectionで選択task phaseを明示維持する。正確なdelta数、兄弟順、全task／thread寿命条件は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_common_phases_dispatch_with_matching_callbacks_and_hierarchy_direction",
+          "role": "direct",
+          "expected_observations": [
+            "UT: phase_trace build A SME",
+            "UT: phase_trace build B SME",
+            "UT: phase_trace build C SME",
+            "UT: phase_trace connect A SME",
+            "UT: phase_trace connect B SME",
+            "UT: phase_trace connect C SME",
+            "UT: phase_trace end_of_elaboration A SME",
+            "UT: phase_trace end_of_elaboration B SME",
+            "UT: phase_trace end_of_elaboration C SME",
+            "UT: phase_trace start_of_simulation A SME",
+            "UT: phase_trace start_of_simulation B SME",
+            "UT: phase_trace start_of_simulation C SME",
+            "UT: phase_trace run A SME",
+            "UT: phase_trace run B SME",
+            "UT: phase_trace run C SME",
+            "UT: phase_trace extract A SME",
+            "UT: phase_trace extract B SME",
+            "UT: phase_trace extract C SME",
+            "UT: phase_trace check A SME",
+            "UT: phase_trace check B SME",
+            "UT: phase_trace check C SME",
+            "UT: phase_trace report A SME",
+            "UT: phase_trace report B SME",
+            "UT: phase_trace report C SME",
+            "UT: phase_trace final A SME",
+            "UT: phase_trace final B SME",
+            "UT: phase_trace final C SME"
+          ]
+        },
+        {
+          "test": "u13/test_component_runtime_phases_dispatch_in_domain_order_with_matching_callbacks",
+          "role": "direct",
+          "expected_observations": [
+            "UT: phase_trace pre_reset A SME",
+            "UT: phase_trace pre_reset B SME",
+            "UT: phase_trace pre_reset C SME",
+            "UT: phase_trace reset A SME",
+            "UT: phase_trace reset B SME",
+            "UT: phase_trace reset C SME",
+            "UT: phase_trace post_reset A SME",
+            "UT: phase_trace post_reset B SME",
+            "UT: phase_trace post_reset C SME",
+            "UT: phase_trace pre_configure A SME",
+            "UT: phase_trace pre_configure B SME",
+            "UT: phase_trace pre_configure C SME",
+            "UT: phase_trace configure A SME",
+            "UT: phase_trace configure B SME",
+            "UT: phase_trace configure C SME",
+            "UT: phase_trace post_configure A SME",
+            "UT: phase_trace post_configure B SME",
+            "UT: phase_trace post_configure C SME",
+            "UT: phase_trace pre_main A SME",
+            "UT: phase_trace pre_main B SME",
+            "UT: phase_trace pre_main C SME",
+            "UT: phase_trace main A SME",
+            "UT: phase_trace main B SME",
+            "UT: phase_trace main C SME",
+            "UT: phase_trace post_main A SME",
+            "UT: phase_trace post_main B SME",
+            "UT: phase_trace post_main C SME",
+            "UT: phase_trace pre_shutdown A SME",
+            "UT: phase_trace pre_shutdown B SME",
+            "UT: phase_trace pre_shutdown C SME",
+            "UT: phase_trace shutdown A SME",
+            "UT: phase_trace shutdown B SME",
+            "UT: phase_trace shutdown C SME",
+            "UT: phase_trace post_shutdown A SME",
+            "UT: phase_trace post_shutdown B SME",
+            "UT: phase_trace post_shutdown C SME"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-AUDIT-PHASE-END-CALLBACK",
+      "clause": "13.1.4.3.3",
+      "statement": {
+        "en": "The selected common and run-time phase end callbacks identify their phase after its component method.",
+        "ja": "選択common／runtime phaseのend callbackはcomponent method後にそのphaseを示す。"
+      },
+      "conditions": {
+        "en": "Use the selected original concrete component subtypes, legal unique names, declared public types and linked observations. Construct the hierarchy before phasing where phase callbacks are observed.",
+        "ja": "選択した独自の具象component subtype、合法で一意の名、宣言された公開型、linkした観測を使う。phase callback観測時はphasing前に階層を生成する。"
+      },
+      "expected": {
+        "en": "The selected common and run-time phase end callbacks identify their phase after its component method.",
+        "ja": "選択common／runtime phaseのend callbackはcomponent method後にそのphaseを示す。"
+      },
+      "limitations": {
+        "en": "One preconstructed three-component chain in the default schedule, without jumps or custom synchronization. Per-component start/method/end traces are observed. Function phases check the prescribed hierarchy direction; task phases impose no component entry order. Objections explicitly keep selected task phases alive. No exact delta count, sibling order or all task/thread lifetime cases are certified.",
+        "ja": "jumpや独自同期のない既定scheduleで事前生成したcomponent 3つの鎖1つ。componentごとのstart／method／end traceを観測する。function phaseは規定階層方向を検査し、task phaseにはcomponent開始順を課さない。objectionで選択task phaseを明示維持する。正確なdelta数、兄弟順、全task／thread寿命条件は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_common_phases_dispatch_with_matching_callbacks_and_hierarchy_direction",
+          "role": "direct",
+          "expected_observations": [
+            "UT: phase_trace build A SME",
+            "UT: phase_trace build B SME",
+            "UT: phase_trace build C SME",
+            "UT: phase_trace connect A SME",
+            "UT: phase_trace connect B SME",
+            "UT: phase_trace connect C SME",
+            "UT: phase_trace end_of_elaboration A SME",
+            "UT: phase_trace end_of_elaboration B SME",
+            "UT: phase_trace end_of_elaboration C SME",
+            "UT: phase_trace start_of_simulation A SME",
+            "UT: phase_trace start_of_simulation B SME",
+            "UT: phase_trace start_of_simulation C SME",
+            "UT: phase_trace run A SME",
+            "UT: phase_trace run B SME",
+            "UT: phase_trace run C SME",
+            "UT: phase_trace extract A SME",
+            "UT: phase_trace extract B SME",
+            "UT: phase_trace extract C SME",
+            "UT: phase_trace check A SME",
+            "UT: phase_trace check B SME",
+            "UT: phase_trace check C SME",
+            "UT: phase_trace report A SME",
+            "UT: phase_trace report B SME",
+            "UT: phase_trace report C SME",
+            "UT: phase_trace final A SME",
+            "UT: phase_trace final B SME",
+            "UT: phase_trace final C SME"
+          ]
+        },
+        {
+          "test": "u13/test_component_runtime_phases_dispatch_in_domain_order_with_matching_callbacks",
+          "role": "direct",
+          "expected_observations": [
+            "UT: phase_trace pre_reset A SME",
+            "UT: phase_trace pre_reset B SME",
+            "UT: phase_trace pre_reset C SME",
+            "UT: phase_trace reset A SME",
+            "UT: phase_trace reset B SME",
+            "UT: phase_trace reset C SME",
+            "UT: phase_trace post_reset A SME",
+            "UT: phase_trace post_reset B SME",
+            "UT: phase_trace post_reset C SME",
+            "UT: phase_trace pre_configure A SME",
+            "UT: phase_trace pre_configure B SME",
+            "UT: phase_trace pre_configure C SME",
+            "UT: phase_trace configure A SME",
+            "UT: phase_trace configure B SME",
+            "UT: phase_trace configure C SME",
+            "UT: phase_trace post_configure A SME",
+            "UT: phase_trace post_configure B SME",
+            "UT: phase_trace post_configure C SME",
+            "UT: phase_trace pre_main A SME",
+            "UT: phase_trace pre_main B SME",
+            "UT: phase_trace pre_main C SME",
+            "UT: phase_trace main A SME",
+            "UT: phase_trace main B SME",
+            "UT: phase_trace main C SME",
+            "UT: phase_trace post_main A SME",
+            "UT: phase_trace post_main B SME",
+            "UT: phase_trace post_main C SME",
+            "UT: phase_trace pre_shutdown A SME",
+            "UT: phase_trace pre_shutdown B SME",
+            "UT: phase_trace pre_shutdown C SME",
+            "UT: phase_trace shutdown A SME",
+            "UT: phase_trace shutdown B SME",
+            "UT: phase_trace shutdown C SME",
+            "UT: phase_trace post_shutdown A SME",
+            "UT: phase_trace post_shutdown B SME",
+            "UT: phase_trace post_shutdown C SME"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-AUDIT-RUNTIME-DOMAIN-ORDER",
+      "clause": "9.8.2",
+      "statement": {
+        "en": "The selected default-domain runtime tasks dispatch in the prescribed phase order.",
+        "ja": "選択した既定domain runtime taskは規定されたphase順でdispatchする。"
+      },
+      "conditions": {
+        "en": "Use the selected original concrete component subtypes, legal unique names, declared public types and linked observations. Construct the hierarchy before phasing where phase callbacks are observed.",
+        "ja": "選択した独自の具象component subtype、合法で一意の名、宣言された公開型、linkした観測を使う。phase callback観測時はphasing前に階層を生成する。"
+      },
+      "expected": {
+        "en": "The selected default-domain runtime tasks dispatch in the prescribed phase order.",
+        "ja": "選択した既定domain runtime taskは規定されたphase順でdispatchする。"
+      },
+      "limitations": {
+        "en": "One preconstructed three-component chain in the default schedule, without jumps or custom synchronization. Per-component start/method/end traces are observed. Function phases check the prescribed hierarchy direction; task phases impose no component entry order. Objections explicitly keep selected task phases alive. No exact delta count, sibling order or all task/thread lifetime cases are certified.",
+        "ja": "jumpや独自同期のない既定scheduleで事前生成したcomponent 3つの鎖1つ。componentごとのstart／method／end traceを観測する。function phaseは規定階層方向を検査し、task phaseにはcomponent開始順を課さない。objectionで選択task phaseを明示維持する。正確なdelta数、兄弟順、全task／thread寿命条件は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_runtime_phases_dispatch_in_domain_order_with_matching_callbacks",
+          "role": "direct",
+          "expected_observations": [
+            "UT: runtime_method_sequence pre_reset/reset/post_reset/pre_configure/configure/post_configure/pre_main/main/post_main/pre_shutdown/shutdown/post_shutdown/"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-AUDIT-EXIT-PRE-ABORT",
+      "clause": "13.1.4.6",
+      "statement": {
+        "en": "A UVM_EXIT report invokes component pre_abort hooks before simulation termination.",
+        "ja": "UVM_EXIT reportはsimulation終了前にcomponentのpre_abort hookを呼ぶ。"
+      },
+      "conditions": {
+        "en": "Use the selected original concrete component subtypes, legal unique names, declared public types and linked observations. Construct the hierarchy before phasing where phase callbacks are observed.",
+        "ja": "選択した独自の具象component subtype、合法で一意の名、宣言された公開型、linkした観測を使う。phase callback観測時はphasing前に階層を生成する。"
+      },
+      "expected": {
+        "en": "A UVM_EXIT report invokes component pre_abort hooks before simulation termination.",
+        "ja": "UVM_EXIT reportはsimulation終了前にcomponentのpre_abort hookを呼ぶ。"
+      },
+      "limitations": {
+        "en": "One original chain and an explicitly selected INFO report with UVM_EXIT. No fatal diagnostic layout, sibling order, maximum-quit-count trigger or external abort handler is tested. No observer implements the library traversal.",
+        "ja": "独自の鎖1つと、UVM_EXITを明示選択したINFO reportを使う。fatal診断layout、兄弟順、最大quit-count trigger、外部abort handlerは検査しない。observerはlibrary走査を実装しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_exit_action_calls_pre_abort_bottom_up_before_termination",
+          "role": "direct",
+          "expected_observations": [
+            "UT: pre_abort C",
+            "UT: pre_abort B",
+            "UT: pre_abort A"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-AUDIT-PRE-ABORT-BOTTOM-UP",
+      "clause": "13.1.4.6",
+      "statement": {
+        "en": "The selected pre_abort chain is called from descendant to ancestor.",
+        "ja": "選択pre_abortの鎖は子孫から祖先へ呼ばれる。"
+      },
+      "conditions": {
+        "en": "Use the selected original concrete component subtypes, legal unique names, declared public types and linked observations. Construct the hierarchy before phasing where phase callbacks are observed.",
+        "ja": "選択した独自の具象component subtype、合法で一意の名、宣言された公開型、linkした観測を使う。phase callback観測時はphasing前に階層を生成する。"
+      },
+      "expected": {
+        "en": "The selected pre_abort chain is called from descendant to ancestor.",
+        "ja": "選択pre_abortの鎖は子孫から祖先へ呼ばれる。"
+      },
+      "limitations": {
+        "en": "One original chain and an explicitly selected INFO report with UVM_EXIT. No fatal diagnostic layout, sibling order, maximum-quit-count trigger or external abort handler is tested. No observer implements the library traversal.",
+        "ja": "独自の鎖1つと、UVM_EXITを明示選択したINFO reportを使う。fatal診断layout、兄弟順、最大quit-count trigger、外部abort handlerは検査しない。observerはlibrary走査を実装しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_exit_action_calls_pre_abort_bottom_up_before_termination",
+          "role": "direct",
+          "expected_observations": [
+            "UT: pre_abort C",
+            "UT: pre_abort B",
+            "UT: pre_abort A"
+          ]
+        }
+      ]
     }
   ]
 }

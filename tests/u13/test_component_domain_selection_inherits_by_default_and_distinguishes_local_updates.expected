@@ -1,0 +1,3 @@
+UT: default_domains root 1 child 1 grand 1 peer 1
+UT: inherited_domains root 1 child 1 grand 1 peer 1 callback 1
+UT: local_domain root 1 child 1 grand 1 peer 1 callback 1

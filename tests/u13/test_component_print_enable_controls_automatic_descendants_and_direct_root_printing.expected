@@ -1,0 +1,5 @@
+UT: child_print_defaults selected 1 peer 1 grand 1
+UT: child_print_all root 1 selected 1 peer 1 grand 1
+UT: child_print_disabled root 1 selected 0 peer 1 grand 0
+UT: child_print_direct selected 1 grand 1
+UT: child_print_field_stage root 0 selected 1 peer 1 grand 1

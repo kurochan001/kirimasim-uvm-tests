@@ -2,7 +2,7 @@
 
 [English](history.md) · [README](../README.ja.md)
 
-M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の45回目の拡充（全1540件：simulation 1506・elaboration 34）までを記録しています。以前の349件の時点は
+M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の46回目の拡充（全1560件：simulation 1521・elaboration 39）までを記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -2063,3 +2063,20 @@ interface導入の矛盾とzero-time relevance guardを保持し、goal第17反�
 未変更の以前のnative 1517記録と修正入力を保持します。guest互換入力は1083でGhostは各seed pass 207／fail 876、kirimasimはunsupported 1074／fail 9、未測定457（simulation 423／elaboration 34）です。
 部分集合件数の変化はfilterで、新実行や改善ではありません。別VPI記録を保持し、tool test 110件、metadata、台帳／library、evidence、日英検査は成功します。
 schema、runner／library／catalog、workflow、SVGは未変更で、人のレビュー、分母承認、goal完了は主張しません。
+
+## M1〜M4の薄い領域の46回目の拡充
+
+M1 20 fixtureで第13章componentを補強します。family constructor／名目的型、抽象直接生成5件、environment既定値、
+許可名と同名error、child印刷、domain選択／定義、user protocol dispatch、exact driver endpoint／既定put、string agent設定、common／runtime phase callback、exit／pre_abort方向を扱います。
+error observerは不正呼出の回復を仮定せず自身で終了します。phaseの鎖は事前生成し、function方向を検査しつつ並行task開始順は未規定のままにします。suspend／resumeはuser dispatchだけを観測します。
+
+runtime 15件はVerilator 5.052のseed 1／73に一致し、対象compiler拒否5件はruntimeを実行しません。
+以前の全1540 fixture／入力hash・記録・2443要求・243分類を未変更で保持します。新AI案77件で2520、構造7／文脈10の追加で分類260（183／77）です。
+第13章は部分80／分類18／未評価12、全体は1416／260／831で、今回は未評価67減、goal 18反復では632減です。全ての部分条件とmilestone目標は未完了です。
+
+全1560件はsimulation 1521／elaboration 39、M1 573（544／29）、M2 538（533／5）、M3 449（444／5）です。
+通常Verilatorは1368 pass（runtime両seed一致1331、compiler拒否37）と未変更known 192です。互換guest fileは1083記録をbyte単位で保持し、未測定477（438／39）は以前の修正2入力を含みます。
+別HDL／command-line evidenceは7／1と17／1のままで、新guest実行は主張しません。
+
+tool test 110件、metadata、台帳／索引／library同一性、native生結果とcompiler診断、互換な保持evidence、日英guide 10組の用語239語・FAQ 218回答を検査します。
+schema、runner、library／catalog、workflow、SVG 6つは未変更です。範囲は提案、棚卸し未完、分母／割合null、AI照合、goal有効を保持し、人の承認やgoal完了は主張しません。

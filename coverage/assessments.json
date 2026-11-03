@@ -3658,6 +3658,279 @@
         "reviewer": null,
         "reviewed_at": null
       }
+    },
+    {
+      "clause": "13",
+      "classification": "structural",
+      "rationale": {
+        "en": "Predefined component classes is a chapter heading; numbered class and interface duties follow.",
+        "ja": "Predefined component classesは章見出しで、番号付きclass／interface義務が続く。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "13.1.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "Common methods groups constructor, print-enable state and field-operation behavior specified in its children.",
+        "ja": "Common methodsは下位で規定されるconstructor、print-enable状態、field-operation動作を整理する。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "13.1.4.1",
+      "classification": "structural",
+      "rationale": {
+        "en": "UVM common phases is a grouping heading; nine method contracts follow.",
+        "ja": "UVM common phasesは整理見出しで、method契約9つが続く。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "13.1.4.4",
+      "classification": "structural",
+      "rationale": {
+        "en": "Domain methods is a grouping heading; set/get/define duties remain in the three children.",
+        "ja": "Domain methodsは整理見出しで、set／get／define義務は下位3条項に保持する。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "13.4.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "Agent methods groups construction and activity queries without adding separate behavior.",
+        "ja": "Agent methodsは別の動作を加えず生成とactivity照会を整理する。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "13.7.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "Pull driver ports groups the independently declared request and response endpoints.",
+        "ja": "Pull driver portsは独立に宣言されたrequest／response endpointを整理する。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "13.8.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "Push driver ports groups the request export and response port; default-put and transport duties stay below.",
+        "ja": "Push driver portsはrequest exportとresponse portを整理し、既定put／transport義務は下位に保持する。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "13.1.3",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The hierarchy introduction explains topology access; child lookup and full-name duties remain explicit below.",
+        "ja": "hierarchy導入はtopologyアクセスを説明し、child lookupとfull-name義務は下位に明示保持する。"
+      },
+      "related_requirements": [
+        "UVM-COMPONENT-DIRECT-CHILD-HANDLE",
+        "UVM-COMPONENT-FULL-NAME"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "13.1.4.5",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The introduction names the suspension/resumption extension points. Their methods require user protocol implementations, retained as selected public dispatch duties rather than a generic library algorithm.",
+        "ja": "導入は停止／再開の拡張点を示す。methodが要求するuser protocol実装は共通library algorithmとせず選択公開dispatch義務に保持する。"
+      },
+      "related_requirements": [
+        "UVM-COMPONENT-AUDIT-SUSPEND-VIRTUAL-PROTOCOL",
+        "UVM-COMPONENT-AUDIT-RESUME-VIRTUAL-PROTOCOL"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "13.1.5",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The introduction motivates configurable topology/state. Matching resources, field operations and automatic-build selection remain explicit requirements; this description adds no separate configuration algorithm.",
+        "ja": "導入は設定可能なtopology／状態の目的を説明する。resource一致、field operation、自動build選択は明示要求に保持し、本説明で別の設定algorithmを加えない。"
+      },
+      "related_requirements": [
+        "UVM-COMPONENT-CONFIG-SCOPE-SELECTION",
+        "UVM-COMPONENT-CONFIG-SET-OPERATION-EXACT-RHS",
+        "UVM-COMPONENT-AUTOMATIC-CONFIG-DEFAULT-ENABLED"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "13.1.7",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The recording introduction identifies component-level transaction observation. Concrete timing, stream and property-recording duties remain below; application-specific error/event recording is still open.",
+        "ja": "recording導入はcomponent単位のtransaction観測を説明する。具体的なtime、stream、property記録義務は下位に保持し、application固有のerror／event記録は未完了である。"
+      },
+      "related_requirements": [
+        "UVM-COMPONENT-ACCEPT-TIME-FORWARDING",
+        "UVM-COMPONENT-STREAM-CACHE-PAIR-IDENTITY",
+        "UVM-COMPONENT-END-RECORDS-AFTER-POST-HOOK"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "13.3",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The environment introduction describes hierarchical reuse. Constructor and component-base contracts remain explicit; it mandates no fixed topology or contents.",
+        "ja": "environment導入は階層的再利用を説明する。constructorとcomponent-base契約は明示保持し、固定topology／内容を必須にしない。"
+      },
+      "related_requirements": [
+        "UVM-COMPONENT-AUDIT-ENV-COMPONENT-BASE",
+        "UVM-COMPONENT-AUDIT-ENV-NAMED-CONSTRUCTOR"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "13.4",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The agent introduction recommends the distinguishing base type. The declared type and activity contracts remain explicit rather than certifying arbitrary agent implementations.",
+        "ja": "agent導入は区別可能なbase型を推奨する。宣言typeとactivity契約を明示保持し、任意agent実装を認定しない。"
+      },
+      "related_requirements": [
+        "UVM-COMPONENT-AUDIT-AGENT-COMPONENT-BASE",
+        "UVM-COMPONENT-AUDIT-AGENT-STRING-ACTIVITY",
+        "UVM-AGENT-ACTIVITY-QUERY"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "13.5",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The monitor introduction recommends its distinguishing base type and explains future inherited features; it adds no mandatory monitor protocol.",
+        "ja": "monitor導入は区別可能なbase型を推奨し、将来の継承featureを説明する。必須monitor protocolを追加しない。"
+      },
+      "related_requirements": [
+        "UVM-COMPONENT-AUDIT-MONITOR-COMPONENT-BASE",
+        "UVM-COMPONENT-AUDIT-MONITOR-NAMED-CONSTRUCTOR"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "13.6",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The scoreboard introduction recommends its distinguishing base type and explains future inheritance; no scoreboard algorithm is specified here.",
+        "ja": "scoreboard導入は区別可能なbase型を推奨し将来の継承を説明する。ここでscoreboard algorithmを規定しない。"
+      },
+      "related_requirements": [
+        "UVM-COMPONENT-AUDIT-SCOREBOARD-COMPONENT-BASE",
+        "UVM-COMPONENT-AUDIT-SCOREBOARD-NAMED-CONSTRUCTOR"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "13.7",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The pull-driver introduction explains initiative and typical endpoint wiring. Typed endpoints and real request acknowledgement stay explicit; typical connections are not made mandatory for unused response ports.",
+        "ja": "pull-driver導入は開始側と典型endpoint接続を説明する。型付endpointと実request acknowledgeは明示保持し、未使用response portの典型接続を必須にしない。"
+      },
+      "related_requirements": [
+        "UVM-COMPONENT-AUDIT-PULL-DRIVER-REQUEST-TYPE",
+        "UVM-COMPONENT-AUDIT-PULL-DRIVER-RESPONSE-TYPE",
+        "UVM-SEQUENCER-PULL-REQUEST-ACKNOWLEDGEMENT"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "13.8",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The push-driver introduction explains passive receipt and typical connections. Default-put override and blocking completion remain explicit; an unused response port is not required to be connected.",
+        "ja": "push-driver導入は受動受信と典型接続を説明する。既定put overrideとblocking完了は明示保持し、未使用response portの接続を必須にしない。"
+      },
+      "related_requirements": [
+        "UVM-COMPONENT-AUDIT-PUSH-OVERRIDE-DISPATCH",
+        "UVM-COMPONENT-AUDIT-PUSH-DEFAULT-PUT-ERROR",
+        "UVM-PUSH-SEQUENCER-BLOCKING-COMPLETION"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
     }
   ]
 }

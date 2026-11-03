@@ -1,0 +1,35 @@
+UT: phase_trace build A SME
+UT: phase_trace build B SME
+UT: phase_trace build C SME
+UT: common_method_order build ABC
+UT: phase_trace connect A SME
+UT: phase_trace connect B SME
+UT: phase_trace connect C SME
+UT: common_method_order connect CBA
+UT: phase_trace end_of_elaboration A SME
+UT: phase_trace end_of_elaboration B SME
+UT: phase_trace end_of_elaboration C SME
+UT: common_method_order end_of_elaboration CBA
+UT: phase_trace start_of_simulation A SME
+UT: phase_trace start_of_simulation B SME
+UT: phase_trace start_of_simulation C SME
+UT: common_method_order start_of_simulation CBA
+UT: phase_trace run A SME
+UT: phase_trace run B SME
+UT: phase_trace run C SME
+UT: phase_trace extract A SME
+UT: phase_trace extract B SME
+UT: phase_trace extract C SME
+UT: common_method_order extract CBA
+UT: phase_trace check A SME
+UT: phase_trace check B SME
+UT: phase_trace check C SME
+UT: common_method_order check CBA
+UT: phase_trace report A SME
+UT: phase_trace report B SME
+UT: phase_trace report C SME
+UT: common_method_order report CBA
+UT: phase_trace final A SME
+UT: phase_trace final B SME
+UT: phase_trace final C SME
+UT: common_method_order final ABC

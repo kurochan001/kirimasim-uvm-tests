@@ -1124,3 +1124,19 @@ through resolved pull connectors to a real sequencer implementation.
 
 **Rerandomization Boolean observation**: A predicate that checks whether the
 request was randomized at least once without fixing retry or callback counts.
+
+**Component domain**: The selected public phase-domain handle assigned to a
+component. A hierarchical assignment can propagate it to descendants; schedule
+definition and actual asynchronous execution are separate conditions.
+
+**Child print gate**: A component's print_enabled bit controls its automatic
+printing as a child. It does not prohibit a caller from printing it directly
+as a root with an explicitly selected printer policy.
+
+**User protocol dispatch**: A component base view calls a user-supplied virtual
+suspend/resume implementation. Its own state is an observer of dispatch, not
+a generic library process-control algorithm.
+
+**Terminal error observer**: An original report catcher that terminates its
+own simulation after observing a required generic error. It avoids prescribing
+invalid-call recovery, return behavior or post-error object state.
