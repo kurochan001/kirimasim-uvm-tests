@@ -2,7 +2,7 @@
 
 [English](history.md) · [README](../README.ja.md)
 
-M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の30回目の拡充（シミュレーション1301件）までを記録しています。以前の349件の時点は
+M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の31回目の拡充（シミュレーション1313件）までを記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -1782,3 +1782,24 @@ goalは有効なままで、範囲／分母を承認しません。
 tool単体101件、全1301 metadata、台帳／索引、library整合性、日英資料、互換evidenceを検証し、日英10組、FAQ 173回答・用語194語を照合します。
 通常／HDL／guest runner、以前の入力、catalog、scope、lock、license、Issue方針、SVG 6 asset、以前のevidenceは未変更です。
 CIへ別command-line 17件を追加し、timeoutを150分へ増やします。
+
+## M1〜M4の薄い領域の31回目の拡充
+
+継続goalの3反復目でM2の12検査系を追加し、継承／型parameter 4件、標準protected counter 2件、巡回index 3件、relevance待ち中のkill 2件、親子sequencer stop／新規traffic 1件を扱います。
+最終入力はすべてseed 1・73一致で、全体1313件、M1 447件、M2 470件、M3 396件です。初回probeの問題は期待観測を変えず修正し、
+forkが使う記憶域をstaticにし、継承fieldのrandomizeをsubtype method内で指定し、counter libraryを実際のsequencerへbindしました。
+公開getterやmode APIをlegacy fieldで置換しません。protected counterは0、実行中の子の除外、完了prefix、最終10回、peer分離を観測します。
+randcは幅、有効index、重複しない2 cycle、単一候補の再利用、subtype制約の部分集合を順序固定なしで観測します。
+kill／stop cleanupは実要求、gate、公開状態／hook、その後の実driver完了を使い、必要なpost-hook差分は保持します。
+
+AI要求案23件で台帳1802件、1312テストへ直接対応し、別control 1件があります。既存6要求へ直接link 9件を加え、全ての元のlinkを保持し、
+1つの制限注記で以前の手動2回getter検査と新しい既定10回protected-field probeを区別しました。未変更RAND 3検査系へ、再測定せず導入の対応付けを加えます。
+個別に読んだ導入／例5件で分類91件、構造81件・文脈10件です。第14章は部分分解89番号・分類17番号で未評価0件です。
+全体2,507番号は部分分解1015件、分類91件、未評価1,401件となり、今回12件減、goal有効化から62件減です。
+主引用645番号、いずれかの引用1,305番号、候補の棚卸しは0件1,837、1件367、2件以上278です。部分的なreview evidenceであり、範囲／分母や人の承認はありません。
+
+互換な通常記録は以前の1301入力をすべて保持し、pass 1154件、known 159件です。内訳は実行時の最初の差分117件、API欠落build 16件、DPI未link build 26件です。
+別command-line evidenceはpass 17／known 1、HDL VPIはpass 7／fail 1のままです。guest記録は未変更1085入力で、現在の228 IDは未測定です。
+tool単体101件、全1313 metadata、台帳／索引／library同一性、互換evidence、日英10組のFAQ 176回答・用語197語を照合します。
+以前の入力、全runner／tool、CI、catalog、backend、scope、lock、license、Issue方針、SVG 6 asset、別VPI記録は未変更です。
+部分分解した残る義務を含め、goalは有効なままです。

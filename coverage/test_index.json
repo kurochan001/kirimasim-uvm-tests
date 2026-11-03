@@ -1854,6 +1854,10 @@
       "primary_clause": "14.2.3.1",
       "inputs_sha256": "cb71ca6ddae6bd1542767ae2c7376d2e89653dc387ccea3b1107dbc2ef99eddf"
     },
+    "u14/test_concrete_sequence_base_subtype_runs_through_item_and_sequence_views": {
+      "primary_clause": "14.2.1",
+      "inputs_sha256": "df7aa770964281c4d30394742dfe2a25c2ca1cb9e0b60d1d63906d5df14a9082"
+    },
     "u14/test_sequence_automatic_objection_disabled_leaves_starting_phase_unobjected": {
       "primary_clause": "14.2.4.3",
       "inputs_sha256": "10daa4d02d1afdf45936e3e9967955349fb0aad8f61dd42b3dd72abf78ad1566"
@@ -1990,6 +1994,10 @@
       "primary_clause": "14.1.2.4",
       "inputs_sha256": "bec8a82f3cd8f880f025828bebfb03375324fafe24ac3f493d5fbb8bfdb91e0a"
     },
+    "u14/test_sequence_item_inherits_transaction_identity_and_virtual_naming": {
+      "primary_clause": "14.1.1",
+      "inputs_sha256": "da85571e904c20769877692527d2dc541cab1bd57affcf03b1efe5d57e512986"
+    },
     "u14/test_sequence_item_reporting_filters_each_severity_before_virtual_processing": {
       "primary_clause": "14.1.3.3",
       "inputs_sha256": "52c07cccbb628189e8d88a5723135b10e0153d332e4772d4df6bbe6085b9a69e"
@@ -2021,6 +2029,14 @@
     "u14/test_sequence_kill_drops_automatic_objection_to_starting_phase": {
       "primary_clause": "14.2.5.11",
       "inputs_sha256": "363f8a56d99a638759b6ad3b127c14e5700e69918a6585fcda44c2206acf9665"
+    },
+    "u14/test_sequence_kill_during_relevance_wait_allows_a_fresh_peer": {
+      "primary_clause": "14.2.5.11",
+      "inputs_sha256": "41614fd7a246f28a38edda3ade8279e86e8380ac26cc6e3fb46584c9a4a76b0c"
+    },
+    "u14/test_sequence_kill_during_relevance_wait_allows_a_surviving_waiter": {
+      "primary_clause": "14.2.5.11",
+      "inputs_sha256": "dc739ed00123252025e179a7f7d2772ff3fe8bd8164969d0074073fb73a1fc14"
     },
     "u14/test_sequence_kill_executes_required_post_hooks_when_bound": {
       "primary_clause": "14.2.5.11",
@@ -2101,6 +2117,30 @@
     "u14/test_sequence_library_index_membership_is_local_to_each_library_instance": {
       "primary_clause": "14.4.4.10",
       "inputs_sha256": "134c1b1d3e1ccb3a368fd9f17fca9c44741b290e8dfe682089a9e58274bae776"
+    },
+    "u14/test_sequence_library_inherits_the_selected_request_and_response_sequence_type": {
+      "primary_clause": "14.4.1",
+      "inputs_sha256": "f8f0e458177c64bf3fe36116c2ed65968c2a9f16411f4588f22f5b605ab7312f"
+    },
+    "u14/test_sequence_library_protected_counter_excludes_gated_children_and_preserves_a_peer": {
+      "primary_clause": "14.4.4.5",
+      "inputs_sha256": "7ae71c4bb6bdb4b0864b532dad4503b73e3b570f645edcafadf65ee5978cbbd1"
+    },
+    "u14/test_sequence_library_protected_counter_excludes_timed_children_and_preserves_a_peer": {
+      "primary_clause": "14.4.4.5",
+      "inputs_sha256": "150bd74b86439b60fe524e4573688d1d98de974705a3e59ca5151ef0130af862"
+    },
+    "u14/test_sequence_library_randc_field_preserves_cycles_for_singleton": {
+      "primary_clause": "14.4.4.8",
+      "inputs_sha256": "0d65364f74bb13bab2a5a7da769586194beac8c09169551dc22e194fa14018d0"
+    },
+    "u14/test_sequence_library_randc_field_preserves_cycles_for_subset": {
+      "primary_clause": "14.4.4.8",
+      "inputs_sha256": "a37edfbfac9a2acf4b95aac59fd4e59d218c68ae47d1ebdb7f7b2823a94b9194"
+    },
+    "u14/test_sequence_library_randc_field_preserves_cycles_for_three_indices": {
+      "primary_clause": "14.4.4.8",
+      "inputs_sha256": "5a1bf87a3759e185dfdfdc28e29112cb4df357cc160bc2da5618782e55dbac3a"
     },
     "u14/test_sequence_library_remove_instance_type_preserves_other_library": {
       "primary_clause": "14.4.5.5",
@@ -2321,6 +2361,10 @@
     "u14/test_sequence_targeted_response_wait_ignores_two_unmatched_arrivals": {
       "primary_clause": "14.3.3.3",
       "inputs_sha256": "ff6a46a76a688602174cf51dc4f25fa4910b322a06cbd69c7a78b781e370693e"
+    },
+    "u14/test_sequence_type_defaults_and_distinct_request_response_parameters_preserve_fields": {
+      "primary_clause": "14.3.1",
+      "inputs_sha256": "96478ccb460be4dd3784ae739c699b43d6e0076776efde6ff3aab5d2a7fa3eae"
     },
     "u14/test_sequence_unbounded_response_queue_exceeds_default_depth": {
       "primary_clause": "14.2.7.6",
@@ -2669,6 +2713,10 @@
     "u15/test_sequencer_zero_response_history_keeps_delivery_and_can_be_reenabled": {
       "primary_clause": "15.3.4.2.1",
       "inputs_sha256": "7b0a78d499ee51ba1342b336e3f8254e6d572c35812a3af589e77910b8795ad0"
+    },
+    "u15/test_stop_sequences_cancels_a_child_relevance_wait_and_allows_fresh_traffic": {
+      "primary_clause": "15.3.2.14",
+      "inputs_sha256": "324c89298ca15b81a4ef0f596012482a13158cc8bdd01aeb3903ac862d8b7d00"
     },
     "u15/test_stop_sequences_cancels_queued_lock_and_grab_before_fresh_transfer": {
       "primary_clause": "15.3.2.14",

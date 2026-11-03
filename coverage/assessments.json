@@ -1233,6 +1233,91 @@
         "reviewer": null,
         "reviewed_at": null
       }
+    },
+    {
+      "clause": "14",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The introduction describes sequence encapsulation, extension, reuse and composition. Selected capabilities are decomposed by the related declaration and execution requirements; it adds no separate scheduling algorithm. Broader composition conditions remain open.",
+        "ja": "導入はsequenceの手続き化、拡張、再利用、合成を説明する。選択した能力は関連する宣言／実行要求へ分解し、別のschedule algorithmを追加しない。より広い合成条件は残る。"
+      },
+      "related_requirements": [
+        "UVM-SEQUENCE-NATURAL-START-COMPLETION",
+        "UVM-SEQ-REVIEW-EXPLICIT-REQUEST-RESPONSE-TYPES"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "14.1",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The overview identifies the common item/sequence foundation. Inheritance and item-versus-sequence category are specified by the related declaration and predicate obligations, without another standalone method.",
+        "ja": "概要はitem／sequence共通の基礎を示す。継承とitem／sequence分類は関連する宣言／predicate義務で規定され、別の単独methodを追加しない。"
+      },
+      "related_requirements": [
+        "UVM-SEQ-REVIEW-ITEM-TRANSACTION-BASE",
+        "UVM-ITEM-SEQUENCE-PREDICATE"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "14.2",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The overview introduces item/child-sequence generation and execution through start or macros. The selected direct-start behavior is decomposed by child-method requirements; this does not certify all macro or stream combinations.",
+        "ja": "概要はitem／子sequence生成と、startまたはmacroによる実行を導入する。選択した直接start動作は子method要求へ分解し、全macro／streamの組合せを認定しない。"
+      },
+      "related_requirements": [
+        "UVM-SEQUENCE-NATURAL-START-COMPLETION",
+        "UVM-SEQUENCE-CHILD-PARENT-HOOKS"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "14.3",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The brief overview describes the generic sequence interface. Parameter defaults, distinct item-derived types and base inheritance are decomposed in the related declaration requirements rather than counted twice. Transfer and composition semantics remain separate.",
+        "ja": "短い概要はgeneric sequence interfaceを説明する。parameter既定値、異なるitem派生型、基底継承は関連宣言要求へ分解し、二重計数しない。転送と合成の意味は別に保持する。"
+      },
+      "related_requirements": [
+        "UVM-SEQ-REVIEW-DEFAULT-REQUEST-TYPE",
+        "UVM-SEQ-REVIEW-DEFAULT-RESPONSE-TYPE",
+        "UVM-SEQ-REVIEW-EXPLICIT-REQUEST-RESPONSE-TYPES"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "14.4.2",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The labeled example illustrates a subtype declaration with registration/sequence-library macros and superclass construction. It introduces no independent API beyond the surrounding declaration/constructor and macro clauses. The related original fixture observes typed inheritance without copying the example or claiming every static-registration behavior.",
+        "ja": "Exampleと表示する部分は、登録／sequence-library macroとsuperclass生成を使うsubtype宣言を例示する。周囲の宣言／constructorとmacro条項以外の独立APIを導入しない。関連する独自検査系は例を複製せず型付き継承を観測し、全static登録動作は認定しない。"
+      },
+      "related_requirements": [
+        "UVM-SEQ-REVIEW-LIBRARY-PARAMETERIZED-BASE"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
     }
   ]
 }

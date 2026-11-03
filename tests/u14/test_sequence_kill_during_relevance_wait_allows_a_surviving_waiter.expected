@@ -1,0 +1,4 @@
+UT: relevance_wait canceled 1 no_delivery 1
+UT: canceled stopped 1 returned 1 finished 0 hook 1
+UT: survivor_waiting 1 finished 0
+UT: fresh_transfer delivered 1 value 22 canceled_finished 0

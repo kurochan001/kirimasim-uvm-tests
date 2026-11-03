@@ -3,8 +3,8 @@
 [日本語](history.ja.md) · [README](../README.md)
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and thirty cross-milestone thin-area expansions, including the
-existing-test requirement-link backlog checkpoint (1301 simulation tests). The earlier 349-test checkpoint is
+three M4 increments and thirty-one cross-milestone thin-area expansions, including the
+existing-test requirement-link backlog checkpoint (1313 simulation tests). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -2567,3 +2567,43 @@ library integrity, bilingual guides and compatible evidence. Ten guide pairs,
 guest runners, prior inputs, catalog, scope, lock, licenses, Issue policy,
 six SVG assets and prior evidence remain unchanged. CI adds the seventeen
 separate command-line checks and increases its timeout to 150 minutes.
+
+## Thirty-first thin-area expansion across M1–M4
+
+The third persistent-goal iteration adds twelve M2 fixtures: four inheritance/
+type-parameter cases, two standard protected-counter cases, three cyclic-index
+cases, two relevance-wait kills and one nested sequencer stop with fresh traffic.
+All final inputs match seeds 1 and 73. The suite reaches 1313: M1 447, M2 470
+and M3 396. Initial probe issues were corrected without changing expected
+observations: fork-owned storage is static, inherited field randomization is
+named inside a subtype method, and counter libraries use a real bound sequencer.
+No public getter or mode API is substituted with a legacy field. Protected
+counter probes observe zero, active-child exclusion, completed prefixes, final
+ten-count and peer isolation. Randc probes observe width, legal indices, two
+nonrepeating cycles, singleton reuse and a subtype-constrained subset without
+fixing order. Kill/stop cleanup uses actual requests, gates, public states/hooks
+and subsequent real driver completion; required post-hook differences remain.
+
+Twenty-three AI drafts bring the ledger to 1802, directly linked to 1312 tests
+plus one control. Six existing requirements gain nine direct links while
+preserving all prior links; one limitation clarifies the earlier manual two-count
+getter fixture versus the new default-ten protected-field probes. Three unchanged
+RAND fixtures gain introduction-level mappings without remeasurement. Five
+individually read introductions/example sections bring assessments to 91:
+81 structural and ten contextual. Chapter 14 now has 89 partial identifiers,
+17 assessments and zero unassessed. Overall, 1015 of 2,507 identifiers are
+partial, 91 assessed and 1,401 unassessed: twelve fewer this iteration and
+62 fewer since activation. Primary focus is 645, any citation 1,305; the
+candidate census is 1,837 zero, 367 one and 278 at least two. All remain partial
+review evidence, without scope/denominator or human approval.
+
+Compatible ordinary records retain all 1301 prior inputs: 1154 pass and
+159 known (117 runtime first differences, sixteen missing-API builds and
+26 unlinked-DPI builds). Separate command-line evidence remains seventeen
+pass/one known; HDL VPI remains seven pass/one fail. Guest records retain
+1085 unchanged inputs with 228 current IDs unmeasured. Validation covers
+101 tool tests, all 1313 metadata records, ledger/index/library identities,
+compatible evidence and ten guide pairs with 176 FAQ answers and 197 glossary
+entries. Previous inputs, all runners/tools, CI, catalog, backend, scope, lock,
+licenses, Issue policy, six SVG assets and separate VPI records are unchanged.
+The goal remains active, including the remaining partial obligations.

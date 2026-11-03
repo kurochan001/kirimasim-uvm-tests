@@ -1,0 +1,3 @@
+UT: child_wait parent 1 child 1 parent_context 1 no_delivery 1
+UT: stopped parent 1 child 1 returned 1 hooks 1
+UT: after_stop delivered 1 value 99 fresh 1 child_finished 0 parent_after 0

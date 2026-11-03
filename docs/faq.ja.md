@@ -122,7 +122,7 @@ Ghostは公開前のシミュレータの仮名です。実行ファイルの識
 ### Q12. uvm_dpi: yesだけでDPIを使うビルドが完成しますか
 
 既定のマクロ一覧から`UVM_NO_DPI`を外す指定です。UVMのC/C++実装の供給・リンクは行いません。
-通常のVerilator runnerは、そのsourceを追加しません。`UVM_NO_DPI`が1275件、HDL DPIの明示選択が8件です。
+通常のVerilator runnerは、そのsourceを追加しません。`UVM_NO_DPI`が1287件、HDL DPIの明示選択が8件です。
 別の18検査系はHDLを無効にしてcommand-line／regex DPIを明示して有効化し、
 [command-line runner](testing.ja.md#verilatorのcommand-line部分集合)がその別backendをlinkします。
 [別のVPI runner](testing.ja.md#verilatorのvpi-hdl部分集合)は独自の限定backendをlinkし、結果は宣言した実行条件だけに適用します。
@@ -923,8 +923,8 @@ controlの対応は、その要求の直接の検査ではありません。
 
 ### Q77. M4を始めたのに、カバレッジ率がないのはなぜですか
 
-AIによる1779要求案は部分的な分解で、1779要求を1300テストへ直接対応付け、直接未対応は0要求、別の1テストはcontrolです。
-全1301テストに要求の対応付けがあります。2,507の条項番号は規範的要求の単位ではありません。
+AIによる1802要求案は部分的な分解で、1802要求を1312テストへ直接対応付け、直接未対応は0要求、別の1テストはcontrolです。
+全1313テストに要求の対応付けがあります。2,507の条項番号は規範的要求の単位ではありません。
 範囲は提案、棚卸しは未完、分母は未承認で、M4の開始はどれの承認にもなりません。
 既知差分やHDL／DPIの制約によって義務を暗黙に除外しません。[承認までの手順](requirements.ja.md#m4の残作業と承認)を参照してください。
 
@@ -1709,7 +1709,7 @@ user backdoorは16 bit locationをモデル化します。location独立性、�
 
 いいえ。`tests_without_requirement_links`は0で、現在の全テストに、明示的なdirectまたはcontrolの対応があります。
 別の集計`requirements_without_direct_tests`も0件です。memory-walkの対応はQ134の限定した歴史的解釈で、
-省略されたIEEEの詳細の承認ではありません。HDL depositと利用可否には、明示VPI検査系があります。catalogの識別子1,413件も未評価です。
+省略されたIEEEの詳細の承認ではありません。HDL depositと利用可否には、明示VPI検査系があります。catalogの識別子1,401件も未評価です。
 分解と人のレビューは未完で、分母は未承認です。
 
 [新しいpolicyテスト](../tests/u16/test_policy_object_stack_tracks_nested_active_policy_push_and_pop.sv)は、
@@ -1786,7 +1786,7 @@ frontdoor保護のwarningはalgorithm oracleの対象外で、ERRORと観測し�
 個別に読んだ後、日英の根拠とAI／人のレビューを[番号の分類](../coverage/assessments.json)へ記録すれば可能です。
 構造上の見出しは関連要求を持たず、文脈の説明は既存要求を指定します。
 未レビューの記録、推測した分類、親への集約では外せません。生成状態は`assessed`で、要求条項の`partial`と区別します。
-現在の分類は86件で、分母承認や新たなpassを加えません。第11章の未評価0件でも、その要求の完了ではありません。
+現在の分類は91件で、分母承認や新たなpassを加えません。第11章の未評価0件でも、その要求の完了ではありません。
 
 ### Q136. 明示strict configurationで新規検査は成功しますか？
 
@@ -2138,3 +2138,26 @@ YESの比較対象は9を受け付けます。generic期待出力は警告要求
 完了しません。22番号は部分分解18件・明示した構造分類4件です。宣言と選択した組込みoptionはphase default sequence 1件を含む実際の観測を持ちますが、
 regex suffix抽出、不正な式／option、重複の各条件、wildcard／ALLの組合せ、同時刻の順序、non-run phase、広いresource優先順位は残ります。
 別の[条件marker](testing.ja.md#verilatorのcommand-line部分集合)は再現済みcheckを選び、要求範囲やgoalを再定義しません。
+
+## Sequence宣言、巡回fieldと中止
+
+### Q174. Protected実行counterの観測は、欠落したgetterを置き換えますか？
+
+置き換えません。14.4.4.5はprotected counterを明示するため、独自subtypeでそのfieldを観測できます。
+[gateを使う検査系](../tests/u14/test_sequence_library_protected_counter_excludes_gated_children_and_preserves_a_peer.sv)は、
+実行前0、実行中の子の除外、完了子の件数、peerの保持を検査します。bound sequencer contextと既定10子回数を使い、driver itemは転送しません。
+既存の公開getter検査はAPI欠落buildを保持し、getter成功は推論しません。unbound libraryの適用可否と再開時counter resetは別のレビュー条件です。
+
+### Q175. 巡回fieldの抽選はRANDC modeのlibrary実行を認定しますか？
+
+認定しません。[3 index検査系](../tests/u14/test_sequence_library_randc_field_preserves_cycles_for_three_indices.sv)は、
+標準の16-bit randc field、有効な登録index、重複しない完全cycle 2回を検査します。単一候補と拡張部分集合で合法domainを変え、乱数順序を固定しません。
+subtype probeのrandomize呼出しで継承fieldを指定します。直接のfield観測であり、欠落した標準mode APIをlegacy mode memberで置換せず、
+RANDC modeの選択／実行は未完として保持します。
+
+### Q176. Relevance待ちの要求に対するkillとstopは何を追加しますか？
+
+driverが独自relevance待ちへ入った後、そのsequenceをkillすると、待機要求を削除してstartを解放し、無関係な待機者を保持する必要があります。
+生存側または新規peerが、その後実際のitem転送を完了します。[親子stopの検査系](../tests/u15/test_stop_sequences_cancels_a_child_relevance_wait_and_allows_fresh_traffic.sv)は、
+activeな親子tree、両停止状態、kill hook、その後の新規trafficを検査します。非公開request queueや正確なpoll／hook回数は使いません。
+必要なpost-body／post-start hookは別のspec-only差分のままで、cleanupの成功をkill契約全体のpassへ変えません。

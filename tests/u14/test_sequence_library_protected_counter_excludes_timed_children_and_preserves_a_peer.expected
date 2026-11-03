@@ -1,0 +1,4 @@
+UT: counter_initial value 0 peer 0
+UT: counter_first completed 0 started 1 finished 0
+UT: counter_second completed 1 started 2 finished 1 peer 0
+UT: counter_final completed 10 started 10 finished 10 peer 0

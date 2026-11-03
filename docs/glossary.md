@@ -949,3 +949,19 @@ for one explicitly identified runner condition. Command-line fixtures use
 to change a non-overridable command-line quit limit. Correct rejection and
 correct diagnostic severity are separate observations; see
 [Q172](faq.md#q172-why-is-the-locked-quit-limit-correct-while-the-test-still-differs).
+
+## Sequence field and lifecycle observations
+
+**Standard protected-member probe** — An original subtype observation of an
+explicitly standardized protected field. It checks that field's contract,
+not a missing public accessor; see
+[Q174](faq.md#q174-does-observing-the-protected-execution-counter-replace-its-missing-getter).
+
+**Cyclic-field observation** — Directly randomizing the standard cyclic index
+and checking finite legal-domain cycles. It does not prove that a library's
+mode-controlled execution selects children through that field.
+
+**Relevance-wait cancellation** — Terminating a sequence while its pending
+request is ineligible. Stopped state, start return, survivor preservation and
+subsequent real traffic are distinct observations, not a complete proof of
+all termination hooks.

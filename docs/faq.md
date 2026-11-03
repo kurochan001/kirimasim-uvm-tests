@@ -135,7 +135,7 @@ See [Ghost setup](testing.md#ghost).
 
 It removes `UVM_NO_DPI` from the default macro list. It does not supply or link
 UVM's C/C++ implementation. The current Verilator runner does not add those
-sources. There are 1275 `UVM_NO_DPI` cases and eight explicit HDL-DPI cases.
+sources. There are 1287 `UVM_NO_DPI` cases and eight explicit HDL-DPI cases.
 Eighteen more fixtures explicitly enable command-line/regex DPI with HDL disabled.
 The [command-line runner](testing.md#verilator-command-line-subset) links that separate backend.
 The [separate VPI runner](testing.md#verilator-vpi-hdl-subset) links the original
@@ -1143,9 +1143,9 @@ not a direct test of the requirement.
 
 ### Q77. Why is there no coverage percentage after starting M4?
 
-The 1779 AI drafts cover only a partial decomposition: 1779 requirements link
-directly to 1300 tests; all drafts have direct tests, and one separate test is a control.
-All 1301 tests have requirement links. The 2,507 clause identifiers are not normative requirement units.
+The 1802 AI drafts cover only a partial decomposition: 1802 requirements link
+directly to 1312 tests; all drafts have direct tests, and one separate test is a control.
+All 1313 tests have requirement links. The 2,507 clause identifiers are not normative requirement units.
 The scope is proposed, the inventory incomplete and the denominator unapproved;
 starting M4 approves none of those. Known differences and HDL/DPI limitations
 do not silently exclude obligations. See the [approval path](requirements.md#remaining-m4-work-and-approval).
@@ -2145,7 +2145,7 @@ No. `tests_without_requirement_links` is zero: every current test has an
 explicit direct or control link. The separate counter
 `requirements_without_direct_tests` is zero. The memory-walk link uses the
 qualified historical interpretation in Q134. It is not approval of missing
-IEEE detail. HDL deposit and accessibility use explicit VPI fixtures. Another 1,413
+IEEE detail. HDL deposit and accessibility use explicit VPI fixtures. Another 1,401
 catalog identifiers remain unassessed; decomposition and human review are
 incomplete, and the denominator remains unapproved.
 
@@ -2246,7 +2246,7 @@ in [identifier assessments](../coverage/assessments.json). Structural headings
 have no related requirements; contextual descriptions name existing requirements.
 An unreviewed record, guessed classification or parent rollup cannot do this.
 The generated state is `assessed`, separate from `partial` requirement clauses.
-Eighty-six classifications currently exist, with no denominator approval or new pass.
+Ninety-one classifications currently exist, with no denominator approval or new pass.
 Chapter 11's zero unassessed identifiers still does not complete its requirements.
 
 ### Q136. Does explicit strict configuration make the new cases pass?
@@ -2711,3 +2711,36 @@ extraction, malformed expressions/options, duplicate variants, wildcard/ALL
 combinations, equal-time ordering, non-run phases and wider resource precedence
 remain. The separate [condition marker](testing.md#verilator-command-line-subset)
 selects reproduced checks without redefining the requirement scope or goal.
+
+## Sequence declarations, cyclic fields and cancellation
+
+### Q174. Does observing the protected execution counter replace its missing getter?
+
+No. Clause 14.4.4.5 explicitly declares a protected counter, so an original
+subtype may observe that field. The [gated fixture](../tests/u14/test_sequence_library_protected_counter_excludes_gated_children_and_preserves_a_peer.sv)
+checks zero before execution, excludes the active child, counts completed
+children and preserves a peer. It uses bound sequencer context and the default
+ten-child budget without driver items. Existing public-getter fixtures retain
+their missing-API builds; no getter success is inferred. Unbound-library
+applicability and counter reset on restart remain separate review conditions.
+
+### Q175. Do cyclic field draws establish RANDC-mode library execution?
+
+No. The [three-index fixture](../tests/u14/test_sequence_library_randc_field_preserves_cycles_for_three_indices.sv)
+checks the standard sixteen-bit randc field, valid registered indices and two
+complete nonrepeating cycles. Singleton and extension-subset fixtures vary
+its legal domain without fixing random order. A subtype probe names the
+inherited field in the randomize call. These are direct field observations;
+the missing standard mode APIs are not replaced with a legacy mode member,
+and RANDC-mode selection/execution remains open.
+
+### Q176. What do kill and stop add while a request is waiting for relevance?
+
+The driver first enters the custom relevance wait. Killing that sequence must
+remove its pending request, release start and preserve an unrelated waiter.
+The survivor or a fresh peer then completes a real item transfer. The
+[nested-stop fixture](../tests/u15/test_stop_sequences_cancels_a_child_relevance_wait_and_allows_fresh_traffic.sv)
+checks a parent/child active tree, both stopped states and kill hooks, followed
+by fresh traffic. No private request queue or exact polling/hook count is
+used. Required post-body/post-start hooks remain separate spec-only differences;
+these successful cleanup cases do not make the whole kill contract pass.

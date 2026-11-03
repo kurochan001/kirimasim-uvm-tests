@@ -21116,6 +21116,20 @@
             "UT: direct item 1 sequence 0",
             "UT: base item 1 sequence 0"
           ]
+        },
+        {
+          "test": "u14/test_sequence_item_inherits_transaction_identity_and_virtual_naming",
+          "role": "direct",
+          "expected_observations": [
+            "UT: item inheritance nonnull 1 identity 1 category 1 name 1"
+          ]
+        },
+        {
+          "test": "u14/test_concrete_sequence_base_subtype_runs_through_item_and_sequence_views",
+          "role": "direct",
+          "expected_observations": [
+            "UT: sequence inheritance item 1 transaction 1 category 1"
+          ]
         }
       ]
     },
@@ -21404,6 +21418,13 @@
             "UT: allocated_state 1",
             "UT: first calls 1 finished 1",
             "UT: second calls 2 finished 1"
+          ]
+        },
+        {
+          "test": "u14/test_concrete_sequence_base_subtype_runs_through_item_and_sequence_views",
+          "role": "direct",
+          "expected_observations": [
+            "UT: base_dispatch bodies 1 finished 1"
           ]
         }
       ]
@@ -35405,8 +35426,8 @@
         "ja": "非強制の勝者を固定せず、ちょうど10の子bodyが完了する。"
       },
       "limitations": {
-        "en": "Existing source, metadata, expected output and evidence remain unchanged. Registration links use wrapper identity and set membership rather than ordering; selector cases call a fixed-range hook directly without establishing USER-mode execution. RAND execution uses a legal default budget and singleton/constrained/unforced membership, not randomness quality. The active-counter fixture manually sets two without randomizing the library. Missing standard control/counter APIs and static-removal/missing-warning differences remain spec-only.",
-        "ja": "既存のsource、metadata、期待出力、evidenceは変更しない。登録linkは順序でなくwrapperの同一性と集合の所属を使い、selector検査系は固定rangeのhookを直接呼んでUSER modeの実行は示さない。RAND実行は合法な既定回数と単一／constraint／非強制の所属を使い、乱数の品質は示さない。実行中counterの検査系は、libraryをrandomizeせず手動で2を設定する。標準制御／counter APIの欠落と、static削除／warning欠落の差分はspec-onlyを保持する。"
+        "en": "Existing source, metadata, expected output and evidence remain unchanged. Registration links use wrapper identity and set membership rather than ordering; selector cases call a fixed-range hook directly without establishing USER-mode execution. RAND execution uses a legal default budget and singleton/constrained/unforced membership, not randomness quality. The active-counter fixture manually sets two without randomizing the library. Missing standard control/counter APIs and static-removal/missing-warning differences remain spec-only. The manual two-count note describes the earlier getter fixture; the added protected-field probes retain the default ten-count budget.",
+        "ja": "既存のsource、metadata、期待出力、evidenceは変更しない。登録linkは順序でなくwrapperの同一性と集合の所属を使い、selector検査系は固定rangeのhookを直接呼んでUSER modeの実行は示さない。RAND実行は合法な既定回数と単一／constraint／非強制の所属を使い、乱数の品質は示さない。実行中counterの検査系は、libraryをrandomizeせず手動で2を設定する。標準制御／counter APIの欠落と、static削除／warning欠落の差分はspec-onlyを保持する。 手動2回という注記は以前のgetter検査系を指し、追加のprotected-field probeは既定10回を保持する。"
       },
       "review": {
         "status": "ai",
@@ -35426,6 +35447,20 @@
           "role": "direct",
           "expected_observations": [
             "UT: executed_total 10"
+          ]
+        },
+        {
+          "test": "u14/test_sequence_library_protected_counter_excludes_timed_children_and_preserves_a_peer",
+          "role": "direct",
+          "expected_observations": [
+            "UT: counter_final completed 10 started 10 finished 10 peer 0"
+          ]
+        },
+        {
+          "test": "u14/test_sequence_library_protected_counter_excludes_gated_children_and_preserves_a_peer",
+          "role": "direct",
+          "expected_observations": [
+            "UT: counter_final completed 10 started 10 finished 10 peer 0"
           ]
         }
       ]
@@ -38832,6 +38867,13 @@
           "expected_observations": [
             "UT: stopped 1 1 1 kills 1 1 1 returned 1",
             "UT: late_writes 0 0 0"
+          ]
+        },
+        {
+          "test": "u15/test_stop_sequences_cancels_a_child_relevance_wait_and_allows_fresh_traffic",
+          "role": "direct",
+          "expected_observations": [
+            "UT: stopped parent 1 child 1 returned 1 hooks 1"
           ]
         }
       ]
@@ -56881,6 +56923,20 @@
           "expected_observations": [
             "UT: stopped 1 kill_calls 1 start_returned 1"
           ]
+        },
+        {
+          "test": "u14/test_sequence_kill_during_relevance_wait_allows_a_fresh_peer",
+          "role": "direct",
+          "expected_observations": [
+            "UT: canceled stopped 1 returned 1 finished 0 hook 1"
+          ]
+        },
+        {
+          "test": "u14/test_sequence_kill_during_relevance_wait_allows_a_surviving_waiter",
+          "role": "direct",
+          "expected_observations": [
+            "UT: canceled stopped 1 returned 1 finished 0 hook 1"
+          ]
         }
       ]
     },
@@ -56914,6 +56970,13 @@
           "role": "direct",
           "expected_observations": [
             "UT: stopped 1 1 kills 1 1 returned 1 1"
+          ]
+        },
+        {
+          "test": "u15/test_stop_sequences_cancels_a_child_relevance_wait_and_allows_fresh_traffic",
+          "role": "direct",
+          "expected_observations": [
+            "UT: stopped parent 1 child 1 returned 1 hooks 1"
           ]
         }
       ]
@@ -66163,6 +66226,869 @@
           "role": "direct",
           "expected_observations": [
             "UT: quit after 7 warning 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQ-REVIEW-ITEM-TRANSACTION-BASE",
+      "clause": "14.1.1",
+      "statement": {
+        "en": "A sequence item derives from the transaction base type.",
+        "ja": "sequence itemはtransaction基底型から派生する。"
+      },
+      "conditions": {
+        "en": "A concrete item is assigned to transaction and object base handles.",
+        "ja": "具象itemをtransactionとobjectの基底handleへ代入する。"
+      },
+      "expected": {
+        "en": "Both nonnull base views denote the same item.",
+        "ja": "両nonnull基底viewは同じitemを指す。"
+      },
+      "limitations": {
+        "en": "Positive public type compatibility and supplied field identity only; no invalid-type rejection, physical item transfer, randomization completeness or object-layout guarantee is asserted.",
+        "ja": "公開型の正の互換性と指定fieldの同一性のみ。不正型の拒否、実際のitem転送、randomizationの完全性、object配置は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_item_inherits_transaction_identity_and_virtual_naming",
+          "role": "direct",
+          "expected_observations": [
+            "UT: item inheritance nonnull 1 identity 1 category 1 name 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQ-REVIEW-SEQUENCE-ITEM-BASE",
+      "clause": "14.2.1",
+      "statement": {
+        "en": "A concrete sequence-base subtype is usable as a sequence item.",
+        "ja": "具象sequence-base subtypeはsequence itemとして利用できる。"
+      },
+      "conditions": {
+        "en": "An original concrete body subtype is upcast through sequence and item bases.",
+        "ja": "独自の具象body subtypeをsequence／item基底へupcastする。"
+      },
+      "expected": {
+        "en": "Item and transaction views retain the sequence handle identity.",
+        "ja": "itemとtransactionのviewはsequence handleの同一性を保持する。"
+      },
+      "limitations": {
+        "en": "Positive public type compatibility and supplied field identity only; no invalid-type rejection, physical item transfer, randomization completeness or object-layout guarantee is asserted.",
+        "ja": "公開型の正の互換性と指定fieldの同一性のみ。不正型の拒否、実際のitem転送、randomizationの完全性、object配置は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_concrete_sequence_base_subtype_runs_through_item_and_sequence_views",
+          "role": "direct",
+          "expected_observations": [
+            "UT: sequence inheritance item 1 transaction 1 category 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQ-REVIEW-DEFAULT-REQUEST-TYPE",
+      "clause": "14.3.1",
+      "statement": {
+        "en": "The omitted request parameter selects uvm_sequence_item.",
+        "ja": "省略したrequest parameterはuvm_sequence_itemを選ぶ。"
+      },
+      "conditions": {
+        "en": "A concrete sequence omits both type arguments and accepts derived item handles.",
+        "ja": "具象sequenceで両型引数を省略し、派生item handleを与える。"
+      },
+      "expected": {
+        "en": "An exact default specialization view preserves the supplied req field.",
+        "ja": "正確な既定specializationのviewは指定req fieldを保持する。"
+      },
+      "limitations": {
+        "en": "Positive public type compatibility and supplied field identity only; no invalid-type rejection, physical item transfer, randomization completeness or object-layout guarantee is asserted.",
+        "ja": "公開型の正の互換性と指定fieldの同一性のみ。不正型の拒否、実際のitem転送、randomizationの完全性、object配置は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_type_defaults_and_distinct_request_response_parameters_preserve_fields",
+          "role": "direct",
+          "expected_observations": [
+            "UT: default_types identity 1 req 1 rsp 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQ-REVIEW-DEFAULT-RESPONSE-TYPE",
+      "clause": "14.3.1",
+      "statement": {
+        "en": "The omitted response parameter defaults to the selected request type.",
+        "ja": "省略したresponse parameterは選択したrequest型を既定値にする。"
+      },
+      "conditions": {
+        "en": "Only a concrete request type is supplied to the sequence specialization.",
+        "ja": "sequence specializationへ具象request型だけを指定する。"
+      },
+      "expected": {
+        "en": "The exact same-request/response specialization accepts both supplied request objects.",
+        "ja": "request／response同型の正確なspecializationは、指定した両request objectを受け付ける。"
+      },
+      "limitations": {
+        "en": "Positive public type compatibility and supplied field identity only; no invalid-type rejection, physical item transfer, randomization completeness or object-layout guarantee is asserted.",
+        "ja": "公開型の正の互換性と指定fieldの同一性のみ。不正型の拒否、実際のitem転送、randomizationの完全性、object配置は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_type_defaults_and_distinct_request_response_parameters_preserve_fields",
+          "role": "direct",
+          "expected_observations": [
+            "UT: default_response identity 1 req 1 rsp 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQ-REVIEW-EXPLICIT-REQUEST-RESPONSE-TYPES",
+      "clause": "14.3.1",
+      "statement": {
+        "en": "Distinct item-derived request and response parameters are supported.",
+        "ja": "itemから派生した異なるrequest／response parameterを利用できる。"
+      },
+      "conditions": {
+        "en": "The sequence supplies different concrete item-derived types for REQ and RSP.",
+        "ja": "sequenceのREQとRSPへ異なる具象item派生型を指定する。"
+      },
+      "expected": {
+        "en": "The req/rsp fields retain their correctly typed supplied handles.",
+        "ja": "req／rsp fieldは、正しい型の指定handleを保持する。"
+      },
+      "limitations": {
+        "en": "Positive public type compatibility and supplied field identity only; no invalid-type rejection, physical item transfer, randomization completeness or object-layout guarantee is asserted.",
+        "ja": "公開型の正の互換性と指定fieldの同一性のみ。不正型の拒否、実際のitem転送、randomizationの完全性、object配置は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_type_defaults_and_distinct_request_response_parameters_preserve_fields",
+          "role": "direct",
+          "expected_observations": [
+            "UT: distinct_types base 1 req 1 rsp 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQ-REVIEW-PARAMETERIZED-SEQUENCE-BASE",
+      "clause": "14.3.1",
+      "statement": {
+        "en": "A parameterized sequence derives from uvm_sequence_base.",
+        "ja": "parameterized sequenceはuvm_sequence_baseから派生する。"
+      },
+      "conditions": {
+        "en": "A distinct-response sequence is assigned to a sequence-base handle.",
+        "ja": "異なるresponse型のsequenceをsequence-base handleへ代入する。"
+      },
+      "expected": {
+        "en": "The base view denotes the same concrete sequence.",
+        "ja": "基底viewは同じ具象sequenceを指す。"
+      },
+      "limitations": {
+        "en": "Positive public type compatibility and supplied field identity only; no invalid-type rejection, physical item transfer, randomization completeness or object-layout guarantee is asserted.",
+        "ja": "公開型の正の互換性と指定fieldの同一性のみ。不正型の拒否、実際のitem転送、randomizationの完全性、object配置は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_type_defaults_and_distinct_request_response_parameters_preserve_fields",
+          "role": "direct",
+          "expected_observations": [
+            "UT: distinct_types base 1 req 1 rsp 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQ-REVIEW-LIBRARY-PARAMETERIZED-BASE",
+      "clause": "14.4.1",
+      "statement": {
+        "en": "The sequence library derives from the sequence specialization selected by REQ and RSP.",
+        "ja": "sequence libraryはREQとRSPで選ぶsequence specializationから派生する。"
+      },
+      "conditions": {
+        "en": "An original library subtype uses distinct request and response types.",
+        "ja": "独自library subtypeで異なるrequest／response型を使う。"
+      },
+      "expected": {
+        "en": "The exact sequence specialization and sequence-base views preserve identity and typed fields.",
+        "ja": "正確なsequence specializationとsequence-base viewは同一性と型付きfieldを保持する。"
+      },
+      "limitations": {
+        "en": "Positive public type compatibility and supplied field identity only; no invalid-type rejection, physical item transfer, randomization completeness or object-layout guarantee is asserted.",
+        "ja": "公開型の正の互換性と指定fieldの同一性のみ。不正型の拒否、実際のitem転送、randomizationの完全性、object配置は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_library_inherits_the_selected_request_and_response_sequence_type",
+          "role": "direct",
+          "expected_observations": [
+            "UT: library_type sequence 1 base 1 req 1 rsp 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQ-REVIEW-DEFAULT-RAND-DISPATCH",
+      "clause": "14.4",
+      "statement": {
+        "en": "Default RAND library selection creates and executes the registered type selected by its constrained index.",
+        "ja": "既定RAND library選択は、制約したindexが示す登録型を生成・実行する。"
+      },
+      "conditions": {
+        "en": "Two unchanged fixtures constrain the public selection index to the publicly enumerated alpha or beta type.",
+        "ja": "未変更の2検査系で、公開列挙したalpha／beta型へ公開選択indexを制約する。"
+      },
+      "expected": {
+        "en": "Only the selected registered type executes its ten child bodies.",
+        "ja": "選択した登録型だけが10回の子bodyを実行する。"
+      },
+      "limitations": {
+        "en": "Existing simulation inputs/evidence are unchanged. This is selected default-RAND dispatch, not all modes, random quality or missing control/counter API coverage.",
+        "ja": "既存simulation入力／evidenceは未変更。選択した既定RAND委譲のみで、全mode、乱数品質、欠落した制御／counter APIのcoverageは示さない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_library_default_rand_executes_alpha_selection",
+          "role": "direct",
+          "expected_observations": [
+            "UT: alpha 10 beta 0"
+          ]
+        },
+        {
+          "test": "u14/test_sequence_library_default_rand_executes_beta_selection",
+          "role": "direct",
+          "expected_observations": [
+            "UT: alpha 0 beta 10"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQ-REVIEW-UNFORCED-RAND-COMPLETION",
+      "clause": "14.4",
+      "statement": {
+        "en": "A default library can execute its legal registered choices without forcing a winner.",
+        "ja": "既定libraryは勝者を強制せず、合法な登録候補を実行できる。"
+      },
+      "conditions": {
+        "en": "An unchanged fixture registers two child types and leaves their selection unconstrained.",
+        "ja": "未変更検査系が2つの子型を登録し、選択を制約しない。"
+      },
+      "expected": {
+        "en": "Ten registered child bodies complete without fixing which type wins.",
+        "ja": "勝者の型を固定せず、登録子bodyが10回完了する。"
+      },
+      "limitations": {
+        "en": "Only the aggregate execution budget and registered-choice execution are checked; no distribution, fairness or mode switching is inferred.",
+        "ja": "実行回数の合計と登録候補の実行だけを検査し、分布、公平性、mode切替は推論しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_library_default_rand_executes_unforced_selection",
+          "role": "direct",
+          "expected_observations": [
+            "UT: executed_total 10"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQ-REVIEW-COUNTER-FIELD-INITIAL-ZERO",
+      "clause": "14.4.4.5",
+      "statement": {
+        "en": "The protected execution counter indicates no completed child before execution.",
+        "ja": "protected実行counterは、実行前に完了した子がないことを示す。"
+      },
+      "conditions": {
+        "en": "An active and an unstarted peer library are queried before start.",
+        "ja": "active libraryと未開始peer libraryをstart前に照会する。"
+      },
+      "expected": {
+        "en": "Both field values are zero.",
+        "ja": "両field値は0である。"
+      },
+      "limitations": {
+        "en": "Observe the explicitly standardized protected sequences_executed field through an original subtype probe in a bound library with the legal default ten-child budget. Missing standard getter tests remain unchanged; no getter success, arbitrary count bounds, unbound-library applicability or counter reset on restart is certified.",
+        "ja": "明示的に標準化されたprotected sequences_executed fieldを、bound libraryと合法な既定10子回数の独自subtype probeで観測する。欠落した標準getterの検査は未変更で、getter成功、任意の回数bound、unbound libraryの適用可否、再開時counter resetは認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_library_protected_counter_excludes_timed_children_and_preserves_a_peer",
+          "role": "direct",
+          "expected_observations": [
+            "UT: counter_initial value 0 peer 0"
+          ]
+        },
+        {
+          "test": "u14/test_sequence_library_protected_counter_excludes_gated_children_and_preserves_a_peer",
+          "role": "direct",
+          "expected_observations": [
+            "UT: counter_initial value 0 peer 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQ-REVIEW-COUNTER-FIELD-EXCLUDES-ACTIVE",
+      "clause": "14.4.4.5",
+      "statement": {
+        "en": "The execution counter excludes a currently executing child.",
+        "ja": "実行counterは、現在実行中の子を含めない。"
+      },
+      "conditions": {
+        "en": "Sample while the first child is held by a positive delay or explicit gate.",
+        "ja": "最初の子を正の遅延または明示gateで保持して観測する。"
+      },
+      "expected": {
+        "en": "One body has started, none has finished, and the completed count is zero.",
+        "ja": "1 bodyが開始し、完了はなく、完了件数は0である。"
+      },
+      "limitations": {
+        "en": "Observe the explicitly standardized protected sequences_executed field through an original subtype probe in a bound library with the legal default ten-child budget. Missing standard getter tests remain unchanged; no getter success, arbitrary count bounds, unbound-library applicability or counter reset on restart is certified.",
+        "ja": "明示的に標準化されたprotected sequences_executed fieldを、bound libraryと合法な既定10子回数の独自subtype probeで観測する。欠落した標準getterの検査は未変更で、getter成功、任意の回数bound、unbound libraryの適用可否、再開時counter resetは認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_library_protected_counter_excludes_timed_children_and_preserves_a_peer",
+          "role": "direct",
+          "expected_observations": [
+            "UT: counter_first completed 0 started 1 finished 0"
+          ]
+        },
+        {
+          "test": "u14/test_sequence_library_protected_counter_excludes_gated_children_and_preserves_a_peer",
+          "role": "direct",
+          "expected_observations": [
+            "UT: counter_first completed 0 started 1 finished 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQ-REVIEW-COUNTER-FIELD-COMPLETED-PREFIX",
+      "clause": "14.4.4.5",
+      "statement": {
+        "en": "The counter includes completed children while excluding the next active child.",
+        "ja": "counterは完了した子を含み、次の実行中の子を除く。"
+      },
+      "conditions": {
+        "en": "The first child completes and the second remains active.",
+        "ja": "最初の子が完了し、2番目の子が実行中である。"
+      },
+      "expected": {
+        "en": "Two bodies have started, one has finished, and the completed count is one.",
+        "ja": "2 bodyが開始し、1つが完了し、完了件数は1である。"
+      },
+      "limitations": {
+        "en": "Observe the explicitly standardized protected sequences_executed field through an original subtype probe in a bound library with the legal default ten-child budget. Missing standard getter tests remain unchanged; no getter success, arbitrary count bounds, unbound-library applicability or counter reset on restart is certified.",
+        "ja": "明示的に標準化されたprotected sequences_executed fieldを、bound libraryと合法な既定10子回数の独自subtype probeで観測する。欠落した標準getterの検査は未変更で、getter成功、任意の回数bound、unbound libraryの適用可否、再開時counter resetは認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_library_protected_counter_excludes_timed_children_and_preserves_a_peer",
+          "role": "direct",
+          "expected_observations": [
+            "UT: counter_second completed 1 started 2 finished 1 peer 0"
+          ]
+        },
+        {
+          "test": "u14/test_sequence_library_protected_counter_excludes_gated_children_and_preserves_a_peer",
+          "role": "direct",
+          "expected_observations": [
+            "UT: counter_second completed 1 started 2 finished 1 peer 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQ-REVIEW-COUNTER-FIELD-FINAL-COUNT",
+      "clause": "14.4.4.5",
+      "statement": {
+        "en": "The protected field reports the completed child count after the library returns.",
+        "ja": "libraryが戻った後、protected fieldは完了した子件数を示す。"
+      },
+      "conditions": {
+        "en": "The default legal budget completes all ten member bodies.",
+        "ja": "合法な既定回数で10 member bodyすべてが完了する。"
+      },
+      "expected": {
+        "en": "The final field, started and finished counts are all ten.",
+        "ja": "最終field、開始、完了の件数はすべて10である。"
+      },
+      "limitations": {
+        "en": "Observe the explicitly standardized protected sequences_executed field through an original subtype probe in a bound library with the legal default ten-child budget. Missing standard getter tests remain unchanged; no getter success, arbitrary count bounds, unbound-library applicability or counter reset on restart is certified.",
+        "ja": "明示的に標準化されたprotected sequences_executed fieldを、bound libraryと合法な既定10子回数の独自subtype probeで観測する。欠落した標準getterの検査は未変更で、getter成功、任意の回数bound、unbound libraryの適用可否、再開時counter resetは認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_library_protected_counter_excludes_timed_children_and_preserves_a_peer",
+          "role": "direct",
+          "expected_observations": [
+            "UT: counter_final completed 10 started 10 finished 10 peer 0"
+          ]
+        },
+        {
+          "test": "u14/test_sequence_library_protected_counter_excludes_gated_children_and_preserves_a_peer",
+          "role": "direct",
+          "expected_observations": [
+            "UT: counter_final completed 10 started 10 finished 10 peer 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQ-REVIEW-COUNTER-FIELD-INSTANCE-ISOLATION",
+      "clause": "14.4.4.5",
+      "statement": {
+        "en": "Executing one library leaves an unstarted peer completion counter unchanged.",
+        "ja": "一方のlibraryを実行しても、未開始peerの完了counterは変わらない。"
+      },
+      "conditions": {
+        "en": "Only one of two independently constructed libraries runs.",
+        "ja": "独立に生成した2 libraryのうち一方だけを実行する。"
+      },
+      "expected": {
+        "en": "The peer field remains zero during and after the active execution.",
+        "ja": "peer fieldはactive実行の途中と完了後も0を保持する。"
+      },
+      "limitations": {
+        "en": "Observe the explicitly standardized protected sequences_executed field through an original subtype probe in a bound library with the legal default ten-child budget. Missing standard getter tests remain unchanged; no getter success, arbitrary count bounds, unbound-library applicability or counter reset on restart is certified.",
+        "ja": "明示的に標準化されたprotected sequences_executed fieldを、bound libraryと合法な既定10子回数の独自subtype probeで観測する。欠落した標準getterの検査は未変更で、getter成功、任意の回数bound、unbound libraryの適用可否、再開時counter resetは認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_library_protected_counter_excludes_timed_children_and_preserves_a_peer",
+          "role": "direct",
+          "expected_observations": [
+            "UT: counter_second completed 1 started 2 finished 1 peer 0",
+            "UT: counter_final completed 10 started 10 finished 10 peer 0"
+          ]
+        },
+        {
+          "test": "u14/test_sequence_library_protected_counter_excludes_gated_children_and_preserves_a_peer",
+          "role": "direct",
+          "expected_observations": [
+            "UT: counter_second completed 1 started 2 finished 1 peer 0",
+            "UT: counter_final completed 10 started 10 finished 10 peer 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQ-REVIEW-RANDC-FIELD-WIDTH",
+      "clause": "14.4.4.8",
+      "statement": {
+        "en": "The standard select_randc field has sixteen bits.",
+        "ja": "標準select_randc fieldは16 bitである。"
+      },
+      "conditions": {
+        "en": "Inspect the public field in singleton, three-index and subset configurations.",
+        "ja": "単一・3 index・部分集合の設定で公開fieldを調べる。"
+      },
+      "expected": {
+        "en": "Each declaration reports width sixteen.",
+        "ja": "各宣言は幅16を示す。"
+      },
+      "limitations": {
+        "en": "Selected finite public-field randomizations only. A subtype probe names the inherited randc field; there is no legacy selection_mode substitution. Mode-controlled RANDC library execution, arbitrary registration counts, entropy quality and malformed bounds remain separate.",
+        "ja": "選択した有限の公開field randomizeのみ。subtype probeで継承randc fieldを指定し、legacy selection_modeへの置換はしない。modeで制御するRANDC library実行、任意の登録数、乱数品質、不正boundは別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_library_randc_field_preserves_cycles_for_three_indices",
+          "role": "direct",
+          "expected_observations": [
+            "UT: randc_width 16 registered 3"
+          ]
+        },
+        {
+          "test": "u14/test_sequence_library_randc_field_preserves_cycles_for_subset",
+          "role": "direct",
+          "expected_observations": [
+            "UT: randc_width 16 registered 3"
+          ]
+        },
+        {
+          "test": "u14/test_sequence_library_randc_field_preserves_cycles_for_singleton",
+          "role": "direct",
+          "expected_observations": [
+            "UT: randc_width 16 registered 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQ-REVIEW-RANDC-VALID-REGISTERED-INDEX",
+      "clause": "14.4.4.8",
+      "statement": {
+        "en": "The randomized select_randc value remains a valid registered-sequence index.",
+        "ja": "randomizeしたselect_randc値は有効な登録sequence indexに留まる。"
+      },
+      "conditions": {
+        "en": "Register one or three original member types and randomize only this field.",
+        "ja": "独自member型を1つまたは3つ登録し、このfieldだけをrandomizeする。"
+      },
+      "expected": {
+        "en": "Every sampled draw succeeds and remains in its registered index range.",
+        "ja": "観測した各抽選は成功し、登録index範囲内にある。"
+      },
+      "limitations": {
+        "en": "Selected finite public-field randomizations only. A subtype probe names the inherited randc field; there is no legacy selection_mode substitution. Mode-controlled RANDC library execution, arbitrary registration counts, entropy quality and malformed bounds remain separate.",
+        "ja": "選択した有限の公開field randomizeのみ。subtype probeで継承randc fieldを指定し、legacy selection_modeへの置換はしない。modeで制御するRANDC library実行、任意の登録数、乱数品質、不正boundは別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_library_randc_field_preserves_cycles_for_three_indices",
+          "role": "direct",
+          "expected_observations": [
+            "UT: cycle 0 randomize 1 legal 1 distribution 1",
+            "UT: cycle 1 randomize 1 legal 1 distribution 1"
+          ]
+        },
+        {
+          "test": "u14/test_sequence_library_randc_field_preserves_cycles_for_singleton",
+          "role": "direct",
+          "expected_observations": [
+            "UT: cycle 0 randomize 1 legal 1 distribution 1",
+            "UT: cycle 1 randomize 1 legal 1 distribution 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQ-REVIEW-RANDC-NONREPEATING-CYCLES",
+      "clause": "14.4.4.8",
+      "statement": {
+        "en": "The cyclic selection field visits each legal value before repeating within a complete selected cycle.",
+        "ja": "巡回選択fieldは、選択した完全cycle内で繰り返す前に各合法値を訪れる。"
+      },
+      "conditions": {
+        "en": "Three registered indices are drawn in two successive groups of three.",
+        "ja": "3登録indexを、続く2組の各3回で抽選する。"
+      },
+      "expected": {
+        "en": "Each group contains each legal index exactly once, without fixing order.",
+        "ja": "順序を固定せず、各組は各合法indexをちょうど1回含む。"
+      },
+      "limitations": {
+        "en": "Selected finite public-field randomizations only. A subtype probe names the inherited randc field; there is no legacy selection_mode substitution. Mode-controlled RANDC library execution, arbitrary registration counts, entropy quality and malformed bounds remain separate.",
+        "ja": "選択した有限の公開field randomizeのみ。subtype probeで継承randc fieldを指定し、legacy selection_modeへの置換はしない。modeで制御するRANDC library実行、任意の登録数、乱数品質、不正boundは別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_library_randc_field_preserves_cycles_for_three_indices",
+          "role": "direct",
+          "expected_observations": [
+            "UT: cycle 0 randomize 1 legal 1 distribution 1",
+            "UT: cycle 1 randomize 1 legal 1 distribution 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQ-REVIEW-RANDC-SINGLETON-REPEAT",
+      "clause": "14.4.4.8",
+      "statement": {
+        "en": "A singleton valid index remains usable across repeated complete cycles.",
+        "ja": "単一の有効indexは、完全cycleの反復でも利用できる。"
+      },
+      "conditions": {
+        "en": "One original sequence type is registered and the field is drawn six times.",
+        "ja": "独自sequence型を1つ登録し、fieldを6回抽選する。"
+      },
+      "expected": {
+        "en": "All draws succeed and select index zero.",
+        "ja": "全抽選が成功し、index 0を選ぶ。"
+      },
+      "limitations": {
+        "en": "Selected finite public-field randomizations only. A subtype probe names the inherited randc field; there is no legacy selection_mode substitution. Mode-controlled RANDC library execution, arbitrary registration counts, entropy quality and malformed bounds remain separate.",
+        "ja": "選択した有限の公開field randomizeのみ。subtype probeで継承randc fieldを指定し、legacy selection_modeへの置換はしない。modeで制御するRANDC library実行、任意の登録数、乱数品質、不正boundは別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_library_randc_field_preserves_cycles_for_singleton",
+          "role": "direct",
+          "expected_observations": [
+            "UT: cycle 0 randomize 1 legal 1 distribution 1",
+            "UT: cycle 1 randomize 1 legal 1 distribution 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQ-REVIEW-RANDC-EXTENSION-CONSTRAINT",
+      "clause": "14.4.4.8",
+      "statement": {
+        "en": "An extension can constrain the cyclic selector to a legal subset of registered indices.",
+        "ja": "拡張は巡回selectorを、登録indexの合法な部分集合へ制約できる。"
+      },
+      "conditions": {
+        "en": "A subtype adds the subset {0,2} within three registered indices.",
+        "ja": "subtypeで3登録index内の部分集合{0,2}を追加する。"
+      },
+      "expected": {
+        "en": "Each two-draw cycle includes zero and two once, excluding one.",
+        "ja": "各2抽選cycleは0と2を各1回含み、1を除く。"
+      },
+      "limitations": {
+        "en": "Selected finite public-field randomizations only. A subtype probe names the inherited randc field; there is no legacy selection_mode substitution. Mode-controlled RANDC library execution, arbitrary registration counts, entropy quality and malformed bounds remain separate.",
+        "ja": "選択した有限の公開field randomizeのみ。subtype probeで継承randc fieldを指定し、legacy selection_modeへの置換はしない。modeで制御するRANDC library実行、任意の登録数、乱数品質、不正boundは別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_library_randc_field_preserves_cycles_for_subset",
+          "role": "direct",
+          "expected_observations": [
+            "UT: cycle 0 randomize 1 legal 1 distribution 1",
+            "UT: cycle 1 randomize 1 legal 1 distribution 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQ-REVIEW-KILL-RELEVANCE-PENDING-REQUEST",
+      "clause": "14.2.5.11",
+      "statement": {
+        "en": "Killing a relevance-blocked sequence removes its pending request from the default sequencer.",
+        "ja": "relevanceで待つsequenceをkillすると、既定sequencerからその待機要求を取り除く。"
+      },
+      "conditions": {
+        "en": "The driver has entered wait_for_relevant before the sequence is killed.",
+        "ja": "sequenceをkillする前にdriverがwait_for_relevantへ入っている。"
+      },
+      "expected": {
+        "en": "The canceled start returns stopped and a real fresh peer transfer completes.",
+        "ja": "中止したstartは停止状態で戻り、実際の新しいpeer転送が完了する。"
+      },
+      "limitations": {
+        "en": "Real pending item requests and positive settling delays are observed using public APIs and original gates. Exact polling/hook counts, private arbitration queues, arbitrary concurrent kills and required post_body/post_start behavior are not established; the existing post-hook differences remain separate.",
+        "ja": "公開APIと独自gateで、実際の待機item要求と正の安定待ち遅延を観測する。正確なpoll／hook回数、非公開arbitration queue、任意の並行kill、必要なpost_body／post_start動作は認定せず、既存post-hook差分は別に保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_kill_during_relevance_wait_allows_a_fresh_peer",
+          "role": "direct",
+          "expected_observations": [
+            "UT: canceled stopped 1 returned 1 finished 0 hook 1",
+            "UT: fresh_transfer delivered 1 value 22 canceled_finished 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQ-REVIEW-KILL-RELEVANCE-STOP-RETURN",
+      "clause": "14.2.5.11",
+      "statement": {
+        "en": "Kill changes a relevance-blocked sequence to STOPPED and releases its start invocation.",
+        "ja": "killはrelevanceで待つsequenceをSTOPPEDにし、start呼出しを解放する。"
+      },
+      "conditions": {
+        "en": "The body is blocked before its item grant.",
+        "ja": "bodyはitem grantの前で待機している。"
+      },
+      "expected": {
+        "en": "After a settling delay the sequence is stopped, start returned, and its item body did not finish.",
+        "ja": "安定待ち後にsequenceは停止し、startが戻り、item bodyは完了していない。"
+      },
+      "limitations": {
+        "en": "Real pending item requests and positive settling delays are observed using public APIs and original gates. Exact polling/hook counts, private arbitration queues, arbitrary concurrent kills and required post_body/post_start behavior are not established; the existing post-hook differences remain separate.",
+        "ja": "公開APIと独自gateで、実際の待機item要求と正の安定待ち遅延を観測する。正確なpoll／hook回数、非公開arbitration queue、任意の並行kill、必要なpost_body／post_start動作は認定せず、既存post-hook差分は別に保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_kill_during_relevance_wait_allows_a_fresh_peer",
+          "role": "direct",
+          "expected_observations": [
+            "UT: canceled stopped 1 returned 1 finished 0 hook 1"
+          ]
+        },
+        {
+          "test": "u14/test_sequence_kill_during_relevance_wait_allows_a_surviving_waiter",
+          "role": "direct",
+          "expected_observations": [
+            "UT: canceled stopped 1 returned 1 finished 0 hook 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQ-REVIEW-KILL-RELEVANCE-SURVIVOR",
+      "clause": "14.2.5.11",
+      "statement": {
+        "en": "Killing one relevance waiter preserves another sequence pending request.",
+        "ja": "一方のrelevance待機者をkillしても、別sequenceの待機要求を保持する。"
+      },
+      "conditions": {
+        "en": "Both closed-gate requests have entered relevance waits before only one is killed.",
+        "ja": "閉gateの両要求がrelevance待ちへ入った後、一方だけをkillする。"
+      },
+      "expected": {
+        "en": "The survivor remains in BODY, then completes its own transfer after its gate opens.",
+        "ja": "生存側はBODYに留まり、gateを開くと自身の転送を完了する。"
+      },
+      "limitations": {
+        "en": "Real pending item requests and positive settling delays are observed using public APIs and original gates. Exact polling/hook counts, private arbitration queues, arbitrary concurrent kills and required post_body/post_start behavior are not established; the existing post-hook differences remain separate.",
+        "ja": "公開APIと独自gateで、実際の待機item要求と正の安定待ち遅延を観測する。正確なpoll／hook回数、非公開arbitration queue、任意の並行kill、必要なpost_body／post_start動作は認定せず、既存post-hook差分は別に保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_kill_during_relevance_wait_allows_a_surviving_waiter",
+          "role": "direct",
+          "expected_observations": [
+            "UT: survivor_waiting 1 finished 0",
+            "UT: fresh_transfer delivered 1 value 22 canceled_finished 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQ-REVIEW-STOP-CHILD-RELEVANCE-REQUEST",
+      "clause": "15.3.2.14",
+      "statement": {
+        "en": "Sequencer stop clears a relevance-blocked child request together with its active parent.",
+        "ja": "sequencer stopは、activeな親とともにrelevanceで待つ子の要求を消去する。"
+      },
+      "conditions": {
+        "en": "The driver waits for an item from a child whose parent is executing start.",
+        "ja": "startを実行する親の子について、driverがitemを待っている。"
+      },
+      "expected": {
+        "en": "Both parent and child stop and fresh traffic completes without the old child resuming.",
+        "ja": "親子とも停止し、以前の子を再開せず新しいtrafficが完了する。"
+      },
+      "limitations": {
+        "en": "Real pending item requests and positive settling delays are observed using public APIs and original gates. Exact polling/hook counts, private arbitration queues, arbitrary concurrent kills and required post_body/post_start behavior are not established; the existing post-hook differences remain separate.",
+        "ja": "公開APIと独自gateで、実際の待機item要求と正の安定待ち遅延を観測する。正確なpoll／hook回数、非公開arbitration queue、任意の並行kill、必要なpost_body／post_start動作は認定せず、既存post-hook差分は別に保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_stop_sequences_cancels_a_child_relevance_wait_and_allows_fresh_traffic",
+          "role": "direct",
+          "expected_observations": [
+            "UT: child_wait parent 1 child 1 parent_context 1 no_delivery 1",
+            "UT: stopped parent 1 child 1 returned 1 hooks 1",
+            "UT: after_stop delivered 1 value 99 fresh 1 child_finished 0 parent_after 0"
           ]
         }
       ]

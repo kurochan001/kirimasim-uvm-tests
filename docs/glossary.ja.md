@@ -734,3 +734,15 @@ command-lineは`:uvm_cmdline_oracle: verilator@5.052`を使い、通常runnerの
 
 **Locked quit-limit diagnostic（lockしたquit上限の診断）** — command-lineで変更不可にしたquit上限をuser codeが変えようとした際に必要な警告です。
 正しい拒否と診断severityは別の観測です。[Q172](faq.ja.md#q172-lockしたquit上限が正しいのになぜテストは差分になりますか)を参照してください。
+
+## Sequence fieldとlifecycleの観測
+
+**Standard protected-member probe（標準protected memberのprobe）** — 明示的に標準化されたprotected fieldを独自subtypeで観測することです。
+そのfieldの契約を検査し、欠落した公開accessorは検査しません。
+[Q174](faq.ja.md#q174-protected実行counterの観測は欠落したgetterを置き換えますか)を参照してください。
+
+**Cyclic-field observation（巡回fieldの観測）** — 標準の巡回indexを直接randomizeし、有限の合法domainのcycleを検査することです。
+libraryがmodeで制御する実行時に、そのfieldで子を選ぶことは証明しません。
+
+**Relevance-wait cancellation（relevance待ちの中止）** — 待機要求が実行不可の間にsequenceを終了することです。
+停止状態、startの戻り、生存側の保持、その後の実trafficは別々の観測で、全終了hookの完全な証明ではありません。
