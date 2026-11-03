@@ -4,8 +4,8 @@
 
 ## 引継ぎ時点と目的
 
-2026-11-03に、`main`の[fa8a469](https://github.com/kurochan001/kirimasim-uvm-tests/commit/fa8a46932b13bdc7a48a7a66f6eeabcbbf0a2ea3)
-を基に、薄い領域の27回目の拡充へ更新しました。再開時に最新の公開commitと作業ツリーを確認してください。
+2026-11-03に、`main`の[15f0464](https://github.com/kurochan001/kirimasim-uvm-tests/commit/15f0464c2e48c1aa5dc4eea6c4292832d04eddec)
+を基に、薄い領域の28回目の拡充へ更新しました。再開時に最新の公開commitと作業ツリーを確認してください。
 
 IEEE 1800.2-2020のUVM適合を検査し、kirimasimを対象とするプロジェクトです。
 SystemVerilog言語だけのreproducerは、
@@ -14,12 +14,12 @@ M1〜M4の薄い領域を引き続き補強します。M4は進行中で、未�
 
 | 領域 | 現在の状態 |
 | --- | --- |
-| M1 | 425件：core object、policy、reporting、階層、factory、phase、同期、recording、utility |
-| M2 | 453件：sequence、sequencer、callback、TLM |
-| M3 | 383件：register／memory layer、付録E |
-| 全体 | 章・付録21 directoryに1261件。照合はすべてAIで、人による照合は未記録 |
-| M4 | AI要求案1626件。1626要求を1260テストへ直接対応。追加control 1テスト。未対応テスト0件 |
-| 規範的棚卸し | 2,504識別子のうち961件を一部分解、70件を明示的に分類。1,473件は未評価。直接テストのない要求案0件 |
+| M1 | 430件：core object、policy、reporting、階層、factory、phase、同期、recording、utility |
+| M2 | 457件：sequence、sequencer、callback、TLM |
+| M3 | 387件：register／memory layer、付録E |
+| 全体 | 章・付録21 directoryに1274件。照合はすべてAIで、人による照合は未記録 |
+| M4 | AI要求案1694件。1694要求を1273テストへ直接対応。追加control 1テスト。未対応テスト0件 |
+| 規範的棚卸し | 2,507識別子のうち970件を一部分解、74件を明示的に分類。1,463件は未評価。直接テストのない要求案0件 |
 
 `scope_status`は提案、`normative_inventory_complete`はfalse、
 `approved_denominator`／`coverage_percentage`はnullです。主引用テストがある21 rootすべてで未対応テスト0件ですが、
@@ -46,16 +46,16 @@ M1〜M4の薄い領域を引き続き補強します。M4は進行中で、未�
 
 - [テストガイド](testing.ja.md)：metadata、コンパイル、runner option、変更時の方針。
   [実行結果](results.ja.md)：evidenceの解釈と集約方法。
-  [既知差分](known-differences.ja.md)：spec-only全137件。
+  [既知差分](known-differences.ja.md)：spec-only全138件。
 - [要求ガイド](requirements.ja.md)、[範囲](../coverage/scope.json)、[台帳](../coverage/requirements.json)、[分類](../coverage/assessments.json)、
   [テスト索引](../coverage/test_index.json)：M4の正規の状態です。生成inventoryはレビューの補助資料で、
   版管理する入力の代わりではありません。
 - [library lock](../third_party/uvm.lock)：Accellera UVM 2020.3.1、`78c06547a2a0`、326ファイル。
-  版管理するtoolで取得し、library本体はコミットしません。1253検査系は`UVM_NO_DPI`を使い、8件は独自VPI HDL backendを明示要求します。
+  版管理するtoolで取得し、library本体はコミットしません。1266検査系は`UVM_NO_DPI`を使い、8件は独自VPI HDL backendを明示要求します。
 - ユーザーがrepository rootへ`IEEE_Std_1800.2-2020.pdf`と
   `IEEE_Std_1800-2023_SystemVerilog.pdf`を配置済みです。Git対象外のlocalファイルで、
   新規cloneにはなく、再配布しません。`/tmp`内の抽出済みtextも一時資料です。
-- `out/`の結果はGit対象外のlocal資料です。`/tmp/kirimasim-uvm-thin-twenty-seventh-*.py`の一時helperは、
+- `out/`の結果はGit対象外のlocal資料です。`/tmp/kirimasim-uvm-thin-twenty-eighth-*.py`の一時helperは、
   あれば使える補助で、保守対象の入口ではありません。台帳／履歴へ追記するものがあり、無条件に再実行しません。
   不在なら版管理するtoolから必要な処理を組み立てます。
 
@@ -74,9 +74,9 @@ python3 tools/requirements.py inventory --json out/requirements-inventory.json
 python3 tools/requirements.py backlog --json out/requirements-backlog.json --lang ja
 ```
 
-この記録は、tool単体テスト88件、全1261件のmetadata、台帳／索引、library整合性、現在の入力とevidenceの照合を
+この記録は、tool単体テスト88件、全1274件のmetadata、台帳／索引、library整合性、現在の入力とevidenceの照合を
 通過しています。資料だけの変更では、全シミュレーションの再buildは不要です。
-全件evidenceはVerilatorだけで、他2系統は未変更1085件の記録、新規176件は未測定です。実行のsmoke確認は次のとおりです。
+全件evidenceはVerilatorだけで、他2系統は未変更1085件の記録、新規189件は未測定です。実行のsmoke確認は次のとおりです。
 
 ```sh
 python3 tools/run_verilator.py --seeds 1 73 --build-jobs 2 -j 1 \
@@ -93,33 +93,35 @@ Nightly workflowや結果の自動公開はありません。
 
 | シミュレータ／library | 記録した結果 |
 | --- | --- |
-| Verilator 5.052／固定UVM | seed 1・73でpass 1124件、known 137件 |
+| Verilator 5.052／固定UVM | seed 1・73でpass 1136件、known 138件 |
 | Verilator 5.052／独自VPI HDL backend | 別条件の8件：7件が両seed pass、1件はseed 1でfail |
-| kirimasim／固定UVM | 未変更1085件で未対応1076件・API欠落fail 9件。新規176件は未測定 |
-| Ghost／同梱UVM | 未変更1085件で各seed pass 207件・fail 878件。新規176件は未測定 |
+| kirimasim／固定UVM | 未変更1085件で未対応1076件・API欠落fail 9件。新規189件は未測定 |
+| Ghost／同梱UVM | 未変更1085件で各seed pass 207件・fail 878件。新規189件は未測定 |
 | Ghost／固定UVM | 現在の実行ファイルsnapshotでは未測定 |
 
-通常条件のknown 137件は、seed 1の実行時差分116件、API欠落build 13件、HDL DPI未linkのbuild 8件です。
+通常条件のknown 138件は、seed 1の実行時差分117件、API欠落build 13件、HDL DPI未linkのbuild 8件です。
 VPI条件は明示選択する8入力で、7件が両seed一致、1件はE.7のwarning／転送なしの差分を保持します。重複する条件を合計しません。
 
-最新の11検査系は、公開handler委譲4件、複数要求／再開後のrelevance 3件、標準TLM-adapter 4件です。
-すべて両seedで一致し、既存のknown 137件は未変更です。handlerの引数同一性と生成元は、欠落しているcatcher getterを使わず検査します。
-adapterは新規payloadの同一性、5つの負のresponse status、表現できるfieldの連続変換、get_item contextを限定した実際のfrontdoor readを区別します。
-sub-byte n_bitsの逆変換規則は主張しません。要求案51件には未変更の設定検査系3件も含みます。台帳1626要求案、分類70件は構造68件・文脈2件です。
-guest記録は未変更1085入力で、176件は未測定です。inventory／backlogのschemaは2、正本のschemaは1のままです。
+最新の13検査系はobjectの型／名前／印字4件、sequence報告4件、非一様TLM-adapter 4件、階層report-file 1件です。
+file検査系はannex D配置でもM1報告に属します。12件は両seed一致、admissionの解釈1件はseed 1で最初に異なります。
+既定report objectのseverity規則とsequence interfaceのadmissionを別に記録します。
+往復変換の有効bitや独立配列は、片方向の絶対byte順やsub-byte n_bitsの逆変換を認定しません。
+要求案68件には未変更のobject／印字検査系3件も含みます。台帳1694要求案、分類74件は構造71件・文脈3件です。
+規格の手動照合でB.2.1.2、B.2.1.3、D.2.2.3をcatalogへ復元しましたが、catalogの完全性は認定しません。
+guest記録は未変更1085入力で、189件は未測定です。inventory／backlogのschemaは2、正本のschemaは1のままです。
 
 集約した記録は、過去の未変更入力を保持し、再測定した記録だけを置換します。1回の呼出しで全件を再実行したものではありません。
 現在のhostでは、互換なlocal記録は次にあります。
 
 ```text
-out/thin-twenty-seventh-verilator-combined.json
+out/thin-twenty-eighth-verilator-combined.json
 out/thin-fourteenth-ghost-final-1.json
 out/thin-fourteenth-ghost-final-73.json
 out/thin-fourteenth-kirimasim-final.json
-out/thin-twenty-seventh-inventory.json
-out/thin-twenty-seventh-backlog-final.json
-out/thin-twenty-seventh-evidence-scope.json
-out/thin-twenty-seventh-hdl-combined.json
+out/thin-twenty-eighth-inventory.json
+out/thin-twenty-eighth-backlog-final.json
+out/thin-twenty-eighth-evidence-scope.json
+out/thin-twenty-eighth-hdl-combined.json
 ```
 
 再利用前に、宣言した全件／部分の対象ごとのtest ID集合の完全一致、現在の`inputs_sha256`、simulatorの版／設定／libraryの同一性、
@@ -132,17 +134,17 @@ Git対象外のファイルなので別hostにはない場合があり、許可�
 次の候補は優先順位の提案で、承認済みの除外やカバレッジ率ではありません。
 追加作業を選ぶ前に、backlogを再生成してください。
 
-既存テストの対応付けqueueは、すべてのrootで空です。未評価の識別子1,473件を規格と照合し、
+既存テストの対応付けqueueは、すべてのrootで空です。未評価の識別子1,463件を規格と照合し、
 見出しと規範的義務を区別して条件を分解し、新たなテストを選びます。
 一部分解済みの領域でも、有意なdefault、失敗、独立性、順序、lifecycleの組合せを優先します。
 oracleを導く前に、API欠落とsignature／本文の矛盾を確認します。
 
-次の候補はreport resetとfilterの相互作用、子の所有とrelevance、adapterの非一様data／mask、partial-byte有効bitの照合、parent-sequence条件です。catcher API欠落も別作業として残ります。
+次の候補はreport resetとfilterの相互作用、子の所有とrelevance、adapterの片方向lane／byte順の独立した義務、parent-sequence条件です。catcher API欠落とpartial-byte有効bitの逆再構築も別のレビュー作業として残ります。
 parent_sequence条項はdo_cloneを指定しているため、objectのclone APIと同じ意味と仮定する前に記述を確認します。
 未解決の義務はbacklogに残します。
 
 現在の要求案には、直接テストの未対応はありません。memory-walkの限定した歴史的解釈を含め、
-直接対応のqueueを解消しますが、M1〜M4の完了ではありません。その解釈と残る識別子1,473件を照合し、
+直接対応のqueueを解消しますが、M1〜M4の完了ではありません。その解釈と残る識別子1,463件を照合し、
 適用条件、失敗、lifecycle／並行性、独立した検査を拡充します。
 第11章のmethod条項は部分的な分解のままで、概要と構造上の見出しにAIの明示的分類があります。
 他の箇所も個別に読み、根拠を保持し、見出し名から分類を推測しません。

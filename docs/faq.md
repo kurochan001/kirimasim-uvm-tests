@@ -135,7 +135,7 @@ See [Ghost setup](testing.md#ghost).
 
 It removes `UVM_NO_DPI` from the default macro list. It does not supply or link
 UVM's C/C++ implementation. The current Verilator runner does not add those
-sources. There are 1253 `UVM_NO_DPI` cases and eight explicit HDL-DPI cases.
+sources. There are 1266 `UVM_NO_DPI` cases and eight explicit HDL-DPI cases.
 The [separate VPI runner](testing.md#verilator-vpi-hdl-subset) links the original
 limited backend; results apply only to that declared execution condition.
 User-defined `uvm_reg_backdoor` handlers can operate without HDL DPI (Q67).
@@ -174,7 +174,7 @@ a claim that every test was rebuilt together.
 
 ### Q16. Are M1, M2 or M3 complete, and what does the test count cover?
 
-M1 and M2 still have open clause targets. M3 now has 383
+M1 and M2 still have open clause targets. M3 now has 387
 register-layer cases, including testbench frontdoor paths; it is also incomplete. Starting a stage does not complete
 the preceding stages.
 The [plan](../README.md#plan) identifies current scope and remaining work.
@@ -1141,9 +1141,9 @@ not a direct test of the requirement.
 
 ### Q77. Why is there no coverage percentage after starting M4?
 
-The 1626 AI drafts cover only a partial decomposition: 1626 requirements link
-directly to 1260 tests; all drafts have direct tests, and one separate test is a control.
-All 1261 tests have requirement links. The 2,504 clause identifiers are not normative requirement units.
+The 1694 AI drafts cover only a partial decomposition: 1694 requirements link
+directly to 1273 tests; all drafts have direct tests, and one separate test is a control.
+All 1274 tests have requirement links. The 2,507 clause identifiers are not normative requirement units.
 The scope is proposed, the inventory incomplete and the denominator unapproved;
 starting M4 approves none of those. Known differences and HDL/DPI limitations
 do not silently exclude obligations. See the [approval path](requirements.md#remaining-m4-work-and-approval).
@@ -2143,7 +2143,7 @@ No. `tests_without_requirement_links` is zero: every current test has an
 explicit direct or control link. The separate counter
 `requirements_without_direct_tests` is zero. The memory-walk link uses the
 qualified historical interpretation in Q134. It is not approval of missing
-IEEE detail. HDL deposit and accessibility use explicit VPI fixtures. Another 1,473
+IEEE detail. HDL deposit and accessibility use explicit VPI fixtures. Another 1,463
 catalog identifiers remain unassessed; decomposition and human review are
 incomplete, and the denominator remains unapproved.
 
@@ -2244,7 +2244,7 @@ in [identifier assessments](../coverage/assessments.json). Structural headings
 have no related requirements; contextual descriptions name existing requirements.
 An unreviewed record, guessed classification or parent rollup cannot do this.
 The generated state is `assessed`, separate from `partial` requirement clauses.
-Seventy classifications currently exist, with no denominator approval or new pass.
+Seventy-four classifications currently exist, with no denominator approval or new pass.
 Chapter 11's zero unassessed identifiers still does not complete its requirements.
 
 ### Q136. Does explicit strict configuration make the new cases pass?
@@ -2603,3 +2603,48 @@ It checks neither a forced byte-length-times-eight value nor an observed stale
 bit count. Error data and unused upper bits remain outside its oracle.
 The [active frontdoor fixture](../tests/u19/test_reg_tlm_adapter_frontdoor_reads_use_fresh_payloads_and_operation_context.sv)
 uses a full sixteen-bit operation and uniform bytes, with original driver storage.
+
+## Type identity, reporting state and nonuniform conversions
+
+### Q164. Are static type proxies and default type lookup the same observation?
+
+No. A registered base's static proxy remains nominal while factory creation
+can produce a child with its own dynamic proxy. Separately, the default
+`get_object_type` implementation resolves the current virtual type name:
+unknown, registered and unknown again. Renaming an instance changes its leaf
+name without changing its type proxy. Factory context does not add hierarchy
+to a plain object's full name. The direct printing hook checks each supplied
+policy without claiming outer printing lifecycle or fixed text formatting.
+See the [type-lookup fixture](../tests/u05/test_object_default_type_lookup_tracks_the_current_registered_type_name.sv).
+
+### Q165. What do nonuniform adapter roundtrips establish?
+
+The [alternating-lane fixture](../tests/u19/test_reg_tlm_adapter_alternating_lanes_roundtrip_preserves_valid_operation_fields.sv)
+checks the source operation's enabled valid bits, address, command, mask and
+status after both conversions. Full-word and nine-bit final-byte cases add
+different valid extents; a separate case checks independent payload arrays
+across source reuse and public array mutation. A paired roundtrip can conceal
+matching one-way mistakes, so it does not independently prove absolute payload
+byte order, one-way lane correlation, padding values or inverse `n_bits`.
+
+### Q166. Why can a sequence-report admission case differ from report-object behavior?
+
+The retained 14.1.3.3 interpretation requires each sequence-interface method
+to stop when its enabled query is false. The pinned implementation filters
+HIGH INFO but sends HIGH WARNING, ERROR and FATAL to the virtual processing
+method even when their explicit enabled queries are false. The fixture
+captures processing without server output and resets counters before an
+at-limit control. This is distinct from 6.3.3.3, where report objects ignore
+verbosity for non-INFO severities. See [known differences](known-differences.md#pinned-library-limitations)
+and the [report-object control](../tests/u06/test_reporting_verbosity_filters_info_but_not_warning_error_or_fatal.sv).
+This remains class-contract interpretation work, not an assigned simulator bug.
+
+### Q167. How are recursive report-file settings checked without fixed file numbers?
+
+The [hierarchical fixture](../tests/uD/test_report_file_hierarchy_propagates_each_scope_and_preserves_outside_peers.sv)
+keeps four files open and compares effective handles for a branch, child and
+leaf. ID selection is observed before installing the more specific severity/ID
+pair; the pair then takes precedence. A child-subtree update changes only that
+subtree while preserving pair precedence and an outside peer's settings.
+Numeric descriptors, output formatting and written file contents are outside
+the oracle. This annex D case extends M1 reporting.

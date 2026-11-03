@@ -3,8 +3,8 @@
 [日本語](history.ja.md) · [README](../README.md)
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and twenty-seven cross-milestone thin-area expansions, including the
-existing-test requirement-link backlog checkpoint (1261 simulation tests). The earlier 349-test checkpoint is
+three M4 increments and twenty-eight cross-milestone thin-area expansions, including the
+existing-test requirement-link backlog checkpoint (1274 simulation tests). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -2454,6 +2454,41 @@ classifications. Primary focus is 612, any citation 1,252; candidate census is
 
 Ten guide pairs are checked, with 163 FAQ answers and 184 glossary entries.
 Validation covers 88 tool tests, all 1261 metadata records, ledger/index/library
+checks, bilingual links and current-input evidence. Prior simulation inputs,
+runners, backend, scope, lock, licenses and six SVG assets remain unchanged.
+Human review and scope/denominator approval remain open.
+
+## Twenty-eighth thin-area expansion across M1–M4
+
+Thirteen fixtures add four object type/name/printing cases, four sequence-report
+cases, four nonuniform TLM-adapter cases and one hierarchical report-file case.
+The annex D file case extends M1 reporting. The suite reaches 1274: M1 430,
+M2 457 and M3 387. Twelve final inputs match seeds 1 and 73; one retains the
+sequence-interface admission interpretation of 14.1.3.3. All explicit HIGH
+enabled queries are false, but non-INFO calls reach virtual processing in the
+pinned library. An at-limit control admits all four severities after a fixture
+counter reset. This is separate from report-object 6.3.3.3. Roundtrips compare
+nonuniform valid bits and masks without claiming independent one-way byte
+order, padding or inverse n_bits. Hierarchical file ID selection is observed
+before pair priority; a fixture ordering mistake was fixed before final input.
+
+Compatible ordinary evidence retains all 1261 previous inputs: 1136 pass,
+138 known (117 runtime differences, thirteen missing-API builds, eight unlinked
+DPI builds). Separate VPI remains seven pass/one fail. Guest records cover
+1085 unchanged inputs; 189 current IDs are unmeasured. Sixty-eight AI drafts
+bring the ledger to 1694, all directly linked to 1273 tests plus one control.
+Three unchanged object/printing fixtures gain links without remeasurement.
+Three structural and one contextual record bring classifications to seventy-four:
+seventy-one structural, three contextual. Manual standard checks restore three
+missing catalog identifiers, B.2.1.2, B.2.1.3 and D.2.2.3. The catalog grows
+from 2,504 to 2,507; the heading-shaped scan is not a completeness certificate.
+There are 970 partly decomposed identifiers and 1,463 unassessed. The net
+unassessed decrease of ten is three restored identifiers minus nine new
+decompositions and four classifications. Primary focus is 616, any citation
+1,257; candidate census is 1,866 zero, 343 one and 273 at least two.
+
+Ten guide pairs are checked, with 167 FAQ answers and 188 glossary entries.
+Validation covers 88 tool tests, all 1274 metadata records, ledger/index/library
 checks, bilingual links and current-input evidence. Prior simulation inputs,
 runners, backend, scope, lock, licenses and six SVG assets remain unchanged.
 Human review and scope/denominator approval remain open.

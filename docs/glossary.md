@@ -899,3 +899,23 @@ exercise separate lifecycle conditions without fixing polling counts.
 how many abstract-value bits a generic bus operation transports. Partial final
 bytes need explicit interpretation; this batch does not prescribe an inverse
 mapping. See [Q163](faq.md#q163-does-payload-byte-length-uniquely-recover-a-partial-byte-valid-bit-count).
+
+## Current type and reporting bindings
+
+**Static proxy / dynamic type proxy** — A registered class's nominal wrapper
+versus the wrapper returned by an object's virtual type query. Factory overrides
+can change the created dynamic type without changing the base's static proxy.
+
+**Sequence-report admission** — The sequence interface's decision to process a
+report after its enabled check. Its retained class-specific interpretation is
+separate from non-INFO verbosity behavior on report objects; see
+[Q166](faq.md#q166-why-can-a-sequence-report-admission-case-differ-from-report-object-behavior).
+
+**Nonuniform conversion roundtrip** — Converting an operation with differing
+byte values or enabled lanes to a payload and back, then comparing valid
+fields. It tests paired consistency, not independent one-way byte order.
+
+**Hierarchical file association** — Applying a report file setting recursively
+to one component subtree. Public effective-handle queries can check scope and
+precedence without fixing numeric file descriptors; see
+[Q167](faq.md#q167-how-are-recursive-report-file-settings-checked-without-fixed-file-numbers).

@@ -2,7 +2,7 @@
 
 [English](known-differences.md) · [README](../README.ja.md) · [FAQ](faq.ja.md)
 
-現在の1261件と、固定したAccellera UVM 2020.3.1についての記録です。
+現在の1274件と、固定したAccellera UVM 2020.3.1についての記録です。
 不一致はテストの結果であり、それだけではシミュレータ・ライブラリ・期待値のどれが原因かは決まりません。
 
 ## 固定版ライブラリの制約
@@ -297,7 +297,13 @@ databaseのstream列挙の検査系は、7.1.4.2のqueue数を返す事後条件
 記載された`function unsigned`のsignatureは、SystemVerilog 13.4では暗黙の1-bit logicの戻りとなり、2を表現できません。
 期待値2は本文の解釈を保持します。このsignature／本文の矛盾は要レビューとし、確認済みのsimulator／library不具合には割り当てません。
 
-スイート全体では、`verilator@5.052`を付けたテストは1124件、specのみのテストは137件です。
+sequence報告の1検査系は14.1.3.3のadmission解釈を保持し、report-enabled照会がfalseなら4つの簡易報告methodは処理せず戻ると期待します。
+reporter閾値NONEでHIGHの4照会はいずれもfalseですが、固定sequence実装はWARNING・ERROR・FATALをoverrideした処理methodへ渡し、INFOだけを抑制します。
+検査系counterをresetした閾値以内の比較対象は4つとも通ります。server出力は行いません。
+これは、non-INFOのverbosityを無視する6.3.3.3のreport-object規則とは別です。class固有の契約と継承動作は要レビューで、
+simulatorの確定した不具合には割り当てません。規格から導いたsequenceの期待をspecのみで保持します。
+
+スイート全体では、`verilator@5.052`を付けたテストは1136件、specのみのテストは138件です。
 specのみのうち1件は9.6を検証します。pre-resetフェーズ終了時に子タスクが停止する
 はずですが、固定版UVMとVerilator 5.052の組み合わせでは、後のフェーズで子タスクの遅延書き込みが
 実行されます。この差分の原因がシミュレータとライブラリのどちらかは未確定です。
@@ -306,9 +312,9 @@ wakeup resetの検査系は、trigger waiterとpersistent-trigger waiterを各1�
 10.1.1.2.8は、callbackなしで両方が起動することを要求します。固定Verilatorの実行は、待機状態の観測に到達してから
 watchdogが期限切れになります。simulator／libraryを組み合わせた原因は未確定のまま、規範的なwakeupの期待を保持します。
 
-specのみの137件も規格から導いた期待値を保持します。通常のVerilator実行とCIはoracle付き1124件を選びます。
+specのみの138件も規格から導いた期待値を保持します。通常のVerilator実行とCIはoracle付き1136件を選びます。
 `--all`はspecのみも含め、不一致やビルド不可を`known`として記録します。
-通常の実行時116件は、最初の差分であるseed 1までの記録で、seed 73の結果はありません。
+通常の実行時117件は、最初の差分であるseed 1までの記録で、seed 73の結果はありません。
 API欠落build 13件は、time 1件、sequence-library 6件、HDL slice 2件、object active-policy 1件、catcher message-handle 3件で、
 通常条件の実行時seed結果はありません。HDL DPIの8検査系も通常runnerではlinkできません。
 別のVPI条件では、7件が両seed一致、E.7のwarning／転送なしの期待はseed 1で失敗します。
@@ -316,7 +322,7 @@ API欠落build 13件は、time 1件、sequence-library 6件、HDL slice 2件、o
 
 ## specのみのテスト
 
-現在の137件は次のテストです。同じ制約を複数のテストで検査する場合があり、異なる不具合の個数ではありません。
+現在の138件は次のテストです。同じ制約を複数のテストで検査する場合があり、異なる不具合の個数ではありません。
 
 - [明示HDL abstractionの選択](../tests/uE/test_hdl_path_sequence_uses_an_explicit_abstraction_instead_of_the_invalid_default.sv).
 - [空abstraction listでblock既定を使用](../tests/uE/test_hdl_path_sequence_uses_the_block_default_abstraction_when_the_list_is_empty.sv).
@@ -547,10 +553,12 @@ API欠落build 13件は、time 1件、sequence-library 6件、HDL slice 2件、o
 - [事前構成messageの再利用](../tests/u06/test_preformed_report_reuse_rebinds_origin_and_actions_for_each_reporter.sv)
 - [個別big-endian fieldのaddress](../tests/u18/test_field_access_big_endian_respects_layout_and_physical_bus_width.sv)
 
+- [Virtual処理前のsequence報告のseverity admission](../tests/u14/test_sequence_item_reporting_filters_each_severity_before_virtual_processing.sv).
+
 ## シミュレータとライブラリの組み合わせ
 
-スイートは1261件ですが、以下のkirimasim／Ghost記録は未変更の現在入力1085件だけを対象とします。
-以前の一時実行ファイル／profile snapshotがないため、新規176件は未測定です。
+スイートは1274件ですが、以下のkirimasim／Ghost記録は未変更の現在入力1085件だけを対象とします。
+以前の一時実行ファイル／profile snapshotがないため、新規189件は未測定です。
 新しい全件guest実測とは扱いません。[実行結果](results.ja.md)を参照してください。
 
 Ghostの同梱UVMはseed 1・73とも207件一致・878件不一致で、不一致になるテストも同じです。

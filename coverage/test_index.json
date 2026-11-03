@@ -26,6 +26,10 @@
       "primary_clause": "5.3.3.3",
       "inputs_sha256": "f18c17535b8c5fc7c4e32d3a5ad7cd919c2cd2793fc02c93865b22f43287dc0e"
     },
+    "u05/test_factory_object_context_does_not_add_hierarchy_to_instance_names": {
+      "primary_clause": "5.3.4.2",
+      "inputs_sha256": "38a61d05a7f169194d0b2fb9530cd37eba4afc4c73ae23b95aae2322dcd65ea0"
+    },
     "u05/test_field_op_accessors_report_errors_after_flush": {
       "primary_clause": "5.7.2.3",
       "inputs_sha256": "4123e46463db1ecc960fbe9748ae9661581af4ad7ba80a01c8f88400ce7dbfc9"
@@ -98,6 +102,14 @@
       "primary_clause": "5.3.5.1",
       "inputs_sha256": "4760662412696928f7a6c5b62580c57bc27880ca76634645cb600a70d2b501c5"
     },
+    "u05/test_object_default_type_lookup_tracks_the_current_registered_type_name": {
+      "primary_clause": "5.3.4.6",
+      "inputs_sha256": "aacc4c372656949aac72bebda1b674cd48bd23912e1244ef5217ebe88ad5128b"
+    },
+    "u05/test_object_do_print_virtual_hook_uses_each_supplied_policy_without_stale_state": {
+      "primary_clause": "5.3.6.3",
+      "inputs_sha256": "eb4a3b84e3ddcfe3fcfd67eb6882400abe03b81ff0ed7063a18f609675ed796d"
+    },
     "u05/test_object_id_survives_rename_and_clone": {
       "primary_clause": "5.3.4.4",
       "inputs_sha256": "472a82bac577f198a093901be6fe2584e02b3e673ee26293b932eedd26a04364"
@@ -129,6 +141,10 @@
     "u05/test_object_rename_updates_identity": {
       "primary_clause": "5.3.4.1",
       "inputs_sha256": "10357005e161f8ed88a1cf7a8c97dd200c161f160e3eb903b80b4b6559f7ece2"
+    },
+    "u05/test_object_static_and_dynamic_type_proxies_survive_factory_override_and_rename": {
+      "primary_clause": "5.3.4.5",
+      "inputs_sha256": "f1970769af01be306253da560399dcb552d606a6d22c95707c27844aed6805f3"
     },
     "u05/test_object_static_and_dynamic_wrappers_agree": {
       "primary_clause": "5.3.4.5",
@@ -1973,6 +1989,22 @@
     "u14/test_sequence_item_id_info_routes_two_responses_and_preserves_other_properties": {
       "primary_clause": "14.1.2.4",
       "inputs_sha256": "bec8a82f3cd8f880f025828bebfb03375324fafe24ac3f493d5fbb8bfdb91e0a"
+    },
+    "u14/test_sequence_item_reporting_filters_each_severity_before_virtual_processing": {
+      "primary_clause": "14.1.3.3",
+      "inputs_sha256": "52c07cccbb628189e8d88a5723135b10e0153d332e4772d4df6bbe6085b9a69e"
+    },
+    "u14/test_sequence_item_reporting_generated_context_uses_current_state": {
+      "primary_clause": "14.1.3.3",
+      "inputs_sha256": "bea56433b10dbd77ba76819667f453872c8685f20f792159b8f2bc8a3cd2b357"
+    },
+    "u14/test_sequence_item_reporting_handler_replacement_uses_current_state": {
+      "primary_clause": "14.1.3.2",
+      "inputs_sha256": "147aafe23d37c841316f59388f7c1176aee23ebd89269394d0be677cbcf6c7e6"
+    },
+    "u14/test_sequence_item_reporting_reused_context_uses_current_state": {
+      "primary_clause": "14.1.3.4",
+      "inputs_sha256": "60302a88a8bcdb0cd1d7d0b94eaece6251a006968fd2fdd7bc4b5fc80f9b9d91"
     },
     "u14/test_sequence_item_sequencer_reference_can_change_while_inactive": {
       "primary_clause": "14.1.2.6",
@@ -4302,6 +4334,10 @@
       "primary_clause": "19.2.2.2.1",
       "inputs_sha256": "d57b09b2668f5a86cc5ea04cd204829fb75ff3db31c7936bd4d764334df7bd71"
     },
+    "u19/test_reg_tlm_adapter_alternating_lanes_roundtrip_preserves_valid_operation_fields": {
+      "primary_clause": "19.2.2.2.1",
+      "inputs_sha256": "2d0390b9784d9473db5770e2101b53e8e5d8a4af275e38a3c97755e6b6977349"
+    },
     "u19/test_reg_tlm_adapter_error_statuses_preserve_conversion_contracts": {
       "primary_clause": "19.2.2.2.2",
       "inputs_sha256": "257bca20b3d94229f6aeba3595a087e99c0a0a40a7a7cb8dbb896cad008804cf"
@@ -4313,6 +4349,18 @@
     "u19/test_reg_tlm_adapter_frontdoor_reads_use_fresh_payloads_and_operation_context": {
       "primary_clause": "19.2.1.2.7",
       "inputs_sha256": "84ce968b8c1b8ca5287b443abf7d774c9378bfcd9f11a6f5b21327177e5919c6"
+    },
+    "u19/test_reg_tlm_adapter_nonuniform_full_word_roundtrip_preserves_valid_operation_fields": {
+      "primary_clause": "19.2.2.2.1",
+      "inputs_sha256": "c35af903420bb033ce8887d749eea458e8130b58bbc2aa148e477f6e06c59287"
+    },
+    "u19/test_reg_tlm_adapter_nonuniform_payload_arrays_remain_independent_across_conversions": {
+      "primary_clause": "19.2.2.2.1",
+      "inputs_sha256": "fcacfa2ea875161815c6df06c0badc8db6c1b57e0b422bfba2aa4fb8d40d3d30"
+    },
+    "u19/test_reg_tlm_adapter_partial_final_byte_roundtrip_preserves_valid_operation_fields": {
+      "primary_clause": "19.2.2.2.1",
+      "inputs_sha256": "a6bde88e0a92b0cddf8ee91670ab2a0b149af2b032af1d393bedb9b74eb61e60"
     },
     "u19/test_reg_tlm_adapter_read_conversion_preserves_command_address_and_length": {
       "primary_clause": "19.2.2.2.1",
@@ -4665,6 +4713,10 @@
     "uD/test_callback_iterators_keep_independent_positions": {
       "primary_clause": "D.1.2.1",
       "inputs_sha256": "b8a531b054c30b618297b964f626f4cacefdb8423b32d9aa987384f9b56363f7"
+    },
+    "uD/test_report_file_hierarchy_propagates_each_scope_and_preserves_outside_peers": {
+      "primary_clause": "D.2.2.3",
+      "inputs_sha256": "82a47f3a3524c6b06e9670d0042628e3f50cd4685fc8fa95390e0cacda4e7d2d"
     },
     "uE/test_bit_bash_sequence_honors_a_block_exclusion_before_a_direct_control": {
       "primary_clause": "E.2.2",

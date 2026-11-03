@@ -1000,6 +1000,66 @@
         "reviewer": null,
         "reviewed_at": null
       }
+    },
+    {
+      "clause": "5.3.4",
+      "classification": "structural",
+      "rationale": {
+        "en": "Identification heading groups the numbered name and type methods; independent obligations are specified by those methods.",
+        "ja": "Identification見出しは、番号付きの名前／型methodをまとめ、独立した義務は各methodにある。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "5.3.5",
+      "classification": "structural",
+      "rationale": {
+        "en": "Creation heading groups create and clone without a separate creation operation.",
+        "ja": "Creation見出しはcreateとcloneをまとめ、別の生成操作を追加しない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "6.4.5",
+      "classification": "structural",
+      "rationale": {
+        "en": "File-configuration heading groups the following query and setter clauses and adds no separate file operation.",
+        "ja": "File configuration見出しは、後続の照会／設定条項をまとめ、別のfile操作を追加しない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "14.1.3",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The overview routes item/sequence reports through the associated sequencer or global reporter. Selected reporter, admission and message forwarding are decomposed in the linked child-method requirements. This adds no duplicate obligation and does not certify implicit-binding or attribute completeness.",
+        "ja": "概要はitem／sequence報告を関連sequencerまたはglobal reporterへ送る。選択reporter、受付、message転送の選択条件は、関連する子method要求へ分解する。重複義務を追加せず、暗黙bindingやattributeの完全性は認定しない。"
+      },
+      "related_requirements": [
+        "UVM-SEQ-REPORT-LIVE-HANDLER-ELIGIBILITY",
+        "UVM-SEQ-REPORT-CURRENT-REPORTER",
+        "UVM-SEQ-REPORT-EMPTY-CONTEXT-REFILL"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
     }
   ]
 }

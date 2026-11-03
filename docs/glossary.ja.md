@@ -695,3 +695,19 @@ printerの書式を固定せず、到達したobjectを識別します。
 **Payload byte length / valid-bit extent（payload byte長／有効bit範囲）** — byte配列の転送長と、generic bus operationが運ぶabstract-value bit数です。
 最後の部分byteには明示的な解釈が必要で、今回は逆対応を固定しません。
 [Q163](faq.ja.md#q163-payloadのbyte長からpartial-byteの有効bit数を一意に復元しますか)を参照してください。
+
+## 現在の型と報告の対応先
+
+**Static proxy / dynamic type proxy（static proxy／動的型proxy）** — 登録class自身のwrapperと、objectのvirtual型照会が返すwrapperです。
+factory overrideは生成する動的型を変えても、baseのstatic proxyを変えません。
+
+**Sequence-report admission（sequence報告の処理可否）** — enabled確認に続き、sequence interfaceが報告を処理する判断です。
+保持するclass固有の解釈は、report objectでのnon-INFOのverbosity動作と分けます。
+[Q166](faq.ja.md#q166-sequence報告のadmissionがreport-objectの動作と異なるのはなぜですか)を参照してください。
+
+**Nonuniform conversion roundtrip（非一様な往復変換）** — 異なるbyte値や有効laneを持つoperationをpayloadへ変換し、戻した有効fieldを比較することです。
+両変換の整合性を検査し、片方向のbyte順を独立には評価しません。
+
+**Hierarchical file association（階層的なfile対応付け）** — あるcomponent subtreeへ再帰的にreport file設定を適用することです。
+公開の実効handle照会で、数値descriptorを固定せずscopeと優先順位を検査できます。
+[Q167](faq.ja.md#q167-再帰的なreport-file設定を固定file番号なしでどう検査しますか)を参照してください。

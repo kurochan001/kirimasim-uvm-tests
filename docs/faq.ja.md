@@ -122,7 +122,7 @@ Ghostは公開前のシミュレータの仮名です。実行ファイルの識
 ### Q12. uvm_dpi: yesだけでDPIを使うビルドが完成しますか
 
 既定のマクロ一覧から`UVM_NO_DPI`を外す指定です。UVMのC/C++実装の供給・リンクは行いません。
-通常のVerilator runnerは、そのsourceを追加しません。`UVM_NO_DPI`が1253件、HDL DPIの明示選択が8件です。
+通常のVerilator runnerは、そのsourceを追加しません。`UVM_NO_DPI`が1266件、HDL DPIの明示選択が8件です。
 [別のVPI runner](testing.ja.md#verilatorのvpi-hdl部分集合)は独自の限定backendをlinkし、結果は宣言した実行条件だけに適用します。
 DPIなしのglobによる照合も、完全な正規表現への対応とは異なります。
 ユーザー定義の`uvm_reg_backdoor` handlerはHDL DPIなしで動作できます（Q67）。
@@ -155,7 +155,7 @@ Ghostはさらに実行ファイル・profile・供給されたライブラリ�
 
 ### Q16. M1・M2・M3は完了していますか。件数は何の網羅を示しますか
 
-M1・M2には条項ごとの目標に未達があります。M3はbusモデルのfrontdoor経路を含め383件まで追加した段階で、未完です。
+M1・M2には条項ごとの目標に未達があります。M3はbusモデルのfrontdoor経路を含め387件まで追加した段階で、未完です。
 次の段階の開始によって、それまでの段階が完了したとは扱いません。
 範囲と残りの作業は[進め方](../README.ja.md#進め方)にあります。
 件数はテストの本数で、規格の全要求や組み合わせの棚卸しではありません。
@@ -921,8 +921,8 @@ controlの対応は、その要求の直接の検査ではありません。
 
 ### Q77. M4を始めたのに、カバレッジ率がないのはなぜですか
 
-AIによる1626要求案は部分的な分解で、1626要求を1260テストへ直接対応付け、直接未対応は0要求、別の1テストはcontrolです。
-全1261テストに要求の対応付けがあります。2,504の条項番号は規範的要求の単位ではありません。
+AIによる1694要求案は部分的な分解で、1694要求を1273テストへ直接対応付け、直接未対応は0要求、別の1テストはcontrolです。
+全1274テストに要求の対応付けがあります。2,507の条項番号は規範的要求の単位ではありません。
 範囲は提案、棚卸しは未完、分母は未承認で、M4の開始はどれの承認にもなりません。
 既知差分やHDL／DPIの制約によって義務を暗黙に除外しません。[承認までの手順](requirements.ja.md#m4の残作業と承認)を参照してください。
 
@@ -1707,7 +1707,7 @@ user backdoorは16 bit locationをモデル化します。location独立性、�
 
 いいえ。`tests_without_requirement_links`は0で、現在の全テストに、明示的なdirectまたはcontrolの対応があります。
 別の集計`requirements_without_direct_tests`も0件です。memory-walkの対応はQ134の限定した歴史的解釈で、
-省略されたIEEEの詳細の承認ではありません。HDL depositと利用可否には、明示VPI検査系があります。catalogの識別子1,473件も未評価です。
+省略されたIEEEの詳細の承認ではありません。HDL depositと利用可否には、明示VPI検査系があります。catalogの識別子1,463件も未評価です。
 分解と人のレビューは未完で、分母は未承認です。
 
 [新しいpolicyテスト](../tests/u16/test_policy_object_stack_tracks_nested_active_policy_push_and_pop.sv)は、
@@ -1784,7 +1784,7 @@ frontdoor保護のwarningはalgorithm oracleの対象外で、ERRORと観測し�
 個別に読んだ後、日英の根拠とAI／人のレビューを[番号の分類](../coverage/assessments.json)へ記録すれば可能です。
 構造上の見出しは関連要求を持たず、文脈の説明は既存要求を指定します。
 未レビューの記録、推測した分類、親への集約では外せません。生成状態は`assessed`で、要求条項の`partial`と区別します。
-現在の分類は70件で、分母承認や新たなpassを加えません。第11章の未評価0件でも、その要求の完了ではありません。
+現在の分類は74件で、分母承認や新たなpassを加えません。第11章の未評価0件でも、その要求の完了ではありません。
 
 ### Q136. 明示strict configurationで新規検査は成功しますか？
 
@@ -2062,3 +2062,36 @@ auto-predictionを使う独自RW-field bus modelであり、HDL storage、access
 operation再利用ではcommand、address、有効data、有効lane、statusを検査し、再構築する`n_bits`は固定しません。
 byte長×8を強制せず、観測された古いbit数も期待値にしません。error dataと未使用の上位bitもoracleの範囲外です。
 [active frontdoor検査系](../tests/u19/test_reg_tlm_adapter_frontdoor_reads_use_fresh_payloads_and_operation_context.sv)は、全16-bitの操作と同じ値のbyte、独自driverのstorageを使います。
+
+## 型の同一性、報告の状態と非一様変換
+
+### Q164. Static型proxyと既定の型照会は同じ観測ですか？
+
+別の観測です。登録baseのstatic proxyはその型のままで、factoryが作るchildは独自のdynamic proxyを返します。
+別の検査系では、既定の`get_object_type`実装が現在のvirtual型名をunknown、registered、再びunknownと照会します。
+instanceのrenameはleaf名を変えても型proxyを変えません。factory contextは通常objectの完全名へ階層を加えません。
+直接の印字hookは指定policyごとに検査し、外側の印字lifecycleや固定書式は主張しません。
+[型照会の検査系](../tests/u05/test_object_default_type_lookup_tracks_the_current_registered_type_name.sv)を参照してください。
+
+### Q165. 非一様adapterの往復変換は何を検証しますか？
+
+[交互laneの検査系](../tests/u19/test_reg_tlm_adapter_alternating_lanes_roundtrip_preserves_valid_operation_fields.sv)は、
+両方向の変換後にsource operationの有効laneのbit、address、command、mask、statusを検査します。
+full-wordと最後の9-bitの条件で有効範囲を変え、別検査系でsource再利用と公開配列変更に対するpayload配列の独立性を確認します。
+往復変換だけでは対応する片方向の誤りを見逃すため、payloadの絶対byte順、片方向のlane対応、padding値、逆変換する`n_bits`は独立に認定しません。
+
+### Q166. Sequence報告のadmissionがreport objectの動作と異なるのはなぜですか？
+
+保持する14.1.3.3の解釈では、各sequence-interface methodはenabled照会がfalseなら停止します。
+固定実装はHIGH INFOを抑制しますが、明示enabled照会がfalseでもHIGH WARNING・ERROR・FATALをvirtual処理methodへ渡します。
+検査系はserver出力なしで処理を記録し、閾値以内の比較対象の前にcounterをresetします。
+これは、report objectがnon-INFOのverbosityを無視する6.3.3.3とは別です。[既知差分](known-differences.ja.md#固定版ライブラリの制約)と
+[report-object比較対象](../tests/u06/test_reporting_verbosity_filters_info_but_not_warning_error_or_fatal.sv)を参照してください。
+class契約の解釈作業として残し、simulatorの不具合とは割り当てません。
+
+### Q167. 再帰的なreport-file設定を固定file番号なしでどう検査しますか？
+
+[階層の検査系](../tests/uD/test_report_file_hierarchy_propagates_each_scope_and_preserves_outside_peers.sv)は、
+4 fileを開いたまま、branch・child・leafの実効handleを比較します。より具体的なseverity／ID pairを設定する前にID選択を観測し、
+その後pairが優先することを確認します。child subtreeの更新はそのsubtreeだけを変え、pairの優先順位と外側peerの設定を保持します。
+数値descriptor、出力書式、書き込んだfile内容はoracleの範囲外です。このannex D検査系はM1報告の拡充です。

@@ -83,6 +83,18 @@ GPL/LGPL simulator implementation source is not read. Private simulator
 identity, version, profile and paths are not published. The
 [testing guide](testing.md#rights-and-sources) records these contribution rules.
 
+## Clause catalog maintenance
+
+The identifier-only [clause catalog](../tools/clauses_1800_2.txt) now includes
+B.2.1.2, B.2.1.3 and D.2.2.3. Their wrapped headings were missing from the
+prior catalog and were checked manually against the user-provided IEEE
+1800.2-2020 standard. Restoring them changes the census from 2,504 to 2,507
+identifiers and adds three candidates before decomposition. A scan of
+numbered-heading-shaped lines in the local extracted text found no further
+unmatched identifiers in the selected roots. That scan is not a completeness
+certificate: it does not find every normative obligation or assess unnumbered
+content. No standard text is redistributed.
+
 ## Issue reporting policy and form
 
 The commercial-result policy follows the FAQ and the bilingual reporting form

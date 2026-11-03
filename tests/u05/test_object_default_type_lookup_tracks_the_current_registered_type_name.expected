@@ -1,0 +1,4 @@
+UT: unknown_null 1 peer_null 1
+UT: registered 1 peer_still_null 1
+UT: instance_rename 1
+UT: unknown_again 1

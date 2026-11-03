@@ -1,0 +1,4 @@
+UT: static base 1 child 1 distinct 1
+UT: dynamic direct 1 created 1 names 1
+UT: renamed proxy 1 type_name 1 static_base 1
+UT: component proxy 1 type_name 1

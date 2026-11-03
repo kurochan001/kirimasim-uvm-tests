@@ -60773,6 +60773,2414 @@
           ]
         }
       ]
+    },
+    {
+      "id": "UVM-OBJECT-TRAIT-STATIC-PROXY-STABILITY",
+      "clause": "5.3.4.5",
+      "statement": {
+        "en": "Static get_type identifies its declared type independently of a factory override.",
+        "ja": "static get_typeは、factory overrideと独立に宣言型を識別する。"
+      },
+      "conditions": {
+        "en": "Registered base/child object types and one component type are queried around a base-to-child factory override.",
+        "ja": "登録したbase／child object型とcomponent型を、baseからchildへのfactory overrideの前後で照会する。"
+      },
+      "expected": {
+        "en": "Base and child static proxies retain their saved, distinct identities.",
+        "ja": "baseとchildのstatic proxyは、保存した異なる同一性を保持する。"
+      },
+      "limitations": {
+        "en": "Original nonparameterized types and selected public queries only; no proxy numeric IDs, parameterized/abstract macros, component creation contract, GC behavior or approved coverage denominator is asserted.",
+        "ja": "独自の非parameterized型と選択した公開照会のみ。proxy数値ID、parameterized／abstract macro、component生成の契約、GC動作、承認済み分母は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_object_static_and_dynamic_type_proxies_survive_factory_override_and_rename",
+          "role": "direct",
+          "expected_observations": [
+            "UT: static base 1 child 1 distinct 1",
+            "UT: renamed proxy 1 type_name 1 static_base 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-OBJECT-TRAIT-DYNAMIC-PROXY-ACTUAL-TYPE",
+      "clause": "5.3.4.6",
+      "statement": {
+        "en": "Virtual get_object_type identifies the allocated dynamic object type.",
+        "ja": "virtual get_object_typeは、割り当てたobjectの動的型を識別する。"
+      },
+      "conditions": {
+        "en": "Registered base/child object types and one component type are queried around a base-to-child factory override.",
+        "ja": "登録したbase／child object型とcomponent型を、baseからchildへのfactory overrideの前後で照会する。"
+      },
+      "expected": {
+        "en": "Direct base returns base proxy; a factory-created child through a base handle returns child proxy.",
+        "ja": "直接生成したbaseはbase proxyを、base handle経由のfactory生成childはchild proxyを返す。"
+      },
+      "limitations": {
+        "en": "Original nonparameterized types and selected public queries only; no proxy numeric IDs, parameterized/abstract macros, component creation contract, GC behavior or approved coverage denominator is asserted.",
+        "ja": "独自の非parameterized型と選択した公開照会のみ。proxy数値ID、parameterized／abstract macro、component生成の契約、GC動作、承認済み分母は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_object_static_and_dynamic_type_proxies_survive_factory_override_and_rename",
+          "role": "direct",
+          "expected_observations": [
+            "UT: dynamic direct 1 created 1 names 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-OBJECT-TRAIT-DYNAMIC-TYPE-NAME",
+      "clause": "5.3.4.7",
+      "statement": {
+        "en": "get_type_name returns the defined type name of the current dynamic object.",
+        "ja": "get_type_nameは、現在の動的objectの定義済み型名を返す。"
+      },
+      "conditions": {
+        "en": "Registered base/child object types and one component type are queried around a base-to-child factory override.",
+        "ja": "登録したbase／child object型とcomponent型を、baseからchildへのfactory overrideの前後で照会する。"
+      },
+      "expected": {
+        "en": "The direct and created instances identify base_value and child_value.",
+        "ja": "直接生成とfactory生成のinstanceは、base_valueとchild_valueを示す。"
+      },
+      "limitations": {
+        "en": "Original nonparameterized types and selected public queries only; no proxy numeric IDs, parameterized/abstract macros, component creation contract, GC behavior or approved coverage denominator is asserted.",
+        "ja": "独自の非parameterized型と選択した公開照会のみ。proxy数値ID、parameterized／abstract macro、component生成の契約、GC動作、承認済み分母は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_object_static_and_dynamic_type_proxies_survive_factory_override_and_rename",
+          "role": "direct",
+          "expected_observations": [
+            "UT: dynamic direct 1 created 1 names 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-OBJECT-TRAIT-RENAME-PRESERVES-PROXY",
+      "clause": "5.3.4.6",
+      "statement": {
+        "en": "Instance renaming preserves its dynamic type proxy.",
+        "ja": "instanceの改名は、動的な型proxyを保持する。"
+      },
+      "conditions": {
+        "en": "Registered base/child object types and one component type are queried around a base-to-child factory override.",
+        "ja": "登録したbase／child object型とcomponent型を、baseからchildへのfactory overrideの前後で照会する。"
+      },
+      "expected": {
+        "en": "Renamed child still returns the child proxy.",
+        "ja": "改名後のchildもchild proxyを返す。"
+      },
+      "limitations": {
+        "en": "Original nonparameterized types and selected public queries only; no proxy numeric IDs, parameterized/abstract macros, component creation contract, GC behavior or approved coverage denominator is asserted.",
+        "ja": "独自の非parameterized型と選択した公開照会のみ。proxy数値ID、parameterized／abstract macro、component生成の契約、GC動作、承認済み分母は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_object_static_and_dynamic_type_proxies_survive_factory_override_and_rename",
+          "role": "direct",
+          "expected_observations": [
+            "UT: renamed proxy 1 type_name 1 static_base 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-OBJECT-TRAIT-RENAME-PRESERVES-TYPE-NAME",
+      "clause": "5.3.4.7",
+      "statement": {
+        "en": "Instance renaming leaves the defined type name unchanged.",
+        "ja": "instanceの改名は、定義した型名を変えない。"
+      },
+      "conditions": {
+        "en": "Registered base/child object types and one component type are queried around a base-to-child factory override.",
+        "ja": "登録したbase／child object型とcomponent型を、baseからchildへのfactory overrideの前後で照会する。"
+      },
+      "expected": {
+        "en": "Renamed instance still identifies child_value.",
+        "ja": "改名後もchild_valueを示す。"
+      },
+      "limitations": {
+        "en": "Original nonparameterized types and selected public queries only; no proxy numeric IDs, parameterized/abstract macros, component creation contract, GC behavior or approved coverage denominator is asserted.",
+        "ja": "独自の非parameterized型と選択した公開照会のみ。proxy数値ID、parameterized／abstract macro、component生成の契約、GC動作、承認済み分母は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_object_static_and_dynamic_type_proxies_survive_factory_override_and_rename",
+          "role": "direct",
+          "expected_observations": [
+            "UT: renamed proxy 1 type_name 1 static_base 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-OBJECT-TRAIT-OBJECT-MACRO-STATIC-PROXY",
+      "clause": "B.2.1.2",
+      "statement": {
+        "en": "Object utility macros implement the static type-proxy API.",
+        "ja": "object utility macroは、static型proxy APIを実装する。"
+      },
+      "conditions": {
+        "en": "Registered base/child object types and one component type are queried around a base-to-child factory override.",
+        "ja": "登録したbase／child object型とcomponent型を、baseからchildへのfactory overrideの前後で照会する。"
+      },
+      "expected": {
+        "en": "Macro-generated base/child proxies retain distinct identity.",
+        "ja": "macro生成のbase／child proxyは、異なる同一性を保持する。"
+      },
+      "limitations": {
+        "en": "Original nonparameterized types and selected public queries only; no proxy numeric IDs, parameterized/abstract macros, component creation contract, GC behavior or approved coverage denominator is asserted.",
+        "ja": "独自の非parameterized型と選択した公開照会のみ。proxy数値ID、parameterized／abstract macro、component生成の契約、GC動作、承認済み分母は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_object_static_and_dynamic_type_proxies_survive_factory_override_and_rename",
+          "role": "direct",
+          "expected_observations": [
+            "UT: static base 1 child 1 distinct 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-OBJECT-TRAIT-OBJECT-MACRO-DYNAMIC-PROXY",
+      "clause": "B.2.1.2",
+      "statement": {
+        "en": "Object utility macros implement an instance proxy for its actual type.",
+        "ja": "object utility macroは、実際の型に対応するinstance proxyを実装する。"
+      },
+      "conditions": {
+        "en": "Registered base/child object types and one component type are queried around a base-to-child factory override.",
+        "ja": "登録したbase／child object型とcomponent型を、baseからchildへのfactory overrideの前後で照会する。"
+      },
+      "expected": {
+        "en": "The allocated child proxy is returned through a base object handle.",
+        "ja": "base object handle経由で、割り当てたchildのproxyを返す。"
+      },
+      "limitations": {
+        "en": "Original nonparameterized types and selected public queries only; no proxy numeric IDs, parameterized/abstract macros, component creation contract, GC behavior or approved coverage denominator is asserted.",
+        "ja": "独自の非parameterized型と選択した公開照会のみ。proxy数値ID、parameterized／abstract macro、component生成の契約、GC動作、承認済み分母は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_object_static_and_dynamic_type_proxies_survive_factory_override_and_rename",
+          "role": "direct",
+          "expected_observations": [
+            "UT: dynamic direct 1 created 1 names 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-OBJECT-TRAIT-OBJECT-MACRO-TYPE-NAME",
+      "clause": "B.2.1.2",
+      "statement": {
+        "en": "Object utility macros implement get_type_name using the supplied type name.",
+        "ja": "object utility macroは、指定型名を使うget_type_nameを実装する。"
+      },
+      "conditions": {
+        "en": "Registered base/child object types and one component type are queried around a base-to-child factory override.",
+        "ja": "登録したbase／child object型とcomponent型を、baseからchildへのfactory overrideの前後で照会する。"
+      },
+      "expected": {
+        "en": "Generated type strings identify base_value and child_value.",
+        "ja": "生成した型文字列はbase_valueとchild_valueを示す。"
+      },
+      "limitations": {
+        "en": "Original nonparameterized types and selected public queries only; no proxy numeric IDs, parameterized/abstract macros, component creation contract, GC behavior or approved coverage denominator is asserted.",
+        "ja": "独自の非parameterized型と選択した公開照会のみ。proxy数値ID、parameterized／abstract macro、component生成の契約、GC動作、承認済み分母は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_object_static_and_dynamic_type_proxies_survive_factory_override_and_rename",
+          "role": "direct",
+          "expected_observations": [
+            "UT: dynamic direct 1 created 1 names 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-OBJECT-TRAIT-COMPONENT-MACRO-TYPE-NAME",
+      "clause": "B.2.1.3",
+      "statement": {
+        "en": "Component utility macros implement get_type_name using the supplied type name.",
+        "ja": "component utility macroは、指定型名を使うget_type_nameを実装する。"
+      },
+      "conditions": {
+        "en": "Registered base/child object types and one component type are queried around a base-to-child factory override.",
+        "ja": "登録したbase／child object型とcomponent型を、baseからchildへのfactory overrideの前後で照会する。"
+      },
+      "expected": {
+        "en": "The component type string identifies component_value.",
+        "ja": "componentの型文字列はcomponent_valueを示す。"
+      },
+      "limitations": {
+        "en": "Original nonparameterized types and selected public queries only; no proxy numeric IDs, parameterized/abstract macros, component creation contract, GC behavior or approved coverage denominator is asserted.",
+        "ja": "独自の非parameterized型と選択した公開照会のみ。proxy数値ID、parameterized／abstract macro、component生成の契約、GC動作、承認済み分母は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_object_static_and_dynamic_type_proxies_survive_factory_override_and_rename",
+          "role": "direct",
+          "expected_observations": [
+            "UT: component proxy 1 type_name 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-OBJECT-TRAIT-DEFAULT-UNKNOWN-NULL",
+      "clause": "5.3.4.6",
+      "statement": {
+        "en": "Default get_object_type returns null for an unregistered virtual type name.",
+        "ja": "既定get_object_typeは、未登録のvirtual型名に対してnullを返す。"
+      },
+      "conditions": {
+        "en": "The lookup object initially reports a unique unregistered type name.",
+        "ja": "lookup objectは最初に一意な未登録型名を返す。"
+      },
+      "expected": {
+        "en": "Its proxy is null, as is the independent peer proxy.",
+        "ja": "そのproxyと独立peerのproxyはnullである。"
+      },
+      "limitations": {
+        "en": "Original nonparameterized types and selected public queries only; no proxy numeric IDs, parameterized/abstract macros, component creation contract, GC behavior or approved coverage denominator is asserted.",
+        "ja": "独自の非parameterized型と選択した公開照会のみ。proxy数値ID、parameterized／abstract macro、component生成の契約、GC動作、承認済み分母は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_object_default_type_lookup_tracks_the_current_registered_type_name",
+          "role": "direct",
+          "expected_observations": [
+            "UT: unknown_null 1 peer_null 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-OBJECT-TRAIT-DEFAULT-REGISTERED-LOOKUP",
+      "clause": "5.3.4.6",
+      "statement": {
+        "en": "Default get_object_type looks up the current virtual type-name result in the factory.",
+        "ja": "既定get_object_typeは、現在のvirtual型名をfactoryで検索する。"
+      },
+      "conditions": {
+        "en": "The controlled type-name result changes to registered_value.",
+        "ja": "制御した型名をregistered_valueへ変える。"
+      },
+      "expected": {
+        "en": "The returned proxy matches the registered wrapper.",
+        "ja": "戻るproxyは登録済みwrapperと一致する。"
+      },
+      "limitations": {
+        "en": "Original nonparameterized types and selected public queries only; no proxy numeric IDs, parameterized/abstract macros, component creation contract, GC behavior or approved coverage denominator is asserted.",
+        "ja": "独自の非parameterized型と選択した公開照会のみ。proxy数値ID、parameterized／abstract macro、component生成の契約、GC動作、承認済み分母は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_object_default_type_lookup_tracks_the_current_registered_type_name",
+          "role": "direct",
+          "expected_observations": [
+            "UT: registered 1 peer_still_null 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-OBJECT-TRAIT-DEFAULT-INSTANCE-NAME-INDEPENDENCE",
+      "clause": "5.3.4.6",
+      "statement": {
+        "en": "The default proxy lookup uses type name independently of instance name.",
+        "ja": "既定proxy検索は、instance名と独立に型名を使う。"
+      },
+      "conditions": {
+        "en": "Instance name changes while virtual type name remains registered_value.",
+        "ja": "virtual型名をregistered_valueに保ち、instance名を変更する。"
+      },
+      "expected": {
+        "en": "Lookup still returns the registered proxy.",
+        "ja": "検索は登録済みproxyを保持する。"
+      },
+      "limitations": {
+        "en": "Original nonparameterized types and selected public queries only; no proxy numeric IDs, parameterized/abstract macros, component creation contract, GC behavior or approved coverage denominator is asserted.",
+        "ja": "独自の非parameterized型と選択した公開照会のみ。proxy数値ID、parameterized／abstract macro、component生成の契約、GC動作、承認済み分母は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_object_default_type_lookup_tracks_the_current_registered_type_name",
+          "role": "direct",
+          "expected_observations": [
+            "UT: instance_rename 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-OBJECT-TRAIT-DEFAULT-LOOKUP-PEER-ISOLATION",
+      "clause": "5.3.4.6",
+      "statement": {
+        "en": "Changing one default-lookup object does not change its peer type-name lookup.",
+        "ja": "既定検索objectの片方を変えても、peerの型名検索は変わらない。"
+      },
+      "conditions": {
+        "en": "One object changes its lookup name while the peer remains unregistered.",
+        "ja": "一方の検索名を変え、peerは未登録のままにする。"
+      },
+      "expected": {
+        "en": "The changed object resolves and the peer remains null.",
+        "ja": "変更したobjectは解決し、peerはnullのままである。"
+      },
+      "limitations": {
+        "en": "Original nonparameterized types and selected public queries only; no proxy numeric IDs, parameterized/abstract macros, component creation contract, GC behavior or approved coverage denominator is asserted.",
+        "ja": "独自の非parameterized型と選択した公開照会のみ。proxy数値ID、parameterized／abstract macro、component生成の契約、GC動作、承認済み分母は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_object_default_type_lookup_tracks_the_current_registered_type_name",
+          "role": "direct",
+          "expected_observations": [
+            "UT: registered 1 peer_still_null 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-OBJECT-TRAIT-DEFAULT-LOOKUP-REFRESH",
+      "clause": "5.3.4.6",
+      "statement": {
+        "en": "Returning to an unregistered type name clears the formerly resolved proxy result.",
+        "ja": "未登録型名へ戻すと、以前に解決したproxy結果を保持しない。"
+      },
+      "conditions": {
+        "en": "The same object changes from known type name back to the unknown name.",
+        "ja": "同じobjectを、既知の型名から未知の型名へ戻す。"
+      },
+      "expected": {
+        "en": "The new query returns null.",
+        "ja": "新しい照会はnullを返す。"
+      },
+      "limitations": {
+        "en": "Original nonparameterized types and selected public queries only; no proxy numeric IDs, parameterized/abstract macros, component creation contract, GC behavior or approved coverage denominator is asserted.",
+        "ja": "独自の非parameterized型と選択した公開照会のみ。proxy数値ID、parameterized／abstract macro、component生成の契約、GC動作、承認済み分母は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_object_default_type_lookup_tracks_the_current_registered_type_name",
+          "role": "direct",
+          "expected_observations": [
+            "UT: unknown_again 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-OBJECT-TRAIT-FACTORY-INSTANCE-NAME",
+      "clause": "5.3.4.2",
+      "statement": {
+        "en": "Factory-created objects expose their supplied instance name.",
+        "ja": "factory生成objectは、指定したinstance名を返す。"
+      },
+      "conditions": {
+        "en": "Factory lookup context is context.branch and the requested object name is leaf.",
+        "ja": "factory検索contextをcontext.branch、要求object名をleafにする。"
+      },
+      "expected": {
+        "en": "The name getter returns leaf.",
+        "ja": "名前getterはleafを返す。"
+      },
+      "limitations": {
+        "en": "Original nonparameterized types and selected public queries only; no proxy numeric IDs, parameterized/abstract macros, component creation contract, GC behavior or approved coverage denominator is asserted.",
+        "ja": "独自の非parameterized型と選択した公開照会のみ。proxy数値ID、parameterized／abstract macro、component生成の契約、GC動作、承認済み分母は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_factory_object_context_does_not_add_hierarchy_to_instance_names",
+          "role": "direct",
+          "expected_observations": [
+            "UT: created name leaf full leaf peer peer"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-OBJECT-TRAIT-NO-IMPLICIT-HIERARCHY",
+      "clause": "5.3.4.3",
+      "statement": {
+        "en": "Plain objects do not acquire hierarchy from factory lookup context.",
+        "ja": "plain objectは、factory検索contextから階層を持たない。"
+      },
+      "conditions": {
+        "en": "The registered class inherits the default full-name implementation.",
+        "ja": "登録classは既定full-name実装を継承する。"
+      },
+      "expected": {
+        "en": "The full name is leaf, without the lookup context prefix.",
+        "ja": "full nameはleafで、検索contextの接頭辞を持たない。"
+      },
+      "limitations": {
+        "en": "Original nonparameterized types and selected public queries only; no proxy numeric IDs, parameterized/abstract macros, component creation contract, GC behavior or approved coverage denominator is asserted.",
+        "ja": "独自の非parameterized型と選択した公開照会のみ。proxy数値ID、parameterized／abstract macro、component生成の契約、GC動作、承認済み分母は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_factory_object_context_does_not_add_hierarchy_to_instance_names",
+          "role": "direct",
+          "expected_observations": [
+            "UT: created name leaf full leaf peer peer"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-OBJECT-TRAIT-DOTTED-INSTANCE-NAME",
+      "clause": "5.3.4.2",
+      "statement": {
+        "en": "get_name preserves a supplied dotted instance-name string.",
+        "ja": "get_nameは、指定したdot入りinstance名文字列を保持する。"
+      },
+      "conditions": {
+        "en": "The object is renamed to literal.segment.",
+        "ja": "objectをliteral.segmentへ改名する。"
+      },
+      "expected": {
+        "en": "The name is literal.segment.",
+        "ja": "名前はliteral.segmentである。"
+      },
+      "limitations": {
+        "en": "Original nonparameterized types and selected public queries only; no proxy numeric IDs, parameterized/abstract macros, component creation contract, GC behavior or approved coverage denominator is asserted.",
+        "ja": "独自の非parameterized型と選択した公開照会のみ。proxy数値ID、parameterized／abstract macro、component生成の契約、GC動作、承認済み分母は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_factory_object_context_does_not_add_hierarchy_to_instance_names",
+          "role": "direct",
+          "expected_observations": [
+            "UT: renamed name literal.segment full literal.segment peer peer"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-OBJECT-TRAIT-DOTTED-FULL-NAME",
+      "clause": "5.3.4.3",
+      "statement": {
+        "en": "The default full name equals the object name even when the name contains a dot.",
+        "ja": "名前にdotがあっても、既定full nameはobject名と同じである。"
+      },
+      "conditions": {
+        "en": "The plain object is renamed to literal.segment.",
+        "ja": "plain objectをliteral.segmentへ改名する。"
+      },
+      "expected": {
+        "en": "Full name is exactly literal.segment.",
+        "ja": "full nameはliteral.segmentと完全一致する。"
+      },
+      "limitations": {
+        "en": "Original nonparameterized types and selected public queries only; no proxy numeric IDs, parameterized/abstract macros, component creation contract, GC behavior or approved coverage denominator is asserted.",
+        "ja": "独自の非parameterized型と選択した公開照会のみ。proxy数値ID、parameterized／abstract macro、component生成の契約、GC動作、承認済み分母は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_factory_object_context_does_not_add_hierarchy_to_instance_names",
+          "role": "direct",
+          "expected_observations": [
+            "UT: renamed name literal.segment full literal.segment peer peer"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-OBJECT-TRAIT-EMPTY-INSTANCE-NAME",
+      "clause": "5.3.4.2",
+      "statement": {
+        "en": "An explicitly cleared instance name is returned as empty.",
+        "ja": "明示的に消したinstance名は、空として返す。"
+      },
+      "conditions": {
+        "en": "After a dotted name, set_name receives an empty string.",
+        "ja": "dot入り名の後、set_nameへ空文字列を渡す。"
+      },
+      "expected": {
+        "en": "The name getter is empty.",
+        "ja": "名前getterは空である。"
+      },
+      "limitations": {
+        "en": "Original nonparameterized types and selected public queries only; no proxy numeric IDs, parameterized/abstract macros, component creation contract, GC behavior or approved coverage denominator is asserted.",
+        "ja": "独自の非parameterized型と選択した公開照会のみ。proxy数値ID、parameterized／abstract macro、component生成の契約、GC動作、承認済み分母は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_factory_object_context_does_not_add_hierarchy_to_instance_names",
+          "role": "direct",
+          "expected_observations": [
+            "UT: cleared name 1 full 1 peer peer"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-OBJECT-TRAIT-EMPTY-FULL-NAME",
+      "clause": "5.3.4.3",
+      "statement": {
+        "en": "A plain object with an empty name has an empty default full name.",
+        "ja": "plain objectの名前が空なら、既定full nameも空である。"
+      },
+      "conditions": {
+        "en": "The same plain object has its name cleared.",
+        "ja": "同じplain objectの名前を消す。"
+      },
+      "expected": {
+        "en": "The full-name getter is empty.",
+        "ja": "full-name getterは空である。"
+      },
+      "limitations": {
+        "en": "Original nonparameterized types and selected public queries only; no proxy numeric IDs, parameterized/abstract macros, component creation contract, GC behavior or approved coverage denominator is asserted.",
+        "ja": "独自の非parameterized型と選択した公開照会のみ。proxy数値ID、parameterized／abstract macro、component生成の契約、GC動作、承認済み分母は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_factory_object_context_does_not_add_hierarchy_to_instance_names",
+          "role": "direct",
+          "expected_observations": [
+            "UT: cleared name 1 full 1 peer peer"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-OBJECT-TRAIT-PEER-FULL-NAME-ISOLATION",
+      "clause": "5.3.4.3",
+      "statement": {
+        "en": "Renaming one object leaves a separately created peer full name unchanged.",
+        "ja": "片方を改名しても、別に生成したpeerのfull nameは変わらない。"
+      },
+      "conditions": {
+        "en": "Two objects are created with different lookup contexts and names.",
+        "ja": "2 objectを、異なる検索contextと名前で生成する。"
+      },
+      "expected": {
+        "en": "Peer full name stays peer through rename and clearing.",
+        "ja": "改名と消去の間も、peer full nameはpeerを保つ。"
+      },
+      "limitations": {
+        "en": "Original nonparameterized types and selected public queries only; no proxy numeric IDs, parameterized/abstract macros, component creation contract, GC behavior or approved coverage denominator is asserted.",
+        "ja": "独自の非parameterized型と選択した公開照会のみ。proxy数値ID、parameterized／abstract macro、component生成の契約、GC動作、承認済み分母は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_factory_object_context_does_not_add_hierarchy_to_instance_names",
+          "role": "direct",
+          "expected_observations": [
+            "UT: created name leaf full leaf peer peer",
+            "UT: renamed name literal.segment full literal.segment peer peer",
+            "UT: cleared name 1 full 1 peer peer"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-OBJECT-TRAIT-DO-PRINT-VIRTUAL-DISPATCH",
+      "clause": "5.3.6.3",
+      "statement": {
+        "en": "do_print supports the declared virtual hook dispatch through a base object handle.",
+        "ja": "do_printは、base object handle経由で宣言したvirtual hookを呼べる。"
+      },
+      "conditions": {
+        "en": "The same derived object is called through uvm_object with two original capture printers.",
+        "ja": "同じ派生objectを、2つの独自capture printerを使ってuvm_object経由で呼ぶ。"
+      },
+      "expected": {
+        "en": "The derived hook runs once per selected direct call.",
+        "ja": "対象の各直接呼出しで、派生hookが1回実行される。"
+      },
+      "limitations": {
+        "en": "Original nonparameterized types and selected public queries only; no proxy numeric IDs, parameterized/abstract macros, component creation contract, GC behavior or approved coverage denominator is asserted.",
+        "ja": "独自の非parameterized型と選択した公開照会のみ。proxy数値ID、parameterized／abstract macro、component生成の契約、GC動作、承認済み分母は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_object_do_print_virtual_hook_uses_each_supplied_policy_without_stale_state",
+          "role": "direct",
+          "expected_observations": [
+            "UT: first hooks 1 calls 1 policy 1 value 3c size 8 field payload",
+            "UT: second hooks 2 calls 1 policy 1 value c3 first_unchanged 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-OBJECT-TRAIT-DO-PRINT-POLICY-ARGUMENT",
+      "clause": "5.3.6.3",
+      "statement": {
+        "en": "The direct virtual hook receives the supplied printer policy object.",
+        "ja": "直接のvirtual hookは、指定したprinter policy objectを受け取る。"
+      },
+      "conditions": {
+        "en": "The same derived object is called through uvm_object with two original capture printers.",
+        "ja": "同じ派生objectを、2つの独自capture printerを使ってuvm_object経由で呼ぶ。"
+      },
+      "expected": {
+        "en": "The first and second calls see their respective supplied policies.",
+        "ja": "1回目と2回目は、それぞれ指定したpolicyを観測する。"
+      },
+      "limitations": {
+        "en": "Original nonparameterized types and selected public queries only; no proxy numeric IDs, parameterized/abstract macros, component creation contract, GC behavior or approved coverage denominator is asserted.",
+        "ja": "独自の非parameterized型と選択した公開照会のみ。proxy数値ID、parameterized／abstract macro、component生成の契約、GC動作、承認済み分母は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_object_do_print_virtual_hook_uses_each_supplied_policy_without_stale_state",
+          "role": "direct",
+          "expected_observations": [
+            "UT: first hooks 1 calls 1 policy 1 value 3c size 8 field payload",
+            "UT: second hooks 2 calls 1 policy 1 value c3 first_unchanged 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-OBJECT-TRAIT-EXISTING-EMPTY-NAME",
+      "clause": "5.3.4.2",
+      "statement": {
+        "en": "get_name returns an empty string after explicit clearing.",
+        "ja": "明示的な消去後、get_nameは空文字列を返す。"
+      },
+      "conditions": {
+        "en": "An unchanged fixture clears one of two equally named objects.",
+        "ja": "未変更検査系で、同名の2 objectの片方を消す。"
+      },
+      "expected": {
+        "en": "The cleared name is empty.",
+        "ja": "消した名前は空である。"
+      },
+      "limitations": {
+        "en": "Original nonparameterized types and selected public queries only; no proxy numeric IDs, parameterized/abstract macros, component creation contract, GC behavior or approved coverage denominator is asserted.",
+        "ja": "独自の非parameterized型と選択した公開照会のみ。proxy数値ID、parameterized／abstract macro、component生成の契約、GC動作、承認済み分母は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_object_names_are_independent",
+          "role": "direct",
+          "expected_observations": [
+            "UT: first empty 1 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-OBJECT-TRAIT-EXISTING-PEER-NAME",
+      "clause": "5.3.4.2",
+      "statement": {
+        "en": "A peer retains its own supplied instance name.",
+        "ja": "peerは、自身に指定したinstance名を保持する。"
+      },
+      "conditions": {
+        "en": "Only the other object is renamed.",
+        "ja": "もう片方のobjectだけを改名する。"
+      },
+      "expected": {
+        "en": "The peer still returns shared.",
+        "ja": "peerは引き続きsharedを返す。"
+      },
+      "limitations": {
+        "en": "Original nonparameterized types and selected public queries only; no proxy numeric IDs, parameterized/abstract macros, component creation contract, GC behavior or approved coverage denominator is asserted.",
+        "ja": "独自の非parameterized型と選択した公開照会のみ。proxy数値ID、parameterized／abstract macro、component生成の契約、GC動作、承認済み分母は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_object_names_are_independent",
+          "role": "direct",
+          "expected_observations": [
+            "UT: second shared shared"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-OBJECT-TRAIT-EXISTING-CREATED-TYPE-NAME",
+      "clause": "5.3.4.7",
+      "statement": {
+        "en": "Type-name queries identify direct dynamic creation separately from overridden registry creation.",
+        "ja": "型名の照会は、直接の動的生成とoverride済みregistry生成を区別する。"
+      },
+      "conditions": {
+        "en": "An unchanged fixture uses direct object create and registry create under override.",
+        "ja": "未変更検査系で、override中のobject直接createとregistry createを使う。"
+      },
+      "expected": {
+        "en": "Types are derived_value and replacement_value respectively.",
+        "ja": "型は、それぞれderived_valueとreplacement_valueである。"
+      },
+      "limitations": {
+        "en": "Original nonparameterized types and selected public queries only; no proxy numeric IDs, parameterized/abstract macros, component creation contract, GC behavior or approved coverage denominator is asserted.",
+        "ja": "独自の非parameterized型と選択した公開照会のみ。proxy数値ID、parameterized／abstract macro、component生成の契約、GC動作、承認済み分母は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_object_create_uses_dynamic_type_without_factory_override",
+          "role": "direct",
+          "expected_observations": [
+            "UT: created type derived_value name fresh distinct 1 payload 7",
+            "UT: registry type replacement_value"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-OBJECT-TRAIT-EXISTING-SPRINT-USER-HOOK",
+      "clause": "5.3.6.3",
+      "statement": {
+        "en": "A user print hook contributes its field to the supplied sprint policy.",
+        "ja": "user print hookは、指定したsprint policyへfieldを供給する。"
+      },
+      "conditions": {
+        "en": "An unchanged fixture uses only the original do_print hook for its payload field.",
+        "ja": "未変更検査系は、payload fieldに独自do_print hookだけを使う。"
+      },
+      "expected": {
+        "en": "The supplied printer sees one payload field with value 46 and size 32.",
+        "ja": "指定printerは、値46、size 32のpayload fieldを1回観測する。"
+      },
+      "limitations": {
+        "en": "Original nonparameterized types and selected public queries only; no proxy numeric IDs, parameterized/abstract macros, component creation contract, GC behavior or approved coverage denominator is asserted.",
+        "ja": "独自の非parameterized型と選択した公開照会のみ。proxy数値ID、parameterized／abstract macro、component生成の契約、GC動作、承認済み分母は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_printer_sprint_uses_supplied_policy",
+          "role": "direct",
+          "expected_observations": [
+            "UT: field payload value 46 size 32",
+            "UT: calls 1 text captured"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQ-REPORT-LIVE-HANDLER-ELIGIBILITY",
+      "clause": "14.1.3.2",
+      "statement": {
+        "en": "Report eligibility follows the current bound sequencer handler configuration.",
+        "ja": "報告の適格性は、結合したsequencerの現在handler設定に従う。"
+      },
+      "conditions": {
+        "en": "Its handler changes from LOW to a replacement with NONE while a peer keeps the original.",
+        "ja": "handlerをLOWからNONEの置換側へ変え、peerは元のhandlerを保持する。"
+      },
+      "expected": {
+        "en": "LOW becomes disabled for the changed item and stays enabled for the peer.",
+        "ja": "変更したitemのLOWは無効となり、peerのLOWは有効のままである。"
+      },
+      "limitations": {
+        "en": "Reporting-only fixtures, explicit binding and original capture handlers/probes; no item arbitration, server output formatting, missing catcher getter or concurrent rebinding is asserted. Non-INFO admission retains the 14.1.3.3 interpretation separately from report-object verbosity rules.",
+        "ja": "報告専用の検査系、明示binding、独自capture handler／probeのみ。item arbitration、server出力書式、欠落catcher getter、並行した再bindingは評価しない。非INFOの受付は、report objectのverbosity規則と区別して14.1.3.3の解釈を保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_item_reporting_handler_replacement_uses_current_state",
+          "role": "direct",
+          "expected_observations": [
+            "UT: filtered old 1 replacement 0 enabled 0",
+            "UT: final old 2 replacement 1 peer_enabled 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQ-REPORT-LIVE-HANDLER-FILTER",
+      "clause": "14.1.3.3",
+      "statement": {
+        "en": "A newly filtered item report creates no handler traffic.",
+        "ja": "新たに除外したitem報告は、handlerへ流れない。"
+      },
+      "conditions": {
+        "en": "After replacement with NONE, the item submits a LOW INFO.",
+        "ja": "NONEのhandlerへ置換後、itemからLOW INFOを送る。"
+      },
+      "expected": {
+        "en": "The replacement receives zero reports before the at-limit call.",
+        "ja": "上限ちょうどの呼出し前、置換側の受信は0件である。"
+      },
+      "limitations": {
+        "en": "Reporting-only fixtures, explicit binding and original capture handlers/probes; no item arbitration, server output formatting, missing catcher getter or concurrent rebinding is asserted. Non-INFO admission retains the 14.1.3.3 interpretation separately from report-object verbosity rules.",
+        "ja": "報告専用の検査系、明示binding、独自capture handler／probeのみ。item arbitration、server出力書式、欠落catcher getter、並行した再bindingは評価しない。非INFOの受付は、report objectのverbosity規則と区別して14.1.3.3の解釈を保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_item_reporting_handler_replacement_uses_current_state",
+          "role": "direct",
+          "expected_observations": [
+            "UT: filtered old 1 replacement 0 enabled 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQ-REPORT-LIVE-HANDLER-AT-LIMIT",
+      "clause": "14.1.3.3",
+      "statement": {
+        "en": "An at-limit item report reaches the newly installed handler.",
+        "ja": "上限ちょうどのitem報告は、新しく設定したhandlerへ届く。"
+      },
+      "conditions": {
+        "en": "The changed item reports at NONE after its LOW report was filtered.",
+        "ja": "LOW報告を除外した後、変更したitemからNONEで報告する。"
+      },
+      "expected": {
+        "en": "The replacement receives visible, while the retained handler receives peer.",
+        "ja": "置換側はvisible、保持したhandlerはpeerを受け取る。"
+      },
+      "limitations": {
+        "en": "Reporting-only fixtures, explicit binding and original capture handlers/probes; no item arbitration, server output formatting, missing catcher getter or concurrent rebinding is asserted. Non-INFO admission retains the 14.1.3.3 interpretation separately from report-object verbosity rules.",
+        "ja": "報告専用の検査系、明示binding、独自capture handler／probeのみ。item arbitration、server出力書式、欠落catcher getter、並行した再bindingは評価しない。非INFOの受付は、report objectのverbosity規則と区別して14.1.3.3の解釈を保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_item_reporting_handler_replacement_uses_current_state",
+          "role": "direct",
+          "expected_observations": [
+            "UT: final old 2 replacement 1 peer_enabled 1",
+            "UT: routing 1 origins 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQ-REPORT-HANDLER-THRESHOLD-SETTING",
+      "clause": "6.4.3.2",
+      "statement": {
+        "en": "Direct handler maximum settings control item reporting admission.",
+        "ja": "handler上限の直接設定は、item報告の受付を制御する。"
+      },
+      "conditions": {
+        "en": "Original handler maximum is LOW and replacement maximum is NONE.",
+        "ja": "元handlerの上限をLOW、置換handlerの上限をNONEにする。"
+      },
+      "expected": {
+        "en": "LOW remains admitted only through the original handler.",
+        "ja": "LOWは、元のhandler経由だけで受け付けられる。"
+      },
+      "limitations": {
+        "en": "Reporting-only fixtures, explicit binding and original capture handlers/probes; no item arbitration, server output formatting, missing catcher getter or concurrent rebinding is asserted. Non-INFO admission retains the 14.1.3.3 interpretation separately from report-object verbosity rules.",
+        "ja": "報告専用の検査系、明示binding、独自capture handler／probeのみ。item arbitration、server出力書式、欠落catcher getter、並行した再bindingは評価しない。非INFOの受付は、report objectのverbosity規則と区別して14.1.3.3の解釈を保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_item_reporting_handler_replacement_uses_current_state",
+          "role": "direct",
+          "expected_observations": [
+            "UT: filtered old 1 replacement 0 enabled 0",
+            "UT: final old 2 replacement 1 peer_enabled 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQ-REPORT-CURRENT-REPORTER",
+      "clause": "14.1.3.1",
+      "statement": {
+        "en": "The selected report object follows the current sequencer or root fallback.",
+        "ja": "選択するreport objectは、現在のsequencerまたはroot fallbackに従う。"
+      },
+      "conditions": {
+        "en": "Generated reports bind to first, then second, then clear the item sequencer.",
+        "ja": "生成報告で、first、secondの順に結合し、最後にitemのsequencerを消す。"
+      },
+      "expected": {
+        "en": "Captured origins identify first, second and the root respectively.",
+        "ja": "記録した生成元は、それぞれfirst、second、rootを示す。"
+      },
+      "limitations": {
+        "en": "Reporting-only fixtures, explicit binding and original capture handlers/probes; no item arbitration, server output formatting, missing catcher getter or concurrent rebinding is asserted. Non-INFO admission retains the 14.1.3.3 interpretation separately from report-object verbosity rules.",
+        "ja": "報告専用の検査系、明示binding、独自capture handler／probeのみ。item arbitration、server出力書式、欠落catcher getter、並行した再bindingは評価しない。非INFOの受付は、report objectのverbosity規則と区別して14.1.3.3の解釈を保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_item_reporting_generated_context_uses_current_state",
+          "role": "direct",
+          "expected_observations": [
+            "UT: counts 1 1 1 origins 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQ-REPORT-GENERATED-CONTEXT-SNAPSHOT",
+      "clause": "14.1.3.3",
+      "statement": {
+        "en": "Separately generated item messages retain their own populated contexts.",
+        "ja": "別々に生成したitem messageは、自身に設定したcontextを保持する。"
+      },
+      "conditions": {
+        "en": "Parent/item names and reporter change between generated messages.",
+        "ja": "生成messageの間でparent／item名とreporterを変える。"
+      },
+      "expected": {
+        "en": "Earlier message contexts retain their prior strings.",
+        "ja": "以前のmessageのcontextは、以前の文字列を保持する。"
+      },
+      "limitations": {
+        "en": "Reporting-only fixtures, explicit binding and original capture handlers/probes; no item arbitration, server output formatting, missing catcher getter or concurrent rebinding is asserted. Non-INFO admission retains the 14.1.3.3 interpretation separately from report-object verbosity rules.",
+        "ja": "報告専用の検査系、明示binding、独自capture handler／probeのみ。item arbitration、server出力書式、欠落catcher getter、並行した再bindingは評価しない。非INFOの受付は、report objectのverbosity規則と区別して14.1.3.3の解釈を保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_item_reporting_generated_context_uses_current_state",
+          "role": "direct",
+          "expected_observations": [
+            "UT: message_snapshots 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQ-REPORT-GENERATED-EMPTY-CONTEXT-FILL",
+      "clause": "14.1.3.4",
+      "statement": {
+        "en": "An empty generated context is filled from the current sequence path.",
+        "ja": "空の生成contextは、現在のsequence pathで埋める。"
+      },
+      "conditions": {
+        "en": "Parent/item names change from parent/item to changed/child before the next report.",
+        "ja": "次の報告前に、parent／item名をparent／itemからchanged／childへ変える。"
+      },
+      "expected": {
+        "en": "Contexts are parent.item then changed.child.",
+        "ja": "contextはparent.item、次にchanged.childとなる。"
+      },
+      "limitations": {
+        "en": "Reporting-only fixtures, explicit binding and original capture handlers/probes; no item arbitration, server output formatting, missing catcher getter or concurrent rebinding is asserted. Non-INFO admission retains the 14.1.3.3 interpretation separately from report-object verbosity rules.",
+        "ja": "報告専用の検査系、明示binding、独自capture handler／probeのみ。item arbitration、server出力書式、欠落catcher getter、並行した再bindingは評価しない。非INFOの受付は、report objectのverbosity規則と区別して14.1.3.3の解釈を保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_item_reporting_generated_context_uses_current_state",
+          "role": "direct",
+          "expected_observations": [
+            "UT: contexts parent.item changed.child manual"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQ-REPORT-GENERATED-EXPLICIT-CONTEXT",
+      "clause": "14.1.3.4",
+      "statement": {
+        "en": "Explicit generated context is retained during root-fallback reporting.",
+        "ja": "root fallbackで報告しても、明示した生成contextは保持する。"
+      },
+      "conditions": {
+        "en": "After clearing the sequencer, the report explicitly supplies manual.",
+        "ja": "sequencerを消した後、報告へmanualを明示する。"
+      },
+      "expected": {
+        "en": "The root-routed message keeps manual.",
+        "ja": "rootへ送ったmessageはmanualを保つ。"
+      },
+      "limitations": {
+        "en": "Reporting-only fixtures, explicit binding and original capture handlers/probes; no item arbitration, server output formatting, missing catcher getter or concurrent rebinding is asserted. Non-INFO admission retains the 14.1.3.3 interpretation separately from report-object verbosity rules.",
+        "ja": "報告専用の検査系、明示binding、独自capture handler／probeのみ。item arbitration、server出力書式、欠落catcher getter、並行した再bindingは評価しない。非INFOの受付は、report objectのverbosity規則と区別して14.1.3.3の解釈を保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_item_reporting_generated_context_uses_current_state",
+          "role": "direct",
+          "expected_observations": [
+            "UT: contexts parent.item changed.child manual",
+            "UT: message_snapshots 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQ-REPORT-REUSED-CONTEXT-PRESERVED",
+      "clause": "14.1.3.4",
+      "statement": {
+        "en": "Nonempty preformed context survives reporter and path changes.",
+        "ja": "非emptyの事前構成contextは、reporterとpathを変えても保持する。"
+      },
+      "conditions": {
+        "en": "The first call fills an empty context; the same message is reused after rename/rebinding.",
+        "ja": "初回に空contextを埋め、改名／再binding後に同じmessageを再利用する。"
+      },
+      "expected": {
+        "en": "Both entry snapshots retain parent.item.",
+        "ja": "両入口snapshotはparent.itemを保持する。"
+      },
+      "limitations": {
+        "en": "Reporting-only fixtures, explicit binding and original capture handlers/probes; no item arbitration, server output formatting, missing catcher getter or concurrent rebinding is asserted. Non-INFO admission retains the 14.1.3.3 interpretation separately from report-object verbosity rules.",
+        "ja": "報告専用の検査系、明示binding、独自capture handler／probeのみ。item arbitration、server出力書式、欠落catcher getter、並行した再bindingは評価しない。非INFOの受付は、report objectのverbosity規則と区別して14.1.3.3の解釈を保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_item_reporting_reused_context_uses_current_state",
+          "role": "direct",
+          "expected_observations": [
+            "UT: reuse origins 1 contexts parent.item parent.item"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQ-REPORT-EMPTY-CONTEXT-REFILL",
+      "clause": "14.1.3.4",
+      "statement": {
+        "en": "Clearing a reused preformed context causes refill from the current path.",
+        "ja": "再利用した事前構成contextを消すと、現在のpathで再び埋める。"
+      },
+      "conditions": {
+        "en": "After a preserved reuse, the caller sets context to empty before processing again.",
+        "ja": "保持した再利用の後、再処理前に呼出し側がcontextを空にする。"
+      },
+      "expected": {
+        "en": "Handler and caller then see changed.child.",
+        "ja": "handlerと呼出し側は、changed.childを観測する。"
+      },
+      "limitations": {
+        "en": "Reporting-only fixtures, explicit binding and original capture handlers/probes; no item arbitration, server output formatting, missing catcher getter or concurrent rebinding is asserted. Non-INFO admission retains the 14.1.3.3 interpretation separately from report-object verbosity rules.",
+        "ja": "報告専用の検査系、明示binding、独自capture handler／probeのみ。item arbitration、server出力書式、欠落catcher getter、並行した再bindingは評価しない。非INFOの受付は、report objectのverbosity規則と区別して14.1.3.3の解釈を保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_item_reporting_reused_context_uses_current_state",
+          "role": "direct",
+          "expected_observations": [
+            "UT: cleared context changed.child caller changed.child"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQ-REPORT-REUSED-HANDLE-IDENTITY",
+      "clause": "14.1.3.4",
+      "statement": {
+        "en": "Default preformed processing forwards the same message handle on each selected call.",
+        "ja": "既定の事前構成処理は、各対象呼出しで同じmessage handleを転送する。"
+      },
+      "conditions": {
+        "en": "One message is processed three times through two sequencer handlers.",
+        "ja": "1 messageを、2 sequencerのhandler経由で3回処理する。"
+      },
+      "expected": {
+        "en": "Every captured argument equals the caller handle.",
+        "ja": "記録した全引数が、呼出し側のhandleと一致する。"
+      },
+      "limitations": {
+        "en": "Reporting-only fixtures, explicit binding and original capture handlers/probes; no item arbitration, server output formatting, missing catcher getter or concurrent rebinding is asserted. Non-INFO admission retains the 14.1.3.3 interpretation separately from report-object verbosity rules.",
+        "ja": "報告専用の検査系、明示binding、独自capture handler／probeのみ。item arbitration、server出力書式、欠落catcher getter、並行した再bindingは評価しない。非INFOの受付は、report objectのverbosity規則と区別して14.1.3.3の解釈を保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_item_reporting_reused_context_uses_current_state",
+          "role": "direct",
+          "expected_observations": [
+            "UT: same_handle 1 current_origin 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQ-REPORT-REUSED-ORIGIN-REBINDING",
+      "clause": "14.1.3.4",
+      "statement": {
+        "en": "Reused preformed message origin is populated for the currently selected reporter.",
+        "ja": "再利用した事前構成messageの生成元は、現在選択したreporterへ設定する。"
+      },
+      "conditions": {
+        "en": "The item rebinds from first to second while retaining the same message.",
+        "ja": "同じmessageを保持して、itemをfirstからsecondへ結合し直す。"
+      },
+      "expected": {
+        "en": "Entry origins change to second and the caller retains that current origin.",
+        "ja": "入口の生成元がsecondへ変わり、呼出し側も現在の生成元を保持する。"
+      },
+      "limitations": {
+        "en": "Reporting-only fixtures, explicit binding and original capture handlers/probes; no item arbitration, server output formatting, missing catcher getter or concurrent rebinding is asserted. Non-INFO admission retains the 14.1.3.3 interpretation separately from report-object verbosity rules.",
+        "ja": "報告専用の検査系、明示binding、独自capture handler／probeのみ。item arbitration、server出力書式、欠落catcher getter、並行した再bindingは評価しない。非INFOの受付は、report objectのverbosity規則と区別して14.1.3.3の解釈を保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_item_reporting_reused_context_uses_current_state",
+          "role": "direct",
+          "expected_observations": [
+            "UT: reuse origins 1 contexts parent.item parent.item",
+            "UT: same_handle 1 current_origin 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQ-REPORT-SEVERITY-ENABLED-QUERY",
+      "clause": "14.1.3.2",
+      "statement": {
+        "en": "Above-limit report-enabled queries return false for the selected severity keys.",
+        "ja": "上限を超えるreport-enabled照会は、対象severity keyでfalseを返す。"
+      },
+      "conditions": {
+        "en": "A bound sequencer has maximum NONE and all four severities are queried at HIGH.",
+        "ja": "結合したsequencerの上限をNONEにし、4 severityをHIGHで照会する。"
+      },
+      "expected": {
+        "en": "All four queries return zero.",
+        "ja": "4照会すべてが0を返す。"
+      },
+      "limitations": {
+        "en": "Reporting-only fixtures, explicit binding and original capture handlers/probes; no item arbitration, server output formatting, missing catcher getter or concurrent rebinding is asserted. Non-INFO admission retains the 14.1.3.3 interpretation separately from report-object verbosity rules.",
+        "ja": "報告専用の検査系、明示binding、独自capture handler／probeのみ。item arbitration、server出力書式、欠落catcher getter、並行した再bindingは評価しない。非INFOの受付は、report objectのverbosity規則と区別して14.1.3.3の解釈を保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_item_reporting_filters_each_severity_before_virtual_processing",
+          "role": "direct",
+          "expected_observations": [
+            "UT: enabled high info 0 warning 0 error 0 fatal 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQ-REPORT-ABOVE-LIMIT-INFO",
+      "clause": "14.1.3.3",
+      "statement": {
+        "en": "The sequence-item INFO method does nothing when report-enabled returns zero.",
+        "ja": "sequence-itemのINFO methodは、report-enabledが0なら処理しない。"
+      },
+      "conditions": {
+        "en": "Default checked flag and HIGH verbosity are used against a NONE limit.",
+        "ja": "checked flagを既定値とし、上限NONEに対してHIGH verbosityを使う。"
+      },
+      "expected": {
+        "en": "The virtual processing probe receives no INFO message.",
+        "ja": "virtual処理probeへINFO messageは届かない。"
+      },
+      "limitations": {
+        "en": "Reporting-only fixtures, explicit binding and original capture handlers/probes; no item arbitration, server output formatting, missing catcher getter or concurrent rebinding is asserted. Non-INFO admission retains the 14.1.3.3 interpretation separately from report-object verbosity rules.",
+        "ja": "報告専用の検査系、明示binding、独自capture handler／probeのみ。item arbitration、server出力書式、欠落catcher getter、並行した再bindingは評価しない。非INFOの受付は、report objectのverbosity規則と区別して14.1.3.3の解釈を保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_item_reporting_filters_each_severity_before_virtual_processing",
+          "role": "direct",
+          "expected_observations": [
+            "UT: high info 0 warning 0 error 0 fatal 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQ-REPORT-AT-LIMIT-INFO",
+      "clause": "14.1.3.3",
+      "statement": {
+        "en": "The sequence-item INFO method creates a message at the enabled limit.",
+        "ja": "sequence-itemのINFO methodは、有効な上限ちょうどでmessageを生成する。"
+      },
+      "conditions": {
+        "en": "Only fixture counters reset before the at-limit control, leaving reporter settings intact.",
+        "ja": "reporter設定を保ち、上限ちょうどの対照前に検査系counterだけをresetする。"
+      },
+      "expected": {
+        "en": "The virtual probe receives one INFO message.",
+        "ja": "virtual probeへINFO messageが1件届く。"
+      },
+      "limitations": {
+        "en": "Reporting-only fixtures, explicit binding and original capture handlers/probes; no item arbitration, server output formatting, missing catcher getter or concurrent rebinding is asserted. Non-INFO admission retains the 14.1.3.3 interpretation separately from report-object verbosity rules.",
+        "ja": "報告専用の検査系、明示binding、独自capture handler／probeのみ。item arbitration、server出力書式、欠落catcher getter、並行した再bindingは評価しない。非INFOの受付は、report objectのverbosity規則と区別して14.1.3.3の解釈を保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_item_reporting_filters_each_severity_before_virtual_processing",
+          "role": "direct",
+          "expected_observations": [
+            "UT: at_limit info 1 warning 1 error 1 fatal 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQ-REPORT-ABOVE-LIMIT-WARNING",
+      "clause": "14.1.3.3",
+      "statement": {
+        "en": "The sequence-item WARNING method does nothing when report-enabled returns zero.",
+        "ja": "sequence-itemのWARNING methodは、report-enabledが0なら処理しない。"
+      },
+      "conditions": {
+        "en": "Default checked flag and HIGH verbosity are used against a NONE limit.",
+        "ja": "checked flagを既定値とし、上限NONEに対してHIGH verbosityを使う。"
+      },
+      "expected": {
+        "en": "The virtual processing probe receives no WARNING message.",
+        "ja": "virtual処理probeへWARNING messageは届かない。"
+      },
+      "limitations": {
+        "en": "Reporting-only fixtures, explicit binding and original capture handlers/probes; no item arbitration, server output formatting, missing catcher getter or concurrent rebinding is asserted. Non-INFO admission retains the 14.1.3.3 interpretation separately from report-object verbosity rules.",
+        "ja": "報告専用の検査系、明示binding、独自capture handler／probeのみ。item arbitration、server出力書式、欠落catcher getter、並行した再bindingは評価しない。非INFOの受付は、report objectのverbosity規則と区別して14.1.3.3の解釈を保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_item_reporting_filters_each_severity_before_virtual_processing",
+          "role": "direct",
+          "expected_observations": [
+            "UT: high info 0 warning 0 error 0 fatal 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQ-REPORT-AT-LIMIT-WARNING",
+      "clause": "14.1.3.3",
+      "statement": {
+        "en": "The sequence-item WARNING method creates a message at the enabled limit.",
+        "ja": "sequence-itemのWARNING methodは、有効な上限ちょうどでmessageを生成する。"
+      },
+      "conditions": {
+        "en": "Only fixture counters reset before the at-limit control, leaving reporter settings intact.",
+        "ja": "reporter設定を保ち、上限ちょうどの対照前に検査系counterだけをresetする。"
+      },
+      "expected": {
+        "en": "The virtual probe receives one WARNING message.",
+        "ja": "virtual probeへWARNING messageが1件届く。"
+      },
+      "limitations": {
+        "en": "Reporting-only fixtures, explicit binding and original capture handlers/probes; no item arbitration, server output formatting, missing catcher getter or concurrent rebinding is asserted. Non-INFO admission retains the 14.1.3.3 interpretation separately from report-object verbosity rules.",
+        "ja": "報告専用の検査系、明示binding、独自capture handler／probeのみ。item arbitration、server出力書式、欠落catcher getter、並行した再bindingは評価しない。非INFOの受付は、report objectのverbosity規則と区別して14.1.3.3の解釈を保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_item_reporting_filters_each_severity_before_virtual_processing",
+          "role": "direct",
+          "expected_observations": [
+            "UT: at_limit info 1 warning 1 error 1 fatal 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQ-REPORT-ABOVE-LIMIT-ERROR",
+      "clause": "14.1.3.3",
+      "statement": {
+        "en": "The sequence-item ERROR method does nothing when report-enabled returns zero.",
+        "ja": "sequence-itemのERROR methodは、report-enabledが0なら処理しない。"
+      },
+      "conditions": {
+        "en": "Default checked flag and HIGH verbosity are used against a NONE limit.",
+        "ja": "checked flagを既定値とし、上限NONEに対してHIGH verbosityを使う。"
+      },
+      "expected": {
+        "en": "The virtual processing probe receives no ERROR message.",
+        "ja": "virtual処理probeへERROR messageは届かない。"
+      },
+      "limitations": {
+        "en": "Reporting-only fixtures, explicit binding and original capture handlers/probes; no item arbitration, server output formatting, missing catcher getter or concurrent rebinding is asserted. Non-INFO admission retains the 14.1.3.3 interpretation separately from report-object verbosity rules.",
+        "ja": "報告専用の検査系、明示binding、独自capture handler／probeのみ。item arbitration、server出力書式、欠落catcher getter、並行した再bindingは評価しない。非INFOの受付は、report objectのverbosity規則と区別して14.1.3.3の解釈を保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_item_reporting_filters_each_severity_before_virtual_processing",
+          "role": "direct",
+          "expected_observations": [
+            "UT: high info 0 warning 0 error 0 fatal 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQ-REPORT-AT-LIMIT-ERROR",
+      "clause": "14.1.3.3",
+      "statement": {
+        "en": "The sequence-item ERROR method creates a message at the enabled limit.",
+        "ja": "sequence-itemのERROR methodは、有効な上限ちょうどでmessageを生成する。"
+      },
+      "conditions": {
+        "en": "Only fixture counters reset before the at-limit control, leaving reporter settings intact.",
+        "ja": "reporter設定を保ち、上限ちょうどの対照前に検査系counterだけをresetする。"
+      },
+      "expected": {
+        "en": "The virtual probe receives one ERROR message.",
+        "ja": "virtual probeへERROR messageが1件届く。"
+      },
+      "limitations": {
+        "en": "Reporting-only fixtures, explicit binding and original capture handlers/probes; no item arbitration, server output formatting, missing catcher getter or concurrent rebinding is asserted. Non-INFO admission retains the 14.1.3.3 interpretation separately from report-object verbosity rules.",
+        "ja": "報告専用の検査系、明示binding、独自capture handler／probeのみ。item arbitration、server出力書式、欠落catcher getter、並行した再bindingは評価しない。非INFOの受付は、report objectのverbosity規則と区別して14.1.3.3の解釈を保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_item_reporting_filters_each_severity_before_virtual_processing",
+          "role": "direct",
+          "expected_observations": [
+            "UT: at_limit info 1 warning 1 error 1 fatal 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQ-REPORT-ABOVE-LIMIT-FATAL",
+      "clause": "14.1.3.3",
+      "statement": {
+        "en": "The sequence-item FATAL method does nothing when report-enabled returns zero.",
+        "ja": "sequence-itemのFATAL methodは、report-enabledが0なら処理しない。"
+      },
+      "conditions": {
+        "en": "Default checked flag and HIGH verbosity are used against a NONE limit.",
+        "ja": "checked flagを既定値とし、上限NONEに対してHIGH verbosityを使う。"
+      },
+      "expected": {
+        "en": "The virtual processing probe receives no FATAL message.",
+        "ja": "virtual処理probeへFATAL messageは届かない。"
+      },
+      "limitations": {
+        "en": "Reporting-only fixtures, explicit binding and original capture handlers/probes; no item arbitration, server output formatting, missing catcher getter or concurrent rebinding is asserted. Non-INFO admission retains the 14.1.3.3 interpretation separately from report-object verbosity rules.",
+        "ja": "報告専用の検査系、明示binding、独自capture handler／probeのみ。item arbitration、server出力書式、欠落catcher getter、並行した再bindingは評価しない。非INFOの受付は、report objectのverbosity規則と区別して14.1.3.3の解釈を保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_item_reporting_filters_each_severity_before_virtual_processing",
+          "role": "direct",
+          "expected_observations": [
+            "UT: high info 0 warning 0 error 0 fatal 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQ-REPORT-AT-LIMIT-FATAL",
+      "clause": "14.1.3.3",
+      "statement": {
+        "en": "The sequence-item FATAL method creates a message at the enabled limit.",
+        "ja": "sequence-itemのFATAL methodは、有効な上限ちょうどでmessageを生成する。"
+      },
+      "conditions": {
+        "en": "Only fixture counters reset before the at-limit control, leaving reporter settings intact.",
+        "ja": "reporter設定を保ち、上限ちょうどの対照前に検査系counterだけをresetする。"
+      },
+      "expected": {
+        "en": "The virtual probe receives one FATAL message.",
+        "ja": "virtual probeへFATAL messageが1件届く。"
+      },
+      "limitations": {
+        "en": "Reporting-only fixtures, explicit binding and original capture handlers/probes; no item arbitration, server output formatting, missing catcher getter or concurrent rebinding is asserted. Non-INFO admission retains the 14.1.3.3 interpretation separately from report-object verbosity rules.",
+        "ja": "報告専用の検査系、明示binding、独自capture handler／probeのみ。item arbitration、server出力書式、欠落catcher getter、並行した再bindingは評価しない。非INFOの受付は、report objectのverbosity規則と区別して14.1.3.3の解釈を保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_item_reporting_filters_each_severity_before_virtual_processing",
+          "role": "direct",
+          "expected_observations": [
+            "UT: at_limit info 1 warning 1 error 1 fatal 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM-ROUNDTRIP-COMMAND",
+      "clause": "19.1.2.1",
+      "statement": {
+        "en": "Paired conversion retains the supplied WRITE operation kind.",
+        "ja": "変換対は、指定したWRITEのoperation kindを保持する。"
+      },
+      "conditions": {
+        "en": "Standard reg2bus/bus2reg convert nonuniform full, selected-lane and partial-byte operations.",
+        "ja": "標準reg2bus／bus2regで、非一様な全word、選択lane、partial-byteのoperationを変換する。"
+      },
+      "expected": {
+        "en": "The resulting kind is WRITE.",
+        "ja": "結果のkindはWRITEである。"
+      },
+      "limitations": {
+        "en": "Paired-conversion consistency with independent source scalar/masks only; no absolute GP byte order or independent one-way lane/data correspondence is proved. Disabled lanes, partial-byte padding, unused upper fields and inverse n_bits reconstruction remain unconstrained.",
+        "ja": "独立した元scalar／maskを使う変換対の整合性のみ。GPの絶対byte順や片方向のlane／data対応を独立には証明しない。無効lane、partial-byte padding、未使用上位field、n_bits逆再構築は固定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_tlm_adapter_nonuniform_full_word_roundtrip_preserves_valid_operation_fields",
+          "role": "direct",
+          "expected_observations": [
+            "UT: roundtrip kind 1 address 135 data 1 enables f status 1"
+          ]
+        },
+        {
+          "test": "u19/test_reg_tlm_adapter_alternating_lanes_roundtrip_preserves_valid_operation_fields",
+          "role": "direct",
+          "expected_observations": [
+            "UT: roundtrip kind 1 address 135 data 1 enables a status 1"
+          ]
+        },
+        {
+          "test": "u19/test_reg_tlm_adapter_partial_final_byte_roundtrip_preserves_valid_operation_fields",
+          "role": "direct",
+          "expected_observations": [
+            "UT: roundtrip kind 1 address 135 data 1 enables 3 status 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM-ROUNDTRIP-ADDRESS",
+      "clause": "19.1.2.2",
+      "statement": {
+        "en": "Paired conversion retains the supplied bus address.",
+        "ja": "変換対は、指定したbus addressを保持する。"
+      },
+      "conditions": {
+        "en": "Standard reg2bus/bus2reg convert nonuniform full, selected-lane and partial-byte operations.",
+        "ja": "標準reg2bus／bus2regで、非一様な全word、選択lane、partial-byteのoperationを変換する。"
+      },
+      "expected": {
+        "en": "The resulting address is 0x135.",
+        "ja": "結果のaddressは0x135である。"
+      },
+      "limitations": {
+        "en": "Paired-conversion consistency with independent source scalar/masks only; no absolute GP byte order or independent one-way lane/data correspondence is proved. Disabled lanes, partial-byte padding, unused upper fields and inverse n_bits reconstruction remain unconstrained.",
+        "ja": "独立した元scalar／maskを使う変換対の整合性のみ。GPの絶対byte順や片方向のlane／data対応を独立には証明しない。無効lane、partial-byte padding、未使用上位field、n_bits逆再構築は固定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_tlm_adapter_nonuniform_full_word_roundtrip_preserves_valid_operation_fields",
+          "role": "direct",
+          "expected_observations": [
+            "UT: roundtrip kind 1 address 135 data 1 enables f status 1"
+          ]
+        },
+        {
+          "test": "u19/test_reg_tlm_adapter_alternating_lanes_roundtrip_preserves_valid_operation_fields",
+          "role": "direct",
+          "expected_observations": [
+            "UT: roundtrip kind 1 address 135 data 1 enables a status 1"
+          ]
+        },
+        {
+          "test": "u19/test_reg_tlm_adapter_partial_final_byte_roundtrip_preserves_valid_operation_fields",
+          "role": "direct",
+          "expected_observations": [
+            "UT: roundtrip kind 1 address 135 data 1 enables 3 status 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM-ROUNDTRIP-STATUS",
+      "clause": "19.1.2.6",
+      "statement": {
+        "en": "An OK payload response converts to a successful generic operation.",
+        "ja": "OK payload responseは、成功のgeneric operationへ変換する。"
+      },
+      "conditions": {
+        "en": "Standard reg2bus/bus2reg convert nonuniform full, selected-lane and partial-byte operations.",
+        "ja": "標準reg2bus／bus2regで、非一様な全word、選択lane、partial-byteのoperationを変換する。"
+      },
+      "expected": {
+        "en": "The result replaces NOT_OK with IS_OK.",
+        "ja": "結果はNOT_OKからIS_OKへ変わる。"
+      },
+      "limitations": {
+        "en": "Paired-conversion consistency with independent source scalar/masks only; no absolute GP byte order or independent one-way lane/data correspondence is proved. Disabled lanes, partial-byte padding, unused upper fields and inverse n_bits reconstruction remain unconstrained.",
+        "ja": "独立した元scalar／maskを使う変換対の整合性のみ。GPの絶対byte順や片方向のlane／data対応を独立には証明しない。無効lane、partial-byte padding、未使用上位field、n_bits逆再構築は固定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_tlm_adapter_nonuniform_full_word_roundtrip_preserves_valid_operation_fields",
+          "role": "direct",
+          "expected_observations": [
+            "UT: roundtrip kind 1 address 135 data 1 enables f status 1"
+          ]
+        },
+        {
+          "test": "u19/test_reg_tlm_adapter_alternating_lanes_roundtrip_preserves_valid_operation_fields",
+          "role": "direct",
+          "expected_observations": [
+            "UT: roundtrip kind 1 address 135 data 1 enables a status 1"
+          ]
+        },
+        {
+          "test": "u19/test_reg_tlm_adapter_partial_final_byte_roundtrip_preserves_valid_operation_fields",
+          "role": "direct",
+          "expected_observations": [
+            "UT: roundtrip kind 1 address 135 data 1 enables 3 status 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM-ROUNDTRIP-ENABLED-LANES",
+      "clause": "19.1.2.5",
+      "statement": {
+        "en": "Paired conversion retains the selected valid lane enables.",
+        "ja": "変換対は、選択した有効laneのenableを保持する。"
+      },
+      "conditions": {
+        "en": "Standard reg2bus/bus2reg convert nonuniform full, selected-lane and partial-byte operations.",
+        "ja": "標準reg2bus／bus2regで、非一様な全word、選択lane、partial-byteのoperationを変換する。"
+      },
+      "expected": {
+        "en": "Valid masks are 0xf, 0xa and 0x3 in their selected contexts.",
+        "ja": "対象contextの有効maskは0xf、0xa、0x3である。"
+      },
+      "limitations": {
+        "en": "Paired-conversion consistency with independent source scalar/masks only; no absolute GP byte order or independent one-way lane/data correspondence is proved. Disabled lanes, partial-byte padding, unused upper fields and inverse n_bits reconstruction remain unconstrained.",
+        "ja": "独立した元scalar／maskを使う変換対の整合性のみ。GPの絶対byte順や片方向のlane／data対応を独立には証明しない。無効lane、partial-byte padding、未使用上位field、n_bits逆再構築は固定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_tlm_adapter_nonuniform_full_word_roundtrip_preserves_valid_operation_fields",
+          "role": "direct",
+          "expected_observations": [
+            "UT: roundtrip kind 1 address 135 data 1 enables f status 1"
+          ]
+        },
+        {
+          "test": "u19/test_reg_tlm_adapter_alternating_lanes_roundtrip_preserves_valid_operation_fields",
+          "role": "direct",
+          "expected_observations": [
+            "UT: roundtrip kind 1 address 135 data 1 enables a status 1"
+          ]
+        },
+        {
+          "test": "u19/test_reg_tlm_adapter_partial_final_byte_roundtrip_preserves_valid_operation_fields",
+          "role": "direct",
+          "expected_observations": [
+            "UT: roundtrip kind 1 address 135 data 1 enables 3 status 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM-ROUNDTRIP-READABLE-DATA-CAPACITY",
+      "clause": "12.3.4.2.9",
+      "statement": {
+        "en": "Converted payload data storage covers its declared byte length.",
+        "ja": "変換後payloadのdata storageは、宣言したbyte長をカバーする。"
+      },
+      "conditions": {
+        "en": "Standard reg2bus/bus2reg convert nonuniform full, selected-lane and partial-byte operations.",
+        "ja": "標準reg2bus／bus2regで、非一様な全word、選択lane、partial-byteのoperationを変換する。"
+      },
+      "expected": {
+        "en": "The returned data array has at least its declared length.",
+        "ja": "返されたdata配列のsizeは、少なくとも宣言長である。"
+      },
+      "limitations": {
+        "en": "Paired-conversion consistency with independent source scalar/masks only; no absolute GP byte order or independent one-way lane/data correspondence is proved. Disabled lanes, partial-byte padding, unused upper fields and inverse n_bits reconstruction remain unconstrained.",
+        "ja": "独立した元scalar／maskを使う変換対の整合性のみ。GPの絶対byte順や片方向のlane／data対応を独立には証明しない。無効lane、partial-byte padding、未使用上位field、n_bits逆再構築は固定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_tlm_adapter_nonuniform_full_word_roundtrip_preserves_valid_operation_fields",
+          "role": "direct",
+          "expected_observations": [
+            "UT: payload covers_bits 1 readable_bytes 1"
+          ]
+        },
+        {
+          "test": "u19/test_reg_tlm_adapter_alternating_lanes_roundtrip_preserves_valid_operation_fields",
+          "role": "direct",
+          "expected_observations": [
+            "UT: payload covers_bits 1 readable_bytes 1"
+          ]
+        },
+        {
+          "test": "u19/test_reg_tlm_adapter_partial_final_byte_roundtrip_preserves_valid_operation_fields",
+          "role": "direct",
+          "expected_observations": [
+            "UT: payload covers_bits 1 readable_bytes 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM-ROUNDTRIP-BIT-CAPACITY",
+      "clause": "19.2.2.2.1",
+      "statement": {
+        "en": "Converted payload byte length is sufficient for the source valid-bit extent.",
+        "ja": "変換後payloadのbyte長は、元の有効bit範囲を格納できる。"
+      },
+      "conditions": {
+        "en": "Standard reg2bus/bus2reg convert nonuniform full, selected-lane and partial-byte operations.",
+        "ja": "標準reg2bus／bus2regで、非一様な全word、選択lane、partial-byteのoperationを変換する。"
+      },
+      "expected": {
+        "en": "Payload byte capacity covers the selected 32 or 9 valid bits.",
+        "ja": "payloadのbyte容量は、対象の有効32 bitまたは9 bitをカバーする。"
+      },
+      "limitations": {
+        "en": "Paired-conversion consistency with independent source scalar/masks only; no absolute GP byte order or independent one-way lane/data correspondence is proved. Disabled lanes, partial-byte padding, unused upper fields and inverse n_bits reconstruction remain unconstrained.",
+        "ja": "独立した元scalar／maskを使う変換対の整合性のみ。GPの絶対byte順や片方向のlane／data対応を独立には証明しない。無効lane、partial-byte padding、未使用上位field、n_bits逆再構築は固定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_tlm_adapter_nonuniform_full_word_roundtrip_preserves_valid_operation_fields",
+          "role": "direct",
+          "expected_observations": [
+            "UT: payload covers_bits 1 readable_bytes 1"
+          ]
+        },
+        {
+          "test": "u19/test_reg_tlm_adapter_alternating_lanes_roundtrip_preserves_valid_operation_fields",
+          "role": "direct",
+          "expected_observations": [
+            "UT: payload covers_bits 1 readable_bytes 1"
+          ]
+        },
+        {
+          "test": "u19/test_reg_tlm_adapter_partial_final_byte_roundtrip_preserves_valid_operation_fields",
+          "role": "direct",
+          "expected_observations": [
+            "UT: payload covers_bits 1 readable_bytes 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM-ROUNDTRIP-FULL-DATA",
+      "clause": "19.1.2.3",
+      "statement": {
+        "en": "Paired conversion preserves the selected valid source data.",
+        "ja": "変換対は、選択した有効な元dataを保持する。"
+      },
+      "conditions": {
+        "en": "A 32-bit nonuniform word has all four lanes enabled.",
+        "ja": "32-bitの非一様wordで、4 laneをすべて有効にする。"
+      },
+      "expected": {
+        "en": "Valid low data bits equal source 0x3ca57e19.",
+        "ja": "有効な下位data bitは、元の0x3ca57e19と一致する。"
+      },
+      "limitations": {
+        "en": "Paired-conversion consistency with independent source scalar/masks only; no absolute GP byte order or independent one-way lane/data correspondence is proved. Disabled lanes, partial-byte padding, unused upper fields and inverse n_bits reconstruction remain unconstrained.",
+        "ja": "独立した元scalar／maskを使う変換対の整合性のみ。GPの絶対byte順や片方向のlane／data対応を独立には証明しない。無効lane、partial-byte padding、未使用上位field、n_bits逆再構築は固定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_tlm_adapter_nonuniform_full_word_roundtrip_preserves_valid_operation_fields",
+          "role": "direct",
+          "expected_observations": [
+            "UT: roundtrip kind 1 address 135 data 1 enables f status 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM-ROUNDTRIP-SELECTED-DATA",
+      "clause": "19.1.2.3",
+      "statement": {
+        "en": "Paired conversion preserves the selected valid source data.",
+        "ja": "変換対は、選択した有効な元dataを保持する。"
+      },
+      "conditions": {
+        "en": "The same word enables only lanes 1 and 3.",
+        "ja": "同じwordで、lane 1と3だけを有効にする。"
+      },
+      "expected": {
+        "en": "Bits selected by 0xff00ff00 match the independent source scalar.",
+        "ja": "0xff00ff00で選ぶbitは、独立した元scalarと一致する。"
+      },
+      "limitations": {
+        "en": "Paired-conversion consistency with independent source scalar/masks only; no absolute GP byte order or independent one-way lane/data correspondence is proved. Disabled lanes, partial-byte padding, unused upper fields and inverse n_bits reconstruction remain unconstrained.",
+        "ja": "独立した元scalar／maskを使う変換対の整合性のみ。GPの絶対byte順や片方向のlane／data対応を独立には証明しない。無効lane、partial-byte padding、未使用上位field、n_bits逆再構築は固定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_tlm_adapter_alternating_lanes_roundtrip_preserves_valid_operation_fields",
+          "role": "direct",
+          "expected_observations": [
+            "UT: roundtrip kind 1 address 135 data 1 enables a status 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM-ROUNDTRIP-PARTIAL-DATA",
+      "clause": "19.1.2.3",
+      "statement": {
+        "en": "Paired conversion preserves the selected valid source data.",
+        "ja": "変換対は、選択した有効な元dataを保持する。"
+      },
+      "conditions": {
+        "en": "Source value 0x1a5 has nine valid bits in enabled final-byte storage.",
+        "ja": "元の値0x1a5は、有効な最終byte storage内に9有効bitを持つ。"
+      },
+      "expected": {
+        "en": "Only the valid nine data bits must match 0x1a5.",
+        "ja": "有効な9 data bitだけが0x1a5と一致する必要がある。"
+      },
+      "limitations": {
+        "en": "Paired-conversion consistency with independent source scalar/masks only; no absolute GP byte order or independent one-way lane/data correspondence is proved. Disabled lanes, partial-byte padding, unused upper fields and inverse n_bits reconstruction remain unconstrained.",
+        "ja": "独立した元scalar／maskを使う変換対の整合性のみ。GPの絶対byte順や片方向のlane／data対応を独立には証明しない。無効lane、partial-byte padding、未使用上位field、n_bits逆再構築は固定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_tlm_adapter_partial_final_byte_roundtrip_preserves_valid_operation_fields",
+          "role": "direct",
+          "expected_observations": [
+            "UT: roundtrip kind 1 address 135 data 1 enables 3 status 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM-ROUNDTRIP-EARLIER-ARRAY-SNAPSHOT",
+      "clause": "19.2.2.2.1",
+      "statement": {
+        "en": "An earlier payload retains its data/enable arrays after the source struct is reused.",
+        "ja": "元structを再利用しても、以前のpayloadはdata／enable配列を保持する。"
+      },
+      "conditions": {
+        "en": "A second nonuniform conversion uses changed scalar data, address and mask.",
+        "ja": "2回目の非一様変換で、scalar data、address、maskを変更する。"
+      },
+      "expected": {
+        "en": "Earlier arrays equal their entry snapshots.",
+        "ja": "以前の配列は、入口snapshotと一致する。"
+      },
+      "limitations": {
+        "en": "Paired-conversion consistency with independent source scalar/masks only; no absolute GP byte order or independent one-way lane/data correspondence is proved. Disabled lanes, partial-byte padding, unused upper fields and inverse n_bits reconstruction remain unconstrained.",
+        "ja": "独立した元scalar／maskを使う変換対の整合性のみ。GPの絶対byte順や片方向のlane／data対応を独立には証明しない。無効lane、partial-byte padding、未使用上位field、n_bits逆再構築は固定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_tlm_adapter_nonuniform_payload_arrays_remain_independent_across_conversions",
+          "role": "direct",
+          "expected_observations": [
+            "UT: first_stable 1 distinct 1 addresses 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM-ROUNDTRIP-PEER-ARRAY-ISOLATION",
+      "clause": "19.2.2.2.1",
+      "statement": {
+        "en": "Public array mutation on one converted payload leaves the other payload unchanged.",
+        "ja": "変換後payloadの片方で公開配列を変更しても、他方は変わらない。"
+      },
+      "conditions": {
+        "en": "After two conversions, first data and enable arrays are replaced.",
+        "ja": "2回変換した後、最初のdataとenable配列を置換する。"
+      },
+      "expected": {
+        "en": "Second data and enable arrays retain their snapshots.",
+        "ja": "2つ目のdataとenable配列は、snapshotを保持する。"
+      },
+      "limitations": {
+        "en": "Paired-conversion consistency with independent source scalar/masks only; no absolute GP byte order or independent one-way lane/data correspondence is proved. Disabled lanes, partial-byte padding, unused upper fields and inverse n_bits reconstruction remain unconstrained.",
+        "ja": "独立した元scalar／maskを使う変換対の整合性のみ。GPの絶対byte順や片方向のlane／data対応を独立には証明しない。無効lane、partial-byte padding、未使用上位field、n_bits逆再構築は固定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_tlm_adapter_nonuniform_payload_arrays_remain_independent_across_conversions",
+          "role": "direct",
+          "expected_observations": [
+            "UT: second_stable 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM-ROUNDTRIP-FRESH-ARRAY-OWNERS",
+      "clause": "19.2.1.2.5",
+      "statement": {
+        "en": "Successive conversions return distinct payload objects with their own addresses.",
+        "ja": "連続した変換は、自身のaddressを持つ異なるpayload objectを返す。"
+      },
+      "conditions": {
+        "en": "One adapter converts two nonuniform source structs with different addresses.",
+        "ja": "1 adapterで、addressの異なる2つの非一様な元structを変換する。"
+      },
+      "expected": {
+        "en": "Handles differ and addresses remain 0x120 and 0x240.",
+        "ja": "handleは異なり、addressは0x120と0x240を保持する。"
+      },
+      "limitations": {
+        "en": "Paired-conversion consistency with independent source scalar/masks only; no absolute GP byte order or independent one-way lane/data correspondence is proved. Disabled lanes, partial-byte padding, unused upper fields and inverse n_bits reconstruction remain unconstrained.",
+        "ja": "独立した元scalar／maskを使う変換対の整合性のみ。GPの絶対byte順や片方向のlane／data対応を独立には証明しない。無効lane、partial-byte padding、未使用上位field、n_bits逆再構築は固定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_tlm_adapter_nonuniform_payload_arrays_remain_independent_across_conversions",
+          "role": "direct",
+          "expected_observations": [
+            "UT: first_stable 1 distinct 1 addresses 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REPORT-FILE-HIER-DEFAULT",
+      "clause": "D.2.2.3",
+      "statement": {
+        "en": "The hierarchical default-file setter associates the descriptor throughout the selected subtree.",
+        "ja": "階層default-file setterは、選択したsubtree全体へdescriptorを対応付ける。"
+      },
+      "conditions": {
+        "en": "A component, child and grandchild receive the default setting from their subtree root.",
+        "ja": "component、child、grandchildへ、subtree rootから既定設定を与える。"
+      },
+      "expected": {
+        "en": "All three resolve an otherwise unconfigured key to the supplied default descriptor.",
+        "ja": "3つとも、他に設定のないkeyで指定default descriptorを返す。"
+      },
+      "limitations": {
+        "en": "Three-level original component tree and live descriptor queries only; no numeric descriptor values, report emission, written file content or concurrent reconfiguration is asserted.",
+        "ja": "独自の3階層component treeと有効descriptor照会のみ。descriptor数値、報告発行、file出力内容、並行した再設定は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_report_file_hierarchy_propagates_each_scope_and_preserves_outside_peers",
+          "role": "direct",
+          "expected_observations": [
+            "UT: hierarchy default 1 severity 1 id 1 pair 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REPORT-FILE-HIER-SEVERITY",
+      "clause": "D.2.2.3",
+      "statement": {
+        "en": "The hierarchical severity-file setter associates the descriptor throughout the selected subtree.",
+        "ja": "階層severity-file setterは、選択したsubtree全体へdescriptorを対応付ける。"
+      },
+      "conditions": {
+        "en": "A WARNING-specific descriptor is set at the root of the three-level subtree.",
+        "ja": "3階層subtreeのrootへ、WARNING固有descriptorを設定する。"
+      },
+      "expected": {
+        "en": "All three resolve the otherwise unconfigured WARNING key to that descriptor.",
+        "ja": "3つとも、他に設定のないWARNING keyでそのdescriptorを返す。"
+      },
+      "limitations": {
+        "en": "Three-level original component tree and live descriptor queries only; no numeric descriptor values, report emission, written file content or concurrent reconfiguration is asserted.",
+        "ja": "独自の3階層component treeと有効descriptor照会のみ。descriptor数値、報告発行、file出力内容、並行した再設定は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_report_file_hierarchy_propagates_each_scope_and_preserves_outside_peers",
+          "role": "direct",
+          "expected_observations": [
+            "UT: hierarchy default 1 severity 1 id 1 pair 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REPORT-FILE-HIER-ID",
+      "clause": "D.2.2.3",
+      "statement": {
+        "en": "The hierarchical ID-file setter associates the descriptor throughout the selected subtree.",
+        "ja": "階層ID-file setterは、選択したsubtree全体へdescriptorを対応付ける。"
+      },
+      "conditions": {
+        "en": "The picked ID descriptor is configured before a more specific pair setting.",
+        "ja": "より具体的なpair設定の前に、picked IDのdescriptorを設定する。"
+      },
+      "expected": {
+        "en": "All three resolve INFO/WARNING picked to the ID descriptor at that stage.",
+        "ja": "その段階で、3つともINFO／WARNINGのpickedにID descriptorを返す。"
+      },
+      "limitations": {
+        "en": "Three-level original component tree and live descriptor queries only; no numeric descriptor values, report emission, written file content or concurrent reconfiguration is asserted.",
+        "ja": "独自の3階層component treeと有効descriptor照会のみ。descriptor数値、報告発行、file出力内容、並行した再設定は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_report_file_hierarchy_propagates_each_scope_and_preserves_outside_peers",
+          "role": "direct",
+          "expected_observations": [
+            "UT: hierarchy default 1 severity 1 id 1 pair 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REPORT-FILE-HIER-PAIR",
+      "clause": "D.2.2.3",
+      "statement": {
+        "en": "The hierarchical severity-ID-file setter associates the pair descriptor throughout the subtree.",
+        "ja": "階層severity-ID-file setterは、subtree全体へpair descriptorを対応付ける。"
+      },
+      "conditions": {
+        "en": "A WARNING/picked pair descriptor is applied after default, severity and ID settings.",
+        "ja": "既定、severity、IDの設定後に、WARNING／pickedのpair descriptorを適用する。"
+      },
+      "expected": {
+        "en": "The component, child and grandchild return that pair descriptor.",
+        "ja": "component、child、grandchildは、そのpair descriptorを返す。"
+      },
+      "limitations": {
+        "en": "Three-level original component tree and live descriptor queries only; no numeric descriptor values, report emission, written file content or concurrent reconfiguration is asserted.",
+        "ja": "独自の3階層component treeと有効descriptor照会のみ。descriptor数値、報告発行、file出力内容、並行した再設定は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_report_file_hierarchy_propagates_each_scope_and_preserves_outside_peers",
+          "role": "direct",
+          "expected_observations": [
+            "UT: hierarchy default 1 severity 1 id 1 pair 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REPORT-FILE-HIER-PAIR-PRECEDENCE",
+      "clause": "D.2.2.3",
+      "statement": {
+        "en": "A severity-ID file association takes precedence over less specific associations.",
+        "ja": "severity-IDのfile対応は、より一般的な対応より優先する。"
+      },
+      "conditions": {
+        "en": "Four distinct live descriptors apply to the same subtree at different specificities.",
+        "ja": "異なる4つの有効descriptorを、異なる具体性で同じsubtreeへ適用する。"
+      },
+      "expected": {
+        "en": "The pair query resolves to the pair descriptor.",
+        "ja": "pair照会はpair descriptorを返す。"
+      },
+      "limitations": {
+        "en": "Three-level original component tree and live descriptor queries only; no numeric descriptor values, report emission, written file content or concurrent reconfiguration is asserted.",
+        "ja": "独自の3階層component treeと有効descriptor照会のみ。descriptor数値、報告発行、file出力内容、並行した再設定は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_report_file_hierarchy_propagates_each_scope_and_preserves_outside_peers",
+          "role": "direct",
+          "expected_observations": [
+            "UT: hierarchy default 1 severity 1 id 1 pair 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REPORT-FILE-HIER-NARROWER-SUBTREE",
+      "clause": "D.2.2.3",
+      "statement": {
+        "en": "Updating a child subtree leaves its ancestor association unchanged.",
+        "ja": "childのsubtree更新は、ancestorの対応を変えない。"
+      },
+      "conditions": {
+        "en": "After root-wide configuration, the child changes its subtree ID descriptor.",
+        "ja": "root全体への設定後、childのsubtreeでID descriptorを変える。"
+      },
+      "expected": {
+        "en": "Child and leaf use the new ID descriptor while the original branch retains its previous one.",
+        "ja": "childとleafは新しいID descriptorを使い、元のbranchは以前の値を保つ。"
+      },
+      "limitations": {
+        "en": "Three-level original component tree and live descriptor queries only; no numeric descriptor values, report emission, written file content or concurrent reconfiguration is asserted.",
+        "ja": "独自の3階層component treeと有効descriptor照会のみ。descriptor数値、報告発行、file出力内容、並行した再設定は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_report_file_hierarchy_propagates_each_scope_and_preserves_outside_peers",
+          "role": "direct",
+          "expected_observations": [
+            "UT: narrowed branch 1 child 1 leaf 1 pair_preserved 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REPORT-FILE-HIER-LOWER-PRIORITY-UPDATE",
+      "clause": "D.2.2.3",
+      "statement": {
+        "en": "Updating an ID file association preserves the effective more specific pair association.",
+        "ja": "IDのfile対応を更新しても、より具体的なpair対応の有効値を保持する。"
+      },
+      "conditions": {
+        "en": "The narrowed subtree ID changes after its WARNING/picked pair was installed.",
+        "ja": "WARNING／pickedのpair設定後に、狭いsubtreeのIDを変える。"
+      },
+      "expected": {
+        "en": "All three effective pair descriptors remain the original pair value.",
+        "ja": "3つの有効pair descriptorは、元のpair値を保持する。"
+      },
+      "limitations": {
+        "en": "Three-level original component tree and live descriptor queries only; no numeric descriptor values, report emission, written file content or concurrent reconfiguration is asserted.",
+        "ja": "独自の3階層component treeと有効descriptor照会のみ。descriptor数値、報告発行、file出力内容、並行した再設定は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_report_file_hierarchy_propagates_each_scope_and_preserves_outside_peers",
+          "role": "direct",
+          "expected_observations": [
+            "UT: narrowed branch 1 child 1 leaf 1 pair_preserved 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REPORT-FILE-HIER-OUTSIDE-PEER",
+      "clause": "D.2.2.3",
+      "statement": {
+        "en": "Hierarchical file settings leave components outside the selected subtree unchanged.",
+        "ja": "階層file設定は、選択subtreeの外側にあるcomponentを変えない。"
+      },
+      "conditions": {
+        "en": "An outside peer is queried before all four setters and the narrower update.",
+        "ja": "4 setterと狭い範囲の更新の前に、外側peerを照会する。"
+      },
+      "expected": {
+        "en": "Its default, severity, ID and pair queries retain their before values.",
+        "ja": "既定、severity、ID、pairの照会は、それぞれ以前の値を保持する。"
+      },
+      "limitations": {
+        "en": "Three-level original component tree and live descriptor queries only; no numeric descriptor values, report emission, written file content or concurrent reconfiguration is asserted.",
+        "ja": "独自の3階層component treeと有効descriptor照会のみ。descriptor数値、報告発行、file出力内容、並行した再設定は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_report_file_hierarchy_propagates_each_scope_and_preserves_outside_peers",
+          "role": "direct",
+          "expected_observations": [
+            "UT: peer_unchanged 1"
+          ]
+        }
+      ]
     }
   ]
 }
