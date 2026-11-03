@@ -135,7 +135,7 @@ See [Ghost setup](testing.md#ghost).
 
 It removes `UVM_NO_DPI` from the default macro list. It does not supply or link
 UVM's C/C++ implementation. The current Verilator runner does not add those
-sources. There are 1123 `UVM_NO_DPI` cases and eight explicit HDL-DPI cases.
+sources. There are 1137 `UVM_NO_DPI` cases and eight explicit HDL-DPI cases.
 The [separate VPI runner](testing.md#verilator-vpi-hdl-subset) links the original
 limited backend; results apply only to that declared execution condition.
 User-defined `uvm_reg_backdoor` handlers can operate without HDL DPI (Q67).
@@ -1141,9 +1141,9 @@ not a direct test of the requirement.
 
 ### Q77. Why is there no coverage percentage after starting M4?
 
-The 1212 AI drafts cover only a partial decomposition: 1212 requirements link
-directly to 1130 tests; all drafts have direct tests, and one separate test is a control.
-All 1131 tests have requirement links. The 2,504 clause identifiers are not normative requirement units.
+The 1235 AI drafts cover only a partial decomposition: 1235 requirements link
+directly to 1144 tests; all drafts have direct tests, and one separate test is a control.
+All 1145 tests have requirement links. The 2,504 clause identifiers are not normative requirement units.
 The scope is proposed, the inventory incomplete and the denominator unapproved;
 starting M4 approves none of those. Known differences and HDL/DPI limitations
 do not silently exclude obligations. See the [approval path](requirements.md#remaining-m4-work-and-approval).
@@ -1172,8 +1172,8 @@ counts. Empty queues do not certify complete normative decomposition.
 ### Q80. How can I identify the ledger behind a generated report?
 
 The JSON records `ledger_inputs_sha256`, shared by full and filtered reports
-from the same validated scope, ledger, test index and catalog. It changes
-with semantic input changes, including requirement wording, review and links;
+from the same validated scope, ledger, identifier assessments, test index and catalog. It changes
+with semantic input changes, including requirement wording, classification rationale, review and links;
 JSON formatting and repository location do not change it. Compare schema and
 selection too, since this identifies inputs rather than an entire output file.
 See [report identity](requirements.md#generated-report-identity). It does not
@@ -2143,7 +2143,7 @@ No. `tests_without_requirement_links` is zero: every current test has an
 explicit direct or control link. The separate counter
 `requirements_without_direct_tests` is zero. The memory-walk link uses the
 qualified historical interpretation in Q134. It is not approval of missing
-IEEE detail. HDL deposit and accessibility use explicit VPI fixtures. Another 1,736
+IEEE detail. HDL deposit and accessibility use explicit VPI fixtures. Another 1,722
 catalog identifiers remain unassessed; decomposition and human review are
 incomplete, and the denominator remains unapproved.
 
@@ -2236,3 +2236,24 @@ proof for all sizes/maps. Location masks and stuck-bit detection alone remain
 insufficient. Frontdoor protection warnings are outside this algorithm oracle;
 ERROR and the observed relationships remain checked. Zero direct-test gaps
 counts the linked draft, not approval of its historical interpretation.
+
+### Q135. Can a heading be removed from the unassessed queue?
+
+Yes, after individual reading records a bilingual rationale and AI/human review
+in [identifier assessments](../coverage/assessments.json). Structural headings
+have no related requirements; contextual descriptions name existing requirements.
+An unreviewed record, guessed classification or parent rollup cannot do this.
+The generated state is `assessed`, separate from `partial` requirement clauses.
+Six classifications currently exist, with no denominator approval or new pass.
+Chapter 11's zero unassessed identifiers still does not complete its requirements.
+
+### Q136. Does explicit strict configuration make the new cases pass?
+
+No. The pinned default mode skips custom resources that are absent from its
+field-name filtering. An explicit `UVM_COMPONENT_CONFIG_MODE_DEFAULT=CONFIG_STRICT`
+build finds them, but directly calls set_local without the required UVM_SET
+operation. Both conditions retain standard-derived dispatch/suppression
+expectations as spec-only. Strict is a library build condition, not an IEEE
+API or evidence for the default build. Separately, the port warning probe
+counts actionable reports only: UVM_NO_ACTION internal reports are excluded.
+A present zero-valued relationship resource still incorrectly emits a warning.

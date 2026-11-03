@@ -122,7 +122,7 @@ Ghostは公開前のシミュレータの仮名です。実行ファイルの識
 ### Q12. uvm_dpi: yesだけでDPIを使うビルドが完成しますか
 
 既定のマクロ一覧から`UVM_NO_DPI`を外す指定です。UVMのC/C++実装の供給・リンクは行いません。
-通常のVerilator runnerは、そのsourceを追加しません。`UVM_NO_DPI`が1123件、HDL DPIの明示選択が8件です。
+通常のVerilator runnerは、そのsourceを追加しません。`UVM_NO_DPI`が1137件、HDL DPIの明示選択が8件です。
 [別のVPI runner](testing.ja.md#verilatorのvpi-hdl部分集合)は独自の限定backendをlinkし、結果は宣言した実行条件だけに適用します。
 DPIなしのglobによる照合も、完全な正規表現への対応とは異なります。
 ユーザー定義の`uvm_reg_backdoor` handlerはHDL DPIなしで動作できます（Q67）。
@@ -921,8 +921,8 @@ controlの対応は、その要求の直接の検査ではありません。
 
 ### Q77. M4を始めたのに、カバレッジ率がないのはなぜですか
 
-AIによる1212要求案は部分的な分解で、1212要求を1130テストへ直接対応付け、直接未対応は0要求、別の1テストはcontrolです。
-全1131テストに要求の対応付けがあります。2,504の条項番号は規範的要求の単位ではありません。
+AIによる1235要求案は部分的な分解で、1235要求を1144テストへ直接対応付け、直接未対応は0要求、別の1テストはcontrolです。
+全1145テストに要求の対応付けがあります。2,504の条項番号は規範的要求の単位ではありません。
 範囲は提案、棚卸しは未完、分母は未承認で、M4の開始はどれの承認にもなりません。
 既知差分やHDL／DPIの制約によって義務を暗黙に除外しません。[承認までの手順](requirements.ja.md#m4の残作業と承認)を参照してください。
 
@@ -947,8 +947,8 @@ controlのみの要求は最初の区分に残り、そのcontrolテストは対
 
 ### Q80. 生成レポートの元になった台帳はどう識別しますか
 
-JSONに`ledger_inputs_sha256`を記録し、同じ範囲、台帳、テスト索引、catalogを検査した全体／filterのレポートで共有します。
-要求文、照合、対応などの入力の意味が変わると変化し、JSONの整形やリポジトリの配置先では変わりません。
+JSONに`ledger_inputs_sha256`を記録し、同じ範囲、台帳、番号の分類、テスト索引、catalogを検査した全体／filterのレポートで共有します。
+要求文、分類の根拠、照合、対応などの入力の意味が変わると変化し、JSONの整形やリポジトリの配置先では変わりません。
 出力file全体ではなく入力を識別するため、schemaと選択条件も比較します。
 [レポートの識別](requirements.ja.md#生成レポートの識別)を参照してください。
 分母の承認、人による照合の記録、実行の指紋の代わりにはなりません。
@@ -1707,7 +1707,7 @@ user backdoorは16 bit locationをモデル化します。location独立性、�
 
 いいえ。`tests_without_requirement_links`は0で、現在の全テストに、明示的なdirectまたはcontrolの対応があります。
 別の集計`requirements_without_direct_tests`も0件です。memory-walkの対応はQ134の限定した歴史的解釈で、
-省略されたIEEEの詳細の承認ではありません。HDL depositと利用可否には、明示VPI検査系があります。catalogの識別子1,736件も未評価です。
+省略されたIEEEの詳細の承認ではありません。HDL depositと利用可否には、明示VPI検査系があります。catalogの識別子1,722件も未評価です。
 分解と人のレビューは未完で、分母は未承認です。
 
 [新しいpolicyテスト](../tests/u16/test_policy_object_stack_tracks_nested_active_policy_push_and_pop.sv)は、
@@ -1778,3 +1778,19 @@ walk自体を生成せず、実装出力から期待値を導きません。
 レビューが必要なAI解釈で、IEEEの改訂や、全size／mapの証明ではありません。location maskや固定bit故障の検出だけでは不十分です。
 frontdoor保護のwarningはalgorithm oracleの対象外で、ERRORと観測した関係は検査します。
 直接テスト未対応0件は、対応した要求案を数えるだけで、歴史的解釈の承認ではありません。
+
+### Q135. 見出しを未評価queueから外せますか？
+
+個別に読んだ後、日英の根拠とAI／人のレビューを[番号の分類](../coverage/assessments.json)へ記録すれば可能です。
+構造上の見出しは関連要求を持たず、文脈の説明は既存要求を指定します。
+未レビューの記録、推測した分類、親への集約では外せません。生成状態は`assessed`で、要求条項の`partial`と区別します。
+現在の分類は6件で、分母承認や新たなpassを加えません。第11章の未評価0件でも、その要求の完了ではありません。
+
+### Q136. 明示strict configurationで新規検査は成功しますか？
+
+いいえ。固定libraryの既定modeは、field-name filteringにない独自resourceをskipします。
+明示的な`UVM_COMPONENT_CONFIG_MODE_DEFAULT=CONFIG_STRICT` buildはresourceを見つけますが、必要なUVM_SET
+operationなしにset_localを直接呼びます。両条件とも、規格に基づくdispatch／抑制の期待をspec-onlyで保持します。
+strictはlibraryのbuild条件で、IEEE APIや既定buildのevidenceではありません。
+別のport warning検査は、actionのあるreportだけを数え、内部のUVM_NO_ACTION reportを除きます。
+存在する値0のrelationship resourceでは、依然として誤ってwarningを発行します。

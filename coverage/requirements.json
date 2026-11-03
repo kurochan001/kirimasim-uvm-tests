@@ -46035,6 +46035,843 @@
           ]
         }
       ]
+    },
+    {
+      "id": "UVM-COMPONENT-AUTOMATIC-CONFIG-DEFAULT-ENABLED",
+      "clause": "13.1.5.2",
+      "statement": {
+        "en": "Automatic configuration is enabled by default.",
+        "ja": "自動configurationは既定で有効となる。"
+      },
+      "conditions": {
+        "en": "Use an ordinary derived component without overriding use_automatic_config.",
+        "ja": "use_automatic_configをoverrideしない派生componentを使う。"
+      },
+      "expected": {
+        "en": "The query returns one and build invokes application once.",
+        "ja": "照会は1を返し、buildがapplyを1回呼ぶ。"
+      },
+      "limitations": {
+        "en": "Public virtual hooks observe only explicitly named fixture resources and exact rhs handles. No resource ordering, verbose text or field-macro behavior is prescribed. Default-mode differences remain spec-only; separately compiled strict controls use the explicit pinned-library UVM_COMPONENT_CONFIG_MODE_DEFAULT=CONFIG_STRICT condition. That setting is not an IEEE API or a result for the default build.",
+        "ja": "公開virtual hookで、明示した検査用resourceと正確なrhs handleだけを観測する。resource間の順序、verbose本文、field macroの動作は指定しない。既定modeの差分はspec-onlyで保持し、別buildのstrict controlは固定libraryの明示条件UVM_COMPONENT_CONFIG_MODE_DEFAULT=CONFIG_STRICTを使う。この設定はIEEE APIや既定buildの結果ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_default_automatic_config_calls_application_during_build",
+          "role": "direct",
+          "expected_observations": [
+            "UT: build enabled 1 applications 1 verbose 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-AUTOMATIC-CONFIG-DISABLE-OVERRIDE",
+      "clause": "13.1.5.2",
+      "statement": {
+        "en": "An override returning zero disables automatic configuration application.",
+        "ja": "0を返すoverrideは自動configuration適用を無効にする。"
+      },
+      "conditions": {
+        "en": "Override the query and count virtual apply calls during build.",
+        "ja": "照会をoverrideし、build中のvirtual apply呼出しを数える。"
+      },
+      "expected": {
+        "en": "The query returns zero and build makes no apply call.",
+        "ja": "照会は0を返し、buildはapplyを呼ばない。"
+      },
+      "limitations": {
+        "en": "Public virtual hooks observe only explicitly named fixture resources and exact rhs handles. No resource ordering, verbose text or field-macro behavior is prescribed. Default-mode differences remain spec-only; separately compiled strict controls use the explicit pinned-library UVM_COMPONENT_CONFIG_MODE_DEFAULT=CONFIG_STRICT condition. That setting is not an IEEE API or a result for the default build.",
+        "ja": "公開virtual hookで、明示した検査用resourceと正確なrhs handleだけを観測する。resource間の順序、verbose本文、field macroの動作は指定しない。既定modeの差分はspec-onlyで保持し、別buildのstrict controlは固定libraryの明示条件UVM_COMPONENT_CONFIG_MODE_DEFAULT=CONFIG_STRICTを使う。この設定はIEEE APIや既定buildの結果ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_disabled_automatic_config_preserves_explicit_application",
+          "role": "direct",
+          "expected_observations": [
+            "UT: build enabled 0 applications 0 verbose 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-CONFIG-BUILD-VIRTUAL-DISPATCH",
+      "clause": "13.1.5.1",
+      "statement": {
+        "en": "Enabled build configuration calls the virtual application method with default verbosity zero.",
+        "ja": "有効なbuild configurationは、既定verbose 0でvirtual apply methodを呼ぶ。"
+      },
+      "conditions": {
+        "en": "Count overridden calls and then explicitly apply once more.",
+        "ja": "overrideした呼出しを数え、さらに明示applyを1回行う。"
+      },
+      "expected": {
+        "en": "Build gives one application; explicit reuse gives two, both with zero verbosity.",
+        "ja": "buildで適用1回、明示再利用後は2回となり、verboseは両方0である。"
+      },
+      "limitations": {
+        "en": "Public virtual hooks observe only explicitly named fixture resources and exact rhs handles. No resource ordering, verbose text or field-macro behavior is prescribed. Default-mode differences remain spec-only; separately compiled strict controls use the explicit pinned-library UVM_COMPONENT_CONFIG_MODE_DEFAULT=CONFIG_STRICT condition. That setting is not an IEEE API or a result for the default build.",
+        "ja": "公開virtual hookで、明示した検査用resourceと正確なrhs handleだけを観測する。resource間の順序、verbose本文、field macroの動作は指定しない。既定modeの差分はspec-onlyで保持し、別buildのstrict controlは固定libraryの明示条件UVM_COMPONENT_CONFIG_MODE_DEFAULT=CONFIG_STRICTを使う。この設定はIEEE APIや既定buildの結果ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_default_automatic_config_calls_application_during_build",
+          "role": "direct",
+          "expected_observations": [
+            "UT: build enabled 1 applications 1 verbose 0",
+            "UT: explicit applications 2 verbose 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-CONFIG-DISABLED-MANUAL-APPLICATION",
+      "clause": "13.1.5.1",
+      "statement": {
+        "en": "Disabling automatic build application preserves explicit application.",
+        "ja": "buildの自動適用を無効にしても明示適用を保持する。"
+      },
+      "conditions": {
+        "en": "Call the overridden application method after a disabled build.",
+        "ja": "無効化したbuildの後に、overrideしたapply methodを呼ぶ。"
+      },
+      "expected": {
+        "en": "The count moves from zero to one with default verbosity zero.",
+        "ja": "数は0から1となり、既定verboseは0である。"
+      },
+      "limitations": {
+        "en": "Public virtual hooks observe only explicitly named fixture resources and exact rhs handles. No resource ordering, verbose text or field-macro behavior is prescribed. Default-mode differences remain spec-only; separately compiled strict controls use the explicit pinned-library UVM_COMPONENT_CONFIG_MODE_DEFAULT=CONFIG_STRICT condition. That setting is not an IEEE API or a result for the default build.",
+        "ja": "公開virtual hookで、明示した検査用resourceと正確なrhs handleだけを観測する。resource間の順序、verbose本文、field macroの動作は指定しない。既定modeの差分はspec-onlyで保持し、別buildのstrict controlは固定libraryの明示条件UVM_COMPONENT_CONFIG_MODE_DEFAULT=CONFIG_STRICTを使う。この設定はIEEE APIや既定buildの結果ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_disabled_automatic_config_preserves_explicit_application",
+          "role": "direct",
+          "expected_observations": [
+            "UT: build enabled 0 applications 0 verbose 0",
+            "UT: explicit applications 1 verbose 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-CONFIG-SCOPE-SELECTION",
+      "clause": "13.1.5.1",
+      "statement": {
+        "en": "Configuration application selects matching component-instance scopes and ignores unmatched scopes.",
+        "ja": "configuration適用は、component instanceの一致scopeを選択し、不一致scopeを無視する。"
+      },
+      "conditions": {
+        "en": "Register resources for target and elsewhere, then apply to target and an unmatched peer.",
+        "ja": "targetとelsewhereのresourceを登録し、targetと不一致peerに適用する。"
+      },
+      "expected": {
+        "en": "Target processes its resource once; the peer has no operations or local writes and retains its value.",
+        "ja": "targetはresourceを1回処理し、peerはoperationもlocal writeもなく、値を保持する。"
+      },
+      "limitations": {
+        "en": "Public virtual hooks observe only explicitly named fixture resources and exact rhs handles. No resource ordering, verbose text or field-macro behavior is prescribed. Default-mode differences remain spec-only; separately compiled strict controls use the explicit pinned-library UVM_COMPONENT_CONFIG_MODE_DEFAULT=CONFIG_STRICT condition. That setting is not an IEEE API or a result for the default build.",
+        "ja": "公開virtual hookで、明示した検査用resourceと正確なrhs handleだけを観測する。resource間の順序、verbose本文、field macroの動作は指定しない。既定modeの差分はspec-onlyで保持し、別buildのstrict controlは固定libraryの明示条件UVM_COMPONENT_CONFIG_MODE_DEFAULT=CONFIG_STRICTを使う。この設定はIEEE APIや既定buildの結果ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_config_application_matches_scope_and_passes_exact_resource",
+          "role": "direct",
+          "expected_observations": [
+            "UT: selected operations 1 locals 1 value 37 rhs 1 order 1",
+            "UT: unmatched operations 0 locals 0 value 3"
+          ]
+        },
+        {
+          "test": "u13/test_component_strict_config_application_matches_scope_and_passes_exact_resource",
+          "role": "direct",
+          "expected_observations": [
+            "UT: selected operations 1 locals 1 value 37 rhs 1 order 1",
+            "UT: unmatched operations 0 locals 0 value 3"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-CONFIG-SET-OPERATION-EXACT-RHS",
+      "clause": "13.1.5.1",
+      "statement": {
+        "en": "Each matching resource is dispatched through do_execute_op as UVM_SET with that exact resource as rhs.",
+        "ja": "一致resourceごとに、UVM_SETと正確なresource rhsをdo_execute_opへ渡す。"
+      },
+      "conditions": {
+        "en": "Compare the callback rhs handle and operation type with the registered selected resource.",
+        "ja": "callbackのrhs handleとoperation型を、登録した選択resourceと比較する。"
+      },
+      "expected": {
+        "en": "One operation observes the exact handle and UVM_SET.",
+        "ja": "operation 1回が正確なhandleとUVM_SETを観測する。"
+      },
+      "limitations": {
+        "en": "Public virtual hooks observe only explicitly named fixture resources and exact rhs handles. No resource ordering, verbose text or field-macro behavior is prescribed. Default-mode differences remain spec-only; separately compiled strict controls use the explicit pinned-library UVM_COMPONENT_CONFIG_MODE_DEFAULT=CONFIG_STRICT condition. That setting is not an IEEE API or a result for the default build.",
+        "ja": "公開virtual hookで、明示した検査用resourceと正確なrhs handleだけを観測する。resource間の順序、verbose本文、field macroの動作は指定しない。既定modeの差分はspec-onlyで保持し、別buildのstrict controlは固定libraryの明示条件UVM_COMPONENT_CONFIG_MODE_DEFAULT=CONFIG_STRICTを使う。この設定はIEEE APIや既定buildの結果ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_config_application_matches_scope_and_passes_exact_resource",
+          "role": "direct",
+          "expected_observations": [
+            "UT: selected operations 1 locals 1 value 37 rhs 1 order 1"
+          ]
+        },
+        {
+          "test": "u13/test_component_strict_config_application_matches_scope_and_passes_exact_resource",
+          "role": "direct",
+          "expected_observations": [
+            "UT: selected operations 1 locals 1 value 37 rhs 1 order 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-CONFIG-SET-LOCAL-AFTER-OPERATION",
+      "clause": "13.1.5.1",
+      "statement": {
+        "en": "An enabled user hook receives the resource through set_local after its field operation.",
+        "ja": "有効なuser hookは、field operation後にset_localでresourceを受け取る。"
+      },
+      "conditions": {
+        "en": "Count per-resource callback order and read the integer resource in the user hook.",
+        "ja": "resourceごとのcallback順を数え、user hookで整数resourceを読む。"
+      },
+      "expected": {
+        "en": "set_local follows the operation exactly once and installs value 37.",
+        "ja": "set_localはoperation後に正確に1回続き、値37を適用する。"
+      },
+      "limitations": {
+        "en": "Public virtual hooks observe only explicitly named fixture resources and exact rhs handles. No resource ordering, verbose text or field-macro behavior is prescribed. Default-mode differences remain spec-only; separately compiled strict controls use the explicit pinned-library UVM_COMPONENT_CONFIG_MODE_DEFAULT=CONFIG_STRICT condition. That setting is not an IEEE API or a result for the default build.",
+        "ja": "公開virtual hookで、明示した検査用resourceと正確なrhs handleだけを観測する。resource間の順序、verbose本文、field macroの動作は指定しない。既定modeの差分はspec-onlyで保持し、別buildのstrict controlは固定libraryの明示条件UVM_COMPONENT_CONFIG_MODE_DEFAULT=CONFIG_STRICTを使う。この設定はIEEE APIや既定buildの結果ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_config_application_matches_scope_and_passes_exact_resource",
+          "role": "direct",
+          "expected_observations": [
+            "UT: selected operations 1 locals 1 value 37 rhs 1 order 1"
+          ]
+        },
+        {
+          "test": "u13/test_component_strict_config_application_matches_scope_and_passes_exact_resource",
+          "role": "direct",
+          "expected_observations": [
+            "UT: selected operations 1 locals 1 value 37 rhs 1 order 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-CONFIG-DISABLED-USER-HOOK-SKIP",
+      "clause": "13.1.5.1",
+      "statement": {
+        "en": "Disabling the field-operation user hook suppresses the following set_local call.",
+        "ja": "field operationのuser hook無効化は、後続set_local呼出しを抑制する。"
+      },
+      "conditions": {
+        "en": "Disable the hook in do_execute_op for one matching resource application.",
+        "ja": "一致resourceの適用1回について、do_execute_opでhookを無効にする。"
+      },
+      "expected": {
+        "en": "The operation occurs once but no local call occurs and value three is retained.",
+        "ja": "operationは1回発生するが、local呼出しはなく、値3を保持する。"
+      },
+      "limitations": {
+        "en": "Public virtual hooks observe only explicitly named fixture resources and exact rhs handles. No resource ordering, verbose text or field-macro behavior is prescribed. Default-mode differences remain spec-only; separately compiled strict controls use the explicit pinned-library UVM_COMPONENT_CONFIG_MODE_DEFAULT=CONFIG_STRICT condition. That setting is not an IEEE API or a result for the default build.",
+        "ja": "公開virtual hookで、明示した検査用resourceと正確なrhs handleだけを観測する。resource間の順序、verbose本文、field macroの動作は指定しない。既定modeの差分はspec-onlyで保持し、別buildのstrict controlは固定libraryの明示条件UVM_COMPONENT_CONFIG_MODE_DEFAULT=CONFIG_STRICTを使う。この設定はIEEE APIや既定buildの結果ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_config_disabled_user_hook_skips_set_local_for_one_application",
+          "role": "direct",
+          "expected_observations": [
+            "UT: suppressed operations 1 locals 0 value 3 rhs 1"
+          ]
+        },
+        {
+          "test": "u13/test_component_strict_config_disabled_user_hook_skips_set_local_for_one_application",
+          "role": "direct",
+          "expected_observations": [
+            "UT: suppressed operations 1 locals 0 value 3 rhs 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-CONFIG-USER-HOOK-REUSE",
+      "clause": "13.1.5.1",
+      "statement": {
+        "en": "A subsequent configuration application can use its enabled user hook after an earlier suppression.",
+        "ja": "以前に抑制していても、後のconfiguration適用で有効なuser hookを利用できる。"
+      },
+      "conditions": {
+        "en": "Remove the suppression and apply the same resource again.",
+        "ja": "抑制を外し、同じresourceを再適用する。"
+      },
+      "expected": {
+        "en": "Two total operations lead to one local write of value 43.",
+        "ja": "累計operation 2回に対し、local writeは1回、値は43となる。"
+      },
+      "limitations": {
+        "en": "Public virtual hooks observe only explicitly named fixture resources and exact rhs handles. No resource ordering, verbose text or field-macro behavior is prescribed. Default-mode differences remain spec-only; separately compiled strict controls use the explicit pinned-library UVM_COMPONENT_CONFIG_MODE_DEFAULT=CONFIG_STRICT condition. That setting is not an IEEE API or a result for the default build.",
+        "ja": "公開virtual hookで、明示した検査用resourceと正確なrhs handleだけを観測する。resource間の順序、verbose本文、field macroの動作は指定しない。既定modeの差分はspec-onlyで保持し、別buildのstrict controlは固定libraryの明示条件UVM_COMPONENT_CONFIG_MODE_DEFAULT=CONFIG_STRICTを使う。この設定はIEEE APIや既定buildの結果ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_config_disabled_user_hook_skips_set_local_for_one_application",
+          "role": "direct",
+          "expected_observations": [
+            "UT: suppressed operations 1 locals 0 value 3 rhs 1",
+            "UT: restored operations 2 locals 1 value 43 rhs 1"
+          ]
+        },
+        {
+          "test": "u13/test_component_strict_config_disabled_user_hook_skips_set_local_for_one_application",
+          "role": "direct",
+          "expected_observations": [
+            "UT: suppressed operations 1 locals 0 value 3 rhs 1",
+            "UT: restored operations 2 locals 1 value 43 rhs 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PORT-RELATIONSHIP-DEFAULT-DISABLED",
+      "clause": "5.5.2.14",
+      "statement": {
+        "en": "Port hierarchy relationship checks are disabled by default.",
+        "ja": "port階層のrelationship checkは既定で無効となる。"
+      },
+      "conditions": {
+        "en": "Connect a compatible implementation below a remote branch without a resource setting.",
+        "ja": "resource設定なしで、離れたbranch下の互換implementationへ接続する。"
+      },
+      "expected": {
+        "en": "No warning or error is issued for that hierarchy.",
+        "ja": "その階層についてwarningもerrorも発行しない。"
+      },
+      "limitations": {
+        "en": "Original compatible blocking-put endpoints are used. Relationship probes enable the exact uvm_resource#(uvm_bitstream_t) setting before port construction and inspect warning/error counts without prescribing diagnostic IDs/text. Role rejection observes absence of outgoing bindings without prescribing a diagnostic or severity. Cardinality reports are isolated by separate explicit resolve calls without prescribing clients/counts/IDs/text and caught so resolved sizes remain observable; no get_if is used before elaboration. Only actionable reports count as emitted warnings; UVM_NO_ACTION internal reports are excluded.",
+        "ja": "独自の互換blocking-put endpointを使う。relationship検査では、port生成前に正確なuvm_resource#(uvm_bitstream_t)設定を有効にし、診断ID／本文を指定せずwarning／error数を観測する。role拒否は、出力bindingがないことを観測し、診断やseverityを指定しない。cardinality reportはclient／数／ID／本文を指定せず個別の明示resolve呼出しで分離し、catchして解決後sizeを観測し、elaboration前のget_ifは使わない。 warning発行はactionのあるreportだけを数え、内部のUVM_NO_ACTION reportは除く。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_port_relationship_checks_default_off_and_explicit_zero_allow_remote_providers",
+          "role": "direct",
+          "expected_observations": [
+            "UT: default warnings 0 errors 0"
+          ]
+        },
+        {
+          "test": "u05/test_port_relationship_enabled_resource_reports_an_invalid_remote_provider",
+          "role": "direct",
+          "expected_observations": [
+            "UT: default warnings 0 errors 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PORT-RELATIONSHIP-ZERO-DISABLED",
+      "clause": "5.5.2.14",
+      "statement": {
+        "en": "A matching typed relationship resource with value zero disables checking.",
+        "ja": "一致する型付きrelationship resourceの値0はcheckを無効にする。"
+      },
+      "conditions": {
+        "en": "Set check_connection_relationships to zero for owner.p before construction.",
+        "ja": "生成前にowner.pのcheck_connection_relationshipsを0にする。"
+      },
+      "expected": {
+        "en": "The remote connection is retained without warning or error.",
+        "ja": "離れた接続をwarning／errorなしで保持する。"
+      },
+      "limitations": {
+        "en": "Original compatible blocking-put endpoints are used. Relationship probes enable the exact uvm_resource#(uvm_bitstream_t) setting before port construction and inspect warning/error counts without prescribing diagnostic IDs/text. Role rejection observes absence of outgoing bindings without prescribing a diagnostic or severity. Cardinality reports are isolated by separate explicit resolve calls without prescribing clients/counts/IDs/text and caught so resolved sizes remain observable; no get_if is used before elaboration. Only actionable reports count as emitted warnings; UVM_NO_ACTION internal reports are excluded.",
+        "ja": "独自の互換blocking-put endpointを使う。relationship検査では、port生成前に正確なuvm_resource#(uvm_bitstream_t)設定を有効にし、診断ID／本文を指定せずwarning／error数を観測する。role拒否は、出力bindingがないことを観測し、診断やseverityを指定しない。cardinality reportはclient／数／ID／本文を指定せず個別の明示resolve呼出しで分離し、catchして解決後sizeを観測し、elaboration前のget_ifは使わない。 warning発行はactionのあるreportだけを数え、内部のUVM_NO_ACTION reportは除く。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_port_relationship_checks_default_off_and_explicit_zero_allow_remote_providers",
+          "role": "direct",
+          "expected_observations": [
+            "UT: configured warnings 0 errors 0 connected 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PORT-RELATIONSHIP-NONZERO-ENABLE-WARNING",
+      "clause": "5.5.2.14",
+      "statement": {
+        "en": "A nonzero matching typed relationship resource enables hierarchy checks and invalid hierarchy generates a warning.",
+        "ja": "一致する型付きrelationship resourceの非0値は階層checkを有効にし、不正な階層にはwarningを発行する。"
+      },
+      "conditions": {
+        "en": "Use value seven for a port whose provider is neither parent port nor sibling export/imp.",
+        "ja": "providerがparent portでもsibling export／impでもないportに値7を使う。"
+      },
+      "expected": {
+        "en": "One warning, no error, and the type-compatible connection are observed.",
+        "ja": "warning 1件、errorなし、型互換な接続を観測する。"
+      },
+      "limitations": {
+        "en": "Original compatible blocking-put endpoints are used. Relationship probes enable the exact uvm_resource#(uvm_bitstream_t) setting before port construction and inspect warning/error counts without prescribing diagnostic IDs/text. Role rejection observes absence of outgoing bindings without prescribing a diagnostic or severity. Cardinality reports are isolated by separate explicit resolve calls without prescribing clients/counts/IDs/text and caught so resolved sizes remain observable; no get_if is used before elaboration. Only actionable reports count as emitted warnings; UVM_NO_ACTION internal reports are excluded.",
+        "ja": "独自の互換blocking-put endpointを使う。relationship検査では、port生成前に正確なuvm_resource#(uvm_bitstream_t)設定を有効にし、診断ID／本文を指定せずwarning／error数を観測する。role拒否は、出力bindingがないことを観測し、診断やseverityを指定しない。cardinality reportはclient／数／ID／本文を指定せず個別の明示resolve呼出しで分離し、catchして解決後sizeを観測し、elaboration前のget_ifは使わない。 warning発行はactionのあるreportだけを数え、内部のUVM_NO_ACTION reportは除く。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_port_relationship_enabled_resource_reports_an_invalid_remote_provider",
+          "role": "direct",
+          "expected_observations": [
+            "UT: configured warnings 1 errors 0 connected 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PORT-EXPORT-TO-PORT-REJECTED",
+      "clause": "5.5.2.14",
+      "statement": {
+        "en": "An export cannot form an outgoing connection to a port.",
+        "ja": "exportはportへの出力接続を形成できない。"
+      },
+      "conditions": {
+        "en": "Attempt an otherwise compatible blocking-put export-to-port binding.",
+        "ja": "それ以外は互換なblocking-put exportからportへのbindingを試す。"
+      },
+      "expected": {
+        "en": "No outgoing binding is retained.",
+        "ja": "出力bindingを保持しない。"
+      },
+      "limitations": {
+        "en": "Original compatible blocking-put endpoints are used. Relationship probes enable the exact uvm_resource#(uvm_bitstream_t) setting before port construction and inspect warning/error counts without prescribing diagnostic IDs/text. Role rejection observes absence of outgoing bindings without prescribing a diagnostic or severity. Cardinality reports are isolated by separate explicit resolve calls without prescribing clients/counts/IDs/text and caught so resolved sizes remain observable; no get_if is used before elaboration. Only actionable reports count as emitted warnings; UVM_NO_ACTION internal reports are excluded.",
+        "ja": "独自の互換blocking-put endpointを使う。relationship検査では、port生成前に正確なuvm_resource#(uvm_bitstream_t)設定を有効にし、診断ID／本文を指定せずwarning／error数を観測する。role拒否は、出力bindingがないことを観測し、診断やseverityを指定しない。cardinality reportはclient／数／ID／本文を指定せず個別の明示resolve呼出しで分離し、catchして解決後sizeを観測し、elaboration前のget_ifは使わない。 warning発行はactionのあるreportだけを数え、内部のUVM_NO_ACTION reportは除く。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_port_invalid_export_and_implementation_directions_are_rejected",
+          "role": "direct",
+          "expected_observations": [
+            "UT: export rejected 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PORT-IMPLEMENTATION-OUTGOING-REJECTED",
+      "clause": "5.5.2.14",
+      "statement": {
+        "en": "An implementation bound at construction cannot form another outgoing binding.",
+        "ja": "生成時にboundされたimplementationは、別の出力bindingを形成できない。"
+      },
+      "conditions": {
+        "en": "Attempt to connect one implementation to a peer implementation.",
+        "ja": "1 implementationからpeer implementationへの接続を試す。"
+      },
+      "expected": {
+        "en": "The implementation retains no outgoing binding.",
+        "ja": "implementationは出力bindingを保持しない。"
+      },
+      "limitations": {
+        "en": "Original compatible blocking-put endpoints are used. Relationship probes enable the exact uvm_resource#(uvm_bitstream_t) setting before port construction and inspect warning/error counts without prescribing diagnostic IDs/text. Role rejection observes absence of outgoing bindings without prescribing a diagnostic or severity. Cardinality reports are isolated by separate explicit resolve calls without prescribing clients/counts/IDs/text and caught so resolved sizes remain observable; no get_if is used before elaboration. Only actionable reports count as emitted warnings; UVM_NO_ACTION internal reports are excluded.",
+        "ja": "独自の互換blocking-put endpointを使う。relationship検査では、port生成前に正確なuvm_resource#(uvm_bitstream_t)設定を有効にし、診断ID／本文を指定せずwarning／error数を観測する。role拒否は、出力bindingがないことを観測し、診断やseverityを指定しない。cardinality reportはclient／数／ID／本文を指定せず個別の明示resolve呼出しで分離し、catchして解決後sizeを観測し、elaboration前のget_ifは使わない。 warning発行はactionのあるreportだけを数え、内部のUVM_NO_ACTION reportは除く。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_port_invalid_export_and_implementation_directions_are_rejected",
+          "role": "direct",
+          "expected_observations": [
+            "UT: implementation rejected 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PORT-RESOLUTION-CARDINALITY-BOUNDS",
+      "clause": "5.5.2.15",
+      "statement": {
+        "en": "Resolution checks both required minimum and maximum connection cardinalities.",
+        "ja": "resolutionは要求される最小と最大の接続数を検査する。"
+      },
+      "conditions": {
+        "en": "Use an empty minimum-one export, a maximum-one export with two imps and a valid one-to-two control.",
+        "ja": "最小1の空export、最大1で2 impを持つexport、合法な1〜2のcontrolを使う。"
+      },
+      "expected": {
+        "en": "Resolved sizes are 0/2/2; each invalid port reports its violation and the valid control remains diagnostic-free.",
+        "ja": "解決後sizeは0／2／2で、不正な各portが違反を報告し、合法controlは診断なしを保持する。"
+      },
+      "limitations": {
+        "en": "Original compatible blocking-put endpoints are used. Relationship probes enable the exact uvm_resource#(uvm_bitstream_t) setting before port construction and inspect warning/error counts without prescribing diagnostic IDs/text. Role rejection observes absence of outgoing bindings without prescribing a diagnostic or severity. Cardinality reports are isolated by separate explicit resolve calls without prescribing clients/counts/IDs/text and caught so resolved sizes remain observable; no get_if is used before elaboration. Only actionable reports count as emitted warnings; UVM_NO_ACTION internal reports are excluded.",
+        "ja": "独自の互換blocking-put endpointを使う。relationship検査では、port生成前に正確なuvm_resource#(uvm_bitstream_t)設定を有効にし、診断ID／本文を指定せずwarning／error数を観測する。role拒否は、出力bindingがないことを観測し、診断やseverityを指定しない。cardinality reportはclient／数／ID／本文を指定せず個別の明示resolve呼出しで分離し、catchして解決後sizeを観測し、elaboration前のget_ifは使わない。 warning発行はactionのあるreportだけを数え、内部のUVM_NO_ACTION reportは除く。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_port_binding_resolution_checks_lower_and_upper_cardinality_bounds",
+          "role": "direct",
+          "expected_observations": [
+            "UT: resolved sizes 0 2 2 lower_reported 1 upper_reported 1 valid_clean 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEMORY-POLICY-EXTENDED-ALIGNED-START",
+      "clause": "18.12.8",
+      "statement": {
+        "en": "An extended allocation policy can constrain the region start to an aligned address.",
+        "ja": "拡張allocation policyは、region開始位置をalignmentに従うaddressへ制約できる。"
+      },
+      "conditions": {
+        "en": "Constrain start to location 12 aligned to four in a managed 8–31 range.",
+        "ja": "管理範囲8〜31で、4にalignmentしたlocation 12へstartを制約する。"
+      },
+      "expected": {
+        "en": "The selected policy and returned region start are both 12.",
+        "ja": "policyの選択値と返却regionのstartは両方12となる。"
+      },
+      "limitations": {
+        "en": "Singleton constraints make the selected addresses deterministic; standard random distribution, allocation order and solver internals are not inferred. Bounds and length use address locations, not bytes. Only exact existing-region membership is checked, without queue ordering. Procedural policy callbacks and endpoint constraints are fixture code; expected manager propagation follows the cited standard.",
+        "ja": "singleton制約で選択addressを決定的にし、乱数分布、割当順、solver内部は推測しない。boundと長さはbyteでなくaddress locationの単位である。既存regionの正確な所属だけを検査し、queue順を指定しない。procedural policy callbackとendpoint制約は検査用codeで、managerの伝播の期待は引用規格に従う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_policy_receives_rounded_length_bounds_and_selects_aligned_offset",
+          "role": "direct",
+          "expected_observations": [
+            "UT: pre_state 1 policy_start 12 region 12 14 len 3"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEMORY-POLICY-LENGTH-ADDRESS-UNITS",
+      "clause": "18.12.8.2.1",
+      "statement": {
+        "en": "Policy len is the required number of address locations.",
+        "ja": "policy lenは必要なaddress location数である。"
+      },
+      "conditions": {
+        "en": "Request ten bytes from a manager with four-byte locations and inspect pre_randomize state.",
+        "ja": "4 byte locationのmanagerへ10 byteを要求し、pre_randomize状態を観測する。"
+      },
+      "expected": {
+        "en": "The policy sees length three and the returned region occupies locations 12–14.",
+        "ja": "policyは長さ3を観測し、返却regionはlocation 12〜14を占有する。"
+      },
+      "limitations": {
+        "en": "Singleton constraints make the selected addresses deterministic; standard random distribution, allocation order and solver internals are not inferred. Bounds and length use address locations, not bytes. Only exact existing-region membership is checked, without queue ordering. Procedural policy callbacks and endpoint constraints are fixture code; expected manager propagation follows the cited standard.",
+        "ja": "singleton制約で選択addressを決定的にし、乱数分布、割当順、solver内部は推測しない。boundと長さはbyteでなくaddress locationの単位である。既存regionの正確な所属だけを検査し、queue順を指定しない。procedural policy callbackとendpoint制約は検査用codeで、managerの伝播の期待は引用規格に従う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_policy_receives_rounded_length_bounds_and_selects_aligned_offset",
+          "role": "direct",
+          "expected_observations": [
+            "UT: pre_state 1 policy_start 12 region 12 14 len 3"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEMORY-POLICY-START-OFFSET-PROPAGATION",
+      "clause": "18.12.8.2.2",
+      "statement": {
+        "en": "The policy start_offset determines the returned allocation start.",
+        "ja": "policy start_offsetが返却allocationのstartを決める。"
+      },
+      "conditions": {
+        "en": "Use one constrained and one procedurally selected start on independent managers.",
+        "ja": "独立managerで、制約によるstartと手続きで選択するstartを各1つ使う。"
+      },
+      "expected": {
+        "en": "Selected starts 12 and 30 are retained in their returned region descriptors.",
+        "ja": "選択start 12と30を、返却region descriptorで保持する。"
+      },
+      "limitations": {
+        "en": "Singleton constraints make the selected addresses deterministic; standard random distribution, allocation order and solver internals are not inferred. Bounds and length use address locations, not bytes. Only exact existing-region membership is checked, without queue ordering. Procedural policy callbacks and endpoint constraints are fixture code; expected manager propagation follows the cited standard.",
+        "ja": "singleton制約で選択addressを決定的にし、乱数分布、割当順、solver内部は推測しない。boundと長さはbyteでなくaddress locationの単位である。既存regionの正確な所属だけを検査し、queue順を指定しない。procedural policy callbackとendpoint制約は検査用codeで、managerの伝播の期待は引用規格に従う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_policy_receives_rounded_length_bounds_and_selects_aligned_offset",
+          "role": "direct",
+          "expected_observations": [
+            "UT: pre_state 1 policy_start 12 region 12 14 len 3"
+          ]
+        },
+        {
+          "test": "u18/test_memory_policy_procedural_post_randomize_selects_the_reserved_region",
+          "role": "direct",
+          "expected_observations": [
+            "UT: callbacks 1 1 policy_start 30 region 30 31"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEMORY-POLICY-MINIMUM-BOUND",
+      "clause": "18.12.8.2.3",
+      "statement": {
+        "en": "min_offset identifies the managed minimum address before policy randomization.",
+        "ja": "min_offsetはpolicy randomization前に管理対象の最小addressを示す。"
+      },
+      "conditions": {
+        "en": "Construct the manager with minimum location eight and inspect the pre_randomize hook.",
+        "ja": "最小location 8でmanagerを生成し、pre_randomize hookを観測する。"
+      },
+      "expected": {
+        "en": "The policy observes minimum eight.",
+        "ja": "policyは最小8を観測する。"
+      },
+      "limitations": {
+        "en": "Singleton constraints make the selected addresses deterministic; standard random distribution, allocation order and solver internals are not inferred. Bounds and length use address locations, not bytes. Only exact existing-region membership is checked, without queue ordering. Procedural policy callbacks and endpoint constraints are fixture code; expected manager propagation follows the cited standard.",
+        "ja": "singleton制約で選択addressを決定的にし、乱数分布、割当順、solver内部は推測しない。boundと長さはbyteでなくaddress locationの単位である。既存regionの正確な所属だけを検査し、queue順を指定しない。procedural policy callbackとendpoint制約は検査用codeで、managerの伝播の期待は引用規格に従う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_policy_receives_rounded_length_bounds_and_selects_aligned_offset",
+          "role": "direct",
+          "expected_observations": [
+            "UT: pre_state 1 policy_start 12 region 12 14 len 3"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEMORY-POLICY-MAXIMUM-BOUND",
+      "clause": "18.12.8.2.4",
+      "statement": {
+        "en": "max_offset identifies the managed maximum address before policy randomization.",
+        "ja": "max_offsetはpolicy randomization前に管理対象の最大addressを示す。"
+      },
+      "conditions": {
+        "en": "Construct a manager whose final location is 31 and inspect the pre_randomize hook.",
+        "ja": "最終location 31のmanagerを生成し、pre_randomize hookを観測する。"
+      },
+      "expected": {
+        "en": "The policy observes maximum 31.",
+        "ja": "policyは最大31を観測する。"
+      },
+      "limitations": {
+        "en": "Singleton constraints make the selected addresses deterministic; standard random distribution, allocation order and solver internals are not inferred. Bounds and length use address locations, not bytes. Only exact existing-region membership is checked, without queue ordering. Procedural policy callbacks and endpoint constraints are fixture code; expected manager propagation follows the cited standard.",
+        "ja": "singleton制約で選択addressを決定的にし、乱数分布、割当順、solver内部は推測しない。boundと長さはbyteでなくaddress locationの単位である。既存regionの正確な所属だけを検査し、queue順を指定しない。procedural policy callbackとendpoint制約は検査用codeで、managerの伝播の期待は引用規格に従う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_policy_receives_rounded_length_bounds_and_selects_aligned_offset",
+          "role": "direct",
+          "expected_observations": [
+            "UT: pre_state 1 policy_start 12 region 12 14 len 3"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEMORY-POLICY-PROCEDURAL-POST-RANDOMIZE",
+      "clause": "18.12.8",
+      "statement": {
+        "en": "A procedural allocation policy can choose its location using pre_randomize/post_randomize methods.",
+        "ja": "procedural allocation policyは、pre_randomize／post_randomize methodで位置を選択できる。"
+      },
+      "conditions": {
+        "en": "Count callbacks and set the final start to max_offset minus len plus one after randomization.",
+        "ja": "callbackを数え、randomization後に最終startをmax_offset−len＋1へ設定する。"
+      },
+      "expected": {
+        "en": "Both callbacks run once and the manager reserves locations 30–31.",
+        "ja": "両callbackが1回ずつ実行し、managerはlocation 30〜31を予約する。"
+      },
+      "limitations": {
+        "en": "Singleton constraints make the selected addresses deterministic; standard random distribution, allocation order and solver internals are not inferred. Bounds and length use address locations, not bytes. Only exact existing-region membership is checked, without queue ordering. Procedural policy callbacks and endpoint constraints are fixture code; expected manager propagation follows the cited standard.",
+        "ja": "singleton制約で選択addressを決定的にし、乱数分布、割当順、solver内部は推測しない。boundと長さはbyteでなくaddress locationの単位である。既存regionの正確な所属だけを検査し、queue順を指定しない。procedural policy callbackとendpoint制約は検査用codeで、managerの伝播の期待は引用規格に従う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_policy_procedural_post_randomize_selects_the_reserved_region",
+          "role": "direct",
+          "expected_observations": [
+            "UT: callbacks 1 1 policy_start 30 region 30 31"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEMORY-MANAGER-DEFAULT-POLICY-SELECTION",
+      "clause": "18.12.5.2",
+      "statement": {
+        "en": "An omitted request policy uses default_alloc; an explicit policy takes precedence without replacing the default.",
+        "ja": "request policyの省略はdefault_allocを使い、明示policyは既定を置換せず優先する。"
+      },
+      "conditions": {
+        "en": "Install a default policy selecting eight and explicitly pass another selecting sixteen.",
+        "ja": "8を選ぶ既定policyを設定し、16を選ぶ別policyを明示的に渡す。"
+      },
+      "expected": {
+        "en": "Regions start at 8/16, each policy randomizes once and the exact default handle is retained.",
+        "ja": "regionは8／16で開始し、各policyは1回randomizeし、正確なdefault handleを保持する。"
+      },
+      "limitations": {
+        "en": "Singleton constraints make the selected addresses deterministic; standard random distribution, allocation order and solver internals are not inferred. Bounds and length use address locations, not bytes. Only exact existing-region membership is checked, without queue ordering. Procedural policy callbacks and endpoint constraints are fixture code; expected manager propagation follows the cited standard.",
+        "ja": "singleton制約で選択addressを決定的にし、乱数分布、割当順、solver内部は推測しない。boundと長さはbyteでなくaddress locationの単位である。既存regionの正確な所属だけを検査し、queue順を指定しない。procedural policy callbackとendpoint制約は検査用codeで、managerの伝播の期待は引用規格に従う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_manager_default_policy_is_used_only_when_no_explicit_policy_is_supplied",
+          "role": "direct",
+          "expected_observations": [
+            "UT: starts 8 16 calls 1 1 default_retained 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEMORY-POLICY-IN-USE-REGION-QUEUE",
+      "clause": "18.12.8.2.5",
+      "statement": {
+        "en": "Policy in_use is a queue describing already allocated regions in the managed address space.",
+        "ja": "policy in_useは、管理address空間の割当済みregionを示すqueueである。"
+      },
+      "conditions": {
+        "en": "Reserve two disjoint regions and inspect queue membership before a third requested allocation.",
+        "ja": "互いに離れた2 regionを予約し、3件目の要求allocation前にqueue所属を観測する。"
+      },
+      "expected": {
+        "en": "The queue contains exactly the two existing handles and the new region starts at location 20.",
+        "ja": "queueは既存の正確な2 handleを含み、新regionはlocation 20で開始する。"
+      },
+      "limitations": {
+        "en": "Singleton constraints make the selected addresses deterministic; standard random distribution, allocation order and solver internals are not inferred. Bounds and length use address locations, not bytes. Only exact existing-region membership is checked, without queue ordering. Procedural policy callbacks and endpoint constraints are fixture code; expected manager propagation follows the cited standard.",
+        "ja": "singleton制約で選択addressを決定的にし、乱数分布、割当順、solver内部は推測しない。boundと長さはbyteでなくaddress locationの単位である。既存regionの正確な所属だけを検査し、queue順を指定しない。procedural policy callbackとendpoint制約は検査用codeで、managerの伝播の期待は引用規格に従う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_policy_in_use_contains_exact_allocated_region_handles",
+          "role": "direct",
+          "expected_observations": [
+            "UT: existing_regions 2 exact_membership 1 new_start 20"
+          ]
+        }
+      ]
     }
   ]
 }

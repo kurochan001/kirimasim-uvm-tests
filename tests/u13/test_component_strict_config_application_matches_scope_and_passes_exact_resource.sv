@@ -1,0 +1,67 @@
+/*
+:name: test_component_strict_config_application_matches_scope_and_passes_exact_resource
+:description: scope selection dispatches UVM_SET before set_local with the exact resource (13.1.5.1)
+:tags: u13 uvm
+:type: simulation
+:lrm: 1800.2-2020 13.1.5.1 5.3.12 5.3.13 5.7.2.4 5.7.2.6 C.2.4.3.1 1800-2023 6.21
+:uvm: 2020.3.1
+:oracle: spec
+:uvm_defines: UVM_COMPONENT_CONFIG_MODE_DEFAULT=CONFIG_STRICT
+:spec_check: ai
+:fourstate: no
+:nondeterministic: no
+:expected_exit: 0
+:expected_stdout: @test_component_strict_config_application_matches_scope_and_passes_exact_resource.expected
+*/
+// Explicit strict mode is a pinned-library build condition. It supplies a
+// control for the unchanged standard-derived dispatch and hook expectations.
+// The pinned strict path calls set_local directly without a UVM_SET operation.
+module test_component_strict_config_application_matches_scope_and_passes_exact_resource;
+  import uvm_pkg::*;
+  `include "uvm_macros.svh"
+  // Only explicitly named fixture resources contribute to the observations.
+  // Exact rhs handles and per-resource hook ordering define the oracle.
+  class configured extends uvm_component;
+    uvm_resource#(int) selected;
+    int operations = 0;
+    int locals = 0;
+    int value = 3;
+    bit suppress = 0;
+    bit exact_rhs = 1;
+    bit ordered = 1;
+    function new(string name); super.new(name, null); endfunction
+    function void do_execute_op(uvm_field_op op);
+      uvm_resource#(int) resource;
+      super.do_execute_op(op);
+      if ($cast(resource, op.get_rhs()) && resource.get_name() == "fixture_knob") begin
+        operations++;
+        exact_rhs &= resource == selected && op.get_op_type() == UVM_SET;
+        if (suppress) op.disable_user_hook();
+      end
+    endfunction
+    function void set_local(uvm_resource_base rsrc);
+      uvm_resource#(int) resource;
+      if ($cast(resource, rsrc) && resource.get_name() == "fixture_knob") begin
+        locals++;
+        ordered &= operations == locals;
+        value = resource.read(this);
+      end
+    endfunction
+  endclass
+  initial begin
+    automatic uvm_resource_pool pool = uvm_resource_pool::get();
+    automatic configured target = new("target");
+    automatic configured peer = new("peer");
+    automatic uvm_resource#(int) local_setting = new("fixture_knob", "target");
+    automatic uvm_resource#(int) other_setting = new("fixture_knob", "elsewhere");
+    local_setting.write(37); other_setting.write(91);
+    pool.set_scope(local_setting, "target"); pool.set_scope(other_setting, "elsewhere");
+    target.selected = local_setting;
+    target.apply_config_settings(); peer.apply_config_settings();
+    $display("UT: selected operations %0d locals %0d value %0d rhs %0d order %0d",
+             target.operations, target.locals, target.value, target.exact_rhs, target.ordered);
+    $display("UT: unmatched operations %0d locals %0d value %0d",
+             peer.operations, peer.locals, peer.value);
+    $finish;
+  end
+endmodule

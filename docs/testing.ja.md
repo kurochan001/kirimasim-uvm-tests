@@ -29,7 +29,7 @@ tests/uF/, uG/              文字列utility・command-lineの照会
 docs/testing*.md            テスト形式・実行・変更時の規則
 docs/results*.md            現在の測定条件と記録
 docs/requirements*.md       範囲の案・要求の対応付け・棚卸し
-coverage/*.json             版管理する範囲・要求台帳・テスト索引
+coverage/*.json             版管理する範囲・要求台帳・番号の分類・テスト索引
 docs/provenance*.md         関連リポジトリとソースの由来
 docs/glossary*.md            用語集
 docs/faq*.md                 よくある質問
@@ -172,7 +172,7 @@ Ghostの同梱モードでは供給されたUVMを使います。ステータス
   （`UVM_HDL_NO_DPI`ならバックドアだけを外せます）。
 - ユーザー定義の`uvm_reg_backdoor`による記憶域handlerはHDL DPIなしで使えます。
   商用シミュレータの実行・結果はプロジェクトの方針で除外し、組み込みHDL path／DPIの検査は未完です。
-- 現在の1123件は`UVM_NO_DPI`を使い、8件はHDL DPIを明示的に有効にします。
+- 現在の1137件は`UVM_NO_DPI`を使い、8件はHDL DPIを明示的に有効にします。
   `:uvm_dpi: yes`はこのマクロを外す指定で、
   C/C++のDPI実装を自動でビルド・リンクする指定ではありません。
   現在のVerilatorランナーはDPIのC/C++ソースを追加しません。
@@ -228,7 +228,7 @@ python3 tools/run_verilator.py --seeds 1 73 --build-jobs 2 -j 2 --json out/veril
 すべてのseedで一致した場合だけ成功です。従来の`--seed N`も使えます。
 結果JSONのconfigurationには、指定に応じて`seed`か`seeds`を記録します。
 
-Verilatorの既定の対象はoracle付き・2値の1014件です。`--all`を付けるとspecのみの117件も含めます。
+Verilatorの既定の対象はoracle付き・2値の1023件です。`--all`を付けるとspecのみの122件も含めます。
 oracleのないテストの不一致は`known`で、コマンドを失敗させません。oracle付きの不一致は失敗です。
 テストのパスを明示した場合は、そのテストだけが対象です。スモークテスト1件の実行例です。
 
@@ -277,7 +277,7 @@ python3 tools/lint_metadata.py
 python3 tools/requirements.py check
 ```
 
-現在のツールの単体テストは83件、メタデータの対象はシミュレーションテスト1131件です。
+現在のツールの単体テストは88件、メタデータの対象はシミュレーションテスト1145件です。
 [台帳の検査](requirements.ja.md)は、範囲案、明示した期待値への対応、入力の指紋を検査し、カバレッジを主張しません。
 [Check](../.github/workflows/check.yml)は`main`へのpush・pull request・手動実行で動きます。
 別のVerilatorジョブは5.052・`UVM_NO_DPI`・seed 1と73でoracle付きのテストを実行し、

@@ -2,7 +2,7 @@
 
 [English](known-differences.md) · [README](../README.ja.md) · [FAQ](faq.ja.md)
 
-現在の1131件と、固定したAccellera UVM 2020.3.1についての記録です。
+現在の1145件と、固定したAccellera UVM 2020.3.1についての記録です。
 不一致はテストの結果であり、それだけではシミュレータ・ライブラリ・期待値のどれが原因かは決まりません。
 
 ## 固定版ライブラリの制約
@@ -13,8 +13,14 @@
 付録Eでは選んだ2／3 mapのshared accessと1つの子blockの形も確認します。
 [memoryの範囲](faq.ja.md#memorypredictionmapの制御)と
 [shared accessの範囲](faq.ja.md#memory-accessshared-mapテストの選択)を参照してください。
-それ以外に、M1・M2・M3で次の68件の制約を確認しました。
+M1・M2・M3で、追加の制約と観測を確認しました。
 不足する必須動作を直接検査する場合は、規格の期待値を変えずに`:oracle: spec`で保持します。
+
+- componentの自動configurationは、固定libraryの既定name-filter modeでは独自resourceをskipします。
+  明示strict buildではresourceを見つけますが、13.1.5.1のUVM_SET field operationなしにset_localを直接呼びます。
+  そのためstrictでもhook順序と抑制が異なります。期待値は正確なrhs dispatchと抑制を保ち、strict buildを別条件とします。
+- portのrelationship設定は、存在する値0のresourceを有効として扱います。5.5.2.14は0による無効化を要求します。
+  設定なしの既定と非0による有効化は別の観測で一致します。actionのあるreportだけを数え、UVM_NO_ACTIONはwarning発行から除きます。
 
 - overrideしないsubtypeの`uvm_port_base::get_type_name`は、5.5.2.5で規定する`uvm_`接頭辞を省きます。
 - `set_default_index`はindexを記録しますが、5.5.2.13に反し、実測したblocking export呼出しをelaboration後に切り替えません。
@@ -256,7 +262,7 @@ databaseのstream列挙の検査系は、7.1.4.2のqueue数を返す事後条件
 記載された`function unsigned`のsignatureは、SystemVerilog 13.4では暗黙の1-bit logicの戻りとなり、2を表現できません。
 期待値2は本文の解釈を保持します。このsignature／本文の矛盾は要レビューとし、確認済みのsimulator／library不具合には割り当てません。
 
-スイート全体では、`verilator@5.052`を付けたテストは1014件、specのみのテストは117件です。
+スイート全体では、`verilator@5.052`を付けたテストは1023件、specのみのテストは122件です。
 specのみのうち1件は9.6を検証します。pre-resetフェーズ終了時に子タスクが停止する
 はずですが、固定版UVMとVerilator 5.052の組み合わせでは、後のフェーズで子タスクの遅延書き込みが
 実行されます。この差分の原因がシミュレータとライブラリのどちらかは未確定です。
@@ -265,9 +271,9 @@ wakeup resetの検査系は、trigger waiterとpersistent-trigger waiterを各1�
 10.1.1.2.8は、callbackなしで両方が起動することを要求します。固定Verilatorの実行は、待機状態の観測に到達してから
 watchdogが期限切れになります。simulator／libraryを組み合わせた原因は未確定のまま、規範的なwakeupの期待を保持します。
 
-specのみの117件も規格から導いた期待値を保持します。通常のVerilator実行とCIはoracle付き1014件を選びます。
+specのみの122件も規格から導いた期待値を保持します。通常のVerilator実行とCIはoracle付き1023件を選びます。
 `--all`はspecのみも含め、不一致やビルド不可を`known`として記録します。
-通常の実行時99件は、最初の差分であるseed 1までの記録で、seed 73の結果はありません。
+通常の実行時104件は、最初の差分であるseed 1までの記録で、seed 73の結果はありません。
 API欠落build 10件は、time 1件、sequence-library 6件、HDL slice 2件、object active-policy 1件で、
 通常条件の実行時seed結果はありません。HDL DPIの8検査系も通常runnerではlinkできません。
 別のVPI条件では、7件が両seed一致、E.7のwarning／転送なしの期待はseed 1で失敗します。
@@ -275,7 +281,7 @@ API欠落build 10件は、time 1件、sequence-library 6件、HDL slice 2件、o
 
 ## specのみのテスト
 
-現在の117件は次のテストです。同じ制約を複数のテストで検査する場合があり、異なる不具合の個数ではありません。
+現在の122件は次のテストです。同じ制約を複数のテストで検査する場合があり、異なる不具合の個数ではありません。
 
 - [明示HDL abstractionの選択](../tests/uE/test_hdl_path_sequence_uses_an_explicit_abstraction_instead_of_the_invalid_default.sv).
 - [空abstraction listでblock既定を使用](../tests/uE/test_hdl_path_sequence_uses_the_block_default_abstraction_when_the_list_is_empty.sv).
@@ -465,10 +471,18 @@ API欠落build 10件は、time 1件、sequence-library 6件、HDL slice 2件、o
   [個別reportと、reportが見える比較対象](../tests/u16/test_comparer_zero_message_limit_suppresses_reports_before_a_visible_control.sv)。
   [出力と上限](faq.ja.md#出力上限応答の観測)も参照してください。
 
+追加のconfiguration／relationship検査系：
+
+- [既定resource dispatch](../tests/u13/test_component_config_application_matches_scope_and_passes_exact_resource.sv)
+- [既定hook抑制](../tests/u13/test_component_config_disabled_user_hook_skips_set_local_for_one_application.sv)
+- [strict resource dispatch](../tests/u13/test_component_strict_config_application_matches_scope_and_passes_exact_resource.sv)
+- [strict hook抑制](../tests/u13/test_component_strict_config_disabled_user_hook_skips_set_local_for_one_application.sv)
+- [0によるrelationship check無効化](../tests/u05/test_port_relationship_checks_default_off_and_explicit_zero_allow_remote_providers.sv)
+
 ## シミュレータとライブラリの組み合わせ
 
-スイートは1131件ですが、以下のkirimasim／Ghost記録は未変更の現在入力1085件だけを対象とします。
-以前の一時実行ファイル／profile snapshotがないため、新規46件は未測定です。
+スイートは1145件ですが、以下のkirimasim／Ghost記録は未変更の現在入力1085件だけを対象とします。
+以前の一時実行ファイル／profile snapshotがないため、新規60件は未測定です。
 新しい全件guest実測とは扱いません。[実行結果](results.ja.md)を参照してください。
 
 Ghostの同梱UVMはseed 1・73とも207件一致・878件不一致で、不一致になるテストも同じです。

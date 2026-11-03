@@ -35,7 +35,7 @@ tests/uF/, uG/              string utilities and command-line queries
 docs/testing*.md            test format, execution and contribution rules
 docs/results*.md            current measurement conditions and evidence
 docs/requirements*.md       draft scope, requirement mapping and census
-coverage/*.json             versioned scope, requirement ledger and test index
+coverage/*.json             versioned scope, requirements, assessments and test index
 docs/provenance*.md         related repositories and source attribution
 docs/glossary*.md            terminology
 docs/faq*.md                 common questions
@@ -194,7 +194,7 @@ again. `--check` checks the copy that is there. The library is not committed.
 - User-defined `uvm_reg_backdoor` storage handlers work without HDL DPI.
   Commercial simulator execution/results are excluded by the project policy;
   built-in HDL-path/DPI coverage remains open.
-- 1123 current cases use `UVM_NO_DPI`; eight explicitly enable HDL DPI.
+- 1137 current cases use `UVM_NO_DPI`; eight explicitly enable HDL DPI.
   `:uvm_dpi: yes` removes that macro;
   it does not automatically compile or link the C/C++ DPI implementation.
   The current Verilator runner does not add DPI C/C++ sources.
@@ -260,8 +260,8 @@ breaks the build.
 seed. All seeds must match. `--seed N` remains available for a single seed.
 The JSON configuration records either `seed` or `seeds` accordingly.
 
-By default, Verilator selects the 1014 tagged two-state cases. To include
-the 117 spec-only cases as well, add `--all`. A mismatch in an untagged case
+By default, Verilator selects the 1023 tagged two-state cases. To include
+the 122 spec-only cases as well, add `--all`. A mismatch in an untagged case
 is `known` and does not fail the command; a tagged mismatch does.
 Explicit test paths select only those tests. For a single smoke test:
 
@@ -314,8 +314,8 @@ python3 tools/lint_metadata.py
 python3 tools/requirements.py check
 ```
 
-The current tool suite has 83 unit tests; metadata validation checks all
-1131 simulation tests. The [ledger check](requirements.md) validates the draft
+The current tool suite has 88 unit tests; metadata validation checks all
+1145 simulation tests. The [ledger check](requirements.md) validates the draft
 scope, explicit oracle links and input fingerprints without claiming coverage. [Check](../.github/workflows/check.yml) runs on pushes to
 `main`, pull requests and manual dispatch. Its separate Verilator job uses
 5.052, `UVM_NO_DPI` and seeds 1 and 73 for the tagged cases. Each model is

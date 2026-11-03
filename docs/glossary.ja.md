@@ -584,3 +584,11 @@ simulatorの公開APIです。実際のhandle lookupは、path文字列をlocal 
 
 **歴史的なalgorithm解釈** — 詳細が不足するalgorithmを、以前の公式資料を使って読む、記録した解釈です。
 レビュー可能な文脈で、新たな規範的改訂や、現在の適合性を自動的に示す証明ではありません。
+
+## 番号の分類とconfiguration条件
+
+**Identifier assessment（番号の分類）** — catalogの1番号を構造または文脈として明示的に分類し、レビューと日英の根拠を持つ記録。
+観測可能な要求とは別であり、成功した実行結果を与えない。
+
+**Strict configuration condition（strict configuration条件）** — 自動configurationでresourceの選択方法を変える固定libraryのbuild設定。
+既定modeの結果と測定を区別し、同じ規範的oracleを保持する。

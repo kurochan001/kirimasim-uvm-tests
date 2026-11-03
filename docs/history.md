@@ -3,8 +3,8 @@
 [日本語](history.ja.md) · [README](../README.md)
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and seventeen cross-milestone thin-area expansions, including the
-existing-test requirement-link backlog checkpoint (1131 simulation tests). The earlier 349-test checkpoint is
+three M4 increments and eighteen cross-milestone thin-area expansions, including the
+existing-test requirement-link backlog checkpoint (1145 simulation tests). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -2104,3 +2104,40 @@ All paired current guides and handoff are refreshed, with 134 FAQ answers and
 155 glossary terms. Validation covers 83 tool unit tests, 1131 metadata records,
 ledger/index, library integrity, compatible evidence, ten language pairs and
 local links. Existing tests, runners and the VPI backend remain unchanged.
+
+## Eighteenth thin-area expansion across M1–M4
+
+Fourteen simulation fixtures add six component configuration conditions, four
+TLM binding/report cases and four memory-policy cases. The suite is 1145:
+M1 382, M2 424 and M3 339. Nine additions match Verilator 5.052 at seeds 1/73;
+five retain normative runtime differences. Default configuration skips custom
+resources; strict builds find them but omit the UVM_SET hook. A zero-valued
+relationship resource still enables actionable warnings. Fixture corrections
+used the public resource-pool insertion API and concrete component subclasses;
+report probes exclude UVM_NO_ACTION. No expectation was copied from output.
+
+The compatible ordinary snapshot retains all 1131 prior inputs and adds these
+measurements: 1023 pass, 122 known. The latter are 104 runtime seed-1 differences,
+ten missing-API and eight unlinked-DPI builds. The separate eight-case VPI
+condition remains unchanged at seven pass/one fail. Guest evidence retains
+1085 compatible inputs and sixty new cases remain unmeasured.
+
+Twenty-three AI drafts bring the ledger to 1235, all directly linked to 1144
+tests; one additional control leaves zero unlinked tests. A new canonical
+assessment file records six individually read identifiers: five structural,
+one contextual linked to existing requirements. Validations reject conflicting
+requirements, unknown/duplicate references, missing bilingual rationale,
+unreviewed application and output overwrite. Five meaningful tool tests were
+added. Inventory/backlog schema is 2; canonical schemas remain 1 and the report
+digest now binds classifications. There is no automatic heading classifier.
+
+The catalog retains 2,504 identifiers: 776 partially decomposed, six explicitly
+assessed and 1,722 unassessed. Primary-focus identifiers are 529, cited identifiers
+1,148; the candidate census is 1,950 zero, 276 one and 253 at least two. Chapter
+11 has no unassessed identifiers, but its requirements remain partial. Scope,
+denominator, human review and complete M1–M4 coverage remain open.
+
+All guides are paired, with 157 glossary terms and 136 FAQs. Validation includes
+88 tool tests, all 1145 metadata records, ledger/classification/index checks,
+library integrity, bilingual references and evidence fingerprints. Simulation
+runners, existing tests, VPI backend and earlier history remain unchanged.

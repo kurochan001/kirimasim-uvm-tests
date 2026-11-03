@@ -764,3 +764,13 @@ A nonempty list chooses its entries; an empty list uses the block default.
 **Historical algorithm interpretation** — A recorded reading of an underspecified
 algorithm using an official earlier reference. It is reviewable context,
 not a new normative amendment or automatic proof of current conformance.
+
+## Identifier classification and configuration conditions
+
+**Identifier assessment** — An explicit reviewed classification of one catalog
+identifier as structural or contextual, with bilingual rationale. It is separate
+from an observable requirement and never supplies a passing execution result.
+
+**Strict configuration condition** — A pinned-library build setting that
+changes resource selection for automatic configuration. Its measurements
+remain distinct from default-mode results and retain the same normative oracle.

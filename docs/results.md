@@ -4,20 +4,20 @@
 
 ## Current snapshot
 
-The Verilator evidence dated 2026-11-03 covers all 1131 current tests.
-Guest records cover 1085 unchanged current-input tests, with forty-six new
+The Verilator evidence dated 2026-11-03 covers all 1145 current tests.
+Guest records cover 1085 unchanged current-input tests, with sixty new
 tests unmeasured. Each record fingerprints its inputs and conditions.
-The suite contains 372 M1, 424 M2 and 335 M3 cases in 21 chapter/annex
+The suite contains 382 M1, 424 M2 and 339 M3 cases in 21 chapter/annex
 directories. All record `spec_check: ai`; none records human review or asks
-for deprecated APIs. Of these, 1123 use `UVM_NO_DPI` and eight explicitly
+for deprecated APIs. Of these, 1137 use `UVM_NO_DPI` and eight explicitly
 request HDL DPI. Counts do not establish a reviewed coverage percentage.
 
 | Simulator and library | Observation | Execution scope |
 | --- | --- | --- |
-| Verilator 5.052, pinned UVM | 1014 `pass`; 117 `known` | Matches reproduced at seeds 1 and 73; runtime differences stop at seed 1 |
+| Verilator 5.052, pinned UVM | 1023 `pass`; 122 `known` | Matches reproduced at seeds 1 and 73; runtime differences stop at seed 1 |
 | Verilator 5.052, original VPI HDL backend | 7 `pass`; 1 `fail` | Separate overlapping 8-case condition; matches at seeds 1/73, difference at seed 1 |
-| kirimasim, pinned UVM | 1076 `unsupported`; nine `fail` | 1085 unchanged inputs; forty-six new tests unmeasured |
-| Ghost, bundled UVM | 207 `pass`; 878 `fail` | 1085 unchanged inputs at each seed; identical failing sets; forty-six new tests unmeasured |
+| kirimasim, pinned UVM | 1076 `unsupported`; nine `fail` | 1085 unchanged inputs; sixty new tests unmeasured |
+| Ghost, bundled UVM | 207 `pass`; 878 `fail` | 1085 unchanged inputs at each seed; identical failing sets; sixty new tests unmeasured |
 | Ghost, pinned UVM | Not measured for the current executable snapshot | No current pinned-mode claim |
 
 The pinned library is Accellera UVM 2020.3.1, commit `78c06547a2a0`, with
@@ -29,8 +29,8 @@ Icarus Verilog is not used for this UVM suite.
 
 ## Interpretation
 
-The 117 spec-only cases retain standard-derived expected output. In the
-ordinary condition, 99 first differ at runtime seed 1, without a seed 73
+The 122 spec-only cases retain standard-derived expected output. In the
+ordinary condition, 104 first differ at runtime seed 1, without a seed 73
 result. Ten cannot build because of missing library APIs: one time API, six
 sequence-library APIs, two HDL slice APIs and one object active-policy API.
 Eight more request HDL DPI without the backend being linked by that runner.
@@ -61,11 +61,13 @@ and exit-code rules. Two seeds do not prove determinism or four-state correctnes
 
 ## Evidence assembly
 
-The ordinary snapshot retains all 1115 unchanged records from
-[a57eb53](https://github.com/kurochan001/kirimasim-uvm-tests/commit/a57eb535950c519f1dc1c17a315b2b6d8b85b181)
-and adds sixteen final-input measurements. Existing tests, all runners and the
-VPI backend are unchanged. The VPI snapshot retains its four earlier records
-and adds four compatible inputs. It is never merged into the ordinary condition.
+The ordinary snapshot retains all 1131 unchanged records from
+[fdfb9d1](https://github.com/kurochan001/kirimasim-uvm-tests/commit/fdfb9d195b9e541f0694791b17599dd4fdacc077)
+and adds fourteen final-input measurements: nine match both seeds and five
+retain runtime differences. Existing simulation inputs, all runners and the
+VPI backend are unchanged. The separate eight-case VPI snapshot is retained
+unchanged and is never merged into the ordinary condition.
+
 Retained kirimasim/Ghost records were collected with fixed executable
 snapshots and Ghost's seed-specific private profiles.
 
@@ -75,14 +77,14 @@ Commercial simulator results are excluded under the
 The prior temporary kirimasim/Ghost executable/profile snapshots are no
 longer available, and no compatible local replacement was found. No new
 guest run is claimed. Their existing 1085 records still match current
-inputs; the forty-six new test IDs are explicitly unmeasured. The local
-scope record is `out/thin-seventeenth-evidence-scope.json`. Preserve this
+inputs; the sixty new test IDs are explicitly unmeasured. The local
+scope record is `out/thin-eighteenth-evidence-scope.json`. Preserve this
 partial scope until the authorized execution environment is restored.
 
 Before combining records, check that:
 
 - Verilator IDs cover the current suite exactly. Retained guest IDs match
-  their declared 1085-case subset; forty-six new IDs remain unmeasured.
+  their declared 1085-case subset; sixty new IDs remain unmeasured.
 - Each record's `inputs_sha256` matches its current source, expected output,
   associated inputs and library lock as collected by the runner.
 - Simulator version, configuration and `runner_sha256` match between batches,
@@ -97,10 +99,11 @@ claim that a single invocation reran the entire suite. The
 prior smoke tests and build-change details. Refreshed records replace older
 ones only after their current input fingerprints are verified.
 
-The [draft ledger](requirements.md) maps all sixteen new fixtures through twenty-nine
-new drafts and the qualified final algorithm link. Two unchanged master/slave
-fixtures also gain explicit export links. Only new simulation
-inputs are measured anew under their explicit Verilator conditions; no new guest measurement is added.
+The [draft requirement ledger](requirements.md) maps fourteen new fixtures
+through twenty-three AI drafts. Six explicit identifier classifications preserve
+separate bilingual rationale/review records. New inputs are measured with
+Verilator only; no guest measurement is added.
+
 All baseline input and runner fingerprints remain
 compatible. Zero unmapped tests is still not a completed normative inventory.
 Ledger anchors describe expected output, not additional measured passes.
@@ -116,8 +119,8 @@ inputs, a different runner, executable, profile or library is a separate conditi
 ## Continuous integration
 
 [Check](../.github/workflows/check.yml) runs on pushes to `main`, pull requests
-and manual dispatch. It checks pinned-library integrity, 83 tool unit tests,
-1131 metadata records, the draft requirement ledger/test index and the 1014
+and manual dispatch. It checks pinned-library integrity, 88 tool unit tests,
+1145 metadata records, the draft requirement ledger/test index and the 1023
 tagged Verilator cases using seeds 1 and 73.
 It does not run kirimasim, Ghost or spec-only cases. The README's badge is the
 live CI state, separate from these local measurements. A green Check does

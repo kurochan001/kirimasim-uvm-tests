@@ -40,6 +40,8 @@ class RequirementLedger(unittest.TestCase):
                           test_links=[dict(test='u05/test_first', role='direct',
                                            expected_observations=['UT: expected'])])
         self.write('scope.json', self.scope)
+        self.write('assessments.json', dict(schema_version=1, standard=requirements.STANDARD,
+                                            status='partial', assessments=[]))
         self.write('requirements.json', dict(schema_version=1, standard=requirements.STANDARD,
                                              status='partial', requirements=[self.entry]))
         self.write('test_index.json', dict(schema_version=1, standard=requirements.STANDARD,
@@ -63,6 +65,86 @@ class RequirementLedger(unittest.TestCase):
 
     def data(self):
         return requirements.load(self.root)
+
+    def assessment(self, clause='5', classification='structural'):
+        return dict(clause=clause, classification=classification, rationale=self.text,
+                    related_requirements=['UVM-FIXTURE'] if classification == 'contextual' else [],
+                    review=dict(status='ai', reviewer=None, reviewed_at=None))
+
+    def test_assessments_are_separate_from_requirements_and_never_roll_up(self):
+        data = self.data()
+        data['assessments']['assessments'] = [self.assessment('5.1', 'contextual')]
+        report = requirements.inventory(data)
+        clauses = {c['clause']: c for c in report['clauses']}
+        self.assertEqual(report['schema_version'], 2)
+        self.assertEqual(clauses['5.1']['decomposition'], 'assessed')
+        self.assertEqual(clauses['5.1']['assessment']['classification'], 'contextual')
+        self.assertEqual(clauses['5']['decomposition'], 'unassessed')
+        self.assertEqual(clauses['5.1']['requirement_ids'], [])
+        self.assertEqual(report['summary']['draft_requirements'], 1)
+        self.assertEqual(report['summary']['identifier_assessments'], 1)
+        self.assertEqual(report['summary']['assessment_review'], {'ai': 1})
+        self.assertEqual(report['roots']['5']['assessed_identifiers'], 1)
+        self.assertEqual(report['roots']['5']['unassessed_identifiers'], 1)
+        self.assertEqual(report['summary']['tests_without_requirement_links'], 1)
+        self.assertIsNone(report['coverage_percentage'])
+        self.assertFalse(report['normative_inventory_complete'])
+
+    def test_backlog_filters_assessments_and_keeps_unreviewed_work_visible(self):
+        data = self.data()
+        row = self.assessment()
+        data['assessments']['assessments'] = [row]
+        report = requirements.backlog(data, '5')
+        self.assertEqual(report['identifier_assessments'], [row])
+        self.assertNotIn('5', report['unassessed_identifiers'])
+        self.assertIn('5.1', report['unassessed_identifiers'])
+        other = requirements.backlog(data, '6')
+        self.assertEqual(other['identifier_assessments'], [])
+        self.assertEqual(other['summary']['identifier_assessments'], 0)
+
+    def test_invalid_assessments_cannot_remove_unassessed_identifiers(self):
+        cases = [dict(clause='5.99'), dict(clause='5.2'), dict(classification='covered'),
+                 dict(rationale={'en': 'Missing Japanese'}), dict(related_requirements=['absent']),
+                 dict(related_requirements=['UVM-FIXTURE']),
+                 dict(review=dict(status='unreviewed', reviewer=None, reviewed_at=None)),
+                 dict(review=dict(status='human', reviewer=None, reviewed_at='2026-11-03')),
+                 dict(review=dict(status='human', reviewer='Fixture', reviewed_at='invalid')),
+                 dict(review=dict(status='ai', reviewer='Fixture', reviewed_at=None)),
+                 dict(approved_denominator=0)]
+        for change in cases:
+            with self.subTest(change=change), self.assertRaises(requirements.LedgerError):
+                data = self.data()
+                data['assessments']['assessments'] = [{**self.assessment(), **change}]
+                requirements.inventory(data)
+        for related in ([], ['UVM-FIXTURE', 'UVM-FIXTURE']):
+            with self.subTest(related=related), self.assertRaises(requirements.LedgerError):
+                data = self.data()
+                row = self.assessment(classification='contextual')
+                row['related_requirements'] = related
+                data['assessments']['assessments'] = [row]
+                requirements.inventory(data)
+        data = self.data()
+        data['assessments']['assessments'] = [self.assessment(), self.assessment()]
+        with self.assertRaisesRegex(requirements.LedgerError, 'duplicate assessment'):
+            requirements.inventory(data)
+
+    def test_assessment_content_is_bound_to_report_identity(self):
+        data = self.data()
+        digest = requirements.inventory(data)['ledger_inputs_sha256']
+        data['assessments']['assessments'] = [self.assessment()]
+        assessed_digest = requirements.inventory(data)['ledger_inputs_sha256']
+        self.assertNotEqual(digest, assessed_digest)
+        data['assessments']['assessments'][0]['rationale']['en'] += ' Updated.'
+        self.assertNotEqual(assessed_digest, requirements.inventory(data)['ledger_inputs_sha256'])
+
+    def test_symlink_cannot_overwrite_assessment_input(self):
+        alias = self.root / 'report-alias.json'
+        target = self.root / 'coverage/assessments.json'
+        original = target.read_bytes()
+        alias.symlink_to(target)
+        with contextlib.redirect_stderr(io.StringIO()), self.assertRaises(SystemExit):
+            requirements.main(['backlog', '--json', str(alias)])
+        self.assertEqual(target.read_bytes(), original)
 
     def test_supporting_citation_needs_explicit_mapping_and_does_not_roll_up(self):
         report = requirements.inventory(self.data())
@@ -202,7 +284,7 @@ class RequirementLedger(unittest.TestCase):
 
     def test_generated_files_cannot_overwrite_any_ledger_input(self):
         for command, option in (('sync', '--output'), ('inventory', '--json'), ('backlog', '--json')):
-            for name in ('scope.json', 'requirements.json', 'test_index.json'):
+            for name in ('scope.json', 'requirements.json', 'assessments.json', 'test_index.json'):
                 path = self.root / 'coverage' / name
                 original = path.read_bytes()
                 with self.subTest(command=command, name=name), contextlib.redirect_stderr(io.StringIO()):

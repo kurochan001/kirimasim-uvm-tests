@@ -42,6 +42,22 @@ def bilingual(value, where):
             f"{where}: both en and ja text are required")
 
 
+def validate_review(review, where, *, applied=False):
+    keys(review, {"status", "reviewer", "reviewed_at"}, f"{where}.review")
+    allowed = ("ai", "human") if applied else ("ai", "human", "unreviewed")
+    require(review["status"] in allowed, f"{where}: invalid review")
+    if review["status"] == "human":
+        require(isinstance(review["reviewer"], str) and review["reviewer"].strip(),
+                f"{where}: human review needs an identified reviewer")
+        try:
+            datetime.date.fromisoformat(review["reviewed_at"])
+        except (ValueError, TypeError):
+            raise LedgerError(f"{where}: human review needs an ISO review date") from None
+    else:
+        require(review["reviewer"] is None and review["reviewed_at"] is None,
+                f"{where}: non-human review must not carry human-review fields")
+
+
 def read_json(path):
     def unique(pairs):
         result = {}
@@ -83,6 +99,7 @@ def load(root=None):
             "catalog_sha256": hashlib.sha256(catalog.read_bytes()).hexdigest(),
             "scope": read_json(root / "coverage/scope.json"),
             "ledger": read_json(root / "coverage/requirements.json"),
+            "assessments": read_json(root / "coverage/assessments.json"),
             "index": read_json(root / "coverage/test_index.json")}
 
 
@@ -127,19 +144,7 @@ def validate(data, *, check_index=True):
         require(entry["clause"] in data["clauses"], f"{name}: unknown clause")
         for field in ("statement", "conditions", "expected", "limitations"):
             bilingual(entry[field], f"{name}.{field}")
-        review = entry["review"]
-        keys(review, {"status", "reviewer", "reviewed_at"}, f"{name}.review")
-        require(review["status"] in ("ai", "human", "unreviewed"), f"{name}: invalid review")
-        if review["status"] == "human":
-            require(isinstance(review["reviewer"], str) and review["reviewer"].strip(),
-                    f"{name}: human review needs an identified reviewer")
-            try:
-                datetime.date.fromisoformat(review["reviewed_at"])
-            except (ValueError, TypeError):
-                raise LedgerError(f"{name}: human review needs an ISO review date") from None
-        else:
-            require(review["reviewer"] is None and review["reviewed_at"] is None,
-                    f"{name}: non-human review must not carry human-review fields")
+        validate_review(entry["review"], name)
         require(isinstance(entry["test_links"], list), f"{name}: test_links must be an array")
         linked = set()
         for link in entry["test_links"]:
@@ -161,6 +166,33 @@ def validate(data, *, check_index=True):
             expected = (suite_results.expected_output(data["files"][test]) or "").splitlines()
             require(all(isinstance(a, str) and a.startswith("UT: ") and a in expected
                         for a in anchors), f"{name}: observation is not in {test}'s expectation")
+
+    assessments = data["assessments"]
+    keys(assessments, {"schema_version", "standard", "status", "assessments"}, "assessments")
+    require(assessments["schema_version"] == 1 and assessments["standard"] == STANDARD
+            and assessments["status"] == "partial", "assessments: expected partial schema 1")
+    require(isinstance(assessments["assessments"], list), "assessments must be an array")
+    assessed = set()
+    requirement_clauses = {e["clause"] for e in ledger["requirements"]}
+    for entry in assessments["assessments"]:
+        keys(entry, {"clause", "classification", "rationale", "related_requirements", "review"},
+             "assessment")
+        clause = entry["clause"]
+        require(isinstance(clause, str) and clause in data["clauses"],
+                "assessment: unknown clause")
+        require(clause not in assessed, f"{clause}: duplicate assessment")
+        assessed.add(clause)
+        require(clause not in requirement_clauses,
+                f"{clause}: assessment conflicts with requirement decomposition")
+        require(entry["classification"] in ("structural", "contextual"),
+                f"{clause}: invalid classification")
+        bilingual(entry["rationale"], f"{clause}.rationale")
+        validate_review(entry["review"], clause, applied=True)
+        related = entry["related_requirements"]
+        require(isinstance(related, list) and all(isinstance(i, str) and i in ids for i in related)
+                and len(related) == len(set(related)), f"{clause}: invalid related requirements")
+        require(bool(related) == (entry["classification"] == "contextual"),
+                f"{clause}: contextual assessments need related requirements; structural need none")
 
     keys(index, {"schema_version", "standard", "tests"}, "test index")
     require(index["schema_version"] == 1 and index["standard"] == STANDARD
@@ -186,8 +218,9 @@ def snapshot_for(test):
 
 
 def ledger_digest(data):
-    """Portable semantic identity of scope, obligations, index and catalog."""
-    inputs = {key: data[key] for key in ("scope", "ledger", "index", "catalog_sha256")}
+    """Portable semantic identity of scope, obligations, assessments, index and catalog."""
+    inputs = {key: data[key] for key in
+              ("scope", "ledger", "assessments", "index", "catalog_sha256")}
     canonical = json.dumps(inputs, ensure_ascii=False, sort_keys=True,
                            separators=(",", ":"), allow_nan=False).encode("utf-8")
     return hashlib.sha256(canonical).hexdigest()
@@ -198,6 +231,7 @@ def inventory(data):
     primary, supporting, by_clause, by_test = (defaultdict(list) for _ in range(4))
     direct_tests, control_tests = set(), set()
     entries = data["ledger"]["requirements"]
+    assessments = {e["clause"]: e for e in data["assessments"]["assessments"]}
     for name, test in data["tests"].items():
         primary[test["primary_clause"]].append(name)
         for clause in test["references"][1:]:
@@ -214,7 +248,10 @@ def inventory(data):
         disposition = ("candidate" if chapter in scope["candidate_roots"] else
                        "context" if chapter in scope["context_roots"] else "deferred")
         clause_records.append({"clause": clause, "scope": disposition,
-                               "decomposition": "partial" if by_clause[clause] else "unassessed",
+                               "decomposition": ("partial" if by_clause[clause] else
+                                                 "assessed" if clause in assessments else
+                                                 "unassessed"),
+                               "assessment": assessments.get(clause),
                                "primary_tests": sorted(primary[clause]),
                                "supporting_tests": sorted(supporting[clause]),
                                "requirement_ids": sorted(by_clause[clause])})
@@ -234,6 +271,11 @@ def inventory(data):
                "candidate_primary_focus": {s: candidate_focus[s] for s in
                                            ("zero", "below_target", "at_least_target")},
                "draft_requirements": len(entries),
+               "identifier_assessments": len(assessments),
+               "assessment_classification": dict(Counter(e["classification"]
+                                                          for e in assessments.values())),
+               "assessment_review": dict(Counter(e["review"]["status"]
+                                                 for e in assessments.values())),
                "requirements_with_direct_tests": sum(any(l["role"] == "direct"
                                                          for l in e["test_links"]) for e in entries),
                "requirements_without_direct_tests": sum(not any(l["role"] == "direct"
@@ -253,6 +295,7 @@ def inventory(data):
             "scope": clauses[0]["scope"],
             "clause_identifiers": len(clauses),
             "partial_identifiers": sum(c["decomposition"] == "partial" for c in clauses),
+            "assessed_identifiers": sum(c["decomposition"] == "assessed" for c in clauses),
             "unassessed_identifiers": sum(c["decomposition"] == "unassessed" for c in clauses),
             "draft_requirements": len(obligations),
             "requirements_with_direct_tests": sum(any(l["role"] == "direct"
@@ -264,7 +307,7 @@ def inventory(data):
             "primary_focus_tests": len(tests),
             "primary_focus_tests_without_requirement_links": sum(not by_test[t] for t in tests),
         }
-    return {"schema_version": 1, "standard": STANDARD, "scope_status": "proposed",
+    return {"schema_version": 2, "standard": STANDARD, "scope_status": "proposed",
             "normative_inventory_complete": False, "approved_denominator": None,
             "coverage_percentage": None, "catalog_sha256": data["catalog_sha256"],
             "ledger_inputs_sha256": ledger_digest(data),
@@ -288,6 +331,8 @@ def backlog(data, root=None):
     unmapped = [{"test": n, **t} for n, t in tests.items() if not t["requirement_links"]]
     unassessed = [c["clause"] for c in report["clauses"]
                   if selected(c["clause"]) and c["decomposition"] == "unassessed"]
+    assessments = [c["assessment"] for c in report["clauses"]
+                   if selected(c["clause"]) and c["assessment"] is not None]
     result = {key: report[key] for key in ("schema_version", "standard", "scope_status",
               "normative_inventory_complete", "approved_denominator", "coverage_percentage",
               "catalog_sha256", "ledger_inputs_sha256")}
@@ -298,9 +343,11 @@ def backlog(data, root=None):
                            "requirements_without_direct_tests": len(unlinked),
                            "primary_focus_tests": len(tests),
                            "tests_without_requirement_links": len(unmapped),
+                           "identifier_assessments": len(assessments),
                            "unassessed_identifiers": len(unassessed)},
                   requirements_without_direct_tests=unlinked,
                   tests_without_requirement_links=unmapped,
+                  identifier_assessments=assessments,
                   unassessed_identifiers=unassessed)
     return result
 
@@ -338,7 +385,8 @@ def main(argv=None):
         parser.error("--root is for backlog only")
     destination = args.output or args.json
     if destination and destination.resolve() in {(ROOT / "coverage" / n).resolve() for n in
-                                                 ("scope.json", "requirements.json", "test_index.json")}:
+                                                 ("scope.json", "requirements.json",
+                                                  "assessments.json", "test_index.json")}:
         parser.error("generated output cannot overwrite ledger inputs; use a separate path")
     try:
         data = load()
@@ -352,6 +400,8 @@ def main(argv=None):
             if args.json:
                 write_json(args.json, result)
             s = result["summary"]
+            print(f"Identifier assessments: {s['identifier_assessments']}" if args.lang == "en"
+                  else f"条項番号の分類：{s['identifier_assessments']}件")
             selection = args.root or ("all" if args.lang == "en" else "全体")
             if args.lang == "en":
                 print(f"Backlog ({selection}): {s['requirements_without_direct_tests']} "
@@ -370,6 +420,8 @@ def main(argv=None):
         if args.json:
             write_json(args.json, result)
         s = result["summary"]
+        print(f"Identifier assessments: {s['identifier_assessments']}" if args.lang == "en"
+              else f"条項番号の分類：{s['identifier_assessments']}件")
         if args.lang == "en":
             print(f"{s['tests']} tests; {s['clause_identifiers']} clause identifiers; "
                   f"{s['draft_requirements']} draft requirements")

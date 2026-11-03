@@ -2,7 +2,7 @@
 
 [English](history.md) · [README](../README.ja.md)
 
-M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の17回目の拡充（シミュレーション1131件）までを記録しています。以前の349件の時点は
+M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の18回目の拡充（シミュレーション1145件）までを記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -1504,3 +1504,28 @@ guest記録は未変更1085入力のままで、現在の46件は明示的に未
 現在の日英ガイドとハンドオフを更新し、FAQは134回答、用語集は155語です。
 検証は、tool単体83件、metadata 1131件、台帳／索引、library整合性、互換evidence、日英10組、local参照です。
 既存テスト、runner、VPI backendは未変更です。
+
+## M1〜M4の薄い領域の18回目の拡充
+
+simulation検査系14件を追加します。component configuration 6条件、TLM binding／report 4件、memory policy 4件です。
+全体1145件、M1 382件、M2 424件、M3 339件で、追加9件はVerilator 5.052のseed 1／73で一致し、
+5件は規範的な実行時差分を保持します。既定configurationは独自resourceをskipし、strict buildはresourceを見つけますが
+UVM_SET hookを省略します。値0のrelationship resourceもactionのあるwarningを有効にしてしまいます。
+検査系の修正では、公開resource-pool挿入APIと具象component派生classを使い、UVM_NO_ACTIONをreport集計から除きました。
+期待値を観測出力からコピーしていません。
+
+互換な通常snapshotは、以前の1131入力を保持し、新規測定を加えてpass 1023件、known 122件です。
+knownはseed 1の実行時差分104件、API欠落build 10件、DPI未link build 8件です。
+別条件のVPI 8件は未変更でpass 7件・fail 1件を保持します。guestは互換な1085入力を保持し、新規60件は未測定です。
+
+AI要求案23件を追加して1235件となり、すべて1144テストへ直接対応します。追加control 1件を含め、未対応テストは0件です。
+新たな正本の分類fileに、個別に読んだ構造5件と、既存要求へ関連する文脈1件を記録します。
+要求との競合、不明／重複参照、日英根拠の欠落、未レビュー状態の適用、入力の上書きを拒否し、意味のあるtoolテスト5件を追加します。
+inventory／backlogのschemaは2、正本のschemaは1で、report digestは分類も識別します。見出しの自動分類は行いません。
+
+catalogは2,504番号で、部分分解776件、明示分類6件、未評価1,722件です。主引用529番号、いずれかの引用1,148番号、
+候補の主引用棚卸しは0件1,950、1件276、2件以上253です。第11章の未評価は0件ですが、要求の分解は部分的なままです。
+範囲、分母、人による照合、M1〜M4の完全なcoverageは未完です。
+
+資料はすべて日英で揃え、用語157語、FAQ 136回答です。toolテスト88件、全1145 metadata、台帳／分類／索引、
+library整合性、日英参照、evidence指紋を検査します。simulation runner、既存テスト、VPI backend、以前の履歴は未変更です。

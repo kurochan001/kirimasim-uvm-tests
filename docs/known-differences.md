@@ -2,7 +2,7 @@
 
 [日本語](known-differences.ja.md) · [README](../README.md) · [FAQ](faq.md)
 
-This describes the current 1131-test suite and the pinned Accellera UVM
+This describes the current 1145-test suite and the pinned Accellera UVM
 2020.3.1 library. A mismatch is a test result; it does not by itself assign
 the cause to the simulator, the library or the expectation.
 
@@ -16,9 +16,19 @@ semantics still require review. Annex E additionally checks selected two/three-m
 shared accesses and one child-block shape; see the
 [memory scope](faq.md#memory-prediction-and-map-controls) and
 [shared-access scope](faq.md#memory-access-shared-maps-and-test-selection).
-The following sixty-eight additional limitations were identified during M1, M2 and M3.
+Further limitations and observations were identified during M1, M2 and M3.
 Where a test directly checks a required behavior that is missing, its
 normative expectation is retained with `:oracle: spec`.
+
+- Component automatic configuration skips custom resources in the pinned
+  default name-filter mode. The explicit strict build finds them but calls
+  set_local directly, without the 13.1.5.1 UVM_SET field operation. Hook order
+  and suppression therefore still differ in strict mode. Expectations retain
+  exact rhs dispatch and suppression; strict builds are separate conditions.
+- Port relationship configuration treats a present zero-valued resource as
+  enabled. Clause 5.5.2.14 requires zero to disable checking. Default absence
+  and nonzero enabling match in separate observations. Only actionable reports
+  are counted; a UVM_NO_ACTION report is excluded from warning emission.
 
 - Generic `uvm_port_base::get_type_name` results omit the `uvm_` prefix
   prescribed by 5.5.2.5 for subtypes without an override.
@@ -358,7 +368,7 @@ SystemVerilog 13.4, so it cannot represent a count of two. The expected two
 preserves the prose interpretation. This signature/prose conflict requires
 review and is not assigned as a confirmed simulator or library bug.
 
-Across the suite, 1014 tests have the `verilator@5.052` oracle tag and 117
+Across the suite, 1023 tests have the `verilator@5.052` oracle tag and 122
 cases are spec-only. One of the spec-only cases checks 9.6: a child's pre-reset
 task must be killed when that phase ends, but the pinned-library run on Verilator 5.052
 lets the child perform its delayed write during a later phase. The cause of
@@ -370,10 +380,10 @@ without callbacks. The pinned Verilator run reaches the blocked-state
 observation, then its watchdog expires. This combined simulator/library
 cause remains unassigned; the normative wakeup expectation is retained.
 
-The 117 spec-only tests retain their normative expected files.
-Default Verilator runs and CI select the 1014 tagged cases. `--all` includes
+The 122 spec-only tests retain their normative expected files.
+Default Verilator runs and CI select the 1023 tagged cases. `--all` includes
 spec-only cases and records mismatches or build failures as `known`.
-The ordinary runtime records for 99 cases establish their first difference
+The ordinary runtime records for 104 cases establish their first difference
 at seed 1, without seed 73 results. Ten missing-API builds have no ordinary
 runtime seed result: one time API, six sequence-library cases, two HDL slice
 cases and one object active-policy case. Eight HDL-DPI fixtures also cannot
@@ -383,7 +393,7 @@ These overlapping configurations are not summed.
 
 ## Spec-only tests
 
-These are the 117 current spec-only cases. Several exercise the same
+These are the 122 current spec-only cases. Several exercise the same
 limitation, so their count is not a count of distinct bugs.
 
 - [Explicit HDL abstraction selection](../tests/uE/test_hdl_path_sequence_uses_an_explicit_abstraction_instead_of_the_invalid_default.sv).
@@ -574,10 +584,18 @@ limitation, so their count is not a count of distinct bugs.
   [individual reports and a visible control](../tests/u16/test_comparer_zero_message_limit_suppresses_reports_before_a_visible_control.sv).
   See [output and limits](faq.md#output-limits-and-routed-observations).
 
+Additional configuration/relationship cases:
+
+- [default resource dispatch](../tests/u13/test_component_config_application_matches_scope_and_passes_exact_resource.sv)
+- [default hook suppression](../tests/u13/test_component_config_disabled_user_hook_skips_set_local_for_one_application.sv)
+- [strict resource dispatch](../tests/u13/test_component_strict_config_application_matches_scope_and_passes_exact_resource.sv)
+- [strict hook suppression](../tests/u13/test_component_strict_config_disabled_user_hook_skips_set_local_for_one_application.sv)
+- [zero disables relationship checks](../tests/u05/test_port_relationship_checks_default_off_and_explicit_zero_allow_remote_providers.sv)
+
 ## Simulator and library combinations
 
-The suite has 1131 cases, but the kirimasim/Ghost records below cover only
-1085 unchanged current-input cases. The forty-six new cases are unmeasured
+The suite has 1145 cases, but the kirimasim/Ghost records below cover only
+1085 unchanged current-input cases. The sixty new cases are unmeasured
 because prior temporary executable/profile snapshots are unavailable. Do
 not treat this as a fresh full-suite guest result. See [results](results.md).
 

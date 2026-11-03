@@ -146,6 +146,10 @@
       "primary_clause": "5.5.2.2",
       "inputs_sha256": "07993652bc6797208444cdf71ba02466d5df93f3992b1b037eb14889a11a20b0"
     },
+    "u05/test_port_binding_resolution_checks_lower_and_upper_cardinality_bounds": {
+      "primary_clause": "5.5.2.15",
+      "inputs_sha256": "43e28accb0629e66cbe35e3f7be1639142fe7fa96ff72f13e280f5e753ae2dd3"
+    },
     "u05/test_port_binding_resolution_returns_distinct_implementation_handles_after_elaboration": {
       "primary_clause": "5.5.2.15",
       "inputs_sha256": "ebde9a947f8a240a75a0bfe0241126585a08b60198ee32e7f17ac7ac05c88cf3"
@@ -153,6 +157,18 @@
     "u05/test_port_connection_queries_include_the_connected_and_served_handles": {
       "primary_clause": "5.5.2.9",
       "inputs_sha256": "e0d5aa2eeb3dc455496f41d3d1b179eac639af69d74ac094467c2270e84c2987"
+    },
+    "u05/test_port_invalid_export_and_implementation_directions_are_rejected": {
+      "primary_clause": "5.5.2.14",
+      "inputs_sha256": "9e6526934895139b26a73ecb8e8bf03b359bc7c720c0ecc6fe0d9b21f51de672"
+    },
+    "u05/test_port_relationship_checks_default_off_and_explicit_zero_allow_remote_providers": {
+      "primary_clause": "5.5.2.14",
+      "inputs_sha256": "b2d5359d7359b47525bf07b8f83be9e495ca8b725640f4b8554398d4061a9636"
+    },
+    "u05/test_port_relationship_enabled_resource_reports_an_invalid_remote_provider": {
+      "primary_clause": "5.5.2.14",
+      "inputs_sha256": "2cad5d36a033fcf6d1acbc9c0aa8037835f6f9b5d3e08955a7fc6d5729dfe302"
     },
     "u05/test_transaction_explicit_times_and_hooks": {
       "primary_clause": "5.4.2.2",
@@ -1542,9 +1558,25 @@
       "primary_clause": "13.1.3.3",
       "inputs_sha256": "f9afddd9249ba880cac373febe2f9ffd0ef31dc50c1c7ce1f905e72a8231159f"
     },
+    "u13/test_component_config_application_matches_scope_and_passes_exact_resource": {
+      "primary_clause": "13.1.5.1",
+      "inputs_sha256": "85ca31bb85bd8f6500ae5be4f4a65abfbf2b5c6b25f1fe9ba95344622c53a6da"
+    },
+    "u13/test_component_config_disabled_user_hook_skips_set_local_for_one_application": {
+      "primary_clause": "13.1.5.1",
+      "inputs_sha256": "8f66904e471743bfaf5fb5275568bf4c6083a1ee5de62446ce3926d426d134fb"
+    },
+    "u13/test_component_default_automatic_config_calls_application_during_build": {
+      "primary_clause": "13.1.5.2",
+      "inputs_sha256": "d86bd6f68f48ea6ecdd10bf0f2fc5602b86d7ea6ce2369a3ff691bf38f70b282"
+    },
     "u13/test_component_direct_child_queries_distinguish_nested_and_missing_names": {
       "primary_clause": "13.1.3.6",
       "inputs_sha256": "94720f5bfb35cfac718f449cdab8bf175925f83440c86179e7727f6b8e5e3208"
+    },
+    "u13/test_component_disabled_automatic_config_preserves_explicit_application": {
+      "primary_clause": "13.1.5.2",
+      "inputs_sha256": "ef35b3c34583a0d9a68e2b718fa81a208a39cd5d99309e7682521f834567f464"
     },
     "u13/test_component_enabled_recording_defers_properties_until_end_and_honors_free_handle": {
       "primary_clause": "13.1.7.5",
@@ -1585,6 +1617,14 @@
     "u13/test_component_recording_stream_cache_keys_name_type_and_component_scope": {
       "primary_clause": "13.1.7.9",
       "inputs_sha256": "b702b9426091fd218d1f4feeb93ddd9bcc3fc76b4470a1fc05b7ee105a3f6e48"
+    },
+    "u13/test_component_strict_config_application_matches_scope_and_passes_exact_resource": {
+      "primary_clause": "13.1.5.1",
+      "inputs_sha256": "6f8e10cda7ac715ab259729ed547b0be7456f040eba34cd1abc9f59eef41e7b7"
+    },
+    "u13/test_component_strict_config_disabled_user_hook_skips_set_local_for_one_application": {
+      "primary_clause": "13.1.5.1",
+      "inputs_sha256": "64b4c110c39fd30d4cb1244bf0467a0687e80c500781af2182a470347d1a65da"
     },
     "u13/test_phase_ready_iteration_cap_2_bounds_repeated_raise_drop_callbacks": {
       "primary_clause": "13.1.4.3.2",
@@ -3002,6 +3042,10 @@
       "primary_clause": "18.6.4.17",
       "inputs_sha256": "7c4ca6301406a8b736a97dc883bf486fc34cc05f65870dea775d5fd47fce5cc3"
     },
+    "u18/test_memory_manager_default_policy_is_used_only_when_no_explicit_policy_is_supplied": {
+      "primary_clause": "18.12.5.2",
+      "inputs_sha256": "e0ca9a8704f7159c97bf8f81f20f61ca5140b4064cdd9d705ec136b8c42141b3"
+    },
     "u18/test_memory_manager_explicit_release_makes_the_same_range_available": {
       "primary_clause": "18.12.5.1",
       "inputs_sha256": "4b3d2a2c305651c0aae522031e6a639e648814d8e6f83465a4f000bfaabf4162"
@@ -3033,6 +3077,18 @@
     "u18/test_memory_manager_reservation_rounds_bytes_to_whole_memory_locations": {
       "primary_clause": "18.12.5.1",
       "inputs_sha256": "5ee34070e78572bb4f038fd162e726e35e715c7d88b4ac01c644b7b14e97bc49"
+    },
+    "u18/test_memory_policy_in_use_contains_exact_allocated_region_handles": {
+      "primary_clause": "18.12.8.2.5",
+      "inputs_sha256": "7a7fd80495855c3783351cffe65c70a994398f5845f150ec3bf76314f3bfad12"
+    },
+    "u18/test_memory_policy_procedural_post_randomize_selects_the_reserved_region": {
+      "primary_clause": "18.12.8",
+      "inputs_sha256": "b2a848a984e42a43100c842b85bb735817a2ef819084425842a81d2ccc38229f"
+    },
+    "u18/test_memory_policy_receives_rounded_length_bounds_and_selects_aligned_offset": {
+      "primary_clause": "18.12.8",
+      "inputs_sha256": "fe921af50bb39283444f77ad15ccc50bc48fab479d248e8c5c6ef6853eaeb7e5"
     },
     "u18/test_memory_region_frontdoor_access_translates_region_relative_offsets": {
       "primary_clause": "18.12.7.2.8",

@@ -5,17 +5,19 @@
 ## Current state
 
 M4 is in progress. The [scope proposal](../coverage/scope.json),
-[requirement ledger](../coverage/requirements.json) and
+[requirement ledger](../coverage/requirements.json),
+[identifier assessments](../coverage/assessments.json) and
 [test index](../coverage/test_index.json) are versioned inputs. The ledger
-contains 1212 AI-drafted requirements, all with direct links to 1130 tests.
-One additional test is a control. All 1131 tests have a requirement link.
+contains 1235 AI-drafted requirements, all with direct links to 1144 tests.
+One additional test is a control. All 1145 tests have a requirement link.
 Both direct-test and test-link queues are empty. The memory-walk oracle is an
 explicit historical interpretation requiring review; this does not certify
 complete IEEE coverage. No requirement records human review.
 
-The clause catalog has 2,504 identifiers. 768 have a partial
-requirement decomposition; the other 1,736 are unassessed. Neither group is
-complete. Starting M4 does not approve the scope or denominator, or complete
+The clause catalog has 2,504 identifiers. 776 have a partial
+requirement decomposition; six have explicit AI assessments (five structural,
+one contextual), and 1,722 remain unassessed. No state certifies completion.
+Starting M4 does not approve the scope or denominator, or complete
 M1–M3. `approved_denominator` and `coverage_percentage` remain `null`.
 
 ## Counting unit and scope proposal
@@ -23,7 +25,7 @@ M1–M3. `approved_denominator` and `coverage_percentage` remain `null`.
 The proposed unit is one observable normative obligation together with its
 applicability conditions. A method clause may need separate requirements for
 success, failure, default arguments, ordering and side effects. Conversely,
-a heading is not an obligation. The 1212 draft entries span several areas,
+a heading is not an obligation. The 1235 draft entries span several areas,
 without exhausting the obligations in their clauses.
 
 The proposal assigns every root in the existing identifier catalog once:
@@ -51,14 +53,14 @@ The ledger tool consumes no simulator results.
 ## Citations, requirements and execution evidence
 
 A test's first UVM `:lrm:` reference is its **primary focus**; later UVM
-references are **supporting citations**. Of the catalog identifiers, 524
-have a primary-focus test and 1,142 have either kind of citation. Supporting
+references are **supporting citations**. Of the catalog identifiers, 529
+have a primary-focus test and 1,148 have either kind of citation. Supporting
 references often describe setup APIs. No reference creates a requirement link,
 and a child-clause reference is not automatically rolled up to its parent.
 
 For the 2,479 candidate identifiers, the historical two-tests-per-clause
-census currently shows 1,955 with zero primary-focus tests, 277 with one,
-and 247 with at least two. It measures test placement only. It does not
+census currently shows 1,950 with zero primary-focus tests, 276 with one,
+and 253 with at least two. It measures test placement only. It does not
 establish that an identifier has two independent checks, that its normative
 obligations are decomposed, or that either test passes. It is not an approved
 requirement denominator or a declaration that all zero-focus clauses are gaps.
@@ -83,13 +85,14 @@ lines are anchored once; the runner still compares the complete expected sequenc
 
 [Execution evidence](results.md) is separate and needs matching input, runner,
 library and configuration identities. A direct link may retain a spec-only
-known difference. It is not a pass or a conformance claim. The current 1131-test
+known difference. It is not a pass or a conformance claim. The current 1145-test
 snapshot includes newly measured fixtures; mapping unchanged existing tests
 adds no new execution result for them.
 
 ## Versioned data and generated inventory
 
-All JSON uses UTF-8 and schema version 1. Unknown fields, duplicate keys,
+Canonical JSON uses UTF-8 and schema version 1; generated inventory/backlog
+reports use schema version 2. Unknown fields, duplicate keys,
 duplicate requirement IDs and unknown clauses/tests are rejected.
 
 - `coverage/scope.json` records the bilingual counting unit, root dispositions
@@ -100,10 +103,18 @@ duplicate requirement IDs and unknown clauses/tests are rejected.
   `test_links`. A link has a test ID, `direct` or `control` role and nonempty
   `expected_observations`. A direct test must cite the requirement clause;
   a supporting citation is allowed when review establishes the actual link.
+- `coverage/assessments.json` records individually read structural/contextual
+  identifiers, bilingual `rationale`, `related_requirements`, and `review`.
+  A `structural` record groups APIs without an independent behavior and has
+  no related requirements. A `contextual` record explains behavior already
+  decomposed elsewhere and must name existing requirements. No clause can
+  have both a classification record and requirement entries. Only `ai` or
+  `human` reviews can apply a classification; `unreviewed` cannot remove work
+  from the unassessed queue. There is no automatic heading classifier.
 - `coverage/test_index.json` snapshots every current test's `primary_clause`
   and `inputs_sha256`. The fingerprint uses the existing runner collector:
   source, declared helpers/includes/data, expected files and UVM lock. The
-  index is an inventory, not 1131 reviewed requirement mappings.
+  index is an inventory, not 1145 reviewed requirement mappings.
 
 Review status is `ai`, `unreviewed` or `human`. Human status requires an
 identified `reviewer` and ISO date in `reviewed_at`; other statuses must leave
@@ -122,11 +133,12 @@ python3 tools/requirements.py sync --output out/test-index-proposal.json
 `check` validates the canonical inputs and prints a summary. `inventory` also
 writes all identifier dispositions, decomposition states, primary/supporting
 citations, requirement links, review/oracle metadata, fingerprints and root totals. A
-clause with entries is `partial`; one without entries is `unassessed`. Neither
-state means complete or covered. Generated denominator and percentage fields
+clause with requirements is `partial`; an explicitly classified one is
+`assessed`; otherwise it is `unassessed`. None means complete or covered.
+Generated denominator and percentage fields
 remain `null`. `--lang en` or `--lang ja` selects summary language; JSON keys
 and stable identifiers do not change. Generated files under `out/` are ignored
-by Git, and no generated output may overwrite the three canonical inputs.
+by Git, and no generated output may overwrite the four canonical inputs.
 
 ## Review work queue and root totals
 
@@ -145,7 +157,9 @@ a root filter cannot hide a stale binding elsewhere.
 The JSON separates `requirements_without_direct_tests` (full bilingual draft
 records, including control-only requirements), `tests_without_requirement_links`
 (test metadata and fingerprints without either link role), and
-`unassessed_identifiers` (catalog identifiers with no requirement entry).
+`unassessed_identifiers` (catalog identifiers with neither requirements nor an
+explicit assessment). `identifier_assessments` preserves full selected
+classification records separately, including their rationale, related requirements and review.
 These are review queues, not established conformance gaps. Context/deferred
 identifiers remain visible with their disposition, and all denominator and
 percentage fields remain unset.
@@ -161,34 +175,47 @@ coverage from every anchor in a shared expected-output line.
 All existing tests across the twenty-one primary-focus roots now have
 requirement links, while normative decomposition remains partial:
 
-| Root | Draft requirements | Primary-focus tests | Tests without links | Unassessed identifiers |
-| --- | --- | --- | --- | --- |
-| 5 | 68 | 46 | 0 | 61 |
-| 6 | 34 | 32 | 0 | 87 |
-| 7 | 30 | 13 | 0 | 45 |
-| 8 | 23 | 34 | 0 | 52 |
-| 9 | 37 | 27 | 0 | 89 |
-| 10 | 50 | 54 | 0 | 80 |
-| 11 | 35 | 20 | 0 | 4 |
-| 12 | 133 | 152 | 0 | 140 |
-| 13 | 36 | 20 | 0 | 87 |
-| 14 | 118 | 108 | 0 | 51 |
-| 15 | 60 | 80 | 0 | 51 |
-| 16 | 93 | 98 | 0 | 129 |
-| 17 | 7 | 2 | 0 | 26 |
-| 18 | 244 | 209 | 0 | 304 |
-| 19 | 89 | 65 | 0 | 71 |
-| B | 36 | 54 | 0 | 110 |
-| C | 9 | 16 | 0 | 80 |
-| D | 6 | 6 | 0 | 40 |
-| E | 52 | 59 | 0 | 77 |
-| F | 51 | 34 | 0 | 106 |
-| G | 1 | 2 | 0 | 21 |
+| Root | Draft requirements | Primary-focus tests | Tests without links | Assessed identifiers | Unassessed identifiers |
+| --- | --- | --- | --- | --- | --- |
+| 5 | 74 | 50 | 0 | 0 | 61 |
+| 6 | 34 | 32 | 0 | 0 | 87 |
+| 7 | 30 | 13 | 0 | 0 | 45 |
+| 8 | 23 | 34 | 0 | 0 | 52 |
+| 9 | 37 | 27 | 0 | 0 | 89 |
+| 10 | 50 | 54 | 0 | 0 | 80 |
+| 11 | 35 | 20 | 0 | 4 | 0 |
+| 12 | 133 | 152 | 0 | 1 | 139 |
+| 13 | 45 | 26 | 0 | 0 | 85 |
+| 14 | 118 | 108 | 0 | 0 | 51 |
+| 15 | 60 | 80 | 0 | 0 | 51 |
+| 16 | 93 | 98 | 0 | 0 | 129 |
+| 17 | 7 | 2 | 0 | 0 | 26 |
+| 18 | 252 | 213 | 0 | 1 | 297 |
+| 19 | 89 | 65 | 0 | 0 | 71 |
+| B | 36 | 54 | 0 | 0 | 110 |
+| C | 9 | 16 | 0 | 0 | 80 |
+| D | 6 | 6 | 0 | 0 | 40 |
+| E | 52 | 59 | 0 | 0 | 77 |
+| F | 51 | 34 | 0 | 0 | 106 |
+| G | 1 | 2 | 0 | 0 | 21 |
 
 Zero unmapped tests and zero drafts without direct tests do not establish
-complete requirement coverage. The remaining 1,736 identifiers still need
-assessment/decomposition. Scope is proposed, all 1212 reviews are `ai` and
+complete requirement coverage. The remaining 1,722 identifiers still need
+assessment/decomposition. Scope is proposed, all 1235 reviews are `ai` and
 the denominator remains unapproved.
+
+Configuration drafts observe default/disabled build dispatch, scope matching,
+exact resource/UVM_SET dispatch, hook ordering, suppression and reuse. Four
+resource cases retain differences in the default/explicit strict builds.
+Port drafts add resource-controlled hierarchy checks, illegal outgoing roles
+and cardinality diagnostics. Memory-policy drafts observe address-unit length,
+bounds, constrained/procedural starts, default selection and exact in-use handles.
+
+Six individually read identifier assessments preserve rationale and AI status
+in [the classification file](../coverage/assessments.json). Chapter 11 has no
+unassessed identifiers, while every behavior clause remains partially decomposed;
+this is not completed coverage. No automatic classification, parent rollup or
+approved denominator is introduced.
 
 The [memory-walk fixture](../tests/uE/test_memory_walk_address_data_relations_follow_the_documented_historical_interpretation.sv)
 now supplies algorithm-specific observations under a documented historical
@@ -199,8 +226,9 @@ and the interpretation is not an IEEE amendment or human approval.
 Container drafts distinguish names/default specializations, reference sharing,
 key replacement/membership, queue size/order, valid and invalid retrieval,
 nonempty pops and indexed/default deletion. Every method clause in chapter 11
-now has partial decomposition; its chapter/overview/method headings remain
-unassessed. This does not exhaust all conditions or certify two independent
+now has partial decomposition; its chapter/method headings are assessed as
+structural and its overview as contextual. This does not exhaust all conditions
+or certify two independent
 checks per requirement.
 
 Bidirectional export drafts cover nine concrete constructor variants, nested
@@ -259,7 +287,8 @@ No mapping adds a measured pass, human approval or an approved denominator.
 
 Every generated inventory and backlog carries `ledger_inputs_sha256`. It
 identifies the complete validated input state: `coverage/scope.json`,
-`coverage/requirements.json`, `coverage/test_index.json` and the catalog's
+`coverage/requirements.json`, `coverage/assessments.json`,
+`coverage/test_index.json` and the catalog's
 `catalog_sha256`. The index contains the current test-input fingerprints;
 ledger validation binds those snapshots to the actual test inputs first.
 
@@ -273,7 +302,8 @@ Compare the report schema and selection as well when comparing different views;
 this is an input identity, not a hash of the generated output file.
 
 Requirement wording, applicability, expectations, limitations, review or link
-changes affect the identity, as do scope or accepted snapshot changes. A digest
+changes affect the identity, as do classification rationale/review, scope or
+accepted snapshot changes. A digest
 is neither review approval nor an execution result. It is separate from each
 test's `inputs_sha256` and the runner's `runner_sha256`. Old generated reports
 need regeneration after a semantic ledger change even when the simulation
@@ -320,4 +350,4 @@ counting rule and frozen requirement set. Define separately what counts as
 reviewed test coverage and as execution success, including execution conditions
 and evidence identity. Approval needs a later schema/procedure update; schema
 1 intentionally cannot express a completed inventory or approved denominator.
-The current 1212 AI drafts and their direct links do not satisfy that gate.
+The current 1235 AI drafts and their direct links do not satisfy that gate.
