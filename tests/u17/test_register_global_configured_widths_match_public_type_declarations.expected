@@ -1,0 +1,3 @@
+UT: declared data 96 logic_data 96 addr 80 logic_addr 80 lanes 16 models 40
+UT: matches data 1 logic_data 1 addr 1 logic_addr 1 lanes 1 models 1
+UT: upper_bit data 1 addr 1 lanes 1 models 1

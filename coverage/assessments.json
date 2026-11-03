@@ -1060,6 +1060,123 @@
         "reviewer": null,
         "reviewed_at": null
       }
+    },
+    {
+      "clause": "17",
+      "classification": "structural",
+      "rationale": {
+        "en": "The chapter title organizes register-layer material; its overview and numbered declarations carry the selected content.",
+        "ja": "章題はregister-layer資料をまとめ、概要と番号付き宣言が選択内容を担う。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "17.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "The introduction organizes globally available types, enums and utilities, which are defined in the following clauses; it adds no separate operation.",
+        "ja": "導入は後続条項で定義するglobalな型、enum、utilityをまとめ、別操作を追加しない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "17.2.1",
+      "classification": "structural",
+      "rationale": {
+        "en": "The Types heading groups the individually specified declarations and adds no separate type operation.",
+        "ja": "Types見出しは個別の宣言をまとめ、別の型操作を追加しない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "17.2.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "The Enumerations heading organizes the following enum definitions without another operation.",
+        "ja": "Enumerations見出しは後続enum定義をまとめ、別操作を追加しない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "17.2.3",
+      "classification": "structural",
+      "rationale": {
+        "en": "This is the class-name heading; the overview, declaration and methods specify its content separately.",
+        "ja": "class名の見出しであり、内容は概要、宣言、methodで別に規定される。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "17.2.3.3",
+      "classification": "structural",
+      "rationale": {
+        "en": "The Methods heading groups the constructor and slice methods without specifying another operation.",
+        "ja": "Methods見出しはconstructorとslice methodをまとめ、別操作を規定しない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "17.1",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The overview describes model extensions abstracting DUT register/memory operations. A selected register frontdoor obligation is decomposed in the linked requirement; this overview adds no separate observable method. It does not certify all model abstractions or memory conditions.",
+        "ja": "概要はDUTのregister／memory操作を抽象化するmodel拡張を説明する。選択したregister frontdoor義務は関連要求へ分解し、概要自体は別の観測可能methodを追加しない。全model抽象化やmemory条件を認定しない。"
+      },
+      "related_requirements": [
+        "UVM-REGISTER-FRONTDOOR-WRITE"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "17.2.3.2",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The class declaration introduces the concat type instantiated by the related constructor requirements. Its availability is not counted again as a separate operation; omitted/explicit arguments remain separate and stored-name introspection is not claimed.",
+        "ja": "class宣言は、関連constructor要求で生成するconcat型を導入する。利用可否を別操作として重複計数せず、省略／明示引数を分け、保持名のintrospectionは主張しない。"
+      },
+      "related_requirements": [
+        "UVM-REG-GLOBAL-CONCAT-NAMED-CONSTRUCTION",
+        "UVM-REG-GLOBAL-CONCAT-OMITTED-NAME-CONSTRUCTION"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
     }
   ]
 }

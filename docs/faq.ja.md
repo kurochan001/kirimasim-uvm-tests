@@ -122,7 +122,7 @@ Ghostは公開前のシミュレータの仮名です。実行ファイルの識
 ### Q12. uvm_dpi: yesだけでDPIを使うビルドが完成しますか
 
 既定のマクロ一覧から`UVM_NO_DPI`を外す指定です。UVMのC/C++実装の供給・リンクは行いません。
-通常のVerilator runnerは、そのsourceを追加しません。`UVM_NO_DPI`が1266件、HDL DPIの明示選択が8件です。
+通常のVerilator runnerは、そのsourceを追加しません。`UVM_NO_DPI`が1275件、HDL DPIの明示選択が8件です。
 [別のVPI runner](testing.ja.md#verilatorのvpi-hdl部分集合)は独自の限定backendをlinkし、結果は宣言した実行条件だけに適用します。
 DPIなしのglobによる照合も、完全な正規表現への対応とは異なります。
 ユーザー定義の`uvm_reg_backdoor` handlerはHDL DPIなしで動作できます（Q67）。
@@ -155,7 +155,7 @@ Ghostはさらに実行ファイル・profile・供給されたライブラリ�
 
 ### Q16. M1・M2・M3は完了していますか。件数は何の網羅を示しますか
 
-M1・M2には条項ごとの目標に未達があります。M3はbusモデルのfrontdoor経路を含め387件まで追加した段階で、未完です。
+M1・M2には条項ごとの目標に未達があります。M3はbusモデルのfrontdoor経路を含め396件まで追加した段階で、未完です。
 次の段階の開始によって、それまでの段階が完了したとは扱いません。
 範囲と残りの作業は[進め方](../README.ja.md#進め方)にあります。
 件数はテストの本数で、規格の全要求や組み合わせの棚卸しではありません。
@@ -921,8 +921,8 @@ controlの対応は、その要求の直接の検査ではありません。
 
 ### Q77. M4を始めたのに、カバレッジ率がないのはなぜですか
 
-AIによる1694要求案は部分的な分解で、1694要求を1273テストへ直接対応付け、直接未対応は0要求、別の1テストはcontrolです。
-全1274テストに要求の対応付けがあります。2,507の条項番号は規範的要求の単位ではありません。
+AIによる1735要求案は部分的な分解で、1735要求を1282テストへ直接対応付け、直接未対応は0要求、別の1テストはcontrolです。
+全1283テストに要求の対応付けがあります。2,507の条項番号は規範的要求の単位ではありません。
 範囲は提案、棚卸しは未完、分母は未承認で、M4の開始はどれの承認にもなりません。
 既知差分やHDL／DPIの制約によって義務を暗黙に除外しません。[承認までの手順](requirements.ja.md#m4の残作業と承認)を参照してください。
 
@@ -1707,7 +1707,7 @@ user backdoorは16 bit locationをモデル化します。location独立性、�
 
 いいえ。`tests_without_requirement_links`は0で、現在の全テストに、明示的なdirectまたはcontrolの対応があります。
 別の集計`requirements_without_direct_tests`も0件です。memory-walkの対応はQ134の限定した歴史的解釈で、
-省略されたIEEEの詳細の承認ではありません。HDL depositと利用可否には、明示VPI検査系があります。catalogの識別子1,463件も未評価です。
+省略されたIEEEの詳細の承認ではありません。HDL depositと利用可否には、明示VPI検査系があります。catalogの識別子1,434件も未評価です。
 分解と人のレビューは未完で、分母は未承認です。
 
 [新しいpolicyテスト](../tests/u16/test_policy_object_stack_tracks_nested_active_policy_push_and_pop.sv)は、
@@ -1784,7 +1784,7 @@ frontdoor保護のwarningはalgorithm oracleの対象外で、ERRORと観測し�
 個別に読んだ後、日英の根拠とAI／人のレビューを[番号の分類](../coverage/assessments.json)へ記録すれば可能です。
 構造上の見出しは関連要求を持たず、文脈の説明は既存要求を指定します。
 未レビューの記録、推測した分類、親への集約では外せません。生成状態は`assessed`で、要求条項の`partial`と区別します。
-現在の分類は74件で、分母承認や新たなpassを加えません。第11章の未評価0件でも、その要求の完了ではありません。
+現在の分類は82件で、分母承認や新たなpassを加えません。第11章の未評価0件でも、その要求の完了ではありません。
 
 ### Q136. 明示strict configurationで新規検査は成功しますか？
 
@@ -2095,3 +2095,24 @@ class契約の解釈作業として残し、simulatorの不具合とは割り当
 4 fileを開いたまま、branch・child・leafの実効handleを比較します。より具体的なseverity／ID pairを設定する前にID選択を観測し、
 その後pairが優先することを確認します。child subtreeの更新はそのsubtreeだけを変え、pairの優先順位と外側peerの設定を保持します。
 数値descriptor、出力書式、書き込んだfile内容はoracleの範囲外です。このannex D検査系はM1報告の拡充です。
+
+## Register-global宣言と完了の境界
+
+### Q168. Logic typedefの幅とunknown-status symbolは4-state動作を証明しますか？
+
+証明しません。[幅を設定する検査系](../tests/u17/test_register_global_configured_widths_match_public_type_declarations.sv)は、
+選択したlibrary macro値で公開typedefの範囲を検査し、既定値は別の検査系で確認します。logic aliasは幅、enumはsymbol利用可否を検査します。
+X／Z保持、伝播、unknown結果の扱い、register操作の意味は認定しません。宣言条項に要求案があっても、これらの条件は残ります。
+
+### Q169. なぜconcat検査は欠落methodやconstructor引数を保持しますか？
+
+規格は名前付き生成とslice accessorを提供しますが、固定libraryの公開interfaceは異なります。
+[constructor検査系](../tests/u17/test_hdl_concat_standard_constructor_accepts_explicit_and_empty_instance_names.sv)は、名前getterを作らず明示・空・省略引数を検査します。
+置換／追記の検査系も、有効なmetadataで標準accessorだけを使います。build失敗は実行時結果を主張せずspecのみで保持し、
+不正記述の拒否や実際のHDL storage accessを認定しません。legacy memberでは別interfaceを検査することになり、これらの義務は未対応のままです。
+
+### Q170. 第17章の未評価0件で継続goalは完了しますか？
+
+完了しません。章の30番号は部分分解22件・明示したAI分類8件です。構造的な見出しや文脈的な宣言は、個別に読み、根拠を記録してから分類します。
+4-state動作、enumで制御する操作、coverage割当、constructorの保持名の観測、独立した検査が残ります。
+goalはM1〜M4全体が対象で、未評価資料とこれらの残る条件の監査が必要です。[goalの引継ぎ](handoff.ja.md#継続goalと完了監査)を参照してください。

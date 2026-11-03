@@ -1,0 +1,15 @@
+UT: predict UVM_PREDICT_DIRECT
+UT: predict UVM_PREDICT_READ
+UT: predict UVM_PREDICT_WRITE
+UT: endian UVM_NO_ENDIAN
+UT: endian UVM_LITTLE_ENDIAN
+UT: endian UVM_BIG_ENDIAN
+UT: endian UVM_LITTLE_FIFO
+UT: endian UVM_BIG_FIFO
+UT: coverage UVM_NO_COVERAGE
+UT: coverage UVM_CVR_REG_BITS
+UT: coverage UVM_CVR_ADDR_MAP
+UT: coverage UVM_CVR_FIELD_VALS
+UT: coverage UVM_CVR_ALL
+UT: coverage_union bits 1 addr 1 fields 1
+UT: coverage_clear bits 1 addr 1 fields 1

@@ -3,8 +3,8 @@
 [日本語](history.ja.md) · [README](../README.md)
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and twenty-eight cross-milestone thin-area expansions, including the
-existing-test requirement-link backlog checkpoint (1274 simulation tests). The earlier 349-test checkpoint is
+three M4 increments and twenty-nine cross-milestone thin-area expansions, including the
+existing-test requirement-link backlog checkpoint (1283 simulation tests). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -2492,3 +2492,37 @@ Validation covers 88 tool tests, all 1274 metadata records, ledger/index/library
 checks, bilingual links and current-input evidence. Prior simulation inputs,
 runners, backend, scope, lock, licenses and six SVG assets remain unchanged.
 Human review and scope/denominator approval remain open.
+
+## Twenty-ninth thin-area expansion across M1–M4
+
+The user activates a persistent goal to eliminate M1–M4 gaps. The first
+iteration focuses on the sparsely tested register-global chapter. Nine new
+M3 fixtures bring the suite to 1283: M1 430, M2 457 and M3 396. They cover
+default/configured typedef widths, enum symbols, coverage-set composition,
+public slice fields and standard concat construction/replacement/append. Six
+match final inputs at seeds 1 and 73. Three retain missing-API builds: one
+named constructor and two standard slice-accessor cases. No legacy interface
+substitutes for the standard. Declaration evidence does not establish X/Z
+storage, downstream enum-controlled operations, invalid-input rejection,
+stored-name observability or real HDL access.
+
+Compatible evidence preserves all 1274 previous inputs: 1142 pass and 141
+known (117 runtime first differences, sixteen missing-API builds, eight
+unlinked-DPI builds). Separate VPI remains seven pass/one fail. Guest records
+cover 1085 unchanged inputs; 198 current IDs are unmeasured. Forty-one AI
+drafts bring the ledger to 1735, directly linked to 1282 tests plus one control.
+Six individually read structural headings and two contextual records bring
+assessments to eighty-two: seventy-seven structural and five contextual.
+Chapter 17 now has 22 partial and eight assessed identifiers, with zero
+unassessed. Four macro clauses also gain partial decomposition. Overall,
+991 of 2,507 identifiers are partial, 82 assessed and 1,434 unassessed, a
+decrease of 29 from activation. Primary focus is 624, any citation 1,272;
+candidate census is 1,858 zero, 350 one and 274 at least two.
+
+The goal remains active; zero unassessed chapter material is not completed
+coverage. The handoff records the full completion audit. Ten guide pairs,
+170 FAQ answers and 191 glossary entries are checked along with 88 tool tests,
+all 1283 metadata records, ledger/index/library and current-input identities.
+Previous simulation inputs, runners, catalog, backend, scope, lock, licenses,
+Issue policy, six SVG assets and VPI records remain unchanged. Human review
+and scope/denominator approval remain open.

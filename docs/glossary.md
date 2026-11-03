@@ -919,3 +919,18 @@ fields. It tests paired consistency, not independent one-way byte order.
 to one component subtree. Public effective-handle queries can check scope and
 precedence without fixing numeric file descriptors; see
 [Q167](faq.md#q167-how-are-recursive-report-file-settings-checked-without-fixed-file-numbers).
+
+## Declaration evidence and open conditions
+
+**Declaration evidence** — An observation that a public type, named alternative
+or signature exists and has a selected extent. It does not establish every
+operation using that declaration; see [Q168](faq.md#q168-do-logic-typedef-widths-and-the-unknown-status-symbol-prove-four-state-behavior).
+
+**Valid slice description** — Most-to-least, nonoverlapping HDL metadata that
+may contain gaps, or one whole-register slice with both numeric fields -1.
+Supplying a valid description does not test rejection of invalid descriptions.
+
+**Zero unassessed identifiers** — Every catalog identifier has a partial draft
+or an explicit justified assessment. This is an inventory state, not completion
+of all obligations or the persistent M1–M4 goal; see
+[Q170](faq.md#q170-does-zero-unassessed-chapter-17-material-finish-the-persistent-goal).

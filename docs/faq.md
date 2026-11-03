@@ -135,7 +135,7 @@ See [Ghost setup](testing.md#ghost).
 
 It removes `UVM_NO_DPI` from the default macro list. It does not supply or link
 UVM's C/C++ implementation. The current Verilator runner does not add those
-sources. There are 1266 `UVM_NO_DPI` cases and eight explicit HDL-DPI cases.
+sources. There are 1275 `UVM_NO_DPI` cases and eight explicit HDL-DPI cases.
 The [separate VPI runner](testing.md#verilator-vpi-hdl-subset) links the original
 limited backend; results apply only to that declared execution condition.
 User-defined `uvm_reg_backdoor` handlers can operate without HDL DPI (Q67).
@@ -174,7 +174,7 @@ a claim that every test was rebuilt together.
 
 ### Q16. Are M1, M2 or M3 complete, and what does the test count cover?
 
-M1 and M2 still have open clause targets. M3 now has 387
+M1 and M2 still have open clause targets. M3 now has 396
 register-layer cases, including testbench frontdoor paths; it is also incomplete. Starting a stage does not complete
 the preceding stages.
 The [plan](../README.md#plan) identifies current scope and remaining work.
@@ -1141,9 +1141,9 @@ not a direct test of the requirement.
 
 ### Q77. Why is there no coverage percentage after starting M4?
 
-The 1694 AI drafts cover only a partial decomposition: 1694 requirements link
-directly to 1273 tests; all drafts have direct tests, and one separate test is a control.
-All 1274 tests have requirement links. The 2,507 clause identifiers are not normative requirement units.
+The 1735 AI drafts cover only a partial decomposition: 1735 requirements link
+directly to 1282 tests; all drafts have direct tests, and one separate test is a control.
+All 1283 tests have requirement links. The 2,507 clause identifiers are not normative requirement units.
 The scope is proposed, the inventory incomplete and the denominator unapproved;
 starting M4 approves none of those. Known differences and HDL/DPI limitations
 do not silently exclude obligations. See the [approval path](requirements.md#remaining-m4-work-and-approval).
@@ -2143,7 +2143,7 @@ No. `tests_without_requirement_links` is zero: every current test has an
 explicit direct or control link. The separate counter
 `requirements_without_direct_tests` is zero. The memory-walk link uses the
 qualified historical interpretation in Q134. It is not approval of missing
-IEEE detail. HDL deposit and accessibility use explicit VPI fixtures. Another 1,463
+IEEE detail. HDL deposit and accessibility use explicit VPI fixtures. Another 1,434
 catalog identifiers remain unassessed; decomposition and human review are
 incomplete, and the denominator remains unapproved.
 
@@ -2244,7 +2244,7 @@ in [identifier assessments](../coverage/assessments.json). Structural headings
 have no related requirements; contextual descriptions name existing requirements.
 An unreviewed record, guessed classification or parent rollup cannot do this.
 The generated state is `assessed`, separate from `partial` requirement clauses.
-Seventy-four classifications currently exist, with no denominator approval or new pass.
+Eighty-two classifications currently exist, with no denominator approval or new pass.
 Chapter 11's zero unassessed identifiers still does not complete its requirements.
 
 ### Q136. Does explicit strict configuration make the new cases pass?
@@ -2648,3 +2648,34 @@ pair; the pair then takes precedence. A child-subtree update changes only that
 subtree while preserving pair precedence and an outside peer's settings.
 Numeric descriptors, output formatting and written file contents are outside
 the oracle. This annex D case extends M1 reporting.
+
+## Register-global declarations and completion boundaries
+
+### Q168. Do logic typedef widths and the unknown-status symbol prove four-state behavior?
+
+No. The [configured-width fixture](../tests/u17/test_register_global_configured_widths_match_public_type_declarations.sv)
+checks public typedef extents under selected library macro values; the default
+fixture separately checks documented defaults. The logic aliases are checked
+for width, and enum fixtures check symbol availability. None establishes X/Z
+storage, propagation, unknown-result handling or register-operation semantics.
+Those conditions remain open even when the declaration clause has a draft.
+
+### Q169. Why do the concat tests keep missing methods and constructor arguments?
+
+The standard provides named construction and slice accessors. The pinned
+library has a different public interface. The [constructor fixture](../tests/u17/test_hdl_concat_standard_constructor_accepts_explicit_and_empty_instance_names.sv)
+checks explicit, empty and omitted arguments without inventing a name getter.
+The replacement/append fixtures use only standard accessors on valid metadata.
+Their build failures remain spec-only, with no runtime claim. They establish
+neither invalid-description rejection nor actual HDL storage access. Using a
+legacy member would exercise another interface and leave these obligations open.
+
+### Q170. Does zero unassessed chapter 17 material finish the persistent goal?
+
+No. The chapter's 30 identifiers are now 22 partial decompositions and eight
+explicit AI assessments. A structural heading or contextual declaration is
+classified only after individual reading with recorded rationale. Four-state
+behavior, enum-controlled operations, coverage allocation, constructor-name
+observability and independent checks remain. The goal spans all M1–M4 and
+requires auditing those remaining conditions as well as unassessed material.
+See the [goal handoff](handoff.md#persistent-goal-and-completion-audit).

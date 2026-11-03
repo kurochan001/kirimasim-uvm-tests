@@ -1,0 +1,4 @@
+UT: initial count 2 high 1 low 1
+UT: returned_copy 1
+UT: replaced count 1 whole 1 peer_count 2 peer_high 1
+UT: cleared 0 peer_retained 1

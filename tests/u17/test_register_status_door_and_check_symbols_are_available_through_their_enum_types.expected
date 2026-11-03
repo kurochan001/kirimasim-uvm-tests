@@ -1,0 +1,9 @@
+UT: status UVM_IS_OK
+UT: status UVM_NOT_OK
+UT: status UVM_HAS_X
+UT: door UVM_FRONTDOOR
+UT: door UVM_BACKDOOR
+UT: door UVM_PREDICT
+UT: door UVM_DEFAULT_DOOR
+UT: check UVM_NO_CHECK
+UT: check UVM_CHECK

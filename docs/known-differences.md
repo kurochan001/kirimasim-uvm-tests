@@ -2,7 +2,7 @@
 
 [日本語](known-differences.ja.md) · [README](../README.md) · [FAQ](faq.md)
 
-This describes the current 1274-test suite and the pinned Accellera UVM
+This describes the current 1283-test suite and the pinned Accellera UVM
 2020.3.1 library. A mismatch is a test result; it does not by itself assign
 the cause to the simulator, the library or the expectation.
 
@@ -441,7 +441,15 @@ in 6.3.3.3, which ignores verbosity for non-INFO severities. The class-specific
 contract and inherited behavior need review; no confirmed simulator bug is
 assigned. The standard-derived sequence expectation remains spec-only.
 
-Across the suite, 1136 tests have the `verilator@5.052` oracle tag and 138
+Three additional concat cases retain standard APIs from 17.2.3.3.1–.4.
+The named-constructor case supplies explicit and empty string arguments as
+well as omission; the pinned concat class has no matching named constructor.
+Two accessor cases check replacement, valid gaps, value-copy isolation, empty
+arrays and append after replacement. Their first build failure is the missing
+standard slice accessor. No legacy member or differently named method replaces
+these APIs. All three are build evidence without runtime results.
+
+Across the suite, 1142 tests have the `verilator@5.052` oracle tag and 141
 cases are spec-only. One of the spec-only cases checks 9.6: a child's pre-reset
 task must be killed when that phase ends, but the pinned-library run on Verilator 5.052
 lets the child perform its delayed write during a later phase. The cause of
@@ -453,13 +461,14 @@ without callbacks. The pinned Verilator run reaches the blocked-state
 observation, then its watchdog expires. This combined simulator/library
 cause remains unassigned; the normative wakeup expectation is retained.
 
-The 138 spec-only tests retain their normative expected files.
-Default Verilator runs and CI select the 1136 tagged cases. `--all` includes
+The 141 spec-only tests retain their normative expected files.
+Default Verilator runs and CI select the 1142 tagged cases. `--all` includes
 spec-only cases and records mismatches or build failures as `known`.
 The ordinary runtime records for 117 cases establish their first difference
-at seed 1, without seed 73 results. Thirteen missing-API builds have no ordinary
-runtime seed result: one time API, six sequence-library cases, two HDL slice
-cases, one object active-policy case and three catcher message-handle cases.
+at seed 1, without seed 73 results. Sixteen missing-API builds have no ordinary
+runtime seed result: one time API, six sequence-library cases, four HDL slice
+cases, one named-concat-constructor case, one object active-policy case and
+three catcher message-handle cases.
 Eight HDL-DPI fixtures also cannot
 link in the ordinary runner. Their separate VPI condition matches seven at
 both seeds and fails the E.7 warning/no-transfer expectation at seed 1.
@@ -467,7 +476,7 @@ These overlapping configurations are not summed.
 
 ## Spec-only tests
 
-These are the 138 current spec-only cases. Several exercise the same
+These are the 141 current spec-only cases. Several exercise the same
 limitation, so their count is not a count of distinct bugs.
 
 - [Explicit HDL abstraction selection](../tests/uE/test_hdl_path_sequence_uses_an_explicit_abstraction_instead_of_the_invalid_default.sv).
@@ -701,10 +710,14 @@ Additional message-handle and endian cases:
 
 - [Sequence-report severity admission before virtual processing](../tests/u14/test_sequence_item_reporting_filters_each_severity_before_virtual_processing.sv).
 
+- [Named concat construction](../tests/u17/test_hdl_concat_standard_constructor_accepts_explicit_and_empty_instance_names.sv).
+- [Concat replacement and copy isolation](../tests/u17/test_hdl_concat_standard_set_slices_replaces_prior_gapped_description_without_aliases.sv).
+- [Concat append after replacement](../tests/u17/test_hdl_concat_standard_add_slice_appends_after_replacement_and_preserves_peer.sv).
+
 ## Simulator and library combinations
 
-The suite has 1274 cases, but the kirimasim/Ghost records below cover only
-1085 unchanged current-input cases. The 189 new cases are unmeasured
+The suite has 1283 cases, but the kirimasim/Ghost records below cover only
+1085 unchanged current-input cases. The 198 new cases are unmeasured
 because prior temporary executable/profile snapshots are unavailable. Do
 not treat this as a fresh full-suite guest result. See [results](results.md).
 

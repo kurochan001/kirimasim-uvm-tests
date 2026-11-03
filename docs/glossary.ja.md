@@ -711,3 +711,15 @@ factory overrideは生成する動的型を変えても、baseのstatic proxyを
 **Hierarchical file association（階層的なfile対応付け）** — あるcomponent subtreeへ再帰的にreport file設定を適用することです。
 公開の実効handle照会で、数値descriptorを固定せずscopeと優先順位を検査できます。
 [Q167](faq.ja.md#q167-再帰的なreport-file設定を固定file番号なしでどう検査しますか)を参照してください。
+
+## 宣言のevidenceと残る条件
+
+**Declaration evidence（宣言のevidence）** — 公開型、名前付き選択肢、signatureの存在や選択した範囲の観測です。
+その宣言を使う全操作は認定しません。[Q168](faq.ja.md#q168-logic-typedefの幅とunknown-status-symbolは4-state動作を証明しますか)を参照してください。
+
+**Valid slice description（有効なslice記述）** — most-to-least順で重複せず、隙間を許すHDL metadata、または両数値fieldが-1のregister全体の単一sliceです。
+有効記述を渡しても、不正記述の拒否は検査できません。
+
+**Zero unassessed identifiers（未評価番号0）** — 全catalog番号に部分的な要求案または根拠のある明示分類がある状態です。
+棚卸しの状態であり、全義務や継続するM1〜M4 goalの完了ではありません。
+[Q170](faq.ja.md#q170-第17章の未評価0件で継続goalは完了しますか)を参照してください。

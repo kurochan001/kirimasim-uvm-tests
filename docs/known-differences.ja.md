@@ -2,7 +2,7 @@
 
 [English](known-differences.md) · [README](../README.ja.md) · [FAQ](faq.ja.md)
 
-現在の1274件と、固定したAccellera UVM 2020.3.1についての記録です。
+現在の1283件と、固定したAccellera UVM 2020.3.1についての記録です。
 不一致はテストの結果であり、それだけではシミュレータ・ライブラリ・期待値のどれが原因かは決まりません。
 
 ## 固定版ライブラリの制約
@@ -303,7 +303,11 @@ reporter閾値NONEでHIGHの4照会はいずれもfalseですが、固定sequenc
 これは、non-INFOのverbosityを無視する6.3.3.3のreport-object規則とは別です。class固有の契約と継承動作は要レビューで、
 simulatorの確定した不具合には割り当てません。規格から導いたsequenceの期待をspecのみで保持します。
 
-スイート全体では、`verilator@5.052`を付けたテストは1136件、specのみのテストは138件です。
+追加のconcat 3件は17.2.3.3.1〜.4の標準APIを保持します。名前付きconstructorの検査は明示文字列、空文字列、省略を使い、固定concat classには対応する名前付きconstructorがありません。
+accessor 2検査系は置換、有効な隙間、値copyの独立性、空配列、置換後の追記を扱い、最初のbuild失敗は標準slice accessorの欠落です。
+legacy memberや異なる名前のmethodへ置換しません。3件ともbuildの記録で、実行時結果はありません。
+
+スイート全体では、`verilator@5.052`を付けたテストは1142件、specのみのテストは141件です。
 specのみのうち1件は9.6を検証します。pre-resetフェーズ終了時に子タスクが停止する
 はずですが、固定版UVMとVerilator 5.052の組み合わせでは、後のフェーズで子タスクの遅延書き込みが
 実行されます。この差分の原因がシミュレータとライブラリのどちらかは未確定です。
@@ -312,17 +316,17 @@ wakeup resetの検査系は、trigger waiterとpersistent-trigger waiterを各1�
 10.1.1.2.8は、callbackなしで両方が起動することを要求します。固定Verilatorの実行は、待機状態の観測に到達してから
 watchdogが期限切れになります。simulator／libraryを組み合わせた原因は未確定のまま、規範的なwakeupの期待を保持します。
 
-specのみの138件も規格から導いた期待値を保持します。通常のVerilator実行とCIはoracle付き1136件を選びます。
+specのみの141件も規格から導いた期待値を保持します。通常のVerilator実行とCIはoracle付き1142件を選びます。
 `--all`はspecのみも含め、不一致やビルド不可を`known`として記録します。
 通常の実行時117件は、最初の差分であるseed 1までの記録で、seed 73の結果はありません。
-API欠落build 13件は、time 1件、sequence-library 6件、HDL slice 2件、object active-policy 1件、catcher message-handle 3件で、
+API欠落build 16件は、time 1件、sequence-library 6件、HDL slice 4件、名前付きconcat constructor 1件、object active-policy 1件、catcher message-handle 3件で、
 通常条件の実行時seed結果はありません。HDL DPIの8検査系も通常runnerではlinkできません。
 別のVPI条件では、7件が両seed一致、E.7のwarning／転送なしの期待はseed 1で失敗します。
 重複する条件を合計しません。
 
 ## specのみのテスト
 
-現在の138件は次のテストです。同じ制約を複数のテストで検査する場合があり、異なる不具合の個数ではありません。
+現在の141件は次のテストです。同じ制約を複数のテストで検査する場合があり、異なる不具合の個数ではありません。
 
 - [明示HDL abstractionの選択](../tests/uE/test_hdl_path_sequence_uses_an_explicit_abstraction_instead_of_the_invalid_default.sv).
 - [空abstraction listでblock既定を使用](../tests/uE/test_hdl_path_sequence_uses_the_block_default_abstraction_when_the_list_is_empty.sv).
@@ -555,10 +559,14 @@ API欠落build 13件は、time 1件、sequence-library 6件、HDL slice 2件、o
 
 - [Virtual処理前のsequence報告のseverity admission](../tests/u14/test_sequence_item_reporting_filters_each_severity_before_virtual_processing.sv).
 
+- [名前付きconcat生成](../tests/u17/test_hdl_concat_standard_constructor_accepts_explicit_and_empty_instance_names.sv).
+- [Concatの置換とcopyの独立性](../tests/u17/test_hdl_concat_standard_set_slices_replaces_prior_gapped_description_without_aliases.sv).
+- [置換後のconcat追記](../tests/u17/test_hdl_concat_standard_add_slice_appends_after_replacement_and_preserves_peer.sv).
+
 ## シミュレータとライブラリの組み合わせ
 
-スイートは1274件ですが、以下のkirimasim／Ghost記録は未変更の現在入力1085件だけを対象とします。
-以前の一時実行ファイル／profile snapshotがないため、新規189件は未測定です。
+スイートは1283件ですが、以下のkirimasim／Ghost記録は未変更の現在入力1085件だけを対象とします。
+以前の一時実行ファイル／profile snapshotがないため、新規198件は未測定です。
 新しい全件guest実測とは扱いません。[実行結果](results.ja.md)を参照してください。
 
 Ghostの同梱UVMはseed 1・73とも207件一致・878件不一致で、不一致になるテストも同じです。

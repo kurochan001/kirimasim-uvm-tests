@@ -2,7 +2,7 @@
 
 [English](history.md) · [README](../README.ja.md)
 
-M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の28回目の拡充（シミュレーション1274件）までを記録しています。以前の349件の時点は
+M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の29回目の拡充（シミュレーション1283件）までを記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -1743,3 +1743,20 @@ catalogは2,504から2,507へ増え、見出しらしい行の走査は完全性
 
 日英10組を照合し、FAQ 167回答・用語188語です。tool単体88件、全1274 metadata、台帳／索引／library、日英参照、現在入力のevidenceを検証します。
 以前のsimulation入力、runner、backend、scope、lock、license、SVG 6 assetは未変更です。人のレビューと範囲／分母の承認は未完です。
+
+## M1〜M4の薄い領域の29回目の拡充
+
+ユーザーがM1〜M4の未対応を解消する継続goalを有効化し、最初の反復は検査が薄いregister-global章へ集中します。
+M3の9検査系で全体1283件、M1 430件、M2 457件、M3 396件です。既定／設定変更時のtypedef幅、enum symbol、coverage集合、
+公開slice field、標準concatの生成／置換／追記を扱います。最終入力6件はseed 1・73一致で、3件は名前付きconstructor 1件と標準slice accessor 2件のAPI欠落buildを保持します。
+標準をlegacy interfaceに置換せず、宣言evidenceからX／Z保持、enumで制御する後段の操作、不正入力の拒否、保持名の観測、実際のHDL accessを認定しません。
+
+互換なevidenceは以前の1274入力をすべて保持し、pass 1142件、known 141件です。内訳は実行時の最初の差分117件、API欠落build 16件、DPI未link build 8件です。
+別のVPIはpass 7件／fail 1件のままです。guest記録は未変更1085入力で、現在の198 IDは未測定です。
+AI要求案41件で台帳1735件、1282テストへ直接対応し、別control 1件があります。個別に読んだ構造見出し6件と文脈2件で分類82件、構造77件・文脈5件です。
+第17章は部分分解22番号・分類8番号で未評価0件となり、幅macro 4条項も一部分解します。全体2,507番号のうち部分分解991件、分類82件、未評価1,434件で、goal有効化から29件減りました。
+主引用624番号、いずれかの引用1,272番号、候補の棚卸しは0件1,858、1件350、2件以上274です。
+
+goalは有効なままで、章の未評価0はcoverageの完了ではありません。handoffに全体の完了監査を記録します。
+日英10組、FAQ 170回答・用語191語に加え、tool単体88件、全1283 metadata、台帳／索引／library、現在入力の同一性を照合します。
+以前のsimulation入力、runner、catalog、backend、scope、lock、license、Issue方針、SVG 6 asset、VPI記録は未変更です。人のレビューと範囲／分母の承認は未完です。

@@ -1,0 +1,7 @@
+UT: kind UVM_REG
+UT: kind UVM_FIELD
+UT: kind UVM_MEM
+UT: access UVM_READ
+UT: access UVM_WRITE
+UT: hierarchy UVM_NO_HIER
+UT: hierarchy UVM_HIER

@@ -63181,6 +63181,1487 @@
           ]
         }
       ]
+    },
+    {
+      "id": "UVM-REG-GLOBAL-DATA-WIDTH",
+      "clause": "17.2.1.1",
+      "statement": {
+        "en": "uvm_reg_data_t has the width specified by UVM_REG_DATA_WIDTH.",
+        "ja": "uvm_reg_data_tはUVM_REG_DATA_WIDTHで指定した幅を持つ。"
+      },
+      "conditions": {
+        "en": "The pinned library is compiled once with defaults and once with selected independent macro settings.",
+        "ja": "固定libraryを、既定値と選択した独立macro設定でそれぞれcompileする。"
+      },
+      "expected": {
+        "en": "The declared type width equals the corresponding active macro in both configurations.",
+        "ja": "両設定で宣言型の幅が対応する有効macroと一致する。"
+      },
+      "limitations": {
+        "en": "Declaration widths and representable upper bits only; X/Z retention, four-state execution, signedness, arbitrary macro values and downstream register operations are not established.",
+        "ja": "宣言幅と表現できる最上位bitのみ。X／Z保持、4-state実行、符号性、任意のmacro値、後段のregister操作は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u17/test_register_global_default_widths_match_public_type_declarations",
+          "role": "direct",
+          "expected_observations": [
+            "UT: declared data 64 logic_data 64 addr 64 logic_addr 64 lanes 8 models 32",
+            "UT: matches data 1 logic_data 1 addr 1 logic_addr 1 lanes 1 models 1"
+          ]
+        },
+        {
+          "test": "u17/test_register_global_configured_widths_match_public_type_declarations",
+          "role": "direct",
+          "expected_observations": [
+            "UT: declared data 96 logic_data 96 addr 80 logic_addr 80 lanes 16 models 40",
+            "UT: matches data 1 logic_data 1 addr 1 logic_addr 1 lanes 1 models 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-GLOBAL-LOGIC-DATA-WIDTH",
+      "clause": "17.2.1.2",
+      "statement": {
+        "en": "uvm_reg_data_logic_t has the width specified by UVM_REG_DATA_WIDTH.",
+        "ja": "uvm_reg_data_logic_tはUVM_REG_DATA_WIDTHで指定した幅を持つ。"
+      },
+      "conditions": {
+        "en": "The pinned library is compiled once with defaults and once with selected independent macro settings.",
+        "ja": "固定libraryを、既定値と選択した独立macro設定でそれぞれcompileする。"
+      },
+      "expected": {
+        "en": "The declared type width equals the corresponding active macro in both configurations.",
+        "ja": "両設定で宣言型の幅が対応する有効macroと一致する。"
+      },
+      "limitations": {
+        "en": "Declaration widths and representable upper bits only; X/Z retention, four-state execution, signedness, arbitrary macro values and downstream register operations are not established.",
+        "ja": "宣言幅と表現できる最上位bitのみ。X／Z保持、4-state実行、符号性、任意のmacro値、後段のregister操作は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u17/test_register_global_default_widths_match_public_type_declarations",
+          "role": "direct",
+          "expected_observations": [
+            "UT: declared data 64 logic_data 64 addr 64 logic_addr 64 lanes 8 models 32",
+            "UT: matches data 1 logic_data 1 addr 1 logic_addr 1 lanes 1 models 1"
+          ]
+        },
+        {
+          "test": "u17/test_register_global_configured_widths_match_public_type_declarations",
+          "role": "direct",
+          "expected_observations": [
+            "UT: declared data 96 logic_data 96 addr 80 logic_addr 80 lanes 16 models 40",
+            "UT: matches data 1 logic_data 1 addr 1 logic_addr 1 lanes 1 models 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-GLOBAL-ADDRESS-WIDTH",
+      "clause": "17.2.1.3",
+      "statement": {
+        "en": "uvm_reg_addr_t has the width specified by UVM_REG_ADDR_WIDTH.",
+        "ja": "uvm_reg_addr_tはUVM_REG_ADDR_WIDTHで指定した幅を持つ。"
+      },
+      "conditions": {
+        "en": "The pinned library is compiled once with defaults and once with selected independent macro settings.",
+        "ja": "固定libraryを、既定値と選択した独立macro設定でそれぞれcompileする。"
+      },
+      "expected": {
+        "en": "The declared type width equals the corresponding active macro in both configurations.",
+        "ja": "両設定で宣言型の幅が対応する有効macroと一致する。"
+      },
+      "limitations": {
+        "en": "Declaration widths and representable upper bits only; X/Z retention, four-state execution, signedness, arbitrary macro values and downstream register operations are not established.",
+        "ja": "宣言幅と表現できる最上位bitのみ。X／Z保持、4-state実行、符号性、任意のmacro値、後段のregister操作は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u17/test_register_global_default_widths_match_public_type_declarations",
+          "role": "direct",
+          "expected_observations": [
+            "UT: declared data 64 logic_data 64 addr 64 logic_addr 64 lanes 8 models 32",
+            "UT: matches data 1 logic_data 1 addr 1 logic_addr 1 lanes 1 models 1"
+          ]
+        },
+        {
+          "test": "u17/test_register_global_configured_widths_match_public_type_declarations",
+          "role": "direct",
+          "expected_observations": [
+            "UT: declared data 96 logic_data 96 addr 80 logic_addr 80 lanes 16 models 40",
+            "UT: matches data 1 logic_data 1 addr 1 logic_addr 1 lanes 1 models 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-GLOBAL-LOGIC-ADDRESS-WIDTH",
+      "clause": "17.2.1.4",
+      "statement": {
+        "en": "uvm_reg_addr_logic_t has the width specified by UVM_REG_ADDR_WIDTH.",
+        "ja": "uvm_reg_addr_logic_tはUVM_REG_ADDR_WIDTHで指定した幅を持つ。"
+      },
+      "conditions": {
+        "en": "The pinned library is compiled once with defaults and once with selected independent macro settings.",
+        "ja": "固定libraryを、既定値と選択した独立macro設定でそれぞれcompileする。"
+      },
+      "expected": {
+        "en": "The declared type width equals the corresponding active macro in both configurations.",
+        "ja": "両設定で宣言型の幅が対応する有効macroと一致する。"
+      },
+      "limitations": {
+        "en": "Declaration widths and representable upper bits only; X/Z retention, four-state execution, signedness, arbitrary macro values and downstream register operations are not established.",
+        "ja": "宣言幅と表現できる最上位bitのみ。X／Z保持、4-state実行、符号性、任意のmacro値、後段のregister操作は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u17/test_register_global_default_widths_match_public_type_declarations",
+          "role": "direct",
+          "expected_observations": [
+            "UT: declared data 64 logic_data 64 addr 64 logic_addr 64 lanes 8 models 32",
+            "UT: matches data 1 logic_data 1 addr 1 logic_addr 1 lanes 1 models 1"
+          ]
+        },
+        {
+          "test": "u17/test_register_global_configured_widths_match_public_type_declarations",
+          "role": "direct",
+          "expected_observations": [
+            "UT: declared data 96 logic_data 96 addr 80 logic_addr 80 lanes 16 models 40",
+            "UT: matches data 1 logic_data 1 addr 1 logic_addr 1 lanes 1 models 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-GLOBAL-BYTE-ENABLE-WIDTH",
+      "clause": "17.2.1.5",
+      "statement": {
+        "en": "uvm_reg_byte_en_t has the width specified by UVM_REG_BYTENABLE_WIDTH.",
+        "ja": "uvm_reg_byte_en_tはUVM_REG_BYTENABLE_WIDTHで指定した幅を持つ。"
+      },
+      "conditions": {
+        "en": "The pinned library is compiled once with defaults and once with selected independent macro settings.",
+        "ja": "固定libraryを、既定値と選択した独立macro設定でそれぞれcompileする。"
+      },
+      "expected": {
+        "en": "The declared type width equals the corresponding active macro in both configurations.",
+        "ja": "両設定で宣言型の幅が対応する有効macroと一致する。"
+      },
+      "limitations": {
+        "en": "Declaration widths and representable upper bits only; X/Z retention, four-state execution, signedness, arbitrary macro values and downstream register operations are not established.",
+        "ja": "宣言幅と表現できる最上位bitのみ。X／Z保持、4-state実行、符号性、任意のmacro値、後段のregister操作は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u17/test_register_global_default_widths_match_public_type_declarations",
+          "role": "direct",
+          "expected_observations": [
+            "UT: declared data 64 logic_data 64 addr 64 logic_addr 64 lanes 8 models 32",
+            "UT: matches data 1 logic_data 1 addr 1 logic_addr 1 lanes 1 models 1"
+          ]
+        },
+        {
+          "test": "u17/test_register_global_configured_widths_match_public_type_declarations",
+          "role": "direct",
+          "expected_observations": [
+            "UT: declared data 96 logic_data 96 addr 80 logic_addr 80 lanes 16 models 40",
+            "UT: matches data 1 logic_data 1 addr 1 logic_addr 1 lanes 1 models 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-GLOBAL-COVERAGE-WIDTH",
+      "clause": "17.2.1.6",
+      "statement": {
+        "en": "uvm_reg_cvr_t has the width specified by UVM_REG_CVR_WIDTH.",
+        "ja": "uvm_reg_cvr_tはUVM_REG_CVR_WIDTHで指定した幅を持つ。"
+      },
+      "conditions": {
+        "en": "The pinned library is compiled once with defaults and once with selected independent macro settings.",
+        "ja": "固定libraryを、既定値と選択した独立macro設定でそれぞれcompileする。"
+      },
+      "expected": {
+        "en": "The declared type width equals the corresponding active macro in both configurations.",
+        "ja": "両設定で宣言型の幅が対応する有効macroと一致する。"
+      },
+      "limitations": {
+        "en": "Declaration widths and representable upper bits only; X/Z retention, four-state execution, signedness, arbitrary macro values and downstream register operations are not established.",
+        "ja": "宣言幅と表現できる最上位bitのみ。X／Z保持、4-state実行、符号性、任意のmacro値、後段のregister操作は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u17/test_register_global_default_widths_match_public_type_declarations",
+          "role": "direct",
+          "expected_observations": [
+            "UT: declared data 64 logic_data 64 addr 64 logic_addr 64 lanes 8 models 32",
+            "UT: matches data 1 logic_data 1 addr 1 logic_addr 1 lanes 1 models 1"
+          ]
+        },
+        {
+          "test": "u17/test_register_global_configured_widths_match_public_type_declarations",
+          "role": "direct",
+          "expected_observations": [
+            "UT: declared data 96 logic_data 96 addr 80 logic_addr 80 lanes 16 models 40",
+            "UT: matches data 1 logic_data 1 addr 1 logic_addr 1 lanes 1 models 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-GLOBAL-ADDRESS-DEFAULT-MACRO",
+      "clause": "B.6.4",
+      "statement": {
+        "en": "The default UVM_REG_ADDR_WIDTH setting supplies the documented type extent.",
+        "ja": "既定のUVM_REG_ADDR_WIDTHは、記載された型の範囲を与える。"
+      },
+      "conditions": {
+        "en": "No width macros are supplied; the default data width is 64 bits.",
+        "ja": "幅macroを指定せず、既定data幅は64 bitである。"
+      },
+      "expected": {
+        "en": "The associated declared width is 64 bits.",
+        "ja": "対応する宣言幅は64 bitである。"
+      },
+      "limitations": {
+        "en": "Declaration widths and representable upper bits only; X/Z retention, four-state execution, signedness, arbitrary macro values and downstream register operations are not established.",
+        "ja": "宣言幅と表現できる最上位bitのみ。X／Z保持、4-state実行、符号性、任意のmacro値、後段のregister操作は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u17/test_register_global_default_widths_match_public_type_declarations",
+          "role": "direct",
+          "expected_observations": [
+            "UT: declared data 64 logic_data 64 addr 64 logic_addr 64 lanes 8 models 32",
+            "UT: matches data 1 logic_data 1 addr 1 logic_addr 1 lanes 1 models 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-GLOBAL-ADDRESS-CONFIGURED-MACRO",
+      "clause": "B.6.4",
+      "statement": {
+        "en": "The selected UVM_REG_ADDR_WIDTH setting determines its public type extent.",
+        "ja": "選択したUVM_REG_ADDR_WIDTH設定が、公開型の範囲を定める。"
+      },
+      "conditions": {
+        "en": "The macro is supplied as 80 while other widths are configured independently.",
+        "ja": "他の幅を独立に設定し、このmacroを80にする。"
+      },
+      "expected": {
+        "en": "The associated declared width is 80 bits.",
+        "ja": "対応する宣言幅は80 bitである。"
+      },
+      "limitations": {
+        "en": "Declaration widths and representable upper bits only; X/Z retention, four-state execution, signedness, arbitrary macro values and downstream register operations are not established.",
+        "ja": "宣言幅と表現できる最上位bitのみ。X／Z保持、4-state実行、符号性、任意のmacro値、後段のregister操作は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u17/test_register_global_configured_widths_match_public_type_declarations",
+          "role": "direct",
+          "expected_observations": [
+            "UT: declared data 96 logic_data 96 addr 80 logic_addr 80 lanes 16 models 40",
+            "UT: matches data 1 logic_data 1 addr 1 logic_addr 1 lanes 1 models 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-GLOBAL-DATA-DEFAULT-MACRO",
+      "clause": "B.6.5",
+      "statement": {
+        "en": "The default UVM_REG_DATA_WIDTH setting supplies the documented type extent.",
+        "ja": "既定のUVM_REG_DATA_WIDTHは、記載された型の範囲を与える。"
+      },
+      "conditions": {
+        "en": "No width macros are supplied; the default data width is 64 bits.",
+        "ja": "幅macroを指定せず、既定data幅は64 bitである。"
+      },
+      "expected": {
+        "en": "The associated declared width is 64 bits.",
+        "ja": "対応する宣言幅は64 bitである。"
+      },
+      "limitations": {
+        "en": "Declaration widths and representable upper bits only; X/Z retention, four-state execution, signedness, arbitrary macro values and downstream register operations are not established.",
+        "ja": "宣言幅と表現できる最上位bitのみ。X／Z保持、4-state実行、符号性、任意のmacro値、後段のregister操作は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u17/test_register_global_default_widths_match_public_type_declarations",
+          "role": "direct",
+          "expected_observations": [
+            "UT: declared data 64 logic_data 64 addr 64 logic_addr 64 lanes 8 models 32",
+            "UT: matches data 1 logic_data 1 addr 1 logic_addr 1 lanes 1 models 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-GLOBAL-DATA-CONFIGURED-MACRO",
+      "clause": "B.6.5",
+      "statement": {
+        "en": "The selected UVM_REG_DATA_WIDTH setting determines its public type extent.",
+        "ja": "選択したUVM_REG_DATA_WIDTH設定が、公開型の範囲を定める。"
+      },
+      "conditions": {
+        "en": "The macro is supplied as 96 while other widths are configured independently.",
+        "ja": "他の幅を独立に設定し、このmacroを96にする。"
+      },
+      "expected": {
+        "en": "The associated declared width is 96 bits.",
+        "ja": "対応する宣言幅は96 bitである。"
+      },
+      "limitations": {
+        "en": "Declaration widths and representable upper bits only; X/Z retention, four-state execution, signedness, arbitrary macro values and downstream register operations are not established.",
+        "ja": "宣言幅と表現できる最上位bitのみ。X／Z保持、4-state実行、符号性、任意のmacro値、後段のregister操作は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u17/test_register_global_configured_widths_match_public_type_declarations",
+          "role": "direct",
+          "expected_observations": [
+            "UT: declared data 96 logic_data 96 addr 80 logic_addr 80 lanes 16 models 40",
+            "UT: matches data 1 logic_data 1 addr 1 logic_addr 1 lanes 1 models 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-GLOBAL-BYTE-ENABLE-DEFAULT-MACRO",
+      "clause": "B.6.6",
+      "statement": {
+        "en": "The default UVM_REG_BYTENABLE_WIDTH setting supplies the documented type extent.",
+        "ja": "既定のUVM_REG_BYTENABLE_WIDTHは、記載された型の範囲を与える。"
+      },
+      "conditions": {
+        "en": "No width macros are supplied; the default data width is 64 bits.",
+        "ja": "幅macroを指定せず、既定data幅は64 bitである。"
+      },
+      "expected": {
+        "en": "The associated declared width is 8 bits.",
+        "ja": "対応する宣言幅は8 bitである。"
+      },
+      "limitations": {
+        "en": "Declaration widths and representable upper bits only; X/Z retention, four-state execution, signedness, arbitrary macro values and downstream register operations are not established.",
+        "ja": "宣言幅と表現できる最上位bitのみ。X／Z保持、4-state実行、符号性、任意のmacro値、後段のregister操作は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u17/test_register_global_default_widths_match_public_type_declarations",
+          "role": "direct",
+          "expected_observations": [
+            "UT: declared data 64 logic_data 64 addr 64 logic_addr 64 lanes 8 models 32",
+            "UT: matches data 1 logic_data 1 addr 1 logic_addr 1 lanes 1 models 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-GLOBAL-BYTE-ENABLE-CONFIGURED-MACRO",
+      "clause": "B.6.6",
+      "statement": {
+        "en": "The selected UVM_REG_BYTENABLE_WIDTH setting determines its public type extent.",
+        "ja": "選択したUVM_REG_BYTENABLE_WIDTH設定が、公開型の範囲を定める。"
+      },
+      "conditions": {
+        "en": "The macro is supplied as 16 while other widths are configured independently.",
+        "ja": "他の幅を独立に設定し、このmacroを16にする。"
+      },
+      "expected": {
+        "en": "The associated declared width is 16 bits.",
+        "ja": "対応する宣言幅は16 bitである。"
+      },
+      "limitations": {
+        "en": "Declaration widths and representable upper bits only; X/Z retention, four-state execution, signedness, arbitrary macro values and downstream register operations are not established.",
+        "ja": "宣言幅と表現できる最上位bitのみ。X／Z保持、4-state実行、符号性、任意のmacro値、後段のregister操作は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u17/test_register_global_configured_widths_match_public_type_declarations",
+          "role": "direct",
+          "expected_observations": [
+            "UT: declared data 96 logic_data 96 addr 80 logic_addr 80 lanes 16 models 40",
+            "UT: matches data 1 logic_data 1 addr 1 logic_addr 1 lanes 1 models 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-GLOBAL-COVERAGE-DEFAULT-MACRO",
+      "clause": "B.6.7",
+      "statement": {
+        "en": "The default UVM_REG_CVR_WIDTH setting supplies the documented type extent.",
+        "ja": "既定のUVM_REG_CVR_WIDTHは、記載された型の範囲を与える。"
+      },
+      "conditions": {
+        "en": "No width macros are supplied; the default data width is 64 bits.",
+        "ja": "幅macroを指定せず、既定data幅は64 bitである。"
+      },
+      "expected": {
+        "en": "The associated declared width is 32 bits.",
+        "ja": "対応する宣言幅は32 bitである。"
+      },
+      "limitations": {
+        "en": "Declaration widths and representable upper bits only; X/Z retention, four-state execution, signedness, arbitrary macro values and downstream register operations are not established.",
+        "ja": "宣言幅と表現できる最上位bitのみ。X／Z保持、4-state実行、符号性、任意のmacro値、後段のregister操作は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u17/test_register_global_default_widths_match_public_type_declarations",
+          "role": "direct",
+          "expected_observations": [
+            "UT: declared data 64 logic_data 64 addr 64 logic_addr 64 lanes 8 models 32",
+            "UT: matches data 1 logic_data 1 addr 1 logic_addr 1 lanes 1 models 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-GLOBAL-COVERAGE-CONFIGURED-MACRO",
+      "clause": "B.6.7",
+      "statement": {
+        "en": "The selected UVM_REG_CVR_WIDTH setting determines its public type extent.",
+        "ja": "選択したUVM_REG_CVR_WIDTH設定が、公開型の範囲を定める。"
+      },
+      "conditions": {
+        "en": "The macro is supplied as 40 while other widths are configured independently.",
+        "ja": "他の幅を独立に設定し、このmacroを40にする。"
+      },
+      "expected": {
+        "en": "The associated declared width is 40 bits.",
+        "ja": "対応する宣言幅は40 bitである。"
+      },
+      "limitations": {
+        "en": "Declaration widths and representable upper bits only; X/Z retention, four-state execution, signedness, arbitrary macro values and downstream register operations are not established.",
+        "ja": "宣言幅と表現できる最上位bitのみ。X／Z保持、4-state実行、符号性、任意のmacro値、後段のregister操作は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u17/test_register_global_configured_widths_match_public_type_declarations",
+          "role": "direct",
+          "expected_observations": [
+            "UT: declared data 96 logic_data 96 addr 80 logic_addr 80 lanes 16 models 40",
+            "UT: matches data 1 logic_data 1 addr 1 logic_addr 1 lanes 1 models 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-GLOBAL-SLICE-PATH",
+      "clause": "17.2.1.7",
+      "statement": {
+        "en": "The public slice struct exposes the HDL path string.",
+        "ja": "公開slice structはHDL path文字列を持つ。"
+      },
+      "conditions": {
+        "en": "Original whole and gapped partial descriptions are assigned to the public struct.",
+        "ja": "独自の全体／隙間のある部分記述を公開structへ代入する。"
+      },
+      "expected": {
+        "en": "Each selected path string is retained in its struct value.",
+        "ja": "選択した各path文字列をstruct値に保持する。"
+      },
+      "limitations": {
+        "en": "Public metadata and ordinary struct-value storage only; no HDL resolution/access, invalid-description rejection or overlap-check algorithm is asserted.",
+        "ja": "公開metadataと通常のstruct値保持のみ。HDLの解決／access、不正記述の拒否、重複検査algorithmは評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u17/test_hdl_slice_struct_preserves_whole_register_sentinel_and_gapped_fields",
+          "role": "direct",
+          "expected_observations": [
+            "UT: whole path 1 offset 1 size 1",
+            "UT: copied path 1 offset 1 size 1",
+            "UT: lower path 1 offset 1 size 1 gap 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-GLOBAL-SLICE-OFFSET",
+      "clause": "17.2.1.7",
+      "statement": {
+        "en": "The public slice struct carries the implemented register LSB offset.",
+        "ja": "公開slice structは実装するregisterのLSB offsetを持つ。"
+      },
+      "conditions": {
+        "en": "Original whole and gapped partial descriptions are assigned to the public struct.",
+        "ja": "独自の全体／隙間のある部分記述を公開structへ代入する。"
+      },
+      "expected": {
+        "en": "Selected partial slices retain offsets 24 and 0.",
+        "ja": "選択した部分sliceはoffset 24と0を保持する。"
+      },
+      "limitations": {
+        "en": "Public metadata and ordinary struct-value storage only; no HDL resolution/access, invalid-description rejection or overlap-check algorithm is asserted.",
+        "ja": "公開metadataと通常のstruct値保持のみ。HDLの解決／access、不正記述の拒否、重複検査algorithmは評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u17/test_hdl_slice_struct_preserves_whole_register_sentinel_and_gapped_fields",
+          "role": "direct",
+          "expected_observations": [
+            "UT: copied path 1 offset 1 size 1",
+            "UT: lower path 1 offset 1 size 1 gap 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-GLOBAL-SLICE-SIZE",
+      "clause": "17.2.1.7",
+      "statement": {
+        "en": "The public slice struct carries the number of implemented bits.",
+        "ja": "公開slice structは実装bit数を持つ。"
+      },
+      "conditions": {
+        "en": "Original whole and gapped partial descriptions are assigned to the public struct.",
+        "ja": "独自の全体／隙間のある部分記述を公開structへ代入する。"
+      },
+      "expected": {
+        "en": "Both selected partial slices retain size 8.",
+        "ja": "選択した両部分sliceはsize 8を保持する。"
+      },
+      "limitations": {
+        "en": "Public metadata and ordinary struct-value storage only; no HDL resolution/access, invalid-description rejection or overlap-check algorithm is asserted.",
+        "ja": "公開metadataと通常のstruct値保持のみ。HDLの解決／access、不正記述の拒否、重複検査algorithmは評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u17/test_hdl_slice_struct_preserves_whole_register_sentinel_and_gapped_fields",
+          "role": "direct",
+          "expected_observations": [
+            "UT: copied path 1 offset 1 size 1",
+            "UT: lower path 1 offset 1 size 1 gap 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-GLOBAL-SLICE-WHOLE-SENTINEL",
+      "clause": "17.2.1.7",
+      "statement": {
+        "en": "A whole-register slice can represent offset and size as -1.",
+        "ja": "register全体のsliceはoffsetとsizeを-1で表現できる。"
+      },
+      "conditions": {
+        "en": "Original whole and gapped partial descriptions are assigned to the public struct.",
+        "ja": "独自の全体／隙間のある部分記述を公開structへ代入する。"
+      },
+      "expected": {
+        "en": "The whole-register metadata retains -1 in both fields.",
+        "ja": "register全体のmetadataは両fieldに-1を保持する。"
+      },
+      "limitations": {
+        "en": "Public metadata and ordinary struct-value storage only; no HDL resolution/access, invalid-description rejection or overlap-check algorithm is asserted.",
+        "ja": "公開metadataと通常のstruct値保持のみ。HDLの解決／access、不正記述の拒否、重複検査algorithmは評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u17/test_hdl_slice_struct_preserves_whole_register_sentinel_and_gapped_fields",
+          "role": "direct",
+          "expected_observations": [
+            "UT: whole path 1 offset 1 size 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-GLOBAL-STATUS-SYMBOLS",
+      "clause": "17.2.2.1",
+      "statement": {
+        "en": "uvm_status_e makes its documented named alternatives available.",
+        "ja": "uvm_status_eは記載された名前付き選択肢を提供する。"
+      },
+      "conditions": {
+        "en": "Each documented alternative is assigned in turn to a variable of the public enum type.",
+        "ja": "記載された各選択肢を、公開enum型の変数へ順に代入する。"
+      },
+      "expected": {
+        "en": "The assigned enum value identifies the selected symbol by its standard SystemVerilog name query.",
+        "ja": "代入したenum値を、標準SystemVerilogの名前照会で選択symbolとして識別できる。"
+      },
+      "limitations": {
+        "en": "Only named symbol availability through the declared enum type is checked; no fixed numeric encoding, exact enum cardinality, downstream operation behavior or four-state result is asserted.",
+        "ja": "宣言enum型を通した名前付きsymbolの利用可否だけを検査する。固定の数値符号、正確なenum要素数、後段の操作動作、4-state結果は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u17/test_register_status_door_and_check_symbols_are_available_through_their_enum_types",
+          "role": "direct",
+          "expected_observations": [
+            "UT: status UVM_IS_OK",
+            "UT: status UVM_NOT_OK",
+            "UT: status UVM_HAS_X"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-GLOBAL-DOOR-SYMBOLS",
+      "clause": "17.2.2.2",
+      "statement": {
+        "en": "uvm_door_e makes its documented named alternatives available.",
+        "ja": "uvm_door_eは記載された名前付き選択肢を提供する。"
+      },
+      "conditions": {
+        "en": "Each documented alternative is assigned in turn to a variable of the public enum type.",
+        "ja": "記載された各選択肢を、公開enum型の変数へ順に代入する。"
+      },
+      "expected": {
+        "en": "The assigned enum value identifies the selected symbol by its standard SystemVerilog name query.",
+        "ja": "代入したenum値を、標準SystemVerilogの名前照会で選択symbolとして識別できる。"
+      },
+      "limitations": {
+        "en": "Only named symbol availability through the declared enum type is checked; no fixed numeric encoding, exact enum cardinality, downstream operation behavior or four-state result is asserted.",
+        "ja": "宣言enum型を通した名前付きsymbolの利用可否だけを検査する。固定の数値符号、正確なenum要素数、後段の操作動作、4-state結果は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u17/test_register_status_door_and_check_symbols_are_available_through_their_enum_types",
+          "role": "direct",
+          "expected_observations": [
+            "UT: door UVM_FRONTDOOR",
+            "UT: door UVM_BACKDOOR",
+            "UT: door UVM_PREDICT",
+            "UT: door UVM_DEFAULT_DOOR"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-GLOBAL-CHECK-SYMBOLS",
+      "clause": "17.2.2.3",
+      "statement": {
+        "en": "uvm_check_e makes its documented named alternatives available.",
+        "ja": "uvm_check_eは記載された名前付き選択肢を提供する。"
+      },
+      "conditions": {
+        "en": "Each documented alternative is assigned in turn to a variable of the public enum type.",
+        "ja": "記載された各選択肢を、公開enum型の変数へ順に代入する。"
+      },
+      "expected": {
+        "en": "The assigned enum value identifies the selected symbol by its standard SystemVerilog name query.",
+        "ja": "代入したenum値を、標準SystemVerilogの名前照会で選択symbolとして識別できる。"
+      },
+      "limitations": {
+        "en": "Only named symbol availability through the declared enum type is checked; no fixed numeric encoding, exact enum cardinality, downstream operation behavior or four-state result is asserted.",
+        "ja": "宣言enum型を通した名前付きsymbolの利用可否だけを検査する。固定の数値符号、正確なenum要素数、後段の操作動作、4-state結果は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u17/test_register_status_door_and_check_symbols_are_available_through_their_enum_types",
+          "role": "direct",
+          "expected_observations": [
+            "UT: check UVM_NO_CHECK",
+            "UT: check UVM_CHECK"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-GLOBAL-ELEMENT-SYMBOLS",
+      "clause": "17.2.2.5",
+      "statement": {
+        "en": "uvm_elem_kind_e makes its documented named alternatives available.",
+        "ja": "uvm_elem_kind_eは記載された名前付き選択肢を提供する。"
+      },
+      "conditions": {
+        "en": "Each documented alternative is assigned in turn to a variable of the public enum type.",
+        "ja": "記載された各選択肢を、公開enum型の変数へ順に代入する。"
+      },
+      "expected": {
+        "en": "The assigned enum value identifies the selected symbol by its standard SystemVerilog name query.",
+        "ja": "代入したenum値を、標準SystemVerilogの名前照会で選択symbolとして識別できる。"
+      },
+      "limitations": {
+        "en": "Only named symbol availability through the declared enum type is checked; no fixed numeric encoding, exact enum cardinality, downstream operation behavior or four-state result is asserted.",
+        "ja": "宣言enum型を通した名前付きsymbolの利用可否だけを検査する。固定の数値符号、正確なenum要素数、後段の操作動作、4-state結果は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u17/test_register_element_access_and_hierarchy_symbols_are_typed_without_fixed_encodings",
+          "role": "direct",
+          "expected_observations": [
+            "UT: kind UVM_REG",
+            "UT: kind UVM_FIELD",
+            "UT: kind UVM_MEM"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-GLOBAL-ACCESS-SYMBOLS",
+      "clause": "17.2.2.6",
+      "statement": {
+        "en": "uvm_access_e makes its documented named alternatives available.",
+        "ja": "uvm_access_eは記載された名前付き選択肢を提供する。"
+      },
+      "conditions": {
+        "en": "Each documented alternative is assigned in turn to a variable of the public enum type.",
+        "ja": "記載された各選択肢を、公開enum型の変数へ順に代入する。"
+      },
+      "expected": {
+        "en": "The assigned enum value identifies the selected symbol by its standard SystemVerilog name query.",
+        "ja": "代入したenum値を、標準SystemVerilogの名前照会で選択symbolとして識別できる。"
+      },
+      "limitations": {
+        "en": "Only named symbol availability through the declared enum type is checked; no fixed numeric encoding, exact enum cardinality, downstream operation behavior or four-state result is asserted.",
+        "ja": "宣言enum型を通した名前付きsymbolの利用可否だけを検査する。固定の数値符号、正確なenum要素数、後段の操作動作、4-state結果は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u17/test_register_element_access_and_hierarchy_symbols_are_typed_without_fixed_encodings",
+          "role": "direct",
+          "expected_observations": [
+            "UT: access UVM_READ",
+            "UT: access UVM_WRITE"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-GLOBAL-HIERARCHY-SYMBOLS",
+      "clause": "17.2.2.7",
+      "statement": {
+        "en": "uvm_hier_e makes its documented named alternatives available.",
+        "ja": "uvm_hier_eは記載された名前付き選択肢を提供する。"
+      },
+      "conditions": {
+        "en": "Each documented alternative is assigned in turn to a variable of the public enum type.",
+        "ja": "記載された各選択肢を、公開enum型の変数へ順に代入する。"
+      },
+      "expected": {
+        "en": "The assigned enum value identifies the selected symbol by its standard SystemVerilog name query.",
+        "ja": "代入したenum値を、標準SystemVerilogの名前照会で選択symbolとして識別できる。"
+      },
+      "limitations": {
+        "en": "Only named symbol availability through the declared enum type is checked; no fixed numeric encoding, exact enum cardinality, downstream operation behavior or four-state result is asserted.",
+        "ja": "宣言enum型を通した名前付きsymbolの利用可否だけを検査する。固定の数値符号、正確なenum要素数、後段の操作動作、4-state結果は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u17/test_register_element_access_and_hierarchy_symbols_are_typed_without_fixed_encodings",
+          "role": "direct",
+          "expected_observations": [
+            "UT: hierarchy UVM_NO_HIER",
+            "UT: hierarchy UVM_HIER"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-GLOBAL-PREDICT-SYMBOLS",
+      "clause": "17.2.2.8",
+      "statement": {
+        "en": "uvm_predict_e makes its documented named alternatives available.",
+        "ja": "uvm_predict_eは記載された名前付き選択肢を提供する。"
+      },
+      "conditions": {
+        "en": "Each documented alternative is assigned in turn to a variable of the public enum type.",
+        "ja": "記載された各選択肢を、公開enum型の変数へ順に代入する。"
+      },
+      "expected": {
+        "en": "The assigned enum value identifies the selected symbol by its standard SystemVerilog name query.",
+        "ja": "代入したenum値を、標準SystemVerilogの名前照会で選択symbolとして識別できる。"
+      },
+      "limitations": {
+        "en": "Only named symbol availability through the declared enum type is checked; no fixed numeric encoding, exact enum cardinality, downstream operation behavior or four-state result is asserted.",
+        "ja": "宣言enum型を通した名前付きsymbolの利用可否だけを検査する。固定の数値符号、正確なenum要素数、後段の操作動作、4-state結果は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u17/test_register_prediction_endianness_and_coverage_symbols_preserve_independent_selection",
+          "role": "direct",
+          "expected_observations": [
+            "UT: predict UVM_PREDICT_DIRECT",
+            "UT: predict UVM_PREDICT_READ",
+            "UT: predict UVM_PREDICT_WRITE"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-GLOBAL-ENDIAN-SYMBOLS",
+      "clause": "17.2.2.4",
+      "statement": {
+        "en": "uvm_endianness_e makes its documented named alternatives available.",
+        "ja": "uvm_endianness_eは記載された名前付き選択肢を提供する。"
+      },
+      "conditions": {
+        "en": "Each documented alternative is assigned in turn to a variable of the public enum type.",
+        "ja": "記載された各選択肢を、公開enum型の変数へ順に代入する。"
+      },
+      "expected": {
+        "en": "The assigned enum value identifies the selected symbol by its standard SystemVerilog name query.",
+        "ja": "代入したenum値を、標準SystemVerilogの名前照会で選択symbolとして識別できる。"
+      },
+      "limitations": {
+        "en": "Only named symbol availability through the declared enum type is checked; no fixed numeric encoding, exact enum cardinality, downstream operation behavior or four-state result is asserted.",
+        "ja": "宣言enum型を通した名前付きsymbolの利用可否だけを検査する。固定の数値符号、正確なenum要素数、後段の操作動作、4-state結果は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u17/test_register_prediction_endianness_and_coverage_symbols_preserve_independent_selection",
+          "role": "direct",
+          "expected_observations": [
+            "UT: endian UVM_NO_ENDIAN",
+            "UT: endian UVM_LITTLE_ENDIAN",
+            "UT: endian UVM_BIG_ENDIAN",
+            "UT: endian UVM_LITTLE_FIFO",
+            "UT: endian UVM_BIG_FIFO"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-GLOBAL-COVERAGE-SYMBOLS",
+      "clause": "17.2.2.9",
+      "statement": {
+        "en": "uvm_coverage_model_e makes its documented named alternatives available.",
+        "ja": "uvm_coverage_model_eは記載された名前付き選択肢を提供する。"
+      },
+      "conditions": {
+        "en": "Each documented alternative is assigned in turn to a variable of the public enum type.",
+        "ja": "記載された各選択肢を、公開enum型の変数へ順に代入する。"
+      },
+      "expected": {
+        "en": "The assigned enum value identifies the selected symbol by its standard SystemVerilog name query.",
+        "ja": "代入したenum値を、標準SystemVerilogの名前照会で選択symbolとして識別できる。"
+      },
+      "limitations": {
+        "en": "Only named symbol availability through the declared enum type is checked; no fixed numeric encoding, exact enum cardinality, downstream operation behavior or four-state result is asserted.",
+        "ja": "宣言enum型を通した名前付きsymbolの利用可否だけを検査する。固定の数値符号、正確なenum要素数、後段の操作動作、4-state結果は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u17/test_register_prediction_endianness_and_coverage_symbols_preserve_independent_selection",
+          "role": "direct",
+          "expected_observations": [
+            "UT: coverage UVM_NO_COVERAGE",
+            "UT: coverage UVM_CVR_REG_BITS",
+            "UT: coverage UVM_CVR_ADDR_MAP",
+            "UT: coverage UVM_CVR_FIELD_VALS",
+            "UT: coverage UVM_CVR_ALL"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-GLOBAL-COVERAGE-OR",
+      "clause": "17.2.2.9",
+      "statement": {
+        "en": "Individual coverage models can be selected together using bitwise OR.",
+        "ja": "個別coverage modelはbitwise ORで同時に選択できる。"
+      },
+      "conditions": {
+        "en": "Three distinct documented model identifiers are combined in uvm_reg_cvr_t.",
+        "ja": "記載された異なる3 model識別子をuvm_reg_cvr_tで結合する。"
+      },
+      "expected": {
+        "en": "The combined selection contains register bits, address map and field values.",
+        "ja": "結合した選択はregister bit、address map、field valueを含む。"
+      },
+      "limitations": {
+        "en": "Symbolic set composition only; no exact bit positions, application/user model allocation, covergroups or sampling behavior is established.",
+        "ja": "symbolによる集合の組合せのみ。正確なbit位置、application／user modelの割当、covergroup、sampling動作は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u17/test_register_prediction_endianness_and_coverage_symbols_preserve_independent_selection",
+          "role": "direct",
+          "expected_observations": [
+            "UT: coverage_union bits 1 addr 1 fields 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-GLOBAL-COVERAGE-INDEPENDENT-SELECTION",
+      "clause": "17.2.2.9",
+      "statement": {
+        "en": "The selected individual coverage models remain distinguishable in a combined set.",
+        "ja": "結合集合でも、選択した各coverage modelを区別できる。"
+      },
+      "conditions": {
+        "en": "Three distinct documented model identifiers are combined in uvm_reg_cvr_t.",
+        "ja": "記載された異なる3 model識別子をuvm_reg_cvr_tで結合する。"
+      },
+      "expected": {
+        "en": "Clearing the address-map selection retains the register-bit and field-value selections.",
+        "ja": "address-map選択を除いてもregister-bitとfield-value選択を保持する。"
+      },
+      "limitations": {
+        "en": "Symbolic set composition only; no exact bit positions, application/user model allocation, covergroups or sampling behavior is established.",
+        "ja": "symbolによる集合の組合せのみ。正確なbit位置、application／user modelの割当、covergroup、sampling動作は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u17/test_register_prediction_endianness_and_coverage_symbols_preserve_independent_selection",
+          "role": "direct",
+          "expected_observations": [
+            "UT: coverage_clear bits 1 addr 1 fields 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-GLOBAL-CONCAT-NAMED-CONSTRUCTION",
+      "clause": "17.2.3.3.1",
+      "statement": {
+        "en": "The concat constructor accepts an explicit instance-name argument.",
+        "ja": "concat constructorは明示instance名引数を受け付ける。"
+      },
+      "conditions": {
+        "en": "A new expression supplies selected as the name.",
+        "ja": "new式へ名前selectedを渡す。"
+      },
+      "expected": {
+        "en": "Each selected new expression produces a nonnull distinct concat instance.",
+        "ja": "選択した各new式は、nonnullで異なるconcat instanceを生成する。"
+      },
+      "limitations": {
+        "en": "Constructor signature and allocation only; no unsupported name getter, internal member, stored-name observation or slice-accessor success is inferred.",
+        "ja": "constructor signatureと割当のみ。非対応の名前getter、内部member、保持名の観測、slice accessorの成功は推論しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u17/test_hdl_concat_standard_constructor_accepts_explicit_and_empty_instance_names",
+          "role": "direct",
+          "expected_observations": [
+            "UT: constructed named 1 empty 1 omitted 1 distinct 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-GLOBAL-CONCAT-EMPTY-NAME-CONSTRUCTION",
+      "clause": "17.2.3.3.1",
+      "statement": {
+        "en": "The concat constructor accepts an explicitly empty name argument.",
+        "ja": "concat constructorは明示した空の名前引数を受け付ける。"
+      },
+      "conditions": {
+        "en": "A new expression supplies an empty string.",
+        "ja": "new式へ空文字列を渡す。"
+      },
+      "expected": {
+        "en": "Each selected new expression produces a nonnull distinct concat instance.",
+        "ja": "選択した各new式は、nonnullで異なるconcat instanceを生成する。"
+      },
+      "limitations": {
+        "en": "Constructor signature and allocation only; no unsupported name getter, internal member, stored-name observation or slice-accessor success is inferred.",
+        "ja": "constructor signatureと割当のみ。非対応の名前getter、内部member、保持名の観測、slice accessorの成功は推論しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u17/test_hdl_concat_standard_constructor_accepts_explicit_and_empty_instance_names",
+          "role": "direct",
+          "expected_observations": [
+            "UT: constructed named 1 empty 1 omitted 1 distinct 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-GLOBAL-CONCAT-OMITTED-NAME-CONSTRUCTION",
+      "clause": "17.2.3.3.1",
+      "statement": {
+        "en": "The concat constructor permits omission of its name argument.",
+        "ja": "concat constructorは名前引数を省略できる。"
+      },
+      "conditions": {
+        "en": "A new expression omits the optional name.",
+        "ja": "new式でoptionalな名前を省略する。"
+      },
+      "expected": {
+        "en": "Each selected new expression produces a nonnull distinct concat instance.",
+        "ja": "選択した各new式は、nonnullで異なるconcat instanceを生成する。"
+      },
+      "limitations": {
+        "en": "Constructor signature and allocation only; no unsupported name getter, internal member, stored-name observation or slice-accessor success is inferred.",
+        "ja": "constructor signatureと割当のみ。非対応の名前getter、内部member、保持名の観測、slice accessorの成功は推論しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u17/test_hdl_concat_standard_constructor_accepts_explicit_and_empty_instance_names",
+          "role": "direct",
+          "expected_observations": [
+            "UT: constructed named 1 empty 1 omitted 1 distinct 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-GLOBAL-CONCAT-GAPPED-DESCRIPTION",
+      "clause": "17.2.3.1",
+      "statement": {
+        "en": "A valid concat description may preserve a gap between nonoverlapping slices.",
+        "ja": "有効なconcat記述は、重複しないslice間に隙間を保持できる。"
+      },
+      "conditions": {
+        "en": "A high slice at 24 and a low slice at 0 each cover 8 bits.",
+        "ja": "offset 24と0のhigh／low sliceは各8 bitを覆う。"
+      },
+      "expected": {
+        "en": "The returned array retains high then low with their selected offsets and sizes.",
+        "ja": "戻る配列はhigh、lowの順と、選択したoffset／sizeを保持する。"
+      },
+      "limitations": {
+        "en": "Only valid most-to-least metadata descriptions and standard accessors are used. Missing library methods remain spec-only. No invalid-input diagnostic, legacy member substitute, HDL storage or DPI behavior is asserted.",
+        "ja": "有効なmost-to-leastのmetadata記述と標準accessorのみを使う。libraryにないmethodはspecのみで保持する。不正入力の診断、legacy memberへの置換、HDL storage、DPI動作は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u17/test_hdl_concat_standard_set_slices_replaces_prior_gapped_description_without_aliases",
+          "role": "direct",
+          "expected_observations": [
+            "UT: initial count 2 high 1 low 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-GLOBAL-CONCAT-WHOLE-DESCRIPTION",
+      "clause": "17.2.3.1",
+      "statement": {
+        "en": "A single whole-register concat description uses one -1/-1 slice.",
+        "ja": "単一のregister全体を表すconcat記述は、-1／-1のsliceを1つ使う。"
+      },
+      "conditions": {
+        "en": "The gapped description is replaced by a single whole-register description.",
+        "ja": "隙間のある記述を、単一のregister全体の記述へ置き換える。"
+      },
+      "expected": {
+        "en": "The returned array contains only the whole slice with both fields -1.",
+        "ja": "戻る配列は両fieldが-1のwhole sliceだけを持つ。"
+      },
+      "limitations": {
+        "en": "Only valid most-to-least metadata descriptions and standard accessors are used. Missing library methods remain spec-only. No invalid-input diagnostic, legacy member substitute, HDL storage or DPI behavior is asserted.",
+        "ja": "有効なmost-to-leastのmetadata記述と標準accessorのみを使う。libraryにないmethodはspecのみで保持する。不正入力の診断、legacy memberへの置換、HDL storage、DPI動作は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u17/test_hdl_concat_standard_set_slices_replaces_prior_gapped_description_without_aliases",
+          "role": "direct",
+          "expected_observations": [
+            "UT: replaced count 1 whole 1 peer_count 2 peer_high 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-GLOBAL-CONCAT-SET-REPLACEMENT",
+      "clause": "17.2.3.3.2",
+      "statement": {
+        "en": "set_slices replaces the previously stored array with the supplied description.",
+        "ja": "set_slicesは以前の配列を指定記述へ置き換える。"
+      },
+      "conditions": {
+        "en": "A two-slice description is replaced by one whole slice.",
+        "ja": "2 sliceの記述を1 whole sliceへ置き換える。"
+      },
+      "expected": {
+        "en": "The new array has length one and the selected whole metadata.",
+        "ja": "新しい配列は長さ1で、選択した全体metadataを持つ。"
+      },
+      "limitations": {
+        "en": "Only valid most-to-least metadata descriptions and standard accessors are used. Missing library methods remain spec-only. No invalid-input diagnostic, legacy member substitute, HDL storage or DPI behavior is asserted.",
+        "ja": "有効なmost-to-leastのmetadata記述と標準accessorのみを使う。libraryにないmethodはspecのみで保持する。不正入力の診断、legacy memberへの置換、HDL storage、DPI動作は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u17/test_hdl_concat_standard_set_slices_replaces_prior_gapped_description_without_aliases",
+          "role": "direct",
+          "expected_observations": [
+            "UT: replaced count 1 whole 1 peer_count 2 peer_high 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-GLOBAL-CONCAT-SET-INPUT-COPY",
+      "clause": "17.2.3.3.2",
+      "statement": {
+        "en": "Initializing slices retains the supplied value independently of later caller-array changes.",
+        "ja": "slice初期化は、後の呼出し側配列の変更と独立に指定値を保持する。"
+      },
+      "conditions": {
+        "en": "The caller changes its high path after passing the array.",
+        "ja": "配列を渡した後、呼出し側がhigh pathを変える。"
+      },
+      "expected": {
+        "en": "The stored high path remains high.",
+        "ja": "保持したhigh pathはhighのままである。"
+      },
+      "limitations": {
+        "en": "Only valid most-to-least metadata descriptions and standard accessors are used. Missing library methods remain spec-only. No invalid-input diagnostic, legacy member substitute, HDL storage or DPI behavior is asserted.",
+        "ja": "有効なmost-to-leastのmetadata記述と標準accessorのみを使う。libraryにないmethodはspecのみで保持する。不正入力の診断、legacy memberへの置換、HDL storage、DPI動作は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u17/test_hdl_concat_standard_set_slices_replaces_prior_gapped_description_without_aliases",
+          "role": "direct",
+          "expected_observations": [
+            "UT: initial count 2 high 1 low 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-GLOBAL-CONCAT-GET-OUTPUT-COPY",
+      "clause": "17.2.3.3.3",
+      "statement": {
+        "en": "A returned slice array can be modified without changing the stored array.",
+        "ja": "返されたslice配列は、保持配列を変えずに変更できる。"
+      },
+      "conditions": {
+        "en": "The caller modifies a returned path and retrieves the array again.",
+        "ja": "呼出し側が戻ったpathを変え、配列を再取得する。"
+      },
+      "expected": {
+        "en": "The fresh result retains the stored high path.",
+        "ja": "新しい結果は保持したhigh pathを返す。"
+      },
+      "limitations": {
+        "en": "Only valid most-to-least metadata descriptions and standard accessors are used. Missing library methods remain spec-only. No invalid-input diagnostic, legacy member substitute, HDL storage or DPI behavior is asserted.",
+        "ja": "有効なmost-to-leastのmetadata記述と標準accessorのみを使う。libraryにないmethodはspecのみで保持する。不正入力の診断、legacy memberへの置換、HDL storage、DPI動作は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u17/test_hdl_concat_standard_set_slices_replaces_prior_gapped_description_without_aliases",
+          "role": "direct",
+          "expected_observations": [
+            "UT: returned_copy 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-GLOBAL-CONCAT-SET-EMPTY",
+      "clause": "17.2.3.3.2",
+      "statement": {
+        "en": "set_slices can initialize the stored array to the supplied empty array.",
+        "ja": "set_slicesは、保持配列を指定した空配列へ初期化できる。"
+      },
+      "conditions": {
+        "en": "An empty array follows a nonempty valid description.",
+        "ja": "空配列を、空でない有効記述の後に渡す。"
+      },
+      "expected": {
+        "en": "A fresh query returns an array of length zero.",
+        "ja": "新しい照会は長さ0の配列を返す。"
+      },
+      "limitations": {
+        "en": "Only valid most-to-least metadata descriptions and standard accessors are used. Missing library methods remain spec-only. No invalid-input diagnostic, legacy member substitute, HDL storage or DPI behavior is asserted.",
+        "ja": "有効なmost-to-leastのmetadata記述と標準accessorのみを使う。libraryにないmethodはspecのみで保持する。不正入力の診断、legacy memberへの置換、HDL storage、DPI動作は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u17/test_hdl_concat_standard_set_slices_replaces_prior_gapped_description_without_aliases",
+          "role": "direct",
+          "expected_observations": [
+            "UT: cleared 0 peer_retained 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-GLOBAL-CONCAT-PEER-ISOLATION",
+      "clause": "17.2.3.3.2",
+      "statement": {
+        "en": "Replacing one concat description leaves a separate instance unchanged.",
+        "ja": "一方のconcat記述の置換は、別instanceを変えない。"
+      },
+      "conditions": {
+        "en": "Two instances receive the same initial values and only one is replaced or cleared.",
+        "ja": "2 instanceへ同じ初期値を与え、一方だけを置換／消去する。"
+      },
+      "expected": {
+        "en": "Fresh peer queries retain the original two slices.",
+        "ja": "新しいpeer照会は元の2 sliceを保持する。"
+      },
+      "limitations": {
+        "en": "Only valid most-to-least metadata descriptions and standard accessors are used. Missing library methods remain spec-only. No invalid-input diagnostic, legacy member substitute, HDL storage or DPI behavior is asserted.",
+        "ja": "有効なmost-to-leastのmetadata記述と標準accessorのみを使う。libraryにないmethodはspecのみで保持する。不正入力の診断、legacy memberへの置換、HDL storage、DPI動作は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u17/test_hdl_concat_standard_set_slices_replaces_prior_gapped_description_without_aliases",
+          "role": "direct",
+          "expected_observations": [
+            "UT: replaced count 1 whole 1 peer_count 2 peer_high 1",
+            "UT: cleared 0 peer_retained 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-GLOBAL-CONCAT-APPEND-AFTER-SET",
+      "clause": "17.2.3.3.4",
+      "statement": {
+        "en": "add_slice appends the supplied value after the existing valid description.",
+        "ja": "add_sliceは、既存の有効記述の後へ指定値を追記する。"
+      },
+      "conditions": {
+        "en": "One high slice is installed, then one lower slice is appended.",
+        "ja": "1 high sliceを設定し、lower sliceを追記する。"
+      },
+      "expected": {
+        "en": "The fresh result has high then low; the peer still has one high slice.",
+        "ja": "新しい結果はhigh、lowの順で、peerはhigh 1 sliceのままである。"
+      },
+      "limitations": {
+        "en": "Only valid most-to-least metadata descriptions and standard accessors are used. Missing library methods remain spec-only. No invalid-input diagnostic, legacy member substitute, HDL storage or DPI behavior is asserted.",
+        "ja": "有効なmost-to-leastのmetadata記述と標準accessorのみを使う。libraryにないmethodはspecのみで保持する。不正入力の診断、legacy memberへの置換、HDL storage、DPI動作は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u17/test_hdl_concat_standard_add_slice_appends_after_replacement_and_preserves_peer",
+          "role": "direct",
+          "expected_observations": [
+            "UT: appended count 2 high 1 low 1 peer_count 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-GLOBAL-CONCAT-APPEND-AFTER-CLEAR",
+      "clause": "17.2.3.3.4",
+      "statement": {
+        "en": "add_slice appends to the current array after replacement by an empty array.",
+        "ja": "add_sliceは、空配列への置換後に現在配列へ追記する。"
+      },
+      "conditions": {
+        "en": "The previous array is cleared and a whole slice is appended.",
+        "ja": "以前の配列を消去し、whole sliceを追記する。"
+      },
+      "expected": {
+        "en": "The fresh result has only the whole slice and the peer high remains intact.",
+        "ja": "新しい結果はwhole sliceだけを持ち、peerのhighも保持する。"
+      },
+      "limitations": {
+        "en": "Only valid most-to-least metadata descriptions and standard accessors are used. Missing library methods remain spec-only. No invalid-input diagnostic, legacy member substitute, HDL storage or DPI behavior is asserted.",
+        "ja": "有効なmost-to-leastのmetadata記述と標準accessorのみを使う。libraryにないmethodはspecのみで保持する。不正入力の診断、legacy memberへの置換、HDL storage、DPI動作は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u17/test_hdl_concat_standard_add_slice_appends_after_replacement_and_preserves_peer",
+          "role": "direct",
+          "expected_observations": [
+            "UT: after_clear count 1 whole 1 peer_high 1"
+          ]
+        }
+      ]
     }
   ]
 }
