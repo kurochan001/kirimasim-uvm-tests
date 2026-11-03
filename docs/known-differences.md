@@ -2,7 +2,7 @@
 
 [日本語](known-differences.ja.md) · [README](../README.md) · [FAQ](faq.md)
 
-This describes the current 1159-test suite and the pinned Accellera UVM
+This describes the current 1174-test suite and the pinned Accellera UVM
 2020.3.1 library. A mismatch is a test result; it does not by itself assign
 the cause to the simulator, the library or the expectation.
 
@@ -19,6 +19,16 @@ shared accesses and one child-block shape; see the
 Further limitations and observations were identified during M1, M2 and M3.
 Where a test directly checks a required behavior that is missing, its
 normative expectation is retained with `:oracle: spec`.
+
+- Abstract component creation with no override and a null parent dereferences
+  that parent while formatting the required error. Clause 8.2.5.1.2 requires an
+  error and null return; the expectation stays spec-only. The same callback
+  with a concrete parent and the abstract-object case report ERROR and return
+  null in separate matching controls.
+- Sequence get_depth retains a previously calculated value after parent
+  replacement/clearing. With no explicit set_depth call, 14.1.2.9 requires the
+  current parent-chain depth. The fixture retains 3/2/1, while parent handles,
+  root queries and paths update independently.
 
 - Component automatic configuration skips custom resources in the pinned
   default name-filter mode. The explicit strict build finds them but calls
@@ -368,7 +378,7 @@ SystemVerilog 13.4, so it cannot represent a count of two. The expected two
 preserves the prose interpretation. This signature/prose conflict requires
 review and is not assigned as a confirmed simulator or library bug.
 
-Across the suite, 1037 tests have the `verilator@5.052` oracle tag and 122
+Across the suite, 1050 tests have the `verilator@5.052` oracle tag and 124
 cases are spec-only. One of the spec-only cases checks 9.6: a child's pre-reset
 task must be killed when that phase ends, but the pinned-library run on Verilator 5.052
 lets the child perform its delayed write during a later phase. The cause of
@@ -380,10 +390,10 @@ without callbacks. The pinned Verilator run reaches the blocked-state
 observation, then its watchdog expires. This combined simulator/library
 cause remains unassigned; the normative wakeup expectation is retained.
 
-The 122 spec-only tests retain their normative expected files.
-Default Verilator runs and CI select the 1037 tagged cases. `--all` includes
+The 124 spec-only tests retain their normative expected files.
+Default Verilator runs and CI select the 1050 tagged cases. `--all` includes
 spec-only cases and records mismatches or build failures as `known`.
-The ordinary runtime records for 104 cases establish their first difference
+The ordinary runtime records for 106 cases establish their first difference
 at seed 1, without seed 73 results. Ten missing-API builds have no ordinary
 runtime seed result: one time API, six sequence-library cases, two HDL slice
 cases and one object active-policy case. Eight HDL-DPI fixtures also cannot
@@ -393,7 +403,7 @@ These overlapping configurations are not summed.
 
 ## Spec-only tests
 
-These are the 122 current spec-only cases. Several exercise the same
+These are the 124 current spec-only cases. Several exercise the same
 limitation, so their count is not a count of distinct bugs.
 
 - [Explicit HDL abstraction selection](../tests/uE/test_hdl_path_sequence_uses_an_explicit_abstraction_instead_of_the_invalid_default.sv).
@@ -592,10 +602,15 @@ Additional configuration/relationship cases:
 - [strict hook suppression](../tests/u13/test_component_strict_config_disabled_user_hook_skips_set_local_for_one_application.sv)
 - [zero disables relationship checks](../tests/u05/test_port_relationship_checks_default_off_and_explicit_zero_allow_remote_providers.sv)
 
+Additional abstract-registry and depth cases:
+
+- [parentless abstract component error/null](../tests/u08/test_abstract_component_registry_without_override_reports_error_and_returns_null.sv)
+- [automatic depth after parent changes](../tests/u14/test_sequence_parent_reassignment_updates_calculated_depth_root_and_path.sv)
+
 ## Simulator and library combinations
 
-The suite has 1159 cases, but the kirimasim/Ghost records below cover only
-1085 unchanged current-input cases. The 74 new cases are unmeasured
+The suite has 1174 cases, but the kirimasim/Ghost records below cover only
+1085 unchanged current-input cases. The 89 new cases are unmeasured
 because prior temporary executable/profile snapshots are unavailable. Do
 not treat this as a fresh full-suite guest result. See [results](results.md).
 

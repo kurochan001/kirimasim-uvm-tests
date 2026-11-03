@@ -603,3 +603,14 @@ simulatorの公開APIです。実際のhandle lookupは、path文字列をlocal 
 
 **Model lock state（modelのlock状態）** — register modelの構造上のlock状態。
 lock_modelによるaddress検索の構築と、set_lockによるflag変更は異なり、sequencerの所有権やhardware bus lockではない。
+
+## Abstract proxy・IDコピー・map解除
+
+**Abstract registry（abstract registry）** — instanceを生成せずに登録できる、virtual object／component型のproxy。
+生成には具象factory overrideが必要となる。
+
+**ID information copy（ID情報のコピー）** — set_id_infoでresponse routingのsequence／transaction IDをコピーすること。
+payloadや名前のコピーとは独立している。
+
+**Block map unregister（block mapの解除）** — 選択mapとその内容のmodelを、blockが持つ情報から除くこと。
+bus accessの実行や、解除後のdefault map選択とは範囲が異なる。

@@ -201,6 +201,118 @@
         "reviewer": null,
         "reviewed_at": null
       }
+    },
+    {
+      "clause": "8.3",
+      "classification": "structural",
+      "rationale": {
+        "en": "Organizational introduction covering factory classes; it adds no independent operation beyond the following class clauses.",
+        "ja": "factory classを扱う構成上の導入で、後続class条項とは別の独立operationを追加しない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "8.3.1.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "Retrieving the factory heading grouping its accessor methods; the child method clauses specify behavior.",
+        "ja": "factory取得のaccessor methodをまとめる見出しで、動作は下位method条項が指定する。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "14.1.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "Common fields heading introducing sequence-item methods; individual methods carry the observable obligations.",
+        "ja": "sequence item methodを導入するCommon fields見出しで、観測可能な義務は個別methodにある。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "14.3.3",
+      "classification": "structural",
+      "rationale": {
+        "en": "Methods heading organizing sequence APIs without a separate behavioral obligation.",
+        "ja": "sequence APIを整理するMethods見出しで、独立した動作義務はない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "18.1.5",
+      "classification": "structural",
+      "rationale": {
+        "en": "Access heading grouping block door/reset/update/mirror methods; it adds no independent behavior.",
+        "ja": "block door／reset／update／mirror methodをまとめるAccess見出しで、独立した動作を追加しない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "18.2.3",
+      "classification": "structural",
+      "rationale": {
+        "en": "Methods heading grouping address-map APIs; behavior is specified by its children.",
+        "ja": "address-map APIをまとめるMethods見出しで、動作は下位条項が指定する。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "18.2.4",
+      "classification": "structural",
+      "rationale": {
+        "en": "Introspection heading introducing address-map queries without an independent operation.",
+        "ja": "address-map照会を導入するIntrospection見出しで、独立したoperationはない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "18.9.1.1",
+      "classification": "structural",
+      "rationale": {
+        "en": "Methods heading introducing virtual-register methods; the following method clauses contain their obligations.",
+        "ja": "virtual-register methodを導入するMethods見出しで、義務は後続のmethod条項にある。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
     }
   ]
 }

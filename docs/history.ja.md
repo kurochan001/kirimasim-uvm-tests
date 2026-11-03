@@ -2,7 +2,7 @@
 
 [English](history.md) · [README](../README.ja.md)
 
-M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の19回目の拡充（シミュレーション1159件）までを記録しています。以前の349件の時点は
+M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の20回目の拡充（シミュレーション1174件）までを記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -1552,3 +1552,26 @@ AI要求案26件を追加して1261件となり、すべて1158テストへ直�
 資料はすべて日英で揃え、用語160語、FAQ 139回答です。toolテスト88件、全1159 metadata、台帳／分類／索引、
 library整合性、日英参照、evidence指紋を検査します。既存simulation入力、runner、HDL backend、要求、以前の履歴は保持します。
 M1〜M4は未完で、対応付けqueue 0件は適合性の確立ではありません。
+
+## M1〜M4の薄い領域の20回目の拡充
+
+abstract registry 7条件、sequence ID／parent 2件、block map／door／解除6件の、計15検査系を追加します。
+全体1174件、M1 393件、M2 430件、M3 351件です。virtual型でsingleton／既定名、選択factoryへの初期化、
+具象／scope付きoverride、未実装callbackを検査します。2つのlive sequenceでresponse routingとtransaction値のコピー、
+payload／名前の保持を確認し、parent変更では以前の観測後の現在階層を調べます。mapは設定、default、明示door、
+register／memory／static overlayの解除、同名childの保持を検査します。
+
+追加13件はVerilator 5.052のseed 1／73で一致します。2件はseed 1の実行時差分で、parentなしabstract component診断の
+null参照と、parent変更後のsequence depth cacheを保持します。parentありcallbackの対照検査は一致します。
+互換な通常evidenceは以前の1159入力を保持し、新規15測定を加えてpass 1050件、known 124件です。
+knownは実行時初回差分106件、API欠落build 10件、DPI未link build 8件です。別条件VPI 8件はpass 7件・fail 1件のままで、
+guestは互換な1085入力を保持し、新規89件は未測定です。
+
+AI要求案40件を追加して1301件となり、すべて1173テストへ直接対応します。追加control 1件を含め、要求未対応テストは0件です。
+個別に読んだ構造見出し8件を追加して分類22件（構造21件・文脈1件）です。2,504番号のうち部分分解827件、分類22件、
+未評価1,655件です。減少37件の内訳は要求分解29件・明示分類8件です。主引用554番号、いずれかの引用1,186番号、
+候補の棚卸しは0件1,925、1件298、2件以上256です。範囲、人の照合、分母承認は未完のままです。
+
+資料はすべて日英で揃え、用語163語、FAQ 142回答です。toolテスト88件、全1174 metadata、台帳／分類／索引、
+library整合性、日英参照、evidence指紋を検査します。既存simulation入力、runner、backend、以前の要求／分類／履歴を保持します。
+対応付けqueue 0件は、M1〜M4の完了や適合性の確立ではありません。

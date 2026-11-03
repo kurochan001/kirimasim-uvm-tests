@@ -122,7 +122,7 @@ Ghostは公開前のシミュレータの仮名です。実行ファイルの識
 ### Q12. uvm_dpi: yesだけでDPIを使うビルドが完成しますか
 
 既定のマクロ一覧から`UVM_NO_DPI`を外す指定です。UVMのC/C++実装の供給・リンクは行いません。
-通常のVerilator runnerは、そのsourceを追加しません。`UVM_NO_DPI`が1151件、HDL DPIの明示選択が8件です。
+通常のVerilator runnerは、そのsourceを追加しません。`UVM_NO_DPI`が1166件、HDL DPIの明示選択が8件です。
 [別のVPI runner](testing.ja.md#verilatorのvpi-hdl部分集合)は独自の限定backendをlinkし、結果は宣言した実行条件だけに適用します。
 DPIなしのglobによる照合も、完全な正規表現への対応とは異なります。
 ユーザー定義の`uvm_reg_backdoor` handlerはHDL DPIなしで動作できます（Q67）。
@@ -155,7 +155,7 @@ Ghostはさらに実行ファイル・profile・供給されたライブラリ�
 
 ### Q16. M1・M2・M3は完了していますか。件数は何の網羅を示しますか
 
-M1・M2には条項ごとの目標に未達があります。M3はbusモデルのfrontdoor経路を含め345件まで追加した段階で、未完です。
+M1・M2には条項ごとの目標に未達があります。M3はbusモデルのfrontdoor経路を含め351件まで追加した段階で、未完です。
 次の段階の開始によって、それまでの段階が完了したとは扱いません。
 範囲と残りの作業は[進め方](../README.ja.md#進め方)にあります。
 件数はテストの本数で、規格の全要求や組み合わせの棚卸しではありません。
@@ -921,8 +921,8 @@ controlの対応は、その要求の直接の検査ではありません。
 
 ### Q77. M4を始めたのに、カバレッジ率がないのはなぜですか
 
-AIによる1261要求案は部分的な分解で、1261要求を1158テストへ直接対応付け、直接未対応は0要求、別の1テストはcontrolです。
-全1159テストに要求の対応付けがあります。2,504の条項番号は規範的要求の単位ではありません。
+AIによる1301要求案は部分的な分解で、1301要求を1173テストへ直接対応付け、直接未対応は0要求、別の1テストはcontrolです。
+全1174テストに要求の対応付けがあります。2,504の条項番号は規範的要求の単位ではありません。
 範囲は提案、棚卸しは未完、分母は未承認で、M4の開始はどれの承認にもなりません。
 既知差分やHDL／DPIの制約によって義務を暗黙に除外しません。[承認までの手順](requirements.ja.md#m4の残作業と承認)を参照してください。
 
@@ -1707,7 +1707,7 @@ user backdoorは16 bit locationをモデル化します。location独立性、�
 
 いいえ。`tests_without_requirement_links`は0で、現在の全テストに、明示的なdirectまたはcontrolの対応があります。
 別の集計`requirements_without_direct_tests`も0件です。memory-walkの対応はQ134の限定した歴史的解釈で、
-省略されたIEEEの詳細の承認ではありません。HDL depositと利用可否には、明示VPI検査系があります。catalogの識別子1,692件も未評価です。
+省略されたIEEEの詳細の承認ではありません。HDL depositと利用可否には、明示VPI検査系があります。catalogの識別子1,655件も未評価です。
 分解と人のレビューは未完で、分母は未承認です。
 
 [新しいpolicyテスト](../tests/u16/test_policy_object_stack_tracks_nested_active_policy_push_and_pop.sv)は、
@@ -1784,7 +1784,7 @@ frontdoor保護のwarningはalgorithm oracleの対象外で、ERRORと観測し�
 個別に読んだ後、日英の根拠とAI／人のレビューを[番号の分類](../coverage/assessments.json)へ記録すれば可能です。
 構造上の見出しは関連要求を持たず、文脈の説明は既存要求を指定します。
 未レビューの記録、推測した分類、親への集約では外せません。生成状態は`assessed`で、要求条項の`partial`と区別します。
-現在の分類は14件で、分母承認や新たなpassを加えません。第11章の未評価0件でも、その要求の完了ではありません。
+現在の分類は22件で、分母承認や新たなpassを加えません。第11章の未評価0件でも、その要求の完了ではありません。
 
 ### Q136. 明示strict configurationで新規検査は成功しますか？
 
@@ -1816,3 +1816,25 @@ model構造の観測です。bus transactionやHDL accessはありません。ro
 検索queueは新しく用意し、列挙順を指定せず、単一block検索は曖昧でない名前を使います。
 waiterは完了前に待機し、完了後に新しく開始するwaitはoracleの対象外とします。
 標準APIの欠落はspec-onlyのbuild結果として残し、libraryの非公開状態で代用しません。
+
+### Q140. abstract registryの検査範囲は何ですか？
+
+virtualなrepresented型にabstract registryを使います。singleton同一性、明示／既定名、選択factoryへの登録、
+具象型と相対instanceのoverride、overrideなし生成のerror／nullを検査します。
+abstract objectの不整合なsignatureやinstance overrideの参照先からcallback overloadを仮定せず、factory境界を使います。
+本文の修正や人の承認は主張しません。componentはparentあり／なしを別条件にし、固定libraryではparentなし診断がnullを参照します。
+parentありとabstract objectの対照検査は一致します。
+
+### Q141. IDコピーとparent変更は非公開APIを使わずどう検査しますか？
+
+2つのlive sequenceが指定replyを待ちます。set_id_infoでIDをコピーしてからdriverがsource transaction IDを99へ変えます。
+replyを逆順に配送しても、ID 11／22と不変のpayload／名前で、正確な待機sequenceへ届きます。
+非公開sequence IDのgetter／setterは使いません。別のinactive検査でparentの置換／解除後の正確なparent、root、path、自動depthを調べます。
+明示set_depthがなければ必要なdepthは3／2／1で、固定libraryのcacheは3のままなので、その期待はspec-onlyで保持します。
+
+### Q142. block mapの解除は何を示しますか？
+
+lock前に、block unregisterで別々のmapの一方を解除し、register、memory、static virtual-register overlayをblock一覧から除きます。
+別mapを保持し、同名child map／registerも保持してhierarchical照会へ残します。
+解除済みmapの照会、shared mapの所有規則、解除後のdefault map選択、bus転送、HDL動作は推測しません。
+別の検査系で、map生成／address単位、local map一覧／default再選択、明示frontdoor／backdoorの置換を確認します。

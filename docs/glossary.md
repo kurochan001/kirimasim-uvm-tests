@@ -786,3 +786,15 @@ response history, independent of traffic delivery and lifetime traffic counters.
 **Model lock state** — A register model's structural lock status. Building
 address lookups with lock_model differs from changing flags with set_lock;
 it does not denote sequencer ownership or a hardware bus lock.
+
+## Abstract proxies, ID copying and map removal
+
+**Abstract registry** — A proxy for a virtual object/component type that can be
+registered without constructing it. Creation needs a concrete factory override.
+
+**ID information copy** — Copying response-routing sequence and transaction
+identifiers with set_id_info, independently of payload or name copying.
+
+**Block map unregister** — Removing a selected map and its contained models
+from a block's knowledge. Its scope is distinct from executing a bus access or
+selecting a default map after removal.

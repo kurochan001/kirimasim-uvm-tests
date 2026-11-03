@@ -47790,6 +47790,1412 @@
           ]
         }
       ]
+    },
+    {
+      "id": "UVM-ABSTRACT-OBJECT-SINGLETON",
+      "clause": "8.2.5.2.4",
+      "statement": {
+        "en": "An abstract registry specialization returns its singleton wrapper.",
+        "ja": "abstract registry specializationはsingleton wrapperを返す。"
+      },
+      "conditions": {
+        "en": "Repeat get and compare a default-Tname specialization.",
+        "ja": "getを繰返し、Tname省略のspecializationと比較する。"
+      },
+      "expected": {
+        "en": "Repeated get returns the same handle and the distinct specialization has another handle.",
+        "ja": "繰返しgetは同一handleで、異なるspecializationは別handleとなる。"
+      },
+      "limitations": {
+        "en": "The represented type is virtual and has a pure virtual method; only concrete override types can construct instances. Singleton/name/constructor counts and exact registration are observed without static initialization order or global counts. Error cases invoke the public factory callback boundary through an isolated factory with no overrides, require an ERROR and null without prescribing message text/count, and never call a guessed callback overload. The printed abstract-object callback signature and instance-override cross-reference are inconsistent with related declarations; these tests exercise the factory boundary and documented registry operation semantics only, without resolving those textual defects or claiming human approval.",
+        "ja": "represented型はvirtualでpure virtual methodを持ち、具象override型だけがinstanceを生成できる。static初期化順やglobal総数を指定せず、singleton／名前／constructor数と正確な登録を観測する。error検査はoverrideのない独立factoryを通して公開callback境界を呼び、本文／件数を指定せずERRORとnullを要求し、推測したcallback overloadを直接呼ばない。abstract object callbackの記載signatureとinstance overrideの参照先は関連宣言と整合しないため、factory境界と記載されたregistry operationの意味だけを検査し、本文の欠陥の解決や人の承認は主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u08/test_abstract_object_registry_singleton_initialization_preserves_names_without_instances",
+          "role": "direct",
+          "expected_observations": [
+            "UT: singleton 1 distinct 1 names subject_proxy <unknown> constructors 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-ABSTRACT-OBJECT-EXPLICIT-TYPE-NAME",
+      "clause": "8.2.5.2.3",
+      "statement": {
+        "en": "An abstract registry returns its explicit Tname as the represented type name.",
+        "ja": "abstract registryは、明示Tnameをrepresented型名として返す。"
+      },
+      "conditions": {
+        "en": "Use the subject_proxy specialization.",
+        "ja": "subject_proxy specializationを使う。"
+      },
+      "expected": {
+        "en": "The name is subject_proxy.",
+        "ja": "名前はsubject_proxyとなる。"
+      },
+      "limitations": {
+        "en": "The represented type is virtual and has a pure virtual method; only concrete override types can construct instances. Singleton/name/constructor counts and exact registration are observed without static initialization order or global counts. Error cases invoke the public factory callback boundary through an isolated factory with no overrides, require an ERROR and null without prescribing message text/count, and never call a guessed callback overload. The printed abstract-object callback signature and instance-override cross-reference are inconsistent with related declarations; these tests exercise the factory boundary and documented registry operation semantics only, without resolving those textual defects or claiming human approval.",
+        "ja": "represented型はvirtualでpure virtual methodを持ち、具象override型だけがinstanceを生成できる。static初期化順やglobal総数を指定せず、singleton／名前／constructor数と正確な登録を観測する。error検査はoverrideのない独立factoryを通して公開callback境界を呼び、本文／件数を指定せずERRORとnullを要求し、推測したcallback overloadを直接呼ばない。abstract object callbackの記載signatureとinstance overrideの参照先は関連宣言と整合しないため、factory境界と記載されたregistry operationの意味だけを検査し、本文の欠陥の解決や人の承認は主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u08/test_abstract_object_registry_singleton_initialization_preserves_names_without_instances",
+          "role": "direct",
+          "expected_observations": [
+            "UT: singleton 1 distinct 1 names subject_proxy <unknown> constructors 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-ABSTRACT-OBJECT-DEFAULT-UNKNOWN-TNAME",
+      "clause": "8.2.5.2.1",
+      "statement": {
+        "en": "An abstract registry with omitted Tname uses <unknown>.",
+        "ja": "Tname省略のabstract registryは<unknown>を使う。"
+      },
+      "conditions": {
+        "en": "Obtain a default-name specialization for the same virtual type.",
+        "ja": "同じvirtual型について既定名のspecializationを取得する。"
+      },
+      "expected": {
+        "en": "The default proxy name is <unknown>.",
+        "ja": "既定proxy名は<unknown>となる。"
+      },
+      "limitations": {
+        "en": "The represented type is virtual and has a pure virtual method; only concrete override types can construct instances. Singleton/name/constructor counts and exact registration are observed without static initialization order or global counts. Error cases invoke the public factory callback boundary through an isolated factory with no overrides, require an ERROR and null without prescribing message text/count, and never call a guessed callback overload. The printed abstract-object callback signature and instance-override cross-reference are inconsistent with related declarations; these tests exercise the factory boundary and documented registry operation semantics only, without resolving those textual defects or claiming human approval.",
+        "ja": "represented型はvirtualでpure virtual methodを持ち、具象override型だけがinstanceを生成できる。static初期化順やglobal総数を指定せず、singleton／名前／constructor数と正確な登録を観測する。error検査はoverrideのない独立factoryを通して公開callback境界を呼び、本文／件数を指定せずERRORとnullを要求し、推測したcallback overloadを直接呼ばない。abstract object callbackの記載signatureとinstance overrideの参照先は関連宣言と整合しないため、factory境界と記載されたregistry operationの意味だけを検査し、本文の欠陥の解決や人の承認は主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u08/test_abstract_object_registry_singleton_initialization_preserves_names_without_instances",
+          "role": "direct",
+          "expected_observations": [
+            "UT: singleton 1 distinct 1 names subject_proxy <unknown> constructors 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-ABSTRACT-OBJECT-PROXY-WITHOUT-INSTANCE",
+      "clause": "8.2.5.2",
+      "statement": {
+        "en": "An abstract registry represents its virtual type without constructing an instance.",
+        "ja": "abstract registryはinstanceを生成せずvirtual型を表す。"
+      },
+      "conditions": {
+        "en": "Count the abstract base constructor during singleton retrieval and explicit registration.",
+        "ja": "singleton取得と明示登録中にabstract baseのconstructorを数える。"
+      },
+      "expected": {
+        "en": "The represented constructor count stays zero.",
+        "ja": "represented constructor数は0を保つ。"
+      },
+      "limitations": {
+        "en": "The represented type is virtual and has a pure virtual method; only concrete override types can construct instances. Singleton/name/constructor counts and exact registration are observed without static initialization order or global counts. Error cases invoke the public factory callback boundary through an isolated factory with no overrides, require an ERROR and null without prescribing message text/count, and never call a guessed callback overload. The printed abstract-object callback signature and instance-override cross-reference are inconsistent with related declarations; these tests exercise the factory boundary and documented registry operation semantics only, without resolving those textual defects or claiming human approval.",
+        "ja": "represented型はvirtualでpure virtual methodを持ち、具象override型だけがinstanceを生成できる。static初期化順やglobal総数を指定せず、singleton／名前／constructor数と正確な登録を観測する。error検査はoverrideのない独立factoryを通して公開callback境界を呼び、本文／件数を指定せずERRORとnullを要求し、推測したcallback overloadを直接呼ばない。abstract object callbackの記載signatureとinstance overrideの参照先は関連宣言と整合しないため、factory境界と記載されたregistry operationの意味だけを検査し、本文の欠陥の解決や人の承認は主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u08/test_abstract_object_registry_singleton_initialization_preserves_names_without_instances",
+          "role": "direct",
+          "expected_observations": [
+            "UT: singleton 1 distinct 1 names subject_proxy <unknown> constructors 0",
+            "UT: current_registered 1 exact_lookup 1 constructors 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-ABSTRACT-OBJECT-INITIALIZE-CURRENT-FACTORY",
+      "clause": "8.2.5.2.8",
+      "statement": {
+        "en": "Abstract registry initialization registers its exact proxy with the current factory.",
+        "ja": "abstract registry初期化は正確なproxyを現在のfactoryへ登録する。"
+      },
+      "conditions": {
+        "en": "Select a fresh factory, explicitly initialize a retained proxy, query it and restore the original factory.",
+        "ja": "新factoryを選び、保持したproxyを明示初期化して照会し、元factoryを復元する。"
+      },
+      "expected": {
+        "en": "The fresh factory reports the exact registered handle and exact name lookup.",
+        "ja": "新factoryは、正確な登録handleと名前検索を報告する。"
+      },
+      "limitations": {
+        "en": "The represented type is virtual and has a pure virtual method; only concrete override types can construct instances. Singleton/name/constructor counts and exact registration are observed without static initialization order or global counts. Error cases invoke the public factory callback boundary through an isolated factory with no overrides, require an ERROR and null without prescribing message text/count, and never call a guessed callback overload. The printed abstract-object callback signature and instance-override cross-reference are inconsistent with related declarations; these tests exercise the factory boundary and documented registry operation semantics only, without resolving those textual defects or claiming human approval.",
+        "ja": "represented型はvirtualでpure virtual methodを持ち、具象override型だけがinstanceを生成できる。static初期化順やglobal総数を指定せず、singleton／名前／constructor数と正確な登録を観測する。error検査はoverrideのない独立factoryを通して公開callback境界を呼び、本文／件数を指定せずERRORとnullを要求し、推測したcallback overloadを直接呼ばない。abstract object callbackの記載signatureとinstance overrideの参照先は関連宣言と整合しないため、factory境界と記載されたregistry operationの意味だけを検査し、本文の欠陥の解決や人の承認は主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u08/test_abstract_object_registry_singleton_initialization_preserves_names_without_instances",
+          "role": "direct",
+          "expected_observations": [
+            "UT: current_registered 1 exact_lookup 1 constructors 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-ABSTRACT-OBJECT-CREATE-CONCRETE-OVERRIDES",
+      "clause": "8.2.5.2.5",
+      "statement": {
+        "en": "Abstract registry create returns concrete instances selected by factory overrides.",
+        "ja": "abstract registry createは、factory overrideで選ぶ具象instanceを返す。"
+      },
+      "conditions": {
+        "en": "Configure concrete type and scoped instance overrides and create under two contexts.",
+        "ja": "具象型とscope付きinstanceのoverrideを設定し、2文脈で生成する。"
+      },
+      "expected": {
+        "en": "Distinct concrete instances have markers two/one, requested names.",
+        "ja": "異なる具象instanceはmarker 2／1と要求名を持つ。"
+      },
+      "limitations": {
+        "en": "The represented type is virtual and has a pure virtual method; only concrete override types can construct instances. Singleton/name/constructor counts and exact registration are observed without static initialization order or global counts. Error cases invoke the public factory callback boundary through an isolated factory with no overrides, require an ERROR and null without prescribing message text/count, and never call a guessed callback overload. The printed abstract-object callback signature and instance-override cross-reference are inconsistent with related declarations; these tests exercise the factory boundary and documented registry operation semantics only, without resolving those textual defects or claiming human approval.",
+        "ja": "represented型はvirtualでpure virtual methodを持ち、具象override型だけがinstanceを生成できる。static初期化順やglobal総数を指定せず、singleton／名前／constructor数と正確な登録を観測する。error検査はoverrideのない独立factoryを通して公開callback境界を呼び、本文／件数を指定せずERRORとnullを要求し、推測したcallback overloadを直接呼ばない。abstract object callbackの記載signatureとinstance overrideの参照先は関連宣言と整合しないため、factory境界と記載されたregistry operationの意味だけを検査し、本文の欠陥の解決や人の承認は主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u08/test_abstract_object_registry_instance_override_precedes_concrete_type_fallback",
+          "role": "direct",
+          "expected_observations": [
+            "UT: markers 2 1 distinct 1 constructors 2",
+            "UT: identity 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-ABSTRACT-OBJECT-TYPE-OVERRIDE-FALLBACK",
+      "clause": "8.2.5.2.6",
+      "statement": {
+        "en": "A type override supplies a concrete fallback for an abstract request without a matching instance override.",
+        "ja": "instance overrideに一致しないabstract要求には、型overrideが具象fallbackを与える。"
+      },
+      "conditions": {
+        "en": "Create under the second parent outside the relative instance override.",
+        "ja": "相対instance overrideの外にある2番目のparentで生成する。"
+      },
+      "expected": {
+        "en": "That creation has fallback marker one.",
+        "ja": "生成物はfallback marker 1を持つ。"
+      },
+      "limitations": {
+        "en": "The represented type is virtual and has a pure virtual method; only concrete override types can construct instances. Singleton/name/constructor counts and exact registration are observed without static initialization order or global counts. Error cases invoke the public factory callback boundary through an isolated factory with no overrides, require an ERROR and null without prescribing message text/count, and never call a guessed callback overload. The printed abstract-object callback signature and instance-override cross-reference are inconsistent with related declarations; these tests exercise the factory boundary and documented registry operation semantics only, without resolving those textual defects or claiming human approval.",
+        "ja": "represented型はvirtualでpure virtual methodを持ち、具象override型だけがinstanceを生成できる。static初期化順やglobal総数を指定せず、singleton／名前／constructor数と正確な登録を観測する。error検査はoverrideのない独立factoryを通して公開callback境界を呼び、本文／件数を指定せずERRORとnullを要求し、推測したcallback overloadを直接呼ばない。abstract object callbackの記載signatureとinstance overrideの参照先は関連宣言と整合しないため、factory境界と記載されたregistry operationの意味だけを検査し、本文の欠陥の解決や人の承認は主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u08/test_abstract_object_registry_instance_override_precedes_concrete_type_fallback",
+          "role": "direct",
+          "expected_observations": [
+            "UT: markers 2 1 distinct 1 constructors 2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-ABSTRACT-OBJECT-RELATIVE-INSTANCE-OVERRIDE",
+      "clause": "8.2.5.2.7",
+      "statement": {
+        "en": "An abstract-registry instance override is relative to its supplied parent and takes precedence on a matching path.",
+        "ja": "abstract registryのinstance overrideは、指定parentから相対で、一致pathでは優先する。"
+      },
+      "conditions": {
+        "en": "Override item relative to one of two independent parents.",
+        "ja": "独立した2 parentの一方から相対的にitemをoverrideする。"
+      },
+      "expected": {
+        "en": "The selected path yields marker two while its peer uses marker one.",
+        "ja": "選択pathはmarker 2、peerはmarker 1となる。"
+      },
+      "limitations": {
+        "en": "The represented type is virtual and has a pure virtual method; only concrete override types can construct instances. Singleton/name/constructor counts and exact registration are observed without static initialization order or global counts. Error cases invoke the public factory callback boundary through an isolated factory with no overrides, require an ERROR and null without prescribing message text/count, and never call a guessed callback overload. The printed abstract-object callback signature and instance-override cross-reference are inconsistent with related declarations; these tests exercise the factory boundary and documented registry operation semantics only, without resolving those textual defects or claiming human approval.",
+        "ja": "represented型はvirtualでpure virtual methodを持ち、具象override型だけがinstanceを生成できる。static初期化順やglobal総数を指定せず、singleton／名前／constructor数と正確な登録を観測する。error検査はoverrideのない独立factoryを通して公開callback境界を呼び、本文／件数を指定せずERRORとnullを要求し、推測したcallback overloadを直接呼ばない。abstract object callbackの記載signatureとinstance overrideの参照先は関連宣言と整合しないため、factory境界と記載されたregistry operationの意味だけを検査し、本文の欠陥の解決や人の承認は主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u08/test_abstract_object_registry_instance_override_precedes_concrete_type_fallback",
+          "role": "direct",
+          "expected_observations": [
+            "UT: markers 2 1 distinct 1 constructors 2",
+            "UT: identity 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-ABSTRACT-OBJECT-UNIMPLEMENTED-CALLBACK-ERROR-NULL",
+      "clause": "8.2.5.2.2",
+      "statement": {
+        "en": "Creation without a concrete override reports an error and returns null from the abstract callback.",
+        "ja": "具象overrideなしの生成はerrorを報告し、abstract callbackからnullを返す。"
+      },
+      "conditions": {
+        "en": "Ask an isolated factory to create through the abstract wrapper without configuring overrides.",
+        "ja": "override未設定の独立factoryへabstract wrapper経由の生成を要求する。"
+      },
+      "expected": {
+        "en": "An ERROR is observed, the result is null and no represented constructor runs.",
+        "ja": "ERRORを観測し、結果はnullで、represented constructorは実行しない。"
+      },
+      "limitations": {
+        "en": "The represented type is virtual and has a pure virtual method; only concrete override types can construct instances. Singleton/name/constructor counts and exact registration are observed without static initialization order or global counts. Error cases invoke the public factory callback boundary through an isolated factory with no overrides, require an ERROR and null without prescribing message text/count, and never call a guessed callback overload. The printed abstract-object callback signature and instance-override cross-reference are inconsistent with related declarations; these tests exercise the factory boundary and documented registry operation semantics only, without resolving those textual defects or claiming human approval.",
+        "ja": "represented型はvirtualでpure virtual methodを持ち、具象override型だけがinstanceを生成できる。static初期化順やglobal総数を指定せず、singleton／名前／constructor数と正確な登録を観測する。error検査はoverrideのない独立factoryを通して公開callback境界を呼び、本文／件数を指定せずERRORとnullを要求し、推測したcallback overloadを直接呼ばない。abstract object callbackの記載signatureとinstance overrideの参照先は関連宣言と整合しないため、factory境界と記載されたregistry operationの意味だけを検査し、本文の欠陥の解決や人の承認は主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u08/test_abstract_object_registry_without_override_reports_error_and_returns_null",
+          "role": "direct",
+          "expected_observations": [
+            "UT: error_reported 1 returned_null 1 constructors 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-ABSTRACT-COMPONENT-SINGLETON",
+      "clause": "8.2.5.1.4",
+      "statement": {
+        "en": "An abstract registry specialization returns its singleton wrapper.",
+        "ja": "abstract registry specializationはsingleton wrapperを返す。"
+      },
+      "conditions": {
+        "en": "Repeat get and compare a default-Tname specialization.",
+        "ja": "getを繰返し、Tname省略のspecializationと比較する。"
+      },
+      "expected": {
+        "en": "Repeated get returns the same handle and the distinct specialization has another handle.",
+        "ja": "繰返しgetは同一handleで、異なるspecializationは別handleとなる。"
+      },
+      "limitations": {
+        "en": "The represented type is virtual and has a pure virtual method; only concrete override types can construct instances. Singleton/name/constructor counts and exact registration are observed without static initialization order or global counts. Error cases invoke the public factory callback boundary through an isolated factory with no overrides, require an ERROR and null without prescribing message text/count, and never call a guessed callback overload. The printed abstract-object callback signature and instance-override cross-reference are inconsistent with related declarations; these tests exercise the factory boundary and documented registry operation semantics only, without resolving those textual defects or claiming human approval.",
+        "ja": "represented型はvirtualでpure virtual methodを持ち、具象override型だけがinstanceを生成できる。static初期化順やglobal総数を指定せず、singleton／名前／constructor数と正確な登録を観測する。error検査はoverrideのない独立factoryを通して公開callback境界を呼び、本文／件数を指定せずERRORとnullを要求し、推測したcallback overloadを直接呼ばない。abstract object callbackの記載signatureとinstance overrideの参照先は関連宣言と整合しないため、factory境界と記載されたregistry operationの意味だけを検査し、本文の欠陥の解決や人の承認は主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u08/test_abstract_component_registry_singleton_initialization_preserves_names_without_instances",
+          "role": "direct",
+          "expected_observations": [
+            "UT: singleton 1 distinct 1 names subject_proxy <unknown> constructors 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-ABSTRACT-COMPONENT-EXPLICIT-TYPE-NAME",
+      "clause": "8.2.5.1.3",
+      "statement": {
+        "en": "An abstract registry returns its explicit Tname as the represented type name.",
+        "ja": "abstract registryは、明示Tnameをrepresented型名として返す。"
+      },
+      "conditions": {
+        "en": "Use the subject_proxy specialization.",
+        "ja": "subject_proxy specializationを使う。"
+      },
+      "expected": {
+        "en": "The name is subject_proxy.",
+        "ja": "名前はsubject_proxyとなる。"
+      },
+      "limitations": {
+        "en": "The represented type is virtual and has a pure virtual method; only concrete override types can construct instances. Singleton/name/constructor counts and exact registration are observed without static initialization order or global counts. Error cases invoke the public factory callback boundary through an isolated factory with no overrides, require an ERROR and null without prescribing message text/count, and never call a guessed callback overload. The printed abstract-object callback signature and instance-override cross-reference are inconsistent with related declarations; these tests exercise the factory boundary and documented registry operation semantics only, without resolving those textual defects or claiming human approval.",
+        "ja": "represented型はvirtualでpure virtual methodを持ち、具象override型だけがinstanceを生成できる。static初期化順やglobal総数を指定せず、singleton／名前／constructor数と正確な登録を観測する。error検査はoverrideのない独立factoryを通して公開callback境界を呼び、本文／件数を指定せずERRORとnullを要求し、推測したcallback overloadを直接呼ばない。abstract object callbackの記載signatureとinstance overrideの参照先は関連宣言と整合しないため、factory境界と記載されたregistry operationの意味だけを検査し、本文の欠陥の解決や人の承認は主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u08/test_abstract_component_registry_singleton_initialization_preserves_names_without_instances",
+          "role": "direct",
+          "expected_observations": [
+            "UT: singleton 1 distinct 1 names subject_proxy <unknown> constructors 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-ABSTRACT-COMPONENT-DEFAULT-UNKNOWN-TNAME",
+      "clause": "8.2.5.1.1",
+      "statement": {
+        "en": "An abstract registry with omitted Tname uses <unknown>.",
+        "ja": "Tname省略のabstract registryは<unknown>を使う。"
+      },
+      "conditions": {
+        "en": "Obtain a default-name specialization for the same virtual type.",
+        "ja": "同じvirtual型について既定名のspecializationを取得する。"
+      },
+      "expected": {
+        "en": "The default proxy name is <unknown>.",
+        "ja": "既定proxy名は<unknown>となる。"
+      },
+      "limitations": {
+        "en": "The represented type is virtual and has a pure virtual method; only concrete override types can construct instances. Singleton/name/constructor counts and exact registration are observed without static initialization order or global counts. Error cases invoke the public factory callback boundary through an isolated factory with no overrides, require an ERROR and null without prescribing message text/count, and never call a guessed callback overload. The printed abstract-object callback signature and instance-override cross-reference are inconsistent with related declarations; these tests exercise the factory boundary and documented registry operation semantics only, without resolving those textual defects or claiming human approval.",
+        "ja": "represented型はvirtualでpure virtual methodを持ち、具象override型だけがinstanceを生成できる。static初期化順やglobal総数を指定せず、singleton／名前／constructor数と正確な登録を観測する。error検査はoverrideのない独立factoryを通して公開callback境界を呼び、本文／件数を指定せずERRORとnullを要求し、推測したcallback overloadを直接呼ばない。abstract object callbackの記載signatureとinstance overrideの参照先は関連宣言と整合しないため、factory境界と記載されたregistry operationの意味だけを検査し、本文の欠陥の解決や人の承認は主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u08/test_abstract_component_registry_singleton_initialization_preserves_names_without_instances",
+          "role": "direct",
+          "expected_observations": [
+            "UT: singleton 1 distinct 1 names subject_proxy <unknown> constructors 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-ABSTRACT-COMPONENT-PROXY-WITHOUT-INSTANCE",
+      "clause": "8.2.5.1",
+      "statement": {
+        "en": "An abstract registry represents its virtual type without constructing an instance.",
+        "ja": "abstract registryはinstanceを生成せずvirtual型を表す。"
+      },
+      "conditions": {
+        "en": "Count the abstract base constructor during singleton retrieval and explicit registration.",
+        "ja": "singleton取得と明示登録中にabstract baseのconstructorを数える。"
+      },
+      "expected": {
+        "en": "The represented constructor count stays zero.",
+        "ja": "represented constructor数は0を保つ。"
+      },
+      "limitations": {
+        "en": "The represented type is virtual and has a pure virtual method; only concrete override types can construct instances. Singleton/name/constructor counts and exact registration are observed without static initialization order or global counts. Error cases invoke the public factory callback boundary through an isolated factory with no overrides, require an ERROR and null without prescribing message text/count, and never call a guessed callback overload. The printed abstract-object callback signature and instance-override cross-reference are inconsistent with related declarations; these tests exercise the factory boundary and documented registry operation semantics only, without resolving those textual defects or claiming human approval.",
+        "ja": "represented型はvirtualでpure virtual methodを持ち、具象override型だけがinstanceを生成できる。static初期化順やglobal総数を指定せず、singleton／名前／constructor数と正確な登録を観測する。error検査はoverrideのない独立factoryを通して公開callback境界を呼び、本文／件数を指定せずERRORとnullを要求し、推測したcallback overloadを直接呼ばない。abstract object callbackの記載signatureとinstance overrideの参照先は関連宣言と整合しないため、factory境界と記載されたregistry operationの意味だけを検査し、本文の欠陥の解決や人の承認は主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u08/test_abstract_component_registry_singleton_initialization_preserves_names_without_instances",
+          "role": "direct",
+          "expected_observations": [
+            "UT: singleton 1 distinct 1 names subject_proxy <unknown> constructors 0",
+            "UT: current_registered 1 exact_lookup 1 constructors 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-ABSTRACT-COMPONENT-INITIALIZE-CURRENT-FACTORY",
+      "clause": "8.2.5.1.8",
+      "statement": {
+        "en": "Abstract registry initialization registers its exact proxy with the current factory.",
+        "ja": "abstract registry初期化は正確なproxyを現在のfactoryへ登録する。"
+      },
+      "conditions": {
+        "en": "Select a fresh factory, explicitly initialize a retained proxy, query it and restore the original factory.",
+        "ja": "新factoryを選び、保持したproxyを明示初期化して照会し、元factoryを復元する。"
+      },
+      "expected": {
+        "en": "The fresh factory reports the exact registered handle and exact name lookup.",
+        "ja": "新factoryは、正確な登録handleと名前検索を報告する。"
+      },
+      "limitations": {
+        "en": "The represented type is virtual and has a pure virtual method; only concrete override types can construct instances. Singleton/name/constructor counts and exact registration are observed without static initialization order or global counts. Error cases invoke the public factory callback boundary through an isolated factory with no overrides, require an ERROR and null without prescribing message text/count, and never call a guessed callback overload. The printed abstract-object callback signature and instance-override cross-reference are inconsistent with related declarations; these tests exercise the factory boundary and documented registry operation semantics only, without resolving those textual defects or claiming human approval.",
+        "ja": "represented型はvirtualでpure virtual methodを持ち、具象override型だけがinstanceを生成できる。static初期化順やglobal総数を指定せず、singleton／名前／constructor数と正確な登録を観測する。error検査はoverrideのない独立factoryを通して公開callback境界を呼び、本文／件数を指定せずERRORとnullを要求し、推測したcallback overloadを直接呼ばない。abstract object callbackの記載signatureとinstance overrideの参照先は関連宣言と整合しないため、factory境界と記載されたregistry operationの意味だけを検査し、本文の欠陥の解決や人の承認は主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u08/test_abstract_component_registry_singleton_initialization_preserves_names_without_instances",
+          "role": "direct",
+          "expected_observations": [
+            "UT: current_registered 1 exact_lookup 1 constructors 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-ABSTRACT-COMPONENT-CREATE-CONCRETE-OVERRIDES",
+      "clause": "8.2.5.1.5",
+      "statement": {
+        "en": "Abstract registry create returns concrete instances selected by factory overrides.",
+        "ja": "abstract registry createは、factory overrideで選ぶ具象instanceを返す。"
+      },
+      "conditions": {
+        "en": "Configure concrete type and scoped instance overrides and create under two contexts.",
+        "ja": "具象型とscope付きinstanceのoverrideを設定し、2文脈で生成する。"
+      },
+      "expected": {
+        "en": "Distinct concrete instances have markers two/one, requested names and exact parents.",
+        "ja": "異なる具象instanceはmarker 2／1と要求名、正確なparentを持つ。"
+      },
+      "limitations": {
+        "en": "The represented type is virtual and has a pure virtual method; only concrete override types can construct instances. Singleton/name/constructor counts and exact registration are observed without static initialization order or global counts. Error cases invoke the public factory callback boundary through an isolated factory with no overrides, require an ERROR and null without prescribing message text/count, and never call a guessed callback overload. The printed abstract-object callback signature and instance-override cross-reference are inconsistent with related declarations; these tests exercise the factory boundary and documented registry operation semantics only, without resolving those textual defects or claiming human approval.",
+        "ja": "represented型はvirtualでpure virtual methodを持ち、具象override型だけがinstanceを生成できる。static初期化順やglobal総数を指定せず、singleton／名前／constructor数と正確な登録を観測する。error検査はoverrideのない独立factoryを通して公開callback境界を呼び、本文／件数を指定せずERRORとnullを要求し、推測したcallback overloadを直接呼ばない。abstract object callbackの記載signatureとinstance overrideの参照先は関連宣言と整合しないため、factory境界と記載されたregistry operationの意味だけを検査し、本文の欠陥の解決や人の承認は主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u08/test_abstract_component_registry_instance_override_precedes_concrete_type_fallback",
+          "role": "direct",
+          "expected_observations": [
+            "UT: markers 2 1 distinct 1 constructors 2",
+            "UT: identity 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-ABSTRACT-COMPONENT-TYPE-OVERRIDE-FALLBACK",
+      "clause": "8.2.5.1.6",
+      "statement": {
+        "en": "A type override supplies a concrete fallback for an abstract request without a matching instance override.",
+        "ja": "instance overrideに一致しないabstract要求には、型overrideが具象fallbackを与える。"
+      },
+      "conditions": {
+        "en": "Create under the second parent outside the relative instance override.",
+        "ja": "相対instance overrideの外にある2番目のparentで生成する。"
+      },
+      "expected": {
+        "en": "That creation has fallback marker one.",
+        "ja": "生成物はfallback marker 1を持つ。"
+      },
+      "limitations": {
+        "en": "The represented type is virtual and has a pure virtual method; only concrete override types can construct instances. Singleton/name/constructor counts and exact registration are observed without static initialization order or global counts. Error cases invoke the public factory callback boundary through an isolated factory with no overrides, require an ERROR and null without prescribing message text/count, and never call a guessed callback overload. The printed abstract-object callback signature and instance-override cross-reference are inconsistent with related declarations; these tests exercise the factory boundary and documented registry operation semantics only, without resolving those textual defects or claiming human approval.",
+        "ja": "represented型はvirtualでpure virtual methodを持ち、具象override型だけがinstanceを生成できる。static初期化順やglobal総数を指定せず、singleton／名前／constructor数と正確な登録を観測する。error検査はoverrideのない独立factoryを通して公開callback境界を呼び、本文／件数を指定せずERRORとnullを要求し、推測したcallback overloadを直接呼ばない。abstract object callbackの記載signatureとinstance overrideの参照先は関連宣言と整合しないため、factory境界と記載されたregistry operationの意味だけを検査し、本文の欠陥の解決や人の承認は主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u08/test_abstract_component_registry_instance_override_precedes_concrete_type_fallback",
+          "role": "direct",
+          "expected_observations": [
+            "UT: markers 2 1 distinct 1 constructors 2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-ABSTRACT-COMPONENT-RELATIVE-INSTANCE-OVERRIDE",
+      "clause": "8.2.5.1.7",
+      "statement": {
+        "en": "An abstract-registry instance override is relative to its supplied parent and takes precedence on a matching path.",
+        "ja": "abstract registryのinstance overrideは、指定parentから相対で、一致pathでは優先する。"
+      },
+      "conditions": {
+        "en": "Override item relative to one of two independent parents.",
+        "ja": "独立した2 parentの一方から相対的にitemをoverrideする。"
+      },
+      "expected": {
+        "en": "The selected path yields marker two while its peer uses marker one.",
+        "ja": "選択pathはmarker 2、peerはmarker 1となる。"
+      },
+      "limitations": {
+        "en": "The represented type is virtual and has a pure virtual method; only concrete override types can construct instances. Singleton/name/constructor counts and exact registration are observed without static initialization order or global counts. Error cases invoke the public factory callback boundary through an isolated factory with no overrides, require an ERROR and null without prescribing message text/count, and never call a guessed callback overload. The printed abstract-object callback signature and instance-override cross-reference are inconsistent with related declarations; these tests exercise the factory boundary and documented registry operation semantics only, without resolving those textual defects or claiming human approval.",
+        "ja": "represented型はvirtualでpure virtual methodを持ち、具象override型だけがinstanceを生成できる。static初期化順やglobal総数を指定せず、singleton／名前／constructor数と正確な登録を観測する。error検査はoverrideのない独立factoryを通して公開callback境界を呼び、本文／件数を指定せずERRORとnullを要求し、推測したcallback overloadを直接呼ばない。abstract object callbackの記載signatureとinstance overrideの参照先は関連宣言と整合しないため、factory境界と記載されたregistry operationの意味だけを検査し、本文の欠陥の解決や人の承認は主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u08/test_abstract_component_registry_instance_override_precedes_concrete_type_fallback",
+          "role": "direct",
+          "expected_observations": [
+            "UT: markers 2 1 distinct 1 constructors 2",
+            "UT: identity 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-ABSTRACT-COMPONENT-UNIMPLEMENTED-CALLBACK-ERROR-NULL",
+      "clause": "8.2.5.1.2",
+      "statement": {
+        "en": "Creation without a concrete override reports an error and returns null from the abstract callback.",
+        "ja": "具象overrideなしの生成はerrorを報告し、abstract callbackからnullを返す。"
+      },
+      "conditions": {
+        "en": "Ask an isolated factory to create through the abstract wrapper without configuring overrides.",
+        "ja": "override未設定の独立factoryへabstract wrapper経由の生成を要求する。"
+      },
+      "expected": {
+        "en": "An ERROR is observed, the result is null and no represented constructor runs.",
+        "ja": "ERRORを観測し、結果はnullで、represented constructorは実行しない。"
+      },
+      "limitations": {
+        "en": "The represented type is virtual and has a pure virtual method; only concrete override types can construct instances. Singleton/name/constructor counts and exact registration are observed without static initialization order or global counts. Error cases invoke the public factory callback boundary through an isolated factory with no overrides, require an ERROR and null without prescribing message text/count, and never call a guessed callback overload. The printed abstract-object callback signature and instance-override cross-reference are inconsistent with related declarations; these tests exercise the factory boundary and documented registry operation semantics only, without resolving those textual defects or claiming human approval. Component probes include parentless and parent-present factory requests as distinct conditions.",
+        "ja": "represented型はvirtualでpure virtual methodを持ち、具象override型だけがinstanceを生成できる。static初期化順やglobal総数を指定せず、singleton／名前／constructor数と正確な登録を観測する。error検査はoverrideのない独立factoryを通して公開callback境界を呼び、本文／件数を指定せずERRORとnullを要求し、推測したcallback overloadを直接呼ばない。abstract object callbackの記載signatureとinstance overrideの参照先は関連宣言と整合しないため、factory境界と記載されたregistry operationの意味だけを検査し、本文の欠陥の解決や人の承認は主張しない。 component検査は、parentなしとparentありのfactory要求を別条件で扱う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u08/test_abstract_component_registry_without_override_reports_error_and_returns_null",
+          "role": "direct",
+          "expected_observations": [
+            "UT: error_reported 1 returned_null 1 constructors 0"
+          ]
+        },
+        {
+          "test": "u08/test_abstract_component_registry_with_a_parent_reports_error_and_returns_null",
+          "role": "direct",
+          "expected_observations": [
+            "UT: error_reported 1 returned_null 1 constructors 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-ABSTRACT-FACTORY-REQUIRES-CONCRETE-OVERRIDE",
+      "clause": "8.2.5",
+      "statement": {
+        "en": "Requests to construct registered abstract classes require concrete overrides.",
+        "ja": "登録されたabstract classの生成要求には具象overrideが必要である。"
+      },
+      "conditions": {
+        "en": "Attempt object/component creation with their abstract wrappers and no overrides.",
+        "ja": "abstract wrapperを使い、overrideなしでobject／component生成を試す。"
+      },
+      "expected": {
+        "en": "Both attempts report an error and return null without calling the represented constructors.",
+        "ja": "両試行ともerrorとnullを返し、represented constructorを呼ばない。"
+      },
+      "limitations": {
+        "en": "The represented type is virtual and has a pure virtual method; only concrete override types can construct instances. Singleton/name/constructor counts and exact registration are observed without static initialization order or global counts. Error cases invoke the public factory callback boundary through an isolated factory with no overrides, require an ERROR and null without prescribing message text/count, and never call a guessed callback overload. The printed abstract-object callback signature and instance-override cross-reference are inconsistent with related declarations; these tests exercise the factory boundary and documented registry operation semantics only, without resolving those textual defects or claiming human approval. Component probes include parentless and parent-present factory requests as distinct conditions.",
+        "ja": "represented型はvirtualでpure virtual methodを持ち、具象override型だけがinstanceを生成できる。static初期化順やglobal総数を指定せず、singleton／名前／constructor数と正確な登録を観測する。error検査はoverrideのない独立factoryを通して公開callback境界を呼び、本文／件数を指定せずERRORとnullを要求し、推測したcallback overloadを直接呼ばない。abstract object callbackの記載signatureとinstance overrideの参照先は関連宣言と整合しないため、factory境界と記載されたregistry operationの意味だけを検査し、本文の欠陥の解決や人の承認は主張しない。 component検査は、parentなしとparentありのfactory要求を別条件で扱う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u08/test_abstract_object_registry_without_override_reports_error_and_returns_null",
+          "role": "direct",
+          "expected_observations": [
+            "UT: error_reported 1 returned_null 1 constructors 0"
+          ]
+        },
+        {
+          "test": "u08/test_abstract_component_registry_without_override_reports_error_and_returns_null",
+          "role": "direct",
+          "expected_observations": [
+            "UT: error_reported 1 returned_null 1 constructors 0"
+          ]
+        },
+        {
+          "test": "u08/test_abstract_component_registry_with_a_parent_reports_error_and_returns_null",
+          "role": "direct",
+          "expected_observations": [
+            "UT: error_reported 1 returned_null 1 constructors 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-ITEM-ID-INFO-SEQUENCE-ROUTING",
+      "clause": "14.1.2.4",
+      "statement": {
+        "en": "set_id_info copies the internal sequence identifier needed to route a response to the requesting sequence.",
+        "ja": "set_id_infoは、request元sequenceへresponseをroutingするinternal sequence IDをコピーする。"
+      },
+      "conditions": {
+        "en": "Hold two sequences awaiting replies and deliver copied-ID responses in reverse order.",
+        "ja": "reply待ちの2 sequenceを保持し、IDコピー済みresponseを逆順に配送する。"
+      },
+      "expected": {
+        "en": "Each sequence receives its own exact response object.",
+        "ja": "各sequenceは自身の正確なresponse objectを受け取る。"
+      },
+      "limitations": {
+        "en": "ID tests use actual sequencer get handshakes and rsp_export after normal build/connect, two live sequences and reversed reply order. Only public set_id_info and transaction-ID accessors are used; internal sequence-ID getters/setters are not assumed. Replies are distinct objects whose explicit payload/name survive ID copying. Reparenting uses inactive concrete sequences and installs no explicit set_depth override; fresh hierarchy results are required even after earlier observations. Exact handles and paths are checked without random IDs or arbitration order.",
+        "ja": "ID検査は、通常のbuild／connect後に実際のsequencer get handshakeとrsp_exportを使い、2つのlive sequenceへ逆順にreplyする。公開set_id_infoとtransaction ID accessorだけを使い、internal sequence IDのgetter／setterは仮定しない。replyは別objectで、明示payload／名前をIDコピー後も保持する。parent変更はinactiveな具象sequenceで行い、set_depthの明示overrideは設定せず、以前の観測後も現在の階層結果を要求する。乱数IDやarbitration順を指定せず、正確なhandleとpathを検査する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_item_id_info_routes_two_responses_and_preserves_other_properties",
+          "role": "direct",
+          "expected_observations": [
+            "UT: routing 1 1 copied_ids 11 22 source_ids 99 99"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-ITEM-ID-INFO-TRANSACTION-VALUE-COPY",
+      "clause": "14.1.2.4",
+      "statement": {
+        "en": "set_id_info copies the transaction identifier value independently of subsequent source changes.",
+        "ja": "set_id_infoは、後のsource変更とは独立してtransaction ID値をコピーする。"
+      },
+      "conditions": {
+        "en": "Copy IDs 11/22, then change source request transaction IDs to 99 before delivering replies.",
+        "ja": "ID 11／22をコピーし、reply配送前にsource requestのtransaction IDを99へ変える。"
+      },
+      "expected": {
+        "en": "Replies retain IDs 11/22 and targeted response waits succeed while source IDs are both 99.",
+        "ja": "replyはID 11／22を保持し、source IDは両方99のまま、指定response待機が成功する。"
+      },
+      "limitations": {
+        "en": "ID tests use actual sequencer get handshakes and rsp_export after normal build/connect, two live sequences and reversed reply order. Only public set_id_info and transaction-ID accessors are used; internal sequence-ID getters/setters are not assumed. Replies are distinct objects whose explicit payload/name survive ID copying. Reparenting uses inactive concrete sequences and installs no explicit set_depth override; fresh hierarchy results are required even after earlier observations. Exact handles and paths are checked without random IDs or arbitration order.",
+        "ja": "ID検査は、通常のbuild／connect後に実際のsequencer get handshakeとrsp_exportを使い、2つのlive sequenceへ逆順にreplyする。公開set_id_infoとtransaction ID accessorだけを使い、internal sequence IDのgetter／setterは仮定しない。replyは別objectで、明示payload／名前をIDコピー後も保持する。parent変更はinactiveな具象sequenceで行い、set_depthの明示overrideは設定せず、以前の観測後も現在の階層結果を要求する。乱数IDやarbitration順を指定せず、正確なhandleとpathを検査する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_item_id_info_routes_two_responses_and_preserves_other_properties",
+          "role": "direct",
+          "expected_observations": [
+            "UT: routing 1 1 copied_ids 11 22 source_ids 99 99"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-ITEM-ID-INFO-PRESERVES-OTHER-PROPERTIES",
+      "clause": "14.1.2.4",
+      "statement": {
+        "en": "ID information copying leaves unrelated response properties intact.",
+        "ja": "ID情報のコピーは、無関係なresponse propertyを保持する。"
+      },
+      "conditions": {
+        "en": "Initialize reply payloads and names before copying IDs.",
+        "ja": "IDコピー前にreply payloadと名前を初期化する。"
+      },
+      "expected": {
+        "en": "Reply payloads remain 901/902 and names remain reply_one/reply_two.",
+        "ja": "reply payloadは901／902、名前はreply_one／reply_twoを保持する。"
+      },
+      "limitations": {
+        "en": "ID tests use actual sequencer get handshakes and rsp_export after normal build/connect, two live sequences and reversed reply order. Only public set_id_info and transaction-ID accessors are used; internal sequence-ID getters/setters are not assumed. Replies are distinct objects whose explicit payload/name survive ID copying. Reparenting uses inactive concrete sequences and installs no explicit set_depth override; fresh hierarchy results are required even after earlier observations. Exact handles and paths are checked without random IDs or arbitration order.",
+        "ja": "ID検査は、通常のbuild／connect後に実際のsequencer get handshakeとrsp_exportを使い、2つのlive sequenceへ逆順にreplyする。公開set_id_infoとtransaction ID accessorだけを使い、internal sequence IDのgetter／setterは仮定しない。replyは別objectで、明示payload／名前をIDコピー後も保持する。parent変更はinactiveな具象sequenceで行い、set_depthの明示overrideは設定せず、以前の観測後も現在の階層結果を要求する。乱数IDやarbitration順を指定せず、正確なhandleとpathを検査する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_item_id_info_routes_two_responses_and_preserves_other_properties",
+          "role": "direct",
+          "expected_observations": [
+            "UT: payloads 901 902 names reply_one reply_two"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-PARENT-REASSIGNMENT",
+      "clause": "14.1.2.8",
+      "statement": {
+        "en": "An inactive sequence can replace and clear its parent reference.",
+        "ja": "inactive sequenceはparent参照を置換・解除できる。"
+      },
+      "conditions": {
+        "en": "Move leaf from middle under first to second, then detach it.",
+        "ja": "first下のmiddleからsecondへleafを移し、その後解除する。"
+      },
+      "expected": {
+        "en": "The changed parent is the exact second handle and the detached parent is null.",
+        "ja": "変更後parentは正確なsecond handleで、解除後はnullとなる。"
+      },
+      "limitations": {
+        "en": "ID tests use actual sequencer get handshakes and rsp_export after normal build/connect, two live sequences and reversed reply order. Only public set_id_info and transaction-ID accessors are used; internal sequence-ID getters/setters are not assumed. Replies are distinct objects whose explicit payload/name survive ID copying. Reparenting uses inactive concrete sequences and installs no explicit set_depth override; fresh hierarchy results are required even after earlier observations. Exact handles and paths are checked without random IDs or arbitration order.",
+        "ja": "ID検査は、通常のbuild／connect後に実際のsequencer get handshakeとrsp_exportを使い、2つのlive sequenceへ逆順にreplyする。公開set_id_infoとtransaction ID accessorだけを使い、internal sequence IDのgetter／setterは仮定しない。replyは別objectで、明示payload／名前をIDコピー後も保持する。parent変更はinactiveな具象sequenceで行い、set_depthの明示overrideは設定せず、以前の観測後も現在の階層結果を要求する。乱数IDやarbitration順を指定せず、正確なhandleとpathを検査する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_parent_reassignment_updates_calculated_depth_root_and_path",
+          "role": "direct",
+          "expected_observations": [
+            "UT: initial depth 3 root 1 path first.middle.leaf",
+            "UT: changed depth 2 parent 1 root 1 root_name second path second.leaf",
+            "UT: detached depth 1 parent_null 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-PARENT-QUERY-AFTER-REASSIGNMENT",
+      "clause": "14.1.2.7",
+      "statement": {
+        "en": "get_parent_sequence returns the current parent after replacement or clearing.",
+        "ja": "get_parent_sequenceは、置換・解除後の現在のparentを返す。"
+      },
+      "conditions": {
+        "en": "Query after each parent change.",
+        "ja": "parent変更のたびに照会する。"
+      },
+      "expected": {
+        "en": "The getter returns second and then null.",
+        "ja": "getterはsecond、次にnullを返す。"
+      },
+      "limitations": {
+        "en": "ID tests use actual sequencer get handshakes and rsp_export after normal build/connect, two live sequences and reversed reply order. Only public set_id_info and transaction-ID accessors are used; internal sequence-ID getters/setters are not assumed. Replies are distinct objects whose explicit payload/name survive ID copying. Reparenting uses inactive concrete sequences and installs no explicit set_depth override; fresh hierarchy results are required even after earlier observations. Exact handles and paths are checked without random IDs or arbitration order.",
+        "ja": "ID検査は、通常のbuild／connect後に実際のsequencer get handshakeとrsp_exportを使い、2つのlive sequenceへ逆順にreplyする。公開set_id_infoとtransaction ID accessorだけを使い、internal sequence IDのgetter／setterは仮定しない。replyは別objectで、明示payload／名前をIDコピー後も保持する。parent変更はinactiveな具象sequenceで行い、set_depthの明示overrideは設定せず、以前の観測後も現在の階層結果を要求する。乱数IDやarbitration順を指定せず、正確なhandleとpathを検査する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_parent_reassignment_updates_calculated_depth_root_and_path",
+          "role": "direct",
+          "expected_observations": [
+            "UT: changed depth 2 parent 1 root 1 root_name second path second.leaf",
+            "UT: detached depth 1 parent_null 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-AUTOMATIC-DEPTH-AFTER-REPARENT",
+      "clause": "14.1.2.9",
+      "statement": {
+        "en": "Without an explicit set_depth, depth follows the current recursive parent chain after reparenting.",
+        "ja": "明示set_depthがなければ、depthはparent変更後の現在の再帰parent chainに従う。"
+      },
+      "conditions": {
+        "en": "Observe a depth-three leaf, replace its parent with a root and then clear that parent.",
+        "ja": "depth 3のleafを観測し、parentをrootへ置換してから解除する。"
+      },
+      "expected": {
+        "en": "Depth changes from three to two to one.",
+        "ja": "depthは3から2、1へ変わる。"
+      },
+      "limitations": {
+        "en": "ID tests use actual sequencer get handshakes and rsp_export after normal build/connect, two live sequences and reversed reply order. Only public set_id_info and transaction-ID accessors are used; internal sequence-ID getters/setters are not assumed. Replies are distinct objects whose explicit payload/name survive ID copying. Reparenting uses inactive concrete sequences and installs no explicit set_depth override; fresh hierarchy results are required even after earlier observations. Exact handles and paths are checked without random IDs or arbitration order.",
+        "ja": "ID検査は、通常のbuild／connect後に実際のsequencer get handshakeとrsp_exportを使い、2つのlive sequenceへ逆順にreplyする。公開set_id_infoとtransaction ID accessorだけを使い、internal sequence IDのgetter／setterは仮定しない。replyは別objectで、明示payload／名前をIDコピー後も保持する。parent変更はinactiveな具象sequenceで行い、set_depthの明示overrideは設定せず、以前の観測後も現在の階層結果を要求する。乱数IDやarbitration順を指定せず、正確なhandleとpathを検査する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_parent_reassignment_updates_calculated_depth_root_and_path",
+          "role": "direct",
+          "expected_observations": [
+            "UT: initial depth 3 root 1 path first.middle.leaf",
+            "UT: changed depth 2 parent 1 root 1 root_name second path second.leaf",
+            "UT: detached depth 1 parent_null 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-ROOT-REFERENCE-AFTER-REPARENT",
+      "clause": "14.1.2.13",
+      "statement": {
+        "en": "The root-sequence reference follows the currently selected parent chain.",
+        "ja": "root sequence参照は、現在選択したparent chainに従う。"
+      },
+      "conditions": {
+        "en": "Query the original chain and then replace its parent root.",
+        "ja": "元chainを照会し、その後parent rootを置換する。"
+      },
+      "expected": {
+        "en": "The root changes from exact first to exact second.",
+        "ja": "rootは正確なfirstから正確なsecondへ変わる。"
+      },
+      "limitations": {
+        "en": "ID tests use actual sequencer get handshakes and rsp_export after normal build/connect, two live sequences and reversed reply order. Only public set_id_info and transaction-ID accessors are used; internal sequence-ID getters/setters are not assumed. Replies are distinct objects whose explicit payload/name survive ID copying. Reparenting uses inactive concrete sequences and installs no explicit set_depth override; fresh hierarchy results are required even after earlier observations. Exact handles and paths are checked without random IDs or arbitration order.",
+        "ja": "ID検査は、通常のbuild／connect後に実際のsequencer get handshakeとrsp_exportを使い、2つのlive sequenceへ逆順にreplyする。公開set_id_infoとtransaction ID accessorだけを使い、internal sequence IDのgetter／setterは仮定しない。replyは別objectで、明示payload／名前をIDコピー後も保持する。parent変更はinactiveな具象sequenceで行い、set_depthの明示overrideは設定せず、以前の観測後も現在の階層結果を要求する。乱数IDやarbitration順を指定せず、正確なhandleとpathを検査する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_parent_reassignment_updates_calculated_depth_root_and_path",
+          "role": "direct",
+          "expected_observations": [
+            "UT: initial depth 3 root 1 path first.middle.leaf",
+            "UT: changed depth 2 parent 1 root 1 root_name second path second.leaf"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-ROOT-NAME-AFTER-REPARENT",
+      "clause": "14.1.2.12",
+      "statement": {
+        "en": "The root-sequence name reflects the replacement root.",
+        "ja": "root sequence名は置換後rootを反映する。"
+      },
+      "conditions": {
+        "en": "Move the leaf below second.",
+        "ja": "leafをsecond下へ移す。"
+      },
+      "expected": {
+        "en": "The root name is second.",
+        "ja": "root名はsecondとなる。"
+      },
+      "limitations": {
+        "en": "ID tests use actual sequencer get handshakes and rsp_export after normal build/connect, two live sequences and reversed reply order. Only public set_id_info and transaction-ID accessors are used; internal sequence-ID getters/setters are not assumed. Replies are distinct objects whose explicit payload/name survive ID copying. Reparenting uses inactive concrete sequences and installs no explicit set_depth override; fresh hierarchy results are required even after earlier observations. Exact handles and paths are checked without random IDs or arbitration order.",
+        "ja": "ID検査は、通常のbuild／connect後に実際のsequencer get handshakeとrsp_exportを使い、2つのlive sequenceへ逆順にreplyする。公開set_id_infoとtransaction ID accessorだけを使い、internal sequence IDのgetter／setterは仮定しない。replyは別objectで、明示payload／名前をIDコピー後も保持する。parent変更はinactiveな具象sequenceで行い、set_depthの明示overrideは設定せず、以前の観測後も現在の階層結果を要求する。乱数IDやarbitration順を指定せず、正確なhandleとpathを検査する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_parent_reassignment_updates_calculated_depth_root_and_path",
+          "role": "direct",
+          "expected_observations": [
+            "UT: changed depth 2 parent 1 root 1 root_name second path second.leaf"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-PATH-AFTER-REPARENT",
+      "clause": "14.1.2.14",
+      "statement": {
+        "en": "The dotted sequence path reflects the replacement parent chain.",
+        "ja": "ドット区切りsequence pathは置換後parent chainを反映する。"
+      },
+      "conditions": {
+        "en": "Observe first.middle.leaf and then move leaf under second.",
+        "ja": "first.middle.leafを観測し、leafをsecond下へ移す。"
+      },
+      "expected": {
+        "en": "The path changes to second.leaf.",
+        "ja": "pathはsecond.leafへ変わる。"
+      },
+      "limitations": {
+        "en": "ID tests use actual sequencer get handshakes and rsp_export after normal build/connect, two live sequences and reversed reply order. Only public set_id_info and transaction-ID accessors are used; internal sequence-ID getters/setters are not assumed. Replies are distinct objects whose explicit payload/name survive ID copying. Reparenting uses inactive concrete sequences and installs no explicit set_depth override; fresh hierarchy results are required even after earlier observations. Exact handles and paths are checked without random IDs or arbitration order.",
+        "ja": "ID検査は、通常のbuild／connect後に実際のsequencer get handshakeとrsp_exportを使い、2つのlive sequenceへ逆順にreplyする。公開set_id_infoとtransaction ID accessorだけを使い、internal sequence IDのgetter／setterは仮定しない。replyは別objectで、明示payload／名前をIDコピー後も保持する。parent変更はinactiveな具象sequenceで行い、set_depthの明示overrideは設定せず、以前の観測後も現在の階層結果を要求する。乱数IDやarbitration順を指定せず、正確なhandleとpathを検査する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_parent_reassignment_updates_calculated_depth_root_and_path",
+          "role": "direct",
+          "expected_observations": [
+            "UT: initial depth 3 root 1 path first.middle.leaf",
+            "UT: changed depth 2 parent 1 root 1 root_name second path second.leaf"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-CREATE-MAP-CONFIGURATION",
+      "clause": "18.1.2.3",
+      "statement": {
+        "en": "create_map preserves its configured name, parent, base address, bus width and endianness.",
+        "ja": "create_mapは、設定した名前、parent、base address、bus幅、endiannessを保持する。"
+      },
+      "conditions": {
+        "en": "Create explicit word-addressed big-endian and default-byte-addressed little-endian maps with width four.",
+        "ja": "幅4で、明示word addressingのbig-endian mapと、既定byte addressingのlittle-endian mapを生成する。"
+      },
+      "expected": {
+        "en": "Names/parents are exact, bases are 256/512, widths are four and the configured endian values match.",
+        "ja": "名前／parentは正確で、baseは256／512、幅は4、設定endian値が一致する。"
+      },
+      "limitations": {
+        "en": "Model-only tests use original eight-bit registers/memories and public map/block introspection, with fresh result queues and exact handle membership rather than iteration order. Explicit doors are set before observation; no unspecified initial door is inferred. Map removal uses disjoint maps in an unlocked model, avoiding shared-content ambiguities and queries through removed maps. Virtual registers are static overlays of their selected memories. Root/child isolation compares same leaf names with distinct handles. No bus, HDL or default-map behavior after unregister is asserted.",
+        "ja": "modelだけの検査で独自8 bit register／memoryと公開map／block introspectionを使い、新queueと正確なhandle所属を確認し、列挙順に依存しない。doorは観測前に明示設定し、未指定の初期doorを推測しない。map解除はunlock状態のmodelの別map間で行い、内容共有の曖昧さや解除済みmap経由の照会を避ける。virtual registerは指定memory上のstatic overlayである。root／child分離は同じleaf名・異なるhandleを比較する。bus、HDL、unregister後のdefault map動作はassertしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_create_map_preserves_bus_width_endianness_base_and_address_units",
+          "role": "direct",
+          "expected_observations": [
+            "UT: word parent 1 name words base 256 width 4 big_endian 1 unit 4",
+            "UT: byte parent 1 name bytes base 512 width 4 little_endian 1 unit 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-CREATE-MAP-ADDRESSING-UNITS",
+      "clause": "18.1.2.3",
+      "statement": {
+        "en": "Omitted byte_addressing uses byte units while explicit zero uses bus-word units.",
+        "ja": "byte_addressing省略はbyte単位、明示0はbus word単位を使う。"
+      },
+      "conditions": {
+        "en": "Compare two maps with four-byte bus widths.",
+        "ja": "4 byte bus幅の2 mapを比較する。"
+      },
+      "expected": {
+        "en": "Smallest addressable units are four for words and one for the omitted byte setting.",
+        "ja": "最小address単位は、word側が4、byte設定省略側が1となる。"
+      },
+      "limitations": {
+        "en": "Model-only tests use original eight-bit registers/memories and public map/block introspection, with fresh result queues and exact handle membership rather than iteration order. Explicit doors are set before observation; no unspecified initial door is inferred. Map removal uses disjoint maps in an unlocked model, avoiding shared-content ambiguities and queries through removed maps. Virtual registers are static overlays of their selected memories. Root/child isolation compares same leaf names with distinct handles. No bus, HDL or default-map behavior after unregister is asserted.",
+        "ja": "modelだけの検査で独自8 bit register／memoryと公開map／block introspectionを使い、新queueと正確なhandle所属を確認し、列挙順に依存しない。doorは観測前に明示設定し、未指定の初期doorを推測しない。map解除はunlock状態のmodelの別map間で行い、内容共有の曖昧さや解除済みmap経由の照会を避ける。virtual registerは指定memory上のstatic overlayである。root／child分離は同じleaf名・異なるhandleを比較する。bus、HDL、unregister後のdefault map動作はassertしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_create_map_preserves_bus_width_endianness_base_and_address_units",
+          "role": "direct",
+          "expected_observations": [
+            "UT: word parent 1 name words base 256 width 4 big_endian 1 unit 4",
+            "UT: byte parent 1 name bytes base 512 width 4 little_endian 1 unit 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-MAP-LISTING-LOCAL-MEMBERSHIP",
+      "clause": "18.1.3.6",
+      "statement": {
+        "en": "get_maps returns maps instantiated in the current block, excluding maps belonging only to a child.",
+        "ja": "get_mapsは現在blockに生成したmapを返し、childだけに属するmapは含めない。"
+      },
+      "conditions": {
+        "en": "Create two local maps and one child map.",
+        "ja": "local mapを2つ、child mapを1つ生成する。"
+      },
+      "expected": {
+        "en": "The returned queue contains exactly the two local handles and excludes the nested one.",
+        "ja": "返却queueは正確なlocal 2 handleを含み、入れ子側を除外する。"
+      },
+      "limitations": {
+        "en": "Model-only tests use original eight-bit registers/memories and public map/block introspection, with fresh result queues and exact handle membership rather than iteration order. Explicit doors are set before observation; no unspecified initial door is inferred. Map removal uses disjoint maps in an unlocked model, avoiding shared-content ambiguities and queries through removed maps. Virtual registers are static overlays of their selected memories. Root/child isolation compares same leaf names with distinct handles. No bus, HDL or default-map behavior after unregister is asserted.",
+        "ja": "modelだけの検査で独自8 bit register／memoryと公開map／block introspectionを使い、新queueと正確なhandle所属を確認し、列挙順に依存しない。doorは観測前に明示設定し、未指定の初期doorを推測しない。map解除はunlock状態のmodelの別map間で行い、内容共有の曖昧さや解除済みmap経由の照会を避ける。virtual registerは指定memory上のstatic overlayである。root／child分離は同じleaf名・異なるhandleを比較する。bus、HDL、unregister後のdefault map動作はassertしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_map_listing_is_local_and_default_selection_tracks_the_latest_explicit_map",
+          "role": "direct",
+          "expected_observations": [
+            "UT: maps count 2 exact_local 1 nested_excluded 1 first_default 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-DEFAULT-MAP-REPLACEMENT-AND-RESELECTION",
+      "clause": "18.1.2.4",
+      "statement": {
+        "en": "set_default_map selects the supplied local map and can later reselect an earlier one.",
+        "ja": "set_default_mapは指定local mapを選び、後で以前のmapを再選択できる。"
+      },
+      "conditions": {
+        "en": "Observe initial null/first-created behavior, then select the second and reselect the first.",
+        "ja": "初期null／最初の生成mapを観測し、次にsecondを選んでfirstを再選択する。"
+      },
+      "expected": {
+        "en": "The selected handles follow each call and the child default remains its own map.",
+        "ja": "選択handleは各呼出しに従い、childのdefaultは自身のmapを保持する。"
+      },
+      "limitations": {
+        "en": "Model-only tests use original eight-bit registers/memories and public map/block introspection, with fresh result queues and exact handle membership rather than iteration order. Explicit doors are set before observation; no unspecified initial door is inferred. Map removal uses disjoint maps in an unlocked model, avoiding shared-content ambiguities and queries through removed maps. Virtual registers are static overlays of their selected memories. Root/child isolation compares same leaf names with distinct handles. No bus, HDL or default-map behavior after unregister is asserted.",
+        "ja": "modelだけの検査で独自8 bit register／memoryと公開map／block introspectionを使い、新queueと正確なhandle所属を確認し、列挙順に依存しない。doorは観測前に明示設定し、未指定の初期doorを推測しない。map解除はunlock状態のmodelの別map間で行い、内容共有の曖昧さや解除済みmap経由の照会を避ける。virtual registerは指定memory上のstatic overlayである。root／child分離は同じleaf名・異なるhandleを比較する。bus、HDL、unregister後のdefault map動作はassertしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_map_listing_is_local_and_default_selection_tracks_the_latest_explicit_map",
+          "role": "direct",
+          "expected_observations": [
+            "UT: initially_null 1",
+            "UT: maps count 2 exact_local 1 nested_excluded 1 first_default 1",
+            "UT: replaced 1 child_retained 1",
+            "UT: reselected 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-DEFAULT-DOOR-QUERY-AFTER-SETTING",
+      "clause": "18.1.5.1",
+      "statement": {
+        "en": "get_default_door returns the currently configured block door.",
+        "ja": "get_default_doorは、現在設定したblockのdoorを返す。"
+      },
+      "conditions": {
+        "en": "Set explicit frontdoor/backdoor values before each query.",
+        "ja": "照会前にfrontdoor／backdoorを明示設定する。"
+      },
+      "expected": {
+        "en": "The query follows backdoor/frontdoor/backdoor replacement.",
+        "ja": "照会はbackdoor／frontdoor／backdoorへの置換に従う。"
+      },
+      "limitations": {
+        "en": "Model-only tests use original eight-bit registers/memories and public map/block introspection, with fresh result queues and exact handle membership rather than iteration order. Explicit doors are set before observation; no unspecified initial door is inferred. Map removal uses disjoint maps in an unlocked model, avoiding shared-content ambiguities and queries through removed maps. Virtual registers are static overlays of their selected memories. Root/child isolation compares same leaf names with distinct handles. No bus, HDL or default-map behavior after unregister is asserted.",
+        "ja": "modelだけの検査で独自8 bit register／memoryと公開map／block introspectionを使い、新queueと正確なhandle所属を確認し、列挙順に依存しない。doorは観測前に明示設定し、未指定の初期doorを推測しない。map解除はunlock状態のmodelの別map間で行い、内容共有の曖昧さや解除済みmap経由の照会を避ける。virtual registerは指定memory上のstatic overlayである。root／child分離は同じleaf名・異なるhandleを比較する。bus、HDL、unregister後のdefault map動作はassertしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_default_door_replacement_is_immediate_and_local_to_the_selected_block",
+          "role": "direct",
+          "expected_observations": [
+            "UT: first selected_backdoor 1 peer_frontdoor 1",
+            "UT: replaced selected_frontdoor 1 peer_frontdoor 1",
+            "UT: reused selected_backdoor 1 peer_frontdoor 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-DEFAULT-DOOR-LOCAL-REPLACEMENT",
+      "clause": "18.1.5.2",
+      "statement": {
+        "en": "Changing a block default door immediately replaces that setting without changing an independent block.",
+        "ja": "block default doorの変更は即座にその設定を置換し、独立blockを変えない。"
+      },
+      "conditions": {
+        "en": "Switch one block twice while its peer is explicitly frontdoor.",
+        "ja": "peerを明示frontdoorにしたまま、一方を2回切り替える。"
+      },
+      "expected": {
+        "en": "The selected block follows both replacements and peer remains frontdoor.",
+        "ja": "選択blockは両置換に従い、peerはfrontdoorを保つ。"
+      },
+      "limitations": {
+        "en": "Model-only tests use original eight-bit registers/memories and public map/block introspection, with fresh result queues and exact handle membership rather than iteration order. Explicit doors are set before observation; no unspecified initial door is inferred. Map removal uses disjoint maps in an unlocked model, avoiding shared-content ambiguities and queries through removed maps. Virtual registers are static overlays of their selected memories. Root/child isolation compares same leaf names with distinct handles. No bus, HDL or default-map behavior after unregister is asserted.",
+        "ja": "modelだけの検査で独自8 bit register／memoryと公開map／block introspectionを使い、新queueと正確なhandle所属を確認し、列挙順に依存しない。doorは観測前に明示設定し、未指定の初期doorを推測しない。map解除はunlock状態のmodelの別map間で行い、内容共有の曖昧さや解除済みmap経由の照会を避ける。virtual registerは指定memory上のstatic overlayである。root／child分離は同じleaf名・異なるhandleを比較する。bus、HDL、unregister後のdefault map動作はassertしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_default_door_replacement_is_immediate_and_local_to_the_selected_block",
+          "role": "direct",
+          "expected_observations": [
+            "UT: first selected_backdoor 1 peer_frontdoor 1",
+            "UT: replaced selected_frontdoor 1 peer_frontdoor 1",
+            "UT: reused selected_backdoor 1 peer_frontdoor 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-UNREGISTER-MAP-MEMBERSHIP",
+      "clause": "18.1.2.11",
+      "statement": {
+        "en": "Block unregister removes its knowledge of the specified map while preserving another map.",
+        "ja": "block unregisterは、指定mapの情報を除き、別mapを保持する。"
+      },
+      "conditions": {
+        "en": "Unregister one of two disjoint local maps.",
+        "ja": "重複のない2 local mapの一方を解除する。"
+      },
+      "expected": {
+        "en": "Block get_maps contains only the exact kept map.",
+        "ja": "block get_mapsは、正確な保持mapだけを含む。"
+      },
+      "limitations": {
+        "en": "Model-only tests use original eight-bit registers/memories and public map/block introspection, with fresh result queues and exact handle membership rather than iteration order. Explicit doors are set before observation; no unspecified initial door is inferred. Map removal uses disjoint maps in an unlocked model, avoiding shared-content ambiguities and queries through removed maps. Virtual registers are static overlays of their selected memories. Root/child isolation compares same leaf names with distinct handles. No bus, HDL or default-map behavior after unregister is asserted.",
+        "ja": "modelだけの検査で独自8 bit register／memoryと公開map／block introspectionを使い、新queueと正確なhandle所属を確認し、列挙順に依存しない。doorは観測前に明示設定し、未指定の初期doorを推測しない。map解除はunlock状態のmodelの別map間で行い、内容共有の曖昧さや解除済みmap経由の照会を避ける。virtual registerは指定memory上のstatic overlayである。root／child分離は同じleaf名・異なるhandleを比較する。bus、HDL、unregister後のdefault map動作はassertしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_unregister_removes_one_maps_registers_and_memories_and_preserves_another_map",
+          "role": "direct",
+          "expected_observations": [
+            "UT: maps count 1 exact_kept 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-UNREGISTER-REGISTER-MEMBERSHIP",
+      "clause": "18.1.2.11",
+      "statement": {
+        "en": "Block unregister removes registers contained in the removed map from block introspection.",
+        "ja": "block unregisterは、解除mapに含むregisterをblock introspectionから除く。"
+      },
+      "conditions": {
+        "en": "Place one register in each disjoint map, then unregister one map.",
+        "ja": "別々のmapへ各1 registerを置き、一方のmapを解除する。"
+      },
+      "expected": {
+        "en": "Only the exact kept register remains in the local listing.",
+        "ja": "local一覧には正確な保持registerだけが残る。"
+      },
+      "limitations": {
+        "en": "Model-only tests use original eight-bit registers/memories and public map/block introspection, with fresh result queues and exact handle membership rather than iteration order. Explicit doors are set before observation; no unspecified initial door is inferred. Map removal uses disjoint maps in an unlocked model, avoiding shared-content ambiguities and queries through removed maps. Virtual registers are static overlays of their selected memories. Root/child isolation compares same leaf names with distinct handles. No bus, HDL or default-map behavior after unregister is asserted.",
+        "ja": "modelだけの検査で独自8 bit register／memoryと公開map／block introspectionを使い、新queueと正確なhandle所属を確認し、列挙順に依存しない。doorは観測前に明示設定し、未指定の初期doorを推測しない。map解除はunlock状態のmodelの別map間で行い、内容共有の曖昧さや解除済みmap経由の照会を避ける。virtual registerは指定memory上のstatic overlayである。root／child分離は同じleaf名・異なるhandleを比較する。bus、HDL、unregister後のdefault map動作はassertしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_unregister_removes_one_maps_registers_and_memories_and_preserves_another_map",
+          "role": "direct",
+          "expected_observations": [
+            "UT: registers count 1 exact_kept 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-UNREGISTER-MEMORY-MEMBERSHIP",
+      "clause": "18.1.2.11",
+      "statement": {
+        "en": "Block unregister removes memories contained in the removed map from block introspection.",
+        "ja": "block unregisterは、解除mapに含むmemoryをblock introspectionから除く。"
+      },
+      "conditions": {
+        "en": "Place one memory in each disjoint map and unregister one.",
+        "ja": "別々のmapへ各1 memoryを置き、一方を解除する。"
+      },
+      "expected": {
+        "en": "Only the exact kept memory remains in the local listing.",
+        "ja": "local一覧には正確な保持memoryだけが残る。"
+      },
+      "limitations": {
+        "en": "Model-only tests use original eight-bit registers/memories and public map/block introspection, with fresh result queues and exact handle membership rather than iteration order. Explicit doors are set before observation; no unspecified initial door is inferred. Map removal uses disjoint maps in an unlocked model, avoiding shared-content ambiguities and queries through removed maps. Virtual registers are static overlays of their selected memories. Root/child isolation compares same leaf names with distinct handles. No bus, HDL or default-map behavior after unregister is asserted.",
+        "ja": "modelだけの検査で独自8 bit register／memoryと公開map／block introspectionを使い、新queueと正確なhandle所属を確認し、列挙順に依存しない。doorは観測前に明示設定し、未指定の初期doorを推測しない。map解除はunlock状態のmodelの別map間で行い、内容共有の曖昧さや解除済みmap経由の照会を避ける。virtual registerは指定memory上のstatic overlayである。root／child分離は同じleaf名・異なるhandleを比較する。bus、HDL、unregister後のdefault map動作はassertしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_unregister_removes_one_maps_registers_and_memories_and_preserves_another_map",
+          "role": "direct",
+          "expected_observations": [
+            "UT: memories count 1 exact_kept 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-UNREGISTER-VIRTUAL-REGISTER-MEMBERSHIP",
+      "clause": "18.1.2.11",
+      "statement": {
+        "en": "Block unregister removes virtual registers belonging to the removed map content.",
+        "ja": "block unregisterは、解除mapの内容に属するvirtual registerを除く。"
+      },
+      "conditions": {
+        "en": "Create one static virtual-register overlay on each mapped memory, then remove one map.",
+        "ja": "map済みmemoryごとに1つのstatic virtual-register overlayを生成し、一方のmapを除く。"
+      },
+      "expected": {
+        "en": "The two-entry virtual register listing becomes one exact kept overlay.",
+        "ja": "2 entryのvirtual register一覧は、正確な保持overlay 1つになる。"
+      },
+      "limitations": {
+        "en": "Model-only tests use original eight-bit registers/memories and public map/block introspection, with fresh result queues and exact handle membership rather than iteration order. Explicit doors are set before observation; no unspecified initial door is inferred. Map removal uses disjoint maps in an unlocked model, avoiding shared-content ambiguities and queries through removed maps. Virtual registers are static overlays of their selected memories. Root/child isolation compares same leaf names with distinct handles. No bus, HDL or default-map behavior after unregister is asserted.",
+        "ja": "modelだけの検査で独自8 bit register／memoryと公開map／block introspectionを使い、新queueと正確なhandle所属を確認し、列挙順に依存しない。doorは観測前に明示設定し、未指定の初期doorを推測しない。map解除はunlock状態のmodelの別map間で行い、内容共有の曖昧さや解除済みmap経由の照会を避ける。virtual registerは指定memory上のstatic overlayである。root／child分離は同じleaf名・異なるhandleを比較する。bus、HDL、unregister後のdefault map動作はassertしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_unregister_removes_virtual_registers_backed_by_the_selected_maps_memory",
+          "role": "direct",
+          "expected_observations": [
+            "UT: before_count 2",
+            "UT: after_count 1 exact_kept 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-UNREGISTER-CHILD-IDENTITY-ISOLATION",
+      "clause": "18.1.2.11",
+      "statement": {
+        "en": "Unregistering a local map preserves distinct same-named child maps and their content.",
+        "ja": "local mapの解除は、同名でも異なるchild mapと内容を保持する。"
+      },
+      "conditions": {
+        "en": "Use equal map/register leaf names in a root and child, then unregister only the root map.",
+        "ja": "rootとchildでmap／registerのleaf名を同じにし、root mapだけを解除する。"
+      },
+      "expected": {
+        "en": "Root local map/register listings become empty while child and hierarchical listings retain the exact child register and parent.",
+        "ja": "rootのlocal map／register一覧は空になり、childとhierarchical一覧は正確なchild registerとparentを保持する。"
+      },
+      "limitations": {
+        "en": "Model-only tests use original eight-bit registers/memories and public map/block introspection, with fresh result queues and exact handle membership rather than iteration order. Explicit doors are set before observation; no unspecified initial door is inferred. Map removal uses disjoint maps in an unlocked model, avoiding shared-content ambiguities and queries through removed maps. Virtual registers are static overlays of their selected memories. Root/child isolation compares same leaf names with distinct handles. No bus, HDL or default-map behavior after unregister is asserted.",
+        "ja": "modelだけの検査で独自8 bit register／memoryと公開map／block introspectionを使い、新queueと正確なhandle所属を確認し、列挙順に依存しない。doorは観測前に明示設定し、未指定の初期doorを推測しない。map解除はunlock状態のmodelの別map間で行い、内容共有の曖昧さや解除済みmap経由の照会を避ける。virtual registerは指定memory上のstatic overlayである。root／child分離は同じleaf名・異なるhandleを比較する。bus、HDL、unregister後のdefault map動作はassertしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_unregister_preserves_a_same_named_map_and_register_in_a_child_block",
+          "role": "direct",
+          "expected_observations": [
+            "UT: owner_maps 0 owner_registers 0 child_map_kept 1",
+            "UT: child_register_kept 1 hierarchical_register_kept 1 parent_kept 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-VIRTUAL-REGISTER-QUERY-AFTER-UNREGISTER",
+      "clause": "18.1.3.10",
+      "statement": {
+        "en": "The block virtual-register query reflects the currently retained virtual registers.",
+        "ja": "blockのvirtual-register照会は、現在保持するvirtual registerを反映する。"
+      },
+      "conditions": {
+        "en": "Query before and after removing one mapped static overlay.",
+        "ja": "map済みstatic overlayの一方を除去する前後で照会する。"
+      },
+      "expected": {
+        "en": "The local queue changes from two entries to the one exact remaining handle.",
+        "ja": "local queueは2 entryから、正確な残存handle 1つへ変わる。"
+      },
+      "limitations": {
+        "en": "Model-only tests use original eight-bit registers/memories and public map/block introspection, with fresh result queues and exact handle membership rather than iteration order. Explicit doors are set before observation; no unspecified initial door is inferred. Map removal uses disjoint maps in an unlocked model, avoiding shared-content ambiguities and queries through removed maps. Virtual registers are static overlays of their selected memories. Root/child isolation compares same leaf names with distinct handles. No bus, HDL or default-map behavior after unregister is asserted.",
+        "ja": "modelだけの検査で独自8 bit register／memoryと公開map／block introspectionを使い、新queueと正確なhandle所属を確認し、列挙順に依存しない。doorは観測前に明示設定し、未指定の初期doorを推測しない。map解除はunlock状態のmodelの別map間で行い、内容共有の曖昧さや解除済みmap経由の照会を避ける。virtual registerは指定memory上のstatic overlayである。root／child分離は同じleaf名・異なるhandleを比較する。bus、HDL、unregister後のdefault map動作はassertしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_unregister_removes_virtual_registers_backed_by_the_selected_maps_memory",
+          "role": "direct",
+          "expected_observations": [
+            "UT: before_count 2",
+            "UT: after_count 1 exact_kept 1"
+          ]
+        }
+      ]
     }
   ]
 }

@@ -135,7 +135,7 @@ See [Ghost setup](testing.md#ghost).
 
 It removes `UVM_NO_DPI` from the default macro list. It does not supply or link
 UVM's C/C++ implementation. The current Verilator runner does not add those
-sources. There are 1151 `UVM_NO_DPI` cases and eight explicit HDL-DPI cases.
+sources. There are 1166 `UVM_NO_DPI` cases and eight explicit HDL-DPI cases.
 The [separate VPI runner](testing.md#verilator-vpi-hdl-subset) links the original
 limited backend; results apply only to that declared execution condition.
 User-defined `uvm_reg_backdoor` handlers can operate without HDL DPI (Q67).
@@ -174,7 +174,7 @@ a claim that every test was rebuilt together.
 
 ### Q16. Are M1, M2 or M3 complete, and what does the test count cover?
 
-M1 and M2 still have open clause targets. M3 now has 345
+M1 and M2 still have open clause targets. M3 now has 351
 register-layer cases, including testbench frontdoor paths; it is also incomplete. Starting a stage does not complete
 the preceding stages.
 The [plan](../README.md#plan) identifies current scope and remaining work.
@@ -1141,9 +1141,9 @@ not a direct test of the requirement.
 
 ### Q77. Why is there no coverage percentage after starting M4?
 
-The 1261 AI drafts cover only a partial decomposition: 1261 requirements link
-directly to 1158 tests; all drafts have direct tests, and one separate test is a control.
-All 1159 tests have requirement links. The 2,504 clause identifiers are not normative requirement units.
+The 1301 AI drafts cover only a partial decomposition: 1301 requirements link
+directly to 1173 tests; all drafts have direct tests, and one separate test is a control.
+All 1174 tests have requirement links. The 2,504 clause identifiers are not normative requirement units.
 The scope is proposed, the inventory incomplete and the denominator unapproved;
 starting M4 approves none of those. Known differences and HDL/DPI limitations
 do not silently exclude obligations. See the [approval path](requirements.md#remaining-m4-work-and-approval).
@@ -2143,7 +2143,7 @@ No. `tests_without_requirement_links` is zero: every current test has an
 explicit direct or control link. The separate counter
 `requirements_without_direct_tests` is zero. The memory-walk link uses the
 qualified historical interpretation in Q134. It is not approval of missing
-IEEE detail. HDL deposit and accessibility use explicit VPI fixtures. Another 1,692
+IEEE detail. HDL deposit and accessibility use explicit VPI fixtures. Another 1,655
 catalog identifiers remain unassessed; decomposition and human review are
 incomplete, and the denominator remains unapproved.
 
@@ -2244,7 +2244,7 @@ in [identifier assessments](../coverage/assessments.json). Structural headings
 have no related requirements; contextual descriptions name existing requirements.
 An unreviewed record, guessed classification or parent rollup cannot do this.
 The generated state is `assessed`, separate from `partial` requirement clauses.
-Fourteen classifications currently exist, with no denominator approval or new pass.
+Twenty-two classifications currently exist, with no denominator approval or new pass.
 Chapter 11's zero unassessed identifiers still does not complete its requirements.
 
 ### Q136. Does explicit strict configuration make the new cases pass?
@@ -2287,3 +2287,34 @@ queues are fresh, iteration order is not prescribed and the single-block
 query uses an unambiguous name. Waiters register before completion; a new
 post-completion call is outside this oracle. Standard API omissions remain visible as
 spec-only build results; private library state is not substituted.
+
+### Q140. What do the abstract-registry cases cover?
+
+Virtual represented types use abstract registries. The tests check singleton
+identity, explicit/default names, registration with the selected factory,
+concrete type and relative instance overrides, and error/null creation without
+an override. The factory boundary avoids assuming a callback overload from
+the inconsistent abstract-object signature and instance-override cross-reference.
+No text correction or human approval is claimed. Parent-present and parentless
+component cases are separate: the pinned parentless diagnostic dereferences
+null; its parent-present and abstract-object controls match.
+
+### Q141. How do ID-copy and parent-change checks avoid internal APIs?
+
+Two live sequences wait for targeted replies. set_id_info copies IDs before
+the driver changes source transaction IDs to 99; reversed reply delivery still
+reaches the exact waiting sequences with IDs 11/22 and unchanged payload/names.
+There are no internal sequence-ID getters/setters. Separately, inactive parent
+replacement/clearing checks exact parents, roots, paths and automatic depth.
+Without an explicit set_depth, the required depth follows 3/2/1; the pinned
+cache remains three, so that expectation is spec-only.
+
+### Q142. What does block map removal establish?
+
+Before locking, block unregister removes one disjoint map's registers,
+memories and static virtual-register overlays from block listings while keeping
+another map. A same-named child map/register remains intact and appears in
+hierarchical queries. No removed-map query, shared-map ownership rule,
+post-removal default-map choice, bus transfer or HDL behavior is inferred.
+Separate cases check map construction/address units, local map lists/default
+reselection and explicitly set frontdoor/backdoor replacement.
