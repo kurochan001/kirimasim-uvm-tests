@@ -3,8 +3,8 @@
 [日本語](history.ja.md) · [README](../README.md)
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and thirty-three cross-milestone thin-area expansions, including the
-existing-test requirement-link backlog checkpoint (1343 simulation tests). The earlier 349-test checkpoint is
+three M4 increments and thirty-four cross-milestone thin-area expansions, including the
+existing-test requirement-link backlog checkpoint (1357 simulation tests). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -2685,3 +2685,40 @@ All runners/tools, prior simulation inputs, CI, catalog, scope, library lock,
 licenses, Issue policy, six SVG assets and separate VPI records are unchanged.
 The active goal retains the four callback propagation differences and all
 remaining applicability, partial-obligation and interpretation work.
+
+## Thirty-fourth thin-area expansion across M1–M4
+
+The sixth persistent-goal iteration adds fourteen M1 fixtures: five constructor/
+type cases, initial event-pool membership, two raw wait cases, accepted time/
+state, two data cases, mixed-waiter reset and two barrier cases. Eleven match
+final inputs at seeds 1 and 73; three first differ at seed 1 with no seed 73
+result. The suite reaches 1357: M1 461, M2 470 and M3 426. A public pre-trigger
+query confirms an early raw waiter, but it resumes only on the second trigger
+in the measured condition; the late caller correctly waits for a fresh one.
+Default event reset reports zero waiters while three callers remain blocked;
+a fresh trigger still releases all three. Required event-pool names are absent
+before lazy get. Their normative expectations remain spec-only. Separate
+persistent-wait, barrier threshold/reset, scalar-copy and live-object-alias
+controls match. The barrier silent-reset case uses bounded observation and
+cleanup so a stranded-process condition would not hide its public result.
+
+Thirty-six AI drafts bring the ledger to 1892, directly linked to 1356 tests
+plus one control. All earlier drafts remain unchanged. Seven structural and
+seven contextual individual assessments bring the total to 127: 98 structural
+and 29 contextual. Chapter 10 has 65 partial, 15 assessed and 36 unassessed
+identifiers. Overall, 1072 of 2,507 identifiers are partial, 127 assessed and
+1,308 unassessed: 35 fewer this iteration and 155 fewer since activation.
+Primary focus is 676, any citation 1,339; the candidate census is 1,806 zero,
+391 one and 285 at least two. Both pool get_global declaration/prose conflicts,
+partial obligations, milestone targets, scope and human review remain open.
+
+Compatible ordinary evidence retains all 1343 prior inputs: 1191 pass and
+166 known (124 runtime first differences, sixteen missing-API builds and
+26 unlinked-DPI builds). Separate command-line evidence remains 17 pass/
+1 known and HDL VPI 7 pass/1 fail. Guest evidence retains 1085 unchanged
+inputs; 272 current IDs are unmeasured. Validation covers 101 tool tests,
+1357 metadata records, ledger/index/library identity, compatible execution
+records and ten guide pairs with 185 FAQ answers and 206 glossary entries.
+All runners/tools, prior simulation inputs, CI, catalog, scope, library lock,
+licenses, Issue policy, six SVG assets and separate VPI records are unchanged.
+The goal remains active, including the remaining partial obligations.

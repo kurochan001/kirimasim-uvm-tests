@@ -798,6 +798,10 @@
       "primary_clause": "10.3.2.8",
       "inputs_sha256": "6837420c33cb8116a999d9994ce71de5c1acc7f212079bfdb3b5706f7e66e5d3"
     },
+    "u10/test_barrier_constructor_names_threshold_defaults_and_object_base_are_instance_local": {
+      "primary_clause": "10.3.2.1",
+      "inputs_sha256": "7fafa9d02e784b2b01659cebe7fda3103be3e14fa29fca9da672f86427d2605d"
+    },
     "u10/test_barrier_default_auto_reset_requires_a_fresh_threshold_on_each_round": {
       "primary_clause": "10.3.2.4",
       "inputs_sha256": "1d2e07af2b7b444a55d66a4df11b8a7b55f1150d33548c93138be72b246a08fc"
@@ -813,6 +817,14 @@
     "u10/test_barrier_pool_creates_keyed_objects_with_local_state_and_a_shared_global_pool": {
       "primary_clause": "10.4.2.2.4",
       "inputs_sha256": "0f0a0eb5e81476a4f6bc2d478cdb1dbe08e0fdbc393f96174f1b4996ece77988"
+    },
+    "u10/test_barrier_raised_threshold_keeps_waiters_and_peer_progress_independent": {
+      "primary_clause": "10.3.2.7",
+      "inputs_sha256": "a920a5b206d99396d41730b5a9949018ba23c51832698aaf158c00a98d7ea1c3"
+    },
+    "u10/test_barrier_reset_without_wakeup_rearms_count_and_releases_old_waiters_at_fresh_threshold": {
+      "primary_clause": "10.3.2.3",
+      "inputs_sha256": "b2a409808fd2da4aa6234c1ccbd3ed682f017cf8f71b42c38844747f22467550"
     },
     "u10/test_barrier_without_auto_reset_remains_open_until_explicit_reset": {
       "primary_clause": "10.3.2.4",
@@ -898,6 +910,18 @@
       "primary_clause": "10.7.2.3.1",
       "inputs_sha256": "44c98242fca7214c492c9858f431d4b8fe7021d66d93f837f5f98741ccf7f792"
     },
+    "u10/test_dedicated_pool_constructors_and_exact_generic_bases_preserve_identity": {
+      "primary_clause": "10.4.1.2.1",
+      "inputs_sha256": "6251d67fd56c119299c5e69527fcbf8c074336a6c5c0a1f663d7f1958d8f0b99"
+    },
+    "u10/test_event_base_constructor_names_and_object_base_preserve_identity": {
+      "primary_clause": "10.1.1.2.1",
+      "inputs_sha256": "8498388f712fcc65b768601b6724ac7c63e26c42a4682907d2b5443a4dbab8c6"
+    },
+    "u10/test_event_callback_constructor_names_default_parameter_and_callback_base_preserve_identity": {
+      "primary_clause": "10.2.2.1",
+      "inputs_sha256": "64e06c8de7287c8811e4ba195f6313f653f5ef6fcdab05ab84d15263eaf88ba0"
+    },
     "u10/test_event_cancel_removes_a_killed_waiter_without_releasing_the_survivor": {
       "primary_clause": "10.1.1.2.9",
       "inputs_sha256": "10ffa33a6bd0aa00eb0a3ac17f7255215ade96505bf0f9508439ad07d923c6aa"
@@ -906,9 +930,17 @@
       "primary_clause": "10.1.2.2.6",
       "inputs_sha256": "1424952248f9d83173c7114a79749abced23e21e62fff5b6e2586cc939173018"
     },
+    "u10/test_event_default_reset_preserves_mixed_waiters_for_a_fresh_trigger": {
+      "primary_clause": "10.1.1.2.10",
+      "inputs_sha256": "b076f5227bf7fa4870455da6502e17061fe077d4f38ea06d94f7660faf4a2398"
+    },
     "u10/test_event_disabled_callback_is_skipped_and_can_be_reenabled_for_later_triggers": {
       "primary_clause": "10.7.1.2.2",
       "inputs_sha256": "6fef1ea6050037ec97fc5412337a92335164654c55ce237a88328fc002a85b6e"
+    },
+    "u10/test_event_object_trigger_data_retains_live_handle_aliases_replacement_and_null": {
+      "primary_clause": "10.1.2.2.5",
+      "inputs_sha256": "a813242407ad7d7e9a40f6eba1da495ea1526e8b7dac79f0b8e7222c52490943"
     },
     "u10/test_event_on_off_waits_follow_reset_and_a_second_trigger": {
       "primary_clause": "10.1.1.2.2",
@@ -922,6 +954,10 @@
       "primary_clause": "10.4.1.2.4",
       "inputs_sha256": "2171d508f1102031540f22565f2bef7ecdbc5f6427673c46bad5f1e4c1e02ad4"
     },
+    "u10/test_event_pool_initial_membership_contains_begin_accept_and_end_without_lazy_get": {
+      "primary_clause": "10.4.1",
+      "inputs_sha256": "4609d00480ef3d716c930409d4fd613182ccd9bdfbc0093e51dc9ebb031140a4"
+    },
     "u10/test_event_post_trigger_observes_activation_and_reset_does_not_invoke_callbacks": {
       "primary_clause": "10.2.2.3",
       "inputs_sha256": "1a3c5a1e6019ef64f066f3fe907423614771202dd0aee73524c01b04b4190089"
@@ -930,13 +966,29 @@
       "primary_clause": "10.2.2.2",
       "inputs_sha256": "85405e4efb326defe6cafb62c86d9ca8327616a7de95ff1aa3b24536def8f6a3"
     },
+    "u10/test_event_raw_persistent_wait_is_immediate_in_slice_but_waits_in_a_later_slice": {
+      "primary_clause": "10.1.1.2.5",
+      "inputs_sha256": "8759e5728fd96373f139e926fd99d3f22314d1780dfeba7aaf402de24ed3416c"
+    },
+    "u10/test_event_raw_trigger_wait_distinguishes_early_and_same_slice_late_calls": {
+      "primary_clause": "10.1.1.2.4",
+      "inputs_sha256": "0863a9ba5b3c38d5b0e17f0e28cc6809f939cbce9377a4f99a3e16643ae98779"
+    },
     "u10/test_event_reset_with_wakeup_releases_both_wait_styles_without_callback_dispatch": {
       "primary_clause": "10.1.1.2.8",
       "inputs_sha256": "43390a28394bcecd79fa5b89acf2a98aa13c647ca55016ab19f3cdc3fdf4880b"
     },
+    "u10/test_event_scalar_trigger_data_copies_the_supplied_value_and_keeps_peer_history": {
+      "primary_clause": "10.1.2.2.5",
+      "inputs_sha256": "552cc7886cefdb8eb63c74dcbee5653e2f8090754f011e79320b8c9980da9098"
+    },
     "u10/test_event_trigger_data_waits_for_a_fresh_trigger_after_an_earlier_time_slice": {
       "primary_clause": "10.1.2.2.2",
       "inputs_sha256": "ad9b2a23e4432050b6885f907ba40395ce94aa2dae6272edf8ed6587d4e395f1"
+    },
+    "u10/test_event_trigger_time_state_and_last_data_follow_accept_veto_reset_and_peer_isolation": {
+      "primary_clause": "10.1.1.2.6",
+      "inputs_sha256": "5a23c7804560f9572e6d0090495ce3db225408847cae8afe78f9fddc766e2646"
     },
     "u10/test_heartbeat_all_active_windows_accept_participation_after_remove_and_add": {
       "primary_clause": "10.6.2.3",
@@ -1013,6 +1065,10 @@
     "u10/test_objection_wait_for_raised_observes_callback_and_count": {
       "primary_clause": "10.5.1.5.2",
       "inputs_sha256": "c6687085d6d23a1cd0d88ac5bcffbff2c4f8ba2548fb4528338702ab3a54062b"
+    },
+    "u10/test_typed_event_constructor_names_default_parameter_and_base_preserve_identity": {
+      "primary_clause": "10.1.2.2.1",
+      "inputs_sha256": "b4f89ce7e2100c11d671a07ba02b60be1deb6bbdcbacfb8d6137d362a5ac9e2a"
     },
     "u10/test_typewide_callback_applies_to_existing_and_future_objects": {
       "primary_clause": "10.7.2.3.1",

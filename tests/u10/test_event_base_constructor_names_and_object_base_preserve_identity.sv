@@ -1,0 +1,36 @@
+/*
+:name: test_event_base_constructor_names_and_object_base_preserve_identity
+:description: event base constructor names and object base preserve identity (IEEE 1800.2-2020 Section 10.1.1.2.1)
+:tags: u10 uvm
+:type: simulation
+:lrm: 1800.2-2020 10.1.1.2.1 10.1.1.1 5.3.4.2 1800-2023 6.21
+:uvm: 2020.3.1
+:oracle: spec verilator@5.052
+:spec_check: ai
+:fourstate: no
+:nondeterministic: no
+:expected_exit: 0
+:expected_stdout: @test_event_base_constructor_names_and_object_base_preserve_identity.expected
+*/
+// Concrete original subtypes expose optional base construction without
+// creating
+// the abstract class itself. Only selected names and positive inheritance are
+// checked; invalid construction and unspecified initial fields remain
+// separate.
+module test_event_base_constructor_names_and_object_base_preserve_identity;
+  import uvm_pkg::*;
+  class implicit_event extends uvm_event_base; endclass
+  class named_event extends uvm_event_base;
+    function new(string name); super.new(name); endfunction
+  endclass
+  initial begin
+    automatic implicit_event omitted = new();
+    automatic named_event named = new("selected");
+    automatic named_event empty = new("");
+    automatic uvm_object base_view = named;
+    $display("UT: event_base_names omitted %0d named %0d empty %0d",
+             omitted.get_name() == "",named.get_name() == "selected",empty.get_name() == "");
+    $display("UT: event_base_object identity %0d",base_view == named);
+    $finish;
+  end
+endmodule

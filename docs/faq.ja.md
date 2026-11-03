@@ -122,7 +122,7 @@ Ghostは公開前のシミュレータの仮名です。実行ファイルの識
 ### Q12. uvm_dpi: yesだけでDPIを使うビルドが完成しますか
 
 既定のマクロ一覧から`UVM_NO_DPI`を外す指定です。UVMのC/C++実装の供給・リンクは行いません。
-通常のVerilator runnerは、そのsourceを追加しません。`UVM_NO_DPI`が1317件、HDL DPIの明示選択が8件です。
+通常のVerilator runnerは、そのsourceを追加しません。`UVM_NO_DPI`が1331件、HDL DPIの明示選択が8件です。
 別の18検査系はHDLを無効にしてcommand-line／regex DPIを明示して有効化し、
 [command-line runner](testing.ja.md#verilatorのcommand-line部分集合)がその別backendをlinkします。
 [別のVPI runner](testing.ja.md#verilatorのvpi-hdl部分集合)は独自の限定backendをlinkし、結果は宣言した実行条件だけに適用します。
@@ -923,8 +923,8 @@ controlの対応は、その要求の直接の検査ではありません。
 
 ### Q77. M4を始めたのに、カバレッジ率がないのはなぜですか
 
-AIによる1856要求案は部分的な分解で、1856要求を1342テストへ直接対応付け、直接未対応は0要求、別の1テストはcontrolです。
-全1343テストに要求の対応付けがあります。2,507の条項番号は規範的要求の単位ではありません。
+AIによる1892要求案は部分的な分解で、1892要求を1356テストへ直接対応付け、直接未対応は0要求、別の1テストはcontrolです。
+全1357テストに要求の対応付けがあります。2,507の条項番号は規範的要求の単位ではありません。
 範囲は提案、棚卸しは未完、分母は未承認で、M4の開始はどれの承認にもなりません。
 既知差分やHDL／DPIの制約によって義務を暗黙に除外しません。[承認までの手順](requirements.ja.md#m4の残作業と承認)を参照してください。
 
@@ -1709,7 +1709,7 @@ user backdoorは16 bit locationをモデル化します。location独立性、�
 
 いいえ。`tests_without_requirement_links`は0で、現在の全テストに、明示的なdirectまたはcontrolの対応があります。
 別の集計`requirements_without_direct_tests`も0件です。memory-walkの対応はQ134の限定した歴史的解釈で、
-省略されたIEEEの詳細の承認ではありません。HDL depositと利用可否には、明示VPI検査系があります。catalogの識別子1,343件も未評価です。
+省略されたIEEEの詳細の承認ではありません。HDL depositと利用可否には、明示VPI検査系があります。catalogの識別子1,308件も未評価です。
 分解と人のレビューは未完で、分母は未承認です。
 
 [新しいpolicyテスト](../tests/u16/test_policy_object_stack_tracks_nested_active_policy_push_and_pop.sv)は、
@@ -1786,7 +1786,7 @@ frontdoor保護のwarningはalgorithm oracleの対象外で、ERRORと観測し�
 個別に読んだ後、日英の根拠とAI／人のレビューを[番号の分類](../coverage/assessments.json)へ記録すれば可能です。
 構造上の見出しは関連要求を持たず、文脈の説明は既存要求を指定します。
 未レビューの記録、推測した分類、親への集約では外せません。生成状態は`assessed`で、要求条項の`partial`と区別します。
-現在の分類は113件で、分母承認や新たなpassを加えません。第11章の未評価0件でも、その要求の完了ではありません。
+現在の分類は127件で、分母承認や新たなpassを加えません。第11章の未評価0件でも、その要求の完了ではありません。
 
 ### Q136. 明示strict configurationで新規検査は成功しますか？
 
@@ -2206,3 +2206,24 @@ upstream producerが抽象register itemを投入し、既定translation bodyが�
 いいえ。no-DPI probeは宣言integer parameterと選択macroの一致だけを検査し、省略設定と明示256設定を使います。
 実装macroの数値既定値は固定しません。別の8件のVPI backendは宣言したcheck／read／deposit部分集合を扱い、force／release stubは失敗を返します。
 実際のforce／release、release-and-readでの変数／netの区別、広いHDL型は未完です。parameterだけのpassを、それらroutineの実行evidenceに数えません。
+
+## 同期の状態・data・resetのevidence
+
+### Q183. rawとpersistentのevent待ちはどう区別しますか？
+
+raw検査はtrigger前に早いwaiterを確立し、trigger後の同じsliceで遅いraw waitを逐次呼びます。早い呼出しは最初のtriggerで戻り、遅い呼出しには新triggerが必要です。
+実測の早い呼出しは2回目で初めて戻るため、規範的な期待をspec-onlyで保持します。別のpersistent検査はtrigger sliceで直ちに戻りますが、
+eventがonでも後のsliceでは待機します。正の安定待ちと公開countで、release順序や実装schedulerの固定を避けます。時刻／状態検査では受理trigger、拒否、resetも区別します。
+
+### Q184. wakeupなしresetでeventとbarrierのcount契約は同じですか？
+
+いいえ。barrier resetは件数を明示的に消去してthresholdを保持し、wakeup 0では新groupがthresholdへ達するまで旧callerを待機させます。
+その選択した比較対象は両seedで一致します。一方eventのwaiter照会は実際の待機processを報告するため、wakeupなしreset後も3 callerが待機しているのに、固定版が0を報告する点は差分です。
+その後の新event triggerでは全員を解放し、取り残しは観測していません。object payload検査は通常のlive handle alias、scalar検査は複製した値を保持し、これらdata条件はwaiter計数とは別です。
+
+### Q185. poolの初期所属とglobal accessは完全に対応していますか？
+
+event-pool初期所属には専用検査があり、getが生成する前からbegin・accept・endが必要です。固定poolはそれらを欠きますが、
+以前の増分テストは意図的に初期sizeを無視しており、有効なままです。constructorと正確なgeneric基底型には正の検査があります。
+専用get_globalの両条項はpool戻り型を宣言しながら、本文はitemを返すと説明するため、解釈を待って両番号を未評価に保持します。
+get_global_pool後のgetが成功しても解決しません。constructor／名前の検査で既定内容や任意のglobal範囲は認定しません。

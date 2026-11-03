@@ -69113,6 +69113,1251 @@
           ]
         }
       ]
+    },
+    {
+      "id": "UVM-SYNC-REVIEW-EVENT-BASE-NAMES",
+      "clause": "10.1.1.2.1",
+      "statement": {
+        "en": "The event-base constructor accepts an optional empty-default name.",
+        "ja": "event-base constructorは空を既定値とする省略可能名を受け付ける。"
+      },
+      "conditions": {
+        "en": "Concrete extensions use implicit construction or forward selected/empty names.",
+        "ja": "具象拡張で暗黙の生成、指定名／空名を渡す生成を使う。"
+      },
+      "expected": {
+        "en": "Names are empty, selected and empty.",
+        "ja": "名前は空、指定値、空である。"
+      },
+      "limitations": {
+        "en": "Selected positive constructor/type compatibility only, using original concrete extensions for virtual bases. Invalid types, abstract construction, layout, factory creation, unspecified initial data and automatic registration are not established. Pool get_global declaration/prose conflicts remain unresolved.",
+        "ja": "選択したconstructor／型の正の互換性のみ。virtual基底には独自の具象拡張を使う。不正型、抽象型生成、配置、factory生成、未規定の初期data、自動登録は認定しない。pool get_globalの宣言／本文の矛盾は未解決に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_event_base_constructor_names_and_object_base_preserve_identity",
+          "role": "direct",
+          "expected_observations": [
+            "UT: event_base_names omitted 1 named 1 empty 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SYNC-REVIEW-EVENT-BASE-OBJECT",
+      "clause": "10.1.1.1",
+      "statement": {
+        "en": "The event base derives from the object base.",
+        "ja": "event基底はobject基底から派生する。"
+      },
+      "conditions": {
+        "en": "Upcast an original concrete event-base subtype to an object handle.",
+        "ja": "独自の具象event-base subtypeをobject handleへupcastする。"
+      },
+      "expected": {
+        "en": "The object view preserves identity.",
+        "ja": "object viewは同一性を保持する。"
+      },
+      "limitations": {
+        "en": "Selected positive constructor/type compatibility only, using original concrete extensions for virtual bases. Invalid types, abstract construction, layout, factory creation, unspecified initial data and automatic registration are not established. Pool get_global declaration/prose conflicts remain unresolved.",
+        "ja": "選択したconstructor／型の正の互換性のみ。virtual基底には独自の具象拡張を使う。不正型、抽象型生成、配置、factory生成、未規定の初期data、自動登録は認定しない。pool get_globalの宣言／本文の矛盾は未解決に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_event_base_constructor_names_and_object_base_preserve_identity",
+          "role": "direct",
+          "expected_observations": [
+            "UT: event_base_object identity 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SYNC-REVIEW-EVENT-NAMES",
+      "clause": "10.1.2.2.1",
+      "statement": {
+        "en": "The typed event constructor accepts an optional empty-default name.",
+        "ja": "型付きevent constructorは空を既定値とする省略可能名を受け付ける。"
+      },
+      "conditions": {
+        "en": "Create omitted-name, selected-name and explicitly empty-name events.",
+        "ja": "名前省略、指定名、明示的な空名のeventを生成する。"
+      },
+      "expected": {
+        "en": "The supplied names are retained.",
+        "ja": "指定した名前を保持する。"
+      },
+      "limitations": {
+        "en": "Selected positive constructor/type compatibility only, using original concrete extensions for virtual bases. Invalid types, abstract construction, layout, factory creation, unspecified initial data and automatic registration are not established. Pool get_global declaration/prose conflicts remain unresolved.",
+        "ja": "選択したconstructor／型の正の互換性のみ。virtual基底には独自の具象拡張を使う。不正型、抽象型生成、配置、factory生成、未規定の初期data、自動登録は認定しない。pool get_globalの宣言／本文の矛盾は未解決に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_typed_event_constructor_names_default_parameter_and_base_preserve_identity",
+          "role": "direct",
+          "expected_observations": [
+            "UT: event_names omitted 1 named 1 empty 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SYNC-REVIEW-EVENT-DEFAULT-TYPE",
+      "clause": "10.1.2.1",
+      "statement": {
+        "en": "The omitted event data parameter selects the object type.",
+        "ja": "event data parameter省略時はobject型を選ぶ。"
+      },
+      "conditions": {
+        "en": "Assign the default event to the exact object-data specialization.",
+        "ja": "既定eventを正確なobject-data specializationへ代入する。"
+      },
+      "expected": {
+        "en": "The exact specialization denotes the same event.",
+        "ja": "正確なspecializationは同じeventを指す。"
+      },
+      "limitations": {
+        "en": "Selected positive constructor/type compatibility only, using original concrete extensions for virtual bases. Invalid types, abstract construction, layout, factory creation, unspecified initial data and automatic registration are not established. Pool get_global declaration/prose conflicts remain unresolved.",
+        "ja": "選択したconstructor／型の正の互換性のみ。virtual基底には独自の具象拡張を使う。不正型、抽象型生成、配置、factory生成、未規定の初期data、自動登録は認定しない。pool get_globalの宣言／本文の矛盾は未解決に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_typed_event_constructor_names_default_parameter_and_base_preserve_identity",
+          "role": "direct",
+          "expected_observations": [
+            "UT: event_types default 1 typed_base 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SYNC-REVIEW-EVENT-BASE-INHERITANCE",
+      "clause": "10.1.2.1",
+      "statement": {
+        "en": "A typed event extends the abstract event base.",
+        "ja": "型付きeventは抽象event基底から拡張する。"
+      },
+      "conditions": {
+        "en": "Upcast an integer-data event to the event base.",
+        "ja": "integer-data eventをevent基底へupcastする。"
+      },
+      "expected": {
+        "en": "The base denotes the same typed event.",
+        "ja": "基底は同じ型付きeventを指す。"
+      },
+      "limitations": {
+        "en": "Selected positive constructor/type compatibility only, using original concrete extensions for virtual bases. Invalid types, abstract construction, layout, factory creation, unspecified initial data and automatic registration are not established. Pool get_global declaration/prose conflicts remain unresolved.",
+        "ja": "選択したconstructor／型の正の互換性のみ。virtual基底には独自の具象拡張を使う。不正型、抽象型生成、配置、factory生成、未規定の初期data、自動登録は認定しない。pool get_globalの宣言／本文の矛盾は未解決に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_typed_event_constructor_names_default_parameter_and_base_preserve_identity",
+          "role": "direct",
+          "expected_observations": [
+            "UT: event_types default 1 typed_base 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SYNC-REVIEW-EVENT-CALLBACK-NAMES",
+      "clause": "10.2.2.1",
+      "statement": {
+        "en": "The event callback constructor accepts an optional empty-default name.",
+        "ja": "event callback constructorは空を既定値とする省略可能名を受け付ける。"
+      },
+      "conditions": {
+        "en": "Concrete callback extensions select implicit, named and empty construction.",
+        "ja": "具象callback拡張で暗黙、指定名、空名の生成を選ぶ。"
+      },
+      "expected": {
+        "en": "The observed names are empty, selected and empty.",
+        "ja": "観測した名前は空、指定値、空である。"
+      },
+      "limitations": {
+        "en": "Selected positive constructor/type compatibility only, using original concrete extensions for virtual bases. Invalid types, abstract construction, layout, factory creation, unspecified initial data and automatic registration are not established. Pool get_global declaration/prose conflicts remain unresolved.",
+        "ja": "選択したconstructor／型の正の互換性のみ。virtual基底には独自の具象拡張を使う。不正型、抽象型生成、配置、factory生成、未規定の初期data、自動登録は認定しない。pool get_globalの宣言／本文の矛盾は未解決に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_event_callback_constructor_names_default_parameter_and_callback_base_preserve_identity",
+          "role": "direct",
+          "expected_observations": [
+            "UT: callback_names omitted 1 named 1 empty 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SYNC-REVIEW-EVENT-CALLBACK-DEFAULT-TYPE",
+      "clause": "10.2.1",
+      "statement": {
+        "en": "The omitted event callback data parameter selects the object type.",
+        "ja": "event callback data parameter省略時はobject型を選ぶ。"
+      },
+      "conditions": {
+        "en": "Assign a concrete default callback to the exact object-data callback base.",
+        "ja": "具象の既定callbackを正確なobject-data callback基底へ代入する。"
+      },
+      "expected": {
+        "en": "The exact specialization retains identity.",
+        "ja": "正確なspecializationは同一性を保持する。"
+      },
+      "limitations": {
+        "en": "Selected positive constructor/type compatibility only, using original concrete extensions for virtual bases. Invalid types, abstract construction, layout, factory creation, unspecified initial data and automatic registration are not established. Pool get_global declaration/prose conflicts remain unresolved.",
+        "ja": "選択したconstructor／型の正の互換性のみ。virtual基底には独自の具象拡張を使う。不正型、抽象型生成、配置、factory生成、未規定の初期data、自動登録は認定しない。pool get_globalの宣言／本文の矛盾は未解決に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_event_callback_constructor_names_default_parameter_and_callback_base_preserve_identity",
+          "role": "direct",
+          "expected_observations": [
+            "UT: callback_types default 1 typed_base 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SYNC-REVIEW-EVENT-CALLBACK-BASE",
+      "clause": "10.2.1",
+      "statement": {
+        "en": "A typed event callback derives from the callback base.",
+        "ja": "型付きevent callbackはcallback基底から派生する。"
+      },
+      "conditions": {
+        "en": "Assign an integer-data callback extension to a callback-base handle.",
+        "ja": "integer-data callback拡張をcallback-base handleへ代入する。"
+      },
+      "expected": {
+        "en": "The callback view denotes the same extension.",
+        "ja": "callback viewは同じ拡張を指す。"
+      },
+      "limitations": {
+        "en": "Selected positive constructor/type compatibility only, using original concrete extensions for virtual bases. Invalid types, abstract construction, layout, factory creation, unspecified initial data and automatic registration are not established. Pool get_global declaration/prose conflicts remain unresolved.",
+        "ja": "選択したconstructor／型の正の互換性のみ。virtual基底には独自の具象拡張を使う。不正型、抽象型生成、配置、factory生成、未規定の初期data、自動登録は認定しない。pool get_globalの宣言／本文の矛盾は未解決に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_event_callback_constructor_names_default_parameter_and_callback_base_preserve_identity",
+          "role": "direct",
+          "expected_observations": [
+            "UT: callback_types default 1 typed_base 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SYNC-REVIEW-BARRIER-NAMES",
+      "clause": "10.3.2.1",
+      "statement": {
+        "en": "The barrier constructor accepts the declared optional name.",
+        "ja": "barrier constructorは宣言された省略可能名を受け付ける。"
+      },
+      "conditions": {
+        "en": "Construct omitted, selected and empty names with legal selected thresholds.",
+        "ja": "合法な選択thresholdで、名前省略、指定名、空名を生成する。"
+      },
+      "expected": {
+        "en": "Names are empty, selected and empty.",
+        "ja": "名前は空、指定値、空である。"
+      },
+      "limitations": {
+        "en": "Selected positive constructor/type compatibility only, using original concrete extensions for virtual bases. Invalid types, abstract construction, layout, factory creation, unspecified initial data and automatic registration are not established. Pool get_global declaration/prose conflicts remain unresolved.",
+        "ja": "選択したconstructor／型の正の互換性のみ。virtual基底には独自の具象拡張を使う。不正型、抽象型生成、配置、factory生成、未規定の初期data、自動登録は認定しない。pool get_globalの宣言／本文の矛盾は未解決に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_barrier_constructor_names_threshold_defaults_and_object_base_are_instance_local",
+          "role": "direct",
+          "expected_observations": [
+            "UT: barrier_names omitted 1 named 1 empty 1 base 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SYNC-REVIEW-BARRIER-DEFAULT-THRESHOLD",
+      "clause": "10.3.2.1",
+      "statement": {
+        "en": "The omitted barrier threshold defaults to zero.",
+        "ja": "barrier threshold省略時は0を既定値にする。"
+      },
+      "conditions": {
+        "en": "Construct one omitted threshold and two explicit thresholds.",
+        "ja": "threshold省略1件と明示threshold 2件を生成する。"
+      },
+      "expected": {
+        "en": "Getters report zero, three and five respectively.",
+        "ja": "getterは順に0、3、5を報告する。"
+      },
+      "limitations": {
+        "en": "Selected positive constructor/type compatibility only, using original concrete extensions for virtual bases. Invalid types, abstract construction, layout, factory creation, unspecified initial data and automatic registration are not established. Pool get_global declaration/prose conflicts remain unresolved.",
+        "ja": "選択したconstructor／型の正の互換性のみ。virtual基底には独自の具象拡張を使う。不正型、抽象型生成、配置、factory生成、未規定の初期data、自動登録は認定しない。pool get_globalの宣言／本文の矛盾は未解決に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_barrier_constructor_names_threshold_defaults_and_object_base_are_instance_local",
+          "role": "direct",
+          "expected_observations": [
+            "UT: barrier_thresholds default 0 selected 3 explicit 5"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SYNC-REVIEW-BARRIER-OBJECT-BASE",
+      "clause": "10.3.1",
+      "statement": {
+        "en": "A barrier derives from the object base.",
+        "ja": "barrierはobject基底から派生する。"
+      },
+      "conditions": {
+        "en": "Assign the selected barrier to an object handle.",
+        "ja": "選択barrierをobject handleへ代入する。"
+      },
+      "expected": {
+        "en": "The base retains identity.",
+        "ja": "基底は同一性を保持する。"
+      },
+      "limitations": {
+        "en": "Selected positive constructor/type compatibility only, using original concrete extensions for virtual bases. Invalid types, abstract construction, layout, factory creation, unspecified initial data and automatic registration are not established. Pool get_global declaration/prose conflicts remain unresolved.",
+        "ja": "選択したconstructor／型の正の互換性のみ。virtual基底には独自の具象拡張を使う。不正型、抽象型生成、配置、factory生成、未規定の初期data、自動登録は認定しない。pool get_globalの宣言／本文の矛盾は未解決に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_barrier_constructor_names_threshold_defaults_and_object_base_are_instance_local",
+          "role": "direct",
+          "expected_observations": [
+            "UT: barrier_names omitted 1 named 1 empty 1 base 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SYNC-REVIEW-BARRIER-CURRENT-THRESHOLD",
+      "clause": "10.3.2.5",
+      "statement": {
+        "en": "The barrier threshold getter returns its current per-instance setting.",
+        "ja": "barrier threshold getterは各instanceの現在設定を返す。"
+      },
+      "conditions": {
+        "en": "Change only one of three separately constructed barrier thresholds.",
+        "ja": "独立に生成した3 barrierのうち1つだけthresholdを変える。"
+      },
+      "expected": {
+        "en": "That getter reports seven while peers retain zero and five.",
+        "ja": "そのgetterは7を報告し、peerは0と5を保持する。"
+      },
+      "limitations": {
+        "en": "Selected positive constructor/type compatibility only, using original concrete extensions for virtual bases. Invalid types, abstract construction, layout, factory creation, unspecified initial data and automatic registration are not established. Pool get_global declaration/prose conflicts remain unresolved.",
+        "ja": "選択したconstructor／型の正の互換性のみ。virtual基底には独自の具象拡張を使う。不正型、抽象型生成、配置、factory生成、未規定の初期data、自動登録は認定しない。pool get_globalの宣言／本文の矛盾は未解決に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_barrier_constructor_names_threshold_defaults_and_object_base_are_instance_local",
+          "role": "direct",
+          "expected_observations": [
+            "UT: barrier_threshold_update current 7 peer 0 empty 5"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SYNC-REVIEW-EVENT-POOL-NAMES",
+      "clause": "10.4.1.2.1",
+      "statement": {
+        "en": "The event-pool constructor accepts an optional empty-default name.",
+        "ja": "event-pool constructorは空を既定値とする省略可能名を受け付ける。"
+      },
+      "conditions": {
+        "en": "Create omitted, named and explicitly empty event pools.",
+        "ja": "名前省略、指定名、明示的な空名のevent poolを生成する。"
+      },
+      "expected": {
+        "en": "All selected names are retained.",
+        "ja": "選択した名前をすべて保持する。"
+      },
+      "limitations": {
+        "en": "Selected positive constructor/type compatibility only, using original concrete extensions for virtual bases. Invalid types, abstract construction, layout, factory creation, unspecified initial data and automatic registration are not established. Pool get_global declaration/prose conflicts remain unresolved.",
+        "ja": "選択したconstructor／型の正の互換性のみ。virtual基底には独自の具象拡張を使う。不正型、抽象型生成、配置、factory生成、未規定の初期data、自動登録は認定しない。pool get_globalの宣言／本文の矛盾は未解決に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_dedicated_pool_constructors_and_exact_generic_bases_preserve_identity",
+          "role": "direct",
+          "expected_observations": [
+            "UT: event_pool_names omitted 1 named 1 empty 1 base 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SYNC-REVIEW-EVENT-POOL-GENERIC-BASE",
+      "clause": "10.4.1.1",
+      "statement": {
+        "en": "The event pool specializes a string-keyed generic pool of object-data events.",
+        "ja": "event poolはobject-data eventを持つstring-key generic poolをspecializeする。"
+      },
+      "conditions": {
+        "en": "Assign an event pool to its exact generic pool base.",
+        "ja": "event poolを正確なgeneric pool基底へ代入する。"
+      },
+      "expected": {
+        "en": "The generic view preserves identity.",
+        "ja": "generic viewは同一性を保持する。"
+      },
+      "limitations": {
+        "en": "Selected positive constructor/type compatibility only, using original concrete extensions for virtual bases. Invalid types, abstract construction, layout, factory creation, unspecified initial data and automatic registration are not established. Pool get_global declaration/prose conflicts remain unresolved.",
+        "ja": "選択したconstructor／型の正の互換性のみ。virtual基底には独自の具象拡張を使う。不正型、抽象型生成、配置、factory生成、未規定の初期data、自動登録は認定しない。pool get_globalの宣言／本文の矛盾は未解決に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_dedicated_pool_constructors_and_exact_generic_bases_preserve_identity",
+          "role": "direct",
+          "expected_observations": [
+            "UT: event_pool_names omitted 1 named 1 empty 1 base 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SYNC-REVIEW-BARRIER-POOL-NAMES",
+      "clause": "10.4.2.2.1",
+      "statement": {
+        "en": "The barrier-pool constructor accepts an optional empty-default name.",
+        "ja": "barrier-pool constructorは空を既定値とする省略可能名を受け付ける。"
+      },
+      "conditions": {
+        "en": "Create omitted, named and explicitly empty barrier pools.",
+        "ja": "名前省略、指定名、明示的な空名のbarrier poolを生成する。"
+      },
+      "expected": {
+        "en": "All selected names are retained.",
+        "ja": "選択した名前をすべて保持する。"
+      },
+      "limitations": {
+        "en": "Selected positive constructor/type compatibility only, using original concrete extensions for virtual bases. Invalid types, abstract construction, layout, factory creation, unspecified initial data and automatic registration are not established. Pool get_global declaration/prose conflicts remain unresolved.",
+        "ja": "選択したconstructor／型の正の互換性のみ。virtual基底には独自の具象拡張を使う。不正型、抽象型生成、配置、factory生成、未規定の初期data、自動登録は認定しない。pool get_globalの宣言／本文の矛盾は未解決に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_dedicated_pool_constructors_and_exact_generic_bases_preserve_identity",
+          "role": "direct",
+          "expected_observations": [
+            "UT: barrier_pool_names omitted 1 named 1 empty 1 base 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SYNC-REVIEW-BARRIER-POOL-GENERIC-BASE",
+      "clause": "10.4.2.1",
+      "statement": {
+        "en": "The barrier pool specializes a string-keyed generic pool of barriers.",
+        "ja": "barrier poolはbarrierを持つstring-key generic poolをspecializeする。"
+      },
+      "conditions": {
+        "en": "Assign a barrier pool to its exact generic pool base.",
+        "ja": "barrier poolを正確なgeneric pool基底へ代入する。"
+      },
+      "expected": {
+        "en": "The generic view preserves identity.",
+        "ja": "generic viewは同一性を保持する。"
+      },
+      "limitations": {
+        "en": "Selected positive constructor/type compatibility only, using original concrete extensions for virtual bases. Invalid types, abstract construction, layout, factory creation, unspecified initial data and automatic registration are not established. Pool get_global declaration/prose conflicts remain unresolved.",
+        "ja": "選択したconstructor／型の正の互換性のみ。virtual基底には独自の具象拡張を使う。不正型、抽象型生成、配置、factory生成、未規定の初期data、自動登録は認定しない。pool get_globalの宣言／本文の矛盾は未解決に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_dedicated_pool_constructors_and_exact_generic_bases_preserve_identity",
+          "role": "direct",
+          "expected_observations": [
+            "UT: barrier_pool_names omitted 1 named 1 empty 1 base 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SYNC-REVIEW-EVENT-POOL-INITIAL-MEMBERS",
+      "clause": "10.4.1",
+      "statement": {
+        "en": "A new event pool contains the three predefined begin, accept and end entries.",
+        "ja": "新しいevent poolは、既定のbegin・accept・endの3項目を含む。"
+      },
+      "conditions": {
+        "en": "Inspect two newly constructed pools with exists before any get can create an entry.",
+        "ja": "getが項目を生成する前に、生成した2 poolをexistsで調べる。"
+      },
+      "expected": {
+        "en": "All three named keys already exist in both pools.",
+        "ja": "両poolで3つの名前付きkeyがすでに存在する。"
+      },
+      "limitations": {
+        "en": "Initial membership only; no exact total size, value state, global membership or default-item identity is inferred. Missing entries remain a spec-only difference.",
+        "ja": "初期の所属のみ。正確な総size、値の状態、globalの所属、既定itemの同一性は推論しない。項目欠落はspec-only差分に保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_event_pool_initial_membership_contains_begin_accept_and_end_without_lazy_get",
+          "role": "direct",
+          "expected_observations": [
+            "UT: event_pool_defaults first 1/1/1 second 1/1/1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SYNC-REVIEW-RAW-TRIGGER-EARLY-WAITER",
+      "clause": "10.1.1.2.4",
+      "statement": {
+        "en": "A raw trigger waiter established before a trigger resumes on that trigger.",
+        "ja": "trigger前に確立したraw trigger waiterは、そのtriggerで再開する。"
+      },
+      "conditions": {
+        "en": "One process is already blocked before the first accepted trigger.",
+        "ja": "最初の受理triggerより前に1 processを待機させる。"
+      },
+      "expected": {
+        "en": "The early waiter has returned when observed in the next time slice.",
+        "ja": "次のtime sliceで観測すると、早いwaiterは戻っている。"
+      },
+      "limitations": {
+        "en": "Positive delays and sequential calls establish selected before/after-trigger conditions. Public waiter queries and bounded observations avoid release-order assumptions. No arbitrary concurrent trigger race, four-state payload, delta-delay option or private event handle is inspected.",
+        "ja": "正の遅延と逐次呼出しで、選択したtrigger前後の条件を作る。公開waiter照会と有限の観測でrelease順序の仮定を避ける。任意の並行trigger race、4値payload、delta遅延option、非公開event handleは調べない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_event_raw_trigger_wait_distinguishes_early_and_same_slice_late_calls",
+          "role": "direct",
+          "expected_observations": [
+            "UT: raw_trigger_established entered 1 waiters 1",
+            "UT: raw_trigger early 1 late_blocked 1 waiters 1",
+            "UT: raw_trigger_final early 1 late 1 waiters 0 data 27"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SYNC-REVIEW-RAW-TRIGGER-LATE-WAITER",
+      "clause": "10.1.1.2.4",
+      "statement": {
+        "en": "A raw wait called after a trigger in the same slice requires a fresh trigger.",
+        "ja": "同じsliceでtrigger後に呼ぶraw waitには新しいtriggerが必要である。"
+      },
+      "conditions": {
+        "en": "The triggering process calls wait_trigger immediately after trigger returns.",
+        "ja": "triggerを呼んだprocessが、triggerから戻った直後にwait_triggerを呼ぶ。"
+      },
+      "expected": {
+        "en": "It stays blocked with one waiter until a later fresh trigger releases it.",
+        "ja": "waiter 1件で待機し、後の新しいtriggerで解放される。"
+      },
+      "limitations": {
+        "en": "Positive delays and sequential calls establish selected before/after-trigger conditions. Public waiter queries and bounded observations avoid release-order assumptions. No arbitrary concurrent trigger race, four-state payload, delta-delay option or private event handle is inspected.",
+        "ja": "正の遅延と逐次呼出しで、選択したtrigger前後の条件を作る。公開waiter照会と有限の観測でrelease順序の仮定を避ける。任意の並行trigger race、4値payload、delta遅延option、非公開event handleは調べない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_event_raw_trigger_wait_distinguishes_early_and_same_slice_late_calls",
+          "role": "direct",
+          "expected_observations": [
+            "UT: raw_trigger_established entered 1 waiters 1",
+            "UT: raw_trigger early 1 late_blocked 1 waiters 1",
+            "UT: raw_trigger_final early 1 late 1 waiters 0 data 27"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SYNC-REVIEW-PERSISTENT-SAME-SLICE",
+      "clause": "10.1.1.2.5",
+      "statement": {
+        "en": "A persistent wait called after trigger in the same time slice returns immediately.",
+        "ja": "同じtime sliceでtrigger後に呼ぶpersistent waitは直ちに戻る。"
+      },
+      "conditions": {
+        "en": "The triggering process directly calls wait_ptrigger without advancing time.",
+        "ja": "triggerを呼んだprocessが、時刻を進めず直接wait_ptriggerを呼ぶ。"
+      },
+      "expected": {
+        "en": "The call returns at the same time with zero waiters.",
+        "ja": "同じ時刻で戻り、waiterは0件である。"
+      },
+      "limitations": {
+        "en": "Positive delays and sequential calls establish selected before/after-trigger conditions. Public waiter queries and bounded observations avoid release-order assumptions. No arbitrary concurrent trigger race, four-state payload, delta-delay option or private event handle is inspected.",
+        "ja": "正の遅延と逐次呼出しで、選択したtrigger前後の条件を作る。公開waiter照会と有限の観測でrelease順序の仮定を避ける。任意の並行trigger race、4値payload、delta遅延option、非公開event handleは調べない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_event_raw_persistent_wait_is_immediate_in_slice_but_waits_in_a_later_slice",
+          "role": "direct",
+          "expected_observations": [
+            "UT: raw_persistent same_slice 1 waiters 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SYNC-REVIEW-PERSISTENT-LATER-SLICE",
+      "clause": "10.1.1.2.5",
+      "statement": {
+        "en": "A persistent wait in a later slice requires a new trigger even while the event remains on.",
+        "ja": "eventがonでも、後のsliceでのpersistent waitには新たなtriggerが必要である。"
+      },
+      "conditions": {
+        "en": "Call wait_ptrigger after a positive delay from the first trigger.",
+        "ja": "最初のtriggerから正の遅延後にwait_ptriggerを呼ぶ。"
+      },
+      "expected": {
+        "en": "It remains blocked/on with one waiter, then returns with the fresh trigger data.",
+        "ja": "onのままwaiter 1件で待機し、新しいtrigger dataで戻る。"
+      },
+      "limitations": {
+        "en": "Positive delays and sequential calls establish selected before/after-trigger conditions. Public waiter queries and bounded observations avoid release-order assumptions. No arbitrary concurrent trigger race, four-state payload, delta-delay option or private event handle is inspected.",
+        "ja": "正の遅延と逐次呼出しで、選択したtrigger前後の条件を作る。公開waiter照会と有限の観測でrelease順序の仮定を避ける。任意の並行trigger race、4値payload、delta遅延option、非公開event handleは調べない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_event_raw_persistent_wait_is_immediate_in_slice_but_waits_in_a_later_slice",
+          "role": "direct",
+          "expected_observations": [
+            "UT: raw_persistent_later blocked 1 waiters 1 on 1",
+            "UT: raw_persistent_final returned 1 waiters 0 data 27"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SYNC-REVIEW-TRIGGER-TIME-HISTORY",
+      "clause": "10.1.1.2.6",
+      "statement": {
+        "en": "The trigger-time query reports the latest accepted trigger, or zero initially and after reset.",
+        "ja": "trigger-time照会は最新の受理trigger時刻を返し、初期とreset後は0を返す。"
+      },
+      "conditions": {
+        "en": "Use accepted triggers, a vetoed candidate, selected-event reset and an independently triggered peer.",
+        "ja": "受理trigger、拒否候補、選択eventのreset、独立にtriggerしたpeerを使う。"
+      },
+      "expected": {
+        "en": "The veto keeps times two/three, reset changes only the selected time to zero and reacceptance records six.",
+        "ja": "拒否で時刻2／3を保持し、resetは選択時刻だけ0へ戻し、再受理で6を記録する。"
+      },
+      "limitations": {
+        "en": "Positive delays and sequential calls establish selected before/after-trigger conditions. Public waiter queries and bounded observations avoid release-order assumptions. No arbitrary concurrent trigger race, four-state payload, delta-delay option or private event handle is inspected.",
+        "ja": "正の遅延と逐次呼出しで、選択したtrigger前後の条件を作る。公開waiter照会と有限の観測でrelease順序の仮定を避ける。任意の並行trigger race、4値payload、delta遅延option、非公開event handleは調べない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_event_trigger_time_state_and_last_data_follow_accept_veto_reset_and_peer_isolation",
+          "role": "direct",
+          "expected_observations": [
+            "UT: trigger_initial times 0/0 off 1/1",
+            "UT: trigger_veto times 2/3 data 11/31 on 1/1 callbacks 2/1",
+            "UT: trigger_reset time 0 off 1 peer_time 3 peer_on 1 callbacks 2/1",
+            "UT: trigger_reaccepted time 6 data 12 on 1 peer_time 3 callbacks 3/2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SYNC-REVIEW-ON-STATE-HISTORY",
+      "clause": "10.1.1.2.7",
+      "statement": {
+        "en": "The on-state query reflects acceptance since the last reset independently per event.",
+        "ja": "on-state照会は各eventで、前回reset以後の受理を反映する。"
+      },
+      "conditions": {
+        "en": "Trigger two events, veto a candidate on one, reset only that event and trigger it again.",
+        "ja": "2 eventをtriggerし、一方の候補を拒否し、そのeventだけresetして再triggerする。"
+      },
+      "expected": {
+        "en": "Accepted events are on, a reset event is off and the untouched peer remains on.",
+        "ja": "受理eventはon、reset eventはoffとなり、未変更peerはonを保持する。"
+      },
+      "limitations": {
+        "en": "Positive delays and sequential calls establish selected before/after-trigger conditions. Public waiter queries and bounded observations avoid release-order assumptions. No arbitrary concurrent trigger race, four-state payload, delta-delay option or private event handle is inspected.",
+        "ja": "正の遅延と逐次呼出しで、選択したtrigger前後の条件を作る。公開waiter照会と有限の観測でrelease順序の仮定を避ける。任意の並行trigger race、4値payload、delta遅延option、非公開event handleは調べない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_event_trigger_time_state_and_last_data_follow_accept_veto_reset_and_peer_isolation",
+          "role": "direct",
+          "expected_observations": [
+            "UT: trigger_initial times 0/0 off 1/1",
+            "UT: trigger_veto times 2/3 data 11/31 on 1/1 callbacks 2/1",
+            "UT: trigger_reset time 0 off 1 peer_time 3 peer_on 1 callbacks 2/1",
+            "UT: trigger_reaccepted time 6 data 12 on 1 peer_time 3 callbacks 3/2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SYNC-REVIEW-LAST-DATA-VETO-PRESERVATION",
+      "clause": "10.1.2.2.5",
+      "statement": {
+        "en": "A vetoed candidate does not replace data from the last accepted trigger.",
+        "ja": "拒否された候補は、最新の受理triggerのdataを置き換えない。"
+      },
+      "conditions": {
+        "en": "A callback vetoes value twenty-one after accepted value eleven.",
+        "ja": "callbackが、受理値11の後の値21を拒否する。"
+      },
+      "expected": {
+        "en": "The stored data remains eleven while the peer retains thirty-one.",
+        "ja": "保持dataは11のままで、peerは31を保持する。"
+      },
+      "limitations": {
+        "en": "Positive delays and sequential calls establish selected before/after-trigger conditions. Public waiter queries and bounded observations avoid release-order assumptions. No arbitrary concurrent trigger race, four-state payload, delta-delay option or private event handle is inspected.",
+        "ja": "正の遅延と逐次呼出しで、選択したtrigger前後の条件を作る。公開waiter照会と有限の観測でrelease順序の仮定を避ける。任意の並行trigger race、4値payload、delta遅延option、非公開event handleは調べない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_event_trigger_time_state_and_last_data_follow_accept_veto_reset_and_peer_isolation",
+          "role": "direct",
+          "expected_observations": [
+            "UT: trigger_veto times 2/3 data 11/31 on 1/1 callbacks 2/1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SYNC-REVIEW-OBJECT-DATA-IDENTITY",
+      "clause": "10.1.2.2.5",
+      "statement": {
+        "en": "The event data getter returns the supplied object handle from the latest trigger.",
+        "ja": "event data getterは、最新triggerで指定したobject handleを返す。"
+      },
+      "conditions": {
+        "en": "Trigger with an original payload object and read the data handle.",
+        "ja": "独自payload objectでtriggerし、data handleを読む。"
+      },
+      "expected": {
+        "en": "The returned handle denotes the supplied object.",
+        "ja": "戻るhandleは指定objectを指す。"
+      },
+      "limitations": {
+        "en": "Explicit accepted object/integer data only. Object aliasing follows ordinary class-handle value semantics; scalar data is copied by value. No uninitialized/pre-trigger or post-reset data, default data, deep copy, ownership transfer or arbitrary type conversion is asserted.",
+        "ja": "明示的に受理されたobject／integer dataのみ。objectのaliasは通常のclass handle値の意味に従い、scalar dataは値で複製する。未初期化／trigger前やreset後のdata、既定data、deep copy、所有権移譲、任意型変換は主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_event_object_trigger_data_retains_live_handle_aliases_replacement_and_null",
+          "role": "direct",
+          "expected_observations": [
+            "UT: event_data_alias identity 1 live 35"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SYNC-REVIEW-OBJECT-DATA-LIVE-ALIAS",
+      "clause": "10.1.2.2.5",
+      "statement": {
+        "en": "Returned object data remains a live alias of the supplied payload.",
+        "ja": "返したobject dataは指定payloadのlive aliasを保持する。"
+      },
+      "conditions": {
+        "en": "Mutate first through the original object and then through its returned view.",
+        "ja": "元objectから変更し、次に返したviewから変更する。"
+      },
+      "expected": {
+        "en": "The view sees thirty-five and the original later sees forty-seven.",
+        "ja": "viewは35を観測し、後に元objectは47を観測する。"
+      },
+      "limitations": {
+        "en": "Explicit accepted object/integer data only. Object aliasing follows ordinary class-handle value semantics; scalar data is copied by value. No uninitialized/pre-trigger or post-reset data, default data, deep copy, ownership transfer or arbitrary type conversion is asserted.",
+        "ja": "明示的に受理されたobject／integer dataのみ。objectのaliasは通常のclass handle値の意味に従い、scalar dataは値で複製する。未初期化／trigger前やreset後のdata、既定data、deep copy、所有権移譲、任意型変換は主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_event_object_trigger_data_retains_live_handle_aliases_replacement_and_null",
+          "role": "direct",
+          "expected_observations": [
+            "UT: event_data_alias identity 1 live 35",
+            "UT: event_data_replacement current 1 retained 1 first_value 47 second_value 27"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SYNC-REVIEW-OBJECT-DATA-REPLACEMENT-NULL",
+      "clause": "10.1.2.2.5",
+      "statement": {
+        "en": "Later explicit object and null triggers replace the current data without changing an earlier returned handle.",
+        "ja": "後の明示object／null triggerは、以前に返したhandleを変えず現在dataを置き換える。"
+      },
+      "conditions": {
+        "en": "Trigger a second payload and then explicit null after retaining the first result.",
+        "ja": "最初の結果を保持した後、2番目のpayloadと明示nullでtriggerする。"
+      },
+      "expected": {
+        "en": "The latest getter follows each replacement while the saved handle still denotes the first payload.",
+        "ja": "最新getterは各置換に従い、保存handleは最初のpayloadを指したままである。"
+      },
+      "limitations": {
+        "en": "Explicit accepted object/integer data only. Object aliasing follows ordinary class-handle value semantics; scalar data is copied by value. No uninitialized/pre-trigger or post-reset data, default data, deep copy, ownership transfer or arbitrary type conversion is asserted.",
+        "ja": "明示的に受理されたobject／integer dataのみ。objectのaliasは通常のclass handle値の意味に従い、scalar dataは値で複製する。未初期化／trigger前やreset後のdata、既定data、deep copy、所有権移譲、任意型変換は主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_event_object_trigger_data_retains_live_handle_aliases_replacement_and_null",
+          "role": "direct",
+          "expected_observations": [
+            "UT: event_data_replacement current 1 retained 1 first_value 47 second_value 27",
+            "UT: event_data_null current 1 retained 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SYNC-REVIEW-SCALAR-DATA-VALUE-COPY",
+      "clause": "10.1.2.2.5",
+      "statement": {
+        "en": "Scalar trigger data preserves the value supplied at the accepted call.",
+        "ja": "scalar trigger dataは受理呼出しで指定した値を保持する。"
+      },
+      "conditions": {
+        "en": "Trigger from an integer variable and later change that caller variable.",
+        "ja": "integer変数でtriggerした後、呼出し側のその変数を変える。"
+      },
+      "expected": {
+        "en": "Current and saved event data remain thirteen while the caller variable becomes twenty-seven.",
+        "ja": "呼出し側変数が27になっても、現在／保存event dataは13を保持する。"
+      },
+      "limitations": {
+        "en": "Explicit accepted object/integer data only. Object aliasing follows ordinary class-handle value semantics; scalar data is copied by value. No uninitialized/pre-trigger or post-reset data, default data, deep copy, ownership transfer or arbitrary type conversion is asserted.",
+        "ja": "明示的に受理されたobject／integer dataのみ。objectのaliasは通常のclass handle値の意味に従い、scalar dataは値で複製する。未初期化／trigger前やreset後のdata、既定data、deep copy、所有権移譲、任意型変換は主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_event_scalar_trigger_data_copies_the_supplied_value_and_keeps_peer_history",
+          "role": "direct",
+          "expected_observations": [
+            "UT: event_scalar_copied current 13 saved 13 supplied 27 peer 71"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SYNC-REVIEW-SCALAR-LATEST-LOCAL-DATA",
+      "clause": "10.1.2.2.5",
+      "statement": {
+        "en": "A later scalar trigger replaces only that event latest data.",
+        "ja": "後のscalar triggerは、そのeventの最新dataだけを置き換える。"
+      },
+      "conditions": {
+        "en": "Retain a scalar result and independently trigger a peer before triggering a new value.",
+        "ja": "scalar結果を保持し、peerを独立にtriggerしてから新しい値でtriggerする。"
+      },
+      "expected": {
+        "en": "Current data becomes twenty-seven, saved data stays thirteen and peer data stays seventy-one.",
+        "ja": "現在dataは27となり、保存dataは13、peer dataは71を保持する。"
+      },
+      "limitations": {
+        "en": "Explicit accepted object/integer data only. Object aliasing follows ordinary class-handle value semantics; scalar data is copied by value. No uninitialized/pre-trigger or post-reset data, default data, deep copy, ownership transfer or arbitrary type conversion is asserted.",
+        "ja": "明示的に受理されたobject／integer dataのみ。objectのaliasは通常のclass handle値の意味に従い、scalar dataは値で複製する。未初期化／trigger前やreset後のdata、既定data、deep copy、所有権移譲、任意型変換は主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_event_scalar_trigger_data_copies_the_supplied_value_and_keeps_peer_history",
+          "role": "direct",
+          "expected_observations": [
+            "UT: event_scalar_latest current 27 saved 13 peer 71"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SYNC-REVIEW-EVENT-ACTUAL-WAITER-COUNT",
+      "clause": "10.1.1.2.10",
+      "statement": {
+        "en": "The event waiter query reports the processes actually blocked on that event.",
+        "ja": "event waiter照会は、そのeventで実際に待機するprocessを報告する。"
+      },
+      "conditions": {
+        "en": "Reset the selected off event without wakeup while its mixed waiters remain blocked.",
+        "ja": "混在waiterを待機させたまま、選択したoff eventをwakeupなしでresetする。"
+      },
+      "expected": {
+        "en": "Three selected wait styles and one peer off-wait produce counts three/one; no-wakeup reset preserves the three blocked callers.",
+        "ja": "選択した3待機方式とpeer off-waitは件数3／1を示し、wakeupなしreset後も3 callerは待機する。"
+      },
+      "limitations": {
+        "en": "Actual raw-trigger, persistent-trigger and on-state waiters plus a separate off-state peer are established with positive delays. Bounded public observations occur before cleanup of stranded processes. The expected fresh-trigger release remains normative even if the pinned library resets its internal event/count. No private event handle or arbitrary reset concurrency is asserted.",
+        "ja": "正の遅延で実際のraw-trigger、persistent-trigger、on-state waiterと別のoff-state peerを確立する。取り残されたprocessをcleanupする前に、公開状態を有限に観測する。固定libraryが内部event／countをresetしても、新triggerでの解放という規範的期待を保持する。非公開event handleや任意reset並行性は主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_event_default_reset_preserves_mixed_waiters_for_a_fresh_trigger",
+          "role": "direct",
+          "expected_observations": [
+            "UT: event_waiter_initial subject 3 peer 1 blocked 1",
+            "UT: event_waiter_reset subject 3 blocked 1 peer_returned 1 peer_waiters 0",
+            "UT: event_waiter_fresh complete 1 data 33/33/33 waiters 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SYNC-REVIEW-EVENT-DEFAULT-RESET-BLOCKED",
+      "clause": "10.1.1.2.8",
+      "statement": {
+        "en": "Default event reset does not request activation of existing trigger waiters.",
+        "ja": "既定event resetは、既存trigger waiterの起動を要求しない。"
+      },
+      "conditions": {
+        "en": "Reset the selected off event without wakeup while its mixed waiters remain blocked.",
+        "ja": "混在waiterを待機させたまま、選択したoff eventをwakeupなしでresetする。"
+      },
+      "expected": {
+        "en": "The selected event remains off with its three old callers blocked while the separate on peer off-wait returns.",
+        "ja": "選択eventはoffで3 callerが待機を続け、別のon peerのoff-waitは戻る。"
+      },
+      "limitations": {
+        "en": "Actual raw-trigger, persistent-trigger and on-state waiters plus a separate off-state peer are established with positive delays. Bounded public observations occur before cleanup of stranded processes. The expected fresh-trigger release remains normative even if the pinned library resets its internal event/count. No private event handle or arbitrary reset concurrency is asserted.",
+        "ja": "正の遅延で実際のraw-trigger、persistent-trigger、on-state waiterと別のoff-state peerを確立する。取り残されたprocessをcleanupする前に、公開状態を有限に観測する。固定libraryが内部event／countをresetしても、新triggerでの解放という規範的期待を保持する。非公開event handleや任意reset並行性は主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_event_default_reset_preserves_mixed_waiters_for_a_fresh_trigger",
+          "role": "direct",
+          "expected_observations": [
+            "UT: event_waiter_reset subject 3 blocked 1 peer_returned 1 peer_waiters 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SYNC-REVIEW-EVENT-FRESH-TRIGGER-POST-RESET",
+      "clause": "10.1.1.2.4",
+      "statement": {
+        "en": "A later fresh trigger releases raw waiters that remained blocked across a no-wakeup reset.",
+        "ja": "wakeupなしresetを越えて待機していたraw waiterは、後の新しいtriggerで解放される。"
+      },
+      "conditions": {
+        "en": "Reset the selected off event without wakeup while its mixed waiters remain blocked.",
+        "ja": "混在waiterを待機させたまま、選択したoff eventをwakeupなしでresetする。"
+      },
+      "expected": {
+        "en": "The fresh trigger releases all three selected callers with value thirty-three and leaves no waiters.",
+        "ja": "新しいtriggerは選択した3 callerを値33で解放し、waiterを残さない。"
+      },
+      "limitations": {
+        "en": "Actual raw-trigger, persistent-trigger and on-state waiters plus a separate off-state peer are established with positive delays. Bounded public observations occur before cleanup of stranded processes. The expected fresh-trigger release remains normative even if the pinned library resets its internal event/count. No private event handle or arbitrary reset concurrency is asserted.",
+        "ja": "正の遅延で実際のraw-trigger、persistent-trigger、on-state waiterと別のoff-state peerを確立する。取り残されたprocessをcleanupする前に、公開状態を有限に観測する。固定libraryが内部event／countをresetしても、新triggerでの解放という規範的期待を保持する。非公開event handleや任意reset並行性は主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_event_default_reset_preserves_mixed_waiters_for_a_fresh_trigger",
+          "role": "direct",
+          "expected_observations": [
+            "UT: event_waiter_fresh complete 1 data 33/33/33 waiters 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SYNC-REVIEW-BARRIER-ACTUAL-WAITER-COUNT",
+      "clause": "10.3.2.7",
+      "statement": {
+        "en": "Barrier waiter counts report current blocked callers independently per barrier.",
+        "ja": "barrier waiter countは各barrierで現在待機するcallerを独立に報告する。"
+      },
+      "conditions": {
+        "en": "Hold two callers on one barrier and one on another, then add selected arrivals.",
+        "ja": "一方で2 caller、他方で1 callerを待機させ、選択した到着を追加する。"
+      },
+      "expected": {
+        "en": "Counts progress through two/one, three/one and zero/zero without releasing the other barrier early.",
+        "ja": "他方のbarrierを早期解放せず、件数は2／1、3／1、0／0へ進む。"
+      },
+      "limitations": {
+        "en": "Public thresholds and counts are observed after positive settling delays, using two independent barriers or a bounded silent-reset group. No negative/zero-threshold wait rule, release-order guarantee, private queue or physical scheduling implementation is inferred. Stranded-process cleanup is not counted as required barrier release.",
+        "ja": "独立した2 barrier、または有限のsilent-reset groupで、正の安定待ち後に公開threshold／countを観測する。負／0 thresholdの待機規則、release順保証、非公開queue、物理schedule実装は推論しない。取り残されたprocessのcleanupを必要なbarrier解放に数えない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_barrier_raised_threshold_keeps_waiters_and_peer_progress_independent",
+          "role": "direct",
+          "expected_observations": [
+            "UT: barrier_pending subject 2 peer 1 blocked 1",
+            "UT: barrier_raised threshold 4 waiters 3 blocked 1",
+            "UT: barrier_peer complete 1 subject_blocked 1 subject_waiters 3",
+            "UT: barrier_final subject 1 peer 1 waiters 0/0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SYNC-REVIEW-BARRIER-RAISED-THRESHOLD",
+      "clause": "10.3.2.6",
+      "statement": {
+        "en": "Raising a pending barrier threshold keeps existing callers blocked until the new threshold is reached.",
+        "ja": "待機中barrierのthresholdを上げると、新thresholdに達するまで既存callerを待機させる。"
+      },
+      "conditions": {
+        "en": "Raise three to four while only two callers are waiting, then admit a third and fourth.",
+        "ja": "2 callerだけが待つ間に3を4へ上げ、3番目、4番目を到着させる。"
+      },
+      "expected": {
+        "en": "Three remain blocked; all four release only at the fourth arrival while a peer completes independently.",
+        "ja": "3 callerは待機を続け、peerが独立に完了する間も、4番目の到着でのみ4 caller全員を解放する。"
+      },
+      "limitations": {
+        "en": "Public thresholds and counts are observed after positive settling delays, using two independent barriers or a bounded silent-reset group. No negative/zero-threshold wait rule, release-order guarantee, private queue or physical scheduling implementation is inferred. Stranded-process cleanup is not counted as required barrier release.",
+        "ja": "独立した2 barrier、または有限のsilent-reset groupで、正の安定待ち後に公開threshold／countを観測する。負／0 thresholdの待機規則、release順保証、非公開queue、物理schedule実装は推論しない。取り残されたprocessのcleanupを必要なbarrier解放に数えない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_barrier_raised_threshold_keeps_waiters_and_peer_progress_independent",
+          "role": "direct",
+          "expected_observations": [
+            "UT: barrier_raised threshold 4 waiters 3 blocked 1",
+            "UT: barrier_peer complete 1 subject_blocked 1 subject_waiters 3",
+            "UT: barrier_final subject 1 peer 1 waiters 0/0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SYNC-REVIEW-BARRIER-SILENT-RESET-COUNT",
+      "clause": "10.3.2.3",
+      "statement": {
+        "en": "Barrier reset without wakeup clears the count and preserves threshold without activating old callers.",
+        "ja": "wakeupなしbarrier resetは旧callerを起動せず、件数を消去してthresholdを保持する。"
+      },
+      "conditions": {
+        "en": "Reset two blocked callers explicitly with wakeup zero at threshold three.",
+        "ja": "threshold 3で待機する2 callerを、wakeup 0で明示resetする。"
+      },
+      "expected": {
+        "en": "Count becomes zero, threshold stays three and both old callers remain blocked.",
+        "ja": "件数は0、thresholdは3を保持し、両旧callerは待機したままである。"
+      },
+      "limitations": {
+        "en": "Public thresholds and counts are observed after positive settling delays, using two independent barriers or a bounded silent-reset group. No negative/zero-threshold wait rule, release-order guarantee, private queue or physical scheduling implementation is inferred. Stranded-process cleanup is not counted as required barrier release.",
+        "ja": "独立した2 barrier、または有限のsilent-reset groupで、正の安定待ち後に公開threshold／countを観測する。負／0 thresholdの待機規則、release順保証、非公開queue、物理schedule実装は推論しない。取り残されたprocessのcleanupを必要なbarrier解放に数えない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_barrier_reset_without_wakeup_rearms_count_and_releases_old_waiters_at_fresh_threshold",
+          "role": "direct",
+          "expected_observations": [
+            "UT: barrier_silent_reset waiters 0 threshold 3 old_blocked 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SYNC-REVIEW-BARRIER-FRESH-RELEASE-AFTER-RESET",
+      "clause": "10.3.2.2",
+      "statement": {
+        "en": "When a reset barrier reaches its retained threshold again, all blocked callers are released.",
+        "ja": "resetしたbarrierが保持thresholdへ再び達すると、待機caller全員を解放する。"
+      },
+      "conditions": {
+        "en": "After silent reset, admit a fresh threshold-sized group while old callers remain blocked.",
+        "ja": "silent reset後、旧callerを待機させたまま、新たにthreshold件数のgroupを到着させる。"
+      },
+      "expected": {
+        "en": "Two fresh arrivals remain blocked; the third releases the fresh three and old two, leaving count zero.",
+        "ja": "新しい2到着は待機し、3番目が新3 callerと旧2 callerを解放し、件数は0となる。"
+      },
+      "limitations": {
+        "en": "Public thresholds and counts are observed after positive settling delays, using two independent barriers or a bounded silent-reset group. No negative/zero-threshold wait rule, release-order guarantee, private queue or physical scheduling implementation is inferred. Stranded-process cleanup is not counted as required barrier release.",
+        "ja": "独立した2 barrier、または有限のsilent-reset groupで、正の安定待ち後に公開threshold／countを観測する。負／0 thresholdの待機規則、release順保証、非公開queue、物理schedule実装は推論しない。取り残されたprocessのcleanupを必要なbarrier解放に数えない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_barrier_reset_without_wakeup_rearms_count_and_releases_old_waiters_at_fresh_threshold",
+          "role": "direct",
+          "expected_observations": [
+            "UT: barrier_fresh_pending waiters 2 all_blocked 1",
+            "UT: barrier_fresh_release all 1 waiters 0 threshold 3"
+          ]
+        }
+      ]
     }
   ]
 }

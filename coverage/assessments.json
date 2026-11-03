@@ -1671,6 +1671,229 @@
         "reviewer": null,
         "reviewed_at": null
       }
+    },
+    {
+      "clause": "10.1.1.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "Methods heading only; event-base construction, waits and state/count queries retain their own subordinate contracts.",
+        "ja": "Methods見出しのみ。event-base生成、待機、状態／件数照会は下位の個別契約を保持する。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "10.1.2.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "Methods heading only; typed-event construction, trigger and data APIs remain separately specified.",
+        "ja": "Methods見出しのみ。型付きeventの生成、trigger、data APIは個別規定に残る。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "10.2.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "Methods heading only; callback construction and pre/post-trigger contracts remain in child clauses.",
+        "ja": "Methods見出しのみ。callback生成とpre／post-trigger契約は子条項に残る。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "10.3.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "Methods heading only; barrier construction, threshold, wait, reset and count contracts remain separate.",
+        "ja": "Methods見出しのみ。barrier生成、threshold、wait、reset、count契約は個別に残る。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "10.4",
+      "classification": "structural",
+      "rationale": {
+        "en": "Pool-classes heading only, followed directly by the individual pool clauses; it adds no independent operation.",
+        "ja": "Pool classes見出しのみで個別pool条項が直後に続き、独立の操作を追加しない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "10.4.1.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "Common-methods heading only; event-pool methods retain their own contracts and unresolved get_global declaration/prose issue.",
+        "ja": "Common methods見出しのみ。event-pool methodは個別契約とget_global宣言／本文の未解決点を保持する。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "10.4.2.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "Common-methods heading only; barrier-pool methods retain their own contracts and unresolved get_global declaration/prose issue.",
+        "ja": "Common methods見出しのみ。barrier-pool methodは個別契約とget_global宣言／本文の未解決点を保持する。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "10",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The overview introduces event, barrier, named-pool and callback services. Related state/wait, threshold, singleton and callback requirements decompose selected roles without adding another scheduling algorithm. It does not close untested conditions.",
+        "ja": "概要はevent、barrier、名前付きpool、callback serviceを導入する。関連する状態／wait、threshold、singleton、callback要求が選択した役割を分解し、別のschedule algorithmを追加しない。未検査条件は解消しない。"
+      },
+      "related_requirements": [
+        "UVM-EVENT-WAIT-ON-PERSISTENCE",
+        "UVM-BARRIER-THRESHOLD-GATE",
+        "UVM-EVENT-POOL-GLOBAL-SINGLETON",
+        "UVM-EVENT-CALLBACK-VETO"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "10.1",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The overview names the event base and typed derivative; selected inheritance and typed data obligations are decomposed in related declarations and getter requirements.",
+        "ja": "概要はevent基底と型付き派生型を示し、選択した継承と型付きdata義務を関連宣言／getter要求へ分解する。"
+      },
+      "related_requirements": [
+        "UVM-SYNC-REVIEW-EVENT-BASE-OBJECT",
+        "UVM-SYNC-REVIEW-EVENT-BASE-INHERITANCE",
+        "UVM-SYNC-REVIEW-SCALAR-DATA-VALUE-COPY"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "10.1.1",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The overview describes an abstract event wrapper with callbacks and waiter accounting. Related callback and actual-count requirements decompose selected services; this does not certify every event scheduling condition.",
+        "ja": "概要はcallbackとwaiter計数を持つ抽象event wrapperを説明する。関連callback／実件数要求が選択serviceを分解し、全event schedule条件を認定しない。"
+      },
+      "related_requirements": [
+        "UVM-SYNC-REVIEW-EVENT-ACTUAL-WAITER-COUNT",
+        "UVM-EVENT-CALLBACK-VETO"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "10.1.2",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The overview describes the typed derivative and optional trigger-data type. Related declared type, scalar-value and object-handle requirements cover selected conditions without duplicating a new data transport algorithm.",
+        "ja": "概要は型付き派生型と省略可能なtrigger-data型を説明する。関連する宣言型、scalar値、object handle要求が選択条件を扱い、新たなdata転送algorithmを重複させない。"
+      },
+      "related_requirements": [
+        "UVM-SYNC-REVIEW-EVENT-DEFAULT-TYPE",
+        "UVM-SYNC-REVIEW-OBJECT-DATA-IDENTITY",
+        "UVM-SYNC-REVIEW-SCALAR-DATA-VALUE-COPY"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "10.2",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The overview introduces derived callbacks attached to events as an alternative to waiter processes. Related declaration and pre/post-trigger requirements decompose selected observable contracts; disabled callback behavior remains a separate known difference.",
+        "ja": "概要はwaiter processに代わる、eventへ付ける派生callbackを導入する。関連宣言とpre／post-trigger要求が選択した観測可能契約を分解し、無効callback動作は別の既知差分に残る。"
+      },
+      "related_requirements": [
+        "UVM-SYNC-REVIEW-EVENT-CALLBACK-BASE",
+        "UVM-EVENT-CALLBACK-VETO",
+        "UVM-EVENT-POST-CALLBACK-ACTIVATION"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "10.3",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The overview describes threshold-based multi-process blocking and release. Related wait, changed-threshold and reset requirements decompose selected obligations rather than creating a second synchronization algorithm.",
+        "ja": "概要はthresholdに基づく複数processの待機と解放を説明する。関連wait、threshold変更、reset要求が選択義務を分解し、別の同期algorithmを作らない。"
+      },
+      "related_requirements": [
+        "UVM-BARRIER-THRESHOLD-GATE",
+        "UVM-SYNC-REVIEW-BARRIER-RAISED-THRESHOLD",
+        "UVM-SYNC-REVIEW-BARRIER-FRESH-RELEASE-AFTER-RESET"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "10.4.2",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The overview identifies a collection of barriers; exact generic inheritance and existing keyed-creation requirements decompose the selected role, without implying a separate initial-membership rule or resolving get_global return type.",
+        "ja": "概要はbarrierの集合を示し、正確なgeneric継承と既存key生成要求が選択役割を分解する。別の初期所属規則やget_global戻り型の解決は含意しない。"
+      },
+      "related_requirements": [
+        "UVM-SYNC-REVIEW-BARRIER-POOL-GENERIC-BASE",
+        "UVM-BARRIER-POOL-KEYED-CREATION"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
     }
   ]
 }

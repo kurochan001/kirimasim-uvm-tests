@@ -2,7 +2,7 @@
 
 [English](history.md) · [README](../README.ja.md)
 
-M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の33回目の拡充（シミュレーション1343件）までを記録しています。以前の349件の時点は
+M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の34回目の拡充（シミュレーション1357件）までを記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -1845,3 +1845,24 @@ AI要求案28件で台帳1856件、1342テストへ直接対応し、別control 
 tool単体101件、全1343 metadata、台帳／索引／library同一性、互換実行記録、日英10組のFAQ 182回答・用語203語を照合します。
 全runner／tool、以前のsimulation入力、CI、catalog、scope、library lock、license、Issue方針、SVG 6 asset、別VPI記録は未変更です。
 goalは有効で、callback伝播4差分と、残るすべての適用条件、部分分解した義務、解釈の作業を保持します。
+
+## M1〜M4の薄い領域の34回目の拡充
+
+継続goalの6反復目でM1の14検査系を追加し、constructor／型5件、event-pool初期所属1件、raw待ち2件、受理時刻／状態1件、data 2件、混在waiter reset 1件、barrier 2件を扱います。
+11件は最終入力でseed 1・73一致、3件はseed 1で最初に異なりseed 73の結果はありません。全体1357件、M1 461件、M2 470件、M3 426件です。
+trigger前の公開照会で早いraw waiterを確認しますが、実測条件では2回目のtriggerで初めて再開し、遅いcallerは正しく新triggerまで待機します。
+既定event resetでは3 callerが待機してもwaiter 0を報告し、後の新triggerでは全員を解放します。必要なevent-pool名はlazy get前に存在しません。
+規範的期待をspec-onlyで保持し、persistent待ち、barrier threshold／reset、scalar複製、live object aliasの別比較対象は一致します。
+barrier silent-resetは有限の観測とcleanupを使い、取り残しが起きても公開結果を隠さない構成です。
+
+AI要求案36件で台帳1892件、1356テストへ直接対応し、別control 1件があります。以前の要求案はすべて保持します。
+個別の構造7件・文脈7件の分類で計127件、構造98件・文脈29件です。第10章は部分分解65番号・分類15番号・未評価36番号です。
+全体2,507番号は部分分解1072件、分類127件、未評価1,308件で、今回35件減、goal有効化から155件減です。
+主引用676番号、いずれかの引用1,339番号、候補の棚卸しは0件1,806、1件391、2件以上285です。
+pool get_globalの両宣言／本文矛盾、部分分解した義務、milestone目標、範囲、人のreviewは未完です。
+
+互換な通常evidenceは以前の1343入力をすべて保持し、pass 1191件、known 166件です。内訳は実行時初回差分124件、API欠落build 16件、DPI未link build 26件です。
+別command-line evidenceはpass 17／known 1、HDL VPIはpass 7／fail 1のままです。guest evidenceは未変更1085入力で、現在の272 IDは未測定です。
+tool単体101件、全1357 metadata、台帳／索引／library同一性、互換実行記録、日英10組のFAQ 185回答・用語206語を照合します。
+全runner／tool、以前のsimulation入力、CI、catalog、scope、library lock、license、Issue方針、SVG 6 asset、別VPI記録は未変更です。
+部分分解した残る義務を含め、goalは有効なままです。

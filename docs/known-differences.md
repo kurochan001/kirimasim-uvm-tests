@@ -2,7 +2,7 @@
 
 [日本語](known-differences.ja.md) · [README](../README.md) · [FAQ](faq.md)
 
-This describes the current 1343-test suite and the pinned Accellera UVM
+This describes the current 1357-test suite and the pinned Accellera UVM
 2020.3.1 library. A mismatch is a test result; it does not by itself assign
 the cause to the simulator, the library or the expectation.
 
@@ -19,6 +19,22 @@ shared accesses and one child-block shape; see the
 Further limitations and observations were identified during M1, M2 and M3.
 Where a test directly checks a required behavior that is missing, its
 normative expectation is retained with `:oracle: spec`.
+
+- The raw event early/late case establishes the early call with a public
+  count of one before triggering. At the next time slice that early caller
+  has not resumed, although 10.1.1.2.4 requires it to return for that trigger.
+  Both callers return on the second trigger; the same-slice late caller's
+  fresh-trigger wait is a matching control. The combined simulator/library
+  cause remains unassigned. No simulator implementation source is inspected.
+- Default event reset leaves three raw/persistent/on-state callers blocked
+  but reports zero waiters, contrary to the actual-process query in
+  10.1.1.2.10. A later fresh trigger releases all three with the expected data.
+  This is a count difference, not observed stranding. The barrier silent-reset
+  control separately matches its specified zero-count/rearm behavior.
+- Newly constructed event pools contain none of the begin/accept/end names
+  required by 10.4.1. The fixture checks membership before get could lazily
+  create them and does not require an exact pool size. Existing new-key
+  growth tests remain independent of initial membership and unchanged.
 
 - User-backdoor encode/decode callbacks run in the required order but their
   array transformations do not reach the next callback or final value path.
@@ -473,7 +489,7 @@ warning. The YES control changes the limit to nine without a warning. This
 is a diagnostic-severity difference, not failed limit enforcement. The older
 two no-DPI argument cases remain unchanged ordinary runtime differences.
 
-Across the suite, 1180 tests have the `verilator@5.052` oracle tag and 163
+Across the suite, 1191 tests have the `verilator@5.052` oracle tag and 166
 cases are spec-only. One of the spec-only cases checks 9.6: a child's pre-reset
 task must be killed when that phase ends, but the pinned-library run on Verilator 5.052
 lets the child perform its delayed write during a later phase. The cause of
@@ -485,10 +501,10 @@ without callbacks. The pinned Verilator run reaches the blocked-state
 observation, then its watchdog expires. This combined simulator/library
 cause remains unassigned; the normative wakeup expectation is retained.
 
-The 163 spec-only tests retain their normative expected files.
-Default Verilator runs and CI select the 1180 tagged cases. `--all` includes
+The 166 spec-only tests retain their normative expected files.
+Default Verilator runs and CI select the 1191 tagged cases. `--all` includes
 spec-only cases and records mismatches or build failures as `known`.
-The ordinary runtime records for 121 cases establish their first difference
+The ordinary runtime records for 124 cases establish their first difference
 at seed 1, without seed 73 results. Sixteen missing-API builds have no ordinary
 runtime seed result: one time API, six sequence-library cases, four HDL slice
 cases, one named-concat-constructor case, one object active-policy case and
@@ -500,8 +516,12 @@ These overlapping configurations are not summed.
 
 ## Spec-only tests
 
-These are the 163 current spec-only cases. Several exercise the same
+These are the 166 current spec-only cases. Several exercise the same
 limitation, so their count is not a count of distinct bugs.
+
+- [Established early raw event wait](../tests/u10/test_event_raw_trigger_wait_distinguishes_early_and_same_slice_late_calls.sv).
+- [Actual event waiter count after default reset](../tests/u10/test_event_default_reset_preserves_mixed_waiters_for_a_fresh_trigger.sv).
+- [Required initial event-pool members](../tests/u10/test_event_pool_initial_membership_contains_begin_accept_and_end_without_lazy_get.sv).
 
 - [Single encoder value propagation](../tests/u18/test_user_backdoor_encode_single_propagates_all_value_elements.sv).
 - [Chained encoder value propagation](../tests/u18/test_user_backdoor_encode_chain_propagates_all_value_elements.sv).
@@ -764,8 +784,8 @@ Additional message-handle and endian cases:
 
 ## Simulator and library combinations
 
-The suite has 1343 cases, but the kirimasim/Ghost records below cover only
-1085 unchanged current-input cases. The 258 new cases are unmeasured
+The suite has 1357 cases, but the kirimasim/Ghost records below cover only
+1085 unchanged current-input cases. The 272 new cases are unmeasured
 because prior temporary executable/profile snapshots are unavailable. Do
 not treat this as a fresh full-suite guest result. See [results](results.md).
 

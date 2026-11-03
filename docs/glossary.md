@@ -995,3 +995,17 @@ configured adapter and actual driver handshake carry each selected operation.
 **Parameter-only HDL check** — Inspecting a public sizing parameter and its
 macro-derived value without invoking HDL support routines. It provides no
 force/release, physical storage or backend ABI evidence.
+
+## Synchronization observations
+
+**Established waiter** — A pending wait confirmed before the release stimulus
+using positive timing and public waiter counts. A delayed call alone is weaker
+evidence when investigating an unexpected wakeup result.
+
+**Waiter accounting** — Reporting currently blocked processes rather than
+inferring progress from an internal count reset. Event and barrier reset
+contracts differ; count and actual release need separate observations.
+
+**Initial pool membership** — Keys present immediately after construction,
+before a getter can lazily create them. New-key growth and constructor naming
+do not prove required default entries or settle global-access signatures.

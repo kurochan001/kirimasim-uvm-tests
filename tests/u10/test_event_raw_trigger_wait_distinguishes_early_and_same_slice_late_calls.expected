@@ -1,0 +1,3 @@
+UT: raw_trigger_established entered 1 waiters 1
+UT: raw_trigger early 1 late_blocked 1 waiters 1
+UT: raw_trigger_final early 1 late 1 waiters 0 data 27

@@ -768,3 +768,14 @@ descriptorの同一性と選択した値／status伝播も含めることです�
 
 **Parameter-only HDL check（parameterだけのHDL検査）** — HDL support routineを呼ばず、公開のsize parameterとmacroから導く値を調べることです。
 force／release、物理記憶域、backend ABIのevidenceは示しません。
+
+## 同期の観測
+
+**Established waiter（確立したwaiter）** — 正の時間進行と公開waiter countを使い、解放stimulus前に確認した待機です。
+予想外のwakeupを調べる場合、呼出しを遅延しただけではより弱いevidenceです。
+
+**Waiter accounting（waiter計数）** — 内部countのresetから進行を推論せず、現在待機するprocessを報告することです。
+eventとbarrierのreset契約は異なり、件数と実際の解放を別々に観測します。
+
+**Initial pool membership（pool初期所属）** — getterがlazy生成する前から、生成直後に存在するkeyです。
+新keyの増分やconstructorの名前では、必要な既定項目やglobal-access signatureは証明できません。

@@ -1,0 +1,3 @@
+UT: barrier_silent_reset waiters 0 threshold 3 old_blocked 1
+UT: barrier_fresh_pending waiters 2 all_blocked 1
+UT: barrier_fresh_release all 1 waiters 0 threshold 3

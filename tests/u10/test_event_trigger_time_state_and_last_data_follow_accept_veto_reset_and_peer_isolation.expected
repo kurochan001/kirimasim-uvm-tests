@@ -1,0 +1,4 @@
+UT: trigger_initial times 0/0 off 1/1
+UT: trigger_veto times 2/3 data 11/31 on 1/1 callbacks 2/1
+UT: trigger_reset time 0 off 1 peer_time 3 peer_on 1 callbacks 2/1
+UT: trigger_reaccepted time 6 data 12 on 1 peer_time 3 callbacks 3/2
