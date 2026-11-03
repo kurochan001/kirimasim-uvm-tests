@@ -774,3 +774,15 @@ from an observable requirement and never supplies a passing execution result.
 **Strict configuration condition** — A pinned-library build setting that
 changes resource selection for automatic configuration. Its measurements
 remain distinct from default-mode results and retain the same normative oracle.
+
+## Registry proxies, history and model locks
+
+**Registry singleton** — The shared wrapper returned by get for one registry
+specialization. It represents a type without constructing an instance of it.
+
+**Sequencer history capacity** — The configured maximum retained request or
+response history, independent of traffic delivery and lifetime traffic counters.
+
+**Model lock state** — A register model's structural lock status. Building
+address lookups with lock_model differs from changing flags with set_lock;
+it does not denote sequencer ownership or a hardware bus lock.

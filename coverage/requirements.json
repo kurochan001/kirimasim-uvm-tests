@@ -46872,6 +46872,924 @@
           ]
         }
       ]
+    },
+    {
+      "id": "UVM-OBJECT-REGISTRY-SINGLETON-SPECIALIZATION",
+      "clause": "8.2.4.2.3",
+      "statement": {
+        "en": "Each registry specialization returns its singleton proxy.",
+        "ja": "registry specializationごとにsingleton proxyを返す。"
+      },
+      "conditions": {
+        "en": "Repeat get for one Tname and compare different Tname specializations through the common wrapper base.",
+        "ja": "1 Tnameのgetを繰返し、別Tnameのspecializationを共通wrapper baseで比較する。"
+      },
+      "expected": {
+        "en": "Repeated get returns the same handle; distinct specializations have distinct handles.",
+        "ja": "繰返しgetは同一handleを返し、異なるspecializationのhandleは異なる。"
+      },
+      "limitations": {
+        "en": "Explicit local registry aliases use the same represented class with different Tname parameters. Handle identity, names and constructor counts are checked without numeric object IDs or global registry counts. initialize is called at the public registry/factory boundary, and construction is invoked through the selected factory, respecting the note discouraging direct user calls to create_object/create_component. The original factory is restored. Static initialization ordering is not inferred.",
+        "ja": "同じrepresented classに対し、異なるTnameのlocal registry aliasを明示する。数値object IDやglobal registry総数を使わず、handle同一性、名前、constructor数を検査する。initializeは公開registry／factory境界で呼び、create_object／create_componentの直接ユーザー呼出しを避ける注記に従って、生成は選択factoryを通す。元factoryを復元し、static初期化順は推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u08/test_object_registry_singletons_preserve_specialization_names_without_constructing_items",
+          "role": "direct",
+          "expected_observations": [
+            "UT: singleton 1 specializations_distinct 1 constructors 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-OBJECT-REGISTRY-EXPLICIT-TYPE-NAMES",
+      "clause": "8.2.4.2.2",
+      "statement": {
+        "en": "Registry get_type_name returns the Tname parameter.",
+        "ja": "registry get_type_nameはTname parameterを返す。"
+      },
+      "conditions": {
+        "en": "Construct named_proxy and other_proxy registry specializations.",
+        "ja": "named_proxyとother_proxyのregistry specializationを使う。"
+      },
+      "expected": {
+        "en": "Names are exactly named_proxy and other_proxy.",
+        "ja": "名前は正確にnamed_proxyとother_proxyとなる。"
+      },
+      "limitations": {
+        "en": "Explicit local registry aliases use the same represented class with different Tname parameters. Handle identity, names and constructor counts are checked without numeric object IDs or global registry counts. initialize is called at the public registry/factory boundary, and construction is invoked through the selected factory, respecting the note discouraging direct user calls to create_object/create_component. The original factory is restored. Static initialization ordering is not inferred.",
+        "ja": "同じrepresented classに対し、異なるTnameのlocal registry aliasを明示する。数値object IDやglobal registry総数を使わず、handle同一性、名前、constructor数を検査する。initializeは公開registry／factory境界で呼び、create_object／create_componentの直接ユーザー呼出しを避ける注記に従って、生成は選択factoryを通す。元factoryを復元し、static初期化順は推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u08/test_object_registry_singletons_preserve_specialization_names_without_constructing_items",
+          "role": "direct",
+          "expected_observations": [
+            "UT: names named_proxy other_proxy <unknown>"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-OBJECT-REGISTRY-DEFAULT-UNKNOWN-TNAME",
+      "clause": "8.2.4.1",
+      "statement": {
+        "en": "An omitted registry Tname defaults to <unknown>.",
+        "ja": "registry Tnameの省略は既定<unknown>となる。"
+      },
+      "conditions": {
+        "en": "Omit Tname for a concrete represented class.",
+        "ja": "具象represented classについてTnameを省略する。"
+      },
+      "expected": {
+        "en": "Its wrapper name is <unknown>.",
+        "ja": "wrapper名は<unknown>となる。"
+      },
+      "limitations": {
+        "en": "Explicit local registry aliases use the same represented class with different Tname parameters. Handle identity, names and constructor counts are checked without numeric object IDs or global registry counts. initialize is called at the public registry/factory boundary, and construction is invoked through the selected factory, respecting the note discouraging direct user calls to create_object/create_component. The original factory is restored. Static initialization ordering is not inferred.",
+        "ja": "同じrepresented classに対し、異なるTnameのlocal registry aliasを明示する。数値object IDやglobal registry総数を使わず、handle同一性、名前、constructor数を検査する。initializeは公開registry／factory境界で呼び、create_object／create_componentの直接ユーザー呼出しを避ける注記に従って、生成は選択factoryを通す。元factoryを復元し、static初期化順は推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u08/test_object_registry_singletons_preserve_specialization_names_without_constructing_items",
+          "role": "direct",
+          "expected_observations": [
+            "UT: names named_proxy other_proxy <unknown>"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-OBJECT-REGISTRY-PROXY-WITHOUT-INSTANCE",
+      "clause": "8.2.4",
+      "statement": {
+        "en": "Registry proxies enable registration without constructing an instance of the represented type.",
+        "ja": "registry proxyは、represented型のinstanceを生成せずに登録を可能にする。"
+      },
+      "conditions": {
+        "en": "Track only that concrete class constructor while obtaining three proxy specializations.",
+        "ja": "3 proxy specializationの取得中、対象具象classのconstructorだけを数える。"
+      },
+      "expected": {
+        "en": "No represented constructor is invoked by proxy retrieval.",
+        "ja": "proxy取得はrepresented constructorを呼ばない。"
+      },
+      "limitations": {
+        "en": "Explicit local registry aliases use the same represented class with different Tname parameters. Handle identity, names and constructor counts are checked without numeric object IDs or global registry counts. initialize is called at the public registry/factory boundary, and construction is invoked through the selected factory, respecting the note discouraging direct user calls to create_object/create_component. The original factory is restored. Static initialization ordering is not inferred.",
+        "ja": "同じrepresented classに対し、異なるTnameのlocal registry aliasを明示する。数値object IDやglobal registry総数を使わず、handle同一性、名前、constructor数を検査する。initializeは公開registry／factory境界で呼び、create_object／create_componentの直接ユーザー呼出しを避ける注記に従って、生成は選択factoryを通す。元factoryを復元し、static初期化順は推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u08/test_object_registry_singletons_preserve_specialization_names_without_constructing_items",
+          "role": "direct",
+          "expected_observations": [
+            "UT: singleton 1 specializations_distinct 1 constructors 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-OBJECT-REGISTRY-INITIALIZE-CURRENT-FACTORY",
+      "clause": "8.2.4.2.7",
+      "statement": {
+        "en": "Explicit registry initialization registers the exact proxy with the current factory.",
+        "ja": "明示registry初期化は、正確なproxyを現在のfactoryへ登録する。"
+      },
+      "conditions": {
+        "en": "Get a proxy, select a fresh factory, initialize it and query registration and name lookup.",
+        "ja": "proxyを取得して新factoryを選択し、初期化して登録と名前検索を照会する。"
+      },
+      "expected": {
+        "en": "The selected factory registers that exact handle and restores the original selection afterwards.",
+        "ja": "選択factoryは正確なhandleを登録し、後で元の選択を復元する。"
+      },
+      "limitations": {
+        "en": "Explicit local registry aliases use the same represented class with different Tname parameters. Handle identity, names and constructor counts are checked without numeric object IDs or global registry counts. initialize is called at the public registry/factory boundary, and construction is invoked through the selected factory, respecting the note discouraging direct user calls to create_object/create_component. The original factory is restored. Static initialization ordering is not inferred.",
+        "ja": "同じrepresented classに対し、異なるTnameのlocal registry aliasを明示する。数値object IDやglobal registry総数を使わず、handle同一性、名前、constructor数を検査する。initializeは公開registry／factory境界で呼び、create_object／create_componentの直接ユーザー呼出しを避ける注記に従って、生成は選択factoryを通す。元factoryを復元し、static初期化順は推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u08/test_object_registry_initialize_registers_its_proxy_with_the_current_factory",
+          "role": "direct",
+          "expected_observations": [
+            "UT: current_registered 1 exact_lookup 1 constructors_before 0",
+            "UT: restored 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-OBJECT-REGISTRY-FACTORY-CALLBACK-CREATION",
+      "clause": "8.2.4.2.1",
+      "statement": {
+        "en": "The registry creation callback constructs its represented type with the requested identity.",
+        "ja": "registry生成callbackは、要求したidentityでrepresented型を生成する。"
+      },
+      "conditions": {
+        "en": "Invoke name-based creation through the explicitly initialized selected factory.",
+        "ja": "明示初期化した選択factoryを通して、名前指定の生成を呼ぶ。"
+      },
+      "expected": {
+        "en": "One represented instance is constructed with its requested name.",
+        "ja": "represented instance 1つを、要求名で生成する。"
+      },
+      "limitations": {
+        "en": "Explicit local registry aliases use the same represented class with different Tname parameters. Handle identity, names and constructor counts are checked without numeric object IDs or global registry counts. initialize is called at the public registry/factory boundary, and construction is invoked through the selected factory, respecting the note discouraging direct user calls to create_object/create_component. The original factory is restored. Static initialization ordering is not inferred.",
+        "ja": "同じrepresented classに対し、異なるTnameのlocal registry aliasを明示する。数値object IDやglobal registry総数を使わず、handle同一性、名前、constructor数を検査する。initializeは公開registry／factory境界で呼び、create_object／create_componentの直接ユーザー呼出しを避ける注記に従って、生成は選択factoryを通す。元factoryを復元し、static初期化順は推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u08/test_object_registry_initialize_registers_its_proxy_with_the_current_factory",
+          "role": "direct",
+          "expected_observations": [
+            "UT: created_identity 1 constructors_after 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-REGISTRY-SINGLETON-SPECIALIZATION",
+      "clause": "8.2.3.2.3",
+      "statement": {
+        "en": "Each registry specialization returns its singleton proxy.",
+        "ja": "registry specializationごとにsingleton proxyを返す。"
+      },
+      "conditions": {
+        "en": "Repeat get for one Tname and compare different Tname specializations through the common wrapper base.",
+        "ja": "1 Tnameのgetを繰返し、別Tnameのspecializationを共通wrapper baseで比較する。"
+      },
+      "expected": {
+        "en": "Repeated get returns the same handle; distinct specializations have distinct handles.",
+        "ja": "繰返しgetは同一handleを返し、異なるspecializationのhandleは異なる。"
+      },
+      "limitations": {
+        "en": "Explicit local registry aliases use the same represented class with different Tname parameters. Handle identity, names and constructor counts are checked without numeric object IDs or global registry counts. initialize is called at the public registry/factory boundary, and construction is invoked through the selected factory, respecting the note discouraging direct user calls to create_object/create_component. The original factory is restored. Static initialization ordering is not inferred.",
+        "ja": "同じrepresented classに対し、異なるTnameのlocal registry aliasを明示する。数値object IDやglobal registry総数を使わず、handle同一性、名前、constructor数を検査する。initializeは公開registry／factory境界で呼び、create_object／create_componentの直接ユーザー呼出しを避ける注記に従って、生成は選択factoryを通す。元factoryを復元し、static初期化順は推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u08/test_component_registry_singletons_preserve_specialization_names_without_constructing_items",
+          "role": "direct",
+          "expected_observations": [
+            "UT: singleton 1 specializations_distinct 1 constructors 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-REGISTRY-EXPLICIT-TYPE-NAMES",
+      "clause": "8.2.3.2.2",
+      "statement": {
+        "en": "Registry get_type_name returns the Tname parameter.",
+        "ja": "registry get_type_nameはTname parameterを返す。"
+      },
+      "conditions": {
+        "en": "Construct named_proxy and other_proxy registry specializations.",
+        "ja": "named_proxyとother_proxyのregistry specializationを使う。"
+      },
+      "expected": {
+        "en": "Names are exactly named_proxy and other_proxy.",
+        "ja": "名前は正確にnamed_proxyとother_proxyとなる。"
+      },
+      "limitations": {
+        "en": "Explicit local registry aliases use the same represented class with different Tname parameters. Handle identity, names and constructor counts are checked without numeric object IDs or global registry counts. initialize is called at the public registry/factory boundary, and construction is invoked through the selected factory, respecting the note discouraging direct user calls to create_object/create_component. The original factory is restored. Static initialization ordering is not inferred.",
+        "ja": "同じrepresented classに対し、異なるTnameのlocal registry aliasを明示する。数値object IDやglobal registry総数を使わず、handle同一性、名前、constructor数を検査する。initializeは公開registry／factory境界で呼び、create_object／create_componentの直接ユーザー呼出しを避ける注記に従って、生成は選択factoryを通す。元factoryを復元し、static初期化順は推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u08/test_component_registry_singletons_preserve_specialization_names_without_constructing_items",
+          "role": "direct",
+          "expected_observations": [
+            "UT: names named_proxy other_proxy <unknown>"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-REGISTRY-DEFAULT-UNKNOWN-TNAME",
+      "clause": "8.2.3.1",
+      "statement": {
+        "en": "An omitted registry Tname defaults to <unknown>.",
+        "ja": "registry Tnameの省略は既定<unknown>となる。"
+      },
+      "conditions": {
+        "en": "Omit Tname for a concrete represented class.",
+        "ja": "具象represented classについてTnameを省略する。"
+      },
+      "expected": {
+        "en": "Its wrapper name is <unknown>.",
+        "ja": "wrapper名は<unknown>となる。"
+      },
+      "limitations": {
+        "en": "Explicit local registry aliases use the same represented class with different Tname parameters. Handle identity, names and constructor counts are checked without numeric object IDs or global registry counts. initialize is called at the public registry/factory boundary, and construction is invoked through the selected factory, respecting the note discouraging direct user calls to create_object/create_component. The original factory is restored. Static initialization ordering is not inferred.",
+        "ja": "同じrepresented classに対し、異なるTnameのlocal registry aliasを明示する。数値object IDやglobal registry総数を使わず、handle同一性、名前、constructor数を検査する。initializeは公開registry／factory境界で呼び、create_object／create_componentの直接ユーザー呼出しを避ける注記に従って、生成は選択factoryを通す。元factoryを復元し、static初期化順は推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u08/test_component_registry_singletons_preserve_specialization_names_without_constructing_items",
+          "role": "direct",
+          "expected_observations": [
+            "UT: names named_proxy other_proxy <unknown>"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-REGISTRY-PROXY-WITHOUT-INSTANCE",
+      "clause": "8.2.3",
+      "statement": {
+        "en": "Registry proxies enable registration without constructing an instance of the represented type.",
+        "ja": "registry proxyは、represented型のinstanceを生成せずに登録を可能にする。"
+      },
+      "conditions": {
+        "en": "Track only that concrete class constructor while obtaining three proxy specializations.",
+        "ja": "3 proxy specializationの取得中、対象具象classのconstructorだけを数える。"
+      },
+      "expected": {
+        "en": "No represented constructor is invoked by proxy retrieval.",
+        "ja": "proxy取得はrepresented constructorを呼ばない。"
+      },
+      "limitations": {
+        "en": "Explicit local registry aliases use the same represented class with different Tname parameters. Handle identity, names and constructor counts are checked without numeric object IDs or global registry counts. initialize is called at the public registry/factory boundary, and construction is invoked through the selected factory, respecting the note discouraging direct user calls to create_object/create_component. The original factory is restored. Static initialization ordering is not inferred.",
+        "ja": "同じrepresented classに対し、異なるTnameのlocal registry aliasを明示する。数値object IDやglobal registry総数を使わず、handle同一性、名前、constructor数を検査する。initializeは公開registry／factory境界で呼び、create_object／create_componentの直接ユーザー呼出しを避ける注記に従って、生成は選択factoryを通す。元factoryを復元し、static初期化順は推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u08/test_component_registry_singletons_preserve_specialization_names_without_constructing_items",
+          "role": "direct",
+          "expected_observations": [
+            "UT: singleton 1 specializations_distinct 1 constructors 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-REGISTRY-INITIALIZE-CURRENT-FACTORY",
+      "clause": "8.2.3.2.7",
+      "statement": {
+        "en": "Explicit registry initialization registers the exact proxy with the current factory.",
+        "ja": "明示registry初期化は、正確なproxyを現在のfactoryへ登録する。"
+      },
+      "conditions": {
+        "en": "Get a proxy, select a fresh factory, initialize it and query registration and name lookup.",
+        "ja": "proxyを取得して新factoryを選択し、初期化して登録と名前検索を照会する。"
+      },
+      "expected": {
+        "en": "The selected factory registers that exact handle and restores the original selection afterwards.",
+        "ja": "選択factoryは正確なhandleを登録し、後で元の選択を復元する。"
+      },
+      "limitations": {
+        "en": "Explicit local registry aliases use the same represented class with different Tname parameters. Handle identity, names and constructor counts are checked without numeric object IDs or global registry counts. initialize is called at the public registry/factory boundary, and construction is invoked through the selected factory, respecting the note discouraging direct user calls to create_object/create_component. The original factory is restored. Static initialization ordering is not inferred.",
+        "ja": "同じrepresented classに対し、異なるTnameのlocal registry aliasを明示する。数値object IDやglobal registry総数を使わず、handle同一性、名前、constructor数を検査する。initializeは公開registry／factory境界で呼び、create_object／create_componentの直接ユーザー呼出しを避ける注記に従って、生成は選択factoryを通す。元factoryを復元し、static初期化順は推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u08/test_component_registry_initialize_registers_its_proxy_with_the_current_factory",
+          "role": "direct",
+          "expected_observations": [
+            "UT: current_registered 1 exact_lookup 1 constructors_before 0",
+            "UT: restored 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-COMPONENT-REGISTRY-FACTORY-CALLBACK-CREATION",
+      "clause": "8.2.3.2.1",
+      "statement": {
+        "en": "The registry creation callback constructs its represented type with the requested identity.",
+        "ja": "registry生成callbackは、要求したidentityでrepresented型を生成する。"
+      },
+      "conditions": {
+        "en": "Invoke name-based creation through the explicitly initialized selected factory.",
+        "ja": "明示初期化した選択factoryを通して、名前指定の生成を呼ぶ。"
+      },
+      "expected": {
+        "en": "One represented instance is constructed with its requested name and exact component parent.",
+        "ja": "represented instance 1つを、要求名と正確なcomponent parentで生成する。"
+      },
+      "limitations": {
+        "en": "Explicit local registry aliases use the same represented class with different Tname parameters. Handle identity, names and constructor counts are checked without numeric object IDs or global registry counts. initialize is called at the public registry/factory boundary, and construction is invoked through the selected factory, respecting the note discouraging direct user calls to create_object/create_component. The original factory is restored. Static initialization ordering is not inferred.",
+        "ja": "同じrepresented classに対し、異なるTnameのlocal registry aliasを明示する。数値object IDやglobal registry総数を使わず、handle同一性、名前、constructor数を検査する。initializeは公開registry／factory境界で呼び、create_object／create_componentの直接ユーザー呼出しを避ける注記に従って、生成は選択factoryを通す。元factoryを復元し、static初期化順は推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u08/test_component_registry_initialize_registers_its_proxy_with_the_current_factory",
+          "role": "direct",
+          "expected_observations": [
+            "UT: created_identity 1 constructors_after 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REQUEST-HISTORY-CAPACITY-QUERY",
+      "clause": "15.3.3.2.2",
+      "statement": {
+        "en": "The history capacity query reports the configured size independently for each sequencer.",
+        "ja": "履歴容量の照会は、sequencerごとに設定したsizeを返す。"
+      },
+      "conditions": {
+        "en": "Observe default capacity one and transition a separate history from zero to two during traffic.",
+        "ja": "既定容量1を観測し、別履歴を転送中に0から2へ変える。"
+      },
+      "expected": {
+        "en": "Queries report one for independent peers and zero/two for the changed history.",
+        "ja": "独立peerには1、変更する履歴には0／2を返す。"
+      },
+      "limitations": {
+        "en": "Original finite sequences drive actual get handshakes; get already completes each request, so no extra item_done is called. Responses are delivered through rsp_export with IDs copied from the consumed request. Zero-capacity probes use index one, strictly greater than zero; after reenabling, three new items overwrite the two-entry window before checking it. No immediate resize-eviction rule, n-equals-capacity boundary, solver distribution or history snapshot copying is inferred. Exact handle identity and mutation are observed after traffic completes.",
+        "ja": "独自の有限sequenceが実際のget handshakeを駆動する。getがrequestを完了するため、余分なitem_doneは呼ばない。responseは消費requestからIDをコピーしてrsp_exportへ渡す。容量0の検査は0より大きいindex 1を使い、再有効化後は3新規itemで2 entryの窓を上書きしてから検査する。変更直後の追い出し規則、nと容量が等しい境界、solver分布、履歴snapshotの複製は推測しない。転送完了後に正確なhandle同一性と変更を観測する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequencer_zero_request_history_keeps_delivery_and_can_be_reenabled",
+          "role": "direct",
+          "expected_observations": [
+            "UT: disabled capacity 0 count 2 beyond_null 1 delivery 1",
+            "UT: enabled capacity 2 count 5 newest 1 previous 1 beyond_null 1"
+          ]
+        },
+        {
+          "test": "u15/test_sequencer_request_history_shares_exact_handles_without_affecting_a_peer",
+          "role": "direct",
+          "expected_observations": [
+            "UT: exact_handles 1 1 distinct 1 capacities 1 1",
+            "UT: shared_mutation 1 peer_retained 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REQUEST-ZERO-HISTORY-TRAFFIC-AND-REENABLE",
+      "clause": "15.3.3.2.1",
+      "statement": {
+        "en": "Zero history capacity preserves item delivery and can be changed to retain later items.",
+        "ja": "履歴容量0でもitem配送を保持し、後のitemを保持する設定へ変更できる。"
+      },
+      "conditions": {
+        "en": "Transfer two items with zero capacity, then three with capacity two.",
+        "ja": "容量0で2 item、容量2で3 itemを転送する。"
+      },
+      "expected": {
+        "en": "Traffic counters advance two then five, delivery retains exact handles and the final two-item window is newest-first.",
+        "ja": "転送数は2から5へ進み、配送は正確なhandleを保持し、最終2 itemの窓は新しい順となる。"
+      },
+      "limitations": {
+        "en": "Original finite sequences drive actual get handshakes; get already completes each request, so no extra item_done is called. Responses are delivered through rsp_export with IDs copied from the consumed request. Zero-capacity probes use index one, strictly greater than zero; after reenabling, three new items overwrite the two-entry window before checking it. No immediate resize-eviction rule, n-equals-capacity boundary, solver distribution or history snapshot copying is inferred. Exact handle identity and mutation are observed after traffic completes.",
+        "ja": "独自の有限sequenceが実際のget handshakeを駆動する。getがrequestを完了するため、余分なitem_doneは呼ばない。responseは消費requestからIDをコピーしてrsp_exportへ渡す。容量0の検査は0より大きいindex 1を使い、再有効化後は3新規itemで2 entryの窓を上書きしてから検査する。変更直後の追い出し規則、nと容量が等しい境界、solver分布、履歴snapshotの複製は推測しない。転送完了後に正確なhandle同一性と変更を観測する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequencer_zero_request_history_keeps_delivery_and_can_be_reenabled",
+          "role": "direct",
+          "expected_observations": [
+            "UT: disabled capacity 0 count 2 beyond_null 1 delivery 1",
+            "UT: enabled capacity 2 count 5 newest 1 previous 1 beyond_null 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REQUEST-HISTORY-EXACT-HANDLE-SHARING",
+      "clause": "15.4.2",
+      "statement": {
+        "en": "History returns the exact item handle rather than an independent value snapshot.",
+        "ja": "履歴は独立した値snapshotでなく、正確なitem handleを返す。"
+      },
+      "conditions": {
+        "en": "Keep one item on each of two sequencers and mutate the retained source handle after completion.",
+        "ja": "2 sequencerに各1 itemを保持し、完了後に元handleを変更する。"
+      },
+      "expected": {
+        "en": "Both history handles are exact and distinct; mutation is shared only by the selected item while peer data remains unchanged.",
+        "ja": "両履歴handleは正確かつ異なり、変更を選択itemだけで共有し、peer dataは不変となる。"
+      },
+      "limitations": {
+        "en": "Original finite sequences drive actual get handshakes; get already completes each request, so no extra item_done is called. Responses are delivered through rsp_export with IDs copied from the consumed request. Zero-capacity probes use index one, strictly greater than zero; after reenabling, three new items overwrite the two-entry window before checking it. No immediate resize-eviction rule, n-equals-capacity boundary, solver distribution or history snapshot copying is inferred. Exact handle identity and mutation are observed after traffic completes.",
+        "ja": "独自の有限sequenceが実際のget handshakeを駆動する。getがrequestを完了するため、余分なitem_doneは呼ばない。responseは消費requestからIDをコピーしてrsp_exportへ渡す。容量0の検査は0より大きいindex 1を使い、再有効化後は3新規itemで2 entryの窓を上書きしてから検査する。変更直後の追い出し規則、nと容量が等しい境界、solver分布、履歴snapshotの複製は推測しない。転送完了後に正確なhandle同一性と変更を観測する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequencer_request_history_shares_exact_handles_without_affecting_a_peer",
+          "role": "direct",
+          "expected_observations": [
+            "UT: exact_handles 1 1 distinct 1 capacities 1 1",
+            "UT: shared_mutation 1 peer_retained 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESPONSE-HISTORY-CAPACITY-QUERY",
+      "clause": "15.3.4.2.1",
+      "statement": {
+        "en": "The history capacity query reports the configured size independently for each sequencer.",
+        "ja": "履歴容量の照会は、sequencerごとに設定したsizeを返す。"
+      },
+      "conditions": {
+        "en": "Observe default capacity one and transition a separate history from zero to two during traffic.",
+        "ja": "既定容量1を観測し、別履歴を転送中に0から2へ変える。"
+      },
+      "expected": {
+        "en": "Queries report one for independent peers and zero/two for the changed history.",
+        "ja": "独立peerには1、変更する履歴には0／2を返す。"
+      },
+      "limitations": {
+        "en": "Original finite sequences drive actual get handshakes; get already completes each request, so no extra item_done is called. Responses are delivered through rsp_export with IDs copied from the consumed request. Zero-capacity probes use index one, strictly greater than zero; after reenabling, three new items overwrite the two-entry window before checking it. No immediate resize-eviction rule, n-equals-capacity boundary, solver distribution or history snapshot copying is inferred. Exact handle identity and mutation are observed after traffic completes.",
+        "ja": "独自の有限sequenceが実際のget handshakeを駆動する。getがrequestを完了するため、余分なitem_doneは呼ばない。responseは消費requestからIDをコピーしてrsp_exportへ渡す。容量0の検査は0より大きいindex 1を使い、再有効化後は3新規itemで2 entryの窓を上書きしてから検査する。変更直後の追い出し規則、nと容量が等しい境界、solver分布、履歴snapshotの複製は推測しない。転送完了後に正確なhandle同一性と変更を観測する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequencer_zero_response_history_keeps_delivery_and_can_be_reenabled",
+          "role": "direct",
+          "expected_observations": [
+            "UT: disabled capacity 0 count 2 beyond_null 1 delivery 1",
+            "UT: enabled capacity 2 count 5 newest 1 previous 1 beyond_null 1",
+            "UT: exact_reply_delivery 1"
+          ]
+        },
+        {
+          "test": "u15/test_sequencer_response_history_shares_exact_handles_without_affecting_a_peer",
+          "role": "direct",
+          "expected_observations": [
+            "UT: exact_handles 1 1 distinct 1 capacities 1 1",
+            "UT: shared_mutation 1 peer_retained 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESPONSE-ZERO-HISTORY-TRAFFIC-AND-REENABLE",
+      "clause": "15.3.4.2.2",
+      "statement": {
+        "en": "Zero history capacity preserves item delivery and can be changed to retain later items.",
+        "ja": "履歴容量0でもitem配送を保持し、後のitemを保持する設定へ変更できる。"
+      },
+      "conditions": {
+        "en": "Transfer two items with zero capacity, then three with capacity two.",
+        "ja": "容量0で2 item、容量2で3 itemを転送する。"
+      },
+      "expected": {
+        "en": "Traffic counters advance two then five, delivery retains exact handles and the final two-item window is newest-first.",
+        "ja": "転送数は2から5へ進み、配送は正確なhandleを保持し、最終2 itemの窓は新しい順となる。"
+      },
+      "limitations": {
+        "en": "Original finite sequences drive actual get handshakes; get already completes each request, so no extra item_done is called. Responses are delivered through rsp_export with IDs copied from the consumed request. Zero-capacity probes use index one, strictly greater than zero; after reenabling, three new items overwrite the two-entry window before checking it. No immediate resize-eviction rule, n-equals-capacity boundary, solver distribution or history snapshot copying is inferred. Exact handle identity and mutation are observed after traffic completes.",
+        "ja": "独自の有限sequenceが実際のget handshakeを駆動する。getがrequestを完了するため、余分なitem_doneは呼ばない。responseは消費requestからIDをコピーしてrsp_exportへ渡す。容量0の検査は0より大きいindex 1を使い、再有効化後は3新規itemで2 entryの窓を上書きしてから検査する。変更直後の追い出し規則、nと容量が等しい境界、solver分布、履歴snapshotの複製は推測しない。転送完了後に正確なhandle同一性と変更を観測する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequencer_zero_response_history_keeps_delivery_and_can_be_reenabled",
+          "role": "direct",
+          "expected_observations": [
+            "UT: disabled capacity 0 count 2 beyond_null 1 delivery 1",
+            "UT: enabled capacity 2 count 5 newest 1 previous 1 beyond_null 1",
+            "UT: exact_reply_delivery 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESPONSE-HISTORY-EXACT-HANDLE-SHARING",
+      "clause": "15.4.3.2",
+      "statement": {
+        "en": "History returns the exact item handle rather than an independent value snapshot.",
+        "ja": "履歴は独立した値snapshotでなく、正確なitem handleを返す。"
+      },
+      "conditions": {
+        "en": "Keep one item on each of two sequencers and mutate the retained source handle after completion.",
+        "ja": "2 sequencerに各1 itemを保持し、完了後に元handleを変更する。"
+      },
+      "expected": {
+        "en": "Both history handles are exact and distinct; mutation is shared only by the selected item while peer data remains unchanged.",
+        "ja": "両履歴handleは正確かつ異なり、変更を選択itemだけで共有し、peer dataは不変となる。"
+      },
+      "limitations": {
+        "en": "Original finite sequences drive actual get handshakes; get already completes each request, so no extra item_done is called. Responses are delivered through rsp_export with IDs copied from the consumed request. Zero-capacity probes use index one, strictly greater than zero; after reenabling, three new items overwrite the two-entry window before checking it. No immediate resize-eviction rule, n-equals-capacity boundary, solver distribution or history snapshot copying is inferred. Exact handle identity and mutation are observed after traffic completes.",
+        "ja": "独自の有限sequenceが実際のget handshakeを駆動する。getがrequestを完了するため、余分なitem_doneは呼ばない。responseは消費requestからIDをコピーしてrsp_exportへ渡す。容量0の検査は0より大きいindex 1を使い、再有効化後は3新規itemで2 entryの窓を上書きしてから検査する。変更直後の追い出し規則、nと容量が等しい境界、solver分布、履歴snapshotの複製は推測しない。転送完了後に正確なhandle同一性と変更を観測する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequencer_response_history_shares_exact_handles_without_affecting_a_peer",
+          "role": "direct",
+          "expected_observations": [
+            "UT: exact_handles 1 1 distinct 1 capacities 1 1",
+            "UT: shared_mutation 1 peer_retained 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-LOCK-MODEL-RECURSIVE-LOOKUPS",
+      "clause": "18.1.2.6",
+      "statement": {
+        "en": "lock_model recursively locks the hierarchy and builds address-map offset lookups.",
+        "ja": "lock_modelは階層を再帰lockし、address mapのoffset検索を構築する。"
+      },
+      "conditions": {
+        "en": "Use a root register at zero and a child register at offset two in a submap at sixteen.",
+        "ja": "root registerを0、child registerをsubmap内2、submapを16に置く。"
+      },
+      "expected": {
+        "en": "Both blocks become locked and root offsets zero/eighteen return the exact local/child registers.",
+        "ja": "両blockがlockされ、root offset 0／18が正確なlocal／child registerを返す。"
+      },
+      "limitations": {
+        "en": "Original register-model fixtures use public block/map APIs, eight-bit registers and one-byte maps. Lock probes inspect exact model flags and address lookup handles, without bus transfers, cached-query behavior while unlocked or concurrency outside the specified wait. Root listings compare fixture membership rather than global counts. Glob results use fresh queues and set membership, not iteration order; only an unambiguous single result is selected. Missing library APIs remain spec-only rather than replaced by internal state.",
+        "ja": "独自register modelで、公開block／map API、8 bit register、1 byte mapを使う。lock検査は正確なmodel flagとaddress検索handleを観測し、bus転送、unlock中のcache query、指定wait以外の並行性を推測しない。root一覧はglobal総数でなく検査対象の所属を比較する。glob結果は新queueと集合の所属を使い、列挙順に依存せず、単一検索は曖昧でない結果だけを選ぶ。library APIの欠落を内部状態で代用せず、spec-onlyとして保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_lock_model_recurses_and_builds_nested_address_lookups",
+          "role": "direct",
+          "expected_observations": [
+            "UT: before root 0 child 0",
+            "UT: locked root 1 child 1 local_lookup 1 nested_lookup 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-LOCK-STATE-QUERY",
+      "clause": "18.1.2.10",
+      "statement": {
+        "en": "is_locked reports the current model lock state.",
+        "ja": "is_lockedは現在のmodel lock状態を返す。"
+      },
+      "conditions": {
+        "en": "Observe a newly configured hierarchy before and after recursive locking.",
+        "ja": "設定直後の階層について、再帰lockの前後を観測する。"
+      },
+      "expected": {
+        "en": "Root and child report zero before locking and one afterwards.",
+        "ja": "rootとchildは、lock前に0、後に1を返す。"
+      },
+      "limitations": {
+        "en": "Original register-model fixtures use public block/map APIs, eight-bit registers and one-byte maps. Lock probes inspect exact model flags and address lookup handles, without bus transfers, cached-query behavior while unlocked or concurrency outside the specified wait. Root listings compare fixture membership rather than global counts. Glob results use fresh queues and set membership, not iteration order; only an unambiguous single result is selected. Missing library APIs remain spec-only rather than replaced by internal state.",
+        "ja": "独自register modelで、公開block／map API、8 bit register、1 byte mapを使う。lock検査は正確なmodel flagとaddress検索handleを観測し、bus転送、unlock中のcache query、指定wait以外の並行性を推測しない。root一覧はglobal総数でなく検査対象の所属を比較する。glob結果は新queueと集合の所属を使い、列挙順に依存せず、単一検索は曖昧でない結果だけを選ぶ。library APIの欠落を内部状態で代用せず、spec-onlyとして保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_lock_model_recurses_and_builds_nested_address_lookups",
+          "role": "direct",
+          "expected_observations": [
+            "UT: before root 0 child 0",
+            "UT: locked root 1 child 1 local_lookup 1 nested_lookup 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-SET-LOCK-BOTH-VALUES",
+      "clause": "18.1.2.8",
+      "statement": {
+        "en": "set_lock propagates the supplied mode to the block and every descendant without changing an independent root.",
+        "ja": "set_lockは指定modeをblockと全子孫へ伝播し、独立rootを変えない。"
+      },
+      "conditions": {
+        "en": "Set a three-level hierarchy to one and then zero while a peer remains locked.",
+        "ja": "peerをlockしたまま、3階層を1、次に0へ設定する。"
+      },
+      "expected": {
+        "en": "All three hierarchy flags follow both values; the peer stays one.",
+        "ja": "3階層のflagは両値に従い、peerは1を保つ。"
+      },
+      "limitations": {
+        "en": "Original register-model fixtures use public block/map APIs, eight-bit registers and one-byte maps. Lock probes inspect exact model flags and address lookup handles, without bus transfers, cached-query behavior while unlocked or concurrency outside the specified wait. Root listings compare fixture membership rather than global counts. Glob results use fresh queues and set membership, not iteration order; only an unambiguous single result is selected. Missing library APIs remain spec-only rather than replaced by internal state.",
+        "ja": "独自register modelで、公開block／map API、8 bit register、1 byte mapを使う。lock検査は正確なmodel flagとaddress検索handleを観測し、bus転送、unlock中のcache query、指定wait以外の並行性を推測しない。root一覧はglobal総数でなく検査対象の所属を比較する。glob結果は新queueと集合の所属を使い、列挙順に依存せず、単一検索は曖昧でない結果だけを選ぶ。library APIの欠落を内部状態で代用せず、spec-onlyとして保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_set_lock_changes_all_descendants_and_preserves_an_independent_root",
+          "role": "direct",
+          "expected_observations": [
+            "UT: enabled 1 1 1 peer 1",
+            "UT: disabled 0 0 0 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-UNLOCK-STRUCTURAL-REBUILD",
+      "clause": "18.1.2.7",
+      "statement": {
+        "en": "unlock_model permits structural changes and invalidates precomputed state before relocking.",
+        "ja": "unlock_modelは再lock前の構造変更を許し、計算済み状態を無効化する。"
+      },
+      "conditions": {
+        "en": "Lock one mapped register, unlock, add another register and relock.",
+        "ja": "map内のregister 1つをlockし、unlockして別registerを加え、再lockする。"
+      },
+      "expected": {
+        "en": "The model becomes unlocked; rebuilt lookups retain the original and locate the new register.",
+        "ja": "modelはunlockとなり、再構築した検索は元registerを保持して新registerも見つける。"
+      },
+      "limitations": {
+        "en": "Original register-model fixtures use public block/map APIs, eight-bit registers and one-byte maps. Lock probes inspect exact model flags and address lookup handles, without bus transfers, cached-query behavior while unlocked or concurrency outside the specified wait. Root listings compare fixture membership rather than global counts. Glob results use fresh queues and set membership, not iteration order; only an unambiguous single result is selected. Missing library APIs remain spec-only rather than replaced by internal state.",
+        "ja": "独自register modelで、公開block／map API、8 bit register、1 byte mapを使う。lock検査は正確なmodel flagとaddress検索handleを観測し、bus転送、unlock中のcache query、指定wait以外の並行性を推測しない。root一覧はglobal総数でなく検査対象の所属を比較する。glob結果は新queueと集合の所属を使い、列挙順に依存せず、単一検索は曖昧でない結果だけを選ぶ。library APIの欠落を内部状態で代用せず、spec-onlyとして保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_unlock_model_allows_structural_additions_before_rebuilding_lookups",
+          "role": "direct",
+          "expected_observations": [
+            "UT: initial locked 1 lookup 1",
+            "UT: unlocked 1",
+            "UT: rebuilt locked 1 first 1 added 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-WAIT-FOR-LOCK-COMPLETION",
+      "clause": "18.1.2.9",
+      "statement": {
+        "en": "wait_for_lock suspends preexisting waiters until lock_model completes.",
+        "ja": "wait_for_lockは、先に待機したwaiterをlock_model完了まで停止する。"
+      },
+      "conditions": {
+        "en": "Register two waiters before delayed locking of a mapped register, then inspect lock state and its lookup from both returns.",
+        "ja": "mapにregisterを置いて遅延lockの前に2 waiterを待機させ、両者が戻った時のlock状態と検索を観測する。"
+      },
+      "expected": {
+        "en": "Both waiters remain pending before locking and return after lock state and exact address lookup are ready.",
+        "ja": "両waiterはlock前に待機し、lock状態と正確なaddress検索の準備ができた後に戻る。"
+      },
+      "limitations": {
+        "en": "Original register-model fixtures use public block/map APIs, eight-bit registers and one-byte maps. Lock probes inspect exact model flags and address lookup handles, without bus transfers, cached-query behavior while unlocked or concurrency outside the specified wait. Root listings compare fixture membership rather than global counts. Glob results use fresh queues and set membership, not iteration order; only an unambiguous single result is selected. Missing library APIs remain spec-only rather than replaced by internal state. A call starting after lock completion is outside this oracle because the cited clause does not explicitly define that case.",
+        "ja": "独自register modelで、公開block／map API、8 bit register、1 byte mapを使う。lock検査は正確なmodel flagとaddress検索handleを観測し、bus転送、unlock中のcache query、指定wait以外の並行性を推測しない。root一覧はglobal総数でなく検査対象の所属を比較する。glob結果は新queueと集合の所属を使い、列挙順に依存せず、単一検索は曖昧でない結果だけを選ぶ。library APIの欠落を内部状態で代用せず、spec-onlyとして保持する。 引用条項に明記されないため、lock完了後に開始するwaitはoracleの対象外とする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_wait_for_lock_blocks_before_locking_and_returns_for_a_locked_model",
+          "role": "direct",
+          "expected_observations": [
+            "UT: before_lock blocked 1",
+            "UT: after_lock both_returned 1 locked 1 lookup_ready 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-ROOT-LIST-MEMBERSHIP",
+      "clause": "18.1.3.2",
+      "statement": {
+        "en": "get_root_blocks returns root blocks and excludes descendants with configured parents.",
+        "ja": "get_root_blocksはroot blockを返し、parentを設定した子孫を含めない。"
+      },
+      "conditions": {
+        "en": "Configure two roots with a child and grandchild under one of them.",
+        "ja": "2 rootを設定し、一方にchildとgrandchildを配置する。"
+      },
+      "expected": {
+        "en": "Both root handles occur in the listing; child/grandchild do not, and parent queries preserve exact relationships.",
+        "ja": "両root handleが一覧に現れ、child／grandchildは現れず、parent照会は正確な関係を保持する。"
+      },
+      "limitations": {
+        "en": "Original register-model fixtures use public block/map APIs, eight-bit registers and one-byte maps. Lock probes inspect exact model flags and address lookup handles, without bus transfers, cached-query behavior while unlocked or concurrency outside the specified wait. Root listings compare fixture membership rather than global counts. Glob results use fresh queues and set membership, not iteration order; only an unambiguous single result is selected. Missing library APIs remain spec-only rather than replaced by internal state.",
+        "ja": "独自register modelで、公開block／map API、8 bit register、1 byte mapを使う。lock検査は正確なmodel flagとaddress検索handleを観測し、bus転送、unlock中のcache query、指定wait以外の並行性を推測しない。root一覧はglobal総数でなく検査対象の所属を比較する。glob結果は新queueと集合の所属を使い、列挙順に依存せず、単一検索は曖昧でない結果だけを選ぶ。library APIの欠落を内部状態で代用せず、spec-onlyとして保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_root_listing_contains_independent_roots_and_excludes_descendants",
+          "role": "direct",
+          "expected_observations": [
+            "UT: roots_present 1 1 descendants_excluded 1 1",
+            "UT: parents 1 1 1 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-FIND-GLOB-ABSOLUTE-RELATIVE",
+      "clause": "18.1.3.3",
+      "statement": {
+        "en": "find_blocks interprets globs absolutely without a root and relative to a supplied root, returning the match count.",
+        "ja": "find_blocksはrootなしのglobを絶対名、root指定時を相対名で解釈し、一致数を返す。"
+      },
+      "conditions": {
+        "en": "Use two roots with equal branch names and a leaf under the first branch.",
+        "ja": "同名branchを持つ2 rootと、最初のbranch下のleafを使う。"
+      },
+      "expected": {
+        "en": "Absolute first.* selects exactly its two descendants; relative branch.* selects its leaf; missing* returns zero and an empty queue.",
+        "ja": "絶対first.*は正確にその2子孫、相対branch.*はleafを選び、missing*は0と空queueを返す。"
+      },
+      "limitations": {
+        "en": "Original register-model fixtures use public block/map APIs, eight-bit registers and one-byte maps. Lock probes inspect exact model flags and address lookup handles, without bus transfers, cached-query behavior while unlocked or concurrency outside the specified wait. Root listings compare fixture membership rather than global counts. Glob results use fresh queues and set membership, not iteration order; only an unambiguous single result is selected. Missing library APIs remain spec-only rather than replaced by internal state.",
+        "ja": "独自register modelで、公開block／map API、8 bit register、1 byte mapを使う。lock検査は正確なmodel flagとaddress検索handleを観測し、bus転送、unlock中のcache query、指定wait以外の並行性を推測しない。root一覧はglobal総数でなく検査対象の所属を比較する。glob結果は新queueと集合の所属を使い、列挙順に依存せず、単一検索は曖昧でない結果だけを選ぶ。library APIの欠落を内部状態で代用せず、spec-onlyとして保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_glob_search_distinguishes_absolute_and_root_relative_names",
+          "role": "direct",
+          "expected_observations": [
+            "UT: absolute count 2 exact_membership 1 peer_excluded 1",
+            "UT: relative count 1 exact_leaf 1 missing_count 0 empty 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-FIND-SINGLE-UNAMBIGUOUS-MISSING",
+      "clause": "18.1.3.4",
+      "statement": {
+        "en": "find_block returns the matching block for an unambiguous name and null for no match.",
+        "ja": "find_blockは、曖昧でない名前の一致block、不一致にはnullを返す。"
+      },
+      "conditions": {
+        "en": "Search exact branch and missing names relative to the first root.",
+        "ja": "最初のrootから相対的に、正確なbranch名と不在名を検索する。"
+      },
+      "expected": {
+        "en": "The branch handle is exact and the missing result is null.",
+        "ja": "branch handleは正確で、不在の結果はnullとなる。"
+      },
+      "limitations": {
+        "en": "Original register-model fixtures use public block/map APIs, eight-bit registers and one-byte maps. Lock probes inspect exact model flags and address lookup handles, without bus transfers, cached-query behavior while unlocked or concurrency outside the specified wait. Root listings compare fixture membership rather than global counts. Glob results use fresh queues and set membership, not iteration order; only an unambiguous single result is selected. Missing library APIs remain spec-only rather than replaced by internal state.",
+        "ja": "独自register modelで、公開block／map API、8 bit register、1 byte mapを使う。lock検査は正確なmodel flagとaddress検索handleを観測し、bus転送、unlock中のcache query、指定wait以外の並行性を推測しない。root一覧はglobal総数でなく検査対象の所属を比較する。glob結果は新queueと集合の所属を使い、列挙順に依存せず、単一検索は曖昧でない結果だけを選ぶ。library APIの欠落を内部状態で代用せず、spec-onlyとして保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_glob_search_distinguishes_absolute_and_root_relative_names",
+          "role": "direct",
+          "expected_observations": [
+            "UT: single exact_branch 1 missing_null 1"
+          ]
+        }
+      ]
     }
   ]
 }

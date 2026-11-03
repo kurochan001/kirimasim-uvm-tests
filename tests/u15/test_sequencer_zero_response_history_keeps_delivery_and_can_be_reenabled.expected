@@ -1,0 +1,3 @@
+UT: disabled capacity 0 count 2 beyond_null 1 delivery 1
+UT: enabled capacity 2 count 5 newest 1 previous 1 beyond_null 1
+UT: exact_reply_delivery 1

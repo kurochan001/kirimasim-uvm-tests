@@ -89,6 +89,118 @@
         "reviewer": null,
         "reviewed_at": null
       }
+    },
+    {
+      "clause": "8.2.3.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "Methods heading organizing component-registry operations; obligations are in the following individual methods.",
+        "ja": "component registryのoperationを整理するMethods見出しで、義務は後続の個別methodにある。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "8.2.4.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "Methods heading organizing object-registry operations; obligations are in the following individual methods.",
+        "ja": "object registryのoperationを整理するMethods見出しで、義務は後続の個別methodにある。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "15.3.3",
+      "classification": "structural",
+      "rationale": {
+        "en": "Requests heading organizing the sent counter and history controls; it specifies no independent behavior.",
+        "ja": "送信数と履歴制御を整理するRequests見出しで、独立した動作を指定しない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "15.3.3.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "Last request buffer heading grouping its setter/getter descriptions without an independent obligation.",
+        "ja": "setter／getterの記述をまとめるLast request buffer見出しで、独立した義務はない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "15.3.4",
+      "classification": "structural",
+      "rationale": {
+        "en": "Responses heading organizing response counting and history controls; it specifies no independent behavior.",
+        "ja": "response数と履歴制御を整理するResponses見出しで、独立した動作を指定しない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "15.3.4.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "Last response buffer heading grouping capacity query/update descriptions without an independent obligation.",
+        "ja": "容量照会／更新の記述をまとめるLast response buffer見出しで、独立した義務はない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "18.1.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "Methods heading introducing block construction/configuration/locking APIs; behavior is specified by the method clauses.",
+        "ja": "block生成／設定／lock APIを導入するMethods見出しで、動作は個別method条項が指定する。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "18.1.3",
+      "classification": "structural",
+      "rationale": {
+        "en": "Introspection heading organizing block queries; the individual query clauses specify their behavior.",
+        "ja": "block照会を整理するIntrospection見出しで、動作は個別のquery条項が指定する。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
     }
   ]
 }

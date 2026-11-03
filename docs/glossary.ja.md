@@ -592,3 +592,14 @@ simulatorの公開APIです。実際のhandle lookupは、path文字列をlocal 
 
 **Strict configuration condition（strict configuration条件）** — 自動configurationでresourceの選択方法を変える固定libraryのbuild設定。
 既定modeの結果と測定を区別し、同じ規範的oracleを保持する。
+
+## Registry proxy・履歴・model lock
+
+**Registry singleton（registryのsingleton）** — 1 registry specializationのgetが返す共有wrapper。
+対象のinstanceを生成せず、その型を表す。
+
+**Sequencer history capacity（sequencer履歴容量）** — 保持するrequest／response履歴の設定上限。
+転送の配送や、存続中の転送累計とは独立している。
+
+**Model lock state（modelのlock状態）** — register modelの構造上のlock状態。
+lock_modelによるaddress検索の構築と、set_lockによるflag変更は異なり、sequencerの所有権やhardware bus lockではない。

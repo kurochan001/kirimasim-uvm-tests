@@ -3,8 +3,8 @@
 [日本語](history.ja.md) · [README](../README.md)
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and eighteen cross-milestone thin-area expansions, including the
-existing-test requirement-link backlog checkpoint (1145 simulation tests). The earlier 349-test checkpoint is
+three M4 increments and nineteen cross-milestone thin-area expansions, including the
+existing-test requirement-link backlog checkpoint (1159 simulation tests). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -2141,3 +2141,37 @@ All guides are paired, with 157 glossary terms and 136 FAQs. Validation includes
 88 tool tests, all 1145 metadata records, ledger/classification/index checks,
 library integrity, bilingual references and evidence fingerprints. Simulation
 runners, existing tests, VPI backend and earlier history remain unchanged.
+
+## Nineteenth thin-area expansion across M1–M4
+
+Fourteen fixtures add four registry singleton/initialization conditions, four
+sequencer-history cases and six register-block lock/search cases. The suite
+reaches 1159: M1 386, M2 428 and M3 345. Registry tests distinguish per-type/name
+proxies, constructor-free retrieval and initialization against a newly selected
+factory. History tests combine zero/re-enabled capacity with actual handshakes,
+exact handles and peer isolation. Block cases distinguish structural locks,
+offset rebuilding, waits, root membership and absolute/relative glob searches.
+Response fixtures run normal UVM build/connect before traffic. Waiter checks
+are limited to registrations before completion because a new post-completion
+wait is not explicitly specified by the cited clause.
+
+All fourteen additions match Verilator 5.052 at seeds 1/73. Compatible ordinary evidence retains all 1145 prior inputs and adds
+these measurements: 1037 pass, 122 known. The separate eight-case VPI evidence
+is unchanged at seven pass/one fail. Guest evidence retains 1085 compatible inputs;
+74 new cases remain unmeasured.
+
+Twenty-six AI drafts bring the ledger to 1261, all directly linked to 1158 tests;
+one additional control leaves zero unlinked tests. Eight individually read
+structural headings bring classifications to fourteen (thirteen structural,
+one contextual). No classifier, parent rollup, human approval or approved
+denominator is introduced. Of 2,504 identifiers, 798 are partly decomposed,
+fourteen classified and 1,692 unassessed, down thirty: twenty-two by new
+requirement decomposition and eight by explicit structural assessment.
+Primary-focus identifiers are 542 and cited identifiers 1,162. The candidate
+census is 1,937 zero, 288 one and 254 at least two.
+
+All guides are paired, with 160 glossary terms and 139 FAQs. Validation covers
+88 tool tests, all 1159 metadata records, ledger/classification/index checks,
+library integrity, bilingual links and evidence fingerprints. Existing simulation
+inputs, runners, HDL backend, requirements and earlier history are preserved.
+M1–M4 remain incomplete; zero mapping queues do not establish conformance.

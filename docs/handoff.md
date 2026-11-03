@@ -4,8 +4,8 @@
 
 ## Snapshot and objective
 
-Updated on 2026-11-03 for the eighteenth thin-area expansion, based on
-[fdfb9d1](https://github.com/kurochan001/kirimasim-uvm-tests/commit/fdfb9d195b9e541f0694791b17599dd4fdacc077)
+Updated on 2026-11-03 for the nineteenth thin-area expansion, based on
+[e4abe6b](https://github.com/kurochan001/kirimasim-uvm-tests/commit/e4abe6b2d1240150cbe70a39666d295311439b79)
 on `main`. Verify the current publishing commit and working tree before resuming.
 
 The project tests IEEE 1800.2-2020 UVM conformance, targeting kirimasim.
@@ -16,12 +16,12 @@ zero unlinked tests does not complete any milestone.
 
 | Area | Current snapshot |
 | --- | --- |
-| M1 | 382 simulations: core objects, policies, reporting, hierarchy, factory, phases, synchronization, recording and utilities |
-| M2 | 424 simulations: sequences, sequencers, callbacks and TLM |
-| M3 | 339 simulations: register/memory layer and annex E |
-| Entire suite | 1145 simulations in 21 chapter/annex directories; all AI-reviewed, none human-reviewed |
-| M4 | 1235 AI requirement drafts; 1235 have direct links to 1144 tests; one additional control test; zero tests without links |
-| Normative inventory | 776 of 2,504 identifiers partially decomposed; six explicitly assessed; 1,722 unassessed; zero drafts without direct tests |
+| M1 | 386 simulations: core objects, policies, reporting, hierarchy, factory, phases, synchronization, recording and utilities |
+| M2 | 428 simulations: sequences, sequencers, callbacks and TLM |
+| M3 | 345 simulations: register/memory layer and annex E |
+| Entire suite | 1159 simulations in 21 chapter/annex directories; all AI-reviewed, none human-reviewed |
+| M4 | 1261 AI requirement drafts; 1261 have direct links to 1158 tests; one additional control test; zero tests without links |
+| Normative inventory | 798 of 2,504 identifiers partially decomposed; fourteen explicitly assessed; 1,692 unassessed; zero drafts without direct tests |
 
 `scope_status` remains proposed, `normative_inventory_complete` is false,
 and `approved_denominator` / `coverage_percentage` remain null. All twenty-one
@@ -65,13 +65,13 @@ decomposition and human review remain incomplete.
   for these versioned inputs.
 - [Library lock](../third_party/uvm.lock): Accellera UVM 2020.3.1 at
   `78c06547a2a0`, 326 files. Fetch with the tracked tool; the library itself
-  is not committed. 1137 fixtures use `UVM_NO_DPI`; eight explicitly request the original VPI HDL backend.
+  is not committed. 1151 fixtures use `UVM_NO_DPI`; eight explicitly request the original VPI HDL backend.
 - The user supplied `IEEE_Std_1800.2-2020.pdf` and
   `IEEE_Std_1800-2023_SystemVerilog.pdf` in the repository root. They are
   ignored local files, unavailable in a fresh clone, and must not be
   redistributed. Existing extracted text under `/tmp` is also transient.
 - Results under `out/` are ignored and local. Temporary expansion helpers
-  under `/tmp/kirimasim-uvm-thin-eighteenth-*.py` are optional local aids,
+  under `/tmp/kirimasim-uvm-thin-nineteenth-*.py` are optional local aids,
   not maintained entry points. Some append drafts/history and must not be
   rerun blindly. Recreate missing helpers using the tracked tools.
 
@@ -90,11 +90,11 @@ python3 tools/requirements.py inventory --json out/requirements-inventory.json
 python3 tools/requirements.py backlog --json out/requirements-backlog.json --lang ja
 ```
 
-The snapshot passed 88 tool unit tests, metadata for all 1145 simulations,
+The snapshot passed 88 tool unit tests, metadata for all 1159 simulations,
 ledger/index validation, library integrity and current-input evidence checks.
 A documentation-only change does not require rebuilding the entire suite.
 Current full-suite evidence is available for Verilator only; guest records
-cover 1085 unchanged inputs, with sixty new cases unmeasured.
+cover 1085 unchanged inputs, with 74 new cases unmeasured.
 For a simulator smoke check:
 
 ```sh
@@ -102,7 +102,7 @@ python3 tools/run_verilator.py --seeds 1 73 --build-jobs 2 -j 1 \
   --json out/verilator-smoke.json tests/u09/test_common_phases_run_in_order.sv
 ```
 
-The [Check run for the code snapshot](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/41550190007)
+The [Check run for the code snapshot](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/41556699992)
 is retained as a reference. Use the README badge for the latest workflow
 result; newer commits may supersede that run. Local checks are not proof
 of a successful full CI run. Check runs tool,
@@ -114,37 +114,38 @@ publication.
 
 | Simulator / library | Recorded result |
 | --- | --- |
-| Verilator 5.052 / pinned UVM | 1023 pass at seeds 1 and 73; 122 known |
+| Verilator 5.052 / pinned UVM | 1037 pass at seeds 1 and 73; 122 known |
 | Verilator 5.052 / original VPI HDL backend | Separate eight-case condition: seven pass at both seeds, one fails at seed 1 |
-| kirimasim / pinned UVM | 1085 unchanged cases: 1076 unsupported and nine missing-API failures; sixty new cases unmeasured |
-| Ghost / bundled UVM | 1085 unchanged cases: 207 pass and 878 fail at each seed; sixty new cases unmeasured |
+| kirimasim / pinned UVM | 1085 unchanged cases: 1076 unsupported and nine missing-API failures; 74 new cases unmeasured |
+| Ghost / bundled UVM | 1085 unchanged cases: 207 pass and 878 fail at each seed; 74 new cases unmeasured |
 | Ghost / pinned UVM | No measurement for the current executable snapshot |
 
 The ordinary condition retains 122 known cases: 104 runtime first differences
-at seed 1, ten missing-API builds and eight unlinked-HDL-DPI builds. The VPI
+at seed 1, 10 missing-API builds and eight unlinked-HDL-DPI builds. The VPI
 condition covers eight explicit inputs, seven matching both seeds and one
 retained E.7 warning/no-transfer difference. Overlapping conditions are not summed.
 
-The latest fourteen fixtures cover six component configuration conditions,
-four TLM binding/report cases and four memory-policy cases. Nine match both
-seeds; five retain configuration dispatch/suppression or zero-resource warning
-differences. No guest measurement is added; sixty current cases remain unmeasured.
-Six AI identifier classifications are stored separately in the canonical inputs;
-generated inventory/backlog schema is now 2, while canonical schemas remain 1.
+The latest fourteen fixtures cover four registry singleton/initialization
+conditions, four sequencer-history cases and six block lock/search cases.
+All fourteen match both seeds.
+No guest measurement is added; 74 current cases remain unmeasured.
+Fourteen AI identifier classifications are stored separately in the canonical
+inputs: thirteen structural and one contextual. Inventory/backlog schema
+remains 2 and canonical schemas remain 1.
 
 The assembled Verilator snapshot retains unchanged prior inputs and replaces only
 remeasured records. It is not one invocation rerunning the entire suite.
 On the current host, the compatible local records are:
 
 ```text
-out/thin-eighteenth-verilator-combined.json
+out/thin-nineteenth-verilator-combined.json
 out/thin-fourteenth-ghost-final-1.json
 out/thin-fourteenth-ghost-final-73.json
 out/thin-fourteenth-kirimasim-final.json
-out/thin-eighteenth-inventory.json
-out/thin-eighteenth-backlog-final.json
-out/thin-eighteenth-evidence-scope.json
-out/thin-eighteenth-hdl-combined.json
+out/thin-nineteenth-inventory.json
+out/thin-nineteenth-backlog-final.json
+out/thin-nineteenth-evidence-scope.json
+out/thin-nineteenth-hdl-combined.json
 ```
 
 Before reuse, verify test-ID sets within each declared full/subset scope, current `inputs_sha256`, identical
@@ -158,7 +159,7 @@ measurements with authorized configuration. See [evidence assembly](results.md#e
 These are prioritization suggestions, not approved exclusions or a coverage
 percentage. Regenerate the backlog before choosing the next increment.
 
-The existing-test mapping queue is empty across all roots. Review the 1,722
+The existing-test mapping queue is empty across all roots. Review the 1,692
 unassessed identifiers against the standard, distinguishing headings from
 normative obligations and splitting conditions before selecting new tests.
 Prioritize meaningful defaults, failures, isolation, ordering and lifecycle
@@ -167,7 +168,7 @@ signature/prose conflicts before deriving an oracle.
 
 No current draft lacks a direct test. This closes the direct-link queue,
 including a qualified historical interpretation for memory-walk; it does not
-complete M1–M4. Review that interpretation and the remaining 1,722 identifiers,
+complete M1–M4. Review that interpretation and the remaining 1,692 identifiers,
 then extend applicability, failures, lifecycle/concurrency and independent checks.
 Chapter 11 method clauses remain partially decomposed, while its overview and
 structural headings now have explicit AI assessments. Read other material

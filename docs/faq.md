@@ -135,7 +135,7 @@ See [Ghost setup](testing.md#ghost).
 
 It removes `UVM_NO_DPI` from the default macro list. It does not supply or link
 UVM's C/C++ implementation. The current Verilator runner does not add those
-sources. There are 1137 `UVM_NO_DPI` cases and eight explicit HDL-DPI cases.
+sources. There are 1151 `UVM_NO_DPI` cases and eight explicit HDL-DPI cases.
 The [separate VPI runner](testing.md#verilator-vpi-hdl-subset) links the original
 limited backend; results apply only to that declared execution condition.
 User-defined `uvm_reg_backdoor` handlers can operate without HDL DPI (Q67).
@@ -174,7 +174,7 @@ a claim that every test was rebuilt together.
 
 ### Q16. Are M1, M2 or M3 complete, and what does the test count cover?
 
-M1 and M2 still have open clause targets. M3 now has 326
+M1 and M2 still have open clause targets. M3 now has 345
 register-layer cases, including testbench frontdoor paths; it is also incomplete. Starting a stage does not complete
 the preceding stages.
 The [plan](../README.md#plan) identifies current scope and remaining work.
@@ -1141,9 +1141,9 @@ not a direct test of the requirement.
 
 ### Q77. Why is there no coverage percentage after starting M4?
 
-The 1235 AI drafts cover only a partial decomposition: 1235 requirements link
-directly to 1144 tests; all drafts have direct tests, and one separate test is a control.
-All 1145 tests have requirement links. The 2,504 clause identifiers are not normative requirement units.
+The 1261 AI drafts cover only a partial decomposition: 1261 requirements link
+directly to 1158 tests; all drafts have direct tests, and one separate test is a control.
+All 1159 tests have requirement links. The 2,504 clause identifiers are not normative requirement units.
 The scope is proposed, the inventory incomplete and the denominator unapproved;
 starting M4 approves none of those. Known differences and HDL/DPI limitations
 do not silently exclude obligations. See the [approval path](requirements.md#remaining-m4-work-and-approval).
@@ -2143,7 +2143,7 @@ No. `tests_without_requirement_links` is zero: every current test has an
 explicit direct or control link. The separate counter
 `requirements_without_direct_tests` is zero. The memory-walk link uses the
 qualified historical interpretation in Q134. It is not approval of missing
-IEEE detail. HDL deposit and accessibility use explicit VPI fixtures. Another 1,722
+IEEE detail. HDL deposit and accessibility use explicit VPI fixtures. Another 1,692
 catalog identifiers remain unassessed; decomposition and human review are
 incomplete, and the denominator remains unapproved.
 
@@ -2244,7 +2244,7 @@ in [identifier assessments](../coverage/assessments.json). Structural headings
 have no related requirements; contextual descriptions name existing requirements.
 An unreviewed record, guessed classification or parent rollup cannot do this.
 The generated state is `assessed`, separate from `partial` requirement clauses.
-Six classifications currently exist, with no denominator approval or new pass.
+Fourteen classifications currently exist, with no denominator approval or new pass.
 Chapter 11's zero unassessed identifiers still does not complete its requirements.
 
 ### Q136. Does explicit strict configuration make the new cases pass?
@@ -2257,3 +2257,33 @@ expectations as spec-only. Strict is a library build condition, not an IEEE
 API or evidence for the default build. Separately, the port warning probe
 counts actionable reports only: UVM_NO_ACTION internal reports are excluded.
 A present zero-valued relationship resource still incorrectly emits a warning.
+
+### Q137. What do the registry initialization tests observe?
+
+Repeated get returns the same proxy for one specialization, while different
+Tname specializations remain distinct. Explicit names and the `<unknown>`
+default are observed without constructing a represented instance. Separate
+cases select a fresh factory, explicitly initialize the proxy and verify exact
+registration/name lookup, then create through that factory and restore the
+original selection. No static-initialization order or global registry count is
+prescribed; users do not directly call the factory's creation callback.
+
+### Q138. Do zero history capacity and item delivery depend on each other?
+
+The new sequencer cases keep request/response delivery while capacity is zero,
+then enable two entries and send three fresh items before checking newest-first
+history. Strictly out-of-range indexes are used; immediate resize eviction and
+the n-equals-capacity boundary are not inferred. Separate peer tests check
+exact handles and source mutation, with peer data unchanged. Response IDs come
+from consumed requests and replies pass through rsp_export.
+
+### Q139. Does testing block locking establish bus or HDL behavior?
+
+No. These are model-structure observations: recursive lock flags and map
+lookups, propagated modes, unlock/add/relock, waiting for completion and
+absolute/relative block search. No bus transaction or HDL access is involved.
+Root listings use exact fixture membership without global counts. Search
+queues are fresh, iteration order is not prescribed and the single-block
+query uses an unambiguous name. Waiters register before completion; a new
+post-completion call is outside this oracle. Standard API omissions remain visible as
+spec-only build results; private library state is not substituted.
