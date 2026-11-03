@@ -1,0 +1,6 @@
+UT: named_reg_frontdoor debug 0 write 1 read 1 value 1 peer 1 address 1
+UT: named_reg_mirror exact 1 peer 1
+UT: named_reg_frontdoor debug 1 write 1 read 1 value 1 peer 1 address 1
+UT: named_reg_mirror exact 1 peer 1
+UT: named_reg_write_failure failed 1 retry 1 value 1 peer 1
+UT: named_reg_read_failure failed 1 retry 1 value 1 peer 1

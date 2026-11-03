@@ -908,3 +908,17 @@ null完了markerはcallback runtime動作を証明しません。
 
 **Printed alias conflict（印刷aliasの食違い）**: 条項の見出しと印刷typedefでalias名が異なること。
 動作する名前へ黙って置換せず、字義的な綴りと限定期待を保持します。
+
+**Named model access（名前によるモデルアクセス）**: block単位の便宜callが単純名でregister／memoryを見つけ、選択read／write操作へ委譲すること。
+
+**Forwarding observer（転送observer）**: 独自target subtypeが公開引数を記録して選択応答を供給します。
+wrapper algorithmを置換せず境界を検査し、targetの物理transportを認定しません。
+
+**Block update write census（block updateのwrite棚卸し）**: 選択した全幅RW階層でaddressごとにwriteを数えること。
+兄弟走査順を課さず変更registerの最小writeを確認し、全field policyが同じ件数になるとは仮定しません。
+
+**Mirror check mode（mirrorのcheck mode）**: NO_CHECKは古い値との不一致を報告せず選択register mirrorを更新し、明示CHECKは不一致報告を加えます。
+成功bus read／更新は比較結果と別です。
+
+**Milestone grouping（milestone分類）**: 機能対象のmilestoneでテストを数え、主引用条項で章directoryを決めます。
+D.3の名前モデルアクセスはfileをuDに置いてもM3へ属します。

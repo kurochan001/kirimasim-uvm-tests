@@ -1,0 +1,8 @@
+UT: named_reg_read local 1 peer 1 conflict 1 blocked 1 status 1
+UT: named_reg_read defaults path 1 map 1 parent 1 priority 1 extension 1
+UT: named_reg_read data 1
+UT: named_reg_read nested 1 path 1 map 1 parent 1 priority 1 extension 1
+UT: named_reg_read failure 1 calls 1
+UT: named_reg_read retry 1 data 1
+UT: named_reg_read debug 0 invariant 1
+UT: named_reg_read debug 1 invariant 1

@@ -135,7 +135,7 @@ See [Ghost setup](testing.md#ghost).
 
 It removes `UVM_NO_DPI` from the default macro list. It does not supply or link
 UVM's C/C++ implementation. The current Verilator runner does not add those
-sources. There are 1564 `UVM_NO_DPI` cases and eight explicit HDL-DPI cases.
+sources. There are 1573 `UVM_NO_DPI` cases and eight explicit HDL-DPI cases.
 Eighteen more fixtures explicitly enable command-line/regex DPI with HDL disabled.
 The [command-line runner](testing.md#verilator-command-line-subset) links that separate backend.
 The [separate VPI runner](testing.md#verilator-vpi-hdl-subset) links the original
@@ -1143,9 +1143,9 @@ not a direct test of the requirement.
 
 ### Q77. Why is there no coverage percentage after starting M4?
 
-The 2613 AI drafts cover only a partial decomposition: 2613 requirements link
-directly to 1589 tests; all drafts have direct tests, and one separate test is a control.
-All 1590 tests have requirement links. The 2,507 clause identifiers are not normative requirement units.
+The 2678 AI drafts cover only a partial decomposition: 2678 requirements link
+directly to 1598 tests; all drafts have direct tests, and one separate test is a control.
+All 1599 tests have requirement links. The 2,507 clause identifiers are not normative requirement units.
 The scope is proposed, the inventory incomplete and the denominator unapproved;
 starting M4 approves none of those. Known differences and HDL/DPI limitations
 do not silently exclude obligations. See the [approval path](requirements.md#remaining-m4-work-and-approval).
@@ -2145,7 +2145,7 @@ No. `tests_without_requirement_links` is zero: every current test has an
 explicit direct or control link. The separate counter
 `requirements_without_direct_tests` is zero. The memory-walk link uses the
 qualified historical interpretation in Q134. It is not approval of missing
-IEEE detail. HDL deposit and accessibility use explicit VPI fixtures. Another 767
+IEEE detail. HDL deposit and accessibility use explicit VPI fixtures. Another 758
 catalog identifiers remain unassessed; decomposition and human review are
 incomplete, and the denominator remains unapproved.
 
@@ -2246,7 +2246,7 @@ in [identifier assessments](../coverage/assessments.json). Structural headings
 have no related requirements; contextual descriptions name existing requirements.
 An unreviewed record, guessed classification or parent rollup cannot do this.
 The generated state is `assessed`, separate from `partial` requirement clauses.
-279 classifications currently exist, with no denominator approval or new pass.
+281 classifications currently exist, with no denominator approval or new pass.
 Chapter 11's zero unassessed identifiers still does not complete its requirements.
 
 ### Q136. Does explicit strict configuration make the new cases pass?
@@ -2933,7 +2933,7 @@ the unassessed count or approve an exclusion. All earlier requirements remain.
 Two inputs have new fingerprints: the command enum citation and the Boolean
 rerandomization observation. Both were measured on Verilator; their stale guest
 records are excluded. The historical 1085-record source files remain intact.
-Current reuse covers 1083 inputs, with 507 unmeasured: 505 additions and two
+Current reuse covers 1083 inputs, with 516 unmeasured: 514 additions and two
 revised old inputs. No guest rerun or new result is claimed.
 
 ### Q194. May a predicate implementation delegate to another virtual query?
@@ -2994,10 +2994,10 @@ and stale patterns are rejected. Validation does not consume compiler results.
 Individual requirement reviews may add direct anchors while preserving existing
 links and identifying those changes explicitly.
 
-### Q201. Did all 1590 tests run at two seeds?
+### Q201. Did all 1599 tests run at two seeds?
 
-No. There are 1547 simulation and 43 elaboration fixtures. Ordinary evidence
-has 1350 two-seed runtime matches, 41 expected compiler rejections, 197 known
+No. There are 1556 simulation and 43 elaboration fixtures. Ordinary evidence
+has 1359 two-seed runtime matches, 41 expected compiler rejections, 197 known
 simulation differences and two known illegal compile acceptances. None of the
 43 illegal designs executes a runtime seed, even when compilation accepts it.
 
@@ -3064,7 +3064,7 @@ already-exceeded scope does not depend on equality. See [known differences](know
 ### Q209. Does zero unassessed in chapter 6 complete reporting or M1–M4?
 
 No. Chapter 6 has 98 partial and 19 assessed identifiers. Selected print probes
-do not finish its remaining conditions. Overall 767 identifiers remain
+do not finish its remaining conditions. Overall 758 identifiers remain
 unassessed. Printer subclause 16.2 retains the table-format overview; chapter 16
 has 3 unassessed identifiers in the broader policies. Scope and denominator
 are unapproved; zero link queues do not complete the goal.
@@ -3186,3 +3186,24 @@ retains the report_db/report_cb conflict as build evidence. The
 [forbidden type_id access](../tests/uD/test_callback_iterator_forbidden_type_id_access_is_rejected.sv)
 is a separate compiler-rejection fixture and executes no runtime seed. None
 certifies callback delivery, all iterator traversal or complete milestone coverage.
+
+### Q223. Do forwarding observers establish real frontdoor behavior?
+
+The [forwarding probe](../tests/uD/test_named_register_write_forwards_lookup_defaults_context_status_and_debug_invariance.sv)
+checks the named wrapper against an original target response; that target does
+not implement DUT transport. The separate
+[frontdoor case](../tests/uD/test_named_register_access_uses_real_frontdoor_storage_and_preserves_debug_and_retry_results.sv)
+uses inherited register operations with an actual adapter/sequencer/driver path
+to original storage. The [block update case](../tests/u18/test_block_update_writes_changed_local_and_nested_registers_and_skips_clean_values.sv)
+also counts selected physical writes without prescribing sibling order.
+Together they retain different applicability conditions, not complete hardware,
+invalid-map, failed-data or all-policy coverage.
+
+### Q224. Why do D.3 files count toward M3, and is annex D complete now?
+
+The primary clause decides the directory, so named register/memory D.3 fixtures
+live in uD. Their functional subject is the register layer, so the six named
+access fixtures count as M3. Chapter-based census and milestone grouping are
+different views of the same tests. Annex D has zero unassessed identifiers but
+39 partial ones. Its conditions and the original M1–M4 targets remain open;
+overall, 758 identifiers remain unassessed.

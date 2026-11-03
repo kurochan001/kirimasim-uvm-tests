@@ -1,0 +1,4 @@
+UT: block_needs baseline root 0 child 0
+UT: block_needs local root 1 child 0 desired 1 mirror 1 peer 1
+UT: block_needs nested root 1 child 1 desired 1 mirror 1 local 1
+UT: block_needs cleared root 0 child 0

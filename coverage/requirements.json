@@ -96199,6 +96199,2416 @@
           ]
         }
       ]
+    },
+    {
+      "id": "UVM-BLOCK-ACCESS-REG-WRITE-LOCAL-LOOKUP",
+      "clause": "D.3.1",
+      "statement": {
+        "en": "The named register write chooses the local simple-name match before a same-name descendant.",
+        "ja": "名前によるregister writeは同名子孫より先にlocalの単純名一致を選ぶ。"
+      },
+      "conditions": {
+        "en": "Use the selected original hierarchical register/memory models and their explicit public calls. Named wrapper observations call through a block base view and genuine configured lookup; actual frontdoor cases use the original adapter, sequencer and driver storage.",
+        "ja": "選択した独自階層register／memoryモデルと明示公開callを使う。名前wrapper観測はblock base viewと実configure済みlookupを呼び、実frontdoor条件は独自adapter・sequencer・driver storageを使う。"
+      },
+      "expected": {
+        "en": "The named register write chooses the local simple-name match before a same-name descendant.",
+        "ja": "名前によるregister writeは同名子孫より先にlocalの単純名一致を選ぶ。"
+      },
+      "limitations": {
+        "en": "Selected valid names, in-range offsets and full-width RW models only. Forwarding observers implement their own target response; they do not certify DUT transport. Separate frontdoor controls exercise inherited model operations. No missing-name behavior, invalid path/map, all topology, all policies, sibling traversal order or failed-read data is certified. Debug strings/line numbers may be forwarded or ignored; only functional invariance is required.",
+        "ja": "選択合法名、範囲内offset、全幅RWモデルだけ。転送observerは独自target応答を実装し、DUT transportを認定しない。別frontdoor controlは継承モデル操作を実行する。欠落名の動作、不正path／map、全topology、全policy、兄弟走査順、失敗read dataを認定しない。debug string／行番号は転送／無視どちらも許容し、機能不変性だけを要求する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_named_register_write_forwards_lookup_defaults_context_status_and_debug_invariance",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named_reg_write local 1 peer 1 conflict 1 blocked 1 status 1"
+          ]
+        },
+        {
+          "test": "uD/test_named_register_access_uses_real_frontdoor_storage_and_preserves_debug_and_retry_results",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named_reg_frontdoor debug 0 write 1 read 1 value 1 peer 1 address 1",
+            "UT: named_reg_frontdoor debug 1 write 1 read 1 value 1 peer 1 address 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-ACCESS-REG-WRITE-NESTED-LOOKUP",
+      "clause": "D.3.1",
+      "statement": {
+        "en": "The named register write finds the selected descendant when the local block has no such name.",
+        "ja": "名前によるregister writeはlocal blockに同名がなければ選択子孫を見つける。"
+      },
+      "conditions": {
+        "en": "Use the selected original hierarchical register/memory models and their explicit public calls. Named wrapper observations call through a block base view and genuine configured lookup; actual frontdoor cases use the original adapter, sequencer and driver storage.",
+        "ja": "選択した独自階層register／memoryモデルと明示公開callを使う。名前wrapper観測はblock base viewと実configure済みlookupを呼び、実frontdoor条件は独自adapter・sequencer・driver storageを使う。"
+      },
+      "expected": {
+        "en": "The named register write finds the selected descendant when the local block has no such name.",
+        "ja": "名前によるregister writeはlocal blockに同名がなければ選択子孫を見つける。"
+      },
+      "limitations": {
+        "en": "Selected valid names, in-range offsets and full-width RW models only. Forwarding observers implement their own target response; they do not certify DUT transport. Separate frontdoor controls exercise inherited model operations. No missing-name behavior, invalid path/map, all topology, all policies, sibling traversal order or failed-read data is certified. Debug strings/line numbers may be forwarded or ignored; only functional invariance is required.",
+        "ja": "選択合法名、範囲内offset、全幅RWモデルだけ。転送observerは独自target応答を実装し、DUT transportを認定しない。別frontdoor controlは継承モデル操作を実行する。欠落名の動作、不正path／map、全topology、全policy、兄弟走査順、失敗read dataを認定しない。debug string／行番号は転送／無視どちらも許容し、機能不変性だけを要求する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_named_register_write_forwards_lookup_defaults_context_status_and_debug_invariance",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named_reg_write nested 1 path 1 map 1 parent 1 priority 1 extension 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-ACCESS-REG-WRITE-DATA",
+      "clause": "D.3.1",
+      "statement": {
+        "en": "The named register write preserves the selected supplied data.",
+        "ja": "名前によるregister writeは選択した指定dataを保持する。"
+      },
+      "conditions": {
+        "en": "Use the selected original hierarchical register/memory models and their explicit public calls. Named wrapper observations call through a block base view and genuine configured lookup; actual frontdoor cases use the original adapter, sequencer and driver storage.",
+        "ja": "選択した独自階層register／memoryモデルと明示公開callを使う。名前wrapper観測はblock base viewと実configure済みlookupを呼び、実frontdoor条件は独自adapter・sequencer・driver storageを使う。"
+      },
+      "expected": {
+        "en": "The named register write preserves the selected supplied data.",
+        "ja": "名前によるregister writeは選択した指定dataを保持する。"
+      },
+      "limitations": {
+        "en": "Selected valid names, in-range offsets and full-width RW models only. Forwarding observers implement their own target response; they do not certify DUT transport. Separate frontdoor controls exercise inherited model operations. No missing-name behavior, invalid path/map, all topology, all policies, sibling traversal order or failed-read data is certified. Debug strings/line numbers may be forwarded or ignored; only functional invariance is required.",
+        "ja": "選択合法名、範囲内offset、全幅RWモデルだけ。転送observerは独自target応答を実装し、DUT transportを認定しない。別frontdoor controlは継承モデル操作を実行する。欠落名の動作、不正path／map、全topology、全policy、兄弟走査順、失敗read dataを認定しない。debug string／行番号は転送／無視どちらも許容し、機能不変性だけを要求する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_named_register_write_forwards_lookup_defaults_context_status_and_debug_invariance",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named_reg_write data 1"
+          ]
+        },
+        {
+          "test": "uD/test_named_register_access_uses_real_frontdoor_storage_and_preserves_debug_and_retry_results",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named_reg_frontdoor debug 0 write 1 read 1 value 1 peer 1 address 1",
+            "UT: named_reg_frontdoor debug 1 write 1 read 1 value 1 peer 1 address 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-ACCESS-REG-WRITE-PATH",
+      "clause": "D.3.1",
+      "statement": {
+        "en": "The wrapper forwards UVM_DEFAULT_DOOR when omitted and the selected explicit door when supplied.",
+        "ja": "wrapperは省略時にUVM_DEFAULT_DOORを、指定時に選択した明示doorを転送する。"
+      },
+      "conditions": {
+        "en": "Use the selected original hierarchical register/memory models and their explicit public calls. Named wrapper observations call through a block base view and genuine configured lookup; actual frontdoor cases use the original adapter, sequencer and driver storage.",
+        "ja": "選択した独自階層register／memoryモデルと明示公開callを使う。名前wrapper観測はblock base viewと実configure済みlookupを呼び、実frontdoor条件は独自adapter・sequencer・driver storageを使う。"
+      },
+      "expected": {
+        "en": "The wrapper forwards UVM_DEFAULT_DOOR when omitted and the selected explicit door when supplied.",
+        "ja": "wrapperは省略時にUVM_DEFAULT_DOORを、指定時に選択した明示doorを転送する。"
+      },
+      "limitations": {
+        "en": "Selected valid names, in-range offsets and full-width RW models only. Forwarding observers implement their own target response; they do not certify DUT transport. Separate frontdoor controls exercise inherited model operations. No missing-name behavior, invalid path/map, all topology, all policies, sibling traversal order or failed-read data is certified. Debug strings/line numbers may be forwarded or ignored; only functional invariance is required.",
+        "ja": "選択合法名、範囲内offset、全幅RWモデルだけ。転送observerは独自target応答を実装し、DUT transportを認定しない。別frontdoor controlは継承モデル操作を実行する。欠落名の動作、不正path／map、全topology、全policy、兄弟走査順、失敗read dataを認定しない。debug string／行番号は転送／無視どちらも許容し、機能不変性だけを要求する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_named_register_write_forwards_lookup_defaults_context_status_and_debug_invariance",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named_reg_write defaults path 1 map 1 parent 1 priority 1 extension 1",
+            "UT: named_reg_write nested 1 path 1 map 1 parent 1 priority 1 extension 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-ACCESS-REG-WRITE-MAP",
+      "clause": "D.3.1",
+      "statement": {
+        "en": "The wrapper forwards the omitted null map or the selected explicit map handle.",
+        "ja": "wrapperは省略したnull mapまたは選択明示map handleを転送する。"
+      },
+      "conditions": {
+        "en": "Use the selected original hierarchical register/memory models and their explicit public calls. Named wrapper observations call through a block base view and genuine configured lookup; actual frontdoor cases use the original adapter, sequencer and driver storage.",
+        "ja": "選択した独自階層register／memoryモデルと明示公開callを使う。名前wrapper観測はblock base viewと実configure済みlookupを呼び、実frontdoor条件は独自adapter・sequencer・driver storageを使う。"
+      },
+      "expected": {
+        "en": "The wrapper forwards the omitted null map or the selected explicit map handle.",
+        "ja": "wrapperは省略したnull mapまたは選択明示map handleを転送する。"
+      },
+      "limitations": {
+        "en": "Selected valid names, in-range offsets and full-width RW models only. Forwarding observers implement their own target response; they do not certify DUT transport. Separate frontdoor controls exercise inherited model operations. No missing-name behavior, invalid path/map, all topology, all policies, sibling traversal order or failed-read data is certified. Debug strings/line numbers may be forwarded or ignored; only functional invariance is required.",
+        "ja": "選択合法名、範囲内offset、全幅RWモデルだけ。転送observerは独自target応答を実装し、DUT transportを認定しない。別frontdoor controlは継承モデル操作を実行する。欠落名の動作、不正path／map、全topology、全policy、兄弟走査順、失敗read dataを認定しない。debug string／行番号は転送／無視どちらも許容し、機能不変性だけを要求する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_named_register_write_forwards_lookup_defaults_context_status_and_debug_invariance",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named_reg_write defaults path 1 map 1 parent 1 priority 1 extension 1",
+            "UT: named_reg_write nested 1 path 1 map 1 parent 1 priority 1 extension 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-ACCESS-REG-WRITE-PARENT",
+      "clause": "D.3.1",
+      "statement": {
+        "en": "The wrapper forwards omitted null or the exact supplied parent-sequence handle.",
+        "ja": "wrapperは省略nullまたは指定された正確なparent-sequence handleを転送する。"
+      },
+      "conditions": {
+        "en": "Use the selected original hierarchical register/memory models and their explicit public calls. Named wrapper observations call through a block base view and genuine configured lookup; actual frontdoor cases use the original adapter, sequencer and driver storage.",
+        "ja": "選択した独自階層register／memoryモデルと明示公開callを使う。名前wrapper観測はblock base viewと実configure済みlookupを呼び、実frontdoor条件は独自adapter・sequencer・driver storageを使う。"
+      },
+      "expected": {
+        "en": "The wrapper forwards omitted null or the exact supplied parent-sequence handle.",
+        "ja": "wrapperは省略nullまたは指定された正確なparent-sequence handleを転送する。"
+      },
+      "limitations": {
+        "en": "Selected valid names, in-range offsets and full-width RW models only. Forwarding observers implement their own target response; they do not certify DUT transport. Separate frontdoor controls exercise inherited model operations. No missing-name behavior, invalid path/map, all topology, all policies, sibling traversal order or failed-read data is certified. Debug strings/line numbers may be forwarded or ignored; only functional invariance is required.",
+        "ja": "選択合法名、範囲内offset、全幅RWモデルだけ。転送observerは独自target応答を実装し、DUT transportを認定しない。別frontdoor controlは継承モデル操作を実行する。欠落名の動作、不正path／map、全topology、全policy、兄弟走査順、失敗read dataを認定しない。debug string／行番号は転送／無視どちらも許容し、機能不変性だけを要求する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_named_register_write_forwards_lookup_defaults_context_status_and_debug_invariance",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named_reg_write defaults path 1 map 1 parent 1 priority 1 extension 1",
+            "UT: named_reg_write nested 1 path 1 map 1 parent 1 priority 1 extension 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-ACCESS-REG-WRITE-PRIORITY",
+      "clause": "D.3.1",
+      "statement": {
+        "en": "The wrapper forwards the omitted priority minus one and the supplied explicit priority.",
+        "ja": "wrapperは省略priority -1と指定明示priorityを転送する。"
+      },
+      "conditions": {
+        "en": "Use the selected original hierarchical register/memory models and their explicit public calls. Named wrapper observations call through a block base view and genuine configured lookup; actual frontdoor cases use the original adapter, sequencer and driver storage.",
+        "ja": "選択した独自階層register／memoryモデルと明示公開callを使う。名前wrapper観測はblock base viewと実configure済みlookupを呼び、実frontdoor条件は独自adapter・sequencer・driver storageを使う。"
+      },
+      "expected": {
+        "en": "The wrapper forwards the omitted priority minus one and the supplied explicit priority.",
+        "ja": "wrapperは省略priority -1と指定明示priorityを転送する。"
+      },
+      "limitations": {
+        "en": "Selected valid names, in-range offsets and full-width RW models only. Forwarding observers implement their own target response; they do not certify DUT transport. Separate frontdoor controls exercise inherited model operations. No missing-name behavior, invalid path/map, all topology, all policies, sibling traversal order or failed-read data is certified. Debug strings/line numbers may be forwarded or ignored; only functional invariance is required.",
+        "ja": "選択合法名、範囲内offset、全幅RWモデルだけ。転送observerは独自target応答を実装し、DUT transportを認定しない。別frontdoor controlは継承モデル操作を実行する。欠落名の動作、不正path／map、全topology、全policy、兄弟走査順、失敗read dataを認定しない。debug string／行番号は転送／無視どちらも許容し、機能不変性だけを要求する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_named_register_write_forwards_lookup_defaults_context_status_and_debug_invariance",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named_reg_write defaults path 1 map 1 parent 1 priority 1 extension 1",
+            "UT: named_reg_write nested 1 path 1 map 1 parent 1 priority 1 extension 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-ACCESS-REG-WRITE-EXTENSION",
+      "clause": "D.3.1",
+      "statement": {
+        "en": "The wrapper forwards omitted null or the exact supplied extension handle.",
+        "ja": "wrapperは省略nullまたは指定された正確なextension handleを転送する。"
+      },
+      "conditions": {
+        "en": "Use the selected original hierarchical register/memory models and their explicit public calls. Named wrapper observations call through a block base view and genuine configured lookup; actual frontdoor cases use the original adapter, sequencer and driver storage.",
+        "ja": "選択した独自階層register／memoryモデルと明示公開callを使う。名前wrapper観測はblock base viewと実configure済みlookupを呼び、実frontdoor条件は独自adapter・sequencer・driver storageを使う。"
+      },
+      "expected": {
+        "en": "The wrapper forwards omitted null or the exact supplied extension handle.",
+        "ja": "wrapperは省略nullまたは指定された正確なextension handleを転送する。"
+      },
+      "limitations": {
+        "en": "Selected valid names, in-range offsets and full-width RW models only. Forwarding observers implement their own target response; they do not certify DUT transport. Separate frontdoor controls exercise inherited model operations. No missing-name behavior, invalid path/map, all topology, all policies, sibling traversal order or failed-read data is certified. Debug strings/line numbers may be forwarded or ignored; only functional invariance is required.",
+        "ja": "選択合法名、範囲内offset、全幅RWモデルだけ。転送observerは独自target応答を実装し、DUT transportを認定しない。別frontdoor controlは継承モデル操作を実行する。欠落名の動作、不正path／map、全topology、全policy、兄弟走査順、失敗read dataを認定しない。debug string／行番号は転送／無視どちらも許容し、機能不変性だけを要求する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_named_register_write_forwards_lookup_defaults_context_status_and_debug_invariance",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named_reg_write defaults path 1 map 1 parent 1 priority 1 extension 1",
+            "UT: named_reg_write nested 1 path 1 map 1 parent 1 priority 1 extension 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-ACCESS-REG-WRITE-BLOCKING",
+      "clause": "D.3.1",
+      "statement": {
+        "en": "The named task waits for the selected delayed target task to complete before returning.",
+        "ja": "名前によるtaskは選択した遅延target taskの完了を待ってから返る。"
+      },
+      "conditions": {
+        "en": "Use the selected original hierarchical register/memory models and their explicit public calls. Named wrapper observations call through a block base view and genuine configured lookup; actual frontdoor cases use the original adapter, sequencer and driver storage.",
+        "ja": "選択した独自階層register／memoryモデルと明示公開callを使う。名前wrapper観測はblock base viewと実configure済みlookupを呼び、実frontdoor条件は独自adapter・sequencer・driver storageを使う。"
+      },
+      "expected": {
+        "en": "The named task waits for the selected delayed target task to complete before returning.",
+        "ja": "名前によるtaskは選択した遅延target taskの完了を待ってから返る。"
+      },
+      "limitations": {
+        "en": "Selected valid names, in-range offsets and full-width RW models only. Forwarding observers implement their own target response; they do not certify DUT transport. Separate frontdoor controls exercise inherited model operations. No missing-name behavior, invalid path/map, all topology, all policies, sibling traversal order or failed-read data is certified. Debug strings/line numbers may be forwarded or ignored; only functional invariance is required.",
+        "ja": "選択合法名、範囲内offset、全幅RWモデルだけ。転送observerは独自target応答を実装し、DUT transportを認定しない。別frontdoor controlは継承モデル操作を実行する。欠落名の動作、不正path／map、全topology、全policy、兄弟走査順、失敗read dataを認定しない。debug string／行番号は転送／無視どちらも許容し、機能不変性だけを要求する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_named_register_write_forwards_lookup_defaults_context_status_and_debug_invariance",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named_reg_write local 1 peer 1 conflict 1 blocked 1 status 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-ACCESS-REG-WRITE-FAILURE-STATUS",
+      "clause": "D.3.1",
+      "statement": {
+        "en": "The named wrapper returns the selected target failure status.",
+        "ja": "名前wrapperは選択targetの失敗statusを返す。"
+      },
+      "conditions": {
+        "en": "Use the selected original hierarchical register/memory models and their explicit public calls. Named wrapper observations call through a block base view and genuine configured lookup; actual frontdoor cases use the original adapter, sequencer and driver storage.",
+        "ja": "選択した独自階層register／memoryモデルと明示公開callを使う。名前wrapper観測はblock base viewと実configure済みlookupを呼び、実frontdoor条件は独自adapter・sequencer・driver storageを使う。"
+      },
+      "expected": {
+        "en": "The named wrapper returns the selected target failure status.",
+        "ja": "名前wrapperは選択targetの失敗statusを返す。"
+      },
+      "limitations": {
+        "en": "Selected valid names, in-range offsets and full-width RW models only. Forwarding observers implement their own target response; they do not certify DUT transport. Separate frontdoor controls exercise inherited model operations. No missing-name behavior, invalid path/map, all topology, all policies, sibling traversal order or failed-read data is certified. Debug strings/line numbers may be forwarded or ignored; only functional invariance is required.",
+        "ja": "選択合法名、範囲内offset、全幅RWモデルだけ。転送observerは独自target応答を実装し、DUT transportを認定しない。別frontdoor controlは継承モデル操作を実行する。欠落名の動作、不正path／map、全topology、全policy、兄弟走査順、失敗read dataを認定しない。debug string／行番号は転送／無視どちらも許容し、機能不変性だけを要求する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_named_register_write_forwards_lookup_defaults_context_status_and_debug_invariance",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named_reg_write failure 1 calls 1"
+          ]
+        },
+        {
+          "test": "uD/test_named_register_access_uses_real_frontdoor_storage_and_preserves_debug_and_retry_results",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named_reg_write_failure failed 1 retry 1 value 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-ACCESS-REG-WRITE-RETRY",
+      "clause": "D.3.1",
+      "statement": {
+        "en": "A later valid named access returns the new successful target status and selected data.",
+        "ja": "後続の合法な名前アクセスは新しい成功target statusと選択dataを返す。"
+      },
+      "conditions": {
+        "en": "Use the selected original hierarchical register/memory models and their explicit public calls. Named wrapper observations call through a block base view and genuine configured lookup; actual frontdoor cases use the original adapter, sequencer and driver storage.",
+        "ja": "選択した独自階層register／memoryモデルと明示公開callを使う。名前wrapper観測はblock base viewと実configure済みlookupを呼び、実frontdoor条件は独自adapter・sequencer・driver storageを使う。"
+      },
+      "expected": {
+        "en": "A later valid named access returns the new successful target status and selected data.",
+        "ja": "後続の合法な名前アクセスは新しい成功target statusと選択dataを返す。"
+      },
+      "limitations": {
+        "en": "Selected valid names, in-range offsets and full-width RW models only. Forwarding observers implement their own target response; they do not certify DUT transport. Separate frontdoor controls exercise inherited model operations. No missing-name behavior, invalid path/map, all topology, all policies, sibling traversal order or failed-read data is certified. Debug strings/line numbers may be forwarded or ignored; only functional invariance is required.",
+        "ja": "選択合法名、範囲内offset、全幅RWモデルだけ。転送observerは独自target応答を実装し、DUT transportを認定しない。別frontdoor controlは継承モデル操作を実行する。欠落名の動作、不正path／map、全topology、全policy、兄弟走査順、失敗read dataを認定しない。debug string／行番号は転送／無視どちらも許容し、機能不変性だけを要求する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_named_register_write_forwards_lookup_defaults_context_status_and_debug_invariance",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named_reg_write retry 1 data 1"
+          ]
+        },
+        {
+          "test": "uD/test_named_register_access_uses_real_frontdoor_storage_and_preserves_debug_and_retry_results",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named_reg_write_failure failed 1 retry 1 value 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-ACCESS-REG-WRITE-DEBUG-INVARIANCE",
+      "clause": "D.3.1",
+      "statement": {
+        "en": "Changing the debug-only filename and line number preserves the selected named access functional outcome.",
+        "ja": "debug専用filename／行番号の変更は選択した名前アクセスの機能結果を保持する。"
+      },
+      "conditions": {
+        "en": "Use the selected original hierarchical register/memory models and their explicit public calls. Named wrapper observations call through a block base view and genuine configured lookup; actual frontdoor cases use the original adapter, sequencer and driver storage.",
+        "ja": "選択した独自階層register／memoryモデルと明示公開callを使う。名前wrapper観測はblock base viewと実configure済みlookupを呼び、実frontdoor条件は独自adapter・sequencer・driver storageを使う。"
+      },
+      "expected": {
+        "en": "Changing the debug-only filename and line number preserves the selected named access functional outcome.",
+        "ja": "debug専用filename／行番号の変更は選択した名前アクセスの機能結果を保持する。"
+      },
+      "limitations": {
+        "en": "Selected valid names, in-range offsets and full-width RW models only. Forwarding observers implement their own target response; they do not certify DUT transport. Separate frontdoor controls exercise inherited model operations. No missing-name behavior, invalid path/map, all topology, all policies, sibling traversal order or failed-read data is certified. Debug strings/line numbers may be forwarded or ignored; only functional invariance is required.",
+        "ja": "選択合法名、範囲内offset、全幅RWモデルだけ。転送observerは独自target応答を実装し、DUT transportを認定しない。別frontdoor controlは継承モデル操作を実行する。欠落名の動作、不正path／map、全topology、全policy、兄弟走査順、失敗read dataを認定しない。debug string／行番号は転送／無視どちらも許容し、機能不変性だけを要求する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_named_register_write_forwards_lookup_defaults_context_status_and_debug_invariance",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named_reg_write debug 0 invariant 1",
+            "UT: named_reg_write debug 1 invariant 1"
+          ]
+        },
+        {
+          "test": "uD/test_named_register_access_uses_real_frontdoor_storage_and_preserves_debug_and_retry_results",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named_reg_frontdoor debug 0 write 1 read 1 value 1 peer 1 address 1",
+            "UT: named_reg_frontdoor debug 1 write 1 read 1 value 1 peer 1 address 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-ACCESS-REG-READ-LOCAL-LOOKUP",
+      "clause": "D.3.2",
+      "statement": {
+        "en": "The named register read chooses the local simple-name match before a same-name descendant.",
+        "ja": "名前によるregister readは同名子孫より先にlocalの単純名一致を選ぶ。"
+      },
+      "conditions": {
+        "en": "Use the selected original hierarchical register/memory models and their explicit public calls. Named wrapper observations call through a block base view and genuine configured lookup; actual frontdoor cases use the original adapter, sequencer and driver storage.",
+        "ja": "選択した独自階層register／memoryモデルと明示公開callを使う。名前wrapper観測はblock base viewと実configure済みlookupを呼び、実frontdoor条件は独自adapter・sequencer・driver storageを使う。"
+      },
+      "expected": {
+        "en": "The named register read chooses the local simple-name match before a same-name descendant.",
+        "ja": "名前によるregister readは同名子孫より先にlocalの単純名一致を選ぶ。"
+      },
+      "limitations": {
+        "en": "Selected valid names, in-range offsets and full-width RW models only. Forwarding observers implement their own target response; they do not certify DUT transport. Separate frontdoor controls exercise inherited model operations. No missing-name behavior, invalid path/map, all topology, all policies, sibling traversal order or failed-read data is certified. Debug strings/line numbers may be forwarded or ignored; only functional invariance is required.",
+        "ja": "選択合法名、範囲内offset、全幅RWモデルだけ。転送observerは独自target応答を実装し、DUT transportを認定しない。別frontdoor controlは継承モデル操作を実行する。欠落名の動作、不正path／map、全topology、全policy、兄弟走査順、失敗read dataを認定しない。debug string／行番号は転送／無視どちらも許容し、機能不変性だけを要求する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_named_register_read_forwards_lookup_defaults_context_status_and_debug_invariance",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named_reg_read local 1 peer 1 conflict 1 blocked 1 status 1"
+          ]
+        },
+        {
+          "test": "uD/test_named_register_access_uses_real_frontdoor_storage_and_preserves_debug_and_retry_results",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named_reg_frontdoor debug 0 write 1 read 1 value 1 peer 1 address 1",
+            "UT: named_reg_frontdoor debug 1 write 1 read 1 value 1 peer 1 address 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-ACCESS-REG-READ-NESTED-LOOKUP",
+      "clause": "D.3.2",
+      "statement": {
+        "en": "The named register read finds the selected descendant when the local block has no such name.",
+        "ja": "名前によるregister readはlocal blockに同名がなければ選択子孫を見つける。"
+      },
+      "conditions": {
+        "en": "Use the selected original hierarchical register/memory models and their explicit public calls. Named wrapper observations call through a block base view and genuine configured lookup; actual frontdoor cases use the original adapter, sequencer and driver storage.",
+        "ja": "選択した独自階層register／memoryモデルと明示公開callを使う。名前wrapper観測はblock base viewと実configure済みlookupを呼び、実frontdoor条件は独自adapter・sequencer・driver storageを使う。"
+      },
+      "expected": {
+        "en": "The named register read finds the selected descendant when the local block has no such name.",
+        "ja": "名前によるregister readはlocal blockに同名がなければ選択子孫を見つける。"
+      },
+      "limitations": {
+        "en": "Selected valid names, in-range offsets and full-width RW models only. Forwarding observers implement their own target response; they do not certify DUT transport. Separate frontdoor controls exercise inherited model operations. No missing-name behavior, invalid path/map, all topology, all policies, sibling traversal order or failed-read data is certified. Debug strings/line numbers may be forwarded or ignored; only functional invariance is required.",
+        "ja": "選択合法名、範囲内offset、全幅RWモデルだけ。転送observerは独自target応答を実装し、DUT transportを認定しない。別frontdoor controlは継承モデル操作を実行する。欠落名の動作、不正path／map、全topology、全policy、兄弟走査順、失敗read dataを認定しない。debug string／行番号は転送／無視どちらも許容し、機能不変性だけを要求する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_named_register_read_forwards_lookup_defaults_context_status_and_debug_invariance",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named_reg_read nested 1 path 1 map 1 parent 1 priority 1 extension 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-ACCESS-REG-READ-DATA",
+      "clause": "D.3.2",
+      "statement": {
+        "en": "The named register read preserves the selected successful returned data.",
+        "ja": "名前によるregister readは選択した成功時返却dataを保持する。"
+      },
+      "conditions": {
+        "en": "Use the selected original hierarchical register/memory models and their explicit public calls. Named wrapper observations call through a block base view and genuine configured lookup; actual frontdoor cases use the original adapter, sequencer and driver storage.",
+        "ja": "選択した独自階層register／memoryモデルと明示公開callを使う。名前wrapper観測はblock base viewと実configure済みlookupを呼び、実frontdoor条件は独自adapter・sequencer・driver storageを使う。"
+      },
+      "expected": {
+        "en": "The named register read preserves the selected successful returned data.",
+        "ja": "名前によるregister readは選択した成功時返却dataを保持する。"
+      },
+      "limitations": {
+        "en": "Selected valid names, in-range offsets and full-width RW models only. Forwarding observers implement their own target response; they do not certify DUT transport. Separate frontdoor controls exercise inherited model operations. No missing-name behavior, invalid path/map, all topology, all policies, sibling traversal order or failed-read data is certified. Debug strings/line numbers may be forwarded or ignored; only functional invariance is required.",
+        "ja": "選択合法名、範囲内offset、全幅RWモデルだけ。転送observerは独自target応答を実装し、DUT transportを認定しない。別frontdoor controlは継承モデル操作を実行する。欠落名の動作、不正path／map、全topology、全policy、兄弟走査順、失敗read dataを認定しない。debug string／行番号は転送／無視どちらも許容し、機能不変性だけを要求する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_named_register_read_forwards_lookup_defaults_context_status_and_debug_invariance",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named_reg_read data 1"
+          ]
+        },
+        {
+          "test": "uD/test_named_register_access_uses_real_frontdoor_storage_and_preserves_debug_and_retry_results",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named_reg_frontdoor debug 0 write 1 read 1 value 1 peer 1 address 1",
+            "UT: named_reg_frontdoor debug 1 write 1 read 1 value 1 peer 1 address 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-ACCESS-REG-READ-PATH",
+      "clause": "D.3.2",
+      "statement": {
+        "en": "The wrapper forwards UVM_DEFAULT_DOOR when omitted and the selected explicit door when supplied.",
+        "ja": "wrapperは省略時にUVM_DEFAULT_DOORを、指定時に選択した明示doorを転送する。"
+      },
+      "conditions": {
+        "en": "Use the selected original hierarchical register/memory models and their explicit public calls. Named wrapper observations call through a block base view and genuine configured lookup; actual frontdoor cases use the original adapter, sequencer and driver storage.",
+        "ja": "選択した独自階層register／memoryモデルと明示公開callを使う。名前wrapper観測はblock base viewと実configure済みlookupを呼び、実frontdoor条件は独自adapter・sequencer・driver storageを使う。"
+      },
+      "expected": {
+        "en": "The wrapper forwards UVM_DEFAULT_DOOR when omitted and the selected explicit door when supplied.",
+        "ja": "wrapperは省略時にUVM_DEFAULT_DOORを、指定時に選択した明示doorを転送する。"
+      },
+      "limitations": {
+        "en": "Selected valid names, in-range offsets and full-width RW models only. Forwarding observers implement their own target response; they do not certify DUT transport. Separate frontdoor controls exercise inherited model operations. No missing-name behavior, invalid path/map, all topology, all policies, sibling traversal order or failed-read data is certified. Debug strings/line numbers may be forwarded or ignored; only functional invariance is required.",
+        "ja": "選択合法名、範囲内offset、全幅RWモデルだけ。転送observerは独自target応答を実装し、DUT transportを認定しない。別frontdoor controlは継承モデル操作を実行する。欠落名の動作、不正path／map、全topology、全policy、兄弟走査順、失敗read dataを認定しない。debug string／行番号は転送／無視どちらも許容し、機能不変性だけを要求する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_named_register_read_forwards_lookup_defaults_context_status_and_debug_invariance",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named_reg_read defaults path 1 map 1 parent 1 priority 1 extension 1",
+            "UT: named_reg_read nested 1 path 1 map 1 parent 1 priority 1 extension 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-ACCESS-REG-READ-MAP",
+      "clause": "D.3.2",
+      "statement": {
+        "en": "The wrapper forwards the omitted null map or the selected explicit map handle.",
+        "ja": "wrapperは省略したnull mapまたは選択明示map handleを転送する。"
+      },
+      "conditions": {
+        "en": "Use the selected original hierarchical register/memory models and their explicit public calls. Named wrapper observations call through a block base view and genuine configured lookup; actual frontdoor cases use the original adapter, sequencer and driver storage.",
+        "ja": "選択した独自階層register／memoryモデルと明示公開callを使う。名前wrapper観測はblock base viewと実configure済みlookupを呼び、実frontdoor条件は独自adapter・sequencer・driver storageを使う。"
+      },
+      "expected": {
+        "en": "The wrapper forwards the omitted null map or the selected explicit map handle.",
+        "ja": "wrapperは省略したnull mapまたは選択明示map handleを転送する。"
+      },
+      "limitations": {
+        "en": "Selected valid names, in-range offsets and full-width RW models only. Forwarding observers implement their own target response; they do not certify DUT transport. Separate frontdoor controls exercise inherited model operations. No missing-name behavior, invalid path/map, all topology, all policies, sibling traversal order or failed-read data is certified. Debug strings/line numbers may be forwarded or ignored; only functional invariance is required.",
+        "ja": "選択合法名、範囲内offset、全幅RWモデルだけ。転送observerは独自target応答を実装し、DUT transportを認定しない。別frontdoor controlは継承モデル操作を実行する。欠落名の動作、不正path／map、全topology、全policy、兄弟走査順、失敗read dataを認定しない。debug string／行番号は転送／無視どちらも許容し、機能不変性だけを要求する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_named_register_read_forwards_lookup_defaults_context_status_and_debug_invariance",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named_reg_read defaults path 1 map 1 parent 1 priority 1 extension 1",
+            "UT: named_reg_read nested 1 path 1 map 1 parent 1 priority 1 extension 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-ACCESS-REG-READ-PARENT",
+      "clause": "D.3.2",
+      "statement": {
+        "en": "The wrapper forwards omitted null or the exact supplied parent-sequence handle.",
+        "ja": "wrapperは省略nullまたは指定された正確なparent-sequence handleを転送する。"
+      },
+      "conditions": {
+        "en": "Use the selected original hierarchical register/memory models and their explicit public calls. Named wrapper observations call through a block base view and genuine configured lookup; actual frontdoor cases use the original adapter, sequencer and driver storage.",
+        "ja": "選択した独自階層register／memoryモデルと明示公開callを使う。名前wrapper観測はblock base viewと実configure済みlookupを呼び、実frontdoor条件は独自adapter・sequencer・driver storageを使う。"
+      },
+      "expected": {
+        "en": "The wrapper forwards omitted null or the exact supplied parent-sequence handle.",
+        "ja": "wrapperは省略nullまたは指定された正確なparent-sequence handleを転送する。"
+      },
+      "limitations": {
+        "en": "Selected valid names, in-range offsets and full-width RW models only. Forwarding observers implement their own target response; they do not certify DUT transport. Separate frontdoor controls exercise inherited model operations. No missing-name behavior, invalid path/map, all topology, all policies, sibling traversal order or failed-read data is certified. Debug strings/line numbers may be forwarded or ignored; only functional invariance is required.",
+        "ja": "選択合法名、範囲内offset、全幅RWモデルだけ。転送observerは独自target応答を実装し、DUT transportを認定しない。別frontdoor controlは継承モデル操作を実行する。欠落名の動作、不正path／map、全topology、全policy、兄弟走査順、失敗read dataを認定しない。debug string／行番号は転送／無視どちらも許容し、機能不変性だけを要求する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_named_register_read_forwards_lookup_defaults_context_status_and_debug_invariance",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named_reg_read defaults path 1 map 1 parent 1 priority 1 extension 1",
+            "UT: named_reg_read nested 1 path 1 map 1 parent 1 priority 1 extension 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-ACCESS-REG-READ-PRIORITY",
+      "clause": "D.3.2",
+      "statement": {
+        "en": "The wrapper forwards the omitted priority minus one and the supplied explicit priority.",
+        "ja": "wrapperは省略priority -1と指定明示priorityを転送する。"
+      },
+      "conditions": {
+        "en": "Use the selected original hierarchical register/memory models and their explicit public calls. Named wrapper observations call through a block base view and genuine configured lookup; actual frontdoor cases use the original adapter, sequencer and driver storage.",
+        "ja": "選択した独自階層register／memoryモデルと明示公開callを使う。名前wrapper観測はblock base viewと実configure済みlookupを呼び、実frontdoor条件は独自adapter・sequencer・driver storageを使う。"
+      },
+      "expected": {
+        "en": "The wrapper forwards the omitted priority minus one and the supplied explicit priority.",
+        "ja": "wrapperは省略priority -1と指定明示priorityを転送する。"
+      },
+      "limitations": {
+        "en": "Selected valid names, in-range offsets and full-width RW models only. Forwarding observers implement their own target response; they do not certify DUT transport. Separate frontdoor controls exercise inherited model operations. No missing-name behavior, invalid path/map, all topology, all policies, sibling traversal order or failed-read data is certified. Debug strings/line numbers may be forwarded or ignored; only functional invariance is required.",
+        "ja": "選択合法名、範囲内offset、全幅RWモデルだけ。転送observerは独自target応答を実装し、DUT transportを認定しない。別frontdoor controlは継承モデル操作を実行する。欠落名の動作、不正path／map、全topology、全policy、兄弟走査順、失敗read dataを認定しない。debug string／行番号は転送／無視どちらも許容し、機能不変性だけを要求する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_named_register_read_forwards_lookup_defaults_context_status_and_debug_invariance",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named_reg_read defaults path 1 map 1 parent 1 priority 1 extension 1",
+            "UT: named_reg_read nested 1 path 1 map 1 parent 1 priority 1 extension 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-ACCESS-REG-READ-EXTENSION",
+      "clause": "D.3.2",
+      "statement": {
+        "en": "The wrapper forwards omitted null or the exact supplied extension handle.",
+        "ja": "wrapperは省略nullまたは指定された正確なextension handleを転送する。"
+      },
+      "conditions": {
+        "en": "Use the selected original hierarchical register/memory models and their explicit public calls. Named wrapper observations call through a block base view and genuine configured lookup; actual frontdoor cases use the original adapter, sequencer and driver storage.",
+        "ja": "選択した独自階層register／memoryモデルと明示公開callを使う。名前wrapper観測はblock base viewと実configure済みlookupを呼び、実frontdoor条件は独自adapter・sequencer・driver storageを使う。"
+      },
+      "expected": {
+        "en": "The wrapper forwards omitted null or the exact supplied extension handle.",
+        "ja": "wrapperは省略nullまたは指定された正確なextension handleを転送する。"
+      },
+      "limitations": {
+        "en": "Selected valid names, in-range offsets and full-width RW models only. Forwarding observers implement their own target response; they do not certify DUT transport. Separate frontdoor controls exercise inherited model operations. No missing-name behavior, invalid path/map, all topology, all policies, sibling traversal order or failed-read data is certified. Debug strings/line numbers may be forwarded or ignored; only functional invariance is required.",
+        "ja": "選択合法名、範囲内offset、全幅RWモデルだけ。転送observerは独自target応答を実装し、DUT transportを認定しない。別frontdoor controlは継承モデル操作を実行する。欠落名の動作、不正path／map、全topology、全policy、兄弟走査順、失敗read dataを認定しない。debug string／行番号は転送／無視どちらも許容し、機能不変性だけを要求する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_named_register_read_forwards_lookup_defaults_context_status_and_debug_invariance",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named_reg_read defaults path 1 map 1 parent 1 priority 1 extension 1",
+            "UT: named_reg_read nested 1 path 1 map 1 parent 1 priority 1 extension 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-ACCESS-REG-READ-BLOCKING",
+      "clause": "D.3.2",
+      "statement": {
+        "en": "The named task waits for the selected delayed target task to complete before returning.",
+        "ja": "名前によるtaskは選択した遅延target taskの完了を待ってから返る。"
+      },
+      "conditions": {
+        "en": "Use the selected original hierarchical register/memory models and their explicit public calls. Named wrapper observations call through a block base view and genuine configured lookup; actual frontdoor cases use the original adapter, sequencer and driver storage.",
+        "ja": "選択した独自階層register／memoryモデルと明示公開callを使う。名前wrapper観測はblock base viewと実configure済みlookupを呼び、実frontdoor条件は独自adapter・sequencer・driver storageを使う。"
+      },
+      "expected": {
+        "en": "The named task waits for the selected delayed target task to complete before returning.",
+        "ja": "名前によるtaskは選択した遅延target taskの完了を待ってから返る。"
+      },
+      "limitations": {
+        "en": "Selected valid names, in-range offsets and full-width RW models only. Forwarding observers implement their own target response; they do not certify DUT transport. Separate frontdoor controls exercise inherited model operations. No missing-name behavior, invalid path/map, all topology, all policies, sibling traversal order or failed-read data is certified. Debug strings/line numbers may be forwarded or ignored; only functional invariance is required.",
+        "ja": "選択合法名、範囲内offset、全幅RWモデルだけ。転送observerは独自target応答を実装し、DUT transportを認定しない。別frontdoor controlは継承モデル操作を実行する。欠落名の動作、不正path／map、全topology、全policy、兄弟走査順、失敗read dataを認定しない。debug string／行番号は転送／無視どちらも許容し、機能不変性だけを要求する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_named_register_read_forwards_lookup_defaults_context_status_and_debug_invariance",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named_reg_read local 1 peer 1 conflict 1 blocked 1 status 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-ACCESS-REG-READ-FAILURE-STATUS",
+      "clause": "D.3.2",
+      "statement": {
+        "en": "The named wrapper returns the selected target failure status.",
+        "ja": "名前wrapperは選択targetの失敗statusを返す。"
+      },
+      "conditions": {
+        "en": "Use the selected original hierarchical register/memory models and their explicit public calls. Named wrapper observations call through a block base view and genuine configured lookup; actual frontdoor cases use the original adapter, sequencer and driver storage.",
+        "ja": "選択した独自階層register／memoryモデルと明示公開callを使う。名前wrapper観測はblock base viewと実configure済みlookupを呼び、実frontdoor条件は独自adapter・sequencer・driver storageを使う。"
+      },
+      "expected": {
+        "en": "The named wrapper returns the selected target failure status.",
+        "ja": "名前wrapperは選択targetの失敗statusを返す。"
+      },
+      "limitations": {
+        "en": "Selected valid names, in-range offsets and full-width RW models only. Forwarding observers implement their own target response; they do not certify DUT transport. Separate frontdoor controls exercise inherited model operations. No missing-name behavior, invalid path/map, all topology, all policies, sibling traversal order or failed-read data is certified. Debug strings/line numbers may be forwarded or ignored; only functional invariance is required.",
+        "ja": "選択合法名、範囲内offset、全幅RWモデルだけ。転送observerは独自target応答を実装し、DUT transportを認定しない。別frontdoor controlは継承モデル操作を実行する。欠落名の動作、不正path／map、全topology、全policy、兄弟走査順、失敗read dataを認定しない。debug string／行番号は転送／無視どちらも許容し、機能不変性だけを要求する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_named_register_read_forwards_lookup_defaults_context_status_and_debug_invariance",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named_reg_read failure 1 calls 1"
+          ]
+        },
+        {
+          "test": "uD/test_named_register_access_uses_real_frontdoor_storage_and_preserves_debug_and_retry_results",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named_reg_read_failure failed 1 retry 1 value 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-ACCESS-REG-READ-RETRY",
+      "clause": "D.3.2",
+      "statement": {
+        "en": "A later valid named access returns the new successful target status and selected data.",
+        "ja": "後続の合法な名前アクセスは新しい成功target statusと選択dataを返す。"
+      },
+      "conditions": {
+        "en": "Use the selected original hierarchical register/memory models and their explicit public calls. Named wrapper observations call through a block base view and genuine configured lookup; actual frontdoor cases use the original adapter, sequencer and driver storage.",
+        "ja": "選択した独自階層register／memoryモデルと明示公開callを使う。名前wrapper観測はblock base viewと実configure済みlookupを呼び、実frontdoor条件は独自adapter・sequencer・driver storageを使う。"
+      },
+      "expected": {
+        "en": "A later valid named access returns the new successful target status and selected data.",
+        "ja": "後続の合法な名前アクセスは新しい成功target statusと選択dataを返す。"
+      },
+      "limitations": {
+        "en": "Selected valid names, in-range offsets and full-width RW models only. Forwarding observers implement their own target response; they do not certify DUT transport. Separate frontdoor controls exercise inherited model operations. No missing-name behavior, invalid path/map, all topology, all policies, sibling traversal order or failed-read data is certified. Debug strings/line numbers may be forwarded or ignored; only functional invariance is required.",
+        "ja": "選択合法名、範囲内offset、全幅RWモデルだけ。転送observerは独自target応答を実装し、DUT transportを認定しない。別frontdoor controlは継承モデル操作を実行する。欠落名の動作、不正path／map、全topology、全policy、兄弟走査順、失敗read dataを認定しない。debug string／行番号は転送／無視どちらも許容し、機能不変性だけを要求する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_named_register_read_forwards_lookup_defaults_context_status_and_debug_invariance",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named_reg_read retry 1 data 1"
+          ]
+        },
+        {
+          "test": "uD/test_named_register_access_uses_real_frontdoor_storage_and_preserves_debug_and_retry_results",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named_reg_read_failure failed 1 retry 1 value 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-ACCESS-REG-READ-DEBUG-INVARIANCE",
+      "clause": "D.3.2",
+      "statement": {
+        "en": "Changing the debug-only filename and line number preserves the selected named access functional outcome.",
+        "ja": "debug専用filename／行番号の変更は選択した名前アクセスの機能結果を保持する。"
+      },
+      "conditions": {
+        "en": "Use the selected original hierarchical register/memory models and their explicit public calls. Named wrapper observations call through a block base view and genuine configured lookup; actual frontdoor cases use the original adapter, sequencer and driver storage.",
+        "ja": "選択した独自階層register／memoryモデルと明示公開callを使う。名前wrapper観測はblock base viewと実configure済みlookupを呼び、実frontdoor条件は独自adapter・sequencer・driver storageを使う。"
+      },
+      "expected": {
+        "en": "Changing the debug-only filename and line number preserves the selected named access functional outcome.",
+        "ja": "debug専用filename／行番号の変更は選択した名前アクセスの機能結果を保持する。"
+      },
+      "limitations": {
+        "en": "Selected valid names, in-range offsets and full-width RW models only. Forwarding observers implement their own target response; they do not certify DUT transport. Separate frontdoor controls exercise inherited model operations. No missing-name behavior, invalid path/map, all topology, all policies, sibling traversal order or failed-read data is certified. Debug strings/line numbers may be forwarded or ignored; only functional invariance is required.",
+        "ja": "選択合法名、範囲内offset、全幅RWモデルだけ。転送observerは独自target応答を実装し、DUT transportを認定しない。別frontdoor controlは継承モデル操作を実行する。欠落名の動作、不正path／map、全topology、全policy、兄弟走査順、失敗read dataを認定しない。debug string／行番号は転送／無視どちらも許容し、機能不変性だけを要求する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_named_register_read_forwards_lookup_defaults_context_status_and_debug_invariance",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named_reg_read debug 0 invariant 1",
+            "UT: named_reg_read debug 1 invariant 1"
+          ]
+        },
+        {
+          "test": "uD/test_named_register_access_uses_real_frontdoor_storage_and_preserves_debug_and_retry_results",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named_reg_frontdoor debug 0 write 1 read 1 value 1 peer 1 address 1",
+            "UT: named_reg_frontdoor debug 1 write 1 read 1 value 1 peer 1 address 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-ACCESS-MEM-WRITE-LOCAL-LOOKUP",
+      "clause": "D.3.3",
+      "statement": {
+        "en": "The named memory write chooses the local simple-name match before a same-name descendant.",
+        "ja": "名前によるmemory writeは同名子孫より先にlocalの単純名一致を選ぶ。"
+      },
+      "conditions": {
+        "en": "Use the selected original hierarchical register/memory models and their explicit public calls. Named wrapper observations call through a block base view and genuine configured lookup; actual frontdoor cases use the original adapter, sequencer and driver storage.",
+        "ja": "選択した独自階層register／memoryモデルと明示公開callを使う。名前wrapper観測はblock base viewと実configure済みlookupを呼び、実frontdoor条件は独自adapter・sequencer・driver storageを使う。"
+      },
+      "expected": {
+        "en": "The named memory write chooses the local simple-name match before a same-name descendant.",
+        "ja": "名前によるmemory writeは同名子孫より先にlocalの単純名一致を選ぶ。"
+      },
+      "limitations": {
+        "en": "Selected valid names, in-range offsets and full-width RW models only. Forwarding observers implement their own target response; they do not certify DUT transport. Separate frontdoor controls exercise inherited model operations. No missing-name behavior, invalid path/map, all topology, all policies, sibling traversal order or failed-read data is certified. Debug strings/line numbers may be forwarded or ignored; only functional invariance is required.",
+        "ja": "選択合法名、範囲内offset、全幅RWモデルだけ。転送observerは独自target応答を実装し、DUT transportを認定しない。別frontdoor controlは継承モデル操作を実行する。欠落名の動作、不正path／map、全topology、全policy、兄弟走査順、失敗read dataを認定しない。debug string／行番号は転送／無視どちらも許容し、機能不変性だけを要求する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_named_memory_write_forwards_lookup_defaults_context_status_and_debug_invariance",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named_mem_write local 1 peer 1 conflict 1 blocked 1 status 1"
+          ]
+        },
+        {
+          "test": "uD/test_named_memory_access_uses_real_frontdoor_storage_and_preserves_debug_and_retry_results",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named_mem_frontdoor debug 0 write 1 read 1 value 1 peer 1 address 1",
+            "UT: named_mem_frontdoor debug 1 write 1 read 1 value 1 peer 1 address 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-ACCESS-MEM-WRITE-NESTED-LOOKUP",
+      "clause": "D.3.3",
+      "statement": {
+        "en": "The named memory write finds the selected descendant when the local block has no such name.",
+        "ja": "名前によるmemory writeはlocal blockに同名がなければ選択子孫を見つける。"
+      },
+      "conditions": {
+        "en": "Use the selected original hierarchical register/memory models and their explicit public calls. Named wrapper observations call through a block base view and genuine configured lookup; actual frontdoor cases use the original adapter, sequencer and driver storage.",
+        "ja": "選択した独自階層register／memoryモデルと明示公開callを使う。名前wrapper観測はblock base viewと実configure済みlookupを呼び、実frontdoor条件は独自adapter・sequencer・driver storageを使う。"
+      },
+      "expected": {
+        "en": "The named memory write finds the selected descendant when the local block has no such name.",
+        "ja": "名前によるmemory writeはlocal blockに同名がなければ選択子孫を見つける。"
+      },
+      "limitations": {
+        "en": "Selected valid names, in-range offsets and full-width RW models only. Forwarding observers implement their own target response; they do not certify DUT transport. Separate frontdoor controls exercise inherited model operations. No missing-name behavior, invalid path/map, all topology, all policies, sibling traversal order or failed-read data is certified. Debug strings/line numbers may be forwarded or ignored; only functional invariance is required.",
+        "ja": "選択合法名、範囲内offset、全幅RWモデルだけ。転送observerは独自target応答を実装し、DUT transportを認定しない。別frontdoor controlは継承モデル操作を実行する。欠落名の動作、不正path／map、全topology、全policy、兄弟走査順、失敗read dataを認定しない。debug string／行番号は転送／無視どちらも許容し、機能不変性だけを要求する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_named_memory_write_forwards_lookup_defaults_context_status_and_debug_invariance",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named_mem_write nested 1 path 1 map 1 parent 1 priority 1 extension 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-ACCESS-MEM-WRITE-DATA",
+      "clause": "D.3.3",
+      "statement": {
+        "en": "The named memory write preserves the selected supplied data.",
+        "ja": "名前によるmemory writeは選択した指定dataを保持する。"
+      },
+      "conditions": {
+        "en": "Use the selected original hierarchical register/memory models and their explicit public calls. Named wrapper observations call through a block base view and genuine configured lookup; actual frontdoor cases use the original adapter, sequencer and driver storage.",
+        "ja": "選択した独自階層register／memoryモデルと明示公開callを使う。名前wrapper観測はblock base viewと実configure済みlookupを呼び、実frontdoor条件は独自adapter・sequencer・driver storageを使う。"
+      },
+      "expected": {
+        "en": "The named memory write preserves the selected supplied data.",
+        "ja": "名前によるmemory writeは選択した指定dataを保持する。"
+      },
+      "limitations": {
+        "en": "Selected valid names, in-range offsets and full-width RW models only. Forwarding observers implement their own target response; they do not certify DUT transport. Separate frontdoor controls exercise inherited model operations. No missing-name behavior, invalid path/map, all topology, all policies, sibling traversal order or failed-read data is certified. Debug strings/line numbers may be forwarded or ignored; only functional invariance is required.",
+        "ja": "選択合法名、範囲内offset、全幅RWモデルだけ。転送observerは独自target応答を実装し、DUT transportを認定しない。別frontdoor controlは継承モデル操作を実行する。欠落名の動作、不正path／map、全topology、全policy、兄弟走査順、失敗read dataを認定しない。debug string／行番号は転送／無視どちらも許容し、機能不変性だけを要求する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_named_memory_write_forwards_lookup_defaults_context_status_and_debug_invariance",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named_mem_write data 1"
+          ]
+        },
+        {
+          "test": "uD/test_named_memory_access_uses_real_frontdoor_storage_and_preserves_debug_and_retry_results",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named_mem_frontdoor debug 0 write 1 read 1 value 1 peer 1 address 1",
+            "UT: named_mem_frontdoor debug 1 write 1 read 1 value 1 peer 1 address 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-ACCESS-MEM-WRITE-PATH",
+      "clause": "D.3.3",
+      "statement": {
+        "en": "The wrapper forwards UVM_DEFAULT_DOOR when omitted and the selected explicit door when supplied.",
+        "ja": "wrapperは省略時にUVM_DEFAULT_DOORを、指定時に選択した明示doorを転送する。"
+      },
+      "conditions": {
+        "en": "Use the selected original hierarchical register/memory models and their explicit public calls. Named wrapper observations call through a block base view and genuine configured lookup; actual frontdoor cases use the original adapter, sequencer and driver storage.",
+        "ja": "選択した独自階層register／memoryモデルと明示公開callを使う。名前wrapper観測はblock base viewと実configure済みlookupを呼び、実frontdoor条件は独自adapter・sequencer・driver storageを使う。"
+      },
+      "expected": {
+        "en": "The wrapper forwards UVM_DEFAULT_DOOR when omitted and the selected explicit door when supplied.",
+        "ja": "wrapperは省略時にUVM_DEFAULT_DOORを、指定時に選択した明示doorを転送する。"
+      },
+      "limitations": {
+        "en": "Selected valid names, in-range offsets and full-width RW models only. Forwarding observers implement their own target response; they do not certify DUT transport. Separate frontdoor controls exercise inherited model operations. No missing-name behavior, invalid path/map, all topology, all policies, sibling traversal order or failed-read data is certified. Debug strings/line numbers may be forwarded or ignored; only functional invariance is required.",
+        "ja": "選択合法名、範囲内offset、全幅RWモデルだけ。転送observerは独自target応答を実装し、DUT transportを認定しない。別frontdoor controlは継承モデル操作を実行する。欠落名の動作、不正path／map、全topology、全policy、兄弟走査順、失敗read dataを認定しない。debug string／行番号は転送／無視どちらも許容し、機能不変性だけを要求する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_named_memory_write_forwards_lookup_defaults_context_status_and_debug_invariance",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named_mem_write defaults path 1 map 1 parent 1 priority 1 extension 1",
+            "UT: named_mem_write nested 1 path 1 map 1 parent 1 priority 1 extension 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-ACCESS-MEM-WRITE-MAP",
+      "clause": "D.3.3",
+      "statement": {
+        "en": "The wrapper forwards the omitted null map or the selected explicit map handle.",
+        "ja": "wrapperは省略したnull mapまたは選択明示map handleを転送する。"
+      },
+      "conditions": {
+        "en": "Use the selected original hierarchical register/memory models and their explicit public calls. Named wrapper observations call through a block base view and genuine configured lookup; actual frontdoor cases use the original adapter, sequencer and driver storage.",
+        "ja": "選択した独自階層register／memoryモデルと明示公開callを使う。名前wrapper観測はblock base viewと実configure済みlookupを呼び、実frontdoor条件は独自adapter・sequencer・driver storageを使う。"
+      },
+      "expected": {
+        "en": "The wrapper forwards the omitted null map or the selected explicit map handle.",
+        "ja": "wrapperは省略したnull mapまたは選択明示map handleを転送する。"
+      },
+      "limitations": {
+        "en": "Selected valid names, in-range offsets and full-width RW models only. Forwarding observers implement their own target response; they do not certify DUT transport. Separate frontdoor controls exercise inherited model operations. No missing-name behavior, invalid path/map, all topology, all policies, sibling traversal order or failed-read data is certified. Debug strings/line numbers may be forwarded or ignored; only functional invariance is required.",
+        "ja": "選択合法名、範囲内offset、全幅RWモデルだけ。転送observerは独自target応答を実装し、DUT transportを認定しない。別frontdoor controlは継承モデル操作を実行する。欠落名の動作、不正path／map、全topology、全policy、兄弟走査順、失敗read dataを認定しない。debug string／行番号は転送／無視どちらも許容し、機能不変性だけを要求する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_named_memory_write_forwards_lookup_defaults_context_status_and_debug_invariance",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named_mem_write defaults path 1 map 1 parent 1 priority 1 extension 1",
+            "UT: named_mem_write nested 1 path 1 map 1 parent 1 priority 1 extension 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-ACCESS-MEM-WRITE-PARENT",
+      "clause": "D.3.3",
+      "statement": {
+        "en": "The wrapper forwards omitted null or the exact supplied parent-sequence handle.",
+        "ja": "wrapperは省略nullまたは指定された正確なparent-sequence handleを転送する。"
+      },
+      "conditions": {
+        "en": "Use the selected original hierarchical register/memory models and their explicit public calls. Named wrapper observations call through a block base view and genuine configured lookup; actual frontdoor cases use the original adapter, sequencer and driver storage.",
+        "ja": "選択した独自階層register／memoryモデルと明示公開callを使う。名前wrapper観測はblock base viewと実configure済みlookupを呼び、実frontdoor条件は独自adapter・sequencer・driver storageを使う。"
+      },
+      "expected": {
+        "en": "The wrapper forwards omitted null or the exact supplied parent-sequence handle.",
+        "ja": "wrapperは省略nullまたは指定された正確なparent-sequence handleを転送する。"
+      },
+      "limitations": {
+        "en": "Selected valid names, in-range offsets and full-width RW models only. Forwarding observers implement their own target response; they do not certify DUT transport. Separate frontdoor controls exercise inherited model operations. No missing-name behavior, invalid path/map, all topology, all policies, sibling traversal order or failed-read data is certified. Debug strings/line numbers may be forwarded or ignored; only functional invariance is required.",
+        "ja": "選択合法名、範囲内offset、全幅RWモデルだけ。転送observerは独自target応答を実装し、DUT transportを認定しない。別frontdoor controlは継承モデル操作を実行する。欠落名の動作、不正path／map、全topology、全policy、兄弟走査順、失敗read dataを認定しない。debug string／行番号は転送／無視どちらも許容し、機能不変性だけを要求する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_named_memory_write_forwards_lookup_defaults_context_status_and_debug_invariance",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named_mem_write defaults path 1 map 1 parent 1 priority 1 extension 1",
+            "UT: named_mem_write nested 1 path 1 map 1 parent 1 priority 1 extension 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-ACCESS-MEM-WRITE-PRIORITY",
+      "clause": "D.3.3",
+      "statement": {
+        "en": "The wrapper forwards the omitted priority minus one and the supplied explicit priority.",
+        "ja": "wrapperは省略priority -1と指定明示priorityを転送する。"
+      },
+      "conditions": {
+        "en": "Use the selected original hierarchical register/memory models and their explicit public calls. Named wrapper observations call through a block base view and genuine configured lookup; actual frontdoor cases use the original adapter, sequencer and driver storage.",
+        "ja": "選択した独自階層register／memoryモデルと明示公開callを使う。名前wrapper観測はblock base viewと実configure済みlookupを呼び、実frontdoor条件は独自adapter・sequencer・driver storageを使う。"
+      },
+      "expected": {
+        "en": "The wrapper forwards the omitted priority minus one and the supplied explicit priority.",
+        "ja": "wrapperは省略priority -1と指定明示priorityを転送する。"
+      },
+      "limitations": {
+        "en": "Selected valid names, in-range offsets and full-width RW models only. Forwarding observers implement their own target response; they do not certify DUT transport. Separate frontdoor controls exercise inherited model operations. No missing-name behavior, invalid path/map, all topology, all policies, sibling traversal order or failed-read data is certified. Debug strings/line numbers may be forwarded or ignored; only functional invariance is required.",
+        "ja": "選択合法名、範囲内offset、全幅RWモデルだけ。転送observerは独自target応答を実装し、DUT transportを認定しない。別frontdoor controlは継承モデル操作を実行する。欠落名の動作、不正path／map、全topology、全policy、兄弟走査順、失敗read dataを認定しない。debug string／行番号は転送／無視どちらも許容し、機能不変性だけを要求する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_named_memory_write_forwards_lookup_defaults_context_status_and_debug_invariance",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named_mem_write defaults path 1 map 1 parent 1 priority 1 extension 1",
+            "UT: named_mem_write nested 1 path 1 map 1 parent 1 priority 1 extension 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-ACCESS-MEM-WRITE-EXTENSION",
+      "clause": "D.3.3",
+      "statement": {
+        "en": "The wrapper forwards omitted null or the exact supplied extension handle.",
+        "ja": "wrapperは省略nullまたは指定された正確なextension handleを転送する。"
+      },
+      "conditions": {
+        "en": "Use the selected original hierarchical register/memory models and their explicit public calls. Named wrapper observations call through a block base view and genuine configured lookup; actual frontdoor cases use the original adapter, sequencer and driver storage.",
+        "ja": "選択した独自階層register／memoryモデルと明示公開callを使う。名前wrapper観測はblock base viewと実configure済みlookupを呼び、実frontdoor条件は独自adapter・sequencer・driver storageを使う。"
+      },
+      "expected": {
+        "en": "The wrapper forwards omitted null or the exact supplied extension handle.",
+        "ja": "wrapperは省略nullまたは指定された正確なextension handleを転送する。"
+      },
+      "limitations": {
+        "en": "Selected valid names, in-range offsets and full-width RW models only. Forwarding observers implement their own target response; they do not certify DUT transport. Separate frontdoor controls exercise inherited model operations. No missing-name behavior, invalid path/map, all topology, all policies, sibling traversal order or failed-read data is certified. Debug strings/line numbers may be forwarded or ignored; only functional invariance is required.",
+        "ja": "選択合法名、範囲内offset、全幅RWモデルだけ。転送observerは独自target応答を実装し、DUT transportを認定しない。別frontdoor controlは継承モデル操作を実行する。欠落名の動作、不正path／map、全topology、全policy、兄弟走査順、失敗read dataを認定しない。debug string／行番号は転送／無視どちらも許容し、機能不変性だけを要求する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_named_memory_write_forwards_lookup_defaults_context_status_and_debug_invariance",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named_mem_write defaults path 1 map 1 parent 1 priority 1 extension 1",
+            "UT: named_mem_write nested 1 path 1 map 1 parent 1 priority 1 extension 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-ACCESS-MEM-WRITE-BLOCKING",
+      "clause": "D.3.3",
+      "statement": {
+        "en": "The named task waits for the selected delayed target task to complete before returning.",
+        "ja": "名前によるtaskは選択した遅延target taskの完了を待ってから返る。"
+      },
+      "conditions": {
+        "en": "Use the selected original hierarchical register/memory models and their explicit public calls. Named wrapper observations call through a block base view and genuine configured lookup; actual frontdoor cases use the original adapter, sequencer and driver storage.",
+        "ja": "選択した独自階層register／memoryモデルと明示公開callを使う。名前wrapper観測はblock base viewと実configure済みlookupを呼び、実frontdoor条件は独自adapter・sequencer・driver storageを使う。"
+      },
+      "expected": {
+        "en": "The named task waits for the selected delayed target task to complete before returning.",
+        "ja": "名前によるtaskは選択した遅延target taskの完了を待ってから返る。"
+      },
+      "limitations": {
+        "en": "Selected valid names, in-range offsets and full-width RW models only. Forwarding observers implement their own target response; they do not certify DUT transport. Separate frontdoor controls exercise inherited model operations. No missing-name behavior, invalid path/map, all topology, all policies, sibling traversal order or failed-read data is certified. Debug strings/line numbers may be forwarded or ignored; only functional invariance is required.",
+        "ja": "選択合法名、範囲内offset、全幅RWモデルだけ。転送observerは独自target応答を実装し、DUT transportを認定しない。別frontdoor controlは継承モデル操作を実行する。欠落名の動作、不正path／map、全topology、全policy、兄弟走査順、失敗read dataを認定しない。debug string／行番号は転送／無視どちらも許容し、機能不変性だけを要求する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_named_memory_write_forwards_lookup_defaults_context_status_and_debug_invariance",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named_mem_write local 1 peer 1 conflict 1 blocked 1 status 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-ACCESS-MEM-WRITE-FAILURE-STATUS",
+      "clause": "D.3.3",
+      "statement": {
+        "en": "The named wrapper returns the selected target failure status.",
+        "ja": "名前wrapperは選択targetの失敗statusを返す。"
+      },
+      "conditions": {
+        "en": "Use the selected original hierarchical register/memory models and their explicit public calls. Named wrapper observations call through a block base view and genuine configured lookup; actual frontdoor cases use the original adapter, sequencer and driver storage.",
+        "ja": "選択した独自階層register／memoryモデルと明示公開callを使う。名前wrapper観測はblock base viewと実configure済みlookupを呼び、実frontdoor条件は独自adapter・sequencer・driver storageを使う。"
+      },
+      "expected": {
+        "en": "The named wrapper returns the selected target failure status.",
+        "ja": "名前wrapperは選択targetの失敗statusを返す。"
+      },
+      "limitations": {
+        "en": "Selected valid names, in-range offsets and full-width RW models only. Forwarding observers implement their own target response; they do not certify DUT transport. Separate frontdoor controls exercise inherited model operations. No missing-name behavior, invalid path/map, all topology, all policies, sibling traversal order or failed-read data is certified. Debug strings/line numbers may be forwarded or ignored; only functional invariance is required.",
+        "ja": "選択合法名、範囲内offset、全幅RWモデルだけ。転送observerは独自target応答を実装し、DUT transportを認定しない。別frontdoor controlは継承モデル操作を実行する。欠落名の動作、不正path／map、全topology、全policy、兄弟走査順、失敗read dataを認定しない。debug string／行番号は転送／無視どちらも許容し、機能不変性だけを要求する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_named_memory_write_forwards_lookup_defaults_context_status_and_debug_invariance",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named_mem_write failure 1 calls 1"
+          ]
+        },
+        {
+          "test": "uD/test_named_memory_access_uses_real_frontdoor_storage_and_preserves_debug_and_retry_results",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named_mem_write_failure failed 1 retry 1 value 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-ACCESS-MEM-WRITE-RETRY",
+      "clause": "D.3.3",
+      "statement": {
+        "en": "A later valid named access returns the new successful target status and selected data.",
+        "ja": "後続の合法な名前アクセスは新しい成功target statusと選択dataを返す。"
+      },
+      "conditions": {
+        "en": "Use the selected original hierarchical register/memory models and their explicit public calls. Named wrapper observations call through a block base view and genuine configured lookup; actual frontdoor cases use the original adapter, sequencer and driver storage.",
+        "ja": "選択した独自階層register／memoryモデルと明示公開callを使う。名前wrapper観測はblock base viewと実configure済みlookupを呼び、実frontdoor条件は独自adapter・sequencer・driver storageを使う。"
+      },
+      "expected": {
+        "en": "A later valid named access returns the new successful target status and selected data.",
+        "ja": "後続の合法な名前アクセスは新しい成功target statusと選択dataを返す。"
+      },
+      "limitations": {
+        "en": "Selected valid names, in-range offsets and full-width RW models only. Forwarding observers implement their own target response; they do not certify DUT transport. Separate frontdoor controls exercise inherited model operations. No missing-name behavior, invalid path/map, all topology, all policies, sibling traversal order or failed-read data is certified. Debug strings/line numbers may be forwarded or ignored; only functional invariance is required.",
+        "ja": "選択合法名、範囲内offset、全幅RWモデルだけ。転送observerは独自target応答を実装し、DUT transportを認定しない。別frontdoor controlは継承モデル操作を実行する。欠落名の動作、不正path／map、全topology、全policy、兄弟走査順、失敗read dataを認定しない。debug string／行番号は転送／無視どちらも許容し、機能不変性だけを要求する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_named_memory_write_forwards_lookup_defaults_context_status_and_debug_invariance",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named_mem_write retry 1 data 1"
+          ]
+        },
+        {
+          "test": "uD/test_named_memory_access_uses_real_frontdoor_storage_and_preserves_debug_and_retry_results",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named_mem_write_failure failed 1 retry 1 value 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-ACCESS-MEM-WRITE-DEBUG-INVARIANCE",
+      "clause": "D.3.3",
+      "statement": {
+        "en": "Changing the debug-only filename and line number preserves the selected named access functional outcome.",
+        "ja": "debug専用filename／行番号の変更は選択した名前アクセスの機能結果を保持する。"
+      },
+      "conditions": {
+        "en": "Use the selected original hierarchical register/memory models and their explicit public calls. Named wrapper observations call through a block base view and genuine configured lookup; actual frontdoor cases use the original adapter, sequencer and driver storage.",
+        "ja": "選択した独自階層register／memoryモデルと明示公開callを使う。名前wrapper観測はblock base viewと実configure済みlookupを呼び、実frontdoor条件は独自adapter・sequencer・driver storageを使う。"
+      },
+      "expected": {
+        "en": "Changing the debug-only filename and line number preserves the selected named access functional outcome.",
+        "ja": "debug専用filename／行番号の変更は選択した名前アクセスの機能結果を保持する。"
+      },
+      "limitations": {
+        "en": "Selected valid names, in-range offsets and full-width RW models only. Forwarding observers implement their own target response; they do not certify DUT transport. Separate frontdoor controls exercise inherited model operations. No missing-name behavior, invalid path/map, all topology, all policies, sibling traversal order or failed-read data is certified. Debug strings/line numbers may be forwarded or ignored; only functional invariance is required.",
+        "ja": "選択合法名、範囲内offset、全幅RWモデルだけ。転送observerは独自target応答を実装し、DUT transportを認定しない。別frontdoor controlは継承モデル操作を実行する。欠落名の動作、不正path／map、全topology、全policy、兄弟走査順、失敗read dataを認定しない。debug string／行番号は転送／無視どちらも許容し、機能不変性だけを要求する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_named_memory_write_forwards_lookup_defaults_context_status_and_debug_invariance",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named_mem_write debug 0 invariant 1",
+            "UT: named_mem_write debug 1 invariant 1"
+          ]
+        },
+        {
+          "test": "uD/test_named_memory_access_uses_real_frontdoor_storage_and_preserves_debug_and_retry_results",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named_mem_frontdoor debug 0 write 1 read 1 value 1 peer 1 address 1",
+            "UT: named_mem_frontdoor debug 1 write 1 read 1 value 1 peer 1 address 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-ACCESS-MEM-WRITE-OFFSET",
+      "clause": "D.3.3",
+      "statement": {
+        "en": "The named memory write forwards the selected nonzero location offset unchanged.",
+        "ja": "名前によるmemory writeは選択した非0のlocation offsetを変更せず転送する。"
+      },
+      "conditions": {
+        "en": "Use the selected original hierarchical register/memory models and their explicit public calls. Named wrapper observations call through a block base view and genuine configured lookup; actual frontdoor cases use the original adapter, sequencer and driver storage.",
+        "ja": "選択した独自階層register／memoryモデルと明示公開callを使う。名前wrapper観測はblock base viewと実configure済みlookupを呼び、実frontdoor条件は独自adapter・sequencer・driver storageを使う。"
+      },
+      "expected": {
+        "en": "The named memory write forwards the selected nonzero location offset unchanged.",
+        "ja": "名前によるmemory writeは選択した非0のlocation offsetを変更せず転送する。"
+      },
+      "limitations": {
+        "en": "Selected valid names, in-range offsets and full-width RW models only. Forwarding observers implement their own target response; they do not certify DUT transport. Separate frontdoor controls exercise inherited model operations. No missing-name behavior, invalid path/map, all topology, all policies, sibling traversal order or failed-read data is certified. Debug strings/line numbers may be forwarded or ignored; only functional invariance is required.",
+        "ja": "選択合法名、範囲内offset、全幅RWモデルだけ。転送observerは独自target応答を実装し、DUT transportを認定しない。別frontdoor controlは継承モデル操作を実行する。欠落名の動作、不正path／map、全topology、全policy、兄弟走査順、失敗read dataを認定しない。debug string／行番号は転送／無視どちらも許容し、機能不変性だけを要求する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_named_memory_write_forwards_lookup_defaults_context_status_and_debug_invariance",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named_mem_write offset 1"
+          ]
+        },
+        {
+          "test": "uD/test_named_memory_access_uses_real_frontdoor_storage_and_preserves_debug_and_retry_results",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named_mem_frontdoor debug 0 write 1 read 1 value 1 peer 1 address 1",
+            "UT: named_mem_frontdoor debug 1 write 1 read 1 value 1 peer 1 address 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-ACCESS-MEM-READ-LOCAL-LOOKUP",
+      "clause": "D.3.4",
+      "statement": {
+        "en": "The named memory read chooses the local simple-name match before a same-name descendant.",
+        "ja": "名前によるmemory readは同名子孫より先にlocalの単純名一致を選ぶ。"
+      },
+      "conditions": {
+        "en": "Use the selected original hierarchical register/memory models and their explicit public calls. Named wrapper observations call through a block base view and genuine configured lookup; actual frontdoor cases use the original adapter, sequencer and driver storage.",
+        "ja": "選択した独自階層register／memoryモデルと明示公開callを使う。名前wrapper観測はblock base viewと実configure済みlookupを呼び、実frontdoor条件は独自adapter・sequencer・driver storageを使う。"
+      },
+      "expected": {
+        "en": "The named memory read chooses the local simple-name match before a same-name descendant.",
+        "ja": "名前によるmemory readは同名子孫より先にlocalの単純名一致を選ぶ。"
+      },
+      "limitations": {
+        "en": "Selected valid names, in-range offsets and full-width RW models only. Forwarding observers implement their own target response; they do not certify DUT transport. Separate frontdoor controls exercise inherited model operations. No missing-name behavior, invalid path/map, all topology, all policies, sibling traversal order or failed-read data is certified. Debug strings/line numbers may be forwarded or ignored; only functional invariance is required.",
+        "ja": "選択合法名、範囲内offset、全幅RWモデルだけ。転送observerは独自target応答を実装し、DUT transportを認定しない。別frontdoor controlは継承モデル操作を実行する。欠落名の動作、不正path／map、全topology、全policy、兄弟走査順、失敗read dataを認定しない。debug string／行番号は転送／無視どちらも許容し、機能不変性だけを要求する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_named_memory_read_forwards_lookup_defaults_context_status_and_debug_invariance",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named_mem_read local 1 peer 1 conflict 1 blocked 1 status 1"
+          ]
+        },
+        {
+          "test": "uD/test_named_memory_access_uses_real_frontdoor_storage_and_preserves_debug_and_retry_results",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named_mem_frontdoor debug 0 write 1 read 1 value 1 peer 1 address 1",
+            "UT: named_mem_frontdoor debug 1 write 1 read 1 value 1 peer 1 address 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-ACCESS-MEM-READ-NESTED-LOOKUP",
+      "clause": "D.3.4",
+      "statement": {
+        "en": "The named memory read finds the selected descendant when the local block has no such name.",
+        "ja": "名前によるmemory readはlocal blockに同名がなければ選択子孫を見つける。"
+      },
+      "conditions": {
+        "en": "Use the selected original hierarchical register/memory models and their explicit public calls. Named wrapper observations call through a block base view and genuine configured lookup; actual frontdoor cases use the original adapter, sequencer and driver storage.",
+        "ja": "選択した独自階層register／memoryモデルと明示公開callを使う。名前wrapper観測はblock base viewと実configure済みlookupを呼び、実frontdoor条件は独自adapter・sequencer・driver storageを使う。"
+      },
+      "expected": {
+        "en": "The named memory read finds the selected descendant when the local block has no such name.",
+        "ja": "名前によるmemory readはlocal blockに同名がなければ選択子孫を見つける。"
+      },
+      "limitations": {
+        "en": "Selected valid names, in-range offsets and full-width RW models only. Forwarding observers implement their own target response; they do not certify DUT transport. Separate frontdoor controls exercise inherited model operations. No missing-name behavior, invalid path/map, all topology, all policies, sibling traversal order or failed-read data is certified. Debug strings/line numbers may be forwarded or ignored; only functional invariance is required.",
+        "ja": "選択合法名、範囲内offset、全幅RWモデルだけ。転送observerは独自target応答を実装し、DUT transportを認定しない。別frontdoor controlは継承モデル操作を実行する。欠落名の動作、不正path／map、全topology、全policy、兄弟走査順、失敗read dataを認定しない。debug string／行番号は転送／無視どちらも許容し、機能不変性だけを要求する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_named_memory_read_forwards_lookup_defaults_context_status_and_debug_invariance",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named_mem_read nested 1 path 1 map 1 parent 1 priority 1 extension 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-ACCESS-MEM-READ-DATA",
+      "clause": "D.3.4",
+      "statement": {
+        "en": "The named memory read preserves the selected successful returned data.",
+        "ja": "名前によるmemory readは選択した成功時返却dataを保持する。"
+      },
+      "conditions": {
+        "en": "Use the selected original hierarchical register/memory models and their explicit public calls. Named wrapper observations call through a block base view and genuine configured lookup; actual frontdoor cases use the original adapter, sequencer and driver storage.",
+        "ja": "選択した独自階層register／memoryモデルと明示公開callを使う。名前wrapper観測はblock base viewと実configure済みlookupを呼び、実frontdoor条件は独自adapter・sequencer・driver storageを使う。"
+      },
+      "expected": {
+        "en": "The named memory read preserves the selected successful returned data.",
+        "ja": "名前によるmemory readは選択した成功時返却dataを保持する。"
+      },
+      "limitations": {
+        "en": "Selected valid names, in-range offsets and full-width RW models only. Forwarding observers implement their own target response; they do not certify DUT transport. Separate frontdoor controls exercise inherited model operations. No missing-name behavior, invalid path/map, all topology, all policies, sibling traversal order or failed-read data is certified. Debug strings/line numbers may be forwarded or ignored; only functional invariance is required.",
+        "ja": "選択合法名、範囲内offset、全幅RWモデルだけ。転送observerは独自target応答を実装し、DUT transportを認定しない。別frontdoor controlは継承モデル操作を実行する。欠落名の動作、不正path／map、全topology、全policy、兄弟走査順、失敗read dataを認定しない。debug string／行番号は転送／無視どちらも許容し、機能不変性だけを要求する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_named_memory_read_forwards_lookup_defaults_context_status_and_debug_invariance",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named_mem_read data 1"
+          ]
+        },
+        {
+          "test": "uD/test_named_memory_access_uses_real_frontdoor_storage_and_preserves_debug_and_retry_results",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named_mem_frontdoor debug 0 write 1 read 1 value 1 peer 1 address 1",
+            "UT: named_mem_frontdoor debug 1 write 1 read 1 value 1 peer 1 address 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-ACCESS-MEM-READ-PATH",
+      "clause": "D.3.4",
+      "statement": {
+        "en": "The wrapper forwards UVM_DEFAULT_DOOR when omitted and the selected explicit door when supplied.",
+        "ja": "wrapperは省略時にUVM_DEFAULT_DOORを、指定時に選択した明示doorを転送する。"
+      },
+      "conditions": {
+        "en": "Use the selected original hierarchical register/memory models and their explicit public calls. Named wrapper observations call through a block base view and genuine configured lookup; actual frontdoor cases use the original adapter, sequencer and driver storage.",
+        "ja": "選択した独自階層register／memoryモデルと明示公開callを使う。名前wrapper観測はblock base viewと実configure済みlookupを呼び、実frontdoor条件は独自adapter・sequencer・driver storageを使う。"
+      },
+      "expected": {
+        "en": "The wrapper forwards UVM_DEFAULT_DOOR when omitted and the selected explicit door when supplied.",
+        "ja": "wrapperは省略時にUVM_DEFAULT_DOORを、指定時に選択した明示doorを転送する。"
+      },
+      "limitations": {
+        "en": "Selected valid names, in-range offsets and full-width RW models only. Forwarding observers implement their own target response; they do not certify DUT transport. Separate frontdoor controls exercise inherited model operations. No missing-name behavior, invalid path/map, all topology, all policies, sibling traversal order or failed-read data is certified. Debug strings/line numbers may be forwarded or ignored; only functional invariance is required.",
+        "ja": "選択合法名、範囲内offset、全幅RWモデルだけ。転送observerは独自target応答を実装し、DUT transportを認定しない。別frontdoor controlは継承モデル操作を実行する。欠落名の動作、不正path／map、全topology、全policy、兄弟走査順、失敗read dataを認定しない。debug string／行番号は転送／無視どちらも許容し、機能不変性だけを要求する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_named_memory_read_forwards_lookup_defaults_context_status_and_debug_invariance",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named_mem_read defaults path 1 map 1 parent 1 priority 1 extension 1",
+            "UT: named_mem_read nested 1 path 1 map 1 parent 1 priority 1 extension 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-ACCESS-MEM-READ-MAP",
+      "clause": "D.3.4",
+      "statement": {
+        "en": "The wrapper forwards the omitted null map or the selected explicit map handle.",
+        "ja": "wrapperは省略したnull mapまたは選択明示map handleを転送する。"
+      },
+      "conditions": {
+        "en": "Use the selected original hierarchical register/memory models and their explicit public calls. Named wrapper observations call through a block base view and genuine configured lookup; actual frontdoor cases use the original adapter, sequencer and driver storage.",
+        "ja": "選択した独自階層register／memoryモデルと明示公開callを使う。名前wrapper観測はblock base viewと実configure済みlookupを呼び、実frontdoor条件は独自adapter・sequencer・driver storageを使う。"
+      },
+      "expected": {
+        "en": "The wrapper forwards the omitted null map or the selected explicit map handle.",
+        "ja": "wrapperは省略したnull mapまたは選択明示map handleを転送する。"
+      },
+      "limitations": {
+        "en": "Selected valid names, in-range offsets and full-width RW models only. Forwarding observers implement their own target response; they do not certify DUT transport. Separate frontdoor controls exercise inherited model operations. No missing-name behavior, invalid path/map, all topology, all policies, sibling traversal order or failed-read data is certified. Debug strings/line numbers may be forwarded or ignored; only functional invariance is required.",
+        "ja": "選択合法名、範囲内offset、全幅RWモデルだけ。転送observerは独自target応答を実装し、DUT transportを認定しない。別frontdoor controlは継承モデル操作を実行する。欠落名の動作、不正path／map、全topology、全policy、兄弟走査順、失敗read dataを認定しない。debug string／行番号は転送／無視どちらも許容し、機能不変性だけを要求する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_named_memory_read_forwards_lookup_defaults_context_status_and_debug_invariance",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named_mem_read defaults path 1 map 1 parent 1 priority 1 extension 1",
+            "UT: named_mem_read nested 1 path 1 map 1 parent 1 priority 1 extension 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-ACCESS-MEM-READ-PARENT",
+      "clause": "D.3.4",
+      "statement": {
+        "en": "The wrapper forwards omitted null or the exact supplied parent-sequence handle.",
+        "ja": "wrapperは省略nullまたは指定された正確なparent-sequence handleを転送する。"
+      },
+      "conditions": {
+        "en": "Use the selected original hierarchical register/memory models and their explicit public calls. Named wrapper observations call through a block base view and genuine configured lookup; actual frontdoor cases use the original adapter, sequencer and driver storage.",
+        "ja": "選択した独自階層register／memoryモデルと明示公開callを使う。名前wrapper観測はblock base viewと実configure済みlookupを呼び、実frontdoor条件は独自adapter・sequencer・driver storageを使う。"
+      },
+      "expected": {
+        "en": "The wrapper forwards omitted null or the exact supplied parent-sequence handle.",
+        "ja": "wrapperは省略nullまたは指定された正確なparent-sequence handleを転送する。"
+      },
+      "limitations": {
+        "en": "Selected valid names, in-range offsets and full-width RW models only. Forwarding observers implement their own target response; they do not certify DUT transport. Separate frontdoor controls exercise inherited model operations. No missing-name behavior, invalid path/map, all topology, all policies, sibling traversal order or failed-read data is certified. Debug strings/line numbers may be forwarded or ignored; only functional invariance is required.",
+        "ja": "選択合法名、範囲内offset、全幅RWモデルだけ。転送observerは独自target応答を実装し、DUT transportを認定しない。別frontdoor controlは継承モデル操作を実行する。欠落名の動作、不正path／map、全topology、全policy、兄弟走査順、失敗read dataを認定しない。debug string／行番号は転送／無視どちらも許容し、機能不変性だけを要求する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_named_memory_read_forwards_lookup_defaults_context_status_and_debug_invariance",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named_mem_read defaults path 1 map 1 parent 1 priority 1 extension 1",
+            "UT: named_mem_read nested 1 path 1 map 1 parent 1 priority 1 extension 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-ACCESS-MEM-READ-PRIORITY",
+      "clause": "D.3.4",
+      "statement": {
+        "en": "The wrapper forwards the omitted priority minus one and the supplied explicit priority.",
+        "ja": "wrapperは省略priority -1と指定明示priorityを転送する。"
+      },
+      "conditions": {
+        "en": "Use the selected original hierarchical register/memory models and their explicit public calls. Named wrapper observations call through a block base view and genuine configured lookup; actual frontdoor cases use the original adapter, sequencer and driver storage.",
+        "ja": "選択した独自階層register／memoryモデルと明示公開callを使う。名前wrapper観測はblock base viewと実configure済みlookupを呼び、実frontdoor条件は独自adapter・sequencer・driver storageを使う。"
+      },
+      "expected": {
+        "en": "The wrapper forwards the omitted priority minus one and the supplied explicit priority.",
+        "ja": "wrapperは省略priority -1と指定明示priorityを転送する。"
+      },
+      "limitations": {
+        "en": "Selected valid names, in-range offsets and full-width RW models only. Forwarding observers implement their own target response; they do not certify DUT transport. Separate frontdoor controls exercise inherited model operations. No missing-name behavior, invalid path/map, all topology, all policies, sibling traversal order or failed-read data is certified. Debug strings/line numbers may be forwarded or ignored; only functional invariance is required.",
+        "ja": "選択合法名、範囲内offset、全幅RWモデルだけ。転送observerは独自target応答を実装し、DUT transportを認定しない。別frontdoor controlは継承モデル操作を実行する。欠落名の動作、不正path／map、全topology、全policy、兄弟走査順、失敗read dataを認定しない。debug string／行番号は転送／無視どちらも許容し、機能不変性だけを要求する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_named_memory_read_forwards_lookup_defaults_context_status_and_debug_invariance",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named_mem_read defaults path 1 map 1 parent 1 priority 1 extension 1",
+            "UT: named_mem_read nested 1 path 1 map 1 parent 1 priority 1 extension 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-ACCESS-MEM-READ-EXTENSION",
+      "clause": "D.3.4",
+      "statement": {
+        "en": "The wrapper forwards omitted null or the exact supplied extension handle.",
+        "ja": "wrapperは省略nullまたは指定された正確なextension handleを転送する。"
+      },
+      "conditions": {
+        "en": "Use the selected original hierarchical register/memory models and their explicit public calls. Named wrapper observations call through a block base view and genuine configured lookup; actual frontdoor cases use the original adapter, sequencer and driver storage.",
+        "ja": "選択した独自階層register／memoryモデルと明示公開callを使う。名前wrapper観測はblock base viewと実configure済みlookupを呼び、実frontdoor条件は独自adapter・sequencer・driver storageを使う。"
+      },
+      "expected": {
+        "en": "The wrapper forwards omitted null or the exact supplied extension handle.",
+        "ja": "wrapperは省略nullまたは指定された正確なextension handleを転送する。"
+      },
+      "limitations": {
+        "en": "Selected valid names, in-range offsets and full-width RW models only. Forwarding observers implement their own target response; they do not certify DUT transport. Separate frontdoor controls exercise inherited model operations. No missing-name behavior, invalid path/map, all topology, all policies, sibling traversal order or failed-read data is certified. Debug strings/line numbers may be forwarded or ignored; only functional invariance is required.",
+        "ja": "選択合法名、範囲内offset、全幅RWモデルだけ。転送observerは独自target応答を実装し、DUT transportを認定しない。別frontdoor controlは継承モデル操作を実行する。欠落名の動作、不正path／map、全topology、全policy、兄弟走査順、失敗read dataを認定しない。debug string／行番号は転送／無視どちらも許容し、機能不変性だけを要求する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_named_memory_read_forwards_lookup_defaults_context_status_and_debug_invariance",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named_mem_read defaults path 1 map 1 parent 1 priority 1 extension 1",
+            "UT: named_mem_read nested 1 path 1 map 1 parent 1 priority 1 extension 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-ACCESS-MEM-READ-BLOCKING",
+      "clause": "D.3.4",
+      "statement": {
+        "en": "The named task waits for the selected delayed target task to complete before returning.",
+        "ja": "名前によるtaskは選択した遅延target taskの完了を待ってから返る。"
+      },
+      "conditions": {
+        "en": "Use the selected original hierarchical register/memory models and their explicit public calls. Named wrapper observations call through a block base view and genuine configured lookup; actual frontdoor cases use the original adapter, sequencer and driver storage.",
+        "ja": "選択した独自階層register／memoryモデルと明示公開callを使う。名前wrapper観測はblock base viewと実configure済みlookupを呼び、実frontdoor条件は独自adapter・sequencer・driver storageを使う。"
+      },
+      "expected": {
+        "en": "The named task waits for the selected delayed target task to complete before returning.",
+        "ja": "名前によるtaskは選択した遅延target taskの完了を待ってから返る。"
+      },
+      "limitations": {
+        "en": "Selected valid names, in-range offsets and full-width RW models only. Forwarding observers implement their own target response; they do not certify DUT transport. Separate frontdoor controls exercise inherited model operations. No missing-name behavior, invalid path/map, all topology, all policies, sibling traversal order or failed-read data is certified. Debug strings/line numbers may be forwarded or ignored; only functional invariance is required.",
+        "ja": "選択合法名、範囲内offset、全幅RWモデルだけ。転送observerは独自target応答を実装し、DUT transportを認定しない。別frontdoor controlは継承モデル操作を実行する。欠落名の動作、不正path／map、全topology、全policy、兄弟走査順、失敗read dataを認定しない。debug string／行番号は転送／無視どちらも許容し、機能不変性だけを要求する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_named_memory_read_forwards_lookup_defaults_context_status_and_debug_invariance",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named_mem_read local 1 peer 1 conflict 1 blocked 1 status 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-ACCESS-MEM-READ-FAILURE-STATUS",
+      "clause": "D.3.4",
+      "statement": {
+        "en": "The named wrapper returns the selected target failure status.",
+        "ja": "名前wrapperは選択targetの失敗statusを返す。"
+      },
+      "conditions": {
+        "en": "Use the selected original hierarchical register/memory models and their explicit public calls. Named wrapper observations call through a block base view and genuine configured lookup; actual frontdoor cases use the original adapter, sequencer and driver storage.",
+        "ja": "選択した独自階層register／memoryモデルと明示公開callを使う。名前wrapper観測はblock base viewと実configure済みlookupを呼び、実frontdoor条件は独自adapter・sequencer・driver storageを使う。"
+      },
+      "expected": {
+        "en": "The named wrapper returns the selected target failure status.",
+        "ja": "名前wrapperは選択targetの失敗statusを返す。"
+      },
+      "limitations": {
+        "en": "Selected valid names, in-range offsets and full-width RW models only. Forwarding observers implement their own target response; they do not certify DUT transport. Separate frontdoor controls exercise inherited model operations. No missing-name behavior, invalid path/map, all topology, all policies, sibling traversal order or failed-read data is certified. Debug strings/line numbers may be forwarded or ignored; only functional invariance is required.",
+        "ja": "選択合法名、範囲内offset、全幅RWモデルだけ。転送observerは独自target応答を実装し、DUT transportを認定しない。別frontdoor controlは継承モデル操作を実行する。欠落名の動作、不正path／map、全topology、全policy、兄弟走査順、失敗read dataを認定しない。debug string／行番号は転送／無視どちらも許容し、機能不変性だけを要求する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_named_memory_read_forwards_lookup_defaults_context_status_and_debug_invariance",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named_mem_read failure 1 calls 1"
+          ]
+        },
+        {
+          "test": "uD/test_named_memory_access_uses_real_frontdoor_storage_and_preserves_debug_and_retry_results",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named_mem_read_failure failed 1 retry 1 value 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-ACCESS-MEM-READ-RETRY",
+      "clause": "D.3.4",
+      "statement": {
+        "en": "A later valid named access returns the new successful target status and selected data.",
+        "ja": "後続の合法な名前アクセスは新しい成功target statusと選択dataを返す。"
+      },
+      "conditions": {
+        "en": "Use the selected original hierarchical register/memory models and their explicit public calls. Named wrapper observations call through a block base view and genuine configured lookup; actual frontdoor cases use the original adapter, sequencer and driver storage.",
+        "ja": "選択した独自階層register／memoryモデルと明示公開callを使う。名前wrapper観測はblock base viewと実configure済みlookupを呼び、実frontdoor条件は独自adapter・sequencer・driver storageを使う。"
+      },
+      "expected": {
+        "en": "A later valid named access returns the new successful target status and selected data.",
+        "ja": "後続の合法な名前アクセスは新しい成功target statusと選択dataを返す。"
+      },
+      "limitations": {
+        "en": "Selected valid names, in-range offsets and full-width RW models only. Forwarding observers implement their own target response; they do not certify DUT transport. Separate frontdoor controls exercise inherited model operations. No missing-name behavior, invalid path/map, all topology, all policies, sibling traversal order or failed-read data is certified. Debug strings/line numbers may be forwarded or ignored; only functional invariance is required.",
+        "ja": "選択合法名、範囲内offset、全幅RWモデルだけ。転送observerは独自target応答を実装し、DUT transportを認定しない。別frontdoor controlは継承モデル操作を実行する。欠落名の動作、不正path／map、全topology、全policy、兄弟走査順、失敗read dataを認定しない。debug string／行番号は転送／無視どちらも許容し、機能不変性だけを要求する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_named_memory_read_forwards_lookup_defaults_context_status_and_debug_invariance",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named_mem_read retry 1 data 1"
+          ]
+        },
+        {
+          "test": "uD/test_named_memory_access_uses_real_frontdoor_storage_and_preserves_debug_and_retry_results",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named_mem_read_failure failed 1 retry 1 value 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-ACCESS-MEM-READ-DEBUG-INVARIANCE",
+      "clause": "D.3.4",
+      "statement": {
+        "en": "Changing the debug-only filename and line number preserves the selected named access functional outcome.",
+        "ja": "debug専用filename／行番号の変更は選択した名前アクセスの機能結果を保持する。"
+      },
+      "conditions": {
+        "en": "Use the selected original hierarchical register/memory models and their explicit public calls. Named wrapper observations call through a block base view and genuine configured lookup; actual frontdoor cases use the original adapter, sequencer and driver storage.",
+        "ja": "選択した独自階層register／memoryモデルと明示公開callを使う。名前wrapper観測はblock base viewと実configure済みlookupを呼び、実frontdoor条件は独自adapter・sequencer・driver storageを使う。"
+      },
+      "expected": {
+        "en": "Changing the debug-only filename and line number preserves the selected named access functional outcome.",
+        "ja": "debug専用filename／行番号の変更は選択した名前アクセスの機能結果を保持する。"
+      },
+      "limitations": {
+        "en": "Selected valid names, in-range offsets and full-width RW models only. Forwarding observers implement their own target response; they do not certify DUT transport. Separate frontdoor controls exercise inherited model operations. No missing-name behavior, invalid path/map, all topology, all policies, sibling traversal order or failed-read data is certified. Debug strings/line numbers may be forwarded or ignored; only functional invariance is required.",
+        "ja": "選択合法名、範囲内offset、全幅RWモデルだけ。転送observerは独自target応答を実装し、DUT transportを認定しない。別frontdoor controlは継承モデル操作を実行する。欠落名の動作、不正path／map、全topology、全policy、兄弟走査順、失敗read dataを認定しない。debug string／行番号は転送／無視どちらも許容し、機能不変性だけを要求する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_named_memory_read_forwards_lookup_defaults_context_status_and_debug_invariance",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named_mem_read debug 0 invariant 1",
+            "UT: named_mem_read debug 1 invariant 1"
+          ]
+        },
+        {
+          "test": "uD/test_named_memory_access_uses_real_frontdoor_storage_and_preserves_debug_and_retry_results",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named_mem_frontdoor debug 0 write 1 read 1 value 1 peer 1 address 1",
+            "UT: named_mem_frontdoor debug 1 write 1 read 1 value 1 peer 1 address 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-ACCESS-MEM-READ-OFFSET",
+      "clause": "D.3.4",
+      "statement": {
+        "en": "The named memory read forwards the selected nonzero location offset unchanged.",
+        "ja": "名前によるmemory readは選択した非0のlocation offsetを変更せず転送する。"
+      },
+      "conditions": {
+        "en": "Use the selected original hierarchical register/memory models and their explicit public calls. Named wrapper observations call through a block base view and genuine configured lookup; actual frontdoor cases use the original adapter, sequencer and driver storage.",
+        "ja": "選択した独自階層register／memoryモデルと明示公開callを使う。名前wrapper観測はblock base viewと実configure済みlookupを呼び、実frontdoor条件は独自adapter・sequencer・driver storageを使う。"
+      },
+      "expected": {
+        "en": "The named memory read forwards the selected nonzero location offset unchanged.",
+        "ja": "名前によるmemory readは選択した非0のlocation offsetを変更せず転送する。"
+      },
+      "limitations": {
+        "en": "Selected valid names, in-range offsets and full-width RW models only. Forwarding observers implement their own target response; they do not certify DUT transport. Separate frontdoor controls exercise inherited model operations. No missing-name behavior, invalid path/map, all topology, all policies, sibling traversal order or failed-read data is certified. Debug strings/line numbers may be forwarded or ignored; only functional invariance is required.",
+        "ja": "選択合法名、範囲内offset、全幅RWモデルだけ。転送observerは独自target応答を実装し、DUT transportを認定しない。別frontdoor controlは継承モデル操作を実行する。欠落名の動作、不正path／map、全topology、全policy、兄弟走査順、失敗read dataを認定しない。debug string／行番号は転送／無視どちらも許容し、機能不変性だけを要求する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_named_memory_read_forwards_lookup_defaults_context_status_and_debug_invariance",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named_mem_read offset 1"
+          ]
+        },
+        {
+          "test": "uD/test_named_memory_access_uses_real_frontdoor_storage_and_preserves_debug_and_retry_results",
+          "role": "direct",
+          "expected_observations": [
+            "UT: named_mem_frontdoor debug 0 write 1 read 1 value 1 peer 1 address 1",
+            "UT: named_mem_frontdoor debug 1 write 1 read 1 value 1 peer 1 address 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-ACCESS-NEEDS-ANY",
+      "clause": "18.1.5.4",
+      "statement": {
+        "en": "Block needs_update returns true for a selected changed local register or descendant register.",
+        "ja": "block needs_updateは選択した変更local registerまたは子孫registerがあればtrueを返す。"
+      },
+      "conditions": {
+        "en": "Use the selected original hierarchical register/memory models and their explicit public calls. Named wrapper observations call through a block base view and genuine configured lookup; actual frontdoor cases use the original adapter, sequencer and driver storage.",
+        "ja": "選択した独自階層register／memoryモデルと明示公開callを使う。名前wrapper観測はblock base viewと実configure済みlookupを呼び、実frontdoor条件は独自adapter・sequencer・driver storageを使う。"
+      },
+      "expected": {
+        "en": "Block needs_update returns true for a selected changed local register or descendant register.",
+        "ja": "block needs_updateは選択した変更local registerまたは子孫registerがあればtrueを返す。"
+      },
+      "limitations": {
+        "en": "One two-level model with three full-width 32-bit RW registers on a four-byte little-endian bus. Root and child auto-prediction are explicitly enabled in frontdoor cases. Count writes per address rather than sibling order; no exact read retry count, partial-width/RMW policy, side-effect field, all errors or physical HDL behavior is certified. No failed-read/mirror data or no-work status is prescribed. Failure status is a selected single-error interpretation, not a complete multi-failure precedence rule.",
+        "ja": "4-byte little-endian bus上の全幅32-bit RW register 3つからなる2階層モデル1つ。frontdoor条件ではroot／child auto-predictionを明示有効にする。兄弟順でなくaddressごとのwriteを数える。正確なread retry数、端数幅／RMW policy、副作用field、全error、物理HDL動作は認定しない。失敗read／mirror dataと無処理時statusは規定しない。失敗statusは選択した単一errorの解釈で、全ての複数失敗優先規則ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_needs_update_aggregates_local_and_descendant_desired_state_without_changing_values",
+          "role": "direct",
+          "expected_observations": [
+            "UT: block_needs local root 1 child 0 desired 1 mirror 1 peer 1",
+            "UT: block_needs nested root 1 child 1 desired 1 mirror 1 local 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-ACCESS-NEEDS-NONE",
+      "clause": "18.1.5.4",
+      "statement": {
+        "en": "Block needs_update returns false when the selected root and child model have no changed register.",
+        "ja": "選択root／childモデルに変更registerがなければblock needs_updateはfalseを返す。"
+      },
+      "conditions": {
+        "en": "Use the selected original hierarchical register/memory models and their explicit public calls. Named wrapper observations call through a block base view and genuine configured lookup; actual frontdoor cases use the original adapter, sequencer and driver storage.",
+        "ja": "選択した独自階層register／memoryモデルと明示公開callを使う。名前wrapper観測はblock base viewと実configure済みlookupを呼び、実frontdoor条件は独自adapter・sequencer・driver storageを使う。"
+      },
+      "expected": {
+        "en": "Block needs_update returns false when the selected root and child model have no changed register.",
+        "ja": "選択root／childモデルに変更registerがなければblock needs_updateはfalseを返す。"
+      },
+      "limitations": {
+        "en": "One two-level model with three full-width 32-bit RW registers on a four-byte little-endian bus. Root and child auto-prediction are explicitly enabled in frontdoor cases. Count writes per address rather than sibling order; no exact read retry count, partial-width/RMW policy, side-effect field, all errors or physical HDL behavior is certified. No failed-read/mirror data or no-work status is prescribed. Failure status is a selected single-error interpretation, not a complete multi-failure precedence rule.",
+        "ja": "4-byte little-endian bus上の全幅32-bit RW register 3つからなる2階層モデル1つ。frontdoor条件ではroot／child auto-predictionを明示有効にする。兄弟順でなくaddressごとのwriteを数える。正確なread retry数、端数幅／RMW policy、副作用field、全error、物理HDL動作は認定しない。失敗read／mirror dataと無処理時statusは規定しない。失敗statusは選択した単一errorの解釈で、全ての複数失敗優先規則ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_needs_update_aggregates_local_and_descendant_desired_state_without_changing_values",
+          "role": "direct",
+          "expected_observations": [
+            "UT: block_needs baseline root 0 child 0",
+            "UT: block_needs cleared root 0 child 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-ACCESS-NEEDS-MIRROR-PRESERVATION",
+      "clause": "18.1.5.4",
+      "statement": {
+        "en": "Selected block needs_update queries preserve mirror values and the untouched register state.",
+        "ja": "選択block needs_update照会はmirror値と未変更register状態を保持する。"
+      },
+      "conditions": {
+        "en": "Use the selected original hierarchical register/memory models and their explicit public calls. Named wrapper observations call through a block base view and genuine configured lookup; actual frontdoor cases use the original adapter, sequencer and driver storage.",
+        "ja": "選択した独自階層register／memoryモデルと明示公開callを使う。名前wrapper観測はblock base viewと実configure済みlookupを呼び、実frontdoor条件は独自adapter・sequencer・driver storageを使う。"
+      },
+      "expected": {
+        "en": "Selected block needs_update queries preserve mirror values and the untouched register state.",
+        "ja": "選択block needs_update照会はmirror値と未変更register状態を保持する。"
+      },
+      "limitations": {
+        "en": "One two-level model with three full-width 32-bit RW registers on a four-byte little-endian bus. Root and child auto-prediction are explicitly enabled in frontdoor cases. Count writes per address rather than sibling order; no exact read retry count, partial-width/RMW policy, side-effect field, all errors or physical HDL behavior is certified. No failed-read/mirror data or no-work status is prescribed. Failure status is a selected single-error interpretation, not a complete multi-failure precedence rule.",
+        "ja": "4-byte little-endian bus上の全幅32-bit RW register 3つからなる2階層モデル1つ。frontdoor条件ではroot／child auto-predictionを明示有効にする。兄弟順でなくaddressごとのwriteを数える。正確なread retry数、端数幅／RMW policy、副作用field、全error、物理HDL動作は認定しない。失敗read／mirror dataと無処理時statusは規定しない。失敗statusは選択した単一errorの解釈で、全ての複数失敗優先規則ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_needs_update_aggregates_local_and_descendant_desired_state_without_changing_values",
+          "role": "direct",
+          "expected_observations": [
+            "UT: block_needs local root 1 child 0 desired 1 mirror 1 peer 1",
+            "UT: block_needs nested root 1 child 1 desired 1 mirror 1 local 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-ACCESS-UPDATE-SUBTREE",
+      "clause": "18.1.5.5",
+      "statement": {
+        "en": "Block update writes selected desired values in both the block and its child block.",
+        "ja": "block updateはblockとchild block両方の選択desired値を書き込む。"
+      },
+      "conditions": {
+        "en": "Use the selected original hierarchical register/memory models and their explicit public calls. Named wrapper observations call through a block base view and genuine configured lookup; actual frontdoor cases use the original adapter, sequencer and driver storage.",
+        "ja": "選択した独自階層register／memoryモデルと明示公開callを使う。名前wrapper観測はblock base viewと実configure済みlookupを呼び、実frontdoor条件は独自adapter・sequencer・driver storageを使う。"
+      },
+      "expected": {
+        "en": "Block update writes selected desired values in both the block and its child block.",
+        "ja": "block updateはblockとchild block両方の選択desired値を書き込む。"
+      },
+      "limitations": {
+        "en": "One two-level model with three full-width 32-bit RW registers on a four-byte little-endian bus. Root and child auto-prediction are explicitly enabled in frontdoor cases. Count writes per address rather than sibling order; no exact read retry count, partial-width/RMW policy, side-effect field, all errors or physical HDL behavior is certified. No failed-read/mirror data or no-work status is prescribed. Failure status is a selected single-error interpretation, not a complete multi-failure precedence rule.",
+        "ja": "4-byte little-endian bus上の全幅32-bit RW register 3つからなる2階層モデル1つ。frontdoor条件ではroot／child auto-predictionを明示有効にする。兄弟順でなくaddressごとのwriteを数える。正確なread retry数、端数幅／RMW policy、副作用field、全error、物理HDL動作は認定しない。失敗read／mirror dataと無処理時statusは規定しない。失敗statusは選択した単一errorの解釈で、全ての複数失敗優先規則ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_update_writes_changed_local_and_nested_registers_and_skips_clean_values",
+          "role": "direct",
+          "expected_observations": [
+            "UT: block_update success 1 local 1 deep 1 peer 1 minimal 1 mirrors 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-ACCESS-UPDATE-MINIMUM-WRITES",
+      "clause": "18.1.5.5",
+      "statement": {
+        "en": "The selected two changed full-width RW registers require one write each while the clean peer receives none.",
+        "ja": "選択した変更済み全幅RW register 2つは各1 writeで、clean peerにはwriteしない。"
+      },
+      "conditions": {
+        "en": "Use the selected original hierarchical register/memory models and their explicit public calls. Named wrapper observations call through a block base view and genuine configured lookup; actual frontdoor cases use the original adapter, sequencer and driver storage.",
+        "ja": "選択した独自階層register／memoryモデルと明示公開callを使う。名前wrapper観測はblock base viewと実configure済みlookupを呼び、実frontdoor条件は独自adapter・sequencer・driver storageを使う。"
+      },
+      "expected": {
+        "en": "The selected two changed full-width RW registers require one write each while the clean peer receives none.",
+        "ja": "選択した変更済み全幅RW register 2つは各1 writeで、clean peerにはwriteしない。"
+      },
+      "limitations": {
+        "en": "One two-level model with three full-width 32-bit RW registers on a four-byte little-endian bus. Root and child auto-prediction are explicitly enabled in frontdoor cases. Count writes per address rather than sibling order; no exact read retry count, partial-width/RMW policy, side-effect field, all errors or physical HDL behavior is certified. No failed-read/mirror data or no-work status is prescribed. Failure status is a selected single-error interpretation, not a complete multi-failure precedence rule.",
+        "ja": "4-byte little-endian bus上の全幅32-bit RW register 3つからなる2階層モデル1つ。frontdoor条件ではroot／child auto-predictionを明示有効にする。兄弟順でなくaddressごとのwriteを数える。正確なread retry数、端数幅／RMW policy、副作用field、全error、物理HDL動作は認定しない。失敗read／mirror dataと無処理時statusは規定しない。失敗statusは選択した単一errorの解釈で、全ての複数失敗優先規則ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_update_writes_changed_local_and_nested_registers_and_skips_clean_values",
+          "role": "direct",
+          "expected_observations": [
+            "UT: block_update success 1 local 1 deep 1 peer 1 minimal 1 mirrors 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-ACCESS-UPDATE-CLEAN-NO-WRITES",
+      "clause": "18.1.5.5",
+      "statement": {
+        "en": "Calling update on the selected already-clean hierarchy issues no additional writes.",
+        "ja": "選択したclean済み階層へのupdateは追加writeを発行しない。"
+      },
+      "conditions": {
+        "en": "Use the selected original hierarchical register/memory models and their explicit public calls. Named wrapper observations call through a block base view and genuine configured lookup; actual frontdoor cases use the original adapter, sequencer and driver storage.",
+        "ja": "選択した独自階層register／memoryモデルと明示公開callを使う。名前wrapper観測はblock base viewと実configure済みlookupを呼び、実frontdoor条件は独自adapter・sequencer・driver storageを使う。"
+      },
+      "expected": {
+        "en": "Calling update on the selected already-clean hierarchy issues no additional writes.",
+        "ja": "選択したclean済み階層へのupdateは追加writeを発行しない。"
+      },
+      "limitations": {
+        "en": "One two-level model with three full-width 32-bit RW registers on a four-byte little-endian bus. Root and child auto-prediction are explicitly enabled in frontdoor cases. Count writes per address rather than sibling order; no exact read retry count, partial-width/RMW policy, side-effect field, all errors or physical HDL behavior is certified. No failed-read/mirror data or no-work status is prescribed. Failure status is a selected single-error interpretation, not a complete multi-failure precedence rule.",
+        "ja": "4-byte little-endian bus上の全幅32-bit RW register 3つからなる2階層モデル1つ。frontdoor条件ではroot／child auto-predictionを明示有効にする。兄弟順でなくaddressごとのwriteを数える。正確なread retry数、端数幅／RMW policy、副作用field、全error、物理HDL動作は認定しない。失敗read／mirror dataと無処理時statusは規定しない。失敗statusは選択した単一errorの解釈で、全ての複数失敗優先規則ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_update_writes_changed_local_and_nested_registers_and_skips_clean_values",
+          "role": "direct",
+          "expected_observations": [
+            "UT: block_update clean_no_writes 1 values 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-ACCESS-UPDATE-DEBUG-INVARIANCE",
+      "clause": "18.1.5.5",
+      "statement": {
+        "en": "Changing debug-only source information on a clean block does not cause writes or change stored values.",
+        "ja": "clean blockのdebug専用source情報を変えてもwriteや格納値変更を生じない。"
+      },
+      "conditions": {
+        "en": "Use the selected original hierarchical register/memory models and their explicit public calls. Named wrapper observations call through a block base view and genuine configured lookup; actual frontdoor cases use the original adapter, sequencer and driver storage.",
+        "ja": "選択した独自階層register／memoryモデルと明示公開callを使う。名前wrapper観測はblock base viewと実configure済みlookupを呼び、実frontdoor条件は独自adapter・sequencer・driver storageを使う。"
+      },
+      "expected": {
+        "en": "Changing debug-only source information on a clean block does not cause writes or change stored values.",
+        "ja": "clean blockのdebug専用source情報を変えてもwriteや格納値変更を生じない。"
+      },
+      "limitations": {
+        "en": "One two-level model with three full-width 32-bit RW registers on a four-byte little-endian bus. Root and child auto-prediction are explicitly enabled in frontdoor cases. Count writes per address rather than sibling order; no exact read retry count, partial-width/RMW policy, side-effect field, all errors or physical HDL behavior is certified. No failed-read/mirror data or no-work status is prescribed. Failure status is a selected single-error interpretation, not a complete multi-failure precedence rule.",
+        "ja": "4-byte little-endian bus上の全幅32-bit RW register 3つからなる2階層モデル1つ。frontdoor条件ではroot／child auto-predictionを明示有効にする。兄弟順でなくaddressごとのwriteを数える。正確なread retry数、端数幅／RMW policy、副作用field、全error、物理HDL動作は認定しない。失敗read／mirror dataと無処理時statusは規定しない。失敗statusは選択した単一errorの解釈で、全ての複数失敗優先規則ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_update_writes_changed_local_and_nested_registers_and_skips_clean_values",
+          "role": "direct",
+          "expected_observations": [
+            "UT: block_update clean_no_writes 1 values 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-ACCESS-UPDATE-FAILURE-STATUS",
+      "clause": "18.1.5.5",
+      "statement": {
+        "en": "The selected block update reports the original single-register bus failure.",
+        "ja": "選択block updateは独自の単一register bus失敗を報告する。"
+      },
+      "conditions": {
+        "en": "Use the selected original hierarchical register/memory models and their explicit public calls. Named wrapper observations call through a block base view and genuine configured lookup; actual frontdoor cases use the original adapter, sequencer and driver storage.",
+        "ja": "選択した独自階層register／memoryモデルと明示公開callを使う。名前wrapper観測はblock base viewと実configure済みlookupを呼び、実frontdoor条件は独自adapter・sequencer・driver storageを使う。"
+      },
+      "expected": {
+        "en": "The selected block update reports the original single-register bus failure.",
+        "ja": "選択block updateは独自の単一register bus失敗を報告する。"
+      },
+      "limitations": {
+        "en": "One two-level model with three full-width 32-bit RW registers on a four-byte little-endian bus. Root and child auto-prediction are explicitly enabled in frontdoor cases. Count writes per address rather than sibling order; no exact read retry count, partial-width/RMW policy, side-effect field, all errors or physical HDL behavior is certified. No failed-read/mirror data or no-work status is prescribed. Failure status is a selected single-error interpretation, not a complete multi-failure precedence rule.",
+        "ja": "4-byte little-endian bus上の全幅32-bit RW register 3つからなる2階層モデル1つ。frontdoor条件ではroot／child auto-predictionを明示有効にする。兄弟順でなくaddressごとのwriteを数える。正確なread retry数、端数幅／RMW policy、副作用field、全error、物理HDL動作は認定しない。失敗read／mirror dataと無処理時statusは規定しない。失敗statusは選択した単一errorの解釈で、全ての複数失敗優先規則ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_update_writes_changed_local_and_nested_registers_and_skips_clean_values",
+          "role": "direct",
+          "expected_observations": [
+            "UT: block_update failed_status 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-ACCESS-UPDATE-NEW-SUCCESS",
+      "clause": "18.1.5.5",
+      "statement": {
+        "en": "A new desired value can be successfully updated after the original driver recovers.",
+        "ja": "独自driverの回復後、新desired値を正常にupdateできる。"
+      },
+      "conditions": {
+        "en": "Use the selected original hierarchical register/memory models and their explicit public calls. Named wrapper observations call through a block base view and genuine configured lookup; actual frontdoor cases use the original adapter, sequencer and driver storage.",
+        "ja": "選択した独自階層register／memoryモデルと明示公開callを使う。名前wrapper観測はblock base viewと実configure済みlookupを呼び、実frontdoor条件は独自adapter・sequencer・driver storageを使う。"
+      },
+      "expected": {
+        "en": "A new desired value can be successfully updated after the original driver recovers.",
+        "ja": "独自driverの回復後、新desired値を正常にupdateできる。"
+      },
+      "limitations": {
+        "en": "One two-level model with three full-width 32-bit RW registers on a four-byte little-endian bus. Root and child auto-prediction are explicitly enabled in frontdoor cases. Count writes per address rather than sibling order; no exact read retry count, partial-width/RMW policy, side-effect field, all errors or physical HDL behavior is certified. No failed-read/mirror data or no-work status is prescribed. Failure status is a selected single-error interpretation, not a complete multi-failure precedence rule.",
+        "ja": "4-byte little-endian bus上の全幅32-bit RW register 3つからなる2階層モデル1つ。frontdoor条件ではroot／child auto-predictionを明示有効にする。兄弟順でなくaddressごとのwriteを数える。正確なread retry数、端数幅／RMW policy、副作用field、全error、物理HDL動作は認定しない。失敗read／mirror dataと無処理時statusは規定しない。失敗statusは選択した単一errorの解釈で、全ての複数失敗優先規則ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_update_writes_changed_local_and_nested_registers_and_skips_clean_values",
+          "role": "direct",
+          "expected_observations": [
+            "UT: block_update retry 1 value 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-ACCESS-MIRROR-SUBTREE-READS",
+      "clause": "18.1.5.6",
+      "statement": {
+        "en": "Block mirror reads each selected local and child register through the actual frontdoor.",
+        "ja": "block mirrorは実frontdoor経由で選択local／child registerをそれぞれ読む。"
+      },
+      "conditions": {
+        "en": "Use the selected original hierarchical register/memory models and their explicit public calls. Named wrapper observations call through a block base view and genuine configured lookup; actual frontdoor cases use the original adapter, sequencer and driver storage.",
+        "ja": "選択した独自階層register／memoryモデルと明示公開callを使う。名前wrapper観測はblock base viewと実configure済みlookupを呼び、実frontdoor条件は独自adapter・sequencer・driver storageを使う。"
+      },
+      "expected": {
+        "en": "Block mirror reads each selected local and child register through the actual frontdoor.",
+        "ja": "block mirrorは実frontdoor経由で選択local／child registerをそれぞれ読む。"
+      },
+      "limitations": {
+        "en": "One two-level model with three full-width 32-bit RW registers on a four-byte little-endian bus. Root and child auto-prediction are explicitly enabled in frontdoor cases. Count writes per address rather than sibling order; no exact read retry count, partial-width/RMW policy, side-effect field, all errors or physical HDL behavior is certified. No failed-read/mirror data or no-work status is prescribed. Failure status is a selected single-error interpretation, not a complete multi-failure precedence rule.",
+        "ja": "4-byte little-endian bus上の全幅32-bit RW register 3つからなる2階層モデル1つ。frontdoor条件ではroot／child auto-predictionを明示有効にする。兄弟順でなくaddressごとのwriteを数える。正確なread retry数、端数幅／RMW policy、副作用field、全error、物理HDL動作は認定しない。失敗read／mirror dataと無処理時statusは規定しない。失敗statusは選択した単一errorの解釈で、全ての複数失敗優先規則ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_mirror_reads_local_and_nested_registers_and_distinguishes_default_and_explicit_check",
+          "role": "direct",
+          "expected_observations": [
+            "UT: block_mirror debug 0 success 1 mirrors 1 reads 1 no_writes 1 no_error 1",
+            "UT: block_mirror debug 1 success 1 mirrors 1 reads 1 no_writes 1 no_error 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-ACCESS-MIRROR-VALUES",
+      "clause": "18.1.5.6",
+      "statement": {
+        "en": "Successful block mirror updates the selected root/child mirror values from the original driver storage.",
+        "ja": "成功したblock mirrorは独自driver storageから選択root／child mirror値を更新する。"
+      },
+      "conditions": {
+        "en": "Use the selected original hierarchical register/memory models and their explicit public calls. Named wrapper observations call through a block base view and genuine configured lookup; actual frontdoor cases use the original adapter, sequencer and driver storage.",
+        "ja": "選択した独自階層register／memoryモデルと明示公開callを使う。名前wrapper観測はblock base viewと実configure済みlookupを呼び、実frontdoor条件は独自adapter・sequencer・driver storageを使う。"
+      },
+      "expected": {
+        "en": "Successful block mirror updates the selected root/child mirror values from the original driver storage.",
+        "ja": "成功したblock mirrorは独自driver storageから選択root／child mirror値を更新する。"
+      },
+      "limitations": {
+        "en": "One two-level model with three full-width 32-bit RW registers on a four-byte little-endian bus. Root and child auto-prediction are explicitly enabled in frontdoor cases. Count writes per address rather than sibling order; no exact read retry count, partial-width/RMW policy, side-effect field, all errors or physical HDL behavior is certified. No failed-read/mirror data or no-work status is prescribed. Failure status is a selected single-error interpretation, not a complete multi-failure precedence rule.",
+        "ja": "4-byte little-endian bus上の全幅32-bit RW register 3つからなる2階層モデル1つ。frontdoor条件ではroot／child auto-predictionを明示有効にする。兄弟順でなくaddressごとのwriteを数える。正確なread retry数、端数幅／RMW policy、副作用field、全error、物理HDL動作は認定しない。失敗read／mirror dataと無処理時statusは規定しない。失敗statusは選択した単一errorの解釈で、全ての複数失敗優先規則ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_mirror_reads_local_and_nested_registers_and_distinguishes_default_and_explicit_check",
+          "role": "direct",
+          "expected_observations": [
+            "UT: block_mirror debug 0 success 1 mirrors 1 reads 1 no_writes 1 no_error 1",
+            "UT: block_mirror debug 1 success 1 mirrors 1 reads 1 no_writes 1 no_error 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-ACCESS-MIRROR-NO-WRITES",
+      "clause": "18.1.5.6",
+      "statement": {
+        "en": "The selected RW block mirror operation performs reads without writing the original storage.",
+        "ja": "選択RW block mirror操作は独自storageへwriteせずreadを実行する。"
+      },
+      "conditions": {
+        "en": "Use the selected original hierarchical register/memory models and their explicit public calls. Named wrapper observations call through a block base view and genuine configured lookup; actual frontdoor cases use the original adapter, sequencer and driver storage.",
+        "ja": "選択した独自階層register／memoryモデルと明示公開callを使う。名前wrapper観測はblock base viewと実configure済みlookupを呼び、実frontdoor条件は独自adapter・sequencer・driver storageを使う。"
+      },
+      "expected": {
+        "en": "The selected RW block mirror operation performs reads without writing the original storage.",
+        "ja": "選択RW block mirror操作は独自storageへwriteせずreadを実行する。"
+      },
+      "limitations": {
+        "en": "One two-level model with three full-width 32-bit RW registers on a four-byte little-endian bus. Root and child auto-prediction are explicitly enabled in frontdoor cases. Count writes per address rather than sibling order; no exact read retry count, partial-width/RMW policy, side-effect field, all errors or physical HDL behavior is certified. No failed-read/mirror data or no-work status is prescribed. Failure status is a selected single-error interpretation, not a complete multi-failure precedence rule.",
+        "ja": "4-byte little-endian bus上の全幅32-bit RW register 3つからなる2階層モデル1つ。frontdoor条件ではroot／child auto-predictionを明示有効にする。兄弟順でなくaddressごとのwriteを数える。正確なread retry数、端数幅／RMW policy、副作用field、全error、物理HDL動作は認定しない。失敗read／mirror dataと無処理時statusは規定しない。失敗statusは選択した単一errorの解釈で、全ての複数失敗優先規則ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_mirror_reads_local_and_nested_registers_and_distinguishes_default_and_explicit_check",
+          "role": "direct",
+          "expected_observations": [
+            "UT: block_mirror debug 0 success 1 mirrors 1 reads 1 no_writes 1 no_error 1",
+            "UT: block_mirror debug 1 success 1 mirrors 1 reads 1 no_writes 1 no_error 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-ACCESS-MIRROR-DEFAULT-NO-CHECK",
+      "clause": "18.1.5.6",
+      "statement": {
+        "en": "Omitting the block mirror check argument does not report mismatches in the selected initially different mirrors.",
+        "ja": "block mirrorのcheck引数省略では、選択した初期不一致mirrorで不一致を報告しない。"
+      },
+      "conditions": {
+        "en": "Use the selected original hierarchical register/memory models and their explicit public calls. Named wrapper observations call through a block base view and genuine configured lookup; actual frontdoor cases use the original adapter, sequencer and driver storage.",
+        "ja": "選択した独自階層register／memoryモデルと明示公開callを使う。名前wrapper観測はblock base viewと実configure済みlookupを呼び、実frontdoor条件は独自adapter・sequencer・driver storageを使う。"
+      },
+      "expected": {
+        "en": "Omitting the block mirror check argument does not report mismatches in the selected initially different mirrors.",
+        "ja": "block mirrorのcheck引数省略では、選択した初期不一致mirrorで不一致を報告しない。"
+      },
+      "limitations": {
+        "en": "One two-level model with three full-width 32-bit RW registers on a four-byte little-endian bus. Root and child auto-prediction are explicitly enabled in frontdoor cases. Count writes per address rather than sibling order; no exact read retry count, partial-width/RMW policy, side-effect field, all errors or physical HDL behavior is certified. No failed-read/mirror data or no-work status is prescribed. Failure status is a selected single-error interpretation, not a complete multi-failure precedence rule.",
+        "ja": "4-byte little-endian bus上の全幅32-bit RW register 3つからなる2階層モデル1つ。frontdoor条件ではroot／child auto-predictionを明示有効にする。兄弟順でなくaddressごとのwriteを数える。正確なread retry数、端数幅／RMW policy、副作用field、全error、物理HDL動作は認定しない。失敗read／mirror dataと無処理時statusは規定しない。失敗statusは選択した単一errorの解釈で、全ての複数失敗優先規則ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_mirror_reads_local_and_nested_registers_and_distinguishes_default_and_explicit_check",
+          "role": "direct",
+          "expected_observations": [
+            "UT: block_mirror debug 0 success 1 mirrors 1 reads 1 no_writes 1 no_error 1",
+            "UT: block_mirror debug 1 success 1 mirrors 1 reads 1 no_writes 1 no_error 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-ACCESS-MIRROR-EXPLICIT-CHECK",
+      "clause": "18.1.5.6",
+      "statement": {
+        "en": "Explicit UVM_CHECK reports a selected mismatch while the successful read refreshes that mirror.",
+        "ja": "明示UVM_CHECKは選択不一致を報告し、成功readはそのmirrorを更新する。"
+      },
+      "conditions": {
+        "en": "Use the selected original hierarchical register/memory models and their explicit public calls. Named wrapper observations call through a block base view and genuine configured lookup; actual frontdoor cases use the original adapter, sequencer and driver storage.",
+        "ja": "選択した独自階層register／memoryモデルと明示公開callを使う。名前wrapper観測はblock base viewと実configure済みlookupを呼び、実frontdoor条件は独自adapter・sequencer・driver storageを使う。"
+      },
+      "expected": {
+        "en": "Explicit UVM_CHECK reports a selected mismatch while the successful read refreshes that mirror.",
+        "ja": "明示UVM_CHECKは選択不一致を報告し、成功readはそのmirrorを更新する。"
+      },
+      "limitations": {
+        "en": "One two-level model with three full-width 32-bit RW registers on a four-byte little-endian bus. Root and child auto-prediction are explicitly enabled in frontdoor cases. Count writes per address rather than sibling order; no exact read retry count, partial-width/RMW policy, side-effect field, all errors or physical HDL behavior is certified. No failed-read/mirror data or no-work status is prescribed. Failure status is a selected single-error interpretation, not a complete multi-failure precedence rule.",
+        "ja": "4-byte little-endian bus上の全幅32-bit RW register 3つからなる2階層モデル1つ。frontdoor条件ではroot／child auto-predictionを明示有効にする。兄弟順でなくaddressごとのwriteを数える。正確なread retry数、端数幅／RMW policy、副作用field、全error、物理HDL動作は認定しない。失敗read／mirror dataと無処理時statusは規定しない。失敗statusは選択した単一errorの解釈で、全ての複数失敗優先規則ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_mirror_reads_local_and_nested_registers_and_distinguishes_default_and_explicit_check",
+          "role": "direct",
+          "expected_observations": [
+            "UT: block_mirror explicit_check_error 1 refreshed 1 no_writes 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-ACCESS-MIRROR-DEBUG-INVARIANCE",
+      "clause": "18.1.5.6",
+      "statement": {
+        "en": "Changing debug source information preserves selected block mirror results and actual reads.",
+        "ja": "debug source情報の変更は選択block mirror結果と実readを保持する。"
+      },
+      "conditions": {
+        "en": "Use the selected original hierarchical register/memory models and their explicit public calls. Named wrapper observations call through a block base view and genuine configured lookup; actual frontdoor cases use the original adapter, sequencer and driver storage.",
+        "ja": "選択した独自階層register／memoryモデルと明示公開callを使う。名前wrapper観測はblock base viewと実configure済みlookupを呼び、実frontdoor条件は独自adapter・sequencer・driver storageを使う。"
+      },
+      "expected": {
+        "en": "Changing debug source information preserves selected block mirror results and actual reads.",
+        "ja": "debug source情報の変更は選択block mirror結果と実readを保持する。"
+      },
+      "limitations": {
+        "en": "One two-level model with three full-width 32-bit RW registers on a four-byte little-endian bus. Root and child auto-prediction are explicitly enabled in frontdoor cases. Count writes per address rather than sibling order; no exact read retry count, partial-width/RMW policy, side-effect field, all errors or physical HDL behavior is certified. No failed-read/mirror data or no-work status is prescribed. Failure status is a selected single-error interpretation, not a complete multi-failure precedence rule.",
+        "ja": "4-byte little-endian bus上の全幅32-bit RW register 3つからなる2階層モデル1つ。frontdoor条件ではroot／child auto-predictionを明示有効にする。兄弟順でなくaddressごとのwriteを数える。正確なread retry数、端数幅／RMW policy、副作用field、全error、物理HDL動作は認定しない。失敗read／mirror dataと無処理時statusは規定しない。失敗statusは選択した単一errorの解釈で、全ての複数失敗優先規則ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_mirror_reads_local_and_nested_registers_and_distinguishes_default_and_explicit_check",
+          "role": "direct",
+          "expected_observations": [
+            "UT: block_mirror debug 0 success 1 mirrors 1 reads 1 no_writes 1 no_error 1",
+            "UT: block_mirror debug 1 success 1 mirrors 1 reads 1 no_writes 1 no_error 1"
+          ]
+        }
+      ]
     }
   ]
 }

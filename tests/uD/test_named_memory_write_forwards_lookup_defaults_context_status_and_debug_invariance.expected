@@ -1,0 +1,9 @@
+UT: named_mem_write local 1 peer 1 conflict 1 blocked 1 status 1
+UT: named_mem_write defaults path 1 map 1 parent 1 priority 1 extension 1
+UT: named_mem_write data 1
+UT: named_mem_write offset 1
+UT: named_mem_write nested 1 path 1 map 1 parent 1 priority 1 extension 1
+UT: named_mem_write failure 1 calls 1
+UT: named_mem_write retry 1 data 1
+UT: named_mem_write debug 0 invariant 1
+UT: named_mem_write debug 1 invariant 1

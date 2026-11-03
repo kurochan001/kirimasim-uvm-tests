@@ -4,19 +4,19 @@
 
 ## 現在のスナップショット
 
-2026-11-04に集約したVerilator記録は現在の1590件すべてを対象にします。他2系統は未変更1083件の記録で、
-507入力は未測定です。各記録は入力と実行条件を指紋で識別します。
-スイートは21 directoryの1590件で、simulation 1547件とelaboration 43件です。
-milestoneはM1 603件（570／33）、M2 538件（533／5）、M3 449件（444／5）で、括弧内はruntime／elaborationです。
-全件が`spec_check: ai`で、人のレビューは記録していません。DPIなし1564件のうち43件は不正elaboration検査であり、HDL-DPI 8件とcommand-line／regex-DPI runtime 18件は別です。
+2026-11-04に集約したVerilator記録は現在の1599件すべてを対象にします。他2系統は未変更1083件の記録で、
+516入力は未測定です。各記録は入力と実行条件を指紋で識別します。
+スイートは21 directoryの1599件で、simulation 1556件とelaboration 43件です。
+milestoneはM1 603件（570／33）、M2 538件（533／5）、M3 458件（453／5）で、括弧内はruntime／elaborationです。
+全件が`spec_check: ai`で、人のレビューは記録していません。DPIなし1573件のうち43件は不正elaboration検査であり、HDL-DPI 8件とcommand-line／regex-DPI runtime 18件は別です。
 
 | シミュレータとライブラリ | 観測結果 | 実行範囲 |
 | --- | --- | --- |
-| Verilator 5.052・固定版UVM | `pass` 1391件：runtime 1350＋compile拒否41、`known` 199件 | runtime一致はseed 1／73。期待compiler拒否は実行時seedを実行しない |
+| Verilator 5.052・固定版UVM | `pass` 1400件：runtime 1359＋compile拒否41、`known` 199件 | runtime一致はseed 1／73。期待compiler拒否は実行時seedを実行しない |
 | Verilator 5.052・独自VPI HDL backend | `pass` 7件、`fail` 1件 | 重複する8件の別条件。一致はseed 1／73、差分はseed 1 |
 | Verilator 5.052・独自command-line VPI bridge・固定regex DPI | `pass` 17件、`known` 1件 | 重複する18件の別条件。一致はseed 1／73、差分はseed 1 |
-| kirimasim・固定版UVM | `unsupported`が1074件、`fail`が9件 | 未変更1083入力。507入力は未測定 |
-| Ghost・同梱UVM | `pass`が207件、`fail`が876件 | 各seedで未変更1083入力。失敗集合は同じ。507入力は未測定 |
+| kirimasim・固定版UVM | `unsupported`が1074件、`fail`が9件 | 未変更1083入力。516入力は未測定 |
+| Ghost・同梱UVM | `pass`が207件、`fail`が876件 | 各seedで未変更1083入力。失敗集合は同じ。516入力は未測定 |
 | Ghost・固定版UVM | 現在の実行ファイルの固定コピーでは未測定 | 現在の固定版modeの結果は示さない |
 
 固定ライブラリはAccellera UVM 2020.3.1、コミット`78c06547a2a0`で、326ファイルを
@@ -59,15 +59,15 @@ frontdoor／backdoorの転送動作の成功は示しません。
 ## 記録の合算
 
 通常snapshotは
-[067f6b0](https://github.com/kurochan001/kirimasim-uvm-tests/commit/067f6b058d98bbd65669406f1eaf6f562546eb0f)
-の以前の全1577入力同一性／記録を保持し、2026-11-04 JSTに測定したM1 13 fixtureを追加します。runtime 8件はseed 1／73に一致し、対象compiler拒否4件はruntimeを実行しません。
-印刷report callback typedef名はbuildできず限定した字義的oracleを保持し、以前の全known／compiler evidenceは未変更です。
+[6ad9de9](https://github.com/kurochan001/kirimasim-uvm-tests/commit/6ad9de903b459b3a42701be8579e908306f3aec7)
+の以前の全1590入力同一性／記録を保持し、2026-11-04 JSTに測定したM3 runtime 9 fixtureを追加します。全9件がseed 1／73に一致します。
+名前アクセスの転送probe 4つは実configure済みlookup、既定／明示path・map・parent・priority・extension引数、data、status、完了待ち、debug専用不変性を観測します。
+別の2 fixtureは実frontdoor adapter／sequencer／driver storageを使います。block集約3 fixtureはlocal／子孫needs_update、選択updateの最小write、clean時の無write、mirror更新／checkを確認します。
+兄弟順や失敗read dataは規定せず、以前の全knownは未変更です。
 
-独自記録backendはerror infoのfield／user hookと選択した明示／現在timestampを観測し、選択backend解釈でerrorのopen／closeから長さ0を確認します。
-handle／string encodingはapplication固有で、keep-active handle意味は部分対応に残します。object.record専用caseでnullの無報告と同一object委譲を別に確認し、info user-hook抑制はrecorderの16.4.7.7へ対応付けます。
-
-base宣言、link型role、正確なcallback alias／既定値、禁止iterator type_idアクセスに独立した宣言probeを用います。null alias等値はcompile完了markerで、callback実行evidenceではありません。
-AI案42件と個別に読んだ分類15件を追加します。以前の全2571 IDを保持し、既存既定名要求2件へlinkだけを追加します。以前の全264分類・1577 fixtureは未変更です。
+日英AI案65件と個別に読んだ文脈分類2件を追加し、以前の全2613要求・279分類・1590 fixtureを未変更で保持します。
+名前によるregister／memoryアクセスはM3に属し、主引用D.3の6 fixtureはmetadata規約に従いuDに置きます。章別棚卸しとmilestone分類は異なる観点です。
+英語版の古いDPIなしelaboration注記を34から実際の43へ修正します。schema、runner／library／catalog、workflow、SVGは未変更です。
 人のレビュー、分母承認、milestone完了は主張しません。
 
 保持するkirimasim／Ghost記録は、固定した実行ファイルとseedごとの非公開profileで取得しました。
@@ -77,7 +77,7 @@ AI案42件と個別に読んだ分類15件を追加します。以前の全2571 
 以前のkirimasim／Ghostの一時的な実行ファイル／profile snapshotは失われているため、guest再実行は主張しません。
 歴史的fileは1085記録を保持します。現在はcommand-enum引用と修正したBoolean rerandomization観測の2入力が異なり、そのstale記録を除外します。
 互換な現在の部分集合は1083記録で、kirimasimはunsupported 1074／API欠落fail 9、Ghostは各seedでpass 207／fail 876です。
-未測定507入力は追加505件と修正した既存2件です。filterしたfileと`out/thin-forty-eighth-evidence-scope.json`に明示除外を保持し、許可された一致実行条件の復元を待ちます。
+未測定516入力は追加514件と修正した既存2件です。filterしたfileと`out/thin-forty-ninth-evidence-scope.json`に明示除外を保持し、許可された一致実行条件の復元を待ちます。
 
 指紋ごとに、識別する入力が異なります。
 
@@ -92,7 +92,7 @@ AI案42件と個別に読んだ分類15件を追加します。以前の全2571 
 
 合算する前に、次を確認します。
 
-- Verilator IDが現在の全件を覆い、guest IDは宣言した1083件の部分集合と一致すること。507入力IDは未測定のままにすること。
+- Verilator IDが現在の全件を覆い、guest IDは宣言した1083件の部分集合と一致すること。516入力IDは未測定のままにすること。
 - 各記録の`inputs_sha256`が、ランナーの集めた現在のソース、期待出力、関連入力、ライブラリのlockと一致すること。
 - batch間でシミュレータの版、configuration、`runner_sha256`が一致し、`runner_changed`がfalseであること。
 - このスナップショットでは、Verilatorタグ付きの全ケースが`pass`、現在のタグなしケースがすべて`known`であること。
@@ -102,11 +102,11 @@ AI案42件と個別に読んだ分類15件を追加します。以前の全2571 
 追加時の件数と測定、過去のスモーク、build変更の詳細は[開発履歴](history.ja.md)に残します。
 更新した記録で以前の記録を置き換える場合も、現在の入力の指紋を先に確認します。
 
-[要求台帳の案](requirements.ja.md)はAI案2613件です。新規42件は選択recording／wrapper動作、class宣言、正確なcallback typedefを扱います。
-文脈11／構造4の分類は具体的義務を保持し、全体は部分1461／分類279／未評価767です。第7／13章の未評価は0ですが、部分50／89番号をそれぞれ保持します。
-付録Dは35／7／5で、名前によるregister／memory access helperが未評価です。backend解釈、handle活動条件、signature／名前の食違い、milestone目標は全て未完了です。
+[要求台帳の案](requirements.ja.md)はAI案2678件です。新規65義務は名前アクセスとblock集約を扱い、D.3と明示参照18.1.5.7を個別に文脈分類します。
+全体は部分1468／分類281／未評価758、付録Dは39／8／0、第18章は230／26／200です。
+付録Dの未評価0で部分的なlookup・転送・type／signature・callback・protocol条件は完了しません。欠落名の動作、不正path／map、副作用field、全status組合せは別監査に残します。
 
-互換guest fileは1083記録をbyte単位で保持し、以前の修正2入力を含む未測定507はsimulation 464／elaboration 43です。新guest結果、人のレビュー、分母承認は主張しません。
+guest fileは互換1083記録をbyte単位で保持し、以前の修正2入力を含む未測定516（simulation 473／elaboration 43）を残します。新guest結果、人のレビュー、分母承認は主張しません。
 
 ## 再現と結果の保存
 
@@ -118,6 +118,6 @@ AI案42件と個別に読んだ分類15件を追加します。以前の全2571 
 ## 継続的インテグレーション
 
 [Check](../.github/workflows/check.yml)は`main`へのpush、pull request、手動実行で動きます。
-固定ライブラリの整合性、ツールの単体テスト110件、metadata 1590件、要求台帳の案／テスト索引、通常oracle付きVerilator 1391件（seed 1／73のruntime 1350・実行時seedなしのcompiler拒否41）と、別条件の明示command-line 17件を検査します。
+固定ライブラリの整合性、ツールの単体テスト110件、metadata 1599件、要求台帳の案／テスト索引、通常oracle付きVerilator 1400件（seed 1／73のruntime 1359・実行時seedなしのcompiler拒否41）と、別条件の明示command-line 17件を検査します。
 kirimasim、Ghost、specのみのケースは実行しません。READMEのバッジは現在のCIで、このローカル測定とは別の状態です。
 Checkが成功しても、UVMの完全な適合性や全シミュレータの成功を示しません。Nightlyや結果の自動公開はありません。

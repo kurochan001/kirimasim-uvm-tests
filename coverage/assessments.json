@@ -4261,6 +4261,44 @@
         "reviewer": null,
         "reviewed_at": null
       }
+    },
+    {
+      "clause": "D.3",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The introduction identifies block-level named access wrappers. Four numbered write/read register/memory duties retain lookup, forwarding, status and debug-only behavior explicitly; no other access method is silently excluded.",
+        "ja": "導入はblock単位の名前アクセスwrapperを示す。番号付き4つのregister／memory write／read義務にlookup、転送、status、debug専用動作を明示保持し、他のaccess methodを黙って除外しない。"
+      },
+      "related_requirements": [
+        "UVM-BLOCK-ACCESS-REG-WRITE-LOCAL-LOOKUP",
+        "UVM-BLOCK-ACCESS-REG-READ-LOCAL-LOOKUP",
+        "UVM-BLOCK-ACCESS-MEM-WRITE-LOCAL-LOOKUP",
+        "UVM-BLOCK-ACCESS-MEM-READ-LOCAL-LOOKUP"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "18.1.5.7",
+      "classification": "contextual",
+      "rationale": {
+        "en": "Others is an explicit cross-reference to D.3 convenience access methods. Their concrete contracts remain in the named register/memory wrapper requirements; this reference adds no independent access algorithm.",
+        "ja": "OthersはD.3便宜access methodへの明示参照である。具体的契約は名前によるregister／memory wrapper要求に保持し、この参照で独立access algorithmを加えない。"
+      },
+      "related_requirements": [
+        "UVM-BLOCK-ACCESS-REG-WRITE-LOCAL-LOOKUP",
+        "UVM-BLOCK-ACCESS-REG-READ-LOCAL-LOOKUP",
+        "UVM-BLOCK-ACCESS-MEM-WRITE-LOCAL-LOOKUP",
+        "UVM-BLOCK-ACCESS-MEM-READ-LOCAL-LOOKUP"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
     }
   ]
 }

@@ -1179,3 +1179,22 @@ rejection is measured separately from legal constructor or iterator execution.
 **Printed alias conflict**: A heading and the actual typedef printed in its
 clause name different aliases. The literal spelling is preserved with a
 qualified expectation rather than silently replaced by a working name.
+
+**Named model access**: A block-level convenience call finds a register or
+memory by its simple name, then delegates the selected read/write operation.
+
+**Forwarding observer**: An original target subtype records the public arguments
+and supplies a selected response. It checks a wrapper boundary without replacing
+the wrapper algorithm or certifying the target's physical transport.
+
+**Block update write census**: Per-address write counts on a selected full-width
+RW hierarchy. They check minimum changed-register writes without assigning a
+sibling traversal order or assuming all field policies share that count.
+
+**Mirror check mode**: NO_CHECK refreshes selected register mirrors without
+reporting old-value mismatches; explicit CHECK adds mismatch reporting. Successful
+bus read/refresh is distinct from the comparison outcome.
+
+**Milestone grouping**: Tests are counted by their functional milestone subject,
+while primary standard clauses govern chapter directories. D.3 named model
+access belongs to M3 even though its files reside in uD.

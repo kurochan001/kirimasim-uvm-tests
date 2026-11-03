@@ -2,7 +2,7 @@
 
 [English](history.md) · [README](../README.ja.md)
 
-M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の48回目の拡充（全1590件：simulation 1547・elaboration 43）までを記録しています。以前の349件の時点は
+M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の49回目の拡充（全1599件：simulation 1556・elaboration 43）までを記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -2118,3 +2118,20 @@ API／型名欠落18、型既定2、印刷signature 1、DPI未link 26のbuildを
 
 tool test 110件、全metadata、台帳／索引／library同一性、native生結果／compile evidence、用語249語・FAQ 222回答の日英10組を検査します。
 schema、runner／library／catalog、workflow、SVG 6つは未変更で、範囲は提案、棚卸し未完、分母／割合null、照合AI、継続goal有効を保持します。
+
+## M1〜M4の薄い領域の49回目の拡充
+
+M3 runtime 9 fixtureで名前によるregister／memory転送probe 4つ、実frontdoor storage経路2つ、block集約確認3つを追加し、全9件がVerilator 5.052の両seedに一致します。
+実configure済みlookup、既定／明示引数、完了待ち、選択data／status、debug専用の機能不変性を観測し、失敗read dataや正確なdebug文面転送は規定しません。
+block caseは兄弟順を課さずlocal／子孫の変更有無、全幅最小write、clean時の無write、mirror更新／checkを観測します。新knownはありません。
+
+新AI案65件で2678となり、以前の全2613要求・279分類・1590 fixture／native記録は未変更です。D.3と明示参照18.1.5.7を個別に文脈分類します。
+全体は部分1468／分類281／未評価758、付録Dは39／8／0、第18章は230／26／200です。今回は9減、goal 21反復では705減で、部分条件と元のmilestone目標は未完了です。
+
+全1599件はsimulation 1556／elaboration 43、M1 603（570／33）、M2 538（533／5）、M3 458（453／5）です。
+D.3の6 fixtureはmetadata規約でuDに置いてregister層M3へ数え、他の3つはu18に置きます。通常evidenceは1400 pass（runtime両seed一致1359、compiler拒否41）と未変更known 199です。
+guest fileは互換1083記録をbyte単位で保持し、以前の修正2入力を含む未測定516（473／43）です。別HDL／command-lineは7／1と17／1のままで、guest実行は主張しません。
+
+tool test 110件、metadata、台帳／索引／library同一性、native生結果／compile evidence、用語254語・FAQ 224回答の日英10組を検査します。
+英語のDPIなし注記の古いelaboration件数34を43へ訂正します。schema、runner／library／catalog、workflow、SVG 6つは未変更です。
+範囲は提案、棚卸し未完、分母／割合null、照合AI、継続goal有効を保持します。

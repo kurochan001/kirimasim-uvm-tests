@@ -3,8 +3,8 @@
 [日本語](history.ja.md) · [README](../README.md)
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and forty-eight cross-milestone thin-area expansions, including the
-existing-test requirement-link backlog checkpoint (1590 tests: 1547 simulation and 43 elaboration). The earlier 349-test checkpoint is
+three M4 increments and forty-nine cross-milestone thin-area expansions, including the
+existing-test requirement-link backlog checkpoint (1599 tests: 1556 simulation and 43 elaboration). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -3198,4 +3198,37 @@ Validation covers 110 tool tests, all metadata, ledger/index/library identities,
 native/raw compile evidence and ten language pairs with 249 glossary terms and
 222 FAQs. Schema, runners/library/catalog, workflow and six SVGs are unchanged.
 Scope remains proposed, inventory incomplete, denominator/percentage null,
+reviews AI and the persistent goal active.
+
+## Forty-ninth thin-area expansion across M1–M4
+
+Nine M3 runtime fixtures add four named register/memory forwarding probes, two
+actual frontdoor storage paths and three block aggregation checks. All nine
+match both Verilator 5.052 seeds. Genuine configured lookup, default/explicit
+arguments, blocking completion, selected data/status and debug-only functional
+invariance are observed. Failed read data and exact debug text forwarding are
+not prescribed. Block cases observe dirty/clean local and descendant state,
+full-width minimum writes, clean no-write behavior and mirror refresh/checking
+without assigning sibling order. No new known result is added.
+
+Sixty-five new AI drafts reach 2678; all 2613 earlier requirements, 279
+assessments and 1590 fixtures/native records remain unchanged. D.3 and its
+18.1.5.7 cross-reference receive individual contextual assessments. Overall is
+1468 partial/281 assessed/758 unassessed; annex D is 39/8/0 and chapter 18
+230/26/200. Unassessed falls by nine, or 705 across twenty-one goal iterations.
+All partial conditions and original milestone targets remain open.
+
+The suite is 1599 (1556 simulation/43 elaboration): M1 603 (570/33), M2 538
+(533/5), M3 458 (453/5). Six D.3 fixtures reside in uD by metadata convention
+and count as register-layer M3; the other three reside in u18. Ordinary evidence
+has 1400 pass (1359 runtime at both seeds, 41 compiler rejections) and the
+unchanged 199 known. Guest files keep 1083 byte-identical records, with 516
+unmeasured inputs (473/43), including both earlier revised inputs. Separate
+HDL/command-line remains 7/1 and 17/1; no guest run is claimed.
+
+Validation covers 110 tool tests, metadata, ledger/index/library identities,
+native/raw compile evidence and ten language pairs with 254 glossary terms and
+224 FAQs. An English no-DPI note is corrected from stale elaboration count 34
+to 43. Schema, runners/library/catalog, workflow and six SVGs remain unchanged.
+Scope stays proposed, inventory incomplete, denominator/percentage null,
 reviews AI and the persistent goal active.
