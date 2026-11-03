@@ -1,0 +1,2 @@
+UT: default_server_type exact 1
+UT: summary_destination selected_nonempty 1 peer_empty 1

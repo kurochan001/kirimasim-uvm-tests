@@ -90,8 +90,8 @@
         "ja": "抑制時はseverity／IDのcountが増えず、有効なcontrolでは各1増える。"
       },
       "limitations": {
-        "en": "Report catchers, file output and other early-return conditions are not decomposed here.",
-        "ja": "report catcher、file出力、他の早期return条件はこの要求では分解しない。"
+        "en": "The selected preformed-message path observes the active catcher before the NO_ACTION return and no subsequent compose/execute call. File output, inactive/default catchers and other early-return conditions remain separate. Existing simulation input and its original no-action observations are unchanged.",
+        "ja": "選択した事前生成message経路はNO_ACTION return前の有効catcherと、その後にcompose／executeを呼ばないことを観測する。file出力、無効／既定catcher、他の早期return条件は別に残す。既存simulation入力と元のno-action観測は未変更とする。"
       },
       "review": {
         "status": "ai",
@@ -105,6 +105,13 @@
           "expected_observations": [
             "UT: suppressed info 0 id 0 action 1",
             "UT: enabled info 1 id 1 action 1"
+          ]
+        },
+        {
+          "test": "u06/test_report_server_pipeline_orders_catching_composition_and_execution_by_action",
+          "role": "direct",
+          "expected_observations": [
+            "UT: pipeline none trace C format 0 execute 0"
           ]
         }
       ]
@@ -7663,8 +7670,8 @@
         "ja": "保存したdefaultに戻り、以前overrideした報告は元のseverityを使う。"
       },
       "limitations": {
-        "en": "The pinned library retains a severity/ID override, so that fixture remains spec-only.",
-        "ja": "固定ライブラリはseverity／IDのoverrideを残すため、その構成はspecのみで保持する。"
+        "en": "The pinned library retains a severity/ID override, so that fixture remains spec-only. The new shared-handler condition retains the severity/ID verbosity threshold after reset; the default-restoration expectation remains, and the whole fixture is known. Its pre-reset configured queries alone do not establish a pass.",
+        "ja": "固定ライブラリはseverity／IDのoverrideを残すため、その構成はspecのみで保持する。新しい共有handler条件はreset後もseverity／ID verbosity閾値が残る。既定設定復帰の期待を保持し、fixture全体はknownで、reset前の設定照会だけではpassにしない。"
       },
       "review": {
         "status": "ai",
@@ -7686,6 +7693,14 @@
           "expected_observations": [
             "UT: before error 0 warning 1",
             "UT: after error 1 warning 0"
+          ]
+        },
+        {
+          "test": "u06/test_reporting_shared_reset_restores_all_threshold_keys_before_live_filtering",
+          "role": "direct",
+          "expected_observations": [
+            "UT: reset_keys general 1 pair 1 id 1 action 1 file 1 peer 1",
+            "UT: reset_delivery count 2 boundary 1 over 0"
           ]
         }
       ]
@@ -60819,8 +60834,8 @@
         "ja": "各照会はdescriptor番号を固定せず、選択したhandleを返す。"
       },
       "limitations": {
-        "en": "Unchanged original reporting fixtures; wrapper calls exercise effective handler configuration through public reporter queries. These links add no measurements and assert no file output formatting.",
-        "ja": "未変更の独自報告検査系を使い、wrapper呼出しによるhandler設定をreporterの公開照会で観測する。対応の追加は測定ではなく、file出力書式も要求しない。"
+        "en": "Unchanged original reporting fixtures; wrapper calls exercise effective handler configuration through public reporter queries. The earlier query links add no measurements and assert no file output formatting. A new original-formatter fixture adds actual end-to-end LOG routing with real files, beyond the unchanged handle-query controls; no default report text layout is prescribed.",
+        "ja": "未変更の独自報告検査系を使い、wrapper呼出しによるhandler設定をreporterの公開照会で観測する。以前の照会対応の追加自体は測定ではなく、file出力書式も要求しない。新しい独自formatter fixtureは未変更のhandle照会controlに加えて実fileへのend-to-end LOG経路を確認し、既定報告文面は規定しない。"
       },
       "review": {
         "status": "ai",
@@ -60833,6 +60848,16 @@
           "role": "direct",
           "expected_observations": [
             "UT: default 1 severity 1 id 1 pair 1"
+          ]
+        },
+        {
+          "test": "u06/test_report_log_routing_executes_pair_id_severity_and_default_file_selection",
+          "role": "direct",
+          "expected_observations": [
+            "UT: routed_file 0 payloads 1/0/0/0",
+            "UT: routed_file 1 payloads 0/1/0/0",
+            "UT: routed_file 2 payloads 0/0/1/0",
+            "UT: routed_file 3 payloads 0/0/0/1"
           ]
         }
       ]
@@ -78499,6 +78524,1971 @@
           "role": "direct",
           "expected_observations": [
             "UT: inherited_bus2reg calls 1 output 1 input 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REPORT-AUDIT-OBJECT-CONSTRUCTOR",
+      "clause": "6.3.2",
+      "statement": {
+        "en": "The report-object constructor accepts omitted, explicit and empty names.",
+        "ja": "report-object constructorは名前の省略、明示名、空名を受け付ける。"
+      },
+      "conditions": {
+        "en": "Use direct concrete objects; a catcher with no constructor probes the base default, while a separate catcher forwards explicit names. No subtype default masks the base default.",
+        "ja": "直接の具象objectを使い、constructorのないcatcherでbase既定値、別のcatcherで明示名の転送を確認する。subtype既定値でbase既定値を隠さない。"
+      },
+      "expected": {
+        "en": "Default, named and empty construction retain the declared names, and the selected exact base/self identity is preserved.",
+        "ja": "既定／明示／空名の生成は宣言された名前を保持し、選択したexact base／self同一性を維持する。"
+      },
+      "limitations": {
+        "en": "Selected conditions only, with exact generic output anchors. No default UVM text layout, unused severity membership, other configuration combinations, arbitrary custom implementation or exhaustive clause coverage is certified.",
+        "ja": "選択条件だけを正確な汎用出力anchorで確認する。UVM既定文面、未使用severityの所属、他の設定組合せ、任意custom実装、条項の網羅は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_reporting_constructors_preserve_default_explicit_empty_names_and_exact_bases",
+          "role": "direct",
+          "expected_observations": [
+            "UT: report_names default 1 named 1 empty 1 self 1 base 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REPORT-AUDIT-OBJECT-BASE",
+      "clause": "6.3.1",
+      "statement": {
+        "en": "A report object has the declared object base.",
+        "ja": "report objectは宣言されたobject baseを持つ。"
+      },
+      "conditions": {
+        "en": "Use direct concrete objects; a catcher with no constructor probes the base default, while a separate catcher forwards explicit names. No subtype default masks the base default.",
+        "ja": "直接の具象objectを使い、constructorのないcatcherでbase既定値、別のcatcherで明示名の転送を確認する。subtype既定値でbase既定値を隠さない。"
+      },
+      "expected": {
+        "en": "Default, named and empty construction retain the declared names, and the selected exact base/self identity is preserved.",
+        "ja": "既定／明示／空名の生成は宣言された名前を保持し、選択したexact base／self同一性を維持する。"
+      },
+      "limitations": {
+        "en": "Selected conditions only, with exact generic output anchors. No default UVM text layout, unused severity membership, other configuration combinations, arbitrary custom implementation or exhaustive clause coverage is certified.",
+        "ja": "選択条件だけを正確な汎用出力anchorで確認する。UVM既定文面、未使用severityの所属、他の設定組合せ、任意custom実装、条項の網羅は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_reporting_constructors_preserve_default_explicit_empty_names_and_exact_bases",
+          "role": "direct",
+          "expected_observations": [
+            "UT: report_names default 1 named 1 empty 1 self 1 base 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REPORT-AUDIT-OBJECT-SELF",
+      "clause": "6.3.3.1",
+      "statement": {
+        "en": "uvm_get_report_object returns the receiving report object.",
+        "ja": "uvm_get_report_objectは呼出し先report objectを返す。"
+      },
+      "conditions": {
+        "en": "Use direct concrete objects; a catcher with no constructor probes the base default, while a separate catcher forwards explicit names. No subtype default masks the base default.",
+        "ja": "直接の具象objectを使い、constructorのないcatcherでbase既定値、別のcatcherで明示名の転送を確認する。subtype既定値でbase既定値を隠さない。"
+      },
+      "expected": {
+        "en": "Default, named and empty construction retain the declared names, and the selected exact base/self identity is preserved.",
+        "ja": "既定／明示／空名の生成は宣言された名前を保持し、選択したexact base／self同一性を維持する。"
+      },
+      "limitations": {
+        "en": "Selected conditions only, with exact generic output anchors. No default UVM text layout, unused severity membership, other configuration combinations, arbitrary custom implementation or exhaustive clause coverage is certified.",
+        "ja": "選択条件だけを正確な汎用出力anchorで確認する。UVM既定文面、未使用severityの所属、他の設定組合せ、任意custom実装、条項の網羅は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_reporting_constructors_preserve_default_explicit_empty_names_and_exact_bases",
+          "role": "direct",
+          "expected_observations": [
+            "UT: report_names default 1 named 1 empty 1 self 1 base 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REPORT-AUDIT-MESSAGE-BASE",
+      "clause": "6.2.1",
+      "statement": {
+        "en": "A report message has the declared object base.",
+        "ja": "report messageは宣言されたobject baseを持つ。"
+      },
+      "conditions": {
+        "en": "Use direct concrete objects; a catcher with no constructor probes the base default, while a separate catcher forwards explicit names. No subtype default masks the base default.",
+        "ja": "直接の具象objectを使い、constructorのないcatcherでbase既定値、別のcatcherで明示名の転送を確認する。subtype既定値でbase既定値を隠さない。"
+      },
+      "expected": {
+        "en": "Default, named and empty construction retain the declared names, and the selected exact base/self identity is preserved.",
+        "ja": "既定／明示／空名の生成は宣言された名前を保持し、選択したexact base／self同一性を維持する。"
+      },
+      "limitations": {
+        "en": "Selected conditions only, with exact generic output anchors. No default UVM text layout, unused severity membership, other configuration combinations, arbitrary custom implementation or exhaustive clause coverage is certified.",
+        "ja": "選択条件だけを正確な汎用出力anchorで確認する。UVM既定文面、未使用severityの所属、他の設定組合せ、任意custom実装、条項の網羅は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_reporting_constructors_preserve_default_explicit_empty_names_and_exact_bases",
+          "role": "direct",
+          "expected_observations": [
+            "UT: message_names default 1 named 1 empty 1 base 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REPORT-AUDIT-MESSAGE-CONSTRUCTOR-NAMES",
+      "clause": "6.2.2.1",
+      "statement": {
+        "en": "The report-message constructor preserves its declared default name and explicit/empty names.",
+        "ja": "report-message constructorは宣言された既定名と明示名／空名を保持する。"
+      },
+      "conditions": {
+        "en": "Use direct concrete objects; a catcher with no constructor probes the base default, while a separate catcher forwards explicit names. No subtype default masks the base default.",
+        "ja": "直接の具象objectを使い、constructorのないcatcherでbase既定値、別のcatcherで明示名の転送を確認する。subtype既定値でbase既定値を隠さない。"
+      },
+      "expected": {
+        "en": "Default, named and empty construction retain the declared names, and the selected exact base/self identity is preserved.",
+        "ja": "既定／明示／空名の生成は宣言された名前を保持し、選択したexact base／self同一性を維持する。"
+      },
+      "limitations": {
+        "en": "Selected conditions only, with exact generic output anchors. No default UVM text layout, unused severity membership, other configuration combinations, arbitrary custom implementation or exhaustive clause coverage is certified.",
+        "ja": "選択条件だけを正確な汎用出力anchorで確認する。UVM既定文面、未使用severityの所属、他の設定組合せ、任意custom実装、条項の網羅は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_reporting_constructors_preserve_default_explicit_empty_names_and_exact_bases",
+          "role": "direct",
+          "expected_observations": [
+            "UT: message_names default 1 named 1 empty 1 base 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REPORT-AUDIT-HANDLER-BASE",
+      "clause": "6.4.1",
+      "statement": {
+        "en": "A report handler has the declared object base.",
+        "ja": "report handlerは宣言されたobject baseを持つ。"
+      },
+      "conditions": {
+        "en": "Use direct concrete objects; a catcher with no constructor probes the base default, while a separate catcher forwards explicit names. No subtype default masks the base default.",
+        "ja": "直接の具象objectを使い、constructorのないcatcherでbase既定値、別のcatcherで明示名の転送を確認する。subtype既定値でbase既定値を隠さない。"
+      },
+      "expected": {
+        "en": "Default, named and empty construction retain the declared names, and the selected exact base/self identity is preserved.",
+        "ja": "既定／明示／空名の生成は宣言された名前を保持し、選択したexact base／self同一性を維持する。"
+      },
+      "limitations": {
+        "en": "Selected conditions only, with exact generic output anchors. No default UVM text layout, unused severity membership, other configuration combinations, arbitrary custom implementation or exhaustive clause coverage is certified.",
+        "ja": "選択条件だけを正確な汎用出力anchorで確認する。UVM既定文面、未使用severityの所属、他の設定組合せ、任意custom実装、条項の網羅は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_reporting_constructors_preserve_default_explicit_empty_names_and_exact_bases",
+          "role": "direct",
+          "expected_observations": [
+            "UT: handler_names default 1 named 1 empty 1 base 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REPORT-AUDIT-HANDLER-CONSTRUCTOR",
+      "clause": "6.4.2.1",
+      "statement": {
+        "en": "The report-handler constructor preserves its declared default and explicit/empty names.",
+        "ja": "report-handler constructorは宣言された既定名と明示名／空名を保持する。"
+      },
+      "conditions": {
+        "en": "Use direct concrete objects; a catcher with no constructor probes the base default, while a separate catcher forwards explicit names. No subtype default masks the base default.",
+        "ja": "直接の具象objectを使い、constructorのないcatcherでbase既定値、別のcatcherで明示名の転送を確認する。subtype既定値でbase既定値を隠さない。"
+      },
+      "expected": {
+        "en": "Default, named and empty construction retain the declared names, and the selected exact base/self identity is preserved.",
+        "ja": "既定／明示／空名の生成は宣言された名前を保持し、選択したexact base／self同一性を維持する。"
+      },
+      "limitations": {
+        "en": "Selected conditions only, with exact generic output anchors. No default UVM text layout, unused severity membership, other configuration combinations, arbitrary custom implementation or exhaustive clause coverage is certified.",
+        "ja": "選択条件だけを正確な汎用出力anchorで確認する。UVM既定文面、未使用severityの所属、他の設定組合せ、任意custom実装、条項の網羅は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_reporting_constructors_preserve_default_explicit_empty_names_and_exact_bases",
+          "role": "direct",
+          "expected_observations": [
+            "UT: handler_names default 1 named 1 empty 1 base 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REPORT-AUDIT-CATCHER-CONSTRUCTOR",
+      "clause": "6.6.2",
+      "statement": {
+        "en": "A legal original catcher exposes the declared base default name and forwarded explicit/empty names.",
+        "ja": "合法な独自catcherは宣言されたbaseの既定名と転送した明示名／空名を持つ。"
+      },
+      "conditions": {
+        "en": "Use direct concrete objects; a catcher with no constructor probes the base default, while a separate catcher forwards explicit names. No subtype default masks the base default.",
+        "ja": "直接の具象objectを使い、constructorのないcatcherでbase既定値、別のcatcherで明示名の転送を確認する。subtype既定値でbase既定値を隠さない。"
+      },
+      "expected": {
+        "en": "Default, named and empty construction retain the declared names, and the selected exact base/self identity is preserved.",
+        "ja": "既定／明示／空名の生成は宣言された名前を保持し、選択したexact base／self同一性を維持する。"
+      },
+      "limitations": {
+        "en": "Selected conditions only, with exact generic output anchors. No default UVM text layout, unused severity membership, other configuration combinations, arbitrary custom implementation or exhaustive clause coverage is certified.",
+        "ja": "選択条件だけを正確な汎用出力anchorで確認する。UVM既定文面、未使用severityの所属、他の設定組合せ、任意custom実装、条項の網羅は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_reporting_constructors_preserve_default_explicit_empty_names_and_exact_bases",
+          "role": "direct",
+          "expected_observations": [
+            "UT: catcher_names default 1 named 1 empty 1 base 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REPORT-AUDIT-DEFAULT-ACTION-INFO",
+      "clause": "6.3",
+      "statement": {
+        "en": "A new report object uses UVM_DISPLAY for INFO reports without explicit action configuration.",
+        "ja": "新report objectはaction未設定のINFO報告にUVM_DISPLAYを使う。"
+      },
+      "conditions": {
+        "en": "Use the selected original reporting fixtures and explicit object, severity, ID and action configuration described by their observation anchors.",
+        "ja": "観測anchorに示す独自reporting fixtureと明示したobject、severity、ID、action設定を使う。"
+      },
+      "expected": {
+        "en": "The action query matches the declared severity default before any report is emitted.",
+        "ja": "報告を発行する前のaction照会が宣言されたseverity既定値に一致する。"
+      },
+      "limitations": {
+        "en": "Selected conditions only, with exact generic output anchors. No default UVM text layout, unused severity membership, other configuration combinations, arbitrary custom implementation or exhaustive clause coverage is certified.",
+        "ja": "選択条件だけを正確な汎用出力anchorで確認する。UVM既定文面、未使用severityの所属、他の設定組合せ、任意custom実装、条項の網羅は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_reporting_default_actions_and_zero_file_handles_are_local_to_each_object",
+          "role": "direct",
+          "expected_observations": [
+            "UT: default_actions info 1 warning 1 error 1 fatal 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REPORT-AUDIT-DEFAULT-ACTION-WARNING",
+      "clause": "6.3",
+      "statement": {
+        "en": "A new report object uses UVM_DISPLAY for WARNING reports without explicit action configuration.",
+        "ja": "新report objectはaction未設定のWARNING報告にUVM_DISPLAYを使う。"
+      },
+      "conditions": {
+        "en": "Use the selected original reporting fixtures and explicit object, severity, ID and action configuration described by their observation anchors.",
+        "ja": "観測anchorに示す独自reporting fixtureと明示したobject、severity、ID、action設定を使う。"
+      },
+      "expected": {
+        "en": "The action query matches the declared severity default before any report is emitted.",
+        "ja": "報告を発行する前のaction照会が宣言されたseverity既定値に一致する。"
+      },
+      "limitations": {
+        "en": "Selected conditions only, with exact generic output anchors. No default UVM text layout, unused severity membership, other configuration combinations, arbitrary custom implementation or exhaustive clause coverage is certified.",
+        "ja": "選択条件だけを正確な汎用出力anchorで確認する。UVM既定文面、未使用severityの所属、他の設定組合せ、任意custom実装、条項の網羅は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_reporting_default_actions_and_zero_file_handles_are_local_to_each_object",
+          "role": "direct",
+          "expected_observations": [
+            "UT: default_actions info 1 warning 1 error 1 fatal 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REPORT-AUDIT-DEFAULT-ACTION-ERROR",
+      "clause": "6.3",
+      "statement": {
+        "en": "A new report object uses UVM_DISPLAY | UVM_COUNT for ERROR reports without explicit action configuration.",
+        "ja": "新report objectはaction未設定のERROR報告にUVM_DISPLAY | UVM_COUNTを使う。"
+      },
+      "conditions": {
+        "en": "Use the selected original reporting fixtures and explicit object, severity, ID and action configuration described by their observation anchors.",
+        "ja": "観測anchorに示す独自reporting fixtureと明示したobject、severity、ID、action設定を使う。"
+      },
+      "expected": {
+        "en": "The action query matches the declared severity default before any report is emitted.",
+        "ja": "報告を発行する前のaction照会が宣言されたseverity既定値に一致する。"
+      },
+      "limitations": {
+        "en": "Selected conditions only, with exact generic output anchors. No default UVM text layout, unused severity membership, other configuration combinations, arbitrary custom implementation or exhaustive clause coverage is certified.",
+        "ja": "選択条件だけを正確な汎用出力anchorで確認する。UVM既定文面、未使用severityの所属、他の設定組合せ、任意custom実装、条項の網羅は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_reporting_default_actions_and_zero_file_handles_are_local_to_each_object",
+          "role": "direct",
+          "expected_observations": [
+            "UT: default_actions info 1 warning 1 error 1 fatal 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REPORT-AUDIT-DEFAULT-ACTION-FATAL",
+      "clause": "6.3",
+      "statement": {
+        "en": "A new report object uses UVM_DISPLAY | UVM_EXIT for FATAL reports without explicit action configuration.",
+        "ja": "新report objectはaction未設定のFATAL報告にUVM_DISPLAY | UVM_EXITを使う。"
+      },
+      "conditions": {
+        "en": "Use the selected original reporting fixtures and explicit object, severity, ID and action configuration described by their observation anchors.",
+        "ja": "観測anchorに示す独自reporting fixtureと明示したobject、severity、ID、action設定を使う。"
+      },
+      "expected": {
+        "en": "The action query matches the declared severity default before any report is emitted.",
+        "ja": "報告を発行する前のaction照会が宣言されたseverity既定値に一致する。"
+      },
+      "limitations": {
+        "en": "Selected conditions only, with exact generic output anchors. No default UVM text layout, unused severity membership, other configuration combinations, arbitrary custom implementation or exhaustive clause coverage is certified.",
+        "ja": "選択条件だけを正確な汎用出力anchorで確認する。UVM既定文面、未使用severityの所属、他の設定組合せ、任意custom実装、条項の網羅は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_reporting_default_actions_and_zero_file_handles_are_local_to_each_object",
+          "role": "direct",
+          "expected_observations": [
+            "UT: default_actions info 1 warning 1 error 1 fatal 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REPORT-AUDIT-DEFAULT-FILE-ZERO",
+      "clause": "6.3",
+      "statement": {
+        "en": "The default report file handle is zero for unconfigured severities and IDs.",
+        "ja": "未設定severity／IDのreport file handle既定値は0である。"
+      },
+      "conditions": {
+        "en": "Use the selected original reporting fixtures and explicit object, severity, ID and action configuration described by their observation anchors.",
+        "ja": "観測anchorに示す独自reporting fixtureと明示したobject、severity、ID、action設定を使う。"
+      },
+      "expected": {
+        "en": "Queries for all four standard severities return zero without opening a report file.",
+        "ja": "report fileを開かず、標準4 severityの照会が0を返す。"
+      },
+      "limitations": {
+        "en": "Selected conditions only, with exact generic output anchors. No default UVM text layout, unused severity membership, other configuration combinations, arbitrary custom implementation or exhaustive clause coverage is certified.",
+        "ja": "選択条件だけを正確な汎用出力anchorで確認する。UVM既定文面、未使用severityの所属、他の設定組合せ、任意custom実装、条項の網羅は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_reporting_default_actions_and_zero_file_handles_are_local_to_each_object",
+          "role": "direct",
+          "expected_observations": [
+            "UT: default_files info 1 warning 1 error 1 fatal 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REPORT-AUDIT-DEFAULT-CONFIG-ISOLATION",
+      "clause": "6.3",
+      "statement": {
+        "en": "Changing one report object action does not configure an independent peer.",
+        "ja": "1つのreport objectのaction変更は独立peerを設定しない。"
+      },
+      "conditions": {
+        "en": "Use the selected original reporting fixtures and explicit object, severity, ID and action configuration described by their observation anchors.",
+        "ja": "観測anchorに示す独自reporting fixtureと明示したobject、severity、ID、action設定を使う。"
+      },
+      "expected": {
+        "en": "The selected warning action changes while peer warning and selected info retain defaults.",
+        "ja": "選択warning actionだけが変わり、peer warningと選択infoは既定値を保持する。"
+      },
+      "limitations": {
+        "en": "Selected conditions only, with exact generic output anchors. No default UVM text layout, unused severity membership, other configuration combinations, arbitrary custom implementation or exhaustive clause coverage is certified.",
+        "ja": "選択条件だけを正確な汎用出力anchorで確認する。UVM既定文面、未使用severityの所属、他の設定組合せ、任意custom実装、条項の網羅は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_reporting_default_actions_and_zero_file_handles_are_local_to_each_object",
+          "role": "direct",
+          "expected_observations": [
+            "UT: defaults_isolated selected 1 peer 1 other 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REPORT-AUDIT-VERBOSITY-QUERY",
+      "clause": "6.3.4.1",
+      "statement": {
+        "en": "The public effective-verbosity query delegates to the selected handler and its most specific key.",
+        "ja": "公開effective-verbosity照会は選択handlerの最も具体的なkeyを使う。"
+      },
+      "conditions": {
+        "en": "Use the selected original reporting fixtures and explicit object, severity, ID and action configuration described by their observation anchors.",
+        "ja": "観測anchorに示す独自reporting fixtureと明示したobject、severity、ID、action設定を使う。"
+      },
+      "expected": {
+        "en": "The shared reporter sees general 11, pair 7, ID 5 and maximum 11; the handler identity is shared.",
+        "ja": "共有reporterはgeneral 11、pair 7、ID 5、maximum 11を観測し、handler同一性を共有する。"
+      },
+      "limitations": {
+        "en": "Pre-reset configured queries only; later reset mismatch does not make this whole fixture pass. Specific limits are below the general maximum; higher-specific-limit interpretations remain separate.",
+        "ja": "reset前の設定照会だけであり、後のreset不一致があるfixture全体をpassにはしない。specific閾値はgeneral maximum未満とし、それ以上のspecific閾値の解釈は別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_reporting_shared_reset_restores_all_threshold_keys_before_live_filtering",
+          "role": "direct",
+          "expected_observations": [
+            "UT: threshold_keys general 1 pair 1 id 1 max 1 shared 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REPORT-AUDIT-MAX-VERBOSITY-QUERY",
+      "clause": "6.3.4.2",
+      "statement": {
+        "en": "The report object exposes the configured maximum verbosity.",
+        "ja": "report objectは設定された最大verbosityを公開する。"
+      },
+      "conditions": {
+        "en": "Use the selected original reporting fixtures and explicit object, severity, ID and action configuration described by their observation anchors.",
+        "ja": "観測anchorに示す独自reporting fixtureと明示したobject、severity、ID、action設定を使う。"
+      },
+      "expected": {
+        "en": "The shared reporter sees general 11, pair 7, ID 5 and maximum 11; the handler identity is shared.",
+        "ja": "共有reporterはgeneral 11、pair 7、ID 5、maximum 11を観測し、handler同一性を共有する。"
+      },
+      "limitations": {
+        "en": "Pre-reset configured queries only; later reset mismatch does not make this whole fixture pass. Specific limits are below the general maximum; higher-specific-limit interpretations remain separate.",
+        "ja": "reset前の設定照会だけであり、後のreset不一致があるfixture全体をpassにはしない。specific閾値はgeneral maximum未満とし、それ以上のspecific閾値の解釈は別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_reporting_shared_reset_restores_all_threshold_keys_before_live_filtering",
+          "role": "direct",
+          "expected_observations": [
+            "UT: threshold_keys general 1 pair 1 id 1 max 1 shared 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REPORT-AUDIT-GENERAL-VERBOSITY-SET",
+      "clause": "6.3.4.3",
+      "statement": {
+        "en": "The public general-verbosity setter updates the underlying shared handler.",
+        "ja": "公開general-verbosity setterは共有された下位handlerを更新する。"
+      },
+      "conditions": {
+        "en": "Use the selected original reporting fixtures and explicit object, severity, ID and action configuration described by their observation anchors.",
+        "ja": "観測anchorに示す独自reporting fixtureと明示したobject、severity、ID、action設定を使う。"
+      },
+      "expected": {
+        "en": "The shared reporter sees general 11, pair 7, ID 5 and maximum 11; the handler identity is shared.",
+        "ja": "共有reporterはgeneral 11、pair 7、ID 5、maximum 11を観測し、handler同一性を共有する。"
+      },
+      "limitations": {
+        "en": "Pre-reset configured queries only; later reset mismatch does not make this whole fixture pass. Specific limits are below the general maximum; higher-specific-limit interpretations remain separate.",
+        "ja": "reset前の設定照会だけであり、後のreset不一致があるfixture全体をpassにはしない。specific閾値はgeneral maximum未満とし、それ以上のspecific閾値の解釈は別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_reporting_shared_reset_restores_all_threshold_keys_before_live_filtering",
+          "role": "direct",
+          "expected_observations": [
+            "UT: threshold_keys general 1 pair 1 id 1 max 1 shared 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REPORT-AUDIT-ID-VERBOSITY-SET",
+      "clause": "6.3.4.4",
+      "statement": {
+        "en": "The public ID verbosity setting is shared through the underlying handler.",
+        "ja": "公開ID verbosity設定は下位handlerを通じて共有される。"
+      },
+      "conditions": {
+        "en": "Use the selected original reporting fixtures and explicit object, severity, ID and action configuration described by their observation anchors.",
+        "ja": "観測anchorに示す独自reporting fixtureと明示したobject、severity、ID、action設定を使う。"
+      },
+      "expected": {
+        "en": "The shared reporter sees general 11, pair 7, ID 5 and maximum 11; the handler identity is shared.",
+        "ja": "共有reporterはgeneral 11、pair 7、ID 5、maximum 11を観測し、handler同一性を共有する。"
+      },
+      "limitations": {
+        "en": "Pre-reset configured queries only; later reset mismatch does not make this whole fixture pass. Specific limits are below the general maximum; higher-specific-limit interpretations remain separate.",
+        "ja": "reset前の設定照会だけであり、後のreset不一致があるfixture全体をpassにはしない。specific閾値はgeneral maximum未満とし、それ以上のspecific閾値の解釈は別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_reporting_shared_reset_restores_all_threshold_keys_before_live_filtering",
+          "role": "direct",
+          "expected_observations": [
+            "UT: threshold_keys general 1 pair 1 id 1 max 1 shared 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REPORT-AUDIT-PAIR-VERBOSITY-SET",
+      "clause": "6.3.4.4",
+      "statement": {
+        "en": "The public severity/ID verbosity setting takes precedence for that pair.",
+        "ja": "公開severity／ID verbosity設定は該当pairで優先される。"
+      },
+      "conditions": {
+        "en": "Use the selected original reporting fixtures and explicit object, severity, ID and action configuration described by their observation anchors.",
+        "ja": "観測anchorに示す独自reporting fixtureと明示したobject、severity、ID、action設定を使う。"
+      },
+      "expected": {
+        "en": "The shared reporter sees general 11, pair 7, ID 5 and maximum 11; the handler identity is shared.",
+        "ja": "共有reporterはgeneral 11、pair 7、ID 5、maximum 11を観測し、handler同一性を共有する。"
+      },
+      "limitations": {
+        "en": "Pre-reset configured queries only; later reset mismatch does not make this whole fixture pass. Specific limits are below the general maximum; higher-specific-limit interpretations remain separate.",
+        "ja": "reset前の設定照会だけであり、後のreset不一致があるfixture全体をpassにはしない。specific閾値はgeneral maximum未満とし、それ以上のspecific閾値の解釈は別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_reporting_shared_reset_restores_all_threshold_keys_before_live_filtering",
+          "role": "direct",
+          "expected_observations": [
+            "UT: threshold_keys general 1 pair 1 id 1 max 1 shared 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REPORT-AUDIT-ACTION-QUERY-DELEGATION",
+      "clause": "6.3.5.1",
+      "statement": {
+        "en": "The public action getter returns the handler-resolved severity/ID action.",
+        "ja": "公開action getterはhandlerが解決したseverity／ID actionを返す。"
+      },
+      "conditions": {
+        "en": "Use the selected original reporting fixtures and explicit object, severity, ID and action configuration described by their observation anchors.",
+        "ja": "観測anchorに示す独自reporting fixtureと明示したobject、severity、ID、action設定を使う。"
+      },
+      "expected": {
+        "en": "Pair overrides ID and ID overrides severity; the untouched severity action remains the fallback.",
+        "ja": "pairがID、IDがseverityを上書きし、未変更severity actionはfallbackとなる。"
+      },
+      "limitations": {
+        "en": "Selected conditions only, with exact generic output anchors. No default UVM text layout, unused severity membership, other configuration combinations, arbitrary custom implementation or exhaustive clause coverage is certified.",
+        "ja": "選択条件だけを正確な汎用出力anchorで確認する。UVM既定文面、未使用severityの所属、他の設定組合せ、任意custom実装、条項の網羅は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_action_specificity_precedence",
+          "role": "direct",
+          "expected_observations": [
+            "UT: pair wins 1",
+            "UT: id wins 1",
+            "UT: severity fallback 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REPORT-AUDIT-FILE-QUERY-DELEGATION",
+      "clause": "6.3.6.1",
+      "statement": {
+        "en": "The public file getter returns the effective file association.",
+        "ja": "公開file getterは有効なfile対応を返す。"
+      },
+      "conditions": {
+        "en": "Use the selected original reporting fixtures and explicit object, severity, ID and action configuration described by their observation anchors.",
+        "ja": "観測anchorに示す独自reporting fixtureと明示したobject、severity、ID、action設定を使う。"
+      },
+      "expected": {
+        "en": "Opened descriptor identities resolve by pair, ID, severity and default without fixed numeric handles.",
+        "ja": "開いたdescriptor同一性をpair、ID、severity、defaultで解決し、数値handleは固定しない。"
+      },
+      "limitations": {
+        "en": "Selected conditions only, with exact generic output anchors. No default UVM text layout, unused severity membership, other configuration combinations, arbitrary custom implementation or exhaustive clause coverage is certified.",
+        "ja": "選択条件だけを正確な汎用出力anchorで確認する。UVM既定文面、未使用severityの所属、他の設定組合せ、任意custom実装、条項の網羅は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_file_selection_specificity_precedence",
+          "role": "direct",
+          "expected_observations": [
+            "UT: default 1 severity 1 id 1 pair 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REPORT-AUDIT-FILE-SETTER-DELEGATION",
+      "clause": "6.3.6.2",
+      "statement": {
+        "en": "All four public file setters configure the handler paths used by real logging.",
+        "ja": "公開file setter 4つは実loggingで使うhandler経路を設定する。"
+      },
+      "conditions": {
+        "en": "Use the selected original reporting fixtures and explicit object, severity, ID and action configuration described by their observation anchors.",
+        "ja": "観測anchorに示す独自reporting fixtureと明示したobject、severity、ID、action設定を使う。"
+      },
+      "expected": {
+        "en": "Four reports reach only their pair, ID, severity or default files, respectively.",
+        "ja": "報告4件はそれぞれpair、ID、severity、defaultのfileだけに到達する。"
+      },
+      "limitations": {
+        "en": "Real file descriptors, handler selection and LOG execution are observed with an original formatter. No default layout, multi-channel descriptors, console routing or descriptor ownership rule is inferred.",
+        "ja": "独自formatterで実file descriptor、handler選択、LOG実行を観測する。既定文面、multi-channel descriptor、console経路、descriptor所有規則は推論しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_log_routing_executes_pair_id_severity_and_default_file_selection",
+          "role": "direct",
+          "expected_observations": [
+            "UT: routed_file 0 payloads 1/0/0/0",
+            "UT: routed_file 1 payloads 0/1/0/0",
+            "UT: routed_file 2 payloads 0/0/1/0",
+            "UT: routed_file 3 payloads 0/0/0/1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REPORT-AUDIT-SEVERITY-OVERRIDE-WRAPPERS",
+      "clause": "6.3.7",
+      "statement": {
+        "en": "Public severity override wrappers affect selected reports and preserve more specific ID selection.",
+        "ja": "公開severity override wrapperは選択報告を変更し、具体的なID選択を保持する。"
+      },
+      "conditions": {
+        "en": "Use the selected original reporting fixtures and explicit object, severity, ID and action configuration described by their observation anchors.",
+        "ja": "観測anchorに示す独自reporting fixtureと明示したobject、severity、ID、action設定を使う。"
+      },
+      "expected": {
+        "en": "An ID-scoped promotion leaves a peer unchanged, replacement takes effect, and a pair override takes priority over the general override.",
+        "ja": "ID限定の昇格はpeerを変更せず、置換が反映され、pair overrideはgeneral overrideより優先される。"
+      },
+      "limitations": {
+        "en": "Selected conditions only, with exact generic output anchors. No default UVM text layout, unused severity membership, other configuration combinations, arbitrary custom implementation or exhaustive clause coverage is certified.",
+        "ja": "選択条件だけを正確な汎用出力anchorで確認する。UVM既定文面、未使用severityの所属、他の設定組合せ、任意custom実装、条項の網羅は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_severity_override_is_id_scoped_and_replaceable",
+          "role": "direct",
+          "expected_observations": [
+            "UT: scoped info 1 warning 1",
+            "UT: replaced info 2 warning 1"
+          ]
+        },
+        {
+          "test": "u06/test_report_pair_severity_override_supersedes_general",
+          "role": "direct",
+          "expected_observations": [
+            "UT: deltas info 1 warning 1 error 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REPORT-AUDIT-MESSAGE-PIPELINE-HANDLE",
+      "clause": "6.2",
+      "statement": {
+        "en": "The same preformed message is retained at the selected server formatting and execution stages.",
+        "ja": "同じ事前生成messageを選択serverのformatting／execution段階で保持する。"
+      },
+      "conditions": {
+        "en": "Use the selected original reporting fixtures and explicit object, severity, ID and action configuration described by their observation anchors.",
+        "ja": "観測anchorに示す独自reporting fixtureと明示したobject、severity、ID、action設定を使う。"
+      },
+      "expected": {
+        "en": "Both hooks receive the exact original message and the selected payload reaches execution.",
+        "ja": "両hookは元の正確なmessageを受け、選択payloadがexecutionへ到達する。"
+      },
+      "limitations": {
+        "en": "Selected server stages only; additional message elements, their print/record behavior and all reporting stages remain partial. The original formatter is setup.",
+        "ja": "選択server段階だけ。追加message要素、そのprint／record動作、全reporting段階は部分対応に残す。独自formatterは準備とする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_server_pipeline_orders_catching_composition_and_execution_by_action",
+          "role": "direct",
+          "expected_observations": [
+            "UT: formatted display exact 1/1 text 1 default_name 1",
+            "UT: formatted log exact 1/1 text 1 default_name 1",
+            "UT: formatted both exact 1/1 text 1 default_name 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REPORT-AUDIT-HANDLER-STORED-CONFIG-ROUTING",
+      "clause": "6.4",
+      "statement": {
+        "en": "The handler retains file configuration and delegates actual reports to the selected server.",
+        "ja": "handlerはfile設定を保持し、実報告を選択serverへ委譲する。"
+      },
+      "conditions": {
+        "en": "Use the selected original reporting fixtures and explicit object, severity, ID and action configuration described by their observation anchors.",
+        "ja": "観測anchorに示す独自reporting fixtureと明示したobject、severity、ID、action設定を使う。"
+      },
+      "expected": {
+        "en": "The public reporter path logs each of four uniquely marked payloads only to its configured effective file.",
+        "ja": "公開reporter経路は固有markerのpayload 4件を設定された有効fileだけへ記録する。"
+      },
+      "limitations": {
+        "en": "Selected conditions only, with exact generic output anchors. No default UVM text layout, unused severity membership, other configuration combinations, arbitrary custom implementation or exhaustive clause coverage is certified.",
+        "ja": "選択条件だけを正確な汎用出力anchorで確認する。UVM既定文面、未使用severityの所属、他の設定組合せ、任意custom実装、条項の網羅は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_log_routing_executes_pair_id_severity_and_default_file_selection",
+          "role": "direct",
+          "expected_observations": [
+            "UT: routed_file 0 payloads 1/0/0/0",
+            "UT: routed_file 1 payloads 0/1/0/0",
+            "UT: routed_file 2 payloads 0/0/1/0",
+            "UT: routed_file 3 payloads 0/0/0/1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REPORT-AUDIT-PIPELINE-CAUGHT-STOP",
+      "clause": "6.5.1.2.14",
+      "statement": {
+        "en": "A caught report stops before composition and execution.",
+        "ja": "CAUGHTの報告はcomposition／execution前で停止する。"
+      },
+      "conditions": {
+        "en": "Call the currently selected original default-server subtype with a configured preformed message; the catcher returns CAUGHT only for the selected stop case.",
+        "ja": "設定済み事前生成messageで現在選択した独自default-server subtypeを呼び、catcherは選択停止条件だけCAUGHTを返す。"
+      },
+      "expected": {
+        "en": "The selected trace is C, CFX or CX with the corresponding zero/one hook counts.",
+        "ja": "選択traceは対応するhook回数0／1とともにC、CFXまたはCXとなる。"
+      },
+      "limitations": {
+        "en": "Original compose/execute hooks observe framework order without defining default formatting or performing their own library action behavior. No value is assumed for the execute string when compose is skipped.",
+        "ja": "独自compose／execute hookでframework順序を観測し、既定文面やlibrary action動作自体は規定しない。composeを省略したexecute文字列の値は仮定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_server_pipeline_orders_catching_composition_and_execution_by_action",
+          "role": "direct",
+          "expected_observations": [
+            "UT: pipeline caught trace C format 0 execute 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REPORT-AUDIT-PIPELINE-DISPLAY-COMPOSE",
+      "clause": "6.5.1.2.14",
+      "statement": {
+        "en": "A DISPLAY action composes then executes after the catcher.",
+        "ja": "DISPLAY actionはcatcher後にcomposeしてexecuteする。"
+      },
+      "conditions": {
+        "en": "Call the currently selected original default-server subtype with a configured preformed message; the catcher returns CAUGHT only for the selected stop case.",
+        "ja": "設定済み事前生成messageで現在選択した独自default-server subtypeを呼び、catcherは選択停止条件だけCAUGHTを返す。"
+      },
+      "expected": {
+        "en": "The selected trace is C, CFX or CX with the corresponding zero/one hook counts.",
+        "ja": "選択traceは対応するhook回数0／1とともにC、CFXまたはCXとなる。"
+      },
+      "limitations": {
+        "en": "Original compose/execute hooks observe framework order without defining default formatting or performing their own library action behavior. No value is assumed for the execute string when compose is skipped.",
+        "ja": "独自compose／execute hookでframework順序を観測し、既定文面やlibrary action動作自体は規定しない。composeを省略したexecute文字列の値は仮定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_server_pipeline_orders_catching_composition_and_execution_by_action",
+          "role": "direct",
+          "expected_observations": [
+            "UT: pipeline display trace CFX format 1 execute 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REPORT-AUDIT-PIPELINE-LOG-COMPOSE",
+      "clause": "6.5.1.2.14",
+      "statement": {
+        "en": "A LOG action composes then executes after the catcher.",
+        "ja": "LOG actionはcatcher後にcomposeしてexecuteする。"
+      },
+      "conditions": {
+        "en": "Call the currently selected original default-server subtype with a configured preformed message; the catcher returns CAUGHT only for the selected stop case.",
+        "ja": "設定済み事前生成messageで現在選択した独自default-server subtypeを呼び、catcherは選択停止条件だけCAUGHTを返す。"
+      },
+      "expected": {
+        "en": "The selected trace is C, CFX or CX with the corresponding zero/one hook counts.",
+        "ja": "選択traceは対応するhook回数0／1とともにC、CFXまたはCXとなる。"
+      },
+      "limitations": {
+        "en": "Original compose/execute hooks observe framework order without defining default formatting or performing their own library action behavior. No value is assumed for the execute string when compose is skipped.",
+        "ja": "独自compose／execute hookでframework順序を観測し、既定文面やlibrary action動作自体は規定しない。composeを省略したexecute文字列の値は仮定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_server_pipeline_orders_catching_composition_and_execution_by_action",
+          "role": "direct",
+          "expected_observations": [
+            "UT: pipeline log trace CFX format 1 execute 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REPORT-AUDIT-PIPELINE-BOTH-COMPOSE-ONCE",
+      "clause": "6.5.1.2.14",
+      "statement": {
+        "en": "Combined DISPLAY and LOG composes once before executing once.",
+        "ja": "DISPLAYとLOGの併用はcompose 1回後にexecute 1回を行う。"
+      },
+      "conditions": {
+        "en": "Call the currently selected original default-server subtype with a configured preformed message; the catcher returns CAUGHT only for the selected stop case.",
+        "ja": "設定済み事前生成messageで現在選択した独自default-server subtypeを呼び、catcherは選択停止条件だけCAUGHTを返す。"
+      },
+      "expected": {
+        "en": "The selected trace is C, CFX or CX with the corresponding zero/one hook counts.",
+        "ja": "選択traceは対応するhook回数0／1とともにC、CFXまたはCXとなる。"
+      },
+      "limitations": {
+        "en": "Original compose/execute hooks observe framework order without defining default formatting or performing their own library action behavior. No value is assumed for the execute string when compose is skipped.",
+        "ja": "独自compose／execute hookでframework順序を観測し、既定文面やlibrary action動作自体は規定しない。composeを省略したexecute文字列の値は仮定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_server_pipeline_orders_catching_composition_and_execution_by_action",
+          "role": "direct",
+          "expected_observations": [
+            "UT: pipeline both trace CFX format 1 execute 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REPORT-AUDIT-PIPELINE-NONFORMAT-EXECUTE",
+      "clause": "6.5.1.2.14",
+      "statement": {
+        "en": "A nonformatting nonzero action skips composition and still executes after catching.",
+        "ja": "format不要の非0 actionはcomposeを省略しcatcher後にexecuteする。"
+      },
+      "conditions": {
+        "en": "Call the currently selected original default-server subtype with a configured preformed message; the catcher returns CAUGHT only for the selected stop case.",
+        "ja": "設定済み事前生成messageで現在選択した独自default-server subtypeを呼び、catcherは選択停止条件だけCAUGHTを返す。"
+      },
+      "expected": {
+        "en": "The selected trace is C, CFX or CX with the corresponding zero/one hook counts.",
+        "ja": "選択traceは対応するhook回数0／1とともにC、CFXまたはCXとなる。"
+      },
+      "limitations": {
+        "en": "Original compose/execute hooks observe framework order without defining default formatting or performing their own library action behavior. No value is assumed for the execute string when compose is skipped.",
+        "ja": "独自compose／execute hookでframework順序を観測し、既定文面やlibrary action動作自体は規定しない。composeを省略したexecute文字列の値は仮定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_server_pipeline_orders_catching_composition_and_execution_by_action",
+          "role": "direct",
+          "expected_observations": [
+            "UT: pipeline count trace CX format 0 execute 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REPORT-AUDIT-COMPOSE-DEFAULT-NAME-SIGNATURE",
+      "clause": "6.5.1.2.15",
+      "statement": {
+        "en": "The compose virtual interface supplies the omitted empty object-name override.",
+        "ja": "composeのvirtual interfaceは省略したobject名overrideとして空文字列を渡す。"
+      },
+      "conditions": {
+        "en": "Use the selected original reporting fixtures and explicit object, severity, ID and action configuration described by their observation anchors.",
+        "ja": "観測anchorに示す独自reporting fixtureと明示したobject、severity、ID、action設定を使う。"
+      },
+      "expected": {
+        "en": "The original override receives the exact message and an empty name for formatted pipeline calls.",
+        "ja": "formatするpipeline呼出しで独自overrideは正確なmessageと空名を受ける。"
+      },
+      "limitations": {
+        "en": "Selected conditions only, with exact generic output anchors. No default UVM text layout, unused severity membership, other configuration combinations, arbitrary custom implementation or exhaustive clause coverage is certified.",
+        "ja": "選択条件だけを正確な汎用出力anchorで確認する。UVM既定文面、未使用severityの所属、他の設定組合せ、任意custom実装、条項の網羅は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_server_pipeline_orders_catching_composition_and_execution_by_action",
+          "role": "direct",
+          "expected_observations": [
+            "UT: formatted display exact 1/1 text 1 default_name 1",
+            "UT: formatted log exact 1/1 text 1 default_name 1",
+            "UT: formatted both exact 1/1 text 1 default_name 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REPORT-AUDIT-COMPOSE-EXPLICIT-NAME-SIGNATURE",
+      "clause": "6.5.1.2.15",
+      "statement": {
+        "en": "A compose call through the exact server base passes the explicit object-name override.",
+        "ja": "exact server base経由のcompose呼出しは明示object名overrideを渡す。"
+      },
+      "conditions": {
+        "en": "Use the selected original reporting fixtures and explicit object, severity, ID and action configuration described by their observation anchors.",
+        "ja": "観測anchorに示す独自reporting fixtureと明示したobject、severity、ID、action設定を使う。"
+      },
+      "expected": {
+        "en": "The selected override receives chosen and the original message and returns its original formatted payload.",
+        "ja": "選択overrideはchosenと元messageを受け、独自にformatしたpayloadを返す。"
+      },
+      "limitations": {
+        "en": "A legal virtual-signature and argument-forwarding control; the custom formatter algorithm is setup. It does not certify the default server name substitution, whole default text or arbitrary formatters.",
+        "ja": "合法なvirtual signature／引数転送のcontrolであり、custom formatter algorithmは準備とする。既定serverの名置換、既定文面全体、任意formatterは認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_server_pipeline_orders_catching_composition_and_execution_by_action",
+          "role": "direct",
+          "expected_observations": [
+            "UT: explicit_composition name 1 exact 1 text 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REPORT-AUDIT-EXECUTE-FORMATTED-ARGUMENT",
+      "clause": "6.5.1.2.16",
+      "statement": {
+        "en": "The composed message is passed to the selected execution hook with the exact report object.",
+        "ja": "composeしたmessageを正確なreport objectとともに選択execution hookへ渡す。"
+      },
+      "conditions": {
+        "en": "Use the selected original reporting fixtures and explicit object, severity, ID and action configuration described by their observation anchors.",
+        "ja": "観測anchorに示す独自reporting fixtureと明示したobject、severity、ID、action設定を使う。"
+      },
+      "expected": {
+        "en": "The original execution override receives the string returned by compose for LOG, DISPLAY and their combination.",
+        "ja": "LOG、DISPLAY、併用のそれぞれで、独自execution overrideはcomposeが返した文字列を受ける。"
+      },
+      "limitations": {
+        "en": "Selected conditions only, with exact generic output anchors. No default UVM text layout, unused severity membership, other configuration combinations, arbitrary custom implementation or exhaustive clause coverage is certified.",
+        "ja": "選択条件だけを正確な汎用出力anchorで確認する。UVM既定文面、未使用severityの所属、他の設定組合せ、任意custom実装、条項の網羅は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_server_pipeline_orders_catching_composition_and_execution_by_action",
+          "role": "direct",
+          "expected_observations": [
+            "UT: formatted display exact 1/1 text 1 default_name 1",
+            "UT: formatted log exact 1/1 text 1 default_name 1",
+            "UT: formatted both exact 1/1 text 1 default_name 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REPORT-AUDIT-EXECUTE-ACTUAL-FILE-LOG",
+      "clause": "6.5.1.2.16",
+      "statement": {
+        "en": "LOG execution writes the composed payload to the selected report file.",
+        "ja": "LOG実行はcomposeしたpayloadを選択report fileへ書き込む。"
+      },
+      "conditions": {
+        "en": "Use the selected original reporting fixtures and explicit object, severity, ID and action configuration described by their observation anchors.",
+        "ja": "観測anchorに示す独自reporting fixtureと明示したobject、severity、ID、action設定を使う。"
+      },
+      "expected": {
+        "en": "Each of four actual files contains only its uniquely selected payload once.",
+        "ja": "実file 4つはそれぞれ選択された固有payloadだけを1回含む。"
+      },
+      "limitations": {
+        "en": "Selected conditions only, with exact generic output anchors. No default UVM text layout, unused severity membership, other configuration combinations, arbitrary custom implementation or exhaustive clause coverage is certified.",
+        "ja": "選択条件だけを正確な汎用出力anchorで確認する。UVM既定文面、未使用severityの所属、他の設定組合せ、任意custom実装、条項の網羅は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_log_routing_executes_pair_id_severity_and_default_file_selection",
+          "role": "direct",
+          "expected_observations": [
+            "UT: routed_file 0 payloads 1/0/0/0",
+            "UT: routed_file 1 payloads 0/1/0/0",
+            "UT: routed_file 2 payloads 0/0/1/0",
+            "UT: routed_file 3 payloads 0/0/0/1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REPORT-AUDIT-DATABASE-GET",
+      "clause": "6.5.1.2.11",
+      "statement": {
+        "en": "The message database getter returns the configured database handle.",
+        "ja": "message database getterは設定されたdatabase handleを返す。"
+      },
+      "conditions": {
+        "en": "Use the selected original reporting fixtures and explicit object, severity, ID and action configuration described by their observation anchors.",
+        "ja": "観測anchorに示す独自reporting fixtureと明示したobject、severity、ID、action設定を使う。"
+      },
+      "expected": {
+        "en": "Exact handles round-trip, replacement is visible, and clearing one server leaves its peer intact.",
+        "ja": "exact handleを往復保持し、置換が反映され、1 serverのclearはpeerを変更しない。"
+      },
+      "limitations": {
+        "en": "Explicitly set handle state only; original databases are identity tokens and no backend is opened. Initial null state, automatic recording and record contents are not inferred.",
+        "ja": "明示設定したhandle状態だけ。独自databaseは同一性のtokenでbackendは開かない。初期null状態、自動記録、記録内容は推論しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_server_message_database_replacement_and_clear_are_local",
+          "role": "direct",
+          "expected_observations": [
+            "UT: databases exact 1/1",
+            "UT: database_replaced selected 1 peer 1",
+            "UT: database_clear selected 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REPORT-AUDIT-DATABASE-SET-REPLACE-CLEAR",
+      "clause": "6.5.1.2.12",
+      "statement": {
+        "en": "Message database replacement and null clearing affect only the selected server.",
+        "ja": "message databaseの置換とnull clearは選択serverだけを変更する。"
+      },
+      "conditions": {
+        "en": "Use the selected original reporting fixtures and explicit object, severity, ID and action configuration described by their observation anchors.",
+        "ja": "観測anchorに示す独自reporting fixtureと明示したobject、severity、ID、action設定を使う。"
+      },
+      "expected": {
+        "en": "Exact handles round-trip, replacement is visible, and clearing one server leaves its peer intact.",
+        "ja": "exact handleを往復保持し、置換が反映され、1 serverのclearはpeerを変更しない。"
+      },
+      "limitations": {
+        "en": "Explicitly set handle state only; original databases are identity tokens and no backend is opened. Initial null state, automatic recording and record contents are not inferred.",
+        "ja": "明示設定したhandle状態だけ。独自databaseは同一性のtokenでbackendは開かない。初期null状態、自動記録、記録内容は推論しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_server_message_database_replacement_and_clear_are_local",
+          "role": "direct",
+          "expected_observations": [
+            "UT: databases exact 1/1",
+            "UT: database_replaced selected 1 peer 1",
+            "UT: database_clear selected 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REPORT-AUDIT-USED-SEVERITY-SET-OUTPUT",
+      "clause": "6.5.1.2.10",
+      "statement": {
+        "en": "The severity-set output lists each exercised standard severity without retaining caller queue contents.",
+        "ja": "severity-set出力は使用した標準severityを列挙し、caller queueの元内容は保持しない。"
+      },
+      "conditions": {
+        "en": "Use the selected original reporting fixtures and explicit object, severity, ID and action configuration described by their observation anchors.",
+        "ja": "観測anchorに示す独自reporting fixtureと明示したobject、severity、ID、action設定を使う。"
+      },
+      "expected": {
+        "en": "After all four severities and one repeated info report, each appears once with no stale value; requery returns four after the caller deletes its copy.",
+        "ja": "標準4 severityとinfo再報告後に各severityが1回現れ古い値はなく、callerがcopyを削除した後の再照会も4件を返す。"
+      },
+      "limitations": {
+        "en": "All-four-used condition only, with counts observed as traffic deltas. Initial unused membership and a strict subset of used severities remain unassessed; preallocated zero counters are not treated as issued reports.",
+        "ja": "4つとも使用した条件だけで、counterはtraffic差分として観測する。初期未使用所属と使用severity部分集合の条件は未評価に残し、事前割当zero counterを発行報告とは扱わない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_server_used_severity_set_replaces_caller_queue_without_order_assumptions",
+          "role": "direct",
+          "expected_observations": [
+            "UT: severity_set size 4 members 1/1/1/1 stale 0",
+            "UT: severity_requery size 4 counts 2/1/1/1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REPORT-AUDIT-GLOBAL-GETTER-DELEGATION",
+      "clause": "6.5.1.2.18",
+      "statement": {
+        "en": "The report-server getter returns the same selected global instance as the core service.",
+        "ja": "report-server getterはcore serviceと同じ選択global instanceを返す。"
+      },
+      "conditions": {
+        "en": "Use the selected original reporting fixtures and explicit object, severity, ID and action configuration described by their observation anchors.",
+        "ja": "観測anchorに示す独自reporting fixtureと明示したobject、severity、ID、action設定を使う。"
+      },
+      "expected": {
+        "en": "The static getter and core agree after replacement and the saved server is restored exactly.",
+        "ja": "置換後にstatic getterとcoreが一致し、保存serverを正確に復元する。"
+      },
+      "limitations": {
+        "en": "Selected conditions only, with exact generic output anchors. No default UVM text layout, unused severity membership, other configuration combinations, arbitrary custom implementation or exhaustive clause coverage is certified.",
+        "ja": "選択条件だけを正確な汎用出力anchorで確認する。UVM既定文面、未使用severityの所属、他の設定組合せ、任意custom実装、条項の網羅は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_server_global_wrappers_copy_statistics_and_preserve_destination_only_ids",
+          "role": "direct",
+          "expected_observations": [
+            "UT: global_selected wrapper 1 core 1 severity 7/5 ids 2/1/3",
+            "UT: global_restored 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REPORT-AUDIT-GLOBAL-SET-COUNTS",
+      "clause": "6.5.1.2.19",
+      "statement": {
+        "en": "Replacing the global server copies existing severity and ID statistics to its destination.",
+        "ja": "global serverの交換は既存severity／ID統計を交換先へcopyする。"
+      },
+      "conditions": {
+        "en": "Prime three actual default servers under temporarily selected global setup, with disjoint/overlapping IDs and explicitly set severity counters; use the public wrapper for both measured replacements.",
+        "ja": "一時的なglobal選択で実default server 3つに固有／重複IDと明示severity counterを準備し、測定する2回の交換は公開wrapperを使う。"
+      },
+      "expected": {
+        "en": "Selected severity/ID values match the current server snapshot; destination-only IDs remain and later source changes do not change the copied destination.",
+        "ja": "選択severity／ID値は現server snapshotに一致し、交換先固有IDを保持し、後の元server変更はcopy先へ伝播しない。"
+      },
+      "limitations": {
+        "en": "Selected conditions only, with exact generic output anchors. No default UVM text layout, unused severity membership, other configuration combinations, arbitrary custom implementation or exhaustive clause coverage is certified.",
+        "ja": "選択条件だけを正確な汎用出力anchorで確認する。UVM既定文面、未使用severityの所属、他の設定組合せ、任意custom実装、条項の網羅は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_server_global_wrappers_copy_statistics_and_preserve_destination_only_ids",
+          "role": "direct",
+          "expected_observations": [
+            "UT: global_selected wrapper 1 core 1 severity 7/5 ids 2/1/3"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REPORT-AUDIT-GLOBAL-SET-CUMULATIVE-IDS",
+      "clause": "6.5.1.2.19",
+      "statement": {
+        "en": "Global server replacement preserves destination-only IDs and overwrites overlapping counts from the current server.",
+        "ja": "global server交換は交換先固有IDを保持し、重複counterを現serverの値で上書きする。"
+      },
+      "conditions": {
+        "en": "Prime three actual default servers under temporarily selected global setup, with disjoint/overlapping IDs and explicitly set severity counters; use the public wrapper for both measured replacements.",
+        "ja": "一時的なglobal選択で実default server 3つに固有／重複IDと明示severity counterを準備し、測定する2回の交換は公開wrapperを使う。"
+      },
+      "expected": {
+        "en": "Selected severity/ID values match the current server snapshot; destination-only IDs remain and later source changes do not change the copied destination.",
+        "ja": "選択severity／ID値は現server snapshotに一致し、交換先固有IDを保持し、後の元server変更はcopy先へ伝播しない。"
+      },
+      "limitations": {
+        "en": "Selected conditions only, with exact generic output anchors. No default UVM text layout, unused severity membership, other configuration combinations, arbitrary custom implementation or exhaustive clause coverage is certified.",
+        "ja": "選択条件だけを正確な汎用出力anchorで確認する。UVM既定文面、未使用severityの所属、他の設定組合せ、任意custom実装、条項の網羅は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_server_global_wrappers_copy_statistics_and_preserve_destination_only_ids",
+          "role": "direct",
+          "expected_observations": [
+            "UT: global_selected wrapper 1 core 1 severity 7/5 ids 2/1/3"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REPORT-AUDIT-GLOBAL-SET-SNAPSHOT",
+      "clause": "6.5.1.2.19",
+      "statement": {
+        "en": "Copied global-server statistics do not alias the previous server counters.",
+        "ja": "copyしたglobal-server統計は以前のserver counterとaliasしない。"
+      },
+      "conditions": {
+        "en": "Prime three actual default servers under temporarily selected global setup, with disjoint/overlapping IDs and explicitly set severity counters; use the public wrapper for both measured replacements.",
+        "ja": "一時的なglobal選択で実default server 3つに固有／重複IDと明示severity counterを準備し、測定する2回の交換は公開wrapperを使う。"
+      },
+      "expected": {
+        "en": "Selected severity/ID values match the current server snapshot; destination-only IDs remain and later source changes do not change the copied destination.",
+        "ja": "選択severity／ID値は現server snapshotに一致し、交換先固有IDを保持し、後の元server変更はcopy先へ伝播しない。"
+      },
+      "limitations": {
+        "en": "Selected conditions only, with exact generic output anchors. No default UVM text layout, unused severity membership, other configuration combinations, arbitrary custom implementation or exhaustive clause coverage is certified.",
+        "ja": "選択条件だけを正確な汎用出力anchorで確認する。UVM既定文面、未使用severityの所属、他の設定組合せ、任意custom実装、条項の網羅は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_server_global_wrappers_copy_statistics_and_preserve_destination_only_ids",
+          "role": "direct",
+          "expected_observations": [
+            "UT: source_retained severity 7 ids 2/1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REPORT-AUDIT-GLOBAL-SET-REPEATED",
+      "clause": "6.5.1.2.19",
+      "statement": {
+        "en": "A second global replacement copies the latest statistics and retains its own destination-only ID.",
+        "ja": "2回目のglobal交換も最新統計をcopyし、自身の交換先固有IDを保持する。"
+      },
+      "conditions": {
+        "en": "Prime three actual default servers under temporarily selected global setup, with disjoint/overlapping IDs and explicitly set severity counters; use the public wrapper for both measured replacements.",
+        "ja": "一時的なglobal選択で実default server 3つに固有／重複IDと明示severity counterを準備し、測定する2回の交換は公開wrapperを使う。"
+      },
+      "expected": {
+        "en": "Selected severity/ID values match the current server snapshot; destination-only IDs remain and later source changes do not change the copied destination.",
+        "ja": "選択severity／ID値は現server snapshotに一致し、交換先固有IDを保持し、後の元server変更はcopy先へ伝播しない。"
+      },
+      "limitations": {
+        "en": "Selected conditions only, with exact generic output anchors. No default UVM text layout, unused severity membership, other configuration combinations, arbitrary custom implementation or exhaustive clause coverage is certified.",
+        "ja": "選択条件だけを正確な汎用出力anchorで確認する。UVM既定文面、未使用severityの所属、他の設定組合せ、任意custom実装、条項の網羅は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_server_global_wrappers_copy_statistics_and_preserve_destination_only_ids",
+          "role": "direct",
+          "expected_observations": [
+            "UT: global_repeated exact 1 severity 8 ids 2/1/3/1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REPORT-AUDIT-MAX-QUIT-GET",
+      "clause": "6.5.1.2.2",
+      "statement": {
+        "en": "The maximum-quit getter returns the currently configured count.",
+        "ja": "maximum-quit getterは現在の設定回数を返す。"
+      },
+      "conditions": {
+        "en": "Use the selected original reporting fixtures and explicit object, severity, ID and action configuration described by their observation anchors.",
+        "ja": "観測anchorに示す独自reporting fixtureと明示したobject、severity、ID、action設定を使う。"
+      },
+      "expected": {
+        "en": "Queries reflect maximum updates, independent current-count updates and reset to zero.",
+        "ja": "照会はmaximum更新、独立current-count更新、0へのresetを反映する。"
+      },
+      "limitations": {
+        "en": "Selected conditions only, with exact generic output anchors. No default UVM text layout, unused severity membership, other configuration combinations, arbitrary custom implementation or exhaustive clause coverage is certified.",
+        "ja": "選択条件だけを正確な汎用出力anchorで確認する。UVM既定文面、未使用severityの所属、他の設定組合せ、任意custom実装、条項の網羅は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_server_overridable_limit_and_count_reset",
+          "role": "direct",
+          "expected_observations": [
+            "UT: changed maximum 8 current 6",
+            "UT: disabled maximum 0 current 6",
+            "UT: reset current 0"
+          ]
+        },
+        {
+          "test": "u06/test_report_server_nonoverridable_quit_limit",
+          "role": "direct",
+          "expected_observations": [
+            "UT: maximum 5 current 3",
+            "UT: retained maximum 5 changed current 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REPORT-AUDIT-QUIT-COUNT-GET",
+      "clause": "6.5.1.2.4",
+      "statement": {
+        "en": "The quit-count getter returns the current explicitly set count independently of the limit.",
+        "ja": "quit-count getterはlimitとは独立した現在の明示設定回数を返す。"
+      },
+      "conditions": {
+        "en": "Use the selected original reporting fixtures and explicit object, severity, ID and action configuration described by their observation anchors.",
+        "ja": "観測anchorに示す独自reporting fixtureと明示したobject、severity、ID、action設定を使う。"
+      },
+      "expected": {
+        "en": "Queries reflect maximum updates, independent current-count updates and reset to zero.",
+        "ja": "照会はmaximum更新、独立current-count更新、0へのresetを反映する。"
+      },
+      "limitations": {
+        "en": "Selected conditions only, with exact generic output anchors. No default UVM text layout, unused severity membership, other configuration combinations, arbitrary custom implementation or exhaustive clause coverage is certified.",
+        "ja": "選択条件だけを正確な汎用出力anchorで確認する。UVM既定文面、未使用severityの所属、他の設定組合せ、任意custom実装、条項の網羅は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_server_overridable_limit_and_count_reset",
+          "role": "direct",
+          "expected_observations": [
+            "UT: changed maximum 8 current 6",
+            "UT: disabled maximum 0 current 6",
+            "UT: reset current 0"
+          ]
+        },
+        {
+          "test": "u06/test_report_server_nonoverridable_quit_limit",
+          "role": "direct",
+          "expected_observations": [
+            "UT: maximum 5 current 3",
+            "UT: retained maximum 5 changed current 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REPORT-AUDIT-BASE-SERVER-CONSTRUCTOR",
+      "clause": "6.5.1.2.1",
+      "statement": {
+        "en": "The report-server base constructor has default base and preserves explicit/empty names.",
+        "ja": "report-server base constructorの既定名はbaseで、明示名／空名を保持する。"
+      },
+      "conditions": {
+        "en": "Use the selected original reporting fixtures and explicit object, severity, ID and action configuration described by their observation anchors.",
+        "ja": "観測anchorに示す独自reporting fixtureと明示したobject、severity、ID、action設定を使う。"
+      },
+      "expected": {
+        "en": "A concrete subtype without a constructor exposes base; another subtype forwards selected and empty names with the exact object/server base.",
+        "ja": "constructorのない具象subtypeはbaseを持ち、別subtypeはselectedと空名を転送してexact object／server baseを保持する。"
+      },
+      "limitations": {
+        "en": "Original complete pure-method signatures are setup and their stubs are not a report-server behavior oracle. Other constructors and complete pure-interface fulfillment remain separate.",
+        "ja": "独自の完全なpure-method signatureは準備でありstubはreport-server動作のoracleではない。他constructorとpure interface充足の全体は別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_server_concrete_constructor_exposes_base_names_and_summary_argument_defaults",
+          "role": "direct",
+          "expected_observations": [
+            "UT: server_names default 1 named 1 empty 1 base 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REPORT-AUDIT-BASE-ABSTRACT-DECLARATION",
+      "clause": "6.5.1.1",
+      "statement": {
+        "en": "The declared virtual report server cannot be directly constructed.",
+        "ja": "virtualと宣言されたreport serverは直接生成できない。"
+      },
+      "conditions": {
+        "en": "Use the selected original reporting fixtures and explicit object, severity, ID and action configuration described by their observation anchors.",
+        "ja": "観測anchorに示す独自reporting fixtureと明示したobject、severity、ID、action設定を使う。"
+      },
+      "expected": {
+        "en": "Compilation rejects direct new with the targeted virtual/abstract class error; no runtime seed executes.",
+        "ja": "対象virtual／abstract class errorで直接newのcompileを拒否し、runtime seedは実行しない。"
+      },
+      "limitations": {
+        "en": "One direct-construction condition, paired with an independently legal concrete constructor. All pure-method omissions and the full default implementation remain separate obligations.",
+        "ja": "独立した合法具象constructorを対にした直接生成1条件だけ。全pure-method欠落と既定実装全体は別の義務に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_server_abstract_declaration_rejects_direct_construction",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?i)^(?=.*test_report_server_abstract_declaration_rejects_direct_construction\\.sv:[0-9]+:[0-9]+:)(?=.*\\b(?:virtual|abstract)\\b)(?=.*\\buvm_report_server\\b).*error"
+          }
+        },
+        {
+          "test": "u06/test_report_server_concrete_constructor_exposes_base_names_and_summary_argument_defaults",
+          "role": "control",
+          "expected_observations": [
+            "UT: server_names default 1 named 1 empty 1 base 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REPORT-AUDIT-DEFAULT-GLOBAL-SERVER",
+      "clause": "6.5.1",
+      "statement": {
+        "en": "Before an explicit replacement, UVM uses the default-report-server implementation as its global report server.",
+        "ja": "明示的な置換前は、UVMはdefault-report-server実装をglobal report serverとして使う。"
+      },
+      "conditions": {
+        "en": "Retrieve the global server in a fresh fixture before selecting any replacement and require its exact default-server base type.",
+        "ja": "新しいfixtureで交換先を選ぶ前にglobal serverを取得し、正確なdefault-server base型を要求する。"
+      },
+      "expected": {
+        "en": "The current global handle casts to uvm_default_report_server and preserves the same object identity.",
+        "ja": "現在のglobal handleをuvm_default_report_serverへcastでき、同じobject同一性を保持する。"
+      },
+      "limitations": {
+        "en": "Default implementation selection only. Abstract construction is a separate declaration requirement; this does not duplicate that prohibition or certify every default-server method.",
+        "ja": "既定実装の選択だけ。抽象生成は別の宣言要求であり、その禁止を重複計上せず、全default-server methodも認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_server_summary_writes_the_selected_file_without_a_fixed_text_format",
+          "role": "direct",
+          "expected_observations": [
+            "UT: default_server_type exact 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REPORT-AUDIT-SUMMARY-DEFAULT-FILE-SIGNATURE",
+      "clause": "6.5.1.2.17",
+      "statement": {
+        "en": "The summary virtual interface uses UVM_STDOUT when the file argument is omitted.",
+        "ja": "summary virtual interfaceはfile引数の省略時にUVM_STDOUTを使う。"
+      },
+      "conditions": {
+        "en": "Use the selected original reporting fixtures and explicit object, severity, ID and action configuration described by their observation anchors.",
+        "ja": "観測anchorに示す独自reporting fixtureと明示したobject、severity、ID、action設定を使う。"
+      },
+      "expected": {
+        "en": "An original legal override receives UVM_STDOUT on an omitted argument and the exact explicit token on the second call.",
+        "ja": "合法な独自overrideは引数省略でUVM_STDOUT、2回目の呼出しで明示tokenを受ける。"
+      },
+      "limitations": {
+        "en": "Argument-default/signature control only; the original override records a token and does not perform I/O. Actual summary output is checked separately without a fixed layout.",
+        "ja": "引数既定値／signatureのcontrolのみ。独自overrideはtokenを記録するだけでI/Oを行わない。実summary出力は既定文面を固定せず別に確認する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_server_concrete_constructor_exposes_base_names_and_summary_argument_defaults",
+          "role": "direct",
+          "expected_observations": [
+            "UT: summary_default 1",
+            "UT: summary_explicit 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REPORT-AUDIT-SUMMARY-ACTUAL-DESTINATION",
+      "clause": "6.5.1.2.17",
+      "statement": {
+        "en": "The selected default report server emits summary output to the explicit file.",
+        "ja": "選択された既定report serverは明示fileへsummaryを出力する。"
+      },
+      "conditions": {
+        "en": "Use the selected original reporting fixtures and explicit object, severity, ID and action configuration described by their observation anchors.",
+        "ja": "観測anchorに示す独自reporting fixtureと明示したobject、severity、ID、action設定を使う。"
+      },
+      "expected": {
+        "en": "After actual reports, the supplied file has output while an independent peer file stays empty.",
+        "ja": "実報告後に指定fileへ出力があり、独立peer fileは空のままとなる。"
+      },
+      "limitations": {
+        "en": "Selected destination and existence only, not statistical category completeness, exact formatting, labels, count parsing, stdout capture or every default-server method.",
+        "ja": "選択出力先と出力の存在だけで、統計分類の完全性、正確な文面、label、counter解析、stdout取得、全default-server methodは認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_server_summary_writes_the_selected_file_without_a_fixed_text_format",
+          "role": "direct",
+          "expected_observations": [
+            "UT: summary_destination selected_nonempty 1 peer_empty 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REPORT-AUDIT-DEFAULT-SERVER-SUMMARY",
+      "clause": "6.5.2",
+      "statement": {
+        "en": "The selected default report server emits summary output to the explicit file.",
+        "ja": "選択された既定report serverは明示fileへsummaryを出力する。"
+      },
+      "conditions": {
+        "en": "Use the selected original reporting fixtures and explicit object, severity, ID and action configuration described by their observation anchors.",
+        "ja": "観測anchorに示す独自reporting fixtureと明示したobject、severity、ID、action設定を使う。"
+      },
+      "expected": {
+        "en": "After actual reports, the supplied file has output while an independent peer file stays empty.",
+        "ja": "実報告後に指定fileへ出力があり、独立peer fileは空のままとなる。"
+      },
+      "limitations": {
+        "en": "Selected destination and existence only, not statistical category completeness, exact formatting, labels, count parsing, stdout capture or every default-server method.",
+        "ja": "選択出力先と出力の存在だけで、統計分類の完全性、正確な文面、label、counter解析、stdout取得、全default-server methodは認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_server_summary_writes_the_selected_file_without_a_fixed_text_format",
+          "role": "direct",
+          "expected_observations": [
+            "UT: default_server_type exact 1",
+            "UT: summary_destination selected_nonempty 1 peer_empty 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REPORT-AUDIT-HELPER-WARNING-BYPASS",
+      "clause": "6.6.6.3",
+      "statement": {
+        "en": "The warning helper bypasses both registered catching callbacks.",
+        "ja": "warning helperは登録した両catching callbackを迂回する。"
+      },
+      "conditions": {
+        "en": "Register two original catchers on one reporter, invoke the helper only on the first visit, and configure both severities to DISPLAY; the fatal case requests no EXIT action.",
+        "ja": "1 reporterへ独自catcher 2つを登録し、初回訪問だけhelperを呼び、両severityをDISPLAYに設定する。fatal条件もEXIT actionは要求しない。"
+      },
+      "expected": {
+        "en": "Only the outer report visits issuer/tail; the helper retains exact origin/body, empty filename/context and line zero, and both reports contribute once to counts.",
+        "ja": "issuer／tailを訪問するのはouter報告だけで、helperはexact origin／body、空filename／context、line 0を持ち、両報告が各1回counterへ加わる。"
+      },
+      "limitations": {
+        "en": "Selected helper defaults and bypass only; guard bounds recursion. Explicit source/context, report_enabled_checked=1, helper termination actions, other filters and arbitrary nested reports remain separate.",
+        "ja": "選択helperの既定値と迂回だけ。guardで再帰を制限する。明示source／context、report_enabled_checked=1、helper終了action、他filter、任意nested報告は別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_catcher_warning_helper_preserves_origin_defaults_and_bypasses_both_callbacks",
+          "role": "direct",
+          "expected_observations": [
+            "UT: helper_callbacks issuer 1 tail 1 client 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REPORT-AUDIT-HELPER-WARNING-ORIGIN-DEFAULTS",
+      "clause": "6.6.6.3",
+      "statement": {
+        "en": "The warning helper uses the current reporter with the selected severity and default filename/line/context.",
+        "ja": "warning helperは現在のreporter、選択severity、既定filename／line／contextを使う。"
+      },
+      "conditions": {
+        "en": "Register two original catchers on one reporter, invoke the helper only on the first visit, and configure both severities to DISPLAY; the fatal case requests no EXIT action.",
+        "ja": "1 reporterへ独自catcher 2つを登録し、初回訪問だけhelperを呼び、両severityをDISPLAYに設定する。fatal条件もEXIT actionは要求しない。"
+      },
+      "expected": {
+        "en": "Only the outer report visits issuer/tail; the helper retains exact origin/body, empty filename/context and line zero, and both reports contribute once to counts.",
+        "ja": "issuer／tailを訪問するのはouter報告だけで、helperはexact origin／body、空filename／context、line 0を持ち、両報告が各1回counterへ加わる。"
+      },
+      "limitations": {
+        "en": "Selected helper defaults and bypass only; guard bounds recursion. Explicit source/context, report_enabled_checked=1, helper termination actions, other filters and arbitrary nested reports remain separate.",
+        "ja": "選択helperの既定値と迂回だけ。guardで再帰を制限する。明示source／context、report_enabled_checked=1、helper終了action、他filter、任意nested報告は別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_catcher_warning_helper_preserves_origin_defaults_and_bypasses_both_callbacks",
+          "role": "direct",
+          "expected_observations": [
+            "UT: helper_fields severity 1 origin 1 body 1 file 1 line 1 context 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REPORT-AUDIT-HELPER-WARNING-ACTUAL-ISSUE",
+      "clause": "6.6.6.3",
+      "statement": {
+        "en": "The warning helper actually reaches the server once while the outer report continues.",
+        "ja": "warning helperは実serverへ1回到達し、outer報告も継続する。"
+      },
+      "conditions": {
+        "en": "Register two original catchers on one reporter, invoke the helper only on the first visit, and configure both severities to DISPLAY; the fatal case requests no EXIT action.",
+        "ja": "1 reporterへ独自catcher 2つを登録し、初回訪問だけhelperを呼び、両severityをDISPLAYに設定する。fatal条件もEXIT actionは要求しない。"
+      },
+      "expected": {
+        "en": "Only the outer report visits issuer/tail; the helper retains exact origin/body, empty filename/context and line zero, and both reports contribute once to counts.",
+        "ja": "issuer／tailを訪問するのはouter報告だけで、helperはexact origin／body、空filename／context、line 0を持ち、両報告が各1回counterへ加わる。"
+      },
+      "limitations": {
+        "en": "Selected helper defaults and bypass only; guard bounds recursion. Explicit source/context, report_enabled_checked=1, helper termination actions, other filters and arbitrary nested reports remain separate.",
+        "ja": "選択helperの既定値と迂回だけ。guardで再帰を制限する。明示source／context、report_enabled_checked=1、helper終了action、他filter、任意nested報告は別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_catcher_warning_helper_preserves_origin_defaults_and_bypasses_both_callbacks",
+          "role": "direct",
+          "expected_observations": [
+            "UT: helper_counts selected 1 info 1 helper 1 outer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REPORT-AUDIT-HELPER-FATAL-BYPASS",
+      "clause": "6.6.6.1",
+      "statement": {
+        "en": "The fatal helper bypasses both registered catching callbacks.",
+        "ja": "fatal helperは登録した両catching callbackを迂回する。"
+      },
+      "conditions": {
+        "en": "Register two original catchers on one reporter, invoke the helper only on the first visit, and configure both severities to DISPLAY; the fatal case requests no EXIT action.",
+        "ja": "1 reporterへ独自catcher 2つを登録し、初回訪問だけhelperを呼び、両severityをDISPLAYに設定する。fatal条件もEXIT actionは要求しない。"
+      },
+      "expected": {
+        "en": "Only the outer report visits issuer/tail; the helper retains exact origin/body, empty filename/context and line zero, and both reports contribute once to counts.",
+        "ja": "issuer／tailを訪問するのはouter報告だけで、helperはexact origin／body、空filename／context、line 0を持ち、両報告が各1回counterへ加わる。"
+      },
+      "limitations": {
+        "en": "Selected helper defaults and bypass only; guard bounds recursion. Explicit source/context, report_enabled_checked=1, helper termination actions, other filters and arbitrary nested reports remain separate.",
+        "ja": "選択helperの既定値と迂回だけ。guardで再帰を制限する。明示source／context、report_enabled_checked=1、helper終了action、他filter、任意nested報告は別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_catcher_fatal_helper_preserves_origin_defaults_and_bypasses_both_callbacks",
+          "role": "direct",
+          "expected_observations": [
+            "UT: helper_callbacks issuer 1 tail 1 client 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REPORT-AUDIT-HELPER-FATAL-ORIGIN-DEFAULTS",
+      "clause": "6.6.6.1",
+      "statement": {
+        "en": "The fatal helper uses the current reporter with the selected severity and default filename/line/context.",
+        "ja": "fatal helperは現在のreporter、選択severity、既定filename／line／contextを使う。"
+      },
+      "conditions": {
+        "en": "Register two original catchers on one reporter, invoke the helper only on the first visit, and configure both severities to DISPLAY; the fatal case requests no EXIT action.",
+        "ja": "1 reporterへ独自catcher 2つを登録し、初回訪問だけhelperを呼び、両severityをDISPLAYに設定する。fatal条件もEXIT actionは要求しない。"
+      },
+      "expected": {
+        "en": "Only the outer report visits issuer/tail; the helper retains exact origin/body, empty filename/context and line zero, and both reports contribute once to counts.",
+        "ja": "issuer／tailを訪問するのはouter報告だけで、helperはexact origin／body、空filename／context、line 0を持ち、両報告が各1回counterへ加わる。"
+      },
+      "limitations": {
+        "en": "Selected helper defaults and bypass only; guard bounds recursion. Explicit source/context, report_enabled_checked=1, helper termination actions, other filters and arbitrary nested reports remain separate.",
+        "ja": "選択helperの既定値と迂回だけ。guardで再帰を制限する。明示source／context、report_enabled_checked=1、helper終了action、他filter、任意nested報告は別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_catcher_fatal_helper_preserves_origin_defaults_and_bypasses_both_callbacks",
+          "role": "direct",
+          "expected_observations": [
+            "UT: helper_fields severity 1 origin 1 body 1 file 1 line 1 context 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REPORT-AUDIT-HELPER-FATAL-ACTUAL-ISSUE",
+      "clause": "6.6.6.1",
+      "statement": {
+        "en": "The fatal helper actually reaches the server once while the outer report continues.",
+        "ja": "fatal helperは実serverへ1回到達し、outer報告も継続する。"
+      },
+      "conditions": {
+        "en": "Register two original catchers on one reporter, invoke the helper only on the first visit, and configure both severities to DISPLAY; the fatal case requests no EXIT action.",
+        "ja": "1 reporterへ独自catcher 2つを登録し、初回訪問だけhelperを呼び、両severityをDISPLAYに設定する。fatal条件もEXIT actionは要求しない。"
+      },
+      "expected": {
+        "en": "Only the outer report visits issuer/tail; the helper retains exact origin/body, empty filename/context and line zero, and both reports contribute once to counts.",
+        "ja": "issuer／tailを訪問するのはouter報告だけで、helperはexact origin／body、空filename／context、line 0を持ち、両報告が各1回counterへ加わる。"
+      },
+      "limitations": {
+        "en": "Selected helper defaults and bypass only; guard bounds recursion. Explicit source/context, report_enabled_checked=1, helper termination actions, other filters and arbitrary nested reports remain separate.",
+        "ja": "選択helperの既定値と迂回だけ。guardで再帰を制限する。明示source／context、report_enabled_checked=1、helper終了action、他filter、任意nested報告は別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_catcher_fatal_helper_preserves_origin_defaults_and_bypasses_both_callbacks",
+          "role": "direct",
+          "expected_observations": [
+            "UT: helper_counts selected 1 info 1 helper 1 outer 1"
           ]
         }
       ]

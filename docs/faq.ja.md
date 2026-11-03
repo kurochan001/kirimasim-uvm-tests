@@ -122,7 +122,7 @@ Ghostは公開前のシミュレータの仮名です。実行ファイルの識
 ### Q12. uvm_dpi: yesだけでDPIを使うビルドが完成しますか
 
 既定のマクロ一覧から`UVM_NO_DPI`を外す指定です。UVMのC/C++実装の供給・リンクは行いません。
-通常のVerilator runnerは、そのsourceを追加しません。`UVM_NO_DPI`が1407件、HDL DPIの明示選択が8件です。
+通常のVerilator runnerは、そのsourceを追加しません。`UVM_NO_DPI`が1420件、HDL DPIの明示選択が8件です。
 別の18検査系はHDLを無効にしてcommand-line／regex DPIを明示して有効化し、
 [command-line runner](testing.ja.md#verilatorのcommand-line部分集合)がその別backendをlinkします。
 [別のVPI runner](testing.ja.md#verilatorのvpi-hdl部分集合)は独自の限定backendをlinkし、結果は宣言した実行条件だけに適用します。
@@ -923,8 +923,8 @@ controlの対応は、その要求の直接の検査ではありません。
 
 ### Q77. M4を始めたのに、カバレッジ率がないのはなぜですか
 
-AIによる2121要求案は部分的な分解で、2121要求を1432テストへ直接対応付け、直接未対応は0要求、別の1テストはcontrolです。
-全1433テストに要求の対応付けがあります。2,507の条項番号は規範的要求の単位ではありません。
+AIによる2177要求案は部分的な分解で、2177要求を1445テストへ直接対応付け、直接未対応は0要求、別の1テストはcontrolです。
+全1446テストに要求の対応付けがあります。2,507の条項番号は規範的要求の単位ではありません。
 範囲は提案、棚卸しは未完、分母は未承認で、M4の開始はどれの承認にもなりません。
 既知差分やHDL／DPIの制約によって義務を暗黙に除外しません。[承認までの手順](requirements.ja.md#m4の残作業と承認)を参照してください。
 
@@ -1709,7 +1709,7 @@ user backdoorは16 bit locationをモデル化します。location独立性、�
 
 いいえ。`tests_without_requirement_links`は0で、現在の全テストに、明示的なdirectまたはcontrolの対応があります。
 別の集計`requirements_without_direct_tests`も0件です。memory-walkの対応はQ134の限定した歴史的解釈で、
-省略されたIEEEの詳細の承認ではありません。HDL depositと利用可否には、明示VPI検査系があります。catalogの識別子1,139件も未評価です。
+省略されたIEEEの詳細の承認ではありません。HDL depositと利用可否には、明示VPI検査系があります。catalogの識別子1,098件も未評価です。
 分解と人のレビューは未完で、分母は未承認です。
 
 [新しいpolicyテスト](../tests/u16/test_policy_object_stack_tracks_nested_active_policy_push_and_pop.sv)は、
@@ -1786,7 +1786,7 @@ frontdoor保護のwarningはalgorithm oracleの対象外で、ERRORと観測し�
 個別に読んだ後、日英の根拠とAI／人のレビューを[番号の分類](../coverage/assessments.json)へ記録すれば可能です。
 構造上の見出しは関連要求を持たず、文脈の説明は既存要求を指定します。
 未レビューの記録、推測した分類、親への集約では外せません。生成状態は`assessed`で、要求条項の`partial`と区別します。
-現在の分類は183件で、分母承認や新たなpassを加えません。第11章の未評価0件でも、その要求の完了ではありません。
+現在の分類は191件で、分母承認や新たなpassを加えません。第11章の未評価0件でも、その要求の完了ではありません。
 
 ### Q136. 明示strict configurationで新規検査は成功しますか？
 
@@ -2279,7 +2279,7 @@ bound get／peek portはobject headを消費せずavailabilityを報告し、liv
 ### Q193. 互換なguest部分集合が1084件へ減った理由は？
 
 command 1検査系にenum補助引用を追加し、Verilatorで再測定しました。metadataだけのsource編集でも入力指紋は変わるため、
-古いguest記録は除外します。元の歴史的fileは1085記録のままです。現在の互換範囲は1084件、未測定349入力は追加348件と変更した既存1件です。
+古いguest記録は除外します。元の歴史的fileは1085記録のままです。現在の互換範囲は1084件、未測定362入力は追加361件と変更した既存1件です。
 guest再実行や新たな失敗は主張しません。
 
 ### Q194. predicateの実装が別のvirtual照会へ委譲してもよいですか？
@@ -2313,23 +2313,25 @@ initiatorはERRORを報告しながらentryを保持し、targetは残しませ�
 
 ### Q199. compile拒否を一致に数える理由は？
 
-新規8検査は規格でvirtualと宣言したclassを意図的に直接生成します。必要な結果は、fixtureとclassを示すerrorでの拒否です。
-一致した拒否は実行時seedを伴わない成功したnegative検査であり、simulationの予期しないbuild 43件とは異なります。
+選択した抽象生成9検査は、規格でvirtualと宣言したclassを意図的に直接生成します。必要な結果はfixtureとclassを識別するerrorでの拒否です。
+一致した拒否はruntime seedを伴わない成功したnegative検査であり、simulationの予期しないbuild 43件とは別です。
+pure-method／const参照検査は追加のnegative条件であり、それぞれ宣言oracleに従って判定します。
 
 ### Q200. 台帳schema 2は以前の出力linkを変えますか？
 
-いいえ。以前の2084要求objectは全て保持します。schema 2はcompile stageと正確な宣言regexの診断形式を追加し、runtime期待のない不正elaboration metadataだけに制限します。
-schema 1は出力対応の台帳として引き続き読め、混在／未知fieldや古いpatternは拒否します。検証はcompiler実測結果を読みません。
+いいえ。schema 2は以前の出力link形式を保持し、compile stageと正確な宣言regexの診断形式を追加します。不正elaboration metadataでruntime期待がないことを要求します。
+schema 1も引き続き読め、混在／未知fieldや古いpatternは拒否します。検証はcompiler実測結果を読みません。個別要求の照合で直接anchorを追加する場合も、既存linkは保持して変更を明示します。
 
-### Q201. 全1433テストを2 seedで実行しましたか？
+### Q201. 全1446テストを2 seedで実行しましたか？
 
-いいえ。simulation 1411件とelaboration 22件があります。通常記録はruntime両seed一致1240件、期待compiler拒否20件、既知simulation差分171件、不正compile受理の既知差分2件です。
-不正design 22件は、compileを受理された場合もruntime seedを実行しません。
+いいえ。simulation 1423件とelaboration 23件があります。通常記録はruntime両seed一致1251件、期待compiler拒否21件、既知simulation差分172件、不正compile受理の既知差分2件です。
+不正design 23件は、compileを受理された場合もruntime seedを実行しません。
 
 ### Q202. 以前の合法controlは何を示しますか？
 
-未変更の具象派生／proxy生成テストを、新しい抽象生成検査のruntime controlとして保持します。直接のnegative対応や、新しい実行結果は与えません。
-直接compiler evidenceと以前のruntime evidenceは各入力同一性を保持し、guest実行、人のレビュー、範囲／分母承認を追加しません。
+以前の具象／proxy生成fixtureは、対応する抽象生成検査のcontrolとして未変更runtime evidenceを保持します。新しい完全report-server constructor controlは別に測定します。
+各controlを直接compiler evidenceと分け、それぞれの入力同一性を保持します。stub method本体は合法constructor／signature検査の準備だけです。
+guest実行、人のレビュー、範囲／分母承認は推論しません。
 
 ### Q203. subscriber／visitor未実装がspecのみの理由は？
 
@@ -2340,6 +2342,17 @@ schema 1は出力対応の台帳として引き続き読め、混在／未知fie
 
 ### Q204. 継承実装controlは何を示しますか？
 
-新規runtime 3件は合法な継承recording hook、public analysis export経由のsubscriber配送、const／ref効果を伴うexact adapter converter signatureを示し、分離した不正宣言と対にします。
+選択runtime 3件は合法な継承recording hook、public analysis export経由のsubscriber配送、const／ref効果を伴うexact adapter converter signatureを示し、分離した不正宣言と対にします。
 独自の記録／copy algorithmは準備であり、任意adapterの正しさ、全subclass、物理bus、抽象interface全体のcoverageは認定しません。
 両seedが一致しても、negative期待は独立して保持します。
+
+### Q205. 共有resetは全てのverbosity keyを復帰しますか？
+
+いいえ。[新条件](../tests/u06/test_reporting_shared_reset_restores_all_threshold_keys_before_live_filtering.sv)ではgeneralとID閾値は復帰してもseverity／ID値が残ります。
+既定resetの期待とknown状態を保持し、seed 73結果は主張しません。reset前の照会が正しくてもfixture全体をpassにせず、以前のseverity overrideも解決しません。
+
+### Q206. 実log fileとsummaryで既定報告書式を認定しますか？
+
+いいえ。LOG 4経路は実際にhandlerが選ぶfileと独自formatterを使い、各payloadは有効fileだけへ到達します。
+pipeline overrideは別にcatcher／compose／executeの順序と正確な引数を観測します。summaryは空でない選択出力先と空のpeer fileを確認します。
+選択した経路／dispatch条件を示し、既定文面、全統計内容、message記録、全action組合せ、printer出力は未完です。

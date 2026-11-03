@@ -2,7 +2,7 @@
 
 [English](history.md) · [README](../README.ja.md)
 
-M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の40回目の拡充（全1433件：simulation 1411・elaboration 22）までを記録しています。以前の349件の時点は
+M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の41回目の拡充（全1446件：simulation 1423・elaboration 23）までを記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -1980,3 +1980,20 @@ negative elaboration 14件で、database hook 4つ、link hook 4つ、catcherの
 guest evidenceは互換なruntime 1084入力を保持し、未測定349件（simulation 327／elaboration 22）です。別のHDL／command-line evidenceは未変更です。
 tool test 110件、metadata、台帳／library、現入力evidence、日英資料の検査は全て成功します。
 runner／library／catalog、schema、workflow、SVGは未変更です。guest実行、人のレビュー、範囲／分母承認は主張しません。
+
+## M1〜M4の薄い領域の41回目の拡充
+
+M1 13検査系でreporting constructor／既定設定、共有reset／filter連携、catcher／compose／execute順序、message database handle、使用severity queue、global server統計転送、fatal／warning helper迂回／既定field、実file経路、summary出力先／既定引数、抽象server直接生成を追加します。
+runtime 11件はseed 1／73で一致し、抽象生成は対象errorで拒否されruntimeは実行しません。
+共有reset 1件はseverity／ID verbosityを保持してseed 1で最初に異なりseed 73結果はなく、既定復帰oracleは維持します。
+初回のconstructor／global準備／初期counterのfixture誤りを修正しました。独自の追加ID-count setterは固定pure interfaceを満たす準備だけで、非標準APIを要求とはしません。custom hook本体も準備です。
+
+以前の1433 fixture入力同一性／記録と全分類を保持します。日英AI案56件で2177件です。以前の3項目は元linkを保持して直接anchorと制限注記を補強します。
+整理見出し7件と文脈概要1件を個別に分類し、規範的概要は部分対応に保持します。全体は部分分解1218／分類191／未評価1098、第6章は96／19／2で、do_print 2条項と部分条件が残ります。
+goal第13反復で未評価が41番号、有効化以降365番号減り、M1〜M4の完了は未実証でgoalを継続します。
+
+全1446検査系はsimulation 1423／elaboration 23で、M1 498（483／15）、M2 516（513／3）、M3 432（427／5）です。
+通常Verilatorは1272 passで、runtime両seed一致1251件とcompiler拒否21件です。既知174件はruntime差分129件、simulation build差分43件、不正compile受理2件です。
+guest evidenceは互換なruntime 1084入力を保持し、未測定362件（simulation 339／elaboration 23）です。別のHDL／command-line evidenceは未変更です。
+tool test 110件、metadata、台帳／library、現evidence、日英資料の検査は成功します。schema、runner／library／catalog、workflow、SVGは未変更です。
+guest実行、人のレビュー、範囲／分母承認は主張しません。

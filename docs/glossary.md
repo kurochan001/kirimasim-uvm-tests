@@ -1082,3 +1082,11 @@ concrete parent. Selected incomplete classes are negative compile fixtures.
 **Illegal compile acceptance**: Compilation succeeds for a fixture whose
 standard-derived oracle requires rejection. This is a negative-test mismatch;
 the runner does not execute the resulting binary or runtime seeds.
+
+**Report pipeline trace**: An original catcher and server overrides expose
+the order in which catching, composition and execution occur. This observes
+framework dispatch without prescribing a default formatter algorithm.
+
+**Effective file route**: The actual logging destination selected from a
+severity/ID pair, ID, severity or default file association. Identity queries
+and real payload writes provide separate observations of that selection.

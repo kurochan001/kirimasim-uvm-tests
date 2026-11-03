@@ -135,7 +135,7 @@ See [Ghost setup](testing.md#ghost).
 
 It removes `UVM_NO_DPI` from the default macro list. It does not supply or link
 UVM's C/C++ implementation. The current Verilator runner does not add those
-sources. There are 1407 `UVM_NO_DPI` cases and eight explicit HDL-DPI cases.
+sources. There are 1420 `UVM_NO_DPI` cases and eight explicit HDL-DPI cases.
 Eighteen more fixtures explicitly enable command-line/regex DPI with HDL disabled.
 The [command-line runner](testing.md#verilator-command-line-subset) links that separate backend.
 The [separate VPI runner](testing.md#verilator-vpi-hdl-subset) links the original
@@ -1143,9 +1143,9 @@ not a direct test of the requirement.
 
 ### Q77. Why is there no coverage percentage after starting M4?
 
-The 2121 AI drafts cover only a partial decomposition: 2121 requirements link
-directly to 1432 tests; all drafts have direct tests, and one separate test is a control.
-All 1433 tests have requirement links. The 2,507 clause identifiers are not normative requirement units.
+The 2177 AI drafts cover only a partial decomposition: 2177 requirements link
+directly to 1445 tests; all drafts have direct tests, and one separate test is a control.
+All 1446 tests have requirement links. The 2,507 clause identifiers are not normative requirement units.
 The scope is proposed, the inventory incomplete and the denominator unapproved;
 starting M4 approves none of those. Known differences and HDL/DPI limitations
 do not silently exclude obligations. See the [approval path](requirements.md#remaining-m4-work-and-approval).
@@ -2145,7 +2145,7 @@ No. `tests_without_requirement_links` is zero: every current test has an
 explicit direct or control link. The separate counter
 `requirements_without_direct_tests` is zero. The memory-walk link uses the
 qualified historical interpretation in Q134. It is not approval of missing
-IEEE detail. HDL deposit and accessibility use explicit VPI fixtures. Another 1,139
+IEEE detail. HDL deposit and accessibility use explicit VPI fixtures. Another 1,098
 catalog identifiers remain unassessed; decomposition and human review are
 incomplete, and the denominator remains unapproved.
 
@@ -2246,7 +2246,7 @@ in [identifier assessments](../coverage/assessments.json). Structural headings
 have no related requirements; contextual descriptions name existing requirements.
 An unreviewed record, guessed classification or parent rollup cannot do this.
 The generated state is `assessed`, separate from `partial` requirement clauses.
-183 classifications currently exist, with no denominator approval or new pass.
+191 classifications currently exist, with no denominator approval or new pass.
 Chapter 11's zero unassessed identifiers still does not complete its requirements.
 
 ### Q136. Does explicit strict configuration make the new cases pass?
@@ -2933,8 +2933,8 @@ the unassessed count or approve an exclusion. All earlier requirements remain.
 A command fixture gained a supporting enum citation and was remeasured on
 Verilator. Even a metadata-only source edit changes its input fingerprint.
 Its old guest record is excluded; the original historical file still has
-1085 records. Current compatible scope is 1084, with 349 inputs unmeasured:
-348 additions and the revised old input. No guest rerun or new failure is claimed.
+1085 records. Current compatible scope is 1084, with 362 inputs unmeasured:
+361 additions and the revised old input. No guest rerun or new failure is claimed.
 
 ### Q194. May a predicate implementation delegate to another virtual query?
 
@@ -2976,35 +2976,39 @@ preserve both paths and reference phase updates. These positive declaration
 and forwarding probes do not certify nominal IMP=int or literal printed
 connect signatures that omit P. Original backend algorithms are setup.
 
-### Q199. Why is a rejected compilation counted as a match?
+### Q199. Why does a compiler rejection count as a match?
 
-The eight new tests intentionally construct standard-declared virtual classes.
-Their required result is rejection with an error naming the fixture and class.
-A matching rejection is a successful negative check, without runtime seeds.
-This differs from the 43 unexpected builds among simulation cases.
+Nine selected abstract-construction fixtures deliberately instantiate classes
+that the standard declares virtual. The required result is rejection with an
+error identifying the fixture and class. A matching rejection is a successful
+negative check without runtime seeds, distinct from the 43 unexpected builds
+among simulation cases. Pure-method and const-reference checks are additional
+negative conditions, each judged by its own declared oracle.
 
 ### Q200. Does ledger schema 2 change older output links?
 
-No. All 2084 earlier requirement objects remain unchanged. Schema 2 adds an
-alternative diagnostic form with compile stage and the exact declared regex,
-restricted to illegal elaboration metadata without runtime expectations.
-Schema 1 remains readable for output-only ledgers; mixed/unknown fields and
-stale patterns are rejected. Validation does not consume compiler results.
+No. Schema 2 retains the output-link form and adds a compile-stage diagnostic
+form with the exact declared regex. It requires illegal elaboration metadata
+without runtime expectations. Schema 1 remains readable; mixed/unknown fields
+and stale patterns are rejected. Validation does not consume compiler results.
+Individual requirement reviews may add direct anchors while preserving existing
+links and identifying those changes explicitly.
 
-### Q201. Did all 1433 tests run at two seeds?
+### Q201. Did all 1446 tests run at two seeds?
 
-No. There are 1411 simulation and 22 elaboration fixtures. Ordinary evidence
-has 1240 two-seed runtime matches, 20 expected compiler rejections, 171 known
+No. There are 1423 simulation and 23 elaboration fixtures. Ordinary evidence
+has 1251 two-seed runtime matches, 21 expected compiler rejections, 172 known
 simulation differences and two known illegal compile acceptances. None of the
-22 illegal designs executes a runtime seed, even when compilation accepts it.
+23 illegal designs executes a runtime seed, even when compilation accepts it.
 
 ### Q202. What do the older legal controls establish?
 
-Unchanged concrete-derived/proxy construction tests remain runtime controls
-for the new abstract-construction checks. They do not supply the direct
-negative link or a new execution result. Direct compiler evidence and prior
-runtime evidence retain their own input identities; no guest run, human review
-or scope/denominator approval is added.
+Earlier concrete/proxy construction fixtures retain unchanged runtime evidence
+as controls for their associated abstract-construction checks. The new complete
+report-server constructor control is measured separately. Each control remains
+separate from direct compiler evidence and keeps its own input identity. Stub
+method bodies only enable legal constructor/signature checks. No guest run,
+human review or scope/denominator approval is inferred.
 
 ### Q203. Why are the missing subscriber/visitor methods still spec-only?
 
@@ -3017,10 +3021,26 @@ no illegal binary runs. This result does not assign a simulator/library cause.
 
 ### Q204. What do inherited-implementation controls prove?
 
-Three new runtime fixtures show legal inherited recording hooks, subscriber
+Three selected runtime fixtures show legal inherited recording hooks, subscriber
 delivery through its public analysis export, and exact adapter converter
 signatures with const/ref effects. They pair with isolated illegal declarations.
 Their original recording/copying algorithms are setup; they do not establish
 arbitrary adapter correctness, every subclass, physical buses or complete
 abstract-interface coverage. Both seeds match, while negative expectations
 remain independent.
+
+### Q205. Does the shared reset now restore every verbosity key?
+
+No. The [new condition](../tests/u06/test_reporting_shared_reset_restores_all_threshold_keys_before_live_filtering.sv) observes general and ID
+thresholds restored, but the severity/ID value remains. Keep the default reset
+expectation and known status; no seed 73 result is claimed. Correct pre-reset
+queries do not make the whole fixture pass or resolve older severity overrides.
+
+### Q206. Do real log files and summaries certify the default report format?
+
+No. Four LOG routes use actual handler-selected files and an original formatter;
+each payload reaches only its effective file. The pipeline override separately
+observes catcher/compose/execute order and exact arguments. The summary check
+observes a nonempty selected destination and an empty peer file. These establish
+selected routing/dispatch conditions, leaving default text, full statistical
+content, message recording, all action combinations and printer output open.

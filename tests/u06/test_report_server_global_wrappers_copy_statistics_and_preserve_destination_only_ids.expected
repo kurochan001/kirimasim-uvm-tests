@@ -1,0 +1,4 @@
+UT: global_selected wrapper 1 core 1 severity 7/5 ids 2/1/3
+UT: source_retained severity 7 ids 2/1
+UT: global_repeated exact 1 severity 8 ids 2/1/3/1
+UT: global_restored 1

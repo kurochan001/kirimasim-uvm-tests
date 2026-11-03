@@ -1,0 +1,4 @@
+UT: report_names default 1 named 1 empty 1 self 1 base 1
+UT: message_names default 1 named 1 empty 1 base 1
+UT: handler_names default 1 named 1 empty 1 base 1
+UT: catcher_names default 1 named 1 empty 1 base 1

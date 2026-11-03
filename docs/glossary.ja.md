@@ -834,3 +834,9 @@ runtime binaryやseedは実行せず、予期しないlibrary／API／link build
 
 **不正compile受理（Illegal compile acceptance）**：規格から導いたoracleが拒否を要求するfixtureのcompileが成功することです。
 negative検査の不一致であり、runnerは生成binaryやruntime seedを実行しません。
+
+**report pipeline trace（Report pipeline trace）**：独自catcherとserver overrideでcatching、composition、executionの順序を観測することです。
+既定formatter algorithmを規定せず、framework dispatchを確認します。
+
+**有効file経路（Effective file route）**：severity／ID pair、ID、severity、defaultのfile対応から選択された実logging出力先です。
+同一性照会と実payload書込みは、その選択を別の観測で確認します。

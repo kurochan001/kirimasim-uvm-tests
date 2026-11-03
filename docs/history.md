@@ -3,8 +3,8 @@
 [日本語](history.ja.md) · [README](../README.md)
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and forty cross-milestone thin-area expansions, including the
-existing-test requirement-link backlog checkpoint (1433 tests: 1411 simulation and 22 elaboration). The earlier 349-test checkpoint is
+three M4 increments and forty-one cross-milestone thin-area expansions, including the
+existing-test requirement-link backlog checkpoint (1446 tests: 1423 simulation and 23 elaboration). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -2931,3 +2931,36 @@ Separate HDL and command-line evidence remains unchanged. All 110 tool tests,
 metadata, ledger/library, current-input evidence and bilingual docs pass.
 Runner/library/catalog, schemas, workflow and SVGs are unchanged. No guest
 run, human review or scope/denominator approval is claimed.
+
+## Forty-first thin-area expansion across M1–M4
+
+Thirteen M1 fixtures add reporting constructors/default configuration, shared
+reset/filter interaction, catcher/compose/execute ordering, message database
+handles, used-severity queues, global server statistic transfer, fatal/warning
+helper bypass/default fields, actual file routes, summary destination/default
+arguments and direct abstract-server construction. Eleven runtime fixtures
+match seeds 1/73 and the abstract construction rejects with its targeted error,
+without runtime. One shared reset retains severity/ID verbosity, first differing
+at seed 1 without seed 73; its default-restoration oracle stays unchanged.
+Initial constructor/global setup/startup-count fixture errors were corrected.
+An extra original ID-count setter only satisfies the pinned pure interface,
+without asserting a nonstandard API requirement. Custom hook bodies are setup.
+
+All 1433 prior fixture input identities/records and earlier assessments remain.
+Fifty-six bilingual AI drafts reach 2177. Three older entries retain their
+original links and gain direct anchors/clarified limits. Seven grouping headings
+and one contextual overview are individually assessed, preserving normative
+overviews as partial. Overall totals are 1218 partial/191 assessed/1098
+unassessed; chapter 6 is 96/19/2 with two do_print clauses and partial conditions
+still open. Goal iteration thirteen reduces unassessed by 41, or 365 since
+activation; M1–M4 completion remains unproven and the goal stays active.
+
+The suite is 1446 fixtures: 1423 simulation/23 elaboration. M1 is 498 (483/15),
+M2 516 (513/3), M3 432 (427/5). Ordinary Verilator has 1272 pass: 1251 two-seed
+runtime matches and 21 compiler rejections; 174 known comprise 129 runtime
+differences, 43 simulation build differences and two illegal compile acceptances.
+Guest evidence retains 1084 compatible runtime inputs; 362 are unmeasured
+(339 simulation/23 elaboration). Separate HDL/command-line evidence is unchanged.
+All 110 tool tests, metadata, ledger/library, current evidence and bilingual
+docs pass. Schema, runners/library/catalog, workflow and SVGs remain unchanged.
+No guest run, human review or scope/denominator approval is claimed.

@@ -254,6 +254,10 @@
       "primary_clause": "6.6.3.10",
       "inputs_sha256": "12ce3c285caea5483ebd0d44973041650b67ab9b14291b8c34d7b01385c5fbe0"
     },
+    "u06/test_report_catcher_fatal_helper_preserves_origin_defaults_and_bypasses_both_callbacks": {
+      "primary_clause": "6.6.6.1",
+      "inputs_sha256": "59b4445e1a79a77c2a1e18b54efa83e50f4bdfc4c90f56d4561090b55e6500e2"
+    },
     "u06/test_report_catcher_generic_warning_helper_bypasses_both_catching_callbacks": {
       "primary_clause": "6.6.6.5",
       "inputs_sha256": "922b6d073e9e090e6f5529bef816a6024e785b69b5ca64eb851e9ded0a738e29"
@@ -289,6 +293,10 @@
     "u06/test_report_catcher_verbosity_mutation_reaches_tail_without_leaking_to_next_report": {
       "primary_clause": "6.6.4.2",
       "inputs_sha256": "ea21ccf4f9d5cf769a2224e247800200d62e6228ffb230a898e3cff9724fe660"
+    },
+    "u06/test_report_catcher_warning_helper_preserves_origin_defaults_and_bypasses_both_callbacks": {
+      "primary_clause": "6.6.6.3",
+      "inputs_sha256": "932f420ff74998258ac12d1e94e2bfc40fb4b90ebd2ac762000c0941da63ab5b"
     },
     "u06/test_report_file_selection_specificity_precedence": {
       "primary_clause": "6.3.6.1",
@@ -333,6 +341,10 @@
     "u06/test_report_id_set_lists_each_used_id_once": {
       "primary_clause": "6.5.1.2.9",
       "inputs_sha256": "86b6c408762620a53e09afb722fedeb651ba993415ede0cfb8fa4e654320c88a"
+    },
+    "u06/test_report_log_routing_executes_pair_id_severity_and_default_file_selection": {
+      "primary_clause": "6.5.1.2.16",
+      "inputs_sha256": "35d42a7d0e55e5eb139eb7e9b83968e7bfd678768d32e9b0678e0c26a965a91a"
     },
     "u06/test_report_message_action_and_file_updates_are_independent": {
       "primary_clause": "6.2.4.8",
@@ -382,6 +394,14 @@
       "primary_clause": "6.5.1.2.3",
       "inputs_sha256": "f939d9cc14898c4db69d8da86ccae05f8a146ad51fa3e3ff2312ff488b99b855"
     },
+    "u06/test_report_server_abstract_declaration_rejects_direct_construction": {
+      "primary_clause": "6.5.1.1",
+      "inputs_sha256": "f176e7013fd830e4c350f8c9b1b97e5e6e64342e400d5a7087cf5c840ae95e80"
+    },
+    "u06/test_report_server_concrete_constructor_exposes_base_names_and_summary_argument_defaults": {
+      "primary_clause": "6.5.1.2.1",
+      "inputs_sha256": "ef415dccbf239088a921d4b8f3a8091422d9ffebfd7788eee462b1356711cd4c"
+    },
     "u06/test_report_server_copy_merges_disjoint_and_overlapping_ids": {
       "primary_clause": "6.5.1.2.13",
       "inputs_sha256": "a893c14afb7bd32e7dfede3e9412f91858cdcb2d2339eb96d44f24c100f6f1f2"
@@ -398,6 +418,14 @@
       "primary_clause": "6.5.1.2.6",
       "inputs_sha256": "b4d2827ee30d9143968efc62c02eef5969ed2792badd3ee68a88225e869bb4e7"
     },
+    "u06/test_report_server_global_wrappers_copy_statistics_and_preserve_destination_only_ids": {
+      "primary_clause": "6.5.1.2.19",
+      "inputs_sha256": "0dbe5231b98deeac8262150ae2f95f916b8f65a43d83622132abd53f166a994c"
+    },
+    "u06/test_report_server_message_database_replacement_and_clear_are_local": {
+      "primary_clause": "6.5.1.2.12",
+      "inputs_sha256": "c7cbe6d69c8df711fee1c3aad1cbcda0f5a2b5f93ef97afc4e0344b4158a4b4c"
+    },
     "u06/test_report_server_nonoverridable_quit_limit": {
       "primary_clause": "6.5.1.2.2",
       "inputs_sha256": "af980afb3540a187153a7b7f023a116da9179214042ae95534fd7409e385f357"
@@ -406,6 +434,10 @@
       "primary_clause": "6.5.1.2.2",
       "inputs_sha256": "f6426d20f8dbdb1cf1b62d6054516585f94989995f4fecd6c9f069f8ed47f6b7"
     },
+    "u06/test_report_server_pipeline_orders_catching_composition_and_execution_by_action": {
+      "primary_clause": "6.5.1.2.14",
+      "inputs_sha256": "3bfbc9073728353d50b758018d9598f2952350daec6bdacdadace95467120805"
+    },
     "u06/test_report_server_repeated_copy_merges_ids_and_overwrites_severity_with_zero": {
       "primary_clause": "6.5.1.2.13",
       "inputs_sha256": "b9dcdf02674bf7ae88ac6635723acc830f9dc81051dbf6df8ba692ea20a08c83"
@@ -413,6 +445,14 @@
     "u06/test_report_server_severity_counts_update_independently": {
       "primary_clause": "6.5.1.2.6",
       "inputs_sha256": "c316462b54a59bf3b84a47a5df197c9d665b66e6a7f2c4450b5a284720438da4"
+    },
+    "u06/test_report_server_summary_writes_the_selected_file_without_a_fixed_text_format": {
+      "primary_clause": "6.5.1.2.17",
+      "inputs_sha256": "a2cbfe6ceb2f3f9b835b1d55b748b01076cd16140ee29bce24652b65e7c7d9b3"
+    },
+    "u06/test_report_server_used_severity_set_replaces_caller_queue_without_order_assumptions": {
+      "primary_clause": "6.5.1.2.10",
+      "inputs_sha256": "72f7414e9cb462cc187ed4d239a144c66dee8d12bedacac7ad8c7947632ed546"
     },
     "u06/test_report_server_verbosity_filters_counts": {
       "primary_clause": "6.5.1.2.6",
@@ -425,6 +465,18 @@
     "u06/test_report_verbosity_specificity_precedence": {
       "primary_clause": "6.3.4.1",
       "inputs_sha256": "d835fb92cd146f8df176fa66f6c9046e320b21e331db7ca125a7ca11f4438cfb"
+    },
+    "u06/test_reporting_constructors_preserve_default_explicit_empty_names_and_exact_bases": {
+      "primary_clause": "6.3.2",
+      "inputs_sha256": "32e3df65df74322a66d086bfded4ddc2af6ddaa75c14958f16a9056579b4469e"
+    },
+    "u06/test_reporting_default_actions_and_zero_file_handles_are_local_to_each_object": {
+      "primary_clause": "6.3",
+      "inputs_sha256": "348986298fcd0512c1bc1d86bd7bfc020ee3f84ca029b934a656075f43b10708"
+    },
+    "u06/test_reporting_shared_reset_restores_all_threshold_keys_before_live_filtering": {
+      "primary_clause": "6.3.8.3",
+      "inputs_sha256": "0a435c0d2e8d309c2a42b8c41e4590ab4fd33ff48d26cea25137ddbd1bfdff72"
     },
     "u06/test_reporting_verbosity_filters_info_but_not_warning_error_or_fatal": {
       "primary_clause": "6.3.3.3",

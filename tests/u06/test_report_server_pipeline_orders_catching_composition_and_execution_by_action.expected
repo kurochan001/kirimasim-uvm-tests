@@ -1,0 +1,10 @@
+UT: pipeline caught trace C format 0 execute 0
+UT: pipeline none trace C format 0 execute 0
+UT: pipeline display trace CFX format 1 execute 1
+UT: formatted display exact 1/1 text 1 default_name 1
+UT: pipeline log trace CFX format 1 execute 1
+UT: formatted log exact 1/1 text 1 default_name 1
+UT: pipeline both trace CFX format 1 execute 1
+UT: formatted both exact 1/1 text 1 default_name 1
+UT: pipeline count trace CX format 0 execute 1
+UT: explicit_composition name 1 exact 1 text 1
