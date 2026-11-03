@@ -2115,6 +2115,387 @@
         "reviewer": null,
         "reviewed_at": null
       }
+    },
+    {
+      "clause": "12",
+      "classification": "structural",
+      "rationale": {
+        "en": "Chapter title only; TLM 1/2 declarations and methods retain subordinate obligations.",
+        "ja": "章題のみ。TLM 1／2の宣言とmethodは下位義務に残る。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "12.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "TLM 1 section heading only, followed by the General subclause.",
+        "ja": "TLM 1節の見出しのみで、General下位条項が続く。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "12.2.4.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "Methods heading only; primitive and transport interface methods retain their child contracts.",
+        "ja": "Methods見出しのみ。primitive／transport interface methodは子契約を保持する。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "12.2.5",
+      "classification": "structural",
+      "rationale": {
+        "en": "An organizing introduction pointing to port classes; it adds no independent port operation.",
+        "ja": "port classを示す整理用導入であり、独立port操作を追加しない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "12.2.7",
+      "classification": "structural",
+      "rationale": {
+        "en": "An organizing introduction pointing to implementation classes; subordinate interfaces retain their behavior.",
+        "ja": "implementation classを示す整理用導入であり、動作は下位interfaceに残る。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "12.2.8",
+      "classification": "structural",
+      "rationale": {
+        "en": "An organizing introduction pointing to FIFO classes; it adds no distinct storage algorithm.",
+        "ja": "FIFO classを示す整理用導入であり、別の記憶algorithmを追加しない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "12.2.8.1.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "Ports heading and forward pointer only; named FIFO interfaces retain their child clauses.",
+        "ja": "Ports見出しと前方参照のみ。名前付きFIFO interfaceは子条項を保持する。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "12.2.9",
+      "classification": "structural",
+      "rationale": {
+        "en": "An organizing introduction pointing to built-in channel classes, without another channel operation.",
+        "ja": "組込みchannel classを示す整理用導入であり、追加channel操作はない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "12.2.9.1.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "Ports heading and forward pointer only; the named request/response interfaces retain subordinate contracts.",
+        "ja": "Ports見出しと前方参照のみ。名前付き要求／応答interfaceは下位契約を保持する。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "12.2.10",
+      "classification": "structural",
+      "rationale": {
+        "en": "An organizing introduction for analysis port/export/imp classes; their declarations and writes remain separate.",
+        "ja": "analysis port／export／imp classの整理用導入であり、宣言とwriteは個別に残る。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "12.2.10.1.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "Methods heading and pointers to constructor/write only; it introduces no additional method.",
+        "ja": "Methods見出しとconstructor／writeへの参照のみで、追加methodはない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "12.1",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The overview distinguishes TLM 1 message interfaces from TLM 2 payload/socket protocols. Related existing and new transport requirements decompose selected roles; it adds no standalone transport algorithm or all-protocol coverage.",
+        "ja": "概要はTLM 1 message interfaceとTLM 2 payload／socket protocolを区別する。関連する既存／新規transport要求が選択役割を分解し、単独transport algorithmや全protocol coverageは追加しない。"
+      },
+      "related_requirements": [
+        "UVM-TLM1-REVIEW-BLOCKING-TRANSPORT-COMPLETION",
+        "UVM-TLM2-FOUR-PHASE-FORWARDING"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "12.2.1",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The overview groups blocking/nonblocking/combined interfaces, compatible supersets and port/export/imp roles. Actual FIFO subsets, existing indexed implementations and related method requirements decompose selected conditions; arbitrary compatibility and concurrency remain open.",
+        "ja": "概要はblocking／nonblocking／combined interface、互換superset、port／export／impの役割をまとめる。実FIFO subset、既存index付きimplementation、関連method要求が選択条件を分解し、任意互換性と並行性は未完に残る。"
+      },
+      "related_requirements": [
+        "UVM-TLM1-REVIEW-FIFO-GET-PEEK-EXPORT-METHODS",
+        "UVM-TLM1-REVIEW-UNIDIRECTIONAL-IMP-DELEGATION"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "12.2.2",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The overview groups the unidirectional primitive and analysis interfaces. Related put/get/peek and broadcast requirements retain their observable method contracts rather than introducing another operation.",
+        "ja": "概要はunidirectional primitiveとanalysis interfaceをまとめる。関連put／get／peekとbroadcast要求が観測可能method契約を保持し、別の操作を導入しない。"
+      },
+      "related_requirements": [
+        "UVM-FIFO-BLOCKING-PUT",
+        "UVM-FIFO-BLOCKING-GET",
+        "UVM-TLM1-REVIEW-INTERFACE-WRITE-BROADCAST"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "12.2.2.1",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The overview describes put as delivery rather than execution completion. Actual FIFO delivery and blocking-put requirements decompose that selected interface contract; no downstream execution algorithm is prescribed.",
+        "ja": "概要はputを実行完了ではなく配送として説明する。実FIFO配送とblocking-put要求が選択interface契約を分解し、下流実行algorithmは規定しない。"
+      },
+      "related_requirements": [
+        "UVM-FIFO-BLOCKING-PUT",
+        "UVM-TLM1-REVIEW-FIFO-PUT-EXPORT-METHODS"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "12.2.2.2",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The overview distinguishes consuming get from retaining peek. Related method and actual object-head availability requirements decompose the same obligation without duplicating a new retrieval API.",
+        "ja": "概要は消費するgetと保持するpeekを区別する。関連methodと実object-head availability要求へ同じ義務を分解し、新retrieval APIとして重複させない。"
+      },
+      "related_requirements": [
+        "UVM-FIFO-BLOCKING-PEEK",
+        "UVM-TLM1-REVIEW-FIFO-CAN-PEEK-AVAILABILITY"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "12.2.3",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The overview groups bidirectional transport and independent master/slave request/response interfaces. Related transport and channel direction requirements cover selected roles; no additional generic operation is defined.",
+        "ja": "概要は双方向transportと独立したmaster／slave要求・応答interfaceをまとめる。関連transportとchannel方向要求が選択役割を扱い、追加generic操作は定義しない。"
+      },
+      "related_requirements": [
+        "UVM-TLM1-REVIEW-BLOCKING-TRANSPORT-COMPLETION",
+        "UVM-TLM1-CHANNEL-MASTER-DIRECTION-ROUTING",
+        "UVM-TLM1-CHANNEL-SLAVE-DIRECTION-ROUTING"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "12.2.3.1",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The overview couples a request/response in one transport call and permits different types. Related explicit-type sequential forwarding requirements decompose selected conditions; concurrent arbitration/order is not certified.",
+        "ja": "概要は1 transport呼出しで要求／応答を結び、異なる型を認める。関連する明示型の逐次転送要求が選択条件を分解し、並行arbitration／順序は認定しない。"
+      },
+      "related_requirements": [
+        "UVM-TLM1-REVIEW-BLOCKING-TRANSPORT-COMPLETION"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "12.2.3.2",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The overview defines master/slave direction and independent request/response calls. Existing direction, independent queue and blocked-response requirements retain these selected contracts rather than a new coupled transport algorithm.",
+        "ja": "概要はmaster／slave方向と独立した要求・応答呼出しを定める。既存の方向、独立queue、応答待ち要求が選択契約を保持し、新たな結合transport algorithmはない。"
+      },
+      "related_requirements": [
+        "UVM-TLM1-CHANNEL-MASTER-DIRECTION-ROUTING",
+        "UVM-TLM1-CHANNEL-SLAVE-DIRECTION-ROUTING",
+        "UVM-TLM1-CHANNEL-BLOCKED-RESPONSE-GET"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "12.2.4",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The overview describes primitive/combined transaction interfaces and compatible method binding. Related declarations, FIFO export methods and actual transport forwarding decompose selected contracts; all primitive/type combinations remain separate.",
+        "ja": "概要はprimitive／combined transaction interfaceと互換method bindingを説明する。関連宣言、FIFO export method、実transport転送が選択契約を分解し、全primitive／型組合せは別に残る。"
+      },
+      "related_requirements": [
+        "UVM-TLM1-REVIEW-INTERFACE-DISTINCT-PARAMETERS",
+        "UVM-TLM1-REVIEW-FIFO-PUT-EXPORT-METHODS",
+        "UVM-TLM1-REVIEW-BLOCKING-TRANSPORT-COMPLETION"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "12.2.8.1",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The overview describes the FIFO base, public interfaces and default methods. Related base construction and actual export-method requirements decompose selected contracts; default unimplemented method behavior is not certified.",
+        "ja": "概要はFIFO基底、公開interface、既定methodを説明する。関連基底生成と実export-method要求が選択契約を分解し、未実装の既定method動作は認定しない。"
+      },
+      "related_requirements": [
+        "UVM-TLM1-REVIEW-FIFO-BASE-COMPONENT",
+        "UVM-TLM1-REVIEW-FIFO-PUT-EXPORT-METHODS",
+        "UVM-TLM1-REVIEW-FIFO-GET-PEEK-EXPORT-METHODS"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "12.2.9.1",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The overview describes independent typed request/response FIFOs of configurable size. Existing queue-direction/order and zero-size requirements decompose selected roles; default parameter and constructor obligations remain separately open.",
+        "ja": "概要は設定可能sizeの独立した型付き要求／応答FIFOを説明する。既存queue方向／順序とsize 0要求が選択役割を分解し、parameter既定値とconstructor義務は別に未完とする。"
+      },
+      "related_requirements": [
+        "UVM-TLM1-CHANNEL-REQUEST-FIFO-ORDER",
+        "UVM-TLM1-CHANNEL-RESPONSE-FIFO-ORDER",
+        "UVM-TLM1-CHANNEL-ZERO-SIZED-REQUEST-FIFO"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "12.2.9.2",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The overview describes the transport channel as coupled one-to-one request/reply behavior. Existing completion, sequential reuse and request-full requirements decompose selected behavior; exact declared inheritance and constructors remain separate.",
+        "ja": "概要はtransport channelの結合した1対1要求／応答動作を説明する。既存完了、逐次再利用、要求満杯の要求が選択動作を分解し、正確な宣言継承とconstructorは別に残す。"
+      },
+      "related_requirements": [
+        "UVM-BLOCKING-TRANSPORT-WAITS-FOR-REPLY",
+        "UVM-BLOCKING-TRANSPORT-SEQUENTIAL-REUSE",
+        "UVM-TLM1-NB-TRANSPORT-REQUEST-FULL"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "12.2.10.1",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The overview describes analysis broadcast to all subscribers. The existing specific write and related generic-interface broadcast requirements decompose the same contract; constructor/type declarations remain separately specified.",
+        "ja": "概要は全subscriberへのanalysis broadcastを説明する。既存の固有writeと関連generic-interface broadcast要求が同じ契約を分解し、constructor／型宣言は個別規定に残る。"
+      },
+      "related_requirements": [
+        "UVM-TLM1-ANALYSIS-BOUND-BROADCAST",
+        "UVM-TLM1-REVIEW-INTERFACE-WRITE-BROADCAST"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
     }
   ]
 }

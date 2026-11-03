@@ -3,8 +3,8 @@
 [日本語](history.ja.md) · [README](../README.md)
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and thirty-five cross-milestone thin-area expansions, including the
-existing-test requirement-link backlog checkpoint (1370 simulation tests). The earlier 349-test checkpoint is
+three M4 increments and thirty-six cross-milestone thin-area expansions, including the
+existing-test requirement-link backlog checkpoint (1383 simulation tests). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -2761,3 +2761,42 @@ records and ten guide pairs with 188 FAQ answers and 209 glossary entries.
 All runners/tools, prior simulation inputs, CI, catalog, scope, library lock,
 licenses, Issue policy, six SVG assets and separate VPI records are unchanged.
 The goal remains active, including the remaining partial obligations.
+
+## Thirty-sixth thin-area expansion across M1–M4
+
+The eighth persistent-goal iteration adds thirteen M2 fixtures: interface
+parameters/dispatch, FIFO-base construction, three port-default/constructor
+cases and eight FIFO/transport/analysis cases. Twelve match final inputs at
+seeds 1 and 73; one fails at build with no runtime seed evidence. The suite
+reaches 1383: M1 470, M2 487 and M3 426. The REQ-only bidirectional fixture
+retains the standard independent integer RSP default; pinned RSP=REQ fails
+the exact string/int base argument check. All-int defaults and explicit packed
+request/response transport controls match. This new declaration-default build
+category is separate from missing APIs and unlinked DPI. FIFO state, object
+head availability, public exports, blocking/nonblocking forwarding and analysis
+broadcast are observed. Zero-capacity is_full and summary alias/imp-parameter
+wording remain open. Constructor probes do not establish resolved binding.
+Formatting/name adjustments precede final measurement without changing oracles.
+
+Thirty-five AI drafts bring the ledger to 1955, directly linked to 1382 tests
+plus one control. One unchanged indexed-imp fixture gains a direct requirement
+mapping; its earlier source/evidence is retained. All earlier drafts remain
+unchanged. Eleven structural and thirteen contextual individual assessments
+bring the total to 165: 116 structural and 49 contextual. Chapter 12 has
+108 partial, 28 assessed and 78 unassessed identifiers. Overall, 1113 of
+2,507 identifiers are partial, 165 assessed and 1,229 unassessed: 45 fewer
+this iteration and 234 fewer since activation. Primary focus is 699, any
+citation 1,359; the candidate census is 1,783 zero, 412 one and 287 at least
+two. Partial obligations, milestone targets, scope and human review remain open.
+
+Compatible ordinary evidence retains all 1370 prior inputs: 1215 pass and
+168 known (125 runtime first differences, sixteen missing-API builds, one
+response-default declaration build and 26 unlinked-DPI builds). Separate
+command-line evidence remains 17 pass/1 known and HDL VPI 7 pass/1 fail.
+Guest evidence retains 1085 unchanged inputs; 298 current IDs are unmeasured.
+Validation covers 101 tool tests, 1383 metadata records, ledger/index/library
+identity, compatible execution records and ten guide pairs with 191 FAQ
+answers and 212 glossary entries. All runners/tools, prior simulation inputs,
+CI, catalog, scope, library lock, licenses, Issue policy, six SVG assets and
+separate VPI records are unchanged. The goal remains active, including the
+remaining partial obligations.

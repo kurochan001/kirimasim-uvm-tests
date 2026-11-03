@@ -8,15 +8,15 @@ M4 is in progress. The [scope proposal](../coverage/scope.json),
 [requirement ledger](../coverage/requirements.json),
 [identifier assessments](../coverage/assessments.json) and
 [test index](../coverage/test_index.json) are versioned inputs. The ledger
-contains 1920 AI-drafted requirements, all with direct links to 1369 tests.
-One additional test is a control. All 1370 tests have a requirement link.
+contains 1955 AI-drafted requirements, all with direct links to 1382 tests.
+One additional test is a control. All 1383 tests have a requirement link.
 Both direct-test and test-link queues are empty. The memory-walk oracle is an
 explicit historical interpretation requiring review; this does not certify
 complete IEEE coverage. No requirement records human review.
 
-The clause catalog has 2,507 identifiers. 1092 have a partial
-requirement decomposition; 141 have explicit AI assessments (105 structural,
-36 contextual), and 1,274 remain unassessed. No state certifies completion.
+The clause catalog has 2,507 identifiers. 1113 have a partial
+requirement decomposition; 165 have explicit AI assessments (116 structural,
+49 contextual), and 1,229 remain unassessed. No state certifies completion.
 Starting M4 does not approve the scope or denominator, or complete
 M1–M3. `approved_denominator` and `coverage_percentage` remain `null`.
 
@@ -25,7 +25,7 @@ M1–M3. `approved_denominator` and `coverage_percentage` remain `null`.
 The proposed unit is one observable normative obligation together with its
 applicability conditions. A method clause may need separate requirements for
 success, failure, default arguments, ordering and side effects. Conversely,
-a heading is not an obligation. The 1920 draft entries span several areas,
+a heading is not an obligation. The 1955 draft entries span several areas,
 without exhausting the obligations in their clauses.
 
 The proposal assigns every root in the existing identifier catalog once:
@@ -59,14 +59,14 @@ execution records carry the measured status and conditions.
 ![Clause citations, explicit requirement links and separately measured execution evidence.](images/requirement-evidence.svg)
 
 A test's first UVM `:lrm:` reference is its **primary focus**; later UVM
-references are **supporting citations**. Of the catalog identifiers, 687
-have a primary-focus test and 1,354 have either kind of citation. Supporting
+references are **supporting citations**. Of the catalog identifiers, 699
+have a primary-focus test and 1,359 have either kind of citation. Supporting
 references often describe setup APIs. No reference creates a requirement link,
 and a child-clause reference is not automatically rolled up to its parent.
 
 For the 2,482 candidate identifiers, the historical two-tests-per-clause
-census currently shows 1,795 with zero primary-focus tests, 401 with one,
-and 286 with at least two. It measures test placement only. It does not
+census currently shows 1,783 with zero primary-focus tests, 412 with one,
+and 287 with at least two. It measures test placement only. It does not
 establish that an identifier has two independent checks, that its normative
 obligations are decomposed, or that either test passes. It is not an approved
 requirement denominator or a declaration that all zero-focus clauses are gaps.
@@ -91,7 +91,7 @@ lines are anchored once; the runner still compares the complete expected sequenc
 
 [Execution evidence](results.md) is separate and needs matching input, runner,
 library and configuration identities. A direct link may retain a spec-only
-known difference. It is not a pass or a conformance claim. The current 1370-test
+known difference. It is not a pass or a conformance claim. The current 1383-test
 snapshot includes newly measured fixtures; mapping unchanged existing tests
 adds no new execution result for them.
 
@@ -120,7 +120,7 @@ duplicate requirement IDs and unknown clauses/tests are rejected.
 - `coverage/test_index.json` snapshots every current test's `primary_clause`
   and `inputs_sha256`. The fingerprint uses the existing runner collector:
   source, declared helpers/includes/data, expected files and UVM lock. The
-  index is an inventory, not 1370 reviewed requirement mappings.
+  index is an inventory, not 1383 reviewed requirement mappings.
 
 Review status is `ai`, `unreviewed` or `human`. Human status requires an
 identified `reviewer` and ISO date in `reviewed_at`; other statuses must leave
@@ -197,7 +197,7 @@ requirement links, while normative decomposition remains partial:
 | 9 | 37 | 27 | 0 | 0 | 89 |
 | 10 | 128 | 86 | 0 | 29 | 2 |
 | 11 | 35 | 20 | 0 | 4 | 0 |
-| 12 | 159 | 155 | 0 | 4 | 123 |
+| 12 | 194 | 168 | 0 | 28 | 78 |
 | 13 | 45 | 26 | 0 | 0 | 85 |
 | 14 | 227 | 145 | 0 | 17 | 0 |
 | 15 | 67 | 85 | 0 | 4 | 45 |
@@ -213,9 +213,28 @@ requirement links, while normative decomposition remains partial:
 | G | 45 | 20 | 0 | 4 | 0 |
 
 Zero unmapped tests and zero drafts without direct tests do not establish
-complete requirement coverage. The remaining 1,274 identifiers still need
-assessment/decomposition. Scope is proposed, all 1920 reviews are `ai` and
+complete requirement coverage. The remaining 1,229 identifiers still need
+assessment/decomposition. Scope is proposed, all 1955 reviews are `ai` and
 the denominator remains unapproved.
+
+TLM 1 drafts cover selected default interface types, regular port defaults/
+constructor metadata, FIFO-base construction, public export methods and
+capacity/occupancy/availability queries. Actual ports/imps forward distinct
+packed request/response types through delayed blocking, immediate nonblocking
+and analysis broadcast calls. Thirty-five new drafts map thirteen new fixtures
+and one unchanged existing indexed-imp fixture; all prior requirements and
+simulation inputs remain unchanged. Eleven structural and thirteen contextual
+individual assessments leave chapter 12 at 108 partial, 28 assessed and
+78 unassessed identifiers.
+
+The bidirectional port summary declares RSP=int independently of REQ. The
+REQ-only string fixture retains that exact expected specialization; the pinned
+ports select RSP=REQ and fail to compile. Explicit request/response types and
+all-int default controls match. This is a declaration-default build difference,
+separate from missing APIs and unlinked DPI. Constructor probes do not prove
+successful binding resolution. The summary's tlm_if_base spelling/complete
+imp parameters, zero-capacity is_full interpretation, failed-output rules and
+broader concurrent compatibility/protocol combinations remain open.
 
 Objection/callback drafts cover selected constructor/base/type declarations,
 propagation-mode queries, legal idle changes and ERRORs for changes while
@@ -424,7 +443,7 @@ Port drafts add resource-controlled hierarchy checks, illegal outgoing roles
 and cardinality diagnostics. Memory-policy drafts observe address-unit length,
 bounds, constrained/procedural starts, default selection and exact in-use handles.
 
-141 individually read identifier assessments preserve rationale and AI status
+165 individually read identifier assessments preserve rationale and AI status
 in [the classification file](../coverage/assessments.json). Chapter 11 has no
 unassessed identifiers, while every behavior clause remains partially decomposed;
 this is not completed coverage. No automatic classification, parent rollup or
@@ -563,4 +582,4 @@ counting rule and frozen requirement set. Define separately what counts as
 reviewed test coverage and as execution success, including execution conditions
 and evidence identity. Approval needs a later schema/procedure update; schema
 1 intentionally cannot express a completed inventory or approved denominator.
-The current 1920 AI drafts and their direct links do not satisfy that gate.
+The current 1955 AI drafts and their direct links do not satisfy that gate.

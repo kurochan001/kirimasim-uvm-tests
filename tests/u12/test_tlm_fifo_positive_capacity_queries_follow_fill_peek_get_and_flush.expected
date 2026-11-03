@@ -1,0 +1,5 @@
+UT: fifo_initial size 3 used 0 empty 1 full 0
+UT: fifo_filled accepted 1 rejected 1 size 3 used 3 empty 0 full 1
+UT: fifo_peek value 13 used 3 full 1
+UT: fifo_get value 13 used 2 empty 0 full 0
+UT: fifo_flushed size 3 used 0 empty 1 full 0

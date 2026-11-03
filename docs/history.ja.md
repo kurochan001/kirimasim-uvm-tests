@@ -2,7 +2,7 @@
 
 [English](history.md) · [README](../README.ja.md)
 
-M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の35回目の拡充（シミュレーション1370件）までを記録しています。以前の349件の時点は
+M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の36回目の拡充（シミュレーション1383件）までを記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -1885,5 +1885,25 @@ AI要求案28件で台帳1920件、1369テストへ直接対応し、別control 
 互換な通常evidenceは以前の1357入力をすべて保持し、pass 1203件、known 167件です。内訳は実行時初回差分125件、API欠落build 16件、DPI未link build 26件です。
 別command-line evidenceはpass 17／known 1、HDL VPIはpass 7／fail 1のままです。guest evidenceは未変更1085入力で、現在の285 IDは未測定です。
 tool単体101件、全1370 metadata、台帳／索引／library同一性、互換実行記録、日英10組のFAQ 188回答・用語209語を照合します。
+全runner／tool、以前のsimulation入力、CI、catalog、scope、library lock、license、Issue方針、SVG 6 asset、別VPI記録は未変更です。
+部分分解した残る義務を含め、goalは有効なままです。
+
+## M1〜M4の薄い領域の36回目の拡充
+
+継続goalの8反復目でM2の13検査系を追加し、interface parameter／委譲、FIFO-base生成、port既定値／constructor 3件、FIFO／transport／analysis 8件を扱います。
+12件は最終入力でseed 1・73一致、1件はbuildで失敗して実行時seed evidenceはありません。全体1383件、M1 470件、M2 487件、M3 426件です。
+REQだけ指定するbidirectional検査は規格の独立integer RSP既定値を保持し、固定RSP=REQは正確なstring／int基底引数検査で失敗します。
+全int既定と明示packed要求／応答transportは一致します。新しい宣言既定値build区分をAPI欠落／DPI未linkと分けます。
+FIFO状態、object head availability、公開export、blocking／nonblocking転送、analysis broadcastを観測し、容量0のis_fullと概要alias／imp-parameter文言は未完です。
+constructor probeはbinding解決を認定せず、整形／名前の調整はoracleを変えず最終測定前に完了しました。
+
+AI要求案35件で台帳1955件、1382テストへ直接対応し、別control 1件があります。未変更のindex付きimp 1検査系へ直接要求対応を加え、以前のsource／evidenceを保持します。
+以前の要求案はすべて保持します。個別の構造11件・文脈13件の分類で計165件、構造116件・文脈49件です。第12章は部分分解108番号・分類28番号・未評価78番号です。
+全体2,507番号は部分分解1113件、分類165件、未評価1,229件で、今回45件減、goal有効化から234件減です。
+主引用699番号、いずれかの引用1,359番号、候補の棚卸しは0件1,783、1件412、2件以上287です。部分分解した義務、milestone目標、範囲、人のreviewは未完です。
+
+互換な通常evidenceは以前の1370入力をすべて保持し、pass 1215件、known 168件です。内訳は実行時初回差分125件、API欠落build 16件、応答既定型の宣言build 1件、DPI未link build 26件です。
+別command-line evidenceはpass 17／known 1、HDL VPIはpass 7／fail 1のままです。guest evidenceは未変更1085入力で、現在の298 IDは未測定です。
+tool単体101件、全1383 metadata、台帳／索引／library同一性、互換実行記録、日英10組のFAQ 191回答・用語212語を照合します。
 全runner／tool、以前のsimulation入力、CI、catalog、scope、library lock、license、Issue方針、SVG 6 asset、別VPI記録は未変更です。
 部分分解した残る義務を含め、goalは有効なままです。

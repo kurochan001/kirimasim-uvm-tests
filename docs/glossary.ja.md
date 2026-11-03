@@ -790,3 +790,14 @@ hookを省略するだけで、異なるtotal照会の定義は認定しませ�
 
 **Optional callback parameter（省略可能なcallback parameter）** — 有効な登録object／callback組で、callback add／deleteのCBだけを省略することです。
 正確な型検査と型付き委譲で、mode省略値や不正組の診断は解決しません。
+
+## TLM宣言と照会のevidence
+
+**Independent response default（独立した応答既定値）** — 要求型を変えても固定される、宣言された応答型の既定値です。
+全int specializationでは一致しても、REQに従う応答parameterの既定値とは異なります。
+
+**Capacity versus occupancy（容量と使用数）** — FIFOの設定した最大数と、現在保存しているentry件数です。
+容量0は上限なしを表し、使用数の測定や空の無制限is_full文言の解決ではありません。
+
+**Interface-view forwarding（interface view経由の転送）** — 公開virtual interface基底を通して実際の標準port／exportを呼ぶことです。
+選択型／委譲と転送経路を検査し、独自backend algorithmをlibrary oracleにはしません。

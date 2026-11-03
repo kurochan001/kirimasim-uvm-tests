@@ -2,7 +2,7 @@
 
 [日本語](known-differences.ja.md) · [README](../README.md) · [FAQ](faq.md)
 
-This describes the current 1370-test suite and the pinned Accellera UVM
+This describes the current 1383-test suite and the pinned Accellera UVM
 2020.3.1 library. A mismatch is a test result; it does not by itself assign
 the cause to the simulator, the library or the expectation.
 
@@ -19,6 +19,15 @@ shared accesses and one child-block shape; see the
 Further limitations and observations were identified during M1, M2 and M3.
 Where a test directly checks a required behavior that is missing, its
 normative expectation is retained with `:oracle: spec`.
+
+- The bidirectional port summary in 12.2.3.3 declares RSP=int independently
+  of REQ. The selected nine-family fixture overrides only REQ with string,
+  then requires the exact string/int interface base. The pinned declarations
+  use RSP=REQ, so the first typed argument fails to compile. All-int defaults
+  and explicitly distinct packed-type transport controls match. This is one
+  declaration-default build difference, not a missing API or runtime failure;
+  neither seed has executed for that input. The retained oracle does not
+  substitute an explicit RSP argument in the REQ-only test.
 
 - With propagation mode zero, objection callbacks correctly skip intermediate
   components, but total queries for those ancestors return zero while their
@@ -499,7 +508,7 @@ warning. The YES control changes the limit to nine without a warning. This
 is a diagnostic-severity difference, not failed limit enforcement. The older
 two no-DPI argument cases remain unchanged ordinary runtime differences.
 
-Across the suite, 1203 tests have the `verilator@5.052` oracle tag and 167
+Across the suite, 1215 tests have the `verilator@5.052` oracle tag and 168
 cases are spec-only. One of the spec-only cases checks 9.6: a child's pre-reset
 task must be killed when that phase ends, but the pinned-library run on Verilator 5.052
 lets the child perform its delayed write during a later phase. The cause of
@@ -511,14 +520,15 @@ without callbacks. The pinned Verilator run reaches the blocked-state
 observation, then its watchdog expires. This combined simulator/library
 cause remains unassigned; the normative wakeup expectation is retained.
 
-The 167 spec-only tests retain their normative expected files.
-Default Verilator runs and CI select the 1203 tagged cases. `--all` includes
+The 168 spec-only tests retain their normative expected files.
+Default Verilator runs and CI select the 1215 tagged cases. `--all` includes
 spec-only cases and records mismatches or build failures as `known`.
 The ordinary runtime records for 125 cases establish their first difference
 at seed 1, without seed 73 results. Sixteen missing-API builds have no ordinary
 runtime seed result: one time API, six sequence-library cases, four HDL slice
 cases, one named-concat-constructor case, one object active-policy case and
 three catcher message-handle cases.
+One response-default declaration fixture also cannot build and has no runtime seed result.
 Eight HDL-DPI and eighteen command-line-DPI fixtures also cannot
 link in the ordinary runner. Their separate VPI condition matches seven at
 both seeds and fails the E.7 warning/no-transfer expectation at seed 1.
@@ -526,8 +536,10 @@ These overlapping configurations are not summed.
 
 ## Spec-only tests
 
-These are the 167 current spec-only cases. Several exercise the same
+These are the 168 current spec-only cases. Several exercise the same
 limitation, so their count is not a count of distinct bugs.
+
+- [Independent integer response default with REQ-only bidirectional ports](../tests/u12/test_tlm_bidirectional_request_only_parameter_keeps_declared_integer_response_default.sv).
 
 - [Intermediate descendant totals with skipped callbacks](../tests/u10/test_objection_skipped_propagation_delivers_default_and_registered_hooks_with_context.sv).
 
@@ -796,8 +808,8 @@ Additional message-handle and endian cases:
 
 ## Simulator and library combinations
 
-The suite has 1370 cases, but the kirimasim/Ghost records below cover only
-1085 unchanged current-input cases. The 285 new cases are unmeasured
+The suite has 1383 cases, but the kirimasim/Ghost records below cover only
+1085 unchanged current-input cases. The 298 new cases are unmeasured
 because prior temporary executable/profile snapshots are unavailable. Do
 not treat this as a fresh full-suite guest result. See [results](results.md).
 

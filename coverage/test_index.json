@@ -1222,6 +1222,10 @@
       "primary_clause": "12.2.10.3",
       "inputs_sha256": "7634a68669cc1d7e4c1c92f240210490f2f06006a86e4a51d4433e3266cd59f2"
     },
+    "u12/test_analysis_fifo_export_accepts_bound_port_and_interface_view_writes_in_order": {
+      "primary_clause": "12.2.8.3.1",
+      "inputs_sha256": "65e5d159192c625f01ae854991f09c6d104ac08978567dce2ae4160767a05b22"
+    },
     "u12/test_analysis_port_broadcast_preserves_object_handle_value": {
       "primary_clause": "12.2.10.1.4",
       "inputs_sha256": "bf94b438f41c23480f2783f463d7f97cb4e946c57e7595717e1172f4cf404e95"
@@ -1730,9 +1734,33 @@
       "primary_clause": "12.2.8.3",
       "inputs_sha256": "477c19a55b0ea63be50f74e690324252827739c65995f203d4f9a7cc083a3c64"
     },
+    "u12/test_tlm_analysis_interface_base_write_broadcasts_values_to_all_bound_receivers_without_time": {
+      "primary_clause": "12.2.4.2.12",
+      "inputs_sha256": "10b2497e0137a79e1547dbf4fbc38aacf3d9f433ef8b1ab0b4f6ecc691cafd8c"
+    },
+    "u12/test_tlm_bidirectional_port_defaults_preserve_request_response_and_constructor_metadata": {
+      "primary_clause": "12.2.3.3",
+      "inputs_sha256": "aef215d9c06956f4cf6439c8557fc7fc868800726c1f4688f5f1f63da614496b"
+    },
+    "u12/test_tlm_bidirectional_request_only_parameter_keeps_declared_integer_response_default": {
+      "primary_clause": "12.2.3.3",
+      "inputs_sha256": "bf610fa340683b875a61e3d17274c7a2dbca87087d7b8386cdcf1b3899413e1f"
+    },
+    "u12/test_tlm_blocking_transport_interface_forwards_distinct_value_types_and_delayed_completion": {
+      "primary_clause": "12.2.4.2.10",
+      "inputs_sha256": "4bc0161bd800e0d9ff2587df42baadccb0bda4d6e075fc308c263b921dee04f5"
+    },
     "u12/test_tlm_fifo_analysis_notifications_preserve_the_queued_object_handle": {
       "primary_clause": "12.2.8.1.5",
       "inputs_sha256": "42cf32059097e5dbdb82c17b035e6d1ba20a9e27963da09435e41cffebffeac6"
+    },
+    "u12/test_tlm_fifo_availability_queries_preserve_object_head_and_peer_storage": {
+      "primary_clause": "12.2.4.2.7",
+      "inputs_sha256": "afd8e88990618b43d7985a16c2bc1875d30b55d219a6fe80b226796bd67550cf"
+    },
+    "u12/test_tlm_fifo_base_constructor_parent_and_default_type_preserve_component_identity": {
+      "primary_clause": "12.2.8.1.7",
+      "inputs_sha256": "499cbb8e4aeaf9ad767efc66a7fd783c348ec543ce994b06e69aa6d08f43a8dd"
     },
     "u12/test_tlm_fifo_blocking_get_publishes_each_removed_value_to_all_subscribers": {
       "primary_clause": "12.2.8.1.6",
@@ -1761,6 +1789,10 @@
     "u12/test_tlm_fifo_empty_nonblocking_reads_report_unavailable": {
       "primary_clause": "12.2.4.2.6",
       "inputs_sha256": "6efad9708bb51a1bf04c004cc5a17dafb33b6c2455131bd1ff6eee1995f815d3"
+    },
+    "u12/test_tlm_fifo_exports_expose_combined_methods_through_public_interface_views": {
+      "primary_clause": "12.2.8.1.3",
+      "inputs_sha256": "d37a05ab1dcb4ad7254c0e5fcb0fc0e3d211f67a4332a0dfb88ce6c1b921ca3c"
     },
     "u12/test_tlm_fifo_failed_try_get_preserves_object_handle_before_success": {
       "primary_clause": "12.2.4.2.6",
@@ -1810,6 +1842,10 @@
       "primary_clause": "12.2.8.1.5",
       "inputs_sha256": "6f49cd1b9f11efe52c2c41350a771e07a725ee7d3f92229afa140646b3e00a9e"
     },
+    "u12/test_tlm_fifo_positive_capacity_queries_follow_fill_peek_get_and_flush": {
+      "primary_clause": "12.2.8.2.2",
+      "inputs_sha256": "211b8f75d3a3410ca37fe44369603b7c39ecbb9ad6826aace7fa1005fff90fc8"
+    },
     "u12/test_tlm_fifo_rejected_put_keeps_existing_entry": {
       "primary_clause": "12.2.4.2.4",
       "inputs_sha256": "1178d1bdca1a6a1c2047f6b83a67ba0870ea54434a5889605b7a9a7a27df5991"
@@ -1829,6 +1865,22 @@
     "u12/test_tlm_fifo_zero_capacity_is_unbounded": {
       "primary_clause": "12.2.8.2.1",
       "inputs_sha256": "c4a4cfbd552ce442024a86105af49a8dc7845736c0580c0b526a970be42ebc46"
+    },
+    "u12/test_tlm_interface_base_defaults_and_distinct_type_parameters_dispatch_virtual_transport": {
+      "primary_clause": "12.2.4.1",
+      "inputs_sha256": "535b48ad0ea1601a3aeb1362d71f5f7138b7fbb06911caf679ffa5e4ee3accea"
+    },
+    "u12/test_tlm_nonblocking_transport_interface_forwards_failure_success_and_distinct_value_types": {
+      "primary_clause": "12.2.4.2.11",
+      "inputs_sha256": "e6ad3e6f7793f5cd95dfe1a8f71312f0b81772c88137db4c92900c09a5a001f2"
+    },
+    "u12/test_tlm_unbounded_fifo_size_and_used_queries_track_growth_and_consumption": {
+      "primary_clause": "12.2.8.2.3",
+      "inputs_sha256": "aa84bc74ff3219c03c1c4e799a8cb2b79d85ab8b00eec1825bf0352beee41910"
+    },
+    "u12/test_tlm_unidirectional_port_defaults_preserve_integer_interface_and_constructor_metadata": {
+      "primary_clause": "12.2.2.3",
+      "inputs_sha256": "cde9bc5fc7bda19029a601c420a3083b85f5671d9496ec5ec29162afce44a152"
     },
     "u12/test_transport_channel_reuses_storage_for_sequential_transactions": {
       "primary_clause": "12.2.9.2.2",

@@ -1,0 +1,3 @@
+UT: fifo_export_put nonnull 1 accepted 1 full_capacity 1 used 2
+UT: fifo_export_peek nonnull 1 values 13/13 success 1 get 1 peek 1 used 2
+UT: fifo_export_get values 13/27 success 1 used 0 can_put 1

@@ -122,7 +122,7 @@ Ghostは公開前のシミュレータの仮名です。実行ファイルの識
 ### Q12. uvm_dpi: yesだけでDPIを使うビルドが完成しますか
 
 既定のマクロ一覧から`UVM_NO_DPI`を外す指定です。UVMのC/C++実装の供給・リンクは行いません。
-通常のVerilator runnerは、そのsourceを追加しません。`UVM_NO_DPI`が1344件、HDL DPIの明示選択が8件です。
+通常のVerilator runnerは、そのsourceを追加しません。`UVM_NO_DPI`が1357件、HDL DPIの明示選択が8件です。
 別の18検査系はHDLを無効にしてcommand-line／regex DPIを明示して有効化し、
 [command-line runner](testing.ja.md#verilatorのcommand-line部分集合)がその別backendをlinkします。
 [別のVPI runner](testing.ja.md#verilatorのvpi-hdl部分集合)は独自の限定backendをlinkし、結果は宣言した実行条件だけに適用します。
@@ -923,8 +923,8 @@ controlの対応は、その要求の直接の検査ではありません。
 
 ### Q77. M4を始めたのに、カバレッジ率がないのはなぜですか
 
-AIによる1920要求案は部分的な分解で、1920要求を1369テストへ直接対応付け、直接未対応は0要求、別の1テストはcontrolです。
-全1370テストに要求の対応付けがあります。2,507の条項番号は規範的要求の単位ではありません。
+AIによる1955要求案は部分的な分解で、1955要求を1382テストへ直接対応付け、直接未対応は0要求、別の1テストはcontrolです。
+全1383テストに要求の対応付けがあります。2,507の条項番号は規範的要求の単位ではありません。
 範囲は提案、棚卸しは未完、分母は未承認で、M4の開始はどれの承認にもなりません。
 既知差分やHDL／DPIの制約によって義務を暗黙に除外しません。[承認までの手順](requirements.ja.md#m4の残作業と承認)を参照してください。
 
@@ -1709,7 +1709,7 @@ user backdoorは16 bit locationをモデル化します。location独立性、�
 
 いいえ。`tests_without_requirement_links`は0で、現在の全テストに、明示的なdirectまたはcontrolの対応があります。
 別の集計`requirements_without_direct_tests`も0件です。memory-walkの対応はQ134の限定した歴史的解釈で、
-省略されたIEEEの詳細の承認ではありません。HDL depositと利用可否には、明示VPI検査系があります。catalogの識別子1,274件も未評価です。
+省略されたIEEEの詳細の承認ではありません。HDL depositと利用可否には、明示VPI検査系があります。catalogの識別子1,229件も未評価です。
 分解と人のレビューは未完で、分母は未承認です。
 
 [新しいpolicyテスト](../tests/u16/test_policy_object_stack_tracks_nested_active_policy_push_and_pop.sv)は、
@@ -1786,7 +1786,7 @@ frontdoor保護のwarningはalgorithm oracleの対象外で、ERRORと観測し�
 個別に読んだ後、日英の根拠とAI／人のレビューを[番号の分類](../coverage/assessments.json)へ記録すれば可能です。
 構造上の見出しは関連要求を持たず、文脈の説明は既存要求を指定します。
 未レビューの記録、推測した分類、親への集約では外せません。生成状態は`assessed`で、要求条項の`partial`と区別します。
-現在の分類は141件で、分母承認や新たなpassを加えません。第11章の未評価0件でも、その要求の完了ではありません。
+現在の分類は165件で、分母承認や新たなpassを加えません。第11章の未評価0件でも、その要求の完了ではありません。
 
 ### Q136. 明示strict configurationで新規検査は成功しますか？
 
@@ -2248,3 +2248,24 @@ get_global_pool後のgetが成功しても解決しません。constructor／名
 constructorの名前と宣言T／CB parameterの既定値には、正の型検査があります。有効な登録組ではadd／deleteのCBを省略しても、型付き列挙と実際の型付き委譲を使えます。
 is_enabledは明示0／1の変更に従い、それ以外の非切替引数では変わりません。callback_mode宣言の省略値は-1ですが本文は1を要求するため、
 解釈を未解決に保持し、新規検査は常に引数を指定します。callback初期enable状態、不正組の診断severity、未記載のobjection-callback constructor省略形は固定libraryから推論しません。
+
+## TLMの型既定値とFIFO照会
+
+### Q189. REQだけ指定するbidirectional port検査は、なぜbuild差分ですか？
+
+12.2.3.3はREQとRSPに独立したinteger既定値を宣言します。REQをstringと明示しRSPを省略すると、期待する正確なinterfaceはstring／intです。
+固定portはRSPをREQと同じ型にするため、型が合いません。検査系は規格の宣言を保持し、RSPを明示すると検査対象条件が消えてしまいます。
+全int既定と、異なる要求／応答転送型を明示する検査は、別の一致する比較対象です。これは実行時seedのevidenceがない宣言既定値build失敗で、API欠落／DPI未linkとは別に数えます。
+
+### Q190. FIFO照会とinterface-view検査は何を示しますか？
+
+正の有限容量と現在の使用数を区別し、fill、拒否、peek、get、flushでsize、used、is_empty、is_fullを検査します。
+bound get／peek portはobject headを消費せずavailabilityを報告し、live handle dataと独立peer記憶域も扱います。
+公開FIFO export viewは結合blocking／nonblocking methodへ委譲し、bound portとinterface viewからのanalysis writeは到着順を保持します。
+失敗出力保持とpeek-analysis通知は別の契約です。型／基底viewやconstructor probeだけではbinding解決を認定しません。
+
+### Q191. 容量0のFIFO full判定は完全に解決していますか？
+
+いいえ。size 0は容量上限なしを明示する一方、is_fullはentry件数とsizeの一致とも記述され、空の無制限FIFOでの組合せは追加レビューが必要です。
+選択した無制限probeはis_fullをassertせず、size 0、使用数の増加／消費、availabilityを検査します。正の有限sizeのfullには別の直接検査があります。
+未解決条件を残し、固定実装をoracleにはしません。広いprotocol、並行性、不正sizeの条件も未完です。

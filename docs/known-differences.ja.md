@@ -2,7 +2,7 @@
 
 [English](known-differences.md) · [README](../README.ja.md) · [FAQ](faq.ja.md)
 
-現在の1370件と、固定したAccellera UVM 2020.3.1についての記録です。
+現在の1383件と、固定したAccellera UVM 2020.3.1についての記録です。
 不一致はテストの結果であり、それだけではシミュレータ・ライブラリ・期待値のどれが原因かは決まりません。
 
 ## 固定版ライブラリの制約
@@ -15,6 +15,10 @@
 [shared accessの範囲](faq.ja.md#memory-accessshared-mapテストの選択)を参照してください。
 M1・M2・M3で、追加の制約と観測を確認しました。
 不足する必須動作を直接検査する場合は、規格の期待値を変えずに`:oracle: spec`で保持します。
+
+- 12.2.3.3のbidirectional port概要は、REQと独立にRSP=intを宣言します。選択した9 familyの検査系はREQだけstringへoverrideし、正確なstring／int interface基底を要求します。
+  固定宣言はRSP=REQを使うため、最初の型付き引数でcompileに失敗します。全int既定と、異なるpacked型を明示したtransportの比較対象は一致します。
+  これはAPI欠落や実行時失敗ではなく、宣言既定値build差分1件で、この入力は両seedとも未実行です。REQだけ指定する検査でRSPを明示する置換は行いません。
 
 - propagation mode 0では、objection callbackは中間componentを正しく省略しますが、子が2、次に1 objectionを保持していても、その祖先のtotal照会は0を返します。
   10.5.1.3.2が指定するのはcallback省略であり、10.5.1.5.4のtotalは自身とdescendantのobjectionを含みます。source／root totalとcallback経路は一致します。
@@ -333,7 +337,7 @@ command-line 18検査系は別のVPI bridgeと固定regex DPIを明示要求し�
 上限は正しく7のままですが、固定serverはINFOを発行し、警告probeはWARNINGを観測しません。YESの比較対象は警告なしで9へ変わります。
 これは診断severityの差分で、上限の強制失敗ではありません。以前のno-DPI引数2件は未変更の通常実行時差分です。
 
-スイート全体では、`verilator@5.052`を付けたテストは1203件、specのみのテストは167件です。
+スイート全体では、`verilator@5.052`を付けたテストは1215件、specのみのテストは168件です。
 specのみのうち1件は9.6を検証します。pre-resetフェーズ終了時に子タスクが停止する
 はずですが、固定版UVMとVerilator 5.052の組み合わせでは、後のフェーズで子タスクの遅延書き込みが
 実行されます。この差分の原因がシミュレータとライブラリのどちらかは未確定です。
@@ -342,17 +346,19 @@ wakeup resetの検査系は、trigger waiterとpersistent-trigger waiterを各1�
 10.1.1.2.8は、callbackなしで両方が起動することを要求します。固定Verilatorの実行は、待機状態の観測に到達してから
 watchdogが期限切れになります。simulator／libraryを組み合わせた原因は未確定のまま、規範的なwakeupの期待を保持します。
 
-specのみの167件も規格から導いた期待値を保持します。通常のVerilator実行とCIはoracle付き1203件を選びます。
+specのみの168件も規格から導いた期待値を保持します。通常のVerilator実行とCIはoracle付き1215件を選びます。
 `--all`はspecのみも含め、不一致やビルド不可を`known`として記録します。
 通常の実行時125件は、最初の差分であるseed 1までの記録で、seed 73の結果はありません。
 API欠落build 16件は、time 1件、sequence-library 6件、HDL slice 4件、名前付きconcat constructor 1件、object active-policy 1件、catcher message-handle 3件で、
-通常条件の実行時seed結果はありません。HDL DPI 8検査系とcommand-line DPI 18検査系も通常runnerではlinkできません。
+通常条件の実行時seed結果はありません。応答既定型の宣言1検査系もbuildできず、実行時seed結果はありません。HDL DPI 8検査系とcommand-line DPI 18検査系も通常runnerではlinkできません。
 別のVPI条件では、7件が両seed一致、E.7のwarning／転送なしの期待はseed 1で失敗します。
 重複する条件を合計しません。
 
 ## specのみのテスト
 
-現在の167件は次のテストです。同じ制約を複数のテストで検査する場合があり、異なる不具合の個数ではありません。
+現在の168件は次のテストです。同じ制約を複数のテストで検査する場合があり、異なる不具合の個数ではありません。
+
+- [REQだけ指定するbidirectional portの独立integer応答既定型](../tests/u12/test_tlm_bidirectional_request_only_parameter_keeps_declared_integer_response_default.sv).
 
 - [callback省略時の中間descendant total](../tests/u10/test_objection_skipped_propagation_delivers_default_and_registered_hooks_with_context.sv).
 
@@ -621,8 +627,8 @@ API欠落build 16件は、time 1件、sequence-library 6件、HDL slice 4件、�
 
 ## シミュレータとライブラリの組み合わせ
 
-スイートは1370件ですが、以下のkirimasim／Ghost記録は未変更の現在入力1085件だけを対象とします。
-以前の一時実行ファイル／profile snapshotがないため、新規285件は未測定です。
+スイートは1383件ですが、以下のkirimasim／Ghost記録は未変更の現在入力1085件だけを対象とします。
+以前の一時実行ファイル／profile snapshotがないため、新規298件は未測定です。
 新しい全件guest実測とは扱いません。[実行結果](results.ja.md)を参照してください。
 
 Ghostの同梱UVMはseed 1・73とも207件一致・878件不一致で、不一致になるテストも同じです。

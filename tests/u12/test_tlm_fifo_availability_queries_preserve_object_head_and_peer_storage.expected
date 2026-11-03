@@ -1,0 +1,4 @@
+UT: fifo_availability_empty get 0 peek 0 used 0
+UT: fifo_availability_held accepted 1 available 1 used 1 head 1 live 35
+UT: fifo_availability_removed identity 1 get 0 peek 0 used 0 peer 1
+UT: fifo_availability_reused identity 1 value 27 empty 1 peer 1

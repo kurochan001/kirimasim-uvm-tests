@@ -135,7 +135,7 @@ See [Ghost setup](testing.md#ghost).
 
 It removes `UVM_NO_DPI` from the default macro list. It does not supply or link
 UVM's C/C++ implementation. The current Verilator runner does not add those
-sources. There are 1344 `UVM_NO_DPI` cases and eight explicit HDL-DPI cases.
+sources. There are 1357 `UVM_NO_DPI` cases and eight explicit HDL-DPI cases.
 Eighteen more fixtures explicitly enable command-line/regex DPI with HDL disabled.
 The [command-line runner](testing.md#verilator-command-line-subset) links that separate backend.
 The [separate VPI runner](testing.md#verilator-vpi-hdl-subset) links the original
@@ -1143,9 +1143,9 @@ not a direct test of the requirement.
 
 ### Q77. Why is there no coverage percentage after starting M4?
 
-The 1920 AI drafts cover only a partial decomposition: 1920 requirements link
-directly to 1369 tests; all drafts have direct tests, and one separate test is a control.
-All 1370 tests have requirement links. The 2,507 clause identifiers are not normative requirement units.
+The 1955 AI drafts cover only a partial decomposition: 1955 requirements link
+directly to 1382 tests; all drafts have direct tests, and one separate test is a control.
+All 1383 tests have requirement links. The 2,507 clause identifiers are not normative requirement units.
 The scope is proposed, the inventory incomplete and the denominator unapproved;
 starting M4 approves none of those. Known differences and HDL/DPI limitations
 do not silently exclude obligations. See the [approval path](requirements.md#remaining-m4-work-and-approval).
@@ -2145,7 +2145,7 @@ No. `tests_without_requirement_links` is zero: every current test has an
 explicit direct or control link. The separate counter
 `requirements_without_direct_tests` is zero. The memory-walk link uses the
 qualified historical interpretation in Q134. It is not approval of missing
-IEEE detail. HDL deposit and accessibility use explicit VPI fixtures. Another 1,274
+IEEE detail. HDL deposit and accessibility use explicit VPI fixtures. Another 1,229
 catalog identifiers remain unassessed; decomposition and human review are
 incomplete, and the denominator remains unapproved.
 
@@ -2246,7 +2246,7 @@ in [identifier assessments](../coverage/assessments.json). Structural headings
 have no related requirements; contextual descriptions name existing requirements.
 An unreviewed record, guessed classification or parent rollup cannot do this.
 The generated state is `assessed`, separate from `partial` requirement clauses.
-141 classifications currently exist, with no denominator approval or new pass.
+165 classifications currently exist, with no denominator approval or new pass.
 Chapter 11's zero unassessed identifiers still does not complete its requirements.
 
 ### Q136. Does explicit strict configuration make the new cases pass?
@@ -2886,3 +2886,37 @@ shows an omitted value of -1 while its prose requires 1; that interpretation
 remains unresolved and new cases always supply the argument. No initial
 callback enable state, invalid-pair diagnostic severity or undocumented
 objection-callback constructor omission is inferred from the pinned library.
+
+## TLM type defaults and FIFO queries
+
+### Q189. Why is the REQ-only bidirectional port case a build difference?
+
+Clause 12.2.3.3 declares independent integer defaults for REQ and RSP. With
+REQ explicitly string and RSP omitted, the exact expected interface is
+string/int. The pinned port defaults RSP to REQ instead, so its type cannot
+match. The fixture retains the standard declaration; explicitly supplying RSP
+would remove the condition being tested. All-int defaults and explicitly
+different request/response transfer types are separate passing controls.
+This is a declaration-default build failure, with no runtime seed evidence,
+and is counted separately from missing APIs and unlinked DPI.
+
+### Q190. What do the FIFO query and interface-view tests establish?
+
+Positive bounded capacity is kept distinct from current occupancy. Fill,
+rejection, peek, get and flush exercise size, used, is_empty and is_full.
+Bound get/peek ports report availability without consuming the object head,
+including live handle data and independent peer storage. Public FIFO export
+views also delegate combined blocking/nonblocking methods; analysis writes
+through a bound port and an interface view preserve arrival order. Failed
+output preservation and peek-analysis notifications remain separate contracts.
+A type/base view or constructor probe alone does not establish resolved binding.
+
+### Q191. Is zero-capacity FIFO fullness fully settled?
+
+No. A size of zero explicitly means no capacity limit; is_full is also
+worded as equality between entries and size. Their interaction at an empty
+unbounded FIFO needs review. The selected unbounded probe checks size zero,
+occupancy growth/consumption and availability without asserting is_full.
+Positive finite-size fullness has a separate direct test. The unresolved
+condition stays open rather than taking the pinned implementation as the
+oracle. Broader protocol, concurrency and malformed-size conditions also remain.

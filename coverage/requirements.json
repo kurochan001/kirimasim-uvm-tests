@@ -71346,6 +71346,1258 @@
           ]
         }
       ]
+    },
+    {
+      "id": "UVM-TLM1-REVIEW-INTERFACE-DEFAULT-T1",
+      "clause": "12.2.4.1",
+      "statement": {
+        "en": "The omitted interface T1 parameter defaults to int.",
+        "ja": "interfaceのT1 parameter省略時はintを既定値にする。"
+      },
+      "conditions": {
+        "en": "Use an original concrete default interface through the exact int/int base.",
+        "ja": "独自の具象既定interfaceを、正確なint／int基底で使う。"
+      },
+      "expected": {
+        "en": "The base retains identity and dispatches the selected integer request.",
+        "ja": "基底は同一性を保持し、選択integer requestへ委譲する。"
+      },
+      "limitations": {
+        "en": "Positive selected type/constructor compatibility only, before binding resolution for constructor probes. Original concrete interface response algorithms are setup, not library transport behavior. The summary spelling tlm_if_base and omitted imp parameters are not certified; arbitrary invalid types, complete class families, factory behavior and runtime binding remain separate.",
+        "ja": "選択した型／constructorの正の互換性のみ。constructor probeはbinding解決前に行う。独自具象interfaceの応答algorithmは設定であり、libraryのtransport動作ではない。概要のtlm_if_base表記と省略されたimp parameterは認定せず、任意の不正型、全class family、factory動作、実行時bindingは別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm_interface_base_defaults_and_distinct_type_parameters_dispatch_virtual_transport",
+          "role": "direct",
+          "expected_observations": [
+            "UT: interface_default identity 1 response 26"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM1-REVIEW-INTERFACE-DEFAULT-T2",
+      "clause": "12.2.4.1",
+      "statement": {
+        "en": "The omitted interface T2 parameter defaults to int.",
+        "ja": "interfaceのT2 parameter省略時はintを既定値にする。"
+      },
+      "conditions": {
+        "en": "Call an original default specialization through an exact integer response interface.",
+        "ja": "正確なinteger応答interfaceから独自の既定specializationを呼ぶ。"
+      },
+      "expected": {
+        "en": "The declared integer response is received through the base.",
+        "ja": "宣言integer応答を基底経由で受け取る。"
+      },
+      "limitations": {
+        "en": "Positive selected type/constructor compatibility only, before binding resolution for constructor probes. Original concrete interface response algorithms are setup, not library transport behavior. The summary spelling tlm_if_base and omitted imp parameters are not certified; arbitrary invalid types, complete class families, factory behavior and runtime binding remain separate.",
+        "ja": "選択した型／constructorの正の互換性のみ。constructor probeはbinding解決前に行う。独自具象interfaceの応答algorithmは設定であり、libraryのtransport動作ではない。概要のtlm_if_base表記と省略されたimp parameterは認定せず、任意の不正型、全class family、factory動作、実行時bindingは別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm_interface_base_defaults_and_distinct_type_parameters_dispatch_virtual_transport",
+          "role": "direct",
+          "expected_observations": [
+            "UT: interface_default identity 1 response 26"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM1-REVIEW-INTERFACE-T2-INDEPENDENT-DEFAULT",
+      "clause": "12.2.4.1",
+      "statement": {
+        "en": "The omitted T2 remains int when only T1 is explicitly changed.",
+        "ja": "T1だけを明示変更しても、T2省略時はintのままである。"
+      },
+      "conditions": {
+        "en": "An original concrete interface selects string requests and omits T2.",
+        "ja": "独自の具象interfaceでstring要求を選び、T2を省略する。"
+      },
+      "expected": {
+        "en": "The exact string/int base accepts the instance and returns an integer.",
+        "ja": "正確なstring／int基底がinstanceを受け付け、integerを返す。"
+      },
+      "limitations": {
+        "en": "Positive selected type/constructor compatibility only, before binding resolution for constructor probes. Original concrete interface response algorithms are setup, not library transport behavior. The summary spelling tlm_if_base and omitted imp parameters are not certified; arbitrary invalid types, complete class families, factory behavior and runtime binding remain separate.",
+        "ja": "選択した型／constructorの正の互換性のみ。constructor probeはbinding解決前に行う。独自具象interfaceの応答algorithmは設定であり、libraryのtransport動作ではない。概要のtlm_if_base表記と省略されたimp parameterは認定せず、任意の不正型、全class family、factory動作、実行時bindingは別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm_interface_base_defaults_and_distinct_type_parameters_dispatch_virtual_transport",
+          "role": "direct",
+          "expected_observations": [
+            "UT: interface_request_only identity 1 response 5"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM1-REVIEW-INTERFACE-DISTINCT-PARAMETERS",
+      "clause": "12.2.4.1",
+      "statement": {
+        "en": "Distinct request and response parameters are supported by the virtual interface.",
+        "ja": "virtual interfaceは異なる要求／応答parameterを受け付ける。"
+      },
+      "conditions": {
+        "en": "Call an original int/string extension through its exact base specialization.",
+        "ja": "独自int／string拡張を、正確な基底specializationから呼ぶ。"
+      },
+      "expected": {
+        "en": "Identity and the original string response are preserved through virtual dispatch.",
+        "ja": "virtual委譲で同一性と独自string応答を保持する。"
+      },
+      "limitations": {
+        "en": "Positive selected type/constructor compatibility only, before binding resolution for constructor probes. Original concrete interface response algorithms are setup, not library transport behavior. The summary spelling tlm_if_base and omitted imp parameters are not certified; arbitrary invalid types, complete class families, factory behavior and runtime binding remain separate.",
+        "ja": "選択した型／constructorの正の互換性のみ。constructor probeはbinding解決前に行う。独自具象interfaceの応答algorithmは設定であり、libraryのtransport動作ではない。概要のtlm_if_base表記と省略されたimp parameterは認定せず、任意の不正型、全class family、factory動作、実行時bindingは別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm_interface_base_defaults_and_distinct_type_parameters_dispatch_virtual_transport",
+          "role": "direct",
+          "expected_observations": [
+            "UT: interface_distinct identity 1 response 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM1-REVIEW-FIFO-BASE-DEFAULT-TYPE",
+      "clause": "12.2.8.1.1",
+      "statement": {
+        "en": "The FIFO base defaults its stored transaction type to int.",
+        "ja": "FIFO基底の保存transaction型はintを既定値にする。"
+      },
+      "conditions": {
+        "en": "Upcast a concrete default-base probe to the exact int specialization.",
+        "ja": "具象の既定基底probeを正確なint specializationへupcastする。"
+      },
+      "expected": {
+        "en": "The exact view retains identity.",
+        "ja": "正確なviewは同一性を保持する。"
+      },
+      "limitations": {
+        "en": "Positive selected type/constructor compatibility only, before binding resolution for constructor probes. Original concrete interface response algorithms are setup, not library transport behavior. The summary spelling tlm_if_base and omitted imp parameters are not certified; arbitrary invalid types, complete class families, factory behavior and runtime binding remain separate.",
+        "ja": "選択した型／constructorの正の互換性のみ。constructor probeはbinding解決前に行う。独自具象interfaceの応答algorithmは設定であり、libraryのtransport動作ではない。概要のtlm_if_base表記と省略されたimp parameterは認定せず、任意の不正型、全class family、factory動作、実行時bindingは別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm_fifo_base_constructor_parent_and_default_type_preserve_component_identity",
+          "role": "direct",
+          "expected_observations": [
+            "UT: fifo_base_static name 1 default_type 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM1-REVIEW-FIFO-BASE-COMPONENT",
+      "clause": "12.2.8.1.1",
+      "statement": {
+        "en": "The FIFO base derives from the component base.",
+        "ja": "FIFO基底はcomponent基底から派生する。"
+      },
+      "conditions": {
+        "en": "Assign a named concrete FIFO-base child to a component handle.",
+        "ja": "名前付き具象FIFO-base childをcomponent handleへ代入する。"
+      },
+      "expected": {
+        "en": "The component view retains identity.",
+        "ja": "component viewは同一性を保持する。"
+      },
+      "limitations": {
+        "en": "Positive selected type/constructor compatibility only, before binding resolution for constructor probes. Original concrete interface response algorithms are setup, not library transport behavior. The summary spelling tlm_if_base and omitted imp parameters are not certified; arbitrary invalid types, complete class families, factory behavior and runtime binding remain separate.",
+        "ja": "選択した型／constructorの正の互換性のみ。constructor probeはbinding解決前に行う。独自具象interfaceの応答algorithmは設定であり、libraryのtransport動作ではない。概要のtlm_if_base表記と省略されたimp parameterは認定せず、任意の不正型、全class family、factory動作、実行時bindingは別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm_fifo_base_constructor_parent_and_default_type_preserve_component_identity",
+          "role": "direct",
+          "expected_observations": [
+            "UT: fifo_base_child name 1 parent 1 full_name 1 component 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM1-REVIEW-FIFO-BASE-OMITTED-PARENT",
+      "clause": "12.2.8.1.7",
+      "statement": {
+        "en": "The FIFO-base constructor permits an omitted parent for static use.",
+        "ja": "FIFO-base constructorはstatic利用でparent省略を認める。"
+      },
+      "conditions": {
+        "en": "An original concrete subtype calls the base constructor with only its selected name.",
+        "ja": "独自具象subtypeが選択した名前だけで基底constructorを呼ぶ。"
+      },
+      "expected": {
+        "en": "Construction succeeds and retains the selected local name.",
+        "ja": "生成に成功し、選択local名を保持する。"
+      },
+      "limitations": {
+        "en": "Positive selected type/constructor compatibility only, before binding resolution for constructor probes. Original concrete interface response algorithms are setup, not library transport behavior. The summary spelling tlm_if_base and omitted imp parameters are not certified; arbitrary invalid types, complete class families, factory behavior and runtime binding remain separate.",
+        "ja": "選択した型／constructorの正の互換性のみ。constructor probeはbinding解決前に行う。独自具象interfaceの応答algorithmは設定であり、libraryのtransport動作ではない。概要のtlm_if_base表記と省略されたimp parameterは認定せず、任意の不正型、全class family、factory動作、実行時bindingは別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm_fifo_base_constructor_parent_and_default_type_preserve_component_identity",
+          "role": "direct",
+          "expected_observations": [
+            "UT: fifo_base_static name 1 default_type 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM1-REVIEW-FIFO-BASE-NAME-PARENT",
+      "clause": "12.2.8.1.7",
+      "statement": {
+        "en": "FIFO-base construction associates the supplied component name and parent.",
+        "ja": "FIFO-base生成は指定したcomponent名と親を関連付ける。"
+      },
+      "conditions": {
+        "en": "Construct a concrete child under an actual owner component.",
+        "ja": "実際のowner componentの下に具象childを生成する。"
+      },
+      "expected": {
+        "en": "Local/full name, parent and component identity match.",
+        "ja": "local／full名、親、component同一性が一致する。"
+      },
+      "limitations": {
+        "en": "Positive selected type/constructor compatibility only, before binding resolution for constructor probes. Original concrete interface response algorithms are setup, not library transport behavior. The summary spelling tlm_if_base and omitted imp parameters are not certified; arbitrary invalid types, complete class families, factory behavior and runtime binding remain separate.",
+        "ja": "選択した型／constructorの正の互換性のみ。constructor probeはbinding解決前に行う。独自具象interfaceの応答algorithmは設定であり、libraryのtransport動作ではない。概要のtlm_if_base表記と省略されたimp parameterは認定せず、任意の不正型、全class family、factory動作、実行時bindingは別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm_fifo_base_constructor_parent_and_default_type_preserve_component_identity",
+          "role": "direct",
+          "expected_observations": [
+            "UT: fifo_base_child name 1 parent 1 full_name 1 component 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM1-REVIEW-UNIDIRECTIONAL-PORT-DEFAULT-T",
+      "clause": "12.2.2.3",
+      "statement": {
+        "en": "The selected unidirectional port families default T to int.",
+        "ja": "選択したunidirectional port familyはTをint既定値にする。"
+      },
+      "conditions": {
+        "en": "Construct twelve regular put/get/peek combinations without a type argument.",
+        "ja": "型引数なしで通常のput／get／peek組合せ12種を生成する。"
+      },
+      "expected": {
+        "en": "Each is compatible with the exact integer interface base.",
+        "ja": "各型は正確なinteger interface基底に互換である。"
+      },
+      "limitations": {
+        "en": "Positive selected type/constructor compatibility only, before binding resolution for constructor probes. Original concrete interface response algorithms are setup, not library transport behavior. The summary spelling tlm_if_base and omitted imp parameters are not certified; arbitrary invalid types, complete class families, factory behavior and runtime binding remain separate.",
+        "ja": "選択した型／constructorの正の互換性のみ。constructor probeはbinding解決前に行う。独自具象interfaceの応答algorithmは設定であり、libraryのtransport動作ではない。概要のtlm_if_base表記と省略されたimp parameterは認定せず、任意の不正型、全class family、factory動作、実行時bindingは別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm_unidirectional_port_defaults_preserve_integer_interface_and_constructor_metadata",
+          "role": "direct",
+          "expected_observations": [
+            "UT: port_declarations count 12 defaults_and_metadata 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM1-REVIEW-UNIDIRECTIONAL-PORT-DEFAULT-MIN",
+      "clause": "12.2.5.1",
+      "statement": {
+        "en": "The regular unidirectional port minimum defaults to one.",
+        "ja": "通常unidirectional portのminimumは1を既定値にする。"
+      },
+      "conditions": {
+        "en": "Inspect twelve selected regular port constructors before binding.",
+        "ja": "binding前に、選択した通常port constructor 12種を調べる。"
+      },
+      "expected": {
+        "en": "Each minimum is one.",
+        "ja": "各minimumは1である。"
+      },
+      "limitations": {
+        "en": "Positive selected type/constructor compatibility only, before binding resolution for constructor probes. Original concrete interface response algorithms are setup, not library transport behavior. The summary spelling tlm_if_base and omitted imp parameters are not certified; arbitrary invalid types, complete class families, factory behavior and runtime binding remain separate.",
+        "ja": "選択した型／constructorの正の互換性のみ。constructor probeはbinding解決前に行う。独自具象interfaceの応答algorithmは設定であり、libraryのtransport動作ではない。概要のtlm_if_base表記と省略されたimp parameterは認定せず、任意の不正型、全class family、factory動作、実行時bindingは別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm_unidirectional_port_defaults_preserve_integer_interface_and_constructor_metadata",
+          "role": "direct",
+          "expected_observations": [
+            "UT: port_declarations count 12 defaults_and_metadata 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM1-REVIEW-UNIDIRECTIONAL-PORT-DEFAULT-MAX",
+      "clause": "12.2.5.1",
+      "statement": {
+        "en": "The regular unidirectional port maximum defaults to one.",
+        "ja": "通常unidirectional portのmaximumは1を既定値にする。"
+      },
+      "conditions": {
+        "en": "Inspect twelve selected regular port constructors before binding.",
+        "ja": "binding前に、選択した通常port constructor 12種を調べる。"
+      },
+      "expected": {
+        "en": "Each maximum is one.",
+        "ja": "各maximumは1である。"
+      },
+      "limitations": {
+        "en": "Positive selected type/constructor compatibility only, before binding resolution for constructor probes. Original concrete interface response algorithms are setup, not library transport behavior. The summary spelling tlm_if_base and omitted imp parameters are not certified; arbitrary invalid types, complete class families, factory behavior and runtime binding remain separate.",
+        "ja": "選択した型／constructorの正の互換性のみ。constructor probeはbinding解決前に行う。独自具象interfaceの応答algorithmは設定であり、libraryのtransport動作ではない。概要のtlm_if_base表記と省略されたimp parameterは認定せず、任意の不正型、全class family、factory動作、実行時bindingは別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm_unidirectional_port_defaults_preserve_integer_interface_and_constructor_metadata",
+          "role": "direct",
+          "expected_observations": [
+            "UT: port_declarations count 12 defaults_and_metadata 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM1-REVIEW-UNIDIRECTIONAL-PORT-NAME-PARENT",
+      "clause": "12.2.5.1",
+      "statement": {
+        "en": "Regular unidirectional port construction retains its selected name and parent.",
+        "ja": "通常unidirectional port生成は選択した名前と親を保持する。"
+      },
+      "conditions": {
+        "en": "Supply unique names under an actual component owner.",
+        "ja": "実際のcomponent ownerの下で固有名を指定する。"
+      },
+      "expected": {
+        "en": "All selected names, parents and port roles match.",
+        "ja": "選択した全名前、親、port役割が一致する。"
+      },
+      "limitations": {
+        "en": "Positive selected type/constructor compatibility only, before binding resolution for constructor probes. Original concrete interface response algorithms are setup, not library transport behavior. The summary spelling tlm_if_base and omitted imp parameters are not certified; arbitrary invalid types, complete class families, factory behavior and runtime binding remain separate.",
+        "ja": "選択した型／constructorの正の互換性のみ。constructor probeはbinding解決前に行う。独自具象interfaceの応答algorithmは設定であり、libraryのtransport動作ではない。概要のtlm_if_base表記と省略されたimp parameterは認定せず、任意の不正型、全class family、factory動作、実行時bindingは別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm_unidirectional_port_defaults_preserve_integer_interface_and_constructor_metadata",
+          "role": "direct",
+          "expected_observations": [
+            "UT: port_declarations count 12 defaults_and_metadata 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM1-REVIEW-BIDIRECTIONAL-PORT-DEFAULT-REQ",
+      "clause": "12.2.3.3",
+      "statement": {
+        "en": "The selected bidirectional port families default REQ to int.",
+        "ja": "選択したbidirectional port familyはREQをint既定値にする。"
+      },
+      "conditions": {
+        "en": "Construct nine selected regular port families without type arguments.",
+        "ja": "選択した通常port family 9種を型引数なしで生成する。"
+      },
+      "expected": {
+        "en": "Each is compatible with the exact int/int interface base.",
+        "ja": "各型は正確なint／int interface基底に互換である。"
+      },
+      "limitations": {
+        "en": "Positive selected type/constructor compatibility only, before binding resolution for constructor probes. Original concrete interface response algorithms are setup, not library transport behavior. The summary spelling tlm_if_base and omitted imp parameters are not certified; arbitrary invalid types, complete class families, factory behavior and runtime binding remain separate.",
+        "ja": "選択した型／constructorの正の互換性のみ。constructor probeはbinding解決前に行う。独自具象interfaceの応答algorithmは設定であり、libraryのtransport動作ではない。概要のtlm_if_base表記と省略されたimp parameterは認定せず、任意の不正型、全class family、factory動作、実行時bindingは別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm_bidirectional_port_defaults_preserve_request_response_and_constructor_metadata",
+          "role": "direct",
+          "expected_observations": [
+            "UT: port_declarations count 9 defaults_and_metadata 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM1-REVIEW-BIDIRECTIONAL-PORT-DEFAULT-RSP",
+      "clause": "12.2.3.3",
+      "statement": {
+        "en": "The selected bidirectional port families default RSP to int.",
+        "ja": "選択したbidirectional port familyはRSPをint既定値にする。"
+      },
+      "conditions": {
+        "en": "Construct nine selected default request/response specializations.",
+        "ja": "選択した既定request／response specialization 9種を生成する。"
+      },
+      "expected": {
+        "en": "All default response interface types are integer-compatible.",
+        "ja": "全既定応答interface型はinteger互換である。"
+      },
+      "limitations": {
+        "en": "Positive selected type/constructor compatibility only, before binding resolution for constructor probes. Original concrete interface response algorithms are setup, not library transport behavior. The summary spelling tlm_if_base and omitted imp parameters are not certified; arbitrary invalid types, complete class families, factory behavior and runtime binding remain separate.",
+        "ja": "選択した型／constructorの正の互換性のみ。constructor probeはbinding解決前に行う。独自具象interfaceの応答algorithmは設定であり、libraryのtransport動作ではない。概要のtlm_if_base表記と省略されたimp parameterは認定せず、任意の不正型、全class family、factory動作、実行時bindingは別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm_bidirectional_port_defaults_preserve_request_response_and_constructor_metadata",
+          "role": "direct",
+          "expected_observations": [
+            "UT: port_declarations count 9 defaults_and_metadata 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM1-REVIEW-BIDIRECTIONAL-RSP-INDEPENDENT-DEFAULT",
+      "clause": "12.2.3.3",
+      "statement": {
+        "en": "The declared RSP default stays int when only REQ is overridden.",
+        "ja": "REQだけをoverrideしても、宣言されたRSP既定値はintを保持する。"
+      },
+      "conditions": {
+        "en": "Instantiate nine selected ports with string REQ and omit RSP, using exact string/int base arguments.",
+        "ja": "選択した9 portをstring REQ、RSP省略でinstance化し、正確なstring／int基底引数で使う。"
+      },
+      "expected": {
+        "en": "The standard-declared specializations compile and retain constructor metadata.",
+        "ja": "規格が宣言したspecializationはcompileでき、constructor metadataを保持する。"
+      },
+      "limitations": {
+        "en": "Positive selected type/constructor compatibility only, before binding resolution for constructor probes. Original concrete interface response algorithms are setup, not library transport behavior. The summary spelling tlm_if_base and omitted imp parameters are not certified; arbitrary invalid types, complete class families, factory behavior and runtime binding remain separate.",
+        "ja": "選択した型／constructorの正の互換性のみ。constructor probeはbinding解決前に行う。独自具象interfaceの応答algorithmは設定であり、libraryのtransport動作ではない。概要のtlm_if_base表記と省略されたimp parameterは認定せず、任意の不正型、全class family、factory動作、実行時bindingは別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm_bidirectional_request_only_parameter_keeps_declared_integer_response_default",
+          "role": "direct",
+          "expected_observations": [
+            "UT: port_declarations count 9 defaults_and_metadata 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM1-REVIEW-BIDIRECTIONAL-PORT-DEFAULT-MIN",
+      "clause": "12.2.5.2",
+      "statement": {
+        "en": "The regular bidirectional port minimum defaults to one.",
+        "ja": "通常bidirectional portのminimumは1を既定値にする。"
+      },
+      "conditions": {
+        "en": "Inspect nine selected regular port constructors before binding.",
+        "ja": "binding前に、選択した通常port constructor 9種を調べる。"
+      },
+      "expected": {
+        "en": "Each minimum is one.",
+        "ja": "各minimumは1である。"
+      },
+      "limitations": {
+        "en": "Positive selected type/constructor compatibility only, before binding resolution for constructor probes. Original concrete interface response algorithms are setup, not library transport behavior. The summary spelling tlm_if_base and omitted imp parameters are not certified; arbitrary invalid types, complete class families, factory behavior and runtime binding remain separate.",
+        "ja": "選択した型／constructorの正の互換性のみ。constructor probeはbinding解決前に行う。独自具象interfaceの応答algorithmは設定であり、libraryのtransport動作ではない。概要のtlm_if_base表記と省略されたimp parameterは認定せず、任意の不正型、全class family、factory動作、実行時bindingは別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm_bidirectional_port_defaults_preserve_request_response_and_constructor_metadata",
+          "role": "direct",
+          "expected_observations": [
+            "UT: port_declarations count 9 defaults_and_metadata 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM1-REVIEW-BIDIRECTIONAL-PORT-DEFAULT-MAX",
+      "clause": "12.2.5.2",
+      "statement": {
+        "en": "The regular bidirectional port maximum defaults to one.",
+        "ja": "通常bidirectional portのmaximumは1を既定値にする。"
+      },
+      "conditions": {
+        "en": "Inspect nine selected regular port constructors before binding.",
+        "ja": "binding前に、選択した通常port constructor 9種を調べる。"
+      },
+      "expected": {
+        "en": "Each maximum is one.",
+        "ja": "各maximumは1である。"
+      },
+      "limitations": {
+        "en": "Positive selected type/constructor compatibility only, before binding resolution for constructor probes. Original concrete interface response algorithms are setup, not library transport behavior. The summary spelling tlm_if_base and omitted imp parameters are not certified; arbitrary invalid types, complete class families, factory behavior and runtime binding remain separate.",
+        "ja": "選択した型／constructorの正の互換性のみ。constructor probeはbinding解決前に行う。独自具象interfaceの応答algorithmは設定であり、libraryのtransport動作ではない。概要のtlm_if_base表記と省略されたimp parameterは認定せず、任意の不正型、全class family、factory動作、実行時bindingは別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm_bidirectional_port_defaults_preserve_request_response_and_constructor_metadata",
+          "role": "direct",
+          "expected_observations": [
+            "UT: port_declarations count 9 defaults_and_metadata 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM1-REVIEW-BIDIRECTIONAL-PORT-NAME-PARENT",
+      "clause": "12.2.5.2",
+      "statement": {
+        "en": "Regular bidirectional port construction retains its selected name and parent.",
+        "ja": "通常bidirectional port生成は選択した名前と親を保持する。"
+      },
+      "conditions": {
+        "en": "Supply unique names under an actual component owner.",
+        "ja": "実際のcomponent ownerの下で固有名を指定する。"
+      },
+      "expected": {
+        "en": "All selected names, parents and port roles match.",
+        "ja": "選択した全名前、親、port役割が一致する。"
+      },
+      "limitations": {
+        "en": "Positive selected type/constructor compatibility only, before binding resolution for constructor probes. Original concrete interface response algorithms are setup, not library transport behavior. The summary spelling tlm_if_base and omitted imp parameters are not certified; arbitrary invalid types, complete class families, factory behavior and runtime binding remain separate.",
+        "ja": "選択した型／constructorの正の互換性のみ。constructor probeはbinding解決前に行う。独自具象interfaceの応答algorithmは設定であり、libraryのtransport動作ではない。概要のtlm_if_base表記と省略されたimp parameterは認定せず、任意の不正型、全class family、factory動作、実行時bindingは別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm_bidirectional_port_defaults_preserve_request_response_and_constructor_metadata",
+          "role": "direct",
+          "expected_observations": [
+            "UT: port_declarations count 9 defaults_and_metadata 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM1-REVIEW-FIFO-POSITIVE-CAPACITY-QUERY",
+      "clause": "12.2.8.2.2",
+      "statement": {
+        "en": "The size query reports the configured positive FIFO capacity rather than occupancy.",
+        "ja": "size照会は使用数ではなく、設定したFIFOの正の容量を報告する。"
+      },
+      "conditions": {
+        "en": "Fill, peek, consume and flush a three-entry FIFO.",
+        "ja": "3 entry FIFOをfill、peek、消費、flushする。"
+      },
+      "expected": {
+        "en": "Size remains three throughout occupancy changes.",
+        "ja": "使用数が変わってもsizeは3を保持する。"
+      },
+      "limitations": {
+        "en": "Actual FIFO state and public methods only. Positive bounded capacity defines the selected full/empty cases; unbounded is_full interpretation is explicitly unresolved. No failed-get/peek output, private queue, arbitrary simultaneous consumers or peek-analysis notification behavior is certified.",
+        "ja": "実際のFIFO状態と公開methodのみ。選択したfull／empty条件は正の有限容量で定め、無制限のis_full解釈は明示的に未解決とする。失敗get／peek出力、非公開queue、任意の同時consumer、peek-analysis通知動作は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm_fifo_positive_capacity_queries_follow_fill_peek_get_and_flush",
+          "role": "direct",
+          "expected_observations": [
+            "UT: fifo_initial size 3 used 0 empty 1 full 0",
+            "UT: fifo_filled accepted 1 rejected 1 size 3 used 3 empty 0 full 1",
+            "UT: fifo_peek value 13 used 3 full 1",
+            "UT: fifo_get value 13 used 2 empty 0 full 0",
+            "UT: fifo_flushed size 3 used 0 empty 1 full 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM1-REVIEW-FIFO-USED-CURRENT-ENTRIES",
+      "clause": "12.2.8.2.3",
+      "statement": {
+        "en": "The used query reports current stored entries.",
+        "ja": "used照会は現在保存しているentry件数を報告する。"
+      },
+      "conditions": {
+        "en": "Use a bounded fill/peek/get/flush and an unbounded growth/drain.",
+        "ja": "有限のfill／peek／get／flushと、無制限の増加／排出を使う。"
+      },
+      "expected": {
+        "en": "Counts follow accepted insertion/removal, survive peek unchanged and reach zero after draining.",
+        "ja": "件数は受理挿入／削除に従い、peekでは変わらず、排出後に0となる。"
+      },
+      "limitations": {
+        "en": "Actual FIFO state and public methods only. Positive bounded capacity defines the selected full/empty cases; unbounded is_full interpretation is explicitly unresolved. No failed-get/peek output, private queue, arbitrary simultaneous consumers or peek-analysis notification behavior is certified.",
+        "ja": "実際のFIFO状態と公開methodのみ。選択したfull／empty条件は正の有限容量で定め、無制限のis_full解釈は明示的に未解決とする。失敗get／peek出力、非公開queue、任意の同時consumer、peek-analysis通知動作は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm_fifo_positive_capacity_queries_follow_fill_peek_get_and_flush",
+          "role": "direct",
+          "expected_observations": [
+            "UT: fifo_initial size 3 used 0 empty 1 full 0",
+            "UT: fifo_filled accepted 1 rejected 1 size 3 used 3 empty 0 full 1",
+            "UT: fifo_peek value 13 used 3 full 1",
+            "UT: fifo_get value 13 used 2 empty 0 full 0",
+            "UT: fifo_flushed size 3 used 0 empty 1 full 0"
+          ]
+        },
+        {
+          "test": "u12/test_tlm_unbounded_fifo_size_and_used_queries_track_growth_and_consumption",
+          "role": "direct",
+          "expected_observations": [
+            "UT: fifo_unbounded size 0 used 5 empty 0 get 1 peek 1 accepted 1",
+            "UT: fifo_unbounded_drained size 0 used 0 empty 1 sum 75"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM1-REVIEW-FIFO-EMPTY-QUERY",
+      "clause": "12.2.8.2.4",
+      "statement": {
+        "en": "is_empty reports whether there are zero stored entries.",
+        "ja": "is_emptyは保存entryが0件かを報告する。"
+      },
+      "conditions": {
+        "en": "Observe empty, filled, partially consumed and flushed FIFO states.",
+        "ja": "空、充填、部分消費、flush後のFIFO状態を観測する。"
+      },
+      "expected": {
+        "en": "Empty is true only at zero occupancy.",
+        "ja": "emptyは使用数0のときだけtrueである。"
+      },
+      "limitations": {
+        "en": "Actual FIFO state and public methods only. Positive bounded capacity defines the selected full/empty cases; unbounded is_full interpretation is explicitly unresolved. No failed-get/peek output, private queue, arbitrary simultaneous consumers or peek-analysis notification behavior is certified.",
+        "ja": "実際のFIFO状態と公開methodのみ。選択したfull／empty条件は正の有限容量で定め、無制限のis_full解釈は明示的に未解決とする。失敗get／peek出力、非公開queue、任意の同時consumer、peek-analysis通知動作は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm_fifo_positive_capacity_queries_follow_fill_peek_get_and_flush",
+          "role": "direct",
+          "expected_observations": [
+            "UT: fifo_initial size 3 used 0 empty 1 full 0",
+            "UT: fifo_filled accepted 1 rejected 1 size 3 used 3 empty 0 full 1",
+            "UT: fifo_peek value 13 used 3 full 1",
+            "UT: fifo_get value 13 used 2 empty 0 full 0",
+            "UT: fifo_flushed size 3 used 0 empty 1 full 0"
+          ]
+        },
+        {
+          "test": "u12/test_tlm_unbounded_fifo_size_and_used_queries_track_growth_and_consumption",
+          "role": "direct",
+          "expected_observations": [
+            "UT: fifo_unbounded size 0 used 5 empty 0 get 1 peek 1 accepted 1",
+            "UT: fifo_unbounded_drained size 0 used 0 empty 1 sum 75"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM1-REVIEW-FIFO-POSITIVE-FULL-QUERY",
+      "clause": "12.2.8.2.5",
+      "statement": {
+        "en": "For a positive bounded size, is_full reports occupancy equal to capacity.",
+        "ja": "正の有限sizeでは、is_fullは使用数と容量の一致を報告する。"
+      },
+      "conditions": {
+        "en": "Fill a capacity-three FIFO, peek, remove one entry and flush.",
+        "ja": "容量3のFIFOをfill、peekし、1 entryを削除してflushする。"
+      },
+      "expected": {
+        "en": "Full is true at three entries, stays true across peek and becomes false after removal.",
+        "ja": "3 entryでfullはtrue、peekではtrueを保ち、削除後にfalseとなる。"
+      },
+      "limitations": {
+        "en": "Actual FIFO state and public methods only. Positive bounded capacity defines the selected full/empty cases; unbounded is_full interpretation is explicitly unresolved. No failed-get/peek output, private queue, arbitrary simultaneous consumers or peek-analysis notification behavior is certified.",
+        "ja": "実際のFIFO状態と公開methodのみ。選択したfull／empty条件は正の有限容量で定め、無制限のis_full解釈は明示的に未解決とする。失敗get／peek出力、非公開queue、任意の同時consumer、peek-analysis通知動作は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm_fifo_positive_capacity_queries_follow_fill_peek_get_and_flush",
+          "role": "direct",
+          "expected_observations": [
+            "UT: fifo_initial size 3 used 0 empty 1 full 0",
+            "UT: fifo_filled accepted 1 rejected 1 size 3 used 3 empty 0 full 1",
+            "UT: fifo_peek value 13 used 3 full 1",
+            "UT: fifo_get value 13 used 2 empty 0 full 0",
+            "UT: fifo_flushed size 3 used 0 empty 1 full 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM1-REVIEW-FIFO-CAN-GET-AVAILABILITY",
+      "clause": "12.2.4.2.7",
+      "statement": {
+        "en": "can_get reports immediate transaction availability without consuming the head.",
+        "ja": "can_getはheadを消費せず、直ちにtransactionを提供可能か報告する。"
+      },
+      "conditions": {
+        "en": "Query an actual object FIFO repeatedly through a bound get port across insertion/removal/reuse.",
+        "ja": "挿入／削除／再利用を通し、bound get portから実object FIFOを繰り返し照会する。"
+      },
+      "expected": {
+        "en": "Empty queries are false, held-entry queries true and the same object remains for get.",
+        "ja": "空の照会はfalse、保持entryの照会はtrueとなり、get用の同じobjectを保持する。"
+      },
+      "limitations": {
+        "en": "Actual FIFO state and public methods only. Positive bounded capacity defines the selected full/empty cases; unbounded is_full interpretation is explicitly unresolved. No failed-get/peek output, private queue, arbitrary simultaneous consumers or peek-analysis notification behavior is certified.",
+        "ja": "実際のFIFO状態と公開methodのみ。選択したfull／empty条件は正の有限容量で定め、無制限のis_full解釈は明示的に未解決とする。失敗get／peek出力、非公開queue、任意の同時consumer、peek-analysis通知動作は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm_fifo_availability_queries_preserve_object_head_and_peer_storage",
+          "role": "direct",
+          "expected_observations": [
+            "UT: fifo_availability_empty get 0 peek 0 used 0",
+            "UT: fifo_availability_held accepted 1 available 1 used 1 head 1 live 35",
+            "UT: fifo_availability_removed identity 1 get 0 peek 0 used 0 peer 1",
+            "UT: fifo_availability_reused identity 1 value 27 empty 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM1-REVIEW-FIFO-CAN-PEEK-AVAILABILITY",
+      "clause": "12.2.4.2.9",
+      "statement": {
+        "en": "can_peek reports immediate transaction availability without consuming the head.",
+        "ja": "can_peekはheadを消費せず、直ちにtransactionを観測可能か報告する。"
+      },
+      "conditions": {
+        "en": "Query a bound peek port repeatedly and observe the live original object head.",
+        "ja": "bound peek portを繰り返し照会し、liveな元object headを観測する。"
+      },
+      "expected": {
+        "en": "Availability follows storage and the original head/peer state is preserved.",
+        "ja": "availabilityは記憶状態に従い、元head／peer状態を保持する。"
+      },
+      "limitations": {
+        "en": "Actual FIFO state and public methods only. Positive bounded capacity defines the selected full/empty cases; unbounded is_full interpretation is explicitly unresolved. No failed-get/peek output, private queue, arbitrary simultaneous consumers or peek-analysis notification behavior is certified.",
+        "ja": "実際のFIFO状態と公開methodのみ。選択したfull／empty条件は正の有限容量で定め、無制限のis_full解釈は明示的に未解決とする。失敗get／peek出力、非公開queue、任意の同時consumer、peek-analysis通知動作は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm_fifo_availability_queries_preserve_object_head_and_peer_storage",
+          "role": "direct",
+          "expected_observations": [
+            "UT: fifo_availability_empty get 0 peek 0 used 0",
+            "UT: fifo_availability_held accepted 1 available 1 used 1 head 1 live 35",
+            "UT: fifo_availability_removed identity 1 get 0 peek 0 used 0 peer 1",
+            "UT: fifo_availability_reused identity 1 value 27 empty 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM1-REVIEW-FIFO-UNBOUNDED-SIZE-QUERY",
+      "clause": "12.2.8.2.2",
+      "statement": {
+        "en": "The size query returns zero for unbounded FIFO capacity.",
+        "ja": "無制限FIFO容量のsize照会は0を返す。"
+      },
+      "conditions": {
+        "en": "Accept and consume five items in an explicitly zero-sized FIFO.",
+        "ja": "明示size 0のFIFOで5 itemを受理・消費する。"
+      },
+      "expected": {
+        "en": "Size remains zero while occupancy grows to five and drains to zero.",
+        "ja": "使用数が5へ増えて0へ排出されても、sizeは0を保持する。"
+      },
+      "limitations": {
+        "en": "Actual FIFO state and public methods only. Positive bounded capacity defines the selected full/empty cases; unbounded is_full interpretation is explicitly unresolved. No failed-get/peek output, private queue, arbitrary simultaneous consumers or peek-analysis notification behavior is certified.",
+        "ja": "実際のFIFO状態と公開methodのみ。選択したfull／empty条件は正の有限容量で定め、無制限のis_full解釈は明示的に未解決とする。失敗get／peek出力、非公開queue、任意の同時consumer、peek-analysis通知動作は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm_unbounded_fifo_size_and_used_queries_track_growth_and_consumption",
+          "role": "direct",
+          "expected_observations": [
+            "UT: fifo_unbounded size 0 used 5 empty 0 get 1 peek 1 accepted 1",
+            "UT: fifo_unbounded_drained size 0 used 0 empty 1 sum 75"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM1-REVIEW-FIFO-PUT-EXPORT-METHODS",
+      "clause": "12.2.8.1.3",
+      "statement": {
+        "en": "The public FIFO put export provides blocking and nonblocking put methods.",
+        "ja": "公開FIFO put exportはblocking／nonblocking put methodを提供する。"
+      },
+      "conditions": {
+        "en": "Use its interface-base view for actual put, try_put and can_put operations.",
+        "ja": "interface-base viewで実際のput、try_put、can_put操作を使う。"
+      },
+      "expected": {
+        "en": "Both insertions reach storage and capacity availability changes accordingly.",
+        "ja": "両挿入は記憶域へ届き、容量availabilityも対応して変わる。"
+      },
+      "limitations": {
+        "en": "Actual FIFO state and public methods only. Positive bounded capacity defines the selected full/empty cases; unbounded is_full interpretation is explicitly unresolved. No failed-get/peek output, private queue, arbitrary simultaneous consumers or peek-analysis notification behavior is certified.",
+        "ja": "実際のFIFO状態と公開methodのみ。選択したfull／empty条件は正の有限容量で定め、無制限のis_full解釈は明示的に未解決とする。失敗get／peek出力、非公開queue、任意の同時consumer、peek-analysis通知動作は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm_fifo_exports_expose_combined_methods_through_public_interface_views",
+          "role": "direct",
+          "expected_observations": [
+            "UT: fifo_export_put nonnull 1 accepted 1 full_capacity 1 used 2",
+            "UT: fifo_export_get values 13/27 success 1 used 0 can_put 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM1-REVIEW-FIFO-GET-PEEK-EXPORT-METHODS",
+      "clause": "12.2.8.1.4",
+      "statement": {
+        "en": "The public FIFO get/peek export provides its combined blocking/nonblocking methods.",
+        "ja": "公開FIFO get／peek exportは結合blocking／nonblocking methodを提供する。"
+      },
+      "conditions": {
+        "en": "Use a public interface view for get/peek, try_get/try_peek and their availability queries on held entries.",
+        "ja": "保持entryに対し、公開interface viewでget／peek、try_get／try_peekとavailability照会を使う。"
+      },
+      "expected": {
+        "en": "Peeks retain thirteen; gets consume thirteen then twenty-seven; used reaches zero.",
+        "ja": "peekは13を保持し、getは13、27の順に消費してusedが0となる。"
+      },
+      "limitations": {
+        "en": "Actual FIFO state and public methods only. Positive bounded capacity defines the selected full/empty cases; unbounded is_full interpretation is explicitly unresolved. No failed-get/peek output, private queue, arbitrary simultaneous consumers or peek-analysis notification behavior is certified.",
+        "ja": "実際のFIFO状態と公開methodのみ。選択したfull／empty条件は正の有限容量で定め、無制限のis_full解釈は明示的に未解決とする。失敗get／peek出力、非公開queue、任意の同時consumer、peek-analysis通知動作は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm_fifo_exports_expose_combined_methods_through_public_interface_views",
+          "role": "direct",
+          "expected_observations": [
+            "UT: fifo_export_peek nonnull 1 values 13/13 success 1 get 1 peek 1 used 2",
+            "UT: fifo_export_get values 13/27 success 1 used 0 can_put 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM1-REVIEW-ANALYSIS-FIFO-EXPORT-WRITE",
+      "clause": "12.2.8.3.1",
+      "statement": {
+        "en": "The analysis FIFO export accepts writes from connected ports and its public interface.",
+        "ja": "analysis FIFO exportは接続portと公開interfaceからのwriteを受け付ける。"
+      },
+      "conditions": {
+        "en": "Write thirteen via a bound analysis port and forty-one via the export interface view.",
+        "ja": "bound analysis portから13、export interface viewから41をwriteする。"
+      },
+      "expected": {
+        "en": "Both writes complete without time advance and are retrieved in arrival order.",
+        "ja": "両writeは時刻進行なく完了し、到着順に取り出せる。"
+      },
+      "limitations": {
+        "en": "Actual FIFO state and public methods only. Positive bounded capacity defines the selected full/empty cases; unbounded is_full interpretation is explicitly unresolved. No failed-get/peek output, private queue, arbitrary simultaneous consumers or peek-analysis notification behavior is certified.",
+        "ja": "実際のFIFO状態と公開methodのみ。選択したfull／empty条件は正の有限容量で定め、無制限のis_full解釈は明示的に未解決とする。失敗get／peek出力、非公開queue、任意の同時consumer、peek-analysis通知動作は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_analysis_fifo_export_accepts_bound_port_and_interface_view_writes_in_order",
+          "role": "direct",
+          "expected_observations": [
+            "UT: analysis_fifo_writes view 1 immediate 1 size 0 used 2",
+            "UT: analysis_fifo_read values 13/41 used 0 empty 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM1-REVIEW-BLOCKING-TRANSPORT-COMPLETION",
+      "clause": "12.2.4.2.10",
+      "statement": {
+        "en": "Blocking transport forwards a request and returns its response after implementation completion.",
+        "ja": "blocking transportは要求を転送し、実装完了後に応答を返す。"
+      },
+      "conditions": {
+        "en": "Invoke the actual bound port through its interface base, then reuse the typed port with a second request.",
+        "ja": "interface基底から実際のbound portを呼び、次に型付きportを2番目の要求で再利用する。"
+      },
+      "expected": {
+        "en": "Distinct packed values and the original two-unit delay reach the caller, with matching sequential responses.",
+        "ja": "異なるpacked値と独自2単位遅延が呼出し側へ届き、逐次応答が対応する。"
+      },
+      "limitations": {
+        "en": "Actual standard ports and imps use explicit distinct packed request/response types and original backend arithmetic/status/delay. These check forwarding and completion, not the backend algorithm itself. No physical bus, arbitrary concurrent ordering, failure-data preservation or omitted response default is inferred.",
+        "ja": "実際の標準port／impで明示的に異なるpacked要求／応答型と独自backendの算術／status／遅延を使う。backend algorithm自体ではなく、転送と完了を検査する。物理bus、任意並行順序、失敗data保持、応答既定値の省略は推論しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm_blocking_transport_interface_forwards_distinct_value_types_and_delayed_completion",
+          "role": "direct",
+          "expected_observations": [
+            "UT: blocking_value_transport request 1 response 113 accepted 1 delayed 1",
+            "UT: blocking_value_reuse request 1 response 127 accepted 1 calls 2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM1-REVIEW-NONBLOCKING-TRANSPORT-FAILURE",
+      "clause": "12.2.4.2.11",
+      "statement": {
+        "en": "Nonblocking transport returns zero immediately when the implementation cannot complete the operation.",
+        "ja": "nonblocking transportは実装が操作を完了できないとき、直ちに0を返す。"
+      },
+      "conditions": {
+        "en": "Keep the original backend not ready and call the actual port interface.",
+        "ja": "独自backendを未準備にし、実際のport interfaceを呼ぶ。"
+      },
+      "expected": {
+        "en": "The request reaches the backend and false returns without time advance; failure data is uninspected.",
+        "ja": "要求はbackendへ届き、時刻進行なくfalseが戻る。失敗dataは調べない。"
+      },
+      "limitations": {
+        "en": "Actual standard ports and imps use explicit distinct packed request/response types and original backend arithmetic/status/delay. These check forwarding and completion, not the backend algorithm itself. No physical bus, arbitrary concurrent ordering, failure-data preservation or omitted response default is inferred.",
+        "ja": "実際の標準port／impで明示的に異なるpacked要求／応答型と独自backendの算術／status／遅延を使う。backend algorithm自体ではなく、転送と完了を検査する。物理bus、任意並行順序、失敗data保持、応答既定値の省略は推論しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm_nonblocking_transport_interface_forwards_failure_success_and_distinct_value_types",
+          "role": "direct",
+          "expected_observations": [
+            "UT: nonblocking_value_refused accepted 0 immediate 1 request 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM1-REVIEW-NONBLOCKING-TRANSPORT-SUCCESS",
+      "clause": "12.2.4.2.11",
+      "statement": {
+        "en": "Nonblocking transport forwards a successful response without blocking.",
+        "ja": "nonblocking transportは待機せず成功応答を転送する。"
+      },
+      "conditions": {
+        "en": "Make the original backend ready after a refused call and supply a new request.",
+        "ja": "拒否呼出しの後に独自backendを準備完了にし、新要求を与える。"
+      },
+      "expected": {
+        "en": "The selected response/status returns immediately and the second backend invocation is observed.",
+        "ja": "選択応答／statusは直ちに戻り、2回目のbackend呼出しを観測する。"
+      },
+      "limitations": {
+        "en": "Actual standard ports and imps use explicit distinct packed request/response types and original backend arithmetic/status/delay. These check forwarding and completion, not the backend algorithm itself. No physical bus, arbitrary concurrent ordering, failure-data preservation or omitted response default is inferred.",
+        "ja": "実際の標準port／impで明示的に異なるpacked要求／応答型と独自backendの算術／status／遅延を使う。backend algorithm自体ではなく、転送と完了を検査する。物理bus、任意並行順序、失敗data保持、応答既定値の省略は推論しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm_nonblocking_transport_interface_forwards_failure_success_and_distinct_value_types",
+          "role": "direct",
+          "expected_observations": [
+            "UT: nonblocking_value_accepted accepted 1 immediate 1 response 127 calls 2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM1-REVIEW-INTERFACE-WRITE-BROADCAST",
+      "clause": "12.2.4.2.12",
+      "statement": {
+        "en": "Interface write broadcasts the supplied transaction to all bound listeners without blocking.",
+        "ja": "interface writeは指定transactionを全bound listenerへ待機なくbroadcastする。"
+      },
+      "conditions": {
+        "en": "Upcast an actual analysis port to the default interface and write two values to two subscribers.",
+        "ja": "実analysis portを既定interfaceへupcastし、2 subscriberへ2値をwriteする。"
+      },
+      "expected": {
+        "en": "Both subscribers receive thirteen then twenty-seven without time advance.",
+        "ja": "両subscriberは時刻進行なく13、27の順に受け取る。"
+      },
+      "limitations": {
+        "en": "Actual standard ports and imps use explicit distinct packed request/response types and original backend arithmetic/status/delay. These check forwarding and completion, not the backend algorithm itself. No physical bus, arbitrary concurrent ordering, failure-data preservation or omitted response default is inferred.",
+        "ja": "実際の標準port／impで明示的に異なるpacked要求／応答型と独自backendの算術／status／遅延を使う。backend algorithm自体ではなく、転送と完了を検査する。物理bus、任意並行順序、失敗data保持、応答既定値の省略は推論しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm_analysis_interface_base_write_broadcasts_values_to_all_bound_receivers_without_time",
+          "role": "direct",
+          "expected_observations": [
+            "UT: analysis_base_broadcast immediate 1 counts 2/2 values 13/27/13/27"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM1-REVIEW-UNIDIRECTIONAL-IMP-DELEGATION",
+      "clause": "12.2.7.1",
+      "statement": {
+        "en": "A unidirectional imp delegates interface calls to its supplied implementation component.",
+        "ja": "unidirectional impは指定implementation componentへinterface呼出しを委譲する。"
+      },
+      "conditions": {
+        "en": "Use unchanged actual blocking-put imps through default and indexed resolved interfaces.",
+        "ja": "未変更の実blocking-put impを、既定／index付き解決interfaceから使う。"
+      },
+      "expected": {
+        "en": "Each original receiver records only the values routed to its implementation.",
+        "ja": "各独自receiverは自身のimplementationへrouteされた値だけを記録する。"
+      },
+      "limitations": {
+        "en": "Actual standard ports and imps use explicit distinct packed request/response types and original backend arithmetic/status/delay. These check forwarding and completion, not the backend algorithm itself. No physical bus, arbitrary concurrent ordering, failure-data preservation or omitted response default is inferred.",
+        "ja": "実際の標準port／impで明示的に異なるpacked要求／応答型と独自backendの算術／status／遅延を使う。backend algorithm自体ではなく、転送と完了を検査する。物理bus、任意並行順序、失敗data保持、応答既定値の省略は推論しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_blocking_put_port_indexed_implementations_route_to_distinct_receivers",
+          "role": "direct",
+          "expected_observations": [
+            "UT: default first_index 1 blocking_return 1",
+            "UT: indexed routed 1 total_calls 3"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM1-REVIEW-BIDIRECTIONAL-IMP-DELEGATION",
+      "clause": "12.2.7.2",
+      "statement": {
+        "en": "A selected bidirectional imp delegates request/response methods to its supplied component.",
+        "ja": "選択したbidirectional impは要求／応答methodを指定componentへ委譲する。"
+      },
+      "conditions": {
+        "en": "Bind actual blocking/nonblocking ports to an original combined transport imp.",
+        "ja": "実blocking／nonblocking portを独自combined transport impへbindする。"
+      },
+      "expected": {
+        "en": "The original component receives the request and its response/status/delay returns through the interface.",
+        "ja": "独自componentが要求を受け、応答／status／遅延がinterface経由で戻る。"
+      },
+      "limitations": {
+        "en": "Actual standard ports and imps use explicit distinct packed request/response types and original backend arithmetic/status/delay. These check forwarding and completion, not the backend algorithm itself. No physical bus, arbitrary concurrent ordering, failure-data preservation or omitted response default is inferred.",
+        "ja": "実際の標準port／impで明示的に異なるpacked要求／応答型と独自backendの算術／status／遅延を使う。backend algorithm自体ではなく、転送と完了を検査する。物理bus、任意並行順序、失敗data保持、応答既定値の省略は推論しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm_blocking_transport_interface_forwards_distinct_value_types_and_delayed_completion",
+          "role": "direct",
+          "expected_observations": [
+            "UT: blocking_value_transport request 1 response 113 accepted 1 delayed 1",
+            "UT: blocking_value_reuse request 1 response 127 accepted 1 calls 2"
+          ]
+        },
+        {
+          "test": "u12/test_tlm_nonblocking_transport_interface_forwards_failure_success_and_distinct_value_types",
+          "role": "direct",
+          "expected_observations": [
+            "UT: nonblocking_value_refused accepted 0 immediate 1 request 1",
+            "UT: nonblocking_value_accepted accepted 1 immediate 1 response 127 calls 2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM1-REVIEW-TRANSPORT-IMP-CONSTRUCTOR-BINDING",
+      "clause": "12.2.7.2.1",
+      "statement": {
+        "en": "The transport imp constructor binds its supplied implementation handle.",
+        "ja": "transport imp constructorは指定implementation handleをbindする。"
+      },
+      "conditions": {
+        "en": "Construct a combined imp in an original target and connect an actual transport port.",
+        "ja": "独自targetでcombined impを生成し、実transport portを接続する。"
+      },
+      "expected": {
+        "en": "Observed target calls and values identify the selected implementation.",
+        "ja": "観測したtarget呼出しと値は、選択implementationを特定する。"
+      },
+      "limitations": {
+        "en": "Actual standard ports and imps use explicit distinct packed request/response types and original backend arithmetic/status/delay. These check forwarding and completion, not the backend algorithm itself. No physical bus, arbitrary concurrent ordering, failure-data preservation or omitted response default is inferred.",
+        "ja": "実際の標準port／impで明示的に異なるpacked要求／応答型と独自backendの算術／status／遅延を使う。backend algorithm自体ではなく、転送と完了を検査する。物理bus、任意並行順序、失敗data保持、応答既定値の省略は推論しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm_blocking_transport_interface_forwards_distinct_value_types_and_delayed_completion",
+          "role": "direct",
+          "expected_observations": [
+            "UT: blocking_value_transport request 1 response 113 accepted 1 delayed 1",
+            "UT: blocking_value_reuse request 1 response 127 accepted 1 calls 2"
+          ]
+        },
+        {
+          "test": "u12/test_tlm_nonblocking_transport_interface_forwards_failure_success_and_distinct_value_types",
+          "role": "direct",
+          "expected_observations": [
+            "UT: nonblocking_value_refused accepted 0 immediate 1 request 1",
+            "UT: nonblocking_value_accepted accepted 1 immediate 1 response 127 calls 2"
+          ]
+        }
+      ]
     }
   ]
 }

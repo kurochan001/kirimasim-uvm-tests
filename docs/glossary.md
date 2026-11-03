@@ -1024,3 +1024,17 @@ unspecified relative callback-body order.
 **Optional callback parameter** — Omitting only CB in callback add/delete
 while using a valid registered object/callback pair. Exact type checks and
 typed dispatch do not resolve omitted mode defaults or invalid-pair diagnostics.
+
+## TLM declaration and query evidence
+
+**Independent response default** — A declared default response type that stays
+fixed when the request type changes. It differs from a response parameter
+whose default follows REQ, even when both agree for all-int specialization.
+
+**Capacity versus occupancy** — A FIFO's configured maximum and its currently
+stored entry count. Zero capacity denotes no limit; it is not an occupancy
+measurement or a resolution of the empty unbounded is_full wording.
+
+**Interface-view forwarding** — Calling actual standard ports or exports
+through their public virtual interface base. It checks selected type/dispatch
+and forwarding paths; an original backend algorithm is not a library oracle.
