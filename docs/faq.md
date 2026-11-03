@@ -135,7 +135,7 @@ See [Ghost setup](testing.md#ghost).
 
 It removes `UVM_NO_DPI` from the default macro list. It does not supply or link
 UVM's C/C++ implementation. The current Verilator runner does not add those
-sources. There are 1551 `UVM_NO_DPI` cases and eight explicit HDL-DPI cases.
+sources. There are 1564 `UVM_NO_DPI` cases and eight explicit HDL-DPI cases.
 Eighteen more fixtures explicitly enable command-line/regex DPI with HDL disabled.
 The [command-line runner](testing.md#verilator-command-line-subset) links that separate backend.
 The [separate VPI runner](testing.md#verilator-vpi-hdl-subset) links the original
@@ -1143,9 +1143,9 @@ not a direct test of the requirement.
 
 ### Q77. Why is there no coverage percentage after starting M4?
 
-The 2571 AI drafts cover only a partial decomposition: 2571 requirements link
-directly to 1576 tests; all drafts have direct tests, and one separate test is a control.
-All 1577 tests have requirement links. The 2,507 clause identifiers are not normative requirement units.
+The 2613 AI drafts cover only a partial decomposition: 2613 requirements link
+directly to 1589 tests; all drafts have direct tests, and one separate test is a control.
+All 1590 tests have requirement links. The 2,507 clause identifiers are not normative requirement units.
 The scope is proposed, the inventory incomplete and the denominator unapproved;
 starting M4 approves none of those. Known differences and HDL/DPI limitations
 do not silently exclude obligations. See the [approval path](requirements.md#remaining-m4-work-and-approval).
@@ -2145,7 +2145,7 @@ No. `tests_without_requirement_links` is zero: every current test has an
 explicit direct or control link. The separate counter
 `requirements_without_direct_tests` is zero. The memory-walk link uses the
 qualified historical interpretation in Q134. It is not approval of missing
-IEEE detail. HDL deposit and accessibility use explicit VPI fixtures. Another 809
+IEEE detail. HDL deposit and accessibility use explicit VPI fixtures. Another 767
 catalog identifiers remain unassessed; decomposition and human review are
 incomplete, and the denominator remains unapproved.
 
@@ -2246,7 +2246,7 @@ in [identifier assessments](../coverage/assessments.json). Structural headings
 have no related requirements; contextual descriptions name existing requirements.
 An unreviewed record, guessed classification or parent rollup cannot do this.
 The generated state is `assessed`, separate from `partial` requirement clauses.
-264 classifications currently exist, with no denominator approval or new pass.
+279 classifications currently exist, with no denominator approval or new pass.
 Chapter 11's zero unassessed identifiers still does not complete its requirements.
 
 ### Q136. Does explicit strict configuration make the new cases pass?
@@ -2933,7 +2933,7 @@ the unassessed count or approve an exclusion. All earlier requirements remain.
 Two inputs have new fingerprints: the command enum citation and the Boolean
 rerandomization observation. Both were measured on Verilator; their stale guest
 records are excluded. The historical 1085-record source files remain intact.
-Current reuse covers 1083 inputs, with 494 unmeasured: 492 additions and two
+Current reuse covers 1083 inputs, with 507 unmeasured: 505 additions and two
 revised old inputs. No guest rerun or new result is claimed.
 
 ### Q194. May a predicate implementation delegate to another virtual query?
@@ -2994,12 +2994,12 @@ and stale patterns are rejected. Validation does not consume compiler results.
 Individual requirement reviews may add direct anchors while preserving existing
 links and identifying those changes explicitly.
 
-### Q201. Did all 1577 tests run at two seeds?
+### Q201. Did all 1590 tests run at two seeds?
 
-No. There are 1538 simulation and 39 elaboration fixtures. Ordinary evidence
-has 1342 two-seed runtime matches, 37 expected compiler rejections, 196 known
+No. There are 1547 simulation and 43 elaboration fixtures. Ordinary evidence
+has 1350 two-seed runtime matches, 41 expected compiler rejections, 197 known
 simulation differences and two known illegal compile acceptances. None of the
-39 illegal designs executes a runtime seed, even when compilation accepts it.
+43 illegal designs executes a runtime seed, even when compilation accepts it.
 
 ### Q202. What do the older legal controls establish?
 
@@ -3064,7 +3064,7 @@ already-exceeded scope does not depend on equality. See [known differences](know
 ### Q209. Does zero unassessed in chapter 6 complete reporting or M1–M4?
 
 No. Chapter 6 has 98 partial and 19 assessed identifiers. Selected print probes
-do not finish its remaining conditions. Overall 809 identifiers remain
+do not finish its remaining conditions. Overall 767 identifiers remain
 unassessed. Printer subclause 16.2 retains the table-format overview; chapter 16
 has 3 unassessed identifiers in the broader policies. Scope and denominator
 are unapproved; zero link queues do not complete the goal.
@@ -3164,3 +3164,25 @@ The [hierarchical report probe](../tests/uD/test_component_hierarchical_id_and_p
 distinguishes configuration queries from actual WARNING calls, whose verbosity
 is ignored. Its three INFO/six WARNING deliveries follow the cited rule,
 leaving all other override/report combinations partial.
+
+### Q221. Do selected error/event timestamps certify every recording backend?
+
+No. The [error](../tests/u13/test_component_error_recording_selected_backend_marks_explicit_default_and_zero_times.sv)
+and [event](../tests/u13/test_component_event_recording_selected_backend_marks_explicit_default_and_zero_times.sv)
+probes interpret timestamps through original public backend callbacks. They
+do not standardize returned handles, strings or keep-active use. Error zero
+length is observed on that backend before free. The
+[object wrapper probe](../tests/u05/test_object_record_ignores_null_policies_and_delegates_the_same_object_to_a_supplied_recorder.sv)
+separately checks actual null-policy silence and same-object delegation; info
+user-hook suppression belongs to the recorder implementation-hook contract.
+
+### Q222. Are null alias markers callback execution evidence?
+
+No. The [declaration probe](../tests/uD/test_callback_phase_objection_and_report_iterator_aliases_match_declared_specializations.sv)
+calls a generic function that requires both implicit class conversions to the
+exact specialization. Its null equality only marks successful compilation.
+The [printed alias](../tests/uD/test_printed_report_callback_typedef_name_matches_the_declared_specialization.sv)
+retains the report_db/report_cb conflict as build evidence. The
+[forbidden type_id access](../tests/uD/test_callback_iterator_forbidden_type_id_access_is_rejected.sv)
+is a separate compiler-rejection fixture and executes no runtime seed. None
+certifies callback delivery, all iterator traversal or complete milestone coverage.

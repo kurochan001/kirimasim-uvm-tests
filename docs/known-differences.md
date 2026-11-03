@@ -2,15 +2,15 @@
 
 [日本語](known-differences.ja.md) · [README](../README.md) · [FAQ](faq.md)
 
-This describes the current 1577-test suite and the pinned Accellera UVM
+This describes the current 1590-test suite and the pinned Accellera UVM
 2020.3.1 library. A mismatch is a test result; it does not by itself assign
 the cause to the simulator, the library or the expectation.
 
-Thirty-nine elaboration fixtures expect rejection: nineteen direct abstract
-constructions and twenty pure-interface/const-reference violations. Thirty-seven
-match. Subscriber and visitor omissions remain accepted and spec-only without
-runtime. These two compiler acceptances are separate from 196 known simulation
-differences. All five new component-family direct constructions reject correctly.
+Forty-three elaboration fixtures expect rejection: twenty-two direct abstract
+constructions and twenty-one pure-interface/const-reference/forbidden-member
+violations. Forty-one match. Subscriber and visitor omissions remain accepted and spec-only without
+runtime. These two compiler acceptances are separate from 197 known simulation
+differences. Selected component-family and recording-base construction probes and the forbidden member access reject correctly.
 
 ## Pinned-library limitations
 
@@ -565,7 +565,7 @@ warning. The YES control changes the limit to nine without a warning. This
 is a diagnostic-severity difference, not failed limit enforcement. The older
 two no-DPI argument cases remain unchanged ordinary runtime differences.
 
-Across the suite, 1379 tests have the `verilator@5.052` oracle tag and 198
+Across the suite, 1391 tests have the `verilator@5.052` oracle tag and 199
 cases are spec-only. One of the spec-only cases checks 9.6: a child's pre-reset
 task must be killed when that phase ends, but the pinned-library run on Verilator 5.052
 lets the child perform its delayed write during a later phase. The cause of
@@ -577,8 +577,8 @@ without callbacks. The pinned Verilator run reaches the blocked-state
 observation, then its watchdog expires. This combined simulator/library
 cause remains unassigned; the normative wakeup expectation is retained.
 
-The 198 spec-only tests retain their normative expected files.
-Default Verilator runs and CI select 1379 tagged checks (1342 runtime, 37 compile rejection). `--all` includes
+The 199 spec-only tests retain their normative expected files.
+Default Verilator runs and CI select 1391 tagged checks (1350 runtime, 41 compile rejection). `--all` includes
 spec-only cases and records mismatches or build failures as `known`.
 The ordinary runtime records for 150 cases establish their first difference
 at seed 1, without seed 73 results. Seventeen missing-API builds have no ordinary runtime seed result: one time
@@ -614,6 +614,15 @@ remain partial, and no confirmed defect cause is assigned. Seventeen new
 runtime cases and the corrected rerandomization case match both seeds; two
 abstract constructions reject without runtime execution.
 
+## Printed report callback alias
+
+D.4.3 heads the entry as report_cb but prints the typedef name report_db.
+The [literal declaration probe](../tests/uD/test_printed_report_callback_typedef_name_matches_the_declared_specialization.sv)
+retains the printed uvm_report_db spelling; it is missing on the pinned
+combination. This is build evidence without runtime seeds, a qualified name
+conflict rather than a confirmed defect attribution. The working heading-name
+callback paths and other exact aliases remain separate observations.
+
 ## Component lifetime and convenience interface observations
 
 Two lifetime probes retain writes and ticking descendants after common/runtime
@@ -640,7 +649,7 @@ The printed create_object equivalent call's extra this argument remains partial.
 
 ## Spec-only tests
 
-These are the 198 current spec-only cases. Several exercise the same
+These are the 199 current spec-only cases. Several exercise the same
 limitation, so their count is not a count of distinct bugs.
 
 - [Printed provider acceptance for blocking initiator relay](../tests/u12/test_tlm2_blocking_passthrough_initiator_connect_accepts_its_spec_listed_provider_families.sv).
@@ -916,7 +925,7 @@ Additional message-handle and endian cases:
 
 Two existing inputs have revised fingerprints: the command-enum citation and
 the corrected Boolean rerandomization observation. Their historical guest
-records are excluded. The compatible subset has 1083 records and 494 inputs
+records are excluded. The compatible subset has 1083 records and 507 inputs
 are unmeasured, including both revised inputs. This filtering is evidence scope,
 not a new guest failure, pass or simulator improvement.
 
@@ -934,8 +943,8 @@ not a new guest failure, pass or simulator improvement.
 
 ## Simulator and library combinations
 
-The suite has 1577 cases, but the kirimasim/Ghost records below cover only
-1083 unchanged current-input cases. The 494 inputs are unmeasured
+The suite has 1590 cases, but the kirimasim/Ghost records below cover only
+1083 unchanged current-input cases. The 507 inputs are unmeasured
 because prior temporary executable/profile snapshots are unavailable. Do
 not treat this as a fresh full-suite guest result. See [results](results.md).
 

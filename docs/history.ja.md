@@ -2,7 +2,7 @@
 
 [English](history.md) · [README](../README.ja.md)
 
-M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の47回目の拡充（全1577件：simulation 1538・elaboration 39）までを記録しています。以前の349件の時点は
+M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の48回目の拡充（全1590件：simulation 1547・elaboration 43）までを記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -2100,3 +2100,21 @@ runtime差分5件はtask終了、ready-thread完了、型／名前によるrepla
 
 tool test 110件、metadata、台帳／索引／library同一性、native生結果／compile evidence、用語244語・FAQ 220回答の日英guide 10組を検査します。
 schema、runner／library／catalog、workflow、SVG 6つは未変更です。範囲は提案、棚卸し未完、分母／割合null、照合AI、継続goal有効を保持します。
+
+## M1〜M4の薄い領域の48回目の拡充
+
+M1 13 fixtureで独自error／event backend観測、object.recordのnull／委譲直接確認、抽象recording宣言、base constructor／object view、同名link role dispatch、exact callback alias、禁止iterator type_idアクセスを追加します。
+runtime 8件は両seed一致、対象compiler拒否4件はruntimeなしです。印刷report_db alias欠落1件はruntimeのない限定build差分に保持します。
+timestampはbackend限定解釈で、返却token、string、keep-active handle利用はapplication固有です。alias null値はcompile markerで、user-hook抑制はrecorderの16.4.7.7に対応付けます。
+
+新AI案42件で2613です。以前の全2571 IDを保持し、constructor既定名義務2件へdirect linkだけを追加します。以前の全1577 fixture／native記録と264分類は未変更です。
+文脈11／構造4の分類で279（187／92）、全体は部分1461／分類279／未評価767です。今回は42減、goal 20反復で696減です。
+第7／13章は50／20／0と89／21／0、付録Dは35／7／5で、未評価0でも部分条件や元のmilestone目標は完了しません。
+
+全1590件はsimulation 1547／elaboration 43、M1 603（570／33）、M2 538（533／5）、M3 449（444／5）です。
+通常evidenceは1391 pass（runtime両seed一致1350、compiler拒否41）、199 known（runtime 150、simulation build 47、不正受理2）です。
+API／型名欠落18、型既定2、印刷signature 1、DPI未link 26のbuildを区別します。guest fileは1083記録をbyte単位で保持し、以前の修正2入力を含む未測定507（464／43）です。
+別HDL／command-lineは7／1と17／1のままで、新guest結果は主張しません。
+
+tool test 110件、全metadata、台帳／索引／library同一性、native生結果／compile evidence、用語249語・FAQ 222回答の日英10組を検査します。
+schema、runner／library／catalog、workflow、SVG 6つは未変更で、範囲は提案、棚卸し未完、分母／割合null、照合AI、継続goal有効を保持します。

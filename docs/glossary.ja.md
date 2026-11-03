@@ -893,3 +893,18 @@ severity-ID設定照会は閾値を返せても、その照会は実report経路
 
 **Empty convenience name（便宜APIの空名）**: 便宜生成APIの空の既定名。
 選択した独自constructorも空を既定とし、そのfixtureは全application constructorのfallbackを空に制約しません。
+
+**Selected recording backend（選択recording backend）**: 公開recording callbackを観測する独自database／stream／recorder実装。
+そのtimestamp解釈はapplication固有token／string encodingを標準化しません。
+
+**Zero-length error record（長さ0のerror記録）**: keep_activeを省略／0にしたとき、選択開始／終了時刻が同じerror transaction。
+backend観測は普遍的な返却handle解釈と区別します。
+
+**Bidirectional declaration probe（双方向宣言probe）**: 呼び出すgeneric functionがaliasと宣言された正確なspecialization間の双方向暗黙class代入を要求します。
+null完了markerはcallback runtime動作を証明しません。
+
+**Forbidden registry identifier（禁止registry識別子）**: 規格宣言がregistry typedefを禁止するclassに対するtype_id参照。
+対象compiler拒否を、合法constructor／iterator実行と別に測定します。
+
+**Printed alias conflict（印刷aliasの食違い）**: 条項の見出しと印刷typedefでalias名が異なること。
+動作する名前へ黙って置換せず、字義的な綴りと限定期待を保持します。

@@ -1159,3 +1159,23 @@ can still report its threshold; that query is not the actual report path.
 **Empty convenience name**: The empty default at a convenience creation API.
 A selected original constructor also defaults empty; that fixture does not
 impose an empty name on every application constructor's fallback behavior.
+
+**Selected recording backend**: An original database/stream/recorder implementation
+used to observe public recording callbacks. Its timestamp interpretation does
+not standardize application-specific token or string encodings.
+
+**Zero-length error record**: An error transaction marked with the same selected
+start and end time when keep_active is omitted or zero. Backend observation
+is kept distinct from universal returned-handle interpretation.
+
+**Bidirectional declaration probe**: A called generic function requires both
+implicit class assignments between an alias and its declared exact specialization.
+A null completion marker does not prove callback runtime behavior.
+
+**Forbidden registry identifier**: A type_id reference attempted on a class
+whose standard declaration forbids that registry typedef. A targeted compiler
+rejection is measured separately from legal constructor or iterator execution.
+
+**Printed alias conflict**: A heading and the actual typedef printed in its
+clause name different aliases. The literal spelling is preserved with a
+qualified expectation rather than silently replaced by a working name.

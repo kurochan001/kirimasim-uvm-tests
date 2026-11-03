@@ -1,0 +1,12 @@
+UT: declared_callback_alias uvm_reg_cb compatible 1
+UT: declared_callback_alias uvm_reg_cb_iter compatible 1
+UT: declared_callback_alias uvm_reg_bd_cb compatible 1
+UT: declared_callback_alias uvm_reg_bd_cb_iter compatible 1
+UT: declared_callback_alias uvm_mem_cb compatible 1
+UT: declared_callback_alias uvm_mem_cb_iter compatible 1
+UT: declared_callback_alias uvm_reg_field_cb compatible 1
+UT: declared_callback_alias uvm_reg_field_cb_iter compatible 1
+UT: declared_callback_alias uvm_vreg_cb compatible 1
+UT: declared_callback_alias uvm_vreg_cb_iter compatible 1
+UT: declared_callback_alias uvm_vreg_field_cb compatible 1
+UT: declared_callback_alias uvm_vreg_field_cb_iter compatible 1

@@ -122,7 +122,7 @@ Ghostは公開前のシミュレータの仮名です。実行ファイルの識
 ### Q12. uvm_dpi: yesだけでDPIを使うビルドが完成しますか
 
 既定のマクロ一覧から`UVM_NO_DPI`を外す指定です。UVMのC/C++実装の供給・リンクは行いません。
-通常のVerilator runnerは、そのsourceを追加しません。`UVM_NO_DPI`が1551件、HDL DPIの明示選択が8件です。
+通常のVerilator runnerは、そのsourceを追加しません。`UVM_NO_DPI`が1564件、HDL DPIの明示選択が8件です。
 別の18検査系はHDLを無効にしてcommand-line／regex DPIを明示して有効化し、
 [command-line runner](testing.ja.md#verilatorのcommand-line部分集合)がその別backendをlinkします。
 [別のVPI runner](testing.ja.md#verilatorのvpi-hdl部分集合)は独自の限定backendをlinkし、結果は宣言した実行条件だけに適用します。
@@ -923,8 +923,8 @@ controlの対応は、その要求の直接の検査ではありません。
 
 ### Q77. M4を始めたのに、カバレッジ率がないのはなぜですか
 
-AIによる2571要求案は部分的な分解で、2571要求を1576テストへ直接対応付け、直接未対応は0要求、別の1テストはcontrolです。
-全1577テストに要求の対応付けがあります。2,507の条項番号は規範的要求の単位ではありません。
+AIによる2613要求案は部分的な分解で、2613要求を1589テストへ直接対応付け、直接未対応は0要求、別の1テストはcontrolです。
+全1590テストに要求の対応付けがあります。2,507の条項番号は規範的要求の単位ではありません。
 範囲は提案、棚卸しは未完、分母は未承認で、M4の開始はどれの承認にもなりません。
 既知差分やHDL／DPIの制約によって義務を暗黙に除外しません。[承認までの手順](requirements.ja.md#m4の残作業と承認)を参照してください。
 
@@ -1709,7 +1709,7 @@ user backdoorは16 bit locationをモデル化します。location独立性、�
 
 いいえ。`tests_without_requirement_links`は0で、現在の全テストに、明示的なdirectまたはcontrolの対応があります。
 別の集計`requirements_without_direct_tests`も0件です。memory-walkの対応はQ134の限定した歴史的解釈で、
-省略されたIEEEの詳細の承認ではありません。HDL depositと利用可否には、明示VPI検査系があります。catalogの識別子809件も未評価です。
+省略されたIEEEの詳細の承認ではありません。HDL depositと利用可否には、明示VPI検査系があります。catalogの識別子767件も未評価です。
 分解と人のレビューは未完で、分母は未承認です。
 
 [新しいpolicyテスト](../tests/u16/test_policy_object_stack_tracks_nested_active_policy_push_and_pop.sv)は、
@@ -1786,7 +1786,7 @@ frontdoor保護のwarningはalgorithm oracleの対象外で、ERRORと観測し�
 個別に読んだ後、日英の根拠とAI／人のレビューを[番号の分類](../coverage/assessments.json)へ記録すれば可能です。
 構造上の見出しは関連要求を持たず、文脈の説明は既存要求を指定します。
 未レビューの記録、推測した分類、親への集約では外せません。生成状態は`assessed`で、要求条項の`partial`と区別します。
-現在の分類は264件で、分母承認や新たなpassを加えません。第11章の未評価0件でも、その要求の完了ではありません。
+現在の分類は279件で、分母承認や新たなpassを加えません。第11章の未評価0件でも、その要求の完了ではありません。
 
 ### Q136. 明示strict configurationで新規検査は成功しますか？
 
@@ -2279,7 +2279,7 @@ bound get／peek portはobject headを消費せずavailabilityを報告し、liv
 ### Q193. 互換なguest部分集合が1083件へ減った理由は？
 
 command enum引用とBoolean rerandomization観測の2入力で指紋が変わり、両方をVerilatorで測定してstale guest記録を除外しました。
-歴史的な1085記録の出典fileは保持します。現在の再利用は1083入力、未測定494件は追加492件と修正した既存2入力です。
+歴史的な1085記録の出典fileは保持します。現在の再利用は1083入力、未測定507件は追加505件と修正した既存2入力です。
 guest再実行や新しい結果は主張しません。
 
 ### Q194. predicateの実装が別のvirtual照会へ委譲してもよいですか？
@@ -2322,10 +2322,10 @@ pure-method／const参照検査は追加のnegative条件であり、それぞ�
 いいえ。schema 2は以前の出力link形式を保持し、compile stageと正確な宣言regexの診断形式を追加します。不正elaboration metadataでruntime期待がないことを要求します。
 schema 1も引き続き読め、混在／未知fieldや古いpatternは拒否します。検証はcompiler実測結果を読みません。個別要求の照合で直接anchorを追加する場合も、既存linkは保持して変更を明示します。
 
-### Q201. 全1577テストを2 seedで実行しましたか？
+### Q201. 全1590テストを2 seedで実行しましたか？
 
-いいえ。simulation 1538件とelaboration 39件があります。通常記録はruntime両seed一致1342件、期待compiler拒否37件、既知simulation差分196件、不正compile受理の既知差分2件です。
-不正design 39件は、compileを受理された場合もruntime seedを実行しません。
+いいえ。simulation 1547件とelaboration 43件があります。通常記録はruntime両seed一致1350件、期待compiler拒否41件、既知simulation差分197件、不正compile受理の既知差分2件です。
+不正design 43件は、compileを受理された場合もruntime seedを実行しません。
 
 ### Q202. 以前の合法controlは何を示しますか？
 
@@ -2369,7 +2369,7 @@ entry-depth境界matrixは限定した読み方で、別の超過済みscopeは�
 
 ### Q209. 第6章の未評価0でreportingやM1〜M4は完了ですか？
 
-いいえ。第6章には部分分解98番号・分類19番号があり、選択print probeで残る条件は完了しません。全体の未評価は809番号です。
+いいえ。第6章には部分分解98番号・分類19番号があり、選択print probeで残る条件は完了しません。全体の未評価は767番号です。
 printer 16.2節にはtable-format概要が残り、第16章の広いpolicyでは未評価3番号があります。範囲と分母は未承認で、link queue 0件でもgoalは完了しません。
 
 ### Q210. flush時の設定規則は全printer controlで同じですか？
@@ -2432,3 +2432,15 @@ objectionで選択task phaseを維持し、別のexit hookで子孫から祖先�
 [型override probe](../tests/uD/test_component_factory_typed_type_override_forwards_default_and_explicit_replace.sv)は後続の名前生成におけるreplace 0動作を差分として保持します。
 [階層report probe](../tests/uD/test_component_hierarchical_id_and_pair_verbosity_preserve_subtree_precedence_and_live_filtering.sv)は設定照会と、verbosityを無視する実WARNING callを区別します。
 INFO 3／WARNING 6の配送は引用規則に従い、他の全override／report組合せは部分対応に残します。
+
+### Q221. 選択error／event timestampで全recording backendを認定しますか？
+
+いいえ。[error](../tests/u13/test_component_error_recording_selected_backend_marks_explicit_default_and_zero_times.sv)／[event](../tests/u13/test_component_event_recording_selected_backend_marks_explicit_default_and_zero_times.sv) probeは独自公開backend callbackでtimestampを解釈します。
+返却handle、string、keep-active利用を標準化せず、そのbackendのfree前にerrorの長さ0を観測します。
+[object wrapper probe](../tests/u05/test_object_record_ignores_null_policies_and_delegates_the_same_object_to_a_supplied_recorder.sv)は実null-policyの無報告と同一object委譲を別に確認し、info user-hook抑制はrecorderのimplementation-hook契約に属します。
+
+### Q222. null alias markerはcallback実行evidenceですか？
+
+いいえ。[宣言probe](../tests/uD/test_callback_phase_objection_and_report_iterator_aliases_match_declared_specializations.sv)は正確なspecializationとの双方向暗黙class変換を要求するgeneric functionを呼び、null等値はcompile成功markerだけです。
+[印刷alias](../tests/uD/test_printed_report_callback_typedef_name_matches_the_declared_specialization.sv)はreport_db／report_cbの食違いをbuild evidenceで保持します。
+[禁止type_idアクセス](../tests/uD/test_callback_iterator_forbidden_type_id_access_is_rejected.sv)は別のcompiler拒否fixtureで、runtime seedを実行しません。callback配送、全iterator走査、milestone全体のcoverageは認定しません。

@@ -51264,6 +51264,13 @@
           "expected_observations": [
             "UT: names default unnamed-uvm_tr_database explicit named_db empty 1"
           ]
+        },
+        {
+          "test": "u07/test_recording_base_concrete_subtypes_keep_object_views_and_inherited_constructor_defaults",
+          "role": "direct",
+          "expected_observations": [
+            "UT: recording_base_defaults database 1 stream 1 link 1 explicit 1"
+          ]
         }
       ]
     },
@@ -51331,6 +51338,13 @@
           "role": "direct",
           "expected_observations": [
             "UT: names default unnamed-uvm_tr_stream explicit named_stream empty 1"
+          ]
+        },
+        {
+          "test": "u07/test_recording_base_concrete_subtypes_keep_object_views_and_inherited_constructor_defaults",
+          "role": "direct",
+          "expected_observations": [
+            "UT: recording_base_defaults database 1 stream 1 link 1 explicit 1"
           ]
         }
       ]
@@ -94717,6 +94731,1471 @@
             "UT: hierarchy_pair_enabled 1 boundary 1 above 0",
             "UT: hierarchy_pair_enabled 2 boundary 1 above 0",
             "UT: hierarchy_verbosity_delivery info 3 warning 6 total 9"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDING-AUDIT-ERROR-INFO-FIELD-OP",
+      "clause": "13.1.7.7",
+      "statement": {
+        "en": "Error recording records the selected original info property through its UVM_RECORD field-operation hook.",
+        "ja": "error記録は選択した独自info propertyをUVM_RECORD field-operation hook経由で記録する。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures, selected public arguments, explicit declared types and exact expected observations. The recording backend is original in-memory setup, not an implementation-derived oracle.",
+        "ja": "linkした独自fixture、選択した公開引数、明示宣言型、正確な期待観測を使う。記録backendは独自のmemory内準備であり、実装由来oracleではない。"
+      },
+      "expected": {
+        "en": "Error recording records the selected original info property through its UVM_RECORD field-operation hook.",
+        "ja": "error記録は選択した独自info propertyをUVM_RECORD field-operation hook経由で記録する。"
+      },
+      "limitations": {
+        "en": "A selected enabled component and an original public database/stream/recorder backend observe callbacks before any free. Timestamp checks use a qualified backend interpretation of the marked transaction time; at least one matching recorder observation suffices without fixing metadata-only records. No returned-handle decoding, stream/label/description encoding, universal backend layout or active-handle use/retention semantics is certified. Keep-active one checks only the selected timestamp. All such conditions remain partial.",
+        "ja": "選択enabled componentと独自公開database／stream／recorder backendでfree前のcallbackを観測する。timestampは記録transaction時刻の限定したbackend解釈で、metadata専用record数を固定せず、対応するrecorder観測が1つ以上あればよい。返却handleのdecode、stream／label／description encoding、普遍的backend layout、active handleの利用／保持意味を認定しない。keep-active 1は選択timestampだけを確認し、これらの条件は全て部分対応に保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_error_recording_runs_info_field_and_enabled_user_hooks_through_original_backend",
+          "role": "direct",
+          "expected_observations": [
+            "UT: error_info enabled field 1 user 1 operation 1 hook 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDING-AUDIT-ERROR-INFO-USER-HOOK",
+      "clause": "13.1.7.7",
+      "statement": {
+        "en": "Error recording records the selected info property supplied by its enabled do_record hook.",
+        "ja": "error記録はenabledなdo_record hookが提供する選択info propertyを記録する。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures, selected public arguments, explicit declared types and exact expected observations. The recording backend is original in-memory setup, not an implementation-derived oracle.",
+        "ja": "linkした独自fixture、選択した公開引数、明示宣言型、正確な期待観測を使う。記録backendは独自のmemory内準備であり、実装由来oracleではない。"
+      },
+      "expected": {
+        "en": "Error recording records the selected info property supplied by its enabled do_record hook.",
+        "ja": "error記録はenabledなdo_record hookが提供する選択info propertyを記録する。"
+      },
+      "limitations": {
+        "en": "A selected enabled component and an original public database/stream/recorder backend observe callbacks before any free. Timestamp checks use a qualified backend interpretation of the marked transaction time; at least one matching recorder observation suffices without fixing metadata-only records. No returned-handle decoding, stream/label/description encoding, universal backend layout or active-handle use/retention semantics is certified. Keep-active one checks only the selected timestamp. All such conditions remain partial.",
+        "ja": "選択enabled componentと独自公開database／stream／recorder backendでfree前のcallbackを観測する。timestampは記録transaction時刻の限定したbackend解釈で、metadata専用record数を固定せず、対応するrecorder観測が1つ以上あればよい。返却handleのdecode、stream／label／description encoding、普遍的backend layout、active handleの利用／保持意味を認定しない。keep-active 1は選択timestampだけを確認し、これらの条件は全て部分対応に保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_error_recording_runs_info_field_and_enabled_user_hooks_through_original_backend",
+          "role": "direct",
+          "expected_observations": [
+            "UT: error_info enabled field 1 user 1 operation 1 hook 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDING-AUDIT-ERROR-INFO-USER-SUPPRESSION",
+      "clause": "16.4.7.7",
+      "statement": {
+        "en": "The info field operation can suppress its subsequent user recording hook without suppressing its selected field property.",
+        "ja": "info field operationは選択field propertyを抑制せず後続user recording hookを抑制できる。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures, selected public arguments, explicit declared types and exact expected observations. The recording backend is original in-memory setup, not an implementation-derived oracle.",
+        "ja": "linkした独自fixture、選択した公開引数、明示宣言型、正確な期待観測を使う。記録backendは独自のmemory内準備であり、実装由来oracleではない。"
+      },
+      "expected": {
+        "en": "The info field operation can suppress its subsequent user recording hook without suppressing its selected field property.",
+        "ja": "info field operationは選択field propertyを抑制せず後続user recording hookを抑制できる。"
+      },
+      "limitations": {
+        "en": "A selected enabled component and an original public database/stream/recorder backend observe callbacks before any free. Timestamp checks use a qualified backend interpretation of the marked transaction time; at least one matching recorder observation suffices without fixing metadata-only records. No returned-handle decoding, stream/label/description encoding, universal backend layout or active-handle use/retention semantics is certified. Keep-active one checks only the selected timestamp. All such conditions remain partial.",
+        "ja": "選択enabled componentと独自公開database／stream／recorder backendでfree前のcallbackを観測する。timestampは記録transaction時刻の限定したbackend解釈で、metadata専用record数を固定せず、対応するrecorder観測が1つ以上あればよい。返却handleのdecode、stream／label／description encoding、普遍的backend layout、active handleの利用／保持意味を認定しない。keep-active 1は選択timestampだけを確認し、これらの条件は全て部分対応に保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_error_recording_runs_info_field_and_enabled_user_hooks_through_original_backend",
+          "role": "direct",
+          "expected_observations": [
+            "UT: error_info suppressed field 1 user 0 operation 1 hook 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDING-AUDIT-ERROR-EXPLICIT-TIME",
+      "clause": "13.1.7.7",
+      "statement": {
+        "en": "The selected explicit error timestamp is marked through the original recording backend.",
+        "ja": "選択した明示error timestampは独自記録backend経由で記録される。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures, selected public arguments, explicit declared types and exact expected observations. The recording backend is original in-memory setup, not an implementation-derived oracle.",
+        "ja": "linkした独自fixture、選択した公開引数、明示宣言型、正確な期待観測を使う。記録backendは独自のmemory内準備であり、実装由来oracleではない。"
+      },
+      "expected": {
+        "en": "The selected explicit error timestamp is marked through the original recording backend.",
+        "ja": "選択した明示error timestampは独自記録backend経由で記録される。"
+      },
+      "limitations": {
+        "en": "A selected enabled component and an original public database/stream/recorder backend observe callbacks before any free. Timestamp checks use a qualified backend interpretation of the marked transaction time; at least one matching recorder observation suffices without fixing metadata-only records. No returned-handle decoding, stream/label/description encoding, universal backend layout or active-handle use/retention semantics is certified. Keep-active one checks only the selected timestamp. All such conditions remain partial.",
+        "ja": "選択enabled componentと独自公開database／stream／recorder backendでfree前のcallbackを観測する。timestampは記録transaction時刻の限定したbackend解釈で、metadata専用record数を固定せず、対応するrecorder観測が1つ以上あればよい。返却handleのdecode、stream／label／description encoding、普遍的backend layout、active handleの利用／保持意味を認定しない。keep-active 1は選択timestampだけを確認し、これらの条件は全て部分対応に保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_error_recording_selected_backend_marks_explicit_default_and_zero_times",
+          "role": "direct",
+          "expected_observations": [
+            "UT: error_time explicit selected 1 zero_length 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDING-AUDIT-ERROR-OMITTED-TIME",
+      "clause": "13.1.7.7",
+      "statement": {
+        "en": "Omitting the error time marks the current simulation time in the selected backend.",
+        "ja": "選択backendではerror timeの省略は現在のsimulation時刻を記録する。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures, selected public arguments, explicit declared types and exact expected observations. The recording backend is original in-memory setup, not an implementation-derived oracle.",
+        "ja": "linkした独自fixture、選択した公開引数、明示宣言型、正確な期待観測を使う。記録backendは独自のmemory内準備であり、実装由来oracleではない。"
+      },
+      "expected": {
+        "en": "Omitting the error time marks the current simulation time in the selected backend.",
+        "ja": "選択backendではerror timeの省略は現在のsimulation時刻を記録する。"
+      },
+      "limitations": {
+        "en": "A selected enabled component and an original public database/stream/recorder backend observe callbacks before any free. Timestamp checks use a qualified backend interpretation of the marked transaction time; at least one matching recorder observation suffices without fixing metadata-only records. No returned-handle decoding, stream/label/description encoding, universal backend layout or active-handle use/retention semantics is certified. Keep-active one checks only the selected timestamp. All such conditions remain partial.",
+        "ja": "選択enabled componentと独自公開database／stream／recorder backendでfree前のcallbackを観測する。timestampは記録transaction時刻の限定したbackend解釈で、metadata専用record数を固定せず、対応するrecorder観測が1つ以上あればよい。返却handleのdecode、stream／label／description encoding、普遍的backend layout、active handleの利用／保持意味を認定しない。keep-active 1は選択timestampだけを確認し、これらの条件は全て部分対応に保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_error_recording_selected_backend_marks_explicit_default_and_zero_times",
+          "role": "direct",
+          "expected_observations": [
+            "UT: error_time omitted selected 1 zero_length 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDING-AUDIT-ERROR-ZERO-TIME",
+      "clause": "13.1.7.7",
+      "statement": {
+        "en": "Explicit zero error time selects the current simulation time with both selected keep-active values.",
+        "ja": "明示0のerror timeは選択した両keep-active値で現在のsimulation時刻を選ぶ。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures, selected public arguments, explicit declared types and exact expected observations. The recording backend is original in-memory setup, not an implementation-derived oracle.",
+        "ja": "linkした独自fixture、選択した公開引数、明示宣言型、正確な期待観測を使う。記録backendは独自のmemory内準備であり、実装由来oracleではない。"
+      },
+      "expected": {
+        "en": "Explicit zero error time selects the current simulation time with both selected keep-active values.",
+        "ja": "明示0のerror timeは選択した両keep-active値で現在のsimulation時刻を選ぶ。"
+      },
+      "limitations": {
+        "en": "A selected enabled component and an original public database/stream/recorder backend observe callbacks before any free. Timestamp checks use a qualified backend interpretation of the marked transaction time; at least one matching recorder observation suffices without fixing metadata-only records. No returned-handle decoding, stream/label/description encoding, universal backend layout or active-handle use/retention semantics is certified. Keep-active one checks only the selected timestamp. All such conditions remain partial.",
+        "ja": "選択enabled componentと独自公開database／stream／recorder backendでfree前のcallbackを観測する。timestampは記録transaction時刻の限定したbackend解釈で、metadata専用record数を固定せず、対応するrecorder観測が1つ以上あればよい。返却handleのdecode、stream／label／description encoding、普遍的backend layout、active handleの利用／保持意味を認定しない。keep-active 1は選択timestampだけを確認し、これらの条件は全て部分対応に保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_error_recording_selected_backend_marks_explicit_default_and_zero_times",
+          "role": "direct",
+          "expected_observations": [
+            "UT: error_time zero selected 1 zero_length 1",
+            "UT: error_time active selected 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDING-AUDIT-EVENT-EXPLICIT-TIME",
+      "clause": "13.1.7.8",
+      "statement": {
+        "en": "The selected explicit event timestamp is marked through the original recording backend.",
+        "ja": "選択した明示event timestampは独自記録backend経由で記録される。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures, selected public arguments, explicit declared types and exact expected observations. The recording backend is original in-memory setup, not an implementation-derived oracle.",
+        "ja": "linkした独自fixture、選択した公開引数、明示宣言型、正確な期待観測を使う。記録backendは独自のmemory内準備であり、実装由来oracleではない。"
+      },
+      "expected": {
+        "en": "The selected explicit event timestamp is marked through the original recording backend.",
+        "ja": "選択した明示event timestampは独自記録backend経由で記録される。"
+      },
+      "limitations": {
+        "en": "A selected enabled component and an original public database/stream/recorder backend observe callbacks before any free. Timestamp checks use a qualified backend interpretation of the marked transaction time; at least one matching recorder observation suffices without fixing metadata-only records. No returned-handle decoding, stream/label/description encoding, universal backend layout or active-handle use/retention semantics is certified. Keep-active one checks only the selected timestamp. All such conditions remain partial.",
+        "ja": "選択enabled componentと独自公開database／stream／recorder backendでfree前のcallbackを観測する。timestampは記録transaction時刻の限定したbackend解釈で、metadata専用record数を固定せず、対応するrecorder観測が1つ以上あればよい。返却handleのdecode、stream／label／description encoding、普遍的backend layout、active handleの利用／保持意味を認定しない。keep-active 1は選択timestampだけを確認し、これらの条件は全て部分対応に保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_event_recording_selected_backend_marks_explicit_default_and_zero_times",
+          "role": "direct",
+          "expected_observations": [
+            "UT: event_time explicit selected 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDING-AUDIT-EVENT-OMITTED-TIME",
+      "clause": "13.1.7.8",
+      "statement": {
+        "en": "Omitting the event time marks the current simulation time in the selected backend.",
+        "ja": "選択backendではevent timeの省略は現在のsimulation時刻を記録する。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures, selected public arguments, explicit declared types and exact expected observations. The recording backend is original in-memory setup, not an implementation-derived oracle.",
+        "ja": "linkした独自fixture、選択した公開引数、明示宣言型、正確な期待観測を使う。記録backendは独自のmemory内準備であり、実装由来oracleではない。"
+      },
+      "expected": {
+        "en": "Omitting the event time marks the current simulation time in the selected backend.",
+        "ja": "選択backendではevent timeの省略は現在のsimulation時刻を記録する。"
+      },
+      "limitations": {
+        "en": "A selected enabled component and an original public database/stream/recorder backend observe callbacks before any free. Timestamp checks use a qualified backend interpretation of the marked transaction time; at least one matching recorder observation suffices without fixing metadata-only records. No returned-handle decoding, stream/label/description encoding, universal backend layout or active-handle use/retention semantics is certified. Keep-active one checks only the selected timestamp. All such conditions remain partial.",
+        "ja": "選択enabled componentと独自公開database／stream／recorder backendでfree前のcallbackを観測する。timestampは記録transaction時刻の限定したbackend解釈で、metadata専用record数を固定せず、対応するrecorder観測が1つ以上あればよい。返却handleのdecode、stream／label／description encoding、普遍的backend layout、active handleの利用／保持意味を認定しない。keep-active 1は選択timestampだけを確認し、これらの条件は全て部分対応に保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_event_recording_selected_backend_marks_explicit_default_and_zero_times",
+          "role": "direct",
+          "expected_observations": [
+            "UT: event_time omitted selected 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDING-AUDIT-EVENT-ZERO-TIME",
+      "clause": "13.1.7.8",
+      "statement": {
+        "en": "Explicit zero event time selects the current simulation time with both selected keep-active values.",
+        "ja": "明示0のevent timeは選択した両keep-active値で現在のsimulation時刻を選ぶ。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures, selected public arguments, explicit declared types and exact expected observations. The recording backend is original in-memory setup, not an implementation-derived oracle.",
+        "ja": "linkした独自fixture、選択した公開引数、明示宣言型、正確な期待観測を使う。記録backendは独自のmemory内準備であり、実装由来oracleではない。"
+      },
+      "expected": {
+        "en": "Explicit zero event time selects the current simulation time with both selected keep-active values.",
+        "ja": "明示0のevent timeは選択した両keep-active値で現在のsimulation時刻を選ぶ。"
+      },
+      "limitations": {
+        "en": "A selected enabled component and an original public database/stream/recorder backend observe callbacks before any free. Timestamp checks use a qualified backend interpretation of the marked transaction time; at least one matching recorder observation suffices without fixing metadata-only records. No returned-handle decoding, stream/label/description encoding, universal backend layout or active-handle use/retention semantics is certified. Keep-active one checks only the selected timestamp. All such conditions remain partial.",
+        "ja": "選択enabled componentと独自公開database／stream／recorder backendでfree前のcallbackを観測する。timestampは記録transaction時刻の限定したbackend解釈で、metadata専用record数を固定せず、対応するrecorder観測が1つ以上あればよい。返却handleのdecode、stream／label／description encoding、普遍的backend layout、active handleの利用／保持意味を認定しない。keep-active 1は選択timestampだけを確認し、これらの条件は全て部分対応に保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_event_recording_selected_backend_marks_explicit_default_and_zero_times",
+          "role": "direct",
+          "expected_observations": [
+            "UT: event_time zero selected 1",
+            "UT: event_time active selected 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDING-AUDIT-ERROR-DEFAULT-ZERO-LENGTH",
+      "clause": "13.1.7.7",
+      "statement": {
+        "en": "Omitting keep_active records a zero-length error transaction at the selected explicit or current timestamp.",
+        "ja": "keep_active省略は選択した明示／現在timestampで長さ0のerror transactionを記録する。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures, selected public arguments, explicit declared types and exact expected observations. The recording backend is original in-memory setup, not an implementation-derived oracle.",
+        "ja": "linkした独自fixture、選択した公開引数、明示宣言型、正確な期待観測を使う。記録backendは独自のmemory内準備であり、実装由来oracleではない。"
+      },
+      "expected": {
+        "en": "Omitting keep_active records a zero-length error transaction at the selected explicit or current timestamp.",
+        "ja": "keep_active省略は選択した明示／現在timestampで長さ0のerror transactionを記録する。"
+      },
+      "limitations": {
+        "en": "A selected enabled component and an original public database/stream/recorder backend observe callbacks before any free. Timestamp checks use a qualified backend interpretation of the marked transaction time; at least one matching recorder observation suffices without fixing metadata-only records. No returned-handle decoding, stream/label/description encoding, universal backend layout or active-handle use/retention semantics is certified. Keep-active one checks only the selected timestamp. All such conditions remain partial.",
+        "ja": "選択enabled componentと独自公開database／stream／recorder backendでfree前のcallbackを観測する。timestampは記録transaction時刻の限定したbackend解釈で、metadata専用record数を固定せず、対応するrecorder観測が1つ以上あればよい。返却handleのdecode、stream／label／description encoding、普遍的backend layout、active handleの利用／保持意味を認定しない。keep-active 1は選択timestampだけを確認し、これらの条件は全て部分対応に保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_component_error_recording_selected_backend_marks_explicit_default_and_zero_times",
+          "role": "direct",
+          "expected_observations": [
+            "UT: error_time explicit selected 1 zero_length 1",
+            "UT: error_time omitted selected 1 zero_length 1",
+            "UT: error_time zero selected 1 zero_length 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDING-AUDIT-DATABASE-OBJECT-BASE",
+      "clause": "7.1.1",
+      "statement": {
+        "en": "A legal concrete recording database subtype retains the uvm_object base.",
+        "ja": "合法な具象記録database subtypeはuvm_object baseを保持する。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures, selected public arguments, explicit declared types and exact expected observations. The recording backend is original in-memory setup, not an implementation-derived oracle.",
+        "ja": "linkした独自fixture、選択した公開引数、明示宣言型、正確な期待観測を使う。記録backendは独自のmemory内準備であり、実装由来oracleではない。"
+      },
+      "expected": {
+        "en": "A legal concrete recording database subtype retains the uvm_object base.",
+        "ja": "合法な具象記録database subtypeはuvm_object baseを保持する。"
+      },
+      "limitations": {
+        "en": "Selected public conditions only. No private state, exact callback retry count, proprietary recording encoding, all graphs or complete clause coverage is certified. No human review or approved denominator is inferred.",
+        "ja": "選択した公開条件だけ。非公開状態、正確なcallback retry数、専用記録encoding、全graph、条項全体の網羅を認定せず、人のレビューや承認済み分母を推定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u07/test_recording_base_concrete_subtypes_keep_object_views_and_inherited_constructor_defaults",
+          "role": "direct",
+          "expected_observations": [
+            "UT: recording_base_objects database 1 stream 1 link 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDING-AUDIT-STREAM-OBJECT-BASE",
+      "clause": "7.2.1",
+      "statement": {
+        "en": "A legal concrete transaction stream subtype retains the uvm_object base.",
+        "ja": "合法な具象transaction stream subtypeはuvm_object baseを保持する。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures, selected public arguments, explicit declared types and exact expected observations. The recording backend is original in-memory setup, not an implementation-derived oracle.",
+        "ja": "linkした独自fixture、選択した公開引数、明示宣言型、正確な期待観測を使う。記録backendは独自のmemory内準備であり、実装由来oracleではない。"
+      },
+      "expected": {
+        "en": "A legal concrete transaction stream subtype retains the uvm_object base.",
+        "ja": "合法な具象transaction stream subtypeはuvm_object baseを保持する。"
+      },
+      "limitations": {
+        "en": "Selected public conditions only. No private state, exact callback retry count, proprietary recording encoding, all graphs or complete clause coverage is certified. No human review or approved denominator is inferred.",
+        "ja": "選択した公開条件だけ。非公開状態、正確なcallback retry数、専用記録encoding、全graph、条項全体の網羅を認定せず、人のレビューや承認済み分母を推定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u07/test_recording_base_concrete_subtypes_keep_object_views_and_inherited_constructor_defaults",
+          "role": "direct",
+          "expected_observations": [
+            "UT: recording_base_objects database 1 stream 1 link 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDING-AUDIT-LINK-OBJECT-BASE",
+      "clause": "7.3.1.1",
+      "statement": {
+        "en": "A legal concrete link-base subtype retains the uvm_object base.",
+        "ja": "合法な具象link-base subtypeはuvm_object baseを保持する。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures, selected public arguments, explicit declared types and exact expected observations. The recording backend is original in-memory setup, not an implementation-derived oracle.",
+        "ja": "linkした独自fixture、選択した公開引数、明示宣言型、正確な期待観測を使う。記録backendは独自のmemory内準備であり、実装由来oracleではない。"
+      },
+      "expected": {
+        "en": "A legal concrete link-base subtype retains the uvm_object base.",
+        "ja": "合法な具象link-base subtypeはuvm_object baseを保持する。"
+      },
+      "limitations": {
+        "en": "Selected public conditions only. No private state, exact callback retry count, proprietary recording encoding, all graphs or complete clause coverage is certified. No human review or approved denominator is inferred.",
+        "ja": "選択した公開条件だけ。非公開状態、正確なcallback retry数、専用記録encoding、全graph、条項全体の網羅を認定せず、人のレビューや承認済み分母を推定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u07/test_recording_base_concrete_subtypes_keep_object_views_and_inherited_constructor_defaults",
+          "role": "direct",
+          "expected_observations": [
+            "UT: recording_base_objects database 1 stream 1 link 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDING-AUDIT-UVM-TR-DATABASE-ABSTRACT",
+      "clause": "7.1.1",
+      "statement": {
+        "en": "The declared virtual uvm_tr_database rejects direct construction.",
+        "ja": "virtualと宣言されたuvm_tr_databaseは直接生成を拒否する。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures, selected public arguments, explicit declared types and exact expected observations. The recording backend is original in-memory setup, not an implementation-derived oracle.",
+        "ja": "linkした独自fixture、選択した公開引数、明示宣言型、正確な期待観測を使う。記録backendは独自のmemory内準備であり、実装由来oracleではない。"
+      },
+      "expected": {
+        "en": "The declared virtual uvm_tr_database rejects direct construction.",
+        "ja": "virtualと宣言されたuvm_tr_databaseは直接生成を拒否する。"
+      },
+      "limitations": {
+        "en": "One direct virtual-class construction prohibition with a separately implemented legal subtype. The diagnostic must name the declared class. No illegal accepted model or runtime seed executes, and pure-method matrices remain separate.",
+        "ja": "別に実装した合法subtypeを伴うvirtual-class直接生成禁止1条件。診断は宣言classを示す必要がある。不正受理modelやruntime seedを実行せず、pure-method行列は別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u07/test_uvm_tr_database_abstract_declaration_rejects_direct_construction",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?i)(?=.*(?:virtual|abstract))(?=.*\\bclass\\s+[\\'\\\"]?uvm_tr_database\\b).*"
+          }
+        },
+        {
+          "test": "u07/test_recording_base_concrete_subtypes_keep_object_views_and_inherited_constructor_defaults",
+          "role": "control",
+          "expected_observations": [
+            "UT: recording_base_objects database 1 stream 1 link 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDING-AUDIT-UVM-TR-STREAM-ABSTRACT",
+      "clause": "7.2.1",
+      "statement": {
+        "en": "The declared virtual uvm_tr_stream rejects direct construction.",
+        "ja": "virtualと宣言されたuvm_tr_streamは直接生成を拒否する。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures, selected public arguments, explicit declared types and exact expected observations. The recording backend is original in-memory setup, not an implementation-derived oracle.",
+        "ja": "linkした独自fixture、選択した公開引数、明示宣言型、正確な期待観測を使う。記録backendは独自のmemory内準備であり、実装由来oracleではない。"
+      },
+      "expected": {
+        "en": "The declared virtual uvm_tr_stream rejects direct construction.",
+        "ja": "virtualと宣言されたuvm_tr_streamは直接生成を拒否する。"
+      },
+      "limitations": {
+        "en": "One direct virtual-class construction prohibition with a separately implemented legal subtype. The diagnostic must name the declared class. No illegal accepted model or runtime seed executes, and pure-method matrices remain separate.",
+        "ja": "別に実装した合法subtypeを伴うvirtual-class直接生成禁止1条件。診断は宣言classを示す必要がある。不正受理modelやruntime seedを実行せず、pure-method行列は別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u07/test_uvm_tr_stream_abstract_declaration_rejects_direct_construction",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?i)(?=.*(?:virtual|abstract))(?=.*\\bclass\\s+[\\'\\\"]?uvm_tr_stream\\b).*"
+          }
+        },
+        {
+          "test": "u07/test_recording_base_concrete_subtypes_keep_object_views_and_inherited_constructor_defaults",
+          "role": "control",
+          "expected_observations": [
+            "UT: recording_base_objects database 1 stream 1 link 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDING-AUDIT-UVM-LINK-BASE-ABSTRACT",
+      "clause": "7.3.1.1",
+      "statement": {
+        "en": "The declared virtual uvm_link_base rejects direct construction.",
+        "ja": "virtualと宣言されたuvm_link_baseは直接生成を拒否する。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures, selected public arguments, explicit declared types and exact expected observations. The recording backend is original in-memory setup, not an implementation-derived oracle.",
+        "ja": "linkした独自fixture、選択した公開引数、明示宣言型、正確な期待観測を使う。記録backendは独自のmemory内準備であり、実装由来oracleではない。"
+      },
+      "expected": {
+        "en": "The declared virtual uvm_link_base rejects direct construction.",
+        "ja": "virtualと宣言されたuvm_link_baseは直接生成を拒否する。"
+      },
+      "limitations": {
+        "en": "One direct virtual-class construction prohibition with a separately implemented legal subtype. The diagnostic must name the declared class. No illegal accepted model or runtime seed executes, and pure-method matrices remain separate.",
+        "ja": "別に実装した合法subtypeを伴うvirtual-class直接生成禁止1条件。診断は宣言classを示す必要がある。不正受理modelやruntime seedを実行せず、pure-method行列は別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u07/test_uvm_link_base_abstract_declaration_rejects_direct_construction",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?i)(?=.*(?:virtual|abstract))(?=.*\\bclass\\s+[\\'\\\"]?uvm_link_base\\b).*"
+          }
+        },
+        {
+          "test": "u07/test_recording_base_concrete_subtypes_keep_object_views_and_inherited_constructor_defaults",
+          "role": "control",
+          "expected_observations": [
+            "UT: recording_base_objects database 1 stream 1 link 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDING-AUDIT-LINK-BASE-DEFAULT-NAME",
+      "clause": "7.3.1.2",
+      "statement": {
+        "en": "The omitted link-base name selects unnamed-uvm_link_base through a legal subtype calling super.new with no arguments.",
+        "ja": "合法subtypeから引数なしsuper.newを呼ぶと、省略link-base名はunnamed-uvm_link_baseを選ぶ。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures, selected public arguments, explicit declared types and exact expected observations. The recording backend is original in-memory setup, not an implementation-derived oracle.",
+        "ja": "linkした独自fixture、選択した公開引数、明示宣言型、正確な期待観測を使う。記録backendは独自のmemory内準備であり、実装由来oracleではない。"
+      },
+      "expected": {
+        "en": "The omitted link-base name selects unnamed-uvm_link_base through a legal subtype calling super.new with no arguments.",
+        "ja": "合法subtypeから引数なしsuper.newを呼ぶと、省略link-base名はunnamed-uvm_link_baseを選ぶ。"
+      },
+      "limitations": {
+        "en": "Selected public conditions only. No private state, exact callback retry count, proprietary recording encoding, all graphs or complete clause coverage is certified. No human review or approved denominator is inferred.",
+        "ja": "選択した公開条件だけ。非公開状態、正確なcallback retry数、専用記録encoding、全graph、条項全体の網羅を認定せず、人のレビューや承認済み分母を推定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u07/test_recording_base_concrete_subtypes_keep_object_views_and_inherited_constructor_defaults",
+          "role": "direct",
+          "expected_observations": [
+            "UT: recording_base_defaults database 1 stream 1 link 1 explicit 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDING-AUDIT-LINK-BASE-EXPLICIT-NAME",
+      "clause": "7.3.1.2",
+      "statement": {
+        "en": "The link-base constructor retains the selected explicit name through a legal subtype.",
+        "ja": "link-base constructorは合法subtypeを通じ選択明示名を保持する。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures, selected public arguments, explicit declared types and exact expected observations. The recording backend is original in-memory setup, not an implementation-derived oracle.",
+        "ja": "linkした独自fixture、選択した公開引数、明示宣言型、正確な期待観測を使う。記録backendは独自のmemory内準備であり、実装由来oracleではない。"
+      },
+      "expected": {
+        "en": "The link-base constructor retains the selected explicit name through a legal subtype.",
+        "ja": "link-base constructorは合法subtypeを通じ選択明示名を保持する。"
+      },
+      "limitations": {
+        "en": "Selected public conditions only. No private state, exact callback retry count, proprietary recording encoding, all graphs or complete clause coverage is certified. No human review or approved denominator is inferred.",
+        "ja": "選択した公開条件だけ。非公開状態、正確なcallback retry数、専用記録encoding、全graph、条項全体の網羅を認定せず、人のレビューや承認済み分母を推定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u07/test_recording_base_concrete_subtypes_keep_object_views_and_inherited_constructor_defaults",
+          "role": "direct",
+          "expected_observations": [
+            "UT: recording_base_defaults database 1 stream 1 link 1 explicit 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDING-AUDIT-PARENT-CHILD-LINK-BASE",
+      "clause": "7.3.2.1",
+      "statement": {
+        "en": "The concrete parent-child link retains its link/object bases and selected typed role through real database dispatch despite identical instance names.",
+        "ja": "具象parent-child linkは同一instance名でも実database dispatch経由でlink／object baseと選択した型roleを保持する。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures, selected public arguments, explicit declared types and exact expected observations. The recording backend is original in-memory setup, not an implementation-derived oracle.",
+        "ja": "linkした独自fixture、選択した公開引数、明示宣言型、正確な期待観測を使う。記録backendは独自のmemory内準備であり、実装由来oracleではない。"
+      },
+      "expected": {
+        "en": "The concrete parent-child link retains its link/object bases and selected typed role through real database dispatch despite identical instance names.",
+        "ja": "具象parent-child linkは同一instance名でも実database dispatch経由でlink／object baseと選択した型roleを保持する。"
+      },
+      "limitations": {
+        "en": "Original database type checks observe the exact relation and two valid stream endpoints. This tests nominal class identification rather than implementing or certifying a universal database interpretation of parent/child, cause/effect or related semantics.",
+        "ja": "独自databaseの型検査で正確なrelationと合法stream endpoint 2つを観測する。名目的class識別を検査し、parent／child、cause／effect、relatedの普遍的database解釈を実装／認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u07/test_recording_concrete_link_types_retain_roles_with_identical_names_through_database_dispatch",
+          "role": "direct",
+          "expected_observations": [
+            "UT: recording_link_role 0 kind 1 exact 1 endpoints 1 object 1 name 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDING-AUDIT-CAUSE-EFFECT-LINK-BASE",
+      "clause": "7.3.3.1",
+      "statement": {
+        "en": "The concrete cause-effect link retains its link/object bases and selected typed role through real database dispatch despite identical instance names.",
+        "ja": "具象cause-effect linkは同一instance名でも実database dispatch経由でlink／object baseと選択した型roleを保持する。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures, selected public arguments, explicit declared types and exact expected observations. The recording backend is original in-memory setup, not an implementation-derived oracle.",
+        "ja": "linkした独自fixture、選択した公開引数、明示宣言型、正確な期待観測を使う。記録backendは独自のmemory内準備であり、実装由来oracleではない。"
+      },
+      "expected": {
+        "en": "The concrete cause-effect link retains its link/object bases and selected typed role through real database dispatch despite identical instance names.",
+        "ja": "具象cause-effect linkは同一instance名でも実database dispatch経由でlink／object baseと選択した型roleを保持する。"
+      },
+      "limitations": {
+        "en": "Original database type checks observe the exact relation and two valid stream endpoints. This tests nominal class identification rather than implementing or certifying a universal database interpretation of parent/child, cause/effect or related semantics.",
+        "ja": "独自databaseの型検査で正確なrelationと合法stream endpoint 2つを観測する。名目的class識別を検査し、parent／child、cause／effect、relatedの普遍的database解釈を実装／認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u07/test_recording_concrete_link_types_retain_roles_with_identical_names_through_database_dispatch",
+          "role": "direct",
+          "expected_observations": [
+            "UT: recording_link_role 1 kind 2 exact 1 endpoints 1 object 1 name 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDING-AUDIT-RELATED-LINK-BASE",
+      "clause": "7.3.4.1",
+      "statement": {
+        "en": "The concrete related link retains its link/object bases and selected typed role through real database dispatch despite identical instance names.",
+        "ja": "具象related linkは同一instance名でも実database dispatch経由でlink／object baseと選択した型roleを保持する。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures, selected public arguments, explicit declared types and exact expected observations. The recording backend is original in-memory setup, not an implementation-derived oracle.",
+        "ja": "linkした独自fixture、選択した公開引数、明示宣言型、正確な期待観測を使う。記録backendは独自のmemory内準備であり、実装由来oracleではない。"
+      },
+      "expected": {
+        "en": "The concrete related link retains its link/object bases and selected typed role through real database dispatch despite identical instance names.",
+        "ja": "具象related linkは同一instance名でも実database dispatch経由でlink／object baseと選択した型roleを保持する。"
+      },
+      "limitations": {
+        "en": "Original database type checks observe the exact relation and two valid stream endpoints. This tests nominal class identification rather than implementing or certifying a universal database interpretation of parent/child, cause/effect or related semantics.",
+        "ja": "独自databaseの型検査で正確なrelationと合法stream endpoint 2つを観測する。名目的class識別を検査し、parent／child、cause／effect、relatedの普遍的database解釈を実装／認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u07/test_recording_concrete_link_types_retain_roles_with_identical_names_through_database_dispatch",
+          "role": "direct",
+          "expected_observations": [
+            "UT: recording_link_role 2 kind 3 exact 1 endpoints 1 object 1 name 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDING-AUDIT-ALIAS-UVM-PHASE-CB-POOL",
+      "clause": "D.4.1",
+      "statement": {
+        "en": "The declared uvm_phase_cb_pool alias retains its exact object/callback specialization.",
+        "ja": "宣言されたuvm_phase_cb_pool aliasは正確なobject／callback specializationを保持する。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures, selected public arguments, explicit declared types and exact expected observations. The recording backend is original in-memory setup, not an implementation-derived oracle.",
+        "ja": "linkした独自fixture、選択した公開引数、明示宣言型、正確な期待観測を使う。記録backendは独自のmemory内準備であり、実装由来oracleではない。"
+      },
+      "expected": {
+        "en": "The declared uvm_phase_cb_pool alias retains its exact object/callback specialization.",
+        "ja": "宣言されたuvm_phase_cb_pool aliasは正確なobject／callback specializationを保持する。"
+      },
+      "limitations": {
+        "en": "The called original generic function requires both implicit class conversions between the declared alias and exact specialization. Null equality is only a compile-completion marker; no callback delivery, queue state, iterator traversal, constructor policy or all API behavior is inferred. The printed report_db spelling is a qualified literal reading distinct from the report_cb heading; a missing name is build evidence without runtime.",
+        "ja": "呼び出す独自generic functionは宣言aliasと正確なspecialization間の双方向暗黙class変換を要求する。null等値はcompile完了markerだけであり、callback配送、queue状態、iterator走査、constructor policy、全API動作を推定しない。印刷report_dbの綴りはreport_cb見出しと別の限定した字義的解釈で、名前欠落はruntimeのないbuild evidenceとする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_callback_phase_objection_and_report_iterator_aliases_match_declared_specializations",
+          "role": "direct",
+          "expected_observations": [
+            "UT: declared_callback_alias uvm_phase_cb_pool compatible 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDING-AUDIT-ALIAS-UVM-OBJECTION-CBS-T",
+      "clause": "D.4.2",
+      "statement": {
+        "en": "The declared uvm_objection_cbs_t alias retains its exact object/callback specialization.",
+        "ja": "宣言されたuvm_objection_cbs_t aliasは正確なobject／callback specializationを保持する。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures, selected public arguments, explicit declared types and exact expected observations. The recording backend is original in-memory setup, not an implementation-derived oracle.",
+        "ja": "linkした独自fixture、選択した公開引数、明示宣言型、正確な期待観測を使う。記録backendは独自のmemory内準備であり、実装由来oracleではない。"
+      },
+      "expected": {
+        "en": "The declared uvm_objection_cbs_t alias retains its exact object/callback specialization.",
+        "ja": "宣言されたuvm_objection_cbs_t aliasは正確なobject／callback specializationを保持する。"
+      },
+      "limitations": {
+        "en": "The called original generic function requires both implicit class conversions between the declared alias and exact specialization. Null equality is only a compile-completion marker; no callback delivery, queue state, iterator traversal, constructor policy or all API behavior is inferred. The printed report_db spelling is a qualified literal reading distinct from the report_cb heading; a missing name is build evidence without runtime.",
+        "ja": "呼び出す独自generic functionは宣言aliasと正確なspecialization間の双方向暗黙class変換を要求する。null等値はcompile完了markerだけであり、callback配送、queue状態、iterator走査、constructor policy、全API動作を推定しない。印刷report_dbの綴りはreport_cb見出しと別の限定した字義的解釈で、名前欠落はruntimeのないbuild evidenceとする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_callback_phase_objection_and_report_iterator_aliases_match_declared_specializations",
+          "role": "direct",
+          "expected_observations": [
+            "UT: declared_callback_alias uvm_objection_cbs_t compatible 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDING-AUDIT-ALIAS-UVM-REPORT-DB",
+      "clause": "D.4.3",
+      "statement": {
+        "en": "The declared uvm_report_db alias retains its exact object/callback specialization.",
+        "ja": "宣言されたuvm_report_db aliasは正確なobject／callback specializationを保持する。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures, selected public arguments, explicit declared types and exact expected observations. The recording backend is original in-memory setup, not an implementation-derived oracle.",
+        "ja": "linkした独自fixture、選択した公開引数、明示宣言型、正確な期待観測を使う。記録backendは独自のmemory内準備であり、実装由来oracleではない。"
+      },
+      "expected": {
+        "en": "The declared uvm_report_db alias retains its exact object/callback specialization.",
+        "ja": "宣言されたuvm_report_db aliasは正確なobject／callback specializationを保持する。"
+      },
+      "limitations": {
+        "en": "The called original generic function requires both implicit class conversions between the declared alias and exact specialization. Null equality is only a compile-completion marker; no callback delivery, queue state, iterator traversal, constructor policy or all API behavior is inferred. The printed report_db spelling is a qualified literal reading distinct from the report_cb heading; a missing name is build evidence without runtime.",
+        "ja": "呼び出す独自generic functionは宣言aliasと正確なspecialization間の双方向暗黙class変換を要求する。null等値はcompile完了markerだけであり、callback配送、queue状態、iterator走査、constructor policy、全API動作を推定しない。印刷report_dbの綴りはreport_cb見出しと別の限定した字義的解釈で、名前欠落はruntimeのないbuild evidenceとする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_printed_report_callback_typedef_name_matches_the_declared_specialization",
+          "role": "direct",
+          "expected_observations": [
+            "UT: declared_callback_alias uvm_report_db compatible 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDING-AUDIT-ALIAS-UVM-REPORT-CB-ITER",
+      "clause": "D.4.4",
+      "statement": {
+        "en": "The declared uvm_report_cb_iter alias retains its exact object/callback specialization.",
+        "ja": "宣言されたuvm_report_cb_iter aliasは正確なobject／callback specializationを保持する。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures, selected public arguments, explicit declared types and exact expected observations. The recording backend is original in-memory setup, not an implementation-derived oracle.",
+        "ja": "linkした独自fixture、選択した公開引数、明示宣言型、正確な期待観測を使う。記録backendは独自のmemory内準備であり、実装由来oracleではない。"
+      },
+      "expected": {
+        "en": "The declared uvm_report_cb_iter alias retains its exact object/callback specialization.",
+        "ja": "宣言されたuvm_report_cb_iter aliasは正確なobject／callback specializationを保持する。"
+      },
+      "limitations": {
+        "en": "The called original generic function requires both implicit class conversions between the declared alias and exact specialization. Null equality is only a compile-completion marker; no callback delivery, queue state, iterator traversal, constructor policy or all API behavior is inferred. The printed report_db spelling is a qualified literal reading distinct from the report_cb heading; a missing name is build evidence without runtime.",
+        "ja": "呼び出す独自generic functionは宣言aliasと正確なspecialization間の双方向暗黙class変換を要求する。null等値はcompile完了markerだけであり、callback配送、queue状態、iterator走査、constructor policy、全API動作を推定しない。印刷report_dbの綴りはreport_cb見出しと別の限定した字義的解釈で、名前欠落はruntimeのないbuild evidenceとする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_callback_phase_objection_and_report_iterator_aliases_match_declared_specializations",
+          "role": "direct",
+          "expected_observations": [
+            "UT: declared_callback_alias uvm_report_cb_iter compatible 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDING-AUDIT-ALIAS-UVM-REG-CB",
+      "clause": "D.4.5.1",
+      "statement": {
+        "en": "The declared uvm_reg_cb alias retains its exact object/callback specialization.",
+        "ja": "宣言されたuvm_reg_cb aliasは正確なobject／callback specializationを保持する。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures, selected public arguments, explicit declared types and exact expected observations. The recording backend is original in-memory setup, not an implementation-derived oracle.",
+        "ja": "linkした独自fixture、選択した公開引数、明示宣言型、正確な期待観測を使う。記録backendは独自のmemory内準備であり、実装由来oracleではない。"
+      },
+      "expected": {
+        "en": "The declared uvm_reg_cb alias retains its exact object/callback specialization.",
+        "ja": "宣言されたuvm_reg_cb aliasは正確なobject／callback specializationを保持する。"
+      },
+      "limitations": {
+        "en": "The called original generic function requires both implicit class conversions between the declared alias and exact specialization. Null equality is only a compile-completion marker; no callback delivery, queue state, iterator traversal, constructor policy or all API behavior is inferred. The printed report_db spelling is a qualified literal reading distinct from the report_cb heading; a missing name is build evidence without runtime.",
+        "ja": "呼び出す独自generic functionは宣言aliasと正確なspecialization間の双方向暗黙class変換を要求する。null等値はcompile完了markerだけであり、callback配送、queue状態、iterator走査、constructor policy、全API動作を推定しない。印刷report_dbの綴りはreport_cb見出しと別の限定した字義的解釈で、名前欠落はruntimeのないbuild evidenceとする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_register_callback_pool_and_iterator_aliases_match_all_declared_specializations",
+          "role": "direct",
+          "expected_observations": [
+            "UT: declared_callback_alias uvm_reg_cb compatible 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDING-AUDIT-ALIAS-UVM-REG-CB-ITER",
+      "clause": "D.4.5.2",
+      "statement": {
+        "en": "The declared uvm_reg_cb_iter alias retains its exact object/callback specialization.",
+        "ja": "宣言されたuvm_reg_cb_iter aliasは正確なobject／callback specializationを保持する。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures, selected public arguments, explicit declared types and exact expected observations. The recording backend is original in-memory setup, not an implementation-derived oracle.",
+        "ja": "linkした独自fixture、選択した公開引数、明示宣言型、正確な期待観測を使う。記録backendは独自のmemory内準備であり、実装由来oracleではない。"
+      },
+      "expected": {
+        "en": "The declared uvm_reg_cb_iter alias retains its exact object/callback specialization.",
+        "ja": "宣言されたuvm_reg_cb_iter aliasは正確なobject／callback specializationを保持する。"
+      },
+      "limitations": {
+        "en": "The called original generic function requires both implicit class conversions between the declared alias and exact specialization. Null equality is only a compile-completion marker; no callback delivery, queue state, iterator traversal, constructor policy or all API behavior is inferred. The printed report_db spelling is a qualified literal reading distinct from the report_cb heading; a missing name is build evidence without runtime.",
+        "ja": "呼び出す独自generic functionは宣言aliasと正確なspecialization間の双方向暗黙class変換を要求する。null等値はcompile完了markerだけであり、callback配送、queue状態、iterator走査、constructor policy、全API動作を推定しない。印刷report_dbの綴りはreport_cb見出しと別の限定した字義的解釈で、名前欠落はruntimeのないbuild evidenceとする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_register_callback_pool_and_iterator_aliases_match_all_declared_specializations",
+          "role": "direct",
+          "expected_observations": [
+            "UT: declared_callback_alias uvm_reg_cb_iter compatible 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDING-AUDIT-ALIAS-UVM-REG-BD-CB",
+      "clause": "D.4.5.3",
+      "statement": {
+        "en": "The declared uvm_reg_bd_cb alias retains its exact object/callback specialization.",
+        "ja": "宣言されたuvm_reg_bd_cb aliasは正確なobject／callback specializationを保持する。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures, selected public arguments, explicit declared types and exact expected observations. The recording backend is original in-memory setup, not an implementation-derived oracle.",
+        "ja": "linkした独自fixture、選択した公開引数、明示宣言型、正確な期待観測を使う。記録backendは独自のmemory内準備であり、実装由来oracleではない。"
+      },
+      "expected": {
+        "en": "The declared uvm_reg_bd_cb alias retains its exact object/callback specialization.",
+        "ja": "宣言されたuvm_reg_bd_cb aliasは正確なobject／callback specializationを保持する。"
+      },
+      "limitations": {
+        "en": "The called original generic function requires both implicit class conversions between the declared alias and exact specialization. Null equality is only a compile-completion marker; no callback delivery, queue state, iterator traversal, constructor policy or all API behavior is inferred. The printed report_db spelling is a qualified literal reading distinct from the report_cb heading; a missing name is build evidence without runtime.",
+        "ja": "呼び出す独自generic functionは宣言aliasと正確なspecialization間の双方向暗黙class変換を要求する。null等値はcompile完了markerだけであり、callback配送、queue状態、iterator走査、constructor policy、全API動作を推定しない。印刷report_dbの綴りはreport_cb見出しと別の限定した字義的解釈で、名前欠落はruntimeのないbuild evidenceとする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_register_callback_pool_and_iterator_aliases_match_all_declared_specializations",
+          "role": "direct",
+          "expected_observations": [
+            "UT: declared_callback_alias uvm_reg_bd_cb compatible 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDING-AUDIT-ALIAS-UVM-REG-BD-CB-ITER",
+      "clause": "D.4.5.4",
+      "statement": {
+        "en": "The declared uvm_reg_bd_cb_iter alias retains its exact object/callback specialization.",
+        "ja": "宣言されたuvm_reg_bd_cb_iter aliasは正確なobject／callback specializationを保持する。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures, selected public arguments, explicit declared types and exact expected observations. The recording backend is original in-memory setup, not an implementation-derived oracle.",
+        "ja": "linkした独自fixture、選択した公開引数、明示宣言型、正確な期待観測を使う。記録backendは独自のmemory内準備であり、実装由来oracleではない。"
+      },
+      "expected": {
+        "en": "The declared uvm_reg_bd_cb_iter alias retains its exact object/callback specialization.",
+        "ja": "宣言されたuvm_reg_bd_cb_iter aliasは正確なobject／callback specializationを保持する。"
+      },
+      "limitations": {
+        "en": "The called original generic function requires both implicit class conversions between the declared alias and exact specialization. Null equality is only a compile-completion marker; no callback delivery, queue state, iterator traversal, constructor policy or all API behavior is inferred. The printed report_db spelling is a qualified literal reading distinct from the report_cb heading; a missing name is build evidence without runtime.",
+        "ja": "呼び出す独自generic functionは宣言aliasと正確なspecialization間の双方向暗黙class変換を要求する。null等値はcompile完了markerだけであり、callback配送、queue状態、iterator走査、constructor policy、全API動作を推定しない。印刷report_dbの綴りはreport_cb見出しと別の限定した字義的解釈で、名前欠落はruntimeのないbuild evidenceとする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_register_callback_pool_and_iterator_aliases_match_all_declared_specializations",
+          "role": "direct",
+          "expected_observations": [
+            "UT: declared_callback_alias uvm_reg_bd_cb_iter compatible 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDING-AUDIT-ALIAS-UVM-MEM-CB",
+      "clause": "D.4.5.5",
+      "statement": {
+        "en": "The declared uvm_mem_cb alias retains its exact object/callback specialization.",
+        "ja": "宣言されたuvm_mem_cb aliasは正確なobject／callback specializationを保持する。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures, selected public arguments, explicit declared types and exact expected observations. The recording backend is original in-memory setup, not an implementation-derived oracle.",
+        "ja": "linkした独自fixture、選択した公開引数、明示宣言型、正確な期待観測を使う。記録backendは独自のmemory内準備であり、実装由来oracleではない。"
+      },
+      "expected": {
+        "en": "The declared uvm_mem_cb alias retains its exact object/callback specialization.",
+        "ja": "宣言されたuvm_mem_cb aliasは正確なobject／callback specializationを保持する。"
+      },
+      "limitations": {
+        "en": "The called original generic function requires both implicit class conversions between the declared alias and exact specialization. Null equality is only a compile-completion marker; no callback delivery, queue state, iterator traversal, constructor policy or all API behavior is inferred. The printed report_db spelling is a qualified literal reading distinct from the report_cb heading; a missing name is build evidence without runtime.",
+        "ja": "呼び出す独自generic functionは宣言aliasと正確なspecialization間の双方向暗黙class変換を要求する。null等値はcompile完了markerだけであり、callback配送、queue状態、iterator走査、constructor policy、全API動作を推定しない。印刷report_dbの綴りはreport_cb見出しと別の限定した字義的解釈で、名前欠落はruntimeのないbuild evidenceとする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_register_callback_pool_and_iterator_aliases_match_all_declared_specializations",
+          "role": "direct",
+          "expected_observations": [
+            "UT: declared_callback_alias uvm_mem_cb compatible 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDING-AUDIT-ALIAS-UVM-MEM-CB-ITER",
+      "clause": "D.4.5.6",
+      "statement": {
+        "en": "The declared uvm_mem_cb_iter alias retains its exact object/callback specialization.",
+        "ja": "宣言されたuvm_mem_cb_iter aliasは正確なobject／callback specializationを保持する。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures, selected public arguments, explicit declared types and exact expected observations. The recording backend is original in-memory setup, not an implementation-derived oracle.",
+        "ja": "linkした独自fixture、選択した公開引数、明示宣言型、正確な期待観測を使う。記録backendは独自のmemory内準備であり、実装由来oracleではない。"
+      },
+      "expected": {
+        "en": "The declared uvm_mem_cb_iter alias retains its exact object/callback specialization.",
+        "ja": "宣言されたuvm_mem_cb_iter aliasは正確なobject／callback specializationを保持する。"
+      },
+      "limitations": {
+        "en": "The called original generic function requires both implicit class conversions between the declared alias and exact specialization. Null equality is only a compile-completion marker; no callback delivery, queue state, iterator traversal, constructor policy or all API behavior is inferred. The printed report_db spelling is a qualified literal reading distinct from the report_cb heading; a missing name is build evidence without runtime.",
+        "ja": "呼び出す独自generic functionは宣言aliasと正確なspecialization間の双方向暗黙class変換を要求する。null等値はcompile完了markerだけであり、callback配送、queue状態、iterator走査、constructor policy、全API動作を推定しない。印刷report_dbの綴りはreport_cb見出しと別の限定した字義的解釈で、名前欠落はruntimeのないbuild evidenceとする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_register_callback_pool_and_iterator_aliases_match_all_declared_specializations",
+          "role": "direct",
+          "expected_observations": [
+            "UT: declared_callback_alias uvm_mem_cb_iter compatible 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDING-AUDIT-ALIAS-UVM-REG-FIELD-CB",
+      "clause": "D.4.5.7",
+      "statement": {
+        "en": "The declared uvm_reg_field_cb alias retains its exact object/callback specialization.",
+        "ja": "宣言されたuvm_reg_field_cb aliasは正確なobject／callback specializationを保持する。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures, selected public arguments, explicit declared types and exact expected observations. The recording backend is original in-memory setup, not an implementation-derived oracle.",
+        "ja": "linkした独自fixture、選択した公開引数、明示宣言型、正確な期待観測を使う。記録backendは独自のmemory内準備であり、実装由来oracleではない。"
+      },
+      "expected": {
+        "en": "The declared uvm_reg_field_cb alias retains its exact object/callback specialization.",
+        "ja": "宣言されたuvm_reg_field_cb aliasは正確なobject／callback specializationを保持する。"
+      },
+      "limitations": {
+        "en": "The called original generic function requires both implicit class conversions between the declared alias and exact specialization. Null equality is only a compile-completion marker; no callback delivery, queue state, iterator traversal, constructor policy or all API behavior is inferred. The printed report_db spelling is a qualified literal reading distinct from the report_cb heading; a missing name is build evidence without runtime.",
+        "ja": "呼び出す独自generic functionは宣言aliasと正確なspecialization間の双方向暗黙class変換を要求する。null等値はcompile完了markerだけであり、callback配送、queue状態、iterator走査、constructor policy、全API動作を推定しない。印刷report_dbの綴りはreport_cb見出しと別の限定した字義的解釈で、名前欠落はruntimeのないbuild evidenceとする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_register_callback_pool_and_iterator_aliases_match_all_declared_specializations",
+          "role": "direct",
+          "expected_observations": [
+            "UT: declared_callback_alias uvm_reg_field_cb compatible 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDING-AUDIT-ALIAS-UVM-REG-FIELD-CB-ITER",
+      "clause": "D.4.5.8",
+      "statement": {
+        "en": "The declared uvm_reg_field_cb_iter alias retains its exact object/callback specialization.",
+        "ja": "宣言されたuvm_reg_field_cb_iter aliasは正確なobject／callback specializationを保持する。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures, selected public arguments, explicit declared types and exact expected observations. The recording backend is original in-memory setup, not an implementation-derived oracle.",
+        "ja": "linkした独自fixture、選択した公開引数、明示宣言型、正確な期待観測を使う。記録backendは独自のmemory内準備であり、実装由来oracleではない。"
+      },
+      "expected": {
+        "en": "The declared uvm_reg_field_cb_iter alias retains its exact object/callback specialization.",
+        "ja": "宣言されたuvm_reg_field_cb_iter aliasは正確なobject／callback specializationを保持する。"
+      },
+      "limitations": {
+        "en": "The called original generic function requires both implicit class conversions between the declared alias and exact specialization. Null equality is only a compile-completion marker; no callback delivery, queue state, iterator traversal, constructor policy or all API behavior is inferred. The printed report_db spelling is a qualified literal reading distinct from the report_cb heading; a missing name is build evidence without runtime.",
+        "ja": "呼び出す独自generic functionは宣言aliasと正確なspecialization間の双方向暗黙class変換を要求する。null等値はcompile完了markerだけであり、callback配送、queue状態、iterator走査、constructor policy、全API動作を推定しない。印刷report_dbの綴りはreport_cb見出しと別の限定した字義的解釈で、名前欠落はruntimeのないbuild evidenceとする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_register_callback_pool_and_iterator_aliases_match_all_declared_specializations",
+          "role": "direct",
+          "expected_observations": [
+            "UT: declared_callback_alias uvm_reg_field_cb_iter compatible 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDING-AUDIT-ALIAS-UVM-VREG-CB",
+      "clause": "D.4.5.9",
+      "statement": {
+        "en": "The declared uvm_vreg_cb alias retains its exact object/callback specialization.",
+        "ja": "宣言されたuvm_vreg_cb aliasは正確なobject／callback specializationを保持する。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures, selected public arguments, explicit declared types and exact expected observations. The recording backend is original in-memory setup, not an implementation-derived oracle.",
+        "ja": "linkした独自fixture、選択した公開引数、明示宣言型、正確な期待観測を使う。記録backendは独自のmemory内準備であり、実装由来oracleではない。"
+      },
+      "expected": {
+        "en": "The declared uvm_vreg_cb alias retains its exact object/callback specialization.",
+        "ja": "宣言されたuvm_vreg_cb aliasは正確なobject／callback specializationを保持する。"
+      },
+      "limitations": {
+        "en": "The called original generic function requires both implicit class conversions between the declared alias and exact specialization. Null equality is only a compile-completion marker; no callback delivery, queue state, iterator traversal, constructor policy or all API behavior is inferred. The printed report_db spelling is a qualified literal reading distinct from the report_cb heading; a missing name is build evidence without runtime.",
+        "ja": "呼び出す独自generic functionは宣言aliasと正確なspecialization間の双方向暗黙class変換を要求する。null等値はcompile完了markerだけであり、callback配送、queue状態、iterator走査、constructor policy、全API動作を推定しない。印刷report_dbの綴りはreport_cb見出しと別の限定した字義的解釈で、名前欠落はruntimeのないbuild evidenceとする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_register_callback_pool_and_iterator_aliases_match_all_declared_specializations",
+          "role": "direct",
+          "expected_observations": [
+            "UT: declared_callback_alias uvm_vreg_cb compatible 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDING-AUDIT-ALIAS-UVM-VREG-CB-ITER",
+      "clause": "D.4.5.10",
+      "statement": {
+        "en": "The declared uvm_vreg_cb_iter alias retains its exact object/callback specialization.",
+        "ja": "宣言されたuvm_vreg_cb_iter aliasは正確なobject／callback specializationを保持する。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures, selected public arguments, explicit declared types and exact expected observations. The recording backend is original in-memory setup, not an implementation-derived oracle.",
+        "ja": "linkした独自fixture、選択した公開引数、明示宣言型、正確な期待観測を使う。記録backendは独自のmemory内準備であり、実装由来oracleではない。"
+      },
+      "expected": {
+        "en": "The declared uvm_vreg_cb_iter alias retains its exact object/callback specialization.",
+        "ja": "宣言されたuvm_vreg_cb_iter aliasは正確なobject／callback specializationを保持する。"
+      },
+      "limitations": {
+        "en": "The called original generic function requires both implicit class conversions between the declared alias and exact specialization. Null equality is only a compile-completion marker; no callback delivery, queue state, iterator traversal, constructor policy or all API behavior is inferred. The printed report_db spelling is a qualified literal reading distinct from the report_cb heading; a missing name is build evidence without runtime.",
+        "ja": "呼び出す独自generic functionは宣言aliasと正確なspecialization間の双方向暗黙class変換を要求する。null等値はcompile完了markerだけであり、callback配送、queue状態、iterator走査、constructor policy、全API動作を推定しない。印刷report_dbの綴りはreport_cb見出しと別の限定した字義的解釈で、名前欠落はruntimeのないbuild evidenceとする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_register_callback_pool_and_iterator_aliases_match_all_declared_specializations",
+          "role": "direct",
+          "expected_observations": [
+            "UT: declared_callback_alias uvm_vreg_cb_iter compatible 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDING-AUDIT-ALIAS-UVM-VREG-FIELD-CB",
+      "clause": "D.4.5.11",
+      "statement": {
+        "en": "The declared uvm_vreg_field_cb alias retains its exact object/callback specialization.",
+        "ja": "宣言されたuvm_vreg_field_cb aliasは正確なobject／callback specializationを保持する。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures, selected public arguments, explicit declared types and exact expected observations. The recording backend is original in-memory setup, not an implementation-derived oracle.",
+        "ja": "linkした独自fixture、選択した公開引数、明示宣言型、正確な期待観測を使う。記録backendは独自のmemory内準備であり、実装由来oracleではない。"
+      },
+      "expected": {
+        "en": "The declared uvm_vreg_field_cb alias retains its exact object/callback specialization.",
+        "ja": "宣言されたuvm_vreg_field_cb aliasは正確なobject／callback specializationを保持する。"
+      },
+      "limitations": {
+        "en": "The called original generic function requires both implicit class conversions between the declared alias and exact specialization. Null equality is only a compile-completion marker; no callback delivery, queue state, iterator traversal, constructor policy or all API behavior is inferred. The printed report_db spelling is a qualified literal reading distinct from the report_cb heading; a missing name is build evidence without runtime.",
+        "ja": "呼び出す独自generic functionは宣言aliasと正確なspecialization間の双方向暗黙class変換を要求する。null等値はcompile完了markerだけであり、callback配送、queue状態、iterator走査、constructor policy、全API動作を推定しない。印刷report_dbの綴りはreport_cb見出しと別の限定した字義的解釈で、名前欠落はruntimeのないbuild evidenceとする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_register_callback_pool_and_iterator_aliases_match_all_declared_specializations",
+          "role": "direct",
+          "expected_observations": [
+            "UT: declared_callback_alias uvm_vreg_field_cb compatible 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDING-AUDIT-ALIAS-UVM-VREG-FIELD-CB-ITER",
+      "clause": "D.4.5.12",
+      "statement": {
+        "en": "The declared uvm_vreg_field_cb_iter alias retains its exact object/callback specialization.",
+        "ja": "宣言されたuvm_vreg_field_cb_iter aliasは正確なobject／callback specializationを保持する。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures, selected public arguments, explicit declared types and exact expected observations. The recording backend is original in-memory setup, not an implementation-derived oracle.",
+        "ja": "linkした独自fixture、選択した公開引数、明示宣言型、正確な期待観測を使う。記録backendは独自のmemory内準備であり、実装由来oracleではない。"
+      },
+      "expected": {
+        "en": "The declared uvm_vreg_field_cb_iter alias retains its exact object/callback specialization.",
+        "ja": "宣言されたuvm_vreg_field_cb_iter aliasは正確なobject／callback specializationを保持する。"
+      },
+      "limitations": {
+        "en": "The called original generic function requires both implicit class conversions between the declared alias and exact specialization. Null equality is only a compile-completion marker; no callback delivery, queue state, iterator traversal, constructor policy or all API behavior is inferred. The printed report_db spelling is a qualified literal reading distinct from the report_cb heading; a missing name is build evidence without runtime.",
+        "ja": "呼び出す独自generic functionは宣言aliasと正確なspecialization間の双方向暗黙class変換を要求する。null等値はcompile完了markerだけであり、callback配送、queue状態、iterator走査、constructor policy、全API動作を推定しない。印刷report_dbの綴りはreport_cb見出しと別の限定した字義的解釈で、名前欠落はruntimeのないbuild evidenceとする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_register_callback_pool_and_iterator_aliases_match_all_declared_specializations",
+          "role": "direct",
+          "expected_observations": [
+            "UT: declared_callback_alias uvm_vreg_field_cb_iter compatible 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDING-AUDIT-ITERATOR-DEFAULT-OBJECT",
+      "clause": "D.1.1",
+      "statement": {
+        "en": "The omitted iterator object parameter is uvm_object.",
+        "ja": "省略iterator object parameterはuvm_objectである。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures, selected public arguments, explicit declared types and exact expected observations. The recording backend is original in-memory setup, not an implementation-derived oracle.",
+        "ja": "linkした独自fixture、選択した公開引数、明示宣言型、正確な期待観測を使う。記録backendは独自のmemory内準備であり、実装由来oracleではない。"
+      },
+      "expected": {
+        "en": "The omitted iterator object parameter is uvm_object.",
+        "ja": "省略iterator object parameterはuvm_objectである。"
+      },
+      "limitations": {
+        "en": "The called original generic function requires both implicit class conversions between the declared alias and exact specialization. Null equality is only a compile-completion marker; no callback delivery, queue state, iterator traversal, constructor policy or all API behavior is inferred. The printed report_db spelling is a qualified literal reading distinct from the report_cb heading; a missing name is build evidence without runtime.",
+        "ja": "呼び出す独自generic functionは宣言aliasと正確なspecialization間の双方向暗黙class変換を要求する。null等値はcompile完了markerだけであり、callback配送、queue状態、iterator走査、constructor policy、全API動作を推定しない。印刷report_dbの綴りはreport_cb見出しと別の限定した字義的解釈で、名前欠落はruntimeのないbuild evidenceとする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_callback_phase_objection_and_report_iterator_aliases_match_declared_specializations",
+          "role": "direct",
+          "expected_observations": [
+            "UT: declared_callback_alias uvm_callback_iter compatible 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDING-AUDIT-ITERATOR-DEFAULT-CALLBACK",
+      "clause": "D.1.1",
+      "statement": {
+        "en": "The omitted iterator callback parameter is uvm_callback.",
+        "ja": "省略iterator callback parameterはuvm_callbackである。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures, selected public arguments, explicit declared types and exact expected observations. The recording backend is original in-memory setup, not an implementation-derived oracle.",
+        "ja": "linkした独自fixture、選択した公開引数、明示宣言型、正確な期待観測を使う。記録backendは独自のmemory内準備であり、実装由来oracleではない。"
+      },
+      "expected": {
+        "en": "The omitted iterator callback parameter is uvm_callback.",
+        "ja": "省略iterator callback parameterはuvm_callbackである。"
+      },
+      "limitations": {
+        "en": "The called original generic function requires both implicit class conversions between the declared alias and exact specialization. Null equality is only a compile-completion marker; no callback delivery, queue state, iterator traversal, constructor policy or all API behavior is inferred. The printed report_db spelling is a qualified literal reading distinct from the report_cb heading; a missing name is build evidence without runtime.",
+        "ja": "呼び出す独自generic functionは宣言aliasと正確なspecialization間の双方向暗黙class変換を要求する。null等値はcompile完了markerだけであり、callback配送、queue状態、iterator走査、constructor policy、全API動作を推定しない。印刷report_dbの綴りはreport_cb見出しと別の限定した字義的解釈で、名前欠落はruntimeのないbuild evidenceとする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_callback_phase_objection_and_report_iterator_aliases_match_declared_specializations",
+          "role": "direct",
+          "expected_observations": [
+            "UT: declared_callback_alias uvm_callback_iter compatible 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDING-AUDIT-ITERATOR-NO-TYPE-ID",
+      "clause": "D.1.1",
+      "statement": {
+        "en": "The callback iterator has no declared type_id available to the selected registry-style access.",
+        "ja": "callback iteratorは選択registry形式アクセスで利用できるtype_idを宣言しない。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures, selected public arguments, explicit declared types and exact expected observations. The recording backend is original in-memory setup, not an implementation-derived oracle.",
+        "ja": "linkした独自fixture、選択した公開引数、明示宣言型、正確な期待観測を使う。記録backendは独自のmemory内準備であり、実装由来oracleではない。"
+      },
+      "expected": {
+        "en": "The callback iterator has no declared type_id available to the selected registry-style access.",
+        "ja": "callback iteratorは選択registry形式アクセスで利用できるtype_idを宣言しない。"
+      },
+      "limitations": {
+        "en": "One illegal type_id access with a separate legal default-specialization control. Require a targeted missing-type_id diagnostic, not an unrelated syntax failure. No illegal accepted model or runtime seed executes; this does not inspect private implementation declarations.",
+        "ja": "別の合法default-specialization controlを伴う不正type_idアクセス1つ。無関係な構文失敗でなく対象type_id欠落診断を要求する。不正受理modelやruntime seedを実行せず、非公開実装宣言を調べない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uD/test_callback_iterator_forbidden_type_id_access_is_rejected",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?i)(?=.*(?:not found|cannot find|can't find|unknown|missing|no (?:such )?(?:member|type)|does not exist))(?=.*\\btype_id\\b).*"
+          }
+        },
+        {
+          "test": "uD/test_callback_phase_objection_and_report_iterator_aliases_match_declared_specializations",
+          "role": "control",
+          "expected_observations": [
+            "UT: declared_callback_alias uvm_callback_iter compatible 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDING-AUDIT-OBJECT-RECORD-NULL-IGNORED",
+      "clause": "5.3.7.1",
+      "statement": {
+        "en": "Omitted and explicit-null record policies are silently ignored by the object record wrapper.",
+        "ja": "object record wrapperは省略／明示nullの記録policyを黙って無視する。"
+      },
+      "conditions": {
+        "en": "Call the actual object record wrapper. Null cases observe original report and object hooks; the nonnull case uses an opened original recorder with explicit DEEP recursion and a do_record_object observer.",
+        "ja": "実object record wrapperを呼ぶ。null条件は独自report／object hookで観測し、nonnull条件は明示DEEP recursionとdo_record_object observerを備えたopen済み独自recorderを使う。"
+      },
+      "expected": {
+        "en": "Omitted and explicit-null record policies are silently ignored by the object record wrapper.",
+        "ja": "object record wrapperは省略／明示nullの記録policyを黙って無視する。"
+      },
+      "limitations": {
+        "en": "Selected wrapper dispatch/null behavior only. The original recorder hook does not call its inherited field/user algorithm, so this case does not certify recorder field automation, active-history ordering, exact callback count or backend formatting. The component info suppression obligation remains in recorder clause 16.4.7.7.",
+        "ja": "選択wrapper dispatch／null動作だけ。独自recorder hookは継承field／user algorithmを呼ばないため、この条件でrecorder field automation、active-history順序、正確なcallback数、backend書式を認定しない。component info抑制義務はrecorderの16.4.7.7に保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_object_record_ignores_null_policies_and_delegates_the_same_object_to_a_supplied_recorder",
+          "role": "direct",
+          "expected_observations": [
+            "UT: object_record omitted_silent 1",
+            "UT: object_record explicit_null_silent 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDING-AUDIT-OBJECT-RECORD-SAME-DELEGATION",
+      "clause": "5.3.7.1",
+      "statement": {
+        "en": "With a supplied recorder, the object record wrapper passes that same object to the selected recorder operation.",
+        "ja": "recorderを指定するとobject record wrapperは同じobjectを選択recorder操作へ渡す。"
+      },
+      "conditions": {
+        "en": "Call the actual object record wrapper. Null cases observe original report and object hooks; the nonnull case uses an opened original recorder with explicit DEEP recursion and a do_record_object observer.",
+        "ja": "実object record wrapperを呼ぶ。null条件は独自report／object hookで観測し、nonnull条件は明示DEEP recursionとdo_record_object observerを備えたopen済み独自recorderを使う。"
+      },
+      "expected": {
+        "en": "With a supplied recorder, the object record wrapper passes that same object to the selected recorder operation.",
+        "ja": "recorderを指定するとobject record wrapperは同じobjectを選択recorder操作へ渡す。"
+      },
+      "limitations": {
+        "en": "Selected wrapper dispatch/null behavior only. The original recorder hook does not call its inherited field/user algorithm, so this case does not certify recorder field automation, active-history ordering, exact callback count or backend formatting. The component info suppression obligation remains in recorder clause 16.4.7.7.",
+        "ja": "選択wrapper dispatch／null動作だけ。独自recorder hookは継承field／user algorithmを呼ばないため、この条件でrecorder field automation、active-history順序、正確なcallback数、backend書式を認定しない。component info抑制義務はrecorderの16.4.7.7に保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_object_record_ignores_null_policies_and_delegates_the_same_object_to_a_supplied_recorder",
+          "role": "direct",
+          "expected_observations": [
+            "UT: object_record delegated 1 same 1"
           ]
         }
       ]

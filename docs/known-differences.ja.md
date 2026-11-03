@@ -2,12 +2,12 @@
 
 [English](known-differences.md) · [README](../README.ja.md) · [FAQ](faq.ja.md)
 
-現在の1577件と、固定したAccellera UVM 2020.3.1についての記録です。
+現在の1590件と、固定したAccellera UVM 2020.3.1についての記録です。
 不一致はテストの結果であり、それだけではシミュレータ・ライブラリ・期待値のどれが原因かは決まりません。
 
-elaboration 39件は抽象class直接生成19件とpure interface／const参照違反20件で、拒否を期待します。
-37件は一致し、subscriber／visitor未実装の受理2件はruntimeを実行せずspecのみを保持します。
-compiler受理2件は既知simulation差分196件と別です。新しいcomponent-familyの直接生成5件は正しく拒否されます。
+elaboration 43件は抽象class直接生成22件とpure interface／const参照／禁止member違反21件で、拒否を期待します。
+41件は一致し、subscriber／visitor未実装の受理2件はruntimeを実行せずspecのみを保持します。
+compiler受理2件は既知simulation差分197件と別です。選択component-family／recording-baseの生成probeと禁止memberアクセスは正しく拒否されます。
 
 ## 固定版ライブラリの制約
 
@@ -375,7 +375,7 @@ command-line 18検査系は別のVPI bridgeと固定regex DPIを明示要求し�
 上限は正しく7のままですが、固定serverはINFOを発行し、警告probeはWARNINGを観測しません。YESの比較対象は警告なしで9へ変わります。
 これは診断severityの差分で、上限の強制失敗ではありません。以前のno-DPI引数2件は未変更の通常実行時差分です。
 
-スイート全体では、`verilator@5.052`を付けたテストは1379件、specのみのテストは198件です。
+スイート全体では、`verilator@5.052`を付けたテストは1391件、specのみのテストは199件です。
 specのみのうち1件は9.6を検証します。pre-resetフェーズ終了時に子タスクが停止する
 はずですが、固定版UVMとVerilator 5.052の組み合わせでは、後のフェーズで子タスクの遅延書き込みが
 実行されます。この差分の原因がシミュレータとライブラリのどちらかは未確定です。
@@ -384,7 +384,7 @@ wakeup resetの検査系は、trigger waiterとpersistent-trigger waiterを各1�
 10.1.1.2.8は、callbackなしで両方が起動することを要求します。固定Verilatorの実行は、待機状態の観測に到達してから
 watchdogが期限切れになります。simulator／libraryを組み合わせた原因は未確定のまま、規範的なwakeupの期待を保持します。
 
-specのみの198件も規格から導いた期待値を保持します。通常のVerilator実行とCIはoracle付き1379件（runtime 1342・compile拒否37）を選びます。
+specのみの199件も規格から導いた期待値を保持します。通常のVerilator実行とCIはoracle付き1391件（runtime 1350・compile拒否41）を選びます。
 `--all`はspecのみも含め、不一致やビルド不可を`known`として記録します。
 通常の実行時150件は、最初の差分であるseed 1までの記録で、seed 73の結果はありません。
 API欠落build 17件は、time 1、sequence-library 6、HDL slice 4、名前付きconcat constructor 1、object active-policy 1、catcher message-handle 3、印刷されたbase記録getter 1で、
@@ -402,6 +402,12 @@ sequencer新規3件は差分を保持します。interface宣言のrequest既定
 印刷されたbase API is_auto_enabled_recording_enabledは欠落し、別名のinterface照会は独立に検査します。この2件はruntime seedのないbuildです。
 wait_for_sequences probeは字義的な待機の限定解釈で、seed 1においてproducer登場前に返ります。即時tryとoverrideの意味は部分対応のまま、確定不具合原因は断定しません。
 新規runtime 17件と訂正rerandomization 1件は両seed一致、抽象生成2件はruntimeを実行せず拒否されます。
+
+## 印刷report callback alias
+
+D.4.3は見出しをreport_cb、印刷typedef名をreport_dbとします。
+[字義的宣言probe](../tests/uD/test_printed_report_callback_typedef_name_matches_the_declared_specialization.sv)は印刷されたuvm_report_dbを保持し、固定組合せでは欠落します。
+runtime seedのないbuild evidenceで、限定した名前の食違いとして保持し、確定不具合の原因を割り当てません。動作する見出し名のcallback経路と他のexact aliasは別観測です。
 
 ## component寿命と便宜interfaceの観測
 
@@ -421,7 +427,7 @@ object名省略fixtureは任意user既定値を制約せず、独自constructor�
 
 ## specのみのテスト
 
-現在の198件は次のテストです。同じ制約を複数のテストで検査する場合があり、異なる不具合の個数ではありません。
+現在の199件は次のテストです。同じ制約を複数のテストで検査する場合があり、異なる不具合の個数ではありません。
 
 - [blocking initiator relayの印刷provider受理](../tests/u12/test_tlm2_blocking_passthrough_initiator_connect_accepts_its_spec_listed_provider_families.sv).
 - [blocking target relayの印刷provider受理](../tests/u12/test_tlm2_blocking_passthrough_target_connect_accepts_its_spec_listed_provider_families.sv).
@@ -695,7 +701,7 @@ object名省略fixtureは任意user既定値を制約せず、独自constructor�
 - [生成時の独立した引数snapshot](../tests/uG/test_command_fresh_processors_populate_independent_argument_snapshots_at_construction.sv).
 
 既存2入力はcommand-enum引用と、訂正したBoolean rerandomization観測で指紋が変わっています。
-対応する歴史的guest記録を除外し、互換範囲は1083記録、未測定は修正2入力を含む494件です。
+対応する歴史的guest記録を除外し、互換範囲は1083記録、未測定は修正2入力を含む507件です。
 これはevidence範囲のfilterで、新しいguest fail／passやsimulator改善ではありません。
 
 - [copier既定名](../tests/u16/test_policy_comparer_packer_and_copier_constructors_preserve_names_types_and_policy_bases.sv)
@@ -712,8 +718,8 @@ object名省略fixtureは任意user既定値を制約せず、独自constructor�
 
 ## シミュレータとライブラリの組み合わせ
 
-スイートは1577件ですが、以下のkirimasim／Ghost記録は未変更の現在入力1083件だけを対象とします。
-以前の一時実行ファイル／profile snapshotがないため、494入力は未測定です。
+スイートは1590件ですが、以下のkirimasim／Ghost記録は未変更の現在入力1083件だけを対象とします。
+以前の一時実行ファイル／profile snapshotがないため、507入力は未測定です。
 新しい全件guest実測とは扱いません。[実行結果](results.ja.md)を参照してください。
 
 Ghostの同梱UVMはseed 1・73とも207件一致・876件不一致で、不一致になるテストも同じです。

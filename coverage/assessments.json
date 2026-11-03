@@ -4010,6 +4010,257 @@
         "reviewer": null,
         "reviewed_at": null
       }
+    },
+    {
+      "clause": "7",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The chapter explains database, stream and recorder roles in a consistent application-specific recording API. Selected concrete connection, stream and recorder duties remain explicit below; no backend format is standardized here.",
+        "ja": "本章は一貫したapplication固有記録APIのdatabase／stream／recorder役割を説明する。選択した具体的接続・stream・recorder義務は下位に明示保持し、ここでbackend書式を標準化しない。"
+      },
+      "related_requirements": [
+        "UVM-DATABASE-OPEN-STATE",
+        "UVM-RECORDING-STREAM-DATABASE-IDENTITY",
+        "UVM-RECORDER-OPEN-STREAM-GUARD"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "7.1",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The introduction requires a concrete database implementation and explains backend abstraction. The explicit virtual declaration, negative construction and implementation hooks retain that requirement without assuming a database format.",
+        "ja": "導入は具象database実装とbackend抽象化を説明する。明示virtual宣言、生成禁止、implementation hookにその要求を保持し、database書式を仮定しない。"
+      },
+      "related_requirements": [
+        "UVM-RECORDING-AUDIT-UVM-TR-DATABASE-ABSTRACT",
+        "UVM-RECORDING-AUDIT-DATABASE-OBJECT-BASE",
+        "UVM-NEGATIVE-DATABASE-CONCRETE-SUBCLASS-MUST-IMPLEMENT-DO-OPEN-DB"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "7.2",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The introduction identifies an abstract stream implementation inside a database. Its declared abstract type and database/stream metadata duties remain explicit; application backend details are not universal oracles.",
+        "ja": "導入はdatabase内のabstract stream実装を示す。宣言abstract型とdatabase／stream metadata義務を明示保持し、application backend詳細を普遍的oracleにしない。"
+      },
+      "related_requirements": [
+        "UVM-RECORDING-AUDIT-UVM-TR-STREAM-ABSTRACT",
+        "UVM-RECORDING-AUDIT-STREAM-OBJECT-BASE",
+        "UVM-RECORDING-STREAM-DATABASE-IDENTITY"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "7.2.5",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The paragraph restates the closed-stream open-recorder gate specified in 7.2.5.1. The existing explicit guard requirement and its unopened/open/closed observations retain the normative behavior; this classification does not discard it.",
+        "ja": "本段落は7.2.5.1のclosed-stream open-recorder gateを再掲する。既存の明示guard要求とunopened／open／closed観測へ規範動作を保持し、この分類で破棄しない。"
+      },
+      "related_requirements": [
+        "UVM-RECORDER-OPEN-STREAM-GUARD"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "7.3",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The introduction explains compile-time link type identification. Concrete typed roles and database dispatch retain the selected mechanism without imposing arbitrary relation-name strings or backend semantics.",
+        "ja": "導入はcompile時のlink型識別を説明する。具象型roleとdatabase dispatchに選択機構を保持し、任意relation-name stringやbackend意味を課さない。"
+      },
+      "related_requirements": [
+        "UVM-RECORDING-AUDIT-PARENT-CHILD-LINK-BASE",
+        "UVM-RECORDING-AUDIT-CAUSE-EFFECT-LINK-BASE",
+        "UVM-RECORDING-AUDIT-RELATED-LINK-BASE",
+        "UVM-RECORDING-LINK-DISPATCH-BACKEND"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "7.3.1",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The link-base introduction describes a two-object relation and typed extensions. Endpoint setters/getters and nominal base contracts retain this API without a separate relation algorithm.",
+        "ja": "link-base導入は2 objectのrelationと型付拡張を説明する。endpoint setter／getterと名目的base契約にAPIを保持し、別のrelation algorithmを追加しない。"
+      },
+      "related_requirements": [
+        "UVM-RECORDING-AUDIT-LINK-OBJECT-BASE",
+        "UVM-RECORDING-LINK-COMBINED-SET",
+        "UVM-RECORDING-LINK-LEFT-GET"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "7.3.2",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The paragraph names the parent/child relation role. Its concrete type and prefilled endpoint helper remain explicit; the paragraph adds no mandatory database interpretation.",
+        "ja": "本段落はparent／child relation役割を示す。具象型とprefilled endpoint helperを明示保持し、必須database解釈を追加しない。"
+      },
+      "related_requirements": [
+        "UVM-RECORDING-AUDIT-PARENT-CHILD-LINK-BASE",
+        "UVM-RECORDING-PARENT-CHILD-PREFILLED-LINK"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "7.3.3",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The paragraph names the cause/effect relation role. Its concrete type and prefilled endpoint helper remain explicit without a new backend causality algorithm.",
+        "ja": "本段落はcause／effect relation役割を示す。具象型とprefilled endpoint helperを明示保持し、新backend因果algorithmを加えない。"
+      },
+      "related_requirements": [
+        "UVM-RECORDING-AUDIT-CAUSE-EFFECT-LINK-BASE",
+        "UVM-RECORDING-CAUSE-EFFECT-PREFILLED-LINK"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "7.3.4",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The paragraph names the generic related relation role. Its concrete type and prefilled helper remain explicit rather than standardizing application relation semantics.",
+        "ja": "本段落は一般related relation役割を示す。具象型とprefilled helperを明示保持し、application relation意味を標準化しない。"
+      },
+      "related_requirements": [
+        "UVM-RECORDING-AUDIT-RELATED-LINK-BASE",
+        "UVM-RECORDING-RELATED-PREFILLED-LINK"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "D.1",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The iterator introduction explains context-specific callback traversal and gives typical usage. Default declaration and explicit first/last/next/prev/context duties remain below; the example is not a mandatory implementation.",
+        "ja": "iterator導入はcontext単位callback走査と典型利用を説明する。既定宣言と明示first／last／next／prev／context義務は下位に保持し、例を必須実装にしない。"
+      },
+      "related_requirements": [
+        "UVM-RECORDING-AUDIT-ITERATOR-DEFAULT-OBJECT",
+        "UVM-CALLBACK-ITERATOR-FIRST",
+        "UVM-CALLBACK-ITERATOR-NEXT",
+        "UVM-CALLBACK-ITERATOR-CONTEXT"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "D.2",
+      "classification": "contextual",
+      "rationale": {
+        "en": "This introduction points to convenience interfaces for components. Factory, live reporting and hierarchical recording calls remain explicit duties rather than a separate additional interface algorithm.",
+        "ja": "本導入はcomponent便宜interfaceを参照する。factory、実reporting、階層recording callを明示義務に保持し、別の追加interface algorithmを作らない。"
+      },
+      "related_requirements": [
+        "UVM-COMPONENT-EXT-FACTORY-COMPONENT-TYPE",
+        "UVM-COMPONENT-EXT-REPORT-HIER-LOG-FILE",
+        "UVM-COMPONENT-EXT-RECORDING-HIER-VIRTUAL-SETTER"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "D",
+      "classification": "structural",
+      "rationale": {
+        "en": "The annex title/introduction organizes convenience classes, interfaces and methods; numbered contracts retain their behavior.",
+        "ja": "付録見出し／導入は便宜class・interface・methodを整理し、番号付き契約に動作を保持する。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "D.1.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "Methods is a grouping heading for six explicitly specified iterator operations.",
+        "ja": "Methodsは明示規定されたiterator操作6つの整理見出しである。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "D.4",
+      "classification": "structural",
+      "rationale": {
+        "en": "Callback typedefs introduces convenience aliases; exact type obligations remain in the numbered declarations.",
+        "ja": "Callback typedefsは便宜aliasを導入し、正確なtype義務は番号付き宣言に保持する。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "D.4.5",
+      "classification": "structural",
+      "rationale": {
+        "en": "The register-callback typedef grouping points to the twelve exact declarations and existing callback interface; it adds no independent behavior.",
+        "ja": "register-callback typedefの整理は12の正確な宣言と既存callback interfaceを参照し、独立動作を追加しない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
     }
   ]
 }
