@@ -779,3 +779,14 @@ eventとbarrierのreset契約は異なり、件数と実際の解放を別々に
 
 **Initial pool membership（pool初期所属）** — getterがlazy生成する前から、生成直後に存在するkeyです。
 新keyの増分やconstructorの名前では、必要な既定項目やglobal-access signatureは証明できません。
+
+## Objectionと型付きcallbackのevidence
+
+**Propagation-mode observation（伝播modeの観測）** — callback経路、source／descendant照会値、合法な状態遷移を別々に検査することです。
+hookを省略するだけで、異なるtotal照会の定義は認定しません。
+
+**Objection hook context（objection hookのcontext）** — componentまたは登録callback hookへ渡す、選択したobjection、target／source object、description、countです。
+未規定のcallback body相対順を固定せず、metadata同一性と遅延完了を観測します。
+
+**Optional callback parameter（省略可能なcallback parameter）** — 有効な登録object／callback組で、callback add／deleteのCBだけを省略することです。
+正確な型検査と型付き委譲で、mode省略値や不正組の診断は解決しません。

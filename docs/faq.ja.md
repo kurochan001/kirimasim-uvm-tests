@@ -122,7 +122,7 @@ Ghostは公開前のシミュレータの仮名です。実行ファイルの識
 ### Q12. uvm_dpi: yesだけでDPIを使うビルドが完成しますか
 
 既定のマクロ一覧から`UVM_NO_DPI`を外す指定です。UVMのC/C++実装の供給・リンクは行いません。
-通常のVerilator runnerは、そのsourceを追加しません。`UVM_NO_DPI`が1331件、HDL DPIの明示選択が8件です。
+通常のVerilator runnerは、そのsourceを追加しません。`UVM_NO_DPI`が1344件、HDL DPIの明示選択が8件です。
 別の18検査系はHDLを無効にしてcommand-line／regex DPIを明示して有効化し、
 [command-line runner](testing.ja.md#verilatorのcommand-line部分集合)がその別backendをlinkします。
 [別のVPI runner](testing.ja.md#verilatorのvpi-hdl部分集合)は独自の限定backendをlinkし、結果は宣言した実行条件だけに適用します。
@@ -923,8 +923,8 @@ controlの対応は、その要求の直接の検査ではありません。
 
 ### Q77. M4を始めたのに、カバレッジ率がないのはなぜですか
 
-AIによる1892要求案は部分的な分解で、1892要求を1356テストへ直接対応付け、直接未対応は0要求、別の1テストはcontrolです。
-全1357テストに要求の対応付けがあります。2,507の条項番号は規範的要求の単位ではありません。
+AIによる1920要求案は部分的な分解で、1920要求を1369テストへ直接対応付け、直接未対応は0要求、別の1テストはcontrolです。
+全1370テストに要求の対応付けがあります。2,507の条項番号は規範的要求の単位ではありません。
 範囲は提案、棚卸しは未完、分母は未承認で、M4の開始はどれの承認にもなりません。
 既知差分やHDL／DPIの制約によって義務を暗黙に除外しません。[承認までの手順](requirements.ja.md#m4の残作業と承認)を参照してください。
 
@@ -1709,7 +1709,7 @@ user backdoorは16 bit locationをモデル化します。location独立性、�
 
 いいえ。`tests_without_requirement_links`は0で、現在の全テストに、明示的なdirectまたはcontrolの対応があります。
 別の集計`requirements_without_direct_tests`も0件です。memory-walkの対応はQ134の限定した歴史的解釈で、
-省略されたIEEEの詳細の承認ではありません。HDL depositと利用可否には、明示VPI検査系があります。catalogの識別子1,308件も未評価です。
+省略されたIEEEの詳細の承認ではありません。HDL depositと利用可否には、明示VPI検査系があります。catalogの識別子1,274件も未評価です。
 分解と人のレビューは未完で、分母は未承認です。
 
 [新しいpolicyテスト](../tests/u16/test_policy_object_stack_tracks_nested_active_policy_push_and_pop.sv)は、
@@ -1786,7 +1786,7 @@ frontdoor保護のwarningはalgorithm oracleの対象外で、ERRORと観測し�
 個別に読んだ後、日英の根拠とAI／人のレビューを[番号の分類](../coverage/assessments.json)へ記録すれば可能です。
 構造上の見出しは関連要求を持たず、文脈の説明は既存要求を指定します。
 未レビューの記録、推測した分類、親への集約では外せません。生成状態は`assessed`で、要求条項の`partial`と区別します。
-現在の分類は127件で、分母承認や新たなpassを加えません。第11章の未評価0件でも、その要求の完了ではありません。
+現在の分類は141件で、分母承認や新たなpassを加えません。第11章の未評価0件でも、その要求の完了ではありません。
 
 ### Q136. 明示strict configurationで新規検査は成功しますか？
 
@@ -2227,3 +2227,24 @@ event-pool初期所属には専用検査があり、getが生成する前からb
 以前の増分テストは意図的に初期sizeを無視しており、有効なままです。constructorと正確なgeneric基底型には正の検査があります。
 専用get_globalの両条項はpool戻り型を宣言しながら、本文はitemを返すと説明するため、解釈を待って両番号を未評価に保持します。
 get_global_pool後のgetが成功しても解決しません。constructor／名前の検査で既定内容や任意のglobal範囲は認定しません。
+
+## Objectionの伝播とcallback parameter
+
+### Q186. 既定と登録objection hookの検査は何を示しますか？
+
+実際のobjection実装が独自component hookと、明示enableした登録callbackへ到達します。raise、部分drop、最終dropを通し、
+両方が選択したobjection／source／description／count contextを受け取ります。sourceでは正のdrain後に両遅延task hookを実行し、
+いずれの実行中もroot totalを保持して、完了後に0となります。componentと登録bodyの相対順序は固定しません。
+別のraised／drain中mode変更検査は、非公開状態probeではなく実際の残数／drain状態で、ERROR、mode保持、後のidle成功を要求します。
+
+### Q187. propagation mode 0は中間descendant totalをなくしますか？
+
+規格は中間callbackを省略すると説明し、total照会の契約はobject自身とdescendantのobjectionを含みます。そのため検査系は中間totalを2、次に1とする期待を保持します。
+固定版はそこを0とし、source／root totalと選択callback経路は一致します。検査系全体は最初の差分でspec-onlyに保持し、既定modeの比較対象は別に一致します。
+照会の定義とcallback経路は異なる義務で、片方の観測を他方の代わりにしません。mode／並行条件のcoverageは部分的なままです。
+
+### Q188. callbackのどの既定値を検査し、どれを未解決に残しますか？
+
+constructorの名前と宣言T／CB parameterの既定値には、正の型検査があります。有効な登録組ではadd／deleteのCBを省略しても、型付き列挙と実際の型付き委譲を使えます。
+is_enabledは明示0／1の変更に従い、それ以外の非切替引数では変わりません。callback_mode宣言の省略値は-1ですが本文は1を要求するため、
+解釈を未解決に保持し、新規検査は常に引数を指定します。callback初期enable状態、不正組の診断severity、未記載のobjection-callback constructor省略形は固定libraryから推論しません。

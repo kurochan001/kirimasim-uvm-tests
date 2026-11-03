@@ -70358,6 +70358,994 @@
           ]
         }
       ]
+    },
+    {
+      "id": "UVM-OBJECTION-CB-REVIEW-OBJECTION-NAMES",
+      "clause": "10.5.1.2",
+      "statement": {
+        "en": "The objection constructor accepts an optional empty-default name.",
+        "ja": "objection constructorは空を既定値とする省略可能名を受け付ける。"
+      },
+      "conditions": {
+        "en": "Create omitted-name, selected-name and empty-name objections.",
+        "ja": "名前省略、指定名、空名のobjectionを生成する。"
+      },
+      "expected": {
+        "en": "Names are empty, selected and empty.",
+        "ja": "名前は空、指定値、空である。"
+      },
+      "limitations": {
+        "en": "Positive selected constructor/type compatibility only. Undocumented subtype constructor arguments are setup, not a guarantee of an omitted constructor form. No invalid-type rejection, private singleton state, factory behavior, initial callback enable state or omitted callback_mode argument is established.",
+        "ja": "選択したconstructor／型の正の互換性のみ。未記載のsubtype constructor引数は設定であり、省略形constructorの保証ではない。不正型拒否、非公開singleton状態、factory動作、callback初期enable状態、callback_mode引数省略は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_objection_constructor_names_and_report_object_base_preserve_identity",
+          "role": "direct",
+          "expected_observations": [
+            "UT: objection_names omitted 1 named 1 empty 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-OBJECTION-CB-REVIEW-OBJECTION-REPORT-BASE",
+      "clause": "10.5.1.1",
+      "statement": {
+        "en": "An objection derives from the report-object base.",
+        "ja": "objectionはreport-object基底から派生する。"
+      },
+      "conditions": {
+        "en": "Assign the actual objection to report-object and object views.",
+        "ja": "実際のobjectionをreport-objectとobjectのviewへ代入する。"
+      },
+      "expected": {
+        "en": "Both views retain the objection identity.",
+        "ja": "両viewはobjectionの同一性を保持する。"
+      },
+      "limitations": {
+        "en": "Positive selected constructor/type compatibility only. Undocumented subtype constructor arguments are setup, not a guarantee of an omitted constructor form. No invalid-type rejection, private singleton state, factory behavior, initial callback enable state or omitted callback_mode argument is established.",
+        "ja": "選択したconstructor／型の正の互換性のみ。未記載のsubtype constructor引数は設定であり、省略形constructorの保証ではない。不正型拒否、非公開singleton状態、factory動作、callback初期enable状態、callback_mode引数省略は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_objection_constructor_names_and_report_object_base_preserve_identity",
+          "role": "direct",
+          "expected_observations": [
+            "UT: objection_bases report 1 object 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-OBJECTION-CB-REVIEW-OBJECTION-CALLBACK-BASE",
+      "clause": "10.5.2.1",
+      "statement": {
+        "en": "An objection callback derives from the callback base.",
+        "ja": "objection callbackはcallback基底から派生する。"
+      },
+      "conditions": {
+        "en": "Use a named objection callback through a callback base handle and explicit modes.",
+        "ja": "名前付きobjection callbackをcallback基底handleと明示modeで使う。"
+      },
+      "expected": {
+        "en": "Identity and enabled-state queries agree through the base.",
+        "ja": "基底を通す同一性とenable-state照会が一致する。"
+      },
+      "limitations": {
+        "en": "Positive selected constructor/type compatibility only. Undocumented subtype constructor arguments are setup, not a guarantee of an omitted constructor form. No invalid-type rejection, private singleton state, factory behavior, initial callback enable state or omitted callback_mode argument is established.",
+        "ja": "選択したconstructor／型の正の互換性のみ。未記載のsubtype constructor引数は設定であり、省略形constructorの保証ではない。不正型拒否、非公開singleton状態、factory動作、callback初期enable状態、callback_mode引数省略は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_objection_callback_inherits_callback_identity_and_explicit_enable_queries",
+          "role": "direct",
+          "expected_observations": [
+            "UT: objection_callback disabled 1 identity 1",
+            "UT: objection_callback enabled 1 identity 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-OBJECTION-CB-REVIEW-HEARTBEAT-OBJECT-BASE",
+      "clause": "10.6.1",
+      "statement": {
+        "en": "A heartbeat derives from the object base.",
+        "ja": "heartbeatはobject基底から派生する。"
+      },
+      "conditions": {
+        "en": "Construct it with a selected name and actual component context, without starting monitoring.",
+        "ja": "選択名と実際のcomponent contextで生成し、monitoringは開始しない。"
+      },
+      "expected": {
+        "en": "The object view retains identity and selected name.",
+        "ja": "object viewは同一性と選択名を保持する。"
+      },
+      "limitations": {
+        "en": "Positive selected constructor/type compatibility only. Undocumented subtype constructor arguments are setup, not a guarantee of an omitted constructor form. No invalid-type rejection, private singleton state, factory behavior, initial callback enable state or omitted callback_mode argument is established.",
+        "ja": "選択したconstructor／型の正の互換性のみ。未記載のsubtype constructor引数は設定であり、省略形constructorの保証ではない。不正型拒否、非公開singleton状態、factory動作、callback初期enable状態、callback_mode引数省略は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_heartbeat_declared_object_base_preserves_selected_name_and_identity",
+          "role": "direct",
+          "expected_observations": [
+            "UT: heartbeat_base identity 1 selected_name 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-OBJECTION-CB-REVIEW-CALLBACK-NAMES",
+      "clause": "10.7.1.2.1",
+      "statement": {
+        "en": "The callback constructor provides its declared optional name.",
+        "ja": "callback constructorは宣言された省略可能名を提供する。"
+      },
+      "conditions": {
+        "en": "Construct omitted, selected and explicitly empty names.",
+        "ja": "名前省略、指定名、明示的な空名で生成する。"
+      },
+      "expected": {
+        "en": "The names match the declared default, selected name and empty string.",
+        "ja": "名前は宣言の既定値、指定名、空文字列に一致する。"
+      },
+      "limitations": {
+        "en": "Positive selected constructor/type compatibility only. Undocumented subtype constructor arguments are setup, not a guarantee of an omitted constructor form. No invalid-type rejection, private singleton state, factory behavior, initial callback enable state or omitted callback_mode argument is established.",
+        "ja": "選択したconstructor／型の正の互換性のみ。未記載のsubtype constructor引数は設定であり、省略形constructorの保証ではない。不正型拒否、非公開singleton状態、factory動作、callback初期enable状態、callback_mode引数省略は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_callback_constructor_default_selected_and_empty_names_preserve_object_identity",
+          "role": "direct",
+          "expected_observations": [
+            "UT: callback_constructor default 1 named 1 empty 1 object 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-OBJECTION-CB-REVIEW-CALLBACK-OBJECT-BASE",
+      "clause": "10.7.1.1",
+      "statement": {
+        "en": "A callback derives from the object base.",
+        "ja": "callbackはobject基底から派生する。"
+      },
+      "conditions": {
+        "en": "Assign a selected callback to an object view.",
+        "ja": "選択callbackをobject viewへ代入する。"
+      },
+      "expected": {
+        "en": "The view retains identity.",
+        "ja": "viewは同一性を保持する。"
+      },
+      "limitations": {
+        "en": "Positive selected constructor/type compatibility only. Undocumented subtype constructor arguments are setup, not a guarantee of an omitted constructor form. No invalid-type rejection, private singleton state, factory behavior, initial callback enable state or omitted callback_mode argument is established.",
+        "ja": "選択したconstructor／型の正の互換性のみ。未記載のsubtype constructor引数は設定であり、省略形constructorの保証ではない。不正型拒否、非公開singleton状態、factory動作、callback初期enable状態、callback_mode引数省略は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_callback_constructor_default_selected_and_empty_names_preserve_object_identity",
+          "role": "direct",
+          "expected_observations": [
+            "UT: callback_constructor default 1 named 1 empty 1 object 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-OBJECTION-CB-REVIEW-CALLBACK-ENABLED-QUERY",
+      "clause": "10.7.1.2.3",
+      "statement": {
+        "en": "is_enabled reports the callback current enabled state independently per instance.",
+        "ja": "is_enabledは各instanceでcallbackの現在enable状態を報告する。"
+      },
+      "conditions": {
+        "en": "Use explicit zero/one modes on two callbacks, then invalid non-toggle arguments and restoration.",
+        "ja": "2 callbackへ明示0／1 modeを使い、不正な非切替引数と復元を続ける。"
+      },
+      "expected": {
+        "en": "Queries follow explicit changes, ignore non-toggle arguments and preserve peer state.",
+        "ja": "照会は明示変更に従い、非切替引数を無視してpeer状態を保持する。"
+      },
+      "limitations": {
+        "en": "Positive selected constructor/type compatibility only. Undocumented subtype constructor arguments are setup, not a guarantee of an omitted constructor form. No invalid-type rejection, private singleton state, factory behavior, initial callback enable state or omitted callback_mode argument is established.",
+        "ja": "選択したconstructor／型の正の互換性のみ。未記載のsubtype constructor引数は設定であり、省略形constructorの保証ではない。不正型拒否、非公開singleton状態、factory動作、callback初期enable状態、callback_mode引数省略は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_callback_is_enabled_tracks_explicit_changes_invalid_arguments_and_peer_state",
+          "role": "direct",
+          "expected_observations": [
+            "UT: enabled_initial subject 1 peer 0",
+            "UT: enabled_changed subject 0 peer 1",
+            "UT: enabled_invalid subject 0 peer 1",
+            "UT: enabled_restored subject 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-OBJECTION-CB-REVIEW-CALLBACKS-DEFAULT-T",
+      "clause": "10.7.2.1",
+      "statement": {
+        "en": "The omitted callback-registry object parameter selects the object type.",
+        "ja": "callback-registryのobject parameter省略時はobject型を選ぶ。"
+      },
+      "conditions": {
+        "en": "Assign a default registry to its exact object/callback specialization.",
+        "ja": "既定registryを正確なobject／callback specializationへ代入する。"
+      },
+      "expected": {
+        "en": "The exact specialization retains identity.",
+        "ja": "正確なspecializationは同一性を保持する。"
+      },
+      "limitations": {
+        "en": "Positive selected constructor/type compatibility only. Undocumented subtype constructor arguments are setup, not a guarantee of an omitted constructor form. No invalid-type rejection, private singleton state, factory behavior, initial callback enable state or omitted callback_mode argument is established.",
+        "ja": "選択したconstructor／型の正の互換性のみ。未記載のsubtype constructor引数は設定であり、省略形constructorの保証ではない。不正型拒否、非公開singleton状態、factory動作、callback初期enable状態、callback_mode引数省略は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_callbacks_declared_default_and_explicit_parameters_preserve_object_base_identity",
+          "role": "direct",
+          "expected_observations": [
+            "UT: callbacks_types defaults 1 default_cb 1 object 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-OBJECTION-CB-REVIEW-CALLBACKS-DEFAULT-CB",
+      "clause": "10.7.2.1",
+      "statement": {
+        "en": "The omitted registry callback parameter selects the callback base type.",
+        "ja": "registryのcallback parameter省略時はcallback基底型を選ぶ。"
+      },
+      "conditions": {
+        "en": "Supply only an original object-derived context type.",
+        "ja": "独自のobject派生context型だけを指定する。"
+      },
+      "expected": {
+        "en": "The exact context/base-callback specialization retains identity.",
+        "ja": "正確なcontext／base-callback specializationは同一性を保持する。"
+      },
+      "limitations": {
+        "en": "Positive selected constructor/type compatibility only. Undocumented subtype constructor arguments are setup, not a guarantee of an omitted constructor form. No invalid-type rejection, private singleton state, factory behavior, initial callback enable state or omitted callback_mode argument is established.",
+        "ja": "選択したconstructor／型の正の互換性のみ。未記載のsubtype constructor引数は設定であり、省略形constructorの保証ではない。不正型拒否、非公開singleton状態、factory動作、callback初期enable状態、callback_mode引数省略は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_callbacks_declared_default_and_explicit_parameters_preserve_object_base_identity",
+          "role": "direct",
+          "expected_observations": [
+            "UT: callbacks_types defaults 1 default_cb 1 object 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-OBJECTION-CB-REVIEW-CALLBACKS-OBJECT-BASE",
+      "clause": "10.7.2.1",
+      "statement": {
+        "en": "A callback registry derives from the object base.",
+        "ja": "callback registryはobject基底から派生する。"
+      },
+      "conditions": {
+        "en": "Upcast an original explicitly specialized registry to object.",
+        "ja": "独自の明示specialization registryをobjectへupcastする。"
+      },
+      "expected": {
+        "en": "The object view retains identity.",
+        "ja": "object viewは同一性を保持する。"
+      },
+      "limitations": {
+        "en": "Positive selected constructor/type compatibility only. Undocumented subtype constructor arguments are setup, not a guarantee of an omitted constructor form. No invalid-type rejection, private singleton state, factory behavior, initial callback enable state or omitted callback_mode argument is established.",
+        "ja": "選択したconstructor／型の正の互換性のみ。未記載のsubtype constructor引数は設定であり、省略形constructorの保証ではない。不正型拒否、非公開singleton状態、factory動作、callback初期enable状態、callback_mode引数省略は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_callbacks_declared_default_and_explicit_parameters_preserve_object_base_identity",
+          "role": "direct",
+          "expected_observations": [
+            "UT: callbacks_types defaults 1 default_cb 1 object 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-OBJECTION-CB-REVIEW-CALLBACKS-OBJECT-TYPE",
+      "clause": "10.7.2.2.1",
+      "statement": {
+        "en": "The registry accepts an object-derived associated context type.",
+        "ja": "registryは関連contextとしてobject派生型を受け付ける。"
+      },
+      "conditions": {
+        "en": "Use original context/callback subtypes and a valid macro-registered pair.",
+        "ja": "独自context／callback subtypeと、macro登録した有効な組を使う。"
+      },
+      "expected": {
+        "en": "The selected typed registry constructs and a registered component context accepts actual callback dispatch.",
+        "ja": "選択した型付きregistryを生成し、登録したcomponent contextで実callback委譲を受け付ける。"
+      },
+      "limitations": {
+        "en": "Positive selected constructor/type compatibility only. Undocumented subtype constructor arguments are setup, not a guarantee of an omitted constructor form. No invalid-type rejection, private singleton state, factory behavior, initial callback enable state or omitted callback_mode argument is established.",
+        "ja": "選択したconstructor／型の正の互換性のみ。未記載のsubtype constructor引数は設定であり、省略形constructorの保証ではない。不正型拒否、非公開singleton状態、factory動作、callback初期enable状態、callback_mode引数省略は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_callbacks_declared_default_and_explicit_parameters_preserve_object_base_identity",
+          "role": "direct",
+          "expected_observations": [
+            "UT: callbacks_types defaults 1 default_cb 1 object 1"
+          ]
+        },
+        {
+          "test": "u10/test_callbacks_optional_callback_parameter_add_and_delete_reach_the_typed_dispatch",
+          "role": "direct",
+          "expected_observations": [
+            "UT: optional_cb_added entries 1 identity 1 calls 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-OBJECTION-CB-REVIEW-CALLBACKS-CALLBACK-TYPE",
+      "clause": "10.7.2.2.2",
+      "statement": {
+        "en": "The registry accepts a callback-derived interface type.",
+        "ja": "registryはcallback派生interface型を受け付ける。"
+      },
+      "conditions": {
+        "en": "Use original context/callback subtypes and a valid macro-registered pair.",
+        "ja": "独自context／callback subtypeと、macro登録した有効な組を使う。"
+      },
+      "expected": {
+        "en": "The selected interface type constructs, enumerates the supplied callback and dispatches its original hook.",
+        "ja": "選択interface型を生成し、指定callbackを列挙して独自hookへ委譲する。"
+      },
+      "limitations": {
+        "en": "Positive selected constructor/type compatibility only. Undocumented subtype constructor arguments are setup, not a guarantee of an omitted constructor form. No invalid-type rejection, private singleton state, factory behavior, initial callback enable state or omitted callback_mode argument is established.",
+        "ja": "選択したconstructor／型の正の互換性のみ。未記載のsubtype constructor引数は設定であり、省略形constructorの保証ではない。不正型拒否、非公開singleton状態、factory動作、callback初期enable状態、callback_mode引数省略は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_callbacks_declared_default_and_explicit_parameters_preserve_object_base_identity",
+          "role": "direct",
+          "expected_observations": [
+            "UT: callbacks_types defaults 1 default_cb 1 object 1"
+          ]
+        },
+        {
+          "test": "u10/test_callbacks_optional_callback_parameter_add_and_delete_reach_the_typed_dispatch",
+          "role": "direct",
+          "expected_observations": [
+            "UT: optional_cb_added entries 1 identity 1 calls 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-OBJECTION-CB-REVIEW-OPTIONAL-CB-ADD-DELETE",
+      "clause": "10.7.2.2.2",
+      "statement": {
+        "en": "The CB parameter may be omitted when using callback add/delete interfaces.",
+        "ja": "callback add／delete interfaceの利用時はCB parameterを省略できる。"
+      },
+      "conditions": {
+        "en": "Register an original valid pair and use only T in add/delete, with typed enumeration and dispatch.",
+        "ja": "独自の有効組を登録し、add／deleteではTだけを使い、型付き列挙と委譲を行う。"
+      },
+      "expected": {
+        "en": "Typed get_all sees the same callback and one hook invocation; deletion removes registration without another invocation.",
+        "ja": "型付きget_allで同じcallbackと1 hook呼出しを観測し、削除後は追加呼出しなく登録が消える。"
+      },
+      "limitations": {
+        "en": "Positive selected constructor/type compatibility only. Undocumented subtype constructor arguments are setup, not a guarantee of an omitted constructor form. No invalid-type rejection, private singleton state, factory behavior, initial callback enable state or omitted callback_mode argument is established.",
+        "ja": "選択したconstructor／型の正の互換性のみ。未記載のsubtype constructor引数は設定であり、省略形constructorの保証ではない。不正型拒否、非公開singleton状態、factory動作、callback初期enable状態、callback_mode引数省略は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_callbacks_optional_callback_parameter_add_and_delete_reach_the_typed_dispatch",
+          "role": "direct",
+          "expected_observations": [
+            "UT: optional_cb_added entries 1 identity 1 calls 1",
+            "UT: optional_cb_deleted entries 0 calls 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-OBJECTION-CB-REVIEW-PROPAGATION-DEFAULT",
+      "clause": "10.5.1.3.1",
+      "statement": {
+        "en": "The propagation getter returns one before any setter call.",
+        "ja": "setter呼出し前のpropagation getterは1を返す。"
+      },
+      "conditions": {
+        "en": "Construct two independent objections and query both before changes.",
+        "ja": "独立した2 objectionを生成し、変更前に両方を照会する。"
+      },
+      "expected": {
+        "en": "Both modes are one.",
+        "ja": "両modeは1である。"
+      },
+      "limitations": {
+        "en": "Actual idle, raised or positive-drain states are used. Required errors are caught by severity without fixing ID/text. Illegal changes retain the previous mode and only a later idle change succeeds. Omitted callback_mode arguments and private objection maps are not used.",
+        "ja": "実際のidle、raised、正のdrain状態を使う。必要なerrorはID／本文を固定せずseverityで捕捉する。不正変更は前modeを保持し、後のidle変更だけが成功する。callback_mode引数省略と非公開objection mapは使わない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_objection_propagation_mode_defaults_and_idle_changes_are_instance_local",
+          "role": "direct",
+          "expected_observations": [
+            "UT: propagate_default subject 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-OBJECTION-CB-REVIEW-IDLE-MODE-QUERY",
+      "clause": "10.5.1.3.1",
+      "statement": {
+        "en": "The getter reflects the latest legal propagation mode independently per objection.",
+        "ja": "getterは各objectionで最新の合法propagation modeを反映する。"
+      },
+      "conditions": {
+        "en": "Disable then restore one idle objection while leaving a peer untouched.",
+        "ja": "peerを変更せず、一方のidle objectionを無効化して復元する。"
+      },
+      "expected": {
+        "en": "The selected mode changes zero then one; the peer remains one.",
+        "ja": "選択modeは0、1へ変わり、peerは1を保持する。"
+      },
+      "limitations": {
+        "en": "Actual idle, raised or positive-drain states are used. Required errors are caught by severity without fixing ID/text. Illegal changes retain the previous mode and only a later idle change succeeds. Omitted callback_mode arguments and private objection maps are not used.",
+        "ja": "実際のidle、raised、正のdrain状態を使う。必要なerrorはID／本文を固定せずseverityで捕捉する。不正変更は前modeを保持し、後のidle変更だけが成功する。callback_mode引数省略と非公開objection mapは使わない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_objection_propagation_mode_defaults_and_idle_changes_are_instance_local",
+          "role": "direct",
+          "expected_observations": [
+            "UT: propagate_idle_disabled subject 0 peer 1",
+            "UT: propagate_idle_restored subject 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-OBJECTION-CB-REVIEW-SKIPPED-INTERMEDIATE-CALLBACKS",
+      "clause": "10.5.1.3.2",
+      "statement": {
+        "en": "Propagation mode zero skips intermediate callbacks between source and top.",
+        "ja": "propagation mode 0はsourceとtop間の中間callbackを省略する。"
+      },
+      "conditions": {
+        "en": "Run actual source raises, partial/final drops and registered hooks on a three-node hierarchy in mode zero.",
+        "ja": "3 node階層をmode 0にし、実source raise、部分／最終drop、登録hookを実行する。"
+      },
+      "expected": {
+        "en": "Source and implicit-root hooks run, while both intermediate component and registered hooks are absent.",
+        "ja": "sourceと暗黙rootのhookは実行され、両中間component／登録hookは実行されない。"
+      },
+      "limitations": {
+        "en": "Actual idle, raised or positive-drain states are used. Required errors are caught by severity without fixing ID/text. Illegal changes retain the previous mode and only a later idle change succeeds. Omitted callback_mode arguments and private objection maps are not used.",
+        "ja": "実際のidle、raised、正のdrain状態を使う。必要なerrorはID／本文を固定せずseverityで捕捉する。不正変更は前modeを保持し、後のidle変更だけが成功する。callback_mode引数省略と非公開objection mapは使わない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_objection_skipped_propagation_delivers_default_and_registered_hooks_with_context",
+          "role": "direct",
+          "expected_observations": [
+            "UT: component_hooks raised 1/0/0 dropped 2/0/0 all 1/0/0",
+            "UT: registered_hooks raised 1/0/0/1 dropped 2/0/0/2",
+            "UT: registered_all 1/0/0/1 meta 1/1 totals 0/0 drain 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-OBJECTION-CB-REVIEW-RAISED-MODE-CHANGE-ERROR",
+      "clause": "10.5.1.3.2",
+      "statement": {
+        "en": "Changing propagation mode while objections are raised reports an error.",
+        "ja": "objection raised中のpropagation mode変更はerrorを報告する。"
+      },
+      "conditions": {
+        "en": "Attempt zero mode with a real outstanding source objection.",
+        "ja": "実際のsource objectionが残る状態でmode 0を試す。"
+      },
+      "expected": {
+        "en": "One ERROR occurs, mode stays one and outstanding totals remain; the same change succeeds after idle.",
+        "ja": "ERRORが1回発生し、mode 1と残るtotalを保持し、idle後に同じ変更が成功する。"
+      },
+      "limitations": {
+        "en": "Actual idle, raised or positive-drain states are used. Required errors are caught by severity without fixing ID/text. Illegal changes retain the previous mode and only a later idle change succeeds. Omitted callback_mode arguments and private objection maps are not used.",
+        "ja": "実際のidle、raised、正のdrain状態を使う。必要なerrorはID／本文を固定せずseverityで捕捉する。不正変更は前modeを保持し、後のidle変更だけが成功する。callback_mode引数省略と非公開objection mapは使わない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_objection_mode_change_while_raised_reports_error_and_preserves_mode",
+          "role": "direct",
+          "expected_observations": [
+            "UT: active_mode_change errors 1 mode 1 source 1 root 1",
+            "UT: idle_mode_change errors 1 mode 0 root 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-OBJECTION-CB-REVIEW-DRAINING-MODE-CHANGE-ERROR",
+      "clause": "10.5.1.3.2",
+      "statement": {
+        "en": "Changing propagation mode while objections are draining reports an error.",
+        "ja": "objection drain中のpropagation mode変更はerrorを報告する。"
+      },
+      "conditions": {
+        "en": "Drop the last source objection with a positive drain and attempt a mode change before root propagation completes.",
+        "ja": "正のdrainを付けて最後のsource objectionをdropし、rootへの伝播完了前にmode変更を試す。"
+      },
+      "expected": {
+        "en": "Source total is zero but root remains one; ERROR preserves mode one until drain finishes and idle mode zero succeeds.",
+        "ja": "source totalは0でもrootは1を保持し、ERRORでmode 1を保ち、drain完了後のidle mode 0は成功する。"
+      },
+      "limitations": {
+        "en": "Actual idle, raised or positive-drain states are used. Required errors are caught by severity without fixing ID/text. Illegal changes retain the previous mode and only a later idle change succeeds. Omitted callback_mode arguments and private objection maps are not used.",
+        "ja": "実際のidle、raised、正のdrain状態を使う。必要なerrorはID／本文を固定せずseverityで捕捉する。不正変更は前modeを保持し、後のidle変更だけが成功する。callback_mode引数省略と非公開objection mapは使わない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_objection_mode_change_while_draining_reports_error_and_preserves_mode",
+          "role": "direct",
+          "expected_observations": [
+            "UT: active_mode_change errors 1 mode 1 source 0 root 1",
+            "UT: idle_mode_change errors 1 mode 0 root 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-OBJECTION-CB-REVIEW-DEFAULT-RAISED-COMPONENT-HOOK",
+      "clause": "10.5.1.4.1",
+      "statement": {
+        "en": "The default raised hook dispatches to each reached component raised method.",
+        "ja": "既定raised hookは、到達した各componentのraised methodへ委譲する。"
+      },
+      "conditions": {
+        "en": "Raise by two, partially drop one, then finally drop one in default hierarchical mode.",
+        "ja": "既定階層modeで2 raiseし、1を部分dropした後、最後の1をdropする。"
+      },
+      "expected": {
+        "en": "Each selected component sees one raise with the original source, description and count two.",
+        "ja": "選択した各componentは、元source・descriptionとcount 2で1 raiseを観測する。"
+      },
+      "limitations": {
+        "en": "Use actual default objection hooks, original component overrides and an explicitly enabled registered objection callback. Positive source drain and callback-body delays are observed. Metadata checks require source/description/count identity without fixing relative order between component and registered callbacks, private maps or all concurrency combinations.",
+        "ja": "実際の既定objection hook、独自component override、明示enableした登録objection callbackを使う。正のsource drainとcallback body遅延を観測する。metadata検査はsource／description／count同一性を要求し、componentと登録callbackの相対順、非公開map、全並行組合せは固定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_objection_full_propagation_delivers_default_and_registered_hooks_with_context",
+          "role": "direct",
+          "expected_observations": [
+            "UT: component_hooks raised 1/1/1 dropped 2/2/2 all 1/1/1",
+            "UT: registered_all 1/1/1/1 meta 1/1 totals 0/0 drain 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-OBJECTION-CB-REVIEW-DEFAULT-DROPPED-COMPONENT-HOOK",
+      "clause": "10.5.1.4.2",
+      "statement": {
+        "en": "The default dropped hook dispatches to each reached component dropped method.",
+        "ja": "既定dropped hookは、到達した各componentのdropped methodへ委譲する。"
+      },
+      "conditions": {
+        "en": "Raise by two, partially drop one, then finally drop one in default hierarchical mode.",
+        "ja": "既定階層modeで2 raiseし、1を部分dropした後、最後の1をdropする。"
+      },
+      "expected": {
+        "en": "Each selected component sees partial and final drops with the original source, descriptions and count one.",
+        "ja": "選択した各componentは、元source・descriptionとcount 1で部分／最終dropを観測する。"
+      },
+      "limitations": {
+        "en": "Use actual default objection hooks, original component overrides and an explicitly enabled registered objection callback. Positive source drain and callback-body delays are observed. Metadata checks require source/description/count identity without fixing relative order between component and registered callbacks, private maps or all concurrency combinations.",
+        "ja": "実際の既定objection hook、独自component override、明示enableした登録objection callbackを使う。正のsource drainとcallback body遅延を観測する。metadata検査はsource／description／count同一性を要求し、componentと登録callbackの相対順、非公開map、全並行組合せは固定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_objection_full_propagation_delivers_default_and_registered_hooks_with_context",
+          "role": "direct",
+          "expected_observations": [
+            "UT: component_hooks raised 1/1/1 dropped 2/2/2 all 1/1/1",
+            "UT: registered_all 1/1/1/1 meta 1/1 totals 0/0 drain 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-OBJECTION-CB-REVIEW-DEFAULT-ALL-DROPPED-COMPONENT-HOOK",
+      "clause": "10.5.1.4.3",
+      "statement": {
+        "en": "The default all_dropped hook dispatches to reached zero-total component methods.",
+        "ja": "既定all_dropped hookは、到達したtotal 0のcomponent methodへ委譲する。"
+      },
+      "conditions": {
+        "en": "Raise by two, partially drop one, then finally drop one in default hierarchical mode.",
+        "ja": "既定階層modeで2 raiseし、1を部分dropした後、最後の1をdropする。"
+      },
+      "expected": {
+        "en": "Each selected component sees one final all_dropped hook with the originating context.",
+        "ja": "選択した各componentは、起点contextを伴う最終all_dropped hookを1回観測する。"
+      },
+      "limitations": {
+        "en": "Use actual default objection hooks, original component overrides and an explicitly enabled registered objection callback. Positive source drain and callback-body delays are observed. Metadata checks require source/description/count identity without fixing relative order between component and registered callbacks, private maps or all concurrency combinations.",
+        "ja": "実際の既定objection hook、独自component override、明示enableした登録objection callbackを使う。正のsource drainとcallback body遅延を観測する。metadata検査はsource／description／count同一性を要求し、componentと登録callbackの相対順、非公開map、全並行組合せは固定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_objection_full_propagation_delivers_default_and_registered_hooks_with_context",
+          "role": "direct",
+          "expected_observations": [
+            "UT: component_hooks raised 1/1/1 dropped 2/2/2 all 1/1/1",
+            "UT: registered_all 1/1/1/1 meta 1/1 totals 0/0 drain 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-OBJECTION-CB-REVIEW-REGISTERED-RAISED-CONTEXT",
+      "clause": "10.5.2.2.1",
+      "statement": {
+        "en": "Objection raised dispatch invokes the registered raised callback with its originating context.",
+        "ja": "objection raised委譲は起点contextを伴って登録raised callbackを呼ぶ。"
+      },
+      "conditions": {
+        "en": "Raise by two, partially drop one, then finally drop one in default hierarchical mode.",
+        "ja": "既定階層modeで2 raiseし、1を部分dropした後、最後の1をdropする。"
+      },
+      "expected": {
+        "en": "The registered callback sees the selected objection, target, source, description and count at each reached level.",
+        "ja": "登録callbackは到達した各levelで、選択objection・target・source・description・countを観測する。"
+      },
+      "limitations": {
+        "en": "Use actual default objection hooks, original component overrides and an explicitly enabled registered objection callback. Positive source drain and callback-body delays are observed. Metadata checks require source/description/count identity without fixing relative order between component and registered callbacks, private maps or all concurrency combinations.",
+        "ja": "実際の既定objection hook、独自component override、明示enableした登録objection callbackを使う。正のsource drainとcallback body遅延を観測する。metadata検査はsource／description／count同一性を要求し、componentと登録callbackの相対順、非公開map、全並行組合せは固定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_objection_full_propagation_delivers_default_and_registered_hooks_with_context",
+          "role": "direct",
+          "expected_observations": [
+            "UT: registered_hooks raised 1/1/1/1 dropped 2/2/2/2",
+            "UT: registered_all 1/1/1/1 meta 1/1 totals 0/0 drain 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-OBJECTION-CB-REVIEW-REGISTERED-DROPPED-CONTEXT",
+      "clause": "10.5.2.2.2",
+      "statement": {
+        "en": "Objection dropped dispatch invokes the registered dropped callback with its originating context.",
+        "ja": "objection dropped委譲は起点contextを伴って登録dropped callbackを呼ぶ。"
+      },
+      "conditions": {
+        "en": "Raise by two, partially drop one, then finally drop one in default hierarchical mode.",
+        "ja": "既定階層modeで2 raiseし、1を部分dropした後、最後の1をdropする。"
+      },
+      "expected": {
+        "en": "The registered callback sees both selected drops with the same objection/source and corresponding description/count.",
+        "ja": "登録callbackは、同じobjection／sourceと対応description／countで選択した両dropを観測する。"
+      },
+      "limitations": {
+        "en": "Use actual default objection hooks, original component overrides and an explicitly enabled registered objection callback. Positive source drain and callback-body delays are observed. Metadata checks require source/description/count identity without fixing relative order between component and registered callbacks, private maps or all concurrency combinations.",
+        "ja": "実際の既定objection hook、独自component override、明示enableした登録objection callbackを使う。正のsource drainとcallback body遅延を観測する。metadata検査はsource／description／count同一性を要求し、componentと登録callbackの相対順、非公開map、全並行組合せは固定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_objection_full_propagation_delivers_default_and_registered_hooks_with_context",
+          "role": "direct",
+          "expected_observations": [
+            "UT: registered_hooks raised 1/1/1/1 dropped 2/2/2/2",
+            "UT: registered_all 1/1/1/1 meta 1/1 totals 0/0 drain 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-OBJECTION-CB-REVIEW-REGISTERED-ALL-DROPPED-CONTEXT",
+      "clause": "10.5.2.2.3",
+      "statement": {
+        "en": "Objection all_dropped dispatch invokes the registered task callback.",
+        "ja": "objection all_dropped委譲は登録task callbackを呼ぶ。"
+      },
+      "conditions": {
+        "en": "Raise by two, partially drop one, then finally drop one in default hierarchical mode.",
+        "ja": "既定階層modeで2 raiseし、1を部分dropした後、最後の1をdropする。"
+      },
+      "expected": {
+        "en": "The registered callback completes once at each selected reached zero-total level with final-drop metadata.",
+        "ja": "登録callbackは、選択した到達total 0の各levelで最終drop metadataを伴って1回完了する。"
+      },
+      "limitations": {
+        "en": "Use actual default objection hooks, original component overrides and an explicitly enabled registered objection callback. Positive source drain and callback-body delays are observed. Metadata checks require source/description/count identity without fixing relative order between component and registered callbacks, private maps or all concurrency combinations.",
+        "ja": "実際の既定objection hook、独自component override、明示enableした登録objection callbackを使う。正のsource drainとcallback body遅延を観測する。metadata検査はsource／description／count同一性を要求し、componentと登録callbackの相対順、非公開map、全並行組合せは固定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_objection_full_propagation_delivers_default_and_registered_hooks_with_context",
+          "role": "direct",
+          "expected_observations": [
+            "UT: registered_all 1/1/1/1 meta 1/1 totals 0/0 drain 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-OBJECTION-CB-REVIEW-DRAIN-AND-CALLBACK-PROPAGATION-ORDER",
+      "clause": "10.5.1.4.3",
+      "statement": {
+        "en": "Source all_dropped hooks run after drain and finish before zero-count propagation to the root.",
+        "ja": "source all_dropped hookはdrain後に実行し、rootへの0 count伝播より前に完了する。"
+      },
+      "conditions": {
+        "en": "Raise by two, partially drop one, then finally drop one in default hierarchical mode.",
+        "ja": "既定階層modeで2 raiseし、1を部分dropした後、最後の1をdropする。"
+      },
+      "expected": {
+        "en": "Both original task callbacks observe source drain completion, keep root total one while delayed and leave final root total zero.",
+        "ja": "両独自task callbackはsource drain完了を観測し、遅延中はroot total 1を保持して、最後にroot total 0となる。"
+      },
+      "limitations": {
+        "en": "Use actual default objection hooks, original component overrides and an explicitly enabled registered objection callback. Positive source drain and callback-body delays are observed. Metadata checks require source/description/count identity without fixing relative order between component and registered callbacks, private maps or all concurrency combinations.",
+        "ja": "実際の既定objection hook、独自component override、明示enableした登録objection callbackを使う。正のsource drainとcallback body遅延を観測する。metadata検査はsource／description／count同一性を要求し、componentと登録callbackの相対順、非公開map、全並行組合せは固定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_objection_full_propagation_delivers_default_and_registered_hooks_with_context",
+          "role": "direct",
+          "expected_observations": [
+            "UT: registered_all 1/1/1/1 meta 1/1 totals 0/0 drain 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-OBJECTION-CB-REVIEW-LOCAL-SOURCE-COUNT",
+      "clause": "10.5.1.5.3",
+      "statement": {
+        "en": "The local count getter reports objections raised by that object itself.",
+        "ja": "local count getterは、そのobject自身がraiseしたobjectionを報告する。"
+      },
+      "conditions": {
+        "en": "Two children raise two/three while their parent raises one, then one child partially drops.",
+        "ja": "2 childが2／3をraiseし、親は1をraiseした後、一方のchildを部分dropする。"
+      },
+      "expected": {
+        "en": "Local counts remain distinct at two/three/one and one/three/one, then return to zero.",
+        "ja": "local countは2／3／1、1／3／1と区別され、最後に0へ戻る。"
+      },
+      "limitations": {
+        "en": "Actual separate objection sources in a real hierarchy are used, independent of the phase-liveness objection. The implicit root is supplied explicitly; no undocumented null-query convention, private storage, arbitrary noncomponent hierarchy or exact zero-delay optimization is inferred.",
+        "ja": "phase生存用objectionとは独立に、実階層で実際の別sourceを使う。暗黙rootを明示的に渡し、未記載のnull照会規約、非公開記憶域、任意のnoncomponent階層、正確な0遅延最適化は推論しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_objection_local_and_descendant_count_queries_keep_sources_and_ancestors_distinct",
+          "role": "direct",
+          "expected_observations": [
+            "UT: counts_initial local 0 total 0",
+            "UT: counts_held local 2/3/1 totals 2/3/6 root 6",
+            "UT: counts_partial local 1/3/1 total 5 root 5",
+            "UT: counts_final local 0 total 0 root 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-OBJECTION-CB-REVIEW-DESCENDANT-TOTAL-COUNT",
+      "clause": "10.5.1.5.4",
+      "statement": {
+        "en": "The total getter includes the object own objections and all descendant objections.",
+        "ja": "total getterはobject自身と全descendantのobjectionを含む。"
+      },
+      "conditions": {
+        "en": "Use two child sources and a local parent source in default hierarchical mode.",
+        "ja": "既定階層modeで2 child sourceと親のlocal sourceを使う。"
+      },
+      "expected": {
+        "en": "Parent/root totals are six then five after a partial drop, and zero after final drops.",
+        "ja": "親／root totalは6、部分drop後は5、最終drop後は0となる。"
+      },
+      "limitations": {
+        "en": "Actual separate objection sources in a real hierarchy are used, independent of the phase-liveness objection. The implicit root is supplied explicitly; no undocumented null-query convention, private storage, arbitrary noncomponent hierarchy or exact zero-delay optimization is inferred.",
+        "ja": "phase生存用objectionとは独立に、実階層で実際の別sourceを使う。暗黙rootを明示的に渡し、未記載のnull照会規約、非公開記憶域、任意のnoncomponent階層、正確な0遅延最適化は推論しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_objection_local_and_descendant_count_queries_keep_sources_and_ancestors_distinct",
+          "role": "direct",
+          "expected_observations": [
+            "UT: counts_initial local 0 total 0",
+            "UT: counts_held local 2/3/1 totals 2/3/6 root 6",
+            "UT: counts_partial local 1/3/1 total 5 root 5",
+            "UT: counts_final local 0 total 0 root 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-OBJECTION-CB-REVIEW-TOTALS-WITH-SKIPPED-CALLBACKS",
+      "clause": "10.5.1.5.4",
+      "statement": {
+        "en": "Skipping intermediate callbacks does not change the total query definition for those ancestors.",
+        "ja": "中間callbackを省略しても、その祖先に対するtotal照会の定義は変わらない。"
+      },
+      "conditions": {
+        "en": "Set propagation mode zero before a source raises two and partially drops one.",
+        "ja": "sourceが2 raiseし、1を部分dropする前にpropagation mode 0を設定する。"
+      },
+      "expected": {
+        "en": "Intermediate totals still include the two then one outstanding descendant objections.",
+        "ja": "中間totalも、残るdescendant objectionの2、次に1を含む。"
+      },
+      "limitations": {
+        "en": "Actual separate objection sources in a real hierarchy are used, independent of the phase-liveness objection. The implicit root is supplied explicitly; no undocumented null-query convention, private storage, arbitrary noncomponent hierarchy or exact zero-delay optimization is inferred.",
+        "ja": "phase生存用objectionとは独立に、実階層で実際の別sourceを使う。暗黙rootを明示的に渡し、未記載のnull照会規約、非公開記憶域、任意のnoncomponent階層、正確な0遅延最適化は推論しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_objection_skipped_propagation_delivers_default_and_registered_hooks_with_context",
+          "role": "direct",
+          "expected_observations": [
+            "UT: objection_raised_totals 2/2/2/2 local 2/0",
+            "UT: objection_partial_totals 1/1/1/1 local 1/0"
+          ]
+        }
+      ]
     }
   ]
 }

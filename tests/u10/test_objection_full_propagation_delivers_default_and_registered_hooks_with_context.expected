@@ -1,0 +1,5 @@
+UT: objection_raised_totals 2/2/2/2 local 2/0
+UT: objection_partial_totals 1/1/1/1 local 1/0
+UT: component_hooks raised 1/1/1 dropped 2/2/2 all 1/1/1
+UT: registered_hooks raised 1/1/1/1 dropped 2/2/2/2
+UT: registered_all 1/1/1/1 meta 1/1 totals 0/0 drain 1

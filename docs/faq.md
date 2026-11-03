@@ -135,7 +135,7 @@ See [Ghost setup](testing.md#ghost).
 
 It removes `UVM_NO_DPI` from the default macro list. It does not supply or link
 UVM's C/C++ implementation. The current Verilator runner does not add those
-sources. There are 1331 `UVM_NO_DPI` cases and eight explicit HDL-DPI cases.
+sources. There are 1344 `UVM_NO_DPI` cases and eight explicit HDL-DPI cases.
 Eighteen more fixtures explicitly enable command-line/regex DPI with HDL disabled.
 The [command-line runner](testing.md#verilator-command-line-subset) links that separate backend.
 The [separate VPI runner](testing.md#verilator-vpi-hdl-subset) links the original
@@ -1143,9 +1143,9 @@ not a direct test of the requirement.
 
 ### Q77. Why is there no coverage percentage after starting M4?
 
-The 1892 AI drafts cover only a partial decomposition: 1892 requirements link
-directly to 1356 tests; all drafts have direct tests, and one separate test is a control.
-All 1357 tests have requirement links. The 2,507 clause identifiers are not normative requirement units.
+The 1920 AI drafts cover only a partial decomposition: 1920 requirements link
+directly to 1369 tests; all drafts have direct tests, and one separate test is a control.
+All 1370 tests have requirement links. The 2,507 clause identifiers are not normative requirement units.
 The scope is proposed, the inventory incomplete and the denominator unapproved;
 starting M4 approves none of those. Known differences and HDL/DPI limitations
 do not silently exclude obligations. See the [approval path](requirements.md#remaining-m4-work-and-approval).
@@ -2145,7 +2145,7 @@ No. `tests_without_requirement_links` is zero: every current test has an
 explicit direct or control link. The separate counter
 `requirements_without_direct_tests` is zero. The memory-walk link uses the
 qualified historical interpretation in Q134. It is not approval of missing
-IEEE detail. HDL deposit and accessibility use explicit VPI fixtures. Another 1,308
+IEEE detail. HDL deposit and accessibility use explicit VPI fixtures. Another 1,274
 catalog identifiers remain unassessed; decomposition and human review are
 incomplete, and the denominator remains unapproved.
 
@@ -2246,7 +2246,7 @@ in [identifier assessments](../coverage/assessments.json). Structural headings
 have no related requirements; contextual descriptions name existing requirements.
 An unreviewed record, guessed classification or parent rollup cannot do this.
 The generated state is `assessed`, separate from `partial` requirement clauses.
-127 classifications currently exist, with no denominator approval or new pass.
+141 classifications currently exist, with no denominator approval or new pass.
 Chapter 11's zero unassessed identifiers still does not complete its requirements.
 
 ### Q136. Does explicit strict configuration make the new cases pass?
@@ -2851,3 +2851,38 @@ Both dedicated get_global clauses print a pool return type while their prose
 describes an item return. Those two identifiers remain unassessed pending
 interpretation; passing get_global_pool followed by get does not resolve them.
 No constructor/name check certifies default contents or arbitrary global scope.
+
+## Objection propagation and callback parameters
+
+### Q186. What do the default and registered objection hook checks establish?
+
+The actual objection implementation reaches original component hooks and an
+explicitly enabled registered callback. Both receive the selected objection/
+source/description/count context across raise, partial drop and final drop.
+At the source, positive drain precedes both delayed task hooks; root total
+remains held while either executes and becomes zero after completion. No
+relative order between component and registered bodies is fixed. Separate
+raised/draining mode-change tests require ERROR, preserved mode and later idle
+success, using real outstanding/drain state rather than a private state probe.
+
+### Q187. Does propagation mode zero remove intermediate descendant totals?
+
+The standard says it skips intermediate callbacks, while the total-query
+contract still includes the object's own and descendant objections. The
+fixture therefore retains intermediate totals two then one. The pinned run
+returns zero there, even though source/root totals and selected callback
+routing match. The entire fixture stays spec-only at its first difference;
+the default-mode control is a separate match. Query definitions and callback
+routing are distinct obligations and neither observation substitutes for the
+other. This remains partial coverage of mode and concurrency conditions.
+
+### Q188. Which callback defaults are checked, and which remain unresolved?
+
+Constructor names and declared T/CB parameter defaults have positive type
+checks. A valid registered pair can omit CB for add/delete and still use typed
+enumeration and actual typed dispatch. is_enabled follows explicit zero/one
+changes and ignores other non-toggle arguments. The callback_mode declaration
+shows an omitted value of -1 while its prose requires 1; that interpretation
+remains unresolved and new cases always supply the argument. No initial
+callback enable state, invalid-pair diagnostic severity or undocumented
+objection-callback constructor omission is inferred from the pinned library.

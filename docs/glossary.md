@@ -1009,3 +1009,18 @@ contracts differ; count and actual release need separate observations.
 **Initial pool membership** — Keys present immediately after construction,
 before a getter can lazily create them. New-key growth and constructor naming
 do not prove required default entries or settle global-access signatures.
+
+## Objection and typed-callback evidence
+
+**Propagation-mode observation** — Separate checks of callback routing,
+source/descendant query values and legal state transitions. Skipping a hook
+does not by itself establish a different total-query definition.
+
+**Objection hook context** — The selected objection, target/source objects,
+description and count delivered to component or registered callback hooks.
+Metadata identity and delayed completion are observed without fixing an
+unspecified relative callback-body order.
+
+**Optional callback parameter** — Omitting only CB in callback add/delete
+while using a valid registered object/callback pair. Exact type checks and
+typed dispatch do not resolve omitted mode defaults or invalid-pair diagnostics.

@@ -838,6 +838,10 @@
       "primary_clause": "10.7.2.3.2",
       "inputs_sha256": "adaf521055d478be9a2cef00b774efd12b28c185dd537d27e12690bef6b83be8"
     },
+    "u10/test_callback_constructor_default_selected_and_empty_names_preserve_object_identity": {
+      "primary_clause": "10.7.1.2.1",
+      "inputs_sha256": "9c87f5abc7e76c111782678857c1eff5b6194611567284089dfc4c14e85876c2"
+    },
     "u10/test_callback_delete_by_name_glob_preserves_outside_root": {
       "primary_clause": "10.7.2.3.4",
       "inputs_sha256": "ec8efeab53dbff2fcde7c326cf361bb16f4d3597477649dc4e3367cb05ce9cf6"
@@ -865,6 +869,10 @@
     "u10/test_callback_get_all_includes_disabled_and_preserves_prefix": {
       "primary_clause": "10.7.2.5",
       "inputs_sha256": "1fec8e4762842caa8bc454c78c8583b7c84b1064a672c024a6a22239c9fe5a6b"
+    },
+    "u10/test_callback_is_enabled_tracks_explicit_changes_invalid_arguments_and_peer_state": {
+      "primary_clause": "10.7.1.2.3",
+      "inputs_sha256": "c518d44f6253e891230402f623d690c3e8017284f4094dff92b1cc8d41121119"
     },
     "u10/test_callback_mode_ignores_values_other_than_zero_and_one": {
       "primary_clause": "10.7.1.2.2",
@@ -909,6 +917,14 @@
     "u10/test_callbacks_append_and_prepend_determine_execution_order": {
       "primary_clause": "10.7.2.3.1",
       "inputs_sha256": "44c98242fca7214c492c9858f431d4b8fe7021d66d93f837f5f98741ccf7f792"
+    },
+    "u10/test_callbacks_declared_default_and_explicit_parameters_preserve_object_base_identity": {
+      "primary_clause": "10.7.2.1",
+      "inputs_sha256": "04467c8fec303549a2f47765bf9db099ac82e0ddf36c861889e5b9bb2066dc64"
+    },
+    "u10/test_callbacks_optional_callback_parameter_add_and_delete_reach_the_typed_dispatch": {
+      "primary_clause": "10.7.2.2.2",
+      "inputs_sha256": "ad79979bf2368acd92b7b6f239476198ab0848e645438093e2d2e03016e8e0bd"
     },
     "u10/test_dedicated_pool_constructors_and_exact_generic_bases_preserve_identity": {
       "primary_clause": "10.4.1.2.1",
@@ -994,6 +1010,10 @@
       "primary_clause": "10.6.2.3",
       "inputs_sha256": "ed90bf0664c9b68b1f0cd3851f35010ff92a8324d3b2a1246e3a0946862e65a0"
     },
+    "u10/test_heartbeat_declared_object_base_preserves_selected_name_and_identity": {
+      "primary_clause": "10.6.1",
+      "inputs_sha256": "1794dc5cb26b7ed46562668fc7a0a2fe0f24ca089322383da266204e654e5627"
+    },
     "u10/test_heartbeat_default_start_reuses_its_event_while_running_and_after_stop": {
       "primary_clause": "10.6.2.6",
       "inputs_sha256": "be3f484d4b4d31ef5fd9300faacc6068ae6f867d42b341770f4e0d3904b5efef"
@@ -1009,6 +1029,10 @@
     "u10/test_heartbeat_start_without_any_event_warns_after_null_configuration": {
       "primary_clause": "10.6.2.6",
       "inputs_sha256": "cf51227b25055327325821cafaa8b31419ddf596691f37af007546f32ad516df"
+    },
+    "u10/test_objection_callback_inherits_callback_identity_and_explicit_enable_queries": {
+      "primary_clause": "10.5.2.1",
+      "inputs_sha256": "6c25c7367c58f270cae05e4ca370b880fcba254b8cfa87261bf1a74f9cb47424"
     },
     "u10/test_objection_clear_argument_does_not_limit_reset": {
       "primary_clause": "10.5.1.3.5",
@@ -1026,6 +1050,10 @@
       "primary_clause": "10.5.1.3.5",
       "inputs_sha256": "43d8a9dd283e940dfbb94ef7e81a02d55ec775e7166bf26e760a8b6dfb02dafd"
     },
+    "u10/test_objection_constructor_names_and_report_object_base_preserve_identity": {
+      "primary_clause": "10.5.1.2",
+      "inputs_sha256": "2a896457108ae8c7ef6dbd704985c387b6c61570be5973435a66de74b643605a"
+    },
     "u10/test_objection_counts_accumulate_and_drop": {
       "primary_clause": "10.5.1.3.3",
       "inputs_sha256": "07207abd97981e71b16f0a3cafd11a9c7f13d0c88dbc01506aec4db9dfe9c5bc"
@@ -1033,6 +1061,22 @@
     "u10/test_objection_drain_time_delays_extract": {
       "primary_clause": "10.5.1.3.6",
       "inputs_sha256": "ca0d406620c5bc64a2d05c108c978b12996d4787eec26801424ef31adce50ee5"
+    },
+    "u10/test_objection_full_propagation_delivers_default_and_registered_hooks_with_context": {
+      "primary_clause": "10.5.1.4.1",
+      "inputs_sha256": "cb0c7b4f6e58c7eea0c559c5c8a6947fe5c9644c7087aee8f37a69ac624a7c2d"
+    },
+    "u10/test_objection_local_and_descendant_count_queries_keep_sources_and_ancestors_distinct": {
+      "primary_clause": "10.5.1.5.3",
+      "inputs_sha256": "bddb639d8cc68f7dc8aa3574389564dbe3b9b7b4f62ffcae910241a457f3a324"
+    },
+    "u10/test_objection_mode_change_while_draining_reports_error_and_preserves_mode": {
+      "primary_clause": "10.5.1.3.2",
+      "inputs_sha256": "4dccc61377b8cf0c296d5a6d5824f5be53ea80028a4ffe5ab85e5cf89364cae9"
+    },
+    "u10/test_objection_mode_change_while_raised_reports_error_and_preserves_mode": {
+      "primary_clause": "10.5.1.3.2",
+      "inputs_sha256": "a418ecd896f7b4db1abbb007e5605f92c3cf21321e39277e220b6de4637a0658"
     },
     "u10/test_objection_objectors_list_contains_each_source_once": {
       "primary_clause": "10.5.1.5.1",
@@ -1042,9 +1086,17 @@
       "primary_clause": "10.5.1.5.1",
       "inputs_sha256": "520b61a2e3540ac27e8085372ed3d579235c8a63f6f24ff0cb0fc8a2c9ab283f"
     },
+    "u10/test_objection_propagation_mode_defaults_and_idle_changes_are_instance_local": {
+      "primary_clause": "10.5.1.3.1",
+      "inputs_sha256": "cf52f9a064112b39d3cdb51eb42cb30f9361535b92edb40283121355d92f154b"
+    },
     "u10/test_objection_reraise_restarts_drain_time": {
       "primary_clause": "10.5.1.3.6",
       "inputs_sha256": "3d90af70871c4f1101410aa705708cede35c5d21714082f6b4bb17019d799a91"
+    },
+    "u10/test_objection_skipped_propagation_delivers_default_and_registered_hooks_with_context": {
+      "primary_clause": "10.5.1.3.2",
+      "inputs_sha256": "43b3c1d9a2d6d4a21bf353ff04dbb4be48a4fc5574d604b0be800aeb2aefa8cd"
     },
     "u10/test_objection_totals_propagate_to_parent": {
       "primary_clause": "10.5.1.3.3",

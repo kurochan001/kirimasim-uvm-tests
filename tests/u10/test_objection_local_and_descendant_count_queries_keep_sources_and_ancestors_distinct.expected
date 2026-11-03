@@ -1,0 +1,4 @@
+UT: counts_initial local 0 total 0
+UT: counts_held local 2/3/1 totals 2/3/6 root 6
+UT: counts_partial local 1/3/1 total 5 root 5
+UT: counts_final local 0 total 0 root 0

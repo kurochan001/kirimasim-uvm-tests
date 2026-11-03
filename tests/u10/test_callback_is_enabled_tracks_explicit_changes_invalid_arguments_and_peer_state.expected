@@ -1,0 +1,4 @@
+UT: enabled_initial subject 1 peer 0
+UT: enabled_changed subject 0 peer 1
+UT: enabled_invalid subject 0 peer 1
+UT: enabled_restored subject 1 peer 1

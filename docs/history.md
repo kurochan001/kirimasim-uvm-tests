@@ -3,8 +3,8 @@
 [日本語](history.ja.md) · [README](../README.md)
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and thirty-four cross-milestone thin-area expansions, including the
-existing-test requirement-link backlog checkpoint (1357 simulation tests). The earlier 349-test checkpoint is
+three M4 increments and thirty-five cross-milestone thin-area expansions, including the
+existing-test requirement-link backlog checkpoint (1370 simulation tests). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -2719,6 +2719,45 @@ Compatible ordinary evidence retains all 1343 prior inputs: 1191 pass and
 inputs; 272 current IDs are unmeasured. Validation covers 101 tool tests,
 1357 metadata records, ledger/index/library identity, compatible execution
 records and ten guide pairs with 185 FAQ answers and 206 glossary entries.
+All runners/tools, prior simulation inputs, CI, catalog, scope, library lock,
+licenses, Issue policy, six SVG assets and separate VPI records are unchanged.
+The goal remains active, including the remaining partial obligations.
+
+## Thirty-fifth thin-area expansion across M1–M4
+
+The seventh persistent-goal iteration adds thirteen fixtures: nine M1 objection/
+heartbeat cases and four M2 generic-callback cases. Twelve match final inputs
+at seeds 1 and 73; one first differs at seed 1 with no seed 73 result. The
+suite reaches 1370: M1 470, M2 474 and M3 426. Actual default objection hooks
+reach component methods and explicitly enabled registered callbacks with the
+original source/description/count. Positive drain precedes delayed source
+hooks, root total remains held during each and reaches zero after completion.
+Raised/draining mode changes produce ERROR and preserve mode, with later idle
+success. Callback declarations, explicit enabled queries and optional-CB
+add/delete have positive checks. The initial objection-callback constructor
+setup was corrected to supply its explicit name without changing expected
+identity/state output or claiming an omitted subtype constructor guarantee.
+Mode zero routes callbacks correctly but omits intermediate descendant totals;
+the two/one expectation remains spec-only. The omitted callback_mode default
+conflict remains unresolved and explicit arguments are used throughout.
+
+Twenty-eight AI drafts bring the ledger to 1920, directly linked to 1369 tests
+plus one control. All earlier drafts remain unchanged. Seven structural and
+seven contextual individual assessments bring the total to 141: 105 structural
+and 36 contextual. Chapter 10 has 85 partial, 29 assessed and two unassessed
+identifiers, both pool get_global declaration/prose conflicts. Overall, 1092
+of 2,507 identifiers are partial, 141 assessed and 1,274 unassessed: 34 fewer
+this iteration and 189 fewer since activation. Primary focus is 687, any
+citation 1,354; the candidate census is 1,795 zero, 401 one and 286 at least
+two. Partial obligations, milestone targets, scope and human review remain open.
+
+Compatible ordinary evidence retains all 1357 prior inputs: 1203 pass and
+167 known (125 runtime first differences, sixteen missing-API builds and
+26 unlinked-DPI builds). Separate command-line evidence remains 17 pass/
+1 known and HDL VPI 7 pass/1 fail. Guest evidence retains 1085 unchanged
+inputs; 285 current IDs are unmeasured. Validation covers 101 tool tests,
+1370 metadata records, ledger/index/library identity, compatible execution
+records and ten guide pairs with 188 FAQ answers and 209 glossary entries.
 All runners/tools, prior simulation inputs, CI, catalog, scope, library lock,
 licenses, Issue policy, six SVG assets and separate VPI records are unchanged.
 The goal remains active, including the remaining partial obligations.
