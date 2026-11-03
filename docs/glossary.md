@@ -981,3 +981,17 @@ queues or establish encode/decode-array behavior.
 before the run phase, with effects checked through actual mirror updates and
 analysis publication. It does not promise that changing configuration during
 run is supported.
+
+## Pipeline and translation evidence
+
+**Callback value pipeline** — Registered transformations pass their resulting
+array to the next callback and the final operation path. Invocation order and
+value propagation are distinct observations; a trace alone cannot prove both.
+
+**Layered register translation** — An upstream register sequencer supplies
+abstract items to a translation sequence running on a bus sequencer. Its
+configured adapter and actual driver handshake carry each selected operation.
+
+**Parameter-only HDL check** — Inspecting a public sizing parameter and its
+macro-derived value without invoking HDL support routines. It provides no
+force/release, physical storage or backend ABI evidence.

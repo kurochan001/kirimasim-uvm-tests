@@ -122,7 +122,7 @@ Ghostは公開前のシミュレータの仮名です。実行ファイルの識
 ### Q12. uvm_dpi: yesだけでDPIを使うビルドが完成しますか
 
 既定のマクロ一覧から`UVM_NO_DPI`を外す指定です。UVMのC/C++実装の供給・リンクは行いません。
-通常のVerilator runnerは、そのsourceを追加しません。`UVM_NO_DPI`が1300件、HDL DPIの明示選択が8件です。
+通常のVerilator runnerは、そのsourceを追加しません。`UVM_NO_DPI`が1317件、HDL DPIの明示選択が8件です。
 別の18検査系はHDLを無効にしてcommand-line／regex DPIを明示して有効化し、
 [command-line runner](testing.ja.md#verilatorのcommand-line部分集合)がその別backendをlinkします。
 [別のVPI runner](testing.ja.md#verilatorのvpi-hdl部分集合)は独自の限定backendをlinkし、結果は宣言した実行条件だけに適用します。
@@ -157,7 +157,7 @@ Ghostはさらに実行ファイル・profile・供給されたライブラリ�
 
 ### Q16. M1・M2・M3は完了していますか。件数は何の網羅を示しますか
 
-M1・M2には条項ごとの目標に未達があります。M3はbusモデルのfrontdoor経路を含め409件まで追加した段階で、未完です。
+M1・M2には条項ごとの目標に未達があります。M3はbusモデルのfrontdoor経路を含め426件まで追加した段階で、未完です。
 次の段階の開始によって、それまでの段階が完了したとは扱いません。
 範囲と残りの作業は[進め方](../README.ja.md#進め方)にあります。
 件数はテストの本数で、規格の全要求や組み合わせの棚卸しではありません。
@@ -923,8 +923,8 @@ controlの対応は、その要求の直接の検査ではありません。
 
 ### Q77. M4を始めたのに、カバレッジ率がないのはなぜですか
 
-AIによる1828要求案は部分的な分解で、1828要求を1325テストへ直接対応付け、直接未対応は0要求、別の1テストはcontrolです。
-全1326テストに要求の対応付けがあります。2,507の条項番号は規範的要求の単位ではありません。
+AIによる1856要求案は部分的な分解で、1856要求を1342テストへ直接対応付け、直接未対応は0要求、別の1テストはcontrolです。
+全1343テストに要求の対応付けがあります。2,507の条項番号は規範的要求の単位ではありません。
 範囲は提案、棚卸しは未完、分母は未承認で、M4の開始はどれの承認にもなりません。
 既知差分やHDL／DPIの制約によって義務を暗黙に除外しません。[承認までの手順](requirements.ja.md#m4の残作業と承認)を参照してください。
 
@@ -1709,7 +1709,7 @@ user backdoorは16 bit locationをモデル化します。location独立性、�
 
 いいえ。`tests_without_requirement_links`は0で、現在の全テストに、明示的なdirectまたはcontrolの対応があります。
 別の集計`requirements_without_direct_tests`も0件です。memory-walkの対応はQ134の限定した歴史的解釈で、
-省略されたIEEEの詳細の承認ではありません。HDL depositと利用可否には、明示VPI検査系があります。catalogの識別子1,365件も未評価です。
+省略されたIEEEの詳細の承認ではありません。HDL depositと利用可否には、明示VPI検査系があります。catalogの識別子1,343件も未評価です。
 分解と人のレビューは未完で、分母は未承認です。
 
 [新しいpolicyテスト](../tests/u16/test_policy_object_stack_tracks_nested_active_policy_push_and_pop.sv)は、
@@ -1786,7 +1786,7 @@ frontdoor保護のwarningはalgorithm oracleの対象外で、ERRORと観測し�
 個別に読んだ後、日英の根拠とAI／人のレビューを[番号の分類](../coverage/assessments.json)へ記録すれば可能です。
 構造上の見出しは関連要求を持たず、文脈の説明は既存要求を指定します。
 未レビューの記録、推測した分類、親への集約では外せません。生成状態は`assessed`で、要求条項の`partial`と区別します。
-現在の分類は104件で、分母承認や新たなpassを加えません。第11章の未評価0件でも、その要求の完了ではありません。
+現在の分類は113件で、分母承認や新たなpassを加えません。第11章の未評価0件でも、その要求の完了ではありません。
 
 ### Q136. 明示strict configurationで新規検査は成功しますか？
 
@@ -2169,7 +2169,7 @@ activeな親子tree、両停止状態、kill hook、その後の新規trafficを
 基底handleからlibraryの継承read taskを呼びます。独自functionが記憶data／statusを設定し、独自hook／callbackで、
 pre hook、登録pre callback、function、登録post callback、post hookの順序を観測します。同じdescriptorがoffset／値の変更を運びます。
 成功、失敗、同じcallbackの削除／再登録を検査し、失敗read dataは固定しません。物理HDLや新しいDPI backendを使わないuser-backdoor検査です。
-task-based read overrideの最初／最後のhelper配置とencode／decode配列の動作は別の義務に残します。
+別の遅延task-read検査系で、基底handleを通す成功／失敗時の最初／最後のhelper配置を検査します。encode／decode配列の伝播には別検査系があり、spec-only差分も保持します。既定readのtraceだけで伝播を認定しません。
 
 ### Q178. user writeの一致で、印刷された可視性宣言も解決しますか？
 
@@ -2184,3 +2184,25 @@ task-based read overrideの最初／最後のhelper配置とencode／decode配�
 同じraw itemから異なる選択mirror／公開値を得ます。独自送信側とsinkで実際のpredictor portとregister mirrorを観測します。
 別のconstructor検査ではcomponentの同一性、親／名前、選択したportの正確な型を調べます。packetのfactory登録は固定library向けの設定で、oracleは規格から導きます。
 実行中の再設定、物理bus traffic、既定int変換の利用可否、未規定の待機transaction診断severityは示しません。
+
+## Callback値pipelineとregister translation
+
+### Q180. callbackの順序が正しければencode／decodeの値伝播も示せますか？
+
+いいえ。2要素のuser-backdoor検査系は、呼出し順序、clear-textのpre／post data、中間配列、最終の記憶／戻り値を別々に観測します。
+XOR後の加算を意図的に非可換にし、decodeではcallbackと操作を逆順にします。固定版実行では必要な順序は一致しますが、
+次のcallback／最終の値経路より前に配列変更を失います。4件は規格から導いた値をspec-only差分として保持します。
+実際の既定encoder／decoderの呼出しはdataを変更せず成功しますが、その比較対象で変換pipelineを認定しません。検査codeがhelper配列を修復することはありません。
+
+### Q181. 実際のregister translation sequenceの検査では何を追加しますか？
+
+upstream producerが抽象register itemを投入し、既定translation bodyが取り出し、設定したadapterがbus packetを生成して、
+実際のsequencer／driver handshakeで各遅延操作を完了します。別の直接検査はdo_reg_itemを呼び、write失敗、元dataのread、成功する再試行を含めます。
+便利methodへの委譲に加えてtranslation経路を検査します。upstreamなしに誤ってsuper.bodyを呼ぶuser testはwarningを出し、cleanupまで待機します。
+別のvirtual-model検査はbodyをoverrideし、sequencerなしで実行します。任意bus幅、物理DUT traffic、公平性、全終了hookは認定しません。
+
+### Q182. HDL幅parameterの検査はforce／release対応も示しますか？
+
+いいえ。no-DPI probeは宣言integer parameterと選択macroの一致だけを検査し、省略設定と明示256設定を使います。
+実装macroの数値既定値は固定しません。別の8件のVPI backendは宣言したcheck／read／deposit部分集合を扱い、force／release stubは失敗を返します。
+実際のforce／release、release-and-readでの変数／netの区別、広いHDL型は未完です。parameterだけのpassを、それらroutineの実行evidenceに数えません。

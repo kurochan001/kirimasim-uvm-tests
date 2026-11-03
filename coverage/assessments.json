@@ -1523,6 +1523,154 @@
         "reviewer": null,
         "reviewed_at": null
       }
+    },
+    {
+      "clause": "19.4.1.3",
+      "classification": "structural",
+      "rationale": {
+        "en": "Variables heading only; model, adapter and upstream sequencer roles remain in their subordinate clauses.",
+        "ja": "Variables見出しのみ。model、adapter、upstream sequencerの役割は下位条項に残る。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "19.4.1.4",
+      "classification": "structural",
+      "rationale": {
+        "en": "Common-methods heading only; constructor, repeated body and direct-item execution have separate subordinate contracts.",
+        "ja": "Common methods見出しのみ。constructor、反復body、直接item実行は下位の個別契約にある。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "19.4.2.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "Variables heading only; rw_info and sequencer retain their own subordinate obligations.",
+        "ja": "Variables見出しのみ。rw_infoとsequencerは下位の個別義務を保持する。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "19.6.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "Methods heading only; the HDL support routines retain separate success/failure and force/release contracts.",
+        "ja": "Methods見出しのみ。HDL support routineは成功／失敗、force／releaseの個別契約を保持する。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "19.4",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The overview introduces the register stimulus base classes. Related test, translation and frontdoor requirements decompose selected roles without adding an independent stimulus-generation algorithm.",
+        "ja": "概要はregister stimulus基底classを導入する。関連test／translation／frontdoor要求は選択した役割を分解し、独立したstimulus生成algorithmを追加しない。"
+      },
+      "related_requirements": [
+        "UVM-REG-PIPELINE-TEST-MODEL-SELECTION",
+        "UVM-REG-PIPELINE-DEFAULT-BODY-REPEATED-PULL",
+        "UVM-REG-PIPELINE-FRONTDOOR-EXACT-BASE"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "19.4.1",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The overview distinguishes user test and layered translation roles and permits register access outside this base class. Related requirements decompose selected convenience/model use and actual translation. Optional use is not a new requirement to derive every register stimulus from this class.",
+        "ja": "概要はuser testとlayered translationの役割を区別し、この基底外からのregister accessも認める。関連要求は選択した便利API／model利用と実translationを分解する。任意利用を、全register stimulusがこのclassから派生すべき新しい義務とはしない。"
+      },
+      "related_requirements": [
+        "UVM-REG-PIPELINE-DEFAULT-VIRTUAL-BASE",
+        "UVM-REG-PIPELINE-CONFIGURED-UPSTREAM-SEQUENCER",
+        "UVM-REG-PIPELINE-DIRECT-REGISTER-ITEM-EXECUTION"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "19.4.1.5",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The overview describes the common convenience delegation and implicit parent convention; the ten child APIs and related context requirements retain those obligations and their separate defaults. No additional unnamed convenience method or separate algorithm is introduced.",
+        "ja": "概要は共通の便利委譲と暗黙parent規約を説明し、10の子APIと関連context要求が、その義務と別々の既定値を保持する。名前のない追加便利methodや別algorithmは導入しない。"
+      },
+      "related_requirements": [
+        "UVM-REG-SEQUENCE-WRITE-REG-CALL-CONTEXT",
+        "UVM-REG-SEQUENCE-READ-REG-CALL-CONTEXT",
+        "UVM-REG-SEQUENCE-POKE-MEM-CALL-CONTEXT",
+        "UVM-REG-SEQUENCE-PEEK-MEM-CALL-CONTEXT"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "19.4.2",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The overview introduces custom physical-access facade sequences, including nonlinear or unmapped mechanisms. Related inheritance and original custom-frontdoor access requirements cover selected observable roles; physical DUT implementations and arbitrary nonlinear protocols remain separate.",
+        "ja": "概要は非線形／unmapped機構を含むcustom物理access facade sequenceを導入する。関連継承と独自custom-frontdoor access要求が選択した観測可能な役割を扱い、物理DUT実装と任意非線形protocolは別に残す。"
+      },
+      "related_requirements": [
+        "UVM-REG-PIPELINE-FRONTDOOR-EXACT-BASE",
+        "UVM-REGISTER-CUSTOM-FRONTDOOR-DESCRIPTOR",
+        "UVM-CUSTOM-FRONTDOOR-FAILURE-STATUS"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "19.6",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The overview introduces the HDL backdoor implementation interface and the compile-time opt-out. Related parameter and actual check/deposit/read requirements decompose selected contracts. The no-DPI parameter probes do not certify HDL execution, and untested force/release clauses remain open.",
+        "ja": "概要はHDL backdoor実装interfaceとcompile時の無効化を導入する。関連parameterと実際のcheck／deposit／read要求が選択した契約を分解する。no-DPI parameter probeはHDL実行を認定せず、未検査のforce／release条項は未完に残す。"
+      },
+      "related_requirements": [
+        "UVM-REG-PIPELINE-HDL-PARAMETER-MACRO-DEFAULT",
+        "UVM-HDL-CHECK-PATH-PRESENCE",
+        "UVM-HDL-DEPOSIT",
+        "UVM-HDL-READ-CURRENT-VALUE"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
     }
   ]
 }

@@ -2,7 +2,7 @@
 
 [English](known-differences.md) · [README](../README.ja.md) · [FAQ](faq.ja.md)
 
-現在の1326件と、固定したAccellera UVM 2020.3.1についての記録です。
+現在の1343件と、固定したAccellera UVM 2020.3.1についての記録です。
 不一致はテストの結果であり、それだけではシミュレータ・ライブラリ・期待値のどれが原因かは決まりません。
 
 ## 固定版ライブラリの制約
@@ -15,6 +15,13 @@
 [shared accessの範囲](faq.ja.md#memory-accessshared-mapテストの選択)を参照してください。
 M1・M2・M3で、追加の制約と観測を確認しました。
 不足する必須動作を直接検査する場合は、規格の期待値を変えずに`:oracle: spec`で保持します。
+
+- user-backdoorのencode／decode callbackは必要な順序で呼ばれますが、配列変換が次のcallbackや最終の値経路へ届きません。
+  18.11.2.7／.8は順次伝播、decoderの逆順、post-read methodでのclear dataを要求します。
+  単一encoderは記憶値を期待0x0c／0x3aではなく0x13／0x25のままにし、単一decoderはclear値0x13／0x25ではなくencoded値0x0c／0x3aを返します。
+  2 callbackの検査は中間値の喪失も示します。4件ともseed 1で最初に異なり、seed 73の結果はありません。
+  [既定callbackの比較対象](../tests/u18/test_register_callback_default_encode_and_decode_leave_arrays_unchanged.sv)は両seedで一致し、既定の無変更動作だけを示します。
+  物理HDLや検査側の配列修復を使わず、独自記憶域と2つの配列要素を使います。固定Apache helperの確認で観測した書戻し欠落を説明しますが、oracleには使いません。
 
 - 固定catcherは、標準のget_report_message API（6.6.3.10）を持ちません。
   事前構成messageの同一性／live alias／再利用の3検査系はbuildできず、実行時の期待は未測定です。privateな実装fieldで代用しません。
@@ -312,7 +319,7 @@ command-line 18検査系は別のVPI bridgeと固定regex DPIを明示要求し�
 上限は正しく7のままですが、固定serverはINFOを発行し、警告probeはWARNINGを観測しません。YESの比較対象は警告なしで9へ変わります。
 これは診断severityの差分で、上限の強制失敗ではありません。以前のno-DPI引数2件は未変更の通常実行時差分です。
 
-スイート全体では、`verilator@5.052`を付けたテストは1167件、specのみのテストは159件です。
+スイート全体では、`verilator@5.052`を付けたテストは1180件、specのみのテストは163件です。
 specのみのうち1件は9.6を検証します。pre-resetフェーズ終了時に子タスクが停止する
 はずですが、固定版UVMとVerilator 5.052の組み合わせでは、後のフェーズで子タスクの遅延書き込みが
 実行されます。この差分の原因がシミュレータとライブラリのどちらかは未確定です。
@@ -321,9 +328,9 @@ wakeup resetの検査系は、trigger waiterとpersistent-trigger waiterを各1�
 10.1.1.2.8は、callbackなしで両方が起動することを要求します。固定Verilatorの実行は、待機状態の観測に到達してから
 watchdogが期限切れになります。simulator／libraryを組み合わせた原因は未確定のまま、規範的なwakeupの期待を保持します。
 
-specのみの159件も規格から導いた期待値を保持します。通常のVerilator実行とCIはoracle付き1167件を選びます。
+specのみの163件も規格から導いた期待値を保持します。通常のVerilator実行とCIはoracle付き1180件を選びます。
 `--all`はspecのみも含め、不一致やビルド不可を`known`として記録します。
-通常の実行時117件は、最初の差分であるseed 1までの記録で、seed 73の結果はありません。
+通常の実行時121件は、最初の差分であるseed 1までの記録で、seed 73の結果はありません。
 API欠落build 16件は、time 1件、sequence-library 6件、HDL slice 4件、名前付きconcat constructor 1件、object active-policy 1件、catcher message-handle 3件で、
 通常条件の実行時seed結果はありません。HDL DPI 8検査系とcommand-line DPI 18検査系も通常runnerではlinkできません。
 別のVPI条件では、7件が両seed一致、E.7のwarning／転送なしの期待はseed 1で失敗します。
@@ -331,7 +338,12 @@ API欠落build 16件は、time 1件、sequence-library 6件、HDL slice 4件、�
 
 ## specのみのテスト
 
-現在の159件は次のテストです。同じ制約を複数のテストで検査する場合があり、異なる不具合の個数ではありません。
+現在の163件は次のテストです。同じ制約を複数のテストで検査する場合があり、異なる不具合の個数ではありません。
+
+- [単一encoderの値伝播](../tests/u18/test_user_backdoor_encode_single_propagates_all_value_elements.sv).
+- [encoder chainの値伝播](../tests/u18/test_user_backdoor_encode_chain_propagates_all_value_elements.sv).
+- [単一decoderのclear-data伝播](../tests/u18/test_user_backdoor_decode_single_propagates_all_value_elements.sv).
+- [逆順decoder chainの伝播](../tests/u18/test_user_backdoor_decode_chain_propagates_all_value_elements.sv).
 
 - [明示HDL abstractionの選択](../tests/uE/test_hdl_path_sequence_uses_an_explicit_abstraction_instead_of_the_invalid_default.sv).
 - [空abstraction listでblock既定を使用](../tests/uE/test_hdl_path_sequence_uses_the_block_default_abstraction_when_the_list_is_empty.sv).
@@ -589,8 +601,8 @@ API欠落build 16件は、time 1件、sequence-library 6件、HDL slice 4件、�
 
 ## シミュレータとライブラリの組み合わせ
 
-スイートは1326件ですが、以下のkirimasim／Ghost記録は未変更の現在入力1085件だけを対象とします。
-以前の一時実行ファイル／profile snapshotがないため、新規241件は未測定です。
+スイートは1343件ですが、以下のkirimasim／Ghost記録は未変更の現在入力1085件だけを対象とします。
+以前の一時実行ファイル／profile snapshotがないため、新規258件は未測定です。
 新しい全件guest実測とは扱いません。[実行結果](results.ja.md)を参照してください。
 
 Ghostの同梱UVMはseed 1・73とも207件一致・878件不一致で、不一致になるテストも同じです。

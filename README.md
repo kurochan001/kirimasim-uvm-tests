@@ -11,14 +11,14 @@ Verification Methodology (UVM). It targets
 [kirimasim-tests](https://github.com/kurochan001/kirimasim-tests), which tests
 the IEEE 1800-2023 SystemVerilog language.
 
-> **Status: M4 in progress.** 1326 simulation tests in 21 chapter/annex
-> directories; 1167 have a `verilator@5.052` oracle and 159 are spec-only.
+> **Status: M4 in progress.** 1343 simulation tests in 21 chapter/annex
+> directories; 1180 have a `verilator@5.052` oracle and 163 are spec-only.
 > All use `:spec_check: ai`; none records human review.
 > M1, M2 and M3 retain open requirement-coverage targets.
-> M4 has 1828 draft requirements, 1325 directly linked tests and an index of all 1326;
+> M4 has 1856 draft requirements, 1342 directly linked tests and an index of all 1343;
 > 0 tests lack requirement links and 0 drafts lack direct tests, including a
-> qualified historical memory-walk interpretation. 1,365 identifiers remain
-> unassessed; 104 others have explicit AI classifications. Scope remains unapproved.
+> qualified historical memory-walk interpretation. 1,343 identifiers remain
+> unassessed; 113 others have explicit AI classifications. Scope remains unapproved.
 
 ## Contents
 
@@ -40,7 +40,7 @@ the IEEE 1800-2023 SystemVerilog language.
   transport channels; TLM 2 payloads, extensions and selected socket transports;
   sequences/libraries and default request/response printing, state waits,
   response queues/handlers, reporting, action macros, pull/push sequencers and callbacks.
-- **M3: 409 cases.** Register/field/block and memory models, hierarchy queries,
+- **M3: 426 cases.** Register/field/block and memory models, hierarchy queries,
   field controls and byte-enable access, operation descriptors, maps, read checks, transaction-order policies, adapters,
   predictors, HDL paths, abstract register FIFOs, built-in/custom frontdoors, sequence convenience
   APIs, callbacks, coverage controls/sampling, indirect registers, virtual-register
@@ -79,14 +79,14 @@ python3 tools/run_verilator.py --seeds 1 73 --build-jobs 2 -j 1 \
 ```
 
 The fetcher checks the pinned Accellera UVM 2020.3.1 library. The smoke
-command selects one test. To run all 1167 tagged cases:
+command selects one test. To run all 1180 tagged cases:
 
 ```sh
 python3 tools/run_verilator.py --seeds 1 73 --build-jobs 2 -j 2 \
   --json out/verilator.json
 ```
 
-Add `--all` to include all two-state cases, including the 159 spec-only cases.
+Add `--all` to include all two-state cases, including the 163 spec-only cases.
 `known` results do not fail that command; tagged regressions do. `-j` controls
 concurrent tests and `--build-jobs` controls C++ jobs within each build.
 Each model is built once and run in a fresh process for each seed.
@@ -105,19 +105,19 @@ by Git; results are not automatically published.
 
 ## Current results
 
-The Verilator evidence dated 2026-11-03 covers all 1326 current cases.
-Guest records cover 1085 unchanged cases; 241 additions are unmeasured.
+The Verilator evidence dated 2026-11-03 covers all 1343 current cases.
+Guest records cover 1085 unchanged cases; 258 additions are unmeasured.
 These results are separate from the Check badge.
 
 | Simulator and library | Observed result |
 | --- | --- |
-| Verilator 5.052, pinned UVM, ordinary runner | 1167 match seeds 1 and 73; 159 known differences |
+| Verilator 5.052, pinned UVM, ordinary runner | 1180 match seeds 1 and 73; 163 known differences |
 | Verilator 5.052, original VPI HDL backend | Separate 8-case subset: 7 match both seeds; 1 differs |
 | Verilator 5.052, VPI command-line bridge and pinned regex DPI | Separate 18-case subset: 17 match both seeds; 1 known difference |
-| kirimasim, pinned UVM | 1076 `unsupported`; nine missing-API `fail` in 1085 cases; 241 unmeasured |
-| Ghost, bundled UVM | 207 match and 878 fail at each seed in 1085 cases; 241 unmeasured |
+| kirimasim, pinned UVM | 1076 `unsupported`; nine missing-API `fail` in 1085 cases; 258 unmeasured |
+| Ghost, bundled UVM | 207 match and 878 fail at each seed in 1085 cases; 258 unmeasured |
 
-The ordinary runner records 117 runtime differences at seed 1, 16 missing-API
+The ordinary runner records 121 runtime differences at seed 1, 16 missing-API
 builds and 26 unlinked-DPI builds (eight HDL, eighteen command-line). The two
 VPI subsets are separate conditions.
 `known` and `unsupported` are not passes. Ghost bundled results do not establish
@@ -154,8 +154,8 @@ its counterpart; commands and API identifiers retain their original spelling.
 | M0 | Fetcher, runners, metadata/tools checks, Check and smoke test | Infrastructure implemented |
 | M1 | Core classes, policies, factory, phases and their graphs, objections, configuration and reporting | 447 cases; reviewed two-tests-per-clause target open |
 | M2 | Sequences, sequencers, TLM and callbacks | 470 cases; target open |
-| M3 | Register layer (17–19, annex E) | 409 cases in chapters 17–19 and annex E; target open |
-| M4 | Requirement ledger and coverage | In progress: 1828 AI drafts; 1828 requirements link to 1325 tests; denominator unapproved |
+| M3 | Register layer (17–19, annex E) | 426 cases in chapters 17–19 and annex E; target open |
+| M4 | Requirement ledger and coverage | In progress: 1856 AI drafts; 1856 requirements link to 1342 tests; denominator unapproved |
 
 M1–M3 remain incomplete. Further work covers sequence ownership/lifecycle,
 default resources, callbacks and TLM 2 protocol/timing/socket combinations;

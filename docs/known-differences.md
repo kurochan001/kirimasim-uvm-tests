@@ -2,7 +2,7 @@
 
 [日本語](known-differences.ja.md) · [README](../README.md) · [FAQ](faq.md)
 
-This describes the current 1326-test suite and the pinned Accellera UVM
+This describes the current 1343-test suite and the pinned Accellera UVM
 2020.3.1 library. A mismatch is a test result; it does not by itself assign
 the cause to the simulator, the library or the expectation.
 
@@ -19,6 +19,20 @@ shared accesses and one child-block shape; see the
 Further limitations and observations were identified during M1, M2 and M3.
 Where a test directly checks a required behavior that is missing, its
 normative expectation is retained with `:oracle: spec`.
+
+- User-backdoor encode/decode callbacks run in the required order but their
+  array transformations do not reach the next callback or final value path.
+  Clauses 18.11.2.7/.8 require sequential propagation, reverse decoder order
+  and clear data at post-read methods. A single encoder leaves stored values
+  at 0x13/0x25 instead of 0x0c/0x3a; a single decoder returns encoded values
+  0x0c/0x3a instead of clear 0x13/0x25. Two-callback cases additionally show
+  lost intermediate values. All four first differ at seed 1, with no seed 73
+  result. The
+  [default callback control](../tests/u18/test_register_callback_default_encode_and_decode_leave_arrays_unchanged.sv)
+  matches both seeds; it establishes only default no-change behavior. Original
+  storage and two array elements are used without physical HDL or test-side
+  array repair. Inspection of the pinned Apache helper explains the observed
+  missing writeback; it does not supply the oracle.
 
 - The pinned catcher omits the standard get_report_message API (6.6.3.10).
   Three preformed-message identity/live-alias/reuse fixtures cannot build;
@@ -459,7 +473,7 @@ warning. The YES control changes the limit to nine without a warning. This
 is a diagnostic-severity difference, not failed limit enforcement. The older
 two no-DPI argument cases remain unchanged ordinary runtime differences.
 
-Across the suite, 1167 tests have the `verilator@5.052` oracle tag and 159
+Across the suite, 1180 tests have the `verilator@5.052` oracle tag and 163
 cases are spec-only. One of the spec-only cases checks 9.6: a child's pre-reset
 task must be killed when that phase ends, but the pinned-library run on Verilator 5.052
 lets the child perform its delayed write during a later phase. The cause of
@@ -471,10 +485,10 @@ without callbacks. The pinned Verilator run reaches the blocked-state
 observation, then its watchdog expires. This combined simulator/library
 cause remains unassigned; the normative wakeup expectation is retained.
 
-The 159 spec-only tests retain their normative expected files.
-Default Verilator runs and CI select the 1167 tagged cases. `--all` includes
+The 163 spec-only tests retain their normative expected files.
+Default Verilator runs and CI select the 1180 tagged cases. `--all` includes
 spec-only cases and records mismatches or build failures as `known`.
-The ordinary runtime records for 117 cases establish their first difference
+The ordinary runtime records for 121 cases establish their first difference
 at seed 1, without seed 73 results. Sixteen missing-API builds have no ordinary
 runtime seed result: one time API, six sequence-library cases, four HDL slice
 cases, one named-concat-constructor case, one object active-policy case and
@@ -486,8 +500,13 @@ These overlapping configurations are not summed.
 
 ## Spec-only tests
 
-These are the 159 current spec-only cases. Several exercise the same
+These are the 163 current spec-only cases. Several exercise the same
 limitation, so their count is not a count of distinct bugs.
+
+- [Single encoder value propagation](../tests/u18/test_user_backdoor_encode_single_propagates_all_value_elements.sv).
+- [Chained encoder value propagation](../tests/u18/test_user_backdoor_encode_chain_propagates_all_value_elements.sv).
+- [Single decoder clear-data propagation](../tests/u18/test_user_backdoor_decode_single_propagates_all_value_elements.sv).
+- [Reverse decoder chain propagation](../tests/u18/test_user_backdoor_decode_chain_propagates_all_value_elements.sv).
 
 - [Explicit HDL abstraction selection](../tests/uE/test_hdl_path_sequence_uses_an_explicit_abstraction_instead_of_the_invalid_default.sv).
 - [Empty abstraction list uses the block default](../tests/uE/test_hdl_path_sequence_uses_the_block_default_abstraction_when_the_list_is_empty.sv).
@@ -745,8 +764,8 @@ Additional message-handle and endian cases:
 
 ## Simulator and library combinations
 
-The suite has 1326 cases, but the kirimasim/Ghost records below cover only
-1085 unchanged current-input cases. The 241 new cases are unmeasured
+The suite has 1343 cases, but the kirimasim/Ghost records below cover only
+1085 unchanged current-input cases. The 258 new cases are unmeasured
 because prior temporary executable/profile snapshots are unavailable. Do
 not treat this as a fresh full-suite guest result. See [results](results.md).
 

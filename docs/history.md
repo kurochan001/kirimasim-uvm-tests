@@ -3,8 +3,8 @@
 [日本語](history.ja.md) · [README](../README.md)
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and thirty-two cross-milestone thin-area expansions, including the
-existing-test requirement-link backlog checkpoint (1326 simulation tests). The earlier 349-test checkpoint is
+three M4 increments and thirty-three cross-milestone thin-area expansions, including the
+existing-test requirement-link backlog checkpoint (1343 simulation tests). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -2645,3 +2645,43 @@ The active goal retains task-read boundary conditions, encode/decode arrays,
 default formatter completeness, printed write visibility/virtuality,
 parent-sequence do_clone, predictor diagnostic severity and all remaining
 partial obligations.
+
+## Thirty-third thin-area expansion across M1–M4
+
+The fifth persistent-goal iteration adds seventeen M3 fixtures: two delayed
+task reads, five callback pipeline/default-control cases, three sequence/
+frontdoor type/name cases, three direct/layered translation cases, a super-body
+warning/nonreturn case, a virtual model-selection case and two HDL-parameter
+cases. Thirteen match final inputs at seeds 1 and 73. Four encode/decode
+propagation fixtures first differ at seed 1 with no seed 73 result. The suite
+reaches 1343: M1 447, M2 470 and M3 426. Callback order matches while array
+changes fail to reach later callbacks/final storage or returned values. The
+normative transformed values are retained, using two noncommuting operations
+and two memory values without test-side writeback repair. The actual default
+callback no-change control passes. Real translation uses upstream and bus
+sequencers, an original adapter and delayed driver, including write failure/
+retry. A selected invalid super-body call warns and does not return before
+cleanup. Parameter probes compare the macro-derived declared integer value,
+without fixing its implementation numeric default or asserting HDL execution.
+
+Twenty-eight AI drafts bring the ledger to 1856, directly linked to 1342 tests
+plus one control. All earlier drafts remain unchanged. Four structural and
+five contextual individual assessments bring the total to 113: 91 structural
+and 22 contextual. Chapter 19 has 81 partial, 24 assessed and six unassessed
+identifiers. Overall, 1051 of 2,507 identifiers are partial, 113 assessed and
+1,343 unassessed: 22 fewer this iteration and 120 fewer since activation.
+Primary focus is 664, any citation 1,327; the candidate census is 1,818 zero,
+381 one and 283 at least two. Partial obligations, milestone targets, scope
+and human review remain incomplete, with no invented percentage or approval.
+
+Compatible ordinary evidence retains all 1326 prior inputs: 1180 pass and
+163 known (121 runtime first differences, sixteen missing-API builds and
+26 unlinked-DPI builds). Separate command-line evidence remains 17 pass/
+1 known and HDL VPI 7 pass/1 fail. Guest evidence retains 1085 unchanged
+inputs; 258 current IDs are unmeasured. Validation covers 101 tool tests,
+1343 metadata records, ledger/index/library identity, compatible execution
+records and ten guide pairs with 182 FAQ answers and 203 glossary entries.
+All runners/tools, prior simulation inputs, CI, catalog, scope, library lock,
+licenses, Issue policy, six SVG assets and separate VPI records are unchanged.
+The active goal retains the four callback propagation differences and all
+remaining applicability, partial-obligation and interpretation work.

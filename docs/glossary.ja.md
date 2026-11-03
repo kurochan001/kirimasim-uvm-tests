@@ -757,3 +757,14 @@ descriptorの同一性と選択した値／status伝播も含めることです�
 
 **Pre-run predictor configuration（run前のpredictor設定）** — run phase前にmapとadapterの選択を完了し、
 実際のmirror更新とanalysis公開を通して効果を検査することです。run中の設定変更が対応済みであるとは約束しません。
+
+## Pipelineとtranslationのevidence
+
+**Callback value pipeline（callback値pipeline）** — 登録した変換の結果配列を、次のcallbackと最終operation経路へ渡すことです。
+呼出し順序と値の伝播は異なる観測で、traceだけでは両方を証明できません。
+
+**Layered register translation（階層化register変換）** — upstream register sequencerが、bus sequencer上で実行するtranslation sequenceへ抽象itemを渡すことです。
+設定adapterと実際のdriver handshakeで、選択した各操作を運びます。
+
+**Parameter-only HDL check（parameterだけのHDL検査）** — HDL support routineを呼ばず、公開のsize parameterとmacroから導く値を調べることです。
+force／release、物理記憶域、backend ABIのevidenceは示しません。

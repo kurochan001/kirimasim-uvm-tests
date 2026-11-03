@@ -135,7 +135,7 @@ See [Ghost setup](testing.md#ghost).
 
 It removes `UVM_NO_DPI` from the default macro list. It does not supply or link
 UVM's C/C++ implementation. The current Verilator runner does not add those
-sources. There are 1300 `UVM_NO_DPI` cases and eight explicit HDL-DPI cases.
+sources. There are 1317 `UVM_NO_DPI` cases and eight explicit HDL-DPI cases.
 Eighteen more fixtures explicitly enable command-line/regex DPI with HDL disabled.
 The [command-line runner](testing.md#verilator-command-line-subset) links that separate backend.
 The [separate VPI runner](testing.md#verilator-vpi-hdl-subset) links the original
@@ -176,7 +176,7 @@ a claim that every test was rebuilt together.
 
 ### Q16. Are M1, M2 or M3 complete, and what does the test count cover?
 
-M1 and M2 still have open clause targets. M3 now has 409
+M1 and M2 still have open clause targets. M3 now has 426
 register-layer cases, including testbench frontdoor paths; it is also incomplete. Starting a stage does not complete
 the preceding stages.
 The [plan](../README.md#plan) identifies current scope and remaining work.
@@ -1143,9 +1143,9 @@ not a direct test of the requirement.
 
 ### Q77. Why is there no coverage percentage after starting M4?
 
-The 1828 AI drafts cover only a partial decomposition: 1828 requirements link
-directly to 1325 tests; all drafts have direct tests, and one separate test is a control.
-All 1326 tests have requirement links. The 2,507 clause identifiers are not normative requirement units.
+The 1856 AI drafts cover only a partial decomposition: 1856 requirements link
+directly to 1342 tests; all drafts have direct tests, and one separate test is a control.
+All 1343 tests have requirement links. The 2,507 clause identifiers are not normative requirement units.
 The scope is proposed, the inventory incomplete and the denominator unapproved;
 starting M4 approves none of those. Known differences and HDL/DPI limitations
 do not silently exclude obligations. See the [approval path](requirements.md#remaining-m4-work-and-approval).
@@ -2145,7 +2145,7 @@ No. `tests_without_requirement_links` is zero: every current test has an
 explicit direct or control link. The separate counter
 `requirements_without_direct_tests` is zero. The memory-walk link uses the
 qualified historical interpretation in Q134. It is not approval of missing
-IEEE detail. HDL deposit and accessibility use explicit VPI fixtures. Another 1,365
+IEEE detail. HDL deposit and accessibility use explicit VPI fixtures. Another 1,343
 catalog identifiers remain unassessed; decomposition and human review are
 incomplete, and the denominator remains unapproved.
 
@@ -2246,7 +2246,7 @@ in [identifier assessments](../coverage/assessments.json). Structural headings
 have no related requirements; contextual descriptions name existing requirements.
 An unreviewed record, guessed classification or parent rollup cannot do this.
 The generated state is `assessed`, separate from `partial` requirement clauses.
-104 classifications currently exist, with no denominator approval or new pass.
+113 classifications currently exist, with no denominator approval or new pass.
 Chapter 11's zero unassessed identifiers still does not complete its requirements.
 
 ### Q136. Does explicit strict configuration make the new cases pass?
@@ -2755,8 +2755,10 @@ order: pre hook, registered pre callback, function, registered post callback,
 post hook. The same descriptor carries offset/value changes. Success, failure
 and removal/readdition of the same callback are checked; failed-read data is
 unconstrained. These are user-backdoor checks without physical HDL or a new
-DPI backend. A task-based read override's first/last helper placement and
-encode/decode-array behavior remain separate obligations.
+DPI backend. Separate delayed task-read fixtures now check first/last helper placement
+through a base handle in success/failure cases. Encode/decode-array propagation
+has separate fixtures, including retained spec-only differences; the default
+read trace alone does not establish it.
 
 ### Q178. Does a passing user write settle its printed visibility declaration?
 
@@ -2779,3 +2781,38 @@ parent/name and exact selected port types. Packet factory registration is setup
 for the pinned library; the oracle remains standard-derived. These checks do
 not establish live reconfiguration, physical bus traffic, default-int conversion
 usability or an unspecified pending-transaction diagnostic severity.
+
+## Callback value pipelines and register translation
+
+### Q180. Does correct callback order prove encode/decode value propagation?
+
+No. The two-element user-backdoor fixtures separately observe invocation
+order, clear-text pre/post data, intermediate arrays and final stored/returned
+values. XOR then increment is deliberately noncommutative; decoding reverses
+the callbacks and operations. The pinned run has the required order but loses
+array changes before the next callback/final value path. Four cases retain
+the standard-derived values as spec-only differences. Calling the actual
+default encoder/decoder succeeds without changing data; that control does not
+establish a transforming pipeline. Test code never repairs the helper arrays.
+
+### Q181. What is added by actual register translation sequence checks?
+
+An upstream producer submits abstract register items, the default translation
+body pulls them, a configured adapter creates bus packets and an actual
+sequencer/driver handshake completes each delayed operation. Separate direct
+cases invoke do_reg_item, including a failed write, old-data read and successful
+retry. This tests the translation route beyond convenience-method delegation.
+A user test incorrectly calling super.body without upstream produces a warning
+and stays blocked until cleanup. Separate virtual-model tests use an overridden
+body and run without a sequencer. These observations do not certify arbitrary
+bus widths, physical DUT traffic, fairness or all termination hooks.
+
+### Q182. Do HDL width-parameter checks establish force/release support?
+
+No. The no-DPI probes check only the declared integer parameter and equality
+with the selected macro, using omitted configuration and an explicit 256
+configuration. They do not fix the implementation's numeric macro default.
+The separate eight-case VPI backend still supports its declared check/read/
+deposit subset; its force/release stubs report failure. Actual force/release,
+release-and-read variable/net distinctions and broader HDL types remain open.
+No parameter-only pass is counted as execution evidence for those routines.

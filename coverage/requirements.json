@@ -68071,6 +68071,1048 @@
           ]
         }
       ]
+    },
+    {
+      "id": "UVM-REG-PIPELINE-ENCODE-DEFAULT-UNCHANGED",
+      "clause": "18.11.2.7",
+      "statement": {
+        "en": "The default register callback encoder leaves supplied data unchanged.",
+        "ja": "既定register callback encoderは指定dataを変更しない。"
+      },
+      "conditions": {
+        "en": "Call the actual default method on a two-element array and an empty array.",
+        "ja": "2要素配列と空配列で、実際の既定methodを呼ぶ。"
+      },
+      "expected": {
+        "en": "Array sizes and supplied values remain unchanged.",
+        "ja": "配列sizeと指定値は変わらない。"
+      },
+      "limitations": {
+        "en": "Actual default callbacks only, using selected nonempty/empty arrays. This does not certify helper-chain propagation, arbitrary callback extensions or physical HDL.",
+        "ja": "選択した非空／空配列での実際の既定callbackのみ。helper間伝播、任意callback拡張、物理HDLを認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_register_callback_default_encode_and_decode_leave_arrays_unchanged",
+          "role": "direct",
+          "expected_observations": [
+            "UT: default_encode size 2 values 1",
+            "UT: default_empty size 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-PIPELINE-DECODE-DEFAULT-UNCHANGED",
+      "clause": "18.11.2.8",
+      "statement": {
+        "en": "The default register callback decoder leaves supplied data unchanged.",
+        "ja": "既定register callback decoderは指定dataを変更しない。"
+      },
+      "conditions": {
+        "en": "Call the actual default method on a two-element array and an empty array.",
+        "ja": "2要素配列と空配列で、実際の既定methodを呼ぶ。"
+      },
+      "expected": {
+        "en": "Array sizes and supplied values remain unchanged.",
+        "ja": "配列sizeと指定値は変わらない。"
+      },
+      "limitations": {
+        "en": "Actual default callbacks only, using selected nonempty/empty arrays. This does not certify helper-chain propagation, arbitrary callback extensions or physical HDL.",
+        "ja": "選択した非空／空配列での実際の既定callbackのみ。helper間伝播、任意callback拡張、物理HDLを認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_register_callback_default_encode_and_decode_leave_arrays_unchanged",
+          "role": "direct",
+          "expected_observations": [
+            "UT: default_decode size 2 values 1",
+            "UT: default_empty size 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-PIPELINE-ENCODE-REGISTRATION-ORDER",
+      "clause": "18.11.2.7",
+      "statement": {
+        "en": "Registered encoders execute in registration order after all pre-write methods.",
+        "ja": "登録encoderは全pre-write methodの後、登録順に実行する。"
+      },
+      "conditions": {
+        "en": "Register one callback or two distinct callbacks on an original user backdoor.",
+        "ja": "独自user backdoorへ1 callbackまたは異なる2 callbackを登録する。"
+      },
+      "expected": {
+        "en": "The trace places all pre hooks/callbacks before encoders, then the write body.",
+        "ja": "traceは全pre hook／callback、encoder、write bodyの順を示す。"
+      },
+      "limitations": {
+        "en": "Original noncommuting transforms and two memory value elements exercise the actual protected helper iteration. Expected values come from the standard propagation/order contract and original arithmetic; the test never writes back a lost helper array. Physical HDL, four-state values, callback disabling, resize and failed-transfer behavior remain separate. A mismatch remains spec-only.",
+        "ja": "独自の非可換変換と2つのmemory値要素で、実際のprotected helperの反復を検査する。期待値は規格の伝播／順序契約と独自算術から導き、検査系がhelperの失った配列を書き戻すことはない。物理HDL、4値、callback無効化、resize、転送失敗は別に残す。差分はspec-onlyに保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_user_backdoor_encode_single_propagates_all_value_elements",
+          "role": "direct",
+          "expected_observations": [
+            "UT: codec_trace W|PA|EA|X|QA|w|"
+          ]
+        },
+        {
+          "test": "u18/test_user_backdoor_encode_chain_propagates_all_value_elements",
+          "role": "direct",
+          "expected_observations": [
+            "UT: codec_trace W|PA|PB|EA|EB|X|QA|QB|w|"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-PIPELINE-ENCODE-CLEAR-PRE-WRITE",
+      "clause": "18.11.2.7",
+      "statement": {
+        "en": "Pre-write callbacks process clear-text data before encoding begins.",
+        "ja": "pre-write callbackはencode開始前のclear-text dataを扱う。"
+      },
+      "conditions": {
+        "en": "The original write starts with clear values 0x13 and 0x25 and two registered pre callbacks.",
+        "ja": "独自writeはclear値0x13・0x25で開始し、2つのpre callbackを登録する。"
+      },
+      "expected": {
+        "en": "Both pre callbacks see the original clear values.",
+        "ja": "両pre callbackは元のclear値を観測する。"
+      },
+      "limitations": {
+        "en": "Original noncommuting transforms and two memory value elements exercise the actual protected helper iteration. Expected values come from the standard propagation/order contract and original arithmetic; the test never writes back a lost helper array. Physical HDL, four-state values, callback disabling, resize and failed-transfer behavior remain separate. A mismatch remains spec-only.",
+        "ja": "独自の非可換変換と2つのmemory値要素で、実際のprotected helperの反復を検査する。期待値は規格の伝播／順序契約と独自算術から導き、検査系がhelperの失った配列を書き戻すことはない。物理HDL、4値、callback無効化、resize、転送失敗は別に残す。差分はspec-onlyに保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_user_backdoor_encode_chain_propagates_all_value_elements",
+          "role": "direct",
+          "expected_observations": [
+            "UT: codec_state identity 1 clear 1 chain 1 final 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-PIPELINE-ENCODE-FINAL-DATA-PROPAGATION",
+      "clause": "18.11.2.7",
+      "statement": {
+        "en": "Encoder changes propagate to the data supplied to the write operation.",
+        "ja": "encoderの変更はwrite operationへ渡すdataに伝播する。"
+      },
+      "conditions": {
+        "en": "A single encoder XORs each of two original memory values with 0x1f.",
+        "ja": "単一encoderが2つの独自memory値をそれぞれ0x1fとXORする。"
+      },
+      "expected": {
+        "en": "The original write storage receives 0x0c and 0x3a rather than the clear input.",
+        "ja": "独自write記憶域はclear入力ではなく0x0c・0x3aを受け取る。"
+      },
+      "limitations": {
+        "en": "Original noncommuting transforms and two memory value elements exercise the actual protected helper iteration. Expected values come from the standard propagation/order contract and original arithmetic; the test never writes back a lost helper array. Physical HDL, four-state values, callback disabling, resize and failed-transfer behavior remain separate. A mismatch remains spec-only.",
+        "ja": "独自の非可換変換と2つのmemory値要素で、実際のprotected helperの反復を検査する。期待値は規格の伝播／順序契約と独自算術から導き、検査系がhelperの失った配列を書き戻すことはない。物理HDL、4値、callback無効化、resize、転送失敗は別に残す。差分はspec-onlyに保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_user_backdoor_encode_single_propagates_all_value_elements",
+          "role": "direct",
+          "expected_observations": [
+            "UT: codec_result status 1 first c second 3a"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-PIPELINE-ENCODE-BETWEEN-CALLBACKS",
+      "clause": "18.11.2.7",
+      "statement": {
+        "en": "Each registered encoder receives the preceding encoder result.",
+        "ja": "各登録encoderは直前のencoder結果を受け取る。"
+      },
+      "conditions": {
+        "en": "The first encoder XORs by 0x1f; the second adds one to both elements.",
+        "ja": "最初のencoderは0x1fでXORし、次は両要素へ1を加える。"
+      },
+      "expected": {
+        "en": "The second sees 0x0c/0x3a and final storage receives 0x0d/0x3b.",
+        "ja": "次段は0x0c／0x3aを観測し、最終記憶域は0x0d／0x3bを受け取る。"
+      },
+      "limitations": {
+        "en": "Original noncommuting transforms and two memory value elements exercise the actual protected helper iteration. Expected values come from the standard propagation/order contract and original arithmetic; the test never writes back a lost helper array. Physical HDL, four-state values, callback disabling, resize and failed-transfer behavior remain separate. A mismatch remains spec-only.",
+        "ja": "独自の非可換変換と2つのmemory値要素で、実際のprotected helperの反復を検査する。期待値は規格の伝播／順序契約と独自算術から導き、検査系がhelperの失った配列を書き戻すことはない。物理HDL、4値、callback無効化、resize、転送失敗は別に残す。差分はspec-onlyに保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_user_backdoor_encode_chain_propagates_all_value_elements",
+          "role": "direct",
+          "expected_observations": [
+            "UT: codec_state identity 1 clear 1 chain 1 final 1",
+            "UT: codec_result status 1 first d second 3b"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-PIPELINE-DECODE-REVERSE-ORDER",
+      "clause": "18.11.2.8",
+      "statement": {
+        "en": "Registered decoders execute in reverse registration order before post-read methods.",
+        "ja": "登録decoderはpost-read method前に登録の逆順で実行する。"
+      },
+      "conditions": {
+        "en": "Register the XOR callback first and the increment/decrement callback second.",
+        "ja": "XOR callbackを先、加算／減算callbackを後に登録する。"
+      },
+      "expected": {
+        "en": "The trace places the second decoder before the first and both before all post callbacks/hooks.",
+        "ja": "traceは後に登録したdecoder、先に登録したdecoder、全post callback／hookの順を示す。"
+      },
+      "limitations": {
+        "en": "Original noncommuting transforms and two memory value elements exercise the actual protected helper iteration. Expected values come from the standard propagation/order contract and original arithmetic; the test never writes back a lost helper array. Physical HDL, four-state values, callback disabling, resize and failed-transfer behavior remain separate. A mismatch remains spec-only.",
+        "ja": "独自の非可換変換と2つのmemory値要素で、実際のprotected helperの反復を検査する。期待値は規格の伝播／順序契約と独自算術から導き、検査系がhelperの失った配列を書き戻すことはない。物理HDL、4値、callback無効化、resize、転送失敗は別に残す。差分はspec-onlyに保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_user_backdoor_decode_chain_propagates_all_value_elements",
+          "role": "direct",
+          "expected_observations": [
+            "UT: codec_trace R|PA|PB|X|DB|DA|QA|QB|r|"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-PIPELINE-DECODE-FINAL-CLEAR-DATA",
+      "clause": "18.11.2.8",
+      "statement": {
+        "en": "Decoded data reaches the post-read methods and returned read values as clear text.",
+        "ja": "decode済みdataはclear textとしてpost-read methodとread戻り値へ届く。"
+      },
+      "conditions": {
+        "en": "A single decoder XORs stored encoded values 0x0c/0x3a by 0x1f.",
+        "ja": "単一decoderが記憶したencoded値0x0c／0x3aを0x1fでXORする。"
+      },
+      "expected": {
+        "en": "Post callback/hook and the caller see clear values 0x13/0x25.",
+        "ja": "post callback／hookと呼出し側はclear値0x13／0x25を観測する。"
+      },
+      "limitations": {
+        "en": "Original noncommuting transforms and two memory value elements exercise the actual protected helper iteration. Expected values come from the standard propagation/order contract and original arithmetic; the test never writes back a lost helper array. Physical HDL, four-state values, callback disabling, resize and failed-transfer behavior remain separate. A mismatch remains spec-only.",
+        "ja": "独自の非可換変換と2つのmemory値要素で、実際のprotected helperの反復を検査する。期待値は規格の伝播／順序契約と独自算術から導き、検査系がhelperの失った配列を書き戻すことはない。物理HDL、4値、callback無効化、resize、転送失敗は別に残す。差分はspec-onlyに保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_user_backdoor_decode_single_propagates_all_value_elements",
+          "role": "direct",
+          "expected_observations": [
+            "UT: codec_state identity 1 clear 1 chain 1 final 1",
+            "UT: codec_result status 1 first 13 second 25"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-PIPELINE-DECODE-BETWEEN-CALLBACKS",
+      "clause": "18.11.2.8",
+      "statement": {
+        "en": "Each decoder receives the result of the preceding invocation in reverse order.",
+        "ja": "各decoderは逆順で先行する呼出しの結果を受け取る。"
+      },
+      "conditions": {
+        "en": "Decode 0x0d/0x3b by subtracting one and then XORing by 0x1f.",
+        "ja": "0x0d／0x3bから1を減らし、次に0x1fでXORしてdecodeする。"
+      },
+      "expected": {
+        "en": "The XOR decoder receives 0x0c/0x3a and the final caller receives 0x13/0x25.",
+        "ja": "XOR decoderは0x0c／0x3aを受け取り、最後の呼出し側は0x13／0x25を受け取る。"
+      },
+      "limitations": {
+        "en": "Original noncommuting transforms and two memory value elements exercise the actual protected helper iteration. Expected values come from the standard propagation/order contract and original arithmetic; the test never writes back a lost helper array. Physical HDL, four-state values, callback disabling, resize and failed-transfer behavior remain separate. A mismatch remains spec-only.",
+        "ja": "独自の非可換変換と2つのmemory値要素で、実際のprotected helperの反復を検査する。期待値は規格の伝播／順序契約と独自算術から導き、検査系がhelperの失った配列を書き戻すことはない。物理HDL、4値、callback無効化、resize、転送失敗は別に残す。差分はspec-onlyに保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_user_backdoor_decode_chain_propagates_all_value_elements",
+          "role": "direct",
+          "expected_observations": [
+            "UT: codec_state identity 1 clear 1 chain 1 final 1",
+            "UT: codec_result status 1 first 13 second 25"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-PIPELINE-TASK-READ-PRE-BOUNDARY",
+      "clause": "19.5.2.2",
+      "statement": {
+        "en": "A user task-read extension calls the protected pre-read helper first.",
+        "ja": "user task-read拡張は最初にprotected pre-read helperを呼ぶ。"
+      },
+      "conditions": {
+        "en": "Call an original delayed read override with success and failure cases.",
+        "ja": "成功・失敗の条件で独自の遅延read overrideを呼ぶ。"
+      },
+      "expected": {
+        "en": "The pre hook/callback execute before the delayed peek on the exact supplied descriptor.",
+        "ja": "正確な指定descriptorで、遅延peekより前にpre hook／callbackを実行する。"
+      },
+      "limitations": {
+        "en": "An original task-read extension calls the protected helpers as its first/last statements and consumes two time units. This checks selected dispatch, descriptor identity, callback order and status; physical HDL, failed-read data, arbitrary task cancellation and encode/decode transformations remain separate.",
+        "ja": "独自task-read拡張は最初／最後の文でprotected helperを呼び、2時間単位を消費する。選択した委譲、descriptor同一性、callback順序、statusを検査し、物理HDL、失敗read data、任意task中止、encode／decode変換は別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_user_backdoor_task_read_success_uses_first_and_last_protected_helpers",
+          "role": "direct",
+          "expected_observations": [
+            "UT: task_read_delay 1",
+            "UT: read_trace RCTcr identity 1 pre 1 body 1 post 1",
+            "UT: read_success status 1 value b5 reads 1"
+          ]
+        },
+        {
+          "test": "u19/test_user_backdoor_task_read_failure_uses_first_and_last_protected_helpers",
+          "role": "direct",
+          "expected_observations": [
+            "UT: task_read_delay 1",
+            "UT: read_trace RCTcr identity 1 pre 1 body 1 post 1",
+            "UT: read_failure status 1 reads 1 callbacks 1 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-PIPELINE-TASK-READ-POST-BOUNDARY",
+      "clause": "19.5.2.3",
+      "statement": {
+        "en": "A user task-read extension calls the protected post-read helper last.",
+        "ja": "user task-read拡張は最後にprotected post-read helperを呼ぶ。"
+      },
+      "conditions": {
+        "en": "Call an original delayed read override with success and failure cases.",
+        "ja": "成功・失敗の条件で独自の遅延read overrideを呼ぶ。"
+      },
+      "expected": {
+        "en": "The delayed body is followed by post callback and user post hook before returning its selected status.",
+        "ja": "遅延bodyの後にpost callback、user post hookが続き、選択したstatusを返す。"
+      },
+      "limitations": {
+        "en": "An original task-read extension calls the protected helpers as its first/last statements and consumes two time units. This checks selected dispatch, descriptor identity, callback order and status; physical HDL, failed-read data, arbitrary task cancellation and encode/decode transformations remain separate.",
+        "ja": "独自task-read拡張は最初／最後の文でprotected helperを呼び、2時間単位を消費する。選択した委譲、descriptor同一性、callback順序、statusを検査し、物理HDL、失敗read data、任意task中止、encode／decode変換は別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_user_backdoor_task_read_success_uses_first_and_last_protected_helpers",
+          "role": "direct",
+          "expected_observations": [
+            "UT: task_read_delay 1",
+            "UT: read_trace RCTcr identity 1 pre 1 body 1 post 1",
+            "UT: read_success status 1 value b5 reads 1"
+          ]
+        },
+        {
+          "test": "u19/test_user_backdoor_task_read_failure_uses_first_and_last_protected_helpers",
+          "role": "direct",
+          "expected_observations": [
+            "UT: task_read_delay 1",
+            "UT: read_trace RCTcr identity 1 pre 1 body 1 post 1",
+            "UT: read_failure status 1 reads 1 callbacks 1 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-PIPELINE-TASK-READ-VIRTUAL-DISPATCH",
+      "clause": "19.5.2.7",
+      "statement": {
+        "en": "A task-based read override can supply a delayed backdoor read through a base handle.",
+        "ja": "task-based read overrideは基底handleから遅延backdoor readを提供できる。"
+      },
+      "conditions": {
+        "en": "Call an original delayed read override with success and failure cases.",
+        "ja": "成功・失敗の条件で独自の遅延read overrideを呼ぶ。"
+      },
+      "expected": {
+        "en": "Both selected calls consume the original two-unit delay and preserve success data or failure status.",
+        "ja": "選択した両呼出しは独自の2単位遅延を消費し、成功dataまたは失敗statusを保持する。"
+      },
+      "limitations": {
+        "en": "An original task-read extension calls the protected helpers as its first/last statements and consumes two time units. This checks selected dispatch, descriptor identity, callback order and status; physical HDL, failed-read data, arbitrary task cancellation and encode/decode transformations remain separate.",
+        "ja": "独自task-read拡張は最初／最後の文でprotected helperを呼び、2時間単位を消費する。選択した委譲、descriptor同一性、callback順序、statusを検査し、物理HDL、失敗read data、任意task中止、encode／decode変換は別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_user_backdoor_task_read_success_uses_first_and_last_protected_helpers",
+          "role": "direct",
+          "expected_observations": [
+            "UT: task_read_delay 1",
+            "UT: read_trace RCTcr identity 1 pre 1 body 1 post 1",
+            "UT: read_success status 1 value b5 reads 1"
+          ]
+        },
+        {
+          "test": "u19/test_user_backdoor_task_read_failure_uses_first_and_last_protected_helpers",
+          "role": "direct",
+          "expected_observations": [
+            "UT: task_read_delay 1",
+            "UT: read_trace RCTcr identity 1 pre 1 body 1 post 1",
+            "UT: read_failure status 1 reads 1 callbacks 1 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-PIPELINE-SEQUENCE-CONSTRUCTOR-NAMES",
+      "clause": "19.4.1.4.1",
+      "statement": {
+        "en": "The register-sequence constructor provides its declared optional name.",
+        "ja": "register-sequence constructorは宣言された省略可能名を提供する。"
+      },
+      "conditions": {
+        "en": "Construct omitted, selected and explicitly empty names.",
+        "ja": "名前省略、指定名、明示的な空名で生成する。"
+      },
+      "expected": {
+        "en": "Names match the declared default, selected name and empty string.",
+        "ja": "名前は宣言の既定値、指定名、空文字列と一致する。"
+      },
+      "limitations": {
+        "en": "Positive declared type/name compatibility using original concrete subtypes only; invalid BASE rejection, arbitrary inheritance, physical transport and default translation execution are not inferred.",
+        "ja": "独自の具象subtypeで宣言された型／名前の正の互換性のみ。不正BASEの拒否、任意継承、物理転送、既定translation実行は推論しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_sequence_constructor_preserves_default_selected_and_empty_names",
+          "role": "direct",
+          "expected_observations": [
+            "UT: reg_sequence_names omitted 1 named 1 empty 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-PIPELINE-SEQUENCE-DEFAULT-BASE",
+      "clause": "19.4.1.1",
+      "statement": {
+        "en": "The omitted BASE selects a sequence of register items.",
+        "ja": "BASE省略時はregister itemのsequenceを選ぶ。"
+      },
+      "conditions": {
+        "en": "Assign an original default specialization to the exact uvm_sequence of uvm_reg_item type.",
+        "ja": "独自の既定specializationを、uvm_reg_itemの正確なuvm_sequence型へ代入する。"
+      },
+      "expected": {
+        "en": "The exact base view denotes the same sequence.",
+        "ja": "正確な基底viewは同じsequenceを指す。"
+      },
+      "limitations": {
+        "en": "Positive declared type/name compatibility using original concrete subtypes only; invalid BASE rejection, arbitrary inheritance, physical transport and default translation execution are not inferred.",
+        "ja": "独自の具象subtypeで宣言された型／名前の正の互換性のみ。不正BASEの拒否、任意継承、物理転送、既定translation実行は推論しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_sequence_default_and_promoted_base_types_preserve_sequence_identity",
+          "role": "direct",
+          "expected_observations": [
+            "UT: reg_sequence_types default 1 custom 1 typed 1 marker 47"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-PIPELINE-SEQUENCE-PROMOTED-BASE",
+      "clause": "19.4.1.2",
+      "statement": {
+        "en": "An original register sequence can promote BASE and extend a supplied user base sequence.",
+        "ja": "独自register sequenceはBASEを引き上げ、指定user base sequenceから拡張できる。"
+      },
+      "conditions": {
+        "en": "Supply an original packet-typed sequence base with an inherited marker.",
+        "ja": "継承markerを持つ独自packet型sequence基底を指定する。"
+      },
+      "expected": {
+        "en": "Exact custom and packet-sequence views retain identity and the inherited marker.",
+        "ja": "正確なcustom／packet-sequence viewは同一性と継承markerを保持する。"
+      },
+      "limitations": {
+        "en": "Positive declared type/name compatibility using original concrete subtypes only; invalid BASE rejection, arbitrary inheritance, physical transport and default translation execution are not inferred.",
+        "ja": "独自の具象subtypeで宣言された型／名前の正の互換性のみ。不正BASEの拒否、任意継承、物理転送、既定translation実行は推論しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_sequence_default_and_promoted_base_types_preserve_sequence_identity",
+          "role": "direct",
+          "expected_observations": [
+            "UT: reg_sequence_types default 1 custom 1 typed 1 marker 47"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-PIPELINE-FRONTDOOR-CONSTRUCTOR-NAMES",
+      "clause": "19.4.2.3",
+      "statement": {
+        "en": "The user-frontdoor constructor accepts its optional empty-default name.",
+        "ja": "user-frontdoor constructorは空を既定値とする省略可能名を受け付ける。"
+      },
+      "conditions": {
+        "en": "Concrete subtypes select omitted, named and explicitly empty constructor cases.",
+        "ja": "具象subtypeで名前省略、指定名、明示的な空名を選ぶ。"
+      },
+      "expected": {
+        "en": "The observed names are empty, selected and empty.",
+        "ja": "観測した名前は空、指定値、空である。"
+      },
+      "limitations": {
+        "en": "Positive declared type/name compatibility using original concrete subtypes only; invalid BASE rejection, arbitrary inheritance, physical transport and default translation execution are not inferred.",
+        "ja": "独自の具象subtypeで宣言された型／名前の正の互換性のみ。不正BASEの拒否、任意継承、物理転送、既定translation実行は推論しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_frontdoor_constructor_and_exact_sequence_base_preserve_identity",
+          "role": "direct",
+          "expected_observations": [
+            "UT: frontdoor_names omitted 1 named 1 empty 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-PIPELINE-FRONTDOOR-EXACT-BASE",
+      "clause": "19.4.2.1",
+      "statement": {
+        "en": "A user frontdoor extends the declared register-sequence specialization over a sequence of sequence items.",
+        "ja": "user frontdoorはsequence itemのsequenceを基底とする、宣言されたregister-sequence specializationから拡張する。"
+      },
+      "conditions": {
+        "en": "Assign a concrete frontdoor to the exact register-sequence and item-sequence bases.",
+        "ja": "具象frontdoorを正確なregister-sequence／item-sequence基底へ代入する。"
+      },
+      "expected": {
+        "en": "Both base views preserve the frontdoor identity.",
+        "ja": "両基底viewはfrontdoorの同一性を保持する。"
+      },
+      "limitations": {
+        "en": "Positive declared type/name compatibility using original concrete subtypes only; invalid BASE rejection, arbitrary inheritance, physical transport and default translation execution are not inferred.",
+        "ja": "独自の具象subtypeで宣言された型／名前の正の互換性のみ。不正BASEの拒否、任意継承、物理転送、既定translation実行は推論しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_frontdoor_constructor_and_exact_sequence_base_preserve_identity",
+          "role": "direct",
+          "expected_observations": [
+            "UT: frontdoor_types exact 1 item 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-PIPELINE-TEST-MODEL-SELECTION",
+      "clause": "19.4.1.3.1",
+      "statement": {
+        "en": "The model property identifies the block on which a user-defined test sequence operates.",
+        "ja": "model propertyはuser-defined test sequenceが操作するblockを示す。"
+      },
+      "conditions": {
+        "en": "Run the same original body on two independently supplied blocks.",
+        "ja": "同じ独自bodyを、独立して指定した2 blockで実行する。"
+      },
+      "expected": {
+        "en": "Real write/read convenience operations affect only the selected block storage each time.",
+        "ja": "実際のwrite／read便利操作は各回、選択blockの記憶域だけへ作用する。"
+      },
+      "limitations": {
+        "en": "The original user body selects its target through model and delegates to actual convenience APIs, independent user-backed registers and maps. Model selection itself is original body logic; no automatic discovery, physical HDL, translation default body or change during active execution is asserted.",
+        "ja": "独自user bodyがmodelから対象を選び、実際の便利API、独立したuser-backed registerとmapへ委譲する。model選択自体は独自bodyのlogicで、自動探索、物理HDL、translationの既定body、active実行中の変更は主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_virtual_sequence_model_selects_the_accessed_block_without_a_sequencer",
+          "role": "direct",
+          "expected_observations": [
+            "UT: model_first left 13 right 0 ok 1",
+            "UT: model_second left 13 right 27 ok 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-PIPELINE-DEFAULT-VIRTUAL-BASE",
+      "clause": "19.4.1.2",
+      "statement": {
+        "en": "The default BASE is adequate for a virtual user test sequence without a sequencer.",
+        "ja": "既定BASEはsequencerなしのvirtual user test sequenceに利用できる。"
+      },
+      "conditions": {
+        "en": "Start the same default-BASE subtype with null sequencer on two selected models.",
+        "ja": "同じ既定BASE subtypeを、null sequencerで選択した2 modelへstartする。"
+      },
+      "expected": {
+        "en": "Both register write/read bodies complete with correct values and null sequencer context.",
+        "ja": "両register write／read bodyは正しい値とnull sequencer contextで完了する。"
+      },
+      "limitations": {
+        "en": "The original user body selects its target through model and delegates to actual convenience APIs, independent user-backed registers and maps. Model selection itself is original body logic; no automatic discovery, physical HDL, translation default body or change during active execution is asserted.",
+        "ja": "独自user bodyがmodelから対象を選び、実際の便利API、独立したuser-backed registerとmapへ委譲する。model選択自体は独自bodyのlogicで、自動探索、物理HDL、translationの既定body、active実行中の変更は主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_virtual_sequence_model_selects_the_accessed_block_without_a_sequencer",
+          "role": "direct",
+          "expected_observations": [
+            "UT: model_first left 13 right 0 ok 1",
+            "UT: model_second left 13 right 27 ok 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-PIPELINE-BUS-COMPATIBLE-BASE",
+      "clause": "19.4.1.2",
+      "statement": {
+        "en": "A translation sequence uses a BASE compatible with its bus sequencer item type.",
+        "ja": "translation sequenceはbus sequencerのitem型に互換なBASEを使う。"
+      },
+      "conditions": {
+        "en": "Bind a register sequence over a packet sequence to the actual packet bus sequencer.",
+        "ja": "packet sequenceを基底とするregister sequenceを、実際のpacket bus sequencerへbindする。"
+      },
+      "expected": {
+        "en": "The delayed driver receives correctly routed packet transfers and execution completes.",
+        "ja": "遅延driverは正しくrouteしたpacket転送を受け取り、実行が完了する。"
+      },
+      "limitations": {
+        "en": "Actual abstract-item and packet sequencers, original XOR adapter and delayed original driver/storage are used. The layered body is killed only after both producers complete. This does not establish physical traffic, arbitrary widths/endianness, scheduling fairness, separate responses, mirror prediction, parent_sequence cloning or required kill post-hooks.",
+        "ja": "実際のabstract-item／packet sequencer、独自XOR adapter、遅延する独自driver／記憶域を使う。layered bodyは両producer完了後にcleanup目的でkillする。物理traffic、任意幅／endianness、schedule公平性、別response、mirror予測、parent_sequence複製、必要なkill post-hookは認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_translation_sequence_direct_executes_real_bus_transactions",
+          "role": "direct",
+          "expected_observations": [
+            "UT: translation_bus writes 1 reads 1 stored 13 conversions 2 routed 1"
+          ]
+        },
+        {
+          "test": "u19/test_reg_translation_sequence_retry_executes_real_bus_transactions",
+          "role": "direct",
+          "expected_observations": [
+            "UT: translation_bus writes 2 reads 2 stored 27 conversions 4 routed 1"
+          ]
+        },
+        {
+          "test": "u19/test_reg_translation_sequence_layered_executes_real_bus_transactions",
+          "role": "direct",
+          "expected_observations": [
+            "UT: translation_bus writes 1 reads 1 stored 13 conversions 2 routed 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-PIPELINE-CONFIGURED-TRANSLATION-ADAPTER",
+      "clause": "19.4.1.3.2",
+      "statement": {
+        "en": "The translation sequence adapter converts abstract register operations into the selected physical item protocol.",
+        "ja": "translation sequenceのadapterは、抽象register operationを選択した物理item protocolへ変換する。"
+      },
+      "conditions": {
+        "en": "Use a configured XOR converter for direct and upstream-driven register transactions.",
+        "ja": "直接／upstream駆動のregister transactionで、設定したXOR converterを使う。"
+      },
+      "expected": {
+        "en": "The converter runs once per selected beat and the original driver stores/returns the decoded values.",
+        "ja": "converterは選択したbeatごとに1回実行され、独自driverは復号値を格納／返却する。"
+      },
+      "limitations": {
+        "en": "Actual abstract-item and packet sequencers, original XOR adapter and delayed original driver/storage are used. The layered body is killed only after both producers complete. This does not establish physical traffic, arbitrary widths/endianness, scheduling fairness, separate responses, mirror prediction, parent_sequence cloning or required kill post-hooks.",
+        "ja": "実際のabstract-item／packet sequencer、独自XOR adapter、遅延する独自driver／記憶域を使う。layered bodyは両producer完了後にcleanup目的でkillする。物理traffic、任意幅／endianness、schedule公平性、別response、mirror予測、parent_sequence複製、必要なkill post-hookは認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_translation_sequence_direct_executes_real_bus_transactions",
+          "role": "direct",
+          "expected_observations": [
+            "UT: translation_result write 1 read 1 value 13",
+            "UT: translation_bus writes 1 reads 1 stored 13 conversions 2 routed 1"
+          ]
+        },
+        {
+          "test": "u19/test_reg_translation_sequence_layered_executes_real_bus_transactions",
+          "role": "direct",
+          "expected_observations": [
+            "UT: translation_result write 1 read 1 value 13",
+            "UT: translation_bus writes 1 reads 1 stored 13 conversions 2 routed 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-PIPELINE-CONFIGURED-UPSTREAM-SEQUENCER",
+      "clause": "19.4.1.3.3",
+      "statement": {
+        "en": "reg_seqr identifies the upstream register sequencer from which translation pulls abstract items.",
+        "ja": "reg_seqrは、translationが抽象itemを取り出すupstream register sequencerを示す。"
+      },
+      "conditions": {
+        "en": "A real producer performs write then read item handshakes on the configured upstream sequencer.",
+        "ja": "実際のproducerが、設定upstream sequencerでwrite、readのitem handshakeを行う。"
+      },
+      "expected": {
+        "en": "Both abstract operations complete via downstream bus traffic with the selected upstream handle.",
+        "ja": "選択upstream handleを使い、両抽象操作は下流bus trafficを経て完了する。"
+      },
+      "limitations": {
+        "en": "Actual abstract-item and packet sequencers, original XOR adapter and delayed original driver/storage are used. The layered body is killed only after both producers complete. This does not establish physical traffic, arbitrary widths/endianness, scheduling fairness, separate responses, mirror prediction, parent_sequence cloning or required kill post-hooks.",
+        "ja": "実際のabstract-item／packet sequencer、独自XOR adapter、遅延する独自driver／記憶域を使う。layered bodyは両producer完了後にcleanup目的でkillする。物理traffic、任意幅／endianness、schedule公平性、別response、mirror予測、parent_sequence複製、必要なkill post-hookは認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_translation_sequence_layered_executes_real_bus_transactions",
+          "role": "direct",
+          "expected_observations": [
+            "UT: translation_layered stopped 1 upstream 1",
+            "UT: translation_result write 1 read 1 value 13",
+            "UT: translation_bus writes 1 reads 1 stored 13 conversions 2 routed 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-PIPELINE-DEFAULT-BODY-REPEATED-PULL",
+      "clause": "19.4.1.4.2",
+      "statement": {
+        "en": "The default translation body repeatedly retrieves upstream register items and executes them.",
+        "ja": "既定translation bodyはupstream register itemを繰り返し取得・実行する。"
+      },
+      "conditions": {
+        "en": "Run the actual default body with configured upstream and adapter, submitting a write then a read.",
+        "ja": "upstreamとadapterを設定して実際の既定bodyを実行し、write、readを投入する。"
+      },
+      "expected": {
+        "en": "Both upstream item handshakes return and two actual bus operations complete with matching status/read data.",
+        "ja": "両upstream item handshakeが戻り、2つの実bus操作は一致するstatus／read dataで完了する。"
+      },
+      "limitations": {
+        "en": "Actual abstract-item and packet sequencers, original XOR adapter and delayed original driver/storage are used. The layered body is killed only after both producers complete. This does not establish physical traffic, arbitrary widths/endianness, scheduling fairness, separate responses, mirror prediction, parent_sequence cloning or required kill post-hooks.",
+        "ja": "実際のabstract-item／packet sequencer、独自XOR adapter、遅延する独自driver／記憶域を使う。layered bodyは両producer完了後にcleanup目的でkillする。物理traffic、任意幅／endianness、schedule公平性、別response、mirror予測、parent_sequence複製、必要なkill post-hookは認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_translation_sequence_layered_executes_real_bus_transactions",
+          "role": "direct",
+          "expected_observations": [
+            "UT: translation_result write 1 read 1 value 13",
+            "UT: translation_bus writes 1 reads 1 stored 13 conversions 2 routed 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-PIPELINE-DIRECT-REGISTER-ITEM-EXECUTION",
+      "clause": "19.4.1.4.3",
+      "statement": {
+        "en": "do_reg_item executes the supplied abstract operation through the sequence bus sequencer using its adapter.",
+        "ja": "do_reg_itemはadapterを使い、sequenceのbus sequencerで指定抽象操作を実行する。"
+      },
+      "conditions": {
+        "en": "An original finite body directly submits one register write and one read.",
+        "ja": "独自の有限bodyがregister writeとreadを直接1回ずつ投入する。"
+      },
+      "expected": {
+        "en": "The write changes original driver storage and the read returns that value with successful status.",
+        "ja": "writeは独自driver記憶域を変更し、readはその値と成功statusを返す。"
+      },
+      "limitations": {
+        "en": "Actual abstract-item and packet sequencers, original XOR adapter and delayed original driver/storage are used. The layered body is killed only after both producers complete. This does not establish physical traffic, arbitrary widths/endianness, scheduling fairness, separate responses, mirror prediction, parent_sequence cloning or required kill post-hooks.",
+        "ja": "実際のabstract-item／packet sequencer、独自XOR adapter、遅延する独自driver／記憶域を使う。layered bodyは両producer完了後にcleanup目的でkillする。物理traffic、任意幅／endianness、schedule公平性、別response、mirror予測、parent_sequence複製、必要なkill post-hookは認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_translation_sequence_direct_executes_real_bus_transactions",
+          "role": "direct",
+          "expected_observations": [
+            "UT: translation_result write 1 read 1 value 13",
+            "UT: translation_bus writes 1 reads 1 stored 13 conversions 2 routed 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-PIPELINE-DIRECT-FAILURE-AND-RETRY",
+      "clause": "19.4.1.4.3",
+      "statement": {
+        "en": "Translated operation results propagate back to supplied register items across a failed write and later retry.",
+        "ja": "変換操作の結果は、write失敗と後の再試行を通じて指定register itemへ戻る。"
+      },
+      "conditions": {
+        "en": "Fail the first original driver write, then perform a read, successful retry write and read.",
+        "ja": "独自driverの最初のwriteを失敗させ、read、成功する再試行write、readを行う。"
+      },
+      "expected": {
+        "en": "The failed status is preserved, the first read sees old storage and the second sees the successful retry value.",
+        "ja": "失敗statusを保持し、最初のreadは元記憶域を、次は再試行成功値を観測する。"
+      },
+      "limitations": {
+        "en": "Actual abstract-item and packet sequencers, original XOR adapter and delayed original driver/storage are used. The layered body is killed only after both producers complete. This does not establish physical traffic, arbitrary widths/endianness, scheduling fairness, separate responses, mirror prediction, parent_sequence cloning or required kill post-hooks.",
+        "ja": "実際のabstract-item／packet sequencer、独自XOR adapter、遅延する独自driver／記憶域を使う。layered bodyは両producer完了後にcleanup目的でkillする。物理traffic、任意幅／endianness、schedule公平性、別response、mirror予測、parent_sequence複製、必要なkill post-hookは認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_translation_sequence_retry_executes_real_bus_transactions",
+          "role": "direct",
+          "expected_observations": [
+            "UT: translation_retry failed 1 first_read 55 retry 1 second_read 27",
+            "UT: translation_bus writes 2 reads 2 stored 27 conversions 4 routed 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-PIPELINE-TEST-SUPER-BODY-WARNING-BLOCK",
+      "clause": "19.4.1.4.2",
+      "statement": {
+        "en": "A user test sequence calling the base body without upstream emits a warning and does not return.",
+        "ja": "upstreamなしで基底bodyを呼ぶuser test sequenceは、warningを報告して戻らない。"
+      },
+      "conditions": {
+        "en": "An original test-body override calls super.body on a compatible bound sequencer without reg_seqr.",
+        "ja": "独自test-body overrideが、互換なbound sequencerでreg_seqrなしにsuper.bodyを呼ぶ。"
+      },
+      "expected": {
+        "en": "After a positive delay one warning occurred, start has not returned and the sequence remains in BODY; kill is cleanup only.",
+        "ja": "正の遅延後にwarningが1回発生し、startは戻らずsequenceはBODYに留まる。killはcleanupのみ。"
+      },
+      "limitations": {
+        "en": "Actual abstract-item and packet sequencers, original XOR adapter and delayed original driver/storage are used. The layered body is killed only after both producers complete. This does not establish physical traffic, arbitrary widths/endianness, scheduling fairness, separate responses, mirror prediction, parent_sequence cloning or required kill post-hooks.",
+        "ja": "実際のabstract-item／packet sequencer、独自XOR adapter、遅延する独自driver／記憶域を使う。layered bodyは両producer完了後にcleanup目的でkillする。物理traffic、任意幅／endianness、schedule公平性、別response、mirror予測、parent_sequence複製、必要なkill post-hookは認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_test_sequence_super_body_warns_and_stays_blocked_without_upstream",
+          "role": "direct",
+          "expected_observations": [
+            "UT: super_body warning 1 returned 0 active 1",
+            "UT: super_body_cleanup stopped 1 returned 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-PIPELINE-HDL-PARAMETER-MACRO-DEFAULT",
+      "clause": "19.6.1",
+      "statement": {
+        "en": "The HDL maximum-width parameter defaults to the selected macro value.",
+        "ja": "HDL最大幅parameterは選択したmacro値を既定値にする。"
+      },
+      "conditions": {
+        "en": "Inspect the public parameter with omitted and explicitly configured macros under no-DPI execution.",
+        "ja": "no-DPI実行で、macro省略と明示設定の公開parameterを調べる。"
+      },
+      "expected": {
+        "en": "The parameter equals its macro in omitted configuration and an explicit 256 configuration.",
+        "ja": "parameterは省略設定と明示256設定でmacroと一致する。"
+      },
+      "limitations": {
+        "en": "Parameter-only checks. The implementation macro numeric default, real HDL accesses, force/release behavior and four-state data remain unconstrained; the separate backend ABI is unchanged.",
+        "ja": "parameterのみの検査。実装macroの数値既定値、実HDL access、force／release動作、4値dataは固定せず、別backendのABIは未変更。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_hdl_max_width_parameter_matches_the_default_macro_value",
+          "role": "direct",
+          "expected_observations": [
+            "UT: hdl_width_parameter matches_macro 1 integer_bits 32"
+          ]
+        },
+        {
+          "test": "u19/test_hdl_max_width_parameter_matches_the_configured_macro_value",
+          "role": "direct",
+          "expected_observations": [
+            "UT: hdl_width_parameter matches_macro 1 integer_bits 32"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-PIPELINE-HDL-PARAMETER-INTEGER-TYPE",
+      "clause": "19.6.1",
+      "statement": {
+        "en": "The HDL maximum-width parameter has the declared integer type.",
+        "ja": "HDL最大幅parameterは宣言されたinteger型を持つ。"
+      },
+      "conditions": {
+        "en": "Inspect the public parameter with omitted and explicitly configured macros under no-DPI execution.",
+        "ja": "no-DPI実行で、macro省略と明示設定の公開parameterを調べる。"
+      },
+      "expected": {
+        "en": "Both selected configurations expose the declared 32-bit integer parameter.",
+        "ja": "選択した両設定は、宣言された32-bit integer parameterを示す。"
+      },
+      "limitations": {
+        "en": "Parameter-only checks. The implementation macro numeric default, real HDL accesses, force/release behavior and four-state data remain unconstrained; the separate backend ABI is unchanged.",
+        "ja": "parameterのみの検査。実装macroの数値既定値、実HDL access、force／release動作、4値dataは固定せず、別backendのABIは未変更。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_hdl_max_width_parameter_matches_the_default_macro_value",
+          "role": "direct",
+          "expected_observations": [
+            "UT: hdl_width_parameter matches_macro 1 integer_bits 32"
+          ]
+        },
+        {
+          "test": "u19/test_hdl_max_width_parameter_matches_the_configured_macro_value",
+          "role": "direct",
+          "expected_observations": [
+            "UT: hdl_width_parameter matches_macro 1 integer_bits 32"
+          ]
+        }
+      ]
     }
   ]
 }

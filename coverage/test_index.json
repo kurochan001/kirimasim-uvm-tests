@@ -4030,6 +4030,26 @@
       "primary_clause": "18.3.4.2",
       "inputs_sha256": "ef648b4212da939faa0f21f35682d378aaa3c7aa87cf04f0cd13a2b6fbe4a788"
     },
+    "u18/test_register_callback_default_encode_and_decode_leave_arrays_unchanged": {
+      "primary_clause": "18.11.2.7",
+      "inputs_sha256": "3d88fef85bc8dae9b315f37cf2ec0c74e919de0495226347a597cb5e04805a9b"
+    },
+    "u18/test_user_backdoor_decode_chain_propagates_all_value_elements": {
+      "primary_clause": "18.11.2.8",
+      "inputs_sha256": "431d87dfd2c93011ce3cd39f5ddb45702861e3c00f76a55668991ebace64dde2"
+    },
+    "u18/test_user_backdoor_decode_single_propagates_all_value_elements": {
+      "primary_clause": "18.11.2.8",
+      "inputs_sha256": "1a2990b7358a24b0e838a7f1f62c9026bacac4877eb198ca81885cb77201a44e"
+    },
+    "u18/test_user_backdoor_encode_chain_propagates_all_value_elements": {
+      "primary_clause": "18.11.2.7",
+      "inputs_sha256": "624190c729175b6a638a8fe7295c5918945f6cde64bb0c87f80792f5cf280da7"
+    },
+    "u18/test_user_backdoor_encode_single_propagates_all_value_elements": {
+      "primary_clause": "18.11.2.7",
+      "inputs_sha256": "0849f3670b1b0e655dd18d7d4171b61adf2df7e57d6e87d029892b9b2c48a1c8"
+    },
     "u18/test_vreg_allocate_can_move_to_another_memory_in_its_parent_block": {
       "primary_clause": "18.9.1.1.4",
       "inputs_sha256": "bc364299d083691ae5553b35dbb882456fa75562530732624af20bb5833df104"
@@ -4214,6 +4234,14 @@
       "primary_clause": "19.6.2.4",
       "inputs_sha256": "593e38257fd868b482ead89498239cd053ca395b5cbfea5de071b275a14df27e"
     },
+    "u19/test_hdl_max_width_parameter_matches_the_configured_macro_value": {
+      "primary_clause": "19.6.1",
+      "inputs_sha256": "02a6ac49375020a7a72d506ca3261cbc13fbebcb6b897a249944b05c8e8a61da"
+    },
+    "u19/test_hdl_max_width_parameter_matches_the_default_macro_value": {
+      "primary_clause": "19.6.1",
+      "inputs_sha256": "061ebf61d5abf565fec25074037dea8d459cc36e42ac3ed8b19e0cd3fd8603ac"
+    },
     "u19/test_hdl_read_returns_actual_wide_storage_without_modifying_either_variable": {
       "primary_clause": "19.6.2.7",
       "inputs_sha256": "833f7e46cc00d7b85e3249167a77182c5e6909ce68f4e9c833af6229729f44fe"
@@ -4265,6 +4293,10 @@
     "u19/test_reg_custom_frontdoor_write_consumes_operation_value": {
       "primary_clause": "19.4.2.2.1",
       "inputs_sha256": "8ee5eef8ff535c7c6282d79719d72b757aaca32acceda0749409958d96fbff6e"
+    },
+    "u19/test_reg_frontdoor_constructor_and_exact_sequence_base_preserve_identity": {
+      "primary_clause": "19.4.2.3",
+      "inputs_sha256": "c8a40a62557001f8d364d8674507f37b11a65285c3077898214f0283557187f4"
     },
     "u19/test_reg_item_access_metadata_overwrites_are_independent_of_peer_and_value": {
       "primary_clause": "19.1.1.2.14",
@@ -4370,6 +4402,14 @@
       "primary_clause": "19.3.2.1",
       "inputs_sha256": "feafcfdab2286624d6a1081f5c53a6a0651c22ff59a941611f115df4e6ceee41"
     },
+    "u19/test_reg_sequence_constructor_preserves_default_selected_and_empty_names": {
+      "primary_clause": "19.4.1.4.1",
+      "inputs_sha256": "0cde3d6c6d0ddd1a0f258ac015c7f841f2178b3ce500b7f8d3f7336dac496b52"
+    },
+    "u19/test_reg_sequence_default_and_promoted_base_types_preserve_sequence_identity": {
+      "primary_clause": "19.4.1.1",
+      "inputs_sha256": "6ba8afbc8833fd38463529a95c4f51848713339d9770e977858ba3ea29c37b2a"
+    },
     "u19/test_reg_sequence_memory_accessors_keep_concurrent_parent_and_backdoor_contexts_independent": {
       "primary_clause": "19.4.1.5.10",
       "inputs_sha256": "ac24809bf9106e22d72cf60f46c6dcd8e80c1239180bc159ea92e4b75fc875e7"
@@ -4434,6 +4474,10 @@
       "primary_clause": "19.4.1.5.1",
       "inputs_sha256": "a5e295c0350d5ce266bde3d36c6329a7af7d0efa5bbd64e7ae8181310683a0b9"
     },
+    "u19/test_reg_test_sequence_super_body_warns_and_stays_blocked_without_upstream": {
+      "primary_clause": "19.4.1.4.2",
+      "inputs_sha256": "76aeedf748041633b30c6d48b360ba8006e2e40926d8211cea34826c7224fb46"
+    },
     "u19/test_reg_tlm_adapter_all_enabled_and_disabled_byte_masks_are_converted": {
       "primary_clause": "19.2.2.2.1",
       "inputs_sha256": "61a1ce60aac30f2bbe92f71fbf0959b8c0c258c928edd693e15d13e6e84ae6e4"
@@ -4494,6 +4538,18 @@
       "primary_clause": "19.2.2.2.2",
       "inputs_sha256": "d4d20fc8118cedf39f4d27f119fa14d1ce904e7407048a9d7ec8dd1907680645"
     },
+    "u19/test_reg_translation_sequence_direct_executes_real_bus_transactions": {
+      "primary_clause": "19.4.1.4.3",
+      "inputs_sha256": "4cc54ed49a37baf9a4ba616c17d1f72198093a59a605f70546d4636d265652fc"
+    },
+    "u19/test_reg_translation_sequence_layered_executes_real_bus_transactions": {
+      "primary_clause": "19.4.1.4.2",
+      "inputs_sha256": "f9fd019d3e73103e54e41a2a2b7ba247a088e30bdca07b247f0428fa69e20f88"
+    },
+    "u19/test_reg_translation_sequence_retry_executes_real_bus_transactions": {
+      "primary_clause": "19.4.1.4.3",
+      "inputs_sha256": "6b203b6250cd76d0ef4ce1be6485c30582d7609256d76a0063913e4c2b75674d"
+    },
     "u19/test_reg_user_backdoor_failure_status_is_returned_and_retry_can_succeed": {
       "primary_clause": "19.5.2.7",
       "inputs_sha256": "7306b388268334b3f793ffa8b63a0dc489c9280f0911d98c9175f0962752f4f5"
@@ -4522,6 +4578,10 @@
       "primary_clause": "19.5.2.6",
       "inputs_sha256": "47ada3b3bfb267fb5425bb71bbef9c439db630b3c45d25ef2c09f4fe333ded52"
     },
+    "u19/test_reg_virtual_sequence_model_selects_the_accessed_block_without_a_sequencer": {
+      "primary_clause": "19.4.1.3.1",
+      "inputs_sha256": "9a7eb1c0ed76709b106afb543a6c111f98cc54abebd65752f06161c4a03f6a8e"
+    },
     "u19/test_user_backdoor_constructor_preserves_optional_names_and_object_base_identity": {
       "primary_clause": "19.5.2.1",
       "inputs_sha256": "1e81d18bb318ea0565b57983ba56105e4d64fd3734209df2fbb3360acbf37e0c"
@@ -4537,6 +4597,14 @@
     "u19/test_user_backdoor_default_read_success_preserves_hook_and_callback_contracts": {
       "primary_clause": "19.5.2.7",
       "inputs_sha256": "2a036768a9b84d917e9de3dcb3a0c2723f357cd33b90ac904c37c2d84c043f62"
+    },
+    "u19/test_user_backdoor_task_read_failure_uses_first_and_last_protected_helpers": {
+      "primary_clause": "19.5.2.3",
+      "inputs_sha256": "d0458fafb1318da6b4c4b6792d20dba82f227a400c89daee8a9e2cb83fc710a4"
+    },
+    "u19/test_user_backdoor_task_read_success_uses_first_and_last_protected_helpers": {
+      "primary_clause": "19.5.2.2",
+      "inputs_sha256": "d33b626df66ba0dbbbe0270c0141253540957de5966ae086e087bf53f93d5a25"
     },
     "u19/test_user_backdoor_write_failure_propagates_pre_hook_changes_and_post_callbacks": {
       "primary_clause": "19.5.2.6",
