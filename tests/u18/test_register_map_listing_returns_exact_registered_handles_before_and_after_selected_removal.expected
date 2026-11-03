@@ -1,0 +1,3 @@
+UT: register_maps initial_count 0
+UT: register_maps listed 2 members 3
+UT: register_maps removed_count 1 remaining_members 2

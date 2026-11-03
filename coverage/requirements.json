@@ -101875,6 +101875,2010 @@
           ]
         }
       ]
+    },
+    {
+      "id": "UVM-REGISTER-CONTRACT-OBJECT-BASE",
+      "clause": "18.4.1",
+      "statement": {
+        "en": "The selected register is usable through an object base view and casts back to the same register handle.",
+        "ja": "選択registerはobject base viewで利用でき、同じregister handleへcastして戻せる。"
+      },
+      "conditions": {
+        "en": "Use the selected original register/block/file models and explicit public calls. Constructor-only observations do not require mapped physical hardware. Membership is queried through the register view after selected legal registrations/removals; output queues start empty.",
+        "ja": "選択した独自register／block／fileモデルと明示公開callを使う。constructor専用観測にmapped物理hardwareは不要である。選択した合法登録／解除の後にregister viewから所属を照会し、出力queueは空で始める。"
+      },
+      "expected": {
+        "en": "The selected register is usable through an object base view and casts back to the same register handle.",
+        "ja": "選択registerはobject base viewで利用でき、同じregister handleへcastして戻せる。"
+      },
+      "limitations": {
+        "en": "Selected two-state values, widths up to 53 bits, valid ownership and explicit map conditions only. Do not infer all reverse-map cache updates, already-absent removal, re-registration, destruction, arbitrary topology or concurrent structural mutation. Symbolic HDL presence is not a path-string or physical transport certificate. Availability metadata is not measured covergroup coverage.",
+        "ja": "選択2状態値、53-bit以下の幅、合法所有、明示map条件だけ。全reverse-map cache更新、既にない所属の解除、再登録、破棄、任意topology、並行構造変更は導かない。symbolic HDL存在はpath文字列や物理transportの認定ではない。利用可能metadataはcovergroup測定値ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_register_constructor_keeps_default_names_partial_bit_widths_and_available_coverage",
+          "role": "direct",
+          "expected_observations": [
+            "UT: register_new default_name 1 selected_name 1 object_view 1 partial 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGISTER-CONTRACT-NEW-NAME",
+      "clause": "18.4.2.1",
+      "statement": {
+        "en": "Register construction preserves the selected explicit instance name.",
+        "ja": "register構築は選択明示instance名を保持する。"
+      },
+      "conditions": {
+        "en": "Use the selected original register/block/file models and explicit public calls. Constructor-only observations do not require mapped physical hardware. Membership is queried through the register view after selected legal registrations/removals; output queues start empty.",
+        "ja": "選択した独自register／block／fileモデルと明示公開callを使う。constructor専用観測にmapped物理hardwareは不要である。選択した合法登録／解除の後にregister viewから所属を照会し、出力queueは空で始める。"
+      },
+      "expected": {
+        "en": "Register construction preserves the selected explicit instance name.",
+        "ja": "register構築は選択明示instance名を保持する。"
+      },
+      "limitations": {
+        "en": "Selected two-state values, widths up to 53 bits, valid ownership and explicit map conditions only. Do not infer all reverse-map cache updates, already-absent removal, re-registration, destruction, arbitrary topology or concurrent structural mutation. Symbolic HDL presence is not a path-string or physical transport certificate. Availability metadata is not measured covergroup coverage.",
+        "ja": "選択2状態値、53-bit以下の幅、合法所有、明示map条件だけ。全reverse-map cache更新、既にない所属の解除、再登録、破棄、任意topology、並行構造変更は導かない。symbolic HDL存在はpath文字列や物理transportの認定ではない。利用可能metadataはcovergroup測定値ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_register_constructor_keeps_default_names_partial_bit_widths_and_available_coverage",
+          "role": "direct",
+          "expected_observations": [
+            "UT: register_new default_name 1 selected_name 1 object_view 1 partial 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGISTER-CONTRACT-NEW-DEFAULT-NAME",
+      "clause": "18.4.2.1",
+      "statement": {
+        "en": "Omitting the base register constructor name uses the declared empty-string default while supplying the required width and coverage arguments.",
+        "ja": "必須の幅／coverage引数を指定してbase register constructor名を省略すると、宣言された空文字列の既定値を使う。"
+      },
+      "conditions": {
+        "en": "Use the selected original register/block/file models and explicit public calls. Constructor-only observations do not require mapped physical hardware. Membership is queried through the register view after selected legal registrations/removals; output queues start empty.",
+        "ja": "選択した独自register／block／fileモデルと明示公開callを使う。constructor専用観測にmapped物理hardwareは不要である。選択した合法登録／解除の後にregister viewから所属を照会し、出力queueは空で始める。"
+      },
+      "expected": {
+        "en": "Omitting the base register constructor name uses the declared empty-string default while supplying the required width and coverage arguments.",
+        "ja": "必須の幅／coverage引数を指定してbase register constructor名を省略すると、宣言された空文字列の既定値を使う。"
+      },
+      "limitations": {
+        "en": "Selected two-state values, widths up to 53 bits, valid ownership and explicit map conditions only. Do not infer all reverse-map cache updates, already-absent removal, re-registration, destruction, arbitrary topology or concurrent structural mutation. Symbolic HDL presence is not a path-string or physical transport certificate. Availability metadata is not measured covergroup coverage.",
+        "ja": "選択2状態値、53-bit以下の幅、合法所有、明示map条件だけ。全reverse-map cache更新、既にない所属の解除、再登録、破棄、任意topology、並行構造変更は導かない。symbolic HDL存在はpath文字列や物理transportの認定ではない。利用可能metadataはcovergroup測定値ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_register_constructor_keeps_default_names_partial_bit_widths_and_available_coverage",
+          "role": "direct",
+          "expected_observations": [
+            "UT: register_new default_name 1 selected_name 1 object_view 1 partial 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGISTER-CONTRACT-NEW-PARTIAL-WIDTH",
+      "clause": "18.4.2.1",
+      "statement": {
+        "en": "The declared total register width is retained even when selected fields implement only part of those bits.",
+        "ja": "選択fieldがbitの一部だけを実装していても、宣言されたregister全幅を保持する。"
+      },
+      "conditions": {
+        "en": "Use the selected original register/block/file models and explicit public calls. Constructor-only observations do not require mapped physical hardware. Membership is queried through the register view after selected legal registrations/removals; output queues start empty.",
+        "ja": "選択した独自register／block／fileモデルと明示公開callを使う。constructor専用観測にmapped物理hardwareは不要である。選択した合法登録／解除の後にregister viewから所属を照会し、出力queueは空で始める。"
+      },
+      "expected": {
+        "en": "The declared total register width is retained even when selected fields implement only part of those bits.",
+        "ja": "選択fieldがbitの一部だけを実装していても、宣言されたregister全幅を保持する。"
+      },
+      "limitations": {
+        "en": "Selected two-state values, widths up to 53 bits, valid ownership and explicit map conditions only. Do not infer all reverse-map cache updates, already-absent removal, re-registration, destruction, arbitrary topology or concurrent structural mutation. Symbolic HDL presence is not a path-string or physical transport certificate. Availability metadata is not measured covergroup coverage.",
+        "ja": "選択2状態値、53-bit以下の幅、合法所有、明示map条件だけ。全reverse-map cache更新、既にない所属の解除、再登録、破棄、任意topology、並行構造変更は導かない。symbolic HDL存在はpath文字列や物理transportの認定ではない。利用可能metadataはcovergroup測定値ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_register_constructor_keeps_default_names_partial_bit_widths_and_available_coverage",
+          "role": "direct",
+          "expected_observations": [
+            "UT: register_new default_name 1 selected_name 1 object_view 1 partial 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGISTER-CONTRACT-NEW-COVERAGE-MASK",
+      "clause": "18.4.2.1",
+      "statement": {
+        "en": "The selected register constructor advertises all supplied coverage models without adding an absent model or changing the separate no-coverage instance.",
+        "ja": "選択register constructorは欠落modelを加えず、別のcoverageなしinstanceを変えずに、指定した全coverage modelを保持する。"
+      },
+      "conditions": {
+        "en": "Use the selected original register/block/file models and explicit public calls. Constructor-only observations do not require mapped physical hardware. Membership is queried through the register view after selected legal registrations/removals; output queues start empty.",
+        "ja": "選択した独自register／block／fileモデルと明示公開callを使う。constructor専用観測にmapped物理hardwareは不要である。選択した合法登録／解除の後にregister viewから所属を照会し、出力queueは空で始める。"
+      },
+      "expected": {
+        "en": "The selected register constructor advertises all supplied coverage models without adding an absent model or changing the separate no-coverage instance.",
+        "ja": "選択register constructorは欠落modelを加えず、別のcoverageなしinstanceを変えずに、指定した全coverage modelを保持する。"
+      },
+      "limitations": {
+        "en": "Selected two-state values, widths up to 53 bits, valid ownership and explicit map conditions only. Do not infer all reverse-map cache updates, already-absent removal, re-registration, destruction, arbitrary topology or concurrent structural mutation. Symbolic HDL presence is not a path-string or physical transport certificate. Availability metadata is not measured covergroup coverage.",
+        "ja": "選択2状態値、53-bit以下の幅、合法所有、明示map条件だけ。全reverse-map cache更新、既にない所属の解除、再登録、破棄、任意topology、並行構造変更は導かない。symbolic HDL存在はpath文字列や物理transportの認定ではない。利用可能metadataはcovergroup測定値ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_register_constructor_keeps_default_names_partial_bit_widths_and_available_coverage",
+          "role": "direct",
+          "expected_observations": [
+            "UT: register_new coverage_all 1 coverage_missing 1 independent_none 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGISTER-CONTRACT-WIDTH-BITS",
+      "clause": "18.4.3.8",
+      "statement": {
+        "en": "Selected register bit widths remain exact across one-bit, byte-boundary and partial-byte cases.",
+        "ja": "選択registerのbit幅は1-bit、byte境界、端数byte条件で正確に保持される。"
+      },
+      "conditions": {
+        "en": "Use the selected original register/block/file models and explicit public calls. Constructor-only observations do not require mapped physical hardware. Membership is queried through the register view after selected legal registrations/removals; output queues start empty.",
+        "ja": "選択した独自register／block／fileモデルと明示公開callを使う。constructor専用観測にmapped物理hardwareは不要である。選択した合法登録／解除の後にregister viewから所属を照会し、出力queueは空で始める。"
+      },
+      "expected": {
+        "en": "Selected register bit widths remain exact across one-bit, byte-boundary and partial-byte cases.",
+        "ja": "選択registerのbit幅は1-bit、byte境界、端数byte条件で正確に保持される。"
+      },
+      "limitations": {
+        "en": "Selected two-state values, widths up to 53 bits, valid ownership and explicit map conditions only. Do not infer all reverse-map cache updates, already-absent removal, re-registration, destruction, arbitrary topology or concurrent structural mutation. Symbolic HDL presence is not a path-string or physical transport certificate. Availability metadata is not measured covergroup coverage.",
+        "ja": "選択2状態値、53-bit以下の幅、合法所有、明示map条件だけ。全reverse-map cache更新、既にない所属の解除、再登録、破棄、任意topology、並行構造変更は導かない。symbolic HDL存在はpath文字列や物理transportの認定ではない。利用可能metadataはcovergroup測定値ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_register_constructor_keeps_default_names_partial_bit_widths_and_available_coverage",
+          "role": "direct",
+          "expected_observations": [
+            "UT: register_width bits 1 bytes 1",
+            "UT: register_width bits 8 bytes 1",
+            "UT: register_width bits 9 bytes 2",
+            "UT: register_width bits 16 bytes 2",
+            "UT: register_width bits 17 bytes 3"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGISTER-CONTRACT-WIDTH-CEILING-BYTES",
+      "clause": "18.4.3.9",
+      "statement": {
+        "en": "The selected register byte width rounds partial bytes up to the next whole byte.",
+        "ja": "選択registerのbyte幅は端数byteを次の整数byteへ切り上げる。"
+      },
+      "conditions": {
+        "en": "Use the selected original register/block/file models and explicit public calls. Constructor-only observations do not require mapped physical hardware. Membership is queried through the register view after selected legal registrations/removals; output queues start empty.",
+        "ja": "選択した独自register／block／fileモデルと明示公開callを使う。constructor専用観測にmapped物理hardwareは不要である。選択した合法登録／解除の後にregister viewから所属を照会し、出力queueは空で始める。"
+      },
+      "expected": {
+        "en": "The selected register byte width rounds partial bytes up to the next whole byte.",
+        "ja": "選択registerのbyte幅は端数byteを次の整数byteへ切り上げる。"
+      },
+      "limitations": {
+        "en": "Selected two-state values, widths up to 53 bits, valid ownership and explicit map conditions only. Do not infer all reverse-map cache updates, already-absent removal, re-registration, destruction, arbitrary topology or concurrent structural mutation. Symbolic HDL presence is not a path-string or physical transport certificate. Availability metadata is not measured covergroup coverage.",
+        "ja": "選択2状態値、53-bit以下の幅、合法所有、明示map条件だけ。全reverse-map cache更新、既にない所属の解除、再登録、破棄、任意topology、並行構造変更は導かない。symbolic HDL存在はpath文字列や物理transportの認定ではない。利用可能metadataはcovergroup測定値ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_register_constructor_keeps_default_names_partial_bit_widths_and_available_coverage",
+          "role": "direct",
+          "expected_observations": [
+            "UT: register_width bits 1 bytes 1",
+            "UT: register_width bits 8 bytes 1",
+            "UT: register_width bits 9 bytes 2",
+            "UT: register_width bits 16 bytes 2",
+            "UT: register_width bits 17 bytes 3"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGISTER-CONTRACT-CONFIGURE-BLOCK",
+      "clause": "18.4.2.2",
+      "statement": {
+        "en": "configure records the selected parent block independently for a direct and a file-placed register.",
+        "ja": "configureは直接配置とfile配置のregisterそれぞれに選択parent blockを記録する。"
+      },
+      "conditions": {
+        "en": "Use the selected original register/block/file models and explicit public calls. Constructor-only observations do not require mapped physical hardware. Membership is queried through the register view after selected legal registrations/removals; output queues start empty.",
+        "ja": "選択した独自register／block／fileモデルと明示公開callを使う。constructor専用観測にmapped物理hardwareは不要である。選択した合法登録／解除の後にregister viewから所属を照会し、出力queueは空で始める。"
+      },
+      "expected": {
+        "en": "configure records the selected parent block independently for a direct and a file-placed register.",
+        "ja": "configureは直接配置とfile配置のregisterそれぞれに選択parent blockを記録する。"
+      },
+      "limitations": {
+        "en": "Selected two-state values, widths up to 53 bits, valid ownership and explicit map conditions only. Do not infer all reverse-map cache updates, already-absent removal, re-registration, destruction, arbitrary topology or concurrent structural mutation. Symbolic HDL presence is not a path-string or physical transport certificate. Availability metadata is not measured covergroup coverage.",
+        "ja": "選択2状態値、53-bit以下の幅、合法所有、明示map条件だけ。全reverse-map cache更新、既にない所属の解除、再登録、破棄、任意topology、並行構造変更は導かない。symbolic HDL存在はpath文字列や物理transportの認定ではない。利用可能metadataはcovergroup測定値ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_register_configure_preserves_block_and_nested_file_identity_with_symbolic_hdl_metadata",
+          "role": "direct",
+          "expected_observations": [
+            "UT: register_configure block 1 file 1 direct_null 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGISTER-CONTRACT-CONFIGURE-FILE",
+      "clause": "18.4.2.2",
+      "statement": {
+        "en": "configure records the selected nested parent file while the omitted file argument denotes a directly block-instantiated register.",
+        "ja": "configureは選択した入れ子parent fileを記録し、file引数省略はblock直接配置のregisterを示す。"
+      },
+      "conditions": {
+        "en": "Use the selected original register/block/file models and explicit public calls. Constructor-only observations do not require mapped physical hardware. Membership is queried through the register view after selected legal registrations/removals; output queues start empty.",
+        "ja": "選択した独自register／block／fileモデルと明示公開callを使う。constructor専用観測にmapped物理hardwareは不要である。選択した合法登録／解除の後にregister viewから所属を照会し、出力queueは空で始める。"
+      },
+      "expected": {
+        "en": "configure records the selected nested parent file while the omitted file argument denotes a directly block-instantiated register.",
+        "ja": "configureは選択した入れ子parent fileを記録し、file引数省略はblock直接配置のregisterを示す。"
+      },
+      "limitations": {
+        "en": "Selected two-state values, widths up to 53 bits, valid ownership and explicit map conditions only. Do not infer all reverse-map cache updates, already-absent removal, re-registration, destruction, arbitrary topology or concurrent structural mutation. Symbolic HDL presence is not a path-string or physical transport certificate. Availability metadata is not measured covergroup coverage.",
+        "ja": "選択2状態値、53-bit以下の幅、合法所有、明示map条件だけ。全reverse-map cache更新、既にない所属の解除、再登録、破棄、任意topology、並行構造変更は導かない。symbolic HDL存在はpath文字列や物理transportの認定ではない。利用可能metadataはcovergroup測定値ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_register_configure_preserves_block_and_nested_file_identity_with_symbolic_hdl_metadata",
+          "role": "direct",
+          "expected_observations": [
+            "UT: register_configure block 1 file 1 direct_null 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGISTER-CONTRACT-CONFIGURE-SYMBOLIC-HDL",
+      "clause": "18.4.2.2",
+      "statement": {
+        "en": "The selected single-variable hdl_path configuration establishes an RTL path description.",
+        "ja": "選択した単一変数のhdl_path設定はRTL path記述を作る。"
+      },
+      "conditions": {
+        "en": "Use the selected original register/block/file models and explicit public calls. Constructor-only observations do not require mapped physical hardware. Membership is queried through the register view after selected legal registrations/removals; output queues start empty.",
+        "ja": "選択した独自register／block／fileモデルと明示公開callを使う。constructor専用観測にmapped物理hardwareは不要である。選択した合法登録／解除の後にregister viewから所属を照会し、出力queueは空で始める。"
+      },
+      "expected": {
+        "en": "The selected single-variable hdl_path configuration establishes an RTL path description.",
+        "ja": "選択した単一変数のhdl_path設定はRTL path記述を作る。"
+      },
+      "limitations": {
+        "en": "Selected two-state values, widths up to 53 bits, valid ownership and explicit map conditions only. Do not infer all reverse-map cache updates, already-absent removal, re-registration, destruction, arbitrary topology or concurrent structural mutation. Symbolic HDL presence is not a path-string or physical transport certificate. Availability metadata is not measured covergroup coverage.",
+        "ja": "選択2状態値、53-bit以下の幅、合法所有、明示map条件だけ。全reverse-map cache更新、既にない所属の解除、再登録、破棄、任意topology、並行構造変更は導かない。symbolic HDL存在はpath文字列や物理transportの認定ではない。利用可能metadataはcovergroup測定値ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_register_configure_preserves_block_and_nested_file_identity_with_symbolic_hdl_metadata",
+          "role": "direct",
+          "expected_observations": [
+            "UT: register_configure file_object 1 symbolic_path 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGISTER-CONTRACT-REGFILE-OBJECT-BASE",
+      "clause": "18.3.1",
+      "statement": {
+        "en": "The selected register file is usable through an object view and casts back to its configured file handle.",
+        "ja": "選択register fileはobject viewで利用でき、設定された同じfile handleへcastして戻せる。"
+      },
+      "conditions": {
+        "en": "Use the selected original register/block/file models and explicit public calls. Constructor-only observations do not require mapped physical hardware. Membership is queried through the register view after selected legal registrations/removals; output queues start empty.",
+        "ja": "選択した独自register／block／fileモデルと明示公開callを使う。constructor専用観測にmapped物理hardwareは不要である。選択した合法登録／解除の後にregister viewから所属を照会し、出力queueは空で始める。"
+      },
+      "expected": {
+        "en": "The selected register file is usable through an object view and casts back to its configured file handle.",
+        "ja": "選択register fileはobject viewで利用でき、設定された同じfile handleへcastして戻せる。"
+      },
+      "limitations": {
+        "en": "Selected two-state values, widths up to 53 bits, valid ownership and explicit map conditions only. Do not infer all reverse-map cache updates, already-absent removal, re-registration, destruction, arbitrary topology or concurrent structural mutation. Symbolic HDL presence is not a path-string or physical transport certificate. Availability metadata is not measured covergroup coverage.",
+        "ja": "選択2状態値、53-bit以下の幅、合法所有、明示map条件だけ。全reverse-map cache更新、既にない所属の解除、再登録、破棄、任意topology、並行構造変更は導かない。symbolic HDL存在はpath文字列や物理transportの認定ではない。利用可能metadataはcovergroup測定値ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_register_configure_preserves_block_and_nested_file_identity_with_symbolic_hdl_metadata",
+          "role": "direct",
+          "expected_observations": [
+            "UT: register_configure file_object 1 symbolic_path 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGISTER-CONTRACT-UNREGISTER-SELECTED",
+      "clause": "18.4.2.5",
+      "statement": {
+        "en": "Removing one selected map association preserves the other selected association and the peer register membership.",
+        "ja": "選択map関連を1つ除去しても、別の選択関連とpeer registerの所属を保持する。"
+      },
+      "conditions": {
+        "en": "Use the selected original register/block/file models and explicit public calls. Constructor-only observations do not require mapped physical hardware. Membership is queried through the register view after selected legal registrations/removals; output queues start empty.",
+        "ja": "選択した独自register／block／fileモデルと明示公開callを使う。constructor専用観測にmapped物理hardwareは不要である。選択した合法登録／解除の後にregister viewから所属を照会し、出力queueは空で始める。"
+      },
+      "expected": {
+        "en": "Removing one selected map association preserves the other selected association and the peer register membership.",
+        "ja": "選択map関連を1つ除去しても、別の選択関連とpeer registerの所属を保持する。"
+      },
+      "limitations": {
+        "en": "Selected two-state values, widths up to 53 bits, valid ownership and explicit map conditions only. Do not infer all reverse-map cache updates, already-absent removal, re-registration, destruction, arbitrary topology or concurrent structural mutation. Symbolic HDL presence is not a path-string or physical transport certificate. Availability metadata is not measured covergroup coverage.",
+        "ja": "選択2状態値、53-bit以下の幅、合法所有、明示map条件だけ。全reverse-map cache更新、既にない所属の解除、再登録、破棄、任意topology、並行構造変更は導かない。symbolic HDL存在はpath文字列や物理transportの認定ではない。利用可能metadataはcovergroup測定値ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_register_unregister_removes_only_selected_associations_and_reaches_zero_membership",
+          "role": "direct",
+          "expected_observations": [
+            "UT: register_unregister selected_removed 1 kept 1 count 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGISTER-CONTRACT-UNREGISTER-LAST",
+      "clause": "18.4.2.5",
+      "statement": {
+        "en": "Removing the last selected registered association leaves that register with zero maps while the peer remains registered.",
+        "ja": "最後の選択登録関連を除去すると、そのregisterのmapは0となりpeerは登録されたままである。"
+      },
+      "conditions": {
+        "en": "Use the selected original register/block/file models and explicit public calls. Constructor-only observations do not require mapped physical hardware. Membership is queried through the register view after selected legal registrations/removals; output queues start empty.",
+        "ja": "選択した独自register／block／fileモデルと明示公開callを使う。constructor専用観測にmapped物理hardwareは不要である。選択した合法登録／解除の後にregister viewから所属を照会し、出力queueは空で始める。"
+      },
+      "expected": {
+        "en": "Removing the last selected registered association leaves that register with zero maps while the peer remains registered.",
+        "ja": "最後の選択登録関連を除去すると、そのregisterのmapは0となりpeerは登録されたままである。"
+      },
+      "limitations": {
+        "en": "Selected two-state values, widths up to 53 bits, valid ownership and explicit map conditions only. Do not infer all reverse-map cache updates, already-absent removal, re-registration, destruction, arbitrary topology or concurrent structural mutation. Symbolic HDL presence is not a path-string or physical transport certificate. Availability metadata is not measured covergroup coverage.",
+        "ja": "選択2状態値、53-bit以下の幅、合法所有、明示map条件だけ。全reverse-map cache更新、既にない所属の解除、再登録、破棄、任意topology、並行構造変更は導かない。symbolic HDL存在はpath文字列や物理transportの認定ではない。利用可能metadataはcovergroup測定値ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_register_unregister_removes_only_selected_associations_and_reaches_zero_membership",
+          "role": "direct",
+          "expected_observations": [
+            "UT: register_unregister empty 1 peer_kept 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGISTER-CONTRACT-MAP-COUNT-INITIAL",
+      "clause": "18.4.3.3",
+      "statement": {
+        "en": "The selected configured register has zero maps before it is registered.",
+        "ja": "選択configure済みregisterは登録前のmap数が0である。"
+      },
+      "conditions": {
+        "en": "Use the selected original register/block/file models and explicit public calls. Constructor-only observations do not require mapped physical hardware. Membership is queried through the register view after selected legal registrations/removals; output queues start empty.",
+        "ja": "選択した独自register／block／fileモデルと明示公開callを使う。constructor専用観測にmapped物理hardwareは不要である。選択した合法登録／解除の後にregister viewから所属を照会し、出力queueは空で始める。"
+      },
+      "expected": {
+        "en": "The selected configured register has zero maps before it is registered.",
+        "ja": "選択configure済みregisterは登録前のmap数が0である。"
+      },
+      "limitations": {
+        "en": "Selected two-state values, widths up to 53 bits, valid ownership and explicit map conditions only. Do not infer all reverse-map cache updates, already-absent removal, re-registration, destruction, arbitrary topology or concurrent structural mutation. Symbolic HDL presence is not a path-string or physical transport certificate. Availability metadata is not measured covergroup coverage.",
+        "ja": "選択2状態値、53-bit以下の幅、合法所有、明示map条件だけ。全reverse-map cache更新、既にない所属の解除、再登録、破棄、任意topology、並行構造変更は導かない。symbolic HDL存在はpath文字列や物理transportの認定ではない。利用可能metadataはcovergroup測定値ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_register_unregister_removes_only_selected_associations_and_reaches_zero_membership",
+          "role": "direct",
+          "expected_observations": [
+            "UT: register_unregister initial 0 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGISTER-CONTRACT-MAP-COUNT-ADDITIONS",
+      "clause": "18.4.3.3",
+      "statement": {
+        "en": "Each selected distinct map registration is reflected in the register map count.",
+        "ja": "選択した別々のmapへの登録はregisterのmap数へ反映される。"
+      },
+      "conditions": {
+        "en": "Use the selected original register/block/file models and explicit public calls. Constructor-only observations do not require mapped physical hardware. Membership is queried through the register view after selected legal registrations/removals; output queues start empty.",
+        "ja": "選択した独自register／block／fileモデルと明示公開callを使う。constructor専用観測にmapped物理hardwareは不要である。選択した合法登録／解除の後にregister viewから所属を照会し、出力queueは空で始める。"
+      },
+      "expected": {
+        "en": "Each selected distinct map registration is reflected in the register map count.",
+        "ja": "選択した別々のmapへの登録はregisterのmap数へ反映される。"
+      },
+      "limitations": {
+        "en": "Selected two-state values, widths up to 53 bits, valid ownership and explicit map conditions only. Do not infer all reverse-map cache updates, already-absent removal, re-registration, destruction, arbitrary topology or concurrent structural mutation. Symbolic HDL presence is not a path-string or physical transport certificate. Availability metadata is not measured covergroup coverage.",
+        "ja": "選択2状態値、53-bit以下の幅、合法所有、明示map条件だけ。全reverse-map cache更新、既にない所属の解除、再登録、破棄、任意topology、並行構造変更は導かない。symbolic HDL存在はpath文字列や物理transportの認定ではない。利用可能metadataはcovergroup測定値ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_register_unregister_removes_only_selected_associations_and_reaches_zero_membership",
+          "role": "direct",
+          "expected_observations": [
+            "UT: register_unregister added_one 1",
+            "UT: register_unregister added_two 2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGISTER-CONTRACT-MAP-COUNT-REMOVALS",
+      "clause": "18.4.3.3",
+      "statement": {
+        "en": "Selected register map counts follow one remaining association and then zero after removals.",
+        "ja": "選択registerのmap数は解除後の残り1関連、さらに0を反映する。"
+      },
+      "conditions": {
+        "en": "Use the selected original register/block/file models and explicit public calls. Constructor-only observations do not require mapped physical hardware. Membership is queried through the register view after selected legal registrations/removals; output queues start empty.",
+        "ja": "選択した独自register／block／fileモデルと明示公開callを使う。constructor専用観測にmapped物理hardwareは不要である。選択した合法登録／解除の後にregister viewから所属を照会し、出力queueは空で始める。"
+      },
+      "expected": {
+        "en": "Selected register map counts follow one remaining association and then zero after removals.",
+        "ja": "選択registerのmap数は解除後の残り1関連、さらに0を反映する。"
+      },
+      "limitations": {
+        "en": "Selected two-state values, widths up to 53 bits, valid ownership and explicit map conditions only. Do not infer all reverse-map cache updates, already-absent removal, re-registration, destruction, arbitrary topology or concurrent structural mutation. Symbolic HDL presence is not a path-string or physical transport certificate. Availability metadata is not measured covergroup coverage.",
+        "ja": "選択2状態値、53-bit以下の幅、合法所有、明示map条件だけ。全reverse-map cache更新、既にない所属の解除、再登録、破棄、任意topology、並行構造変更は導かない。symbolic HDL存在はpath文字列や物理transportの認定ではない。利用可能metadataはcovergroup測定値ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_register_unregister_removes_only_selected_associations_and_reaches_zero_membership",
+          "role": "direct",
+          "expected_observations": [
+            "UT: register_unregister selected_removed 1 kept 1 count 1 peer 1",
+            "UT: register_unregister empty 1 peer_kept 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGISTER-CONTRACT-MAP-LIST-EMPTY",
+      "clause": "18.4.3.5",
+      "statement": {
+        "en": "The selected unmapped register returns an empty map queue.",
+        "ja": "選択した未map registerは空map queueを返す。"
+      },
+      "conditions": {
+        "en": "Use the selected original register/block/file models and explicit public calls. Constructor-only observations do not require mapped physical hardware. Membership is queried through the register view after selected legal registrations/removals; output queues start empty.",
+        "ja": "選択した独自register／block／fileモデルと明示公開callを使う。constructor専用観測にmapped物理hardwareは不要である。選択した合法登録／解除の後にregister viewから所属を照会し、出力queueは空で始める。"
+      },
+      "expected": {
+        "en": "The selected unmapped register returns an empty map queue.",
+        "ja": "選択した未map registerは空map queueを返す。"
+      },
+      "limitations": {
+        "en": "Selected two-state values, widths up to 53 bits, valid ownership and explicit map conditions only. Do not infer all reverse-map cache updates, already-absent removal, re-registration, destruction, arbitrary topology or concurrent structural mutation. Symbolic HDL presence is not a path-string or physical transport certificate. Availability metadata is not measured covergroup coverage.",
+        "ja": "選択2状態値、53-bit以下の幅、合法所有、明示map条件だけ。全reverse-map cache更新、既にない所属の解除、再登録、破棄、任意topology、並行構造変更は導かない。symbolic HDL存在はpath文字列や物理transportの認定ではない。利用可能metadataはcovergroup測定値ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_register_map_listing_returns_exact_registered_handles_before_and_after_selected_removal",
+          "role": "direct",
+          "expected_observations": [
+            "UT: register_maps initial_count 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGISTER-CONTRACT-MAP-LIST-ALL",
+      "clause": "18.4.3.5",
+      "statement": {
+        "en": "get_maps returns exactly the selected registered map handles, excluding an unrelated map of the same block.",
+        "ja": "get_mapsは同じblockの無関係mapを除外し、選択登録map handleを正確に返す。"
+      },
+      "conditions": {
+        "en": "Use the selected original register/block/file models and explicit public calls. Constructor-only observations do not require mapped physical hardware. Membership is queried through the register view after selected legal registrations/removals; output queues start empty.",
+        "ja": "選択した独自register／block／fileモデルと明示公開callを使う。constructor専用観測にmapped物理hardwareは不要である。選択した合法登録／解除の後にregister viewから所属を照会し、出力queueは空で始める。"
+      },
+      "expected": {
+        "en": "get_maps returns exactly the selected registered map handles, excluding an unrelated map of the same block.",
+        "ja": "get_mapsは同じblockの無関係mapを除外し、選択登録map handleを正確に返す。"
+      },
+      "limitations": {
+        "en": "Selected two-state values, widths up to 53 bits, valid ownership and explicit map conditions only. Do not infer all reverse-map cache updates, already-absent removal, re-registration, destruction, arbitrary topology or concurrent structural mutation. Symbolic HDL presence is not a path-string or physical transport certificate. Availability metadata is not measured covergroup coverage.",
+        "ja": "選択2状態値、53-bit以下の幅、合法所有、明示map条件だけ。全reverse-map cache更新、既にない所属の解除、再登録、破棄、任意topology、並行構造変更は導かない。symbolic HDL存在はpath文字列や物理transportの認定ではない。利用可能metadataはcovergroup測定値ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_register_map_listing_returns_exact_registered_handles_before_and_after_selected_removal",
+          "role": "direct",
+          "expected_observations": [
+            "UT: register_maps listed 2 members 3"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGISTER-CONTRACT-MAP-LIST-AFTER-REMOVAL",
+      "clause": "18.4.3.5",
+      "statement": {
+        "en": "After selected removal, get_maps contains only the remaining registered map handle.",
+        "ja": "選択解除の後、get_mapsには残る登録map handleだけが入る。"
+      },
+      "conditions": {
+        "en": "Use the selected original register/block/file models and explicit public calls. Constructor-only observations do not require mapped physical hardware. Membership is queried through the register view after selected legal registrations/removals; output queues start empty.",
+        "ja": "選択した独自register／block／fileモデルと明示公開callを使う。constructor専用観測にmapped物理hardwareは不要である。選択した合法登録／解除の後にregister viewから所属を照会し、出力queueは空で始める。"
+      },
+      "expected": {
+        "en": "After selected removal, get_maps contains only the remaining registered map handle.",
+        "ja": "選択解除の後、get_mapsには残る登録map handleだけが入る。"
+      },
+      "limitations": {
+        "en": "Selected two-state values, widths up to 53 bits, valid ownership and explicit map conditions only. Do not infer all reverse-map cache updates, already-absent removal, re-registration, destruction, arbitrary topology or concurrent structural mutation. Symbolic HDL presence is not a path-string or physical transport certificate. Availability metadata is not measured covergroup coverage.",
+        "ja": "選択2状態値、53-bit以下の幅、合法所有、明示map条件だけ。全reverse-map cache更新、既にない所属の解除、再登録、破棄、任意topology、並行構造変更は導かない。symbolic HDL存在はpath文字列や物理transportの認定ではない。利用可能metadataはcovergroup測定値ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_register_map_listing_returns_exact_registered_handles_before_and_after_selected_removal",
+          "role": "direct",
+          "expected_observations": [
+            "UT: register_maps removed_count 1 remaining_members 2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGISTER-CONTRACT-MEMBERSHIP-EXPLICIT",
+      "clause": "18.4.3.4",
+      "statement": {
+        "en": "is_in_map distinguishes selected actual associations from an unrelated map and peer-only association.",
+        "ja": "is_in_mapは選択実関連と無関係map／peerだけの関連を区別する。"
+      },
+      "conditions": {
+        "en": "Use the selected original register/block/file models and explicit public calls. Constructor-only observations do not require mapped physical hardware. Membership is queried through the register view after selected legal registrations/removals; output queues start empty.",
+        "ja": "選択した独自register／block／fileモデルと明示公開callを使う。constructor専用観測にmapped物理hardwareは不要である。選択した合法登録／解除の後にregister viewから所属を照会し、出力queueは空で始める。"
+      },
+      "expected": {
+        "en": "is_in_map distinguishes selected actual associations from an unrelated map and peer-only association.",
+        "ja": "is_in_mapは選択実関連と無関係map／peerだけの関連を区別する。"
+      },
+      "limitations": {
+        "en": "Selected two-state values, widths up to 53 bits, valid ownership and explicit map conditions only. Do not infer all reverse-map cache updates, already-absent removal, re-registration, destruction, arbitrary topology or concurrent structural mutation. Symbolic HDL presence is not a path-string or physical transport certificate. Availability metadata is not measured covergroup coverage.",
+        "ja": "選択2状態値、53-bit以下の幅、合法所有、明示map条件だけ。全reverse-map cache更新、既にない所属の解除、再登録、破棄、任意topology、並行構造変更は導かない。symbolic HDL存在はpath文字列や物理transportの認定ではない。利用可能metadataはcovergroup測定値ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_register_is_in_map_distinguishes_selected_member_unrelated_and_peer_maps",
+          "role": "direct",
+          "expected_observations": [
+            "UT: register_in_map first 1 second 1 unused 1 peer_first 1 peer_second 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGISTER-CONTRACT-MEMBERSHIP-AFTER-REMOVAL",
+      "clause": "18.4.3.4",
+      "statement": {
+        "en": "is_in_map no longer reports the removed selected association while retaining the other one.",
+        "ja": "is_in_mapは解除した選択関連を報告せず、別の関連を保持する。"
+      },
+      "conditions": {
+        "en": "Use the selected original register/block/file models and explicit public calls. Constructor-only observations do not require mapped physical hardware. Membership is queried through the register view after selected legal registrations/removals; output queues start empty.",
+        "ja": "選択した独自register／block／fileモデルと明示公開callを使う。constructor専用観測にmapped物理hardwareは不要である。選択した合法登録／解除の後にregister viewから所属を照会し、出力queueは空で始める。"
+      },
+      "expected": {
+        "en": "is_in_map no longer reports the removed selected association while retaining the other one.",
+        "ja": "is_in_mapは解除した選択関連を報告せず、別の関連を保持する。"
+      },
+      "limitations": {
+        "en": "Selected two-state values, widths up to 53 bits, valid ownership and explicit map conditions only. Do not infer all reverse-map cache updates, already-absent removal, re-registration, destruction, arbitrary topology or concurrent structural mutation. Symbolic HDL presence is not a path-string or physical transport certificate. Availability metadata is not measured covergroup coverage.",
+        "ja": "選択2状態値、53-bit以下の幅、合法所有、明示map条件だけ。全reverse-map cache更新、既にない所属の解除、再登録、破棄、任意topology、並行構造変更は導かない。symbolic HDL存在はpath文字列や物理transportの認定ではない。利用可能metadataはcovergroup測定値ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_register_is_in_map_distinguishes_selected_member_unrelated_and_peer_maps",
+          "role": "direct",
+          "expected_observations": [
+            "UT: register_in_map removed 1 other_kept 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGISTER-CONTRACT-LOCAL-MAP-EXPLICIT",
+      "clause": "18.4.3.6",
+      "statement": {
+        "en": "A get_local_map argument already in get_maps is returned unchanged.",
+        "ja": "get_mapsにあるget_local_map引数は変更せず返される。"
+      },
+      "conditions": {
+        "en": "Use the selected original register/block/file models and explicit public calls. Constructor-only observations do not require mapped physical hardware. Membership is queried through the register view after selected legal registrations/removals; output queues start empty.",
+        "ja": "選択した独自register／block／fileモデルと明示公開callを使う。constructor専用観測にmapped物理hardwareは不要である。選択した合法登録／解除の後にregister viewから所属を照会し、出力queueは空で始める。"
+      },
+      "expected": {
+        "en": "A get_local_map argument already in get_maps is returned unchanged.",
+        "ja": "get_mapsにあるget_local_map引数は変更せず返される。"
+      },
+      "limitations": {
+        "en": "Explicit member/ancestor/unrelated cases are selected separately from the literal null rule. The null rule in 18.4.3.6 does not state a sole-member override; retain that expectation and any observed known difference. No diagnostic severity or complete ambiguous multi-ancestor selection order is prescribed.",
+        "ja": "明示member／祖先／無関係条件を字面のnull規則と分ける。18.4.3.6のnull規則は単一memberの上書きを述べないため、その期待値と観測knownを保持する。診断severityや曖昧な複数祖先選択の全順序は規定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_register_local_map_resolves_explicit_and_ancestor_maps_without_selecting_an_unrelated_map",
+          "role": "direct",
+          "expected_observations": [
+            "UT: register_local_map first 1 second 1 ancestor 1 unrelated_null 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGISTER-CONTRACT-LOCAL-MAP-ANCESTOR",
+      "clause": "18.4.3.6",
+      "statement": {
+        "en": "An ancestor map argument resolves to the selected contained local map.",
+        "ja": "祖先map引数は選択した内包local mapへ解決される。"
+      },
+      "conditions": {
+        "en": "Use the selected original register/block/file models and explicit public calls. Constructor-only observations do not require mapped physical hardware. Membership is queried through the register view after selected legal registrations/removals; output queues start empty.",
+        "ja": "選択した独自register／block／fileモデルと明示公開callを使う。constructor専用観測にmapped物理hardwareは不要である。選択した合法登録／解除の後にregister viewから所属を照会し、出力queueは空で始める。"
+      },
+      "expected": {
+        "en": "An ancestor map argument resolves to the selected contained local map.",
+        "ja": "祖先map引数は選択した内包local mapへ解決される。"
+      },
+      "limitations": {
+        "en": "Explicit member/ancestor/unrelated cases are selected separately from the literal null rule. The null rule in 18.4.3.6 does not state a sole-member override; retain that expectation and any observed known difference. No diagnostic severity or complete ambiguous multi-ancestor selection order is prescribed.",
+        "ja": "明示member／祖先／無関係条件を字面のnull規則と分ける。18.4.3.6のnull規則は単一memberの上書きを述べないため、その期待値と観測knownを保持する。診断severityや曖昧な複数祖先選択の全順序は規定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_register_local_map_resolves_explicit_and_ancestor_maps_without_selecting_an_unrelated_map",
+          "role": "direct",
+          "expected_observations": [
+            "UT: register_local_map first 1 second 1 ancestor 1 unrelated_null 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGISTER-CONTRACT-LOCAL-MAP-NONE",
+      "clause": "18.4.3.6",
+      "statement": {
+        "en": "An unrelated map with no selected local association resolves to null.",
+        "ja": "選択local関連のない無関係mapはnullへ解決される。"
+      },
+      "conditions": {
+        "en": "Use the selected original register/block/file models and explicit public calls. Constructor-only observations do not require mapped physical hardware. Membership is queried through the register view after selected legal registrations/removals; output queues start empty.",
+        "ja": "選択した独自register／block／fileモデルと明示公開callを使う。constructor専用観測にmapped物理hardwareは不要である。選択した合法登録／解除の後にregister viewから所属を照会し、出力queueは空で始める。"
+      },
+      "expected": {
+        "en": "An unrelated map with no selected local association resolves to null.",
+        "ja": "選択local関連のない無関係mapはnullへ解決される。"
+      },
+      "limitations": {
+        "en": "Explicit member/ancestor/unrelated cases are selected separately from the literal null rule. The null rule in 18.4.3.6 does not state a sole-member override; retain that expectation and any observed known difference. No diagnostic severity or complete ambiguous multi-ancestor selection order is prescribed.",
+        "ja": "明示member／祖先／無関係条件を字面のnull規則と分ける。18.4.3.6のnull規則は単一memberの上書きを述べないため、その期待値と観測knownを保持する。診断severityや曖昧な複数祖先選択の全順序は規定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_register_local_map_resolves_explicit_and_ancestor_maps_without_selecting_an_unrelated_map",
+          "role": "direct",
+          "expected_observations": [
+            "UT: register_local_map first 1 second 1 ancestor 1 unrelated_null 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGISTER-CONTRACT-LOCAL-MAP-MAPPED-DEFAULT",
+      "clause": "18.4.3.6",
+      "statement": {
+        "en": "A null get_local_map argument selects the parent block default among multiple registered maps.",
+        "ja": "null get_local_map引数は複数登録mapの中からparent block既定を選ぶ。"
+      },
+      "conditions": {
+        "en": "Use the selected original register/block/file models and explicit public calls. Constructor-only observations do not require mapped physical hardware. Membership is queried through the register view after selected legal registrations/removals; output queues start empty.",
+        "ja": "選択した独自register／block／fileモデルと明示公開callを使う。constructor専用観測にmapped物理hardwareは不要である。選択した合法登録／解除の後にregister viewから所属を照会し、出力queueは空で始める。"
+      },
+      "expected": {
+        "en": "A null get_local_map argument selects the parent block default among multiple registered maps.",
+        "ja": "null get_local_map引数は複数登録mapの中からparent block既定を選ぶ。"
+      },
+      "limitations": {
+        "en": "Explicit member/ancestor/unrelated cases are selected separately from the literal null rule. The null rule in 18.4.3.6 does not state a sole-member override; retain that expectation and any observed known difference. No diagnostic severity or complete ambiguous multi-ancestor selection order is prescribed.",
+        "ja": "明示member／祖先／無関係条件を字面のnull規則と分ける。18.4.3.6のnull規則は単一memberの上書きを述べないため、その期待値と観測knownを保持する。診断severityや曖昧な複数祖先選択の全順序は規定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_register_local_map_resolves_explicit_and_ancestor_maps_without_selecting_an_unrelated_map",
+          "role": "direct",
+          "expected_observations": [
+            "UT: register_local_map default 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGISTER-CONTRACT-LOCAL-MAP-SINGLE-DEFAULT",
+      "clause": "18.4.3.6",
+      "statement": {
+        "en": "The printed null rule returns the parent block default even when the register has only one distinct registered map.",
+        "ja": "印刷されたnull規則はregisterの登録mapが別の1つだけでもparent block既定を返す。"
+      },
+      "conditions": {
+        "en": "Use the selected original register/block/file models and explicit public calls. Constructor-only observations do not require mapped physical hardware. Membership is queried through the register view after selected legal registrations/removals; output queues start empty.",
+        "ja": "選択した独自register／block／fileモデルと明示公開callを使う。constructor専用観測にmapped物理hardwareは不要である。選択した合法登録／解除の後にregister viewから所属を照会し、出力queueは空で始める。"
+      },
+      "expected": {
+        "en": "The printed null rule returns the parent block default even when the register has only one distinct registered map.",
+        "ja": "印刷されたnull規則はregisterの登録mapが別の1つだけでもparent block既定を返す。"
+      },
+      "limitations": {
+        "en": "Explicit member/ancestor/unrelated cases are selected separately from the literal null rule. The null rule in 18.4.3.6 does not state a sole-member override; retain that expectation and any observed known difference. No diagnostic severity or complete ambiguous multi-ancestor selection order is prescribed.",
+        "ja": "明示member／祖先／無関係条件を字面のnull規則と分ける。18.4.3.6のnull規則は単一memberの上書きを述べないため、その期待値と観測knownを保持する。診断severityや曖昧な複数祖先選択の全順序は規定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_register_local_map_null_uses_parent_default_even_with_one_registered_map",
+          "role": "direct",
+          "expected_observations": [
+            "UT: register_local_default null_selects_parent_default 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGISTER-CONTRACT-MAX-SIZE-FIRST",
+      "clause": "18.4.3.10",
+      "statement": {
+        "en": "The selected first register contributes its width to the maximum of the captured preexisting register widths.",
+        "ja": "選択最初のregisterは捕捉した既存register幅の最大値へその幅を寄与する。"
+      },
+      "conditions": {
+        "en": "Use the selected original register/block/file models and explicit public calls. Constructor-only observations do not require mapped physical hardware. Membership is queried through the register view after selected legal registrations/removals; output queues start empty.",
+        "ja": "選択した独自register／block／fileモデルと明示公開callを使う。constructor専用観測にmapped物理hardwareは不要である。選択した合法登録／解除の後にregister viewから所属を照会し、出力queueは空で始める。"
+      },
+      "expected": {
+        "en": "The selected first register contributes its width to the maximum of the captured preexisting register widths.",
+        "ja": "選択最初のregisterは捕捉した既存register幅の最大値へその幅を寄与する。"
+      },
+      "limitations": {
+        "en": "Capture the prior maximum rather than assuming an initial zero. All selected handles remain live; no garbage collection, destruction or maximum-reset semantics is inferred.",
+        "ja": "初期0を仮定せず以前の最大値を捕捉する。選択handleは全て生存させ、garbage collection、破棄、最大値resetの意味は導かない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_register_max_size_tracks_larger_instances_without_assuming_an_initial_global_value",
+          "role": "direct",
+          "expected_observations": [
+            "UT: register_max first 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGISTER-CONTRACT-MAX-SIZE-LARGER",
+      "clause": "18.4.3.10",
+      "statement": {
+        "en": "The selected larger register is included in the global register maximum width.",
+        "ja": "選択したより大きいregisterは全体のregister最大幅へ含まれる。"
+      },
+      "conditions": {
+        "en": "Use the selected original register/block/file models and explicit public calls. Constructor-only observations do not require mapped physical hardware. Membership is queried through the register view after selected legal registrations/removals; output queues start empty.",
+        "ja": "選択した独自register／block／fileモデルと明示公開callを使う。constructor専用観測にmapped物理hardwareは不要である。選択した合法登録／解除の後にregister viewから所属を照会し、出力queueは空で始める。"
+      },
+      "expected": {
+        "en": "The selected larger register is included in the global register maximum width.",
+        "ja": "選択したより大きいregisterは全体のregister最大幅へ含まれる。"
+      },
+      "limitations": {
+        "en": "Capture the prior maximum rather than assuming an initial zero. All selected handles remain live; no garbage collection, destruction or maximum-reset semantics is inferred.",
+        "ja": "初期0を仮定せず以前の最大値を捕捉する。選択handleは全て生存させ、garbage collection、破棄、最大値resetの意味は導かない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_register_max_size_tracks_larger_instances_without_assuming_an_initial_global_value",
+          "role": "direct",
+          "expected_observations": [
+            "UT: register_max larger 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGISTER-CONTRACT-MAX-SIZE-SMALLER",
+      "clause": "18.4.3.10",
+      "statement": {
+        "en": "Adding a smaller register and repeating the query preserve the selected global maximum.",
+        "ja": "小さいregisterの追加と照会の反復は選択全体最大幅を保持する。"
+      },
+      "conditions": {
+        "en": "Use the selected original register/block/file models and explicit public calls. Constructor-only observations do not require mapped physical hardware. Membership is queried through the register view after selected legal registrations/removals; output queues start empty.",
+        "ja": "選択した独自register／block／fileモデルと明示公開callを使う。constructor専用観測にmapped物理hardwareは不要である。選択した合法登録／解除の後にregister viewから所属を照会し、出力queueは空で始める。"
+      },
+      "expected": {
+        "en": "Adding a smaller register and repeating the query preserve the selected global maximum.",
+        "ja": "小さいregisterの追加と照会の反復は選択全体最大幅を保持する。"
+      },
+      "limitations": {
+        "en": "Capture the prior maximum rather than assuming an initial zero. All selected handles remain live; no garbage collection, destruction or maximum-reset semantics is inferred.",
+        "ja": "初期0を仮定せず以前の最大値を捕捉する。選択handleは全て生存させ、garbage collection、破棄、最大値resetの意味は導かない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_register_max_size_tracks_larger_instances_without_assuming_an_initial_global_value",
+          "role": "direct",
+          "expected_observations": [
+            "UT: register_max smaller_keeps 1 repeated_query 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGISTER-CONTRACT-FIELD-HANDLES",
+      "clause": "18.4.3.11",
+      "statement": {
+        "en": "get_fields returns all selected contained field handles without a peer register field.",
+        "ja": "get_fieldsはpeer register fieldを含めず選択全内包field handleを返す。"
+      },
+      "conditions": {
+        "en": "Use the selected original register/block/file models and explicit public calls. Constructor-only observations do not require mapped physical hardware. Membership is queried through the register view after selected legal registrations/removals; output queues start empty.",
+        "ja": "選択した独自register／block／fileモデルと明示公開callを使う。constructor専用観測にmapped物理hardwareは不要である。選択した合法登録／解除の後にregister viewから所属を照会し、出力queueは空で始める。"
+      },
+      "expected": {
+        "en": "get_fields returns all selected contained field handles without a peer register field.",
+        "ja": "get_fieldsはpeer register fieldを含めず選択全内包field handleを返す。"
+      },
+      "limitations": {
+        "en": "Selected two-state values, widths up to 53 bits, valid ownership and explicit map conditions only. Do not infer all reverse-map cache updates, already-absent removal, re-registration, destruction, arbitrary topology or concurrent structural mutation. Symbolic HDL presence is not a path-string or physical transport certificate. Availability metadata is not measured covergroup coverage.",
+        "ja": "選択2状態値、53-bit以下の幅、合法所有、明示map条件だけ。全reverse-map cache更新、既にない所属の解除、再登録、破棄、任意topology、並行構造変更は導かない。symbolic HDL存在はpath文字列や物理transportの認定ではない。利用可能metadataはcovergroup測定値ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_register_get_fields_orders_gapped_fields_by_bit_position_and_excludes_peer_handles",
+          "role": "direct",
+          "expected_observations": [
+            "UT: register_fields count 3 low 1 middle 1 high 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGISTER-CONTRACT-FIELD-LOW-TO-HIGH",
+      "clause": "18.4.3.11",
+      "statement": {
+        "en": "Selected gapped fields are returned from least-significant to most-significant position despite a different configure order.",
+        "ja": "選択したgapのあるfieldはconfigure順と異なってもLSB位置からMSB位置の順に返される。"
+      },
+      "conditions": {
+        "en": "Use the selected original register/block/file models and explicit public calls. Constructor-only observations do not require mapped physical hardware. Membership is queried through the register view after selected legal registrations/removals; output queues start empty.",
+        "ja": "選択した独自register／block／fileモデルと明示公開callを使う。constructor専用観測にmapped物理hardwareは不要である。選択した合法登録／解除の後にregister viewから所属を照会し、出力queueは空で始める。"
+      },
+      "expected": {
+        "en": "Selected gapped fields are returned from least-significant to most-significant position despite a different configure order.",
+        "ja": "選択したgapのあるfieldはconfigure順と異なってもLSB位置からMSB位置の順に返される。"
+      },
+      "limitations": {
+        "en": "Selected two-state values, widths up to 53 bits, valid ownership and explicit map conditions only. Do not infer all reverse-map cache updates, already-absent removal, re-registration, destruction, arbitrary topology or concurrent structural mutation. Symbolic HDL presence is not a path-string or physical transport certificate. Availability metadata is not measured covergroup coverage.",
+        "ja": "選択2状態値、53-bit以下の幅、合法所有、明示map条件だけ。全reverse-map cache更新、既にない所属の解除、再登録、破棄、任意topology、並行構造変更は導かない。symbolic HDL存在はpath文字列や物理transportの認定ではない。利用可能metadataはcovergroup測定値ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_register_get_fields_orders_gapped_fields_by_bit_position_and_excludes_peer_handles",
+          "role": "direct",
+          "expected_observations": [
+            "UT: register_fields count 3 low 1 middle 1 high 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGISTER-CONTRACT-FIELD-NAME-LOCAL",
+      "clause": "18.4.3.12",
+      "statement": {
+        "en": "Selected field-name lookup stays local to each register and returns null for a missing selected name.",
+        "ja": "選択field名lookupは各registerにlocalで、選択欠落名にはnullを返す。"
+      },
+      "conditions": {
+        "en": "Use the selected original register/block/file models and explicit public calls. Constructor-only observations do not require mapped physical hardware. Membership is queried through the register view after selected legal registrations/removals; output queues start empty.",
+        "ja": "選択した独自register／block／fileモデルと明示公開callを使う。constructor専用観測にmapped物理hardwareは不要である。選択した合法登録／解除の後にregister viewから所属を照会し、出力queueは空で始める。"
+      },
+      "expected": {
+        "en": "Selected field-name lookup stays local to each register and returns null for a missing selected name.",
+        "ja": "選択field名lookupは各registerにlocalで、選択欠落名にはnullを返す。"
+      },
+      "limitations": {
+        "en": "Selected two-state values, widths up to 53 bits, valid ownership and explicit map conditions only. Do not infer all reverse-map cache updates, already-absent removal, re-registration, destruction, arbitrary topology or concurrent structural mutation. Symbolic HDL presence is not a path-string or physical transport certificate. Availability metadata is not measured covergroup coverage.",
+        "ja": "選択2状態値、53-bit以下の幅、合法所有、明示map条件だけ。全reverse-map cache更新、既にない所属の解除、再登録、破棄、任意topology、並行構造変更は導かない。symbolic HDL存在はpath文字列や物理transportの認定ではない。利用可能metadataはcovergroup測定値ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_register_get_fields_orders_gapped_fields_by_bit_position_and_excludes_peer_handles",
+          "role": "direct",
+          "expected_observations": [
+            "UT: register_fields name_local 1 peer_distinct 1 missing_null 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGISTER-CONTRACT-RESET-GET-ASSEMBLY",
+      "clause": "18.4.4.6",
+      "statement": {
+        "en": "get_reset assembles the selected low and high field reset values into the register value.",
+        "ja": "get_resetは選択low／high field reset値をregister値へ合成する。"
+      },
+      "conditions": {
+        "en": "Two original full-width 16-bit RW register models have two eight-bit fields each. Selected HARD/SOFT definitions, model predictions and desired values are set explicitly; the any-field case deliberately omits one HARD field reset. No physical access is performed by these metadata fixtures.",
+        "ja": "独自全幅16-bit RW registerモデル2つは各8-bit fieldを2つ持つ。選択HARD／SOFT定義、model予測、desired値を明示設定し、any-field条件では一方のHARD field resetを意図的に省く。metadata fixtureは物理アクセスしない。"
+      },
+      "expected": {
+        "en": "get_reset assembles the selected low and high field reset values into the register value.",
+        "ja": "get_resetは選択low／high field reset値をregister値へ合成する。"
+      },
+      "limitations": {
+        "en": "Selected full-width RW fields and reset causes only. Missing reset values are not assigned an arbitrary assembled reset oracle. No physical DUT reset, semaphore recovery, write-once rearming, every field policy or concurrent reset is certified.",
+        "ja": "選択全幅RW fieldとreset原因だけ。reset欠落に任意の合成reset期待値を課さない。物理DUT reset、semaphore回復、write-once再有効化、全field policy、並行resetは認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_register_get_reset_assembles_kinds_without_modifying_desired_or_mirrored_values",
+          "role": "direct",
+          "expected_observations": [
+            "UT: register_reset_query hard aa11 explicit_hard aa11 soft beef"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGISTER-CONTRACT-RESET-GET-DEFAULT-HARD",
+      "clause": "18.4.4.6",
+      "statement": {
+        "en": "Omitting get_reset kind selects the same HARD value as the explicit HARD call.",
+        "ja": "get_resetのkind省略は明示HARD callと同じHARD値を選ぶ。"
+      },
+      "conditions": {
+        "en": "Two original full-width 16-bit RW register models have two eight-bit fields each. Selected HARD/SOFT definitions, model predictions and desired values are set explicitly; the any-field case deliberately omits one HARD field reset. No physical access is performed by these metadata fixtures.",
+        "ja": "独自全幅16-bit RW registerモデル2つは各8-bit fieldを2つ持つ。選択HARD／SOFT定義、model予測、desired値を明示設定し、any-field条件では一方のHARD field resetを意図的に省く。metadata fixtureは物理アクセスしない。"
+      },
+      "expected": {
+        "en": "Omitting get_reset kind selects the same HARD value as the explicit HARD call.",
+        "ja": "get_resetのkind省略は明示HARD callと同じHARD値を選ぶ。"
+      },
+      "limitations": {
+        "en": "Selected full-width RW fields and reset causes only. Missing reset values are not assigned an arbitrary assembled reset oracle. No physical DUT reset, semaphore recovery, write-once rearming, every field policy or concurrent reset is certified.",
+        "ja": "選択全幅RW fieldとreset原因だけ。reset欠落に任意の合成reset期待値を課さない。物理DUT reset、semaphore回復、write-once再有効化、全field policy、並行resetは認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_register_get_reset_assembles_kinds_without_modifying_desired_or_mirrored_values",
+          "role": "direct",
+          "expected_observations": [
+            "UT: register_reset_query hard aa11 explicit_hard aa11 soft beef"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGISTER-CONTRACT-RESET-GET-KIND",
+      "clause": "18.4.4.6",
+      "statement": {
+        "en": "get_reset selects the independently configured SOFT value without changing HARD.",
+        "ja": "get_resetはHARDを変更せず独立設定したSOFT値を選ぶ。"
+      },
+      "conditions": {
+        "en": "Two original full-width 16-bit RW register models have two eight-bit fields each. Selected HARD/SOFT definitions, model predictions and desired values are set explicitly; the any-field case deliberately omits one HARD field reset. No physical access is performed by these metadata fixtures.",
+        "ja": "独自全幅16-bit RW registerモデル2つは各8-bit fieldを2つ持つ。選択HARD／SOFT定義、model予測、desired値を明示設定し、any-field条件では一方のHARD field resetを意図的に省く。metadata fixtureは物理アクセスしない。"
+      },
+      "expected": {
+        "en": "get_reset selects the independently configured SOFT value without changing HARD.",
+        "ja": "get_resetはHARDを変更せず独立設定したSOFT値を選ぶ。"
+      },
+      "limitations": {
+        "en": "Selected full-width RW fields and reset causes only. Missing reset values are not assigned an arbitrary assembled reset oracle. No physical DUT reset, semaphore recovery, write-once rearming, every field policy or concurrent reset is certified.",
+        "ja": "選択全幅RW fieldとreset原因だけ。reset欠落に任意の合成reset期待値を課さない。物理DUT reset、semaphore回復、write-once再有効化、全field policy、並行resetは認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_register_get_reset_assembles_kinds_without_modifying_desired_or_mirrored_values",
+          "role": "direct",
+          "expected_observations": [
+            "UT: register_reset_query hard aa11 explicit_hard aa11 soft beef"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGISTER-CONTRACT-RESET-GET-MODEL-ISOLATION",
+      "clause": "18.4.4.6",
+      "statement": {
+        "en": "Selected reset queries preserve distinct desired/mirrored values and peer reset configuration.",
+        "ja": "選択reset照会は異なるdesired／mirrored値とpeer reset設定を保持する。"
+      },
+      "conditions": {
+        "en": "Two original full-width 16-bit RW register models have two eight-bit fields each. Selected HARD/SOFT definitions, model predictions and desired values are set explicitly; the any-field case deliberately omits one HARD field reset. No physical access is performed by these metadata fixtures.",
+        "ja": "独自全幅16-bit RW registerモデル2つは各8-bit fieldを2つ持つ。選択HARD／SOFT定義、model予測、desired値を明示設定し、any-field条件では一方のHARD field resetを意図的に省く。metadata fixtureは物理アクセスしない。"
+      },
+      "expected": {
+        "en": "Selected reset queries preserve distinct desired/mirrored values and peer reset configuration.",
+        "ja": "選択reset照会は異なるdesired／mirrored値とpeer reset設定を保持する。"
+      },
+      "limitations": {
+        "en": "Selected full-width RW fields and reset causes only. Missing reset values are not assigned an arbitrary assembled reset oracle. No physical DUT reset, semaphore recovery, write-once rearming, every field policy or concurrent reset is certified.",
+        "ja": "選択全幅RW fieldとreset原因だけ。reset欠落に任意の合成reset期待値を課さない。物理DUT reset、semaphore回復、write-once再有効化、全field policy、並行resetは認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_register_get_reset_assembles_kinds_without_modifying_desired_or_mirrored_values",
+          "role": "direct",
+          "expected_observations": [
+            "UT: register_reset_query desired 1234 mirror 5678 prediction 1 peer 7777"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGISTER-CONTRACT-RESET-HAS-ANY",
+      "clause": "18.4.4.7",
+      "statement": {
+        "en": "Register has_reset returns true when at least one selected field has the requested reset.",
+        "ja": "register has_resetは選択fieldの少なくとも1つに要求resetがあるとtrueを返す。"
+      },
+      "conditions": {
+        "en": "Two original full-width 16-bit RW register models have two eight-bit fields each. Selected HARD/SOFT definitions, model predictions and desired values are set explicitly; the any-field case deliberately omits one HARD field reset. No physical access is performed by these metadata fixtures.",
+        "ja": "独自全幅16-bit RW registerモデル2つは各8-bit fieldを2つ持つ。選択HARD／SOFT定義、model予測、desired値を明示設定し、any-field条件では一方のHARD field resetを意図的に省く。metadata fixtureは物理アクセスしない。"
+      },
+      "expected": {
+        "en": "Register has_reset returns true when at least one selected field has the requested reset.",
+        "ja": "register has_resetは選択fieldの少なくとも1つに要求resetがあるとtrueを返す。"
+      },
+      "limitations": {
+        "en": "Selected full-width RW fields and reset causes only. Missing reset values are not assigned an arbitrary assembled reset oracle. No physical DUT reset, semaphore recovery, write-once rearming, every field policy or concurrent reset is certified.",
+        "ja": "選択全幅RW fieldとreset原因だけ。reset欠落に任意の合成reset期待値を課さない。物理DUT reset、semaphore回復、write-once再有効化、全field policy、並行resetは認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_register_has_reset_aggregates_any_field_and_deletes_only_the_selected_reset_kind",
+          "role": "direct",
+          "expected_observations": [
+            "UT: register_reset_presence any_hard 1 one_missing 1 absent_soft 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGISTER-CONTRACT-RESET-HAS-ABSENT",
+      "clause": "18.4.4.7",
+      "statement": {
+        "en": "Register has_reset returns false for the selected kind absent from all its fields.",
+        "ja": "register has_resetは選択kindが全fieldにない場合falseを返す。"
+      },
+      "conditions": {
+        "en": "Two original full-width 16-bit RW register models have two eight-bit fields each. Selected HARD/SOFT definitions, model predictions and desired values are set explicitly; the any-field case deliberately omits one HARD field reset. No physical access is performed by these metadata fixtures.",
+        "ja": "独自全幅16-bit RW registerモデル2つは各8-bit fieldを2つ持つ。選択HARD／SOFT定義、model予測、desired値を明示設定し、any-field条件では一方のHARD field resetを意図的に省く。metadata fixtureは物理アクセスしない。"
+      },
+      "expected": {
+        "en": "Register has_reset returns false for the selected kind absent from all its fields.",
+        "ja": "register has_resetは選択kindが全fieldにない場合falseを返す。"
+      },
+      "limitations": {
+        "en": "Selected full-width RW fields and reset causes only. Missing reset values are not assigned an arbitrary assembled reset oracle. No physical DUT reset, semaphore recovery, write-once rearming, every field policy or concurrent reset is certified.",
+        "ja": "選択全幅RW fieldとreset原因だけ。reset欠落に任意の合成reset期待値を課さない。物理DUT reset、semaphore回復、write-once再有効化、全field policy、並行resetは認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_register_has_reset_aggregates_any_field_and_deletes_only_the_selected_reset_kind",
+          "role": "direct",
+          "expected_observations": [
+            "UT: register_reset_presence any_hard 1 one_missing 1 absent_soft 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGISTER-CONTRACT-RESET-HAS-DEFAULTS",
+      "clause": "18.4.4.7",
+      "statement": {
+        "en": "Omitted has_reset kind queries HARD without deleting that selected definition.",
+        "ja": "has_resetのkind省略は選択定義を削除せずHARDを照会する。"
+      },
+      "conditions": {
+        "en": "Two original full-width 16-bit RW register models have two eight-bit fields each. Selected HARD/SOFT definitions, model predictions and desired values are set explicitly; the any-field case deliberately omits one HARD field reset. No physical access is performed by these metadata fixtures.",
+        "ja": "独自全幅16-bit RW registerモデル2つは各8-bit fieldを2つ持つ。選択HARD／SOFT定義、model予測、desired値を明示設定し、any-field条件では一方のHARD field resetを意図的に省く。metadata fixtureは物理アクセスしない。"
+      },
+      "expected": {
+        "en": "Omitted has_reset kind queries HARD without deleting that selected definition.",
+        "ja": "has_resetのkind省略は選択定義を削除せずHARDを照会する。"
+      },
+      "limitations": {
+        "en": "Selected full-width RW fields and reset causes only. Missing reset values are not assigned an arbitrary assembled reset oracle. No physical DUT reset, semaphore recovery, write-once rearming, every field policy or concurrent reset is certified.",
+        "ja": "選択全幅RW fieldとreset原因だけ。reset欠落に任意の合成reset期待値を課さない。物理DUT reset、semaphore回復、write-once再有効化、全field policy、並行resetは認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_register_has_reset_aggregates_any_field_and_deletes_only_the_selected_reset_kind",
+          "role": "direct",
+          "expected_observations": [
+            "UT: register_reset_presence query_keeps_hard 1 peer_kept 1 peer_value 7777"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGISTER-CONTRACT-RESET-HAS-DELETE",
+      "clause": "18.4.4.7",
+      "statement": {
+        "en": "Explicit delete removes the selected kind from both fields and reports prior presence while other reset kinds and the peer remain.",
+        "ja": "明示deleteは選択kindを両fieldから除去して以前の存在を返し、他kindとpeerを保持する。"
+      },
+      "conditions": {
+        "en": "Two original full-width 16-bit RW register models have two eight-bit fields each. Selected HARD/SOFT definitions, model predictions and desired values are set explicitly; the any-field case deliberately omits one HARD field reset. No physical access is performed by these metadata fixtures.",
+        "ja": "独自全幅16-bit RW registerモデル2つは各8-bit fieldを2つ持つ。選択HARD／SOFT定義、model予測、desired値を明示設定し、any-field条件では一方のHARD field resetを意図的に省く。metadata fixtureは物理アクセスしない。"
+      },
+      "expected": {
+        "en": "Explicit delete removes the selected kind from both fields and reports prior presence while other reset kinds and the peer remain.",
+        "ja": "明示deleteは選択kindを両fieldから除去して以前の存在を返し、他kindとpeerを保持する。"
+      },
+      "limitations": {
+        "en": "Selected full-width RW fields and reset causes only. Missing reset values are not assigned an arbitrary assembled reset oracle. No physical DUT reset, semaphore recovery, write-once rearming, every field policy or concurrent reset is certified.",
+        "ja": "選択全幅RW fieldとreset原因だけ。reset欠落に任意の合成reset期待値を課さない。物理DUT reset、semaphore回復、write-once再有効化、全field policy、並行resetは認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_register_has_reset_aggregates_any_field_and_deletes_only_the_selected_reset_kind",
+          "role": "direct",
+          "expected_observations": [
+            "UT: register_reset_presence delete_prior 1 low_absent 1 high_absent 1 hard 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGISTER-CONTRACT-RESET-SET-FIELDS",
+      "clause": "18.4.4.8",
+      "statement": {
+        "en": "The selected register reset value is distributed to every corresponding field and used by a later reset.",
+        "ja": "選択register reset値は各対応fieldへ分配され、後続resetで使われる。"
+      },
+      "conditions": {
+        "en": "Two original full-width 16-bit RW register models have two eight-bit fields each. Selected HARD/SOFT definitions, model predictions and desired values are set explicitly; the any-field case deliberately omits one HARD field reset. No physical access is performed by these metadata fixtures.",
+        "ja": "独自全幅16-bit RW registerモデル2つは各8-bit fieldを2つ持つ。選択HARD／SOFT定義、model予測、desired値を明示設定し、any-field条件では一方のHARD field resetを意図的に省く。metadata fixtureは物理アクセスしない。"
+      },
+      "expected": {
+        "en": "The selected register reset value is distributed to every corresponding field and used by a later reset.",
+        "ja": "選択register reset値は各対応fieldへ分配され、後続resetで使われる。"
+      },
+      "limitations": {
+        "en": "Selected full-width RW fields and reset causes only. Missing reset values are not assigned an arbitrary assembled reset oracle. No physical DUT reset, semaphore recovery, write-once rearming, every field policy or concurrent reset is certified.",
+        "ja": "選択全幅RW fieldとreset原因だけ。reset欠落に任意の合成reset期待値を課さない。物理DUT reset、semaphore回復、write-once再有効化、全field policy、並行resetは認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_register_set_reset_replaces_one_kind_and_distributes_values_to_each_field",
+          "role": "direct",
+          "expected_observations": [
+            "UT: register_reset_set replaced cafe desired cafe mirror cafe soft_kept beef peer 7777"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGISTER-CONTRACT-RESET-SET-DEFAULT",
+      "clause": "18.4.4.8",
+      "statement": {
+        "en": "Omitting set_reset kind configures HARD while preserving the explicit SOFT value.",
+        "ja": "set_resetのkind省略は明示SOFT値を保持してHARDを設定する。"
+      },
+      "conditions": {
+        "en": "Two original full-width 16-bit RW register models have two eight-bit fields each. Selected HARD/SOFT definitions, model predictions and desired values are set explicitly; the any-field case deliberately omits one HARD field reset. No physical access is performed by these metadata fixtures.",
+        "ja": "独自全幅16-bit RW registerモデル2つは各8-bit fieldを2つ持つ。選択HARD／SOFT定義、model予測、desired値を明示設定し、any-field条件では一方のHARD field resetを意図的に省く。metadata fixtureは物理アクセスしない。"
+      },
+      "expected": {
+        "en": "Omitting set_reset kind configures HARD while preserving the explicit SOFT value.",
+        "ja": "set_resetのkind省略は明示SOFT値を保持してHARDを設定する。"
+      },
+      "limitations": {
+        "en": "Selected full-width RW fields and reset causes only. Missing reset values are not assigned an arbitrary assembled reset oracle. No physical DUT reset, semaphore recovery, write-once rearming, every field policy or concurrent reset is certified.",
+        "ja": "選択全幅RW fieldとreset原因だけ。reset欠落に任意の合成reset期待値を課さない。物理DUT reset、semaphore回復、write-once再有効化、全field policy、並行resetは認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_register_set_reset_replaces_one_kind_and_distributes_values_to_each_field",
+          "role": "direct",
+          "expected_observations": [
+            "UT: register_reset_set hard dead soft beef desired_still aa11 mirror_still aa11"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGISTER-CONTRACT-RESET-SET-REPLACE",
+      "clause": "18.4.4.8",
+      "statement": {
+        "en": "A later selected set_reset replaces the earlier value of the same reset kind.",
+        "ja": "後続の選択set_resetは同じreset kindの以前の値を置き換える。"
+      },
+      "conditions": {
+        "en": "Two original full-width 16-bit RW register models have two eight-bit fields each. Selected HARD/SOFT definitions, model predictions and desired values are set explicitly; the any-field case deliberately omits one HARD field reset. No physical access is performed by these metadata fixtures.",
+        "ja": "独自全幅16-bit RW registerモデル2つは各8-bit fieldを2つ持つ。選択HARD／SOFT定義、model予測、desired値を明示設定し、any-field条件では一方のHARD field resetを意図的に省く。metadata fixtureは物理アクセスしない。"
+      },
+      "expected": {
+        "en": "A later selected set_reset replaces the earlier value of the same reset kind.",
+        "ja": "後続の選択set_resetは同じreset kindの以前の値を置き換える。"
+      },
+      "limitations": {
+        "en": "Selected full-width RW fields and reset causes only. Missing reset values are not assigned an arbitrary assembled reset oracle. No physical DUT reset, semaphore recovery, write-once rearming, every field policy or concurrent reset is certified.",
+        "ja": "選択全幅RW fieldとreset原因だけ。reset欠落に任意の合成reset期待値を課さない。物理DUT reset、semaphore回復、write-once再有効化、全field policy、並行resetは認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_register_set_reset_replaces_one_kind_and_distributes_values_to_each_field",
+          "role": "direct",
+          "expected_observations": [
+            "UT: register_reset_set replaced cafe desired cafe mirror cafe soft_kept beef peer 7777"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGISTER-CONTRACT-RESET-SET-ISOLATION",
+      "clause": "18.4.4.8",
+      "statement": {
+        "en": "Changing selected reset metadata preserves current model values until reset and leaves the peer configuration intact.",
+        "ja": "選択reset metadataの変更はresetまで現在のmodel値を保持し、peer設定を保持する。"
+      },
+      "conditions": {
+        "en": "Two original full-width 16-bit RW register models have two eight-bit fields each. Selected HARD/SOFT definitions, model predictions and desired values are set explicitly; the any-field case deliberately omits one HARD field reset. No physical access is performed by these metadata fixtures.",
+        "ja": "独自全幅16-bit RW registerモデル2つは各8-bit fieldを2つ持つ。選択HARD／SOFT定義、model予測、desired値を明示設定し、any-field条件では一方のHARD field resetを意図的に省く。metadata fixtureは物理アクセスしない。"
+      },
+      "expected": {
+        "en": "Changing selected reset metadata preserves current model values until reset and leaves the peer configuration intact.",
+        "ja": "選択reset metadataの変更はresetまで現在のmodel値を保持し、peer設定を保持する。"
+      },
+      "limitations": {
+        "en": "Selected full-width RW fields and reset causes only. Missing reset values are not assigned an arbitrary assembled reset oracle. No physical DUT reset, semaphore recovery, write-once rearming, every field policy or concurrent reset is certified.",
+        "ja": "選択全幅RW fieldとreset原因だけ。reset欠落に任意の合成reset期待値を課さない。物理DUT reset、semaphore回復、write-once再有効化、全field policy、並行resetは認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_register_set_reset_replaces_one_kind_and_distributes_values_to_each_field",
+          "role": "direct",
+          "expected_observations": [
+            "UT: register_reset_set hard dead soft beef desired_still aa11 mirror_still aa11"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGISTER-CONTRACT-GET-MODEL-VALUE",
+      "clause": "18.4.4.1",
+      "statement": {
+        "en": "The selected getter returns the desired model value independently of distinct original storage.",
+        "ja": "選択getterは異なる独自storageと独立にdesired model値を返す。"
+      },
+      "conditions": {
+        "en": "The selected original user backdoor stores CAFE, while explicit predict sets model mirror 5522 and set changes desired to AA99. Query calls vary omitted/default and explicit debug source information; a later real peek establishes that the attached original backend is live.",
+        "ja": "選択独自user backdoorはCAFEを格納し、明示predictでmodel mirrorを5522、setでdesiredをAA99にする。照会は省略／既定と明示debug source情報を変え、後続の実peekで接続独自backendが動くことを確認する。"
+      },
+      "expected": {
+        "en": "The selected getter returns the desired model value independently of distinct original storage.",
+        "ja": "選択getterは異なる独自storageと独立にdesired model値を返す。"
+      },
+      "limitations": {
+        "en": "Selected 16-bit RW values only. Backend counters establish absence of selected transfers before the live control; no physical HDL, all side-effect/write-only policies, exact callback count or arbitrary debug forwarding is imposed. Only functional invariance is required.",
+        "ja": "選択16-bit RW値だけ。backend counterは動作control前の選択転送不在を示し、物理HDL、全副作用／write-only policy、正確なcallback件数、任意debug転送は課さない。機能不変性だけを要求する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_register_model_value_queries_preserve_debug_invariance_and_do_not_read_original_storage",
+          "role": "direct",
+          "expected_observations": [
+            "UT: register_model_query debug 0 desired aa99 mirror 5522 no_reads 1 no_writes 1",
+            "UT: register_model_query debug 1 desired aa99 mirror 5522 no_reads 1 no_writes 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGISTER-CONTRACT-GET-DEBUG",
+      "clause": "18.4.4.1",
+      "statement": {
+        "en": "Changing debug-only source information preserves the selected desired getter result.",
+        "ja": "debug専用source情報の変更は選択desired getter結果を保持する。"
+      },
+      "conditions": {
+        "en": "The selected original user backdoor stores CAFE, while explicit predict sets model mirror 5522 and set changes desired to AA99. Query calls vary omitted/default and explicit debug source information; a later real peek establishes that the attached original backend is live.",
+        "ja": "選択独自user backdoorはCAFEを格納し、明示predictでmodel mirrorを5522、setでdesiredをAA99にする。照会は省略／既定と明示debug source情報を変え、後続の実peekで接続独自backendが動くことを確認する。"
+      },
+      "expected": {
+        "en": "Changing debug-only source information preserves the selected desired getter result.",
+        "ja": "debug専用source情報の変更は選択desired getter結果を保持する。"
+      },
+      "limitations": {
+        "en": "Selected 16-bit RW values only. Backend counters establish absence of selected transfers before the live control; no physical HDL, all side-effect/write-only policies, exact callback count or arbitrary debug forwarding is imposed. Only functional invariance is required.",
+        "ja": "選択16-bit RW値だけ。backend counterは動作control前の選択転送不在を示し、物理HDL、全副作用／write-only policy、正確なcallback件数、任意debug転送は課さない。機能不変性だけを要求する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_register_model_value_queries_preserve_debug_invariance_and_do_not_read_original_storage",
+          "role": "direct",
+          "expected_observations": [
+            "UT: register_model_query debug 0 desired aa99 mirror 5522 no_reads 1 no_writes 1",
+            "UT: register_model_query debug 1 desired aa99 mirror 5522 no_reads 1 no_writes 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGISTER-CONTRACT-GET-NO-DUT-READ",
+      "clause": "18.4.4.1",
+      "statement": {
+        "en": "The selected desired query reads no original storage and performs no write before the independent live peek control.",
+        "ja": "選択desired照会は独立した動作peek controlまで独自storageを読まず、writeもしない。"
+      },
+      "conditions": {
+        "en": "The selected original user backdoor stores CAFE, while explicit predict sets model mirror 5522 and set changes desired to AA99. Query calls vary omitted/default and explicit debug source information; a later real peek establishes that the attached original backend is live.",
+        "ja": "選択独自user backdoorはCAFEを格納し、明示predictでmodel mirrorを5522、setでdesiredをAA99にする。照会は省略／既定と明示debug source情報を変え、後続の実peekで接続独自backendが動くことを確認する。"
+      },
+      "expected": {
+        "en": "The selected desired query reads no original storage and performs no write before the independent live peek control.",
+        "ja": "選択desired照会は独立した動作peek controlまで独自storageを読まず、writeもしない。"
+      },
+      "limitations": {
+        "en": "Selected 16-bit RW values only. Backend counters establish absence of selected transfers before the live control; no physical HDL, all side-effect/write-only policies, exact callback count or arbitrary debug forwarding is imposed. Only functional invariance is required.",
+        "ja": "選択16-bit RW値だけ。backend counterは動作control前の選択転送不在を示し、物理HDL、全副作用／write-only policy、正確なcallback件数、任意debug転送は課さない。機能不変性だけを要求する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_register_model_value_queries_preserve_debug_invariance_and_do_not_read_original_storage",
+          "role": "direct",
+          "expected_observations": [
+            "UT: register_model_query debug 0 desired aa99 mirror 5522 no_reads 1 no_writes 1",
+            "UT: register_model_query debug 1 desired aa99 mirror 5522 no_reads 1 no_writes 1",
+            "UT: register_model_query live_control 1 value cafe backend_used 1 predicted 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGISTER-CONTRACT-MIRROR-MODEL-VALUE",
+      "clause": "18.4.4.3",
+      "statement": {
+        "en": "The selected getter returns the mirrored model value independently of distinct original storage.",
+        "ja": "選択getterは異なる独自storageと独立にmirrored model値を返す。"
+      },
+      "conditions": {
+        "en": "The selected original user backdoor stores CAFE, while explicit predict sets model mirror 5522 and set changes desired to AA99. Query calls vary omitted/default and explicit debug source information; a later real peek establishes that the attached original backend is live.",
+        "ja": "選択独自user backdoorはCAFEを格納し、明示predictでmodel mirrorを5522、setでdesiredをAA99にする。照会は省略／既定と明示debug source情報を変え、後続の実peekで接続独自backendが動くことを確認する。"
+      },
+      "expected": {
+        "en": "The selected getter returns the mirrored model value independently of distinct original storage.",
+        "ja": "選択getterは異なる独自storageと独立にmirrored model値を返す。"
+      },
+      "limitations": {
+        "en": "Selected 16-bit RW values only. Backend counters establish absence of selected transfers before the live control; no physical HDL, all side-effect/write-only policies, exact callback count or arbitrary debug forwarding is imposed. Only functional invariance is required.",
+        "ja": "選択16-bit RW値だけ。backend counterは動作control前の選択転送不在を示し、物理HDL、全副作用／write-only policy、正確なcallback件数、任意debug転送は課さない。機能不変性だけを要求する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_register_model_value_queries_preserve_debug_invariance_and_do_not_read_original_storage",
+          "role": "direct",
+          "expected_observations": [
+            "UT: register_model_query debug 0 desired aa99 mirror 5522 no_reads 1 no_writes 1",
+            "UT: register_model_query debug 1 desired aa99 mirror 5522 no_reads 1 no_writes 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGISTER-CONTRACT-MIRROR-DEBUG",
+      "clause": "18.4.4.3",
+      "statement": {
+        "en": "Changing debug-only source information preserves the selected mirrored getter result.",
+        "ja": "debug専用source情報の変更は選択mirrored getter結果を保持する。"
+      },
+      "conditions": {
+        "en": "The selected original user backdoor stores CAFE, while explicit predict sets model mirror 5522 and set changes desired to AA99. Query calls vary omitted/default and explicit debug source information; a later real peek establishes that the attached original backend is live.",
+        "ja": "選択独自user backdoorはCAFEを格納し、明示predictでmodel mirrorを5522、setでdesiredをAA99にする。照会は省略／既定と明示debug source情報を変え、後続の実peekで接続独自backendが動くことを確認する。"
+      },
+      "expected": {
+        "en": "Changing debug-only source information preserves the selected mirrored getter result.",
+        "ja": "debug専用source情報の変更は選択mirrored getter結果を保持する。"
+      },
+      "limitations": {
+        "en": "Selected 16-bit RW values only. Backend counters establish absence of selected transfers before the live control; no physical HDL, all side-effect/write-only policies, exact callback count or arbitrary debug forwarding is imposed. Only functional invariance is required.",
+        "ja": "選択16-bit RW値だけ。backend counterは動作control前の選択転送不在を示し、物理HDL、全副作用／write-only policy、正確なcallback件数、任意debug転送は課さない。機能不変性だけを要求する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_register_model_value_queries_preserve_debug_invariance_and_do_not_read_original_storage",
+          "role": "direct",
+          "expected_observations": [
+            "UT: register_model_query debug 0 desired aa99 mirror 5522 no_reads 1 no_writes 1",
+            "UT: register_model_query debug 1 desired aa99 mirror 5522 no_reads 1 no_writes 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGISTER-CONTRACT-MIRROR-NO-DUT-READ",
+      "clause": "18.4.4.3",
+      "statement": {
+        "en": "The selected mirrored query reads no original storage and performs no write before the independent live peek control.",
+        "ja": "選択mirrored照会は独立した動作peek controlまで独自storageを読まず、writeもしない。"
+      },
+      "conditions": {
+        "en": "The selected original user backdoor stores CAFE, while explicit predict sets model mirror 5522 and set changes desired to AA99. Query calls vary omitted/default and explicit debug source information; a later real peek establishes that the attached original backend is live.",
+        "ja": "選択独自user backdoorはCAFEを格納し、明示predictでmodel mirrorを5522、setでdesiredをAA99にする。照会は省略／既定と明示debug source情報を変え、後続の実peekで接続独自backendが動くことを確認する。"
+      },
+      "expected": {
+        "en": "The selected mirrored query reads no original storage and performs no write before the independent live peek control.",
+        "ja": "選択mirrored照会は独立した動作peek controlまで独自storageを読まず、writeもしない。"
+      },
+      "limitations": {
+        "en": "Selected 16-bit RW values only. Backend counters establish absence of selected transfers before the live control; no physical HDL, all side-effect/write-only policies, exact callback count or arbitrary debug forwarding is imposed. Only functional invariance is required.",
+        "ja": "選択16-bit RW値だけ。backend counterは動作control前の選択転送不在を示し、物理HDL、全副作用／write-only policy、正確なcallback件数、任意debug転送は課さない。機能不変性だけを要求する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_register_model_value_queries_preserve_debug_invariance_and_do_not_read_original_storage",
+          "role": "direct",
+          "expected_observations": [
+            "UT: register_model_query debug 0 desired aa99 mirror 5522 no_reads 1 no_writes 1",
+            "UT: register_model_query debug 1 desired aa99 mirror 5522 no_reads 1 no_writes 1",
+            "UT: register_model_query live_control 1 value cafe backend_used 1 predicted 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGISTER-CONTRACT-CLONE-PUBLIC-CALL",
+      "clause": "18.2.3.12",
+      "statement": {
+        "en": "The map exposes the printed clone_and_update call accepting the selected rights strings.",
+        "ja": "mapは選択rights文字列を受ける印刷clone_and_update callを提供する。"
+      },
+      "conditions": {
+        "en": "An original source map contains a selected RW register. Invoke the printed clone_and_update method with RO, WO and RW strings as a statement, discarding its implicit return without assuming a map handle; inspect only the original map association and rights afterward.",
+        "ja": "独自source mapは選択RW registerを含む。印刷clone_and_updateへRO／WO／RW文字列を文として渡し、map handleを仮定せず暗黙返却を捨て、その後に元mapの関連とrightsだけを照会する。"
+      },
+      "expected": {
+        "en": "The map exposes the printed clone_and_update call accepting the selected rights strings.",
+        "ja": "mapは選択rights文字列を受ける印刷clone_and_update callを提供する。"
+      },
+      "limitations": {
+        "en": "Availability and source-preservation duties only. New-map identity, contents, requested rights and a standard-derived observation route remain open partial duties. The printed prototype has no explicit map return type; do not invent a returned handle or block-registration contract. A missing method is a legal simulation build difference with no runtime or demonstrated clone semantics.",
+        "ja": "提供とsource保持の義務だけ。新mapの同一性、内容、要求rights、規格から導く観測経路は部分義務として未完に残す。印刷prototypeに明示map返却型はなく、handle返却やblock登録契約を作らない。method欠落は合法simulation build差分で、runtimeやclone意味の実証ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_map_clone_and_update_accepts_rights_and_preserves_the_original_map_contract",
+          "role": "direct",
+          "expected_observations": [
+            "UT: map_clone requested RO source_rights RW source_membership 1",
+            "UT: map_clone requested WO source_rights RW source_membership 1",
+            "UT: map_clone requested RW source_rights RW source_membership 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGISTER-CONTRACT-CLONE-SOURCE-PRESERVATION",
+      "clause": "18.2.3.12",
+      "statement": {
+        "en": "Cloning into a new instance does not replace the source map selected register rights or remove its source association.",
+        "ja": "新instanceへのcloneはsource mapの選択register rightsを置換せずsource関連を除去しない。"
+      },
+      "conditions": {
+        "en": "An original source map contains a selected RW register. Invoke the printed clone_and_update method with RO, WO and RW strings as a statement, discarding its implicit return without assuming a map handle; inspect only the original map association and rights afterward.",
+        "ja": "独自source mapは選択RW registerを含む。印刷clone_and_updateへRO／WO／RW文字列を文として渡し、map handleを仮定せず暗黙返却を捨て、その後に元mapの関連とrightsだけを照会する。"
+      },
+      "expected": {
+        "en": "Cloning into a new instance does not replace the source map selected register rights or remove its source association.",
+        "ja": "新instanceへのcloneはsource mapの選択register rightsを置換せずsource関連を除去しない。"
+      },
+      "limitations": {
+        "en": "Availability and source-preservation duties only. New-map identity, contents, requested rights and a standard-derived observation route remain open partial duties. The printed prototype has no explicit map return type; do not invent a returned handle or block-registration contract. A missing method is a legal simulation build difference with no runtime or demonstrated clone semantics.",
+        "ja": "提供とsource保持の義務だけ。新mapの同一性、内容、要求rights、規格から導く観測経路は部分義務として未完に残す。印刷prototypeに明示map返却型はなく、handle返却やblock登録契約を作らない。method欠落は合法simulation build差分で、runtimeやclone意味の実証ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_map_clone_and_update_accepts_rights_and_preserves_the_original_map_contract",
+          "role": "direct",
+          "expected_observations": [
+            "UT: map_clone requested RO source_rights RW source_membership 1",
+            "UT: map_clone requested WO source_rights RW source_membership 1",
+            "UT: map_clone requested RW source_rights RW source_membership 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGISTER-CONTRACT-CLONE-PRINTED-SCALAR-RETURN",
+      "clause": "18.2.3.12",
+      "statement": {
+        "en": "The literal printed virtual function with an empty implicit return type supports a scalar-logic override and base-view dispatch to the selected implementation.",
+        "ja": "空の暗黙返却型を持つ字面どおりの印刷virtual functionは、scalar-logic overrideとbase viewから選択実装へのdispatchを許す。"
+      },
+      "conditions": {
+        "en": "Read the prototype together with SystemVerilog 13.4 implicit function return rules and virtual method override compatibility. The original subtype returns one and records the supplied rights; no clone algorithm or map-handle return is substituted.",
+        "ja": "prototypeをSystemVerilog 13.4の暗黙function返却規則とvirtual method override互換性に合わせて読む。独自subtypeは1を返して指定rightsを記録し、clone algorithmやmap-handle返却を代入しない。"
+      },
+      "expected": {
+        "en": "The literal printed virtual function with an empty implicit return type supports a scalar-logic override and base-view dispatch to the selected implementation.",
+        "ja": "空の暗黙返却型を持つ字面どおりの印刷virtual functionは、scalar-logic overrideとbase viewから選択実装へのdispatchを許す。"
+      },
+      "limitations": {
+        "en": "Qualified literal declaration probe, separate from the callable API/source-preservation control. An implementation with an explicit map return conflicts with this reading. Keep that signature difference visible rather than correcting the printed type silently. No new-map identity/content/rights is certified, and a failed build has no runtime result.",
+        "ja": "callable API／source保持controlと別の、限定した字面の宣言probeである。明示map返却を持つ実装はこの読み方と衝突する。印刷型を黙って訂正せずsignature差分を保持する。新map同一性／内容／rightsは認定せず、build失敗にruntime結果はない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_map_clone_printed_implicit_return_type_supports_a_scalar_override_and_base_dispatch",
+          "role": "direct",
+          "expected_observations": [
+            "UT: map_clone_declaration scalar 1 calls 1 argument 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGISTER-CONTRACT-BUSY-INITIAL",
+      "clause": "18.4.4.16",
+      "statement": {
+        "en": "A selected register not currently accessed is initially not busy.",
+        "ja": "現在アクセスしていない選択registerは初期にbusyでない。"
+      },
+      "conditions": {
+        "en": "A live original frontdoor adapter/sequencer/driver services one 32-bit RW register and leaves its peer idle. The driver signals request arrival, then gates completion while an independent thread queries is_busy. A selected read failure and successful later access follow.",
+        "ja": "動作する独自frontdoor adapter／sequencer／driverが32-bit RW register 1つを処理しpeerはidleにする。driverがrequest到着を示してから完了をgateし、別threadがis_busyを照会する。選択read失敗と後続成功アクセスを続ける。"
+      },
+      "expected": {
+        "en": "A selected register not currently accessed is initially not busy.",
+        "ja": "現在アクセスしていない選択registerは初期にbusyでない。"
+      },
+      "limitations": {
+        "en": "Selected in-flight and returned operations, not zero-time scheduling order, semaphore recovery after thread death, overlapping callers, all failures or physical HDL transport. Failed-read data is unconstrained; no exact bus/callback retry count is imposed.",
+        "ja": "選択した処理中／return後の操作だけで、zero-time scheduling順、thread終了後のsemaphore回復、競合caller、全失敗、物理HDL transportではない。失敗read dataは制約せず、正確なbus／callback再試行件数は課さない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_register_is_busy_tracks_gated_reads_writes_failure_completion_and_an_idle_peer",
+          "role": "direct",
+          "expected_observations": [
+            "UT: register_busy initial_idle 1 peer_idle 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGISTER-CONTRACT-BUSY-WRITE",
+      "clause": "18.4.4.16",
+      "statement": {
+        "en": "The selected register is busy while its actual write awaits original driver completion.",
+        "ja": "選択registerは実writeが独自driver完了を待つ間busyである。"
+      },
+      "conditions": {
+        "en": "A live original frontdoor adapter/sequencer/driver services one 32-bit RW register and leaves its peer idle. The driver signals request arrival, then gates completion while an independent thread queries is_busy. A selected read failure and successful later access follow.",
+        "ja": "動作する独自frontdoor adapter／sequencer／driverが32-bit RW register 1つを処理しpeerはidleにする。driverがrequest到着を示してから完了をgateし、別threadがis_busyを照会する。選択read失敗と後続成功アクセスを続ける。"
+      },
+      "expected": {
+        "en": "The selected register is busy while its actual write awaits original driver completion.",
+        "ja": "選択registerは実writeが独自driver完了を待つ間busyである。"
+      },
+      "limitations": {
+        "en": "Selected in-flight and returned operations, not zero-time scheduling order, semaphore recovery after thread death, overlapping callers, all failures or physical HDL transport. Failed-read data is unconstrained; no exact bus/callback retry count is imposed.",
+        "ja": "選択した処理中／return後の操作だけで、zero-time scheduling順、thread終了後のsemaphore回復、競合caller、全失敗、物理HDL transportではない。失敗read dataは制約せず、正確なbus／callback再試行件数は課さない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_register_is_busy_tracks_gated_reads_writes_failure_completion_and_an_idle_peer",
+          "role": "direct",
+          "expected_observations": [
+            "UT: register_busy during_write 1 peer_idle 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGISTER-CONTRACT-BUSY-READ",
+      "clause": "18.4.4.16",
+      "statement": {
+        "en": "The selected register is busy while its actual read awaits original driver completion.",
+        "ja": "選択registerは実readが独自driver完了を待つ間busyである。"
+      },
+      "conditions": {
+        "en": "A live original frontdoor adapter/sequencer/driver services one 32-bit RW register and leaves its peer idle. The driver signals request arrival, then gates completion while an independent thread queries is_busy. A selected read failure and successful later access follow.",
+        "ja": "動作する独自frontdoor adapter／sequencer／driverが32-bit RW register 1つを処理しpeerはidleにする。driverがrequest到着を示してから完了をgateし、別threadがis_busyを照会する。選択read失敗と後続成功アクセスを続ける。"
+      },
+      "expected": {
+        "en": "The selected register is busy while its actual read awaits original driver completion.",
+        "ja": "選択registerは実readが独自driver完了を待つ間busyである。"
+      },
+      "limitations": {
+        "en": "Selected in-flight and returned operations, not zero-time scheduling order, semaphore recovery after thread death, overlapping callers, all failures or physical HDL transport. Failed-read data is unconstrained; no exact bus/callback retry count is imposed.",
+        "ja": "選択した処理中／return後の操作だけで、zero-time scheduling順、thread終了後のsemaphore回復、競合caller、全失敗、物理HDL transportではない。失敗read dataは制約せず、正確なbus／callback再試行件数は課さない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_register_is_busy_tracks_gated_reads_writes_failure_completion_and_an_idle_peer",
+          "role": "direct",
+          "expected_observations": [
+            "UT: register_busy during_read 1 peer_idle 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGISTER-CONTRACT-BUSY-RETURN",
+      "clause": "18.4.4.16",
+      "statement": {
+        "en": "is_busy clears after selected successful or failed operations return, including a new successful read.",
+        "ja": "is_busyは選択成功／失敗操作のreturn後に解除され、新しい成功read後も解除される。"
+      },
+      "conditions": {
+        "en": "A live original frontdoor adapter/sequencer/driver services one 32-bit RW register and leaves its peer idle. The driver signals request arrival, then gates completion while an independent thread queries is_busy. A selected read failure and successful later access follow.",
+        "ja": "動作する独自frontdoor adapter／sequencer／driverが32-bit RW register 1つを処理しpeerはidleにする。driverがrequest到着を示してから完了をgateし、別threadがis_busyを照会する。選択read失敗と後続成功アクセスを続ける。"
+      },
+      "expected": {
+        "en": "is_busy clears after selected successful or failed operations return, including a new successful read.",
+        "ja": "is_busyは選択成功／失敗操作のreturn後に解除され、新しい成功read後も解除される。"
+      },
+      "limitations": {
+        "en": "Selected in-flight and returned operations, not zero-time scheduling order, semaphore recovery after thread death, overlapping callers, all failures or physical HDL transport. Failed-read data is unconstrained; no exact bus/callback retry count is imposed.",
+        "ja": "選択した処理中／return後の操作だけで、zero-time scheduling順、thread終了後のsemaphore回復、競合caller、全失敗、物理HDL transportではない。失敗read dataは制約せず、正確なbus／callback再試行件数は課さない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_register_is_busy_tracks_gated_reads_writes_failure_completion_and_an_idle_peer",
+          "role": "direct",
+          "expected_observations": [
+            "UT: register_busy initial_idle 1 peer_idle 1",
+            "UT: register_busy during_write 1 peer_idle 1",
+            "UT: register_busy write_complete 1 idle 1",
+            "UT: register_busy during_read 1 peer_idle 1",
+            "UT: register_busy failed_return 1 idle 1",
+            "UT: register_busy retry 1 value 52a5 idle 1 peer_idle 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REGISTER-CONTRACT-BUSY-PEER",
+      "clause": "18.4.4.16",
+      "statement": {
+        "en": "Actual accesses to one selected register leave the independent peer not busy.",
+        "ja": "選択register 1つへの実アクセスは独立peerをbusyにしない。"
+      },
+      "conditions": {
+        "en": "A live original frontdoor adapter/sequencer/driver services one 32-bit RW register and leaves its peer idle. The driver signals request arrival, then gates completion while an independent thread queries is_busy. A selected read failure and successful later access follow.",
+        "ja": "動作する独自frontdoor adapter／sequencer／driverが32-bit RW register 1つを処理しpeerはidleにする。driverがrequest到着を示してから完了をgateし、別threadがis_busyを照会する。選択read失敗と後続成功アクセスを続ける。"
+      },
+      "expected": {
+        "en": "Actual accesses to one selected register leave the independent peer not busy.",
+        "ja": "選択register 1つへの実アクセスは独立peerをbusyにしない。"
+      },
+      "limitations": {
+        "en": "Selected in-flight and returned operations, not zero-time scheduling order, semaphore recovery after thread death, overlapping callers, all failures or physical HDL transport. Failed-read data is unconstrained; no exact bus/callback retry count is imposed.",
+        "ja": "選択した処理中／return後の操作だけで、zero-time scheduling順、thread終了後のsemaphore回復、競合caller、全失敗、物理HDL transportではない。失敗read dataは制約せず、正確なbus／callback再試行件数は課さない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_register_is_busy_tracks_gated_reads_writes_failure_completion_and_an_idle_peer",
+          "role": "direct",
+          "expected_observations": [
+            "UT: register_busy initial_idle 1 peer_idle 1",
+            "UT: register_busy during_write 1 peer_idle 1",
+            "UT: register_busy write_complete 1 idle 1",
+            "UT: register_busy during_read 1 peer_idle 1",
+            "UT: register_busy failed_return 1 idle 1",
+            "UT: register_busy retry 1 value 52a5 idle 1 peer_idle 1"
+          ]
+        }
+      ]
     }
   ]
 }

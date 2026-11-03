@@ -938,3 +938,11 @@ D.3の名前モデルアクセスはfileをuDに置いてもM3へ属します。
 **Unmapped logical frontdoor（unmapped論理frontdoor）**: memoryが物理map addressを占有せず、独自access sequenceが論理memory locationを処理すること。
 
 **Qualified address-unit relation（限定したaddress単位の関係）**: 字面の読み方でword単位を既定の階層get_n_bytes結果へ結び付けます。local幅の解釈と観測した有効幅差分は別の照合課題として残します。
+
+**Captured maximum baseline（捕捉した最大値の基準）**: 他モデルが存在しないと仮定せず、選択register追加前の全体最大値を記録すること。
+
+**Reset-kind definition（reset種別の定義）**: model metadataが選択reset原因ごとに値／存在を持つこと。その変更とmodel値へのreset適用を区別します。
+
+**Clone source control（cloneのsource control）**: clone要求後に元mapのrights／関連を観測し、新instanceの未観測内容は主張しないこと。
+
+**Gated busy observation（gate制御busy観測）**: request到着後に独自driver応答を保持し、別threadが実処理待ちregister操作のis_busyを観測すること。

@@ -1,0 +1,6 @@
+UT: register_busy initial_idle 1 peer_idle 1
+UT: register_busy during_write 1 peer_idle 1
+UT: register_busy write_complete 1 idle 1
+UT: register_busy during_read 1 peer_idle 1
+UT: register_busy failed_return 1 idle 1
+UT: register_busy retry 1 value 52a5 idle 1 peer_idle 1

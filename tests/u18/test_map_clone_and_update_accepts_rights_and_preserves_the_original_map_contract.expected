@@ -1,0 +1,3 @@
+UT: map_clone requested RO source_rights RW source_membership 1
+UT: map_clone requested WO source_rights RW source_membership 1
+UT: map_clone requested RW source_rights RW source_membership 1

@@ -1,0 +1,3 @@
+UT: register_max first 1
+UT: register_max larger 1
+UT: register_max smaller_keeps 1 repeated_query 1

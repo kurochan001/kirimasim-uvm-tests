@@ -4318,6 +4318,14 @@
       "primary_clause": "18.2.4.5",
       "inputs_sha256": "0465bc5b1768c5c4057c6fad5a068d884db873d51c717f12093f911333a99bff"
     },
+    "u18/test_map_clone_and_update_accepts_rights_and_preserves_the_original_map_contract": {
+      "primary_clause": "18.2.3.12",
+      "inputs_sha256": "d1abcd5ed91f2601f04cf2404cf4a890a1185f8b81994a4e2ad98f3eb68552d0"
+    },
+    "u18/test_map_clone_printed_implicit_return_type_supports_a_scalar_override_and_base_dispatch": {
+      "primary_clause": "18.2.3.12",
+      "inputs_sha256": "50b89f59c1f54a4cc9c37735a385697943ad0d37a06b61a3a4a4c9020e120a8d"
+    },
     "u18/test_map_constructor_object_views_and_backdoor_singleton_are_distinct_from_real_maps": {
       "primary_clause": "18.2.3.1",
       "inputs_sha256": "ecf59dbe24026e74ef5dd3ab6ae0f34875b3fed68abbc509e1a0645cf99fbce8"
@@ -5045,6 +5053,62 @@
     "u18/test_register_callback_default_encode_and_decode_leave_arrays_unchanged": {
       "primary_clause": "18.11.2.7",
       "inputs_sha256": "3d88fef85bc8dae9b315f37cf2ec0c74e919de0495226347a597cb5e04805a9b"
+    },
+    "u18/test_register_configure_preserves_block_and_nested_file_identity_with_symbolic_hdl_metadata": {
+      "primary_clause": "18.4.2.2",
+      "inputs_sha256": "58f037a831dd9f35b46773d171aa6deeaf5d9377a61def1f3e908b6920178cfb"
+    },
+    "u18/test_register_constructor_keeps_default_names_partial_bit_widths_and_available_coverage": {
+      "primary_clause": "18.4.2.1",
+      "inputs_sha256": "36d734fa835ab05d79d5f3d06e4519125ce6c02629ec3069b3312978be260201"
+    },
+    "u18/test_register_get_fields_orders_gapped_fields_by_bit_position_and_excludes_peer_handles": {
+      "primary_clause": "18.4.3.11",
+      "inputs_sha256": "27d06d7da532b5c8d787256a2cae747e789a15e4454a0b8a3b87f3b0babcdc79"
+    },
+    "u18/test_register_get_reset_assembles_kinds_without_modifying_desired_or_mirrored_values": {
+      "primary_clause": "18.4.4.6",
+      "inputs_sha256": "54404c2a339ee007c260318015f1017d5105c2b01e364c57497da15bcc6e69fa"
+    },
+    "u18/test_register_has_reset_aggregates_any_field_and_deletes_only_the_selected_reset_kind": {
+      "primary_clause": "18.4.4.7",
+      "inputs_sha256": "78bce4c1dfb85cef4b5c7c92821f0a70a52ec88de1ea61f2b4fc6e0856bafad2"
+    },
+    "u18/test_register_is_busy_tracks_gated_reads_writes_failure_completion_and_an_idle_peer": {
+      "primary_clause": "18.4.4.16",
+      "inputs_sha256": "7c6c99723bd1b2896ffb0730eb73266cbaf28d91cc96186c9b213bb59c683410"
+    },
+    "u18/test_register_is_in_map_distinguishes_selected_member_unrelated_and_peer_maps": {
+      "primary_clause": "18.4.3.4",
+      "inputs_sha256": "7513308573ad52f54a6a2bc48f376b446b6e7bfdf94a1d9499cbdf704ae0b438"
+    },
+    "u18/test_register_local_map_null_uses_parent_default_even_with_one_registered_map": {
+      "primary_clause": "18.4.3.6",
+      "inputs_sha256": "f58b9a32d658e83d900cec1b9c1f67f5f047d3becdbbf972dad45a35edd5ae05"
+    },
+    "u18/test_register_local_map_resolves_explicit_and_ancestor_maps_without_selecting_an_unrelated_map": {
+      "primary_clause": "18.4.3.6",
+      "inputs_sha256": "91c8614d308e38339c0bff0ad9b454cd4043372e0a4f8feb9d1e94eb6b27b0d4"
+    },
+    "u18/test_register_map_listing_returns_exact_registered_handles_before_and_after_selected_removal": {
+      "primary_clause": "18.4.3.5",
+      "inputs_sha256": "338a2538b22c7129f0d457f09dbdcebd3aecb8bbf41b81eeccb9ce7f0752f164"
+    },
+    "u18/test_register_max_size_tracks_larger_instances_without_assuming_an_initial_global_value": {
+      "primary_clause": "18.4.3.10",
+      "inputs_sha256": "7ee1964248bea201b02fb13ba6e385c107c3a0951d32b47188751557e5ddf3f4"
+    },
+    "u18/test_register_model_value_queries_preserve_debug_invariance_and_do_not_read_original_storage": {
+      "primary_clause": "18.4.4.1",
+      "inputs_sha256": "31f9edfe07c932272e87968cd06a4418d8a19bed8fe60bc6ad0cc3335a364fa6"
+    },
+    "u18/test_register_set_reset_replaces_one_kind_and_distributes_values_to_each_field": {
+      "primary_clause": "18.4.4.8",
+      "inputs_sha256": "78baca0930b2c3d7d4e8e60408f4e0136fb267c1e9d0434b4c0d0fa66b8532e8"
+    },
+    "u18/test_register_unregister_removes_only_selected_associations_and_reaches_zero_membership": {
+      "primary_clause": "18.4.2.5",
+      "inputs_sha256": "ea162f79e8b2afecf138dc09791e1697056371afe622bb90116c807f555b464b"
     },
     "u18/test_user_backdoor_decode_chain_propagates_all_value_elements": {
       "primary_clause": "18.11.2.8",

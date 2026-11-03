@@ -1,0 +1,7 @@
+UT: register_new default_name 1 selected_name 1 object_view 1 partial 1
+UT: register_new coverage_all 1 coverage_missing 1 independent_none 1
+UT: register_width bits 1 bytes 1
+UT: register_width bits 8 bytes 1
+UT: register_width bits 9 bytes 2
+UT: register_width bits 16 bytes 2
+UT: register_width bits 17 bytes 3

@@ -1,0 +1,3 @@
+UT: register_model_query debug 0 desired aa99 mirror 5522 no_reads 1 no_writes 1
+UT: register_model_query debug 1 desired aa99 mirror 5522 no_reads 1 no_writes 1
+UT: register_model_query live_control 1 value cafe backend_used 1 predicted 1

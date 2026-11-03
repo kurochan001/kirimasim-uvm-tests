@@ -2,12 +2,12 @@
 
 [English](known-differences.md) · [README](../README.ja.md) · [FAQ](faq.ja.md)
 
-現在の1624件と、固定したAccellera UVM 2020.3.1についての記録です。
+現在の1640件と、固定したAccellera UVM 2020.3.1についての記録です。
 不一致はテストの結果であり、それだけではシミュレータ・ライブラリ・期待値のどれが原因かは決まりません。
 
 elaboration 43件は抽象class直接生成22件とpure interface／const参照／禁止member違反21件で、拒否を期待します。
 41件は一致し、subscriber／visitor未実装の受理2件はruntimeを実行せずspecのみを保持します。
-compiler受理2件は既知simulation差分200件と別です。選択component-family／recording-baseの生成probeと禁止memberアクセスは正しく拒否されます。
+compiler受理2件は既知simulation差分203件と別です。選択component-family／recording-baseの生成probeと禁止memberアクセスは正しく拒否されます。
 
 新しい[継承kindの存在probe](../tests/u18/test_block_has_hdl_path_uses_nearest_explicit_ancestor_kind_without_changing_explicit_queries.sv)はseed 1で差分を保持しseed 73は実行しません。
 childと子孫は、明示選択された最寄り祖先kindでなくlocalのRTL既定値を保持します。明示path-kind照会は別で、規格から導いた継承oracleは未変更です。
@@ -17,6 +17,11 @@ childと子孫は、明示選択された最寄り祖先kindでなくlocalのRTL
 [register配置済み階層](../tests/u18/test_map_populated_word_addressing_separates_effective_bus_width_from_local_address_units.sv)はseed 1で停止しseed 73は実行しません。
 どちらもroot経路の最小幅2でなくlocal幅8を返し、保持する幅差分の適用範囲を広げるもので独立欠陥の件数ではありません。
 数値のword単位期待値はget_n_bytes既定値の限定解釈を使い、有効幅不一致から別の単位の欠陥は特定しません。平坦word／byteのcontrol一致もknown fixture全体のpassにはしません。
+
+新しいregister条件は[単一mapのnull／既定選択](../tests/u18/test_register_local_map_null_uses_parent_default_even_with_one_registered_map.sv)と
+[lock前のfield名](../tests/u18/test_register_get_fields_orders_gapped_fields_by_bit_position_and_excludes_peer_handles.sv)のseed 1 runtime差分を保持し、seed 73は実行しません。
+field順とlock後controlは選択観測で、fixture全体のpassではありません。[字面のclone返却probe](../tests/u18/test_map_clone_printed_implicit_return_type_supports_a_scalar_override_and_base_dispatch.sv)は、印刷暗黙scalar返却と利用できるmap返却が衝突してbuildできません。
+限定した合法simulation宣言差分でruntimeはなく、不正designの期待拒否ではありません。公開clone call／source保持は一致し、新map内容／rightsは部分義務に残します。
 
 ## 固定版ライブラリの制約
 
@@ -384,7 +389,7 @@ command-line 18検査系は別のVPI bridgeと固定regex DPIを明示要求し�
 上限は正しく7のままですが、固定serverはINFOを発行し、警告probeはWARNINGを観測しません。YESの比較対象は警告なしで9へ変わります。
 これは診断severityの差分で、上限の強制失敗ではありません。以前のno-DPI引数2件は未変更の通常実行時差分です。
 
-スイート全体では、`verilator@5.052`を付けたテストは1422件、specのみのテストは202件です。
+スイート全体では、`verilator@5.052`を付けたテストは1435件、specのみのテストは205件です。
 specのみのうち1件は9.6を検証します。pre-resetフェーズ終了時に子タスクが停止する
 はずですが、固定版UVMとVerilator 5.052の組み合わせでは、後のフェーズで子タスクの遅延書き込みが
 実行されます。この差分の原因がシミュレータとライブラリのどちらかは未確定です。
@@ -393,12 +398,12 @@ wakeup resetの検査系は、trigger waiterとpersistent-trigger waiterを各1�
 10.1.1.2.8は、callbackなしで両方が起動することを要求します。固定Verilatorの実行は、待機状態の観測に到達してから
 watchdogが期限切れになります。simulator／libraryを組み合わせた原因は未確定のまま、規範的なwakeupの期待を保持します。
 
-specのみの202件も規格から導いた期待値を保持します。通常のVerilator実行とCIはoracle付き1422件（runtime 1381・compile拒否41）を選びます。
+specのみの205件も規格から導いた期待値を保持します。通常のVerilator実行とCIはoracle付き1435件（runtime 1394・compile拒否41）を選びます。
 `--all`はspecのみも含め、不一致やビルド不可を`known`として記録します。
-通常の実行時153件は、最初の差分であるseed 1までの記録で、seed 73の結果はありません。
+通常の実行時155件は、最初の差分であるseed 1までの記録で、seed 73の結果はありません。
 API／型名欠落build 18件は、time 1、sequence-library 6、HDL slice 4、名前付きconcat constructor 1、object active-policy 1、catcher message-handle 3、印刷されたbase記録getter 1、印刷report callback typedef 1で、通常条件の実行時seed結果はありません。
-型既定宣言の2検査系、独立response既定値とinterface request既定値もbuildできません。印刷all_dropped function／taskの食違いは別のsignature build 1件です。
-HDL DPI 8検査系とcommand-line DPI 18検査系も通常runnerではlinkできず、合計47 simulation buildにruntimeはありません。
+型既定宣言の2検査系、独立response既定値とinterface request既定値もbuildできません。印刷all_dropped function／taskとclone暗黙scalar／map返却の食違いは別のsignature build 2件です。
+HDL DPI 8検査系とcommand-line DPI 18検査系も通常runnerではlinkできず、合計48 simulation buildにruntimeはありません。
 別HDL条件では7件が両seed一致、E.7のwarning／転送なしの期待はseed 1で失敗します。別command-line条件は17件一致とquit-warning差分1件で、重複条件を合計しません。
 
 policy 7 fixtureはseed 1で最初に異なり、seed 73結果はありません。copierの省略名は空でなく、comparer threshold／copier recursion／recorder radixはflush後の規定既定値へ戻りません。
@@ -436,7 +441,7 @@ object名省略fixtureは任意user既定値を制約せず、独自constructor�
 
 ## specのみのテスト
 
-現在の202件は次のテストです。同じ制約を複数のテストで検査する場合があり、異なる不具合の個数ではありません。
+現在の205件は次のテストです。同じ制約を複数のテストで検査する場合があり、異なる不具合の個数ではありません。
 
 - [blocking initiator relayの印刷provider受理](../tests/u12/test_tlm2_blocking_passthrough_initiator_connect_accepts_its_spec_listed_provider_families.sv).
 - [blocking target relayの印刷provider受理](../tests/u12/test_tlm2_blocking_passthrough_target_connect_accepts_its_spec_listed_provider_families.sv).
@@ -710,7 +715,7 @@ object名省略fixtureは任意user既定値を制約せず、独自constructor�
 - [生成時の独立した引数snapshot](../tests/uG/test_command_fresh_processors_populate_independent_argument_snapshots_at_construction.sv).
 
 既存2入力はcommand-enum引用と、訂正したBoolean rerandomization観測で指紋が変わっています。
-対応する歴史的guest記録を除外し、互換範囲は1083記録、未測定は修正2入力を含む541件です。
+対応する歴史的guest記録を除外し、互換範囲は1083記録、未測定は修正2入力を含む557件です。
 これはevidence範囲のfilterで、新しいguest fail／passやsimulator改善ではありません。
 
 - [copier既定名](../tests/u16/test_policy_comparer_packer_and_copier_constructors_preserve_names_types_and_policy_bases.sv)
@@ -727,8 +732,8 @@ object名省略fixtureは任意user既定値を制約せず、独自constructor�
 
 ## シミュレータとライブラリの組み合わせ
 
-スイートは1624件ですが、以下のkirimasim／Ghost記録は未変更の現在入力1083件だけを対象とします。
-以前の一時実行ファイル／profile snapshotがないため、541入力は未測定です。
+スイートは1640件ですが、以下のkirimasim／Ghost記録は未変更の現在入力1083件だけを対象とします。
+以前の一時実行ファイル／profile snapshotがないため、557入力は未測定です。
 新しい全件guest実測とは扱いません。[実行結果](results.ja.md)を参照してください。
 
 Ghostの同梱UVMはseed 1・73とも207件一致・876件不一致で、不一致になるテストも同じです。

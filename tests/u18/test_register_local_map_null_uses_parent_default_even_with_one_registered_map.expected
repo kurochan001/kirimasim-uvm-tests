@@ -1,0 +1,2 @@
+UT: register_local_default parent_default 1 only_member 1 explicit_member 1
+UT: register_local_default null_selects_parent_default 1

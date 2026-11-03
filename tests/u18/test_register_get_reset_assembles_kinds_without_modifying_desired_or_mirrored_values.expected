@@ -1,0 +1,2 @@
+UT: register_reset_query hard aa11 explicit_hard aa11 soft beef
+UT: register_reset_query desired 1234 mirror 5678 prediction 1 peer 7777

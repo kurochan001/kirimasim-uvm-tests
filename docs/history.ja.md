@@ -2,7 +2,7 @@
 
 [English](history.md) · [README](../README.ja.md)
 
-M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の51回目の拡充（全1624件：simulation 1581・elaboration 43）までを記録しています。以前の349件の時点は
+M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の52回目の拡充（全1640件：simulation 1597・elaboration 43）までを記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -2171,3 +2171,23 @@ tool test 110件、metadata、台帳／索引／library同一性、native生結�
 schema、runner／library／catalog、workflow、SVG 6つは未変更です。範囲は提案、棚卸し未完、分母／割合null、照合AI、継続goal有効を保持します。
 
 現在のknown-build要約をAPI／型名欠落18件、型既定宣言2件、印刷hook signature 1件、未link DPI 26件へ訂正します。以前のbuild 47記録は全て未変更で、別HDL／command-line条件は7／1と17／1です。
+
+## M1〜M4の薄い領域の52回目の拡充
+
+M3 simulation 16 fixtureでregister構築／配置、所属／unregister view、local-map解決、捕捉した全体最大幅、gapのあるfield順、reset種別metadata、model専用getter、gate制御busy、clone call／宣言controlを追加します。
+13件はVerilator 5.052の両seed一致で、単一mapのnull／既定選択とlock前field名の2件はseed 1差分を保持しseed 73は実行しません。
+字面のclone scalar返却overrideは利用できるmap返却へbuildできずruntimeはありません。公開clone call／source保持は別に一致し、新map内容／rightsは未完了です。
+
+新AI案58件で2831となり、以前の全2773要求・285分類・1624 fixture／native記録は未変更です。個別に読んだ分類5件は文脈2件・構造3件です。
+全体は部分1516／分類290／未評価701、第18章は278／35／143です。18.2／18.3配下の未評価番号はありませんが部分義務は未完了です。
+今回は23減、goal 24反復では762減で、元の目標は未完了です。
+
+全1640件はsimulation 1597／elaboration 43、M1 603（570／33）、M2 538（533／5）、M3 499（494／5）です。
+通常evidenceは1435 pass（runtime両seed一致1394、compiler拒否41）とknown 205（runtime 155／build 48／不正受理2）です。
+build 48件はAPI／型名欠落18、型既定2、限定印刷signature 2、未link DPI 26です。guest fileは互換1083記録をbyte単位で保持し、以前の修正2入力を含む未測定557（514／43）です。
+別HDL／command-lineは7／1と17／1のままで、新guest実行はありません。
+
+tool test 110件、metadata、台帳／索引／library同一性、native生結果／compiler evidence、用語266語・FAQ 230回答の日英10組を検査します。
+schema、runner／library／catalog、workflow、SVG 6つは未変更です。範囲は提案、棚卸し未完、分母／割合null、照合AI、継続goal有効を保持します。
+
+古い日本語の予期しないsimulation build要約45件を現在の48件へ訂正し、両言語の要約で印刷signatureの食違い2件を区別します。資料だけの訂正で、以前のbuild記録は全て保持します。

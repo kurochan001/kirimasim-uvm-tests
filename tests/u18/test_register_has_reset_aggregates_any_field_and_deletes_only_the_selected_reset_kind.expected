@@ -1,0 +1,3 @@
+UT: register_reset_presence any_hard 1 one_missing 1 absent_soft 1
+UT: register_reset_presence delete_prior 1 low_absent 1 high_absent 1 hard 1
+UT: register_reset_presence query_keeps_hard 1 peer_kept 1 peer_value 7777

@@ -4364,6 +4364,83 @@
         "reviewer": null,
         "reviewed_at": null
       }
+    },
+    {
+      "clause": "18.3",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The register-file introduction describes a repeated collection of register files and registers. Concrete construction, ownership, nesting and HDL-path contracts remain under their numbered clauses, including selected file placement/object views; the architectural definition adds no independent access algorithm or exclusion.",
+        "ja": "register-file導入はregister fileとregisterの反復集合を説明する。具体的な構築、所有、入れ子、HDL path契約は各番号付き条項へ保持し、選択file配置／object viewも含む。この構成定義は独立access algorithmや除外を加えない。"
+      },
+      "related_requirements": [
+        "UVM-REGISTER-CONTRACT-CONFIGURE-FILE",
+        "UVM-REGISTER-CONTRACT-REGFILE-OBJECT-BASE"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "18.4",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The register introduction identifies fields accessed as one entity and permits multiple maps with independent rights/policies. Concrete fields, map associations, model access and bus operations remain explicitly decomposed; this architectural description does not itself specify another transfer algorithm or close those conditions.",
+        "ja": "register導入は1実体としてアクセスするfieldと、独立rights／policyを持つ複数mapを示す。具体的なfield、map関連、modelアクセス、bus操作は明示分解して保持し、この構成説明自体は別転送algorithmを規定せず条件を完了しない。"
+      },
+      "related_requirements": [
+        "UVM-REGISTER-CONTRACT-MAP-LIST-ALL",
+        "UVM-REGISTER-CONTRACT-FIELD-HANDLES",
+        "UVM-REGISTER-CONTRACT-BUSY-WRITE"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "18.4.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "Methods is a grouping heading before the constructor, configuration, offset, transaction-order and unregister declarations. It has no separate declaration or behavioral condition; each numbered child remains independently subject to decomposition.",
+        "ja": "Methodsはconstructor、設定、offset、transaction-order、unregister宣言の前の分類見出しである。別宣言や動作条件はなく、各番号付き子条項を独立に分解対象へ残す。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "18.4.3",
+      "classification": "structural",
+      "rationale": {
+        "en": "Introspection groups the following register query declarations without adding a separate query algorithm or condition. Their numbered contracts remain partial obligations.",
+        "ja": "Introspectionは後続register照会宣言を分類し、別照会algorithmや条件を加えない。番号付き契約は部分義務として残す。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "18.4.4",
+      "classification": "structural",
+      "rationale": {
+        "en": "Access groups the model-value, reset, physical-access, prediction and busy APIs. The heading adds no independent behavior; all numbered access duties remain candidates and are not certified complete.",
+        "ja": "Accessはmodel値、reset、物理アクセス、予測、busy APIを分類する。見出しは独立動作を加えず、全番号付きaccess義務を候補へ保持して完了とは認定しない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
     }
   ]
 }

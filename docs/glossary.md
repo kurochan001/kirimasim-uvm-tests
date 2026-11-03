@@ -1223,3 +1223,15 @@ memory locations while the memory occupies no physical map addresses.
 **Qualified address-unit relation**: A literal reading connects word units to
 the default hierarchical get_n_bytes result. Local-width interpretations and
 an observed effective-width difference remain separate review considerations.
+
+**Captured maximum baseline**: Record the preexisting global maximum before
+adding selected registers, rather than assuming no other model already exists.
+
+**Reset-kind definition**: Model metadata gives each selected reset cause its
+own value/presence; changing it is distinct from applying a reset to model values.
+
+**Clone source control**: Observe the original map's rights and association after
+requesting a clone without claiming the new instance's unobserved contents.
+
+**Gated busy observation**: Hold an original driver response after request arrival
+so another thread can observe is_busy during an actual pending register operation.

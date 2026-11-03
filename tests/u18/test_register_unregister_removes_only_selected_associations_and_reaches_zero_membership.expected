@@ -1,0 +1,5 @@
+UT: register_unregister initial 0 peer 1
+UT: register_unregister added_one 1
+UT: register_unregister added_two 2
+UT: register_unregister selected_removed 1 kept 1 count 1 peer 1
+UT: register_unregister empty 1 peer_kept 1

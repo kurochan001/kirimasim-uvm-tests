@@ -3,8 +3,8 @@
 [日本語](history.ja.md) · [README](../README.md)
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and fifty-one cross-milestone thin-area expansions, including the
-existing-test requirement-link backlog checkpoint (1624 tests: 1581 simulation and 43 elaboration). The earlier 349-test checkpoint is
+three M4 increments and fifty-two cross-milestone thin-area expansions, including the
+existing-test requirement-link backlog checkpoint (1640 tests: 1597 simulation and 43 elaboration). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -3298,3 +3298,37 @@ Scope remains proposed, inventory incomplete, denominator/percentage null,
 reviews AI and the persistent goal active.
 
 The current known-build summary is corrected to eighteen missing API/type-name cases, two type-default declarations, one printed hook-signature case and 26 unlinked DPI cases. All 47 prior build records remain unchanged; separate HDL and command-line conditions remain 7/1 and 17/1.
+
+## Fifty-second thin-area expansion across M1–M4
+
+Sixteen M3 simulation fixtures add register constructor/placement, membership
+and unregister views, local-map resolution, captured maximum widths, gapped
+field order, reset-kind metadata, model-only getters, gated busy state and clone
+call/declaration controls. Thirteen match both Verilator 5.052 seeds. Two retain
+seed-1 differences without seed 73: sole-map null/default selection and pre-lock
+field names. A qualified literal clone scalar-return override cannot build
+against the available map return and has no runtime. Public clone call/source
+preservation matches separately; new-map content/rights remain open.
+
+Fifty-eight AI drafts reach 2831; all 2773 earlier requirements, 285 assessments
+and 1624 fixtures/native records remain unchanged. Five individually read
+assessments add two contextual and three structural entries. Overall is 1516
+partial/290 assessed/701 unassessed; chapter 18 is 278/35/143. 18.2/18.3 have
+no unassessed identifiers, without completing their partial duties. Unassessed
+falls by 23, or 762 across twenty-four goal iterations; original targets remain open.
+
+The suite is 1640 (1597 simulation/43 elaboration): M1 603 (570/33), M2 538
+(533/5), M3 499 (494/5). Ordinary evidence has 1435 pass (1394 runtime at both
+seeds, 41 compiler rejections) and 205 known (155 runtime/48 build/2 illegal
+acceptances). The 48 builds retain 18 missing API/type names, two type defaults,
+two qualified printed signatures and 26 unlinked DPI cases. Guest files keep
+1083 byte-identical records, with 557 unmeasured inputs (514/43), including both
+earlier revised inputs. Separate HDL/command-line stays 7/1 and 17/1; no guest run.
+
+Validation covers 110 tool tests, metadata, ledger/index/library identities,
+native/raw compiler evidence and ten language pairs with 266 glossary terms and
+230 FAQs. Schema, runners/library/catalog, workflow and six SVGs are unchanged.
+Scope remains proposed, inventory incomplete, denominator/percentage null,
+reviews AI and the persistent goal active.
+
+A stale Japanese summary of unexpected simulation builds is corrected from 45 to the current 48, and both language summaries now distinguish the two printed signature conflicts. This changes documentation only; every prior build record is preserved.
