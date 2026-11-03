@@ -776,6 +776,62 @@
         "reviewer": null,
         "reviewed_at": null
       }
+    },
+    {
+      "clause": "6.6.3",
+      "classification": "structural",
+      "rationale": {
+        "en": "Current-message-state heading groups getter clauses; it adds no independent operation.",
+        "ja": "現在のmessage状態の見出しはgetter条項をまとめるだけで、独立した操作を追加しない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "6.6.4",
+      "classification": "structural",
+      "rationale": {
+        "en": "Change-message-state heading groups mutation clauses; its methods carry the individual obligations.",
+        "ja": "message状態変更の見出しは変更methodをまとめ、個別の義務は各method条項にある。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "6.6.6",
+      "classification": "structural",
+      "rationale": {
+        "en": "Reporting heading groups the catcher helper methods and issue; there is no separate behavior in the heading.",
+        "ja": "Reporting見出しはcatcherのhelper methodとissueをまとめ、見出し自体に別の動作はない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "19.2.1.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "Common-methods heading organizes adapter members and conversion hooks; the subordinate clauses retain their obligations.",
+        "ja": "Common methods見出しはadapterのmemberと変換hookを整理し、義務は下位条項に残る。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
     }
   ]
 }

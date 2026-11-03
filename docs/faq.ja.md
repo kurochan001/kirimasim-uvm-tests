@@ -122,7 +122,7 @@ Ghostは公開前のシミュレータの仮名です。実行ファイルの識
 ### Q12. uvm_dpi: yesだけでDPIを使うビルドが完成しますか
 
 既定のマクロ一覧から`UVM_NO_DPI`を外す指定です。UVMのC/C++実装の供給・リンクは行いません。
-通常のVerilator runnerは、そのsourceを追加しません。`UVM_NO_DPI`が1206件、HDL DPIの明示選択が8件です。
+通常のVerilator runnerは、そのsourceを追加しません。`UVM_NO_DPI`が1218件、HDL DPIの明示選択が8件です。
 [別のVPI runner](testing.ja.md#verilatorのvpi-hdl部分集合)は独自の限定backendをlinkし、結果は宣言した実行条件だけに適用します。
 DPIなしのglobによる照合も、完全な正規表現への対応とは異なります。
 ユーザー定義の`uvm_reg_backdoor` handlerはHDL DPIなしで動作できます（Q67）。
@@ -155,7 +155,7 @@ Ghostはさらに実行ファイル・profile・供給されたライブラリ�
 
 ### Q16. M1・M2・M3は完了していますか。件数は何の網羅を示しますか
 
-M1・M2には条項ごとの目標に未達があります。M3はbusモデルのfrontdoor経路を含め368件まで追加した段階で、未完です。
+M1・M2には条項ごとの目標に未達があります。M3はbusモデルのfrontdoor経路を含め372件まで追加した段階で、未完です。
 次の段階の開始によって、それまでの段階が完了したとは扱いません。
 範囲と残りの作業は[進め方](../README.ja.md#進め方)にあります。
 件数はテストの本数で、規格の全要求や組み合わせの棚卸しではありません。
@@ -921,8 +921,8 @@ controlの対応は、その要求の直接の検査ではありません。
 
 ### Q77. M4を始めたのに、カバレッジ率がないのはなぜですか
 
-AIによる1451要求案は部分的な分解で、1451要求を1213テストへ直接対応付け、直接未対応は0要求、別の1テストはcontrolです。
-全1214テストに要求の対応付けがあります。2,504の条項番号は規範的要求の単位ではありません。
+AIによる1485要求案は部分的な分解で、1485要求を1225テストへ直接対応付け、直接未対応は0要求、別の1テストはcontrolです。
+全1226テストに要求の対応付けがあります。2,504の条項番号は規範的要求の単位ではありません。
 範囲は提案、棚卸しは未完、分母は未承認で、M4の開始はどれの承認にもなりません。
 既知差分やHDL／DPIの制約によって義務を暗黙に除外しません。[承認までの手順](requirements.ja.md#m4の残作業と承認)を参照してください。
 
@@ -1707,7 +1707,7 @@ user backdoorは16 bit locationをモデル化します。location独立性、�
 
 いいえ。`tests_without_requirement_links`は0で、現在の全テストに、明示的なdirectまたはcontrolの対応があります。
 別の集計`requirements_without_direct_tests`も0件です。memory-walkの対応はQ134の限定した歴史的解釈で、
-省略されたIEEEの詳細の承認ではありません。HDL depositと利用可否には、明示VPI検査系があります。catalogの識別子1,547件も未評価です。
+省略されたIEEEの詳細の承認ではありません。HDL depositと利用可否には、明示VPI検査系があります。catalogの識別子1,532件も未評価です。
 分解と人のレビューは未完で、分母は未承認です。
 
 [新しいpolicyテスト](../tests/u16/test_policy_object_stack_tracks_nested_active_policy_push_and_pop.sv)は、
@@ -1784,7 +1784,7 @@ frontdoor保護のwarningはalgorithm oracleの対象外で、ERRORと観測し�
 個別に読んだ後、日英の根拠とAI／人のレビューを[番号の分類](../coverage/assessments.json)へ記録すれば可能です。
 構造上の見出しは関連要求を持たず、文脈の説明は既存要求を指定します。
 未レビューの記録、推測した分類、親への集約では外せません。生成状態は`assessed`で、要求条項の`partial`と区別します。
-現在の分類は54件で、分母承認や新たなpassを加えません。第11章の未評価0件でも、その要求の完了ではありません。
+現在の分類は58件で、分母承認や新たなpassを加えません。第11章の未評価0件でも、その要求の完了ではありません。
 
 ### Q136. 明示strict configurationで新規検査は成功しますか？
 
@@ -1942,3 +1942,36 @@ transport、targetの所有規則、pack、DMIの許可は別の義務です。
 この観測だけではsimulator／libraryのどちらが原因かを決めません。他のFIFO検査系はconstructor metadata、公開queueの追加制約、
 instanceの独立性、popしないgetを観測します。queueの直接準備／popは検査系の刺激です。FIFOのbus read／write、update、compare、predictionと、
 それらの初期化条件は未完で、DUT FIFO storageは実行していません。
+
+## Catcherのissue、sequence印字と別response
+
+### Q152. Catcherのhelper報告と、issue後のTHROWはどう違いますか？
+
+選択したhelperはcatching callback列を迂回して補助の報告を生成し、外側の報告は続行できます。
+`issue()`は、変更後のIDを含む現在のmessageを発行します。その後のcallbackの返却値により、通常処理でも発行するかが変わります。
+独自の2-catcher検査系では次を観測します。
+
+| 先頭catcherの操作 | 先頭の訪問 | 末尾の訪問 | Serverの発行 |
+| --- | --- | --- | --- |
+| INFO、ERRORまたは汎用WARNINGのhelper後にTHROW | 1 | 1 | helper 1 + 外側1 |
+| issue後にCAUGHT | 1 | 0 | 現在のmessage 1 |
+| issue後にTHROW | 1 | 1 | 現在のmessage 2 |
+
+件数は明示的なDISPLAY actionで観測し、診断文面やfatal終了は固定しません。
+[caught](../tests/u06/test_report_catcher_issue_counts_the_current_message_before_it_is_caught.sv)と
+[thrown](../tests/u06/test_report_catcher_issue_counts_the_current_message_before_it_is_thrown.sv)の検査系で返却値を区別します。
+
+### Q153. Sequenceの既定印字はreq／rspの固定書式を要求しますか？
+
+固定書式は要求しません。sequenceは既定の`do_print`を保持し、DEEP再帰と無制限の深さを明示して、現在の型付き`req`と
+`rsp`のitem hookへの訪問を記録します。requestのみとresponseのみの検査系で存在を分けます。
+[置換の検査系](../tests/u14/test_sequence_default_print_visits_replacement_items.sv)は置換後の新規itemを調べ、null化後に古いitemを再訪問しないことを確認します。
+sequenceの実行、null fieldの書式、2 fieldが同じobjectを共有する場合の巡回回数は評価しません。
+
+### Q154. Driverの別responseとrequest内の結果をどう区別しますか？
+
+adapterで`provides_responses = 1`を選びます。独自driverはrouting IDを引き継いだ新規objectを返し、request側には矛盾するdata／statusを残します。
+各`bus2reg`のobjectは返したresponseそのものであり、response変換中の`get_item`はnullです。
+write成功、値の変わる反復read、write失敗後の再試行、memory read失敗後の再試行で、status／dataの対象を保ちます。
+[memoryの復帰検査系](../tests/u19/test_adapter_separate_response_controls_failed_memory_read_retry.sv)は失敗readのdataを固定しません。
+busは独自のtestbench modelであり、HDL DUT転送、byte-enable対応、parent sequenceのclone契約は評価しません。

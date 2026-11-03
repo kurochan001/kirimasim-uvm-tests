@@ -649,3 +649,14 @@ counterと転送値で選択した公開呼出しを観測し、transport／pack
 **Abstract register FIFO（register FIFOの抽象表現）** — register-layer FIFO modelの公開queueと容量。
 対象getは先頭をpopせず観測し、queueの直接変更は検査系の刺激とする。
 inlineとsubtypeの制約条件は[Q151](faq.ja.md#q151-fifoのinline制約とsubtype宣言制約をなぜ分けて記録しますか)で分けて示す。
+
+## Catcherの発行と印字／返却対象object
+
+**Catcher helper emission（catcherの補助発行）** — catching callbackを迂回してcatcher内で生成する補助報告です。
+issueで現在のmessageを発行することとは別です。[Q152](faq.ja.md#q152-catcherのhelper報告とissue後のthrowはどう違いますか)を参照してください。
+
+**Typed sequence print visit（型付きsequenceの印字訪問）** — 深さ無制限のdeep再帰で現在のrequestまたはresponse itemのprint hookを観測します。
+printerの書式を固定せず、到達したobjectを識別します。
+
+**Separate response identity（別responseの同一性）** — requestのrouting IDを引き継ぎ、driverが返す新規objectそのものです。
+矛盾するrequest状態により、別responseを選択しているのにrequest内の経路を使う場合を検出しやすくします。

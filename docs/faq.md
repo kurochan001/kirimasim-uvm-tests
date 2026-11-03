@@ -135,7 +135,7 @@ See [Ghost setup](testing.md#ghost).
 
 It removes `UVM_NO_DPI` from the default macro list. It does not supply or link
 UVM's C/C++ implementation. The current Verilator runner does not add those
-sources. There are 1206 `UVM_NO_DPI` cases and eight explicit HDL-DPI cases.
+sources. There are 1218 `UVM_NO_DPI` cases and eight explicit HDL-DPI cases.
 The [separate VPI runner](testing.md#verilator-vpi-hdl-subset) links the original
 limited backend; results apply only to that declared execution condition.
 User-defined `uvm_reg_backdoor` handlers can operate without HDL DPI (Q67).
@@ -174,7 +174,7 @@ a claim that every test was rebuilt together.
 
 ### Q16. Are M1, M2 or M3 complete, and what does the test count cover?
 
-M1 and M2 still have open clause targets. M3 now has 368
+M1 and M2 still have open clause targets. M3 now has 372
 register-layer cases, including testbench frontdoor paths; it is also incomplete. Starting a stage does not complete
 the preceding stages.
 The [plan](../README.md#plan) identifies current scope and remaining work.
@@ -1141,9 +1141,9 @@ not a direct test of the requirement.
 
 ### Q77. Why is there no coverage percentage after starting M4?
 
-The 1451 AI drafts cover only a partial decomposition: 1451 requirements link
-directly to 1213 tests; all drafts have direct tests, and one separate test is a control.
-All 1214 tests have requirement links. The 2,504 clause identifiers are not normative requirement units.
+The 1485 AI drafts cover only a partial decomposition: 1485 requirements link
+directly to 1225 tests; all drafts have direct tests, and one separate test is a control.
+All 1226 tests have requirement links. The 2,504 clause identifiers are not normative requirement units.
 The scope is proposed, the inventory incomplete and the denominator unapproved;
 starting M4 approves none of those. Known differences and HDL/DPI limitations
 do not silently exclude obligations. See the [approval path](requirements.md#remaining-m4-work-and-approval).
@@ -2143,7 +2143,7 @@ No. `tests_without_requirement_links` is zero: every current test has an
 explicit direct or control link. The separate counter
 `requirements_without_direct_tests` is zero. The memory-walk link uses the
 qualified historical interpretation in Q134. It is not approval of missing
-IEEE detail. HDL deposit and accessibility use explicit VPI fixtures. Another 1,547
+IEEE detail. HDL deposit and accessibility use explicit VPI fixtures. Another 1,532
 catalog identifiers remain unassessed; decomposition and human review are
 incomplete, and the denominator remains unapproved.
 
@@ -2244,7 +2244,7 @@ in [identifier assessments](../coverage/assessments.json). Structural headings
 have no related requirements; contextual descriptions name existing requirements.
 An unreviewed record, guessed classification or parent rollup cannot do this.
 The generated state is `assessed`, separate from `partial` requirement clauses.
-Fifty-four classifications currently exist, with no denominator approval or new pass.
+Fifty-eight classifications currently exist, with no denominator approval or new pass.
 Chapter 11's zero unassessed identifiers still does not complete its requirements.
 
 ### Q136. Does explicit strict configuration make the new cases pass?
@@ -2452,3 +2452,45 @@ cases observe constructor metadata, a public queue refinement, instance
 isolation and a non-popping get. Direct queue preparation/pop is fixture
 stimulus. FIFO bus reads/writes, update, comparison, prediction and their
 initialization conditions remain open; no DUT FIFO storage is exercised.
+
+## Catcher issue, sequence printing and separate responses
+
+### Q152. How do catcher helper reports differ from issue followed by THROW?
+
+The selected helpers generate a supplementary report while bypassing the
+catching callback chain. The outer report can continue. `issue()` instead emits
+the current message, including its changed ID. Callback disposition determines
+whether normal processing also emits it. In the original two-catcher fixtures:
+
+| First-catcher operation | First visits | Tail visits | Server emissions |
+| --- | --- | --- | --- |
+| INFO, ERROR or generic WARNING helper, then THROW | 1 | 1 | 1 helper + 1 outer |
+| issue, then CAUGHT | 1 | 0 | 1 current |
+| issue, then THROW | 1 | 1 | 2 current |
+
+Counts use explicit DISPLAY actions; they do not fix diagnostic text or test
+fatal exit. The [caught](../tests/u06/test_report_catcher_issue_counts_the_current_message_before_it_is_caught.sv)
+and [thrown](../tests/u06/test_report_catcher_issue_counts_the_current_message_before_it_is_thrown.sv)
+fixtures distinguish the two dispositions.
+
+### Q153. Does default sequence printing require a fixed req/rsp text format?
+
+No fixed layout is asserted. The sequence keeps its default `do_print`;
+explicit DEEP recursion and unlimited depth allow the current typed `req` and
+`rsp` item hooks to record visits. Request-only and response-only fixtures
+separate their presence. A [replacement fixture](../tests/u14/test_sequence_default_print_visits_replacement_items.sv)
+checks new items after replacement, then no stale visits after clearing.
+These observations do not establish sequence execution, null-field formatting
+or traversal counts for two fields sharing the same object.
+
+### Q154. How is a separate driver response distinguished from an in-place result?
+
+The adapter selects `provides_responses = 1`. The original driver returns fresh
+objects with copied routing IDs, while leaving contradictory data/status in
+the request. Each `bus2reg` object must be that exact response, and `get_item`
+is null during response conversion. Successful writes, changing repeated reads,
+a failed-write retry and a failed-memory-read retry preserve status/data scope.
+The [memory recovery fixture](../tests/u19/test_adapter_separate_response_controls_failed_memory_read_retry.sv)
+does not constrain failed-read data. The bus is an original testbench model;
+these observations establish no HDL DUT transfer, byte-enable support or
+parent-sequence cloning contract.

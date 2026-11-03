@@ -3,8 +3,8 @@
 [日本語](history.ja.md) · [README](../README.md)
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and twenty-three cross-milestone thin-area expansions, including the
-existing-test requirement-link backlog checkpoint (1214 simulation tests). The earlier 349-test checkpoint is
+three M4 increments and twenty-four cross-milestone thin-area expansions, including the
+existing-test requirement-link backlog checkpoint (1226 simulation tests). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -2324,3 +2324,36 @@ library integrity, bilingual references and evidence fingerprints. Existing
 simulation inputs, runners, backend, previous ledger records and historical
 sections are preserved. FIFO transfer/compare/setup and broader heartbeat,
 payload protocol and requirement-decomposition work remain open.
+
+## Twenty-fourth thin-area expansion across M1–M4
+
+Twelve original fixtures add five catcher helper/issue paths, three default
+sequence req/rsp printing conditions and four separate adapter-response paths.
+The suite reaches 1226 cases: M1 411, M2 443 and M3 372. Helper reports bypass
+both catchers; current-message issue is distinguished from normal emission
+through CAUGHT/THROW and changed IDs. Typed print hooks observe current,
+replaced and cleared fields without formatted-text expectations. Fresh routed
+responses override contradictory request state across write, repeated read,
+failed-write retry and failed-memory-read recovery.
+
+All twelve final-input measurements match seeds 1 and 73. Compatible ordinary
+evidence retains all 1214 prior records: 1095 pass and 131 known, including
+113 runtime first differences, ten missing-API builds and eight unlinked-DPI
+builds. The overlapping VPI condition remains seven pass and one fail.
+Guest evidence still covers 1085 unchanged inputs; 141 current cases are
+unmeasured. No commercial simulator results or simulator implementation
+sources are used.
+
+Thirty-four AI drafts bring the ledger to 1485, all directly linked to 1225
+tests, with one additional control test and zero tests without links. Four
+individually read organizing headings bring classifications to fifty-eight:
+fifty-six structural and two contextual. Of 2,504 identifiers, 914 are partially
+decomposed and 1,532 unassessed. The decrease of fifteen is eleven newly
+partially decomposed identifiers plus four explicit classifications. M4 stays
+in progress; scope/denominator approval and human review remain open.
+
+All ten guide pairs are refreshed; three FAQ answers and three glossary entries
+bring totals to 154 and 175. Validation covers 88 tool unit tests, all 1226
+metadata records, ledger/index/library checks, bilingual links and current-input
+evidence fingerprints. Existing fixtures, runners, VPI backend, lock, scope,
+licenses and six SVG assets remain unchanged.

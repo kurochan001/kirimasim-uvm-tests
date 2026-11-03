@@ -2,7 +2,7 @@
 
 [English](history.md) · [README](../README.ja.md)
 
-M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の23回目の拡充（シミュレーション1214件）までを記録しています。以前の349件の時点は
+M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の24回目の拡充（シミュレーション1226件）までを記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -1646,3 +1646,22 @@ AI要求案56件を加えて1451件となり、すべて1213テストへ直接�
 toolテスト88件、全1214 metadata、台帳／分類／索引、library整合性、日英参照、evidence指紋を検査します。
 既存simulation入力、runner、backend、以前の台帳記録と履歴の節は保持します。
 FIFOの転送／compare／初期化と、広いheartbeat、payload protocol、要求分解の作業は未完です。
+
+## M1〜M4の薄い領域の24回目の拡充
+
+catcherのhelper／issue 5件、sequence既定req／rsp印字3件、adapterの別response 4件の、独自検査系12件を追加します。
+全体1226件、M1 411件、M2 443件、M3 372件です。helper報告は両catcherを迂回し、現在のmessageのissueと通常の発行を、
+CAUGHT／THROWと変更後のIDで区別します。型付きprint hookは、書式を固定せず、現在・置換後・null化後のfieldを観測します。
+IDを引き継いだ新規responseを使い、write、反復read、失敗writeの再試行、失敗memory readの復帰で、矛盾するrequest状態と区別します。
+
+最終入力12件はすべてseed 1・73で一致します。互換な通常evidenceは以前の1214記録を保持し、pass 1095件、known 131件です。
+knownには実行時の最初の差分113件、API欠落build 10件、DPI未linkのbuild 8件があります。
+重複するVPI条件はpass 7件・fail 1件のままです。guest記録は未変更1085入力のままで、現在の141件は未測定です。
+商用シミュレータの結果とsimulator実装sourceは使いません。
+
+AI要求案34件を加えて1485件となり、すべて1225テストへ直接対応します。追加control 1件を含め、未対応テストは0件です。
+個別に本文を読んだ整理用見出し4件を加え、分類は58件、構造56件・文脈2件です。2,504番号のうち部分分解914件、未評価1,532件で、
+減少15件は新しい部分分解11件と明示分類4件です。M4は進行中で、範囲／分母の承認と人のレビューは未完です。
+
+日英10組のguideを更新し、FAQ 3件と用語3件を追加して154回答・175語になります。tool単体88件、全1226 metadata、台帳／索引／library、
+日英参照、現在の入力とevidenceの指紋を検証します。既存検査系、runner、VPI backend、lock、scope、license、SVG 6 assetは変更しません。

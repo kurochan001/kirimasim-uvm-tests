@@ -54457,6 +54457,1229 @@
           ]
         }
       ]
+    },
+    {
+      "id": "UVM-CATCHER-INFO-HELPER-BYPASS",
+      "clause": "6.6.6.4",
+      "statement": {
+        "en": "A catcher helper report bypasses the entire catching callback chain.",
+        "ja": "catcherのhelper報告は、catching callback列全体を迂回する。"
+      },
+      "conditions": {
+        "en": "An INFO report passes through two callbacks; the first emits one INFO helper report.",
+        "ja": "INFO報告を2つのcallbackへ渡し、先頭でINFOのhelper報告を1件生成する。"
+      },
+      "expected": {
+        "en": "Both callbacks see only the outer report, once each.",
+        "ja": "両callbackは外側の報告だけを各1回観測する。"
+      },
+      "limitations": {
+        "en": "Only the selected helper, DISPLAY actions and reporter-local callback chain are tested; no diagnostic text, file output or fatal termination is asserted.",
+        "ja": "選択したhelper、DISPLAY action、reporter固有のcallback列のみ。診断文面、file出力、fatal終了は要求しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_catcher_info_helper_bypasses_both_catching_callbacks",
+          "role": "direct",
+          "expected_observations": [
+            "UT: callbacks issuer 1 tail 1 client 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CATCHER-INFO-HELPER-EMISSION",
+      "clause": "6.6.6.4",
+      "statement": {
+        "en": "The selected helper emits one report with its requested severity and ID.",
+        "ja": "選択したhelperは、指定したseverityとIDの報告を1件発行する。"
+      },
+      "conditions": {
+        "en": "An INFO report passes through two callbacks; the first emits one INFO helper report.",
+        "ja": "INFO報告を2つのcallbackへ渡し、先頭でINFOのhelper報告を1件生成する。"
+      },
+      "expected": {
+        "en": "Helper ID count rises once and the requested severity count includes that report.",
+        "ja": "helperのID件数が1増え、指定severityの件数にその報告が含まれる。"
+      },
+      "limitations": {
+        "en": "Only the selected helper, DISPLAY actions and reporter-local callback chain are tested; no diagnostic text, file output or fatal termination is asserted.",
+        "ja": "選択したhelper、DISPLAY action、reporter固有のcallback列のみ。診断文面、file出力、fatal終了は要求しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_catcher_info_helper_bypasses_both_catching_callbacks",
+          "role": "direct",
+          "expected_observations": [
+            "UT: counts info 2 error 0 warning 0 helper 1 outer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CATCHER-INFO-OUTER-CONTINUES",
+      "clause": "6.6",
+      "statement": {
+        "en": "THROW permits the outer report to continue after a catcher emits a helper report.",
+        "ja": "catcherがhelper報告を発行した後も、THROWで外側の報告が続行する。"
+      },
+      "conditions": {
+        "en": "An INFO report passes through two callbacks; the first emits one INFO helper report.",
+        "ja": "INFO報告を2つのcallbackへ渡し、先頭でINFOのhelper報告を1件生成する。"
+      },
+      "expected": {
+        "en": "The outer ID count rises once after the tail callback is visited.",
+        "ja": "末尾callbackを通過した後、外側のID件数が1増える。"
+      },
+      "limitations": {
+        "en": "Only the selected helper, DISPLAY actions and reporter-local callback chain are tested; no diagnostic text, file output or fatal termination is asserted.",
+        "ja": "選択したhelper、DISPLAY action、reporter固有のcallback列のみ。診断文面、file出力、fatal終了は要求しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_catcher_info_helper_bypasses_both_catching_callbacks",
+          "role": "direct",
+          "expected_observations": [
+            "UT: callbacks issuer 1 tail 1 client 1",
+            "UT: counts info 2 error 0 warning 0 helper 1 outer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CATCHER-ERROR-HELPER-BYPASS",
+      "clause": "6.6.6.2",
+      "statement": {
+        "en": "A catcher helper report bypasses the entire catching callback chain.",
+        "ja": "catcherのhelper報告は、catching callback列全体を迂回する。"
+      },
+      "conditions": {
+        "en": "An INFO report passes through two callbacks; the first emits one ERROR helper report.",
+        "ja": "INFO報告を2つのcallbackへ渡し、先頭でERRORのhelper報告を1件生成する。"
+      },
+      "expected": {
+        "en": "Both callbacks see only the outer report, once each.",
+        "ja": "両callbackは外側の報告だけを各1回観測する。"
+      },
+      "limitations": {
+        "en": "Only the selected helper, DISPLAY actions and reporter-local callback chain are tested; no diagnostic text, file output or fatal termination is asserted.",
+        "ja": "選択したhelper、DISPLAY action、reporter固有のcallback列のみ。診断文面、file出力、fatal終了は要求しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_catcher_error_helper_bypasses_both_catching_callbacks",
+          "role": "direct",
+          "expected_observations": [
+            "UT: callbacks issuer 1 tail 1 client 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CATCHER-ERROR-HELPER-EMISSION",
+      "clause": "6.6.6.2",
+      "statement": {
+        "en": "The selected helper emits one report with its requested severity and ID.",
+        "ja": "選択したhelperは、指定したseverityとIDの報告を1件発行する。"
+      },
+      "conditions": {
+        "en": "An INFO report passes through two callbacks; the first emits one ERROR helper report.",
+        "ja": "INFO報告を2つのcallbackへ渡し、先頭でERRORのhelper報告を1件生成する。"
+      },
+      "expected": {
+        "en": "Helper ID count rises once and the requested severity count includes that report.",
+        "ja": "helperのID件数が1増え、指定severityの件数にその報告が含まれる。"
+      },
+      "limitations": {
+        "en": "Only the selected helper, DISPLAY actions and reporter-local callback chain are tested; no diagnostic text, file output or fatal termination is asserted.",
+        "ja": "選択したhelper、DISPLAY action、reporter固有のcallback列のみ。診断文面、file出力、fatal終了は要求しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_catcher_error_helper_bypasses_both_catching_callbacks",
+          "role": "direct",
+          "expected_observations": [
+            "UT: counts info 1 error 1 warning 0 helper 1 outer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CATCHER-ERROR-OUTER-CONTINUES",
+      "clause": "6.6",
+      "statement": {
+        "en": "THROW permits the outer report to continue after a catcher emits a helper report.",
+        "ja": "catcherがhelper報告を発行した後も、THROWで外側の報告が続行する。"
+      },
+      "conditions": {
+        "en": "An INFO report passes through two callbacks; the first emits one ERROR helper report.",
+        "ja": "INFO報告を2つのcallbackへ渡し、先頭でERRORのhelper報告を1件生成する。"
+      },
+      "expected": {
+        "en": "The outer ID count rises once after the tail callback is visited.",
+        "ja": "末尾callbackを通過した後、外側のID件数が1増える。"
+      },
+      "limitations": {
+        "en": "Only the selected helper, DISPLAY actions and reporter-local callback chain are tested; no diagnostic text, file output or fatal termination is asserted.",
+        "ja": "選択したhelper、DISPLAY action、reporter固有のcallback列のみ。診断文面、file出力、fatal終了は要求しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_catcher_error_helper_bypasses_both_catching_callbacks",
+          "role": "direct",
+          "expected_observations": [
+            "UT: callbacks issuer 1 tail 1 client 1",
+            "UT: counts info 1 error 1 warning 0 helper 1 outer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CATCHER-GENERIC-WARNING-HELPER-BYPASS",
+      "clause": "6.6.6.5",
+      "statement": {
+        "en": "A catcher helper report bypasses the entire catching callback chain.",
+        "ja": "catcherのhelper報告は、catching callback列全体を迂回する。"
+      },
+      "conditions": {
+        "en": "An INFO report passes through two callbacks; the first emits one WARNING helper report.",
+        "ja": "INFO報告を2つのcallbackへ渡し、先頭でWARNINGのhelper報告を1件生成する。"
+      },
+      "expected": {
+        "en": "Both callbacks see only the outer report, once each.",
+        "ja": "両callbackは外側の報告だけを各1回観測する。"
+      },
+      "limitations": {
+        "en": "Only the selected helper, DISPLAY actions and reporter-local callback chain are tested; no diagnostic text, file output or fatal termination is asserted.",
+        "ja": "選択したhelper、DISPLAY action、reporter固有のcallback列のみ。診断文面、file出力、fatal終了は要求しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_catcher_generic_warning_helper_bypasses_both_catching_callbacks",
+          "role": "direct",
+          "expected_observations": [
+            "UT: callbacks issuer 1 tail 1 client 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CATCHER-GENERIC-WARNING-HELPER-EMISSION",
+      "clause": "6.6.6.5",
+      "statement": {
+        "en": "The selected helper emits one report with its requested severity and ID.",
+        "ja": "選択したhelperは、指定したseverityとIDの報告を1件発行する。"
+      },
+      "conditions": {
+        "en": "An INFO report passes through two callbacks; the first emits one WARNING helper report.",
+        "ja": "INFO報告を2つのcallbackへ渡し、先頭でWARNINGのhelper報告を1件生成する。"
+      },
+      "expected": {
+        "en": "Helper ID count rises once and the requested severity count includes that report.",
+        "ja": "helperのID件数が1増え、指定severityの件数にその報告が含まれる。"
+      },
+      "limitations": {
+        "en": "Only the selected helper, DISPLAY actions and reporter-local callback chain are tested; no diagnostic text, file output or fatal termination is asserted.",
+        "ja": "選択したhelper、DISPLAY action、reporter固有のcallback列のみ。診断文面、file出力、fatal終了は要求しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_catcher_generic_warning_helper_bypasses_both_catching_callbacks",
+          "role": "direct",
+          "expected_observations": [
+            "UT: counts info 1 error 0 warning 1 helper 1 outer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CATCHER-GENERIC-WARNING-OUTER-CONTINUES",
+      "clause": "6.6",
+      "statement": {
+        "en": "THROW permits the outer report to continue after a catcher emits a helper report.",
+        "ja": "catcherがhelper報告を発行した後も、THROWで外側の報告が続行する。"
+      },
+      "conditions": {
+        "en": "An INFO report passes through two callbacks; the first emits one WARNING helper report.",
+        "ja": "INFO報告を2つのcallbackへ渡し、先頭でWARNINGのhelper報告を1件生成する。"
+      },
+      "expected": {
+        "en": "The outer ID count rises once after the tail callback is visited.",
+        "ja": "末尾callbackを通過した後、外側のID件数が1増える。"
+      },
+      "limitations": {
+        "en": "Only the selected helper, DISPLAY actions and reporter-local callback chain are tested; no diagnostic text, file output or fatal termination is asserted.",
+        "ja": "選択したhelper、DISPLAY action、reporter固有のcallback列のみ。診断文面、file出力、fatal終了は要求しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_catcher_generic_warning_helper_bypasses_both_catching_callbacks",
+          "role": "direct",
+          "expected_observations": [
+            "UT: callbacks issuer 1 tail 1 client 1",
+            "UT: counts info 1 error 0 warning 1 helper 1 outer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CATCHER-CURRENT-REPORTER-IDENTITY",
+      "clause": "6.6.3.1",
+      "statement": {
+        "en": "get_client returns the object that generated the current caught message.",
+        "ja": "get_clientは、現在catchしているmessageの生成元objectを返す。"
+      },
+      "conditions": {
+        "en": "A callback on an explicit local reporter observes an outer INFO report.",
+        "ja": "明示したlocal reporterのcallbackで、外側のINFO報告を観測する。"
+      },
+      "expected": {
+        "en": "The returned client equals that local reporter in all three helper fixtures.",
+        "ja": "3つのhelper検査系すべてで、返されたclientがそのlocal reporterと一致する。"
+      },
+      "limitations": {
+        "en": "Only the selected helper, DISPLAY actions and reporter-local callback chain are tested; no diagnostic text, file output or fatal termination is asserted.",
+        "ja": "選択したhelper、DISPLAY action、reporter固有のcallback列のみ。診断文面、file出力、fatal終了は要求しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_catcher_info_helper_bypasses_both_catching_callbacks",
+          "role": "direct",
+          "expected_observations": [
+            "UT: callbacks issuer 1 tail 1 client 1"
+          ]
+        },
+        {
+          "test": "u06/test_report_catcher_error_helper_bypasses_both_catching_callbacks",
+          "role": "direct",
+          "expected_observations": [
+            "UT: callbacks issuer 1 tail 1 client 1"
+          ]
+        },
+        {
+          "test": "u06/test_report_catcher_generic_warning_helper_bypasses_both_catching_callbacks",
+          "role": "direct",
+          "expected_observations": [
+            "UT: callbacks issuer 1 tail 1 client 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CATCHER-ISSUE-CAUGHT-COUNT",
+      "clause": "6.6.6.6",
+      "statement": {
+        "en": "Immediate issue updates report statistics once when normal emission is caught.",
+        "ja": "即時issueは、通常の発行をcatchした場合に報告統計を1回更新する。"
+      },
+      "conditions": {
+        "en": "The first catcher changes the ID to issued, calls issue, then returns CAUGHT.",
+        "ja": "先頭catcherでIDをissuedに変え、issueを呼んでからCAUGHTを返す。"
+      },
+      "expected": {
+        "en": "INFO and issued counts rise by one.",
+        "ja": "INFOとissuedの件数が1増える。"
+      },
+      "limitations": {
+        "en": "Only the selected helper, DISPLAY actions and reporter-local callback chain are tested; no diagnostic text, file output or fatal termination is asserted.",
+        "ja": "選択したhelper、DISPLAY action、reporter固有のcallback列のみ。診断文面、file出力、fatal終了は要求しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_catcher_issue_counts_the_current_message_before_it_is_caught",
+          "role": "direct",
+          "expected_observations": [
+            "UT: counts info 1 issued 1 original 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CATCHER-ISSUE-CAUGHT-CURRENT-ID",
+      "clause": "6.6.4.3",
+      "statement": {
+        "en": "The current report ID mutation is visible to immediate issue.",
+        "ja": "現在の報告IDの変更は、即時issueにも反映される。"
+      },
+      "conditions": {
+        "en": "The first catcher changes the ID to issued, calls issue, then returns CAUGHT.",
+        "ja": "先頭catcherでIDをissuedに変え、issueを呼んでからCAUGHTを返す。"
+      },
+      "expected": {
+        "en": "Issued statistics use the changed ID; the original ID count does not increase.",
+        "ja": "発行統計は変更後のIDを使い、元のIDの件数は増えない。"
+      },
+      "limitations": {
+        "en": "Only the selected helper, DISPLAY actions and reporter-local callback chain are tested; no diagnostic text, file output or fatal termination is asserted.",
+        "ja": "選択したhelper、DISPLAY action、reporter固有のcallback列のみ。診断文面、file出力、fatal終了は要求しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_catcher_issue_counts_the_current_message_before_it_is_caught",
+          "role": "direct",
+          "expected_observations": [
+            "UT: counts info 1 issued 1 original 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CATCHER-ISSUE-CAUGHT-TAIL",
+      "clause": "6.6",
+      "statement": {
+        "en": "CAUGHT prevents later catchers from processing the message.",
+        "ja": "CAUGHTは、後続catcherによるmessage処理を止める。"
+      },
+      "conditions": {
+        "en": "The first catcher changes the ID to issued, calls issue, then returns CAUGHT.",
+        "ja": "先頭catcherでIDをissuedに変え、issueを呼んでからCAUGHTを返す。"
+      },
+      "expected": {
+        "en": "Tail visits are zero.",
+        "ja": "末尾の訪問回数は0である。"
+      },
+      "limitations": {
+        "en": "Only the selected helper, DISPLAY actions and reporter-local callback chain are tested; no diagnostic text, file output or fatal termination is asserted.",
+        "ja": "選択したhelper、DISPLAY action、reporter固有のcallback列のみ。診断文面、file出力、fatal終了は要求しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_catcher_issue_counts_the_current_message_before_it_is_caught",
+          "role": "direct",
+          "expected_observations": [
+            "UT: callbacks issuer 1 tail 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CATCHER-ISSUE-THROWN-COUNT",
+      "clause": "6.6.6.6",
+      "statement": {
+        "en": "Immediate issue updates report statistics again when normal emission is also allowed.",
+        "ja": "即時issueは、通常の発行も許可した場合に報告統計を追加で更新する。"
+      },
+      "conditions": {
+        "en": "The first catcher changes the ID to issued, calls issue, then returns THROW.",
+        "ja": "先頭catcherでIDをissuedに変え、issueを呼んでからTHROWを返す。"
+      },
+      "expected": {
+        "en": "INFO and issued counts rise by two.",
+        "ja": "INFOとissuedの件数が2増える。"
+      },
+      "limitations": {
+        "en": "Only the selected helper, DISPLAY actions and reporter-local callback chain are tested; no diagnostic text, file output or fatal termination is asserted.",
+        "ja": "選択したhelper、DISPLAY action、reporter固有のcallback列のみ。診断文面、file出力、fatal終了は要求しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_catcher_issue_counts_the_current_message_before_it_is_thrown",
+          "role": "direct",
+          "expected_observations": [
+            "UT: counts info 2 issued 2 original 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CATCHER-ISSUE-THROWN-CURRENT-ID",
+      "clause": "6.6.4.3",
+      "statement": {
+        "en": "The current report ID mutation is visible to immediate issue.",
+        "ja": "現在の報告IDの変更は、即時issueにも反映される。"
+      },
+      "conditions": {
+        "en": "The first catcher changes the ID to issued, calls issue, then returns THROW.",
+        "ja": "先頭catcherでIDをissuedに変え、issueを呼んでからTHROWを返す。"
+      },
+      "expected": {
+        "en": "Issued statistics use the changed ID; the original ID count does not increase.",
+        "ja": "発行統計は変更後のIDを使い、元のIDの件数は増えない。"
+      },
+      "limitations": {
+        "en": "Only the selected helper, DISPLAY actions and reporter-local callback chain are tested; no diagnostic text, file output or fatal termination is asserted.",
+        "ja": "選択したhelper、DISPLAY action、reporter固有のcallback列のみ。診断文面、file出力、fatal終了は要求しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_catcher_issue_counts_the_current_message_before_it_is_thrown",
+          "role": "direct",
+          "expected_observations": [
+            "UT: counts info 2 issued 2 original 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CATCHER-ISSUE-THROWN-TAIL",
+      "clause": "6.6",
+      "statement": {
+        "en": "THROW allows the later catcher to process the message.",
+        "ja": "THROWは、後続catcherによるmessage処理を許可する。"
+      },
+      "conditions": {
+        "en": "The first catcher changes the ID to issued, calls issue, then returns THROW.",
+        "ja": "先頭catcherでIDをissuedに変え、issueを呼んでからTHROWを返す。"
+      },
+      "expected": {
+        "en": "Tail visits are one.",
+        "ja": "末尾の訪問回数は1である。"
+      },
+      "limitations": {
+        "en": "Only the selected helper, DISPLAY actions and reporter-local callback chain are tested; no diagnostic text, file output or fatal termination is asserted.",
+        "ja": "選択したhelper、DISPLAY action、reporter固有のcallback列のみ。診断文面、file出力、fatal終了は要求しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_catcher_issue_counts_the_current_message_before_it_is_thrown",
+          "role": "direct",
+          "expected_observations": [
+            "UT: callbacks issuer 1 tail 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-DEFAULT-PRINT-REQ-INITIAL",
+      "clause": "14.3.2.1",
+      "statement": {
+        "en": "Default sequence printing follows the current req field.",
+        "ja": "sequenceの既定印字は、現在のreq fieldに従う。"
+      },
+      "conditions": {
+        "en": "Only req holds a non-null typed item.",
+        "ja": "reqだけに型付きの非null itemを設定する。"
+      },
+      "expected": {
+        "en": "The current req item print hook is visited once.",
+        "ja": "現在のreq itemのprint hookを1回訪問する。"
+      },
+      "limitations": {
+        "en": "Explicit DEEP recursion and unlimited depth; default sequence do_print and original item hooks. No formatted text, null-field layout, sequence execution or shared-object traversal count is asserted.",
+        "ja": "DEEP再帰と無制限の深さを明示し、sequence既定do_printと独自item hookを使う。書式、null fieldの配置、sequence実行、共有objectの巡回回数は要求しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_default_print_visits_request_items",
+          "role": "direct",
+          "expected_observations": [
+            "UT: request 1 response 0 retained 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-DEFAULT-PRINT-REQ-REPLACED",
+      "clause": "14.3.2.1",
+      "statement": {
+        "en": "Default sequence printing follows the current req field.",
+        "ja": "sequenceの既定印字は、現在のreq fieldに従う。"
+      },
+      "conditions": {
+        "en": "Both fields are printed, replaced with distinct fresh items, then printed again.",
+        "ja": "両fieldを印字後、異なる新規itemへ置換して再印字する。"
+      },
+      "expected": {
+        "en": "The replacement req item is visited once and the former item is not revisited.",
+        "ja": "置換後のreq itemを1回訪問し、以前のitemは再訪問しない。"
+      },
+      "limitations": {
+        "en": "Explicit DEEP recursion and unlimited depth; default sequence do_print and original item hooks. No formatted text, null-field layout, sequence execution or shared-object traversal count is asserted.",
+        "ja": "DEEP再帰と無制限の深さを明示し、sequence既定do_printと独自item hookを使う。書式、null fieldの配置、sequence実行、共有objectの巡回回数は要求しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_default_print_visits_replacement_items",
+          "role": "direct",
+          "expected_observations": [
+            "UT: replacement old 1 1 new 1 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-DEFAULT-PRINT-REQ-CLEARED",
+      "clause": "14.3.2.1",
+      "statement": {
+        "en": "Default sequence printing follows the current req field.",
+        "ja": "sequenceの既定印字は、現在のreq fieldに従う。"
+      },
+      "conditions": {
+        "en": "After printing original and replacement items, both fields are cleared before another print.",
+        "ja": "元と置換後のitemを印字してから両fieldをnullにし、再印字する。"
+      },
+      "expected": {
+        "en": "Neither former req item is visited after clearing.",
+        "ja": "nullにした後は、以前のどちらのreq itemも訪問しない。"
+      },
+      "limitations": {
+        "en": "Explicit DEEP recursion and unlimited depth; default sequence do_print and original item hooks. No formatted text, null-field layout, sequence execution or shared-object traversal count is asserted.",
+        "ja": "DEEP再帰と無制限の深さを明示し、sequence既定do_printと独自item hookを使う。書式、null fieldの配置、sequence実行、共有objectの巡回回数は要求しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_default_print_visits_replacement_items",
+          "role": "direct",
+          "expected_observations": [
+            "UT: cleared old 1 1 new 1 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-DEFAULT-PRINT-RSP-INITIAL",
+      "clause": "14.3.2.2",
+      "statement": {
+        "en": "Default sequence printing follows the current rsp field.",
+        "ja": "sequenceの既定印字は、現在のrsp fieldに従う。"
+      },
+      "conditions": {
+        "en": "Only rsp holds a non-null typed item.",
+        "ja": "rspだけに型付きの非null itemを設定する。"
+      },
+      "expected": {
+        "en": "The current rsp item print hook is visited once.",
+        "ja": "現在のrsp itemのprint hookを1回訪問する。"
+      },
+      "limitations": {
+        "en": "Explicit DEEP recursion and unlimited depth; default sequence do_print and original item hooks. No formatted text, null-field layout, sequence execution or shared-object traversal count is asserted.",
+        "ja": "DEEP再帰と無制限の深さを明示し、sequence既定do_printと独自item hookを使う。書式、null fieldの配置、sequence実行、共有objectの巡回回数は要求しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_default_print_visits_response_items",
+          "role": "direct",
+          "expected_observations": [
+            "UT: request 0 response 1 retained 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-DEFAULT-PRINT-RSP-REPLACED",
+      "clause": "14.3.2.2",
+      "statement": {
+        "en": "Default sequence printing follows the current rsp field.",
+        "ja": "sequenceの既定印字は、現在のrsp fieldに従う。"
+      },
+      "conditions": {
+        "en": "Both fields are printed, replaced with distinct fresh items, then printed again.",
+        "ja": "両fieldを印字後、異なる新規itemへ置換して再印字する。"
+      },
+      "expected": {
+        "en": "The replacement rsp item is visited once and the former item is not revisited.",
+        "ja": "置換後のrsp itemを1回訪問し、以前のitemは再訪問しない。"
+      },
+      "limitations": {
+        "en": "Explicit DEEP recursion and unlimited depth; default sequence do_print and original item hooks. No formatted text, null-field layout, sequence execution or shared-object traversal count is asserted.",
+        "ja": "DEEP再帰と無制限の深さを明示し、sequence既定do_printと独自item hookを使う。書式、null fieldの配置、sequence実行、共有objectの巡回回数は要求しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_default_print_visits_replacement_items",
+          "role": "direct",
+          "expected_observations": [
+            "UT: replacement old 1 1 new 1 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-DEFAULT-PRINT-RSP-CLEARED",
+      "clause": "14.3.2.2",
+      "statement": {
+        "en": "Default sequence printing follows the current rsp field.",
+        "ja": "sequenceの既定印字は、現在のrsp fieldに従う。"
+      },
+      "conditions": {
+        "en": "After printing original and replacement items, both fields are cleared before another print.",
+        "ja": "元と置換後のitemを印字してから両fieldをnullにし、再印字する。"
+      },
+      "expected": {
+        "en": "Neither former rsp item is visited after clearing.",
+        "ja": "nullにした後は、以前のどちらのrsp itemも訪問しない。"
+      },
+      "limitations": {
+        "en": "Explicit DEEP recursion and unlimited depth; default sequence do_print and original item hooks. No formatted text, null-field layout, sequence execution or shared-object traversal count is asserted.",
+        "ja": "DEEP再帰と無制限の深さを明示し、sequence既定do_printと独自item hookを使う。書式、null fieldの配置、sequence実行、共有objectの巡回回数は要求しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_default_print_visits_replacement_items",
+          "role": "direct",
+          "expected_observations": [
+            "UT: cleared old 1 1 new 1 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-ADAPTER-SEPARATE-WRITE",
+      "clause": "19.2.1.2.3",
+      "statement": {
+        "en": "With provides_responses selected, the register layer consumes the separate driver response.",
+        "ja": "provides_responsesを選ぶと、register層はdriverの別responseを使用する。"
+      },
+      "conditions": {
+        "en": "One register write receives OK in a separate response and NOT_OK in its request.",
+        "ja": "register writeの別responseはOK、requestはNOT_OKを持つ。"
+      },
+      "expected": {
+        "en": "The write reports success and the fixture stores 0x5a.",
+        "ja": "writeは成功を返し、検査系は0x5aを格納する。"
+      },
+      "limitations": {
+        "en": "One-byte original bus fixture with provides_responses=1, fresh ID-routed responses and contradictory request state; no DUT HDL transfer, byte-enable protocol or parent_sequence cloning is established.",
+        "ja": "provides_responses=1、IDを引き継ぐ新規response、矛盾するrequest状態を持つ独自の1-byte bus検査系。DUT HDL転送、byte-enable protocol、parent_sequenceのcloneは評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_adapter_separate_response_controls_write",
+          "role": "direct",
+          "expected_observations": [
+            "UT: write ok 1 stored 5a mirror 5a",
+            "UT: converted 1 exact_responses 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-ADAPTER-SEPARATE-REPEATED-READS",
+      "clause": "19.2.1.2.3",
+      "statement": {
+        "en": "With provides_responses selected, the register layer consumes the separate driver response.",
+        "ja": "provides_responsesを選ぶと、register層はdriverの別responseを使用する。"
+      },
+      "conditions": {
+        "en": "Two reads receive fresh responses with 0x42 then 0x73; request data is 0xee.",
+        "ja": "2回のreadで新規responseに0x42、次に0x73を持たせ、requestのdataは0xeeにする。"
+      },
+      "expected": {
+        "en": "Each returned value follows its corresponding separate response.",
+        "ja": "各戻り値は、それぞれの別responseに従う。"
+      },
+      "limitations": {
+        "en": "One-byte original bus fixture with provides_responses=1, fresh ID-routed responses and contradictory request state; no DUT HDL transfer, byte-enable protocol or parent_sequence cloning is established.",
+        "ja": "provides_responses=1、IDを引き継ぐ新規response、矛盾するrequest状態を持つ独自の1-byte bus検査系。DUT HDL転送、byte-enable protocol、parent_sequenceのcloneは評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_adapter_separate_response_controls_repeated_reads",
+          "role": "direct",
+          "expected_observations": [
+            "UT: first ok 1 value 42 mirror 42",
+            "UT: second ok 1 value 73 mirror 73 fresh 1",
+            "UT: converted 2 exact_responses 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-ADAPTER-SEPARATE-FAILED-WRITE-RETRY",
+      "clause": "19.2.1.2.3",
+      "statement": {
+        "en": "With provides_responses selected, the register layer consumes the separate driver response.",
+        "ja": "provides_responsesを選ぶと、register層はdriverの別responseを使用する。"
+      },
+      "conditions": {
+        "en": "A NOT_OK response precedes an OK retry while request statuses contradict them.",
+        "ja": "requestのstatusを逆にし、NOT_OKのresponseの後にOKで再試行する。"
+      },
+      "expected": {
+        "en": "The first write fails and the second succeeds.",
+        "ja": "最初のwriteは失敗し、2回目は成功する。"
+      },
+      "limitations": {
+        "en": "One-byte original bus fixture with provides_responses=1, fresh ID-routed responses and contradictory request state; no DUT HDL transfer, byte-enable protocol or parent_sequence cloning is established.",
+        "ja": "provides_responses=1、IDを引き継ぐ新規response、矛盾するrequest状態を持つ独自の1-byte bus検査系。DUT HDL転送、byte-enable protocol、parent_sequenceのcloneは評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_adapter_separate_response_controls_failed_write_retry",
+          "role": "direct",
+          "expected_observations": [
+            "UT: failed 1 stored 11 mirror 11",
+            "UT: retry ok 1 stored 66 mirror 66",
+            "UT: converted 2 exact_responses 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-ADAPTER-SEPARATE-FAILED-MEMORY-READ-RETRY",
+      "clause": "19.2.1.2.3",
+      "statement": {
+        "en": "With provides_responses selected, the register layer consumes the separate driver response.",
+        "ja": "provides_responsesを選ぶと、register層はdriverの別responseを使用する。"
+      },
+      "conditions": {
+        "en": "A failed memory read at offset 3 precedes a successful read at offset 9.",
+        "ja": "offset 3のmemory read失敗後に、offset 9で成功するreadを行う。"
+      },
+      "expected": {
+        "en": "The failed response produces failure; the fresh successful response returns 0x9c.",
+        "ja": "失敗responseは失敗を返し、新規の成功responseから0x9cを返す。"
+      },
+      "limitations": {
+        "en": "One-byte original bus fixture with provides_responses=1, fresh ID-routed responses and contradictory request state; no DUT HDL transfer, byte-enable protocol or parent_sequence cloning is established.",
+        "ja": "provides_responses=1、IDを引き継ぐ新規response、矛盾するrequest状態を持つ独自の1-byte bus検査系。DUT HDL転送、byte-enable protocol、parent_sequenceのcloneは評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_adapter_separate_response_controls_failed_memory_read_retry",
+          "role": "direct",
+          "expected_observations": [
+            "UT: failed 1 address 23",
+            "UT: retry ok 1 value 9c address 29 fresh 1",
+            "UT: converted 2 exact_responses 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-ADAPTER-BUS2REG-SEPARATE-IDENTITY",
+      "clause": "19.2.1.2.6",
+      "statement": {
+        "en": "bus2reg is given the separate response object for the selected response path.",
+        "ja": "選択した別response経路のbus2regには、そのresponse objectを渡す。"
+      },
+      "conditions": {
+        "en": "Four write/read/retry fixtures capture original request, returned response and converted object handles.",
+        "ja": "write／read／再試行の4検査系で、元のrequest、返したresponse、変換対象のhandleを記録する。"
+      },
+      "expected": {
+        "en": "Each converted object is the exact returned response and differs from its request.",
+        "ja": "各変換対象は返したresponseそのもので、元のrequestとは異なる。"
+      },
+      "limitations": {
+        "en": "One-byte original bus fixture with provides_responses=1, fresh ID-routed responses and contradictory request state; no DUT HDL transfer, byte-enable protocol or parent_sequence cloning is established.",
+        "ja": "provides_responses=1、IDを引き継ぐ新規response、矛盾するrequest状態を持つ独自の1-byte bus検査系。DUT HDL転送、byte-enable protocol、parent_sequenceのcloneは評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_adapter_separate_response_controls_write",
+          "role": "direct",
+          "expected_observations": [
+            "UT: converted 1 exact_responses 1"
+          ]
+        },
+        {
+          "test": "u19/test_adapter_separate_response_controls_repeated_reads",
+          "role": "direct",
+          "expected_observations": [
+            "UT: converted 2 exact_responses 1"
+          ]
+        },
+        {
+          "test": "u19/test_adapter_separate_response_controls_failed_write_retry",
+          "role": "direct",
+          "expected_observations": [
+            "UT: converted 2 exact_responses 1"
+          ]
+        },
+        {
+          "test": "u19/test_adapter_separate_response_controls_failed_memory_read_retry",
+          "role": "direct",
+          "expected_observations": [
+            "UT: converted 2 exact_responses 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-ADAPTER-GET-ITEM-NULL-DURING-SEPARATE-BUS2REG",
+      "clause": "19.2.1.2.7",
+      "statement": {
+        "en": "get_item returns null during response-side bus2reg conversion.",
+        "ja": "response側のbus2reg変換中、get_itemはnullを返す。"
+      },
+      "conditions": {
+        "en": "The adapter queries get_item in every bus2reg call across the four separate-response fixtures.",
+        "ja": "別responseの4検査系で、各bus2reg呼出し内からget_itemを照会する。"
+      },
+      "expected": {
+        "en": "All conversion-time queries are null.",
+        "ja": "変換中の照会はすべてnullである。"
+      },
+      "limitations": {
+        "en": "One-byte original bus fixture with provides_responses=1, fresh ID-routed responses and contradictory request state; no DUT HDL transfer, byte-enable protocol or parent_sequence cloning is established.",
+        "ja": "provides_responses=1、IDを引き継ぐ新規response、矛盾するrequest状態を持つ独自の1-byte bus検査系。DUT HDL転送、byte-enable protocol、parent_sequenceのcloneは評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_adapter_separate_response_controls_write",
+          "role": "direct",
+          "expected_observations": [
+            "UT: converted 1 exact_responses 1"
+          ]
+        },
+        {
+          "test": "u19/test_adapter_separate_response_controls_repeated_reads",
+          "role": "direct",
+          "expected_observations": [
+            "UT: converted 2 exact_responses 1"
+          ]
+        },
+        {
+          "test": "u19/test_adapter_separate_response_controls_failed_write_retry",
+          "role": "direct",
+          "expected_observations": [
+            "UT: converted 2 exact_responses 1"
+          ]
+        },
+        {
+          "test": "u19/test_adapter_separate_response_controls_failed_memory_read_retry",
+          "role": "direct",
+          "expected_observations": [
+            "UT: converted 2 exact_responses 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEPARATE-RESPONSE-WRITE-MIRROR",
+      "clause": "18.2.5.2",
+      "statement": {
+        "en": "Successful separate-response writes update an auto-predicted mirror.",
+        "ja": "別responseによる成功writeは、自動予測するmirrorを更新する。"
+      },
+      "conditions": {
+        "en": "An RW register with reset 0x11 is written with 0x5a.",
+        "ja": "reset値0x11のRW registerへ0x5aを書き込む。"
+      },
+      "expected": {
+        "en": "The mirror is 0x5a on return.",
+        "ja": "復帰時のmirrorは0x5aである。"
+      },
+      "limitations": {
+        "en": "One-byte original bus fixture with provides_responses=1, fresh ID-routed responses and contradictory request state; no DUT HDL transfer, byte-enable protocol or parent_sequence cloning is established.",
+        "ja": "provides_responses=1、IDを引き継ぐ新規response、矛盾するrequest状態を持つ独自の1-byte bus検査系。DUT HDL転送、byte-enable protocol、parent_sequenceのcloneは評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_adapter_separate_response_controls_write",
+          "role": "direct",
+          "expected_observations": [
+            "UT: write ok 1 stored 5a mirror 5a"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEPARATE-RESPONSE-READ-MIRROR-REPLACEMENT",
+      "clause": "18.2.5.2",
+      "statement": {
+        "en": "Repeated auto-predicted reads update the mirror from the current response.",
+        "ja": "自動予測するreadを繰り返すと、現在のresponseからmirrorを更新する。"
+      },
+      "conditions": {
+        "en": "Fresh responses contain 0x42 then 0x73.",
+        "ja": "新規responseに0x42、次に0x73を設定する。"
+      },
+      "expected": {
+        "en": "The mirror follows 0x42 then 0x73.",
+        "ja": "mirrorは0x42、次に0x73となる。"
+      },
+      "limitations": {
+        "en": "One-byte original bus fixture with provides_responses=1, fresh ID-routed responses and contradictory request state; no DUT HDL transfer, byte-enable protocol or parent_sequence cloning is established.",
+        "ja": "provides_responses=1、IDを引き継ぐ新規response、矛盾するrequest状態を持つ独自の1-byte bus検査系。DUT HDL転送、byte-enable protocol、parent_sequenceのcloneは評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_adapter_separate_response_controls_repeated_reads",
+          "role": "direct",
+          "expected_observations": [
+            "UT: first ok 1 value 42 mirror 42",
+            "UT: second ok 1 value 73 mirror 73 fresh 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEPARATE-RESPONSE-WRITE-FAILURE-STATUS",
+      "clause": "18.4.4.9",
+      "statement": {
+        "en": "A failed separate write response produces a failed write status.",
+        "ja": "別write responseの失敗は、writeの失敗statusとなる。"
+      },
+      "conditions": {
+        "en": "The first response is NOT_OK while its request says IS_OK.",
+        "ja": "最初のresponseをNOT_OK、requestをIS_OKにする。"
+      },
+      "expected": {
+        "en": "The first write reports NOT_OK.",
+        "ja": "最初のwriteはNOT_OKを返す。"
+      },
+      "limitations": {
+        "en": "One-byte original bus fixture with provides_responses=1, fresh ID-routed responses and contradictory request state; no DUT HDL transfer, byte-enable protocol or parent_sequence cloning is established.",
+        "ja": "provides_responses=1、IDを引き継ぐ新規response、矛盾するrequest状態を持つ独自の1-byte bus検査系。DUT HDL転送、byte-enable protocol、parent_sequenceのcloneは評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_adapter_separate_response_controls_failed_write_retry",
+          "role": "direct",
+          "expected_observations": [
+            "UT: failed 1 stored 11 mirror 11"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEPARATE-RESPONSE-WRITE-RETRY-MIRROR",
+      "clause": "18.2.5.2",
+      "statement": {
+        "en": "A successful write retry updates the auto-predicted mirror.",
+        "ja": "writeの再試行が成功すると、自動予測するmirrorを更新する。"
+      },
+      "conditions": {
+        "en": "A failed write is retried with a fresh OK response carrying the same write operation.",
+        "ja": "失敗writeを、同じwrite操作の新規OK responseで再試行する。"
+      },
+      "expected": {
+        "en": "The retry mirror becomes 0x66.",
+        "ja": "再試行後のmirrorは0x66となる。"
+      },
+      "limitations": {
+        "en": "One-byte original bus fixture with provides_responses=1, fresh ID-routed responses and contradictory request state; no DUT HDL transfer, byte-enable protocol or parent_sequence cloning is established.",
+        "ja": "provides_responses=1、IDを引き継ぐ新規response、矛盾するrequest状態を持つ独自の1-byte bus検査系。DUT HDL転送、byte-enable protocol、parent_sequenceのcloneは評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_adapter_separate_response_controls_failed_write_retry",
+          "role": "direct",
+          "expected_observations": [
+            "UT: retry ok 1 stored 66 mirror 66"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEPARATE-RESPONSE-MEMORY-FAILURE-STATUS",
+      "clause": "18.6.5.2",
+      "statement": {
+        "en": "A failed separate memory response is returned as a failed read status.",
+        "ja": "別memory responseの失敗は、readの失敗statusとして返る。"
+      },
+      "conditions": {
+        "en": "Offset 3 receives NOT_OK in the response while the request says IS_OK.",
+        "ja": "offset 3のresponseをNOT_OK、requestをIS_OKにする。"
+      },
+      "expected": {
+        "en": "The first read reports failure without constraining its undefined returned data.",
+        "ja": "最初のreadは失敗を返し、未定義の戻りdataは固定しない。"
+      },
+      "limitations": {
+        "en": "One-byte original bus fixture with provides_responses=1, fresh ID-routed responses and contradictory request state; no DUT HDL transfer, byte-enable protocol or parent_sequence cloning is established.",
+        "ja": "provides_responses=1、IDを引き継ぐ新規response、矛盾するrequest状態を持つ独自の1-byte bus検査系。DUT HDL転送、byte-enable protocol、parent_sequenceのcloneは評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_adapter_separate_response_controls_failed_memory_read_retry",
+          "role": "direct",
+          "expected_observations": [
+            "UT: failed 1 address 23"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEPARATE-RESPONSE-MEMORY-RETRY-DATA",
+      "clause": "18.6.5.2",
+      "statement": {
+        "en": "A subsequent memory read returns data from its fresh response at the new location.",
+        "ja": "後続memory readは、新しいlocationの新規responseからdataを返す。"
+      },
+      "conditions": {
+        "en": "After a failed offset-3 read, offset 9 contains 0x9c.",
+        "ja": "offset 3のread失敗後、offset 9に0x9cを持たせる。"
+      },
+      "expected": {
+        "en": "The second read succeeds at bus address 0x29 and returns 0x9c.",
+        "ja": "2回目のreadはbus address 0x29で成功し、0x9cを返す。"
+      },
+      "limitations": {
+        "en": "One-byte original bus fixture with provides_responses=1, fresh ID-routed responses and contradictory request state; no DUT HDL transfer, byte-enable protocol or parent_sequence cloning is established.",
+        "ja": "provides_responses=1、IDを引き継ぐ新規response、矛盾するrequest状態を持つ独自の1-byte bus検査系。DUT HDL転送、byte-enable protocol、parent_sequenceのcloneは評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_adapter_separate_response_controls_failed_memory_read_retry",
+          "role": "direct",
+          "expected_observations": [
+            "UT: retry ok 1 value 9c address 29 fresh 1"
+          ]
+        }
+      ]
     }
   ]
 }

@@ -841,3 +841,17 @@ selected public calls, separately from transport or packing behavior.
 FIFO model. The selected get observes its front without popping; direct queue
 mutation is fixture stimulus. Inline and subtype constraint conditions are
 reported separately in [Q151](faq.md#q151-why-are-inline-and-subtype-declared-fifo-constraints-recorded-separately).
+
+## Catcher emission and printed or returned objects
+
+**Catcher helper emission** — A supplementary report generated inside a catcher
+while bypassing the catching callbacks. It is distinct from emitting the current
+message through issue. See [Q152](faq.md#q152-how-do-catcher-helper-reports-differ-from-issue-followed-by-throw).
+
+**Typed sequence print visit** — A print-hook observation on the current request
+or response item under deep, unlimited recursion. It identifies the reached
+object without requiring the printer's formatted output.
+
+**Separate response identity** — The exact fresh object returned by the driver,
+with request routing IDs copied to it. Contradictory request state helps detect
+an in-place path used when separate responses are selected.

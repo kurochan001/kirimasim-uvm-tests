@@ -210,6 +210,26 @@
       "primary_clause": "6.3.5.1",
       "inputs_sha256": "3476a2e2593ed6eedc21a366e373228abfae298c2084f73af0981094fc10e58b"
     },
+    "u06/test_report_catcher_error_helper_bypasses_both_catching_callbacks": {
+      "primary_clause": "6.6.6.2",
+      "inputs_sha256": "8e44abcebaf76ac1a626e04111d11e3cad94d9e18776d740c3991dd05b9d4142"
+    },
+    "u06/test_report_catcher_generic_warning_helper_bypasses_both_catching_callbacks": {
+      "primary_clause": "6.6.6.5",
+      "inputs_sha256": "922b6d073e9e090e6f5529bef816a6024e785b69b5ca64eb851e9ded0a738e29"
+    },
+    "u06/test_report_catcher_info_helper_bypasses_both_catching_callbacks": {
+      "primary_clause": "6.6.6.4",
+      "inputs_sha256": "c839c57b57faca80819563374b77904f6080f2db734b6aece8e29c1c36062e99"
+    },
+    "u06/test_report_catcher_issue_counts_the_current_message_before_it_is_caught": {
+      "primary_clause": "6.6.6.6",
+      "inputs_sha256": "0c542835890f10ef652ae72b9b43561dbf18ed68c07728e439beefc8d5a9e4c6"
+    },
+    "u06/test_report_catcher_issue_counts_the_current_message_before_it_is_thrown": {
+      "primary_clause": "6.6.6.6",
+      "inputs_sha256": "fce725c99ef4cd99f8ea1f52cce8b862892a5dd5e40a65780aa3591e1ca180ef"
+    },
     "u06/test_report_file_selection_specificity_precedence": {
       "primary_clause": "6.3.6.1",
       "inputs_sha256": "fa590f64f4fbb165783d0599af2554a09c408cc6aa19a59cccfe9542277ac13a"
@@ -1793,6 +1813,18 @@
     "u14/test_sequence_clear_response_queue_reclaims_capacity_without_resetting_controls": {
       "primary_clause": "14.2.7.8",
       "inputs_sha256": "b5c3612b5720ec5eb4bd0f1f91f4005543d1cc34a6e1a8ebf14cd799b84dd308"
+    },
+    "u14/test_sequence_default_print_visits_replacement_items": {
+      "primary_clause": "14.3.2.1",
+      "inputs_sha256": "fb381e3d08873791e68c4997cb2e47f1654970cbbb8143094aa82e9b56f5ffbd"
+    },
+    "u14/test_sequence_default_print_visits_request_items": {
+      "primary_clause": "14.3.2.1",
+      "inputs_sha256": "f5be594dfb1386458f0e5f2f58dd4012b1b9ffe3bbae2ed5915467e251e70a7f"
+    },
+    "u14/test_sequence_default_print_visits_response_items": {
+      "primary_clause": "14.3.2.2",
+      "inputs_sha256": "10f6d1c07438338e2449f42f1214fcb10fb1d798aa4a690ece6cdbaec1a8047f"
     },
     "u14/test_sequence_explicit_depth_overrides_calculated_depth": {
       "primary_clause": "14.1.2.10",
@@ -3913,6 +3945,22 @@
     "u18/test_vreg_static_implementation_cannot_be_released_dynamically": {
       "primary_clause": "18.9.1.1.6",
       "inputs_sha256": "187759829a0db63acbd043be608e4af9f166b17a1e4fe26a2ad04ba71f0307c4"
+    },
+    "u19/test_adapter_separate_response_controls_failed_memory_read_retry": {
+      "primary_clause": "19.2.1.2.3",
+      "inputs_sha256": "2e9ff9ec935704976f8d12977be0e789e763286e5f9b739e14d2f39a5a06fa8f"
+    },
+    "u19/test_adapter_separate_response_controls_failed_write_retry": {
+      "primary_clause": "19.2.1.2.3",
+      "inputs_sha256": "2b578bc8af70da2e473442c539acd9482e4ba8d5eae3c7e8534d445f197bfca3"
+    },
+    "u19/test_adapter_separate_response_controls_repeated_reads": {
+      "primary_clause": "19.2.1.2.3",
+      "inputs_sha256": "c20e1b6a9a6464bf61e8249e458bcfbb7cb8002485c61b8ec8e16b6e48feb7d0"
+    },
+    "u19/test_adapter_separate_response_controls_write": {
+      "primary_clause": "19.2.1.2.3",
+      "inputs_sha256": "b230917b3b2843f3d92a3582aec2a58415b7acfc3122ec4ca9f916e2fb98c667"
     },
     "u19/test_hdl_deposit_sets_only_the_selected_variable_and_reports_missing_paths": {
       "primary_clause": "19.6.2.2",

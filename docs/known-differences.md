@@ -2,7 +2,7 @@
 
 [日本語](known-differences.ja.md) · [README](../README.md) · [FAQ](faq.md)
 
-This describes the current 1214-test suite and the pinned Accellera UVM
+This describes the current 1226-test suite and the pinned Accellera UVM
 2020.3.1 library. A mismatch is a test result; it does not by itself assign
 the cause to the simulator, the library or the expectation.
 
@@ -410,7 +410,7 @@ SystemVerilog 13.4, so it cannot represent a count of two. The expected two
 preserves the prose interpretation. This signature/prose conflict requires
 review and is not assigned as a confirmed simulator or library bug.
 
-Across the suite, 1083 tests have the `verilator@5.052` oracle tag and 131
+Across the suite, 1095 tests have the `verilator@5.052` oracle tag and 131
 cases are spec-only. One of the spec-only cases checks 9.6: a child's pre-reset
 task must be killed when that phase ends, but the pinned-library run on Verilator 5.052
 lets the child perform its delayed write during a later phase. The cause of
@@ -423,7 +423,7 @@ observation, then its watchdog expires. This combined simulator/library
 cause remains unassigned; the normative wakeup expectation is retained.
 
 The 131 spec-only tests retain their normative expected files.
-Default Verilator runs and CI select the 1083 tagged cases. `--all` includes
+Default Verilator runs and CI select the 1095 tagged cases. `--all` includes
 spec-only cases and records mismatches or build failures as `known`.
 The ordinary runtime records for 113 cases establish their first difference
 at seed 1, without seed 73 results. Ten missing-API builds have no ordinary
@@ -657,8 +657,8 @@ Additional heartbeat and FIFO cases:
 
 ## Simulator and library combinations
 
-The suite has 1214 cases, but the kirimasim/Ghost records below cover only
-1085 unchanged current-input cases. The 129 new cases are unmeasured
+The suite has 1226 cases, but the kirimasim/Ghost records below cover only
+1085 unchanged current-input cases. The 141 new cases are unmeasured
 because prior temporary executable/profile snapshots are unavailable. Do
 not treat this as a fresh full-suite guest result. See [results](results.md).
 
