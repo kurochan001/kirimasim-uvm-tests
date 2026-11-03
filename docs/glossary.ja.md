@@ -723,3 +723,14 @@ factory overrideは生成する動的型を変えても、baseのstatic proxyを
 **Zero unassessed identifiers（未評価番号0）** — 全catalog番号に部分的な要求案または根拠のある明示分類がある状態です。
 棚卸しの状態であり、全義務や継続するM1〜M4 goalの完了ではありません。
 [Q170](faq.ja.md#q170-第17章の未評価0件で継続goalは完了しますか)を参照してください。
+
+## Command-line実行条件
+
+**Process argument bridge（process引数bridge）** — 標準VPIで実際の起動引数を読み、固定UVMのcommand-line DPI interfaceへ渡す独自の接続codeです。
+UVM parserの実装や期待値の導出は行いません。
+
+**Condition-specific oracle marker（条件別oracle marker）** — 明示したrunner条件で再現済み検査系を選ぶmetadataです。
+command-lineは`:uvm_cmdline_oracle: verilator@5.052`を使い、通常runnerのpassを示すtagにはしません。
+
+**Locked quit-limit diagnostic（lockしたquit上限の診断）** — command-lineで変更不可にしたquit上限をuser codeが変えようとした際に必要な警告です。
+正しい拒否と診断severityは別の観測です。[Q172](faq.ja.md#q172-lockしたquit上限が正しいのになぜテストは差分になりますか)を参照してください。

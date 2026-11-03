@@ -83,6 +83,8 @@ kirimasim-testsとsv-testsの形式を引き継ぎ、次の点を変えます。
 | `:uvm:` | テストが前提にするライブラリのリリース。固定したものと同じでなければならない |
 | `:uvm_dpi:` | `yes`はDPIを有効にするマクロ指定。実装の供給・リンクは別途必要。[コンパイル](#コンパイル)を参照 |
 | `:uvm_defines:` | ライブラリに渡すマクロ（例：`UVM_ENABLE_DEPRECATED_API`） |
+| `:uvm_cmdline_backend:` | `vpi`は実process引数を使う別command-line runnerを選択 |
+| `:uvm_cmdline_oracle:` | `verilator@5.052`は再現済みcommand-line検査系を既定checkへ選択 |
 | `:uvm_hdl_backend:` | `vpi`は別のHDL runnerを明示選択する。他のrunnerはlinkしない |
 | `:dpi_c:` | `@../../tools/uvm_hdl_vpi.cpp`で独自backendを宣言し指紋へ含める |
 | `:args:` | `+UVM_TESTNAME=…`などの実行時引数 |
@@ -195,6 +197,30 @@ memory-walkは、[Q134](faq.ja.md#q134-memory-walk-algorithmをどう解釈し�
 この対応はレビュー対象で、省略された規範的詳細の承認ではありません。
 algorithm実装の複製や、simulatorの観測出力をoracleにしません。
 
+### Verilatorのcommand-line部分集合
+
+[別runner](../tools/run_verilator_cmdline.py)は、標準VPIを通す独自の[引数bridge](../tools/cmdline_backend/uvm_cmdline_vpi.cpp)を使います。
+[regex wrapper](../tools/cmdline_backend/uvm_cmdline_regex.cpp)は固定したApache-2.0 UVM regex実装をcompileし、
+[移植用header](../tools/cmdline_backend/malloc.h)はmalloc headerのないhostへ標準の割当宣言を提供します。
+bridgeへUVM parserを複製せず、simulator実装sourceも使いません。合成した一覧ではなく、実process引数です。
+
+検査系は`:uvm_dpi: yes`、`:uvm_cmdline_backend: vpi`、`:uvm_defines: UVM_HDL_NO_DPI`を指定し、
+bridgeを`:dpi_c:`、wrapper／headerを`:files:`へ宣言します。directory内容とlibrary lockをfingerprintへ含めます。
+backend検証はcommand-line／regex DPI無効化、宣言欠落、別backend、4-state検査系を拒否します。HDL accessは無効で、
+任意のregex、不正option、4-stateの完全性は主張しません。
+
+```sh
+python3 tools/run_verilator_cmdline.py --seeds 1 73 --build-jobs 2 -j 2 \
+  --json out/verilator-cmdline.json
+python3 tools/run_verilator_cmdline.py --all --seeds 1 73 --build-jobs 2 -j 2 \
+  --json out/verilator-cmdline-all.json
+```
+
+既定では`:uvm_cmdline_oracle: verilator@5.052`で再現済み17検査系を選びます。`--all`はspecのみのquit警告検査を加え、
+差分をpassではない`known`で記録します。再現済み選択検査の回帰は`fail`で、終了codeも非zeroです。
+modelを1回buildし、両seedを新規processで実行します。別の`verilator_cmdline`結果同一性でrunnerを独立にhashし、generic期待出力を共有します。
+重複する通常18記録はDPIのlinkに失敗するため、両条件を分けます。Checkは既定のcommand-line 17件を実行し、既知差分の1件は実行しません。
+
 ## スイートの実行
 
 ```sh
@@ -215,7 +241,7 @@ python3 tools/run_verilator.py --seeds 1 73 --build-jobs 2 -j 2 --json out/veril
 すべてのseedで一致した場合だけ成功です。従来の`--seed N`も使えます。
 結果JSONのconfigurationには、指定に応じて`seed`か`seeds`を記録します。
 
-Verilatorの既定の対象はoracle付き・2値の1142件です。`--all`を付けるとspecのみの141件も含めます。
+Verilatorの既定の対象はoracle付き・2値の1142件です。`--all`を付けるとspecのみの159件も含めます。
 oracleのないテストの不一致は`known`で、コマンドを失敗させません。oracle付きの不一致は失敗です。
 テストのパスを明示した場合は、そのテストだけが対象です。スモークテスト1件の実行例です。
 
@@ -264,7 +290,7 @@ python3 tools/lint_metadata.py
 python3 tools/requirements.py check
 ```
 
-現在のツールの単体テストは88件、メタデータの対象はシミュレーションテスト1283件です。
+現在のツールの単体テストは101件、メタデータの対象はシミュレーションテスト1301件です。
 [台帳の検査](requirements.ja.md)は、範囲案、明示した期待値への対応、入力の指紋を検査し、カバレッジを主張しません。
 [Check](../.github/workflows/check.yml)は`main`へのpush・pull request・手動実行で動きます。
 別のVerilatorジョブは5.052・`UVM_NO_DPI`・seed 1と73でoracle付きのテストを実行し、

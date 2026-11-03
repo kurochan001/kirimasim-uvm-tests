@@ -934,3 +934,18 @@ Supplying a valid description does not test rejection of invalid descriptions.
 or an explicit justified assessment. This is an inventory state, not completion
 of all obligations or the persistent M1–M4 goal; see
 [Q170](faq.md#q170-does-zero-unassessed-chapter-17-material-finish-the-persistent-goal).
+
+## Command-line execution conditions
+
+**Process argument bridge** — Original glue that reads the actual invocation
+through standard VPI and supplies the pinned UVM command-line DPI interface.
+It does not implement the UVM parser or derive expected results.
+
+**Condition-specific oracle marker** — Metadata selecting a reproduced fixture
+for one explicitly identified runner condition. Command-line fixtures use
+`:uvm_cmdline_oracle: verilator@5.052`; this does not tag an ordinary-runner pass.
+
+**Locked quit-limit diagnostic** — The required warning when user code attempts
+to change a non-overridable command-line quit limit. Correct rejection and
+correct diagnostic severity are separate observations; see
+[Q172](faq.md#q172-why-is-the-locked-quit-limit-correct-while-the-test-still-differs).

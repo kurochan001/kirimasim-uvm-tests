@@ -3,8 +3,8 @@
 [日本語](history.ja.md) · [README](../README.md)
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and twenty-nine cross-milestone thin-area expansions, including the
-existing-test requirement-link backlog checkpoint (1283 simulation tests). The earlier 349-test checkpoint is
+three M4 increments and thirty cross-milestone thin-area expansions, including the
+existing-test requirement-link backlog checkpoint (1301 simulation tests). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -2526,3 +2526,44 @@ all 1283 metadata records, ledger/index/library and current-input identities.
 Previous simulation inputs, runners, catalog, backend, scope, lock, licenses,
 Issue policy, six SVG assets and VPI records remain unchanged. Human review
 and scope/denominator approval remain open.
+
+## Thirtieth thin-area expansion across M1–M4
+
+The second persistent-goal iteration adds eighteen command-line fixtures:
+seventeen M1 cases and one actual phase-default-sequence M2 case despite its
+annex G location. Totals are 1301: M1 447, M2 458 and M3 396. A new independent
+runner uses an original VPI process-argument bridge and compiles pinned
+Apache-2.0 UVM regex code through a wrapper and portable allocation header.
+No simulator implementation, commercial overlay or implementation-derived
+oracle is used. Selected observations cover construction/inheritance/singleton,
+argument filters, literal/extended-regex matches, suffixes and all nine built-in
+option clauses, including timed settings, scoped actions/severity, actual
+factory types, numeric-base config values and default-sequence execution.
+
+Seventeen final inputs match both seeds. One retains G.2.6's required WARNING
+for a rejected non-overridable quit-count change; the pinned server correctly
+keeps seven but emits INFO. The YES control accepts nine. A separate metadata
+marker selects the seventeen reproduced cases for default checks and CI;
+all-case execution keeps the difference as known. The ordinary runner does
+not link the backend, so its eighteen new records are unlinked-DPI builds.
+Compatible ordinary evidence preserves all 1283 previous inputs: 1142 pass,
+159 known (117 runtime differences, sixteen missing-API builds, 26 unlinked-DPI
+builds: eight HDL and eighteen command-line). Separate HDL VPI remains seven
+pass/one fail. Guest records cover 1085 unchanged inputs; 216 current IDs are
+unmeasured. No overlapping native pass count is added to the ordinary total.
+
+Forty-four AI drafts bring the ledger to 1779, directly linked to 1300 tests
+plus one control. Four individually read headings bring assessments to 86:
+81 structural and five contextual. Annex G now has eighteen partial identifiers
+and four structural assessments, zero unassessed. Its broader conditions remain
+open. Overall, 1008 of 2,507 identifiers are partial, 86 assessed and 1,413
+unassessed, 21 fewer this iteration and 50 fewer since goal activation. Primary
+focus is 639, any citation 1,294; candidate census is 1,843 zero, 363 one and
+276 at least two. The goal remains active without scope/denominator approval.
+
+Validation includes 101 tool tests, all 1301 metadata records, ledger/index,
+library integrity, bilingual guides and compatible evidence. Ten guide pairs,
+173 FAQ answers and 194 glossary entries are checked. The ordinary, HDL and
+guest runners, prior inputs, catalog, scope, lock, licenses, Issue policy,
+six SVG assets and prior evidence remain unchanged. CI adds the seventeen
+separate command-line checks and increases its timeout to 150 minutes.

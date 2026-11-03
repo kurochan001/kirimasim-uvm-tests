@@ -2,7 +2,7 @@
 
 [English](history.md) · [README](../README.ja.md)
 
-M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の29回目の拡充（シミュレーション1283件）までを記録しています。以前の349件の時点は
+M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の30回目の拡充（シミュレーション1301件）までを記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -1760,3 +1760,25 @@ AI要求案41件で台帳1735件、1282テストへ直接対応し、別control 
 goalは有効なままで、章の未評価0はcoverageの完了ではありません。handoffに全体の完了監査を記録します。
 日英10組、FAQ 170回答・用語191語に加え、tool単体88件、全1283 metadata、台帳／索引／library、現在入力の同一性を照合します。
 以前のsimulation入力、runner、catalog、backend、scope、lock、license、Issue方針、SVG 6 asset、VPI記録は未変更です。人のレビューと範囲／分母の承認は未完です。
+
+## M1〜M4の薄い領域の30回目の拡充
+
+継続goalの2反復目でcommand-line 18検査系を追加します。17件はM1で、実際のphase default sequence 1件はannex G配置でもM2です。
+全体1301件、M1 447件、M2 458件、M3 396件です。新しい独立runnerは独自VPI process引数bridgeと、wrapper／移植用割当headerからcompileする固定Apache-2.0 UVM regex codeを使います。
+simulator実装、商用overlay、実装由来のoracleは使いません。生成／継承／singleton、引数filter、literal／extended-regex照合、suffix、組込みoption全9条項へ選択観測を追加し、
+時刻設定、scope付きaction／severity、実factory型、数値baseのconfig値、default sequence実行を扱います。
+
+最終入力17件は両seed一致です。1件は変更不可quit-count変更の拒否に必要なG.2.6のWARNINGを保持し、固定serverは正しく7を保持してもINFOを発行します。
+YESの比較対象は9を受け付けます。別metadata markerは再現済み17件を既定check／CIへ選び、全件実行では差分をknownのまま保持します。
+通常runnerはbackendをlinkせず、新規18記録はDPI未link buildです。互換な通常evidenceは以前の1283入力をすべて保持し、pass 1142件、known 159件です。
+内訳は実行時差分117件、API欠落build 16件、DPI未link build 26件（HDL 8・command-line 18）です。別HDL VPIはpass 7件／fail 1件のままです。
+guest記録は未変更1085入力で、現在の216 IDは未測定です。重複するnative passを通常合計へ加えません。
+
+AI要求案44件で台帳1779件、1300テストへ直接対応し、別control 1件があります。個別に読んだ見出し4件で分類86件、構造81件・文脈5件です。
+annex Gは部分分解18番号・構造分類4番号で未評価0件ですが、より広い条件は残ります。全体2,507番号のうち部分分解1008件、分類86件、未評価1,413件です。
+今回21件減、goal有効化から50件減です。主引用639番号、いずれかの引用1,294番号、候補の棚卸しは0件1,843、1件363、2件以上276です。
+goalは有効なままで、範囲／分母を承認しません。
+
+tool単体101件、全1301 metadata、台帳／索引、library整合性、日英資料、互換evidenceを検証し、日英10組、FAQ 173回答・用語194語を照合します。
+通常／HDL／guest runner、以前の入力、catalog、scope、lock、license、Issue方針、SVG 6 asset、以前のevidenceは未変更です。
+CIへ別command-line 17件を追加し、timeoutを150分へ増やします。

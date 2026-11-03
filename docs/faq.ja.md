@@ -123,6 +123,8 @@ Ghostは公開前のシミュレータの仮名です。実行ファイルの識
 
 既定のマクロ一覧から`UVM_NO_DPI`を外す指定です。UVMのC/C++実装の供給・リンクは行いません。
 通常のVerilator runnerは、そのsourceを追加しません。`UVM_NO_DPI`が1275件、HDL DPIの明示選択が8件です。
+別の18検査系はHDLを無効にしてcommand-line／regex DPIを明示して有効化し、
+[command-line runner](testing.ja.md#verilatorのcommand-line部分集合)がその別backendをlinkします。
 [別のVPI runner](testing.ja.md#verilatorのvpi-hdl部分集合)は独自の限定backendをlinkし、結果は宣言した実行条件だけに適用します。
 DPIなしのglobによる照合も、完全な正規表現への対応とは異なります。
 ユーザー定義の`uvm_reg_backdoor` handlerはHDL DPIなしで動作できます（Q67）。
@@ -921,8 +923,8 @@ controlの対応は、その要求の直接の検査ではありません。
 
 ### Q77. M4を始めたのに、カバレッジ率がないのはなぜですか
 
-AIによる1735要求案は部分的な分解で、1735要求を1282テストへ直接対応付け、直接未対応は0要求、別の1テストはcontrolです。
-全1283テストに要求の対応付けがあります。2,507の条項番号は規範的要求の単位ではありません。
+AIによる1779要求案は部分的な分解で、1779要求を1300テストへ直接対応付け、直接未対応は0要求、別の1テストはcontrolです。
+全1301テストに要求の対応付けがあります。2,507の条項番号は規範的要求の単位ではありません。
 範囲は提案、棚卸しは未完、分母は未承認で、M4の開始はどれの承認にもなりません。
 既知差分やHDL／DPIの制約によって義務を暗黙に除外しません。[承認までの手順](requirements.ja.md#m4の残作業と承認)を参照してください。
 
@@ -1707,7 +1709,7 @@ user backdoorは16 bit locationをモデル化します。location独立性、�
 
 いいえ。`tests_without_requirement_links`は0で、現在の全テストに、明示的なdirectまたはcontrolの対応があります。
 別の集計`requirements_without_direct_tests`も0件です。memory-walkの対応はQ134の限定した歴史的解釈で、
-省略されたIEEEの詳細の承認ではありません。HDL depositと利用可否には、明示VPI検査系があります。catalogの識別子1,434件も未評価です。
+省略されたIEEEの詳細の承認ではありません。HDL depositと利用可否には、明示VPI検査系があります。catalogの識別子1,413件も未評価です。
 分解と人のレビューは未完で、分母は未承認です。
 
 [新しいpolicyテスト](../tests/u16/test_policy_object_stack_tracks_nested_active_policy_push_and_pop.sv)は、
@@ -1784,7 +1786,7 @@ frontdoor保護のwarningはalgorithm oracleの対象外で、ERRORと観測し�
 個別に読んだ後、日英の根拠とAI／人のレビューを[番号の分類](../coverage/assessments.json)へ記録すれば可能です。
 構造上の見出しは関連要求を持たず、文脈の説明は既存要求を指定します。
 未レビューの記録、推測した分類、親への集約では外せません。生成状態は`assessed`で、要求条項の`partial`と区別します。
-現在の分類は82件で、分母承認や新たなpassを加えません。第11章の未評価0件でも、その要求の完了ではありません。
+現在の分類は86件で、分母承認や新たなpassを加えません。第11章の未評価0件でも、その要求の完了ではありません。
 
 ### Q136. 明示strict configurationで新規検査は成功しますか？
 
@@ -2116,3 +2118,23 @@ X／Z保持、伝播、unknown結果の扱い、register操作の意味は認定
 完了しません。章の30番号は部分分解22件・明示したAI分類8件です。構造的な見出しや文脈的な宣言は、個別に読み、根拠を記録してから分類します。
 4-state動作、enumで制御する操作、coverage割当、constructorの保持名の観測、独立した検査が残ります。
 goalはM1〜M4全体が対象で、未評価資料とこれらの残る条件の監査が必要です。[goalの引継ぎ](handoff.ja.md#継続goalと完了監査)を参照してください。
+
+## 実command lineと別実行条件
+
+### Q171. 新しいbridgeで通常のno-DPI引数検査はpassになりますか？
+
+なりません。元の2入力と通常の実行時差分は保持します。新しい18検査系は別のVPI引数bridgeと固定UVM regex DPIを明示して有効化します。
+通常runnerはそのbackendをlinkできず、別条件では17件をseed 1・73で再現し、quit警告の差分1件を保持します。
+[command-line runner](testing.ja.md#verilatorのcommand-line部分集合)を参照してください。重複する件数を通常passへ加算しません。
+
+### Q172. Lockしたquit上限が正しいのに、なぜテストは差分になりますか？
+
+G.2.6はNOでlockした上限をuser codeが変えようとした場合に警告を要求します。
+[検査系](../tests/uG/test_command_max_quit_count_rejects_a_later_user_setting.sv)は変更試行の前後で7を観測しますが、警告probeはWARNINGを見ず、固定serverはINFOを発行します。
+YESの比較対象は9を受け付けます。generic期待出力は警告要求を保持し、診断文面、ID、無関係な報告件数、quit終了を固定しません。
+
+### Q173. Annex Gの未評価0件でcommand-line coverageは完了しますか？
+
+完了しません。22番号は部分分解18件・明示した構造分類4件です。宣言と選択した組込みoptionはphase default sequence 1件を含む実際の観測を持ちますが、
+regex suffix抽出、不正な式／option、重複の各条件、wildcard／ALLの組合せ、同時刻の順序、non-run phase、広いresource優先順位は残ります。
+別の[条件marker](testing.ja.md#verilatorのcommand-line部分集合)は再現済みcheckを選び、要求範囲やgoalを再定義しません。

@@ -4,8 +4,8 @@
 
 ## Snapshot and objective
 
-Updated on 2026-11-03 for the twenty-ninth thin-area expansion, based on
-[40f2c1d](https://github.com/kurochan001/kirimasim-uvm-tests/commit/40f2c1d8d766306b2eb29fb127d920cbc91cc33f)
+Updated on 2026-11-03 for the thirtieth thin-area expansion, based on
+[c30c890](https://github.com/kurochan001/kirimasim-uvm-tests/commit/c30c890264719e6435f06ac44d1fcb269c1d5ed7)
 on `main`. Verify the current publishing commit and working tree before resuming.
 
 The project tests IEEE 1800.2-2020 UVM conformance, targeting kirimasim.
@@ -16,12 +16,12 @@ zero unlinked tests does not complete any milestone.
 
 | Area | Current snapshot |
 | --- | --- |
-| M1 | 430 simulations: core objects, policies, reporting, hierarchy, factory, phases, synchronization, recording and utilities |
-| M2 | 457 simulations: sequences, sequencers, callbacks and TLM |
+| M1 | 447 simulations: core objects, policies, reporting, hierarchy, factory, phases, synchronization, recording and utilities |
+| M2 | 458 simulations: sequences, sequencers, callbacks and TLM |
 | M3 | 396 simulations: register/memory layer and annex E |
-| Entire suite | 1283 simulations in 21 chapter/annex directories; all AI-reviewed, none human-reviewed |
-| M4 | 1735 AI requirement drafts; 1735 have direct links to 1282 tests; one additional control test; zero tests without links |
-| Normative inventory | 991 of 2,507 identifiers partially decomposed; eighty-two explicitly assessed; 1,434 unassessed; zero drafts without direct tests |
+| Entire suite | 1301 simulations in 21 chapter/annex directories; all AI-reviewed, none human-reviewed |
+| M4 | 1779 AI requirement drafts; 1779 have direct links to 1300 tests; one additional control test; zero tests without links |
+| Normative inventory | 1008 of 2,507 identifiers partially decomposed; eighty-six explicitly assessed; 1,413 unassessed; zero drafts without direct tests |
 
 `scope_status` remains proposed, `normative_inventory_complete` is false,
 and `approved_denominator` / `coverage_percentage` remain null. All twenty-one
@@ -58,7 +58,7 @@ decomposition and human review remain incomplete.
 
 - [Testing guide](testing.md): metadata, compilation, runner options and
   contribution rules. [Results](results.md): evidence interpretation and
-  assembly. [Known differences](known-differences.md): all 141 spec-only cases.
+  assembly. [Known differences](known-differences.md): all 159 spec-only cases.
 - [Requirement guide](requirements.md), [scope](../coverage/scope.json),
   [ledger](../coverage/requirements.json), [assessments](../coverage/assessments.json) and [test index](../coverage/test_index.json):
   canonical M4 state. Generated inventories are review aids, not replacements
@@ -71,7 +71,7 @@ decomposition and human review remain incomplete.
   ignored local files, unavailable in a fresh clone, and must not be
   redistributed. Existing extracted text under `/tmp` is also transient.
 - Results under `out/` are ignored and local. Temporary expansion helpers
-  under `/tmp/kirimasim-uvm-thin-twenty-ninth-*.py` are optional local aids,
+  under `/tmp/kirimasim-uvm-thin-thirtieth-*.py` are optional local aids,
   not maintained entry points. Some append drafts/history and must not be
   rerun blindly. Recreate missing helpers using the tracked tools.
 
@@ -90,11 +90,11 @@ python3 tools/requirements.py inventory --json out/requirements-inventory.json
 python3 tools/requirements.py backlog --json out/requirements-backlog.json --lang ja
 ```
 
-The snapshot passed 88 tool unit tests, metadata for all 1283 simulations,
+The snapshot passed 101 tool unit tests, metadata for all 1301 simulations,
 ledger/index validation, library integrity and current-input evidence checks.
 A documentation-only change does not require rebuilding the entire suite.
 Current full-suite evidence is available for Verilator only; guest records
-cover 1085 unchanged inputs, with 198 new cases unmeasured.
+cover 1085 unchanged inputs, with 216 new cases unmeasured.
 For a simulator smoke check:
 
 ```sh
@@ -106,7 +106,8 @@ An earlier [Check run](https://github.com/kurochan001/kirimasim-uvm-tests/action
 is retained as a reference. Use the README badge for the latest workflow
 result; newer commits may supersede that run. Local checks are not proof
 of a successful full CI run. Check runs tool,
-metadata, ledger, library and tagged Verilator checks, not Ghost, kirimasim
+metadata, ledger, library, tagged ordinary Verilator and seventeen command-line
+checks, not Ghost, kirimasim
 or spec-only simulations. There is no Nightly workflow or automatic result
 publication.
 
@@ -114,44 +115,47 @@ publication.
 
 | Simulator / library | Recorded result |
 | --- | --- |
-| Verilator 5.052 / pinned UVM | 1142 pass at seeds 1 and 73; 141 known |
+| Verilator 5.052 / pinned UVM | 1142 pass at seeds 1 and 73; 159 known |
 | Verilator 5.052 / original VPI HDL backend | Separate eight-case condition: seven pass at both seeds, one fails at seed 1 |
-| kirimasim / pinned UVM | 1085 unchanged cases: 1076 unsupported and nine missing-API failures; 198 new cases unmeasured |
-| Ghost / bundled UVM | 1085 unchanged cases: 207 pass and 878 fail at each seed; 198 new cases unmeasured |
+| Verilator 5.052 / command-line VPI and pinned regex DPI | Separate 18-case condition: 17 pass both seeds; 1 known at seed 1 |
+| kirimasim / pinned UVM | 1085 unchanged cases: 1076 unsupported and nine missing-API failures; 216 new cases unmeasured |
+| Ghost / bundled UVM | 1085 unchanged cases: 207 pass and 878 fail at each seed; 216 new cases unmeasured |
 | Ghost / pinned UVM | No measurement for the current executable snapshot |
 
-The ordinary condition retains 141 known cases: 117 runtime first differences
-at seed 1, 16 missing-API builds and eight unlinked-HDL-DPI builds. The VPI
+The ordinary condition retains 159 known cases: 117 runtime first differences
+at seed 1, 16 missing-API builds and 26 unlinked-DPI builds. The VPI
 condition covers eight explicit inputs, seven matching both seeds and one
 retained E.7 warning/no-transfer difference. Overlapping conditions are not summed.
 
-The latest nine fixtures strengthen the sparsely tested register-global chapter:
-default/configured type widths, enum symbols, coverage-set composition, slice
-metadata and standard concat construction/replacement/append. Six match both
-seeds; three remain missing-API builds. The newly exercised named constructor
-is unavailable, and two accessor cases retain the required standard methods.
-No declaration result proves X/Z storage or downstream enum-controlled behavior.
-Forty-one drafts bring the ledger to 1735 and eight assessments bring
-classifications to eighty-two (seventy-seven structural, five contextual).
-Chapter 17 has zero unassessed identifiers but 22 partially decomposed ones.
-Four macro clauses also gain partial decomposition; the total unassessed count
-falls by 29. Catalog, previous inputs and runners are unchanged. Guest records
-cover 1085 unchanged inputs, with 198 unmeasured. Inventory/backlog schema
-remains 2 and canonical schemas 1.
+The latest eighteen fixtures strengthen command-line processing. Seventeen are
+M1 conditions; the actual main-phase default sequence is M2 despite its annex G
+location. The suite is 1301: M1 447, M2 458 and M3 396. All eighteen ordinary
+records are unlinked-DPI builds. The new independent runner, original VPI
+argument bridge and pinned regex implementation reproduce seventeen at both
+seeds; one retains the required WARNING for a rejected non-overridable quit
+change where the pinned server emits INFO. The separate metadata field selects
+only reproduced command-line cases for default checks and CI. `--all` keeps
+the spec-only known case without treating it as a pass. Forty-four drafts and
+four structural assessments bring totals to 1779 and 86 (81 structural,
+5 contextual). Annex G has 18 partial and four assessed identifiers, zero
+unassessed. Wider regex/option/default-resource conditions remain open.
+Existing inputs/runners are unchanged; guest records cover 1085 with 216
+unmeasured. Generated schema remains 2 and canonical schemas 1.
 
 The assembled Verilator snapshot retains unchanged prior inputs and replaces only
 remeasured records. It is not one invocation rerunning the entire suite.
 On the current host, the compatible local records are:
 
 ```text
-out/thin-twenty-ninth-verilator-combined.json
+out/thin-thirtieth-verilator-combined.json
 out/thin-fourteenth-ghost-final-1.json
 out/thin-fourteenth-ghost-final-73.json
 out/thin-fourteenth-kirimasim-final.json
-out/thin-twenty-ninth-inventory.json
-out/thin-twenty-ninth-backlog-final.json
-out/thin-twenty-ninth-evidence-scope.json
-out/thin-twenty-ninth-hdl-combined.json
+out/thin-thirtieth-inventory.json
+out/thin-thirtieth-backlog-final.json
+out/thin-thirtieth-evidence-scope.json
+out/thin-thirtieth-hdl-combined.json
+out/thin-thirtieth-cmdline-final.json
 ```
 
 Before reuse, verify test-ID sets within each declared full/subset scope, current `inputs_sha256`, identical
@@ -164,13 +168,15 @@ measurements with authorized configuration. See [evidence assembly](results.md#e
 
 The user requested a persistent goal to continue until M1–M4 have zero gaps.
 At activation there were 1,463 unassessed identifiers, zero unlinked tests and
-zero requirements without direct tests. The first iteration reduces unassessed
-identifiers to 1,434. Keep the goal active across turns. Do not use zero
-unassessed identifiers as a substitute for completing partially decomposed
-obligations or the explicit milestone targets. The final audit must check the
-original scope against the standard, meaningful test conditions and compatible
-execution evidence. Preserve unresolved interpretations, missing APIs and
-unmeasured guest conditions; do not turn them into passes or invent approval.
+zero requirements without direct tests. Two iterations reduce unassessed
+identifiers to 1,413: 29 register-global and 21 command-line identifiers were
+individually decomposed or assessed. Keep the goal active across turns. Do not
+substitute zero unassessed identifiers for completing partial obligations or
+explicit milestone targets. The final audit must check the original scope
+against the standard, meaningful conditions and compatible execution evidence.
+Preserve interpretations, missing APIs and unmeasured guest conditions; never
+turn them into passes or invent approval.
+
 Maintain bilingual docs and publish validated increments to main. Native goal
 state is conversation-owned; these notes are a handoff, not a replacement goal.
 
@@ -179,7 +185,7 @@ state is conversation-owned; these notes are a handoff, not a replacement goal.
 These are prioritization suggestions, not approved exclusions or a coverage
 percentage. Regenerate the backlog before choosing the next increment.
 
-The existing-test mapping queue is empty across all roots. Review the 1,434
+The existing-test mapping queue is empty across all roots. Review the 1,413
 unassessed identifiers against the standard, distinguishing headings from
 normative obligations and splitting conditions before selecting new tests.
 Prioritize meaningful defaults, failures, isolation, ordering and lifecycle
@@ -195,7 +201,7 @@ it means the object clone API. Keep unresolved obligations in the backlog.
 
 No current draft lacks a direct test. This closes the direct-link queue,
 including a qualified historical interpretation for memory-walk; it does not
-complete M1–M4. Review that interpretation and the remaining 1,434 identifiers,
+complete M1–M4. Review that interpretation and the remaining 1,413 identifiers,
 then extend applicability, failures, lifecycle/concurrency and independent checks.
 Chapter 11 method clauses remain partially decomposed, while its overview and
 structural headings now have explicit AI assessments. Read other material

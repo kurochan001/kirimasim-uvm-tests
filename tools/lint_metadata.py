@@ -42,7 +42,8 @@ REQUIRED = ("name", "description", "tags", "type", "lrm", "uvm", "oracle", "spec
             "fourstate", "nondeterministic")
 CHOICES = {"type": {"simulation", "elaboration"}, "spec_check": {"ai", "human"},
            "fourstate": {"yes", "no"}, "nondeterministic": {"yes", "no"},
-           "uvm_dpi": {"yes", "no"}}
+           "uvm_dpi": {"yes", "no"},
+           "uvm_cmdline_oracle": {"verilator@5.052"}}
 ORACLES = {"spec", "verilator@5.052"}
 
 
@@ -60,6 +61,10 @@ def problems(test: Path, version: str) -> list[str]:
     for name, allowed in CHOICES.items():
         if name in fields and fields[name] not in allowed:
             found.append(f"field: :{name}: {fields[name]} is not one of {sorted(allowed)}")
+    if fields.get("uvm_cmdline_oracle") and (
+            fields.get("uvm_cmdline_backend") != "vpi" or fields.get("uvm_dpi") != "yes"):
+        found.append("field: :uvm_cmdline_oracle: requires the explicit VPI command-line backend "
+                     "and :uvm_dpi: yes")
     if fields.get("name") and fields["name"] != test.stem:
         found.append("name: :name: is not the file name")
     lrm = fields.get("lrm", "").split()

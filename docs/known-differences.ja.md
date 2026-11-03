@@ -2,7 +2,7 @@
 
 [English](known-differences.md) · [README](../README.ja.md) · [FAQ](faq.ja.md)
 
-現在の1283件と、固定したAccellera UVM 2020.3.1についての記録です。
+現在の1301件と、固定したAccellera UVM 2020.3.1についての記録です。
 不一致はテストの結果であり、それだけではシミュレータ・ライブラリ・期待値のどれが原因かは決まりません。
 
 ## 固定版ライブラリの制約
@@ -307,7 +307,12 @@ simulatorの確定した不具合には割り当てません。規格から導�
 accessor 2検査系は置換、有効な隙間、値copyの独立性、空配列、置換後の追記を扱い、最初のbuild失敗は標準slice accessorの欠落です。
 legacy memberや異なる名前のmethodへ置換しません。3件ともbuildの記録で、実行時結果はありません。
 
-スイート全体では、`verilator@5.052`を付けたテストは1142件、specのみのテストは141件です。
+command-line 18検査系は別のVPI bridgeと固定regex DPIを明示要求し、通常runnerはlinkせず実行時結果のないbuild 18件として記録します。
+別command-line条件では17件が両seed一致し、1件はNOでlockしたquit上限をuser codeが変える際のG.2.6の警告要求を保持します。
+上限は正しく7のままですが、固定serverはINFOを発行し、警告probeはWARNINGを観測しません。YESの比較対象は警告なしで9へ変わります。
+これは診断severityの差分で、上限の強制失敗ではありません。以前のno-DPI引数2件は未変更の通常実行時差分です。
+
+スイート全体では、`verilator@5.052`を付けたテストは1142件、specのみのテストは159件です。
 specのみのうち1件は9.6を検証します。pre-resetフェーズ終了時に子タスクが停止する
 はずですが、固定版UVMとVerilator 5.052の組み合わせでは、後のフェーズで子タスクの遅延書き込みが
 実行されます。この差分の原因がシミュレータとライブラリのどちらかは未確定です。
@@ -316,17 +321,17 @@ wakeup resetの検査系は、trigger waiterとpersistent-trigger waiterを各1�
 10.1.1.2.8は、callbackなしで両方が起動することを要求します。固定Verilatorの実行は、待機状態の観測に到達してから
 watchdogが期限切れになります。simulator／libraryを組み合わせた原因は未確定のまま、規範的なwakeupの期待を保持します。
 
-specのみの141件も規格から導いた期待値を保持します。通常のVerilator実行とCIはoracle付き1142件を選びます。
+specのみの159件も規格から導いた期待値を保持します。通常のVerilator実行とCIはoracle付き1142件を選びます。
 `--all`はspecのみも含め、不一致やビルド不可を`known`として記録します。
 通常の実行時117件は、最初の差分であるseed 1までの記録で、seed 73の結果はありません。
 API欠落build 16件は、time 1件、sequence-library 6件、HDL slice 4件、名前付きconcat constructor 1件、object active-policy 1件、catcher message-handle 3件で、
-通常条件の実行時seed結果はありません。HDL DPIの8検査系も通常runnerではlinkできません。
+通常条件の実行時seed結果はありません。HDL DPI 8検査系とcommand-line DPI 18検査系も通常runnerではlinkできません。
 別のVPI条件では、7件が両seed一致、E.7のwarning／転送なしの期待はseed 1で失敗します。
 重複する条件を合計しません。
 
 ## specのみのテスト
 
-現在の141件は次のテストです。同じ制約を複数のテストで検査する場合があり、異なる不具合の個数ではありません。
+現在の159件は次のテストです。同じ制約を複数のテストで検査する場合があり、異なる不具合の個数ではありません。
 
 - [明示HDL abstractionの選択](../tests/uE/test_hdl_path_sequence_uses_an_explicit_abstraction_instead_of_the_invalid_default.sv).
 - [空abstraction listでblock既定を使用](../tests/uE/test_hdl_path_sequence_uses_the_block_default_abstraction_when_the_list_is_empty.sv).
@@ -563,10 +568,29 @@ API欠落build 16件は、time 1件、sequence-library 6件、HDL slice 4件、�
 - [Concatの置換とcopyの独立性](../tests/u17/test_hdl_concat_standard_set_slices_replaces_prior_gapped_description_without_aliases.sv).
 - [置換後のconcat追記](../tests/u17/test_hdl_concat_standard_add_slice_appends_after_replacement_and_preserves_peer.sv).
 
+- [実引数一覧とsingletonの同一性](../tests/uG/test_command_vpi_singleton_and_all_arguments_preserve_supplied_membership.sv).
+- [Plus引数の選別とqueue置換](../tests/uG/test_command_vpi_plusargs_exclude_dash_arguments_and_replace_caller_contents.sv).
+- [大小を混ぜたUVM引数の選別](../tests/uG/test_command_vpi_uvm_arguments_accept_mixed_case_keywords_and_both_prefixes.sv).
+- [Prefix照合の置換と欠落照会](../tests/uG/test_command_vpi_prefix_matches_replace_queues_and_clear_missing_queries.sv).
+- [最初のsuffixと全一致件数](../tests/uG/test_command_vpi_first_value_preserves_the_first_suffix_and_counts_all_matches.sv).
+- [空／comma入りsuffixの全取得](../tests/uG/test_command_vpi_all_values_keep_empty_and_comma_suffixes_without_stale_entries.sv).
+- [Extended-regexの選択肢と照会の消去](../tests/uG/test_command_vpi_extended_regex_matches_grouped_alternatives_and_clears_queries.sv).
+- [最初のtest名選択と重複警告](../tests/uG/test_command_testname_creates_the_first_registered_test_and_warns_for_duplicates.sv).
+- [生成したcomponentへの初期verbosity](../tests/uG/test_command_initial_verbosity_applies_to_components_created_in_build.sv).
+- [選択ID／componentだけの時刻verbosity変更](../tests/uG/test_command_timed_verbosity_updates_the_selected_id_and_component_only.sv).
+- [選択component／IDのaction設定](../tests/uG/test_command_action_setting_is_scoped_to_the_selected_component_and_id.sv).
+- [Severity overrideと比較対象の保持](../tests/uG/test_command_severity_override_changes_the_selected_report_and_preserves_controls.sv).
+- [Quit上限の後の変更を許可](../tests/uG/test_command_max_quit_count_allows_a_later_user_setting.sv).
+- [Quit上限の後の変更を拒否](../tests/uG/test_command_max_quit_count_rejects_a_later_user_setting.sv).
+- [Factoryのinstance overrideとtype override](../tests/uG/test_command_factory_instance_override_precedes_the_type_override_for_its_target.sv).
+- [数値base／文字列configとscope分離](../tests/uG/test_command_configuration_sets_numeric_bases_and_strings_in_the_selected_scope.sv).
+- [指定sequencer／phaseでのdefault sequence実行](../tests/uG/test_command_default_sequence_runs_on_the_named_sequencer_and_phase.sv).
+- [生成時の独立した引数snapshot](../tests/uG/test_command_fresh_processors_populate_independent_argument_snapshots_at_construction.sv).
+
 ## シミュレータとライブラリの組み合わせ
 
-スイートは1283件ですが、以下のkirimasim／Ghost記録は未変更の現在入力1085件だけを対象とします。
-以前の一時実行ファイル／profile snapshotがないため、新規198件は未測定です。
+スイートは1301件ですが、以下のkirimasim／Ghost記録は未変更の現在入力1085件だけを対象とします。
+以前の一時実行ファイル／profile snapshotがないため、新規216件は未測定です。
 新しい全件guest実測とは扱いません。[実行結果](results.ja.md)を参照してください。
 
 Ghostの同梱UVMはseed 1・73とも207件一致・878件不一致で、不一致になるテストも同じです。

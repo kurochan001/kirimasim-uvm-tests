@@ -64662,6 +64662,1510 @@
           ]
         }
       ]
+    },
+    {
+      "id": "UVM-CMDLINE-CONSTRUCTION-ARGUMENT-SNAPSHOT",
+      "clause": "G.1",
+      "statement": {
+        "en": "Construction populates a command-line processor from the invocation arguments.",
+        "ja": "生成時に起動引数からcommand-line processorを構成する。"
+      },
+      "conditions": {
+        "en": "Two fresh processors and the singleton inspect the same supplied repeated prefix.",
+        "ja": "新規processor 2個とsingletonが、同じ反復prefixを照会する。"
+      },
+      "expected": {
+        "en": "Each newly constructed processor and the singleton find both supplied arguments.",
+        "ja": "新しく生成した各processorとsingletonは、指定した両引数を見つける。"
+      },
+      "limitations": {
+        "en": "Explicit actual-process command-line condition with an original VPI bridge and pinned UVM regex DPI; no commercial overlay, unknown input syntax, arbitrary expression completeness or ordinary unlinked-runner pass is inferred.",
+        "ja": "独自VPI bridgeと固定UVM regex DPIを使う明示した実process command-line条件。商用overlay、未規定の入力構文、任意の式の完全性、通常の未link runnerでのpassは推論しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uG/test_command_fresh_processors_populate_independent_argument_snapshots_at_construction",
+          "role": "direct",
+          "expected_observations": [
+            "UT: constructed distinct 1 first 2 second 2 singleton 2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CMDLINE-CONSTRUCTION-PRESERVES-EARLIER-SNAPSHOT",
+      "clause": "G.1",
+      "statement": {
+        "en": "Constructing another processor does not erase the earlier processor argument snapshot.",
+        "ja": "別processorを生成しても、以前のprocessorの引数snapshotを消さない。"
+      },
+      "conditions": {
+        "en": "Sequential construction reinitializes argument retrieval, then all instances are queried.",
+        "ja": "順に生成して引数取得を再初期化し、その後全instanceを照会する。"
+      },
+      "expected": {
+        "en": "Both fresh instances and the preexisting singleton retain two matches.",
+        "ja": "新規両instanceと以前のsingletonは2一致を保持する。"
+      },
+      "limitations": {
+        "en": "Explicit actual-process command-line condition with an original VPI bridge and pinned UVM regex DPI; no commercial overlay, unknown input syntax, arbitrary expression completeness or ordinary unlinked-runner pass is inferred.",
+        "ja": "独自VPI bridgeと固定UVM regex DPIを使う明示した実process command-line条件。商用overlay、未規定の入力構文、任意の式の完全性、通常の未link runnerでのpassは推論しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uG/test_command_fresh_processors_populate_independent_argument_snapshots_at_construction",
+          "role": "direct",
+          "expected_observations": [
+            "UT: constructed distinct 1 first 2 second 2 singleton 2",
+            "UT: snapshot second_count 2 second_size 2 singleton_stable 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CMDLINE-REPORT-OBJECT-INHERITANCE",
+      "clause": "G.1.1",
+      "statement": {
+        "en": "The command-line processor is usable through its report-object base type.",
+        "ja": "command-line processorはreport-object基底型を通して利用できる。"
+      },
+      "conditions": {
+        "en": "A fresh processor is assigned to a uvm_report_object handle.",
+        "ja": "新規processorをuvm_report_object handleへ代入する。"
+      },
+      "expected": {
+        "en": "The base handle is nonnull and denotes the same processor.",
+        "ja": "基底handleはnonnullで、同じprocessorを指す。"
+      },
+      "limitations": {
+        "en": "Explicit actual-process command-line condition with an original VPI bridge and pinned UVM regex DPI; no commercial overlay, unknown input syntax, arbitrary expression completeness or ordinary unlinked-runner pass is inferred.",
+        "ja": "独自VPI bridgeと固定UVM regex DPIを使う明示した実process command-line条件。商用overlay、未規定の入力構文、任意の式の完全性、通常の未link runnerでのpassは推論しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uG/test_command_fresh_processors_populate_independent_argument_snapshots_at_construction",
+          "role": "direct",
+          "expected_observations": [
+            "UT: report_object_base 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CMDLINE-SINGLETON-IDENTITY",
+      "clause": "G.1.2",
+      "statement": {
+        "en": "get_inst returns the same singleton command-line processor.",
+        "ja": "get_instは同じsingleton command-line processorを返す。"
+      },
+      "conditions": {
+        "en": "Repeated calls surround other processor construction and queue queries.",
+        "ja": "別processorの生成やqueue照会の前後で繰り返し呼ぶ。"
+      },
+      "expected": {
+        "en": "Repeated singleton handles identify the original nonnull instance.",
+        "ja": "繰り返しのsingleton handleは元のnonnull instanceを指す。"
+      },
+      "limitations": {
+        "en": "Explicit actual-process command-line condition with an original VPI bridge and pinned UVM regex DPI; no commercial overlay, unknown input syntax, arbitrary expression completeness or ordinary unlinked-runner pass is inferred.",
+        "ja": "独自VPI bridgeと固定UVM regex DPIを使う明示した実process command-line条件。商用overlay、未規定の入力構文、任意の式の完全性、通常の未link runnerでのpassは推論しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uG/test_command_vpi_singleton_and_all_arguments_preserve_supplied_membership",
+          "role": "direct",
+          "expected_observations": [
+            "UT: singleton nonnull 1 same 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CMDLINE-ALL-ARGUMENT-MEMBERSHIP",
+      "clause": "G.1.3.1",
+      "statement": {
+        "en": "get_args returns the supplied plus and dash arguments.",
+        "ja": "get_argsは指定したplus引数とdash引数を返す。"
+      },
+      "conditions": {
+        "en": "The actual invocation supplies one selected argument of each kind.",
+        "ja": "実際の起動で選択した各種類の引数を1つ渡す。"
+      },
+      "expected": {
+        "en": "Both selected strings occur once in the returned queue.",
+        "ja": "返すqueueに選択した両文字列が各1回現れる。"
+      },
+      "limitations": {
+        "en": "Explicit actual-process command-line condition with an original VPI bridge and pinned UVM regex DPI; no commercial overlay, unknown input syntax, arbitrary expression completeness or ordinary unlinked-runner pass is inferred.",
+        "ja": "独自VPI bridgeと固定UVM regex DPIを使う明示した実process command-line条件。商用overlay、未規定の入力構文、任意の式の完全性、通常の未link runnerでのpassは推論しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uG/test_command_vpi_singleton_and_all_arguments_preserve_supplied_membership",
+          "role": "direct",
+          "expected_observations": [
+            "UT: all executable 1 plus 1 dash 1 stale 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CMDLINE-ALL-ARGUMENT-QUEUE-REPLACEMENT",
+      "clause": "G.1.3.1",
+      "statement": {
+        "en": "get_args populates the output queue without retaining caller entries.",
+        "ja": "get_argsは呼出し側の以前の要素を残さず出力queueへ入れる。"
+      },
+      "conditions": {
+        "en": "The caller prepopulates its output queue with a sentinel.",
+        "ja": "呼出し側が出力queueへsentinelを先に入れる。"
+      },
+      "expected": {
+        "en": "The sentinel is absent after retrieval.",
+        "ja": "取得後にsentinelは存在しない。"
+      },
+      "limitations": {
+        "en": "Explicit actual-process command-line condition with an original VPI bridge and pinned UVM regex DPI; no commercial overlay, unknown input syntax, arbitrary expression completeness or ordinary unlinked-runner pass is inferred.",
+        "ja": "独自VPI bridgeと固定UVM regex DPIを使う明示した実process command-line条件。商用overlay、未規定の入力構文、任意の式の完全性、通常の未link runnerでのpassは推論しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uG/test_command_vpi_singleton_and_all_arguments_preserve_supplied_membership",
+          "role": "direct",
+          "expected_observations": [
+            "UT: all executable 1 plus 1 dash 1 stale 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CMDLINE-PLUSARG-INCLUSION",
+      "clause": "G.1.3.2",
+      "statement": {
+        "en": "get_plusargs includes supplied plus arguments.",
+        "ja": "get_plusargsは指定したplus引数を含む。"
+      },
+      "conditions": {
+        "en": "Two selected plus arguments accompany a dash argument.",
+        "ja": "選択した2 plus引数とdash引数を渡す。"
+      },
+      "expected": {
+        "en": "Each selected plus string occurs once.",
+        "ja": "選択した各plus文字列が1回現れる。"
+      },
+      "limitations": {
+        "en": "Explicit actual-process command-line condition with an original VPI bridge and pinned UVM regex DPI; no commercial overlay, unknown input syntax, arbitrary expression completeness or ordinary unlinked-runner pass is inferred.",
+        "ja": "独自VPI bridgeと固定UVM regex DPIを使う明示した実process command-line条件。商用overlay、未規定の入力構文、任意の式の完全性、通常の未link runnerでのpassは推論しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uG/test_command_vpi_plusargs_exclude_dash_arguments_and_replace_caller_contents",
+          "role": "direct",
+          "expected_observations": [
+            "UT: plus first 1 second 1 dash 0 stale 0 all_plus 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CMDLINE-PLUSARG-EXCLUSION",
+      "clause": "G.1.3.2",
+      "statement": {
+        "en": "get_plusargs excludes arguments without a plus prefix.",
+        "ja": "get_plusargsはplus接頭辞のない引数を除く。"
+      },
+      "conditions": {
+        "en": "A dash argument and a caller sentinel accompany actual plus arguments.",
+        "ja": "実plus引数のほかにdash引数と呼出し側sentinelを用意する。"
+      },
+      "expected": {
+        "en": "Neither the dash argument nor the sentinel remains; every returned entry begins with plus.",
+        "ja": "dash引数とsentinelは残らず、戻る全要素はplusで始まる。"
+      },
+      "limitations": {
+        "en": "Explicit actual-process command-line condition with an original VPI bridge and pinned UVM regex DPI; no commercial overlay, unknown input syntax, arbitrary expression completeness or ordinary unlinked-runner pass is inferred.",
+        "ja": "独自VPI bridgeと固定UVM regex DPIを使う明示した実process command-line条件。商用overlay、未規定の入力構文、任意の式の完全性、通常の未link runnerでのpassは推論しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uG/test_command_vpi_plusargs_exclude_dash_arguments_and_replace_caller_contents",
+          "role": "direct",
+          "expected_observations": [
+            "UT: plus first 1 second 1 dash 0 stale 0 all_plus 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CMDLINE-UVM-CASE-INSENSITIVE-PREFIX",
+      "clause": "G.1.3.3",
+      "statement": {
+        "en": "UVM argument classification ignores the case of the first three keyword letters.",
+        "ja": "UVM引数の分類は、keyword先頭3文字の大小を区別しない。"
+      },
+      "conditions": {
+        "en": "Plus and dash arguments use mixed-case UVM spellings.",
+        "ja": "plus／dash引数で大小を混ぜたUVM表記を使う。"
+      },
+      "expected": {
+        "en": "Both supplied mixed-case forms are returned.",
+        "ja": "指定した両方の混在表記を返す。"
+      },
+      "limitations": {
+        "en": "Explicit actual-process command-line condition with an original VPI bridge and pinned UVM regex DPI; no commercial overlay, unknown input syntax, arbitrary expression completeness or ordinary unlinked-runner pass is inferred.",
+        "ja": "独自VPI bridgeと固定UVM regex DPIを使う明示した実process command-line条件。商用overlay、未規定の入力構文、任意の式の完全性、通常の未link runnerでのpassは推論しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uG/test_command_vpi_uvm_arguments_accept_mixed_case_keywords_and_both_prefixes",
+          "role": "direct",
+          "expected_observations": [
+            "UT: uvm count 3 plus 1 dash 1 extended 1 other 0 stale 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CMDLINE-UVM-FIRST-THREE-LETTERS",
+      "clause": "G.1.3.3",
+      "statement": {
+        "en": "The UVM keyword is recognized in the first three letters after plus or minus.",
+        "ja": "UVM keywordはplus／minus後の先頭3文字で認識する。"
+      },
+      "conditions": {
+        "en": "One argument extends UVM with another letter; another contains UVM later in its name.",
+        "ja": "一方はUVMの後に文字を続け、他方は名前の後部にUVMを置く。"
+      },
+      "expected": {
+        "en": "The UVM-leading extended form is included and the later-occurrence form is excluded.",
+        "ja": "UVMで始まる拡張表記を含み、後部に現れる表記を除く。"
+      },
+      "limitations": {
+        "en": "Explicit actual-process command-line condition with an original VPI bridge and pinned UVM regex DPI; no commercial overlay, unknown input syntax, arbitrary expression completeness or ordinary unlinked-runner pass is inferred.",
+        "ja": "独自VPI bridgeと固定UVM regex DPIを使う明示した実process command-line条件。商用overlay、未規定の入力構文、任意の式の完全性、通常の未link runnerでのpassは推論しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uG/test_command_vpi_uvm_arguments_accept_mixed_case_keywords_and_both_prefixes",
+          "role": "direct",
+          "expected_observations": [
+            "UT: uvm count 3 plus 1 dash 1 extended 1 other 0 stale 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CMDLINE-UVM-QUEUE-REPLACEMENT",
+      "clause": "G.1.3.3",
+      "statement": {
+        "en": "get_uvm_args replaces the caller output with only the classified invocation arguments.",
+        "ja": "get_uvm_argsは呼出し側出力を分類した起動引数だけへ置き換える。"
+      },
+      "conditions": {
+        "en": "The caller adds a sentinel before the three selected UVM arguments are retrieved.",
+        "ja": "選択した3 UVM引数の取得前に、呼出し側がsentinelを入れる。"
+      },
+      "expected": {
+        "en": "Exactly those three entries remain without the sentinel.",
+        "ja": "その3要素だけが残り、sentinelはない。"
+      },
+      "limitations": {
+        "en": "Explicit actual-process command-line condition with an original VPI bridge and pinned UVM regex DPI; no commercial overlay, unknown input syntax, arbitrary expression completeness or ordinary unlinked-runner pass is inferred.",
+        "ja": "独自VPI bridgeと固定UVM regex DPIを使う明示した実process command-line条件。商用overlay、未規定の入力構文、任意の式の完全性、通常の未link runnerでのpassは推論しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uG/test_command_vpi_uvm_arguments_accept_mixed_case_keywords_and_both_prefixes",
+          "role": "direct",
+          "expected_observations": [
+            "UT: uvm count 3 plus 1 dash 1 extended 1 other 0 stale 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CMDLINE-PREFIX-MATCH-MEMBERSHIP",
+      "clause": "G.1.3.4",
+      "statement": {
+        "en": "A literal match string selects arguments that begin with that string.",
+        "ja": "literal照合文字列は、その文字列で始まる引数を選ぶ。"
+      },
+      "conditions": {
+        "en": "Two arguments begin with the selected prefix and one contains it later.",
+        "ja": "2引数は選択prefixで始まり、1引数は後部に含む。"
+      },
+      "expected": {
+        "en": "The two beginning matches are returned and counted without the unrelated argument.",
+        "ja": "先頭が一致する2引数を返して数え、無関係な引数は含めない。"
+      },
+      "limitations": {
+        "en": "Explicit actual-process command-line condition with an original VPI bridge and pinned UVM regex DPI; no commercial overlay, unknown input syntax, arbitrary expression completeness or ordinary unlinked-runner pass is inferred.",
+        "ja": "独自VPI bridgeと固定UVM regex DPIを使う明示した実process command-line条件。商用overlay、未規定の入力構文、任意の式の完全性、通常の未link runnerでのpassは推論しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uG/test_command_vpi_prefix_matches_replace_queues_and_clear_missing_queries",
+          "role": "direct",
+          "expected_observations": [
+            "UT: prefix count 2 size 2 alpha 1 beta 1 stale 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CMDLINE-PREFIX-QUEUE-REPLACEMENT",
+      "clause": "G.1.3.4",
+      "statement": {
+        "en": "get_arg_matches replaces prior queue contents for each literal-prefix query.",
+        "ja": "get_arg_matchesはliteral-prefix照会ごとに以前のqueue内容を置き換える。"
+      },
+      "conditions": {
+        "en": "A populated query is followed by missing and repeated queries.",
+        "ja": "結果のある照会に、欠落照会と再照会を続ける。"
+      },
+      "expected": {
+        "en": "Missing returns zero and an empty queue; repeating returns two entries without appending.",
+        "ja": "欠落は0と空queueを返し、再照会は追記せず2要素を返す。"
+      },
+      "limitations": {
+        "en": "Explicit actual-process command-line condition with an original VPI bridge and pinned UVM regex DPI; no commercial overlay, unknown input syntax, arbitrary expression completeness or ordinary unlinked-runner pass is inferred.",
+        "ja": "独自VPI bridgeと固定UVM regex DPIを使う明示した実process command-line条件。商用overlay、未規定の入力構文、任意の式の完全性、通常の未link runnerでのpassは推論しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uG/test_command_vpi_prefix_matches_replace_queues_and_clear_missing_queries",
+          "role": "direct",
+          "expected_observations": [
+            "UT: prefix count 2 size 2 alpha 1 beta 1 stale 0",
+            "UT: missing count 0 size 0",
+            "UT: repeated count 2 size 2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CMDLINE-REGEX-ALTERNATION-AND-ANCHORS",
+      "clause": "G.1.3.4",
+      "statement": {
+        "en": "Slash-delimited match expressions support selected extended-regex alternation and anchors.",
+        "ja": "slashで囲む照合式は、選択したextended-regexの選択肢とanchorを使える。"
+      },
+      "conditions": {
+        "en": "The anchored pattern selects red or blue and excludes green and a different leading prefix.",
+        "ja": "anchor付きpatternでred／blueを選び、greenと異なる先頭prefixを除く。"
+      },
+      "expected": {
+        "en": "Only red and blue are returned, with count two and no stale entry.",
+        "ja": "redとblueだけを返し、件数2で古い要素はない。"
+      },
+      "limitations": {
+        "en": "Explicit actual-process command-line condition with an original VPI bridge and pinned UVM regex DPI; no commercial overlay, unknown input syntax, arbitrary expression completeness or ordinary unlinked-runner pass is inferred.",
+        "ja": "独自VPI bridgeと固定UVM regex DPIを使う明示した実process command-line条件。商用overlay、未規定の入力構文、任意の式の完全性、通常の未link runnerでのpassは推論しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uG/test_command_vpi_extended_regex_matches_grouped_alternatives_and_clears_queries",
+          "role": "direct",
+          "expected_observations": [
+            "UT: regex count 2 size 2 red 1 blue 1 stale 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CMDLINE-REGEX-QUEUE-REPLACEMENT",
+      "clause": "G.1.3.4",
+      "statement": {
+        "en": "Successive regex queries replace old matches and clear on no match.",
+        "ja": "連続regex照会は以前の一致を置き換え、不一致で消去する。"
+      },
+      "conditions": {
+        "en": "A two-result query is followed by one green match and a missing expression.",
+        "ja": "2結果の照会に、green 1一致と欠落式を続ける。"
+      },
+      "expected": {
+        "en": "The fresh queue contains only green, then becomes empty.",
+        "ja": "新しいqueueはgreenだけを持ち、その後空になる。"
+      },
+      "limitations": {
+        "en": "Explicit actual-process command-line condition with an original VPI bridge and pinned UVM regex DPI; no commercial overlay, unknown input syntax, arbitrary expression completeness or ordinary unlinked-runner pass is inferred.",
+        "ja": "独自VPI bridgeと固定UVM regex DPIを使う明示した実process command-line条件。商用overlay、未規定の入力構文、任意の式の完全性、通常の未link runnerでのpassは推論しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uG/test_command_vpi_extended_regex_matches_grouped_alternatives_and_clears_queries",
+          "role": "direct",
+          "expected_observations": [
+            "UT: replaced count 1 size 1 green 1",
+            "UT: missing count 0 size 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CMDLINE-FIRST-SUFFIX-AND-TOTAL-COUNT",
+      "clause": "G.1.4.1",
+      "statement": {
+        "en": "get_arg_value returns the first matching suffix and the number of all matches.",
+        "ja": "get_arg_valueは最初に一致したsuffixと、全一致の件数を返す。"
+      },
+      "conditions": {
+        "en": "Two ordered matching arguments supply different suffixes.",
+        "ja": "順番を定めた2一致引数に異なるsuffixを与える。"
+      },
+      "expected": {
+        "en": "The first suffix is alpha,beta and the returned count is two.",
+        "ja": "最初のsuffixはalpha,betaで、戻る件数は2である。"
+      },
+      "limitations": {
+        "en": "Explicit actual-process command-line condition with an original VPI bridge and pinned UVM regex DPI; no commercial overlay, unknown input syntax, arbitrary expression completeness or ordinary unlinked-runner pass is inferred.",
+        "ja": "独自VPI bridgeと固定UVM regex DPIを使う明示した実process command-line条件。商用overlay、未規定の入力構文、任意の式の完全性、通常の未link runnerでのpassは推論しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uG/test_command_vpi_first_value_preserves_the_first_suffix_and_counts_all_matches",
+          "role": "direct",
+          "expected_observations": [
+            "UT: first count 2 first_suffix 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CMDLINE-FIRST-EMPTY-SUFFIX",
+      "clause": "G.1.4.1",
+      "statement": {
+        "en": "An exactly matching prefix can return an empty suffix.",
+        "ja": "prefixと完全一致する引数は空suffixを返せる。"
+      },
+      "conditions": {
+        "en": "One supplied argument ends immediately after the queried prefix.",
+        "ja": "指定引数の1つを、照会prefixの直後で終える。"
+      },
+      "expected": {
+        "en": "Count is one and the scalar suffix is empty.",
+        "ja": "件数1で、scalar suffixは空である。"
+      },
+      "limitations": {
+        "en": "Explicit actual-process command-line condition with an original VPI bridge and pinned UVM regex DPI; no commercial overlay, unknown input syntax, arbitrary expression completeness or ordinary unlinked-runner pass is inferred.",
+        "ja": "独自VPI bridgeと固定UVM regex DPIを使う明示した実process command-line条件。商用overlay、未規定の入力構文、任意の式の完全性、通常の未link runnerでのpassは推論しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uG/test_command_vpi_first_value_preserves_the_first_suffix_and_counts_all_matches",
+          "role": "direct",
+          "expected_observations": [
+            "UT: empty count 1 empty_suffix 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CMDLINE-FIRST-MISSING-COUNT",
+      "clause": "G.1.4.1",
+      "statement": {
+        "en": "get_arg_value returns zero when the selected prefix has no match.",
+        "ja": "選択prefixに一致がなければget_arg_valueは0を返す。"
+      },
+      "conditions": {
+        "en": "A missing literal prefix is queried after successful queries.",
+        "ja": "成功した照会の後に欠落literal prefixを照会する。"
+      },
+      "expected": {
+        "en": "The count is zero; the unspecified scalar output is not asserted.",
+        "ja": "件数は0で、未規定のscalar出力値は要求しない。"
+      },
+      "limitations": {
+        "en": "Explicit actual-process command-line condition with an original VPI bridge and pinned UVM regex DPI; no commercial overlay, unknown input syntax, arbitrary expression completeness or ordinary unlinked-runner pass is inferred.",
+        "ja": "独自VPI bridgeと固定UVM regex DPIを使う明示した実process command-line条件。商用overlay、未規定の入力構文、任意の式の完全性、通常の未link runnerでのpassは推論しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uG/test_command_vpi_first_value_preserves_the_first_suffix_and_counts_all_matches",
+          "role": "direct",
+          "expected_observations": [
+            "UT: missing count 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CMDLINE-ALL-SUFFIX-MEMBERSHIP",
+      "clause": "G.1.4.2",
+      "statement": {
+        "en": "get_arg_values returns every selected argument suffix and its total count.",
+        "ja": "get_arg_valuesは選択した全引数のsuffixと総件数を返す。"
+      },
+      "conditions": {
+        "en": "Three matching arguments include a comma-containing, empty and simple suffix.",
+        "ja": "3一致引数へcomma入り、空、単純なsuffixを与える。"
+      },
+      "expected": {
+        "en": "All three suffixes appear once and the count and size are three.",
+        "ja": "3 suffixが各1回現れ、件数とsizeは3である。"
+      },
+      "limitations": {
+        "en": "Explicit actual-process command-line condition with an original VPI bridge and pinned UVM regex DPI; no commercial overlay, unknown input syntax, arbitrary expression completeness or ordinary unlinked-runner pass is inferred.",
+        "ja": "独自VPI bridgeと固定UVM regex DPIを使う明示した実process command-line条件。商用overlay、未規定の入力構文、任意の式の完全性、通常の未link runnerでのpassは推論しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uG/test_command_vpi_all_values_keep_empty_and_comma_suffixes_without_stale_entries",
+          "role": "direct",
+          "expected_observations": [
+            "UT: suffixes count 3 size 3 comma 1 empty 1 tail 1 stale 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CMDLINE-ALL-SUFFIX-REPLACEMENT",
+      "clause": "G.1.4.2",
+      "statement": {
+        "en": "Each get_arg_values query replaces rather than appends caller contents.",
+        "ja": "get_arg_values照会は、呼出し側内容へ追記せず置き換える。"
+      },
+      "conditions": {
+        "en": "A sentinel, no-match query and repeated populated query exercise reuse.",
+        "ja": "sentinel、不一致照会、結果のある再照会で再利用する。"
+      },
+      "expected": {
+        "en": "No stale value remains; missing is empty and repeating restores three entries.",
+        "ja": "古い値は残らず、不一致は空、再照会は3要素を復元する。"
+      },
+      "limitations": {
+        "en": "Explicit actual-process command-line condition with an original VPI bridge and pinned UVM regex DPI; no commercial overlay, unknown input syntax, arbitrary expression completeness or ordinary unlinked-runner pass is inferred.",
+        "ja": "独自VPI bridgeと固定UVM regex DPIを使う明示した実process command-line条件。商用overlay、未規定の入力構文、任意の式の完全性、通常の未link runnerでのpassは推論しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uG/test_command_vpi_all_values_keep_empty_and_comma_suffixes_without_stale_entries",
+          "role": "direct",
+          "expected_observations": [
+            "UT: suffixes count 3 size 3 comma 1 empty 1 tail 1 stale 0",
+            "UT: missing count 0 size 0",
+            "UT: repeated count 3 size 3"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CMDLINE-TESTNAME-FIRST-SELECTION",
+      "clause": "G.2.1",
+      "statement": {
+        "en": "The first testname option selects the factory-created UVM test.",
+        "ja": "最初のtestname optionがfactory生成するUVM testを選ぶ。"
+      },
+      "conditions": {
+        "en": "Two registered test names are supplied, with selected_test first and no procedural test name.",
+        "ja": "登録した2 test名をselected_testが先になる順で渡し、手続きtest名は指定しない。"
+      },
+      "expected": {
+        "en": "Only selected_test runs its observation.",
+        "ja": "selected_testだけが観測を実行する。"
+      },
+      "limitations": {
+        "en": "Explicit actual-process command-line condition with an original VPI bridge and pinned UVM regex DPI; no commercial overlay, unknown input syntax, arbitrary expression completeness or ordinary unlinked-runner pass is inferred.",
+        "ja": "独自VPI bridgeと固定UVM regex DPIを使う明示した実process command-line条件。商用overlay、未規定の入力構文、任意の式の完全性、通常の未link runnerでのpassは推論しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uG/test_command_testname_creates_the_first_registered_test_and_warns_for_duplicates",
+          "role": "direct",
+          "expected_observations": [
+            "UT: selected_test 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CMDLINE-TESTNAME-DUPLICATE-WARNING",
+      "clause": "G.2.1",
+      "statement": {
+        "en": "Additional testname settings produce a warning while the first remains selected.",
+        "ja": "追加testname設定は警告を発行し、最初の選択を保持する。"
+      },
+      "conditions": {
+        "en": "The invocation supplies a second different registered testname.",
+        "ja": "起動時に2つ目の異なる登録test名を渡す。"
+      },
+      "expected": {
+        "en": "A warning is counted without fixing its text or ID.",
+        "ja": "文面やIDを固定せず警告を計数する。"
+      },
+      "limitations": {
+        "en": "Explicit actual-process command-line condition with an original VPI bridge and pinned UVM regex DPI; no commercial overlay, unknown input syntax, arbitrary expression completeness or ordinary unlinked-runner pass is inferred.",
+        "ja": "独自VPI bridgeと固定UVM regex DPIを使う明示した実process command-line条件。商用overlay、未規定の入力構文、任意の式の完全性、通常の未link runnerでのpassは推論しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uG/test_command_testname_creates_the_first_registered_test_and_warns_for_duplicates",
+          "role": "direct",
+          "expected_observations": [
+            "UT: duplicate_warning 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CMDLINE-INITIAL-VERBOSITY",
+      "clause": "G.2.2",
+      "statement": {
+        "en": "The verbosity option supplies initial verbosity to all selected components.",
+        "ja": "verbosity optionは対象componentへ初期verbosityを与える。"
+      },
+      "conditions": {
+        "en": "One HIGH setting precedes test and child construction.",
+        "ja": "HIGH設定を1つ与え、testとchildを生成する。"
+      },
+      "expected": {
+        "en": "The test and both independently created children have HIGH maximum verbosity.",
+        "ja": "testと独立に生成した両childは最大verbosity HIGHを持つ。"
+      },
+      "limitations": {
+        "en": "Explicit actual-process command-line condition with an original VPI bridge and pinned UVM regex DPI; no commercial overlay, unknown input syntax, arbitrary expression completeness or ordinary unlinked-runner pass is inferred.",
+        "ja": "独自VPI bridgeと固定UVM regex DPIを使う明示した実process command-line条件。商用overlay、未規定の入力構文、任意の式の完全性、通常の未link runnerでのpassは推論しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uG/test_command_initial_verbosity_applies_to_components_created_in_build",
+          "role": "direct",
+          "expected_observations": [
+            "UT: initial_verbosity test 1 first 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CMDLINE-TIMED-VERBOSITY-FIRST-SETTING",
+      "clause": "G.2.3",
+      "statement": {
+        "en": "A timed verbosity option updates its selected component and ID at the scheduled time.",
+        "ja": "時刻指定verbosity optionは指定時刻に対象component／IDを更新する。"
+      },
+      "conditions": {
+        "en": "HIGH is scheduled at time 3 and observed at time 4.",
+        "ja": "HIGHを時刻3に設定し、時刻4に観測する。"
+      },
+      "expected": {
+        "en": "Before the setting the default remains; afterwards the selected ID is HIGH.",
+        "ja": "設定前は既定値で、設定後の選択IDはHIGHである。"
+      },
+      "limitations": {
+        "en": "Explicit actual-process command-line condition with an original VPI bridge and pinned UVM regex DPI; no commercial overlay, unknown input syntax, arbitrary expression completeness or ordinary unlinked-runner pass is inferred.",
+        "ja": "独自VPI bridgeと固定UVM regex DPIを使う明示した実process command-line条件。商用overlay、未規定の入力構文、任意の式の完全性、通常の未link runnerでのpassは推論しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uG/test_command_timed_verbosity_updates_the_selected_id_and_component_only",
+          "role": "direct",
+          "expected_observations": [
+            "UT: timed before 1",
+            "UT: timed first 1 other 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CMDLINE-TIMED-VERBOSITY-LATER-SETTING",
+      "clause": "G.2.3",
+      "statement": {
+        "en": "A later timed option replaces the earlier verbosity for the same selected key.",
+        "ja": "後の時刻指定optionは、同じ選択keyの以前のverbosityを置き換える。"
+      },
+      "conditions": {
+        "en": "LOW is scheduled at time 6 after HIGH at time 3.",
+        "ja": "時刻3のHIGHの後、時刻6にLOWを設定する。"
+      },
+      "expected": {
+        "en": "The observation at time 7 sees LOW.",
+        "ja": "時刻7の観測はLOWとなる。"
+      },
+      "limitations": {
+        "en": "Explicit actual-process command-line condition with an original VPI bridge and pinned UVM regex DPI; no commercial overlay, unknown input syntax, arbitrary expression completeness or ordinary unlinked-runner pass is inferred.",
+        "ja": "独自VPI bridgeと固定UVM regex DPIを使う明示した実process command-line条件。商用overlay、未規定の入力構文、任意の式の完全性、通常の未link runnerでのpassは推論しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uG/test_command_timed_verbosity_updates_the_selected_id_and_component_only",
+          "role": "direct",
+          "expected_observations": [
+            "UT: timed second 1 other 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CMDLINE-TIMED-VERBOSITY-ISOLATION",
+      "clause": "G.2.3",
+      "statement": {
+        "en": "Timed component/ID settings preserve unmatched IDs and components.",
+        "ja": "時刻指定component／ID設定は、一致しないIDとcomponentを保持する。"
+      },
+      "conditions": {
+        "en": "Another ID and a peer are queried after both scheduled updates.",
+        "ja": "両時刻更新の後、別IDとpeerを照会する。"
+      },
+      "expected": {
+        "en": "Both controls retain default MEDIUM verbosity.",
+        "ja": "両比較対象は既定MEDIUMを保持する。"
+      },
+      "limitations": {
+        "en": "Explicit actual-process command-line condition with an original VPI bridge and pinned UVM regex DPI; no commercial overlay, unknown input syntax, arbitrary expression completeness or ordinary unlinked-runner pass is inferred.",
+        "ja": "独自VPI bridgeと固定UVM regex DPIを使う明示した実process command-line条件。商用overlay、未規定の入力構文、任意の式の完全性、通常の未link runnerでのpassは推論しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uG/test_command_timed_verbosity_updates_the_selected_id_and_component_only",
+          "role": "direct",
+          "expected_observations": [
+            "UT: timed first 1 other 1 peer 1",
+            "UT: timed second 1 other 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CMDLINE-ACTION-SETTING",
+      "clause": "G.2.4",
+      "statement": {
+        "en": "The command-line action option supplies the equivalent selected report action.",
+        "ja": "command-line action optionは、対応する選択report actionを設定する。"
+      },
+      "conditions": {
+        "en": "The literal leaf/picked/WARNING key is set to NO_ACTION.",
+        "ja": "literalのleaf／picked／WARNING keyをNO_ACTIONに設定する。"
+      },
+      "expected": {
+        "en": "The public action query returns NO_ACTION for that key.",
+        "ja": "そのkeyの公開action照会はNO_ACTIONを返す。"
+      },
+      "limitations": {
+        "en": "Explicit actual-process command-line condition with an original VPI bridge and pinned UVM regex DPI; no commercial overlay, unknown input syntax, arbitrary expression completeness or ordinary unlinked-runner pass is inferred.",
+        "ja": "独自VPI bridgeと固定UVM regex DPIを使う明示した実process command-line条件。商用overlay、未規定の入力構文、任意の式の完全性、通常の未link runnerでのpassは推論しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uG/test_command_action_setting_is_scoped_to_the_selected_component_and_id",
+          "role": "direct",
+          "expected_observations": [
+            "UT: action selected 1 other_id 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CMDLINE-ACTION-ISOLATION",
+      "clause": "G.2.4",
+      "statement": {
+        "en": "An action option restricted by component and ID preserves unmatched controls.",
+        "ja": "componentとIDを限定するaction optionは、一致しない比較対象を保持する。"
+      },
+      "conditions": {
+        "en": "Another ID on the leaf and the same ID on a peer remain unmatched.",
+        "ja": "leafの別IDとpeerの同IDは一致させない。"
+      },
+      "expected": {
+        "en": "Both controls retain their default DISPLAY action.",
+        "ja": "両比較対象は既定DISPLAY actionを保持する。"
+      },
+      "limitations": {
+        "en": "Explicit actual-process command-line condition with an original VPI bridge and pinned UVM regex DPI; no commercial overlay, unknown input syntax, arbitrary expression completeness or ordinary unlinked-runner pass is inferred.",
+        "ja": "独自VPI bridgeと固定UVM regex DPIを使う明示した実process command-line条件。商用overlay、未規定の入力構文、任意の式の完全性、通常の未link runnerでのpassは推論しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uG/test_command_action_setting_is_scoped_to_the_selected_component_and_id",
+          "role": "direct",
+          "expected_observations": [
+            "UT: action selected 1 other_id 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CMDLINE-SEVERITY-SETTING",
+      "clause": "G.2.5",
+      "statement": {
+        "en": "The command-line severity option changes the selected original severity.",
+        "ja": "command-line severity optionは、選択した元のseverityを変更する。"
+      },
+      "conditions": {
+        "en": "One leaf/picked ERROR is configured to WARNING.",
+        "ja": "leaf／pickedのERRORをWARNINGへ設定する。"
+      },
+      "expected": {
+        "en": "The catcher receives the selected report as WARNING.",
+        "ja": "catcherは選択報告をWARNINGで受け取る。"
+      },
+      "limitations": {
+        "en": "Explicit actual-process command-line condition with an original VPI bridge and pinned UVM regex DPI; no commercial overlay, unknown input syntax, arbitrary expression completeness or ordinary unlinked-runner pass is inferred.",
+        "ja": "独自VPI bridgeと固定UVM regex DPIを使う明示した実process command-line条件。商用overlay、未規定の入力構文、任意の式の完全性、通常の未link runnerでのpassは推論しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uG/test_command_severity_override_changes_the_selected_report_and_preserves_controls",
+          "role": "direct",
+          "expected_observations": [
+            "UT: severity count 3 selected 1 other_id 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CMDLINE-SEVERITY-ISOLATION",
+      "clause": "G.2.5",
+      "statement": {
+        "en": "A scoped severity option preserves unmatched reports.",
+        "ja": "scopeを限定するseverity optionは、一致しない報告を保持する。"
+      },
+      "conditions": {
+        "en": "Another ID and a peer emit ERROR controls.",
+        "ja": "別IDとpeerが比較用ERRORを発行する。"
+      },
+      "expected": {
+        "en": "Both controls reach the catcher as ERROR.",
+        "ja": "両比較対象はERRORでcatcherへ届く。"
+      },
+      "limitations": {
+        "en": "Explicit actual-process command-line condition with an original VPI bridge and pinned UVM regex DPI; no commercial overlay, unknown input syntax, arbitrary expression completeness or ordinary unlinked-runner pass is inferred.",
+        "ja": "独自VPI bridgeと固定UVM regex DPIを使う明示した実process command-line条件。商用overlay、未規定の入力構文、任意の式の完全性、通常の未link runnerでのpassは推論しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uG/test_command_severity_override_changes_the_selected_report_and_preserves_controls",
+          "role": "direct",
+          "expected_observations": [
+            "UT: severity count 3 selected 1 other_id 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CMDLINE-FACTORY-TYPE-OVERRIDE",
+      "clause": "G.2.7",
+      "statement": {
+        "en": "The type-override option configures name-based factory replacement.",
+        "ja": "type-override optionは、名前によるfactory置換を設定する。"
+      },
+      "conditions": {
+        "en": "The base-to-type_packet override has no explicit replace argument.",
+        "ja": "baseからtype_packetへのoverrideでreplace引数を省略する。"
+      },
+      "expected": {
+        "en": "The unmatched peer request creates type_packet.",
+        "ja": "instance条件に一致しないpeer要求はtype_packetを生成する。"
+      },
+      "limitations": {
+        "en": "Explicit actual-process command-line condition with an original VPI bridge and pinned UVM regex DPI; no commercial overlay, unknown input syntax, arbitrary expression completeness or ordinary unlinked-runner pass is inferred.",
+        "ja": "独自VPI bridgeと固定UVM regex DPIを使う明示した実process command-line条件。商用overlay、未規定の入力構文、任意の式の完全性、通常の未link runnerでのpassは推論しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uG/test_command_factory_instance_override_precedes_the_type_override_for_its_target",
+          "role": "direct",
+          "expected_observations": [
+            "UT: factory target 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CMDLINE-FACTORY-INSTANCE-OVERRIDE",
+      "clause": "G.2.7",
+      "statement": {
+        "en": "The instance-override option configures name-based replacement at its full path.",
+        "ja": "instance-override optionは、完全pathに対する名前による置換を設定する。"
+      },
+      "conditions": {
+        "en": "The target path selects instance_packet while a type override also exists.",
+        "ja": "type overrideもある状態で、target pathにinstance_packetを選ぶ。"
+      },
+      "expected": {
+        "en": "The target creates instance_packet while its peer follows the type override.",
+        "ja": "targetはinstance_packetを生成し、peerはtype overrideに従う。"
+      },
+      "limitations": {
+        "en": "Explicit actual-process command-line condition with an original VPI bridge and pinned UVM regex DPI; no commercial overlay, unknown input syntax, arbitrary expression completeness or ordinary unlinked-runner pass is inferred.",
+        "ja": "独自VPI bridgeと固定UVM regex DPIを使う明示した実process command-line条件。商用overlay、未規定の入力構文、任意の式の完全性、通常の未link runnerでのpassは推論しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uG/test_command_factory_instance_override_precedes_the_type_override_for_its_target",
+          "role": "direct",
+          "expected_observations": [
+            "UT: factory target 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CMDLINE-CONFIG-HEX-VALUE",
+      "clause": "G.2.8",
+      "statement": {
+        "en": "The configuration-int option recognizes the selected hexadecimal base prefix.",
+        "ja": "configuration-int optionは選択した16進base接頭辞を認識する。"
+      },
+      "conditions": {
+        "en": "The literal target field is supplied as 0x2d.",
+        "ja": "literal対象fieldへ0x2dを渡す。"
+      },
+      "expected": {
+        "en": "A successful public config query returns 45.",
+        "ja": "公開config照会が成功し45を返す。"
+      },
+      "limitations": {
+        "en": "Explicit actual-process command-line condition with an original VPI bridge and pinned UVM regex DPI; no commercial overlay, unknown input syntax, arbitrary expression completeness or ordinary unlinked-runner pass is inferred.",
+        "ja": "独自VPI bridgeと固定UVM regex DPIを使う明示した実process command-line条件。商用overlay、未規定の入力構文、任意の式の完全性、通常の未link runnerでのpassは推論しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uG/test_command_configuration_sets_numeric_bases_and_strings_in_the_selected_scope",
+          "role": "direct",
+          "expected_observations": [
+            "UT: config hex 1 binary 1 octal 1 string 1 peer_absent 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CMDLINE-CONFIG-BINARY-VALUE",
+      "clause": "G.2.8",
+      "statement": {
+        "en": "The configuration-int option recognizes the selected binary base prefix.",
+        "ja": "configuration-int optionは選択した2進base接頭辞を認識する。"
+      },
+      "conditions": {
+        "en": "The literal target field is supplied as 0b10110.",
+        "ja": "literal対象fieldへ0b10110を渡す。"
+      },
+      "expected": {
+        "en": "A successful public config query returns 22.",
+        "ja": "公開config照会が成功し22を返す。"
+      },
+      "limitations": {
+        "en": "Explicit actual-process command-line condition with an original VPI bridge and pinned UVM regex DPI; no commercial overlay, unknown input syntax, arbitrary expression completeness or ordinary unlinked-runner pass is inferred.",
+        "ja": "独自VPI bridgeと固定UVM regex DPIを使う明示した実process command-line条件。商用overlay、未規定の入力構文、任意の式の完全性、通常の未link runnerでのpassは推論しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uG/test_command_configuration_sets_numeric_bases_and_strings_in_the_selected_scope",
+          "role": "direct",
+          "expected_observations": [
+            "UT: config hex 1 binary 1 octal 1 string 1 peer_absent 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CMDLINE-CONFIG-OCTAL-VALUE",
+      "clause": "G.2.8",
+      "statement": {
+        "en": "The configuration-int option recognizes the selected octal base prefix.",
+        "ja": "configuration-int optionは選択した8進base接頭辞を認識する。"
+      },
+      "conditions": {
+        "en": "The literal target field uses the documented apostrophe-o spelling.",
+        "ja": "literal対象fieldへ記載されたapostrophe-o表記を渡す。"
+      },
+      "expected": {
+        "en": "A successful public config query returns 15.",
+        "ja": "公開config照会が成功し15を返す。"
+      },
+      "limitations": {
+        "en": "Explicit actual-process command-line condition with an original VPI bridge and pinned UVM regex DPI; no commercial overlay, unknown input syntax, arbitrary expression completeness or ordinary unlinked-runner pass is inferred.",
+        "ja": "独自VPI bridgeと固定UVM regex DPIを使う明示した実process command-line条件。商用overlay、未規定の入力構文、任意の式の完全性、通常の未link runnerでのpassは推論しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uG/test_command_configuration_sets_numeric_bases_and_strings_in_the_selected_scope",
+          "role": "direct",
+          "expected_observations": [
+            "UT: config hex 1 binary 1 octal 1 string 1 peer_absent 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CMDLINE-CONFIG-STRING-VALUE",
+      "clause": "G.2.8",
+      "statement": {
+        "en": "The configuration-string option supplies the selected string value.",
+        "ja": "configuration-string optionは選択した文字列値を設定する。"
+      },
+      "conditions": {
+        "en": "The leaf label field is supplied as selected.",
+        "ja": "leafのlabel fieldへselectedを渡す。"
+      },
+      "expected": {
+        "en": "A successful string config query returns selected.",
+        "ja": "string config照会が成功しselectedを返す。"
+      },
+      "limitations": {
+        "en": "Explicit actual-process command-line condition with an original VPI bridge and pinned UVM regex DPI; no commercial overlay, unknown input syntax, arbitrary expression completeness or ordinary unlinked-runner pass is inferred.",
+        "ja": "独自VPI bridgeと固定UVM regex DPIを使う明示した実process command-line条件。商用overlay、未規定の入力構文、任意の式の完全性、通常の未link runnerでのpassは推論しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uG/test_command_configuration_sets_numeric_bases_and_strings_in_the_selected_scope",
+          "role": "direct",
+          "expected_observations": [
+            "UT: config hex 1 binary 1 octal 1 string 1 peer_absent 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CMDLINE-CONFIG-SCOPE-ISOLATION",
+      "clause": "G.2.8",
+      "statement": {
+        "en": "Literal configuration targets do not populate an unmatched peer scope.",
+        "ja": "literal configuration対象は、一致しないpeer scopeへ値を設定しない。"
+      },
+      "conditions": {
+        "en": "Only leaf hex_value is configured; peer queries the same field.",
+        "ja": "leafのhex_valueだけを設定し、peerで同じfieldを照会する。"
+      },
+      "expected": {
+        "en": "The peer lookup fails without asserting its output value.",
+        "ja": "peer検索は失敗し、その出力値は要求しない。"
+      },
+      "limitations": {
+        "en": "Explicit actual-process command-line condition with an original VPI bridge and pinned UVM regex DPI; no commercial overlay, unknown input syntax, arbitrary expression completeness or ordinary unlinked-runner pass is inferred.",
+        "ja": "独自VPI bridgeと固定UVM regex DPIを使う明示した実process command-line条件。商用overlay、未規定の入力構文、任意の式の完全性、通常の未link runnerでのpassは推論しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uG/test_command_configuration_sets_numeric_bases_and_strings_in_the_selected_scope",
+          "role": "direct",
+          "expected_observations": [
+            "UT: config hex 1 binary 1 octal 1 string 1 peer_absent 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CMDLINE-DEFAULT-SEQUENCE-WRAPPER-SELECTION",
+      "clause": "G.2.9",
+      "statement": {
+        "en": "The default-sequence option selects the named sequence wrapper for its phase scope.",
+        "ja": "default-sequence optionはphase scopeに名前付きsequence wrapperを選ぶ。"
+      },
+      "conditions": {
+        "en": "A registered sequence type is supplied for the selected sequencer main_phase.",
+        "ja": "選択sequencerのmain_phaseへ登録sequence型を指定する。"
+      },
+      "expected": {
+        "en": "That sequence body runs once under the selected phase condition.",
+        "ja": "選択したphase条件で、そのsequence bodyが1回実行する。"
+      },
+      "limitations": {
+        "en": "Explicit actual-process command-line condition with an original VPI bridge and pinned UVM regex DPI; no commercial overlay, unknown input syntax, arbitrary expression completeness or ordinary unlinked-runner pass is inferred.",
+        "ja": "独自VPI bridgeと固定UVM regex DPIを使う明示した実process command-line条件。商用overlay、未規定の入力構文、任意の式の完全性、通常の未link runnerでのpassは推論しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uG/test_command_default_sequence_runs_on_the_named_sequencer_and_phase",
+          "role": "direct",
+          "expected_observations": [
+            "UT: default_sequence runs 1 context 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CMDLINE-DEFAULT-SEQUENCE-CONTEXT",
+      "clause": "G.2.9",
+      "statement": {
+        "en": "The command-line selected default sequence executes on its named sequencer.",
+        "ja": "command-lineで選択したdefault sequenceは名前付きsequencerで実行する。"
+      },
+      "conditions": {
+        "en": "A peer sequencer has no default option while the target does.",
+        "ja": "対象へdefault optionを与え、peer sequencerへは与えない。"
+      },
+      "expected": {
+        "en": "The single execution observes the exact target sequencer handle.",
+        "ja": "1回の実行は正確な対象sequencer handleを観測する。"
+      },
+      "limitations": {
+        "en": "Explicit actual-process command-line condition with an original VPI bridge and pinned UVM regex DPI; no commercial overlay, unknown input syntax, arbitrary expression completeness or ordinary unlinked-runner pass is inferred.",
+        "ja": "独自VPI bridgeと固定UVM regex DPIを使う明示した実process command-line条件。商用overlay、未規定の入力構文、任意の式の完全性、通常の未link runnerでのpassは推論しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uG/test_command_default_sequence_runs_on_the_named_sequencer_and_phase",
+          "role": "direct",
+          "expected_observations": [
+            "UT: default_sequence runs 1 context 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CMDLINE-QUIT-YES-INITIAL",
+      "clause": "G.2.6",
+      "statement": {
+        "en": "The quit-count option sets the report-server maximum before user changes.",
+        "ja": "quit-count optionは、userによる変更の前にreport-serverの最大値を設定する。"
+      },
+      "conditions": {
+        "en": "The invocation supplies count 7 and overridable=YES.",
+        "ja": "起動時に件数7とoverridable=YESを渡す。"
+      },
+      "expected": {
+        "en": "The initial public maximum query returns 7.",
+        "ja": "初期の公開最大値照会は7を返す。"
+      },
+      "limitations": {
+        "en": "Explicit actual-process command-line condition with an original VPI bridge and pinned UVM regex DPI; no commercial overlay, unknown input syntax, arbitrary expression completeness or ordinary unlinked-runner pass is inferred.",
+        "ja": "独自VPI bridgeと固定UVM regex DPIを使う明示した実process command-line条件。商用overlay、未規定の入力構文、任意の式の完全性、通常の未link runnerでのpassは推論しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uG/test_command_max_quit_count_allows_a_later_user_setting",
+          "role": "direct",
+          "expected_observations": [
+            "UT: quit initial 7"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CMDLINE-QUIT-YES-USER-CHANGE",
+      "clause": "G.2.6",
+      "statement": {
+        "en": "The YES overridable choice controls later procedural maximum changes.",
+        "ja": "overridableのYES選択は、後の手続き最大値変更を制御する。"
+      },
+      "conditions": {
+        "en": "After command-line setup, user code attempts to set the maximum to 9.",
+        "ja": "command-line設定後、user codeが最大値を9へ設定しようとする。"
+      },
+      "expected": {
+        "en": "The maximum after the attempt is 9.",
+        "ja": "変更試行後の最大値は9である。"
+      },
+      "limitations": {
+        "en": "Explicit actual-process command-line condition with an original VPI bridge and pinned UVM regex DPI; no commercial overlay, unknown input syntax, arbitrary expression completeness or ordinary unlinked-runner pass is inferred.",
+        "ja": "独自VPI bridgeと固定UVM regex DPIを使う明示した実process command-line条件。商用overlay、未規定の入力構文、任意の式の完全性、通常の未link runnerでのpassは推論しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uG/test_command_max_quit_count_allows_a_later_user_setting",
+          "role": "direct",
+          "expected_observations": [
+            "UT: quit after 9 warning 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CMDLINE-QUIT-NO-INITIAL",
+      "clause": "G.2.6",
+      "statement": {
+        "en": "The quit-count option sets the report-server maximum before user changes.",
+        "ja": "quit-count optionは、userによる変更の前にreport-serverの最大値を設定する。"
+      },
+      "conditions": {
+        "en": "The invocation supplies count 7 and overridable=NO.",
+        "ja": "起動時に件数7とoverridable=NOを渡す。"
+      },
+      "expected": {
+        "en": "The initial public maximum query returns 7.",
+        "ja": "初期の公開最大値照会は7を返す。"
+      },
+      "limitations": {
+        "en": "Explicit actual-process command-line condition with an original VPI bridge and pinned UVM regex DPI; no commercial overlay, unknown input syntax, arbitrary expression completeness or ordinary unlinked-runner pass is inferred.",
+        "ja": "独自VPI bridgeと固定UVM regex DPIを使う明示した実process command-line条件。商用overlay、未規定の入力構文、任意の式の完全性、通常の未link runnerでのpassは推論しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uG/test_command_max_quit_count_rejects_a_later_user_setting",
+          "role": "direct",
+          "expected_observations": [
+            "UT: quit initial 7"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CMDLINE-QUIT-NO-USER-CHANGE",
+      "clause": "G.2.6",
+      "statement": {
+        "en": "The NO overridable choice controls later procedural maximum changes.",
+        "ja": "overridableのNO選択は、後の手続き最大値変更を制御する。"
+      },
+      "conditions": {
+        "en": "After command-line setup, user code attempts to set the maximum to 9.",
+        "ja": "command-line設定後、user codeが最大値を9へ設定しようとする。"
+      },
+      "expected": {
+        "en": "The maximum after the attempt is 7.",
+        "ja": "変更試行後の最大値は7である。"
+      },
+      "limitations": {
+        "en": "Explicit actual-process command-line condition with an original VPI bridge and pinned UVM regex DPI; no commercial overlay, unknown input syntax, arbitrary expression completeness or ordinary unlinked-runner pass is inferred.",
+        "ja": "独自VPI bridgeと固定UVM regex DPIを使う明示した実process command-line条件。商用overlay、未規定の入力構文、任意の式の完全性、通常の未link runnerでのpassは推論しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uG/test_command_max_quit_count_rejects_a_later_user_setting",
+          "role": "direct",
+          "expected_observations": [
+            "UT: quit after 7 warning 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CMDLINE-QUIT-NO-WARNING",
+      "clause": "G.2.6",
+      "statement": {
+        "en": "A user change rejected by the NO option issues a warning.",
+        "ja": "NO optionで拒否したuser変更は警告を発行する。"
+      },
+      "conditions": {
+        "en": "User code attempts to change a non-overridable maximum.",
+        "ja": "user codeが変更不可の最大値を変えようとする。"
+      },
+      "expected": {
+        "en": "The original catcher sees a warning without fixing its diagnostic text.",
+        "ja": "独自catcherは、診断文面を固定せず警告を観測する。"
+      },
+      "limitations": {
+        "en": "Explicit actual-process command-line condition with an original VPI bridge and pinned UVM regex DPI; no commercial overlay, unknown input syntax, arbitrary expression completeness or ordinary unlinked-runner pass is inferred.",
+        "ja": "独自VPI bridgeと固定UVM regex DPIを使う明示した実process command-line条件。商用overlay、未規定の入力構文、任意の式の完全性、通常の未link runnerでのpassは推論しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uG/test_command_max_quit_count_rejects_a_later_user_setting",
+          "role": "direct",
+          "expected_observations": [
+            "UT: quit after 7 warning 1"
+          ]
+        }
+      ]
     }
   ]
 }

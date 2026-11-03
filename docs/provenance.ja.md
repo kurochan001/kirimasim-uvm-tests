@@ -48,6 +48,12 @@ runnerは、既存スイートのcompile／判定の流れを、別のevidence�
 統合には[公開VPI文書](https://verilator.org/guide/latest/connecting.html#verification-procedural-interface-vpi)を参照し、
 期待する動作は、ユーザーが与えたIEEE条項から導きます。
 
+[command-line runner](../tools/run_verilator_cmdline.py)と[VPI引数bridge](../tools/cmdline_backend/uvm_cmdline_vpi.cpp)は独自のsuite codeです。
+標準VPIのprocess情報と[公開VPI interface文書](https://verilator.org/guide/latest/connecting.html#verification-procedural-interface-vpi)を使います。
+[regex wrapper](../tools/cmdline_backend/uvm_cmdline_regex.cpp)は[固定library](../third_party/uvm.lock)にあるApache-2.0 regex sourceをcompileし、
+その実装を追跡sourceへ複製しません。[移植用header](../tools/cmdline_backend/malloc.h)は標準の割当宣言を提供します。
+期待値は独立したIEEE由来の観測のままで、simulator実装や商用overlayをoracleに使いません。
+
 memory-walkのoracleは、[公式UVM 1.2 class referenceの27.7](https://accellera.org/images/downloads/standards/uvm/UVM_Class_Reference_Manual_1.2.pdf#page=739)を使うAI解釈を明示します。
 役割と制限は[Q134](faq.ja.md#q134-memory-walk-algorithmをどう解釈していますか)に記録します。
 独立に書いたobserverは、擬似codeの複製や実装由来のoracleではありません。歴史的な文脈はIEEE 1800.2を改訂しません。

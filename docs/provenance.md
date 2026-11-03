@@ -55,6 +55,17 @@ interfaces and actual simulator handles; it is not copied from a commercial
 overlay or a simulator implementation. Public [VPI documentation](https://verilator.org/guide/latest/connecting.html#verification-procedural-interface-vpi)
 informs integration; the user-provided IEEE clauses define expected behavior.
 
+The [command-line runner](../tools/run_verilator_cmdline.py) and
+[VPI argument bridge](../tools/cmdline_backend/uvm_cmdline_vpi.cpp) are original
+suite code. They use standard VPI process information and the public
+[VPI interface documentation](https://verilator.org/guide/latest/connecting.html#verification-procedural-interface-vpi).
+The [regex wrapper](../tools/cmdline_backend/uvm_cmdline_regex.cpp) compiles the
+existing Apache-2.0 regex source from the [locked library](../third_party/uvm.lock);
+it does not copy that implementation into tracked sources. The
+[portable header](../tools/cmdline_backend/malloc.h) supplies standard allocation
+declarations. Expectations remain independent IEEE-derived observations.
+No simulator implementation or commercial overlay supplies the oracle.
+
 The memory-walk oracle has an explicit AI interpretation using the
 [official UVM 1.2 class reference, 27.7](https://accellera.org/images/downloads/standards/uvm/UVM_Class_Reference_Manual_1.2.pdf#page=739).
 Its role and limits are recorded in [Q134](faq.md#q134-how-is-the-memory-walk-algorithm-interpreted).

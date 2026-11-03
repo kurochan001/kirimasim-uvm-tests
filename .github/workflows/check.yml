@@ -40,7 +40,7 @@ jobs:
 
   verilator:
     runs-on: ubuntu-24.04
-    timeout-minutes: 120
+    timeout-minutes: 150
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
@@ -84,3 +84,6 @@ jobs:
 
       - name: Tests recorded with Verilator 5.052, seeds 1 and 73
         run: python3 tools/run_verilator.py --seeds 1 73 --build-jobs 2 -j 2
+
+      - name: Explicit command-line checks, seeds 1 and 73
+        run: python3 tools/run_verilator_cmdline.py --seeds 1 73 --build-jobs 2 -j 2

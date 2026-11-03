@@ -1177,6 +1177,62 @@
         "reviewer": null,
         "reviewed_at": null
       }
+    },
+    {
+      "clause": "G",
+      "classification": "structural",
+      "rationale": {
+        "en": "The normative annex title organizes command-line material; processing and built-in options are specified in its numbered clauses.",
+        "ja": "規範annexの題はcommand-line資料をまとめ、処理と組込みoptionは番号付き条項で規定する。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "G.1.3",
+      "classification": "structural",
+      "rationale": {
+        "en": "The Basic arguments heading groups the four individually specified retrieval methods and adds no separate query.",
+        "ja": "Basic arguments見出しは個別に規定した4取得methodをまとめ、別照会を追加しない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "G.1.4",
+      "classification": "structural",
+      "rationale": {
+        "en": "The Argument values heading groups the single/all-suffix methods without another operation.",
+        "ja": "Argument values見出しは単一／全suffix methodをまとめ、別操作を追加しない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "G.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "The built-in-arguments heading introduces the individually specified options; it does not define an additional option.",
+        "ja": "組込み引数の見出しは個別に規定したoptionを導入し、追加optionを定義しない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
     }
   ]
 }

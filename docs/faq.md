@@ -136,6 +136,8 @@ See [Ghost setup](testing.md#ghost).
 It removes `UVM_NO_DPI` from the default macro list. It does not supply or link
 UVM's C/C++ implementation. The current Verilator runner does not add those
 sources. There are 1275 `UVM_NO_DPI` cases and eight explicit HDL-DPI cases.
+Eighteen more fixtures explicitly enable command-line/regex DPI with HDL disabled.
+The [command-line runner](testing.md#verilator-command-line-subset) links that separate backend.
 The [separate VPI runner](testing.md#verilator-vpi-hdl-subset) links the original
 limited backend; results apply only to that declared execution condition.
 User-defined `uvm_reg_backdoor` handlers can operate without HDL DPI (Q67).
@@ -1141,9 +1143,9 @@ not a direct test of the requirement.
 
 ### Q77. Why is there no coverage percentage after starting M4?
 
-The 1735 AI drafts cover only a partial decomposition: 1735 requirements link
-directly to 1282 tests; all drafts have direct tests, and one separate test is a control.
-All 1283 tests have requirement links. The 2,507 clause identifiers are not normative requirement units.
+The 1779 AI drafts cover only a partial decomposition: 1779 requirements link
+directly to 1300 tests; all drafts have direct tests, and one separate test is a control.
+All 1301 tests have requirement links. The 2,507 clause identifiers are not normative requirement units.
 The scope is proposed, the inventory incomplete and the denominator unapproved;
 starting M4 approves none of those. Known differences and HDL/DPI limitations
 do not silently exclude obligations. See the [approval path](requirements.md#remaining-m4-work-and-approval).
@@ -2143,7 +2145,7 @@ No. `tests_without_requirement_links` is zero: every current test has an
 explicit direct or control link. The separate counter
 `requirements_without_direct_tests` is zero. The memory-walk link uses the
 qualified historical interpretation in Q134. It is not approval of missing
-IEEE detail. HDL deposit and accessibility use explicit VPI fixtures. Another 1,434
+IEEE detail. HDL deposit and accessibility use explicit VPI fixtures. Another 1,413
 catalog identifiers remain unassessed; decomposition and human review are
 incomplete, and the denominator remains unapproved.
 
@@ -2244,7 +2246,7 @@ in [identifier assessments](../coverage/assessments.json). Structural headings
 have no related requirements; contextual descriptions name existing requirements.
 An unreviewed record, guessed classification or parent rollup cannot do this.
 The generated state is `assessed`, separate from `partial` requirement clauses.
-Eighty-two classifications currently exist, with no denominator approval or new pass.
+Eighty-six classifications currently exist, with no denominator approval or new pass.
 Chapter 11's zero unassessed identifiers still does not complete its requirements.
 
 ### Q136. Does explicit strict configuration make the new cases pass?
@@ -2679,3 +2681,33 @@ behavior, enum-controlled operations, coverage allocation, constructor-name
 observability and independent checks remain. The goal spans all M1–M4 and
 requires auditing those remaining conditions as well as unassessed material.
 See the [goal handoff](handoff.md#persistent-goal-and-completion-audit).
+
+## Actual command lines and separate execution conditions
+
+### Q171. Does the new bridge make the ordinary no-DPI argument fixtures pass?
+
+No. The original two inputs and their ordinary runtime differences remain
+unchanged. Eighteen new fixtures explicitly enable a separate VPI argument
+bridge and pinned UVM regex DPI. Their ordinary runs cannot link that backend;
+the separate condition reproduces seventeen at seeds 1 and 73 and retains one
+quit-warning difference. See the [command-line runner](testing.md#verilator-command-line-subset).
+Neither overlapping result count is added to the ordinary pass total.
+
+### Q172. Why is the locked quit limit correct while the test still differs?
+
+G.2.6 requires a warning if user code tries to change a limit locked by NO.
+The [fixture](../tests/uG/test_command_max_quit_count_rejects_a_later_user_setting.sv)
+observes seven before and after the attempted change, but the warning probe
+sees no WARNING: the pinned server emits INFO. The YES control accepts nine.
+The generic expected output keeps the warning requirement. No diagnostic text,
+ID, unrelated report count or quit termination is fixed by this oracle.
+
+### Q173. Does zero unassessed annex G material establish complete command-line coverage?
+
+No. Its 22 identifiers are eighteen partial decompositions and four explicit
+structural assessments. The declarations and selected built-in options have
+actual observations, including one phase default sequence, but regex suffix
+extraction, malformed expressions/options, duplicate variants, wildcard/ALL
+combinations, equal-time ordering, non-run phases and wider resource precedence
+remain. The separate [condition marker](testing.md#verilator-command-line-subset)
+selects reproduced checks without redefining the requirement scope or goal.

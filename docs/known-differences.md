@@ -2,7 +2,7 @@
 
 [日本語](known-differences.ja.md) · [README](../README.md) · [FAQ](faq.md)
 
-This describes the current 1283-test suite and the pinned Accellera UVM
+This describes the current 1301-test suite and the pinned Accellera UVM
 2020.3.1 library. A mismatch is a test result; it does not by itself assign
 the cause to the simulator, the library or the expectation.
 
@@ -449,7 +449,17 @@ arrays and append after replacement. Their first build failure is the missing
 standard slice accessor. No legacy member or differently named method replaces
 these APIs. All three are build evidence without runtime results.
 
-Across the suite, 1142 tests have the `verilator@5.052` oracle tag and 141
+Eighteen command-line fixtures explicitly request a separate VPI bridge and
+pinned regex DPI. The ordinary runner does not link them and records eighteen
+additional builds without runtime results. Under the separate command-line
+condition seventeen match both seeds. One retains G.2.6's warning requirement
+when user code tries to change a NO-locked quit limit. The limit correctly
+remains seven, but the pinned server emits INFO and the warning probe sees no
+warning. The YES control changes the limit to nine without a warning. This
+is a diagnostic-severity difference, not failed limit enforcement. The older
+two no-DPI argument cases remain unchanged ordinary runtime differences.
+
+Across the suite, 1142 tests have the `verilator@5.052` oracle tag and 159
 cases are spec-only. One of the spec-only cases checks 9.6: a child's pre-reset
 task must be killed when that phase ends, but the pinned-library run on Verilator 5.052
 lets the child perform its delayed write during a later phase. The cause of
@@ -461,7 +471,7 @@ without callbacks. The pinned Verilator run reaches the blocked-state
 observation, then its watchdog expires. This combined simulator/library
 cause remains unassigned; the normative wakeup expectation is retained.
 
-The 141 spec-only tests retain their normative expected files.
+The 159 spec-only tests retain their normative expected files.
 Default Verilator runs and CI select the 1142 tagged cases. `--all` includes
 spec-only cases and records mismatches or build failures as `known`.
 The ordinary runtime records for 117 cases establish their first difference
@@ -469,14 +479,14 @@ at seed 1, without seed 73 results. Sixteen missing-API builds have no ordinary
 runtime seed result: one time API, six sequence-library cases, four HDL slice
 cases, one named-concat-constructor case, one object active-policy case and
 three catcher message-handle cases.
-Eight HDL-DPI fixtures also cannot
+Eight HDL-DPI and eighteen command-line-DPI fixtures also cannot
 link in the ordinary runner. Their separate VPI condition matches seven at
 both seeds and fails the E.7 warning/no-transfer expectation at seed 1.
 These overlapping configurations are not summed.
 
 ## Spec-only tests
 
-These are the 141 current spec-only cases. Several exercise the same
+These are the 159 current spec-only cases. Several exercise the same
 limitation, so their count is not a count of distinct bugs.
 
 - [Explicit HDL abstraction selection](../tests/uE/test_hdl_path_sequence_uses_an_explicit_abstraction_instead_of_the_invalid_default.sv).
@@ -714,10 +724,29 @@ Additional message-handle and endian cases:
 - [Concat replacement and copy isolation](../tests/u17/test_hdl_concat_standard_set_slices_replaces_prior_gapped_description_without_aliases.sv).
 - [Concat append after replacement](../tests/u17/test_hdl_concat_standard_add_slice_appends_after_replacement_and_preserves_peer.sv).
 
+- [command vpi singleton and all arguments preserve supplied membership](../tests/uG/test_command_vpi_singleton_and_all_arguments_preserve_supplied_membership.sv).
+- [command vpi plusargs exclude dash arguments and replace caller contents](../tests/uG/test_command_vpi_plusargs_exclude_dash_arguments_and_replace_caller_contents.sv).
+- [command vpi uvm arguments accept mixed case keywords and both prefixes](../tests/uG/test_command_vpi_uvm_arguments_accept_mixed_case_keywords_and_both_prefixes.sv).
+- [command vpi prefix matches replace queues and clear missing queries](../tests/uG/test_command_vpi_prefix_matches_replace_queues_and_clear_missing_queries.sv).
+- [command vpi first value preserves the first suffix and counts all matches](../tests/uG/test_command_vpi_first_value_preserves_the_first_suffix_and_counts_all_matches.sv).
+- [command vpi all values keep empty and comma suffixes without stale entries](../tests/uG/test_command_vpi_all_values_keep_empty_and_comma_suffixes_without_stale_entries.sv).
+- [command vpi extended regex matches grouped alternatives and clears queries](../tests/uG/test_command_vpi_extended_regex_matches_grouped_alternatives_and_clears_queries.sv).
+- [command testname creates the first registered test and warns for duplicates](../tests/uG/test_command_testname_creates_the_first_registered_test_and_warns_for_duplicates.sv).
+- [command initial verbosity applies to components created in build](../tests/uG/test_command_initial_verbosity_applies_to_components_created_in_build.sv).
+- [command timed verbosity updates the selected id and component only](../tests/uG/test_command_timed_verbosity_updates_the_selected_id_and_component_only.sv).
+- [command action setting is scoped to the selected component and id](../tests/uG/test_command_action_setting_is_scoped_to_the_selected_component_and_id.sv).
+- [command severity override changes the selected report and preserves controls](../tests/uG/test_command_severity_override_changes_the_selected_report_and_preserves_controls.sv).
+- [command max quit count allows a later user setting](../tests/uG/test_command_max_quit_count_allows_a_later_user_setting.sv).
+- [command max quit count rejects a later user setting](../tests/uG/test_command_max_quit_count_rejects_a_later_user_setting.sv).
+- [command factory instance override precedes the type override for its target](../tests/uG/test_command_factory_instance_override_precedes_the_type_override_for_its_target.sv).
+- [command configuration sets numeric bases and strings in the selected scope](../tests/uG/test_command_configuration_sets_numeric_bases_and_strings_in_the_selected_scope.sv).
+- [command default sequence runs on the named sequencer and phase](../tests/uG/test_command_default_sequence_runs_on_the_named_sequencer_and_phase.sv).
+- [command fresh processors populate independent argument snapshots at construction](../tests/uG/test_command_fresh_processors_populate_independent_argument_snapshots_at_construction.sv).
+
 ## Simulator and library combinations
 
-The suite has 1283 cases, but the kirimasim/Ghost records below cover only
-1085 unchanged current-input cases. The 198 new cases are unmeasured
+The suite has 1301 cases, but the kirimasim/Ghost records below cover only
+1085 unchanged current-input cases. The 216 new cases are unmeasured
 because prior temporary executable/profile snapshots are unavailable. Do
 not treat this as a fresh full-suite guest result. See [results](results.md).
 

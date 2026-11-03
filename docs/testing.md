@@ -89,6 +89,8 @@ The metadata follows kirimasim-tests and sv-tests, with these UVM-specific field
 | `:uvm:` | the library release the test is written for; it must be the locked one |
 | `:uvm_dpi:` | `yes` requests DPI-enabled macros; supplying/linking the implementation is separate; see [compiling](#compiling) |
 | `:uvm_defines:` | macros for the library, such as `UVM_ENABLE_DEPRECATED_API` |
+| `:uvm_cmdline_backend:` | `vpi` opts into the separate actual-process command-line runner |
+| `:uvm_cmdline_oracle:` | `verilator@5.052` selects a reproduced command-line case for default checks |
 | `:uvm_hdl_backend:` | `vpi` opts into the separate HDL runner; other runners do not link it |
 | `:dpi_c:` | `@../../tools/uvm_hdl_vpi.cpp` declares and fingerprints the original backend |
 | `:args:` | run-time arguments such as `+UVM_TESTNAME=…` |
@@ -228,6 +230,39 @@ case uses an official historical reference as explained in [Q134](faq.md#q134-ho
 Such a link is review work, not approval of missing normative detail. No copied
 algorithm implementation or observed simulator output defines that oracle.
 
+### Verilator command-line subset
+
+The [separate runner](../tools/run_verilator_cmdline.py) uses an original
+[argument bridge](../tools/cmdline_backend/uvm_cmdline_vpi.cpp) over standard VPI.
+The [regex wrapper](../tools/cmdline_backend/uvm_cmdline_regex.cpp) compiles the
+pinned Apache-2.0 UVM regex implementation; the [portable header](../tools/cmdline_backend/malloc.h)
+provides standard allocation declarations on hosts without a malloc header.
+No UVM parser is copied into the bridge and no simulator implementation source
+is used. These are actual process arguments, not a synthetic argument list.
+
+Fixtures set `:uvm_dpi: yes`, `:uvm_cmdline_backend: vpi`,
+`:uvm_defines: UVM_HDL_NO_DPI`, declare the bridge through `:dpi_c:` and the
+wrapper/header through `:files:`. Directory contents and the library lock are
+fingerprinted. Backend validation rejects disabled command-line/regex DPI,
+missing declarations, another backend and four-state cases. HDL access remains
+disabled. No arbitrary regex, invalid-option or four-state completeness is claimed.
+
+```sh
+python3 tools/run_verilator_cmdline.py --seeds 1 73 --build-jobs 2 -j 2 \
+  --json out/verilator-cmdline.json
+python3 tools/run_verilator_cmdline.py --all --seeds 1 73 --build-jobs 2 -j 2 \
+  --json out/verilator-cmdline-all.json
+```
+
+The default selects seventeen reproduced fixtures through
+`:uvm_cmdline_oracle: verilator@5.052`. `--all` adds the spec-only quit-warning
+case and records its difference as `known`, which is not a pass. Regressions in
+selected reproduced cases are `fail` and cause a nonzero exit. One model build
+runs in fresh processes at both seeds. The separate `verilator_cmdline` result
+identity hashes its runner independently; generic expected output is shared.
+The eighteen overlapping ordinary records fail to link DPI. Keep both conditions
+separate. Check runs the seventeen default command-line checks, not the known case.
+
 ## Running the suite
 
 ```sh
@@ -250,7 +285,7 @@ seed. All seeds must match. `--seed N` remains available for a single seed.
 The JSON configuration records either `seed` or `seeds` accordingly.
 
 By default, Verilator selects the 1142 tagged two-state cases. To include
-the 141 spec-only cases as well, add `--all`. A mismatch in an untagged case
+the 159 spec-only cases as well, add `--all`. A mismatch in an untagged case
 is `known` and does not fail the command; a tagged mismatch does.
 Explicit test paths select only those tests. For a single smoke test:
 
@@ -303,8 +338,8 @@ python3 tools/lint_metadata.py
 python3 tools/requirements.py check
 ```
 
-The current tool suite has 88 unit tests; metadata validation checks all
-1283 simulation tests. The [ledger check](requirements.md) validates the draft
+The current tool suite has 100 unit tests; metadata validation checks all
+1301 simulation tests. The [ledger check](requirements.md) validates the draft
 scope, explicit oracle links and input fingerprints without claiming coverage. [Check](../.github/workflows/check.yml) runs on pushes to
 `main`, pull requests and manual dispatch. Its separate Verilator job uses
 5.052, `UVM_NO_DPI` and seeds 1 and 73 for the tagged cases. Each model is
