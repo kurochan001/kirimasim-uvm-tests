@@ -194,7 +194,7 @@ again. `--check` checks the copy that is there. The library is not committed.
 - User-defined `uvm_reg_backdoor` storage handlers work without HDL DPI.
   Commercial simulator execution/results are excluded by the project policy;
   built-in HDL-path/DPI coverage remains open.
-- 1111 current cases use `UVM_NO_DPI`; four explicitly enable HDL DPI.
+- 1123 current cases use `UVM_NO_DPI`; eight explicitly enable HDL DPI.
   `:uvm_dpi: yes` removes that macro;
   it does not automatically compile or link the C/C++ DPI implementation.
   The current Verilator runner does not add DPI C/C++ sources.
@@ -205,7 +205,7 @@ again. `--check` checks the copy that is there. The library is not committed.
 
 The separate [HDL runner](../tools/run_verilator_hdl.py) links the original
 [backend](../tools/uvm_hdl_vpi.cpp) through public VPI, using actual HDL storage.
-It requires exactly Verilator 5.052. The four opt-in fixtures set
+It requires exactly Verilator 5.052. The eight opt-in fixtures set
 `:uvm_dpi: yes`, `:uvm_hdl_backend: vpi` and the declared `:dpi_c:` path,
 while `UVM_REGEX_NO_DPI` and `UVM_CMDLINE_NO_DPI` disable unrelated imports.
 The runner rejects HDL disabling macros and an override of the default
@@ -226,12 +226,18 @@ overlay or proof of another simulator's HDL implementation.
 See the [public VPI documentation](https://verilator.org/guide/latest/connecting.html#verification-procedural-interface-vpi)
 for visibility and evaluation constraints. Fixtures allow reevaluation after
 deposits before inspecting HDL values. No simulator implementation source is read.
-The ordinary runner is unchanged and does not link this backend; these four
+The ordinary runner is unchanged and does not link this backend; these eight
 fixtures remain `:oracle: spec`. The separate runner records `verilator_hdl`,
 its own `runner_sha256` and backend configuration, and uses the same generic
-expectations. It returns failure for any selected mismatch. Three cases match
+expectations. It returns failure for any selected mismatch. Seven cases match
 both seeds; the E.7 warning/no-transfer case differs. Keep this overlapping
-four-case condition separate from ordinary-runner evidence.
+eight-case condition separate from ordinary-runner evidence.
+
+Algorithm details absent from the current IEEE text may have an explicitly
+qualified AI interpretation recorded in the fixture and ledger. The memory-walk
+case uses an official historical reference as explained in [Q134](faq.md#q134-how-is-the-memory-walk-algorithm-interpreted).
+Such a link is review work, not approval of missing normative detail. No copied
+algorithm implementation or observed simulator output defines that oracle.
 
 ## Running the suite
 
@@ -254,8 +260,8 @@ breaks the build.
 seed. All seeds must match. `--seed N` remains available for a single seed.
 The JSON configuration records either `seed` or `seeds` accordingly.
 
-By default, Verilator selects the 1002 tagged two-state cases. To include
-the 113 spec-only cases as well, add `--all`. A mismatch in an untagged case
+By default, Verilator selects the 1014 tagged two-state cases. To include
+the 117 spec-only cases as well, add `--all`. A mismatch in an untagged case
 is `known` and does not fail the command; a tagged mismatch does.
 Explicit test paths select only those tests. For a single smoke test:
 
@@ -308,8 +314,8 @@ python3 tools/lint_metadata.py
 python3 tools/requirements.py check
 ```
 
-The current tool suite has 74 unit tests; metadata validation checks all
-1115 simulation tests. The [ledger check](requirements.md) validates the draft
+The current tool suite has 83 unit tests; metadata validation checks all
+1131 simulation tests. The [ledger check](requirements.md) validates the draft
 scope, explicit oracle links and input fingerprints without claiming coverage. [Check](../.github/workflows/check.yml) runs on pushes to
 `main`, pull requests and manual dispatch. Its separate Verilator job uses
 5.052, `UVM_NO_DPI` and seeds 1 and 73 for the tagged cases. Each model is

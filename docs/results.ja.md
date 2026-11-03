@@ -4,18 +4,18 @@
 
 ## 現在のスナップショット
 
-2026-11-03のVerilator記録は現在の1115件すべてを対象にします。他2系統は未変更1085件の記録で、
-新規30件は未測定です。各記録は入力と実行条件を指紋で識別します。
-21の章・付録directoryにM1 364件、M2 421件、M3 330件があります。
+2026-11-03のVerilator記録は現在の1131件すべてを対象にします。他2系統は未変更1085件の記録で、
+新規46件は未測定です。各記録は入力と実行条件を指紋で識別します。
+21の章・付録directoryにM1 372件、M2 424件、M3 335件があります。
 全件が`spec_check: ai`を記録し、人による照合やdeprecated APIの要求はありません。
-1111件は`UVM_NO_DPI`を使い、4件はHDL DPIを明示要求します。件数はレビュー済みカバレッジ率ではありません。
+1123件は`UVM_NO_DPI`を使い、8件はHDL DPIを明示要求します。件数はレビュー済みカバレッジ率ではありません。
 
 | シミュレータとライブラリ | 観測結果 | 実行範囲 |
 | --- | --- | --- |
-| Verilator 5.052・固定版UVM | `pass`が1002件、`known`が113件 | 一致ケースはseed 1・73で再現。実行時の差分はseed 1で停止 |
-| Verilator 5.052・独自VPI HDL backend | `pass` 3件、`fail` 1件 | 重複する4件の別条件。一致はseed 1／73、差分はseed 1 |
-| kirimasim・固定版UVM | `unsupported`が1076件、`fail`が9件 | 未変更1085入力。新規30件は未測定 |
-| Ghost・同梱UVM | `pass`が207件、`fail`が878件 | 各seedで未変更1085入力。失敗集合は同じ。新規30件は未測定 |
+| Verilator 5.052・固定版UVM | `pass`が1014件、`known`が117件 | 一致ケースはseed 1・73で再現。実行時の差分はseed 1で停止 |
+| Verilator 5.052・独自VPI HDL backend | `pass` 7件、`fail` 1件 | 重複する8件の別条件。一致はseed 1／73、差分はseed 1 |
+| kirimasim・固定版UVM | `unsupported`が1076件、`fail`が9件 | 未変更1085入力。新規46件は未測定 |
+| Ghost・同梱UVM | `pass`が207件、`fail`が878件 | 各seedで未変更1085入力。失敗集合は同じ。新規46件は未測定 |
 | Ghost・固定版UVM | 現在の実行ファイルの固定コピーでは未測定 | 現在の固定版modeの結果は示さない |
 
 固定ライブラリはAccellera UVM 2020.3.1、コミット`78c06547a2a0`で、326ファイルを
@@ -25,12 +25,12 @@
 
 ## 結果の解釈
 
-specのみの113件は、規格に基づく期待出力を保持します。通常条件では、99件がseed 1の実行時に最初に異なり、
+specのみの117件は、規格に基づく期待出力を保持します。通常条件では、99件がseed 1の実行時に最初に異なり、
 seed 73の結果はありません。API欠落でビルドできない10件は、time 1件、sequence-library 6件、
-HDL slice 2件、object active-policy 1件です。別の4件はHDL DPIを要求しますが、通常runnerはbackendをlinkしません。
-この14 build記録には、通常条件での実行時seed結果がありません。
+HDL slice 2件、object active-policy 1件です。別の8件はHDL DPIを要求しますが、通常runnerはbackendをlinkしません。
+この18 build記録には、通常条件での実行時seed結果がありません。
 
-別のVPI条件は、独自backendでHDL検査系4件を実測し、3件がseed 1／73で一致します。
+別のVPI条件は、独自backendでHDL検査系8件を実測し、7件がseed 1／73で一致します。
 利用不能pathのsequenceは、warningに対してERRORを報告し、保持するE.7の転送なしの解釈に対してstorage readを試み、
 seed 1で最初に異なります。利用可能pathの比較対象と、実際のHDL deposit／readは一致します。
 backendの64 bit packed変数という範囲は、vendor overlay、配列、4値の動作を示しません。
@@ -50,21 +50,21 @@ frontdoor／backdoorの転送動作の成功は示しません。
 
 ## 記録の合算
 
-通常の記録は、[c2b1359](https://github.com/kurochan001/kirimasim-uvm-tests/commit/c2b13597bd64fac9086f3d45f39a41b849eeed81)
-時点の未変更1106記録をすべて保持し、新規9件の最終入力の測定を加えます。既存テスト入力と通常runnerは変更しません。
-別のVPI runner／backendは、入力とrunnerの同一性が別で、通常条件へ合算しません。
+通常の記録は、[a57eb53](https://github.com/kurochan001/kirimasim-uvm-tests/commit/a57eb535950c519f1dc1c17a315b2b6d8b85b181)
+時点の未変更1115記録をすべて保持し、新規16件の最終入力測定を加えます。
+既存テスト、全runner、VPI backendは未変更です。VPI記録は以前の4件を保持し、互換な新規4入力を加え、通常条件へ合算しません。
 保持するkirimasim／Ghost記録は、固定した実行ファイルとseedごとの非公開profileで取得しました。
 
 商用シミュレータの結果は[投稿方針](faq.ja.md#商用シミュレータとissueの投稿方針)に従って除外します。
 
 以前のkirimasim／Ghostの一時的な実行ファイル／profile snapshotは失われ、互換なlocal環境も見つかりませんでした。
-新しいguest実行は主張しません。既存1085件は現在の入力と一致しますが、新規30 IDは明示的に未測定です。
-localの対象範囲は`out/thin-sixteenth-evidence-scope.json`へ記録します。
+新しいguest実行は主張しません。既存1085件は現在の入力と一致しますが、新規46 IDは明示的に未測定です。
+localの対象範囲は`out/thin-seventeenth-evidence-scope.json`へ記録します。
 許可された実行環境を復元するまで、この部分的な範囲を保持します。
 
 合算する前に、次を確認します。
 
-- Verilator IDが現在の全件を覆い、guest IDは宣言した1085件の部分集合と一致すること。新規30 IDは未測定のままにすること。
+- Verilator IDが現在の全件を覆い、guest IDは宣言した1085件の部分集合と一致すること。新規46 IDは未測定のままにすること。
 - 各記録の`inputs_sha256`が、ランナーの集めた現在のソース、期待出力、関連入力、ライブラリのlockと一致すること。
 - batch間でシミュレータの版、configuration、`runner_sha256`が一致し、`runner_changed`がfalseであること。
 - このスナップショットでは、Verilatorタグ付きの全ケースが`pass`、現在のタグなしケースがすべて`known`であること。
@@ -74,7 +74,7 @@ localの対象範囲は`out/thin-sixteenth-evidence-scope.json`へ記録しま�
 追加時の件数と測定、過去のスモーク、build変更の詳細は[開発履歴](history.ja.md)に残します。
 更新した記録で以前の記録を置き換える場合も、現在の入力の指紋を先に確認します。
 
-[要求台帳の案](requirements.ja.md)には、新規9検査系を、追加20要求案と以前未対応だったHDL要求案2件へ対応付けます。
+[要求台帳の案](requirements.ja.md)には、新規16検査系を、追加29要求案と限定した最後のalgorithmの対応へ結び付けます。未変更のmaster／slave検査系2件にもexportの明示対応を加えます。
 新しい入力はVerilatorだけで測定し、guest実測は追加しません。既存の入力とrunnerの指紋はすべて互換性を保ちます。
 未対応テスト0件でも、規範的な棚卸しの完了ではありません。
 台帳のanchorは期待出力であり、追加測定した成功ではありません。
@@ -89,6 +89,6 @@ localの対象範囲は`out/thin-sixteenth-evidence-scope.json`へ記録しま�
 ## 継続的インテグレーション
 
 [Check](../.github/workflows/check.yml)は`main`へのpush、pull request、手動実行で動きます。
-固定ライブラリの整合性、ツールの単体テスト83件、metadata 1115件、要求台帳の案／テスト索引、seed 1・73でのoracle付きVerilator 1002件を検査します。
+固定ライブラリの整合性、ツールの単体テスト83件、metadata 1131件、要求台帳の案／テスト索引、seed 1・73でのoracle付きVerilator 1014件を検査します。
 kirimasim、Ghost、specのみのケースは実行しません。READMEのバッジは現在のCIで、このローカル測定とは別の状態です。
 Checkが成功しても、UVMの完全な適合性や全シミュレータの成功を示しません。Nightlyや結果の自動公開はありません。

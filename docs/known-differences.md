@@ -2,7 +2,7 @@
 
 [日本語](known-differences.ja.md) · [README](../README.md) · [FAQ](faq.md)
 
-This describes the current 1115-test suite and the pinned Accellera UVM
+This describes the current 1131-test suite and the pinned Accellera UVM
 2020.3.1 library. A mismatch is a test result; it does not by itself assign
 the cause to the simulator, the library or the expectation.
 
@@ -358,7 +358,7 @@ SystemVerilog 13.4, so it cannot represent a count of two. The expected two
 preserves the prose interpretation. This signature/prose conflict requires
 review and is not assigned as a confirmed simulator or library bug.
 
-Across the suite, 1002 tests have the `verilator@5.052` oracle tag and 113
+Across the suite, 1014 tests have the `verilator@5.052` oracle tag and 117
 cases are spec-only. One of the spec-only cases checks 9.6: a child's pre-reset
 task must be killed when that phase ends, but the pinned-library run on Verilator 5.052
 lets the child perform its delayed write during a later phase. The cause of
@@ -370,21 +370,26 @@ without callbacks. The pinned Verilator run reaches the blocked-state
 observation, then its watchdog expires. This combined simulator/library
 cause remains unassigned; the normative wakeup expectation is retained.
 
-The 113 spec-only tests retain their normative expected files.
-Default Verilator runs and CI select the 1002 tagged cases. `--all` includes
+The 117 spec-only tests retain their normative expected files.
+Default Verilator runs and CI select the 1014 tagged cases. `--all` includes
 spec-only cases and records mismatches or build failures as `known`.
 The ordinary runtime records for 99 cases establish their first difference
 at seed 1, without seed 73 results. Ten missing-API builds have no ordinary
 runtime seed result: one time API, six sequence-library cases, two HDL slice
-cases and one object active-policy case. Four HDL-DPI fixtures also cannot
-link in the ordinary runner. Their separate VPI condition matches three at
+cases and one object active-policy case. Eight HDL-DPI fixtures also cannot
+link in the ordinary runner. Their separate VPI condition matches seven at
 both seeds and fails the E.7 warning/no-transfer expectation at seed 1.
 These overlapping configurations are not summed.
 
 ## Spec-only tests
 
-These are the 113 current spec-only cases. Several exercise the same
+These are the 117 current spec-only cases. Several exercise the same
 limitation, so their count is not a count of distinct bugs.
+
+- [Explicit HDL abstraction selection](../tests/uE/test_hdl_path_sequence_uses_an_explicit_abstraction_instead_of_the_invalid_default.sv).
+- [Empty abstraction list uses the block default](../tests/uE/test_hdl_path_sequence_uses_the_block_default_abstraction_when_the_list_is_empty.sv).
+- [Explicit zero force_time delegates to deposit](../tests/u19/test_hdl_force_time_explicit_zero_time_delegates_to_deposit_without_force_or_release.sv).
+- [Default force_time delegates to deposit](../tests/u19/test_hdl_force_time_default_time_delegates_to_deposit_without_force_or_release.sv).
 
 - [port base preserves names parents and each interface role](../tests/u05/test_port_base_preserves_names_parents_and_each_interface_role.sv).
 - [blocking export default index switches the selected implementation after elaboration](../tests/u12/test_blocking_export_default_index_switches_the_selected_implementation_after_elaboration.sv).
@@ -571,8 +576,8 @@ limitation, so their count is not a count of distinct bugs.
 
 ## Simulator and library combinations
 
-The suite has 1115 cases, but the kirimasim/Ghost records below cover only
-1085 unchanged current-input cases. The thirty new cases are unmeasured
+The suite has 1131 cases, but the kirimasim/Ghost records below cover only
+1085 unchanged current-input cases. The forty-six new cases are unmeasured
 because prior temporary executable/profile snapshots are unavailable. Do
 not treat this as a fresh full-suite guest result. See [results](results.md).
 

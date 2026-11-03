@@ -7,12 +7,14 @@
 M4 is in progress. The [scope proposal](../coverage/scope.json),
 [requirement ledger](../coverage/requirements.json) and
 [test index](../coverage/test_index.json) are versioned inputs. The ledger
-contains 1183 AI-drafted requirements: 1182 link directly to 1114 tests and 1
-has no direct test. One additional test is a control. All 1115 tests now have
-a requirement link; zero tests remain unmapped. No requirement records human review.
+contains 1212 AI-drafted requirements, all with direct links to 1130 tests.
+One additional test is a control. All 1131 tests have a requirement link.
+Both direct-test and test-link queues are empty. The memory-walk oracle is an
+explicit historical interpretation requiring review; this does not certify
+complete IEEE coverage. No requirement records human review.
 
-The clause catalog has 2,504 identifiers. 751 have a partial
-requirement decomposition; the other 1,753 are unassessed. Neither group is
+The clause catalog has 2,504 identifiers. 768 have a partial
+requirement decomposition; the other 1,736 are unassessed. Neither group is
 complete. Starting M4 does not approve the scope or denominator, or complete
 M1–M3. `approved_denominator` and `coverage_percentage` remain `null`.
 
@@ -21,7 +23,7 @@ M1–M3. `approved_denominator` and `coverage_percentage` remain `null`.
 The proposed unit is one observable normative obligation together with its
 applicability conditions. A method clause may need separate requirements for
 success, failure, default arguments, ordering and side effects. Conversely,
-a heading is not an obligation. The 1183 draft entries span several areas,
+a heading is not an obligation. The 1212 draft entries span several areas,
 without exhausting the obligations in their clauses.
 
 The proposal assigns every root in the existing identifier catalog once:
@@ -49,14 +51,14 @@ The ledger tool consumes no simulator results.
 ## Citations, requirements and execution evidence
 
 A test's first UVM `:lrm:` reference is its **primary focus**; later UVM
-references are **supporting citations**. Of the catalog identifiers, 515
-have a primary-focus test and 1,135 have either kind of citation. Supporting
+references are **supporting citations**. Of the catalog identifiers, 524
+have a primary-focus test and 1,142 have either kind of citation. Supporting
 references often describe setup APIs. No reference creates a requirement link,
 and a child-clause reference is not automatically rolled up to its parent.
 
 For the 2,479 candidate identifiers, the historical two-tests-per-clause
-census currently shows 1,964 with zero primary-focus tests, 273 with one,
-and 242 with at least two. It measures test placement only. It does not
+census currently shows 1,955 with zero primary-focus tests, 277 with one,
+and 247 with at least two. It measures test placement only. It does not
 establish that an identifier has two independent checks, that its normative
 obligations are decomposed, or that either test passes. It is not an approved
 requirement denominator or a declaration that all zero-focus clauses are gaps.
@@ -81,7 +83,7 @@ lines are anchored once; the runner still compares the complete expected sequenc
 
 [Execution evidence](results.md) is separate and needs matching input, runner,
 library and configuration identities. A direct link may retain a spec-only
-known difference. It is not a pass or a conformance claim. The current 1115-test
+known difference. It is not a pass or a conformance claim. The current 1131-test
 snapshot includes newly measured fixtures; mapping unchanged existing tests
 adds no new execution result for them.
 
@@ -101,7 +103,7 @@ duplicate requirement IDs and unknown clauses/tests are rejected.
 - `coverage/test_index.json` snapshots every current test's `primary_clause`
   and `inputs_sha256`. The fingerprint uses the existing runner collector:
   source, declared helpers/includes/data, expected files and UVM lock. The
-  index is an inventory, not 1115 reviewed requirement mappings.
+  index is an inventory, not 1131 reviewed requirement mappings.
 
 Review status is `ai`, `unreviewed` or `human`. Human status requires an
 identified `reviewer` and ISO date in `reviewed_at`; other statuses must leave
@@ -167,35 +169,45 @@ requirement links, while normative decomposition remains partial:
 | 8 | 23 | 34 | 0 | 52 |
 | 9 | 37 | 27 | 0 | 89 |
 | 10 | 50 | 54 | 0 | 80 |
-| 11 | 17 | 12 | 0 | 17 |
-| 12 | 127 | 149 | 0 | 141 |
+| 11 | 35 | 20 | 0 | 4 |
+| 12 | 133 | 152 | 0 | 140 |
 | 13 | 36 | 20 | 0 | 87 |
 | 14 | 118 | 108 | 0 | 51 |
 | 15 | 60 | 80 | 0 | 51 |
 | 16 | 93 | 98 | 0 | 129 |
 | 17 | 7 | 2 | 0 | 26 |
 | 18 | 244 | 209 | 0 | 304 |
-| 19 | 87 | 63 | 0 | 72 |
+| 19 | 89 | 65 | 0 | 71 |
 | B | 36 | 54 | 0 | 110 |
 | C | 9 | 16 | 0 | 80 |
 | D | 6 | 6 | 0 | 40 |
-| E | 49 | 56 | 0 | 79 |
+| E | 52 | 59 | 0 | 77 |
 | F | 51 | 34 | 0 | 106 |
 | G | 1 | 2 | 0 | 21 |
 
-Zero unmapped tests is not complete requirement coverage. One draft remains
-without a direct test:
+Zero unmapped tests and zero drafts without direct tests do not establish
+complete requirement coverage. The remaining 1,736 identifiers still need
+assessment/decomposition. Scope is proposed, all 1212 reviews are `ai` and
+the denominator remains unapproved.
 
-| Requirement | Clause | Remaining observation |
-| --- | --- | --- |
-| `UVM-MEMORY-WALK-ALGORITHM` | E.6.1 | Algorithm-specific data/address relationships beyond visiting locations |
+The [memory-walk fixture](../tests/uE/test_memory_walk_address_data_relations_follow_the_documented_historical_interpretation.sv)
+now supplies algorithm-specific observations under a documented historical
+interpretation. See [Q134](faq.md#q134-how-is-the-memory-walk-algorithm-interpreted).
+It does not promote location masks or a stuck-bit fault into algorithm proof,
+and the interpretation is not an IEEE amendment or human approval.
 
-Backend availability does not remove these obligations from proposed scope.
-The memory-walk location masks and stuck-bit fault are not promoted to proof
-of the complete algorithm. A detailed trace must not be guessed from the
-library implementation. The 1,753 unassessed identifiers also need normative
-classification/decomposition; headings are not automatically test obligations.
-All 1183 requirement reviews remain `ai`.
+Container drafts distinguish names/default specializations, reference sharing,
+key replacement/membership, queue size/order, valid and invalid retrieval,
+nonempty pops and indexed/default deletion. Every method clause in chapter 11
+now has partial decomposition; its chapter/overview/method headings remain
+unassessed. This does not exhaust all conditions or certify two independent
+checks per requirement.
+
+Bidirectional export drafts cover nine concrete constructor variants, nested
+blocking/nonblocking custom types, status propagation and reuse. Two unchanged
+master/slave fixtures add explicit directional export links. HDL drafts cover
+explicit/default abstraction selection and zero-time force_time delegation;
+no positive-duration force/release support or invented task return value is claimed.
 
 Port-base drafts now distinguish omitted constructor bounds, minimum/maximum
 queries, unbounded state, leaf/full names, exact parent, role predicates,
@@ -308,4 +320,4 @@ counting rule and frozen requirement set. Define separately what counts as
 reviewed test coverage and as execution success, including execution conditions
 and evidence identity. Approval needs a later schema/procedure update; schema
 1 intentionally cannot express a completed inventory or approved denominator.
-The current 1183 AI drafts and their direct links do not satisfy that gate.
+The current 1212 AI drafts and their direct links do not satisfy that gate.

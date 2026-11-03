@@ -2,7 +2,7 @@
 
 [English](history.md) · [README](../README.ja.md)
 
-M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の16回目の拡充（シミュレーション1115件）までを記録しています。以前の349件の時点は
+M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の17回目の拡充（シミュレーション1131件）までを記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -1472,3 +1472,35 @@ AI要求案20件を加えて1183件となり、1182要求を1114テストへ直�
 現在の日英ガイド、ハンドオフ、FAQ、用語集を、別の実測条件と残る制限へ更新しました。
 FAQは130回答、用語集は153語です。検証はtool単体83件、全1115 metadata、台帳／索引、library整合性、
 最終入力evidence、日英10組、local参照を対象とします。M1〜M4は未完です。
+
+## M1〜M4の薄い領域の17回目の拡充
+
+2026-11-03に、独自検査系16件を追加しました。container 8件、双方向export 3件、HDL表現／zero-time wrapper 4件、
+instrument付きmemory-walk observer 1件です。スイートは1131件で、M1 372件、M2 424件、M3 335件です。
+新規no-DPI 12件は、Verilator 5.052のseed 1／73で一致し、HDL 4件は未変更のVPI条件で一致します。
+
+containerは、明示した型aliasとreceiverの変更で、既定specializationとstorage共有を観測し、
+名前、置換、所属、順序を保つ挿入／削除、占有数、合法／不正な取得も検査します。
+数値の失敗値は2値bit-vector型、objectの失敗値はnullです。双方向exportの9 constructorは具象型で照会し、
+反転したslave interfaceを不正に共通baseへcastしません。配送は、入れ子export、独自request／response object、
+blockingのreturn、nonblockingのstatus、失敗、再利用を別に検査します。
+未変更の混在master／slave検査系2件にも、方向を明示するexportの対応を加えます。
+
+最後のmemory-walk未対応には、Q134の歴史的解釈の下で、候補となる直接テストを追加します。
+独立したobserver codeで、2 mapのaddress／dataと順序の関係を検査します。
+実装出力の複製、IEEEの改訂、省略された詳細の承認ではありません。
+frontdoor保護warningはalgorithm oracleの対象外で、ERRORと関係は検査します。
+
+AI要求案29件を加えて1212件となり、すべて1130テストへ直接対応し、追加の1テストはcontrolです。
+未対応テストと直接テストのない要求案のqueueは両方0件です。2,504識別子のうち768件を一部分解し、1,736件は未評価です。
+主引用ありは524番号、引用ありは1,142番号、候補の集計は0件1,955番号／1件277番号／2件以上247番号です。
+照合はすべてAI、範囲は提案、分母／比率はnullで、queue 0件はM1〜M4の完了ではありません。
+
+通常evidenceは以前の1115入力を保持し、最終入力16件を加え、両seed一致1014件、known 117件です。
+seed 1の実行時差分99件、API欠落build 10件、DPI未linkのbuild 8件となります。
+別のVPI記録は以前の4入力と新規4入力で、pass 7件、E.7のfail 1件です。重複する条件は合計しません。
+guest記録は未変更1085入力のままで、現在の46件は明示的に未測定です。
+
+現在の日英ガイドとハンドオフを更新し、FAQは134回答、用語集は155語です。
+検証は、tool単体83件、metadata 1131件、台帳／索引、library整合性、互換evidence、日英10組、local参照です。
+既存テスト、runner、VPI backendは未変更です。

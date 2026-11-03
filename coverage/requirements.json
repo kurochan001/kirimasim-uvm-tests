@@ -6636,15 +6636,25 @@
         "ja": "全locationを訪れるだけでなく、algorithm固有の関係が成り立つ。"
       },
       "limitations": {
-        "en": "No test is mapped to this algorithm obligation. Existing location masks and a stuck-bit fault are deliberately not promoted to proof of the full algorithm.",
-        "ja": "algorithmのこの義務にはテストを対応付けない。既存のlocation maskや固定bitの故障を、algorithm全体の証拠に昇格しない。"
+        "en": "AI interpretation: E.6.1 omits algorithm detail. The checker uses Accellera UVM 1.2 LRM 27.7, printed page 730, not implementation output. This historical interpretation needs review and is not an IEEE amendment. One four-location eight-bit memory on two maps is exercised; frontdoor protection warnings are outside this algorithm oracle.",
+        "ja": "AI解釈。E.6.1はalgorithmの詳細を省略する。checkerは実装出力でなくAccellera UVM 1.2 LRM 27.7の印刷page 730を使う。歴史的な解釈にはレビューが必要で、IEEEの改訂ではない。2 mapの4 location・8 bit memory 1つを検査し、frontdoor保護のwarningはalgorithm oracleの対象外とする。"
       },
       "review": {
         "status": "ai",
         "reviewer": null,
         "reviewed_at": null
       },
-      "test_links": []
+      "test_links": [
+        {
+          "test": "uE/test_memory_walk_address_data_relations_follow_the_documented_historical_interpretation",
+          "role": "direct",
+          "expected_observations": [
+            "UT: map_one first 1 reads 1 retired 1 order 1",
+            "UT: map_two first 1 reads 1 retired 1 order 1",
+            "UT: no_errors 1 final_state 1"
+          ]
+        }
+      ]
     },
     {
       "id": "UVM-BIT-BASH-UNKNOWN-POLICY-SKIP",
@@ -45006,6 +45016,1022 @@
           "role": "direct",
           "expected_observations": [
             "UT: resolved size 2 exact_membership 1 distinct 1 default_zero 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-POOL-CONSTRUCTOR-NAMES",
+      "clause": "11.2.2.1",
+      "statement": {
+        "en": "Pool construction retains an explicit name and the empty default name.",
+        "ja": "pool生成は、明示名と既定の空名を保持する。"
+      },
+      "conditions": {
+        "en": "Construct one unnamed and one named local pool.",
+        "ja": "名前なしと名前付きのlocal poolを各1つ生成する。"
+      },
+      "expected": {
+        "en": "The names are empty/named_pool and initial sizes are zero.",
+        "ja": "名前は空／named_poolで、初期sizeは0となる。"
+      },
+      "limitations": {
+        "en": "Public local containers are used with explicit values and exact class handles. Specialization compatibility is checked by typed aliases, while alias mutation observes shared container storage. Out-of-range numeric reads use a two-state bit-vector type with defined zero default; object reads require null. Negative get indexes and four-state defaults are not inferred. Report probes prescribe severity/count only. Shared expected lines do not create independent tests for every observation.",
+        "ja": "公開local containerを、明示値と正確なclass handleで使う。型付きaliasでspecialization互換性を検査し、aliasからの変更でcontainer storageの共有を観測する。範囲外の数値readには、既定0が定まる2値bit-vector型を使い、object readはnullを要求する。負のget indexや4値の既定値は推測しない。report probeはseverity／数だけを指定する。同じ期待行の各観測が、独立したテストになるわけではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u11/test_pool_constructor_names_and_default_type_keep_local_instances_independent",
+          "role": "direct",
+          "expected_observations": [
+            "UT: names default_empty 1 explicit 1 initial_sizes 0 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-POOL-DEFAULT-KEY-ITEM-TYPES",
+      "clause": "11.2.1",
+      "statement": {
+        "en": "The default pool specialization uses int keys and uvm_void items.",
+        "ja": "既定pool specializationは、int keyとuvm_void itemを使う。"
+      },
+      "conditions": {
+        "en": "Assign the default pool to an explicitly specialized alias and get a missing signed key.",
+        "ja": "既定poolを明示specializationのaliasへ代入し、存在しない符号付きkeyをgetする。"
+      },
+      "expected": {
+        "en": "The alias is exact; the missing item is null and its key becomes stored locally.",
+        "ja": "aliasは正確で、存在しなかったitemはnullとなり、そのkeyをlocalに保持する。"
+      },
+      "limitations": {
+        "en": "Public local containers are used with explicit values and exact class handles. Specialization compatibility is checked by typed aliases, while alias mutation observes shared container storage. Out-of-range numeric reads use a two-state bit-vector type with defined zero default; object reads require null. Negative get indexes and four-state defaults are not inferred. Report probes prescribe severity/count only. Shared expected lines do not create independent tests for every observation.",
+        "ja": "公開local containerを、明示値と正確なclass handleで使う。型付きaliasでspecialization互換性を検査し、aliasからの変更でcontainer storageの共有を観測する。範囲外の数値readには、既定0が定まる2値bit-vector型を使い、object readはnullを要求する。負のget indexや4値の既定値は推測しない。report probeはseverity／数だけを指定する。同じ期待行の各観測が、独立したテストになるわけではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u11/test_pool_constructor_names_and_default_type_keep_local_instances_independent",
+          "role": "direct",
+          "expected_observations": [
+            "UT: default_type null 1 stored 1 local_size 1 peer_size 0",
+            "UT: default_types 1 shared_entry 1 count 2 peer_size 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-POOL-CONTAINER-REFERENCE-SHARING",
+      "clause": "11.2",
+      "statement": {
+        "en": "Passing a pool by handle shares its storage while other instances remain independent.",
+        "ja": "poolをhandleで渡すとstorageを共有し、別instanceは独立を保持する。"
+      },
+      "conditions": {
+        "en": "Add a null item through an alias of one of two local pools.",
+        "ja": "2 local poolのうち1つのaliasからnull itemを追加する。"
+      },
+      "expected": {
+        "en": "The original observes the new key and size two while the peer remains empty.",
+        "ja": "元poolは新keyとsize 2を観測し、peerは空を保持する。"
+      },
+      "limitations": {
+        "en": "Public local containers are used with explicit values and exact class handles. Specialization compatibility is checked by typed aliases, while alias mutation observes shared container storage. Out-of-range numeric reads use a two-state bit-vector type with defined zero default; object reads require null. Negative get indexes and four-state defaults are not inferred. Report probes prescribe severity/count only. Shared expected lines do not create independent tests for every observation.",
+        "ja": "公開local containerを、明示値と正確なclass handleで使う。型付きaliasでspecialization互換性を検査し、aliasからの変更でcontainer storageの共有を観測する。範囲外の数値readには、既定0が定まる2値bit-vector型を使い、object readはnullを要求する。負のget indexや4値の既定値は推測しない。report probeはseverity／数だけを指定する。同じ期待行の各観測が、独立したテストになるわけではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u11/test_pool_constructor_names_and_default_type_keep_local_instances_independent",
+          "role": "direct",
+          "expected_observations": [
+            "UT: default_types 1 shared_entry 1 count 2 peer_size 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-POOL-ADD-OVERWRITES-SELECTED-HANDLE",
+      "clause": "11.2.2.5",
+      "statement": {
+        "en": "Adding an existing key replaces its item with the supplied exact handle.",
+        "ja": "既存keyへのaddは、指定した正確なhandleでitemを置換する。"
+      },
+      "conditions": {
+        "en": "Replace one keyed object while keeping another entry, then mutate the returned replacement.",
+        "ja": "別entryを保持しながら1 keyのobjectを置換し、返却された置換objectを変更する。"
+      },
+      "expected": {
+        "en": "Count stays two, the new handle is exact, its change is shared and original/peer objects are unchanged.",
+        "ja": "数は2で新handleは正確、その変更を共有し、元object／peerは不変となる。"
+      },
+      "limitations": {
+        "en": "Public local containers are used with explicit values and exact class handles. Specialization compatibility is checked by typed aliases, while alias mutation observes shared container storage. Out-of-range numeric reads use a two-state bit-vector type with defined zero default; object reads require null. Negative get indexes and four-state defaults are not inferred. Report probes prescribe severity/count only. Shared expected lines do not create independent tests for every observation.",
+        "ja": "公開local containerを、明示値と正確なclass handleで使う。型付きaliasでspecialization互換性を検査し、aliasからの変更でcontainer storageの共有を観測する。範囲外の数値readには、既定0が定まる2値bit-vector型を使い、object readはnullを要求する。負のget indexや4値の既定値は推測しない。report probeはseverity／数だけを指定する。同じ期待行の各観測が、独立したテストになるわけではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u11/test_pool_add_overwrites_the_selected_handle_and_retains_other_entries",
+          "role": "direct",
+          "expected_observations": [
+            "UT: replacement exact 1 peer 1 count 2 old_value 11",
+            "UT: shared_handle value 91 peer_value 33 original_value 11"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-POOL-EXISTS-NONINSERTING-MEMBERSHIP",
+      "clause": "11.2.2.8",
+      "statement": {
+        "en": "Pool exists distinguishes stored zero from an absent key without allocating storage.",
+        "ja": "pool existsは、storageを確保せず、保存済み0と存在しないkeyを区別する。"
+      },
+      "conditions": {
+        "en": "Query a stored zero, repeatedly query an absent key, then delete the stored key.",
+        "ja": "保存済み0を照会し、不在keyを繰返し照会してから、保存keyを削除する。"
+      },
+      "expected": {
+        "en": "Exists returns one only before deletion for the stored key; absent queries leave the count unchanged.",
+        "ja": "保存keyには削除前だけ1を返し、不在の照会は数を変えない。"
+      },
+      "limitations": {
+        "en": "Public local containers are used with explicit values and exact class handles. Specialization compatibility is checked by typed aliases, while alias mutation observes shared container storage. Out-of-range numeric reads use a two-state bit-vector type with defined zero default; object reads require null. Negative get indexes and four-state defaults are not inferred. Report probes prescribe severity/count only. Shared expected lines do not create independent tests for every observation.",
+        "ja": "公開local containerを、明示値と正確なclass handleで使う。型付きaliasでspecialization互換性を検査し、aliasからの変更でcontainer storageの共有を観測する。範囲外の数値readには、既定0が定まる2値bit-vector型を使い、object readはnullを要求する。負のget indexや4値の既定値は推測しない。report probeはseverity／数だけを指定する。同じ期待行の各観測が、独立したテストになるわけではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u11/test_pool_exists_distinguishes_a_stored_zero_without_creating_missing_keys",
+          "role": "direct",
+          "expected_observations": [
+            "UT: exists stored_zero 1 missing 0 count 1",
+            "UT: repeated missing 0 count 1",
+            "UT: deleted missing 0 count 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-QUEUE-CONSTRUCTOR-NAMES",
+      "clause": "11.3.2.1",
+      "statement": {
+        "en": "Queue construction retains an explicit name and the empty default name.",
+        "ja": "queue生成は、明示名と既定の空名を保持する。"
+      },
+      "conditions": {
+        "en": "Construct unnamed and named local queues.",
+        "ja": "名前なしと名前付きのlocal queueを生成する。"
+      },
+      "expected": {
+        "en": "Names are empty/named_queue and both start empty.",
+        "ja": "名前は空／named_queueで、両方が空で始まる。"
+      },
+      "limitations": {
+        "en": "Public local containers are used with explicit values and exact class handles. Specialization compatibility is checked by typed aliases, while alias mutation observes shared container storage. Out-of-range numeric reads use a two-state bit-vector type with defined zero default; object reads require null. Negative get indexes and four-state defaults are not inferred. Report probes prescribe severity/count only. Shared expected lines do not create independent tests for every observation.",
+        "ja": "公開local containerを、明示値と正確なclass handleで使う。型付きaliasでspecialization互換性を検査し、aliasからの変更でcontainer storageの共有を観測する。範囲外の数値readには、既定0が定まる2値bit-vector型を使い、object readはnullを要求する。負のget indexや4値の既定値は推測しない。report probeはseverity／数だけを指定する。同じ期待行の各観測が、独立したテストになるわけではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u11/test_queue_constructor_names_and_front_back_insertion_preserve_local_order",
+          "role": "direct",
+          "expected_observations": [
+            "UT: names default_empty 1 explicit 1 sizes 0 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-QUEUE-DEFAULT-ELEMENT-TYPE",
+      "clause": "11.3.1",
+      "statement": {
+        "en": "The default queue element type is int.",
+        "ja": "queueの既定要素型はintである。"
+      },
+      "conditions": {
+        "en": "Assign the default specialization to an explicit int queue alias.",
+        "ja": "既定specializationを、明示int queueのaliasへ代入する。"
+      },
+      "expected": {
+        "en": "The specialized alias is the exact original handle.",
+        "ja": "specializationを明示したaliasは、正確な元handleとなる。"
+      },
+      "limitations": {
+        "en": "Public local containers are used with explicit values and exact class handles. Specialization compatibility is checked by typed aliases, while alias mutation observes shared container storage. Out-of-range numeric reads use a two-state bit-vector type with defined zero default; object reads require null. Negative get indexes and four-state defaults are not inferred. Report probes prescribe severity/count only. Shared expected lines do not create independent tests for every observation.",
+        "ja": "公開local containerを、明示値と正確なclass handleで使う。型付きaliasでspecialization互換性を検査し、aliasからの変更でcontainer storageの共有を観測する。範囲外の数値readには、既定0が定まる2値bit-vector型を使い、object readはnullを要求する。負のget indexや4値の既定値は推測しない。report probeはseverity／数だけを指定する。同じ期待行の各観測が、独立したテストになるわけではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u11/test_queue_constructor_names_and_front_back_insertion_preserve_local_order",
+          "role": "direct",
+          "expected_observations": [
+            "UT: default_type 1 shared_size 4 appended 8 peer_size 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-QUEUE-CONTAINER-REFERENCE-SHARING",
+      "clause": "11.3",
+      "statement": {
+        "en": "Queue handles share the receiver storage while another instance stays independent.",
+        "ja": "queue handleは、receiverのstorageを共有し、別instanceは独立を保持する。"
+      },
+      "conditions": {
+        "en": "Append eight through an alias after front/back insertion in one queue.",
+        "ja": "1 queueへのfront／back挿入後に、aliasから8を追加する。"
+      },
+      "expected": {
+        "en": "The original size becomes four and its final value is eight; peer size stays zero.",
+        "ja": "元sizeは4、最後の値は8となり、peer sizeは0を保持する。"
+      },
+      "limitations": {
+        "en": "Public local containers are used with explicit values and exact class handles. Specialization compatibility is checked by typed aliases, while alias mutation observes shared container storage. Out-of-range numeric reads use a two-state bit-vector type with defined zero default; object reads require null. Negative get indexes and four-state defaults are not inferred. Report probes prescribe severity/count only. Shared expected lines do not create independent tests for every observation.",
+        "ja": "公開local containerを、明示値と正確なclass handleで使う。型付きaliasでspecialization互換性を検査し、aliasからの変更でcontainer storageの共有を観測する。範囲外の数値readには、既定0が定まる2値bit-vector型を使い、object readはnullを要求する。負のget indexや4値の既定値は推測しない。report probeはseverity／数だけを指定する。同じ期待行の各観測が、独立したテストになるわけではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u11/test_queue_constructor_names_and_front_back_insertion_preserve_local_order",
+          "role": "direct",
+          "expected_observations": [
+            "UT: default_type 1 shared_size 4 appended 8 peer_size 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-QUEUE-PUSH-FRONT-PLACEMENT",
+      "clause": "11.3.2.10",
+      "statement": {
+        "en": "push_front inserts before the previously stored items.",
+        "ja": "push_frontは、以前の保存itemより前へ挿入する。"
+      },
+      "conditions": {
+        "en": "Push four at back, two at front, then six at back.",
+        "ja": "backに4、frontに2、次にbackに6をpushする。"
+      },
+      "expected": {
+        "en": "Indexed values are 2/4/6 with size three.",
+        "ja": "index順の値は2／4／6で、sizeは3となる。"
+      },
+      "limitations": {
+        "en": "Public local containers are used with explicit values and exact class handles. Specialization compatibility is checked by typed aliases, while alias mutation observes shared container storage. Out-of-range numeric reads use a two-state bit-vector type with defined zero default; object reads require null. Negative get indexes and four-state defaults are not inferred. Report probes prescribe severity/count only. Shared expected lines do not create independent tests for every observation.",
+        "ja": "公開local containerを、明示値と正確なclass handleで使う。型付きaliasでspecialization互換性を検査し、aliasからの変更でcontainer storageの共有を観測する。範囲外の数値readには、既定0が定まる2値bit-vector型を使い、object readはnullを要求する。負のget indexや4値の既定値は推測しない。report probeはseverity／数だけを指定する。同じ期待行の各観測が、独立したテストになるわけではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u11/test_queue_constructor_names_and_front_back_insertion_preserve_local_order",
+          "role": "direct",
+          "expected_observations": [
+            "UT: inserted size 3 values 2 4 6 peer_size 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-QUEUE-PUSH-BACK-PLACEMENT",
+      "clause": "11.3.2.11",
+      "statement": {
+        "en": "push_back appends without displacing prior item order.",
+        "ja": "push_backは、以前のitem順を崩さず追加する。"
+      },
+      "conditions": {
+        "en": "Append six after 2/4, then append eight through an alias.",
+        "ja": "2／4の後へ6を追加し、次にaliasから8を追加する。"
+      },
+      "expected": {
+        "en": "The first append preserves 2/4/6 and the later tail is eight with size four.",
+        "ja": "最初の追加は2／4／6を保持し、後の末尾は8、sizeは4となる。"
+      },
+      "limitations": {
+        "en": "Public local containers are used with explicit values and exact class handles. Specialization compatibility is checked by typed aliases, while alias mutation observes shared container storage. Out-of-range numeric reads use a two-state bit-vector type with defined zero default; object reads require null. Negative get indexes and four-state defaults are not inferred. Report probes prescribe severity/count only. Shared expected lines do not create independent tests for every observation.",
+        "ja": "公開local containerを、明示値と正確なclass handleで使う。型付きaliasでspecialization互換性を検査し、aliasからの変更でcontainer storageの共有を観測する。範囲外の数値readには、既定0が定まる2値bit-vector型を使い、object readはnullを要求する。負のget indexや4値の既定値は推測しない。report probeはseverity／数だけを指定する。同じ期待行の各観測が、独立したテストになるわけではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u11/test_queue_constructor_names_and_front_back_insertion_preserve_local_order",
+          "role": "direct",
+          "expected_observations": [
+            "UT: inserted size 3 values 2 4 6 peer_size 0",
+            "UT: default_type 1 shared_size 4 appended 8 peer_size 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-QUEUE-SIZE-TRACKS-LIFECYCLE",
+      "clause": "11.3.2.5",
+      "statement": {
+        "en": "Queue size reflects its current occupancy across insertion and removal.",
+        "ja": "queue sizeは、挿入／削除を通じて現在の占有数を反映する。"
+      },
+      "conditions": {
+        "en": "Query before insertion, after appends, after indexed deletions and after clearing.",
+        "ja": "挿入前、追加後、index削除後、全削除後に照会する。"
+      },
+      "expected": {
+        "en": "Reported counts match each fixture occupancy and mutations leave the peer size unchanged.",
+        "ja": "数は各検査系の占有数と一致し、変更はpeer sizeを変えない。"
+      },
+      "limitations": {
+        "en": "Public local containers are used with explicit values and exact class handles. Specialization compatibility is checked by typed aliases, while alias mutation observes shared container storage. Out-of-range numeric reads use a two-state bit-vector type with defined zero default; object reads require null. Negative get indexes and four-state defaults are not inferred. Report probes prescribe severity/count only. Shared expected lines do not create independent tests for every observation.",
+        "ja": "公開local containerを、明示値と正確なclass handleで使う。型付きaliasでspecialization互換性を検査し、aliasからの変更でcontainer storageの共有を観測する。範囲外の数値readには、既定0が定まる2値bit-vector型を使い、object readはnullを要求する。負のget indexや4値の既定値は推測しない。report probeはseverity／数だけを指定する。同じ期待行の各観測が、独立したテストになるわけではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u11/test_queue_constructor_names_and_front_back_insertion_preserve_local_order",
+          "role": "direct",
+          "expected_observations": [
+            "UT: names default_empty 1 explicit 1 sizes 0 0",
+            "UT: inserted size 3 values 2 4 6 peer_size 0",
+            "UT: default_type 1 shared_size 4 appended 8 peer_size 0"
+          ]
+        },
+        {
+          "test": "u11/test_queue_delete_shifts_remaining_handles_and_default_delete_clears_only_one_instance",
+          "role": "direct",
+          "expected_observations": [
+            "UT: indexed size 3 order 1 peer 1",
+            "UT: endpoints remaining 1 size 1",
+            "UT: default_clear size 0 peer_size 1 peer_same 1",
+            "UT: explicit_minus_one size 0 peer_size 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-QUEUE-VALID-GET-RETAINS-HANDLE",
+      "clause": "11.3.2.4",
+      "statement": {
+        "en": "A valid queue get returns the stored handle without consuming the item.",
+        "ja": "合法なqueue getは、itemを消費せず保存handleを返す。"
+      },
+      "conditions": {
+        "en": "Get the middle object from a three-entry queue and mutate it.",
+        "ja": "3 entry queueの中央objectをgetして変更する。"
+      },
+      "expected": {
+        "en": "The exact middle handle is returned, size stays three and its stored value changes to twenty-five.",
+        "ja": "正確な中央handleを返し、sizeは3、保存値は25へ変わる。"
+      },
+      "limitations": {
+        "en": "Public local containers are used with explicit values and exact class handles. Specialization compatibility is checked by typed aliases, while alias mutation observes shared container storage. Out-of-range numeric reads use a two-state bit-vector type with defined zero default; object reads require null. Negative get indexes and four-state defaults are not inferred. Report probes prescribe severity/count only. Shared expected lines do not create independent tests for every observation.",
+        "ja": "公開local containerを、明示値と正確なclass handleで使う。型付きaliasでspecialization互換性を検査し、aliasからの変更でcontainer storageの共有を観測する。範囲外の数値readには、既定0が定まる2値bit-vector型を使い、object readはnullを要求する。負のget indexや4値の既定値は推測しない。report probeはseverity／数だけを指定する。同じ期待行の各観測が、独立したテストになるわけではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u11/test_queue_nonempty_pop_ends_return_exact_handles_and_leave_the_middle",
+          "role": "direct",
+          "expected_observations": [
+            "UT: get same 1 size 3 shared_value 25"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-QUEUE-OUT-OF-RANGE-GET-TWO-STATE-DEFAULT",
+      "clause": "11.3.2.4",
+      "statement": {
+        "en": "A get at or above size warns and returns the missing-entry default for the element type.",
+        "ja": "size以上のgetは、warningを出し、要素型の不在entryの既定値を返す。"
+      },
+      "conditions": {
+        "en": "Read at size and size plus one from a two-entry two-state bit-vector queue.",
+        "ja": "2 entryの2値bit-vector queueから、sizeとsize＋1の位置を読む。"
+      },
+      "expected": {
+        "en": "There are two warnings, no errors and zero defaults; both original entries remain in order.",
+        "ja": "warningは2、errorは0、既定値は0で、元の両entryを順番どおり保持する。"
+      },
+      "limitations": {
+        "en": "Public local containers are used with explicit values and exact class handles. Specialization compatibility is checked by typed aliases, while alias mutation observes shared container storage. Out-of-range numeric reads use a two-state bit-vector type with defined zero default; object reads require null. Negative get indexes and four-state defaults are not inferred. Report probes prescribe severity/count only. Shared expected lines do not create independent tests for every observation.",
+        "ja": "公開local containerを、明示値と正確なclass handleで使う。型付きaliasでspecialization互換性を検査し、aliasからの変更でcontainer storageの共有を観測する。範囲外の数値readには、既定0が定まる2値bit-vector型を使い、object readはnullを要求する。負のget indexや4値の既定値は推測しない。report probeはseverity／数だけを指定する。同じ期待行の各観測が、独立したテストになるわけではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u11/test_queue_out_of_range_get_warns_returns_a_two_state_default_and_retains_data",
+          "role": "direct",
+          "expected_observations": [
+            "UT: warnings 2 errors 0 defaults 1 1",
+            "UT: retained size 2 first 1 second 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-QUEUE-OUT-OF-RANGE-GET-OBJECT-DEFAULT",
+      "clause": "11.3.2.4",
+      "statement": {
+        "en": "An out-of-range get on an object queue warns and returns null.",
+        "ja": "object queueの範囲外getは、warningを出してnullを返す。"
+      },
+      "conditions": {
+        "en": "Read index one from a singleton object queue.",
+        "ja": "object 1 entryのqueueでindex 1を読む。"
+      },
+      "expected": {
+        "en": "One warning and no error occur, null returns and the exact singleton remains.",
+        "ja": "warning 1つ、errorなしでnullを返し、正確な唯一のitemを保持する。"
+      },
+      "limitations": {
+        "en": "Public local containers are used with explicit values and exact class handles. Specialization compatibility is checked by typed aliases, while alias mutation observes shared container storage. Out-of-range numeric reads use a two-state bit-vector type with defined zero default; object reads require null. Negative get indexes and four-state defaults are not inferred. Report probes prescribe severity/count only. Shared expected lines do not create independent tests for every observation.",
+        "ja": "公開local containerを、明示値と正確なclass handleで使う。型付きaliasでspecialization互換性を検査し、aliasからの変更でcontainer storageの共有を観測する。範囲外の数値readには、既定0が定まる2値bit-vector型を使い、object readはnullを要求する。負のget indexや4値の既定値は推測しない。report probeはseverity／数だけを指定する。同じ期待行の各観測が、独立したテストになるわけではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u11/test_queue_out_of_range_object_get_warns_returns_null_and_preserves_the_entry",
+          "role": "direct",
+          "expected_observations": [
+            "UT: warnings 1 errors 0 null 1 retained 1 size 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-QUEUE-NONEMPTY-POP-FRONT-HANDLE",
+      "clause": "11.3.2.8",
+      "statement": {
+        "en": "A nonempty pop_front removes and returns the first stored handle.",
+        "ja": "空でないpop_frontは、先頭の保存handleを取り除いて返す。"
+      },
+      "conditions": {
+        "en": "Pop front and then back from a three-handle queue.",
+        "ja": "3 handle queueでfront、次にbackをpopする。"
+      },
+      "expected": {
+        "en": "The exact front handle is returned and only the middle remains after both removals.",
+        "ja": "正確なfront handleを返し、両削除後には中央だけが残る。"
+      },
+      "limitations": {
+        "en": "Public local containers are used with explicit values and exact class handles. Specialization compatibility is checked by typed aliases, while alias mutation observes shared container storage. Out-of-range numeric reads use a two-state bit-vector type with defined zero default; object reads require null. Negative get indexes and four-state defaults are not inferred. Report probes prescribe severity/count only. Shared expected lines do not create independent tests for every observation.",
+        "ja": "公開local containerを、明示値と正確なclass handleで使う。型付きaliasでspecialization互換性を検査し、aliasからの変更でcontainer storageの共有を観測する。範囲外の数値readには、既定0が定まる2値bit-vector型を使い、object readはnullを要求する。負のget indexや4値の既定値は推測しない。report probeはseverity／数だけを指定する。同じ期待行の各観測が、独立したテストになるわけではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u11/test_queue_nonempty_pop_ends_return_exact_handles_and_leave_the_middle",
+          "role": "direct",
+          "expected_observations": [
+            "UT: popped front 1 back 1 middle 1 size 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-QUEUE-NONEMPTY-POP-BACK-HANDLE",
+      "clause": "11.3.2.9",
+      "statement": {
+        "en": "A nonempty pop_back removes and returns the last stored handle.",
+        "ja": "空でないpop_backは、最後の保存handleを取り除いて返す。"
+      },
+      "conditions": {
+        "en": "Pop back after the front was removed from a three-handle queue.",
+        "ja": "3 handle queueのfrontを削除した後にbackをpopする。"
+      },
+      "expected": {
+        "en": "The exact back handle is returned and the remaining middle handle has size one.",
+        "ja": "正確なback handleを返し、残る中央handleだけでsizeは1となる。"
+      },
+      "limitations": {
+        "en": "Public local containers are used with explicit values and exact class handles. Specialization compatibility is checked by typed aliases, while alias mutation observes shared container storage. Out-of-range numeric reads use a two-state bit-vector type with defined zero default; object reads require null. Negative get indexes and four-state defaults are not inferred. Report probes prescribe severity/count only. Shared expected lines do not create independent tests for every observation.",
+        "ja": "公開local containerを、明示値と正確なclass handleで使う。型付きaliasでspecialization互換性を検査し、aliasからの変更でcontainer storageの共有を観測する。範囲外の数値readには、既定0が定まる2値bit-vector型を使い、object readはnullを要求する。負のget indexや4値の既定値は推測しない。report probeはseverity／数だけを指定する。同じ期待行の各観測が、独立したテストになるわけではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u11/test_queue_nonempty_pop_ends_return_exact_handles_and_leave_the_middle",
+          "role": "direct",
+          "expected_observations": [
+            "UT: popped front 1 back 1 middle 1 size 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-QUEUE-INDEXED-DELETE-REMAINING-ORDER",
+      "clause": "11.3.2.7",
+      "statement": {
+        "en": "Indexed deletion removes only the selected entry and retains the remaining order.",
+        "ja": "index削除は、選択entryだけを除き、残る順序を保持する。"
+      },
+      "conditions": {
+        "en": "Delete a middle entry and then both endpoints while keeping an independent queue.",
+        "ja": "独立queueを保持して、中央entry、次に両端を削除する。"
+      },
+      "expected": {
+        "en": "The surviving handles retain order and the peer retains its exact entry.",
+        "ja": "残るhandleは順序を保持し、peerは正確なentryを保持する。"
+      },
+      "limitations": {
+        "en": "Public local containers are used with explicit values and exact class handles. Specialization compatibility is checked by typed aliases, while alias mutation observes shared container storage. Out-of-range numeric reads use a two-state bit-vector type with defined zero default; object reads require null. Negative get indexes and four-state defaults are not inferred. Report probes prescribe severity/count only. Shared expected lines do not create independent tests for every observation.",
+        "ja": "公開local containerを、明示値と正確なclass handleで使う。型付きaliasでspecialization互換性を検査し、aliasからの変更でcontainer storageの共有を観測する。範囲外の数値readには、既定0が定まる2値bit-vector型を使い、object readはnullを要求する。負のget indexや4値の既定値は推測しない。report probeはseverity／数だけを指定する。同じ期待行の各観測が、独立したテストになるわけではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u11/test_queue_delete_shifts_remaining_handles_and_default_delete_clears_only_one_instance",
+          "role": "direct",
+          "expected_observations": [
+            "UT: indexed size 3 order 1 peer 1",
+            "UT: endpoints remaining 1 size 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-QUEUE-DEFAULT-DELETE-CLEARS-RECEIVER",
+      "clause": "11.3.2.7",
+      "statement": {
+        "en": "Default delete and explicit minus one clear the receiver queue.",
+        "ja": "既定deleteと明示-1は、receiver queueを全削除する。"
+      },
+      "conditions": {
+        "en": "Clear populated storage with omitted index, refill and clear with minus one.",
+        "ja": "保存済みstorageをindex省略で削除し、再追加後に-1で全削除する。"
+      },
+      "expected": {
+        "en": "Both clear operations leave size zero while the peer still has its one exact item.",
+        "ja": "両削除後にsizeは0で、peerは自身の正確な1 itemを保持する。"
+      },
+      "limitations": {
+        "en": "Public local containers are used with explicit values and exact class handles. Specialization compatibility is checked by typed aliases, while alias mutation observes shared container storage. Out-of-range numeric reads use a two-state bit-vector type with defined zero default; object reads require null. Negative get indexes and four-state defaults are not inferred. Report probes prescribe severity/count only. Shared expected lines do not create independent tests for every observation.",
+        "ja": "公開local containerを、明示値と正確なclass handleで使う。型付きaliasでspecialization互換性を検査し、aliasからの変更でcontainer storageの共有を観測する。範囲外の数値readには、既定0が定まる2値bit-vector型を使い、object readはnullを要求する。負のget indexや4値の既定値は推測しない。report probeはseverity／数だけを指定する。同じ期待行の各観測が、独立したテストになるわけではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u11/test_queue_delete_shifts_remaining_handles_and_default_delete_clears_only_one_instance",
+          "role": "direct",
+          "expected_observations": [
+            "UT: default_clear size 0 peer_size 1 peer_same 1",
+            "UT: explicit_minus_one size 0 peer_size 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM1-BIDIRECTIONAL-EXPORT-CONSTRUCTORS",
+      "clause": "12.2.6.2",
+      "statement": {
+        "en": "Bidirectional export constructors preserve names, parent handles, export roles and default bounds.",
+        "ja": "双方向exportのconstructorは、名前、parent handle、export role、既定boundsを保持する。"
+      },
+      "conditions": {
+        "en": "Construct all nine REQ/RSP transport/master/slave variants before resolution.",
+        "ja": "解決前に、REQ／RSPのtransport／master／slave 9種類を生成する。"
+      },
+      "expected": {
+        "en": "All nine have the configured identity and export role with min/max both one.",
+        "ja": "9種類すべてで設定した同一性とexport role、最小／最大の両1を示す。"
+      },
+      "limitations": {
+        "en": "Original endpoints generate replies and delays; those choices are fixture behavior. Nine constructors are queried on concrete types without an invalid common-base cast across reversed slave interfaces. Nested export routing preserves custom request/response types, statuses and exact handles. Failed nb_transport output is deliberately unconstrained. No arbitration, queue storage, protocol correlation or concurrent caller guarantee is inferred.",
+        "ja": "独自endpointがreplyと遅延を作り、それらの選択は検査系の動作である。反転したslave interfaceを不正に同じbaseへcastせず、具象型で9 constructorを照会する。入れ子exportのroutingは、独自request／response型、status、正確なhandleを保持する。nb_transport失敗出力は意図的に制約しない。arbitration、queue storage、protocolの照合、同時callerの保証は推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_bidirectional_export_constructors_preserve_default_bounds_roles_names_and_parents",
+          "role": "direct",
+          "expected_observations": [
+            "UT: exports 9 bounds 1 roles 1 parents 1 names 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM1-NESTED-BLOCKING-EXPORT-CUSTOM-HANDLES",
+      "clause": "12.2.6.2",
+      "statement": {
+        "en": "Nested blocking exports preserve custom handle delivery and keep the caller blocked until implementation return.",
+        "ja": "入れ子blocking exportは、独自handleの配送を保持し、implementationのreturnまでcallerをblockする。"
+      },
+      "conditions": {
+        "en": "Route a custom request through two exports to a delayed implementation returning a separate response object.",
+        "ja": "2 exportで、独自requestを遅延implementationへroutingし、別response objectを返す。"
+      },
+      "expected": {
+        "en": "The mid-delay caller is blocked; one call returns the exact response and observes the exact request/value.",
+        "ja": "遅延中のcallerはblockし、1呼出しで正確なresponseを返して正確なrequest／値を観測する。"
+      },
+      "limitations": {
+        "en": "Original endpoints generate replies and delays; those choices are fixture behavior. Nine constructors are queried on concrete types without an invalid common-base cast across reversed slave interfaces. Nested export routing preserves custom request/response types, statuses and exact handles. Failed nb_transport output is deliberately unconstrained. No arbitration, queue storage, protocol correlation or concurrent caller guarantee is inferred.",
+        "ja": "独自endpointがreplyと遅延を作り、それらの選択は検査系の動作である。反転したslave interfaceを不正に同じbaseへcastせず、具象型で9 constructorを照会する。入れ子exportのroutingは、独自request／response型、status、正確なhandleを保持する。nb_transport失敗出力は意図的に制約しない。arbitration、queue storage、protocolの照合、同時callerの保証は推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_nested_blocking_transport_exports_preserve_custom_handles_and_block_until_return",
+          "role": "direct",
+          "expected_observations": [
+            "UT: blocked 1 calls 1",
+            "UT: returned 1 request 1 number 41 response 1 text 1 calls 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM1-NESTED-NONBLOCKING-EXPORT-CUSTOM-REUSE",
+      "clause": "12.2.6.2",
+      "statement": {
+        "en": "Nested nonblocking exports propagate successful custom requests/responses across repeated calls.",
+        "ja": "入れ子nonblocking exportは、反復呼出しで成功した独自request／responseを伝播する。"
+      },
+      "conditions": {
+        "en": "Send two distinct request objects, change the reply handle and reuse the path after one failed call.",
+        "ja": "異なる2 request objectを送り、reply handleを変え、失敗1回の後に経路を再利用する。"
+      },
+      "expected": {
+        "en": "Success and exact handles propagate, the first reply remains intact and the reenabled call succeeds.",
+        "ja": "成功と正確なhandleが伝播し、最初のreplyはそのまま残り、再有効化後の呼出しは成功する。"
+      },
+      "limitations": {
+        "en": "Original endpoints generate replies and delays; those choices are fixture behavior. Nine constructors are queried on concrete types without an invalid common-base cast across reversed slave interfaces. Nested export routing preserves custom request/response types, statuses and exact handles. Failed nb_transport output is deliberately unconstrained. No arbitration, queue storage, protocol correlation or concurrent caller guarantee is inferred.",
+        "ja": "独自endpointがreplyと遅延を作り、それらの選択は検査系の動作である。反転したslave interfaceを不正に同じbaseへcastせず、具象型で9 constructorを照会する。入れ子exportのroutingは、独自request／response型、status、正確なhandleを保持する。nb_transport失敗出力は意図的に制約しない。arbitration、queue storage、protocolの照合、同時callerの保証は推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_nested_nonblocking_transport_exports_forward_status_handles_failure_and_reuse",
+          "role": "direct",
+          "expected_observations": [
+            "UT: first success 1 request 1 response 1 value 1 calls 1",
+            "UT: second success 1 request 1 response 1 first_retained 1 calls 2",
+            "UT: reused success 1 response 1 calls 4"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM1-NESTED-NONBLOCKING-EXPORT-FAILURE",
+      "clause": "12.2.6.2",
+      "statement": {
+        "en": "Nested nonblocking exports propagate a failing implementation completion status.",
+        "ja": "入れ子nonblocking exportは、失敗するimplementationの完了statusを伝播する。"
+      },
+      "conditions": {
+        "en": "Disable the endpoint for one call between successful calls.",
+        "ja": "成功呼出しの間に、1回だけendpointを無効にする。"
+      },
+      "expected": {
+        "en": "That call returns false and reaches the endpoint exactly once.",
+        "ja": "その呼出しはfalseを返し、endpointへ正確に1回到達する。"
+      },
+      "limitations": {
+        "en": "Original endpoints generate replies and delays; those choices are fixture behavior. Nine constructors are queried on concrete types without an invalid common-base cast across reversed slave interfaces. Nested export routing preserves custom request/response types, statuses and exact handles. Failed nb_transport output is deliberately unconstrained. No arbitration, queue storage, protocol correlation or concurrent caller guarantee is inferred.",
+        "ja": "独自endpointがreplyと遅延を作り、それらの選択は検査系の動作である。反転したslave interfaceを不正に同じbaseへcastせず、具象型で9 constructorを照会する。入れ子exportのroutingは、独自request／response型、status、正確なhandleを保持する。nb_transport失敗出力は意図的に制約しない。arbitration、queue storage、protocolの照合、同時callerの保証は推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_nested_nonblocking_transport_exports_forward_status_handles_failure_and_reuse",
+          "role": "direct",
+          "expected_observations": [
+            "UT: failure propagated 1 calls 3"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM1-MASTER-EXPORT-MIXED-TYPED-DIRECTION",
+      "clause": "12.2.6.2",
+      "statement": {
+        "en": "A master export preserves request-write and response-read direction with distinct REQ/RSP types.",
+        "ja": "master exportは、異なるREQ／RSP型でrequest-writeとresponse-readの方向を保持する。"
+      },
+      "conditions": {
+        "en": "Use the existing int-request/string-response mixed blocking/nonblocking fixture through an export.",
+        "ja": "exportを通す既存のint request／string responseのblocking／nonblocking混在検査系を使う。"
+      },
+      "expected": {
+        "en": "Requests 41/42 and alpha/beta responses reach the selected split implementations with peek retention and reuse.",
+        "ja": "request 41／42とresponse alpha／betaが、peek保持と再利用を伴って選択した分離implementationへ届く。"
+      },
+      "limitations": {
+        "en": "Original endpoints generate replies and delays; those choices are fixture behavior. Nine constructors are queried on concrete types without an invalid common-base cast across reversed slave interfaces. Nested export routing preserves custom request/response types, statuses and exact handles. Failed nb_transport output is deliberately unconstrained. No arbitration, queue storage, protocol correlation or concurrent caller guarantee is inferred.",
+        "ja": "独自endpointがreplyと遅延を作り、それらの選択は検査系の動作である。反転したslave interfaceを不正に同じbaseへcastせず、具象型で9 constructorを照会する。入れ子exportのroutingは、独自request／response型、status、正確なhandleを保持する。nb_transport失敗出力は意図的に制約しない。arbitration、queue storage、protocolの照合、同時callerの保証は推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_master_export_routes_mixed_operations_to_split_implementations",
+          "role": "direct",
+          "expected_observations": [
+            "UT: requests 41 42 accepted 1 response_peek 1 response_get 1",
+            "UT: responses alpha beta beta reusable 1 empty 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM1-SLAVE-EXPORT-MIXED-TYPED-DIRECTION",
+      "clause": "12.2.6.2",
+      "statement": {
+        "en": "A slave export preserves request-read and response-write direction with distinct REQ/RSP types.",
+        "ja": "slave exportは、異なるREQ／RSP型でrequest-readとresponse-writeの方向を保持する。"
+      },
+      "conditions": {
+        "en": "Use the existing int-request/string-response mixed slave fixture through its export.",
+        "ja": "exportを通す既存のint request／string response混在slave検査系を使う。"
+      },
+      "expected": {
+        "en": "Requests 51/52 and alpha/beta replies retain their direction, peek data and completion bits.",
+        "ja": "request 51／52とreply alpha／betaは、方向、peek data、完了bitを保持する。"
+      },
+      "limitations": {
+        "en": "Original endpoints generate replies and delays; those choices are fixture behavior. Nine constructors are queried on concrete types without an invalid common-base cast across reversed slave interfaces. Nested export routing preserves custom request/response types, statuses and exact handles. Failed nb_transport output is deliberately unconstrained. No arbitration, queue storage, protocol correlation or concurrent caller guarantee is inferred.",
+        "ja": "独自endpointがreplyと遅延を作り、それらの選択は検査系の動作である。反転したslave interfaceを不正に同じbaseへcastせず、具象型で9 constructorを照会する。入れ子exportのroutingは、独自request／response型、status、正確なhandleを保持する。nb_transport失敗出力は意図的に制約しない。arbitration、queue storage、protocolの照合、同時callerの保証は推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_slave_export_routes_mixed_operations_to_split_implementations",
+          "role": "direct",
+          "expected_observations": [
+            "UT: requests 51 52 52 read 1 peek 1 accepted 1",
+            "UT: responses alpha beta reusable 1 empty 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-HDL-PATH-EXPLICIT-ABSTRACTION-SELECTION",
+      "clause": "E.7.2",
+      "statement": {
+        "en": "A nonempty abstractions queue selects the specified HDL representation instead of the default.",
+        "ja": "空でないabstractions queueは、既定でなく指定したHDL表現を選択する。"
+      },
+      "conditions": {
+        "en": "Keep an invalid RTL default, add a valid ALT path and request only ALT.",
+        "ja": "不正なRTL既定を残し、正しいALT pathを加え、ALTだけを要求する。"
+      },
+      "expected": {
+        "en": "The valid path is checked with no warnings/errors, unchanged storage and no time advance.",
+        "ja": "正しいpathを、warning／errorなし、storage不変、時刻進行なしで検査する。"
+      },
+      "limitations": {
+        "en": "Measured only with the unchanged original limited VPI backend/runner and real eight-bit HDL variables. Invalid alternative paths must remain unselected; no warning text, path iteration order or finer permissions are prescribed. E.7 read attempts remain separate from these abstraction-selection observations. Zero-time force_time tests exercise the UVM wrapper, not force/release backend support; the printed task/return-value inconsistency is not converted into an invented return assertion.",
+        "ja": "未変更の独自限定VPI backend／runnerと、実際の8 bit HDL変数だけで実測する。不正な代替pathは未選択を要求し、warning本文、path列挙順、細かな権限は指定しない。E.7のread試行は、abstraction選択の観測とは別に残す。zero-time force_timeはUVM wrapperの検査で、force／release backendの対応ではない。記載されたtask／戻り値の矛盾から、架空の戻り値assertionは作らない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uE/test_hdl_path_sequence_uses_an_explicit_abstraction_instead_of_the_invalid_default",
+          "role": "direct",
+          "expected_observations": [
+            "UT: selected no_warnings 1 no_errors 1 zero_time 1",
+            "UT: checked 1 no_deposits 1 no_other 1 storage 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-HDL-PATH-EMPTY-LIST-BLOCK-DEFAULT",
+      "clause": "E.7.2",
+      "statement": {
+        "en": "An empty abstractions queue uses the configured block default representation.",
+        "ja": "空のabstractions queueは、設定したblockの既定表現を使う。"
+      },
+      "conditions": {
+        "en": "Configure ALT as block default while leaving an invalid RTL alternative.",
+        "ja": "不正なRTL代替を残し、block既定をALTへ設定する。"
+      },
+      "expected": {
+        "en": "Only the accessible choice is tested successfully in zero time and storage is unchanged.",
+        "ja": "利用可能な選択先だけを時刻0で正常検査し、storageは変わらない。"
+      },
+      "limitations": {
+        "en": "Measured only with the unchanged original limited VPI backend/runner and real eight-bit HDL variables. Invalid alternative paths must remain unselected; no warning text, path iteration order or finer permissions are prescribed. E.7 read attempts remain separate from these abstraction-selection observations. Zero-time force_time tests exercise the UVM wrapper, not force/release backend support; the printed task/return-value inconsistency is not converted into an invented return assertion.",
+        "ja": "未変更の独自限定VPI backend／runnerと、実際の8 bit HDL変数だけで実測する。不正な代替pathは未選択を要求し、warning本文、path列挙順、細かな権限は指定しない。E.7のread試行は、abstraction選択の観測とは別に残す。zero-time force_timeはUVM wrapperの検査で、force／release backendの対応ではない。記載されたtask／戻り値の矛盾から、架空の戻り値assertionは作らない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uE/test_hdl_path_sequence_uses_the_block_default_abstraction_when_the_list_is_empty",
+          "role": "direct",
+          "expected_observations": [
+            "UT: selected no_warnings 1 no_errors 1 zero_time 1",
+            "UT: checked 1 no_deposits 1 no_other 1 storage 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-HDL-FORCE-TIME-DEFAULT-DEPOSIT-DELEGATION",
+      "clause": "19.6.2.4",
+      "statement": {
+        "en": "Omitted force_time defaults to zero and delegates to deposit.",
+        "ja": "force_timeの省略は既定0となり、depositへ委譲する。"
+      },
+      "conditions": {
+        "en": "Call the task without its time argument on a real variable and observe backend operation counts.",
+        "ja": "実変数に対してtime引数なしでtaskを呼び、backendの操作数を観測する。"
+      },
+      "expected": {
+        "en": "Exactly one deposit, no force/release/read calls and no elapsed time occur; the selected value changes while its peer is retained.",
+        "ja": "depositは正確に1回で、force／release／read呼出しも時刻経過もなく、対象値だけが変わりpeerを保持する。"
+      },
+      "limitations": {
+        "en": "Measured only with the unchanged original limited VPI backend/runner and real eight-bit HDL variables. Invalid alternative paths must remain unselected; no warning text, path iteration order or finer permissions are prescribed. E.7 read attempts remain separate from these abstraction-selection observations. Zero-time force_time tests exercise the UVM wrapper, not force/release backend support; the printed task/return-value inconsistency is not converted into an invented return assertion.",
+        "ja": "未変更の独自限定VPI backend／runnerと、実際の8 bit HDL変数だけで実測する。不正な代替pathは未選択を要求し、warning本文、path列挙順、細かな権限は指定しない。E.7のread試行は、abstraction選択の観測とは別に残す。zero-time force_timeはUVM wrapperの検査で、force／release backendの対応ではない。記載されたtask／戻り値の矛盾から、架空の戻り値assertionは作らない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_hdl_force_time_default_time_delegates_to_deposit_without_force_or_release",
+          "role": "direct",
+          "expected_observations": [
+            "UT: delegated deposit 1 no_force_release 1 no_reads 1 zero_time 1",
+            "UT: storage selected 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-HDL-FORCE-TIME-EXPLICIT-ZERO-DEPOSIT",
+      "clause": "19.6.2.4",
+      "statement": {
+        "en": "An explicit zero force_time calls deposit without starting a timed force.",
+        "ja": "明示force_time 0は、時限forceを開始せずdepositを呼ぶ。"
+      },
+      "conditions": {
+        "en": "Pass time zero and a replacement value to the UVM wrapper.",
+        "ja": "UVM wrapperへ時刻0と置換値を渡す。"
+      },
+      "expected": {
+        "en": "One deposit is used with no force/release/read calls or time advance; actual target/peer values match.",
+        "ja": "force／release／read呼出しや時刻進行なしにdepositを1回使い、実際の対象／peer値が一致する。"
+      },
+      "limitations": {
+        "en": "Measured only with the unchanged original limited VPI backend/runner and real eight-bit HDL variables. Invalid alternative paths must remain unselected; no warning text, path iteration order or finer permissions are prescribed. E.7 read attempts remain separate from these abstraction-selection observations. Zero-time force_time tests exercise the UVM wrapper, not force/release backend support; the printed task/return-value inconsistency is not converted into an invented return assertion.",
+        "ja": "未変更の独自限定VPI backend／runnerと、実際の8 bit HDL変数だけで実測する。不正な代替pathは未選択を要求し、warning本文、path列挙順、細かな権限は指定しない。E.7のread試行は、abstraction選択の観測とは別に残す。zero-time force_timeはUVM wrapperの検査で、force／release backendの対応ではない。記載されたtask／戻り値の矛盾から、架空の戻り値assertionは作らない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_hdl_force_time_explicit_zero_time_delegates_to_deposit_without_force_or_release",
+          "role": "direct",
+          "expected_observations": [
+            "UT: delegated deposit 1 no_force_release 1 no_reads 1 zero_time 1",
+            "UT: storage selected 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEMORY-WALK-BODY-EACH-MAP-RELATIONSHIPS",
+      "clause": "E.6.1.3.2",
+      "statement": {
+        "en": "The memory-walk body applies the qualified algorithm interpretation independently to every defined map.",
+        "ja": "memory-walk bodyは、限定したalgorithm解釈を、定義された各mapへ独立に適用する。"
+      },
+      "conditions": {
+        "en": "Observe both frontdoors of one shared memory using independent access histories.",
+        "ja": "独立したaccess履歴で、共有memory 1つの両frontdoorを観測する。"
+      },
+      "expected": {
+        "en": "Both maps satisfy the checker data/address relations and per-location ordering.",
+        "ja": "両mapが、checkerのdata／address関係とlocationごとの順序を満たす。"
+      },
+      "limitations": {
+        "en": "Shares the explicitly qualified interpretation of UVM-MEMORY-WALK-ALGORITHM. It adds no human review or approval of the missing IEEE detail.",
+        "ja": "UVM-MEMORY-WALK-ALGORITHMの明示的に限定した解釈を共有する。省略されたIEEEの詳細に対する、人のレビューや承認は加えない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uE/test_memory_walk_address_data_relations_follow_the_documented_historical_interpretation",
+          "role": "direct",
+          "expected_observations": [
+            "UT: map_one first 1 reads 1 retired 1 order 1",
+            "UT: map_two first 1 reads 1 retired 1 order 1"
           ]
         }
       ]

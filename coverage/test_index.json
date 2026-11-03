@@ -826,13 +826,25 @@
       "primary_clause": "10.7.2.3.1",
       "inputs_sha256": "c36d364152636281f7a5fe7f9416d3def905721c4499889676d25112980105cf"
     },
+    "u11/test_pool_add_overwrites_the_selected_handle_and_retains_other_entries": {
+      "primary_clause": "11.2.2.5",
+      "inputs_sha256": "bbf743f27fab90a43e65cd9e3f59370933020fc7370415ebc0431f5b52f81a9c"
+    },
     "u11/test_pool_backward_iteration_visits_each_key_and_preserves_the_exhausted_cursor": {
       "primary_clause": "11.2.2.12",
       "inputs_sha256": "d3c1be757a5eb54f7314bf94738d855c427d66d74b9988eaae30444404914bed"
     },
+    "u11/test_pool_constructor_names_and_default_type_keep_local_instances_independent": {
+      "primary_clause": "11.2.2.1",
+      "inputs_sha256": "b68093045640b959f3759d64887bd44cda96565a707f90ad4fbd1e681d21cb28"
+    },
     "u11/test_pool_empty_and_singleton_endpoints_preserve_reference_arguments": {
       "primary_clause": "11.2.2.9",
       "inputs_sha256": "6c03da0418a3f03118200480035f430daca7c291725586a697f541be09d75c7a"
+    },
+    "u11/test_pool_exists_distinguishes_a_stored_zero_without_creating_missing_keys": {
+      "primary_clause": "11.2.2.8",
+      "inputs_sha256": "c116f39e61b3f1da6fe474392d1fd0f1aef61a030043c1b450846b65839e3144"
     },
     "u11/test_pool_forward_iteration_visits_each_key_and_preserves_the_exhausted_cursor": {
       "primary_clause": "11.2.2.11",
@@ -850,6 +862,14 @@
       "primary_clause": "11.2.2.6",
       "inputs_sha256": "14b0bd6d748d4803c83e4748a1da09abdb72a1952f1896d6a7e062ddc0f90fd2"
     },
+    "u11/test_queue_constructor_names_and_front_back_insertion_preserve_local_order": {
+      "primary_clause": "11.3.2.1",
+      "inputs_sha256": "8238d05f90fe0061d5893f6ef435db7fc366499b7b6c22ac227909805ef56045"
+    },
+    "u11/test_queue_delete_shifts_remaining_handles_and_default_delete_clears_only_one_instance": {
+      "primary_clause": "11.3.2.7",
+      "inputs_sha256": "0f22d4890249497b8c05e71b33bb5ee2abe7fb32a8cc9286fe846370385f8e33"
+    },
     "u11/test_queue_empty_pop_back_warns_returns_default_and_allows_refill": {
       "primary_clause": "11.3.2.9",
       "inputs_sha256": "9c595d6859e0baa0c21943f56828a1f78cccf88c4cc9bd9b2dfb4f8f907ec09f"
@@ -865,6 +885,18 @@
     "u11/test_queue_insert_shifts_valid_entries_and_rejects_size_and_larger_indexes": {
       "primary_clause": "11.3.2.6",
       "inputs_sha256": "4a7804d2af7a0a67f421b8c93c4dd16fa6a443f6e376519c5963c593689aac1a"
+    },
+    "u11/test_queue_nonempty_pop_ends_return_exact_handles_and_leave_the_middle": {
+      "primary_clause": "11.3.2.8",
+      "inputs_sha256": "bd832601d4dd80381c11cb60bea65c35cf663ebd2a1504af1fab8c8ca66bf4ab"
+    },
+    "u11/test_queue_out_of_range_get_warns_returns_a_two_state_default_and_retains_data": {
+      "primary_clause": "11.3.2.4",
+      "inputs_sha256": "fc6723906b52f344c9d6d95d5a6de2477908689db062731ecb261b21db00214e"
+    },
+    "u11/test_queue_out_of_range_object_get_warns_returns_null_and_preserves_the_entry": {
+      "primary_clause": "11.3.2.4",
+      "inputs_sha256": "a44b28a638b524c3ea8c7326c637ba300888ace25a37e94974d6e8d07cc0fb5b"
     },
     "u11/test_queue_wait_until_not_empty_reblocks_after_draining_and_back_insertion": {
       "primary_clause": "11.3.2.12",
@@ -889,6 +921,10 @@
     "u12/test_analysis_port_without_subscribers_accepts_write": {
       "primary_clause": "12.2.10.1.3",
       "inputs_sha256": "3c2f10f3e1fc5712eabc1de037c59027f8118c0730cc48c3b26d480bae0e6f32"
+    },
+    "u12/test_bidirectional_export_constructors_preserve_default_bounds_roles_names_and_parents": {
+      "primary_clause": "12.2.6.2",
+      "inputs_sha256": "733c050447b21c4356e3e730609c377dc6c07191d7a163ac182b3ce29dc467ab"
     },
     "u12/test_blocking_export_default_index_switches_the_selected_implementation_after_elaboration": {
       "primary_clause": "12.2.6.1",
@@ -945,6 +981,14 @@
     "u12/test_master_export_routes_mixed_operations_to_split_implementations": {
       "primary_clause": "12.2.7.2.2",
       "inputs_sha256": "2e270cdbf58a973b86f8b801cae8caaab1d165f9f916943f39ef0f908d8a38ab"
+    },
+    "u12/test_nested_blocking_transport_exports_preserve_custom_handles_and_block_until_return": {
+      "primary_clause": "12.2.6.2",
+      "inputs_sha256": "47f5db8e46d8f8a1cb01836bf12cc55d06046713100f0d82b90034256ed0f67c"
+    },
+    "u12/test_nested_nonblocking_transport_exports_forward_status_handles_failure_and_reuse": {
+      "primary_clause": "12.2.6.2",
+      "inputs_sha256": "750ab022e9e204f56d3a72344364a2e6b5be230310f6dec70468cdb84a2eeba6"
     },
     "u12/test_nonblocking_get_peek_port_preserves_head_until_get": {
       "primary_clause": "12.2.5.1",
@@ -3542,6 +3586,14 @@
       "primary_clause": "19.6.2.2",
       "inputs_sha256": "41c8403fe382ef8b4a78a12b1ff44186eafcd1325332ef8083ce125fef9c8a34"
     },
+    "u19/test_hdl_force_time_default_time_delegates_to_deposit_without_force_or_release": {
+      "primary_clause": "19.6.2.4",
+      "inputs_sha256": "221d9176d6da5746723267733b41ae86266c18ed8bc06a68cbe740a3dc602b8d"
+    },
+    "u19/test_hdl_force_time_explicit_zero_time_delegates_to_deposit_without_force_or_release": {
+      "primary_clause": "19.6.2.4",
+      "inputs_sha256": "593e38257fd868b482ead89498239cd053ca395b5cbfea5de071b275a14df27e"
+    },
     "u19/test_hdl_read_returns_actual_wide_storage_without_modifying_either_variable": {
       "primary_clause": "19.6.2.7",
       "inputs_sha256": "833f7e46cc00d7b85e3249167a77182c5e6909ce68f4e9c833af6229729f44fe"
@@ -4146,6 +4198,14 @@
       "primary_clause": "E.7",
       "inputs_sha256": "f460517f7503499a9ef7afeaf092497101ba079768934f5727610d7f4ac02fbb"
     },
+    "uE/test_hdl_path_sequence_uses_an_explicit_abstraction_instead_of_the_invalid_default": {
+      "primary_clause": "E.7.2",
+      "inputs_sha256": "bdce9e77fc975b0da1d8db8e110c6e8bef65396fb7cf44292a81bed4c9be96d9"
+    },
+    "uE/test_hdl_path_sequence_uses_the_block_default_abstraction_when_the_list_is_empty": {
+      "primary_clause": "E.7.2",
+      "inputs_sha256": "20bf4309da8728488c8dcb331db33e6d61cee0f3763ccbe7a4f9a900bd8d1539"
+    },
     "uE/test_hdl_path_sequence_warns_for_inaccessible_register_paths_without_storage_access": {
       "primary_clause": "E.7",
       "inputs_sha256": "8216986def92ba7ee10bc47c0f259d4f4b54468263a1d78709c49b96bdd5e153"
@@ -4181,6 +4241,10 @@
     "uE/test_memory_access_sequence_honors_a_block_exclusion_before_a_direct_control": {
       "primary_clause": "E.5.2",
       "inputs_sha256": "eb753f642e47c3a82b32560d76de57b601b5d95c33c52a2f68bf8b240975e25f"
+    },
+    "uE/test_memory_walk_address_data_relations_follow_the_documented_historical_interpretation": {
+      "primary_clause": "E.6.1",
+      "inputs_sha256": "206e7fc8335983cc02778fc148dfcbddaeac3ab9c0a646e03adfe09c318ac5e6"
     },
     "uE/test_memory_walk_sequence_honors_a_block_specific_walk_exclusion": {
       "primary_clause": "E.6.2",

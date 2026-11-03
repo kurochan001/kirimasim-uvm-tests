@@ -755,3 +755,12 @@ handle lookup differs from a fixture that maps path strings to local storage.
 **HDL backend evidence condition** — The specific runner, linked DPI/backend,
 HDL visibility and supported types used for a measurement. Results under an
 original limited backend do not establish another backend's behavior.
+
+## Representation selection and interpretation
+
+**Abstraction list** — The selected HDL representation names for a path check.
+A nonempty list chooses its entries; an empty list uses the block default.
+
+**Historical algorithm interpretation** — A recorded reading of an underspecified
+algorithm using an official earlier reference. It is reviewable context,
+not a new normative amendment or automatic proof of current conformance.

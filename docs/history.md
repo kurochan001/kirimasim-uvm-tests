@@ -3,8 +3,8 @@
 [日本語](history.ja.md) · [README](../README.md)
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and sixteen cross-milestone thin-area expansions, including the
-existing-test requirement-link backlog checkpoint (1115 simulation tests). The earlier 349-test checkpoint is
+three M4 increments and seventeen cross-milestone thin-area expansions, including the
+existing-test requirement-link backlog checkpoint (1131 simulation tests). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -2061,3 +2061,46 @@ including separate evidence conditions and remaining limitations. There are
 130 FAQ answers and 153 terms. Validation covers 83 tool unit tests, all
 1115 metadata records, ledger/index and library integrity, final-input evidence,
 all ten language pairs and local references. M1–M4 remain incomplete.
+
+## Seventeenth thin-area expansion across M1–M4
+
+On 2026-11-03, sixteen original fixtures add eight container cases, three
+bidirectional export cases, four HDL representation/zero-time wrapper cases
+and an instrumented memory-walk observer. The suite reaches 1131 cases:
+M1 372, M2 424 and M3 335. All twelve new no-DPI cases match Verilator 5.052
+at seeds 1/73. Four new HDL cases match under the unchanged VPI condition.
+
+Container checks use explicit type aliases and receiver mutations to observe
+default specializations and storage sharing, plus names, replacement, membership,
+ordered insertion/removal, occupancy and valid/invalid retrieval. Numeric failure
+values use a two-state bit-vector type; object failure values are null.
+Nine bidirectional export constructors are queried concretely, avoiding an
+invalid common-base cast across reversed slave interfaces. Delivery checks
+separately use nested exports, custom request/response objects, blocking return,
+nonblocking status, failure and reuse. Two unchanged mixed master/slave fixtures
+receive explicit directional export links.
+
+The final memory-walk gap receives a candidate direct test under the historical
+interpretation documented in Q134. It checks address/data and ordering relations
+on two maps, with independent observer code. This is not copied implementation
+output, an IEEE amendment or approval of missing detail. Frontdoor protection
+warnings are outside the algorithm oracle; ERROR and relationships remain checked.
+
+Twenty-nine AI drafts bring the ledger to 1212, all with direct links to 1130
+tests; one additional test is a control. Both unmapped-test and missing-direct-test
+queues are zero. Of 2,504 identifiers, 768 are partially decomposed and 1,736
+unassessed. Primary focus is 524 identifiers, any citation 1,142 and the candidate
+census zero 1,955 / one 277 / at least two 247. Every review remains AI, scope
+proposed and denominator/percentage null. Zero queues do not complete M1–M4.
+
+Ordinary evidence retains all 1115 prior inputs and adds the sixteen final inputs:
+1014 match both seeds and 117 are known (99 runtime first differences at seed 1,
+ten missing-API builds, eight unlinked-DPI builds). The separate VPI record retains
+four earlier inputs and adds four, reaching seven pass and one E.7 fail. These
+conditions overlap and are not summed. Guest records remain on 1085 unchanged
+inputs, with 46 current cases explicitly unmeasured.
+
+All paired current guides and handoff are refreshed, with 134 FAQ answers and
+155 glossary terms. Validation covers 83 tool unit tests, 1131 metadata records,
+ledger/index, library integrity, compatible evidence, ten language pairs and
+local links. Existing tests, runners and the VPI backend remain unchanged.

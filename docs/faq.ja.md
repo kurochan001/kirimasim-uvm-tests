@@ -122,7 +122,7 @@ Ghostは公開前のシミュレータの仮名です。実行ファイルの識
 ### Q12. uvm_dpi: yesだけでDPIを使うビルドが完成しますか
 
 既定のマクロ一覧から`UVM_NO_DPI`を外す指定です。UVMのC/C++実装の供給・リンクは行いません。
-通常のVerilator runnerは、そのsourceを追加しません。`UVM_NO_DPI`が1111件、HDL DPIの明示選択が4件です。
+通常のVerilator runnerは、そのsourceを追加しません。`UVM_NO_DPI`が1123件、HDL DPIの明示選択が8件です。
 [別のVPI runner](testing.ja.md#verilatorのvpi-hdl部分集合)は独自の限定backendをlinkし、結果は宣言した実行条件だけに適用します。
 DPIなしのglobによる照合も、完全な正規表現への対応とは異なります。
 ユーザー定義の`uvm_reg_backdoor` handlerはHDL DPIなしで動作できます（Q67）。
@@ -801,7 +801,7 @@ ROはbitを保持し、W1Cはmaskを適用し、RCはsampleした値を返して
 
 ### Q68. どの組み込みregister／memoryテストsequenceを検査していますか
 
-`tests/uE/`の54件で、次の系統を検査します。統合wrapperは3検査系、bit bashとregister accessは
+`tests/uE/`の59件で、次の系統を検査します。統合wrapperは3検査系、bit bashとregister accessは
 ユーザー定義の未知policy、register accessはblock除外も検査します。
 
 | 系統 | sequenceのclass | 主な観測 |
@@ -809,12 +809,13 @@ ROはbitを保持し、W1Cはmaskを適用し、RCはsampleした値を返して
 | Reset | `uvm_reg_hw_reset_seq` | モデルのreset、記憶域の一致・不一致、map、階層、除外 |
 | Bit bash | `uvm_reg_single_bit_bash_seq`, `uvm_reg_bit_bash_seq` | bitの両方の値、map、stuck bit、階層、除外 |
 | Register access | `uvm_reg_single_access_seq`, `uvm_reg_access_seq` | 両アクセス経路、不一致、RO／backdoorなしのskip、階層、除外 |
-| Memory walk | `uvm_mem_single_walk_seq`, `uvm_mem_walk_seq` | locationの網羅、stuck bit、map、階層、除外 |
+| Memory walk | `uvm_mem_single_walk_seq`, `uvm_mem_walk_seq` | locationの網羅、stuck bit、map、階層、除外、限定したaddress／data関係（Q134） |
 | Memory access | `uvm_mem_single_access_seq`, `uvm_mem_access_seq` | 4 locationのfrontdoor／backdoor照合、不一致、階層、除外 |
 | Shared register | `uvm_reg_shared_access_seq`, `uvm_reg_mem_shared_access_seq` | 2／3 map、map間の観測、不一致、除外 |
 | Shared memory | `uvm_mem_shared_access_seq`, `uvm_reg_mem_shared_access_seq` | 2／3 mapの4 location、不一致、階層、除外 |
 | 統合access | `uvm_reg_mem_access_seq` | 両model family、child階層、直接の比較対象を持つblock除外 |
 | Test selection | `uvm_reg_mem_built_in_seq` | 既定／0のmask、個別flag、ORによる選択と順序 |
+| HDL paths | `uvm_reg_mem_hdl_paths_seq` | 実際のpath利用可否、既定／明示の表現選択、zero-time検査 |
 
 [reset](../tests/uE/test_hw_reset_sequence_restores_model_reset_before_comparing_storage.sv)、
 [bit-bash](../tests/uE/test_single_bit_bash_sequence_exercises_both_values_of_every_rw_bit.sv)、
@@ -824,9 +825,11 @@ ROはbitを保持し、W1Cはmaskを適用し、RCはsampleした値を返して
 
 ### Q69. RTLのDUTを検査しますか。HDL DPIは必要ですか
 
-正の遅延を持つテストベンチの記憶域で実行します。register accessではcustom frontdoor sequenceと
+多くは正の遅延を持つテストベンチstorageで実行します。別のHDL-path検査系4件は、
+[明示VPI条件](testing.ja.md#verilatorのvpi-hdl部分集合)で、実際の公開HDL変数を使います。
+register accessではcustom frontdoor sequenceと
 ユーザー定義backdoorが記憶域を共有し、shared-mapとmemory walkはfrontdoorを使います。
-memory accessもユーザー定義backdoorを使います。全件が`UVM_NO_DPI`です。
+memory accessもユーザー定義backdoorを使い、これらのmodel化storageの検査は`UVM_NO_DPI`を保持します。
 resetのケースは開始前に記憶域を宣言したreset値へ初期化し、モデルのresetと比較を検査します。
 物理的なDUTのreset動作は未検証です。
 
@@ -835,7 +838,7 @@ registerの経路間の不一致、memoryのstuck bit、memory／interfaceのrea
 ID・文面・正確な件数は要求しません。故障や直接の比較対象を観測する前に転送のカウンタとbit maskを初期化します。
 ROとbackdoorなしのskipは転送の有無を規定し、診断severityは規定しません。
 bit-bashではbitの両方の値、memory walkでは4 locationすべてのアクセスを観測します。
-ライブラリ固有のパターンや系統内のtransaction順序は要求しません。
+これらではlibrary固有のpatternやtransaction順は要求せず、別のQ134 observerで限定した歴史的なaddress／data関係を加えます。
 選択したdispatcherの組み合わせでは17.2.2.10が定める系統の実行順序を確認します（Q75）。
 
 ### Q70. 除外resourceはsequenceへどう影響しますか
@@ -918,8 +921,8 @@ controlの対応は、その要求の直接の検査ではありません。
 
 ### Q77. M4を始めたのに、カバレッジ率がないのはなぜですか
 
-AIによる1183要求案は部分的な分解で、1182要求を1114テストへ直接対応付け、1要求は直接未対応、別の1テストはcontrolです。
-全1115テストに要求の対応付けがあります。2,504の条項番号は規範的要求の単位ではありません。
+AIによる1212要求案は部分的な分解で、1212要求を1130テストへ直接対応付け、直接未対応は0要求、別の1テストはcontrolです。
+全1131テストに要求の対応付けがあります。2,504の条項番号は規範的要求の単位ではありません。
 範囲は提案、棚卸しは未完、分母は未承認で、M4の開始はどれの承認にもなりません。
 既知差分やHDL／DPIの制約によって義務を暗黙に除外しません。[承認までの手順](requirements.ja.md#m4の残作業と承認)を参照してください。
 
@@ -1703,8 +1706,8 @@ user backdoorは16 bit locationをモデル化します。location独立性、�
 ### Q128. 未対応テスト0件なら、M1〜M4は完了ですか？
 
 いいえ。`tests_without_requirement_links`は0で、現在の全テストに、明示的なdirectまたはcontrolの対応があります。
-別の集計`requirements_without_direct_tests`は1件で、memory-walk algorithm全体が対象です。
-HDL depositとHDL-path利用可否には、明示的なVPI検査系を追加しました。catalogの識別子1,753件も未評価です。
+別の集計`requirements_without_direct_tests`も0件です。memory-walkの対応はQ134の限定した歴史的解釈で、
+省略されたIEEEの詳細の承認ではありません。HDL depositと利用可否には、明示VPI検査系があります。catalogの識別子1,736件も未評価です。
 分解と人のレビューは未完で、分母は未承認です。
 
 [新しいpolicyテスト](../tests/u16/test_policy_object_stack_tracks_nested_active_policy_push_and_pop.sv)は、
@@ -1716,15 +1719,15 @@ buildは`known`で、`pass`ではありません。既存evidenceへの対応付
 
 ### Q129. 商用シミュレータの結果なしで、HDL動作をどう検査しますか？
 
-4検査系が、[別のVPI runner](testing.ja.md#verilatorのvpi-hdl部分集合)と独自の限定backendを使い、
+8検査系が、[別のVPI runner](testing.ja.md#verilatorのvpi-hdl部分集合)と独自の限定backendを使い、
 実際の公開HDL変数へaccessします。depositは、対象／peerの独立性、存在しないpath、word境界をまたぐ40 bit値を検査します。
 readは、新しい値、非破壊の観測、失敗出力を制約しない失敗を検査します。
 与えたbackendの動作記録で、vendor overlay、kirimasim、Ghostの記録ではありません。
 
 path-sequenceの比較対象は、既定abstractionで利用可能なpathを受け入れます。
 負の検査は、時刻0でのwarningとstorage転送なしを期待しますが、固定sequenceはERRORを報告し、readを試みます。
-期待値は保持します。3件は両seed一致、1件はseed 1で差分です。通常の実行ではbackendをlinkしないため、
-4件とも`:oracle: spec`を保持し、厳格なHDL runnerは不一致を`fail`として報告します。重複する結果は別条件です。
+期待値は保持します。7件は両seed一致、1件はseed 1で差分です。通常の実行ではbackendをlinkしないため、
+8件とも`:oracle: spec`を保持し、厳格なHDL runnerは不一致を`fail`として報告します。重複する結果は別条件です。
 force／release、配列、4値、細かな権限は未対応です。
 
 ### Q130. port-baseとexport-indexの検査は、何を示しますか？
@@ -1737,3 +1740,41 @@ export fanoutはelaboration後だけ照会します。blocking exportは、既�
 
 固定libraryのgeneric型名は必要な接頭辞を省き、実測したdefault-index setterは呼出し先を切り替えません。
 両方とも規範的な期待値を保持します。queryだけでは、全接続診断、関係検査、interface trafficの成立は示しません。
+
+## containerの意味、双方向export、algorithm解釈
+
+### Q131. containerでは、どの動作を追加観測しますか？
+
+[poolの既定値](../tests/u11/test_pool_constructor_names_and_default_type_keep_local_instances_independent.sv)と
+[queueの既定値](../tests/u11/test_queue_constructor_names_and_front_back_insertion_preserve_local_order.sv)は、
+明示specializationのaliasで、既定型とstorage共有を検査します。名前、local instanceの独立性、key置換／非挿入の所属照会、
+front／back挿入、占有数、消費しないget、空でないpopの正確なhandle、index／既定の削除を区別して観測します。
+範囲外getは、2値vectorとobjectのwarningと不在entryの値を検査し、負のget indexや4値の既定値は推測しません。
+
+### Q132. 双方向exportの9種類すべてで、transport配送を検査しますか？
+
+いいえ。9種類すべてで、既定bounds、名前／parent／roleの具象constructor検査を行います。
+slave interfaceはrequest／response methodの方向が反転するため、constructor probeは共通baseへのcastを避けます。
+入れ子blocking／nonblocking transportは、独自request／response handle、blockingのreturn、完了bit、失敗、再利用を別に観測します。
+既存の混在master／slave検査系が、別に方向を検査します。constructor照会だけでは、配送、任意binding診断、並行性の成立は示しません。
+
+### Q133. zero-time force_timeには、force／release backendの対応が必要ですか？
+
+いいえ。時刻の省略または明示0では、19.6.2.4はdepositへ委譲します。
+[既定](../tests/u19/test_hdl_force_time_default_time_delegates_to_deposit_without_force_or_release.sv)と
+[明示0](../tests/u19/test_hdl_force_time_explicit_zero_time_delegates_to_deposit_without_force_or_release.sv)は、
+実際のstorage変更、deposit 1回、force／release／read呼出しなし、時刻経過なしを観測します。
+正の期間のforce／releaseは未対応です。戻り値についての本文とtask宣言が矛盾するため、task戻り値のassertionは作りません。
+別のpath検査は、空でないabstraction listが指定entry、空listがblock既定を選び、不正な代替を訪れないことを検査します。
+
+### Q134. memory-walk algorithmをどう解釈していますか？
+
+IEEE E.6.1は、algorithm名を示すだけで、詳細を記載しません。
+[公式UVM 1.2 LRMの27.7、印刷p.730](https://accellera.org/images/downloads/standards/uvm/UVM_Class_Reference_Manual_1.2.pdf#page=739)を、歴史的な解釈根拠にします。
+[独自observer](../tests/uE/test_memory_walk_address_data_relations_follow_the_documented_historical_interpretation.sv)は、
+4 location・8 bit memory 1つの2 mapで、addressに依存する初期／read／退去時の値とlocalな順序を検査します。
+walk自体を生成せず、実装出力から期待値を導きません。
+
+レビューが必要なAI解釈で、IEEEの改訂や、全size／mapの証明ではありません。location maskや固定bit故障の検出だけでは不十分です。
+frontdoor保護のwarningはalgorithm oracleの対象外で、ERRORと観測した関係は検査します。
+直接テスト未対応0件は、対応した要求案を数えるだけで、歴史的解釈の承認ではありません。

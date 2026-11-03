@@ -577,3 +577,10 @@ simulatorの公開APIです。実際のhandle lookupは、path文字列をlocal 
 
 **HDL backendの実測条件** — 測定に用いたrunner、linkしたDPI／backend、HDLの可視性、対応する型の組合せです。
 独自の限定backendでの結果は、別のbackendの動作を示しません。
+
+## 表現の選択と解釈
+
+**Abstraction list** — path検査で選ぶHDL表現名です。空でなければそのentry、空ならblock既定を使います。
+
+**歴史的なalgorithm解釈** — 詳細が不足するalgorithmを、以前の公式資料を使って読む、記録した解釈です。
+レビュー可能な文脈で、新たな規範的改訂や、現在の適合性を自動的に示す証明ではありません。

@@ -48,6 +48,13 @@ runnerは、既存スイートのcompile／判定の流れを、別のevidence�
 統合には[公開VPI文書](https://verilator.org/guide/latest/connecting.html#verification-procedural-interface-vpi)を参照し、
 期待する動作は、ユーザーが与えたIEEE条項から導きます。
 
+memory-walkのoracleは、[公式UVM 1.2 class referenceの27.7](https://accellera.org/images/downloads/standards/uvm/UVM_Class_Reference_Manual_1.2.pdf#page=739)を使うAI解釈を明示します。
+役割と制限は[Q134](faq.ja.md#q134-memory-walk-algorithmをどう解釈していますか)に記録します。
+独立に書いたobserverは、擬似codeの複製や実装由来のoracleではありません。歴史的な文脈はIEEE 1800.2を改訂しません。
+
+照合した歴史的PDFのSHA-256は`87117e30e17701a13434f785687d3776e710e13c74475b6ada4e7823244ea87a`です。
+27.7は印刷page 730／PDF page 739にあります。PDFと描画したpageはlocal資料で、コミットしません。
+
 両リポジトリの判定規則が分岐した場合は、共通packageへ集約する計画です。
 [tools/UPSTREAM](../tools/UPSTREAM)は、この出典記録への日英の案内です。
 

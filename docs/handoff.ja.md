@@ -4,8 +4,8 @@
 
 ## 引継ぎ時点と目的
 
-2026-11-03に、`main`の[c2b1359](https://github.com/kurochan001/kirimasim-uvm-tests/commit/c2b13597bd64fac9086f3d45f39a41b849eeed81)
-を基に、薄い領域の16回目の拡充へ更新しました。再開時に最新の公開commitと作業ツリーを確認してください。
+2026-11-03に、`main`の[a57eb53](https://github.com/kurochan001/kirimasim-uvm-tests/commit/a57eb535950c519f1dc1c17a315b2b6d8b85b181)
+を基に、薄い領域の17回目の拡充へ更新しました。再開時に最新の公開commitと作業ツリーを確認してください。
 
 IEEE 1800.2-2020のUVM適合を検査し、kirimasimを対象とするプロジェクトです。
 SystemVerilog言語だけのreproducerは、
@@ -14,12 +14,12 @@ M1〜M4の薄い領域を引き続き補強します。M4は進行中で、未�
 
 | 領域 | 現在の状態 |
 | --- | --- |
-| M1 | 364件：core object、policy、reporting、階層、factory、phase、同期、recording、utility |
-| M2 | 421件：sequence、sequencer、callback、TLM |
-| M3 | 330件：register／memory layer、付録E |
-| 全体 | 章・付録21 directoryに1115件。照合はすべてAIで、人による照合は未記録 |
-| M4 | AI要求案1183件。1182要求を1114テストへ直接対応。追加control 1テスト。未対応テスト0件 |
-| 規範的棚卸し | 2,504識別子のうち751件を一部分解。1,753件は未評価。直接テストのない要求案1件 |
+| M1 | 372件：core object、policy、reporting、階層、factory、phase、同期、recording、utility |
+| M2 | 424件：sequence、sequencer、callback、TLM |
+| M3 | 335件：register／memory layer、付録E |
+| 全体 | 章・付録21 directoryに1131件。照合はすべてAIで、人による照合は未記録 |
+| M4 | AI要求案1212件。1212要求を1130テストへ直接対応。追加control 1テスト。未対応テスト0件 |
+| 規範的棚卸し | 2,504識別子のうち768件を一部分解。1,736件は未評価。直接テストのない要求案0件 |
 
 `scope_status`は提案、`normative_inventory_complete`はfalse、
 `approved_denominator`／`coverage_percentage`はnullです。主引用テストがある21 rootすべてで未対応テスト0件ですが、
@@ -46,16 +46,16 @@ M1〜M4の薄い領域を引き続き補強します。M4は進行中で、未�
 
 - [テストガイド](testing.ja.md)：metadata、コンパイル、runner option、変更時の方針。
   [実行結果](results.ja.md)：evidenceの解釈と集約方法。
-  [既知差分](known-differences.ja.md)：spec-only全113件。
+  [既知差分](known-differences.ja.md)：spec-only全117件。
 - [要求ガイド](requirements.ja.md)、[範囲](../coverage/scope.json)、[台帳](../coverage/requirements.json)、
   [テスト索引](../coverage/test_index.json)：M4の正規の状態です。生成inventoryはレビューの補助資料で、
   版管理する入力の代わりではありません。
 - [library lock](../third_party/uvm.lock)：Accellera UVM 2020.3.1、`78c06547a2a0`、326ファイル。
-  版管理するtoolで取得し、library本体はコミットしません。1111検査系は`UVM_NO_DPI`を使い、4件は独自VPI HDL backendを明示要求します。
+  版管理するtoolで取得し、library本体はコミットしません。1123検査系は`UVM_NO_DPI`を使い、8件は独自VPI HDL backendを明示要求します。
 - ユーザーがrepository rootへ`IEEE_Std_1800.2-2020.pdf`と
   `IEEE_Std_1800-2023_SystemVerilog.pdf`を配置済みです。Git対象外のlocalファイルで、
   新規cloneにはなく、再配布しません。`/tmp`内の抽出済みtextも一時資料です。
-- `out/`の結果はGit対象外のlocal資料です。`/tmp/kirimasim-uvm-thin-sixteenth-*.py`の一時helperは、
+- `out/`の結果はGit対象外のlocal資料です。`/tmp/kirimasim-uvm-thin-seventeenth-*.py`の一時helperは、
   あれば使える補助で、保守対象の入口ではありません。台帳／履歴へ追記するものがあり、無条件に再実行しません。
   不在なら版管理するtoolから必要な処理を組み立てます。
 
@@ -74,16 +74,16 @@ python3 tools/requirements.py inventory --json out/requirements-inventory.json
 python3 tools/requirements.py backlog --json out/requirements-backlog.json --lang ja
 ```
 
-この記録は、tool単体テスト83件、全1115件のmetadata、台帳／索引、library整合性、現在の入力とevidenceの照合を
+この記録は、tool単体テスト83件、全1131件のmetadata、台帳／索引、library整合性、現在の入力とevidenceの照合を
 通過しています。資料だけの変更では、全シミュレーションの再buildは不要です。
-全件evidenceはVerilatorだけで、他2系統は未変更1085件の記録、新規30件は未測定です。実行のsmoke確認は次のとおりです。
+全件evidenceはVerilatorだけで、他2系統は未変更1085件の記録、新規46件は未測定です。実行のsmoke確認は次のとおりです。
 
 ```sh
 python3 tools/run_verilator.py --seeds 1 73 --build-jobs 2 -j 1 \
   --json out/verilator-smoke.json tests/u09/test_common_phases_run_in_order.sv
 ```
 
-[対象コードのCheck](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/41471429979)は参照用です。
+[対象コードのCheck](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/41485150083)は参照用です。
 最新のworkflow結果はREADMEのbadgeで確認してください。後のcommitによって、このrunが置き換わる場合があります。
 local検証だけでCI全体の成功とは扱いません。
 Checkはtool、metadata、台帳、library、oracle付きVerilatorを検査し、Ghost、kirimasim、spec-onlyの実行は含みません。
@@ -93,34 +93,31 @@ Nightly workflowや結果の自動公開はありません。
 
 | シミュレータ／library | 記録した結果 |
 | --- | --- |
-| Verilator 5.052／固定UVM | seed 1・73でpass 1002件、known 113件 |
-| Verilator 5.052／独自VPI HDL backend | 別条件の4件：3件が両seed pass、1件はseed 1でfail |
-| kirimasim／固定UVM | 未変更1085件で未対応1076件・API欠落fail 9件。新規30件は未測定 |
-| Ghost／同梱UVM | 未変更1085件で各seed pass 207件・fail 878件。新規30件は未測定 |
+| Verilator 5.052／固定UVM | seed 1・73でpass 1014件、known 117件 |
+| Verilator 5.052／独自VPI HDL backend | 別条件の8件：7件が両seed pass、1件はseed 1でfail |
+| kirimasim／固定UVM | 未変更1085件で未対応1076件・API欠落fail 9件。新規46件は未測定 |
+| Ghost／同梱UVM | 未変更1085件で各seed pass 207件・fail 878件。新規46件は未測定 |
 | Ghost／固定UVM | 現在の実行ファイルsnapshotでは未測定 |
 
-通常条件のknown 113件は、seed 1の実行時差分99件、API欠落build 10件、HDL DPI未linkのbuild 4件です。
-通常条件のseed 73の実行時証拠はありません。別のVPI条件では、実際のHDL deposit／readと、利用可能pathの比較対象が両seed一致です。
-負のE.7 path検査はERRORを報告し、readを試みるため、warning／転送なしの期待を差分として保持します。
-重複する結果を、通常のpass合計へ加算しません。
+通常条件のknown 117件は、seed 1の実行時差分99件、API欠落build 10件、HDL DPI未linkのbuild 8件です。
+VPI条件は明示選択する8入力で、7件が両seed一致、1件はE.7のwarning／転送なしの差分を保持します。重複する条件を合計しません。
 
-直近9検査系は、port-base 4件、export default-index 1件、実際のHDL 4件です。
-generic型名は必要な接頭辞を欠き、exportのdefault setterは呼出しを切り替えません。両方とも規範的な期待値を保持します。
-新しいguest実測はなく、guest設定で30件が未測定です。
-[FAQ](faq.ja.md#明示的なhdl-backendとport-baseの観測)と[HDL設定](testing.ja.md#verilatorのvpi-hdl部分集合)を参照してください。
+直近16検査系は、container 8件、双方向export 3件、HDL abstraction／zero-time wrapper 4件、限定したmemory-walk observer 1件です。
+最後の検査は、[Q134](faq.ja.md#q134-memory-walk-algorithmをどう解釈していますか)の歴史的解釈で、library生成のoracleやIEEEの改訂ではありません。
+guest実測は追加せず、現在の46件はguest条件で未測定です。
 
 集約した記録は、過去の未変更入力を保持し、再測定した記録だけを置換します。1回の呼出しで全件を再実行したものではありません。
 現在のhostでは、互換なlocal記録は次にあります。
 
 ```text
-out/thin-sixteenth-verilator-combined.json
+out/thin-seventeenth-verilator-combined.json
 out/thin-fourteenth-ghost-final-1.json
 out/thin-fourteenth-ghost-final-73.json
 out/thin-fourteenth-kirimasim-final.json
-out/thin-sixteenth-inventory.json
-out/thin-sixteenth-backlog-final.json
-out/thin-sixteenth-evidence-scope.json
-out/thin-sixteenth-hdl-final.json
+out/thin-seventeenth-inventory.json
+out/thin-seventeenth-backlog-final.json
+out/thin-seventeenth-evidence-scope.json
+out/thin-seventeenth-hdl-combined.json
 ```
 
 再利用前に、宣言した全件／部分の対象ごとのtest ID集合の完全一致、現在の`inputs_sha256`、simulatorの版／設定／libraryの同一性、
@@ -133,20 +130,17 @@ Git対象外のファイルなので別hostにはない場合があり、許可�
 次の候補は優先順位の提案で、承認済みの除外やカバレッジ率ではありません。
 追加作業を選ぶ前に、backlogを再生成してください。
 
-既存テストの対応付けqueueは、すべてのrootで空です。未評価の識別子1,753件を規格と照合し、
+既存テストの対応付けqueueは、すべてのrootで空です。未評価の識別子1,736件を規格と照合し、
 見出しと規範的義務を区別して条件を分解し、新たなテストを選びます。
 一部分解済みの領域でも、有意なdefault、失敗、独立性、順序、lifecycleの組合せを優先します。
 oracleを導く前に、API欠落とsignature／本文の矛盾を確認します。
 
-直接テストのない要求案は、次の1件です。
-
-| 要求 | 条項 | 未解決の観測 |
-| --- | --- | --- |
-| `UVM-MEMORY-WALK-ALGORITHM` | E.6.1 | walking-ones algorithm全体。location maskと固定bit故障では不十分 |
-
-詳細なoracleを書く前に、規格から根拠を示せるalgorithm固有の観測を確立し、libraryのtrafficは複製しません。
-未評価の識別子の分解も続けます。HDL deposit／利用可否には、別の限定backend条件で実際のstorageを使う検査系を追加しましたが、
-より広いHDL動作、E.7の解釈、独立した検査、人のレビュー、分母承認は未完です。
+現在の要求案には、直接テストの未対応はありません。memory-walkの限定した歴史的解釈を含め、
+直接対応のqueueを解消しますが、M1〜M4の完了ではありません。その解釈と残る識別子1,736件を照合し、
+適用条件、失敗、lifecycle／並行性、独立した検査を拡充します。
+第11章のmethod条項は部分的に分解しましたが、概要と構造上の見出しは未評価です。
+0件にするための架空の義務を追加せず、明示したレビュー手順で分類します。
+より広いHDL動作、E.7の解釈、人のレビュー、分母承認も未完です。
 
 ## 次の追加作業の進め方
 
@@ -182,6 +176,6 @@ python3 tools/requirements.py sync --output out/test-index-proposal.json
 
 > READMEと日英のハンドオフを読み、作業ツリーと最新Checkを確認して、要求backlogを再生成してください。
 > ユーザーが配置したIEEE規格を使い、M1〜M4の薄い領域の補強を続けてください。
-> 未評価の規範的義務と残るmemory-walk要求案を優先候補にし、M1〜M3でも意味のある新しい動作を追加してください。
+> 未評価の規範的義務とmemory-walk解釈の照合を優先候補にし、M1〜M3でも意味のある新しい動作を追加してください。
 > 規格に基づく期待値、商用結果の除外、Ghostの非公開性、AI照合状態、完全な日英文書を維持してください。
 > 最終入力を測定し、有効なspec-only差分を残して、完了した変更・検証・残る制約を報告してください。

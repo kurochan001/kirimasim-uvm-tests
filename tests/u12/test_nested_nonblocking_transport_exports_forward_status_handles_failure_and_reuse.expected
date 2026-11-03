@@ -1,0 +1,4 @@
+UT: first success 1 request 1 response 1 value 1 calls 1
+UT: second success 1 request 1 response 1 first_retained 1 calls 2
+UT: failure propagated 1 calls 3
+UT: reused success 1 response 1 calls 4

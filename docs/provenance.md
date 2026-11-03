@@ -55,6 +55,16 @@ interfaces and actual simulator handles; it is not copied from a commercial
 overlay or a simulator implementation. Public [VPI documentation](https://verilator.org/guide/latest/connecting.html#verification-procedural-interface-vpi)
 informs integration; the user-provided IEEE clauses define expected behavior.
 
+The memory-walk oracle has an explicit AI interpretation using the
+[official UVM 1.2 class reference, 27.7](https://accellera.org/images/downloads/standards/uvm/UVM_Class_Reference_Manual_1.2.pdf#page=739).
+Its role and limits are recorded in [Q134](faq.md#q134-how-is-the-memory-walk-algorithm-interpreted).
+The independently written observer is not copied pseudocode or an
+implementation-derived oracle. Historical context does not amend IEEE 1800.2.
+
+The reviewed historical PDF has SHA-256 `87117e30e17701a13434f785687d3776e710e13c74475b6ada4e7823244ea87a`.
+Section 27.7 appears on printed page 730 / PDF page 739. The PDF and rendered
+pages remain local and are not committed.
+
 If the two repositories' judgment rules drift, a shared package is the
 planned way to centralize them. [tools/UPSTREAM](../tools/UPSTREAM) is the
 bilingual pointer to this source record.

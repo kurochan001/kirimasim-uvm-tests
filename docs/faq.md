@@ -135,7 +135,7 @@ See [Ghost setup](testing.md#ghost).
 
 It removes `UVM_NO_DPI` from the default macro list. It does not supply or link
 UVM's C/C++ implementation. The current Verilator runner does not add those
-sources. There are 1111 `UVM_NO_DPI` cases and four explicit HDL-DPI cases.
+sources. There are 1123 `UVM_NO_DPI` cases and eight explicit HDL-DPI cases.
 The [separate VPI runner](testing.md#verilator-vpi-hdl-subset) links the original
 limited backend; results apply only to that declared execution condition.
 User-defined `uvm_reg_backdoor` handlers can operate without HDL DPI (Q67).
@@ -996,7 +996,7 @@ automatic backdoor update threads or every backdoor callback combination.
 
 ### Q68. Which built-in register and memory test sequences are covered?
 
-Fifty-four cases in `tests/uE/` cover the following families. The combined
+Fifty-nine cases in `tests/uE/` cover the following families. The combined
 wrapper has three fixtures; bit bash and register access also check
 user-defined unknown policies, and register access checks a block exclusion:
 
@@ -1005,12 +1005,13 @@ user-defined unknown policies, and register access checks a block exclusion:
 | Reset | `uvm_reg_hw_reset_seq` | Model reset, matching/mismatching storage, maps, hierarchy and exclusions |
 | Bit bash | `uvm_reg_single_bit_bash_seq`, `uvm_reg_bit_bash_seq` | Both bit values, maps, a stuck bit, hierarchy and exclusions |
 | Register access | `uvm_reg_single_access_seq`, `uvm_reg_access_seq` | Both access paths, disagreement, RO/no-backdoor skips, hierarchy and exclusions |
-| Memory walk | `uvm_mem_single_walk_seq`, `uvm_mem_walk_seq` | Location coverage, a stuck bit, maps, hierarchy and exclusions |
+| Memory walk | `uvm_mem_single_walk_seq`, `uvm_mem_walk_seq` | Location coverage, a stuck bit, maps, hierarchy, exclusions and qualified address/data relations (Q134) |
 | Memory access | `uvm_mem_single_access_seq`, `uvm_mem_access_seq` | Four-location frontdoor/backdoor checks, disagreement, hierarchy and exclusions |
 | Shared register | `uvm_reg_shared_access_seq`, `uvm_reg_mem_shared_access_seq` | Two/three maps, cross-map observations, disagreement and exclusions |
 | Shared memory | `uvm_mem_shared_access_seq`, `uvm_reg_mem_shared_access_seq` | Four locations through two/three maps, disagreement, hierarchy and exclusions |
 | Combined access | `uvm_reg_mem_access_seq` | Both model families, child hierarchy and block exclusion with direct controls |
 | Test selection | `uvm_reg_mem_built_in_seq` | Default/zero masks, individual flags and ordered OR selection |
+| HDL paths | `uvm_reg_mem_hdl_paths_seq` | Actual path accessibility, default/explicit representation selection and zero-time checks |
 
 See the [reset](../tests/uE/test_hw_reset_sequence_restores_model_reset_before_comparing_storage.sv),
 [bit-bash](../tests/uE/test_single_bit_bash_sequence_exercises_both_values_of_every_rw_bit.sv),
@@ -1020,10 +1021,12 @@ fixtures. This is selected sequence behavior, not a complete annex E inventory.
 
 ### Q69. Do these sequences test an RTL DUT or require HDL DPI?
 
-The sequences run against positive-delay testbench storage. Custom frontdoor
+Most sequence fixtures use positive-delay testbench storage. Four HDL-path
+fixtures instead use actual public HDL variables under the
+[explicit VPI condition](testing.md#verilator-vpi-hdl-subset). Custom frontdoor
 sequences and user backdoors share storage for register access checks, while
 shared-map checks and memory walks use frontdoors. Memory access also uses
-user backdoors. All cases keep `UVM_NO_DPI`. Reset cases initialize
+user backdoors. Those modeled-storage cases keep `UVM_NO_DPI`. Reset cases initialize
 storage to declared reset values before starting; they check model reset and
 comparison of prepared storage. Physical DUT reset behavior remains untested.
 
@@ -1035,8 +1038,9 @@ without changing their severity or prescribing IDs, text or exact counts.
 Traffic counters and bit masks restart for each fault or direct-control
 observation. RO and missing-backdoor skips constrain traffic, not diagnostic severity.
 Bit-bash checks observe both bit values; memory-walk checks observe all four
-locations. They do not prescribe library-specific patterns or within-family transaction
-order. The selected dispatcher combination checks the family order that
+locations without prescribing library-specific patterns or transaction order.
+The separate Q134 observer adds qualified historical address/data relations.
+The selected dispatcher combination checks the family order that
 17.2.2.10 prescribes (Q75).
 
 ### Q70. How do exclusion resources affect these sequences?
@@ -1137,9 +1141,9 @@ not a direct test of the requirement.
 
 ### Q77. Why is there no coverage percentage after starting M4?
 
-The 1183 AI drafts cover only a partial decomposition: 1182 requirements link
-directly to 1114 tests, 1 has no direct test, and one separate test is a control.
-All 1115 tests have requirement links. The 2,504 clause identifiers are not normative requirement units.
+The 1212 AI drafts cover only a partial decomposition: 1212 requirements link
+directly to 1130 tests; all drafts have direct tests, and one separate test is a control.
+All 1131 tests have requirement links. The 2,504 clause identifiers are not normative requirement units.
 The scope is proposed, the inventory incomplete and the denominator unapproved;
 starting M4 approves none of those. Known differences and HDL/DPI limitations
 do not silently exclude obligations. See the [approval path](requirements.md#remaining-m4-work-and-approval).
@@ -2137,8 +2141,9 @@ kirimasim/Ghost results are unavailable for this increment.
 
 No. `tests_without_requirement_links` is zero: every current test has an
 explicit direct or control link. The separate counter
-`requirements_without_direct_tests` is one, for the full memory-walk
-algorithm. HDL deposit and path accessibility now have explicit VPI fixtures. Another 1,753
+`requirements_without_direct_tests` is zero. The memory-walk link uses the
+qualified historical interpretation in Q134. It is not approval of missing
+IEEE detail. HDL deposit and accessibility use explicit VPI fixtures. Another 1,736
 catalog identifiers remain unassessed; decomposition and human review are
 incomplete, and the denominator remains unapproved.
 
@@ -2152,7 +2157,7 @@ known difference into success. See the [current ledger](requirements.md).
 
 ### Q129. How can HDL behavior be tested without commercial simulator results?
 
-Four fixtures use the [separate VPI runner](testing.md#verilator-vpi-hdl-subset)
+Eight fixtures use the [separate VPI runner](testing.md#verilator-vpi-hdl-subset)
 and the original limited backend, which accesses real public HDL variables.
 Deposit checks target/peer isolation, missing paths and a 40-bit value crossing
 a word boundary; read checks fresh values, nondestructive sampling and failure
@@ -2162,8 +2167,8 @@ behavior, not a vendor overlay, kirimasim or Ghost.
 The path-sequence control accepts an accessible default-abstraction path.
 The negative case expects warning and no storage transfer in zero time;
 the pinned sequence instead reports ERROR and attempts reads. Its expectation
-is retained. Three cases match both seeds and one differs at seed 1. Ordinary
-runs do not link this backend, so all four retain `:oracle: spec`; the strict
+is retained. Seven cases match both seeds and one differs at seed 1. Ordinary
+runs do not link this backend, so all eight retain `:oracle: spec`; the strict
 HDL runner reports mismatches as `fail`. Its overlapping results are separate.
 Force/release, arrays, four-state values and finer permissions remain open.
 
@@ -2181,3 +2186,53 @@ Generic type names omit the required prefix in the pinned library, and the
 tested default-index setter does not redirect calls. Both retain normative
 expectations. Queries alone do not establish all connection diagnostics,
 relationship checks or interface traffic.
+
+## Container semantics, bidirectional exports and interpreted algorithms
+
+### Q131. What additional container behavior is observed?
+
+[Pool defaults](../tests/u11/test_pool_constructor_names_and_default_type_keep_local_instances_independent.sv)
+and [queue defaults](../tests/u11/test_queue_constructor_names_and_front_back_insertion_preserve_local_order.sv)
+use explicit specialized aliases to verify default types and shared storage.
+Names, local-instance isolation, keyed replacement/noninserting membership,
+front/back insertion, occupancy, nonconsuming gets, exact nonempty pop handles
+and indexed/default deletion have distinct observations. Out-of-range gets
+check warnings and missing-entry values for two-state vectors and objects;
+negative get indexes and four-state defaults are not inferred.
+
+### Q132. Are all nine bidirectional export types tested for transport delivery?
+
+No. All nine have concrete constructor checks, including default bounds and
+name/parent/role identity. Slave interfaces reverse request/response method
+direction, so the constructor probe avoids a common-base cast. Nested blocking
+and nonblocking transport cases separately observe custom request/response
+handles, blocking return, completion bits, failure and reuse. Existing mixed
+master/slave fixtures provide separate directional checks. Constructor queries
+alone do not establish delivery, arbitrary binding diagnostics or concurrency.
+
+### Q133. Does zero-time force_time require force/release backend support?
+
+No. For an omitted or explicit zero time, 19.6.2.4 delegates to deposit.
+[Default](../tests/u19/test_hdl_force_time_default_time_delegates_to_deposit_without_force_or_release.sv)
+and [explicit-zero](../tests/u19/test_hdl_force_time_explicit_zero_time_delegates_to_deposit_without_force_or_release.sv)
+cases observe a real storage change, one deposit, no force/release/read calls
+and no elapsed time. Positive-duration force/release remains unsupported.
+The printed return-value prose conflicts with the declared task; these tests
+invent no task return assertion. Separate path cases verify that a nonempty
+abstraction list selects its entries and an empty list uses the block default,
+leaving an invalid alternative unvisited.
+
+### Q134. How is the memory-walk algorithm interpreted?
+
+IEEE E.6.1 names the algorithm without detailing it. The
+[official UVM 1.2 LRM, 27.7, printed p.730](https://accellera.org/images/downloads/standards/uvm/UVM_Class_Reference_Manual_1.2.pdf#page=739)
+provides historical context. The [original observer](../tests/uE/test_memory_walk_address_data_relations_follow_the_documented_historical_interpretation.sv)
+checks address-dependent initial/read/retirement values and their local order
+on two maps of one four-location, eight-bit memory. It does not generate the
+walk or derive expectations from implementation output.
+
+This is an AI interpretation requiring review, not an IEEE amendment or a
+proof for all sizes/maps. Location masks and stuck-bit detection alone remain
+insufficient. Frontdoor protection warnings are outside this algorithm oracle;
+ERROR and the observed relationships remain checked. Zero direct-test gaps
+counts the linked draft, not approval of its historical interpretation.
