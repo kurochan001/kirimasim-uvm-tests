@@ -98609,6 +98609,1304 @@
           ]
         }
       ]
+    },
+    {
+      "id": "UVM-BLOCK-CONFIG-OBJECT-BASE",
+      "clause": "18.1.1",
+      "statement": {
+        "en": "A block instance is usable through an object base view and casts back to the same block handle.",
+        "ja": "block instanceはobject base viewで利用でき、同じblock handleへcastして戻せる。"
+      },
+      "conditions": {
+        "en": "Use the selected original block subclasses and public calls. Protected coverage construction is exposed only by a selected original subtype; add_coverage is called only in its constructor. Ignore set_coverage return values, whose independent previous-mask oracle remains unchanged.",
+        "ja": "選択した独自block subclassと公開callを使う。protected coverage構築は選択独自subtypeでだけ公開し、add_coverageはconstructorでだけ呼ぶ。set_coverageの返却値は無視し、独立した以前のmask要求は未変更で保持する。"
+      },
+      "expected": {
+        "en": "A block instance is usable through an object base view and casts back to the same block handle.",
+        "ja": "block instanceはobject base viewで利用でき、同じblock handleへcastして戻せる。"
+      },
+      "limitations": {
+        "en": "Selected names and two-state coverage masks only. This checks available/enabled metadata, not covergroups, bin measurement, physical DUT access or complete scope-pattern/precedence behavior. No initial enabled-state default is inferred. Other coverage return values and lifecycle conditions remain separate.",
+        "ja": "選択名と2状態coverage maskだけ。利用可能／有効metadataを確認し、covergroup、bin測定、物理DUTアクセス、全scope-pattern／優先規則ではない。初期有効状態の既定値は推定しない。他のcoverage返却値と寿命条件は別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_constructor_preserves_names_object_identity_and_available_coverage_defaults",
+          "role": "direct",
+          "expected_observations": [
+            "UT: constructor object_view 1 roundtrip 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-CONFIG-NEW-NAME",
+      "clause": "18.1.2.1",
+      "statement": {
+        "en": "Block construction preserves the selected instance name and produces a distinct instance.",
+        "ja": "block構築は選択instance名を保持し、別instanceを生成する。"
+      },
+      "conditions": {
+        "en": "Use the selected original block subclasses and public calls. Protected coverage construction is exposed only by a selected original subtype; add_coverage is called only in its constructor. Ignore set_coverage return values, whose independent previous-mask oracle remains unchanged.",
+        "ja": "選択した独自block subclassと公開callを使う。protected coverage構築は選択独自subtypeでだけ公開し、add_coverageはconstructorでだけ呼ぶ。set_coverageの返却値は無視し、独立した以前のmask要求は未変更で保持する。"
+      },
+      "expected": {
+        "en": "Block construction preserves the selected instance name and produces a distinct instance.",
+        "ja": "block構築は選択instance名を保持し、別instanceを生成する。"
+      },
+      "limitations": {
+        "en": "Selected names and two-state coverage masks only. This checks available/enabled metadata, not covergroups, bin measurement, physical DUT access or complete scope-pattern/precedence behavior. No initial enabled-state default is inferred. Other coverage return values and lifecycle conditions remain separate.",
+        "ja": "選択名と2状態coverage maskだけ。利用可能／有効metadataを確認し、covergroup、bin測定、物理DUTアクセス、全scope-pattern／優先規則ではない。初期有効状態の既定値は推定しない。他のcoverage返却値と寿命条件は別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_constructor_preserves_names_object_identity_and_available_coverage_defaults",
+          "role": "direct",
+          "expected_observations": [
+            "UT: constructor unnamed 1 named 1 distinct 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-CONFIG-NEW-DEFAULT-NAME",
+      "clause": "18.1.2.1",
+      "statement": {
+        "en": "Omitting the selected block name uses the declared empty-string default.",
+        "ja": "選択block名の省略は宣言された空文字列の既定値を使う。"
+      },
+      "conditions": {
+        "en": "Use the selected original block subclasses and public calls. Protected coverage construction is exposed only by a selected original subtype; add_coverage is called only in its constructor. Ignore set_coverage return values, whose independent previous-mask oracle remains unchanged.",
+        "ja": "選択した独自block subclassと公開callを使う。protected coverage構築は選択独自subtypeでだけ公開し、add_coverageはconstructorでだけ呼ぶ。set_coverageの返却値は無視し、独立した以前のmask要求は未変更で保持する。"
+      },
+      "expected": {
+        "en": "Omitting the selected block name uses the declared empty-string default.",
+        "ja": "選択block名の省略は宣言された空文字列の既定値を使う。"
+      },
+      "limitations": {
+        "en": "Selected names and two-state coverage masks only. This checks available/enabled metadata, not covergroups, bin measurement, physical DUT access or complete scope-pattern/precedence behavior. No initial enabled-state default is inferred. Other coverage return values and lifecycle conditions remain separate.",
+        "ja": "選択名と2状態coverage maskだけ。利用可能／有効metadataを確認し、covergroup、bin測定、物理DUTアクセス、全scope-pattern／優先規則ではない。初期有効状態の既定値は推定しない。他のcoverage返却値と寿命条件は別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_constructor_preserves_names_object_identity_and_available_coverage_defaults",
+          "role": "direct",
+          "expected_observations": [
+            "UT: constructor unnamed 1 named 1 distinct 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-CONFIG-NEW-DEFAULT-COVERAGE",
+      "clause": "18.1.2.1",
+      "statement": {
+        "en": "Omitting has_coverage supplies no available coverage models.",
+        "ja": "has_coverage省略では利用可能なcoverage modelを供給しない。"
+      },
+      "conditions": {
+        "en": "Use the selected original block subclasses and public calls. Protected coverage construction is exposed only by a selected original subtype; add_coverage is called only in its constructor. Ignore set_coverage return values, whose independent previous-mask oracle remains unchanged.",
+        "ja": "選択した独自block subclassと公開callを使う。protected coverage構築は選択独自subtypeでだけ公開し、add_coverageはconstructorでだけ呼ぶ。set_coverageの返却値は無視し、独立した以前のmask要求は未変更で保持する。"
+      },
+      "expected": {
+        "en": "Omitting has_coverage supplies no available coverage models.",
+        "ja": "has_coverage省略では利用可能なcoverage modelを供給しない。"
+      },
+      "limitations": {
+        "en": "Selected names and two-state coverage masks only. This checks available/enabled metadata, not covergroups, bin measurement, physical DUT access or complete scope-pattern/precedence behavior. No initial enabled-state default is inferred. Other coverage return values and lifecycle conditions remain separate.",
+        "ja": "選択名と2状態coverage maskだけ。利用可能／有効metadataを確認し、covergroup、bin測定、物理DUTアクセス、全scope-pattern／優先規則ではない。初期有効状態の既定値は推定しない。他のcoverage返却値と寿命条件は別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_constructor_preserves_names_object_identity_and_available_coverage_defaults",
+          "role": "direct",
+          "expected_observations": [
+            "UT: constructor default_none 1 peer_none 1 combined 1 missing 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-CONFIG-NEW-MULTIPLE-COVERAGE",
+      "clause": "18.1.2.1",
+      "statement": {
+        "en": "The selected constructor mask advertises all supplied symbolic coverage models without adding the absent address model.",
+        "ja": "選択constructor maskは指定した全symbolic coverage modelを保持し、指定しないaddress modelを加えない。"
+      },
+      "conditions": {
+        "en": "Use the selected original block subclasses and public calls. Protected coverage construction is exposed only by a selected original subtype; add_coverage is called only in its constructor. Ignore set_coverage return values, whose independent previous-mask oracle remains unchanged.",
+        "ja": "選択した独自block subclassと公開callを使う。protected coverage構築は選択独自subtypeでだけ公開し、add_coverageはconstructorでだけ呼ぶ。set_coverageの返却値は無視し、独立した以前のmask要求は未変更で保持する。"
+      },
+      "expected": {
+        "en": "The selected constructor mask advertises all supplied symbolic coverage models without adding the absent address model.",
+        "ja": "選択constructor maskは指定した全symbolic coverage modelを保持し、指定しないaddress modelを加えない。"
+      },
+      "limitations": {
+        "en": "Selected names and two-state coverage masks only. This checks available/enabled metadata, not covergroups, bin measurement, physical DUT access or complete scope-pattern/precedence behavior. No initial enabled-state default is inferred. Other coverage return values and lifecycle conditions remain separate.",
+        "ja": "選択名と2状態coverage maskだけ。利用可能／有効metadataを確認し、covergroup、bin測定、物理DUTアクセス、全scope-pattern／優先規則ではない。初期有効状態の既定値は推定しない。他のcoverage返却値と寿命条件は別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_constructor_preserves_names_object_identity_and_available_coverage_defaults",
+          "role": "direct",
+          "expected_observations": [
+            "UT: constructor default_none 1 peer_none 1 combined 1 missing 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-CONFIG-CONFIGURE-PARENT",
+      "clause": "18.1.2.2",
+      "statement": {
+        "en": "configure records the supplied parent block and treats an omitted parent as a root.",
+        "ja": "configureは指定parent blockを記録し、省略parentをrootとして扱う。"
+      },
+      "conditions": {
+        "en": "Original root, flattened intermediate and leaf blocks use selected symbolic path strings. Only metadata getters are called; explicit RTL is used unless the fixture deliberately tests default-kind inheritance.",
+        "ja": "独自root、flattened中間、leaf blockに選択symbolic path文字列を使う。metadata getterだけを呼び、既定kind継承を意図的に検査するfixture以外はRTLを明示する。"
+      },
+      "expected": {
+        "en": "configure records the supplied parent block and treats an omitted parent as a root.",
+        "ja": "configureは指定parent blockを記録し、省略parentをrootとして扱う。"
+      },
+      "limitations": {
+        "en": "No DPI, physical HDL variable, hardware transfer or simulator hierarchy resolution is exercised. Paths are compared without assuming sibling iteration order. The independent ancestor-default known difference is retained, and absence of metadata is not interpreted as a DUT access diagnostic.",
+        "ja": "DPI、物理HDL変数、hardware転送、simulator階層解決は実行しない。兄弟反復順を仮定せずpathを比較する。独立した祖先既定値の既知差分を保持し、metadata欠落からDUTアクセス診断を導かない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_configure_records_parent_and_omits_flattened_intermediate_hdl_segments",
+          "role": "direct",
+          "expected_observations": [
+            "UT: configure parents root 1 flat 1 leaf 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-CONFIG-CONFIGURE-HDL-CONTRIBUTION",
+      "clause": "18.1.2.2",
+      "statement": {
+        "en": "A configured leaf contributes its selected HDL segment beneath its parent path.",
+        "ja": "設定されたleafはparent pathの下へ選択HDL segmentを寄与する。"
+      },
+      "conditions": {
+        "en": "Original root, flattened intermediate and leaf blocks use selected symbolic path strings. Only metadata getters are called; explicit RTL is used unless the fixture deliberately tests default-kind inheritance.",
+        "ja": "独自root、flattened中間、leaf blockに選択symbolic path文字列を使う。metadata getterだけを呼び、既定kind継承を意図的に検査するfixture以外はRTLを明示する。"
+      },
+      "expected": {
+        "en": "A configured leaf contributes its selected HDL segment beneath its parent path.",
+        "ja": "設定されたleafはparent pathの下へ選択HDL segmentを寄与する。"
+      },
+      "limitations": {
+        "en": "No DPI, physical HDL variable, hardware transfer or simulator hierarchy resolution is exercised. Paths are compared without assuming sibling iteration order. The independent ancestor-default known difference is retained, and absence of metadata is not interpreted as a DUT access diagnostic.",
+        "ja": "DPI、物理HDL変数、hardware転送、simulator階層解決は実行しない。兄弟反復順を仮定せずpathを比較する。独立した祖先既定値の既知差分を保持し、metadata欠落からDUTアクセス診断を導かない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_configure_records_parent_and_omits_flattened_intermediate_hdl_segments",
+          "role": "direct",
+          "expected_observations": [
+            "UT: configure flattened count 1 no_segment 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-CONFIG-CONFIGURE-FLATTENED",
+      "clause": "18.1.2.2",
+      "statement": {
+        "en": "An omitted intermediate HDL path contributes no extra segment to the selected descendant full path.",
+        "ja": "中間HDL pathの省略は選択子孫のfull pathへ余分なsegmentを加えない。"
+      },
+      "conditions": {
+        "en": "Original root, flattened intermediate and leaf blocks use selected symbolic path strings. Only metadata getters are called; explicit RTL is used unless the fixture deliberately tests default-kind inheritance.",
+        "ja": "独自root、flattened中間、leaf blockに選択symbolic path文字列を使う。metadata getterだけを呼び、既定kind継承を意図的に検査するfixture以外はRTLを明示する。"
+      },
+      "expected": {
+        "en": "An omitted intermediate HDL path contributes no extra segment to the selected descendant full path.",
+        "ja": "中間HDL pathの省略は選択子孫のfull pathへ余分なsegmentを加えない。"
+      },
+      "limitations": {
+        "en": "No DPI, physical HDL variable, hardware transfer or simulator hierarchy resolution is exercised. Paths are compared without assuming sibling iteration order. The independent ancestor-default known difference is retained, and absence of metadata is not interpreted as a DUT access diagnostic.",
+        "ja": "DPI、物理HDL変数、hardware転送、simulator階層解決は実行しない。兄弟反復順を仮定せずpathを比較する。独立した祖先既定値の既知差分を保持し、metadata欠落からDUTアクセス診断を導かない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_configure_records_parent_and_omits_flattened_intermediate_hdl_segments",
+          "role": "direct",
+          "expected_observations": [
+            "UT: configure flattened count 1 no_segment 1",
+            "UT: configure flat_parent count 1 value 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-CONFIG-BUILD-SCOPE",
+      "clause": "18.1.4.1",
+      "statement": {
+        "en": "build_coverage observes the selected exact hierarchical inclusion scope set by uvm_reg::include_coverage.",
+        "ja": "build_coverageはuvm_reg::include_coverageで設定した選択完全階層一致scopeを参照する。"
+      },
+      "conditions": {
+        "en": "Use the selected original block subclasses and public calls. Protected coverage construction is exposed only by a selected original subtype; add_coverage is called only in its constructor. Ignore set_coverage return values, whose independent previous-mask oracle remains unchanged.",
+        "ja": "選択した独自block subclassと公開callを使う。protected coverage構築は選択独自subtypeでだけ公開し、add_coverageはconstructorでだけ呼ぶ。set_coverageの返却値は無視し、独立した以前のmask要求は未変更で保持する。"
+      },
+      "expected": {
+        "en": "build_coverage observes the selected exact hierarchical inclusion scope set by uvm_reg::include_coverage.",
+        "ja": "build_coverageはuvm_reg::include_coverageで設定した選択完全階層一致scopeを参照する。"
+      },
+      "limitations": {
+        "en": "Selected names and two-state coverage masks only. This checks available/enabled metadata, not covergroups, bin measurement, physical DUT access or complete scope-pattern/precedence behavior. No initial enabled-state default is inferred. Other coverage return values and lifecycle conditions remain separate.",
+        "ja": "選択名と2状態coverage maskだけ。利用可能／有効metadataを確認し、covergroup、bin測定、物理DUTアクセス、全scope-pattern／優先規則ではない。初期有効状態の既定値は推定しない。他のcoverage返却値と寿命条件は別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_build_coverage_intersects_requested_models_with_exact_scope_inclusion",
+          "role": "direct",
+          "expected_observations": [
+            "UT: build_coverage scope 1 requested_subset 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-CONFIG-BUILD-INTERSECTION",
+      "clause": "18.1.4.1",
+      "statement": {
+        "en": "Only requested models included for the selected block are returned by build_coverage.",
+        "ja": "build_coverageは選択blockへincludeされ要求もされたmodelだけを返す。"
+      },
+      "conditions": {
+        "en": "Use the selected original block subclasses and public calls. Protected coverage construction is exposed only by a selected original subtype; add_coverage is called only in its constructor. Ignore set_coverage return values, whose independent previous-mask oracle remains unchanged.",
+        "ja": "選択した独自block subclassと公開callを使う。protected coverage構築は選択独自subtypeでだけ公開し、add_coverageはconstructorでだけ呼ぶ。set_coverageの返却値は無視し、独立した以前のmask要求は未変更で保持する。"
+      },
+      "expected": {
+        "en": "Only requested models included for the selected block are returned by build_coverage.",
+        "ja": "build_coverageは選択blockへincludeされ要求もされたmodelだけを返す。"
+      },
+      "limitations": {
+        "en": "Selected names and two-state coverage masks only. This checks available/enabled metadata, not covergroups, bin measurement, physical DUT access or complete scope-pattern/precedence behavior. No initial enabled-state default is inferred. Other coverage return values and lifecycle conditions remain separate.",
+        "ja": "選択名と2状態coverage maskだけ。利用可能／有効metadataを確認し、covergroup、bin測定、物理DUTアクセス、全scope-pattern／優先規則ではない。初期有効状態の既定値は推定しない。他のcoverage返却値と寿命条件は別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_build_coverage_intersects_requested_models_with_exact_scope_inclusion",
+          "role": "direct",
+          "expected_observations": [
+            "UT: build_coverage scope 1 requested_subset 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-CONFIG-BUILD-INDEPENDENCE",
+      "clause": "18.1.4.1",
+      "statement": {
+        "en": "Different selected scope inclusions remain independent and excluded requested models yield no coverage.",
+        "ja": "選択した別scopeのincludeは独立し、includeされない要求modelはcoverageなしになる。"
+      },
+      "conditions": {
+        "en": "Use the selected original block subclasses and public calls. Protected coverage construction is exposed only by a selected original subtype; add_coverage is called only in its constructor. Ignore set_coverage return values, whose independent previous-mask oracle remains unchanged.",
+        "ja": "選択した独自block subclassと公開callを使う。protected coverage構築は選択独自subtypeでだけ公開し、add_coverageはconstructorでだけ呼ぶ。set_coverageの返却値は無視し、独立した以前のmask要求は未変更で保持する。"
+      },
+      "expected": {
+        "en": "Different selected scope inclusions remain independent and excluded requested models yield no coverage.",
+        "ja": "選択した別scopeのincludeは独立し、includeされない要求modelはcoverageなしになる。"
+      },
+      "limitations": {
+        "en": "Selected names and two-state coverage masks only. This checks available/enabled metadata, not covergroups, bin measurement, physical DUT access or complete scope-pattern/precedence behavior. No initial enabled-state default is inferred. Other coverage return values and lifecycle conditions remain separate.",
+        "ja": "選択名と2状態coverage maskだけ。利用可能／有効metadataを確認し、covergroup、bin測定、物理DUTアクセス、全scope-pattern／優先規則ではない。初期有効状態の既定値は推定しない。他のcoverage返却値と寿命条件は別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_build_coverage_intersects_requested_models_with_exact_scope_inclusion",
+          "role": "direct",
+          "expected_observations": [
+            "UT: build_coverage peer 1 excluded 1 repeat 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-CONFIG-ADD-UNION",
+      "clause": "18.1.4.2",
+      "statement": {
+        "en": "Constructor-only add_coverage preserves earlier available models and adds the selected new models.",
+        "ja": "constructor内だけのadd_coverageは以前の利用可能modelを保持し、選択した新modelを追加する。"
+      },
+      "conditions": {
+        "en": "Use the selected original block subclasses and public calls. Protected coverage construction is exposed only by a selected original subtype; add_coverage is called only in its constructor. Ignore set_coverage return values, whose independent previous-mask oracle remains unchanged.",
+        "ja": "選択した独自block subclassと公開callを使う。protected coverage構築は選択独自subtypeでだけ公開し、add_coverageはconstructorでだけ呼ぶ。set_coverageの返却値は無視し、独立した以前のmask要求は未変更で保持する。"
+      },
+      "expected": {
+        "en": "Constructor-only add_coverage preserves earlier available models and adds the selected new models.",
+        "ja": "constructor内だけのadd_coverageは以前の利用可能modelを保持し、選択した新modelを追加する。"
+      },
+      "limitations": {
+        "en": "Selected names and two-state coverage masks only. This checks available/enabled metadata, not covergroups, bin measurement, physical DUT access or complete scope-pattern/precedence behavior. No initial enabled-state default is inferred. Other coverage return values and lifecycle conditions remain separate.",
+        "ja": "選択名と2状態coverage maskだけ。利用可能／有効metadataを確認し、covergroup、bin測定、物理DUTアクセス、全scope-pattern／優先規則ではない。初期有効状態の既定値は推定しない。他のcoverage返却値と寿命条件は別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_constructor_add_coverage_unions_models_and_has_coverage_requires_all_bits",
+          "role": "direct",
+          "expected_observations": [
+            "UT: add_coverage original 1 added 1 union 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-CONFIG-ADD-REPEATED-BIT",
+      "clause": "18.1.4.2",
+      "statement": {
+        "en": "Adding a previously included coverage bit together with another bit retains the selected union.",
+        "ja": "以前にincludeしたcoverage bitと別bitをともに追加しても選択unionを保持する。"
+      },
+      "conditions": {
+        "en": "Use the selected original block subclasses and public calls. Protected coverage construction is exposed only by a selected original subtype; add_coverage is called only in its constructor. Ignore set_coverage return values, whose independent previous-mask oracle remains unchanged.",
+        "ja": "選択した独自block subclassと公開callを使う。protected coverage構築は選択独自subtypeでだけ公開し、add_coverageはconstructorでだけ呼ぶ。set_coverageの返却値は無視し、独立した以前のmask要求は未変更で保持する。"
+      },
+      "expected": {
+        "en": "Adding a previously included coverage bit together with another bit retains the selected union.",
+        "ja": "以前にincludeしたcoverage bitと別bitをともに追加しても選択unionを保持する。"
+      },
+      "limitations": {
+        "en": "Selected names and two-state coverage masks only. This checks available/enabled metadata, not covergroups, bin measurement, physical DUT access or complete scope-pattern/precedence behavior. No initial enabled-state default is inferred. Other coverage return values and lifecycle conditions remain separate.",
+        "ja": "選択名と2状態coverage maskだけ。利用可能／有効metadataを確認し、covergroup、bin測定、物理DUTアクセス、全scope-pattern／優先規則ではない。初期有効状態の既定値は推定しない。他のcoverage返却値と寿命条件は別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_constructor_add_coverage_unions_models_and_has_coverage_requires_all_bits",
+          "role": "direct",
+          "expected_observations": [
+            "UT: add_coverage original 1 added 1 union 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-CONFIG-HAS-ALL",
+      "clause": "18.1.4.3",
+      "statement": {
+        "en": "has_coverage returns true only when all selected requested coverage models are available.",
+        "ja": "has_coverageは選択要求coverage modelが全て利用可能な場合だけtrueを返す。"
+      },
+      "conditions": {
+        "en": "Use the selected original block subclasses and public calls. Protected coverage construction is exposed only by a selected original subtype; add_coverage is called only in its constructor. Ignore set_coverage return values, whose independent previous-mask oracle remains unchanged.",
+        "ja": "選択した独自block subclassと公開callを使う。protected coverage構築は選択独自subtypeでだけ公開し、add_coverageはconstructorでだけ呼ぶ。set_coverageの返却値は無視し、独立した以前のmask要求は未変更で保持する。"
+      },
+      "expected": {
+        "en": "has_coverage returns true only when all selected requested coverage models are available.",
+        "ja": "has_coverageは選択要求coverage modelが全て利用可能な場合だけtrueを返す。"
+      },
+      "limitations": {
+        "en": "Selected names and two-state coverage masks only. This checks available/enabled metadata, not covergroups, bin measurement, physical DUT access or complete scope-pattern/precedence behavior. No initial enabled-state default is inferred. Other coverage return values and lifecycle conditions remain separate.",
+        "ja": "選択名と2状態coverage maskだけ。利用可能／有効metadataを確認し、covergroup、bin測定、物理DUTアクセス、全scope-pattern／優先規則ではない。初期有効状態の既定値は推定しない。他のcoverage返却値と寿命条件は別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_constructor_add_coverage_unions_models_and_has_coverage_requires_all_bits",
+          "role": "direct",
+          "expected_observations": [
+            "UT: has_coverage peer_single 1 peer_all_missing 1 unchanged 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-CONFIG-HAS-INSTANCE-LOCAL",
+      "clause": "18.1.4.3",
+      "statement": {
+        "en": "Coverage availability added to one instance does not add it to the selected peer.",
+        "ja": "1 instanceへ追加したcoverageの利用可能性は選択peerへ追加されない。"
+      },
+      "conditions": {
+        "en": "Use the selected original block subclasses and public calls. Protected coverage construction is exposed only by a selected original subtype; add_coverage is called only in its constructor. Ignore set_coverage return values, whose independent previous-mask oracle remains unchanged.",
+        "ja": "選択した独自block subclassと公開callを使う。protected coverage構築は選択独自subtypeでだけ公開し、add_coverageはconstructorでだけ呼ぶ。set_coverageの返却値は無視し、独立した以前のmask要求は未変更で保持する。"
+      },
+      "expected": {
+        "en": "Coverage availability added to one instance does not add it to the selected peer.",
+        "ja": "1 instanceへ追加したcoverageの利用可能性は選択peerへ追加されない。"
+      },
+      "limitations": {
+        "en": "Selected names and two-state coverage masks only. This checks available/enabled metadata, not covergroups, bin measurement, physical DUT access or complete scope-pattern/precedence behavior. No initial enabled-state default is inferred. Other coverage return values and lifecycle conditions remain separate.",
+        "ja": "選択名と2状態coverage maskだけ。利用可能／有効metadataを確認し、covergroup、bin測定、物理DUTアクセス、全scope-pattern／優先規則ではない。初期有効状態の既定値は推定しない。他のcoverage返却値と寿命条件は別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_constructor_add_coverage_unions_models_and_has_coverage_requires_all_bits",
+          "role": "direct",
+          "expected_observations": [
+            "UT: has_coverage peer_single 1 peer_all_missing 1 unchanged 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-CONFIG-GET-ALL-REQUESTED",
+      "clause": "18.1.4.4",
+      "statement": {
+        "en": "get_coverage requires every requested measurement model to be enabled.",
+        "ja": "get_coverageは要求した全測定modelが有効であることを必要とする。"
+      },
+      "conditions": {
+        "en": "Use the selected original block subclasses and public calls. Protected coverage construction is exposed only by a selected original subtype; add_coverage is called only in its constructor. Ignore set_coverage return values, whose independent previous-mask oracle remains unchanged.",
+        "ja": "選択した独自block subclassと公開callを使う。protected coverage構築は選択独自subtypeでだけ公開し、add_coverageはconstructorでだけ呼ぶ。set_coverageの返却値は無視し、独立した以前のmask要求は未変更で保持する。"
+      },
+      "expected": {
+        "en": "get_coverage requires every requested measurement model to be enabled.",
+        "ja": "get_coverageは要求した全測定modelが有効であることを必要とする。"
+      },
+      "limitations": {
+        "en": "Selected names and two-state coverage masks only. This checks available/enabled metadata, not covergroups, bin measurement, physical DUT access or complete scope-pattern/precedence behavior. No initial enabled-state default is inferred. Other coverage return values and lifecycle conditions remain separate.",
+        "ja": "選択名と2状態coverage maskだけ。利用可能／有効metadataを確認し、covergroup、bin測定、物理DUTアクセス、全scope-pattern／優先規則ではない。初期有効状態の既定値は推定しない。他のcoverage返却値と寿命条件は別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_get_coverage_checks_all_requested_enabled_models_and_default_all_mask",
+          "role": "direct",
+          "expected_observations": [
+            "UT: get_coverage subset enabled 1 combined_off 1 default_all_off 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-CONFIG-GET-DEFAULT-ALL",
+      "clause": "18.1.4.4",
+      "statement": {
+        "en": "Omitted get_coverage is_on uses UVM_CVR_ALL, matching the explicit all-model query.",
+        "ja": "get_coverageのis_on省略はUVM_CVR_ALLを使い、明示全model照会に一致する。"
+      },
+      "conditions": {
+        "en": "Use the selected original block subclasses and public calls. Protected coverage construction is exposed only by a selected original subtype; add_coverage is called only in its constructor. Ignore set_coverage return values, whose independent previous-mask oracle remains unchanged.",
+        "ja": "選択した独自block subclassと公開callを使う。protected coverage構築は選択独自subtypeでだけ公開し、add_coverageはconstructorでだけ呼ぶ。set_coverageの返却値は無視し、独立した以前のmask要求は未変更で保持する。"
+      },
+      "expected": {
+        "en": "Omitted get_coverage is_on uses UVM_CVR_ALL, matching the explicit all-model query.",
+        "ja": "get_coverageのis_on省略はUVM_CVR_ALLを使い、明示全model照会に一致する。"
+      },
+      "limitations": {
+        "en": "Selected names and two-state coverage masks only. This checks available/enabled metadata, not covergroups, bin measurement, physical DUT access or complete scope-pattern/precedence behavior. No initial enabled-state default is inferred. Other coverage return values and lifecycle conditions remain separate.",
+        "ja": "選択名と2状態coverage maskだけ。利用可能／有効metadataを確認し、covergroup、bin測定、物理DUTアクセス、全scope-pattern／優先規則ではない。初期有効状態の既定値は推定しない。他のcoverage返却値と寿命条件は別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_get_coverage_checks_all_requested_enabled_models_and_default_all_mask",
+          "role": "direct",
+          "expected_observations": [
+            "UT: get_coverage combined_on 1 default_equals_all 1 all_on 1 peer_off 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-CONFIG-GET-AVAILABLE-VERSUS-ON",
+      "clause": "18.1.4.4",
+      "statement": {
+        "en": "Disabling selected coverage measurement changes get_coverage without removing advertised availability.",
+        "ja": "選択coverage測定の無効化は利用可能性の宣言を除去せずget_coverageを変える。"
+      },
+      "conditions": {
+        "en": "Use the selected original block subclasses and public calls. Protected coverage construction is exposed only by a selected original subtype; add_coverage is called only in its constructor. Ignore set_coverage return values, whose independent previous-mask oracle remains unchanged.",
+        "ja": "選択した独自block subclassと公開callを使う。protected coverage構築は選択独自subtypeでだけ公開し、add_coverageはconstructorでだけ呼ぶ。set_coverageの返却値は無視し、独立した以前のmask要求は未変更で保持する。"
+      },
+      "expected": {
+        "en": "Disabling selected coverage measurement changes get_coverage without removing advertised availability.",
+        "ja": "選択coverage測定の無効化は利用可能性の宣言を除去せずget_coverageを変える。"
+      },
+      "limitations": {
+        "en": "Selected names and two-state coverage masks only. This checks available/enabled metadata, not covergroups, bin measurement, physical DUT access or complete scope-pattern/precedence behavior. No initial enabled-state default is inferred. Other coverage return values and lifecycle conditions remain separate.",
+        "ja": "選択名と2状態coverage maskだけ。利用可能／有効metadataを確認し、covergroup、bin測定、物理DUTアクセス、全scope-pattern／優先規則ではない。初期有効状態の既定値は推定しない。他のcoverage返却値と寿命条件は別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_get_coverage_checks_all_requested_enabled_models_and_default_all_mask",
+          "role": "direct",
+          "expected_observations": [
+            "UT: get_coverage disabled 1 still_available 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-CONFIG-GET-LOCAL-PEER",
+      "clause": "18.1.4.4",
+      "statement": {
+        "en": "Enabling the selected block does not enable an explicitly disabled independent peer.",
+        "ja": "選択blockの有効化は明示的に無効化した独立peerを有効にしない。"
+      },
+      "conditions": {
+        "en": "Use the selected original block subclasses and public calls. Protected coverage construction is exposed only by a selected original subtype; add_coverage is called only in its constructor. Ignore set_coverage return values, whose independent previous-mask oracle remains unchanged.",
+        "ja": "選択した独自block subclassと公開callを使う。protected coverage構築は選択独自subtypeでだけ公開し、add_coverageはconstructorでだけ呼ぶ。set_coverageの返却値は無視し、独立した以前のmask要求は未変更で保持する。"
+      },
+      "expected": {
+        "en": "Enabling the selected block does not enable an explicitly disabled independent peer.",
+        "ja": "選択blockの有効化は明示的に無効化した独立peerを有効にしない。"
+      },
+      "limitations": {
+        "en": "Selected names and two-state coverage masks only. This checks available/enabled metadata, not covergroups, bin measurement, physical DUT access or complete scope-pattern/precedence behavior. No initial enabled-state default is inferred. Other coverage return values and lifecycle conditions remain separate.",
+        "ja": "選択名と2状態coverage maskだけ。利用可能／有効metadataを確認し、covergroup、bin測定、物理DUTアクセス、全scope-pattern／優先規則ではない。初期有効状態の既定値は推定しない。他のcoverage返却値と寿命条件は別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_get_coverage_checks_all_requested_enabled_models_and_default_all_mask",
+          "role": "direct",
+          "expected_observations": [
+            "UT: get_coverage combined_on 1 default_equals_all 1 all_on 1 peer_off 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-CONFIG-BACKDOOR-NONE",
+      "clause": "18.1.6.2",
+      "statement": {
+        "en": "No specified backdoor in the selected root/child hierarchy yields null.",
+        "ja": "選択root／child階層に指定backdoorがなければnullになる。"
+      },
+      "conditions": {
+        "en": "An original three-level block hierarchy and separate peer use distinct original backdoor objects. All selected lower-level overrides are explicitly assigned. The replacement case deliberately queries inherited handles before changing the ancestor without assigning a local override.",
+        "ja": "独自3階層blockと別peerが別々の独自backdoor objectを使う。選択した下位overrideは全て明示設定する。置換caseはlocal overrideを設定せず、祖先変更前に意図的に継承handleを照会する。"
+      },
+      "expected": {
+        "en": "No specified backdoor in the selected root/child hierarchy yields null.",
+        "ja": "選択root／child階層に指定backdoorがなければnullになる。"
+      },
+      "limitations": {
+        "en": "Selected handle identity and inheritance only; no null-reset contract, ownership/destruction, automatic mirror update or complete concurrent replacement protocol. Inherited lookup is interpreted as the current parent value when no local backdoor was specified; a query is not a user assignment. Any observed caching difference remains a known result, not an altered oracle.",
+        "ja": "選択handle同一性と継承だけ。null reset契約、所有／破棄、自動mirror更新、全並行置換protocolではない。local backdoor未指定時の継承lookupは現在のparent値と解釈し、照会を利用者の設定とは見なさない。観測したcache差分は期待値を変えずknownとして保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_get_backdoor_selects_nearest_explicit_override_and_distinguishes_noninherited_query",
+          "role": "direct",
+          "expected_observations": [
+            "UT: backdoor initial root_null 1 child_null 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-CONFIG-BACKDOOR-NONINHERITED",
+      "clause": "18.1.6.2",
+      "statement": {
+        "en": "A noninherited query returns only an explicitly specified local backdoor.",
+        "ja": "非継承の照会は明示指定されたlocal backdoorだけを返す。"
+      },
+      "conditions": {
+        "en": "An original three-level block hierarchy and separate peer use distinct original backdoor objects. All selected lower-level overrides are explicitly assigned. The replacement case deliberately queries inherited handles before changing the ancestor without assigning a local override.",
+        "ja": "独自3階層blockと別peerが別々の独自backdoor objectを使う。選択した下位overrideは全て明示設定する。置換caseはlocal overrideを設定せず、祖先変更前に意図的に継承handleを照会する。"
+      },
+      "expected": {
+        "en": "A noninherited query returns only an explicitly specified local backdoor.",
+        "ja": "非継承の照会は明示指定されたlocal backdoorだけを返す。"
+      },
+      "limitations": {
+        "en": "Selected handle identity and inheritance only; no null-reset contract, ownership/destruction, automatic mirror update or complete concurrent replacement protocol. Inherited lookup is interpreted as the current parent value when no local backdoor was specified; a query is not a user assignment. Any observed caching difference remains a known result, not an altered oracle.",
+        "ja": "選択handle同一性と継承だけ。null reset契約、所有／破棄、自動mirror更新、全並行置換protocolではない。local backdoor未指定時の継承lookupは現在のparent値と解釈し、照会を利用者の設定とは見なさない。観測したcache差分は期待値を変えずknownとして保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_get_backdoor_selects_nearest_explicit_override_and_distinguishes_noninherited_query",
+          "role": "direct",
+          "expected_observations": [
+            "UT: backdoor explicit root 1 child 1 deep_local_null 1 sibling_local_null 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-CONFIG-BACKDOOR-NEAREST",
+      "clause": "18.1.6.2",
+      "statement": {
+        "en": "Inherited block queries select the nearest explicitly configured ancestor override.",
+        "ja": "継承block照会は明示設定された最も近い祖先overrideを選ぶ。"
+      },
+      "conditions": {
+        "en": "An original three-level block hierarchy and separate peer use distinct original backdoor objects. All selected lower-level overrides are explicitly assigned. The replacement case deliberately queries inherited handles before changing the ancestor without assigning a local override.",
+        "ja": "独自3階層blockと別peerが別々の独自backdoor objectを使う。選択した下位overrideは全て明示設定する。置換caseはlocal overrideを設定せず、祖先変更前に意図的に継承handleを照会する。"
+      },
+      "expected": {
+        "en": "Inherited block queries select the nearest explicitly configured ancestor override.",
+        "ja": "継承block照会は明示設定された最も近い祖先overrideを選ぶ。"
+      },
+      "limitations": {
+        "en": "Selected handle identity and inheritance only; no null-reset contract, ownership/destruction, automatic mirror update or complete concurrent replacement protocol. Inherited lookup is interpreted as the current parent value when no local backdoor was specified; a query is not a user assignment. Any observed caching difference remains a known result, not an altered oracle.",
+        "ja": "選択handle同一性と継承だけ。null reset契約、所有／破棄、自動mirror更新、全並行置換protocolではない。local backdoor未指定時の継承lookupは現在のparent値と解釈し、照会を利用者の設定とは見なさない。観測したcache差分は期待値を変えずknownとして保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_get_backdoor_selects_nearest_explicit_override_and_distinguishes_noninherited_query",
+          "role": "direct",
+          "expected_observations": [
+            "UT: backdoor inherited deep 1 sibling 1 default_true 1 peer_null 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-CONFIG-BACKDOOR-DEFAULT-TRUE",
+      "clause": "18.1.6.2",
+      "statement": {
+        "en": "Omitting inherited has the same selected parent-lookup behavior as inherited true.",
+        "ja": "inherited省略はinherited trueと同じ選択parent-lookup動作になる。"
+      },
+      "conditions": {
+        "en": "An original three-level block hierarchy and separate peer use distinct original backdoor objects. All selected lower-level overrides are explicitly assigned. The replacement case deliberately queries inherited handles before changing the ancestor without assigning a local override.",
+        "ja": "独自3階層blockと別peerが別々の独自backdoor objectを使う。選択した下位overrideは全て明示設定する。置換caseはlocal overrideを設定せず、祖先変更前に意図的に継承handleを照会する。"
+      },
+      "expected": {
+        "en": "Omitting inherited has the same selected parent-lookup behavior as inherited true.",
+        "ja": "inherited省略はinherited trueと同じ選択parent-lookup動作になる。"
+      },
+      "limitations": {
+        "en": "Selected handle identity and inheritance only; no null-reset contract, ownership/destruction, automatic mirror update or complete concurrent replacement protocol. Inherited lookup is interpreted as the current parent value when no local backdoor was specified; a query is not a user assignment. Any observed caching difference remains a known result, not an altered oracle.",
+        "ja": "選択handle同一性と継承だけ。null reset契約、所有／破棄、自動mirror更新、全並行置換protocolではない。local backdoor未指定時の継承lookupは現在のparent値と解釈し、照会を利用者の設定とは見なさない。観測したcache差分は期待値を変えずknownとして保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_get_backdoor_selects_nearest_explicit_override_and_distinguishes_noninherited_query",
+          "role": "direct",
+          "expected_observations": [
+            "UT: backdoor inherited deep 1 sibling 1 default_true 1 peer_null 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-CONFIG-BACKDOOR-REPLACEMENT",
+      "clause": "18.1.6.2",
+      "statement": {
+        "en": "Without an explicitly specified local backdoor, a later inherited query returns the new ancestor backdoor.",
+        "ja": "明示指定local backdoorがなければ、後続継承照会は新しい祖先backdoorを返す。"
+      },
+      "conditions": {
+        "en": "An original three-level block hierarchy and separate peer use distinct original backdoor objects. All selected lower-level overrides are explicitly assigned. The replacement case deliberately queries inherited handles before changing the ancestor without assigning a local override.",
+        "ja": "独自3階層blockと別peerが別々の独自backdoor objectを使う。選択した下位overrideは全て明示設定する。置換caseはlocal overrideを設定せず、祖先変更前に意図的に継承handleを照会する。"
+      },
+      "expected": {
+        "en": "Without an explicitly specified local backdoor, a later inherited query returns the new ancestor backdoor.",
+        "ja": "明示指定local backdoorがなければ、後続継承照会は新しい祖先backdoorを返す。"
+      },
+      "limitations": {
+        "en": "Selected handle identity and inheritance only; no null-reset contract, ownership/destruction, automatic mirror update or complete concurrent replacement protocol. Inherited lookup is interpreted as the current parent value when no local backdoor was specified; a query is not a user assignment. Any observed caching difference remains a known result, not an altered oracle.",
+        "ja": "選択handle同一性と継承だけ。null reset契約、所有／破棄、自動mirror更新、全並行置換protocolではない。local backdoor未指定時の継承lookupは現在のparent値と解釈し、照会を利用者の設定とは見なさない。観測したcache差分は期待値を変えずknownとして保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_inherited_backdoor_queries_follow_later_ancestor_replacement_without_local_assignment",
+          "role": "direct",
+          "expected_observations": [
+            "UT: backdoor_replace root 1 child 1 deep 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-CONFIG-BACKDOOR-QUERY-NOT-LOCAL-SET",
+      "clause": "18.1.6.2",
+      "statement": {
+        "en": "An inherited query alone does not specify a local user backdoor for a later noninherited query.",
+        "ja": "継承照会だけでは後続の非継承照会に対するlocal user backdoorを指定しない。"
+      },
+      "conditions": {
+        "en": "An original three-level block hierarchy and separate peer use distinct original backdoor objects. All selected lower-level overrides are explicitly assigned. The replacement case deliberately queries inherited handles before changing the ancestor without assigning a local override.",
+        "ja": "独自3階層blockと別peerが別々の独自backdoor objectを使う。選択した下位overrideは全て明示設定する。置換caseはlocal overrideを設定せず、祖先変更前に意図的に継承handleを照会する。"
+      },
+      "expected": {
+        "en": "An inherited query alone does not specify a local user backdoor for a later noninherited query.",
+        "ja": "継承照会だけでは後続の非継承照会に対するlocal user backdoorを指定しない。"
+      },
+      "limitations": {
+        "en": "Selected handle identity and inheritance only; no null-reset contract, ownership/destruction, automatic mirror update or complete concurrent replacement protocol. Inherited lookup is interpreted as the current parent value when no local backdoor was specified; a query is not a user assignment. Any observed caching difference remains a known result, not an altered oracle.",
+        "ja": "選択handle同一性と継承だけ。null reset契約、所有／破棄、自動mirror更新、全並行置換protocolではない。local backdoor未指定時の継承lookupは現在のparent値と解釈し、照会を利用者の設定とは見なさない。観測したcache差分は期待値を変えずknownとして保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_inherited_backdoor_queries_follow_later_ancestor_replacement_without_local_assignment",
+          "role": "direct",
+          "expected_observations": [
+            "UT: backdoor_replace query_not_assignment child_local_null 1 deep_local_null 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-CONFIG-SET-BACKDOOR-ROOT",
+      "clause": "18.1.6.3",
+      "statement": {
+        "en": "The selected block backdoor services actual accesses to its local register.",
+        "ja": "選択block backdoorはそのlocal registerへの実アクセスを処理する。"
+      },
+      "conditions": {
+        "en": "Original delayed user-backdoor storage is accessed through inherited uvm_reg poke/peek. Root, child and register-local definitions select three distinct backends; the original backend can reject an operation. Debug-only block setter filenames and line numbers vary. No wrapper target method is overridden.",
+        "ja": "独自遅延user-backdoor storageへ継承uvm_reg poke／peek経由でアクセスする。root、child、register-local定義は3つの別backendを選び、独自backendは操作を拒否できる。block setterのdebug専用filename／行番号を変える。wrapper target methodはoverrideしない。"
+      },
+      "expected": {
+        "en": "The selected block backdoor services actual accesses to its local register.",
+        "ja": "選択block backdoorはそのlocal registerへの実アクセスを処理する。"
+      },
+      "limitations": {
+        "en": "Selected 32-bit RW registers and original storage only, not physical HDL/DPI transport, memory inheritance, all field policies or every callback. Failure status is observed without prescribing failed-read data. Backend counters establish use, not an exact read/write count. Setter debug values may be ignored or forwarded.",
+        "ja": "選択32-bit RW registerと独自storageだけで、物理HDL／DPI transport、memory継承、全field policy、全callbackではない。失敗read dataを規定せず失敗statusを観測する。backend counterは使用を示し、正確なread／write件数ではない。setter debug値は無視／転送を許容する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_backdoor_selection_drives_real_register_poke_peek_with_debug_and_failure_controls",
+          "role": "direct",
+          "expected_observations": [
+            "UT: backdoor_access debug 0 status_and_data 1 roots 1 branches 1 direct 1",
+            "UT: backdoor_access debug 1 status_and_data 1 roots 1 branches 1 direct 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-CONFIG-SET-BACKDOOR-LOWER-OVERRIDES",
+      "clause": "18.1.6.3",
+      "statement": {
+        "en": "A lower block backdoor and a register-local backdoor override the ancestor for their selected accesses.",
+        "ja": "下位block backdoorとregister-local backdoorは選択アクセスで祖先をoverrideする。"
+      },
+      "conditions": {
+        "en": "Original delayed user-backdoor storage is accessed through inherited uvm_reg poke/peek. Root, child and register-local definitions select three distinct backends; the original backend can reject an operation. Debug-only block setter filenames and line numbers vary. No wrapper target method is overridden.",
+        "ja": "独自遅延user-backdoor storageへ継承uvm_reg poke／peek経由でアクセスする。root、child、register-local定義は3つの別backendを選び、独自backendは操作を拒否できる。block setterのdebug専用filename／行番号を変える。wrapper target methodはoverrideしない。"
+      },
+      "expected": {
+        "en": "A lower block backdoor and a register-local backdoor override the ancestor for their selected accesses.",
+        "ja": "下位block backdoorとregister-local backdoorは選択アクセスで祖先をoverrideする。"
+      },
+      "limitations": {
+        "en": "Selected 32-bit RW registers and original storage only, not physical HDL/DPI transport, memory inheritance, all field policies or every callback. Failure status is observed without prescribing failed-read data. Backend counters establish use, not an exact read/write count. Setter debug values may be ignored or forwarded.",
+        "ja": "選択32-bit RW registerと独自storageだけで、物理HDL／DPI transport、memory継承、全field policy、全callbackではない。失敗read dataを規定せず失敗statusを観測する。backend counterは使用を示し、正確なread／write件数ではない。setter debug値は無視／転送を許容する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_backdoor_selection_drives_real_register_poke_peek_with_debug_and_failure_controls",
+          "role": "direct",
+          "expected_observations": [
+            "UT: backdoor_access debug 0 status_and_data 1 roots 1 branches 1 direct 1",
+            "UT: backdoor_access debug 1 status_and_data 1 roots 1 branches 1 direct 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-CONFIG-SET-BACKDOOR-DEBUG",
+      "clause": "18.1.6.3",
+      "statement": {
+        "en": "Changing block setter debug-only source information preserves selected backdoor access selection and data.",
+        "ja": "block setterのdebug専用source情報を変えても選択backdoorアクセスの選択とdataを保持する。"
+      },
+      "conditions": {
+        "en": "Original delayed user-backdoor storage is accessed through inherited uvm_reg poke/peek. Root, child and register-local definitions select three distinct backends; the original backend can reject an operation. Debug-only block setter filenames and line numbers vary. No wrapper target method is overridden.",
+        "ja": "独自遅延user-backdoor storageへ継承uvm_reg poke／peek経由でアクセスする。root、child、register-local定義は3つの別backendを選び、独自backendは操作を拒否できる。block setterのdebug専用filename／行番号を変える。wrapper target methodはoverrideしない。"
+      },
+      "expected": {
+        "en": "Changing block setter debug-only source information preserves selected backdoor access selection and data.",
+        "ja": "block setterのdebug専用source情報を変えても選択backdoorアクセスの選択とdataを保持する。"
+      },
+      "limitations": {
+        "en": "Selected 32-bit RW registers and original storage only, not physical HDL/DPI transport, memory inheritance, all field policies or every callback. Failure status is observed without prescribing failed-read data. Backend counters establish use, not an exact read/write count. Setter debug values may be ignored or forwarded.",
+        "ja": "選択32-bit RW registerと独自storageだけで、物理HDL／DPI transport、memory継承、全field policy、全callbackではない。失敗read dataを規定せず失敗statusを観測する。backend counterは使用を示し、正確なread／write件数ではない。setter debug値は無視／転送を許容する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_backdoor_selection_drives_real_register_poke_peek_with_debug_and_failure_controls",
+          "role": "direct",
+          "expected_observations": [
+            "UT: backdoor_access debug 0 status_and_data 1 roots 1 branches 1 direct 1",
+            "UT: backdoor_access debug 1 status_and_data 1 roots 1 branches 1 direct 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-CONFIG-SET-BACKDOOR-ISOLATION",
+      "clause": "18.4.4.11",
+      "statement": {
+        "en": "The selected backdoor write failure preserves the original backend storage and peer storage under the original failure policy.",
+        "ja": "選択backdoor write失敗は独自失敗policyの下で独自backend storageとpeer storageを保持する。"
+      },
+      "conditions": {
+        "en": "Original delayed user-backdoor storage is accessed through inherited uvm_reg poke/peek. Root, child and register-local definitions select three distinct backends; the original backend can reject an operation. Debug-only block setter filenames and line numbers vary. No wrapper target method is overridden.",
+        "ja": "独自遅延user-backdoor storageへ継承uvm_reg poke／peek経由でアクセスする。root、child、register-local定義は3つの別backendを選び、独自backendは操作を拒否できる。block setterのdebug専用filename／行番号を変える。wrapper target methodはoverrideしない。"
+      },
+      "expected": {
+        "en": "The selected backdoor write failure preserves the original backend storage and peer storage under the original failure policy.",
+        "ja": "選択backdoor write失敗は独自失敗policyの下で独自backend storageとpeer storageを保持する。"
+      },
+      "limitations": {
+        "en": "Selected 32-bit RW registers and original storage only, not physical HDL/DPI transport, memory inheritance, all field policies or every callback. Failure status is observed without prescribing failed-read data. Backend counters establish use, not an exact read/write count. Setter debug values may be ignored or forwarded.",
+        "ja": "選択32-bit RW registerと独自storageだけで、物理HDL／DPI transport、memory継承、全field policy、全callbackではない。失敗read dataを規定せず失敗statusを観測する。backend counterは使用を示し、正確なread／write件数ではない。setter debug値は無視／転送を許容する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_backdoor_selection_drives_real_register_poke_peek_with_debug_and_failure_controls",
+          "role": "direct",
+          "expected_observations": [
+            "UT: backdoor_access write_failure 1 unchanged 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-CONFIG-SET-BACKDOOR-STATUS",
+      "clause": "18.4.4.12",
+      "statement": {
+        "en": "Selected inherited register access returns the original backend failure status.",
+        "ja": "選択継承registerアクセスは独自backendの失敗statusを返す。"
+      },
+      "conditions": {
+        "en": "Original delayed user-backdoor storage is accessed through inherited uvm_reg poke/peek. Root, child and register-local definitions select three distinct backends; the original backend can reject an operation. Debug-only block setter filenames and line numbers vary. No wrapper target method is overridden.",
+        "ja": "独自遅延user-backdoor storageへ継承uvm_reg poke／peek経由でアクセスする。root、child、register-local定義は3つの別backendを選び、独自backendは操作を拒否できる。block setterのdebug専用filename／行番号を変える。wrapper target methodはoverrideしない。"
+      },
+      "expected": {
+        "en": "Selected inherited register access returns the original backend failure status.",
+        "ja": "選択継承registerアクセスは独自backendの失敗statusを返す。"
+      },
+      "limitations": {
+        "en": "Selected 32-bit RW registers and original storage only, not physical HDL/DPI transport, memory inheritance, all field policies or every callback. Failure status is observed without prescribing failed-read data. Backend counters establish use, not an exact read/write count. Setter debug values may be ignored or forwarded.",
+        "ja": "選択32-bit RW registerと独自storageだけで、物理HDL／DPI transport、memory継承、全field policy、全callbackではない。失敗read dataを規定せず失敗statusを観測する。backend counterは使用を示し、正確なread／write件数ではない。setter debug値は無視／転送を許容する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_backdoor_selection_drives_real_register_poke_peek_with_debug_and_failure_controls",
+          "role": "direct",
+          "expected_observations": [
+            "UT: backdoor_access read_failure 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-CONFIG-SET-BACKDOOR-RETRY",
+      "clause": "18.1.6.3",
+      "statement": {
+        "en": "A later valid selected access succeeds with the new stored value after the original backdoor recovers.",
+        "ja": "独自backdoor回復後の後続合法な選択アクセスは新しい格納値で成功する。"
+      },
+      "conditions": {
+        "en": "Original delayed user-backdoor storage is accessed through inherited uvm_reg poke/peek. Root, child and register-local definitions select three distinct backends; the original backend can reject an operation. Debug-only block setter filenames and line numbers vary. No wrapper target method is overridden.",
+        "ja": "独自遅延user-backdoor storageへ継承uvm_reg poke／peek経由でアクセスする。root、child、register-local定義は3つの別backendを選び、独自backendは操作を拒否できる。block setterのdebug専用filename／行番号を変える。wrapper target methodはoverrideしない。"
+      },
+      "expected": {
+        "en": "A later valid selected access succeeds with the new stored value after the original backdoor recovers.",
+        "ja": "独自backdoor回復後の後続合法な選択アクセスは新しい格納値で成功する。"
+      },
+      "limitations": {
+        "en": "Selected 32-bit RW registers and original storage only, not physical HDL/DPI transport, memory inheritance, all field policies or every callback. Failure status is observed without prescribing failed-read data. Backend counters establish use, not an exact read/write count. Setter debug values may be ignored or forwarded.",
+        "ja": "選択32-bit RW registerと独自storageだけで、物理HDL／DPI transport、memory継承、全field policy、全callbackではない。失敗read dataを規定せず失敗statusを観測する。backend counterは使用を示し、正確なread／write件数ではない。setter debug値は無視／転送を許容する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_backdoor_selection_drives_real_register_poke_peek_with_debug_and_failure_controls",
+          "role": "direct",
+          "expected_observations": [
+            "UT: backdoor_access retry 1 value 5044 all_backends_used 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-CONFIG-KIND-ARBITRARY",
+      "clause": "18.1.6.1",
+      "statement": {
+        "en": "Arbitrary selected string kinds identify independent HDL path representations for one block.",
+        "ja": "選択した任意string kindは1 blockの独立HDL path表現を識別する。"
+      },
+      "conditions": {
+        "en": "Original root, flattened intermediate and leaf blocks use selected symbolic path strings. Only metadata getters are called; explicit RTL is used unless the fixture deliberately tests default-kind inheritance.",
+        "ja": "独自root、flattened中間、leaf blockに選択symbolic path文字列を使う。metadata getterだけを呼び、既定kind継承を意図的に検査するfixture以外はRTLを明示する。"
+      },
+      "expected": {
+        "en": "Arbitrary selected string kinds identify independent HDL path representations for one block.",
+        "ja": "選択した任意string kindは1 blockの独立HDL path表現を識別する。"
+      },
+      "limitations": {
+        "en": "No DPI, physical HDL variable, hardware transfer or simulator hierarchy resolution is exercised. Paths are compared without assuming sibling iteration order. The independent ancestor-default known difference is retained, and absence of metadata is not interpreted as a DUT access diagnostic.",
+        "ja": "DPI、物理HDL変数、hardware転送、simulator階層解決は実行しない。兄弟反復順を仮定せずpathを比較する。独立した祖先既定値の既知差分を保持し、metadata欠落からDUTアクセス診断を導かない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_arbitrary_hdl_kinds_preserve_duplicates_and_local_default_selection",
+          "role": "direct",
+          "expected_observations": [
+            "UT: hdl_kinds explicit_rtl 1 case_distinct 1 missing 1 default_present 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-CONFIG-ADD-HDL-DEFAULT-RTL",
+      "clause": "18.1.6.5",
+      "statement": {
+        "en": "Omitted add_hdl_path kind adds the selected path under RTL.",
+        "ja": "add_hdl_pathのkind省略は選択pathをRTLへ追加する。"
+      },
+      "conditions": {
+        "en": "Original root, flattened intermediate and leaf blocks use selected symbolic path strings. Only metadata getters are called; explicit RTL is used unless the fixture deliberately tests default-kind inheritance.",
+        "ja": "独自root、flattened中間、leaf blockに選択symbolic path文字列を使う。metadata getterだけを呼び、既定kind継承を意図的に検査するfixture以外はRTLを明示する。"
+      },
+      "expected": {
+        "en": "Omitted add_hdl_path kind adds the selected path under RTL.",
+        "ja": "add_hdl_pathのkind省略は選択pathをRTLへ追加する。"
+      },
+      "limitations": {
+        "en": "No DPI, physical HDL variable, hardware transfer or simulator hierarchy resolution is exercised. Paths are compared without assuming sibling iteration order. The independent ancestor-default known difference is retained, and absence of metadata is not interpreted as a DUT access diagnostic.",
+        "ja": "DPI、物理HDL変数、hardware転送、simulator階層解決は実行しない。兄弟反復順を仮定せずpathを比較する。独立した祖先既定値の既知差分を保持し、metadata欠落からDUTアクセス診断を導かない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_arbitrary_hdl_kinds_preserve_duplicates_and_local_default_selection",
+          "role": "direct",
+          "expected_observations": [
+            "UT: hdl_kinds explicit_rtl 1 case_distinct 1 missing 1 default_present 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-CONFIG-ADD-HDL-DUPLICATES",
+      "clause": "18.1.6.5",
+      "statement": {
+        "en": "Repeated add_hdl_path for one selected kind retains both distinct implementation paths.",
+        "ja": "選択kindへの反復add_hdl_pathは別々の実装pathを両方保持する。"
+      },
+      "conditions": {
+        "en": "Original root, flattened intermediate and leaf blocks use selected symbolic path strings. Only metadata getters are called; explicit RTL is used unless the fixture deliberately tests default-kind inheritance.",
+        "ja": "独自root、flattened中間、leaf blockに選択symbolic path文字列を使う。metadata getterだけを呼び、既定kind継承を意図的に検査するfixture以外はRTLを明示する。"
+      },
+      "expected": {
+        "en": "Repeated add_hdl_path for one selected kind retains both distinct implementation paths.",
+        "ja": "選択kindへの反復add_hdl_pathは別々の実装pathを両方保持する。"
+      },
+      "limitations": {
+        "en": "No DPI, physical HDL variable, hardware transfer or simulator hierarchy resolution is exercised. Paths are compared without assuming sibling iteration order. The independent ancestor-default known difference is retained, and absence of metadata is not interpreted as a DUT access diagnostic.",
+        "ja": "DPI、物理HDL変数、hardware転送、simulator階層解決は実行しない。兄弟反復順を仮定せずpathを比較する。独立した祖先既定値の既知差分を保持し、metadata欠落からDUTアクセス診断を導かない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_arbitrary_hdl_kinds_preserve_duplicates_and_local_default_selection",
+          "role": "direct",
+          "expected_observations": [
+            "UT: hdl_kinds default_exact 1 duplicate_count 2 members 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-CONFIG-HAS-HDL-SELECTED-KIND",
+      "clause": "18.1.6.6",
+      "statement": {
+        "en": "has_hdl_path distinguishes the selected explicit/default present kind from a missing or cleared kind.",
+        "ja": "has_hdl_pathは選択した明示／既定の存在kindと欠落／clear済みkindを区別する。"
+      },
+      "conditions": {
+        "en": "Original root, flattened intermediate and leaf blocks use selected symbolic path strings. Only metadata getters are called; explicit RTL is used unless the fixture deliberately tests default-kind inheritance.",
+        "ja": "独自root、flattened中間、leaf blockに選択symbolic path文字列を使う。metadata getterだけを呼び、既定kind継承を意図的に検査するfixture以外はRTLを明示する。"
+      },
+      "expected": {
+        "en": "has_hdl_path distinguishes the selected explicit/default present kind from a missing or cleared kind.",
+        "ja": "has_hdl_pathは選択した明示／既定の存在kindと欠落／clear済みkindを区別する。"
+      },
+      "limitations": {
+        "en": "No DPI, physical HDL variable, hardware transfer or simulator hierarchy resolution is exercised. Paths are compared without assuming sibling iteration order. The independent ancestor-default known difference is retained, and absence of metadata is not interpreted as a DUT access diagnostic.",
+        "ja": "DPI、物理HDL変数、hardware転送、simulator階層解決は実行しない。兄弟反復順を仮定せずpathを比較する。独立した祖先既定値の既知差分を保持し、metadata欠落からDUTアクセス診断を導かない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_arbitrary_hdl_kinds_preserve_duplicates_and_local_default_selection",
+          "role": "direct",
+          "expected_observations": [
+            "UT: hdl_kinds default_exact 1 duplicate_count 2 members 1",
+            "UT: hdl_kinds explicit_rtl 1 case_distinct 1 missing 1 default_present 1",
+            "UT: hdl_kinds clear_default_absent 1 case_kept 1 peer_kept 1 peer_default 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-CONFIG-SET-DEFAULT-HDL-LOCAL",
+      "clause": "18.1.6.10",
+      "statement": {
+        "en": "set_default_hdl_path selects the exact local kind without changing a peer default.",
+        "ja": "set_default_hdl_pathはpeerの既定値を変更せず正確なlocal kindを選ぶ。"
+      },
+      "conditions": {
+        "en": "Original root, flattened intermediate and leaf blocks use selected symbolic path strings. Only metadata getters are called; explicit RTL is used unless the fixture deliberately tests default-kind inheritance.",
+        "ja": "独自root、flattened中間、leaf blockに選択symbolic path文字列を使う。metadata getterだけを呼び、既定kind継承を意図的に検査するfixture以外はRTLを明示する。"
+      },
+      "expected": {
+        "en": "set_default_hdl_path selects the exact local kind without changing a peer default.",
+        "ja": "set_default_hdl_pathはpeerの既定値を変更せず正確なlocal kindを選ぶ。"
+      },
+      "limitations": {
+        "en": "No DPI, physical HDL variable, hardware transfer or simulator hierarchy resolution is exercised. Paths are compared without assuming sibling iteration order. The independent ancestor-default known difference is retained, and absence of metadata is not interpreted as a DUT access diagnostic.",
+        "ja": "DPI、物理HDL変数、hardware転送、simulator階層解決は実行しない。兄弟反復順を仮定せずpathを比較する。独立した祖先既定値の既知差分を保持し、metadata欠落からDUTアクセス診断を導かない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_arbitrary_hdl_kinds_preserve_duplicates_and_local_default_selection",
+          "role": "direct",
+          "expected_observations": [
+            "UT: hdl_kinds clear_default_absent 1 case_kept 1 peer_kept 1 peer_default 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-CONFIG-HAS-HDL-ANCESTOR-DEFAULT",
+      "clause": "18.1.6.6",
+      "statement": {
+        "en": "An omitted has_hdl_path kind uses the nearest explicitly configured ancestor default kind.",
+        "ja": "has_hdl_pathのkind省略は明示設定された最も近い祖先の既定kindを使う。"
+      },
+      "conditions": {
+        "en": "Original root, flattened intermediate and leaf blocks use selected symbolic path strings. Only metadata getters are called; explicit RTL is used unless the fixture deliberately tests default-kind inheritance.",
+        "ja": "独自root、flattened中間、leaf blockに選択symbolic path文字列を使う。metadata getterだけを呼び、既定kind継承を意図的に検査するfixture以外はRTLを明示する。"
+      },
+      "expected": {
+        "en": "An omitted has_hdl_path kind uses the nearest explicitly configured ancestor default kind.",
+        "ja": "has_hdl_pathのkind省略は明示設定された最も近い祖先の既定kindを使う。"
+      },
+      "limitations": {
+        "en": "No DPI, physical HDL variable, hardware transfer or simulator hierarchy resolution is exercised. Paths are compared without assuming sibling iteration order. The independent ancestor-default known difference is retained, and absence of metadata is not interpreted as a DUT access diagnostic.",
+        "ja": "DPI、物理HDL変数、hardware転送、simulator階層解決は実行しない。兄弟反復順を仮定せずpathを比較する。独立した祖先既定値の既知差分を保持し、metadata欠落からDUTアクセス診断を導かない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_has_hdl_path_uses_nearest_explicit_ancestor_kind_without_changing_explicit_queries",
+          "role": "direct",
+          "expected_observations": [
+            "UT: has_hdl_inherited child_kind 1 deep_kind 1 child_has 1 deep_has 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-CONFIG-HAS-HDL-NEAREST-DEFAULT",
+      "clause": "18.1.6.6",
+      "statement": {
+        "en": "A nearer explicitly configured default kind changes the omitted descendant presence query without changing an explicit other-kind query.",
+        "ja": "より近い明示設定の既定kindは明示他kind照会を変えず、子孫の省略存在照会を変更する。"
+      },
+      "conditions": {
+        "en": "Original root, flattened intermediate and leaf blocks use selected symbolic path strings. Only metadata getters are called; explicit RTL is used unless the fixture deliberately tests default-kind inheritance.",
+        "ja": "独自root、flattened中間、leaf blockに選択symbolic path文字列を使う。metadata getterだけを呼び、既定kind継承を意図的に検査するfixture以外はRTLを明示する。"
+      },
+      "expected": {
+        "en": "A nearer explicitly configured default kind changes the omitted descendant presence query without changing an explicit other-kind query.",
+        "ja": "より近い明示設定の既定kindは明示他kind照会を変えず、子孫の省略存在照会を変更する。"
+      },
+      "limitations": {
+        "en": "No DPI, physical HDL variable, hardware transfer or simulator hierarchy resolution is exercised. Paths are compared without assuming sibling iteration order. The independent ancestor-default known difference is retained, and absence of metadata is not interpreted as a DUT access diagnostic.",
+        "ja": "DPI、物理HDL変数、hardware転送、simulator階層解決は実行しない。兄弟反復順を仮定せずpathを比較する。独立した祖先既定値の既知差分を保持し、metadata欠落からDUTアクセス診断を導かない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_has_hdl_path_uses_nearest_explicit_ancestor_kind_without_changing_explicit_queries",
+          "role": "direct",
+          "expected_observations": [
+            "UT: has_hdl_inherited nearest_kind 1 omitted_absent 1 explicit_gate 1"
+          ]
+        }
+      ]
     }
   ]
 }

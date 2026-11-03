@@ -4299,6 +4299,40 @@
         "reviewer": null,
         "reviewed_at": null
       }
+    },
+    {
+      "clause": "18.1",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The block introduction identifies a design-hierarchy abstraction containing registers, register files, memories, child blocks and physical-interface maps. Concrete constructor, configuration, enumeration, map, access and backdoor contracts remain under their numbered clauses. This architectural context creates no additional independent transfer algorithm and excludes none of those obligations.",
+        "ja": "block導入はregister、register file、memory、子block、物理interface mapを含む設計階層抽象を示す。具体的な構築、設定、列挙、map、アクセス、backdoor契約は各番号付き条項へ保持する。この構成の文脈は独立した転送algorithmを加えず、それらの義務を除外しない。"
+      },
+      "related_requirements": [
+        "UVM-BLOCK-CONFIG-CONFIGURE-PARENT",
+        "UVM-BLOCK-CONFIG-SET-BACKDOOR-ROOT"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "18.1.6",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The backdoor introduction distinguishes direct interaction with the hardware representation from frontdoor bus-interface access. The selected user-storage controls exercise public backdoor selection without claiming physical HDL transport; kinds and concrete get/set/path obligations remain explicitly decomposed. The definition adds no separate implementation algorithm or exclusion.",
+        "ja": "backdoor導入はhardware表現との直接相互作用とfrontdoor bus-interfaceアクセスを区別する。選択user-storage controlは物理HDL transportを主張せず公開backdoor選択を実行し、kindと具体的get／set／path義務を明示分解して保持する。定義は別実装algorithmや除外を加えない。"
+      },
+      "related_requirements": [
+        "UVM-BLOCK-CONFIG-SET-BACKDOOR-ROOT",
+        "UVM-BLOCK-CONFIG-KIND-ARBITRARY"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
     }
   ]
 }

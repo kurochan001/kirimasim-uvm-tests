@@ -2,15 +2,21 @@
 
 [日本語](known-differences.ja.md) · [README](../README.md) · [FAQ](faq.md)
 
-This describes the current 1599-test suite and the pinned Accellera UVM
+This describes the current 1609-test suite and the pinned Accellera UVM
 2020.3.1 library. A mismatch is a test result; it does not by itself assign
 the cause to the simulator, the library or the expectation.
 
 Forty-three elaboration fixtures expect rejection: twenty-two direct abstract
 constructions and twenty-one pure-interface/const-reference/forbidden-member
 violations. Forty-one match. Subscriber and visitor omissions remain accepted and spec-only without
-runtime. These two compiler acceptances are separate from 197 known simulation
+runtime. These two compiler acceptances are separate from 198 known simulation
 differences. Selected component-family and recording-base construction probes and the forbidden member access reject correctly.
+
+The new [inherited-kind presence probe](../tests/u18/test_block_has_hdl_path_uses_nearest_explicit_ancestor_kind_without_changing_explicit_queries.sv)
+retains a seed-1 difference without seed 73: child and descendant keep their
+local RTL default rather than the explicitly selected nearest ancestor kind.
+Explicit path-kind queries remain separate; the standard-derived inherited
+oracle is unchanged. This metadata result does not establish physical HDL access.
 
 ## Pinned-library limitations
 
@@ -565,7 +571,7 @@ warning. The YES control changes the limit to nine without a warning. This
 is a diagnostic-severity difference, not failed limit enforcement. The older
 two no-DPI argument cases remain unchanged ordinary runtime differences.
 
-Across the suite, 1400 tests have the `verilator@5.052` oracle tag and 199
+Across the suite, 1409 tests have the `verilator@5.052` oracle tag and 200
 cases are spec-only. One of the spec-only cases checks 9.6: a child's pre-reset
 task must be killed when that phase ends, but the pinned-library run on Verilator 5.052
 lets the child perform its delayed write during a later phase. The cause of
@@ -577,10 +583,10 @@ without callbacks. The pinned Verilator run reaches the blocked-state
 observation, then its watchdog expires. This combined simulator/library
 cause remains unassigned; the normative wakeup expectation is retained.
 
-The 199 spec-only tests retain their normative expected files.
-Default Verilator runs and CI select 1400 tagged checks (1359 runtime, 41 compile rejection). `--all` includes
+The 200 spec-only tests retain their normative expected files.
+Default Verilator runs and CI select 1409 tagged checks (1368 runtime, 41 compile rejection). `--all` includes
 spec-only cases and records mismatches or build failures as `known`.
-The ordinary runtime records for 150 cases establish their first difference
+The ordinary runtime records for 151 cases establish their first difference
 at seed 1, without seed 73 results. Seventeen missing-API builds have no ordinary runtime seed result: one time
 API, six sequence-library cases, four HDL slice cases, one named-concat constructor,
 one object active-policy case, three catcher message-handle cases and the printed
@@ -649,7 +655,7 @@ The printed create_object equivalent call's extra this argument remains partial.
 
 ## Spec-only tests
 
-These are the 199 current spec-only cases. Several exercise the same
+These are the 200 current spec-only cases. Several exercise the same
 limitation, so their count is not a count of distinct bugs.
 
 - [Printed provider acceptance for blocking initiator relay](../tests/u12/test_tlm2_blocking_passthrough_initiator_connect_accepts_its_spec_listed_provider_families.sv).
@@ -925,7 +931,7 @@ Additional message-handle and endian cases:
 
 Two existing inputs have revised fingerprints: the command-enum citation and
 the corrected Boolean rerandomization observation. Their historical guest
-records are excluded. The compatible subset has 1083 records and 516 inputs
+records are excluded. The compatible subset has 1083 records and 526 inputs
 are unmeasured, including both revised inputs. This filtering is evidence scope,
 not a new guest failure, pass or simulator improvement.
 
@@ -943,8 +949,8 @@ not a new guest failure, pass or simulator improvement.
 
 ## Simulator and library combinations
 
-The suite has 1599 cases, but the kirimasim/Ghost records below cover only
-1083 unchanged current-input cases. The 516 inputs are unmeasured
+The suite has 1609 cases, but the kirimasim/Ghost records below cover only
+1083 unchanged current-input cases. The 526 inputs are unmeasured
 because prior temporary executable/profile snapshots are unavailable. Do
 not treat this as a fresh full-suite guest result. See [results](results.md).
 

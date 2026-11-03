@@ -2,7 +2,7 @@
 
 [English](history.md) · [README](../README.ja.md)
 
-M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の49回目の拡充（全1599件：simulation 1556・elaboration 43）までを記録しています。以前の349件の時点は
+M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の50回目の拡充（全1609件：simulation 1566・elaboration 43）までを記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -2135,3 +2135,20 @@ guest fileは互換1083記録をbyte単位で保持し、以前の修正2入力�
 tool test 110件、metadata、台帳／索引／library同一性、native生結果／compile evidence、用語254語・FAQ 224回答の日英10組を検査します。
 英語のDPIなし注記の古いelaboration件数34を43へ訂正します。schema、runner／library／catalog、workflow、SVG 6つは未変更です。
 範囲は提案、棚卸し未完、分母／割合null、照合AI、継続goal有効を保持します。
+
+## M1〜M4の薄い領域の50回目の拡充
+
+M3 runtime 10 fixtureでblock constructor／object view、既定／明示coverage利用可能性、flattened HDL path、完全一致scopeのcoverage構築、constructor内だけのcoverage union、全要求有効照会、backdoor継承／置換、任意HDL kind選択を扱います。
+9件はVerilator 5.052の両seed一致で、継承HDL kind存在probeは最寄り祖先oracleを保持し、seed 1の差分を残してseed 73は実行しません。
+実継承register poke／peekはdebug／失敗／再試行制御の下でroot／child／register-localの独自storageを選びます。metadataはcovergroup測定や物理HDL transportではなく、初期有効既定値は推定しません。
+
+新AI案38件で2716となり、以前の全2678要求・281分類・1599 fixture／native記録は未変更です。18.1と18.1.6を個別に文脈分類します。
+全体は部分1481／分類283／未評価743、第18章は243／28／185です。18.1配下の未評価はありませんが部分条件は未完了です。
+今回は15減、goal 22反復では720減で、元のM1〜M4目標は未完了です。
+
+全1609件はsimulation 1566／elaboration 43、M1 603（570／33）、M2 538（533／5）、M3 468（463／5）です。
+通常evidenceは1409 pass（runtime両seed一致1368、compiler拒否41）とknown 200（runtime 151／build 47／不正受理2）です。
+guest fileは互換1083記録をbyte単位で保持し、以前の修正2入力を含む未測定526（483／43）です。別HDL／command-lineは7／1と17／1のままで、guest実行は主張しません。
+
+tool test 110件、metadata、台帳／索引／library同一性、native生結果／compiler evidence、用語258語・FAQ 226回答の日英10組を検査します。
+schema、runner／library／catalog、workflow、SVG 6つは未変更です。範囲は提案、棚卸し未完、分母／割合null、照合AI、継続goal有効を保持します。

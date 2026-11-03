@@ -3,8 +3,8 @@
 [日本語](history.ja.md) · [README](../README.md)
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and forty-nine cross-milestone thin-area expansions, including the
-existing-test requirement-link backlog checkpoint (1599 tests: 1556 simulation and 43 elaboration). The earlier 349-test checkpoint is
+three M4 increments and fifty cross-milestone thin-area expansions, including the
+existing-test requirement-link backlog checkpoint (1609 tests: 1566 simulation and 43 elaboration). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -3231,4 +3231,36 @@ native/raw compile evidence and ten language pairs with 254 glossary terms and
 224 FAQs. An English no-DPI note is corrected from stale elaboration count 34
 to 43. Schema, runners/library/catalog, workflow and six SVGs remain unchanged.
 Scope stays proposed, inventory incomplete, denominator/percentage null,
+reviews AI and the persistent goal active.
+
+## Fiftieth thin-area expansion across M1–M4
+
+Ten M3 runtime fixtures cover block constructors/object views, default and
+explicit coverage availability, flattened HDL paths, exact-scope coverage
+construction, constructor-only coverage unions, all-requested enabled queries,
+backdoor inheritance/replacement and arbitrary HDL kind selection. Nine match
+both Verilator 5.052 seeds. The inherited HDL-kind presence probe retains a
+seed-1 difference without seed 73 and keeps its nearest-ancestor oracle.
+Actual inherited register poke/peek selects original root/child/register-local
+storage under debug and failure/retry controls. Metadata is not covergroup
+measurement or physical HDL transport, and no initial enabled default is inferred.
+
+Thirty-eight AI drafts reach 2716; all 2678 earlier requirements, 281 assessments
+and 1599 fixtures/native records remain unchanged. 18.1 and 18.1.6 receive
+individual contextual assessments. Overall is 1481 partial/283 assessed/743
+unassessed; chapter 18 is 243/28/185. Subclause 18.1 has no unassessed identifier,
+but partial conditions remain open. Unassessed falls by 15, or 720 across
+twenty-two goal iterations; original M1–M4 targets remain open.
+
+The suite is 1609 (1566 simulation/43 elaboration): M1 603 (570/33), M2 538
+(533/5), M3 468 (463/5). Ordinary evidence has 1409 pass (1368 runtime at both
+seeds, 41 compiler rejections) and 200 known (151 runtime/47 build/2 illegal
+acceptances). Guest files keep 1083 byte-identical records, with 526 unmeasured
+inputs (483/43), including both earlier revised inputs. Separate HDL/command-line
+stays 7/1 and 17/1; no guest run is claimed.
+
+Validation covers 110 tool tests, metadata, ledger/index/library identities,
+native/raw compiler evidence and ten language pairs with 258 glossary terms and
+226 FAQs. Schema, runners/library/catalog, workflow and six SVGs are unchanged.
+Scope remains proposed, inventory incomplete, denominator/percentage null,
 reviews AI and the persistent goal active.

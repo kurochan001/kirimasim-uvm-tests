@@ -135,7 +135,7 @@ See [Ghost setup](testing.md#ghost).
 
 It removes `UVM_NO_DPI` from the default macro list. It does not supply or link
 UVM's C/C++ implementation. The current Verilator runner does not add those
-sources. There are 1573 `UVM_NO_DPI` cases and eight explicit HDL-DPI cases.
+sources. There are 1583 `UVM_NO_DPI` cases and eight explicit HDL-DPI cases.
 Eighteen more fixtures explicitly enable command-line/regex DPI with HDL disabled.
 The [command-line runner](testing.md#verilator-command-line-subset) links that separate backend.
 The [separate VPI runner](testing.md#verilator-vpi-hdl-subset) links the original
@@ -1143,9 +1143,9 @@ not a direct test of the requirement.
 
 ### Q77. Why is there no coverage percentage after starting M4?
 
-The 2678 AI drafts cover only a partial decomposition: 2678 requirements link
-directly to 1598 tests; all drafts have direct tests, and one separate test is a control.
-All 1599 tests have requirement links. The 2,507 clause identifiers are not normative requirement units.
+The 2716 AI drafts cover only a partial decomposition: 2716 requirements link
+directly to 1608 tests; all drafts have direct tests, and one separate test is a control.
+All 1609 tests have requirement links. The 2,507 clause identifiers are not normative requirement units.
 The scope is proposed, the inventory incomplete and the denominator unapproved;
 starting M4 approves none of those. Known differences and HDL/DPI limitations
 do not silently exclude obligations. See the [approval path](requirements.md#remaining-m4-work-and-approval).
@@ -2145,7 +2145,7 @@ No. `tests_without_requirement_links` is zero: every current test has an
 explicit direct or control link. The separate counter
 `requirements_without_direct_tests` is zero. The memory-walk link uses the
 qualified historical interpretation in Q134. It is not approval of missing
-IEEE detail. HDL deposit and accessibility use explicit VPI fixtures. Another 758
+IEEE detail. HDL deposit and accessibility use explicit VPI fixtures. Another 743
 catalog identifiers remain unassessed; decomposition and human review are
 incomplete, and the denominator remains unapproved.
 
@@ -2246,7 +2246,7 @@ in [identifier assessments](../coverage/assessments.json). Structural headings
 have no related requirements; contextual descriptions name existing requirements.
 An unreviewed record, guessed classification or parent rollup cannot do this.
 The generated state is `assessed`, separate from `partial` requirement clauses.
-281 classifications currently exist, with no denominator approval or new pass.
+283 classifications currently exist, with no denominator approval or new pass.
 Chapter 11's zero unassessed identifiers still does not complete its requirements.
 
 ### Q136. Does explicit strict configuration make the new cases pass?
@@ -2933,7 +2933,7 @@ the unassessed count or approve an exclusion. All earlier requirements remain.
 Two inputs have new fingerprints: the command enum citation and the Boolean
 rerandomization observation. Both were measured on Verilator; their stale guest
 records are excluded. The historical 1085-record source files remain intact.
-Current reuse covers 1083 inputs, with 516 unmeasured: 514 additions and two
+Current reuse covers 1083 inputs, with 526 unmeasured: 524 additions and two
 revised old inputs. No guest rerun or new result is claimed.
 
 ### Q194. May a predicate implementation delegate to another virtual query?
@@ -2994,10 +2994,10 @@ and stale patterns are rejected. Validation does not consume compiler results.
 Individual requirement reviews may add direct anchors while preserving existing
 links and identifying those changes explicitly.
 
-### Q201. Did all 1599 tests run at two seeds?
+### Q201. Did all 1609 tests run at two seeds?
 
-No. There are 1556 simulation and 43 elaboration fixtures. Ordinary evidence
-has 1359 two-seed runtime matches, 41 expected compiler rejections, 197 known
+No. There are 1566 simulation and 43 elaboration fixtures. Ordinary evidence
+has 1368 two-seed runtime matches, 41 expected compiler rejections, 198 known
 simulation differences and two known illegal compile acceptances. None of the
 43 illegal designs executes a runtime seed, even when compilation accepts it.
 
@@ -3064,7 +3064,7 @@ already-exceeded scope does not depend on equality. See [known differences](know
 ### Q209. Does zero unassessed in chapter 6 complete reporting or M1–M4?
 
 No. Chapter 6 has 98 partial and 19 assessed identifiers. Selected print probes
-do not finish its remaining conditions. Overall 758 identifiers remain
+do not finish its remaining conditions. Overall 743 identifiers remain
 unassessed. Printer subclause 16.2 retains the table-format overview; chapter 16
 has 3 unassessed identifiers in the broader policies. Scope and denominator
 are unapproved; zero link queues do not complete the goal.
@@ -3206,4 +3206,22 @@ live in uD. Their functional subject is the register layer, so the six named
 access fixtures count as M3. Chapter-based census and milestone grouping are
 different views of the same tests. Annex D has zero unassessed identifiers but
 39 partial ones. Its conditions and the original M1–M4 targets remain open;
-overall, 758 identifiers remain unassessed.
+overall, 743 identifiers remain unassessed.
+
+### Q225. Does block coverage metadata measure covergroups?
+
+No. The [construction probe](../tests/u18/test_block_build_coverage_intersects_requested_models_with_exact_scope_inclusion.sv)
+checks requested/included model masks, and the
+[enabled-mask probe](../tests/u18/test_block_get_coverage_checks_all_requested_enabled_models_and_default_all_mask.sv)
+checks current measurement settings. Neither samples covergroup bins or proves
+a coverage percentage. The peer is explicitly disabled, and the independent
+set_coverage previous-mask requirement remains unchanged.
+
+### Q226. Do inherited backdoor and HDL-kind probes have the same result?
+
+The [backdoor replacement case](../tests/u18/test_block_inherited_backdoor_queries_follow_later_ancestor_replacement_without_local_assignment.sv)
+matches both seeds after earlier inherited queries. The separate inherited
+HDL-kind presence case retains a known difference: its nearest-ancestor oracle
+is unchanged. Actual original storage accesses validate selected backdoor
+definitions, while symbolic HDL path metadata does not establish physical
+transport. Zero unassessed under 18.1 does not finish its partial obligations.

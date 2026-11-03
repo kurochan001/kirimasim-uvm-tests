@@ -1,0 +1,3 @@
+UT: get_coverage subset enabled 1 combined_off 1 default_all_off 1
+UT: get_coverage combined_on 1 default_equals_all 1 all_on 1 peer_off 1
+UT: get_coverage disabled 1 still_available 1

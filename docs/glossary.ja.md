@@ -922,3 +922,11 @@ wrapper algorithmを置換せず境界を検査し、targetの物理transportを
 
 **Milestone grouping（milestone分類）**: 機能対象のmilestoneでテストを数え、主引用条項で章directoryを決めます。
 D.3の名前モデルアクセスはfileをuDに置いてもM3へ属します。
+
+**Available coverage mask（利用可能coverage mask）**: 選択抽象classが保持するmodelで、現在測定が有効なmodelとは区別します。
+
+**Coverage inclusion intersection（coverage includeの共通部分）**: 選択build_coverage結果には、要求され、一致する階層instance scopeへincludeされたmodelが入ります。
+
+**Inherited backdoor query（継承backdoor照会）**: local user-backdoor定義のないblockがparentを参照すること。より近い明示block／register定義が優先されます。
+
+**Flattened block path（flattened blockのpath）**: 中間blockは寄与するHDL segmentを持たず、子孫は周囲の設定済みpath成分を結合します。

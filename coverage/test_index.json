@@ -4026,6 +4026,30 @@
       "primary_clause": "18.1.6.11",
       "inputs_sha256": "ffb69ac75d4975a264e96d6e737c57036f93f4d5068b5241b954b158b4785666"
     },
+    "u18/test_block_arbitrary_hdl_kinds_preserve_duplicates_and_local_default_selection": {
+      "primary_clause": "18.1.6.5",
+      "inputs_sha256": "a2bdadaabbdf5a1d2b10a23ffabe1efecd33f24630126f710f6776345db99104"
+    },
+    "u18/test_block_backdoor_selection_drives_real_register_poke_peek_with_debug_and_failure_controls": {
+      "primary_clause": "18.1.6.3",
+      "inputs_sha256": "247e8dd4e53b2607e6601dc09e87b7ac312e65e8e4cee366e62055cd851aa959"
+    },
+    "u18/test_block_build_coverage_intersects_requested_models_with_exact_scope_inclusion": {
+      "primary_clause": "18.1.4.1",
+      "inputs_sha256": "c00245c9fd970d356455f11d3d3ee3ceb79563d0b4b4f435c7d4ad2860ea5649"
+    },
+    "u18/test_block_configure_records_parent_and_omits_flattened_intermediate_hdl_segments": {
+      "primary_clause": "18.1.2.2",
+      "inputs_sha256": "0f6e2fe27c308562e72d477c25df7c029654df6b767225b6f50340fe001725c4"
+    },
+    "u18/test_block_constructor_add_coverage_unions_models_and_has_coverage_requires_all_bits": {
+      "primary_clause": "18.1.4.2",
+      "inputs_sha256": "73d23edaea16262dfa9cb212c163e600b705cc15c57f1503997e55cec39151be"
+    },
+    "u18/test_block_constructor_preserves_names_object_identity_and_available_coverage_defaults": {
+      "primary_clause": "18.1.2.1",
+      "inputs_sha256": "0b2a6e235e0c19910dfdda838975cce0eda8a49dccf5ba197ff0da972ee04d8e"
+    },
     "u18/test_block_create_map_preserves_bus_width_endianness_base_and_address_units": {
       "primary_clause": "18.1.2.3",
       "inputs_sha256": "1593ab5ed9dafb2762126f2ae19c530690b2dc016843bc0b6bdca69898ee70eb"
@@ -4046,9 +4070,21 @@
       "primary_clause": "18.1.6.8",
       "inputs_sha256": "21501f24e61d5d382a2084ce2ff2a37571484de22217b1625c09a5809139f594"
     },
+    "u18/test_block_get_backdoor_selects_nearest_explicit_override_and_distinguishes_noninherited_query": {
+      "primary_clause": "18.1.6.2",
+      "inputs_sha256": "ab2fa173f186e5eab6bf9a156fed22fea87a8e79c6823ec9d79b508d91de7309"
+    },
+    "u18/test_block_get_coverage_checks_all_requested_enabled_models_and_default_all_mask": {
+      "primary_clause": "18.1.4.4",
+      "inputs_sha256": "5d46b3898516be62ed8f48d3e00c41010844a961d4c0ba32fc2f01808d1f73cc"
+    },
     "u18/test_block_glob_search_distinguishes_absolute_and_root_relative_names": {
       "primary_clause": "18.1.3.3",
       "inputs_sha256": "14d9173774dba2c5326e8fee4334f34b58f279e6fea175918b5bbc5d246ded7a"
+    },
+    "u18/test_block_has_hdl_path_uses_nearest_explicit_ancestor_kind_without_changing_explicit_queries": {
+      "primary_clause": "18.1.6.6",
+      "inputs_sha256": "4dbcb8fe0b1950426770bf73bf485876ed047288e68c6d1ad833ad4dceb4b286"
     },
     "u18/test_block_hdl_clear_is_kind_local_and_preserves_sibling_incremental_paths": {
       "primary_clause": "18.1.6.4",
@@ -4057,6 +4093,10 @@
     "u18/test_block_hdl_default_abstraction_inherits_from_the_nearest_configured_ancestor": {
       "primary_clause": "18.1.6.9",
       "inputs_sha256": "ebefa74fb6321e54934185c0a36347677d7f758718cdb9a07d9303276cc4a2df"
+    },
+    "u18/test_block_inherited_backdoor_queries_follow_later_ancestor_replacement_without_local_assignment": {
+      "primary_clause": "18.1.6.2",
+      "inputs_sha256": "af2316d04bc44c2660f88b4ade6963a112186dafacb43bff20b9d04cf03455cb"
     },
     "u18/test_block_lock_model_recurses_and_builds_nested_address_lookups": {
       "primary_clause": "18.1.2.6",

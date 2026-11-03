@@ -1198,3 +1198,15 @@ bus read/refresh is distinct from the comparison outcome.
 **Milestone grouping**: Tests are counted by their functional milestone subject,
 while primary standard clauses govern chapter directories. D.3 named model
 access belongs to M3 even though its files reside in uD.
+
+**Available coverage mask**: Models advertised by a selected abstraction class,
+distinct from which models currently have measurement enabled.
+
+**Coverage inclusion intersection**: The selected build_coverage result contains
+requested models also included for the matching hierarchical instance scope.
+
+**Inherited backdoor query**: A block with no local user-backdoor definition
+consults its parent. A nearer explicit block or register definition takes priority.
+
+**Flattened block path**: An intermediate block has no HDL segment to contribute;
+its descendants still combine the surrounding configured path components.

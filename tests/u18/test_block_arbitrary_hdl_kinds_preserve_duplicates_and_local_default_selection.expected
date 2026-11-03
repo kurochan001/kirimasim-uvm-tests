@@ -1,0 +1,3 @@
+UT: hdl_kinds default_exact 1 duplicate_count 2 members 1
+UT: hdl_kinds explicit_rtl 1 case_distinct 1 missing 1 default_present 1
+UT: hdl_kinds clear_default_absent 1 case_kept 1 peer_kept 1 peer_default 1
