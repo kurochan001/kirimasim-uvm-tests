@@ -1090,3 +1090,18 @@ framework dispatch without prescribing a default formatter algorithm.
 **Effective file route**: The actual logging destination selected from a
 severity/ID pair, ID, severity or default file association. Identity queries
 and real payload writes provide separate observations of that selection.
+
+**Printer value observer**: An original policy that inspects selected values
+supplied by print hooks without fixing private field names or a built-in layout.
+
+**Print recursion state**: The NEVER, STARTED or FINISHED history exposed for
+an object and recursion selection. Hook-stage observations distinguish it from
+active-object stack membership.
+
+**Printer depth boundary**: The point at which configured maximum depth turns
+object printing into reference behavior. The entry-depth equality reading is
+kept separate from a scope that already exceeds its maximum.
+
+**Printer format defaults after flush**: Defaults explicitly specified after
+flush for table/tree indentation and tree/line separators. They are distinct
+from selected observations of other base printer controls.

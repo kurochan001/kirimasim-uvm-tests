@@ -1,0 +1,6 @@
+UT: prefix_default 0 empty 1
+UT: prefix_emitted 0 nonempty 1 all_prefixed 1 getter 1
+UT: prefix_default 1 empty 1
+UT: prefix_emitted 1 nonempty 1 all_prefixed 1 getter 1
+UT: prefix_default 2 empty 1
+UT: prefix_emitted 2 nonempty 1 all_prefixed 1 getter 1

@@ -122,7 +122,7 @@ Ghostは公開前のシミュレータの仮名です。実行ファイルの識
 ### Q12. uvm_dpi: yesだけでDPIを使うビルドが完成しますか
 
 既定のマクロ一覧から`UVM_NO_DPI`を外す指定です。UVMのC/C++実装の供給・リンクは行いません。
-通常のVerilator runnerは、そのsourceを追加しません。`UVM_NO_DPI`が1420件、HDL DPIの明示選択が8件です。
+通常のVerilator runnerは、そのsourceを追加しません。`UVM_NO_DPI`が1446件、HDL DPIの明示選択が8件です。
 別の18検査系はHDLを無効にしてcommand-line／regex DPIを明示して有効化し、
 [command-line runner](testing.ja.md#verilatorのcommand-line部分集合)がその別backendをlinkします。
 [別のVPI runner](testing.ja.md#verilatorのvpi-hdl部分集合)は独自の限定backendをlinkし、結果は宣言した実行条件だけに適用します。
@@ -923,8 +923,8 @@ controlの対応は、その要求の直接の検査ではありません。
 
 ### Q77. M4を始めたのに、カバレッジ率がないのはなぜですか
 
-AIによる2177要求案は部分的な分解で、2177要求を1445テストへ直接対応付け、直接未対応は0要求、別の1テストはcontrolです。
-全1446テストに要求の対応付けがあります。2,507の条項番号は規範的要求の単位ではありません。
+AIによる2274要求案は部分的な分解で、2274要求を1471テストへ直接対応付け、直接未対応は0要求、別の1テストはcontrolです。
+全1472テストに要求の対応付けがあります。2,507の条項番号は規範的要求の単位ではありません。
 範囲は提案、棚卸しは未完、分母は未承認で、M4の開始はどれの承認にもなりません。
 既知差分やHDL／DPIの制約によって義務を暗黙に除外しません。[承認までの手順](requirements.ja.md#m4の残作業と承認)を参照してください。
 
@@ -1709,7 +1709,7 @@ user backdoorは16 bit locationをモデル化します。location独立性、�
 
 いいえ。`tests_without_requirement_links`は0で、現在の全テストに、明示的なdirectまたはcontrolの対応があります。
 別の集計`requirements_without_direct_tests`も0件です。memory-walkの対応はQ134の限定した歴史的解釈で、
-省略されたIEEEの詳細の承認ではありません。HDL depositと利用可否には、明示VPI検査系があります。catalogの識別子1,098件も未評価です。
+省略されたIEEEの詳細の承認ではありません。HDL depositと利用可否には、明示VPI検査系があります。catalogの識別子1,030件も未評価です。
 分解と人のレビューは未完で、分母は未承認です。
 
 [新しいpolicyテスト](../tests/u16/test_policy_object_stack_tracks_nested_active_policy_push_and_pop.sv)は、
@@ -1786,7 +1786,7 @@ frontdoor保護のwarningはalgorithm oracleの対象外で、ERRORと観測し�
 個別に読んだ後、日英の根拠とAI／人のレビューを[番号の分類](../coverage/assessments.json)へ記録すれば可能です。
 構造上の見出しは関連要求を持たず、文脈の説明は既存要求を指定します。
 未レビューの記録、推測した分類、親への集約では外せません。生成状態は`assessed`で、要求条項の`partial`と区別します。
-現在の分類は191件で、分母承認や新たなpassを加えません。第11章の未評価0件でも、その要求の完了ではありません。
+現在の分類は204件で、分母承認や新たなpassを加えません。第11章の未評価0件でも、その要求の完了ではありません。
 
 ### Q136. 明示strict configurationで新規検査は成功しますか？
 
@@ -2279,7 +2279,7 @@ bound get／peek portはobject headを消費せずavailabilityを報告し、liv
 ### Q193. 互換なguest部分集合が1084件へ減った理由は？
 
 command 1検査系にenum補助引用を追加し、Verilatorで再測定しました。metadataだけのsource編集でも入力指紋は変わるため、
-古いguest記録は除外します。元の歴史的fileは1085記録のままです。現在の互換範囲は1084件、未測定362入力は追加361件と変更した既存1件です。
+古いguest記録は除外します。元の歴史的fileは1085記録のままです。現在の互換範囲は1084件、未測定388入力は追加387件と変更した既存1件です。
 guest再実行や新たな失敗は主張しません。
 
 ### Q194. predicateの実装が別のvirtual照会へ委譲してもよいですか？
@@ -2313,7 +2313,7 @@ initiatorはERRORを報告しながらentryを保持し、targetは残しませ�
 
 ### Q199. compile拒否を一致に数える理由は？
 
-選択した抽象生成9検査は、規格でvirtualと宣言したclassを意図的に直接生成します。必要な結果はfixtureとclassを識別するerrorでの拒否です。
+選択した抽象生成11検査は、規格でvirtualと宣言したclassを意図的に直接生成します。必要な結果はfixtureとclassを識別するerrorでの拒否です。
 一致した拒否はruntime seedを伴わない成功したnegative検査であり、simulationの予期しないbuild 43件とは別です。
 pure-method／const参照検査は追加のnegative条件であり、それぞれ宣言oracleに従って判定します。
 
@@ -2322,10 +2322,10 @@ pure-method／const参照検査は追加のnegative条件であり、それぞ�
 いいえ。schema 2は以前の出力link形式を保持し、compile stageと正確な宣言regexの診断形式を追加します。不正elaboration metadataでruntime期待がないことを要求します。
 schema 1も引き続き読め、混在／未知fieldや古いpatternは拒否します。検証はcompiler実測結果を読みません。個別要求の照合で直接anchorを追加する場合も、既存linkは保持して変更を明示します。
 
-### Q201. 全1446テストを2 seedで実行しましたか？
+### Q201. 全1472テストを2 seedで実行しましたか？
 
-いいえ。simulation 1423件とelaboration 23件があります。通常記録はruntime両seed一致1251件、期待compiler拒否21件、既知simulation差分172件、不正compile受理の既知差分2件です。
-不正design 23件は、compileを受理された場合もruntime seedを実行しません。
+いいえ。simulation 1447件とelaboration 25件があります。通常記録はruntime両seed一致1267件、期待compiler拒否23件、既知simulation差分180件、不正compile受理の既知差分2件です。
+不正design 25件は、compileを受理された場合もruntime seedを実行しません。
 
 ### Q202. 以前の合法controlは何を示しますか？
 
@@ -2355,4 +2355,24 @@ guest実行、人のレビュー、範囲／分母承認は推論しません。
 
 いいえ。LOG 4経路は実際にhandlerが選ぶfileと独自formatterを使い、各payloadは有効fileだけへ到達します。
 pipeline overrideは別にcatcher／compose／executeの順序と正確な引数を観測します。summaryは空でない選択出力先と空のpeer fileを確認します。
-選択した経路／dispatch条件を示し、既定文面、全統計内容、message記録、全action組合せ、printer出力は未完です。
+選択した経路／dispatch条件を示し、既定文面、全統計内容、message記録、全action組合せ、全printer出力は未完です。
+
+### Q207. report print検査は非公開field名や既定文面を要求しますか？
+
+いいえ。独自printerは指定された共通message値と選択handler設定を観測し、raw整数／decimal generic値を受けて自身のemit markerを使います。
+再印字は選択した古い値なしで現在の値を確認します。全field、表現、設定分類、組込みformatは認定せず、実printer形式は別の構造／prefix／選択separator controlで確認します。
+
+### Q208. 新しいprinter観測で何がknownに残りますか？
+
+8 fixtureはSHALLOW再帰、depth、無効radix prefix、root既定値、format-control flushの差分を保持し、seed 1で最初に異なりseed 73は実行しません。
+entry-depth境界matrixは限定した読み方で、別の超過済みscopeは等号に依存しません。[既知差分](known-differences.ja.md)を参照してください。
+
+### Q209. 第6章の未評価0でreportingやM1〜M4は完了ですか？
+
+いいえ。第6章には部分分解98番号・分類19番号があり、選択print probeで残る条件は完了しません。全体の未評価は1,030番号です。
+printer 16.2節にはtable-format概要が残り、第16章の広いpolicyでは未評価63番号があります。範囲と分母は未承認で、link queue 0件でもgoalは完了しません。
+
+### Q210. flush時の設定規則は全printer controlで同じですか？
+
+いいえ。引用した各controlの規則を保ちます。table／tree indentとtree／line separator条項は、後続setterがなければflush後の既定値を明示します。
+新fixtureは固定libraryが変更値を保持しても、その期待を維持します。以前のbase-control観測で種類別条項を上書きせず、全flush／formatting動作も承認しません。

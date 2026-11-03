@@ -2,15 +2,15 @@
 
 [日本語](known-differences.ja.md) · [README](../README.md) · [FAQ](faq.md)
 
-This describes the current 1446-test suite and the pinned Accellera UVM
+This describes the current 1472-test suite and the pinned Accellera UVM
 2020.3.1 library. A mismatch is a test result; it does not by itself assign
 the cause to the simulator, the library or the expectation.
 
-Twenty-three elaboration fixtures expect rejection: nine direct abstract
-constructions and fourteen pure-interface/const-reference violations. Twenty-one
-match. Subscriber and visitor omissions remain accepted and spec-only, without
-runtime execution. These two compiler acceptances are separate from 172 known
-simulation differences. The new report-server construction rejects correctly.
+Twenty-five elaboration fixtures expect rejection: eleven direct abstract
+constructions and fourteen pure-interface/const-reference violations. Twenty-three
+match. Subscriber and visitor omissions remain accepted and spec-only without
+runtime. These two compiler acceptances are separate from 180 known simulation
+differences. The new policy/printer direct constructions reject correctly.
 
 ## Pinned-library limitations
 
@@ -25,6 +25,23 @@ shared accesses and one child-block shape; see the
 Further limitations and observations were identified during M1, M2 and M3.
 Where a test directly checks a required behavior that is missing, its
 normative expectation is retained with `:oracle: spec`.
+
+- Eight new printer fixtures retain differences at seed 1 without seed 73.
+  SHALLOW still visits descendants, disabled radix prefix text remains, and the
+  root control defaults to zero instead of one. Table/tree indentation and
+  tree/line separators keep their changed values after flush, despite the
+  format-specific defaults stated for that condition. The entry-depth equality
+  matrix is a qualified interpretation; a separate caller scope already above
+  both tested bounds still recurses and avoids that boundary question.
+  Correct intermediate observations do not make a whole fixture pass.
+  - [SHALLOW recursion](../tests/u16/test_printer_recursion_modes_distinguish_deep_shallow_reference_and_default.sv)
+  - [qualified entry-depth boundaries](../tests/u16/test_printer_max_depth_uses_reference_behavior_beyond_each_selected_boundary.sv)
+  - [already-exceeded depth](../tests/u16/test_printer_depth_already_above_limit_uses_reference_without_touching_caller_stack.sv)
+  - [disabled radix prefix](../tests/u16/test_printer_integral_values_use_selected_radix_prefix_and_honor_prefix_disabling.sv)
+  - [root-name default](../tests/u16/test_printer_root_enabled_selects_full_name_or_leaf_before_policy_dispatch.sv)
+  - [table indentation after flush](../tests/u16/test_printer_table_specific_controls_return_to_declared_defaults_after_flush.sv)
+  - [tree controls after flush](../tests/u16/test_printer_tree_specific_controls_return_to_declared_defaults_after_flush.sv)
+  - [line separators after flush](../tests/u16/test_printer_line_specific_controls_return_to_declared_defaults_after_flush.sv)
 
 - A shared handler reset restores general/ID verbosity, action and file but
   retains the severity/ID verbosity threshold. Clause 6.3.8.3 requires default
@@ -548,7 +565,7 @@ warning. The YES control changes the limit to nine without a warning. This
 is a diagnostic-severity difference, not failed limit enforcement. The older
 two no-DPI argument cases remain unchanged ordinary runtime differences.
 
-Across the suite, 1272 tests have the `verilator@5.052` oracle tag and 174
+Across the suite, 1290 tests have the `verilator@5.052` oracle tag and 182
 cases are spec-only. One of the spec-only cases checks 9.6: a child's pre-reset
 task must be killed when that phase ends, but the pinned-library run on Verilator 5.052
 lets the child perform its delayed write during a later phase. The cause of
@@ -560,10 +577,10 @@ without callbacks. The pinned Verilator run reaches the blocked-state
 observation, then its watchdog expires. This combined simulator/library
 cause remains unassigned; the normative wakeup expectation is retained.
 
-The 174 spec-only tests retain their normative expected files.
-Default Verilator runs and CI select 1272 tagged checks (1251 runtime, 21 compile rejection). `--all` includes
+The 182 spec-only tests retain their normative expected files.
+Default Verilator runs and CI select 1290 tagged checks (1267 runtime, 23 compile rejection). `--all` includes
 spec-only cases and records mismatches or build failures as `known`.
-The ordinary runtime records for 129 cases establish their first difference
+The ordinary runtime records for 137 cases establish their first difference
 at seed 1, without seed 73 results. Sixteen missing-API builds have no ordinary
 runtime seed result: one time API, six sequence-library cases, four HDL slice
 cases, one named-concat-constructor case, one object active-policy case and
@@ -576,7 +593,7 @@ These overlapping configurations are not summed.
 
 ## Spec-only tests
 
-These are the 174 current spec-only cases. Several exercise the same
+These are the 182 current spec-only cases. Several exercise the same
 limitation, so their count is not a count of distinct bugs.
 
 - [Printed provider acceptance for blocking initiator relay](../tests/u12/test_tlm2_blocking_passthrough_initiator_connect_accepts_its_spec_listed_provider_families.sv).
@@ -767,7 +784,7 @@ limitation, so their count is not a count of distinct bugs.
 
 - Required oversize integral-pack ERROR:
   [65 bits](../tests/u16/test_packer_integral_size_65_reports_error_before_independent_boundary_control.sv)
-  and [108 bits](../tests/u16/test_packer_integral_size_128_reports_error_before_independent_boundary_control.sv).
+  and [128 bits](../tests/u16/test_packer_integral_size_128_reports_error_before_independent_boundary_control.sv).
 - Unavailable FIFO output preservation (signature/prose interpretation):
   [value get](../tests/u12/test_tlm_fifo_failed_try_get_preserves_two_state_value_before_success.sv),
   [handle get](../tests/u12/test_tlm_fifo_failed_try_get_preserves_object_handle_before_success.sv),
@@ -853,13 +870,13 @@ Additional message-handle and endian cases:
 One existing command fixture now adds its command-enum citation without
 changing behavior or expected output and is remeasured on Verilator. The
 historical guest record for that input has a stale fingerprint. The current
-guest subset excludes it: 1084 compatible records and 362 unmeasured inputs,
+guest subset excludes it: 1084 compatible records and 388 unmeasured inputs,
 including that revised input. This is evidence scope, not a new guest failure.
 
 ## Simulator and library combinations
 
-The suite has 1446 cases, but the kirimasim/Ghost records below cover only
-1084 unchanged current-input cases. The 362 inputs are unmeasured
+The suite has 1472 cases, but the kirimasim/Ghost records below cover only
+1084 unchanged current-input cases. The 388 inputs are unmeasured
 because prior temporary executable/profile snapshots are unavailable. Do
 not treat this as a fresh full-suite guest result. See [results](results.md).
 

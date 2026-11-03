@@ -2,12 +2,12 @@
 
 [English](known-differences.md) · [README](../README.ja.md) · [FAQ](faq.ja.md)
 
-現在の1446件と、固定したAccellera UVM 2020.3.1についての記録です。
+現在の1472件と、固定したAccellera UVM 2020.3.1についての記録です。
 不一致はテストの結果であり、それだけではシミュレータ・ライブラリ・期待値のどれが原因かは決まりません。
 
-elaboration 23件は抽象class直接生成9件とpure interface／const参照違反14件で、拒否を期待します。
-21件は一致し、subscriber／visitor未実装の受理2件はruntimeを実行せずspecのみを保持します。
-このcompiler受理2件は既知simulation差分172件と別です。新しいreport-server生成は正しく拒否されます。
+elaboration 25件は抽象class直接生成11件とpure interface／const参照違反14件で、拒否を期待します。
+23件は一致し、subscriber／visitor未実装の受理2件はruntimeを実行せずspecのみを保持します。
+compiler受理2件は既知simulation差分180件と別です。新しいpolicy／printerの直接生成は正しく拒否されます。
 
 ## 固定版ライブラリの制約
 
@@ -19,6 +19,19 @@ elaboration 23件は抽象class直接生成9件とpure interface／const参照�
 [shared accessの範囲](faq.ja.md#memory-accessshared-mapテストの選択)を参照してください。
 M1・M2・M3で、追加の制約と観測を確認しました。
 不足する必須動作を直接検査する場合は、規格の期待値を変えずに`:oracle: spec`で保持します。
+
+- 新しいprinter 8検査系はseed 1の差分を保持し、seed 73は実行しません。SHALLOWでも子孫を訪問し、無効radix prefixが残り、root controlは既定1に対して0を返します。
+  table／tree indentとtree／line separatorは、flush後の種類別既定値に対して変更値が残ります。
+  entry-depth等号matrixは限定解釈です。一方、別のcaller scopeは測定した両上限を既に超えても再帰し、その境界問題を避けます。
+  途中の正しい観測でfixture全体をpassにはしません。
+  - [SHALLOW再帰](../tests/u16/test_printer_recursion_modes_distinguish_deep_shallow_reference_and_default.sv)
+  - [限定entry-depth境界](../tests/u16/test_printer_max_depth_uses_reference_behavior_beyond_each_selected_boundary.sv)
+  - [超過済みdepth](../tests/u16/test_printer_depth_already_above_limit_uses_reference_without_touching_caller_stack.sv)
+  - [無効radix prefix](../tests/u16/test_printer_integral_values_use_selected_radix_prefix_and_honor_prefix_disabling.sv)
+  - [root名既定値](../tests/u16/test_printer_root_enabled_selects_full_name_or_leaf_before_policy_dispatch.sv)
+  - [flush後のtable indent](../tests/u16/test_printer_table_specific_controls_return_to_declared_defaults_after_flush.sv)
+  - [flush後のtree control](../tests/u16/test_printer_tree_specific_controls_return_to_declared_defaults_after_flush.sv)
+  - [flush後のline separator](../tests/u16/test_printer_line_specific_controls_return_to_declared_defaults_after_flush.sv)
 
 - 共有handlerのresetはgeneral／ID verbosity、action、fileを復帰させてもseverity／ID verbosity閾値を保持します。
   6.3.8.3は既定設定への復帰を要求します。pairのresetと後続境界配送の期待を保持し、seed 1で停止してseed 73は実行しません。
@@ -362,7 +375,7 @@ command-line 18検査系は別のVPI bridgeと固定regex DPIを明示要求し�
 上限は正しく7のままですが、固定serverはINFOを発行し、警告probeはWARNINGを観測しません。YESの比較対象は警告なしで9へ変わります。
 これは診断severityの差分で、上限の強制失敗ではありません。以前のno-DPI引数2件は未変更の通常実行時差分です。
 
-スイート全体では、`verilator@5.052`を付けたテストは1272件、specのみのテストは174件です。
+スイート全体では、`verilator@5.052`を付けたテストは1290件、specのみのテストは182件です。
 specのみのうち1件は9.6を検証します。pre-resetフェーズ終了時に子タスクが停止する
 はずですが、固定版UVMとVerilator 5.052の組み合わせでは、後のフェーズで子タスクの遅延書き込みが
 実行されます。この差分の原因がシミュレータとライブラリのどちらかは未確定です。
@@ -371,9 +384,9 @@ wakeup resetの検査系は、trigger waiterとpersistent-trigger waiterを各1�
 10.1.1.2.8は、callbackなしで両方が起動することを要求します。固定Verilatorの実行は、待機状態の観測に到達してから
 watchdogが期限切れになります。simulator／libraryを組み合わせた原因は未確定のまま、規範的なwakeupの期待を保持します。
 
-specのみの174件も規格から導いた期待値を保持します。通常のVerilator実行とCIはoracle付き1272件（runtime 1251・compile拒否21）を選びます。
+specのみの182件も規格から導いた期待値を保持します。通常のVerilator実行とCIはoracle付き1290件（runtime 1267・compile拒否23）を選びます。
 `--all`はspecのみも含め、不一致やビルド不可を`known`として記録します。
-通常の実行時129件は、最初の差分であるseed 1までの記録で、seed 73の結果はありません。
+通常の実行時137件は、最初の差分であるseed 1までの記録で、seed 73の結果はありません。
 API欠落build 16件は、time 1件、sequence-library 6件、HDL slice 4件、名前付きconcat constructor 1件、object active-policy 1件、catcher message-handle 3件で、
 通常条件の実行時seed結果はありません。応答既定型の宣言1検査系もbuildできず、実行時seed結果はありません。HDL DPI 8検査系とcommand-line DPI 18検査系も通常runnerではlinkできません。
 別のVPI条件では、7件が両seed一致、E.7のwarning／転送なしの期待はseed 1で失敗します。
@@ -381,7 +394,7 @@ API欠落build 16件は、time 1件、sequence-library 6件、HDL slice 4件、�
 
 ## specのみのテスト
 
-現在の174件は次のテストです。同じ制約を複数のテストで検査する場合があり、異なる不具合の個数ではありません。
+現在の182件は次のテストです。同じ制約を複数のテストで検査する場合があり、異なる不具合の個数ではありません。
 
 - [blocking initiator relayの印刷provider受理](../tests/u12/test_tlm2_blocking_passthrough_initiator_connect_accepts_its_spec_listed_provider_families.sv).
 - [blocking target relayの印刷provider受理](../tests/u12/test_tlm2_blocking_passthrough_target_connect_accepts_its_spec_listed_provider_families.sv).
@@ -571,7 +584,7 @@ API欠落build 16件は、time 1件、sequence-library 6件、HDL slice 4件、�
 
 - 上限を超える整数packで必要なERROR：
   [65 bit](../tests/u16/test_packer_integral_size_65_reports_error_before_independent_boundary_control.sv)、
-  [108 bit](../tests/u16/test_packer_integral_size_128_reports_error_before_independent_boundary_control.sv)。
+  [128 bit](../tests/u16/test_packer_integral_size_128_reports_error_before_independent_boundary_control.sv)。
 - 取得不可FIFOの出力保持（signature／本文の解釈）：
   [値のget](../tests/u12/test_tlm_fifo_failed_try_get_preserves_two_state_value_before_success.sv)、
   [handleのget](../tests/u12/test_tlm_fifo_failed_try_get_preserves_object_handle_before_success.sv)、
@@ -656,12 +669,12 @@ API欠落build 16件は、time 1件、sequence-library 6件、HDL slice 4件、�
 
 既存command 1検査系は、動作／期待出力を変えずcommand-enum引用を追加し、Verilatorで再測定します。
 その入力の歴史的guest記録は指紋が古くなったため、現在のguest部分集合から除外します。
-互換な1084記録、変更した入力を含む未測定362入力であり、新しいguest失敗ではなくevidence範囲の区別です。
+互換な1084記録、変更した入力を含む未測定388入力であり、新しいguest失敗ではなくevidence範囲の区別です。
 
 ## シミュレータとライブラリの組み合わせ
 
-スイートは1446件ですが、以下のkirimasim／Ghost記録は未変更の現在入力1084件だけを対象とします。
-以前の一時実行ファイル／profile snapshotがないため、362入力は未測定です。
+スイートは1472件ですが、以下のkirimasim／Ghost記録は未変更の現在入力1084件だけを対象とします。
+以前の一時実行ファイル／profile snapshotがないため、388入力は未測定です。
 新しい全件guest実測とは扱いません。[実行結果](results.ja.md)を参照してください。
 
 Ghostの同梱UVMはseed 1・73とも207件一致・877件不一致で、不一致になるテストも同じです。

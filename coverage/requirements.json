@@ -12500,6 +12500,13 @@
             "UT: object_names first_object second_object",
             "UT: second_empty 1 1 1 1"
           ]
+        },
+        {
+          "test": "u16/test_printer_element_and_proxy_constructor_names_preserve_exact_declared_bases",
+          "role": "direct",
+          "expected_observations": [
+            "UT: element_names default 1 named 1 empty 1 base 1"
+          ]
         }
       ]
     },
@@ -80489,6 +80496,3388 @@
           "role": "direct",
           "expected_observations": [
             "UT: helper_counts selected 1 info 1 helper 1 outer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-AUDIT-MESSAGE-CURRENT-FIELDS",
+      "clause": "6.2.2.3",
+      "statement": {
+        "en": "A report message supplies its selected common content to the printing policy.",
+        "ja": "report messageは選択した共通内容をprinting policyへ渡す。"
+      },
+      "conditions": {
+        "en": "Use the original selected fixtures and explicit API arguments represented by the observation anchors.",
+        "ja": "観測anchorに示す独自の選択fixtureと明示API引数を使う。"
+      },
+      "expected": {
+        "en": "The supplied observer sees the selected original field/configuration values and sprint returns its custom emission marker; the second print has current values without the stale selected value.",
+        "ja": "指定observerは選択した元のfield／設定値を受け、sprintは独自emit markerを返す。再印字には現在の値があり、選択した古い値は残らない。"
+      },
+      "limitations": {
+        "en": "Selected common-field/configuration interpretation only. The observer accepts raw integral values and decimal generic values without fixing implementation field names, field order or default printer text. Other report fields, all configuration categories and every formatting choice remain partial.",
+        "ja": "選択した共通field／設定の解釈だけ。observerはraw整数値とdecimal generic値を受け、実装field名、field順序、既定printer文面は固定しない。他のreport field、全設定分類、全書式選択は部分対応に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_message_print_uses_supplied_policy_for_current_common_fields",
+          "role": "direct",
+          "expected_observations": [
+            "UT: message_print_first id 1 body 1 file 1 context 1 line 1 text 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-AUDIT-MESSAGE-UPDATED-FIELDS",
+      "clause": "6.2.2.3",
+      "statement": {
+        "en": "A repeated message print observes updated common content rather than stale ID/body values.",
+        "ja": "messageの再印字は古いID／bodyではなく更新した共通内容を観測する。"
+      },
+      "conditions": {
+        "en": "Use the original selected fixtures and explicit API arguments represented by the observation anchors.",
+        "ja": "観測anchorに示す独自の選択fixtureと明示API引数を使う。"
+      },
+      "expected": {
+        "en": "The supplied observer sees the selected original field/configuration values and sprint returns its custom emission marker; the second print has current values without the stale selected value.",
+        "ja": "指定observerは選択した元のfield／設定値を受け、sprintは独自emit markerを返す。再印字には現在の値があり、選択した古い値は残らない。"
+      },
+      "limitations": {
+        "en": "Selected common-field/configuration interpretation only. The observer accepts raw integral values and decimal generic values without fixing implementation field names, field order or default printer text. Other report fields, all configuration categories and every formatting choice remain partial.",
+        "ja": "選択した共通field／設定の解釈だけ。observerはraw整数値とdecimal generic値を受け、実装field名、field順序、既定printer文面は固定しない。他のreport field、全設定分類、全書式選択は部分対応に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_message_print_uses_supplied_policy_for_current_common_fields",
+          "role": "direct",
+          "expected_observations": [
+            "UT: message_print_next id 1 body 1 line 1 old_id 0 old_body 0 text 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-AUDIT-HANDLER-CURRENT-CONFIG",
+      "clause": "6.4.2.2",
+      "statement": {
+        "en": "A report handler supplies its selected current verbosity configuration to the printing policy.",
+        "ja": "report handlerは選択した現在のverbosity設定をprinting policyへ渡す。"
+      },
+      "conditions": {
+        "en": "Use the original selected fixtures and explicit API arguments represented by the observation anchors.",
+        "ja": "観測anchorに示す独自の選択fixtureと明示API引数を使う。"
+      },
+      "expected": {
+        "en": "The supplied observer sees the selected original field/configuration values and sprint returns its custom emission marker; the second print has current values without the stale selected value.",
+        "ja": "指定observerは選択した元のfield／設定値を受け、sprintは独自emit markerを返す。再印字には現在の値があり、選択した古い値は残らない。"
+      },
+      "limitations": {
+        "en": "Selected common-field/configuration interpretation only. The observer accepts raw integral values and decimal generic values without fixing implementation field names, field order or default printer text. Other report fields, all configuration categories and every formatting choice remain partial.",
+        "ja": "選択した共通field／設定の解釈だけ。observerはraw整数値とdecimal generic値を受け、実装field名、field順序、既定printer文面は固定しない。他のreport field、全設定分類、全書式選択は部分対応に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_handler_print_uses_supplied_policy_for_current_configuration",
+          "role": "direct",
+          "expected_observations": [
+            "UT: handler_print_first general 1 id 1 threshold 1 text 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-AUDIT-HANDLER-UPDATED-CONFIG",
+      "clause": "6.4.2.2",
+      "statement": {
+        "en": "A repeated handler print reflects the changed general threshold while retaining the configured ID threshold.",
+        "ja": "handlerの再印字はID閾値を保持して変更したgeneral閾値を反映する。"
+      },
+      "conditions": {
+        "en": "Use the original selected fixtures and explicit API arguments represented by the observation anchors.",
+        "ja": "観測anchorに示す独自の選択fixtureと明示API引数を使う。"
+      },
+      "expected": {
+        "en": "The supplied observer sees the selected original field/configuration values and sprint returns its custom emission marker; the second print has current values without the stale selected value.",
+        "ja": "指定observerは選択した元のfield／設定値を受け、sprintは独自emit markerを返す。再印字には現在の値があり、選択した古い値は残らない。"
+      },
+      "limitations": {
+        "en": "Selected common-field/configuration interpretation only. The observer accepts raw integral values and decimal generic values without fixing implementation field names, field order or default printer text. Other report fields, all configuration categories and every formatting choice remain partial.",
+        "ja": "選択した共通field／設定の解釈だけ。observerはraw整数値とdecimal generic値を受け、実装field名、field順序、既定printer文面は固定しない。他のreport field、全設定分類、全書式選択は部分対応に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_handler_print_uses_supplied_policy_for_current_configuration",
+          "role": "direct",
+          "expected_observations": [
+            "UT: handler_print_next general 1 old 0 id 1 threshold 1 text 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-AUDIT-PRINTER-POLICY-BASE",
+      "clause": "16.2.1",
+      "statement": {
+        "en": "The declared printer base is compatible with uvm_policy through a legal concrete subtype.",
+        "ja": "宣言printer baseは合法な具象subtype経由でuvm_policyと互換である。"
+      },
+      "conditions": {
+        "en": "Use the original selected fixtures and explicit API arguments represented by the observation anchors.",
+        "ja": "観測anchorに示す独自の選択fixtureと明示API引数を使う。"
+      },
+      "expected": {
+        "en": "The corresponding default/named/empty and exact base identity observations match.",
+        "ja": "対応する既定／明示／空名とexact base同一性の観測が一致する。"
+      },
+      "limitations": {
+        "en": "Selected legal base/constructor compatibility only. An implicit subtype constructor probes the omitted base argument, and a separate explicit constructor forwards names. Other policy kinds, immediate ancestry and all subtype contracts remain separate.",
+        "ja": "選択した合法base／constructor互換性だけ。暗黙subtype constructorでbase引数省略を、別の明示constructorで名前転送を確認する。他policy種、直接の継承元、全subtype契約は別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_printer_constructors_and_builtin_type_names_preserve_declared_names_and_bases",
+          "role": "direct",
+          "expected_observations": [
+            "UT: base_printer_names default 1 named 1 empty 1 base 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-AUDIT-POLICY-OBJECT-BASE",
+      "clause": "16.1.1",
+      "statement": {
+        "en": "A legal concrete policy subtype retains the declared object base.",
+        "ja": "合法な具象policy subtypeは宣言object baseを保持する。"
+      },
+      "conditions": {
+        "en": "Use the original selected fixtures and explicit API arguments represented by the observation anchors.",
+        "ja": "観測anchorに示す独自の選択fixtureと明示API引数を使う。"
+      },
+      "expected": {
+        "en": "The corresponding default/named/empty and exact base identity observations match.",
+        "ja": "対応する既定／明示／空名とexact base同一性の観測が一致する。"
+      },
+      "limitations": {
+        "en": "Selected legal base/constructor compatibility only. An implicit subtype constructor probes the omitted base argument, and a separate explicit constructor forwards names. Other policy kinds, immediate ancestry and all subtype contracts remain separate.",
+        "ja": "選択した合法base／constructor互換性だけ。暗黙subtype constructorでbase引数省略を、別の明示constructorで名前転送を確認する。他policy種、直接の継承元、全subtype契約は別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_policy_concrete_constructor_preserves_unnamed_explicit_empty_names_and_object_base",
+          "role": "direct",
+          "expected_observations": [
+            "UT: policy_names default 1 named 1 empty 1 base 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-AUDIT-POLICY-CONSTRUCTOR",
+      "clause": "16.1.2.1",
+      "statement": {
+        "en": "The policy constructor defaults to unnamed and preserves forwarded explicit/empty names.",
+        "ja": "policy constructorは既定で無名となり、転送した明示名／空名を保持する。"
+      },
+      "conditions": {
+        "en": "Use the original selected fixtures and explicit API arguments represented by the observation anchors.",
+        "ja": "観測anchorに示す独自の選択fixtureと明示API引数を使う。"
+      },
+      "expected": {
+        "en": "The corresponding default/named/empty and exact base identity observations match.",
+        "ja": "対応する既定／明示／空名とexact base同一性の観測が一致する。"
+      },
+      "limitations": {
+        "en": "Selected legal base/constructor compatibility only. An implicit subtype constructor probes the omitted base argument, and a separate explicit constructor forwards names. Other policy kinds, immediate ancestry and all subtype contracts remain separate.",
+        "ja": "選択した合法base／constructor互換性だけ。暗黙subtype constructorでbase引数省略を、別の明示constructorで名前転送を確認する。他policy種、直接の継承元、全subtype契約は別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_policy_concrete_constructor_preserves_unnamed_explicit_empty_names_and_object_base",
+          "role": "direct",
+          "expected_observations": [
+            "UT: policy_names default 1 named 1 empty 1 base 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-AUDIT-PRINTER-CONSTRUCTOR",
+      "clause": "16.2.2.1",
+      "statement": {
+        "en": "The printer constructor defaults to unnamed and preserves forwarded explicit/empty names.",
+        "ja": "printer constructorは既定で無名となり、転送した明示名／空名を保持する。"
+      },
+      "conditions": {
+        "en": "Use the original selected fixtures and explicit API arguments represented by the observation anchors.",
+        "ja": "観測anchorに示す独自の選択fixtureと明示API引数を使う。"
+      },
+      "expected": {
+        "en": "The corresponding default/named/empty and exact base identity observations match.",
+        "ja": "対応する既定／明示／空名とexact base同一性の観測が一致する。"
+      },
+      "limitations": {
+        "en": "Selected legal base/constructor compatibility only. An implicit subtype constructor probes the omitted base argument, and a separate explicit constructor forwards names. Other policy kinds, immediate ancestry and all subtype contracts remain separate.",
+        "ja": "選択した合法base／constructor互換性だけ。暗黙subtype constructorでbase引数省略を、別の明示constructorで名前転送を確認する。他policy種、直接の継承元、全subtype契約は別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_printer_constructors_and_builtin_type_names_preserve_declared_names_and_bases",
+          "role": "direct",
+          "expected_observations": [
+            "UT: base_printer_names default 1 named 1 empty 1 base 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-AUDIT-UVM-POLICY-DIRECT-CONSTRUCTION",
+      "clause": "16.1.1",
+      "statement": {
+        "en": "The declared virtual uvm_policy cannot be directly constructed.",
+        "ja": "virtualと宣言されたuvm_policyは直接生成できない。"
+      },
+      "conditions": {
+        "en": "Use the original selected fixtures and explicit API arguments represented by the observation anchors.",
+        "ja": "観測anchorに示す独自の選択fixtureと明示API引数を使う。"
+      },
+      "expected": {
+        "en": "The compiler rejects direct new with the targeted virtual/abstract error and no runtime seed execution.",
+        "ja": "compilerは対象virtual／abstract errorで直接newを拒否し、runtime seedは実行しない。"
+      },
+      "limitations": {
+        "en": "One direct-construction prohibition and a separate legal construction control only. The regex is an expected oracle; measured rejection is retained separately. Pure-method omissions and arbitrary derived implementations remain separate.",
+        "ja": "直接生成禁止1条件と別の合法生成controlだけ。regexは期待oracleで、実測拒否は別に保持する。pure-method欠落と任意の派生実装は別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_uvm_policy_abstract_declaration_rejects_direct_construction",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?i)^(?=.*test_uvm_policy_abstract_declaration_rejects_direct_construction\\.sv:[0-9]+:[0-9]+:)(?=.*\\b(?:virtual|abstract)\\b)(?=.*\\buvm_policy\\b).*error"
+          }
+        },
+        {
+          "test": "u16/test_policy_concrete_constructor_preserves_unnamed_explicit_empty_names_and_object_base",
+          "role": "control",
+          "expected_observations": [
+            "UT: policy_names default 1 named 1 empty 1 base 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-AUDIT-UVM-PRINTER-DIRECT-CONSTRUCTION",
+      "clause": "16.2.1",
+      "statement": {
+        "en": "The declared virtual uvm_printer cannot be directly constructed.",
+        "ja": "virtualと宣言されたuvm_printerは直接生成できない。"
+      },
+      "conditions": {
+        "en": "Use the original selected fixtures and explicit API arguments represented by the observation anchors.",
+        "ja": "観測anchorに示す独自の選択fixtureと明示API引数を使う。"
+      },
+      "expected": {
+        "en": "The compiler rejects direct new with the targeted virtual/abstract error and no runtime seed execution.",
+        "ja": "compilerは対象virtual／abstract errorで直接newを拒否し、runtime seedは実行しない。"
+      },
+      "limitations": {
+        "en": "One direct-construction prohibition and a separate legal construction control only. The regex is an expected oracle; measured rejection is retained separately. Pure-method omissions and arbitrary derived implementations remain separate.",
+        "ja": "直接生成禁止1条件と別の合法生成controlだけ。regexは期待oracleで、実測拒否は別に保持する。pure-method欠落と任意の派生実装は別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_uvm_printer_abstract_declaration_rejects_direct_construction",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?i)^(?=.*test_uvm_printer_abstract_declaration_rejects_direct_construction\\.sv:[0-9]+:[0-9]+:)(?=.*\\b(?:virtual|abstract)\\b)(?=.*\\buvm_printer\\b).*error"
+          }
+        },
+        {
+          "test": "u16/test_printer_constructors_and_builtin_type_names_preserve_declared_names_and_bases",
+          "role": "control",
+          "expected_observations": [
+            "UT: base_printer_names default 1 named 1 empty 1 base 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-AUDIT-ACTIVE-OBJECT-BRACKETING",
+      "clause": "16.1.3",
+      "statement": {
+        "en": "A selected print operation brackets object hooks with the active-object stack.",
+        "ja": "選択print操作はactive-object stackでobject hookを囲む。"
+      },
+      "conditions": {
+        "en": "Use the original selected fixtures and explicit API arguments represented by the observation anchors.",
+        "ja": "観測anchorに示す独自の選択fixtureと明示API引数を使う。"
+      },
+      "expected": {
+        "en": "Selected hook order, exact policy/active identity, depth one during hooks and empty depth zero after return match; FINISHED is visible before the active pop.",
+        "ja": "選択hook順序、exact policy／active同一性、hook中のdepth 1、return後の空depth 0が一致し、active pop前にFINISHEDを観測する。"
+      },
+      "limitations": {
+        "en": "One explicit DEEP operation on an original object, with an enabled/disabled counterpart. Other history keys, repeat/cyclic objects, aborts and all policy kinds remain separate. Original observer overrides only record calls and forward the real stack operations.",
+        "ja": "独自objectの明示DEEP 1操作と有効／無効の対照。別の履歴key、反復／循環object、中止、全policy種は別に残す。独自observer overrideは呼出しを記録し、実stack操作へ転送するだけとする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_printer_object_print_orders_field_and_user_hooks_inside_active_stack",
+          "role": "direct",
+          "expected_observations": [
+            "UT: print_never 1",
+            "UT: print_execute op print policy 1 active 1 depth 1 started 1",
+            "UT: print_hook policy 1 active 1 depth 1 started 1",
+            "UT: print_complete trace EP executes 1 prints 1 finished 1 depth 0 empty 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-AUDIT-PRINT-FIELD-OP",
+      "clause": "16.2.3.1",
+      "statement": {
+        "en": "A recursed object receives the PRINT field operation with the current printer as policy.",
+        "ja": "再帰対象objectは現在のprinterをpolicyとするPRINT field操作を受ける。"
+      },
+      "conditions": {
+        "en": "Use the original selected fixtures and explicit API arguments represented by the observation anchors.",
+        "ja": "観測anchorに示す独自の選択fixtureと明示API引数を使う。"
+      },
+      "expected": {
+        "en": "Selected hook order, exact policy/active identity, depth one during hooks and empty depth zero after return match; FINISHED is visible before the active pop.",
+        "ja": "選択hook順序、exact policy／active同一性、hook中のdepth 1、return後の空depth 0が一致し、active pop前にFINISHEDを観測する。"
+      },
+      "limitations": {
+        "en": "One explicit DEEP operation on an original object, with an enabled/disabled counterpart. Other history keys, repeat/cyclic objects, aborts and all policy kinds remain separate. Original observer overrides only record calls and forward the real stack operations.",
+        "ja": "独自objectの明示DEEP 1操作と有効／無効の対照。別の履歴key、反復／循環object、中止、全policy種は別に残す。独自observer overrideは呼出しを記録し、実stack操作へ転送するだけとする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_printer_object_print_orders_field_and_user_hooks_inside_active_stack",
+          "role": "direct",
+          "expected_observations": [
+            "UT: print_execute op print policy 1 active 1 depth 1 started 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-AUDIT-PRINT-STARTED-BEFORE-FIELD",
+      "clause": "16.2.3.1",
+      "statement": {
+        "en": "The object is active and marked STARTED before the print field hook.",
+        "ja": "print field hook前にobjectはactiveでSTARTEDとなる。"
+      },
+      "conditions": {
+        "en": "Use the original selected fixtures and explicit API arguments represented by the observation anchors.",
+        "ja": "観測anchorに示す独自の選択fixtureと明示API引数を使う。"
+      },
+      "expected": {
+        "en": "Selected hook order, exact policy/active identity, depth one during hooks and empty depth zero after return match; FINISHED is visible before the active pop.",
+        "ja": "選択hook順序、exact policy／active同一性、hook中のdepth 1、return後の空depth 0が一致し、active pop前にFINISHEDを観測する。"
+      },
+      "limitations": {
+        "en": "One explicit DEEP operation on an original object, with an enabled/disabled counterpart. Other history keys, repeat/cyclic objects, aborts and all policy kinds remain separate. Original observer overrides only record calls and forward the real stack operations.",
+        "ja": "独自objectの明示DEEP 1操作と有効／無効の対照。別の履歴key、反復／循環object、中止、全policy種は別に残す。独自observer overrideは呼出しを記録し、実stack操作へ転送するだけとする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_printer_object_print_orders_field_and_user_hooks_inside_active_stack",
+          "role": "direct",
+          "expected_observations": [
+            "UT: print_execute op print policy 1 active 1 depth 1 started 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-AUDIT-PRINT-USER-HOOK-ORDER",
+      "clause": "16.2.3.1",
+      "statement": {
+        "en": "The enabled do_print hook follows the field-operation hook and receives the same policy.",
+        "ja": "有効なdo_print hookはfield-operation hookに続き、同じpolicyを受ける。"
+      },
+      "conditions": {
+        "en": "Use the original selected fixtures and explicit API arguments represented by the observation anchors.",
+        "ja": "観測anchorに示す独自の選択fixtureと明示API引数を使う。"
+      },
+      "expected": {
+        "en": "Selected hook order, exact policy/active identity, depth one during hooks and empty depth zero after return match; FINISHED is visible before the active pop.",
+        "ja": "選択hook順序、exact policy／active同一性、hook中のdepth 1、return後の空depth 0が一致し、active pop前にFINISHEDを観測する。"
+      },
+      "limitations": {
+        "en": "One explicit DEEP operation on an original object, with an enabled/disabled counterpart. Other history keys, repeat/cyclic objects, aborts and all policy kinds remain separate. Original observer overrides only record calls and forward the real stack operations.",
+        "ja": "独自objectの明示DEEP 1操作と有効／無効の対照。別の履歴key、反復／循環object、中止、全policy種は別に残す。独自observer overrideは呼出しを記録し、実stack操作へ転送するだけとする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_printer_object_print_orders_field_and_user_hooks_inside_active_stack",
+          "role": "direct",
+          "expected_observations": [
+            "UT: print_complete trace EP executes 1 prints 1 finished 1 depth 0 empty 1",
+            "UT: print_hook policy 1 active 1 depth 1 started 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-AUDIT-PRINT-FINISHED-BEFORE-POP",
+      "clause": "16.2.3.1",
+      "statement": {
+        "en": "The printer marks the recursed object FINISHED before popping its active entry.",
+        "ja": "printerは再帰対象objectをFINISHEDにしてからactive entryをpopする。"
+      },
+      "conditions": {
+        "en": "Use the original selected fixtures and explicit API arguments represented by the observation anchors.",
+        "ja": "観測anchorに示す独自の選択fixtureと明示API引数を使う。"
+      },
+      "expected": {
+        "en": "Selected hook order, exact policy/active identity, depth one during hooks and empty depth zero after return match; FINISHED is visible before the active pop.",
+        "ja": "選択hook順序、exact policy／active同一性、hook中のdepth 1、return後の空depth 0が一致し、active pop前にFINISHEDを観測する。"
+      },
+      "limitations": {
+        "en": "One explicit DEEP operation on an original object, with an enabled/disabled counterpart. Other history keys, repeat/cyclic objects, aborts and all policy kinds remain separate. Original observer overrides only record calls and forward the real stack operations.",
+        "ja": "独自objectの明示DEEP 1操作と有効／無効の対照。別の履歴key、反復／循環object、中止、全policy種は別に残す。独自observer overrideは呼出しを記録し、実stack操作へ転送するだけとする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_printer_object_print_orders_field_and_user_hooks_inside_active_stack",
+          "role": "direct",
+          "expected_observations": [
+            "UT: finished_before_pop 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-AUDIT-PRINT-USER-HOOK-DISABLED",
+      "clause": "16.2.3.1",
+      "statement": {
+        "en": "Disabling the user hook skips do_print while completing history and unwinding the active entry.",
+        "ja": "user hook無効化は履歴完了とactive entryの巻戻しを行いつつdo_printを省略する。"
+      },
+      "conditions": {
+        "en": "Use the original selected fixtures and explicit API arguments represented by the observation anchors.",
+        "ja": "観測anchorに示す独自の選択fixtureと明示API引数を使う。"
+      },
+      "expected": {
+        "en": "Selected hook order, exact policy/active identity, depth one during hooks and empty depth zero after return match; FINISHED is visible before the active pop.",
+        "ja": "選択hook順序、exact policy／active同一性、hook中のdepth 1、return後の空depth 0が一致し、active pop前にFINISHEDを観測する。"
+      },
+      "limitations": {
+        "en": "One explicit DEEP operation on an original object, with an enabled/disabled counterpart. Other history keys, repeat/cyclic objects, aborts and all policy kinds remain separate. Original observer overrides only record calls and forward the real stack operations.",
+        "ja": "独自objectの明示DEEP 1操作と有効／無効の対照。別の履歴key、反復／循環object、中止、全policy種は別に残す。独自observer overrideは呼出しを記録し、実stack操作へ転送するだけとする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_printer_disabled_user_hook_still_finishes_history_and_unwinds_active_stack",
+          "role": "direct",
+          "expected_observations": [
+            "UT: print_complete trace E executes 1 prints 0 finished 1 depth 0 empty 1",
+            "UT: finished_before_pop 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-AUDIT-PRINT-HISTORY-STATES",
+      "clause": "16.2.3.2",
+      "statement": {
+        "en": "The selected object history changes from NEVER through STARTED to FINISHED.",
+        "ja": "選択objectの履歴はNEVERからSTARTEDを経てFINISHEDへ変わる。"
+      },
+      "conditions": {
+        "en": "Use the original selected fixtures and explicit API arguments represented by the observation anchors.",
+        "ja": "観測anchorに示す独自の選択fixtureと明示API引数を使う。"
+      },
+      "expected": {
+        "en": "Selected hook order, exact policy/active identity, depth one during hooks and empty depth zero after return match; FINISHED is visible before the active pop.",
+        "ja": "選択hook順序、exact policy／active同一性、hook中のdepth 1、return後の空depth 0が一致し、active pop前にFINISHEDを観測する。"
+      },
+      "limitations": {
+        "en": "One explicit DEEP operation on an original object, with an enabled/disabled counterpart. Other history keys, repeat/cyclic objects, aborts and all policy kinds remain separate. Original observer overrides only record calls and forward the real stack operations.",
+        "ja": "独自objectの明示DEEP 1操作と有効／無効の対照。別の履歴key、反復／循環object、中止、全policy種は別に残す。独自observer overrideは呼出しを記録し、実stack操作へ転送するだけとする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_printer_object_print_orders_field_and_user_hooks_inside_active_stack",
+          "role": "direct",
+          "expected_observations": [
+            "UT: print_never 1",
+            "UT: print_execute op print policy 1 active 1 depth 1 started 1",
+            "UT: print_hook policy 1 active 1 depth 1 started 1",
+            "UT: print_complete trace EP executes 1 prints 1 finished 1 depth 0 empty 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-AUDIT-RECURSION-DEEP",
+      "clause": "16.2.5.9",
+      "statement": {
+        "en": "The selected DEEP recursion setting controls target and child printing.",
+        "ja": "選択したDEEP再帰設定はtargetとchildの印字を制御する。"
+      },
+      "conditions": {
+        "en": "Use the original selected fixtures and explicit API arguments represented by the observation anchors.",
+        "ja": "観測anchorに示す独自の選択fixtureと明示API引数を使う。"
+      },
+      "expected": {
+        "en": "A three-node original chain has visit counts 1/1/1 and returns with an empty active stack.",
+        "ja": "独自3-node chainの訪問回数は1/1/1で、active stackを空にして戻る。"
+      },
+      "limitations": {
+        "en": "Selected conditions only. Original observer code is setup; no private field names, unspecified default layout, arbitrary custom subtype, four-state formatting or exhaustive clause coverage is certified. A later mismatch keeps the whole fixture known even if an earlier observation matches.",
+        "ja": "選択条件だけ。独自observerは準備とし、非公開field名、未規定の既定文面、任意custom subtype、4-state formatting、条項の網羅は認定しない。後の不一致があれば、先の観測が一致してもfixture全体をknownに保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_printer_recursion_modes_distinguish_deep_shallow_reference_and_default",
+          "role": "direct",
+          "expected_observations": [
+            "UT: recursion_mode 0 visits 1/1/1 depth 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-AUDIT-RECURSION-SHALLOW",
+      "clause": "16.2.5.9",
+      "statement": {
+        "en": "The selected SHALLOW recursion setting controls target and child printing.",
+        "ja": "選択したSHALLOW再帰設定はtargetとchildの印字を制御する。"
+      },
+      "conditions": {
+        "en": "Use the original selected fixtures and explicit API arguments represented by the observation anchors.",
+        "ja": "観測anchorに示す独自の選択fixtureと明示API引数を使う。"
+      },
+      "expected": {
+        "en": "A three-node original chain has visit counts 1/0/0 and returns with an empty active stack.",
+        "ja": "独自3-node chainの訪問回数は1/0/0で、active stackを空にして戻る。"
+      },
+      "limitations": {
+        "en": "Selected conditions only. Original observer code is setup; no private field names, unspecified default layout, arbitrary custom subtype, four-state formatting or exhaustive clause coverage is certified. A later mismatch keeps the whole fixture known even if an earlier observation matches.",
+        "ja": "選択条件だけ。独自observerは準備とし、非公開field名、未規定の既定文面、任意custom subtype、4-state formatting、条項の網羅は認定しない。後の不一致があれば、先の観測が一致してもfixture全体をknownに保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_printer_recursion_modes_distinguish_deep_shallow_reference_and_default",
+          "role": "direct",
+          "expected_observations": [
+            "UT: recursion_mode 1 visits 1/0/0 depth 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-AUDIT-RECURSION-REFERENCE",
+      "clause": "16.2.5.9",
+      "statement": {
+        "en": "The selected REFERENCE recursion setting controls target and child printing.",
+        "ja": "選択したREFERENCE再帰設定はtargetとchildの印字を制御する。"
+      },
+      "conditions": {
+        "en": "Use the original selected fixtures and explicit API arguments represented by the observation anchors.",
+        "ja": "観測anchorに示す独自の選択fixtureと明示API引数を使う。"
+      },
+      "expected": {
+        "en": "A three-node original chain has visit counts 0/0/0 and returns with an empty active stack.",
+        "ja": "独自3-node chainの訪問回数は0/0/0で、active stackを空にして戻る。"
+      },
+      "limitations": {
+        "en": "Selected conditions only. Original observer code is setup; no private field names, unspecified default layout, arbitrary custom subtype, four-state formatting or exhaustive clause coverage is certified. A later mismatch keeps the whole fixture known even if an earlier observation matches.",
+        "ja": "選択条件だけ。独自observerは準備とし、非公開field名、未規定の既定文面、任意custom subtype、4-state formatting、条項の網羅は認定しない。後の不一致があれば、先の観測が一致してもfixture全体をknownに保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_printer_recursion_modes_distinguish_deep_shallow_reference_and_default",
+          "role": "direct",
+          "expected_observations": [
+            "UT: recursion_mode 2 visits 0/0/0 depth 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-AUDIT-RECURSION-DEFAULT-POLICY",
+      "clause": "16.2.5.9",
+      "statement": {
+        "en": "The selected DEFAULT_POLICY recursion setting controls target and child printing.",
+        "ja": "選択したDEFAULT_POLICY再帰設定はtargetとchildの印字を制御する。"
+      },
+      "conditions": {
+        "en": "Use the original selected fixtures and explicit API arguments represented by the observation anchors.",
+        "ja": "観測anchorに示す独自の選択fixtureと明示API引数を使う。"
+      },
+      "expected": {
+        "en": "A three-node original chain has visit counts 1/1/1 and returns with an empty active stack.",
+        "ja": "独自3-node chainの訪問回数は1/1/1で、active stackを空にして戻る。"
+      },
+      "limitations": {
+        "en": "Selected conditions only. Original observer code is setup; no private field names, unspecified default layout, arbitrary custom subtype, four-state formatting or exhaustive clause coverage is certified. A later mismatch keeps the whole fixture known even if an earlier observation matches.",
+        "ja": "選択条件だけ。独自observerは準備とし、非公開field名、未規定の既定文面、任意custom subtype、4-state formatting、条項の網羅は認定しない。後の不一致があれば、先の観測が一致してもfixture全体をknownに保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_printer_recursion_modes_distinguish_deep_shallow_reference_and_default",
+          "role": "direct",
+          "expected_observations": [
+            "UT: recursion_mode 3 visits 1/1/1 depth 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-AUDIT-RECURSION-DEFAULT-GETTER",
+      "clause": "16.2.5.9",
+      "statement": {
+        "en": "A fresh printer reports UVM_DEFAULT_POLICY before any recursion setting.",
+        "ja": "新printerは再帰設定前にUVM_DEFAULT_POLICYを返す。"
+      },
+      "conditions": {
+        "en": "Use the original selected fixtures and explicit API arguments represented by the observation anchors.",
+        "ja": "観測anchorに示す独自の選択fixtureと明示API引数を使う。"
+      },
+      "expected": {
+        "en": "The omitted recursion configuration getter equals the declared default.",
+        "ja": "省略した再帰設定のgetterは宣言された既定値に一致する。"
+      },
+      "limitations": {
+        "en": "Selected conditions only. Original observer code is setup; no private field names, unspecified default layout, arbitrary custom subtype, four-state formatting or exhaustive clause coverage is certified. A later mismatch keeps the whole fixture known even if an earlier observation matches.",
+        "ja": "選択条件だけ。独自observerは準備とし、非公開field名、未規定の既定文面、任意custom subtype、4-state formatting、条項の網羅は認定しない。後の不一致があれば、先の観測が一致してもfixture全体をknownに保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_printer_recursion_modes_distinguish_deep_shallow_reference_and_default",
+          "role": "direct",
+          "expected_observations": [
+            "UT: recursion_default_policy 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-AUDIT-DEPTH-ENTRY-BOUNDARY-INTERPRETATION",
+      "clause": "16.2.5.10",
+      "statement": {
+        "en": "Under the entry-depth reading, only objects whose entry scope exceeds the maximum are references.",
+        "ja": "entry-depth解釈では、entry scopeがmaximumを超えるobjectだけをreferenceにする。"
+      },
+      "conditions": {
+        "en": "Use the original selected fixtures and explicit API arguments represented by the observation anchors.",
+        "ja": "観測anchorに示す独自の選択fixtureと明示API引数を使う。"
+      },
+      "expected": {
+        "en": "The retained -1/0/1/2 matrix recurses all nodes, root only, root/child and all nodes, respectively.",
+        "ja": "保持する-1／0／1／2 matrixでは順に全node、rootだけ、root／child、全nodeを再帰する。"
+      },
+      "limitations": {
+        "en": "Qualified interpretation of the printed maximum-depth wording using scope depth at print_object entry, not a proven defect at equality. The separate already-above-limit probe avoids this boundary ambiguity. No expected value is copied from the implementation.",
+        "ja": "print_object entryのscope depthを使う印刷maximum-depth文言の限定解釈であり、等号境界の不具合を断定しない。別の上限超過済みprobeはこの境界曖昧さを避ける。実装値を期待値へコピーしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_printer_max_depth_uses_reference_behavior_beyond_each_selected_boundary",
+          "role": "direct",
+          "expected_observations": [
+            "UT: recursion_depth -1 visits 1/1/1 depth 0",
+            "UT: recursion_depth 0 visits 1/0/0 depth 0",
+            "UT: recursion_depth 1 visits 1/1/0 depth 0",
+            "UT: recursion_depth 2 visits 1/1/1 depth 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-AUDIT-DEPTH-ALREADY-EXCEEDED",
+      "clause": "16.2.5.10",
+      "statement": {
+        "en": "An already active scope above the maximum prints the next object as a reference.",
+        "ja": "active scopeが既にmaximumを超えていれば、次のobjectはreferenceとして印字する。"
+      },
+      "conditions": {
+        "en": "Use the original selected fixtures and explicit API arguments represented by the observation anchors.",
+        "ja": "観測anchorに示す独自の選択fixtureと明示API引数を使う。"
+      },
+      "expected": {
+        "en": "With two caller entries, limits zero/one cause no field/user hook, while limit three is a recursing control; both caller entries remain intact.",
+        "ja": "caller entry 2つでlimit 0／1はfield／user hookを呼ばず、limit 3は再帰controlとなり、両caller entryを保持する。"
+      },
+      "limitations": {
+        "en": "Two explicitly pushed caller entries already exceed both selected bounds, independently of the equality interpretation. The original object only counts its hooks. Other scope shapes and every depth value remain separate.",
+        "ja": "明示pushしたcaller entry 2つは、等号解釈によらず選択した両上限を既に超える。独自objectはhook回数だけを数える。他scope形状と全depth値は別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_printer_depth_already_above_limit_uses_reference_without_touching_caller_stack",
+          "role": "direct",
+          "expected_observations": [
+            "UT: above_depth limit 0 executes 0 prints 0 depth 2 top 1",
+            "UT: caller_unwound 1",
+            "UT: above_depth limit 1 executes 0 prints 0 depth 2 top 1",
+            "UT: above_depth limit 3 executes 1 prints 1 depth 2 top 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-AUDIT-SCALAR-GENERIC-ELEMENT",
+      "clause": "16.2.3.3",
+      "statement": {
+        "en": "The selected GENERIC print API creates one child element then restores its parent.",
+        "ja": "選択したGENERIC印字APIはchild element 1つを作り、parentへ戻る。"
+      },
+      "conditions": {
+        "en": "Use the original selected fixtures and explicit API arguments represented by the observation anchors.",
+        "ja": "観測anchorに示す独自の選択fixtureと明示API引数を使う。"
+      },
+      "expected": {
+        "en": "One push/pop is observed, the top/bottom return to the root, and the proxy contains exactly the new element once.",
+        "ja": "push／pop各1回を観測し、top／bottomはrootへ戻り、proxyは新elementを正確に1回含む。"
+      },
+      "limitations": {
+        "en": "Selected element-stack duty from 16.2.7 combined with this API. It does not certify numeric/time/real text conversion, scope-separator variants or every field value. No sibling iteration order is assumed.",
+        "ja": "本APIと16.2.7を組み合わせた選択element-stack義務。数値／time／realの文面変換、scope separator差分、全field値は認定しない。sibling反復順序は仮定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_printer_scalar_methods_push_one_child_then_restore_the_parent_element",
+          "role": "direct",
+          "expected_observations": [
+            "UT: scalar_stack 0 push 1 pop 1 parent 1 base 1 children 1 latest 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-AUDIT-SCALAR-GENERIC-ELEMENT-ELEMENT",
+      "clause": "16.2.3.4",
+      "statement": {
+        "en": "The selected GENERIC-ELEMENT print API creates one child element then restores its parent.",
+        "ja": "選択したGENERIC-ELEMENT印字APIはchild element 1つを作り、parentへ戻る。"
+      },
+      "conditions": {
+        "en": "Use the original selected fixtures and explicit API arguments represented by the observation anchors.",
+        "ja": "観測anchorに示す独自の選択fixtureと明示API引数を使う。"
+      },
+      "expected": {
+        "en": "One push/pop is observed, the top/bottom return to the root, and the proxy contains exactly the new element once.",
+        "ja": "push／pop各1回を観測し、top／bottomはrootへ戻り、proxyは新elementを正確に1回含む。"
+      },
+      "limitations": {
+        "en": "Selected element-stack duty from 16.2.7 combined with this API. It does not certify numeric/time/real text conversion, scope-separator variants or every field value. No sibling iteration order is assumed.",
+        "ja": "本APIと16.2.7を組み合わせた選択element-stack義務。数値／time／realの文面変換、scope separator差分、全field値は認定しない。sibling反復順序は仮定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_printer_scalar_methods_push_one_child_then_restore_the_parent_element",
+          "role": "direct",
+          "expected_observations": [
+            "UT: scalar_stack 1 push 1 pop 1 parent 1 base 1 children 2 latest 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-AUDIT-SCALAR-FIELD-ELEMENT",
+      "clause": "16.2.3.8",
+      "statement": {
+        "en": "The selected FIELD print API creates one child element then restores its parent.",
+        "ja": "選択したFIELD印字APIはchild element 1つを作り、parentへ戻る。"
+      },
+      "conditions": {
+        "en": "Use the original selected fixtures and explicit API arguments represented by the observation anchors.",
+        "ja": "観測anchorに示す独自の選択fixtureと明示API引数を使う。"
+      },
+      "expected": {
+        "en": "One push/pop is observed, the top/bottom return to the root, and the proxy contains exactly the new element once.",
+        "ja": "push／pop各1回を観測し、top／bottomはrootへ戻り、proxyは新elementを正確に1回含む。"
+      },
+      "limitations": {
+        "en": "Selected element-stack duty from 16.2.7 combined with this API. It does not certify numeric/time/real text conversion, scope-separator variants or every field value. No sibling iteration order is assumed.",
+        "ja": "本APIと16.2.7を組み合わせた選択element-stack義務。数値／time／realの文面変換、scope separator差分、全field値は認定しない。sibling反復順序は仮定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_printer_scalar_methods_push_one_child_then_restore_the_parent_element",
+          "role": "direct",
+          "expected_observations": [
+            "UT: scalar_stack 2 push 1 pop 1 parent 1 base 1 children 3 latest 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-AUDIT-SCALAR-FIELD-INT-ELEMENT",
+      "clause": "16.2.3.9",
+      "statement": {
+        "en": "The selected FIELD-INT print API creates one child element then restores its parent.",
+        "ja": "選択したFIELD-INT印字APIはchild element 1つを作り、parentへ戻る。"
+      },
+      "conditions": {
+        "en": "Use the original selected fixtures and explicit API arguments represented by the observation anchors.",
+        "ja": "観測anchorに示す独自の選択fixtureと明示API引数を使う。"
+      },
+      "expected": {
+        "en": "One push/pop is observed, the top/bottom return to the root, and the proxy contains exactly the new element once.",
+        "ja": "push／pop各1回を観測し、top／bottomはrootへ戻り、proxyは新elementを正確に1回含む。"
+      },
+      "limitations": {
+        "en": "Selected element-stack duty from 16.2.7 combined with this API. It does not certify numeric/time/real text conversion, scope-separator variants or every field value. No sibling iteration order is assumed.",
+        "ja": "本APIと16.2.7を組み合わせた選択element-stack義務。数値／time／realの文面変換、scope separator差分、全field値は認定しない。sibling反復順序は仮定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_printer_scalar_methods_push_one_child_then_restore_the_parent_element",
+          "role": "direct",
+          "expected_observations": [
+            "UT: scalar_stack 3 push 1 pop 1 parent 1 base 1 children 4 latest 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-AUDIT-SCALAR-STRING-ELEMENT",
+      "clause": "16.2.3.10",
+      "statement": {
+        "en": "The selected STRING print API creates one child element then restores its parent.",
+        "ja": "選択したSTRING印字APIはchild element 1つを作り、parentへ戻る。"
+      },
+      "conditions": {
+        "en": "Use the original selected fixtures and explicit API arguments represented by the observation anchors.",
+        "ja": "観測anchorに示す独自の選択fixtureと明示API引数を使う。"
+      },
+      "expected": {
+        "en": "One push/pop is observed, the top/bottom return to the root, and the proxy contains exactly the new element once.",
+        "ja": "push／pop各1回を観測し、top／bottomはrootへ戻り、proxyは新elementを正確に1回含む。"
+      },
+      "limitations": {
+        "en": "Selected element-stack duty from 16.2.7 combined with this API. It does not certify numeric/time/real text conversion, scope-separator variants or every field value. No sibling iteration order is assumed.",
+        "ja": "本APIと16.2.7を組み合わせた選択element-stack義務。数値／time／realの文面変換、scope separator差分、全field値は認定しない。sibling反復順序は仮定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_printer_scalar_methods_push_one_child_then_restore_the_parent_element",
+          "role": "direct",
+          "expected_observations": [
+            "UT: scalar_stack 4 push 1 pop 1 parent 1 base 1 children 5 latest 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-AUDIT-SCALAR-TIME-ELEMENT",
+      "clause": "16.2.3.11",
+      "statement": {
+        "en": "The selected TIME print API creates one child element then restores its parent.",
+        "ja": "選択したTIME印字APIはchild element 1つを作り、parentへ戻る。"
+      },
+      "conditions": {
+        "en": "Use the original selected fixtures and explicit API arguments represented by the observation anchors.",
+        "ja": "観測anchorに示す独自の選択fixtureと明示API引数を使う。"
+      },
+      "expected": {
+        "en": "One push/pop is observed, the top/bottom return to the root, and the proxy contains exactly the new element once.",
+        "ja": "push／pop各1回を観測し、top／bottomはrootへ戻り、proxyは新elementを正確に1回含む。"
+      },
+      "limitations": {
+        "en": "Selected element-stack duty from 16.2.7 combined with this API. It does not certify numeric/time/real text conversion, scope-separator variants or every field value. No sibling iteration order is assumed.",
+        "ja": "本APIと16.2.7を組み合わせた選択element-stack義務。数値／time／realの文面変換、scope separator差分、全field値は認定しない。sibling反復順序は仮定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_printer_scalar_methods_push_one_child_then_restore_the_parent_element",
+          "role": "direct",
+          "expected_observations": [
+            "UT: scalar_stack 5 push 1 pop 1 parent 1 base 1 children 6 latest 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-AUDIT-SCALAR-REAL-ELEMENT",
+      "clause": "16.2.3.12",
+      "statement": {
+        "en": "The selected REAL print API creates one child element then restores its parent.",
+        "ja": "選択したREAL印字APIはchild element 1つを作り、parentへ戻る。"
+      },
+      "conditions": {
+        "en": "Use the original selected fixtures and explicit API arguments represented by the observation anchors.",
+        "ja": "観測anchorに示す独自の選択fixtureと明示API引数を使う。"
+      },
+      "expected": {
+        "en": "One push/pop is observed, the top/bottom return to the root, and the proxy contains exactly the new element once.",
+        "ja": "push／pop各1回を観測し、top／bottomはrootへ戻り、proxyは新elementを正確に1回含む。"
+      },
+      "limitations": {
+        "en": "Selected element-stack duty from 16.2.7 combined with this API. It does not certify numeric/time/real text conversion, scope-separator variants or every field value. No sibling iteration order is assumed.",
+        "ja": "本APIと16.2.7を組み合わせた選択element-stack義務。数値／time／realの文面変換、scope separator差分、全field値は認定しない。sibling反復順序は仮定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_printer_scalar_methods_push_one_child_then_restore_the_parent_element",
+          "role": "direct",
+          "expected_observations": [
+            "UT: scalar_stack 6 push 1 pop 1 parent 1 base 1 children 7 latest 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-AUDIT-GENERIC-ELEMENT-EXACT-FIELDS",
+      "clause": "16.2.3.4",
+      "statement": {
+        "en": "print_generic_element preserves the four caller-supplied textual attributes in the child element.",
+        "ja": "print_generic_elementはcallerが指定したtext属性4つをchild elementに保持する。"
+      },
+      "conditions": {
+        "en": "Use the original selected fixtures and explicit API arguments represented by the observation anchors.",
+        "ja": "観測anchorに示す独自の選択fixtureと明示API引数を使う。"
+      },
+      "expected": {
+        "en": "The child retains direct, opaqueType, many and direct42 exactly.",
+        "ja": "childはdirect、opaqueType、many、direct42を正確に保持する。"
+      },
+      "limitations": {
+        "en": "Selected conditions only. Original observer code is setup; no private field names, unspecified default layout, arbitrary custom subtype, four-state formatting or exhaustive clause coverage is certified. A later mismatch keeps the whole fixture known even if an earlier observation matches.",
+        "ja": "選択条件だけ。独自observerは準備とし、非公開field名、未規定の既定文面、任意custom subtype、4-state formatting、条項の網羅は認定しない。後の不一致があれば、先の観測が一致してもfixture全体をknownに保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_printer_scalar_methods_push_one_child_then_restore_the_parent_element",
+          "role": "direct",
+          "expected_observations": [
+            "UT: direct_element fields 1/1/1/1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-AUDIT-SCALAR-STACK-ENCAPSULATION",
+      "clause": "16.2.7",
+      "statement": {
+        "en": "Scalar printing preserves root encapsulation while accumulating new children.",
+        "ja": "scalar印字は新childを蓄積しつつrootの包含関係を保持する。"
+      },
+      "conditions": {
+        "en": "Use the original selected fixtures and explicit API arguments represented by the observation anchors.",
+        "ja": "観測anchorに示す独自の選択fixtureと明示API引数を使う。"
+      },
+      "expected": {
+        "en": "All seven selected scalar APIs retain the root top/bottom identity and add one distinct reachable child each.",
+        "ja": "選択scalar API 7つはrootのtop／bottom同一性を保持し、到達可能な別childを各1つ追加する。"
+      },
+      "limitations": {
+        "en": "Selected conditions only. Original observer code is setup; no private field names, unspecified default layout, arbitrary custom subtype, four-state formatting or exhaustive clause coverage is certified. A later mismatch keeps the whole fixture known even if an earlier observation matches.",
+        "ja": "選択条件だけ。独自observerは準備とし、非公開field名、未規定の既定文面、任意custom subtype、4-state formatting、条項の網羅は認定しない。後の不一致があれば、先の観測が一致してもfixture全体をknownに保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_printer_scalar_methods_push_one_child_then_restore_the_parent_element",
+          "role": "direct",
+          "expected_observations": [
+            "UT: scalar_stack 0 push 1 pop 1 parent 1 base 1 children 1 latest 1",
+            "UT: scalar_stack 1 push 1 pop 1 parent 1 base 1 children 2 latest 1",
+            "UT: scalar_stack 2 push 1 pop 1 parent 1 base 1 children 3 latest 1",
+            "UT: scalar_stack 3 push 1 pop 1 parent 1 base 1 children 4 latest 1",
+            "UT: scalar_stack 4 push 1 pop 1 parent 1 base 1 children 5 latest 1",
+            "UT: scalar_stack 5 push 1 pop 1 parent 1 base 1 children 6 latest 1",
+            "UT: scalar_stack 6 push 1 pop 1 parent 1 base 1 children 7 latest 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-AUDIT-BOTTOM-ELEMENT-QUERY",
+      "clause": "16.2.7.1",
+      "statement": {
+        "en": "The bottom-element accessor continues to identify the outermost root.",
+        "ja": "bottom-element accessorは最外rootを引き続き識別する。"
+      },
+      "conditions": {
+        "en": "Use the original selected fixtures and explicit API arguments represented by the observation anchors.",
+        "ja": "観測anchorに示す独自の選択fixtureと明示API引数を使う。"
+      },
+      "expected": {
+        "en": "All seven selected scalar APIs retain the root top/bottom identity and add one distinct reachable child each.",
+        "ja": "選択scalar API 7つはrootのtop／bottom同一性を保持し、到達可能な別childを各1つ追加する。"
+      },
+      "limitations": {
+        "en": "Selected conditions only. Original observer code is setup; no private field names, unspecified default layout, arbitrary custom subtype, four-state formatting or exhaustive clause coverage is certified. A later mismatch keeps the whole fixture known even if an earlier observation matches.",
+        "ja": "選択条件だけ。独自observerは準備とし、非公開field名、未規定の既定文面、任意custom subtype、4-state formatting、条項の網羅は認定しない。後の不一致があれば、先の観測が一致してもfixture全体をknownに保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_printer_scalar_methods_push_one_child_then_restore_the_parent_element",
+          "role": "direct",
+          "expected_observations": [
+            "UT: scalar_stack 0 push 1 pop 1 parent 1 base 1 children 1 latest 1",
+            "UT: scalar_stack 1 push 1 pop 1 parent 1 base 1 children 2 latest 1",
+            "UT: scalar_stack 2 push 1 pop 1 parent 1 base 1 children 3 latest 1",
+            "UT: scalar_stack 3 push 1 pop 1 parent 1 base 1 children 4 latest 1",
+            "UT: scalar_stack 4 push 1 pop 1 parent 1 base 1 children 5 latest 1",
+            "UT: scalar_stack 5 push 1 pop 1 parent 1 base 1 children 6 latest 1",
+            "UT: scalar_stack 6 push 1 pop 1 parent 1 base 1 children 7 latest 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-AUDIT-TOP-ELEMENT-QUERY",
+      "clause": "16.2.7.2",
+      "statement": {
+        "en": "The top-element accessor returns the restored current parent after each scalar print.",
+        "ja": "top-element accessorは各scalar印字後に復帰した現在parentを返す。"
+      },
+      "conditions": {
+        "en": "Use the original selected fixtures and explicit API arguments represented by the observation anchors.",
+        "ja": "観測anchorに示す独自の選択fixtureと明示API引数を使う。"
+      },
+      "expected": {
+        "en": "All seven selected scalar APIs retain the root top/bottom identity and add one distinct reachable child each.",
+        "ja": "選択scalar API 7つはrootのtop／bottom同一性を保持し、到達可能な別childを各1つ追加する。"
+      },
+      "limitations": {
+        "en": "Selected conditions only. Original observer code is setup; no private field names, unspecified default layout, arbitrary custom subtype, four-state formatting or exhaustive clause coverage is certified. A later mismatch keeps the whole fixture known even if an earlier observation matches.",
+        "ja": "選択条件だけ。独自observerは準備とし、非公開field名、未規定の既定文面、任意custom subtype、4-state formatting、条項の網羅は認定しない。後の不一致があれば、先の観測が一致してもfixture全体をknownに保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_printer_scalar_methods_push_one_child_then_restore_the_parent_element",
+          "role": "direct",
+          "expected_observations": [
+            "UT: scalar_stack 0 push 1 pop 1 parent 1 base 1 children 1 latest 1",
+            "UT: scalar_stack 1 push 1 pop 1 parent 1 base 1 children 2 latest 1",
+            "UT: scalar_stack 2 push 1 pop 1 parent 1 base 1 children 3 latest 1",
+            "UT: scalar_stack 3 push 1 pop 1 parent 1 base 1 children 4 latest 1",
+            "UT: scalar_stack 4 push 1 pop 1 parent 1 base 1 children 5 latest 1",
+            "UT: scalar_stack 5 push 1 pop 1 parent 1 base 1 children 6 latest 1",
+            "UT: scalar_stack 6 push 1 pop 1 parent 1 base 1 children 7 latest 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-AUDIT-ARRAY-HEADER-DEFAULT-TYPE",
+      "clause": "16.2.3.5",
+      "statement": {
+        "en": "An array header opens a nested element with default type array.",
+        "ja": "array headerは既定型arrayでnested elementを開く。"
+      },
+      "conditions": {
+        "en": "Use the original selected fixtures and explicit API arguments represented by the observation anchors.",
+        "ja": "観測anchorに示す独自の選択fixtureと明示API引数を使う。"
+      },
+      "expected": {
+        "en": "The selected array type, parent identity, one range push/pop, ellipsis and three immediate children match without fixing footer text.",
+        "ja": "footer文面を固定せず、選択array型、parent同一性、range push／pop各1回、ellipsis、直下child 3つが一致する。"
+      },
+      "limitations": {
+        "en": "Selected conditions only. Original observer code is setup; no private field names, unspecified default layout, arbitrary custom subtype, four-state formatting or exhaustive clause coverage is certified. A later mismatch keeps the whole fixture known even if an earlier observation matches.",
+        "ja": "選択条件だけ。独自observerは準備とし、非公開field名、未規定の既定文面、任意custom subtype、4-state formatting、条項の網羅は認定しない。後の不一致があれば、先の観測が一致してもfixture全体をknownに保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_printer_array_header_range_and_footer_keep_nested_element_structure",
+          "role": "direct",
+          "expected_observations": [
+            "UT: array_header different 1 root 1 default_type 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-AUDIT-ARRAY-HEADER-EXPLICIT-TYPE",
+      "clause": "16.2.3.5",
+      "statement": {
+        "en": "An explicit array type is passed into the opened array element.",
+        "ja": "明示array型を開いたarray elementへ渡す。"
+      },
+      "conditions": {
+        "en": "Use the original selected fixtures and explicit API arguments represented by the observation anchors.",
+        "ja": "観測anchorに示す独自の選択fixtureと明示API引数を使う。"
+      },
+      "expected": {
+        "en": "The selected array type, parent identity, one range push/pop, ellipsis and three immediate children match without fixing footer text.",
+        "ja": "footer文面を固定せず、選択array型、parent同一性、range push／pop各1回、ellipsis、直下child 3つが一致する。"
+      },
+      "limitations": {
+        "en": "Selected conditions only. Original observer code is setup; no private field names, unspecified default layout, arbitrary custom subtype, four-state formatting or exhaustive clause coverage is certified. A later mismatch keeps the whole fixture known even if an earlier observation matches.",
+        "ja": "選択条件だけ。独自observerは準備とし、非公開field名、未規定の既定文面、任意custom subtype、4-state formatting、条項の網羅は認定しない。後の不一致があれば、先の観測が一致してもfixture全体をknownに保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_printer_array_header_range_and_footer_keep_nested_element_structure",
+          "role": "direct",
+          "expected_observations": [
+            "UT: explicit_array_type 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-AUDIT-ARRAY-RANGE-ELLIPSIS",
+      "clause": "16.2.3.6",
+      "statement": {
+        "en": "A skipped array range adds an ellipsis element and restores the active array.",
+        "ja": "省略array rangeはellipsis elementを追加し、active arrayへ戻る。"
+      },
+      "conditions": {
+        "en": "Use the original selected fixtures and explicit API arguments represented by the observation anchors.",
+        "ja": "観測anchorに示す独自の選択fixtureと明示API引数を使う。"
+      },
+      "expected": {
+        "en": "The selected array type, parent identity, one range push/pop, ellipsis and three immediate children match without fixing footer text.",
+        "ja": "footer文面を固定せず、選択array型、parent同一性、range push／pop各1回、ellipsis、直下child 3つが一致する。"
+      },
+      "limitations": {
+        "en": "Selected conditions only. Original observer code is setup; no private field names, unspecified default layout, arbitrary custom subtype, four-state formatting or exhaustive clause coverage is certified. A later mismatch keeps the whole fixture known even if an earlier observation matches.",
+        "ja": "選択条件だけ。独自observerは準備とし、非公開field名、未規定の既定文面、任意custom subtype、4-state formatting、条項の網羅は認定しない。後の不一致があれば、先の観測が一致してもfixture全体をknownに保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_printer_array_header_range_and_footer_keep_nested_element_structure",
+          "role": "direct",
+          "expected_observations": [
+            "UT: array_range push 1 pop 1 parent 1 ellipsis 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-AUDIT-ARRAY-FOOTER-RESTORE",
+      "clause": "16.2.3.7",
+      "statement": {
+        "en": "The array footer completes the nested array and restores its enclosing element.",
+        "ja": "array footerはnested arrayを完了し、包含elementへ戻す。"
+      },
+      "conditions": {
+        "en": "Use the original selected fixtures and explicit API arguments represented by the observation anchors.",
+        "ja": "観測anchorに示す独自の選択fixtureと明示API引数を使う。"
+      },
+      "expected": {
+        "en": "The selected array type, parent identity, one range push/pop, ellipsis and three immediate children match without fixing footer text.",
+        "ja": "footer文面を固定せず、選択array型、parent同一性、range push／pop各1回、ellipsis、直下child 3つが一致する。"
+      },
+      "limitations": {
+        "en": "Selected conditions only. Original observer code is setup; no private field names, unspecified default layout, arbitrary custom subtype, four-state formatting or exhaustive clause coverage is certified. A later mismatch keeps the whole fixture known even if an earlier observation matches.",
+        "ja": "選択条件だけ。独自observerは準備とし、非公開field名、未規定の既定文面、任意custom subtype、4-state formatting、条項の網羅は認定しない。後の不一致があれば、先の観測が一致してもfixture全体をknownに保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_printer_array_header_range_and_footer_keep_nested_element_structure",
+          "role": "direct",
+          "expected_observations": [
+            "UT: array_footer restored 1 children 3",
+            "UT: explicit_footer restored 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-AUDIT-DEFAULT-RADIX-STRING-DEC",
+      "clause": "16.2.5.6",
+      "statement": {
+        "en": "A fresh printer reports 'd as the defined DEC prefix.",
+        "ja": "新printerは定義されたDEC prefixとして'dを返す。"
+      },
+      "conditions": {
+        "en": "Use the original selected fixtures and explicit API arguments represented by the observation anchors.",
+        "ja": "観測anchorに示す独自の選択fixtureと明示API引数を使う。"
+      },
+      "expected": {
+        "en": "The selected defined-radix getter matches its declared prefix before configuration.",
+        "ja": "設定前の選択defined-radix getterは宣言prefixに一致する。"
+      },
+      "limitations": {
+        "en": "Only the five defined radix prefixes are checked; values for other radices are undefined and no default is invented.",
+        "ja": "定義された5 radixのprefixだけを確認する。他radixの値は未定義で既定値を創作しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_printer_radix_defaults_updates_and_instance_isolation_follow_defined_radices",
+          "role": "direct",
+          "expected_observations": [
+            "UT: radix_defaults dec 1 bin 1 oct 1 unsigned 1 hex 1 default 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-AUDIT-DEFAULT-RADIX-STRING-BIN",
+      "clause": "16.2.5.6",
+      "statement": {
+        "en": "A fresh printer reports 'b as the defined BIN prefix.",
+        "ja": "新printerは定義されたBIN prefixとして'bを返す。"
+      },
+      "conditions": {
+        "en": "Use the original selected fixtures and explicit API arguments represented by the observation anchors.",
+        "ja": "観測anchorに示す独自の選択fixtureと明示API引数を使う。"
+      },
+      "expected": {
+        "en": "The selected defined-radix getter matches its declared prefix before configuration.",
+        "ja": "設定前の選択defined-radix getterは宣言prefixに一致する。"
+      },
+      "limitations": {
+        "en": "Only the five defined radix prefixes are checked; values for other radices are undefined and no default is invented.",
+        "ja": "定義された5 radixのprefixだけを確認する。他radixの値は未定義で既定値を創作しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_printer_radix_defaults_updates_and_instance_isolation_follow_defined_radices",
+          "role": "direct",
+          "expected_observations": [
+            "UT: radix_defaults dec 1 bin 1 oct 1 unsigned 1 hex 1 default 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-AUDIT-DEFAULT-RADIX-STRING-OCT",
+      "clause": "16.2.5.6",
+      "statement": {
+        "en": "A fresh printer reports 'o as the defined OCT prefix.",
+        "ja": "新printerは定義されたOCT prefixとして'oを返す。"
+      },
+      "conditions": {
+        "en": "Use the original selected fixtures and explicit API arguments represented by the observation anchors.",
+        "ja": "観測anchorに示す独自の選択fixtureと明示API引数を使う。"
+      },
+      "expected": {
+        "en": "The selected defined-radix getter matches its declared prefix before configuration.",
+        "ja": "設定前の選択defined-radix getterは宣言prefixに一致する。"
+      },
+      "limitations": {
+        "en": "Only the five defined radix prefixes are checked; values for other radices are undefined and no default is invented.",
+        "ja": "定義された5 radixのprefixだけを確認する。他radixの値は未定義で既定値を創作しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_printer_radix_defaults_updates_and_instance_isolation_follow_defined_radices",
+          "role": "direct",
+          "expected_observations": [
+            "UT: radix_defaults dec 1 bin 1 oct 1 unsigned 1 hex 1 default 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-AUDIT-DEFAULT-RADIX-STRING-UNSIGNED",
+      "clause": "16.2.5.6",
+      "statement": {
+        "en": "A fresh printer reports 'd as the defined UNSIGNED prefix.",
+        "ja": "新printerは定義されたUNSIGNED prefixとして'dを返す。"
+      },
+      "conditions": {
+        "en": "Use the original selected fixtures and explicit API arguments represented by the observation anchors.",
+        "ja": "観測anchorに示す独自の選択fixtureと明示API引数を使う。"
+      },
+      "expected": {
+        "en": "The selected defined-radix getter matches its declared prefix before configuration.",
+        "ja": "設定前の選択defined-radix getterは宣言prefixに一致する。"
+      },
+      "limitations": {
+        "en": "Only the five defined radix prefixes are checked; values for other radices are undefined and no default is invented.",
+        "ja": "定義された5 radixのprefixだけを確認する。他radixの値は未定義で既定値を創作しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_printer_radix_defaults_updates_and_instance_isolation_follow_defined_radices",
+          "role": "direct",
+          "expected_observations": [
+            "UT: radix_defaults dec 1 bin 1 oct 1 unsigned 1 hex 1 default 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-AUDIT-DEFAULT-RADIX-STRING-HEX",
+      "clause": "16.2.5.6",
+      "statement": {
+        "en": "A fresh printer reports 'h as the defined HEX prefix.",
+        "ja": "新printerは定義されたHEX prefixとして'hを返す。"
+      },
+      "conditions": {
+        "en": "Use the original selected fixtures and explicit API arguments represented by the observation anchors.",
+        "ja": "観測anchorに示す独自の選択fixtureと明示API引数を使う。"
+      },
+      "expected": {
+        "en": "The selected defined-radix getter matches its declared prefix before configuration.",
+        "ja": "設定前の選択defined-radix getterは宣言prefixに一致する。"
+      },
+      "limitations": {
+        "en": "Only the five defined radix prefixes are checked; values for other radices are undefined and no default is invented.",
+        "ja": "定義された5 radixのprefixだけを確認する。他radixの値は未定義で既定値を創作しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_printer_radix_defaults_updates_and_instance_isolation_follow_defined_radices",
+          "role": "direct",
+          "expected_observations": [
+            "UT: radix_defaults dec 1 bin 1 oct 1 unsigned 1 hex 1 default 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-AUDIT-RADIX-STRING-UPDATE-ISOLATION",
+      "clause": "16.2.5.6",
+      "statement": {
+        "en": "Prefix updates are selected by radix and printer instance.",
+        "ja": "prefix更新はradixとprinter instanceに限定される。"
+      },
+      "conditions": {
+        "en": "Use the original selected fixtures and explicit API arguments represented by the observation anchors.",
+        "ja": "観測anchorに示す独自の選択fixtureと明示API引数を使う。"
+      },
+      "expected": {
+        "en": "HEX/DEC updates leave BIN/UNSIGNED and an independent peer at their original prefixes.",
+        "ja": "HEX／DEC更新はBIN／UNSIGNEDと独立peerの元prefixを保持する。"
+      },
+      "limitations": {
+        "en": "Selected conditions only. Original observer code is setup; no private field names, unspecified default layout, arbitrary custom subtype, four-state formatting or exhaustive clause coverage is certified. A later mismatch keeps the whole fixture known even if an earlier observation matches.",
+        "ja": "選択条件だけ。独自observerは準備とし、非公開field名、未規定の既定文面、任意custom subtype、4-state formatting、条項の網羅は認定しない。後の不一致があれば、先の観測が一致してもfixture全体をknownに保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_printer_radix_defaults_updates_and_instance_isolation_follow_defined_radices",
+          "role": "direct",
+          "expected_observations": [
+            "UT: radix_updates hex 1 dec 1 bin 1 unsigned 1 default 1",
+            "UT: radix_peer hex 1 dec 1 default 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-AUDIT-DEFAULT-RADIX-HEX",
+      "clause": "16.2.5.7",
+      "statement": {
+        "en": "A new printer defaults its unspecified integral radix to HEX.",
+        "ja": "新printerの省略integral radixはHEXである。"
+      },
+      "conditions": {
+        "en": "Use the original selected fixtures and explicit API arguments represented by the observation anchors.",
+        "ja": "観測anchorに示す独自の選択fixtureと明示API引数を使う。"
+      },
+      "expected": {
+        "en": "Default HEX, selected BIN and unchanged peer HEX getters match.",
+        "ja": "既定HEX、選択BIN、未変更peer HEXのgetterが一致する。"
+      },
+      "limitations": {
+        "en": "Selected conditions only. Original observer code is setup; no private field names, unspecified default layout, arbitrary custom subtype, four-state formatting or exhaustive clause coverage is certified. A later mismatch keeps the whole fixture known even if an earlier observation matches.",
+        "ja": "選択条件だけ。独自observerは準備とし、非公開field名、未規定の既定文面、任意custom subtype、4-state formatting、条項の網羅は認定しない。後の不一致があれば、先の観測が一致してもfixture全体をknownに保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_printer_radix_defaults_updates_and_instance_isolation_follow_defined_radices",
+          "role": "direct",
+          "expected_observations": [
+            "UT: radix_defaults dec 1 bin 1 oct 1 unsigned 1 hex 1 default 1",
+            "UT: radix_peer hex 1 dec 1 default 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-AUDIT-DEFAULT-RADIX-UPDATE",
+      "clause": "16.2.5.7",
+      "statement": {
+        "en": "The default-radix setter updates only its selected printer.",
+        "ja": "default-radix setterは選択printerだけを更新する。"
+      },
+      "conditions": {
+        "en": "Use the original selected fixtures and explicit API arguments represented by the observation anchors.",
+        "ja": "観測anchorに示す独自の選択fixtureと明示API引数を使う。"
+      },
+      "expected": {
+        "en": "Default HEX, selected BIN and unchanged peer HEX getters match.",
+        "ja": "既定HEX、選択BIN、未変更peer HEXのgetterが一致する。"
+      },
+      "limitations": {
+        "en": "Selected conditions only. Original observer code is setup; no private field names, unspecified default layout, arbitrary custom subtype, four-state formatting or exhaustive clause coverage is certified. A later mismatch keeps the whole fixture known even if an earlier observation matches.",
+        "ja": "選択条件だけ。独自observerは準備とし、非公開field名、未規定の既定文面、任意custom subtype、4-state formatting、条項の網羅は認定しない。後の不一致があれば、先の観測が一致してもfixture全体をknownに保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_printer_radix_defaults_updates_and_instance_isolation_follow_defined_radices",
+          "role": "direct",
+          "expected_observations": [
+            "UT: radix_updates hex 1 dec 1 bin 1 unsigned 1 default 1",
+            "UT: radix_peer hex 1 dec 1 default 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-AUDIT-WIDE-FIELD-RADIX-VALUE",
+      "clause": "16.2.3.8",
+      "statement": {
+        "en": "The wide integral print path preserves the selected 65-bit value.",
+        "ja": "wide integral印字経路は選択65-bit値を保持する。"
+      },
+      "conditions": {
+        "en": "Use the original selected fixtures and explicit API arguments represented by the observation anchors.",
+        "ja": "観測anchorに示す独自の選択fixtureと明示API引数を使う。"
+      },
+      "expected": {
+        "en": "The custom prefix is selected appropriately and the numeric payload round-trips where asserted; the disabled case has no configured prefix.",
+        "ja": "適切なcustom prefixを選択し、検査対象ではnumeric payloadを往復保持する。無効条件には設定prefixがない。"
+      },
+      "limitations": {
+        "en": "Selected width/radix paths only, inspecting the standard element value rather than a built-in table/tree layout. Decimal/binary/hex digits are parsed without fixing padding/case. Disabled formatting does not prescribe an otherwise undefined digit radix.",
+        "ja": "標準element値を調べる選択width／radix経路だけで、既定table／tree文面は固定しない。decimal／binary／hex桁はpadding／大小文字を固定せず解析する。無効時の桁radixは未規定のまま規定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_printer_integral_values_use_selected_radix_prefix_and_honor_prefix_disabling",
+          "role": "direct",
+          "expected_observations": [
+            "UT: radix_wide prefix 1 value 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-AUDIT-FIELD-INT-EXPLICIT-RADIX",
+      "clause": "16.2.3.9",
+      "statement": {
+        "en": "The integral-int print path uses the explicitly selected binary radix.",
+        "ja": "integral-int印字経路は明示したbinary radixを使う。"
+      },
+      "conditions": {
+        "en": "Use the original selected fixtures and explicit API arguments represented by the observation anchors.",
+        "ja": "観測anchorに示す独自の選択fixtureと明示API引数を使う。"
+      },
+      "expected": {
+        "en": "The custom prefix is selected appropriately and the numeric payload round-trips where asserted; the disabled case has no configured prefix.",
+        "ja": "適切なcustom prefixを選択し、検査対象ではnumeric payloadを往復保持する。無効条件には設定prefixがない。"
+      },
+      "limitations": {
+        "en": "Selected width/radix paths only, inspecting the standard element value rather than a built-in table/tree layout. Decimal/binary/hex digits are parsed without fixing padding/case. Disabled formatting does not prescribe an otherwise undefined digit radix.",
+        "ja": "標準element値を調べる選択width／radix経路だけで、既定table／tree文面は固定しない。decimal／binary／hex桁はpadding／大小文字を固定せず解析する。無効時の桁radixは未規定のまま規定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_printer_integral_values_use_selected_radix_prefix_and_honor_prefix_disabling",
+          "role": "direct",
+          "expected_observations": [
+            "UT: radix_explicit prefix 1 value 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-AUDIT-DEFAULT-RADIX-EMISSION",
+      "clause": "16.2.5.7",
+      "statement": {
+        "en": "An omitted integral radix uses the changed default radix.",
+        "ja": "省略integral radixは変更したdefault radixを使う。"
+      },
+      "conditions": {
+        "en": "Use the original selected fixtures and explicit API arguments represented by the observation anchors.",
+        "ja": "観測anchorに示す独自の選択fixtureと明示API引数を使う。"
+      },
+      "expected": {
+        "en": "The custom prefix is selected appropriately and the numeric payload round-trips where asserted; the disabled case has no configured prefix.",
+        "ja": "適切なcustom prefixを選択し、検査対象ではnumeric payloadを往復保持する。無効条件には設定prefixがない。"
+      },
+      "limitations": {
+        "en": "Selected width/radix paths only, inspecting the standard element value rather than a built-in table/tree layout. Decimal/binary/hex digits are parsed without fixing padding/case. Disabled formatting does not prescribe an otherwise undefined digit radix.",
+        "ja": "標準element値を調べる選択width／radix経路だけで、既定table／tree文面は固定しない。decimal／binary／hex桁はpadding／大小文字を固定せず解析する。無効時の桁radixは未規定のまま規定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_printer_integral_values_use_selected_radix_prefix_and_honor_prefix_disabling",
+          "role": "direct",
+          "expected_observations": [
+            "UT: radix_changed_default prefix 1 value 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-AUDIT-DISABLED-RADIX-EMISSION",
+      "clause": "16.2.5.5",
+      "statement": {
+        "en": "Disabling radix emission omits the configured radix prefix.",
+        "ja": "radix出力を無効にすると設定radix prefixを省略する。"
+      },
+      "conditions": {
+        "en": "Use the original selected fixtures and explicit API arguments represented by the observation anchors.",
+        "ja": "観測anchorに示す独自の選択fixtureと明示API引数を使う。"
+      },
+      "expected": {
+        "en": "The custom prefix is selected appropriately and the numeric payload round-trips where asserted; the disabled case has no configured prefix.",
+        "ja": "適切なcustom prefixを選択し、検査対象ではnumeric payloadを往復保持する。無効条件には設定prefixがない。"
+      },
+      "limitations": {
+        "en": "Selected width/radix paths only, inspecting the standard element value rather than a built-in table/tree layout. Decimal/binary/hex digits are parsed without fixing padding/case. Disabled formatting does not prescribe an otherwise undefined digit radix.",
+        "ja": "標準element値を調べる選択width／radix経路だけで、既定table／tree文面は固定しない。decimal／binary／hex桁はpadding／大小文字を固定せず解析する。無効時の桁radixは未規定のまま規定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_printer_integral_values_use_selected_radix_prefix_and_honor_prefix_disabling",
+          "role": "direct",
+          "expected_observations": [
+            "UT: radix_disabled prefix_absent 1 nonempty 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-AUDIT-ROOT-NAME-DEFAULT",
+      "clause": "16.2.5.8",
+      "statement": {
+        "en": "The default root control selects the full object name.",
+        "ja": "root control既定値はobject完全名を選ぶ。"
+      },
+      "conditions": {
+        "en": "Use the original selected fixtures and explicit API arguments represented by the observation anchors.",
+        "ja": "観測anchorに示す独自の選択fixtureと明示API引数を使う。"
+      },
+      "expected": {
+        "en": "The root name passed to print_object matches the selected full/leaf source without fixing emitted text.",
+        "ja": "出力文面を固定せず、print_objectへ渡すroot名が選択した完全／leaf名に一致する。"
+      },
+      "limitations": {
+        "en": "Selected conditions only. Original observer code is setup; no private field names, unspecified default layout, arbitrary custom subtype, four-state formatting or exhaustive clause coverage is certified. A later mismatch keeps the whole fixture known even if an earlier observation matches.",
+        "ja": "選択条件だけ。独自observerは準備とし、非公開field名、未規定の既定文面、任意custom subtype、4-state formatting、条項の網羅は認定しない。後の不一致があれば、先の観測が一致してもfixture全体をknownに保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_printer_root_enabled_selects_full_name_or_leaf_before_policy_dispatch",
+          "role": "direct",
+          "expected_observations": [
+            "UT: root_default flag 1 full 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-AUDIT-ROOT-NAME-LEAF",
+      "clause": "16.2.5.8",
+      "statement": {
+        "en": "A disabled root control selects the leaf object name.",
+        "ja": "root controlを無効にするとobject leaf名を選ぶ。"
+      },
+      "conditions": {
+        "en": "Use the original selected fixtures and explicit API arguments represented by the observation anchors.",
+        "ja": "観測anchorに示す独自の選択fixtureと明示API引数を使う。"
+      },
+      "expected": {
+        "en": "The root name passed to print_object matches the selected full/leaf source without fixing emitted text.",
+        "ja": "出力文面を固定せず、print_objectへ渡すroot名が選択した完全／leaf名に一致する。"
+      },
+      "limitations": {
+        "en": "Selected conditions only. Original observer code is setup; no private field names, unspecified default layout, arbitrary custom subtype, four-state formatting or exhaustive clause coverage is certified. A later mismatch keeps the whole fixture known even if an earlier observation matches.",
+        "ja": "選択条件だけ。独自observerは準備とし、非公開field名、未規定の既定文面、任意custom subtype、4-state formatting、条項の網羅は認定しない。後の不一致があれば、先の観測が一致してもfixture全体をknownに保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_printer_root_enabled_selects_full_name_or_leaf_before_policy_dispatch",
+          "role": "direct",
+          "expected_observations": [
+            "UT: root_disabled flag 0 leaf 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-AUDIT-ROOT-NAME-RESELECT",
+      "clause": "16.2.5.8",
+      "statement": {
+        "en": "Re-enabling root control selects the full object name again.",
+        "ja": "root controlを再び有効にするとobject完全名へ戻る。"
+      },
+      "conditions": {
+        "en": "Use the original selected fixtures and explicit API arguments represented by the observation anchors.",
+        "ja": "観測anchorに示す独自の選択fixtureと明示API引数を使う。"
+      },
+      "expected": {
+        "en": "The root name passed to print_object matches the selected full/leaf source without fixing emitted text.",
+        "ja": "出力文面を固定せず、print_objectへ渡すroot名が選択した完全／leaf名に一致する。"
+      },
+      "limitations": {
+        "en": "Selected conditions only. Original observer code is setup; no private field names, unspecified default layout, arbitrary custom subtype, four-state formatting or exhaustive clause coverage is certified. A later mismatch keeps the whole fixture known even if an earlier observation matches.",
+        "ja": "選択条件だけ。独自observerは準備とし、非公開field名、未規定の既定文面、任意custom subtype、4-state formatting、条項の網羅は認定しない。後の不一致があれば、先の観測が一致してもfixture全体をknownに保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_printer_root_enabled_selects_full_name_or_leaf_before_policy_dispatch",
+          "role": "direct",
+          "expected_observations": [
+            "UT: root_restored flag 1 full 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-AUDIT-LINE-PREFIX-DEFAULT",
+      "clause": "16.2.5.12",
+      "statement": {
+        "en": "Fresh built-in printer kinds have an empty line prefix.",
+        "ja": "新しい組込みprinter種は空のline prefixを持つ。"
+      },
+      "conditions": {
+        "en": "Use the original selected fixtures and explicit API arguments represented by the observation anchors.",
+        "ja": "観測anchorに示す独自の選択fixtureと明示API引数を使う。"
+      },
+      "expected": {
+        "en": "All three concrete kinds return the empty default.",
+        "ja": "具象3種が空の既定値を返す。"
+      },
+      "limitations": {
+        "en": "Selected conditions only. Original observer code is setup; no private field names, unspecified default layout, arbitrary custom subtype, four-state formatting or exhaustive clause coverage is certified. A later mismatch keeps the whole fixture known even if an earlier observation matches.",
+        "ja": "選択条件だけ。独自observerは準備とし、非公開field名、未規定の既定文面、任意custom subtype、4-state formatting、条項の網羅は認定しない。後の不一致があれば、先の観測が一致してもfixture全体をknownに保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_printer_line_prefix_precedes_every_nonempty_line_in_each_builtin_format",
+          "role": "direct",
+          "expected_observations": [
+            "UT: prefix_default 0 empty 1",
+            "UT: prefix_default 1 empty 1",
+            "UT: prefix_default 2 empty 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-AUDIT-LINE-PREFIX-ACTUAL-EMISSION",
+      "clause": "16.2.5.12",
+      "statement": {
+        "en": "Every nonempty emitted line begins with the configured line prefix.",
+        "ja": "空でない全出力行は設定したline prefixで始まる。"
+      },
+      "conditions": {
+        "en": "Use the original selected fixtures and explicit API arguments represented by the observation anchors.",
+        "ja": "観測anchorに示す独自の選択fixtureと明示API引数を使う。"
+      },
+      "expected": {
+        "en": "Table/tree/line emissions are nonempty and every observed nonempty line starts P42|.",
+        "ja": "table／tree／line出力が空でなく、観測した空でない全行がP42|で始まる。"
+      },
+      "limitations": {
+        "en": "Selected conditions only. Original observer code is setup; no private field names, unspecified default layout, arbitrary custom subtype, four-state formatting or exhaustive clause coverage is certified. A later mismatch keeps the whole fixture known even if an earlier observation matches.",
+        "ja": "選択条件だけ。独自observerは準備とし、非公開field名、未規定の既定文面、任意custom subtype、4-state formatting、条項の網羅は認定しない。後の不一致があれば、先の観測が一致してもfixture全体をknownに保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_printer_line_prefix_precedes_every_nonempty_line_in_each_builtin_format",
+          "role": "direct",
+          "expected_observations": [
+            "UT: prefix_emitted 0 nonempty 1 all_prefixed 1 getter 1",
+            "UT: prefix_emitted 1 nonempty 1 all_prefixed 1 getter 1",
+            "UT: prefix_emitted 2 nonempty 1 all_prefixed 1 getter 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-AUDIT-COMMON-PRINTER-INTERFACE",
+      "clause": "16.2",
+      "statement": {
+        "en": "The built-in printer instances are usable through the common printer interface.",
+        "ja": "組込みprinter instanceを共通printer interfaceから使える。"
+      },
+      "conditions": {
+        "en": "Use the original selected fixtures and explicit API arguments represented by the observation anchors.",
+        "ja": "観測anchorに示す独自の選択fixtureと明示API引数を使う。"
+      },
+      "expected": {
+        "en": "The three typed base views accept construction of a small array and emit their configured prefixed output.",
+        "ja": "型付base view 3つで小arrayを作り、設定prefix付き出力をemitできる。"
+      },
+      "limitations": {
+        "en": "Common interface use and selected output only. Table row/column grammar and all built-in formatting policies are not certified by prefix observations.",
+        "ja": "共通interfaceの使用と選択出力だけ。prefix観測からtable行／列構文や全組込みformat policyは認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_printer_line_prefix_precedes_every_nonempty_line_in_each_builtin_format",
+          "role": "direct",
+          "expected_observations": [
+            "UT: prefix_default 0 empty 1",
+            "UT: prefix_emitted 0 nonempty 1 all_prefixed 1 getter 1",
+            "UT: prefix_default 1 empty 1",
+            "UT: prefix_emitted 1 nonempty 1 all_prefixed 1 getter 1",
+            "UT: prefix_default 2 empty 1",
+            "UT: prefix_emitted 2 nonempty 1 all_prefixed 1 getter 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-AUDIT-EMIT-STRUCTURED-CHILD",
+      "clause": "16.2.4.1",
+      "statement": {
+        "en": "The selected built-in emitters return a representation of the constructed child structure.",
+        "ja": "選択した組込みemitterは構築したchild構造を表す文字列を返す。"
+      },
+      "conditions": {
+        "en": "Use the original selected fixtures and explicit API arguments represented by the observation anchors.",
+        "ja": "観測anchorに示す独自の選択fixtureと明示API引数を使う。"
+      },
+      "expected": {
+        "en": "The emitted child marker occurs between the selected opening/closing separators, with ignored separator suffix absent.",
+        "ja": "出力child markerは選択open／close separatorの間に現れ、無視対象のseparator suffixは含まれない。"
+      },
+      "limitations": {
+        "en": "One parent/child array structure and selected tree/line output. It does not fix whitespace, header text, every data type, table columns or arbitrary custom emitters.",
+        "ja": "parent／child array 1構造と選択tree／line出力。空白、header文面、全data型、table列、任意custom emitterは固定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_printer_tree_and_line_separators_ignore_extra_characters_around_children",
+          "role": "direct",
+          "expected_observations": [
+            "UT: separator_format 0 unchanged 1 brackets 1 tail_absent 1",
+            "UT: separator_format 1 unchanged 1 brackets 1 tail_absent 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-AUDIT-TREE-NESTED-OUTPUT",
+      "clause": "16.2.11",
+      "statement": {
+        "en": "The selected tree format renders a named child within its parent separators.",
+        "ja": "選択tree形式はparent separatorの内側に名付きchildをrenderする。"
+      },
+      "conditions": {
+        "en": "Use the original selected fixtures and explicit API arguments represented by the observation anchors.",
+        "ja": "観測anchorに示す独自の選択fixtureと明示API引数を使う。"
+      },
+      "expected": {
+        "en": "The emitted child marker occurs between the selected opening/closing separators, with ignored separator suffix absent.",
+        "ja": "出力child markerは選択open／close separatorの間に現れ、無視対象のseparator suffixは含まれない。"
+      },
+      "limitations": {
+        "en": "One parent/child array structure and selected tree/line output. It does not fix whitespace, header text, every data type, table columns or arbitrary custom emitters.",
+        "ja": "parent／child array 1構造と選択tree／line出力。空白、header文面、全data型、table列、任意custom emitterは固定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_printer_tree_and_line_separators_ignore_extra_characters_around_children",
+          "role": "direct",
+          "expected_observations": [
+            "UT: separator_format 0 unchanged 1 brackets 1 tail_absent 1",
+            "UT: separator_format 1 unchanged 1 brackets 1 tail_absent 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-AUDIT-LINE-SINGLE-LINE-OUTPUT",
+      "clause": "16.2.12",
+      "statement": {
+        "en": "The selected line printer renders its structure on one nonempty line.",
+        "ja": "選択line printerは構造を空でない1行へrenderする。"
+      },
+      "conditions": {
+        "en": "Use the original selected fixtures and explicit API arguments represented by the observation anchors.",
+        "ja": "観測anchorに示す独自の選択fixtureと明示API引数を使う。"
+      },
+      "expected": {
+        "en": "The selected parent/child emission contains one nonempty line.",
+        "ja": "選択parent／child出力は空でない1行を持つ。"
+      },
+      "limitations": {
+        "en": "Selected conditions only. Original observer code is setup; no private field names, unspecified default layout, arbitrary custom subtype, four-state formatting or exhaustive clause coverage is certified. A later mismatch keeps the whole fixture known even if an earlier observation matches.",
+        "ja": "選択条件だけ。独自observerは準備とし、非公開field名、未規定の既定文面、任意custom subtype、4-state formatting、条項の網羅は認定しない。後の不一致があれば、先の観測が一致してもfixture全体をknownに保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_printer_tree_and_line_separators_ignore_extra_characters_around_children",
+          "role": "direct",
+          "expected_observations": [
+            "UT: line_format one_nonempty_line 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-AUDIT-POLICY-FLUSH-PRINT-REUSE",
+      "clause": "16.1.2.2",
+      "statement": {
+        "en": "A flushed selected printer can be reused without stale structural output.",
+        "ja": "flushした選択printerを古い構造出力なしで再利用できる。"
+      },
+      "conditions": {
+        "en": "Use the original selected fixtures and explicit API arguments represented by the observation anchors.",
+        "ja": "観測anchorに示す独自の選択fixtureと明示API引数を使う。"
+      },
+      "expected": {
+        "en": "Rebuilding the same structure after flush gives the same output when only ignored separator characters differ.",
+        "ja": "flush後に同じ構造を再構築し、無視対象separator文字だけを変えると同じ出力になる。"
+      },
+      "limitations": {
+        "en": "Selected tree/line structural reuse only, with separators explicitly set after each flush. Configuration reset and other policy types are checked separately; no pre-flush element handle is used after flush.",
+        "ja": "各flush後にseparatorを明示する選択tree／line構造再利用だけ。設定resetと他policy型は別に確認し、flush後に以前のelement handleは使わない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_printer_tree_and_line_separators_ignore_extra_characters_around_children",
+          "role": "direct",
+          "expected_observations": [
+            "UT: separator_format 0 unchanged 1 brackets 1 tail_absent 1",
+            "UT: separator_format 1 unchanged 1 brackets 1 tail_absent 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-AUDIT-TABLE-BASE",
+      "clause": "16.2.10.1",
+      "statement": {
+        "en": "The table printer is usable through the declared printer base.",
+        "ja": "table printerを宣言printer baseから使える。"
+      },
+      "conditions": {
+        "en": "Use the original selected fixtures and explicit API arguments represented by the observation anchors.",
+        "ja": "観測anchorに示す独自の選択fixtureと明示API引数を使う。"
+      },
+      "expected": {
+        "en": "All selected constructor-name, type-name and base identity observations match.",
+        "ja": "選択constructor名、type名、base同一性の観測が一致する。"
+      },
+      "limitations": {
+        "en": "Nominal base compatibility only, not immediate-parent ownership, all inherited APIs or complete output-layout semantics.",
+        "ja": "名目的base互換性だけで、直接parentの所有関係、全継承API、出力layout全体は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_printer_constructors_and_builtin_type_names_preserve_declared_names_and_bases",
+          "role": "direct",
+          "expected_observations": [
+            "UT: table_printer_names default 1 named 1 empty 1 type 1 base 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-AUDIT-TABLE-CONSTRUCTOR",
+      "clause": "16.2.10.2.1",
+      "statement": {
+        "en": "The table printer constructor accepts default, named and empty names.",
+        "ja": "table printer constructorは既定／明示／空名を受け付ける。"
+      },
+      "conditions": {
+        "en": "Use the original selected fixtures and explicit API arguments represented by the observation anchors.",
+        "ja": "観測anchorに示す独自の選択fixtureと明示API引数を使う。"
+      },
+      "expected": {
+        "en": "All selected constructor-name, type-name and base identity observations match.",
+        "ja": "選択constructor名、type名、base同一性の観測が一致する。"
+      },
+      "limitations": {
+        "en": "Nominal base compatibility only, not immediate-parent ownership, all inherited APIs or complete output-layout semantics.",
+        "ja": "名目的base互換性だけで、直接parentの所有関係、全継承API、出力layout全体は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_printer_constructors_and_builtin_type_names_preserve_declared_names_and_bases",
+          "role": "direct",
+          "expected_observations": [
+            "UT: table_printer_names default 1 named 1 empty 1 type 1 base 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-AUDIT-TABLE-TYPE-NAME",
+      "clause": "16.2.10.2.2",
+      "statement": {
+        "en": "The table printer returns its specified type-name string.",
+        "ja": "table printerは規定type-name文字列を返す。"
+      },
+      "conditions": {
+        "en": "Use the original selected fixtures and explicit API arguments represented by the observation anchors.",
+        "ja": "観測anchorに示す独自の選択fixtureと明示API引数を使う。"
+      },
+      "expected": {
+        "en": "All selected constructor-name, type-name and base identity observations match.",
+        "ja": "選択constructor名、type名、base同一性の観測が一致する。"
+      },
+      "limitations": {
+        "en": "Nominal base compatibility only, not immediate-parent ownership, all inherited APIs or complete output-layout semantics.",
+        "ja": "名目的base互換性だけで、直接parentの所有関係、全継承API、出力layout全体は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_printer_constructors_and_builtin_type_names_preserve_declared_names_and_bases",
+          "role": "direct",
+          "expected_observations": [
+            "UT: table_printer_names default 1 named 1 empty 1 type 1 base 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-AUDIT-TABLE-INDENT-GET-SET",
+      "clause": "16.2.10.3",
+      "statement": {
+        "en": "The table indentation getter starts at two and updates independently.",
+        "ja": "tableのindent getterは2から始まり独立に更新できる。"
+      },
+      "conditions": {
+        "en": "Use the original selected fixtures and explicit API arguments represented by the observation anchors.",
+        "ja": "観測anchorに示す独自の選択fixtureと明示API引数を使う。"
+      },
+      "expected": {
+        "en": "The selected indentation changes to five while its independent peer remains two.",
+        "ja": "選択indentは5になり、独立peerは2を保持する。"
+      },
+      "limitations": {
+        "en": "Selected conditions only. Original observer code is setup; no private field names, unspecified default layout, arbitrary custom subtype, four-state formatting or exhaustive clause coverage is certified. A later mismatch keeps the whole fixture known even if an earlier observation matches.",
+        "ja": "選択条件だけ。独自observerは準備とし、非公開field名、未規定の既定文面、任意custom subtype、4-state formatting、条項の網羅は認定しない。後の不一致があれば、先の観測が一致してもfixture全体をknownに保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_printer_table_specific_controls_return_to_declared_defaults_after_flush",
+          "role": "direct",
+          "expected_observations": [
+            "UT: indent_default 1",
+            "UT: indent_changed selected 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-AUDIT-TABLE-INDENT-FLUSH",
+      "clause": "16.2.10.3",
+      "statement": {
+        "en": "A table printer flush restores its declared indentation default.",
+        "ja": "table printerのflushは宣言indent既定値へ復帰する。"
+      },
+      "conditions": {
+        "en": "Use the original selected fixtures and explicit API arguments represented by the observation anchors.",
+        "ja": "観測anchorに示す独自の選択fixtureと明示API引数を使う。"
+      },
+      "expected": {
+        "en": "Without another indentation setter after flush, the getter returns two.",
+        "ja": "flush後にindent setterを再度呼ばなければgetterは2を返す。"
+      },
+      "limitations": {
+        "en": "Selected conditions only. Original observer code is setup; no private field names, unspecified default layout, arbitrary custom subtype, four-state formatting or exhaustive clause coverage is certified. A later mismatch keeps the whole fixture known even if an earlier observation matches.",
+        "ja": "選択条件だけ。独自observerは準備とし、非公開field名、未規定の既定文面、任意custom subtype、4-state formatting、条項の網羅は認定しない。後の不一致があれば、先の観測が一致してもfixture全体をknownに保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_printer_table_specific_controls_return_to_declared_defaults_after_flush",
+          "role": "direct",
+          "expected_observations": [
+            "UT: indent_after_flush 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-AUDIT-TABLE-DEFAULT-SET",
+      "clause": "16.2.10.2.3",
+      "statement": {
+        "en": "The kind-specific setter replaces its selected default instance.",
+        "ja": "種類別setterは選択した既定instanceを置換する。"
+      },
+      "conditions": {
+        "en": "Use the original selected fixtures and explicit API arguments represented by the observation anchors.",
+        "ja": "観測anchorに示す独自の選択fixtureと明示API引数を使う。"
+      },
+      "expected": {
+        "en": "The selected exact handles and stable nonnull class type match, and the saved instance is restored.",
+        "ja": "選択exact handleと安定した非null class型が一致し、保存instanceへ復元する。"
+      },
+      "limitations": {
+        "en": "Selected per-kind getter/setter lifecycle only. Existing handles stay live to distinguish allocation; no independence from every other kind, thread race or all default-service interactions is inferred.",
+        "ja": "選択した種類別getter／setter lifecycleだけ。割当を区別するため既存handleを生かし、全ての他種との独立性、thread race、全default-service相互作用は推論しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_printer_table_default_instance_replacement_and_null_recovery_are_stable",
+          "role": "direct",
+          "expected_observations": [
+            "UT: kind_default_second exact 1",
+            "UT: kind_default_restored 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-AUDIT-TABLE-DEFAULT-GET-INITIAL",
+      "clause": "16.2.10.2.4",
+      "statement": {
+        "en": "The initial kind-specific getter used by the fixture returns a retained nonnull instance of the requested printer kind.",
+        "ja": "fixtureで最初に使う種類別getterは要求したprinter種の保持された非null instanceを返す。"
+      },
+      "conditions": {
+        "en": "Use the original selected fixtures and explicit API arguments represented by the observation anchors.",
+        "ja": "観測anchorに示す独自の選択fixtureと明示API引数を使う。"
+      },
+      "expected": {
+        "en": "The selected exact handles and stable nonnull class type match, and the saved instance is restored.",
+        "ja": "選択exact handleと安定した非null class型が一致し、保存instanceへ復元する。"
+      },
+      "limitations": {
+        "en": "Selected per-kind getter/setter lifecycle only. Existing handles stay live to distinguish allocation; no independence from every other kind, thread race or all default-service interactions is inferred. Initial retrieval does not prove the getter was never called during library startup; that automatic-allocation branch remains partial. The explicit null-recovery branch is separate.",
+        "ja": "選択した種類別getter／setter lifecycleだけ。割当を区別するため既存handleを生かし、全ての他種との独立性、thread race、全default-service相互作用は推論しない。初回取得はlibrary起動中にgetterが未呼出しだったことを証明しないため、その自動割当branchは部分対応に残す。明示null回復branchは別に確認する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_printer_table_default_instance_replacement_and_null_recovery_are_stable",
+          "role": "direct",
+          "expected_observations": [
+            "UT: kind_default_initial nonnull 1 stable 1 type 1",
+            "UT: kind_default_restored 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-AUDIT-TABLE-DEFAULT-GET-STABLE",
+      "clause": "16.2.10.2.4",
+      "statement": {
+        "en": "The kind-specific getter returns the last explicitly selected instance.",
+        "ja": "種類別getterは最後に明示選択したinstanceを返す。"
+      },
+      "conditions": {
+        "en": "Use the original selected fixtures and explicit API arguments represented by the observation anchors.",
+        "ja": "観測anchorに示す独自の選択fixtureと明示API引数を使う。"
+      },
+      "expected": {
+        "en": "The selected exact handles and stable nonnull class type match, and the saved instance is restored.",
+        "ja": "選択exact handleと安定した非null class型が一致し、保存instanceへ復元する。"
+      },
+      "limitations": {
+        "en": "Selected per-kind getter/setter lifecycle only. Existing handles stay live to distinguish allocation; no independence from every other kind, thread race or all default-service interactions is inferred.",
+        "ja": "選択した種類別getter／setter lifecycleだけ。割当を区別するため既存handleを生かし、全ての他種との独立性、thread race、全default-service相互作用は推論しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_printer_table_default_instance_replacement_and_null_recovery_are_stable",
+          "role": "direct",
+          "expected_observations": [
+            "UT: kind_default_first exact 1 stable 1",
+            "UT: kind_default_restored 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-AUDIT-TABLE-DEFAULT-GET-NULL-RECOVERY",
+      "clause": "16.2.10.2.4",
+      "statement": {
+        "en": "A null kind-specific selection is recovered by creating and retaining an instance.",
+        "ja": "種類別でnullを選択するとinstanceを生成／保持して回復する。"
+      },
+      "conditions": {
+        "en": "Use the original selected fixtures and explicit API arguments represented by the observation anchors.",
+        "ja": "観測anchorに示す独自の選択fixtureと明示API引数を使う。"
+      },
+      "expected": {
+        "en": "The selected exact handles and stable nonnull class type match, and the saved instance is restored.",
+        "ja": "選択exact handleと安定した非null class型が一致し、保存instanceへ復元する。"
+      },
+      "limitations": {
+        "en": "Selected per-kind getter/setter lifecycle only. Existing handles stay live to distinguish allocation; no independence from every other kind, thread race or all default-service interactions is inferred.",
+        "ja": "選択した種類別getter／setter lifecycleだけ。割当を区別するため既存handleを生かし、全ての他種との独立性、thread race、全default-service相互作用は推論しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_printer_table_default_instance_replacement_and_null_recovery_are_stable",
+          "role": "direct",
+          "expected_observations": [
+            "UT: kind_default_recovered nonnull 1 new 1 stable 1 type 1",
+            "UT: kind_default_restored 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-AUDIT-TREE-BASE",
+      "clause": "16.2.11.1",
+      "statement": {
+        "en": "The tree printer is usable through the declared printer base.",
+        "ja": "tree printerを宣言printer baseから使える。"
+      },
+      "conditions": {
+        "en": "Use the original selected fixtures and explicit API arguments represented by the observation anchors.",
+        "ja": "観測anchorに示す独自の選択fixtureと明示API引数を使う。"
+      },
+      "expected": {
+        "en": "All selected constructor-name, type-name and base identity observations match.",
+        "ja": "選択constructor名、type名、base同一性の観測が一致する。"
+      },
+      "limitations": {
+        "en": "Nominal base compatibility only, not immediate-parent ownership, all inherited APIs or complete output-layout semantics.",
+        "ja": "名目的base互換性だけで、直接parentの所有関係、全継承API、出力layout全体は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_printer_constructors_and_builtin_type_names_preserve_declared_names_and_bases",
+          "role": "direct",
+          "expected_observations": [
+            "UT: tree_printer_names default 1 named 1 empty 1 type 1 base 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-AUDIT-TREE-CONSTRUCTOR",
+      "clause": "16.2.11.2.1",
+      "statement": {
+        "en": "The tree printer constructor accepts default, named and empty names.",
+        "ja": "tree printer constructorは既定／明示／空名を受け付ける。"
+      },
+      "conditions": {
+        "en": "Use the original selected fixtures and explicit API arguments represented by the observation anchors.",
+        "ja": "観測anchorに示す独自の選択fixtureと明示API引数を使う。"
+      },
+      "expected": {
+        "en": "All selected constructor-name, type-name and base identity observations match.",
+        "ja": "選択constructor名、type名、base同一性の観測が一致する。"
+      },
+      "limitations": {
+        "en": "Nominal base compatibility only, not immediate-parent ownership, all inherited APIs or complete output-layout semantics.",
+        "ja": "名目的base互換性だけで、直接parentの所有関係、全継承API、出力layout全体は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_printer_constructors_and_builtin_type_names_preserve_declared_names_and_bases",
+          "role": "direct",
+          "expected_observations": [
+            "UT: tree_printer_names default 1 named 1 empty 1 type 1 base 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-AUDIT-TREE-TYPE-NAME",
+      "clause": "16.2.11.2.2",
+      "statement": {
+        "en": "The tree printer returns its specified type-name string.",
+        "ja": "tree printerは規定type-name文字列を返す。"
+      },
+      "conditions": {
+        "en": "Use the original selected fixtures and explicit API arguments represented by the observation anchors.",
+        "ja": "観測anchorに示す独自の選択fixtureと明示API引数を使う。"
+      },
+      "expected": {
+        "en": "All selected constructor-name, type-name and base identity observations match.",
+        "ja": "選択constructor名、type名、base同一性の観測が一致する。"
+      },
+      "limitations": {
+        "en": "Nominal base compatibility only, not immediate-parent ownership, all inherited APIs or complete output-layout semantics.",
+        "ja": "名目的base互換性だけで、直接parentの所有関係、全継承API、出力layout全体は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_printer_constructors_and_builtin_type_names_preserve_declared_names_and_bases",
+          "role": "direct",
+          "expected_observations": [
+            "UT: tree_printer_names default 1 named 1 empty 1 type 1 base 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-AUDIT-TREE-INDENT-GET-SET",
+      "clause": "16.2.11.3.1",
+      "statement": {
+        "en": "The tree indentation getter starts at two and updates independently.",
+        "ja": "treeのindent getterは2から始まり独立に更新できる。"
+      },
+      "conditions": {
+        "en": "Use the original selected fixtures and explicit API arguments represented by the observation anchors.",
+        "ja": "観測anchorに示す独自の選択fixtureと明示API引数を使う。"
+      },
+      "expected": {
+        "en": "The selected indentation changes to five while its independent peer remains two.",
+        "ja": "選択indentは5になり、独立peerは2を保持する。"
+      },
+      "limitations": {
+        "en": "Selected conditions only. Original observer code is setup; no private field names, unspecified default layout, arbitrary custom subtype, four-state formatting or exhaustive clause coverage is certified. A later mismatch keeps the whole fixture known even if an earlier observation matches.",
+        "ja": "選択条件だけ。独自observerは準備とし、非公開field名、未規定の既定文面、任意custom subtype、4-state formatting、条項の網羅は認定しない。後の不一致があれば、先の観測が一致してもfixture全体をknownに保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_printer_tree_specific_controls_return_to_declared_defaults_after_flush",
+          "role": "direct",
+          "expected_observations": [
+            "UT: indent_default 1",
+            "UT: indent_changed selected 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-AUDIT-TREE-INDENT-FLUSH",
+      "clause": "16.2.11.3.1",
+      "statement": {
+        "en": "A tree printer flush restores its declared indentation default.",
+        "ja": "tree printerのflushは宣言indent既定値へ復帰する。"
+      },
+      "conditions": {
+        "en": "Use the original selected fixtures and explicit API arguments represented by the observation anchors.",
+        "ja": "観測anchorに示す独自の選択fixtureと明示API引数を使う。"
+      },
+      "expected": {
+        "en": "Without another indentation setter after flush, the getter returns two.",
+        "ja": "flush後にindent setterを再度呼ばなければgetterは2を返す。"
+      },
+      "limitations": {
+        "en": "Selected conditions only. Original observer code is setup; no private field names, unspecified default layout, arbitrary custom subtype, four-state formatting or exhaustive clause coverage is certified. A later mismatch keeps the whole fixture known even if an earlier observation matches.",
+        "ja": "選択条件だけ。独自observerは準備とし、非公開field名、未規定の既定文面、任意custom subtype、4-state formatting、条項の網羅は認定しない。後の不一致があれば、先の観測が一致してもfixture全体をknownに保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_printer_tree_specific_controls_return_to_declared_defaults_after_flush",
+          "role": "direct",
+          "expected_observations": [
+            "UT: indent_after_flush 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-AUDIT-TREE-SEPARATORS-GET-SET",
+      "clause": "16.2.11.3.2",
+      "statement": {
+        "en": "The tree separator getter starts at braces and updates independently.",
+        "ja": "treeのseparator getterはcurly bracesから始まり独立に更新できる。"
+      },
+      "conditions": {
+        "en": "Use the original selected fixtures and explicit API arguments represented by the observation anchors.",
+        "ja": "観測anchorに示す独自の選択fixtureと明示API引数を使う。"
+      },
+      "expected": {
+        "en": "The selected separators change to [] while its peer remains {}.",
+        "ja": "選択separatorは[]になり、peerは{}を保持する。"
+      },
+      "limitations": {
+        "en": "Selected conditions only. Original observer code is setup; no private field names, unspecified default layout, arbitrary custom subtype, four-state formatting or exhaustive clause coverage is certified. A later mismatch keeps the whole fixture known even if an earlier observation matches.",
+        "ja": "選択条件だけ。独自observerは準備とし、非公開field名、未規定の既定文面、任意custom subtype、4-state formatting、条項の網羅は認定しない。後の不一致があれば、先の観測が一致してもfixture全体をknownに保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_printer_tree_specific_controls_return_to_declared_defaults_after_flush",
+          "role": "direct",
+          "expected_observations": [
+            "UT: separators_default 1",
+            "UT: separators_changed selected 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-AUDIT-TREE-SEPARATORS-FLUSH",
+      "clause": "16.2.11.3.2",
+      "statement": {
+        "en": "A tree printer flush restores its declared separator default.",
+        "ja": "tree printerのflushは宣言separator既定値へ復帰する。"
+      },
+      "conditions": {
+        "en": "Use the original selected fixtures and explicit API arguments represented by the observation anchors.",
+        "ja": "観測anchorに示す独自の選択fixtureと明示API引数を使う。"
+      },
+      "expected": {
+        "en": "Without another separator setter after flush, the getter returns {}.",
+        "ja": "flush後にseparator setterを再度呼ばなければgetterは{}を返す。"
+      },
+      "limitations": {
+        "en": "Selected conditions only. Original observer code is setup; no private field names, unspecified default layout, arbitrary custom subtype, four-state formatting or exhaustive clause coverage is certified. A later mismatch keeps the whole fixture known even if an earlier observation matches.",
+        "ja": "選択条件だけ。独自observerは準備とし、非公開field名、未規定の既定文面、任意custom subtype、4-state formatting、条項の網羅は認定しない。後の不一致があれば、先の観測が一致してもfixture全体をknownに保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_printer_tree_specific_controls_return_to_declared_defaults_after_flush",
+          "role": "direct",
+          "expected_observations": [
+            "UT: separators_after_flush 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-AUDIT-TREE-SEPARATOR-SUFFIX-IGNORED",
+      "clause": "16.2.11.3.2",
+      "statement": {
+        "en": "The tree printer uses the first two separator characters and ignores the rest.",
+        "ja": "tree printerはseparator先頭2文字を使い、残りを無視する。"
+      },
+      "conditions": {
+        "en": "Use the original selected fixtures and explicit API arguments represented by the observation anchors.",
+        "ja": "観測anchorに示す独自の選択fixtureと明示API引数を使う。"
+      },
+      "expected": {
+        "en": "[] and []EXTRA42 produce the same selected structure with the child inside brackets.",
+        "ja": "[]と[]EXTRA42はchildがbracket内にある同じ選択構造を出力する。"
+      },
+      "limitations": {
+        "en": "Selected conditions only. Original observer code is setup; no private field names, unspecified default layout, arbitrary custom subtype, four-state formatting or exhaustive clause coverage is certified. A later mismatch keeps the whole fixture known even if an earlier observation matches.",
+        "ja": "選択条件だけ。独自observerは準備とし、非公開field名、未規定の既定文面、任意custom subtype、4-state formatting、条項の網羅は認定しない。後の不一致があれば、先の観測が一致してもfixture全体をknownに保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_printer_tree_and_line_separators_ignore_extra_characters_around_children",
+          "role": "direct",
+          "expected_observations": [
+            "UT: separator_format 0 unchanged 1 brackets 1 tail_absent 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-AUDIT-TREE-DEFAULT-SET",
+      "clause": "16.2.11.2.3",
+      "statement": {
+        "en": "The kind-specific setter replaces its selected default instance.",
+        "ja": "種類別setterは選択した既定instanceを置換する。"
+      },
+      "conditions": {
+        "en": "Use the original selected fixtures and explicit API arguments represented by the observation anchors.",
+        "ja": "観測anchorに示す独自の選択fixtureと明示API引数を使う。"
+      },
+      "expected": {
+        "en": "The selected exact handles and stable nonnull class type match, and the saved instance is restored.",
+        "ja": "選択exact handleと安定した非null class型が一致し、保存instanceへ復元する。"
+      },
+      "limitations": {
+        "en": "Selected per-kind getter/setter lifecycle only. Existing handles stay live to distinguish allocation; no independence from every other kind, thread race or all default-service interactions is inferred.",
+        "ja": "選択した種類別getter／setter lifecycleだけ。割当を区別するため既存handleを生かし、全ての他種との独立性、thread race、全default-service相互作用は推論しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_printer_tree_default_instance_replacement_and_null_recovery_are_stable",
+          "role": "direct",
+          "expected_observations": [
+            "UT: kind_default_second exact 1",
+            "UT: kind_default_restored 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-AUDIT-TREE-DEFAULT-GET-INITIAL",
+      "clause": "16.2.11.2.4",
+      "statement": {
+        "en": "The initial kind-specific getter used by the fixture returns a retained nonnull instance of the requested printer kind.",
+        "ja": "fixtureで最初に使う種類別getterは要求したprinter種の保持された非null instanceを返す。"
+      },
+      "conditions": {
+        "en": "Use the original selected fixtures and explicit API arguments represented by the observation anchors.",
+        "ja": "観測anchorに示す独自の選択fixtureと明示API引数を使う。"
+      },
+      "expected": {
+        "en": "The selected exact handles and stable nonnull class type match, and the saved instance is restored.",
+        "ja": "選択exact handleと安定した非null class型が一致し、保存instanceへ復元する。"
+      },
+      "limitations": {
+        "en": "Selected per-kind getter/setter lifecycle only. Existing handles stay live to distinguish allocation; no independence from every other kind, thread race or all default-service interactions is inferred. Initial retrieval does not prove the getter was never called during library startup; that automatic-allocation branch remains partial. The explicit null-recovery branch is separate.",
+        "ja": "選択した種類別getter／setter lifecycleだけ。割当を区別するため既存handleを生かし、全ての他種との独立性、thread race、全default-service相互作用は推論しない。初回取得はlibrary起動中にgetterが未呼出しだったことを証明しないため、その自動割当branchは部分対応に残す。明示null回復branchは別に確認する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_printer_tree_default_instance_replacement_and_null_recovery_are_stable",
+          "role": "direct",
+          "expected_observations": [
+            "UT: kind_default_initial nonnull 1 stable 1 type 1",
+            "UT: kind_default_restored 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-AUDIT-TREE-DEFAULT-GET-STABLE",
+      "clause": "16.2.11.2.4",
+      "statement": {
+        "en": "The kind-specific getter returns the last explicitly selected instance.",
+        "ja": "種類別getterは最後に明示選択したinstanceを返す。"
+      },
+      "conditions": {
+        "en": "Use the original selected fixtures and explicit API arguments represented by the observation anchors.",
+        "ja": "観測anchorに示す独自の選択fixtureと明示API引数を使う。"
+      },
+      "expected": {
+        "en": "The selected exact handles and stable nonnull class type match, and the saved instance is restored.",
+        "ja": "選択exact handleと安定した非null class型が一致し、保存instanceへ復元する。"
+      },
+      "limitations": {
+        "en": "Selected per-kind getter/setter lifecycle only. Existing handles stay live to distinguish allocation; no independence from every other kind, thread race or all default-service interactions is inferred.",
+        "ja": "選択した種類別getter／setter lifecycleだけ。割当を区別するため既存handleを生かし、全ての他種との独立性、thread race、全default-service相互作用は推論しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_printer_tree_default_instance_replacement_and_null_recovery_are_stable",
+          "role": "direct",
+          "expected_observations": [
+            "UT: kind_default_first exact 1 stable 1",
+            "UT: kind_default_restored 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-AUDIT-TREE-DEFAULT-GET-NULL-RECOVERY",
+      "clause": "16.2.11.2.4",
+      "statement": {
+        "en": "A null kind-specific selection is recovered by creating and retaining an instance.",
+        "ja": "種類別でnullを選択するとinstanceを生成／保持して回復する。"
+      },
+      "conditions": {
+        "en": "Use the original selected fixtures and explicit API arguments represented by the observation anchors.",
+        "ja": "観測anchorに示す独自の選択fixtureと明示API引数を使う。"
+      },
+      "expected": {
+        "en": "The selected exact handles and stable nonnull class type match, and the saved instance is restored.",
+        "ja": "選択exact handleと安定した非null class型が一致し、保存instanceへ復元する。"
+      },
+      "limitations": {
+        "en": "Selected per-kind getter/setter lifecycle only. Existing handles stay live to distinguish allocation; no independence from every other kind, thread race or all default-service interactions is inferred.",
+        "ja": "選択した種類別getter／setter lifecycleだけ。割当を区別するため既存handleを生かし、全ての他種との独立性、thread race、全default-service相互作用は推論しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_printer_tree_default_instance_replacement_and_null_recovery_are_stable",
+          "role": "direct",
+          "expected_observations": [
+            "UT: kind_default_recovered nonnull 1 new 1 stable 1 type 1",
+            "UT: kind_default_restored 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-AUDIT-LINE-BASE",
+      "clause": "16.2.12.1",
+      "statement": {
+        "en": "The line printer is usable through the declared printer base.",
+        "ja": "line printerを宣言printer baseから使える。"
+      },
+      "conditions": {
+        "en": "Use the original selected fixtures and explicit API arguments represented by the observation anchors.",
+        "ja": "観測anchorに示す独自の選択fixtureと明示API引数を使う。"
+      },
+      "expected": {
+        "en": "All selected constructor-name, type-name and base identity observations match.",
+        "ja": "選択constructor名、type名、base同一性の観測が一致する。"
+      },
+      "limitations": {
+        "en": "Nominal base compatibility only, not immediate-parent ownership, all inherited APIs or complete output-layout semantics.",
+        "ja": "名目的base互換性だけで、直接parentの所有関係、全継承API、出力layout全体は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_printer_constructors_and_builtin_type_names_preserve_declared_names_and_bases",
+          "role": "direct",
+          "expected_observations": [
+            "UT: line_printer_names default 1 named 1 empty 1 type 1 base 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-AUDIT-LINE-CONSTRUCTOR",
+      "clause": "16.2.12.2.1",
+      "statement": {
+        "en": "The line printer constructor accepts default, named and empty names.",
+        "ja": "line printer constructorは既定／明示／空名を受け付ける。"
+      },
+      "conditions": {
+        "en": "Use the original selected fixtures and explicit API arguments represented by the observation anchors.",
+        "ja": "観測anchorに示す独自の選択fixtureと明示API引数を使う。"
+      },
+      "expected": {
+        "en": "All selected constructor-name, type-name and base identity observations match.",
+        "ja": "選択constructor名、type名、base同一性の観測が一致する。"
+      },
+      "limitations": {
+        "en": "Nominal base compatibility only, not immediate-parent ownership, all inherited APIs or complete output-layout semantics.",
+        "ja": "名目的base互換性だけで、直接parentの所有関係、全継承API、出力layout全体は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_printer_constructors_and_builtin_type_names_preserve_declared_names_and_bases",
+          "role": "direct",
+          "expected_observations": [
+            "UT: line_printer_names default 1 named 1 empty 1 type 1 base 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-AUDIT-LINE-TYPE-NAME",
+      "clause": "16.2.12.2.2",
+      "statement": {
+        "en": "The line printer returns its specified type-name string.",
+        "ja": "line printerは規定type-name文字列を返す。"
+      },
+      "conditions": {
+        "en": "Use the original selected fixtures and explicit API arguments represented by the observation anchors.",
+        "ja": "観測anchorに示す独自の選択fixtureと明示API引数を使う。"
+      },
+      "expected": {
+        "en": "All selected constructor-name, type-name and base identity observations match.",
+        "ja": "選択constructor名、type名、base同一性の観測が一致する。"
+      },
+      "limitations": {
+        "en": "Nominal base compatibility only, not immediate-parent ownership, all inherited APIs or complete output-layout semantics.",
+        "ja": "名目的base互換性だけで、直接parentの所有関係、全継承API、出力layout全体は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_printer_constructors_and_builtin_type_names_preserve_declared_names_and_bases",
+          "role": "direct",
+          "expected_observations": [
+            "UT: line_printer_names default 1 named 1 empty 1 type 1 base 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-AUDIT-LINE-SEPARATORS-GET-SET",
+      "clause": "16.2.12.3",
+      "statement": {
+        "en": "The line separator getter starts at braces and updates independently.",
+        "ja": "lineのseparator getterはcurly bracesから始まり独立に更新できる。"
+      },
+      "conditions": {
+        "en": "Use the original selected fixtures and explicit API arguments represented by the observation anchors.",
+        "ja": "観測anchorに示す独自の選択fixtureと明示API引数を使う。"
+      },
+      "expected": {
+        "en": "The selected separators change to [] while its peer remains {}.",
+        "ja": "選択separatorは[]になり、peerは{}を保持する。"
+      },
+      "limitations": {
+        "en": "Selected conditions only. Original observer code is setup; no private field names, unspecified default layout, arbitrary custom subtype, four-state formatting or exhaustive clause coverage is certified. A later mismatch keeps the whole fixture known even if an earlier observation matches.",
+        "ja": "選択条件だけ。独自observerは準備とし、非公開field名、未規定の既定文面、任意custom subtype、4-state formatting、条項の網羅は認定しない。後の不一致があれば、先の観測が一致してもfixture全体をknownに保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_printer_line_specific_controls_return_to_declared_defaults_after_flush",
+          "role": "direct",
+          "expected_observations": [
+            "UT: separators_default 1",
+            "UT: separators_changed selected 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-AUDIT-LINE-SEPARATORS-FLUSH",
+      "clause": "16.2.12.3",
+      "statement": {
+        "en": "A line printer flush restores its declared separator default.",
+        "ja": "line printerのflushは宣言separator既定値へ復帰する。"
+      },
+      "conditions": {
+        "en": "Use the original selected fixtures and explicit API arguments represented by the observation anchors.",
+        "ja": "観測anchorに示す独自の選択fixtureと明示API引数を使う。"
+      },
+      "expected": {
+        "en": "Without another separator setter after flush, the getter returns {}.",
+        "ja": "flush後にseparator setterを再度呼ばなければgetterは{}を返す。"
+      },
+      "limitations": {
+        "en": "Selected conditions only. Original observer code is setup; no private field names, unspecified default layout, arbitrary custom subtype, four-state formatting or exhaustive clause coverage is certified. A later mismatch keeps the whole fixture known even if an earlier observation matches.",
+        "ja": "選択条件だけ。独自observerは準備とし、非公開field名、未規定の既定文面、任意custom subtype、4-state formatting、条項の網羅は認定しない。後の不一致があれば、先の観測が一致してもfixture全体をknownに保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_printer_line_specific_controls_return_to_declared_defaults_after_flush",
+          "role": "direct",
+          "expected_observations": [
+            "UT: separators_after_flush 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-AUDIT-LINE-SEPARATOR-SUFFIX-IGNORED",
+      "clause": "16.2.12.3",
+      "statement": {
+        "en": "The line printer uses the first two separator characters and ignores the rest.",
+        "ja": "line printerはseparator先頭2文字を使い、残りを無視する。"
+      },
+      "conditions": {
+        "en": "Use the original selected fixtures and explicit API arguments represented by the observation anchors.",
+        "ja": "観測anchorに示す独自の選択fixtureと明示API引数を使う。"
+      },
+      "expected": {
+        "en": "[] and []EXTRA42 produce the same selected structure with the child inside brackets.",
+        "ja": "[]と[]EXTRA42はchildがbracket内にある同じ選択構造を出力する。"
+      },
+      "limitations": {
+        "en": "Selected conditions only. Original observer code is setup; no private field names, unspecified default layout, arbitrary custom subtype, four-state formatting or exhaustive clause coverage is certified. A later mismatch keeps the whole fixture known even if an earlier observation matches.",
+        "ja": "選択条件だけ。独自observerは準備とし、非公開field名、未規定の既定文面、任意custom subtype、4-state formatting、条項の網羅は認定しない。後の不一致があれば、先の観測が一致してもfixture全体をknownに保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_printer_tree_and_line_separators_ignore_extra_characters_around_children",
+          "role": "direct",
+          "expected_observations": [
+            "UT: separator_format 1 unchanged 1 brackets 1 tail_absent 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-AUDIT-LINE-DEFAULT-SET",
+      "clause": "16.2.12.2.3",
+      "statement": {
+        "en": "The kind-specific setter replaces its selected default instance.",
+        "ja": "種類別setterは選択した既定instanceを置換する。"
+      },
+      "conditions": {
+        "en": "Use the original selected fixtures and explicit API arguments represented by the observation anchors.",
+        "ja": "観測anchorに示す独自の選択fixtureと明示API引数を使う。"
+      },
+      "expected": {
+        "en": "The selected exact handles and stable nonnull class type match, and the saved instance is restored.",
+        "ja": "選択exact handleと安定した非null class型が一致し、保存instanceへ復元する。"
+      },
+      "limitations": {
+        "en": "Selected per-kind getter/setter lifecycle only. Existing handles stay live to distinguish allocation; no independence from every other kind, thread race or all default-service interactions is inferred.",
+        "ja": "選択した種類別getter／setter lifecycleだけ。割当を区別するため既存handleを生かし、全ての他種との独立性、thread race、全default-service相互作用は推論しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_printer_line_default_instance_replacement_and_null_recovery_are_stable",
+          "role": "direct",
+          "expected_observations": [
+            "UT: kind_default_second exact 1",
+            "UT: kind_default_restored 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-AUDIT-LINE-DEFAULT-GET-INITIAL",
+      "clause": "16.2.12.2.4",
+      "statement": {
+        "en": "The initial kind-specific getter used by the fixture returns a retained nonnull instance of the requested printer kind.",
+        "ja": "fixtureで最初に使う種類別getterは要求したprinter種の保持された非null instanceを返す。"
+      },
+      "conditions": {
+        "en": "Use the original selected fixtures and explicit API arguments represented by the observation anchors.",
+        "ja": "観測anchorに示す独自の選択fixtureと明示API引数を使う。"
+      },
+      "expected": {
+        "en": "The selected exact handles and stable nonnull class type match, and the saved instance is restored.",
+        "ja": "選択exact handleと安定した非null class型が一致し、保存instanceへ復元する。"
+      },
+      "limitations": {
+        "en": "Selected per-kind getter/setter lifecycle only. Existing handles stay live to distinguish allocation; no independence from every other kind, thread race or all default-service interactions is inferred. Initial retrieval does not prove the getter was never called during library startup; that automatic-allocation branch remains partial. The explicit null-recovery branch is separate.",
+        "ja": "選択した種類別getter／setter lifecycleだけ。割当を区別するため既存handleを生かし、全ての他種との独立性、thread race、全default-service相互作用は推論しない。初回取得はlibrary起動中にgetterが未呼出しだったことを証明しないため、その自動割当branchは部分対応に残す。明示null回復branchは別に確認する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_printer_line_default_instance_replacement_and_null_recovery_are_stable",
+          "role": "direct",
+          "expected_observations": [
+            "UT: kind_default_initial nonnull 1 stable 1 type 1",
+            "UT: kind_default_restored 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-AUDIT-LINE-DEFAULT-GET-STABLE",
+      "clause": "16.2.12.2.4",
+      "statement": {
+        "en": "The kind-specific getter returns the last explicitly selected instance.",
+        "ja": "種類別getterは最後に明示選択したinstanceを返す。"
+      },
+      "conditions": {
+        "en": "Use the original selected fixtures and explicit API arguments represented by the observation anchors.",
+        "ja": "観測anchorに示す独自の選択fixtureと明示API引数を使う。"
+      },
+      "expected": {
+        "en": "The selected exact handles and stable nonnull class type match, and the saved instance is restored.",
+        "ja": "選択exact handleと安定した非null class型が一致し、保存instanceへ復元する。"
+      },
+      "limitations": {
+        "en": "Selected per-kind getter/setter lifecycle only. Existing handles stay live to distinguish allocation; no independence from every other kind, thread race or all default-service interactions is inferred.",
+        "ja": "選択した種類別getter／setter lifecycleだけ。割当を区別するため既存handleを生かし、全ての他種との独立性、thread race、全default-service相互作用は推論しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_printer_line_default_instance_replacement_and_null_recovery_are_stable",
+          "role": "direct",
+          "expected_observations": [
+            "UT: kind_default_first exact 1 stable 1",
+            "UT: kind_default_restored 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-AUDIT-LINE-DEFAULT-GET-NULL-RECOVERY",
+      "clause": "16.2.12.2.4",
+      "statement": {
+        "en": "A null kind-specific selection is recovered by creating and retaining an instance.",
+        "ja": "種類別でnullを選択するとinstanceを生成／保持して回復する。"
+      },
+      "conditions": {
+        "en": "Use the original selected fixtures and explicit API arguments represented by the observation anchors.",
+        "ja": "観測anchorに示す独自の選択fixtureと明示API引数を使う。"
+      },
+      "expected": {
+        "en": "The selected exact handles and stable nonnull class type match, and the saved instance is restored.",
+        "ja": "選択exact handleと安定した非null class型が一致し、保存instanceへ復元する。"
+      },
+      "limitations": {
+        "en": "Selected per-kind getter/setter lifecycle only. Existing handles stay live to distinguish allocation; no independence from every other kind, thread race or all default-service interactions is inferred.",
+        "ja": "選択した種類別getter／setter lifecycleだけ。割当を区別するため既存handleを生かし、全ての他種との独立性、thread race、全default-service相互作用は推論しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_printer_line_default_instance_replacement_and_null_recovery_are_stable",
+          "role": "direct",
+          "expected_observations": [
+            "UT: kind_default_recovered nonnull 1 new 1 stable 1 type 1",
+            "UT: kind_default_restored 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-AUDIT-CORE-DEFAULT-SET-WRAPPER",
+      "clause": "16.2.2.2",
+      "statement": {
+        "en": "The printer default setter selects the same instance through the core service.",
+        "ja": "printer default setterはcore serviceを通じ同じinstanceを選ぶ。"
+      },
+      "conditions": {
+        "en": "Use the original selected fixtures and explicit API arguments represented by the observation anchors.",
+        "ja": "観測anchorに示す独自の選択fixtureと明示API引数を使う。"
+      },
+      "expected": {
+        "en": "Wrapper-to-core and core-to-wrapper identity updates match, then the saved handle is restored.",
+        "ja": "wrapperからcore、coreからwrapperの同一性更新が一致し、保存handleへ復元する。"
+      },
+      "limitations": {
+        "en": "Selected conditions only. Original observer code is setup; no private field names, unspecified default layout, arbitrary custom subtype, four-state formatting or exhaustive clause coverage is certified. A later mismatch keeps the whole fixture known even if an earlier observation matches.",
+        "ja": "選択条件だけ。独自observerは準備とし、非公開field名、未規定の既定文面、任意custom subtype、4-state formatting、条項の網羅は認定しない。後の不一致があれば、先の観測が一致してもfixture全体をknownに保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_printer_default_wrappers_share_the_core_service_selected_instance",
+          "role": "direct",
+          "expected_observations": [
+            "UT: default_printer_selected wrapper 1 core 1",
+            "UT: default_printer_reverse wrapper 1 core 1",
+            "UT: default_printer_restored 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-AUDIT-CORE-DEFAULT-GET-WRAPPER",
+      "clause": "16.2.2.3",
+      "statement": {
+        "en": "The printer default getter returns the core-service-selected instance.",
+        "ja": "printer default getterはcore serviceで選択したinstanceを返す。"
+      },
+      "conditions": {
+        "en": "Use the original selected fixtures and explicit API arguments represented by the observation anchors.",
+        "ja": "観測anchorに示す独自の選択fixtureと明示API引数を使う。"
+      },
+      "expected": {
+        "en": "Wrapper-to-core and core-to-wrapper identity updates match, then the saved handle is restored.",
+        "ja": "wrapperからcore、coreからwrapperの同一性更新が一致し、保存handleへ復元する。"
+      },
+      "limitations": {
+        "en": "Selected conditions only. Original observer code is setup; no private field names, unspecified default layout, arbitrary custom subtype, four-state formatting or exhaustive clause coverage is certified. A later mismatch keeps the whole fixture known even if an earlier observation matches.",
+        "ja": "選択条件だけ。独自observerは準備とし、非公開field名、未規定の既定文面、任意custom subtype、4-state formatting、条項の網羅は認定しない。後の不一致があれば、先の観測が一致してもfixture全体をknownに保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_printer_default_wrappers_share_the_core_service_selected_instance",
+          "role": "direct",
+          "expected_observations": [
+            "UT: default_printer_selected wrapper 1 core 1",
+            "UT: default_printer_reverse wrapper 1 core 1",
+            "UT: default_printer_restored 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-AUDIT-ELEMENT-OBJECT-BASE",
+      "clause": "16.2.8.1",
+      "statement": {
+        "en": "The printer element retains its declared object base.",
+        "ja": "printer elementは宣言object baseを保持する。"
+      },
+      "conditions": {
+        "en": "Use the original selected fixtures and explicit API arguments represented by the observation anchors.",
+        "ja": "観測anchorに示す独自の選択fixtureと明示API引数を使う。"
+      },
+      "expected": {
+        "en": "The selected default/named/empty observations and exact base assignment match.",
+        "ja": "選択した既定／明示／空名の観測とexact base代入が一致する。"
+      },
+      "limitations": {
+        "en": "Selected conditions only. Original observer code is setup; no private field names, unspecified default layout, arbitrary custom subtype, four-state formatting or exhaustive clause coverage is certified. A later mismatch keeps the whole fixture known even if an earlier observation matches.",
+        "ja": "選択条件だけ。独自observerは準備とし、非公開field名、未規定の既定文面、任意custom subtype、4-state formatting、条項の網羅は認定しない。後の不一致があれば、先の観測が一致してもfixture全体をknownに保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_printer_element_and_proxy_constructor_names_preserve_exact_declared_bases",
+          "role": "direct",
+          "expected_observations": [
+            "UT: element_names default 1 named 1 empty 1 base 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-AUDIT-PROXY-EXACT-BASE",
+      "clause": "16.2.9.1",
+      "statement": {
+        "en": "The element proxy retains the exact structure-proxy specialization.",
+        "ja": "element proxyはexact structure-proxy specializationを保持する。"
+      },
+      "conditions": {
+        "en": "Use the original selected fixtures and explicit API arguments represented by the observation anchors.",
+        "ja": "観測anchorに示す独自の選択fixtureと明示API引数を使う。"
+      },
+      "expected": {
+        "en": "The selected default/named/empty observations and exact base assignment match.",
+        "ja": "選択した既定／明示／空名の観測とexact base代入が一致する。"
+      },
+      "limitations": {
+        "en": "Selected conditions only. Original observer code is setup; no private field names, unspecified default layout, arbitrary custom subtype, four-state formatting or exhaustive clause coverage is certified. A later mismatch keeps the whole fixture known even if an earlier observation matches.",
+        "ja": "選択条件だけ。独自observerは準備とし、非公開field名、未規定の既定文面、任意custom subtype、4-state formatting、条項の網羅は認定しない。後の不一致があれば、先の観測が一致してもfixture全体をknownに保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_printer_element_and_proxy_constructor_names_preserve_exact_declared_bases",
+          "role": "direct",
+          "expected_observations": [
+            "UT: proxy_names default 1 named 1 empty 1 base 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-AUDIT-PROXY-CONSTRUCTOR",
+      "clause": "16.2.9.2.1",
+      "statement": {
+        "en": "The element proxy constructor preserves default, explicit and empty names.",
+        "ja": "element proxy constructorは既定／明示／空名を保持する。"
+      },
+      "conditions": {
+        "en": "Use the original selected fixtures and explicit API arguments represented by the observation anchors.",
+        "ja": "観測anchorに示す独自の選択fixtureと明示API引数を使う。"
+      },
+      "expected": {
+        "en": "The selected default/named/empty observations and exact base assignment match.",
+        "ja": "選択した既定／明示／空名の観測とexact base代入が一致する。"
+      },
+      "limitations": {
+        "en": "Selected conditions only. Original observer code is setup; no private field names, unspecified default layout, arbitrary custom subtype, four-state formatting or exhaustive clause coverage is certified. A later mismatch keeps the whole fixture known even if an earlier observation matches.",
+        "ja": "選択条件だけ。独自observerは準備とし、非公開field名、未規定の既定文面、任意custom subtype、4-state formatting、条項の網羅は認定しない。後の不一致があれば、先の観測が一致してもfixture全体をknownに保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_printer_element_and_proxy_constructor_names_preserve_exact_declared_bases",
+          "role": "direct",
+          "expected_observations": [
+            "UT: proxy_names default 1 named 1 empty 1 base 1"
           ]
         }
       ]

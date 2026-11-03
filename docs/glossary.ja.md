@@ -840,3 +840,14 @@ negative検査の不一致であり、runnerは生成binaryやruntime seedを実
 
 **有効file経路（Effective file route）**：severity／ID pair、ID、severity、defaultのfile対応から選択された実logging出力先です。
 同一性照会と実payload書込みは、その選択を別の観測で確認します。
+
+**printer値observer（Printer value observer）**：非公開field名や組込みlayoutを固定せず、print hookから渡る選択値を調べる独自policyです。
+
+**print再帰state（Print recursion state）**：objectと再帰選択について公開するNEVER／STARTED／FINISHED履歴です。
+hook段階の観測ではactive-object stack所属と区別します。
+
+**printer depth境界（Printer depth boundary）**：設定maximum depthによりobject印字をreference動作へ変える境界です。
+entry-depth等号の読み方を、既にmaximumを超えるscopeと分けて保持します。
+
+**flush後のprinter形式既定値（Printer format defaults after flush）**：table／tree indentとtree／line separatorでflush後に明示された既定値です。
+他のbase printer controlを選択して観測した結果と区別します。

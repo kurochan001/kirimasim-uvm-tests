@@ -3,8 +3,8 @@
 [日本語](history.ja.md) · [README](../README.md)
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and forty-one cross-milestone thin-area expansions, including the
-existing-test requirement-link backlog checkpoint (1446 tests: 1423 simulation and 23 elaboration). The earlier 349-test checkpoint is
+three M4 increments and forty-two cross-milestone thin-area expansions, including the
+existing-test requirement-link backlog checkpoint (1472 tests: 1447 simulation and 25 elaboration). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -2964,3 +2964,39 @@ Guest evidence retains 1084 compatible runtime inputs; 362 are unmeasured
 All 110 tool tests, metadata, ledger/library, current evidence and bilingual
 docs pass. Schema, runners/library/catalog, workflow and SVGs remain unchanged.
 No guest run, human review or scope/denominator approval is claimed.
+
+## Forty-second thin-area expansion across M1–M4
+
+Twenty-six M1 fixtures add message/handler print observers, printer field/user
+hook and history order, disabled hooks, recursion/depth, scalar/array structure,
+radix controls/values, root-name selection, prefixes, constructors/base types,
+default-instance recovery and format-specific flush/separator conditions.
+Sixteen runtime cases match seeds 1/73 and two virtual constructions reject
+with the targeted error without runtime. Eight printer cases first differ at
+seed 1 without seed 73: SHALLOW, entry-depth boundaries, already-exceeded scope,
+disabled radix prefix, root default and three format-control flush fixtures.
+The equality reading stays qualified; the above-bound probe is independent.
+Original observers accept raw integers and decimal generic values; no private
+field name or default text layout becomes an oracle.
+
+All 1446 earlier fixture input identities/records and assessments remain.
+Ninety-seven bilingual AI drafts reach 2274, after removing two overlapping
+drafts. One prior constructor entry gains a direct link, preserving previous
+links and fields. Eleven grouping headings and two representational introductions
+are individually assessed; contextual entries name concrete related duties.
+Totals: 1273 partial/204 assessed/1030 unassessed. Chapter 6 is 98/19/0 and
+chapter 16 is 132/13/63; 16.2.10 remains unassessed. Partial duties remain open.
+Goal iteration fourteen reduces unassessed by 68, or 433 since activation;
+the full M1–M4 goal stays active.
+
+The suite reaches 1472: 1447 simulation/25 elaboration. M1 is 524 (507/17),
+M2 516 (513/3), M3 432 (427/5). Ordinary Verilator has 1290 pass: 1267 two-seed
+runtime and 23 compiler rejection matches; 182 known comprise 137 runtime,
+43 simulation builds and two illegal compiler acceptances. Guest evidence stays
+at 1084 compatible runtime inputs; 388 are unmeasured (363 simulation/25
+elaboration). Separate HDL/command-line evidence remains unchanged. All 110 tool
+tests, metadata, ledger/library, compatible evidence and bilingual docs pass.
+The earlier packer link label is corrected to its actual 128-bit fixture width;
+that fixture and its evidence are unchanged. Schema, runners/library/catalog,
+workflow and SVGs remain unchanged. No new guest run, human review or scope/
+denominator approval is claimed.

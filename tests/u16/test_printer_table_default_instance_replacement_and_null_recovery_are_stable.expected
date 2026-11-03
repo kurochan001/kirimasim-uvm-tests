@@ -1,0 +1,5 @@
+UT: kind_default_initial nonnull 1 stable 1 type 1
+UT: kind_default_first exact 1 stable 1
+UT: kind_default_second exact 1
+UT: kind_default_recovered nonnull 1 new 1 stable 1 type 1
+UT: kind_default_restored 1

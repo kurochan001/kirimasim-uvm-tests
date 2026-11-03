@@ -318,6 +318,10 @@
       "primary_clause": "6.3.3.4",
       "inputs_sha256": "24d71ed4fc4dae0e475dff868f917fb6648f35adacdba7382d8caf57f4d97466"
     },
+    "u06/test_report_handler_print_uses_supplied_policy_for_current_configuration": {
+      "primary_clause": "6.4.2.2",
+      "inputs_sha256": "f2112a57f3c906594bd9697849f89a3739346f76ba4540edfafb733ba0ed5ff2"
+    },
     "u06/test_report_handler_replacement_detaches_configuration": {
       "primary_clause": "6.3.8.1",
       "inputs_sha256": "37edf516a6ad80fbc6ef63f4a3eeca0655844e66308fe18750dfd70b4aa86328"
@@ -369,6 +373,10 @@
     "u06/test_report_message_instances_keep_fields_and_references_independent": {
       "primary_clause": "6.2.2.1",
       "inputs_sha256": "f5ea3858745fe7bbecead64578501658603e16c783654abdde6321ffea033b30"
+    },
+    "u06/test_report_message_print_uses_supplied_policy_for_current_common_fields": {
+      "primary_clause": "6.2.2.3",
+      "inputs_sha256": "b107fc1bfcb4fcbf4f24ea43e68be316da008a5afc46210d25841a236bcf6c77"
     },
     "u06/test_report_message_source_setters_preserve_core_fields": {
       "primary_clause": "6.2.4.5",
@@ -3374,6 +3382,10 @@
       "primary_clause": "16.1.2.3.4",
       "inputs_sha256": "f1c898df70e28ab1407610f58e1f6fd66d04bdd0a597cd7afa88a9aa45ad28c9"
     },
+    "u16/test_policy_concrete_constructor_preserves_unnamed_explicit_empty_names_and_object_base": {
+      "primary_clause": "16.1.2.1",
+      "inputs_sha256": "0e73e8c23167c765e65857ddf4e00734249b46c8ec5040ec40f8604bc853d1b2"
+    },
     "u16/test_policy_extension_controls_comparison_after_flush": {
       "primary_clause": "16.1.2.3.3",
       "inputs_sha256": "bec065f6fe1e2869e1e9c8df29edfde733ffd57edd3c94aa8d5f39bf07c4d71f"
@@ -3414,6 +3426,10 @@
       "primary_clause": "16.1.3.1",
       "inputs_sha256": "ae60577737b6090bcb84a0d7b6902183f46e52d27c045c06a5c9ae91724e3e29"
     },
+    "u16/test_printer_array_header_range_and_footer_keep_nested_element_structure": {
+      "primary_clause": "16.2.3.5",
+      "inputs_sha256": "3dde798826ad6b184be6b2dcc26fcb673c46e2b6ab8a87dec20186c8a9d905c8"
+    },
     "u16/test_printer_array_window_defaults_and_negative_bound": {
       "primary_clause": "16.2.6",
       "inputs_sha256": "f0c82fa420fb7e33d3020859faec25a0b45d0ca8addfbec7f8ce600a553d5b79"
@@ -3426,9 +3442,29 @@
       "primary_clause": "16.2.5.1",
       "inputs_sha256": "e0866880ccf14f42415470412256162d21421c4aeff2b6a53e8d7edc89fdb7df"
     },
+    "u16/test_printer_constructors_and_builtin_type_names_preserve_declared_names_and_bases": {
+      "primary_clause": "16.2.2.1",
+      "inputs_sha256": "7d0f4c75ba0a2859e7ffa27ee2c528e41e9871960dbfd592feae810eb0ff7f6f"
+    },
     "u16/test_printer_controls_are_per_instance_and_survive_flush": {
       "primary_clause": "16.2.5.1",
       "inputs_sha256": "d08eaff16b0a68f3b7bf60ac57f04e4a838fc815234f78e27d0b136f95f2d7d0"
+    },
+    "u16/test_printer_default_wrappers_share_the_core_service_selected_instance": {
+      "primary_clause": "16.2.2.2",
+      "inputs_sha256": "68dad8f7621e06156b147c087c5232d2b530530db12106323c7e7f53f75ca2be"
+    },
+    "u16/test_printer_depth_already_above_limit_uses_reference_without_touching_caller_stack": {
+      "primary_clause": "16.2.5.10",
+      "inputs_sha256": "f447363c97eec7d773daa0be62925ac4e9eee0564720d5dbf5e6fe6a33da025d"
+    },
+    "u16/test_printer_disabled_user_hook_still_finishes_history_and_unwinds_active_stack": {
+      "primary_clause": "16.2.3.1",
+      "inputs_sha256": "f505b03872e9b8f8b4071e8e78f7cb8dbc2d2ba22c116368087909f30b5426df"
+    },
+    "u16/test_printer_element_and_proxy_constructor_names_preserve_exact_declared_bases": {
+      "primary_clause": "16.2.9.2.1",
+      "inputs_sha256": "48472dd41a3286b36a013ae55da0698e41e4e3c9e276245cc621ae9bcf0a34e4"
     },
     "u16/test_printer_element_bulk_set_replaces_all_fields": {
       "primary_clause": "16.2.8.2.2",
@@ -3486,6 +3522,26 @@
       "primary_clause": "16.2.4.2",
       "inputs_sha256": "f9d045311bfa2572bdc4a22a964664b992d31b89cf57df7e27c6ec4d20805b4f"
     },
+    "u16/test_printer_integral_values_use_selected_radix_prefix_and_honor_prefix_disabling": {
+      "primary_clause": "16.2.3.8",
+      "inputs_sha256": "ecefcc192211b22868b98fd498f40d4766c511dbaf0028c9f00fce786b525ec2"
+    },
+    "u16/test_printer_line_default_instance_replacement_and_null_recovery_are_stable": {
+      "primary_clause": "16.2.12.2.3",
+      "inputs_sha256": "96c01a1884333b2eb4868d6148cb0bf4bd217cd8c5b3f8266ef4660fe49b8ce5"
+    },
+    "u16/test_printer_line_prefix_precedes_every_nonempty_line_in_each_builtin_format": {
+      "primary_clause": "16.2.5.12",
+      "inputs_sha256": "fa2d136beed3b0e30d5304b49a4760c6cc6d4207fefc9fbe8ba79e7f53f8e655"
+    },
+    "u16/test_printer_line_specific_controls_return_to_declared_defaults_after_flush": {
+      "primary_clause": "16.2.12.3",
+      "inputs_sha256": "9ee1cc5463ad05a0d42d9a5ea49733a568147da6a84d7b53d2cf2b2203e4831b"
+    },
+    "u16/test_printer_max_depth_uses_reference_behavior_beyond_each_selected_boundary": {
+      "primary_clause": "16.2.5.10",
+      "inputs_sha256": "0a263c49307b85be943150775e21aff2a05f0a643fcd069cafbb6557fc34c2dc"
+    },
     "u16/test_printer_name_emission_is_local_across_line_printer_reuse": {
       "primary_clause": "16.2.5.1",
       "inputs_sha256": "b5470462ef9120e077217413f9810d070360a6a091aacd078792a683aec6ed83"
@@ -3502,13 +3558,53 @@
       "primary_clause": "16.2.6",
       "inputs_sha256": "6e4a0ff5ec96b0fe6863ebbeed1bd5fe5b9ba8fa842990513d4558eb2184875c"
     },
+    "u16/test_printer_object_print_orders_field_and_user_hooks_inside_active_stack": {
+      "primary_clause": "16.2.3.1",
+      "inputs_sha256": "626d99e729b8cfc38f29425a122f243bb484add7a136cd072a9bfc9ff61c07f2"
+    },
+    "u16/test_printer_radix_defaults_updates_and_instance_isolation_follow_defined_radices": {
+      "primary_clause": "16.2.5.6",
+      "inputs_sha256": "bdaf42990d7fe7564e0063bb40c387602cdd94dec79abd5af2bd0fb64100c078"
+    },
+    "u16/test_printer_recursion_modes_distinguish_deep_shallow_reference_and_default": {
+      "primary_clause": "16.2.5.9",
+      "inputs_sha256": "a536fe8fc79a3dd1ba716e6d044e1eee5f0111cf53cf35858daaeb4ab7293574"
+    },
     "u16/test_printer_reuse_observes_updated_fields": {
       "primary_clause": "16.2.3.1",
       "inputs_sha256": "f634e80f527b150122a38c992c33c27b459ad9d0293e90ed5c866fec06c6a7db"
     },
+    "u16/test_printer_root_enabled_selects_full_name_or_leaf_before_policy_dispatch": {
+      "primary_clause": "16.2.5.8",
+      "inputs_sha256": "d365c7c218c4e422fe4e53e8ac53973c4a85ccc4c20329ee290eb70ab4213a1c"
+    },
+    "u16/test_printer_scalar_methods_push_one_child_then_restore_the_parent_element": {
+      "primary_clause": "16.2.7",
+      "inputs_sha256": "c9d7c8f9f17216f4ee0735988b04f515f530d3fae06703f67b217a92e26efd15"
+    },
     "u16/test_printer_sprint_uses_supplied_policy": {
       "primary_clause": "16.2.3.1",
       "inputs_sha256": "60fbfab162d53ef28f3ad38099b9a9dd1e26d4fe606198462e7a96640f482127"
+    },
+    "u16/test_printer_table_default_instance_replacement_and_null_recovery_are_stable": {
+      "primary_clause": "16.2.10.2.3",
+      "inputs_sha256": "a2268276f1a53b3f8486a3e1133fd10b56e97bbfc3d142a8007714b3493c8070"
+    },
+    "u16/test_printer_table_specific_controls_return_to_declared_defaults_after_flush": {
+      "primary_clause": "16.2.10.3",
+      "inputs_sha256": "b201b7d1c1e272a23d8d17762815c8f1a2a52d2af803ddfb0dbee7a6c24cf381"
+    },
+    "u16/test_printer_tree_and_line_separators_ignore_extra_characters_around_children": {
+      "primary_clause": "16.2.11.3.2",
+      "inputs_sha256": "4d504a93aa5a5912cb4940c91b8442c4dd504b685461cb80198a39fc5a54632e"
+    },
+    "u16/test_printer_tree_default_instance_replacement_and_null_recovery_are_stable": {
+      "primary_clause": "16.2.11.2.3",
+      "inputs_sha256": "475023d017cd31d37e24473d39d4daf9ea30d4fdf149bedd58a120e705f3930f"
+    },
+    "u16/test_printer_tree_specific_controls_return_to_declared_defaults_after_flush": {
+      "primary_clause": "16.2.11.3.1",
+      "inputs_sha256": "d990494a51329170238e14994da7260ba63ec984b56e1aec479f20cee1d5cf19"
     },
     "u16/test_recorder_attribute_methods_forward_values_widths_radices_and_names_to_hooks": {
       "primary_clause": "16.4.6.1",
@@ -3529,6 +3625,14 @@
     "u16/test_recorder_open_retains_stream_timestamp_and_implementation_hook_arguments": {
       "primary_clause": "16.4.3",
       "inputs_sha256": "2714cf51f78c1197a8214a8d631a3192c1ee79333b545f034fd25d8954e94a0b"
+    },
+    "u16/test_uvm_policy_abstract_declaration_rejects_direct_construction": {
+      "primary_clause": "16.1.1",
+      "inputs_sha256": "0eacfcafeddc738611b9f41935034438994149f7ed793f765ab2d993975040e9"
+    },
+    "u16/test_uvm_printer_abstract_declaration_rejects_direct_construction": {
+      "primary_clause": "16.2.1",
+      "inputs_sha256": "e23e994aa4106dcaf290c054f4e1790a1b3d6966393a8863d9f8127f2dd8811f"
     },
     "u17/test_hdl_concat_standard_add_slice_appends_after_replacement_and_preserves_peer": {
       "primary_clause": "17.2.3.3.4",

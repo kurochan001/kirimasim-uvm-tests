@@ -1,0 +1,4 @@
+UT: base_printer_names default 1 named 1 empty 1 base 1
+UT: table_printer_names default 1 named 1 empty 1 type 1 base 1
+UT: tree_printer_names default 1 named 1 empty 1 type 1 base 1
+UT: line_printer_names default 1 named 1 empty 1 type 1 base 1

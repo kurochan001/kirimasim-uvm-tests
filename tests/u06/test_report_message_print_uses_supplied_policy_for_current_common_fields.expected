@@ -1,0 +1,2 @@
+UT: message_print_first id 1 body 1 file 1 context 1 line 1 text 1
+UT: message_print_next id 1 body 1 line 1 old_id 0 old_body 0 text 1

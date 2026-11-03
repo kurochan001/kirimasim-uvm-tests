@@ -2868,6 +2868,198 @@
         "reviewer": null,
         "reviewed_at": null
       }
+    },
+    {
+      "clause": "16.1.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "Methods groups the policy methods that follow; it has no separate declaration or behavior.",
+        "ja": "Methodsは後続policy methodを整理し、独立した宣言や動作を持たない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "16.2.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "Methods groups the printer constructor and default-policy wrappers below it.",
+        "ja": "Methodsは下位のprinter constructorとdefault-policy wrapperを整理する。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "16.2.3",
+      "classification": "structural",
+      "rationale": {
+        "en": "Methods for printer usage is a grouping heading; each printing API is specified in a child clause.",
+        "ja": "Methods for printer usageは整理見出しで、各印字APIは下位条項に規定される。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "16.2.4",
+      "classification": "structural",
+      "rationale": {
+        "en": "Methods for printer subtyping groups emit and flush without a separate operational rule.",
+        "ja": "Methods for printer subtypingは独立した操作規則を追加せずemitとflushを整理する。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "16.2.5",
+      "classification": "structural",
+      "rationale": {
+        "en": "The heading and introductory sentence organize the following common printer controls; their actual defaults and behavior remain explicit child requirements.",
+        "ja": "見出しと導入文は後続の共通printer controlを整理し、実際の既定値と動作は下位の明示要求として残す。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "16.2.8.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "Methods is the element API grouping heading; field and constructor obligations are in its children.",
+        "ja": "Methodsはelement API整理見出しで、fieldとconstructor義務は下位にある。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "16.2.9.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "Methods groups the proxy constructor and child query below it.",
+        "ja": "Methodsは下位proxy constructorとchild照会を整理する。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "16.2.10.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "Methods groups the table-printer constructor, type query and default-instance accessors.",
+        "ja": "Methodsはtable-printer constructor、type照会、default-instance accessorを整理する。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "16.2.11.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "Methods groups the tree-printer constructor, type query and default-instance accessors.",
+        "ja": "Methodsはtree-printer constructor、type照会、default-instance accessorを整理する。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "16.2.11.3",
+      "classification": "structural",
+      "rationale": {
+        "en": "The configuration heading and one organizing sentence introduce the two numbered controls, whose indentation and separator duties remain normative requirements.",
+        "ja": "設定見出しと整理文1つは番号付きcontrol 2つを導入し、indentとseparatorの義務は規範的要求に保持する。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "16.2.12.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "Methods groups the line-printer constructor, type query and default-instance accessors.",
+        "ja": "Methodsはline-printer constructor、type照会、default-instance accessorを整理する。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "16.2.9",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The overview explains the standard proxy as the way to traverse implementation-specific printer-element children, with class/array examples. The existing child/push/pop requirements preserve that behavior; it does not prescribe private representation or certify all rendering.",
+        "ja": "概要はclass／array例とともに、実装固有のprinter-element childを辿る標準proxyを説明する。既存child／push／pop要求で動作を保持し、非公開表現を規定せず、全renderingも認定しない。"
+      },
+      "related_requirements": [
+        "UVM-PRINTER-ELEMENT-CHILDREN",
+        "UVM-PRINTER-ELEMENT-PUSH",
+        "UVM-PRINTER-ELEMENT-POP"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "16.2.8",
+      "classification": "contextual",
+      "rationale": {
+        "en": "This introduction describes the element as the string-form data structure consumed by emit. The existing attribute requirements and the linked actual structured emitter preserve those concrete duties without a second copy of the same renderer obligation. The class declaration and field methods remain explicit partial requirements; this is not a rendering-completeness claim.",
+        "ja": "導入はelementをemitが消費する文字列形式のdata構造として説明する。既存属性要求と実際の構造emitterへの対応で具体的義務を保持し、同じrenderer義務を重複追加しない。class宣言とfield methodは明示した部分要求に保持し、rendering網羅を主張しない。"
+      },
+      "related_requirements": [
+        "UVM-PRINTER-ELEMENT-NAME",
+        "UVM-PRINTER-ELEMENT-TYPE",
+        "UVM-PRINTER-ELEMENT-SIZE",
+        "UVM-PRINTER-ELEMENT-VALUE",
+        "UVM-PRINTER-AUDIT-EMIT-STRUCTURED-CHILD"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
     }
   ]
 }

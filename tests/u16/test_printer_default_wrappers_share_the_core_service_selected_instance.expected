@@ -1,0 +1,3 @@
+UT: default_printer_selected wrapper 1 core 1
+UT: default_printer_reverse wrapper 1 core 1
+UT: default_printer_restored 1

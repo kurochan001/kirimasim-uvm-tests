@@ -2,7 +2,7 @@
 
 [English](history.md) · [README](../README.ja.md)
 
-M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の41回目の拡充（全1446件：simulation 1423・elaboration 23）までを記録しています。以前の349件の時点は
+M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の42回目の拡充（全1472件：simulation 1447・elaboration 25）までを記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -1997,3 +1997,20 @@ goal第13反復で未評価が41番号、有効化以降365番号減り、M1〜M
 guest evidenceは互換なruntime 1084入力を保持し、未測定362件（simulation 339／elaboration 23）です。別のHDL／command-line evidenceは未変更です。
 tool test 110件、metadata、台帳／library、現evidence、日英資料の検査は成功します。schema、runner／library／catalog、workflow、SVGは未変更です。
 guest実行、人のレビュー、範囲／分母承認は主張しません。
+
+## M1〜M4の薄い領域の42回目の拡充
+
+M1 26 fixtureでmessage／handler print observer、printer field／user hookと履歴順序、無効hook、再帰／depth、scalar／array構造、radix control／値、root名、prefix、constructor／base型、default-instance回復、種類別flush／separatorを追加します。
+runtime 16件はseed 1／73一致、virtual生成2件は対象errorで拒否されruntimeは実行しません。printer 8件はseed 1で最初に異なりseed 73結果はありません。
+差分はSHALLOW、entry-depth境界、超過済みscope、無効radix prefix、root既定値、format-control flush 3 fixtureです。等号解釈は限定し、上限超過probeは独立に保持します。
+独自observerはraw整数とdecimal generic値を受け、非公開field名や既定文面はoracleにしません。
+
+以前の1446 fixture入力同一性／記録と分類は全て保持します。重複案2件を削除した日英AI案97件で2274件です。以前のconstructor 1項目へ直接linkを加え、元linkとfieldを保持します。
+整理見出し11件と表現を説明する導入2件を個別分類し、文脈項目には具体的関連義務を示します。全体は部分分解1273／分類204／未評価1030です。
+第6章は98／19／0、第16章は132／13／63で16.2.10は未評価、部分義務は全て残ります。goal第14反復で未評価68番号、有効化以降433番号減り、M1〜M4全体のgoalは継続します。
+
+全1472件はsimulation 1447／elaboration 25、M1 524（507／17）、M2 516（513／3）、M3 432（427／5）です。
+通常Verilatorは1290 passで、runtime両seed一致1267件とcompiler拒否一致23件です。既知182件はruntime 137、simulation build 43、不正compile受理2です。
+guest evidenceは互換なruntime 1084入力を保持し、未測定388件（simulation 363／elaboration 25）です。別HDL／command-line evidenceは未変更です。
+tool test 110件、metadata、台帳／library、互換evidence、日英資料の検査は成功します。以前のpacker link labelを実fixture幅の128-bitへ訂正し、fixtureとevidence自体は変えません。
+schema、runner／library／catalog、workflow、SVGは未変更です。新guest実行、人のレビュー、範囲／分母承認は主張しません。
