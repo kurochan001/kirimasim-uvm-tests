@@ -856,3 +856,9 @@ entry-depth等号の読み方を、既にmaximumを超えるscopeと分けて保
 active objectをpopする前に履歴がFINISHEDになる場合があります。
 
 **独立したerror後control（Independent post-error control）**：不正要求を検査した後、不正policyの状態に依存せず使う別生成の有効policyです。
+
+**region location単位（Region location unit）**：region offsetと長さが数えるaddress単位です。
+設定したlocation当たりbyte数によりbyte要求を全locationへ変換します。
+
+**region委譲observer（Region delegation observer）**：regionが変換したAPI入力を観測し、応答data／statusを供給する独自memory subtypeです。
+物理storageやbus／HDL転送動作は立証しません。

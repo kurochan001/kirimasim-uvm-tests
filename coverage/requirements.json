@@ -42357,6 +42357,20 @@
           "expected_observations": [
             "UT: available 1 active 1"
           ]
+        },
+        {
+          "test": "u18/test_memory_region_reservation_persists_until_an_explicit_release",
+          "role": "direct",
+          "expected_observations": [
+            "UT: explicit_release_available 1"
+          ]
+        },
+        {
+          "test": "u18/test_memory_region_release_returns_only_its_own_range_to_the_manager",
+          "role": "direct",
+          "expected_observations": [
+            "UT: region_release again 1 peer_reserved 1 count 1"
+          ]
         }
       ]
     },
@@ -42391,6 +42405,16 @@
           "expected_observations": [
             "UT: count 3 visits 1 1 1 reset_nonnull 1"
           ]
+        },
+        {
+          "test": "u18/test_memory_manager_iterator_handles_empty_exhausted_reset_and_release_all_states",
+          "role": "direct",
+          "expected_observations": [
+            "UT: iterator_empty reset 1 next 1",
+            "UT: iterator_members visits 2 a 1 b 1 exhausted 1",
+            "UT: iterator_restart member 1",
+            "UT: iterator_released empty 1"
+          ]
         }
       ]
     },
@@ -42424,6 +42448,13 @@
           "role": "direct",
           "expected_observations": [
             "UT: previous 0 15 current 2 31 region 4 5"
+          ]
+        },
+        {
+          "test": "u18/test_memory_manager_configuration_query_and_compatible_shrink_preserve_active_regions",
+          "role": "direct",
+          "expected_observations": [
+            "UT: config_shrink previous 1 current 1 region 1"
           ]
         }
       ]
@@ -42493,6 +42524,20 @@
           "expected_observations": [
             "UT: below_rejected 1 beyond_rejected 1 active 0"
           ]
+        },
+        {
+          "test": "u18/test_memory_manager_range_boundaries_apply_in_locations_for_each_byte_width",
+          "role": "direct",
+          "expected_observations": [
+            "UT: range_units 0 first 1 last 1 below 1 above 1 overrun 1",
+            "UT: range_offsets 0 first 1 last 1 count 1",
+            "UT: range_units 1 first 1 last 1 below 1 above 1 overrun 1",
+            "UT: range_offsets 1 first 1 last 1 count 1",
+            "UT: range_units 2 first 1 last 1 below 1 above 1 overrun 1",
+            "UT: range_offsets 2 first 1 last 1 count 1",
+            "UT: range_units 3 first 1 last 1 below 1 above 1 overrun 1",
+            "UT: range_offsets 3 first 1 last 1 count 1"
+          ]
         }
       ]
     },
@@ -42527,6 +42572,13 @@
           "expected_observations": [
             "UT: empty 1",
             "UT: locations 32 active 1"
+          ]
+        },
+        {
+          "test": "u18/test_memory_manager_iterator_handles_empty_exhausted_reset_and_release_all_states",
+          "role": "direct",
+          "expected_observations": [
+            "UT: iterator_released empty 1"
           ]
         }
       ]
@@ -42596,6 +42648,16 @@
           "expected_observations": [
             "UT: region 3 4 locations 2 bytes 8 memory_null 1 owner_null 1"
           ]
+        },
+        {
+          "test": "u18/test_memory_regions_round_requested_bytes_to_complete_address_locations",
+          "role": "direct",
+          "expected_observations": [
+            "UT: region_units 0 start 1 end 1 locations 1 bytes 1",
+            "UT: region_units 1 start 1 end 1 locations 1 bytes 1",
+            "UT: region_units 2 start 1 end 1 locations 1 bytes 1",
+            "UT: region_units 3 start 1 end 1 locations 1 bytes 1"
+          ]
         }
       ]
     },
@@ -42630,6 +42692,15 @@
           "expected_observations": [
             "UT: write_ok 1 stored a6",
             "UT: read_ok 1 value a6"
+          ]
+        },
+        {
+          "test": "u18/test_memory_region_write_delegates_relative_offsets_context_data_and_status",
+          "role": "direct",
+          "expected_observations": [
+            "UT: region_write 0 calls 1 offset 1 parent 1 extension 1 status 1",
+            "UT: region_write_value exact 1",
+            "UT: region_write 1 calls 2 offset 1 parent 1 extension 1 status 1"
           ]
         }
       ]
@@ -46986,6 +47057,14 @@
           "role": "direct",
           "expected_observations": [
             "UT: starts 8 16 calls 1 1 default_retained 1"
+          ]
+        },
+        {
+          "test": "u18/test_memory_manager_repeated_requests_randomize_the_selected_default_allocation_policy",
+          "role": "direct",
+          "expected_observations": [
+            "UT: default_alloc_first randomized 1 start 1 len 1 bounds 1",
+            "UT: default_alloc_next randomized 1 start 1 len 1 count 1 same 1"
           ]
         }
       ]
@@ -86588,6 +86667,1576 @@
           "role": "direct",
           "expected_observations": [
             "UT: recorder_flush_hooks order CF close 1 free 1 freed 1 peer_open 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAM-AUDIT-MANAGER-DECLARATION",
+      "clause": "18.12.1",
+      "statement": {
+        "en": "The declared concrete memory manager can be constructed and used through its standard type.",
+        "ja": "宣言された具象memory managerを生成し標準typeから使える。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures and the explicit sizes, location offsets, handles and observations they declare. Allocation inputs are configured explicitly rather than relying on unspecified initial defaults.",
+        "ja": "linkした独自fixtureと、明示したsize、location offset、handle、観測を使う。割当入力は未規定の初期既定値へ依存せず明示設定する。"
+      },
+      "expected": {
+        "en": "The declared concrete memory manager can be constructed and used through its standard type.",
+        "ja": "宣言された具象memory managerを生成し標準typeから使える。"
+      },
+      "limitations": {
+        "en": "Selected nominal class usability only. This does not prescribe an object/factory base, private representation or direct user construction of a region; actual regions are obtained only from the manager.",
+        "ja": "選択した名目的class利用だけ。object／factory base、非公開表現、userによるregion直接生成は規定せず、実regionはmanagerからだけ取得する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_manager_constructor_and_regions_preserve_optional_memory_identity",
+          "role": "direct",
+          "expected_observations": [
+            "UT: manager_memory attached 1 detached 1 independent 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAM-AUDIT-REGION-DECLARATION",
+      "clause": "18.12.7.1",
+      "statement": {
+        "en": "The manager returns a descriptor usable through the standard region class.",
+        "ja": "managerは標準region classから使えるdescriptorを返す。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures and the explicit sizes, location offsets, handles and observations they declare. Allocation inputs are configured explicitly rather than relying on unspecified initial defaults.",
+        "ja": "linkした独自fixtureと、明示したsize、location offset、handle、観測を使う。割当入力は未規定の初期既定値へ依存せず明示設定する。"
+      },
+      "expected": {
+        "en": "The manager returns a descriptor usable through the standard region class.",
+        "ja": "managerは標準region classから使えるdescriptorを返す。"
+      },
+      "limitations": {
+        "en": "Selected nominal class usability only. This does not prescribe an object/factory base, private representation or direct user construction of a region; actual regions are obtained only from the manager.",
+        "ja": "選択した名目的class利用だけ。object／factory base、非公開表現、userによるregion直接生成は規定せず、実regionはmanagerからだけ取得する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_manager_constructor_and_regions_preserve_optional_memory_identity",
+          "role": "direct",
+          "expected_observations": [
+            "UT: region_memory attached 1 detached 1 virtual_a 1 virtual_b 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAM-AUDIT-POLICY-DECLARATION",
+      "clause": "18.12.8.1",
+      "statement": {
+        "en": "A legal original policy subtype can be selected through the standard allocation-policy base.",
+        "ja": "合法な独自policy subtypeを標準allocation-policy baseから選択できる。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures and the explicit sizes, location offsets, handles and observations they declare. Allocation inputs are configured explicitly rather than relying on unspecified initial defaults.",
+        "ja": "linkした独自fixtureと、明示したsize、location offset、handle、観測を使う。割当入力は未規定の初期既定値へ依存せず明示設定する。"
+      },
+      "expected": {
+        "en": "A legal original policy subtype can be selected through the standard allocation-policy base.",
+        "ja": "合法な独自policy subtypeを標準allocation-policy baseから選択できる。"
+      },
+      "limitations": {
+        "en": "Selected nominal class usability only. This does not prescribe an object/factory base, private representation or direct user construction of a region; actual regions are obtained only from the manager.",
+        "ja": "選択した名目的class利用だけ。object／factory base、非公開表現、userによるregion直接生成は規定せず、実regionはmanagerからだけ取得する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_manager_repeated_requests_randomize_the_selected_default_allocation_policy",
+          "role": "direct",
+          "expected_observations": [
+            "UT: default_alloc_first randomized 1 start 1 len 1 bounds 1",
+            "UT: default_alloc_next randomized 1 start 1 len 1 count 1 same 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAM-AUDIT-CONFIGURATION-DECLARATION",
+      "clause": "18.12.9.1",
+      "statement": {
+        "en": "A concrete standard configuration instance is accepted by manager construction.",
+        "ja": "具象標準configuration instanceをmanager生成へ渡せる。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures and the explicit sizes, location offsets, handles and observations they declare. Allocation inputs are configured explicitly rather than relying on unspecified initial defaults.",
+        "ja": "linkした独自fixtureと、明示したsize、location offset、handle、観測を使う。割当入力は未規定の初期既定値へ依存せず明示設定する。"
+      },
+      "expected": {
+        "en": "A concrete standard configuration instance is accepted by manager construction.",
+        "ja": "具象標準configuration instanceをmanager生成へ渡せる。"
+      },
+      "limitations": {
+        "en": "Selected nominal class usability only. This does not prescribe an object/factory base, private representation or direct user construction of a region; actual regions are obtained only from the manager.",
+        "ja": "選択した名目的class利用だけ。object／factory base、非公開表現、userによるregion直接生成は規定せず、実regionはmanagerからだけ取得する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_manager_constructor_and_regions_preserve_optional_memory_identity",
+          "role": "direct",
+          "expected_observations": [
+            "UT: manager_memory attached 1 detached 1 independent 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAM-AUDIT-CONSTRUCTOR-MEMORY",
+      "clause": "18.12.4.1",
+      "statement": {
+        "en": "The manager constructor accepts an associated memory or an omitted memory while managing independent regions.",
+        "ja": "manager constructorは関連memoryとmemory省略を受け付け、独立したregionを管理する。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures and the explicit sizes, location offsets, handles and observations they declare. Allocation inputs are configured explicitly rather than relying on unspecified initial defaults.",
+        "ja": "linkした独自fixtureと、明示したsize、location offset、handle、観測を使う。割当入力は未規定の初期既定値へ依存せず明示設定する。"
+      },
+      "expected": {
+        "en": "The manager constructor accepts an associated memory or an omitted memory while managing independent regions.",
+        "ja": "manager constructorは関連memoryとmemory省略を受け付け、独立したregionを管理する。"
+      },
+      "limitations": {
+        "en": "Selected public API conditions only. Region/manager representations, allocation order, arbitrary randomness, concurrency and complete clause coverage are not certified. Original objects supply inputs and observations; they do not replace the manager or region algorithm.",
+        "ja": "選択した公開API条件だけ。region／manager表現、割当順序、任意の乱数、並行性、条項全体の網羅は認定しない。独自objectは入力と観測を供給し、manager／region algorithmを置換しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_manager_constructor_and_regions_preserve_optional_memory_identity",
+          "role": "direct",
+          "expected_observations": [
+            "UT: manager_memory attached 1 detached 1 independent 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAM-AUDIT-MANAGER-MEMORY-QUERY",
+      "clause": "18.12.6.3",
+      "statement": {
+        "en": "get_memory returns the exact associated memory, or null when construction omits it.",
+        "ja": "get_memoryは関連する同一memoryを返し、生成時に省略した場合はnullを返す。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures and the explicit sizes, location offsets, handles and observations they declare. Allocation inputs are configured explicitly rather than relying on unspecified initial defaults.",
+        "ja": "linkした独自fixtureと、明示したsize、location offset、handle、観測を使う。割当入力は未規定の初期既定値へ依存せず明示設定する。"
+      },
+      "expected": {
+        "en": "get_memory returns the exact associated memory, or null when construction omits it.",
+        "ja": "get_memoryは関連する同一memoryを返し、生成時に省略した場合はnullを返す。"
+      },
+      "limitations": {
+        "en": "Selected public API conditions only. Region/manager representations, allocation order, arbitrary randomness, concurrency and complete clause coverage are not certified. Original objects supply inputs and observations; they do not replace the manager or region algorithm.",
+        "ja": "選択した公開API条件だけ。region／manager表現、割当順序、任意の乱数、並行性、条項全体の網羅は認定しない。独自objectは入力と観測を供給し、manager／region algorithmを置換しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_manager_constructor_and_regions_preserve_optional_memory_identity",
+          "role": "direct",
+          "expected_observations": [
+            "UT: manager_memory attached 1 detached 1 independent 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAM-AUDIT-REGION-MEMORY-QUERY",
+      "clause": "18.12.7.2.6",
+      "statement": {
+        "en": "A region returns its allocating manager memory, including null for an unattached manager.",
+        "ja": "regionは割当元managerのmemoryを返し、未関連managerではnullを返す。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures and the explicit sizes, location offsets, handles and observations they declare. Allocation inputs are configured explicitly rather than relying on unspecified initial defaults.",
+        "ja": "linkした独自fixtureと、明示したsize、location offset、handle、観測を使う。割当入力は未規定の初期既定値へ依存せず明示設定する。"
+      },
+      "expected": {
+        "en": "A region returns its allocating manager memory, including null for an unattached manager.",
+        "ja": "regionは割当元managerのmemoryを返し、未関連managerではnullを返す。"
+      },
+      "limitations": {
+        "en": "Selected public API conditions only. Region/manager representations, allocation order, arbitrary randomness, concurrency and complete clause coverage are not certified. Original objects supply inputs and observations; they do not replace the manager or region algorithm.",
+        "ja": "選択した公開API条件だけ。region／manager表現、割当順序、任意の乱数、並行性、条項全体の網羅は認定しない。独自objectは入力と観測を供給し、manager／region algorithmを置換しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_manager_constructor_and_regions_preserve_optional_memory_identity",
+          "role": "direct",
+          "expected_observations": [
+            "UT: region_memory attached 1 detached 1 virtual_a 1 virtual_b 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAM-AUDIT-REGION-NO-VIRTUAL-OWNER",
+      "clause": "18.12.7.2.7",
+      "statement": {
+        "en": "An ordinary reserved region without a virtual array returns null as its virtual-register owner.",
+        "ja": "virtual arrayを持たない通常の予約regionはvirtual-register ownerとしてnullを返す。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures and the explicit sizes, location offsets, handles and observations they declare. Allocation inputs are configured explicitly rather than relying on unspecified initial defaults.",
+        "ja": "linkした独自fixtureと、明示したsize、location offset、handle、観測を使う。割当入力は未規定の初期既定値へ依存せず明示設定する。"
+      },
+      "expected": {
+        "en": "An ordinary reserved region without a virtual array returns null as its virtual-register owner.",
+        "ja": "virtual arrayを持たない通常の予約regionはvirtual-register ownerとしてnullを返す。"
+      },
+      "limitations": {
+        "en": "Selected public API conditions only. Region/manager representations, allocation order, arbitrary randomness, concurrency and complete clause coverage are not certified. Original objects supply inputs and observations; they do not replace the manager or region algorithm.",
+        "ja": "選択した公開API条件だけ。region／manager表現、割当順序、任意の乱数、並行性、条項全体の網羅は認定しない。独自objectは入力と観測を供給し、manager／region algorithmを置換しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_manager_constructor_and_regions_preserve_optional_memory_identity",
+          "role": "direct",
+          "expected_observations": [
+            "UT: region_memory attached 1 detached 1 virtual_a 1 virtual_b 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAM-AUDIT-REGION-START",
+      "clause": "18.12.7.2.1",
+      "statement": {
+        "en": "The region start query returns the selected starting location offset.",
+        "ja": "region開始照会は選択した開始location offsetを返す。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures and the explicit sizes, location offsets, handles and observations they declare. Allocation inputs are configured explicitly rather than relying on unspecified initial defaults.",
+        "ja": "linkした独自fixtureと、明示したsize、location offset、handle、観測を使う。割当入力は未規定の初期既定値へ依存せず明示設定する。"
+      },
+      "expected": {
+        "en": "The region start query returns the selected starting location offset.",
+        "ja": "region開始照会は選択した開始location offsetを返す。"
+      },
+      "limitations": {
+        "en": "Selected public API conditions only. Region/manager representations, allocation order, arbitrary randomness, concurrency and complete clause coverage are not certified. Original objects supply inputs and observations; they do not replace the manager or region algorithm.",
+        "ja": "選択した公開API条件だけ。region／manager表現、割当順序、任意の乱数、並行性、条項全体の網羅は認定しない。独自objectは入力と観測を供給し、manager／region algorithmを置換しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_regions_round_requested_bytes_to_complete_address_locations",
+          "role": "direct",
+          "expected_observations": [
+            "UT: region_units 0 start 1 end 1 locations 1 bytes 1",
+            "UT: region_units 1 start 1 end 1 locations 1 bytes 1",
+            "UT: region_units 2 start 1 end 1 locations 1 bytes 1",
+            "UT: region_units 3 start 1 end 1 locations 1 bytes 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAM-AUDIT-REGION-END",
+      "clause": "18.12.7.2.2",
+      "statement": {
+        "en": "The region end query returns the last occupied location after whole-location reservation.",
+        "ja": "region終端照会は全location単位の予約後、最後に占有するlocationを返す。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures and the explicit sizes, location offsets, handles and observations they declare. Allocation inputs are configured explicitly rather than relying on unspecified initial defaults.",
+        "ja": "linkした独自fixtureと、明示したsize、location offset、handle、観測を使う。割当入力は未規定の初期既定値へ依存せず明示設定する。"
+      },
+      "expected": {
+        "en": "The region end query returns the last occupied location after whole-location reservation.",
+        "ja": "region終端照会は全location単位の予約後、最後に占有するlocationを返す。"
+      },
+      "limitations": {
+        "en": "Selected public API conditions only. Region/manager representations, allocation order, arbitrary randomness, concurrency and complete clause coverage are not certified. Original objects supply inputs and observations; they do not replace the manager or region algorithm.",
+        "ja": "選択した公開API条件だけ。region／manager表現、割当順序、任意の乱数、並行性、条項全体の網羅は認定しない。独自objectは入力と観測を供給し、manager／region algorithmを置換しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_regions_round_requested_bytes_to_complete_address_locations",
+          "role": "direct",
+          "expected_observations": [
+            "UT: region_units 0 start 1 end 1 locations 1 bytes 1",
+            "UT: region_units 1 start 1 end 1 locations 1 bytes 1",
+            "UT: region_units 2 start 1 end 1 locations 1 bytes 1",
+            "UT: region_units 3 start 1 end 1 locations 1 bytes 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAM-AUDIT-REGION-LENGTH",
+      "clause": "18.12.7.2.3",
+      "statement": {
+        "en": "Region length counts consecutive memory locations rather than requested bytes.",
+        "ja": "region長は要求byte数ではなく連続memory location数を数える。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures and the explicit sizes, location offsets, handles and observations they declare. Allocation inputs are configured explicitly rather than relying on unspecified initial defaults.",
+        "ja": "linkした独自fixtureと、明示したsize、location offset、handle、観測を使う。割当入力は未規定の初期既定値へ依存せず明示設定する。"
+      },
+      "expected": {
+        "en": "Region length counts consecutive memory locations rather than requested bytes.",
+        "ja": "region長は要求byte数ではなく連続memory location数を数える。"
+      },
+      "limitations": {
+        "en": "Selected public API conditions only. Region/manager representations, allocation order, arbitrary randomness, concurrency and complete clause coverage are not certified. Original objects supply inputs and observations; they do not replace the manager or region algorithm.",
+        "ja": "選択した公開API条件だけ。region／manager表現、割当順序、任意の乱数、並行性、条項全体の網羅は認定しない。独自objectは入力と観測を供給し、manager／region algorithmを置換しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_regions_round_requested_bytes_to_complete_address_locations",
+          "role": "direct",
+          "expected_observations": [
+            "UT: region_units 0 start 1 end 1 locations 1 bytes 1",
+            "UT: region_units 1 start 1 end 1 locations 1 bytes 1",
+            "UT: region_units 2 start 1 end 1 locations 1 bytes 1",
+            "UT: region_units 3 start 1 end 1 locations 1 bytes 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAM-AUDIT-REGION-BYTES",
+      "clause": "18.12.7.2.4",
+      "statement": {
+        "en": "Region byte count includes complete locations and may exceed the requested byte count.",
+        "ja": "region byte数は全locationを含み、要求byte数を超える場合がある。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures and the explicit sizes, location offsets, handles and observations they declare. Allocation inputs are configured explicitly rather than relying on unspecified initial defaults.",
+        "ja": "linkした独自fixtureと、明示したsize、location offset、handle、観測を使う。割当入力は未規定の初期既定値へ依存せず明示設定する。"
+      },
+      "expected": {
+        "en": "Region byte count includes complete locations and may exceed the requested byte count.",
+        "ja": "region byte数は全locationを含み、要求byte数を超える場合がある。"
+      },
+      "limitations": {
+        "en": "Selected public API conditions only. Region/manager representations, allocation order, arbitrary randomness, concurrency and complete clause coverage are not certified. Original objects supply inputs and observations; they do not replace the manager or region algorithm.",
+        "ja": "選択した公開API条件だけ。region／manager表現、割当順序、任意の乱数、並行性、条項全体の網羅は認定しない。独自objectは入力と観測を供給し、manager／region algorithmを置換しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_regions_round_requested_bytes_to_complete_address_locations",
+          "role": "direct",
+          "expected_observations": [
+            "UT: region_units 0 start 1 end 1 locations 1 bytes 1",
+            "UT: region_units 1 start 1 end 1 locations 1 bytes 1",
+            "UT: region_units 2 start 1 end 1 locations 1 bytes 1",
+            "UT: region_units 3 start 1 end 1 locations 1 bytes 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAM-AUDIT-CONFIGURATION-BYTE-UNITS",
+      "clause": "18.12.9.2.1",
+      "statement": {
+        "en": "Configured bytes per location control reservation capacity while offsets remain location addresses.",
+        "ja": "設定したlocation当たりbyte数が予約容量を制御し、offsetはlocation addressのままである。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures and the explicit sizes, location offsets, handles and observations they declare. Allocation inputs are configured explicitly rather than relying on unspecified initial defaults.",
+        "ja": "linkした独自fixtureと、明示したsize、location offset、handle、観測を使う。割当入力は未規定の初期既定値へ依存せず明示設定する。"
+      },
+      "expected": {
+        "en": "Configured bytes per location control reservation capacity while offsets remain location addresses.",
+        "ja": "設定したlocation当たりbyte数が予約容量を制御し、offsetはlocation addressのままである。"
+      },
+      "limitations": {
+        "en": "Selected public API conditions only. Region/manager representations, allocation order, arbitrary randomness, concurrency and complete clause coverage are not certified. Original objects supply inputs and observations; they do not replace the manager or region algorithm.",
+        "ja": "選択した公開API条件だけ。region／manager表現、割当順序、任意の乱数、並行性、条項全体の網羅は認定しない。独自objectは入力と観測を供給し、manager／region algorithmを置換しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_manager_range_boundaries_apply_in_locations_for_each_byte_width",
+          "role": "direct",
+          "expected_observations": [
+            "UT: range_units 0 first 1 last 1 below 1 above 1 overrun 1",
+            "UT: range_offsets 0 first 1 last 1 count 1",
+            "UT: range_units 1 first 1 last 1 below 1 above 1 overrun 1",
+            "UT: range_offsets 1 first 1 last 1 count 1",
+            "UT: range_units 2 first 1 last 1 below 1 above 1 overrun 1",
+            "UT: range_offsets 2 first 1 last 1 count 1",
+            "UT: range_units 3 first 1 last 1 below 1 above 1 overrun 1",
+            "UT: range_offsets 3 first 1 last 1 count 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAM-AUDIT-CONFIGURATION-FIRST",
+      "clause": "18.12.9.2.2",
+      "statement": {
+        "en": "The configured start is an inclusive location boundary; a reservation below it is rejected.",
+        "ja": "設定startはlocationの包含境界であり、それより下の予約を拒否する。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures and the explicit sizes, location offsets, handles and observations they declare. Allocation inputs are configured explicitly rather than relying on unspecified initial defaults.",
+        "ja": "linkした独自fixtureと、明示したsize、location offset、handle、観測を使う。割当入力は未規定の初期既定値へ依存せず明示設定する。"
+      },
+      "expected": {
+        "en": "The configured start is an inclusive location boundary; a reservation below it is rejected.",
+        "ja": "設定startはlocationの包含境界であり、それより下の予約を拒否する。"
+      },
+      "limitations": {
+        "en": "Selected public API conditions only. Region/manager representations, allocation order, arbitrary randomness, concurrency and complete clause coverage are not certified. Original objects supply inputs and observations; they do not replace the manager or region algorithm.",
+        "ja": "選択した公開API条件だけ。region／manager表現、割当順序、任意の乱数、並行性、条項全体の網羅は認定しない。独自objectは入力と観測を供給し、manager／region algorithmを置換しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_manager_range_boundaries_apply_in_locations_for_each_byte_width",
+          "role": "direct",
+          "expected_observations": [
+            "UT: range_units 0 first 1 last 1 below 1 above 1 overrun 1",
+            "UT: range_offsets 0 first 1 last 1 count 1",
+            "UT: range_units 1 first 1 last 1 below 1 above 1 overrun 1",
+            "UT: range_offsets 1 first 1 last 1 count 1",
+            "UT: range_units 2 first 1 last 1 below 1 above 1 overrun 1",
+            "UT: range_offsets 2 first 1 last 1 count 1",
+            "UT: range_units 3 first 1 last 1 below 1 above 1 overrun 1",
+            "UT: range_offsets 3 first 1 last 1 count 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAM-AUDIT-CONFIGURATION-LAST",
+      "clause": "18.12.9.2.3",
+      "statement": {
+        "en": "The configured end is an inclusive location boundary; reservations beyond or crossing it are rejected.",
+        "ja": "設定endはlocationの包含境界であり、それを超える、または跨ぐ予約を拒否する。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures and the explicit sizes, location offsets, handles and observations they declare. Allocation inputs are configured explicitly rather than relying on unspecified initial defaults.",
+        "ja": "linkした独自fixtureと、明示したsize、location offset、handle、観測を使う。割当入力は未規定の初期既定値へ依存せず明示設定する。"
+      },
+      "expected": {
+        "en": "The configured end is an inclusive location boundary; reservations beyond or crossing it are rejected.",
+        "ja": "設定endはlocationの包含境界であり、それを超える、または跨ぐ予約を拒否する。"
+      },
+      "limitations": {
+        "en": "Selected public API conditions only. Region/manager representations, allocation order, arbitrary randomness, concurrency and complete clause coverage are not certified. Original objects supply inputs and observations; they do not replace the manager or region algorithm.",
+        "ja": "選択した公開API条件だけ。region／manager表現、割当順序、任意の乱数、並行性、条項全体の網羅は認定しない。独自objectは入力と観測を供給し、manager／region algorithmを置換しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_manager_range_boundaries_apply_in_locations_for_each_byte_width",
+          "role": "direct",
+          "expected_observations": [
+            "UT: range_units 0 first 1 last 1 below 1 above 1 overrun 1",
+            "UT: range_offsets 0 first 1 last 1 count 1",
+            "UT: range_units 1 first 1 last 1 below 1 above 1 overrun 1",
+            "UT: range_offsets 1 first 1 last 1 count 1",
+            "UT: range_units 2 first 1 last 1 below 1 above 1 overrun 1",
+            "UT: range_offsets 2 first 1 last 1 count 1",
+            "UT: range_units 3 first 1 last 1 below 1 above 1 overrun 1",
+            "UT: range_offsets 3 first 1 last 1 count 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAM-AUDIT-RESERVATION-LIFETIME",
+      "clause": "18.12",
+      "statement": {
+        "en": "A reserved range remains unavailable to overlapping reservations until explicit release.",
+        "ja": "予約rangeは明示解放まで重複予約に利用できない。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures and the explicit sizes, location offsets, handles and observations they declare. Allocation inputs are configured explicitly rather than relying on unspecified initial defaults.",
+        "ja": "linkした独自fixtureと、明示したsize、location offset、handle、観測を使う。割当入力は未規定の初期既定値へ依存せず明示設定する。"
+      },
+      "expected": {
+        "en": "A reserved range remains unavailable to overlapping reservations until explicit release.",
+        "ja": "予約rangeは明示解放まで重複予約に利用できない。"
+      },
+      "limitations": {
+        "en": "Selected public API conditions only. Region/manager representations, allocation order, arbitrary randomness, concurrency and complete clause coverage are not certified. Original objects supply inputs and observations; they do not replace the manager or region algorithm.",
+        "ja": "選択した公開API条件だけ。region／manager表現、割当順序、任意の乱数、並行性、条項全体の網羅は認定しない。独自objectは入力と観測を供給し、manager／region algorithmを置換しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_region_reservation_persists_until_an_explicit_release",
+          "role": "direct",
+          "expected_observations": [
+            "UT: retained_region 0 blocked 1 original 1",
+            "UT: retained_region 1 blocked 1 original 1",
+            "UT: retained_region 2 blocked 1 original 1",
+            "UT: explicit_release_available 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAM-AUDIT-REGION-RELEASE",
+      "clause": "18.12.7.2.5",
+      "statement": {
+        "en": "The region release method returns its own range to the manager without releasing an independent peer.",
+        "ja": "region解放methodは独立peerを解放せず、自分のrangeをmanagerへ返す。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures and the explicit sizes, location offsets, handles and observations they declare. Allocation inputs are configured explicitly rather than relying on unspecified initial defaults.",
+        "ja": "linkした独自fixtureと、明示したsize、location offset、handle、観測を使う。割当入力は未規定の初期既定値へ依存せず明示設定する。"
+      },
+      "expected": {
+        "en": "The region release method returns its own range to the manager without releasing an independent peer.",
+        "ja": "region解放methodは独立peerを解放せず、自分のrangeをmanagerへ返す。"
+      },
+      "limitations": {
+        "en": "Selected public API conditions only. Region/manager representations, allocation order, arbitrary randomness, concurrency and complete clause coverage are not certified. Original objects supply inputs and observations; they do not replace the manager or region algorithm.",
+        "ja": "選択した公開API条件だけ。region／manager表現、割当順序、任意の乱数、並行性、条項全体の網羅は認定しない。独自objectは入力と観測を供給し、manager／region algorithmを置換しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_region_release_returns_only_its_own_range_to_the_manager",
+          "role": "direct",
+          "expected_observations": [
+            "UT: region_release again 1 peer_reserved 1 count 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAM-AUDIT-ITERATOR-NULL",
+      "clause": "18.12.6.2",
+      "statement": {
+        "en": "An empty or exhausted region iterator returns null; reset and release-all observations retain that meaning.",
+        "ja": "空または終了したregion iteratorはnullを返し、resetと全解放の観測でもその意味を保つ。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures and the explicit sizes, location offsets, handles and observations they declare. Allocation inputs are configured explicitly rather than relying on unspecified initial defaults.",
+        "ja": "linkした独自fixtureと、明示したsize、location offset、handle、観測を使う。割当入力は未規定の初期既定値へ依存せず明示設定する。"
+      },
+      "expected": {
+        "en": "An empty or exhausted region iterator returns null; reset and release-all observations retain that meaning.",
+        "ja": "空または終了したregion iteratorはnullを返し、resetと全解放の観測でもその意味を保つ。"
+      },
+      "limitations": {
+        "en": "Selected public API conditions only. Region/manager representations, allocation order, arbitrary randomness, concurrency and complete clause coverage are not certified. Original objects supply inputs and observations; they do not replace the manager or region algorithm.",
+        "ja": "選択した公開API条件だけ。region／manager表現、割当順序、任意の乱数、並行性、条項全体の網羅は認定しない。独自objectは入力と観測を供給し、manager／region algorithmを置換しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_manager_iterator_handles_empty_exhausted_reset_and_release_all_states",
+          "role": "direct",
+          "expected_observations": [
+            "UT: iterator_empty reset 1 next 1",
+            "UT: iterator_members visits 2 a 1 b 1 exhausted 1",
+            "UT: iterator_restart member 1",
+            "UT: iterator_released empty 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAM-AUDIT-CONFIGURATION-QUERY",
+      "clause": "18.12.4.2",
+      "statement": {
+        "en": "Omitted and explicit-null reconfiguration query current configuration without changing existing reservations.",
+        "ja": "省略と明示nullのreconfigureは既存予約を変えず現在の設定を照会する。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures and the explicit sizes, location offsets, handles and observations they declare. Allocation inputs are configured explicitly rather than relying on unspecified initial defaults.",
+        "ja": "linkした独自fixtureと、明示したsize、location offset、handle、観測を使う。割当入力は未規定の初期既定値へ依存せず明示設定する。"
+      },
+      "expected": {
+        "en": "Omitted and explicit-null reconfiguration query current configuration without changing existing reservations.",
+        "ja": "省略と明示nullのreconfigureは既存予約を変えず現在の設定を照会する。"
+      },
+      "limitations": {
+        "en": "Selected public API conditions only. Region/manager representations, allocation order, arbitrary randomness, concurrency and complete clause coverage are not certified. Original objects supply inputs and observations; they do not replace the manager or region algorithm.",
+        "ja": "選択した公開API条件だけ。region／manager表現、割当順序、任意の乱数、並行性、条項全体の網羅は認定しない。独自objectは入力と観測を供給し、manager／region algorithmを置換しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_manager_configuration_query_and_compatible_shrink_preserve_active_regions",
+          "role": "direct",
+          "expected_observations": [
+            "UT: config_query omitted 1 explicit_null 1 unchanged 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAM-AUDIT-DEFAULT-POLICY-RERANDOMIZE",
+      "clause": "18.12.3",
+      "statement": {
+        "en": "Each selected default-policy request randomizes that policy again using the current request length and bounds.",
+        "ja": "選択default-policy要求のたびに、現在の要求長と境界でそのpolicyを再度randomizeする。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures and the explicit sizes, location offsets, handles and observations they declare. Allocation inputs are configured explicitly rather than relying on unspecified initial defaults.",
+        "ja": "linkした独自fixtureと、明示したsize、location offset、handle、観測を使う。割当入力は未規定の初期既定値へ依存せず明示設定する。"
+      },
+      "expected": {
+        "en": "Each selected default-policy request randomizes that policy again using the current request length and bounds.",
+        "ja": "選択default-policy要求のたびに、現在の要求長と境界でそのpolicyを再度randomizeする。"
+      },
+      "limitations": {
+        "en": "The counter must increase on each request; no exact number of randomization attempts or retry strategy is imposed. Selected fixed, valid start constraints only; arbitrary random distribution, mode/locality semantics and every policy subtype remain separate.",
+        "ja": "各要求でcounterの増加を求めるが、randomize試行の正確な回数やretry方式は固定しない。固定した有効start制約だけで、任意乱数分布、mode／localityの意味、全policy subtypeは別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_manager_repeated_requests_randomize_the_selected_default_allocation_policy",
+          "role": "direct",
+          "expected_observations": [
+            "UT: default_alloc_first randomized 1 start 1 len 1 bounds 1",
+            "UT: default_alloc_next randomized 1 start 1 len 1 count 1 same 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAM-AUDIT-FAILED-REQUEST-NULL",
+      "clause": "18.12.5.2",
+      "statement": {
+        "en": "Contradictory or oversized allocation requests return null and reserve no region, leaving a valid reservation control possible.",
+        "ja": "矛盾または過大な割当要求はnullを返しregionを予約せず、有効予約controlを行える。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures and the explicit sizes, location offsets, handles and observations they declare. Allocation inputs are configured explicitly rather than relying on unspecified initial defaults.",
+        "ja": "linkした独自fixtureと、明示したsize、location offset、handle、観測を使う。割当入力は未規定の初期既定値へ依存せず明示設定する。"
+      },
+      "expected": {
+        "en": "Contradictory or oversized allocation requests return null and reserve no region, leaving a valid reservation control possible.",
+        "ja": "矛盾または過大な割当要求はnullを返しregionを予約せず、有効予約controlを行える。"
+      },
+      "limitations": {
+        "en": "Selected public API conditions only. Region/manager representations, allocation order, arbitrary randomness, concurrency and complete clause coverage are not certified. Original objects supply inputs and observations; they do not replace the manager or region algorithm.",
+        "ja": "選択した公開API条件だけ。region／manager表現、割当順序、任意の乱数、並行性、条項全体の網羅は認定しない。独自objectは入力と観測を供給し、manager／region algorithmを置換しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_manager_failed_policy_and_oversize_requests_reserve_no_region",
+          "role": "direct",
+          "expected_observations": [
+            "UT: failed_request contradiction 1 empty 1",
+            "UT: failed_request oversize 1 empty 1",
+            "UT: failed_request valid_control 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAM-AUDIT-INVALID-RELEASE-ERROR",
+      "clause": "18.12.5.3",
+      "statement": {
+        "en": "Releasing a foreign region or releasing an already released region reports an error.",
+        "ja": "他managerのregion解放、または解放済みregionの再解放はerrorをreportする。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures and the explicit sizes, location offsets, handles and observations they declare. Allocation inputs are configured explicitly rather than relying on unspecified initial defaults.",
+        "ja": "linkした独自fixtureと、明示したsize、location offset、handle、観測を使う。割当入力は未規定の初期既定値へ依存せず明示設定する。"
+      },
+      "expected": {
+        "en": "Releasing a foreign region or releasing an already released region reports an error.",
+        "ja": "他managerのregion解放、または解放済みregionの再解放はerrorをreportする。"
+      },
+      "limitations": {
+        "en": "Only the error is checked after each invalid release. All later allocation checks use a separately constructed valid manager; no state of the invalid-call target or foreign region is inspected or reused.",
+        "ja": "各不正解放後はerrorだけを確認する。以後の割当検査は別生成した有効managerを使い、不正呼出対象や他managerのregion状態を検査も再利用もしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_manager_rejects_a_foreign_region_before_an_independent_valid_control",
+          "role": "direct",
+          "expected_observations": [
+            "UT: invalid_release_error 1"
+          ]
+        },
+        {
+          "test": "u18/test_memory_manager_rejects_a_second_release_before_an_independent_valid_control",
+          "role": "direct",
+          "expected_observations": [
+            "UT: invalid_release_error 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAM-AUDIT-WRITE-CONTEXT",
+      "clause": "18.12.7.2.8",
+      "statement": {
+        "en": "Region write preserves selected parent/extension/path/map/priority context during delegation.",
+        "ja": "region writeは委譲時に選択parent／extension／path／map／priority contextを保持する。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures and the explicit sizes, location offsets, handles and observations they declare. Allocation inputs are configured explicitly rather than relying on unspecified initial defaults.",
+        "ja": "linkした独自fixtureと、明示したsize、location offset、handle、観測を使う。割当入力は未規定の初期既定値へ依存せず明示設定する。"
+      },
+      "expected": {
+        "en": "Region write preserves selected parent/extension/path/map/priority context during delegation.",
+        "ja": "region writeは委譲時に選択parent／extension／path／map／priority contextを保持する。"
+      },
+      "limitations": {
+        "en": "Delegation through an original memory subtype only: it observes absolute location/context inputs and supplies original response/status tokens. It does not model physical storage, actual HDL force/deposit, a real bus, callback timing or successful data after a failed read. Read data is checked only on success.",
+        "ja": "独自memory subtype経由の委譲だけ。絶対location／context入力を観測し、独自response／status tokenを供給する。物理storage、実HDL force／deposit、実bus、callback timing、失敗read後のdata有効性は扱わない。read dataは成功時だけ確認する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_region_write_delegates_relative_offsets_context_data_and_status",
+          "role": "direct",
+          "expected_observations": [
+            "UT: region_write 0 calls 1 offset 1 parent 1 extension 1 status 1",
+            "UT: region_write_value exact 1",
+            "UT: region_write 1 calls 2 offset 1 parent 1 extension 1 status 1",
+            "UT: region_path exact 1 map 1 priority 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAM-AUDIT-WRITE-STATUS",
+      "clause": "18.12.7.2.8",
+      "statement": {
+        "en": "Region write returns both selected successful and failed memory status values.",
+        "ja": "region writeは選択した成功と失敗のmemory status値を返す。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures and the explicit sizes, location offsets, handles and observations they declare. Allocation inputs are configured explicitly rather than relying on unspecified initial defaults.",
+        "ja": "linkした独自fixtureと、明示したsize、location offset、handle、観測を使う。割当入力は未規定の初期既定値へ依存せず明示設定する。"
+      },
+      "expected": {
+        "en": "Region write returns both selected successful and failed memory status values.",
+        "ja": "region writeは選択した成功と失敗のmemory status値を返す。"
+      },
+      "limitations": {
+        "en": "Delegation through an original memory subtype only: it observes absolute location/context inputs and supplies original response/status tokens. It does not model physical storage, actual HDL force/deposit, a real bus, callback timing or successful data after a failed read. Read data is checked only on success.",
+        "ja": "独自memory subtype経由の委譲だけ。絶対location／context入力を観測し、独自response／status tokenを供給する。物理storage、実HDL force／deposit、実bus、callback timing、失敗read後のdata有効性は扱わない。read dataは成功時だけ確認する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_region_write_delegates_relative_offsets_context_data_and_status",
+          "role": "direct",
+          "expected_observations": [
+            "UT: region_write 0 calls 1 offset 1 parent 1 extension 1 status 1",
+            "UT: region_write_value exact 1",
+            "UT: region_write 1 calls 2 offset 1 parent 1 extension 1 status 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAM-AUDIT-WRITE-DATA",
+      "clause": "18.12.7.2.8",
+      "statement": {
+        "en": "Region write passes the original selected write data to the memory without changing its value.",
+        "ja": "region writeは独自の選択write dataを値を変えずmemoryへ渡す。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures and the explicit sizes, location offsets, handles and observations they declare. Allocation inputs are configured explicitly rather than relying on unspecified initial defaults.",
+        "ja": "linkした独自fixtureと、明示したsize、location offset、handle、観測を使う。割当入力は未規定の初期既定値へ依存せず明示設定する。"
+      },
+      "expected": {
+        "en": "Region write passes the original selected write data to the memory without changing its value.",
+        "ja": "region writeは独自の選択write dataを値を変えずmemoryへ渡す。"
+      },
+      "limitations": {
+        "en": "Delegation through an original memory subtype only: it observes absolute location/context inputs and supplies original response/status tokens. It does not model physical storage, actual HDL force/deposit, a real bus, callback timing or successful data after a failed read. Read data is checked only on success.",
+        "ja": "独自memory subtype経由の委譲だけ。絶対location／context入力を観測し、独自response／status tokenを供給する。物理storage、実HDL force／deposit、実bus、callback timing、失敗read後のdata有効性は扱わない。read dataは成功時だけ確認する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_region_write_delegates_relative_offsets_context_data_and_status",
+          "role": "direct",
+          "expected_observations": [
+            "UT: region_write_value exact 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAM-AUDIT-READ-CONTEXT",
+      "clause": "18.12.7.2.9",
+      "statement": {
+        "en": "Region read preserves selected parent/extension/path/map/priority context during delegation.",
+        "ja": "region readは委譲時に選択parent／extension／path／map／priority contextを保持する。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures and the explicit sizes, location offsets, handles and observations they declare. Allocation inputs are configured explicitly rather than relying on unspecified initial defaults.",
+        "ja": "linkした独自fixtureと、明示したsize、location offset、handle、観測を使う。割当入力は未規定の初期既定値へ依存せず明示設定する。"
+      },
+      "expected": {
+        "en": "Region read preserves selected parent/extension/path/map/priority context during delegation.",
+        "ja": "region readは委譲時に選択parent／extension／path／map／priority contextを保持する。"
+      },
+      "limitations": {
+        "en": "Delegation through an original memory subtype only: it observes absolute location/context inputs and supplies original response/status tokens. It does not model physical storage, actual HDL force/deposit, a real bus, callback timing or successful data after a failed read. Read data is checked only on success.",
+        "ja": "独自memory subtype経由の委譲だけ。絶対location／context入力を観測し、独自response／status tokenを供給する。物理storage、実HDL force／deposit、実bus、callback timing、失敗read後のdata有効性は扱わない。read dataは成功時だけ確認する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_region_read_delegates_relative_offsets_context_data_and_status",
+          "role": "direct",
+          "expected_observations": [
+            "UT: region_read 0 calls 1 offset 1 parent 1 extension 1 status 1",
+            "UT: region_read_value exact 1",
+            "UT: region_read 1 calls 2 offset 1 parent 1 extension 1 status 1",
+            "UT: region_path exact 1 map 1 priority 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAM-AUDIT-READ-STATUS",
+      "clause": "18.12.7.2.9",
+      "statement": {
+        "en": "Region read returns both selected successful and failed memory status values.",
+        "ja": "region readは選択した成功と失敗のmemory status値を返す。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures and the explicit sizes, location offsets, handles and observations they declare. Allocation inputs are configured explicitly rather than relying on unspecified initial defaults.",
+        "ja": "linkした独自fixtureと、明示したsize、location offset、handle、観測を使う。割当入力は未規定の初期既定値へ依存せず明示設定する。"
+      },
+      "expected": {
+        "en": "Region read returns both selected successful and failed memory status values.",
+        "ja": "region readは選択した成功と失敗のmemory status値を返す。"
+      },
+      "limitations": {
+        "en": "Delegation through an original memory subtype only: it observes absolute location/context inputs and supplies original response/status tokens. It does not model physical storage, actual HDL force/deposit, a real bus, callback timing or successful data after a failed read. Read data is checked only on success.",
+        "ja": "独自memory subtype経由の委譲だけ。絶対location／context入力を観測し、独自response／status tokenを供給する。物理storage、実HDL force／deposit、実bus、callback timing、失敗read後のdata有効性は扱わない。read dataは成功時だけ確認する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_region_read_delegates_relative_offsets_context_data_and_status",
+          "role": "direct",
+          "expected_observations": [
+            "UT: region_read 0 calls 1 offset 1 parent 1 extension 1 status 1",
+            "UT: region_read_value exact 1",
+            "UT: region_read 1 calls 2 offset 1 parent 1 extension 1 status 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAM-AUDIT-READ-DATA",
+      "clause": "18.12.7.2.9",
+      "statement": {
+        "en": "Successful region read returns the original memory response data.",
+        "ja": "成功したregion readは元のmemory応答dataを返す。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures and the explicit sizes, location offsets, handles and observations they declare. Allocation inputs are configured explicitly rather than relying on unspecified initial defaults.",
+        "ja": "linkした独自fixtureと、明示したsize、location offset、handle、観測を使う。割当入力は未規定の初期既定値へ依存せず明示設定する。"
+      },
+      "expected": {
+        "en": "Successful region read returns the original memory response data.",
+        "ja": "成功したregion readは元のmemory応答dataを返す。"
+      },
+      "limitations": {
+        "en": "Delegation through an original memory subtype only: it observes absolute location/context inputs and supplies original response/status tokens. It does not model physical storage, actual HDL force/deposit, a real bus, callback timing or successful data after a failed read. Read data is checked only on success.",
+        "ja": "独自memory subtype経由の委譲だけ。絶対location／context入力を観測し、独自response／status tokenを供給する。物理storage、実HDL force／deposit、実bus、callback timing、失敗read後のdata有効性は扱わない。read dataは成功時だけ確認する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_region_read_delegates_relative_offsets_context_data_and_status",
+          "role": "direct",
+          "expected_observations": [
+            "UT: region_read_value exact 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAM-AUDIT-BURST-WRITE-OFFSET",
+      "clause": "18.12.7.2.10",
+      "statement": {
+        "en": "Region burst_write converts the selected first/last relative offset to the implementing memory location.",
+        "ja": "region burst_writeは選択した先頭／末尾relative offsetを実装memory locationへ変換する。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures and the explicit sizes, location offsets, handles and observations they declare. Allocation inputs are configured explicitly rather than relying on unspecified initial defaults.",
+        "ja": "linkした独自fixtureと、明示したsize、location offset、handle、観測を使う。割当入力は未規定の初期既定値へ依存せず明示設定する。"
+      },
+      "expected": {
+        "en": "Region burst_write converts the selected first/last relative offset to the implementing memory location.",
+        "ja": "region burst_writeは選択した先頭／末尾relative offsetを実装memory locationへ変換する。"
+      },
+      "limitations": {
+        "en": "Delegation through an original memory subtype only: it observes absolute location/context inputs and supplies original response/status tokens. It does not model physical storage, actual HDL force/deposit, a real bus, callback timing or successful data after a failed read. Read data is checked only on success. The underlying memory burst_write declaration omits offset while its prose specifies a starting offset; this fixture uses the region signature and that prose, with an observing override accepting offset. The signature/prose reading stays qualified. The observing memory location width equals the register-data element width; a four-location region keeps both two-element requests within its boundaries.",
+        "ja": "独自memory subtype経由の委譲だけ。絶対location／context入力を観測し、独自response／status tokenを供給する。物理storage、実HDL force／deposit、実bus、callback timing、失敗read後のdata有効性は扱わない。read dataは成功時だけ確認する。 下位memory burst_write宣言はoffsetを省略する一方、本文は開始offsetを規定する。本fixtureはregion signatureと本文を使い、offsetを受けるoverrideで観測する。signature／本文の読み方は限定して保持する。 観測memoryのlocation幅をregister-data要素幅へ揃え、4-location領域で両2要素要求を境界内に保つ。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_region_burst_write_delegates_relative_offsets_context_data_and_status",
+          "role": "direct",
+          "expected_observations": [
+            "UT: region_burst_write 0 calls 1 offset 1 parent 1 extension 1 status 1",
+            "UT: region_burst_write 1 calls 2 offset 1 parent 1 extension 1 status 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAM-AUDIT-BURST-WRITE-CONTEXT",
+      "clause": "18.12.7.2.10",
+      "statement": {
+        "en": "Region burst_write preserves selected parent/extension/path/map/priority context during delegation.",
+        "ja": "region burst_writeは委譲時に選択parent／extension／path／map／priority contextを保持する。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures and the explicit sizes, location offsets, handles and observations they declare. Allocation inputs are configured explicitly rather than relying on unspecified initial defaults.",
+        "ja": "linkした独自fixtureと、明示したsize、location offset、handle、観測を使う。割当入力は未規定の初期既定値へ依存せず明示設定する。"
+      },
+      "expected": {
+        "en": "Region burst_write preserves selected parent/extension/path/map/priority context during delegation.",
+        "ja": "region burst_writeは委譲時に選択parent／extension／path／map／priority contextを保持する。"
+      },
+      "limitations": {
+        "en": "Delegation through an original memory subtype only: it observes absolute location/context inputs and supplies original response/status tokens. It does not model physical storage, actual HDL force/deposit, a real bus, callback timing or successful data after a failed read. Read data is checked only on success. The underlying memory burst_write declaration omits offset while its prose specifies a starting offset; this fixture uses the region signature and that prose, with an observing override accepting offset. The signature/prose reading stays qualified. The observing memory location width equals the register-data element width; a four-location region keeps both two-element requests within its boundaries.",
+        "ja": "独自memory subtype経由の委譲だけ。絶対location／context入力を観測し、独自response／status tokenを供給する。物理storage、実HDL force／deposit、実bus、callback timing、失敗read後のdata有効性は扱わない。read dataは成功時だけ確認する。 下位memory burst_write宣言はoffsetを省略する一方、本文は開始offsetを規定する。本fixtureはregion signatureと本文を使い、offsetを受けるoverrideで観測する。signature／本文の読み方は限定して保持する。 観測memoryのlocation幅をregister-data要素幅へ揃え、4-location領域で両2要素要求を境界内に保つ。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_region_burst_write_delegates_relative_offsets_context_data_and_status",
+          "role": "direct",
+          "expected_observations": [
+            "UT: region_burst_write 0 calls 1 offset 1 parent 1 extension 1 status 1",
+            "UT: region_burst_write 1 calls 2 offset 1 parent 1 extension 1 status 1",
+            "UT: region_path exact 1 map 1 priority 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAM-AUDIT-BURST-WRITE-STATUS",
+      "clause": "18.12.7.2.10",
+      "statement": {
+        "en": "Region burst_write returns both selected successful and failed memory status values.",
+        "ja": "region burst_writeは選択した成功と失敗のmemory status値を返す。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures and the explicit sizes, location offsets, handles and observations they declare. Allocation inputs are configured explicitly rather than relying on unspecified initial defaults.",
+        "ja": "linkした独自fixtureと、明示したsize、location offset、handle、観測を使う。割当入力は未規定の初期既定値へ依存せず明示設定する。"
+      },
+      "expected": {
+        "en": "Region burst_write returns both selected successful and failed memory status values.",
+        "ja": "region burst_writeは選択した成功と失敗のmemory status値を返す。"
+      },
+      "limitations": {
+        "en": "Delegation through an original memory subtype only: it observes absolute location/context inputs and supplies original response/status tokens. It does not model physical storage, actual HDL force/deposit, a real bus, callback timing or successful data after a failed read. Read data is checked only on success. The underlying memory burst_write declaration omits offset while its prose specifies a starting offset; this fixture uses the region signature and that prose, with an observing override accepting offset. The signature/prose reading stays qualified. The observing memory location width equals the register-data element width; a four-location region keeps both two-element requests within its boundaries.",
+        "ja": "独自memory subtype経由の委譲だけ。絶対location／context入力を観測し、独自response／status tokenを供給する。物理storage、実HDL force／deposit、実bus、callback timing、失敗read後のdata有効性は扱わない。read dataは成功時だけ確認する。 下位memory burst_write宣言はoffsetを省略する一方、本文は開始offsetを規定する。本fixtureはregion signatureと本文を使い、offsetを受けるoverrideで観測する。signature／本文の読み方は限定して保持する。 観測memoryのlocation幅をregister-data要素幅へ揃え、4-location領域で両2要素要求を境界内に保つ。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_region_burst_write_delegates_relative_offsets_context_data_and_status",
+          "role": "direct",
+          "expected_observations": [
+            "UT: region_burst_write 0 calls 1 offset 1 parent 1 extension 1 status 1",
+            "UT: region_burst_write 1 calls 2 offset 1 parent 1 extension 1 status 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAM-AUDIT-BURST-WRITE-DATA",
+      "clause": "18.12.7.2.10",
+      "statement": {
+        "en": "Region burst_write passes the original selected write data to the memory without changing its value.",
+        "ja": "region burst_writeは独自の選択write dataを値を変えずmemoryへ渡す。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures and the explicit sizes, location offsets, handles and observations they declare. Allocation inputs are configured explicitly rather than relying on unspecified initial defaults.",
+        "ja": "linkした独自fixtureと、明示したsize、location offset、handle、観測を使う。割当入力は未規定の初期既定値へ依存せず明示設定する。"
+      },
+      "expected": {
+        "en": "Region burst_write passes the original selected write data to the memory without changing its value.",
+        "ja": "region burst_writeは独自の選択write dataを値を変えずmemoryへ渡す。"
+      },
+      "limitations": {
+        "en": "Delegation through an original memory subtype only: it observes absolute location/context inputs and supplies original response/status tokens. It does not model physical storage, actual HDL force/deposit, a real bus, callback timing or successful data after a failed read. Read data is checked only on success. The underlying memory burst_write declaration omits offset while its prose specifies a starting offset; this fixture uses the region signature and that prose, with an observing override accepting offset. The signature/prose reading stays qualified. The observing memory location width equals the register-data element width; a four-location region keeps both two-element requests within its boundaries.",
+        "ja": "独自memory subtype経由の委譲だけ。絶対location／context入力を観測し、独自response／status tokenを供給する。物理storage、実HDL force／deposit、実bus、callback timing、失敗read後のdata有効性は扱わない。read dataは成功時だけ確認する。 下位memory burst_write宣言はoffsetを省略する一方、本文は開始offsetを規定する。本fixtureはregion signatureと本文を使い、offsetを受けるoverrideで観測する。signature／本文の読み方は限定して保持する。 観測memoryのlocation幅をregister-data要素幅へ揃え、4-location領域で両2要素要求を境界内に保つ。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_region_burst_write_delegates_relative_offsets_context_data_and_status",
+          "role": "direct",
+          "expected_observations": [
+            "UT: region_write_value exact 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAM-AUDIT-BURST-READ-OFFSET",
+      "clause": "18.12.7.2.11",
+      "statement": {
+        "en": "Region burst_read converts the selected first/last relative offset to the implementing memory location.",
+        "ja": "region burst_readは選択した先頭／末尾relative offsetを実装memory locationへ変換する。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures and the explicit sizes, location offsets, handles and observations they declare. Allocation inputs are configured explicitly rather than relying on unspecified initial defaults.",
+        "ja": "linkした独自fixtureと、明示したsize、location offset、handle、観測を使う。割当入力は未規定の初期既定値へ依存せず明示設定する。"
+      },
+      "expected": {
+        "en": "Region burst_read converts the selected first/last relative offset to the implementing memory location.",
+        "ja": "region burst_readは選択した先頭／末尾relative offsetを実装memory locationへ変換する。"
+      },
+      "limitations": {
+        "en": "Delegation through an original memory subtype only: it observes absolute location/context inputs and supplies original response/status tokens. It does not model physical storage, actual HDL force/deposit, a real bus, callback timing or successful data after a failed read. Read data is checked only on success. The region declaration uses output whereas the memory declaration uses ref for the array. A preallocated caller array is only setup, and the original observer supplies two outputs. This does not settle every burst-length selection rule or the output/ref discrepancy. The observing memory location width equals the register-data element width; a four-location region keeps both two-element requests within its boundaries.",
+        "ja": "独自memory subtype経由の委譲だけ。絶対location／context入力を観測し、独自response／status tokenを供給する。物理storage、実HDL force／deposit、実bus、callback timing、失敗read後のdata有効性は扱わない。read dataは成功時だけ確認する。 region宣言はarrayにoutput、memory宣言はrefを使う。事前割当caller arrayは準備に限り、独自observerが出力2つを供給する。全burst長選択規則やoutput／refの食違いは解決しない。 観測memoryのlocation幅をregister-data要素幅へ揃え、4-location領域で両2要素要求を境界内に保つ。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_region_burst_read_delegates_relative_offsets_context_data_and_status",
+          "role": "direct",
+          "expected_observations": [
+            "UT: region_burst_read 0 calls 1 offset 1 parent 1 extension 1 status 1",
+            "UT: region_burst_read 1 calls 2 offset 1 parent 1 extension 1 status 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAM-AUDIT-BURST-READ-CONTEXT",
+      "clause": "18.12.7.2.11",
+      "statement": {
+        "en": "Region burst_read preserves selected parent/extension/path/map/priority context during delegation.",
+        "ja": "region burst_readは委譲時に選択parent／extension／path／map／priority contextを保持する。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures and the explicit sizes, location offsets, handles and observations they declare. Allocation inputs are configured explicitly rather than relying on unspecified initial defaults.",
+        "ja": "linkした独自fixtureと、明示したsize、location offset、handle、観測を使う。割当入力は未規定の初期既定値へ依存せず明示設定する。"
+      },
+      "expected": {
+        "en": "Region burst_read preserves selected parent/extension/path/map/priority context during delegation.",
+        "ja": "region burst_readは委譲時に選択parent／extension／path／map／priority contextを保持する。"
+      },
+      "limitations": {
+        "en": "Delegation through an original memory subtype only: it observes absolute location/context inputs and supplies original response/status tokens. It does not model physical storage, actual HDL force/deposit, a real bus, callback timing or successful data after a failed read. Read data is checked only on success. The region declaration uses output whereas the memory declaration uses ref for the array. A preallocated caller array is only setup, and the original observer supplies two outputs. This does not settle every burst-length selection rule or the output/ref discrepancy. The observing memory location width equals the register-data element width; a four-location region keeps both two-element requests within its boundaries.",
+        "ja": "独自memory subtype経由の委譲だけ。絶対location／context入力を観測し、独自response／status tokenを供給する。物理storage、実HDL force／deposit、実bus、callback timing、失敗read後のdata有効性は扱わない。read dataは成功時だけ確認する。 region宣言はarrayにoutput、memory宣言はrefを使う。事前割当caller arrayは準備に限り、独自observerが出力2つを供給する。全burst長選択規則やoutput／refの食違いは解決しない。 観測memoryのlocation幅をregister-data要素幅へ揃え、4-location領域で両2要素要求を境界内に保つ。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_region_burst_read_delegates_relative_offsets_context_data_and_status",
+          "role": "direct",
+          "expected_observations": [
+            "UT: region_burst_read 0 calls 1 offset 1 parent 1 extension 1 status 1",
+            "UT: region_burst_read 1 calls 2 offset 1 parent 1 extension 1 status 1",
+            "UT: region_path exact 1 map 1 priority 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAM-AUDIT-BURST-READ-STATUS",
+      "clause": "18.12.7.2.11",
+      "statement": {
+        "en": "Region burst_read returns both selected successful and failed memory status values.",
+        "ja": "region burst_readは選択した成功と失敗のmemory status値を返す。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures and the explicit sizes, location offsets, handles and observations they declare. Allocation inputs are configured explicitly rather than relying on unspecified initial defaults.",
+        "ja": "linkした独自fixtureと、明示したsize、location offset、handle、観測を使う。割当入力は未規定の初期既定値へ依存せず明示設定する。"
+      },
+      "expected": {
+        "en": "Region burst_read returns both selected successful and failed memory status values.",
+        "ja": "region burst_readは選択した成功と失敗のmemory status値を返す。"
+      },
+      "limitations": {
+        "en": "Delegation through an original memory subtype only: it observes absolute location/context inputs and supplies original response/status tokens. It does not model physical storage, actual HDL force/deposit, a real bus, callback timing or successful data after a failed read. Read data is checked only on success. The region declaration uses output whereas the memory declaration uses ref for the array. A preallocated caller array is only setup, and the original observer supplies two outputs. This does not settle every burst-length selection rule or the output/ref discrepancy. The observing memory location width equals the register-data element width; a four-location region keeps both two-element requests within its boundaries.",
+        "ja": "独自memory subtype経由の委譲だけ。絶対location／context入力を観測し、独自response／status tokenを供給する。物理storage、実HDL force／deposit、実bus、callback timing、失敗read後のdata有効性は扱わない。read dataは成功時だけ確認する。 region宣言はarrayにoutput、memory宣言はrefを使う。事前割当caller arrayは準備に限り、独自observerが出力2つを供給する。全burst長選択規則やoutput／refの食違いは解決しない。 観測memoryのlocation幅をregister-data要素幅へ揃え、4-location領域で両2要素要求を境界内に保つ。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_region_burst_read_delegates_relative_offsets_context_data_and_status",
+          "role": "direct",
+          "expected_observations": [
+            "UT: region_burst_read 0 calls 1 offset 1 parent 1 extension 1 status 1",
+            "UT: region_burst_read 1 calls 2 offset 1 parent 1 extension 1 status 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAM-AUDIT-BURST-READ-DATA",
+      "clause": "18.12.7.2.11",
+      "statement": {
+        "en": "Successful region burst_read returns the original memory response data.",
+        "ja": "成功したregion burst_readは元のmemory応答dataを返す。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures and the explicit sizes, location offsets, handles and observations they declare. Allocation inputs are configured explicitly rather than relying on unspecified initial defaults.",
+        "ja": "linkした独自fixtureと、明示したsize、location offset、handle、観測を使う。割当入力は未規定の初期既定値へ依存せず明示設定する。"
+      },
+      "expected": {
+        "en": "Successful region burst_read returns the original memory response data.",
+        "ja": "成功したregion burst_readは元のmemory応答dataを返す。"
+      },
+      "limitations": {
+        "en": "Delegation through an original memory subtype only: it observes absolute location/context inputs and supplies original response/status tokens. It does not model physical storage, actual HDL force/deposit, a real bus, callback timing or successful data after a failed read. Read data is checked only on success. The region declaration uses output whereas the memory declaration uses ref for the array. A preallocated caller array is only setup, and the original observer supplies two outputs. This does not settle every burst-length selection rule or the output/ref discrepancy. The observing memory location width equals the register-data element width; a four-location region keeps both two-element requests within its boundaries.",
+        "ja": "独自memory subtype経由の委譲だけ。絶対location／context入力を観測し、独自response／status tokenを供給する。物理storage、実HDL force／deposit、実bus、callback timing、失敗read後のdata有効性は扱わない。read dataは成功時だけ確認する。 region宣言はarrayにoutput、memory宣言はrefを使う。事前割当caller arrayは準備に限り、独自observerが出力2つを供給する。全burst長選択規則やoutput／refの食違いは解決しない。 観測memoryのlocation幅をregister-data要素幅へ揃え、4-location領域で両2要素要求を境界内に保つ。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_region_burst_read_delegates_relative_offsets_context_data_and_status",
+          "role": "direct",
+          "expected_observations": [
+            "UT: region_read_value size 2 first 1 second 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAM-AUDIT-POKE-OFFSET",
+      "clause": "18.12.7.2.12",
+      "statement": {
+        "en": "Region poke converts the selected first/last relative offset to the implementing memory location.",
+        "ja": "region pokeは選択した先頭／末尾relative offsetを実装memory locationへ変換する。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures and the explicit sizes, location offsets, handles and observations they declare. Allocation inputs are configured explicitly rather than relying on unspecified initial defaults.",
+        "ja": "linkした独自fixtureと、明示したsize、location offset、handle、観測を使う。割当入力は未規定の初期既定値へ依存せず明示設定する。"
+      },
+      "expected": {
+        "en": "Region poke converts the selected first/last relative offset to the implementing memory location.",
+        "ja": "region pokeは選択した先頭／末尾relative offsetを実装memory locationへ変換する。"
+      },
+      "limitations": {
+        "en": "Delegation through an original memory subtype only: it observes absolute location/context inputs and supplies original response/status tokens. It does not model physical storage, actual HDL force/deposit, a real bus, callback timing or successful data after a failed read. Read data is checked only on success.",
+        "ja": "独自memory subtype経由の委譲だけ。絶対location／context入力を観測し、独自response／status tokenを供給する。物理storage、実HDL force／deposit、実bus、callback timing、失敗read後のdata有効性は扱わない。read dataは成功時だけ確認する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_region_poke_delegates_relative_offsets_context_data_and_status",
+          "role": "direct",
+          "expected_observations": [
+            "UT: region_poke 0 calls 1 offset 1 parent 1 extension 1 status 1",
+            "UT: region_poke 1 calls 2 offset 1 parent 1 extension 1 status 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAM-AUDIT-POKE-CONTEXT",
+      "clause": "18.12.7.2.12",
+      "statement": {
+        "en": "Region poke preserves selected parent/extension context during delegation.",
+        "ja": "region pokeは委譲時に選択parent／extension contextを保持する。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures and the explicit sizes, location offsets, handles and observations they declare. Allocation inputs are configured explicitly rather than relying on unspecified initial defaults.",
+        "ja": "linkした独自fixtureと、明示したsize、location offset、handle、観測を使う。割当入力は未規定の初期既定値へ依存せず明示設定する。"
+      },
+      "expected": {
+        "en": "Region poke preserves selected parent/extension context during delegation.",
+        "ja": "region pokeは委譲時に選択parent／extension contextを保持する。"
+      },
+      "limitations": {
+        "en": "Delegation through an original memory subtype only: it observes absolute location/context inputs and supplies original response/status tokens. It does not model physical storage, actual HDL force/deposit, a real bus, callback timing or successful data after a failed read. Read data is checked only on success.",
+        "ja": "独自memory subtype経由の委譲だけ。絶対location／context入力を観測し、独自response／status tokenを供給する。物理storage、実HDL force／deposit、実bus、callback timing、失敗read後のdata有効性は扱わない。read dataは成功時だけ確認する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_region_poke_delegates_relative_offsets_context_data_and_status",
+          "role": "direct",
+          "expected_observations": [
+            "UT: region_poke 0 calls 1 offset 1 parent 1 extension 1 status 1",
+            "UT: region_poke 1 calls 2 offset 1 parent 1 extension 1 status 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAM-AUDIT-POKE-STATUS",
+      "clause": "18.12.7.2.12",
+      "statement": {
+        "en": "Region poke returns both selected successful and failed memory status values.",
+        "ja": "region pokeは選択した成功と失敗のmemory status値を返す。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures and the explicit sizes, location offsets, handles and observations they declare. Allocation inputs are configured explicitly rather than relying on unspecified initial defaults.",
+        "ja": "linkした独自fixtureと、明示したsize、location offset、handle、観測を使う。割当入力は未規定の初期既定値へ依存せず明示設定する。"
+      },
+      "expected": {
+        "en": "Region poke returns both selected successful and failed memory status values.",
+        "ja": "region pokeは選択した成功と失敗のmemory status値を返す。"
+      },
+      "limitations": {
+        "en": "Delegation through an original memory subtype only: it observes absolute location/context inputs and supplies original response/status tokens. It does not model physical storage, actual HDL force/deposit, a real bus, callback timing or successful data after a failed read. Read data is checked only on success.",
+        "ja": "独自memory subtype経由の委譲だけ。絶対location／context入力を観測し、独自response／status tokenを供給する。物理storage、実HDL force／deposit、実bus、callback timing、失敗read後のdata有効性は扱わない。read dataは成功時だけ確認する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_region_poke_delegates_relative_offsets_context_data_and_status",
+          "role": "direct",
+          "expected_observations": [
+            "UT: region_poke 0 calls 1 offset 1 parent 1 extension 1 status 1",
+            "UT: region_poke 1 calls 2 offset 1 parent 1 extension 1 status 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAM-AUDIT-POKE-DATA",
+      "clause": "18.12.7.2.12",
+      "statement": {
+        "en": "Region poke passes the original selected write data to the memory without changing its value.",
+        "ja": "region pokeは独自の選択write dataを値を変えずmemoryへ渡す。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures and the explicit sizes, location offsets, handles and observations they declare. Allocation inputs are configured explicitly rather than relying on unspecified initial defaults.",
+        "ja": "linkした独自fixtureと、明示したsize、location offset、handle、観測を使う。割当入力は未規定の初期既定値へ依存せず明示設定する。"
+      },
+      "expected": {
+        "en": "Region poke passes the original selected write data to the memory without changing its value.",
+        "ja": "region pokeは独自の選択write dataを値を変えずmemoryへ渡す。"
+      },
+      "limitations": {
+        "en": "Delegation through an original memory subtype only: it observes absolute location/context inputs and supplies original response/status tokens. It does not model physical storage, actual HDL force/deposit, a real bus, callback timing or successful data after a failed read. Read data is checked only on success.",
+        "ja": "独自memory subtype経由の委譲だけ。絶対location／context入力を観測し、独自response／status tokenを供給する。物理storage、実HDL force／deposit、実bus、callback timing、失敗read後のdata有効性は扱わない。read dataは成功時だけ確認する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_region_poke_delegates_relative_offsets_context_data_and_status",
+          "role": "direct",
+          "expected_observations": [
+            "UT: region_write_value exact 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAM-AUDIT-PEEK-OFFSET",
+      "clause": "18.12.7.2.13",
+      "statement": {
+        "en": "Region peek converts the selected first/last relative offset to the implementing memory location.",
+        "ja": "region peekは選択した先頭／末尾relative offsetを実装memory locationへ変換する。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures and the explicit sizes, location offsets, handles and observations they declare. Allocation inputs are configured explicitly rather than relying on unspecified initial defaults.",
+        "ja": "linkした独自fixtureと、明示したsize、location offset、handle、観測を使う。割当入力は未規定の初期既定値へ依存せず明示設定する。"
+      },
+      "expected": {
+        "en": "Region peek converts the selected first/last relative offset to the implementing memory location.",
+        "ja": "region peekは選択した先頭／末尾relative offsetを実装memory locationへ変換する。"
+      },
+      "limitations": {
+        "en": "Delegation through an original memory subtype only: it observes absolute location/context inputs and supplies original response/status tokens. It does not model physical storage, actual HDL force/deposit, a real bus, callback timing or successful data after a failed read. Read data is checked only on success.",
+        "ja": "独自memory subtype経由の委譲だけ。絶対location／context入力を観測し、独自response／status tokenを供給する。物理storage、実HDL force／deposit、実bus、callback timing、失敗read後のdata有効性は扱わない。read dataは成功時だけ確認する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_region_peek_delegates_relative_offsets_context_data_and_status",
+          "role": "direct",
+          "expected_observations": [
+            "UT: region_peek 0 calls 1 offset 1 parent 1 extension 1 status 1",
+            "UT: region_peek 1 calls 2 offset 1 parent 1 extension 1 status 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAM-AUDIT-PEEK-CONTEXT",
+      "clause": "18.12.7.2.13",
+      "statement": {
+        "en": "Region peek preserves selected parent/extension context during delegation.",
+        "ja": "region peekは委譲時に選択parent／extension contextを保持する。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures and the explicit sizes, location offsets, handles and observations they declare. Allocation inputs are configured explicitly rather than relying on unspecified initial defaults.",
+        "ja": "linkした独自fixtureと、明示したsize、location offset、handle、観測を使う。割当入力は未規定の初期既定値へ依存せず明示設定する。"
+      },
+      "expected": {
+        "en": "Region peek preserves selected parent/extension context during delegation.",
+        "ja": "region peekは委譲時に選択parent／extension contextを保持する。"
+      },
+      "limitations": {
+        "en": "Delegation through an original memory subtype only: it observes absolute location/context inputs and supplies original response/status tokens. It does not model physical storage, actual HDL force/deposit, a real bus, callback timing or successful data after a failed read. Read data is checked only on success.",
+        "ja": "独自memory subtype経由の委譲だけ。絶対location／context入力を観測し、独自response／status tokenを供給する。物理storage、実HDL force／deposit、実bus、callback timing、失敗read後のdata有効性は扱わない。read dataは成功時だけ確認する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_region_peek_delegates_relative_offsets_context_data_and_status",
+          "role": "direct",
+          "expected_observations": [
+            "UT: region_peek 0 calls 1 offset 1 parent 1 extension 1 status 1",
+            "UT: region_peek 1 calls 2 offset 1 parent 1 extension 1 status 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAM-AUDIT-PEEK-STATUS",
+      "clause": "18.12.7.2.13",
+      "statement": {
+        "en": "Region peek returns both selected successful and failed memory status values.",
+        "ja": "region peekは選択した成功と失敗のmemory status値を返す。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures and the explicit sizes, location offsets, handles and observations they declare. Allocation inputs are configured explicitly rather than relying on unspecified initial defaults.",
+        "ja": "linkした独自fixtureと、明示したsize、location offset、handle、観測を使う。割当入力は未規定の初期既定値へ依存せず明示設定する。"
+      },
+      "expected": {
+        "en": "Region peek returns both selected successful and failed memory status values.",
+        "ja": "region peekは選択した成功と失敗のmemory status値を返す。"
+      },
+      "limitations": {
+        "en": "Delegation through an original memory subtype only: it observes absolute location/context inputs and supplies original response/status tokens. It does not model physical storage, actual HDL force/deposit, a real bus, callback timing or successful data after a failed read. Read data is checked only on success.",
+        "ja": "独自memory subtype経由の委譲だけ。絶対location／context入力を観測し、独自response／status tokenを供給する。物理storage、実HDL force／deposit、実bus、callback timing、失敗read後のdata有効性は扱わない。read dataは成功時だけ確認する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_region_peek_delegates_relative_offsets_context_data_and_status",
+          "role": "direct",
+          "expected_observations": [
+            "UT: region_peek 0 calls 1 offset 1 parent 1 extension 1 status 1",
+            "UT: region_peek 1 calls 2 offset 1 parent 1 extension 1 status 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAM-AUDIT-PEEK-DATA",
+      "clause": "18.12.7.2.13",
+      "statement": {
+        "en": "Successful region peek returns the original memory response data.",
+        "ja": "成功したregion peekは元のmemory応答dataを返す。"
+      },
+      "conditions": {
+        "en": "Use the linked original fixtures and the explicit sizes, location offsets, handles and observations they declare. Allocation inputs are configured explicitly rather than relying on unspecified initial defaults.",
+        "ja": "linkした独自fixtureと、明示したsize、location offset、handle、観測を使う。割当入力は未規定の初期既定値へ依存せず明示設定する。"
+      },
+      "expected": {
+        "en": "Successful region peek returns the original memory response data.",
+        "ja": "成功したregion peekは元のmemory応答dataを返す。"
+      },
+      "limitations": {
+        "en": "Delegation through an original memory subtype only: it observes absolute location/context inputs and supplies original response/status tokens. It does not model physical storage, actual HDL force/deposit, a real bus, callback timing or successful data after a failed read. Read data is checked only on success.",
+        "ja": "独自memory subtype経由の委譲だけ。絶対location／context入力を観測し、独自response／status tokenを供給する。物理storage、実HDL force／deposit、実bus、callback timing、失敗read後のdata有効性は扱わない。read dataは成功時だけ確認する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_region_peek_delegates_relative_offsets_context_data_and_status",
+          "role": "direct",
+          "expected_observations": [
+            "UT: region_read_value exact 1"
           ]
         }
       ]

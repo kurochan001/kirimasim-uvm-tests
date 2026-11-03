@@ -3336,6 +3336,108 @@
         "reviewer": null,
         "reviewed_at": null
       }
+    },
+    {
+      "clause": "18.12.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "Types groups the allocation-mode and locality enumerations; their behavioral meanings remain separate normative clauses.",
+        "ja": "Typesは割当modeとlocalityのenumを整理し、その動作上の意味は独立した規範条項に残す。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "18.12.4",
+      "classification": "structural",
+      "rationale": {
+        "en": "Methods groups manager construction and reconfiguration; it adds no independent default or operation.",
+        "ja": "Methodsはmanager生成と再設定を整理し、独立した既定値や操作を追加しない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "18.12.5",
+      "classification": "structural",
+      "rationale": {
+        "en": "Memory management is the heading for reserve, request and release methods specified in its children.",
+        "ja": "Memory managementは下位に規定するreserve、request、release methodの見出しである。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "18.12.6",
+      "classification": "structural",
+      "rationale": {
+        "en": "Introspection groups textual state, iteration and memory queries; each child still needs its own duties.",
+        "ja": "Introspectionは状態文面、反復、memory照会を整理し、各下位条項の義務は独立に必要である。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "18.12.7.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "Methods groups the region accessors and transfer operations without adding a separate operation.",
+        "ja": "Methodsはregion accessorと転送操作を整理し、独立した操作を追加しない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "18.12.9.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "Variables groups configuration fields; it does not specify initial defaults or exhaust mode/locality semantics.",
+        "ja": "Variablesはconfiguration fieldを整理し、初期既定値を規定せず、mode／localityの意味全体も完了しない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "18.12.9",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The introduction identifies the configuration descriptor as specifying the manager memory. Concrete bytes-per-location and range duties remain linked; mode/locality behavior is still unassessed and no undocumented defaults are inferred.",
+        "ja": "導入はconfiguration descriptorがmanager memoryを指定すると説明する。具体的なlocation当たりbyte数とrange義務はlinkして保持し、mode／locality動作は未評価のまま、未記載既定値も推測しない。"
+      },
+      "related_requirements": [
+        "UVM-MAM-AUDIT-CONFIGURATION-BYTE-UNITS",
+        "UVM-MAM-AUDIT-CONFIGURATION-FIRST",
+        "UVM-MAM-AUDIT-CONFIGURATION-LAST"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
     }
   ]
 }

@@ -1,0 +1,6 @@
+UT: region_write 0 calls 1 offset 1 parent 1 extension 1 status 1
+UT: region_write_value exact 1
+UT: region_path exact 1 map 1 priority 1
+UT: region_write 1 calls 2 offset 1 parent 1 extension 1 status 1
+UT: region_write_value exact 1
+UT: region_path exact 1 map 1 priority 1

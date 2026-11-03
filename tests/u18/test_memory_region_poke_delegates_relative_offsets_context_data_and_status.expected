@@ -1,0 +1,4 @@
+UT: region_poke 0 calls 1 offset 1 parent 1 extension 1 status 1
+UT: region_write_value exact 1
+UT: region_poke 1 calls 2 offset 1 parent 1 extension 1 status 1
+UT: region_write_value exact 1

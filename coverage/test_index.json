@@ -4154,6 +4154,14 @@
       "primary_clause": "18.6.4.17",
       "inputs_sha256": "7c4ca6301406a8b736a97dc883bf486fc34cc05f65870dea775d5fd47fce5cc3"
     },
+    "u18/test_memory_manager_configuration_query_and_compatible_shrink_preserve_active_regions": {
+      "primary_clause": "18.12.4.2",
+      "inputs_sha256": "ca607ab92b017a9ecdaa86b48c8b22195f1d7ef7cb637c0e27e6ab2b0d50a036"
+    },
+    "u18/test_memory_manager_constructor_and_regions_preserve_optional_memory_identity": {
+      "primary_clause": "18.12.4.1",
+      "inputs_sha256": "af3922307d9b185dd30351d4499ff27453eb2e4d7fd2d89f965e7f610e1c2b36"
+    },
     "u18/test_memory_manager_default_policy_is_used_only_when_no_explicit_policy_is_supplied": {
       "primary_clause": "18.12.5.2",
       "inputs_sha256": "e0ca9a8704f7159c97bf8f81f20f61ca5140b4064cdd9d705ec136b8c42141b3"
@@ -4162,13 +4170,33 @@
       "primary_clause": "18.12.5.1",
       "inputs_sha256": "4b3d2a2c305651c0aae522031e6a639e648814d8e6f83465a4f000bfaabf4162"
     },
+    "u18/test_memory_manager_failed_policy_and_oversize_requests_reserve_no_region": {
+      "primary_clause": "18.12.5.2",
+      "inputs_sha256": "552ff143e7ea34417ee421dceb4bb75100ab8cb36210bcd6c34033384016f352"
+    },
     "u18/test_memory_manager_iteration_visits_each_region_once_without_assuming_order": {
       "primary_clause": "18.12.6.2",
       "inputs_sha256": "dd25252c8c36a11e3e1ed2ef5c726f3a66fe6a188257f74388605d422c8cedea"
     },
+    "u18/test_memory_manager_iterator_handles_empty_exhausted_reset_and_release_all_states": {
+      "primary_clause": "18.12.6.2",
+      "inputs_sha256": "b6503697f5442b208499777ae1940dd0ecab43203ef79ed23b74f9e839edbe99"
+    },
+    "u18/test_memory_manager_range_boundaries_apply_in_locations_for_each_byte_width": {
+      "primary_clause": "18.12.9.2.1",
+      "inputs_sha256": "be9f23115680d3486fd51ff596fca6d607f55fa76a98c813ec388edc34a1d8be"
+    },
     "u18/test_memory_manager_reconfiguration_returns_previous_config_and_preserves_regions": {
       "primary_clause": "18.12.4.2",
       "inputs_sha256": "1155f16a5cd805b94f4b4a57905380707a9c6703dcd7a238a543718ec68eb0d1"
+    },
+    "u18/test_memory_manager_rejects_a_foreign_region_before_an_independent_valid_control": {
+      "primary_clause": "18.12.5.3",
+      "inputs_sha256": "2b4a572d0c662936b6918149e7332cf478c42ed6dd9c0c68a193f4cc9ce5b7e2"
+    },
+    "u18/test_memory_manager_rejects_a_second_release_before_an_independent_valid_control": {
+      "primary_clause": "18.12.5.3",
+      "inputs_sha256": "325803a87c3de42540b246b976b6ba3d43d860c3dedd0c3c8c26b2d2bfe42f3e"
     },
     "u18/test_memory_manager_rejects_overlap_and_accepts_an_adjacent_region": {
       "primary_clause": "18.12.5.1",
@@ -4181,6 +4209,10 @@
     "u18/test_memory_manager_release_all_returns_the_entire_pool": {
       "primary_clause": "18.12.5.4",
       "inputs_sha256": "06506cea24a57844e0f830945e1b455dc4fdb0d0bc9389d4d3d0d3f26a8cb48f"
+    },
+    "u18/test_memory_manager_repeated_requests_randomize_the_selected_default_allocation_policy": {
+      "primary_clause": "18.12.3",
+      "inputs_sha256": "7a8a79fe2cea691ec75d89215a2d8f8f7a5a398b2209231ac492fbc0a36ed7a8"
     },
     "u18/test_memory_manager_request_region_uses_a_singleton_allocation_policy": {
       "primary_clause": "18.12.5.2",
@@ -4202,9 +4234,45 @@
       "primary_clause": "18.12.8",
       "inputs_sha256": "fe921af50bb39283444f77ad15ccc50bc48fab479d248e8c5c6ef6853eaeb7e5"
     },
+    "u18/test_memory_region_burst_read_delegates_relative_offsets_context_data_and_status": {
+      "primary_clause": "18.12.7.2.11",
+      "inputs_sha256": "a87bd2ac440f162fd33855304e0d4fcc540904c3d8e9fd1a1414aa6bc491d0a6"
+    },
+    "u18/test_memory_region_burst_write_delegates_relative_offsets_context_data_and_status": {
+      "primary_clause": "18.12.7.2.10",
+      "inputs_sha256": "684a154e48f28bbf653cda4b4560dd6a973fb2fd7db4812ba91eb5ac60688dfd"
+    },
     "u18/test_memory_region_frontdoor_access_translates_region_relative_offsets": {
       "primary_clause": "18.12.7.2.8",
       "inputs_sha256": "a09af85e49fc64c27dd6608f1b9e67d5315842ac4c7a7cda33df7f544f1739dc"
+    },
+    "u18/test_memory_region_peek_delegates_relative_offsets_context_data_and_status": {
+      "primary_clause": "18.12.7.2.13",
+      "inputs_sha256": "1e78999f134d1f90e3f104c226e729247dad36fb1d958e06041f719f03dbafe1"
+    },
+    "u18/test_memory_region_poke_delegates_relative_offsets_context_data_and_status": {
+      "primary_clause": "18.12.7.2.12",
+      "inputs_sha256": "726b6692be1716524a08ef3414f35f54b7605186bcec337b99af562e78a032d8"
+    },
+    "u18/test_memory_region_read_delegates_relative_offsets_context_data_and_status": {
+      "primary_clause": "18.12.7.2.9",
+      "inputs_sha256": "cbae483433889131e2bb434c916868404283dab9227fb1bfe145a596765c8446"
+    },
+    "u18/test_memory_region_release_returns_only_its_own_range_to_the_manager": {
+      "primary_clause": "18.12.7.2.5",
+      "inputs_sha256": "78a4138c7ebd0a9f583dfd46e03362d8e3ef2a8dbd833e1e0e92b20238a9a820"
+    },
+    "u18/test_memory_region_reservation_persists_until_an_explicit_release": {
+      "primary_clause": "18.12",
+      "inputs_sha256": "903fdf0d8a06c586cdd690e6760771dac2350658849be537de599fea037e7b0a"
+    },
+    "u18/test_memory_region_write_delegates_relative_offsets_context_data_and_status": {
+      "primary_clause": "18.12.7.2.8",
+      "inputs_sha256": "307127bc89f9d265d0d302c612fe3ad1eeb102cdd92d745fd5492e6f8ed5ae4b"
+    },
+    "u18/test_memory_regions_round_requested_bytes_to_complete_address_locations": {
+      "primary_clause": "18.12.7.2.1",
+      "inputs_sha256": "ff49ffddf46b612b0b25e2b8382ee57bb6e14890c1db668f5c0beb43745af5c0"
     },
     "u18/test_reg_block_default_map_selection_and_recursive_model_lock": {
       "primary_clause": "18.1.2.5",

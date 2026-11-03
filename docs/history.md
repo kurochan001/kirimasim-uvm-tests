@@ -3,8 +3,8 @@
 [日本語](history.ja.md) · [README](../README.md)
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and forty-three cross-milestone thin-area expansions, including the
-existing-test requirement-link backlog checkpoint (1501 tests: 1469 simulation and 32 elaboration). The earlier 349-test checkpoint is
+three M4 increments and forty-four cross-milestone thin-area expansions, including the
+existing-test requirement-link backlog checkpoint (1518 tests: 1486 simulation and 32 elaboration). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -3028,6 +3028,36 @@ The suite is 1501 (1469 simulation/32 elaboration): M1 553 (529/24), M2 516
 two illegal compile acceptances). Guest evidence retains 1084 compatible
 runtime inputs with 417 unmeasured (385 simulation/32 elaboration). Separate
 VPI evidence is unchanged. All 110 tool tests and metadata, ledger/library,
+evidence and bilingual checks pass. Schema, runner/library/catalog, workflow
+and SVGs are unchanged. No guest execution, human review, denominator approval
+or goal completion is claimed.
+
+## Forty-fourth thin-area expansion across M1–M4
+
+Seventeen M3 runtime fixtures add memory-manager/memory identity, region
+descriptor units and byte rounding, inclusive boundaries, persistent
+reservation, invalid foreign/double release with independent controls,
+iteration, configuration queries/shrink, repeated default-policy randomization,
+failed requests and six transfer delegation methods. All match seeds 1/73
+with final metadata. Original observer construction/signatures were corrected;
+failed read data is not asserted. Transfer spies establish wrapper delegation,
+not a physical storage/backend. The memory burst-write offset omission and
+region burst-read output/ref discrepancy remain qualified.
+
+All 1501 prior inputs/records and 222 assessments are retained. Forty-four
+new bilingual AI drafts reach 2392; eight old duties gain direct links with
+their other fields and prior links unchanged. Six structural and one contextual
+assessment bring totals to 1337 partial/229 assessed/941 unassessed. Chapter 18
+is 227/25/204. MAM has six unassessed identifiers, including mode/locality
+semantics, textual state and region overview; all partial conditions stay open.
+Goal iteration 16 reduces unassessed by 29, or 522 since activation.
+
+The suite is 1518 (1486 simulation/32 elaboration): M1 553 (529/24), M2 516
+(513/3), M3 449 (444/5). Ordinary Verilator is 1329 pass (1299 two-seed runtime,
+30 compiler rejections), with 189 known unchanged (144 runtime, 43 simulation
+builds, two illegal compile acceptances). Guest evidence retains 1084 current
+runtime inputs with 434 unmeasured (402 simulation/32 elaboration). Separate
+VPI records are unchanged. All 110 tool tests, metadata, ledger/library,
 evidence and bilingual checks pass. Schema, runner/library/catalog, workflow
 and SVGs are unchanged. No guest execution, human review, denominator approval
 or goal completion is claimed.

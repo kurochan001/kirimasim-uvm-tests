@@ -2,7 +2,7 @@
 
 [English](history.md) · [README](../README.ja.md)
 
-M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の43回目の拡充（全1501件：simulation 1469・elaboration 32）までを記録しています。以前の349件の時点は
+M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の44回目の拡充（全1518件：simulation 1486・elaboration 32）までを記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -2028,5 +2028,21 @@ SHALLOWと既定field flagの読み方は限定して保持します。独自obs
 全1501件はsimulation 1469／elaboration 32、M1 553（529／24）、M2 516（513／3）、M3 432（427／5）です。
 通常Verilatorは1312 pass（runtime両seed一致1282、期待compiler拒否30）、known 189（runtime 144、simulation build 43、不正compile受理2）です。
 guest evidenceは互換なruntime 1084入力を保持し、未測定417件（simulation 385／elaboration 32）です。別VPI evidenceは未変更です。
+tool test 110件、metadata、台帳／library、evidence、日英検査は成功します。schema、runner／library／catalog、workflow、SVGは未変更です。
+guest実行、人のレビュー、分母承認、goal完了は主張しません。
+
+## M1〜M4の薄い領域の44回目の拡充
+
+M3 runtime 17 fixtureでmanager／memory同一性、region descriptor単位とbyte丸め、包含境界、予約保持、独立control付き他manager／二重解放、反復、設定照会／縮小、default-policy反復randomize、割当失敗、転送委譲6 methodを追加します。
+全て最終metadataでseed 1／73に一致します。独自observerの生成／signatureを修正し、失敗read dataは検査しません。
+転送spyはwrapper委譲を立証し、物理storage／backendを立証しません。memory burst-writeのoffset省略とregion burst-readのoutput／refの食違いは限定した解釈を保持します。
+
+以前の1501入力／記録と分類222件を全て保持します。日英AI案44件で2392件となり、既存義務8件へ他fieldと元linkを変えず直接linkを追加します。
+構造6件と文脈1件の分類で部分分解1337／分類229／未評価941、第18章は227／25／204です。
+MAMの未評価6番号にはmode／localityの意味、状態文面、region概要があり、部分条件も全て残ります。goal第16反復で未評価29番号、有効化以降522番号減ります。
+
+全1518件はsimulation 1486／elaboration 32、M1 553（529／24）、M2 516（513／3）、M3 449（444／5）です。
+通常Verilatorは1329 pass（runtime両seed一致1299、compiler拒否30）、known 189は未変更（runtime 144、simulation build 43、不正compile受理2）です。
+guest evidenceは現在と互換なruntime 1084入力を保持し、未測定434件（simulation 402／elaboration 32）です。別VPI記録は未変更です。
 tool test 110件、metadata、台帳／library、evidence、日英検査は成功します。schema、runner／library／catalog、workflow、SVGは未変更です。
 guest実行、人のレビュー、分母承認、goal完了は主張しません。

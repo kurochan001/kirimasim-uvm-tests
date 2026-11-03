@@ -1111,3 +1111,10 @@ operation order. History can become FINISHED before the active object is popped.
 
 **Independent post-error control**: A separately constructed valid policy used
 after testing an invalid request, without relying on the invalid policy's state.
+
+**Region location unit**: The address unit counted by region offsets and
+length. Configured bytes per location convert a byte request into whole locations.
+
+**Region delegation observer**: An original memory subtype that observes a
+region's translated API inputs and supplies response data/status. It does not
+establish physical storage or bus/HDL transfer behavior.
