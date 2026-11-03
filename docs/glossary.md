@@ -870,3 +870,17 @@ ownership held on a different sequencer.
 value versus its model mirror. Individual byte writes preserve the live neighbor;
 whole-register fallback writes use the mirrored neighbor in a best effort.
 See [Q157](faq.md#q157-does-a-byte-enabled-field-access-preserve-its-neighbor).
+
+## Shared messages and controlled fatal observations
+
+**Preformed report message** — A caller-created message supplied directly to a
+report object for processing. Current report-object binding and callback access
+to that same object are separate observable obligations.
+
+**Controlled fatal sentinel** — A testbench-owned termination after the required
+original fatal severity is observed. Declared nonzero exit and its own diagnostic
+make the fixture end explicit without requiring post-fatal continuation.
+
+**Field width / physical bus width** — The logical field size versus the data
+width of each physical transfer. Layout, byte sharing and endian ordering all
+matter; individual eligibility alone does not establish correct transfer data.

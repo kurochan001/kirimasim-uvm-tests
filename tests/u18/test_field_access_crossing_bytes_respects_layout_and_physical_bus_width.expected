@@ -1,0 +1,3 @@
+UT: target bits 8 lsb 4 individual 0
+UT: write ok 1 storage 15a3 mirror 15a3 mask 3 address 20
+UT: read ok 1 value 6b mirror e6b7 mask 3 address 20 requests 2

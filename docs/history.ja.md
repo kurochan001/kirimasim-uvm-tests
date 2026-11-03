@@ -2,7 +2,7 @@
 
 [English](history.md) · [README](../README.ja.md)
 
-M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の25回目の拡充（シミュレーション1238件）までを記録しています。以前の349件の時点は
+M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の26回目の拡充（シミュレーション1250件）までを記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -1690,3 +1690,20 @@ AI要求案44件を加えて1529件となり、すべて1237テストへ直接�
 日英10組のguideを照合し、現在の件数を更新します。FAQ 3件と用語3件を加え、157回答・178語です。
 tool単体88件、全1238 metadata、台帳／索引／library、日英参照、現在の入力のevidenceを検査します。
 既存simulation入力、runner、VPI backend、scope、lock、license、SVG 6 assetは未変更です。
+
+## M1〜M4の薄い領域の26回目の拡充
+
+事前構成／受付の報告4件、既定sequencerなしの所有API 4件、field配置／endian 4件の12検査系を追加します。
+全体1250件、M1 421件、M2 450件、M3 379件です。最終入力8件は両seedで一致し、3件は標準catcher get_report_message欠落でbuildできません。
+1件はnarrow busのbig-endian field address／dataでseed 1の差分を保持します。little-endian、byte共有、byte境界をまたぐ対照は一致します。
+fatal probeは必須severityを観測した後、検査系自身の意図的なfatal sentinel、宣言したnonzero終了と固有診断を使います。
+先行する終了方法の試行は検査系の診断であり、適合性の差分として保持しません。
+
+互換evidenceは以前の1238記録を保持し、pass 1113件、known 137件です。内訳は実行時差分116件、API欠落build 13件、DPI未link build 8件です。
+重複するVPI条件はpass 7件・fail 1件のままで、guestは未変更1085入力、165件は未測定です。
+AI要求案46件で台帳は1575件、1249テストへ直接対応し、別control 1件があります。未変更のpriority／照会検査系3件の明示対応は再測定ではありません。
+個別に読んだ見出し4件を加え、分類66件は構造64件・文脈2件です。2,504番号のうち部分分解951件、未評価1,487件で、減少18件は新たな分解14件と分類4件です。
+主引用609番号、いずれかの引用1,250番号、候補の棚卸しは0件1,870、1件341、2件以上268です。
+
+日英10組を検査し、FAQ 160回答・用語181語です。tool単体88件、metadata 1250件、正本台帳／索引、library整合性、日英参照、互換evidenceを検証します。
+以前のsimulation入力、runner、VPI backend、scope、lock、license、SVG 6 assetは未変更です。範囲／分母の承認と人のレビューは未完です。

@@ -888,6 +888,62 @@
         "reviewer": null,
         "reviewed_at": null
       }
+    },
+    {
+      "clause": "6.2.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "Common-methods heading groups separately numbered message creation and print methods; it adds no independent operation.",
+        "ja": "Common methods見出しは番号付きのmessage生成／print methodをまとめ、独立した操作を追加しない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "6.2.3",
+      "classification": "structural",
+      "rationale": {
+        "en": "Infrastructure-references heading organizes reference accessors; obligations remain in the individual numbered methods.",
+        "ja": "Infrastructure references見出しは参照accessorを整理し、義務は番号付きの各methodにある。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "6.2.4",
+      "classification": "structural",
+      "rationale": {
+        "en": "Message-fields heading groups field accessors and bulk initialization without an independent behavior.",
+        "ja": "Message fields見出しはfield accessorと一括初期化をまとめ、独立した動作を追加しない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "18.5.4",
+      "classification": "structural",
+      "rationale": {
+        "en": "Introspection heading groups the field-query methods; it specifies no separate query behavior.",
+        "ja": "Introspection見出しはfield照会methodをまとめ、別の照会動作を指定しない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
     }
   ]
 }

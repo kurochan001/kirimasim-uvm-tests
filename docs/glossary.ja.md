@@ -672,3 +672,14 @@ printerの書式を固定せず、到達したobjectを識別します。
 **Live neighbor / mirrored neighbor（実際の隣接値／mirrorの隣接値）** — 隣接fieldのbus model上の値とmodel mirrorの値です。
 個別byteのwriteは実際の隣接値を保持し、全registerへのfallback writeは最善の試みとしてmirrorの隣接値を使います。
 [Q157](faq.ja.md#q157-byte-enableでのfieldアクセスは隣接fieldを保持しますか)を参照してください。
+
+## 共有messageと制御したfatal観測
+
+**Preformed report message（事前構成した報告message）** — 呼出し側が作り、report objectへ直接処理を依頼するmessageです。
+現在のreport-object参照の設定と、callbackが同じobjectへアクセスすることは、別の観測対象です。
+
+**Controlled fatal sentinel（制御したfatal sentinel）** — 必須の元のfatal severityを観測してから、検査系自身が行う終了です。
+宣言したnonzero終了と自身の診断で、fatal後の継続を要求せず検査系の終了を明示します。
+
+**Field width / physical bus width（field幅／物理bus幅）** — 論理fieldの大きさと各物理転送のdata幅です。
+配置、byte共有、endian順のすべてが関係し、個別アクセス可否だけでは正しい転送dataを示しません。

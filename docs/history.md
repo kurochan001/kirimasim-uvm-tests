@@ -3,8 +3,8 @@
 [日本語](history.ja.md) · [README](../README.md)
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and twenty-five cross-milestone thin-area expansions, including the
-existing-test requirement-link backlog checkpoint (1238 simulation tests). The earlier 349-test checkpoint is
+three M4 increments and twenty-six cross-milestone thin-area expansions, including the
+existing-test requirement-link backlog checkpoint (1250 simulation tests). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -2397,3 +2397,33 @@ and three glossary entries bring totals to 157 and 178. Validation covers
 88 tool unit tests, metadata for all 1238 tests, ledger/index/library checks,
 bilingual references and current-input evidence. Existing simulation inputs,
 runners, VPI backend, scope, lock, licenses and six SVG assets remain unchanged.
+
+## Twenty-sixth thin-area expansion across M1–M4
+
+Twelve fixtures add four preformed/admission reporting cases, four missing-default
+sequence ownership API cases and four field-layout/endian cases. Totals are
+1250 simulations: M1 421, M2 450 and M3 379. Eight final inputs match both seeds;
+three cannot build because the standard catcher get_report_message is absent;
+one first differs at seed 1 in narrow-bus big-endian field addresses/data.
+Little-endian, shared-byte and byte-crossing controls match. Fatal probes use
+their own intentional fatal sentinel, declared nonzero exit and unique fixture
+diagnostic after observing the required severity. Earlier termination attempts
+were fixture diagnostics, not retained conformance differences.
+
+Compatible evidence retains 1238 previous records: 1113 pass, 137 known
+(116 runtime differences, thirteen missing-API builds and eight unlinked-DPI
+builds). The overlapping VPI condition stays seven pass and one fail. Guest
+records cover 1085 unchanged inputs; 165 are unmeasured. Forty-six AI drafts
+bring the ledger to 1575, directly linked to 1249 tests plus one control test.
+Three unchanged priority/introspection fixtures gain explicit links without
+remeasurement. Four individually read headings bring classifications to
+sixty-six: sixty-four structural and two contextual. Of 2,504 identifiers,
+951 are partially decomposed and 1,487 unassessed; the decrease of eighteen
+is fourteen new decompositions plus four classifications. Primary focus is
+609, any citation 1,250; candidate census is 1,870 zero, 341 one, 268 at least two.
+
+Ten language pairs are checked, with 160 FAQ answers and 181 glossary entries.
+Validation covers 88 tool tests, 1250 metadata records, canonical ledger/index,
+library integrity, bilingual links and compatible evidence. Prior simulation
+inputs, runners, VPI backend, scope, lock, licenses and six SVG assets are
+unchanged. Scope/denominator approval and human review remain open.

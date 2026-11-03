@@ -57324,6 +57324,1640 @@
           ]
         }
       ]
+    },
+    {
+      "id": "UVM-CATCHER-PREFORMED-CURRENT-MESSAGE-IDENTITY",
+      "clause": "6.6.3.10",
+      "statement": {
+        "en": "get_report_message exposes the actual preformed message currently being caught.",
+        "ja": "get_report_messageは、現在catchしている事前構成messageそのものを返す。"
+      },
+      "conditions": {
+        "en": "The caller retains its supplied handle during direct processing, live mutation and sequential reuse.",
+        "ja": "直接処理、live変更、逐次再利用で、呼出し側が指定したhandleを保持する。"
+      },
+      "expected": {
+        "en": "The catcher handle equals that supplied message in all selected contexts.",
+        "ja": "各対象contextで、catcherのhandleが指定したmessageと一致する。"
+      },
+      "limitations": {
+        "en": "Original preformed messages and sequential local callbacks only; no recording, output formatting or concurrent reuse is asserted. Missing get_report_message implementations leave these runtime observations unmeasured rather than replacing that API.",
+        "ja": "独自の事前構成messageと逐次local callbackのみ。recording、出力書式、並行再利用は評価しない。get_report_messageがない実装では、そのAPIを置換せず実行時の観測を未測定とする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_catcher_exposes_the_supplied_preformed_message_and_current_origin",
+          "role": "direct",
+          "expected_observations": [
+            "UT: visits 1 same_message 1 current_origin 1 fields 1"
+          ]
+        },
+        {
+          "test": "u06/test_report_catcher_message_handle_mutations_are_live_in_tail_and_caller",
+          "role": "direct",
+          "expected_observations": [
+            "UT: tail visits 1 same 1 core 1 location 1 action 1"
+          ]
+        },
+        {
+          "test": "u06/test_preformed_report_reuse_rebinds_origin_and_actions_for_each_reporter",
+          "role": "direct",
+          "expected_observations": [
+            "UT: first visits 1 same 1 origin 1 action 1",
+            "UT: second visits 2 same 1 origin 1 action 1 caller_origin 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REPORT-MESSAGE-LIVE-SEVERITY",
+      "clause": "6.2.4.1",
+      "statement": {
+        "en": "A public message setter changes the shared current-message severity value.",
+        "ja": "公開message setterは、共有する現在messageのseverity値を変更する。"
+      },
+      "conditions": {
+        "en": "The first catcher obtains the current handle and uses the message setter before THROW.",
+        "ja": "先頭catcherは現在のhandleを取得し、THROW前にmessageのsetterを使う。"
+      },
+      "expected": {
+        "en": "Tail getters and the caller alias both observe WARNING.",
+        "ja": "末尾getterと呼出し側のaliasの両方がWARNINGを観測する。"
+      },
+      "limitations": {
+        "en": "Original preformed messages and sequential local callbacks only; no recording, output formatting or concurrent reuse is asserted. Missing get_report_message implementations leave these runtime observations unmeasured rather than replacing that API.",
+        "ja": "独自の事前構成messageと逐次local callbackのみ。recording、出力書式、並行再利用は評価しない。get_report_messageがない実装では、そのAPIを置換せず実行時の観測を未測定とする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_catcher_message_handle_mutations_are_live_in_tail_and_caller",
+          "role": "direct",
+          "expected_observations": [
+            "UT: tail visits 1 same 1 core 1 location 1 action 1",
+            "UT: caller core 1 location 1 action 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REPORT-MESSAGE-LIVE-ID",
+      "clause": "6.2.4.2",
+      "statement": {
+        "en": "A public message setter changes the shared current-message id value.",
+        "ja": "公開message setterは、共有する現在messageのid値を変更する。"
+      },
+      "conditions": {
+        "en": "The first catcher obtains the current handle and uses the message setter before THROW.",
+        "ja": "先頭catcherは現在のhandleを取得し、THROW前にmessageのsetterを使う。"
+      },
+      "expected": {
+        "en": "Tail getters and the caller alias both observe alias.",
+        "ja": "末尾getterと呼出し側のaliasの両方がaliasを観測する。"
+      },
+      "limitations": {
+        "en": "Original preformed messages and sequential local callbacks only; no recording, output formatting or concurrent reuse is asserted. Missing get_report_message implementations leave these runtime observations unmeasured rather than replacing that API.",
+        "ja": "独自の事前構成messageと逐次local callbackのみ。recording、出力書式、並行再利用は評価しない。get_report_messageがない実装では、そのAPIを置換せず実行時の観測を未測定とする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_catcher_message_handle_mutations_are_live_in_tail_and_caller",
+          "role": "direct",
+          "expected_observations": [
+            "UT: tail visits 1 same 1 core 1 location 1 action 1",
+            "UT: caller core 1 location 1 action 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REPORT-MESSAGE-LIVE-TEXT",
+      "clause": "6.2.4.3",
+      "statement": {
+        "en": "A public message setter changes the shared current-message text value.",
+        "ja": "公開message setterは、共有する現在messageのtext値を変更する。"
+      },
+      "conditions": {
+        "en": "The first catcher obtains the current handle and uses the message setter before THROW.",
+        "ja": "先頭catcherは現在のhandleを取得し、THROW前にmessageのsetterを使う。"
+      },
+      "expected": {
+        "en": "Tail getters and the caller alias both observe alias payload.",
+        "ja": "末尾getterと呼出し側のaliasの両方がalias payloadを観測する。"
+      },
+      "limitations": {
+        "en": "Original preformed messages and sequential local callbacks only; no recording, output formatting or concurrent reuse is asserted. Missing get_report_message implementations leave these runtime observations unmeasured rather than replacing that API.",
+        "ja": "独自の事前構成messageと逐次local callbackのみ。recording、出力書式、並行再利用は評価しない。get_report_messageがない実装では、そのAPIを置換せず実行時の観測を未測定とする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_catcher_message_handle_mutations_are_live_in_tail_and_caller",
+          "role": "direct",
+          "expected_observations": [
+            "UT: tail visits 1 same 1 core 1 location 1 action 1",
+            "UT: caller core 1 location 1 action 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REPORT-MESSAGE-LIVE-VERBOSITY",
+      "clause": "6.2.4.4",
+      "statement": {
+        "en": "A public message setter changes the shared current-message verbosity value.",
+        "ja": "公開message setterは、共有する現在messageのverbosity値を変更する。"
+      },
+      "conditions": {
+        "en": "The first catcher obtains the current handle and uses the message setter before THROW.",
+        "ja": "先頭catcherは現在のhandleを取得し、THROW前にmessageのsetterを使う。"
+      },
+      "expected": {
+        "en": "Tail getters and the caller alias both observe HIGH.",
+        "ja": "末尾getterと呼出し側のaliasの両方がHIGHを観測する。"
+      },
+      "limitations": {
+        "en": "Original preformed messages and sequential local callbacks only; no recording, output formatting or concurrent reuse is asserted. Missing get_report_message implementations leave these runtime observations unmeasured rather than replacing that API.",
+        "ja": "独自の事前構成messageと逐次local callbackのみ。recording、出力書式、並行再利用は評価しない。get_report_messageがない実装では、そのAPIを置換せず実行時の観測を未測定とする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_catcher_message_handle_mutations_are_live_in_tail_and_caller",
+          "role": "direct",
+          "expected_observations": [
+            "UT: tail visits 1 same 1 core 1 location 1 action 1",
+            "UT: caller core 1 location 1 action 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REPORT-MESSAGE-LIVE-FILENAME",
+      "clause": "6.2.4.5",
+      "statement": {
+        "en": "A public message setter changes the shared current-message filename value.",
+        "ja": "公開message setterは、共有する現在messageのfilename値を変更する。"
+      },
+      "conditions": {
+        "en": "The first catcher obtains the current handle and uses the message setter before THROW.",
+        "ja": "先頭catcherは現在のhandleを取得し、THROW前にmessageのsetterを使う。"
+      },
+      "expected": {
+        "en": "Tail getters and the caller alias both observe alias.sv.",
+        "ja": "末尾getterと呼出し側のaliasの両方がalias.svを観測する。"
+      },
+      "limitations": {
+        "en": "Original preformed messages and sequential local callbacks only; no recording, output formatting or concurrent reuse is asserted. Missing get_report_message implementations leave these runtime observations unmeasured rather than replacing that API.",
+        "ja": "独自の事前構成messageと逐次local callbackのみ。recording、出力書式、並行再利用は評価しない。get_report_messageがない実装では、そのAPIを置換せず実行時の観測を未測定とする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_catcher_message_handle_mutations_are_live_in_tail_and_caller",
+          "role": "direct",
+          "expected_observations": [
+            "UT: tail visits 1 same 1 core 1 location 1 action 1",
+            "UT: caller core 1 location 1 action 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REPORT-MESSAGE-LIVE-LINE",
+      "clause": "6.2.4.6",
+      "statement": {
+        "en": "A public message setter changes the shared current-message line value.",
+        "ja": "公開message setterは、共有する現在messageのline値を変更する。"
+      },
+      "conditions": {
+        "en": "The first catcher obtains the current handle and uses the message setter before THROW.",
+        "ja": "先頭catcherは現在のhandleを取得し、THROW前にmessageのsetterを使う。"
+      },
+      "expected": {
+        "en": "Tail getters and the caller alias both observe 91.",
+        "ja": "末尾getterと呼出し側のaliasの両方が91を観測する。"
+      },
+      "limitations": {
+        "en": "Original preformed messages and sequential local callbacks only; no recording, output formatting or concurrent reuse is asserted. Missing get_report_message implementations leave these runtime observations unmeasured rather than replacing that API.",
+        "ja": "独自の事前構成messageと逐次local callbackのみ。recording、出力書式、並行再利用は評価しない。get_report_messageがない実装では、そのAPIを置換せず実行時の観測を未測定とする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_catcher_message_handle_mutations_are_live_in_tail_and_caller",
+          "role": "direct",
+          "expected_observations": [
+            "UT: tail visits 1 same 1 core 1 location 1 action 1",
+            "UT: caller core 1 location 1 action 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REPORT-MESSAGE-LIVE-CONTEXT",
+      "clause": "6.2.4.7",
+      "statement": {
+        "en": "A public message setter changes the shared current-message context value.",
+        "ja": "公開message setterは、共有する現在messageのcontext値を変更する。"
+      },
+      "conditions": {
+        "en": "The first catcher obtains the current handle and uses the message setter before THROW.",
+        "ja": "先頭catcherは現在のhandleを取得し、THROW前にmessageのsetterを使う。"
+      },
+      "expected": {
+        "en": "Tail getters and the caller alias both observe alias.ctx.",
+        "ja": "末尾getterと呼出し側のaliasの両方がalias.ctxを観測する。"
+      },
+      "limitations": {
+        "en": "Original preformed messages and sequential local callbacks only; no recording, output formatting or concurrent reuse is asserted. Missing get_report_message implementations leave these runtime observations unmeasured rather than replacing that API.",
+        "ja": "独自の事前構成messageと逐次local callbackのみ。recording、出力書式、並行再利用は評価しない。get_report_messageがない実装では、そのAPIを置換せず実行時の観測を未測定とする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_catcher_message_handle_mutations_are_live_in_tail_and_caller",
+          "role": "direct",
+          "expected_observations": [
+            "UT: tail visits 1 same 1 core 1 location 1 action 1",
+            "UT: caller core 1 location 1 action 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REPORT-MESSAGE-LIVE-ACTION",
+      "clause": "6.2.4.8",
+      "statement": {
+        "en": "A public message setter changes the shared current-message action value.",
+        "ja": "公開message setterは、共有する現在messageのaction値を変更する。"
+      },
+      "conditions": {
+        "en": "The first catcher obtains the current handle and uses the message setter before THROW.",
+        "ja": "先頭catcherは現在のhandleを取得し、THROW前にmessageのsetterを使う。"
+      },
+      "expected": {
+        "en": "Tail getters and the caller alias both observe DISPLAY with COUNT.",
+        "ja": "末尾getterと呼出し側のaliasの両方がDISPLAY with COUNTを観測する。"
+      },
+      "limitations": {
+        "en": "Original preformed messages and sequential local callbacks only; no recording, output formatting or concurrent reuse is asserted. Missing get_report_message implementations leave these runtime observations unmeasured rather than replacing that API.",
+        "ja": "独自の事前構成messageと逐次local callbackのみ。recording、出力書式、並行再利用は評価しない。get_report_messageがない実装では、そのAPIを置換せず実行時の観測を未測定とする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_catcher_message_handle_mutations_are_live_in_tail_and_caller",
+          "role": "direct",
+          "expected_observations": [
+            "UT: tail visits 1 same 1 core 1 location 1 action 1",
+            "UT: caller core 1 location 1 action 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PREFORMED-ORIGIN-REPLACES-OLD-REFERENCE",
+      "clause": "6.3.3.4",
+      "statement": {
+        "en": "Processing a preformed message populates its current report object.",
+        "ja": "事前構成messageの処理は、現在のreport objectを設定する。"
+      },
+      "conditions": {
+        "en": "The message initially names an obsolete origin before another reporter processes it.",
+        "ja": "別のreporterで処理する前に、messageへ以前の生成元を設定する。"
+      },
+      "expected": {
+        "en": "Callback and caller see the processing reporter as the origin.",
+        "ja": "callbackと呼出し側は、処理するreporterを生成元として観測する。"
+      },
+      "limitations": {
+        "en": "Original preformed messages and sequential local callbacks only; no recording, output formatting or concurrent reuse is asserted. Missing get_report_message implementations leave these runtime observations unmeasured rather than replacing that API.",
+        "ja": "独自の事前構成messageと逐次local callbackのみ。recording、出力書式、並行再利用は評価しない。get_report_messageがない実装では、そのAPIを置換せず実行時の観測を未測定とする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_catcher_exposes_the_supplied_preformed_message_and_current_origin",
+          "role": "direct",
+          "expected_observations": [
+            "UT: visits 1 same_message 1 current_origin 1 fields 1",
+            "UT: caller_origin 1 report_object 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PREFORMED-REUSE-REBINDS-ORIGIN",
+      "clause": "6.3.3.4",
+      "statement": {
+        "en": "Sequential preformed-message reuse updates the report-object reference for each reporter.",
+        "ja": "事前構成messageを逐次再利用すると、reporterごとにreport-object参照を更新する。"
+      },
+      "conditions": {
+        "en": "The same message passes first through one reporter, then through a second.",
+        "ja": "同じmessageを、最初のreporter、次に2つ目のreporterへ渡す。"
+      },
+      "expected": {
+        "en": "Both callbacks see their current reporter; the final caller reference names the second.",
+        "ja": "両callbackが現在のreporterを観測し、最後の呼出し側参照は2つ目を指す。"
+      },
+      "limitations": {
+        "en": "Original preformed messages and sequential local callbacks only; no recording, output formatting or concurrent reuse is asserted. Missing get_report_message implementations leave these runtime observations unmeasured rather than replacing that API.",
+        "ja": "独自の事前構成messageと逐次local callbackのみ。recording、出力書式、並行再利用は評価しない。get_report_messageがない実装では、そのAPIを置換せず実行時の観測を未測定とする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_preformed_report_reuse_rebinds_origin_and_actions_for_each_reporter",
+          "role": "direct",
+          "expected_observations": [
+            "UT: first visits 1 same 1 origin 1 action 1",
+            "UT: second visits 2 same 1 origin 1 action 1 caller_origin 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PREFORMED-REUSE-FOLLOWS-CURRENT-ACTIONS",
+      "clause": "6.3.5.2",
+      "statement": {
+        "en": "Current reporter action configuration applies when a preformed message is reused.",
+        "ja": "事前構成messageの再利用時は、現在のreporterのaction設定を適用する。"
+      },
+      "conditions": {
+        "en": "Two reporters configure DISPLAY and DISPLAY with COUNT respectively, and catch before emission.",
+        "ja": "2 reporterでDISPLAYとDISPLAY＋COUNTを設定し、発行前にcatchする。"
+      },
+      "expected": {
+        "en": "The callback sees the selected action from each current reporter.",
+        "ja": "callbackは各現在reporterの選択actionを観測する。"
+      },
+      "limitations": {
+        "en": "Original preformed messages and sequential local callbacks only; no recording, output formatting or concurrent reuse is asserted. Missing get_report_message implementations leave these runtime observations unmeasured rather than replacing that API.",
+        "ja": "独自の事前構成messageと逐次local callbackのみ。recording、出力書式、並行再利用は評価しない。get_report_messageがない実装では、そのAPIを置換せず実行時の観測を未測定とする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_preformed_report_reuse_rebinds_origin_and_actions_for_each_reporter",
+          "role": "direct",
+          "expected_observations": [
+            "UT: first visits 1 same 1 origin 1 action 1",
+            "UT: second visits 2 same 1 origin 1 action 1 caller_origin 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PREFORMED-REPORT-OBJECT-SELF-REFERENCE",
+      "clause": "6.3.3.1",
+      "statement": {
+        "en": "uvm_get_report_object on a report object returns that same object.",
+        "ja": "report objectのuvm_get_report_objectは、そのobject自身を返す。"
+      },
+      "conditions": {
+        "en": "A concrete local report object is queried after processing a preformed report.",
+        "ja": "事前構成報告の処理後に、具体的なlocal report objectを照会する。"
+      },
+      "expected": {
+        "en": "The returned reference equals the queried reporter.",
+        "ja": "戻った参照が照会したreporterと一致する。"
+      },
+      "limitations": {
+        "en": "Original preformed messages and sequential local callbacks only; no recording, output formatting or concurrent reuse is asserted. Missing get_report_message implementations leave these runtime observations unmeasured rather than replacing that API.",
+        "ja": "独自の事前構成messageと逐次local callbackのみ。recording、出力書式、並行再利用は評価しない。get_report_messageがない実装では、そのAPIを置換せず実行時の観測を未測定とする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_catcher_exposes_the_supplied_preformed_message_and_current_origin",
+          "role": "direct",
+          "expected_observations": [
+            "UT: caller_origin 1 report_object 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PREFORMED-CALLBACK-CURRENT-CLIENT-ON-REUSE",
+      "clause": "6.6.3.1",
+      "statement": {
+        "en": "get_client identifies the current reporter during preformed processing and reuse.",
+        "ja": "get_clientは、事前構成処理と再利用中の現在reporterを識別する。"
+      },
+      "conditions": {
+        "en": "Reporter-local callbacks process a supplied message and sequential reporter changes.",
+        "ja": "reporter固有callbackで指定messageと逐次のreporter変更を処理する。"
+      },
+      "expected": {
+        "en": "The client matches the current report object, including the second reuse.",
+        "ja": "2回目の再利用も含め、clientが現在report objectと一致する。"
+      },
+      "limitations": {
+        "en": "Original preformed messages and sequential local callbacks only; no recording, output formatting or concurrent reuse is asserted. Missing get_report_message implementations leave these runtime observations unmeasured rather than replacing that API.",
+        "ja": "独自の事前構成messageと逐次local callbackのみ。recording、出力書式、並行再利用は評価しない。get_report_messageがない実装では、そのAPIを置換せず実行時の観測を未測定とする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_catcher_exposes_the_supplied_preformed_message_and_current_origin",
+          "role": "direct",
+          "expected_observations": [
+            "UT: visits 1 same_message 1 current_origin 1 fields 1"
+          ]
+        },
+        {
+          "test": "u06/test_preformed_report_reuse_rebinds_origin_and_actions_for_each_reporter",
+          "role": "direct",
+          "expected_observations": [
+            "UT: first visits 1 same 1 origin 1 action 1",
+            "UT: second visits 2 same 1 origin 1 action 1 caller_origin 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REPORT-ADMISSION-INFO-ABOVE-LIMIT",
+      "clause": "6.3.3.3",
+      "statement": {
+        "en": "INFO above the configured limit is filtered before catching callbacks.",
+        "ja": "設定上限を超えるINFOは、catching callbackの前に除外する。"
+      },
+      "conditions": {
+        "en": "A reporter has maximum verbosity NONE, explicit DISPLAY actions and one catching callback.",
+        "ja": "reporterのverbosity上限をNONE、actionを明示DISPLAYにし、catching callbackを1個設定する。"
+      },
+      "expected": {
+        "en": "An above-limit INFO makes no callback visit.",
+        "ja": "上限を超えるINFOはcallbackを訪問しない。"
+      },
+      "limitations": {
+        "en": "Direct reporting with no severity overrides; all admitted reports are caught. No post-demotion filter, server output or fatal exit behavior is asserted.",
+        "ja": "severity overrideのない直接報告で、受付けた報告をすべてcatchする。降格後のfilter、server出力、fatal終了は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_reporting_verbosity_filters_info_but_not_warning_error_or_fatal",
+          "role": "direct",
+          "expected_observations": [
+            "UT: filtered info 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REPORT-ADMISSION-INFO-AT-LIMIT",
+      "clause": "6.3.3.3",
+      "statement": {
+        "en": "INFO at the configured limit is admitted to catching callbacks.",
+        "ja": "設定上限ちょうどのINFOは、catching callbackへ渡す。"
+      },
+      "conditions": {
+        "en": "A reporter has maximum verbosity NONE, explicit DISPLAY actions and one catching callback.",
+        "ja": "reporterのverbosity上限をNONE、actionを明示DISPLAYにし、catching callbackを1個設定する。"
+      },
+      "expected": {
+        "en": "The INFO at NONE makes one visit.",
+        "ja": "NONEのINFOは1回訪問する。"
+      },
+      "limitations": {
+        "en": "Direct reporting with no severity overrides; all admitted reports are caught. No post-demotion filter, server output or fatal exit behavior is asserted.",
+        "ja": "severity overrideのない直接報告で、受付けた報告をすべてcatchする。降格後のfilter、server出力、fatal終了は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_reporting_verbosity_filters_info_but_not_warning_error_or_fatal",
+          "role": "direct",
+          "expected_observations": [
+            "UT: callbacks info 1 warning 1 error 1 fatal 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REPORT-ADMISSION-WARNING-IGNORES-VERBOSITY",
+      "clause": "6.3.3.3",
+      "statement": {
+        "en": "WARNING ignores the supplied verbosity for admission.",
+        "ja": "WARNINGの受付では、指定verbosityを無視する。"
+      },
+      "conditions": {
+        "en": "A reporter has maximum verbosity NONE, explicit DISPLAY actions and one catching callback.",
+        "ja": "reporterのverbosity上限をNONE、actionを明示DISPLAYにし、catching callbackを1個設定する。"
+      },
+      "expected": {
+        "en": "The DEBUG-verbosity warning is caught once despite a NONE threshold.",
+        "ja": "上限NONEでもDEBUG verbosityのwarningを1回catchする。"
+      },
+      "limitations": {
+        "en": "Direct reporting with no severity overrides; all admitted reports are caught. No post-demotion filter, server output or fatal exit behavior is asserted.",
+        "ja": "severity overrideのない直接報告で、受付けた報告をすべてcatchする。降格後のfilter、server出力、fatal終了は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_reporting_verbosity_filters_info_but_not_warning_error_or_fatal",
+          "role": "direct",
+          "expected_observations": [
+            "UT: callbacks info 1 warning 1 error 1 fatal 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REPORT-ADMISSION-ERROR-IGNORES-VERBOSITY",
+      "clause": "6.3.3.3",
+      "statement": {
+        "en": "ERROR ignores the supplied verbosity for admission.",
+        "ja": "ERRORの受付では、指定verbosityを無視する。"
+      },
+      "conditions": {
+        "en": "A reporter has maximum verbosity NONE, explicit DISPLAY actions and one catching callback.",
+        "ja": "reporterのverbosity上限をNONE、actionを明示DISPLAYにし、catching callbackを1個設定する。"
+      },
+      "expected": {
+        "en": "The DEBUG-verbosity error is caught once despite a NONE threshold.",
+        "ja": "上限NONEでもDEBUG verbosityのerrorを1回catchする。"
+      },
+      "limitations": {
+        "en": "Direct reporting with no severity overrides; all admitted reports are caught. No post-demotion filter, server output or fatal exit behavior is asserted.",
+        "ja": "severity overrideのない直接報告で、受付けた報告をすべてcatchする。降格後のfilter、server出力、fatal終了は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_reporting_verbosity_filters_info_but_not_warning_error_or_fatal",
+          "role": "direct",
+          "expected_observations": [
+            "UT: callbacks info 1 warning 1 error 1 fatal 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REPORT-ADMISSION-FATAL-IGNORES-VERBOSITY",
+      "clause": "6.3.3.3",
+      "statement": {
+        "en": "FATAL ignores the supplied verbosity for admission.",
+        "ja": "FATALの受付では、指定verbosityを無視する。"
+      },
+      "conditions": {
+        "en": "A reporter has maximum verbosity NONE, explicit DISPLAY actions and one catching callback.",
+        "ja": "reporterのverbosity上限をNONE、actionを明示DISPLAYにし、catching callbackを1個設定する。"
+      },
+      "expected": {
+        "en": "The DEBUG-verbosity fatal is caught once despite a NONE threshold.",
+        "ja": "上限NONEでもDEBUG verbosityのfatalを1回catchする。"
+      },
+      "limitations": {
+        "en": "Direct reporting with no severity overrides; all admitted reports are caught. No post-demotion filter, server output or fatal exit behavior is asserted.",
+        "ja": "severity overrideのない直接報告で、受付けた報告をすべてcatchする。降格後のfilter、server出力、fatal終了は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_reporting_verbosity_filters_info_but_not_warning_error_or_fatal",
+          "role": "direct",
+          "expected_observations": [
+            "UT: callbacks info 1 warning 1 error 1 fatal 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-LOCK-MISSING-DEFAULT-FATAL",
+      "clause": "14.2.5.5",
+      "statement": {
+        "en": "lock reports fatal when neither an explicit nor a default sequencer is available.",
+        "ja": "明示sequencerも既定sequencerもないlockはfatalを報告する。"
+      },
+      "conditions": {
+        "en": "An unbound sequence calls lock without an argument after confirming a null default.",
+        "ja": "既定値がnullであることを確認した未結合sequenceで、引数なしのlockを呼ぶ。"
+      },
+      "expected": {
+        "en": "The original report severity is UVM_FATAL.",
+        "ja": "元の報告severityはUVM_FATALである。"
+      },
+      "limitations": {
+        "en": "The fixture deliberately terminates with its own fatal sentinel after observing severity; declared nonzero exit and fixture diagnostic are harness controls, not library exit/message requirements. No continuation after fatal is asserted.",
+        "ja": "severity観測後に検査系自身のfatal sentinelで意図的に終了する。宣言したnonzero終了と検査系診断はharness制御であり、libraryの終了／文面への要求ではない。fatal後の継続は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_lock_without_a_default_sequencer_reports_fatal",
+          "role": "direct",
+          "expected_observations": [
+            "UT: default_is_null 1",
+            "UT: missing_default fatal 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-GRAB-MISSING-DEFAULT-FATAL",
+      "clause": "14.2.5.6",
+      "statement": {
+        "en": "grab reports fatal when neither an explicit nor a default sequencer is available.",
+        "ja": "明示sequencerも既定sequencerもないgrabはfatalを報告する。"
+      },
+      "conditions": {
+        "en": "An unbound sequence calls grab without an argument after confirming a null default.",
+        "ja": "既定値がnullであることを確認した未結合sequenceで、引数なしのgrabを呼ぶ。"
+      },
+      "expected": {
+        "en": "The original report severity is UVM_FATAL.",
+        "ja": "元の報告severityはUVM_FATALである。"
+      },
+      "limitations": {
+        "en": "The fixture deliberately terminates with its own fatal sentinel after observing severity; declared nonzero exit and fixture diagnostic are harness controls, not library exit/message requirements. No continuation after fatal is asserted.",
+        "ja": "severity観測後に検査系自身のfatal sentinelで意図的に終了する。宣言したnonzero終了と検査系診断はharness制御であり、libraryの終了／文面への要求ではない。fatal後の継続は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_grab_without_a_default_sequencer_reports_fatal",
+          "role": "direct",
+          "expected_observations": [
+            "UT: default_is_null 1",
+            "UT: missing_default fatal 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-UNLOCK-MISSING-DEFAULT-FATAL",
+      "clause": "14.2.5.7",
+      "statement": {
+        "en": "unlock reports fatal when neither an explicit nor a default sequencer is available.",
+        "ja": "明示sequencerも既定sequencerもないunlockはfatalを報告する。"
+      },
+      "conditions": {
+        "en": "An unbound sequence calls unlock without an argument after confirming a null default.",
+        "ja": "既定値がnullであることを確認した未結合sequenceで、引数なしのunlockを呼ぶ。"
+      },
+      "expected": {
+        "en": "The original report severity is UVM_FATAL.",
+        "ja": "元の報告severityはUVM_FATALである。"
+      },
+      "limitations": {
+        "en": "The fixture deliberately terminates with its own fatal sentinel after observing severity; declared nonzero exit and fixture diagnostic are harness controls, not library exit/message requirements. No continuation after fatal is asserted.",
+        "ja": "severity観測後に検査系自身のfatal sentinelで意図的に終了する。宣言したnonzero終了と検査系診断はharness制御であり、libraryの終了／文面への要求ではない。fatal後の継続は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_unlock_without_a_default_sequencer_reports_fatal",
+          "role": "direct",
+          "expected_observations": [
+            "UT: default_is_null 1",
+            "UT: missing_default fatal 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-UNGRAB-MISSING-DEFAULT-FATAL",
+      "clause": "14.2.5.8",
+      "statement": {
+        "en": "ungrab reports fatal when neither an explicit nor a default sequencer is available.",
+        "ja": "明示sequencerも既定sequencerもないungrabはfatalを報告する。"
+      },
+      "conditions": {
+        "en": "An unbound sequence calls ungrab without an argument after confirming a null default.",
+        "ja": "既定値がnullであることを確認した未結合sequenceで、引数なしのungrabを呼ぶ。"
+      },
+      "expected": {
+        "en": "The original report severity is UVM_FATAL.",
+        "ja": "元の報告severityはUVM_FATALである。"
+      },
+      "limitations": {
+        "en": "The fixture deliberately terminates with its own fatal sentinel after observing severity; declared nonzero exit and fixture diagnostic are harness controls, not library exit/message requirements. No continuation after fatal is asserted.",
+        "ja": "severity観測後に検査系自身のfatal sentinelで意図的に終了する。宣言したnonzero終了と検査系診断はharness制御であり、libraryの終了／文面への要求ではない。fatal後の継続は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_ungrab_without_a_default_sequencer_reports_fatal",
+          "role": "direct",
+          "expected_observations": [
+            "UT: default_is_null 1",
+            "UT: missing_default fatal 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-GET-PRIORITY-RUNNING-ROOT",
+      "clause": "14.2.5.1",
+      "statement": {
+        "en": "get_priority returns the selected current sequence priority.",
+        "ja": "get_priorityは、選択した現在のsequence priorityを返す。"
+      },
+      "conditions": {
+        "en": "The root sequence starts at explicit priority 37.",
+        "ja": "root sequenceを明示priority 37で開始する。"
+      },
+      "expected": {
+        "en": "Its live priority getter returns 37.",
+        "ja": "動作中のpriority getterは37を返す。"
+      },
+      "limitations": {
+        "en": "Unchanged running-parent fixture; no new measurement, dynamic re-arbitration or root constructor default is claimed.",
+        "ja": "未変更の動作中parent検査系を使い、新測定、動的な再arbitration、root constructorの既定値は主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_child_sequence_inherits_priority_from_running_parent",
+          "role": "direct",
+          "expected_observations": [
+            "UT: parent priority 37"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-GET-PRIORITY-RUNNING-CHILD",
+      "clause": "14.2.5.1",
+      "statement": {
+        "en": "get_priority returns the selected current sequence priority.",
+        "ja": "get_priorityは、選択した現在のsequence priorityを返す。"
+      },
+      "conditions": {
+        "en": "A running parent at priority 37 starts a child with the default priority argument.",
+        "ja": "priority 37の動作中parentが、priority引数省略でchildを開始する。"
+      },
+      "expected": {
+        "en": "The child getter returns its inherited priority 37.",
+        "ja": "child getterは継承したpriority 37を返す。"
+      },
+      "limitations": {
+        "en": "Unchanged running-parent fixture; no new measurement, dynamic re-arbitration or root constructor default is claimed.",
+        "ja": "未変更の動作中parent検査系を使い、新測定、動的な再arbitration、root constructorの既定値は主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_child_sequence_inherits_priority_from_running_parent",
+          "role": "direct",
+          "expected_observations": [
+            "UT: child priority 37 parent_same 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-LAYOUT-SHARED-BYTE-INELIGIBLE",
+      "clause": "18.5.5.16",
+      "statement": {
+        "en": "Fields sharing a physical byte are not individually accessible.",
+        "ja": "物理byteを共有するfieldは、個別アクセスできない。"
+      },
+      "conditions": {
+        "en": "Two four-bit fields share an eight-bit register and are configured as non-isolated.",
+        "ja": "2つの4-bit fieldが8-bit registerを共有し、非独立として設定する。"
+      },
+      "expected": {
+        "en": "Both individual frontdoor queries return false.",
+        "ja": "個別frontdoorの両照会がfalseを返す。"
+      },
+      "limitations": {
+        "en": "Original RW-field bus models, explicit auto-prediction and selected layouts only; no HDL DUT, failed operation, side-effecting field policy or unused data-lane value is asserted. Little/big-endian conditions retain separate evidence.",
+        "ja": "独自RW-field bus model、明示auto-prediction、選択した配置のみ。HDL DUT、操作失敗、副作用付きfield policy、未使用data laneの値は評価しない。little／big-endianの条件は別のevidenceを保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_field_access_shared_byte_respects_layout_and_physical_bus_width",
+          "role": "direct",
+          "expected_observations": [
+            "UT: individual low 0 high 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-LAYOUT-SHARED-BYTE-WRITE-PEER-MIRROR",
+      "clause": "18.5.5.9",
+      "statement": {
+        "en": "Whole-register fallback supplies the other nibble from its mirror.",
+        "ja": "全registerへのfallbackは、他方のnibbleへmirror値を供給する。"
+      },
+      "conditions": {
+        "en": "Live word 0xa5 differs from mirror 0x34 before writing low nibble 6.",
+        "ja": "low nibble 6のwrite前に、実際のword 0xa5をmirror 0x34と異なる値にする。"
+      },
+      "expected": {
+        "en": "The bus and mirror become 0x36.",
+        "ja": "busとmirrorは0x36となる。"
+      },
+      "limitations": {
+        "en": "Original RW-field bus models, explicit auto-prediction and selected layouts only; no HDL DUT, failed operation, side-effecting field policy or unused data-lane value is asserted. Little/big-endian conditions retain separate evidence.",
+        "ja": "独自RW-field bus model、明示auto-prediction、選択した配置のみ。HDL DUT、操作失敗、副作用付きfield policy、未使用data laneの値は評価しない。little／big-endianの条件は別のevidenceを保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_field_access_shared_byte_respects_layout_and_physical_bus_width",
+          "role": "direct",
+          "expected_observations": [
+            "UT: write ok 1 storage 36 mirror 36 mask 1 address 20"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-LAYOUT-SHARED-BYTE-READ-PEER-MIRROR",
+      "clause": "18.5.5.10",
+      "statement": {
+        "en": "Whole-register fallback reads update the neighboring nibble mirror.",
+        "ja": "全registerへのfallback readは、隣接nibbleのmirrorを更新する。"
+      },
+      "conditions": {
+        "en": "After write, live storage becomes 0xab and the high field is read.",
+        "ja": "write後、実際のstorageを0xabへ変更してhigh fieldをreadする。"
+      },
+      "expected": {
+        "en": "High returns 0xa and the whole mirror becomes 0xab.",
+        "ja": "highは0xaを返し、全体mirrorは0xabとなる。"
+      },
+      "limitations": {
+        "en": "Original RW-field bus models, explicit auto-prediction and selected layouts only; no HDL DUT, failed operation, side-effecting field policy or unused data-lane value is asserted. Little/big-endian conditions retain separate evidence.",
+        "ja": "独自RW-field bus model、明示auto-prediction、選択した配置のみ。HDL DUT、操作失敗、副作用付きfield policy、未使用data laneの値は評価しない。little／big-endianの条件は別のevidenceを保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_field_access_shared_byte_respects_layout_and_physical_bus_width",
+          "role": "direct",
+          "expected_observations": [
+            "UT: read ok 1 value a mirror ab mask 1 address 20 requests 2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-LAYOUT-CROSSING-BYTES-INELIGIBLE",
+      "clause": "18.5.5.16",
+      "statement": {
+        "en": "A field sharing both of its byte lanes with neighbors is not individually accessible.",
+        "ja": "両byte laneを隣接fieldと共有するfieldは、個別アクセスできない。"
+      },
+      "conditions": {
+        "en": "An eight-bit field starts at bit four between two four-bit neighbors.",
+        "ja": "8-bit fieldが、2つの4-bit隣接fieldの間のbit 4から始まる。"
+      },
+      "expected": {
+        "en": "Its width/offset are 8/4 and individual eligibility is false.",
+        "ja": "幅／位置は8／4で、個別アクセス可否はfalseである。"
+      },
+      "limitations": {
+        "en": "Original RW-field bus models, explicit auto-prediction and selected layouts only; no HDL DUT, failed operation, side-effecting field policy or unused data-lane value is asserted. Little/big-endian conditions retain separate evidence.",
+        "ja": "独自RW-field bus model、明示auto-prediction、選択した配置のみ。HDL DUT、操作失敗、副作用付きfield policy、未使用data laneの値は評価しない。little／big-endianの条件は別のevidenceを保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_field_access_crossing_bytes_respects_layout_and_physical_bus_width",
+          "role": "direct",
+          "expected_observations": [
+            "UT: target bits 8 lsb 4 individual 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-LAYOUT-CROSSING-BYTES-WRITE-MERGE",
+      "clause": "18.5.5.9",
+      "statement": {
+        "en": "Unaligned-field fallback writes merge both neighboring mirrors.",
+        "ja": "非整列fieldのfallback writeは、両隣のmirrorを合成する。"
+      },
+      "conditions": {
+        "en": "The target writes 0x5a with mirrored low/high neighbors 3/1 and differing live storage.",
+        "ja": "対象に0x5aを書き、隣接low／high mirrorを3／1、実際のstorageを別値にする。"
+      },
+      "expected": {
+        "en": "Both lanes are written as 0x15a3.",
+        "ja": "両laneへ0x15a3を書き込む。"
+      },
+      "limitations": {
+        "en": "Original RW-field bus models, explicit auto-prediction and selected layouts only; no HDL DUT, failed operation, side-effecting field policy or unused data-lane value is asserted. Little/big-endian conditions retain separate evidence.",
+        "ja": "独自RW-field bus model、明示auto-prediction、選択した配置のみ。HDL DUT、操作失敗、副作用付きfield policy、未使用data laneの値は評価しない。little／big-endianの条件は別のevidenceを保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_field_access_crossing_bytes_respects_layout_and_physical_bus_width",
+          "role": "direct",
+          "expected_observations": [
+            "UT: write ok 1 storage 15a3 mirror 15a3 mask 3 address 20"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-LAYOUT-CROSSING-BYTES-READ-EXTRACTION",
+      "clause": "18.5.5.10",
+      "statement": {
+        "en": "An unaligned-field read extracts its logical bits from the full returned register.",
+        "ja": "非整列fieldのreadは、返された全registerから論理bitを抽出する。"
+      },
+      "conditions": {
+        "en": "The live register is 0xe6b7 and the eight-bit target begins at bit four.",
+        "ja": "実際のregisterを0xe6b7とし、8-bit対象はbit 4から始まる。"
+      },
+      "expected": {
+        "en": "Read returns 0x6b and predicts the whole mirror 0xe6b7.",
+        "ja": "readは0x6bを返し、全体mirrorを0xe6b7へ予測する。"
+      },
+      "limitations": {
+        "en": "Original RW-field bus models, explicit auto-prediction and selected layouts only; no HDL DUT, failed operation, side-effecting field policy or unused data-lane value is asserted. Little/big-endian conditions retain separate evidence.",
+        "ja": "独自RW-field bus model、明示auto-prediction、選択した配置のみ。HDL DUT、操作失敗、副作用付きfield policy、未使用data laneの値は評価しない。little／big-endianの条件は別のevidenceを保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_field_access_crossing_bytes_respects_layout_and_physical_bus_width",
+          "role": "direct",
+          "expected_observations": [
+            "UT: read ok 1 value 6b mirror e6b7 mask 3 address 20 requests 2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-LAYOUT-NARROW-BUS-INDIVIDUAL-ELIGIBILITY",
+      "clause": "18.5.5.16",
+      "statement": {
+        "en": "Byte-isolated fields fit a one-byte bus and remain individually accessible for either selected endian.",
+        "ja": "byteを占有するfieldは1-byte busに収まり、対象の両endianで個別アクセスできる。"
+      },
+      "conditions": {
+        "en": "Two eight-bit fields occupy a sixteen-bit register on a supported one-byte interface.",
+        "ja": "2つの8-bit fieldが、対応する1-byte interfaceの16-bit registerを占める。"
+      },
+      "expected": {
+        "en": "Low and high queries return true in both configurations.",
+        "ja": "両設定でlowとhighの照会がtrueを返す。"
+      },
+      "limitations": {
+        "en": "Original RW-field bus models, explicit auto-prediction and selected layouts only; no HDL DUT, failed operation, side-effecting field policy or unused data-lane value is asserted. Little/big-endian conditions retain separate evidence.",
+        "ja": "独自RW-field bus model、明示auto-prediction、選択した配置のみ。HDL DUT、操作失敗、副作用付きfield policy、未使用data laneの値は評価しない。little／big-endianの条件は別のevidenceを保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_field_access_little_endian_respects_layout_and_physical_bus_width",
+          "role": "direct",
+          "expected_observations": [
+            "UT: individual low 1 high 1"
+          ]
+        },
+        {
+          "test": "u18/test_field_access_big_endian_respects_layout_and_physical_bus_width",
+          "role": "direct",
+          "expected_observations": [
+            "UT: individual low 1 high 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-LAYOUT-NARROW-WRITE-PRESERVES-LIVE-PEER",
+      "clause": "18.5.5.9",
+      "statement": {
+        "en": "A selected high-byte write preserves the unselected low-byte bus storage.",
+        "ja": "選択したhigh-byte writeは、非選択low-byteのbus storageを保持する。"
+      },
+      "conditions": {
+        "en": "The high/low physical bytes initially contain 0xab/0xcd in each endian layout.",
+        "ja": "各endian配置で、high／lowの物理byteに最初0xab／0xcdを格納する。"
+      },
+      "expected": {
+        "en": "High becomes 0x6c while low remains 0xcd.",
+        "ja": "highは0x6cとなり、lowは0xcdを保持する。"
+      },
+      "limitations": {
+        "en": "Original RW-field bus models, explicit auto-prediction and selected layouts only; no HDL DUT, failed operation, side-effecting field policy or unused data-lane value is asserted. Little/big-endian conditions retain separate evidence.",
+        "ja": "独自RW-field bus model、明示auto-prediction、選択した配置のみ。HDL DUT、操作失敗、副作用付きfield policy、未使用data laneの値は評価しない。little／big-endianの条件は別のevidenceを保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_field_access_little_endian_respects_layout_and_physical_bus_width",
+          "role": "direct",
+          "expected_observations": [
+            "UT: high_write ok 1 address 21 mask 1 live_high 6c live_low cd mirror 6c34"
+          ]
+        },
+        {
+          "test": "u18/test_field_access_big_endian_respects_layout_and_physical_bus_width",
+          "role": "direct",
+          "expected_observations": [
+            "UT: high_write ok 1 address 20 mask 1 live_high 6c live_low cd mirror 6c34"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-LAYOUT-NARROW-READ-RETURNS-SELECTED-VALUE",
+      "clause": "18.5.5.10",
+      "statement": {
+        "en": "A selected low-byte read returns the low field value.",
+        "ja": "選択したlow-byte readは、low field値を返す。"
+      },
+      "conditions": {
+        "en": "The low physical byte contains 0xcd after a high-field write.",
+        "ja": "high-field write後、lowの物理byteは0xcdを持つ。"
+      },
+      "expected": {
+        "en": "Low returns 0xcd using one enabled lane.",
+        "ja": "lowは1つの有効laneで0xcdを返す。"
+      },
+      "limitations": {
+        "en": "Original RW-field bus models, explicit auto-prediction and selected layouts only; no HDL DUT, failed operation, side-effecting field policy or unused data-lane value is asserted. Little/big-endian conditions retain separate evidence.",
+        "ja": "独自RW-field bus model、明示auto-prediction、選択した配置のみ。HDL DUT、操作失敗、副作用付きfield policy、未使用data laneの値は評価しない。little／big-endianの条件は別のevidenceを保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_field_access_little_endian_respects_layout_and_physical_bus_width",
+          "role": "direct",
+          "expected_observations": [
+            "UT: low_read ok 1 address 20 mask 1 value cd mirror 6ccd requests 2"
+          ]
+        },
+        {
+          "test": "u18/test_field_access_big_endian_respects_layout_and_physical_bus_width",
+          "role": "direct",
+          "expected_observations": [
+            "UT: low_read ok 1 address 21 mask 1 value cd mirror 6ccd requests 2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-LAYOUT-NARROW-SELECTED-PREDICTION",
+      "clause": "18.2.5.2",
+      "statement": {
+        "en": "Successful individual operations predict their selected fields independently.",
+        "ja": "個別操作の成功は、選択fieldを独立に予測する。"
+      },
+      "conditions": {
+        "en": "A high write follows reset 0x1234, then a low read observes 0xcd.",
+        "ja": "reset値0x1234の後にhigh writeし、low readで0xcdを観測する。"
+      },
+      "expected": {
+        "en": "Mirrors become 0x6c34 then 0x6ccd.",
+        "ja": "mirrorは0x6c34、次に0x6ccdとなる。"
+      },
+      "limitations": {
+        "en": "Original RW-field bus models, explicit auto-prediction and selected layouts only; no HDL DUT, failed operation, side-effecting field policy or unused data-lane value is asserted. Little/big-endian conditions retain separate evidence.",
+        "ja": "独自RW-field bus model、明示auto-prediction、選択した配置のみ。HDL DUT、操作失敗、副作用付きfield policy、未使用data laneの値は評価しない。little／big-endianの条件は別のevidenceを保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_field_access_little_endian_respects_layout_and_physical_bus_width",
+          "role": "direct",
+          "expected_observations": [
+            "UT: high_write ok 1 address 21 mask 1 live_high 6c live_low cd mirror 6c34",
+            "UT: low_read ok 1 address 20 mask 1 value cd mirror 6ccd requests 2"
+          ]
+        },
+        {
+          "test": "u18/test_field_access_big_endian_respects_layout_and_physical_bus_width",
+          "role": "direct",
+          "expected_observations": [
+            "UT: high_write ok 1 address 20 mask 1 live_high 6c live_low cd mirror 6c34",
+            "UT: low_read ok 1 address 21 mask 1 value cd mirror 6ccd requests 2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-LITTLE-ENDIAN-HIGH-WRITE-ADDRESS",
+      "clause": "17.2.2.4",
+      "statement": {
+        "en": "The little-endian high byte is written at its ordered physical address.",
+        "ja": "little-endianのhigh byteは、byte順の物理addressへ書き込む。"
+      },
+      "conditions": {
+        "en": "A byte-addressed register starts at 0x20 on a one-byte bus.",
+        "ja": "byte単位でaddressを付けるregisterを、1-byte bus上の0x20から配置する。"
+      },
+      "expected": {
+        "en": "The selected high write uses 0x21.",
+        "ja": "選択したhigh writeは0x21を使う。"
+      },
+      "limitations": {
+        "en": "Original RW-field bus models, explicit auto-prediction and selected layouts only; no HDL DUT, failed operation, side-effecting field policy or unused data-lane value is asserted. Little/big-endian conditions retain separate evidence.",
+        "ja": "独自RW-field bus model、明示auto-prediction、選択した配置のみ。HDL DUT、操作失敗、副作用付きfield policy、未使用data laneの値は評価しない。little／big-endianの条件は別のevidenceを保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_field_access_little_endian_respects_layout_and_physical_bus_width",
+          "role": "direct",
+          "expected_observations": [
+            "UT: high_write ok 1 address 21 mask 1 live_high 6c live_low cd mirror 6c34"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-LITTLE-ENDIAN-LOW-READ-ADDRESS",
+      "clause": "18.2.3.2",
+      "statement": {
+        "en": "The configured little-endian map selects the low field physical byte.",
+        "ja": "設定したlittle-endian mapは、low fieldの物理byteを選ぶ。"
+      },
+      "conditions": {
+        "en": "Byte addressing and one-byte bus width apply to a two-byte register at 0x20.",
+        "ja": "0x20の2-byte registerに、byte単位のaddressと1-byte bus幅を適用する。"
+      },
+      "expected": {
+        "en": "The selected low read uses 0x20.",
+        "ja": "選択したlow readは0x20を使う。"
+      },
+      "limitations": {
+        "en": "Original RW-field bus models, explicit auto-prediction and selected layouts only; no HDL DUT, failed operation, side-effecting field policy or unused data-lane value is asserted. Little/big-endian conditions retain separate evidence.",
+        "ja": "独自RW-field bus model、明示auto-prediction、選択した配置のみ。HDL DUT、操作失敗、副作用付きfield policy、未使用data laneの値は評価しない。little／big-endianの条件は別のevidenceを保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_field_access_little_endian_respects_layout_and_physical_bus_width",
+          "role": "direct",
+          "expected_observations": [
+            "UT: low_read ok 1 address 20 mask 1 value cd mirror 6ccd requests 2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-BIG-ENDIAN-HIGH-WRITE-ADDRESS",
+      "clause": "17.2.2.4",
+      "statement": {
+        "en": "The big-endian high byte is written at its ordered physical address.",
+        "ja": "big-endianのhigh byteは、byte順の物理addressへ書き込む。"
+      },
+      "conditions": {
+        "en": "A byte-addressed register starts at 0x20 on a one-byte bus.",
+        "ja": "byte単位でaddressを付けるregisterを、1-byte bus上の0x20から配置する。"
+      },
+      "expected": {
+        "en": "The selected high write uses 0x20.",
+        "ja": "選択したhigh writeは0x20を使う。"
+      },
+      "limitations": {
+        "en": "Original RW-field bus models, explicit auto-prediction and selected layouts only; no HDL DUT, failed operation, side-effecting field policy or unused data-lane value is asserted. Little/big-endian conditions retain separate evidence.",
+        "ja": "独自RW-field bus model、明示auto-prediction、選択した配置のみ。HDL DUT、操作失敗、副作用付きfield policy、未使用data laneの値は評価しない。little／big-endianの条件は別のevidenceを保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_field_access_big_endian_respects_layout_and_physical_bus_width",
+          "role": "direct",
+          "expected_observations": [
+            "UT: high_write ok 1 address 20 mask 1 live_high 6c live_low cd mirror 6c34"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-BIG-ENDIAN-LOW-READ-ADDRESS",
+      "clause": "18.2.3.2",
+      "statement": {
+        "en": "The configured big-endian map selects the low field physical byte.",
+        "ja": "設定したbig-endian mapは、low fieldの物理byteを選ぶ。"
+      },
+      "conditions": {
+        "en": "Byte addressing and one-byte bus width apply to a two-byte register at 0x20.",
+        "ja": "0x20の2-byte registerに、byte単位のaddressと1-byte bus幅を適用する。"
+      },
+      "expected": {
+        "en": "The selected low read uses 0x21.",
+        "ja": "選択したlow readは0x21を使う。"
+      },
+      "limitations": {
+        "en": "Original RW-field bus models, explicit auto-prediction and selected layouts only; no HDL DUT, failed operation, side-effecting field policy or unused data-lane value is asserted. Little/big-endian conditions retain separate evidence.",
+        "ja": "独自RW-field bus model、明示auto-prediction、選択した配置のみ。HDL DUT、操作失敗、副作用付きfield policy、未使用data laneの値は評価しない。little／big-endianの条件は別のevidenceを保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_field_access_big_endian_respects_layout_and_physical_bus_width",
+          "role": "direct",
+          "expected_observations": [
+            "UT: low_read ok 1 address 21 mask 1 value cd mirror 6ccd requests 2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-INTROSPECTION-PARENT",
+      "clause": "18.5.4.1",
+      "statement": {
+        "en": "get_parent returns the configured parent register.",
+        "ja": "get_parentは、設定した親registerを返す。"
+      },
+      "conditions": {
+        "en": "An original eight-bit field is configured on a concrete register.",
+        "ja": "独自の8-bit fieldを具体的registerへ設定する。"
+      },
+      "expected": {
+        "en": "The returned handle equals that register.",
+        "ja": "戻るhandleが、そのregisterと一致する。"
+      },
+      "limitations": {
+        "en": "Unchanged original field metadata/model-state fixtures; no new measurements, actual bus read or DUT volatility observation is claimed.",
+        "ja": "未変更の独自field metadata／model状態の検査系を使い、新測定、実際のbus read、DUT volatilityの観測は主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_field_configure_preserves_parent_width_position_and_access",
+          "role": "direct",
+          "expected_observations": [
+            "UT: parent 1 bits 8 lsb 4 access RW volatile 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-INTROSPECTION-LSB-POSITION",
+      "clause": "18.5.4.2",
+      "statement": {
+        "en": "get_lsb_pos returns the configured logical bit position.",
+        "ja": "get_lsb_posは、設定した論理bit位置を返す。"
+      },
+      "conditions": {
+        "en": "The field begins at bit four.",
+        "ja": "fieldをbit 4から配置する。"
+      },
+      "expected": {
+        "en": "The returned position is 4.",
+        "ja": "戻る位置は4である。"
+      },
+      "limitations": {
+        "en": "Unchanged original field metadata/model-state fixtures; no new measurements, actual bus read or DUT volatility observation is claimed.",
+        "ja": "未変更の独自field metadata／model状態の検査系を使い、新測定、実際のbus read、DUT volatilityの観測は主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_field_configure_preserves_parent_width_position_and_access",
+          "role": "direct",
+          "expected_observations": [
+            "UT: parent 1 bits 8 lsb 4 access RW volatile 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-INTROSPECTION-WIDTH",
+      "clause": "18.5.4.3",
+      "statement": {
+        "en": "get_n_bits returns the configured field width.",
+        "ja": "get_n_bitsは、設定したfield幅を返す。"
+      },
+      "conditions": {
+        "en": "The original field width is eight bits.",
+        "ja": "独自fieldの幅を8 bitにする。"
+      },
+      "expected": {
+        "en": "The returned width is 8.",
+        "ja": "戻る幅は8である。"
+      },
+      "limitations": {
+        "en": "Unchanged original field metadata/model-state fixtures; no new measurements, actual bus read or DUT volatility observation is claimed.",
+        "ja": "未変更の独自field metadata／model状態の検査系を使い、新測定、実際のbus read、DUT volatilityの観測は主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_field_configure_preserves_parent_width_position_and_access",
+          "role": "direct",
+          "expected_observations": [
+            "UT: parent 1 bits 8 lsb 4 access RW volatile 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-INTROSPECTION-VOLATILITY-QUERY",
+      "clause": "18.5.4.10",
+      "statement": {
+        "en": "is_volatile reflects the field volatility setting.",
+        "ja": "is_volatileは、fieldのvolatility設定を反映する。"
+      },
+      "conditions": {
+        "en": "The configured nonvolatile field is changed to volatile.",
+        "ja": "nonvolatileに設定したfieldをvolatileへ変更する。"
+      },
+      "expected": {
+        "en": "The getter returns 0 before and 1 after the change.",
+        "ja": "getterは変更前0、変更後1を返す。"
+      },
+      "limitations": {
+        "en": "Unchanged original field metadata/model-state fixtures; no new measurements, actual bus read or DUT volatility observation is claimed.",
+        "ja": "未変更の独自field metadata／model状態の検査系を使い、新測定、実際のbus read、DUT volatilityの観測は主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_field_configure_preserves_parent_width_position_and_access",
+          "role": "direct",
+          "expected_observations": [
+            "UT: parent 1 bits 8 lsb 4 access RW volatile 0",
+            "UT: volatile 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-INTROSPECTION-VOLATILITY-PEER-ISOLATION",
+      "clause": "18.5.4.10",
+      "statement": {
+        "en": "Volatility queries preserve independent neighbor and peer settings.",
+        "ja": "volatilityの照会は、隣接fieldとpeerの独立した設定を保持する。"
+      },
+      "conditions": {
+        "en": "One field and a peer are switched independently.",
+        "ja": "1つのfieldとpeerを独立に切り替える。"
+      },
+      "expected": {
+        "en": "Queries identify each selected field while the neighbor remains nonvolatile.",
+        "ja": "照会は各選択fieldを識別し、隣接fieldはnonvolatileのままである。"
+      },
+      "limitations": {
+        "en": "Unchanged original field metadata/model-state fixtures; no new measurements, actual bus read or DUT volatility observation is claimed.",
+        "ja": "未変更の独自field metadata／model状態の検査系を使い、新測定、実際のbus read、DUT volatilityの観測は主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_field_volatility_updates_do_not_modify_desired_or_mirrored_values",
+          "role": "direct",
+          "expected_observations": [
+            "UT: volatile first 1 neighbor 0 peer 0",
+            "UT: switched first 0 peer 1 desired 11 mirror 11"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-INTROSPECTION-DESIRED-QUERY",
+      "clause": "18.5.5.1",
+      "statement": {
+        "en": "get returns the field desired model value without a bus read.",
+        "ja": "getは、bus readをせずfieldのdesired model値を返す。"
+      },
+      "conditions": {
+        "en": "Volatility changes do not change the prepared desired value 0x11.",
+        "ja": "volatilityの変更で、準備したdesired値0x11は変えない。"
+      },
+      "expected": {
+        "en": "The desired getter still returns 0x11.",
+        "ja": "desired getterは引き続き0x11を返す。"
+      },
+      "limitations": {
+        "en": "Unchanged original field metadata/model-state fixtures; no new measurements, actual bus read or DUT volatility observation is claimed.",
+        "ja": "未変更の独自field metadata／model状態の検査系を使い、新測定、実際のbus read、DUT volatilityの観測は主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_field_volatility_updates_do_not_modify_desired_or_mirrored_values",
+          "role": "direct",
+          "expected_observations": [
+            "UT: switched first 0 peer 1 desired 11 mirror 11"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-INTROSPECTION-MIRRORED-QUERY",
+      "clause": "18.5.5.3",
+      "statement": {
+        "en": "get_mirrored_value returns the field mirrored model value without a bus read.",
+        "ja": "get_mirrored_valueは、bus readをせずfieldのmirrored model値を返す。"
+      },
+      "conditions": {
+        "en": "Volatility changes do not change the prepared mirror 0x11.",
+        "ja": "volatilityの変更で、準備したmirror値0x11は変えない。"
+      },
+      "expected": {
+        "en": "The mirrored getter still returns 0x11.",
+        "ja": "mirrored getterは引き続き0x11を返す。"
+      },
+      "limitations": {
+        "en": "Unchanged original field metadata/model-state fixtures; no new measurements, actual bus read or DUT volatility observation is claimed.",
+        "ja": "未変更の独自field metadata／model状態の検査系を使い、新測定、実際のbus read、DUT volatilityの観測は主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_field_volatility_updates_do_not_modify_desired_or_mirrored_values",
+          "role": "direct",
+          "expected_observations": [
+            "UT: switched first 0 peer 1 desired 11 mirror 11"
+          ]
+        }
+      ]
     }
   ]
 }

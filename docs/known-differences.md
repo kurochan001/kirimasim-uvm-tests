@@ -2,7 +2,7 @@
 
 [日本語](known-differences.ja.md) · [README](../README.md) · [FAQ](faq.md)
 
-This describes the current 1238-test suite and the pinned Accellera UVM
+This describes the current 1250-test suite and the pinned Accellera UVM
 2020.3.1 library. A mismatch is a test result; it does not by itself assign
 the cause to the simulator, the library or the expectation.
 
@@ -19,6 +19,16 @@ shared accesses and one child-block shape; see the
 Further limitations and observations were identified during M1, M2 and M3.
 Where a test directly checks a required behavior that is missing, its
 normative expectation is retained with `:oracle: spec`.
+
+- The pinned catcher omits the standard get_report_message API (6.6.3.10).
+  Three preformed-message identity/live-alias/reuse fixtures cannot build;
+  their runtime expectations remain unmeasured. Private implementation fields
+  are not used as substitutes.
+- Individual fields on a one-byte big-endian bus are reported eligible, but
+  the measured high write uses 0x21 instead of 0x20, and the low read uses
+  0x20 instead of 0x21. Stored/returned data also differ. The separate
+  little-endian peer matches both seeds. Configured byte-order expectations
+  remain; this observation does not assign a simulator implementation cause.
 
 - Two byte-isolated fields share a 16-bit physical word with adapter byte
   enables advertised. Clauses 18.5.5.9/.10 require individual access in this
@@ -420,7 +430,7 @@ SystemVerilog 13.4, so it cannot represent a count of two. The expected two
 preserves the prose interpretation. This signature/prose conflict requires
 review and is not assigned as a confirmed simulator or library bug.
 
-Across the suite, 1105 tests have the `verilator@5.052` oracle tag and 133
+Across the suite, 1113 tests have the `verilator@5.052` oracle tag and 137
 cases are spec-only. One of the spec-only cases checks 9.6: a child's pre-reset
 task must be killed when that phase ends, but the pinned-library run on Verilator 5.052
 lets the child perform its delayed write during a later phase. The cause of
@@ -432,20 +442,21 @@ without callbacks. The pinned Verilator run reaches the blocked-state
 observation, then its watchdog expires. This combined simulator/library
 cause remains unassigned; the normative wakeup expectation is retained.
 
-The 133 spec-only tests retain their normative expected files.
-Default Verilator runs and CI select the 1105 tagged cases. `--all` includes
+The 137 spec-only tests retain their normative expected files.
+Default Verilator runs and CI select the 1113 tagged cases. `--all` includes
 spec-only cases and records mismatches or build failures as `known`.
-The ordinary runtime records for 115 cases establish their first difference
-at seed 1, without seed 73 results. Ten missing-API builds have no ordinary
+The ordinary runtime records for 116 cases establish their first difference
+at seed 1, without seed 73 results. Thirteen missing-API builds have no ordinary
 runtime seed result: one time API, six sequence-library cases, two HDL slice
-cases and one object active-policy case. Eight HDL-DPI fixtures also cannot
+cases, one object active-policy case and three catcher message-handle cases.
+Eight HDL-DPI fixtures also cannot
 link in the ordinary runner. Their separate VPI condition matches seven at
 both seeds and fails the E.7 warning/no-transfer expectation at seed 1.
 These overlapping configurations are not summed.
 
 ## Spec-only tests
 
-These are the 133 current spec-only cases. Several exercise the same
+These are the 137 current spec-only cases. Several exercise the same
 limitation, so their count is not a count of distinct bugs.
 
 - [Explicit HDL abstraction selection](../tests/uE/test_hdl_path_sequence_uses_an_explicit_abstraction_instead_of_the_invalid_default.sv).
@@ -670,10 +681,17 @@ Additional individual-field byte-enable cases:
 - [isolated field writes](../tests/u18/test_field_byte_enable_write_selects_individual_or_whole_register_access.sv)
 - [isolated field reads](../tests/u18/test_field_byte_enable_read_selects_individual_or_whole_register_access.sv)
 
+Additional message-handle and endian cases:
+
+- [preformed message identity](../tests/u06/test_report_catcher_exposes_the_supplied_preformed_message_and_current_origin.sv)
+- [live message alias](../tests/u06/test_report_catcher_message_handle_mutations_are_live_in_tail_and_caller.sv)
+- [preformed message reuse](../tests/u06/test_preformed_report_reuse_rebinds_origin_and_actions_for_each_reporter.sv)
+- [individual big-endian field addresses](../tests/u18/test_field_access_big_endian_respects_layout_and_physical_bus_width.sv)
+
 ## Simulator and library combinations
 
-The suite has 1238 cases, but the kirimasim/Ghost records below cover only
-1085 unchanged current-input cases. The 153 new cases are unmeasured
+The suite has 1250 cases, but the kirimasim/Ghost records below cover only
+1085 unchanged current-input cases. The 165 new cases are unmeasured
 because prior temporary executable/profile snapshots are unavailable. Do
 not treat this as a fresh full-suite guest result. See [results](results.md).
 

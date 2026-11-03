@@ -135,7 +135,7 @@ See [Ghost setup](testing.md#ghost).
 
 It removes `UVM_NO_DPI` from the default macro list. It does not supply or link
 UVM's C/C++ implementation. The current Verilator runner does not add those
-sources. There are 1230 `UVM_NO_DPI` cases and eight explicit HDL-DPI cases.
+sources. There are 1242 `UVM_NO_DPI` cases and eight explicit HDL-DPI cases.
 The [separate VPI runner](testing.md#verilator-vpi-hdl-subset) links the original
 limited backend; results apply only to that declared execution condition.
 User-defined `uvm_reg_backdoor` handlers can operate without HDL DPI (Q67).
@@ -174,7 +174,7 @@ a claim that every test was rebuilt together.
 
 ### Q16. Are M1, M2 or M3 complete, and what does the test count cover?
 
-M1 and M2 still have open clause targets. M3 now has 375
+M1 and M2 still have open clause targets. M3 now has 379
 register-layer cases, including testbench frontdoor paths; it is also incomplete. Starting a stage does not complete
 the preceding stages.
 The [plan](../README.md#plan) identifies current scope and remaining work.
@@ -1141,9 +1141,9 @@ not a direct test of the requirement.
 
 ### Q77. Why is there no coverage percentage after starting M4?
 
-The 1529 AI drafts cover only a partial decomposition: 1529 requirements link
-directly to 1237 tests; all drafts have direct tests, and one separate test is a control.
-All 1238 tests have requirement links. The 2,504 clause identifiers are not normative requirement units.
+The 1575 AI drafts cover only a partial decomposition: 1575 requirements link
+directly to 1249 tests; all drafts have direct tests, and one separate test is a control.
+All 1250 tests have requirement links. The 2,504 clause identifiers are not normative requirement units.
 The scope is proposed, the inventory incomplete and the denominator unapproved;
 starting M4 approves none of those. Known differences and HDL/DPI limitations
 do not silently exclude obligations. See the [approval path](requirements.md#remaining-m4-work-and-approval).
@@ -2143,7 +2143,7 @@ No. `tests_without_requirement_links` is zero: every current test has an
 explicit direct or control link. The separate counter
 `requirements_without_direct_tests` is zero. The memory-walk link uses the
 qualified historical interpretation in Q134. It is not approval of missing
-IEEE detail. HDL deposit and accessibility use explicit VPI fixtures. Another 1,505
+IEEE detail. HDL deposit and accessibility use explicit VPI fixtures. Another 1,487
 catalog identifiers remain unassessed; decomposition and human review are
 incomplete, and the denominator remains unapproved.
 
@@ -2244,7 +2244,7 @@ in [identifier assessments](../coverage/assessments.json). Structural headings
 have no related requirements; contextual descriptions name existing requirements.
 An unreviewed record, guessed classification or parent rollup cannot do this.
 The generated state is `assessed`, separate from `partial` requirement clauses.
-Sixty-two classifications currently exist, with no denominator approval or new pass.
+Sixty-six classifications currently exist, with no denominator approval or new pass.
 Chapter 11's zero unassessed identifiers still does not complete its requirements.
 
 ### Q136. Does explicit strict configuration make the new cases pass?
@@ -2536,3 +2536,37 @@ normative expectations as [known differences](known-differences.md#pinned-librar
 The [fallback control](../tests/u18/test_field_byte_enable_fallback_selects_individual_or_whole_register_access.sv)
 separately matches. These observations use an original bus model, not HDL DUT
 storage or side-effecting access policies.
+
+## Preformed messages, fatal guards and field layout
+
+### Q158. Can a private catcher field replace missing get_report_message?
+
+Keep the standard public API. The three fixtures specify current-message
+identity, live setters and sequential origin/action rebinding. The pinned
+library omits `get_report_message`, so they have build results and no runtime
+result. Their ledger links are expected observations, not passes. See
+[known differences](known-differences.md#pinned-library-limitations).
+
+### Q159. Why do the missing-default ownership tests expect nonzero exit?
+
+They observe original UVM_FATAL severity, print the controlled observation and
+end using their own fatal sentinel. `:expected_exit: nonzero` plus
+`:expected_stderr_regex:` distinguish that intentional end from a missing
+observation or unrelated crash. No library diagnostic text or fatal exit code
+is fixed, and execution after fatal is not required. Signals remain failures.
+See the [lock fixture](../tests/u14/test_sequence_lock_without_a_default_sequencer_reports_fatal.sv).
+
+### Q160. Which additional field layouts are checked?
+
+| Condition | Required behavior | Recorded scope |
+| --- | --- | --- |
+| Two nibbles in one byte | Whole-register fallback preserves peer mirror on write and updates it on read | Matches both seeds |
+| Eight-bit target starting at bit 4 | Merge mirrored neighbors; extract logical field bits | Matches both seeds |
+| Byte-isolated fields, one-byte little-endian bus | High address 0x21, low address 0x20 | Matches both seeds |
+| Byte-isolated fields, one-byte big-endian bus | High address 0x20, low address 0x21 | Seed-1 address/data difference |
+
+These use original RW-field bus models with auto-prediction. They do not
+establish HDL storage, access-policy side effects or unused data-lane values.
+The [big-endian fixture](../tests/u18/test_field_access_big_endian_respects_layout_and_physical_bus_width.sv)
+retains its configured byte order; eligibility alone does not prove a correct
+physical transfer.

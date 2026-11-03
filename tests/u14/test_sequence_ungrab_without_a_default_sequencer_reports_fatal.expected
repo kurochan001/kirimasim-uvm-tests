@@ -1,0 +1,2 @@
+UT: default_is_null 1
+UT: missing_default fatal 1
