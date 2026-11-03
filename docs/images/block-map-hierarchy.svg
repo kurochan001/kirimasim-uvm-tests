@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception -->
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="540"
+     viewBox="0 0 880 540" role="img" aria-labelledby="title desc">
+  <title id="title">Block ancestry and independent maps</title>
+  <desc id="desc">The root block owns child, and child owns deep. Each block owns its named map: root_map, child_map or deep_map. Solid arrows show block ancestry; dashed arrows show map ownership. No add_submap connections exist between the maps shown. Other maps in the fixture are omitted.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5"
+            markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 Z" fill="#52647a"/>
+    </marker>
+  </defs>
+  <style>
+    text { font-family: system-ui, -apple-system, "Segoe UI", "Noto Sans JP", sans-serif; fill: #18293c; }
+    .heading { font-size: 23px; font-weight: 650; }
+    .label { font-size: 18px; font-weight: 600; }
+    .body { font-size: 16px; }
+    .edge-label { font-size: 15px; fill: #405269; }
+    .edge { fill: none; stroke: #52647a; stroke-width: 2; marker-end: url(#arrow); }
+    .ownership { stroke-dasharray: 5 5; }
+    .neutral { fill: #f4f6f8; stroke: #8797aa; }
+    .standard { fill: #eaf2ff; stroke: #4974ae; }
+    .expectation { fill: #f1edfc; stroke: #8062ae; }
+    .execution { fill: #e8f5f3; stroke: #388276; }
+    rect.node { stroke-width: 1.5; }
+  </style>
+  <rect width="880" height="540" fill="#ffffff"/>
+  <text x="32" y="36" class="heading" text-anchor="start">Block ancestry and independent maps</text>
+  <text x="200" y="82" class="label" text-anchor="middle">Block hierarchy</text>
+  <text x="660" y="82" class="label" text-anchor="middle">Map ownership</text>
+  <path class="edge" d="M 200 186 V 246"/>
+  <path class="edge" d="M 200 322 V 382"/>
+  <path class="edge ownership" d="M 340 148 H 510"/>
+  <text x="425" y="134" class="edge-label" text-anchor="middle">Owns</text>
+  <g id="block-root">
+    <rect class="node standard" x="60" y="110" width="280" height="76" rx="10"/>
+  <text x="200.0" y="154.0" class="label" text-anchor="middle">Block: root</text>
+  </g>
+  <g id="map-root">
+    <rect class="node execution" x="510" y="110" width="300" height="76" rx="10"/>
+  <text x="660.0" y="154.0" class="label" text-anchor="middle">Map: root_map</text>
+  </g>
+  <path class="edge ownership" d="M 340 284 H 510"/>
+  <text x="425" y="270" class="edge-label" text-anchor="middle">Owns</text>
+  <g id="block-child">
+    <rect class="node standard" x="60" y="246" width="280" height="76" rx="10"/>
+  <text x="200.0" y="290.0" class="label" text-anchor="middle">Block: child</text>
+  </g>
+  <g id="map-child">
+    <rect class="node execution" x="510" y="246" width="300" height="76" rx="10"/>
+  <text x="660.0" y="290.0" class="label" text-anchor="middle">Map: child_map</text>
+  </g>
+  <path class="edge ownership" d="M 340 420 H 510"/>
+  <text x="425" y="406" class="edge-label" text-anchor="middle">Owns</text>
+  <g id="block-deep">
+    <rect class="node standard" x="60" y="382" width="280" height="76" rx="10"/>
+  <text x="200.0" y="426.0" class="label" text-anchor="middle">Block: deep</text>
+  </g>
+  <g id="map-deep">
+    <rect class="node execution" x="510" y="382" width="300" height="76" rx="10"/>
+  <text x="660.0" y="426.0" class="label" text-anchor="middle">Map: deep_map</text>
+  </g>
+  <text x="440" y="505" class="body" text-anchor="middle">No add_submap connections between these maps.</text>
+</svg>

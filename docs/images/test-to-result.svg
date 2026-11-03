@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception -->
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="680"
+     viewBox="0 0 960 680" role="img" aria-labelledby="title desc">
+  <title id="title">From a test to a measured result</title>
+  <desc id="desc">Cited IEEE clauses determine the test and expected output. The test and UVM library feed build and execution. The runner compares observations with expected conditions, then writes status and fingerprints when --json is requested. Build and run failures also receive a result.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5"
+            markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 Z" fill="#52647a"/>
+    </marker>
+  </defs>
+  <style>
+    text { font-family: system-ui, -apple-system, "Segoe UI", "Noto Sans JP", sans-serif; fill: #18293c; }
+    .heading { font-size: 23px; font-weight: 650; }
+    .label { font-size: 18px; font-weight: 600; }
+    .body { font-size: 16px; }
+    .edge-label { font-size: 15px; fill: #405269; }
+    .edge { fill: none; stroke: #52647a; stroke-width: 2; marker-end: url(#arrow); }
+    .ownership { stroke-dasharray: 5 5; }
+    .neutral { fill: #f4f6f8; stroke: #8797aa; }
+    .standard { fill: #eaf2ff; stroke: #4974ae; }
+    .expectation { fill: #f1edfc; stroke: #8062ae; }
+    .execution { fill: #e8f5f3; stroke: #388276; }
+    rect.node { stroke-width: 1.5; }
+  </style>
+  <rect width="960" height="680" fill="#ffffff"/>
+  <text x="32" y="36" class="heading" text-anchor="start">From a test to a measured result</text>
+  <path class="edge" d="M 450 134 V 166 H 190 V 220"/>
+  <path class="edge" d="M 450 134 V 166 H 540 V 220"/>
+  <path class="edge" d="M 190 316 V 352 H 240 V 390"/>
+  <path class="edge" d="M 540 316 V 352 H 600 V 390"/>
+  <path class="edge" d="M 820 316 V 352 H 740 V 390"/>
+  <path class="edge" d="M 520 434 H 390"/>
+  <path class="edge" d="M 240 478 V 555"/>
+  <text x="455" y="419" class="edge-label" text-anchor="middle">Observed</text>
+  <g id="standard">
+    <rect class="node standard" x="300" y="58" width="300" height="76" rx="10"/>
+  <text x="450.0" y="86" class="label" text-anchor="middle">IEEE 1800.2-2020</text>
+  <text x="450.0" y="111" class="body" text-anchor="middle">Cited clauses</text>
+  </g>
+  <g id="expected">
+    <rect class="node expectation" x="40" y="220" width="300" height="96" rx="10"/>
+  <text x="190.0" y="248" class="label" text-anchor="middle">Expected result</text>
+  <text x="190.0" y="273" class="body" text-anchor="middle">.expected + metadata</text>
+  <text x="190.0" y="295" class="body" text-anchor="middle">conditions</text>
+  </g>
+  <g id="test">
+    <rect class="node neutral" x="420" y="220" width="240" height="96" rx="10"/>
+  <text x="540.0" y="248" class="label" text-anchor="middle">Test source</text>
+  <text x="540.0" y="273" class="body" text-anchor="middle">SystemVerilog +</text>
+  <text x="540.0" y="295" class="body" text-anchor="middle">metadata</text>
+  </g>
+  <g id="library">
+    <rect class="node neutral" x="700" y="220" width="240" height="96" rx="10"/>
+  <text x="820.0" y="248" class="label" text-anchor="middle">UVM library</text>
+  <text x="820.0" y="273" class="body" text-anchor="middle">Pinned or Ghost</text>
+  <text x="820.0" y="295" class="body" text-anchor="middle">bundled</text>
+  </g>
+  <g id="execute">
+    <rect class="node execution" x="520" y="390" width="300" height="88" rx="10"/>
+  <text x="670.0" y="418" class="label" text-anchor="middle">Build and run</text>
+  <text x="670.0" y="443" class="body" text-anchor="middle">Selected simulator</text>
+  </g>
+  <g id="judge">
+    <rect class="node expectation" x="90" y="390" width="300" height="88" rx="10"/>
+  <text x="240.0" y="418" class="label" text-anchor="middle">Runner judgment</text>
+  <text x="240.0" y="443" class="body" text-anchor="middle">UT: lines + exit / diagnostics</text>
+  </g>
+  <g id="result">
+    <rect class="node neutral" x="90" y="555" width="300" height="88" rx="10"/>
+  <text x="240.0" y="583" class="label" text-anchor="middle">Result JSON with --json</text>
+  <text x="240.0" y="608" class="body" text-anchor="middle">Status + fingerprints</text>
+  </g>
+</svg>

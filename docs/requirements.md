@@ -52,6 +52,12 @@ The ledger tool consumes no simulator results.
 
 ## Citations, requirements and execution evidence
 
+The relationships below separate a clause citation, a reviewed requirement
+link and a measured result. The ledger checks expected-output links;
+execution records carry the measured status and conditions.
+
+![Clause citations, explicit requirement links and separately measured execution evidence.](images/requirement-evidence.svg)
+
 A test's first UVM `:lrm:` reference is its **primary focus**; later UVM
 references are **supporting citations**. Of the catalog identifiers, 568
 have a primary-focus test and 1,197 have either kind of citation. Supporting
@@ -132,9 +138,16 @@ python3 tools/requirements.py sync --output out/test-index-proposal.json
 
 `check` validates the canonical inputs and prints a summary. `inventory` also
 writes all identifier dispositions, decomposition states, primary/supporting
-citations, requirement links, review/oracle metadata, fingerprints and root totals. A
-clause with requirements is `partial`; an explicitly classified one is
-`assessed`; otherwise it is `unassessed`. None means complete or covered.
+citations, requirement links, review/oracle metadata, fingerprints and root totals.
+Each identifier receives one decomposition state:
+
+| State | What is recorded | Remaining review |
+| --- | --- | --- |
+| `partial` | One or more requirements for this identifier | Check the remaining obligations and applicability conditions |
+| `assessed` | An explicit structural/contextual classification with rationale | Review the classification and, for contextual material, its related requirements |
+| `unassessed` | Neither requirements nor an explicit classification | Read the clause, then decompose obligations or record a justified classification |
+
+None of these states means complete or covered.
 Generated denominator and percentage fields
 remain `null`. `--lang en` or `--lang ja` selects summary language; JSON keys
 and stable identifiers do not change. Generated files under `out/` are ignored

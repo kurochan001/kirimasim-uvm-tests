@@ -528,9 +528,9 @@ control-only requirements and context/deferred identifiers; it does not turn
 unassessed items into confirmed conformance failures.
 
 **Ledger input identity** — The `ledger_inputs_sha256` of a generated inventory
-or backlog: a portable identity of validated scope, requirement data, test index
-and catalog. JSON formatting is normalized; array order and catalog bytes are
-retained. See [report identity](requirements.md#generated-report-identity).
+or backlog: a portable identity of validated scope, requirement data, identifier
+assessments, test index and catalog. JSON formatting is normalized; array order
+and catalog bytes are retained. See [report identity](requirements.md#generated-report-identity).
 The same identity across views does not approve coverage or identify measured
 simulator execution.
 

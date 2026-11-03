@@ -143,24 +143,7 @@ So:
 The two paths meet at judgment: the cited clauses determine the expectation,
 and execution supplies the observation.
 
-```mermaid
-flowchart TB
-    standard["IEEE 1800.2-2020<br/>Cited clauses"]
-    test["Test source<br/>SystemVerilog + metadata"]
-    expected["Expected result<br/>.expected + metadata conditions"]
-    library["UVM library<br/>Pinned or Ghost bundled"]
-    execute["Build and run<br/>Selected simulator"]
-    judge["Runner judgment<br/>UT: lines + exit / diagnostics"]
-    result["Result JSON with --json<br/>Status + fingerprints"]
-
-    standard --> test
-    standard --> expected
-    test --> execute
-    library --> execute
-    execute --> judge
-    expected --> judge
-    judge --> result
-```
+![Cited clauses determine expectations; execution supplies observations for runner judgment and result recording.](images/test-to-result.svg)
 
 Build and run failures also receive a result. The library identity remains
 part of the execution conditions; a Ghost bundled run uses its supplied UVM.
@@ -358,6 +341,11 @@ links. Update both in the same change. API names, metadata, command options,
 expected output and other machine-readable literals retain their spelling.
 The original [LICENSE](../LICENSE) has a complete, non-authoritative
 [Japanese reference translation](../LICENSE.ja.md).
+
+Keep paired SVG assets in `docs/images/` (`.svg` and `.ja.svg`), with translated
+labels, a `title` and a `desc`. The SVG source is directly editable; keep the
+two versions' nodes, arrows and method names aligned. Give each embedded image
+descriptive Markdown alt text in its language.
 
 Keep the README about the current project: scope, prerequisites, commands,
 results and open work. Put increment narratives and superseded measurements

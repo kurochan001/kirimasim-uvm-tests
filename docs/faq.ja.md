@@ -1848,12 +1848,25 @@ link endpointはfree前ならcloseでき、正確なrelationがdatabase hookへ�
 
 ### Q144. sequence再利用の実行ごとに何が変わりますか？
 
-各startのcall_pre_post選択はpre_body／post_bodyを制御し、pre_start／post_startとparent pre／mid／post callbackは動作を保ちます。
+parentのあるchild startが通常完了する場合、hookの制御は次のように異なります。
+各cellは、列挙した両methodまたは3つのcallbackそれぞれに適用します。
+
+| Hook／callback | `call_pre_post = 0` | `call_pre_post = 1` |
+| --- | --- | --- |
+| Childの`pre_body`／`post_body` | 呼ばない | 各startで1回呼ぶ |
+| Childの`pre_start`／`post_start` | 各startで1回呼ぶ | 各startで1回呼ぶ |
+| Parentの`pre_do`／`mid_do`／`post_do` | 各startで1回呼ぶ | 各startで1回呼ぶ |
+
 別parent下でchildを再利用し、正確なchild引数と現在parentを確認します。hook全体の相互順序は指定しません。
 別の検査で、完了start間にstarting phaseをmain／shutdown／nullへ設定し、automatic objectionを1／0／1へ変えます。
 pre_startの数は設定に一致し、完了したstartはそれぞれobjectionを解放します。制御変更は完了した実行の間だけで行います。
 
 ### Q145. block階層とmap階層をなぜ区別しますか？
+
+次の図は、名前照会の検査系から各blockのmapを1つずつ示します。
+実線はblockの親子関係、破線はmapの所有を示します。図のmap同士にadd_submapの接続はありません。
+
+![root、child、deepのblock親子関係と、各blockが独立したmapを所有する構成。](images/block-map-hierarchy.ja.svg)
 
 blockはchild blockを持ち、mapは独立してsubmapを持ちます。新map名照会は、local mapのsubmapにしていない登録済みchild blockのmapも、
 18.1.3.13に従って検索しますが、固定版の実行では見つけません。block名の検査は有効なsimple nameを使い、

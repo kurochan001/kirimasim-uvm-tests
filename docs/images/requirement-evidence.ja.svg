@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception -->
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="490"
+     viewBox="0 0 900 490" role="img" aria-labelledby="title desc">
+  <title id="title">引用・要求の対応付け・実行の証拠</title>
+  <desc id="desc">規格をテストで引用し、義務と適用条件を要求案へ分解する。要求は、テストの期待する観測へdirectまたはcontrolとして明示的に対応付ける。実行の証拠は別途測定し、statusと条件の指紋を記録する。引用や対応付けだけで実行成功を示さない。</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5"
+            markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 Z" fill="#52647a"/>
+    </marker>
+  </defs>
+  <style>
+    text { font-family: system-ui, -apple-system, "Segoe UI", "Noto Sans JP", sans-serif; fill: #18293c; }
+    .heading { font-size: 23px; font-weight: 650; }
+    .label { font-size: 18px; font-weight: 600; }
+    .body { font-size: 16px; }
+    .edge-label { font-size: 15px; fill: #405269; }
+    .edge { fill: none; stroke: #52647a; stroke-width: 2; marker-end: url(#arrow); }
+    .ownership { stroke-dasharray: 5 5; }
+    .neutral { fill: #f4f6f8; stroke: #8797aa; }
+    .standard { fill: #eaf2ff; stroke: #4974ae; }
+    .expectation { fill: #f1edfc; stroke: #8062ae; }
+    .execution { fill: #e8f5f3; stroke: #388276; }
+    rect.node { stroke-width: 1.5; }
+  </style>
+  <rect width="900" height="490" fill="#ffffff"/>
+  <text x="32" y="36" class="heading" text-anchor="start">引用・要求の対応付け・実行の証拠</text>
+  <path class="edge" d="M 360 123 H 560"/>
+  <path class="edge" d="M 120 168 V 336"/>
+  <path class="edge" d="M 710 168 V 242 H 280 V 336"/>
+  <path class="edge" d="M 360 386 H 560"/>
+  <text x="460" y="89" class="edge-label" text-anchor="middle">義務と適用条件を</text>
+  <text x="460" y="110" class="edge-label" text-anchor="middle">分解する</text>
+  <text x="142" y="283" class="edge-label" text-anchor="start">:lrm:で引用</text>
+  <text x="550" y="223" class="edge-label" text-anchor="middle">direct／controlを明示して対応</text>
+  <text x="460" y="347" class="edge-label" text-anchor="middle">別途</text>
+  <text x="460" y="369" class="edge-label" text-anchor="middle">測定する</text>
+  <g id="standard">
+    <rect class="node standard" x="40" y="78" width="320" height="90" rx="10"/>
+  <text x="200.0" y="106" class="label" text-anchor="middle">引用した規格の条項</text>
+  <text x="200.0" y="131" class="body" text-anchor="middle">義務＋適用条件</text>
+  </g>
+  <g id="requirements">
+    <rect class="node expectation" x="560" y="78" width="300" height="90" rx="10"/>
+  <text x="710.0" y="106" class="label" text-anchor="middle">要求案</text>
+  <text x="710.0" y="131" class="body" text-anchor="middle">明示的な要求ID</text>
+  </g>
+  <g id="test">
+    <rect class="node expectation" x="40" y="336" width="320" height="100" rx="10"/>
+  <text x="200.0" y="364" class="label" text-anchor="middle">テスト＋汎用の期待出力</text>
+  <text x="200.0" y="389" class="body" text-anchor="middle">期待するUT:の観測</text>
+  </g>
+  <g id="execution">
+    <rect class="node execution" x="560" y="336" width="300" height="100" rx="10"/>
+  <text x="710.0" y="364" class="label" text-anchor="middle">実行の証拠</text>
+  <text x="710.0" y="389" class="body" text-anchor="middle">status＋条件の指紋</text>
+  </g>
+</svg>

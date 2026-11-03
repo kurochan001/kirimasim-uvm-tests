@@ -2332,15 +2332,28 @@ Four unchanged hook fixtures also gain explicit callback requirement links.
 
 ### Q144. What changes between reused sequence executions?
 
-Each start's call_pre_post choice controls pre_body/post_body, while pre_start/
-post_start and parent pre/mid/post callbacks remain active. Reusing the child
-under another parent observes exact child arguments and current parent identity,
-without imposing a global hook interleaving. Separate cases set main/shutdown/
-null starting phases across completed starts and select automatic objections
-one/zero/one; pre_start counts match and every completed start releases its
-objection. Controls are changed only between completed executions.
+For a normally completed child start with a parent, the hook controls compare
+as follows. Each cell applies to both methods or all three callbacks listed.
+
+| Hook or callback | `call_pre_post = 0` | `call_pre_post = 1` |
+| --- | --- | --- |
+| Child `pre_body` / `post_body` | Skipped | Called once per start |
+| Child `pre_start` / `post_start` | Called once per start | Called once per start |
+| Parent `pre_do` / `mid_do` / `post_do` | Called once per start | Called once per start |
+
+Reusing the child under another parent observes exact child arguments and
+current parent identity, without imposing a global hook interleaving. Separate
+cases set main/shutdown/null starting phases across completed starts and select
+automatic objections one/zero/one; pre_start counts match and every completed
+start releases its objection. Controls are changed only between completed executions.
 
 ### Q145. Why distinguish block hierarchy from map hierarchy?
+
+The sketch shows one map per block from the name-query fixture. Solid arrows
+show block ancestry; dashed arrows show map ownership. None of these maps is
+connected to another by add_submap.
+
+![The root, child and deep block hierarchy with each block owning an independent map.](images/block-map-hierarchy.svg)
 
 A block owns child blocks, while a map independently owns submaps. The new
 map-name query searches registered child-block maps even when they are not

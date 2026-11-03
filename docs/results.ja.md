@@ -63,6 +63,17 @@ frontdoor／backdoorの転送動作の成功は示しません。
 localの対象範囲は`out/thin-twenty-first-evidence-scope.json`へ記録します。
 許可された実行環境を復元するまで、この部分的な範囲を保持します。
 
+指紋ごとに、識別する入力が異なります。
+
+| 識別子 | 識別する内容 | 使い方 |
+| --- | --- | --- |
+| `inputs_sha256` | テストsource、期待値file、収集したhelper／data、library lock | 各記録を現在のテスト入力と照合する |
+| `runner_sha256` | 選択したrunner、`suite_results.py`、`uvm_common.py` | batch間で一致し、`runner_changed`がfalseであることを確認する |
+| `ledger_inputs_sha256` | 正本の範囲、要求、分類、テスト索引、条項catalog | simulationの証拠と別に、生成したinventory／backlogを識別する |
+
+[台帳の識別子](requirements.ja.md#生成レポートの識別)は、生成したレビュー資料のものです。
+入力／runnerのhashが一致しても、実行記録を再利用する前にシミュレータ、configuration、libraryの同一性を確認します。
+
 合算する前に、次を確認します。
 
 - Verilator IDが現在の全件を覆い、guest IDは宣言した1085件の部分集合と一致すること。新規103 IDは未測定のままにすること。

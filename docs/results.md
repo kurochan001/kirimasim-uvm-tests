@@ -81,6 +81,18 @@ inputs; the 103 new test IDs are explicitly unmeasured. The local
 scope record is `out/thin-twenty-first-evidence-scope.json`. Preserve this
 partial scope until the authorized execution environment is restored.
 
+The fingerprints identify different inputs:
+
+| Identity | What it identifies | How to use it |
+| --- | --- | --- |
+| `inputs_sha256` | Test source, expected files, collected helpers/data and library lock | Compare each record with the current test inputs |
+| `runner_sha256` | Selected runner, `suite_results.py` and `uvm_common.py` | Match across batches and require `runner_changed` to be false |
+| `ledger_inputs_sha256` | Canonical scope, requirements, assessments, test index and clause catalog | Identify a generated inventory/backlog, separately from simulation evidence |
+
+The [ledger identity](requirements.md#generated-report-identity) belongs to
+generated review reports. Matching input/runner hashes still requires checking
+simulator, configuration and library identities before reusing execution records.
+
 Before combining records, check that:
 
 - Verilator IDs cover the current suite exactly. Retained guest IDs match

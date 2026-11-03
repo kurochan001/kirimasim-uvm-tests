@@ -126,24 +126,7 @@ kirimasim-testsと同じです。共通実装の取得元は[ソースの出典]
 
 引用した条項から決める期待値と、実行から得る観測結果を、判定の段階で照合します。
 
-```mermaid
-flowchart TB
-    standard["IEEE 1800.2-2020<br/>引用した条項"]
-    test["テストのソース<br/>SystemVerilog + メタデータ"]
-    expected["期待値<br/>.expected + メタデータの条件"]
-    library["UVMライブラリ<br/>固定版またはGhost同梱版"]
-    execute["ビルドと実行<br/>選択したシミュレータ"]
-    judge["ランナーの判定<br/>UT: 行 + 終了・診断の条件"]
-    result["--json指定時の結果JSON<br/>ステータス + 指紋"]
-
-    standard --> test
-    standard --> expected
-    test --> execute
-    library --> execute
-    execute --> judge
-    expected --> judge
-    judge --> result
-```
+![引用条項から決めた期待値と実行の観測を、ランナーが照合して結果へ記録する流れ。](images/test-to-result.ja.svg)
 
 ビルド・実行の失敗も結果として記録します。ライブラリの識別情報も実行条件の一部で、
 Ghostの同梱モードでは供給されたUVMを使います。ステータスとコマンドの終了コードは
@@ -311,6 +294,10 @@ forkの共有状態が生存するようにし、blockingの観測にはwatchdog
 リンクを対応させて、同じ変更で両方を更新します。API名、metadata、コマンドのoption、期待出力など、
 機械が読む文字列の表記は変えません。[LICENSE](../LICENSE)の原文には、全文の非公式な
 [日本語参考訳](../LICENSE.ja.md)を用意します。
+
+SVGは`docs/images/`に`.svg`と`.ja.svg`の対で置き、label、`title`、`desc`を翻訳します。
+SVGのソースを直接編集できるため、両版のnode、矢印、method名を対応させて維持します。
+埋め込む画像には、その言語で内容を説明するMarkdownの代替テキストを付けます。
 
 READMEには現在の対象範囲、前提環境、コマンド、実行結果、未完の作業を記載します。
 追加作業の経緯と過去の測定は[履歴](history.ja.md)、現在の測定方法は[実行結果](results.ja.md)、
