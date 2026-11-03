@@ -1050,3 +1050,15 @@ observations; they do not implement a physical bus target.
 **Classification reassessment**: Re-reading a previously classified clause
 and replacing the classification when a distinct normative duty is found.
 The original identifier remains in scope and gains direct requirements.
+
+**Printed provider list**: Provider class names explicitly listed by a socket
+connect clause. A blocking/nonblocking naming conflict remains a qualified
+interpretation even when a separate operational path works.
+
+**Direct provider entry**: A raw connection visible to a port's direct query.
+An entry left after an invalid call is distinct from a resolved executable
+binding and does not establish a legal runtime path.
+
+**Custom phase type**: An explicitly selected phase type for a parameterized
+nonblocking interface. Positive exact views and selected two-way forwarding
+do not settle a printed connect signature that omits the phase parameter.

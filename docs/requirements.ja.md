@@ -5,12 +5,12 @@
 ## 現在の状態
 
 M4を進めています。[対象範囲の案](../coverage/scope.json)、[要求台帳](../coverage/requirements.json)、
-[番号の分類](../coverage/assessments.json)、[テスト索引](../coverage/test_index.json)を版管理します。AI要求案2001件は、すべて1395テストへ直接対応し、
-追加の1テストはcontrolです。全1396テストに要求の対応付けがあります。
+[番号の分類](../coverage/assessments.json)、[テスト索引](../coverage/test_index.json)を版管理します。AI要求案2084件は、すべて1407テストへ直接対応し、
+追加の1テストはcontrolです。全1408テストに要求の対応付けがあります。
 直接テストとテスト対応付けのqueueは両方0件です。memory-walkのoracleは、レビューが必要な歴史的解釈を明示し、
 IEEE全体のcoverageを認定しません。人による照合記録はありません。
 
-条項catalogの番号は2,507件です。1141件は要求を一部分解し、170件はAIで明示的に分類（構造119件・文脈51件）、残る1,196件は未評価です。
+条項catalogの番号は2,507件です。1174件は要求を一部分解し、182件はAIで明示的に分類（構造131件・文脈51件）、残る1,151件は未評価です。
 いずれも完了を示しません。M4の開始は、範囲や分母の承認、M1〜M3の完了を意味しません。
 `approved_denominator`と`coverage_percentage`は`null`のままです。
 
@@ -18,7 +18,7 @@ IEEE全体のcoverageを認定しません。人による照合記録はあり�
 
 適用条件を伴う、観測可能な規範的義務を1要求とする案です。methodの1条項にも、成功、失敗、default引数、
 順序、副作用など、複数の要求が必要な場合があります。見出し自体は義務ではありません。
-2001件の要求案は複数領域にわたりますが、その条項内の全義務を列挙したものではありません。
+2084件の要求案は複数領域にわたりますが、その条項内の全義務を列挙したものではありません。
 
 既存の番号catalogのすべてのrootを、1つずつ次に割り当てます。
 
@@ -46,10 +46,10 @@ SystemVerilog言語自体の要求はkirimasim-testsで扱い、言語やHDL機�
 ![条項の引用、明示的な要求の対応付け、別途測定する実行の証拠の関係。](images/requirement-evidence.ja.svg)
 
 テストの最初のUVM `:lrm:`参照を**主引用**、後続のUVM参照を**補助引用**と呼びます。
-catalogのうち主引用がある番号は711件、どちらかの引用がある番号は1,378件です。
+catalogのうち主引用がある番号は722件、どちらかの引用がある番号は1,401件です。
 補助引用は準備に使うAPIの場合もあります。引用から要求の対応付けを自動生成せず、子条項の参照を親条項へ自動集約もしません。
 
-対象候補2,482件について、従来の「各条項2テスト」の主引用の棚卸しは、0件が1,771、1件が423、2件以上が288です。
+対象候補2,482件について、従来の「各条項2テスト」の主引用の棚卸しは、0件が1,760、1件が433、2件以上が289です。
 これはテストの配置を測るだけで、2つの独立した検査があること、規範的な義務を分解したこと、実行が成功したことを示しません。
 承認された要求の分母ではなく、主引用0件の全条項が不足だと宣言するものでもありません。
 
@@ -66,7 +66,7 @@ checkerは参照、field、期待行の存在、入力の同一性を検査し�
 
 [実行の証拠](results.ja.md)は別に扱い、入力、runner、ライブラリ、設定の同一性が必要です。
 直接の対応先にもspecのみの既知差分があり得ます。対応自体は成功や適合性の主張ではありません。
-現在の1396件には新たに測定した検査系を含みます。変更していない既存テストの対応付け自体は、追加の実行結果ではありません。
+現在の1408件には新たに測定した検査系を含みます。変更していない既存テストの対応付け自体は、追加の実行結果ではありません。
 
 ## 版管理するデータと生成する棚卸し
 
@@ -84,7 +84,7 @@ checkerは参照、field、期待行の存在、入力の同一性を検査し�
   `unreviewed`のまま未評価queueから除去できません。見出しの自動分類は行いません。
 - `coverage/test_index.json`は、全テストの`primary_clause`と`inputs_sha256`を記録します。
   指紋は既存runnerの収集処理を使い、source、宣言したhelper／include／data、期待値file、UVM lockを含めます。
-  索引は棚卸しであり、1396件のレビュー済み要求対応ではありません。
+  索引は棚卸しであり、1408件のレビュー済み要求対応ではありません。
 
 照合状態は`ai`、`unreviewed`、`human`です。humanには識別可能な`reviewer`と、`reviewed_at`のISO日付が必要です。
 他の状態では両方を`null`にします。照合したという記録であり、checkerが本人性を認証するものではありません。
@@ -147,7 +147,7 @@ JSONは、`requirements_without_direct_tests`（controlのみも含む日英の�
 | 9 | 37 | 27 | 0 | 0 | 89 |
 | 10 | 128 | 86 | 0 | 29 | 2 |
 | 11 | 35 | 20 | 0 | 4 | 0 |
-| 12 | 240 | 181 | 0 | 33 | 45 |
+| 12 | 323 | 193 | 0 | 45 | 0 |
 | 13 | 45 | 26 | 0 | 0 | 85 |
 | 14 | 227 | 145 | 0 | 17 | 0 |
 | 15 | 67 | 85 | 0 | 4 | 45 |
@@ -163,7 +163,7 @@ JSONは、`requirements_without_direct_tests`（controlのみも含む日英の�
 | G | 45 | 20 | 0 | 4 | 0 |
 
 未対応テスト0件と直接テストのない要求案0件は、完全な要求coverageを示しません。
-残る識別子1,196件は評価／分解が必要です。範囲は提案、2001件のレビューはすべて`ai`、分母は未承認です。
+残る識別子1,151件は評価／分解が必要です。範囲は提案、2084件のレビューはすべて`ai`、分母は未承認です。
 
 TLM 1要求案は、選択interface／port既定値、FIFO照会、公開export method、channel継承／既定値／constructorとqueue容量を扱います。
 実analysis impと多段exportは、選択subscriberへの配送、subscriberごとの順序、live handleを保持します。
@@ -171,13 +171,22 @@ TLM 1要求案は、選択interface／port既定値、FIFO照会、公開export 
 12.2.9.2の再読で独立した容量義務が判明したため、以前の文脈分類を削除し、直接要求2件へ置き換えます。
 概要を除外とせず、元の範囲を保つための修正です。
 
-TLM 2追加は、正確な既定／独自interface型、選択virtual blocking／nonblocking委譲、継承した制約付きrand member、payload constructorの名前／sequence-item継承／初期incomplete status、virtual応答照会を検査します。
-独自の直接interface実装は設定で、規定target algorithmではありません。実port／socket転送は別検査系があります。
-response-stringのvirtual委譲から基底のtext形式は規定しません。外部predicate counterは内部委譲を許容します。
+TLM 2要求案は、extensionの既定値／合法継承／名前の受渡し、8種全socket宣言、通常port／exportとimpの既定値、選択した正確なtransaction／phase基底viewを扱います。
+実port／exportはimplementationを明示名で指定したimpへ委譲します。実socket 2組で、明示workerと省略時の互換親を両方向で区別します。
+独自phaseを両nonblocking relay familyに通し、blocking relayは独自targetの完了まで待ち再利用できます。
+これらの実装は設定であり、規定data algorithmや完全な物理bus／base protocolではありません。
 
-新規46要求案を、新規13検査系と既存2検査系へ対応します。既存command 1検査系には補助引用を追加して再測定します。
-個別の構造3件・文脈3件を追加し、以前の文脈1記録を要求へ置換した結果、分類は170件（構造119件・文脈51件）です。
-第12章は部分分解136番号・分類33番号・未評価45番号です。以前の要求案は保持します。
+新規83要求案を新規12検査系へ対応し、以前の要求と検査入力は全て保持します。個別に読んだmethods／整理見出し12件を構造分類します。
+規範的なsocket／extension概要は部分分解に残し、IS-A／HAS-A、適用条件、bindingの残る義務を保持します。
+第12章は部分分解169番号・分類45番号・未評価0番号ですが、323要求案とM1〜M4全体のgoalは未完です。未評価番号0は完全な規範的coverageではありません。
+
+12.3.5.7.4／12.3.5.8.4のblocking pass-through connect見出しに印刷されたnonblocking provider型を逐語的に使う受理probe 2件はseed 1で拒否されます。
+実動blocking比較対象は一致しますが、矛盾する型一覧は解決しません。
+別の限定probeは同種terminator制約を「直接provider entryを残さない」と解釈します。initiator呼出しはERRORを報告しながらraw entryを保持し、target呼出しは残しません。
+規格は不正呼出し後の一覧状態を明記しないため、実装不具合の証明ではなく、照合が必要な解釈差分として残します。全3件の期待出力を保持し、seed 73結果はありません。
+
+P／parameter構文を省略した印刷connect signature、forward portのbackward経路の本文、抽象基底生成の拒否、不正user extension、名目的IMP=int、全member所有関係、全protocol／timing組合せ、bus規則は別の部分分解義務に残ります。
+以前のpayload rand／constructor／virtual照会probeは有効で、response-stringのvirtual委譲から基底text形式は規定しません。
 
 通常portの独立RSP=int宣言build差分は残り、channelのRSP既定値は明示的にREQへ従います。
 constructor専用probeは実行時bindingを証明しません。概要alias／imp parameter、容量0のis_full文言、payload長さ不一致の文言、response-string表現、target／interconnectのbus義務、広い並行互換性／protocol組合せは未完です。
@@ -397,4 +406,4 @@ hashが同じでも、既知差分を含む未完／未承認の棚卸しの場�
 割合の公開前に、規範的義務の棚卸しとレビューを終え、範囲を決定し、計数規則と固定した要求集合の明示的な承認を得ます。
 レビュー済みの検査対応と、実行成功をどう数えるかは分けて定義し、実行条件と証拠の同一性も含めます。
 承認には後続のschema／手順の更新が必要です。schema 1では意図的に、棚卸し完了や承認済み分母を表せません。
-現在のAIによる2001要求案と直接の対応は、その条件を満たしていません。
+現在のAIによる2084要求案と直接の対応は、その条件を満たしていません。

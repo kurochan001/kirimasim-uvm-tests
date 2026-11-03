@@ -2,7 +2,7 @@
 
 [日本語](known-differences.ja.md) · [README](../README.md) · [FAQ](faq.md)
 
-This describes the current 1396-test suite and the pinned Accellera UVM
+This describes the current 1408-test suite and the pinned Accellera UVM
 2020.3.1 library. A mismatch is a test result; it does not by itself assign
 the cause to the simulator, the library or the expectation.
 
@@ -19,6 +19,25 @@ shared accesses and one child-block shape; see the
 Further limitations and observations were identified during M1, M2 and M3.
 Where a test directly checks a required behavior that is missing, its
 normative expectation is retained with `:oracle: spec`.
+
+- Three new runtime differences retain qualified standard interpretations.
+  Clauses 12.3.5.7.4/12.3.5.8.4 list nonblocking providers under blocking relay
+  headings. Literal acceptance probes observe rejection for all three/two
+  listed families, reporting six/four ERRORs. Separate blocking relay
+  forwarding/reuse controls match. Do not silently replace the printed names
+  with blocking names or treat the control as resolving the allowlists.
+- A no-binding interpretation of the general same-kind terminator restriction
+  expects no direct provider entry after an invalid connect. Both initiator
+  kinds report ERROR yet retain an entry; target kinds report ERROR and leave
+  none. A raw direct entry is distinct from a resolved executable binding.
+  The standard does not explicitly define that invalid-call post-state, so
+  retain this as a reviewable interpretation difference, not a proven defect.
+  All three cases stop at their first difference at seed 1 without seed 73.
+- Other partial wording includes the forward port described as a backward
+  path and nonblocking connect signatures omitting P/parameter syntax. Exact
+  class-default and custom-phase forwarding probes do not certify the literal
+  printed signatures. Abstract extension-base construction rejection, illegal
+  user extension and full socket member ownership remain separate work.
 
 - The bidirectional port summary in 12.2.3.3 declares RSP=int independently
   of REQ. The selected nine-family fixture overrides only REQ with string,
@@ -508,7 +527,7 @@ warning. The YES control changes the limit to nine without a warning. This
 is a diagnostic-severity difference, not failed limit enforcement. The older
 two no-DPI argument cases remain unchanged ordinary runtime differences.
 
-Across the suite, 1228 tests have the `verilator@5.052` oracle tag and 168
+Across the suite, 1237 tests have the `verilator@5.052` oracle tag and 171
 cases are spec-only. One of the spec-only cases checks 9.6: a child's pre-reset
 task must be killed when that phase ends, but the pinned-library run on Verilator 5.052
 lets the child perform its delayed write during a later phase. The cause of
@@ -520,10 +539,10 @@ without callbacks. The pinned Verilator run reaches the blocked-state
 observation, then its watchdog expires. This combined simulator/library
 cause remains unassigned; the normative wakeup expectation is retained.
 
-The 168 spec-only tests retain their normative expected files.
-Default Verilator runs and CI select the 1228 tagged cases. `--all` includes
+The 171 spec-only tests retain their normative expected files.
+Default Verilator runs and CI select the 1237 tagged cases. `--all` includes
 spec-only cases and records mismatches or build failures as `known`.
-The ordinary runtime records for 125 cases establish their first difference
+The ordinary runtime records for 128 cases establish their first difference
 at seed 1, without seed 73 results. Sixteen missing-API builds have no ordinary
 runtime seed result: one time API, six sequence-library cases, four HDL slice
 cases, one named-concat-constructor case, one object active-policy case and
@@ -536,8 +555,12 @@ These overlapping configurations are not summed.
 
 ## Spec-only tests
 
-These are the 168 current spec-only cases. Several exercise the same
+These are the 171 current spec-only cases. Several exercise the same
 limitation, so their count is not a count of distinct bugs.
+
+- [Printed provider acceptance for blocking initiator relay](../tests/u12/test_tlm2_blocking_passthrough_initiator_connect_accepts_its_spec_listed_provider_families.sv).
+- [Printed provider acceptance for blocking target relay](../tests/u12/test_tlm2_blocking_passthrough_target_connect_accepts_its_spec_listed_provider_families.sv).
+- [Qualified same-kind terminator direct-binding rejection](../tests/u12/test_tlm2_same_kind_terminator_socket_connections_leave_no_provider_bindings.sv).
 
 - [Independent integer response default with REQ-only bidirectional ports](../tests/u12/test_tlm_bidirectional_request_only_parameter_keeps_declared_integer_response_default.sv).
 
@@ -809,13 +832,13 @@ Additional message-handle and endian cases:
 One existing command fixture now adds its command-enum citation without
 changing behavior or expected output and is remeasured on Verilator. The
 historical guest record for that input has a stale fingerprint. The current
-guest subset excludes it: 1084 compatible records and 312 unmeasured inputs,
+guest subset excludes it: 1084 compatible records and 324 unmeasured inputs,
 including that revised input. This is evidence scope, not a new guest failure.
 
 ## Simulator and library combinations
 
-The suite has 1396 cases, but the kirimasim/Ghost records below cover only
-1084 unchanged current-input cases. The 312 inputs are unmeasured
+The suite has 1408 cases, but the kirimasim/Ghost records below cover only
+1084 unchanged current-input cases. The 324 inputs are unmeasured
 because prior temporary executable/profile snapshots are unavailable. Do
 not treat this as a fresh full-suite guest result. See [results](results.md).
 

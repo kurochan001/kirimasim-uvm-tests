@@ -2570,6 +2570,174 @@
         "reviewer": null,
         "reviewed_at": null
       }
+    },
+    {
+      "clause": "12.3.4.4.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "Methods heading and forward references only; the extension-base constructor and type-key methods retain their own contracts.",
+        "ja": "Methods見出しと前方参照のみ。extension-base constructorとtype-key methodは固有契約を保持する。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "12.3.4.5.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "Methods heading and forward references only; constructor and ID contracts remain subordinate.",
+        "ja": "Methods見出しと前方参照のみ。constructorとID契約は下位に残る。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "12.3.5.1.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "Methods grouping and forward references only; socket constructors and connect retain their child contracts, including printed wording conflicts.",
+        "ja": "Methodsのグループと前方参照のみ。印刷文言の矛盾を含め、socket constructorとconnectは子契約を保持する。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "12.3.5.2.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "Methods grouping and forward references only; socket constructors and connect retain their child contracts, including printed wording conflicts.",
+        "ja": "Methodsのグループと前方参照のみ。印刷文言の矛盾を含め、socket constructorとconnectは子契約を保持する。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "12.3.5.3.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "Methods grouping and forward references only; socket constructors and connect retain their child contracts, including printed wording conflicts.",
+        "ja": "Methodsのグループと前方参照のみ。印刷文言の矛盾を含め、socket constructorとconnectは子契約を保持する。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "12.3.5.4.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "Methods grouping and forward references only; socket constructors and connect retain their child contracts, including printed wording conflicts.",
+        "ja": "Methodsのグループと前方参照のみ。印刷文言の矛盾を含め、socket constructorとconnectは子契約を保持する。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "12.3.5.5.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "Methods grouping and forward references only; socket constructors and connect retain their child contracts, including printed wording conflicts.",
+        "ja": "Methodsのグループと前方参照のみ。印刷文言の矛盾を含め、socket constructorとconnectは子契約を保持する。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "12.3.5.6.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "Methods grouping and forward references only; socket constructors and connect retain their child contracts, including printed wording conflicts.",
+        "ja": "Methodsのグループと前方参照のみ。印刷文言の矛盾を含め、socket constructorとconnectは子契約を保持する。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "12.3.5.7.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "Methods grouping and forward references only; socket constructors and connect retain their child contracts, including printed wording conflicts.",
+        "ja": "Methodsのグループと前方参照のみ。印刷文言の矛盾を含め、socket constructorとconnectは子契約を保持する。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "12.3.5.8.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "Methods grouping and forward references only; socket constructors and connect retain their child contracts, including printed wording conflicts.",
+        "ja": "Methodsのグループと前方参照のみ。印刷文言の矛盾を含め、socket constructorとconnectは子契約を保持する。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "12.3.6",
+      "classification": "structural",
+      "rationale": {
+        "en": "One organizing sentence defining the following port-class section; actual type and transport duties remain in its three children.",
+        "ja": "後続port-class節を示す整理用1文であり、実際の型／transport義務は3つの子条項に残る。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "12.3.7",
+      "classification": "structural",
+      "rationale": {
+        "en": "One organizing sentence defining the export-class section; actual type and forwarding duties remain subordinate.",
+        "ja": "export-class節を示す整理用1文であり、実際の型／転送義務は下位に残る。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
     }
   ]
 }

@@ -122,7 +122,7 @@ Ghostは公開前のシミュレータの仮名です。実行ファイルの識
 ### Q12. uvm_dpi: yesだけでDPIを使うビルドが完成しますか
 
 既定のマクロ一覧から`UVM_NO_DPI`を外す指定です。UVMのC/C++実装の供給・リンクは行いません。
-通常のVerilator runnerは、そのsourceを追加しません。`UVM_NO_DPI`が1370件、HDL DPIの明示選択が8件です。
+通常のVerilator runnerは、そのsourceを追加しません。`UVM_NO_DPI`が1382件、HDL DPIの明示選択が8件です。
 別の18検査系はHDLを無効にしてcommand-line／regex DPIを明示して有効化し、
 [command-line runner](testing.ja.md#verilatorのcommand-line部分集合)がその別backendをlinkします。
 [別のVPI runner](testing.ja.md#verilatorのvpi-hdl部分集合)は独自の限定backendをlinkし、結果は宣言した実行条件だけに適用します。
@@ -923,8 +923,8 @@ controlの対応は、その要求の直接の検査ではありません。
 
 ### Q77. M4を始めたのに、カバレッジ率がないのはなぜですか
 
-AIによる2001要求案は部分的な分解で、2001要求を1395テストへ直接対応付け、直接未対応は0要求、別の1テストはcontrolです。
-全1396テストに要求の対応付けがあります。2,507の条項番号は規範的要求の単位ではありません。
+AIによる2084要求案は部分的な分解で、2084要求を1407テストへ直接対応付け、直接未対応は0要求、別の1テストはcontrolです。
+全1408テストに要求の対応付けがあります。2,507の条項番号は規範的要求の単位ではありません。
 範囲は提案、棚卸しは未完、分母は未承認で、M4の開始はどれの承認にもなりません。
 既知差分やHDL／DPIの制約によって義務を暗黙に除外しません。[承認までの手順](requirements.ja.md#m4の残作業と承認)を参照してください。
 
@@ -1709,7 +1709,7 @@ user backdoorは16 bit locationをモデル化します。location独立性、�
 
 いいえ。`tests_without_requirement_links`は0で、現在の全テストに、明示的なdirectまたはcontrolの対応があります。
 別の集計`requirements_without_direct_tests`も0件です。memory-walkの対応はQ134の限定した歴史的解釈で、
-省略されたIEEEの詳細の承認ではありません。HDL depositと利用可否には、明示VPI検査系があります。catalogの識別子1,196件も未評価です。
+省略されたIEEEの詳細の承認ではありません。HDL depositと利用可否には、明示VPI検査系があります。catalogの識別子1,151件も未評価です。
 分解と人のレビューは未完で、分母は未承認です。
 
 [新しいpolicyテスト](../tests/u16/test_policy_object_stack_tracks_nested_active_policy_push_and_pop.sv)は、
@@ -1786,7 +1786,7 @@ frontdoor保護のwarningはalgorithm oracleの対象外で、ERRORと観測し�
 個別に読んだ後、日英の根拠とAI／人のレビューを[番号の分類](../coverage/assessments.json)へ記録すれば可能です。
 構造上の見出しは関連要求を持たず、文脈の説明は既存要求を指定します。
 未レビューの記録、推測した分類、親への集約では外せません。生成状態は`assessed`で、要求条項の`partial`と区別します。
-現在の分類は170件で、分母承認や新たなpassを加えません。第11章の未評価0件でも、その要求の完了ではありません。
+現在の分類は182件で、分母承認や新たなpassを加えません。第11章の未評価0件でも、その要求の完了ではありません。
 
 ### Q136. 明示strict configurationで新規検査は成功しますか？
 
@@ -2279,7 +2279,7 @@ bound get／peek portはobject headを消費せずavailabilityを報告し、liv
 ### Q193. 互換なguest部分集合が1084件へ減った理由は？
 
 command 1検査系にenum補助引用を追加し、Verilatorで再測定しました。metadataだけのsource編集でも入力指紋は変わるため、
-古いguest記録は除外します。元の歴史的fileは1085記録のままです。現在の互換範囲は1084件、未測定312入力は追加311件と変更した既存1件です。
+古いguest記録は除外します。元の歴史的fileは1085記録のままです。現在の互換範囲は1084件、未測定324入力は追加323件と変更した既存1件です。
 guest再実行や新たな失敗は主張しません。
 
 ### Q194. predicateの実装が別のvirtual照会へ委譲してもよいですか？
@@ -2287,3 +2287,26 @@ guest再実行や新たな失敗は主張しません。
 規格が内部algorithmを制約しない限り可能です。応答照会の検査系はvirtual OK predicateへの選択した外部呼出しだけを数え、
 error predicateからの内部委譲を許容します。全7応答statusを検査します。
 独自response-string prefixはvirtual委譲を検査するもので、基底string形式は規定しません。
+
+### Q195. blocking relayのprovider一覧probeは何を意味しますか？
+
+12.3.5.7.4／12.3.5.8.4はblocking見出しでnonblocking providerを列挙します。
+逐語一覧を読む限定probe 2件は受理期待を保持しますが、seed 1で拒否されます。別の実際のblocking経路は両seed一致です。
+一致しても矛盾する一覧は解決せず、期待provider名の変更も認めません。両差分には規格照合が必要です。
+
+### Q196. ERRORとprovider entryの残存はsocketの不具合を証明しますか？
+
+いいえ。同種接続の限定probeは、禁止呼出し後に直接entryが残らないことを期待します。
+initiatorはERRORを報告しながらentryを保持し、targetは残しません。一般制約は不正呼出し後の直接一覧の事後条件を明記していません。
+解釈と不一致を可視に保ちます。raw entryは解決済み実行接続や不具合の証明ではありません。
+
+### Q197. 未評価番号がなくなったので第12章は完了ですか？
+
+いいえ。部分分解169番号とAI分類45番号（構造29／文脈16）があります。class既定値と選択呼出しだけでは、全member所有関係、抽象／不正利用条件、protocol／timing履歴、payloadのbus規則、文言の矛盾を尽くしません。
+範囲と分母は未承認で、M1〜M4も未完です。
+
+### Q198. 明示implementationと独自phaseの検査は何を示しますか？
+
+実socket 2組で、明示worker hookとIMP省略時に選ぶ互換親hookを区別します。
+実際の独自transaction／phase relayで両経路とreference phase更新を保持します。
+これらの正の宣言／転送probeは名目的IMP=intやPを省略した印刷connect signatureを認定しません。独自backend algorithmは設定です。

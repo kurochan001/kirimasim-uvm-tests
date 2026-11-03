@@ -74196,6 +74196,2856 @@
           ]
         }
       ]
+    },
+    {
+      "id": "UVM-TLM2-TYPES-USER-EXTENSION-CHAIN",
+      "clause": "12.3.4.4",
+      "statement": {
+        "en": "A selected user extension derives through the parameterized extension class rather than directly from its nonparameterized base.",
+        "ja": "選択したuser extensionは非parameterized基底を直接拡張せずparameterized extension classを介して派生する。"
+      },
+      "conditions": {
+        "en": "Construct default-T and legal self-typed extension objects with omitted/explicit names, then use exact extension/base/object views.",
+        "ja": "既定Tと合法な自己型extension objectを名前省略／明示で生成し、正確なextension／base／object viewで使う。"
+      },
+      "expected": {
+        "en": "The legal original derived object fits both extension-base and object views.",
+        "ja": "合法な独自派生objectはextension-baseとobjectの両viewに適合する。"
+      },
+      "limitations": {
+        "en": "Positive selected type/role/constructor compatibility before binding only; exact views jointly check the selected families. Nominal IMP=int, abstract-base construction rejection, invalid user extension, every IS-A/HAS-A member relationship and literal printed connect signatures are not certified. All remain partial obligations.",
+        "ja": "binding前の選択型／役割／constructorの正の互換性のみ。正確なviewで選択familyをまとめて検査する。名目的IMP=int、抽象基底生成の拒否、不正user extension、全IS-A／HAS-A member関係、印刷されたconnect signatureの逐語的正しさは認定せず、部分分解の義務に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_extension_defaults_and_legal_subclasses_preserve_names_and_object_views",
+          "role": "direct",
+          "expected_observations": [
+            "UT: extension_legal names 1/1 base 1 object 1 distinct 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-TYPES-EXTENSION-OBJECT-BASE",
+      "clause": "12.3.4.4.1",
+      "statement": {
+        "en": "The extension base derives from uvm_object.",
+        "ja": "extension基底はuvm_objectから派生する。"
+      },
+      "conditions": {
+        "en": "Construct default-T and legal self-typed extension objects with omitted/explicit names, then use exact extension/base/object views.",
+        "ja": "既定Tと合法な自己型extension objectを名前省略／明示で生成し、正確なextension／base／object viewで使う。"
+      },
+      "expected": {
+        "en": "The object view retains extension identity and sees its renamed instance.",
+        "ja": "object viewはextension同一性を保持し、変更後のinstance名を観測する。"
+      },
+      "limitations": {
+        "en": "Positive selected type/role/constructor compatibility before binding only; exact views jointly check the selected families. Nominal IMP=int, abstract-base construction rejection, invalid user extension, every IS-A/HAS-A member relationship and literal printed connect signatures are not certified. All remain partial obligations.",
+        "ja": "binding前の選択型／役割／constructorの正の互換性のみ。正確なviewで選択familyをまとめて検査する。名目的IMP=int、抽象基底生成の拒否、不正user extension、全IS-A／HAS-A member関係、印刷されたconnect signatureの逐語的正しさは認定せず、部分分解の義務に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_extension_defaults_and_legal_subclasses_preserve_names_and_object_views",
+          "role": "direct",
+          "expected_observations": [
+            "UT: extension_legal names 1/1 base 1 object 1 distinct 1",
+            "UT: extension_alias name 1 peer_empty 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-TYPES-EXTENSION-BASE-CONSTRUCTOR-NAME",
+      "clause": "12.3.4.4.3",
+      "statement": {
+        "en": "The legal extension constructor chain passes the selected name to the object base.",
+        "ja": "合法なextension constructor連鎖は選択名をobject基底へ渡す。"
+      },
+      "conditions": {
+        "en": "Construct default-T and legal self-typed extension objects with omitted/explicit names, then use exact extension/base/object views.",
+        "ja": "既定Tと合法な自己型extension objectを名前省略／明示で生成し、正確なextension／base／object viewで使う。"
+      },
+      "expected": {
+        "en": "Omitted names remain empty and an explicit name reaches the object view.",
+        "ja": "名前省略時は空を保ち、明示名はobject viewへ届く。"
+      },
+      "limitations": {
+        "en": "Positive selected type/role/constructor compatibility before binding only; exact views jointly check the selected families. Nominal IMP=int, abstract-base construction rejection, invalid user extension, every IS-A/HAS-A member relationship and literal printed connect signatures are not certified. All remain partial obligations.",
+        "ja": "binding前の選択型／役割／constructorの正の互換性のみ。正確なviewで選択familyをまとめて検査する。名目的IMP=int、抽象基底生成の拒否、不正user extension、全IS-A／HAS-A member関係、印刷されたconnect signatureの逐語的正しさは認定せず、部分分解の義務に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_extension_defaults_and_legal_subclasses_preserve_names_and_object_views",
+          "role": "direct",
+          "expected_observations": [
+            "UT: extension_legal names 1/1 base 1 object 1 distinct 1",
+            "UT: extension_alias name 1 peer_empty 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-TYPES-SELF-TYPED-EXTENSION",
+      "clause": "12.3.4.5",
+      "statement": {
+        "en": "A user extension can select its own derived type as the extension parameter.",
+        "ja": "user extensionは自身の派生型をextension parameterとして選択できる。"
+      },
+      "conditions": {
+        "en": "Construct default-T and legal self-typed extension objects with omitted/explicit names, then use exact extension/base/object views.",
+        "ja": "既定Tと合法な自己型extension objectを名前省略／明示で生成し、正確なextension／base／object viewで使う。"
+      },
+      "expected": {
+        "en": "The original self-typed class constructs distinct legal objects.",
+        "ja": "独自の自己型classは異なる合法objectを生成できる。"
+      },
+      "limitations": {
+        "en": "Positive selected type/role/constructor compatibility before binding only; exact views jointly check the selected families. Nominal IMP=int, abstract-base construction rejection, invalid user extension, every IS-A/HAS-A member relationship and literal printed connect signatures are not certified. All remain partial obligations.",
+        "ja": "binding前の選択型／役割／constructorの正の互換性のみ。正確なviewで選択familyをまとめて検査する。名目的IMP=int、抽象基底生成の拒否、不正user extension、全IS-A／HAS-A member関係、印刷されたconnect signatureの逐語的正しさは認定せず、部分分解の義務に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_extension_defaults_and_legal_subclasses_preserve_names_and_object_views",
+          "role": "direct",
+          "expected_observations": [
+            "UT: extension_legal names 1/1 base 1 object 1 distinct 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-TYPES-EXTENSION-DEFAULT-T",
+      "clause": "12.3.4.5.1",
+      "statement": {
+        "en": "The parameterized extension defaults T to int.",
+        "ja": "parameterized extensionはTの既定値をintとする。"
+      },
+      "conditions": {
+        "en": "Construct default-T and legal self-typed extension objects with omitted/explicit names, then use exact extension/base/object views.",
+        "ja": "既定Tと合法な自己型extension objectを名前省略／明示で生成し、正確なextension／base／object viewで使う。"
+      },
+      "expected": {
+        "en": "The omitted-T instance fits the exact integer extension view.",
+        "ja": "T省略instanceは正確なinteger extension viewに適合する。"
+      },
+      "limitations": {
+        "en": "Positive selected type/role/constructor compatibility before binding only; exact views jointly check the selected families. Nominal IMP=int, abstract-base construction rejection, invalid user extension, every IS-A/HAS-A member relationship and literal printed connect signatures are not certified. All remain partial obligations.",
+        "ja": "binding前の選択型／役割／constructorの正の互換性のみ。正確なviewで選択familyをまとめて検査する。名目的IMP=int、抽象基底生成の拒否、不正user extension、全IS-A／HAS-A member関係、印刷されたconnect signatureの逐語的正しさは認定せず、部分分解の義務に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_extension_defaults_and_legal_subclasses_preserve_names_and_object_views",
+          "role": "direct",
+          "expected_observations": [
+            "UT: extension_default type 1 empty_name 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-TYPES-EXTENSION-BASE-IDENTITY",
+      "clause": "12.3.4.5.1",
+      "statement": {
+        "en": "The parameterized extension derives from the nonparameterized extension base.",
+        "ja": "parameterized extensionは非parameterized extension基底から派生する。"
+      },
+      "conditions": {
+        "en": "Construct default-T and legal self-typed extension objects with omitted/explicit names, then use exact extension/base/object views.",
+        "ja": "既定Tと合法な自己型extension objectを名前省略／明示で生成し、正確なextension／base／object viewで使う。"
+      },
+      "expected": {
+        "en": "The base view retains the legal concrete extension identity.",
+        "ja": "基底viewは合法な具象extension同一性を保持する。"
+      },
+      "limitations": {
+        "en": "Positive selected type/role/constructor compatibility before binding only; exact views jointly check the selected families. Nominal IMP=int, abstract-base construction rejection, invalid user extension, every IS-A/HAS-A member relationship and literal printed connect signatures are not certified. All remain partial obligations.",
+        "ja": "binding前の選択型／役割／constructorの正の互換性のみ。正確なviewで選択familyをまとめて検査する。名目的IMP=int、抽象基底生成の拒否、不正user extension、全IS-A／HAS-A member関係、印刷されたconnect signatureの逐語的正しさは認定せず、部分分解の義務に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_extension_defaults_and_legal_subclasses_preserve_names_and_object_views",
+          "role": "direct",
+          "expected_observations": [
+            "UT: extension_legal names 1/1 base 1 object 1 distinct 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-TYPES-EXTENSION-EMPTY-DEFAULT-NAME",
+      "clause": "12.3.4.5.3",
+      "statement": {
+        "en": "The extension constructor defaults its instance name to empty.",
+        "ja": "extension constructorはinstance名の既定値を空にする。"
+      },
+      "conditions": {
+        "en": "Construct default-T and legal self-typed extension objects with omitted/explicit names, then use exact extension/base/object views.",
+        "ja": "既定Tと合法な自己型extension objectを名前省略／明示で生成し、正確なextension／base／object viewで使う。"
+      },
+      "expected": {
+        "en": "Both omitted-name extension objects report empty names.",
+        "ja": "名前を省略した両extension objectは空名を返す。"
+      },
+      "limitations": {
+        "en": "Positive selected type/role/constructor compatibility before binding only; exact views jointly check the selected families. Nominal IMP=int, abstract-base construction rejection, invalid user extension, every IS-A/HAS-A member relationship and literal printed connect signatures are not certified. All remain partial obligations.",
+        "ja": "binding前の選択型／役割／constructorの正の互換性のみ。正確なviewで選択familyをまとめて検査する。名目的IMP=int、抽象基底生成の拒否、不正user extension、全IS-A／HAS-A member関係、印刷されたconnect signatureの逐語的正しさは認定せず、部分分解の義務に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_extension_defaults_and_legal_subclasses_preserve_names_and_object_views",
+          "role": "direct",
+          "expected_observations": [
+            "UT: extension_default type 1 empty_name 1",
+            "UT: extension_legal names 1/1 base 1 object 1 distinct 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-TYPES-EXTENSION-EXPLICIT-NAME",
+      "clause": "12.3.4.5.3",
+      "statement": {
+        "en": "The extension constructor accepts and preserves a selected instance name.",
+        "ja": "extension constructorは選択instance名を受け取り保持する。"
+      },
+      "conditions": {
+        "en": "Construct default-T and legal self-typed extension objects with omitted/explicit names, then use exact extension/base/object views.",
+        "ja": "既定Tと合法な自己型extension objectを名前省略／明示で生成し、正確なextension／base／object viewで使う。"
+      },
+      "expected": {
+        "en": "The named object starts selected and its independent peer remains unnamed.",
+        "ja": "名前付きobjectはselectedで始まり、独立peerは無名を保持する。"
+      },
+      "limitations": {
+        "en": "Positive selected type/role/constructor compatibility before binding only; exact views jointly check the selected families. Nominal IMP=int, abstract-base construction rejection, invalid user extension, every IS-A/HAS-A member relationship and literal printed connect signatures are not certified. All remain partial obligations.",
+        "ja": "binding前の選択型／役割／constructorの正の互換性のみ。正確なviewで選択familyをまとめて検査する。名目的IMP=int、抽象基底生成の拒否、不正user extension、全IS-A／HAS-A member関係、印刷されたconnect signatureの逐語的正しさは認定せず、部分分解の義務に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_extension_defaults_and_legal_subclasses_preserve_names_and_object_views",
+          "role": "direct",
+          "expected_observations": [
+            "UT: extension_legal names 1/1 base 1 object 1 distinct 1",
+            "UT: extension_alias name 1 peer_empty 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-TYPES-SOCKET-1-FORWARD-ROLE",
+      "clause": "12.3.5.1",
+      "statement": {
+        "en": "The selected blocking target socket exposes the forward implementation role.",
+        "ja": "選択したblocking target socketはforward implementation役割を持つ。"
+      },
+      "conditions": {
+        "en": "Construct all four selected blocking socket families with default generic payload or explicit custom transaction types; inspect exact base views before binding.",
+        "ja": "選択blocking socket 4 familyを既定generic payloadまたは明示独自transaction型で生成し、binding前に正確な基底viewを調べる。"
+      },
+      "expected": {
+        "en": "The exact socket view reports its specified role with matching constructor metadata.",
+        "ja": "正確なsocket viewは対応constructor metadataとともに規定役割を返す。"
+      },
+      "limitations": {
+        "en": "Positive selected type/role/constructor compatibility before binding only; exact views jointly check the selected families. Nominal IMP=int, abstract-base construction rejection, invalid user extension, every IS-A/HAS-A member relationship and literal printed connect signatures are not certified. All remain partial obligations.",
+        "ja": "binding前の選択型／役割／constructorの正の互換性のみ。正確なviewで選択familyをまとめて検査する。名目的IMP=int、抽象基底生成の拒否、不正user extension、全IS-A／HAS-A member関係、印刷されたconnect signatureの逐語的正しさは認定せず、部分分解の義務に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_blocking_socket_declarations_preserve_default_and_custom_transaction_base_types",
+          "role": "direct",
+          "expected_observations": [
+            "UT: socket_default count 4 exact_types_and_metadata 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-TYPES-SOCKET-1-DEFAULT-T",
+      "clause": "12.3.5.1.1",
+      "statement": {
+        "en": "The blocking target socket defaults its transaction type to generic payload.",
+        "ja": "blocking target socketはtransaction型の既定値をgeneric payloadとする。"
+      },
+      "conditions": {
+        "en": "Construct all four selected blocking socket families with default generic payload or explicit custom transaction types; inspect exact base views before binding.",
+        "ja": "選択blocking socket 4 familyを既定generic payloadまたは明示独自transaction型で生成し、binding前に正確な基底viewを調べる。"
+      },
+      "expected": {
+        "en": "The default family fits the exact generic-payload/standard-phase base.",
+        "ja": "既定familyは正確なgeneric-payload／標準phase基底に適合する。"
+      },
+      "limitations": {
+        "en": "Positive selected type/role/constructor compatibility before binding only; exact views jointly check the selected families. Nominal IMP=int, abstract-base construction rejection, invalid user extension, every IS-A/HAS-A member relationship and literal printed connect signatures are not certified. All remain partial obligations.",
+        "ja": "binding前の選択型／役割／constructorの正の互換性のみ。正確なviewで選択familyをまとめて検査する。名目的IMP=int、抽象基底生成の拒否、不正user extension、全IS-A／HAS-A member関係、印刷されたconnect signatureの逐語的正しさは認定せず、部分分解の義務に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_blocking_socket_declarations_preserve_default_and_custom_transaction_base_types",
+          "role": "direct",
+          "expected_observations": [
+            "UT: socket_default count 4 exact_types_and_metadata 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-TYPES-SOCKET-1-CUSTOM-T-BASE",
+      "clause": "12.3.5.1.1",
+      "statement": {
+        "en": "The blocking target socket supports the selected explicit transaction type through its declared port base.",
+        "ja": "blocking target socketは宣言port基底で選択した明示transaction型を受け付ける。"
+      },
+      "conditions": {
+        "en": "Construct all four selected blocking socket families with default generic payload or explicit custom transaction types; inspect exact base views before binding.",
+        "ja": "選択blocking socket 4 familyを既定generic payloadまたは明示独自transaction型で生成し、binding前に正確な基底viewを調べる。"
+      },
+      "expected": {
+        "en": "The explicit custom transaction view retains exact type compatibility and selected metadata.",
+        "ja": "明示独自transaction viewは正確な型互換性と選択metadataを保持する。"
+      },
+      "limitations": {
+        "en": "Positive selected type/role/constructor compatibility before binding only; exact views jointly check the selected families. Nominal IMP=int, abstract-base construction rejection, invalid user extension, every IS-A/HAS-A member relationship and literal printed connect signatures are not certified. All remain partial obligations.",
+        "ja": "binding前の選択型／役割／constructorの正の互換性のみ。正確なviewで選択familyをまとめて検査する。名目的IMP=int、抽象基底生成の拒否、不正user extension、全IS-A／HAS-A member関係、印刷されたconnect signatureの逐語的正しさは認定せず、部分分解の義務に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_blocking_socket_declarations_preserve_default_and_custom_transaction_base_types",
+          "role": "direct",
+          "expected_observations": [
+            "UT: socket_custom count 4 exact_types_and_metadata 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-TYPES-SOCKET-2-FORWARD-ROLE",
+      "clause": "12.3.5.2",
+      "statement": {
+        "en": "The selected blocking initiator socket exposes the forward port role.",
+        "ja": "選択したblocking initiator socketはforward port役割を持つ。"
+      },
+      "conditions": {
+        "en": "Construct all four selected blocking socket families with default generic payload or explicit custom transaction types; inspect exact base views before binding.",
+        "ja": "選択blocking socket 4 familyを既定generic payloadまたは明示独自transaction型で生成し、binding前に正確な基底viewを調べる。"
+      },
+      "expected": {
+        "en": "The exact socket view reports its specified role with matching constructor metadata.",
+        "ja": "正確なsocket viewは対応constructor metadataとともに規定役割を返す。"
+      },
+      "limitations": {
+        "en": "Positive selected type/role/constructor compatibility before binding only; exact views jointly check the selected families. Nominal IMP=int, abstract-base construction rejection, invalid user extension, every IS-A/HAS-A member relationship and literal printed connect signatures are not certified. All remain partial obligations.",
+        "ja": "binding前の選択型／役割／constructorの正の互換性のみ。正確なviewで選択familyをまとめて検査する。名目的IMP=int、抽象基底生成の拒否、不正user extension、全IS-A／HAS-A member関係、印刷されたconnect signatureの逐語的正しさは認定せず、部分分解の義務に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_blocking_socket_declarations_preserve_default_and_custom_transaction_base_types",
+          "role": "direct",
+          "expected_observations": [
+            "UT: socket_default count 4 exact_types_and_metadata 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-TYPES-SOCKET-2-DEFAULT-T",
+      "clause": "12.3.5.2.1",
+      "statement": {
+        "en": "The blocking initiator socket defaults its transaction type to generic payload.",
+        "ja": "blocking initiator socketはtransaction型の既定値をgeneric payloadとする。"
+      },
+      "conditions": {
+        "en": "Construct all four selected blocking socket families with default generic payload or explicit custom transaction types; inspect exact base views before binding.",
+        "ja": "選択blocking socket 4 familyを既定generic payloadまたは明示独自transaction型で生成し、binding前に正確な基底viewを調べる。"
+      },
+      "expected": {
+        "en": "The default family fits the exact generic-payload/standard-phase base.",
+        "ja": "既定familyは正確なgeneric-payload／標準phase基底に適合する。"
+      },
+      "limitations": {
+        "en": "Positive selected type/role/constructor compatibility before binding only; exact views jointly check the selected families. Nominal IMP=int, abstract-base construction rejection, invalid user extension, every IS-A/HAS-A member relationship and literal printed connect signatures are not certified. All remain partial obligations.",
+        "ja": "binding前の選択型／役割／constructorの正の互換性のみ。正確なviewで選択familyをまとめて検査する。名目的IMP=int、抽象基底生成の拒否、不正user extension、全IS-A／HAS-A member関係、印刷されたconnect signatureの逐語的正しさは認定せず、部分分解の義務に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_blocking_socket_declarations_preserve_default_and_custom_transaction_base_types",
+          "role": "direct",
+          "expected_observations": [
+            "UT: socket_default count 4 exact_types_and_metadata 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-TYPES-SOCKET-2-CUSTOM-T-BASE",
+      "clause": "12.3.5.2.1",
+      "statement": {
+        "en": "The blocking initiator socket supports the selected explicit transaction type through its declared port base.",
+        "ja": "blocking initiator socketは宣言port基底で選択した明示transaction型を受け付ける。"
+      },
+      "conditions": {
+        "en": "Construct all four selected blocking socket families with default generic payload or explicit custom transaction types; inspect exact base views before binding.",
+        "ja": "選択blocking socket 4 familyを既定generic payloadまたは明示独自transaction型で生成し、binding前に正確な基底viewを調べる。"
+      },
+      "expected": {
+        "en": "The explicit custom transaction view retains exact type compatibility and selected metadata.",
+        "ja": "明示独自transaction viewは正確な型互換性と選択metadataを保持する。"
+      },
+      "limitations": {
+        "en": "Positive selected type/role/constructor compatibility before binding only; exact views jointly check the selected families. Nominal IMP=int, abstract-base construction rejection, invalid user extension, every IS-A/HAS-A member relationship and literal printed connect signatures are not certified. All remain partial obligations.",
+        "ja": "binding前の選択型／役割／constructorの正の互換性のみ。正確なviewで選択familyをまとめて検査する。名目的IMP=int、抽象基底生成の拒否、不正user extension、全IS-A／HAS-A member関係、印刷されたconnect signatureの逐語的正しさは認定せず、部分分解の義務に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_blocking_socket_declarations_preserve_default_and_custom_transaction_base_types",
+          "role": "direct",
+          "expected_observations": [
+            "UT: socket_custom count 4 exact_types_and_metadata 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-TYPES-SOCKET-3-FORWARD-ROLE",
+      "clause": "12.3.5.3",
+      "statement": {
+        "en": "The selected nonblocking target socket exposes the forward implementation role.",
+        "ja": "選択したnonblocking target socketはforward implementation役割を持つ。"
+      },
+      "conditions": {
+        "en": "Construct four selected nonblocking socket families with default T/P, custom T only and explicit custom T/P; inspect exact views before binding.",
+        "ja": "選択nonblocking socket 4 familyを既定T／P、独自Tのみ、明示独自T／Pで生成し、binding前に正確なviewを調べる。"
+      },
+      "expected": {
+        "en": "The exact socket view reports its specified role with matching constructor metadata.",
+        "ja": "正確なsocket viewは対応constructor metadataとともに規定役割を返す。"
+      },
+      "limitations": {
+        "en": "Positive selected type/role/constructor compatibility before binding only; exact views jointly check the selected families. Nominal IMP=int, abstract-base construction rejection, invalid user extension, every IS-A/HAS-A member relationship and literal printed connect signatures are not certified. All remain partial obligations.",
+        "ja": "binding前の選択型／役割／constructorの正の互換性のみ。正確なviewで選択familyをまとめて検査する。名目的IMP=int、抽象基底生成の拒否、不正user extension、全IS-A／HAS-A member関係、印刷されたconnect signatureの逐語的正しさは認定せず、部分分解の義務に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_nonblocking_socket_declarations_preserve_default_and_custom_phase_base_types",
+          "role": "direct",
+          "expected_observations": [
+            "UT: socket_default count 4 exact_types_and_metadata 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-TYPES-SOCKET-3-DEFAULT-T",
+      "clause": "12.3.5.3.1",
+      "statement": {
+        "en": "The nonblocking target socket defaults its transaction type to generic payload.",
+        "ja": "nonblocking target socketはtransaction型の既定値をgeneric payloadとする。"
+      },
+      "conditions": {
+        "en": "Construct four selected nonblocking socket families with default T/P, custom T only and explicit custom T/P; inspect exact views before binding.",
+        "ja": "選択nonblocking socket 4 familyを既定T／P、独自Tのみ、明示独自T／Pで生成し、binding前に正確なviewを調べる。"
+      },
+      "expected": {
+        "en": "The default family fits the exact generic-payload/standard-phase base.",
+        "ja": "既定familyは正確なgeneric-payload／標準phase基底に適合する。"
+      },
+      "limitations": {
+        "en": "Positive selected type/role/constructor compatibility before binding only; exact views jointly check the selected families. Nominal IMP=int, abstract-base construction rejection, invalid user extension, every IS-A/HAS-A member relationship and literal printed connect signatures are not certified. All remain partial obligations.",
+        "ja": "binding前の選択型／役割／constructorの正の互換性のみ。正確なviewで選択familyをまとめて検査する。名目的IMP=int、抽象基底生成の拒否、不正user extension、全IS-A／HAS-A member関係、印刷されたconnect signatureの逐語的正しさは認定せず、部分分解の義務に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_nonblocking_socket_declarations_preserve_default_and_custom_phase_base_types",
+          "role": "direct",
+          "expected_observations": [
+            "UT: socket_default count 4 exact_types_and_metadata 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-TYPES-SOCKET-3-CUSTOM-T-BASE",
+      "clause": "12.3.5.3.1",
+      "statement": {
+        "en": "The nonblocking target socket supports the selected explicit transaction type through its declared port base.",
+        "ja": "nonblocking target socketは宣言port基底で選択した明示transaction型を受け付ける。"
+      },
+      "conditions": {
+        "en": "Construct four selected nonblocking socket families with default T/P, custom T only and explicit custom T/P; inspect exact views before binding.",
+        "ja": "選択nonblocking socket 4 familyを既定T／P、独自Tのみ、明示独自T／Pで生成し、binding前に正確なviewを調べる。"
+      },
+      "expected": {
+        "en": "The explicit custom transaction view retains exact type compatibility and selected metadata.",
+        "ja": "明示独自transaction viewは正確な型互換性と選択metadataを保持する。"
+      },
+      "limitations": {
+        "en": "Positive selected type/role/constructor compatibility before binding only; exact views jointly check the selected families. Nominal IMP=int, abstract-base construction rejection, invalid user extension, every IS-A/HAS-A member relationship and literal printed connect signatures are not certified. All remain partial obligations.",
+        "ja": "binding前の選択型／役割／constructorの正の互換性のみ。正確なviewで選択familyをまとめて検査する。名目的IMP=int、抽象基底生成の拒否、不正user extension、全IS-A／HAS-A member関係、印刷されたconnect signatureの逐語的正しさは認定せず、部分分解の義務に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_nonblocking_socket_declarations_preserve_default_and_custom_phase_base_types",
+          "role": "direct",
+          "expected_observations": [
+            "UT: socket_custom count 4 exact_types_and_metadata 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-TYPES-SOCKET-3-DEFAULT-P",
+      "clause": "12.3.5.3.1",
+      "statement": {
+        "en": "The nonblocking socket phase parameter defaults independently to uvm_tlm_phase_e.",
+        "ja": "nonblocking socketのphase parameterは独立にuvm_tlm_phase_eを既定値とする。"
+      },
+      "conditions": {
+        "en": "Construct four selected nonblocking socket families with default T/P, custom T only and explicit custom T/P; inspect exact views before binding.",
+        "ja": "選択nonblocking socket 4 familyを既定T／P、独自Tのみ、明示独自T／Pで生成し、binding前に正確なviewを調べる。"
+      },
+      "expected": {
+        "en": "Both default and T-only selections fit exact standard-phase views.",
+        "ja": "既定とTのみ指定の両方が正確な標準phase viewに適合する。"
+      },
+      "limitations": {
+        "en": "Positive selected type/role/constructor compatibility before binding only; exact views jointly check the selected families. Nominal IMP=int, abstract-base construction rejection, invalid user extension, every IS-A/HAS-A member relationship and literal printed connect signatures are not certified. All remain partial obligations.",
+        "ja": "binding前の選択型／役割／constructorの正の互換性のみ。正確なviewで選択familyをまとめて検査する。名目的IMP=int、抽象基底生成の拒否、不正user extension、全IS-A／HAS-A member関係、印刷されたconnect signatureの逐語的正しさは認定せず、部分分解の義務に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_nonblocking_socket_declarations_preserve_default_and_custom_phase_base_types",
+          "role": "direct",
+          "expected_observations": [
+            "UT: socket_default count 4 exact_types_and_metadata 1",
+            "UT: socket_request_only count 4 exact_types_and_metadata 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-TYPES-SOCKET-3-CUSTOM-P",
+      "clause": "12.3.5.3.1",
+      "statement": {
+        "en": "The nonblocking socket supports an explicitly selected custom phase type.",
+        "ja": "nonblocking socketは明示選択した独自phase型を受け付ける。"
+      },
+      "conditions": {
+        "en": "Construct four selected nonblocking socket families with default T/P, custom T only and explicit custom T/P; inspect exact views before binding.",
+        "ja": "選択nonblocking socket 4 familyを既定T／P、独自Tのみ、明示独自T／Pで生成し、binding前に正確なviewを調べる。"
+      },
+      "expected": {
+        "en": "Exact custom transaction/phase base arguments accept all four selected socket families.",
+        "ja": "正確な独自transaction／phase基底引数は選択4 socket familyを受け付ける。"
+      },
+      "limitations": {
+        "en": "Positive selected type/role/constructor compatibility before binding only; exact views jointly check the selected families. Nominal IMP=int, abstract-base construction rejection, invalid user extension, every IS-A/HAS-A member relationship and literal printed connect signatures are not certified. All remain partial obligations.",
+        "ja": "binding前の選択型／役割／constructorの正の互換性のみ。正確なviewで選択familyをまとめて検査する。名目的IMP=int、抽象基底生成の拒否、不正user extension、全IS-A／HAS-A member関係、印刷されたconnect signatureの逐語的正しさは認定せず、部分分解の義務に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_nonblocking_socket_declarations_preserve_default_and_custom_phase_base_types",
+          "role": "direct",
+          "expected_observations": [
+            "UT: socket_custom count 4 exact_types_and_metadata 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-TYPES-SOCKET-4-FORWARD-ROLE",
+      "clause": "12.3.5.4",
+      "statement": {
+        "en": "The selected nonblocking initiator socket exposes the forward port role.",
+        "ja": "選択したnonblocking initiator socketはforward port役割を持つ。"
+      },
+      "conditions": {
+        "en": "Construct four selected nonblocking socket families with default T/P, custom T only and explicit custom T/P; inspect exact views before binding.",
+        "ja": "選択nonblocking socket 4 familyを既定T／P、独自Tのみ、明示独自T／Pで生成し、binding前に正確なviewを調べる。"
+      },
+      "expected": {
+        "en": "The exact socket view reports its specified role with matching constructor metadata.",
+        "ja": "正確なsocket viewは対応constructor metadataとともに規定役割を返す。"
+      },
+      "limitations": {
+        "en": "Positive selected type/role/constructor compatibility before binding only; exact views jointly check the selected families. Nominal IMP=int, abstract-base construction rejection, invalid user extension, every IS-A/HAS-A member relationship and literal printed connect signatures are not certified. All remain partial obligations.",
+        "ja": "binding前の選択型／役割／constructorの正の互換性のみ。正確なviewで選択familyをまとめて検査する。名目的IMP=int、抽象基底生成の拒否、不正user extension、全IS-A／HAS-A member関係、印刷されたconnect signatureの逐語的正しさは認定せず、部分分解の義務に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_nonblocking_socket_declarations_preserve_default_and_custom_phase_base_types",
+          "role": "direct",
+          "expected_observations": [
+            "UT: socket_default count 4 exact_types_and_metadata 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-TYPES-SOCKET-4-DEFAULT-T",
+      "clause": "12.3.5.4.1",
+      "statement": {
+        "en": "The nonblocking initiator socket defaults its transaction type to generic payload.",
+        "ja": "nonblocking initiator socketはtransaction型の既定値をgeneric payloadとする。"
+      },
+      "conditions": {
+        "en": "Construct four selected nonblocking socket families with default T/P, custom T only and explicit custom T/P; inspect exact views before binding.",
+        "ja": "選択nonblocking socket 4 familyを既定T／P、独自Tのみ、明示独自T／Pで生成し、binding前に正確なviewを調べる。"
+      },
+      "expected": {
+        "en": "The default family fits the exact generic-payload/standard-phase base.",
+        "ja": "既定familyは正確なgeneric-payload／標準phase基底に適合する。"
+      },
+      "limitations": {
+        "en": "Positive selected type/role/constructor compatibility before binding only; exact views jointly check the selected families. Nominal IMP=int, abstract-base construction rejection, invalid user extension, every IS-A/HAS-A member relationship and literal printed connect signatures are not certified. All remain partial obligations.",
+        "ja": "binding前の選択型／役割／constructorの正の互換性のみ。正確なviewで選択familyをまとめて検査する。名目的IMP=int、抽象基底生成の拒否、不正user extension、全IS-A／HAS-A member関係、印刷されたconnect signatureの逐語的正しさは認定せず、部分分解の義務に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_nonblocking_socket_declarations_preserve_default_and_custom_phase_base_types",
+          "role": "direct",
+          "expected_observations": [
+            "UT: socket_default count 4 exact_types_and_metadata 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-TYPES-SOCKET-4-CUSTOM-T-BASE",
+      "clause": "12.3.5.4.1",
+      "statement": {
+        "en": "The nonblocking initiator socket supports the selected explicit transaction type through its declared port base.",
+        "ja": "nonblocking initiator socketは宣言port基底で選択した明示transaction型を受け付ける。"
+      },
+      "conditions": {
+        "en": "Construct four selected nonblocking socket families with default T/P, custom T only and explicit custom T/P; inspect exact views before binding.",
+        "ja": "選択nonblocking socket 4 familyを既定T／P、独自Tのみ、明示独自T／Pで生成し、binding前に正確なviewを調べる。"
+      },
+      "expected": {
+        "en": "The explicit custom transaction view retains exact type compatibility and selected metadata.",
+        "ja": "明示独自transaction viewは正確な型互換性と選択metadataを保持する。"
+      },
+      "limitations": {
+        "en": "Positive selected type/role/constructor compatibility before binding only; exact views jointly check the selected families. Nominal IMP=int, abstract-base construction rejection, invalid user extension, every IS-A/HAS-A member relationship and literal printed connect signatures are not certified. All remain partial obligations.",
+        "ja": "binding前の選択型／役割／constructorの正の互換性のみ。正確なviewで選択familyをまとめて検査する。名目的IMP=int、抽象基底生成の拒否、不正user extension、全IS-A／HAS-A member関係、印刷されたconnect signatureの逐語的正しさは認定せず、部分分解の義務に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_nonblocking_socket_declarations_preserve_default_and_custom_phase_base_types",
+          "role": "direct",
+          "expected_observations": [
+            "UT: socket_custom count 4 exact_types_and_metadata 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-TYPES-SOCKET-4-DEFAULT-P",
+      "clause": "12.3.5.4.1",
+      "statement": {
+        "en": "The nonblocking socket phase parameter defaults independently to uvm_tlm_phase_e.",
+        "ja": "nonblocking socketのphase parameterは独立にuvm_tlm_phase_eを既定値とする。"
+      },
+      "conditions": {
+        "en": "Construct four selected nonblocking socket families with default T/P, custom T only and explicit custom T/P; inspect exact views before binding.",
+        "ja": "選択nonblocking socket 4 familyを既定T／P、独自Tのみ、明示独自T／Pで生成し、binding前に正確なviewを調べる。"
+      },
+      "expected": {
+        "en": "Both default and T-only selections fit exact standard-phase views.",
+        "ja": "既定とTのみ指定の両方が正確な標準phase viewに適合する。"
+      },
+      "limitations": {
+        "en": "Positive selected type/role/constructor compatibility before binding only; exact views jointly check the selected families. Nominal IMP=int, abstract-base construction rejection, invalid user extension, every IS-A/HAS-A member relationship and literal printed connect signatures are not certified. All remain partial obligations.",
+        "ja": "binding前の選択型／役割／constructorの正の互換性のみ。正確なviewで選択familyをまとめて検査する。名目的IMP=int、抽象基底生成の拒否、不正user extension、全IS-A／HAS-A member関係、印刷されたconnect signatureの逐語的正しさは認定せず、部分分解の義務に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_nonblocking_socket_declarations_preserve_default_and_custom_phase_base_types",
+          "role": "direct",
+          "expected_observations": [
+            "UT: socket_default count 4 exact_types_and_metadata 1",
+            "UT: socket_request_only count 4 exact_types_and_metadata 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-TYPES-SOCKET-4-CUSTOM-P",
+      "clause": "12.3.5.4.1",
+      "statement": {
+        "en": "The nonblocking socket supports an explicitly selected custom phase type.",
+        "ja": "nonblocking socketは明示選択した独自phase型を受け付ける。"
+      },
+      "conditions": {
+        "en": "Construct four selected nonblocking socket families with default T/P, custom T only and explicit custom T/P; inspect exact views before binding.",
+        "ja": "選択nonblocking socket 4 familyを既定T／P、独自Tのみ、明示独自T／Pで生成し、binding前に正確なviewを調べる。"
+      },
+      "expected": {
+        "en": "Exact custom transaction/phase base arguments accept all four selected socket families.",
+        "ja": "正確な独自transaction／phase基底引数は選択4 socket familyを受け付ける。"
+      },
+      "limitations": {
+        "en": "Positive selected type/role/constructor compatibility before binding only; exact views jointly check the selected families. Nominal IMP=int, abstract-base construction rejection, invalid user extension, every IS-A/HAS-A member relationship and literal printed connect signatures are not certified. All remain partial obligations.",
+        "ja": "binding前の選択型／役割／constructorの正の互換性のみ。正確なviewで選択familyをまとめて検査する。名目的IMP=int、抽象基底生成の拒否、不正user extension、全IS-A／HAS-A member関係、印刷されたconnect signatureの逐語的正しさは認定せず、部分分解の義務に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_nonblocking_socket_declarations_preserve_default_and_custom_phase_base_types",
+          "role": "direct",
+          "expected_observations": [
+            "UT: socket_custom count 4 exact_types_and_metadata 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-TYPES-SOCKET-5-FORWARD-ROLE",
+      "clause": "12.3.5.5",
+      "statement": {
+        "en": "The selected nonblocking initiator relay socket exposes the forward port role.",
+        "ja": "選択したnonblocking initiator relay socketはforward port役割を持つ。"
+      },
+      "conditions": {
+        "en": "Construct four selected nonblocking socket families with default T/P, custom T only and explicit custom T/P; inspect exact views before binding.",
+        "ja": "選択nonblocking socket 4 familyを既定T／P、独自Tのみ、明示独自T／Pで生成し、binding前に正確なviewを調べる。"
+      },
+      "expected": {
+        "en": "The exact socket view reports its specified role with matching constructor metadata.",
+        "ja": "正確なsocket viewは対応constructor metadataとともに規定役割を返す。"
+      },
+      "limitations": {
+        "en": "Positive selected type/role/constructor compatibility before binding only; exact views jointly check the selected families. Nominal IMP=int, abstract-base construction rejection, invalid user extension, every IS-A/HAS-A member relationship and literal printed connect signatures are not certified. All remain partial obligations.",
+        "ja": "binding前の選択型／役割／constructorの正の互換性のみ。正確なviewで選択familyをまとめて検査する。名目的IMP=int、抽象基底生成の拒否、不正user extension、全IS-A／HAS-A member関係、印刷されたconnect signatureの逐語的正しさは認定せず、部分分解の義務に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_nonblocking_socket_declarations_preserve_default_and_custom_phase_base_types",
+          "role": "direct",
+          "expected_observations": [
+            "UT: socket_default count 4 exact_types_and_metadata 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-TYPES-SOCKET-5-DEFAULT-T",
+      "clause": "12.3.5.5.1",
+      "statement": {
+        "en": "The nonblocking initiator relay socket defaults its transaction type to generic payload.",
+        "ja": "nonblocking initiator relay socketはtransaction型の既定値をgeneric payloadとする。"
+      },
+      "conditions": {
+        "en": "Construct four selected nonblocking socket families with default T/P, custom T only and explicit custom T/P; inspect exact views before binding.",
+        "ja": "選択nonblocking socket 4 familyを既定T／P、独自Tのみ、明示独自T／Pで生成し、binding前に正確なviewを調べる。"
+      },
+      "expected": {
+        "en": "The default family fits the exact generic-payload/standard-phase base.",
+        "ja": "既定familyは正確なgeneric-payload／標準phase基底に適合する。"
+      },
+      "limitations": {
+        "en": "Positive selected type/role/constructor compatibility before binding only; exact views jointly check the selected families. Nominal IMP=int, abstract-base construction rejection, invalid user extension, every IS-A/HAS-A member relationship and literal printed connect signatures are not certified. All remain partial obligations.",
+        "ja": "binding前の選択型／役割／constructorの正の互換性のみ。正確なviewで選択familyをまとめて検査する。名目的IMP=int、抽象基底生成の拒否、不正user extension、全IS-A／HAS-A member関係、印刷されたconnect signatureの逐語的正しさは認定せず、部分分解の義務に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_nonblocking_socket_declarations_preserve_default_and_custom_phase_base_types",
+          "role": "direct",
+          "expected_observations": [
+            "UT: socket_default count 4 exact_types_and_metadata 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-TYPES-SOCKET-5-CUSTOM-T-BASE",
+      "clause": "12.3.5.5.1",
+      "statement": {
+        "en": "The nonblocking initiator relay socket supports the selected explicit transaction type through its declared port base.",
+        "ja": "nonblocking initiator relay socketは宣言port基底で選択した明示transaction型を受け付ける。"
+      },
+      "conditions": {
+        "en": "Construct four selected nonblocking socket families with default T/P, custom T only and explicit custom T/P; inspect exact views before binding.",
+        "ja": "選択nonblocking socket 4 familyを既定T／P、独自Tのみ、明示独自T／Pで生成し、binding前に正確なviewを調べる。"
+      },
+      "expected": {
+        "en": "The explicit custom transaction view retains exact type compatibility and selected metadata.",
+        "ja": "明示独自transaction viewは正確な型互換性と選択metadataを保持する。"
+      },
+      "limitations": {
+        "en": "Positive selected type/role/constructor compatibility before binding only; exact views jointly check the selected families. Nominal IMP=int, abstract-base construction rejection, invalid user extension, every IS-A/HAS-A member relationship and literal printed connect signatures are not certified. All remain partial obligations.",
+        "ja": "binding前の選択型／役割／constructorの正の互換性のみ。正確なviewで選択familyをまとめて検査する。名目的IMP=int、抽象基底生成の拒否、不正user extension、全IS-A／HAS-A member関係、印刷されたconnect signatureの逐語的正しさは認定せず、部分分解の義務に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_nonblocking_socket_declarations_preserve_default_and_custom_phase_base_types",
+          "role": "direct",
+          "expected_observations": [
+            "UT: socket_custom count 4 exact_types_and_metadata 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-TYPES-SOCKET-5-DEFAULT-P",
+      "clause": "12.3.5.5.1",
+      "statement": {
+        "en": "The nonblocking socket phase parameter defaults independently to uvm_tlm_phase_e.",
+        "ja": "nonblocking socketのphase parameterは独立にuvm_tlm_phase_eを既定値とする。"
+      },
+      "conditions": {
+        "en": "Construct four selected nonblocking socket families with default T/P, custom T only and explicit custom T/P; inspect exact views before binding.",
+        "ja": "選択nonblocking socket 4 familyを既定T／P、独自Tのみ、明示独自T／Pで生成し、binding前に正確なviewを調べる。"
+      },
+      "expected": {
+        "en": "Both default and T-only selections fit exact standard-phase views.",
+        "ja": "既定とTのみ指定の両方が正確な標準phase viewに適合する。"
+      },
+      "limitations": {
+        "en": "Positive selected type/role/constructor compatibility before binding only; exact views jointly check the selected families. Nominal IMP=int, abstract-base construction rejection, invalid user extension, every IS-A/HAS-A member relationship and literal printed connect signatures are not certified. All remain partial obligations.",
+        "ja": "binding前の選択型／役割／constructorの正の互換性のみ。正確なviewで選択familyをまとめて検査する。名目的IMP=int、抽象基底生成の拒否、不正user extension、全IS-A／HAS-A member関係、印刷されたconnect signatureの逐語的正しさは認定せず、部分分解の義務に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_nonblocking_socket_declarations_preserve_default_and_custom_phase_base_types",
+          "role": "direct",
+          "expected_observations": [
+            "UT: socket_default count 4 exact_types_and_metadata 1",
+            "UT: socket_request_only count 4 exact_types_and_metadata 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-TYPES-SOCKET-5-CUSTOM-P",
+      "clause": "12.3.5.5.1",
+      "statement": {
+        "en": "The nonblocking socket supports an explicitly selected custom phase type.",
+        "ja": "nonblocking socketは明示選択した独自phase型を受け付ける。"
+      },
+      "conditions": {
+        "en": "Construct four selected nonblocking socket families with default T/P, custom T only and explicit custom T/P; inspect exact views before binding.",
+        "ja": "選択nonblocking socket 4 familyを既定T／P、独自Tのみ、明示独自T／Pで生成し、binding前に正確なviewを調べる。"
+      },
+      "expected": {
+        "en": "Exact custom transaction/phase base arguments accept all four selected socket families.",
+        "ja": "正確な独自transaction／phase基底引数は選択4 socket familyを受け付ける。"
+      },
+      "limitations": {
+        "en": "Positive selected type/role/constructor compatibility before binding only; exact views jointly check the selected families. Nominal IMP=int, abstract-base construction rejection, invalid user extension, every IS-A/HAS-A member relationship and literal printed connect signatures are not certified. All remain partial obligations.",
+        "ja": "binding前の選択型／役割／constructorの正の互換性のみ。正確なviewで選択familyをまとめて検査する。名目的IMP=int、抽象基底生成の拒否、不正user extension、全IS-A／HAS-A member関係、印刷されたconnect signatureの逐語的正しさは認定せず、部分分解の義務に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_nonblocking_socket_declarations_preserve_default_and_custom_phase_base_types",
+          "role": "direct",
+          "expected_observations": [
+            "UT: socket_custom count 4 exact_types_and_metadata 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-TYPES-SOCKET-6-FORWARD-ROLE",
+      "clause": "12.3.5.6",
+      "statement": {
+        "en": "The selected nonblocking target relay socket exposes the forward export role.",
+        "ja": "選択したnonblocking target relay socketはforward export役割を持つ。"
+      },
+      "conditions": {
+        "en": "Construct four selected nonblocking socket families with default T/P, custom T only and explicit custom T/P; inspect exact views before binding.",
+        "ja": "選択nonblocking socket 4 familyを既定T／P、独自Tのみ、明示独自T／Pで生成し、binding前に正確なviewを調べる。"
+      },
+      "expected": {
+        "en": "The exact socket view reports its specified role with matching constructor metadata.",
+        "ja": "正確なsocket viewは対応constructor metadataとともに規定役割を返す。"
+      },
+      "limitations": {
+        "en": "Positive selected type/role/constructor compatibility before binding only; exact views jointly check the selected families. Nominal IMP=int, abstract-base construction rejection, invalid user extension, every IS-A/HAS-A member relationship and literal printed connect signatures are not certified. All remain partial obligations.",
+        "ja": "binding前の選択型／役割／constructorの正の互換性のみ。正確なviewで選択familyをまとめて検査する。名目的IMP=int、抽象基底生成の拒否、不正user extension、全IS-A／HAS-A member関係、印刷されたconnect signatureの逐語的正しさは認定せず、部分分解の義務に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_nonblocking_socket_declarations_preserve_default_and_custom_phase_base_types",
+          "role": "direct",
+          "expected_observations": [
+            "UT: socket_default count 4 exact_types_and_metadata 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-TYPES-SOCKET-6-DEFAULT-T",
+      "clause": "12.3.5.6.1",
+      "statement": {
+        "en": "The nonblocking target relay socket defaults its transaction type to generic payload.",
+        "ja": "nonblocking target relay socketはtransaction型の既定値をgeneric payloadとする。"
+      },
+      "conditions": {
+        "en": "Construct four selected nonblocking socket families with default T/P, custom T only and explicit custom T/P; inspect exact views before binding.",
+        "ja": "選択nonblocking socket 4 familyを既定T／P、独自Tのみ、明示独自T／Pで生成し、binding前に正確なviewを調べる。"
+      },
+      "expected": {
+        "en": "The default family fits the exact generic-payload/standard-phase base.",
+        "ja": "既定familyは正確なgeneric-payload／標準phase基底に適合する。"
+      },
+      "limitations": {
+        "en": "Positive selected type/role/constructor compatibility before binding only; exact views jointly check the selected families. Nominal IMP=int, abstract-base construction rejection, invalid user extension, every IS-A/HAS-A member relationship and literal printed connect signatures are not certified. All remain partial obligations.",
+        "ja": "binding前の選択型／役割／constructorの正の互換性のみ。正確なviewで選択familyをまとめて検査する。名目的IMP=int、抽象基底生成の拒否、不正user extension、全IS-A／HAS-A member関係、印刷されたconnect signatureの逐語的正しさは認定せず、部分分解の義務に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_nonblocking_socket_declarations_preserve_default_and_custom_phase_base_types",
+          "role": "direct",
+          "expected_observations": [
+            "UT: socket_default count 4 exact_types_and_metadata 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-TYPES-SOCKET-6-CUSTOM-T-BASE",
+      "clause": "12.3.5.6.1",
+      "statement": {
+        "en": "The nonblocking target relay socket supports the selected explicit transaction type through its declared port base.",
+        "ja": "nonblocking target relay socketは宣言port基底で選択した明示transaction型を受け付ける。"
+      },
+      "conditions": {
+        "en": "Construct four selected nonblocking socket families with default T/P, custom T only and explicit custom T/P; inspect exact views before binding.",
+        "ja": "選択nonblocking socket 4 familyを既定T／P、独自Tのみ、明示独自T／Pで生成し、binding前に正確なviewを調べる。"
+      },
+      "expected": {
+        "en": "The explicit custom transaction view retains exact type compatibility and selected metadata.",
+        "ja": "明示独自transaction viewは正確な型互換性と選択metadataを保持する。"
+      },
+      "limitations": {
+        "en": "Positive selected type/role/constructor compatibility before binding only; exact views jointly check the selected families. Nominal IMP=int, abstract-base construction rejection, invalid user extension, every IS-A/HAS-A member relationship and literal printed connect signatures are not certified. All remain partial obligations.",
+        "ja": "binding前の選択型／役割／constructorの正の互換性のみ。正確なviewで選択familyをまとめて検査する。名目的IMP=int、抽象基底生成の拒否、不正user extension、全IS-A／HAS-A member関係、印刷されたconnect signatureの逐語的正しさは認定せず、部分分解の義務に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_nonblocking_socket_declarations_preserve_default_and_custom_phase_base_types",
+          "role": "direct",
+          "expected_observations": [
+            "UT: socket_custom count 4 exact_types_and_metadata 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-TYPES-SOCKET-6-DEFAULT-P",
+      "clause": "12.3.5.6.1",
+      "statement": {
+        "en": "The nonblocking socket phase parameter defaults independently to uvm_tlm_phase_e.",
+        "ja": "nonblocking socketのphase parameterは独立にuvm_tlm_phase_eを既定値とする。"
+      },
+      "conditions": {
+        "en": "Construct four selected nonblocking socket families with default T/P, custom T only and explicit custom T/P; inspect exact views before binding.",
+        "ja": "選択nonblocking socket 4 familyを既定T／P、独自Tのみ、明示独自T／Pで生成し、binding前に正確なviewを調べる。"
+      },
+      "expected": {
+        "en": "Both default and T-only selections fit exact standard-phase views.",
+        "ja": "既定とTのみ指定の両方が正確な標準phase viewに適合する。"
+      },
+      "limitations": {
+        "en": "Positive selected type/role/constructor compatibility before binding only; exact views jointly check the selected families. Nominal IMP=int, abstract-base construction rejection, invalid user extension, every IS-A/HAS-A member relationship and literal printed connect signatures are not certified. All remain partial obligations.",
+        "ja": "binding前の選択型／役割／constructorの正の互換性のみ。正確なviewで選択familyをまとめて検査する。名目的IMP=int、抽象基底生成の拒否、不正user extension、全IS-A／HAS-A member関係、印刷されたconnect signatureの逐語的正しさは認定せず、部分分解の義務に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_nonblocking_socket_declarations_preserve_default_and_custom_phase_base_types",
+          "role": "direct",
+          "expected_observations": [
+            "UT: socket_default count 4 exact_types_and_metadata 1",
+            "UT: socket_request_only count 4 exact_types_and_metadata 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-TYPES-SOCKET-6-CUSTOM-P",
+      "clause": "12.3.5.6.1",
+      "statement": {
+        "en": "The nonblocking socket supports an explicitly selected custom phase type.",
+        "ja": "nonblocking socketは明示選択した独自phase型を受け付ける。"
+      },
+      "conditions": {
+        "en": "Construct four selected nonblocking socket families with default T/P, custom T only and explicit custom T/P; inspect exact views before binding.",
+        "ja": "選択nonblocking socket 4 familyを既定T／P、独自Tのみ、明示独自T／Pで生成し、binding前に正確なviewを調べる。"
+      },
+      "expected": {
+        "en": "Exact custom transaction/phase base arguments accept all four selected socket families.",
+        "ja": "正確な独自transaction／phase基底引数は選択4 socket familyを受け付ける。"
+      },
+      "limitations": {
+        "en": "Positive selected type/role/constructor compatibility before binding only; exact views jointly check the selected families. Nominal IMP=int, abstract-base construction rejection, invalid user extension, every IS-A/HAS-A member relationship and literal printed connect signatures are not certified. All remain partial obligations.",
+        "ja": "binding前の選択型／役割／constructorの正の互換性のみ。正確なviewで選択familyをまとめて検査する。名目的IMP=int、抽象基底生成の拒否、不正user extension、全IS-A／HAS-A member関係、印刷されたconnect signatureの逐語的正しさは認定せず、部分分解の義務に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_nonblocking_socket_declarations_preserve_default_and_custom_phase_base_types",
+          "role": "direct",
+          "expected_observations": [
+            "UT: socket_custom count 4 exact_types_and_metadata 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-TYPES-SOCKET-7-FORWARD-ROLE",
+      "clause": "12.3.5.7",
+      "statement": {
+        "en": "The selected blocking initiator relay socket exposes the forward port role.",
+        "ja": "選択したblocking initiator relay socketはforward port役割を持つ。"
+      },
+      "conditions": {
+        "en": "Construct all four selected blocking socket families with default generic payload or explicit custom transaction types; inspect exact base views before binding.",
+        "ja": "選択blocking socket 4 familyを既定generic payloadまたは明示独自transaction型で生成し、binding前に正確な基底viewを調べる。"
+      },
+      "expected": {
+        "en": "The exact socket view reports its specified role with matching constructor metadata.",
+        "ja": "正確なsocket viewは対応constructor metadataとともに規定役割を返す。"
+      },
+      "limitations": {
+        "en": "Positive selected type/role/constructor compatibility before binding only; exact views jointly check the selected families. Nominal IMP=int, abstract-base construction rejection, invalid user extension, every IS-A/HAS-A member relationship and literal printed connect signatures are not certified. All remain partial obligations.",
+        "ja": "binding前の選択型／役割／constructorの正の互換性のみ。正確なviewで選択familyをまとめて検査する。名目的IMP=int、抽象基底生成の拒否、不正user extension、全IS-A／HAS-A member関係、印刷されたconnect signatureの逐語的正しさは認定せず、部分分解の義務に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_blocking_socket_declarations_preserve_default_and_custom_transaction_base_types",
+          "role": "direct",
+          "expected_observations": [
+            "UT: socket_default count 4 exact_types_and_metadata 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-TYPES-SOCKET-7-DEFAULT-T",
+      "clause": "12.3.5.7.1",
+      "statement": {
+        "en": "The blocking initiator relay socket defaults its transaction type to generic payload.",
+        "ja": "blocking initiator relay socketはtransaction型の既定値をgeneric payloadとする。"
+      },
+      "conditions": {
+        "en": "Construct all four selected blocking socket families with default generic payload or explicit custom transaction types; inspect exact base views before binding.",
+        "ja": "選択blocking socket 4 familyを既定generic payloadまたは明示独自transaction型で生成し、binding前に正確な基底viewを調べる。"
+      },
+      "expected": {
+        "en": "The default family fits the exact generic-payload/standard-phase base.",
+        "ja": "既定familyは正確なgeneric-payload／標準phase基底に適合する。"
+      },
+      "limitations": {
+        "en": "Positive selected type/role/constructor compatibility before binding only; exact views jointly check the selected families. Nominal IMP=int, abstract-base construction rejection, invalid user extension, every IS-A/HAS-A member relationship and literal printed connect signatures are not certified. All remain partial obligations.",
+        "ja": "binding前の選択型／役割／constructorの正の互換性のみ。正確なviewで選択familyをまとめて検査する。名目的IMP=int、抽象基底生成の拒否、不正user extension、全IS-A／HAS-A member関係、印刷されたconnect signatureの逐語的正しさは認定せず、部分分解の義務に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_blocking_socket_declarations_preserve_default_and_custom_transaction_base_types",
+          "role": "direct",
+          "expected_observations": [
+            "UT: socket_default count 4 exact_types_and_metadata 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-TYPES-SOCKET-7-CUSTOM-T-BASE",
+      "clause": "12.3.5.7.1",
+      "statement": {
+        "en": "The blocking initiator relay socket supports the selected explicit transaction type through its declared port base.",
+        "ja": "blocking initiator relay socketは宣言port基底で選択した明示transaction型を受け付ける。"
+      },
+      "conditions": {
+        "en": "Construct all four selected blocking socket families with default generic payload or explicit custom transaction types; inspect exact base views before binding.",
+        "ja": "選択blocking socket 4 familyを既定generic payloadまたは明示独自transaction型で生成し、binding前に正確な基底viewを調べる。"
+      },
+      "expected": {
+        "en": "The explicit custom transaction view retains exact type compatibility and selected metadata.",
+        "ja": "明示独自transaction viewは正確な型互換性と選択metadataを保持する。"
+      },
+      "limitations": {
+        "en": "Positive selected type/role/constructor compatibility before binding only; exact views jointly check the selected families. Nominal IMP=int, abstract-base construction rejection, invalid user extension, every IS-A/HAS-A member relationship and literal printed connect signatures are not certified. All remain partial obligations.",
+        "ja": "binding前の選択型／役割／constructorの正の互換性のみ。正確なviewで選択familyをまとめて検査する。名目的IMP=int、抽象基底生成の拒否、不正user extension、全IS-A／HAS-A member関係、印刷されたconnect signatureの逐語的正しさは認定せず、部分分解の義務に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_blocking_socket_declarations_preserve_default_and_custom_transaction_base_types",
+          "role": "direct",
+          "expected_observations": [
+            "UT: socket_custom count 4 exact_types_and_metadata 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-TYPES-SOCKET-8-FORWARD-ROLE",
+      "clause": "12.3.5.8",
+      "statement": {
+        "en": "The selected blocking target relay socket exposes the forward export role.",
+        "ja": "選択したblocking target relay socketはforward export役割を持つ。"
+      },
+      "conditions": {
+        "en": "Construct all four selected blocking socket families with default generic payload or explicit custom transaction types; inspect exact base views before binding.",
+        "ja": "選択blocking socket 4 familyを既定generic payloadまたは明示独自transaction型で生成し、binding前に正確な基底viewを調べる。"
+      },
+      "expected": {
+        "en": "The exact socket view reports its specified role with matching constructor metadata.",
+        "ja": "正確なsocket viewは対応constructor metadataとともに規定役割を返す。"
+      },
+      "limitations": {
+        "en": "Positive selected type/role/constructor compatibility before binding only; exact views jointly check the selected families. Nominal IMP=int, abstract-base construction rejection, invalid user extension, every IS-A/HAS-A member relationship and literal printed connect signatures are not certified. All remain partial obligations.",
+        "ja": "binding前の選択型／役割／constructorの正の互換性のみ。正確なviewで選択familyをまとめて検査する。名目的IMP=int、抽象基底生成の拒否、不正user extension、全IS-A／HAS-A member関係、印刷されたconnect signatureの逐語的正しさは認定せず、部分分解の義務に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_blocking_socket_declarations_preserve_default_and_custom_transaction_base_types",
+          "role": "direct",
+          "expected_observations": [
+            "UT: socket_default count 4 exact_types_and_metadata 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-TYPES-SOCKET-8-DEFAULT-T",
+      "clause": "12.3.5.8.1",
+      "statement": {
+        "en": "The blocking target relay socket defaults its transaction type to generic payload.",
+        "ja": "blocking target relay socketはtransaction型の既定値をgeneric payloadとする。"
+      },
+      "conditions": {
+        "en": "Construct all four selected blocking socket families with default generic payload or explicit custom transaction types; inspect exact base views before binding.",
+        "ja": "選択blocking socket 4 familyを既定generic payloadまたは明示独自transaction型で生成し、binding前に正確な基底viewを調べる。"
+      },
+      "expected": {
+        "en": "The default family fits the exact generic-payload/standard-phase base.",
+        "ja": "既定familyは正確なgeneric-payload／標準phase基底に適合する。"
+      },
+      "limitations": {
+        "en": "Positive selected type/role/constructor compatibility before binding only; exact views jointly check the selected families. Nominal IMP=int, abstract-base construction rejection, invalid user extension, every IS-A/HAS-A member relationship and literal printed connect signatures are not certified. All remain partial obligations.",
+        "ja": "binding前の選択型／役割／constructorの正の互換性のみ。正確なviewで選択familyをまとめて検査する。名目的IMP=int、抽象基底生成の拒否、不正user extension、全IS-A／HAS-A member関係、印刷されたconnect signatureの逐語的正しさは認定せず、部分分解の義務に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_blocking_socket_declarations_preserve_default_and_custom_transaction_base_types",
+          "role": "direct",
+          "expected_observations": [
+            "UT: socket_default count 4 exact_types_and_metadata 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-TYPES-SOCKET-8-CUSTOM-T-BASE",
+      "clause": "12.3.5.8.1",
+      "statement": {
+        "en": "The blocking target relay socket supports the selected explicit transaction type through its declared port base.",
+        "ja": "blocking target relay socketは宣言port基底で選択した明示transaction型を受け付ける。"
+      },
+      "conditions": {
+        "en": "Construct all four selected blocking socket families with default generic payload or explicit custom transaction types; inspect exact base views before binding.",
+        "ja": "選択blocking socket 4 familyを既定generic payloadまたは明示独自transaction型で生成し、binding前に正確な基底viewを調べる。"
+      },
+      "expected": {
+        "en": "The explicit custom transaction view retains exact type compatibility and selected metadata.",
+        "ja": "明示独自transaction viewは正確な型互換性と選択metadataを保持する。"
+      },
+      "limitations": {
+        "en": "Positive selected type/role/constructor compatibility before binding only; exact views jointly check the selected families. Nominal IMP=int, abstract-base construction rejection, invalid user extension, every IS-A/HAS-A member relationship and literal printed connect signatures are not certified. All remain partial obligations.",
+        "ja": "binding前の選択型／役割／constructorの正の互換性のみ。正確なviewで選択familyをまとめて検査する。名目的IMP=int、抽象基底生成の拒否、不正user extension、全IS-A／HAS-A member関係、印刷されたconnect signatureの逐語的正しさは認定せず、部分分解の義務に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_blocking_socket_declarations_preserve_default_and_custom_transaction_base_types",
+          "role": "direct",
+          "expected_observations": [
+            "UT: socket_custom count 4 exact_types_and_metadata 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-TYPES-PORT-1-DEFAULT-T",
+      "clause": "12.3.6.1",
+      "statement": {
+        "en": "The blocking port defaults to the generic payload interface type.",
+        "ja": "blocking portはgeneric payload interface型を既定値とする。"
+      },
+      "conditions": {
+        "en": "Construct all three ordinary port and export families with default, T-only and applicable explicit T/P specializations.",
+        "ja": "通常port／exportの各3 familyを、既定、Tのみ、適用可能な明示T／P specializationで生成する。"
+      },
+      "expected": {
+        "en": "Its default view fits the exact generic-payload/standard-phase port base.",
+        "ja": "既定viewは正確なgeneric-payload／標準phase port基底に適合する。"
+      },
+      "limitations": {
+        "en": "Positive selected type/role/constructor compatibility before binding only; exact views jointly check the selected families. Nominal IMP=int, abstract-base construction rejection, invalid user extension, every IS-A/HAS-A member relationship and literal printed connect signatures are not certified. All remain partial obligations.",
+        "ja": "binding前の選択型／役割／constructorの正の互換性のみ。正確なviewで選択familyをまとめて検査する。名目的IMP=int、抽象基底生成の拒否、不正user extension、全IS-A／HAS-A member関係、印刷されたconnect signatureの逐語的正しさは認定せず、部分分解の義務に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_transport_port_and_export_defaults_preserve_exact_interface_type_parameters",
+          "role": "direct",
+          "expected_observations": [
+            "UT: transport_defaults ports 1 exports 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-TYPES-PORT-1-CUSTOM-T",
+      "clause": "12.3.6.1",
+      "statement": {
+        "en": "The blocking port supports the selected explicit transaction type.",
+        "ja": "blocking portは選択した明示transaction型を受け付ける。"
+      },
+      "conditions": {
+        "en": "Construct all three ordinary port and export families with default, T-only and applicable explicit T/P specializations.",
+        "ja": "通常port／exportの各3 familyを、既定、Tのみ、適用可能な明示T／P specializationで生成する。"
+      },
+      "expected": {
+        "en": "The T-only family fits the exact custom-transaction/standard-phase base.",
+        "ja": "Tのみ指定したfamilyは正確な独自transaction／標準phase基底に適合する。"
+      },
+      "limitations": {
+        "en": "Positive selected type/role/constructor compatibility before binding only; exact views jointly check the selected families. Nominal IMP=int, abstract-base construction rejection, invalid user extension, every IS-A/HAS-A member relationship and literal printed connect signatures are not certified. All remain partial obligations.",
+        "ja": "binding前の選択型／役割／constructorの正の互換性のみ。正確なviewで選択familyをまとめて検査する。名目的IMP=int、抽象基底生成の拒否、不正user extension、全IS-A／HAS-A member関係、印刷されたconnect signatureの逐語的正しさは認定せず、部分分解の義務に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_transport_port_and_export_defaults_preserve_exact_interface_type_parameters",
+          "role": "direct",
+          "expected_observations": [
+            "UT: transport_request_only ports 1 exports 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-TYPES-EXPORT-1-DEFAULT-T",
+      "clause": "12.3.7.1",
+      "statement": {
+        "en": "The blocking export defaults to the generic payload interface type.",
+        "ja": "blocking exportはgeneric payload interface型を既定値とする。"
+      },
+      "conditions": {
+        "en": "Construct all three ordinary port and export families with default, T-only and applicable explicit T/P specializations.",
+        "ja": "通常port／exportの各3 familyを、既定、Tのみ、適用可能な明示T／P specializationで生成する。"
+      },
+      "expected": {
+        "en": "Its default view fits the exact generic-payload/standard-phase port base.",
+        "ja": "既定viewは正確なgeneric-payload／標準phase port基底に適合する。"
+      },
+      "limitations": {
+        "en": "Positive selected type/role/constructor compatibility before binding only; exact views jointly check the selected families. Nominal IMP=int, abstract-base construction rejection, invalid user extension, every IS-A/HAS-A member relationship and literal printed connect signatures are not certified. All remain partial obligations.",
+        "ja": "binding前の選択型／役割／constructorの正の互換性のみ。正確なviewで選択familyをまとめて検査する。名目的IMP=int、抽象基底生成の拒否、不正user extension、全IS-A／HAS-A member関係、印刷されたconnect signatureの逐語的正しさは認定せず、部分分解の義務に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_transport_port_and_export_defaults_preserve_exact_interface_type_parameters",
+          "role": "direct",
+          "expected_observations": [
+            "UT: transport_defaults ports 1 exports 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-TYPES-EXPORT-1-CUSTOM-T",
+      "clause": "12.3.7.1",
+      "statement": {
+        "en": "The blocking export supports the selected explicit transaction type.",
+        "ja": "blocking exportは選択した明示transaction型を受け付ける。"
+      },
+      "conditions": {
+        "en": "Construct all three ordinary port and export families with default, T-only and applicable explicit T/P specializations.",
+        "ja": "通常port／exportの各3 familyを、既定、Tのみ、適用可能な明示T／P specializationで生成する。"
+      },
+      "expected": {
+        "en": "The T-only family fits the exact custom-transaction/standard-phase base.",
+        "ja": "Tのみ指定したfamilyは正確な独自transaction／標準phase基底に適合する。"
+      },
+      "limitations": {
+        "en": "Positive selected type/role/constructor compatibility before binding only; exact views jointly check the selected families. Nominal IMP=int, abstract-base construction rejection, invalid user extension, every IS-A/HAS-A member relationship and literal printed connect signatures are not certified. All remain partial obligations.",
+        "ja": "binding前の選択型／役割／constructorの正の互換性のみ。正確なviewで選択familyをまとめて検査する。名目的IMP=int、抽象基底生成の拒否、不正user extension、全IS-A／HAS-A member関係、印刷されたconnect signatureの逐語的正しさは認定せず、部分分解の義務に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_transport_port_and_export_defaults_preserve_exact_interface_type_parameters",
+          "role": "direct",
+          "expected_observations": [
+            "UT: transport_request_only ports 1 exports 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-TYPES-PORT-2-DEFAULT-T",
+      "clause": "12.3.6.2",
+      "statement": {
+        "en": "The nonblocking forward port defaults to the generic payload interface type.",
+        "ja": "nonblocking forward portはgeneric payload interface型を既定値とする。"
+      },
+      "conditions": {
+        "en": "Construct all three ordinary port and export families with default, T-only and applicable explicit T/P specializations.",
+        "ja": "通常port／exportの各3 familyを、既定、Tのみ、適用可能な明示T／P specializationで生成する。"
+      },
+      "expected": {
+        "en": "Its default view fits the exact generic-payload/standard-phase port base.",
+        "ja": "既定viewは正確なgeneric-payload／標準phase port基底に適合する。"
+      },
+      "limitations": {
+        "en": "Positive selected type/role/constructor compatibility before binding only; exact views jointly check the selected families. Nominal IMP=int, abstract-base construction rejection, invalid user extension, every IS-A/HAS-A member relationship and literal printed connect signatures are not certified. All remain partial obligations.",
+        "ja": "binding前の選択型／役割／constructorの正の互換性のみ。正確なviewで選択familyをまとめて検査する。名目的IMP=int、抽象基底生成の拒否、不正user extension、全IS-A／HAS-A member関係、印刷されたconnect signatureの逐語的正しさは認定せず、部分分解の義務に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_transport_port_and_export_defaults_preserve_exact_interface_type_parameters",
+          "role": "direct",
+          "expected_observations": [
+            "UT: transport_defaults ports 1 exports 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-TYPES-PORT-2-CUSTOM-T",
+      "clause": "12.3.6.2",
+      "statement": {
+        "en": "The nonblocking forward port supports the selected explicit transaction type.",
+        "ja": "nonblocking forward portは選択した明示transaction型を受け付ける。"
+      },
+      "conditions": {
+        "en": "Construct all three ordinary port and export families with default, T-only and applicable explicit T/P specializations.",
+        "ja": "通常port／exportの各3 familyを、既定、Tのみ、適用可能な明示T／P specializationで生成する。"
+      },
+      "expected": {
+        "en": "The T-only family fits the exact custom-transaction/standard-phase base.",
+        "ja": "Tのみ指定したfamilyは正確な独自transaction／標準phase基底に適合する。"
+      },
+      "limitations": {
+        "en": "Positive selected type/role/constructor compatibility before binding only; exact views jointly check the selected families. Nominal IMP=int, abstract-base construction rejection, invalid user extension, every IS-A/HAS-A member relationship and literal printed connect signatures are not certified. All remain partial obligations.",
+        "ja": "binding前の選択型／役割／constructorの正の互換性のみ。正確なviewで選択familyをまとめて検査する。名目的IMP=int、抽象基底生成の拒否、不正user extension、全IS-A／HAS-A member関係、印刷されたconnect signatureの逐語的正しさは認定せず、部分分解の義務に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_transport_port_and_export_defaults_preserve_exact_interface_type_parameters",
+          "role": "direct",
+          "expected_observations": [
+            "UT: transport_request_only ports 1 exports 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-TYPES-PORT-2-DEFAULT-P",
+      "clause": "12.3.6.2",
+      "statement": {
+        "en": "The nonblocking port defaults its phase type independently of T.",
+        "ja": "nonblocking portはTと独立にphase型を既定値とする。"
+      },
+      "conditions": {
+        "en": "Construct all three ordinary port and export families with default, T-only and applicable explicit T/P specializations.",
+        "ja": "通常port／exportの各3 familyを、既定、Tのみ、適用可能な明示T／P specializationで生成する。"
+      },
+      "expected": {
+        "en": "Default and T-only instances fit standard-phase views.",
+        "ja": "既定とTのみ指定したinstanceは標準phase viewに適合する。"
+      },
+      "limitations": {
+        "en": "Positive selected type/role/constructor compatibility before binding only; exact views jointly check the selected families. Nominal IMP=int, abstract-base construction rejection, invalid user extension, every IS-A/HAS-A member relationship and literal printed connect signatures are not certified. All remain partial obligations.",
+        "ja": "binding前の選択型／役割／constructorの正の互換性のみ。正確なviewで選択familyをまとめて検査する。名目的IMP=int、抽象基底生成の拒否、不正user extension、全IS-A／HAS-A member関係、印刷されたconnect signatureの逐語的正しさは認定せず、部分分解の義務に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_transport_port_and_export_defaults_preserve_exact_interface_type_parameters",
+          "role": "direct",
+          "expected_observations": [
+            "UT: transport_defaults ports 1 exports 1",
+            "UT: transport_request_only ports 1 exports 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-TYPES-PORT-2-CUSTOM-P",
+      "clause": "12.3.6.2",
+      "statement": {
+        "en": "The nonblocking port supports the selected explicit phase type.",
+        "ja": "nonblocking portは選択した明示phase型を受け付ける。"
+      },
+      "conditions": {
+        "en": "Construct all three ordinary port and export families with default, T-only and applicable explicit T/P specializations.",
+        "ja": "通常port／exportの各3 familyを、既定、Tのみ、適用可能な明示T／P specializationで生成する。"
+      },
+      "expected": {
+        "en": "Exact custom-T/P views accept the selected nonblocking families.",
+        "ja": "正確な独自T／P viewは選択nonblocking familyを受け付ける。"
+      },
+      "limitations": {
+        "en": "Positive selected type/role/constructor compatibility before binding only; exact views jointly check the selected families. Nominal IMP=int, abstract-base construction rejection, invalid user extension, every IS-A/HAS-A member relationship and literal printed connect signatures are not certified. All remain partial obligations.",
+        "ja": "binding前の選択型／役割／constructorの正の互換性のみ。正確なviewで選択familyをまとめて検査する。名目的IMP=int、抽象基底生成の拒否、不正user extension、全IS-A／HAS-A member関係、印刷されたconnect signatureの逐語的正しさは認定せず、部分分解の義務に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_transport_port_and_export_defaults_preserve_exact_interface_type_parameters",
+          "role": "direct",
+          "expected_observations": [
+            "UT: transport_custom_phase ports 1 exports 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-TYPES-EXPORT-2-DEFAULT-T",
+      "clause": "12.3.7.2",
+      "statement": {
+        "en": "The nonblocking forward export defaults to the generic payload interface type.",
+        "ja": "nonblocking forward exportはgeneric payload interface型を既定値とする。"
+      },
+      "conditions": {
+        "en": "Construct all three ordinary port and export families with default, T-only and applicable explicit T/P specializations.",
+        "ja": "通常port／exportの各3 familyを、既定、Tのみ、適用可能な明示T／P specializationで生成する。"
+      },
+      "expected": {
+        "en": "Its default view fits the exact generic-payload/standard-phase port base.",
+        "ja": "既定viewは正確なgeneric-payload／標準phase port基底に適合する。"
+      },
+      "limitations": {
+        "en": "Positive selected type/role/constructor compatibility before binding only; exact views jointly check the selected families. Nominal IMP=int, abstract-base construction rejection, invalid user extension, every IS-A/HAS-A member relationship and literal printed connect signatures are not certified. All remain partial obligations.",
+        "ja": "binding前の選択型／役割／constructorの正の互換性のみ。正確なviewで選択familyをまとめて検査する。名目的IMP=int、抽象基底生成の拒否、不正user extension、全IS-A／HAS-A member関係、印刷されたconnect signatureの逐語的正しさは認定せず、部分分解の義務に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_transport_port_and_export_defaults_preserve_exact_interface_type_parameters",
+          "role": "direct",
+          "expected_observations": [
+            "UT: transport_defaults ports 1 exports 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-TYPES-EXPORT-2-CUSTOM-T",
+      "clause": "12.3.7.2",
+      "statement": {
+        "en": "The nonblocking forward export supports the selected explicit transaction type.",
+        "ja": "nonblocking forward exportは選択した明示transaction型を受け付ける。"
+      },
+      "conditions": {
+        "en": "Construct all three ordinary port and export families with default, T-only and applicable explicit T/P specializations.",
+        "ja": "通常port／exportの各3 familyを、既定、Tのみ、適用可能な明示T／P specializationで生成する。"
+      },
+      "expected": {
+        "en": "The T-only family fits the exact custom-transaction/standard-phase base.",
+        "ja": "Tのみ指定したfamilyは正確な独自transaction／標準phase基底に適合する。"
+      },
+      "limitations": {
+        "en": "Positive selected type/role/constructor compatibility before binding only; exact views jointly check the selected families. Nominal IMP=int, abstract-base construction rejection, invalid user extension, every IS-A/HAS-A member relationship and literal printed connect signatures are not certified. All remain partial obligations.",
+        "ja": "binding前の選択型／役割／constructorの正の互換性のみ。正確なviewで選択familyをまとめて検査する。名目的IMP=int、抽象基底生成の拒否、不正user extension、全IS-A／HAS-A member関係、印刷されたconnect signatureの逐語的正しさは認定せず、部分分解の義務に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_transport_port_and_export_defaults_preserve_exact_interface_type_parameters",
+          "role": "direct",
+          "expected_observations": [
+            "UT: transport_request_only ports 1 exports 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-TYPES-EXPORT-2-DEFAULT-P",
+      "clause": "12.3.7.2",
+      "statement": {
+        "en": "The nonblocking export defaults its phase type independently of T.",
+        "ja": "nonblocking exportはTと独立にphase型を既定値とする。"
+      },
+      "conditions": {
+        "en": "Construct all three ordinary port and export families with default, T-only and applicable explicit T/P specializations.",
+        "ja": "通常port／exportの各3 familyを、既定、Tのみ、適用可能な明示T／P specializationで生成する。"
+      },
+      "expected": {
+        "en": "Default and T-only instances fit standard-phase views.",
+        "ja": "既定とTのみ指定したinstanceは標準phase viewに適合する。"
+      },
+      "limitations": {
+        "en": "Positive selected type/role/constructor compatibility before binding only; exact views jointly check the selected families. Nominal IMP=int, abstract-base construction rejection, invalid user extension, every IS-A/HAS-A member relationship and literal printed connect signatures are not certified. All remain partial obligations.",
+        "ja": "binding前の選択型／役割／constructorの正の互換性のみ。正確なviewで選択familyをまとめて検査する。名目的IMP=int、抽象基底生成の拒否、不正user extension、全IS-A／HAS-A member関係、印刷されたconnect signatureの逐語的正しさは認定せず、部分分解の義務に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_transport_port_and_export_defaults_preserve_exact_interface_type_parameters",
+          "role": "direct",
+          "expected_observations": [
+            "UT: transport_defaults ports 1 exports 1",
+            "UT: transport_request_only ports 1 exports 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-TYPES-EXPORT-2-CUSTOM-P",
+      "clause": "12.3.7.2",
+      "statement": {
+        "en": "The nonblocking export supports the selected explicit phase type.",
+        "ja": "nonblocking exportは選択した明示phase型を受け付ける。"
+      },
+      "conditions": {
+        "en": "Construct all three ordinary port and export families with default, T-only and applicable explicit T/P specializations.",
+        "ja": "通常port／exportの各3 familyを、既定、Tのみ、適用可能な明示T／P specializationで生成する。"
+      },
+      "expected": {
+        "en": "Exact custom-T/P views accept the selected nonblocking families.",
+        "ja": "正確な独自T／P viewは選択nonblocking familyを受け付ける。"
+      },
+      "limitations": {
+        "en": "Positive selected type/role/constructor compatibility before binding only; exact views jointly check the selected families. Nominal IMP=int, abstract-base construction rejection, invalid user extension, every IS-A/HAS-A member relationship and literal printed connect signatures are not certified. All remain partial obligations.",
+        "ja": "binding前の選択型／役割／constructorの正の互換性のみ。正確なviewで選択familyをまとめて検査する。名目的IMP=int、抽象基底生成の拒否、不正user extension、全IS-A／HAS-A member関係、印刷されたconnect signatureの逐語的正しさは認定せず、部分分解の義務に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_transport_port_and_export_defaults_preserve_exact_interface_type_parameters",
+          "role": "direct",
+          "expected_observations": [
+            "UT: transport_custom_phase ports 1 exports 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-TYPES-PORT-3-DEFAULT-T",
+      "clause": "12.3.6.3",
+      "statement": {
+        "en": "The nonblocking backward port defaults to the generic payload interface type.",
+        "ja": "nonblocking backward portはgeneric payload interface型を既定値とする。"
+      },
+      "conditions": {
+        "en": "Construct all three ordinary port and export families with default, T-only and applicable explicit T/P specializations.",
+        "ja": "通常port／exportの各3 familyを、既定、Tのみ、適用可能な明示T／P specializationで生成する。"
+      },
+      "expected": {
+        "en": "Its default view fits the exact generic-payload/standard-phase port base.",
+        "ja": "既定viewは正確なgeneric-payload／標準phase port基底に適合する。"
+      },
+      "limitations": {
+        "en": "Positive selected type/role/constructor compatibility before binding only; exact views jointly check the selected families. Nominal IMP=int, abstract-base construction rejection, invalid user extension, every IS-A/HAS-A member relationship and literal printed connect signatures are not certified. All remain partial obligations.",
+        "ja": "binding前の選択型／役割／constructorの正の互換性のみ。正確なviewで選択familyをまとめて検査する。名目的IMP=int、抽象基底生成の拒否、不正user extension、全IS-A／HAS-A member関係、印刷されたconnect signatureの逐語的正しさは認定せず、部分分解の義務に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_transport_port_and_export_defaults_preserve_exact_interface_type_parameters",
+          "role": "direct",
+          "expected_observations": [
+            "UT: transport_defaults ports 1 exports 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-TYPES-PORT-3-CUSTOM-T",
+      "clause": "12.3.6.3",
+      "statement": {
+        "en": "The nonblocking backward port supports the selected explicit transaction type.",
+        "ja": "nonblocking backward portは選択した明示transaction型を受け付ける。"
+      },
+      "conditions": {
+        "en": "Construct all three ordinary port and export families with default, T-only and applicable explicit T/P specializations.",
+        "ja": "通常port／exportの各3 familyを、既定、Tのみ、適用可能な明示T／P specializationで生成する。"
+      },
+      "expected": {
+        "en": "The T-only family fits the exact custom-transaction/standard-phase base.",
+        "ja": "Tのみ指定したfamilyは正確な独自transaction／標準phase基底に適合する。"
+      },
+      "limitations": {
+        "en": "Positive selected type/role/constructor compatibility before binding only; exact views jointly check the selected families. Nominal IMP=int, abstract-base construction rejection, invalid user extension, every IS-A/HAS-A member relationship and literal printed connect signatures are not certified. All remain partial obligations.",
+        "ja": "binding前の選択型／役割／constructorの正の互換性のみ。正確なviewで選択familyをまとめて検査する。名目的IMP=int、抽象基底生成の拒否、不正user extension、全IS-A／HAS-A member関係、印刷されたconnect signatureの逐語的正しさは認定せず、部分分解の義務に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_transport_port_and_export_defaults_preserve_exact_interface_type_parameters",
+          "role": "direct",
+          "expected_observations": [
+            "UT: transport_request_only ports 1 exports 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-TYPES-PORT-3-DEFAULT-P",
+      "clause": "12.3.6.3",
+      "statement": {
+        "en": "The nonblocking port defaults its phase type independently of T.",
+        "ja": "nonblocking portはTと独立にphase型を既定値とする。"
+      },
+      "conditions": {
+        "en": "Construct all three ordinary port and export families with default, T-only and applicable explicit T/P specializations.",
+        "ja": "通常port／exportの各3 familyを、既定、Tのみ、適用可能な明示T／P specializationで生成する。"
+      },
+      "expected": {
+        "en": "Default and T-only instances fit standard-phase views.",
+        "ja": "既定とTのみ指定したinstanceは標準phase viewに適合する。"
+      },
+      "limitations": {
+        "en": "Positive selected type/role/constructor compatibility before binding only; exact views jointly check the selected families. Nominal IMP=int, abstract-base construction rejection, invalid user extension, every IS-A/HAS-A member relationship and literal printed connect signatures are not certified. All remain partial obligations.",
+        "ja": "binding前の選択型／役割／constructorの正の互換性のみ。正確なviewで選択familyをまとめて検査する。名目的IMP=int、抽象基底生成の拒否、不正user extension、全IS-A／HAS-A member関係、印刷されたconnect signatureの逐語的正しさは認定せず、部分分解の義務に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_transport_port_and_export_defaults_preserve_exact_interface_type_parameters",
+          "role": "direct",
+          "expected_observations": [
+            "UT: transport_defaults ports 1 exports 1",
+            "UT: transport_request_only ports 1 exports 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-TYPES-PORT-3-CUSTOM-P",
+      "clause": "12.3.6.3",
+      "statement": {
+        "en": "The nonblocking port supports the selected explicit phase type.",
+        "ja": "nonblocking portは選択した明示phase型を受け付ける。"
+      },
+      "conditions": {
+        "en": "Construct all three ordinary port and export families with default, T-only and applicable explicit T/P specializations.",
+        "ja": "通常port／exportの各3 familyを、既定、Tのみ、適用可能な明示T／P specializationで生成する。"
+      },
+      "expected": {
+        "en": "Exact custom-T/P views accept the selected nonblocking families.",
+        "ja": "正確な独自T／P viewは選択nonblocking familyを受け付ける。"
+      },
+      "limitations": {
+        "en": "Positive selected type/role/constructor compatibility before binding only; exact views jointly check the selected families. Nominal IMP=int, abstract-base construction rejection, invalid user extension, every IS-A/HAS-A member relationship and literal printed connect signatures are not certified. All remain partial obligations.",
+        "ja": "binding前の選択型／役割／constructorの正の互換性のみ。正確なviewで選択familyをまとめて検査する。名目的IMP=int、抽象基底生成の拒否、不正user extension、全IS-A／HAS-A member関係、印刷されたconnect signatureの逐語的正しさは認定せず、部分分解の義務に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_transport_port_and_export_defaults_preserve_exact_interface_type_parameters",
+          "role": "direct",
+          "expected_observations": [
+            "UT: transport_custom_phase ports 1 exports 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-TYPES-EXPORT-3-DEFAULT-T",
+      "clause": "12.3.7.3",
+      "statement": {
+        "en": "The nonblocking backward export defaults to the generic payload interface type.",
+        "ja": "nonblocking backward exportはgeneric payload interface型を既定値とする。"
+      },
+      "conditions": {
+        "en": "Construct all three ordinary port and export families with default, T-only and applicable explicit T/P specializations.",
+        "ja": "通常port／exportの各3 familyを、既定、Tのみ、適用可能な明示T／P specializationで生成する。"
+      },
+      "expected": {
+        "en": "Its default view fits the exact generic-payload/standard-phase port base.",
+        "ja": "既定viewは正確なgeneric-payload／標準phase port基底に適合する。"
+      },
+      "limitations": {
+        "en": "Positive selected type/role/constructor compatibility before binding only; exact views jointly check the selected families. Nominal IMP=int, abstract-base construction rejection, invalid user extension, every IS-A/HAS-A member relationship and literal printed connect signatures are not certified. All remain partial obligations.",
+        "ja": "binding前の選択型／役割／constructorの正の互換性のみ。正確なviewで選択familyをまとめて検査する。名目的IMP=int、抽象基底生成の拒否、不正user extension、全IS-A／HAS-A member関係、印刷されたconnect signatureの逐語的正しさは認定せず、部分分解の義務に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_transport_port_and_export_defaults_preserve_exact_interface_type_parameters",
+          "role": "direct",
+          "expected_observations": [
+            "UT: transport_defaults ports 1 exports 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-TYPES-EXPORT-3-CUSTOM-T",
+      "clause": "12.3.7.3",
+      "statement": {
+        "en": "The nonblocking backward export supports the selected explicit transaction type.",
+        "ja": "nonblocking backward exportは選択した明示transaction型を受け付ける。"
+      },
+      "conditions": {
+        "en": "Construct all three ordinary port and export families with default, T-only and applicable explicit T/P specializations.",
+        "ja": "通常port／exportの各3 familyを、既定、Tのみ、適用可能な明示T／P specializationで生成する。"
+      },
+      "expected": {
+        "en": "The T-only family fits the exact custom-transaction/standard-phase base.",
+        "ja": "Tのみ指定したfamilyは正確な独自transaction／標準phase基底に適合する。"
+      },
+      "limitations": {
+        "en": "Positive selected type/role/constructor compatibility before binding only; exact views jointly check the selected families. Nominal IMP=int, abstract-base construction rejection, invalid user extension, every IS-A/HAS-A member relationship and literal printed connect signatures are not certified. All remain partial obligations.",
+        "ja": "binding前の選択型／役割／constructorの正の互換性のみ。正確なviewで選択familyをまとめて検査する。名目的IMP=int、抽象基底生成の拒否、不正user extension、全IS-A／HAS-A member関係、印刷されたconnect signatureの逐語的正しさは認定せず、部分分解の義務に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_transport_port_and_export_defaults_preserve_exact_interface_type_parameters",
+          "role": "direct",
+          "expected_observations": [
+            "UT: transport_request_only ports 1 exports 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-TYPES-EXPORT-3-DEFAULT-P",
+      "clause": "12.3.7.3",
+      "statement": {
+        "en": "The nonblocking export defaults its phase type independently of T.",
+        "ja": "nonblocking exportはTと独立にphase型を既定値とする。"
+      },
+      "conditions": {
+        "en": "Construct all three ordinary port and export families with default, T-only and applicable explicit T/P specializations.",
+        "ja": "通常port／exportの各3 familyを、既定、Tのみ、適用可能な明示T／P specializationで生成する。"
+      },
+      "expected": {
+        "en": "Default and T-only instances fit standard-phase views.",
+        "ja": "既定とTのみ指定したinstanceは標準phase viewに適合する。"
+      },
+      "limitations": {
+        "en": "Positive selected type/role/constructor compatibility before binding only; exact views jointly check the selected families. Nominal IMP=int, abstract-base construction rejection, invalid user extension, every IS-A/HAS-A member relationship and literal printed connect signatures are not certified. All remain partial obligations.",
+        "ja": "binding前の選択型／役割／constructorの正の互換性のみ。正確なviewで選択familyをまとめて検査する。名目的IMP=int、抽象基底生成の拒否、不正user extension、全IS-A／HAS-A member関係、印刷されたconnect signatureの逐語的正しさは認定せず、部分分解の義務に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_transport_port_and_export_defaults_preserve_exact_interface_type_parameters",
+          "role": "direct",
+          "expected_observations": [
+            "UT: transport_defaults ports 1 exports 1",
+            "UT: transport_request_only ports 1 exports 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-TYPES-EXPORT-3-CUSTOM-P",
+      "clause": "12.3.7.3",
+      "statement": {
+        "en": "The nonblocking export supports the selected explicit phase type.",
+        "ja": "nonblocking exportは選択した明示phase型を受け付ける。"
+      },
+      "conditions": {
+        "en": "Construct all three ordinary port and export families with default, T-only and applicable explicit T/P specializations.",
+        "ja": "通常port／exportの各3 familyを、既定、Tのみ、適用可能な明示T／P specializationで生成する。"
+      },
+      "expected": {
+        "en": "Exact custom-T/P views accept the selected nonblocking families.",
+        "ja": "正確な独自T／P viewは選択nonblocking familyを受け付ける。"
+      },
+      "limitations": {
+        "en": "Positive selected type/role/constructor compatibility before binding only; exact views jointly check the selected families. Nominal IMP=int, abstract-base construction rejection, invalid user extension, every IS-A/HAS-A member relationship and literal printed connect signatures are not certified. All remain partial obligations.",
+        "ja": "binding前の選択型／役割／constructorの正の互換性のみ。正確なviewで選択familyをまとめて検査する。名目的IMP=int、抽象基底生成の拒否、不正user extension、全IS-A／HAS-A member関係、印刷されたconnect signatureの逐語的正しさは認定せず、部分分解の義務に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_transport_port_and_export_defaults_preserve_exact_interface_type_parameters",
+          "role": "direct",
+          "expected_observations": [
+            "UT: transport_custom_phase ports 1 exports 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-TYPES-IMP-1-DEFAULT-T",
+      "clause": "12.3.8.1",
+      "statement": {
+        "en": "The blocking imp defaults its transaction type to generic payload when only IMP is selected.",
+        "ja": "IMPだけを選択したblocking impはtransaction型をgeneric payload既定値とする。"
+      },
+      "conditions": {
+        "en": "Bind real default ports through actual exports to three imps with only IMP explicitly named; call blocking, forward and backward transports.",
+        "ja": "実既定portを実export経由でIMPだけ明示した3 impへbindし、blocking／forward／backward transportを呼ぶ。"
+      },
+      "expected": {
+        "en": "The exact generic-payload base accepts the imp and real typed forwarding reaches the implementation.",
+        "ja": "正確なgeneric-payload基底はimpを受け付け、実型付き転送がimplementationへ届く。"
+      },
+      "limitations": {
+        "en": "Actual selected forwarding/binding only. Original data, phase and delay algorithms identify calls, not a prescribed target or full physical-bus/base-protocol implementation. The forward-port backward-path prose and socket connect signatures omitting P remain unresolved; explicit custom-P calls use a qualified class-declaration interpretation.",
+        "ja": "選択した実転送／bindingのみ。独自data／phase／delay algorithmは呼出しを識別し、規定targetや完全な物理bus／base protocol実装ではない。forward-portのbackward経路の本文とP省略のsocket connect signatureは未解決で、明示独自P呼出しは限定したclass宣言の解釈を使う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_default_transport_imps_bind_named_implementations_through_real_ports_and_exports",
+          "role": "direct",
+          "expected_observations": [
+            "UT: imp_b types 1 calls 1 data 21 ok 1 delayed 1 delay 1",
+            "UT: imp_bw completed 1 phase 1 calls 1 same 1 delay 1 immediate 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-TYPES-IMP-1-DELEGATION",
+      "clause": "12.3.8.1",
+      "statement": {
+        "en": "The blocking imp delegates its selected transport method to the supplied implementation.",
+        "ja": "blocking impは選択transport methodを指定implementationへ委譲する。"
+      },
+      "conditions": {
+        "en": "Bind real default ports through actual exports to three imps with only IMP explicitly named; call blocking, forward and backward transports.",
+        "ja": "実既定portを実export経由でIMPだけ明示した3 impへbindし、blocking／forward／backward transportを呼ぶ。"
+      },
+      "expected": {
+        "en": "The original implementation receives matching handles and returns its selected completion/status/data/annotation.",
+        "ja": "独自implementationは一致handleを受け、選択完了／status／data／annotationを返す。"
+      },
+      "limitations": {
+        "en": "Actual selected forwarding/binding only. Original data, phase and delay algorithms identify calls, not a prescribed target or full physical-bus/base-protocol implementation. The forward-port backward-path prose and socket connect signatures omitting P remain unresolved; explicit custom-P calls use a qualified class-declaration interpretation.",
+        "ja": "選択した実転送／bindingのみ。独自data／phase／delay algorithmは呼出しを識別し、規定targetや完全な物理bus／base protocol実装ではない。forward-portのbackward経路の本文とP省略のsocket connect signatureは未解決で、明示独自P呼出しは限定したclass宣言の解釈を使う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_default_transport_imps_bind_named_implementations_through_real_ports_and_exports",
+          "role": "direct",
+          "expected_observations": [
+            "UT: imp_b types 1 calls 1 data 21 ok 1 delayed 1 delay 1",
+            "UT: imp_bw completed 1 phase 1 calls 1 same 1 delay 1 immediate 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-TYPES-IMP-2-DEFAULT-T",
+      "clause": "12.3.8.2",
+      "statement": {
+        "en": "The forward imp defaults its transaction type to generic payload when only IMP is selected.",
+        "ja": "IMPだけを選択したforward impはtransaction型をgeneric payload既定値とする。"
+      },
+      "conditions": {
+        "en": "Bind real default ports through actual exports to three imps with only IMP explicitly named; call blocking, forward and backward transports.",
+        "ja": "実既定portを実export経由でIMPだけ明示した3 impへbindし、blocking／forward／backward transportを呼ぶ。"
+      },
+      "expected": {
+        "en": "The exact generic-payload base accepts the imp and real typed forwarding reaches the implementation.",
+        "ja": "正確なgeneric-payload基底はimpを受け付け、実型付き転送がimplementationへ届く。"
+      },
+      "limitations": {
+        "en": "Actual selected forwarding/binding only. Original data, phase and delay algorithms identify calls, not a prescribed target or full physical-bus/base-protocol implementation. The forward-port backward-path prose and socket connect signatures omitting P remain unresolved; explicit custom-P calls use a qualified class-declaration interpretation.",
+        "ja": "選択した実転送／bindingのみ。独自data／phase／delay algorithmは呼出しを識別し、規定targetや完全な物理bus／base protocol実装ではない。forward-portのbackward経路の本文とP省略のsocket connect signatureは未解決で、明示独自P呼出しは限定したclass宣言の解釈を使う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_default_transport_imps_bind_named_implementations_through_real_ports_and_exports",
+          "role": "direct",
+          "expected_observations": [
+            "UT: imp_b types 1 calls 1 data 21 ok 1 delayed 1 delay 1",
+            "UT: imp_fw updated 1 phase 1 data 47 calls 1 delay 1 immediate 1",
+            "UT: imp_bw completed 1 phase 1 calls 1 same 1 delay 1 immediate 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-TYPES-IMP-2-DEFAULT-P",
+      "clause": "12.3.8.2",
+      "statement": {
+        "en": "The forward imp defaults its phase type to uvm_tlm_phase_e.",
+        "ja": "forward impはphase型をuvm_tlm_phase_e既定値とする。"
+      },
+      "conditions": {
+        "en": "Bind real default ports through actual exports to three imps with only IMP explicitly named; call blocking, forward and backward transports.",
+        "ja": "実既定portを実export経由でIMPだけ明示した3 impへbindし、blocking／forward／backward transportを呼ぶ。"
+      },
+      "expected": {
+        "en": "The exact phase type compiles and its selected reference update returns through the bound interface.",
+        "ja": "正確なphase型でcompileでき、選択reference更新がbound interfaceから戻る。"
+      },
+      "limitations": {
+        "en": "Actual selected forwarding/binding only. Original data, phase and delay algorithms identify calls, not a prescribed target or full physical-bus/base-protocol implementation. The forward-port backward-path prose and socket connect signatures omitting P remain unresolved; explicit custom-P calls use a qualified class-declaration interpretation.",
+        "ja": "選択した実転送／bindingのみ。独自data／phase／delay algorithmは呼出しを識別し、規定targetや完全な物理bus／base protocol実装ではない。forward-portのbackward経路の本文とP省略のsocket connect signatureは未解決で、明示独自P呼出しは限定したclass宣言の解釈を使う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_default_transport_imps_bind_named_implementations_through_real_ports_and_exports",
+          "role": "direct",
+          "expected_observations": [
+            "UT: imp_fw updated 1 phase 1 data 47 calls 1 delay 1 immediate 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-TYPES-IMP-2-DELEGATION",
+      "clause": "12.3.8.2",
+      "statement": {
+        "en": "The forward imp delegates its selected transport method to the supplied implementation.",
+        "ja": "forward impは選択transport methodを指定implementationへ委譲する。"
+      },
+      "conditions": {
+        "en": "Bind real default ports through actual exports to three imps with only IMP explicitly named; call blocking, forward and backward transports.",
+        "ja": "実既定portを実export経由でIMPだけ明示した3 impへbindし、blocking／forward／backward transportを呼ぶ。"
+      },
+      "expected": {
+        "en": "The original implementation receives matching handles and returns its selected completion/status/data/annotation.",
+        "ja": "独自implementationは一致handleを受け、選択完了／status／data／annotationを返す。"
+      },
+      "limitations": {
+        "en": "Actual selected forwarding/binding only. Original data, phase and delay algorithms identify calls, not a prescribed target or full physical-bus/base-protocol implementation. The forward-port backward-path prose and socket connect signatures omitting P remain unresolved; explicit custom-P calls use a qualified class-declaration interpretation.",
+        "ja": "選択した実転送／bindingのみ。独自data／phase／delay algorithmは呼出しを識別し、規定targetや完全な物理bus／base protocol実装ではない。forward-portのbackward経路の本文とP省略のsocket connect signatureは未解決で、明示独自P呼出しは限定したclass宣言の解釈を使う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_default_transport_imps_bind_named_implementations_through_real_ports_and_exports",
+          "role": "direct",
+          "expected_observations": [
+            "UT: imp_fw updated 1 phase 1 data 47 calls 1 delay 1 immediate 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-TYPES-IMP-3-DEFAULT-T",
+      "clause": "12.3.8.3",
+      "statement": {
+        "en": "The backward imp defaults its transaction type to generic payload when only IMP is selected.",
+        "ja": "IMPだけを選択したbackward impはtransaction型をgeneric payload既定値とする。"
+      },
+      "conditions": {
+        "en": "Bind real default ports through actual exports to three imps with only IMP explicitly named; call blocking, forward and backward transports.",
+        "ja": "実既定portを実export経由でIMPだけ明示した3 impへbindし、blocking／forward／backward transportを呼ぶ。"
+      },
+      "expected": {
+        "en": "The exact generic-payload base accepts the imp and real typed forwarding reaches the implementation.",
+        "ja": "正確なgeneric-payload基底はimpを受け付け、実型付き転送がimplementationへ届く。"
+      },
+      "limitations": {
+        "en": "Actual selected forwarding/binding only. Original data, phase and delay algorithms identify calls, not a prescribed target or full physical-bus/base-protocol implementation. The forward-port backward-path prose and socket connect signatures omitting P remain unresolved; explicit custom-P calls use a qualified class-declaration interpretation.",
+        "ja": "選択した実転送／bindingのみ。独自data／phase／delay algorithmは呼出しを識別し、規定targetや完全な物理bus／base protocol実装ではない。forward-portのbackward経路の本文とP省略のsocket connect signatureは未解決で、明示独自P呼出しは限定したclass宣言の解釈を使う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_default_transport_imps_bind_named_implementations_through_real_ports_and_exports",
+          "role": "direct",
+          "expected_observations": [
+            "UT: imp_b types 1 calls 1 data 21 ok 1 delayed 1 delay 1",
+            "UT: imp_bw completed 1 phase 1 calls 1 same 1 delay 1 immediate 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-TYPES-IMP-3-DEFAULT-P",
+      "clause": "12.3.8.3",
+      "statement": {
+        "en": "The backward imp defaults its phase type to uvm_tlm_phase_e.",
+        "ja": "backward impはphase型をuvm_tlm_phase_e既定値とする。"
+      },
+      "conditions": {
+        "en": "Bind real default ports through actual exports to three imps with only IMP explicitly named; call blocking, forward and backward transports.",
+        "ja": "実既定portを実export経由でIMPだけ明示した3 impへbindし、blocking／forward／backward transportを呼ぶ。"
+      },
+      "expected": {
+        "en": "The exact phase type compiles and its selected reference update returns through the bound interface.",
+        "ja": "正確なphase型でcompileでき、選択reference更新がbound interfaceから戻る。"
+      },
+      "limitations": {
+        "en": "Actual selected forwarding/binding only. Original data, phase and delay algorithms identify calls, not a prescribed target or full physical-bus/base-protocol implementation. The forward-port backward-path prose and socket connect signatures omitting P remain unresolved; explicit custom-P calls use a qualified class-declaration interpretation.",
+        "ja": "選択した実転送／bindingのみ。独自data／phase／delay algorithmは呼出しを識別し、規定targetや完全な物理bus／base protocol実装ではない。forward-portのbackward経路の本文とP省略のsocket connect signatureは未解決で、明示独自P呼出しは限定したclass宣言の解釈を使う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_default_transport_imps_bind_named_implementations_through_real_ports_and_exports",
+          "role": "direct",
+          "expected_observations": [
+            "UT: imp_bw completed 1 phase 1 calls 1 same 1 delay 1 immediate 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-TYPES-IMP-3-DELEGATION",
+      "clause": "12.3.8.3",
+      "statement": {
+        "en": "The backward imp delegates its selected transport method to the supplied implementation.",
+        "ja": "backward impは選択transport methodを指定implementationへ委譲する。"
+      },
+      "conditions": {
+        "en": "Bind real default ports through actual exports to three imps with only IMP explicitly named; call blocking, forward and backward transports.",
+        "ja": "実既定portを実export経由でIMPだけ明示した3 impへbindし、blocking／forward／backward transportを呼ぶ。"
+      },
+      "expected": {
+        "en": "The original implementation receives matching handles and returns its selected completion/status/data/annotation.",
+        "ja": "独自implementationは一致handleを受け、選択完了／status／data／annotationを返す。"
+      },
+      "limitations": {
+        "en": "Actual selected forwarding/binding only. Original data, phase and delay algorithms identify calls, not a prescribed target or full physical-bus/base-protocol implementation. The forward-port backward-path prose and socket connect signatures omitting P remain unresolved; explicit custom-P calls use a qualified class-declaration interpretation.",
+        "ja": "選択した実転送／bindingのみ。独自data／phase／delay algorithmは呼出しを識別し、規定targetや完全な物理bus／base protocol実装ではない。forward-portのbackward経路の本文とP省略のsocket connect signatureは未解決で、明示独自P呼出しは限定したclass宣言の解釈を使う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_default_transport_imps_bind_named_implementations_through_real_ports_and_exports",
+          "role": "direct",
+          "expected_observations": [
+            "UT: imp_bw completed 1 phase 1 calls 1 same 1 delay 1 immediate 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-TYPES-IMP-CONSTRUCTOR-BINDING",
+      "clause": "12.3.8",
+      "statement": {
+        "en": "The imp constructor installs the supplied implementation object.",
+        "ja": "imp constructorは指定implementation objectを設定する。"
+      },
+      "conditions": {
+        "en": "Bind real default ports through actual exports to three imps with only IMP explicitly named; call blocking, forward and backward transports.",
+        "ja": "実既定portを実export経由でIMPだけ明示した3 impへbindし、blocking／forward／backward transportを呼ぶ。"
+      },
+      "expected": {
+        "en": "All three actual ports/exports reach their selected bound original implementation.",
+        "ja": "3種の実port／exportは選択したbound独自implementationへ届く。"
+      },
+      "limitations": {
+        "en": "Actual selected forwarding/binding only. Original data, phase and delay algorithms identify calls, not a prescribed target or full physical-bus/base-protocol implementation. The forward-port backward-path prose and socket connect signatures omitting P remain unresolved; explicit custom-P calls use a qualified class-declaration interpretation.",
+        "ja": "選択した実転送／bindingのみ。独自data／phase／delay algorithmは呼出しを識別し、規定targetや完全な物理bus／base protocol実装ではない。forward-portのbackward経路の本文とP省略のsocket connect signatureは未解決で、明示独自P呼出しは限定したclass宣言の解釈を使う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_default_transport_imps_bind_named_implementations_through_real_ports_and_exports",
+          "role": "direct",
+          "expected_observations": [
+            "UT: imp_b types 1 calls 1 data 21 ok 1 delayed 1 delay 1",
+            "UT: imp_fw updated 1 phase 1 data 47 calls 1 delay 1 immediate 1",
+            "UT: imp_bw completed 1 phase 1 calls 1 same 1 delay 1 immediate 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-TYPES-TARGET-EXPLICIT-IMP",
+      "clause": "12.3.5.3.3",
+      "statement": {
+        "en": "An explicit target socket implementation is selected instead of its parent hook.",
+        "ja": "明示したtarget socket implementationを親hookの代わりに選択する。"
+      },
+      "conditions": {
+        "en": "Use two real socket pairs: distinct explicit implementation components versus omitted implementation arguments with compatible parents.",
+        "ja": "実socket 2組で、別の明示implementation componentと、互換親を使うimplementation引数省略を比較する。"
+      },
+      "expected": {
+        "en": "Only the selected hooks run; unused parent/worker hooks remain uncalled and handles/statuses match.",
+        "ja": "選択hookだけが実行し、未選択の親／worker hookは未呼出しで、handle／statusが一致する。"
+      },
+      "limitations": {
+        "en": "Actual selected forwarding/binding only. Original data, phase and delay algorithms identify calls, not a prescribed target or full physical-bus/base-protocol implementation. The forward-port backward-path prose and socket connect signatures omitting P remain unresolved; explicit custom-P calls use a qualified class-declaration interpretation.",
+        "ja": "選択した実転送／bindingのみ。独自data／phase／delay algorithmは呼出しを識別し、規定targetや完全な物理bus／base protocol実装ではない。forward-portのbackward経路の本文とP省略のsocket connect signatureは未解決で、明示独自P呼出しは限定したclass宣言の解釈を使う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_nonblocking_socket_binding_selects_explicit_and_parent_implementations",
+          "role": "direct",
+          "expected_observations": [
+            "UT: socket_binding explicit forward 1 backward 1 phase 1 data 113 immediate 1",
+            "UT: socket_binding explicit counts 1/0/1/0 handles 1 delay 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-TYPES-TARGET-OMITTED-IMP",
+      "clause": "12.3.5.3.3",
+      "statement": {
+        "en": "An omitted target socket implementation defaults to its compatible parent.",
+        "ja": "target socket implementation省略時は互換親を既定とする。"
+      },
+      "conditions": {
+        "en": "Use two real socket pairs: distinct explicit implementation components versus omitted implementation arguments with compatible parents.",
+        "ja": "実socket 2組で、別の明示implementation componentと、互換親を使うimplementation引数省略を比較する。"
+      },
+      "expected": {
+        "en": "Only the selected hooks run; unused parent/worker hooks remain uncalled and handles/statuses match.",
+        "ja": "選択hookだけが実行し、未選択の親／worker hookは未呼出しで、handle／statusが一致する。"
+      },
+      "limitations": {
+        "en": "Actual selected forwarding/binding only. Original data, phase and delay algorithms identify calls, not a prescribed target or full physical-bus/base-protocol implementation. The forward-port backward-path prose and socket connect signatures omitting P remain unresolved; explicit custom-P calls use a qualified class-declaration interpretation.",
+        "ja": "選択した実転送／bindingのみ。独自data／phase／delay algorithmは呼出しを識別し、規定targetや完全な物理bus／base protocol実装ではない。forward-portのbackward経路の本文とP省略のsocket connect signatureは未解決で、明示独自P呼出しは限定したclass宣言の解釈を使う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_nonblocking_socket_binding_selects_explicit_and_parent_implementations",
+          "role": "direct",
+          "expected_observations": [
+            "UT: socket_binding parent forward 1 backward 1 phase 1 data 45 immediate 1",
+            "UT: socket_binding parent counts 0/1/0/1 handles 1 delay 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-TYPES-INITIATOR-EXPLICIT-IMP",
+      "clause": "12.3.5.4.3",
+      "statement": {
+        "en": "An explicit initiator implementation receives the backward method instead of its parent hook.",
+        "ja": "明示initiator implementationは親hookの代わりにbackward methodを受ける。"
+      },
+      "conditions": {
+        "en": "Use two real socket pairs: distinct explicit implementation components versus omitted implementation arguments with compatible parents.",
+        "ja": "実socket 2組で、別の明示implementation componentと、互換親を使うimplementation引数省略を比較する。"
+      },
+      "expected": {
+        "en": "Only the selected hooks run; unused parent/worker hooks remain uncalled and handles/statuses match.",
+        "ja": "選択hookだけが実行し、未選択の親／worker hookは未呼出しで、handle／statusが一致する。"
+      },
+      "limitations": {
+        "en": "Actual selected forwarding/binding only. Original data, phase and delay algorithms identify calls, not a prescribed target or full physical-bus/base-protocol implementation. The forward-port backward-path prose and socket connect signatures omitting P remain unresolved; explicit custom-P calls use a qualified class-declaration interpretation.",
+        "ja": "選択した実転送／bindingのみ。独自data／phase／delay algorithmは呼出しを識別し、規定targetや完全な物理bus／base protocol実装ではない。forward-portのbackward経路の本文とP省略のsocket connect signatureは未解決で、明示独自P呼出しは限定したclass宣言の解釈を使う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_nonblocking_socket_binding_selects_explicit_and_parent_implementations",
+          "role": "direct",
+          "expected_observations": [
+            "UT: socket_binding explicit forward 1 backward 1 phase 1 data 113 immediate 1",
+            "UT: socket_binding explicit counts 1/0/1/0 handles 1 delay 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-TYPES-INITIATOR-OMITTED-IMP",
+      "clause": "12.3.5.4.3",
+      "statement": {
+        "en": "An omitted initiator implementation defaults its backward method to the compatible parent.",
+        "ja": "initiator implementation省略時はbackward methodの既定を互換親にする。"
+      },
+      "conditions": {
+        "en": "Use two real socket pairs: distinct explicit implementation components versus omitted implementation arguments with compatible parents.",
+        "ja": "実socket 2組で、別の明示implementation componentと、互換親を使うimplementation引数省略を比較する。"
+      },
+      "expected": {
+        "en": "Only the selected hooks run; unused parent/worker hooks remain uncalled and handles/statuses match.",
+        "ja": "選択hookだけが実行し、未選択の親／worker hookは未呼出しで、handle／statusが一致する。"
+      },
+      "limitations": {
+        "en": "Actual selected forwarding/binding only. Original data, phase and delay algorithms identify calls, not a prescribed target or full physical-bus/base-protocol implementation. The forward-port backward-path prose and socket connect signatures omitting P remain unresolved; explicit custom-P calls use a qualified class-declaration interpretation.",
+        "ja": "選択した実転送／bindingのみ。独自data／phase／delay algorithmは呼出しを識別し、規定targetや完全な物理bus／base protocol実装ではない。forward-portのbackward経路の本文とP省略のsocket connect signatureは未解決で、明示独自P呼出しは限定したclass宣言の解釈を使う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_nonblocking_socket_binding_selects_explicit_and_parent_implementations",
+          "role": "direct",
+          "expected_observations": [
+            "UT: socket_binding parent forward 1 backward 1 phase 1 data 45 immediate 1",
+            "UT: socket_binding parent counts 0/1/0/1 handles 1 delay 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-TYPES-NONBLOCKING-HIERARCHICAL-PAIR",
+      "clause": "12.3.5",
+      "statement": {
+        "en": "Selected nonblocking relay sockets carry forward and backward calls across component boundaries.",
+        "ja": "選択nonblocking relay socketはcomponent境界を越えてforward／backward呼出しを運ぶ。"
+      },
+      "conditions": {
+        "en": "Connect actual nonblocking terminators through both relay families across component boundaries with a custom message and phase enum.",
+        "ja": "独自message／phase enumで、component境界をまたぐ両relay family経由に実nonblocking terminatorを接続する。"
+      },
+      "expected": {
+        "en": "Custom transaction/phase identities, reference updates and shared delay mutations survive both paths.",
+        "ja": "両経路で独自transaction／phase同一性、reference更新、共有delay変更を保持する。"
+      },
+      "limitations": {
+        "en": "Actual selected forwarding/binding only. Original data, phase and delay algorithms identify calls, not a prescribed target or full physical-bus/base-protocol implementation. The forward-port backward-path prose and socket connect signatures omitting P remain unresolved; explicit custom-P calls use a qualified class-declaration interpretation.",
+        "ja": "選択した実転送／bindingのみ。独自data／phase／delay algorithmは呼出しを識別し、規定targetや完全な物理bus／base protocol実装ではない。forward-portのbackward経路の本文とP省略のsocket connect signatureは未解決で、明示独自P呼出しは限定したclass宣言の解釈を使う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_custom_phase_socket_relays_preserve_both_paths_and_reference_phase_updates",
+          "role": "direct",
+          "expected_observations": [
+            "UT: custom_fw updated 1 phases 1/1 reply 37 calls 1 same 1",
+            "UT: custom_bw done 1 phases 1/1 calls 1 same 1 delay 1 immediate 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-TYPES-INITIATOR-RELAY-CUSTOM-P",
+      "clause": "12.3.5.5.4",
+      "statement": {
+        "en": "The selected initiator relay connect wires both paths for compatible custom transaction/phase declarations.",
+        "ja": "選択initiator relayのconnectは互換な独自transaction／phase宣言について両経路を結線する。"
+      },
+      "conditions": {
+        "en": "Connect actual nonblocking terminators through both relay families across component boundaries with a custom message and phase enum.",
+        "ja": "独自message／phase enumで、component境界をまたぐ両relay family経由に実nonblocking terminatorを接続する。"
+      },
+      "expected": {
+        "en": "Both actual connected relays return updated forward and completed backward states through the custom enum.",
+        "ja": "実接続した両relayは独自enumでforward updatedとbackward completed状態を返す。"
+      },
+      "limitations": {
+        "en": "Actual selected forwarding/binding only. Original data, phase and delay algorithms identify calls, not a prescribed target or full physical-bus/base-protocol implementation. The forward-port backward-path prose and socket connect signatures omitting P remain unresolved; explicit custom-P calls use a qualified class-declaration interpretation.",
+        "ja": "選択した実転送／bindingのみ。独自data／phase／delay algorithmは呼出しを識別し、規定targetや完全な物理bus／base protocol実装ではない。forward-portのbackward経路の本文とP省略のsocket connect signatureは未解決で、明示独自P呼出しは限定したclass宣言の解釈を使う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_custom_phase_socket_relays_preserve_both_paths_and_reference_phase_updates",
+          "role": "direct",
+          "expected_observations": [
+            "UT: custom_fw updated 1 phases 1/1 reply 37 calls 1 same 1",
+            "UT: custom_bw done 1 phases 1/1 calls 1 same 1 delay 1 immediate 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-TYPES-TARGET-RELAY-CUSTOM-P",
+      "clause": "12.3.5.6.4",
+      "statement": {
+        "en": "The selected target relay connect wires both paths for compatible custom transaction/phase declarations.",
+        "ja": "選択target relayのconnectは互換な独自transaction／phase宣言について両経路を結線する。"
+      },
+      "conditions": {
+        "en": "Connect actual nonblocking terminators through both relay families across component boundaries with a custom message and phase enum.",
+        "ja": "独自message／phase enumで、component境界をまたぐ両relay family経由に実nonblocking terminatorを接続する。"
+      },
+      "expected": {
+        "en": "Both actual connected relays return updated forward and completed backward states through the custom enum.",
+        "ja": "実接続した両relayは独自enumでforward updatedとbackward completed状態を返す。"
+      },
+      "limitations": {
+        "en": "Actual selected forwarding/binding only. Original data, phase and delay algorithms identify calls, not a prescribed target or full physical-bus/base-protocol implementation. The forward-port backward-path prose and socket connect signatures omitting P remain unresolved; explicit custom-P calls use a qualified class-declaration interpretation.",
+        "ja": "選択した実転送／bindingのみ。独自data／phase／delay algorithmは呼出しを識別し、規定targetや完全な物理bus／base protocol実装ではない。forward-portのbackward経路の本文とP省略のsocket connect signatureは未解決で、明示独自P呼出しは限定したclass宣言の解釈を使う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_custom_phase_socket_relays_preserve_both_paths_and_reference_phase_updates",
+          "role": "direct",
+          "expected_observations": [
+            "UT: custom_fw updated 1 phases 1/1 reply 37 calls 1 same 1",
+            "UT: custom_bw done 1 phases 1/1 calls 1 same 1 delay 1 immediate 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-TYPES-BLOCKING-INITIATOR-RELAY-COMPLETION",
+      "clause": "12.3.5.7",
+      "statement": {
+        "en": "Under the declared blocking-interface interpretation, the selected relay forwards blocking calls until the target completes.",
+        "ja": "宣言blocking-interfaceの解釈の下で、選択relayはtarget完了までblocking呼出しを転送する。"
+      },
+      "conditions": {
+        "en": "Reuse a custom transaction/delay through actual blocking initiator and target relays and an original delayed target.",
+        "ja": "実blocking initiator／target relayと独自遅延targetを通して、独自transaction／delayを再利用する。"
+      },
+      "expected": {
+        "en": "Two reused custom transactions return matching replies after the selected two-unit target delay.",
+        "ja": "再利用した独自transactionの2呼出しは、選択2単位target遅延の後に対応replyを返す。"
+      },
+      "limitations": {
+        "en": "Qualified operational blocking-interface control only; the printed nonblocking provider allowlists remain unresolved and are checked separately. Original target computation is setup, not a UVM algorithm.",
+        "ja": "限定した実動blocking-interface比較対象のみ。印刷されたnonblocking provider一覧は未解決で別に検査する。独自target計算は設定で、UVM algorithmではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_blocking_socket_relays_forward_custom_transactions_until_target_completion",
+          "role": "direct",
+          "expected_observations": [
+            "UT: blocking_relays_first reply 20 delayed 1 calls 1 same 1",
+            "UT: blocking_relays_reuse reply 34 delayed 1 calls 2 same 1 delay 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-TYPES-BLOCKING-TARGET-RELAY-COMPLETION",
+      "clause": "12.3.5.8",
+      "statement": {
+        "en": "Under the declared blocking-interface interpretation, the selected relay forwards blocking calls until the target completes.",
+        "ja": "宣言blocking-interfaceの解釈の下で、選択relayはtarget完了までblocking呼出しを転送する。"
+      },
+      "conditions": {
+        "en": "Reuse a custom transaction/delay through actual blocking initiator and target relays and an original delayed target.",
+        "ja": "実blocking initiator／target relayと独自遅延targetを通して、独自transaction／delayを再利用する。"
+      },
+      "expected": {
+        "en": "Two reused custom transactions return matching replies after the selected two-unit target delay.",
+        "ja": "再利用した独自transactionの2呼出しは、選択2単位target遅延の後に対応replyを返す。"
+      },
+      "limitations": {
+        "en": "Qualified operational blocking-interface control only; the printed nonblocking provider allowlists remain unresolved and are checked separately. Original target computation is setup, not a UVM algorithm.",
+        "ja": "限定した実動blocking-interface比較対象のみ。印刷されたnonblocking provider一覧は未解決で別に検査する。独自target計算は設定で、UVM algorithmではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_blocking_socket_relays_forward_custom_transactions_until_target_completion",
+          "role": "direct",
+          "expected_observations": [
+            "UT: blocking_relays_first reply 20 delayed 1 calls 1 same 1",
+            "UT: blocking_relays_reuse reply 34 delayed 1 calls 2 same 1 delay 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-TYPES-BLOCKING-INITIATOR-PRINTED-PROVIDERS",
+      "clause": "12.3.5.7.4",
+      "statement": {
+        "en": "Under a literal printed-list interpretation, the blocking initiator relay accepts the three listed nonblocking provider families.",
+        "ja": "印刷一覧の逐語解釈では、blocking initiator relayは列挙したnonblocking provider 3 familyを受け付ける。"
+      },
+      "conditions": {
+        "en": "Before elaboration, call the blocking initiator relay connect with all three nonblocking provider families printed in 12.3.5.7.4.",
+        "ja": "elaboration前に、12.3.5.7.4が列挙するnonblocking provider 3 familyでblocking initiator relayのconnectを呼ぶ。"
+      },
+      "expected": {
+        "en": "Every listed default-typed connect is accepted without an error.",
+        "ja": "列挙された既定型の全connectをerrorなく受理する。"
+      },
+      "limitations": {
+        "en": "Qualified literal provider-list interpretation; blocking headings and nonblocking provider names conflict. These probes preserve the printed acceptance expectation and any rejection without exercising a transaction. Operational blocking controls are separate and do not settle the allowlists or prescribe an erratum. Human standard review remains needed.",
+        "ja": "型一覧を逐語的に読む限定解釈であり、blocking見出しとnonblocking provider名は矛盾する。列挙先の受理期待と観測した拒否を保持し、transactionは実行しない。実動blocking比較対象は別であり、一覧や正誤表を確定しない。人による規格照合が必要である。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_blocking_passthrough_initiator_connect_accepts_its_spec_listed_provider_families",
+          "role": "direct",
+          "expected_observations": [
+            "UT: listed_providers accepted 1/1/1 errors 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-TYPES-BLOCKING-TARGET-PRINTED-PROVIDERS",
+      "clause": "12.3.5.8.4",
+      "statement": {
+        "en": "Under a literal printed-list interpretation, the blocking target relay accepts the two listed nonblocking provider families.",
+        "ja": "印刷一覧の逐語解釈では、blocking target relayは列挙したnonblocking provider 2 familyを受け付ける。"
+      },
+      "conditions": {
+        "en": "Before elaboration, call the blocking target relay connect with both nonblocking provider families printed in 12.3.5.8.4.",
+        "ja": "elaboration前に、12.3.5.8.4が列挙するnonblocking provider 2 familyでblocking target relayのconnectを呼ぶ。"
+      },
+      "expected": {
+        "en": "Both listed default-typed connects are accepted without an error.",
+        "ja": "列挙された既定型の両connectをerrorなく受理する。"
+      },
+      "limitations": {
+        "en": "Qualified literal provider-list interpretation; blocking headings and nonblocking provider names conflict. These probes preserve the printed acceptance expectation and any rejection without exercising a transaction. Operational blocking controls are separate and do not settle the allowlists or prescribe an erratum. Human standard review remains needed.",
+        "ja": "型一覧を逐語的に読む限定解釈であり、blocking見出しとnonblocking provider名は矛盾する。列挙先の受理期待と観測した拒否を保持し、transactionは実行しない。実動blocking比較対象は別であり、一覧や正誤表を確定しない。人による規格照合が必要である。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_blocking_passthrough_target_connect_accepts_its_spec_listed_provider_families",
+          "role": "direct",
+          "expected_observations": [
+            "UT: listed_providers accepted 1/1 errors 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-TYPES-NONBLOCKING-INITIATOR-PROVIDERS",
+      "clause": "12.3.5.4.4",
+      "statement": {
+        "en": "The nonblocking initiator connect accepts its target, initiator-relay and target-relay provider families.",
+        "ja": "nonblocking initiatorのconnectはtarget、initiator-relay、target-relayのprovider familyを受け付ける。"
+      },
+      "conditions": {
+        "en": "Before elaboration, call independent default nonblocking initiator sockets with target, initiator-relay and target-relay providers.",
+        "ja": "elaboration前に、独立した既定nonblocking initiator socketをtarget、initiator-relay、target-relay providerへ接続する。"
+      },
+      "expected": {
+        "en": "Each selected compatible default provider connects without an error before elaboration.",
+        "ja": "elaboration前に、選択した互換既定providerは全てerrorなく接続する。"
+      },
+      "limitations": {
+        "en": "Direct pre-elaboration provider-list observations only. No particular report severity/text, elaborated implementation count, attempted transaction or automatic protocol enforcement is inferred.",
+        "ja": "elaboration前の直接provider一覧の観測のみ。特定の報告severity／text、elaboration後のimplementation件数、transaction試行、protocolの自動強制は推論しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_nonblocking_initiator_connect_accepts_all_three_declared_provider_families",
+          "role": "direct",
+          "expected_observations": [
+            "UT: listed_providers accepted 1/1/1 errors 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-TYPES-SAME-KIND-INITIATOR-REJECTION",
+      "clause": "12.3.5",
+      "statement": {
+        "en": "Under a no-binding interpretation, a initiator terminator cannot connect to another initiator terminator.",
+        "ja": "bindingを残さない解釈の下では、initiator terminatorは別のinitiator terminatorへ接続できない。"
+      },
+      "conditions": {
+        "en": "Attempt same-kind terminator connects in blocking and nonblocking families, then query each direct provider list.",
+        "ja": "blocking／nonblocking familyで同種terminatorの接続を試み、各直接provider一覧を照会する。"
+      },
+      "expected": {
+        "en": "Both selected blocking and nonblocking same-kind connects leave no direct provider binding.",
+        "ja": "選択したblocking／nonblockingの同種接続はいずれも直接provider bindingを残さない。"
+      },
+      "limitations": {
+        "en": "Qualified no-binding interpretation: the general same-kind restriction does not specify direct provider-list state after an invalid connect. Diagnostics and resolved executable bindings are separate. Retain any residual entry as an interpretation difference needing human review, without prescribing severity or claiming a proven implementation defect.",
+        "ja": "bindingを残さない限定解釈。同種接続の一般制約は、不正connect後の直接provider一覧の状態を指定しない。診断と解決済み実行bindingは別であり、severityを規定せず、実装不具合を証明したとせず、残存entryを人の照合が必要な解釈差分として保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_same_kind_terminator_socket_connections_leave_no_provider_bindings",
+          "role": "direct",
+          "expected_observations": [
+            "UT: same_kind_terminators blocking 1/1 nonblocking 1/1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM2-TYPES-SAME-KIND-TARGET-REJECTION",
+      "clause": "12.3.5",
+      "statement": {
+        "en": "Under a no-binding interpretation, a target terminator cannot connect to another target terminator.",
+        "ja": "bindingを残さない解釈の下では、target terminatorは別のtarget terminatorへ接続できない。"
+      },
+      "conditions": {
+        "en": "Attempt same-kind terminator connects in blocking and nonblocking families, then query each direct provider list.",
+        "ja": "blocking／nonblocking familyで同種terminatorの接続を試み、各直接provider一覧を照会する。"
+      },
+      "expected": {
+        "en": "Both selected blocking and nonblocking same-kind connects leave no direct provider binding.",
+        "ja": "選択したblocking／nonblockingの同種接続はいずれも直接provider bindingを残さない。"
+      },
+      "limitations": {
+        "en": "Qualified no-binding interpretation: the general same-kind restriction does not specify direct provider-list state after an invalid connect. Diagnostics and resolved executable bindings are separate. Retain any residual entry as an interpretation difference needing human review, without prescribing severity or claiming a proven implementation defect.",
+        "ja": "bindingを残さない限定解釈。同種接続の一般制約は、不正connect後の直接provider一覧の状態を指定しない。診断と解決済み実行bindingは別であり、severityを規定せず、実装不具合を証明したとせず、残存entryを人の照合が必要な解釈差分として保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_tlm2_same_kind_terminator_socket_connections_leave_no_provider_bindings",
+          "role": "direct",
+          "expected_observations": [
+            "UT: same_kind_terminators blocking 1/1 nonblocking 1/1"
+          ]
+        }
+      ]
     }
   ]
 }

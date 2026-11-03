@@ -2,7 +2,7 @@
 
 [English](history.md) · [README](../README.ja.md)
 
-M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の37回目の拡充（シミュレーション1396件）までを記録しています。以前の349件の時点は
+M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の38回目の拡充（シミュレーション1408件）までを記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -1929,3 +1929,20 @@ TLM 1の未評価番号は0ですが、部分分解の義務と全milestone目�
 Ghostは各seedでpass 207／fail 877、kirimasimはunsupported 1075／fail 9で、未測定312入力は追加311件と変更した既存1件を含みます。
 guest実行は主張しません。tool unit 101件、metadata、台帳／library、日英資料の検査を通過しました。
 範囲と分母は未承認で、goalは継続します。
+
+## M1〜M4の薄い領域の38回目の拡充
+
+M2の12検査系で、合法／既定extension生成、8種全socket宣言、通常port／export／imp既定値、実既定imp binding、明示／親socket実装選択、独自phase双方向relay、blocking relay完了／再利用、選択合法／禁止provider接続を追加します。
+9件はseed 1・73一致で、限定解釈probe 3件はseed 1で最初に異なりseed 73結果はありません。
+blocking見出しの印刷nonblocking provider一覧は拒否され、同種initiator接続はERRORを報告してもraw直接entryを保持し、targetは残しません。
+不具合の証明ではなく照合可能な解釈です。実動blocking比較対象は一致します。
+初期のpacked-stringラベルpaddingは修正して両seedで再実行し、oracleは変えていません。
+
+以前の1396入力／記録、2001要求案、170分類は全て保持します。全体1408件（M1 470／M2 512／M3 426）、通常pass 1237／known 171（実行時の最初の差分128／build 43）です。
+別HDL／command-line記録はpass 7／fail 1、pass 17／known 1です。guest部分集合は互換1084入力のままで、Ghostは各seedでpass 207／fail 877、kirimasimはunsupported 1075／fail 9です。
+未測定324入力は追加323件と以前に引用を変更したcommand入力で、guest実行は主張せず、runner／library／schema／catalogは未変更です。
+
+AI要求案83件で計2084件、個別構造分類12件で計182件（構造131／文脈51）です。規範的概要は除外せず部分対応へ残します。
+第12章は部分分解169／分類45／未評価0で、全体は部分分解1174／分類182／未評価1151です。
+goalの10反復目は未評価45番号を減らし、有効化以降312番号を減らしました。第12章の未評価0は残る義務の完了ではありません。
+tool unit 101件、metadata、台帳／library、互換evidence、日英資料の検査を通過しました。範囲と分母は未承認で、M1〜M4 goalを継続します。

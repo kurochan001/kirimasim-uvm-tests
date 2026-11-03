@@ -3,8 +3,8 @@
 [日本語](history.ja.md) · [README](../README.md)
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and thirty-seven cross-milestone thin-area expansions, including the
-existing-test requirement-link backlog checkpoint (1396 simulation tests). The earlier 349-test checkpoint is
+three M4 increments and thirty-eight cross-milestone thin-area expansions, including the
+existing-test requirement-link backlog checkpoint (1408 simulation tests). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -2835,3 +2835,35 @@ nine fail. There are 312 unmeasured inputs, including 311 additions and the
 revised old fixture. No guest run is claimed. All 101 tool tests, metadata,
 ledger/library checks and bilingual documentation checks pass. Scope and
 denominator remain unapproved; the goal stays active.
+
+## Thirty-eighth thin-area expansion across M1–M4
+
+Twelve M2 fixtures add legal/default extension construction, all eight socket
+declarations, ordinary port/export/imp defaults, actual default imp binding,
+explicit/parent socket implementation selection, custom-phase two-way relays,
+blocking relay completion/reuse and selected legal/forbidden provider connects.
+Nine match seeds 1 and 73. Three qualified interpretation probes first differ
+at seed 1, without seed 73: printed nonblocking provider lists under blocking
+headings are rejected; same-kind initiator connects report ERROR yet keep raw
+direct entries. Targets leave none. These are reviewable interpretations,
+not proven defects. Operational blocking controls match. Initial packed-string
+label padding was corrected and both seeds rerun without changing the oracle.
+
+All 1396 prior inputs/records, 2001 drafts and 170 assessments remain unchanged.
+The suite reaches 1408: M1 470, M2 512, M3 426; ordinary 1237 pass/171 known,
+including 128 runtime first differences and 43 build records. Separate HDL
+and command-line evidence remains 7 pass/1 fail and 17 pass/1 known. The guest
+subset remains 1084 compatible inputs: Ghost 207 pass/877 fail per seed,
+kirimasim 1075 unsupported/nine fail. There are 324 unmeasured current inputs,
+323 additions plus the earlier citation-revised command input. No guest run
+is claimed; runners/library/schema/catalog are unchanged.
+
+Eighty-three AI drafts reach 2084, and twelve individual structural
+assessments reach 182 (131 structural/51 contextual). Normative overviews stay
+partial rather than being excluded. Chapter 12 is 169 partial/45 assessed/
+zero unassessed. Overall totals are 1174 partial, 182 assessed and 1151
+unassessed. Goal iteration ten reduces unassessed by 45, or 312 since
+activation. Zero unassessed in chapter 12 does not complete its remaining
+obligations. All 101 tool tests, metadata, ledger/library, compatible evidence
+and bilingual documentation checks pass. Scope and denominator stay
+unapproved; the M1–M4 goal remains active.

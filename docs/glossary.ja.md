@@ -810,3 +810,12 @@ channelのREQ依存RSP既定値から、通常port宣言の独立integer既定�
 
 **分類の再評価（Classification reassessment）**：以前に分類した条項を再読し、独立した規範的義務が見つかれば分類を置き換えることです。
 元の識別子は範囲に残り、直接要求を追加します。
+
+**印刷provider一覧（Printed provider list）**：socket connect条項が明示列挙するprovider class名です。
+blocking／nonblockingの名前が矛盾する場合、別の実動経路が動いても限定解釈として残ります。
+
+**直接provider entry（Direct provider entry）**：portの直接照会で見えるrawな接続です。
+不正呼出し後の残存entryは解決済み実行bindingと異なり、合法な実行時経路を証明しません。
+
+**独自phase型（Custom phase type）**：parameterized nonblocking interfaceで明示選択するphase型です。
+正の正確なviewと選択双方向転送から、phase parameter省略の印刷connect signatureは確定しません。

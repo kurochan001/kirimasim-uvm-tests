@@ -1446,6 +1446,14 @@
       "primary_clause": "12.3.7.1",
       "inputs_sha256": "ea63867323212dda6959ab833cce84c0394f85b32f1b802b4044459cb2e107b7"
     },
+    "u12/test_tlm2_blocking_passthrough_initiator_connect_accepts_its_spec_listed_provider_families": {
+      "primary_clause": "12.3.5.7.4",
+      "inputs_sha256": "44f57ed91275bc08d461a256999882e6aeb67ce2fa1946b12ae31aded73cb6a0"
+    },
+    "u12/test_tlm2_blocking_passthrough_target_connect_accepts_its_spec_listed_provider_families": {
+      "primary_clause": "12.3.5.8.4",
+      "inputs_sha256": "b67114fe47899a714dcb07b87983ef8e794c049c3df108894c54729b62710eb8"
+    },
     "u12/test_tlm2_blocking_socket_allows_payload_reuse": {
       "primary_clause": "12.3.2.2.3",
       "inputs_sha256": "e5696ba5f95fc4e98b64217e3cae4710bc31eaf90813325b0bef4c53b244c511"
@@ -1454,13 +1462,25 @@
       "primary_clause": "12.3.5.1.3",
       "inputs_sha256": "552e3a61d64157cc3f04e170901773242e75912cb9d4e991c75c2d7365f6e39d"
     },
+    "u12/test_tlm2_blocking_socket_declarations_preserve_default_and_custom_transaction_base_types": {
+      "primary_clause": "12.3.5.1.1",
+      "inputs_sha256": "46b08565bf815c2c488d1bcfedb09a0125307757110d33ec6168587bce1f668f"
+    },
     "u12/test_tlm2_blocking_socket_forwards_payload_delay_and_read_result": {
       "primary_clause": "12.3.2.2.3",
       "inputs_sha256": "cda6a6ad5a66a54f64717daf94fa164277c743400371dcf7b3e51876413b1cae"
     },
+    "u12/test_tlm2_blocking_socket_relays_forward_custom_transactions_until_target_completion": {
+      "primary_clause": "12.3.5.7",
+      "inputs_sha256": "b497145e54b1fa25729f3deaade61d56d3be1f220d5f09c2da375b7883b2b0a8"
+    },
     "u12/test_tlm2_blocking_target_socket_connect_reports_error_for_each_forbidden_call": {
       "primary_clause": "12.3.5.1.4",
       "inputs_sha256": "96f7822e5917da7628c5f7862019251ddd7e377a87d03c84423c94916b412bf0"
+    },
+    "u12/test_tlm2_custom_phase_socket_relays_preserve_both_paths_and_reference_phase_updates": {
+      "primary_clause": "12.3.5",
+      "inputs_sha256": "d4e136f7ab1e6ce9b2297f783599c398ca6cba741293d506fb14754af6b540a7"
     },
     "u12/test_tlm2_custom_transaction_blocking_socket_uses_explicit_implementation": {
       "primary_clause": "12.3.5.1.3",
@@ -1477,6 +1497,14 @@
     "u12/test_tlm2_custom_transaction_passthrough_target_routes_both_directions": {
       "primary_clause": "12.3.5.6.4",
       "inputs_sha256": "69a0ecf93e9d745983a8f8f5cbbf60f4a281e158dc34d8f37f4ef2b53413524e"
+    },
+    "u12/test_tlm2_default_transport_imps_bind_named_implementations_through_real_ports_and_exports": {
+      "primary_clause": "12.3.8",
+      "inputs_sha256": "e9a2889c416701447d618597da6f0bb9b40ea291ff99b8da8fdbb0409818e4a8"
+    },
+    "u12/test_tlm2_extension_defaults_and_legal_subclasses_preserve_names_and_object_views": {
+      "primary_clause": "12.3.4.5.3",
+      "inputs_sha256": "899d1d5c6c0841ef79da8c3ff51551787d2d6ce1d8914913e3edf3cb4acdcad6"
     },
     "u12/test_tlm2_extension_polymorphic_type_handle_is_shared_by_same_type_instances": {
       "primary_clause": "12.3.4.4.4",
@@ -1550,13 +1578,25 @@
       "primary_clause": "12.3.2.2.1",
       "inputs_sha256": "0d60c2b9ad299d64b88a0f66c27f0c2a6d62a7f9444f8f377b85788177e18d0e"
     },
+    "u12/test_tlm2_nonblocking_initiator_connect_accepts_all_three_declared_provider_families": {
+      "primary_clause": "12.3.5.4.4",
+      "inputs_sha256": "c148709c4a508d613e0558b66ded0a8cdcf3e6ed3cd24fe35b313fb67026ac51"
+    },
     "u12/test_tlm2_nonblocking_round_trip_returns_backward_phase_update": {
       "primary_clause": "12.3.2.2.1",
       "inputs_sha256": "417c2103e471fb1d4b1886b7b43f41f160b925edd7e7315f9b05ace1d6e45ad4"
     },
+    "u12/test_tlm2_nonblocking_socket_binding_selects_explicit_and_parent_implementations": {
+      "primary_clause": "12.3.5.4.3",
+      "inputs_sha256": "99649ee3acea37eb3b41f509cf048c4259c0c3da3952fe3be4fbb85a65a09700"
+    },
     "u12/test_tlm2_nonblocking_socket_constructors_preserve_kind_bounds_and_parent": {
       "primary_clause": "12.3.5.3.3",
       "inputs_sha256": "b43bc7d4d9d4894a10fd7f3b67f22816b8aa675d58432b18bcb0cb1f12d10cb0"
+    },
+    "u12/test_tlm2_nonblocking_socket_declarations_preserve_default_and_custom_phase_base_types": {
+      "primary_clause": "12.3.5.3.1",
+      "inputs_sha256": "7fd02968533553afe9133995dcf39cceefb78b54a6fb2607b301f330b6520f1b"
     },
     "u12/test_tlm2_nonblocking_target_socket_connect_reports_error_for_each_forbidden_call": {
       "primary_clause": "12.3.5.3.4",
@@ -1710,6 +1750,10 @@
       "primary_clause": "12.3.4.2.4",
       "inputs_sha256": "fa099fbcde3d0f17a3c2ac034021ca38923cc94be52734e3a0460062e32a3a76"
     },
+    "u12/test_tlm2_same_kind_terminator_socket_connections_leave_no_provider_bindings": {
+      "primary_clause": "12.3.5",
+      "inputs_sha256": "5db1359f8e2a7994c657492637fa70030c8f1d57c40b4ed3c4359bd220ff095f"
+    },
     "u12/test_tlm2_time_absolute_units_convert_and_replace_value": {
       "primary_clause": "12.3.9",
       "inputs_sha256": "803f8e963396a540059499d76ae9d627cb32ffc6eb8fc6baa5e5c897183b5e7a"
@@ -1737,6 +1781,10 @@
     "u12/test_tlm2_time_standard_default_resolution_api_constructs_delay": {
       "primary_clause": "12.3.9",
       "inputs_sha256": "648c0dc30925909aeaffa29db770e25912b523af8c4e7763b2ef61d671805ade"
+    },
+    "u12/test_tlm2_transport_port_and_export_defaults_preserve_exact_interface_type_parameters": {
+      "primary_clause": "12.3.6.1",
+      "inputs_sha256": "7bffc3b947d05ca8c7434fb448fe46fb623e3aa07211e5bb4485c848dbc92e29"
     },
     "u12/test_tlm2_two_blocking_socket_channels_keep_overlapping_calls_independent": {
       "primary_clause": "12.3.2.2.3",

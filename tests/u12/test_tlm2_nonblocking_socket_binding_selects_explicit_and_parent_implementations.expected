@@ -1,0 +1,4 @@
+UT: socket_binding explicit forward 1 backward 1 phase 1 data 113 immediate 1
+UT: socket_binding explicit counts 1/0/1/0 handles 1 delay 1
+UT: socket_binding parent forward 1 backward 1 phase 1 data 45 immediate 1
+UT: socket_binding parent counts 0/1/0/1 handles 1 delay 1
