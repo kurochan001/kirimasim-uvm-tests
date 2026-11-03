@@ -25336,6 +25336,13 @@
             "UT: history payloads 44 43 ids 103 102",
             "UT: sent 3 beyond_null 1"
           ]
+        },
+        {
+          "test": "u15/test_pull_and_push_common_current_and_outside_history_queries_obey_the_declared_api",
+          "role": "direct",
+          "expected_observations": [
+            "UT: common_outside_history pull_req 1 pull_rsp 1 push_req 1 push_rsp 1"
+          ]
         }
       ]
     },
@@ -25447,6 +25454,13 @@
             "UT: history payloads 22 11 ids 102 101",
             "UT: responses 2 received 2 beyond_null 1"
           ]
+        },
+        {
+          "test": "u15/test_pull_and_push_common_current_and_outside_history_queries_obey_the_declared_api",
+          "role": "direct",
+          "expected_observations": [
+            "UT: common_outside_history pull_req 1 pull_rsp 1 push_req 1 push_rsp 1"
+          ]
         }
       ]
     },
@@ -25526,6 +25540,13 @@
             "UT: peek_same 1 current_same 1 1",
             "UT: finished_before_get 0",
             "UT: current_null 1 1 consumed_same 1 finished 1"
+          ]
+        },
+        {
+          "test": "u15/test_pull_and_push_common_current_and_outside_history_queries_obey_the_declared_api",
+          "role": "direct",
+          "expected_observations": [
+            "UT: common_current pull 1 push 1"
           ]
         }
       ]
@@ -25742,6 +25763,13 @@
           "role": "direct",
           "expected_observations": [
             "UT: hierarchy 1 1"
+          ]
+        },
+        {
+          "test": "u15/test_sequencer_constructors_preserve_names_parents_and_selected_component_bases",
+          "role": "direct",
+          "expected_observations": [
+            "UT: sequencer_parent 2 exact 1"
           ]
         }
       ]
@@ -33655,12 +33683,12 @@
         "ja": "grantを取得し、一意な値のitem constraintとrerandomize 1で送る。"
       },
       "expected": {
-        "en": "The same handle arrives with constrained code 91 and one post_randomize call.",
-        "ja": "同じhandleがconstraintしたcode 91、post_randomize 1回で到着する。"
+        "en": "The same handle arrives with constrained code 91 and at least one post_randomize call.",
+        "ja": "同じhandleがconstraintしたcode 91、post_randomize 1回以上で到着する。"
       },
       "limitations": {
-        "en": "Existing fixtures and their normative expected outputs remain unchanged. Positive-delay driver acknowledgements separate ordering observations from same-delta races. Finish virtual-dispatch, explicit-ID and invalid-input fixtures retain their existing spec-only differences. Completion means sequencer acknowledgement, not that a physical driver finished all processing. Three invalid-input classes do not cover every malformed item. Constraint probes use a unique legal value, not a random distribution.",
-        "ja": "既存検査系と規範的な期待出力は変更しない。正の遅延後のdriver acknowledgeで、順序の観測を同一deltaの競合から分ける。finishのvirtual dispatch、明示ID、不正入力は既存spec-only差分を保持する。完了はsequencerのacknowledgeであり、物理driverの全処理完了ではない。3種類の不正入力は全ての不正itemを扱うものではない。constraintの検査は一意な合法値を使い、乱数分布は検査しない。"
+        "en": "One granted request with a unique legal constraint value, not a random distribution. The randomized observation is Boolean and accepts any positive callback count; the standard does not fix retry count. The stable legacy fixture ID remains. Prior native/guest records for its old input are not reused as current evidence; the corrected input is measured separately.",
+        "ja": "一意な合法constraint値を持つgrant済み要求1つで、乱数分布は検査しない。randomized観測はBooleanとし、正のcallback数を全て許容する。規格はretry回数を固定しない。従来の安定fixture IDを保持する。旧入力のnative／guest記録を現在のevidenceとして再利用せず、修正入力を別測定する。"
       },
       "review": {
         "status": "ai",
@@ -88237,6 +88265,1819 @@
           "role": "direct",
           "expected_observations": [
             "UT: region_read_value exact 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SQR-AUDIT-INTERFACE-DEFAULT-REQUEST",
+      "clause": "15.2.1.1",
+      "statement": {
+        "en": "The omitted interface request type is uvm_sequence_item.",
+        "ja": "interfaceの省略request型はuvm_sequence_itemである。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixture, declared type arguments, public endpoint/base views and linked stage observations. Requests satisfy the grant precondition before send_request and response IDs are copied from the actual request.",
+        "ja": "選択した独自fixture、宣言type引数、公開endpoint／base view、linkした段階観測を使う。send_request前にgrant前提を満たし、応答IDは実際の要求からcopyする。"
+      },
+      "expected": {
+        "en": "The omitted interface request type is uvm_sequence_item.",
+        "ja": "interfaceの省略request型はuvm_sequence_itemである。"
+      },
+      "limitations": {
+        "en": "Selected nominal type/constructor contracts only. Unrelated/invalid request and response types, default connector int/type-restriction conflicts and every subclass remain separate. A compile failure preserves the normative declaration oracle without runtime claims.",
+        "ja": "選択した名目的type／constructor契約だけ。無関係／不正request・response型、connectorの既定intと型制約の矛盾、全subclassは別に残す。compile失敗時はruntimeを主張せず規範的宣言oracleを保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequencer_interface_defaults_and_selected_legal_subtypes_keep_exact_base_types",
+          "role": "direct",
+          "expected_observations": [
+            "UT: interface_types default 1 inherited_response 1 split 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SQR-AUDIT-INTERFACE-DEFAULT-RESPONSE",
+      "clause": "15.2.1.1",
+      "statement": {
+        "en": "An omitted interface response type follows its explicit request type.",
+        "ja": "省略interface response型は明示request型に従う。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixture, declared type arguments, public endpoint/base views and linked stage observations. Requests satisfy the grant precondition before send_request and response IDs are copied from the actual request.",
+        "ja": "選択した独自fixture、宣言type引数、公開endpoint／base view、linkした段階観測を使う。send_request前にgrant前提を満たし、応答IDは実際の要求からcopyする。"
+      },
+      "expected": {
+        "en": "An omitted interface response type follows its explicit request type.",
+        "ja": "省略interface response型は明示request型に従う。"
+      },
+      "limitations": {
+        "en": "Selected nominal type/constructor contracts only. Unrelated/invalid request and response types, default connector int/type-restriction conflicts and every subclass remain separate. A compile failure preserves the normative declaration oracle without runtime claims.",
+        "ja": "選択した名目的type／constructor契約だけ。無関係／不正request・response型、connectorの既定intと型制約の矛盾、全subclassは別に残す。compile失敗時はruntimeを主張せず規範的宣言oracleを保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequencer_interface_explicit_request_and_response_views_preserve_exact_identity",
+          "role": "direct",
+          "expected_observations": [
+            "UT: explicit_interface inherited_response 1 split 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SQR-AUDIT-INTERFACE-EXPLICIT-TYPES",
+      "clause": "15.2.1.1",
+      "statement": {
+        "en": "A legal interface subtype supports distinct request and response types derived from sequence items.",
+        "ja": "合法interface subtypeはsequence item由来の別request／response型を扱える。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixture, declared type arguments, public endpoint/base views and linked stage observations. Requests satisfy the grant precondition before send_request and response IDs are copied from the actual request.",
+        "ja": "選択した独自fixture、宣言type引数、公開endpoint／base view、linkした段階観測を使う。send_request前にgrant前提を満たし、応答IDは実際の要求からcopyする。"
+      },
+      "expected": {
+        "en": "A legal interface subtype supports distinct request and response types derived from sequence items.",
+        "ja": "合法interface subtypeはsequence item由来の別request／response型を扱える。"
+      },
+      "limitations": {
+        "en": "Selected nominal type/constructor contracts only. Unrelated/invalid request and response types, default connector int/type-restriction conflicts and every subclass remain separate. A compile failure preserves the normative declaration oracle without runtime claims.",
+        "ja": "選択した名目的type／constructor契約だけ。無関係／不正request・response型、connectorの既定intと型制約の矛盾、全subclassは別に残す。compile失敗時はruntimeを主張せず規範的宣言oracleを保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequencer_interface_explicit_request_and_response_views_preserve_exact_identity",
+          "role": "direct",
+          "expected_observations": [
+            "UT: explicit_interface inherited_response 1 split 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SQR-AUDIT-BASE-COMPONENT-TYPE",
+      "clause": "15.3.1",
+      "statement": {
+        "en": "A legal concrete sequencer-base subtype retains the component base.",
+        "ja": "合法な具象sequencer-base subtypeはcomponent baseを保持する。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixture, declared type arguments, public endpoint/base views and linked stage observations. Requests satisfy the grant precondition before send_request and response IDs are copied from the actual request.",
+        "ja": "選択した独自fixture、宣言type引数、公開endpoint／base view、linkした段階観測を使う。send_request前にgrant前提を満たし、応答IDは実際の要求からcopyする。"
+      },
+      "expected": {
+        "en": "A legal concrete sequencer-base subtype retains the component base.",
+        "ja": "合法な具象sequencer-base subtypeはcomponent baseを保持する。"
+      },
+      "limitations": {
+        "en": "Selected nominal type/constructor contracts only. Unrelated/invalid request and response types, default connector int/type-restriction conflicts and every subclass remain separate. A compile failure preserves the normative declaration oracle without runtime claims.",
+        "ja": "選択した名目的type／constructor契約だけ。無関係／不正request・response型、connectorの既定intと型制約の矛盾、全subclassは別に残す。compile失敗時はruntimeを主張せず規範的宣言oracleを保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequencer_constructors_preserve_names_parents_and_selected_component_bases",
+          "role": "direct",
+          "expected_observations": [
+            "UT: sequencer_parent 0 exact 1",
+            "UT: sequencer_parent 1 exact 1",
+            "UT: sequencer_parent 2 exact 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SQR-AUDIT-BASE-CONSTRUCTOR",
+      "clause": "15.3.2.1",
+      "statement": {
+        "en": "The sequencer-base constructor forwards its explicit instance name and parent.",
+        "ja": "sequencer-base constructorは明示instance名とparentを転送する。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixture, declared type arguments, public endpoint/base views and linked stage observations. Requests satisfy the grant precondition before send_request and response IDs are copied from the actual request.",
+        "ja": "選択した独自fixture、宣言type引数、公開endpoint／base view、linkした段階観測を使う。send_request前にgrant前提を満たし、応答IDは実際の要求からcopyする。"
+      },
+      "expected": {
+        "en": "The sequencer-base constructor forwards its explicit instance name and parent.",
+        "ja": "sequencer-base constructorは明示instance名とparentを転送する。"
+      },
+      "limitations": {
+        "en": "Selected nominal type/constructor contracts only. Unrelated/invalid request and response types, default connector int/type-restriction conflicts and every subclass remain separate. A compile failure preserves the normative declaration oracle without runtime claims.",
+        "ja": "選択した名目的type／constructor契約だけ。無関係／不正request・response型、connectorの既定intと型制約の矛盾、全subclassは別に残す。compile失敗時はruntimeを主張せず規範的宣言oracleを保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequencer_constructors_preserve_names_parents_and_selected_component_bases",
+          "role": "direct",
+          "expected_observations": [
+            "UT: sequencer_names base 1 pull 1 push 1",
+            "UT: sequencer_parent 0 exact 1",
+            "UT: sequencer_parent 1 exact 1",
+            "UT: sequencer_parent 2 exact 1",
+            "UT: sequencer_bases pull 1 push 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SQR-AUDIT-PULL-CONSTRUCTOR",
+      "clause": "15.5.2.1",
+      "statement": {
+        "en": "The pull sequencer constructor preserves its explicit name and parent.",
+        "ja": "pull sequencer constructorは明示名とparentを保持する。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixture, declared type arguments, public endpoint/base views and linked stage observations. Requests satisfy the grant precondition before send_request and response IDs are copied from the actual request.",
+        "ja": "選択した独自fixture、宣言type引数、公開endpoint／base view、linkした段階観測を使う。send_request前にgrant前提を満たし、応答IDは実際の要求からcopyする。"
+      },
+      "expected": {
+        "en": "The pull sequencer constructor preserves its explicit name and parent.",
+        "ja": "pull sequencer constructorは明示名とparentを保持する。"
+      },
+      "limitations": {
+        "en": "Selected nominal type/constructor contracts only. Unrelated/invalid request and response types, default connector int/type-restriction conflicts and every subclass remain separate. A compile failure preserves the normative declaration oracle without runtime claims.",
+        "ja": "選択した名目的type／constructor契約だけ。無関係／不正request・response型、connectorの既定intと型制約の矛盾、全subclassは別に残す。compile失敗時はruntimeを主張せず規範的宣言oracleを保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequencer_constructors_preserve_names_parents_and_selected_component_bases",
+          "role": "direct",
+          "expected_observations": [
+            "UT: sequencer_names base 1 pull 1 push 1",
+            "UT: sequencer_parent 0 exact 1",
+            "UT: sequencer_parent 1 exact 1",
+            "UT: sequencer_parent 2 exact 1",
+            "UT: sequencer_bases pull 1 push 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SQR-AUDIT-PULL-BASE-TYPE",
+      "clause": "15.5.1",
+      "statement": {
+        "en": "The typed pull sequencer is usable through uvm_sequencer_base.",
+        "ja": "型付pull sequencerをuvm_sequencer_baseから使える。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixture, declared type arguments, public endpoint/base views and linked stage observations. Requests satisfy the grant precondition before send_request and response IDs are copied from the actual request.",
+        "ja": "選択した独自fixture、宣言type引数、公開endpoint／base view、linkした段階観測を使う。send_request前にgrant前提を満たし、応答IDは実際の要求からcopyする。"
+      },
+      "expected": {
+        "en": "The typed pull sequencer is usable through uvm_sequencer_base.",
+        "ja": "型付pull sequencerをuvm_sequencer_baseから使える。"
+      },
+      "limitations": {
+        "en": "Selected nominal type/constructor contracts only. Unrelated/invalid request and response types, default connector int/type-restriction conflicts and every subclass remain separate. A compile failure preserves the normative declaration oracle without runtime claims.",
+        "ja": "選択した名目的type／constructor契約だけ。無関係／不正request・response型、connectorの既定intと型制約の矛盾、全subclassは別に残す。compile失敗時はruntimeを主張せず規範的宣言oracleを保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequencer_constructors_preserve_names_parents_and_selected_component_bases",
+          "role": "direct",
+          "expected_observations": [
+            "UT: sequencer_bases pull 1 push 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SQR-AUDIT-PUSH-BASE-TYPE",
+      "clause": "15.6.1",
+      "statement": {
+        "en": "The typed push sequencer is usable through uvm_sequencer_base.",
+        "ja": "型付push sequencerをuvm_sequencer_baseから使える。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixture, declared type arguments, public endpoint/base views and linked stage observations. Requests satisfy the grant precondition before send_request and response IDs are copied from the actual request.",
+        "ja": "選択した独自fixture、宣言type引数、公開endpoint／base view、linkした段階観測を使う。send_request前にgrant前提を満たし、応答IDは実際の要求からcopyする。"
+      },
+      "expected": {
+        "en": "The typed push sequencer is usable through uvm_sequencer_base.",
+        "ja": "型付push sequencerをuvm_sequencer_baseから使える。"
+      },
+      "limitations": {
+        "en": "Selected nominal type/constructor contracts only. Unrelated/invalid request and response types, default connector int/type-restriction conflicts and every subclass remain separate. A compile failure preserves the normative declaration oracle without runtime claims.",
+        "ja": "選択した名目的type／constructor契約だけ。無関係／不正request・response型、connectorの既定intと型制約の矛盾、全subclassは別に残す。compile失敗時はruntimeを主張せず規範的宣言oracleを保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequencer_constructors_preserve_names_parents_and_selected_component_bases",
+          "role": "direct",
+          "expected_observations": [
+            "UT: sequencer_bases pull 1 push 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SQR-AUDIT-PULL-DEFAULT-REQUEST",
+      "clause": "15.5.1",
+      "statement": {
+        "en": "The omitted pull request type is uvm_sequence_item.",
+        "ja": "pullの省略request型はuvm_sequence_itemである。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixture, declared type arguments, public endpoint/base views and linked stage observations. Requests satisfy the grant precondition before send_request and response IDs are copied from the actual request.",
+        "ja": "選択した独自fixture、宣言type引数、公開endpoint／base view、linkした段階観測を使う。send_request前にgrant前提を満たし、応答IDは実際の要求からcopyする。"
+      },
+      "expected": {
+        "en": "The omitted pull request type is uvm_sequence_item.",
+        "ja": "pullの省略request型はuvm_sequence_itemである。"
+      },
+      "limitations": {
+        "en": "Selected nominal type/constructor contracts only. Unrelated/invalid request and response types, default connector int/type-restriction conflicts and every subclass remain separate. A compile failure preserves the normative declaration oracle without runtime claims.",
+        "ja": "選択した名目的type／constructor契約だけ。無関係／不正request・response型、connectorの既定intと型制約の矛盾、全subclassは別に残す。compile失敗時はruntimeを主張せず規範的宣言oracleを保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_pull_and_push_sequencer_omitted_response_types_match_the_request_type",
+          "role": "direct",
+          "expected_observations": [
+            "UT: sequencer_defaults pull 1 push 1 request_pull 1 request_push 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SQR-AUDIT-PULL-DEFAULT-RESPONSE",
+      "clause": "15.5.1",
+      "statement": {
+        "en": "The omitted pull response type follows the selected request type.",
+        "ja": "pullの省略response型は選択request型に従う。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixture, declared type arguments, public endpoint/base views and linked stage observations. Requests satisfy the grant precondition before send_request and response IDs are copied from the actual request.",
+        "ja": "選択した独自fixture、宣言type引数、公開endpoint／base view、linkした段階観測を使う。send_request前にgrant前提を満たし、応答IDは実際の要求からcopyする。"
+      },
+      "expected": {
+        "en": "The omitted pull response type follows the selected request type.",
+        "ja": "pullの省略response型は選択request型に従う。"
+      },
+      "limitations": {
+        "en": "Selected nominal type/constructor contracts only. Unrelated/invalid request and response types, default connector int/type-restriction conflicts and every subclass remain separate. A compile failure preserves the normative declaration oracle without runtime claims.",
+        "ja": "選択した名目的type／constructor契約だけ。無関係／不正request・response型、connectorの既定intと型制約の矛盾、全subclassは別に残す。compile失敗時はruntimeを主張せず規範的宣言oracleを保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_pull_and_push_sequencer_omitted_response_types_match_the_request_type",
+          "role": "direct",
+          "expected_observations": [
+            "UT: sequencer_defaults pull 1 push 1 request_pull 1 request_push 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SQR-AUDIT-PUSH-DEFAULT-REQUEST",
+      "clause": "15.6.1",
+      "statement": {
+        "en": "The omitted push request type is uvm_sequence_item.",
+        "ja": "pushの省略request型はuvm_sequence_itemである。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixture, declared type arguments, public endpoint/base views and linked stage observations. Requests satisfy the grant precondition before send_request and response IDs are copied from the actual request.",
+        "ja": "選択した独自fixture、宣言type引数、公開endpoint／base view、linkした段階観測を使う。send_request前にgrant前提を満たし、応答IDは実際の要求からcopyする。"
+      },
+      "expected": {
+        "en": "The omitted push request type is uvm_sequence_item.",
+        "ja": "pushの省略request型はuvm_sequence_itemである。"
+      },
+      "limitations": {
+        "en": "Selected nominal type/constructor contracts only. Unrelated/invalid request and response types, default connector int/type-restriction conflicts and every subclass remain separate. A compile failure preserves the normative declaration oracle without runtime claims.",
+        "ja": "選択した名目的type／constructor契約だけ。無関係／不正request・response型、connectorの既定intと型制約の矛盾、全subclassは別に残す。compile失敗時はruntimeを主張せず規範的宣言oracleを保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_pull_and_push_sequencer_omitted_response_types_match_the_request_type",
+          "role": "direct",
+          "expected_observations": [
+            "UT: sequencer_defaults pull 1 push 1 request_pull 1 request_push 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SQR-AUDIT-PUSH-DEFAULT-RESPONSE",
+      "clause": "15.6.1",
+      "statement": {
+        "en": "The omitted push response type follows the selected request type.",
+        "ja": "pushの省略response型は選択request型に従う。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixture, declared type arguments, public endpoint/base views and linked stage observations. Requests satisfy the grant precondition before send_request and response IDs are copied from the actual request.",
+        "ja": "選択した独自fixture、宣言type引数、公開endpoint／base view、linkした段階観測を使う。send_request前にgrant前提を満たし、応答IDは実際の要求からcopyする。"
+      },
+      "expected": {
+        "en": "The omitted push response type follows the selected request type.",
+        "ja": "pushの省略response型は選択request型に従う。"
+      },
+      "limitations": {
+        "en": "Selected nominal type/constructor contracts only. Unrelated/invalid request and response types, default connector int/type-restriction conflicts and every subclass remain separate. A compile failure preserves the normative declaration oracle without runtime claims.",
+        "ja": "選択した名目的type／constructor契約だけ。無関係／不正request・response型、connectorの既定intと型制約の矛盾、全subclassは別に残す。compile失敗時はruntimeを主張せず規範的宣言oracleを保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_pull_and_push_sequencer_omitted_response_types_match_the_request_type",
+          "role": "direct",
+          "expected_observations": [
+            "UT: sequencer_defaults pull 1 push 1 request_pull 1 request_push 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SQR-AUDIT-PUSH-CONSTRUCTOR-NAME",
+      "clause": "15.6.3.2",
+      "statement": {
+        "en": "The push sequencer constructor retains its explicit instance name.",
+        "ja": "push sequencer constructorは明示instance名を保持する。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixture, declared type arguments, public endpoint/base views and linked stage observations. Requests satisfy the grant precondition before send_request and response IDs are copied from the actual request.",
+        "ja": "選択した独自fixture、宣言type引数、公開endpoint／base view、linkした段階観測を使う。send_request前にgrant前提を満たし、応答IDは実際の要求からcopyする。"
+      },
+      "expected": {
+        "en": "The push sequencer constructor retains its explicit instance name.",
+        "ja": "push sequencer constructorは明示instance名を保持する。"
+      },
+      "limitations": {
+        "en": "Selected nominal type/constructor contracts only. Unrelated/invalid request and response types, default connector int/type-restriction conflicts and every subclass remain separate. A compile failure preserves the normative declaration oracle without runtime claims.",
+        "ja": "選択した名目的type／constructor契約だけ。無関係／不正request・response型、connectorの既定intと型制約の矛盾、全subclassは別に残す。compile失敗時はruntimeを主張せず規範的宣言oracleを保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequencer_constructors_preserve_names_parents_and_selected_component_bases",
+          "role": "direct",
+          "expected_observations": [
+            "UT: sequencer_names base 1 pull 1 push 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SQR-AUDIT-UVM-SQR-IF-BASE-ABSTRACT",
+      "clause": "15.2.1.1",
+      "statement": {
+        "en": "The declared virtual uvm_sqr_if_base rejects direct construction.",
+        "ja": "virtualと宣言されたuvm_sqr_if_baseは直接生成を拒否する。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixture, declared type arguments, public endpoint/base views and linked stage observations. Requests satisfy the grant precondition before send_request and response IDs are copied from the actual request.",
+        "ja": "選択した独自fixture、宣言type引数、公開endpoint／base view、linkした段階観測を使う。send_request前にgrant前提を満たし、応答IDは実際の要求からcopyする。"
+      },
+      "expected": {
+        "en": "The declared virtual uvm_sqr_if_base rejects direct construction.",
+        "ja": "virtualと宣言されたuvm_sqr_if_baseは直接生成を拒否する。"
+      },
+      "limitations": {
+        "en": "One direct virtual-class construction prohibition with a separate legal concrete subtype. The declared diagnostic is the oracle, and compiler status/logs are evidence. No illegal accepted model executes and no runtime seed is assigned to this fixture.",
+        "ja": "直接virtual-class生成禁止1条件と別の合法具象subtype。宣言診断がoracleで、compiler状態／logはevidenceとする。受理された不正modelを実行せず、このfixtureへruntime seedを割り当てない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_uvm_sqr_if_base_abstract_declaration_rejects_direct_construction",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?i)(?=.*(?:virtual|abstract))(?=.*uvm_sqr_if_base).*"
+          }
+        },
+        {
+          "test": "u15/test_sequencer_interface_explicit_request_and_response_views_preserve_exact_identity",
+          "role": "control",
+          "expected_observations": [
+            "UT: explicit_interface inherited_response 1 split 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SQR-AUDIT-UVM-SEQUENCER-BASE-ABSTRACT",
+      "clause": "15.3.1",
+      "statement": {
+        "en": "The declared virtual uvm_sequencer_base rejects direct construction.",
+        "ja": "virtualと宣言されたuvm_sequencer_baseは直接生成を拒否する。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixture, declared type arguments, public endpoint/base views and linked stage observations. Requests satisfy the grant precondition before send_request and response IDs are copied from the actual request.",
+        "ja": "選択した独自fixture、宣言type引数、公開endpoint／base view、linkした段階観測を使う。send_request前にgrant前提を満たし、応答IDは実際の要求からcopyする。"
+      },
+      "expected": {
+        "en": "The declared virtual uvm_sequencer_base rejects direct construction.",
+        "ja": "virtualと宣言されたuvm_sequencer_baseは直接生成を拒否する。"
+      },
+      "limitations": {
+        "en": "One direct virtual-class construction prohibition with a separate legal concrete subtype. The declared diagnostic is the oracle, and compiler status/logs are evidence. No illegal accepted model executes and no runtime seed is assigned to this fixture.",
+        "ja": "直接virtual-class生成禁止1条件と別の合法具象subtype。宣言診断がoracleで、compiler状態／logはevidenceとする。受理された不正modelを実行せず、このfixtureへruntime seedを割り当てない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_uvm_sequencer_base_abstract_declaration_rejects_direct_construction",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?i)(?=.*(?:virtual|abstract))(?=.*uvm_sequencer_base).*"
+          }
+        },
+        {
+          "test": "u15/test_sequencer_constructors_preserve_names_parents_and_selected_component_bases",
+          "role": "control",
+          "expected_observations": [
+            "UT: sequencer_parent 0 exact 1",
+            "UT: sequencer_parent 1 exact 1",
+            "UT: sequencer_parent 2 exact 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SQR-AUDIT-PULL-PORT-TYPED-CONNECTION",
+      "clause": "15.2.2.1",
+      "statement": {
+        "en": "The selected typed pull port participates in a resolved port/export/imp path to the real sequencer.",
+        "ja": "選択型付pull portは実sequencerへの解決済みport／export／imp経路に参加する。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixture, declared type arguments, public endpoint/base views and linked stage observations. Requests satisfy the grant precondition before send_request and response IDs are copied from the actual request.",
+        "ja": "選択した独自fixture、宣言type引数、公開endpoint／base view、linkした段階観測を使う。send_request前にgrant前提を満たし、応答IDは実際の要求からcopyする。"
+      },
+      "expected": {
+        "en": "The selected typed pull port participates in a resolved port/export/imp path to the real sequencer.",
+        "ja": "選択型付pull portは実sequencerへの解決済みport／export／imp経路に参加する。"
+      },
+      "limitations": {
+        "en": "Explicit legal request/response types and one resolved endpoint only. This does not certify the printed int defaults, invalid subtype enforcement, arbitrary fanout, every inherited API or immediate-parent implementation ownership.",
+        "ja": "明示した合法request／response型と解決endpoint 1つだけ。印刷されたint既定値、不正subtype強制、任意fanout、全継承API、実装の直接parent所有は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequence_pull_port_export_and_imp_resolve_typed_real_sequencer_endpoints",
+          "role": "direct",
+          "expected_observations": [
+            "UT: pull_resolution port 1 export 1 interface 1 imp 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SQR-AUDIT-PULL-PORT-CONSTRUCTOR",
+      "clause": "15.2.2.1",
+      "statement": {
+        "en": "The selected pull port standard constructor retains its name and component parent.",
+        "ja": "選択pull portの標準constructorは名とcomponent parentを保持する。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixture, declared type arguments, public endpoint/base views and linked stage observations. Requests satisfy the grant precondition before send_request and response IDs are copied from the actual request.",
+        "ja": "選択した独自fixture、宣言type引数、公開endpoint／base view、linkした段階観測を使う。send_request前にgrant前提を満たし、応答IDは実際の要求からcopyする。"
+      },
+      "expected": {
+        "en": "The selected pull port standard constructor retains its name and component parent.",
+        "ja": "選択pull portの標準constructorは名とcomponent parentを保持する。"
+      },
+      "limitations": {
+        "en": "Selected public conditions only; no private queue fields, immediate member ownership, every arbitration/relevance/topology case, exact randomization retry count or complete clause coverage is certified. Positive simulation delays separate observations from same-delta scheduling. Completion means acknowledgement, not all physical driver processing.",
+        "ja": "選択した公開条件だけ。非公開queue field、直接member所有、全arbitration／relevance／topology条件、randomize retryの正確な回数、条項全体の網羅は認定しない。正のsimulation遅延で同一deltaの順序と観測を分ける。完了はacknowledgeであり、物理driverの全処理ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequence_pull_port_export_and_imp_resolve_typed_real_sequencer_endpoints",
+          "role": "direct",
+          "expected_observations": [
+            "UT: pull_names port 1 export 1 imp 1",
+            "UT: pull_parents port 1 export 1 imp 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SQR-AUDIT-PULL-EXPORT-TYPED-CONNECTION",
+      "clause": "15.2.2.2",
+      "statement": {
+        "en": "The selected typed pull export participates in a resolved port/export/imp path to the real sequencer.",
+        "ja": "選択型付pull exportは実sequencerへの解決済みport／export／imp経路に参加する。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixture, declared type arguments, public endpoint/base views and linked stage observations. Requests satisfy the grant precondition before send_request and response IDs are copied from the actual request.",
+        "ja": "選択した独自fixture、宣言type引数、公開endpoint／base view、linkした段階観測を使う。send_request前にgrant前提を満たし、応答IDは実際の要求からcopyする。"
+      },
+      "expected": {
+        "en": "The selected typed pull export participates in a resolved port/export/imp path to the real sequencer.",
+        "ja": "選択型付pull exportは実sequencerへの解決済みport／export／imp経路に参加する。"
+      },
+      "limitations": {
+        "en": "Explicit legal request/response types and one resolved endpoint only. This does not certify the printed int defaults, invalid subtype enforcement, arbitrary fanout, every inherited API or immediate-parent implementation ownership.",
+        "ja": "明示した合法request／response型と解決endpoint 1つだけ。印刷されたint既定値、不正subtype強制、任意fanout、全継承API、実装の直接parent所有は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequence_pull_port_export_and_imp_resolve_typed_real_sequencer_endpoints",
+          "role": "direct",
+          "expected_observations": [
+            "UT: pull_resolution port 1 export 1 interface 1 imp 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SQR-AUDIT-PULL-EXPORT-CONSTRUCTOR",
+      "clause": "15.2.2.2",
+      "statement": {
+        "en": "The selected pull export standard constructor retains its name and component parent.",
+        "ja": "選択pull exportの標準constructorは名とcomponent parentを保持する。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixture, declared type arguments, public endpoint/base views and linked stage observations. Requests satisfy the grant precondition before send_request and response IDs are copied from the actual request.",
+        "ja": "選択した独自fixture、宣言type引数、公開endpoint／base view、linkした段階観測を使う。send_request前にgrant前提を満たし、応答IDは実際の要求からcopyする。"
+      },
+      "expected": {
+        "en": "The selected pull export standard constructor retains its name and component parent.",
+        "ja": "選択pull exportの標準constructorは名とcomponent parentを保持する。"
+      },
+      "limitations": {
+        "en": "Selected public conditions only; no private queue fields, immediate member ownership, every arbitration/relevance/topology case, exact randomization retry count or complete clause coverage is certified. Positive simulation delays separate observations from same-delta scheduling. Completion means acknowledgement, not all physical driver processing.",
+        "ja": "選択した公開条件だけ。非公開queue field、直接member所有、全arbitration／relevance／topology条件、randomize retryの正確な回数、条項全体の網羅は認定しない。正のsimulation遅延で同一deltaの順序と観測を分ける。完了はacknowledgeであり、物理driverの全処理ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequence_pull_port_export_and_imp_resolve_typed_real_sequencer_endpoints",
+          "role": "direct",
+          "expected_observations": [
+            "UT: pull_names port 1 export 1 imp 1",
+            "UT: pull_parents port 1 export 1 imp 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SQR-AUDIT-PULL-IMP-TYPED-CONNECTION",
+      "clause": "15.2.2.3",
+      "statement": {
+        "en": "The selected typed pull imp participates in a resolved port/export/imp path to the real sequencer.",
+        "ja": "選択型付pull impは実sequencerへの解決済みport／export／imp経路に参加する。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixture, declared type arguments, public endpoint/base views and linked stage observations. Requests satisfy the grant precondition before send_request and response IDs are copied from the actual request.",
+        "ja": "選択した独自fixture、宣言type引数、公開endpoint／base view、linkした段階観測を使う。send_request前にgrant前提を満たし、応答IDは実際の要求からcopyする。"
+      },
+      "expected": {
+        "en": "The selected typed pull imp participates in a resolved port/export/imp path to the real sequencer.",
+        "ja": "選択型付pull impは実sequencerへの解決済みport／export／imp経路に参加する。"
+      },
+      "limitations": {
+        "en": "Explicit legal request/response types and one resolved endpoint only. This does not certify the printed int defaults, invalid subtype enforcement, arbitrary fanout, every inherited API or immediate-parent implementation ownership.",
+        "ja": "明示した合法request／response型と解決endpoint 1つだけ。印刷されたint既定値、不正subtype強制、任意fanout、全継承API、実装の直接parent所有は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequence_pull_port_export_and_imp_resolve_typed_real_sequencer_endpoints",
+          "role": "direct",
+          "expected_observations": [
+            "UT: pull_resolution port 1 export 1 interface 1 imp 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SQR-AUDIT-PULL-IMP-CONSTRUCTOR",
+      "clause": "15.2.2.3",
+      "statement": {
+        "en": "The selected pull imp standard constructor retains its name and component parent.",
+        "ja": "選択pull impの標準constructorは名とcomponent parentを保持する。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixture, declared type arguments, public endpoint/base views and linked stage observations. Requests satisfy the grant precondition before send_request and response IDs are copied from the actual request.",
+        "ja": "選択した独自fixture、宣言type引数、公開endpoint／base view、linkした段階観測を使う。send_request前にgrant前提を満たし、応答IDは実際の要求からcopyする。"
+      },
+      "expected": {
+        "en": "The selected pull imp standard constructor retains its name and component parent.",
+        "ja": "選択pull impの標準constructorは名とcomponent parentを保持する。"
+      },
+      "limitations": {
+        "en": "Selected public conditions only; no private queue fields, immediate member ownership, every arbitration/relevance/topology case, exact randomization retry count or complete clause coverage is certified. Positive simulation delays separate observations from same-delta scheduling. Completion means acknowledgement, not all physical driver processing.",
+        "ja": "選択した公開条件だけ。非公開queue field、直接member所有、全arbitration／relevance／topology条件、randomize retryの正確な回数、条項全体の網羅は認定しない。正のsimulation遅延で同一deltaの順序と観測を分ける。完了はacknowledgeであり、物理driverの全処理ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequence_pull_port_export_and_imp_resolve_typed_real_sequencer_endpoints",
+          "role": "direct",
+          "expected_observations": [
+            "UT: pull_names port 1 export 1 imp 1",
+            "UT: pull_parents port 1 export 1 imp 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SQR-AUDIT-PULL-EXPOSED-IMP",
+      "clause": "15.5.2.2",
+      "statement": {
+        "en": "seq_item_export exposes the declared request/response-specific pull implementation type.",
+        "ja": "seq_item_exportは宣言されたrequest／response固有のpull実装型を公開する。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixture, declared type arguments, public endpoint/base views and linked stage observations. Requests satisfy the grant precondition before send_request and response IDs are copied from the actual request.",
+        "ja": "選択した独自fixture、宣言type引数、公開endpoint／base view、linkした段階観測を使う。send_request前にgrant前提を満たし、応答IDは実際の要求からcopyする。"
+      },
+      "expected": {
+        "en": "seq_item_export exposes the declared request/response-specific pull implementation type.",
+        "ja": "seq_item_exportは宣言されたrequest／response固有のpull実装型を公開する。"
+      },
+      "limitations": {
+        "en": "Selected public conditions only; no private queue fields, immediate member ownership, every arbitration/relevance/topology case, exact randomization retry count or complete clause coverage is certified. Positive simulation delays separate observations from same-delta scheduling. Completion means acknowledgement, not all physical driver processing.",
+        "ja": "選択した公開条件だけ。非公開queue field、直接member所有、全arbitration／relevance／topology条件、randomize retryの正確な回数、条項全体の網羅は認定しない。正のsimulation遅延で同一deltaの順序と観測を分ける。完了はacknowledgeであり、物理driverの全処理ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequence_pull_port_export_and_imp_resolve_typed_real_sequencer_endpoints",
+          "role": "direct",
+          "expected_observations": [
+            "UT: pull_resolution port 1 export 1 interface 1 imp 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SQR-AUDIT-INTERFACE-GET-NEXT-BLOCKS",
+      "clause": "15.2.1.2.1",
+      "statement": {
+        "en": "get_next_item blocks before any sequence can supply an item and returns after a real producer supplies it.",
+        "ja": "get_next_itemはsequenceがitemを供給できる前はblockし、実producerが供給した後に返る。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixture, declared type arguments, public endpoint/base views and linked stage observations. Requests satisfy the grant precondition before send_request and response IDs are copied from the actual request.",
+        "ja": "選択した独自fixture、宣言type引数、公開endpoint／base view、linkした段階観測を使う。send_request前にgrant前提を満たし、応答IDは実際の要求からcopyする。"
+      },
+      "expected": {
+        "en": "get_next_item blocks before any sequence can supply an item and returns after a real producer supplies it.",
+        "ja": "get_next_itemはsequenceがitemを供給できる前はblockし、実producerが供給した後に返る。"
+      },
+      "limitations": {
+        "en": "Selected public conditions only; no private queue fields, immediate member ownership, every arbitration/relevance/topology case, exact randomization retry count or complete clause coverage is certified. Positive simulation delays separate observations from same-delta scheduling. Completion means acknowledgement, not all physical driver processing.",
+        "ja": "選択した公開条件だけ。非公開queue field、直接member所有、全arbitration／relevance／topology条件、randomize retryの正確な回数、条項全体の網羅は認定しない。正のsimulation遅延で同一deltaの順序と観測を分ける。完了はacknowledgeであり、物理driverの全処理ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequencer_interface_get_next_item_blocks_before_a_sequence_can_supply_its_first_item",
+          "role": "direct",
+          "expected_observations": [
+            "UT: blocking_interface_before returned 0",
+            "UT: blocking_interface_after returned 1 same 1 completed 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SQR-AUDIT-INTERFACE-GET-NEXT-ITEM",
+      "clause": "15.2.1.2.1",
+      "statement": {
+        "en": "get_next_item returns the actual selected request handle and data through the interface.",
+        "ja": "get_next_itemはinterface経由で実際の選択request handleとdataを返す。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixture, declared type arguments, public endpoint/base views and linked stage observations. Requests satisfy the grant precondition before send_request and response IDs are copied from the actual request.",
+        "ja": "選択した独自fixture、宣言type引数、公開endpoint／base view、linkした段階観測を使う。send_request前にgrant前提を満たし、応答IDは実際の要求からcopyする。"
+      },
+      "expected": {
+        "en": "get_next_item returns the actual selected request handle and data through the interface.",
+        "ja": "get_next_itemはinterface経由で実際の選択request handleとdataを返す。"
+      },
+      "limitations": {
+        "en": "Selected public conditions only; no private queue fields, immediate member ownership, every arbitration/relevance/topology case, exact randomization retry count or complete clause coverage is certified. Positive simulation delays separate observations from same-delta scheduling. Completion means acknowledgement, not all physical driver processing.",
+        "ja": "選択した公開条件だけ。非公開queue field、直接member所有、全arbitration／relevance／topology条件、randomize retryの正確な回数、条項全体の網羅は認定しない。正のsimulation遅延で同一deltaの順序と観測を分ける。完了はacknowledgeであり、物理driverの全処理ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequencer_interface_get_next_done_uses_real_requests_and_distinct_typed_responses",
+          "role": "direct",
+          "expected_observations": [
+            "UT: interface_request same 1 value 45 completed 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SQR-AUDIT-INTERFACE-TRY-EMPTY",
+      "clause": "15.2.1.2.2",
+      "statement": {
+        "en": "try_next_item returns null when no sequence can supply an item, before and after selected traffic.",
+        "ja": "try_next_itemは選択trafficの前後でsequenceがitemを供給できなければnullを返す。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixture, declared type arguments, public endpoint/base views and linked stage observations. Requests satisfy the grant precondition before send_request and response IDs are copied from the actual request.",
+        "ja": "選択した独自fixture、宣言type引数、公開endpoint／base view、linkした段階観測を使う。send_request前にgrant前提を満たし、応答IDは実際の要求からcopyする。"
+      },
+      "expected": {
+        "en": "try_next_item returns null when no sequence can supply an item, before and after selected traffic.",
+        "ja": "try_next_itemは選択trafficの前後でsequenceがitemを供給できなければnullを返す。"
+      },
+      "limitations": {
+        "en": "Selected public conditions only; no private queue fields, immediate member ownership, every arbitration/relevance/topology case, exact randomization retry count or complete clause coverage is certified. Positive simulation delays separate observations from same-delta scheduling. Completion means acknowledgement, not all physical driver processing.",
+        "ja": "選択した公開条件だけ。非公開queue field、直接member所有、全arbitration／relevance／topology条件、randomize retryの正確な回数、条項全体の網羅は認定しない。正のsimulation遅延で同一deltaの順序と観測を分ける。完了はacknowledgeであり、物理driverの全処理ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequencer_interface_try_and_availability_distinguish_empty_pending_and_finished_states",
+          "role": "direct",
+          "expected_observations": [
+            "UT: interface_empty_try null 1 no_time 1 available 0",
+            "UT: interface_pending_available 1",
+            "UT: interface_ready_try same 1 no_time 1 completed 0",
+            "UT: interface_finished_try null 1 no_time 1 available 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SQR-AUDIT-INTERFACE-TRY-PENDING",
+      "clause": "15.2.1.2.2",
+      "statement": {
+        "en": "try_next_item returns the selected pending request without acknowledging it.",
+        "ja": "try_next_itemはacknowledgeせず選択pending requestを返す。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixture, declared type arguments, public endpoint/base views and linked stage observations. Requests satisfy the grant precondition before send_request and response IDs are copied from the actual request.",
+        "ja": "選択した独自fixture、宣言type引数、公開endpoint／base view、linkした段階観測を使う。send_request前にgrant前提を満たし、応答IDは実際の要求からcopyする。"
+      },
+      "expected": {
+        "en": "try_next_item returns the selected pending request without acknowledging it.",
+        "ja": "try_next_itemはacknowledgeせず選択pending requestを返す。"
+      },
+      "limitations": {
+        "en": "Selected public conditions only; no private queue fields, immediate member ownership, every arbitration/relevance/topology case, exact randomization retry count or complete clause coverage is certified. Positive simulation delays separate observations from same-delta scheduling. Completion means acknowledgement, not all physical driver processing.",
+        "ja": "選択した公開条件だけ。非公開queue field、直接member所有、全arbitration／relevance／topology条件、randomize retryの正確な回数、条項全体の網羅は認定しない。正のsimulation遅延で同一deltaの順序と観測を分ける。完了はacknowledgeであり、物理driverの全処理ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequencer_interface_try_and_availability_distinguish_empty_pending_and_finished_states",
+          "role": "direct",
+          "expected_observations": [
+            "UT: interface_ready_try same 1 no_time 1 completed 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SQR-AUDIT-INTERFACE-TRY-NO-TIME",
+      "clause": "15.2.1.2.2",
+      "statement": {
+        "en": "The selected empty and ready try_next_item calls do not advance simulation time.",
+        "ja": "選択した空／readyのtry_next_itemはsimulation時間を進めない。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixture, declared type arguments, public endpoint/base views and linked stage observations. Requests satisfy the grant precondition before send_request and response IDs are copied from the actual request.",
+        "ja": "選択した独自fixture、宣言type引数、公開endpoint／base view、linkした段階観測を使う。send_request前にgrant前提を満たし、応答IDは実際の要求からcopyする。"
+      },
+      "expected": {
+        "en": "The selected empty and ready try_next_item calls do not advance simulation time.",
+        "ja": "選択した空／readyのtry_next_itemはsimulation時間を進めない。"
+      },
+      "limitations": {
+        "en": "Selected public conditions only; no private queue fields, immediate member ownership, every arbitration/relevance/topology case, exact randomization retry count or complete clause coverage is certified. Positive simulation delays separate observations from same-delta scheduling. Completion means acknowledgement, not all physical driver processing.",
+        "ja": "選択した公開条件だけ。非公開queue field、直接member所有、全arbitration／relevance／topology条件、randomize retryの正確な回数、条項全体の網羅は認定しない。正のsimulation遅延で同一deltaの順序と観測を分ける。完了はacknowledgeであり、物理driverの全処理ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequencer_interface_try_and_availability_distinguish_empty_pending_and_finished_states",
+          "role": "direct",
+          "expected_observations": [
+            "UT: interface_empty_try null 1 no_time 1 available 0",
+            "UT: interface_pending_available 1",
+            "UT: interface_ready_try same 1 no_time 1 completed 0",
+            "UT: interface_finished_try null 1 no_time 1 available 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SQR-AUDIT-INTERFACE-DONE-RESPONSE",
+      "clause": "15.2.1.2.3",
+      "statement": {
+        "en": "item_done acknowledges the held request and returns its typed identified response to the issuing sequence.",
+        "ja": "item_doneは保持requestをacknowledgeし、IDを付けた型付応答を発行元sequenceへ返す。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixture, declared type arguments, public endpoint/base views and linked stage observations. Requests satisfy the grant precondition before send_request and response IDs are copied from the actual request.",
+        "ja": "選択した独自fixture、宣言type引数、公開endpoint／base view、linkした段階観測を使う。send_request前にgrant前提を満たし、応答IDは実際の要求からcopyする。"
+      },
+      "expected": {
+        "en": "item_done acknowledges the held request and returns its typed identified response to the issuing sequence.",
+        "ja": "item_doneは保持requestをacknowledgeし、IDを付けた型付応答を発行元sequenceへ返す。"
+      },
+      "limitations": {
+        "en": "Selected public conditions only; no private queue fields, immediate member ownership, every arbitration/relevance/topology case, exact randomization retry count or complete clause coverage is certified. Positive simulation delays separate observations from same-delta scheduling. Completion means acknowledgement, not all physical driver processing.",
+        "ja": "選択した公開条件だけ。非公開queue field、直接member所有、全arbitration／relevance／topology条件、randomize retryの正確な回数、条項全体の網羅は認定しない。正のsimulation遅延で同一deltaの順序と観測を分ける。完了はacknowledgeであり、物理driverの全処理ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequencer_interface_get_next_done_uses_real_requests_and_distinct_typed_responses",
+          "role": "direct",
+          "expected_observations": [
+            "UT: interface_request same 1 value 45 completed 0",
+            "UT: interface_reply same 1 value 145 completed 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SQR-AUDIT-INTERFACE-AVAILABLE",
+      "clause": "15.2.1.2.5",
+      "statement": {
+        "en": "has_do_available distinguishes empty/finished traffic from an eligible pending sequence.",
+        "ja": "has_do_availableは空／終了trafficと適格なpending sequenceを区別する。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixture, declared type arguments, public endpoint/base views and linked stage observations. Requests satisfy the grant precondition before send_request and response IDs are copied from the actual request.",
+        "ja": "選択した独自fixture、宣言type引数、公開endpoint／base view、linkした段階観測を使う。send_request前にgrant前提を満たし、応答IDは実際の要求からcopyする。"
+      },
+      "expected": {
+        "en": "has_do_available distinguishes empty/finished traffic from an eligible pending sequence.",
+        "ja": "has_do_availableは空／終了trafficと適格なpending sequenceを区別する。"
+      },
+      "limitations": {
+        "en": "Selected public conditions only; no private queue fields, immediate member ownership, every arbitration/relevance/topology case, exact randomization retry count or complete clause coverage is certified. Positive simulation delays separate observations from same-delta scheduling. Completion means acknowledgement, not all physical driver processing.",
+        "ja": "選択した公開条件だけ。非公開queue field、直接member所有、全arbitration／relevance／topology条件、randomize retryの正確な回数、条項全体の網羅は認定しない。正のsimulation遅延で同一deltaの順序と観測を分ける。完了はacknowledgeであり、物理driverの全処理ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequencer_interface_try_and_availability_distinguish_empty_pending_and_finished_states",
+          "role": "direct",
+          "expected_observations": [
+            "UT: interface_empty_try null 1 no_time 1 available 0",
+            "UT: interface_pending_available 1",
+            "UT: interface_ready_try same 1 no_time 1 completed 0",
+            "UT: interface_finished_try null 1 no_time 1 available 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SQR-AUDIT-INTERFACE-GET-BLOCKS",
+      "clause": "15.2.1.2.6",
+      "statement": {
+        "en": "get blocks before any producer can supply a request.",
+        "ja": "getはproducerがrequestを供給できる前はblockする。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixture, declared type arguments, public endpoint/base views and linked stage observations. Requests satisfy the grant precondition before send_request and response IDs are copied from the actual request.",
+        "ja": "選択した独自fixture、宣言type引数、公開endpoint／base view、linkした段階観測を使う。send_request前にgrant前提を満たし、応答IDは実際の要求からcopyする。"
+      },
+      "expected": {
+        "en": "get blocks before any producer can supply a request.",
+        "ja": "getはproducerがrequestを供給できる前はblockする。"
+      },
+      "limitations": {
+        "en": "Selected public conditions only; no private queue fields, immediate member ownership, every arbitration/relevance/topology case, exact randomization retry count or complete clause coverage is certified. Positive simulation delays separate observations from same-delta scheduling. Completion means acknowledgement, not all physical driver processing.",
+        "ja": "選択した公開条件だけ。非公開queue field、直接member所有、全arbitration／relevance／topology条件、randomize retryの正確な回数、条項全体の網羅は認定しない。正のsimulation遅延で同一deltaの順序と観測を分ける。完了はacknowledgeであり、物理driverの全処理ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequencer_interface_get_blocks_before_a_sequence_can_supply_its_first_item",
+          "role": "direct",
+          "expected_observations": [
+            "UT: blocking_interface_before returned 0",
+            "UT: blocking_interface_after returned 1 same 1 completed 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SQR-AUDIT-INTERFACE-GET-ACK",
+      "clause": "15.2.1.2.6",
+      "statement": {
+        "en": "get returns the actual request and acknowledges it without an item_done call.",
+        "ja": "getはitem_done呼出なしで実requestを返してacknowledgeする。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixture, declared type arguments, public endpoint/base views and linked stage observations. Requests satisfy the grant precondition before send_request and response IDs are copied from the actual request.",
+        "ja": "選択した独自fixture、宣言type引数、公開endpoint／base view、linkした段階観測を使う。send_request前にgrant前提を満たし、応答IDは実際の要求からcopyする。"
+      },
+      "expected": {
+        "en": "get returns the actual request and acknowledges it without an item_done call.",
+        "ja": "getはitem_done呼出なしで実requestを返してacknowledgeする。"
+      },
+      "limitations": {
+        "en": "Selected public conditions only; no private queue fields, immediate member ownership, every arbitration/relevance/topology case, exact randomization retry count or complete clause coverage is certified. Positive simulation delays separate observations from same-delta scheduling. Completion means acknowledgement, not all physical driver processing.",
+        "ja": "選択した公開条件だけ。非公開queue field、直接member所有、全arbitration／relevance／topology条件、randomize retryの正確な回数、条項全体の網羅は認定しない。正のsimulation遅延で同一deltaの順序と観測を分ける。完了はacknowledgeであり、物理driverの全処理ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequencer_interface_get_put_uses_real_requests_and_distinct_typed_responses",
+          "role": "direct",
+          "expected_observations": [
+            "UT: interface_request same 1 value 45 completed 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SQR-AUDIT-INTERFACE-PEEK-CURRENT",
+      "clause": "15.2.1.2.7",
+      "statement": {
+        "en": "Repeated peek returns the same current request before get retrieves it.",
+        "ja": "反復peekはget取得前の同じ現在requestを返す。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixture, declared type arguments, public endpoint/base views and linked stage observations. Requests satisfy the grant precondition before send_request and response IDs are copied from the actual request.",
+        "ja": "選択した独自fixture、宣言type引数、公開endpoint／base view、linkした段階観測を使う。send_request前にgrant前提を満たし、応答IDは実際の要求からcopyする。"
+      },
+      "expected": {
+        "en": "Repeated peek returns the same current request before get retrieves it.",
+        "ja": "反復peekはget取得前の同じ現在requestを返す。"
+      },
+      "limitations": {
+        "en": "Selected public conditions only; no private queue fields, immediate member ownership, every arbitration/relevance/topology case, exact randomization retry count or complete clause coverage is certified. Positive simulation delays separate observations from same-delta scheduling. Completion means acknowledgement, not all physical driver processing.",
+        "ja": "選択した公開条件だけ。非公開queue field、直接member所有、全arbitration／relevance／topology条件、randomize retryの正確な回数、条項全体の網羅は認定しない。正のsimulation遅延で同一deltaの順序と観測を分ける。完了はacknowledgeであり、物理driverの全処理ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequencer_interface_peek_get_response_uses_real_requests_and_distinct_typed_responses",
+          "role": "direct",
+          "expected_observations": [
+            "UT: interface_repeated_peek 1",
+            "UT: interface_request same 1 value 45 completed 0",
+            "UT: interface_get_same 1",
+            "UT: interface_reply same 1 value 145 completed 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SQR-AUDIT-INTERFACE-PUT-NONBLOCKING",
+      "clause": "15.2.1.2.8",
+      "statement": {
+        "en": "put returns without advancing time even before the live issuing sequence starts its response waiter.",
+        "ja": "putは生存する発行元sequenceの応答waiter開始前でも時間を進めず返る。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixture, declared type arguments, public endpoint/base views and linked stage observations. Requests satisfy the grant precondition before send_request and response IDs are copied from the actual request.",
+        "ja": "選択した独自fixture、宣言type引数、公開endpoint／base view、linkした段階観測を使う。send_request前にgrant前提を満たし、応答IDは実際の要求からcopyする。"
+      },
+      "expected": {
+        "en": "put returns without advancing time even before the live issuing sequence starts its response waiter.",
+        "ja": "putは生存する発行元sequenceの応答waiter開始前でも時間を進めず返る。"
+      },
+      "limitations": {
+        "en": "Selected public conditions only; no private queue fields, immediate member ownership, every arbitration/relevance/topology case, exact randomization retry count or complete clause coverage is certified. Positive simulation delays separate observations from same-delta scheduling. Completion means acknowledgement, not all physical driver processing.",
+        "ja": "選択した公開条件だけ。非公開queue field、直接member所有、全arbitration／relevance／topology条件、randomize retryの正確な回数、条項全体の網羅は認定しない。正のsimulation遅延で同一deltaの順序と観測を分ける。完了はacknowledgeであり、物理driverの全処理ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequencer_interface_get_put_uses_real_requests_and_distinct_typed_responses",
+          "role": "direct",
+          "expected_observations": [
+            "UT: interface_put_nonblocking 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SQR-AUDIT-INTERFACE-PUT-RESPONSE",
+      "clause": "15.2.1.2.8",
+      "statement": {
+        "en": "put routes the exact typed response to the live issuing sequence.",
+        "ja": "putは同一の型付応答を生存する発行元sequenceへ配送する。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixture, declared type arguments, public endpoint/base views and linked stage observations. Requests satisfy the grant precondition before send_request and response IDs are copied from the actual request.",
+        "ja": "選択した独自fixture、宣言type引数、公開endpoint／base view、linkした段階観測を使う。send_request前にgrant前提を満たし、応答IDは実際の要求からcopyする。"
+      },
+      "expected": {
+        "en": "put routes the exact typed response to the live issuing sequence.",
+        "ja": "putは同一の型付応答を生存する発行元sequenceへ配送する。"
+      },
+      "limitations": {
+        "en": "Selected public conditions only; no private queue fields, immediate member ownership, every arbitration/relevance/topology case, exact randomization retry count or complete clause coverage is certified. Positive simulation delays separate observations from same-delta scheduling. Completion means acknowledgement, not all physical driver processing.",
+        "ja": "選択した公開条件だけ。非公開queue field、直接member所有、全arbitration／relevance／topology条件、randomize retryの正確な回数、条項全体の網羅は認定しない。正のsimulation遅延で同一deltaの順序と観測を分ける。完了はacknowledgeであり、物理driverの全処理ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequencer_interface_get_put_uses_real_requests_and_distinct_typed_responses",
+          "role": "direct",
+          "expected_observations": [
+            "UT: interface_reply same 1 value 145 completed 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SQR-AUDIT-INTERFACE-PUT-RESPONSE-FUNCTION",
+      "clause": "15.2.1.2.9",
+      "statement": {
+        "en": "put_response routes the typed response to the sequence that issued the request.",
+        "ja": "put_responseは型付応答をrequest発行元sequenceへ配送する。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixture, declared type arguments, public endpoint/base views and linked stage observations. Requests satisfy the grant precondition before send_request and response IDs are copied from the actual request.",
+        "ja": "選択した独自fixture、宣言type引数、公開endpoint／base view、linkした段階観測を使う。send_request前にgrant前提を満たし、応答IDは実際の要求からcopyする。"
+      },
+      "expected": {
+        "en": "put_response routes the typed response to the sequence that issued the request.",
+        "ja": "put_responseは型付応答をrequest発行元sequenceへ配送する。"
+      },
+      "limitations": {
+        "en": "Selected public conditions only; no private queue fields, immediate member ownership, every arbitration/relevance/topology case, exact randomization retry count or complete clause coverage is certified. Positive simulation delays separate observations from same-delta scheduling. Completion means acknowledgement, not all physical driver processing.",
+        "ja": "選択した公開条件だけ。非公開queue field、直接member所有、全arbitration／relevance／topology条件、randomize retryの正確な回数、条項全体の網羅は認定しない。正のsimulation遅延で同一deltaの順序と観測を分ける。完了はacknowledgeであり、物理driverの全処理ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequencer_interface_peek_get_response_uses_real_requests_and_distinct_typed_responses",
+          "role": "direct",
+          "expected_observations": [
+            "UT: interface_reply same 1 value 145 completed 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SQR-AUDIT-INTERFACE-RECORDING-DISABLE",
+      "clause": "15.2.1.2.10",
+      "statement": {
+        "en": "Repeated interface recording disable remains effective across the selected real request traffic.",
+        "ja": "interfaceの記録無効化は反復しても選択した実request trafficを通じて有効に保たれる。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixture, declared type arguments, public endpoint/base views and linked stage observations. Requests satisfy the grant precondition before send_request and response IDs are copied from the actual request.",
+        "ja": "選択した独自fixture、宣言type引数、公開endpoint／base view、linkした段階観測を使う。send_request前にgrant前提を満たし、応答IDは実際の要求からcopyする。"
+      },
+      "expected": {
+        "en": "Repeated interface recording disable remains effective across the selected real request traffic.",
+        "ja": "interfaceの記録無効化は反復しても選択した実request trafficを通じて有効に保たれる。"
+      },
+      "limitations": {
+        "en": "Selected public conditions only; no private queue fields, immediate member ownership, every arbitration/relevance/topology case, exact randomization retry count or complete clause coverage is certified. Positive simulation delays separate observations from same-delta scheduling. Completion means acknowledgement, not all physical driver processing.",
+        "ja": "選択した公開条件だけ。非公開queue field、直接member所有、全arbitration／relevance／topology条件、randomize retryの正確な回数、条項全体の網羅は認定しない。正のsimulation遅延で同一deltaの順序と観測を分ける。完了はacknowledgeであり、物理driverの全処理ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequencer_interface_recording_disable_survives_real_traffic_and_preserves_peer",
+          "role": "direct",
+          "expected_observations": [
+            "UT: recording_default selected 1 peer 1",
+            "UT: recording_base_disabled selected 0 peer 1",
+            "UT: recording_disabled selected 0 peer 1",
+            "UT: recording_after_traffic selected 0 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SQR-AUDIT-INTERFACE-RECORDING-QUERY",
+      "clause": "15.2.1.2.11",
+      "statement": {
+        "en": "The interface query reports selected enabled/disabled recording states while an independent peer retains its state.",
+        "ja": "interface照会は選択enabled／disabled記録状態を返し、独立peerは自分の状態を保持する。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixture, declared type arguments, public endpoint/base views and linked stage observations. Requests satisfy the grant precondition before send_request and response IDs are copied from the actual request.",
+        "ja": "選択した独自fixture、宣言type引数、公開endpoint／base view、linkした段階観測を使う。send_request前にgrant前提を満たし、応答IDは実際の要求からcopyする。"
+      },
+      "expected": {
+        "en": "The interface query reports selected enabled/disabled recording states while an independent peer retains its state.",
+        "ja": "interface照会は選択enabled／disabled記録状態を返し、独立peerは自分の状態を保持する。"
+      },
+      "limitations": {
+        "en": "Selected public conditions only; no private queue fields, immediate member ownership, every arbitration/relevance/topology case, exact randomization retry count or complete clause coverage is certified. Positive simulation delays separate observations from same-delta scheduling. Completion means acknowledgement, not all physical driver processing.",
+        "ja": "選択した公開条件だけ。非公開queue field、直接member所有、全arbitration／relevance／topology条件、randomize retryの正確な回数、条項全体の網羅は認定しない。正のsimulation遅延で同一deltaの順序と観測を分ける。完了はacknowledgeであり、物理driverの全処理ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequencer_interface_recording_disable_survives_real_traffic_and_preserves_peer",
+          "role": "direct",
+          "expected_observations": [
+            "UT: recording_default selected 1 peer 1",
+            "UT: recording_base_disabled selected 0 peer 1",
+            "UT: recording_disabled selected 0 peer 1",
+            "UT: recording_after_traffic selected 0 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SQR-AUDIT-BASE-RECORDING-DISABLE",
+      "clause": "15.3.2.22",
+      "statement": {
+        "en": "The base recording-disable API changes the selected sequencer state without disabling an independent peer.",
+        "ja": "baseの記録無効化APIは独立peerを無効にせず選択sequencer状態を変更する。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixture, declared type arguments, public endpoint/base views and linked stage observations. Requests satisfy the grant precondition before send_request and response IDs are copied from the actual request.",
+        "ja": "選択した独自fixture、宣言type引数、公開endpoint／base view、linkした段階観測を使う。send_request前にgrant前提を満たし、応答IDは実際の要求からcopyする。"
+      },
+      "expected": {
+        "en": "The base recording-disable API changes the selected sequencer state without disabling an independent peer.",
+        "ja": "baseの記録無効化APIは独立peerを無効にせず選択sequencer状態を変更する。"
+      },
+      "limitations": {
+        "en": "Selected public conditions only; no private queue fields, immediate member ownership, every arbitration/relevance/topology case, exact randomization retry count or complete clause coverage is certified. Positive simulation delays separate observations from same-delta scheduling. Completion means acknowledgement, not all physical driver processing.",
+        "ja": "選択した公開条件だけ。非公開queue field、直接member所有、全arbitration／relevance／topology条件、randomize retryの正確な回数、条項全体の網羅は認定しない。正のsimulation遅延で同一deltaの順序と観測を分ける。完了はacknowledgeであり、物理driverの全処理ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequencer_interface_recording_disable_survives_real_traffic_and_preserves_peer",
+          "role": "direct",
+          "expected_observations": [
+            "UT: recording_base_disabled selected 0 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SQR-AUDIT-INTERFACE-WAIT-SEQUENCES",
+      "clause": "15.2.1.2.4",
+      "statement": {
+        "en": "The interface wait_for_sequences call waits until a producer becomes available.",
+        "ja": "interfaceのwait_for_sequences呼出はproducerが利用可能になるまで待つ。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixture, declared type arguments, public endpoint/base views and linked stage observations. Requests satisfy the grant precondition before send_request and response IDs are copied from the actual request.",
+        "ja": "選択した独自fixture、宣言type引数、公開endpoint／base view、linkした段階観測を使う。send_request前にgrant前提を満たし、応答IDは実際の要求からcopyする。"
+      },
+      "expected": {
+        "en": "The interface wait_for_sequences call waits until a producer becomes available.",
+        "ja": "interfaceのwait_for_sequences呼出はproducerが利用可能になるまで待つ。"
+      },
+      "limitations": {
+        "en": "Qualified literal waiting interpretation of the printed method paragraph. The probe starts with no producer, then supplies a valid one. The interaction with immediate try_next_item and application-specific overrides remains partial; the observed mismatch is not assigned a confirmed simulator/library defect cause.",
+        "ja": "印刷されたmethod段落の待機を字義どおりに読む限定解釈。producerなしで開始し、後で有効producerを供給する。即時try_next_itemやapplication固有overrideとの関係は部分対応で、観測不一致の原因をsimulator／libraryの確定不具合とはしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequencer_interface_wait_for_sequences_stays_blocked_until_a_producer_is_available",
+          "role": "direct",
+          "expected_observations": [
+            "UT: wait_sequences_before_producer returned 0",
+            "UT: wait_sequences_after_producer returned 1 same 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SQR-AUDIT-INTERFACE-DONE-OMITTED-RESPONSE",
+      "clause": "15.2.1.2.3",
+      "statement": {
+        "en": "The optional item_done response can be omitted while acknowledging the request.",
+        "ja": "item_doneの任意responseを省略してrequestをacknowledgeできる。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixture, declared type arguments, public endpoint/base views and linked stage observations. Requests satisfy the grant precondition before send_request and response IDs are copied from the actual request.",
+        "ja": "選択した独自fixture、宣言type引数、公開endpoint／base view、linkした段階観測を使う。send_request前にgrant前提を満たし、応答IDは実際の要求からcopyする。"
+      },
+      "expected": {
+        "en": "The optional item_done response can be omitted while acknowledging the request.",
+        "ja": "item_doneの任意responseを省略してrequestをacknowledgeできる。"
+      },
+      "limitations": {
+        "en": "Retained compatible fixture, called through a real driver pull port. Selected request acknowledgement only; no response queue value is inferred from omission.",
+        "ja": "互換な既存fixtureを実driver pull portから呼ぶ。選択request acknowledgeだけで、省略からresponse queue値を推定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_wait_for_item_done_default_stays_blocked_until_acknowledgement",
+          "role": "direct",
+          "expected_observations": [
+            "UT: held completed 0 done 0",
+            "UT: acknowledged completed 1 done 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SQR-AUDIT-BASE-PRINTED-RECORDING-QUERY",
+      "clause": "15.3.2.23",
+      "statement": {
+        "en": "The printed is_auto_enabled_recording_enabled API reports enabled and disabled base recording state.",
+        "ja": "印刷されたis_auto_enabled_recording_enabled APIはenabled／disabledのbase記録状態を返す。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixture, declared type arguments, public endpoint/base views and linked stage observations. Requests satisfy the grant precondition before send_request and response IDs are copied from the actual request.",
+        "ja": "選択した独自fixture、宣言type引数、公開endpoint／base view、linkした段階観測を使う。send_request前にgrant前提を満たし、応答IDは実際の要求からcopyする。"
+      },
+      "expected": {
+        "en": "The printed is_auto_enabled_recording_enabled API reports enabled and disabled base recording state.",
+        "ja": "印刷されたis_auto_enabled_recording_enabled APIはenabled／disabledのbase記録状態を返す。"
+      },
+      "limitations": {
+        "en": "Use the exact printed base-class spelling, distinct from the interface is_auto_item_recording_enabled name. A missing API is build evidence without runtime seeds; no alternate name replaces this oracle and no confirmed defect attribution is assigned.",
+        "ja": "interfaceのis_auto_item_recording_enabled名と区別し、base classで印刷された綴りをそのまま使う。API欠落はruntime seedのないbuild evidenceとし、別名でoracleを置換せず、確定不具合とも断定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequencer_base_printed_recording_query_reports_default_disable_and_peer_state",
+          "role": "direct",
+          "expected_observations": [
+            "UT: printed_recording_default 1",
+            "UT: printed_recording_disabled 0 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SQR-AUDIT-BASE-GRANT-BLOCKS",
+      "clause": "15.3.2.6",
+      "statement": {
+        "en": "A direct base grant request waits until the driver initiates retrieval.",
+        "ja": "baseへの直接grant要求はdriverが取得を開始するまで待つ。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixture, declared type arguments, public endpoint/base views and linked stage observations. Requests satisfy the grant precondition before send_request and response IDs are copied from the actual request.",
+        "ja": "選択した独自fixture、宣言type引数、公開endpoint／base view、linkした段階観測を使う。send_request前にgrant前提を満たし、応答IDは実際の要求からcopyする。"
+      },
+      "expected": {
+        "en": "A direct base grant request waits until the driver initiates retrieval.",
+        "ja": "baseへの直接grant要求はdriverが取得を開始するまで待つ。"
+      },
+      "limitations": {
+        "en": "Actual inherited sequencer behavior is called through a base view; the original producer does not replace the grant/send/completion algorithm. Completion always supplies -1 or a real transaction ID, so the printed required-argument signature versus omitted-argument prose is not resolved. Randomization counts are Boolean, not exact retries. Competing/default-priority and irrelevant-lock conditions remain partial.",
+        "ja": "base viewから実際に継承したsequencer動作を呼び、独自producerはgrant／send／完了algorithmを置換しない。完了には必ず-1か実transaction IDを渡すため、印刷された必須引数signatureと省略可能とする本文の差は解決しない。randomize数はBooleanで正確なretry数ではない。競合／既定priorityやirrelevant lock条件は部分対応に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequencer_base_direct_default_grant_send_and_completion_preserve_the_public_contract",
+          "role": "direct",
+          "expected_observations": [
+            "UT: base_grant_wait entered 1 granted 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SQR-AUDIT-BASE-GRANT-DEFAULT-NO-LOCK",
+      "clause": "15.3.2.6",
+      "statement": {
+        "en": "The omitted direct grant lock_request does not acquire a lock.",
+        "ja": "直接grantのlock_request省略はlockを取得しない。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixture, declared type arguments, public endpoint/base views and linked stage observations. Requests satisfy the grant precondition before send_request and response IDs are copied from the actual request.",
+        "ja": "選択した独自fixture、宣言type引数、公開endpoint／base view、linkした段階観測を使う。send_request前にgrant前提を満たし、応答IDは実際の要求からcopyする。"
+      },
+      "expected": {
+        "en": "The omitted direct grant lock_request does not acquire a lock.",
+        "ja": "直接grantのlock_request省略はlockを取得しない。"
+      },
+      "limitations": {
+        "en": "Actual inherited sequencer behavior is called through a base view; the original producer does not replace the grant/send/completion algorithm. Completion always supplies -1 or a real transaction ID, so the printed required-argument signature versus omitted-argument prose is not resolved. Randomization counts are Boolean, not exact retries. Competing/default-priority and irrelevant-lock conditions remain partial.",
+        "ja": "base viewから実際に継承したsequencer動作を呼び、独自producerはgrant／send／完了algorithmを置換しない。完了には必ず-1か実transaction IDを渡すため、印刷された必須引数signatureと省略可能とする本文の差は解決しない。randomize数はBooleanで正確なretry数ではない。競合／既定priorityやirrelevant lock条件は部分対応に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequencer_base_direct_default_grant_send_and_completion_preserve_the_public_contract",
+          "role": "direct",
+          "expected_observations": [
+            "UT: base_request 0 same 1 code 37 randomized 0 completed 0 lock 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SQR-AUDIT-BASE-GRANT-LOCK",
+      "clause": "15.3.2.6",
+      "statement": {
+        "en": "A direct grant with lock_request one holds the lock before delivery and until explicit unlock.",
+        "ja": "lock_request 1の直接grantは配送前にlockを保持し、明示unlockまで保つ。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixture, declared type arguments, public endpoint/base views and linked stage observations. Requests satisfy the grant precondition before send_request and response IDs are copied from the actual request.",
+        "ja": "選択した独自fixture、宣言type引数、公開endpoint／base view、linkした段階観測を使う。send_request前にgrant前提を満たし、応答IDは実際の要求からcopyする。"
+      },
+      "expected": {
+        "en": "A direct grant with lock_request one holds the lock before delivery and until explicit unlock.",
+        "ja": "lock_request 1の直接grantは配送前にlockを保持し、明示unlockまで保つ。"
+      },
+      "limitations": {
+        "en": "Actual inherited sequencer behavior is called through a base view; the original producer does not replace the grant/send/completion algorithm. Completion always supplies -1 or a real transaction ID, so the printed required-argument signature versus omitted-argument prose is not resolved. Randomization counts are Boolean, not exact retries. Competing/default-priority and irrelevant-lock conditions remain partial.",
+        "ja": "base viewから実際に継承したsequencer動作を呼び、独自producerはgrant／send／完了algorithmを置換しない。完了には必ず-1か実transaction IDを渡すため、印刷された必須引数signatureと省略可能とする本文の差は解決しない。randomize数はBooleanで正確なretry数ではない。競合／既定priorityやirrelevant lock条件は部分対応に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequencer_base_direct_lock_grant_send_and_completion_preserve_the_public_contract",
+          "role": "direct",
+          "expected_observations": [
+            "UT: base_grant_wait entered 1 granted 0",
+            "UT: base_request 0 same 1 code 37 randomized 0 completed 0 lock 1",
+            "UT: base_completion granted 1 completed 1 locked 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SQR-AUDIT-BASE-DONE-NEXT",
+      "clause": "15.3.2.7",
+      "statement": {
+        "en": "An explicit minus-one transaction completion wait stays blocked until driver acknowledgement.",
+        "ja": "明示transaction -1の完了待ちはdriver acknowledgeまでblockする。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixture, declared type arguments, public endpoint/base views and linked stage observations. Requests satisfy the grant precondition before send_request and response IDs are copied from the actual request.",
+        "ja": "選択した独自fixture、宣言type引数、公開endpoint／base view、linkした段階観測を使う。send_request前にgrant前提を満たし、応答IDは実際の要求からcopyする。"
+      },
+      "expected": {
+        "en": "An explicit minus-one transaction completion wait stays blocked until driver acknowledgement.",
+        "ja": "明示transaction -1の完了待ちはdriver acknowledgeまでblockする。"
+      },
+      "limitations": {
+        "en": "Actual inherited sequencer behavior is called through a base view; the original producer does not replace the grant/send/completion algorithm. Completion always supplies -1 or a real transaction ID, so the printed required-argument signature versus omitted-argument prose is not resolved. Randomization counts are Boolean, not exact retries. Competing/default-priority and irrelevant-lock conditions remain partial.",
+        "ja": "base viewから実際に継承したsequencer動作を呼び、独自producerはgrant／send／完了algorithmを置換しない。完了には必ず-1か実transaction IDを渡すため、印刷された必須引数signatureと省略可能とする本文の差は解決しない。randomize数はBooleanで正確なretry数ではない。競合／既定priorityやirrelevant lock条件は部分対応に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequencer_base_direct_default_grant_send_and_completion_preserve_the_public_contract",
+          "role": "direct",
+          "expected_observations": [
+            "UT: base_grant_wait entered 1 granted 0",
+            "UT: base_request 0 same 1 code 37 randomized 0 completed 0 lock 0",
+            "UT: base_completion granted 1 completed 1 locked 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SQR-AUDIT-BASE-DONE-IDENTIFIED",
+      "clause": "15.3.2.7",
+      "statement": {
+        "en": "Direct completion waits distinguish the two selected transaction IDs.",
+        "ja": "直接完了待ちは選択したtransaction ID 2つを区別する。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixture, declared type arguments, public endpoint/base views and linked stage observations. Requests satisfy the grant precondition before send_request and response IDs are copied from the actual request.",
+        "ja": "選択した独自fixture、宣言type引数、公開endpoint／base view、linkした段階観測を使う。send_request前にgrant前提を満たし、応答IDは実際の要求からcopyする。"
+      },
+      "expected": {
+        "en": "Direct completion waits distinguish the two selected transaction IDs.",
+        "ja": "直接完了待ちは選択したtransaction ID 2つを区別する。"
+      },
+      "limitations": {
+        "en": "Actual inherited sequencer behavior is called through a base view; the original producer does not replace the grant/send/completion algorithm. Completion always supplies -1 or a real transaction ID, so the printed required-argument signature versus omitted-argument prose is not resolved. Randomization counts are Boolean, not exact retries. Competing/default-priority and irrelevant-lock conditions remain partial.",
+        "ja": "base viewから実際に継承したsequencer動作を呼び、独自producerはgrant／send／完了algorithmを置換しない。完了には必ず-1か実transaction IDを渡すため、印刷された必須引数signatureと省略可能とする本文の差は解決しない。randomize数はBooleanで正確なretry数ではない。競合／既定priorityやirrelevant lock条件は部分対応に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequencer_base_direct_ids_grant_send_and_completion_preserve_the_public_contract",
+          "role": "direct",
+          "expected_observations": [
+            "UT: base_grant_wait entered 1 granted 0",
+            "UT: base_request 0 same 1 code 37 randomized 0 completed 0 lock 0",
+            "UT: base_request 1 same 1 code 38 randomized 0 completed 1 lock 0",
+            "UT: base_completion granted 2 completed 2 locked 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SQR-AUDIT-BASE-SEND-RERANDOMIZE",
+      "clause": "15.3.2.20",
+      "statement": {
+        "en": "Direct send_request with rerandomize one delivers the same request with its constraint applied and at least one randomization.",
+        "ja": "rerandomize 1の直接send_requestはconstraintを適用して1回以上randomizeした同一requestを配送する。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixture, declared type arguments, public endpoint/base views and linked stage observations. Requests satisfy the grant precondition before send_request and response IDs are copied from the actual request.",
+        "ja": "選択した独自fixture、宣言type引数、公開endpoint／base view、linkした段階観測を使う。send_request前にgrant前提を満たし、応答IDは実際の要求からcopyする。"
+      },
+      "expected": {
+        "en": "Direct send_request with rerandomize one delivers the same request with its constraint applied and at least one randomization.",
+        "ja": "rerandomize 1の直接send_requestはconstraintを適用して1回以上randomizeした同一requestを配送する。"
+      },
+      "limitations": {
+        "en": "Actual inherited sequencer behavior is called through a base view; the original producer does not replace the grant/send/completion algorithm. Completion always supplies -1 or a real transaction ID, so the printed required-argument signature versus omitted-argument prose is not resolved. Randomization counts are Boolean, not exact retries. Competing/default-priority and irrelevant-lock conditions remain partial.",
+        "ja": "base viewから実際に継承したsequencer動作を呼び、独自producerはgrant／send／完了algorithmを置換しない。完了には必ず-1か実transaction IDを渡すため、印刷された必須引数signatureと省略可能とする本文の差は解決しない。randomize数はBooleanで正確なretry数ではない。競合／既定priorityやirrelevant lock条件は部分対応に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequencer_base_direct_rerandomize_grant_send_and_completion_preserve_the_public_contract",
+          "role": "direct",
+          "expected_observations": [
+            "UT: base_request 0 same 1 code 145 randomized 1 completed 0 lock 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SQR-AUDIT-BASE-SEND-ZERO",
+      "clause": "15.3.2.20",
+      "statement": {
+        "en": "Omitted and explicit-zero rerandomize flags preserve the original request handle/value without randomization.",
+        "ja": "rerandomize flagの省略と明示0はrandomizeせず元request handle／値を保持する。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixture, declared type arguments, public endpoint/base views and linked stage observations. Requests satisfy the grant precondition before send_request and response IDs are copied from the actual request.",
+        "ja": "選択した独自fixture、宣言type引数、公開endpoint／base view、linkした段階観測を使う。send_request前にgrant前提を満たし、応答IDは実際の要求からcopyする。"
+      },
+      "expected": {
+        "en": "Omitted and explicit-zero rerandomize flags preserve the original request handle/value without randomization.",
+        "ja": "rerandomize flagの省略と明示0はrandomizeせず元request handle／値を保持する。"
+      },
+      "limitations": {
+        "en": "Selected public conditions only; no private queue fields, immediate member ownership, every arbitration/relevance/topology case, exact randomization retry count or complete clause coverage is certified. Positive simulation delays separate observations from same-delta scheduling. Completion means acknowledgement, not all physical driver processing.",
+        "ja": "選択した公開条件だけ。非公開queue field、直接member所有、全arbitration／relevance／topology条件、randomize retryの正確な回数、条項全体の網羅は認定しない。正のsimulation遅延で同一deltaの順序と観測を分ける。完了はacknowledgeであり、物理driverの全処理ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequencer_base_direct_default_grant_send_and_completion_preserve_the_public_contract",
+          "role": "direct",
+          "expected_observations": [
+            "UT: base_request 0 same 1 code 37 randomized 0 completed 0 lock 0"
+          ]
+        },
+        {
+          "test": "u15/test_sequencer_base_direct_explicit_zero_grant_send_and_completion_preserve_the_public_contract",
+          "role": "direct",
+          "expected_observations": [
+            "UT: base_request 0 same 1 code 37 randomized 0 completed 0 lock 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SQR-AUDIT-BASE-ARBITRATION-SET-EFFECT",
+      "clause": "15.3.2.19",
+      "statement": {
+        "en": "Selecting FIFO versus STRICT_FIFO changes which of the two unequal-priority pending requests is granted first.",
+        "ja": "FIFOとSTRICT_FIFOの選択は、priorityが異なるpending request 2つのどちらを先にgrantするかを変える。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixture, declared type arguments, public endpoint/base views and linked stage observations. Requests satisfy the grant precondition before send_request and response IDs are copied from the actual request.",
+        "ja": "選択した独自fixture、宣言type引数、公開endpoint／base view、linkした段階観測を使う。send_request前にgrant前提を満たし、応答IDは実際の要求からcopyする。"
+      },
+      "expected": {
+        "en": "Selecting FIFO versus STRICT_FIFO changes which of the two unequal-priority pending requests is granted first.",
+        "ja": "FIFOとSTRICT_FIFOの選択は、priorityが異なるpending request 2つのどちらを先にgrantするかを変える。"
+      },
+      "limitations": {
+        "en": "Retained compatible, independently timed arrivals with both pending before the driver asks. F.2.4.1 FIFO and strict-priority duties only; random distributions, weight fairness, ties and every competing topology remain separate.",
+        "ja": "driver要求前に両方pendingとなる、独立した時刻の到着を使う互換な既存検査。F.2.4.1のFIFO／strict priority義務だけで、乱数分布、weight公平性、同順位、全競合topologyは別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequencer_fifo_arbitration_keeps_earlier_low_priority_request_first",
+          "role": "direct",
+          "expected_observations": [
+            "UT: order 11 22",
+            "UT: finished 1 1"
+          ]
+        },
+        {
+          "test": "u15/test_sequencer_strict_fifo_arbitration_selects_later_higher_priority",
+          "role": "direct",
+          "expected_observations": [
+            "UT: order 22 11",
+            "UT: finished 1 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SQR-AUDIT-COMMON-QUERY-API",
+      "clause": "15.4",
+      "statement": {
+        "en": "The selected common current/request-history/response-history APIs are available in both pull and push sequencers.",
+        "ja": "選択した共通current／request-history／response-history APIはpullとpush両sequencerで使える。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixture, declared type arguments, public endpoint/base views and linked stage observations. Requests satisfy the grant precondition before send_request and response IDs are copied from the actual request.",
+        "ja": "選択した独自fixture、宣言type引数、公開endpoint／base view、linkした段階観測を使う。send_request前にgrant前提を満たし、応答IDは実際の要求からcopyする。"
+      },
+      "expected": {
+        "en": "The selected common current/request-history/response-history APIs are available in both pull and push sequencers.",
+        "ja": "選択した共通current／request-history／response-history APIはpullとpush両sequencerで使える。"
+      },
+      "limitations": {
+        "en": "Only no active request and explicit history capacity one with index two beyond capacity. This does not certify all common API semantics, capacity-equality indexing, full push response processing or every inherited method.",
+        "ja": "active requestなしと、明示history容量1を超えるindex 2だけ。全共通APIの意味、容量等号index、全push応答処理、全継承methodは認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_pull_and_push_common_current_and_outside_history_queries_obey_the_declared_api",
+          "role": "direct",
+          "expected_observations": [
+            "UT: common_current pull 1 push 1",
+            "UT: common_outside_history pull_req 1 pull_rsp 1 push_req 1 push_rsp 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SQR-AUDIT-PULL-GET-TRANSACTION",
+      "clause": "15.5.2.6",
+      "statement": {
+        "en": "Concrete get supports the selected request/response transaction without a separate item_done call.",
+        "ja": "具象getは別のitem_done呼出なしで選択request／response transactionを処理できる。"
+      },
+      "conditions": {
+        "en": "Use the selected original fixture, declared type arguments, public endpoint/base views and linked stage observations. Requests satisfy the grant precondition before send_request and response IDs are copied from the actual request.",
+        "ja": "選択した独自fixture、宣言type引数、公開endpoint／base view、linkした段階観測を使う。send_request前にgrant前提を満たし、応答IDは実際の要求からcopyする。"
+      },
+      "expected": {
+        "en": "Concrete get supports the selected request/response transaction without a separate item_done call.",
+        "ja": "具象getは別のitem_done呼出なしで選択request／response transactionを処理できる。"
+      },
+      "limitations": {
+        "en": "Retained real sequencer/driver integration and final transaction completion only; the new interface probe separately observes acknowledgement before response delivery. No claim about all subsequent physical driver work follows.",
+        "ja": "互換な実sequencer／driver統合と最終transaction完了だけ。新interface probeは応答配送前のacknowledgeを別に観測する。その後の物理driver全処理を主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequencer_put_routes_response_after_get_acknowledges_request",
+          "role": "direct",
+          "expected_observations": [
+            "UT: response_same 1 payload 73 transaction_id 23 finished 1"
           ]
         }
       ]

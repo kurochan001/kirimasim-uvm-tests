@@ -2672,7 +2672,7 @@
     },
     "u14/test_sequence_send_request_rerandomize_uses_request_constraint_once": {
       "primary_clause": "14.2.6.5",
-      "inputs_sha256": "bb926522fc0bce7ca78b66baa386b258543908afba4e60da92f26d4bdaa6a4ac"
+      "inputs_sha256": "ff663122253e5fe1d01ac6ff5af68b6aada391d091d01c5878a63ad13e693edb"
     },
     "u14/test_sequence_start_item_any_negative_priority_inherits_sequence_priority": {
       "primary_clause": "14.2.6.2",
@@ -2870,6 +2870,14 @@
       "primary_clause": "15.3.5",
       "inputs_sha256": "25987e21f08fa9335c0a8bf44e0e4a3d98e7f62ad70766810e52d4bb360634c0"
     },
+    "u15/test_pull_and_push_common_current_and_outside_history_queries_obey_the_declared_api": {
+      "primary_clause": "15.4",
+      "inputs_sha256": "a01c5fe5b2a1624600de58631967e41812e47f32e6274fd09d8180e2be19e9b4"
+    },
+    "u15/test_pull_and_push_sequencer_omitted_response_types_match_the_request_type": {
+      "primary_clause": "15.5.1",
+      "inputs_sha256": "87aac15265d9168a5a757ad78261ff3941083bb5bc8ebe926016a85e30817635"
+    },
     "u15/test_push_driver_analysis_response_preserves_origin_and_transaction": {
       "primary_clause": "15.6.1",
       "inputs_sha256": "6d2391619b1576bc14e138ee04d4d1c6ddc1b9771e733fe073c34a6da28f5a25"
@@ -2902,6 +2910,10 @@
       "primary_clause": "15.6.1",
       "inputs_sha256": "d8b4dc06fc2b9fa6d129b9eb6a5463dc3772348c747ea233f81783214417658d"
     },
+    "u15/test_sequence_pull_port_export_and_imp_resolve_typed_real_sequencer_endpoints": {
+      "primary_clause": "15.2.2.1",
+      "inputs_sha256": "3daae5b63d09becda381ebd19afa924ee8333f87f903ab8cc8935a5b11407984"
+    },
     "u15/test_sequencer_and_sequence_current_item_clear_after_item_done": {
       "primary_clause": "15.4.1",
       "inputs_sha256": "0081bceaac4170845fac3711552f6142b5708d0e8187c7bb0900444df5cc5c23"
@@ -2914,9 +2926,37 @@
       "primary_clause": "15.3.2.18",
       "inputs_sha256": "ec3a581c18d533b61b3dfd3e80d607b7495fc01e13ac45c7aa269775ac94c335"
     },
+    "u15/test_sequencer_base_direct_default_grant_send_and_completion_preserve_the_public_contract": {
+      "primary_clause": "15.3.2.6",
+      "inputs_sha256": "4a7abd17f376590f2493a82c65faea9f877b24735830e146c2c79aa38ad20586"
+    },
+    "u15/test_sequencer_base_direct_explicit_zero_grant_send_and_completion_preserve_the_public_contract": {
+      "primary_clause": "15.3.2.20",
+      "inputs_sha256": "07da58a3851d02cc8cf9ea77ba49c836c3d295eb59f74d087c63fcd5d4629974"
+    },
+    "u15/test_sequencer_base_direct_ids_grant_send_and_completion_preserve_the_public_contract": {
+      "primary_clause": "15.3.2.7",
+      "inputs_sha256": "0c53c642e5af59d2006ea1ad6b2bdadd9d022ed27e00f73f7b67f11c9f443a35"
+    },
+    "u15/test_sequencer_base_direct_lock_grant_send_and_completion_preserve_the_public_contract": {
+      "primary_clause": "15.3.2.6",
+      "inputs_sha256": "99f3e8e0b9ab17dff05cac7d5c6cc42f7fd4d05de31fe613f21fe80eb298b730"
+    },
+    "u15/test_sequencer_base_direct_rerandomize_grant_send_and_completion_preserve_the_public_contract": {
+      "primary_clause": "15.3.2.20",
+      "inputs_sha256": "98316e60adf4d40bcc7b62af3eb6310aee2ad8f41a95c6bd57f10b050b9718e3"
+    },
+    "u15/test_sequencer_base_printed_recording_query_reports_default_disable_and_peer_state": {
+      "primary_clause": "15.3.2.23",
+      "inputs_sha256": "6100353ab7f984a081be72f141a801c6ed66710e57853bb4aaf302b3516733cc"
+    },
     "u15/test_sequencer_child_grab_blocks_parent_item_until_child_releases": {
       "primary_clause": "15.3.2.8",
       "inputs_sha256": "fdc1bf3ccae42db457f005f03d35086a14f9ece2365dd0ad5899ef2dfec8e6a5"
+    },
+    "u15/test_sequencer_constructors_preserve_names_parents_and_selected_component_bases": {
+      "primary_clause": "15.3.2.1",
+      "inputs_sha256": "00ea406723d928fef694ee264d3cdf27d88e04bd73ad117572be75d068561b79"
     },
     "u15/test_sequencer_drops_response_to_finished_sequence_with_handler": {
       "primary_clause": "15.5.2.9",
@@ -2977,6 +3017,46 @@
     "u15/test_sequencer_has_do_available_tracks_relevance_eligibility": {
       "primary_clause": "15.3.2.17",
       "inputs_sha256": "c3ef451edce51f1b40b060fa39274e198129eeb307399c1016d5ba0e4ae29a6a"
+    },
+    "u15/test_sequencer_interface_defaults_and_selected_legal_subtypes_keep_exact_base_types": {
+      "primary_clause": "15.2.1.1",
+      "inputs_sha256": "875bc8410c70a6c8be68f57c4af17720e7b58bf26d9a3962caceb189a06ff23a"
+    },
+    "u15/test_sequencer_interface_explicit_request_and_response_views_preserve_exact_identity": {
+      "primary_clause": "15.2.1.1",
+      "inputs_sha256": "af5b04e4f7fe6619780864abcb12f19b6d8ca0e9ccc93d06686be3a64237d826"
+    },
+    "u15/test_sequencer_interface_get_blocks_before_a_sequence_can_supply_its_first_item": {
+      "primary_clause": "15.2.1.2.6",
+      "inputs_sha256": "0341b9e2400e57366919ba073250667767976835b076d29348b206754d63808c"
+    },
+    "u15/test_sequencer_interface_get_next_done_uses_real_requests_and_distinct_typed_responses": {
+      "primary_clause": "15.2.1.2.1",
+      "inputs_sha256": "0e0f7b0dedcc8b152ccfac4cab3013e4e2162652fb97653bfedb0861480c0f42"
+    },
+    "u15/test_sequencer_interface_get_next_item_blocks_before_a_sequence_can_supply_its_first_item": {
+      "primary_clause": "15.2.1.2.1",
+      "inputs_sha256": "7feb3c4cb80ba29481845e38a9d6e16ae3b055ecf6afc9abd96ab164a21647a7"
+    },
+    "u15/test_sequencer_interface_get_put_uses_real_requests_and_distinct_typed_responses": {
+      "primary_clause": "15.2.1.2.6",
+      "inputs_sha256": "b4d10969dea08f380277864d89ef4354ab54b0aba74e254a1f4e3dbbcef507dc"
+    },
+    "u15/test_sequencer_interface_peek_get_response_uses_real_requests_and_distinct_typed_responses": {
+      "primary_clause": "15.2.1.2.7",
+      "inputs_sha256": "8e8f61b3ec621ef7938e258def61f34f794ea34a2bb2357365b2b759712772c1"
+    },
+    "u15/test_sequencer_interface_recording_disable_survives_real_traffic_and_preserves_peer": {
+      "primary_clause": "15.2.1.2.10",
+      "inputs_sha256": "3bb9e589a4e0860c4cf14fd3bbd477026d9ef8e8ad341edee44ed2de0f94b219"
+    },
+    "u15/test_sequencer_interface_try_and_availability_distinguish_empty_pending_and_finished_states": {
+      "primary_clause": "15.2.1.2.2",
+      "inputs_sha256": "9c3898ed616849c89e503b6256cb564375b7ff1587b4db081c07d16f547bb7aa"
+    },
+    "u15/test_sequencer_interface_wait_for_sequences_stays_blocked_until_a_producer_is_available": {
+      "primary_clause": "15.2.1.2.4",
+      "inputs_sha256": "561a817e185c20fbe63c5cde2f4a0f3f3b0a219e327d7e2a3ab85b9c13ab380c"
     },
     "u15/test_sequencer_is_child_respects_parent_direction_and_unrelated_sequences": {
       "primary_clause": "15.3.2.2",
@@ -3145,6 +3225,14 @@
     "u15/test_stop_sequences_terminates_two_sibling_children": {
       "primary_clause": "15.3.2.14",
       "inputs_sha256": "3b97e9747b41a712358040f8492021c542e485c28a1ffbb463809c44e1c39a00"
+    },
+    "u15/test_uvm_sequencer_base_abstract_declaration_rejects_direct_construction": {
+      "primary_clause": "15.3.1",
+      "inputs_sha256": "8d64fad9541ba2c807ad8a3d2997de72cfb359f1435dfb3919da402525308cc2"
+    },
+    "u15/test_uvm_sqr_if_base_abstract_declaration_rejects_direct_construction": {
+      "primary_clause": "15.2.1.1",
+      "inputs_sha256": "b11eb362ad48a65605fa2672580c691617d170ff322be02a85da842046b698cd"
     },
     "u16/test_comparer_caps_individual_reports_while_recording_all_three_miscompares": {
       "primary_clause": "16.3.5.1",

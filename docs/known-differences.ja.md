@@ -2,12 +2,12 @@
 
 [English](known-differences.md) · [README](../README.ja.md) · [FAQ](faq.ja.md)
 
-現在の1518件と、固定したAccellera UVM 2020.3.1についての記録です。
+現在の1540件と、固定したAccellera UVM 2020.3.1についての記録です。
 不一致はテストの結果であり、それだけではシミュレータ・ライブラリ・期待値のどれが原因かは決まりません。
 
-elaboration 32件は抽象class直接生成12件とpure interface／const参照違反20件で、拒否を期待します。
-30件は一致し、subscriber／visitor未実装の受理2件はruntimeを実行せずspecのみを保持します。
-compiler受理2件は既知simulation差分187件と別です。新しいrecorder直接生成とpure-hook欠落6件は正しく拒否されます。
+elaboration 34件は抽象class直接生成14件とpure interface／const参照違反20件で、拒否を期待します。
+32件は一致し、subscriber／visitor未実装の受理2件はruntimeを実行せずspecのみを保持します。
+compiler受理2件は既知simulation差分190件と別です。新しいinterface／sequencer-baseの直接生成2件は正しく拒否されます。
 
 ## 固定版ライブラリの制約
 
@@ -375,7 +375,7 @@ command-line 18検査系は別のVPI bridgeと固定regex DPIを明示要求し�
 上限は正しく7のままですが、固定serverはINFOを発行し、警告probeはWARNINGを観測しません。YESの比較対象は警告なしで9へ変わります。
 これは診断severityの差分で、上限の強制失敗ではありません。以前のno-DPI引数2件は未変更の通常実行時差分です。
 
-スイート全体では、`verilator@5.052`を付けたテストは1329件、specのみのテストは189件です。
+スイート全体では、`verilator@5.052`を付けたテストは1348件、specのみのテストは192件です。
 specのみのうち1件は9.6を検証します。pre-resetフェーズ終了時に子タスクが停止する
 はずですが、固定版UVMとVerilator 5.052の組み合わせでは、後のフェーズで子タスクの遅延書き込みが
 実行されます。この差分の原因がシミュレータとライブラリのどちらかは未確定です。
@@ -384,10 +384,10 @@ wakeup resetの検査系は、trigger waiterとpersistent-trigger waiterを各1�
 10.1.1.2.8は、callbackなしで両方が起動することを要求します。固定Verilatorの実行は、待機状態の観測に到達してから
 watchdogが期限切れになります。simulator／libraryを組み合わせた原因は未確定のまま、規範的なwakeupの期待を保持します。
 
-specのみの189件も規格から導いた期待値を保持します。通常のVerilator実行とCIはoracle付き1329件（runtime 1299・compile拒否30）を選びます。
+specのみの192件も規格から導いた期待値を保持します。通常のVerilator実行とCIはoracle付き1348件（runtime 1316・compile拒否32）を選びます。
 `--all`はspecのみも含め、不一致やビルド不可を`known`として記録します。
-通常の実行時144件は、最初の差分であるseed 1までの記録で、seed 73の結果はありません。
-API欠落build 16件は、time 1件、sequence-library 6件、HDL slice 4件、名前付きconcat constructor 1件、object active-policy 1件、catcher message-handle 3件で、
+通常の実行時145件は、最初の差分であるseed 1までの記録で、seed 73の結果はありません。
+API欠落build 17件は、time 1、sequence-library 6、HDL slice 4、名前付きconcat constructor 1、object active-policy 1、catcher message-handle 3、印刷されたbase記録getter 1で、
 通常条件の実行時seed結果はありません。応答既定型の宣言1検査系もbuildできず、実行時seed結果はありません。HDL DPI 8検査系とcommand-line DPI 18検査系も通常runnerではlinkできません。
 別のVPI条件では、7件が両seed一致、E.7のwarning／転送なしの期待はseed 1で失敗します。
 重複する条件を合計しません。
@@ -398,9 +398,14 @@ policyと既定field flagを組み合わせた解釈は限定して保持しま�
 不正packerは検査も再利用もせず、別の有効controlを使います。新規runtime 15件は両seed一致、recorder不正宣言7件はruntimeを実行せず拒否されます。
 attribute override controlは独自dummy tokenを使い、専用macro／backend互換性を立証しません。
 
+sequencer新規3件は差分を保持します。interface宣言のrequest既定型はuvm_sequence_itemですが、固定libraryはuvm_objectを宣言し、標準型のbase viewをbuildできません。
+印刷されたbase API is_auto_enabled_recording_enabledは欠落し、別名のinterface照会は独立に検査します。この2件はruntime seedのないbuildです。
+wait_for_sequences probeは字義的な待機の限定解釈で、seed 1においてproducer登場前に返ります。即時tryとoverrideの意味は部分対応のまま、確定不具合原因は断定しません。
+新規runtime 17件と訂正rerandomization 1件は両seed一致、抽象生成2件はruntimeを実行せず拒否されます。
+
 ## specのみのテスト
 
-現在の189件は次のテストです。同じ制約を複数のテストで検査する場合があり、異なる不具合の個数ではありません。
+現在の192件は次のテストです。同じ制約を複数のテストで検査する場合があり、異なる不具合の個数ではありません。
 
 - [blocking initiator relayの印刷provider受理](../tests/u12/test_tlm2_blocking_passthrough_initiator_connect_accepts_its_spec_listed_provider_families.sv).
 - [blocking target relayの印刷provider受理](../tests/u12/test_tlm2_blocking_passthrough_target_connect_accepts_its_spec_listed_provider_families.sv).
@@ -673,9 +678,9 @@ attribute override controlは独自dummy tokenを使い、専用macro／backend�
 - [指定sequencer／phaseでのdefault sequence実行](../tests/uG/test_command_default_sequence_runs_on_the_named_sequencer_and_phase.sv).
 - [生成時の独立した引数snapshot](../tests/uG/test_command_fresh_processors_populate_independent_argument_snapshots_at_construction.sv).
 
-既存command 1検査系は、動作／期待出力を変えずcommand-enum引用を追加し、Verilatorで再測定します。
-その入力の歴史的guest記録は指紋が古くなったため、現在のguest部分集合から除外します。
-互換な1084記録、変更した入力を含む未測定434入力であり、新しいguest失敗ではなくevidence範囲の区別です。
+既存2入力はcommand-enum引用と、訂正したBoolean rerandomization観測で指紋が変わっています。
+対応する歴史的guest記録を除外し、互換範囲は1083記録、未測定は修正2入力を含む457件です。
+これはevidence範囲のfilterで、新しいguest fail／passやsimulator改善ではありません。
 
 - [copier既定名](../tests/u16/test_policy_comparer_packer_and_copier_constructors_preserve_names_types_and_policy_bases.sv)
 - [flush後のcomparer threshold](../tests/u16/test_comparer_threshold_default_updates_and_flush_restore_the_declared_boundary.sv)
@@ -685,18 +690,22 @@ attribute override controlは独自dummy tokenを使い、専用macro／backend�
 - [wide pack上限超過error](../tests/u16/test_packer_wide_oversize_reports_error_before_an_independent_maximum_width_control.sv)
 - [flush後のrecorder radix](../tests/u16/test_recorder_configuration_defaults_updates_and_flush_restore_the_declared_values.sv)
 
+- [interface request既定値](../tests/u15/test_sequencer_interface_defaults_and_selected_legal_subtypes_keep_exact_base_types.sv)
+- [印刷されたbase記録getter](../tests/u15/test_sequencer_base_printed_recording_query_reports_default_disable_and_peer_state.sv)
+- [限定した待機解釈](../tests/u15/test_sequencer_interface_wait_for_sequences_stays_blocked_until_a_producer_is_available.sv)
+
 ## シミュレータとライブラリの組み合わせ
 
-スイートは1518件ですが、以下のkirimasim／Ghost記録は未変更の現在入力1084件だけを対象とします。
-以前の一時実行ファイル／profile snapshotがないため、434入力は未測定です。
+スイートは1540件ですが、以下のkirimasim／Ghost記録は未変更の現在入力1083件だけを対象とします。
+以前の一時実行ファイル／profile snapshotがないため、457入力は未測定です。
 新しい全件guest実測とは扱いません。[実行結果](results.ja.md)を参照してください。
 
-Ghostの同梱UVMはseed 1・73とも207件一致・877件不一致で、不一致になるテストも同じです。
+Ghostの同梱UVMはseed 1・73とも207件一致・876件不一致で、不一致になるテストも同じです。
 現在の実行ファイルの固定コピーでは固定版modeを測定していません。記録の合算は[実行結果と測定方法](results.ja.md)で説明します。
 同梱版の結果が対象にするのは供給されたライブラリです。不一致だけでシミュレータとライブラリの原因を分けたり、
 固定版ライブラリの結果を示したりはできません。非公開の識別情報・profile・診断は公開しません。
 
-確認したkirimasimの実行ファイルでは、1075件が`uvm_object_wrapper`未実装です。
+確認したkirimasimの実行ファイルでは、1074件が`uvm_object_wrapper`未実装です。
 時刻設定APIの1件、sequence libraryの6件、HDL sliceの2件は、その前にAPI欠落を検出して`fail`になります。
 いずれも成功ではなく、その先のUVM動作を実行できた証拠でもありません。
 

@@ -135,7 +135,7 @@ See [Ghost setup](testing.md#ghost).
 
 It removes `UVM_NO_DPI` from the default macro list. It does not supply or link
 UVM's C/C++ implementation. The current Verilator runner does not add those
-sources. There are 1446 `UVM_NO_DPI` cases and eight explicit HDL-DPI cases.
+sources. There are 1514 `UVM_NO_DPI` cases and eight explicit HDL-DPI cases.
 Eighteen more fixtures explicitly enable command-line/regex DPI with HDL disabled.
 The [command-line runner](testing.md#verilator-command-line-subset) links that separate backend.
 The [separate VPI runner](testing.md#verilator-vpi-hdl-subset) links the original
@@ -1143,9 +1143,9 @@ not a direct test of the requirement.
 
 ### Q77. Why is there no coverage percentage after starting M4?
 
-The 2392 AI drafts cover only a partial decomposition: 2392 requirements link
-directly to 1517 tests; all drafts have direct tests, and one separate test is a control.
-All 1518 tests have requirement links. The 2,507 clause identifiers are not normative requirement units.
+The 2443 AI drafts cover only a partial decomposition: 2443 requirements link
+directly to 1539 tests; all drafts have direct tests, and one separate test is a control.
+All 1540 tests have requirement links. The 2,507 clause identifiers are not normative requirement units.
 The scope is proposed, the inventory incomplete and the denominator unapproved;
 starting M4 approves none of those. Known differences and HDL/DPI limitations
 do not silently exclude obligations. See the [approval path](requirements.md#remaining-m4-work-and-approval).
@@ -2145,7 +2145,7 @@ No. `tests_without_requirement_links` is zero: every current test has an
 explicit direct or control link. The separate counter
 `requirements_without_direct_tests` is zero. The memory-walk link uses the
 qualified historical interpretation in Q134. It is not approval of missing
-IEEE detail. HDL deposit and accessibility use explicit VPI fixtures. Another 941
+IEEE detail. HDL deposit and accessibility use explicit VPI fixtures. Another 898
 catalog identifiers remain unassessed; decomposition and human review are
 incomplete, and the denominator remains unapproved.
 
@@ -2246,7 +2246,7 @@ in [identifier assessments](../coverage/assessments.json). Structural headings
 have no related requirements; contextual descriptions name existing requirements.
 An unreviewed record, guessed classification or parent rollup cannot do this.
 The generated state is `assessed`, separate from `partial` requirement clauses.
-229 classifications currently exist, with no denominator approval or new pass.
+243 classifications currently exist, with no denominator approval or new pass.
 Chapter 11's zero unassessed identifiers still does not complete its requirements.
 
 ### Q136. Does explicit strict configuration make the new cases pass?
@@ -2928,13 +2928,13 @@ FIFO sizes to one. The earlier contextual record is replaced by two direct
 requirements and an actual bound-interface capacity test. It does not reduce
 the unassessed count or approve an exclusion. All earlier requirements remain.
 
-### Q193. Why did the compatible guest subset decrease to 1084?
+### Q193. Why did the compatible guest subset decrease to 1083?
 
-A command fixture gained a supporting enum citation and was remeasured on
-Verilator. Even a metadata-only source edit changes its input fingerprint.
-Its old guest record is excluded; the original historical file still has
-1085 records. Current compatible scope is 1084, with 434 inputs unmeasured:
-433 additions and the revised old input. No guest rerun or new failure is claimed.
+Two inputs have new fingerprints: the command enum citation and the Boolean
+rerandomization observation. Both were measured on Verilator; their stale guest
+records are excluded. The historical 1085-record source files remain intact.
+Current reuse covers 1083 inputs, with 457 unmeasured: 455 additions and two
+revised old inputs. No guest rerun or new result is claimed.
 
 ### Q194. May a predicate implementation delegate to another virtual query?
 
@@ -2994,12 +2994,12 @@ and stale patterns are rejected. Validation does not consume compiler results.
 Individual requirement reviews may add direct anchors while preserving existing
 links and identifying those changes explicitly.
 
-### Q201. Did all 1518 tests run at two seeds?
+### Q201. Did all 1540 tests run at two seeds?
 
-No. There are 1486 simulation and 32 elaboration fixtures. Ordinary evidence
-has 1299 two-seed runtime matches, 30 expected compiler rejections, 187 known
+No. There are 1506 simulation and 34 elaboration fixtures. Ordinary evidence
+has 1316 two-seed runtime matches, 32 expected compiler rejections, 187 known
 simulation differences and two known illegal compile acceptances. None of the
-32 illegal designs executes a runtime seed, even when compilation accepts it.
+34 illegal designs executes a runtime seed, even when compilation accepts it.
 
 ### Q202. What do the older legal controls establish?
 
@@ -3064,7 +3064,7 @@ already-exceeded scope does not depend on equality. See [known differences](know
 ### Q209. Does zero unassessed in chapter 6 complete reporting or M1–M4?
 
 No. Chapter 6 has 98 partial and 19 assessed identifiers. Selected print probes
-do not finish its remaining conditions. Overall 941 identifiers remain
+do not finish its remaining conditions. Overall 898 identifiers remain
 unassessed. Printer subclause 16.2 retains the table-format overview; chapter 16
 has 3 unassessed identifiers in the broader policies. Scope and denominator
 are unapproved; zero link queues do not complete the goal.
@@ -3105,3 +3105,20 @@ No. The memory burst-write declaration omits offset while its prose requires a
 starting offset. The region burst-read array uses output where the memory API
 uses ref. The selected original observers retain these qualified readings;
 they do not certify every burst-length rule or resolve the printed discrepancies.
+
+### Q215. Why did the compatible guest subset shrink without a guest run?
+
+The [rerandomization fixture](../tests/u14/test_sequence_send_request_rerandomize_uses_request_constraint_once.sv)
+now accepts any positive callback count rather than requiring exactly one.
+Its input fingerprint changed, so its old failing/unsupported guest record is
+excluded alongside the earlier citation-revised command input. The original
+1085-record files remain intact. Current reuse covers 1083 inputs; this is
+filtering, not a new pass, failure or simulator improvement.
+
+### Q216. Do the new sequencer cases close its remaining contracts?
+
+No. Typed interface flow, base grant/send/done and selected recording controls
+have probes, but [three differences](known-differences.md) remain. The interface
+introduction/type relationship and zero-time relevance guard are unassessed.
+All partial type, topology, priority, recording-event and protocol conditions
+remain open; the waiting interpretation is qualified.

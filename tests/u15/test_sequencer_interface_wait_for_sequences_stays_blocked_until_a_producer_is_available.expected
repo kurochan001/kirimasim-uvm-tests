@@ -1,0 +1,2 @@
+UT: wait_sequences_before_producer returned 0
+UT: wait_sequences_after_producer returned 1 same 1

@@ -2,7 +2,7 @@
 
 [English](history.md) · [README](../README.ja.md)
 
-M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の44回目の拡充（全1518件：simulation 1486・elaboration 32）までを記録しています。以前の349件の時点は
+M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の45回目の拡充（全1540件：simulation 1506・elaboration 34）までを記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -2046,3 +2046,20 @@ MAMの未評価6番号にはmode／localityの意味、状態文面、region概�
 guest evidenceは現在と互換なruntime 1084入力を保持し、未測定434件（simulation 402／elaboration 32）です。別VPI記録は未変更です。
 tool test 110件、metadata、台帳／library、evidence、日英検査は成功します。schema、runner／library／catalog、workflow、SVGは未変更です。
 guest実行、人のレビュー、分母承認、goal完了は主張しません。
+
+## M1〜M4の薄い領域の45回目の拡充
+
+M2 22 fixtureでsequencer型／名／parent、直接抽象生成禁止、実typed pull connector、virtual interface request／response method、trafficを通じた記録無効化、base grant／send／完了、共通照会を追加します。
+runtime新規17件はseed 1／73一致、抽象生成2件はruntimeなしで拒否されます。新規build 2件はinterface request既定値と印刷getterの差を保持し、限定したwait_for_sequences probeはseed 1差分でseed 73結果はありません。
+最終測定前にblocking契約を弱めずobserverの共有先を明示しました。
+
+既存rerandomization fixture 1つを正確1回から1回以上のcallbackを許容するよう訂正し、安定ID／期待行を保持して両seed再測定します。
+その古いguest記録を除外し、他のguest記録と元の1085記録fileは保持します。重複history案2件を削除した日英案51件で2443件です。
+既存義務4件にlinkを追加し、既存rerandomizationの期待／制限を訂正して以前の全IDを保持します。構造7件と文脈7件の分類で部分分解1366／分類243／未評価898、第15章は65／18／2です。
+interface導入の矛盾とzero-time relevance guardを保持し、goal第17反復で未評価43番号、有効化以降565番号減ります。
+
+全1540件はsimulation 1506／elaboration 34、M1 553（529／24）、M2 538（533／5）、M3 449（444／5）です。
+通常Verilatorは1348 pass（runtime両seed一致1316、compiler拒否32）、known 192（runtime 145、simulation build 45、不正compile受理2）です。
+未変更の以前のnative 1517記録と修正入力を保持します。guest互換入力は1083でGhostは各seed pass 207／fail 876、kirimasimはunsupported 1074／fail 9、未測定457（simulation 423／elaboration 34）です。
+部分集合件数の変化はfilterで、新実行や改善ではありません。別VPI記録を保持し、tool test 110件、metadata、台帳／library、evidence、日英検査は成功します。
+schema、runner／library／catalog、workflow、SVGは未変更で、人のレビュー、分母承認、goal完了は主張しません。

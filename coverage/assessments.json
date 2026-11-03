@@ -3438,6 +3438,226 @@
         "reviewer": null,
         "reviewed_at": null
       }
+    },
+    {
+      "clause": "15",
+      "classification": "structural",
+      "rationale": {
+        "en": "Sequencer classes is the chapter heading; overview and numbered class contracts follow.",
+        "ja": "Sequencer classesは章見出しで、概要と番号付きclass契約が続く。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "15.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "Sequencer interface is the grouping heading for the base interface and typed connectors.",
+        "ja": "Sequencer interfaceはbase interfaceと型付connectorの整理見出しである。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "15.2.1.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "Methods groups the individually specified sequence-driver interface APIs.",
+        "ja": "Methodsは個々に規定されたsequence-driver interface APIを整理する。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "15.3.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "Methods groups the base sequencer constructor and operations; behavioral duties stay in children.",
+        "ja": "Methodsはbase sequencer constructorと操作を整理し、動作義務は下位に保持する。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "15.4.3",
+      "classification": "structural",
+      "rationale": {
+        "en": "Responses groups the response export and retained-response query; it has no separate behavior.",
+        "ja": "Responsesはresponse exportと保持response照会を整理し、独立動作を持たない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "15.5.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "Methods groups the concrete pull sequencer constructor, interface export and operations.",
+        "ja": "Methodsは具象pull sequencer constructor、interface export、操作を整理する。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "15.6.3",
+      "classification": "structural",
+      "rationale": {
+        "en": "Methods groups common API, push construction and run phase; the latter algorithm remains normative.",
+        "ja": "Methodsは共通API、push生成、run phaseを整理し、後者のalgorithmは規範的に保持する。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "15.1",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The overview explains arbitration among sequence-generated transactions. Concrete grant and request/driver duties remain linked and partial rather than being excluded by this description.",
+        "ja": "概要はsequence生成transaction間のarbitrationを説明する。具体的なgrantとrequest／driver義務はlinkして部分対応に保持し、この説明で除外しない。"
+      },
+      "related_requirements": [
+        "UVM-SQR-AUDIT-BASE-GRANT-BLOCKS",
+        "UVM-SEQUENCER-PULL-REQUEST-ACKNOWLEDGEMENT"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "15.1.1",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The variants introduction distinguishes driver pull from sequencer push and explains sequence initiative. Corresponding request, blocking and producer-grant duties remain explicit below; typical driver examples add no mandatory class pairing.",
+        "ja": "variant導入はdriver pullとsequencer pushを区別し、sequenceの開始側としての役割を説明する。対応するrequest、blocking、producer-grant義務は下位に明示し、典型driver例で必須class組合せを追加しない。"
+      },
+      "related_requirements": [
+        "UVM-SQR-AUDIT-BASE-GRANT-BLOCKS",
+        "UVM-PUSH-SEQUENCER-BLOCKING-COMPLETION",
+        "UVM-PUSH-SEQUENCER-CONTINUOUS-REQUESTS"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "15.1.2",
+      "classification": "contextual",
+      "rationale": {
+        "en": "This paragraph points to the special pull connectors used by the sequencer/driver pair. Typed connector and transaction-handshake requirements retain that mechanism without certifying every topology.",
+        "ja": "本段落はsequencer／driver対が使う特別なpull connectorを参照する。型付connectorとtransaction-handshake要求に機構を保持し、全topologyを認定しない。"
+      },
+      "related_requirements": [
+        "UVM-SQR-AUDIT-PULL-PORT-TYPED-CONNECTION",
+        "UVM-SQR-AUDIT-INTERFACE-GET-NEXT-ITEM"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "15.2.2",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The introduction identifies port/export/imp roles and delegates their declarations and standard constructors to the three children. Explicit type-default conflicts remain in those partial contracts.",
+        "ja": "導入はport／export／impの役割を示し、宣言と標準constructorを下位3条項へ委ねる。明示type既定値の矛盾は部分契約に保持する。"
+      },
+      "related_requirements": [
+        "UVM-SQR-AUDIT-PULL-PORT-CONSTRUCTOR",
+        "UVM-SQR-AUDIT-PULL-EXPORT-CONSTRUCTOR",
+        "UVM-SQR-AUDIT-PULL-IMP-CONSTRUCTOR"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "15.3",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The introduction explains base-sequencer flow control; the grant/send and execution operations preserve its selected behavior as separate duties. It does not settle every arbitration mode.",
+        "ja": "導入はbase sequencerのflow制御を説明し、grant／sendと実行操作で選択動作を独立義務として保持する。全arbitration modeは解決しない。"
+      },
+      "related_requirements": [
+        "UVM-SQR-AUDIT-BASE-GRANT-BLOCKS",
+        "UVM-SQR-AUDIT-BASE-SEND-ZERO",
+        "UVM-SEQUENCER-DIRECT-EXECUTE-ITEM"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "15.5",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The introduction restates the pull variant role and typical driver use. Blocking retrieval and concrete transactions remain explicit requirements; arbitrary driver extensions are not certified.",
+        "ja": "導入はpull variantの役割と典型driver利用を再掲する。blocking取得と具象transactionは明示要求に保持し、任意driver拡張は認定しない。"
+      },
+      "related_requirements": [
+        "UVM-SQR-AUDIT-INTERFACE-GET-NEXT-BLOCKS",
+        "UVM-SQR-AUDIT-PULL-GET-TRANSACTION"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "15.6",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The introduction describes push flow and driver backpressure. Continuous dispatch and blocking completion remain linked normative duties; the purpose statement adds no separate queue layout.",
+        "ja": "導入はpush flowとdriver backpressureを説明する。連続dispatchとblocking完了はlinkした規範的義務に保持し、目的説明で別のqueue layoutを追加しない。"
+      },
+      "related_requirements": [
+        "UVM-PUSH-SEQUENCER-BLOCKING-COMPLETION",
+        "UVM-PUSH-SEQUENCER-CONTINUOUS-REQUESTS"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
     }
   ]
 }

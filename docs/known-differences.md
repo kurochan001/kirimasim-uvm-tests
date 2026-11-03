@@ -2,15 +2,15 @@
 
 [日本語](known-differences.ja.md) · [README](../README.md) · [FAQ](faq.md)
 
-This describes the current 1518-test suite and the pinned Accellera UVM
+This describes the current 1540-test suite and the pinned Accellera UVM
 2020.3.1 library. A mismatch is a test result; it does not by itself assign
 the cause to the simulator, the library or the expectation.
 
-Thirty-two elaboration fixtures expect rejection: twelve direct abstract
-constructions and twenty pure-interface/const-reference violations. Thirty
+Thirty-four elaboration fixtures expect rejection: fourteen direct abstract
+constructions and twenty pure-interface/const-reference violations. Thirty-two
 match. Subscriber and visitor omissions remain accepted and spec-only without
-runtime. These two compiler acceptances are separate from 187 known simulation
-differences. The new recorder direct-construction and six pure-hook omissions reject correctly.
+runtime. These two compiler acceptances are separate from 190 known simulation
+differences. Both new interface/sequencer-base direct constructions reject correctly.
 
 ## Pinned-library limitations
 
@@ -565,7 +565,7 @@ warning. The YES control changes the limit to nine without a warning. This
 is a diagnostic-severity difference, not failed limit enforcement. The older
 two no-DPI argument cases remain unchanged ordinary runtime differences.
 
-Across the suite, 1329 tests have the `verilator@5.052` oracle tag and 189
+Across the suite, 1348 tests have the `verilator@5.052` oracle tag and 192
 cases are spec-only. One of the spec-only cases checks 9.6: a child's pre-reset
 task must be killed when that phase ends, but the pinned-library run on Verilator 5.052
 lets the child perform its delayed write during a later phase. The cause of
@@ -577,15 +577,15 @@ without callbacks. The pinned Verilator run reaches the blocked-state
 observation, then its watchdog expires. This combined simulator/library
 cause remains unassigned; the normative wakeup expectation is retained.
 
-The 189 spec-only tests retain their normative expected files.
-Default Verilator runs and CI select 1329 tagged checks (1299 runtime, 30 compile rejection). `--all` includes
+The 192 spec-only tests retain their normative expected files.
+Default Verilator runs and CI select 1348 tagged checks (1316 runtime, 32 compile rejection). `--all` includes
 spec-only cases and records mismatches or build failures as `known`.
-The ordinary runtime records for 144 cases establish their first difference
-at seed 1, without seed 73 results. Sixteen missing-API builds have no ordinary
-runtime seed result: one time API, six sequence-library cases, four HDL slice
-cases, one named-concat-constructor case, one object active-policy case and
-three catcher message-handle cases.
-One response-default declaration fixture also cannot build and has no runtime seed result.
+The ordinary runtime records for 145 cases establish their first difference
+at seed 1, without seed 73 results. Seventeen missing-API builds have no ordinary runtime seed result: one time
+API, six sequence-library cases, four HDL slice cases, one named-concat constructor,
+one object active-policy case, three catcher message-handle cases and the printed
+base recording getter. Two type-default declaration fixtures cannot build:
+the independent response default and the interface request default.
 Eight HDL-DPI and eighteen command-line-DPI fixtures also cannot
 link in the ordinary runner. Their separate VPI condition matches seven at
 both seeds and fails the E.7 warning/no-transfer expectation at seed 1.
@@ -603,9 +603,20 @@ used. Fifteen new runtime fixtures match both seeds and seven recorder illegal
 declarations reject without runtime. Attribute override controls use an original
 dummy token and establish no proprietary macro or backend compatibility.
 
+Three new sequencer cases retain differences. The interface declaration's
+default request is uvm_sequence_item; the pinned library declares uvm_object,
+so the standard-typed base view cannot build. The printed base API
+is_auto_enabled_recording_enabled is missing; the separately named interface
+query is exercised independently. These two are builds without runtime seeds.
+The wait_for_sequences probe returns before a producer exists at seed 1,
+under the qualified literal-wait reading. Immediate try and override semantics
+remain partial, and no confirmed defect cause is assigned. Seventeen new
+runtime cases and the corrected rerandomization case match both seeds; two
+abstract constructions reject without runtime execution.
+
 ## Spec-only tests
 
-These are the 189 current spec-only cases. Several exercise the same
+These are the 192 current spec-only cases. Several exercise the same
 limitation, so their count is not a count of distinct bugs.
 
 - [Printed provider acceptance for blocking initiator relay](../tests/u12/test_tlm2_blocking_passthrough_initiator_connect_accepts_its_spec_listed_provider_families.sv).
@@ -879,11 +890,11 @@ Additional message-handle and endian cases:
 - [command default sequence runs on the named sequencer and phase](../tests/uG/test_command_default_sequence_runs_on_the_named_sequencer_and_phase.sv).
 - [command fresh processors populate independent argument snapshots at construction](../tests/uG/test_command_fresh_processors_populate_independent_argument_snapshots_at_construction.sv).
 
-One existing command fixture now adds its command-enum citation without
-changing behavior or expected output and is remeasured on Verilator. The
-historical guest record for that input has a stale fingerprint. The current
-guest subset excludes it: 1084 compatible records and 434 unmeasured inputs,
-including that revised input. This is evidence scope, not a new guest failure.
+Two existing inputs have revised fingerprints: the command-enum citation and
+the corrected Boolean rerandomization observation. Their historical guest
+records are excluded. The compatible subset has 1083 records and 457 inputs
+are unmeasured, including both revised inputs. This filtering is evidence scope,
+not a new guest failure, pass or simulator improvement.
 
 - [Copier default name](../tests/u16/test_policy_comparer_packer_and_copier_constructors_preserve_names_types_and_policy_bases.sv)
 - [Comparer threshold after flush](../tests/u16/test_comparer_threshold_default_updates_and_flush_restore_the_declared_boundary.sv)
@@ -893,14 +904,18 @@ including that revised input. This is evidence scope, not a new guest failure.
 - [Wide pack oversize error](../tests/u16/test_packer_wide_oversize_reports_error_before_an_independent_maximum_width_control.sv)
 - [Recorder radix after flush](../tests/u16/test_recorder_configuration_defaults_updates_and_flush_restore_the_declared_values.sv)
 
+- [Interface request default](../tests/u15/test_sequencer_interface_defaults_and_selected_legal_subtypes_keep_exact_base_types.sv)
+- [Printed base recording getter](../tests/u15/test_sequencer_base_printed_recording_query_reports_default_disable_and_peer_state.sv)
+- [Qualified waiting interpretation](../tests/u15/test_sequencer_interface_wait_for_sequences_stays_blocked_until_a_producer_is_available.sv)
+
 ## Simulator and library combinations
 
-The suite has 1518 cases, but the kirimasim/Ghost records below cover only
-1084 unchanged current-input cases. The 434 inputs are unmeasured
+The suite has 1540 cases, but the kirimasim/Ghost records below cover only
+1083 unchanged current-input cases. The 457 inputs are unmeasured
 because prior temporary executable/profile snapshots are unavailable. Do
 not treat this as a fresh full-suite guest result. See [results](results.md).
 
-Ghost's bundled-library evidence has 207 matches and 877 failures with each
+Ghost's bundled-library evidence has 207 matches and 876 failures with each
 of seeds 1 and 73; the same tests fail at both seeds. The current executable
 snapshot has no pinned-mode measurement. [Results and methodology](results.md)
 describes the evidence assembly. Bundled results
@@ -909,7 +924,7 @@ problem from a library problem or establish results for the locked library.
 Private identity, profiles and diagnostics are not published.
 
 The tested kirimasim executable reports `uvm_object_wrapper` as unsupported
-on 1075 cases. Nine cases record `fail` earlier on missing library APIs: one time
+on 1074 cases. Nine cases record `fail` earlier on missing library APIs: one time
 setter, six sequence-library cases and two HDL slice cases. Neither result is a pass or evidence
 of UVM execution beyond those compilation blockers.
 

@@ -1118,3 +1118,9 @@ length. Configured bytes per location convert a byte request into whole location
 **Region delegation observer**: An original memory subtype that observes a
 region's translated API inputs and supplies response data/status. It does not
 establish physical storage or bus/HDL transfer behavior.
+
+**Sequencer interface view**: A public typed sequence-driver interface obtained
+through resolved pull connectors to a real sequencer implementation.
+
+**Rerandomization Boolean observation**: A predicate that checks whether the
+request was randomized at least once without fixing retry or callback counts.

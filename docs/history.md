@@ -3,8 +3,8 @@
 [日本語](history.ja.md) · [README](../README.md)
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and forty-four cross-milestone thin-area expansions, including the
-existing-test requirement-link backlog checkpoint (1518 tests: 1486 simulation and 32 elaboration). The earlier 349-test checkpoint is
+three M4 increments and forty-five cross-milestone thin-area expansions, including the
+existing-test requirement-link backlog checkpoint (1540 tests: 1506 simulation and 34 elaboration). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -3061,3 +3061,37 @@ VPI records are unchanged. All 110 tool tests, metadata, ledger/library,
 evidence and bilingual checks pass. Schema, runner/library/catalog, workflow
 and SVGs are unchanged. No guest execution, human review, denominator approval
 or goal completion is claimed.
+
+## Forty-fifth thin-area expansion across M1–M4
+
+Twenty-two M2 fixtures add sequencer types/names/parents, direct abstract
+prohibitions, real typed pull connectors, virtual interface request/response
+methods, recording disable across traffic, base grant/send/completion and
+common queries. Seventeen runtime additions match seeds 1/73; two abstract
+constructions reject without runtime. Two new builds retain the interface
+request-default and printed-getter differences; a qualified wait_for_sequences
+probe differs at seed 1 without seed 73. Observer capture was made explicit
+without weakening the blocking contract before final measurement.
+
+One existing rerandomization fixture now accepts at least one callback instead
+of exactly one, with its stable ID/expected line retained. It is remeasured at
+both seeds. Its old guest record is excluded; all other guest records remain.
+The original 1085-record source files remain intact. Fifty-one new bilingual
+drafts reach 2443 after removing two duplicate history proposals. Four older
+duties gain links and the older rerandomization expectation/limitation is
+corrected. All prior IDs remain. Seven structural and seven contextual
+assessments reach 1366 partial/243 assessed/898 unassessed. Chapter 15 is
+65/18/2, retaining the interface-introduction inconsistency and zero-time
+relevance guard. Goal iteration 17 reduces unassessed by 43, or 565 since activation.
+
+The suite is 1540 (1506 simulation/34 elaboration): M1 553 (529/24), M2 538
+(533/5), M3 449 (444/5). Ordinary Verilator has 1348 pass (1316 two-seed runtime,
+32 compiler rejections) and 192 known (145 runtime, 45 simulation builds,
+two illegal compile acceptances). The 1517 unchanged older native records
+remain, alongside the corrected input. Guests retain 1083 compatible inputs:
+Ghost 207 pass/876 fail per seed, kirimasim 1074 unsupported/nine fail, with
+457 unmeasured (423 simulation/34 elaboration). These changed subset totals
+are filtering, not new execution or improvement. Separate VPI records remain.
+All 110 tool tests and metadata, ledger/library, evidence and bilingual checks
+pass. Schema, runners/library/catalog, workflow and SVGs remain unchanged.
+No human review, denominator approval or goal completion is claimed.

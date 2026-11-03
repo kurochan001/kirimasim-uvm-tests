@@ -13,7 +13,8 @@
 :expected_stdout: @test_sequence_send_request_rerandomize_uses_request_constraint_once.expected
 */
 // Explicitly enable rerandomization on send_request. The singleton
-// constraint supplies a deterministic value and one post_randomize callback.
+// constraint supplies a deterministic value and at least one callback.
+// The randomized observation is Boolean; the contract does not fix retries.
 
 module test_sequence_send_request_rerandomize_uses_request_constraint_once;
   import uvm_pkg::*;
@@ -98,7 +99,7 @@ module test_sequence_send_request_rerandomize_uses_request_constraint_once;
       fork sequence_value.start(sequencer); join_none
       driver.seq_item_port.get_next_item(observed);
       $display("UT: same_handle %0d code %0d randomized %0d", observed == sequence_value.sent[0],
-               observed.code, observed.randomizations);
+               observed.code, observed.randomizations>0);
       #1;
       driver.seq_item_port.item_done();
       wait (sequence_value.done);

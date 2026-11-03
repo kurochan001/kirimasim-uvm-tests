@@ -862,3 +862,7 @@ active objectをpopする前に履歴がFINISHEDになる場合があります�
 
 **region委譲observer（Region delegation observer）**：regionが変換したAPI入力を観測し、応答data／statusを供給する独自memory subtypeです。
 物理storageやbus／HDL転送動作は立証しません。
+
+**sequencer interface view（Sequencer interface view）**：解決済みpull connectorを通じて実sequencer実装から取得する、公開された型付sequence-driver interfaceです。
+
+**rerandomization Boolean観測（Rerandomization Boolean observation）**：retryやcallbackの回数を固定せず、requestが1回以上randomizeされたかを確認する述語です。

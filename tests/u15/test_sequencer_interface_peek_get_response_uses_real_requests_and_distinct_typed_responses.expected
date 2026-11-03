@@ -1,0 +1,4 @@
+UT: interface_repeated_peek 1
+UT: interface_request same 1 value 45 completed 0
+UT: interface_get_same 1
+UT: interface_reply same 1 value 145 completed 1
