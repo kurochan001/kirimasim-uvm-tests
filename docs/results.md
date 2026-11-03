@@ -4,23 +4,26 @@
 
 ## Current snapshot
 
-The Verilator evidence dated 2026-11-03 covers all 1408 current tests.
-Guest records retain 1084 compatible current inputs; 324 inputs are
+The Verilator snapshot assembled on 2026-11-04 covers all 1416 current tests.
+Guest records retain 1084 compatible current inputs; 332 inputs are
 unmeasured, including one metadata-revised old fixture. Each record
 fingerprints its inputs and conditions.
-The suite contains 470 M1, 512 M2 and 426 M3 cases in 21 chapter/annex
-directories. All record `spec_check: ai`; none records human review or asks
-for deprecated APIs. Of these, 1382 use `UVM_NO_DPI` and eight explicitly
-request HDL DPI. Eighteen more enable command-line/regex DPI with HDL disabled.
+The suite has 1416 fixtures in 21 directories: 1408 simulation and 8
+elaboration. Milestone totals are M1 474 (470/4), M2 514 (512/2) and M3 428
+(426/2), with runtime/elaboration counts in parentheses. All use `spec_check: ai`;
+none records human review. Of 1390 no-DPI fixtures, eight are illegal
+elaboration checks; the eight HDL-DPI and eighteen command-line/regex-DPI
+runtime fixtures remain separate.
+
 Counts do not establish a reviewed coverage percentage.
 
 | Simulator and library | Observation | Execution scope |
 | --- | --- | --- |
-| Verilator 5.052, pinned UVM | 1237 `pass`; 171 `known` | Matches reproduced at seeds 1 and 73; runtime differences stop at seed 1 |
+| Verilator 5.052, pinned UVM | 1245 `pass`: 1237 runtime + 8 compile rejection; 171 `known` | Runtime matches use seeds 1/73; expected compiler rejections execute no runtime seed |
 | Verilator 5.052, original VPI HDL backend | 7 `pass`; 1 `fail` | Separate overlapping 8-case condition; matches at seeds 1/73, difference at seed 1 |
 | Verilator 5.052, original command-line VPI bridge and pinned regex DPI | 17 `pass`; 1 `known` | Separate overlapping 18-case condition; matches at seeds 1/73, difference at seed 1 |
-| kirimasim, pinned UVM | 1075 `unsupported`; nine `fail` | 1084 unchanged inputs; 324 inputs unmeasured |
-| Ghost, bundled UVM | 207 `pass`; 877 `fail` | 1084 unchanged inputs at each seed; identical failing sets; 324 inputs unmeasured |
+| kirimasim, pinned UVM | 1075 `unsupported`; nine `fail` | 1084 unchanged inputs; 332 inputs unmeasured |
+| Ghost, bundled UVM | 207 `pass`; 877 `fail` | 1084 unchanged inputs at each seed; identical failing sets; 332 inputs unmeasured |
 | Ghost, pinned UVM | Not measured for the current executable snapshot | No current pinned-mode claim |
 
 The pinned library is Accellera UVM 2020.3.1, commit `78c06547a2a0`, with
@@ -31,6 +34,12 @@ not published. [Ghost setup](testing.md#ghost) describes the public interface.
 Icarus Verilog is not used for this UVM suite.
 
 ## Interpretation
+
+Eight valid negative expectations match by compilation rejection, each with
+the fixture/class-specific virtual diagnostic. No binary or runtime seed is
+executed. These matches differ from the 43 unexpected build failures among
+the simulation cases. Both the expectation type and the measured error are
+needed to interpret a `pass`.
 
 The 171 spec-only cases retain standard-derived expected output. In the
 ordinary condition, 128 first differ at runtime seed 1, without a seed 73
@@ -70,24 +79,22 @@ and exit-code rules. Two seeds do not prove determinism or four-state correctnes
 
 ## Evidence assembly
 
-The ordinary snapshot retains all 1396 unchanged records from
-[1eedd32](https://github.com/kurochan001/kirimasim-uvm-tests/commit/1eedd326e86dfaa657fbadf0f4ed3c3620b7ec37)
-and adds twelve current-input M2 fixtures. Nine match both seeds; three
-qualified interpretation probes first differ at seed 1. They cover literal
-nonblocking provider lists under blocking relay headings and a no-direct-entry
-interpretation after forbidden same-kind terminator connects. Operational
-blocking relays match; initiator rejection reports ERROR but keeps a raw entry.
-Neither observation settles conflicting standard wording or proves a bug.
-No seed 73 result exists for those three inputs.
+The ordinary snapshot retains all 1408 unchanged simulation records from
+[d2568b2](https://github.com/kurochan001/kirimasim-uvm-tests/commit/d2568b259a86809c2eabdbca54926ecbc09fdd8f)
+and adds eight expected compile-rejection measurements. Compiler return codes
+are nonzero and the declared regex matches an error naming the fixture and
+class. Full build logs and their fingerprints are retained locally. Requested
+seed configuration remains 1/73; illegal metadata prevents runtime execution.
+The final source fingerprints include the promoted oracle tags. The new
+compiler checks were measured on 2026-11-03 JST; this snapshot is assembled
+on 2026-11-04.
 
-Matching additions cover extension names/legal types, socket/port/export/imp
-defaults and exact views, actual default imp delegation, explicit/parent socket
-implementations, custom-phase two-way relays and all three listed nonblocking
-initiator providers. Original backend algorithms are setup. An initial fixture
-used a packed-string conditional label with leading padding; assigning each
-label to a string corrected the formatting without changing normative output,
-and both seeds were rerun. All earlier inputs/runners and separate VPI
-conditions remain unchanged.
+Earlier 1237 runtime matches, 128 seed-1 differences and 43 build differences
+remain unchanged. No earlier source, expected output, runner or library input
+changes. Ledger schema 2 adds typed diagnostic links while preserving every
+older requirement object; its checker does not consume measured compiler logs.
+The workflow's comments/step label now distinguish runtime and compile checks;
+commands, permissions and execution conditions are unchanged.
 
 Retained kirimasim/Ghost records were collected with fixed executable
 snapshots and Ghost's seed-specific private profiles.
@@ -100,9 +107,9 @@ longer available. No new guest run is claimed. Their historical files contain
 1085 records; exactly one command fixture now has a changed citation/fingerprint
 and is excluded. The compatible current subset has 1084 records: kirimasim
 1075 unsupported/nine missing-API failures; Ghost 207 pass/877 fail at each
-seed. There are 324 unmeasured current inputs: 323 additions since those
+seed. There are 332 unmeasured current inputs: 331 additions since those
 snapshots and the revised command fixture. The filtered files and
-`out/thin-thirty-eighth-evidence-scope.json` preserve this distinction until
+`out/thin-thirty-ninth-evidence-scope.json` preserve this distinction until
 the authorized execution environment is restored.
 
 The fingerprints identify different inputs:
@@ -120,7 +127,7 @@ simulator, configuration and library identities before reusing execution records
 Before combining records, check that:
 
 - Verilator IDs cover the current suite exactly. Retained guest IDs match
-  their declared 1084-case subset; 324 input IDs remain unmeasured.
+  their declared 1084-case subset; 332 input IDs remain unmeasured.
 - Each record's `inputs_sha256` matches its current source, expected output,
   associated inputs and library lock as collected by the runner.
 - Simulator version, configuration and `runner_sha256` match between batches,
@@ -135,19 +142,18 @@ claim that a single invocation reran the entire suite. The
 prior smoke tests and build-change details. Refreshed records replace older
 ones only after their current input fingerprints are verified.
 
-The [draft requirement ledger](requirements.md) adds eighty-three AI drafts
-for twelve new fixtures. All earlier drafts, assessments and fixture inputs
-remain unchanged. Twelve individual structural assessments reach 182 total
-(131 structural/51 contextual). Chapter 12 is 169 partial, 45 assessed and
-zero unassessed; normative overviews are decomposed, not excluded. The active
-M1–M4 goal retains 1,151 unassessed and 1,174 partially decomposed identifiers.
-The compatible guest subset stays at 1084, with 324 current inputs unmeasured.
-No guest execution is added.
+The [draft requirement ledger](requirements.md) uses schema 2, with all 2084
+prior requirement objects unchanged and eight new direct diagnostic links plus
+eight unchanged runtime controls. No assessments are added. There are 1178
+partial, 182 assessed and 1,147 unassessed identifiers. Reports distinguish
+`test_types` and `primary_test_types`; the counting unit and scope stay fixed.
+The guest subset remains 1084 compatible simulation inputs, with 332 current
+inputs unmeasured: 324 simulation and 8 elaboration. No guest run is claimed.
 
-All retained records must match current input and runner fingerprints. Zero
-unlinked tests or zero chapter-12 unassessed identifiers does not complete the
-normative inventory. Ledger anchors describe expected output, not additional
-measured passes. Qualified interpretations require standard review.
+A successful expected compiler rejection does not execute runtime behavior.
+All retained evidence must match current input and runner fingerprints.
+Requirement links, zero unlinked tests and a matching diagnostic do not
+complete the normative inventory or approve a coverage denominator.
 
 ## Reproducing and retaining results
 
@@ -160,9 +166,10 @@ inputs, a different runner, executable, profile or library is a separate conditi
 ## Continuous integration
 
 [Check](../.github/workflows/check.yml) runs on pushes to `main`, pull requests
-and manual dispatch. It checks pinned-library integrity, 101 tool unit tests,
-1408 metadata records, the draft requirement ledger/test index and the 1237
-tagged ordinary Verilator cases using seeds 1 and 73, plus seventeen
+and manual dispatch. It checks pinned-library integrity, 110 tool unit tests,
+1416 metadata records and the draft ledger/index. Its 1245 tagged ordinary
+Verilator checks comprise 1237 runtime cases at seeds 1/73 and eight compiler
+rejections without runtime seeds, plus seventeen
 explicit command-line checks under their separate condition.
 It does not run kirimasim, Ghost or spec-only cases. The README's badge is the
 live CI state, separate from these local measurements. A green Check does

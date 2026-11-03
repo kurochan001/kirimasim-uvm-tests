@@ -2,8 +2,8 @@
 <!-- SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception -->
 <svg xmlns="http://www.w3.org/2000/svg" width="900" height="490"
      viewBox="0 0 900 490" role="img" aria-labelledby="title desc">
-  <title id="title">引用・要求の対応付け・実行の証拠</title>
-  <desc id="desc">規格をテストで引用し、義務と適用条件を要求案へ分解する。要求は、テストの期待する観測へdirectまたはcontrolとして明示的に対応付ける。実行の証拠は別途測定し、statusと条件の指紋を記録する。引用や対応付けだけで実行成功を示さない。</desc>
+  <title id="title">引用・要求の対応付け・測定</title>
+  <desc id="desc">規格をテストで引用し、義務と適用条件を要求案へ分解する。要求は、期待する実行観測または宣言したコンパイル診断へdirectまたはcontrolとして明示的に対応付ける。別途測定して実行一致または期待したコンパイル拒否を確認し、statusと条件の指紋を記録する。引用や対応付けだけで実行成功を示さない。</desc>
   <defs>
     <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5"
             markerWidth="7" markerHeight="7" orient="auto-start-reverse">
@@ -25,7 +25,7 @@
     rect.node { stroke-width: 1.5; }
   </style>
   <rect width="900" height="490" fill="#ffffff"/>
-  <text x="32" y="36" class="heading" text-anchor="start">引用・要求の対応付け・実行の証拠</text>
+  <text x="32" y="36" class="heading" text-anchor="start">引用・要求の対応付け・測定</text>
   <path class="edge" d="M 360 123 H 560"/>
   <path class="edge" d="M 120 168 V 336"/>
   <path class="edge" d="M 710 168 V 242 H 280 V 336"/>
@@ -48,12 +48,14 @@
   </g>
   <g id="test">
     <rect class="node expectation" x="40" y="336" width="320" height="100" rx="10"/>
-  <text x="200.0" y="364" class="label" text-anchor="middle">テスト＋汎用の期待出力</text>
-  <text x="200.0" y="389" class="body" text-anchor="middle">期待するUT:の観測</text>
+  <text x="200.0" y="364" class="label" text-anchor="middle">テスト＋宣言した期待</text>
+  <text x="200.0" y="389" class="body" text-anchor="middle">実行：UT:出力</text>
+  <text x="200.0" y="414" class="body" text-anchor="middle">コンパイル：診断regex</text>
   </g>
   <g id="execution">
     <rect class="node execution" x="560" y="336" width="300" height="100" rx="10"/>
-  <text x="710.0" y="364" class="label" text-anchor="middle">実行の証拠</text>
-  <text x="710.0" y="389" class="body" text-anchor="middle">status＋条件の指紋</text>
+  <text x="710.0" y="364" class="label" text-anchor="middle">測定した証拠</text>
+  <text x="710.0" y="389" class="body" text-anchor="middle">実行一致／コンパイル拒否</text>
+  <text x="710.0" y="414" class="body" text-anchor="middle">status＋入力／runnerの指紋</text>
   </g>
 </svg>

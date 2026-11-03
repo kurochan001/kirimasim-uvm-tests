@@ -2,8 +2,11 @@
 
 [English](known-differences.md) · [README](../README.ja.md) · [FAQ](faq.ja.md)
 
-現在の1408件と、固定したAccellera UVM 2020.3.1についての記録です。
+現在の1416件と、固定したAccellera UVM 2020.3.1についての記録です。
 不一致はテストの結果であり、それだけではシミュレータ・ライブラリ・期待値のどれが原因かは決まりません。
+
+新規の抽象生成8検査は対象診断による必須compiler拒否で一致し、specのみのsimulation差分171件には含めず、実行時seed結果も追加しません。
+選択したTLM extension-base抽象生成は、以前の正の型probeと別に検査しました。他の不正利用／member／protocol義務は残ります。
 
 ## 固定版ライブラリの制約
 
@@ -24,7 +27,7 @@ M1・M2・M3で、追加の制約と観測を確認しました。
   全3件はseed 1の最初の差分で停止し、seed 73結果はありません。
 - forward portをbackward経路とする本文と、P／parameter構文を省略したnonblocking connect signatureも部分対応の文言として残ります。
   正確なclass既定値と独自phase転送probeは印刷signatureの逐語的正しさを認定しません。
-  抽象extension-base生成の拒否、不正user extension、全socket member所有関係も別作業です。
+  他の抽象／不正派生条件、不正user extension、全socket member所有関係も別作業です。
 
 - 12.2.3.3のbidirectional port概要は、REQと独立にRSP=intを宣言します。選択した9 familyの検査系はREQだけstringへoverrideし、正確なstring／int interface基底を要求します。
   固定宣言はRSP=REQを使うため、最初の型付き引数でcompileに失敗します。全int既定と、異なるpacked型を明示したtransportの比較対象は一致します。
@@ -347,7 +350,7 @@ command-line 18検査系は別のVPI bridgeと固定regex DPIを明示要求し�
 上限は正しく7のままですが、固定serverはINFOを発行し、警告probeはWARNINGを観測しません。YESの比較対象は警告なしで9へ変わります。
 これは診断severityの差分で、上限の強制失敗ではありません。以前のno-DPI引数2件は未変更の通常実行時差分です。
 
-スイート全体では、`verilator@5.052`を付けたテストは1237件、specのみのテストは171件です。
+スイート全体では、`verilator@5.052`を付けたテストは1245件、specのみのテストは171件です。
 specのみのうち1件は9.6を検証します。pre-resetフェーズ終了時に子タスクが停止する
 はずですが、固定版UVMとVerilator 5.052の組み合わせでは、後のフェーズで子タスクの遅延書き込みが
 実行されます。この差分の原因がシミュレータとライブラリのどちらかは未確定です。
@@ -356,7 +359,7 @@ wakeup resetの検査系は、trigger waiterとpersistent-trigger waiterを各1�
 10.1.1.2.8は、callbackなしで両方が起動することを要求します。固定Verilatorの実行は、待機状態の観測に到達してから
 watchdogが期限切れになります。simulator／libraryを組み合わせた原因は未確定のまま、規範的なwakeupの期待を保持します。
 
-specのみの171件も規格から導いた期待値を保持します。通常のVerilator実行とCIはoracle付き1237件を選びます。
+specのみの171件も規格から導いた期待値を保持します。通常のVerilator実行とCIはoracle付き1245件（runtime 1237・compile拒否8）を選びます。
 `--all`はspecのみも含め、不一致やビルド不可を`known`として記録します。
 通常の実行時128件は、最初の差分であるseed 1までの記録で、seed 73の結果はありません。
 API欠落build 16件は、time 1件、sequence-library 6件、HDL slice 4件、名前付きconcat constructor 1件、object active-policy 1件、catcher message-handle 3件で、
@@ -641,12 +644,12 @@ API欠落build 16件は、time 1件、sequence-library 6件、HDL slice 4件、�
 
 既存command 1検査系は、動作／期待出力を変えずcommand-enum引用を追加し、Verilatorで再測定します。
 その入力の歴史的guest記録は指紋が古くなったため、現在のguest部分集合から除外します。
-互換な1084記録、変更した入力を含む未測定324入力であり、新しいguest失敗ではなくevidence範囲の区別です。
+互換な1084記録、変更した入力を含む未測定332入力であり、新しいguest失敗ではなくevidence範囲の区別です。
 
 ## シミュレータとライブラリの組み合わせ
 
-スイートは1408件ですが、以下のkirimasim／Ghost記録は未変更の現在入力1084件だけを対象とします。
-以前の一時実行ファイル／profile snapshotがないため、324入力は未測定です。
+スイートは1416件ですが、以下のkirimasim／Ghost記録は未変更の現在入力1084件だけを対象とします。
+以前の一時実行ファイル／profile snapshotがないため、332入力は未測定です。
 新しい全件guest実測とは扱いません。[実行結果](results.ja.md)を参照してください。
 
 Ghostの同梱UVMはseed 1・73とも207件一致・877件不一致で、不一致になるテストも同じです。

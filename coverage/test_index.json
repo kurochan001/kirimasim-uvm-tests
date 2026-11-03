@@ -218,6 +218,10 @@
       "primary_clause": "5.3.3.1",
       "inputs_sha256": "db71ef7a5cba1672ad1aef0ab77957864e84be7219443bbb54ae83da670f5e96"
     },
+    "u05/test_uvm_transaction_abstract_declaration_rejects_direct_construction": {
+      "primary_clause": "5.4.1",
+      "inputs_sha256": "a0842b513ffc437142525397ea3a1c353c3bae88f2e27d61a4e82295b1ae27b9"
+    },
     "u06/test_new_report_message_preserves_calling_thread_rng_state": {
       "primary_clause": "6.2.2.2",
       "inputs_sha256": "baf3bec3f95ecd25a60473f5eff69e190ab392a140c1ae7bbd041cbbfdfe14b5"
@@ -421,6 +425,10 @@
     "u06/test_reporting_verbosity_filters_info_but_not_warning_error_or_fatal": {
       "primary_clause": "6.3.3.3",
       "inputs_sha256": "1f096e3d4d5719cfd564bd69876f6596f3a51b8a6271d312b0b190103e153a50"
+    },
+    "u06/test_uvm_report_catcher_abstract_declaration_rejects_direct_construction": {
+      "primary_clause": "6.6.1",
+      "inputs_sha256": "025a74f38df3a8d168d65690376f262abc1ff7ebf03e2a1dbdcf02376cc1d101"
     },
     "u07/test_concrete_link_constructors_preserve_default_and_explicit_names": {
       "primary_clause": "7.3.2.2.1",
@@ -661,6 +669,10 @@
     "u08/test_object_registry_type_override_forwards_replace_flag": {
       "primary_clause": "8.2.4.2.5",
       "inputs_sha256": "f7d400c4fb01723b5606c7740d94ccb8bc40a422ee316bbc3101b3f3adf5595b"
+    },
+    "u08/test_uvm_object_wrapper_abstract_declaration_rejects_direct_construction": {
+      "primary_clause": "8.3.2.1",
+      "inputs_sha256": "34d233374ae617dd8612ec400e47f476fe58ef05ef0b76b4bf9b7bb8b85875a6"
     },
     "u08/test_wrapper_component_type_name_identifies_represented_type": {
       "primary_clause": "8.3.2.2.3",
@@ -1990,6 +2002,10 @@
       "primary_clause": "12.2.9.2.2",
       "inputs_sha256": "ba99337cbc58360cd3cb494f8c8fe2381461e202217d6c6df825e3bd3b813e04"
     },
+    "u12/test_uvm_tlm_extension_base_abstract_declaration_rejects_direct_construction": {
+      "primary_clause": "12.3.4.4.1",
+      "inputs_sha256": "1b57b3ca8276c5afdc8f60e6c8139895446767048dfd2d83c31416c720eabfcf"
+    },
     "u13/test_agent_activity_defaults_to_active_for_independent_instances": {
       "primary_clause": "13.4.2.2",
       "inputs_sha256": "de20b466e671374e9349622800dbe211f9fdff6faa6e22e2fcccfc84b2111b9d"
@@ -2093,6 +2109,10 @@
     "u13/test_phase_ready_iteration_cap_3_bounds_repeated_raise_drop_callbacks": {
       "primary_clause": "13.1.4.3.2",
       "inputs_sha256": "826845da5814b7ce41c4337cc405b786a07c412f2922d2aa788afc6b7a60f4fb"
+    },
+    "u13/test_uvm_component_abstract_declaration_rejects_direct_construction": {
+      "primary_clause": "13.1.1",
+      "inputs_sha256": "fe0b8deac92954a17109c51dce4b0538b6e9a8de442a070b6c7fa30d3941be67"
     },
     "u14/test_automatic_objection_setting_changes_apply_to_each_completed_sequence_reuse": {
       "primary_clause": "14.2.4.4",
@@ -2673,6 +2693,10 @@
     "u14/test_starting_phase_can_be_replaced_and_cleared_between_completed_starts": {
       "primary_clause": "14.2.4.2",
       "inputs_sha256": "bd13b108136e85061c98a98a30cd6be29846d135af70f2e14c57f094644dcfd8"
+    },
+    "u14/test_uvm_sequence_abstract_declaration_rejects_direct_construction": {
+      "primary_clause": "14.3.1",
+      "inputs_sha256": "e26525a67104ac414f05267abe8965ff44c26747cda6406b8ef7849b9a3b9529"
     },
     "u15/test_default_sequence_equal_precedence_keeps_instance_first_after_filter": {
       "primary_clause": "15.3.5",
@@ -4873,6 +4897,14 @@
     "u19/test_user_backdoor_write_success_propagates_pre_hook_changes_and_post_callbacks": {
       "primary_clause": "19.5.2.6",
       "inputs_sha256": "1d445564ead6c6c710326d6505a6d0445ee2812de69718faef1b30d3707c6c4c"
+    },
+    "u19/test_uvm_reg_backdoor_abstract_declaration_rejects_direct_construction": {
+      "primary_clause": "19.5.1",
+      "inputs_sha256": "7f9fd29256efd9dfe1e51225b46399028690759f582cb412e77e4d8b25fe4147"
+    },
+    "u19/test_uvm_reg_frontdoor_abstract_declaration_rejects_direct_construction": {
+      "primary_clause": "19.4.2.1",
+      "inputs_sha256": "190950040b66663a48b3395252ccb73f3f32bbacfd5886d120373127094c2ba6"
     },
     "uB/test_callback_exit_on_false_stops_before_later_callbacks": {
       "primary_clause": "B.4.5",

@@ -100,6 +100,14 @@ The metadata follows kirimasim-tests and sv-tests, with these UVM-specific field
 `:files:`, `:defines:`, `:incdirs:` and `:top_module:` mean what they mean in
 kirimasim-tests; the [tool provenance](provenance.md) identifies the shared implementation.
 
+The eight negative fixtures use `:type: elaboration` and
+`:should_fail_because:`. Their `:expected_stderr_regex:` identifies the fixture,
+class and virtual/abstract diagnostic. They have no expected runtime output
+or exit. A match requires compiler rejection plus a matching error; an accepted
+design fails without running its binary. Requested seeds apply to simulation,
+so no runtime seed is executed for a rejected design. The ledger's schema-2
+diagnostic form records that declared oracle separately from measurements.
+
 Missing-default ownership fixtures deliberately end through a testbench fatal
 after catching original UVM_FATAL severity. Their `:expected_exit: nonzero`
 and `:expected_stderr_regex:` require a unique fixture sentinel. They do not
@@ -116,7 +124,7 @@ numbers and the format of times also depend on the library and the simulator.
 So:
 
 - **The default report lines are not compared.**
-- **A test prints what it observes on lines that begin with `UT: `**, with
+- **A simulation test prints what it observes on lines that begin with `UT: `**, with
   `$display`, and only the values that the standard fixes: the order of phases,
   counts, values read back, results of comparisons. Only those lines are
   compared with the expected output. A failure of the report machinery then
@@ -185,7 +193,7 @@ again. `--check` checks the copy that is there. The library is not committed.
 - User-defined `uvm_reg_backdoor` storage handlers work without HDL DPI.
   Commercial simulator execution/results are excluded by the project policy;
   built-in HDL-path/DPI coverage remains open.
-- 1382 current cases use `UVM_NO_DPI`; eight explicitly enable HDL DPI.
+- 1390 current cases use `UVM_NO_DPI`; eight explicitly enable HDL DPI.
   `:uvm_dpi: yes` removes that macro;
   it does not automatically compile or link the C/C++ DPI implementation.
   The current Verilator runner does not add DPI C/C++ sources.
@@ -280,11 +288,12 @@ the large model with a precompiled header that records the absolute path of
 its build directory, and a header that ccache kept from another directory
 breaks the build.
 
-`--seeds 1 73` builds each model once and runs it in a fresh process for each
-seed. All seeds must match. `--seed N` remains available for a single seed.
+For runtime cases, `--seeds 1 73` builds once and runs a fresh process for
+each seed. All requested runtime seeds must match. `--seed N` remains available for a single seed.
 The JSON configuration records either `seed` or `seeds` accordingly.
 
-By default, Verilator selects the 1237 tagged two-state cases. To include
+By default, Verilator selects 1245 tagged two-state checks: 1237 runtime
+cases and 8 expected compiler rejections. To include
 the 171 spec-only cases as well, add `--all`. A mismatch in an untagged case
 is `known` and does not fail the command; a tagged mismatch does.
 Explicit test paths select only those tests. For a single smoke test:
@@ -338,8 +347,8 @@ python3 tools/lint_metadata.py
 python3 tools/requirements.py check
 ```
 
-The current tool suite has 101 unit tests; metadata validation checks all
-1408 simulation tests. The [ledger check](requirements.md) validates the draft
+The current tool suite has 110 unit tests; metadata validation checks all
+1416 tests (1408 simulation, 8 elaboration). The [ledger check](requirements.md) validates the draft
 scope, explicit oracle links and input fingerprints without claiming coverage. [Check](../.github/workflows/check.yml) runs on pushes to
 `main`, pull requests and manual dispatch. Its separate Verilator job uses
 5.052, `UVM_NO_DPI` and seeds 1 and 73 for the tagged cases. Each model is

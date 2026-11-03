@@ -819,3 +819,12 @@ blocking／nonblockingの名前が矛盾する場合、別の実動経路が動�
 
 **独自phase型（Custom phase type）**：parameterized nonblocking interfaceで明示選択するphase型です。
 正の正確なviewと選択双方向転送から、phase parameter省略の印刷connect signatureは確定しません。
+
+**compile診断anchor（Compile diagnostic anchor）**：不正elaboration要求のlinkへ付ける正確な宣言error regexとcompile stageです。
+期待oracleへの対応であり、一致するcompiler evidenceは別に測定します。
+
+**期待compile拒否（Expected compile rejection）**：必要な対象errorでcompileが失敗する、成功したnegative検査です。
+runtime binaryやseedは実行せず、予期しないlibrary／API／link build失敗とは異なります。
+
+**検査種別の件数（Test-kind census）**：simulation／elaborationを分けた検査系の件数です。
+全検査系、runtimeの両seed一致、期待compiler拒否は異なる量で、coverage率を証明しません。

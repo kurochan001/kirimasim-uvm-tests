@@ -2,8 +2,8 @@
 <!-- SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception -->
 <svg xmlns="http://www.w3.org/2000/svg" width="900" height="490"
      viewBox="0 0 900 490" role="img" aria-labelledby="title desc">
-  <title id="title">Citations, requirement links and execution</title>
-  <desc id="desc">The standard is cited by a test and decomposed into draft requirements. Requirements have explicit direct or control links to expected observations in the test. Execution evidence is measured separately and records status and condition fingerprints. A citation or link is not a measured pass.</desc>
+  <title id="title">Citations, requirement links and measurement</title>
+  <desc id="desc">The standard is cited by a test and decomposed into draft requirements. Requirements have explicit direct or control links to expected runtime observations or a declared compile diagnostic. Measurement separately establishes a runtime match or expected compile rejection and records status and condition fingerprints. A citation or link is not a measured pass.</desc>
   <defs>
     <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5"
             markerWidth="7" markerHeight="7" orient="auto-start-reverse">
@@ -25,7 +25,7 @@
     rect.node { stroke-width: 1.5; }
   </style>
   <rect width="900" height="490" fill="#ffffff"/>
-  <text x="32" y="36" class="heading" text-anchor="start">Citations, requirement links and execution</text>
+  <text x="32" y="36" class="heading" text-anchor="start">Citations, requirement links and measurement</text>
   <path class="edge" d="M 360 123 H 560"/>
   <path class="edge" d="M 120 168 V 336"/>
   <path class="edge" d="M 710 168 V 242 H 280 V 336"/>
@@ -48,12 +48,14 @@
   </g>
   <g id="test">
     <rect class="node expectation" x="40" y="336" width="320" height="100" rx="10"/>
-  <text x="200.0" y="364" class="label" text-anchor="middle">Test + generic expected output</text>
-  <text x="200.0" y="389" class="body" text-anchor="middle">Expected UT: observations</text>
+  <text x="200.0" y="364" class="label" text-anchor="middle">Test + declared expectation</text>
+  <text x="200.0" y="389" class="body" text-anchor="middle">Run: UT: output</text>
+  <text x="200.0" y="414" class="body" text-anchor="middle">Compile: diagnostic regex</text>
   </g>
   <g id="execution">
     <rect class="node execution" x="560" y="336" width="300" height="100" rx="10"/>
-  <text x="710.0" y="364" class="label" text-anchor="middle">Execution evidence</text>
-  <text x="710.0" y="389" class="body" text-anchor="middle">Status + condition fingerprints</text>
+  <text x="710.0" y="364" class="label" text-anchor="middle">Measured evidence</text>
+  <text x="710.0" y="389" class="body" text-anchor="middle">Run match / compile rejection</text>
+  <text x="710.0" y="414" class="body" text-anchor="middle">Status + input/runner fingerprints</text>
   </g>
 </svg>

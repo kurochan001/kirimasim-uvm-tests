@@ -3,7 +3,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="960" height="680"
      viewBox="0 0 960 680" role="img" aria-labelledby="title desc">
   <title id="title">テストから測定結果までの流れ</title>
-  <desc id="desc">引用したIEEE条項からテストと期待出力を決める。テストとUVMライブラリを使ってビルド・実行し、ランナーが観測と期待条件を照合する。--json指定時はstatusと指紋を記録する。ビルド・実行の失敗も結果として記録する。</desc>
+  <desc id="desc">引用したIEEE条項からテストと実行出力またはコンパイル診断の期待を決める。テストとUVMライブラリを使ってビルドし、対象時だけ実行して、ランナーが観測と期待条件を照合する。--json指定時はstatusと指紋を記録する。ビルド・実行の失敗も結果として記録する。</desc>
   <defs>
     <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5"
             markerWidth="7" markerHeight="7" orient="auto-start-reverse">
@@ -42,8 +42,8 @@
   <g id="expected">
     <rect class="node expectation" x="40" y="220" width="300" height="96" rx="10"/>
   <text x="190.0" y="248" class="label" text-anchor="middle">期待値</text>
-  <text x="190.0" y="273" class="body" text-anchor="middle">.expected＋メタデータ</text>
-  <text x="190.0" y="295" class="body" text-anchor="middle">の条件</text>
+  <text x="190.0" y="273" class="body" text-anchor="middle">UT:出力または診断regex</text>
+  <text x="190.0" y="295" class="body" text-anchor="middle">メタデータの条件</text>
   </g>
   <g id="test">
     <rect class="node neutral" x="420" y="220" width="240" height="96" rx="10"/>
@@ -59,13 +59,13 @@
   </g>
   <g id="execute">
     <rect class="node execution" x="520" y="390" width="300" height="88" rx="10"/>
-  <text x="670.0" y="418" class="label" text-anchor="middle">ビルドと実行</text>
+  <text x="670.0" y="418" class="label" text-anchor="middle">ビルド／対象時だけ実行</text>
   <text x="670.0" y="443" class="body" text-anchor="middle">選択したシミュレータ</text>
   </g>
   <g id="judge">
     <rect class="node expectation" x="90" y="390" width="300" height="88" rx="10"/>
   <text x="240.0" y="418" class="label" text-anchor="middle">ランナーの判定</text>
-  <text x="240.0" y="443" class="body" text-anchor="middle">UT:行＋終了・診断の条件</text>
+  <text x="240.0" y="443" class="body" text-anchor="middle">実行出力／コンパイル診断</text>
   </g>
   <g id="result">
     <rect class="node neutral" x="90" y="555" width="300" height="88" rx="10"/>

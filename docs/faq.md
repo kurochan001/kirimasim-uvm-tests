@@ -135,7 +135,7 @@ See [Ghost setup](testing.md#ghost).
 
 It removes `UVM_NO_DPI` from the default macro list. It does not supply or link
 UVM's C/C++ implementation. The current Verilator runner does not add those
-sources. There are 1382 `UVM_NO_DPI` cases and eight explicit HDL-DPI cases.
+sources. There are 1390 `UVM_NO_DPI` cases and eight explicit HDL-DPI cases.
 Eighteen more fixtures explicitly enable command-line/regex DPI with HDL disabled.
 The [command-line runner](testing.md#verilator-command-line-subset) links that separate backend.
 The [separate VPI runner](testing.md#verilator-vpi-hdl-subset) links the original
@@ -147,7 +147,7 @@ Glob matching without DPI is also not the same as full regular-expression suppor
 
 Every test builds the UVM package as part of its model. `-j` controls the number
 of concurrent tests; `--build-jobs` controls C++ jobs within each Verilator build.
-Using `--seeds` builds once and runs a fresh process for each seed. The runner
+For runtime tests, using `--seeds` builds once and runs a fresh process for each seed. The runner
 disables ccache through the build environment because the model's precompiled
 header records an absolute build-directory path and cannot be reused that way.
 
@@ -1143,9 +1143,9 @@ not a direct test of the requirement.
 
 ### Q77. Why is there no coverage percentage after starting M4?
 
-The 2084 AI drafts cover only a partial decomposition: 2084 requirements link
-directly to 1407 tests; all drafts have direct tests, and one separate test is a control.
-All 1408 tests have requirement links. The 2,507 clause identifiers are not normative requirement units.
+The 2092 AI drafts cover only a partial decomposition: 2092 requirements link
+directly to 1415 tests; all drafts have direct tests, and one separate test is a control.
+All 1416 tests have requirement links. The 2,507 clause identifiers are not normative requirement units.
 The scope is proposed, the inventory incomplete and the denominator unapproved;
 starting M4 approves none of those. Known differences and HDL/DPI limitations
 do not silently exclude obligations. See the [approval path](requirements.md#remaining-m4-work-and-approval).
@@ -2145,7 +2145,7 @@ No. `tests_without_requirement_links` is zero: every current test has an
 explicit direct or control link. The separate counter
 `requirements_without_direct_tests` is zero. The memory-walk link uses the
 qualified historical interpretation in Q134. It is not approval of missing
-IEEE detail. HDL deposit and accessibility use explicit VPI fixtures. Another 1,151
+IEEE detail. HDL deposit and accessibility use explicit VPI fixtures. Another 1,147
 catalog identifiers remain unassessed; decomposition and human review are
 incomplete, and the denominator remains unapproved.
 
@@ -2933,8 +2933,8 @@ the unassessed count or approve an exclusion. All earlier requirements remain.
 A command fixture gained a supporting enum citation and was remeasured on
 Verilator. Even a metadata-only source edit changes its input fingerprint.
 Its old guest record is excluded; the original historical file still has
-1085 records. Current compatible scope is 1084, with 324 inputs unmeasured:
-323 additions and the revised old input. No guest rerun or new failure is claimed.
+1085 records. Current compatible scope is 1084, with 332 inputs unmeasured:
+331 additions and the revised old input. No guest rerun or new failure is claimed.
 
 ### Q194. May a predicate implementation delegate to another virtual query?
 
@@ -2975,3 +2975,33 @@ hooks selected when IMP is omitted. Actual custom transaction/phase relays
 preserve both paths and reference phase updates. These positive declaration
 and forwarding probes do not certify nominal IMP=int or literal printed
 connect signatures that omit P. Original backend algorithms are setup.
+
+### Q199. Why is a rejected compilation counted as a match?
+
+The eight new tests intentionally construct standard-declared virtual classes.
+Their required result is rejection with an error naming the fixture and class.
+A matching rejection is a successful negative check, without runtime seeds.
+This differs from the 43 unexpected builds among simulation cases.
+
+### Q200. Does ledger schema 2 change older output links?
+
+No. All 2084 earlier requirement objects remain unchanged. Schema 2 adds an
+alternative diagnostic form with compile stage and the exact declared regex,
+restricted to illegal elaboration metadata without runtime expectations.
+Schema 1 remains readable for output-only ledgers; mixed/unknown fields and
+stale patterns are rejected. Validation does not consume compiler results.
+
+### Q201. Did all 1416 tests run at two seeds?
+
+No. The suite contains 1408 simulation and eight elaboration checks. Ordinary
+Verilator evidence has 1237 two-seed runtime matches, eight expected compiler
+rejections without runtime, and 171 known simulation differences. Requested
+seed configuration does not mean an illegal design executed a binary.
+
+### Q202. What do the older legal controls establish?
+
+Unchanged concrete-derived/proxy construction tests remain runtime controls
+for the new abstract-construction checks. They do not supply the direct
+negative link or a new execution result. Direct compiler evidence and prior
+runtime evidence retain their own input identities; no guest run, human review
+or scope/denominator approval is added.

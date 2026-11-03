@@ -1,5 +1,5 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "standard": "1800.2-2020",
   "status": "partial",
   "requirements": [
@@ -77043,6 +77043,342 @@
           "role": "direct",
           "expected_observations": [
             "UT: same_kind_terminators blocking 1/1 nonblocking 1/1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-ABSTRACT-TRANSACTION-DIRECT-CONSTRUCTION",
+      "clause": "5.4.1",
+      "statement": {
+        "en": "The standard-declared virtual uvm_transaction cannot be directly instantiated.",
+        "ja": "規格でvirtualと宣言したuvm_transactionは直接生成できない。"
+      },
+      "conditions": {
+        "en": "Use the declared constructor arguments and selected class specialization in a direct new expression, without an original concrete subtype.",
+        "ja": "独自の具象subtypeを介さず、宣言constructor引数と選択class specializationで直接new式を使う。"
+      },
+      "expected": {
+        "en": "Compilation rejects the fixture with an error identifying its virtual/abstract class. There is no runtime seed execution.",
+        "ja": "そのvirtual／abstract classを識別するerrorで検査系のcompileを拒否し、実行時seedは実行しない。"
+      },
+      "limitations": {
+        "en": "One direct-construction prohibition only. The diagnostic regex names this fixture and class; it is an expected compile oracle, not captured output or execution evidence. Existing legal derived/proxy construction is a separate unchanged runtime control. Pure-method overrides, constructor visibility, all abstract classes and legal subtype behavior remain separate.",
+        "ja": "直接生成禁止の1条件のみ。診断regexは検査系とclassを指定するcompile期待oracleであり、取得出力や実行evidenceではない。既存の合法な派生／proxy生成は未変更の別runtime controlとする。pure method override、constructor可視性、全抽象class、合法subtype動作は別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_uvm_transaction_abstract_declaration_rejects_direct_construction",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?i)^(?=.*test_uvm_transaction_abstract_declaration_rejects_direct_construction\\.sv:[0-9]+:[0-9]+:)(?=.*\\b(?:virtual|abstract)\\b)(?=.*\\buvm_transaction\\b).*error"
+          }
+        },
+        {
+          "test": "u05/test_transaction_explicit_times_and_hooks",
+          "role": "control",
+          "expected_observations": [
+            "UT: begin active 1 no_record_handle 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-ABSTRACT-REPORT-CATCHER-DIRECT-CONSTRUCTION",
+      "clause": "6.6.1",
+      "statement": {
+        "en": "The standard-declared virtual uvm_report_catcher cannot be directly instantiated.",
+        "ja": "規格でvirtualと宣言したuvm_report_catcherは直接生成できない。"
+      },
+      "conditions": {
+        "en": "Use the declared constructor arguments and selected class specialization in a direct new expression, without an original concrete subtype.",
+        "ja": "独自の具象subtypeを介さず、宣言constructor引数と選択class specializationで直接new式を使う。"
+      },
+      "expected": {
+        "en": "Compilation rejects the fixture with an error identifying its virtual/abstract class. There is no runtime seed execution.",
+        "ja": "そのvirtual／abstract classを識別するerrorで検査系のcompileを拒否し、実行時seedは実行しない。"
+      },
+      "limitations": {
+        "en": "One direct-construction prohibition only. The diagnostic regex names this fixture and class; it is an expected compile oracle, not captured output or execution evidence. Existing legal derived/proxy construction is a separate unchanged runtime control. Pure-method overrides, constructor visibility, all abstract classes and legal subtype behavior remain separate.",
+        "ja": "直接生成禁止の1条件のみ。診断regexは検査系とclassを指定するcompile期待oracleであり、取得出力や実行evidenceではない。既存の合法な派生／proxy生成は未変更の別runtime controlとする。pure method override、constructor可視性、全抽象class、合法subtype動作は別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_uvm_report_catcher_abstract_declaration_rejects_direct_construction",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?i)^(?=.*test_uvm_report_catcher_abstract_declaration_rejects_direct_construction\\.sv:[0-9]+:[0-9]+:)(?=.*\\b(?:virtual|abstract)\\b)(?=.*\\buvm_report_catcher\\b).*error"
+          }
+        },
+        {
+          "test": "u06/test_report_catcher_action_mutation_reaches_tail_without_leaking_to_next_report",
+          "role": "control",
+          "expected_observations": [
+            "UT: changed first 1 tail 1 original 1 propagated 1 location 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-ABSTRACT-OBJECT-WRAPPER-DIRECT-CONSTRUCTION",
+      "clause": "8.3.2.1",
+      "statement": {
+        "en": "The standard-declared virtual uvm_object_wrapper cannot be directly instantiated.",
+        "ja": "規格でvirtualと宣言したuvm_object_wrapperは直接生成できない。"
+      },
+      "conditions": {
+        "en": "Use the declared constructor arguments and selected class specialization in a direct new expression, without an original concrete subtype.",
+        "ja": "独自の具象subtypeを介さず、宣言constructor引数と選択class specializationで直接new式を使う。"
+      },
+      "expected": {
+        "en": "Compilation rejects the fixture with an error identifying its virtual/abstract class. There is no runtime seed execution.",
+        "ja": "そのvirtual／abstract classを識別するerrorで検査系のcompileを拒否し、実行時seedは実行しない。"
+      },
+      "limitations": {
+        "en": "One direct-construction prohibition only. The diagnostic regex names this fixture and class; it is an expected compile oracle, not captured output or execution evidence. Existing legal derived/proxy construction is a separate unchanged runtime control. Pure-method overrides, constructor visibility, all abstract classes and legal subtype behavior remain separate.",
+        "ja": "直接生成禁止の1条件のみ。診断regexは検査系とclassを指定するcompile期待oracleであり、取得出力や実行evidenceではない。既存の合法な派生／proxy生成は未変更の別runtime controlとする。pure method override、constructor可視性、全抽象class、合法subtype動作は別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u08/test_uvm_object_wrapper_abstract_declaration_rejects_direct_construction",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?i)^(?=.*test_uvm_object_wrapper_abstract_declaration_rejects_direct_construction\\.sv:[0-9]+:[0-9]+:)(?=.*\\b(?:virtual|abstract)\\b)(?=.*\\buvm_object_wrapper\\b).*error"
+          }
+        },
+        {
+          "test": "u08/test_wrapper_create_object_uses_its_represented_type",
+          "role": "control",
+          "expected_observations": [
+            "UT: type item name direct"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-ABSTRACT-COMPONENT-DIRECT-CONSTRUCTION",
+      "clause": "13.1.1",
+      "statement": {
+        "en": "The standard-declared virtual uvm_component cannot be directly instantiated.",
+        "ja": "規格でvirtualと宣言したuvm_componentは直接生成できない。"
+      },
+      "conditions": {
+        "en": "Use the declared constructor arguments and selected class specialization in a direct new expression, without an original concrete subtype.",
+        "ja": "独自の具象subtypeを介さず、宣言constructor引数と選択class specializationで直接new式を使う。"
+      },
+      "expected": {
+        "en": "Compilation rejects the fixture with an error identifying its virtual/abstract class. There is no runtime seed execution.",
+        "ja": "そのvirtual／abstract classを識別するerrorで検査系のcompileを拒否し、実行時seedは実行しない。"
+      },
+      "limitations": {
+        "en": "One direct-construction prohibition only. The diagnostic regex names this fixture and class; it is an expected compile oracle, not captured output or execution evidence. Existing legal derived/proxy construction is a separate unchanged runtime control. Pure-method overrides, constructor visibility, all abstract classes and legal subtype behavior remain separate.",
+        "ja": "直接生成禁止の1条件のみ。診断regexは検査系とclassを指定するcompile期待oracleであり、取得出力や実行evidenceではない。既存の合法な派生／proxy生成は未変更の別runtime controlとする。pure method override、constructor可視性、全抽象class、合法subtype動作は別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_uvm_component_abstract_declaration_rejects_direct_construction",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?i)^(?=.*test_uvm_component_abstract_declaration_rejects_direct_construction\\.sv:[0-9]+:[0-9]+:)(?=.*\\b(?:virtual|abstract)\\b)(?=.*\\buvm_component\\b).*error"
+          }
+        },
+        {
+          "test": "u13/test_component_child_iteration_preserves_empty_and_exhausted_name_cursors",
+          "role": "control",
+          "expected_observations": [
+            "UT: empty returned 0 sentinel 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-ABSTRACT-TLM-EXTENSION-BASE-DIRECT-CONSTRUCTION",
+      "clause": "12.3.4.4.1",
+      "statement": {
+        "en": "The standard-declared virtual uvm_tlm_extension_base cannot be directly instantiated.",
+        "ja": "規格でvirtualと宣言したuvm_tlm_extension_baseは直接生成できない。"
+      },
+      "conditions": {
+        "en": "Use the declared constructor arguments and selected class specialization in a direct new expression, without an original concrete subtype.",
+        "ja": "独自の具象subtypeを介さず、宣言constructor引数と選択class specializationで直接new式を使う。"
+      },
+      "expected": {
+        "en": "Compilation rejects the fixture with an error identifying its virtual/abstract class. There is no runtime seed execution.",
+        "ja": "そのvirtual／abstract classを識別するerrorで検査系のcompileを拒否し、実行時seedは実行しない。"
+      },
+      "limitations": {
+        "en": "One direct-construction prohibition only. The diagnostic regex names this fixture and class; it is an expected compile oracle, not captured output or execution evidence. Existing legal derived/proxy construction is a separate unchanged runtime control. Pure-method overrides, constructor visibility, all abstract classes and legal subtype behavior remain separate.",
+        "ja": "直接生成禁止の1条件のみ。診断regexは検査系とclassを指定するcompile期待oracleであり、取得出力や実行evidenceではない。既存の合法な派生／proxy生成は未変更の別runtime controlとする。pure method override、constructor可視性、全抽象class、合法subtype動作は別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u12/test_uvm_tlm_extension_base_abstract_declaration_rejects_direct_construction",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?i)^(?=.*test_uvm_tlm_extension_base_abstract_declaration_rejects_direct_construction\\.sv:[0-9]+:[0-9]+:)(?=.*\\b(?:virtual|abstract)\\b)(?=.*\\buvm_tlm_extension_base\\b).*error"
+          }
+        },
+        {
+          "test": "u12/test_tlm2_extension_defaults_and_legal_subclasses_preserve_names_and_object_views",
+          "role": "control",
+          "expected_observations": [
+            "UT: extension_legal names 1/1 base 1 object 1 distinct 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-ABSTRACT-SEQUENCE-DIRECT-CONSTRUCTION",
+      "clause": "14.3.1",
+      "statement": {
+        "en": "The standard-declared virtual uvm_sequence cannot be directly instantiated.",
+        "ja": "規格でvirtualと宣言したuvm_sequenceは直接生成できない。"
+      },
+      "conditions": {
+        "en": "Use the declared constructor arguments and selected class specialization in a direct new expression, without an original concrete subtype.",
+        "ja": "独自の具象subtypeを介さず、宣言constructor引数と選択class specializationで直接new式を使う。"
+      },
+      "expected": {
+        "en": "Compilation rejects the fixture with an error identifying its virtual/abstract class. There is no runtime seed execution.",
+        "ja": "そのvirtual／abstract classを識別するerrorで検査系のcompileを拒否し、実行時seedは実行しない。"
+      },
+      "limitations": {
+        "en": "One direct-construction prohibition only. The diagnostic regex names this fixture and class; it is an expected compile oracle, not captured output or execution evidence. Existing legal derived/proxy construction is a separate unchanged runtime control. Pure-method overrides, constructor visibility, all abstract classes and legal subtype behavior remain separate.",
+        "ja": "直接生成禁止の1条件のみ。診断regexは検査系とclassを指定するcompile期待oracleであり、取得出力や実行evidenceではない。既存の合法な派生／proxy生成は未変更の別runtime controlとする。pure method override、constructor可視性、全抽象class、合法subtype動作は別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_uvm_sequence_abstract_declaration_rejects_direct_construction",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?i)^(?=.*test_uvm_sequence_abstract_declaration_rejects_direct_construction\\.sv:[0-9]+:[0-9]+:)(?=.*\\b(?:virtual|abstract)\\b)(?=.*\\buvm_sequence\\b).*error"
+          }
+        },
+        {
+          "test": "u14/test_sequence_base_and_typed_sequence_constructors_forward_base_name_defaults",
+          "role": "control",
+          "expected_observations": [
+            "UT: default_names uvm_sequence uvm_sequence"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-ABSTRACT-REG-FRONTDOOR-DIRECT-CONSTRUCTION",
+      "clause": "19.4.2.1",
+      "statement": {
+        "en": "The standard-declared virtual uvm_reg_frontdoor cannot be directly instantiated.",
+        "ja": "規格でvirtualと宣言したuvm_reg_frontdoorは直接生成できない。"
+      },
+      "conditions": {
+        "en": "Use the declared constructor arguments and selected class specialization in a direct new expression, without an original concrete subtype.",
+        "ja": "独自の具象subtypeを介さず、宣言constructor引数と選択class specializationで直接new式を使う。"
+      },
+      "expected": {
+        "en": "Compilation rejects the fixture with an error identifying its virtual/abstract class. There is no runtime seed execution.",
+        "ja": "そのvirtual／abstract classを識別するerrorで検査系のcompileを拒否し、実行時seedは実行しない。"
+      },
+      "limitations": {
+        "en": "One direct-construction prohibition only. The diagnostic regex names this fixture and class; it is an expected compile oracle, not captured output or execution evidence. Existing legal derived/proxy construction is a separate unchanged runtime control. Pure-method overrides, constructor visibility, all abstract classes and legal subtype behavior remain separate.",
+        "ja": "直接生成禁止の1条件のみ。診断regexは検査系とclassを指定するcompile期待oracleであり、取得出力や実行evidenceではない。既存の合法な派生／proxy生成は未変更の別runtime controlとする。pure method override、constructor可視性、全抽象class、合法subtype動作は別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_uvm_reg_frontdoor_abstract_declaration_rejects_direct_construction",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?i)^(?=.*test_uvm_reg_frontdoor_abstract_declaration_rejects_direct_construction\\.sv:[0-9]+:[0-9]+:)(?=.*\\b(?:virtual|abstract)\\b)(?=.*\\buvm_reg_frontdoor\\b).*error"
+          }
+        },
+        {
+          "test": "u19/test_reg_frontdoor_constructor_and_exact_sequence_base_preserve_identity",
+          "role": "control",
+          "expected_observations": [
+            "UT: frontdoor_names omitted 1 named 1 empty 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-ABSTRACT-REG-BACKDOOR-DIRECT-CONSTRUCTION",
+      "clause": "19.5.1",
+      "statement": {
+        "en": "The standard-declared virtual uvm_reg_backdoor cannot be directly instantiated.",
+        "ja": "規格でvirtualと宣言したuvm_reg_backdoorは直接生成できない。"
+      },
+      "conditions": {
+        "en": "Use the declared constructor arguments and selected class specialization in a direct new expression, without an original concrete subtype.",
+        "ja": "独自の具象subtypeを介さず、宣言constructor引数と選択class specializationで直接new式を使う。"
+      },
+      "expected": {
+        "en": "Compilation rejects the fixture with an error identifying its virtual/abstract class. There is no runtime seed execution.",
+        "ja": "そのvirtual／abstract classを識別するerrorで検査系のcompileを拒否し、実行時seedは実行しない。"
+      },
+      "limitations": {
+        "en": "One direct-construction prohibition only. The diagnostic regex names this fixture and class; it is an expected compile oracle, not captured output or execution evidence. Existing legal derived/proxy construction is a separate unchanged runtime control. Pure-method overrides, constructor visibility, all abstract classes and legal subtype behavior remain separate.",
+        "ja": "直接生成禁止の1条件のみ。診断regexは検査系とclassを指定するcompile期待oracleであり、取得出力や実行evidenceではない。既存の合法な派生／proxy生成は未変更の別runtime controlとする。pure method override、constructor可視性、全抽象class、合法subtype動作は別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_uvm_reg_backdoor_abstract_declaration_rejects_direct_construction",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?i)^(?=.*test_uvm_reg_backdoor_abstract_declaration_rejects_direct_construction\\.sv:[0-9]+:[0-9]+:)(?=.*\\b(?:virtual|abstract)\\b)(?=.*\\buvm_reg_backdoor\\b).*error"
+          }
+        },
+        {
+          "test": "u19/test_user_backdoor_constructor_preserves_optional_names_and_object_base_identity",
+          "role": "control",
+          "expected_observations": [
+            "UT: backdoor_names omitted 1 named 1 empty 1"
           ]
         }
       ]

@@ -192,6 +192,134 @@ class RequirementLedger(unittest.TestCase):
                 with self.assertRaises(requirements.LedgerError):
                     requirements.validate(data)
 
+    def diagnostic_data(self):
+        pattern = r'test_first\.sv:.*abstract'
+        self.first.write_text('/*\n:lrm: 1800.2-2020 5.1 5.2\n:spec_check: ai\n'
+                              ':oracle: spec\n:type: elaboration\n:files: helper.svh\n'
+                              ':should_fail_because: abstract construction\n'
+                              ':expected_stderr_regex: ' + pattern + '\n*/\n')
+        self.first.with_suffix('.expected').unlink(missing_ok=True)
+        data = self.data()
+        data['ledger']['schema_version'] = 2
+        link = data['ledger']['requirements'][0]['test_links'][0]
+        link.pop('expected_observations')
+        link['expected_diagnostic'] = dict(stage='compile', regex=pattern)
+        data['index']['tests']['u05/test_first'] = requirements.snapshot_for(
+            data['tests']['u05/test_first'])
+        return data
+
+    def test_schema_two_preserves_existing_output_links(self):
+        data = self.data()
+        before = requirements.inventory(data)
+        data['ledger']['schema_version'] = 2
+        after = requirements.inventory(data)
+        self.assertEqual(after['summary'], before['summary'])
+        self.assertEqual(after['tests'], before['tests'])
+        self.assertEqual(after['ledger_schema_version'], 2)
+        self.assertEqual(before['ledger_schema_version'], 1)
+        self.assertNotEqual(after['ledger_inputs_sha256'], before['ledger_inputs_sha256'])
+
+    def test_diagnostic_and_output_links_have_separate_types_and_same_counting_unit(self):
+        data = self.diagnostic_data()
+        entry = copy.deepcopy(self.entry)
+        entry.update(id='UVM-RUNTIME', clause='6.1', test_links=[dict(
+            test='u06/test_second', role='direct', expected_observations=['UT: expected'])])
+        data['ledger']['requirements'].append(entry)
+        report = requirements.inventory(data)
+        self.assertEqual(report['summary']['test_types'], dict(simulation=1, elaboration=1))
+        self.assertEqual(report['summary']['requirements_with_direct_tests'], 2)
+        self.assertEqual(report['summary']['tests_without_requirement_links'], 0)
+        self.assertEqual(report['roots']['5']['primary_test_types'],
+                         dict(simulation=0, elaboration=1))
+        self.assertEqual(report['tests']['u05/test_first']['type'], 'elaboration')
+        self.assertEqual(requirements.backlog(data)['ledger_schema_version'], 2)
+        self.assertIsNone(report['coverage_percentage'])
+
+    def test_diagnostic_control_does_not_supply_direct_coverage(self):
+        data = self.diagnostic_data()
+        data['ledger']['requirements'][0]['test_links'][0]['role'] = 'control'
+        report = requirements.backlog(data)
+        self.assertEqual(report['summary']['requirements_without_direct_tests'], 1)
+        self.assertEqual(report['summary']['tests_without_requirement_links'], 1)
+
+    def test_diagnostic_link_requires_explicit_schema_two(self):
+        data = self.diagnostic_data()
+        data['ledger']['schema_version'] = 1
+        with self.assertRaisesRegex(requirements.LedgerError, 'require ledger schema 2'):
+            requirements.validate(data)
+        for version in (True, 0, 3, '2'):
+            data['ledger']['schema_version'] = version
+            with self.subTest(version=version), self.assertRaises(requirements.LedgerError):
+                requirements.validate(data)
+
+    def test_diagnostic_link_rejects_runtime_or_unmarked_or_mixed_expectations(self):
+        data = self.diagnostic_data()
+        original = self.first.read_text()
+        for text in (original.replace(':type: elaboration', ':type: simulation'),
+                     original.replace(':should_fail_because: abstract construction\n', ''),
+                     original.replace(':should_fail_because: abstract construction',
+                                      ':should_fail_because: '),
+                     original.replace('*/', ':expected_stdout_verilator: UT: irrelevant\n*/'),
+                     original.replace('*/', ':expected_exit: 0\n*/')):
+            self.first.write_text(text)
+            with self.subTest(text=text), self.assertRaises(requirements.LedgerError):
+                requirements.validate(data)
+        self.first.write_text(original)
+        link = data['ledger']['requirements'][0]['test_links'][0]
+        link['expected_observations'] = ['UT: fabricated']
+        with self.assertRaisesRegex(requirements.LedgerError, 'expected fields'):
+            requirements.validate(data)
+
+    def test_diagnostic_link_requires_exact_nonempty_valid_declared_regex_and_stage(self):
+        data = self.diagnostic_data()
+        link = data['ledger']['requirements'][0]['test_links'][0]
+        original = copy.deepcopy(link['expected_diagnostic'])
+        for change in (dict(stage='runtime'), dict(regex=''), dict(regex='['),
+                       dict(regex='different'), dict(regex=5), dict(unrecognized=True)):
+            link['expected_diagnostic'] = {**original, **change}
+            with self.subTest(change=change), self.assertRaises(requirements.LedgerError):
+                requirements.validate(data)
+        for malformed in (None, [], original['regex'], dict(stage='compile')):
+            link['expected_diagnostic'] = malformed
+            with self.subTest(malformed=malformed), self.assertRaises(requirements.LedgerError):
+                requirements.validate(data)
+
+    def test_diagnostic_edits_require_mapping_and_input_reassessment(self):
+        data = self.diagnostic_data()
+        old_pattern = data['ledger']['requirements'][0]['test_links'][0][
+            'expected_diagnostic']['regex']
+        new_pattern = old_pattern + ' class'
+        self.first.write_text(self.first.read_text().replace(old_pattern, new_pattern))
+        with self.assertRaisesRegex(requirements.LedgerError, 'differs from'):
+            requirements.validate(data)
+        data['ledger']['requirements'][0]['test_links'][0]['expected_diagnostic'][
+            'regex'] = new_pattern
+        data['tests']['u05/test_first']['inputs_sha256'] = suite_results.input_digest(self.first)
+        with self.assertRaisesRegex(requirements.LedgerError, 'stale index'):
+            requirements.validate(data)
+        self.assertEqual(requirements.sync_proposal(data)['tests']['u05/test_first'],
+                         data['index']['tests']['u05/test_first'])
+
+    def test_diagnostic_link_still_requires_specific_clause_and_known_test(self):
+        data = self.diagnostic_data()
+        data['ledger']['requirements'][0]['clause'] = '6.1'
+        with self.assertRaisesRegex(requirements.LedgerError, 'does not cite'):
+            requirements.validate(data)
+        data['ledger']['requirements'][0]['clause'] = '5.2'
+        data['ledger']['requirements'][0]['test_links'][0]['test'] = 'u05/absent'
+        with self.assertRaisesRegex(requirements.LedgerError, 'unknown test'):
+            requirements.validate(data)
+
+    def test_malformed_links_and_unknown_test_types_are_rejected(self):
+        for value in (None, 3, [], 'not an object'):
+            data = self.data()
+            data['ledger']['requirements'][0]['test_links'] = [value]
+            with self.subTest(value=value), self.assertRaises(requirements.LedgerError):
+                requirements.validate(data)
+        self.first.write_text(self.first.read_text().replace('*/', ':type: other\n*/'))
+        with self.assertRaisesRegex(requirements.LedgerError, 'invalid test type'):
+            self.data()
+
     def test_duplicate_requirement_ids_are_rejected(self):
         data = self.data()
         data['ledger']['requirements'].append(copy.deepcopy(data['ledger']['requirements'][0]))

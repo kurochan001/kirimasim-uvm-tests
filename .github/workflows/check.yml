@@ -1,10 +1,10 @@
 name: Check
 
 # Checks the tools, the metadata of the tests and the pinned UVM library, and
-# runs the tests whose expected output was recorded with Verilator 5.052
-# (`verilator@5.052` in :oracle:) with that release and two seeds. Every one
-# of them must match: the release and the library do not change, so a test
-# that does not points to a problem in the suite.
+# runs tagged Verilator 5.052 checks (`verilator@5.052` in :oracle:).
+# Runtime cases use two seeds; illegal elaboration cases require compiler
+# rejection with the declared diagnostic and do not run a binary. Each
+# expectation must match the fixed simulator/library condition.
 
 on:
   push:
@@ -82,7 +82,7 @@ jobs:
       - name: Fetch the UVM library
         run: python3 tools/fetch_uvm.py
 
-      - name: Tests recorded with Verilator 5.052, seeds 1 and 73
+      - name: Tagged Verilator checks (runtime seeds 1 and 73)
         run: python3 tools/run_verilator.py --seeds 1 73 --build-jobs 2 -j 2
 
       - name: Explicit command-line checks, seeds 1 and 73

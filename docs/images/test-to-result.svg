@@ -3,7 +3,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="960" height="680"
      viewBox="0 0 960 680" role="img" aria-labelledby="title desc">
   <title id="title">From a test to a measured result</title>
-  <desc id="desc">Cited IEEE clauses determine the test and expected output. The test and UVM library feed build and execution. The runner compares observations with expected conditions, then writes status and fingerprints when --json is requested. Build and run failures also receive a result.</desc>
+  <desc id="desc">Cited IEEE clauses determine the test and its runtime output or compile-diagnostic expectation. The test and UVM library feed a build and, when applicable, execution. The runner compares observations with expected conditions, then writes status and fingerprints when --json is requested. Build and run failures also receive a result.</desc>
   <defs>
     <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5"
             markerWidth="7" markerHeight="7" orient="auto-start-reverse">
@@ -42,8 +42,8 @@
   <g id="expected">
     <rect class="node expectation" x="40" y="220" width="300" height="96" rx="10"/>
   <text x="190.0" y="248" class="label" text-anchor="middle">Expected result</text>
-  <text x="190.0" y="273" class="body" text-anchor="middle">.expected + metadata</text>
-  <text x="190.0" y="295" class="body" text-anchor="middle">conditions</text>
+  <text x="190.0" y="273" class="body" text-anchor="middle">UT: output or diagnostic regex</text>
+  <text x="190.0" y="295" class="body" text-anchor="middle">Metadata conditions</text>
   </g>
   <g id="test">
     <rect class="node neutral" x="420" y="220" width="240" height="96" rx="10"/>
@@ -59,13 +59,13 @@
   </g>
   <g id="execute">
     <rect class="node execution" x="520" y="390" width="300" height="88" rx="10"/>
-  <text x="670.0" y="418" class="label" text-anchor="middle">Build and run</text>
+  <text x="670.0" y="418" class="label" text-anchor="middle">Build / run when applicable</text>
   <text x="670.0" y="443" class="body" text-anchor="middle">Selected simulator</text>
   </g>
   <g id="judge">
     <rect class="node expectation" x="90" y="390" width="300" height="88" rx="10"/>
   <text x="240.0" y="418" class="label" text-anchor="middle">Runner judgment</text>
-  <text x="240.0" y="443" class="body" text-anchor="middle">UT: lines + exit / diagnostics</text>
+  <text x="240.0" y="443" class="body" text-anchor="middle">Runtime output / compile error</text>
   </g>
   <g id="result">
     <rect class="node neutral" x="90" y="555" width="300" height="88" rx="10"/>

@@ -2,9 +2,15 @@
 
 [日本語](known-differences.ja.md) · [README](../README.md) · [FAQ](faq.md)
 
-This describes the current 1408-test suite and the pinned Accellera UVM
+This describes the current 1416-test suite and the pinned Accellera UVM
 2020.3.1 library. A mismatch is a test result; it does not by itself assign
 the cause to the simulator, the library or the expectation.
+
+The eight new abstract-construction checks match their required compiler
+rejection with a targeted diagnostic; they are not among the 171 spec-only
+simulation differences. They add no runtime seed result. The selected TLM
+extension-base abstract construction is now checked separately from its older
+positive type probes. Other invalid-use/member/protocol obligations remain.
 
 ## Pinned-library limitations
 
@@ -36,7 +42,7 @@ normative expectation is retained with `:oracle: spec`.
 - Other partial wording includes the forward port described as a backward
   path and nonblocking connect signatures omitting P/parameter syntax. Exact
   class-default and custom-phase forwarding probes do not certify the literal
-  printed signatures. Abstract extension-base construction rejection, illegal
+  printed signatures. Other abstract/invalid-derivation conditions, illegal
   user extension and full socket member ownership remain separate work.
 
 - The bidirectional port summary in 12.2.3.3 declares RSP=int independently
@@ -527,7 +533,7 @@ warning. The YES control changes the limit to nine without a warning. This
 is a diagnostic-severity difference, not failed limit enforcement. The older
 two no-DPI argument cases remain unchanged ordinary runtime differences.
 
-Across the suite, 1237 tests have the `verilator@5.052` oracle tag and 171
+Across the suite, 1245 tests have the `verilator@5.052` oracle tag and 171
 cases are spec-only. One of the spec-only cases checks 9.6: a child's pre-reset
 task must be killed when that phase ends, but the pinned-library run on Verilator 5.052
 lets the child perform its delayed write during a later phase. The cause of
@@ -540,7 +546,7 @@ observation, then its watchdog expires. This combined simulator/library
 cause remains unassigned; the normative wakeup expectation is retained.
 
 The 171 spec-only tests retain their normative expected files.
-Default Verilator runs and CI select the 1237 tagged cases. `--all` includes
+Default Verilator runs and CI select 1245 tagged checks (1237 runtime, 8 compile rejection). `--all` includes
 spec-only cases and records mismatches or build failures as `known`.
 The ordinary runtime records for 128 cases establish their first difference
 at seed 1, without seed 73 results. Sixteen missing-API builds have no ordinary
@@ -832,13 +838,13 @@ Additional message-handle and endian cases:
 One existing command fixture now adds its command-enum citation without
 changing behavior or expected output and is remeasured on Verilator. The
 historical guest record for that input has a stale fingerprint. The current
-guest subset excludes it: 1084 compatible records and 324 unmeasured inputs,
+guest subset excludes it: 1084 compatible records and 332 unmeasured inputs,
 including that revised input. This is evidence scope, not a new guest failure.
 
 ## Simulator and library combinations
 
-The suite has 1408 cases, but the kirimasim/Ghost records below cover only
-1084 unchanged current-input cases. The 324 inputs are unmeasured
+The suite has 1416 cases, but the kirimasim/Ghost records below cover only
+1084 unchanged current-input cases. The 332 inputs are unmeasured
 because prior temporary executable/profile snapshots are unavailable. Do
 not treat this as a fresh full-suite guest result. See [results](results.md).
 

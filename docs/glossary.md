@@ -1062,3 +1062,15 @@ binding and does not establish a legal runtime path.
 **Custom phase type**: An explicitly selected phase type for a parameterized
 nonblocking interface. Positive exact views and selected two-way forwarding
 do not settle a printed connect signature that omits the phase parameter.
+
+**Compile diagnostic anchor**: The exact declared error regex and compile
+stage attached to an illegal-elaboration requirement link. It binds an expected
+oracle; matching compiler evidence is measured separately.
+
+**Expected compile rejection**: A successful negative test in which compilation
+fails with the required targeted error. It executes no runtime binary or seed
+and differs from an unexpected library/API/link build failure.
+
+**Test-kind census**: Separate simulation/elaboration fixture counts. Total
+fixtures, runtime two-seed matches and expected compiler rejections describe
+different quantities and do not establish a coverage percentage.

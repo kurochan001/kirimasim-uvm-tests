@@ -122,7 +122,7 @@ Ghostは公開前のシミュレータの仮名です。実行ファイルの識
 ### Q12. uvm_dpi: yesだけでDPIを使うビルドが完成しますか
 
 既定のマクロ一覧から`UVM_NO_DPI`を外す指定です。UVMのC/C++実装の供給・リンクは行いません。
-通常のVerilator runnerは、そのsourceを追加しません。`UVM_NO_DPI`が1382件、HDL DPIの明示選択が8件です。
+通常のVerilator runnerは、そのsourceを追加しません。`UVM_NO_DPI`が1390件、HDL DPIの明示選択が8件です。
 別の18検査系はHDLを無効にしてcommand-line／regex DPIを明示して有効化し、
 [command-line runner](testing.ja.md#verilatorのcommand-line部分集合)がその別backendをlinkします。
 [別のVPI runner](testing.ja.md#verilatorのvpi-hdl部分集合)は独自の限定backendをlinkし、結果は宣言した実行条件だけに適用します。
@@ -132,7 +132,7 @@ DPIなしのglobによる照合も、完全な正規表現への対応とは異�
 ### Q13. ビルドが重い理由と2種類の並列数の違いは何ですか
 
 各テストのモデルにUVMパッケージ全体を含めるためです。`-j`は同時に実行するテスト数、
-`--build-jobs`はVerilatorの各C++ビルド内の並列数です。`--seeds`ならビルドは一度で、
+`--build-jobs`はVerilatorの各C++ビルド内の並列数です。runtimeで`--seeds`を使えばビルドは一度で、
 seedごとに新しいプロセスを使います。事前コンパイル済みヘッダーにビルド先の絶対パスが入るため、
 そのまま別の場所へ再利用できないccacheはランナーのビルド環境で無効にしています。
 
@@ -923,8 +923,8 @@ controlの対応は、その要求の直接の検査ではありません。
 
 ### Q77. M4を始めたのに、カバレッジ率がないのはなぜですか
 
-AIによる2084要求案は部分的な分解で、2084要求を1407テストへ直接対応付け、直接未対応は0要求、別の1テストはcontrolです。
-全1408テストに要求の対応付けがあります。2,507の条項番号は規範的要求の単位ではありません。
+AIによる2092要求案は部分的な分解で、2092要求を1415テストへ直接対応付け、直接未対応は0要求、別の1テストはcontrolです。
+全1416テストに要求の対応付けがあります。2,507の条項番号は規範的要求の単位ではありません。
 範囲は提案、棚卸しは未完、分母は未承認で、M4の開始はどれの承認にもなりません。
 既知差分やHDL／DPIの制約によって義務を暗黙に除外しません。[承認までの手順](requirements.ja.md#m4の残作業と承認)を参照してください。
 
@@ -1709,7 +1709,7 @@ user backdoorは16 bit locationをモデル化します。location独立性、�
 
 いいえ。`tests_without_requirement_links`は0で、現在の全テストに、明示的なdirectまたはcontrolの対応があります。
 別の集計`requirements_without_direct_tests`も0件です。memory-walkの対応はQ134の限定した歴史的解釈で、
-省略されたIEEEの詳細の承認ではありません。HDL depositと利用可否には、明示VPI検査系があります。catalogの識別子1,151件も未評価です。
+省略されたIEEEの詳細の承認ではありません。HDL depositと利用可否には、明示VPI検査系があります。catalogの識別子1,147件も未評価です。
 分解と人のレビューは未完で、分母は未承認です。
 
 [新しいpolicyテスト](../tests/u16/test_policy_object_stack_tracks_nested_active_policy_push_and_pop.sv)は、
@@ -2279,7 +2279,7 @@ bound get／peek portはobject headを消費せずavailabilityを報告し、liv
 ### Q193. 互換なguest部分集合が1084件へ減った理由は？
 
 command 1検査系にenum補助引用を追加し、Verilatorで再測定しました。metadataだけのsource編集でも入力指紋は変わるため、
-古いguest記録は除外します。元の歴史的fileは1085記録のままです。現在の互換範囲は1084件、未測定324入力は追加323件と変更した既存1件です。
+古いguest記録は除外します。元の歴史的fileは1085記録のままです。現在の互換範囲は1084件、未測定332入力は追加331件と変更した既存1件です。
 guest再実行や新たな失敗は主張しません。
 
 ### Q194. predicateの実装が別のvirtual照会へ委譲してもよいですか？
@@ -2310,3 +2310,23 @@ initiatorはERRORを報告しながらentryを保持し、targetは残しませ�
 実socket 2組で、明示worker hookとIMP省略時に選ぶ互換親hookを区別します。
 実際の独自transaction／phase relayで両経路とreference phase更新を保持します。
 これらの正の宣言／転送probeは名目的IMP=intやPを省略した印刷connect signatureを認定しません。独自backend algorithmは設定です。
+
+### Q199. compile拒否を一致に数える理由は？
+
+新規8検査は規格でvirtualと宣言したclassを意図的に直接生成します。必要な結果は、fixtureとclassを示すerrorでの拒否です。
+一致した拒否は実行時seedを伴わない成功したnegative検査であり、simulationの予期しないbuild 43件とは異なります。
+
+### Q200. 台帳schema 2は以前の出力linkを変えますか？
+
+いいえ。以前の2084要求objectは全て保持します。schema 2はcompile stageと正確な宣言regexの診断形式を追加し、runtime期待のない不正elaboration metadataだけに制限します。
+schema 1は出力対応の台帳として引き続き読め、混在／未知fieldや古いpatternは拒否します。検証はcompiler実測結果を読みません。
+
+### Q201. 全1416テストを2 seedで実行しましたか？
+
+いいえ。simulation 1408件とelaboration 8件があります。通常Verilator記録は、runtime両seed一致1237件、runtimeを伴わない期待compiler拒否8件、既知simulation差分171件です。
+要求seed設定から不正designのbinaryが実行されたとは判断しません。
+
+### Q202. 以前の合法controlは何を示しますか？
+
+未変更の具象派生／proxy生成テストを、新しい抽象生成検査のruntime controlとして保持します。直接のnegative対応や、新しい実行結果は与えません。
+直接compiler evidenceと以前のruntime evidenceは各入力同一性を保持し、guest実行、人のレビュー、範囲／分母承認を追加しません。

@@ -5,12 +5,12 @@
 ## 現在の状態
 
 M4を進めています。[対象範囲の案](../coverage/scope.json)、[要求台帳](../coverage/requirements.json)、
-[番号の分類](../coverage/assessments.json)、[テスト索引](../coverage/test_index.json)を版管理します。AI要求案2084件は、すべて1407テストへ直接対応し、
-追加の1テストはcontrolです。全1408テストに要求の対応付けがあります。
+[番号の分類](../coverage/assessments.json)、[テスト索引](../coverage/test_index.json)を版管理します。AI要求案2092件は、すべて1415テストへ直接対応し、
+追加の1テストはcontrolです。全1416テストに要求の対応付けがあります。
 直接テストとテスト対応付けのqueueは両方0件です。memory-walkのoracleは、レビューが必要な歴史的解釈を明示し、
 IEEE全体のcoverageを認定しません。人による照合記録はありません。
 
-条項catalogの番号は2,507件です。1174件は要求を一部分解し、182件はAIで明示的に分類（構造131件・文脈51件）、残る1,151件は未評価です。
+条項catalogの番号は2,507件です。1178件は要求を一部分解し、182件はAIで明示的に分類（構造131件・文脈51件）、残る1,147件は未評価です。
 いずれも完了を示しません。M4の開始は、範囲や分母の承認、M1〜M3の完了を意味しません。
 `approved_denominator`と`coverage_percentage`は`null`のままです。
 
@@ -18,7 +18,7 @@ IEEE全体のcoverageを認定しません。人による照合記録はあり�
 
 適用条件を伴う、観測可能な規範的義務を1要求とする案です。methodの1条項にも、成功、失敗、default引数、
 順序、副作用など、複数の要求が必要な場合があります。見出し自体は義務ではありません。
-2084件の要求案は複数領域にわたりますが、その条項内の全義務を列挙したものではありません。
+2092件の要求案は複数領域にわたりますが、その条項内の全義務を列挙したものではありません。
 
 既存の番号catalogのすべてのrootを、1つずつ次に割り当てます。
 
@@ -46,10 +46,10 @@ SystemVerilog言語自体の要求はkirimasim-testsで扱い、言語やHDL機�
 ![条項の引用、明示的な要求の対応付け、別途測定する実行の証拠の関係。](images/requirement-evidence.ja.svg)
 
 テストの最初のUVM `:lrm:`参照を**主引用**、後続のUVM参照を**補助引用**と呼びます。
-catalogのうち主引用がある番号は722件、どちらかの引用がある番号は1,401件です。
+catalogのうち主引用がある番号は729件、どちらかの引用がある番号は1,406件です。
 補助引用は準備に使うAPIの場合もあります。引用から要求の対応付けを自動生成せず、子条項の参照を親条項へ自動集約もしません。
 
-対象候補2,482件について、従来の「各条項2テスト」の主引用の棚卸しは、0件が1,760、1件が433、2件以上が289です。
+対象候補2,482件について、従来の「各条項2テスト」の主引用の棚卸しは、0件が1,753、1件が439、2件以上が290です。
 これはテストの配置を測るだけで、2つの独立した検査があること、規範的な義務を分解したこと、実行が成功したことを示しません。
 承認された要求の分母ではなく、主引用0件の全条項が不足だと宣言するものでもありません。
 
@@ -58,7 +58,7 @@ catalogのうち主引用がある番号は722件、どちらかの引用があ�
 callbackの要求`UVM-VREG-FIELD-POST-WRITE-ORDER`は、field単独のテストを直接、親virtual registerのwriteをcontrolとして対応付けます。
 controlは検査系を評価する助けになりますが、その要求の直接の対応には数えません。
 
-対応には、汎用の期待出力にある正確な`UT: `行を登録します。この**期待する観測**は期待値への対応であり、
+runtimeの対応には、汎用の期待出力にある正確な`UT: `行を登録します。この**期待する観測**は期待値への対応であり、
 実行成功の観測ではありません。1行に別の義務の観測が含まれていても、この要求がすべてを検査する意味にはなりません。
 checkerは参照、field、期待行の存在、入力の同一性を検査しますが、実際に要求を実行することやassertionの十分性は証明しません。
 テスト、構成、規格のレビューが必要です。期待出力の順序はrunnerが検査し、台帳で行の存在を確認するだけでは順序や反復回数を保証しません。
@@ -66,16 +66,16 @@ checkerは参照、field、期待行の存在、入力の同一性を検査し�
 
 [実行の証拠](results.ja.md)は別に扱い、入力、runner、ライブラリ、設定の同一性が必要です。
 直接の対応先にもspecのみの既知差分があり得ます。対応自体は成功や適合性の主張ではありません。
-現在の1408件には新たに測定した検査系を含みます。変更していない既存テストの対応付け自体は、追加の実行結果ではありません。
+現在の1416件には新たに測定した検査系を含みます。変更していない既存テストの対応付け自体は、追加の実行結果ではありません。
 
 ## 版管理するデータと生成する棚卸し
 
-正本のJSONはUTF-8、schema versionは1で、生成するinventory／backlogのschema versionは2です。未知のfield、重複key、重複する要求ID、未知の条項／テストを拒否します。
+正本JSONはUTF-8で、scope／分類／test indexはschema 1、要求台帳はschema 2です。checkerは出力対応だけのschema 1台帳も読めます。生成inventory／backlogはschema 2のまま、`ledger_schema_version`を別に記録します。未知のfield、重複key、重複する要求ID、未知の条項／テストを拒否します。
 
 - `coverage/scope.json`は、日英の計数単位、rootの区分、従来の主引用の目標を記録します。
   schema 1で表せるのは、承認済み分母のない未完の範囲案だけです。
 - `coverage/requirements.json`は、安定したID、条項、日英の`statement`、`conditions`、`expected`、`limitations`、
-  `review`、`test_links`を記録します。対応にはtest ID、`direct`／`control`の役割、空でない`expected_observations`を持たせます。
+  `review`、`test_links`を記録します。対応にはtest IDと`direct`／`control`の役割を持たせ、runtimeの`expected_observations`またはschema-2の`expected_diagnostic`という期待形式を正確に1つ指定します。
   直接の対応先は要求の条項を引用する必要があり、レビューで対応を確認すれば補助引用でも構いません。
 - `coverage/assessments.json`は、個別に読んだ構造／文脈の番号について、日英の`rationale`、
   `related_requirements`、`review`を記録します。`structural`は独立した動作のないAPIの区切りで、関連要求を持ちません。
@@ -84,7 +84,30 @@ checkerは参照、field、期待行の存在、入力の同一性を検査し�
   `unreviewed`のまま未評価queueから除去できません。見出しの自動分類は行いません。
 - `coverage/test_index.json`は、全テストの`primary_clause`と`inputs_sha256`を記録します。
   指紋は既存runnerの収集処理を使い、source、宣言したhelper／include／data、期待値file、UVM lockを含めます。
-  索引は棚卸しであり、1408件のレビュー済み要求対応ではありません。
+  索引は棚卸しであり、1416件のレビュー済み要求対応ではありません。
+
+compile診断の対応には`stage: compile`、検査系の`:expected_stderr_regex:`と完全一致する空でない有効regex、`:type: elaboration`、空でない`:should_fail_because:`が必要です。
+その検査系にruntime出力／終了の期待は持たせません。未知／混在field、不正stage、不正／古いpattern、未対応schema版を拒否します。
+schema 1の出力対応の契約は保持します。構造は次のとおりです。
+
+```json
+{
+  "test": "u12/test_uvm_tlm_extension_base_abstract_declaration_rejects_direct_construction",
+  "role": "direct",
+  "expected_diagnostic": {
+    "stage": "compile",
+    "regex": "<exact :expected_stderr_regex: value>"
+  }
+}
+```
+
+patternは期待oracleであり、検証はcompiler logを読まず、成功も証明しません。実際の拒否と一致errorはrunnerで測定します。
+[拒否検査系](../tests/u12/test_uvm_tlm_extension_base_abstract_declaration_rejects_direct_construction.sv)と、未変更の[合法runtime control](../tests/u12/test_tlm2_extension_defaults_and_legal_subclasses_preserve_names_and_object_views.sv)を比較してください。
+control対応は要求の直接対応には数えません。
+
+レポートにはsimulation／elaboration件数の`test_types`と、rootごとの`primary_test_types`を追加します。
+主引用の合計は引き続き検査系を数え、規範的な計数単位と範囲は変えません。tag付きcompile拒否の一致は実行時seed結果ではありません。
+既存runtime anchor、古い入力の検出、以前の要求objectは全て保持します。
 
 照合状態は`ai`、`unreviewed`、`human`です。humanには識別可能な`reviewer`と、`reviewed_at`のISO日付が必要です。
 他の状態では両方を`null`にします。照合したという記録であり、checkerが本人性を認証するものではありません。
@@ -140,21 +163,21 @@ JSONは、`requirements_without_direct_tests`（controlのみも含む日英の�
 
 | Root | 要求案 | 主引用テスト | 対応のないテスト | 分類済みの番号 | 未評価の番号 |
 | --- | --- | --- | --- | --- | --- |
-| 5 | 103 | 54 | 0 | 3 | 50 |
-| 6 | 107 | 51 | 0 | 11 | 45 |
+| 5 | 104 | 55 | 0 | 3 | 49 |
+| 6 | 108 | 52 | 0 | 11 | 44 |
 | 7 | 64 | 21 | 0 | 11 | 16 |
-| 8 | 54 | 45 | 0 | 4 | 17 |
+| 8 | 55 | 46 | 0 | 4 | 16 |
 | 9 | 37 | 27 | 0 | 0 | 89 |
 | 10 | 128 | 86 | 0 | 29 | 2 |
 | 11 | 35 | 20 | 0 | 4 | 0 |
-| 12 | 323 | 193 | 0 | 45 | 0 |
-| 13 | 45 | 26 | 0 | 0 | 85 |
-| 14 | 227 | 145 | 0 | 17 | 0 |
+| 12 | 324 | 194 | 0 | 45 | 0 |
+| 13 | 46 | 27 | 0 | 0 | 84 |
+| 14 | 228 | 146 | 0 | 17 | 0 |
 | 15 | 67 | 85 | 0 | 4 | 45 |
 | 16 | 94 | 98 | 0 | 0 | 129 |
 | 17 | 42 | 11 | 0 | 8 | 0 |
 | 18 | 363 | 254 | 0 | 18 | 233 |
-| 19 | 176 | 102 | 0 | 24 | 6 |
+| 19 | 178 | 104 | 0 | 24 | 6 |
 | B | 48 | 54 | 0 | 0 | 106 |
 | C | 9 | 16 | 0 | 0 | 80 |
 | D | 14 | 7 | 0 | 0 | 40 |
@@ -163,7 +186,11 @@ JSONは、`requirements_without_direct_tests`（controlのみも含む日英の�
 | G | 45 | 20 | 0 | 4 | 0 |
 
 未対応テスト0件と直接テストのない要求案0件は、完全な要求coverageを示しません。
-残る識別子1,151件は評価／分解が必要です。範囲は提案、2084件のレビューはすべて`ai`、分母は未承認です。
+残る識別子1,147件は評価／分解が必要です。範囲は提案、2092件のレビューはすべて`ai`、分母は未承認です。
+
+新規の直接compile診断要求8件は、virtual transaction、report catcher、object wrapper、component、TLM extension base、typed sequence、register frontdoor／backdoorの生成を扱います。
+未変更の具象／proxy runtime control 8件は別に保持します。未評価だった宣言4件に部分要求を追加し、既存の部分宣言4件へ禁止条件を補います。
+全体は部分分解1178番号・分類182番号・未評価1,147番号で、新たな分類や人のレビューは記録しません。
 
 TLM 1要求案は、選択interface／port既定値、FIFO照会、公開export method、channel継承／既定値／constructorとqueue容量を扱います。
 実analysis impと多段exportは、選択subscriberへの配送、subscriberごとの順序、live handleを保持します。
@@ -185,7 +212,7 @@ TLM 2要求案は、extensionの既定値／合法継承／名前の受渡し、
 別の限定probeは同種terminator制約を「直接provider entryを残さない」と解釈します。initiator呼出しはERRORを報告しながらraw entryを保持し、target呼出しは残しません。
 規格は不正呼出し後の一覧状態を明記しないため、実装不具合の証明ではなく、照合が必要な解釈差分として残します。全3件の期待出力を保持し、seed 73結果はありません。
 
-P／parameter構文を省略した印刷connect signature、forward portのbackward経路の本文、抽象基底生成の拒否、不正user extension、名目的IMP=int、全member所有関係、全protocol／timing組合せ、bus規則は別の部分分解義務に残ります。
+P／parameter構文を省略した印刷connect signature、forward portのbackward経路の本文、他の抽象／pure-method条件、不正user extension、名目的IMP=int、全member所有関係、全protocol／timing組合せ、bus規則は別の部分分解義務に残ります。
 以前のpayload rand／constructor／virtual照会probeは有効で、response-stringのvirtual委譲から基底text形式は規定しません。
 
 通常portの独立RSP=int宣言build差分は残り、channelのRSP既定値は明示的にREQへ従います。
@@ -405,5 +432,5 @@ hashが同じでも、既知差分を含む未完／未承認の棚卸しの場�
 
 割合の公開前に、規範的義務の棚卸しとレビューを終え、範囲を決定し、計数規則と固定した要求集合の明示的な承認を得ます。
 レビュー済みの検査対応と、実行成功をどう数えるかは分けて定義し、実行条件と証拠の同一性も含めます。
-承認には後続のschema／手順の更新が必要です。schema 1では意図的に、棚卸し完了や承認済み分母を表せません。
-現在のAIによる2084要求案と直接の対応は、その条件を満たしていません。
+承認には後続のschema／手順の更新が必要です。scope schema 1では意図的に、棚卸し完了や承認済み分母を表せません。
+現在のAIによる2092要求案と直接の対応は、その条件を満たしていません。

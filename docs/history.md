@@ -3,8 +3,8 @@
 [日本語](history.ja.md) · [README](../README.md)
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and thirty-eight cross-milestone thin-area expansions, including the
-existing-test requirement-link backlog checkpoint (1408 simulation tests). The earlier 349-test checkpoint is
+three M4 increments and thirty-nine cross-milestone thin-area expansions, including the
+existing-test requirement-link backlog checkpoint (1416 tests: 1408 simulation and 8 elaboration). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -2867,3 +2867,37 @@ activation. Zero unassessed in chapter 12 does not complete its remaining
 obligations. All 101 tool tests, metadata, ledger/library, compatible evidence
 and bilingual documentation checks pass. Scope and denominator stay
 unapproved; the M1–M4 goal remains active.
+
+## Thirty-ninth thin-area expansion across M1–M4
+
+Ledger schema 2 adds compile-diagnostic links alongside unchanged output
+anchors. A compile stage, exact valid declared regex and genuine illegal
+elaboration metadata are required; runtime/mixed expectations are rejected.
+Schema 1 remains readable. Nine new meaningful regressions bring the tool
+suite to 110; reports add test-kind counts and explicit ledger schema version.
+The counting unit, scope and existing stale-input protections stay unchanged.
+
+Eight new elaboration fixtures check direct construction of virtual
+transaction, report catcher, wrapper, component, TLM extension base, typed
+sequence, frontdoor and backdoor classes. All reject with the targeted compiler
+error and execute no binary/runtime seed. Eight unchanged concrete/proxy
+runtime controls remain separate. All 1408 earlier fixture inputs and records,
+2084 requirement objects and 182 assessments are preserved. Eight drafts
+reach 2092. Four unassessed declarations become partial; four existing partial
+clauses gain negative conditions. Totals: 1178 partial/182 assessed/1147
+unassessed. Goal iteration eleven reduces unassessed by four, or 316 since
+activation; the full M1–M4 goal stays active.
+
+The suite is 1416 fixtures: 1408 simulation and eight elaboration. M1 is 474
+(470/4), M2 514 (512/2), M3 428 (426/2), in runtime/elaboration order. Ordinary
+Verilator has 1237 two-seed runtime matches plus eight expected compiler
+rejections (1245 pass), and 171 known simulation differences. Guest evidence
+stays at 1084 compatible runtime inputs; 332 inputs are unmeasured (324 runtime,
+eight elaboration). Separate HDL and command-line evidence is unchanged.
+
+All runner/library/catalog identities remain unchanged. Workflow comments
+and the step label, both bilingual measurement diagrams and the guides now
+distinguish compiler rejection from runtime execution. Four SVGs were rendered
+and visually checked. All 110 tool tests, metadata, ledger/library, compatible
+evidence and bilingual document checks pass. Scope and denominator remain
+unapproved; no new human review or guest measurement is claimed.

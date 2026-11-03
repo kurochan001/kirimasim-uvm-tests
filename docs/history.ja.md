@@ -2,7 +2,7 @@
 
 [English](history.md) · [README](../README.ja.md)
 
-M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の38回目の拡充（シミュレーション1408件）までを記録しています。以前の349件の時点は
+M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の39回目の拡充（全1416件：simulation 1408・elaboration 8）までを記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -1946,3 +1946,20 @@ AI要求案83件で計2084件、個別構造分類12件で計182件（構造131�
 第12章は部分分解169／分類45／未評価0で、全体は部分分解1174／分類182／未評価1151です。
 goalの10反復目は未評価45番号を減らし、有効化以降312番号を減らしました。第12章の未評価0は残る義務の完了ではありません。
 tool unit 101件、metadata、台帳／library、互換evidence、日英資料の検査を通過しました。範囲と分母は未承認で、M1〜M4 goalを継続します。
+
+## M1〜M4の薄い領域の39回目の拡充
+
+台帳schema 2で、以前の出力anchorを保持してcompile診断linkを追加します。compile stage、正確な有効宣言regex、実際の不正elaboration metadataを要求し、runtime／混在期待を拒否します。
+schema 1も引き続き読め、意味のある回帰9件でtool unitは110件です。レポートに検査種別件数と明示的な台帳schema版を追加し、計数単位、範囲、古い入力の検出は保持します。
+
+新規elaboration 8検査は、virtual transaction、report catcher、wrapper、component、TLM extension base、typed sequence、frontdoor／backdoorの直接生成を扱います。
+全て対象compiler errorで拒否され、binary／実行時seedは実行しません。未変更の具象／proxy runtime control 8件は別に保持します。
+以前の1408入力／記録、2084要求object、182分類は全て保持し、新規8要求案で2092件です。未評価宣言4件を部分対応へ進め、既存部分条項4件へ禁止条件を追加しました。
+部分分解1178／分類182／未評価1147で、goalの11反復目は未評価4番号を減らし、有効化以降316番号を減らしました。M1〜M4全体のgoalは継続します。
+
+全1416検査系はsimulation 1408・elaboration 8で、M1は474（470／4）、M2は514（512／2）、M3は428（426／2）です。括弧内はruntime／elaboration順です。
+通常Verilatorはruntime両seed一致1237と期待compiler拒否8（pass計1245）、既知simulation差分171です。
+guestは互換runtime 1084入力のまま、未測定332入力（runtime 324・elaboration 8）があり、別HDL／command-line記録は未変更です。
+
+runner／library／catalogの同一性は保持します。workflowのcomment／step名、日英の2つの測定図とガイドはcompiler拒否とruntimeを区別するよう更新し、SVG 4枚をrenderして見た目も確認しました。
+tool unit 110件、metadata、台帳／library、互換evidence、日英資料を検証しました。範囲と分母は未承認で、新しい人のレビューやguest測定は主張しません。

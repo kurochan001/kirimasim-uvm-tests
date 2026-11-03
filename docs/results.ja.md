@@ -4,19 +4,19 @@
 
 ## 現在のスナップショット
 
-2026-11-03のVerilator記録は現在の1408件すべてを対象にします。他2系統は未変更1084件の記録で、
-324入力は未測定です。各記録は入力と実行条件を指紋で識別します。
-21の章・付録directoryにM1 470件、M2 512件、M3 426件があります。
-全件が`spec_check: ai`を記録し、人による照合やdeprecated APIの要求はありません。
-1382件は`UVM_NO_DPI`を使い、8件はHDL DPIを明示要求し、別の18件はHDLを無効にしてcommand-line／regex DPIを有効にします。件数はレビュー済みカバレッジ率ではありません。
+2026-11-04に集約したVerilator記録は現在の1416件すべてを対象にします。他2系統は未変更1084件の記録で、
+332入力は未測定です。各記録は入力と実行条件を指紋で識別します。
+21 directoryに全1416検査系（simulation 1408・elaboration 8）があります。
+M1は474（470／4）、M2は514（512／2）、M3は428（426／2）で、括弧内はruntime／elaboration件数です。
+全件が`spec_check: ai`で、人の照合は未記録です。no-DPI 1390件のうち8件は不正elaboration検査で、runtimeのHDL-DPI 8件とcommand-line／regex-DPI 18件は別に保持します。件数はレビュー済みcoverage率ではありません。
 
 | シミュレータとライブラリ | 観測結果 | 実行範囲 |
 | --- | --- | --- |
-| Verilator 5.052・固定版UVM | `pass`が1237件、`known`が171件 | 一致ケースはseed 1・73で再現。実行時の差分はseed 1で停止 |
+| Verilator 5.052・固定版UVM | `pass` 1245件：runtime 1237＋compile拒否8、`known` 171件 | runtime一致はseed 1／73。期待compiler拒否は実行時seedを実行しない |
 | Verilator 5.052・独自VPI HDL backend | `pass` 7件、`fail` 1件 | 重複する8件の別条件。一致はseed 1／73、差分はseed 1 |
 | Verilator 5.052・独自command-line VPI bridge・固定regex DPI | `pass` 17件、`known` 1件 | 重複する18件の別条件。一致はseed 1／73、差分はseed 1 |
-| kirimasim・固定版UVM | `unsupported`が1075件、`fail`が9件 | 未変更1084入力。324入力は未測定 |
-| Ghost・同梱UVM | `pass`が207件、`fail`が877件 | 各seedで未変更1084入力。失敗集合は同じ。324入力は未測定 |
+| kirimasim・固定版UVM | `unsupported`が1075件、`fail`が9件 | 未変更1084入力。332入力は未測定 |
+| Ghost・同梱UVM | `pass`が207件、`fail`が877件 | 各seedで未変更1084入力。失敗集合は同じ。332入力は未測定 |
 | Ghost・固定版UVM | 現在の実行ファイルの固定コピーでは未測定 | 現在の固定版modeの結果は示さない |
 
 固定ライブラリはAccellera UVM 2020.3.1、コミット`78c06547a2a0`で、326ファイルを
@@ -25,6 +25,9 @@
 公開interfaceは[Ghostの設定](testing.ja.md#ghost)で説明します。Icarus VerilogはこのUVMスイートには使いません。
 
 ## 結果の解釈
+
+正当なnegative期待8件は、各fixture／classのvirtual診断によるcompile拒否で一致し、binaryや実行時seedは実行しません。
+simulationの予期しないbuild失敗43件とは異なります。`pass`の解釈には期待の種別と測定したerrorの両方が必要です。
 
 specのみの171件は、規格に基づく期待出力を保持します。通常条件では、128件がseed 1の実行時に最初に異なり、
 seed 73の結果はありません。API欠落でビルドできない16件は、time 1件、sequence-library 6件、
@@ -51,16 +54,13 @@ frontdoor／backdoorの転送動作の成功は示しません。
 
 ## 記録の合算
 
-通常の記録は、[1eedd32](https://github.com/kurochan001/kirimasim-uvm-tests/commit/1eedd326e86dfaa657fbadf0f4ed3c3620b7ec37)
-時点の未変更1396記録を全て保持し、現在のM2入力12検査系を加えます。
-9件は両seed一致で、限定解釈のprobe 3件はseed 1で最初に異なります。
-blocking relay見出しのnonblocking provider一覧の逐語解釈と、禁止された同種terminator接続後に直接entryを残さない解釈を扱います。
-実動blocking relayは一致しますが、initiatorの拒否はERRORを報告しながらraw entryを保持します。
-いずれも規格文言の矛盾を確定せず、不具合を証明しません。3入力のseed 73結果はありません。
+通常の記録は、[d2568b2](https://github.com/kurochan001/kirimasim-uvm-tests/commit/d2568b259a86809c2eabdbca54926ecbc09fdd8f)
+時点の未変更simulation 1408記録を全て保持し、期待compile拒否8測定を加えます。compiler戻り値は非0で、宣言regexはfixtureとclassを示すerrorに一致します。
+全build logとその指紋をlocalに保持し、要求seed設定は1／73ですが、不正metadataによりruntimeは実行しません。最終source指紋はoracle tagの追加を含みます。新compiler検査の実測は2026-11-03 JSTで、このsnapshotは2026-11-04に集約します。
 
-一致した追加は、extension名／合法型、socket／port／export／imp既定値と正確なview、実既定imp委譲、明示／親socket実装、独自phase双方向relay、nonblocking initiatorの列挙3 providerを扱います。
-独自backend algorithmは設定です。初期検査系のpacked-string条件式によるラベルの先頭paddingは、各ラベルをstringへ代入して整形を修正し、規範的出力を変えず両seedで再実行しました。
-以前の全入力／runnerと別VPI条件は未変更です。
+以前のruntime一致1237件、seed 1差分128件、build差分43件は未変更です。以前のsource／期待出力／runner／library入力は変えません。
+台帳schema 2は以前の全要求objectを保持して種別付き診断linkを追加し、checkerは実測compiler logを読みません。
+workflowのcomment／step名はruntimeとcompileを区別するよう更新し、command／権限／実行条件は未変更です。
 
 保持するkirimasim／Ghost記録は、固定した実行ファイルとseedごとの非公開profileで取得しました。
 
@@ -69,8 +69,8 @@ blocking relay見出しのnonblocking provider一覧の逐語解釈と、禁止�
 以前のkirimasim／Ghostの一時的な実行ファイル／profile snapshotは失われており、新しいguest実行は主張しません。
 歴史的なfileには1085記録がありますが、command 1検査系の引用／指紋が変わったため、その記録を除外します。
 現在と互換な部分集合は1084記録で、kirimasimはunsupported 1075件／API欠落fail 9件、Ghostは各seedでpass 207件／fail 877件です。
-現在の未測定324入力は、当時以降の追加323件と引用を変更したcommand 1件です。
-filterしたfileと`out/thin-thirty-eighth-evidence-scope.json`に区別を保持し、許可された実行環境の復元を待ちます。
+現在の未測定332入力は、当時以降の追加331件と引用を変更したcommand 1件です。
+filterしたfileと`out/thin-thirty-ninth-evidence-scope.json`に区別を保持し、許可された実行環境の復元を待ちます。
 
 指紋ごとに、識別する入力が異なります。
 
@@ -85,7 +85,7 @@ filterしたfileと`out/thin-thirty-eighth-evidence-scope.json`に区別を保�
 
 合算する前に、次を確認します。
 
-- Verilator IDが現在の全件を覆い、guest IDは宣言した1084件の部分集合と一致すること。324入力IDは未測定のままにすること。
+- Verilator IDが現在の全件を覆い、guest IDは宣言した1084件の部分集合と一致すること。332入力IDは未測定のままにすること。
 - 各記録の`inputs_sha256`が、ランナーの集めた現在のソース、期待出力、関連入力、ライブラリのlockと一致すること。
 - batch間でシミュレータの版、configuration、`runner_sha256`が一致し、`runner_changed`がfalseであること。
 - このスナップショットでは、Verilatorタグ付きの全ケースが`pass`、現在のタグなしケースがすべて`known`であること。
@@ -95,12 +95,12 @@ filterしたfileと`out/thin-thirty-eighth-evidence-scope.json`に区別を保�
 追加時の件数と測定、過去のスモーク、build変更の詳細は[開発履歴](history.ja.md)に残します。
 更新した記録で以前の記録を置き換える場合も、現在の入力の指紋を先に確認します。
 
-[要求台帳の案](requirements.ja.md)は新規12検査系へAI要求案83件を追加し、以前の要求案／分類／検査入力は全て保持します。
-個別の構造分類12件で、分類は計182件（構造131／文脈51）です。第12章は部分分解169番号・分類45番号・未評価0番号で、規範的概要を除外せず分解します。
-有効なM1〜M4 goalには未評価1,151番号・部分分解1,174番号が残ります。互換guest部分集合は1084件、現在の未測定は324入力で、guest実行は追加しません。
+[要求台帳の案](requirements.ja.md)はschema 2を使い、以前の2084要求objectを全て保持して、新規の直接診断link 8件と未変更runtime control 8件を加えます。
+分類は追加せず、部分分解1178番号・分類182番号・未評価1,147番号です。レポートは`test_types`と`primary_test_types`を区別し、計数単位と範囲は固定します。
+guestは互換simulation 1084入力のままで、未測定332入力（simulation 324・elaboration 8）があり、guest実行は主張しません。
 
-保持する全記録は現在の入力とrunner指紋が一致する必要があります。未対応テスト0件や第12章の未評価番号0件は規範的棚卸しの完了ではありません。
-台帳anchorは期待出力であり、追加実測した成功ではありません。限定解釈には規格照合が必要です。
+期待compiler拒否の成功はruntime動作を実行しません。保持evidenceは現在の入力とrunner指紋に一致する必要があります。
+要求link、未対応テスト0件、診断一致だけで規範的棚卸しやcoverage分母の承認は完了しません。
 
 ## 再現と結果の保存
 
@@ -112,6 +112,6 @@ filterしたfileと`out/thin-thirty-eighth-evidence-scope.json`に区別を保�
 ## 継続的インテグレーション
 
 [Check](../.github/workflows/check.yml)は`main`へのpush、pull request、手動実行で動きます。
-固定ライブラリの整合性、ツールの単体テスト101件、metadata 1408件、要求台帳の案／テスト索引、seed 1・73での通常oracle付きVerilator 1237件と、別条件の明示command-line 17件を検査します。
+固定ライブラリの整合性、ツールの単体テスト110件、metadata 1416件、要求台帳の案／テスト索引、通常oracle付きVerilator 1245件（seed 1／73のruntime 1237・実行時seedなしのcompiler拒否8）と、別条件の明示command-line 17件を検査します。
 kirimasim、Ghost、specのみのケースは実行しません。READMEのバッジは現在のCIで、このローカル測定とは別の状態です。
 Checkが成功しても、UVMの完全な適合性や全シミュレータの成功を示しません。Nightlyや結果の自動公開はありません。

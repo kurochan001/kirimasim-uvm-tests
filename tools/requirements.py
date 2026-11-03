@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Validate the draft requirement ledger and inventory clause references.
 
-This inventories references and explicit expected-output links, not conformance
+This inventories references and explicit expectation links, not conformance
 or an approved coverage percentage. See docs/requirements.md and its Japanese
 counterpart. Simulator results are deliberately not consumed here.
 """
@@ -68,6 +68,27 @@ def read_json(path):
     return json.loads(path.read_text(encoding="utf-8"), object_pairs_hook=unique)
 
 
+def validate_diagnostic(expectation, path, where):
+    """Bind a compile-rejection link to the test's declared diagnostic oracle."""
+    keys(expectation, {"stage", "regex"}, f"{where}.expected_diagnostic")
+    require(expectation["stage"] == "compile", f"{where}: expected compile diagnostic")
+    pattern = expectation["regex"]
+    require(isinstance(pattern, str) and pattern.strip(), f"{where}: empty diagnostic regex")
+    try:
+        re.compile(pattern)
+    except re.error:
+        raise LedgerError(f"{where}: invalid diagnostic regex") from None
+    fields = suite_results.header(path)
+    require(fields.get("type") == "elaboration"
+            and bool(fields.get("should_fail_because", "").strip()),
+            f"{where}: diagnostic link needs an illegal elaboration test")
+    require(not any(k.startswith("expected_stdout") for k in fields)
+            and "expected_exit" not in fields,
+            f"{where}: compile rejection cannot carry runtime expectations")
+    require(pattern == fields.get("expected_stderr_regex"),
+            f"{where}: diagnostic regex differs from the test's expectation")
+
+
 def load(root=None):
     root = root or ROOT
     catalog = root / "tools/clauses_1800_2.txt"
@@ -91,8 +112,11 @@ def load(root=None):
                     references.append(token)
         require(references, f"{name}: no UVM clause reference")
         fields = suite_results.header(path)
+        require(fields.get("type", "simulation") in ("simulation", "elaboration"),
+                f"{name}: invalid test type")
         tests[name] = {"primary_clause": references[0], "references": references,
                        "inputs_sha256": suite_results.input_digest(path),
+                       "type": fields.get("type", "simulation"),
                        "spec_check": fields.get("spec_check"),
                        "oracle": fields.get("oracle", "").split()}
     return {"root": root, "clauses": clauses, "tests": tests, "files": files,
@@ -129,8 +153,9 @@ def validate(data, *, check_index=True):
         bilingual(reason, f"scope.deferred_roots.{chapter}")
 
     keys(ledger, {"schema_version", "standard", "status", "requirements"}, "ledger")
-    require(ledger["schema_version"] == 1 and ledger["standard"] == STANDARD
-            and ledger["status"] == "partial", "ledger: expected a partial schema 1 ledger")
+    require(type(ledger["schema_version"]) is int and ledger["schema_version"] in (1, 2)
+            and ledger["standard"] == STANDARD and ledger["status"] == "partial",
+            "ledger: expected a partial schema 1 or 2 ledger")
     require(isinstance(ledger["requirements"], list), "ledger.requirements must be an array")
     ids = set()
     for entry in ledger["requirements"]:
@@ -148,7 +173,10 @@ def validate(data, *, check_index=True):
         require(isinstance(entry["test_links"], list), f"{name}: test_links must be an array")
         linked = set()
         for link in entry["test_links"]:
-            keys(link, {"test", "role", "expected_observations"}, f"{name}.test_link")
+            require(isinstance(link, dict), f"{name}.test_link: expected an object")
+            diagnostic = "expected_diagnostic" in link
+            keys(link, {"test", "role", "expected_diagnostic" if diagnostic
+                        else "expected_observations"}, f"{name}.test_link")
             test = link["test"]
             require(isinstance(test, str) and test in data["tests"],
                     f"{name}: unknown test {test}")
@@ -158,14 +186,19 @@ def validate(data, *, check_index=True):
             if link["role"] == "direct":
                 require(entry["clause"] in data["tests"][test]["references"],
                         f"{name}: direct test {test} does not cite the requirement clause")
-            anchors = link["expected_observations"]
-            require(isinstance(anchors, list) and anchors
-                    and all(isinstance(a, str) for a in anchors)
-                    and len(set(anchors)) == len(anchors),
-                    f"{name}: expected observations must be a nonempty distinct list")
-            expected = (suite_results.expected_output(data["files"][test]) or "").splitlines()
-            require(all(isinstance(a, str) and a.startswith("UT: ") and a in expected
-                        for a in anchors), f"{name}: observation is not in {test}'s expectation")
+            if diagnostic:
+                require(ledger["schema_version"] == 2,
+                        f"{name}: diagnostic links require ledger schema 2")
+                validate_diagnostic(link["expected_diagnostic"], data["files"][test], name)
+            else:
+                anchors = link["expected_observations"]
+                require(isinstance(anchors, list) and anchors
+                        and all(isinstance(a, str) for a in anchors)
+                        and len(set(anchors)) == len(anchors),
+                        f"{name}: expected observations must be a nonempty distinct list")
+                expected = (suite_results.expected_output(data["files"][test]) or "").splitlines()
+                require(all(isinstance(a, str) and a.startswith("UT: ") and a in expected
+                            for a in anchors), f"{name}: observation is not in {test}'s expectation")
 
     assessments = data["assessments"]
     keys(assessments, {"schema_version", "standard", "status", "assessments"}, "assessments")
@@ -263,6 +296,8 @@ def inventory(data):
     scope_counts = Counter(r["scope"] for r in clause_records)
     reviews = Counter(e["review"]["status"] for e in entries)
     summary = {"tests": len(data["tests"]), "clause_identifiers": len(clause_records),
+               "test_types": {kind: sum(t["type"] == kind for t in data["tests"].values())
+                              for kind in ("simulation", "elaboration")},
                "scope_identifiers": {s: scope_counts[s] for s in ("candidate", "context", "deferred")},
                "primary_focus_identifiers": sum(bool(v) for v in primary.values()),
                "referenced_identifiers": sum(bool(primary[c] or supporting[c])
@@ -305,9 +340,13 @@ def inventory(data):
                                                               for l in e["test_links"])
                                                     for e in obligations),
             "primary_focus_tests": len(tests),
+            "primary_test_types": {kind: sum(data["tests"][name]["type"] == kind
+                                             for name in tests)
+                                   for kind in ("simulation", "elaboration")},
             "primary_focus_tests_without_requirement_links": sum(not by_test[t] for t in tests),
         }
-    return {"schema_version": 2, "standard": STANDARD, "scope_status": "proposed",
+    return {"schema_version": 2, "ledger_schema_version": data["ledger"]["schema_version"],
+            "standard": STANDARD, "scope_status": "proposed",
             "normative_inventory_complete": False, "approved_denominator": None,
             "coverage_percentage": None, "catalog_sha256": data["catalog_sha256"],
             "ledger_inputs_sha256": ledger_digest(data),
@@ -333,7 +372,8 @@ def backlog(data, root=None):
                   if selected(c["clause"]) and c["decomposition"] == "unassessed"]
     assessments = [c["assessment"] for c in report["clauses"]
                    if selected(c["clause"]) and c["assessment"] is not None]
-    result = {key: report[key] for key in ("schema_version", "standard", "scope_status",
+    result = {key: report[key] for key in ("schema_version", "ledger_schema_version",
+              "standard", "scope_status",
               "normative_inventory_complete", "approved_denominator", "coverage_percentage",
               "catalog_sha256", "ledger_inputs_sha256")}
     result.update(selection={"root": root},
