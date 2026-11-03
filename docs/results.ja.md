@@ -4,18 +4,18 @@
 
 ## 現在のスナップショット
 
-2026-11-03のVerilator記録は現在の1250件すべてを対象にします。他2系統は未変更1085件の記録で、
-新規165件は未測定です。各記録は入力と実行条件を指紋で識別します。
-21の章・付録directoryにM1 421件、M2 450件、M3 379件があります。
+2026-11-03のVerilator記録は現在の1261件すべてを対象にします。他2系統は未変更1085件の記録で、
+新規176件は未測定です。各記録は入力と実行条件を指紋で識別します。
+21の章・付録directoryにM1 425件、M2 453件、M3 383件があります。
 全件が`spec_check: ai`を記録し、人による照合やdeprecated APIの要求はありません。
-1242件は`UVM_NO_DPI`を使い、8件はHDL DPIを明示要求します。件数はレビュー済みカバレッジ率ではありません。
+1253件は`UVM_NO_DPI`を使い、8件はHDL DPIを明示要求します。件数はレビュー済みカバレッジ率ではありません。
 
 | シミュレータとライブラリ | 観測結果 | 実行範囲 |
 | --- | --- | --- |
-| Verilator 5.052・固定版UVM | `pass`が1113件、`known`が137件 | 一致ケースはseed 1・73で再現。実行時の差分はseed 1で停止 |
+| Verilator 5.052・固定版UVM | `pass`が1124件、`known`が137件 | 一致ケースはseed 1・73で再現。実行時の差分はseed 1で停止 |
 | Verilator 5.052・独自VPI HDL backend | `pass` 7件、`fail` 1件 | 重複する8件の別条件。一致はseed 1／73、差分はseed 1 |
-| kirimasim・固定版UVM | `unsupported`が1076件、`fail`が9件 | 未変更1085入力。新規165件は未測定 |
-| Ghost・同梱UVM | `pass`が207件、`fail`が878件 | 各seedで未変更1085入力。失敗集合は同じ。新規165件は未測定 |
+| kirimasim・固定版UVM | `unsupported`が1076件、`fail`が9件 | 未変更1085入力。新規176件は未測定 |
+| Ghost・同梱UVM | `pass`が207件、`fail`が878件 | 各seedで未変更1085入力。失敗集合は同じ。新規176件は未測定 |
 | Ghost・固定版UVM | 現在の実行ファイルの固定コピーでは未測定 | 現在の固定版modeの結果は示さない |
 
 固定ライブラリはAccellera UVM 2020.3.1、コミット`78c06547a2a0`で、326ファイルを
@@ -50,19 +50,19 @@ frontdoor／backdoorの転送動作の成功は示しません。
 
 ## 記録の合算
 
-通常の記録は、[f352f6c](https://github.com/kurochan001/kirimasim-uvm-tests/commit/f352f6ccda31f9185c9c6bc8d41fac6dfcc634f8)
-時点の未変更1238記録を保持し、最終入力の12測定を加えます。8件はseed 1・73で一致し、3件はcatcherのget_report_message欠落でbuildできません。
-1件はnarrow busのbig-endian field accessでseed 1の差分を保持します。little-endianの対照と非独立な配置2件は一致します。
-既定sequencerなしの4 APIは、必須UVM_FATALを観測して検査系固有のfatal sentinelで終了します。宣言したnonzero終了はlibrary終了コードへの要求ではありません。
-既存simulation入力、runner、別条件の8件のVPI記録は未変更です。重複するVPI件数を通常条件へ合算しません。
+通常の記録は、[fa8a469](https://github.com/kurochan001/kirimasim-uvm-tests/commit/fa8a46932b13bdc7a48a7a66f6eeabcbbf0a2ea3)
+時点の未変更1250記録を保持し、最終入力11件を加えます。すべてseed 1・73で一致します。新しい条件はhandler委譲、relevance待ち、
+標準TLM-adapterの変換／frontdoor接続です。operation再利用はcommand、address、有効data、byte enable、statusを検査します。
+根拠の不足したn_bits逆変換の断定は最終測定前に外し、観測されたbit数へ合わせたものではありません。
+既存simulation入力、runner、別条件の8件のVPI記録は未変更です。重複するVPI件数を通常の合計へ加えません。
 
 保持するkirimasim／Ghost記録は、固定した実行ファイルとseedごとの非公開profileで取得しました。
 
 商用シミュレータの結果は[投稿方針](faq.ja.md#商用シミュレータとissueの投稿方針)に従って除外します。
 
 以前のkirimasim／Ghostの一時的な実行ファイル／profile snapshotは失われ、互換なlocal環境も見つかりませんでした。
-新しいguest実行は主張しません。既存1085件は現在の入力と一致しますが、新規165 IDは明示的に未測定です。
-localの対象範囲は`out/thin-twenty-sixth-evidence-scope.json`へ記録します。
+新しいguest実行は主張しません。既存1085件は現在の入力と一致しますが、新規176 IDは明示的に未測定です。
+localの対象範囲は`out/thin-twenty-seventh-evidence-scope.json`へ記録します。
 許可された実行環境を復元するまで、この部分的な範囲を保持します。
 
 指紋ごとに、識別する入力が異なります。
@@ -78,7 +78,7 @@ localの対象範囲は`out/thin-twenty-sixth-evidence-scope.json`へ記録し�
 
 合算する前に、次を確認します。
 
-- Verilator IDが現在の全件を覆い、guest IDは宣言した1085件の部分集合と一致すること。新規165 IDは未測定のままにすること。
+- Verilator IDが現在の全件を覆い、guest IDは宣言した1085件の部分集合と一致すること。新規176 IDは未測定のままにすること。
 - 各記録の`inputs_sha256`が、ランナーの集めた現在のソース、期待出力、関連入力、ライブラリのlockと一致すること。
 - batch間でシミュレータの版、configuration、`runner_sha256`が一致し、`runner_changed`がfalseであること。
 - このスナップショットでは、Verilatorタグ付きの全ケースが`pass`、現在のタグなしケースがすべて`known`であること。
@@ -88,7 +88,7 @@ localの対象範囲は`out/thin-twenty-sixth-evidence-scope.json`へ記録し�
 追加時の件数と測定、過去のスモーク、build変更の詳細は[開発履歴](history.ja.md)に残します。
 更新した記録で以前の記録を置き換える場合も、現在の入力の指紋を先に確認します。
 
-[要求台帳の案](requirements.ja.md)は、AI要求案46件で新規12検査系と未変更のpriority／照会検査系3件を対応付けます。
+[要求台帳の案](requirements.ja.md)は、AI要求案51件で新規11検査系と未変更の設定検査系3件を対応付けます。
 構造4件の分類は、日英の根拠とレビューを別に保持します。
 
 新しい入力はVerilatorだけで測定し、guest実測は追加しません。既存の入力とrunnerの指紋はすべて互換性を保ちます。
@@ -105,6 +105,6 @@ localの対象範囲は`out/thin-twenty-sixth-evidence-scope.json`へ記録し�
 ## 継続的インテグレーション
 
 [Check](../.github/workflows/check.yml)は`main`へのpush、pull request、手動実行で動きます。
-固定ライブラリの整合性、ツールの単体テスト88件、metadata 1250件、要求台帳の案／テスト索引、seed 1・73でのoracle付きVerilator 1113件を検査します。
+固定ライブラリの整合性、ツールの単体テスト88件、metadata 1261件、要求台帳の案／テスト索引、seed 1・73でのoracle付きVerilator 1124件を検査します。
 kirimasim、Ghost、specのみのケースは実行しません。READMEのバッジは現在のCIで、このローカル測定とは別の状態です。
 Checkが成功しても、UVMの完全な適合性や全シミュレータの成功を示しません。Nightlyや結果の自動公開はありません。

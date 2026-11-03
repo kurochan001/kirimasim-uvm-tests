@@ -884,3 +884,18 @@ make the fixture end explicit without requiring post-fatal continuation.
 **Field width / physical bus width** — The logical field size versus the data
 width of each physical transfer. Layout, byte sharing and endian ordering all
 matter; individual eligibility alone does not establish correct transfer data.
+
+## Public dispatch and repeated eligibility
+
+**Handler processing argument** — The message supplied to an installed report
+handler's public processing method. Capturing that argument checks delegation
+without accessing catcher internals or formatting server output.
+
+**Relevance wake-up** — A sequence's wait for eligibility returning so the
+sequencer can arbitrate again. Multiple pending requests and restarted gates
+exercise separate lifecycle conditions without fixing polling counts.
+
+**Payload byte length / valid-bit extent** — Byte-array transfer length versus
+how many abstract-value bits a generic bus operation transports. Partial final
+bytes need explicit interpretation; this batch does not prescribe an inverse
+mapping. See [Q163](faq.md#q163-does-payload-byte-length-uniquely-recover-a-partial-byte-valid-bit-count).

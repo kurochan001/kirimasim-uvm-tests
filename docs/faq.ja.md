@@ -122,7 +122,7 @@ Ghostは公開前のシミュレータの仮名です。実行ファイルの識
 ### Q12. uvm_dpi: yesだけでDPIを使うビルドが完成しますか
 
 既定のマクロ一覧から`UVM_NO_DPI`を外す指定です。UVMのC/C++実装の供給・リンクは行いません。
-通常のVerilator runnerは、そのsourceを追加しません。`UVM_NO_DPI`が1242件、HDL DPIの明示選択が8件です。
+通常のVerilator runnerは、そのsourceを追加しません。`UVM_NO_DPI`が1253件、HDL DPIの明示選択が8件です。
 [別のVPI runner](testing.ja.md#verilatorのvpi-hdl部分集合)は独自の限定backendをlinkし、結果は宣言した実行条件だけに適用します。
 DPIなしのglobによる照合も、完全な正規表現への対応とは異なります。
 ユーザー定義の`uvm_reg_backdoor` handlerはHDL DPIなしで動作できます（Q67）。
@@ -155,7 +155,7 @@ Ghostはさらに実行ファイル・profile・供給されたライブラリ�
 
 ### Q16. M1・M2・M3は完了していますか。件数は何の網羅を示しますか
 
-M1・M2には条項ごとの目標に未達があります。M3はbusモデルのfrontdoor経路を含め379件まで追加した段階で、未完です。
+M1・M2には条項ごとの目標に未達があります。M3はbusモデルのfrontdoor経路を含め383件まで追加した段階で、未完です。
 次の段階の開始によって、それまでの段階が完了したとは扱いません。
 範囲と残りの作業は[進め方](../README.ja.md#進め方)にあります。
 件数はテストの本数で、規格の全要求や組み合わせの棚卸しではありません。
@@ -921,8 +921,8 @@ controlの対応は、その要求の直接の検査ではありません。
 
 ### Q77. M4を始めたのに、カバレッジ率がないのはなぜですか
 
-AIによる1575要求案は部分的な分解で、1575要求を1249テストへ直接対応付け、直接未対応は0要求、別の1テストはcontrolです。
-全1250テストに要求の対応付けがあります。2,504の条項番号は規範的要求の単位ではありません。
+AIによる1626要求案は部分的な分解で、1626要求を1260テストへ直接対応付け、直接未対応は0要求、別の1テストはcontrolです。
+全1261テストに要求の対応付けがあります。2,504の条項番号は規範的要求の単位ではありません。
 範囲は提案、棚卸しは未完、分母は未承認で、M4の開始はどれの承認にもなりません。
 既知差分やHDL／DPIの制約によって義務を暗黙に除外しません。[承認までの手順](requirements.ja.md#m4の残作業と承認)を参照してください。
 
@@ -1707,7 +1707,7 @@ user backdoorは16 bit locationをモデル化します。location独立性、�
 
 いいえ。`tests_without_requirement_links`は0で、現在の全テストに、明示的なdirectまたはcontrolの対応があります。
 別の集計`requirements_without_direct_tests`も0件です。memory-walkの対応はQ134の限定した歴史的解釈で、
-省略されたIEEEの詳細の承認ではありません。HDL depositと利用可否には、明示VPI検査系があります。catalogの識別子1,487件も未評価です。
+省略されたIEEEの詳細の承認ではありません。HDL depositと利用可否には、明示VPI検査系があります。catalogの識別子1,473件も未評価です。
 分解と人のレビューは未完で、分母は未承認です。
 
 [新しいpolicyテスト](../tests/u16/test_policy_object_stack_tracks_nested_active_policy_push_and_pop.sv)は、
@@ -1784,7 +1784,7 @@ frontdoor保護のwarningはalgorithm oracleの対象外で、ERRORと観測し�
 個別に読んだ後、日英の根拠とAI／人のレビューを[番号の分類](../coverage/assessments.json)へ記録すれば可能です。
 構造上の見出しは関連要求を持たず、文脈の説明は既存要求を指定します。
 未レビューの記録、推測した分類、親への集約では外せません。生成状態は`assessed`で、要求条項の`partial`と区別します。
-現在の分類は66件で、分母承認や新たなpassを加えません。第11章の未評価0件でも、その要求の完了ではありません。
+現在の分類は70件で、分母承認や新たなpassを加えません。第11章の未評価0件でも、その要求の完了ではありません。
 
 ### Q136. 明示strict configurationで新規検査は成功しますか？
 
@@ -2036,3 +2036,29 @@ library診断文面やfatal終了コードを固定せず、fatal後の実行は
 auto-predictionを使う独自RW-field bus modelであり、HDL storage、access policyの副作用、未使用data lane値は評価しません。
 [big-endian検査系](../tests/u18/test_field_access_big_endian_respects_layout_and_physical_bus_width.sv)は設定したbyte順を保持します。
 アクセス可能という結果だけでは、正しい物理転送を証明しません。
+
+## Handlerの委譲、relevance待ちとTLM adapterの範囲
+
+### Q161. 設定したhandlerでの記録は何を検証しますか？
+
+独自の`process_report_message` overrideが、指定した事前構成objectまたは生成messageのfieldを受け取ります。
+共有／置換したhandlerは、選択したreport objectの報告を受け取ります。serverへ転送せず戻るため、委譲と同一性を検査し、
+出力書式や欠落したcatcher getterは検査しません。[事前構成の検査系](../tests/u06/test_report_handler_preformed_dispatch_preserves_message_and_reporter.sv)を参照してください。
+
+### Q162. 単一の閉じたgate以外で、relevance待ちをどう検査しますか？
+
+| 条件 | 観測 |
+| --- | --- |
+| 両待機要求がirrelevant | 両wait methodが参加し、開いたgateだけが進む |
+| 一方のpeerが実行可能 | 閉じたpeerを待たせて完了し、その後peerも再開できる |
+| 同じsequenceを再開 | 再び閉じたgateで新しいwaitを経て、新規itemを完了する |
+
+正の遅延と明示gateで順番を定め、内部の正確なpollやwait呼出し回数は要求しません。
+[全員待機の検査系](../tests/u14/test_sequence_relevance_all_waiters_releases_only_eligible_requests.sv)は、同条件での選択順、lock、任意の実行順の組合せを評価しません。
+
+### Q163. Payloadのbyte長からpartial-byteの有効bit数を一意に復元しますか？
+
+今回、その逆対応は未整理として残します。payloadのdata長はbyte単位で、generic operationは転送するabstract-value bitの範囲を持ちます。
+operation再利用ではcommand、address、有効data、有効lane、statusを検査し、再構築する`n_bits`は固定しません。
+byte長×8を強制せず、観測された古いbit数も期待値にしません。error dataと未使用の上位bitもoracleの範囲外です。
+[active frontdoor検査系](../tests/u19/test_reg_tlm_adapter_frontdoor_reads_use_fresh_payloads_and_operation_context.sv)は、全16-bitの操作と同じ値のbyte、独自driverのstorageを使います。

@@ -135,7 +135,7 @@ See [Ghost setup](testing.md#ghost).
 
 It removes `UVM_NO_DPI` from the default macro list. It does not supply or link
 UVM's C/C++ implementation. The current Verilator runner does not add those
-sources. There are 1242 `UVM_NO_DPI` cases and eight explicit HDL-DPI cases.
+sources. There are 1253 `UVM_NO_DPI` cases and eight explicit HDL-DPI cases.
 The [separate VPI runner](testing.md#verilator-vpi-hdl-subset) links the original
 limited backend; results apply only to that declared execution condition.
 User-defined `uvm_reg_backdoor` handlers can operate without HDL DPI (Q67).
@@ -174,7 +174,7 @@ a claim that every test was rebuilt together.
 
 ### Q16. Are M1, M2 or M3 complete, and what does the test count cover?
 
-M1 and M2 still have open clause targets. M3 now has 379
+M1 and M2 still have open clause targets. M3 now has 383
 register-layer cases, including testbench frontdoor paths; it is also incomplete. Starting a stage does not complete
 the preceding stages.
 The [plan](../README.md#plan) identifies current scope and remaining work.
@@ -1141,9 +1141,9 @@ not a direct test of the requirement.
 
 ### Q77. Why is there no coverage percentage after starting M4?
 
-The 1575 AI drafts cover only a partial decomposition: 1575 requirements link
-directly to 1249 tests; all drafts have direct tests, and one separate test is a control.
-All 1250 tests have requirement links. The 2,504 clause identifiers are not normative requirement units.
+The 1626 AI drafts cover only a partial decomposition: 1626 requirements link
+directly to 1260 tests; all drafts have direct tests, and one separate test is a control.
+All 1261 tests have requirement links. The 2,504 clause identifiers are not normative requirement units.
 The scope is proposed, the inventory incomplete and the denominator unapproved;
 starting M4 approves none of those. Known differences and HDL/DPI limitations
 do not silently exclude obligations. See the [approval path](requirements.md#remaining-m4-work-and-approval).
@@ -2143,7 +2143,7 @@ No. `tests_without_requirement_links` is zero: every current test has an
 explicit direct or control link. The separate counter
 `requirements_without_direct_tests` is zero. The memory-walk link uses the
 qualified historical interpretation in Q134. It is not approval of missing
-IEEE detail. HDL deposit and accessibility use explicit VPI fixtures. Another 1,487
+IEEE detail. HDL deposit and accessibility use explicit VPI fixtures. Another 1,473
 catalog identifiers remain unassessed; decomposition and human review are
 incomplete, and the denominator remains unapproved.
 
@@ -2244,7 +2244,7 @@ in [identifier assessments](../coverage/assessments.json). Structural headings
 have no related requirements; contextual descriptions name existing requirements.
 An unreviewed record, guessed classification or parent rollup cannot do this.
 The generated state is `assessed`, separate from `partial` requirement clauses.
-Sixty-six classifications currently exist, with no denominator approval or new pass.
+Seventy classifications currently exist, with no denominator approval or new pass.
 Chapter 11's zero unassessed identifiers still does not complete its requirements.
 
 ### Q136. Does explicit strict configuration make the new cases pass?
@@ -2570,3 +2570,36 @@ establish HDL storage, access-policy side effects or unused data-lane values.
 The [big-endian fixture](../tests/u18/test_field_access_big_endian_respects_layout_and_physical_bus_width.sv)
 retains its configured byte order; eligibility alone does not prove a correct
 physical transfer.
+
+## Handler dispatch, relevance waits and TLM adapter scope
+
+### Q161. What does the installed-handler capture establish?
+
+An original `process_report_message` override receives the supplied preformed
+object or the generated message fields. Shared and replaced handlers receive
+the selected report objects' traffic. It returns without forwarding to the
+server, so this checks delegation and identity, not formatted output or the
+missing catcher getter. See the [preformed fixture](../tests/u06/test_report_handler_preformed_dispatch_preserves_message_and_reporter.sv).
+
+### Q162. How are relevance waits checked beyond a single closed gate?
+
+| Condition | Observation |
+| --- | --- |
+| Both pending requests irrelevant | Both wait methods participate; only the opened gate proceeds |
+| One eligible peer | It finishes while the closed peer waits, then the peer can resume |
+| Same sequence restarted | A newly closed gate requires a new wait before the fresh item completes |
+
+Positive delays and explicit gates establish those orders. Exact internal
+polling or wait-call counts are not asserted. The [all-waiters fixture](../tests/u14/test_sequence_relevance_all_waiters_releases_only_eligible_requests.sv)
+does not establish tie-breaking, locks or arbitrary scheduling combinations.
+
+### Q163. Does payload byte length uniquely recover a partial-byte valid-bit count?
+
+This batch leaves that inverse correspondence open. Payload data length is in
+bytes, while a generic operation carries the extent of abstract-value bits being
+transferred. The reused-operation fixture therefore asserts command, address,
+valid data, enabled lanes and status without fixing reconstructed `n_bits`.
+It checks neither a forced byte-length-times-eight value nor an observed stale
+bit count. Error data and unused upper bits remain outside its oracle.
+The [active frontdoor fixture](../tests/u19/test_reg_tlm_adapter_frontdoor_reads_use_fresh_payloads_and_operation_context.sv)
+uses a full sixteen-bit operation and uniform bytes, with original driver storage.

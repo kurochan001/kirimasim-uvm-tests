@@ -3,8 +3,8 @@
 [日本語](history.ja.md) · [README](../README.md)
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and twenty-six cross-milestone thin-area expansions, including the
-existing-test requirement-link backlog checkpoint (1250 simulation tests). The earlier 349-test checkpoint is
+three M4 increments and twenty-seven cross-milestone thin-area expansions, including the
+existing-test requirement-link backlog checkpoint (1261 simulation tests). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -2427,3 +2427,33 @@ Validation covers 88 tool tests, 1250 metadata records, canonical ledger/index,
 library integrity, bilingual links and compatible evidence. Prior simulation
 inputs, runners, VPI backend, scope, lock, licenses and six SVG assets are
 unchanged. Scope/denominator approval and human review remain open.
+
+## Twenty-seventh thin-area expansion across M1–M4
+
+Eleven fixtures add four actual handler-dispatch cases, three multi-request or
+restarted relevance cases and four standard TLM-adapter cases. All final inputs
+match seeds 1 and 73. The suite reaches 1261: M1 425, M2 453 and M3 383.
+Handler identity, source fields, sharing and replacement are checked through
+public processing arguments without the missing catcher getter. Adapter cases
+cover fresh payloads, five negative statuses, operation reuse and active
+frontdoor reads with scoped context. Uniform bytes avoid imposing numeric byte
+order. An unsupported inverse n_bits assertion was removed before final inputs;
+valid-bit reconstruction remains open rather than copying an observed count.
+
+Compatible ordinary evidence retains all 1250 previous inputs: 1124 pass,
+137 known (116 runtime differences, thirteen missing-API builds, eight unlinked
+DPI builds). Separate VPI remains seven pass/one fail. Guest records cover
+1085 unchanged inputs; 176 current IDs are unmeasured. Fifty-one AI drafts
+bring the ledger to 1626, all directly linked to 1260 tests plus one control.
+Three unchanged configuration fixtures gain links without remeasurement.
+Four individually read headings bring classifications to seventy: sixty-eight
+structural, two contextual. Of 2,504 identifiers, 961 are partly decomposed and
+1,473 unassessed; the decrease of fourteen is ten new decompositions plus four
+classifications. Primary focus is 612, any citation 1,252; candidate census is
+1,867 zero, 342 one and 270 at least two.
+
+Ten guide pairs are checked, with 163 FAQ answers and 184 glossary entries.
+Validation covers 88 tool tests, all 1261 metadata records, ledger/index/library
+checks, bilingual links and current-input evidence. Prior simulation inputs,
+runners, backend, scope, lock, licenses and six SVG assets remain unchanged.
+Human review and scope/denominator approval remain open.

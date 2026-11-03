@@ -1,0 +1,3 @@
+UT: read ok 1 kind 1 address 700 low_data 3c3c enables 3
+UT: error failed 1
+UT: retry ok 1 kind 1 address 710 low_data a7a7 enables 3

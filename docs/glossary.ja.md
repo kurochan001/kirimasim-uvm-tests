@@ -683,3 +683,15 @@ printerの書式を固定せず、到達したobjectを識別します。
 
 **Field width / physical bus width（field幅／物理bus幅）** — 論理fieldの大きさと各物理転送のdata幅です。
 配置、byte共有、endian順のすべてが関係し、個別アクセス可否だけでは正しい転送dataを示しません。
+
+## 公開の委譲と繰り返す適格性
+
+**Handler processing argument（handler処理引数）** — 設定したreport handlerの公開処理methodへ渡すmessageです。
+その引数の記録で委譲を調べ、catcher内部やserverの出力書式へ依存しません。
+
+**Relevance wake-up（relevance待ちの復帰）** — sequenceの実行可能性待ちから戻り、sequencerが再arbitrationできることです。
+複数の待機要求と再開後のgateは、poll回数を固定せず別々のlifecycle条件を検査します。
+
+**Payload byte length / valid-bit extent（payload byte長／有効bit範囲）** — byte配列の転送長と、generic bus operationが運ぶabstract-value bit数です。
+最後の部分byteには明示的な解釈が必要で、今回は逆対応を固定しません。
+[Q163](faq.ja.md#q163-payloadのbyte長からpartial-byteの有効bit数を一意に復元しますか)を参照してください。

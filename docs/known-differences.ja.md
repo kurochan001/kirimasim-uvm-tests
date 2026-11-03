@@ -2,7 +2,7 @@
 
 [English](known-differences.md) · [README](../README.ja.md) · [FAQ](faq.ja.md)
 
-現在の1250件と、固定したAccellera UVM 2020.3.1についての記録です。
+現在の1261件と、固定したAccellera UVM 2020.3.1についての記録です。
 不一致はテストの結果であり、それだけではシミュレータ・ライブラリ・期待値のどれが原因かは決まりません。
 
 ## 固定版ライブラリの制約
@@ -297,7 +297,7 @@ databaseのstream列挙の検査系は、7.1.4.2のqueue数を返す事後条件
 記載された`function unsigned`のsignatureは、SystemVerilog 13.4では暗黙の1-bit logicの戻りとなり、2を表現できません。
 期待値2は本文の解釈を保持します。このsignature／本文の矛盾は要レビューとし、確認済みのsimulator／library不具合には割り当てません。
 
-スイート全体では、`verilator@5.052`を付けたテストは1113件、specのみのテストは137件です。
+スイート全体では、`verilator@5.052`を付けたテストは1124件、specのみのテストは137件です。
 specのみのうち1件は9.6を検証します。pre-resetフェーズ終了時に子タスクが停止する
 はずですが、固定版UVMとVerilator 5.052の組み合わせでは、後のフェーズで子タスクの遅延書き込みが
 実行されます。この差分の原因がシミュレータとライブラリのどちらかは未確定です。
@@ -306,7 +306,7 @@ wakeup resetの検査系は、trigger waiterとpersistent-trigger waiterを各1�
 10.1.1.2.8は、callbackなしで両方が起動することを要求します。固定Verilatorの実行は、待機状態の観測に到達してから
 watchdogが期限切れになります。simulator／libraryを組み合わせた原因は未確定のまま、規範的なwakeupの期待を保持します。
 
-specのみの137件も規格から導いた期待値を保持します。通常のVerilator実行とCIはoracle付き1113件を選びます。
+specのみの137件も規格から導いた期待値を保持します。通常のVerilator実行とCIはoracle付き1124件を選びます。
 `--all`はspecのみも含め、不一致やビルド不可を`known`として記録します。
 通常の実行時116件は、最初の差分であるseed 1までの記録で、seed 73の結果はありません。
 API欠落build 13件は、time 1件、sequence-library 6件、HDL slice 2件、object active-policy 1件、catcher message-handle 3件で、
@@ -549,8 +549,8 @@ API欠落build 13件は、time 1件、sequence-library 6件、HDL slice 2件、o
 
 ## シミュレータとライブラリの組み合わせ
 
-スイートは1250件ですが、以下のkirimasim／Ghost記録は未変更の現在入力1085件だけを対象とします。
-以前の一時実行ファイル／profile snapshotがないため、新規165件は未測定です。
+スイートは1261件ですが、以下のkirimasim／Ghost記録は未変更の現在入力1085件だけを対象とします。
+以前の一時実行ファイル／profile snapshotがないため、新規176件は未測定です。
 新しい全件guest実測とは扱いません。[実行結果](results.ja.md)を参照してください。
 
 Ghostの同梱UVMはseed 1・73とも207件一致・878件不一致で、不一致になるテストも同じです。

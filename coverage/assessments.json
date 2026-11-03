@@ -944,6 +944,62 @@
         "reviewer": null,
         "reviewed_at": null
       }
+    },
+    {
+      "clause": "6.3.8",
+      "classification": "structural",
+      "rationale": {
+        "en": "Report-handler-configuration heading groups getter, replacement and reset methods without an additional operation.",
+        "ja": "report-handler設定の見出しはgetter、置換、reset methodをまとめ、追加の操作を持たない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "6.4.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "Common-methods heading introduces the separately numbered handler constructor and printing method; it adds no own behavior.",
+        "ja": "Common methods見出しは番号付きhandler constructorとprint methodを導入し、独自の動作を追加しない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "6.4.3",
+      "classification": "structural",
+      "rationale": {
+        "en": "Verbosity-configuration heading organizes specific methods; all effective-threshold rules remain in their clauses.",
+        "ja": "verbosity設定の見出しは個別methodを整理し、有効thresholdの規則は各条項にある。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "6.4.4",
+      "classification": "structural",
+      "rationale": {
+        "en": "Action-configuration heading groups action-query/configuration methods and adds no separate action rule.",
+        "ja": "action設定の見出しは照会／設定methodをまとめ、別のaction規則を追加しない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
     }
   ]
 }

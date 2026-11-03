@@ -58958,6 +58958,1821 @@
           ]
         }
       ]
+    },
+    {
+      "id": "UVM-HANDLER-SELECTED-GETTER",
+      "clause": "6.3.8.1",
+      "statement": {
+        "en": "get_report_handler returns the installed processing handler.",
+        "ja": "get_report_handlerは、設定した処理handlerを返す。"
+      },
+      "conditions": {
+        "en": "Local reporters install original handlers and dispatch real messages.",
+        "ja": "local reporterに独自handlerを設定して実際のmessageを委譲する。"
+      },
+      "expected": {
+        "en": "Queries match the handlers that receive the selected messages.",
+        "ja": "照会結果は、対象messageを受け取るhandlerと一致する。"
+      },
+      "limitations": {
+        "en": "Public report-handler dispatch captured by an original override that does not forward; no default-server emission, catcher API, formatting or concurrent sharing is asserted.",
+        "ja": "転送しない独自overrideで公開report-handler委譲を記録する。既定serverの発行、catcher API、書式、並行共有は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_handler_preformed_dispatch_preserves_message_and_reporter",
+          "role": "direct",
+          "expected_observations": [
+            "UT: calls 1 selected_handler 1 exact_message 1 origin 1"
+          ]
+        },
+        {
+          "test": "u06/test_report_handler_generated_dispatch_preserves_message_and_reporter",
+          "role": "direct",
+          "expected_observations": [
+            "UT: calls 1 selected_handler 1 origin 1"
+          ]
+        },
+        {
+          "test": "u06/test_report_handler_shared_dispatch_preserves_message_and_reporter",
+          "role": "direct",
+          "expected_observations": [
+            "UT: calls 3 shared 1 origins 1"
+          ]
+        },
+        {
+          "test": "u06/test_report_handler_replacement_dispatch_preserves_message_and_reporter",
+          "role": "direct",
+          "expected_observations": [
+            "UT: shared_calls 2 replacement_calls 1 selected 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-HANDLER-ASSIGNMENT-DISPATCH",
+      "clause": "6.3.8.2",
+      "statement": {
+        "en": "An installed handler receives subsequent report processing.",
+        "ja": "設定したhandlerは、それ以降の報告処理を受け取る。"
+      },
+      "conditions": {
+        "en": "Preformed and generated reports use an explicit local handler.",
+        "ja": "事前構成報告と生成した報告で、明示local handlerを使う。"
+      },
+      "expected": {
+        "en": "Each message reaches that handler once.",
+        "ja": "各messageは、そのhandlerへ1回届く。"
+      },
+      "limitations": {
+        "en": "Public report-handler dispatch captured by an original override that does not forward; no default-server emission, catcher API, formatting or concurrent sharing is asserted.",
+        "ja": "転送しない独自overrideで公開report-handler委譲を記録する。既定serverの発行、catcher API、書式、並行共有は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_handler_preformed_dispatch_preserves_message_and_reporter",
+          "role": "direct",
+          "expected_observations": [
+            "UT: calls 1 selected_handler 1 exact_message 1 origin 1"
+          ]
+        },
+        {
+          "test": "u06/test_report_handler_generated_dispatch_preserves_message_and_reporter",
+          "role": "direct",
+          "expected_observations": [
+            "UT: calls 1 selected_handler 1 origin 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-HANDLER-SHARED-DISPATCH",
+      "clause": "6.3.8.2",
+      "statement": {
+        "en": "Two report objects can share one actual processing handler.",
+        "ja": "2 report objectは、実際の処理handlerを共有できる。"
+      },
+      "conditions": {
+        "en": "The reporters send interleaved A, B and C reports to one installed handler.",
+        "ja": "両reporterが、設定した1 handlerへA、B、Cを交互に送る。"
+      },
+      "expected": {
+        "en": "The shared handler receives three reports with their respective origins in order.",
+        "ja": "共有handlerは、順番どおりの3報告と各生成元を受け取る。"
+      },
+      "limitations": {
+        "en": "Public report-handler dispatch captured by an original override that does not forward; no default-server emission, catcher API, formatting or concurrent sharing is asserted.",
+        "ja": "転送しない独自overrideで公開report-handler委譲を記録する。既定serverの発行、catcher API、書式、並行共有は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_handler_shared_dispatch_preserves_message_and_reporter",
+          "role": "direct",
+          "expected_observations": [
+            "UT: calls 3 shared 1 origins 1",
+            "UT: order 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-HANDLER-REPLACEMENT-REDIRECTS-DISPATCH",
+      "clause": "6.3.8.2",
+      "statement": {
+        "en": "Replacing one shared handler redirects only that reporter processing.",
+        "ja": "共有handlerの片方を置換すると、そのreporterの処理だけを切り替える。"
+      },
+      "conditions": {
+        "en": "One reporter replaces the shared handler between three preformed reports.",
+        "ja": "3つの事前構成報告の途中で、1 reporterの共有handlerを置換する。"
+      },
+      "expected": {
+        "en": "Shared receives A/C and replacement receives B, with original handles preserved.",
+        "ja": "共有側はA／C、置換側はBを受け取り、元のhandleを保持する。"
+      },
+      "limitations": {
+        "en": "Public report-handler dispatch captured by an original override that does not forward; no default-server emission, catcher API, formatting or concurrent sharing is asserted.",
+        "ja": "転送しない独自overrideで公開report-handler委譲を記録する。既定serverの発行、catcher API、書式、並行共有は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_handler_replacement_dispatch_preserves_message_and_reporter",
+          "role": "direct",
+          "expected_observations": [
+            "UT: shared_calls 2 replacement_calls 1 selected 1",
+            "UT: routing 1 origins 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-HANDLER-PUBLIC-PROCESSING-HOOK",
+      "clause": "6.4.7",
+      "statement": {
+        "en": "process_report_message is the handler entry for delegated reporting.",
+        "ja": "process_report_messageは、委譲する報告のhandler入口である。"
+      },
+      "conditions": {
+        "en": "An original handler overrides the public processing method.",
+        "ja": "独自handlerが公開の処理methodをoverrideする。"
+      },
+      "expected": {
+        "en": "The override receives each selected actual message.",
+        "ja": "overrideは、対象の各実messageを受け取る。"
+      },
+      "limitations": {
+        "en": "Public report-handler dispatch captured by an original override that does not forward; no default-server emission, catcher API, formatting or concurrent sharing is asserted.",
+        "ja": "転送しない独自overrideで公開report-handler委譲を記録する。既定serverの発行、catcher API、書式、並行共有は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_handler_preformed_dispatch_preserves_message_and_reporter",
+          "role": "direct",
+          "expected_observations": [
+            "UT: calls 1 selected_handler 1 exact_message 1 origin 1"
+          ]
+        },
+        {
+          "test": "u06/test_report_handler_generated_dispatch_preserves_message_and_reporter",
+          "role": "direct",
+          "expected_observations": [
+            "UT: calls 1 selected_handler 1 origin 1"
+          ]
+        },
+        {
+          "test": "u06/test_report_handler_shared_dispatch_preserves_message_and_reporter",
+          "role": "direct",
+          "expected_observations": [
+            "UT: calls 3 shared 1 origins 1"
+          ]
+        },
+        {
+          "test": "u06/test_report_handler_replacement_dispatch_preserves_message_and_reporter",
+          "role": "direct",
+          "expected_observations": [
+            "UT: shared_calls 2 replacement_calls 1 selected 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-HANDLER-PREFORMED-ARGUMENT-IDENTITY",
+      "clause": "6.3.3.4",
+      "statement": {
+        "en": "uvm_process_report_message passes the supplied preformed object to its handler.",
+        "ja": "uvm_process_report_messageは、指定した事前構成objectをhandlerへ渡す。"
+      },
+      "conditions": {
+        "en": "The caller retains handles before direct processing and replacement routing.",
+        "ja": "直接処理と置換後の委譲で、呼出し側がhandleを保持する。"
+      },
+      "expected": {
+        "en": "Captured arguments equal the caller-provided handles.",
+        "ja": "記録した引数は、呼出し側が指定したhandleと一致する。"
+      },
+      "limitations": {
+        "en": "Public report-handler dispatch captured by an original override that does not forward; no default-server emission, catcher API, formatting or concurrent sharing is asserted.",
+        "ja": "転送しない独自overrideで公開report-handler委譲を記録する。既定serverの発行、catcher API、書式、並行共有は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_handler_preformed_dispatch_preserves_message_and_reporter",
+          "role": "direct",
+          "expected_observations": [
+            "UT: calls 1 selected_handler 1 exact_message 1 origin 1"
+          ]
+        },
+        {
+          "test": "u06/test_report_handler_replacement_dispatch_preserves_message_and_reporter",
+          "role": "direct",
+          "expected_observations": [
+            "UT: routing 1 origins 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-HANDLER-PREFORMED-ORIGIN-REBINDING",
+      "clause": "6.3.3.4",
+      "statement": {
+        "en": "Preformed processing binds the message to the processing report object.",
+        "ja": "事前構成の処理は、messageへ処理するreport objectを設定する。"
+      },
+      "conditions": {
+        "en": "The supplied message initially has a different origin reference.",
+        "ja": "指定messageへ、最初に別の生成元参照を設定する。"
+      },
+      "expected": {
+        "en": "The received/caller message origin becomes the actual reporter.",
+        "ja": "受取側／呼出し側messageの生成元は、実際のreporterとなる。"
+      },
+      "limitations": {
+        "en": "Public report-handler dispatch captured by an original override that does not forward; no default-server emission, catcher API, formatting or concurrent sharing is asserted.",
+        "ja": "転送しない独自overrideで公開report-handler委譲を記録する。既定serverの発行、catcher API、書式、並行共有は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_handler_preformed_dispatch_preserves_message_and_reporter",
+          "role": "direct",
+          "expected_observations": [
+            "UT: calls 1 selected_handler 1 exact_message 1 origin 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-HANDLER-GENERATED-SEVERITY",
+      "clause": "6.3.3.3",
+      "statement": {
+        "en": "The reporting API forwards its supplied severity field to processing.",
+        "ja": "報告APIは、指定したseverity fieldを処理へ渡す。"
+      },
+      "conditions": {
+        "en": "An INFO report is generated with all optional common fields explicit and within its limit.",
+        "ja": "共通optional fieldをすべて明示し、上限内のINFO報告を生成する。"
+      },
+      "expected": {
+        "en": "The installed handler receives INFO in the selected field.",
+        "ja": "設定handlerは、対象fieldでINFOを受け取る。"
+      },
+      "limitations": {
+        "en": "Public report-handler dispatch captured by an original override that does not forward; no default-server emission, catcher API, formatting or concurrent sharing is asserted.",
+        "ja": "転送しない独自overrideで公開report-handler委譲を記録する。既定serverの発行、catcher API、書式、並行共有は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_handler_generated_dispatch_preserves_message_and_reporter",
+          "role": "direct",
+          "expected_observations": [
+            "UT: fields 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-HANDLER-GENERATED-ID",
+      "clause": "6.3.3.3",
+      "statement": {
+        "en": "The reporting API forwards its supplied id field to processing.",
+        "ja": "報告APIは、指定したid fieldを処理へ渡す。"
+      },
+      "conditions": {
+        "en": "An INFO report is generated with all optional common fields explicit and within its limit.",
+        "ja": "共通optional fieldをすべて明示し、上限内のINFO報告を生成する。"
+      },
+      "expected": {
+        "en": "The installed handler receives generated in the selected field.",
+        "ja": "設定handlerは、対象fieldでgeneratedを受け取る。"
+      },
+      "limitations": {
+        "en": "Public report-handler dispatch captured by an original override that does not forward; no default-server emission, catcher API, formatting or concurrent sharing is asserted.",
+        "ja": "転送しない独自overrideで公開report-handler委譲を記録する。既定serverの発行、catcher API、書式、並行共有は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_handler_generated_dispatch_preserves_message_and_reporter",
+          "role": "direct",
+          "expected_observations": [
+            "UT: fields 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-HANDLER-GENERATED-TEXT",
+      "clause": "6.3.3.3",
+      "statement": {
+        "en": "The reporting API forwards its supplied text field to processing.",
+        "ja": "報告APIは、指定したtext fieldを処理へ渡す。"
+      },
+      "conditions": {
+        "en": "An INFO report is generated with all optional common fields explicit and within its limit.",
+        "ja": "共通optional fieldをすべて明示し、上限内のINFO報告を生成する。"
+      },
+      "expected": {
+        "en": "The installed handler receives payload in the selected field.",
+        "ja": "設定handlerは、対象fieldでpayloadを受け取る。"
+      },
+      "limitations": {
+        "en": "Public report-handler dispatch captured by an original override that does not forward; no default-server emission, catcher API, formatting or concurrent sharing is asserted.",
+        "ja": "転送しない独自overrideで公開report-handler委譲を記録する。既定serverの発行、catcher API、書式、並行共有は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_handler_generated_dispatch_preserves_message_and_reporter",
+          "role": "direct",
+          "expected_observations": [
+            "UT: fields 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-HANDLER-GENERATED-VERBOSITY",
+      "clause": "6.3.3.3",
+      "statement": {
+        "en": "The reporting API forwards its supplied verbosity field to processing.",
+        "ja": "報告APIは、指定したverbosity fieldを処理へ渡す。"
+      },
+      "conditions": {
+        "en": "An INFO report is generated with all optional common fields explicit and within its limit.",
+        "ja": "共通optional fieldをすべて明示し、上限内のINFO報告を生成する。"
+      },
+      "expected": {
+        "en": "The installed handler receives LOW in the selected field.",
+        "ja": "設定handlerは、対象fieldでLOWを受け取る。"
+      },
+      "limitations": {
+        "en": "Public report-handler dispatch captured by an original override that does not forward; no default-server emission, catcher API, formatting or concurrent sharing is asserted.",
+        "ja": "転送しない独自overrideで公開report-handler委譲を記録する。既定serverの発行、catcher API、書式、並行共有は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_handler_generated_dispatch_preserves_message_and_reporter",
+          "role": "direct",
+          "expected_observations": [
+            "UT: fields 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-HANDLER-GENERATED-FILENAME",
+      "clause": "6.3.3.3",
+      "statement": {
+        "en": "The reporting API forwards its supplied filename field to processing.",
+        "ja": "報告APIは、指定したfilename fieldを処理へ渡す。"
+      },
+      "conditions": {
+        "en": "An INFO report is generated with all optional common fields explicit and within its limit.",
+        "ja": "共通optional fieldをすべて明示し、上限内のINFO報告を生成する。"
+      },
+      "expected": {
+        "en": "The installed handler receives generated.sv in the selected field.",
+        "ja": "設定handlerは、対象fieldでgenerated.svを受け取る。"
+      },
+      "limitations": {
+        "en": "Public report-handler dispatch captured by an original override that does not forward; no default-server emission, catcher API, formatting or concurrent sharing is asserted.",
+        "ja": "転送しない独自overrideで公開report-handler委譲を記録する。既定serverの発行、catcher API、書式、並行共有は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_handler_generated_dispatch_preserves_message_and_reporter",
+          "role": "direct",
+          "expected_observations": [
+            "UT: fields 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-HANDLER-GENERATED-LINE",
+      "clause": "6.3.3.3",
+      "statement": {
+        "en": "The reporting API forwards its supplied line field to processing.",
+        "ja": "報告APIは、指定したline fieldを処理へ渡す。"
+      },
+      "conditions": {
+        "en": "An INFO report is generated with all optional common fields explicit and within its limit.",
+        "ja": "共通optional fieldをすべて明示し、上限内のINFO報告を生成する。"
+      },
+      "expected": {
+        "en": "The installed handler receives 27 in the selected field.",
+        "ja": "設定handlerは、対象fieldで27を受け取る。"
+      },
+      "limitations": {
+        "en": "Public report-handler dispatch captured by an original override that does not forward; no default-server emission, catcher API, formatting or concurrent sharing is asserted.",
+        "ja": "転送しない独自overrideで公開report-handler委譲を記録する。既定serverの発行、catcher API、書式、並行共有は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_handler_generated_dispatch_preserves_message_and_reporter",
+          "role": "direct",
+          "expected_observations": [
+            "UT: fields 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-HANDLER-GENERATED-CONTEXT",
+      "clause": "6.3.3.3",
+      "statement": {
+        "en": "The reporting API forwards its supplied context field to processing.",
+        "ja": "報告APIは、指定したcontext fieldを処理へ渡す。"
+      },
+      "conditions": {
+        "en": "An INFO report is generated with all optional common fields explicit and within its limit.",
+        "ja": "共通optional fieldをすべて明示し、上限内のINFO報告を生成する。"
+      },
+      "expected": {
+        "en": "The installed handler receives ctx in the selected field.",
+        "ja": "設定handlerは、対象fieldでctxを受け取る。"
+      },
+      "limitations": {
+        "en": "Public report-handler dispatch captured by an original override that does not forward; no default-server emission, catcher API, formatting or concurrent sharing is asserted.",
+        "ja": "転送しない独自overrideで公開report-handler委譲を記録する。既定serverの発行、catcher API、書式、並行共有は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_handler_generated_dispatch_preserves_message_and_reporter",
+          "role": "direct",
+          "expected_observations": [
+            "UT: fields 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RELEVANCE-ALL-PENDING-WAITERS",
+      "clause": "14.2.5.4",
+      "statement": {
+        "en": "When all pending requests are irrelevant, each sequence is asked to wait for relevance.",
+        "ja": "待機中の全要求がirrelevantなら、各sequenceでrelevanceを待つ。"
+      },
+      "conditions": {
+        "en": "Two requests are queued before the driver arbitrates, with both gates closed.",
+        "ja": "両gateを閉じ、driverのarbitration前に2要求をqueueへ入れる。"
+      },
+      "expected": {
+        "en": "Both wait methods participate and no item is delivered.",
+        "ja": "両wait methodが参加し、itemは配送されない。"
+      },
+      "limitations": {
+        "en": "Original gate-controlled sequences and a delayed driver only. Counters assert participation, not exact polling/wait counts; no equal-eligibility priority ordering, lock or zero-time loop policy is asserted.",
+        "ja": "gateで制御する独自sequenceと遅延driverのみ。counterは参加の有無を調べ、正確なpoll／wait回数は固定しない。同じ適格性でのpriority順、lock、zero-time loop policyは評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_relevance_all_waiters_releases_only_eligible_requests",
+          "role": "direct",
+          "expected_observations": [
+            "UT: closed received 0 first_wait 1 second_wait 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RELEVANCE-FIRST-WAITER-REARBITRATION",
+      "clause": "14.2.5.4",
+      "statement": {
+        "en": "Returning from one relevance wait allows arbitration of its now-eligible request.",
+        "ja": "1つのrelevance waitから戻ると、その実行可能になった要求をarbitrationできる。"
+      },
+      "conditions": {
+        "en": "Only the first gate opens after both waits begin.",
+        "ja": "両wait開始後、最初のgateだけを開く。"
+      },
+      "expected": {
+        "en": "The first sequence completes and only one item has been delivered.",
+        "ja": "最初のsequenceが完了し、配送itemは1個だけである。"
+      },
+      "limitations": {
+        "en": "Original gate-controlled sequences and a delayed driver only. Counters assert participation, not exact polling/wait counts; no equal-eligibility priority ordering, lock or zero-time loop policy is asserted.",
+        "ja": "gateで制御する独自sequenceと遅延driverのみ。counterは参加の有無を調べ、正確なpoll／wait回数は固定しない。同じ適格性でのpriority順、lock、zero-time loop policyは評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_relevance_all_waiters_releases_only_eligible_requests",
+          "role": "direct",
+          "expected_observations": [
+            "UT: first_only received 1 first 1 second 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RELEVANCE-SECOND-WAITER-REARBITRATION",
+      "clause": "14.2.5.4",
+      "statement": {
+        "en": "The remaining waiter can later resume and complete after its own gate opens.",
+        "ja": "残ったwaiterは、自身のgateを開くと後から再開して完了できる。"
+      },
+      "conditions": {
+        "en": "The second gate stays closed until the first sequence completes.",
+        "ja": "最初のsequenceが完了するまで2つ目のgateを閉じる。"
+      },
+      "expected": {
+        "en": "Both complete, with items 11 then 22.",
+        "ja": "両方が完了し、itemは11、22の順である。"
+      },
+      "limitations": {
+        "en": "Original gate-controlled sequences and a delayed driver only. Counters assert participation, not exact polling/wait counts; no equal-eligibility priority ordering, lock or zero-time loop policy is asserted.",
+        "ja": "gateで制御する独自sequenceと遅延driverのみ。counterは参加の有無を調べ、正確なpoll／wait回数は固定しない。同じ適格性でのpriority順、lock、zero-time loop policyは評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_relevance_all_waiters_releases_only_eligible_requests",
+          "role": "direct",
+          "expected_observations": [
+            "UT: finished first 1 second 1 order 11 22"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RELEVANCE-CLOSED-PEER-NOT-GRANTED",
+      "clause": "14.2.5.3",
+      "statement": {
+        "en": "An irrelevant peer is not selected while another request becomes eligible.",
+        "ja": "他の要求が実行可能になっても、irrelevantなpeerは選択されない。"
+      },
+      "conditions": {
+        "en": "The first gate opens while the second remains closed.",
+        "ja": "2つ目を閉じたまま、最初のgateを開く。"
+      },
+      "expected": {
+        "en": "The second sequence remains unfinished after the first finishes.",
+        "ja": "最初の完了後も、2つ目のsequenceは未完のままである。"
+      },
+      "limitations": {
+        "en": "Original gate-controlled sequences and a delayed driver only. Counters assert participation, not exact polling/wait counts; no equal-eligibility priority ordering, lock or zero-time loop policy is asserted.",
+        "ja": "gateで制御する独自sequenceと遅延driverのみ。counterは参加の有無を調べ、正確なpoll／wait回数は固定しない。同じ適格性でのpriority順、lock、zero-time loop policyは評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_relevance_all_waiters_releases_only_eligible_requests",
+          "role": "direct",
+          "expected_observations": [
+            "UT: first_only received 1 first 1 second 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RELEVANCE-RELEVANT-PEER-CAN-PROCEED",
+      "clause": "14.2.5.3",
+      "statement": {
+        "en": "A relevant request can finish while a queued peer remains irrelevant.",
+        "ja": "queue内のpeerがirrelevantの間も、relevantな要求は完了できる。"
+      },
+      "conditions": {
+        "en": "The second request is relevant and the first gate is initially closed.",
+        "ja": "2つ目の要求をrelevantとし、最初のgateは閉じておく。"
+      },
+      "expected": {
+        "en": "The second finishes first and final order is 22 then 11.",
+        "ja": "2つ目が先に完了し、最終順は22、11となる。"
+      },
+      "limitations": {
+        "en": "Original gate-controlled sequences and a delayed driver only. Counters assert participation, not exact polling/wait counts; no equal-eligibility priority ordering, lock or zero-time loop policy is asserted.",
+        "ja": "gateで制御する独自sequenceと遅延driverのみ。counterは参加の有無を調べ、正確なpoll／wait回数は固定しない。同じ適格性でのpriority順、lock、zero-time loop policyは評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_relevance_relevant_peer_releases_only_eligible_requests",
+          "role": "direct",
+          "expected_observations": [
+            "UT: peer_finished received 1 first 0 second 1",
+            "UT: finished first 1 second 1 order 22 11"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RELEVANCE-LAST-IRRELEVANT-WAITER",
+      "clause": "14.2.5.4",
+      "statement": {
+        "en": "A remaining irrelevant request waits and resumes after its gate opens.",
+        "ja": "残ったirrelevantな要求はwaitし、gateを開くと再開する。"
+      },
+      "conditions": {
+        "en": "An eligible peer has completed, leaving one closed request.",
+        "ja": "実行可能なpeerが完了し、閉じた要求が1つ残る。"
+      },
+      "expected": {
+        "en": "Its wait method participates before it completes after opening.",
+        "ja": "gateを開いて完了する前に、そのwait methodが参加する。"
+      },
+      "limitations": {
+        "en": "Original gate-controlled sequences and a delayed driver only. Counters assert participation, not exact polling/wait counts; no equal-eligibility priority ordering, lock or zero-time loop policy is asserted.",
+        "ja": "gateで制御する独自sequenceと遅延driverのみ。counterは参加の有無を調べ、正確なpoll／wait回数は固定しない。同じ適格性でのpriority順、lock、zero-time loop policyは評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_relevance_relevant_peer_releases_only_eligible_requests",
+          "role": "direct",
+          "expected_observations": [
+            "UT: pending_wait 1",
+            "UT: finished first 1 second 1 order 22 11"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RELEVANCE-RESTARTED-GATE-NEW-WAIT",
+      "clause": "14.2.5.4",
+      "statement": {
+        "en": "A restarted sequence with its gate reset waits again for relevance.",
+        "ja": "gateを再び閉じて再開したsequenceは、relevanceを再度待つ。"
+      },
+      "conditions": {
+        "en": "The same sequence is started twice, resetting its gate between starts.",
+        "ja": "同じsequenceを2回開始し、開始の間でgateを閉じる。"
+      },
+      "expected": {
+        "en": "Each round observes a new wait before the corresponding item is delivered.",
+        "ja": "各roundで、対応itemの配送前に新しいwaitを観測する。"
+      },
+      "limitations": {
+        "en": "Original gate-controlled sequences and a delayed driver only. Counters assert participation, not exact polling/wait counts; no equal-eligibility priority ordering, lock or zero-time loop policy is asserted.",
+        "ja": "gateで制御する独自sequenceと遅延driverのみ。counterは参加の有無を調べ、正確なpoll／wait回数は固定しない。同じ適格性でのpriority順、lock、zero-time loop policyは評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_relevance_restarted_gate_releases_only_eligible_requests",
+          "role": "direct",
+          "expected_observations": [
+            "UT: closed round 1 received 0 finished 0",
+            "UT: complete round 1 value 10 finished 1 new_wait 1",
+            "UT: closed round 2 received 1 finished 1",
+            "UT: complete round 2 value 20 finished 2 new_wait 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RELEVANCE-RESTARTED-GATE-REARBITRATION",
+      "clause": "14.2.5.4",
+      "statement": {
+        "en": "Returning from the new relevance wait lets each restarted request complete.",
+        "ja": "新しいrelevance waitから戻ると、各再開要求を完了できる。"
+      },
+      "conditions": {
+        "en": "Two starts supply fresh items with values 10 and 20.",
+        "ja": "2回の開始で、値10と20を持つ新規itemを供給する。"
+      },
+      "expected": {
+        "en": "Both rounds complete once with their current item values.",
+        "ja": "両roundが、それぞれ現在のitem値で1回ずつ完了する。"
+      },
+      "limitations": {
+        "en": "Original gate-controlled sequences and a delayed driver only. Counters assert participation, not exact polling/wait counts; no equal-eligibility priority ordering, lock or zero-time loop policy is asserted.",
+        "ja": "gateで制御する独自sequenceと遅延driverのみ。counterは参加の有無を調べ、正確なpoll／wait回数は固定しない。同じ適格性でのpriority順、lock、zero-time loop policyは評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_relevance_restarted_gate_releases_only_eligible_requests",
+          "role": "direct",
+          "expected_observations": [
+            "UT: complete round 1 value 10 finished 1 new_wait 1",
+            "UT: complete round 2 value 20 finished 2 new_wait 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM-ADAPTER-FRESH-PAYLOADS",
+      "clause": "19.2.1.2.5",
+      "statement": {
+        "en": "Each reg2bus conversion allocates a fresh payload object.",
+        "ja": "各reg2bus変換は、新しいpayload objectを割り当てる。"
+      },
+      "conditions": {
+        "en": "One adapter converts distinct sixteen-bit read/write operations.",
+        "ja": "1 adapterで、異なる16-bit read／write operationを変換する。"
+      },
+      "expected": {
+        "en": "The two returned payload handles differ.",
+        "ja": "返された2つのpayload handleは異なる。"
+      },
+      "limitations": {
+        "en": "Standard TLM adapter, two uniform data/enable bytes and original public-API fixtures only; no numeric byte-order assumption, failed-read data, incomplete response, unknown/four-state value or unused upper data/mask bits is asserted. Active frontdoor storage is an original driver, not HDL.",
+        "ja": "標準TLM adapter、同じ値のdata／enable byte 2個、公開APIを使う独自検査系のみ。数値のbyte順、失敗read data、未完response、unknown／4値、未使用の上位data／mask bitは固定しない。active frontdoorのstorageは独自driverで、HDLではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_tlm_adapter_fresh_objects_preserve_conversion_contracts",
+          "role": "direct",
+          "expected_observations": [
+            "UT: distinct 1 first_read 1 second_write 1 addresses 120 240 lengths 2 2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM-ADAPTER-CONVERTED-COMMANDS",
+      "clause": "19.2.2.2.1",
+      "statement": {
+        "en": "reg2bus preserves the generic operation command.",
+        "ja": "reg2busは、generic operationのcommandを保持する。"
+      },
+      "conditions": {
+        "en": "One adapter converts distinct sixteen-bit read/write operations.",
+        "ja": "1 adapterで、異なる16-bit read／write operationを変換する。"
+      },
+      "expected": {
+        "en": "The first payload is READ and the second WRITE.",
+        "ja": "最初のpayloadはREAD、2つ目はWRITEである。"
+      },
+      "limitations": {
+        "en": "Standard TLM adapter, two uniform data/enable bytes and original public-API fixtures only; no numeric byte-order assumption, failed-read data, incomplete response, unknown/four-state value or unused upper data/mask bits is asserted. Active frontdoor storage is an original driver, not HDL.",
+        "ja": "標準TLM adapter、同じ値のdata／enable byte 2個、公開APIを使う独自検査系のみ。数値のbyte順、失敗read data、未完response、unknown／4値、未使用の上位data／mask bitは固定しない。active frontdoorのstorageは独自driverで、HDLではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_tlm_adapter_fresh_objects_preserve_conversion_contracts",
+          "role": "direct",
+          "expected_observations": [
+            "UT: distinct 1 first_read 1 second_write 1 addresses 120 240 lengths 2 2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM-ADAPTER-CONVERTED-ADDRESSES",
+      "clause": "19.1.2.2",
+      "statement": {
+        "en": "Converted bus addresses follow the generic operation address.",
+        "ja": "変換後のbus addressは、generic operationのaddressに従う。"
+      },
+      "conditions": {
+        "en": "One adapter converts distinct sixteen-bit read/write operations.",
+        "ja": "1 adapterで、異なる16-bit read／write operationを変換する。"
+      },
+      "expected": {
+        "en": "The payload addresses are 0x120 and 0x240.",
+        "ja": "payloadのaddressは0x120と0x240である。"
+      },
+      "limitations": {
+        "en": "Standard TLM adapter, two uniform data/enable bytes and original public-API fixtures only; no numeric byte-order assumption, failed-read data, incomplete response, unknown/four-state value or unused upper data/mask bits is asserted. Active frontdoor storage is an original driver, not HDL.",
+        "ja": "標準TLM adapter、同じ値のdata／enable byte 2個、公開APIを使う独自検査系のみ。数値のbyte順、失敗read data、未完response、unknown／4値、未使用の上位data／mask bitは固定しない。active frontdoorのstorageは独自driverで、HDLではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_tlm_adapter_fresh_objects_preserve_conversion_contracts",
+          "role": "direct",
+          "expected_observations": [
+            "UT: distinct 1 first_read 1 second_write 1 addresses 120 240 lengths 2 2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM-ADAPTER-CONVERTED-WIDTH",
+      "clause": "19.1.2.4",
+      "statement": {
+        "en": "A sixteen-bit conversion carries two valid data bytes.",
+        "ja": "16-bitの変換は、有効なdata 2 byteを持つ。"
+      },
+      "conditions": {
+        "en": "One adapter converts distinct sixteen-bit read/write operations.",
+        "ja": "1 adapterで、異なる16-bit read／write operationを変換する。"
+      },
+      "expected": {
+        "en": "Both payload lengths are 2.",
+        "ja": "両payloadの長さは2である。"
+      },
+      "limitations": {
+        "en": "Standard TLM adapter, two uniform data/enable bytes and original public-API fixtures only; no numeric byte-order assumption, failed-read data, incomplete response, unknown/four-state value or unused upper data/mask bits is asserted. Active frontdoor storage is an original driver, not HDL.",
+        "ja": "標準TLM adapter、同じ値のdata／enable byte 2個、公開APIを使う独自検査系のみ。数値のbyte順、失敗read data、未完response、unknown／4値、未使用の上位data／mask bitは固定しない。active frontdoorのstorageは独自driverで、HDLではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_tlm_adapter_fresh_objects_preserve_conversion_contracts",
+          "role": "direct",
+          "expected_observations": [
+            "UT: distinct 1 first_read 1 second_write 1 addresses 120 240 lengths 2 2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM-ADAPTER-CONVERTED-WRITE-DATA",
+      "clause": "19.1.2.3",
+      "statement": {
+        "en": "Write conversion transports the supplied valid data.",
+        "ja": "write変換は、指定した有効dataを転送する。"
+      },
+      "conditions": {
+        "en": "One adapter converts distinct sixteen-bit read/write operations.",
+        "ja": "1 adapterで、異なる16-bit read／write operationを変換する。"
+      },
+      "expected": {
+        "en": "The second payload contains two 0x5a bytes.",
+        "ja": "2つ目のpayloadは0x5aのbyte 2個を持つ。"
+      },
+      "limitations": {
+        "en": "Standard TLM adapter, two uniform data/enable bytes and original public-API fixtures only; no numeric byte-order assumption, failed-read data, incomplete response, unknown/four-state value or unused upper data/mask bits is asserted. Active frontdoor storage is an original driver, not HDL.",
+        "ja": "標準TLM adapter、同じ値のdata／enable byte 2個、公開APIを使う独自検査系のみ。数値のbyte順、失敗read data、未完response、unknown／4値、未使用の上位data／mask bitは固定しない。active frontdoorのstorageは独自driverで、HDLではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_tlm_adapter_fresh_objects_preserve_conversion_contracts",
+          "role": "direct",
+          "expected_observations": [
+            "UT: second_data 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM-ADAPTER-PAYLOAD-INSTANCE-ISOLATION",
+      "clause": "19.2.2.2.1",
+      "statement": {
+        "en": "Changing an earlier converted payload leaves the later payload independent.",
+        "ja": "以前に変換したpayloadを変更しても、後のpayloadは独立している。"
+      },
+      "conditions": {
+        "en": "One adapter converts distinct sixteen-bit read/write operations.",
+        "ja": "1 adapterで、異なる16-bit read／write operationを変換する。"
+      },
+      "expected": {
+        "en": "Changing first address/data leaves second address 0x240 and its two 0x5a bytes.",
+        "ja": "最初のaddress／data変更後も、2つ目のaddress 0x240と0x5aの2 byteを保持する。"
+      },
+      "limitations": {
+        "en": "Standard TLM adapter, two uniform data/enable bytes and original public-API fixtures only; no numeric byte-order assumption, failed-read data, incomplete response, unknown/four-state value or unused upper data/mask bits is asserted. Active frontdoor storage is an original driver, not HDL.",
+        "ja": "標準TLM adapter、同じ値のdata／enable byte 2個、公開APIを使う独自検査系のみ。数値のbyte順、失敗read data、未完response、unknown／4値、未使用の上位data／mask bitは固定しない。active frontdoorのstorageは独自driverで、HDLではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_tlm_adapter_fresh_objects_preserve_conversion_contracts",
+          "role": "direct",
+          "expected_observations": [
+            "UT: second_isolated 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM-ADAPTER-ERROR-GENERIC-STATUS",
+      "clause": "19.1.2.6",
+      "statement": {
+        "en": "A generic error response converts to a failed generic operation.",
+        "ja": "generic error responseは、失敗のgeneric operationへ変換する。"
+      },
+      "conditions": {
+        "en": "A completed read payload has the selected negative error status; rw starts as IS_OK.",
+        "ja": "完了したread payloadへ対象の負のerror statusを設定し、rwをIS_OKから始める。"
+      },
+      "expected": {
+        "en": "The generic status becomes UVM_NOT_OK.",
+        "ja": "generic statusはUVM_NOT_OKとなる。"
+      },
+      "limitations": {
+        "en": "Standard TLM adapter, two uniform data/enable bytes and original public-API fixtures only; no numeric byte-order assumption, failed-read data, incomplete response, unknown/four-state value or unused upper data/mask bits is asserted. Active frontdoor storage is an original driver, not HDL.",
+        "ja": "標準TLM adapter、同じ値のdata／enable byte 2個、公開APIを使う独自検査系のみ。数値のbyte順、失敗read data、未完response、unknown／4値、未使用の上位data／mask bitは固定しない。active frontdoorのstorageは独自driverで、HDLではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_tlm_adapter_error_statuses_preserve_conversion_contracts",
+          "role": "direct",
+          "expected_observations": [
+            "UT: error 0 failed 1 read 1 address 500"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM-ADAPTER-ERROR-ADDRESS-STATUS",
+      "clause": "19.1.2.6",
+      "statement": {
+        "en": "A address error response converts to a failed generic operation.",
+        "ja": "address error responseは、失敗のgeneric operationへ変換する。"
+      },
+      "conditions": {
+        "en": "A completed read payload has the selected negative error status; rw starts as IS_OK.",
+        "ja": "完了したread payloadへ対象の負のerror statusを設定し、rwをIS_OKから始める。"
+      },
+      "expected": {
+        "en": "The generic status becomes UVM_NOT_OK.",
+        "ja": "generic statusはUVM_NOT_OKとなる。"
+      },
+      "limitations": {
+        "en": "Standard TLM adapter, two uniform data/enable bytes and original public-API fixtures only; no numeric byte-order assumption, failed-read data, incomplete response, unknown/four-state value or unused upper data/mask bits is asserted. Active frontdoor storage is an original driver, not HDL.",
+        "ja": "標準TLM adapter、同じ値のdata／enable byte 2個、公開APIを使う独自検査系のみ。数値のbyte順、失敗read data、未完response、unknown／4値、未使用の上位data／mask bitは固定しない。active frontdoorのstorageは独自driverで、HDLではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_tlm_adapter_error_statuses_preserve_conversion_contracts",
+          "role": "direct",
+          "expected_observations": [
+            "UT: error 1 failed 1 read 1 address 500"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM-ADAPTER-ERROR-COMMAND-STATUS",
+      "clause": "19.1.2.6",
+      "statement": {
+        "en": "A command error response converts to a failed generic operation.",
+        "ja": "command error responseは、失敗のgeneric operationへ変換する。"
+      },
+      "conditions": {
+        "en": "A completed read payload has the selected negative error status; rw starts as IS_OK.",
+        "ja": "完了したread payloadへ対象の負のerror statusを設定し、rwをIS_OKから始める。"
+      },
+      "expected": {
+        "en": "The generic status becomes UVM_NOT_OK.",
+        "ja": "generic statusはUVM_NOT_OKとなる。"
+      },
+      "limitations": {
+        "en": "Standard TLM adapter, two uniform data/enable bytes and original public-API fixtures only; no numeric byte-order assumption, failed-read data, incomplete response, unknown/four-state value or unused upper data/mask bits is asserted. Active frontdoor storage is an original driver, not HDL.",
+        "ja": "標準TLM adapter、同じ値のdata／enable byte 2個、公開APIを使う独自検査系のみ。数値のbyte順、失敗read data、未完response、unknown／4値、未使用の上位data／mask bitは固定しない。active frontdoorのstorageは独自driverで、HDLではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_tlm_adapter_error_statuses_preserve_conversion_contracts",
+          "role": "direct",
+          "expected_observations": [
+            "UT: error 2 failed 1 read 1 address 500"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM-ADAPTER-ERROR-BURST-STATUS",
+      "clause": "19.1.2.6",
+      "statement": {
+        "en": "A burst error response converts to a failed generic operation.",
+        "ja": "burst error responseは、失敗のgeneric operationへ変換する。"
+      },
+      "conditions": {
+        "en": "A completed read payload has the selected negative error status; rw starts as IS_OK.",
+        "ja": "完了したread payloadへ対象の負のerror statusを設定し、rwをIS_OKから始める。"
+      },
+      "expected": {
+        "en": "The generic status becomes UVM_NOT_OK.",
+        "ja": "generic statusはUVM_NOT_OKとなる。"
+      },
+      "limitations": {
+        "en": "Standard TLM adapter, two uniform data/enable bytes and original public-API fixtures only; no numeric byte-order assumption, failed-read data, incomplete response, unknown/four-state value or unused upper data/mask bits is asserted. Active frontdoor storage is an original driver, not HDL.",
+        "ja": "標準TLM adapter、同じ値のdata／enable byte 2個、公開APIを使う独自検査系のみ。数値のbyte順、失敗read data、未完response、unknown／4値、未使用の上位data／mask bitは固定しない。active frontdoorのstorageは独自driverで、HDLではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_tlm_adapter_error_statuses_preserve_conversion_contracts",
+          "role": "direct",
+          "expected_observations": [
+            "UT: error 3 failed 1 read 1 address 500"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM-ADAPTER-ERROR-BYTE-ENABLE-STATUS",
+      "clause": "19.1.2.6",
+      "statement": {
+        "en": "A byte-enable error response converts to a failed generic operation.",
+        "ja": "byte-enable error responseは、失敗のgeneric operationへ変換する。"
+      },
+      "conditions": {
+        "en": "A completed read payload has the selected negative error status; rw starts as IS_OK.",
+        "ja": "完了したread payloadへ対象の負のerror statusを設定し、rwをIS_OKから始める。"
+      },
+      "expected": {
+        "en": "The generic status becomes UVM_NOT_OK.",
+        "ja": "generic statusはUVM_NOT_OKとなる。"
+      },
+      "limitations": {
+        "en": "Standard TLM adapter, two uniform data/enable bytes and original public-API fixtures only; no numeric byte-order assumption, failed-read data, incomplete response, unknown/four-state value or unused upper data/mask bits is asserted. Active frontdoor storage is an original driver, not HDL.",
+        "ja": "標準TLM adapter、同じ値のdata／enable byte 2個、公開APIを使う独自検査系のみ。数値のbyte順、失敗read data、未完response、unknown／4値、未使用の上位data／mask bitは固定しない。active frontdoorのstorageは独自driverで、HDLではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_tlm_adapter_error_statuses_preserve_conversion_contracts",
+          "role": "direct",
+          "expected_observations": [
+            "UT: error 4 failed 1 read 1 address 500"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM-ADAPTER-ERROR-READ-COMMAND",
+      "clause": "19.2.2.2.2",
+      "statement": {
+        "en": "Error response conversion still identifies the read operation.",
+        "ja": "error responseの変換も、read操作を識別する。"
+      },
+      "conditions": {
+        "en": "The same valid read payload is reused across five negative response statuses.",
+        "ja": "同じ有効なread payloadを、5つの負のresponse statusで再利用する。"
+      },
+      "expected": {
+        "en": "All selected error responses convert to READ.",
+        "ja": "対象の全error responseはREADへ変換する。"
+      },
+      "limitations": {
+        "en": "Standard TLM adapter, two uniform data/enable bytes and original public-API fixtures only; no numeric byte-order assumption, failed-read data, incomplete response, unknown/four-state value or unused upper data/mask bits is asserted. Active frontdoor storage is an original driver, not HDL.",
+        "ja": "標準TLM adapter、同じ値のdata／enable byte 2個、公開APIを使う独自検査系のみ。数値のbyte順、失敗read data、未完response、unknown／4値、未使用の上位data／mask bitは固定しない。active frontdoorのstorageは独自driverで、HDLではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_tlm_adapter_error_statuses_preserve_conversion_contracts",
+          "role": "direct",
+          "expected_observations": [
+            "UT: error 0 failed 1 read 1 address 500",
+            "UT: error 1 failed 1 read 1 address 500",
+            "UT: error 2 failed 1 read 1 address 500",
+            "UT: error 3 failed 1 read 1 address 500",
+            "UT: error 4 failed 1 read 1 address 500"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM-ADAPTER-ERROR-ADDRESS",
+      "clause": "19.1.2.2",
+      "statement": {
+        "en": "Error response conversion identifies the supplied bus address.",
+        "ja": "error responseの変換は、指定したbus addressを識別する。"
+      },
+      "conditions": {
+        "en": "The same valid read payload is reused across five negative response statuses.",
+        "ja": "同じ有効なread payloadを、5つの負のresponse statusで再利用する。"
+      },
+      "expected": {
+        "en": "All selected responses retain address 0x500.",
+        "ja": "対象の全responseはaddress 0x500を保持する。"
+      },
+      "limitations": {
+        "en": "Standard TLM adapter, two uniform data/enable bytes and original public-API fixtures only; no numeric byte-order assumption, failed-read data, incomplete response, unknown/four-state value or unused upper data/mask bits is asserted. Active frontdoor storage is an original driver, not HDL.",
+        "ja": "標準TLM adapter、同じ値のdata／enable byte 2個、公開APIを使う独自検査系のみ。数値のbyte順、失敗read data、未完response、unknown／4値、未使用の上位data／mask bitは固定しない。active frontdoorのstorageは独自driverで、HDLではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_tlm_adapter_error_statuses_preserve_conversion_contracts",
+          "role": "direct",
+          "expected_observations": [
+            "UT: error 0 failed 1 read 1 address 500",
+            "UT: error 1 failed 1 read 1 address 500",
+            "UT: error 2 failed 1 read 1 address 500",
+            "UT: error 3 failed 1 read 1 address 500",
+            "UT: error 4 failed 1 read 1 address 500"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM-ADAPTER-REUSED-OP-SUCCESS",
+      "clause": "19.1.2.6",
+      "statement": {
+        "en": "Successful conversion replaces a previous failed operation status.",
+        "ja": "成功の変換は、以前のoperationの失敗statusを置換する。"
+      },
+      "conditions": {
+        "en": "One supplied rw object receives successful read, failed read and successful write conversions.",
+        "ja": "指定した1つのrw objectで、read成功、read失敗、write成功の変換を受ける。"
+      },
+      "expected": {
+        "en": "The initial read and retry write both report IS_OK.",
+        "ja": "最初のreadと再試行writeは、両方IS_OKを返す。"
+      },
+      "limitations": {
+        "en": "Standard TLM adapter, two uniform data/enable bytes and original public-API fixtures only; no numeric byte-order assumption, failed-read data, incomplete response, unknown/four-state value or unused upper data/mask bits is asserted. Active frontdoor storage is an original driver, not HDL.",
+        "ja": "標準TLM adapter、同じ値のdata／enable byte 2個、公開APIを使う独自検査系のみ。数値のbyte順、失敗read data、未完response、unknown／4値、未使用の上位data／mask bitは固定しない。active frontdoorのstorageは独自driverで、HDLではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_tlm_adapter_reused_operation_preserve_conversion_contracts",
+          "role": "direct",
+          "expected_observations": [
+            "UT: read ok 1 kind 1 address 700 low_data 3c3c enables 3",
+            "UT: retry ok 1 kind 1 address 710 low_data a7a7 enables 3"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM-ADAPTER-REUSED-OP-COMMAND",
+      "clause": "19.1.2.1",
+      "statement": {
+        "en": "Reusing rw replaces its operation kind with the current payload command.",
+        "ja": "rwを再利用すると、現在payloadのcommandでoperation kindを置換する。"
+      },
+      "conditions": {
+        "en": "One supplied rw object receives successful read, failed read and successful write conversions.",
+        "ja": "指定した1つのrw objectで、read成功、read失敗、write成功の変換を受ける。"
+      },
+      "expected": {
+        "en": "The kind changes from READ to WRITE.",
+        "ja": "kindはREADからWRITEへ変わる。"
+      },
+      "limitations": {
+        "en": "Standard TLM adapter, two uniform data/enable bytes and original public-API fixtures only; no numeric byte-order assumption, failed-read data, incomplete response, unknown/four-state value or unused upper data/mask bits is asserted. Active frontdoor storage is an original driver, not HDL.",
+        "ja": "標準TLM adapter、同じ値のdata／enable byte 2個、公開APIを使う独自検査系のみ。数値のbyte順、失敗read data、未完response、unknown／4値、未使用の上位data／mask bitは固定しない。active frontdoorのstorageは独自driverで、HDLではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_tlm_adapter_reused_operation_preserve_conversion_contracts",
+          "role": "direct",
+          "expected_observations": [
+            "UT: read ok 1 kind 1 address 700 low_data 3c3c enables 3",
+            "UT: retry ok 1 kind 1 address 710 low_data a7a7 enables 3"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM-ADAPTER-REUSED-OP-ADDRESS",
+      "clause": "19.1.2.2",
+      "statement": {
+        "en": "Reusing rw replaces a stale address with the current payload address.",
+        "ja": "rwを再利用すると、古いaddressを現在payloadのaddressで置換する。"
+      },
+      "conditions": {
+        "en": "One supplied rw object receives successful read, failed read and successful write conversions.",
+        "ja": "指定した1つのrw objectで、read成功、read失敗、write成功の変換を受ける。"
+      },
+      "expected": {
+        "en": "Addresses become 0x700 then 0x710.",
+        "ja": "addressは0x700、次に0x710となる。"
+      },
+      "limitations": {
+        "en": "Standard TLM adapter, two uniform data/enable bytes and original public-API fixtures only; no numeric byte-order assumption, failed-read data, incomplete response, unknown/four-state value or unused upper data/mask bits is asserted. Active frontdoor storage is an original driver, not HDL.",
+        "ja": "標準TLM adapter、同じ値のdata／enable byte 2個、公開APIを使う独自検査系のみ。数値のbyte順、失敗read data、未完response、unknown／4値、未使用の上位data／mask bitは固定しない。active frontdoorのstorageは独自driverで、HDLではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_tlm_adapter_reused_operation_preserve_conversion_contracts",
+          "role": "direct",
+          "expected_observations": [
+            "UT: read ok 1 kind 1 address 700 low_data 3c3c enables 3",
+            "UT: retry ok 1 kind 1 address 710 low_data a7a7 enables 3"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM-ADAPTER-REUSED-OP-DATA",
+      "clause": "19.1.2.3",
+      "statement": {
+        "en": "Successful reuse converts the current valid data portion.",
+        "ja": "成功時の再利用は、現在の有効data部分を変換する。"
+      },
+      "conditions": {
+        "en": "One supplied rw object receives successful read, failed read and successful write conversions.",
+        "ja": "指定した1つのrw objectで、read成功、read失敗、write成功の変換を受ける。"
+      },
+      "expected": {
+        "en": "Low sixteen bits become 0x3c3c then 0xa7a7.",
+        "ja": "下位16 bitは0x3c3c、次に0xa7a7となる。"
+      },
+      "limitations": {
+        "en": "Standard TLM adapter, two uniform data/enable bytes and original public-API fixtures only; no numeric byte-order assumption, failed-read data, incomplete response, unknown/four-state value or unused upper data/mask bits is asserted. Active frontdoor storage is an original driver, not HDL.",
+        "ja": "標準TLM adapter、同じ値のdata／enable byte 2個、公開APIを使う独自検査系のみ。数値のbyte順、失敗read data、未完response、unknown／4値、未使用の上位data／mask bitは固定しない。active frontdoorのstorageは独自driverで、HDLではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_tlm_adapter_reused_operation_preserve_conversion_contracts",
+          "role": "direct",
+          "expected_observations": [
+            "UT: read ok 1 kind 1 address 700 low_data 3c3c enables 3",
+            "UT: retry ok 1 kind 1 address 710 low_data a7a7 enables 3"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM-ADAPTER-REUSED-OP-ENABLES",
+      "clause": "19.1.2.5",
+      "statement": {
+        "en": "Successful conversion updates enabled valid byte lanes.",
+        "ja": "成功した変換は、有効なbyte laneのenableを更新する。"
+      },
+      "conditions": {
+        "en": "One supplied rw object receives successful read, failed read and successful write conversions.",
+        "ja": "指定した1つのrw objectで、read成功、read失敗、write成功の変換を受ける。"
+      },
+      "expected": {
+        "en": "Both valid lanes are enabled after starting with mask zero.",
+        "ja": "mask 0から始め、両有効laneがenableとなる。"
+      },
+      "limitations": {
+        "en": "Standard TLM adapter, two uniform data/enable bytes and original public-API fixtures only; no numeric byte-order assumption, failed-read data, incomplete response, unknown/four-state value or unused upper data/mask bits is asserted. Active frontdoor storage is an original driver, not HDL.",
+        "ja": "標準TLM adapter、同じ値のdata／enable byte 2個、公開APIを使う独自検査系のみ。数値のbyte順、失敗read data、未完response、unknown／4値、未使用の上位data／mask bitは固定しない。active frontdoorのstorageは独自driverで、HDLではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_tlm_adapter_reused_operation_preserve_conversion_contracts",
+          "role": "direct",
+          "expected_observations": [
+            "UT: read ok 1 kind 1 address 700 low_data 3c3c enables 3",
+            "UT: retry ok 1 kind 1 address 710 low_data a7a7 enables 3"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM-ADAPTER-REUSED-OP-FAILURE",
+      "clause": "19.1.2.6",
+      "statement": {
+        "en": "An error conversion replaces a previous successful generic status.",
+        "ja": "errorの変換は、以前のgeneric成功statusを置換する。"
+      },
+      "conditions": {
+        "en": "One supplied rw object receives successful read, failed read and successful write conversions.",
+        "ja": "指定した1つのrw objectで、read成功、read失敗、write成功の変換を受ける。"
+      },
+      "expected": {
+        "en": "The intervening address error reports NOT_OK.",
+        "ja": "間のaddress errorはNOT_OKを返す。"
+      },
+      "limitations": {
+        "en": "Standard TLM adapter, two uniform data/enable bytes and original public-API fixtures only; no numeric byte-order assumption, failed-read data, incomplete response, unknown/four-state value or unused upper data/mask bits is asserted. Active frontdoor storage is an original driver, not HDL.",
+        "ja": "標準TLM adapter、同じ値のdata／enable byte 2個、公開APIを使う独自検査系のみ。数値のbyte順、失敗read data、未完response、unknown／4値、未使用の上位data／mask bitは固定しない。active frontdoorのstorageは独自driverで、HDLではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_tlm_adapter_reused_operation_preserve_conversion_contracts",
+          "role": "direct",
+          "expected_observations": [
+            "UT: error failed 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM-ADAPTER-FRONTDOOR-CONTEXT",
+      "clause": "19.2.1.2.7",
+      "statement": {
+        "en": "The standard-adapter extension sees the abstract read context during reg2bus.",
+        "ja": "標準adapterの拡張は、reg2bus中にabstract read contextを観測できる。"
+      },
+      "conditions": {
+        "en": "A sixteen-bit model uses the standard adapter, in-place driver responses and a two-byte map.",
+        "ja": "16-bit modelで標準adapter、driverのrequest内response、2-byte mapを使う。"
+      },
+      "expected": {
+        "en": "Context is non-null, identifies the model register and has READ kind.",
+        "ja": "contextは非nullで、model registerを指し、READ kindを持つ。"
+      },
+      "limitations": {
+        "en": "Standard TLM adapter, two uniform data/enable bytes and original public-API fixtures only; no numeric byte-order assumption, failed-read data, incomplete response, unknown/four-state value or unused upper data/mask bits is asserted. Active frontdoor storage is an original driver, not HDL.",
+        "ja": "標準TLM adapter、同じ値のdata／enable byte 2個、公開APIを使う独自検査系のみ。数値のbyte順、失敗read data、未完response、unknown／4値、未使用の上位data／mask bitは固定しない。active frontdoorのstorageは独自driverで、HDLではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_tlm_adapter_frontdoor_reads_use_fresh_payloads_and_operation_context",
+          "role": "direct",
+          "expected_observations": [
+            "UT: context 1 outside 1 read_commands 1 addresses 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM-ADAPTER-FRONTDOOR-OUTSIDE-CONTEXT",
+      "clause": "19.2.1.2.7",
+      "statement": {
+        "en": "get_item is null during bus2reg and after the operation.",
+        "ja": "bus2reg中と操作後のget_itemはnullである。"
+      },
+      "conditions": {
+        "en": "A sixteen-bit model uses the standard adapter, in-place driver responses and a two-byte map.",
+        "ja": "16-bit modelで標準adapter、driverのrequest内response、2-byte mapを使う。"
+      },
+      "expected": {
+        "en": "Every response-side and outside query returns null.",
+        "ja": "response側と外側の全照会がnullを返す。"
+      },
+      "limitations": {
+        "en": "Standard TLM adapter, two uniform data/enable bytes and original public-API fixtures only; no numeric byte-order assumption, failed-read data, incomplete response, unknown/four-state value or unused upper data/mask bits is asserted. Active frontdoor storage is an original driver, not HDL.",
+        "ja": "標準TLM adapter、同じ値のdata／enable byte 2個、公開APIを使う独自検査系のみ。数値のbyte順、失敗read data、未完response、unknown／4値、未使用の上位data／mask bitは固定しない。active frontdoorのstorageは独自driverで、HDLではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_tlm_adapter_frontdoor_reads_use_fresh_payloads_and_operation_context",
+          "role": "direct",
+          "expected_observations": [
+            "UT: context 1 outside 1 read_commands 1 addresses 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM-ADAPTER-FRONTDOOR-PAYLOAD-IDENTITY",
+      "clause": "19.2.2.2.1",
+      "statement": {
+        "en": "The frontdoor sends the fresh objects returned by standard reg2bus to the driver.",
+        "ja": "frontdoorは、標準reg2busが返した新しいobjectをdriverへ送る。"
+      },
+      "conditions": {
+        "en": "A sixteen-bit model uses the standard adapter, in-place driver responses and a two-byte map.",
+        "ja": "16-bit modelで標準adapter、driverのrequest内response、2-byte mapを使う。"
+      },
+      "expected": {
+        "en": "Two distinct generated handles match the two received payload handles.",
+        "ja": "異なる2つの生成handleが、受信した2つのpayload handleと一致する。"
+      },
+      "limitations": {
+        "en": "Standard TLM adapter, two uniform data/enable bytes and original public-API fixtures only; no numeric byte-order assumption, failed-read data, incomplete response, unknown/four-state value or unused upper data/mask bits is asserted. Active frontdoor storage is an original driver, not HDL.",
+        "ja": "標準TLM adapter、同じ値のdata／enable byte 2個、公開APIを使う独自検査系のみ。数値のbyte順、失敗read data、未完response、unknown／4値、未使用の上位data／mask bitは固定しない。active frontdoorのstorageは独自driverで、HDLではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_tlm_adapter_frontdoor_reads_use_fresh_payloads_and_operation_context",
+          "role": "direct",
+          "expected_observations": [
+            "UT: requests 2 conversions 2 fresh 1 identity 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM-ADAPTER-FRONTDOOR-READ-DATA",
+      "clause": "18.4.4.10",
+      "statement": {
+        "en": "Frontdoor reads through the standard TLM adapter return driver response data.",
+        "ja": "標準TLM adapter経由のfrontdoor readは、driver responseのdataを返す。"
+      },
+      "conditions": {
+        "en": "A sixteen-bit model uses the standard adapter, in-place driver responses and a two-byte map.",
+        "ja": "16-bit modelで標準adapter、driverのrequest内response、2-byte mapを使う。"
+      },
+      "expected": {
+        "en": "Reads succeed with 0x3c3c then 0x9292.",
+        "ja": "readは0x3c3c、次に0x9292で成功する。"
+      },
+      "limitations": {
+        "en": "Standard TLM adapter, two uniform data/enable bytes and original public-API fixtures only; no numeric byte-order assumption, failed-read data, incomplete response, unknown/four-state value or unused upper data/mask bits is asserted. Active frontdoor storage is an original driver, not HDL.",
+        "ja": "標準TLM adapter、同じ値のdata／enable byte 2個、公開APIを使う独自検査系のみ。数値のbyte順、失敗read data、未完response、unknown／4値、未使用の上位data／mask bitは固定しない。active frontdoorのstorageは独自driverで、HDLではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_tlm_adapter_frontdoor_reads_use_fresh_payloads_and_operation_context",
+          "role": "direct",
+          "expected_observations": [
+            "UT: first ok 1 value 3c3c mirror 3c3c",
+            "UT: second ok 1 value 9292 mirror 9292"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM-ADAPTER-FRONTDOOR-PREDICTION",
+      "clause": "18.2.5.2",
+      "statement": {
+        "en": "Auto-prediction updates mirrors from standard-adapter reads.",
+        "ja": "auto-predictionは、標準adapterのreadからmirrorを更新する。"
+      },
+      "conditions": {
+        "en": "A sixteen-bit model uses the standard adapter, in-place driver responses and a two-byte map.",
+        "ja": "16-bit modelで標準adapter、driverのrequest内response、2-byte mapを使う。"
+      },
+      "expected": {
+        "en": "Mirrors become 0x3c3c then 0x9292.",
+        "ja": "mirrorは0x3c3c、次に0x9292となる。"
+      },
+      "limitations": {
+        "en": "Standard TLM adapter, two uniform data/enable bytes and original public-API fixtures only; no numeric byte-order assumption, failed-read data, incomplete response, unknown/four-state value or unused upper data/mask bits is asserted. Active frontdoor storage is an original driver, not HDL.",
+        "ja": "標準TLM adapter、同じ値のdata／enable byte 2個、公開APIを使う独自検査系のみ。数値のbyte順、失敗read data、未完response、unknown／4値、未使用の上位data／mask bitは固定しない。active frontdoorのstorageは独自driverで、HDLではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_tlm_adapter_frontdoor_reads_use_fresh_payloads_and_operation_context",
+          "role": "direct",
+          "expected_observations": [
+            "UT: first ok 1 value 3c3c mirror 3c3c",
+            "UT: second ok 1 value 9292 mirror 9292"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM-ADAPTER-FRONTDOOR-ADDRESS",
+      "clause": "19.1.2.2",
+      "statement": {
+        "en": "The physical payload address corresponds to the mapped register.",
+        "ja": "物理payloadのaddressは、map上のregisterに対応する。"
+      },
+      "conditions": {
+        "en": "A sixteen-bit model uses the standard adapter, in-place driver responses and a two-byte map.",
+        "ja": "16-bit modelで標準adapter、driverのrequest内response、2-byte mapを使う。"
+      },
+      "expected": {
+        "en": "Both requests use address 0x20.",
+        "ja": "両要求はaddress 0x20を使う。"
+      },
+      "limitations": {
+        "en": "Standard TLM adapter, two uniform data/enable bytes and original public-API fixtures only; no numeric byte-order assumption, failed-read data, incomplete response, unknown/four-state value or unused upper data/mask bits is asserted. Active frontdoor storage is an original driver, not HDL.",
+        "ja": "標準TLM adapter、同じ値のdata／enable byte 2個、公開APIを使う独自検査系のみ。数値のbyte順、失敗read data、未完response、unknown／4値、未使用の上位data／mask bitは固定しない。active frontdoorのstorageは独自driverで、HDLではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_tlm_adapter_frontdoor_reads_use_fresh_payloads_and_operation_context",
+          "role": "direct",
+          "expected_observations": [
+            "UT: context 1 outside 1 read_commands 1 addresses 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TLM-ADAPTER-FRONTDOOR-COMMAND",
+      "clause": "19.2.2.2.1",
+      "statement": {
+        "en": "A generic frontdoor read produces a TLM READ payload.",
+        "ja": "generic frontdoor readは、TLM READ payloadを生成する。"
+      },
+      "conditions": {
+        "en": "A sixteen-bit model uses the standard adapter, in-place driver responses and a two-byte map.",
+        "ja": "16-bit modelで標準adapter、driverのrequest内response、2-byte mapを使う。"
+      },
+      "expected": {
+        "en": "Both received payloads identify READ.",
+        "ja": "受信した両payloadがREADを示す。"
+      },
+      "limitations": {
+        "en": "Standard TLM adapter, two uniform data/enable bytes and original public-API fixtures only; no numeric byte-order assumption, failed-read data, incomplete response, unknown/four-state value or unused upper data/mask bits is asserted. Active frontdoor storage is an original driver, not HDL.",
+        "ja": "標準TLM adapter、同じ値のdata／enable byte 2個、公開APIを使う独自検査系のみ。数値のbyte順、失敗read data、未完response、unknown／4値、未使用の上位data／mask bitは固定しない。active frontdoorのstorageは独自driverで、HDLではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_tlm_adapter_frontdoor_reads_use_fresh_payloads_and_operation_context",
+          "role": "direct",
+          "expected_observations": [
+            "UT: context 1 outside 1 read_commands 1 addresses 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-HANDLER-CONFIG-VERBOSITY-ASSOCIATIONS",
+      "clause": "6.4.3.3",
+      "statement": {
+        "en": "Specific ID and severity-ID verbosity associations survive a general threshold update.",
+        "ja": "IDとseverity-ID固有のverbosity設定は、一般上限の更新後も残る。"
+      },
+      "conditions": {
+        "en": "Specific thresholds are installed before changing the general maximum.",
+        "ja": "一般の上限変更前に、固有のthresholdを設定する。"
+      },
+      "expected": {
+        "en": "The pair stays NONE, ID stays LOW and other queries use DEBUG.",
+        "ja": "pairはNONE、IDはLOWを保持し、その他の照会はDEBUGを使う。"
+      },
+      "limitations": {
+        "en": "Unchanged original reporting fixtures; wrapper calls exercise effective handler configuration through public reporter queries. These links add no measurements and assert no file output formatting.",
+        "ja": "未変更の独自報告検査系を使い、wrapper呼出しによるhandler設定をreporterの公開照会で観測する。対応の追加は測定ではなく、file出力書式も要求しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_general_verbosity_keeps_specific_overrides",
+          "role": "direct",
+          "expected_observations": [
+            "UT: preserved pair 1 id 1 updated general 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-HANDLER-CONFIG-ACTION-ASSOCIATIONS",
+      "clause": "6.4.4.2",
+      "statement": {
+        "en": "Configured severity, ID and severity-ID actions are retrievable with their defined priority.",
+        "ja": "設定したseverity、ID、severity-IDのactionは、規定の優先順で取得できる。"
+      },
+      "conditions": {
+        "en": "Distinct actions are installed at all three specificity levels.",
+        "ja": "3つの具体性levelすべてへ異なるactionを設定する。"
+      },
+      "expected": {
+        "en": "Pair, ID and severity fallback queries retrieve the respective configured actions.",
+        "ja": "pair、ID、severity fallbackの照会は、それぞれの設定actionを取得する。"
+      },
+      "limitations": {
+        "en": "Unchanged original reporting fixtures; wrapper calls exercise effective handler configuration through public reporter queries. These links add no measurements and assert no file output formatting.",
+        "ja": "未変更の独自報告検査系を使い、wrapper呼出しによるhandler設定をreporterの公開照会で観測する。対応の追加は測定ではなく、file出力書式も要求しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_action_specificity_precedence",
+          "role": "direct",
+          "expected_observations": [
+            "UT: pair wins 1",
+            "UT: id wins 1",
+            "UT: severity fallback 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-HANDLER-CONFIG-FILE-ASSOCIATIONS",
+      "clause": "6.4.5.2",
+      "statement": {
+        "en": "Configured file associations are retained at default and specific scopes.",
+        "ja": "設定したfileの対応は、既定と固有のscopeで保持する。"
+      },
+      "conditions": {
+        "en": "Four distinct opened handles are assigned to default, severity, ID and pair settings.",
+        "ja": "開いた異なる4 handleを、既定、severity、ID、pairへ設定する。"
+      },
+      "expected": {
+        "en": "Each query returns its selected handle without fixing descriptor numbers.",
+        "ja": "各照会はdescriptor番号を固定せず、選択したhandleを返す。"
+      },
+      "limitations": {
+        "en": "Unchanged original reporting fixtures; wrapper calls exercise effective handler configuration through public reporter queries. These links add no measurements and assert no file output formatting.",
+        "ja": "未変更の独自報告検査系を使い、wrapper呼出しによるhandler設定をreporterの公開照会で観測する。対応の追加は測定ではなく、file出力書式も要求しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_file_selection_specificity_precedence",
+          "role": "direct",
+          "expected_observations": [
+            "UT: default 1 severity 1 id 1 pair 1"
+          ]
+        }
+      ]
     }
   ]
 }
