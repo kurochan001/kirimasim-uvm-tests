@@ -49196,6 +49196,1784 @@
           ]
         }
       ]
+    },
+    {
+      "id": "UVM-RECORDING-CLOSE-HOOK-FAILURE-RESULT",
+      "clause": "7.1.6.2",
+      "statement": {
+        "en": "The database close backend result is propagated and a failed close can be retried.",
+        "ja": "database close backendの結果を伝播し、失敗したcloseを再試行できる。"
+      },
+      "conditions": {
+        "en": "Return zero once and then one from do_close_db on an opened database.",
+        "ja": "open済みdatabaseのdo_close_dbで、最初に0、次に1を返す。"
+      },
+      "expected": {
+        "en": "Results are zero/one and the backend is called once per attempted close.",
+        "ja": "結果は0／1で、close試行ごとにbackendを1回呼ぶ。"
+      },
+      "limitations": {
+        "en": "Original in-memory database/stream/recorder subclasses model callback outcomes; no files, vendor attributes, external database or HDL/DPI are involved. Preconstructed candidates expose whether initialization occurs after a null backend result. Explicit recording time 17 is metadata, not elapsed time. Queue contents are checked while the inconsistent unsigned count return is deliberately ignored. Link endpoints remain opened or closed-but-not-freed. Existing hook fixtures are linked with unchanged inputs; this supplies no new execution result or independent checks for every anchor.",
+        "ja": "独自のin-memory database／stream／recorder派生classでcallback結果をモデル化し、file、vendor attribute、外部database、HDL／DPIは使わない。事前生成candidateで、backend null結果の後に初期化されないことを観測する。明示recording time 17はmetadataで、経過時刻ではない。不整合のあるunsigned個数戻り値は無視し、queue内容を検査する。link endpointはopenまたはclose済みでfree前とする。既存hook検査は入力を変えず対応付け、追加実行結果や全anchorごとの独立した検査を与えない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u07/test_database_close_hook_failure_preserves_open_state_until_a_successful_retry",
+          "role": "direct",
+          "expected_observations": [
+            "UT: failed result 0 open 1 closes 1",
+            "UT: retried result 1 closed 1 closes 2",
+            "UT: already_closed result 1 closes 2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDING-FAILED-CLOSE-OPEN-STATUS",
+      "clause": "7.1.3.3",
+      "statement": {
+        "en": "A failed backend close leaves the successfully opened database open until closing succeeds.",
+        "ja": "backend close失敗時は、成功してopenしたdatabaseを、close成功までopenに保つ。"
+      },
+      "conditions": {
+        "en": "Query status after failed and successful close attempts without streams.",
+        "ja": "streamなしで、失敗と成功のclose試行後に状態を照会する。"
+      },
+      "expected": {
+        "en": "Status is open after failure and closed after the successful retry.",
+        "ja": "失敗後はopen、成功した再試行後はclosedとなる。"
+      },
+      "limitations": {
+        "en": "Original in-memory database/stream/recorder subclasses model callback outcomes; no files, vendor attributes, external database or HDL/DPI are involved. Preconstructed candidates expose whether initialization occurs after a null backend result. Explicit recording time 17 is metadata, not elapsed time. Queue contents are checked while the inconsistent unsigned count return is deliberately ignored. Link endpoints remain opened or closed-but-not-freed. Existing hook fixtures are linked with unchanged inputs; this supplies no new execution result or independent checks for every anchor.",
+        "ja": "独自のin-memory database／stream／recorder派生classでcallback結果をモデル化し、file、vendor attribute、外部database、HDL／DPIは使わない。事前生成candidateで、backend null結果の後に初期化されないことを観測する。明示recording time 17はmetadataで、経過時刻ではない。不整合のあるunsigned個数戻り値は無視し、queue内容を検査する。link endpointはopenまたはclose済みでfree前とする。既存hook検査は入力を変えず対応付け、追加実行結果や全anchorごとの独立した検査を与えない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u07/test_database_close_hook_failure_preserves_open_state_until_a_successful_retry",
+          "role": "direct",
+          "expected_observations": [
+            "UT: failed result 0 open 1 closes 1",
+            "UT: retried result 1 closed 1 closes 2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDING-CLOSE-RETRY-IDEMPOTENT-SUCCESS",
+      "clause": "7.1.3.2",
+      "statement": {
+        "en": "After a failed close and successful retry, another close succeeds without reentering the backend.",
+        "ja": "close失敗と再試行成功の後のcloseは、backendへ再入せず成功する。"
+      },
+      "conditions": {
+        "en": "Perform three close calls with backend results zero then one.",
+        "ja": "backend結果0、次に1でcloseを3回呼ぶ。"
+      },
+      "expected": {
+        "en": "The final call returns one and total backend close calls remain two.",
+        "ja": "最後の呼出しは1を返し、backend close累計は2回を保つ。"
+      },
+      "limitations": {
+        "en": "Original in-memory database/stream/recorder subclasses model callback outcomes; no files, vendor attributes, external database or HDL/DPI are involved. Preconstructed candidates expose whether initialization occurs after a null backend result. Explicit recording time 17 is metadata, not elapsed time. Queue contents are checked while the inconsistent unsigned count return is deliberately ignored. Link endpoints remain opened or closed-but-not-freed. Existing hook fixtures are linked with unchanged inputs; this supplies no new execution result or independent checks for every anchor.",
+        "ja": "独自のin-memory database／stream／recorder派生classでcallback結果をモデル化し、file、vendor attribute、外部database、HDL／DPIは使わない。事前生成candidateで、backend null結果の後に初期化されないことを観測する。明示recording time 17はmetadataで、経過時刻ではない。不整合のあるunsigned個数戻り値は無視し、queue内容を検査する。link endpointはopenまたはclose済みでfree前とする。既存hook検査は入力を変えず対応付け、追加実行結果や全anchorごとの独立した検査を与えない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u07/test_database_close_hook_failure_preserves_open_state_until_a_successful_retry",
+          "role": "direct",
+          "expected_observations": [
+            "UT: failed result 0 open 1 closes 1",
+            "UT: retried result 1 closed 1 closes 2",
+            "UT: already_closed result 1 closes 2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDING-STREAM-BACKEND-ARGUMENTS",
+      "clause": "7.1.6.3",
+      "statement": {
+        "en": "The stream backend receives the requested name, scope and record type.",
+        "ja": "stream backendは、要求した名前、scope、record型を受け取る。"
+      },
+      "conditions": {
+        "en": "Request requested/scope.child/events through open_stream.",
+        "ja": "open_stream経由でrequested／scope.child／eventsを要求する。"
+      },
+      "expected": {
+        "en": "The backend captures those exact strings.",
+        "ja": "backendは、その正確な文字列を保持する。"
+      },
+      "limitations": {
+        "en": "Original in-memory database/stream/recorder subclasses model callback outcomes; no files, vendor attributes, external database or HDL/DPI are involved. Preconstructed candidates expose whether initialization occurs after a null backend result. Explicit recording time 17 is metadata, not elapsed time. Queue contents are checked while the inconsistent unsigned count return is deliberately ignored. Link endpoints remain opened or closed-but-not-freed. Existing hook fixtures are linked with unchanged inputs; this supplies no new execution result or independent checks for every anchor.",
+        "ja": "独自のin-memory database／stream／recorder派生classでcallback結果をモデル化し、file、vendor attribute、外部database、HDL／DPIは使わない。事前生成candidateで、backend null結果の後に初期化されないことを観測する。明示recording time 17はmetadataで、経過時刻ではない。不整合のあるunsigned個数戻り値は無視し、queue内容を検査する。link endpointはopenまたはclose済みでfree前とする。既存hook検査は入力を変えず対応付け、追加実行結果や全anchorごとの独立した検査を与えない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u07/test_database_stream_hook_forwards_arguments_and_initializes_only_a_successful_result",
+          "role": "direct",
+          "expected_observations": [
+            "UT: backend_args requested scope.child events open_args 1 scope.child events"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDING-STREAM-NULL-RESULT-RETRY",
+      "clause": "7.1.4.1",
+      "statement": {
+        "en": "A null backend stream result fails without registering the candidate and a later retry can succeed.",
+        "ja": "backendのnull stream結果はcandidateを登録せず失敗し、後の再試行は成功できる。"
+      },
+      "conditions": {
+        "en": "Return null, then the same preconstructed candidate from consecutive stream requests.",
+        "ja": "連続するstream要求で、null、次に事前生成した同一candidateを返す。"
+      },
+      "expected": {
+        "en": "First result is null with zero registrations; retry returns the exact candidate once.",
+        "ja": "最初の結果はnullで登録0件、再試行は正確なcandidateを1回返す。"
+      },
+      "limitations": {
+        "en": "Original in-memory database/stream/recorder subclasses model callback outcomes; no files, vendor attributes, external database or HDL/DPI are involved. Preconstructed candidates expose whether initialization occurs after a null backend result. Explicit recording time 17 is metadata, not elapsed time. Queue contents are checked while the inconsistent unsigned count return is deliberately ignored. Link endpoints remain opened or closed-but-not-freed. Existing hook fixtures are linked with unchanged inputs; this supplies no new execution result or independent checks for every anchor.",
+        "ja": "独自のin-memory database／stream／recorder派生classでcallback結果をモデル化し、file、vendor attribute、外部database、HDL／DPIは使わない。事前生成candidateで、backend null結果の後に初期化されないことを観測する。明示recording time 17はmetadataで、経過時刻ではない。不整合のあるunsigned個数戻り値は無視し、queue内容を検査する。link endpointはopenまたはclose済みでfree前とする。既存hook検査は入力を変えず対応付け、追加実行結果や全anchorごとの独立した検査を与えない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u07/test_database_stream_hook_forwards_arguments_and_initializes_only_a_successful_result",
+          "role": "direct",
+          "expected_observations": [
+            "UT: failed null 1 calls 1 opens 0 registered 0",
+            "UT: retried exact 1 calls 2 opens 1 registered_exact 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDING-STREAM-OPEN-HOOK-SUCCESS-GATE",
+      "clause": "7.2.7.1",
+      "statement": {
+        "en": "A successful backend stream result triggers do_open with the database and opening metadata.",
+        "ja": "backend stream結果の成功は、databaseとopen metadata付きのdo_openを発火する。"
+      },
+      "conditions": {
+        "en": "Observe the same candidate across one failed and one successful backend result.",
+        "ja": "backend結果が失敗、成功となる間、同じcandidateを観測する。"
+      },
+      "expected": {
+        "en": "No open hook runs on failure; success runs it once with the exact database, scope and type.",
+        "ja": "失敗時にopen hookは動作せず、成功時は正確なdatabase、scope、型を持って1回動作する。"
+      },
+      "limitations": {
+        "en": "Original in-memory database/stream/recorder subclasses model callback outcomes; no files, vendor attributes, external database or HDL/DPI are involved. Preconstructed candidates expose whether initialization occurs after a null backend result. Explicit recording time 17 is metadata, not elapsed time. Queue contents are checked while the inconsistent unsigned count return is deliberately ignored. Link endpoints remain opened or closed-but-not-freed. Existing hook fixtures are linked with unchanged inputs; this supplies no new execution result or independent checks for every anchor.",
+        "ja": "独自のin-memory database／stream／recorder派生classでcallback結果をモデル化し、file、vendor attribute、外部database、HDL／DPIは使わない。事前生成candidateで、backend null結果の後に初期化されないことを観測する。明示recording time 17はmetadataで、経過時刻ではない。不整合のあるunsigned個数戻り値は無視し、queue内容を検査する。link endpointはopenまたはclose済みでfree前とする。既存hook検査は入力を変えず対応付け、追加実行結果や全anchorごとの独立した検査を与えない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u07/test_database_stream_hook_forwards_arguments_and_initializes_only_a_successful_result",
+          "role": "direct",
+          "expected_observations": [
+            "UT: failed null 1 calls 1 opens 0 registered 0",
+            "UT: retried exact 1 calls 2 opens 1 registered_exact 1",
+            "UT: backend_args requested scope.child events open_args 1 scope.child events"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDING-RECORDER-BACKEND-ARGUMENTS",
+      "clause": "7.2.7.4",
+      "statement": {
+        "en": "The recorder backend receives the requested name, opening time and record type.",
+        "ja": "recorder backendは、要求した名前、open時刻、record型を受け取る。"
+      },
+      "conditions": {
+        "en": "Request txn at explicit recording time seventeen with type packet.",
+        "ja": "明示recording time 17、型packetでtxnを要求する。"
+      },
+      "expected": {
+        "en": "Backend arguments are txn/17/packet.",
+        "ja": "backend引数はtxn／17／packetとなる。"
+      },
+      "limitations": {
+        "en": "Original in-memory database/stream/recorder subclasses model callback outcomes; no files, vendor attributes, external database or HDL/DPI are involved. Preconstructed candidates expose whether initialization occurs after a null backend result. Explicit recording time 17 is metadata, not elapsed time. Queue contents are checked while the inconsistent unsigned count return is deliberately ignored. Link endpoints remain opened or closed-but-not-freed. Existing hook fixtures are linked with unchanged inputs; this supplies no new execution result or independent checks for every anchor.",
+        "ja": "独自のin-memory database／stream／recorder派生classでcallback結果をモデル化し、file、vendor attribute、外部database、HDL／DPIは使わない。事前生成candidateで、backend null結果の後に初期化されないことを観測する。明示recording time 17はmetadataで、経過時刻ではない。不整合のあるunsigned個数戻り値は無視し、queue内容を検査する。link endpointはopenまたはclose済みでfree前とする。既存hook検査は入力を変えず対応付け、追加実行結果や全anchorごとの独立した検査を与えない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u07/test_stream_recorder_hook_failure_and_retry_preserve_metadata_and_exact_stream",
+          "role": "direct",
+          "expected_observations": [
+            "UT: backend txn 17 packet recorder_stream 1 metadata 17 packet"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDING-RECORDER-NULL-RESULT-RETRY",
+      "clause": "7.2.5.1",
+      "statement": {
+        "en": "A null recorder backend result fails without initializing/registering the candidate and permits a successful retry.",
+        "ja": "recorder backendのnull結果はcandidateを初期化／登録せず失敗し、成功する再試行を許す。"
+      },
+      "conditions": {
+        "en": "Return null and then a preconstructed recorder on an open stream.",
+        "ja": "open streamでnull、次に事前生成recorderを返す。"
+      },
+      "expected": {
+        "en": "Failure has zero opens/registrations; retry returns the exact recorder with one open and one queue entry.",
+        "ja": "失敗はopen／登録0件で、再試行は正確なrecorder、open 1回、queue 1 entryとなる。"
+      },
+      "limitations": {
+        "en": "Original in-memory database/stream/recorder subclasses model callback outcomes; no files, vendor attributes, external database or HDL/DPI are involved. Preconstructed candidates expose whether initialization occurs after a null backend result. Explicit recording time 17 is metadata, not elapsed time. Queue contents are checked while the inconsistent unsigned count return is deliberately ignored. Link endpoints remain opened or closed-but-not-freed. Existing hook fixtures are linked with unchanged inputs; this supplies no new execution result or independent checks for every anchor.",
+        "ja": "独自のin-memory database／stream／recorder派生classでcallback結果をモデル化し、file、vendor attribute、外部database、HDL／DPIは使わない。事前生成candidateで、backend null結果の後に初期化されないことを観測する。明示recording time 17はmetadataで、経過時刻ではない。不整合のあるunsigned個数戻り値は無視し、queue内容を検査する。link endpointはopenまたはclose済みでfree前とする。既存hook検査は入力を変えず対応付け、追加実行結果や全anchorごとの独立した検査を与えない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u07/test_stream_recorder_hook_failure_and_retry_preserve_metadata_and_exact_stream",
+          "role": "direct",
+          "expected_observations": [
+            "UT: failed null 1 calls 1 opens 0 registered 0",
+            "UT: retried exact 1 calls 2 opens 1 registered_exact 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDING-RECORDER-OPEN-HOOK-STREAM-IDENTITY",
+      "clause": "16.4.7.1",
+      "statement": {
+        "en": "A successful recorder backend result invokes its open callback with the exact stream and supplied metadata.",
+        "ja": "recorder backend結果の成功は、正確なstreamと指定metadataでopen callbackを呼ぶ。"
+      },
+      "conditions": {
+        "en": "Retry the failed recorder open with explicit time/type metadata.",
+        "ja": "明示時刻／型metadataで失敗したrecorder openを再試行する。"
+      },
+      "expected": {
+        "en": "The recorder opens once with the original stream, time seventeen and packet type.",
+        "ja": "recorderは元stream、時刻17、型packetで1回openする。"
+      },
+      "limitations": {
+        "en": "Original in-memory database/stream/recorder subclasses model callback outcomes; no files, vendor attributes, external database or HDL/DPI are involved. Preconstructed candidates expose whether initialization occurs after a null backend result. Explicit recording time 17 is metadata, not elapsed time. Queue contents are checked while the inconsistent unsigned count return is deliberately ignored. Link endpoints remain opened or closed-but-not-freed. Existing hook fixtures are linked with unchanged inputs; this supplies no new execution result or independent checks for every anchor.",
+        "ja": "独自のin-memory database／stream／recorder派生classでcallback結果をモデル化し、file、vendor attribute、外部database、HDL／DPIは使わない。事前生成candidateで、backend null結果の後に初期化されないことを観測する。明示recording time 17はmetadataで、経過時刻ではない。不整合のあるunsigned個数戻り値は無視し、queue内容を検査する。link endpointはopenまたはclose済みでfree前とする。既存hook検査は入力を変えず対応付け、追加実行結果や全anchorごとの独立した検査を与えない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u07/test_stream_recorder_hook_failure_and_retry_preserve_metadata_and_exact_stream",
+          "role": "direct",
+          "expected_observations": [
+            "UT: retried exact 1 calls 2 opens 1 registered_exact 1",
+            "UT: backend txn 17 packet recorder_stream 1 metadata 17 packet"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDING-LINK-DISPATCH-BACKEND",
+      "clause": "7.1.5",
+      "statement": {
+        "en": "Database establish_link dispatches the relation to its backend.",
+        "ja": "database establish_linkはrelationをbackendへ渡す。"
+      },
+      "conditions": {
+        "en": "Submit one relation twice while its endpoints remain live.",
+        "ja": "endpointが存続する間に1 relationを2回渡す。"
+      },
+      "expected": {
+        "en": "The backend receives two calls for that exact relation.",
+        "ja": "backendは、正確なrelationについて2回の呼出しを受ける。"
+      },
+      "limitations": {
+        "en": "Original in-memory database/stream/recorder subclasses model callback outcomes; no files, vendor attributes, external database or HDL/DPI are involved. Preconstructed candidates expose whether initialization occurs after a null backend result. Explicit recording time 17 is metadata, not elapsed time. Queue contents are checked while the inconsistent unsigned count return is deliberately ignored. Link endpoints remain opened or closed-but-not-freed. Existing hook fixtures are linked with unchanged inputs; this supplies no new execution result or independent checks for every anchor.",
+        "ja": "独自のin-memory database／stream／recorder派生classでcallback結果をモデル化し、file、vendor attribute、外部database、HDL／DPIは使わない。事前生成candidateで、backend null結果の後に初期化されないことを観測する。明示recording time 17はmetadataで、経過時刻ではない。不整合のあるunsigned個数戻り値は無視し、queue内容を検査する。link endpointはopenまたはclose済みでfree前とする。既存hook検査は入力を変えず対応付け、追加実行結果や全anchorごとの独立した検査を与えない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u07/test_database_link_hook_receives_exact_relation_before_and_after_stream_close",
+          "role": "direct",
+          "expected_observations": [
+            "UT: open_relation calls 1 exact 1 endpoints 1 1",
+            "UT: closed_relation calls 2 exact 1 left_closed 1 right_open 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDING-LINK-BACKEND-EXACT-RELATION",
+      "clause": "7.1.6.4",
+      "statement": {
+        "en": "The link backend receives the exact relation object without changing its endpoints.",
+        "ja": "link backendは、endpointを変えず正確なrelation objectを受け取る。"
+      },
+      "conditions": {
+        "en": "Observe a related link between two streams on one database.",
+        "ja": "1 database上の2 stream間のrelated linkを観測する。"
+      },
+      "expected": {
+        "en": "The relation and both endpoint handles remain exact.",
+        "ja": "relationと両endpoint handleは正確なままとなる。"
+      },
+      "limitations": {
+        "en": "Original in-memory database/stream/recorder subclasses model callback outcomes; no files, vendor attributes, external database or HDL/DPI are involved. Preconstructed candidates expose whether initialization occurs after a null backend result. Explicit recording time 17 is metadata, not elapsed time. Queue contents are checked while the inconsistent unsigned count return is deliberately ignored. Link endpoints remain opened or closed-but-not-freed. Existing hook fixtures are linked with unchanged inputs; this supplies no new execution result or independent checks for every anchor.",
+        "ja": "独自のin-memory database／stream／recorder派生classでcallback結果をモデル化し、file、vendor attribute、外部database、HDL／DPIは使わない。事前生成candidateで、backend null結果の後に初期化されないことを観測する。明示recording time 17はmetadataで、経過時刻ではない。不整合のあるunsigned個数戻り値は無視し、queue内容を検査する。link endpointはopenまたはclose済みでfree前とする。既存hook検査は入力を変えず対応付け、追加実行結果や全anchorごとの独立した検査を与えない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u07/test_database_link_hook_receives_exact_relation_before_and_after_stream_close",
+          "role": "direct",
+          "expected_observations": [
+            "UT: open_relation calls 1 exact 1 endpoints 1 1",
+            "UT: closed_relation calls 2 exact 1 left_closed 1 right_open 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDING-LINK-CLOSED-STREAM-ALLOWED",
+      "clause": "7.2.4",
+      "statement": {
+        "en": "Closing an endpoint without freeing it still permits establishment of a stream link.",
+        "ja": "endpointをcloseしてもfreeしなければ、stream linkを確立できる。"
+      },
+      "conditions": {
+        "en": "Close one of two linked streams, retain both handles and submit the relation again.",
+        "ja": "linkした2 streamの一方をcloseし、両handleを保持してrelationを再び渡す。"
+      },
+      "expected": {
+        "en": "The backend receives the second exact relation while the closed/open endpoint states remain distinct.",
+        "ja": "closed／open endpoint状態を区別したまま、backendは2回目の正確なrelationを受け取る。"
+      },
+      "limitations": {
+        "en": "Original in-memory database/stream/recorder subclasses model callback outcomes; no files, vendor attributes, external database or HDL/DPI are involved. Preconstructed candidates expose whether initialization occurs after a null backend result. Explicit recording time 17 is metadata, not elapsed time. Queue contents are checked while the inconsistent unsigned count return is deliberately ignored. Link endpoints remain opened or closed-but-not-freed. Existing hook fixtures are linked with unchanged inputs; this supplies no new execution result or independent checks for every anchor.",
+        "ja": "独自のin-memory database／stream／recorder派生classでcallback結果をモデル化し、file、vendor attribute、外部database、HDL／DPIは使わない。事前生成candidateで、backend null結果の後に初期化されないことを観測する。明示recording time 17はmetadataで、経過時刻ではない。不整合のあるunsigned個数戻り値は無視し、queue内容を検査する。link endpointはopenまたはclose済みでfree前とする。既存hook検査は入力を変えず対応付け、追加実行結果や全anchorごとの独立した検査を与えない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u07/test_database_link_hook_receives_exact_relation_before_and_after_stream_close",
+          "role": "direct",
+          "expected_observations": [
+            "UT: closed_relation calls 2 exact 1 left_closed 1 right_open 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDING-EXISTING-OPEN-BACKEND-IDEMPOTENCE",
+      "clause": "7.1.6.1",
+      "statement": {
+        "en": "Repeated opening of an already opened database does not repeat the open backend callback.",
+        "ja": "open済みdatabaseのopen繰返しは、open backend callbackを繰返さない。"
+      },
+      "conditions": {
+        "en": "Use the unchanged explicit open/reopen fixture.",
+        "ja": "未変更の明示open／再open検査系を使う。"
+      },
+      "expected": {
+        "en": "Both operations succeed with one backend open call.",
+        "ja": "両operationは成功し、backend open呼出しは1回となる。"
+      },
+      "limitations": {
+        "en": "Original in-memory database/stream/recorder subclasses model callback outcomes; no files, vendor attributes, external database or HDL/DPI are involved. Preconstructed candidates expose whether initialization occurs after a null backend result. Explicit recording time 17 is metadata, not elapsed time. Queue contents are checked while the inconsistent unsigned count return is deliberately ignored. Link endpoints remain opened or closed-but-not-freed. Existing hook fixtures are linked with unchanged inputs; this supplies no new execution result or independent checks for every anchor.",
+        "ja": "独自のin-memory database／stream／recorder派生classでcallback結果をモデル化し、file、vendor attribute、外部database、HDL／DPIは使わない。事前生成candidateで、backend null結果の後に初期化されないことを観測する。明示recording time 17はmetadataで、経過時刻ではない。不整合のあるunsigned個数戻り値は無視し、queue内容を検査する。link endpointはopenまたはclose済みでfree前とする。既存hook検査は入力を変えず対応付け、追加実行結果や全anchorごとの独立した検査を与えない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u07/test_database_repeated_open_close_preserves_peer_state_and_hook_counts",
+          "role": "direct",
+          "expected_observations": [
+            "UT: repeated_open 1 hook_calls 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDING-EXISTING-STREAM-CLOSE-CALLBACK",
+      "clause": "7.2.7.2",
+      "statement": {
+        "en": "Stream close invokes its backend hook before closing its open recorders.",
+        "ja": "stream closeは、open recorderをcloseする前にbackend hookを呼ぶ。"
+      },
+      "conditions": {
+        "en": "Use the unchanged stream/recorder hook trace fixture.",
+        "ja": "未変更のstream／recorder hook trace検査系を使う。"
+      },
+      "expected": {
+        "en": "The stream hook occurs once and is first in the observed trace.",
+        "ja": "stream hookは1回発生し、観測traceの最初になる。"
+      },
+      "limitations": {
+        "en": "Original in-memory database/stream/recorder subclasses model callback outcomes; no files, vendor attributes, external database or HDL/DPI are involved. Preconstructed candidates expose whether initialization occurs after a null backend result. Explicit recording time 17 is metadata, not elapsed time. Queue contents are checked while the inconsistent unsigned count return is deliberately ignored. Link endpoints remain opened or closed-but-not-freed. Existing hook fixtures are linked with unchanged inputs; this supplies no new execution result or independent checks for every anchor.",
+        "ja": "独自のin-memory database／stream／recorder派生classでcallback結果をモデル化し、file、vendor attribute、外部database、HDL／DPIは使わない。事前生成candidateで、backend null結果の後に初期化されないことを観測する。明示recording time 17はmetadataで、経過時刻ではない。不整合のあるunsigned個数戻り値は無視し、queue内容を検査する。link endpointはopenまたはclose済みでfree前とする。既存hook検査は入力を変えず対応付け、追加実行結果や全anchorごとの独立した検査を与えない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u07/test_stream_close_dispatches_its_hook_before_closing_only_open_recorders",
+          "role": "direct",
+          "expected_observations": [
+            "UT: hook_first 1 close_calls 1 trace_length 3"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDING-EXISTING-STREAM-FREE-CALLBACK",
+      "clause": "7.2.7.3",
+      "statement": {
+        "en": "Stream free invokes its backend hook before freeing its recorders.",
+        "ja": "stream freeは、recorderをfreeする前にbackend hookを呼ぶ。"
+      },
+      "conditions": {
+        "en": "Use the unchanged explicit-close then free fixture.",
+        "ja": "未変更の明示close後free検査系を使う。"
+      },
+      "expected": {
+        "en": "The stream free hook occurs once before recorder frees.",
+        "ja": "stream free hookは、recorder freeより前に1回発生する。"
+      },
+      "limitations": {
+        "en": "Original in-memory database/stream/recorder subclasses model callback outcomes; no files, vendor attributes, external database or HDL/DPI are involved. Preconstructed candidates expose whether initialization occurs after a null backend result. Explicit recording time 17 is metadata, not elapsed time. Queue contents are checked while the inconsistent unsigned count return is deliberately ignored. Link endpoints remain opened or closed-but-not-freed. Existing hook fixtures are linked with unchanged inputs; this supplies no new execution result or independent checks for every anchor.",
+        "ja": "独自のin-memory database／stream／recorder派生classでcallback結果をモデル化し、file、vendor attribute、外部database、HDL／DPIは使わない。事前生成candidateで、backend null結果の後に初期化されないことを観測する。明示recording time 17はmetadataで、経過時刻ではない。不整合のあるunsigned個数戻り値は無視し、queue内容を検査する。link endpointはopenまたはclose済みでfree前とする。既存hook検査は入力を変えず対応付け、追加実行結果や全anchorごとの独立した検査を与えない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u07/test_stream_free_dispatches_its_hook_before_releasing_all_closed_recorders",
+          "role": "direct",
+          "expected_observations": [
+            "UT: stream_free 1 hook_first 1 trace_length 3"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDING-EXISTING-LINK-LHS-GET",
+      "clause": "7.3.1.4.1",
+      "statement": {
+        "en": "The link left get operation dispatches its implementation hook.",
+        "ja": "linkのleft get operationは、実装hookへdispatchする。"
+      },
+      "conditions": {
+        "en": "Use the unchanged combined/individual endpoint replacement fixture.",
+        "ja": "未変更のendpointの一括／個別置換検査系を使う。"
+      },
+      "expected": {
+        "en": "Hook counts are two and exact endpoint identities follow the replacement.",
+        "ja": "hook数は2で、正確なendpoint同一性は置換に従う。"
+      },
+      "limitations": {
+        "en": "Original in-memory database/stream/recorder subclasses model callback outcomes; no files, vendor attributes, external database or HDL/DPI are involved. Preconstructed candidates expose whether initialization occurs after a null backend result. Explicit recording time 17 is metadata, not elapsed time. Queue contents are checked while the inconsistent unsigned count return is deliberately ignored. Link endpoints remain opened or closed-but-not-freed. Existing hook fixtures are linked with unchanged inputs; this supplies no new execution result or independent checks for every anchor.",
+        "ja": "独自のin-memory database／stream／recorder派生classでcallback結果をモデル化し、file、vendor attribute、外部database、HDL／DPIは使わない。事前生成candidateで、backend null結果の後に初期化されないことを観測する。明示recording time 17はmetadataで、経過時刻ではない。不整合のあるunsigned個数戻り値は無視し、queue内容を検査する。link endpointはopenまたはclose済みでfree前とする。既存hook検査は入力を変えず対応付け、追加実行結果や全anchorごとの独立した検査を与えない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u07/test_recording_links_dispatch_endpoint_hooks_and_preserve_prefilled_identities",
+          "role": "direct",
+          "expected_observations": [
+            "UT: combined identity 1 1",
+            "UT: replaced identity 1 1",
+            "UT: hooks sets 2/2 gets 2/2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDING-EXISTING-LINK-LHS-SET",
+      "clause": "7.3.1.4.2",
+      "statement": {
+        "en": "The link left set operation dispatches its implementation hook.",
+        "ja": "linkのleft set operationは、実装hookへdispatchする。"
+      },
+      "conditions": {
+        "en": "Use the unchanged combined/individual endpoint replacement fixture.",
+        "ja": "未変更のendpointの一括／個別置換検査系を使う。"
+      },
+      "expected": {
+        "en": "Hook counts are two and exact endpoint identities follow the replacement.",
+        "ja": "hook数は2で、正確なendpoint同一性は置換に従う。"
+      },
+      "limitations": {
+        "en": "Original in-memory database/stream/recorder subclasses model callback outcomes; no files, vendor attributes, external database or HDL/DPI are involved. Preconstructed candidates expose whether initialization occurs after a null backend result. Explicit recording time 17 is metadata, not elapsed time. Queue contents are checked while the inconsistent unsigned count return is deliberately ignored. Link endpoints remain opened or closed-but-not-freed. Existing hook fixtures are linked with unchanged inputs; this supplies no new execution result or independent checks for every anchor.",
+        "ja": "独自のin-memory database／stream／recorder派生classでcallback結果をモデル化し、file、vendor attribute、外部database、HDL／DPIは使わない。事前生成candidateで、backend null結果の後に初期化されないことを観測する。明示recording time 17はmetadataで、経過時刻ではない。不整合のあるunsigned個数戻り値は無視し、queue内容を検査する。link endpointはopenまたはclose済みでfree前とする。既存hook検査は入力を変えず対応付け、追加実行結果や全anchorごとの独立した検査を与えない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u07/test_recording_links_dispatch_endpoint_hooks_and_preserve_prefilled_identities",
+          "role": "direct",
+          "expected_observations": [
+            "UT: combined identity 1 1",
+            "UT: replaced identity 1 1",
+            "UT: hooks sets 2/2 gets 2/2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDING-EXISTING-LINK-RHS-GET",
+      "clause": "7.3.1.4.3",
+      "statement": {
+        "en": "The link right get operation dispatches its implementation hook.",
+        "ja": "linkのright get operationは、実装hookへdispatchする。"
+      },
+      "conditions": {
+        "en": "Use the unchanged combined/individual endpoint replacement fixture.",
+        "ja": "未変更のendpointの一括／個別置換検査系を使う。"
+      },
+      "expected": {
+        "en": "Hook counts are two and exact endpoint identities follow the replacement.",
+        "ja": "hook数は2で、正確なendpoint同一性は置換に従う。"
+      },
+      "limitations": {
+        "en": "Original in-memory database/stream/recorder subclasses model callback outcomes; no files, vendor attributes, external database or HDL/DPI are involved. Preconstructed candidates expose whether initialization occurs after a null backend result. Explicit recording time 17 is metadata, not elapsed time. Queue contents are checked while the inconsistent unsigned count return is deliberately ignored. Link endpoints remain opened or closed-but-not-freed. Existing hook fixtures are linked with unchanged inputs; this supplies no new execution result or independent checks for every anchor.",
+        "ja": "独自のin-memory database／stream／recorder派生classでcallback結果をモデル化し、file、vendor attribute、外部database、HDL／DPIは使わない。事前生成candidateで、backend null結果の後に初期化されないことを観測する。明示recording time 17はmetadataで、経過時刻ではない。不整合のあるunsigned個数戻り値は無視し、queue内容を検査する。link endpointはopenまたはclose済みでfree前とする。既存hook検査は入力を変えず対応付け、追加実行結果や全anchorごとの独立した検査を与えない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u07/test_recording_links_dispatch_endpoint_hooks_and_preserve_prefilled_identities",
+          "role": "direct",
+          "expected_observations": [
+            "UT: combined identity 1 1",
+            "UT: replaced identity 1 1",
+            "UT: hooks sets 2/2 gets 2/2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDING-EXISTING-LINK-RHS-SET",
+      "clause": "7.3.1.4.4",
+      "statement": {
+        "en": "The link right set operation dispatches its implementation hook.",
+        "ja": "linkのright set operationは、実装hookへdispatchする。"
+      },
+      "conditions": {
+        "en": "Use the unchanged combined/individual endpoint replacement fixture.",
+        "ja": "未変更のendpointの一括／個別置換検査系を使う。"
+      },
+      "expected": {
+        "en": "Hook counts are two and exact endpoint identities follow the replacement.",
+        "ja": "hook数は2で、正確なendpoint同一性は置換に従う。"
+      },
+      "limitations": {
+        "en": "Original in-memory database/stream/recorder subclasses model callback outcomes; no files, vendor attributes, external database or HDL/DPI are involved. Preconstructed candidates expose whether initialization occurs after a null backend result. Explicit recording time 17 is metadata, not elapsed time. Queue contents are checked while the inconsistent unsigned count return is deliberately ignored. Link endpoints remain opened or closed-but-not-freed. Existing hook fixtures are linked with unchanged inputs; this supplies no new execution result or independent checks for every anchor.",
+        "ja": "独自のin-memory database／stream／recorder派生classでcallback結果をモデル化し、file、vendor attribute、外部database、HDL／DPIは使わない。事前生成candidateで、backend null結果の後に初期化されないことを観測する。明示recording time 17はmetadataで、経過時刻ではない。不整合のあるunsigned個数戻り値は無視し、queue内容を検査する。link endpointはopenまたはclose済みでfree前とする。既存hook検査は入力を変えず対応付け、追加実行結果や全anchorごとの独立した検査を与えない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u07/test_recording_links_dispatch_endpoint_hooks_and_preserve_prefilled_identities",
+          "role": "direct",
+          "expected_observations": [
+            "UT: combined identity 1 1",
+            "UT: replaced identity 1 1",
+            "UT: hooks sets 2/2 gets 2/2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CHILD-PRE-BODY-PER-START-CONTROL",
+      "clause": "14.2.3.3",
+      "statement": {
+        "en": "call_pre_post controls child pre_body independently for each start.",
+        "ja": "call_pre_postはstartごとにchild pre_bodyを独立制御する。"
+      },
+      "conditions": {
+        "en": "Run with zero, then reuse under another parent with one.",
+        "ja": "0で実行し、その後別parentの下で1にして再利用する。"
+      },
+      "expected": {
+        "en": "pre_body is skipped with zero and executes once across zero/one reuse.",
+        "ja": "0ではpre_bodyをskipし、0／1の再利用全体では1回実行する。"
+      },
+      "limitations": {
+        "en": "Finite inactive-parent child starts use explicit priority 25; no driver/arbitration ordering or global interleaving of hooks is prescribed. Optional hook counts are observed separately from exact parent callback arguments. Phase probes use concrete nodes from isolated schedules with no schedule execution or traffic; automatic objections are changed only between completed starts, never while a sequence is active. Query-locking behavior outside these execution boundaries is not inferred.",
+        "ja": "有限のinactive-parent child startで明示priority 25を使い、driver／arbitration順やhookのglobalな相互順序は指定しない。optional hook数を、正確なparent callback引数とは別に観測する。phase検査は独立scheduleの具象nodeを使い、schedule実行や転送は行わず、automatic objectionの変更は完了したstartの間だけで、sequence実行中には行わない。この実行境界外のquery lock動作は推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_child_optional_hooks_can_be_disabled_without_suppressing_parent_callbacks",
+          "role": "direct",
+          "expected_observations": [
+            "UT: child_hooks 1 0 1 0 1"
+          ]
+        },
+        {
+          "test": "u14/test_child_hook_controls_and_parent_callbacks_follow_each_reused_start",
+          "role": "direct",
+          "expected_observations": [
+            "UT: child_hooks 2 1 2 1 2 current_parent 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CHILD-POST-BODY-PER-START-CONTROL",
+      "clause": "14.2.3.8",
+      "statement": {
+        "en": "call_pre_post controls child post_body independently for each start.",
+        "ja": "call_pre_postはstartごとにchild post_bodyを独立制御する。"
+      },
+      "conditions": {
+        "en": "Run a child with zero and then one.",
+        "ja": "childを0、次に1で実行する。"
+      },
+      "expected": {
+        "en": "post_body is skipped for zero and invoked once for the enabled reuse.",
+        "ja": "0ではpost_bodyをskipし、有効にした再利用で1回呼ぶ。"
+      },
+      "limitations": {
+        "en": "Finite inactive-parent child starts use explicit priority 25; no driver/arbitration ordering or global interleaving of hooks is prescribed. Optional hook counts are observed separately from exact parent callback arguments. Phase probes use concrete nodes from isolated schedules with no schedule execution or traffic; automatic objections are changed only between completed starts, never while a sequence is active. Query-locking behavior outside these execution boundaries is not inferred.",
+        "ja": "有限のinactive-parent child startで明示priority 25を使い、driver／arbitration順やhookのglobalな相互順序は指定しない。optional hook数を、正確なparent callback引数とは別に観測する。phase検査は独立scheduleの具象nodeを使い、schedule実行や転送は行わず、automatic objectionの変更は完了したstartの間だけで、sequence実行中には行わない。この実行境界外のquery lock動作は推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_child_optional_hooks_can_be_disabled_without_suppressing_parent_callbacks",
+          "role": "direct",
+          "expected_observations": [
+            "UT: child_hooks 1 0 1 0 1"
+          ]
+        },
+        {
+          "test": "u14/test_child_hook_controls_and_parent_callbacks_follow_each_reused_start",
+          "role": "direct",
+          "expected_observations": [
+            "UT: child_hooks 2 1 2 1 2 current_parent 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CHILD-PARENT-PRE-DO-INDEPENDENT-OPTIONAL-HOOKS",
+      "clause": "14.2.3.4",
+      "statement": {
+        "en": "Disabling child optional hooks retains parent pre_do with is_item zero for a child sequence.",
+        "ja": "child optional hookを無効にしても、child sequenceのparent pre_doはis_item 0で動作する。"
+      },
+      "conditions": {
+        "en": "Start a finite child under an explicit parent with call_pre_post zero.",
+        "ja": "call_pre_post 0で、明示parent下の有限childをstartする。"
+      },
+      "expected": {
+        "en": "Parent pre_do runs once with is_item zero.",
+        "ja": "parent pre_doはis_item 0で1回動作する。"
+      },
+      "limitations": {
+        "en": "Finite inactive-parent child starts use explicit priority 25; no driver/arbitration ordering or global interleaving of hooks is prescribed. Optional hook counts are observed separately from exact parent callback arguments. Phase probes use concrete nodes from isolated schedules with no schedule execution or traffic; automatic objections are changed only between completed starts, never while a sequence is active. Query-locking behavior outside these execution boundaries is not inferred.",
+        "ja": "有限のinactive-parent child startで明示priority 25を使い、driver／arbitration順やhookのglobalな相互順序は指定しない。optional hook数を、正確なparent callback引数とは別に観測する。phase検査は独立scheduleの具象nodeを使い、schedule実行や転送は行わず、automatic objectionの変更は完了したstartの間だけで、sequence実行中には行わない。この実行境界外のquery lock動作は推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_child_optional_hooks_can_be_disabled_without_suppressing_parent_callbacks",
+          "role": "direct",
+          "expected_observations": [
+            "UT: parent_hooks 1 1 1 is_item 0 exact 1 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CHILD-PARENT-MID-DO-EXACT-REUSED-CHILD",
+      "clause": "14.2.3.5",
+      "statement": {
+        "en": "Parent mid_do receives the exact child on each execution, including optional-hook suppression and reuse.",
+        "ja": "parent mid_doは、optional hook抑制や再利用でも、各実行の正確なchildを受け取る。"
+      },
+      "conditions": {
+        "en": "Execute one child under two independent parents.",
+        "ja": "1 childを独立した2 parent下で実行する。"
+      },
+      "expected": {
+        "en": "Each selected parent has one mid_do callback with the original child handle.",
+        "ja": "選択された各parentは、元child handleのmid_do callbackを1回持つ。"
+      },
+      "limitations": {
+        "en": "Finite inactive-parent child starts use explicit priority 25; no driver/arbitration ordering or global interleaving of hooks is prescribed. Optional hook counts are observed separately from exact parent callback arguments. Phase probes use concrete nodes from isolated schedules with no schedule execution or traffic; automatic objections are changed only between completed starts, never while a sequence is active. Query-locking behavior outside these execution boundaries is not inferred.",
+        "ja": "有限のinactive-parent child startで明示priority 25を使い、driver／arbitration順やhookのglobalな相互順序は指定しない。optional hook数を、正確なparent callback引数とは別に観測する。phase検査は独立scheduleの具象nodeを使い、schedule実行や転送は行わず、automatic objectionの変更は完了したstartの間だけで、sequence実行中には行わない。この実行境界外のquery lock動作は推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_child_optional_hooks_can_be_disabled_without_suppressing_parent_callbacks",
+          "role": "direct",
+          "expected_observations": [
+            "UT: child_hooks 1 0 1 0 1",
+            "UT: parent_hooks 1 1 1 is_item 0 exact 1 1"
+          ]
+        },
+        {
+          "test": "u14/test_child_hook_controls_and_parent_callbacks_follow_each_reused_start",
+          "role": "direct",
+          "expected_observations": [
+            "UT: child_hooks 2 1 2 1 2 current_parent 1",
+            "UT: first_parent 1 1 1 exact 1",
+            "UT: second_parent 1 1 1 exact 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CHILD-BODY-DISPATCH-DURING-OPTIONAL-SUPPRESSION",
+      "clause": "14.2.3.6",
+      "statement": {
+        "en": "Disabling optional child hooks does not suppress execution of its user body.",
+        "ja": "child optional hookの無効化は、user bodyの実行を抑制しない。"
+      },
+      "conditions": {
+        "en": "Perform one disabled start and two reused starts.",
+        "ja": "無効にしたstart 1回と、再利用start 2回を実行する。"
+      },
+      "expected": {
+        "en": "Body counts match completed starts: one and two respectively.",
+        "ja": "body数は完了start数と一致し、それぞれ1と2となる。"
+      },
+      "limitations": {
+        "en": "Finite inactive-parent child starts use explicit priority 25; no driver/arbitration ordering or global interleaving of hooks is prescribed. Optional hook counts are observed separately from exact parent callback arguments. Phase probes use concrete nodes from isolated schedules with no schedule execution or traffic; automatic objections are changed only between completed starts, never while a sequence is active. Query-locking behavior outside these execution boundaries is not inferred.",
+        "ja": "有限のinactive-parent child startで明示priority 25を使い、driver／arbitration順やhookのglobalな相互順序は指定しない。optional hook数を、正確なparent callback引数とは別に観測する。phase検査は独立scheduleの具象nodeを使い、schedule実行や転送は行わず、automatic objectionの変更は完了したstartの間だけで、sequence実行中には行わない。この実行境界外のquery lock動作は推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_child_optional_hooks_can_be_disabled_without_suppressing_parent_callbacks",
+          "role": "direct",
+          "expected_observations": [
+            "UT: child_hooks 1 0 1 0 1"
+          ]
+        },
+        {
+          "test": "u14/test_child_hook_controls_and_parent_callbacks_follow_each_reused_start",
+          "role": "direct",
+          "expected_observations": [
+            "UT: child_hooks 2 1 2 1 2 current_parent 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CHILD-PARENT-POST-DO-EXACT-REUSED-CHILD",
+      "clause": "14.2.3.7",
+      "statement": {
+        "en": "Parent post_do receives the exact executed child for each selected parent.",
+        "ja": "parent post_doは、選択したparentごとに、実行された正確なchildを受け取る。"
+      },
+      "conditions": {
+        "en": "Suppress optional hooks, then reuse the child with another parent.",
+        "ja": "optional hookを抑制し、次に別parentでchildを再利用する。"
+      },
+      "expected": {
+        "en": "Each parent gets one post_do call with the same child handle.",
+        "ja": "各parentは、同一child handleのpost_doを1回受け取る。"
+      },
+      "limitations": {
+        "en": "Finite inactive-parent child starts use explicit priority 25; no driver/arbitration ordering or global interleaving of hooks is prescribed. Optional hook counts are observed separately from exact parent callback arguments. Phase probes use concrete nodes from isolated schedules with no schedule execution or traffic; automatic objections are changed only between completed starts, never while a sequence is active. Query-locking behavior outside these execution boundaries is not inferred.",
+        "ja": "有限のinactive-parent child startで明示priority 25を使い、driver／arbitration順やhookのglobalな相互順序は指定しない。optional hook数を、正確なparent callback引数とは別に観測する。phase検査は独立scheduleの具象nodeを使い、schedule実行や転送は行わず、automatic objectionの変更は完了したstartの間だけで、sequence実行中には行わない。この実行境界外のquery lock動作は推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_child_optional_hooks_can_be_disabled_without_suppressing_parent_callbacks",
+          "role": "direct",
+          "expected_observations": [
+            "UT: child_hooks 1 0 1 0 1",
+            "UT: parent_hooks 1 1 1 is_item 0 exact 1 1"
+          ]
+        },
+        {
+          "test": "u14/test_child_hook_controls_and_parent_callbacks_follow_each_reused_start",
+          "role": "direct",
+          "expected_observations": [
+            "UT: child_hooks 2 1 2 1 2 current_parent 1",
+            "UT: first_parent 1 1 1 exact 1",
+            "UT: second_parent 1 1 1 exact 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CHILD-PRE-START-PRESERVED-WITHOUT-OPTIONAL-HOOKS",
+      "clause": "14.2.3.2",
+      "statement": {
+        "en": "pre_start remains active when pre_body/post_body are disabled.",
+        "ja": "pre_body／post_body無効時もpre_startは動作する。"
+      },
+      "conditions": {
+        "en": "Compare a disabled start with zero/one reused starts.",
+        "ja": "無効startと、0／1の再利用startを比較する。"
+      },
+      "expected": {
+        "en": "pre_start counts one per completed start.",
+        "ja": "pre_startは完了startごとに1回となる。"
+      },
+      "limitations": {
+        "en": "Finite inactive-parent child starts use explicit priority 25; no driver/arbitration ordering or global interleaving of hooks is prescribed. Optional hook counts are observed separately from exact parent callback arguments. Phase probes use concrete nodes from isolated schedules with no schedule execution or traffic; automatic objections are changed only between completed starts, never while a sequence is active. Query-locking behavior outside these execution boundaries is not inferred.",
+        "ja": "有限のinactive-parent child startで明示priority 25を使い、driver／arbitration順やhookのglobalな相互順序は指定しない。optional hook数を、正確なparent callback引数とは別に観測する。phase検査は独立scheduleの具象nodeを使い、schedule実行や転送は行わず、automatic objectionの変更は完了したstartの間だけで、sequence実行中には行わない。この実行境界外のquery lock動作は推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_child_optional_hooks_can_be_disabled_without_suppressing_parent_callbacks",
+          "role": "direct",
+          "expected_observations": [
+            "UT: child_hooks 1 0 1 0 1"
+          ]
+        },
+        {
+          "test": "u14/test_child_hook_controls_and_parent_callbacks_follow_each_reused_start",
+          "role": "direct",
+          "expected_observations": [
+            "UT: child_hooks 2 1 2 1 2 current_parent 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CHILD-POST-START-PRESERVED-WITHOUT-OPTIONAL-HOOKS",
+      "clause": "14.2.3.9",
+      "statement": {
+        "en": "post_start remains active when pre_body/post_body are disabled.",
+        "ja": "pre_body／post_body無効時もpost_startは動作する。"
+      },
+      "conditions": {
+        "en": "Compare disabled and reenabled child executions.",
+        "ja": "無効と再有効化後のchild実行を比較する。"
+      },
+      "expected": {
+        "en": "post_start counts one per completed start.",
+        "ja": "post_startは完了startごとに1回となる。"
+      },
+      "limitations": {
+        "en": "Finite inactive-parent child starts use explicit priority 25; no driver/arbitration ordering or global interleaving of hooks is prescribed. Optional hook counts are observed separately from exact parent callback arguments. Phase probes use concrete nodes from isolated schedules with no schedule execution or traffic; automatic objections are changed only between completed starts, never while a sequence is active. Query-locking behavior outside these execution boundaries is not inferred.",
+        "ja": "有限のinactive-parent child startで明示priority 25を使い、driver／arbitration順やhookのglobalな相互順序は指定しない。optional hook数を、正確なparent callback引数とは別に観測する。phase検査は独立scheduleの具象nodeを使い、schedule実行や転送は行わず、automatic objectionの変更は完了したstartの間だけで、sequence実行中には行わない。この実行境界外のquery lock動作は推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_child_optional_hooks_can_be_disabled_without_suppressing_parent_callbacks",
+          "role": "direct",
+          "expected_observations": [
+            "UT: child_hooks 1 0 1 0 1"
+          ]
+        },
+        {
+          "test": "u14/test_child_hook_controls_and_parent_callbacks_follow_each_reused_start",
+          "role": "direct",
+          "expected_observations": [
+            "UT: child_hooks 2 1 2 1 2 current_parent 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-STARTING-PHASE-REUSED-ASSIGNMENT",
+      "clause": "14.2.4.2",
+      "statement": {
+        "en": "set_starting_phase replaces or clears the context between completed sequence starts.",
+        "ja": "set_starting_phaseは、完了したsequence startの間でcontextを置換・解除する。"
+      },
+      "conditions": {
+        "en": "Set main, then shutdown, then null on one reused sequence.",
+        "ja": "再利用する1 sequenceにmain、shutdown、nullを順に設定する。"
+      },
+      "expected": {
+        "en": "Three executions observe the exact supplied contexts and the final getter returns null.",
+        "ja": "3実行は正確な指定contextを観測し、最後のgetterはnullを返す。"
+      },
+      "limitations": {
+        "en": "Finite inactive-parent child starts use explicit priority 25; no driver/arbitration ordering or global interleaving of hooks is prescribed. Optional hook counts are observed separately from exact parent callback arguments. Phase probes use concrete nodes from isolated schedules with no schedule execution or traffic; automatic objections are changed only between completed starts, never while a sequence is active. Query-locking behavior outside these execution boundaries is not inferred.",
+        "ja": "有限のinactive-parent child startで明示priority 25を使い、driver／arbitration順やhookのglobalな相互順序は指定しない。optional hook数を、正確なparent callback引数とは別に観測する。phase検査は独立scheduleの具象nodeを使い、schedule実行や転送は行わず、automatic objectionの変更は完了したstartの間だけで、sequence実行中には行わない。この実行境界外のquery lock動作は推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_starting_phase_can_be_replaced_and_cleared_between_completed_starts",
+          "role": "direct",
+          "expected_observations": [
+            "UT: starts 3 bodies 3 exact_contexts 1 cleared 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-STARTING-PHASE-GETTER-DURING-REUSE",
+      "clause": "14.2.4.1",
+      "statement": {
+        "en": "get_starting_phase reflects each execution context across reuse.",
+        "ja": "get_starting_phaseは、再利用中の各実行contextを反映する。"
+      },
+      "conditions": {
+        "en": "Inspect the getter in pre_start for two explicit nodes and a cleared context.",
+        "ja": "2明示nodeと解除contextについて、pre_startでgetterを観測する。"
+      },
+      "expected": {
+        "en": "Every observed handle is exact across all three starts.",
+        "ja": "3 startすべてで観測handleは正確となる。"
+      },
+      "limitations": {
+        "en": "Finite inactive-parent child starts use explicit priority 25; no driver/arbitration ordering or global interleaving of hooks is prescribed. Optional hook counts are observed separately from exact parent callback arguments. Phase probes use concrete nodes from isolated schedules with no schedule execution or traffic; automatic objections are changed only between completed starts, never while a sequence is active. Query-locking behavior outside these execution boundaries is not inferred.",
+        "ja": "有限のinactive-parent child startで明示priority 25を使い、driver／arbitration順やhookのglobalな相互順序は指定しない。optional hook数を、正確なparent callback引数とは別に観測する。phase検査は独立scheduleの具象nodeを使い、schedule実行や転送は行わず、automatic objectionの変更は完了したstartの間だけで、sequence実行中には行わない。この実行境界外のquery lock動作は推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_starting_phase_can_be_replaced_and_cleared_between_completed_starts",
+          "role": "direct",
+          "expected_observations": [
+            "UT: starts 3 bodies 3 exact_contexts 1 cleared 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-AUTOMATIC-OBJECTION-REUSE-CONTROL",
+      "clause": "14.2.4.4",
+      "statement": {
+        "en": "Automatic phase objection selection can change between completed sequence executions.",
+        "ja": "automatic phase objectionの選択は、完了したsequence実行の間で変更できる。"
+      },
+      "conditions": {
+        "en": "Run enabled, disabled and enabled on a fixed starting-phase node.",
+        "ja": "固定starting phase nodeで、有効、無効、有効を順に実行する。"
+      },
+      "expected": {
+        "en": "pre_start objection counts follow one/zero/one and each execution releases its objection.",
+        "ja": "pre_start objection数は1／0／1に従い、各実行は自身のobjectionを解放する。"
+      },
+      "limitations": {
+        "en": "Finite inactive-parent child starts use explicit priority 25; no driver/arbitration ordering or global interleaving of hooks is prescribed. Optional hook counts are observed separately from exact parent callback arguments. Phase probes use concrete nodes from isolated schedules with no schedule execution or traffic; automatic objections are changed only between completed starts, never while a sequence is active. Query-locking behavior outside these execution boundaries is not inferred.",
+        "ja": "有限のinactive-parent child startで明示priority 25を使い、driver／arbitration順やhookのglobalな相互順序は指定しない。optional hook数を、正確なparent callback引数とは別に観測する。phase検査は独立scheduleの具象nodeを使い、schedule実行や転送は行わず、automatic objectionの変更は完了したstartの間だけで、sequence実行中には行わない。この実行境界外のquery lock動作は推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_automatic_objection_setting_changes_apply_to_each_completed_sequence_reuse",
+          "role": "direct",
+          "expected_observations": [
+            "UT: pre_start_counts 1 0 1 dropped_after_each 1",
+            "UT: starts 3 bodies 3 exact_contexts 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-AUTOMATIC-OBJECTION-REUSED-LIFETIME",
+      "clause": "14.2.4.3",
+      "statement": {
+        "en": "For each enabled execution, automatic objection is already raised at pre_start and released after completion.",
+        "ja": "有効な実行ごとに、automatic objectionはpre_start時にはraise済みで、完了後には解放される。"
+      },
+      "conditions": {
+        "en": "Observe three completed executions with enable states one/zero/one.",
+        "ja": "有効状態1／0／1で、完了した3実行を観測する。"
+      },
+      "expected": {
+        "en": "Counts at pre_start are one/zero/one and all post-start totals are zero.",
+        "ja": "pre_start時は1／0／1、start後の総数はすべて0となる。"
+      },
+      "limitations": {
+        "en": "Finite inactive-parent child starts use explicit priority 25; no driver/arbitration ordering or global interleaving of hooks is prescribed. Optional hook counts are observed separately from exact parent callback arguments. Phase probes use concrete nodes from isolated schedules with no schedule execution or traffic; automatic objections are changed only between completed starts, never while a sequence is active. Query-locking behavior outside these execution boundaries is not inferred.",
+        "ja": "有限のinactive-parent child startで明示priority 25を使い、driver／arbitration順やhookのglobalな相互順序は指定しない。optional hook数を、正確なparent callback引数とは別に観測する。phase検査は独立scheduleの具象nodeを使い、schedule実行や転送は行わず、automatic objectionの変更は完了したstartの間だけで、sequence実行中には行わない。この実行境界外のquery lock動作は推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_automatic_objection_setting_changes_apply_to_each_completed_sequence_reuse",
+          "role": "direct",
+          "expected_observations": [
+            "UT: pre_start_counts 1 0 1 dropped_after_each 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-VIRTUAL-FIELD-LOCAL-LIST",
+      "clause": "18.1.3.11",
+      "statement": {
+        "en": "get_virtual_fields with UVM_NO_HIER returns only this block virtual fields.",
+        "ja": "UVM_NO_HIERのget_virtual_fieldsは、このblockのvirtual fieldだけを返す。"
+      },
+      "conditions": {
+        "en": "Use three local fields with fields also configured below the block.",
+        "ja": "local 3 fieldを使い、下位blockにもfieldを設定する。"
+      },
+      "expected": {
+        "en": "Exactly three local handles are returned with membership mask seven.",
+        "ja": "正確なlocal 3 handleを、所属mask 7で返す。"
+      },
+      "limitations": {
+        "en": "Original locked three-level register-model fixtures have concrete eight-bit mapped registers and configured dynamic virtual registers/fields. Dynamic arrays need not be implemented for logical introspection. Fresh queues and exact set membership avoid order assumptions; name conflicts exist only between local and descendant scopes, with no ambiguous same-level match. Missing, ancestor and independent-root names are excluded. Map unregister uses a separate unlocked graph and observes only map content, not removed-model lifetime, block/default-map choices or a child map back-pointer. No bus or HDL behavior is asserted.",
+        "ja": "独自のlock済み3階層register modelで、具象8 bit mapped registerと、設定済みdynamic virtual register／fieldを使う。論理introspectionのためのdynamic array実装は不要である。新queueと正確な集合の所属を使って列挙順を仮定せず、名前競合はlocalと子孫の間だけで、同一階層の曖昧な一致はない。不在、ancestor、独立rootの名前を除外する。map unregisterは別のunlock済みgraphで行い、map内容だけを観測し、解除modelの寿命、block／default mapの選択、child mapのback pointerは対象外とする。busやHDL動作はassertしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_virtual_field_listing_distinguishes_local_explicit_and_default_hierarchy",
+          "role": "direct",
+          "expected_observations": [
+            "UT: local count 3 members 7"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-VIRTUAL-FIELD-EXPLICIT-RECURSION",
+      "clause": "18.1.3.11",
+      "statement": {
+        "en": "Explicit UVM_HIER includes fields in nested sub-blocks.",
+        "ja": "明示UVM_HIERは入れ子sub-blockのfieldを含む。"
+      },
+      "conditions": {
+        "en": "Use three levels with six fields in total.",
+        "ja": "3階層に計6 fieldを配置する。"
+      },
+      "expected": {
+        "en": "Exactly six expected handles are returned, with mask sixty-three.",
+        "ja": "正確な期待6 handleを、mask 63で返す。"
+      },
+      "limitations": {
+        "en": "Original locked three-level register-model fixtures have concrete eight-bit mapped registers and configured dynamic virtual registers/fields. Dynamic arrays need not be implemented for logical introspection. Fresh queues and exact set membership avoid order assumptions; name conflicts exist only between local and descendant scopes, with no ambiguous same-level match. Missing, ancestor and independent-root names are excluded. Map unregister uses a separate unlocked graph and observes only map content, not removed-model lifetime, block/default-map choices or a child map back-pointer. No bus or HDL behavior is asserted.",
+        "ja": "独自のlock済み3階層register modelで、具象8 bit mapped registerと、設定済みdynamic virtual register／fieldを使う。論理introspectionのためのdynamic array実装は不要である。新queueと正確な集合の所属を使って列挙順を仮定せず、名前競合はlocalと子孫の間だけで、同一階層の曖昧な一致はない。不在、ancestor、独立rootの名前を除外する。map unregisterは別のunlock済みgraphで行い、map内容だけを観測し、解除modelの寿命、block／default mapの選択、child mapのback pointerは対象外とする。busやHDL動作はassertしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_virtual_field_listing_distinguishes_local_explicit_and_default_hierarchy",
+          "role": "direct",
+          "expected_observations": [
+            "UT: recursive count 6 members 63"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-VIRTUAL-FIELD-DEFAULT-RECURSION",
+      "clause": "18.1.3.11",
+      "statement": {
+        "en": "The default virtual-field hierarchy setting is recursive.",
+        "ja": "virtual-field照会の既定階層設定は再帰である。"
+      },
+      "conditions": {
+        "en": "Omit hier on the same three-level model.",
+        "ja": "同じ3階層modelでhierを省略する。"
+      },
+      "expected": {
+        "en": "The default queue contains all six exact subtree fields.",
+        "ja": "既定queueは、正確なsubtreeの全6 fieldを含む。"
+      },
+      "limitations": {
+        "en": "Original locked three-level register-model fixtures have concrete eight-bit mapped registers and configured dynamic virtual registers/fields. Dynamic arrays need not be implemented for logical introspection. Fresh queues and exact set membership avoid order assumptions; name conflicts exist only between local and descendant scopes, with no ambiguous same-level match. Missing, ancestor and independent-root names are excluded. Map unregister uses a separate unlocked graph and observes only map content, not removed-model lifetime, block/default-map choices or a child map back-pointer. No bus or HDL behavior is asserted.",
+        "ja": "独自のlock済み3階層register modelで、具象8 bit mapped registerと、設定済みdynamic virtual register／fieldを使う。論理introspectionのためのdynamic array実装は不要である。新queueと正確な集合の所属を使って列挙順を仮定せず、名前競合はlocalと子孫の間だけで、同一階層の曖昧な一致はない。不在、ancestor、独立rootの名前を除外する。map unregisterは別のunlock済みgraphで行い、map内容だけを観測し、解除modelの寿命、block／default mapの選択、child mapのback pointerは対象外とする。busやHDL動作はassertしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_virtual_field_listing_distinguishes_local_explicit_and_default_hierarchy",
+          "role": "direct",
+          "expected_observations": [
+            "UT: default count 6 members 63"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-VIRTUAL-FIELD-INDEPENDENT-ROOT-EXCLUSION",
+      "clause": "18.1.3.11",
+      "statement": {
+        "en": "Virtual-field enumeration excludes fields belonging to an independent root.",
+        "ja": "virtual-field列挙は、独立rootに属するfieldを含めない。"
+      },
+      "conditions": {
+        "en": "Add a peer field outside the selected hierarchy.",
+        "ja": "選択階層の外へpeer fieldを加える。"
+      },
+      "expected": {
+        "en": "No local, recursive or default membership mask includes the peer bit.",
+        "ja": "local、再帰、既定のいずれの所属maskにもpeer bitを含めない。"
+      },
+      "limitations": {
+        "en": "Original locked three-level register-model fixtures have concrete eight-bit mapped registers and configured dynamic virtual registers/fields. Dynamic arrays need not be implemented for logical introspection. Fresh queues and exact set membership avoid order assumptions; name conflicts exist only between local and descendant scopes, with no ambiguous same-level match. Missing, ancestor and independent-root names are excluded. Map unregister uses a separate unlocked graph and observes only map content, not removed-model lifetime, block/default-map choices or a child map back-pointer. No bus or HDL behavior is asserted.",
+        "ja": "独自のlock済み3階層register modelで、具象8 bit mapped registerと、設定済みdynamic virtual register／fieldを使う。論理introspectionのためのdynamic array実装は不要である。新queueと正確な集合の所属を使って列挙順を仮定せず、名前競合はlocalと子孫の間だけで、同一階層の曖昧な一致はない。不在、ancestor、独立rootの名前を除外する。map unregisterは別のunlock済みgraphで行い、map内容だけを観測し、解除modelの寿命、block／default mapの選択、child mapのback pointerは対象外とする。busやHDL動作はassertしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_virtual_field_listing_distinguishes_local_explicit_and_default_hierarchy",
+          "role": "direct",
+          "expected_observations": [
+            "UT: local count 3 members 7",
+            "UT: recursive count 6 members 63",
+            "UT: default count 6 members 63"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-VREG-NAME-LOCAL-PRECEDENCE",
+      "clause": "18.1.3.17",
+      "statement": {
+        "en": "The virtual register name query prefers a local match over a descendant.",
+        "ja": "このvirtual registerの名前照会は、子孫よりlocalの一致を優先する。"
+      },
+      "conditions": {
+        "en": "Use the same simple name in the root and child.",
+        "ja": "rootとchildで同じsimple nameを使う。"
+      },
+      "expected": {
+        "en": "Root and child queries return their own exact handles.",
+        "ja": "rootとchildの照会は、それぞれ自身の正確なhandleを返す。"
+      },
+      "limitations": {
+        "en": "Original locked three-level register-model fixtures have concrete eight-bit mapped registers and configured dynamic virtual registers/fields. Dynamic arrays need not be implemented for logical introspection. Fresh queues and exact set membership avoid order assumptions; name conflicts exist only between local and descendant scopes, with no ambiguous same-level match. Missing, ancestor and independent-root names are excluded. Map unregister uses a separate unlocked graph and observes only map content, not removed-model lifetime, block/default-map choices or a child map back-pointer. No bus or HDL behavior is asserted.",
+        "ja": "独自のlock済み3階層register modelで、具象8 bit mapped registerと、設定済みdynamic virtual register／fieldを使う。論理introspectionのためのdynamic array実装は不要である。新queueと正確な集合の所属を使って列挙順を仮定せず、名前競合はlocalと子孫の間だけで、同一階層の曖昧な一致はない。不在、ancestor、独立rootの名前を除外する。map unregisterは別のunlock済みgraphで行い、map内容だけを観測し、解除modelの寿命、block／default mapの選択、child mapのback pointerは対象外とする。busやHDL動作はassertしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_virtual_register_lookup_prefers_local_and_finds_unique_descendants",
+          "role": "direct",
+          "expected_observations": [
+            "UT: local root 1 child 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-VREG-NAME-DESCENDANT-SEARCH",
+      "clause": "18.1.3.17",
+      "statement": {
+        "en": "The virtual register name query finds unambiguous descendant matches.",
+        "ja": "このvirtual registerの名前照会は、曖昧でない子孫の一致を見つける。"
+      },
+      "conditions": {
+        "en": "Search unique names below the local block.",
+        "ja": "local blockより下の一意な名前を検索する。"
+      },
+      "expected": {
+        "en": "The expected descendant handles are returned exactly.",
+        "ja": "期待する子孫handleを正確に返す。"
+      },
+      "limitations": {
+        "en": "Original locked three-level register-model fixtures have concrete eight-bit mapped registers and configured dynamic virtual registers/fields. Dynamic arrays need not be implemented for logical introspection. Fresh queues and exact set membership avoid order assumptions; name conflicts exist only between local and descendant scopes, with no ambiguous same-level match. Missing, ancestor and independent-root names are excluded. Map unregister uses a separate unlocked graph and observes only map content, not removed-model lifetime, block/default-map choices or a child map back-pointer. No bus or HDL behavior is asserted.",
+        "ja": "独自のlock済み3階層register modelで、具象8 bit mapped registerと、設定済みdynamic virtual register／fieldを使う。論理introspectionのためのdynamic array実装は不要である。新queueと正確な集合の所属を使って列挙順を仮定せず、名前競合はlocalと子孫の間だけで、同一階層の曖昧な一致はない。不在、ancestor、独立rootの名前を除外する。map unregisterは別のunlock済みgraphで行い、map内容だけを観測し、解除modelの寿命、block／default mapの選択、child mapのback pointerは対象外とする。busやHDL動作はassertしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_virtual_register_lookup_prefers_local_and_finds_unique_descendants",
+          "role": "direct",
+          "expected_observations": [
+            "UT: deep root 1 child 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-VREG-NAME-MISSING-AND-OUTSIDE-SCOPE",
+      "clause": "18.1.3.17",
+      "statement": {
+        "en": "The virtual register name query returns null for missing, ancestor-only or independent-root names.",
+        "ja": "このvirtual registerの名前照会は、不在、ancestorだけ、独立rootの名前にnullを返す。"
+      },
+      "conditions": {
+        "en": "Query three out-of-scope or absent names.",
+        "ja": "scope外または不在の3名前を照会する。"
+      },
+      "expected": {
+        "en": "All three results are null.",
+        "ja": "3結果はすべてnullとなる。"
+      },
+      "limitations": {
+        "en": "Original locked three-level register-model fixtures have concrete eight-bit mapped registers and configured dynamic virtual registers/fields. Dynamic arrays need not be implemented for logical introspection. Fresh queues and exact set membership avoid order assumptions; name conflicts exist only between local and descendant scopes, with no ambiguous same-level match. Missing, ancestor and independent-root names are excluded. Map unregister uses a separate unlocked graph and observes only map content, not removed-model lifetime, block/default-map choices or a child map back-pointer. No bus or HDL behavior is asserted.",
+        "ja": "独自のlock済み3階層register modelで、具象8 bit mapped registerと、設定済みdynamic virtual register／fieldを使う。論理introspectionのためのdynamic array実装は不要である。新queueと正確な集合の所属を使って列挙順を仮定せず、名前競合はlocalと子孫の間だけで、同一階層の曖昧な一致はない。不在、ancestor、独立rootの名前を除外する。map unregisterは別のunlock済みgraphで行い、map内容だけを観測し、解除modelの寿命、block／default mapの選択、child mapのback pointerは対象外とする。busやHDL動作はassertしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_virtual_register_lookup_prefers_local_and_finds_unique_descendants",
+          "role": "direct",
+          "expected_observations": [
+            "UT: missing 1 ancestor_excluded 1 peer_excluded 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-VFIELD-NAME-LOCAL-PRECEDENCE",
+      "clause": "18.1.3.18",
+      "statement": {
+        "en": "The virtual field name query prefers a local match over a descendant.",
+        "ja": "このvirtual fieldの名前照会は、子孫よりlocalの一致を優先する。"
+      },
+      "conditions": {
+        "en": "Use the same simple name in the root and child.",
+        "ja": "rootとchildで同じsimple nameを使う。"
+      },
+      "expected": {
+        "en": "Root and child queries return their own exact handles.",
+        "ja": "rootとchildの照会は、それぞれ自身の正確なhandleを返す。"
+      },
+      "limitations": {
+        "en": "Original locked three-level register-model fixtures have concrete eight-bit mapped registers and configured dynamic virtual registers/fields. Dynamic arrays need not be implemented for logical introspection. Fresh queues and exact set membership avoid order assumptions; name conflicts exist only between local and descendant scopes, with no ambiguous same-level match. Missing, ancestor and independent-root names are excluded. Map unregister uses a separate unlocked graph and observes only map content, not removed-model lifetime, block/default-map choices or a child map back-pointer. No bus or HDL behavior is asserted.",
+        "ja": "独自のlock済み3階層register modelで、具象8 bit mapped registerと、設定済みdynamic virtual register／fieldを使う。論理introspectionのためのdynamic array実装は不要である。新queueと正確な集合の所属を使って列挙順を仮定せず、名前競合はlocalと子孫の間だけで、同一階層の曖昧な一致はない。不在、ancestor、独立rootの名前を除外する。map unregisterは別のunlock済みgraphで行い、map内容だけを観測し、解除modelの寿命、block／default mapの選択、child mapのback pointerは対象外とする。busやHDL動作はassertしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_virtual_field_name_lookup_follows_local_precedence_and_descendant_scope",
+          "role": "direct",
+          "expected_observations": [
+            "UT: local root 1 child 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-VFIELD-NAME-DESCENDANT-SEARCH",
+      "clause": "18.1.3.18",
+      "statement": {
+        "en": "The virtual field name query finds unambiguous descendant matches.",
+        "ja": "このvirtual fieldの名前照会は、曖昧でない子孫の一致を見つける。"
+      },
+      "conditions": {
+        "en": "Search unique names below the local block.",
+        "ja": "local blockより下の一意な名前を検索する。"
+      },
+      "expected": {
+        "en": "The expected descendant handles are returned exactly.",
+        "ja": "期待する子孫handleを正確に返す。"
+      },
+      "limitations": {
+        "en": "Original locked three-level register-model fixtures have concrete eight-bit mapped registers and configured dynamic virtual registers/fields. Dynamic arrays need not be implemented for logical introspection. Fresh queues and exact set membership avoid order assumptions; name conflicts exist only between local and descendant scopes, with no ambiguous same-level match. Missing, ancestor and independent-root names are excluded. Map unregister uses a separate unlocked graph and observes only map content, not removed-model lifetime, block/default-map choices or a child map back-pointer. No bus or HDL behavior is asserted.",
+        "ja": "独自のlock済み3階層register modelで、具象8 bit mapped registerと、設定済みdynamic virtual register／fieldを使う。論理introspectionのためのdynamic array実装は不要である。新queueと正確な集合の所属を使って列挙順を仮定せず、名前競合はlocalと子孫の間だけで、同一階層の曖昧な一致はない。不在、ancestor、独立rootの名前を除外する。map unregisterは別のunlock済みgraphで行い、map内容だけを観測し、解除modelの寿命、block／default mapの選択、child mapのback pointerは対象外とする。busやHDL動作はassertしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_virtual_field_name_lookup_follows_local_precedence_and_descendant_scope",
+          "role": "direct",
+          "expected_observations": [
+            "UT: descendants child 1 deep 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-VFIELD-NAME-MISSING-AND-OUTSIDE-SCOPE",
+      "clause": "18.1.3.18",
+      "statement": {
+        "en": "The virtual field name query returns null for missing, ancestor-only or independent-root names.",
+        "ja": "このvirtual fieldの名前照会は、不在、ancestorだけ、独立rootの名前にnullを返す。"
+      },
+      "conditions": {
+        "en": "Query three out-of-scope or absent names.",
+        "ja": "scope外または不在の3名前を照会する。"
+      },
+      "expected": {
+        "en": "All three results are null.",
+        "ja": "3結果はすべてnullとなる。"
+      },
+      "limitations": {
+        "en": "Original locked three-level register-model fixtures have concrete eight-bit mapped registers and configured dynamic virtual registers/fields. Dynamic arrays need not be implemented for logical introspection. Fresh queues and exact set membership avoid order assumptions; name conflicts exist only between local and descendant scopes, with no ambiguous same-level match. Missing, ancestor and independent-root names are excluded. Map unregister uses a separate unlocked graph and observes only map content, not removed-model lifetime, block/default-map choices or a child map back-pointer. No bus or HDL behavior is asserted.",
+        "ja": "独自のlock済み3階層register modelで、具象8 bit mapped registerと、設定済みdynamic virtual register／fieldを使う。論理introspectionのためのdynamic array実装は不要である。新queueと正確な集合の所属を使って列挙順を仮定せず、名前競合はlocalと子孫の間だけで、同一階層の曖昧な一致はない。不在、ancestor、独立rootの名前を除外する。map unregisterは別のunlock済みgraphで行い、map内容だけを観測し、解除modelの寿命、block／default mapの選択、child mapのback pointerは対象外とする。busやHDL動作はassertしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_virtual_field_name_lookup_follows_local_precedence_and_descendant_scope",
+          "role": "direct",
+          "expected_observations": [
+            "UT: missing 1 ancestor_excluded 1 peer_excluded 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-MAP-NAME-LOCAL-PRECEDENCE",
+      "clause": "18.1.3.13",
+      "statement": {
+        "en": "The address map name query prefers a local match over a descendant.",
+        "ja": "このaddress mapの名前照会は、子孫よりlocalの一致を優先する。"
+      },
+      "conditions": {
+        "en": "Use the same simple name in the root and child.",
+        "ja": "rootとchildで同じsimple nameを使う。"
+      },
+      "expected": {
+        "en": "Root and child queries return their own exact handles.",
+        "ja": "rootとchildの照会は、それぞれ自身の正確なhandleを返す。"
+      },
+      "limitations": {
+        "en": "Original locked three-level register-model fixtures have concrete eight-bit mapped registers and configured dynamic virtual registers/fields. Dynamic arrays need not be implemented for logical introspection. Fresh queues and exact set membership avoid order assumptions; name conflicts exist only between local and descendant scopes, with no ambiguous same-level match. Missing, ancestor and independent-root names are excluded. Map unregister uses a separate unlocked graph and observes only map content, not removed-model lifetime, block/default-map choices or a child map back-pointer. No bus or HDL behavior is asserted.",
+        "ja": "独自のlock済み3階層register modelで、具象8 bit mapped registerと、設定済みdynamic virtual register／fieldを使う。論理introspectionのためのdynamic array実装は不要である。新queueと正確な集合の所属を使って列挙順を仮定せず、名前競合はlocalと子孫の間だけで、同一階層の曖昧な一致はない。不在、ancestor、独立rootの名前を除外する。map unregisterは別のunlock済みgraphで行い、map内容だけを観測し、解除modelの寿命、block／default mapの選択、child mapのback pointerは対象外とする。busやHDL動作はassertしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_map_name_lookup_selects_local_maps_then_unique_descendants",
+          "role": "direct",
+          "expected_observations": [
+            "UT: local root 1 child 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-MAP-NAME-DESCENDANT-SEARCH",
+      "clause": "18.1.3.13",
+      "statement": {
+        "en": "The address map name query finds unambiguous descendant matches.",
+        "ja": "このaddress mapの名前照会は、曖昧でない子孫の一致を見つける。"
+      },
+      "conditions": {
+        "en": "Search unique names below the local block.",
+        "ja": "local blockより下の一意な名前を検索する。"
+      },
+      "expected": {
+        "en": "The expected descendant handles are returned exactly.",
+        "ja": "期待する子孫handleを正確に返す。"
+      },
+      "limitations": {
+        "en": "Original locked three-level register-model fixtures have concrete eight-bit mapped registers and configured dynamic virtual registers/fields. Dynamic arrays need not be implemented for logical introspection. Fresh queues and exact set membership avoid order assumptions; name conflicts exist only between local and descendant scopes, with no ambiguous same-level match. Missing, ancestor and independent-root names are excluded. Map unregister uses a separate unlocked graph and observes only map content, not removed-model lifetime, block/default-map choices or a child map back-pointer. No bus or HDL behavior is asserted.",
+        "ja": "独自のlock済み3階層register modelで、具象8 bit mapped registerと、設定済みdynamic virtual register／fieldを使う。論理introspectionのためのdynamic array実装は不要である。新queueと正確な集合の所属を使って列挙順を仮定せず、名前競合はlocalと子孫の間だけで、同一階層の曖昧な一致はない。不在、ancestor、独立rootの名前を除外する。map unregisterは別のunlock済みgraphで行い、map内容だけを観測し、解除modelの寿命、block／default mapの選択、child mapのback pointerは対象外とする。busやHDL動作はassertしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_map_name_lookup_selects_local_maps_then_unique_descendants",
+          "role": "direct",
+          "expected_observations": [
+            "UT: descendants child 1 deep 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-MAP-NAME-MISSING-AND-OUTSIDE-SCOPE",
+      "clause": "18.1.3.13",
+      "statement": {
+        "en": "The address map name query returns null for missing, ancestor-only or independent-root names.",
+        "ja": "このaddress mapの名前照会は、不在、ancestorだけ、独立rootの名前にnullを返す。"
+      },
+      "conditions": {
+        "en": "Query three out-of-scope or absent names.",
+        "ja": "scope外または不在の3名前を照会する。"
+      },
+      "expected": {
+        "en": "All three results are null.",
+        "ja": "3結果はすべてnullとなる。"
+      },
+      "limitations": {
+        "en": "Original locked three-level register-model fixtures have concrete eight-bit mapped registers and configured dynamic virtual registers/fields. Dynamic arrays need not be implemented for logical introspection. Fresh queues and exact set membership avoid order assumptions; name conflicts exist only between local and descendant scopes, with no ambiguous same-level match. Missing, ancestor and independent-root names are excluded. Map unregister uses a separate unlocked graph and observes only map content, not removed-model lifetime, block/default-map choices or a child map back-pointer. No bus or HDL behavior is asserted.",
+        "ja": "独自のlock済み3階層register modelで、具象8 bit mapped registerと、設定済みdynamic virtual register／fieldを使う。論理introspectionのためのdynamic array実装は不要である。新queueと正確な集合の所属を使って列挙順を仮定せず、名前競合はlocalと子孫の間だけで、同一階層の曖昧な一致はない。不在、ancestor、独立rootの名前を除外する。map unregisterは別のunlock済みgraphで行い、map内容だけを観測し、解除modelの寿命、block／default mapの選択、child mapのback pointerは対象外とする。busやHDL動作はassertしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_map_name_lookup_selects_local_maps_then_unique_descendants",
+          "role": "direct",
+          "expected_observations": [
+            "UT: missing 1 ancestor_excluded 1 peer_excluded 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-NAME-DESCENDANT-SEARCH",
+      "clause": "18.1.3.12",
+      "statement": {
+        "en": "The block name query finds direct and nested sub-blocks by simple name.",
+        "ja": "block名照会は、simple nameで直接／入れ子sub-blockを見つける。"
+      },
+      "conditions": {
+        "en": "Search child and deep from the root and deep from the child.",
+        "ja": "rootからchildとdeep、childからdeepを検索する。"
+      },
+      "expected": {
+        "en": "All three queries return exact descendant handles.",
+        "ja": "3照会は正確な子孫handleを返す。"
+      },
+      "limitations": {
+        "en": "Original locked three-level register-model fixtures have concrete eight-bit mapped registers and configured dynamic virtual registers/fields. Dynamic arrays need not be implemented for logical introspection. Fresh queues and exact set membership avoid order assumptions; name conflicts exist only between local and descendant scopes, with no ambiguous same-level match. Missing, ancestor and independent-root names are excluded. Map unregister uses a separate unlocked graph and observes only map content, not removed-model lifetime, block/default-map choices or a child map back-pointer. No bus or HDL behavior is asserted.",
+        "ja": "独自のlock済み3階層register modelで、具象8 bit mapped registerと、設定済みdynamic virtual register／fieldを使う。論理introspectionのためのdynamic array実装は不要である。新queueと正確な集合の所属を使って列挙順を仮定せず、名前競合はlocalと子孫の間だけで、同一階層の曖昧な一致はない。不在、ancestor、独立rootの名前を除外する。map unregisterは別のunlock済みgraphで行い、map内容だけを観測し、解除modelの寿命、block／default mapの選択、child mapのback pointerは対象外とする。busやHDL動作はassertしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_name_lookup_uses_simple_descendant_names_and_excludes_external_roots",
+          "role": "direct",
+          "expected_observations": [
+            "UT: descendants child 1 deep 1 nested 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BLOCK-NAME-MISSING-AND-SUBTREE-SCOPE",
+      "clause": "18.1.3.12",
+      "statement": {
+        "en": "The block name query returns null for missing and out-of-subtree names.",
+        "ja": "block名照会は、不在とsubtree外の名前にnullを返す。"
+      },
+      "conditions": {
+        "en": "Probe missing, ancestor root and peer root names.",
+        "ja": "不在名、ancestor root名、peer root名を照会する。"
+      },
+      "expected": {
+        "en": "All three results are null.",
+        "ja": "3結果はすべてnullとなる。"
+      },
+      "limitations": {
+        "en": "Original locked three-level register-model fixtures have concrete eight-bit mapped registers and configured dynamic virtual registers/fields. Dynamic arrays need not be implemented for logical introspection. Fresh queues and exact set membership avoid order assumptions; name conflicts exist only between local and descendant scopes, with no ambiguous same-level match. Missing, ancestor and independent-root names are excluded. Map unregister uses a separate unlocked graph and observes only map content, not removed-model lifetime, block/default-map choices or a child map back-pointer. No bus or HDL behavior is asserted.",
+        "ja": "独自のlock済み3階層register modelで、具象8 bit mapped registerと、設定済みdynamic virtual register／fieldを使う。論理introspectionのためのdynamic array実装は不要である。新queueと正確な集合の所属を使って列挙順を仮定せず、名前競合はlocalと子孫の間だけで、同一階層の曖昧な一致はない。不在、ancestor、独立rootの名前を除外する。map unregisterは別のunlock済みgraphで行い、map内容だけを観測し、解除modelの寿命、block／default mapの選択、child mapのback pointerは対象外とする。busやHDL動作はassertしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_block_name_lookup_uses_simple_descendant_names_and_excludes_external_roots",
+          "role": "direct",
+          "expected_observations": [
+            "UT: missing 1 ancestor_excluded 1 peer_excluded 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAP-UNREGISTER-LOCAL-REGISTERS",
+      "clause": "18.2.3.11",
+      "statement": {
+        "en": "Map unregister disassociates its local register content.",
+        "ja": "map unregisterは、local register内容の関連付けを解除する。"
+      },
+      "conditions": {
+        "en": "Unregister an unlocked map with one local register.",
+        "ja": "local register 1つを持つunlock mapを解除する。"
+      },
+      "expected": {
+        "en": "The map local register queue becomes empty.",
+        "ja": "mapのlocal register queueは空になる。"
+      },
+      "limitations": {
+        "en": "Original locked three-level register-model fixtures have concrete eight-bit mapped registers and configured dynamic virtual registers/fields. Dynamic arrays need not be implemented for logical introspection. Fresh queues and exact set membership avoid order assumptions; name conflicts exist only between local and descendant scopes, with no ambiguous same-level match. Missing, ancestor and independent-root names are excluded. Map unregister uses a separate unlocked graph and observes only map content, not removed-model lifetime, block/default-map choices or a child map back-pointer. No bus or HDL behavior is asserted.",
+        "ja": "独自のlock済み3階層register modelで、具象8 bit mapped registerと、設定済みdynamic virtual register／fieldを使う。論理introspectionのためのdynamic array実装は不要である。新queueと正確な集合の所属を使って列挙順を仮定せず、名前競合はlocalと子孫の間だけで、同一階層の曖昧な一致はない。不在、ancestor、独立rootの名前を除外する。map unregisterは別のunlock済みgraphで行い、map内容だけを観測し、解除modelの寿命、block／default mapの選択、child mapのback pointerは対象外とする。busやHDL動作はassertしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_map_unregister_disassociates_registers_memories_and_submaps_without_touching_a_peer",
+          "role": "direct",
+          "expected_observations": [
+            "UT: removed registers 0 memories 0 submaps 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAP-UNREGISTER-LOCAL-MEMORIES",
+      "clause": "18.2.3.11",
+      "statement": {
+        "en": "Map unregister disassociates its local memory content.",
+        "ja": "map unregisterは、local memory内容の関連付けを解除する。"
+      },
+      "conditions": {
+        "en": "Unregister a map containing one memory.",
+        "ja": "memory 1つを含むmapを解除する。"
+      },
+      "expected": {
+        "en": "The map local memory queue becomes empty.",
+        "ja": "mapのlocal memory queueは空になる。"
+      },
+      "limitations": {
+        "en": "Original locked three-level register-model fixtures have concrete eight-bit mapped registers and configured dynamic virtual registers/fields. Dynamic arrays need not be implemented for logical introspection. Fresh queues and exact set membership avoid order assumptions; name conflicts exist only between local and descendant scopes, with no ambiguous same-level match. Missing, ancestor and independent-root names are excluded. Map unregister uses a separate unlocked graph and observes only map content, not removed-model lifetime, block/default-map choices or a child map back-pointer. No bus or HDL behavior is asserted.",
+        "ja": "独自のlock済み3階層register modelで、具象8 bit mapped registerと、設定済みdynamic virtual register／fieldを使う。論理introspectionのためのdynamic array実装は不要である。新queueと正確な集合の所属を使って列挙順を仮定せず、名前競合はlocalと子孫の間だけで、同一階層の曖昧な一致はない。不在、ancestor、独立rootの名前を除外する。map unregisterは別のunlock済みgraphで行い、map内容だけを観測し、解除modelの寿命、block／default mapの選択、child mapのback pointerは対象外とする。busやHDL動作はassertしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_map_unregister_disassociates_registers_memories_and_submaps_without_touching_a_peer",
+          "role": "direct",
+          "expected_observations": [
+            "UT: removed registers 0 memories 0 submaps 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAP-UNREGISTER-SUBMAP-ASSOCIATION",
+      "clause": "18.2.3.11",
+      "statement": {
+        "en": "Map unregister disassociates its child-map content.",
+        "ja": "map unregisterは、child-map内容の関連付けを解除する。"
+      },
+      "conditions": {
+        "en": "Unregister a map with one child map.",
+        "ja": "child map 1つを持つmapを解除する。"
+      },
+      "expected": {
+        "en": "The submap queue becomes empty.",
+        "ja": "submap queueは空になる。"
+      },
+      "limitations": {
+        "en": "Original locked three-level register-model fixtures have concrete eight-bit mapped registers and configured dynamic virtual registers/fields. Dynamic arrays need not be implemented for logical introspection. Fresh queues and exact set membership avoid order assumptions; name conflicts exist only between local and descendant scopes, with no ambiguous same-level match. Missing, ancestor and independent-root names are excluded. Map unregister uses a separate unlocked graph and observes only map content, not removed-model lifetime, block/default-map choices or a child map back-pointer. No bus or HDL behavior is asserted.",
+        "ja": "独自のlock済み3階層register modelで、具象8 bit mapped registerと、設定済みdynamic virtual register／fieldを使う。論理introspectionのためのdynamic array実装は不要である。新queueと正確な集合の所属を使って列挙順を仮定せず、名前競合はlocalと子孫の間だけで、同一階層の曖昧な一致はない。不在、ancestor、独立rootの名前を除外する。map unregisterは別のunlock済みgraphで行い、map内容だけを観測し、解除modelの寿命、block／default mapの選択、child mapのback pointerは対象外とする。busやHDL動作はassertしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_map_unregister_disassociates_registers_memories_and_submaps_without_touching_a_peer",
+          "role": "direct",
+          "expected_observations": [
+            "UT: removed registers 0 memories 0 submaps 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MAP-UNREGISTER-PEER-CONTENT-ISOLATION",
+      "clause": "18.2.3.11",
+      "statement": {
+        "en": "Unregistering a map preserves disjoint content of another map.",
+        "ja": "mapの解除は、別mapの独立した内容を保持する。"
+      },
+      "conditions": {
+        "en": "Keep a separate register/memory pair on a second map.",
+        "ja": "2番目のmapに別register／memoryの組を保持する。"
+      },
+      "expected": {
+        "en": "Its exact register and memory remain, one of each.",
+        "ja": "正確なregisterとmemoryが各1つ残る。"
+      },
+      "limitations": {
+        "en": "Original locked three-level register-model fixtures have concrete eight-bit mapped registers and configured dynamic virtual registers/fields. Dynamic arrays need not be implemented for logical introspection. Fresh queues and exact set membership avoid order assumptions; name conflicts exist only between local and descendant scopes, with no ambiguous same-level match. Missing, ancestor and independent-root names are excluded. Map unregister uses a separate unlocked graph and observes only map content, not removed-model lifetime, block/default-map choices or a child map back-pointer. No bus or HDL behavior is asserted.",
+        "ja": "独自のlock済み3階層register modelで、具象8 bit mapped registerと、設定済みdynamic virtual register／fieldを使う。論理introspectionのためのdynamic array実装は不要である。新queueと正確な集合の所属を使って列挙順を仮定せず、名前競合はlocalと子孫の間だけで、同一階層の曖昧な一致はない。不在、ancestor、独立rootの名前を除外する。map unregisterは別のunlock済みgraphで行い、map内容だけを観測し、解除modelの寿命、block／default mapの選択、child mapのback pointerは対象外とする。busやHDL動作はassertしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_map_unregister_disassociates_registers_memories_and_submaps_without_touching_a_peer",
+          "role": "direct",
+          "expected_observations": [
+            "UT: retained registers 1 exact_register 1 memories 1 exact_memory 1"
+          ]
+        }
+      ]
     }
   ]
 }

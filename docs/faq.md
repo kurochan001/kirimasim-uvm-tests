@@ -135,7 +135,7 @@ See [Ghost setup](testing.md#ghost).
 
 It removes `UVM_NO_DPI` from the default macro list. It does not supply or link
 UVM's C/C++ implementation. The current Verilator runner does not add those
-sources. There are 1166 `UVM_NO_DPI` cases and eight explicit HDL-DPI cases.
+sources. There are 1180 `UVM_NO_DPI` cases and eight explicit HDL-DPI cases.
 The [separate VPI runner](testing.md#verilator-vpi-hdl-subset) links the original
 limited backend; results apply only to that declared execution condition.
 User-defined `uvm_reg_backdoor` handlers can operate without HDL DPI (Q67).
@@ -174,7 +174,7 @@ a claim that every test was rebuilt together.
 
 ### Q16. Are M1, M2 or M3 complete, and what does the test count cover?
 
-M1 and M2 still have open clause targets. M3 now has 351
+M1 and M2 still have open clause targets. M3 now has 357
 register-layer cases, including testbench frontdoor paths; it is also incomplete. Starting a stage does not complete
 the preceding stages.
 The [plan](../README.md#plan) identifies current scope and remaining work.
@@ -1141,9 +1141,9 @@ not a direct test of the requirement.
 
 ### Q77. Why is there no coverage percentage after starting M4?
 
-The 1301 AI drafts cover only a partial decomposition: 1301 requirements link
-directly to 1173 tests; all drafts have direct tests, and one separate test is a control.
-All 1174 tests have requirement links. The 2,504 clause identifiers are not normative requirement units.
+The 1351 AI drafts cover only a partial decomposition: 1351 requirements link
+directly to 1187 tests; all drafts have direct tests, and one separate test is a control.
+All 1188 tests have requirement links. The 2,504 clause identifiers are not normative requirement units.
 The scope is proposed, the inventory incomplete and the denominator unapproved;
 starting M4 approves none of those. Known differences and HDL/DPI limitations
 do not silently exclude obligations. See the [approval path](requirements.md#remaining-m4-work-and-approval).
@@ -2143,7 +2143,7 @@ No. `tests_without_requirement_links` is zero: every current test has an
 explicit direct or control link. The separate counter
 `requirements_without_direct_tests` is zero. The memory-walk link uses the
 qualified historical interpretation in Q134. It is not approval of missing
-IEEE detail. HDL deposit and accessibility use explicit VPI fixtures. Another 1,655
+IEEE detail. HDL deposit and accessibility use explicit VPI fixtures. Another 1,615
 catalog identifiers remain unassessed; decomposition and human review are
 incomplete, and the denominator remains unapproved.
 
@@ -2244,7 +2244,7 @@ in [identifier assessments](../coverage/assessments.json). Structural headings
 have no related requirements; contextual descriptions name existing requirements.
 An unreviewed record, guessed classification or parent rollup cannot do this.
 The generated state is `assessed`, separate from `partial` requirement clauses.
-Twenty-two classifications currently exist, with no denominator approval or new pass.
+Thirty-six classifications currently exist, with no denominator approval or new pass.
 Chapter 11's zero unassessed identifiers still does not complete its requirements.
 
 ### Q136. Does explicit strict configuration make the new cases pass?
@@ -2318,3 +2318,35 @@ hierarchical queries. No removed-map query, shared-map ownership rule,
 post-removal default-map choice, bus transfer or HDL behavior is inferred.
 Separate cases check map construction/address units, local map lists/default
 reselection and explicitly set frontdoor/backdoor replacement.
+
+### Q143. What do the recording callback tests add?
+
+A failed backend close leaves the database open until retry succeeds. Stream/
+recorder backends first return null, then a preconstructed candidate: only a
+successful result initializes/registers it. Exact names, scopes, types, stream
+handles and explicit recording time 17 are observed. Live link endpoints may
+be closed without being freed; the exact relation still reaches the database
+hook. These are in-memory callbacks, with no external recording file. Queue
+contents are checked while the conflicting unsigned count return is ignored.
+Four unchanged hook fixtures also gain explicit callback requirement links.
+
+### Q144. What changes between reused sequence executions?
+
+Each start's call_pre_post choice controls pre_body/post_body, while pre_start/
+post_start and parent pre/mid/post callbacks remain active. Reusing the child
+under another parent observes exact child arguments and current parent identity,
+without imposing a global hook interleaving. Separate cases set main/shutdown/
+null starting phases across completed starts and select automatic objections
+one/zero/one; pre_start counts match and every completed start releases its
+objection. Controls are changed only between completed executions.
+
+### Q145. Why distinguish block hierarchy from map hierarchy?
+
+A block owns child blocks, while a map independently owns submaps. The new
+map-name query searches registered child-block maps even when they are not
+installed as local map submaps, as 18.1.3.13 requires; the pinned run misses
+them. The block-name case uses valid simple names and misses the tested
+grandchild from the root despite direct-child controls. Virtual-register/field
+queries separately match local/default/explicit subtree membership and names.
+Map unregister clears local registers, memories and submaps while preserving
+an independent map's exact content; no bus or HDL behavior is established.

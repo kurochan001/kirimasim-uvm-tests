@@ -3,8 +3,8 @@
 [日本語](history.ja.md) · [README](../README.md)
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and twenty cross-milestone thin-area expansions, including the
-existing-test requirement-link backlog checkpoint (1174 simulation tests). The earlier 349-test checkpoint is
+three M4 increments and twenty-one cross-milestone thin-area expansions, including the
+existing-test requirement-link backlog checkpoint (1188 simulation tests). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -2210,3 +2210,39 @@ All guides are paired, with 163 glossary terms and 142 FAQs. Validation covers
 library integrity, bilingual links and evidence fingerprints. Existing simulation
 inputs, runners, backend, earlier requirements/classifications and history are
 preserved. Zero mapping queues do not complete M1–M4 or establish conformance.
+
+## Twenty-first thin-area expansion across M1–M4
+
+Fourteen fixtures add four recording callback/failure cases, four sequence
+hook/phase reuse cases and six model hierarchy/map cases. The suite reaches
+1188: M1 397, M2 434 and M3 357. Recording observes failure/retry, null-result
+initialization gates, exact metadata and link identity. Sequence cases separate
+optional body hooks from parent/start callbacks and change phase/objection
+controls only between completed starts. Model cases check virtual-field
+membership, simple-name scope and map content removal with exact peer identity.
+
+Twelve additions match Verilator 5.052 at seeds 1/73. Two retain runtime
+seed-1 differences: child-block map names not connected as local submaps are
+missed, and a simple grandchild block name is missed from the root despite
+direct-child controls. Only valid simple-name inputs define that oracle.
+Compatible ordinary evidence retains all 1174 previous records and adds the
+fourteen measurements: 1062 pass, 126 known (108 runtime first differences,
+ten missing-API and eight unlinked-DPI builds). The separate eight-case VPI
+condition stays seven pass/one fail. Guest evidence retains 1085 compatible
+inputs with 103 additions explicitly unmeasured.
+
+Fifty AI drafts bring the ledger to 1351, all directly linked to 1187 tests;
+one additional control leaves zero unlinked tests. Four unchanged hook
+fixtures gain seven explicit callback links without new execution evidence.
+Fourteen individually read structural headings bring assessments to thirty-six
+(thirty-five structural, one contextual). Of 2,504 identifiers, 853 are partly
+decomposed, thirty-six assessed and 1,615 unassessed. The decrease of forty is
+twenty-six new requirement decompositions and fourteen structural assessments.
+Primary focus is 568, any citation 1,197; the candidate census is 1,911 zero,
+312 one and 256 at least two. No human review or approved denominator is added.
+
+All guides are paired, with 166 glossary terms and 145 FAQs. Validation covers
+88 tool tests, all 1188 metadata records, ledger/assessment/index checks,
+library integrity, bilingual references and evidence fingerprints. Existing
+simulation inputs, runners, backend, earlier requirements/assessments and
+history are preserved. Empty mapping queues do not complete M1–M4.

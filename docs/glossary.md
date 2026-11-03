@@ -798,3 +798,15 @@ identifiers with set_id_info, independently of payload or name copying.
 **Block map unregister** — Removing a selected map and its contained models
 from a block's knowledge. Its scope is distinct from executing a bus access or
 selecting a default map after removal.
+
+## Recording callbacks and execution hierarchies
+
+**Recording callback** — An overridden database/stream/recorder method that
+handles backend work. A null stream/recorder result prevents initialization.
+
+**Optional body hooks** — Sequence pre_body/post_body calls selected by
+call_pre_post. Start hooks and parent callbacks follow separate contracts.
+
+**Block hierarchy / map hierarchy** — Register-model block ancestry versus
+address-map submap connections. A child block's map need not be a local map's
+submap for logical block-name introspection.

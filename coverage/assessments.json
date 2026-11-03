@@ -313,6 +313,202 @@
         "reviewer": null,
         "reviewed_at": null
       }
+    },
+    {
+      "clause": "7.1.3",
+      "classification": "structural",
+      "rationale": {
+        "en": "Individually read Database API heading grouping database API methods; it adds no separate operation beyond the following child clauses.",
+        "ja": "個別に読んだDatabase API見出しはdatabase APIのmethodを整理し、後続の下位条項とは別のoperationを追加しない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "7.1.4",
+      "classification": "structural",
+      "rationale": {
+        "en": "Individually read Stream API heading grouping stream API methods; it adds no separate operation beyond the following child clauses.",
+        "ja": "個別に読んだStream API見出しはstream APIのmethodを整理し、後続の下位条項とは別のoperationを追加しない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "7.1.6",
+      "classification": "structural",
+      "rationale": {
+        "en": "Individually read Implementation agnostic API heading grouping database backend API methods; it adds no separate operation beyond the following child clauses.",
+        "ja": "個別に読んだImplementation agnostic API見出しはdatabase backend APIのmethodを整理し、後続の下位条項とは別のoperationを追加しない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "7.2.3",
+      "classification": "structural",
+      "rationale": {
+        "en": "Individually read Introspection API heading grouping stream introspection methods; it adds no separate operation beyond the following child clauses.",
+        "ja": "個別に読んだIntrospection API見出しはstream introspectionのmethodを整理し、後続の下位条項とは別のoperationを追加しない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "7.2.6",
+      "classification": "structural",
+      "rationale": {
+        "en": "Individually read Handles heading grouping stream handle API methods; it adds no separate operation beyond the following child clauses.",
+        "ja": "個別に読んだHandles見出しはstream handle APIのmethodを整理し、後続の下位条項とは別のoperationを追加しない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "7.2.7",
+      "classification": "structural",
+      "rationale": {
+        "en": "Individually read Implementation agnostic API heading grouping stream backend API methods; it adds no separate operation beyond the following child clauses.",
+        "ja": "個別に読んだImplementation agnostic API見出しはstream backend APIのmethodを整理し、後続の下位条項とは別のoperationを追加しない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "7.3.1.3",
+      "classification": "structural",
+      "rationale": {
+        "en": "Individually read Accessors heading grouping link accessor API methods; it adds no separate operation beyond the following child clauses.",
+        "ja": "個別に読んだAccessors見出しはlink accessor APIのmethodを整理し、後続の下位条項とは別のoperationを追加しない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "7.3.1.4",
+      "classification": "structural",
+      "rationale": {
+        "en": "Individually read Implementation hooks heading grouping link hook API methods; it adds no separate operation beyond the following child clauses.",
+        "ja": "個別に読んだImplementation hooks見出しはlink hook APIのmethodを整理し、後続の下位条項とは別のoperationを追加しない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "14.2.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "Individually read Common methods heading grouping sequence common API methods; it adds no separate operation beyond the following child clauses.",
+        "ja": "個別に読んだCommon methods見出しはsequence common APIのmethodを整理し、後続の下位条項とは別のoperationを追加しない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "14.2.3",
+      "classification": "structural",
+      "rationale": {
+        "en": "Individually read Sequence execution heading grouping sequence execution API methods; it adds no separate operation beyond the following child clauses.",
+        "ja": "個別に読んだSequence execution見出しはsequence execution APIのmethodを整理し、後続の下位条項とは別のoperationを追加しない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "14.2.4",
+      "classification": "structural",
+      "rationale": {
+        "en": "Individually read Run-time phasing heading grouping sequence phase API methods; it adds no separate operation beyond the following child clauses.",
+        "ja": "個別に読んだRun-time phasing見出しはsequence phase APIのmethodを整理し、後続の下位条項とは別のoperationを追加しない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "18.1.4",
+      "classification": "structural",
+      "rationale": {
+        "en": "Individually read Coverage heading grouping block coverage API methods; it adds no separate operation beyond the following child clauses.",
+        "ja": "個別に読んだCoverage見出しはblock coverage APIのmethodを整理し、後続の下位条項とは別のoperationを追加しない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "18.10.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "Individually read Methods heading grouping virtual-field API methods; it adds no separate operation beyond the following child clauses.",
+        "ja": "個別に読んだMethods見出しはvirtual-field APIのmethodを整理し、後続の下位条項とは別のoperationを追加しない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "18.10.3",
+      "classification": "structural",
+      "rationale": {
+        "en": "Individually read Introspection heading grouping virtual-field introspection methods; it adds no separate operation beyond the following child clauses.",
+        "ja": "個別に読んだIntrospection見出しはvirtual-field introspectionのmethodを整理し、後続の下位条項とは別のoperationを追加しない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
     }
   ]
 }

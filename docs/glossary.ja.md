@@ -614,3 +614,14 @@ payloadや名前のコピーとは独立している。
 
 **Block map unregister（block mapの解除）** — 選択mapとその内容のmodelを、blockが持つ情報から除くこと。
 bus accessの実行や、解除後のdefault map選択とは範囲が異なる。
+
+## Recording callbackと実行階層
+
+**Recording callback（recording callback）** — backendの処理を担当する、overrideしたdatabase／stream／recorder method。
+stream／recorderのnull結果は初期化を抑制する。
+
+**Optional body hooks（optional body hook）** — call_pre_postで選ぶsequenceのpre_body／post_body呼出し。
+start hookとparent callbackには、それぞれ別の契約がある。
+
+**Block hierarchy / map hierarchy（block階層／map階層）** — register-model blockの親子関係と、address-map submapの接続。
+論理的なblock名照会のために、child blockのmapをlocal mapのsubmapへ接続する必要はない。

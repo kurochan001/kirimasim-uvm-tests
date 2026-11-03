@@ -4,8 +4,8 @@
 
 ## Snapshot and objective
 
-Updated on 2026-11-03 for the twentieth thin-area expansion, based on
-[8e4aea1](https://github.com/kurochan001/kirimasim-uvm-tests/commit/8e4aea1d2b4ce3972e04bd254643581ab2738af9)
+Updated on 2026-11-03 for the twenty-first thin-area expansion, based on
+[530cbf8](https://github.com/kurochan001/kirimasim-uvm-tests/commit/530cbf8bff74583fd7e46560b8d318b123cca362)
 on `main`. Verify the current publishing commit and working tree before resuming.
 
 The project tests IEEE 1800.2-2020 UVM conformance, targeting kirimasim.
@@ -16,12 +16,12 @@ zero unlinked tests does not complete any milestone.
 
 | Area | Current snapshot |
 | --- | --- |
-| M1 | 393 simulations: core objects, policies, reporting, hierarchy, factory, phases, synchronization, recording and utilities |
-| M2 | 430 simulations: sequences, sequencers, callbacks and TLM |
-| M3 | 351 simulations: register/memory layer and annex E |
-| Entire suite | 1174 simulations in 21 chapter/annex directories; all AI-reviewed, none human-reviewed |
-| M4 | 1301 AI requirement drafts; 1301 have direct links to 1173 tests; one additional control test; zero tests without links |
-| Normative inventory | 827 of 2,504 identifiers partially decomposed; twenty-two explicitly assessed; 1,655 unassessed; zero drafts without direct tests |
+| M1 | 397 simulations: core objects, policies, reporting, hierarchy, factory, phases, synchronization, recording and utilities |
+| M2 | 434 simulations: sequences, sequencers, callbacks and TLM |
+| M3 | 357 simulations: register/memory layer and annex E |
+| Entire suite | 1188 simulations in 21 chapter/annex directories; all AI-reviewed, none human-reviewed |
+| M4 | 1351 AI requirement drafts; 1351 have direct links to 1187 tests; one additional control test; zero tests without links |
+| Normative inventory | 853 of 2,504 identifiers partially decomposed; thirty-six explicitly assessed; 1,615 unassessed; zero drafts without direct tests |
 
 `scope_status` remains proposed, `normative_inventory_complete` is false,
 and `approved_denominator` / `coverage_percentage` remain null. All twenty-one
@@ -58,20 +58,20 @@ decomposition and human review remain incomplete.
 
 - [Testing guide](testing.md): metadata, compilation, runner options and
   contribution rules. [Results](results.md): evidence interpretation and
-  assembly. [Known differences](known-differences.md): all 124 spec-only cases.
+  assembly. [Known differences](known-differences.md): all 126 spec-only cases.
 - [Requirement guide](requirements.md), [scope](../coverage/scope.json),
   [ledger](../coverage/requirements.json), [assessments](../coverage/assessments.json) and [test index](../coverage/test_index.json):
   canonical M4 state. Generated inventories are review aids, not replacements
   for these versioned inputs.
 - [Library lock](../third_party/uvm.lock): Accellera UVM 2020.3.1 at
   `78c06547a2a0`, 326 files. Fetch with the tracked tool; the library itself
-  is not committed. 1166 fixtures use `UVM_NO_DPI`; eight explicitly request the original VPI HDL backend.
+  is not committed. 1180 fixtures use `UVM_NO_DPI`; eight explicitly request the original VPI HDL backend.
 - The user supplied `IEEE_Std_1800.2-2020.pdf` and
   `IEEE_Std_1800-2023_SystemVerilog.pdf` in the repository root. They are
   ignored local files, unavailable in a fresh clone, and must not be
   redistributed. Existing extracted text under `/tmp` is also transient.
 - Results under `out/` are ignored and local. Temporary expansion helpers
-  under `/tmp/kirimasim-uvm-thin-twentieth-*.py` are optional local aids,
+  under `/tmp/kirimasim-uvm-thin-twenty-first-*.py` are optional local aids,
   not maintained entry points. Some append drafts/history and must not be
   rerun blindly. Recreate missing helpers using the tracked tools.
 
@@ -90,11 +90,11 @@ python3 tools/requirements.py inventory --json out/requirements-inventory.json
 python3 tools/requirements.py backlog --json out/requirements-backlog.json --lang ja
 ```
 
-The snapshot passed 88 tool unit tests, metadata for all 1174 simulations,
+The snapshot passed 88 tool unit tests, metadata for all 1188 simulations,
 ledger/index validation, library integrity and current-input evidence checks.
 A documentation-only change does not require rebuilding the entire suite.
 Current full-suite evidence is available for Verilator only; guest records
-cover 1085 unchanged inputs, with 89 new cases unmeasured.
+cover 1085 unchanged inputs, with 103 new cases unmeasured.
 For a simulator smoke check:
 
 ```sh
@@ -102,7 +102,7 @@ python3 tools/run_verilator.py --seeds 1 73 --build-jobs 2 -j 1 \
   --json out/verilator-smoke.json tests/u09/test_common_phases_run_in_order.sv
 ```
 
-The [Check run for the code snapshot](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/41559083571)
+The [Check run for the code snapshot](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/41561342697)
 is retained as a reference. Use the README badge for the latest workflow
 result; newer commits may supersede that run. Local checks are not proof
 of a successful full CI run. Check runs tool,
@@ -114,38 +114,39 @@ publication.
 
 | Simulator / library | Recorded result |
 | --- | --- |
-| Verilator 5.052 / pinned UVM | 1050 pass at seeds 1 and 73; 124 known |
+| Verilator 5.052 / pinned UVM | 1062 pass at seeds 1 and 73; 126 known |
 | Verilator 5.052 / original VPI HDL backend | Separate eight-case condition: seven pass at both seeds, one fails at seed 1 |
-| kirimasim / pinned UVM | 1085 unchanged cases: 1076 unsupported and nine missing-API failures; 89 new cases unmeasured |
-| Ghost / bundled UVM | 1085 unchanged cases: 207 pass and 878 fail at each seed; 89 new cases unmeasured |
+| kirimasim / pinned UVM | 1085 unchanged cases: 1076 unsupported and nine missing-API failures; 103 new cases unmeasured |
+| Ghost / bundled UVM | 1085 unchanged cases: 207 pass and 878 fail at each seed; 103 new cases unmeasured |
 | Ghost / pinned UVM | No measurement for the current executable snapshot |
 
-The ordinary condition retains 124 known cases: 106 runtime first differences
+The ordinary condition retains 126 known cases: 108 runtime first differences
 at seed 1, 10 missing-API builds and eight unlinked-HDL-DPI builds. The VPI
 condition covers eight explicit inputs, seven matching both seeds and one
 retained E.7 warning/no-transfer difference. Overlapping conditions are not summed.
 
-The latest fifteen fixtures cover seven abstract-registry conditions, two
-sequence ID/parent-change cases and six block map/door/removal cases. Thirteen
-match both seeds. Parentless abstract-component creation and calculated depth
-after reparenting retain differences. The parent-present callback control matches.
-No guest measurement is added; 89 current cases remain unmeasured.
-Twenty-two AI classifications are stored separately: twenty-one structural and
-one contextual. Inventory/backlog schema remains 2 and canonical schemas 1.
+The latest fourteen fixtures cover four recording callback/failure cases,
+four sequence hook/phase reuse cases and six model hierarchy/map cases.
+Twelve match both seeds; two retain block/map descendant-name lookup
+differences. The tested child maps are not installed as local map submaps;
+block search uses valid simple names and includes a direct-child control.
+No guest measurement is added; 103 current cases remain unmeasured.
+Thirty-six AI classifications are separate: thirty-five structural and one
+contextual. Inventory/backlog schema remains 2 and canonical schemas 1.
 
 The assembled Verilator snapshot retains unchanged prior inputs and replaces only
 remeasured records. It is not one invocation rerunning the entire suite.
 On the current host, the compatible local records are:
 
 ```text
-out/thin-twentieth-verilator-combined.json
+out/thin-twenty-first-verilator-combined.json
 out/thin-fourteenth-ghost-final-1.json
 out/thin-fourteenth-ghost-final-73.json
 out/thin-fourteenth-kirimasim-final.json
-out/thin-twentieth-inventory.json
-out/thin-twentieth-backlog-final.json
-out/thin-twentieth-evidence-scope.json
-out/thin-twentieth-hdl-combined.json
+out/thin-twenty-first-inventory.json
+out/thin-twenty-first-backlog-final.json
+out/thin-twenty-first-evidence-scope.json
+out/thin-twenty-first-hdl-combined.json
 ```
 
 Before reuse, verify test-ID sets within each declared full/subset scope, current `inputs_sha256`, identical
@@ -159,7 +160,7 @@ measurements with authorized configuration. See [evidence assembly](results.md#e
 These are prioritization suggestions, not approved exclusions or a coverage
 percentage. Regenerate the backlog before choosing the next increment.
 
-The existing-test mapping queue is empty across all roots. Review the 1,655
+The existing-test mapping queue is empty across all roots. Review the 1,615
 unassessed identifiers against the standard, distinguishing headings from
 normative obligations and splitting conditions before selecting new tests.
 Prioritize meaningful defaults, failures, isolation, ordering and lifecycle
@@ -168,7 +169,7 @@ signature/prose conflicts before deriving an oracle.
 
 No current draft lacks a direct test. This closes the direct-link queue,
 including a qualified historical interpretation for memory-walk; it does not
-complete M1–M4. Review that interpretation and the remaining 1,655 identifiers,
+complete M1–M4. Review that interpretation and the remaining 1,615 identifiers,
 then extend applicability, failures, lifecycle/concurrency and independent checks.
 Chapter 11 method clauses remain partially decomposed, while its overview and
 structural headings now have explicit AI assessments. Read other material
