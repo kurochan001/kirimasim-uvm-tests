@@ -1,0 +1,5 @@
+UT: lock_wait granted 0 blocked 1
+UT: ungrab_releases_lock granted 1 peer_owner 1 former_owner 0
+UT: grab_wait granted 0 blocked 1
+UT: unlock_releases_grab granted 1 peer_owner 1 former_owner 0
+UT: cleared owner 0 peer 0 blocked 0

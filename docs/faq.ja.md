@@ -122,7 +122,7 @@ Ghostは公開前のシミュレータの仮名です。実行ファイルの識
 ### Q12. uvm_dpi: yesだけでDPIを使うビルドが完成しますか
 
 既定のマクロ一覧から`UVM_NO_DPI`を外す指定です。UVMのC/C++実装の供給・リンクは行いません。
-通常のVerilator runnerは、そのsourceを追加しません。`UVM_NO_DPI`が1218件、HDL DPIの明示選択が8件です。
+通常のVerilator runnerは、そのsourceを追加しません。`UVM_NO_DPI`が1230件、HDL DPIの明示選択が8件です。
 [別のVPI runner](testing.ja.md#verilatorのvpi-hdl部分集合)は独自の限定backendをlinkし、結果は宣言した実行条件だけに適用します。
 DPIなしのglobによる照合も、完全な正規表現への対応とは異なります。
 ユーザー定義の`uvm_reg_backdoor` handlerはHDL DPIなしで動作できます（Q67）。
@@ -155,7 +155,7 @@ Ghostはさらに実行ファイル・profile・供給されたライブラリ�
 
 ### Q16. M1・M2・M3は完了していますか。件数は何の網羅を示しますか
 
-M1・M2には条項ごとの目標に未達があります。M3はbusモデルのfrontdoor経路を含め372件まで追加した段階で、未完です。
+M1・M2には条項ごとの目標に未達があります。M3はbusモデルのfrontdoor経路を含め375件まで追加した段階で、未完です。
 次の段階の開始によって、それまでの段階が完了したとは扱いません。
 範囲と残りの作業は[進め方](../README.ja.md#進め方)にあります。
 件数はテストの本数で、規格の全要求や組み合わせの棚卸しではありません。
@@ -921,8 +921,8 @@ controlの対応は、その要求の直接の検査ではありません。
 
 ### Q77. M4を始めたのに、カバレッジ率がないのはなぜですか
 
-AIによる1485要求案は部分的な分解で、1485要求を1225テストへ直接対応付け、直接未対応は0要求、別の1テストはcontrolです。
-全1226テストに要求の対応付けがあります。2,504の条項番号は規範的要求の単位ではありません。
+AIによる1529要求案は部分的な分解で、1529要求を1237テストへ直接対応付け、直接未対応は0要求、別の1テストはcontrolです。
+全1238テストに要求の対応付けがあります。2,504の条項番号は規範的要求の単位ではありません。
 範囲は提案、棚卸しは未完、分母は未承認で、M4の開始はどれの承認にもなりません。
 既知差分やHDL／DPIの制約によって義務を暗黙に除外しません。[承認までの手順](requirements.ja.md#m4の残作業と承認)を参照してください。
 
@@ -1707,7 +1707,7 @@ user backdoorは16 bit locationをモデル化します。location独立性、�
 
 いいえ。`tests_without_requirement_links`は0で、現在の全テストに、明示的なdirectまたはcontrolの対応があります。
 別の集計`requirements_without_direct_tests`も0件です。memory-walkの対応はQ134の限定した歴史的解釈で、
-省略されたIEEEの詳細の承認ではありません。HDL depositと利用可否には、明示VPI検査系があります。catalogの識別子1,532件も未評価です。
+省略されたIEEEの詳細の承認ではありません。HDL depositと利用可否には、明示VPI検査系があります。catalogの識別子1,505件も未評価です。
 分解と人のレビューは未完で、分母は未承認です。
 
 [新しいpolicyテスト](../tests/u16/test_policy_object_stack_tracks_nested_active_policy_push_and_pop.sv)は、
@@ -1784,7 +1784,7 @@ frontdoor保護のwarningはalgorithm oracleの対象外で、ERRORと観測し�
 個別に読んだ後、日英の根拠とAI／人のレビューを[番号の分類](../coverage/assessments.json)へ記録すれば可能です。
 構造上の見出しは関連要求を持たず、文脈の説明は既存要求を指定します。
 未レビューの記録、推測した分類、親への集約では外せません。生成状態は`assessed`で、要求条項の`partial`と区別します。
-現在の分類は58件で、分母承認や新たなpassを加えません。第11章の未評価0件でも、その要求の完了ではありません。
+現在の分類は62件で、分母承認や新たなpassを加えません。第11章の未評価0件でも、その要求の完了ではありません。
 
 ### Q136. 明示strict configurationで新規検査は成功しますか？
 
@@ -1975,3 +1975,36 @@ adapterで`provides_responses = 1`を選びます。独自driverはrouting IDを
 write成功、値の変わる反復read、write失敗後の再試行、memory read失敗後の再試行で、status／dataの対象を保ちます。
 [memoryの復帰検査系](../tests/u19/test_adapter_separate_response_controls_failed_memory_read_retry.sv)は失敗readのdataを固定しません。
 busは独自のtestbench modelであり、HDL DUT転送、byte-enable対応、parent sequenceのclone契約は評価しません。
+
+## Catcherの状態、sequenceの解放とfieldのbyte lane
+
+### Q155. Catch中のmessage変更は、次の報告も変えますか？
+
+変更は現在のmessageに属します。独自の6検査系は、先頭catcherでseverity、verbosity、ID、text、action、contextを別々に変更し、次のcatcherで変更を観測します。
+元の値で明示初期化した2件目の報告では、両callbackが元の値を観測します。file名と行番号は指定値のままです。
+末尾で両報告をcatchするため、server出力、変更後のfilter、並行messageは評価しません。[contextの検査系](../tests/u06/test_report_catcher_context_mutation_reaches_tail_without_leaking_to_next_report.sv)を参照してください。
+
+### Q156. Sequenceのunlock／ungrabは、別の既定sequencerの所有も解放しますか？
+
+sequencer引数を省略すると、そのsequenceに設定した既定値を使います。明示した解放は指定先を対象とし、既定値を置き換えません。
+2検査系で両方の所有を保持し、1つずつ解放します。`ungrab`はlockも、`unlock`はgrabも解放でき、
+[待機peerの検査系](../tests/u14/test_sequence_cross_release_releases_selected_ownership.sv)は解放後に待機中呼出しが戻ることを観測します。
+idleなsequencerの条件であり、子孫の所有、動作中bodyの終了、既定値なしのfatal経路は評価しません。
+既存の`do_kill`観測に要求を対応付けますが、別に要求されるpost hookの差分は変更しません。
+
+### Q157. Byte-enableでのfieldアクセスは、隣接fieldを保持しますか？
+
+対象のbyteを占有するfieldと対応する物理interfaceでは、fieldのread／writeは対象byteを選びます。
+非対応時は、field readがregister全体のmirrorを更新し、field writeは全registerへのfallbackで他fieldのmirrorを使います。
+実際のstorageとmirrorは異なることがあります。
+
+| 条件 | 必要な観測 | Verilator／固定UVMの観測 |
+| --- | --- | --- |
+| 対応low write、実際のword 0xabcd、mirror 0x1234 | mask 1、実際のword 0xab5a | mask 3、実際のword 0x125a |
+| 対応high read、実際のword 0xabcd、mirror 0x1234 | mask 2、low mirror 0x34 | mask 3、low mirror 0xcd |
+| 非対応high read後、実際のhigh byteを変更してlow write | 全mask、writeはhigh mirrorを使う | 両seedで一致 |
+
+固定libraryは、byteが異なりbyte enableに対応していても、bus wordを共有する2 fieldを拒否します。
+最初の2行は規範的期待を[既知差分](known-differences.ja.md#固定版ライブラリの制約)として保持します。
+[fallback対照](../tests/u18/test_field_byte_enable_fallback_selects_individual_or_whole_register_access.sv)は別に一致します。
+独自bus modelでの観測で、HDL DUT storageや副作用を持つaccess policyは使いません。

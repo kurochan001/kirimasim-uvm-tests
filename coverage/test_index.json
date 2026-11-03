@@ -210,6 +210,14 @@
       "primary_clause": "6.3.5.1",
       "inputs_sha256": "3476a2e2593ed6eedc21a366e373228abfae298c2084f73af0981094fc10e58b"
     },
+    "u06/test_report_catcher_action_mutation_reaches_tail_without_leaking_to_next_report": {
+      "primary_clause": "6.6.4.5",
+      "inputs_sha256": "8a8bd941e5fd19aaeb47f5ec33b900f0a317c893f919574ba810cff78ab5e937"
+    },
+    "u06/test_report_catcher_context_mutation_reaches_tail_without_leaking_to_next_report": {
+      "primary_clause": "6.6.4.6",
+      "inputs_sha256": "f795c08c463f9d4d8d8af619ff93a5a2f340e9c366625af87dd764f45dde56ca"
+    },
     "u06/test_report_catcher_error_helper_bypasses_both_catching_callbacks": {
       "primary_clause": "6.6.6.2",
       "inputs_sha256": "8e44abcebaf76ac1a626e04111d11e3cad94d9e18776d740c3991dd05b9d4142"
@@ -217,6 +225,10 @@
     "u06/test_report_catcher_generic_warning_helper_bypasses_both_catching_callbacks": {
       "primary_clause": "6.6.6.5",
       "inputs_sha256": "922b6d073e9e090e6f5529bef816a6024e785b69b5ca64eb851e9ded0a738e29"
+    },
+    "u06/test_report_catcher_id_mutation_reaches_tail_without_leaking_to_next_report": {
+      "primary_clause": "6.6.4.3",
+      "inputs_sha256": "7d292fb77dbe006da10f93f5c1e272ecaf9a0a3d4ce78288a77b72ab48b7abe5"
     },
     "u06/test_report_catcher_info_helper_bypasses_both_catching_callbacks": {
       "primary_clause": "6.6.6.4",
@@ -229,6 +241,18 @@
     "u06/test_report_catcher_issue_counts_the_current_message_before_it_is_thrown": {
       "primary_clause": "6.6.6.6",
       "inputs_sha256": "fce725c99ef4cd99f8ea1f52cce8b862892a5dd5e40a65780aa3591e1ca180ef"
+    },
+    "u06/test_report_catcher_message_mutation_reaches_tail_without_leaking_to_next_report": {
+      "primary_clause": "6.6.4.4",
+      "inputs_sha256": "3ce054e07875c491deb9bcf2265cf07f0089247b29f3dda377d91593a8e0e31b"
+    },
+    "u06/test_report_catcher_severity_mutation_reaches_tail_without_leaking_to_next_report": {
+      "primary_clause": "6.6.4.1",
+      "inputs_sha256": "336ecbc5d828b07831a1bba185f86cdae34d34dfdae1b29401282ae2a1b2b3ef"
+    },
+    "u06/test_report_catcher_verbosity_mutation_reaches_tail_without_leaking_to_next_report": {
+      "primary_clause": "6.6.4.2",
+      "inputs_sha256": "ea21ccf4f9d5cf769a2224e247800200d62e6228ffb230a898e3cff9724fe660"
     },
     "u06/test_report_file_selection_specificity_precedence": {
       "primary_clause": "6.3.6.1",
@@ -1814,6 +1838,10 @@
       "primary_clause": "14.2.7.8",
       "inputs_sha256": "b5c3612b5720ec5eb4bd0f1f91f4005543d1cc34a6e1a8ebf14cd799b84dd308"
     },
+    "u14/test_sequence_cross_release_releases_selected_ownership": {
+      "primary_clause": "14.2.5.8",
+      "inputs_sha256": "7c6abec0ac771dfa8172dbaab7cd81fd85cae13a4affcd0ca1700d18f97bd73c"
+    },
     "u14/test_sequence_default_print_visits_replacement_items": {
       "primary_clause": "14.3.2.1",
       "inputs_sha256": "fb381e3d08873791e68c4997cb2e47f1654970cbbb8143094aa82e9b56f5ffbd"
@@ -2213,6 +2241,14 @@
     "u14/test_sequence_unbounded_response_queue_exceeds_default_depth": {
       "primary_clause": "14.2.7.6",
       "inputs_sha256": "438b9058683e9105e9137df9a1b029655accb3f965d2068025977f947645f783"
+    },
+    "u14/test_sequence_ungrab_releases_selected_ownership": {
+      "primary_clause": "14.2.5.8",
+      "inputs_sha256": "b63475d8e92d4d74a402efc32b7546d3dcc2ce6ca9ab4acb41f5e141f344f486"
+    },
+    "u14/test_sequence_unlock_releases_selected_ownership": {
+      "primary_clause": "14.2.5.7",
+      "inputs_sha256": "3afc80f3864b8ebc7b6019582ff18feae036b6c09c80f6774ab8764fd2079950"
     },
     "u14/test_sequence_wait_for_grant_blocks_until_driver_requests_an_item": {
       "primary_clause": "14.2.6.4",
@@ -3153,6 +3189,18 @@
     "u18/test_coverage_sample_values_recurses_only_through_the_selected_subtree": {
       "primary_clause": "18.1.4.7",
       "inputs_sha256": "40574fbf68f582dc42466e5adb09f863993c7720bdb9dae9e674ef9ee30e85cf"
+    },
+    "u18/test_field_byte_enable_fallback_selects_individual_or_whole_register_access": {
+      "primary_clause": "18.5.5.16",
+      "inputs_sha256": "c01cb76f222e2cff5e8da24ce6eaec70142e05fc81c0f994d54641c9afd770ad"
+    },
+    "u18/test_field_byte_enable_read_selects_individual_or_whole_register_access": {
+      "primary_clause": "18.5.5.10",
+      "inputs_sha256": "b25be6c4c0430302554c1276f971ca818af3d198793bd399b637559189d032d5"
+    },
+    "u18/test_field_byte_enable_write_selects_individual_or_whole_register_access": {
+      "primary_clause": "18.5.5.9",
+      "inputs_sha256": "0c467662747787501ff8b58bf894cbfa20c0e0a1f52ab0686b76a5570fcd2638"
     },
     "u18/test_flattened_regfile_omits_its_name_from_full_paths_for_each_selected_abstraction": {
       "primary_clause": "18.3.2.2",

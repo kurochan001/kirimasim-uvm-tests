@@ -3,8 +3,8 @@
 [日本語](history.ja.md) · [README](../README.md)
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and twenty-four cross-milestone thin-area expansions, including the
-existing-test requirement-link backlog checkpoint (1226 simulation tests). The earlier 349-test checkpoint is
+three M4 increments and twenty-five cross-milestone thin-area expansions, including the
+existing-test requirement-link backlog checkpoint (1238 simulation tests). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -2357,3 +2357,43 @@ bring totals to 154 and 175. Validation covers 88 tool unit tests, all 1226
 metadata records, ledger/index/library checks, bilingual links and current-input
 evidence fingerprints. Existing fixtures, runners, VPI backend, lock, scope,
 licenses and six SVG assets remain unchanged.
+
+## Twenty-fifth thin-area expansion across M1–M4
+
+Twelve original fixtures add six catcher mutation/getter cases, three
+sequence-side release cases and three individual/fallback field-access cases.
+The suite reaches 1238: M1 417, M2 446 and M3 375. Catcher fields propagate to
+later callbacks without leaking into a fresh explicit report. Sequence default
+and explicit release targets, peer blocking and cross-release are distinct.
+
+Ten final-input cases match seeds 1 and 73. Two retain seed-1 differences:
+with byte-enable support and byte-isolated fields sharing a 16-bit bus word,
+the pinned library rejects individual access and uses a full-word mask.
+Low write changes the live high byte from 0xab to mirror 0x12; high read
+updates the low mirror to 0xcd instead of retaining 0x34. Required byte-only
+expectations remain spec-only. The no-byte-enable full-register fallback
+matches both seeds, including use of a peer mirror after live storage changes.
+Only permitted Apache UVM source was used to diagnose that bus-width grouping;
+no simulator implementation source or commercial simulator results were used.
+
+Compatible ordinary evidence retains all 1226 prior inputs and adds twelve
+final measurements: 1105 pass, 133 known (115 runtime first differences,
+ten missing-API builds and eight unlinked-DPI builds). The separate VPI condition
+remains seven pass and one fail. Guest evidence covers 1085 unchanged inputs;
+153 current cases are unmeasured.
+
+Forty-four AI drafts bring the ledger to 1529, all directly linked to 1237
+tests, plus one control test. Three unchanged kill-hook fixtures gain explicit
+do_kill links without new measurements or changes to their post-hook results.
+Four individually read methods headings bring assessments to sixty-two:
+sixty structural, two contextual. Of 2,504 identifiers, 937 are partly
+decomposed and 1,505 unassessed. The decrease of twenty-seven is twenty-three
+newly decomposed identifiers plus four classifications. Primary-focus identifiers
+are 606, any citation 1,247; the candidate census is 1,873 zero, 343 one and
+263 at least two. Scope approval, human review and the denominator remain open.
+
+All ten guide pairs are checked and current totals refreshed. Three FAQ answers
+and three glossary entries bring totals to 157 and 178. Validation covers
+88 tool unit tests, metadata for all 1238 tests, ledger/index/library checks,
+bilingual references and current-input evidence. Existing simulation inputs,
+runners, VPI backend, scope, lock, licenses and six SVG assets remain unchanged.

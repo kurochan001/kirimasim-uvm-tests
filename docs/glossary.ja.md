@@ -660,3 +660,15 @@ printerの書式を固定せず、到達したobjectを識別します。
 
 **Separate response identity（別responseの同一性）** — requestのrouting IDを引き継ぎ、driverが返す新規objectそのものです。
 矛盾するrequest状態により、別responseを選択しているのにrequest内の経路を使う場合を検出しやすくします。
+
+## 現在の報告状態と選択する所有／byte
+
+**Catcher mutation scope（catcher変更の範囲）** — 現在のmessageを変更し、後続catcherから観測できる範囲です。
+新しい報告は自身のattributeを持ちます。発行前にcatchすることで、callback状態とserver出力の検査を分けます。
+
+**Sequence release target（sequenceの解放対象）** — unlock／ungrabで明示したsequencer、または省略時の設定済み既定sequencerです。
+1対象の解放は、別のsequencerで保持する所有を解放しません。
+
+**Live neighbor / mirrored neighbor（実際の隣接値／mirrorの隣接値）** — 隣接fieldのbus model上の値とmodel mirrorの値です。
+個別byteのwriteは実際の隣接値を保持し、全registerへのfallback writeは最善の試みとしてmirrorの隣接値を使います。
+[Q157](faq.ja.md#q157-byte-enableでのfieldアクセスは隣接fieldを保持しますか)を参照してください。

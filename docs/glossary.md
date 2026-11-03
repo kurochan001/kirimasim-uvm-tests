@@ -855,3 +855,18 @@ object without requiring the printer's formatted output.
 **Separate response identity** — The exact fresh object returned by the driver,
 with request routing IDs copied to it. Contradictory request state helps detect
 an in-place path used when separate responses are selected.
+
+## Current report state and selected ownership or bytes
+
+**Catcher mutation scope** — A change to the current message seen by later
+catchers. A fresh report supplies its own attributes. Catching the report before
+emission keeps callback-state checks separate from server-output checks.
+
+**Sequence release target** — The explicit sequencer supplied to unlock/ungrab,
+or the assigned default when omitted. Releasing one target does not release
+ownership held on a different sequencer.
+
+**Live neighbor / mirrored neighbor** — An adjacent field's actual bus-model
+value versus its model mirror. Individual byte writes preserve the live neighbor;
+whole-register fallback writes use the mirrored neighbor in a best effort.
+See [Q157](faq.md#q157-does-a-byte-enabled-field-access-preserve-its-neighbor).

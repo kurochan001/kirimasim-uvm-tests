@@ -2,7 +2,7 @@
 
 [English](history.md) · [README](../README.ja.md)
 
-M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の24回目の拡充（シミュレーション1226件）までを記録しています。以前の349件の時点は
+M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の25回目の拡充（シミュレーション1238件）までを記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -1665,3 +1665,28 @@ AI要求案34件を加えて1485件となり、すべて1225テストへ直接�
 
 日英10組のguideを更新し、FAQ 3件と用語3件を追加して154回答・175語になります。tool単体88件、全1226 metadata、台帳／索引／library、
 日英参照、現在の入力とevidenceの指紋を検証します。既存検査系、runner、VPI backend、lock、scope、license、SVG 6 assetは変更しません。
+
+## M1〜M4の薄い領域の25回目の拡充
+
+catcherの状態変更／getter 6件、sequence側の解放3件、個別／fallback field access 3件の、独自検査系12件を追加します。
+全体1238件、M1 417件、M2 446件、M3 375件です。catcherのfield変更は後続callbackへ伝わり、新たに明示初期化した報告へ漏れません。
+sequenceは既定／明示の解放対象、peerのblocking、相互解放を区別します。
+
+最終入力10件がseed 1・73で一致し、2件はseed 1の差分を保持します。byte enable対応で16-bit bus wordの別byteを占めるfieldでも、
+固定libraryは個別アクセスを拒否し、全wordのmaskを使います。low writeは実際のhigh byteを0xabからmirrorの0x12へ変え、
+high readはlow mirrorを0x34に保持せず0xcdへ更新します。必要なbyte単位の期待をspec-onlyで保持します。
+byte-enable非対応の全registerへのfallbackは、実際のstorage変更後にpeer mirrorを使う条件も含め、両seedで一致します。
+bus幅でまとめる判定の診断には許可されたApache UVM sourceだけを使い、simulator実装sourceや商用シミュレータ結果は使いません。
+
+互換な通常evidenceは以前の1226入力を保持し、最終12測定を加えてpass 1105件、known 133件です。
+knownは実行時の最初の差分115件、API欠落build 10件、DPI未linkのbuild 8件です。別のVPI条件はpass 7件・fail 1件のままです。
+guest記録は未変更1085入力で、現在の153件は未測定です。
+
+AI要求案44件を加えて1529件となり、すべて1237テストへ直接対応し、別control 1件があります。未変更のkill-hook検査系3件にdo_killの直接対応を加え、
+新測定やpost hook結果の変更は加えません。個別に読んだmethod見出し4件を加え、分類は62件、構造60件・文脈2件です。
+2,504番号のうち部分分解937件、未評価1,505件で、減少27件は新たな分解23件と分類4件です。
+主引用606番号、いずれかの引用1,247番号、候補の棚卸しは0件1,873、1件343、2件以上263です。範囲承認、人のレビュー、分母は未完です。
+
+日英10組のguideを照合し、現在の件数を更新します。FAQ 3件と用語3件を加え、157回答・178語です。
+tool単体88件、全1238 metadata、台帳／索引／library、日英参照、現在の入力のevidenceを検査します。
+既存simulation入力、runner、VPI backend、scope、lock、license、SVG 6 assetは未変更です。

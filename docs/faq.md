@@ -135,7 +135,7 @@ See [Ghost setup](testing.md#ghost).
 
 It removes `UVM_NO_DPI` from the default macro list. It does not supply or link
 UVM's C/C++ implementation. The current Verilator runner does not add those
-sources. There are 1218 `UVM_NO_DPI` cases and eight explicit HDL-DPI cases.
+sources. There are 1230 `UVM_NO_DPI` cases and eight explicit HDL-DPI cases.
 The [separate VPI runner](testing.md#verilator-vpi-hdl-subset) links the original
 limited backend; results apply only to that declared execution condition.
 User-defined `uvm_reg_backdoor` handlers can operate without HDL DPI (Q67).
@@ -174,7 +174,7 @@ a claim that every test was rebuilt together.
 
 ### Q16. Are M1, M2 or M3 complete, and what does the test count cover?
 
-M1 and M2 still have open clause targets. M3 now has 372
+M1 and M2 still have open clause targets. M3 now has 375
 register-layer cases, including testbench frontdoor paths; it is also incomplete. Starting a stage does not complete
 the preceding stages.
 The [plan](../README.md#plan) identifies current scope and remaining work.
@@ -1141,9 +1141,9 @@ not a direct test of the requirement.
 
 ### Q77. Why is there no coverage percentage after starting M4?
 
-The 1485 AI drafts cover only a partial decomposition: 1485 requirements link
-directly to 1225 tests; all drafts have direct tests, and one separate test is a control.
-All 1226 tests have requirement links. The 2,504 clause identifiers are not normative requirement units.
+The 1529 AI drafts cover only a partial decomposition: 1529 requirements link
+directly to 1237 tests; all drafts have direct tests, and one separate test is a control.
+All 1238 tests have requirement links. The 2,504 clause identifiers are not normative requirement units.
 The scope is proposed, the inventory incomplete and the denominator unapproved;
 starting M4 approves none of those. Known differences and HDL/DPI limitations
 do not silently exclude obligations. See the [approval path](requirements.md#remaining-m4-work-and-approval).
@@ -2143,7 +2143,7 @@ No. `tests_without_requirement_links` is zero: every current test has an
 explicit direct or control link. The separate counter
 `requirements_without_direct_tests` is zero. The memory-walk link uses the
 qualified historical interpretation in Q134. It is not approval of missing
-IEEE detail. HDL deposit and accessibility use explicit VPI fixtures. Another 1,532
+IEEE detail. HDL deposit and accessibility use explicit VPI fixtures. Another 1,505
 catalog identifiers remain unassessed; decomposition and human review are
 incomplete, and the denominator remains unapproved.
 
@@ -2244,7 +2244,7 @@ in [identifier assessments](../coverage/assessments.json). Structural headings
 have no related requirements; contextual descriptions name existing requirements.
 An unreviewed record, guessed classification or parent rollup cannot do this.
 The generated state is `assessed`, separate from `partial` requirement clauses.
-Fifty-eight classifications currently exist, with no denominator approval or new pass.
+Sixty-two classifications currently exist, with no denominator approval or new pass.
 Chapter 11's zero unassessed identifiers still does not complete its requirements.
 
 ### Q136. Does explicit strict configuration make the new cases pass?
@@ -2494,3 +2494,45 @@ The [memory recovery fixture](../tests/u19/test_adapter_separate_response_contro
 does not constrain failed-read data. The bus is an original testbench model;
 these observations establish no HDL DUT transfer, byte-enable support or
 parent-sequence cloning contract.
+
+## Catcher state, sequence releases and field byte lanes
+
+### Q155. Does changing a caught message alter the next report?
+
+The mutation belongs to the current message. Six original fixtures separately
+change severity, verbosity, ID, text, action or context in the first catcher.
+The next catcher must see the change. A second explicitly initialized report
+uses the original value in both callbacks; filename and line remain as supplied.
+The tail catches both reports, so these tests make no claim about server output,
+post-change filtering or concurrent messages. See the [context fixture](../tests/u06/test_report_catcher_context_mutation_reaches_tail_without_leaking_to_next_report.sv).
+
+### Q156. Can sequence unlock/ungrab release ownership on another default?
+
+Omitting the sequencer argument uses the sequence's assigned default. Explicit
+release targets the supplied sequencer without replacing that default. Two
+fixtures hold ownership on both and release one at a time. `ungrab` can release
+a lock, and `unlock` can release a grab; a [queued-peer fixture](../tests/u14/test_sequence_cross_release_releases_selected_ownership.sv)
+observes the waiting call return only after release. These idle-sequencer
+conditions do not establish nested ownership, active-body termination or the
+missing-default fatal path. Existing `do_kill` observations gain requirements
+without changing their separate required post-hook differences.
+
+### Q157. Does a byte-enabled field access preserve its neighbor?
+
+For the tested byte-isolated fields and supported physical interface, field
+read/write accesses select the field's byte. Without support, a field read
+updates the whole register mirror, and a field write uses other fields' mirrors
+in its whole-register fallback. Live storage can differ from those mirrors:
+
+| Condition | Required observation | Verilator / pinned UVM observation |
+| --- | --- | --- |
+| Supported low write, live word 0xabcd, mirror 0x1234 | Mask 1; live word 0xab5a | Mask 3; live word 0x125a |
+| Supported high read, live word 0xabcd, mirror 0x1234 | Mask 2; low mirror 0x34 | Mask 3; low mirror 0xcd |
+| Unsupported high read, then low write with changed live high byte | Full masks; write uses high mirror | Matches both seeds |
+
+The pinned library rejects two fields sharing the bus word even when their
+bytes are distinct and byte enables are supported. The first two rows retain
+normative expectations as [known differences](known-differences.md#pinned-library-limitations).
+The [fallback control](../tests/u18/test_field_byte_enable_fallback_selects_individual_or_whole_register_access.sv)
+separately matches. These observations use an original bus model, not HDL DUT
+storage or side-effecting access policies.

@@ -2,7 +2,7 @@
 
 [日本語](known-differences.ja.md) · [README](../README.md) · [FAQ](faq.md)
 
-This describes the current 1226-test suite and the pinned Accellera UVM
+This describes the current 1238-test suite and the pinned Accellera UVM
 2020.3.1 library. A mismatch is a test result; it does not by itself assign
 the cause to the simulator, the library or the expectation.
 
@@ -19,6 +19,16 @@ shared accesses and one child-block shape; see the
 Further limitations and observations were identified during M1, M2 and M3.
 Where a test directly checks a required behavior that is missing, its
 normative expectation is retained with `:oracle: spec`.
+
+- Two byte-isolated fields share a 16-bit physical word with adapter byte
+  enables advertised. Clauses 18.5.5.9/.10 require individual access in this
+  condition. The pinned eligibility check groups fields by the whole bus
+  width, rejects both and falls back to a full-word mask. Low write replaces
+  the live high byte 0xab with mirror 0x12; high read updates low mirror to
+  0xcd instead of retaining 0x34. Selected return values and later writes
+  still match, but those do not establish isolated access. The separate
+  no-byte-enable fallback control matches both seeds. Expected individual
+  access remains spec-only; no HDL DUT storage is involved.
 
 - Heartbeat start with an omitted event while already running dereferences
   that null argument while forming a replacement-event error in the pinned
@@ -410,7 +420,7 @@ SystemVerilog 13.4, so it cannot represent a count of two. The expected two
 preserves the prose interpretation. This signature/prose conflict requires
 review and is not assigned as a confirmed simulator or library bug.
 
-Across the suite, 1095 tests have the `verilator@5.052` oracle tag and 131
+Across the suite, 1105 tests have the `verilator@5.052` oracle tag and 133
 cases are spec-only. One of the spec-only cases checks 9.6: a child's pre-reset
 task must be killed when that phase ends, but the pinned-library run on Verilator 5.052
 lets the child perform its delayed write during a later phase. The cause of
@@ -422,10 +432,10 @@ without callbacks. The pinned Verilator run reaches the blocked-state
 observation, then its watchdog expires. This combined simulator/library
 cause remains unassigned; the normative wakeup expectation is retained.
 
-The 131 spec-only tests retain their normative expected files.
-Default Verilator runs and CI select the 1095 tagged cases. `--all` includes
+The 133 spec-only tests retain their normative expected files.
+Default Verilator runs and CI select the 1105 tagged cases. `--all` includes
 spec-only cases and records mismatches or build failures as `known`.
-The ordinary runtime records for 113 cases establish their first difference
+The ordinary runtime records for 115 cases establish their first difference
 at seed 1, without seed 73 results. Ten missing-API builds have no ordinary
 runtime seed result: one time API, six sequence-library cases, two HDL slice
 cases and one object active-policy case. Eight HDL-DPI fixtures also cannot
@@ -435,7 +445,7 @@ These overlapping configurations are not summed.
 
 ## Spec-only tests
 
-These are the 131 current spec-only cases. Several exercise the same
+These are the 133 current spec-only cases. Several exercise the same
 limitation, so their count is not a count of distinct bugs.
 
 - [Explicit HDL abstraction selection](../tests/uE/test_hdl_path_sequence_uses_an_explicit_abstraction_instead_of_the_invalid_default.sv).
@@ -655,10 +665,15 @@ Additional heartbeat and FIFO cases:
 - [inline FIFO constraint observations](../tests/u18/test_reg_fifo_randomization_accepts_capacity_and_rejects_an_oversized_queue.sv)
 - [subtype-declared FIFO bounds](../tests/u18/test_reg_fifo_capacity_constraint_applies_to_subtype_declared_queue_sizes.sv)
 
+Additional individual-field byte-enable cases:
+
+- [isolated field writes](../tests/u18/test_field_byte_enable_write_selects_individual_or_whole_register_access.sv)
+- [isolated field reads](../tests/u18/test_field_byte_enable_read_selects_individual_or_whole_register_access.sv)
+
 ## Simulator and library combinations
 
-The suite has 1226 cases, but the kirimasim/Ghost records below cover only
-1085 unchanged current-input cases. The 141 new cases are unmeasured
+The suite has 1238 cases, but the kirimasim/Ghost records below cover only
+1085 unchanged current-input cases. The 153 new cases are unmeasured
 because prior temporary executable/profile snapshots are unavailable. Do
 not treat this as a fresh full-suite guest result. See [results](results.md).
 

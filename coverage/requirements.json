@@ -55680,6 +55680,1650 @@
           ]
         }
       ]
+    },
+    {
+      "id": "UVM-CATCHER-SEVERITY-MUTATION-PROPAGATES",
+      "clause": "6.6.4.1",
+      "statement": {
+        "en": "A current-message severity mutation is visible to a later catcher.",
+        "ja": "現在のmessageのseverity変更は、後続catcherから観測できる。"
+      },
+      "conditions": {
+        "en": "The first catcher changes severity only for its first report, then returns THROW.",
+        "ja": "先頭catcherは最初の報告だけでseverityを変更し、THROWを返す。"
+      },
+      "expected": {
+        "en": "The tail observes ERROR rather than the initial INFO.",
+        "ja": "末尾は初期値INFOではなくERRORを観測する。"
+      },
+      "limitations": {
+        "en": "Two local catching callbacks and explicit original report attributes only; the tail catches both reports. No server formatting, output action, post-mutation filtering or concurrent-report behavior is asserted.",
+        "ja": "localのcatching callback 2個と明示した元の報告attributeのみ。末尾で両報告をcatchする。serverの書式、出力action、変更後のfilter、並行報告は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_catcher_severity_mutation_reaches_tail_without_leaking_to_next_report",
+          "role": "direct",
+          "expected_observations": [
+            "UT: changed first 1 tail 1 original 1 propagated 1 location 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CATCHER-SEVERITY-GETTER-AFTER-MUTATION",
+      "clause": "6.6.3.2",
+      "statement": {
+        "en": "The severity getter returns the value of the message currently being processed.",
+        "ja": "severityのgetterは、現在処理しているmessageの値を返す。"
+      },
+      "conditions": {
+        "en": "The first catcher changes severity only for its first report, then returns THROW.",
+        "ja": "先頭catcherは最初の報告だけでseverityを変更し、THROWを返す。"
+      },
+      "expected": {
+        "en": "The first catcher sees the supplied original value; the tail sees the changed value.",
+        "ja": "先頭catcherは指定した元の値を、末尾は変更後の値を観測する。"
+      },
+      "limitations": {
+        "en": "Two local catching callbacks and explicit original report attributes only; the tail catches both reports. No server formatting, output action, post-mutation filtering or concurrent-report behavior is asserted.",
+        "ja": "localのcatching callback 2個と明示した元の報告attributeのみ。末尾で両報告をcatchする。serverの書式、出力action、変更後のfilter、並行報告は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_catcher_severity_mutation_reaches_tail_without_leaking_to_next_report",
+          "role": "direct",
+          "expected_observations": [
+            "UT: changed first 1 tail 1 original 1 propagated 1 location 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CATCHER-SEVERITY-FRESH-MESSAGE-STATE",
+      "clause": "6.6.3.2",
+      "statement": {
+        "en": "A later report exposes its own severity value rather than a previous report mutation.",
+        "ja": "後の報告は、以前の報告の変更ではなく自身のseverity値を返す。"
+      },
+      "conditions": {
+        "en": "The same two catchers receive a second report with the original explicit severity value.",
+        "ja": "同じ2つのcatcherへ、元のseverity値を明示した2件目の報告を渡す。"
+      },
+      "expected": {
+        "en": "Both callbacks now observe INFO; each callback has two total visits.",
+        "ja": "両callbackがINFOを観測し、各callbackの総訪問回数は2である。"
+      },
+      "limitations": {
+        "en": "Two local catching callbacks and explicit original report attributes only; the tail catches both reports. No server formatting, output action, post-mutation filtering or concurrent-report behavior is asserted.",
+        "ja": "localのcatching callback 2個と明示した元の報告attributeのみ。末尾で両報告をcatchする。serverの書式、出力action、変更後のfilter、並行報告は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_catcher_severity_mutation_reaches_tail_without_leaking_to_next_report",
+          "role": "direct",
+          "expected_observations": [
+            "UT: fresh first 2 tail 2 original 1 propagated 1 location 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CATCHER-VERBOSITY-MUTATION-PROPAGATES",
+      "clause": "6.6.4.2",
+      "statement": {
+        "en": "A current-message verbosity mutation is visible to a later catcher.",
+        "ja": "現在のmessageのverbosity変更は、後続catcherから観測できる。"
+      },
+      "conditions": {
+        "en": "The first catcher changes verbosity only for its first report, then returns THROW.",
+        "ja": "先頭catcherは最初の報告だけでverbosityを変更し、THROWを返す。"
+      },
+      "expected": {
+        "en": "The tail observes HIGH rather than the initial LOW.",
+        "ja": "末尾は初期値LOWではなくHIGHを観測する。"
+      },
+      "limitations": {
+        "en": "Two local catching callbacks and explicit original report attributes only; the tail catches both reports. No server formatting, output action, post-mutation filtering or concurrent-report behavior is asserted.",
+        "ja": "localのcatching callback 2個と明示した元の報告attributeのみ。末尾で両報告をcatchする。serverの書式、出力action、変更後のfilter、並行報告は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_catcher_verbosity_mutation_reaches_tail_without_leaking_to_next_report",
+          "role": "direct",
+          "expected_observations": [
+            "UT: changed first 1 tail 1 original 1 propagated 1 location 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CATCHER-VERBOSITY-GETTER-AFTER-MUTATION",
+      "clause": "6.6.3.4",
+      "statement": {
+        "en": "The verbosity getter returns the value of the message currently being processed.",
+        "ja": "verbosityのgetterは、現在処理しているmessageの値を返す。"
+      },
+      "conditions": {
+        "en": "The first catcher changes verbosity only for its first report, then returns THROW.",
+        "ja": "先頭catcherは最初の報告だけでverbosityを変更し、THROWを返す。"
+      },
+      "expected": {
+        "en": "The first catcher sees the supplied original value; the tail sees the changed value.",
+        "ja": "先頭catcherは指定した元の値を、末尾は変更後の値を観測する。"
+      },
+      "limitations": {
+        "en": "Two local catching callbacks and explicit original report attributes only; the tail catches both reports. No server formatting, output action, post-mutation filtering or concurrent-report behavior is asserted.",
+        "ja": "localのcatching callback 2個と明示した元の報告attributeのみ。末尾で両報告をcatchする。serverの書式、出力action、変更後のfilter、並行報告は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_catcher_verbosity_mutation_reaches_tail_without_leaking_to_next_report",
+          "role": "direct",
+          "expected_observations": [
+            "UT: changed first 1 tail 1 original 1 propagated 1 location 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CATCHER-VERBOSITY-FRESH-MESSAGE-STATE",
+      "clause": "6.6.3.4",
+      "statement": {
+        "en": "A later report exposes its own verbosity value rather than a previous report mutation.",
+        "ja": "後の報告は、以前の報告の変更ではなく自身のverbosity値を返す。"
+      },
+      "conditions": {
+        "en": "The same two catchers receive a second report with the original explicit verbosity value.",
+        "ja": "同じ2つのcatcherへ、元のverbosity値を明示した2件目の報告を渡す。"
+      },
+      "expected": {
+        "en": "Both callbacks now observe LOW; each callback has two total visits.",
+        "ja": "両callbackがLOWを観測し、各callbackの総訪問回数は2である。"
+      },
+      "limitations": {
+        "en": "Two local catching callbacks and explicit original report attributes only; the tail catches both reports. No server formatting, output action, post-mutation filtering or concurrent-report behavior is asserted.",
+        "ja": "localのcatching callback 2個と明示した元の報告attributeのみ。末尾で両報告をcatchする。serverの書式、出力action、変更後のfilter、並行報告は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_catcher_verbosity_mutation_reaches_tail_without_leaking_to_next_report",
+          "role": "direct",
+          "expected_observations": [
+            "UT: fresh first 2 tail 2 original 1 propagated 1 location 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CATCHER-ID-MUTATION-PROPAGATES",
+      "clause": "6.6.4.3",
+      "statement": {
+        "en": "A current-message id mutation is visible to a later catcher.",
+        "ja": "現在のmessageのid変更は、後続catcherから観測できる。"
+      },
+      "conditions": {
+        "en": "The first catcher changes id only for its first report, then returns THROW.",
+        "ja": "先頭catcherは最初の報告だけでidを変更し、THROWを返す。"
+      },
+      "expected": {
+        "en": "The tail observes rewritten rather than the initial original.",
+        "ja": "末尾は初期値originalではなくrewrittenを観測する。"
+      },
+      "limitations": {
+        "en": "Two local catching callbacks and explicit original report attributes only; the tail catches both reports. No server formatting, output action, post-mutation filtering or concurrent-report behavior is asserted.",
+        "ja": "localのcatching callback 2個と明示した元の報告attributeのみ。末尾で両報告をcatchする。serverの書式、出力action、変更後のfilter、並行報告は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_catcher_id_mutation_reaches_tail_without_leaking_to_next_report",
+          "role": "direct",
+          "expected_observations": [
+            "UT: changed first 1 tail 1 original 1 propagated 1 location 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CATCHER-ID-GETTER-AFTER-MUTATION",
+      "clause": "6.6.3.5",
+      "statement": {
+        "en": "The id getter returns the value of the message currently being processed.",
+        "ja": "idのgetterは、現在処理しているmessageの値を返す。"
+      },
+      "conditions": {
+        "en": "The first catcher changes id only for its first report, then returns THROW.",
+        "ja": "先頭catcherは最初の報告だけでidを変更し、THROWを返す。"
+      },
+      "expected": {
+        "en": "The first catcher sees the supplied original value; the tail sees the changed value.",
+        "ja": "先頭catcherは指定した元の値を、末尾は変更後の値を観測する。"
+      },
+      "limitations": {
+        "en": "Two local catching callbacks and explicit original report attributes only; the tail catches both reports. No server formatting, output action, post-mutation filtering or concurrent-report behavior is asserted.",
+        "ja": "localのcatching callback 2個と明示した元の報告attributeのみ。末尾で両報告をcatchする。serverの書式、出力action、変更後のfilter、並行報告は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_catcher_id_mutation_reaches_tail_without_leaking_to_next_report",
+          "role": "direct",
+          "expected_observations": [
+            "UT: changed first 1 tail 1 original 1 propagated 1 location 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CATCHER-ID-FRESH-MESSAGE-STATE",
+      "clause": "6.6.3.5",
+      "statement": {
+        "en": "A later report exposes its own id value rather than a previous report mutation.",
+        "ja": "後の報告は、以前の報告の変更ではなく自身のid値を返す。"
+      },
+      "conditions": {
+        "en": "The same two catchers receive a second report with the original explicit id value.",
+        "ja": "同じ2つのcatcherへ、元のid値を明示した2件目の報告を渡す。"
+      },
+      "expected": {
+        "en": "Both callbacks now observe original; each callback has two total visits.",
+        "ja": "両callbackがoriginalを観測し、各callbackの総訪問回数は2である。"
+      },
+      "limitations": {
+        "en": "Two local catching callbacks and explicit original report attributes only; the tail catches both reports. No server formatting, output action, post-mutation filtering or concurrent-report behavior is asserted.",
+        "ja": "localのcatching callback 2個と明示した元の報告attributeのみ。末尾で両報告をcatchする。serverの書式、出力action、変更後のfilter、並行報告は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_catcher_id_mutation_reaches_tail_without_leaking_to_next_report",
+          "role": "direct",
+          "expected_observations": [
+            "UT: fresh first 2 tail 2 original 1 propagated 1 location 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CATCHER-MESSAGE-MUTATION-PROPAGATES",
+      "clause": "6.6.4.4",
+      "statement": {
+        "en": "A current-message message mutation is visible to a later catcher.",
+        "ja": "現在のmessageのmessage変更は、後続catcherから観測できる。"
+      },
+      "conditions": {
+        "en": "The first catcher changes message only for its first report, then returns THROW.",
+        "ja": "先頭catcherは最初の報告だけでmessageを変更し、THROWを返す。"
+      },
+      "expected": {
+        "en": "The tail observes changed payload rather than the initial payload.",
+        "ja": "末尾は初期値payloadではなくchanged payloadを観測する。"
+      },
+      "limitations": {
+        "en": "Two local catching callbacks and explicit original report attributes only; the tail catches both reports. No server formatting, output action, post-mutation filtering or concurrent-report behavior is asserted.",
+        "ja": "localのcatching callback 2個と明示した元の報告attributeのみ。末尾で両報告をcatchする。serverの書式、出力action、変更後のfilter、並行報告は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_catcher_message_mutation_reaches_tail_without_leaking_to_next_report",
+          "role": "direct",
+          "expected_observations": [
+            "UT: changed first 1 tail 1 original 1 propagated 1 location 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CATCHER-MESSAGE-GETTER-AFTER-MUTATION",
+      "clause": "6.6.3.6",
+      "statement": {
+        "en": "The message getter returns the value of the message currently being processed.",
+        "ja": "messageのgetterは、現在処理しているmessageの値を返す。"
+      },
+      "conditions": {
+        "en": "The first catcher changes message only for its first report, then returns THROW.",
+        "ja": "先頭catcherは最初の報告だけでmessageを変更し、THROWを返す。"
+      },
+      "expected": {
+        "en": "The first catcher sees the supplied original value; the tail sees the changed value.",
+        "ja": "先頭catcherは指定した元の値を、末尾は変更後の値を観測する。"
+      },
+      "limitations": {
+        "en": "Two local catching callbacks and explicit original report attributes only; the tail catches both reports. No server formatting, output action, post-mutation filtering or concurrent-report behavior is asserted.",
+        "ja": "localのcatching callback 2個と明示した元の報告attributeのみ。末尾で両報告をcatchする。serverの書式、出力action、変更後のfilter、並行報告は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_catcher_message_mutation_reaches_tail_without_leaking_to_next_report",
+          "role": "direct",
+          "expected_observations": [
+            "UT: changed first 1 tail 1 original 1 propagated 1 location 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CATCHER-MESSAGE-FRESH-MESSAGE-STATE",
+      "clause": "6.6.3.6",
+      "statement": {
+        "en": "A later report exposes its own message value rather than a previous report mutation.",
+        "ja": "後の報告は、以前の報告の変更ではなく自身のmessage値を返す。"
+      },
+      "conditions": {
+        "en": "The same two catchers receive a second report with the original explicit message value.",
+        "ja": "同じ2つのcatcherへ、元のmessage値を明示した2件目の報告を渡す。"
+      },
+      "expected": {
+        "en": "Both callbacks now observe payload; each callback has two total visits.",
+        "ja": "両callbackがpayloadを観測し、各callbackの総訪問回数は2である。"
+      },
+      "limitations": {
+        "en": "Two local catching callbacks and explicit original report attributes only; the tail catches both reports. No server formatting, output action, post-mutation filtering or concurrent-report behavior is asserted.",
+        "ja": "localのcatching callback 2個と明示した元の報告attributeのみ。末尾で両報告をcatchする。serverの書式、出力action、変更後のfilter、並行報告は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_catcher_message_mutation_reaches_tail_without_leaking_to_next_report",
+          "role": "direct",
+          "expected_observations": [
+            "UT: fresh first 2 tail 2 original 1 propagated 1 location 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CATCHER-ACTION-MUTATION-PROPAGATES",
+      "clause": "6.6.4.5",
+      "statement": {
+        "en": "A current-message action mutation is visible to a later catcher.",
+        "ja": "現在のmessageのaction変更は、後続catcherから観測できる。"
+      },
+      "conditions": {
+        "en": "The first catcher changes action only for its first report, then returns THROW.",
+        "ja": "先頭catcherは最初の報告だけでactionを変更し、THROWを返す。"
+      },
+      "expected": {
+        "en": "The tail observes DISPLAY with COUNT rather than the initial DISPLAY.",
+        "ja": "末尾は初期値DISPLAYではなくDISPLAY with COUNTを観測する。"
+      },
+      "limitations": {
+        "en": "Two local catching callbacks and explicit original report attributes only; the tail catches both reports. No server formatting, output action, post-mutation filtering or concurrent-report behavior is asserted.",
+        "ja": "localのcatching callback 2個と明示した元の報告attributeのみ。末尾で両報告をcatchする。serverの書式、出力action、変更後のfilter、並行報告は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_catcher_action_mutation_reaches_tail_without_leaking_to_next_report",
+          "role": "direct",
+          "expected_observations": [
+            "UT: changed first 1 tail 1 original 1 propagated 1 location 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CATCHER-ACTION-GETTER-AFTER-MUTATION",
+      "clause": "6.6.3.7",
+      "statement": {
+        "en": "The action getter returns the value of the message currently being processed.",
+        "ja": "actionのgetterは、現在処理しているmessageの値を返す。"
+      },
+      "conditions": {
+        "en": "The first catcher changes action only for its first report, then returns THROW.",
+        "ja": "先頭catcherは最初の報告だけでactionを変更し、THROWを返す。"
+      },
+      "expected": {
+        "en": "The first catcher sees the supplied original value; the tail sees the changed value.",
+        "ja": "先頭catcherは指定した元の値を、末尾は変更後の値を観測する。"
+      },
+      "limitations": {
+        "en": "Two local catching callbacks and explicit original report attributes only; the tail catches both reports. No server formatting, output action, post-mutation filtering or concurrent-report behavior is asserted.",
+        "ja": "localのcatching callback 2個と明示した元の報告attributeのみ。末尾で両報告をcatchする。serverの書式、出力action、変更後のfilter、並行報告は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_catcher_action_mutation_reaches_tail_without_leaking_to_next_report",
+          "role": "direct",
+          "expected_observations": [
+            "UT: changed first 1 tail 1 original 1 propagated 1 location 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CATCHER-ACTION-FRESH-MESSAGE-STATE",
+      "clause": "6.6.3.7",
+      "statement": {
+        "en": "A later report exposes its own action value rather than a previous report mutation.",
+        "ja": "後の報告は、以前の報告の変更ではなく自身のaction値を返す。"
+      },
+      "conditions": {
+        "en": "The same two catchers receive a second report with the original explicit action value.",
+        "ja": "同じ2つのcatcherへ、元のaction値を明示した2件目の報告を渡す。"
+      },
+      "expected": {
+        "en": "Both callbacks now observe DISPLAY; each callback has two total visits.",
+        "ja": "両callbackがDISPLAYを観測し、各callbackの総訪問回数は2である。"
+      },
+      "limitations": {
+        "en": "Two local catching callbacks and explicit original report attributes only; the tail catches both reports. No server formatting, output action, post-mutation filtering or concurrent-report behavior is asserted.",
+        "ja": "localのcatching callback 2個と明示した元の報告attributeのみ。末尾で両報告をcatchする。serverの書式、出力action、変更後のfilter、並行報告は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_catcher_action_mutation_reaches_tail_without_leaking_to_next_report",
+          "role": "direct",
+          "expected_observations": [
+            "UT: fresh first 2 tail 2 original 1 propagated 1 location 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CATCHER-CONTEXT-MUTATION-PROPAGATES",
+      "clause": "6.6.4.6",
+      "statement": {
+        "en": "A current-message context mutation is visible to a later catcher.",
+        "ja": "現在のmessageのcontext変更は、後続catcherから観測できる。"
+      },
+      "conditions": {
+        "en": "The first catcher changes context only for its first report, then returns THROW.",
+        "ja": "先頭catcherは最初の報告だけでcontextを変更し、THROWを返す。"
+      },
+      "expected": {
+        "en": "The tail observes changed.ctx rather than the initial base.ctx.",
+        "ja": "末尾は初期値base.ctxではなくchanged.ctxを観測する。"
+      },
+      "limitations": {
+        "en": "Two local catching callbacks and explicit original report attributes only; the tail catches both reports. No server formatting, output action, post-mutation filtering or concurrent-report behavior is asserted.",
+        "ja": "localのcatching callback 2個と明示した元の報告attributeのみ。末尾で両報告をcatchする。serverの書式、出力action、変更後のfilter、並行報告は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_catcher_context_mutation_reaches_tail_without_leaking_to_next_report",
+          "role": "direct",
+          "expected_observations": [
+            "UT: changed first 1 tail 1 original 1 propagated 1 location 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CATCHER-CONTEXT-GETTER-AFTER-MUTATION",
+      "clause": "6.6.3.3",
+      "statement": {
+        "en": "The context getter returns the value of the message currently being processed.",
+        "ja": "contextのgetterは、現在処理しているmessageの値を返す。"
+      },
+      "conditions": {
+        "en": "The first catcher changes context only for its first report, then returns THROW.",
+        "ja": "先頭catcherは最初の報告だけでcontextを変更し、THROWを返す。"
+      },
+      "expected": {
+        "en": "The first catcher sees the supplied original value; the tail sees the changed value.",
+        "ja": "先頭catcherは指定した元の値を、末尾は変更後の値を観測する。"
+      },
+      "limitations": {
+        "en": "Two local catching callbacks and explicit original report attributes only; the tail catches both reports. No server formatting, output action, post-mutation filtering or concurrent-report behavior is asserted.",
+        "ja": "localのcatching callback 2個と明示した元の報告attributeのみ。末尾で両報告をcatchする。serverの書式、出力action、変更後のfilter、並行報告は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_catcher_context_mutation_reaches_tail_without_leaking_to_next_report",
+          "role": "direct",
+          "expected_observations": [
+            "UT: changed first 1 tail 1 original 1 propagated 1 location 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CATCHER-CONTEXT-FRESH-MESSAGE-STATE",
+      "clause": "6.6.3.3",
+      "statement": {
+        "en": "A later report exposes its own context value rather than a previous report mutation.",
+        "ja": "後の報告は、以前の報告の変更ではなく自身のcontext値を返す。"
+      },
+      "conditions": {
+        "en": "The same two catchers receive a second report with the original explicit context value.",
+        "ja": "同じ2つのcatcherへ、元のcontext値を明示した2件目の報告を渡す。"
+      },
+      "expected": {
+        "en": "Both callbacks now observe base.ctx; each callback has two total visits.",
+        "ja": "両callbackがbase.ctxを観測し、各callbackの総訪問回数は2である。"
+      },
+      "limitations": {
+        "en": "Two local catching callbacks and explicit original report attributes only; the tail catches both reports. No server formatting, output action, post-mutation filtering or concurrent-report behavior is asserted.",
+        "ja": "localのcatching callback 2個と明示した元の報告attributeのみ。末尾で両報告をcatchする。serverの書式、出力action、変更後のfilter、並行報告は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_catcher_context_mutation_reaches_tail_without_leaking_to_next_report",
+          "role": "direct",
+          "expected_observations": [
+            "UT: fresh first 2 tail 2 original 1 propagated 1 location 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CATCHER-EXPLICIT-SOURCE-FILENAME",
+      "clause": "6.6.3.8",
+      "statement": {
+        "en": "The catcher location getter returns the original report source location.",
+        "ja": "catcherの位置getterは、元の報告に指定したsource位置を返す。"
+      },
+      "conditions": {
+        "en": "Six separate attribute mutations leave explicit source location unchanged across two reports.",
+        "ja": "6種類のattribute変更で、2件の報告の明示source位置を変更せずに保持する。"
+      },
+      "expected": {
+        "en": "The supplied origin.sv filename is preserved.",
+        "ja": "指定したfile名origin.svを保持する。"
+      },
+      "limitations": {
+        "en": "Two local catching callbacks and explicit original report attributes only; the tail catches both reports. No server formatting, output action, post-mutation filtering or concurrent-report behavior is asserted.",
+        "ja": "localのcatching callback 2個と明示した元の報告attributeのみ。末尾で両報告をcatchする。serverの書式、出力action、変更後のfilter、並行報告は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_catcher_severity_mutation_reaches_tail_without_leaking_to_next_report",
+          "role": "direct",
+          "expected_observations": [
+            "UT: changed first 1 tail 1 original 1 propagated 1 location 1",
+            "UT: fresh first 2 tail 2 original 1 propagated 1 location 1"
+          ]
+        },
+        {
+          "test": "u06/test_report_catcher_verbosity_mutation_reaches_tail_without_leaking_to_next_report",
+          "role": "direct",
+          "expected_observations": [
+            "UT: changed first 1 tail 1 original 1 propagated 1 location 1",
+            "UT: fresh first 2 tail 2 original 1 propagated 1 location 1"
+          ]
+        },
+        {
+          "test": "u06/test_report_catcher_id_mutation_reaches_tail_without_leaking_to_next_report",
+          "role": "direct",
+          "expected_observations": [
+            "UT: changed first 1 tail 1 original 1 propagated 1 location 1",
+            "UT: fresh first 2 tail 2 original 1 propagated 1 location 1"
+          ]
+        },
+        {
+          "test": "u06/test_report_catcher_message_mutation_reaches_tail_without_leaking_to_next_report",
+          "role": "direct",
+          "expected_observations": [
+            "UT: changed first 1 tail 1 original 1 propagated 1 location 1",
+            "UT: fresh first 2 tail 2 original 1 propagated 1 location 1"
+          ]
+        },
+        {
+          "test": "u06/test_report_catcher_action_mutation_reaches_tail_without_leaking_to_next_report",
+          "role": "direct",
+          "expected_observations": [
+            "UT: changed first 1 tail 1 original 1 propagated 1 location 1",
+            "UT: fresh first 2 tail 2 original 1 propagated 1 location 1"
+          ]
+        },
+        {
+          "test": "u06/test_report_catcher_context_mutation_reaches_tail_without_leaking_to_next_report",
+          "role": "direct",
+          "expected_observations": [
+            "UT: changed first 1 tail 1 original 1 propagated 1 location 1",
+            "UT: fresh first 2 tail 2 original 1 propagated 1 location 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CATCHER-EXPLICIT-SOURCE-LINE",
+      "clause": "6.6.3.9",
+      "statement": {
+        "en": "The catcher location getter returns the original report source location.",
+        "ja": "catcherの位置getterは、元の報告に指定したsource位置を返す。"
+      },
+      "conditions": {
+        "en": "Six separate attribute mutations leave explicit source location unchanged across two reports.",
+        "ja": "6種類のattribute変更で、2件の報告の明示source位置を変更せずに保持する。"
+      },
+      "expected": {
+        "en": "The supplied line number 37 is preserved.",
+        "ja": "指定した行番号37を保持する。"
+      },
+      "limitations": {
+        "en": "Two local catching callbacks and explicit original report attributes only; the tail catches both reports. No server formatting, output action, post-mutation filtering or concurrent-report behavior is asserted.",
+        "ja": "localのcatching callback 2個と明示した元の報告attributeのみ。末尾で両報告をcatchする。serverの書式、出力action、変更後のfilter、並行報告は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_catcher_severity_mutation_reaches_tail_without_leaking_to_next_report",
+          "role": "direct",
+          "expected_observations": [
+            "UT: changed first 1 tail 1 original 1 propagated 1 location 1",
+            "UT: fresh first 2 tail 2 original 1 propagated 1 location 1"
+          ]
+        },
+        {
+          "test": "u06/test_report_catcher_verbosity_mutation_reaches_tail_without_leaking_to_next_report",
+          "role": "direct",
+          "expected_observations": [
+            "UT: changed first 1 tail 1 original 1 propagated 1 location 1",
+            "UT: fresh first 2 tail 2 original 1 propagated 1 location 1"
+          ]
+        },
+        {
+          "test": "u06/test_report_catcher_id_mutation_reaches_tail_without_leaking_to_next_report",
+          "role": "direct",
+          "expected_observations": [
+            "UT: changed first 1 tail 1 original 1 propagated 1 location 1",
+            "UT: fresh first 2 tail 2 original 1 propagated 1 location 1"
+          ]
+        },
+        {
+          "test": "u06/test_report_catcher_message_mutation_reaches_tail_without_leaking_to_next_report",
+          "role": "direct",
+          "expected_observations": [
+            "UT: changed first 1 tail 1 original 1 propagated 1 location 1",
+            "UT: fresh first 2 tail 2 original 1 propagated 1 location 1"
+          ]
+        },
+        {
+          "test": "u06/test_report_catcher_action_mutation_reaches_tail_without_leaking_to_next_report",
+          "role": "direct",
+          "expected_observations": [
+            "UT: changed first 1 tail 1 original 1 propagated 1 location 1",
+            "UT: fresh first 2 tail 2 original 1 propagated 1 location 1"
+          ]
+        },
+        {
+          "test": "u06/test_report_catcher_context_mutation_reaches_tail_without_leaking_to_next_report",
+          "role": "direct",
+          "expected_observations": [
+            "UT: changed first 1 tail 1 original 1 propagated 1 location 1",
+            "UT: fresh first 2 tail 2 original 1 propagated 1 location 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-UNLOCK-DEFAULT-LOCALITY",
+      "clause": "14.2.5.7",
+      "statement": {
+        "en": "Omitted unlock releases ownership on the default sequencer only.",
+        "ja": "sequencer省略のunlockは、既定sequencerの所有だけを解放する。"
+      },
+      "conditions": {
+        "en": "The sequence holds a default lock and a grab on a different explicit sequencer.",
+        "ja": "sequenceは既定sequencerでlockを、別の明示sequencerでgrabを保持する。"
+      },
+      "expected": {
+        "en": "Default ownership clears while the explicit grab and its peer blocking remain.",
+        "ja": "既定の所有は消え、明示grabとそのpeerのblockingは残る。"
+      },
+      "limitations": {
+        "en": "Idle public sequencers with sequence-side release calls only; no item transfer, active-body kill, arbitrary scheduling order, nested-child ownership or missing-default fatal path is asserted.",
+        "ja": "idleな公開sequencerでsequence側の解放を呼ぶ条件のみ。item転送、動作中bodyのkill、任意の実行順、子孫の所有、既定sequencer不在のfatal経路は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_unlock_releases_selected_ownership",
+          "role": "direct",
+          "expected_observations": [
+            "UT: default_release left 0 right 1 left_blocked 0 right_blocked 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-UNGRAB-DEFAULT-LOCALITY",
+      "clause": "14.2.5.8",
+      "statement": {
+        "en": "Omitted ungrab releases ownership on the default sequencer only.",
+        "ja": "sequencer省略のungrabは、既定sequencerの所有だけを解放する。"
+      },
+      "conditions": {
+        "en": "The sequence holds a default grab and a lock on a different explicit sequencer.",
+        "ja": "sequenceは既定sequencerでgrabを、別の明示sequencerでlockを保持する。"
+      },
+      "expected": {
+        "en": "Default ownership clears while the explicit lock and its peer blocking remain.",
+        "ja": "既定の所有は消え、明示lockとそのpeerのblockingは残る。"
+      },
+      "limitations": {
+        "en": "Idle public sequencers with sequence-side release calls only; no item transfer, active-body kill, arbitrary scheduling order, nested-child ownership or missing-default fatal path is asserted.",
+        "ja": "idleな公開sequencerでsequence側の解放を呼ぶ条件のみ。item転送、動作中bodyのkill、任意の実行順、子孫の所有、既定sequencer不在のfatal経路は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_ungrab_releases_selected_ownership",
+          "role": "direct",
+          "expected_observations": [
+            "UT: default_release left 0 right 1 left_blocked 0 right_blocked 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-UNGRAB-EXPLICIT-TARGET",
+      "clause": "14.2.5.8",
+      "statement": {
+        "en": "Explicit ungrab releases ownership on its supplied sequencer.",
+        "ja": "明示ungrabは、指定したsequencerの所有を解放する。"
+      },
+      "conditions": {
+        "en": "The default lock has been released while a grab remains on the other sequencer.",
+        "ja": "既定のlockを解放し、もう一方のsequencerにはgrabが残っている。"
+      },
+      "expected": {
+        "en": "The remaining explicit grab clears.",
+        "ja": "残る明示grabも消える。"
+      },
+      "limitations": {
+        "en": "Idle public sequencers with sequence-side release calls only; no item transfer, active-body kill, arbitrary scheduling order, nested-child ownership or missing-default fatal path is asserted.",
+        "ja": "idleな公開sequencerでsequence側の解放を呼ぶ条件のみ。item転送、動作中bodyのkill、任意の実行順、子孫の所有、既定sequencer不在のfatal経路は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_unlock_releases_selected_ownership",
+          "role": "direct",
+          "expected_observations": [
+            "UT: explicit_release left 0 right 0 default_unchanged 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-UNLOCK-EXPLICIT-TARGET",
+      "clause": "14.2.5.7",
+      "statement": {
+        "en": "Explicit unlock releases ownership on its supplied sequencer.",
+        "ja": "明示unlockは、指定したsequencerの所有を解放する。"
+      },
+      "conditions": {
+        "en": "The default grab has been released while a lock remains on the other sequencer.",
+        "ja": "既定のgrabを解放し、もう一方のsequencerにはlockが残っている。"
+      },
+      "expected": {
+        "en": "The remaining explicit lock clears.",
+        "ja": "残る明示lockも消える。"
+      },
+      "limitations": {
+        "en": "Idle public sequencers with sequence-side release calls only; no item transfer, active-body kill, arbitrary scheduling order, nested-child ownership or missing-default fatal path is asserted.",
+        "ja": "idleな公開sequencerでsequence側の解放を呼ぶ条件のみ。item転送、動作中bodyのkill、任意の実行順、子孫の所有、既定sequencer不在のfatal経路は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_ungrab_releases_selected_ownership",
+          "role": "direct",
+          "expected_observations": [
+            "UT: explicit_release left 0 right 0 default_unchanged 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-UNGRAB-RELEASES-LOCK-WAITER",
+      "clause": "14.2.5.8",
+      "statement": {
+        "en": "ungrab also releases a lock and lets an eligible pending lock complete.",
+        "ja": "ungrabはlockも解放し、実行可能な待機中lockを完了させる。"
+      },
+      "conditions": {
+        "en": "A peer lock call waits while another sequence owns a lock on the same sequencer.",
+        "ja": "同じsequencerのlockを別sequenceが保持する間、peerのlock呼出しを待機させる。"
+      },
+      "expected": {
+        "en": "After owner ungrab, the peer call returns and the peer owns the lock.",
+        "ja": "所有者のungrab後、peerの呼出しが戻り、peerがlockを所有する。"
+      },
+      "limitations": {
+        "en": "Idle public sequencers with sequence-side release calls only; no item transfer, active-body kill, arbitrary scheduling order, nested-child ownership or missing-default fatal path is asserted.",
+        "ja": "idleな公開sequencerでsequence側の解放を呼ぶ条件のみ。item転送、動作中bodyのkill、任意の実行順、子孫の所有、既定sequencer不在のfatal経路は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_cross_release_releases_selected_ownership",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ungrab_releases_lock granted 1 peer_owner 1 former_owner 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-UNLOCK-RELEASES-GRAB-WAITER",
+      "clause": "14.2.5.7",
+      "statement": {
+        "en": "unlock also releases a grab and lets an eligible pending grab complete.",
+        "ja": "unlockはgrabも解放し、実行可能な待機中grabを完了させる。"
+      },
+      "conditions": {
+        "en": "A peer grab call waits while another sequence owns a grab on the same sequencer.",
+        "ja": "同じsequencerのgrabを別sequenceが保持する間、peerのgrab呼出しを待機させる。"
+      },
+      "expected": {
+        "en": "After owner unlock, the peer call returns and the peer owns the grab.",
+        "ja": "所有者のunlock後、peerの呼出しが戻り、peerがgrabを所有する。"
+      },
+      "limitations": {
+        "en": "Idle public sequencers with sequence-side release calls only; no item transfer, active-body kill, arbitrary scheduling order, nested-child ownership or missing-default fatal path is asserted.",
+        "ja": "idleな公開sequencerでsequence側の解放を呼ぶ条件のみ。item転送、動作中bodyのkill、任意の実行順、子孫の所有、既定sequencer不在のfatal経路は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_cross_release_releases_selected_ownership",
+          "role": "direct",
+          "expected_observations": [
+            "UT: unlock_releases_grab granted 1 peer_owner 1 former_owner 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-PEER-BLOCKING-FOLLOWS-TARGET-RELEASE",
+      "clause": "14.2.5.9",
+      "statement": {
+        "en": "is_blocked follows ownership and its selected-sequencer release.",
+        "ja": "is_blockedは、選択したsequencerの所有と解放を反映する。"
+      },
+      "conditions": {
+        "en": "Two peers use different defaults while an owner holds both sequencers.",
+        "ja": "所有者が両sequencerを保持し、2つのpeerは異なる既定sequencerを使う。"
+      },
+      "expected": {
+        "en": "Both peers begin blocked; releasing only the default unblocks only that peer.",
+        "ja": "両peerは最初にblockingされ、既定側だけを解放するとそのpeerだけが解除される。"
+      },
+      "limitations": {
+        "en": "Idle public sequencers with sequence-side release calls only; no item transfer, active-body kill, arbitrary scheduling order, nested-child ownership or missing-default fatal path is asserted.",
+        "ja": "idleな公開sequencerでsequence側の解放を呼ぶ条件のみ。item転送、動作中bodyのkill、任意の実行順、子孫の所有、既定sequencer不在のfatal経路は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_unlock_releases_selected_ownership",
+          "role": "direct",
+          "expected_observations": [
+            "UT: held default 1 explicit 1 left_blocked 1 right_blocked 1",
+            "UT: default_release left 0 right 1 left_blocked 0 right_blocked 1"
+          ]
+        },
+        {
+          "test": "u14/test_sequence_ungrab_releases_selected_ownership",
+          "role": "direct",
+          "expected_observations": [
+            "UT: held default 1 explicit 1 left_blocked 1 right_blocked 1",
+            "UT: default_release left 0 right 1 left_blocked 0 right_blocked 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-HAS-LOCK-REFLECTS-SELECTED-RELEASE",
+      "clause": "14.2.5.10",
+      "statement": {
+        "en": "has_lock reports the sequence ownership on its default sequencer.",
+        "ja": "has_lockは、既定sequencer上のsequenceの所有を報告する。"
+      },
+      "conditions": {
+        "en": "A sequence holds a default lock or grab and then releases it through its default release API.",
+        "ja": "既定sequencerでlockまたはgrabを保持し、既定の解放APIで解放する。"
+      },
+      "expected": {
+        "en": "The owner reports ownership before release and no ownership afterward.",
+        "ja": "所有者は解放前に所有あり、解放後に所有なしを返す。"
+      },
+      "limitations": {
+        "en": "Idle public sequencers with sequence-side release calls only; no item transfer, active-body kill, arbitrary scheduling order, nested-child ownership or missing-default fatal path is asserted.",
+        "ja": "idleな公開sequencerでsequence側の解放を呼ぶ条件のみ。item転送、動作中bodyのkill、任意の実行順、子孫の所有、既定sequencer不在のfatal経路は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_unlock_releases_selected_ownership",
+          "role": "direct",
+          "expected_observations": [
+            "UT: held default 1 explicit 1 left_blocked 1 right_blocked 1",
+            "UT: default_release left 0 right 1 left_blocked 0 right_blocked 1"
+          ]
+        },
+        {
+          "test": "u14/test_sequence_ungrab_releases_selected_ownership",
+          "role": "direct",
+          "expected_observations": [
+            "UT: held default 1 explicit 1 left_blocked 1 right_blocked 1",
+            "UT: default_release left 0 right 1 left_blocked 0 right_blocked 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-DEFAULT-SEQUENCER-SURVIVES-EXPLICIT-OWNERSHIP",
+      "clause": "14.1.2.5",
+      "statement": {
+        "en": "get_sequencer returns the assigned default despite explicit ownership operations elsewhere.",
+        "ja": "get_sequencerは、他での明示的な所有操作後も、設定した既定sequencerを返す。"
+      },
+      "conditions": {
+        "en": "The owner is assigned left, then holds/releases ownership on left and right.",
+        "ja": "所有者へleftを設定した後、leftとrightで所有と解放を行う。"
+      },
+      "expected": {
+        "en": "Its returned default remains left.",
+        "ja": "返された既定値はleftのままである。"
+      },
+      "limitations": {
+        "en": "Idle public sequencers with sequence-side release calls only; no item transfer, active-body kill, arbitrary scheduling order, nested-child ownership or missing-default fatal path is asserted.",
+        "ja": "idleな公開sequencerでsequence側の解放を呼ぶ条件のみ。item転送、動作中bodyのkill、任意の実行順、子孫の所有、既定sequencer不在のfatal経路は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_unlock_releases_selected_ownership",
+          "role": "direct",
+          "expected_observations": [
+            "UT: explicit_release left 0 right 0 default_unchanged 1"
+          ]
+        },
+        {
+          "test": "u14/test_sequence_ungrab_releases_selected_ownership",
+          "role": "direct",
+          "expected_observations": [
+            "UT: explicit_release left 0 right 0 default_unchanged 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-PENDING-PEER-IS-BLOCKED-BY-LOCK-OR-GRAB",
+      "clause": "14.2.5.9",
+      "statement": {
+        "en": "A pending peer is blocked while another sequence retains lock or grab ownership.",
+        "ja": "別sequenceがlockまたはgrabを保持している間、待機中peerはblockingされる。"
+      },
+      "conditions": {
+        "en": "The peer enters a lock/grab request while an owner has matching ownership.",
+        "ja": "所有者が該当する所有を保持中に、peerがlock／grab要求へ入る。"
+      },
+      "expected": {
+        "en": "The peer call has not returned and is_blocked is true before release.",
+        "ja": "解放前はpeer呼出しが戻らず、is_blockedはtrueである。"
+      },
+      "limitations": {
+        "en": "Idle public sequencers with sequence-side release calls only; no item transfer, active-body kill, arbitrary scheduling order, nested-child ownership or missing-default fatal path is asserted.",
+        "ja": "idleな公開sequencerでsequence側の解放を呼ぶ条件のみ。item転送、動作中bodyのkill、任意の実行順、子孫の所有、既定sequencer不在のfatal経路は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_cross_release_releases_selected_ownership",
+          "role": "direct",
+          "expected_observations": [
+            "UT: lock_wait granted 0 blocked 1",
+            "UT: grab_wait granted 0 blocked 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-CROSS-RELEASE-CLEAN-FINAL-OWNERSHIP",
+      "clause": "14.2.5.10",
+      "statement": {
+        "en": "After the peer releases its acquired ownership, both sequences report no default lock.",
+        "ja": "peerが取得した所有を解放すると、両sequenceは既定lockなしを返す。"
+      },
+      "conditions": {
+        "en": "A peer acquires after each cross-release and releases its final grab.",
+        "ja": "各cross-release後にpeerが取得し、最後のgrabも解放する。"
+      },
+      "expected": {
+        "en": "Neither sequence has a lock and the peer is not blocked.",
+        "ja": "どちらのsequenceもlockを持たず、peerはblockingされていない。"
+      },
+      "limitations": {
+        "en": "Idle public sequencers with sequence-side release calls only; no item transfer, active-body kill, arbitrary scheduling order, nested-child ownership or missing-default fatal path is asserted.",
+        "ja": "idleな公開sequencerでsequence側の解放を呼ぶ条件のみ。item転送、動作中bodyのkill、任意の実行順、子孫の所有、既定sequencer不在のfatal経路は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_cross_release_releases_selected_ownership",
+          "role": "direct",
+          "expected_observations": [
+            "UT: cleared owner 0 peer 0 blocked 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-DO-KILL-HOOK-BOUND-AND-UNBOUND",
+      "clause": "14.2.5.12",
+      "statement": {
+        "en": "Direct sequence kill invokes its do_kill hook for bound and unbound running bodies.",
+        "ja": "sequenceの直接killは、sequencer結合あり／なしの動作中bodyでdo_kill hookを呼ぶ。"
+      },
+      "conditions": {
+        "en": "The original body is entered before kill and its hook increments a counter.",
+        "ja": "元のbodyへ入ってからkillし、hookでcounterを増やす。"
+      },
+      "expected": {
+        "en": "Each killed sequence observes one do_kill callback.",
+        "ja": "各killしたsequenceでdo_kill callbackを1回観測する。"
+      },
+      "limitations": {
+        "en": "Unchanged original fixtures; anchors describe required kill hooks, not additional measurements or the separate post-body/post-start result. Existing spec-only post-hook differences remain.",
+        "ja": "未変更の独自検査系を使う。anchorは必要なkill hookを表し、追加測定や別のpost-body／post-start結果ではない。既存のspec-onlyなpost hook差分は保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u14/test_sequence_kill_executes_required_post_hooks_when_bound",
+          "role": "direct",
+          "expected_observations": [
+            "UT: stopped 1 kill_calls 1 start_returned 1"
+          ]
+        },
+        {
+          "test": "u14/test_sequence_kill_executes_required_post_hooks_when_unbound",
+          "role": "direct",
+          "expected_observations": [
+            "UT: stopped 1 kill_calls 1 start_returned 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-DO-KILL-HOOK-SEQUENCER-STOP",
+      "clause": "14.2.5.12",
+      "statement": {
+        "en": "Sequencer stop invokes do_kill on each selected active sequence.",
+        "ja": "sequencerのstopは、対象の各動作中sequenceでdo_killを呼ぶ。"
+      },
+      "conditions": {
+        "en": "Two original sequence bodies are active on the same sequencer before stop_sequences.",
+        "ja": "同じsequencerで独自sequence 2個のbodyが動作してからstop_sequencesを呼ぶ。"
+      },
+      "expected": {
+        "en": "Both active sequences observe one do_kill callback.",
+        "ja": "動作中の両sequenceでdo_kill callbackを1回観測する。"
+      },
+      "limitations": {
+        "en": "Unchanged original fixtures; anchors describe required kill hooks, not additional measurements or the separate post-body/post-start result. Existing spec-only post-hook differences remain.",
+        "ja": "未変更の独自検査系を使う。anchorは必要なkill hookを表し、追加測定や別のpost-body／post-start結果ではない。既存のspec-onlyなpost hook差分は保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequencer_stop_sequences_stops_two_active_bodies",
+          "role": "direct",
+          "expected_observations": [
+            "UT: stopped 1 1 kills 1 1 returned 1 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-BYTE-ENABLE-ADVERTISED-CAPABILITY",
+      "clause": "19.2.1.2.2",
+      "statement": {
+        "en": "The adapter byte-enable capability participates in selecting individual field access.",
+        "ja": "adapterのbyte-enable capabilityは、field個別アクセスの選択に使われる。"
+      },
+      "conditions": {
+        "en": "Each field occupies a separate byte; fixtures explicitly advertise support or its absence.",
+        "ja": "各fieldが別byteを占め、検査系で対応の有無を明示する。"
+      },
+      "expected": {
+        "en": "Support permits selected-lane accesses; absence uses the full register.",
+        "ja": "対応時は選択laneへアクセスし、非対応時はregister全体を使う。"
+      },
+      "limitations": {
+        "en": "Two 8-bit RW fields in a 16-bit little-endian physical word, explicit auto-prediction and an original mask-applying bus model only. No HDL DUT, side-effecting access policy, endian alternatives, failed transfer or unused data-lane value is established.",
+        "ja": "16-bit little-endianの物理word内の8-bit RW field 2個、明示auto-prediction、maskを適用する独自bus modelのみ。HDL DUT、副作用付きaccess policy、他のendian、転送失敗、未使用data laneの値は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_field_byte_enable_write_selects_individual_or_whole_register_access",
+          "role": "direct",
+          "expected_observations": [
+            "UT: eligible low 1 high 1",
+            "UT: low_write ok 1 mask 1 storage ab5a low 5a high 12 write 1",
+            "UT: high_write ok 1 mask 2 storage 6c5a low 5a high 6c write 1"
+          ]
+        },
+        {
+          "test": "u18/test_field_byte_enable_read_selects_individual_or_whole_register_access",
+          "role": "direct",
+          "expected_observations": [
+            "UT: eligible low 1 high 1",
+            "UT: high_read ok 1 value ab mask 2 low 34 high ab read 1",
+            "UT: low_read ok 1 value cd mask 1 low cd high ab read 1"
+          ]
+        },
+        {
+          "test": "u18/test_field_byte_enable_fallback_selects_individual_or_whole_register_access",
+          "role": "direct",
+          "expected_observations": [
+            "UT: eligible low 0 high 0",
+            "UT: full_read ok 1 value ab mask 3 low cd high ab read 1",
+            "UT: full_write ok 1 mask 3 storage ab5a low 5a high ab write 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-BYTE-ENABLE-INDIVIDUAL-ELIGIBILITY",
+      "clause": "18.5.5.16",
+      "statement": {
+        "en": "A byte-isolated field fitting the supported bus word is individually accessible.",
+        "ja": "対応bus word内に収まってbyteを占有するfieldは、個別アクセス可能である。"
+      },
+      "conditions": {
+        "en": "The adapter supports byte enables and both isolated fields fit the bus width.",
+        "ja": "adapterがbyte enableに対応し、分離した両fieldはbus幅に収まる。"
+      },
+      "expected": {
+        "en": "Both frontdoor eligibility queries return true.",
+        "ja": "frontdoorの両照会がtrueを返す。"
+      },
+      "limitations": {
+        "en": "Two 8-bit RW fields in a 16-bit little-endian physical word, explicit auto-prediction and an original mask-applying bus model only. No HDL DUT, side-effecting access policy, endian alternatives, failed transfer or unused data-lane value is established.",
+        "ja": "16-bit little-endianの物理word内の8-bit RW field 2個、明示auto-prediction、maskを適用する独自bus modelのみ。HDL DUT、副作用付きaccess policy、他のendian、転送失敗、未使用data laneの値は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_field_byte_enable_write_selects_individual_or_whole_register_access",
+          "role": "direct",
+          "expected_observations": [
+            "UT: eligible low 1 high 1"
+          ]
+        },
+        {
+          "test": "u18/test_field_byte_enable_read_selects_individual_or_whole_register_access",
+          "role": "direct",
+          "expected_observations": [
+            "UT: eligible low 1 high 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-BYTE-ENABLE-INDIVIDUAL-INELIGIBILITY",
+      "clause": "18.5.5.16",
+      "statement": {
+        "en": "Without byte enables these shared-word fields cannot be individually accessed.",
+        "ja": "byte enable非対応では、wordを共有するこれらのfieldへ個別アクセスできない。"
+      },
+      "conditions": {
+        "en": "The bus word is shared by two fields and support is explicitly disabled.",
+        "ja": "2 fieldがbus wordを共有し、対応を明示的に無効にする。"
+      },
+      "expected": {
+        "en": "Both frontdoor eligibility queries return false.",
+        "ja": "frontdoorの両照会がfalseを返す。"
+      },
+      "limitations": {
+        "en": "Two 8-bit RW fields in a 16-bit little-endian physical word, explicit auto-prediction and an original mask-applying bus model only. No HDL DUT, side-effecting access policy, endian alternatives, failed transfer or unused data-lane value is established.",
+        "ja": "16-bit little-endianの物理word内の8-bit RW field 2個、明示auto-prediction、maskを適用する独自bus modelのみ。HDL DUT、副作用付きaccess policy、他のendian、転送失敗、未使用data laneの値は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_field_byte_enable_fallback_selects_individual_or_whole_register_access",
+          "role": "direct",
+          "expected_observations": [
+            "UT: eligible low 0 high 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-BYTE-ENABLE-WRITE-SELECTED-LANE",
+      "clause": "18.5.5.9",
+      "statement": {
+        "en": "Individual field writes select the target byte lane.",
+        "ja": "field個別writeは、対象のbyte laneを選ぶ。"
+      },
+      "conditions": {
+        "en": "Low then high field writes use a byte-enabled two-byte physical word.",
+        "ja": "byte-enable対応の2-byte物理wordで、low、次にhighのfieldを書き込む。"
+      },
+      "expected": {
+        "en": "The low write uses mask 1 and the high write mask 2.",
+        "ja": "lowのwriteはmask 1、highのwriteはmask 2を使う。"
+      },
+      "limitations": {
+        "en": "Two 8-bit RW fields in a 16-bit little-endian physical word, explicit auto-prediction and an original mask-applying bus model only. No HDL DUT, side-effecting access policy, endian alternatives, failed transfer or unused data-lane value is established.",
+        "ja": "16-bit little-endianの物理word内の8-bit RW field 2個、明示auto-prediction、maskを適用する独自bus modelのみ。HDL DUT、副作用付きaccess policy、他のendian、転送失敗、未使用data laneの値は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_field_byte_enable_write_selects_individual_or_whole_register_access",
+          "role": "direct",
+          "expected_observations": [
+            "UT: low_write ok 1 mask 1 storage ab5a low 5a high 12 write 1",
+            "UT: high_write ok 1 mask 2 storage 6c5a low 5a high 6c write 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-BYTE-ENABLE-WRITE-UNSELECTED-LIVE-BYTE",
+      "clause": "18.5.5.9",
+      "statement": {
+        "en": "An individual field write leaves the unselected live byte unchanged.",
+        "ja": "field個別writeは、選択していない実際のbyte値を変更しない。"
+      },
+      "conditions": {
+        "en": "Bus storage initially differs from the mirror, then low and high writes occur.",
+        "ja": "bus storageを最初にmirrorと異なる値にし、low、highの順にwriteする。"
+      },
+      "expected": {
+        "en": "Low write retains live high 0xab; high write retains written low 0x5a.",
+        "ja": "lowのwriteは実際のhigh値0xabを、highのwriteは書込済みlow値0x5aを保持する。"
+      },
+      "limitations": {
+        "en": "Two 8-bit RW fields in a 16-bit little-endian physical word, explicit auto-prediction and an original mask-applying bus model only. No HDL DUT, side-effecting access policy, endian alternatives, failed transfer or unused data-lane value is established.",
+        "ja": "16-bit little-endianの物理word内の8-bit RW field 2個、明示auto-prediction、maskを適用する独自bus modelのみ。HDL DUT、副作用付きaccess policy、他のendian、転送失敗、未使用data laneの値は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_field_byte_enable_write_selects_individual_or_whole_register_access",
+          "role": "direct",
+          "expected_observations": [
+            "UT: low_write ok 1 mask 1 storage ab5a low 5a high 12 write 1",
+            "UT: high_write ok 1 mask 2 storage 6c5a low 5a high 6c write 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-BYTE-ENABLE-WRITE-SELECTED-PREDICTION",
+      "clause": "18.2.5.2",
+      "statement": {
+        "en": "Successful individual writes predict their selected field values.",
+        "ja": "個別writeの成功は、選択したfield値を予測に反映する。"
+      },
+      "conditions": {
+        "en": "Auto-prediction is enabled for both individual writes.",
+        "ja": "両個別writeでauto-predictionを有効にする。"
+      },
+      "expected": {
+        "en": "The low mirror becomes 0x5a, then the high mirror becomes 0x6c.",
+        "ja": "low mirrorは0x5a、次にhigh mirrorは0x6cとなる。"
+      },
+      "limitations": {
+        "en": "Two 8-bit RW fields in a 16-bit little-endian physical word, explicit auto-prediction and an original mask-applying bus model only. No HDL DUT, side-effecting access policy, endian alternatives, failed transfer or unused data-lane value is established.",
+        "ja": "16-bit little-endianの物理word内の8-bit RW field 2個、明示auto-prediction、maskを適用する独自bus modelのみ。HDL DUT、副作用付きaccess policy、他のendian、転送失敗、未使用data laneの値は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_field_byte_enable_write_selects_individual_or_whole_register_access",
+          "role": "direct",
+          "expected_observations": [
+            "UT: low_write ok 1 mask 1 storage ab5a low 5a high 12 write 1",
+            "UT: high_write ok 1 mask 2 storage 6c5a low 5a high 6c write 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-BYTE-ENABLE-READ-SELECTED-LANE",
+      "clause": "18.5.5.10",
+      "statement": {
+        "en": "Individual field reads select the target byte lane.",
+        "ja": "field個別readは、対象のbyte laneを選ぶ。"
+      },
+      "conditions": {
+        "en": "High then low field reads use the byte-enabled physical word.",
+        "ja": "byte-enable対応の物理wordで、high、次にlowのfieldをreadする。"
+      },
+      "expected": {
+        "en": "The high read uses mask 2 and the low read mask 1.",
+        "ja": "highのreadはmask 2、lowのreadはmask 1を使う。"
+      },
+      "limitations": {
+        "en": "Two 8-bit RW fields in a 16-bit little-endian physical word, explicit auto-prediction and an original mask-applying bus model only. No HDL DUT, side-effecting access policy, endian alternatives, failed transfer or unused data-lane value is established.",
+        "ja": "16-bit little-endianの物理word内の8-bit RW field 2個、明示auto-prediction、maskを適用する独自bus modelのみ。HDL DUT、副作用付きaccess policy、他のendian、転送失敗、未使用data laneの値は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_field_byte_enable_read_selects_individual_or_whole_register_access",
+          "role": "direct",
+          "expected_observations": [
+            "UT: high_read ok 1 value ab mask 2 low 34 high ab read 1",
+            "UT: low_read ok 1 value cd mask 1 low cd high ab read 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-BYTE-ENABLE-READ-RETURNED-FIELD",
+      "clause": "18.5.5.10",
+      "statement": {
+        "en": "Individual reads return the selected field value from the bus word.",
+        "ja": "個別readは、bus wordから選択したfield値を返す。"
+      },
+      "conditions": {
+        "en": "The physical word contains 0xabcd and the fields occupy distinct bytes.",
+        "ja": "物理wordは0xabcdを持ち、fieldは別々のbyteを占める。"
+      },
+      "expected": {
+        "en": "High returns 0xab and low returns 0xcd.",
+        "ja": "highは0xab、lowは0xcdを返す。"
+      },
+      "limitations": {
+        "en": "Two 8-bit RW fields in a 16-bit little-endian physical word, explicit auto-prediction and an original mask-applying bus model only. No HDL DUT, side-effecting access policy, endian alternatives, failed transfer or unused data-lane value is established.",
+        "ja": "16-bit little-endianの物理word内の8-bit RW field 2個、明示auto-prediction、maskを適用する独自bus modelのみ。HDL DUT、副作用付きaccess policy、他のendian、転送失敗、未使用data laneの値は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_field_byte_enable_read_selects_individual_or_whole_register_access",
+          "role": "direct",
+          "expected_observations": [
+            "UT: high_read ok 1 value ab mask 2 low 34 high ab read 1",
+            "UT: low_read ok 1 value cd mask 1 low cd high ab read 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-BYTE-ENABLE-READ-UNSELECTED-MIRROR",
+      "clause": "18.5.5.10",
+      "statement": {
+        "en": "Individual field reads preserve the other field mirror.",
+        "ja": "field個別readは、他方のfield mirrorを保持する。"
+      },
+      "conditions": {
+        "en": "A high read occurs before a low read, from reset mirror 0x1234.",
+        "ja": "reset mirror 0x1234から、highのread後にlowのreadを行う。"
+      },
+      "expected": {
+        "en": "High read leaves low mirror 0x34; the later low read retains high mirror 0xab.",
+        "ja": "highのreadはlow mirror 0x34を保持し、後のlow readはhigh mirror 0xabを保持する。"
+      },
+      "limitations": {
+        "en": "Two 8-bit RW fields in a 16-bit little-endian physical word, explicit auto-prediction and an original mask-applying bus model only. No HDL DUT, side-effecting access policy, endian alternatives, failed transfer or unused data-lane value is established.",
+        "ja": "16-bit little-endianの物理word内の8-bit RW field 2個、明示auto-prediction、maskを適用する独自bus modelのみ。HDL DUT、副作用付きaccess policy、他のendian、転送失敗、未使用data laneの値は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_field_byte_enable_read_selects_individual_or_whole_register_access",
+          "role": "direct",
+          "expected_observations": [
+            "UT: high_read ok 1 value ab mask 2 low 34 high ab read 1",
+            "UT: low_read ok 1 value cd mask 1 low cd high ab read 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-BYTE-ENABLE-FALLBACK-READ-FULL-PREDICTION",
+      "clause": "18.5.5.10",
+      "statement": {
+        "en": "A non-individual field read updates mirrors of the containing register.",
+        "ja": "個別アクセスできないfieldのreadは、親registerのmirrorも更新する。"
+      },
+      "conditions": {
+        "en": "Byte enabling is absent and high is read from bus word 0xabcd.",
+        "ja": "byte enable非対応で、bus word 0xabcdからhighをreadする。"
+      },
+      "expected": {
+        "en": "Both lanes are selected and mirrors become low 0xcd and high 0xab.",
+        "ja": "両laneを選び、mirrorはlow 0xcd、high 0xabとなる。"
+      },
+      "limitations": {
+        "en": "Two 8-bit RW fields in a 16-bit little-endian physical word, explicit auto-prediction and an original mask-applying bus model only. No HDL DUT, side-effecting access policy, endian alternatives, failed transfer or unused data-lane value is established.",
+        "ja": "16-bit little-endianの物理word内の8-bit RW field 2個、明示auto-prediction、maskを適用する独自bus modelのみ。HDL DUT、副作用付きaccess policy、他のendian、転送失敗、未使用data laneの値は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_field_byte_enable_fallback_selects_individual_or_whole_register_access",
+          "role": "direct",
+          "expected_observations": [
+            "UT: full_read ok 1 value ab mask 3 low cd high ab read 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-BYTE-ENABLE-FALLBACK-WRITE-USES-PEER-MIRROR",
+      "clause": "18.5.5.9",
+      "statement": {
+        "en": "A non-individual field write supplies other fields from their mirrors.",
+        "ja": "個別アクセスできないfieldのwriteは、他fieldにそのmirror値を供給する。"
+      },
+      "conditions": {
+        "en": "After a full read sets high mirror 0xab, live high is changed to 0xef before low write.",
+        "ja": "全体readでhigh mirrorを0xabにした後、low write前に実際のhighを0xefへ変更する。"
+      },
+      "expected": {
+        "en": "Full-word low write uses high mirror 0xab, producing bus word 0xab5a.",
+        "ja": "全wordのlow writeはhigh mirror 0xabを使い、bus wordを0xab5aにする。"
+      },
+      "limitations": {
+        "en": "Two 8-bit RW fields in a 16-bit little-endian physical word, explicit auto-prediction and an original mask-applying bus model only. No HDL DUT, side-effecting access policy, endian alternatives, failed transfer or unused data-lane value is established.",
+        "ja": "16-bit little-endianの物理word内の8-bit RW field 2個、明示auto-prediction、maskを適用する独自bus modelのみ。HDL DUT、副作用付きaccess policy、他のendian、転送失敗、未使用data laneの値は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_field_byte_enable_fallback_selects_individual_or_whole_register_access",
+          "role": "direct",
+          "expected_observations": [
+            "UT: full_write ok 1 mask 3 storage ab5a low 5a high ab write 1"
+          ]
+        }
+      ]
     }
   ]
 }

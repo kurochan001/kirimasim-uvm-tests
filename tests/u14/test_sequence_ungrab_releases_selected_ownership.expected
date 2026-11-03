@@ -1,0 +1,3 @@
+UT: held default 1 explicit 1 left_blocked 1 right_blocked 1
+UT: default_release left 0 right 1 left_blocked 0 right_blocked 1
+UT: explicit_release left 0 right 0 default_unchanged 1

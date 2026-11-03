@@ -832,6 +832,62 @@
         "reviewer": null,
         "reviewed_at": null
       }
+    },
+    {
+      "clause": "14.2.5",
+      "classification": "structural",
+      "rationale": {
+        "en": "Sequence-control heading organizes the following methods; no independent control operation is specified here.",
+        "ja": "sequence制御の見出しは後続methodを整理し、この見出しに独立した制御操作はない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "14.2.6",
+      "classification": "structural",
+      "rationale": {
+        "en": "Sequence-item-execution heading groups the numbered execution methods without another behavioral rule.",
+        "ja": "sequence item実行の見出しは番号付きの実行methodをまとめ、別の動作規則を追加しない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "18.5.3",
+      "classification": "structural",
+      "rationale": {
+        "en": "Field-methods heading precedes separately numbered construction and configuration APIs and adds no own operation.",
+        "ja": "field methodの見出しは番号付きの生成／設定APIに先行し、独自の操作を追加しない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "19.2.2.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "TLM-adapter methods heading introduces the conversion method clauses without separate conversion behavior.",
+        "ja": "TLM adapterのmethod見出しは変換method条項を導入するだけで、別の変換動作はない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
     }
   ]
 }
