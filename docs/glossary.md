@@ -1074,3 +1074,11 @@ and differs from an unexpected library/API/link build failure.
 **Test-kind census**: Separate simulation/elaboration fixture counts. Total
 fixtures, runtime two-seed matches and expected compiler rejections describe
 different quantities and do not establish a coverage percentage.
+
+**Pure-interface fulfillment**: A concrete subtype has implementations for
+every inherited pure virtual method, either defined there or inherited from a
+concrete parent. Selected incomplete classes are negative compile fixtures.
+
+**Illegal compile acceptance**: Compilation succeeds for a fixture whose
+standard-derived oracle requires rejection. This is a negative-test mismatch;
+the runner does not execute the resulting binary or runtime seeds.

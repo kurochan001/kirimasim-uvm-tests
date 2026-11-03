@@ -3,8 +3,8 @@
 [日本語](history.ja.md) · [README](../README.md)
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and thirty-nine cross-milestone thin-area expansions, including the
-existing-test requirement-link backlog checkpoint (1416 tests: 1408 simulation and 8 elaboration). The earlier 349-test checkpoint is
+three M4 increments and forty cross-milestone thin-area expansions, including the
+existing-test requirement-link backlog checkpoint (1433 tests: 1411 simulation and 22 elaboration). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -2901,3 +2901,33 @@ distinguish compiler rejection from runtime execution. Four SVGs were rendered
 and visually checked. All 110 tool tests, metadata, ledger/library, compatible
 evidence and bilingual document checks pass. Scope and denominator remain
 unapproved; no new human review or guest measurement is claimed.
+
+## Fortieth thin-area expansion across M1–M4
+
+Fourteen negative elaboration fixtures isolate each of four database hooks,
+four link hooks, catcher catch, subscriber write, visitor visit, two adapter
+converters and adapter const-reference mutation. Twelve reject with the
+required diagnostic. The subscriber/visitor omissions compile successfully;
+both remain spec-only with the rejection oracle unchanged. No illegal design
+executes a binary/runtime seed. Initial regex escaping/category errors were
+corrected before the final run, without changing the normative expectation.
+
+Three positive fixtures inherit concrete implementations: recording hooks
+through public wrappers, subscriber delivery through the typed analysis export,
+and adapter converter signatures/reference effects. All match seeds 1/73.
+Their original payload algorithms are setup, not prescribed library behavior.
+All 1416 prior inputs/records, 2092 requirements and 182 assessments remain.
+Twenty-nine bilingual AI drafts reach 2121; one individually read methods
+heading is structural. Seven previously unassessed normative identifiers become
+partial. Totals: 1185 partial/183 assessed/1139 unassessed. Goal iteration twelve
+reduces unassessed by eight, or 324 since activation; the goal stays active.
+
+The suite is 1433 fixtures: 1411 simulation/22 elaboration. M1 is 485 (471/14),
+M2 516 (513/3), M3 432 (427/5). Ordinary Verilator is 1260 pass: 1240 two-seed
+runtime matches and 20 compiler rejections; 173 known comprise 171 simulation
+differences and two illegal compile acceptances. Guest evidence retains 1084
+compatible runtime inputs, with 349 unmeasured (327 simulation/22 elaboration).
+Separate HDL and command-line evidence remains unchanged. All 110 tool tests,
+metadata, ledger/library, current-input evidence and bilingual docs pass.
+Runner/library/catalog, schemas, workflow and SVGs are unchanged. No guest
+run, human review or scope/denominator approval is claimed.

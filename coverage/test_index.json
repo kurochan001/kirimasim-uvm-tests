@@ -238,6 +238,10 @@
       "primary_clause": "6.6.4.5",
       "inputs_sha256": "8a8bd941e5fd19aaeb47f5ec33b900f0a317c893f919574ba810cff78ab5e937"
     },
+    "u06/test_report_catcher_concrete_subclass_must_implement_catch": {
+      "primary_clause": "6.6.5",
+      "inputs_sha256": "2897a88bf1b5706854658ea32ff6f621e47a3f7e7a1f269914b5b5cb51337317"
+    },
     "u06/test_report_catcher_context_mutation_reaches_tail_without_leaking_to_next_report": {
       "primary_clause": "6.6.4.6",
       "inputs_sha256": "f795c08c463f9d4d8d8af619ff93a5a2f340e9c366625af87dd764f45dde56ca"
@@ -434,9 +438,29 @@
       "primary_clause": "7.3.2.2.1",
       "inputs_sha256": "4b01e1e7ac046894e76abb409241bdc84f7a205dfe47ad261631f33721579b8e"
     },
+    "u07/test_database_and_link_descendants_inherit_concrete_pure_hook_implementations": {
+      "primary_clause": "7.1.6.1",
+      "inputs_sha256": "29c395594663cd1cdb4a5c4be9d5623a3337f87532eec3f84089b7da7cbb4ed0"
+    },
     "u07/test_database_close_hook_failure_preserves_open_state_until_a_successful_retry": {
       "primary_clause": "7.1.6.2",
       "inputs_sha256": "eadc21b3471535324e6c21cdc4b346cd9849b7ef5c06d1c4d3be8bb4932ad138"
+    },
+    "u07/test_database_concrete_subclass_must_implement_do_close_db": {
+      "primary_clause": "7.1.6.2",
+      "inputs_sha256": "fcc4c15a1644c0996bebbe3723c543dbca6b60637c3ec360c632a15eddd71d4a"
+    },
+    "u07/test_database_concrete_subclass_must_implement_do_establish_link": {
+      "primary_clause": "7.1.6.4",
+      "inputs_sha256": "7085c21c4b450d9a593e37957bdc22e24260bd8b24c9907a0551dca50792fc4b"
+    },
+    "u07/test_database_concrete_subclass_must_implement_do_open_db": {
+      "primary_clause": "7.1.6.1",
+      "inputs_sha256": "7358e9992cb89a915b569cda8d6a6cfda9517c2c11e88a2b6c8ce58c7a11a4fe"
+    },
+    "u07/test_database_concrete_subclass_must_implement_do_open_stream": {
+      "primary_clause": "7.1.6.3",
+      "inputs_sha256": "999a84f02c6b46b405495300502a52cb1dbc2fba6a7d31e418d711fc07500226"
     },
     "u07/test_database_constructor_forwards_default_and_explicit_names": {
       "primary_clause": "7.1.2",
@@ -457,6 +481,22 @@
     "u07/test_database_stream_hook_forwards_arguments_and_initializes_only_a_successful_result": {
       "primary_clause": "7.1.6.3",
       "inputs_sha256": "2fc75d2678bb65912f71a68406d44852ef73bab591f012b63328342f57606abb"
+    },
+    "u07/test_link_concrete_subclass_must_implement_do_get_lhs": {
+      "primary_clause": "7.3.1.4.1",
+      "inputs_sha256": "3d244601478984bbe4533d7672e1de765f6d9ef9a05deedb675cb4d5a2fe7ccc"
+    },
+    "u07/test_link_concrete_subclass_must_implement_do_get_rhs": {
+      "primary_clause": "7.3.1.4.3",
+      "inputs_sha256": "3ffa0eb706c27c2ea7a011e668ba8f558a02f31d94236242842472e573dd6b45"
+    },
+    "u07/test_link_concrete_subclass_must_implement_do_set_lhs": {
+      "primary_clause": "7.3.1.4.2",
+      "inputs_sha256": "c9a0477814a86082838fcc87250d0acdaf547046d7559c16e6c5402952ffc25a"
+    },
+    "u07/test_link_concrete_subclass_must_implement_do_set_rhs": {
+      "primary_clause": "7.3.1.4.4",
+      "inputs_sha256": "07eb0088269d58becc31056a45d8a18c8d7487ca40aaa3ae818938734aac48f8"
     },
     "u07/test_prefilled_link_default_names_and_endpoint_updates_preserve_peer_links": {
       "primary_clause": "7.3.2.2.2",
@@ -2109,6 +2149,14 @@
     "u13/test_phase_ready_iteration_cap_3_bounds_repeated_raise_drop_callbacks": {
       "primary_clause": "13.1.4.3.2",
       "inputs_sha256": "826845da5814b7ce41c4337cc405b786a07c412f2922d2aa788afc6b7a60f4fb"
+    },
+    "u13/test_subscriber_concrete_subclass_must_implement_write": {
+      "primary_clause": "13.9.3.2",
+      "inputs_sha256": "6411988f6a2bec5f188583dfa199dcb1a66da184d98e2f56be119ec5a33dd600"
+    },
+    "u13/test_subscriber_descendant_inherits_write_through_default_typed_analysis_export": {
+      "primary_clause": "13.9",
+      "inputs_sha256": "fd200a87cbd4e5894850c6050094807cbda8a82cc26043b8335fb5633bf4fc1a"
     },
     "u13/test_uvm_component_abstract_declaration_rejects_direct_construction": {
       "primary_clause": "13.1.1",
@@ -4542,9 +4590,21 @@
       "primary_clause": "19.5.2.6",
       "inputs_sha256": "c0a6ed39f4da74f4044bd7bc0e356a1aad77d5f1c5d74cfcd9204469adabd6bf"
     },
+    "u19/test_reg_adapter_concrete_subclass_must_implement_bus2reg": {
+      "primary_clause": "19.2.1.2.6",
+      "inputs_sha256": "849dacf8224caa7695550f3ae30c346fef71481c2adef5cf6d59b39e97288a43"
+    },
+    "u19/test_reg_adapter_concrete_subclass_must_implement_reg2bus": {
+      "primary_clause": "19.2.1.2.5",
+      "inputs_sha256": "09bcb8efac06a3d19a68b7cdd496fda3968a2b059b1a712b33c1fa2633725b4f"
+    },
     "u19/test_reg_adapter_constructor_forwards_names_and_inherits_the_object_base": {
       "primary_clause": "19.2.1.2.1",
       "inputs_sha256": "e29c675eee6886cae2ff594064a91dc9f781b9197d3c74896d15e9e2a961be94"
+    },
+    "u19/test_reg_adapter_descendant_inherits_both_converters_and_preserves_reference_directions": {
+      "primary_clause": "19.2.1.2.5",
+      "inputs_sha256": "7d62a56a9b6fac37f8c44e98fe78b9553b85ad8dd9b9fc998923b46cef1134f0"
     },
     "u19/test_reg_adapter_get_item_is_null_outside_translation_callback": {
       "primary_clause": "19.2.1.2.7",
@@ -4553,6 +4613,10 @@
     "u19/test_reg_adapter_operation_context_is_scoped_to_reg2bus_callback": {
       "primary_clause": "19.2.1.2.7",
       "inputs_sha256": "e71778c9665bdd191fe318160a13f1165689345b947492c4a0fe451a3d230947"
+    },
+    "u19/test_reg_adapter_reg2bus_const_reference_rejects_input_mutation": {
+      "primary_clause": "19.2.1.2.5",
+      "inputs_sha256": "a83d00da4fba5877162e6378904e53bb0099399afc207bdeac19788ddc822c43"
     },
     "u19/test_reg_custom_frontdoor_propagates_sequence_failure_status": {
       "primary_clause": "19.4.2.2.1",
@@ -5577,6 +5641,10 @@
     "uF/test_visitor_component_proxy_returns_only_immediate_children": {
       "primary_clause": "F.5.7",
       "inputs_sha256": "d70cad4048f8f18c96c2498c6d6d71c927b1bf1c2d1eff2d26314e2b8c759dc4"
+    },
+    "uF/test_visitor_concrete_subclass_must_implement_visit": {
+      "primary_clause": "F.5.1.2.3",
+      "inputs_sha256": "f4fc9692112a296369c949416e1e88a229467628fc662932595749192b9fc494"
     },
     "uF/test_visitor_reused_visitor_traverses_only_each_selected_subtree": {
       "primary_clause": "F.5.3.2.2",

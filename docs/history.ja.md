@@ -2,7 +2,7 @@
 
 [English](history.md) · [README](../README.ja.md)
 
-M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の39回目の拡充（全1416件：simulation 1408・elaboration 8）までを記録しています。以前の349件の時点は
+M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の40回目の拡充（全1433件：simulation 1411・elaboration 22）までを記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -1963,3 +1963,20 @@ guestは互換runtime 1084入力のまま、未測定332入力（runtime 324・e
 
 runner／library／catalogの同一性は保持します。workflowのcomment／step名、日英の2つの測定図とガイドはcompiler拒否とruntimeを区別するよう更新し、SVG 4枚をrenderして見た目も確認しました。
 tool unit 110件、metadata、台帳／library、互換evidence、日英資料を検証しました。範囲と分母は未承認で、新しい人のレビューやguest測定は主張しません。
+
+## M1〜M4の薄い領域の40回目の拡充
+
+negative elaboration 14件で、database hook 4つ、link hook 4つ、catcherのcatch、subscriberのwrite、visitorのvisit、adapter converter 2つとconst参照変更を分離します。
+12件は必要な診断で拒否されます。subscriber／visitorの欠落はcompileに成功するため、拒否oracleを変えずspecのみを維持します。
+不正designはbinary／runtime seedを実行しません。初回のregex escape／分類patternを最終測定前に修正し、規範的期待は変えません。
+
+正のfixture 3件は、public wrapper経由のrecording hook、型付きanalysis export経由のsubscriber配送、adapter converter signature／参照効果の具象実装を継承し、全件seed 1／73で一致します。
+独自payload algorithmは準備で規定library動作ではありません。以前の1416入力／記録、2092要求、182分類を全て保持します。
+日英AI案29件で2121件とし、個別に読んだmethods見出し1件を構造分類します。未評価の規範的7番号は部分対応へ進めます。
+合計は部分分解1185／分類183／未評価1139です。goal第12反復で未評価が8番号、有効化以降324番号減り、goalは継続します。
+
+全1433検査系はsimulation 1411／elaboration 22です。M1 485（471／14）、M2 516（513／3）、M3 432（427／5）です。
+通常Verilatorは1260 passで、runtime両seed一致1240件とcompiler拒否20件です。既知173件はsimulation差分171件と不正compile受理2件です。
+guest evidenceは互換なruntime 1084入力を保持し、未測定349件（simulation 327／elaboration 22）です。別のHDL／command-line evidenceは未変更です。
+tool test 110件、metadata、台帳／library、現入力evidence、日英資料の検査は全て成功します。
+runner／library／catalog、schema、workflow、SVGは未変更です。guest実行、人のレビュー、範囲／分母承認は主張しません。

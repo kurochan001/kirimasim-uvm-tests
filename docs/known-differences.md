@@ -2,15 +2,15 @@
 
 [日本語](known-differences.ja.md) · [README](../README.md) · [FAQ](faq.md)
 
-This describes the current 1416-test suite and the pinned Accellera UVM
+This describes the current 1433-test suite and the pinned Accellera UVM
 2020.3.1 library. A mismatch is a test result; it does not by itself assign
 the cause to the simulator, the library or the expectation.
 
-The eight new abstract-construction checks match their required compiler
-rejection with a targeted diagnostic; they are not among the 171 spec-only
-simulation differences. They add no runtime seed result. The selected TLM
-extension-base abstract construction is now checked separately from its older
-positive type probes. Other invalid-use/member/protocol obligations remain.
+Twenty-two elaboration fixtures expect rejection: eight direct abstract
+constructions and fourteen pure-interface/const-reference violations. Twenty
+match. The subscriber and visitor omissions are accepted and remain spec-only;
+no illegal design is executed. These two compiler acceptances are separate
+from 171 known simulation differences. Other invalid-use obligations remain.
 
 ## Pinned-library limitations
 
@@ -25,6 +25,14 @@ shared accesses and one child-block shape; see the
 Further limitations and observations were identified during M1, M2 and M3.
 Where a test directly checks a required behavior that is missing, its
 normative expectation is retained with `:oracle: spec`.
+
+- Concrete subtypes omitting pure subscriber write or visitor visit compile
+  successfully. The declarations in 13.9.3.2/F.5.1.2.3 and SystemVerilog 8.21
+  require implementations for concrete construction. Both rejection oracles
+  remain, with no runtime execution. The independently legal inherited
+  subscriber control matches both seeds; it does not excuse an absent method.
+  See [subscriber omission](../tests/u13/test_subscriber_concrete_subclass_must_implement_write.sv) and
+  [visitor omission](../tests/uF/test_visitor_concrete_subclass_must_implement_visit.sv).
 
 - Three new runtime differences retain qualified standard interpretations.
   Clauses 12.3.5.7.4/12.3.5.8.4 list nonblocking providers under blocking relay
@@ -533,7 +541,7 @@ warning. The YES control changes the limit to nine without a warning. This
 is a diagnostic-severity difference, not failed limit enforcement. The older
 two no-DPI argument cases remain unchanged ordinary runtime differences.
 
-Across the suite, 1245 tests have the `verilator@5.052` oracle tag and 171
+Across the suite, 1260 tests have the `verilator@5.052` oracle tag and 173
 cases are spec-only. One of the spec-only cases checks 9.6: a child's pre-reset
 task must be killed when that phase ends, but the pinned-library run on Verilator 5.052
 lets the child perform its delayed write during a later phase. The cause of
@@ -545,8 +553,8 @@ without callbacks. The pinned Verilator run reaches the blocked-state
 observation, then its watchdog expires. This combined simulator/library
 cause remains unassigned; the normative wakeup expectation is retained.
 
-The 171 spec-only tests retain their normative expected files.
-Default Verilator runs and CI select 1245 tagged checks (1237 runtime, 8 compile rejection). `--all` includes
+The 173 spec-only tests retain their normative expected files.
+Default Verilator runs and CI select 1260 tagged checks (1240 runtime, 20 compile rejection). `--all` includes
 spec-only cases and records mismatches or build failures as `known`.
 The ordinary runtime records for 128 cases establish their first difference
 at seed 1, without seed 73 results. Sixteen missing-API builds have no ordinary
@@ -561,7 +569,7 @@ These overlapping configurations are not summed.
 
 ## Spec-only tests
 
-These are the 171 current spec-only cases. Several exercise the same
+These are the 173 current spec-only cases. Several exercise the same
 limitation, so their count is not a count of distinct bugs.
 
 - [Printed provider acceptance for blocking initiator relay](../tests/u12/test_tlm2_blocking_passthrough_initiator_connect_accepts_its_spec_listed_provider_families.sv).
@@ -838,13 +846,13 @@ Additional message-handle and endian cases:
 One existing command fixture now adds its command-enum citation without
 changing behavior or expected output and is remeasured on Verilator. The
 historical guest record for that input has a stale fingerprint. The current
-guest subset excludes it: 1084 compatible records and 332 unmeasured inputs,
+guest subset excludes it: 1084 compatible records and 349 unmeasured inputs,
 including that revised input. This is evidence scope, not a new guest failure.
 
 ## Simulator and library combinations
 
-The suite has 1416 cases, but the kirimasim/Ghost records below cover only
-1084 unchanged current-input cases. The 332 inputs are unmeasured
+The suite has 1433 cases, but the kirimasim/Ghost records below cover only
+1084 unchanged current-input cases. The 349 inputs are unmeasured
 because prior temporary executable/profile snapshots are unavailable. Do
 not treat this as a fresh full-suite guest result. See [results](results.md).
 

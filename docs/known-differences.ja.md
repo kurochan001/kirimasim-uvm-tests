@@ -2,11 +2,12 @@
 
 [English](known-differences.md) · [README](../README.ja.md) · [FAQ](faq.ja.md)
 
-現在の1416件と、固定したAccellera UVM 2020.3.1についての記録です。
+現在の1433件と、固定したAccellera UVM 2020.3.1についての記録です。
 不一致はテストの結果であり、それだけではシミュレータ・ライブラリ・期待値のどれが原因かは決まりません。
 
-新規の抽象生成8検査は対象診断による必須compiler拒否で一致し、specのみのsimulation差分171件には含めず、実行時seed結果も追加しません。
-選択したTLM extension-base抽象生成は、以前の正の型probeと別に検査しました。他の不正利用／member／protocol義務は残ります。
+elaboration 22件は、抽象classの直接生成8件とpure interface／const参照違反14件で、拒否を期待します。
+20件は一致し、subscriberとvisitorの未実装は受理されてspecのみを維持します。不正designは実行しません。
+このcompiler受理2件は既知simulation差分171件と別で、他の不正利用の義務も残ります。
 
 ## 固定版ライブラリの制約
 
@@ -18,6 +19,12 @@
 [shared accessの範囲](faq.ja.md#memory-accessshared-mapテストの選択)を参照してください。
 M1・M2・M3で、追加の制約と観測を確認しました。
 不足する必須動作を直接検査する場合は、規格の期待値を変えずに`:oracle: spec`で保持します。
+
+- pureなsubscriberのwriteまたはvisitorのvisitを欠く具象subtypeがcompileに成功します。
+  13.9.3.2／F.5.1.2.3の宣言とSystemVerilog 8.21は具象生成に実装を要求します。
+  両拒否oracleを保持しruntimeは実行しません。独立した合法な継承subscriber controlは両seedで一致しますが、実装欠落を許す根拠にはしません。
+  [subscriber欠落](../tests/u13/test_subscriber_concrete_subclass_must_implement_write.sv)と
+  [visitor欠落](../tests/uF/test_visitor_concrete_subclass_must_implement_visit.sv)を参照してください。
 
 - 新しい実行時差分3件は限定した規格解釈を保持します。12.3.5.7.4／12.3.5.8.4はblocking relay見出しでnonblocking providerを列挙します。
   逐語的な受理probeは列挙3／2 familyを全て拒否し、ERROR 6／4件を報告します。別のblocking relay転送／再利用の比較対象は一致します。
@@ -350,7 +357,7 @@ command-line 18検査系は別のVPI bridgeと固定regex DPIを明示要求し�
 上限は正しく7のままですが、固定serverはINFOを発行し、警告probeはWARNINGを観測しません。YESの比較対象は警告なしで9へ変わります。
 これは診断severityの差分で、上限の強制失敗ではありません。以前のno-DPI引数2件は未変更の通常実行時差分です。
 
-スイート全体では、`verilator@5.052`を付けたテストは1245件、specのみのテストは171件です。
+スイート全体では、`verilator@5.052`を付けたテストは1260件、specのみのテストは173件です。
 specのみのうち1件は9.6を検証します。pre-resetフェーズ終了時に子タスクが停止する
 はずですが、固定版UVMとVerilator 5.052の組み合わせでは、後のフェーズで子タスクの遅延書き込みが
 実行されます。この差分の原因がシミュレータとライブラリのどちらかは未確定です。
@@ -359,7 +366,7 @@ wakeup resetの検査系は、trigger waiterとpersistent-trigger waiterを各1�
 10.1.1.2.8は、callbackなしで両方が起動することを要求します。固定Verilatorの実行は、待機状態の観測に到達してから
 watchdogが期限切れになります。simulator／libraryを組み合わせた原因は未確定のまま、規範的なwakeupの期待を保持します。
 
-specのみの171件も規格から導いた期待値を保持します。通常のVerilator実行とCIはoracle付き1245件（runtime 1237・compile拒否8）を選びます。
+specのみの173件も規格から導いた期待値を保持します。通常のVerilator実行とCIはoracle付き1260件（runtime 1240・compile拒否20）を選びます。
 `--all`はspecのみも含め、不一致やビルド不可を`known`として記録します。
 通常の実行時128件は、最初の差分であるseed 1までの記録で、seed 73の結果はありません。
 API欠落build 16件は、time 1件、sequence-library 6件、HDL slice 4件、名前付きconcat constructor 1件、object active-policy 1件、catcher message-handle 3件で、
@@ -369,7 +376,7 @@ API欠落build 16件は、time 1件、sequence-library 6件、HDL slice 4件、�
 
 ## specのみのテスト
 
-現在の171件は次のテストです。同じ制約を複数のテストで検査する場合があり、異なる不具合の個数ではありません。
+現在の173件は次のテストです。同じ制約を複数のテストで検査する場合があり、異なる不具合の個数ではありません。
 
 - [blocking initiator relayの印刷provider受理](../tests/u12/test_tlm2_blocking_passthrough_initiator_connect_accepts_its_spec_listed_provider_families.sv).
 - [blocking target relayの印刷provider受理](../tests/u12/test_tlm2_blocking_passthrough_target_connect_accepts_its_spec_listed_provider_families.sv).
@@ -644,12 +651,12 @@ API欠落build 16件は、time 1件、sequence-library 6件、HDL slice 4件、�
 
 既存command 1検査系は、動作／期待出力を変えずcommand-enum引用を追加し、Verilatorで再測定します。
 その入力の歴史的guest記録は指紋が古くなったため、現在のguest部分集合から除外します。
-互換な1084記録、変更した入力を含む未測定332入力であり、新しいguest失敗ではなくevidence範囲の区別です。
+互換な1084記録、変更した入力を含む未測定349入力であり、新しいguest失敗ではなくevidence範囲の区別です。
 
 ## シミュレータとライブラリの組み合わせ
 
-スイートは1416件ですが、以下のkirimasim／Ghost記録は未変更の現在入力1084件だけを対象とします。
-以前の一時実行ファイル／profile snapshotがないため、332入力は未測定です。
+スイートは1433件ですが、以下のkirimasim／Ghost記録は未変更の現在入力1084件だけを対象とします。
+以前の一時実行ファイル／profile snapshotがないため、349入力は未測定です。
 新しい全件guest実測とは扱いません。[実行結果](results.ja.md)を参照してください。
 
 Ghostの同梱UVMはseed 1・73とも207件一致・877件不一致で、不一致になるテストも同じです。

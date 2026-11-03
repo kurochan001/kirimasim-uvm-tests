@@ -828,3 +828,9 @@ runtime binaryやseedは実行せず、予期しないlibrary／API／link build
 
 **検査種別の件数（Test-kind census）**：simulation／elaborationを分けた検査系の件数です。
 全検査系、runtimeの両seed一致、期待compiler拒否は異なる量で、coverage率を証明しません。
+
+**pure interface充足（Pure-interface fulfillment）**：具象subtypeが全ての継承pure virtual methodについて、その場で定義するか具象親から継承した実装を持つことです。
+選択した未完成classはnegative compile fixtureにします。
+
+**不正compile受理（Illegal compile acceptance）**：規格から導いたoracleが拒否を要求するfixtureのcompileが成功することです。
+negative検査の不一致であり、runnerは生成binaryやruntime seedを実行しません。

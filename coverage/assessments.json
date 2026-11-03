@@ -2738,6 +2738,20 @@
         "reviewer": null,
         "reviewed_at": null
       }
+    },
+    {
+      "clause": "13.9.3",
+      "classification": "structural",
+      "rationale": {
+        "en": "Methods is a grouping heading only; subscriber construction and the required write interface are specified in its two method children and remain explicit requirements.",
+        "ja": "Methodsは分類見出しだけであり、subscriber生成と必須write interfaceは下位method 2条項に規定され、明示要求として残す。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
     }
   ]
 }

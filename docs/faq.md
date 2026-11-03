@@ -135,7 +135,7 @@ See [Ghost setup](testing.md#ghost).
 
 It removes `UVM_NO_DPI` from the default macro list. It does not supply or link
 UVM's C/C++ implementation. The current Verilator runner does not add those
-sources. There are 1390 `UVM_NO_DPI` cases and eight explicit HDL-DPI cases.
+sources. There are 1407 `UVM_NO_DPI` cases and eight explicit HDL-DPI cases.
 Eighteen more fixtures explicitly enable command-line/regex DPI with HDL disabled.
 The [command-line runner](testing.md#verilator-command-line-subset) links that separate backend.
 The [separate VPI runner](testing.md#verilator-vpi-hdl-subset) links the original
@@ -1143,9 +1143,9 @@ not a direct test of the requirement.
 
 ### Q77. Why is there no coverage percentage after starting M4?
 
-The 2092 AI drafts cover only a partial decomposition: 2092 requirements link
-directly to 1415 tests; all drafts have direct tests, and one separate test is a control.
-All 1416 tests have requirement links. The 2,507 clause identifiers are not normative requirement units.
+The 2121 AI drafts cover only a partial decomposition: 2121 requirements link
+directly to 1432 tests; all drafts have direct tests, and one separate test is a control.
+All 1433 tests have requirement links. The 2,507 clause identifiers are not normative requirement units.
 The scope is proposed, the inventory incomplete and the denominator unapproved;
 starting M4 approves none of those. Known differences and HDL/DPI limitations
 do not silently exclude obligations. See the [approval path](requirements.md#remaining-m4-work-and-approval).
@@ -2145,7 +2145,7 @@ No. `tests_without_requirement_links` is zero: every current test has an
 explicit direct or control link. The separate counter
 `requirements_without_direct_tests` is zero. The memory-walk link uses the
 qualified historical interpretation in Q134. It is not approval of missing
-IEEE detail. HDL deposit and accessibility use explicit VPI fixtures. Another 1,147
+IEEE detail. HDL deposit and accessibility use explicit VPI fixtures. Another 1,139
 catalog identifiers remain unassessed; decomposition and human review are
 incomplete, and the denominator remains unapproved.
 
@@ -2246,7 +2246,7 @@ in [identifier assessments](../coverage/assessments.json). Structural headings
 have no related requirements; contextual descriptions name existing requirements.
 An unreviewed record, guessed classification or parent rollup cannot do this.
 The generated state is `assessed`, separate from `partial` requirement clauses.
-182 classifications currently exist, with no denominator approval or new pass.
+183 classifications currently exist, with no denominator approval or new pass.
 Chapter 11's zero unassessed identifiers still does not complete its requirements.
 
 ### Q136. Does explicit strict configuration make the new cases pass?
@@ -2933,8 +2933,8 @@ the unassessed count or approve an exclusion. All earlier requirements remain.
 A command fixture gained a supporting enum citation and was remeasured on
 Verilator. Even a metadata-only source edit changes its input fingerprint.
 Its old guest record is excluded; the original historical file still has
-1085 records. Current compatible scope is 1084, with 332 inputs unmeasured:
-331 additions and the revised old input. No guest rerun or new failure is claimed.
+1085 records. Current compatible scope is 1084, with 349 inputs unmeasured:
+348 additions and the revised old input. No guest rerun or new failure is claimed.
 
 ### Q194. May a predicate implementation delegate to another virtual query?
 
@@ -2991,12 +2991,12 @@ restricted to illegal elaboration metadata without runtime expectations.
 Schema 1 remains readable for output-only ledgers; mixed/unknown fields and
 stale patterns are rejected. Validation does not consume compiler results.
 
-### Q201. Did all 1416 tests run at two seeds?
+### Q201. Did all 1433 tests run at two seeds?
 
-No. The suite contains 1408 simulation and eight elaboration checks. Ordinary
-Verilator evidence has 1237 two-seed runtime matches, eight expected compiler
-rejections without runtime, and 171 known simulation differences. Requested
-seed configuration does not mean an illegal design executed a binary.
+No. There are 1411 simulation and 22 elaboration fixtures. Ordinary evidence
+has 1240 two-seed runtime matches, 20 expected compiler rejections, 171 known
+simulation differences and two known illegal compile acceptances. None of the
+22 illegal designs executes a runtime seed, even when compilation accepts it.
 
 ### Q202. What do the older legal controls establish?
 
@@ -3005,3 +3005,22 @@ for the new abstract-construction checks. They do not supply the direct
 negative link or a new execution result. Direct compiler evidence and prior
 runtime evidence retain their own input identities; no guest run, human review
 or scope/denominator approval is added.
+
+### Q203. Why are the missing subscriber/visitor methods still spec-only?
+
+The [subscriber](../tests/u13/test_subscriber_concrete_subclass_must_implement_write.sv) and
+[visitor](../tests/uF/test_visitor_concrete_subclass_must_implement_visit.sv) fixtures instantiate concrete subtypes
+with write/visit missing. The standard declares those methods pure; SystemVerilog
+requires concrete classes to provide implementations. The native tool accepts
+these two inputs. Keep rejection as the oracle and record known differences;
+no illegal binary runs. This result does not assign a simulator/library cause.
+
+### Q204. What do inherited-implementation controls prove?
+
+Three new runtime fixtures show legal inherited recording hooks, subscriber
+delivery through its public analysis export, and exact adapter converter
+signatures with const/ref effects. They pair with isolated illegal declarations.
+Their original recording/copying algorithms are setup; they do not establish
+arbitrary adapter correctness, every subclass, physical buses or complete
+abstract-interface coverage. Both seeds match, while negative expectations
+remain independent.

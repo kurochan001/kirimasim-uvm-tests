@@ -77382,6 +77382,1126 @@
           ]
         }
       ]
+    },
+    {
+      "id": "UVM-NEGATIVE-DATABASE-CONCRETE-SUBCLASS-MUST-IMPLEMENT-DO-OPEN-DB",
+      "clause": "7.1.6.1",
+      "statement": {
+        "en": "A concrete subtype cannot leave the declared pure virtual do_open_db method unimplemented.",
+        "ja": "具象subtypeは宣言されたpure virtualのdo_open_dbを未実装のままにできない。"
+      },
+      "conditions": {
+        "en": "Instantiate an original nonvirtual subtype with this one pure method missing; all other required methods have bodies.",
+        "ja": "このpure method 1つだけを欠き、他の必須methodには本体を持つ独自のnonvirtual subtypeを生成する。"
+      },
+      "expected": {
+        "en": "Compilation rejects the fixture with an error identifying the missing pure method; no runtime seed executes.",
+        "ja": "未実装のpure methodを識別するerrorでfixtureのcompileを拒否し、runtime seedは実行しない。"
+      },
+      "limitations": {
+        "en": "One selected illegal declaration/use. The exact regex is an expectation, not execution evidence. A legal runtime control is separate; inherited implementations, other specializations, all argument mutations and all abstract interfaces are not certified. A compiler accepting this design remains a known difference, not a pass.",
+        "ja": "選択した違法な宣言／使用1条件のみ。正確なregexは期待値であり実行evidenceではない。合法runtime controlは別に置き、継承実装、他specialization、全引数変更、全抽象interfaceの網羅は認定しない。compileを受理する場合も既知差分を維持しpassにはしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u07/test_database_concrete_subclass_must_implement_do_open_db",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?i)^(?=.*test_database_concrete_subclass_must_implement_do_open_db\\.sv:[0-9]+:[0-9]+:)(?=.*\\b(?:pure|virtual|abstract|missing implementation)\\b)(?=.*\\bdo_open_db\\b).*error"
+          }
+        },
+        {
+          "test": "u07/test_database_and_link_descendants_inherit_concrete_pure_hook_implementations",
+          "role": "control",
+          "expected_observations": [
+            "UT: inherited_endpoints identity 1 1 sets 1/1 gets 1/1",
+            "UT: inherited_database open 1 streams 1/1 calls 1/2 link 1/1",
+            "UT: inherited_close result 1 calls 1 state 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-NEGATIVE-DATABASE-CONCRETE-SUBCLASS-MUST-IMPLEMENT-DO-CLOSE-DB",
+      "clause": "7.1.6.2",
+      "statement": {
+        "en": "A concrete subtype cannot leave the declared pure virtual do_close_db method unimplemented.",
+        "ja": "具象subtypeは宣言されたpure virtualのdo_close_dbを未実装のままにできない。"
+      },
+      "conditions": {
+        "en": "Instantiate an original nonvirtual subtype with this one pure method missing; all other required methods have bodies.",
+        "ja": "このpure method 1つだけを欠き、他の必須methodには本体を持つ独自のnonvirtual subtypeを生成する。"
+      },
+      "expected": {
+        "en": "Compilation rejects the fixture with an error identifying the missing pure method; no runtime seed executes.",
+        "ja": "未実装のpure methodを識別するerrorでfixtureのcompileを拒否し、runtime seedは実行しない。"
+      },
+      "limitations": {
+        "en": "One selected illegal declaration/use. The exact regex is an expectation, not execution evidence. A legal runtime control is separate; inherited implementations, other specializations, all argument mutations and all abstract interfaces are not certified. A compiler accepting this design remains a known difference, not a pass.",
+        "ja": "選択した違法な宣言／使用1条件のみ。正確なregexは期待値であり実行evidenceではない。合法runtime controlは別に置き、継承実装、他specialization、全引数変更、全抽象interfaceの網羅は認定しない。compileを受理する場合も既知差分を維持しpassにはしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u07/test_database_concrete_subclass_must_implement_do_close_db",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?i)^(?=.*test_database_concrete_subclass_must_implement_do_close_db\\.sv:[0-9]+:[0-9]+:)(?=.*\\b(?:pure|virtual|abstract|missing implementation)\\b)(?=.*\\bdo_close_db\\b).*error"
+          }
+        },
+        {
+          "test": "u07/test_database_and_link_descendants_inherit_concrete_pure_hook_implementations",
+          "role": "control",
+          "expected_observations": [
+            "UT: inherited_endpoints identity 1 1 sets 1/1 gets 1/1",
+            "UT: inherited_database open 1 streams 1/1 calls 1/2 link 1/1",
+            "UT: inherited_close result 1 calls 1 state 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-NEGATIVE-DATABASE-CONCRETE-SUBCLASS-MUST-IMPLEMENT-DO-OPEN-STREAM",
+      "clause": "7.1.6.3",
+      "statement": {
+        "en": "A concrete subtype cannot leave the declared pure virtual do_open_stream method unimplemented.",
+        "ja": "具象subtypeは宣言されたpure virtualのdo_open_streamを未実装のままにできない。"
+      },
+      "conditions": {
+        "en": "Instantiate an original nonvirtual subtype with this one pure method missing; all other required methods have bodies.",
+        "ja": "このpure method 1つだけを欠き、他の必須methodには本体を持つ独自のnonvirtual subtypeを生成する。"
+      },
+      "expected": {
+        "en": "Compilation rejects the fixture with an error identifying the missing pure method; no runtime seed executes.",
+        "ja": "未実装のpure methodを識別するerrorでfixtureのcompileを拒否し、runtime seedは実行しない。"
+      },
+      "limitations": {
+        "en": "One selected illegal declaration/use. The exact regex is an expectation, not execution evidence. A legal runtime control is separate; inherited implementations, other specializations, all argument mutations and all abstract interfaces are not certified. A compiler accepting this design remains a known difference, not a pass.",
+        "ja": "選択した違法な宣言／使用1条件のみ。正確なregexは期待値であり実行evidenceではない。合法runtime controlは別に置き、継承実装、他specialization、全引数変更、全抽象interfaceの網羅は認定しない。compileを受理する場合も既知差分を維持しpassにはしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u07/test_database_concrete_subclass_must_implement_do_open_stream",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?i)^(?=.*test_database_concrete_subclass_must_implement_do_open_stream\\.sv:[0-9]+:[0-9]+:)(?=.*\\b(?:pure|virtual|abstract|missing implementation)\\b)(?=.*\\bdo_open_stream\\b).*error"
+          }
+        },
+        {
+          "test": "u07/test_database_and_link_descendants_inherit_concrete_pure_hook_implementations",
+          "role": "control",
+          "expected_observations": [
+            "UT: inherited_endpoints identity 1 1 sets 1/1 gets 1/1",
+            "UT: inherited_database open 1 streams 1/1 calls 1/2 link 1/1",
+            "UT: inherited_close result 1 calls 1 state 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-NEGATIVE-DATABASE-CONCRETE-SUBCLASS-MUST-IMPLEMENT-DO-ESTABLISH-LINK",
+      "clause": "7.1.6.4",
+      "statement": {
+        "en": "A concrete subtype cannot leave the declared pure virtual do_establish_link method unimplemented.",
+        "ja": "具象subtypeは宣言されたpure virtualのdo_establish_linkを未実装のままにできない。"
+      },
+      "conditions": {
+        "en": "Instantiate an original nonvirtual subtype with this one pure method missing; all other required methods have bodies.",
+        "ja": "このpure method 1つだけを欠き、他の必須methodには本体を持つ独自のnonvirtual subtypeを生成する。"
+      },
+      "expected": {
+        "en": "Compilation rejects the fixture with an error identifying the missing pure method; no runtime seed executes.",
+        "ja": "未実装のpure methodを識別するerrorでfixtureのcompileを拒否し、runtime seedは実行しない。"
+      },
+      "limitations": {
+        "en": "One selected illegal declaration/use. The exact regex is an expectation, not execution evidence. A legal runtime control is separate; inherited implementations, other specializations, all argument mutations and all abstract interfaces are not certified. A compiler accepting this design remains a known difference, not a pass.",
+        "ja": "選択した違法な宣言／使用1条件のみ。正確なregexは期待値であり実行evidenceではない。合法runtime controlは別に置き、継承実装、他specialization、全引数変更、全抽象interfaceの網羅は認定しない。compileを受理する場合も既知差分を維持しpassにはしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u07/test_database_concrete_subclass_must_implement_do_establish_link",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?i)^(?=.*test_database_concrete_subclass_must_implement_do_establish_link\\.sv:[0-9]+:[0-9]+:)(?=.*\\b(?:pure|virtual|abstract|missing implementation)\\b)(?=.*\\bdo_establish_link\\b).*error"
+          }
+        },
+        {
+          "test": "u07/test_database_and_link_descendants_inherit_concrete_pure_hook_implementations",
+          "role": "control",
+          "expected_observations": [
+            "UT: inherited_endpoints identity 1 1 sets 1/1 gets 1/1",
+            "UT: inherited_database open 1 streams 1/1 calls 1/2 link 1/1",
+            "UT: inherited_close result 1 calls 1 state 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-NEGATIVE-LINK-CONCRETE-SUBCLASS-MUST-IMPLEMENT-DO-GET-LHS",
+      "clause": "7.3.1.4.1",
+      "statement": {
+        "en": "A concrete subtype cannot leave the declared pure virtual do_get_lhs method unimplemented.",
+        "ja": "具象subtypeは宣言されたpure virtualのdo_get_lhsを未実装のままにできない。"
+      },
+      "conditions": {
+        "en": "Instantiate an original nonvirtual subtype with this one pure method missing; all other required methods have bodies.",
+        "ja": "このpure method 1つだけを欠き、他の必須methodには本体を持つ独自のnonvirtual subtypeを生成する。"
+      },
+      "expected": {
+        "en": "Compilation rejects the fixture with an error identifying the missing pure method; no runtime seed executes.",
+        "ja": "未実装のpure methodを識別するerrorでfixtureのcompileを拒否し、runtime seedは実行しない。"
+      },
+      "limitations": {
+        "en": "One selected illegal declaration/use. The exact regex is an expectation, not execution evidence. A legal runtime control is separate; inherited implementations, other specializations, all argument mutations and all abstract interfaces are not certified. A compiler accepting this design remains a known difference, not a pass.",
+        "ja": "選択した違法な宣言／使用1条件のみ。正確なregexは期待値であり実行evidenceではない。合法runtime controlは別に置き、継承実装、他specialization、全引数変更、全抽象interfaceの網羅は認定しない。compileを受理する場合も既知差分を維持しpassにはしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u07/test_link_concrete_subclass_must_implement_do_get_lhs",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?i)^(?=.*test_link_concrete_subclass_must_implement_do_get_lhs\\.sv:[0-9]+:[0-9]+:)(?=.*\\b(?:pure|virtual|abstract|missing implementation)\\b)(?=.*\\bdo_get_lhs\\b).*error"
+          }
+        },
+        {
+          "test": "u07/test_database_and_link_descendants_inherit_concrete_pure_hook_implementations",
+          "role": "control",
+          "expected_observations": [
+            "UT: inherited_endpoints identity 1 1 sets 1/1 gets 1/1",
+            "UT: inherited_database open 1 streams 1/1 calls 1/2 link 1/1",
+            "UT: inherited_close result 1 calls 1 state 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-NEGATIVE-LINK-CONCRETE-SUBCLASS-MUST-IMPLEMENT-DO-SET-LHS",
+      "clause": "7.3.1.4.2",
+      "statement": {
+        "en": "A concrete subtype cannot leave the declared pure virtual do_set_lhs method unimplemented.",
+        "ja": "具象subtypeは宣言されたpure virtualのdo_set_lhsを未実装のままにできない。"
+      },
+      "conditions": {
+        "en": "Instantiate an original nonvirtual subtype with this one pure method missing; all other required methods have bodies.",
+        "ja": "このpure method 1つだけを欠き、他の必須methodには本体を持つ独自のnonvirtual subtypeを生成する。"
+      },
+      "expected": {
+        "en": "Compilation rejects the fixture with an error identifying the missing pure method; no runtime seed executes.",
+        "ja": "未実装のpure methodを識別するerrorでfixtureのcompileを拒否し、runtime seedは実行しない。"
+      },
+      "limitations": {
+        "en": "One selected illegal declaration/use. The exact regex is an expectation, not execution evidence. A legal runtime control is separate; inherited implementations, other specializations, all argument mutations and all abstract interfaces are not certified. A compiler accepting this design remains a known difference, not a pass.",
+        "ja": "選択した違法な宣言／使用1条件のみ。正確なregexは期待値であり実行evidenceではない。合法runtime controlは別に置き、継承実装、他specialization、全引数変更、全抽象interfaceの網羅は認定しない。compileを受理する場合も既知差分を維持しpassにはしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u07/test_link_concrete_subclass_must_implement_do_set_lhs",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?i)^(?=.*test_link_concrete_subclass_must_implement_do_set_lhs\\.sv:[0-9]+:[0-9]+:)(?=.*\\b(?:pure|virtual|abstract|missing implementation)\\b)(?=.*\\bdo_set_lhs\\b).*error"
+          }
+        },
+        {
+          "test": "u07/test_database_and_link_descendants_inherit_concrete_pure_hook_implementations",
+          "role": "control",
+          "expected_observations": [
+            "UT: inherited_endpoints identity 1 1 sets 1/1 gets 1/1",
+            "UT: inherited_database open 1 streams 1/1 calls 1/2 link 1/1",
+            "UT: inherited_close result 1 calls 1 state 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-NEGATIVE-LINK-CONCRETE-SUBCLASS-MUST-IMPLEMENT-DO-GET-RHS",
+      "clause": "7.3.1.4.3",
+      "statement": {
+        "en": "A concrete subtype cannot leave the declared pure virtual do_get_rhs method unimplemented.",
+        "ja": "具象subtypeは宣言されたpure virtualのdo_get_rhsを未実装のままにできない。"
+      },
+      "conditions": {
+        "en": "Instantiate an original nonvirtual subtype with this one pure method missing; all other required methods have bodies.",
+        "ja": "このpure method 1つだけを欠き、他の必須methodには本体を持つ独自のnonvirtual subtypeを生成する。"
+      },
+      "expected": {
+        "en": "Compilation rejects the fixture with an error identifying the missing pure method; no runtime seed executes.",
+        "ja": "未実装のpure methodを識別するerrorでfixtureのcompileを拒否し、runtime seedは実行しない。"
+      },
+      "limitations": {
+        "en": "One selected illegal declaration/use. The exact regex is an expectation, not execution evidence. A legal runtime control is separate; inherited implementations, other specializations, all argument mutations and all abstract interfaces are not certified. A compiler accepting this design remains a known difference, not a pass.",
+        "ja": "選択した違法な宣言／使用1条件のみ。正確なregexは期待値であり実行evidenceではない。合法runtime controlは別に置き、継承実装、他specialization、全引数変更、全抽象interfaceの網羅は認定しない。compileを受理する場合も既知差分を維持しpassにはしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u07/test_link_concrete_subclass_must_implement_do_get_rhs",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?i)^(?=.*test_link_concrete_subclass_must_implement_do_get_rhs\\.sv:[0-9]+:[0-9]+:)(?=.*\\b(?:pure|virtual|abstract|missing implementation)\\b)(?=.*\\bdo_get_rhs\\b).*error"
+          }
+        },
+        {
+          "test": "u07/test_database_and_link_descendants_inherit_concrete_pure_hook_implementations",
+          "role": "control",
+          "expected_observations": [
+            "UT: inherited_endpoints identity 1 1 sets 1/1 gets 1/1",
+            "UT: inherited_database open 1 streams 1/1 calls 1/2 link 1/1",
+            "UT: inherited_close result 1 calls 1 state 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-NEGATIVE-LINK-CONCRETE-SUBCLASS-MUST-IMPLEMENT-DO-SET-RHS",
+      "clause": "7.3.1.4.4",
+      "statement": {
+        "en": "A concrete subtype cannot leave the declared pure virtual do_set_rhs method unimplemented.",
+        "ja": "具象subtypeは宣言されたpure virtualのdo_set_rhsを未実装のままにできない。"
+      },
+      "conditions": {
+        "en": "Instantiate an original nonvirtual subtype with this one pure method missing; all other required methods have bodies.",
+        "ja": "このpure method 1つだけを欠き、他の必須methodには本体を持つ独自のnonvirtual subtypeを生成する。"
+      },
+      "expected": {
+        "en": "Compilation rejects the fixture with an error identifying the missing pure method; no runtime seed executes.",
+        "ja": "未実装のpure methodを識別するerrorでfixtureのcompileを拒否し、runtime seedは実行しない。"
+      },
+      "limitations": {
+        "en": "One selected illegal declaration/use. The exact regex is an expectation, not execution evidence. A legal runtime control is separate; inherited implementations, other specializations, all argument mutations and all abstract interfaces are not certified. A compiler accepting this design remains a known difference, not a pass.",
+        "ja": "選択した違法な宣言／使用1条件のみ。正確なregexは期待値であり実行evidenceではない。合法runtime controlは別に置き、継承実装、他specialization、全引数変更、全抽象interfaceの網羅は認定しない。compileを受理する場合も既知差分を維持しpassにはしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u07/test_link_concrete_subclass_must_implement_do_set_rhs",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?i)^(?=.*test_link_concrete_subclass_must_implement_do_set_rhs\\.sv:[0-9]+:[0-9]+:)(?=.*\\b(?:pure|virtual|abstract|missing implementation)\\b)(?=.*\\bdo_set_rhs\\b).*error"
+          }
+        },
+        {
+          "test": "u07/test_database_and_link_descendants_inherit_concrete_pure_hook_implementations",
+          "role": "control",
+          "expected_observations": [
+            "UT: inherited_endpoints identity 1 1 sets 1/1 gets 1/1",
+            "UT: inherited_database open 1 streams 1/1 calls 1/2 link 1/1",
+            "UT: inherited_close result 1 calls 1 state 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-NEGATIVE-REPORT-CATCHER-CONCRETE-SUBCLASS-MUST-IMPLEMENT-CATCH",
+      "clause": "6.6.5",
+      "statement": {
+        "en": "A concrete subtype cannot leave the declared pure virtual catch method unimplemented.",
+        "ja": "具象subtypeは宣言されたpure virtualのcatchを未実装のままにできない。"
+      },
+      "conditions": {
+        "en": "Instantiate an original nonvirtual subtype with this one pure method missing; all other required methods have bodies.",
+        "ja": "このpure method 1つだけを欠き、他の必須methodには本体を持つ独自のnonvirtual subtypeを生成する。"
+      },
+      "expected": {
+        "en": "Compilation rejects the fixture with an error identifying the missing pure method; no runtime seed executes.",
+        "ja": "未実装のpure methodを識別するerrorでfixtureのcompileを拒否し、runtime seedは実行しない。"
+      },
+      "limitations": {
+        "en": "One selected illegal declaration/use. The exact regex is an expectation, not execution evidence. A legal runtime control is separate; inherited implementations, other specializations, all argument mutations and all abstract interfaces are not certified. A compiler accepting this design remains a known difference, not a pass.",
+        "ja": "選択した違法な宣言／使用1条件のみ。正確なregexは期待値であり実行evidenceではない。合法runtime controlは別に置き、継承実装、他specialization、全引数変更、全抽象interfaceの網羅は認定しない。compileを受理する場合も既知差分を維持しpassにはしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u06/test_report_catcher_concrete_subclass_must_implement_catch",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?i)^(?=.*test_report_catcher_concrete_subclass_must_implement_catch\\.sv:[0-9]+:[0-9]+:)(?=.*\\b(?:pure|virtual|abstract|missing implementation)\\b)(?=.*\\bcatch\\b).*error"
+          }
+        },
+        {
+          "test": "u06/test_report_catcher_action_mutation_reaches_tail_without_leaking_to_next_report",
+          "role": "control",
+          "expected_observations": [
+            "UT: changed first 1 tail 1 original 1 propagated 1 location 1",
+            "UT: fresh first 2 tail 2 original 1 propagated 1 location 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-NEGATIVE-SUBSCRIBER-CONCRETE-SUBCLASS-MUST-IMPLEMENT-WRITE",
+      "clause": "13.9.3.2",
+      "statement": {
+        "en": "A concrete subtype cannot leave the declared pure virtual write method unimplemented.",
+        "ja": "具象subtypeは宣言されたpure virtualのwriteを未実装のままにできない。"
+      },
+      "conditions": {
+        "en": "Instantiate an original nonvirtual subtype with this one pure method missing; all other required methods have bodies.",
+        "ja": "このpure method 1つだけを欠き、他の必須methodには本体を持つ独自のnonvirtual subtypeを生成する。"
+      },
+      "expected": {
+        "en": "Compilation rejects the fixture with an error identifying the missing pure method; no runtime seed executes.",
+        "ja": "未実装のpure methodを識別するerrorでfixtureのcompileを拒否し、runtime seedは実行しない。"
+      },
+      "limitations": {
+        "en": "One selected illegal declaration/use. The exact regex is an expectation, not execution evidence. A legal runtime control is separate; inherited implementations, other specializations, all argument mutations and all abstract interfaces are not certified. A compiler accepting this design remains a known difference, not a pass.",
+        "ja": "選択した違法な宣言／使用1条件のみ。正確なregexは期待値であり実行evidenceではない。合法runtime controlは別に置き、継承実装、他specialization、全引数変更、全抽象interfaceの網羅は認定しない。compileを受理する場合も既知差分を維持しpassにはしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_subscriber_concrete_subclass_must_implement_write",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?i)^(?=.*test_subscriber_concrete_subclass_must_implement_write\\.sv:[0-9]+:[0-9]+:)(?=.*\\b(?:pure|virtual|abstract|missing implementation)\\b)(?=.*\\bwrite\\b).*error"
+          }
+        },
+        {
+          "test": "u13/test_subscriber_descendant_inherits_write_through_default_typed_analysis_export",
+          "role": "control",
+          "expected_observations": [
+            "UT: inherited_subscriber count 2 values 13/27 peer 1/41",
+            "UT: subscriber_declaration base 1 export 1 names 1/1 parent 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-NEGATIVE-VISITOR-CONCRETE-SUBCLASS-MUST-IMPLEMENT-VISIT",
+      "clause": "F.5.1.2.3",
+      "statement": {
+        "en": "A concrete subtype cannot leave the declared pure virtual visit method unimplemented.",
+        "ja": "具象subtypeは宣言されたpure virtualのvisitを未実装のままにできない。"
+      },
+      "conditions": {
+        "en": "Instantiate an original nonvirtual subtype with this one pure method missing; all other required methods have bodies.",
+        "ja": "このpure method 1つだけを欠き、他の必須methodには本体を持つ独自のnonvirtual subtypeを生成する。"
+      },
+      "expected": {
+        "en": "Compilation rejects the fixture with an error identifying the missing pure method; no runtime seed executes.",
+        "ja": "未実装のpure methodを識別するerrorでfixtureのcompileを拒否し、runtime seedは実行しない。"
+      },
+      "limitations": {
+        "en": "One selected illegal declaration/use. The exact regex is an expectation, not execution evidence. A legal runtime control is separate; inherited implementations, other specializations, all argument mutations and all abstract interfaces are not certified. A compiler accepting this design remains a known difference, not a pass.",
+        "ja": "選択した違法な宣言／使用1条件のみ。正確なregexは期待値であり実行evidenceではない。合法runtime controlは別に置き、継承実装、他specialization、全引数変更、全抽象interfaceの網羅は認定しない。compileを受理する場合も既知差分を維持しpassにはしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_visitor_concrete_subclass_must_implement_visit",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?i)^(?=.*test_visitor_concrete_subclass_must_implement_visit\\.sv:[0-9]+:[0-9]+:)(?=.*\\b(?:pure|virtual|abstract|missing implementation)\\b)(?=.*\\bvisit\\b).*error"
+          }
+        },
+        {
+          "test": "uF/test_visitor_top_down_adapter_visits_each_node_in_the_required_partial_order",
+          "role": "control",
+          "expected_observations": [
+            "UT: visits 5 members 1 1 1 1 1",
+            "UT: required_order 1 begin 1 end 1 bracketed 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-NEGATIVE-REG-ADAPTER-CONCRETE-SUBCLASS-MUST-IMPLEMENT-REG2BUS",
+      "clause": "19.2.1.2.5",
+      "statement": {
+        "en": "A concrete subtype cannot leave the declared pure virtual reg2bus method unimplemented.",
+        "ja": "具象subtypeは宣言されたpure virtualのreg2busを未実装のままにできない。"
+      },
+      "conditions": {
+        "en": "Instantiate an original nonvirtual subtype with this one pure method missing; all other required methods have bodies.",
+        "ja": "このpure method 1つだけを欠き、他の必須methodには本体を持つ独自のnonvirtual subtypeを生成する。"
+      },
+      "expected": {
+        "en": "Compilation rejects the fixture with an error identifying the missing pure method; no runtime seed executes.",
+        "ja": "未実装のpure methodを識別するerrorでfixtureのcompileを拒否し、runtime seedは実行しない。"
+      },
+      "limitations": {
+        "en": "One selected illegal declaration/use. The exact regex is an expectation, not execution evidence. A legal runtime control is separate; inherited implementations, other specializations, all argument mutations and all abstract interfaces are not certified. A compiler accepting this design remains a known difference, not a pass.",
+        "ja": "選択した違法な宣言／使用1条件のみ。正確なregexは期待値であり実行evidenceではない。合法runtime controlは別に置き、継承実装、他specialization、全引数変更、全抽象interfaceの網羅は認定しない。compileを受理する場合も既知差分を維持しpassにはしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_adapter_concrete_subclass_must_implement_reg2bus",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?i)^(?=.*test_reg_adapter_concrete_subclass_must_implement_reg2bus\\.sv:[0-9]+:[0-9]+:)(?=.*\\b(?:pure|virtual|abstract|missing implementation)\\b)(?=.*\\breg2bus\\b).*error"
+          }
+        },
+        {
+          "test": "u19/test_reg_adapter_descendant_inherits_both_converters_and_preserves_reference_directions",
+          "role": "control",
+          "expected_observations": [
+            "UT: inherited_reg2bus calls 2 fresh 1 copies 1/1 input 1",
+            "UT: inherited_bus2reg calls 1 output 1 input 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-NEGATIVE-REG-ADAPTER-CONCRETE-SUBCLASS-MUST-IMPLEMENT-BUS2REG",
+      "clause": "19.2.1.2.6",
+      "statement": {
+        "en": "A concrete subtype cannot leave the declared pure virtual bus2reg method unimplemented.",
+        "ja": "具象subtypeは宣言されたpure virtualのbus2regを未実装のままにできない。"
+      },
+      "conditions": {
+        "en": "Instantiate an original nonvirtual subtype with this one pure method missing; all other required methods have bodies.",
+        "ja": "このpure method 1つだけを欠き、他の必須methodには本体を持つ独自のnonvirtual subtypeを生成する。"
+      },
+      "expected": {
+        "en": "Compilation rejects the fixture with an error identifying the missing pure method; no runtime seed executes.",
+        "ja": "未実装のpure methodを識別するerrorでfixtureのcompileを拒否し、runtime seedは実行しない。"
+      },
+      "limitations": {
+        "en": "One selected illegal declaration/use. The exact regex is an expectation, not execution evidence. A legal runtime control is separate; inherited implementations, other specializations, all argument mutations and all abstract interfaces are not certified. A compiler accepting this design remains a known difference, not a pass.",
+        "ja": "選択した違法な宣言／使用1条件のみ。正確なregexは期待値であり実行evidenceではない。合法runtime controlは別に置き、継承実装、他specialization、全引数変更、全抽象interfaceの網羅は認定しない。compileを受理する場合も既知差分を維持しpassにはしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_adapter_concrete_subclass_must_implement_bus2reg",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?i)^(?=.*test_reg_adapter_concrete_subclass_must_implement_bus2reg\\.sv:[0-9]+:[0-9]+:)(?=.*\\b(?:pure|virtual|abstract|missing implementation)\\b)(?=.*\\bbus2reg\\b).*error"
+          }
+        },
+        {
+          "test": "u19/test_reg_adapter_descendant_inherits_both_converters_and_preserves_reference_directions",
+          "role": "control",
+          "expected_observations": [
+            "UT: inherited_reg2bus calls 2 fresh 1 copies 1/1 input 1",
+            "UT: inherited_bus2reg calls 1 output 1 input 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-NEGATIVE-REG-ADAPTER-REG2BUS-CONST-REFERENCE-REJECTS-INPUT-MUTATION",
+      "clause": "19.2.1.2.5",
+      "statement": {
+        "en": "The declared const-reference reg2bus input cannot be assigned by its implementation.",
+        "ja": "宣言されたconst参照のreg2bus入力には実装内で代入できない。"
+      },
+      "conditions": {
+        "en": "Use a complete original adapter with exact converter signatures, then assign rw.data in reg2bus.",
+        "ja": "正確なconverter signatureを持つ独自の完全なadapterのreg2bus内でrw.dataへ代入する。"
+      },
+      "expected": {
+        "en": "Compilation rejects the fixture with an error identifying its const reference rw; no runtime seed executes.",
+        "ja": "const参照rwを識別するerrorでfixtureのcompileを拒否し、runtime seedは実行しない。"
+      },
+      "limitations": {
+        "en": "One selected illegal declaration/use. The exact regex is an expectation, not execution evidence. A legal runtime control is separate; inherited implementations, other specializations, all argument mutations and all abstract interfaces are not certified. A compiler accepting this design remains a known difference, not a pass.",
+        "ja": "選択した違法な宣言／使用1条件のみ。正確なregexは期待値であり実行evidenceではない。合法runtime controlは別に置き、継承実装、他specialization、全引数変更、全抽象interfaceの網羅は認定しない。compileを受理する場合も既知差分を維持しpassにはしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_adapter_reg2bus_const_reference_rejects_input_mutation",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?i)^(?=.*test_reg_adapter_reg2bus_const_reference_rejects_input_mutation\\.sv:[0-9]+:[0-9]+:)(?=.*\\bconst(?:ant)?\\b)(?=.*\\brw\\b).*error"
+          }
+        },
+        {
+          "test": "u19/test_reg_adapter_descendant_inherits_both_converters_and_preserves_reference_directions",
+          "role": "control",
+          "expected_observations": [
+            "UT: inherited_reg2bus calls 2 fresh 1 copies 1/1 input 1",
+            "UT: inherited_bus2reg calls 1 output 1 input 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-INHERITED-RECORDING-DO-OPEN-DB",
+      "clause": "7.1.6.1",
+      "statement": {
+        "en": "An inherited concrete do_open_db implementation satisfies the declared pure hook and is reached through its public wrapper.",
+        "ja": "継承した具象do_open_db実装は宣言されたpure hookを満たし、public wrapperから到達する。"
+      },
+      "conditions": {
+        "en": "Construct a leaf without overriding the parent hook bodies; use exact base views with two valid streams from the same open database and an original link.",
+        "ja": "親のhook本体をoverrideしないleafを生成し、同じopen databaseの有効stream 2つと独自linkをexact base viewで使う。"
+      },
+      "expected": {
+        "en": "The selected wrapper reaches the inherited hook: opening/closing succeeds, stream objects and link identity are preserved, or endpoint setters/getters each run once before database linking.",
+        "ja": "選択wrapperは継承hookへ到達する。open／closeは成功し、stream objectとlink identityを保持するか、databaseでlinkする前のendpoint setter／getterが各1回動作する。"
+      },
+      "limitations": {
+        "en": "A legal inheritance and selected wrapper-dispatch control. Original hook payload algorithms and success responses are setup, not prescribed implementations. No combined setter order, extra getter calls during link validation, failed database operations, external backend, other stream lifecycle or all inheritance shapes are claimed.",
+        "ja": "合法な継承と選択wrapper dispatchのcontrol。独自hookのpayload algorithmと成功応答は準備であり規定実装ではない。combined setter順序、link検証時の追加getter回数、database失敗、外部backend、他stream lifecycle、全継承形状は主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u07/test_database_and_link_descendants_inherit_concrete_pure_hook_implementations",
+          "role": "direct",
+          "expected_observations": [
+            "UT: inherited_database open 1 streams 1/1 calls 1/2 link 1/1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-INHERITED-RECORDING-DO-CLOSE-DB",
+      "clause": "7.1.6.2",
+      "statement": {
+        "en": "An inherited concrete do_close_db implementation satisfies the declared pure hook and is reached through its public wrapper.",
+        "ja": "継承した具象do_close_db実装は宣言されたpure hookを満たし、public wrapperから到達する。"
+      },
+      "conditions": {
+        "en": "Construct a leaf without overriding the parent hook bodies; use exact base views with two valid streams from the same open database and an original link.",
+        "ja": "親のhook本体をoverrideしないleafを生成し、同じopen databaseの有効stream 2つと独自linkをexact base viewで使う。"
+      },
+      "expected": {
+        "en": "The selected wrapper reaches the inherited hook: opening/closing succeeds, stream objects and link identity are preserved, or endpoint setters/getters each run once before database linking.",
+        "ja": "選択wrapperは継承hookへ到達する。open／closeは成功し、stream objectとlink identityを保持するか、databaseでlinkする前のendpoint setter／getterが各1回動作する。"
+      },
+      "limitations": {
+        "en": "A legal inheritance and selected wrapper-dispatch control. Original hook payload algorithms and success responses are setup, not prescribed implementations. No combined setter order, extra getter calls during link validation, failed database operations, external backend, other stream lifecycle or all inheritance shapes are claimed.",
+        "ja": "合法な継承と選択wrapper dispatchのcontrol。独自hookのpayload algorithmと成功応答は準備であり規定実装ではない。combined setter順序、link検証時の追加getter回数、database失敗、外部backend、他stream lifecycle、全継承形状は主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u07/test_database_and_link_descendants_inherit_concrete_pure_hook_implementations",
+          "role": "direct",
+          "expected_observations": [
+            "UT: inherited_close result 1 calls 1 state 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-INHERITED-RECORDING-DO-OPEN-STREAM",
+      "clause": "7.1.6.3",
+      "statement": {
+        "en": "An inherited concrete do_open_stream implementation satisfies the declared pure hook and is reached through its public wrapper.",
+        "ja": "継承した具象do_open_stream実装は宣言されたpure hookを満たし、public wrapperから到達する。"
+      },
+      "conditions": {
+        "en": "Construct a leaf without overriding the parent hook bodies; use exact base views with two valid streams from the same open database and an original link.",
+        "ja": "親のhook本体をoverrideしないleafを生成し、同じopen databaseの有効stream 2つと独自linkをexact base viewで使う。"
+      },
+      "expected": {
+        "en": "The selected wrapper reaches the inherited hook: opening/closing succeeds, stream objects and link identity are preserved, or endpoint setters/getters each run once before database linking.",
+        "ja": "選択wrapperは継承hookへ到達する。open／closeは成功し、stream objectとlink identityを保持するか、databaseでlinkする前のendpoint setter／getterが各1回動作する。"
+      },
+      "limitations": {
+        "en": "A legal inheritance and selected wrapper-dispatch control. Original hook payload algorithms and success responses are setup, not prescribed implementations. No combined setter order, extra getter calls during link validation, failed database operations, external backend, other stream lifecycle or all inheritance shapes are claimed.",
+        "ja": "合法な継承と選択wrapper dispatchのcontrol。独自hookのpayload algorithmと成功応答は準備であり規定実装ではない。combined setter順序、link検証時の追加getter回数、database失敗、外部backend、他stream lifecycle、全継承形状は主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u07/test_database_and_link_descendants_inherit_concrete_pure_hook_implementations",
+          "role": "direct",
+          "expected_observations": [
+            "UT: inherited_database open 1 streams 1/1 calls 1/2 link 1/1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-INHERITED-RECORDING-DO-ESTABLISH-LINK",
+      "clause": "7.1.6.4",
+      "statement": {
+        "en": "An inherited concrete do_establish_link implementation satisfies the declared pure hook and is reached through its public wrapper.",
+        "ja": "継承した具象do_establish_link実装は宣言されたpure hookを満たし、public wrapperから到達する。"
+      },
+      "conditions": {
+        "en": "Construct a leaf without overriding the parent hook bodies; use exact base views with two valid streams from the same open database and an original link.",
+        "ja": "親のhook本体をoverrideしないleafを生成し、同じopen databaseの有効stream 2つと独自linkをexact base viewで使う。"
+      },
+      "expected": {
+        "en": "The selected wrapper reaches the inherited hook: opening/closing succeeds, stream objects and link identity are preserved, or endpoint setters/getters each run once before database linking.",
+        "ja": "選択wrapperは継承hookへ到達する。open／closeは成功し、stream objectとlink identityを保持するか、databaseでlinkする前のendpoint setter／getterが各1回動作する。"
+      },
+      "limitations": {
+        "en": "A legal inheritance and selected wrapper-dispatch control. Original hook payload algorithms and success responses are setup, not prescribed implementations. No combined setter order, extra getter calls during link validation, failed database operations, external backend, other stream lifecycle or all inheritance shapes are claimed.",
+        "ja": "合法な継承と選択wrapper dispatchのcontrol。独自hookのpayload algorithmと成功応答は準備であり規定実装ではない。combined setter順序、link検証時の追加getter回数、database失敗、外部backend、他stream lifecycle、全継承形状は主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u07/test_database_and_link_descendants_inherit_concrete_pure_hook_implementations",
+          "role": "direct",
+          "expected_observations": [
+            "UT: inherited_database open 1 streams 1/1 calls 1/2 link 1/1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-INHERITED-RECORDING-DO-GET-LHS",
+      "clause": "7.3.1.4.1",
+      "statement": {
+        "en": "An inherited concrete do_get_lhs implementation satisfies the declared pure hook and is reached through its public wrapper.",
+        "ja": "継承した具象do_get_lhs実装は宣言されたpure hookを満たし、public wrapperから到達する。"
+      },
+      "conditions": {
+        "en": "Construct a leaf without overriding the parent hook bodies; use exact base views with two valid streams from the same open database and an original link.",
+        "ja": "親のhook本体をoverrideしないleafを生成し、同じopen databaseの有効stream 2つと独自linkをexact base viewで使う。"
+      },
+      "expected": {
+        "en": "The selected wrapper reaches the inherited hook: opening/closing succeeds, stream objects and link identity are preserved, or endpoint setters/getters each run once before database linking.",
+        "ja": "選択wrapperは継承hookへ到達する。open／closeは成功し、stream objectとlink identityを保持するか、databaseでlinkする前のendpoint setter／getterが各1回動作する。"
+      },
+      "limitations": {
+        "en": "A legal inheritance and selected wrapper-dispatch control. Original hook payload algorithms and success responses are setup, not prescribed implementations. No combined setter order, extra getter calls during link validation, failed database operations, external backend, other stream lifecycle or all inheritance shapes are claimed.",
+        "ja": "合法な継承と選択wrapper dispatchのcontrol。独自hookのpayload algorithmと成功応答は準備であり規定実装ではない。combined setter順序、link検証時の追加getter回数、database失敗、外部backend、他stream lifecycle、全継承形状は主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u07/test_database_and_link_descendants_inherit_concrete_pure_hook_implementations",
+          "role": "direct",
+          "expected_observations": [
+            "UT: inherited_endpoints identity 1 1 sets 1/1 gets 1/1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-INHERITED-RECORDING-DO-SET-LHS",
+      "clause": "7.3.1.4.2",
+      "statement": {
+        "en": "An inherited concrete do_set_lhs implementation satisfies the declared pure hook and is reached through its public wrapper.",
+        "ja": "継承した具象do_set_lhs実装は宣言されたpure hookを満たし、public wrapperから到達する。"
+      },
+      "conditions": {
+        "en": "Construct a leaf without overriding the parent hook bodies; use exact base views with two valid streams from the same open database and an original link.",
+        "ja": "親のhook本体をoverrideしないleafを生成し、同じopen databaseの有効stream 2つと独自linkをexact base viewで使う。"
+      },
+      "expected": {
+        "en": "The selected wrapper reaches the inherited hook: opening/closing succeeds, stream objects and link identity are preserved, or endpoint setters/getters each run once before database linking.",
+        "ja": "選択wrapperは継承hookへ到達する。open／closeは成功し、stream objectとlink identityを保持するか、databaseでlinkする前のendpoint setter／getterが各1回動作する。"
+      },
+      "limitations": {
+        "en": "A legal inheritance and selected wrapper-dispatch control. Original hook payload algorithms and success responses are setup, not prescribed implementations. No combined setter order, extra getter calls during link validation, failed database operations, external backend, other stream lifecycle or all inheritance shapes are claimed.",
+        "ja": "合法な継承と選択wrapper dispatchのcontrol。独自hookのpayload algorithmと成功応答は準備であり規定実装ではない。combined setter順序、link検証時の追加getter回数、database失敗、外部backend、他stream lifecycle、全継承形状は主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u07/test_database_and_link_descendants_inherit_concrete_pure_hook_implementations",
+          "role": "direct",
+          "expected_observations": [
+            "UT: inherited_endpoints identity 1 1 sets 1/1 gets 1/1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-INHERITED-RECORDING-DO-GET-RHS",
+      "clause": "7.3.1.4.3",
+      "statement": {
+        "en": "An inherited concrete do_get_rhs implementation satisfies the declared pure hook and is reached through its public wrapper.",
+        "ja": "継承した具象do_get_rhs実装は宣言されたpure hookを満たし、public wrapperから到達する。"
+      },
+      "conditions": {
+        "en": "Construct a leaf without overriding the parent hook bodies; use exact base views with two valid streams from the same open database and an original link.",
+        "ja": "親のhook本体をoverrideしないleafを生成し、同じopen databaseの有効stream 2つと独自linkをexact base viewで使う。"
+      },
+      "expected": {
+        "en": "The selected wrapper reaches the inherited hook: opening/closing succeeds, stream objects and link identity are preserved, or endpoint setters/getters each run once before database linking.",
+        "ja": "選択wrapperは継承hookへ到達する。open／closeは成功し、stream objectとlink identityを保持するか、databaseでlinkする前のendpoint setter／getterが各1回動作する。"
+      },
+      "limitations": {
+        "en": "A legal inheritance and selected wrapper-dispatch control. Original hook payload algorithms and success responses are setup, not prescribed implementations. No combined setter order, extra getter calls during link validation, failed database operations, external backend, other stream lifecycle or all inheritance shapes are claimed.",
+        "ja": "合法な継承と選択wrapper dispatchのcontrol。独自hookのpayload algorithmと成功応答は準備であり規定実装ではない。combined setter順序、link検証時の追加getter回数、database失敗、外部backend、他stream lifecycle、全継承形状は主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u07/test_database_and_link_descendants_inherit_concrete_pure_hook_implementations",
+          "role": "direct",
+          "expected_observations": [
+            "UT: inherited_endpoints identity 1 1 sets 1/1 gets 1/1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-INHERITED-RECORDING-DO-SET-RHS",
+      "clause": "7.3.1.4.4",
+      "statement": {
+        "en": "An inherited concrete do_set_rhs implementation satisfies the declared pure hook and is reached through its public wrapper.",
+        "ja": "継承した具象do_set_rhs実装は宣言されたpure hookを満たし、public wrapperから到達する。"
+      },
+      "conditions": {
+        "en": "Construct a leaf without overriding the parent hook bodies; use exact base views with two valid streams from the same open database and an original link.",
+        "ja": "親のhook本体をoverrideしないleafを生成し、同じopen databaseの有効stream 2つと独自linkをexact base viewで使う。"
+      },
+      "expected": {
+        "en": "The selected wrapper reaches the inherited hook: opening/closing succeeds, stream objects and link identity are preserved, or endpoint setters/getters each run once before database linking.",
+        "ja": "選択wrapperは継承hookへ到達する。open／closeは成功し、stream objectとlink identityを保持するか、databaseでlinkする前のendpoint setter／getterが各1回動作する。"
+      },
+      "limitations": {
+        "en": "A legal inheritance and selected wrapper-dispatch control. Original hook payload algorithms and success responses are setup, not prescribed implementations. No combined setter order, extra getter calls during link validation, failed database operations, external backend, other stream lifecycle or all inheritance shapes are claimed.",
+        "ja": "合法な継承と選択wrapper dispatchのcontrol。独自hookのpayload algorithmと成功応答は準備であり規定実装ではない。combined setter順序、link検証時の追加getter回数、database失敗、外部backend、他stream lifecycle、全継承形状は主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u07/test_database_and_link_descendants_inherit_concrete_pure_hook_implementations",
+          "role": "direct",
+          "expected_observations": [
+            "UT: inherited_endpoints identity 1 1 sets 1/1 gets 1/1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SUBSCRIBER-DELIVERY",
+      "clause": "13.9",
+      "statement": {
+        "en": "A concrete subscriber receives emitted transactions through its analysis export.",
+        "ja": "具象subscriberはanalysis export経由で発行transactionを受け取る。"
+      },
+      "conditions": {
+        "en": "Use two leaves that inherit write from an original subscriber with omitted type parameter; connect independent int analysis ports and send 13/27 to one and 41 to the peer.",
+        "ja": "type parameterを省略した独自subscriberからwriteを継承するleaf 2つへ別々のint analysis portを接続し、一方に13／27、peerに41を送る。"
+      },
+      "expected": {
+        "en": "Selected delivery has two values in order and peer delivery has one. Exact base/export assignments compile; constructor names and root parenting are preserved.",
+        "ja": "選択先へ2値を順番に、peerへ1値を配送する。exact base／export代入はcompileし、constructor名とroot parentingを保持する。"
+      },
+      "limitations": {
+        "en": "One default-int specialization, two original sinks and top-level construction only. The sink recording algorithm is setup. No UVM phase scheduling, factory construction, fanout, nondefault transaction type or mandatory per-leaf redefinition is inferred.",
+        "ja": "default-int specialization 1つ、独自sink 2つ、top-level生成のみ。sink記録algorithmは準備であり、UVM phase scheduling、factory生成、fanout、非default型、leafごとの再定義義務は推論しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_subscriber_descendant_inherits_write_through_default_typed_analysis_export",
+          "role": "direct",
+          "expected_observations": [
+            "UT: inherited_subscriber count 2 values 13/27 peer 1/41"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SUBSCRIBER-DEFAULT-TYPE-BASE",
+      "clause": "13.9.1",
+      "statement": {
+        "en": "The omitted subscriber type parameter is int and the concrete leaf is usable through the corresponding subscriber base.",
+        "ja": "subscriberの省略type parameterはintで、具象leafを対応subscriber baseから使える。"
+      },
+      "conditions": {
+        "en": "Use two leaves that inherit write from an original subscriber with omitted type parameter; connect independent int analysis ports and send 13/27 to one and 41 to the peer.",
+        "ja": "type parameterを省略した独自subscriberからwriteを継承するleaf 2つへ別々のint analysis portを接続し、一方に13／27、peerに41を送る。"
+      },
+      "expected": {
+        "en": "Selected delivery has two values in order and peer delivery has one. Exact base/export assignments compile; constructor names and root parenting are preserved.",
+        "ja": "選択先へ2値を順番に、peerへ1値を配送する。exact base／export代入はcompileし、constructor名とroot parentingを保持する。"
+      },
+      "limitations": {
+        "en": "One default-int specialization, two original sinks and top-level construction only. The sink recording algorithm is setup. No UVM phase scheduling, factory construction, fanout, nondefault transaction type or mandatory per-leaf redefinition is inferred.",
+        "ja": "default-int specialization 1つ、独自sink 2つ、top-level生成のみ。sink記録algorithmは準備であり、UVM phase scheduling、factory生成、fanout、非default型、leafごとの再定義義務は推論しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_subscriber_descendant_inherits_write_through_default_typed_analysis_export",
+          "role": "direct",
+          "expected_observations": [
+            "UT: subscriber_declaration base 1 export 1 names 1/1 parent 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SUBSCRIBER-EXACT-EXPORT-TYPE",
+      "clause": "13.9.2",
+      "statement": {
+        "en": "The subscriber exposes an analysis implementation specialized with its selected transaction type and subscriber base.",
+        "ja": "subscriberは選択transaction型とsubscriber baseでspecializeしたanalysis implementationを公開する。"
+      },
+      "conditions": {
+        "en": "Use two leaves that inherit write from an original subscriber with omitted type parameter; connect independent int analysis ports and send 13/27 to one and 41 to the peer.",
+        "ja": "type parameterを省略した独自subscriberからwriteを継承するleaf 2つへ別々のint analysis portを接続し、一方に13／27、peerに41を送る。"
+      },
+      "expected": {
+        "en": "Selected delivery has two values in order and peer delivery has one. Exact base/export assignments compile; constructor names and root parenting are preserved.",
+        "ja": "選択先へ2値を順番に、peerへ1値を配送する。exact base／export代入はcompileし、constructor名とroot parentingを保持する。"
+      },
+      "limitations": {
+        "en": "One default-int specialization, two original sinks and top-level construction only. The sink recording algorithm is setup. No UVM phase scheduling, factory construction, fanout, nondefault transaction type or mandatory per-leaf redefinition is inferred.",
+        "ja": "default-int specialization 1つ、独自sink 2つ、top-level生成のみ。sink記録algorithmは準備であり、UVM phase scheduling、factory生成、fanout、非default型、leafごとの再定義義務は推論しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_subscriber_descendant_inherits_write_through_default_typed_analysis_export",
+          "role": "direct",
+          "expected_observations": [
+            "UT: subscriber_declaration base 1 export 1 names 1/1 parent 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SUBSCRIBER-CONSTRUCTOR",
+      "clause": "13.9.3.1",
+      "statement": {
+        "en": "The subscriber constructor forwards its component name and null parent to normal root parenting.",
+        "ja": "subscriber constructorはcomponent名とnull parentを渡し、通常のroot parentingに従う。"
+      },
+      "conditions": {
+        "en": "Use two leaves that inherit write from an original subscriber with omitted type parameter; connect independent int analysis ports and send 13/27 to one and 41 to the peer.",
+        "ja": "type parameterを省略した独自subscriberからwriteを継承するleaf 2つへ別々のint analysis portを接続し、一方に13／27、peerに41を送る。"
+      },
+      "expected": {
+        "en": "Selected delivery has two values in order and peer delivery has one. Exact base/export assignments compile; constructor names and root parenting are preserved.",
+        "ja": "選択先へ2値を順番に、peerへ1値を配送する。exact base／export代入はcompileし、constructor名とroot parentingを保持する。"
+      },
+      "limitations": {
+        "en": "One default-int specialization, two original sinks and top-level construction only. The sink recording algorithm is setup. No UVM phase scheduling, factory construction, fanout, nondefault transaction type or mandatory per-leaf redefinition is inferred.",
+        "ja": "default-int specialization 1つ、独自sink 2つ、top-level生成のみ。sink記録algorithmは準備であり、UVM phase scheduling、factory生成、fanout、非default型、leafごとの再定義義務は推論しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_subscriber_descendant_inherits_write_through_default_typed_analysis_export",
+          "role": "direct",
+          "expected_observations": [
+            "UT: subscriber_declaration base 1 export 1 names 1/1 parent 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SUBSCRIBER-INHERITED-WRITE",
+      "clause": "13.9.3.2",
+      "statement": {
+        "en": "A concrete subscriber may inherit an implemented write, reachable by outside analysis-export calls.",
+        "ja": "具象subscriberは実装済みwriteを継承でき、外部からanalysis export経由で到達できる。"
+      },
+      "conditions": {
+        "en": "Use two leaves that inherit write from an original subscriber with omitted type parameter; connect independent int analysis ports and send 13/27 to one and 41 to the peer.",
+        "ja": "type parameterを省略した独自subscriberからwriteを継承するleaf 2つへ別々のint analysis portを接続し、一方に13／27、peerに41を送る。"
+      },
+      "expected": {
+        "en": "Selected delivery has two values in order and peer delivery has one. Exact base/export assignments compile; constructor names and root parenting are preserved.",
+        "ja": "選択先へ2値を順番に、peerへ1値を配送する。exact base／export代入はcompileし、constructor名とroot parentingを保持する。"
+      },
+      "limitations": {
+        "en": "One default-int specialization, two original sinks and top-level construction only. The sink recording algorithm is setup. No UVM phase scheduling, factory construction, fanout, nondefault transaction type or mandatory per-leaf redefinition is inferred.",
+        "ja": "default-int specialization 1つ、独自sink 2つ、top-level生成のみ。sink記録algorithmは準備であり、UVM phase scheduling、factory生成、fanout、非default型、leafごとの再定義義務は推論しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u13/test_subscriber_descendant_inherits_write_through_default_typed_analysis_export",
+          "role": "direct",
+          "expected_observations": [
+            "UT: inherited_subscriber count 2 values 13/27 peer 1/41"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-ADAPTER-INHERITED-REG2BUS",
+      "clause": "19.2.1.2.5",
+      "statement": {
+        "en": "The inherited reg2bus implementation is callable through the declared adapter base and preserves its argument direction.",
+        "ja": "継承したreg2bus実装は宣言adapter baseから呼び出せ、引数方向を保持する。"
+      },
+      "conditions": {
+        "en": "A leaf inherits both exact converter signatures from an original adapter. Initialize every operation member, convert twice, then change one original bus item before copying back to an existing operation.",
+        "ja": "leafは独自adapterから両converterのexact signatureを継承する。operation全memberを初期化し、2回変換後に独自bus item 1つを変更して既存operationへ戻す。"
+      },
+      "expected": {
+        "en": "Two forward calls produce separate items containing the input operation without modifying it. The reverse call updates the caller operation to the selected item and leaves the original input and peer item unchanged.",
+        "ja": "forward 2回は入力operationを保持する別itemを生成し入力を変更しない。reverseはcaller operationを選択itemに更新し、元入力とpeer itemを変更しない。"
+      },
+      "limitations": {
+        "en": "A legal inherited signature/reference control with an original full-structure copying algorithm; that algorithm is setup and does not validate arbitrary adapters. No physical bus, RAL access, response protocol, callback sequence or all mutations are claimed. Const rejection is linked separately.",
+        "ja": "独自の全struct copy algorithmによる合法な継承signature／参照controlであり、そのalgorithmは準備で任意adapterの検証ではない。物理bus、RAL access、response protocol、callback順序、全変更は主張しない。const拒否は別に対応する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_adapter_descendant_inherits_both_converters_and_preserves_reference_directions",
+          "role": "direct",
+          "expected_observations": [
+            "UT: inherited_reg2bus calls 2 fresh 1 copies 1/1 input 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-ADAPTER-INHERITED-BUS2REG",
+      "clause": "19.2.1.2.6",
+      "statement": {
+        "en": "The inherited bus2reg implementation is callable through the declared adapter base and preserves its argument direction.",
+        "ja": "継承したbus2reg実装は宣言adapter baseから呼び出せ、引数方向を保持する。"
+      },
+      "conditions": {
+        "en": "A leaf inherits both exact converter signatures from an original adapter. Initialize every operation member, convert twice, then change one original bus item before copying back to an existing operation.",
+        "ja": "leafは独自adapterから両converterのexact signatureを継承する。operation全memberを初期化し、2回変換後に独自bus item 1つを変更して既存operationへ戻す。"
+      },
+      "expected": {
+        "en": "Two forward calls produce separate items containing the input operation without modifying it. The reverse call updates the caller operation to the selected item and leaves the original input and peer item unchanged.",
+        "ja": "forward 2回は入力operationを保持する別itemを生成し入力を変更しない。reverseはcaller operationを選択itemに更新し、元入力とpeer itemを変更しない。"
+      },
+      "limitations": {
+        "en": "A legal inherited signature/reference control with an original full-structure copying algorithm; that algorithm is setup and does not validate arbitrary adapters. No physical bus, RAL access, response protocol, callback sequence or all mutations are claimed. Const rejection is linked separately.",
+        "ja": "独自の全struct copy algorithmによる合法な継承signature／参照controlであり、そのalgorithmは準備で任意adapterの検証ではない。物理bus、RAL access、response protocol、callback順序、全変更は主張しない。const拒否は別に対応する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_reg_adapter_descendant_inherits_both_converters_and_preserves_reference_directions",
+          "role": "direct",
+          "expected_observations": [
+            "UT: inherited_bus2reg calls 1 output 1 input 1 peer 1"
+          ]
+        }
+      ]
     }
   ]
 }
