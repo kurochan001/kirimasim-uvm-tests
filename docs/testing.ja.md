@@ -119,6 +119,13 @@ signalは引き続き失敗とし、nonzero終了だけでは必要な観測を�
 - 規格が定めないものに依存しません。乱数の値、同時に始まるプロセスの順序、
   規格が定める以外の自動生成名などです。
 
+sequencer relevance上限fixtureは独自zero-time callbackを数え、選択上限または最初の超過で未指定のerror通知を許容します。
+通知または上限付きfallback後にcallbackをblockし、復旧を仮定せずownerを完了させます。正時刻からの初回burstは時刻0の比較対象と独立です。
+private counter／reset規則は主張しません。
+
+transaction-event fixtureは実pull portを動かし、規格typed callbackで指定item-pool eventを観測します。初回要求前に無効化し、
+明示component markと独自address／data gateで後続完了をモデル化します。選択した通知／timestampを扱い、初期pool所属、DB配置、物理DUT動作は認定しません。
+
 ## 期待出力の決め方
 
 1. 引用した条項から期待出力を決めます（`:oracle: spec`）。
@@ -165,7 +172,7 @@ Ghostの同梱モードでは供給されたUVMを使います。ステータス
   （`UVM_HDL_NO_DPI`ならバックドアだけを外せます）。
 - ユーザー定義の`uvm_reg_backdoor`による記憶域handlerはHDL DPIなしで使えます。
   商用シミュレータの実行・結果はプロジェクトの方針で除外し、組み込みHDL path／DPIの検査は未完です。
-- 現在の1734件は`UVM_NO_DPI`を使い、11件はHDL DPIを明示的に有効にします。
+- 現在の1743件は`UVM_NO_DPI`を使い、11件はHDL DPIを明示的に有効にします。
   `:uvm_dpi: yes`はこのマクロを外す指定で、
   C/C++のDPI実装を自動でビルド・リンクする指定ではありません。
   現在のVerilatorランナーはDPIのC/C++ソースを追加しません。
@@ -249,7 +256,7 @@ runtimeでは`--seeds 1 73`で各モデルを一度だけビルドし、seedご�
 要求した全runtime seedで一致した場合だけ成功です。従来の`--seed N`も使えます。
 結果JSONのconfigurationには、指定に応じて`seed`か`seeds`を記録します。
 
-Verilatorの既定の対象はoracle付き・2値の1534件（runtime 1484・期待compiler拒否50）です。`--all`を付けるとspecのみの229件も含めます。
+Verilatorの既定の対象はoracle付き・2値の1542件（runtime 1492・期待compiler拒否50）です。`--all`を付けるとspecのみの230件も含めます。
 oracleのないテストの不一致は`known`で、コマンドを失敗させません。oracle付きの不一致は失敗です。
 テストのパスを明示した場合は、そのテストだけが対象です。スモークテスト1件の実行例です。
 
@@ -298,7 +305,7 @@ python3 tools/lint_metadata.py
 python3 tools/requirements.py check
 ```
 
-現在のツールの単体テストは110件、メタデータの対象はテスト1763件（simulation 1711件・elaboration 52件）です。
+現在のツールの単体テストは110件、メタデータの対象はテスト1772件（simulation 1720件・elaboration 52件）です。
 [台帳の検査](requirements.ja.md)は、範囲案、明示した期待値への対応、入力の指紋を検査し、カバレッジを主張しません。
 [Check](../.github/workflows/check.yml)は`main`へのpush・pull request・手動実行で動きます。
 別のVerilatorジョブは5.052・`UVM_NO_DPI`・seed 1と73でoracle付きのテストを実行し、

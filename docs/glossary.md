@@ -1276,3 +1276,11 @@ the explicit type-lookup exception; the two controls require separate evidence.
 **Resource modification notification** — A changed write releases pending
 waiters. Equal-value and read-only rejected writes must not signal a modification
 under the selected resource contract.
+
+**Zero-time relevance bound** — The configurable maximum for repeated
+wait_for_relevant callbacks without time advancing. Callback counts and actual
+simulation time are observed separately from any private counter implementation.
+
+**Pipelined transaction completion** — A modeled completion mark later than
+the sequence-item acknowledgement. A sequence can wait on the item-pool end
+event after finish_item returns.

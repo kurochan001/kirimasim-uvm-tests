@@ -3238,6 +3238,22 @@
       "primary_clause": "15.5.1",
       "inputs_sha256": "87aac15265d9168a5a757ad78261ff3941083bb5bc8ebe926016a85e30817635"
     },
+    "u15/test_pull_port_automatic_recording_triggers_named_transaction_events": {
+      "primary_clause": "15.2.1",
+      "inputs_sha256": "cc697c6b38cdc0c3f3489f947111bb294b311b1b7042ab1eaa666874b804286c"
+    },
+    "u15/test_pull_port_custom_transaction_events_gate_address_and_data_completion": {
+      "primary_clause": "15.2.1",
+      "inputs_sha256": "20cdd984a5a1b5c3441985861039bb8ce033368d063e22c4a110184863ea78e1"
+    },
+    "u15/test_pull_port_disable_before_first_request_suppresses_transaction_marks": {
+      "primary_clause": "15.2.1",
+      "inputs_sha256": "cbc544dfe6f7e764e65bc4b10fc34c1dc12217109a6bf3a7be80620fceed5c01"
+    },
+    "u15/test_pull_port_manual_recording_end_event_gates_pipelined_completion": {
+      "primary_clause": "15.2.1",
+      "inputs_sha256": "bc4fac33e11906f102dde6a77d75dc4441855eeb6879f96f7eeefc18c743e355"
+    },
     "u15/test_push_driver_analysis_response_preserves_origin_and_transaction": {
       "primary_clause": "15.6.1",
       "inputs_sha256": "6d2391619b1576bc14e138ee04d4d1c6ddc1b9771e733fe073c34a6da28f5a25"
@@ -3545,6 +3561,26 @@
     "u15/test_sequencer_zero_response_history_keeps_delivery_and_can_be_reenabled": {
       "primary_clause": "15.3.4.2.1",
       "inputs_sha256": "7b0a78d499ee51ba1342b336e3f8254e6d572c35812a3af589e77910b8795ad0"
+    },
+    "u15/test_sequencer_zero_time_relevance_default_limit": {
+      "primary_clause": "15.3.2.21",
+      "inputs_sha256": "bb5017d9cee6a44006e84c5cf1a9cd46918a30431b365ed44a1cbb78f77f7375"
+    },
+    "u15/test_sequencer_zero_time_relevance_explicit_above_default_limit": {
+      "primary_clause": "15.3.2.21",
+      "inputs_sha256": "2254f1c2c392675959a368c94408fd24225d2276562e82ecaa1571d1a51b6894"
+    },
+    "u15/test_sequencer_zero_time_relevance_explicit_small_limit": {
+      "primary_clause": "15.3.2.21",
+      "inputs_sha256": "8c4e381028d9bf8ac3b9f43dc74f1235a158c422d597781b7cf20f78a4655c36"
+    },
+    "u15/test_sequencer_zero_time_relevance_limit_set_at_positive_time": {
+      "primary_clause": "15.3.2.21",
+      "inputs_sha256": "27dcf84acc31af7ce424039305e45a82a1f2870aa7e4d8d001342bf3c01afee8"
+    },
+    "u15/test_sequencer_zero_time_relevance_virtual_setter_dispatch": {
+      "primary_clause": "15.3.2.21",
+      "inputs_sha256": "66c096b856f167c365072f7694cfc6a4f78a94e8e1ff81d625357e8b3b8a447e"
     },
     "u15/test_stop_sequences_cancels_a_child_relevance_wait_and_allows_fresh_traffic": {
       "primary_clause": "15.3.2.14",

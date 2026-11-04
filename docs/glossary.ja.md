@@ -971,3 +971,9 @@ path文字列の一致だけでは、物理選択やdata合成を証明しませ
 2つの制御には独立したevidenceが必要です。
 
 **Resource modification notification** — 変更writeは待機waiterを解放します。選択resource契約の下では、同値writeとread-only拒否writeは変更を通知しません。
+
+**Zero-time relevance bound（時間を進めない関連性待機の上限）** — 時間が進まないwait_for_relevant反復callbackの設定可能な最大値です。
+callback回数と実simulation時刻をprivate counter実装と分けて観測します。
+
+**Pipelined transaction completion（pipeline transactionの完了）** — sequence-item ackより後のモデル化した完了markです。
+sequenceはfinish_itemの復帰後、item-pool end eventを待つことができます。

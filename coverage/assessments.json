@@ -5390,6 +5390,79 @@
         "reviewer": null,
         "reviewed_at": null
       }
+    },
+    {
+      "clause": "B",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The annex introduces macros/defines across reporting, object, sequence, TLM and register/version sizing. It adds no universal macro execution contract here; linked sequence duties represent one role, while child contracts remain separate.",
+        "ja": "付録導入はreport、object、sequence、TLM、register／version sizingのmacro／defineを紹介する。ここに普遍macro実行契約を加えず、関連sequence義務は1役割を表し、下位契約は別に残す。"
+      },
+      "related_requirements": [
+        "UVM-SEQUENCE-MACRO-CREATE-CONTEXT",
+        "UVM-SEQUENCE-MACRO-SEND-ITEM",
+        "UVM-SEQUENCE-MACRO-SEND-CHILD",
+        "UVM-SEQUENCE-MACRO-RAND-SEND-ITEM",
+        "UVM-SEQUENCE-MACRO-RAND-SEND-CHILD",
+        "UVM-SEQUENCE-MACRO-RAND-SEND-DISABLED",
+        "UVM-SEQUENCE-MACRO-DO",
+        "UVM-SEQUENCER-AUDIT-LIBRARY-UTILS-STATIC"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "B.3",
+      "classification": "structural",
+      "rationale": {
+        "en": "This is the sequence-related macro grouping heading; action, library and sequencer-subtype contracts follow in separately numbered clauses.",
+        "ja": "sequence関連macroの分類見出しで、action、library、sequencer-subtype契約は個別番号の下位条項に続く。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "B.3.1",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The introduction describes creating/starting sequences and items; the individual action macros define the actual create, randomize and start/finish ordering. Linked existing duties retain their individual conditions.",
+        "ja": "導入はsequence／itemの生成／開始を説明し、実際のcreate、randomize、start／finish順は個別action macroが定義する。既存関連義務の個別条件を保持する。"
+      },
+      "related_requirements": [
+        "UVM-SEQUENCE-MACRO-CREATE-CONTEXT",
+        "UVM-SEQUENCE-MACRO-SEND-ITEM",
+        "UVM-SEQUENCE-MACRO-SEND-CHILD",
+        "UVM-SEQUENCE-MACRO-RAND-SEND-ITEM",
+        "UVM-SEQUENCE-MACRO-RAND-SEND-CHILD",
+        "UVM-SEQUENCE-MACRO-RAND-SEND-DISABLED",
+        "UVM-SEQUENCE-MACRO-DO"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "B.3.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "This is the sequence-library macro heading, followed by the static-registration and required library-utils invocation clauses.",
+        "ja": "sequence-library macro見出しで、static登録と必須library-utils呼出し条項が続く。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
     }
   ]
 }

@@ -113197,6 +113197,589 @@
           ]
         }
       ]
+    },
+    {
+      "id": "UVM-SEQUENCER-AUDIT-ZERO-TIME-DEFAULT",
+      "clause": "15.3.2.21",
+      "statement": {
+        "en": "The omitted zero-time relevance maximum is ten.",
+        "ja": "省略時のzero-time relevance上限は10である。"
+      },
+      "conditions": {
+        "en": "No setter is called; one always-irrelevant sequence returns from wait_for_relevant without advancing time at time zero.",
+        "ja": "setterを呼ばず、時刻0で常にirrelevantな1 sequenceが時間を進めずwait_for_relevantから戻る。"
+      },
+      "expected": {
+        "en": "The error is observed at the selected boundary in the same simulation time, without fallback, grant or driver receipt; the original override count matches the call route.",
+        "ja": "選択境界で同じsimulation時刻にerrorを観測し、fallback、grant、driver受信はなく、独自override回数は呼出経路と一致する。"
+      },
+      "limitations": {
+        "en": "The selected reading accepts an ERROR or FATAL notification at the bound or first excess, before time advances; this is not a severity/ID/text/count mandate. No exact private counter, negative/zero bound, mid-burst reset or recovery contract is invented. The original callback blocks after notification/fallback, and the owner terminates pending work without a recovery assertion.",
+        "ja": "選択解釈は上限または最初の超過で時間が進む前のERROR／FATAL通知を許容し、severity／ID／文面／回数の指定ではない。正確なprivate counter、負／0上限、途中reset、復旧契約を作らない。独自callbackは通知／fallback後にblockし、ownerが復旧を主張せず保留処理を終了する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequencer_zero_time_relevance_default_limit",
+          "role": "direct",
+          "expected_observations": [
+            "UT: zero_time error 1 bounded 1 same_time 1 fallback 0",
+            "UT: irrelevant not_granted 1 not_received 1",
+            "UT: setter dispatch 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCER-AUDIT-ZERO-TIME-SMALL",
+      "clause": "15.3.2.21",
+      "statement": {
+        "en": "The setter replaces the default with a selected smaller positive maximum.",
+        "ja": "setterは既定値を選択した小さい正の上限へ置換する。"
+      },
+      "conditions": {
+        "en": "Set two before a fresh zero-time burst; the request is never eligible.",
+        "ja": "新しいzero-time burst前に2を設定し、要求はeligibleにならない。"
+      },
+      "expected": {
+        "en": "The error is observed at the selected boundary in the same simulation time, without fallback, grant or driver receipt; the original override count matches the call route.",
+        "ja": "選択境界で同じsimulation時刻にerrorを観測し、fallback、grant、driver受信はなく、独自override回数は呼出経路と一致する。"
+      },
+      "limitations": {
+        "en": "The selected reading accepts an ERROR or FATAL notification at the bound or first excess, before time advances; this is not a severity/ID/text/count mandate. No exact private counter, negative/zero bound, mid-burst reset or recovery contract is invented. The original callback blocks after notification/fallback, and the owner terminates pending work without a recovery assertion.",
+        "ja": "選択解釈は上限または最初の超過で時間が進む前のERROR／FATAL通知を許容し、severity／ID／文面／回数の指定ではない。正確なprivate counter、負／0上限、途中reset、復旧契約を作らない。独自callbackは通知／fallback後にblockし、ownerが復旧を主張せず保留処理を終了する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequencer_zero_time_relevance_explicit_small_limit",
+          "role": "direct",
+          "expected_observations": [
+            "UT: zero_time error 1 bounded 1 same_time 1 fallback 0",
+            "UT: irrelevant not_granted 1 not_received 1",
+            "UT: setter dispatch 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCER-AUDIT-ZERO-TIME-LARGE",
+      "clause": "15.3.2.21",
+      "statement": {
+        "en": "The setter can select a positive maximum greater than the default ten.",
+        "ja": "setterは既定10より大きい正の上限を選択できる。"
+      },
+      "conditions": {
+        "en": "Set twelve before a fresh zero-time burst so a hard-coded default would notify too early.",
+        "ja": "新しいzero-time burst前に12を設定し、固定した既定上限なら早過ぎる通知となる。"
+      },
+      "expected": {
+        "en": "The error is observed at the selected boundary in the same simulation time, without fallback, grant or driver receipt; the original override count matches the call route.",
+        "ja": "選択境界で同じsimulation時刻にerrorを観測し、fallback、grant、driver受信はなく、独自override回数は呼出経路と一致する。"
+      },
+      "limitations": {
+        "en": "The selected reading accepts an ERROR or FATAL notification at the bound or first excess, before time advances; this is not a severity/ID/text/count mandate. No exact private counter, negative/zero bound, mid-burst reset or recovery contract is invented. The original callback blocks after notification/fallback, and the owner terminates pending work without a recovery assertion.",
+        "ja": "選択解釈は上限または最初の超過で時間が進む前のERROR／FATAL通知を許容し、severity／ID／文面／回数の指定ではない。正確なprivate counter、負／0上限、途中reset、復旧契約を作らない。独自callbackは通知／fallback後にblockし、ownerが復旧を主張せず保留処理を終了する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequencer_zero_time_relevance_explicit_above_default_limit",
+          "role": "direct",
+          "expected_observations": [
+            "UT: zero_time error 1 bounded 1 same_time 1 fallback 0",
+            "UT: irrelevant not_granted 1 not_received 1",
+            "UT: setter dispatch 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCER-AUDIT-ZERO-TIME-LATE",
+      "clause": "15.3.2.21",
+      "statement": {
+        "en": "The relevance maximum can be set at a positive simulation time.",
+        "ja": "正のsimulation時刻でもrelevance上限を設定できる。"
+      },
+      "conditions": {
+        "en": "At time three set three, then begin a first fresh always-irrelevant zero-time burst.",
+        "ja": "時刻3に3を設定し、その後最初の新しい常時irrelevantなzero-time burstを開始する。"
+      },
+      "expected": {
+        "en": "The error is observed at the selected boundary in the same simulation time, without fallback, grant or driver receipt; the original override count matches the call route.",
+        "ja": "選択境界で同じsimulation時刻にerrorを観測し、fallback、grant、driver受信はなく、独自override回数は呼出経路と一致する。"
+      },
+      "limitations": {
+        "en": "The selected reading accepts an ERROR or FATAL notification at the bound or first excess, before time advances; this is not a severity/ID/text/count mandate. No exact private counter, negative/zero bound, mid-burst reset or recovery contract is invented. The original callback blocks after notification/fallback, and the owner terminates pending work without a recovery assertion.",
+        "ja": "選択解釈は上限または最初の超過で時間が進む前のERROR／FATAL通知を許容し、severity／ID／文面／回数の指定ではない。正確なprivate counter、負／0上限、途中reset、復旧契約を作らない。独自callbackは通知／fallback後にblockし、ownerが復旧を主張せず保留処理を終了する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequencer_zero_time_relevance_limit_set_at_positive_time",
+          "role": "direct",
+          "expected_observations": [
+            "UT: zero_time error 1 bounded 1 same_time 1 fallback 0",
+            "UT: irrelevant not_granted 1 not_received 1",
+            "UT: setter dispatch 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCER-AUDIT-ZERO-TIME-VIRTUAL",
+      "clause": "15.3.2.21",
+      "statement": {
+        "en": "The relevance-bound setter is virtual through a sequencer-base view.",
+        "ja": "relevance上限setterはsequencer-base view経由でvirtualである。"
+      },
+      "conditions": {
+        "en": "An original typed subclass increments a dispatch counter and delegates to super; call it via uvm_sequencer_base with four.",
+        "ja": "独自typed subclassがdispatch counterを増やしてsuperへ委譲し、uvm_sequencer_base経由で4を渡す。"
+      },
+      "expected": {
+        "en": "The error is observed at the selected boundary in the same simulation time, without fallback, grant or driver receipt; the original override count matches the call route.",
+        "ja": "選択境界で同じsimulation時刻にerrorを観測し、fallback、grant、driver受信はなく、独自override回数は呼出経路と一致する。"
+      },
+      "limitations": {
+        "en": "The selected reading accepts an ERROR or FATAL notification at the bound or first excess, before time advances; this is not a severity/ID/text/count mandate. No exact private counter, negative/zero bound, mid-burst reset or recovery contract is invented. The original callback blocks after notification/fallback, and the owner terminates pending work without a recovery assertion.",
+        "ja": "選択解釈は上限または最初の超過で時間が進む前のERROR／FATAL通知を許容し、severity／ID／文面／回数の指定ではない。正確なprivate counter、負／0上限、途中reset、復旧契約を作らない。独自callbackは通知／fallback後にblockし、ownerが復旧を主張せず保留処理を終了する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_sequencer_zero_time_relevance_virtual_setter_dispatch",
+          "role": "direct",
+          "expected_observations": [
+            "UT: zero_time error 1 bounded 1 same_time 1 fallback 0",
+            "UT: irrelevant not_granted 1 not_received 1",
+            "UT: setter dispatch 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCER-AUDIT-AUTOMATIC-BEGIN",
+      "clause": "15.2.1",
+      "statement": {
+        "en": "A pull-port get_next_item automatically notifies the request transaction begin event.",
+        "ja": "pull-port get_next_itemは要求transactionのbegin eventを自動通知する。"
+      },
+      "conditions": {
+        "en": "Use a real connected typed pull port and sequencer, an original producer item, named begin/end observers and positive delays before request and acknowledgement.",
+        "ja": "実接続したtyped pull port／sequencer、独自producer item、名前付きbegin／end observerを使い、要求とackの前に正の遅延を入れる。"
+      },
+      "expected": {
+        "en": "The exact producer item is received, begin has one callback and end remains pending.",
+        "ja": "producerの同一itemを受信し、begin callbackは1回、endは保留である。"
+      },
+      "limitations": {
+        "en": "Observers use the transaction event pool and standard typed callbacks, not standalone implementation events. Attaching observers does not assess initial pool membership. Only the named notification and selected timestamps are checked; no database format, trigger payload, recorder handle, inherited-interface ancestry or physical DUT completion is inferred. The overview ancestry wording conflicts with the actual declarations and remains unresolved.",
+        "ja": "observerはtransaction event poolと規格typed callbackを使い、実装のstandalone eventは使わない。observer登録は初期pool所属を評価しない。指定通知と選択timestampのみを検査し、DB形式、trigger payload、recorder handle、継承interface関係、物理DUT完了を推測しない。overviewの継承記述と実class宣言の矛盾は未解決に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_pull_port_automatic_recording_triggers_named_transaction_events",
+          "role": "direct",
+          "expected_observations": [
+            "UT: automatic_begin identity 1 begin_once 1 end_pending 1 time 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCER-AUDIT-AUTOMATIC-END",
+      "clause": "15.2.1",
+      "statement": {
+        "en": "A pull-port item_done automatically notifies the transaction end event.",
+        "ja": "pull-port item_doneはtransaction end eventを自動通知する。"
+      },
+      "conditions": {
+        "en": "Use a real connected typed pull port and sequencer, an original producer item, named begin/end observers and positive delays before request and acknowledgement.",
+        "ja": "実接続したtyped pull port／sequencer、独自producer item、名前付きbegin／end observerを使い、要求とackの前に正の遅延を入れる。"
+      },
+      "expected": {
+        "en": "After the delayed acknowledgement the producer is released and end has one callback.",
+        "ja": "遅延したack後にproducerが解放され、end callbackは1回となる。"
+      },
+      "limitations": {
+        "en": "Observers use the transaction event pool and standard typed callbacks, not standalone implementation events. Attaching observers does not assess initial pool membership. Only the named notification and selected timestamps are checked; no database format, trigger payload, recorder handle, inherited-interface ancestry or physical DUT completion is inferred. The overview ancestry wording conflicts with the actual declarations and remains unresolved.",
+        "ja": "observerはtransaction event poolと規格typed callbackを使い、実装のstandalone eventは使わない。observer登録は初期pool所属を評価しない。指定通知と選択timestampのみを検査し、DB形式、trigger payload、recorder handle、継承interface関係、物理DUT完了を推測しない。overviewの継承記述と実class宣言の矛盾は未解決に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_pull_port_automatic_recording_triggers_named_transaction_events",
+          "role": "direct",
+          "expected_observations": [
+            "UT: automatic_end released 1 end_once 1 time 1 callbacks 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCER-AUDIT-AUTOMATIC-BEGIN-TIME",
+      "clause": "5.4.2.16",
+      "statement": {
+        "en": "The begin timestamp exposes the selected automatic transaction mark.",
+        "ja": "begin timestampは選択した自動transaction markを返す。"
+      },
+      "conditions": {
+        "en": "Use a real connected typed pull port and sequencer, an original producer item, named begin/end observers and positive delays before request and acknowledgement.",
+        "ja": "実接続したtyped pull port／sequencer、独自producer item、名前付きbegin／end observerを使い、要求とackの前に正の遅延を入れる。"
+      },
+      "expected": {
+        "en": "The transaction begin timestamp and named-event callback time equal the get-next return time.",
+        "ja": "transaction begin timestampと指定event callback時刻はget-next復帰時刻に一致する。"
+      },
+      "limitations": {
+        "en": "Observers use the transaction event pool and standard typed callbacks, not standalone implementation events. Attaching observers does not assess initial pool membership. Only the named notification and selected timestamps are checked; no database format, trigger payload, recorder handle, inherited-interface ancestry or physical DUT completion is inferred. The overview ancestry wording conflicts with the actual declarations and remains unresolved.",
+        "ja": "observerはtransaction event poolと規格typed callbackを使い、実装のstandalone eventは使わない。observer登録は初期pool所属を評価しない。指定通知と選択timestampのみを検査し、DB形式、trigger payload、recorder handle、継承interface関係、物理DUT完了を推測しない。overviewの継承記述と実class宣言の矛盾は未解決に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_pull_port_automatic_recording_triggers_named_transaction_events",
+          "role": "direct",
+          "expected_observations": [
+            "UT: automatic_begin identity 1 begin_once 1 end_pending 1 time 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCER-AUDIT-AUTOMATIC-END-TIME",
+      "clause": "5.4.2.16",
+      "statement": {
+        "en": "The end timestamp exposes the selected delayed automatic transaction mark.",
+        "ja": "end timestampは選択した遅延自動transaction markを返す。"
+      },
+      "conditions": {
+        "en": "Use a real connected typed pull port and sequencer, an original producer item, named begin/end observers and positive delays before request and acknowledgement.",
+        "ja": "実接続したtyped pull port／sequencer、独自producer item、名前付きbegin／end observerを使い、要求とackの前に正の遅延を入れる。"
+      },
+      "expected": {
+        "en": "The transaction end timestamp and callback time equal the later item_done call time.",
+        "ja": "transaction end timestampとcallback時刻は後のitem_done呼出時刻に一致する。"
+      },
+      "limitations": {
+        "en": "Observers use the transaction event pool and standard typed callbacks, not standalone implementation events. Attaching observers does not assess initial pool membership. Only the named notification and selected timestamps are checked; no database format, trigger payload, recorder handle, inherited-interface ancestry or physical DUT completion is inferred. The overview ancestry wording conflicts with the actual declarations and remains unresolved.",
+        "ja": "observerはtransaction event poolと規格typed callbackを使い、実装のstandalone eventは使わない。observer登録は初期pool所属を評価しない。指定通知と選択timestampのみを検査し、DB形式、trigger payload、recorder handle、継承interface関係、物理DUT完了を推測しない。overviewの継承記述と実class宣言の矛盾は未解決に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_pull_port_automatic_recording_triggers_named_transaction_events",
+          "role": "direct",
+          "expected_observations": [
+            "UT: automatic_end released 1 end_once 1 time 1 callbacks 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCER-AUDIT-DISABLE-EVENTS",
+      "clause": "15.2.1.2.10",
+      "statement": {
+        "en": "Disabling automatic recording before the first request suppresses automatic begin/end notifications.",
+        "ja": "初回要求前の自動記録無効化は自動begin／end通知を抑止する。"
+      },
+      "conditions": {
+        "en": "Disable through the connected pull port before its first get_next_item, then complete a real positive-delay transfer.",
+        "ja": "初回get_next_item前に接続pull portで無効化し、実際の正遅延転送を完了する。"
+      },
+      "expected": {
+        "en": "Traffic completes with the same item and disabled flag, while neither observer is invoked.",
+        "ja": "同一itemと無効flagを保って転送完了し、両observerは呼ばれない。"
+      },
+      "limitations": {
+        "en": "Observers use the transaction event pool and standard typed callbacks, not standalone implementation events. Attaching observers does not assess initial pool membership. Only the named notification and selected timestamps are checked; no database format, trigger payload, recorder handle, inherited-interface ancestry or physical DUT completion is inferred. The overview ancestry wording conflicts with the actual declarations and remains unresolved.",
+        "ja": "observerはtransaction event poolと規格typed callbackを使い、実装のstandalone eventは使わない。observer登録は初期pool所属を評価しない。指定通知と選択timestampのみを検査し、DB形式、trigger payload、recorder handle、継承interface関係、物理DUT完了を推測しない。overviewの継承記述と実class宣言の矛盾は未解決に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_pull_port_disable_before_first_request_suppresses_transaction_marks",
+          "role": "direct",
+          "expected_observations": [
+            "UT: disabled identity 1 released 1 flag 1",
+            "UT: disabled no_begin 1 no_end 1 unchanged_times 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCER-AUDIT-DISABLE-TIMES",
+      "clause": "15.2.1",
+      "statement": {
+        "en": "Disabling automatic recording leaves transaction timing under driver control.",
+        "ja": "自動記録無効化はtransaction timingをdriver制御下に残す。"
+      },
+      "conditions": {
+        "en": "Disable through the connected pull port before its first get_next_item, then complete a real positive-delay transfer.",
+        "ja": "初回get_next_item前に接続pull portで無効化し、実際の正遅延転送を完了する。"
+      },
+      "expected": {
+        "en": "With no explicit driver marks, both timestamps remain equal to their captured pre-traffic values.",
+        "ja": "明示driver markなしでは両timestampが転送前の保存値と一致したままとなる。"
+      },
+      "limitations": {
+        "en": "Observers use the transaction event pool and standard typed callbacks, not standalone implementation events. Attaching observers does not assess initial pool membership. Only the named notification and selected timestamps are checked; no database format, trigger payload, recorder handle, inherited-interface ancestry or physical DUT completion is inferred. The overview ancestry wording conflicts with the actual declarations and remains unresolved.",
+        "ja": "observerはtransaction event poolと規格typed callbackを使い、実装のstandalone eventは使わない。observer登録は初期pool所属を評価しない。指定通知と選択timestampのみを検査し、DB形式、trigger payload、recorder handle、継承interface関係、物理DUT完了を推測しない。overviewの継承記述と実class宣言の矛盾は未解決に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_pull_port_disable_before_first_request_suppresses_transaction_marks",
+          "role": "direct",
+          "expected_observations": [
+            "UT: disabled identity 1 released 1 flag 1",
+            "UT: disabled no_begin 1 no_end 1 unchanged_times 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCER-AUDIT-PIPELINE-RELEASE",
+      "clause": "15.2.1",
+      "statement": {
+        "en": "The driver can release finish_item before modeled transaction completion.",
+        "ja": "driverはモデル化したtransaction完了前にfinish_itemを解放できる。"
+      },
+      "conditions": {
+        "en": "Disable automatic marks before first request; use component begin_tr, early item_done, then a distinct later component end_tr.",
+        "ja": "初回要求前に自動markを無効化し、component begin_tr、早いitem_done、別の後続component end_trを使う。"
+      },
+      "expected": {
+        "en": "After item_done the producer is released while its named end-event wait is still pending.",
+        "ja": "item_done後、producerは解放され、指定end-event waitは保留である。"
+      },
+      "limitations": {
+        "en": "Observers use the transaction event pool and standard typed callbacks, not standalone implementation events. Attaching observers does not assess initial pool membership. Only the named notification and selected timestamps are checked; no database format, trigger payload, recorder handle, inherited-interface ancestry or physical DUT completion is inferred. The overview ancestry wording conflicts with the actual declarations and remains unresolved.",
+        "ja": "observerはtransaction event poolと規格typed callbackを使い、実装のstandalone eventは使わない。observer登録は初期pool所属を評価しない。指定通知と選択timestampのみを検査し、DB形式、trigger payload、recorder handle、継承interface関係、物理DUT完了を推測しない。overviewの継承記述と実class宣言の矛盾は未解決に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_pull_port_manual_recording_end_event_gates_pipelined_completion",
+          "role": "direct",
+          "expected_observations": [
+            "UT: pipeline released 1 completion_pending 1 identity 1",
+            "UT: pipeline completed 1 begin_once 1 end_once 1 times 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCER-AUDIT-PIPELINE-END",
+      "clause": "15.2.1",
+      "statement": {
+        "en": "Explicit component end_tr notifies a sequence waiting on the item-pool end event.",
+        "ja": "明示component end_trはitem-pool end eventを待つsequenceへ通知する。"
+      },
+      "conditions": {
+        "en": "Disable automatic marks before first request; use component begin_tr, early item_done, then a distinct later component end_tr.",
+        "ja": "初回要求前に自動markを無効化し、component begin_tr、早いitem_done、別の後続component end_trを使う。"
+      },
+      "expected": {
+        "en": "The later explicit end mark releases the producer; named begin/end callbacks occur once and timestamps match the selected driver times.",
+        "ja": "後の明示end markがproducerを解放し、指定begin／end callbackが各1回起こり、timestampが選択driver時刻と一致する。"
+      },
+      "limitations": {
+        "en": "Observers use the transaction event pool and standard typed callbacks, not standalone implementation events. Attaching observers does not assess initial pool membership. Only the named notification and selected timestamps are checked; no database format, trigger payload, recorder handle, inherited-interface ancestry or physical DUT completion is inferred. The overview ancestry wording conflicts with the actual declarations and remains unresolved.",
+        "ja": "observerはtransaction event poolと規格typed callbackを使い、実装のstandalone eventは使わない。observer登録は初期pool所属を評価しない。指定通知と選択timestampのみを検査し、DB形式、trigger payload、recorder handle、継承interface関係、物理DUT完了を推測しない。overviewの継承記述と実class宣言の矛盾は未解決に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_pull_port_manual_recording_end_event_gates_pipelined_completion",
+          "role": "direct",
+          "expected_observations": [
+            "UT: pipeline released 1 completion_pending 1 identity 1",
+            "UT: pipeline completed 1 begin_once 1 end_once 1 times 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCER-AUDIT-CUSTOM-ADDRESS",
+      "clause": "15.2.1",
+      "statement": {
+        "en": "A transaction pool can carry a custom intermediate driver notification.",
+        "ja": "transaction poolは独自の途中driver通知を保持できる。"
+      },
+      "conditions": {
+        "en": "With automatic marks disabled, create original address59/data59 pool entries and trigger them at separate positive times after the early acknowledgement.",
+        "ja": "自動markを無効化し、独自address59／data59 pool entryを作り、早いack後の別々の正時刻にtriggerする。"
+      },
+      "expected": {
+        "en": "After item_done the producer waits; triggering address59 releases only its first gate.",
+        "ja": "item_done後producerは待機し、address59 triggerは最初のgateだけを解放する。"
+      },
+      "limitations": {
+        "en": "Observers use the transaction event pool and standard typed callbacks, not standalone implementation events. Attaching observers does not assess initial pool membership. Only the named notification and selected timestamps are checked; no database format, trigger payload, recorder handle, inherited-interface ancestry or physical DUT completion is inferred. The overview ancestry wording conflicts with the actual declarations and remains unresolved.",
+        "ja": "observerはtransaction event poolと規格typed callbackを使い、実装のstandalone eventは使わない。observer登録は初期pool所属を評価しない。指定通知と選択timestampのみを検査し、DB形式、trigger payload、recorder handle、継承interface関係、物理DUT完了を推測しない。overviewの継承記述と実class宣言の矛盾は未解決に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_pull_port_custom_transaction_events_gate_address_and_data_completion",
+          "role": "direct",
+          "expected_observations": [
+            "UT: custom released 1 address_pending 1 data_pending 1 identity 1",
+            "UT: custom address_seen 1 data_pending 1",
+            "UT: custom completed 1 distinct_events 1 no_automatic_marks 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCER-AUDIT-CUSTOM-DATA",
+      "clause": "15.2.1",
+      "statement": {
+        "en": "Separate custom transaction events can gate successive modeled execution stages.",
+        "ja": "独立した独自transaction eventは連続するモデル実行段階を制御できる。"
+      },
+      "conditions": {
+        "en": "With automatic marks disabled, create original address59/data59 pool entries and trigger them at separate positive times after the early acknowledgement.",
+        "ja": "自動markを無効化し、独自address59／data59 pool entryを作り、早いack後の別々の正時刻にtriggerする。"
+      },
+      "expected": {
+        "en": "A distinct data59 trigger completes the producer after the address stage; no automatic begin/end callback occurs.",
+        "ja": "address段階後、別のdata59 triggerでproducerを完了し、自動begin／end callbackは発生しない。"
+      },
+      "limitations": {
+        "en": "Observers use the transaction event pool and standard typed callbacks, not standalone implementation events. Attaching observers does not assess initial pool membership. Only the named notification and selected timestamps are checked; no database format, trigger payload, recorder handle, inherited-interface ancestry or physical DUT completion is inferred. The overview ancestry wording conflicts with the actual declarations and remains unresolved.",
+        "ja": "observerはtransaction event poolと規格typed callbackを使い、実装のstandalone eventは使わない。observer登録は初期pool所属を評価しない。指定通知と選択timestampのみを検査し、DB形式、trigger payload、recorder handle、継承interface関係、物理DUT完了を推測しない。overviewの継承記述と実class宣言の矛盾は未解決に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u15/test_pull_port_custom_transaction_events_gate_address_and_data_completion",
+          "role": "direct",
+          "expected_observations": [
+            "UT: custom released 1 address_pending 1 data_pending 1 identity 1",
+            "UT: custom address_seen 1 data_pending 1",
+            "UT: custom completed 1 distinct_events 1 no_automatic_marks 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCER-AUDIT-LIBRARY-UTILS-STATIC",
+      "clause": "B.3.2.2",
+      "statement": {
+        "en": "The required library-utils invocation names each extension type and enables its static member sequence list.",
+        "ja": "必要なlibrary-utils呼出しは各拡張の型名を指定し、static member sequence listを有効にする。"
+      },
+      "conditions": {
+        "en": "Existing fixtures invoke uvm_sequence_library_utils with the exact library type, including the derived subtype, and combine it with the printed uvm_add_to_seq_lib macro; constructors only call super.new.",
+        "ja": "既存fixtureは派生subtypeを含む正確なlibrary型でuvm_sequence_library_utilsを呼び、印字されたuvm_add_to_seq_libと組み合わせ、constructorはsuper.newだけを呼ぶ。"
+      },
+      "expected": {
+        "en": "The existing public enumeration observations preserve static membership across two instances/types and the selected local-addition/subtype conditions.",
+        "ja": "既存の公開enumeration観測は2 instance／typeと選択local-addition／subtype条件でstatic membershipを保持する。"
+      },
+      "limitations": {
+        "en": "These are joint B.3.2.1/B.3.2.2 observations, not isolated proof of a private static list or exact macro expansion. The subtype already invokes its own required macro. Empty-membership known differences remain unchanged; no unlisted initialization helper is added, and unchanged inputs retain their compatible records without a new run.",
+        "ja": "B.3.2.1／B.3.2.2の共同観測で、private static listや正確なmacro展開の独立証明ではない。subtypeは既に必要な独自macroを呼ぶ。空membershipの既知差分を未変更で保持し、記載外init helperは追加せず、未変更入力の互換記録を再実行なしで保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_sequence_library_macros_populate_two_constructed_instances",
+          "role": "direct",
+          "expected_observations": [
+            "UT: counts 1 1 membership 1 1"
+          ]
+        },
+        {
+          "test": "uB/test_sequence_library_macro_registers_one_sequence_with_two_library_types",
+          "role": "direct",
+          "expected_observations": [
+            "UT: counts 1 1 membership 1 1"
+          ]
+        },
+        {
+          "test": "uB/test_sequence_library_macro_membership_combines_with_local_addition_only_on_one_instance",
+          "role": "direct",
+          "expected_observations": [
+            "UT: counts 3 2 first_static 1 1 local 1 other_local 0"
+          ]
+        },
+        {
+          "test": "uB/test_sequence_library_macro_subtype_inherits_base_static_membership",
+          "role": "direct",
+          "expected_observations": [
+            "UT: counts 1 1 inherited 1"
+          ]
+        }
+      ]
     }
   ]
 }

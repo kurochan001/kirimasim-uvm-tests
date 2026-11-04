@@ -2,14 +2,14 @@
 
 [日本語](known-differences.ja.md) · [README](../README.md) · [FAQ](faq.md)
 
-This describes the current 1763-test suite and the pinned Accellera UVM
+This describes the current 1772-test suite and the pinned Accellera UVM
 2020.3.1 library. A mismatch is a test result; it does not by itself assign
 the cause to the simulator, the library or the expectation.
 
 Fifty-two elaboration fixtures expect rejection: twenty-eight direct abstract
-constructions and twenty-one pure-interface/const-reference/forbidden-member
+constructions and twenty-four pure-interface/const-reference/forbidden-member/type-context
 violations. Fifty match. Subscriber and visitor omissions remain accepted and spec-only without
-runtime. These two compiler acceptances are separate from 227 known simulation
+runtime. These two compiler acceptances are separate from 228 known simulation
 differences. Selected component-family and recording-base construction probes and the forbidden member access reject correctly.
 
 The new [inherited-kind presence probe](../tests/u18/test_block_has_hdl_path_uses_nearest_explicit_ancestor_kind_without_changing_explicit_queries.sv)
@@ -82,6 +82,15 @@ shared accesses and one child-block shape; see the
 Further limitations and observations were identified during M1, M2 and M3.
 Where a test directly checks a required behavior that is missing, its
 normative expectation is retained with `:oracle: spec`.
+
+- The [positive-time relevance-bound fixture](../tests/u15/test_sequencer_zero_time_relevance_limit_set_at_positive_time.sv)
+  sets three at time three before its first zero-time relevance burst, but the
+  notification arrives on callback five. The qualified oracle accepts three or
+  four (the bound or first excess), without requiring exact severity/ID/text.
+  All callbacks and the notification occur at time three; no fallback or grant
+  occurs. Time-zero default/explicit/virtual-setter controls match independently.
+  This is one seed-1 applicability difference without seed 73, not a proven
+  private-counter defect or a recovery assertion.
 
 - Eight new printer fixtures retain differences at seed 1 without seed 73.
   SHALLOW still visits descendants, disabled radix prefix text remains, and the
@@ -653,7 +662,7 @@ cannot build because the pinned library also declares unlisted pure helpers.
 The missing-standard-hook negative supplies original compatibility bodies only
 to isolate the specified rejection. It does not repair that legal extension.
 
-Across the suite, 1534 tests have the `verilator@5.052` oracle tag and 229
+Across the suite, 1542 tests have the `verilator@5.052` oracle tag and 230
 cases are spec-only. One of the spec-only cases checks 9.6: a child's pre-reset
 task must be killed when that phase ends, but the pinned-library run on Verilator 5.052
 lets the child perform its delayed write during a later phase. The cause of
@@ -665,10 +674,10 @@ without callbacks. The pinned Verilator run reaches the blocked-state
 observation, then its watchdog expires. This combined simulator/library
 cause remains unassigned; the normative wakeup expectation is retained.
 
-The 229 spec-only tests retain their normative expected files.
-Default Verilator runs and CI select 1534 tagged checks (1484 runtime, 50 compile rejection). `--all` includes
+The 230 spec-only tests retain their normative expected files.
+Default Verilator runs and CI select 1542 tagged checks (1492 runtime, 50 compile rejection). `--all` includes
 spec-only cases and records mismatches or build failures as `known`.
-The ordinary runtime records for 170 cases establish their first difference
+The ordinary runtime records for 171 cases establish their first difference
 at seed 1, without seed 73 results. Twenty missing-API/type-name builds have
 no ordinary runtime: one time API, six sequence-library cases, four HDL slice
 cases, one named-concat constructor, one object active-policy API, three catcher
@@ -744,7 +753,7 @@ The printed create_object equivalent call's extra this argument remains partial.
 
 ## Spec-only tests
 
-These are the 229 current spec-only cases. Several exercise the same
+These are the 230 current spec-only cases. Several exercise the same
 limitation, so their count is not a count of distinct bugs.
 
 - [Inherited subscriber type_id specialization](../tests/u08/test_builtin_abstract_parameterized_components_type_id_uses_the_required_registry_specialization.sv).
@@ -1032,7 +1041,7 @@ Additional message-handle and endian cases:
 
 Two existing inputs have revised fingerprints: the command-enum citation and
 the corrected Boolean rerandomization observation. Their historical guest
-records are excluded. The compatible subset has 1083 records and 680 inputs
+records are excluded. The compatible subset has 1083 records and 689 inputs
 are unmeasured, including both revised inputs. This filtering is evidence scope,
 not a new guest failure, pass or simulator improvement.
 
@@ -1067,8 +1076,8 @@ not a new guest failure, pass or simulator improvement.
 
 ## Simulator and library combinations
 
-The suite has 1763 cases, but the kirimasim/Ghost records below cover only
-1083 unchanged current-input cases. The 680 inputs are unmeasured
+The suite has 1772 cases, but the kirimasim/Ghost records below cover only
+1083 unchanged current-input cases. The 689 inputs are unmeasured
 because prior temporary executable/profile snapshots are unavailable. Do
 not treat this as a fresh full-suite guest result. See [results](results.md).
 

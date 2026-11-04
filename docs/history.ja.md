@@ -2,7 +2,7 @@
 
 [English](history.md) · [README](../README.ja.md)
 
-M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の58回目の拡充（全1763件：simulation 1711・elaboration 52）までを記録しています。以前の349件の時点は
+M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の59回目の拡充（全1772件：simulation 1720・elaboration 52）までを記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -2356,4 +2356,41 @@ Cの残りはoverview／印字契約、sortの同値順、regex／scope collecti
 guest未測定は修正2入力を含む680（simulation 628／elaboration 52）です。
 
 goalの30反復目は未評価を64減らして467とし、全部分義務と元の目標は未完了です。tool test 110件、metadata、台帳／library、evidence同一性、日英資料検査は成功し、FAQ／用語は242／275件です。
+schema、runner／library／catalog／backend、workflow、SVG 6件は未変更です。guest実行、人のレビュー、分母承認、完了は主張せず、goalは継続中です。
+
+## 薄い領域の59回目：sequencer上限とtransaction event（2026-11-05）
+
+M2 sequencer 9 fixtureを追加し、8件が両seed runtime一致、1件がseed 1 runtime差分でseed 73なしです。
+relevance guardは時刻0で省略時10、明示2／12、base view経由のvirtual setterに一致します。
+時刻3に3を設定して新しいzero-time burstを始めると、通知はcallback 5回目となります。
+保持する限定oracleは上限または最初の超過（3／4回）での通知を許すため、spec-onlyに残します。
+生のcallback回数／時刻は境界predicateと分け、未指定のerror通知としてERROR／FATALを許容し、正確なseverity／ID／文面規則は作りません。
+counter reset、負上限、error後の復旧動作も作りません。
+
+実pull-port転送は自動の指定begin／end通知とtimestamp、初回要求前の無効化による抑止、モデル化したpipeline完了を制御する明示component recording、
+独立した独自address／data eventに一致します。規格typed callbackはtransaction-pool entryを観測し、登録は初期pool所属の証明ではありません。
+物理DUT完了、recorder handle配置、DB形式は認定しません。interface overviewの継承記述と実class宣言の矛盾は未解決に残し、新たな継承規則にはしません。
+
+新しいlibrary-utils義務1件を未変更macro fixture 4件へ対応付けます。派生subtypeを含む各拡張は既に自身の正確な型で必要macroを呼んでいます。
+空のstatic membership差分は未変更で保持し、追加の実装init helperや新たな実行は主張しません。
+
+sequencer監査はM2の9 fixtureと未変更library-macro入力4件へAI義務16件を追加します。
+既定／明示／正時刻のrelevance上限とvirtual dispatchは独立した条件を持ちます。実pull転送で自動event／時刻、無効化の副作用、
+早いackとモデル化した完了、独自address／data通知gateを区別します。正時刻の上限差分は限定結果に残し、他の新規fixtureは両seed一致です。
+正確なerror識別や復旧policyは仮定しません。
+
+B.3.2.2のstatic-list義務を既存のB.3.2.1／B.3.2.2共同観測へ直接対応し、派生型は既に必要なmacroを含みます。
+個別に読んだ見出し2件を構造、導入2件を文脈に分類し、規範的な15.2.1 overviewは継承矛盾も含めて部分的に残します。
+第15章は部分67／分類18／未評価0で案131件、付録Bは40／4／100で案51件です。第15章の未評価0は残り条件の完了を意味しません。
+全体は部分1690／分類357／未評価460（構造241／文脈116）で、以前の全3094要求・353分類は未変更です。
+元のM1〜M4目標と全ての部分義務は未完了です。
+
+全1772（simulation 1720／elaboration 52）、M1 709（667／42）、M2 547（542／5）、M3 516（511／5）です。
+通常結果はpass 1542（runtime 1492／compiler拒否50）、known 230（runtime 171／simulation build 57／不正compiler受理2）です。
+以前の全1763通常記録・3094要求・353分類は未変更で、guest 1083／HDL 11／command-line 18記録はbyte単位で同一です。
+guest未測定は修正2入力を含む689（simulation 637／elaboration 52）です。
+
+goalの31反復目は未評価を7減らして460（開始から1003減）とし、全部分義務と元の目標は未完了です。
+初期のreport-catcher引用誤記と生成したindentを最終入力再測定前に修正し、設定誤りをlibrary差分にはしません。
+tool test 110件、metadata、台帳／library、evidence同一性、日英資料検査は成功し、FAQ／用語は245／277件です。
 schema、runner／library／catalog／backend、workflow、SVG 6件は未変更です。guest実行、人のレビュー、分母承認、完了は主張せず、goalは継続中です。

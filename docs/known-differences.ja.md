@@ -2,10 +2,10 @@
 
 [English](known-differences.md) · [README](../README.ja.md) · [FAQ](faq.ja.md)
 
-現在の1763件と、固定したAccellera UVM 2020.3.1についての記録です。
+現在の1772件と、固定したAccellera UVM 2020.3.1についての記録です。
 不一致はテストの結果であり、それだけではシミュレータ・ライブラリ・期待値のどれが原因かは決まりません。
 
-elaboration 52件は抽象class直接生成28件とpure interface／const参照／禁止member違反21件で、拒否を期待します。
+elaboration 52件は抽象class直接生成28件とpure interface／const参照／禁止member／型context違反24件で、拒否を期待します。
 50件は一致し、subscriber／visitor未実装の受理2件はruntimeを実行せずspecのみを保持します。
 compiler受理2件は既知simulation差分213件と別です。選択component-family／recording-baseの生成probeと禁止memberアクセスは正しく拒否されます。
 
@@ -49,6 +49,12 @@ receiver変換は宣言された返却型の証明ではありません。単一
 [shared accessの範囲](faq.ja.md#memory-accessshared-mapテストの選択)を参照してください。
 M1・M2・M3で、追加の制約と観測を確認しました。
 不足する必須動作を直接検査する場合は、規格の期待値を変えずに`:oracle: spec`で保持します。
+
+- [正時刻relevance上限fixture](../tests/u15/test_sequencer_zero_time_relevance_limit_set_at_positive_time.sv)は
+  時刻3に3を設定して初回zero-time relevance burstを始めますが、通知はcallback 5回目です。
+  限定oracleは上限または最初の超過の3／4回を許容し、正確なseverity／ID／文面を要求しません。
+  全callbackと通知は時刻3で、fallback／grantはありません。時刻0の既定／明示／virtual setter比較対象は独立に一致します。
+  seed 73のない1件のseed 1適用条件差分で、private-counter欠陥の証明や復旧の主張ではありません。
 
 - 新しいprinter 8検査系はseed 1の差分を保持し、seed 73は実行しません。SHALLOWでも子孫を訪問し、無効radix prefixが残り、root controlは既定1に対して0を返します。
   table／tree indentとtree／line separatorは、flush後の種類別既定値に対して変更値が残ります。
@@ -421,7 +427,7 @@ type queue priorityの部分観測は一致しても両fixtureをpassにせず�
 記載pure get_type_handleを実装する合法resource-base拡張は、固定libraryが記載外pure helperも宣言するためbuildできません。
 規格hook欠落negativeの独自compatibility本体は指定拒否を分離するためだけに使い、その合法拡張を修復しません。
 
-スイート全体では、`verilator@5.052`を付けたテストは1534件、specのみのテストは229件です。
+スイート全体では、`verilator@5.052`を付けたテストは1542件、specのみのテストは230件です。
 specのみのうち1件は9.6を検証します。pre-resetフェーズ終了時に子タスクが停止する
 はずですが、固定版UVMとVerilator 5.052の組み合わせでは、後のフェーズで子タスクの遅延書き込みが
 実行されます。この差分の原因がシミュレータとライブラリのどちらかは未確定です。
@@ -430,9 +436,9 @@ wakeup resetの検査系は、trigger waiterとpersistent-trigger waiterを各1�
 10.1.1.2.8は、callbackなしで両方が起動することを要求します。固定Verilatorの実行は、待機状態の観測に到達してから
 watchdogが期限切れになります。simulator／libraryを組み合わせた原因は未確定のまま、規範的なwakeupの期待を保持します。
 
-specのみの229件も規格から導いた期待値を保持します。通常のVerilator実行とCIはoracle付き1534件（runtime 1484・compile拒否50）を選びます。
+specのみの230件も規格から導いた期待値を保持します。通常のVerilator実行とCIはoracle付き1542件（runtime 1492・compile拒否50）を選びます。
 `--all`はspecのみも含め、不一致やビルド不可を`known`として記録します。
-通常の実行時170件は最初の差分であるseed 1までの記録で、seed 73の結果はありません。
+通常の実行時171件は最初の差分であるseed 1までの記録で、seed 73の結果はありません。
 API／型名欠落build 20件はtime API 1、sequence-library 6、HDL slice 4、名前付きconcat constructor 1、object active-policy 1、catcher message-handle 3、印刷recording-state getter 1、印刷callback typedef 1、built-in type_id 2で、通常runtimeはありません。
 型既定宣言2件、印刷signature食違い2件、継承type_id registry特殊化2件は別の宣言buildで、合法な公開read宣言1件はprotected accessで失敗し、合法resource-base拡張1件は記載外pure hookを要求されます。
 HDL 11件とcommand-line 18件も通常runnerでDPIをlinkしないため、合計57 simulation buildにruntimeはありません。
@@ -474,7 +480,7 @@ object名省略fixtureは任意user既定値を制約せず、独自constructor�
 
 ## specのみのテスト
 
-現在の229件は次のテストです。同じ制約を複数のテストで検査する場合があり、異なる不具合の個数ではありません。
+現在の230件は次のテストです。同じ制約を複数のテストで検査する場合があり、異なる不具合の個数ではありません。
 
 - [継承subscriber type_id特殊化](../tests/u08/test_builtin_abstract_parameterized_components_type_id_uses_the_required_registry_specialization.sv).
 - [共有abstract object matrixのtransaction type_id欠落](../tests/u08/test_builtin_abstract_objects_type_id_uses_the_required_registry_specialization.sv).
@@ -760,7 +766,7 @@ object名省略fixtureは任意user既定値を制約せず、独自constructor�
 - [生成時の独立した引数snapshot](../tests/uG/test_command_fresh_processors_populate_independent_argument_snapshots_at_construction.sv).
 
 既存2入力はcommand-enum引用と、訂正したBoolean rerandomization観測で指紋が変わっています。
-対応する歴史的guest記録を除外し、互換範囲は1083記録、未測定は修正2入力を含む680件です。
+対応する歴史的guest記録を除外し、互換範囲は1083記録、未測定は修正2入力を含む689件です。
 これはevidence範囲のfilterで、新しいguest fail／passやsimulator改善ではありません。
 
 - [copier既定名](../tests/u16/test_policy_comparer_packer_and_copier_constructors_preserve_names_types_and_policy_bases.sv)
@@ -794,8 +800,8 @@ object名省略fixtureは任意user既定値を制約せず、独自constructor�
 
 ## シミュレータとライブラリの組み合わせ
 
-スイートは1763件ですが、以下のkirimasim／Ghost記録は未変更の現在入力1083件だけを対象とします。
-以前の一時実行ファイル／profile snapshotがないため、680入力は未測定です。
+スイートは1772件ですが、以下のkirimasim／Ghost記録は未変更の現在入力1083件だけを対象とします。
+以前の一時実行ファイル／profile snapshotがないため、689入力は未測定です。
 新しい全件guest実測とは扱いません。[実行結果](results.ja.md)を参照してください。
 
 Ghostの同梱UVMはseed 1・73とも207件一致・876件不一致で、不一致になるテストも同じです。

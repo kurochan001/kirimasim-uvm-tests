@@ -1,0 +1,2 @@
+UT: automatic_begin identity 1 begin_once 1 end_pending 1 time 1
+UT: automatic_end released 1 end_once 1 time 1 callbacks 1

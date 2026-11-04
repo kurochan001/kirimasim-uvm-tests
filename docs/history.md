@@ -3,8 +3,8 @@
 [日本語](history.ja.md) · [README](../README.md)
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and fifty-eight cross-milestone thin-area expansions, including the
-existing-test requirement-link backlog checkpoint (1763 tests: 1711 simulation and 52 elaboration). The earlier 349-test checkpoint is
+three M4 increments and fifty-nine cross-milestone thin-area expansions, including the
+existing-test requirement-link backlog checkpoint (1772 tests: 1720 simulation and 52 elaboration). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -3642,3 +3642,63 @@ ledger/library, evidence identities and paired docs pass. FAQs/terms reach
 242/275. Schema, runners/library/catalog/backend, workflow and six SVGs are
 unchanged. No guest run, human review, denominator approval or completion is
 claimed. Goal active.
+
+## Fifty-ninth thin-area expansion: sequencer bounds and transaction events (2026-11-05)
+
+Nine M2 sequencer fixtures add eight two-seed runtime matches and one seed-1
+runtime difference without seed 73. The relevance guard matches at time zero
+with the omitted ten, explicit two and twelve, and a virtual base-view setter.
+At time three, setting three before a fresh zero-time burst notifies only on
+callback five. The retained qualified oracle permits notification at the bound
+or first excess (three/four), so this remains spec-only. Raw callback/time
+observations are separate from the boundary predicate; ERROR or FATAL is accepted
+as the unspecified error notification, without an exact severity/ID/text rule.
+No counter-reset, negative-limit or post-error recovery behavior is invented.
+
+Real pull-port transfers match automatic named begin/end notifications and
+timestamps, suppression after disabling before the first request, explicit
+component recording that gates modeled pipelined completion, and separate
+custom address/data events. Standard typed callbacks observe transaction-pool
+entries; attaching them does not prove initial pool membership. No physical
+DUT completion, recorder handle layout or database format is certified.
+The interface overview's inheritance wording conflicts with the actual class
+declarations and remains unresolved rather than becoming a new ancestry rule.
+
+One new library-utils duty maps four unchanged macro fixtures. Each extension,
+including the derived subtype, already invokes the required macro with its
+own exact type. Their empty-static-membership differences remain unchanged;
+no extra implementation initialization helper or new execution is claimed.
+
+Sequencer auditing adds sixteen AI duties for nine M2 fixtures and four
+unchanged library-macro inputs. Default/explicit/positive-time relevance bounds
+and virtual dispatch have independent conditions. Actual pull traffic separates
+automatic events/times, disable side effects, early acknowledgement versus
+modeled completion, and custom address/data notification gates. The positive-time
+bound difference remains a qualified result; all other new fixtures match both
+seeds. No exact error identity or recovery policy is assumed.
+
+B.3.2.2 now has a direct static-list duty linked to existing joint B.3.2.1/
+B.3.2.2 observations. The derived type already includes its required macro.
+Two individually read headings are structural and two introductions contextual;
+the normative 15.2.1 overview remains partial, including its ancestry conflict.
+Chapter 15 is 67 partial/18 assessed/0 unassessed with 131 drafts; annex B is
+40/4/100 with 51 drafts. Zero unassessed chapter-15 identifiers does not complete
+its remaining conditions. Overall is 1690 partial/357 assessed/460 unassessed
+(241 structural/116 contextual). All 3094 earlier requirements and 353 assessments
+remain unchanged. Original M1–M4 targets and every partial duty remain open.
+
+Totals: 1772 (1720 simulation/52 elaboration), M1 709 (667/42), M2 547
+(542/5), M3 516 (511/5). Ordinary results are 1542 pass (1492 runtime/50 compiler
+rejections), 230 known (171 runtime/57 simulation builds/two illegal acceptances).
+All 1763 prior ordinary records, 3094 requirements and 353 assessments remain
+unchanged; guest 1083/HDL 11/command-line 18 records are byte-identical. Guest
+unmeasured is 689 (637 simulation/52 elaboration), including two revised inputs.
+
+The goal's thirty-first iteration reduces unassessed by seven to 460 (1003
+since activation); all partial obligations and original targets remain open.
+An initial report-catcher citation typo and generated indentation are corrected
+before final-input remeasurement; no setup error is called a library difference.
+All 110 tool tests, metadata, ledger/library, evidence identities and paired docs
+pass. FAQs/terms reach 245/277. Schema, runners/library/catalog/backend, workflow
+and six SVGs remain unchanged. No guest run, human review, denominator approval
+or completion is claimed. Goal active.
