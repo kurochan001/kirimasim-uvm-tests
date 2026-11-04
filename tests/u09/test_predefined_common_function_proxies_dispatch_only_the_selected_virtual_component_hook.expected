@@ -1,0 +1,8 @@
+UT: common_delegate build selected_only 1 context 1
+UT: common_delegate connect selected_only 1 context 1
+UT: common_delegate end_of_elaboration selected_only 1 context 1
+UT: common_delegate start_of_simulation selected_only 1 context 1
+UT: common_delegate extract selected_only 1 context 1
+UT: common_delegate check selected_only 1 context 1
+UT: common_delegate report selected_only 1 context 1
+UT: common_delegate final selected_only 1 context 1

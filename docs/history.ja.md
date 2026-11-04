@@ -2,7 +2,7 @@
 
 [English](history.md) · [README](../README.ja.md)
 
-M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の53回目の拡充（全1662件：simulation 1616・elaboration 46）までを記録しています。以前の349件の時点は
+M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の54回目の拡充（全1677件：simulation 1631・elaboration 46）までを記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -2213,3 +2213,29 @@ guest 1083記録と別HDL／command-line条件をbyte単位で保持し、以前
 
 metadata、台帳／索引、library整合性、tool test 110件、現在のnative／compiler同一性、日英資料検査は成功します。
 照合は全てAIで、範囲は提案、分母／割合は未設定、継続goalは有効です。schema、runner／library／catalog、workflow、SVG 6個は未変更です。
+
+## 薄い領域の54回目：delegate・timing・domainの実行（2026-11-04）
+
+M1 simulation 15件は全てseed 1／73に一致します。共有matrix 2個でcommon function phase 8個とtask phase 13個の選択virtual delegateを動かし、contextを保持してpeer／他hookを区別します。
+直接task proxyは遅延returnを待ち、executeのforkは別契約として保持します。
+
+レビューでruntime並行検査を、開始markerからactive run-node状態と2単位間隔の独自task heartbeat進行へ強化しました。
+再測定した現在の入力が以前の弱い記録を置き換えます。
+
+実engine controlはrun前時刻0、run／final終了時刻一致、12 runtime phaseの順序／非重複とstart／extract境界、run並行性を検査します。
+lockした絶対timeoutは保持した上限でFATALを報告し、overridable省略呼出しは後の上限を許します。run段落の参照F.7.2.3に対して実際のtimeout定義F.7.3.3を引用します。
+
+task走査はdomainに接続した部分木の独自遅延proxyでSTARTED／EXECUTING／READY_TO_END／ENDEDを扱います。
+特化component proxyは型ごとのsingleton同一性と共通phase viewを保持します。6 domain fixtureは独立、同名／異名phase同期、選択／全体／明示解除、保持する関係を分けます。
+並行jumpは両方の関連active分岐を再開し、独立peerは1回完了します。新しい既知差分はありません。
+
+AI案47件で2934、文脈分類4件で312（構造203／文脈109）です。全体は部分1584／分類312／未評価611、第9章は94／22／0で案138件、付録Fは34／0／103です。
+以前の全2887要求・308分類・1662入力／native記録を未変更で保持します。goalの26反復目は未評価を32減らし、全ての部分条件や元のmilestone目標は認定しません。
+
+全1677（simulation 1631／elaboration 46）、M1 640（604／36）、M2 538（533／5）、M3 499（494／5）です。
+通常evidenceはpass 1468（runtime 1424／compiler拒否44）、known 209（runtime 159／simulation build 48／不正受理2）です。
+guest 1083記録とHDL／command-line条件をbyte単位で保持し、以前の修正2入力を含む未測定594（simulation 548／elaboration 46）を残します。guest実行は主張しません。
+
+metadata、台帳／索引、library、tool test 110件、native／compiler同一性、日英資料検査は成功します。
+重複したphase定義の用語entryを統合し同期の用語を追加し、全268語を保持します。照合は全てAI、範囲は提案、分母／割合は未設定、goalは有効です。
+schema、runner／library／catalog、workflow、SVG 6個は未変更です。

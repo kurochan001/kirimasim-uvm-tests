@@ -2,7 +2,7 @@
 
 [日本語](known-differences.ja.md) · [README](../README.md) · [FAQ](faq.md)
 
-This describes the current 1662-test suite and the pinned Accellera UVM
+This describes the current 1677-test suite and the pinned Accellera UVM
 2020.3.1 library. A mismatch is a test result; it does not by itself assign
 the cause to the simulator, the library or the expectation.
 
@@ -37,7 +37,7 @@ return. This qualified legal-simulation declaration difference has no runtime;
 it is not an expected illegal-design rejection. Public clone call/source
 preservation matches, while new-map contents/rights remain partial.
 
-Four new phase simulations retain seed-1 differences without seed 73.
+Four phase simulations retain seed-1 differences without seed 73.
 The domain registry's first query lacks the always-required common/uvm entries;
 new custom-domain registration and retention of prior entries are separate
 observations. No exactly-two-domains restriction is imposed. Premature ending
@@ -605,7 +605,7 @@ warning. The YES control changes the limit to nine without a warning. This
 is a diagnostic-severity difference, not failed limit enforcement. The older
 two no-DPI argument cases remain unchanged ordinary runtime differences.
 
-Across the suite, 1453 tests have the `verilator@5.052` oracle tag and 209
+Across the suite, 1468 tests have the `verilator@5.052` oracle tag and 209
 cases are spec-only. One of the spec-only cases checks 9.6: a child's pre-reset
 task must be killed when that phase ends, but the pinned-library run on Verilator 5.052
 lets the child perform its delayed write during a later phase. The cause of
@@ -618,7 +618,7 @@ observation, then its watchdog expires. This combined simulator/library
 cause remains unassigned; the normative wakeup expectation is retained.
 
 The 209 spec-only tests retain their normative expected files.
-Default Verilator runs and CI select 1453 tagged checks (1409 runtime, 44 compile rejection). `--all` includes
+Default Verilator runs and CI select 1468 tagged checks (1424 runtime, 44 compile rejection). `--all` includes
 spec-only cases and records mismatches or build failures as `known`.
 The ordinary runtime records for 159 cases establish their first difference
 at seed 1, without seed 73 results. Eighteen missing-API/type-name builds have
@@ -973,7 +973,7 @@ Additional message-handle and endian cases:
 
 Two existing inputs have revised fingerprints: the command-enum citation and
 the corrected Boolean rerandomization observation. Their historical guest
-records are excluded. The compatible subset has 1083 records and 579 inputs
+records are excluded. The compatible subset has 1083 records and 594 inputs
 are unmeasured, including both revised inputs. This filtering is evidence scope,
 not a new guest failure, pass or simulator improvement.
 
@@ -991,8 +991,8 @@ not a new guest failure, pass or simulator improvement.
 
 ## Simulator and library combinations
 
-The suite has 1662 cases, but the kirimasim/Ghost records below cover only
-1083 unchanged current-input cases. The 579 inputs are unmeasured
+The suite has 1677 cases, but the kirimasim/Ghost records below cover only
+1083 unchanged current-input cases. The 594 inputs are unmeasured
 because prior temporary executable/profile snapshots are unavailable. Do
 not treat this as a fresh full-suite guest result. See [results](results.md).
 

@@ -1,0 +1,3 @@
+UT: task_traverse returned_early 1
+UT: task_traverse started 1 executed 1 ready 1 ended 1
+UT: task_traverse complete 1 context 1

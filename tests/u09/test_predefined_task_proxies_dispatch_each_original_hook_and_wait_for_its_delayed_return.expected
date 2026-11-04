@@ -1,0 +1,13 @@
+UT: task_delegate run selected_only 1 context 1 completion 1
+UT: task_delegate pre_reset selected_only 1 context 1 completion 1
+UT: task_delegate reset selected_only 1 context 1 completion 1
+UT: task_delegate post_reset selected_only 1 context 1 completion 1
+UT: task_delegate pre_configure selected_only 1 context 1 completion 1
+UT: task_delegate configure selected_only 1 context 1 completion 1
+UT: task_delegate post_configure selected_only 1 context 1 completion 1
+UT: task_delegate pre_main selected_only 1 context 1 completion 1
+UT: task_delegate main selected_only 1 context 1 completion 1
+UT: task_delegate post_main selected_only 1 context 1 completion 1
+UT: task_delegate pre_shutdown selected_only 1 context 1 completion 1
+UT: task_delegate shutdown selected_only 1 context 1 completion 1
+UT: task_delegate post_shutdown selected_only 1 context 1 completion 1

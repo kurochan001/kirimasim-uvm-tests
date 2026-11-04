@@ -4718,6 +4718,82 @@
         "reviewer": null,
         "reviewed_at": null
       }
+    },
+    {
+      "clause": "9.2",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The implementation overview relates the master graph, IMP proxies, synchronization, thread control and jumps. Existing graph/node/proxy duties and the new synchronization/jump observations decompose selected concrete behavior. This contextual mapping does not certify every VIP composition, graph invariant or thread lifetime.",
+        "ja": "実装概要はmaster graph、IMP proxy、同期、thread制御、jumpを関連付ける。既存のgraph／node／proxy義務と新たな同期／jump観測で選択した具体動作を分解する。全VIP構成、graph不変条件、thread寿命は認定しない。"
+      },
+      "related_requirements": [
+        "UVM-PHASE-CONTRACT-SEPARATE-GRAPH-CONTEXT",
+        "UVM-PHASE-RUNTIME-SPECIALIZED-COMPONENT-PROXY",
+        "UVM-PHASE-RUNTIME-SYNC-SELECTED-SAME",
+        "UVM-PHASE-RUNTIME-DOMAIN-JUMP-ACTIVE-BRANCHES"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "9.3.1",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The base-class introduction explains reusable definitions, graph-node context/state and component-specific proxies. Linked concrete requirements retain those roles. All cloning/history and graph/lifecycle applicability conditions remain partial; no entire-class completion is inferred.",
+        "ja": "base class導入は再利用定義、graph nodeのcontext／state、component固有proxyを説明する。関連する具体要求がそれらの役割を保持する。全cloning／history、graph／lifecycle適用条件は部分扱いを保ち、class全体の完了を推定しない。"
+      },
+      "related_requirements": [
+        "UVM-PHASE-CONTRACT-CUSTOM-SINGLETON",
+        "UVM-PHASE-CONTRACT-SEPARATE-GRAPH-CONTEXT",
+        "UVM-PHASE-RUNTIME-NODE-STATE-INDEPENDENCE",
+        "UVM-PHASE-RUNTIME-SPECIALIZED-COMPONENT-PROXY"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "9.3.1.8",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The synchronization introduction describes the endpoint relationships added and removed by the following methods. Linked selected same/different-phase and removal duties observe those endpoints. Every topology and mutation during active phases remain partial method obligations.",
+        "ja": "同期導入は後続methodが追加／解除する両端の関係を説明する。関連する選択同名／異名phaseと解除の義務が両端を観測する。全topologyとactive phase中の変更はmethodの部分義務として残る。"
+      },
+      "related_requirements": [
+        "UVM-PHASE-RUNTIME-SYNC-SELECTED-SAME",
+        "UVM-PHASE-RUNTIME-SYNC-EXPLICIT-DIFFERENT",
+        "UVM-PHASE-RUNTIME-UNSYNC-SELECTED-SAME",
+        "UVM-PHASE-RUNTIME-UNSYNC-ALL-DEFAULT"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "9.3.1.9",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The jumping introduction separates premature ending, next-target selection and domain-wide jumping. Those behaviors already have linked direct drafts; the new domain-wide parallel control adds a concrete active-branch condition. Invalid/unrelated targets and lifetime differences remain open rather than excluded.",
+        "ja": "jump導入は早期終了、次target指定、domain全体のjumpを分ける。これらは既に関連する直接draftを持ち、新domain並行controlが具体的active分岐条件を追加する。不正／無関係targetと寿命差分は除外せず残す。"
+      },
+      "related_requirements": [
+        "UVM-PHASE-CONTRACT-PREMATURE-ADVANCE",
+        "UVM-PHASE-CONTRACT-SET-JUMP-DEFERRED",
+        "UVM-PHASE-CONTRACT-BACKWARD-JUMP",
+        "UVM-PHASE-RUNTIME-DOMAIN-JUMP-ACTIVE-BRANCHES"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
     }
   ]
 }

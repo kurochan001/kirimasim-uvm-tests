@@ -647,9 +647,11 @@ retain their previous values; the testbench storage remains a separate state.
 
 ## Phase identity and coverage sampling
 
-**Phase implementation and node** — An implementation supplies a phase's
-behavior; a schedule contains nodes referring to implementations. Different
-nodes can refer to the same singleton without becoming the same handle.
+**Phase implementation and node** — An IMP supplies reusable phase behavior;
+a schedule node carries individual graph context/state. Different nodes may
+share the same singleton handle for behavior while retaining distinct node
+handles. That sharing alone does not prove every concurrent state/lifetime
+condition.
 
 **Coverage model availability** — The measurement models declared by a
 register, memory or block abstraction. Availability does not mean collection
@@ -1236,12 +1238,12 @@ requesting a clone without claiming the new instance's unobserved contents.
 **Gated busy observation**: Hold an original driver response after request arrival
 so another thread can observe is_busy during an actual pending register operation.
 
-**Phase implementation / schedule node** — The reusable IMP definition and
-an individual occurrence carrying graph context/state. Sharing a singleton
-implementation does not make two schedule nodes the same handle or prove
-simultaneous domain-state independence.
-
 **Declared expression type / receiver conversion** — The type queried by
 `$typename` and a possible conversion when passing an expression to an argument.
 Acceptance by a typed receiver alone is insufficient to prove the expression's
 original declared type.
+
+**Phase synchronization / sync / unsync** — Relationships aligning the start
+and end of selected phase nodes across domains. `sync` adds them and `unsync`
+removes them; removing one relationship preserves others. These relationships
+do not prescribe a sibling visitation order.

@@ -834,9 +834,17 @@
       "primary_clause": "9.8.1",
       "inputs_sha256": "c848068ddc2fefc4779c950bed7c479696d2a2dabbd3d0456c0ee936d03555b8"
     },
+    "u09/test_common_phases_before_run_stay_at_zero_and_run_end_shares_the_final_time": {
+      "primary_clause": "9.8.1",
+      "inputs_sha256": "a3b57da193f49ab90ca4e7390853e42be44364410fc116f6aeca4900ca55abbc"
+    },
     "u09/test_common_phases_run_in_order": {
       "primary_clause": "9.8.1",
       "inputs_sha256": "44258268e93b27348a2876f498155dfc8988ce396984f5939664793b94ec9f52"
+    },
+    "u09/test_custom_phase_specializations_dispatch_extended_hooks_through_shared_base_views": {
+      "primary_clause": "9.3.1.1.1",
+      "inputs_sha256": "32d62080fe9d7e8cc915f09c61492806dafe6bd6690bdc542fa824f3945557b4"
     },
     "u09/test_domain_add_uvm_phases_appends_runtime_nodes_after_selected_existing_content": {
       "primary_clause": "9.4.2.3",
@@ -850,9 +858,37 @@
       "primary_clause": "9.4.2.1",
       "inputs_sha256": "bb8683c771eb2c00ca417f63ffe9271745cf37e70202485e9bffc11b958a158e"
     },
+    "u09/test_domain_jump_restarts_both_active_parallel_branches_with_a_shared_predecessor": {
+      "primary_clause": "9.4.2.4",
+      "inputs_sha256": "ebdbbae34b61365d2541cc5535ca29258bb05f1c3f2bb3a116a0f9ec15ec6584"
+    },
     "u09/test_domain_listing_contains_required_builtin_domains_and_retains_new_named_instances": {
       "primary_clause": "9.4.2.2",
       "inputs_sha256": "1c9cfc429f3d0e8efb8a38ffceda084b5262d66f4bd6c71170574f05e00fcd4e"
+    },
+    "u09/test_domain_runtime_all_then_unsync_all_preserves_the_selected_start_end_relationships": {
+      "primary_clause": "9.3.1.8.2",
+      "inputs_sha256": "569001065d1e3e7bc97e1eeb4b802c0cf9f5df58843091f50e48bb4520469f4d"
+    },
+    "u09/test_domain_runtime_all_then_unsync_selected_preserves_the_selected_start_end_relationships": {
+      "primary_clause": "9.3.1.8.2",
+      "inputs_sha256": "a1b80c32516f3ba9e89fb3482fd96ee2c8afda6fbfb54cf89360bb525a87c6b9"
+    },
+    "u09/test_domain_runtime_independent_preserves_the_selected_start_end_relationships": {
+      "primary_clause": "9.4",
+      "inputs_sha256": "38744707bdf55582e665ffefb87b30cbf8d558cfb52eab8f264bcb43d5235331"
+    },
+    "u09/test_domain_runtime_selected_different_preserves_the_selected_start_end_relationships": {
+      "primary_clause": "9.3.1.8.1",
+      "inputs_sha256": "9c6a88d6cc5940b576ec554e767084c87b9bc08881c4116f0ca98b68eb47de29"
+    },
+    "u09/test_domain_runtime_selected_different_then_unsync_preserves_the_selected_start_end_relationships": {
+      "primary_clause": "9.3.1.8.2",
+      "inputs_sha256": "85657ca9b76367ecd39f1cb0f02756a99ad017d6195d4d35b4f8b942f8d2da37"
+    },
+    "u09/test_domain_runtime_selected_same_preserves_the_selected_start_end_relationships": {
+      "primary_clause": "9.3.1.8.1",
+      "inputs_sha256": "e92b4a86ba751d7d8d75e321e5353948acbb506ce6f24921893c562bc70670f3"
     },
     "u09/test_function_phase_count_query_reports_error": {
       "primary_clause": "9.3.1.7",
@@ -986,9 +1022,25 @@
       "primary_clause": "9.3.1.8.3",
       "inputs_sha256": "c706f2275e53c34886d74a380b3c50234a14135164d401b42dd5a93fb24ef724"
     },
+    "u09/test_predefined_common_function_proxies_dispatch_only_the_selected_virtual_component_hook": {
+      "primary_clause": "9.8.1.1",
+      "inputs_sha256": "16484aeac7775fbf8929f8e9e1a40ac53e2a3740122c8e6049a39bca7aefbb97"
+    },
     "u09/test_predefined_phase_getters_keep_names_typed_singletons_and_implementation_kinds": {
       "primary_clause": "9.8",
       "inputs_sha256": "2000c7e8155831a9fd4bd67ed40b351942337f5ab0d994a075e72ed85329bd8d"
+    },
+    "u09/test_predefined_task_proxies_dispatch_each_original_hook_and_wait_for_its_delayed_return": {
+      "primary_clause": "9.8.1.5",
+      "inputs_sha256": "bf3b932b911ee38b520367f9afaa46928cf88a03cc17e2aa2bb46bdb96e385e4"
+    },
+    "u09/test_run_phase_timeout_reports_fatal_at_the_locked_absolute_limit": {
+      "primary_clause": "9.8.1.5",
+      "inputs_sha256": "ba1f46a90888188180a5dde3dde1879dc961b72c237f2e162c989a33279697dd"
+    },
+    "u09/test_runtime_phases_keep_their_default_order_do_not_overlap_and_join_before_extract": {
+      "primary_clause": "9.8.2",
+      "inputs_sha256": "4c6f87fea0eafd373137a05a8afa1638eac2f31c3ed2a8ddee11cca5cbdaed78"
     },
     "u09/test_task_phase_execute_forks_the_original_proxy_and_returns_before_its_delayed_completion": {
       "primary_clause": "9.6.2.3",
@@ -1001,6 +1053,10 @@
     "u09/test_task_phase_return_does_not_end_held_phase": {
       "primary_clause": "9.6",
       "inputs_sha256": "c6dd01f4586b33b8670099c33b094cc1efb22fadc82cc3ede04d8ec0fee8c9a9"
+    },
+    "u09/test_task_phase_traverse_dispatches_started_execute_ready_and_ended_over_the_selected_subtree": {
+      "primary_clause": "9.6.2.2",
+      "inputs_sha256": "63957009f2b4dd97fdec949e20b6d29c02bc19a334167746409d25a5d51355be"
     },
     "u09/test_topdown_phase_traverse_dispatches_selected_states_and_orders_ancestors_without_sibling_order": {
       "primary_clause": "9.7.2.2",
@@ -6529,6 +6585,10 @@
     "uF/test_root_find_unique_wildcard_matches_the_public_find_all_result": {
       "primary_clause": "F.7.4.1",
       "inputs_sha256": "42db0cef5883ffbfa8c490d16c1a9935b47833f11706bb0a8a215ec2d7bb058b"
+    },
+    "uF/test_run_timeout_default_overridable_argument_allows_a_later_absolute_limit": {
+      "primary_clause": "F.7.3.3",
+      "inputs_sha256": "dc1f8b109e3d2ae1f324bbb503fb501f17d47c601c854451527fe9cdb544ad3c"
     },
     "uF/test_string_split_empty_and_single_separator_replace_prior_queue": {
       "primary_clause": "F.3.3.2",

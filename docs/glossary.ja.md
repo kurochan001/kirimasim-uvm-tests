@@ -490,8 +490,8 @@ localなimplementation hookで、外部databaseの形式を生成せず、lifecy
 
 ## phaseの同一性とcoverage sampling
 
-**phase implementationとnode** — implementationはphaseの動作を用意し、scheduleは
-implementationを参照するnodeを含みます。異なるnodeが同じsingletonを参照しても、同じhandleにはなりません。
+**phase implementationとnode** — IMPは再利用可能なphase動作を提供し、schedule nodeは個別graph context／stateを持ちます。
+異なるnodeが動作を供給する同じsingleton handleを共有しても、node handleは別です。この共有だけで全並行state／lifetime条件は証明しません。
 
 **coverage modelの搭載状況** — register、memory、blockの抽象modelが宣言した計測modelです。
 搭載していることは、現在収集が有効であることや、何らかのbinをsampleしたことを示しません。
@@ -947,8 +947,8 @@ D.3の名前モデルアクセスはfileをuDに置いてもM3へ属します。
 
 **Gated busy observation（gate制御busy観測）**: request到着後に独自driver応答を保持し、別threadが実処理待ちregister操作のis_busyを観測すること。
 
-**Phase implementation / schedule node** — 再利用するIMP定義と、graph context／stateを持つ個々の出現です。
-singleton implementationの共有によって2 schedule nodeが同じhandleになるわけではなく、同時domain状態の独立性も証明しません。
-
 **Declared expression type / receiver conversion** — `$typename`が照会する型と、式を引数へ渡すときに生じ得る変換です。
 型付きreceiverでの受理だけでは、式の元の宣言型を証明できません。
+
+**Phase synchronization / sync / unsync** — domain間で選択phase nodeの開始と終了を揃える関係です。
+`sync`が追加し`unsync`が解除します。1関係の解除は他の関係を保持し、兄弟の訪問順は規定しません。

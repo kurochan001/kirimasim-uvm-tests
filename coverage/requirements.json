@@ -105884,6 +105884,1619 @@
           ]
         }
       ]
+    },
+    {
+      "id": "UVM-PHASE-RUNTIME-BUILD-FUNCTION-DELEGATE",
+      "clause": "9.8.1.1",
+      "statement": {
+        "en": "The build phase function proxy calls the corresponding virtual component hook.",
+        "ja": "build phaseのfunction proxyは対応するvirtual component hookを呼ぶ。"
+      },
+      "conditions": {
+        "en": "A base phase view invokes exec_func on one original component with an explicit context node; its build hook records the call.",
+        "ja": "phase基底viewが独自componentと明示context nodeでexec_funcを呼び、build hookが呼出しを記録する。"
+      },
+      "expected": {
+        "en": "Only the selected callback count changes, no peer callback changes, and the context handle is preserved.",
+        "ja": "選択したcallbackのcountだけが変わり、peer callbackは変わらず、context handleを保持する。"
+      },
+      "limitations": {
+        "en": "One row of a shared eight-row direct-delegate fixture, not eight independent fixtures. Inheritance kinds, full traversal, automatic configuration and all scheduling/lifetime conditions remain separate.",
+        "ja": "共有する8行の直接delegate fixture内の1行で、独立した8 fixtureではない。継承kind、全走査、自動設定、全schedule／lifetime条件は別に残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_predefined_common_function_proxies_dispatch_only_the_selected_virtual_component_hook",
+          "role": "direct",
+          "expected_observations": [
+            "UT: common_delegate build selected_only 1 context 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-RUNTIME-CONNECT-FUNCTION-DELEGATE",
+      "clause": "9.8.1.2",
+      "statement": {
+        "en": "The connect phase function proxy calls the corresponding virtual component hook.",
+        "ja": "connect phaseのfunction proxyは対応するvirtual component hookを呼ぶ。"
+      },
+      "conditions": {
+        "en": "A base phase view invokes exec_func on one original component with an explicit context node; its connect hook records the call.",
+        "ja": "phase基底viewが独自componentと明示context nodeでexec_funcを呼び、connect hookが呼出しを記録する。"
+      },
+      "expected": {
+        "en": "Only the selected callback count changes, no peer callback changes, and the context handle is preserved.",
+        "ja": "選択したcallbackのcountだけが変わり、peer callbackは変わらず、context handleを保持する。"
+      },
+      "limitations": {
+        "en": "One row of a shared eight-row direct-delegate fixture, not eight independent fixtures. Inheritance kinds, full traversal, automatic configuration and all scheduling/lifetime conditions remain separate.",
+        "ja": "共有する8行の直接delegate fixture内の1行で、独立した8 fixtureではない。継承kind、全走査、自動設定、全schedule／lifetime条件は別に残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_predefined_common_function_proxies_dispatch_only_the_selected_virtual_component_hook",
+          "role": "direct",
+          "expected_observations": [
+            "UT: common_delegate connect selected_only 1 context 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-RUNTIME-END-OF-ELABORATION-FUNCTION-DELEGATE",
+      "clause": "9.8.1.3",
+      "statement": {
+        "en": "The end_of_elaboration phase function proxy calls the corresponding virtual component hook.",
+        "ja": "end_of_elaboration phaseのfunction proxyは対応するvirtual component hookを呼ぶ。"
+      },
+      "conditions": {
+        "en": "A base phase view invokes exec_func on one original component with an explicit context node; its end_of_elaboration hook records the call.",
+        "ja": "phase基底viewが独自componentと明示context nodeでexec_funcを呼び、end_of_elaboration hookが呼出しを記録する。"
+      },
+      "expected": {
+        "en": "Only the selected callback count changes, no peer callback changes, and the context handle is preserved.",
+        "ja": "選択したcallbackのcountだけが変わり、peer callbackは変わらず、context handleを保持する。"
+      },
+      "limitations": {
+        "en": "One row of a shared eight-row direct-delegate fixture, not eight independent fixtures. Inheritance kinds, full traversal, automatic configuration and all scheduling/lifetime conditions remain separate.",
+        "ja": "共有する8行の直接delegate fixture内の1行で、独立した8 fixtureではない。継承kind、全走査、自動設定、全schedule／lifetime条件は別に残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_predefined_common_function_proxies_dispatch_only_the_selected_virtual_component_hook",
+          "role": "direct",
+          "expected_observations": [
+            "UT: common_delegate end_of_elaboration selected_only 1 context 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-RUNTIME-START-OF-SIMULATION-FUNCTION-DELEGATE",
+      "clause": "9.8.1.4",
+      "statement": {
+        "en": "The start_of_simulation phase function proxy calls the corresponding virtual component hook.",
+        "ja": "start_of_simulation phaseのfunction proxyは対応するvirtual component hookを呼ぶ。"
+      },
+      "conditions": {
+        "en": "A base phase view invokes exec_func on one original component with an explicit context node; its start_of_simulation hook records the call.",
+        "ja": "phase基底viewが独自componentと明示context nodeでexec_funcを呼び、start_of_simulation hookが呼出しを記録する。"
+      },
+      "expected": {
+        "en": "Only the selected callback count changes, no peer callback changes, and the context handle is preserved.",
+        "ja": "選択したcallbackのcountだけが変わり、peer callbackは変わらず、context handleを保持する。"
+      },
+      "limitations": {
+        "en": "One row of a shared eight-row direct-delegate fixture, not eight independent fixtures. Inheritance kinds, full traversal, automatic configuration and all scheduling/lifetime conditions remain separate.",
+        "ja": "共有する8行の直接delegate fixture内の1行で、独立した8 fixtureではない。継承kind、全走査、自動設定、全schedule／lifetime条件は別に残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_predefined_common_function_proxies_dispatch_only_the_selected_virtual_component_hook",
+          "role": "direct",
+          "expected_observations": [
+            "UT: common_delegate start_of_simulation selected_only 1 context 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-RUNTIME-EXTRACT-FUNCTION-DELEGATE",
+      "clause": "9.8.1.6",
+      "statement": {
+        "en": "The extract phase function proxy calls the corresponding virtual component hook.",
+        "ja": "extract phaseのfunction proxyは対応するvirtual component hookを呼ぶ。"
+      },
+      "conditions": {
+        "en": "A base phase view invokes exec_func on one original component with an explicit context node; its extract hook records the call.",
+        "ja": "phase基底viewが独自componentと明示context nodeでexec_funcを呼び、extract hookが呼出しを記録する。"
+      },
+      "expected": {
+        "en": "Only the selected callback count changes, no peer callback changes, and the context handle is preserved.",
+        "ja": "選択したcallbackのcountだけが変わり、peer callbackは変わらず、context handleを保持する。"
+      },
+      "limitations": {
+        "en": "One row of a shared eight-row direct-delegate fixture, not eight independent fixtures. Inheritance kinds, full traversal, automatic configuration and all scheduling/lifetime conditions remain separate.",
+        "ja": "共有する8行の直接delegate fixture内の1行で、独立した8 fixtureではない。継承kind、全走査、自動設定、全schedule／lifetime条件は別に残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_predefined_common_function_proxies_dispatch_only_the_selected_virtual_component_hook",
+          "role": "direct",
+          "expected_observations": [
+            "UT: common_delegate extract selected_only 1 context 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-RUNTIME-CHECK-FUNCTION-DELEGATE",
+      "clause": "9.8.1.7",
+      "statement": {
+        "en": "The check phase function proxy calls the corresponding virtual component hook.",
+        "ja": "check phaseのfunction proxyは対応するvirtual component hookを呼ぶ。"
+      },
+      "conditions": {
+        "en": "A base phase view invokes exec_func on one original component with an explicit context node; its check hook records the call.",
+        "ja": "phase基底viewが独自componentと明示context nodeでexec_funcを呼び、check hookが呼出しを記録する。"
+      },
+      "expected": {
+        "en": "Only the selected callback count changes, no peer callback changes, and the context handle is preserved.",
+        "ja": "選択したcallbackのcountだけが変わり、peer callbackは変わらず、context handleを保持する。"
+      },
+      "limitations": {
+        "en": "One row of a shared eight-row direct-delegate fixture, not eight independent fixtures. Inheritance kinds, full traversal, automatic configuration and all scheduling/lifetime conditions remain separate.",
+        "ja": "共有する8行の直接delegate fixture内の1行で、独立した8 fixtureではない。継承kind、全走査、自動設定、全schedule／lifetime条件は別に残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_predefined_common_function_proxies_dispatch_only_the_selected_virtual_component_hook",
+          "role": "direct",
+          "expected_observations": [
+            "UT: common_delegate check selected_only 1 context 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-RUNTIME-REPORT-FUNCTION-DELEGATE",
+      "clause": "9.8.1.8",
+      "statement": {
+        "en": "The report phase function proxy calls the corresponding virtual component hook.",
+        "ja": "report phaseのfunction proxyは対応するvirtual component hookを呼ぶ。"
+      },
+      "conditions": {
+        "en": "A base phase view invokes exec_func on one original component with an explicit context node; its report hook records the call.",
+        "ja": "phase基底viewが独自componentと明示context nodeでexec_funcを呼び、report hookが呼出しを記録する。"
+      },
+      "expected": {
+        "en": "Only the selected callback count changes, no peer callback changes, and the context handle is preserved.",
+        "ja": "選択したcallbackのcountだけが変わり、peer callbackは変わらず、context handleを保持する。"
+      },
+      "limitations": {
+        "en": "One row of a shared eight-row direct-delegate fixture, not eight independent fixtures. Inheritance kinds, full traversal, automatic configuration and all scheduling/lifetime conditions remain separate.",
+        "ja": "共有する8行の直接delegate fixture内の1行で、独立した8 fixtureではない。継承kind、全走査、自動設定、全schedule／lifetime条件は別に残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_predefined_common_function_proxies_dispatch_only_the_selected_virtual_component_hook",
+          "role": "direct",
+          "expected_observations": [
+            "UT: common_delegate report selected_only 1 context 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-RUNTIME-FINAL-FUNCTION-DELEGATE",
+      "clause": "9.8.1.9",
+      "statement": {
+        "en": "The final phase function proxy calls the corresponding virtual component hook.",
+        "ja": "final phaseのfunction proxyは対応するvirtual component hookを呼ぶ。"
+      },
+      "conditions": {
+        "en": "A base phase view invokes exec_func on one original component with an explicit context node; its final hook records the call.",
+        "ja": "phase基底viewが独自componentと明示context nodeでexec_funcを呼び、final hookが呼出しを記録する。"
+      },
+      "expected": {
+        "en": "Only the selected callback count changes, no peer callback changes, and the context handle is preserved.",
+        "ja": "選択したcallbackのcountだけが変わり、peer callbackは変わらず、context handleを保持する。"
+      },
+      "limitations": {
+        "en": "One row of a shared eight-row direct-delegate fixture, not eight independent fixtures. Inheritance kinds, full traversal, automatic configuration and all scheduling/lifetime conditions remain separate.",
+        "ja": "共有する8行の直接delegate fixture内の1行で、独立した8 fixtureではない。継承kind、全走査、自動設定、全schedule／lifetime条件は別に残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_predefined_common_function_proxies_dispatch_only_the_selected_virtual_component_hook",
+          "role": "direct",
+          "expected_observations": [
+            "UT: common_delegate final selected_only 1 context 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-RUNTIME-RUN-TASK-DELEGATE",
+      "clause": "9.8.1.5",
+      "statement": {
+        "en": "The run phase task proxy calls and awaits the corresponding virtual component task.",
+        "ja": "run phaseのtask proxyは対応するvirtual component taskを呼び、その完了を待つ。"
+      },
+      "conditions": {
+        "en": "exec_task is called directly through a base phase view; the original run hook waits two positive delay units.",
+        "ja": "phase基底view経由でexec_taskを直接呼び、独自run hookが正の2遅延単位待機する。"
+      },
+      "expected": {
+        "en": "Only the selected hook enters and completes; the peer stays silent, the context matches and return follows the delayed completion.",
+        "ja": "選択hookだけが開始／完了し、peerは呼ばれず、contextが一致して遅延完了後にreturnする。"
+      },
+      "limitations": {
+        "en": "One row in a thirteen-row direct-delegate fixture. This is distinct from execute forking and does not certify all automatic schedule, timeout, domain or forced-termination conditions.",
+        "ja": "13行の直接delegate fixture内の1行。executeのforkとは別で、全自動schedule、timeout、domain、強制終了条件を認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_predefined_task_proxies_dispatch_each_original_hook_and_wait_for_its_delayed_return",
+          "role": "direct",
+          "expected_observations": [
+            "UT: task_delegate run selected_only 1 context 1 completion 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-RUNTIME-PRE-RESET-TASK-DELEGATE",
+      "clause": "9.8.2.1",
+      "statement": {
+        "en": "The pre_reset phase task proxy calls and awaits the corresponding virtual component task.",
+        "ja": "pre_reset phaseのtask proxyは対応するvirtual component taskを呼び、その完了を待つ。"
+      },
+      "conditions": {
+        "en": "exec_task is called directly through a base phase view; the original pre_reset hook waits two positive delay units.",
+        "ja": "phase基底view経由でexec_taskを直接呼び、独自pre_reset hookが正の2遅延単位待機する。"
+      },
+      "expected": {
+        "en": "Only the selected hook enters and completes; the peer stays silent, the context matches and return follows the delayed completion.",
+        "ja": "選択hookだけが開始／完了し、peerは呼ばれず、contextが一致して遅延完了後にreturnする。"
+      },
+      "limitations": {
+        "en": "One row in a thirteen-row direct-delegate fixture. This is distinct from execute forking and does not certify all automatic schedule, timeout, domain or forced-termination conditions.",
+        "ja": "13行の直接delegate fixture内の1行。executeのforkとは別で、全自動schedule、timeout、domain、強制終了条件を認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_predefined_task_proxies_dispatch_each_original_hook_and_wait_for_its_delayed_return",
+          "role": "direct",
+          "expected_observations": [
+            "UT: task_delegate pre_reset selected_only 1 context 1 completion 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-RUNTIME-RESET-TASK-DELEGATE",
+      "clause": "9.8.2.2",
+      "statement": {
+        "en": "The reset phase task proxy calls and awaits the corresponding virtual component task.",
+        "ja": "reset phaseのtask proxyは対応するvirtual component taskを呼び、その完了を待つ。"
+      },
+      "conditions": {
+        "en": "exec_task is called directly through a base phase view; the original reset hook waits two positive delay units.",
+        "ja": "phase基底view経由でexec_taskを直接呼び、独自reset hookが正の2遅延単位待機する。"
+      },
+      "expected": {
+        "en": "Only the selected hook enters and completes; the peer stays silent, the context matches and return follows the delayed completion.",
+        "ja": "選択hookだけが開始／完了し、peerは呼ばれず、contextが一致して遅延完了後にreturnする。"
+      },
+      "limitations": {
+        "en": "One row in a thirteen-row direct-delegate fixture. This is distinct from execute forking and does not certify all automatic schedule, timeout, domain or forced-termination conditions.",
+        "ja": "13行の直接delegate fixture内の1行。executeのforkとは別で、全自動schedule、timeout、domain、強制終了条件を認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_predefined_task_proxies_dispatch_each_original_hook_and_wait_for_its_delayed_return",
+          "role": "direct",
+          "expected_observations": [
+            "UT: task_delegate reset selected_only 1 context 1 completion 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-RUNTIME-POST-RESET-TASK-DELEGATE",
+      "clause": "9.8.2.3",
+      "statement": {
+        "en": "The post_reset phase task proxy calls and awaits the corresponding virtual component task.",
+        "ja": "post_reset phaseのtask proxyは対応するvirtual component taskを呼び、その完了を待つ。"
+      },
+      "conditions": {
+        "en": "exec_task is called directly through a base phase view; the original post_reset hook waits two positive delay units.",
+        "ja": "phase基底view経由でexec_taskを直接呼び、独自post_reset hookが正の2遅延単位待機する。"
+      },
+      "expected": {
+        "en": "Only the selected hook enters and completes; the peer stays silent, the context matches and return follows the delayed completion.",
+        "ja": "選択hookだけが開始／完了し、peerは呼ばれず、contextが一致して遅延完了後にreturnする。"
+      },
+      "limitations": {
+        "en": "One row in a thirteen-row direct-delegate fixture. This is distinct from execute forking and does not certify all automatic schedule, timeout, domain or forced-termination conditions.",
+        "ja": "13行の直接delegate fixture内の1行。executeのforkとは別で、全自動schedule、timeout、domain、強制終了条件を認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_predefined_task_proxies_dispatch_each_original_hook_and_wait_for_its_delayed_return",
+          "role": "direct",
+          "expected_observations": [
+            "UT: task_delegate post_reset selected_only 1 context 1 completion 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-RUNTIME-PRE-CONFIGURE-TASK-DELEGATE",
+      "clause": "9.8.2.4",
+      "statement": {
+        "en": "The pre_configure phase task proxy calls and awaits the corresponding virtual component task.",
+        "ja": "pre_configure phaseのtask proxyは対応するvirtual component taskを呼び、その完了を待つ。"
+      },
+      "conditions": {
+        "en": "exec_task is called directly through a base phase view; the original pre_configure hook waits two positive delay units.",
+        "ja": "phase基底view経由でexec_taskを直接呼び、独自pre_configure hookが正の2遅延単位待機する。"
+      },
+      "expected": {
+        "en": "Only the selected hook enters and completes; the peer stays silent, the context matches and return follows the delayed completion.",
+        "ja": "選択hookだけが開始／完了し、peerは呼ばれず、contextが一致して遅延完了後にreturnする。"
+      },
+      "limitations": {
+        "en": "One row in a thirteen-row direct-delegate fixture. This is distinct from execute forking and does not certify all automatic schedule, timeout, domain or forced-termination conditions.",
+        "ja": "13行の直接delegate fixture内の1行。executeのforkとは別で、全自動schedule、timeout、domain、強制終了条件を認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_predefined_task_proxies_dispatch_each_original_hook_and_wait_for_its_delayed_return",
+          "role": "direct",
+          "expected_observations": [
+            "UT: task_delegate pre_configure selected_only 1 context 1 completion 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-RUNTIME-CONFIGURE-TASK-DELEGATE",
+      "clause": "9.8.2.5",
+      "statement": {
+        "en": "The configure phase task proxy calls and awaits the corresponding virtual component task.",
+        "ja": "configure phaseのtask proxyは対応するvirtual component taskを呼び、その完了を待つ。"
+      },
+      "conditions": {
+        "en": "exec_task is called directly through a base phase view; the original configure hook waits two positive delay units.",
+        "ja": "phase基底view経由でexec_taskを直接呼び、独自configure hookが正の2遅延単位待機する。"
+      },
+      "expected": {
+        "en": "Only the selected hook enters and completes; the peer stays silent, the context matches and return follows the delayed completion.",
+        "ja": "選択hookだけが開始／完了し、peerは呼ばれず、contextが一致して遅延完了後にreturnする。"
+      },
+      "limitations": {
+        "en": "One row in a thirteen-row direct-delegate fixture. This is distinct from execute forking and does not certify all automatic schedule, timeout, domain or forced-termination conditions.",
+        "ja": "13行の直接delegate fixture内の1行。executeのforkとは別で、全自動schedule、timeout、domain、強制終了条件を認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_predefined_task_proxies_dispatch_each_original_hook_and_wait_for_its_delayed_return",
+          "role": "direct",
+          "expected_observations": [
+            "UT: task_delegate configure selected_only 1 context 1 completion 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-RUNTIME-POST-CONFIGURE-TASK-DELEGATE",
+      "clause": "9.8.2.6",
+      "statement": {
+        "en": "The post_configure phase task proxy calls and awaits the corresponding virtual component task.",
+        "ja": "post_configure phaseのtask proxyは対応するvirtual component taskを呼び、その完了を待つ。"
+      },
+      "conditions": {
+        "en": "exec_task is called directly through a base phase view; the original post_configure hook waits two positive delay units.",
+        "ja": "phase基底view経由でexec_taskを直接呼び、独自post_configure hookが正の2遅延単位待機する。"
+      },
+      "expected": {
+        "en": "Only the selected hook enters and completes; the peer stays silent, the context matches and return follows the delayed completion.",
+        "ja": "選択hookだけが開始／完了し、peerは呼ばれず、contextが一致して遅延完了後にreturnする。"
+      },
+      "limitations": {
+        "en": "One row in a thirteen-row direct-delegate fixture. This is distinct from execute forking and does not certify all automatic schedule, timeout, domain or forced-termination conditions.",
+        "ja": "13行の直接delegate fixture内の1行。executeのforkとは別で、全自動schedule、timeout、domain、強制終了条件を認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_predefined_task_proxies_dispatch_each_original_hook_and_wait_for_its_delayed_return",
+          "role": "direct",
+          "expected_observations": [
+            "UT: task_delegate post_configure selected_only 1 context 1 completion 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-RUNTIME-PRE-MAIN-TASK-DELEGATE",
+      "clause": "9.8.2.7",
+      "statement": {
+        "en": "The pre_main phase task proxy calls and awaits the corresponding virtual component task.",
+        "ja": "pre_main phaseのtask proxyは対応するvirtual component taskを呼び、その完了を待つ。"
+      },
+      "conditions": {
+        "en": "exec_task is called directly through a base phase view; the original pre_main hook waits two positive delay units.",
+        "ja": "phase基底view経由でexec_taskを直接呼び、独自pre_main hookが正の2遅延単位待機する。"
+      },
+      "expected": {
+        "en": "Only the selected hook enters and completes; the peer stays silent, the context matches and return follows the delayed completion.",
+        "ja": "選択hookだけが開始／完了し、peerは呼ばれず、contextが一致して遅延完了後にreturnする。"
+      },
+      "limitations": {
+        "en": "One row in a thirteen-row direct-delegate fixture. This is distinct from execute forking and does not certify all automatic schedule, timeout, domain or forced-termination conditions.",
+        "ja": "13行の直接delegate fixture内の1行。executeのforkとは別で、全自動schedule、timeout、domain、強制終了条件を認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_predefined_task_proxies_dispatch_each_original_hook_and_wait_for_its_delayed_return",
+          "role": "direct",
+          "expected_observations": [
+            "UT: task_delegate pre_main selected_only 1 context 1 completion 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-RUNTIME-MAIN-TASK-DELEGATE",
+      "clause": "9.8.2.8",
+      "statement": {
+        "en": "The main phase task proxy calls and awaits the corresponding virtual component task.",
+        "ja": "main phaseのtask proxyは対応するvirtual component taskを呼び、その完了を待つ。"
+      },
+      "conditions": {
+        "en": "exec_task is called directly through a base phase view; the original main hook waits two positive delay units.",
+        "ja": "phase基底view経由でexec_taskを直接呼び、独自main hookが正の2遅延単位待機する。"
+      },
+      "expected": {
+        "en": "Only the selected hook enters and completes; the peer stays silent, the context matches and return follows the delayed completion.",
+        "ja": "選択hookだけが開始／完了し、peerは呼ばれず、contextが一致して遅延完了後にreturnする。"
+      },
+      "limitations": {
+        "en": "One row in a thirteen-row direct-delegate fixture. This is distinct from execute forking and does not certify all automatic schedule, timeout, domain or forced-termination conditions.",
+        "ja": "13行の直接delegate fixture内の1行。executeのforkとは別で、全自動schedule、timeout、domain、強制終了条件を認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_predefined_task_proxies_dispatch_each_original_hook_and_wait_for_its_delayed_return",
+          "role": "direct",
+          "expected_observations": [
+            "UT: task_delegate main selected_only 1 context 1 completion 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-RUNTIME-POST-MAIN-TASK-DELEGATE",
+      "clause": "9.8.2.9",
+      "statement": {
+        "en": "The post_main phase task proxy calls and awaits the corresponding virtual component task.",
+        "ja": "post_main phaseのtask proxyは対応するvirtual component taskを呼び、その完了を待つ。"
+      },
+      "conditions": {
+        "en": "exec_task is called directly through a base phase view; the original post_main hook waits two positive delay units.",
+        "ja": "phase基底view経由でexec_taskを直接呼び、独自post_main hookが正の2遅延単位待機する。"
+      },
+      "expected": {
+        "en": "Only the selected hook enters and completes; the peer stays silent, the context matches and return follows the delayed completion.",
+        "ja": "選択hookだけが開始／完了し、peerは呼ばれず、contextが一致して遅延完了後にreturnする。"
+      },
+      "limitations": {
+        "en": "One row in a thirteen-row direct-delegate fixture. This is distinct from execute forking and does not certify all automatic schedule, timeout, domain or forced-termination conditions.",
+        "ja": "13行の直接delegate fixture内の1行。executeのforkとは別で、全自動schedule、timeout、domain、強制終了条件を認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_predefined_task_proxies_dispatch_each_original_hook_and_wait_for_its_delayed_return",
+          "role": "direct",
+          "expected_observations": [
+            "UT: task_delegate post_main selected_only 1 context 1 completion 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-RUNTIME-PRE-SHUTDOWN-TASK-DELEGATE",
+      "clause": "9.8.2.10",
+      "statement": {
+        "en": "The pre_shutdown phase task proxy calls and awaits the corresponding virtual component task.",
+        "ja": "pre_shutdown phaseのtask proxyは対応するvirtual component taskを呼び、その完了を待つ。"
+      },
+      "conditions": {
+        "en": "exec_task is called directly through a base phase view; the original pre_shutdown hook waits two positive delay units.",
+        "ja": "phase基底view経由でexec_taskを直接呼び、独自pre_shutdown hookが正の2遅延単位待機する。"
+      },
+      "expected": {
+        "en": "Only the selected hook enters and completes; the peer stays silent, the context matches and return follows the delayed completion.",
+        "ja": "選択hookだけが開始／完了し、peerは呼ばれず、contextが一致して遅延完了後にreturnする。"
+      },
+      "limitations": {
+        "en": "One row in a thirteen-row direct-delegate fixture. This is distinct from execute forking and does not certify all automatic schedule, timeout, domain or forced-termination conditions.",
+        "ja": "13行の直接delegate fixture内の1行。executeのforkとは別で、全自動schedule、timeout、domain、強制終了条件を認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_predefined_task_proxies_dispatch_each_original_hook_and_wait_for_its_delayed_return",
+          "role": "direct",
+          "expected_observations": [
+            "UT: task_delegate pre_shutdown selected_only 1 context 1 completion 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-RUNTIME-SHUTDOWN-TASK-DELEGATE",
+      "clause": "9.8.2.11",
+      "statement": {
+        "en": "The shutdown phase task proxy calls and awaits the corresponding virtual component task.",
+        "ja": "shutdown phaseのtask proxyは対応するvirtual component taskを呼び、その完了を待つ。"
+      },
+      "conditions": {
+        "en": "exec_task is called directly through a base phase view; the original shutdown hook waits two positive delay units.",
+        "ja": "phase基底view経由でexec_taskを直接呼び、独自shutdown hookが正の2遅延単位待機する。"
+      },
+      "expected": {
+        "en": "Only the selected hook enters and completes; the peer stays silent, the context matches and return follows the delayed completion.",
+        "ja": "選択hookだけが開始／完了し、peerは呼ばれず、contextが一致して遅延完了後にreturnする。"
+      },
+      "limitations": {
+        "en": "One row in a thirteen-row direct-delegate fixture. This is distinct from execute forking and does not certify all automatic schedule, timeout, domain or forced-termination conditions.",
+        "ja": "13行の直接delegate fixture内の1行。executeのforkとは別で、全自動schedule、timeout、domain、強制終了条件を認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_predefined_task_proxies_dispatch_each_original_hook_and_wait_for_its_delayed_return",
+          "role": "direct",
+          "expected_observations": [
+            "UT: task_delegate shutdown selected_only 1 context 1 completion 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-RUNTIME-POST-SHUTDOWN-TASK-DELEGATE",
+      "clause": "9.8.2.12",
+      "statement": {
+        "en": "The post_shutdown phase task proxy calls and awaits the corresponding virtual component task.",
+        "ja": "post_shutdown phaseのtask proxyは対応するvirtual component taskを呼び、その完了を待つ。"
+      },
+      "conditions": {
+        "en": "exec_task is called directly through a base phase view; the original post_shutdown hook waits two positive delay units.",
+        "ja": "phase基底view経由でexec_taskを直接呼び、独自post_shutdown hookが正の2遅延単位待機する。"
+      },
+      "expected": {
+        "en": "Only the selected hook enters and completes; the peer stays silent, the context matches and return follows the delayed completion.",
+        "ja": "選択hookだけが開始／完了し、peerは呼ばれず、contextが一致して遅延完了後にreturnする。"
+      },
+      "limitations": {
+        "en": "One row in a thirteen-row direct-delegate fixture. This is distinct from execute forking and does not certify all automatic schedule, timeout, domain or forced-termination conditions.",
+        "ja": "13行の直接delegate fixture内の1行。executeのforkとは別で、全自動schedule、timeout、domain、強制終了条件を認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_predefined_task_proxies_dispatch_each_original_hook_and_wait_for_its_delayed_return",
+          "role": "direct",
+          "expected_observations": [
+            "UT: task_delegate post_shutdown selected_only 1 context 1 completion 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-RUNTIME-COMMON-PRE-RUN-ZERO",
+      "clause": "9.8.1",
+      "statement": {
+        "en": "Common phases preceding run execute at time zero.",
+        "ja": "runより前のcommon phaseは時刻0で実行する。"
+      },
+      "conditions": {
+        "en": "Four overridden common hooks execute through the real phase engine.",
+        "ja": "4個のoverrideしたcommon hookを実phase engineで実行する。"
+      },
+      "expected": {
+        "en": "All four hooks are observed and all their time samples are zero.",
+        "ja": "4 hook全てを観測し、その時刻sampleが全て0となる。"
+      },
+      "limitations": {
+        "en": "One test component; broader hierarchy traversal and user extension timing remain separate.",
+        "ja": "1 test componentのみ。広い階層走査やuser拡張timingは別に残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_common_phases_before_run_stay_at_zero_and_run_end_shares_the_final_time",
+          "role": "direct",
+          "expected_observations": [
+            "UT: common_time pre_run_zero 1 four_hooks 1 run_start_zero 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-RUNTIME-RUN-START-ZERO",
+      "clause": "9.8.1.5",
+      "statement": {
+        "en": "The run phase begins at simulation time zero.",
+        "ja": "run phaseはsimulation時刻0で開始する。"
+      },
+      "conditions": {
+        "en": "A phase-start callback observes run before an objection-held three-unit task.",
+        "ja": "phase-start callbackがobjectionで保持する3単位taskの前にrunを観測する。"
+      },
+      "expected": {
+        "en": "run_start_zero is true.",
+        "ja": "run_start_zeroが真となる。"
+      },
+      "limitations": {
+        "en": "One normal run; restart, global timeout and alternate domains are separate conditions.",
+        "ja": "通常run 1回のみ。再開、global timeout、別domainは別条件とする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_common_phases_before_run_stay_at_zero_and_run_end_shares_the_final_time",
+          "role": "direct",
+          "expected_observations": [
+            "UT: common_time pre_run_zero 1 four_hooks 1 run_start_zero 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-RUNTIME-RUN-FINAL-ENDPOINT",
+      "clause": "9.8.1.5",
+      "statement": {
+        "en": "The end of run has the same simulation time as final completion.",
+        "ja": "runの終了とfinal完了は同じsimulation時刻を持つ。"
+      },
+      "conditions": {
+        "en": "An objection holds run for positive time; its ended callback records time and final samples it.",
+        "ja": "objectionがrunを正の時間保持し、ended callbackが記録した時刻をfinalが照会する。"
+      },
+      "expected": {
+        "en": "Run has ended, its end time equals final time and duration is positive.",
+        "ja": "runが終了し、その終了時刻がfinal時刻と等しく、継続時間が正となる。"
+      },
+      "limitations": {
+        "en": "A function final cannot consume time; this selected endpoint equality does not establish every run-thread lifetime or all concurrent branch conditions.",
+        "ja": "function finalは時間を消費できず、この限定した終了時刻の一致で全run thread寿命や全並行分岐条件は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_common_phases_before_run_stay_at_zero_and_run_end_shares_the_final_time",
+          "role": "direct",
+          "expected_observations": [
+            "UT: common_time run_ended 1 final_same_time 1 positive_duration 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-RUNTIME-RUNTIME-DEFAULT-ORDER",
+      "clause": "9.8.2",
+      "statement": {
+        "en": "The predefined runtime phases follow their default execution order.",
+        "ja": "定義済みruntime phaseは既定の実行順序に従う。"
+      },
+      "conditions": {
+        "en": "One real default domain executes all twelve hooks, each held by an objection for two positive delay units.",
+        "ja": "1つの実既定domainが12 hookを実行し、各々をobjectionで正の2遅延単位保持する。"
+      },
+      "expected": {
+        "en": "All twelve starts and ends occur in order.",
+        "ja": "12個全ての開始と終了が順序どおりに現れる。"
+      },
+      "limitations": {
+        "en": "No inserted phases, multiple domains or simultaneous participants in this fixture; common concurrency is an independently linked observation.",
+        "ja": "このfixtureにはphase挿入、複数domain、同時参加componentはなく、common並行性は独立した対応観測とする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_runtime_phases_keep_their_default_order_do_not_overlap_and_join_before_extract",
+          "role": "direct",
+          "expected_observations": [
+            "UT: runtime_schedule twelve_starts 1 twelve_ends 1 order 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-RUNTIME-RUNTIME-NONOVERLAP",
+      "clause": "9.8.2",
+      "statement": {
+        "en": "The predefined runtime phases do not overlap within the selected domain.",
+        "ja": "選択domain内で定義済みruntime phaseは重ならない。"
+      },
+      "conditions": {
+        "en": "One real default domain executes all twelve hooks, each held by an objection for two positive delay units.",
+        "ja": "1つの実既定domainが12 hookを実行し、各々をobjectionで正の2遅延単位保持する。"
+      },
+      "expected": {
+        "en": "At most one runtime phase is active and none remains active at extract.",
+        "ja": "同時にactiveなruntime phaseは最大1つで、extract時には残らない。"
+      },
+      "limitations": {
+        "en": "No inserted phases, multiple domains or simultaneous participants in this fixture; common concurrency is an independently linked observation.",
+        "ja": "このfixtureにはphase挿入、複数domain、同時参加componentはなく、common並行性は独立した対応観測とする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_runtime_phases_keep_their_default_order_do_not_overlap_and_join_before_extract",
+          "role": "direct",
+          "expected_observations": [
+            "UT: runtime_schedule nonoverlap 1 after_start 1 before_extract 1 parallel 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-RUNTIME-RUNTIME-AFTER-START",
+      "clause": "9.8.2",
+      "statement": {
+        "en": "Runtime phases start only after start_of_simulation completes.",
+        "ja": "runtime phaseはstart_of_simulation完了後に開始する。"
+      },
+      "conditions": {
+        "en": "One real default domain executes all twelve hooks, each held by an objection for two positive delay units.",
+        "ja": "1つの実既定domainが12 hookを実行し、各々をobjectionで正の2遅延単位保持する。"
+      },
+      "expected": {
+        "en": "Every runtime start sees the completed start-of-simulation hook.",
+        "ja": "各runtime開始時にstart-of-simulation hookの完了を観測する。"
+      },
+      "limitations": {
+        "en": "No inserted phases, multiple domains or simultaneous participants in this fixture; common concurrency is an independently linked observation.",
+        "ja": "このfixtureにはphase挿入、複数domain、同時参加componentはなく、common並行性は独立した対応観測とする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_runtime_phases_keep_their_default_order_do_not_overlap_and_join_before_extract",
+          "role": "direct",
+          "expected_observations": [
+            "UT: runtime_schedule nonoverlap 1 after_start 1 before_extract 1 parallel 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-RUNTIME-RUNTIME-BEFORE-EXTRACT",
+      "clause": "9.8.2",
+      "statement": {
+        "en": "extract does not start before the runtime schedule ends.",
+        "ja": "runtime schedule終了前にextractは開始しない。"
+      },
+      "conditions": {
+        "en": "One real default domain executes all twelve hooks, each held by an objection for two positive delay units.",
+        "ja": "1つの実既定domainが12 hookを実行し、各々をobjectionで正の2遅延単位保持する。"
+      },
+      "expected": {
+        "en": "Twelve runtime ends precede extract and its time is no earlier than the last end.",
+        "ja": "12 runtime終了がextractに先行し、extract時刻は最後の終了以前にならない。"
+      },
+      "limitations": {
+        "en": "No inserted phases, multiple domains or simultaneous participants in this fixture; common concurrency is an independently linked observation.",
+        "ja": "このfixtureにはphase挿入、複数domain、同時参加componentはなく、common並行性は独立した対応観測とする。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_runtime_phases_keep_their_default_order_do_not_overlap_and_join_before_extract",
+          "role": "direct",
+          "expected_observations": [
+            "UT: runtime_schedule nonoverlap 1 after_start 1 before_extract 1 parallel 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-RUNTIME-COMMON-RUNTIME-CONCURRENT",
+      "clause": "9.8",
+      "statement": {
+        "en": "The runtime schedule runs concurrently with the common run phase.",
+        "ja": "runtime scheduleはcommon run phaseと並行に動く。"
+      },
+      "conditions": {
+        "en": "The common run node is captured and its original task advances a heartbeat every unit; all twelve runtime tasks sample it two positive units apart.",
+        "ja": "common run nodeを取得し、独自taskが1単位ごとにheartbeatを進め、12 runtime taskが正の2単位間隔で照会する。"
+      },
+      "expected": {
+        "en": "Each runtime sample sees the run body entered, an advancing heartbeat and an EXECUTING or READY_TO_END run node.",
+        "ja": "各runtime sampleでrun bodyの開始済み、heartbeatの進行、run nodeのEXECUTINGまたはREADY_TO_ENDを観測する。"
+      },
+      "limitations": {
+        "en": "Selected positive-time observations of node activity and live original task progress; exact simultaneous process order, every termination event and post-phase thread cleanup remain separate.",
+        "ja": "正の時刻で選択したnode活動と独自task進行の観測のみ。同時processの正確な順序、全終了event、phase後thread cleanupは別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_runtime_phases_keep_their_default_order_do_not_overlap_and_join_before_extract",
+          "role": "direct",
+          "expected_observations": [
+            "UT: runtime_schedule nonoverlap 1 after_start 1 before_extract 1 parallel 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-RUNTIME-GLOBAL-TIMEOUT-FATAL",
+      "clause": "9.8.1.5",
+      "statement": {
+        "en": "Expiration of the run-phase timeout reports FATAL.",
+        "ja": "run phaseのtimeout満了はFATALを報告する。"
+      },
+      "conditions": {
+        "en": "Before run starts, the global limit is locked at five and a task holds an objection beyond it.",
+        "ja": "run開始前にglobal上限を5でlockし、taskがそれを超えてobjectionを保持する。"
+      },
+      "expected": {
+        "en": "The catcher observes FATAL at the configured absolute time.",
+        "ja": "catcherが設定した絶対時刻でFATALを観測する。"
+      },
+      "limitations": {
+        "en": "No report ID/text/default implementation timeout is prescribed. The printed F.7.2.3 cross-reference differs from the actual set_timeout heading F.7.3.3, used here.",
+        "ja": "report ID／文面／実装既定timeoutは規定しない。印字の参照F.7.2.3は実際のset_timeout見出しF.7.3.3と異なるため後者を使う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_run_phase_timeout_reports_fatal_at_the_locked_absolute_limit",
+          "role": "direct",
+          "expected_observations": [
+            "UT: run_timeout fatal 1 at_limit 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-RUNTIME-TIMEOUT-LOCK",
+      "clause": "F.7.3.3",
+      "statement": {
+        "en": "A non-overridable timeout ignores subsequent replacement calls.",
+        "ja": "override不可のtimeoutは後続の置換呼出しを無効にする。"
+      },
+      "conditions": {
+        "en": "set_timeout(5,0) is followed by set_timeout(30,1) before run.",
+        "ja": "run前にset_timeout(5,0)の後でset_timeout(30,1)を呼ぶ。"
+      },
+      "expected": {
+        "en": "The fatal timeout is still observed at five.",
+        "ja": "fatal timeoutは5で観測される。"
+      },
+      "limitations": {
+        "en": "One increasing replacement and an absolute time origin of zero; no exact warning or report ID is required.",
+        "ja": "増加方向の置換1回と絶対時刻の起点0のみ。正確なwarningやreport IDは要求しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_run_phase_timeout_reports_fatal_at_the_locked_absolute_limit",
+          "role": "direct",
+          "expected_observations": [
+            "UT: run_timeout fatal 1 at_limit 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-RUNTIME-TIMEOUT-DEFAULT-OVERRIDABLE",
+      "clause": "F.7.3.3",
+      "statement": {
+        "en": "The timeout overridable argument defaults to enabled.",
+        "ja": "timeoutのoverridable引数の既定値は有効である。"
+      },
+      "conditions": {
+        "en": "Calls omitting the second argument change the limit from five to twenty; the real run completes at eight.",
+        "ja": "第2引数を省略した呼出しで上限を5から20へ変え、実runを8で完了する。"
+      },
+      "expected": {
+        "en": "Execution crosses the former limit, completes and remains before the replacement limit.",
+        "ja": "以前の上限を超えて実行し、完了時も置換した上限より前である。"
+      },
+      "limitations": {
+        "en": "One increasing replacement, no boundary-equality claim and no assumption about the implementation-specific initial timeout.",
+        "ja": "増加方向の置換1回のみ。等号境界は認定せず、実装依存の初期timeoutは仮定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_run_timeout_default_overridable_argument_allows_a_later_absolute_limit",
+          "role": "direct",
+          "expected_observations": [
+            "UT: timeout_override crossed_old_limit 1 completed 1 before_new_limit 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-RUNTIME-TASK-TRAVERSE-STARTED",
+      "clause": "9.6.2.2",
+      "statement": {
+        "en": "Task traversal for STARTED dispatches phase_started to applicable subtree components.",
+        "ja": "STARTEDのtask走査は適用部分木componentのphase_startedへ委譲する。"
+      },
+      "conditions": {
+        "en": "A four-component subtree has a matching domain-attached phase node and an excluded peer; the task implementation delays completion.",
+        "ja": "4 component部分木がdomainに接続した一致nodeを持ち、peerは対象外で、task実装は完了を遅延する。"
+      },
+      "expected": {
+        "en": "Each selected handle occurs once in the named state queue, the peer is absent and context matches.",
+        "ja": "指定state queueには選択した各handleが1回現れ、peerは含まれず、contextが一致する。"
+      },
+      "limitations": {
+        "en": "No sibling order or task traversal ordering is prescribed. Manual selected-state traversal is separate from automatic schedule transitions and task cleanup.",
+        "ja": "兄弟順やtask走査順は規定しない。選択stateの手動走査は自動schedule遷移やtask cleanupと分ける。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_task_phase_traverse_dispatches_started_execute_ready_and_ended_over_the_selected_subtree",
+          "role": "direct",
+          "expected_observations": [
+            "UT: task_traverse started 1 executed 1 ready 1 ended 1",
+            "UT: task_traverse complete 1 context 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-RUNTIME-TASK-TRAVERSE-EXECUTING",
+      "clause": "9.6.2.2",
+      "statement": {
+        "en": "Task traversal for EXECUTING dispatches execute and the original exec_task to applicable subtree components.",
+        "ja": "EXECUTINGのtask走査は適用部分木componentのexecuteと独自exec_taskへ委譲する。"
+      },
+      "conditions": {
+        "en": "A four-component subtree has a matching domain-attached phase node and an excluded peer; the task implementation delays completion.",
+        "ja": "4 component部分木がdomainに接続した一致nodeを持ち、peerは対象外で、task実装は完了を遅延する。"
+      },
+      "expected": {
+        "en": "Each selected handle occurs once in the named state queue, the peer is absent and context matches.",
+        "ja": "指定state queueには選択した各handleが1回現れ、peerは含まれず、contextが一致する。"
+      },
+      "limitations": {
+        "en": "No sibling order or task traversal ordering is prescribed. Manual selected-state traversal is separate from automatic schedule transitions and task cleanup.",
+        "ja": "兄弟順やtask走査順は規定しない。選択stateの手動走査は自動schedule遷移やtask cleanupと分ける。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_task_phase_traverse_dispatches_started_execute_ready_and_ended_over_the_selected_subtree",
+          "role": "direct",
+          "expected_observations": [
+            "UT: task_traverse started 1 executed 1 ready 1 ended 1",
+            "UT: task_traverse complete 1 context 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-RUNTIME-TASK-TRAVERSE-READY-TO-END",
+      "clause": "9.6.2.2",
+      "statement": {
+        "en": "Task traversal for READY_TO_END dispatches phase_ready_to_end to applicable subtree components.",
+        "ja": "READY_TO_ENDのtask走査は適用部分木componentのphase_ready_to_endへ委譲する。"
+      },
+      "conditions": {
+        "en": "A four-component subtree has a matching domain-attached phase node and an excluded peer; the task implementation delays completion.",
+        "ja": "4 component部分木がdomainに接続した一致nodeを持ち、peerは対象外で、task実装は完了を遅延する。"
+      },
+      "expected": {
+        "en": "Each selected handle occurs once in the named state queue, the peer is absent and context matches.",
+        "ja": "指定state queueには選択した各handleが1回現れ、peerは含まれず、contextが一致する。"
+      },
+      "limitations": {
+        "en": "No sibling order or task traversal ordering is prescribed. Manual selected-state traversal is separate from automatic schedule transitions and task cleanup.",
+        "ja": "兄弟順やtask走査順は規定しない。選択stateの手動走査は自動schedule遷移やtask cleanupと分ける。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_task_phase_traverse_dispatches_started_execute_ready_and_ended_over_the_selected_subtree",
+          "role": "direct",
+          "expected_observations": [
+            "UT: task_traverse started 1 executed 1 ready 1 ended 1",
+            "UT: task_traverse complete 1 context 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-RUNTIME-TASK-TRAVERSE-ENDED",
+      "clause": "9.6.2.2",
+      "statement": {
+        "en": "Task traversal for ENDED dispatches phase_ended to applicable subtree components.",
+        "ja": "ENDEDのtask走査は適用部分木componentのphase_endedへ委譲する。"
+      },
+      "conditions": {
+        "en": "A four-component subtree has a matching domain-attached phase node and an excluded peer; the task implementation delays completion.",
+        "ja": "4 component部分木がdomainに接続した一致nodeを持ち、peerは対象外で、task実装は完了を遅延する。"
+      },
+      "expected": {
+        "en": "Each selected handle occurs once in the named state queue, the peer is absent and context matches.",
+        "ja": "指定state queueには選択した各handleが1回現れ、peerは含まれず、contextが一致する。"
+      },
+      "limitations": {
+        "en": "No sibling order or task traversal ordering is prescribed. Manual selected-state traversal is separate from automatic schedule transitions and task cleanup.",
+        "ja": "兄弟順やtask走査順は規定しない。選択stateの手動走査は自動schedule遷移やtask cleanupと分ける。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_task_phase_traverse_dispatches_started_execute_ready_and_ended_over_the_selected_subtree",
+          "role": "direct",
+          "expected_observations": [
+            "UT: task_traverse started 1 executed 1 ready 1 ended 1",
+            "UT: task_traverse complete 1 context 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-RUNTIME-SPECIALIZED-COMPONENT-PROXY",
+      "clause": "9.3.1.1.1",
+      "statement": {
+        "en": "A custom phase can specialize its proxy for an extended component hook while retaining a homogeneous phase base.",
+        "ja": "独自phaseは共通phase基底を保持しつつ、拡張component hook用にproxyを特化できる。"
+      },
+      "conditions": {
+        "en": "Two original component subtypes use parameterized singleton proxies through top-down base views and separate graph nodes.",
+        "ja": "2つの独自component subtypeがtop-down基底viewと別々のgraph node経由でparameter化singleton proxyを使う。"
+      },
+      "expected": {
+        "en": "Each extended hook is called once with its context, the per-type singleton is reused and the two proxy types/nodes are distinct.",
+        "ja": "各拡張hookがcontext付きで1回呼ばれ、型ごとのsingletonを再利用し、2 proxy型／nodeは別となる。"
+      },
+      "limitations": {
+        "en": "The custom hooks are original setup, not a prescribed data algorithm; invalid component casts and all user extension shapes remain separate.",
+        "ja": "独自hookは設定であり規定data algorithmではない。不正component castと全user拡張形状は別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_custom_phase_specializations_dispatch_extended_hooks_through_shared_base_views",
+          "role": "direct",
+          "expected_observations": [
+            "UT: specialized_proxy left 1 right 1 contexts 1",
+            "UT: specialized_proxy singleton 1 separate_types 1 nodes 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-RUNTIME-SYNC-SELECTED-SAME",
+      "clause": "9.3.1.8.1",
+      "statement": {
+        "en": "A selected phase synchronizes with the same phase in the target domain when with_phase is omitted.",
+        "ja": "with_phase省略時、選択phaseはtarget domain内の同じphaseと同期する。"
+      },
+      "conditions": {
+        "en": "Two assigned domains execute original workers with unequal positive pre-reset/reset/main delays.",
+        "ja": "割当てた2 domainが異なる正のpre-reset／reset／main遅延を持つ独自workerを実行する。"
+      },
+      "expected": {
+        "en": "main starts and ends together despite unequal predecessor/body delays; reset remains independent.",
+        "ja": "先行処理とbody遅延が異なってもmainの開始／終了が揃い、resetは独立を保つ。"
+      },
+      "limitations": {
+        "en": "One main pair; this does not certify every synchronization topology.",
+        "ja": "main 1組のみ。全同期topologyは認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_domain_runtime_selected_same_preserves_the_selected_start_end_relationships",
+          "role": "direct",
+          "expected_observations": [
+            "UT: domain_relation starts_together 1 ends_together 1 other_independent 1",
+            "UT: domain_relation calls 1 contexts 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-RUNTIME-SYNC-ALL-DEFAULT-CONTROLS",
+      "clause": "9.3.1.8.1",
+      "statement": {
+        "en": "Omitting phase adds domain synchronization relationships, including the selected reset and post-main controls.",
+        "ja": "phase省略はdomain間の同期関係を追加し、選択resetとpost-main controlも含む。"
+      },
+      "conditions": {
+        "en": "Two assigned domains execute original workers with unequal positive pre-reset/reset/main delays.",
+        "ja": "割当てた2 domainが異なる正のpre-reset／reset／main遅延を持つ独自workerを実行する。"
+      },
+      "expected": {
+        "en": "After removing main alone, reset endpoints and post-main starts still agree.",
+        "ja": "mainだけを除去した後もresetの両端とpost-main開始が一致する。"
+      },
+      "limitations": {
+        "en": "Selected retained controls only, not observations of every built-in phase pair.",
+        "ja": "保持した選択controlのみで、全built-in phase組を観測したものではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_domain_runtime_all_then_unsync_selected_preserves_the_selected_start_end_relationships",
+          "role": "direct",
+          "expected_observations": [
+            "UT: domain_relation other_sync_kept 1 selected_end_independent 1 join_kept 1",
+            "UT: domain_relation calls 1 contexts 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-RUNTIME-SYNC-EXPLICIT-DIFFERENT",
+      "clause": "9.3.1.8.1",
+      "statement": {
+        "en": "with_phase may synchronize different phases across domains.",
+        "ja": "with_phaseはdomainをまたぐ異なるphaseを同期できる。"
+      },
+      "conditions": {
+        "en": "Two assigned domains execute original workers with unequal positive pre-reset/reset/main delays.",
+        "ja": "割当てた2 domainが異なる正のpre-reset／reset／main遅延を持つ独自workerを実行する。"
+      },
+      "expected": {
+        "en": "A main and B reset start/end together; B main follows its reset.",
+        "ja": "AのmainとBのresetの開始／終了が揃い、Bのmainはresetに続く。"
+      },
+      "limitations": {
+        "en": "One main/reset pair without cyclic dependencies or invalid nodes.",
+        "ja": "循環依存や不正nodeのないmain／reset 1組のみ。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_domain_runtime_selected_different_preserves_the_selected_start_end_relationships",
+          "role": "direct",
+          "expected_observations": [
+            "UT: domain_relation different_start_sync 1 different_end_sync 1 other_later 1",
+            "UT: domain_relation calls 1 contexts 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-RUNTIME-UNSYNC-SELECTED-SAME",
+      "clause": "9.3.1.8.2",
+      "statement": {
+        "en": "Removing a selected same-name phase relationship leaves other domain relationships in place.",
+        "ja": "選択した同名phase関係の解除は他のdomain関係を保持する。"
+      },
+      "conditions": {
+        "en": "Two assigned domains execute original workers with unequal positive pre-reset/reset/main delays.",
+        "ja": "割当てた2 domainが異なる正のpre-reset／reset／main遅延を持つ独自workerを実行する。"
+      },
+      "expected": {
+        "en": "main ends become independent while reset endpoints and the later join remain synchronized.",
+        "ja": "main終了は独立になり、reset両端と後続joinは同期を保つ。"
+      },
+      "limitations": {
+        "en": "Removal before execution, not mutation of an active synchronization relation.",
+        "ja": "実行前の解除であり、実行中同期関係の変更ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_domain_runtime_all_then_unsync_selected_preserves_the_selected_start_end_relationships",
+          "role": "direct",
+          "expected_observations": [
+            "UT: domain_relation other_sync_kept 1 selected_end_independent 1 join_kept 1",
+            "UT: domain_relation calls 1 contexts 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-RUNTIME-UNSYNC-ALL-DEFAULT",
+      "clause": "9.3.1.8.2",
+      "statement": {
+        "en": "Omitting phase removes domain synchronization relationships.",
+        "ja": "phase省略はdomain間の同期関係を解除する。"
+      },
+      "conditions": {
+        "en": "Two assigned domains execute original workers with unequal positive pre-reset/reset/main delays.",
+        "ja": "割当てた2 domainが異なる正のpre-reset／reset／main遅延を持つ独自workerを実行する。"
+      },
+      "expected": {
+        "en": "Unequal delays produce independent main starts/ends and simultaneous distinct node states.",
+        "ja": "異なる遅延によってmainの開始／終了が独立し、同時にnode状態が異なる。"
+      },
+      "limitations": {
+        "en": "Selected main observations, not every phase endpoint or active mutation.",
+        "ja": "選択mainの観測のみ。全phaseの両端や実行中の変更ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_domain_runtime_all_then_unsync_all_preserves_the_selected_start_end_relationships",
+          "role": "direct",
+          "expected_observations": [
+            "UT: domain_relation independent_start 1 independent_end 1 states 1",
+            "UT: domain_relation calls 1 contexts 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-RUNTIME-UNSYNC-EXPLICIT-DIFFERENT",
+      "clause": "9.3.1.8.2",
+      "statement": {
+        "en": "An explicit different-phase relationship can be removed with the same phase pair.",
+        "ja": "異なるphaseの明示関係は同じphase組を指定して解除できる。"
+      },
+      "conditions": {
+        "en": "Two assigned domains execute original workers with unequal positive pre-reset/reset/main delays.",
+        "ja": "割当てた2 domainが異なる正のpre-reset／reset／main遅延を持つ独自workerを実行する。"
+      },
+      "expected": {
+        "en": "Independent main progress and distinct simultaneous node states return after removal.",
+        "ja": "解除後にmainの独立進行と同時に異なるnode状態が戻る。"
+      },
+      "limitations": {
+        "en": "One main/reset pair configured before run; no all-topology guarantee.",
+        "ja": "run前に設定したmain／reset 1組のみで、全topologyの保証ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_domain_runtime_selected_different_then_unsync_preserves_the_selected_start_end_relationships",
+          "role": "direct",
+          "expected_observations": [
+            "UT: domain_relation independent_start 1 independent_end 1 states 1",
+            "UT: domain_relation calls 1 contexts 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-RUNTIME-DOMAIN-INDEPENDENT-BRANCHES",
+      "clause": "9.4",
+      "statement": {
+        "en": "Separate domains can advance their phase schedules independently.",
+        "ja": "別々のdomainはphase scheduleを独立して進行できる。"
+      },
+      "conditions": {
+        "en": "Two newly assigned domains run different positive pre-reset/reset/main durations without adding synchronization.",
+        "ja": "新しく割当てた2 domainを同期追加なしで異なる正のpre-reset／reset／main時間で動かす。"
+      },
+      "expected": {
+        "en": "A enters and ends main earlier than B, with one call per worker and retained domain assignments.",
+        "ja": "AがBより先にmainへ入り終了し、各worker 1回の呼出しとdomain割当てを保持する。"
+      },
+      "limitations": {
+        "en": "Two domains and selected runtime phases only; common-phase synchronization, every graph shape and all simultaneous state transitions remain separate.",
+        "ja": "2 domainと選択runtime phaseのみ。common phase同期、全graph形状、全同時state遷移は別に残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_domain_runtime_independent_preserves_the_selected_start_end_relationships",
+          "role": "direct",
+          "expected_observations": [
+            "UT: domain_relation independent_start 1 independent_end 1 states 1",
+            "UT: domain_relation calls 1 contexts 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-RUNTIME-NODE-STATE-INDEPENDENCE",
+      "clause": "9.3.1.1.3",
+      "statement": {
+        "en": "Graph nodes sharing a phase implementation retain independent execution state.",
+        "ja": "phase implementationを共有するgraph nodeは独立した実行stateを持つ。"
+      },
+      "conditions": {
+        "en": "The actual main nodes in two assigned domains are compared during A main before B main starts.",
+        "ja": "割当てた2 domainの実main nodeを、B main開始前のA main中に比較する。"
+      },
+      "expected": {
+        "en": "Distinct nodes simultaneously show A EXECUTING and B not EXECUTING.",
+        "ja": "別々のnodeが同時にAはEXECUTING、BはEXECUTING以外となる。"
+      },
+      "limitations": {
+        "en": "One simultaneous state observation, without assuming the other node's exact dormant/scheduled value or all interleavings.",
+        "ja": "同時stateの観測1回のみ。他nodeの正確なdormant／scheduled値や全interleavingは仮定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_domain_runtime_independent_preserves_the_selected_start_end_relationships",
+          "role": "direct",
+          "expected_observations": [
+            "UT: domain_relation independent_start 1 independent_end 1 states 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-RUNTIME-DOMAIN-JUMP-ACTIVE-BRANCHES",
+      "clause": "9.4.2.4",
+      "statement": {
+        "en": "A domain jump to a shared predecessor affects both active related branches.",
+        "ja": "共通先行nodeへのdomain jumpは両方の関連active分岐に作用する。"
+      },
+      "conditions": {
+        "en": "An original schedule forks two active task phases with a shared predecessor and successor; the common run controller jumps to the predecessor.",
+        "ja": "独自scheduleが共通先行／後続nodeを持つ2 active task phaseへ分岐し、common run controllerが先行nodeへjumpする。"
+      },
+      "expected": {
+        "en": "The predecessor and both branches execute twice, the join once, and an independent peer completes once.",
+        "ja": "先行nodeと両分岐が2回、joinが1回実行し、独立peerも1回完了する。"
+      },
+      "limitations": {
+        "en": "One backward target; forward/unrelated/invalid targets, full active-branch matrices and forced cleanup of every old thread remain partial.",
+        "ja": "後方target 1つのみ。前方／無関係／不正target、全active分岐matrix、全旧threadの強制cleanupは部分作業に残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_domain_jump_restarts_both_active_parallel_branches_with_a_shared_predecessor",
+          "role": "direct",
+          "expected_observations": [
+            "UT: domain_jump predecessor 1 both_branches 1 joined_once 1 peer_once 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-RUNTIME-TOPDOWN-COMPLETION-CONTROL",
+      "clause": "9.7",
+      "statement": {
+        "en": "A selected top-down function phase completes its applicable hierarchy before the next phase.",
+        "ja": "選択top-down function phaseは次phaseより前に適用階層を完了する。"
+      },
+      "conditions": {
+        "en": "An unchanged existing fixture creates a child during build and then observes the following connect phase.",
+        "ja": "未変更の既存fixtureがbuild中にchildを作成し、後続connect phaseを観測する。"
+      },
+      "expected": {
+        "en": "Parent and child build observations precede child and parent connect observations.",
+        "ja": "parentとchildのbuild観測がchildとparentのconnect観測に先行する。"
+      },
+      "limitations": {
+        "en": "Two selected build components; the complete runner sequence establishes order, while ledger anchor membership alone does not. No new execution result or full phase completion claim is added.",
+        "ja": "選択build component 2個のみ。順序はrunnerの全列で示し、台帳anchorの所属だけでは示さない。新しい実行結果や全phase完了の認定は追加しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_common_phases_run_in_order",
+          "role": "direct",
+          "expected_observations": [
+            "UT: build test",
+            "UT: build env",
+            "UT: connect env",
+            "UT: connect test"
+          ]
+        }
+      ]
     }
   ]
 }

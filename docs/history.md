@@ -3,8 +3,8 @@
 [日本語](history.ja.md) · [README](../README.md)
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and fifty-three cross-milestone thin-area expansions, including the
-existing-test requirement-link backlog checkpoint (1662 tests: 1616 simulation and 46 elaboration). The earlier 349-test checkpoint is
+three M4 increments and fifty-four cross-milestone thin-area expansions, including the
+existing-test requirement-link backlog checkpoint (1677 tests: 1631 simulation and 46 elaboration). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -3373,3 +3373,47 @@ Metadata, ledger/index, library integrity, 110 tool tests, current native/compil
 identities and paired documentation checks pass. All review remains AI; scope
 is proposed, denominator/percentage unset and the persistent goal active.
 Schema, runners/library/catalog, workflow and six SVGs are unchanged.
+
+## Fifty-fourth thin-area expansion: delegates, timing and domain execution (2026-11-04)
+
+Fifteen M1 simulations all match seeds 1/73. Two shared matrices exercise
+selected virtual delegates for eight common function phases and thirteen task
+phases, preserving context and distinguishing peers/other hooks. Direct task
+proxies await delayed return; execute forking remains a separate contract.
+
+Review strengthened the runtime concurrency fixture from an entry marker to
+active run-node state and advancing original-task heartbeats, sampled two units
+apart. The current remeasured input replaces the earlier weaker record.
+
+Real-engine controls check pre-run time zero, run/final endpoint equality,
+twelve-phase runtime order/nonoverlap and start/extract boundaries, and run
+concurrency. Locked absolute timeout produces FATAL at its retained limit;
+default-overridable calls permit a later limit. The actual timeout definition
+F.7.3.3 is cited despite the run paragraph's F.7.2.3 cross-reference.
+
+Task traversal covers STARTED/EXECUTING/READY_TO_END/ENDED with original delayed
+proxies on a domain-attached subtree. Specialized component proxies preserve
+per-type singleton identity and homogeneous phase views. Six domain fixtures
+separate independence, same/different-phase synchronization, selected/all/explicit
+removal and retained relationships. A parallel jump restarts both related active
+branches while an independent peer completes once. No new known difference is added.
+
+Forty-seven AI drafts reach 2934. Four contextual assessments reach 312
+(203 structural/109 contextual). Overall is 1584 partial/312 assessed/611
+unassessed; chapter 9 is 94/22/0 with 138 drafts; annex F is 34/0/103. All
+2887 earlier requirements, 308 assessments and 1662 input/native records remain
+unchanged. The goal's twenty-sixth iteration reduces unassessed by 32, without
+certifying every partial condition or original milestone target.
+
+Current totals are 1677 (1631 simulation/46 elaboration): M1 640 (604/36),
+M2 538 (533/5), M3 499 (494/5). Ordinary evidence is 1468 pass (1424 runtime/
+44 compiler rejection) and 209 known (159 runtime/48 simulation builds/two
+illegal acceptances). Guest 1083 records and HDL/command-line conditions remain
+byte-identical; 594 inputs are unmeasured (548 simulation/46 elaboration),
+including two revised old inputs. No guest execution is claimed.
+
+Metadata, ledger/index, library, 110 tool tests, native/compiler identities and
+paired documentation checks pass. The duplicate phase-definition glossary entry
+is consolidated and synchronization terminology added; total remains 268 terms.
+All review is AI, scope proposed and denominator/percentage unset. The goal is
+active. Schema, runners/library/catalog, workflow and six SVGs are unchanged.
