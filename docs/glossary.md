@@ -1261,3 +1261,10 @@ does not prove either physical selection or data assembly.
 **Public declaration / inherited implementation** — Compile accessibility of a
 printed public method is distinct from reaching its base implementation through
 a legal derived wrapper. Each has its own evidence and remaining limitations.
+
+**Callback membership / delivery** — Successful add/delete return values and
+actual notification recipients are separate observations. A later-entry removal
+must preserve active peers and suppress the selected removed handle.
+
+**Saved signed shift** — Store arithmetic shift output into its signed type
+before a comparison can propagate unsigned operand context into the shift.

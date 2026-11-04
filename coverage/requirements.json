@@ -109591,6 +109591,1359 @@
           ]
         }
       ]
+    },
+    {
+      "id": "UVM-PACKAGE-AUDIT-BITSTREAM-TYPE",
+      "clause": "F.2.1.3",
+      "statement": {
+        "en": "The bitstream type follows the selected stream width and signed arithmetic.",
+        "ja": "bitstream型は選択したstream幅とsigned算術に従う。"
+      },
+      "conditions": {
+        "en": "Separate default and explicit 257-bit macro conditions use negative all-one and high-bit-only values.",
+        "ja": "既定と明示257-bit macroの別条件で、負の全1値と上位bitのみの値を使う。"
+      },
+      "expected": {
+        "en": "Width equals the macro; negative comparisons and stored arithmetic sign extension hold, and shifting the top-bit-only value left clears it.",
+        "ja": "幅はmacroと等しく、負の比較と保存した算術符号拡張が成立し、上位bitのみの値を左shiftすると消える。"
+      },
+      "limitations": {
+        "en": "Two-state width/signedness only; no X/Z preservation, real conversion or every downstream policy API. Arithmetic shifts are saved into a declared signed receiver before comparison to avoid unsigned comparison context changing the operation.",
+        "ja": "two-stateの幅／符号のみで、X／Z保持、real変換、全ての後続policy APIではない。unsigned比較contextが操作を変えないよう、算術shiftを宣言したsigned receiverへ保存してから比較する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_package_bitstream_default_width_and_signed_arithmetic_preserve_the_declared_type",
+          "role": "direct",
+          "expected_observations": [
+            "UT: bitstream width 1 negative 1 arithmetic_sign 1",
+            "UT: bitstream top_bit_negative 1 lower_bits_zero 1",
+            "UT: bitstream selected_width 1"
+          ]
+        },
+        {
+          "test": "uF/test_package_bitstream_configured_width_and_signed_arithmetic_preserve_the_declared_type",
+          "role": "direct",
+          "expected_observations": [
+            "UT: bitstream width 1 negative 1 arithmetic_sign 1",
+            "UT: bitstream top_bit_negative 1 lower_bits_zero 1",
+            "UT: bitstream selected_width 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PACKAGE-AUDIT-STREAM-DEFAULT",
+      "clause": "B.6.2",
+      "statement": {
+        "en": "The selected stream configuration produces 4096 bitstream bits.",
+        "ja": "選択したstream構成はbitstreamを4096 bitにする。"
+      },
+      "conditions": {
+        "en": "Default macro omission or explicit UVM_MAX_STREAMBITS=257, measured in separate compilation units.",
+        "ja": "macro省略の既定条件と明示UVM_MAX_STREAMBITS=257を別compile単位で測定する。"
+      },
+      "expected": {
+        "en": "The concrete type width equals 4096, rather than merely comparing the type to an unconstrained macro.",
+        "ja": "型を制約しないmacroと比較するだけでなく、具体的な型幅が指定値に等しい。"
+      },
+      "limitations": {
+        "en": "Two-state width/signedness only; no X/Z preservation, real conversion or every downstream policy API. Arithmetic shifts are saved into a declared signed receiver before comparison to avoid unsigned comparison context changing the operation.",
+        "ja": "two-stateの幅／符号のみで、X／Z保持、real変換、全ての後続policy APIではない。unsigned比較contextが操作を変えないよう、算術shiftを宣言したsigned receiverへ保存してから比較する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_package_bitstream_default_width_and_signed_arithmetic_preserve_the_declared_type",
+          "role": "direct",
+          "expected_observations": [
+            "UT: bitstream selected_width 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PACKAGE-AUDIT-STREAM-OVERRIDE",
+      "clause": "B.6.2",
+      "statement": {
+        "en": "The selected stream configuration produces 257 bitstream bits.",
+        "ja": "選択したstream構成はbitstreamを257 bitにする。"
+      },
+      "conditions": {
+        "en": "Default macro omission or explicit UVM_MAX_STREAMBITS=257, measured in separate compilation units.",
+        "ja": "macro省略の既定条件と明示UVM_MAX_STREAMBITS=257を別compile単位で測定する。"
+      },
+      "expected": {
+        "en": "The concrete type width equals 257, rather than merely comparing the type to an unconstrained macro.",
+        "ja": "型を制約しないmacroと比較するだけでなく、具体的な型幅が指定値に等しい。"
+      },
+      "limitations": {
+        "en": "Two-state width/signedness only; no X/Z preservation, real conversion or every downstream policy API. Arithmetic shifts are saved into a declared signed receiver before comparison to avoid unsigned comparison context changing the operation.",
+        "ja": "two-stateの幅／符号のみで、X／Z保持、real変換、全ての後続policy APIではない。unsigned比較contextが操作を変えないよう、算術shiftを宣言したsigned receiverへ保存してから比較する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_package_bitstream_configured_width_and_signed_arithmetic_preserve_the_declared_type",
+          "role": "direct",
+          "expected_observations": [
+            "UT: bitstream selected_width 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PACKAGE-AUDIT-INTEGRAL-TYPE",
+      "clause": "F.2.1.4",
+      "statement": {
+        "en": "uvm_integral_t is a signed 64-bit type.",
+        "ja": "uvm_integral_tはsigned 64-bit型である。"
+      },
+      "conditions": {
+        "en": "A selected top-bit-set pattern is shifted into a typed receiver and assigned to a wider signed 96-bit receiver.",
+        "ja": "上位bitが1の選択patternを型付きreceiverへshiftし、広いsigned 96-bit receiverへ代入する。"
+      },
+      "expected": {
+        "en": "Width, negative comparison, arithmetic shift and upper-word sign extension all retain the declared signed type.",
+        "ja": "幅、負の比較、算術shift、上位word符号拡張が全て宣言したsigned型を保持する。"
+      },
+      "limitations": {
+        "en": "Two-state width/signedness only; no X/Z preservation, real conversion or every downstream policy API. Arithmetic shifts are saved into a declared signed receiver before comparison to avoid unsigned comparison context changing the operation.",
+        "ja": "two-stateの幅／符号のみで、X／Z保持、real変換、全ての後続policy APIではない。unsigned比較contextが操作を変えないよう、算術shiftを宣言したsigned receiverへ保存してから比較する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_package_integral_type_is_signed_sixty_four_bits_and_sign_extends",
+          "role": "direct",
+          "expected_observations": [
+            "UT: integral width 1 negative 1 arithmetic_shift 1 sign_extended 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PACKAGE-AUDIT-ACTION-ONE-HOT",
+      "clause": "F.2.2.2",
+      "statement": {
+        "en": "The six nonzero report-action literals are mutually disjoint one-hot values; NO_ACTION is zero.",
+        "ja": "非0のreport-action literal 6個は互いに重ならないone-hot値で、NO_ACTIONは0である。"
+      },
+      "conditions": {
+        "en": "DISPLAY, LOG, COUNT, EXIT, STOP and RM_RECORD are combined without executing termination/interactive actions.",
+        "ja": "DISPLAY、LOG、COUNT、EXIT、STOP、RM_RECORDを組み合わせ、終了／interactive action自体は実行しない。"
+      },
+      "expected": {
+        "en": "Every nonzero literal has one set bit, all distinct pairs have no common bit and NO_ACTION equals zero.",
+        "ja": "各非0 literalのbit数は1、異なる全組に共有bitがなく、NO_ACTIONは0となる。"
+      },
+      "limitations": {
+        "en": "No fixed numeric encoding/vector width beyond specified zero/one-hot/capacity, or execution semantics of the actions, is inferred.",
+        "ja": "規定zero／one-hot／容量を超える固定数値encoding／vector幅や、actionの実行意味は推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_package_action_literals_are_disjoint_one_hot_and_the_vector_retains_every_combination",
+          "role": "direct",
+          "expected_observations": [
+            "UT: actions zero 1 one_hot 1 disjoint 1 all_combinations 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PACKAGE-AUDIT-ACTION-CAPACITY",
+      "clause": "F.2.2.3",
+      "statement": {
+        "en": "uvm_action retains arbitrary OR combinations of the specified action literals.",
+        "ja": "uvm_actionは指定action literalの任意OR組合せを保持する。"
+      },
+      "conditions": {
+        "en": "DISPLAY, LOG, COUNT, EXIT, STOP and RM_RECORD are combined without executing termination/interactive actions.",
+        "ja": "DISPLAY、LOG、COUNT、EXIT、STOP、RM_RECORDを組み合わせ、終了／interactive action自体は実行しない。"
+      },
+      "expected": {
+        "en": "For all 64 subsets, every selected action bit is present and every unselected action bit is absent after storage.",
+        "ja": "全64部分集合で、保存後に各選択action bitが存在し、各非選択action bitが存在しない。"
+      },
+      "limitations": {
+        "en": "No fixed numeric encoding/vector width beyond specified zero/one-hot/capacity, or execution semantics of the actions, is inferred.",
+        "ja": "規定zero／one-hot／容量を超える固定数値encoding／vector幅や、actionの実行意味は推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_package_action_literals_are_disjoint_one_hot_and_the_vector_retains_every_combination",
+          "role": "direct",
+          "expected_observations": [
+            "UT: actions zero 1 one_hot 1 disjoint 1 all_combinations 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PACKAGE-AUDIT-FILE-DESCRIPTORS",
+      "clause": "F.2.8",
+      "statement": {
+        "en": "UVM_FILE can carry real file and multichannel descriptors.",
+        "ja": "UVM_FILEは実fileとmultichannel descriptorを保持できる。"
+      },
+      "conditions": {
+        "en": "Temporary actual files are opened, written, closed and reopened for reading in the runner working directory.",
+        "ja": "runner作業directoryで実一時fileをopen、write、close、read再openする。"
+      },
+      "expected": {
+        "en": "A file descriptor writes one payload; an ORed pair of MCD handles writes the same payload into both selected files.",
+        "ja": "file descriptorは1 payloadを書き、MCD handle 2個のORは同じpayloadを両選択fileへ書く。"
+      },
+      "limitations": {
+        "en": "Selected FD/MCD storage and stdout only. No standard-input read, separate stderr route, all channel limits, invalid-handle or OS error behavior is asserted.",
+        "ja": "選択したFD／MCD格納とstdoutのみ。標準入力read、別stderr経路、全channel制限、不正handle、OS error動作は主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_package_file_type_preserves_real_file_and_multichannel_descriptors_and_standard_handles",
+          "role": "direct",
+          "expected_observations": [
+            "UT: file_type descriptor 1 channel_one 1 channel_two 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PACKAGE-AUDIT-STANDARD-HANDLES",
+      "clause": "F.2.9",
+      "statement": {
+        "en": "Standard UVM stream handles have the specified SystemVerilog descriptor values.",
+        "ja": "標準UVM stream handleは指定SystemVerilog descriptor値を持つ。"
+      },
+      "conditions": {
+        "en": "Temporary actual files are opened, written, closed and reopened for reading in the runner working directory.",
+        "ja": "runner作業directoryで実一時fileをopen、write、close、read再openする。"
+      },
+      "expected": {
+        "en": "STDIN/STDOUT/STDERR match 80000000/80000001/80000002 hex; an actual STDOUT write is observed.",
+        "ja": "STDIN／STDOUT／STDERRは16進80000000／80000001／80000002と一致し、実STDOUT writeを観測する。"
+      },
+      "limitations": {
+        "en": "Selected FD/MCD storage and stdout only. No standard-input read, separate stderr route, all channel limits, invalid-handle or OS error behavior is asserted.",
+        "ja": "選択したFD／MCD格納とstdoutのみ。標準入力read、別stderr経路、全channel制限、不正handle、OS error動作は主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_package_file_type_preserves_real_file_and_multichannel_descriptors_and_standard_handles",
+          "role": "direct",
+          "expected_observations": [
+            "UT: standard_handles stdin 1 stdout 1 stderr 1",
+            "UT: standard_stdout delivered 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PACKAGE-AUDIT-GLOBAL-REPORTER",
+      "clause": "F.3.2.1",
+      "statement": {
+        "en": "The package reporter accessor returns the implicit top-level root as a report object.",
+        "ja": "package reporter accessorは暗黙top-level rootをreport objectとして返す。"
+      },
+      "conditions": {
+        "en": "A root view and a separate original local reporter coexist in a standalone module.",
+        "ja": "standalone moduleでroot viewと独自local reporterが共存する。"
+      },
+      "expected": {
+        "en": "The accessor is stable and equal to the root view, distinct from the local reporter.",
+        "ja": "accessorは安定してroot viewと等しく、local reporterとは異なる。"
+      },
+      "limitations": {
+        "en": "Singleton identity/accessor scope only; root construction restrictions, custom core-service replacement and every global service remain separate.",
+        "ja": "singleton同一性／accessor範囲のみで、root生成制限、custom core-service置換、全global serviceは別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_package_report_object_accessor_returns_the_implicit_root_without_following_a_local_reporter",
+          "role": "direct",
+          "expected_observations": [
+            "UT: global_reporter root 1 stable 1 local_distinct 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PACKAGE-AUDIT-ENABLED-GENERAL-DEFAULTS",
+      "clause": "F.3.2.2",
+      "statement": {
+        "en": "Global report-enabled uses the root general threshold and default INFO severity/empty ID.",
+        "ja": "global report-enabledはrootの一般thresholdと既定INFO severity／空IDを使う。"
+      },
+      "conditions": {
+        "en": "Root uses LOW general, HIGH selected ID and MEDIUM selected WARNING/ID; an independent reporter uses DEBUG.",
+        "ja": "rootは一般LOW、選択IDにHIGH、選択WARNING／IDにMEDIUMを使い、独立reporterはDEBUGを使う。"
+      },
+      "expected": {
+        "en": "The omitted-argument LOW boundary is enabled and one above is disabled.",
+        "ja": "省略引数のLOW境界は有効で、1上は無効となる。"
+      },
+      "limitations": {
+        "en": "Enable-query semantics only, not report emission, action effects, every severity or override/reset combination.",
+        "ja": "enable照会意味のみで、report発行、action効果、全severity、override／reset全組合せではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_package_report_enabled_queries_use_root_severity_id_thresholds_and_info_defaults",
+          "role": "direct",
+          "expected_observations": [
+            "UT: global_enabled general_edge 1 general_above 1 default_info 1",
+            "UT: global_enabled pair_edge 1 pair_above 1 local_isolated 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PACKAGE-AUDIT-ENABLED-SPECIFICITY",
+      "clause": "F.3.2.2",
+      "statement": {
+        "en": "Global report-enabled honors selected root ID and severity/ID thresholds.",
+        "ja": "global report-enabledは選択root IDとseverity／ID thresholdに従う。"
+      },
+      "conditions": {
+        "en": "Root uses LOW general, HIGH selected ID and MEDIUM selected WARNING/ID; an independent reporter uses DEBUG.",
+        "ja": "rootは一般LOW、選択IDにHIGH、選択WARNING／IDにMEDIUMを使い、独立reporterはDEBUGを使う。"
+      },
+      "expected": {
+        "en": "Selected INFO/HIGH succeeds; WARNING/MEDIUM succeeds but one above that pair threshold fails.",
+        "ja": "選択INFO／HIGHは成功し、WARNING／MEDIUMは成功するが、そのpair thresholdの1上は失敗する。"
+      },
+      "limitations": {
+        "en": "Enable-query semantics only, not report emission, action effects, every severity or override/reset combination.",
+        "ja": "enable照会意味のみで、report発行、action効果、全severity、override／reset全組合せではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_package_report_enabled_queries_use_root_severity_id_thresholds_and_info_defaults",
+          "role": "direct",
+          "expected_observations": [
+            "UT: global_enabled general_edge 1 general_above 1 default_info 1",
+            "UT: global_enabled pair_edge 1 pair_above 1 local_isolated 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PACKAGE-AUDIT-ENABLED-LOCAL-ISOLATION",
+      "clause": "F.3.2.2",
+      "statement": {
+        "en": "A local reporter setting does not replace the global report-enabled root configuration.",
+        "ja": "local reporter設定はglobal report-enabledのroot設定を置換しない。"
+      },
+      "conditions": {
+        "en": "Root uses LOW general, HIGH selected ID and MEDIUM selected WARNING/ID; an independent reporter uses DEBUG.",
+        "ja": "rootは一般LOW、選択IDにHIGH、選択WARNING／IDにMEDIUMを使い、独立reporterはDEBUGを使う。"
+      },
+      "expected": {
+        "en": "The DEBUG peer admits its query while the global DEBUG query is false.",
+        "ja": "DEBUG peerは照会を許可する一方、global DEBUG照会はfalseとなる。"
+      },
+      "limitations": {
+        "en": "Enable-query semantics only, not report emission, action effects, every severity or override/reset combination.",
+        "ja": "enable照会意味のみで、report発行、action効果、全severity、override／reset全組合せではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_package_report_enabled_queries_use_root_severity_id_thresholds_and_info_defaults",
+          "role": "direct",
+          "expected_observations": [
+            "UT: global_enabled general_edge 1 general_above 1 default_info 1",
+            "UT: global_enabled pair_edge 1 pair_above 1 local_isolated 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PACKAGE-AUDIT-GENERIC-DEFAULTS",
+      "clause": "F.3.2.3",
+      "statement": {
+        "en": "The generic package report uses MEDIUM for omitted INFO verbosity and NONE for the other severities.",
+        "ja": "汎用package reportは省略INFO verbosityにMEDIUM、他severityにNONEを使う。"
+      },
+      "conditions": {
+        "en": "A standalone module temporarily installs an original root handler and restores the saved handler after the selected calls.",
+        "ja": "standalone moduleが独自root handlerを一時設定し、選択呼出し後に保存handlerを復元する。"
+      },
+      "expected": {
+        "en": "All four captured severities have their prescribed default verbosity.",
+        "ja": "捕捉した4 severity全てが規定の既定verbosityを持つ。"
+      },
+      "limitations": {
+        "en": "An original handler records public messages without forwarding to the default server. No formatted report, server action, fatal termination or catcher message-handle substitute is inferred. Every member of the selected matrix is checked; shared fixtures are not independent repetitions.",
+        "ja": "独自handlerはdefault serverへ転送せず公開messageを記録する。整形report、server action、fatal終了、catcher message-handleの代用は推測しない。選択matrixの全memberを検査し、共有fixtureを独立反復には数えない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_package_generic_report_defaults_preserve_severity_specific_verbosity_and_message_fields",
+          "role": "direct",
+          "expected_observations": [
+            "UT: generic_default row 0 verbosity 200",
+            "UT: generic_default row 1 verbosity 0",
+            "UT: generic_default row 2 verbosity 0",
+            "UT: generic_default row 3 verbosity 0",
+            "UT: generic_reports calls 4 verbosity_defaults 1 fields 1 root_origin 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PACKAGE-AUDIT-GENERIC-MESSAGE-DEFAULTS",
+      "clause": "F.3.2.3",
+      "statement": {
+        "en": "The generic package report forwards ID/payload and empty filename/context plus line zero defaults.",
+        "ja": "汎用package reportはID／payloadと空filename／context、line 0既定値を渡す。"
+      },
+      "conditions": {
+        "en": "A standalone module temporarily installs an original root handler and restores the saved handler after the selected calls.",
+        "ja": "standalone moduleが独自root handlerを一時設定し、選択呼出し後に保存handlerを復元する。"
+      },
+      "expected": {
+        "en": "Each captured message retains its requested fields/defaults and root origin.",
+        "ja": "各捕捉messageが要求field／既定値とroot originを保持する。"
+      },
+      "limitations": {
+        "en": "An original handler records public messages without forwarding to the default server. No formatted report, server action, fatal termination or catcher message-handle substitute is inferred. Every member of the selected matrix is checked; shared fixtures are not independent repetitions.",
+        "ja": "独自handlerはdefault serverへ転送せず公開messageを記録する。整形report、server action、fatal終了、catcher message-handleの代用は推測しない。選択matrixの全memberを検査し、共有fixtureを独立反復には数えない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_package_generic_report_defaults_preserve_severity_specific_verbosity_and_message_fields",
+          "role": "direct",
+          "expected_observations": [
+            "UT: generic_default row 0 verbosity 200",
+            "UT: generic_default row 1 verbosity 0",
+            "UT: generic_default row 2 verbosity 0",
+            "UT: generic_default row 3 verbosity 0",
+            "UT: generic_reports calls 4 verbosity_defaults 1 fields 1 root_origin 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PACKAGE-AUDIT-HELPER-DEFAULTS",
+      "clause": "F.3.2.3",
+      "statement": {
+        "en": "Package severity helpers use their declared default verbosity.",
+        "ja": "package severity helperは宣言した既定verbosityを使う。"
+      },
+      "conditions": {
+        "en": "A standalone module temporarily installs an original root handler and restores the saved handler after the selected calls.",
+        "ja": "standalone moduleが独自root handlerを一時設定し、選択呼出し後に保存handlerを復元する。"
+      },
+      "expected": {
+        "en": "INFO uses MEDIUM and WARNING/ERROR/FATAL use NONE through the root handler.",
+        "ja": "root handler経由でINFOはMEDIUM、WARNING／ERROR／FATALはNONEを使う。"
+      },
+      "limitations": {
+        "en": "An original handler records public messages without forwarding to the default server. No formatted report, server action, fatal termination or catcher message-handle substitute is inferred. Every member of the selected matrix is checked; shared fixtures are not independent repetitions.",
+        "ja": "独自handlerはdefault serverへ転送せず公開messageを記録する。整形report、server action、fatal終了、catcher message-handleの代用は推測しない。選択matrixの全memberを検査し、共有fixtureを独立反復には数えない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_package_report_helpers_forward_default_verbosity_and_explicit_debug_context",
+          "role": "direct",
+          "expected_observations": [
+            "UT: helper_default row 0 verbosity 200",
+            "UT: helper_default row 1 verbosity 0",
+            "UT: helper_default row 2 verbosity 0",
+            "UT: helper_default row 3 verbosity 0",
+            "UT: report_helpers calls 8 severity_defaults 1 explicit_fields 1 root_origin 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PACKAGE-AUDIT-HELPER-EXPLICIT-FIELDS",
+      "clause": "F.3.2.3",
+      "statement": {
+        "en": "All four package severity helpers forward explicit payload, verbosity, filename, line and context.",
+        "ja": "package severity helper 4個は全て明示payload、verbosity、filename、line、contextを渡す。"
+      },
+      "conditions": {
+        "en": "A standalone module temporarily installs an original root handler and restores the saved handler after the selected calls.",
+        "ja": "standalone moduleが独自root handlerを一時設定し、選択呼出し後に保存handlerを復元する。"
+      },
+      "expected": {
+        "en": "Every explicit row has its requested severity and fields and reaches the root handler.",
+        "ja": "各明示行が要求severityとfieldを持ち、root handlerへ達する。"
+      },
+      "limitations": {
+        "en": "An original handler records public messages without forwarding to the default server. No formatted report, server action, fatal termination or catcher message-handle substitute is inferred. Every member of the selected matrix is checked; shared fixtures are not independent repetitions.",
+        "ja": "独自handlerはdefault serverへ転送せず公開messageを記録する。整形report、server action、fatal終了、catcher message-handleの代用は推測しない。選択matrixの全memberを検査し、共有fixtureを独立反復には数えない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_package_report_helpers_forward_default_verbosity_and_explicit_debug_context",
+          "role": "direct",
+          "expected_observations": [
+            "UT: helper_default row 0 verbosity 200",
+            "UT: helper_default row 1 verbosity 0",
+            "UT: helper_default row 2 verbosity 0",
+            "UT: helper_default row 3 verbosity 0",
+            "UT: report_helpers calls 8 severity_defaults 1 explicit_fields 1 root_origin 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PACKAGE-AUDIT-CHECKED-INFO",
+      "clause": "F.3.2.3",
+      "statement": {
+        "en": "An explicitly prechecked package INFO report bypasses the admission query; the default unchecked call is filtered.",
+        "ja": "明示事前check済みpackage INFO reportはadmission照会を省略し、既定の未check呼出しはfilterされる。"
+      },
+      "conditions": {
+        "en": "A standalone module temporarily installs an original root handler and restores the saved handler after the selected calls.",
+        "ja": "standalone moduleが独自root handlerを一時設定し、選択呼出し後に保存handlerを復元する。"
+      },
+      "expected": {
+        "en": "The unchecked HIGH report has no handler call under NONE; the checked report arrives once with the original HIGH verbosity and payload.",
+        "ja": "NONE下で未check HIGH reportはhandlerを呼ばず、check済みreportは元のHIGH verbosity／payloadで1回到達する。"
+      },
+      "limitations": {
+        "en": "An original handler records public messages without forwarding to the default server. No formatted report, server action, fatal termination or catcher message-handle substitute is inferred. Every member of the selected matrix is checked; shared fixtures are not independent repetitions.",
+        "ja": "独自handlerはdefault serverへ転送せず公開messageを記録する。整形report、server action、fatal終了、catcher message-handleの代用は推測しない。選択matrixの全memberを検査し、共有fixtureを独立反復には数えない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_package_checked_report_argument_bypasses_only_the_selected_info_admission_check",
+          "role": "direct",
+          "expected_observations": [
+            "UT: unchecked_info filtered 1",
+            "UT: checked_info calls 1 message 1 verbosity 1 root_origin 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PACKAGE-AUDIT-PREFORMED-IDENTITY",
+      "clause": "F.3.2.3",
+      "statement": {
+        "en": "Package preformed-message processing delegates the exact object to the root-selected handler.",
+        "ja": "packageの形成済みmessage処理は正確なobjectをroot選択handlerへ委譲する。"
+      },
+      "conditions": {
+        "en": "A standalone module temporarily installs an original root handler and restores the saved handler after the selected calls.",
+        "ja": "standalone moduleが独自root handlerを一時設定し、選択呼出し後に保存handlerを復元する。"
+      },
+      "expected": {
+        "en": "One call contains the same public message handle.",
+        "ja": "1回の呼出しは同じ公開message handleを含む。"
+      },
+      "limitations": {
+        "en": "An original handler records public messages without forwarding to the default server. No formatted report, server action, fatal termination or catcher message-handle substitute is inferred. Every member of the selected matrix is checked; shared fixtures are not independent repetitions.",
+        "ja": "独自handlerはdefault serverへ転送せず公開messageを記録する。整形report、server action、fatal終了、catcher message-handleの代用は推測しない。選択matrixの全memberを検査し、共有fixtureを独立反復には数えない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_package_preformed_report_processing_delegates_the_exact_message_and_rebinds_root_origin",
+          "role": "direct",
+          "expected_observations": [
+            "UT: preformed_global calls 1 same 1 root_origin 1 fields 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PACKAGE-AUDIT-PREFORMED-ORIGIN",
+      "clause": "F.3.2.3",
+      "statement": {
+        "en": "Package preformed processing replaces an obsolete origin with the implicit root.",
+        "ja": "packageの形成済み処理は古いoriginを暗黙rootへ置換する。"
+      },
+      "conditions": {
+        "en": "A standalone module temporarily installs an original root handler and restores the saved handler after the selected calls.",
+        "ja": "standalone moduleが独自root handlerを一時設定し、選択呼出し後に保存handlerを復元する。"
+      },
+      "expected": {
+        "en": "The caller-visible message and captured handler origin both identify the root.",
+        "ja": "callerから見えるmessageと捕捉handler originの両方がrootを指す。"
+      },
+      "limitations": {
+        "en": "An original handler records public messages without forwarding to the default server. No formatted report, server action, fatal termination or catcher message-handle substitute is inferred. Every member of the selected matrix is checked; shared fixtures are not independent repetitions.",
+        "ja": "独自handlerはdefault serverへ転送せず公開messageを記録する。整形report、server action、fatal終了、catcher message-handleの代用は推測しない。選択matrixの全memberを検査し、共有fixtureを独立反復には数えない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_package_preformed_report_processing_delegates_the_exact_message_and_rebinds_root_origin",
+          "role": "direct",
+          "expected_observations": [
+            "UT: preformed_global calls 1 same 1 root_origin 1 fields 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PACKAGE-AUDIT-PREFORMED-CONTENT",
+      "clause": "F.3.2.3",
+      "statement": {
+        "en": "Package preformed delegation preserves the selected input message fields.",
+        "ja": "packageの形成済み委譲は選択入力message fieldを保持する。"
+      },
+      "conditions": {
+        "en": "A standalone module temporarily installs an original root handler and restores the saved handler after the selected calls.",
+        "ja": "standalone moduleが独自root handlerを一時設定し、選択呼出し後に保存handlerを復元する。"
+      },
+      "expected": {
+        "en": "ID, payload, verbosity, filename, line and context remain the original values.",
+        "ja": "ID、payload、verbosity、filename、line、contextが元の値を保つ。"
+      },
+      "limitations": {
+        "en": "An original handler records public messages without forwarding to the default server. No formatted report, server action, fatal termination or catcher message-handle substitute is inferred. Every member of the selected matrix is checked; shared fixtures are not independent repetitions.",
+        "ja": "独自handlerはdefault serverへ転送せず公開messageを記録する。整形report、server action、fatal終了、catcher message-handleの代用は推測しない。選択matrixの全memberを検査し、共有fixtureを独立反復には数えない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_package_preformed_report_processing_delegates_the_exact_message_and_rebinds_root_origin",
+          "role": "direct",
+          "expected_observations": [
+            "UT: preformed_global calls 1 same 1 root_origin 1 fields 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PACKAGE-AUDIT-INIT-IDEMPOTENCE",
+      "clause": "F.3.1.3",
+      "statement": {
+        "en": "Subsequent initialization calls do not reinitialize or replace the selected core service.",
+        "ja": "後続の初期化呼出しは再初期化や選択core serviceの置換をしない。"
+      },
+      "conditions": {
+        "en": "Call uvm_init with omission before saving the active service, allow implicit earlier initialization, then supply a new default service and omission.",
+        "ja": "active service保存前に省略uvm_initを呼び、以前の暗黙初期化を許し、その後新default serviceと省略を渡す。"
+      },
+      "expected": {
+        "en": "Both calls retain the original service identity; the replacement-call observation also retains root/factory identity.",
+        "ja": "両呼出しが元のservice同一性を保持し、replacement呼出し観測ではroot／factory同一性も保持する。"
+      },
+      "limitations": {
+        "en": "Subsequent-call behavior only; first nonnull initialization and every registry initialize hook/order remain unproved. No reset of private core state or library replacement is used.",
+        "ja": "後続呼出し動作のみで、最初の非null初期化や全registry initialize hook／順序は未立証である。private core state resetやlibrary置換は使わない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_package_repeated_initialization_preserves_the_selected_service_and_initialized_state",
+          "role": "direct",
+          "expected_observations": [
+            "UT: repeated_init service 1 root 1 factory 1 initialized 1",
+            "UT: repeated_null service 1 state 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PACKAGE-AUDIT-INIT-STATE-QUERY",
+      "clause": "F.3.1.1",
+      "statement": {
+        "en": "The core-state query observes INITIALIZED after initialization without running a test.",
+        "ja": "core-state照会はtest実行なしの初期化後にINITIALIZEDを観測する。"
+      },
+      "conditions": {
+        "en": "Call uvm_init with omission before saving the active service, allow implicit earlier initialization, then supply a new default service and omission.",
+        "ja": "active service保存前に省略uvm_initを呼び、以前の暗黙初期化を許し、その後新default serviceと省略を渡す。"
+      },
+      "expected": {
+        "en": "Both repeated-call observations return UVM_CORE_INITIALIZED.",
+        "ja": "反復呼出しの両観測がUVM_CORE_INITIALIZEDを返す。"
+      },
+      "limitations": {
+        "en": "Subsequent-call behavior only; first nonnull initialization and every registry initialize hook/order remain unproved. No reset of private core state or library replacement is used.",
+        "ja": "後続呼出し動作のみで、最初の非null初期化や全registry initialize hook／順序は未立証である。private core state resetやlibrary置換は使わない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_package_repeated_initialization_preserves_the_selected_service_and_initialized_state",
+          "role": "direct",
+          "expected_observations": [
+            "UT: repeated_init service 1 root 1 factory 1 initialized 1",
+            "UT: repeated_null service 1 state 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PACKAGE-AUDIT-CALLBACK-CONSTRUCTOR",
+      "clause": "F.6.2.1",
+      "statement": {
+        "en": "Run-test callback construction preserves omitted, explicit and empty names.",
+        "ja": "run-test callback生成は省略、明示、空の名前を保持する。"
+      },
+      "conditions": {
+        "en": "Original legal concrete extensions call only super.new, with the default omitted in one extension.",
+        "ja": "独自の合法具象拡張はsuper.newだけを呼び、1拡張では既定引数を省略する。"
+      },
+      "expected": {
+        "en": "The default is uvm_run_test_callback, explicit/empty names are preserved and the instance is a uvm_callback.",
+        "ja": "既定はuvm_run_test_callbackで、明示／空名を保持し、instanceはuvm_callbackとなる。"
+      },
+      "limitations": {
+        "en": "Construction and selected ancestry only; this legal control does not substitute for rejection of direct virtual-base construction.",
+        "ja": "生成と選択継承のみで、この合法controlはvirtual基底直接生成の拒否の代わりにはならない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_run_test_callback_derived_constructors_preserve_default_and_explicit_names",
+          "role": "direct",
+          "expected_observations": [
+            "UT: callback_constructor default_name 1 explicit_name 1 empty_name 1 base 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PACKAGE-AUDIT-CALLBACK-ADD-IDENTITY",
+      "clause": "F.6.2.5",
+      "statement": {
+        "en": "Adding previously unregistered callback handles returns true independently of equal names.",
+        "ja": "未登録callback handleの追加は名前が等しくても独立にtrueを返す。"
+      },
+      "conditions": {
+        "en": "Two original concrete callbacks share a name; static registration/deletion receives the same, distinct and null handles.",
+        "ja": "独自具象callback 2個は同名で、static登録／削除へ同一、別、null handleを渡す。"
+      },
+      "expected": {
+        "en": "Two different handles with the same name each add successfully.",
+        "ja": "同名の異なるhandle 2個がそれぞれ追加に成功する。"
+      },
+      "limitations": {
+        "en": "Membership return values only; list traversal, concurrent mutation, self-removal and callback ordering are tested separately or remain open.",
+        "ja": "所属返却値のみで、list走査、並行変更、自己削除、callback順序は別検査または未対応である。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_run_test_callback_membership_uses_handle_identity_and_rejects_duplicate_and_null_entries",
+          "role": "direct",
+          "expected_observations": [
+            "UT: callback_add first 1 duplicate 1 same_name_peer 1 null 1",
+            "UT: callback_delete removed 1 repeated 1 peer 1 null 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PACKAGE-AUDIT-CALLBACK-ADD-DUPLICATE",
+      "clause": "F.6.2.5",
+      "statement": {
+        "en": "Adding an already registered callback returns false.",
+        "ja": "登録済みcallbackの追加はfalseを返す。"
+      },
+      "conditions": {
+        "en": "Two original concrete callbacks share a name; static registration/deletion receives the same, distinct and null handles.",
+        "ja": "独自具象callback 2個は同名で、static登録／削除へ同一、別、null handleを渡す。"
+      },
+      "expected": {
+        "en": "The second add of the first handle is false.",
+        "ja": "最初のhandleの2回目追加はfalseとなる。"
+      },
+      "limitations": {
+        "en": "Membership return values only; list traversal, concurrent mutation, self-removal and callback ordering are tested separately or remain open.",
+        "ja": "所属返却値のみで、list走査、並行変更、自己削除、callback順序は別検査または未対応である。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_run_test_callback_membership_uses_handle_identity_and_rejects_duplicate_and_null_entries",
+          "role": "direct",
+          "expected_observations": [
+            "UT: callback_add first 1 duplicate 1 same_name_peer 1 null 1",
+            "UT: callback_delete removed 1 repeated 1 peer 1 null 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PACKAGE-AUDIT-CALLBACK-ADD-NULL",
+      "clause": "F.6.2.5",
+      "statement": {
+        "en": "Adding a null callback returns false.",
+        "ja": "null callbackの追加はfalseを返す。"
+      },
+      "conditions": {
+        "en": "Two original concrete callbacks share a name; static registration/deletion receives the same, distinct and null handles.",
+        "ja": "独自具象callback 2個は同名で、static登録／削除へ同一、別、null handleを渡す。"
+      },
+      "expected": {
+        "en": "The null add returns zero.",
+        "ja": "null追加は0を返す。"
+      },
+      "limitations": {
+        "en": "Membership return values only; list traversal, concurrent mutation, self-removal and callback ordering are tested separately or remain open.",
+        "ja": "所属返却値のみで、list走査、並行変更、自己削除、callback順序は別検査または未対応である。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_run_test_callback_membership_uses_handle_identity_and_rejects_duplicate_and_null_entries",
+          "role": "direct",
+          "expected_observations": [
+            "UT: callback_add first 1 duplicate 1 same_name_peer 1 null 1",
+            "UT: callback_delete removed 1 repeated 1 peer 1 null 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PACKAGE-AUDIT-CALLBACK-DELETE-IDENTITY",
+      "clause": "F.6.2.6",
+      "statement": {
+        "en": "Deleting a registered callback returns true and preserves the peer registration.",
+        "ja": "登録callbackの削除はtrueを返し、peer登録を保持する。"
+      },
+      "conditions": {
+        "en": "Two original concrete callbacks share a name; static registration/deletion receives the same, distinct and null handles.",
+        "ja": "独自具象callback 2個は同名で、static登録／削除へ同一、別、null handleを渡す。"
+      },
+      "expected": {
+        "en": "Both distinct handles can each be deleted successfully.",
+        "ja": "異なる両handleをそれぞれ正常に削除できる。"
+      },
+      "limitations": {
+        "en": "Membership return values only; list traversal, concurrent mutation, self-removal and callback ordering are tested separately or remain open.",
+        "ja": "所属返却値のみで、list走査、並行変更、自己削除、callback順序は別検査または未対応である。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_run_test_callback_membership_uses_handle_identity_and_rejects_duplicate_and_null_entries",
+          "role": "direct",
+          "expected_observations": [
+            "UT: callback_add first 1 duplicate 1 same_name_peer 1 null 1",
+            "UT: callback_delete removed 1 repeated 1 peer 1 null 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PACKAGE-AUDIT-CALLBACK-DELETE-ABSENT",
+      "clause": "F.6.2.6",
+      "statement": {
+        "en": "Deleting a callback no longer registered returns false.",
+        "ja": "登録されていないcallbackの削除はfalseを返す。"
+      },
+      "conditions": {
+        "en": "Two original concrete callbacks share a name; static registration/deletion receives the same, distinct and null handles.",
+        "ja": "独自具象callback 2個は同名で、static登録／削除へ同一、別、null handleを渡す。"
+      },
+      "expected": {
+        "en": "The repeated delete of the first handle is false.",
+        "ja": "最初のhandleの反復削除はfalseとなる。"
+      },
+      "limitations": {
+        "en": "Membership return values only; list traversal, concurrent mutation, self-removal and callback ordering are tested separately or remain open.",
+        "ja": "所属返却値のみで、list走査、並行変更、自己削除、callback順序は別検査または未対応である。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_run_test_callback_membership_uses_handle_identity_and_rejects_duplicate_and_null_entries",
+          "role": "direct",
+          "expected_observations": [
+            "UT: callback_add first 1 duplicate 1 same_name_peer 1 null 1",
+            "UT: callback_delete removed 1 repeated 1 peer 1 null 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PACKAGE-AUDIT-CALLBACK-DELETE-NULL",
+      "clause": "F.6.2.6",
+      "statement": {
+        "en": "Deleting a null callback returns false.",
+        "ja": "null callbackの削除はfalseを返す。"
+      },
+      "conditions": {
+        "en": "Two original concrete callbacks share a name; static registration/deletion receives the same, distinct and null handles.",
+        "ja": "独自具象callback 2個は同名で、static登録／削除へ同一、別、null handleを渡す。"
+      },
+      "expected": {
+        "en": "The null delete returns zero.",
+        "ja": "null削除は0を返す。"
+      },
+      "limitations": {
+        "en": "Membership return values only; list traversal, concurrent mutation, self-removal and callback ordering are tested separately or remain open.",
+        "ja": "所属返却値のみで、list走査、並行変更、自己削除、callback順序は別検査または未対応である。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_run_test_callback_membership_uses_handle_identity_and_rejects_duplicate_and_null_entries",
+          "role": "direct",
+          "expected_observations": [
+            "UT: callback_add first 1 duplicate 1 same_name_peer 1 null 1",
+            "UT: callback_delete removed 1 repeated 1 peer 1 null 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PACKAGE-AUDIT-CALLBACK-PRE-RUN",
+      "clause": "F.6.2.2",
+      "statement": {
+        "en": "All registered pre-run callbacks execute before real component phasing.",
+        "ja": "全登録pre-run callbackは実component phasing前に実行する。"
+      },
+      "conditions": {
+        "en": "Two registered callbacks and one unregistered control surround an actual factory-created test with build and delayed run phases; finish_on_completion is explicitly false.",
+        "ja": "登録callback 2個と未登録control 1個で、buildと遅延run phaseを持つfactory生成の実testを囲み、finish_on_completionを明示falseにする。"
+      },
+      "expected": {
+        "en": "Both active callbacks run once before either observed phase visit; the unregistered callback remains absent.",
+        "ja": "両active callbackが観測phase訪問前に1回動き、未登録callbackは不在を保つ。"
+      },
+      "limitations": {
+        "en": "No order between peer callbacks is prescribed. No nonnull first initialization, duplicate run_test, every domain/jump/kill or reentrant callback mutation is certified.",
+        "ja": "peer callback間の順序は規定しない。最初の非null初期化、重複run_test、全domain／jump／kill、再入callback変更は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_run_test_callbacks_without_deletion_observe_each_registered_hook_and_core_states",
+          "role": "direct",
+          "expected_observations": [
+            "UT: callback_lifecycle membership 1 both_pre 1 both_post 1 removed_absent 1",
+            "UT: callback_lifecycle pre_state 1 post_state 1 ordering 1 running 1 finished 1",
+            "UT: callback_state_names first_pre UVM_CORE_PRE_RUN second_pre UVM_CORE_PRE_RUN first_post UVM_CORE_POST_RUN second_post UVM_CORE_POST_RUN"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PACKAGE-AUDIT-CALLBACK-POST-RUN",
+      "clause": "F.6.2.3",
+      "statement": {
+        "en": "All registered post-run callbacks execute after phasing and before run_test returns.",
+        "ja": "全登録post-run callbackはphasing後、run_test復帰前に実行する。"
+      },
+      "conditions": {
+        "en": "Two registered callbacks and one unregistered control surround an actual factory-created test with build and delayed run phases; finish_on_completion is explicitly false.",
+        "ja": "登録callback 2個と未登録control 1個で、buildと遅延run phaseを持つfactory生成の実testを囲み、finish_on_completionを明示falseにする。"
+      },
+      "expected": {
+        "en": "Both active callbacks run once after both phase visits; the unregistered callback remains absent.",
+        "ja": "両active callbackが両phase訪問後に1回動き、未登録callbackは不在を保つ。"
+      },
+      "limitations": {
+        "en": "No order between peer callbacks is prescribed. No nonnull first initialization, duplicate run_test, every domain/jump/kill or reentrant callback mutation is certified.",
+        "ja": "peer callback間の順序は規定しない。最初の非null初期化、重複run_test、全domain／jump／kill、再入callback変更は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_run_test_callbacks_without_deletion_observe_each_registered_hook_and_core_states",
+          "role": "direct",
+          "expected_observations": [
+            "UT: callback_lifecycle membership 1 both_pre 1 both_post 1 removed_absent 1",
+            "UT: callback_lifecycle pre_state 1 post_state 1 ordering 1 running 1 finished 1",
+            "UT: callback_state_names first_pre UVM_CORE_PRE_RUN second_pre UVM_CORE_PRE_RUN first_post UVM_CORE_POST_RUN second_post UVM_CORE_POST_RUN"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PACKAGE-AUDIT-CORE-RUN-STATES",
+      "clause": "F.2.10",
+      "statement": {
+        "en": "Selected core lifecycle enum states describe the observed run boundaries.",
+        "ja": "選択core lifecycle enum stateは観測run境界を表す。"
+      },
+      "conditions": {
+        "en": "Two registered callbacks and one unregistered control surround an actual factory-created test with build and delayed run phases; finish_on_completion is explicitly false.",
+        "ja": "登録callback 2個と未登録control 1個で、buildと遅延run phaseを持つfactory生成の実testを囲み、finish_on_completionを明示falseにする。"
+      },
+      "expected": {
+        "en": "Pre callbacks observe PRE_RUN, phase bodies RUNNING, post callbacks POST_RUN and the caller FINISHED.",
+        "ja": "pre callbackはPRE_RUN、phase本体はRUNNING、post callbackはPOST_RUN、callerはFINISHEDを観測する。"
+      },
+      "limitations": {
+        "en": "No order between peer callbacks is prescribed. No nonnull first initialization, duplicate run_test, every domain/jump/kill or reentrant callback mutation is certified.",
+        "ja": "peer callback間の順序は規定しない。最初の非null初期化、重複run_test、全domain／jump／kill、再入callback変更は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_run_test_callbacks_without_deletion_observe_each_registered_hook_and_core_states",
+          "role": "direct",
+          "expected_observations": [
+            "UT: callback_lifecycle membership 1 both_pre 1 both_post 1 removed_absent 1",
+            "UT: callback_lifecycle pre_state 1 post_state 1 ordering 1 running 1 finished 1",
+            "UT: callback_state_names first_pre UVM_CORE_PRE_RUN second_pre UVM_CORE_PRE_RUN first_post UVM_CORE_POST_RUN second_post UVM_CORE_POST_RUN"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PACKAGE-AUDIT-GLOBAL-RUN-DELEGATION",
+      "clause": "F.3.1.2",
+      "statement": {
+        "en": "The package run_test convenience task drives the implicit root test execution.",
+        "ja": "package run_test便利taskは暗黙rootのtest実行を駆動する。"
+      },
+      "conditions": {
+        "en": "Two registered callbacks and one unregistered control surround an actual factory-created test with build and delayed run phases; finish_on_completion is explicitly false.",
+        "ja": "登録callback 2個と未登録control 1個で、buildと遅延run phaseを持つfactory生成の実testを囲み、finish_on_completionを明示falseにする。"
+      },
+      "expected": {
+        "en": "The named factory test executes both selected phases and registered run callbacks, then returns under the explicit finish control.",
+        "ja": "名前付きfactory testは両選択phaseと登録run callbackを実行し、明示finish制御下で復帰する。"
+      },
+      "limitations": {
+        "en": "No order between peer callbacks is prescribed. No nonnull first initialization, duplicate run_test, every domain/jump/kill or reentrant callback mutation is certified.",
+        "ja": "peer callback間の順序は規定しない。最初の非null初期化、重複run_test、全domain／jump／kill、再入callback変更は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_run_test_callbacks_without_deletion_observe_each_registered_hook_and_core_states",
+          "role": "direct",
+          "expected_observations": [
+            "UT: callback_lifecycle membership 1 both_pre 1 both_post 1 removed_absent 1",
+            "UT: callback_lifecycle pre_state 1 post_state 1 ordering 1 running 1 finished 1",
+            "UT: callback_state_names first_pre UVM_CORE_PRE_RUN second_pre UVM_CORE_PRE_RUN first_post UVM_CORE_POST_RUN second_post UVM_CORE_POST_RUN"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PACKAGE-AUDIT-ROOT-RUN-BOUNDARIES",
+      "clause": "F.7.3.1",
+      "statement": {
+        "en": "Root run execution brackets phasing with pre/post notifications and finishes before return.",
+        "ja": "root run実行はpre／post通知でphasingを囲み、復帰前にfinishedとなる。"
+      },
+      "conditions": {
+        "en": "Two registered callbacks and one unregistered control surround an actual factory-created test with build and delayed run phases; finish_on_completion is explicitly false.",
+        "ja": "登録callback 2個と未登録control 1個で、buildと遅延run phaseを持つfactory生成の実testを囲み、finish_on_completionを明示falseにする。"
+      },
+      "expected": {
+        "en": "Observed notifications, running phases and caller state follow the prescribed PRE_RUN/RUNNING/POST_RUN/FINISHED progression.",
+        "ja": "観測通知、running phase、caller stateが規定PRE_RUN／RUNNING／POST_RUN／FINISHED進行に従う。"
+      },
+      "limitations": {
+        "en": "No order between peer callbacks is prescribed. No nonnull first initialization, duplicate run_test, every domain/jump/kill or reentrant callback mutation is certified.",
+        "ja": "peer callback間の順序は規定しない。最初の非null初期化、重複run_test、全domain／jump／kill、再入callback変更は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_run_test_callbacks_without_deletion_observe_each_registered_hook_and_core_states",
+          "role": "direct",
+          "expected_observations": [
+            "UT: callback_lifecycle membership 1 both_pre 1 both_post 1 removed_absent 1",
+            "UT: callback_lifecycle pre_state 1 post_state 1 ordering 1 running 1 finished 1",
+            "UT: callback_state_names first_pre UVM_CORE_PRE_RUN second_pre UVM_CORE_PRE_RUN first_post UVM_CORE_POST_RUN second_post UVM_CORE_POST_RUN"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PACKAGE-AUDIT-CALLBACK-DELETE-DELIVERY",
+      "clause": "F.6.2.6",
+      "statement": {
+        "en": "Removing a later registered callback preserves earlier peers during real run notifications.",
+        "ja": "後に登録したcallbackの削除は実run通知で以前のpeerを保持する。"
+      },
+      "conditions": {
+        "en": "Three distinct callbacks are registered in order, the third is deleted, then an actual test is phased with finish disabled.",
+        "ja": "異なるcallback 3個を順に登録し、第3を削除した後、finishを無効にして実testをphase実行する。"
+      },
+      "expected": {
+        "en": "Both earlier callbacks receive pre/post exactly once; the deleted callback receives neither, and the test phases complete.",
+        "ja": "以前の両callbackはpre／postを各1回受け、削除callbackはどちらも受けず、test phaseは完了する。"
+      },
+      "limitations": {
+        "en": "This tests actual delivery beyond membership return values, not just successful deletion of the first entry. Peer order and every concurrent/self-removal history remain open. Core-state boundary matching has a separate no-deletion fixture.",
+        "ja": "所属返却値や最初entryの削除成功だけでなく、実配送を検査する。peer順序、全並行／自己削除履歴は未対応で、core-state境界一致は独立した削除なしfixtureを持つ。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_run_test_callbacks_bracket_real_phasing_and_observe_core_lifecycle_states",
+          "role": "direct",
+          "expected_observations": [
+            "UT: callback_lifecycle membership 1 both_pre 1 both_post 1 removed_absent 1",
+            "UT: callback_deletion phases 1 finished 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PACKAGE-AUDIT-CALLBACK-PRE-ABORT",
+      "clause": "F.6.2.4",
+      "statement": {
+        "en": "Registered pre-abort callbacks execute before root termination.",
+        "ja": "登録pre-abort callbackはroot終了前に実行する。"
+      },
+      "conditions": {
+        "en": "A standalone original component and registered callback precede a direct die call; a SystemVerilog final block observes termination.",
+        "ja": "standaloneの独自componentと登録callbackが直接die呼出しに先行し、SystemVerilog final blockが終了を観測する。"
+      },
+      "expected": {
+        "en": "The callback runs once in PRE_ABORT after the selected component pre_abort hook.",
+        "ja": "callbackは選択component pre_abort hook後のPRE_ABORTで1回動く。"
+      },
+      "limitations": {
+        "en": "One selected component/callback, no peer-order assertion or full hierarchy bottom-up proof. No reporting maximum-quit or fatal-admission trigger is tested. The F.2.10 ABORTED wording about post_run callbacks remains separate from the explicit F.7.3.2 algorithm.",
+        "ja": "選択component／callback各1個で、peer順序や全階層bottom-upの証明ではない。report最大quitやfatal-admission triggerは検査しない。F.2.10のABORTEDにあるpost_run callback記述は明示F.7.3.2 algorithmと別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_run_test_pre_abort_callbacks_follow_component_cleanup_and_precede_final_aborted_state",
+          "role": "direct",
+          "expected_observations": [
+            "UT: abort_callbacks component 1 callback 1 states 1 ordered 1 final_state 1",
+            "UT: abort_callbacks no_delayed_continuation 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PACKAGE-AUDIT-ROOT-ABORT-PROGRESSION",
+      "clause": "F.7.3.2",
+      "statement": {
+        "en": "die notifies component/callback cleanup and records ABORTED before terminating simulation.",
+        "ja": "dieはcomponent／callback cleanupへ通知し、simulation終了前にABORTEDを記録する。"
+      },
+      "conditions": {
+        "en": "A standalone original component and registered callback precede a direct die call; a SystemVerilog final block observes termination.",
+        "ja": "standaloneの独自componentと登録callbackが直接die呼出しに先行し、SystemVerilog final blockが終了を観測する。"
+      },
+      "expected": {
+        "en": "Both selected hooks run in PRE_ABORT, component before callback; final sees ABORTED and the delayed continuation never runs.",
+        "ja": "両選択hookがPRE_ABORTでcomponent、callbackの順に動き、finalはABORTEDを観測し、遅延継続は動かない。"
+      },
+      "limitations": {
+        "en": "One selected component/callback, no peer-order assertion or full hierarchy bottom-up proof. No reporting maximum-quit or fatal-admission trigger is tested. The F.2.10 ABORTED wording about post_run callbacks remains separate from the explicit F.7.3.2 algorithm.",
+        "ja": "選択component／callback各1個で、peer順序や全階層bottom-upの証明ではない。report最大quitやfatal-admission triggerは検査しない。F.2.10のABORTEDにあるpost_run callback記述は明示F.7.3.2 algorithmと別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_run_test_pre_abort_callbacks_follow_component_cleanup_and_precede_final_aborted_state",
+          "role": "direct",
+          "expected_observations": [
+            "UT: abort_callbacks component 1 callback 1 states 1 ordered 1 final_state 1",
+            "UT: abort_callbacks no_delayed_continuation 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PACKAGE-AUDIT-CALLBACK-VIRTUAL-BASE",
+      "clause": "F.6.1",
+      "statement": {
+        "en": "Direct construction of the virtual run-test callback base is illegal.",
+        "ja": "virtual run-test callback基底の直接生成は不正である。"
+      },
+      "conditions": {
+        "en": "A minimal illegal design directly constructs uvm_run_test_callback.",
+        "ja": "最小不正designがuvm_run_test_callbackを直接生成する。"
+      },
+      "expected": {
+        "en": "The compiler rejects the named virtual class at the fixture location.",
+        "ja": "compilerはfixture位置で指定virtual classを拒否する。"
+      },
+      "limitations": {
+        "en": "Compile diagnostic only; no runtime seed executes even if an illegal input is accepted. The legal derived-constructor control is independent.",
+        "ja": "compile診断のみで、不正入力を受理してもruntime seedは実行しない。合法派生constructor controlは独立である。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_run_test_callback_virtual_base_rejects_direct_construction",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?i)^(?=.*test_run_test_callback_virtual_base_rejects_direct_construction.sv:[0-9]+:[0-9]+:)(?=.*\\b(?:virtual|abstract)\\b)(?=.*\\buvm_run_test_callback\\b).*error"
+          }
+        },
+        {
+          "test": "uF/test_run_test_callback_derived_constructors_preserve_default_and_explicit_names",
+          "role": "control",
+          "expected_observations": [
+            "UT: callback_constructor default_name 1 explicit_name 1 empty_name 1 base 1"
+          ]
+        }
+      ]
     }
   ]
 }

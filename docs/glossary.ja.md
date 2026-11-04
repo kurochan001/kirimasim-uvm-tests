@@ -962,3 +962,7 @@ path文字列の一致だけでは、物理選択やdata合成を証明しませ
 
 **Public declaration / inherited implementation** — 印字された公開methodへcompile時にaccessできることと、合法な派生wrapper経由で基底実装へ到達することは別です。
 それぞれに固有のevidenceと残る制限があります。
+
+**Callback membership / delivery** — add／deleteの成功返却値と実通知先は別の観測です。後のentryの削除はactive peerを保持し、選択した削除handleを抑制する必要があります。
+
+**Saved signed shift** — 比較がunsigned operand contextをshiftへ伝える前に、算術shift出力をsigned型へ保存することです。

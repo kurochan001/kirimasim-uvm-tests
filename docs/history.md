@@ -3,8 +3,8 @@
 [日本語](history.ja.md) · [README](../README.md)
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and fifty-six cross-milestone thin-area expansions, including the
-existing-test requirement-link backlog checkpoint (1713 tests: 1666 simulation and 47 elaboration). The earlier 349-test checkpoint is
+three M4 increments and fifty-seven cross-milestone thin-area expansions, including the
+existing-test requirement-link backlog checkpoint (1731 tests: 1683 simulation and 48 elaboration). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -3511,3 +3511,61 @@ All 110 tool tests, metadata, ledger/index, library, current-input/native/compil
 identities and paired docs pass. Guides add two FAQs and two terms: 237/271.
 No human review, denominator approval or completion is claimed. Schema,
 runners/library/catalog, backend, workflow and six SVGs are unchanged. Goal active.
+
+## Fifty-seventh thin-area expansion: package contracts and run callbacks (2026-11-05)
+
+Eighteen M1 package/run-test callback fixtures add thirteen two-seed runtime
+matches, one expected compiler rejection and four seed-1 runtime differences
+without seed 73. Generic reports use observed WARNING 200/ERROR 100 instead of
+the required NONE 0; the warning helper also uses 200 instead of 0. Explicit
+message/debug/context fields still match through the original root handler.
+
+Callback membership return values match, but deleting a later handle produces
+incorrect delivery counts and the removed handle still receives hooks. An
+independent fixture without deletion receives both hooks yet observes
+UVM_CORE_INITIALIZED in pre-run callbacks instead of UVM_CORE_PRE_RUN; its
+post-run state matches. These are separate requirements and known inputs.
+Abort notifications, component-before-callback ordering and final ABORTED state
+match in a separate direct-die fixture. No peer callback order is prescribed.
+
+Matching controls also cover macro-selected signed bitstreams, signed 64-bit
+integrals, action one-hot/capacity, actual file/MCD storage, standard handles,
+global reporter/enabled queries, prechecked and preformed report delegation,
+subsequent initialization, constructor names and virtual-base rejection.
+The signed-shift fixture was corrected to store the shift before unsigned
+comparison context; its obsolete difference is excluded, not assigned to UVM.
+Four-state preservation, first nonnull initialization, every registry hook and
+full abort/report/termination combinations remain separate audits.
+
+Package auditing adds 38 AI drafts for eighteen M1 fixtures. It separates
+selected type/macro contracts, action-vector capacity, FD/MCD and standard
+handles, global reporting defaults/delegation, repeated initialization,
+callback membership versus actual delivery, run-state boundaries and abort.
+
+The two report-default fixtures retain their parameter-value differences;
+explicit fields do not pass those whole inputs. Membership return values do not
+certify which callback was removed. A separate no-deletion fixture isolates the
+pre-run state difference from that delivery defect. Direct die uses the explicit
+F.7.3.2 sequence; F.2.10's ABORTED wording about post_run callbacks remains a
+separate interpretation issue. No observed library implementation defines an oracle.
+
+Thirteen individually read grouping headings are structural and the callback
+introduction is contextual with related hook/registration duties. Annex F is
+56 partial/14 assessed/67 unassessed with 91 drafts. B.6.2 gains two selected
+macro duties; annex B is 39 partial/zero assessed/105 unassessed with 50 drafts.
+Overall is 1635 partial/341 assessed/531 unassessed (229 structural/112
+contextual). All 2993 earlier requirements and 327 assessments remain unchanged.
+Type X/Z behavior, all enum semantics, first nonnull initialization, registry
+hooks, callback mutation/reentrancy and complete run/abort paths remain open.
+Current totals: 1731 (1683 simulation/48 elaboration), M1 677 (639/38), M2 538
+(533/5), M3 516 (511/5). Ordinary evidence: 1506 pass (1460 runtime/46 compiler
+rejections), 225 known (167 runtime/56 simulation builds/two illegal acceptances).
+All 1713 earlier ordinary records, 2993 requirements and 327 assessments remain
+unchanged; guest 1083/HDL 11/command-line 18 records are byte-identical. Guest
+unmeasured is 648 (600 simulation/48 elaboration), including two revised inputs.
+
+The goal's twenty-ninth iteration removes 37 unassessed identifiers, leaving 531
+and all partial obligations open. All 110 tool tests, metadata/ledger/library,
+evidence identities and paired docs pass. FAQ/terms reach 239/273. Schema,
+runners/library/catalog/backend, workflow and six SVGs are unchanged. No guest
+run, human review, denominator approval or completion is claimed. Goal active.

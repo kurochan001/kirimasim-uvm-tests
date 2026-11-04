@@ -1,0 +1,3 @@
+UT: callback_lifecycle membership 1 both_pre 1 both_post 1 removed_absent 1
+UT: callback_lifecycle pre_state 1 post_state 1 ordering 1 running 1 finished 1
+UT: callback_state_names first_pre UVM_CORE_PRE_RUN second_pre UVM_CORE_PRE_RUN first_post UVM_CORE_POST_RUN second_post UVM_CORE_POST_RUN

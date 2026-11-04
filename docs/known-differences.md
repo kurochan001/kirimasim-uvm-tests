@@ -2,14 +2,14 @@
 
 [日本語](known-differences.ja.md) · [README](../README.md) · [FAQ](faq.md)
 
-This describes the current 1713-test suite and the pinned Accellera UVM
+This describes the current 1731-test suite and the pinned Accellera UVM
 2020.3.1 library. A mismatch is a test result; it does not by itself assign
 the cause to the simulator, the library or the expectation.
 
-Forty-seven elaboration fixtures expect rejection: twenty-six direct abstract
+Forty-eight elaboration fixtures expect rejection: twenty-seven direct abstract
 constructions and twenty-one pure-interface/const-reference/forbidden-member
-violations. Forty-five match. Subscriber and visitor omissions remain accepted and spec-only without
-runtime. These two compiler acceptances are separate from 219 known simulation
+violations. Forty-six match. Subscriber and visitor omissions remain accepted and spec-only without
+runtime. These two compiler acceptances are separate from 223 known simulation
 differences. Selected component-family and recording-base construction probes and the forbidden member access reject correctly.
 
 The new [inherited-kind presence probe](../tests/u18/test_block_has_hdl_path_uses_nearest_explicit_ancestor_kind_without_changing_explicit_queries.sv)
@@ -633,7 +633,16 @@ independently. Neither declaration probe invokes a physical transfer. The three
 actual-array fixtures use a separate VPI condition; ordinary builds lack DPI.
 Derived inherited-task wrappers do not repair the public-read declaration.
 
-Across the suite, 1492 tests have the `verilator@5.052` oracle tag and 221
+Package reporting retains generic WARNING 200/ERROR 100 and helper WARNING
+200 instead of the required NONE 0. Explicit fields and other default rows
+match, but both whole fixtures remain spec-only. Callback deletion return
+values match while later-handle removal changes delivery: the removed handle
+still receives hooks and active-peer count predicates fail. The independent
+no-deletion fixture isolates PRE_RUN: both pre hooks see INITIALIZED; post hooks
+see POST_RUN. Abort has a separate matching direct-die control. No peer callback
+order or missing F.2.10 post-run wording is invented for abort.
+
+Across the suite, 1506 tests have the `verilator@5.052` oracle tag and 225
 cases are spec-only. One of the spec-only cases checks 9.6: a child's pre-reset
 task must be killed when that phase ends, but the pinned-library run on Verilator 5.052
 lets the child perform its delayed write during a later phase. The cause of
@@ -645,10 +654,10 @@ without callbacks. The pinned Verilator run reaches the blocked-state
 observation, then its watchdog expires. This combined simulator/library
 cause remains unassigned; the normative wakeup expectation is retained.
 
-The 221 spec-only tests retain their normative expected files.
-Default Verilator runs and CI select 1492 tagged checks (1447 runtime, 45 compile rejection). `--all` includes
+The 225 spec-only tests retain their normative expected files.
+Default Verilator runs and CI select 1506 tagged checks (1460 runtime, 46 compile rejection). `--all` includes
 spec-only cases and records mismatches or build failures as `known`.
-The ordinary runtime records for 163 cases establish their first difference
+The ordinary runtime records for 167 cases establish their first difference
 at seed 1, without seed 73 results. Twenty missing-API/type-name builds have
 no ordinary runtime: one time API, six sequence-library cases, four HDL slice
 cases, one named-concat constructor, one object active-policy API, three catcher
@@ -723,7 +732,7 @@ The printed create_object equivalent call's extra this argument remains partial.
 
 ## Spec-only tests
 
-These are the 221 current spec-only cases. Several exercise the same
+These are the 225 current spec-only cases. Several exercise the same
 limitation, so their count is not a count of distinct bugs.
 
 - [Inherited subscriber type_id specialization](../tests/u08/test_builtin_abstract_parameterized_components_type_id_uses_the_required_registry_specialization.sv).
@@ -1011,7 +1020,7 @@ Additional message-handle and endian cases:
 
 Two existing inputs have revised fingerprints: the command-enum citation and
 the corrected Boolean rerandomization observation. Their historical guest
-records are excluded. The compatible subset has 1083 records and 630 inputs
+records are excluded. The compatible subset has 1083 records and 648 inputs
 are unmeasured, including both revised inputs. This filtering is evidence scope,
 not a new guest failure, pass or simulator improvement.
 
@@ -1034,10 +1043,15 @@ not a new guest failure, pass or simulator improvement.
 - [memory physical rom backdoor write and poke have distinct access effects](../tests/u18/test_memory_physical_rom_backdoor_write_and_poke_have_distinct_access_effects.sv).
 - [memory backdoor read public call is a legal task declaration](../tests/u18/test_memory_backdoor_read_public_call_is_a_legal_task_declaration.sv).
 
+- [package generic report defaults preserve severity specific verbosity and message fields](../tests/uF/test_package_generic_report_defaults_preserve_severity_specific_verbosity_and_message_fields.sv).
+- [package report helpers forward default verbosity and explicit debug context](../tests/uF/test_package_report_helpers_forward_default_verbosity_and_explicit_debug_context.sv).
+- [run test callbacks bracket real phasing and observe core lifecycle states](../tests/uF/test_run_test_callbacks_bracket_real_phasing_and_observe_core_lifecycle_states.sv).
+- [run test callbacks without deletion observe each registered hook and core states](../tests/uF/test_run_test_callbacks_without_deletion_observe_each_registered_hook_and_core_states.sv).
+
 ## Simulator and library combinations
 
-The suite has 1713 cases, but the kirimasim/Ghost records below cover only
-1083 unchanged current-input cases. The 630 inputs are unmeasured
+The suite has 1731 cases, but the kirimasim/Ghost records below cover only
+1083 unchanged current-input cases. The 648 inputs are unmeasured
 because prior temporary executable/profile snapshots are unavailable. Do
 not treat this as a fresh full-suite guest result. See [results](results.md).
 

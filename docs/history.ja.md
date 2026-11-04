@@ -2,7 +2,7 @@
 
 [English](history.md) · [README](../README.ja.md)
 
-M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の56回目の拡充（全1713件：simulation 1666・elaboration 47）までを記録しています。以前の349件の時点は
+M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の57回目の拡充（全1731件：simulation 1683・elaboration 48）までを記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -2289,3 +2289,34 @@ guest 1083とcommand-line記録をbyte単位で保持し、以前に修正した
 
 tool test 110件、metadata、台帳／索引、library、現在の入力／native／compiler同一性、日英資料の検査は成功します。
 FAQと用語を各2件追加し、237／271件です。人のレビュー、分母承認、完了は主張しません。schema、runner／library／catalog、backend、workflow、SVG 6件は未変更です。goalは継続中です。
+
+## 薄い領域の57回目：package契約とrun callback（2026-11-05）
+
+M1のpackage／run-test callback 18 fixtureで、runtime 13件が両seed一致、1件が期待compiler拒否一致、4件がseed 1 runtime差分となり、差分のseed 73は実行しません。
+generic reportは必要なNONE 0に対しWARNING 200／ERROR 100を観測し、warning helperも0でなく200です。明示message／debug／context fieldは独自root handler経由で一致します。
+
+callbackの所属返却値は一致しますが、後のhandleを削除すると配送回数が異なり、削除handleもhookを受けます。削除なしの独立fixtureは両hookを受けますが、
+pre-run callbackでUVM_CORE_PRE_RUNでなくUVM_CORE_INITIALIZEDを観測し、post-run stateは一致します。これらは独立した要求とknown入力です。
+別の直接die fixtureでabort通知、componentからcallbackの順序、finalのABORTED stateが一致し、peer callback間の順序は規定しません。
+
+一致controlはmacro選択のsigned bitstream、signed 64-bit integral、actionのone-hot／容量、実file／MCD格納、標準handle、global reporter／enabled照会、
+事前check済み／形成済みreport委譲、後続初期化、constructor名、virtual基底拒否も扱います。signed shift fixtureはunsigned比較contextの前にshiftを保存する形へ修正し、古い差分を除外してUVMへ割り当てません。
+four-state保持、最初の非null初期化、全registry hook、完全なabort／report／終了の組合せは別監査に残します。
+
+package監査はM1の18 fixtureへAI案38件を追加し、選択型／macro契約、action-vector容量、FD／MCDと標準handle、global reportingの既定値／委譲、
+反復初期化、callback所属と実配送、run-state境界、abortを分けます。
+
+report既定値の2 fixtureはparameter値の差分を保持し、明示fieldの一致で入力全体をpassにしません。所属返却値でどのcallbackを削除したかは認定しません。
+別の削除なしfixtureで、配送差分とpre-run state差分を分離します。直接dieは明示F.7.3.2手順を使い、F.2.10のABORTEDにあるpost_run callback記述は別解釈問題として残します。
+観測library実装でoracleを定義しません。
+
+個別に読んだ分類見出し13件を構造、callback導入をhook／登録義務に関連する文脈に分類します。付録Fは部分56／分類14／未評価67で案91件です。
+B.6.2へ選択macro義務2件を追加し、付録Bは部分39／分類0／未評価105で案50件です。全体は部分1635／分類341／未評価531（構造229／文脈112）です。
+以前の全2993要求・327分類を未変更で保持します。型のX／Z動作、全enum意味、最初の非null初期化、registry hook、callback変更／再入、完全なrun／abort経路は未対応です。
+全1731（simulation 1683／elaboration 48）、M1 677（639／38）、M2 538（533／5）、M3 516（511／5）です。
+通常evidenceはpass 1506（runtime 1460／compiler拒否46）、known 225（runtime 167／simulation build 56／不正compiler受理2）です。
+以前の全1713通常記録・2993要求・327分類を未変更で保持し、guest 1083／HDL 11／command-line 18記録はbyte単位で同一です。
+guest未測定は修正した2入力を含む648（simulation 600／elaboration 48）です。
+
+goalの29反復目は未評価を37減らして531を残し、全ての部分義務は未完了です。tool test 110件、metadata／台帳／library、evidence同一性、日英資料検査は成功し、FAQ／用語は239／273件です。
+schema、runner／library／catalog／backend、workflow、SVG 6件は未変更です。guest実行、人のレビュー、分母承認、完了は主張しません。goalは継続中です。

@@ -1,0 +1,2 @@
+UT: global_enabled general_edge 1 general_above 1 default_info 1
+UT: global_enabled pair_edge 1 pair_above 1 local_isolated 1

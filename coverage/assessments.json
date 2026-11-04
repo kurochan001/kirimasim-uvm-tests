@@ -5014,6 +5014,206 @@
         "reviewer": null,
         "reviewed_at": null
       }
+    },
+    {
+      "clause": "F.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "Types/enumerations grouping heading; concrete types and enum behavior follow in numbered clauses.",
+        "ja": "型／列挙の分類見出しで、具体型とenum動作は番号付き条項へ続く。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "F.2.1",
+      "classification": "structural",
+      "rationale": {
+        "en": "Field-automation type grouping heading; type declarations, operation meanings and flags are specified below.",
+        "ja": "field-automation型の分類見出しで、型宣言、操作意味、flagは下位に記述する。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "F.2.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "Reporting type grouping heading; severity/action/verbosity semantics are specified individually.",
+        "ja": "reporting型の分類見出しで、severity／action／verbosity意味は個別に記述する。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "F.2.4",
+      "classification": "structural",
+      "rationale": {
+        "en": "Sequence enumeration grouping heading; arbitration/state/library meanings follow individually.",
+        "ja": "sequence列挙の分類見出しで、arbitration／state／library意味は個別に続く。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "F.2.5",
+      "classification": "structural",
+      "rationale": {
+        "en": "Phasing enumeration grouping heading; phase types, lifecycle states and wait operators have separate clauses.",
+        "ja": "phasing列挙の分類見出しで、phase型、lifecycle state、wait演算子は個別条項を持つ。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "F.3",
+      "classification": "structural",
+      "rationale": {
+        "en": "Package-method grouping heading; simulation/reporting/miscellaneous method duties follow below.",
+        "ja": "package-methodの分類見出しで、simulation／reporting／miscellaneous method義務は下位へ続く。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "F.3.1",
+      "classification": "structural",
+      "rationale": {
+        "en": "Simulation-control grouping heading; state query, run and initialization are independently specified.",
+        "ja": "simulation制御の分類見出しで、state照会、run、初期化は独立に記述する。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "F.3.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "Global-reporting grouping heading; accessor, enable query and reporting functions have concrete specifications below.",
+        "ja": "global-reportingの分類見出しで、accessor、enable照会、reporting関数は下位に具体仕様を持つ。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "F.3.3",
+      "classification": "structural",
+      "rationale": {
+        "en": "Miscellaneous grouping heading; string matching and splitting are specified in their own methods.",
+        "ja": "miscellaneousの分類見出しで、文字列matchとsplitは個別methodで記述する。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "F.6.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "Run-test callback methods grouping heading; naming, hooks and membership each have method clauses.",
+        "ja": "run-test callback methodの分類見出しで、名前、hook、所属は各method条項を持つ。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "F.7.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "Root common-methods grouping heading; singleton constructor and accessor have separate clauses.",
+        "ja": "root共通methodの分類見出しで、singleton constructorとaccessorは個別条項を持つ。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "F.7.3",
+      "classification": "structural",
+      "rationale": {
+        "en": "Root simulation-control grouping heading; run, abort, timeout, finish control and elaboration checks are independently specified.",
+        "ja": "root simulation制御の分類見出しで、run、abort、timeout、finish制御、elaboration検査は独立に記述する。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "F.7.4",
+      "classification": "structural",
+      "rationale": {
+        "en": "Root topology-method grouping heading; find/find_all and topology printing follow individually.",
+        "ja": "root topology methodの分類見出しで、find／find_allとtopology印字は個別に続く。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "F.6",
+      "classification": "contextual",
+      "rationale": {
+        "en": "Introduction identifies the notification callback role. Its begin/end hooks and registration are independently specified and linked; all reentrancy/order/abort conditions remain partial.",
+        "ja": "導入は通知callbackの役割を示す。begin／end hookと登録は独立に記述して関連付け、全再入／順序／abort条件は部分的に残す。"
+      },
+      "related_requirements": [
+        "UVM-PACKAGE-AUDIT-CALLBACK-PRE-RUN",
+        "UVM-PACKAGE-AUDIT-CALLBACK-POST-RUN",
+        "UVM-PACKAGE-AUDIT-CALLBACK-ADD-IDENTITY"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
     }
   ]
 }

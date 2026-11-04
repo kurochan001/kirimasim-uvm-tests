@@ -1,0 +1,3 @@
+UT: bitstream width 1 negative 1 arithmetic_sign 1
+UT: bitstream top_bit_negative 1 lower_bits_zero 1
+UT: bitstream selected_width 1

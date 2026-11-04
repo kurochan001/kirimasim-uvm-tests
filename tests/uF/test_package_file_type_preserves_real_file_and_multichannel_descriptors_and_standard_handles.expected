@@ -1,0 +1,3 @@
+UT: file_type descriptor 1 channel_one 1 channel_two 1
+UT: standard_handles stdin 1 stdout 1 stderr 1
+UT: standard_stdout delivered 1
