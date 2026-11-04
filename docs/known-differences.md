@@ -2,17 +2,41 @@
 
 [日本語](known-differences.ja.md) · [README](../README.md) · [FAQ](faq.md)
 
-This describes the current 1801-test suite and the pinned Accellera UVM
+This describes the current 1837-test suite and the pinned Accellera UVM
 2020.3.1 library. A mismatch is a test result; it does not by itself assign
 the cause to the simulator, the library or the expectation.
 
-Fifty-five elaboration fixtures expect rejection: twenty-nine direct abstract
-constructions and twenty-six pure-interface/const-reference/forbidden-member/
-type-context violations. Fifty-two match. Subscriber/visitor omissions and direct
+Fifty-nine elaboration fixtures expect rejection: thirty-two direct abstract
+constructions and twenty-seven pure-interface/const-reference/forbidden-member/
+type-context violations. Fifty-six match. Subscriber/visitor omissions and direct
 construction of the printed virtual builtin dispatcher remain accepted and
 spec-only without runtime. These three compiler acceptances are separate from
-230 known simulation differences. Legal derived controls do not replace a
+247 known simulation differences. Legal derived controls do not replace a
 required rejection.
+
+Chapter-5 probes retain seventeen new known inputs. Four legal active-policy
+calls fail to build; omitted-secs decr requires an argument despite its printed
+default. The twelve runtime inputs stop after seed 1: the time name is
+uvm_tlm_time rather than uvm_time; generic type names are port/export/implementation
+rather than their stated uvm_ forms; user_hook_enabled reports an error and zero
+before first set and after flush. Recording default-on and initial-active
+observations differ, four prohibited enable/disable calls generate no ERROR/FATAL,
+and both recorder-route probes lack the subject callback while handle/lookup/free
+controls match. Explicit-DEEP is observed as selected, so that premise is not
+assumed. These are input differences, not seventeen independently proven bugs.
+Corrected caller-unit scaling, explicit-seconds decrement and direct user-hook
+controls are separate matches. The existing printer formal-name repair changes
+one input and is remeasured with its original expected output.
+
+- Object active-policy APIs: [1](../tests/u05/test_object_active_policy_get_uses_the_standard_public_interface.sv), [2](../tests/u05/test_object_active_policy_pop_uses_the_standard_public_interface.sv), [3](../tests/u05/test_object_active_policy_push_null_uses_the_standard_public_interface.sv), [4](../tests/u05/test_object_active_policy_lifo_uses_the_standard_public_interface.sv).
+- Time decrement default: [1](../tests/u05/test_canonical_time_decrements_follow_declared_units_and_defaults.sv).
+- Time default name: [1](../tests/u05/test_canonical_time_names_follow_declared_units_and_defaults.sv).
+- Generic port names: [1](../tests/u05/test_port_base_declared_default_and_explicit_interface_types_preserve_hierarchy.sv).
+- Initial transaction activity: [1](../tests/u05/test_transaction_disabled_recording_returns_zero_before_during_and_after_execution.sv).
+- Recording default-on wording: [1](../tests/u05/test_transaction_recording_default_flag_follows_the_explicit_default_on_sentence.sv).
+- Recording-control interval errors: [1](../tests/u05/test_transaction_enable_recording_reports_error_after_accept_before_end.sv), [2](../tests/u05/test_transaction_enable_recording_reports_error_after_begin_before_end.sv), [3](../tests/u05/test_transaction_disable_recording_reports_error_after_accept_before_end.sv), [4](../tests/u05/test_transaction_disable_recording_reports_error_after_begin_before_end.sv).
+- Transaction subject recording: [1](../tests/u05/test_transaction_recording_handle_matches_the_open_recorder_and_clears_after_end.sv), [2](../tests/u05/test_transaction_explicit_deep_recording_links_the_selected_recorder_handle.sv).
+- Field-operation hook default: [1](../tests/u05/test_field_operation_hook_enabled_before_first_set.sv), [2](../tests/u05/test_field_operation_hook_enabled_after_flush_before_next_set.sv).
 
 The new [inherited-kind presence probe](../tests/u18/test_block_has_hdl_path_uses_nearest_explicit_ancestor_kind_without_changing_explicit_queries.sv)
 retains a seed-1 difference without seed 73: child and descendant keep their
@@ -676,7 +700,7 @@ cannot build because the pinned library also declares unlisted pure helpers.
 The missing-standard-hook negative supplies original compatibility bodies only
 to isolate the specified rejection. It does not repair that legal extension.
 
-Across the suite, 1568 tests have the `verilator@5.052` oracle tag and 233
+Across the suite, 1587 tests have the `verilator@5.052` oracle tag and 250
 cases are spec-only. One of the spec-only cases checks 9.6: a child's pre-reset
 task must be killed when that phase ends, but the pinned-library run on Verilator 5.052
 lets the child perform its delayed write during a later phase. The cause of
@@ -688,20 +712,20 @@ without callbacks. The pinned Verilator run reaches the blocked-state
 observation, then its watchdog expires. This combined simulator/library
 cause remains unassigned; the normative wakeup expectation is retained.
 
-The 233 spec-only tests retain their normative expected files.
-Default Verilator runs and CI select 1568 tagged checks (1516 runtime, 52 compile rejection). `--all` includes
+The 250 spec-only tests retain their normative expected files.
+Default Verilator runs and CI select 1587 tagged checks (1531 runtime, 56 compile rejection). `--all` includes
 spec-only cases and records mismatches or build failures as `known`.
-The ordinary runtime records for 173 cases establish their first difference
-at seed 1, without seed 73 results. Twenty missing-API/type-name builds have
+The ordinary runtime records for 185 cases establish their first difference
+at seed 1, without seed 73 results. Twenty-four missing-API/type-name builds have
 no ordinary runtime: one time API, six sequence-library cases, four HDL slice
-cases, one named-concat constructor, one object active-policy API, three catcher
+cases, one named-concat constructor, five object active-policy API cases, three catcher
 message-handle cases, the printed recording-state getter, the printed callback
-typedef and two builtin type_id cases. Two type-default declarations, two printed
+typedef and two builtin type_id cases. One time-decrement argument-default build, two type-default declarations, two printed
 signature conflicts and two inherited type_id registry specializations are
 separate declaration builds. One legal public-read declaration has protected-access
 failure. One legal resource-base extension requires unlisted pure hooks.
 Eleven HDL and eighteen command-line cases also
-lack linked DPI in the ordinary runner, totaling 57 simulation builds without
+lack linked DPI in the ordinary runner, totaling 62 simulation builds without
 runtime.
 
 The separate HDL
@@ -767,7 +791,7 @@ The printed create_object equivalent call's extra this argument remains partial.
 
 ## Spec-only tests
 
-These are the 233 current spec-only cases. Several exercise the same
+These are the 250 current spec-only cases. Several exercise the same
 limitation, so their count is not a count of distinct bugs.
 
 - [Inherited subscriber type_id specialization](../tests/u08/test_builtin_abstract_parameterized_components_type_id_uses_the_required_registry_specialization.sv).
@@ -1055,7 +1079,7 @@ Additional message-handle and endian cases:
 
 Two existing inputs have revised fingerprints: the command-enum citation and
 the corrected Boolean rerandomization observation. Their historical guest
-records are excluded. The compatible subset has 1083 records and 718 inputs
+records are excluded. The compatible subset has 1083 records and 754 inputs
 are unmeasured, including both revised inputs. This filtering is evidence scope,
 not a new guest failure, pass or simulator improvement.
 
@@ -1090,8 +1114,8 @@ not a new guest failure, pass or simulator improvement.
 
 ## Simulator and library combinations
 
-The suite has 1801 cases, but the kirimasim/Ghost records below cover only
-1083 unchanged current-input cases. The 718 inputs are unmeasured
+The suite has 1837 cases, but the kirimasim/Ghost records below cover only
+1083 unchanged current-input cases. The 754 inputs are unmeasured
 because prior temporary executable/profile snapshots are unavailable. Do
 not treat this as a fresh full-suite guest result. See [results](results.md).
 

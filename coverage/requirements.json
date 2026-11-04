@@ -116036,6 +116036,2163 @@
           ]
         }
       ]
+    },
+    {
+      "id": "UVM-BASE-AUDIT-OBJECT-CONSTRUCTOR",
+      "clause": "5.3.2",
+      "statement": {
+        "en": "Object construction retains an omitted empty name and explicit names.",
+        "ja": "object生成は省略時の空名と明示名を保持する。"
+      },
+      "conditions": {
+        "en": "Use direct original subclasses, actual omitted base constructor calls, explicit nonempty/empty names and static base views.",
+        "ja": "独自の直接subclass、実際に省略したbase constructor呼出し、明示非空／空名、static base viewを使う。"
+      },
+      "expected": {
+        "en": "The direct omitted base call is unnamed; nonempty/empty explicit names are retained.",
+        "ja": "直接省略したbase呼出しは無名で、非空／空の明示名を保持する。"
+      },
+      "limitations": {
+        "en": "Selected original extensions implement their own creation/type-name hooks. The overview pure-method wording conflicts with separately printed default implementations; no additional pure-hook rejection or universal factory registration is inferred. Object/transaction roles and declarations remain partial.",
+        "ja": "選択した独自拡張は自身のcreate／type-name hookを実装する。overviewのpure-method記述と別の印字既定実装には矛盾があり、追加pure-hook拒否や普遍factory登録を推測しない。object／transactionの役割と宣言は部分的に残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_object_constructor_omission_and_explicit_names_retain_void_ancestry",
+          "role": "direct",
+          "expected_observations": [
+            "UT: object_names omitted 1 explicit 1 empty 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BASE-AUDIT-OBJECT-ANCESTRY",
+      "clause": "5.3.1",
+      "statement": {
+        "en": "An original object extension has uvm_void ancestry.",
+        "ja": "独自object拡張はuvm_voidを継承する。"
+      },
+      "conditions": {
+        "en": "Use direct original subclasses, actual omitted base constructor calls, explicit nonempty/empty names and static base views.",
+        "ja": "独自の直接subclass、実際に省略したbase constructor呼出し、明示非空／空名、static base viewを使う。"
+      },
+      "expected": {
+        "en": "Implicit object/void receivers retain the same original handle.",
+        "ja": "暗黙object／void receiverは同じ元handleを保持する。"
+      },
+      "limitations": {
+        "en": "Selected original extensions implement their own creation/type-name hooks. The overview pure-method wording conflicts with separately printed default implementations; no additional pure-hook rejection or universal factory registration is inferred. Object/transaction roles and declarations remain partial.",
+        "ja": "選択した独自拡張は自身のcreate／type-name hookを実装する。overviewのpure-method記述と別の印字既定実装には矛盾があり、追加pure-hook拒否や普遍factory登録を推測しない。object／transactionの役割と宣言は部分的に残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_object_constructor_omission_and_explicit_names_retain_void_ancestry",
+          "role": "direct",
+          "expected_observations": [
+            "UT: object_base identity 1 distinct 1 virtual_name 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BASE-AUDIT-OBJECT-INTERFACES",
+      "clause": "5.3",
+      "statement": {
+        "en": "An original object extension provides virtual identification and creation interfaces.",
+        "ja": "独自object拡張はvirtualな識別／生成interfaceを提供する。"
+      },
+      "conditions": {
+        "en": "Use direct original subclasses, actual omitted base constructor calls, explicit nonempty/empty names and static base views.",
+        "ja": "独自の直接subclass、実際に省略したbase constructor呼出し、明示非空／空名、static base viewを使う。"
+      },
+      "expected": {
+        "en": "A base view reaches the original type-name hook and creates a distinct same-type object with the requested name.",
+        "ja": "base viewが独自type-name hookへ到達し、要求名を持つ別handleの同型objectを生成する。"
+      },
+      "limitations": {
+        "en": "Selected original extensions implement their own creation/type-name hooks. The overview pure-method wording conflicts with separately printed default implementations; no additional pure-hook rejection or universal factory registration is inferred. Object/transaction roles and declarations remain partial.",
+        "ja": "選択した独自拡張は自身のcreate／type-name hookを実装する。overviewのpure-method記述と別の印字既定実装には矛盾があり、追加pure-hook拒否や普遍factory登録を推測しない。object／transactionの役割と宣言は部分的に残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_object_constructor_omission_and_explicit_names_retain_void_ancestry",
+          "role": "direct",
+          "expected_observations": [
+            "UT: object_base identity 1 distinct 1 virtual_name 1",
+            "UT: object_create virtual_type 1 distinct 1 name 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BASE-AUDIT-VOID-CONTAINER",
+      "clause": "5.2",
+      "statement": {
+        "en": "Void containers can hold direct void extensions and object-derived extensions.",
+        "ja": "void containerはvoid直接拡張とobject派生拡張を保持できる。"
+      },
+      "conditions": {
+        "en": "Use direct original subclasses, actual omitted base constructor calls, explicit nonempty/empty names and static base views.",
+        "ja": "独自の直接subclass、実際に省略したbase constructor呼出し、明示非空／空名、static base viewを使う。"
+      },
+      "expected": {
+        "en": "Both original objects survive casts with identity/live mutation preserved; the plain void extension is not an object subtype.",
+        "ja": "両独自objectはcast後も同一性／live変更を保持し、plain void拡張はobject subtypeではない。"
+      },
+      "limitations": {
+        "en": "Selected original extensions implement their own creation/type-name hooks. The overview pure-method wording conflicts with separately printed default implementations; no additional pure-hook rejection or universal factory registration is inferred. Object/transaction roles and declarations remain partial.",
+        "ja": "選択した独自拡張は自身のcreate／type-name hookを実装する。overviewのpure-method記述と別の印字既定実装には矛盾があり、追加pure-hook拒否や普遍factory登録を推測しない。object／transactionの役割と宣言は部分的に残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_void_containers_hold_direct_extensions_and_object_extensions_with_live_identity",
+          "role": "direct",
+          "expected_observations": [
+            "UT: void_container two_entries 1 plain 1 object 1",
+            "UT: void_identity plain_live 1 object_same 1 no_object_ancestry 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BASE-AUDIT-TRANSACTION-CONSTRUCTOR",
+      "clause": "5.4.2.1",
+      "statement": {
+        "en": "Transaction construction retains omitted/explicit names and the optional initiator.",
+        "ja": "transaction生成は省略／明示名と任意initiatorを保持する。"
+      },
+      "conditions": {
+        "en": "Use direct original subclasses, actual omitted base constructor calls, explicit nonempty/empty names and static base views.",
+        "ja": "独自の直接subclass、実際に省略したbase constructor呼出し、明示非空／空名、static base viewを使う。"
+      },
+      "expected": {
+        "en": "The direct omitted call has empty name/null initiator; a named transaction retains the exact supplied component.",
+        "ja": "直接省略した呼出しは空名／null initiatorで、名前付きtransactionは指定componentそのものを保持する。"
+      },
+      "limitations": {
+        "en": "Selected original extensions implement their own creation/type-name hooks. The overview pure-method wording conflicts with separately printed default implementations; no additional pure-hook rejection or universal factory registration is inferred. Object/transaction roles and declarations remain partial.",
+        "ja": "選択した独自拡張は自身のcreate／type-name hookを実装する。overviewのpure-method記述と別の印字既定実装には矛盾があり、追加pure-hook拒否や普遍factory登録を推測しない。object／transactionの役割と宣言は部分的に残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_transaction_constructor_omission_names_and_initiator_defaults",
+          "role": "direct",
+          "expected_observations": [
+            "UT: transaction_names omitted 1 explicit 1 empty 1",
+            "UT: transaction_constructor null_default 1 initiator 1 ancestry 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BASE-AUDIT-TRANSACTION-ROLE",
+      "clause": "5.4",
+      "statement": {
+        "en": "An original transaction extension retains the object interface and selected initiator identity.",
+        "ja": "独自transaction拡張はobject interfaceと選択initiator同一性を保持する。"
+      },
+      "conditions": {
+        "en": "Use direct original subclasses, actual omitted base constructor calls, explicit nonempty/empty names and static base views.",
+        "ja": "独自の直接subclass、実際に省略したbase constructor呼出し、明示非空／空名、static base viewを使う。"
+      },
+      "expected": {
+        "en": "The transaction and object views reference the same named original instance.",
+        "ja": "transaction／object viewは同じ名前付き独自instanceを参照する。"
+      },
+      "limitations": {
+        "en": "Selected original extensions implement their own creation/type-name hooks. The overview pure-method wording conflicts with separately printed default implementations; no additional pure-hook rejection or universal factory registration is inferred. Object/transaction roles and declarations remain partial.",
+        "ja": "選択した独自拡張は自身のcreate／type-name hookを実装する。overviewのpure-method記述と別の印字既定実装には矛盾があり、追加pure-hook拒否や普遍factory登録を推測しない。object／transactionの役割と宣言は部分的に残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_transaction_constructor_omission_names_and_initiator_defaults",
+          "role": "direct",
+          "expected_observations": [
+            "UT: transaction_constructor null_default 1 initiator 1 ancestry 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BASE-AUDIT-BASE-ROLE",
+      "clause": "5.1",
+      "statement": {
+        "en": "The selected original object and transaction building blocks retain object ancestry.",
+        "ja": "選択した独自object／transaction構成要素はobject継承を保持する。"
+      },
+      "conditions": {
+        "en": "Construct distinct original extensions and view them through the declared object/void bases.",
+        "ja": "別々の独自拡張を生成し、宣言されたobject／void基底経由で観測する。"
+      },
+      "expected": {
+        "en": "Identity is retained across the selected static base receivers.",
+        "ja": "選択static base receiver間で同一性を保持する。"
+      },
+      "limitations": {
+        "en": "Selected original extensions implement their own creation/type-name hooks. The overview pure-method wording conflicts with separately printed default implementations; no additional pure-hook rejection or universal factory registration is inferred. Object/transaction roles and declarations remain partial.",
+        "ja": "選択した独自拡張は自身のcreate／type-name hookを実装する。overviewのpure-method記述と別の印字既定実装には矛盾があり、追加pure-hook拒否や普遍factory登録を推測しない。object／transactionの役割と宣言は部分的に残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_object_constructor_omission_and_explicit_names_retain_void_ancestry",
+          "role": "direct",
+          "expected_observations": [
+            "UT: object_base identity 1 distinct 1 virtual_name 1"
+          ]
+        },
+        {
+          "test": "u05/test_transaction_constructor_omission_names_and_initiator_defaults",
+          "role": "direct",
+          "expected_observations": [
+            "UT: transaction_constructor null_default 1 initiator 1 ancestry 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BASE-AUDIT-OBJECT-VIRTUAL",
+      "clause": "5.3.1",
+      "statement": {
+        "en": "Direct construction of virtual uvm_object is illegal.",
+        "ja": "virtual uvm_objectの直接生成は不正である。"
+      },
+      "conditions": {
+        "en": "One minimal illegal construction/member use is isolated with a separately compiled legal extension control.",
+        "ja": "最小の不正生成／member使用を分離し、別にcompileする合法拡張controlを持つ。"
+      },
+      "expected": {
+        "en": "The declared fixture/type/member diagnostic predicate matches compiler rejection; no runtime seed runs, even if accepted.",
+        "ja": "宣言fixture／type／member診断predicateがcompiler拒否に一致し、受理されてもruntime seedを実行しない。"
+      },
+      "limitations": {
+        "en": "Selected declaration/member visibility only. A legal extension does not substitute for required rejection.",
+        "ja": "選択した宣言／member可視性のみで、合法拡張は必要な拒否の代わりではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_object_virtual_base_rejects_direct_construction",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?i)^(?=.*test_object_virtual_base_rejects_direct_construction\\.sv:[0-9]+:[0-9]+:)(?=.*\\b(?:virtual|abstract)\\b)(?=.*\\buvm_object\\b).*error"
+          }
+        },
+        {
+          "test": "u05/test_object_constructor_omission_and_explicit_names_retain_void_ancestry",
+          "role": "control",
+          "expected_observations": [
+            "UT: object_names omitted 1 explicit 1 empty 1",
+            "UT: object_base identity 1 distinct 1 virtual_name 1",
+            "UT: object_create virtual_type 1 distinct 1 name 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BASE-AUDIT-VOID-VIRTUAL",
+      "clause": "5.2",
+      "statement": {
+        "en": "Direct construction of virtual uvm_void is illegal.",
+        "ja": "virtual uvm_voidの直接生成は不正である。"
+      },
+      "conditions": {
+        "en": "One minimal illegal construction/member use is isolated with a separately compiled legal extension control.",
+        "ja": "最小の不正生成／member使用を分離し、別にcompileする合法拡張controlを持つ。"
+      },
+      "expected": {
+        "en": "The declared fixture/type/member diagnostic predicate matches compiler rejection; no runtime seed runs, even if accepted.",
+        "ja": "宣言fixture／type／member診断predicateがcompiler拒否に一致し、受理されてもruntime seedを実行しない。"
+      },
+      "limitations": {
+        "en": "Selected declaration/member visibility only. A legal extension does not substitute for required rejection.",
+        "ja": "選択した宣言／member可視性のみで、合法拡張は必要な拒否の代わりではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_void_virtual_base_rejects_direct_construction",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?i)^(?=.*test_void_virtual_base_rejects_direct_construction\\.sv:[0-9]+:[0-9]+:)(?=.*\\b(?:virtual|abstract)\\b)(?=.*\\buvm_void\\b).*error"
+          }
+        },
+        {
+          "test": "u05/test_void_containers_hold_direct_extensions_and_object_extensions_with_live_identity",
+          "role": "control",
+          "expected_observations": [
+            "UT: void_container two_entries 1 plain 1 object 1",
+            "UT: void_identity plain_live 1 object_same 1 no_object_ancestry 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BASE-AUDIT-VOID-NO-OBJECT-METHOD",
+      "clause": "5.2",
+      "statement": {
+        "en": "A direct void extension does not inherit the object get_name interface.",
+        "ja": "void直接拡張はobjectのget_name interfaceを継承しない。"
+      },
+      "conditions": {
+        "en": "One minimal illegal construction/member use is isolated with a separately compiled legal extension control.",
+        "ja": "最小の不正生成／member使用を分離し、別にcompileする合法拡張controlを持つ。"
+      },
+      "expected": {
+        "en": "The declared fixture/type/member diagnostic predicate matches compiler rejection; no runtime seed runs, even if accepted.",
+        "ja": "宣言fixture／type／member診断predicateがcompiler拒否に一致し、受理されてもruntime seedを実行しない。"
+      },
+      "limitations": {
+        "en": "Selected declaration/member visibility only. A legal extension does not substitute for required rejection.",
+        "ja": "選択した宣言／member可視性のみで、合法拡張は必要な拒否の代わりではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_direct_void_extension_has_no_inherited_object_name_method",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?i)^(?=.*test_direct_void_extension_has_no_inherited_object_name_method\\.sv:[0-9]+:[0-9]+:)(?=.*\\bget_name\\b)(?=.*(?:not found|can't find|no member|does not exist|unknown)).*error"
+          }
+        },
+        {
+          "test": "u05/test_void_containers_hold_direct_extensions_and_object_extensions_with_live_identity",
+          "role": "control",
+          "expected_observations": [
+            "UT: void_container two_entries 1 plain 1 object 1",
+            "UT: void_identity plain_live 1 object_same 1 no_object_ancestry 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BASE-AUDIT-PORT-VIRTUAL",
+      "clause": "5.5.1",
+      "statement": {
+        "en": "Direct construction of the virtual port base is illegal.",
+        "ja": "virtual port baseの直接生成は不正である。"
+      },
+      "conditions": {
+        "en": "One minimal illegal construction/member use is isolated with a separately compiled legal extension control.",
+        "ja": "最小の不正生成／member使用を分離し、別にcompileする合法拡張controlを持つ。"
+      },
+      "expected": {
+        "en": "The declared fixture/type/member diagnostic predicate matches compiler rejection; no runtime seed runs, even if accepted.",
+        "ja": "宣言fixture／type／member診断predicateがcompiler拒否に一致し、受理されてもruntime seedを実行しない。"
+      },
+      "limitations": {
+        "en": "Selected declaration/member visibility only. A legal extension does not substitute for required rejection.",
+        "ja": "選択した宣言／member可視性のみで、合法拡張は必要な拒否の代わりではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_port_base_virtual_declaration_rejects_direct_construction",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?i)^(?=.*test_port_base_virtual_declaration_rejects_direct_construction\\.sv:[0-9]+:[0-9]+:)(?=.*\\b(?:virtual|abstract)\\b)(?=.*\\buvm_port_base\\b).*error"
+          }
+        },
+        {
+          "test": "u05/test_port_base_declared_default_and_explicit_interface_types_preserve_hierarchy",
+          "role": "control",
+          "expected_observations": [
+            "UT: port_base default_type 1 explicit_inheritance 1 names 1 parent 1",
+            "UT: port_defaults min_zero 1 max_one 1 generic_names 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BASE-AUDIT-ACTIVE-EMPTY-GET",
+      "clause": "5.3.14.3",
+      "statement": {
+        "en": "An empty object active-policy query returns null.",
+        "ja": "空のobject active-policy照会はnullを返す。"
+      },
+      "conditions": {
+        "en": "Use original concrete objects and two legal copier policies; empty-only probes require no other stack method.",
+        "ja": "独自具象objectと合法copier policy 2個を使い、空専用probeは他のstack methodを要求しない。"
+      },
+      "expected": {
+        "en": "The independent getter-only fixture observes null.",
+        "ja": "独立したgetter専用fixtureはnullを観測する。"
+      },
+      "limitations": {
+        "en": "Use object-side standard APIs directly, without substituting policy-side depth or unlisted internal accessors. A missing legal API is a build difference without runtime. Generic error notification accepts ERROR/FATAL, with no exact severity/ID/text/count or recovery mandate.",
+        "ja": "object側の規格APIを直接使い、policy側depthや記載外内部accessorで代用しない。合法APIの欠落はruntimeなしのbuild差分である。一般error通知はERROR／FATALを許し、正確なseverity／ID／文面／回数や復旧は指定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_object_active_policy_get_uses_the_standard_public_interface",
+          "role": "direct",
+          "expected_observations": [
+            "UT: empty_policy null 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BASE-AUDIT-ACTIVE-EMPTY-POP",
+      "clause": "5.3.14.2",
+      "statement": {
+        "en": "Popping an empty object policy stack returns null.",
+        "ja": "空のobject policy stackのpopはnullを返す。"
+      },
+      "conditions": {
+        "en": "Use original concrete objects and two legal copier policies; empty-only probes require no other stack method.",
+        "ja": "独自具象objectと合法copier policy 2個を使い、空専用probeは他のstack methodを要求しない。"
+      },
+      "expected": {
+        "en": "The independent pop-only fixture observes null.",
+        "ja": "独立したpop専用fixtureはnullを観測する。"
+      },
+      "limitations": {
+        "en": "Use object-side standard APIs directly, without substituting policy-side depth or unlisted internal accessors. A missing legal API is a build difference without runtime. Generic error notification accepts ERROR/FATAL, with no exact severity/ID/text/count or recovery mandate.",
+        "ja": "object側の規格APIを直接使い、policy側depthや記載外内部accessorで代用しない。合法APIの欠落はruntimeなしのbuild差分である。一般error通知はERROR／FATALを許し、正確なseverity／ID／文面／回数や復旧は指定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_object_active_policy_pop_uses_the_standard_public_interface",
+          "role": "direct",
+          "expected_observations": [
+            "UT: empty_policy null 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BASE-AUDIT-ACTIVE-NULL-ERROR",
+      "clause": "5.3.14.1",
+      "statement": {
+        "en": "Pushing a null policy generates an error.",
+        "ja": "null policyのpushはerrorを発生させる。"
+      },
+      "conditions": {
+        "en": "Use original concrete objects and two legal copier policies; empty-only probes require no other stack method.",
+        "ja": "独自具象objectと合法copier policy 2個を使い、空専用probeは他のstack methodを要求しない。"
+      },
+      "expected": {
+        "en": "The independent push-null fixture observes an error notification.",
+        "ja": "独立したpush-null fixtureはerror通知を観測する。"
+      },
+      "limitations": {
+        "en": "Use object-side standard APIs directly, without substituting policy-side depth or unlisted internal accessors. A missing legal API is a build difference without runtime. Generic error notification accepts ERROR/FATAL, with no exact severity/ID/text/count or recovery mandate.",
+        "ja": "object側の規格APIを直接使い、policy側depthや記載外内部accessorで代用しない。合法APIの欠落はruntimeなしのbuild差分である。一般error通知はERROR／FATALを許し、正確なseverity／ID／文面／回数や復旧は指定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_object_active_policy_push_null_uses_the_standard_public_interface",
+          "role": "direct",
+          "expected_observations": [
+            "UT: null_policy error 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BASE-AUDIT-ACTIVE-PUSH-HEAD",
+      "clause": "5.3.14.1",
+      "statement": {
+        "en": "Push makes the selected policy current and ignores a null request after reporting.",
+        "ja": "pushは選択policyをcurrentにし、null要求は報告後に無視する。"
+      },
+      "conditions": {
+        "en": "Use original concrete objects and two legal copier policies; empty-only probes require no other stack method.",
+        "ja": "独自具象objectと合法copier policy 2個を使い、空専用probeは他のstack methodを要求しない。"
+      },
+      "expected": {
+        "en": "The second policy is current; null reports without changing that head and the peer remains empty.",
+        "ja": "第2 policyがcurrentとなり、nullは先頭を変えず報告し、peerは空を保つ。"
+      },
+      "limitations": {
+        "en": "Use object-side standard APIs directly, without substituting policy-side depth or unlisted internal accessors. A missing legal API is a build difference without runtime. Generic error notification accepts ERROR/FATAL, with no exact severity/ID/text/count or recovery mandate.",
+        "ja": "object側の規格APIを直接使い、policy側depthや記載外内部accessorで代用しない。合法APIの欠落はruntimeなしのbuild差分である。一般error通知はERROR／FATALを許し、正確なseverity／ID／文面／回数や復旧は指定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_object_active_policy_lifo_uses_the_standard_public_interface",
+          "role": "direct",
+          "expected_observations": [
+            "UT: policy_push latest 1 peer_empty 1",
+            "UT: null_policy_preserved error 1 same_top 1",
+            "UT: policy_pop second 1 first_restored 1",
+            "UT: policy_empty first 1 empty 1 extra_null 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BASE-AUDIT-ACTIVE-POP-LIFO",
+      "clause": "5.3.14.2",
+      "statement": {
+        "en": "Pop returns the most recently pushed policy and restores its predecessor.",
+        "ja": "popは直近にpushしたpolicyを返し、その前のpolicyを復元する。"
+      },
+      "conditions": {
+        "en": "Use original concrete objects and two legal copier policies; empty-only probes require no other stack method.",
+        "ja": "独自具象objectと合法copier policy 2個を使い、空専用probeは他のstack methodを要求しない。"
+      },
+      "expected": {
+        "en": "Second then first are returned; the final extra pop is null.",
+        "ja": "第2、第1の順に返り、最後の追加popはnullである。"
+      },
+      "limitations": {
+        "en": "Use object-side standard APIs directly, without substituting policy-side depth or unlisted internal accessors. A missing legal API is a build difference without runtime. Generic error notification accepts ERROR/FATAL, with no exact severity/ID/text/count or recovery mandate.",
+        "ja": "object側の規格APIを直接使い、policy側depthや記載外内部accessorで代用しない。合法APIの欠落はruntimeなしのbuild差分である。一般error通知はERROR／FATALを許し、正確なseverity／ID／文面／回数や復旧は指定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_object_active_policy_lifo_uses_the_standard_public_interface",
+          "role": "direct",
+          "expected_observations": [
+            "UT: policy_push latest 1 peer_empty 1",
+            "UT: null_policy_preserved error 1 same_top 1",
+            "UT: policy_pop second 1 first_restored 1",
+            "UT: policy_empty first 1 empty 1 extra_null 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BASE-AUDIT-ACTIVE-QUERY-HEAD",
+      "clause": "5.3.14.3",
+      "statement": {
+        "en": "The active-policy getter tracks the selected object stack head.",
+        "ja": "active-policy getterは選択object stackの先頭に従う。"
+      },
+      "conditions": {
+        "en": "Use original concrete objects and two legal copier policies; empty-only probes require no other stack method.",
+        "ja": "独自具象objectと合法copier policy 2個を使い、空専用probeは他のstack methodを要求しない。"
+      },
+      "expected": {
+        "en": "Queries follow the second/first/empty transitions independently of a peer object.",
+        "ja": "照会はpeer objectと独立に第2／第1／空の遷移に従う。"
+      },
+      "limitations": {
+        "en": "Use object-side standard APIs directly, without substituting policy-side depth or unlisted internal accessors. A missing legal API is a build difference without runtime. Generic error notification accepts ERROR/FATAL, with no exact severity/ID/text/count or recovery mandate.",
+        "ja": "object側の規格APIを直接使い、policy側depthや記載外内部accessorで代用しない。合法APIの欠落はruntimeなしのbuild差分である。一般error通知はERROR／FATALを許し、正確なseverity／ID／文面／回数や復旧は指定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_object_active_policy_lifo_uses_the_standard_public_interface",
+          "role": "direct",
+          "expected_observations": [
+            "UT: policy_push latest 1 peer_empty 1",
+            "UT: null_policy_preserved error 1 same_top 1",
+            "UT: policy_pop second 1 first_restored 1",
+            "UT: policy_empty first 1 empty 1 extra_null 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BASE-AUDIT-NULL-PACK",
+      "clause": "5.3.10.2",
+      "statement": {
+        "en": "The inherited do_pack hook reports a null packer as an error.",
+        "ja": "継承do_pack hookはnull packerをerrorとして報告する。"
+      },
+      "conditions": {
+        "en": "An original concrete object supplies only its legal creation/type-name hooks, leaving the library packing hook inherited; invoke it via an object base view.",
+        "ja": "独自具象objectは合法create／type-name hookだけを実装し、library packing hookを継承したままobject base viewで呼ぶ。"
+      },
+      "expected": {
+        "en": "The gated catcher observes an ERROR/FATAL notification for the selected direct null call.",
+        "ja": "gate付きcatcherは選択した直接null呼出しのERROR／FATAL通知を観測する。"
+      },
+      "limitations": {
+        "en": "No exact report identity/count, user override null handling or post-error policy state is inferred.",
+        "ja": "正確なreport識別／回数、ユーザーoverrideのnull処理、error後のpolicy状態は推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_object_inherited_do_pack_reports_error_for_a_null_policy",
+          "role": "direct",
+          "expected_observations": [
+            "UT: null_hook error 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BASE-AUDIT-NULL-UNPACK",
+      "clause": "5.3.11.2",
+      "statement": {
+        "en": "The inherited do_unpack hook reports a null packer as an error.",
+        "ja": "継承do_unpack hookはnull packerをerrorとして報告する。"
+      },
+      "conditions": {
+        "en": "An original concrete object supplies only its legal creation/type-name hooks, leaving the library packing hook inherited; invoke it via an object base view.",
+        "ja": "独自具象objectは合法create／type-name hookだけを実装し、library packing hookを継承したままobject base viewで呼ぶ。"
+      },
+      "expected": {
+        "en": "The gated catcher observes an ERROR/FATAL notification for the selected direct null call.",
+        "ja": "gate付きcatcherは選択した直接null呼出しのERROR／FATAL通知を観測する。"
+      },
+      "limitations": {
+        "en": "No exact report identity/count, user override null handling or post-error policy state is inferred.",
+        "ja": "正確なreport識別／回数、ユーザーoverrideのnull処理、error後のpolicy状態は推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_object_inherited_do_unpack_reports_error_for_a_null_policy",
+          "role": "direct",
+          "expected_observations": [
+            "UT: null_hook error 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BASE-AUDIT-DISABLED-HANDLE",
+      "clause": "5.4.2.8",
+      "statement": {
+        "en": "A nonrecording transaction has a zero transaction handle before/during/after execution.",
+        "ja": "非記録transactionのhandleは実行前／中／後で0である。"
+      },
+      "conditions": {
+        "en": "Use fresh original transactions and legally opened streams, positive begin/end times and exact original recorder identities.",
+        "ja": "新規独自transaction、合法に開いたstream、正のbegin／end時刻、正確な独自recorder同一性を使う。"
+      },
+      "expected": {
+        "en": "The begin return and handle getter are zero while selected lifecycle-state observations remain separate.",
+        "ja": "begin返却とhandle getterは0で、選択lifecycle状態観測は別に残す。"
+      },
+      "limitations": {
+        "en": "Original database/stream/recorder hooks expose live handles and object recording without a database-format oracle or fixed numeric IDs. Implicit-default and explicit-DEEP inputs are separate; neither can pass the other. The disabled input retains the separately known initial-active predicate, and matching handle observations do not pass that entire input. No post-error recovery is asserted.",
+        "ja": "独自DB／stream／recorder hookで、DB形式oracleや固定数値IDなしにlive handleとobject recordingを観測する。暗黙既定／明示DEEP入力は別で、一方で他方をpassにしない。無効化入力には別途既知の初期active predicateを保持し、handle観測の一致で全入力をpassにしない。error後の復旧は主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_transaction_disabled_recording_returns_zero_before_during_and_after_execution",
+          "role": "direct",
+          "expected_observations": [
+            "UT: disabled_before no_handle 1 disabled 1 inactive 1",
+            "UT: disabled_during return_zero 1 no_handle 1 active 1",
+            "UT: disabled_after no_handle 1 inactive 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BASE-AUDIT-ENABLED-HANDLE",
+      "clause": "5.4.2.8",
+      "statement": {
+        "en": "A recorded begin exposes the opened recorder handle.",
+        "ja": "記録するbeginは開いたrecorder handleを返す。"
+      },
+      "conditions": {
+        "en": "Use fresh original transactions and legally opened streams, positive begin/end times and exact original recorder identities.",
+        "ja": "新規独自transaction、合法に開いたstream、正のbegin／end時刻、正確な独自recorder同一性を使う。"
+      },
+      "expected": {
+        "en": "The nonzero begin/getter handles agree and resolve to the exact original recorder.",
+        "ja": "非0のbegin／getter handleが一致し、同じ独自recorderへ解決する。"
+      },
+      "limitations": {
+        "en": "Original database/stream/recorder hooks expose live handles and object recording without a database-format oracle or fixed numeric IDs. Implicit-default and explicit-DEEP inputs are separate; neither can pass the other. The disabled input retains the separately known initial-active predicate, and matching handle observations do not pass that entire input. No post-error recovery is asserted.",
+        "ja": "独自DB／stream／recorder hookで、DB形式oracleや固定数値IDなしにlive handleとobject recordingを観測する。暗黙既定／明示DEEP入力は別で、一方で他方をpassにしない。無効化入力には別途既知の初期active predicateを保持し、handle観測の一致で全入力をpassにしない。error後の復旧は主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_transaction_recording_handle_matches_the_open_recorder_and_clears_after_end",
+          "role": "direct",
+          "expected_observations": [
+            "UT: recording_handle valid 1 same 1 lookup 1 recorded_subject 1"
+          ]
+        },
+        {
+          "test": "u05/test_transaction_explicit_deep_recording_links_the_selected_recorder_handle",
+          "role": "direct",
+          "expected_observations": [
+            "UT: recording_handle valid 1 same 1 lookup 1 recorded_subject 1 deep_mode 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BASE-AUDIT-ENDED-HANDLE",
+      "clause": "5.4.2.8",
+      "statement": {
+        "en": "An ended transaction has no live transaction handle.",
+        "ja": "終了transactionはlive transaction handleを持たない。"
+      },
+      "conditions": {
+        "en": "Use fresh original transactions and legally opened streams, positive begin/end times and exact original recorder identities.",
+        "ja": "新規独自transaction、合法に開いたstream、正のbegin／end時刻、正確な独自recorder同一性を使う。"
+      },
+      "expected": {
+        "en": "The getter returns zero; the default free releases the recorder handle and ID lookup becomes null.",
+        "ja": "getterは0となり、既定freeはrecorder handleを解放してID lookupはnullとなる。"
+      },
+      "limitations": {
+        "en": "Original database/stream/recorder hooks expose live handles and object recording without a database-format oracle or fixed numeric IDs. Implicit-default and explicit-DEEP inputs are separate; neither can pass the other. The disabled input retains the separately known initial-active predicate, and matching handle observations do not pass that entire input. No post-error recovery is asserted.",
+        "ja": "独自DB／stream／recorder hookで、DB形式oracleや固定数値IDなしにlive handleとobject recordingを観測する。暗黙既定／明示DEEP入力は別で、一方で他方をpassにしない。無効化入力には別途既知の初期active predicateを保持し、handle観測の一致で全入力をpassにしない。error後の復旧は主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_transaction_recording_handle_matches_the_open_recorder_and_clears_after_end",
+          "role": "direct",
+          "expected_observations": [
+            "UT: recording_ended no_handle 1 freed 1 lookup_null 1"
+          ]
+        },
+        {
+          "test": "u05/test_transaction_explicit_deep_recording_links_the_selected_recorder_handle",
+          "role": "direct",
+          "expected_observations": [
+            "UT: recording_ended no_handle 1 freed 1 lookup_null 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BASE-AUDIT-BEGIN-RECORD-OBJECT",
+      "clause": "5.4.2.4",
+      "statement": {
+        "en": "Recorded begin calls object recording on the transaction.",
+        "ja": "記録するbeginはtransactionにobject recordingを呼ぶ。"
+      },
+      "conditions": {
+        "en": "Use fresh original transactions and legally opened streams, positive begin/end times and exact original recorder identities.",
+        "ja": "新規独自transaction、合法に開いたstream、正のbegin／end時刻、正確な独自recorder同一性を使う。"
+      },
+      "expected": {
+        "en": "The original recorder object hook observes the exact transaction handle.",
+        "ja": "独自recorder object hookが同じtransaction handleを観測する。"
+      },
+      "limitations": {
+        "en": "Original database/stream/recorder hooks expose live handles and object recording without a database-format oracle or fixed numeric IDs. Implicit-default and explicit-DEEP inputs are separate; neither can pass the other. The disabled input retains the separately known initial-active predicate, and matching handle observations do not pass that entire input. No post-error recovery is asserted.",
+        "ja": "独自DB／stream／recorder hookで、DB形式oracleや固定数値IDなしにlive handleとobject recordingを観測する。暗黙既定／明示DEEP入力は別で、一方で他方をpassにしない。無効化入力には別途既知の初期active predicateを保持し、handle観測の一致で全入力をpassにしない。error後の復旧は主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_transaction_recording_handle_matches_the_open_recorder_and_clears_after_end",
+          "role": "direct",
+          "expected_observations": [
+            "UT: recording_handle valid 1 same 1 lookup 1 recorded_subject 1"
+          ]
+        },
+        {
+          "test": "u05/test_transaction_explicit_deep_recording_links_the_selected_recorder_handle",
+          "role": "direct",
+          "expected_observations": [
+            "UT: recording_handle valid 1 same 1 lookup 1 recorded_subject 1 deep_mode 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BASE-AUDIT-RECORDING-DEFAULT",
+      "clause": "5.4.2.9",
+      "statement": {
+        "en": "The selected literal reading of the recording-on default applies to a fresh transaction.",
+        "ja": "選択したrecording-on既定値の逐語解釈を新規transactionへ適用する。"
+      },
+      "conditions": {
+        "en": "Use fresh original transactions and legally opened streams, positive begin/end times and exact original recorder identities.",
+        "ja": "新規独自transaction、合法に開いたstream、正のbegin／end時刻、正確な独自recorder同一性を使う。"
+      },
+      "expected": {
+        "en": "The initial public recording-enabled flag is true.",
+        "ja": "初期の公開recording-enabled flagはtrueである。"
+      },
+      "limitations": {
+        "en": "The parenthetical default-on sentence is retained as an explicit qualified interpretation; it does not identify an implicit default stream or remove stream-configuration ambiguity.",
+        "ja": "括弧内のdefault-on文を明示した限定解釈として保持し、暗黙の既定streamを特定したりstream設定の曖昧さを解消したりしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_transaction_recording_default_flag_follows_the_explicit_default_on_sentence",
+          "role": "direct",
+          "expected_observations": [
+            "UT: recording_default enabled 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BASE-AUDIT-RECORDING-QUERY",
+      "clause": "5.4.2.11",
+      "statement": {
+        "en": "The recording-state query reports selected enable/null/disable changes.",
+        "ja": "recording状態照会は選択enable／null／disable変更を返す。"
+      },
+      "conditions": {
+        "en": "Use fresh original transactions and legally opened streams, positive begin/end times and exact original recorder identities.",
+        "ja": "新規独自transaction、合法に開いたstream、正のbegin／end時刻、正確な独自recorder同一性を使う。"
+      },
+      "expected": {
+        "en": "Enabled state and peer isolation follow the selected stream-control calls.",
+        "ja": "enabled状態とpeer独立性は選択stream制御呼出しに従う。"
+      },
+      "limitations": {
+        "en": "Original database/stream/recorder hooks expose live handles and object recording without a database-format oracle or fixed numeric IDs. Implicit-default and explicit-DEEP inputs are separate; neither can pass the other. The disabled input retains the separately known initial-active predicate, and matching handle observations do not pass that entire input. No post-error recovery is asserted.",
+        "ja": "独自DB／stream／recorder hookで、DB形式oracleや固定数値IDなしにlive handleとobject recordingを観測する。暗黙既定／明示DEEP入力は別で、一方で他方をpassにしない。無効化入力には別途既知の初期active predicateを保持し、handle観測の一致で全入力をpassにしない。error後の復旧は主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_transaction_recording_handle_matches_the_open_recorder_and_clears_after_end",
+          "role": "direct",
+          "expected_observations": [
+            "UT: recording_selected enabled 1 before_handle_zero 1"
+          ]
+        },
+        {
+          "test": "u05/test_transaction_disable_and_enable_null_are_equivalent_before_an_active_interval",
+          "role": "direct",
+          "expected_observations": [
+            "UT: recording_null selected_off 1 peer_on 1",
+            "UT: recording_disable selected_off 1 peer_on 1 no_recorder 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BASE-AUDIT-RECORDING-REPLACE",
+      "clause": "5.4.2.9",
+      "statement": {
+        "en": "The most recently enabled stream replaces the prior stream.",
+        "ja": "直近に有効化したstreamは以前のstreamを置き換える。"
+      },
+      "conditions": {
+        "en": "Use fresh original transactions and legally opened streams, positive begin/end times and exact original recorder identities.",
+        "ja": "新規独自transaction、合法に開いたstream、正のbegin／end時刻、正確な独自recorder同一性を使う。"
+      },
+      "expected": {
+        "en": "Only the second stream opens a recorder and its handle is returned.",
+        "ja": "第2 streamだけがrecorderを開き、そのhandleが返る。"
+      },
+      "limitations": {
+        "en": "Original database/stream/recorder hooks expose live handles and object recording without a database-format oracle or fixed numeric IDs. Implicit-default and explicit-DEEP inputs are separate; neither can pass the other. The disabled input retains the separately known initial-active predicate, and matching handle observations do not pass that entire input. No post-error recovery is asserted.",
+        "ja": "独自DB／stream／recorder hookで、DB形式oracleや固定数値IDなしにlive handleとobject recordingを観測する。暗黙既定／明示DEEP入力は別で、一方で他方をpassにしない。無効化入力には別途既知の初期active predicateを保持し、handle観測の一致で全入力をpassにしない。error後の復旧は主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_transaction_enable_recording_replaces_the_previous_stream_before_begin",
+          "role": "direct",
+          "expected_observations": [
+            "UT: recording_replaced first_unused 1 second_used 1 exact_handle 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BASE-AUDIT-RECORDING-DISABLE-NULL",
+      "clause": "5.4.2.10",
+      "statement": {
+        "en": "Disable is equivalent to enabling null before an active interval.",
+        "ja": "active期間前のdisableはnullのenableと等価である。"
+      },
+      "conditions": {
+        "en": "Use fresh original transactions and legally opened streams, positive begin/end times and exact original recorder identities.",
+        "ja": "新規独自transaction、合法に開いたstream、正のbegin／end時刻、正確な独自recorder同一性を使う。"
+      },
+      "expected": {
+        "en": "Both calls turn off only the selected transaction, keep its peer enabled and open no recorder.",
+        "ja": "両呼出しは選択transactionだけをoffにし、peerはenabledでrecorderを開かない。"
+      },
+      "limitations": {
+        "en": "Original database/stream/recorder hooks expose live handles and object recording without a database-format oracle or fixed numeric IDs. Implicit-default and explicit-DEEP inputs are separate; neither can pass the other. The disabled input retains the separately known initial-active predicate, and matching handle observations do not pass that entire input. No post-error recovery is asserted.",
+        "ja": "独自DB／stream／recorder hookで、DB形式oracleや固定数値IDなしにlive handleとobject recordingを観測する。暗黙既定／明示DEEP入力は別で、一方で他方をpassにしない。無効化入力には別途既知の初期active predicateを保持し、handle観測の一致で全入力をpassにしない。error後の復旧は主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_transaction_disable_and_enable_null_are_equivalent_before_an_active_interval",
+          "role": "direct",
+          "expected_observations": [
+            "UT: recording_null selected_off 1 peer_on 1",
+            "UT: recording_disable selected_off 1 peer_on 1 no_recorder 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BASE-AUDIT-RECORDING-ENABLE-AFTER-ACCEPT",
+      "clause": "5.4.2.9",
+      "statement": {
+        "en": "enable recording after accept and before end generates an error.",
+        "ja": "accept後かつend前のrecording enableはerrorを発生させる。"
+      },
+      "conditions": {
+        "en": "Use a valid stream and a positive-time accept/begin mark before the single forbidden control call. The enable and disable fixtures start in their relevant opposite states.",
+        "ja": "有効streamと正時刻accept／begin markを使い、1つの禁止制御呼出しを行う。enable／disable fixtureは対応する反対状態から開始する。"
+      },
+      "expected": {
+        "en": "An ERROR/FATAL notification is observed without requiring an exact severity/ID/text/count.",
+        "ja": "正確なseverity／ID／文面／回数を要求せずERROR／FATAL通知を観測する。"
+      },
+      "limitations": {
+        "en": "The selected interval reading qualifies the accept/begin-before-end prose. No state recovery, request delivery or stream preservation after error is asserted.",
+        "ja": "accept／begin後end前という本文を選択期間として限定し、error後の状態復旧、要求配送、stream保持を主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_transaction_enable_recording_reports_error_after_accept_before_end",
+          "role": "direct",
+          "expected_observations": [
+            "UT: recording_interval error 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BASE-AUDIT-RECORDING-ENABLE-AFTER-BEGIN",
+      "clause": "5.4.2.9",
+      "statement": {
+        "en": "enable recording after begin and before end generates an error.",
+        "ja": "begin後かつend前のrecording enableはerrorを発生させる。"
+      },
+      "conditions": {
+        "en": "Use a valid stream and a positive-time accept/begin mark before the single forbidden control call. The enable and disable fixtures start in their relevant opposite states.",
+        "ja": "有効streamと正時刻accept／begin markを使い、1つの禁止制御呼出しを行う。enable／disable fixtureは対応する反対状態から開始する。"
+      },
+      "expected": {
+        "en": "An ERROR/FATAL notification is observed without requiring an exact severity/ID/text/count.",
+        "ja": "正確なseverity／ID／文面／回数を要求せずERROR／FATAL通知を観測する。"
+      },
+      "limitations": {
+        "en": "The selected interval reading qualifies the accept/begin-before-end prose. No state recovery, request delivery or stream preservation after error is asserted.",
+        "ja": "accept／begin後end前という本文を選択期間として限定し、error後の状態復旧、要求配送、stream保持を主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_transaction_enable_recording_reports_error_after_begin_before_end",
+          "role": "direct",
+          "expected_observations": [
+            "UT: recording_interval error 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BASE-AUDIT-RECORDING-DISABLE-AFTER-ACCEPT",
+      "clause": "5.4.2.10",
+      "statement": {
+        "en": "disable recording after accept and before end generates an error.",
+        "ja": "accept後かつend前のrecording disableはerrorを発生させる。"
+      },
+      "conditions": {
+        "en": "Use a valid stream and a positive-time accept/begin mark before the single forbidden control call. The enable and disable fixtures start in their relevant opposite states.",
+        "ja": "有効streamと正時刻accept／begin markを使い、1つの禁止制御呼出しを行う。enable／disable fixtureは対応する反対状態から開始する。"
+      },
+      "expected": {
+        "en": "An ERROR/FATAL notification is observed without requiring an exact severity/ID/text/count.",
+        "ja": "正確なseverity／ID／文面／回数を要求せずERROR／FATAL通知を観測する。"
+      },
+      "limitations": {
+        "en": "The selected interval reading qualifies the accept/begin-before-end prose. No state recovery, request delivery or stream preservation after error is asserted.",
+        "ja": "accept／begin後end前という本文を選択期間として限定し、error後の状態復旧、要求配送、stream保持を主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_transaction_disable_recording_reports_error_after_accept_before_end",
+          "role": "direct",
+          "expected_observations": [
+            "UT: recording_interval error 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BASE-AUDIT-RECORDING-DISABLE-AFTER-BEGIN",
+      "clause": "5.4.2.10",
+      "statement": {
+        "en": "disable recording after begin and before end generates an error.",
+        "ja": "begin後かつend前のrecording disableはerrorを発生させる。"
+      },
+      "conditions": {
+        "en": "Use a valid stream and a positive-time accept/begin mark before the single forbidden control call. The enable and disable fixtures start in their relevant opposite states.",
+        "ja": "有効streamと正時刻accept／begin markを使い、1つの禁止制御呼出しを行う。enable／disable fixtureは対応する反対状態から開始する。"
+      },
+      "expected": {
+        "en": "An ERROR/FATAL notification is observed without requiring an exact severity/ID/text/count.",
+        "ja": "正確なseverity／ID／文面／回数を要求せずERROR／FATAL通知を観測する。"
+      },
+      "limitations": {
+        "en": "The selected interval reading qualifies the accept/begin-before-end prose. No state recovery, request delivery or stream preservation after error is asserted.",
+        "ja": "accept／begin後end前という本文を選択期間として限定し、error後の状態復旧、要求配送、stream保持を主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_transaction_disable_recording_reports_error_after_begin_before_end",
+          "role": "direct",
+          "expected_observations": [
+            "UT: recording_interval error 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BASE-AUDIT-TRANSACTION-EVENT-POOL",
+      "clause": "5.4.2.13",
+      "statement": {
+        "en": "Repeated associated-pool access retains an added event and its notification.",
+        "ja": "関連poolの反復accessは追加eventとその通知を保持する。"
+      },
+      "conditions": {
+        "en": "Create one original custom event through the transaction pool; a positively delayed trigger releases a waiter reached through another getter view.",
+        "ja": "transaction poolで独自custom eventを1つ作り、別getter view経由のwaiterを正遅延triggerで解放する。"
+      },
+      "expected": {
+        "en": "Pool/event identity is stable and the waiter is pending before the trigger, resumed afterward.",
+        "ja": "pool／event同一性は安定し、waiterはtrigger前に保留、後に再開する。"
+      },
+      "limitations": {
+        "en": "No initial membership, exclusive per-transaction pool ownership, persistence/reset or waiter ordering claim.",
+        "ja": "初期所属、transaction別pool独占所有、persistent／reset、waiter順序は主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_transaction_event_pool_retrieval_preserves_added_event_identity_and_notification",
+          "role": "direct",
+          "expected_observations": [
+            "UT: transaction_pool same_pool 1 same_event 1",
+            "UT: transaction_event pending 1",
+            "UT: transaction_event resumed 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BASE-AUDIT-INITIATOR-SET",
+      "clause": "5.4.2.14",
+      "statement": {
+        "en": "The initiator setter replaces the selected component handle.",
+        "ja": "initiator setterは選択component handleを置換する。"
+      },
+      "conditions": {
+        "en": "Reassess the unchanged original initiator/identifier fixture and its compatible measurement; no new execution is claimed merely from a link.",
+        "ja": "未変更の既存initiator／ID fixtureと互換実測を再評価し、linkだけで新規実行を主張しない。"
+      },
+      "expected": {
+        "en": "The existing source changes first to second without changing the selected identifier.",
+        "ja": "既存入力は選択IDを変えずfirstからsecondへ変更する。"
+      },
+      "limitations": {
+        "en": "Initiator printing/recording representation, forbidden minus-one setter behavior and all ID ranges remain partial.",
+        "ja": "initiatorのprint／record表現、禁止された−1 setter動作、全ID範囲は部分的に残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_transaction_initiator_and_identifier_are_independent",
+          "role": "direct",
+          "expected_observations": [
+            "UT: initial initiator 1 id -1",
+            "UT: changed initiator 1 id 37",
+            "UT: zero id 0 initiator 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BASE-AUDIT-TRANSACTION-ID",
+      "clause": "5.4.2.17",
+      "statement": {
+        "en": "The transaction identifier defaults to minus one and retains selected explicit IDs.",
+        "ja": "transaction IDは既定で−1となり、選択した明示IDを保持する。"
+      },
+      "conditions": {
+        "en": "Reassess the unchanged original initiator/identifier fixture and its compatible measurement; no new execution is claimed merely from a link.",
+        "ja": "未変更の既存initiator／ID fixtureと互換実測を再評価し、linkだけで新規実行を主張しない。"
+      },
+      "expected": {
+        "en": "The existing fixture observes minus one, thirty-seven and zero while initiator state remains independent.",
+        "ja": "既存fixtureはinitiatorと独立に−1、37、0を観測する。"
+      },
+      "limitations": {
+        "en": "Initiator printing/recording representation, forbidden minus-one setter behavior and all ID ranges remain partial.",
+        "ja": "initiatorのprint／record表現、禁止された−1 setter動作、全ID範囲は部分的に残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_transaction_initiator_and_identifier_are_independent",
+          "role": "direct",
+          "expected_observations": [
+            "UT: initial initiator 1 id -1",
+            "UT: changed initiator 1 id 37",
+            "UT: zero id 0 initiator 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BASE-AUDIT-TIME-NAMES",
+      "clause": "5.6.2.3",
+      "statement": {
+        "en": "Canonical time exposes its default and explicit instance names.",
+        "ja": "canonical timeは既定と明示instance名を返す。"
+      },
+      "conditions": {
+        "en": "Use a module with explicit 1-ps units/precision, legal 1-ns/1-ps scale literals and a one-picosecond canonical resolution.",
+        "ja": "明示1 ps単位／精度のmodule、合法1 ns／1 ps scale literal、1 ps canonical resolutionを使う。"
+      },
+      "expected": {
+        "en": "The default name is uvm_time and the peer retains peer61.",
+        "ja": "既定名はuvm_timeで、peerはpeer61を保持する。"
+      },
+      "limitations": {
+        "en": "Arguments and get_realtime results use caller units (1 ps here); get_abstime uses explicit seconds. The initial trial incorrectly used nanosecond numbers as caller-unit arguments and is excluded after standard-derived correction. Positive integral canonical ticks and small real tolerances are selected. No negative time, invalid resolution, cross-module completeness or default-argument repair is invented.",
+        "ja": "引数とget_realtime返却値はcaller単位（ここでは1 ps）、get_abstimeは明示秒単位を使う。初期試作はns数値をcaller単位の引数に誤用しており、規格に基づく修正後は除外する。正の整数canonical tickと小さいreal許容差を選ぶ。負時刻、不正resolution、cross-module完全性、既定引数の修復は作らない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_canonical_time_names_follow_declared_units_and_defaults",
+          "role": "direct",
+          "expected_observations": [
+            "UT: time_names default 1 explicit 1 initial_zero 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BASE-AUDIT-TIME-DECLARATION",
+      "clause": "5.6.1",
+      "statement": {
+        "en": "The canonical time class is constructible with the declared selected parameters.",
+        "ja": "canonical time classは宣言された選択parameterで生成できる。"
+      },
+      "conditions": {
+        "en": "Use a module with explicit 1-ps units/precision, legal 1-ns/1-ps scale literals and a one-picosecond canonical resolution.",
+        "ja": "明示1 ps単位／精度のmodule、合法1 ns／1 ps scale literal、1 ps canonical resolutionを使う。"
+      },
+      "expected": {
+        "en": "Omitted/named constructions and the initial zero absolute value are available.",
+        "ja": "省略／名前付き生成と初期絶対値0を利用できる。"
+      },
+      "limitations": {
+        "en": "Arguments and get_realtime results use caller units (1 ps here); get_abstime uses explicit seconds. The initial trial incorrectly used nanosecond numbers as caller-unit arguments and is excluded after standard-derived correction. Positive integral canonical ticks and small real tolerances are selected. No negative time, invalid resolution, cross-module completeness or default-argument repair is invented.",
+        "ja": "引数とget_realtime返却値はcaller単位（ここでは1 ps）、get_abstimeは明示秒単位を使う。初期試作はns数値をcaller単位の引数に誤用しており、規格に基づく修正後は除外する。正の整数canonical tickと小さいreal許容差を選ぶ。負時刻、不正resolution、cross-module完全性、既定引数の修復は作らない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_canonical_time_names_follow_declared_units_and_defaults",
+          "role": "direct",
+          "expected_observations": [
+            "UT: time_names default 1 explicit 1 initial_zero 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BASE-AUDIT-TIME-CANONICAL-ROLE",
+      "clause": "5.6",
+      "statement": {
+        "en": "Canonical time represents selected equivalent scaled/absolute values.",
+        "ja": "canonical timeは選択した同値なscaled／absolute値を表現する。"
+      },
+      "conditions": {
+        "en": "Use a module with explicit 1-ps units/precision, legal 1-ns/1-ps scale literals and a one-picosecond canonical resolution.",
+        "ja": "明示1 ps単位／精度のmodule、合法1 ns／1 ps scale literal、1 ps canonical resolutionを使う。"
+      },
+      "expected": {
+        "en": "The corrected 2.5 ns minus 500 ps operation yields 2000 caller ps and 2000 absolute ps.",
+        "ja": "修正した2.5 ns−500 psはcallerの2000 psと絶対2000 psとなる。"
+      },
+      "limitations": {
+        "en": "Arguments and get_realtime results use caller units (1 ps here); get_abstime uses explicit seconds. The initial trial incorrectly used nanosecond numbers as caller-unit arguments and is excluded after standard-derived correction. Positive integral canonical ticks and small real tolerances are selected. No negative time, invalid resolution, cross-module completeness or default-argument repair is invented.",
+        "ja": "引数とget_realtime返却値はcaller単位（ここでは1 ps）、get_abstimeは明示秒単位を使う。初期試作はns数値をcaller単位の引数に誤用しており、規格に基づく修正後は除外する。正の整数canonical tickと小さいreal許容差を選ぶ。負時刻、不正resolution、cross-module完全性、既定引数の修復は作らない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_canonical_time_scaled_follow_declared_units_and_defaults",
+          "role": "direct",
+          "expected_observations": [
+            "UT: time_scaled caller_units 1 picoseconds 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BASE-AUDIT-TIME-REALTIME",
+      "clause": "5.6.2.5",
+      "statement": {
+        "en": "get_realtime returns the selected canonical value in caller units.",
+        "ja": "get_realtimeは選択canonical値をcaller単位で返す。"
+      },
+      "conditions": {
+        "en": "Use a module with explicit 1-ps units/precision, legal 1-ns/1-ps scale literals and a one-picosecond canonical resolution.",
+        "ja": "明示1 ps単位／精度のmodule、合法1 ns／1 ps scale literal、1 ps canonical resolutionを使う。"
+      },
+      "expected": {
+        "en": "A 1-ps caller observes approximately 2000 after the selected operations.",
+        "ja": "選択操作後、1 ps callerはおよそ2000を観測する。"
+      },
+      "limitations": {
+        "en": "Arguments and get_realtime results use caller units (1 ps here); get_abstime uses explicit seconds. The initial trial incorrectly used nanosecond numbers as caller-unit arguments and is excluded after standard-derived correction. Positive integral canonical ticks and small real tolerances are selected. No negative time, invalid resolution, cross-module completeness or default-argument repair is invented.",
+        "ja": "引数とget_realtime返却値はcaller単位（ここでは1 ps）、get_abstimeは明示秒単位を使う。初期試作はns数値をcaller単位の引数に誤用しており、規格に基づく修正後は除外する。正の整数canonical tickと小さいreal許容差を選ぶ。負時刻、不正resolution、cross-module完全性、既定引数の修復は作らない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_canonical_time_scaled_follow_declared_units_and_defaults",
+          "role": "direct",
+          "expected_observations": [
+            "UT: time_scaled caller_units 1 picoseconds 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BASE-AUDIT-TIME-DECREMENT-DEFAULT",
+      "clause": "5.6.2.7",
+      "statement": {
+        "en": "The printed decr seconds argument has the listed one-nanosecond default.",
+        "ja": "印字decrのseconds引数は記載された1 nsの既定値を持つ。"
+      },
+      "conditions": {
+        "en": "Use a module with explicit 1-ps units/precision, legal 1-ns/1-ps scale literals and a one-picosecond canonical resolution.",
+        "ja": "明示1 ps単位／精度のmodule、合法1 ns／1 ps scale literal、1 ps canonical resolutionを使う。"
+      },
+      "expected": {
+        "en": "Calls omitting secs compile and yield the same selected two-nanosecond value.",
+        "ja": "secsを省略した呼出しがcompileでき、選択した同じ2 ns値となる。"
+      },
+      "limitations": {
+        "en": "Arguments and get_realtime results use caller units (1 ps here); get_abstime uses explicit seconds. The initial trial incorrectly used nanosecond numbers as caller-unit arguments and is excluded after standard-derived correction. Positive integral canonical ticks and small real tolerances are selected. No negative time, invalid resolution, cross-module completeness or default-argument repair is invented.",
+        "ja": "引数とget_realtime返却値はcaller単位（ここでは1 ps）、get_abstimeは明示秒単位を使う。初期試作はns数値をcaller単位の引数に誤用しており、規格に基づく修正後は除外する。正の整数canonical tickと小さいreal許容差を選ぶ。負時刻、不正resolution、cross-module完全性、既定引数の修復は作らない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_canonical_time_decrements_follow_declared_units_and_defaults",
+          "role": "direct",
+          "expected_observations": [
+            "UT: time_decrements selected 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BASE-AUDIT-TIME-DECREMENT-EXPLICIT",
+      "clause": "5.6.2.7",
+      "statement": {
+        "en": "Explicit seconds decrement the selected canonical time and preserve a peer.",
+        "ja": "明示secondsは選択canonical timeを減らしpeerを保持する。"
+      },
+      "conditions": {
+        "en": "Use a module with explicit 1-ps units/precision, legal 1-ns/1-ps scale literals and a one-picosecond canonical resolution.",
+        "ja": "明示1 ps単位／精度のmodule、合法1 ns／1 ps scale literal、1 ps canonical resolutionを使う。"
+      },
+      "expected": {
+        "en": "Five minus two minus one gives two nanoseconds; the peer remains seven.",
+        "ja": "5−2−1は2 nsとなり、peerは7 nsを保つ。"
+      },
+      "limitations": {
+        "en": "Arguments and get_realtime results use caller units (1 ps here); get_abstime uses explicit seconds. The initial trial incorrectly used nanosecond numbers as caller-unit arguments and is excluded after standard-derived correction. Positive integral canonical ticks and small real tolerances are selected. No negative time, invalid resolution, cross-module completeness or default-argument repair is invented.",
+        "ja": "引数とget_realtime返却値はcaller単位（ここでは1 ps）、get_abstimeは明示秒単位を使う。初期試作はns数値をcaller単位の引数に誤用しており、規格に基づく修正後は除外する。正の整数canonical tickと小さいreal許容差を選ぶ。負時刻、不正resolution、cross-module完全性、既定引数の修復は作らない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_canonical_time_explicit_decrement_seconds_preserve_units_and_peer",
+          "role": "direct",
+          "expected_observations": [
+            "UT: time_decrements selected 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BASE-AUDIT-TIME-ABSOLUTE",
+      "clause": "5.6.2.8",
+      "statement": {
+        "en": "Absolute getters express the selected canonical value in requested seconds units.",
+        "ja": "absolute getterは選択canonical値を要求した秒単位で返す。"
+      },
+      "conditions": {
+        "en": "Use a module with explicit 1-ps units/precision, legal 1-ns/1-ps scale literals and a one-picosecond canonical resolution.",
+        "ja": "明示1 ps単位／精度のmodule、合法1 ns／1 ps scale literal、1 ps canonical resolutionを使う。"
+      },
+      "expected": {
+        "en": "The selected ps/ns observations agree with the independently calculated values.",
+        "ja": "選択ps／ns観測は独立計算値と一致する。"
+      },
+      "limitations": {
+        "en": "Arguments and get_realtime results use caller units (1 ps here); get_abstime uses explicit seconds. The initial trial incorrectly used nanosecond numbers as caller-unit arguments and is excluded after standard-derived correction. Positive integral canonical ticks and small real tolerances are selected. No negative time, invalid resolution, cross-module completeness or default-argument repair is invented.",
+        "ja": "引数とget_realtime返却値はcaller単位（ここでは1 ps）、get_abstimeは明示秒単位を使う。初期試作はns数値をcaller単位の引数に誤用しており、規格に基づく修正後は除外する。正の整数canonical tickと小さいreal許容差を選ぶ。負時刻、不正resolution、cross-module完全性、既定引数の修復は作らない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_canonical_time_scaled_follow_declared_units_and_defaults",
+          "role": "direct",
+          "expected_observations": [
+            "UT: time_scaled caller_units 1 picoseconds 1"
+          ]
+        },
+        {
+          "test": "u05/test_canonical_time_explicit_decrement_seconds_preserve_units_and_peer",
+          "role": "direct",
+          "expected_observations": [
+            "UT: time_decrements selected 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BASE-AUDIT-FIELD-NEW",
+      "clause": "5.7.2.1",
+      "statement": {
+        "en": "A field operation retains omitted/explicit names.",
+        "ja": "field operationは省略／明示名を保持する。"
+      },
+      "conditions": {
+        "en": "Construct three original descriptors, then initialize one valid copy operation with an original source/copier.",
+        "ja": "3 descriptorを生成し、1つに独自source／copierで有効copy操作を初期化する。"
+      },
+      "expected": {
+        "en": "Omitted and explicit empty names are empty, the named object is named61.",
+        "ja": "省略／明示空名は空、名前付きobjectはnamed61である。"
+      },
+      "limitations": {
+        "en": "Selected descriptor/constructor conditions only; invalid/uninitialized getters and full policy dispatch are separate.",
+        "ja": "選択descriptor／constructor条件のみで、不正／未初期化getterと全policy dispatchは別である。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_field_operation_constructor_names_and_object_ancestry_are_independent",
+          "role": "direct",
+          "expected_observations": [
+            "UT: field_op_names omitted 1 explicit 1 empty 1 ancestry 1",
+            "UT: field_op_descriptor type 1 name 1 policy 1 rhs 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BASE-AUDIT-FIELD-ANCESTRY",
+      "clause": "5.7.1",
+      "statement": {
+        "en": "The field-operation descriptor derives from uvm_object.",
+        "ja": "field-operation descriptorはuvm_objectを継承する。"
+      },
+      "conditions": {
+        "en": "Construct three original descriptors, then initialize one valid copy operation with an original source/copier.",
+        "ja": "3 descriptorを生成し、1つに独自source／copierで有効copy操作を初期化する。"
+      },
+      "expected": {
+        "en": "The static object receiver retains the same field-operation handle.",
+        "ja": "static object receiverは同じfield-operation handleを保持する。"
+      },
+      "limitations": {
+        "en": "Selected descriptor/constructor conditions only; invalid/uninitialized getters and full policy dispatch are separate.",
+        "ja": "選択descriptor／constructor条件のみで、不正／未初期化getterと全policy dispatchは別である。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_field_operation_constructor_names_and_object_ancestry_are_independent",
+          "role": "direct",
+          "expected_observations": [
+            "UT: field_op_names omitted 1 explicit 1 empty 1 ancestry 1",
+            "UT: field_op_descriptor type 1 name 1 policy 1 rhs 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BASE-AUDIT-FIELD-ROLE",
+      "clause": "5.7",
+      "statement": {
+        "en": "A field operation carries the selected operation, policy and rhs for field processing.",
+        "ja": "field operationはfield処理の選択operation／policy／rhsを保持する。"
+      },
+      "conditions": {
+        "en": "Construct three original descriptors, then initialize one valid copy operation with an original source/copier.",
+        "ja": "3 descriptorを生成し、1つに独自source／copierで有効copy操作を初期化する。"
+      },
+      "expected": {
+        "en": "The selected copy descriptor reports copy/UVM_COPY and the exact original policy/source.",
+        "ja": "選択copy descriptorはcopy／UVM_COPYと同じ独自policy／sourceを返す。"
+      },
+      "limitations": {
+        "en": "Selected descriptor/constructor conditions only; invalid/uninitialized getters and full policy dispatch are separate.",
+        "ja": "選択descriptor／constructor条件のみで、不正／未初期化getterと全policy dispatchは別である。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_field_operation_constructor_names_and_object_ancestry_are_independent",
+          "role": "direct",
+          "expected_observations": [
+            "UT: field_op_names omitted 1 explicit 1 empty 1 ancestry 1",
+            "UT: field_op_descriptor type 1 name 1 policy 1 rhs 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BASE-AUDIT-FIELD-HOOK-INITIAL",
+      "clause": "5.7.2.7",
+      "statement": {
+        "en": "The user-hook enabled bit is initially one without a set precondition.",
+        "ja": "user-hook enabled bitはset前提なしに初期値1である。"
+      },
+      "conditions": {
+        "en": "Query user_hook_enabled on a fresh descriptor with a gated report catcher.",
+        "ja": "新規descriptorにgate付きreport catcherを置いてuser_hook_enabledを照会する。"
+      },
+      "expected": {
+        "en": "The bit is true and no error notification is generated.",
+        "ja": "bitはtrueでerror通知を出さない。"
+      },
+      "limitations": {
+        "en": "No get_* method is called; the get_* validity restriction is not silently extended to this differently named query.",
+        "ja": "get_* methodは呼ばず、その有効性制限を異なる名前の照会へ黙って広げない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_field_operation_hook_enabled_before_first_set",
+          "role": "direct",
+          "expected_observations": [
+            "UT: hook_default enabled 1 no_error 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BASE-AUDIT-FIELD-FLUSH-HOOK",
+      "clause": "5.7.2.9",
+      "statement": {
+        "en": "Resetting a field operation restores its default hook-enable state.",
+        "ja": "field operationのresetは既定hook-enable状態を復元する。"
+      },
+      "conditions": {
+        "en": "Set a copy operation, disable its hook, flush, and query the hook bit before another set.",
+        "ja": "copyをsetしてhookを無効化し、flush後の次set前にhook bitを照会する。"
+      },
+      "expected": {
+        "en": "The hook bit is true without an error.",
+        "ja": "hook bitはtrueでerrorがない。"
+      },
+      "limitations": {
+        "en": "This selects the ordinary reset/default reading; get_* invalidation is separately tested and no private state layout is assumed.",
+        "ja": "通常のreset／既定値解釈を選び、get_*無効化は別に検査しprivate状態配置を仮定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_field_operation_hook_enabled_after_flush_before_next_set",
+          "role": "direct",
+          "expected_observations": [
+            "UT: hook_default enabled 1 no_error 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BASE-AUDIT-FIELD-FLUSH-GETTERS",
+      "clause": "5.7.2.9",
+      "statement": {
+        "en": "After flush, descriptor get_* methods report errors before another set.",
+        "ja": "flush後の次set前にはdescriptor get_* methodがerrorを報告する。"
+      },
+      "conditions": {
+        "en": "Reassess the existing unchanged field-operation fixture and compatible record.",
+        "ja": "既存の未変更field-operation fixtureと互換記録を再評価する。"
+      },
+      "expected": {
+        "en": "Name/type/policy/rhs accessors independently report errors.",
+        "ja": "name／type／policy／rhs accessorが独立にerrorを報告する。"
+      },
+      "limitations": {
+        "en": "A new clause link is not a new execution; no invalid getter return value or exact error identity is inferred.",
+        "ja": "新しい条項linkは新実行ではなく、不正getterの返却値や正確なerror識別を推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_field_op_accessors_report_errors_after_flush",
+          "role": "direct",
+          "expected_observations": [
+            "UT: get_op_name_reports_error 1",
+            "UT: get_op_type_reports_error 1",
+            "UT: get_policy_reports_error 1",
+            "UT: get_rhs_reports_error 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BASE-AUDIT-FIELD-FLUSH-REUSE",
+      "clause": "5.7.2.9",
+      "statement": {
+        "en": "Flush permits a new operation to replace the old descriptor state.",
+        "ja": "flushは新しいoperationによる以前のdescriptor状態の置換を可能にする。"
+      },
+      "conditions": {
+        "en": "Reassess the existing unchanged field-operation fixture and compatible record.",
+        "ja": "既存の未変更field-operation fixtureと互換記録を再評価する。"
+      },
+      "expected": {
+        "en": "The old copy becomes compare with the newly selected policy/rhs identities.",
+        "ja": "以前のcopyは新しく選択したpolicy／rhs同一性を持つcompareになる。"
+      },
+      "limitations": {
+        "en": "A new clause link is not a new execution; no invalid getter return value or exact error identity is inferred.",
+        "ja": "新しい条項linkは新実行ではなく、不正getterの返却値や正確なerror識別を推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_field_op_set_and_flush_change_copy_to_compare",
+          "role": "direct",
+          "expected_observations": [
+            "UT: first copy type 1 policy 1 rhs 1",
+            "UT: second compare type 1 policy 1 rhs 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BASE-AUDIT-RECORD-HOOK",
+      "clause": "5.3.7.2",
+      "statement": {
+        "en": "The virtual recording hook receives each supplied recorder policy.",
+        "ja": "virtual recording hookは各指定recorder policyを受け取る。"
+      },
+      "conditions": {
+        "en": "Call the original hook through an object base with two legally opened original recorders.",
+        "ja": "合法に開いた独自recorder 2個を使いobject base経由で独自hookを呼ぶ。"
+      },
+      "expected": {
+        "en": "Policy identity and successive payload values match while the first policy remains unchanged.",
+        "ja": "policy同一性と連続payload値が一致し、最初のpolicyは未変更である。"
+      },
+      "limitations": {
+        "en": "Direct-hook dispatch only; not outer record recursion or a database representation.",
+        "ja": "直接hook委譲のみで、outer record再帰やDB表現ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_object_do_record_virtual_hook_uses_current_recorder_policy_fields",
+          "role": "direct",
+          "expected_observations": [
+            "UT: record_hook first_policy 1 first_value 1 first_calls 1",
+            "UT: record_hook second_policy 1 second_value 1 first_unchanged 1 two_hooks 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BASE-AUDIT-RECORD-POLICY-API",
+      "clause": "5.3.7",
+      "statement": {
+        "en": "The original recording hook records fields through the recorder policy API.",
+        "ja": "独自recording hookはrecorder policy APIでfieldを記録する。"
+      },
+      "conditions": {
+        "en": "Use record_field_int for an eight-bit original payload in a direct user hook.",
+        "ja": "直接user hookで8 bit独自payloadにrecord_field_intを使う。"
+      },
+      "expected": {
+        "en": "The original backend captures the selected field value/width/radix via the standard policy route.",
+        "ja": "独自backendは規格policy経路で選択field値／幅／radixを捕捉する。"
+      },
+      "limitations": {
+        "en": "No implementation-specific database API, file syntax or universal serialization format.",
+        "ja": "実装固有DB API、file構文、普遍serialization形式ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_object_do_record_virtual_hook_uses_current_recorder_policy_fields",
+          "role": "direct",
+          "expected_observations": [
+            "UT: record_hook first_policy 1 first_value 1 first_calls 1",
+            "UT: record_hook second_policy 1 second_value 1 first_unchanged 1 two_hooks 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BASE-AUDIT-PRINT-POLICY-API",
+      "clause": "5.3.6",
+      "statement": {
+        "en": "The original print customization uses the supplied printer API for fields.",
+        "ja": "独自print customizationは指定printer APIでfieldを出力する。"
+      },
+      "conditions": {
+        "en": "Use an original emit string and field observer with real sprint entry calls.",
+        "ja": "実sprint entry呼出しに独自emit stringとfield observerを使う。"
+      },
+      "expected": {
+        "en": "The selected field and custom emit result propagate through the policy.",
+        "ja": "選択fieldと独自emit結果はpolicyを通じて伝播する。"
+      },
+      "limitations": {
+        "en": "The custom emit string belongs to the fixture; no builtin formatting/target-file convention is asserted.",
+        "ja": "独自emit stringはfixtureのもので、builtin書式／出力先file慣例を主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_object_print_field_operation_controls_the_user_hook_and_current_policy",
+          "role": "direct",
+          "expected_observations": [
+            "UT: print_suppressed field_only 1 no_user_field 1 policy 1",
+            "UT: print_restored order 1 current_value 1 enabled 1 emitted 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BASE-AUDIT-FIELD-PRINT-ORDER",
+      "clause": "5.3.13",
+      "statement": {
+        "en": "Field-operation dispatch precedes the selected user print hook.",
+        "ja": "field-operation委譲は選択user print hookより先である。"
+      },
+      "conditions": {
+        "en": "The original do_execute_op checks UVM_PRINT/current policy and conditionally disables the user hook.",
+        "ja": "独自do_execute_opはUVM_PRINT／current policyを確認し、条件付きでuser hookを無効化する。"
+      },
+      "expected": {
+        "en": "The disabled trace is E with no user field; the next enabled operation is EP with the selected payload.",
+        "ja": "無効traceはEでuser fieldがなく、次の有効操作はEPで選択payloadを持つ。"
+      },
+      "limitations": {
+        "en": "One real print-policy path, not all field macros or every policy operation.",
+        "ja": "実print-policy 1経路で、全field macroや全policy操作ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_object_print_field_operation_controls_the_user_hook_and_current_policy",
+          "role": "direct",
+          "expected_observations": [
+            "UT: print_suppressed field_only 1 no_user_field 1 policy 1",
+            "UT: print_restored order 1 current_value 1 enabled 1 emitted 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BASE-AUDIT-COMPARE-HOOK",
+      "clause": "5.3.9.2",
+      "statement": {
+        "en": "The virtual compare hook receives the selected rhs and comparer.",
+        "ja": "virtual compare hookは選択rhsとcomparerを受け取る。"
+      },
+      "conditions": {
+        "en": "Use same-type original objects and compare equal then unequal eight-bit values through a base view.",
+        "ja": "同型独自objectを使い、base viewで等値／非等値8 bit値を比較する。"
+      },
+      "expected": {
+        "en": "The two hook calls retain exact policy identity and return equal/unequal results.",
+        "ja": "2 hook呼出しは同じpolicyを保持し、等値／非等値結果を返す。"
+      },
+      "limitations": {
+        "en": "Selected payloads only; type mismatch, recursion, X/Z and every comparison knob remain partial.",
+        "ja": "選択payloadのみで、型不一致、再帰、X／Z、全比較knobは部分的に残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_object_compare_user_hook_uses_policy_comparison_and_virtual_dispatch",
+          "role": "direct",
+          "expected_observations": [
+            "UT: compare_hook equal 1 unequal 1 policy 1 two_hooks 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BASE-AUDIT-COMPARE-POLICY-API",
+      "clause": "5.3.9",
+      "statement": {
+        "en": "Comparison customization uses the supplied comparer policy API.",
+        "ja": "比較customizationは指定comparer policy APIを使う。"
+      },
+      "conditions": {
+        "en": "The original hook calls compare_field_int rather than implementation-specific comparison APIs.",
+        "ja": "独自hookは実装固有比較APIでなくcompare_field_intを呼ぶ。"
+      },
+      "expected": {
+        "en": "Public compare returns the selected policy-assisted equal/unequal results.",
+        "ja": "公開compareは選択policyによる等値／非等値結果を返す。"
+      },
+      "limitations": {
+        "en": "No diagnostic formatting, exact miscompare count or complete comparer behavior is inferred.",
+        "ja": "診断書式、正確なmiscompare回数、comparer動作全体は推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_object_compare_user_hook_uses_policy_comparison_and_virtual_dispatch",
+          "role": "direct",
+          "expected_observations": [
+            "UT: compare_hook equal 1 unequal 1 policy 1 two_hooks 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BASE-AUDIT-CONFIGURATION-HOOK",
+      "clause": "5.3.12",
+      "statement": {
+        "en": "A designer-defined set_local hook can select accessible properties by resource name.",
+        "ja": "設計者定義のset_local hookはresource名でaccess可能なpropertyを選べる。"
+      },
+      "conditions": {
+        "en": "The original override accepts only chosen61 and reads the exact typed resource through a base-view call.",
+        "ja": "独自overrideはchosen61だけを受け入れ、base-view呼出しで正確な型付きresourceを読む。"
+      },
+      "expected": {
+        "en": "The chosen value changes, an unselected property/peer is preserved and the original hook sees the exact resource handle.",
+        "ja": "選択値は変わり、非選択property／peerを保持し、独自hookは同じresource handleを受け取る。"
+      },
+      "limitations": {
+        "en": "Only virtual extension dispatch and selected designer behavior; no mandatory default macro configuration, null-resource policy or automatic database lookup is invented.",
+        "ja": "virtual拡張委譲と選択設計動作のみで、必須既定macro設定、null-resource policy、自動DB lookupは作らない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_object_set_local_virtual_extension_selects_named_resource_properties",
+          "role": "direct",
+          "expected_observations": [
+            "UT: set_local selected 1 other_unchanged 1 peer_unchanged 1 exact_resource 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BASE-AUDIT-COPY-HOOK",
+      "clause": "5.3.8.2",
+      "statement": {
+        "en": "The selected virtual copy hook copies rhs payload through its original typed extension.",
+        "ja": "選択virtual copy hookは独自typed拡張でrhs payloadをcopyする。"
+      },
+      "conditions": {
+        "en": "Reassess the unchanged real copier fixture with disabled then enabled user-hook phases.",
+        "ja": "user hookの無効／有効段階を持つ未変更の実copier fixtureを再評価する。"
+      },
+      "expected": {
+        "en": "Suppression leaves payload three; the later enabled hook copies twenty-nine once.",
+        "ja": "抑止時はpayload 3を保持し、後の有効hookは29を1回copyする。"
+      },
+      "limitations": {
+        "en": "A new direct link is not execution. Deep copying, foreign types and every nested object are not certified.",
+        "ja": "新しい直接linkは実行ではなく、deep copy、別型、全入れ子objectは認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_field_op_suppresses_only_selected_copy_hook",
+          "role": "direct",
+          "expected_observations": [
+            "UT: suppressed initial 1 copies 0 payload 3",
+            "UT: restored initial 1 copies 1 payload 29"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BASE-AUDIT-PORT-INTERFACE",
+      "clause": "5.5.1",
+      "statement": {
+        "en": "The port base defaults IF to uvm_void and extends an explicit selected IF.",
+        "ja": "port baseはIFをuvm_voidに既定化し、明示した選択IFを継承する。"
+      },
+      "conditions": {
+        "en": "Original default/explicit-IF extensions implement the listed query hooks with matching formal names; inspect constructor metadata before binding.",
+        "ja": "独自の既定／明示IF拡張は記載query hookを同じ仮引数名で実装し、binding前のconstructor metadataを調べる。"
+      },
+      "expected": {
+        "en": "Exact default receiver assignment works and the selected interface marker is inherited.",
+        "ja": "正確な既定receiver代入ができ、選択interface markerを継承する。"
+      },
+      "limitations": {
+        "en": "Declaration/hierarchy/default metadata only. Empty original connection-query bodies do not prove actual TLM binding, forwarding, counts after resolution or protocol behavior.",
+        "ja": "宣言／階層／既定metadataのみ。独自の空connection-query本体は実TLM binding、転送、解決後件数、protocol動作を証明しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_port_base_declared_default_and_explicit_interface_types_preserve_hierarchy",
+          "role": "direct",
+          "expected_observations": [
+            "UT: port_base default_type 1 explicit_inheritance 1 names 1 parent 1",
+            "UT: port_defaults min_zero 1 max_one 1 generic_names 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BASE-AUDIT-PORT-ROLE",
+      "clause": "5.5",
+      "statement": {
+        "en": "A base port retains selected component-like name/path/parent properties.",
+        "ja": "base portは選択したcomponent同様のname／path／parent propertyを保持する。"
+      },
+      "conditions": {
+        "en": "Original default/explicit-IF extensions implement the listed query hooks with matching formal names; inspect constructor metadata before binding.",
+        "ja": "独自の既定／明示IF拡張は記載query hookを同じ仮引数名で実装し、binding前のconstructor metadataを調べる。"
+      },
+      "expected": {
+        "en": "The leaf/full name and parent match the original owner hierarchy.",
+        "ja": "leaf／full nameとparentは独自owner階層に一致する。"
+      },
+      "limitations": {
+        "en": "Declaration/hierarchy/default metadata only. Empty original connection-query bodies do not prove actual TLM binding, forwarding, counts after resolution or protocol behavior.",
+        "ja": "宣言／階層／既定metadataのみ。独自の空connection-query本体は実TLM binding、転送、解決後件数、protocol動作を証明しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_port_base_declared_default_and_explicit_interface_types_preserve_hierarchy",
+          "role": "direct",
+          "expected_observations": [
+            "UT: port_base default_type 1 explicit_inheritance 1 names 1 parent 1",
+            "UT: port_defaults min_zero 1 max_one 1 generic_names 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BASE-AUDIT-PORT-DEFAULTS",
+      "clause": "5.5.2.1",
+      "statement": {
+        "en": "The selected generic port constructor defaults minimum/maximum connections to zero/one.",
+        "ja": "選択generic port constructorは接続最小／最大を0／1に既定化する。"
+      },
+      "conditions": {
+        "en": "Original default/explicit-IF extensions implement the listed query hooks with matching formal names; inspect constructor metadata before binding.",
+        "ja": "独自の既定／明示IF拡張は記載query hookを同じ仮引数名で実装し、binding前のconstructor metadataを調べる。"
+      },
+      "expected": {
+        "en": "Public min_size/max_size report zero/one.",
+        "ja": "公開min_size／max_sizeは0／1を返す。"
+      },
+      "limitations": {
+        "en": "Declaration/hierarchy/default metadata only. Empty original connection-query bodies do not prove actual TLM binding, forwarding, counts after resolution or protocol behavior.",
+        "ja": "宣言／階層／既定metadataのみ。独自の空connection-query本体は実TLM binding、転送、解決後件数、protocol動作を証明しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_port_base_declared_default_and_explicit_interface_types_preserve_hierarchy",
+          "role": "direct",
+          "expected_observations": [
+            "UT: port_base default_type 1 explicit_inheritance 1 names 1 parent 1",
+            "UT: port_defaults min_zero 1 max_one 1 generic_names 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BASE-AUDIT-PORT-GENERIC-NAMES",
+      "clause": "5.5.2.5",
+      "statement": {
+        "en": "Without a concrete name override the base exposes its generic port/export/implementation names.",
+        "ja": "具象名overrideなしではbaseはgenericなport／export／implementation名を返す。"
+      },
+      "conditions": {
+        "en": "Original default/explicit-IF extensions implement the listed query hooks with matching formal names; inspect constructor metadata before binding.",
+        "ja": "独自の既定／明示IF拡張は記載query hookを同じ仮引数名で実装し、binding前のconstructor metadataを調べる。"
+      },
+      "expected": {
+        "en": "The three constructed kinds report the listed generic names.",
+        "ja": "生成した3種は記載generic名を返す。"
+      },
+      "limitations": {
+        "en": "Declaration/hierarchy/default metadata only. Empty original connection-query bodies do not prove actual TLM binding, forwarding, counts after resolution or protocol behavior.",
+        "ja": "宣言／階層／既定metadataのみ。独自の空connection-query本体は実TLM binding、転送、解決後件数、protocol動作を証明しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u05/test_port_base_declared_default_and_explicit_interface_types_preserve_hierarchy",
+          "role": "direct",
+          "expected_observations": [
+            "UT: port_base default_type 1 explicit_inheritance 1 names 1 parent 1",
+            "UT: port_defaults min_zero 1 max_one 1 generic_names 1"
+          ]
+        }
+      ]
     }
   ]
 }

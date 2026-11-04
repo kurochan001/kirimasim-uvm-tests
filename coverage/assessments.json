@@ -5755,6 +5755,136 @@
         "reviewer": null,
         "reviewed_at": null
       }
+    },
+    {
+      "clause": "5",
+      "classification": "structural",
+      "rationale": {
+        "en": "Chapter title grouping the base-class clauses; operational contracts start in its overview and individual classes.",
+        "ja": "base-class条項をまとめる章題名で、操作契約はoverviewと個別classから始まる。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "5.3.3",
+      "classification": "structural",
+      "rationale": {
+        "en": "Seeding grouping heading followed by separately specified accessors and reseed behavior.",
+        "ja": "seedingの分類見出しで、別記のaccessor／reseed動作が続く。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "5.3.8",
+      "classification": "structural",
+      "rationale": {
+        "en": "Copying grouping heading; copy and the user hook have their own method clauses.",
+        "ja": "copying分類見出しで、copyとuser hookは個別method条項を持つ。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "5.3.10",
+      "classification": "structural",
+      "rationale": {
+        "en": "Packing grouping heading; stream entry and do_pack contracts follow individually.",
+        "ja": "packing分類見出しで、stream entry／do_pack契約が個別に続く。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "5.3.11",
+      "classification": "structural",
+      "rationale": {
+        "en": "Unpacking grouping heading followed by entry and do_unpack clauses.",
+        "ja": "unpacking分類見出しで、entry／do_unpack条項が続く。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "5.5.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "Port-base methods heading; constructor, hierarchy, connection and resolution contracts are separately numbered.",
+        "ja": "port-base method見出しで、constructor、階層、接続、解決契約は別番号である。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "5.6.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "Canonical-time common-methods heading with separately numbered operations.",
+        "ja": "canonical-time共通method見出しで、各操作は別番号である。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "5.7.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "Field-operation methods heading and enumeration of its following numbered methods, without an additional execution rule.",
+        "ja": "field-operation method見出しと後続番号methodの列挙で、追加実行規則はない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "5.3.14",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The introduction identifies object-side active-policy tracking; the push/pop/get clauses specify its behavior and linked direct duties retain missing-API differences.",
+        "ja": "導入はobject側active-policy追跡の役割を示し、push／pop／get条項が動作を定め、関連直接義務はAPI欠落差分を保持する。"
+      },
+      "related_requirements": [
+        "UVM-BASE-AUDIT-ACTIVE-PUSH-HEAD",
+        "UVM-BASE-AUDIT-ACTIVE-POP-LIFO",
+        "UVM-BASE-AUDIT-ACTIVE-QUERY-HEAD"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
     }
   ]
 }

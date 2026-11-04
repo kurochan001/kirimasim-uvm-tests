@@ -983,3 +983,9 @@ storage同一性の検査と実際の対象実行には異なる観測が必要�
 
 **Live child-sequence slot（実行中child-sequence slot）** — 選択処理を実行中のchildへのwrapperのprotected参照です。
 経路probeは初期値、割当回数、body後の保持を仮定せず、実行中handleを照合できます。
+
+**caller単位のcanonical time** — 呼出しscopeの時間単位で解釈するreal時間量です。
+明示scaled／secs引数がcanonical表現との換算を指定し、nanosecond基準の例をpicosecond scopeで未変更のまま再利用できません。
+
+**virtual overrideのformal名** — SystemVerilog 8.20で基底virtual methodと一致が必要な引数名です。
+引数型の一致やcompile受理だけでは、override宣言の妥当性を証明しません。

@@ -2,7 +2,7 @@
 
 [English](history.md) · [README](../README.ja.md)
 
-M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の60回目の拡充（全1801件：simulation 1746・elaboration 55）までを記録しています。以前の349件の時点は
+M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の61回目の拡充（全1837件：simulation 1778・elaboration 59）までを記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -2429,3 +2429,43 @@ guest未測定は修正2入力を含む718（simulation 663／elaboration 55）�
 goalの32反復目は未評価を77減らして383（開始から1080減）とし、全部分義務と元の目標は未完了です。
 tool test 110件、metadata、台帳／library、evidence同一性、日英資料検査は成功し、FAQ／用語は248／279件です。
 schema、runner／library／catalog／backend、workflow、SVG 6件は未変更です。guest実行、人のレビュー、分母承認、完了は主張せず、goalは継続中です。
+
+## 薄い領域の61回目の拡充：基底classの適用条件
+
+[58ba1c5](https://github.com/kurochan001/kirimasim-uvm-tests/commit/58ba1c5782c0a47980539b0d8a7ca9501f2be296)を基に2026-11-05 JSTに実施しました。M1の36 fixtureを追加し、19件が一致します。runtime 15件はseed 1／73、4件は期待compiler拒否です。
+17件は既知差分で、runtime 12件はseed 1だけ、合法build 5件はruntimeなしです。
+object／void／port宣言、constructor省略と名前、transaction recording制御／handle／event、object policy hookとactive policy、
+canonical timeの単位／既定値、field-operation lifecycleを扱います。
+
+合法build 5件はobject active-policy API欠落4件と、time decrで省略可と印刷されたsecs引数をlibraryが要求する1件です。
+明示secondsの減算とcaller単位の換算controlは独立に一致します。runtime 12件はtransactionの初期active、recordingのdefault-on文言、
+禁止区間のrecording制御通知4件、record-object経路2件、time／port既定名、set前／flush後のfield-operation hook照会を保持します。
+handle／registry／freeや階層の観測一致でfixture全体をpassにしません。明示DEEPのrecorderはsubject callbackを確認する前に選択recursion modeを観測します。
+error probeはERROR／FATAL通知を要求し、診断text、ID、回数、未規定の回復は固定しません。
+
+既存printer fixture 1件はSystemVerilog 8.20に従いvirtual引数名を規格のvalueとsizeへ修正し、未変更期待出力が修正入力の両seedに一致します。
+初期のoverride引数名とcaller単位のtime設定誤りは最終測定前に修正し、古い結果を現在のUVM差分へ数えません。
+独自print／compare、直接record、名前付きresourceのset_local probeは選択拡張経路を検査し、全builtin format、field自動設定、全macroを認定しません。
+印刷されたpure-method／既定bodyの文言とtransaction constructorのcomma欠落は、解釈の境界として明示して残します。
+
+第5章監査は新M1の36 fixtureと選択した既存controlへAI義務60件を追加します。
+見出し8件を個別の構造、active-policy導入1件を関連push／pop／get義務のある文脈と分類します。
+以前に未評価だった48番号へ対応し、第5章は部分99／分類12／未評価0で案168件、主引用92 fixture（simulation 87／elaboration 5）です。
+残る条件の完了ではありません。
+
+object／void継承と生成、virtual拡張経路、transaction recording制御／handle／event、generic port既定値、canonical time単位、
+field-operation hook lifecycleに明示条件を持たせます。API欠落、secs引数既定値のbuild、runtime 12差分はspec-onlyです。
+既存initiator／IDとfield-operation controlは狭く対応付け、initiatorのprint／record、自動設定、広いerror／lifecycle組合せは部分義務に残します。
+pure-method／既定bodyとconstructor句読点の衝突を、libraryに合わせて暗黙解決しません。
+
+全体は部分1786／分類386／未評価335（構造265／文脈121）で、以前の全3172要求・377分類は未変更です。
+直接対応1836テスト、controlだけ1テスト、control linkを持つ42テストです。範囲は提案で分母／割合はnullのままであり、どの条項状態も完了を意味しません。
+既存printerの入力／索引／記録1件はoverride引数名の修正と再測定後に意図して更新し、oracleは変更しません。
+
+最終スイートは1837（simulation 1778／elaboration 59）、M1 745（699／46）、M2 547（542／5）、M3 545（537／8）です。
+通常evidenceはpass 1587（両seed runtime 1531／期待拒否56）、known 250（seed 1 runtime 185、合法build 62、不正生成受理3）です。
+ほかの以前の通常1800記録と全旧compiler 55記録は未変更です。guest 1083記録と別条件のHDL 11／command-line 18記録も未変更です。
+guest未測定754（simulation 695／elaboration 59）は、元の測定後の追加752件と修正した元入力2件です。printerは元からguest部分集合の外です。
+初期time／override設定失敗とgeneric-portの早過ぎたtagは修正し、最終指紋が新規／修正した全記録へ対応します。
+GPL／LGPLシミュレータ実装や商用結果は利用しません。library整合性、tool test 110件、metadata、台帳／索引、生の観測／evidence、日英資料検査は成功です。
+永続goalは有効で、33反復により未評価は1463から335へ1128減少しました。完了や人の承認は主張しません。

@@ -1,0 +1,3 @@
+UT: recording_selected enabled 1 before_handle_zero 1
+UT: recording_handle valid 1 same 1 lookup 1 recorded_subject 1
+UT: recording_ended no_handle 1 freed 1 lookup_null 1

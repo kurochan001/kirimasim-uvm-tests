@@ -3,8 +3,8 @@
 [日本語](history.ja.md) · [README](../README.md)
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and sixty cross-milestone thin-area expansions, including the
-existing-test requirement-link backlog checkpoint (1801 tests: 1746 simulation and 55 elaboration). The earlier 349-test checkpoint is
+three M4 increments and sixty-one cross-milestone thin-area expansions, including the
+existing-test requirement-link backlog checkpoint (1837 tests: 1778 simulation and 59 elaboration). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -3766,3 +3766,71 @@ tool tests, metadata, ledger/library, evidence identities and paired docs pass.
 FAQs/terms reach 248/279. Schema, runners/library/catalog/backend, workflow and
 six SVGs remain unchanged. No guest run, human review, denominator approval or
 completion is claimed. Goal active.
+
+## Sixty-first thin-area expansion: base-class conditions
+
+Based on [58ba1c5](https://github.com/kurochan001/kirimasim-uvm-tests/commit/58ba1c5782c0a47980539b0d8a7ca9501f2be296); 2026-11-05 JST. Thirty-six M1 fixtures add nineteen matches: fifteen runtime cases at seeds
+1/73 and four expected compiler rejections. Seventeen retain known differences:
+twelve runtime cases at seed 1 without seed 73 and five legal builds without
+runtime. These cover object/void/port declarations, constructor omissions and
+names, transaction recording controls/handles/events, object policy hooks and
+active policies, canonical time units/defaults and field-operation lifecycle.
+
+The five legal builds are four missing object active-policy API builds and the printed
+optional secs argument of time decr, which the library requires. Explicit-seconds
+decrement and caller-unit scaling controls match independently. Twelve runtime
+cases retain initial transaction activity, recording default-on wording,
+four illegal recording-control interval notifications, two record-object routes,
+time/port default names and field-operation hook queries before set/after flush.
+Matching handle/registry/free and hierarchy observations do not pass those cases.
+The explicit-DEEP recorder confirms its selected recursion mode before checking
+the subject callback. Error probes require ERROR/FATAL notification without
+fixing diagnostic text, ID, count or unspecified recovery.
+
+One existing printer fixture is repaired to use the standard virtual-argument
+names value and size under SystemVerilog 8.20. Its unchanged expected output
+matches both seeds on the revised input. Initial override-name and caller-unit
+time setup errors are corrected before final measurement; their obsolete
+results are not counted as current UVM differences. User-defined print/compare,
+direct record and named-resource set_local probes check selected extension
+routes, not all builtin formatting, automatic field configuration or macros.
+The printed pure-method/default-body wording and transaction-constructor comma
+conflict remain explicit interpretation boundaries.
+
+Chapter-5 auditing adds 60 AI duties for thirty-six new M1 fixtures and
+selected existing controls. Eight headings are individually structural; one
+active-policy introduction is contextual with related push/pop/get duties.
+All 48 formerly unassessed identifiers are addressed: chapter 5 is 99 partial,
+12 assessed and zero unassessed, with 168 drafts and 92 primary fixtures
+(87 simulation/5 elaboration). This does not complete its remaining conditions.
+
+Object/void ancestry and construction, virtual extension routes, transaction
+recording controls/handles/events, generic port defaults, canonical time units
+and field-operation hook lifecycle have explicit conditions. Missing APIs,
+the secs argument-default build and twelve runtime differences remain spec-only.
+Existing initiator/ID and field-operation controls are mapped narrowly; initiator
+print/record, automatic configuration and broader error/lifecycle combinations
+remain partial. Pure-method/default-body and constructor punctuation conflicts
+are retained rather than silently resolved by the library.
+
+Overall is 1786 partial/386 assessed/335 unassessed (265 structural/121 contextual).
+All 3172 earlier requirements and 377 assessments remain unchanged. There are
+1836 directly linked tests, one control-only test and 42 tests with control
+links. Scope is proposed with null denominator/percentage; no clause state means
+complete. One existing printer input/index/record is deliberately refreshed after
+correcting override argument names and remeasurement; its oracle is unchanged.
+
+The final suite is 1837 (1778 simulation/59 elaboration): M1 745 (699/46),
+M2 547 (542/5), M3 545 (537/8). Ordinary evidence is 1587 pass (1531 runtime
+at both seeds/56 expected rejections) and 250 known (185 seed-1 runtime,
+62 legal builds and three accepted illegal constructions). Other 1800 prior
+ordinary records and all 55 prior compiler records remain unchanged. The 1083
+guest records and separate eleven HDL/eighteen command-line records are unchanged;
+754 guest inputs are unmeasured (695 simulation/59 elaboration), comprising
+752 post-original additions and two revised original inputs. The printer was
+already outside the guest subset. Initial time/override setup failures and the
+premature generic-port tag are corrected; final fingerprints bind every new
+or revised record. No GPL/LGPL simulator implementation or commercial result
+is used. Library integrity, 110 tool tests, metadata, ledger/index, raw/evidence
+and bilingual docs checks pass. The persistent goal stays active: iteration 33
+reduces unassessed from 1463 to 335 (1128), with no completion or human approval.

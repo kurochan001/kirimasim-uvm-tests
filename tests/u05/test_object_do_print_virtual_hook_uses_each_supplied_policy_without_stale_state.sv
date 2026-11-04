@@ -26,9 +26,9 @@ module test_object_do_print_virtual_hook_uses_each_supplied_policy_without_stale
     int size;
     string field;
     function new(string name="printer"); super.new(name); endfunction
-    virtual function void print_field_int(string name, uvm_integral_t datum, int width,
+    virtual function void print_field_int(string name, uvm_integral_t value, int size,
         uvm_radix_enum radix=UVM_NORADIX, byte scope_separator=".", string type_name="");
-      calls++; value = datum; size = width; field = name;
+      calls++; this.value = value; this.size = size; field = name;
     endfunction
     virtual function string emit(); return "unused"; endfunction
   endclass

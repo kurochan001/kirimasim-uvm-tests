@@ -1292,3 +1292,12 @@ identity checks and actual target execution require distinct observations.
 **Live child-sequence slot** — A wrapper's protected reference to the child
 currently executing selected work. A routing probe can compare the live handle
 without assuming its initial value, allocation count or post-body retention.
+
+**Caller-unit canonical time** — A real time quantity interpreted in the calling
+scope's time units. Explicit scaled/secs arguments convert it to or from the
+canonical representation; a nanosecond-based example cannot be reused unchanged
+in a picosecond scope.
+
+**Virtual override formal name** — An argument name that must match the base
+virtual method under SystemVerilog 8.20. Matching argument types and accepted
+compilation alone do not establish a valid override declaration.
