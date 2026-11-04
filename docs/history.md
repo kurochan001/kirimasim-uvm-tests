@@ -3,8 +3,8 @@
 [日本語](history.ja.md) · [README](../README.md)
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and sixty-one cross-milestone thin-area expansions, including the
-existing-test requirement-link backlog checkpoint (1837 tests: 1778 simulation and 59 elaboration). The earlier 349-test checkpoint is
+three M4 increments and sixty-two cross-milestone thin-area expansions, including the
+existing-test requirement-link backlog checkpoint (1858 tests: 1798 simulation and 60 elaboration). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -3834,3 +3834,64 @@ or revised record. No GPL/LGPL simulator implementation or commercial result
 is used. Library integrity, 110 tool tests, metadata, ledger/index, raw/evidence
 and bilingual docs checks pass. The persistent goal stays active: iteration 33
 reduces unassessed from 1463 to 335 (1128), with no completion or human approval.
+
+## Sixty-second thin-area expansion: resource collection and config types
+
+Based on [c9d01f3](https://github.com/kurochan001/kirimasim-uvm-tests/commit/c9d01f36f61881dd9c36750c5808cab4961e6b4e); 2026-11-05 JST. Twenty-one M1 resource/config fixtures add fifteen matches: fourteen runtime
+cases at seeds 1/73 and one expected pool-to-object assignment rejection. Six
+retain known differences: three runtime inputs at seed 1 without seed 73 and
+three legal builds without runtime. The missing typed resource-DB maximum helper
+is called directly for mixed types, first-maximum ties and its default object
+specialization. An untyped pool helper or testbench filter cannot replace it.
+
+Distinct-precedence sorting and resorting after a change match. Equal precedence
+retains a difference under the explicit interpretation of most-recently-set as
+observed insertion history; that interpretation requires review. It is distinct
+from the first-maximum selection rule. Literal regex lookup, exact named sets,
+named/unnamed scope collection and scope replacement match without imposing
+traversal order. Anchored alternation differs under the ordinary no-DPI condition.
+The printed virtual regex/scope calls through a base view also differ; original
+overrides test dispatch only and cannot certify builtin collection algorithms.
+
+Config default/inherited static interfaces and four exact aliases have selected
+set/get checks, including high bitstream bits, empty strings, shared/replaced
+object handles and factory proxy handles. Positive-time component requests use
+an explicit get, not an automatic-configuration oracle. Typed virtual-interface
+resources retain live original instances. The resource-base print probe assesses
+only inherited virtual dispatch. One supporting bitstream citation is corrected,
+and final tag/detail/named-membership changes are remeasured; no standard-derived
+expectation is replaced. These conditions do not close all resource contracts.
+
+Annex-C auditing adds 30 AI duties for twenty-one new M1 fixtures. Nineteen
+formerly unassessed identifiers receive partial decomposition. The type-interface
+introduction is individually contextual with its retained static/polymorphic
+accessor duties. All twenty previously unassessed identifiers are addressed:
+C is 71 partial/13 assessed/0 unassessed, with 98 drafts and 69 primary fixtures
+(64 simulation/5 elaboration). Its partial conditions remain open.
+
+Sort order/recency, mixed-type maximum selection, regex/scope collection,
+virtual declarations, priority enum meanings, config inheritance/defaults and
+four aliases, positive-time component access, virtual-interface values and
+resource-base print dispatch have explicit selected observations. The three
+missing typed-helper builds and three runtime differences stay spec-only.
+Recent-set semantics and lookup_type/overview conflicts remain qualified.
+
+Overall is 1805 partial/387 assessed/315 unassessed (265 structural/122 contextual).
+All 3232 earlier requirements, 386 assessments, 1837 test snapshots and ordinary
+execution records remain unchanged. There are 1857 directly linked tests, one
+control-only test and 43 tests with control links. Scope is proposed with null
+denominator/percentage; no state certifies completion of M1–M4.
+
+The final suite is 1858 (1798 simulation/60 elaboration): M1 766 (719/47),
+M2 547 (542/5), M3 545 (537/8). Ordinary evidence is 1602 pass (1545 runtime
+at both seeds/57 expected rejections) and 256 known (188 seed-1 runtime,
+65 legal builds and three accepted illegal constructions). All 1837 prior
+ordinary inputs/records and 59 compiler records are unchanged. Guest 1083,
+HDL eleven and command-line eighteen records are unchanged; 775 guest inputs
+remain unmeasured (715 simulation/60 elaboration), comprising 773 additions
+and two revised original inputs. Final sources preserve the standard oracles,
+correct an initial supporting citation and remeasure every tag/detail change.
+Library integrity, 110 tool tests, metadata, ledger/index, raw/evidence and
+paired documentation checks pass. No GPL/LGPL simulator implementation or
+commercial result is used. The goal remains active: iteration 34 reduces
+unassessed from 1463 to 315 (1148), without human approval or completion.

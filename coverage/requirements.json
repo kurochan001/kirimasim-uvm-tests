@@ -118193,6 +118193,1041 @@
           ]
         }
       ]
+    },
+    {
+      "id": "UVM-RESOURCE-COLLECTION-SORT-DESCENDING",
+      "clause": "C.2.4.4.3",
+      "statement": {
+        "en": "Sorting places selected distinct precedences in descending order.",
+        "ja": "sortは選択した異なるprecedenceを降順へ並べる。"
+      },
+      "conditions": {
+        "en": "Register three resources, assign explicit distinct precedences and pass a deliberately unsorted queue to the static helper.",
+        "ja": "3 resourceを登録して異なるprecedenceを明示し、意図して未整列のqueueをstatic helperへ渡す。"
+      },
+      "expected": {
+        "en": "All three handles remain and order is 93,17,0.",
+        "ja": "3 handleすべてを保持し、順序は93、17、0である。"
+      },
+      "limitations": {
+        "en": "Selected non-null resource queues use the global pool precedence API. No private precedence member, equal-key stability or pool-independent precedence model is substituted. Empty/null queues, duplicates and broader update histories remain partial.",
+        "ja": "選択した非null resource queueでglobal poolのprecedence APIを使う。private precedence member、同順位の安定性、pool非依存のprecedence modelで代用しない。空／null queue、重複、広い更新履歴は部分的に残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_resource_pool_sort_orders_distinct_precedences_in_the_supplied_queue",
+          "role": "direct",
+          "expected_observations": [
+            "UT: sort_distinct count 1 descending 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESOURCE-COLLECTION-SORT-CHANGED",
+      "clause": "C.2.4.4.3",
+      "statement": {
+        "en": "Sorting uses the selected current precedence values after a change.",
+        "ja": "sortは変更後の選択した現在precedence値を使う。"
+      },
+      "conditions": {
+        "en": "Register three resources, assign explicit distinct precedences and pass a deliberately unsorted queue to the static helper.",
+        "ja": "3 resourceを登録して異なるprecedenceを明示し、意図して未整列のqueueをstatic helperへ渡す。"
+      },
+      "expected": {
+        "en": "Changing the former minimum to 101 moves it ahead of 93 and 17.",
+        "ja": "以前の最小値を101へ変更すると93と17の前へ移る。"
+      },
+      "limitations": {
+        "en": "Selected non-null resource queues use the global pool precedence API. No private precedence member, equal-key stability or pool-independent precedence model is substituted. Empty/null queues, duplicates and broader update histories remain partial.",
+        "ja": "選択した非null resource queueでglobal poolのprecedence APIを使う。private precedence member、同順位の安定性、pool非依存のprecedence modelで代用しない。空／null queue、重複、広い更新履歴は部分的に残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_resource_pool_sort_orders_distinct_precedences_in_the_supplied_queue",
+          "role": "direct",
+          "expected_observations": [
+            "UT: sort_changed current_values 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESOURCE-COLLECTION-SORT-RECENT-SET",
+      "clause": "C.2.4.4.3",
+      "statement": {
+        "en": "The selected recent-set interpretation orders equal precedences newest first.",
+        "ja": "選択したrecent-set解釈では同precedenceを新しい順に並べる。"
+      },
+      "conditions": {
+        "en": "Use distinct set_scope insertion times, equal explicit precedence seven and an oldest-first supplied queue.",
+        "ja": "set_scope挿入時刻を分け、同じprecedence 7を明示し、古い順のqueueを渡す。"
+      },
+      "expected": {
+        "en": "The supplied list becomes newest,middle,oldest without losing handles.",
+        "ja": "指定listはhandleを失わずnewest、middle、oldestとなる。"
+      },
+      "limitations": {
+        "en": "Most recently set is explicitly interpreted as the observed resource insertion history; no private timestamp or undocumented stability rule is assumed. This qualified oracle needs review and remains distinct from first-maximum selection.",
+        "ja": "most recently setを観測したresource挿入履歴と明示解釈し、private timestampや未記載の安定性規則は推測しない。この限定oracleはレビューが必要で、最初の最大値選択と別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_resource_pool_sort_equal_precedence_uses_the_printed_recent_set_rule",
+          "role": "direct",
+          "expected_observations": [
+            "UT: sort_equal count 1 recently_set_first 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESOURCE-COLLECTION-TYPED-MAXIMUM",
+      "clause": "C.3.2.3.10",
+      "statement": {
+        "en": "Typed maximum selection ignores a higher-precedence container of another type.",
+        "ja": "typed最大値選択は異なる型のより高いprecedence containerを除外する。"
+      },
+      "conditions": {
+        "en": "Construct original resource queues with explicit global-pool precedences, mixed specializations and retained live handles.",
+        "ja": "明示global-pool precedence、混合特殊化、保持live handleを持つ独自resource queueを構成する。"
+      },
+      "expected": {
+        "en": "The int API selects precedence 17, while the string API selects its precedence 99 container.",
+        "ja": "int APIはprecedence 17、string APIは自身のprecedence 99 containerを選ぶ。"
+      },
+      "limitations": {
+        "en": "Call the printed typed DB helper directly with mixed non-null resource containers. A missing legal method is a build difference without runtime; the untyped pool helper or a testbench filter cannot replace it. Empty/null/duplicate queue conditions remain partial.",
+        "ja": "印刷されたtyped DB helperを混合した非null resource containerで直接呼ぶ。合法method欠落はruntimeなしのbuild差分で、untyped pool helperや検査系filterで置換しない。空／null／重複queue条件は部分的に残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_resource_db_typed_highest_precedence_filters_higher_values_of_other_types",
+          "role": "direct",
+          "expected_observations": [
+            "UT: typed_max integer 1 string 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESOURCE-COLLECTION-TYPED-FIRST-TIE",
+      "clause": "C.3.2.3.10",
+      "statement": {
+        "en": "Typed maximum selection returns the first matching maximum in the supplied queue.",
+        "ja": "typed最大値選択は指定queueで最初にある一致最大値を返す。"
+      },
+      "conditions": {
+        "en": "Construct original resource queues with explicit global-pool precedences, mixed specializations and retained live handles.",
+        "ja": "明示global-pool precedence、混合特殊化、保持live handleを持つ独自resource queueを構成する。"
+      },
+      "expected": {
+        "en": "Reversing the two matching maximum handles reverses the selected handle despite a larger wrong-type entry.",
+        "ja": "不一致型のより大きなentryがあっても、一致する最大値2 handleを逆順にすると選択handleが変わる。"
+      },
+      "limitations": {
+        "en": "Call the printed typed DB helper directly with mixed non-null resource containers. A missing legal method is a build difference without runtime; the untyped pool helper or a testbench filter cannot replace it. Empty/null/duplicate queue conditions remain partial.",
+        "ja": "印刷されたtyped DB helperを混合した非null resource containerで直接呼ぶ。合法method欠落はruntimeなしのbuild差分で、untyped pool helperや検査系filterで置換しない。空／null／重複queue条件は部分的に残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_resource_db_typed_highest_precedence_returns_the_first_matching_maximum",
+          "role": "direct",
+          "expected_observations": [
+            "UT: typed_tie first 1",
+            "UT: typed_tie reordered 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESOURCE-COLLECTION-TYPED-DEFAULT-OBJECT",
+      "clause": "C.3.2.3.10",
+      "statement": {
+        "en": "The omitted DB type selects the highest matching object resource container.",
+        "ja": "DB型を省略すると一致するobject resource containerの最高値を選ぶ。"
+      },
+      "conditions": {
+        "en": "Construct original resource queues with explicit global-pool precedences, mixed specializations and retained live handles.",
+        "ja": "明示global-pool precedence、混合特殊化、保持live handleを持つ独自resource queueを構成する。"
+      },
+      "expected": {
+        "en": "The omitted type uses uvm_object and ignores a higher-precedence int resource.",
+        "ja": "省略型はuvm_objectを使い、より高いprecedenceのint resourceを除外する。"
+      },
+      "limitations": {
+        "en": "Call the printed typed DB helper directly with mixed non-null resource containers. A missing legal method is a build difference without runtime; the untyped pool helper or a testbench filter cannot replace it. Empty/null/duplicate queue conditions remain partial.",
+        "ja": "印刷されたtyped DB helperを混合した非null resource containerで直接呼ぶ。合法method欠落はruntimeなしのbuild差分で、untyped pool helperや検査系filterで置換しない。空／null／重複queue条件は部分的に残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_resource_db_default_type_selects_the_highest_object_container",
+          "role": "direct",
+          "expected_observations": [
+            "UT: default_typed_max same 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESOURCE-COLLECTION-REGEX-LITERAL",
+      "clause": "C.2.4.4.7",
+      "statement": {
+        "en": "Regex lookup combines a selected literal name with scope visibility across types.",
+        "ja": "regex lookupは選択したliteral名と型をまたぐscope可視性を組み合わせる。"
+      },
+      "conditions": {
+        "en": "Use same-name int/string resources, a hidden same-name peer and a visible wrong-name peer in a fresh pool.",
+        "ja": "新規poolで同名int／string resource、隠れた同名peer、可視の別名peerを使う。"
+      },
+      "expected": {
+        "en": "Exactly both visible same-name handles are returned, and an unmatched scope returns an empty queue.",
+        "ja": "可視の同名2 handleだけを返し、不一致scopeは空queueを返す。"
+      },
+      "limitations": {
+        "en": "Observe unordered handle membership/counts, not database traversal order. Use only the printed lookup API; a missing method remains a legal build difference. Queue lifetime/ownership, performance, null handling and all regular-expression dialects remain partial.",
+        "ja": "DB走査順でなく順序なしのhandle所属／件数を観測する。印刷lookup APIだけを使い、method欠落は合法build差分として残す。queue lifetime／所有、性能、null処理、全正規表現方言は部分的に残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_resource_pool_regex_literal_combines_exact_names_and_scope_visibility",
+          "role": "direct",
+          "expected_observations": [
+            "UT: regex_literal selected 1 hidden_scope 1 name_collection 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESOURCE-COLLECTION-REGEX-ALTERNATION",
+      "clause": "C.2.4.4.7",
+      "statement": {
+        "en": "The printed regular-expression lookup selects the two named alternatives within the visible scope.",
+        "ja": "印刷された正規表現lookupは可視scope内の名前2候補を選ぶ。"
+      },
+      "conditions": {
+        "en": "Use explicit anchors and alternation with red/blue/green names and a hidden same-name resource.",
+        "ja": "明示anchor／alternationとred／blue／green名、隠れた同名resourceを使う。"
+      },
+      "expected": {
+        "en": "Exactly the visible red and blue handles are present.",
+        "ja": "可視のred／blue handleだけが存在する。"
+      },
+      "limitations": {
+        "en": "The interface explicitly says regular expression; the probe preserves that reading under no-DPI without substituting simplified notation or another API. Dialect/encoding boundaries and backend variants remain review work.",
+        "ja": "interfaceが正規表現と明示するため、no-DPIでも簡易表記や別APIで置き換えずその解釈を保持する。方言／encoding境界とbackend別条件はレビューが残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_resource_pool_regex_alternation_filters_names_and_scopes_without_queue_order",
+          "role": "direct",
+          "expected_observations": [
+            "UT: regex_alternation selected 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESOURCE-COLLECTION-SCOPE-NAMED",
+      "clause": "C.2.4.4.8",
+      "statement": {
+        "en": "Scope collection includes all selected visible named resource types.",
+        "ja": "scope収集は選択した可視の名前付きresource全型を含む。"
+      },
+      "conditions": {
+        "en": "Use fresh pools, explicit scope registration and exact original handle membership without assuming traversal order.",
+        "ja": "新規pool、明示scope登録、正確な独自handle所属を使い、走査順を仮定しない。"
+      },
+      "expected": {
+        "en": "Exactly the int and string handles are collected; a missing scope is empty.",
+        "ja": "int／string handleだけを収集し、不一致scopeは空である。"
+      },
+      "limitations": {
+        "en": "Observe unordered handle membership/counts, not database traversal order. Use only the printed lookup API; a missing method remains a legal build difference. Queue lifetime/ownership, performance, null handling and all regular-expression dialects remain partial.",
+        "ja": "DB走査順でなく順序なしのhandle所属／件数を観測する。印刷lookup APIだけを使い、method欠落は合法build差分として残す。queue lifetime／所有、性能、null処理、全正規表現方言は部分的に残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_resource_pool_scope_collection_preserves_all_visible_named_types",
+          "role": "direct",
+          "expected_observations": [
+            "UT: scope_named both_types 1 missing_empty 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESOURCE-COLLECTION-SCOPE-REPLACED",
+      "clause": "C.2.4.4.8",
+      "statement": {
+        "en": "Scope collection follows a selected resource scope replacement.",
+        "ja": "scope収集は選択resourceのscope置換に従う。"
+      },
+      "conditions": {
+        "en": "Use fresh pools, explicit scope registration and exact original handle membership without assuming traversal order.",
+        "ja": "新規pool、明示scope登録、正確な独自handle所属を使い、走査順を仮定しない。"
+      },
+      "expected": {
+        "en": "Moving the integer resource leaves only its string peer visible in the old scope.",
+        "ja": "integer resourceを移すと旧scopeにはstring peerだけが可視となる。"
+      },
+      "limitations": {
+        "en": "Observe unordered handle membership/counts, not database traversal order. Use only the printed lookup API; a missing method remains a legal build difference. Queue lifetime/ownership, performance, null handling and all regular-expression dialects remain partial.",
+        "ja": "DB走査順でなく順序なしのhandle所属／件数を観測する。印刷lookup APIだけを使い、method欠落は合法build差分として残す。queue lifetime／所有、性能、null処理、全正規表現方言は部分的に残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_resource_pool_scope_collection_preserves_all_visible_named_types",
+          "role": "direct",
+          "expected_observations": [
+            "UT: scope_replaced selected_only 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESOURCE-COLLECTION-SCOPE-ANONYMOUS",
+      "clause": "C.2.4.4.8",
+      "statement": {
+        "en": "All-visible scope collection includes a selected unnamed resource.",
+        "ja": "全可視scope収集は選択した無名resourceを含む。"
+      },
+      "conditions": {
+        "en": "Use fresh pools, explicit scope registration and exact original handle membership without assuming traversal order.",
+        "ja": "新規pool、明示scope登録、正確な独自handle所属を使い、走査順を仮定しない。"
+      },
+      "expected": {
+        "en": "Both named and unnamed live handles occur exactly once.",
+        "ja": "名前付き／無名のlive handleが各1回存在する。"
+      },
+      "limitations": {
+        "en": "Observe unordered handle membership/counts, not database traversal order. Use only the printed lookup API; a missing method remains a legal build difference. Queue lifetime/ownership, performance, null handling and all regular-expression dialects remain partial.",
+        "ja": "DB走査順でなく順序なしのhandle所属／件数を観測する。印刷lookup APIだけを使い、method欠落は合法build差分として残す。queue lifetime／所有、性能、null処理、全正規表現方言は部分的に残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_resource_pool_scope_collection_includes_an_unnamed_visible_resource",
+          "role": "direct",
+          "expected_observations": [
+            "UT: scope_anonymous selected 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESOURCE-COLLECTION-VIRTUAL-REGEX",
+      "clause": "C.2.4.4.7",
+      "statement": {
+        "en": "A base-typed regex lookup dispatches to the original override with its exact arguments.",
+        "ja": "base型のregex lookupは正確な引数で独自overrideへ委譲する。"
+      },
+      "conditions": {
+        "en": "An original pool extension implements the printed virtual signatures with identical formal names and returns its own live queue.",
+        "ja": "独自pool拡張は同じformal名で印刷virtual signatureを実装し、自身のlive queueを返す。"
+      },
+      "expected": {
+        "en": "One call, exact argument strings and the original returned queue are observed.",
+        "ja": "1回の呼出し、正確な引数文字列、元の返却queueを観測する。"
+      },
+      "limitations": {
+        "en": "Virtual declaration only. Original override bodies do not prove the builtin collection algorithm, database membership or regular-expression matching.",
+        "ja": "virtual宣言だけを検査する。独自override本体はbuiltin収集algorithm、DB所属、正規表現照合を証明しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_resource_pool_regex_and_scope_methods_dispatch_through_a_base_handle",
+          "role": "direct",
+          "expected_observations": [
+            "UT: pool_virtual regex 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESOURCE-COLLECTION-VIRTUAL-SCOPE",
+      "clause": "C.2.4.4.8",
+      "statement": {
+        "en": "A base-typed scope lookup dispatches to the original override with its exact argument.",
+        "ja": "base型のscope lookupは正確な引数で独自overrideへ委譲する。"
+      },
+      "conditions": {
+        "en": "An original pool extension implements the printed virtual signatures with identical formal names and returns its own live queue.",
+        "ja": "独自pool拡張は同じformal名で印刷virtual signatureを実装し、自身のlive queueを返す。"
+      },
+      "expected": {
+        "en": "One call, exact argument strings and the original returned queue are observed.",
+        "ja": "1回の呼出し、正確な引数文字列、元の返却queueを観測する。"
+      },
+      "limitations": {
+        "en": "Virtual declaration only. Original override bodies do not prove the builtin collection algorithm, database membership or regular-expression matching.",
+        "ja": "virtual宣言だけを検査する。独自override本体はbuiltin収集algorithm、DB所属、正規表現照合を証明しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_resource_pool_regex_and_scope_methods_dispatch_through_a_base_handle",
+          "role": "direct",
+          "expected_observations": [
+            "UT: pool_virtual scope 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESOURCE-COLLECTION-POOL-BARE-DECLARATION",
+      "clause": "C.2.4.1",
+      "statement": {
+        "en": "The printed bare resource-pool class is not an object-derived type.",
+        "ja": "印刷されたbare resource-pool classはobject派生型ではない。"
+      },
+      "conditions": {
+        "en": "Assign a newly constructed resource pool to a uvm_object receiver in one isolated illegal elaboration fixture.",
+        "ja": "独立した不正elaboration fixtureで新規resource poolをuvm_object receiverへ代入する。"
+      },
+      "expected": {
+        "en": "Compiler rejection matches the declared fixture/type diagnostic; no runtime seed executes.",
+        "ja": "compiler拒否が宣言fixture／型診断に一致し、runtime seedは実行しない。"
+      },
+      "limitations": {
+        "en": "Only the printed absence of an extends clause is checked. The separately legal pool/control does not replace the rejection duty or certify all constructors/derivations.",
+        "ja": "印刷extends節がないことだけを検査する。別の合法pool／controlは拒否義務を置換せず、全constructor／派生条件を認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_resource_pool_bare_class_declaration_rejects_an_object_receiver",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?is)%Error[^\\n]*test_resource_pool_bare_class_declaration_rejects_an_object_receiver.*?(assign|convert|class|type|uvm_resource_pool|uvm_object)"
+          }
+        },
+        {
+          "test": "uC/test_resource_pool_scope_collection_preserves_all_visible_named_types",
+          "role": "control",
+          "expected_observations": [
+            "UT: scope_named both_types 1 missing_empty 1",
+            "UT: scope_replaced selected_only 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESOURCE-COLLECTION-POOL-VISIBILITY-ROLE",
+      "clause": "C.2.4",
+      "statement": {
+        "en": "The selected pool contains typed resources whose visibility follows registered scope expressions.",
+        "ja": "選択poolは登録scope式に従う可視性を持つtyped resourceを保持する。"
+      },
+      "conditions": {
+        "en": "Register distinct int/string resources and query visible/missing scopes before and after one scope replacement.",
+        "ja": "別々のint／string resourceを登録し、1つのscope置換前後で可視／不一致scopeを照会する。"
+      },
+      "expected": {
+        "en": "The selected scope queries return the exact currently visible original handles.",
+        "ja": "選択scope照会は現在可視の正確な元handleを返す。"
+      },
+      "limitations": {
+        "en": "Selected database role only; global singleton wording, all name/type map shapes, printing and concurrent access remain partial.",
+        "ja": "選択したDBの役割のみ。global singletonの文言、全name／type map形状、print、並行accessは部分的に残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_resource_pool_scope_collection_preserves_all_visible_named_types",
+          "role": "direct",
+          "expected_observations": [
+            "UT: scope_named both_types 1 missing_empty 1",
+            "UT: scope_replaced selected_only 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESOURCE-COLLECTION-LOOKUP-OVERVIEW",
+      "clause": "C.2.4.4",
+      "statement": {
+        "en": "The selected name lookup returns the collection matching its current name and scope.",
+        "ja": "選択name lookupは現在名／scopeに一致する集合を返す。"
+      },
+      "conditions": {
+        "en": "The literal-regex fixture independently queries the printed name-collection API on its mixed-type visible set.",
+        "ja": "literal-regex fixtureが混合型の可視集合へ印刷name-collection APIも独立に照会する。"
+      },
+      "expected": {
+        "en": "The named collection contains exactly the two visible same-name handles.",
+        "ja": "name集合は可視の同名2 handleだけを含む。"
+      },
+      "limitations": {
+        "en": "The overview highest-precedence wording conflicts with the explicit get_by_type first-queue rule and lookup_type single-result convenience sentence. This narrow collection duty does not resolve those conflicts or close all lookup conditions.",
+        "ja": "概要の最高precedence文言はget_by_typeの明示first-queue規則、lookup_typeの単一結果convenience文と矛盾する。この狭い集合義務は衝突を解決せず、全lookup条件を完了しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_resource_pool_regex_literal_combines_exact_names_and_scope_visibility",
+          "role": "direct",
+          "expected_observations": [
+            "UT: regex_literal selected 1 hidden_scope 1 name_collection 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESOURCE-COLLECTION-PRIORITY-HIGH",
+      "clause": "C.2.2.2",
+      "statement": {
+        "en": "The typed PRI_HIGH priority value moves the selected resource to the queue front.",
+        "ja": "型付きPRI_HIGH優先値は選択resourceをqueue先頭へ移す。"
+      },
+      "conditions": {
+        "en": "Assign the exact names to a priority_e variable, inspect its symbolic name and pass it to the public name-priority API.",
+        "ja": "正確な名前をpriority_e変数へ代入し、symbol名を調べ、公開name-priority APIへ渡す。"
+      },
+      "expected": {
+        "en": "The selected name queue starts with the resource while the type queue keeps its original head.",
+        "ja": "選択name queueの先頭がresourceとなり、type queueは元の先頭を保つ。"
+      },
+      "limitations": {
+        "en": "No numeric encoding, arbitrary invalid enum cast or all map histories are inferred.",
+        "ja": "数値encoding、任意不正enum cast、全map履歴は推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_resource_priority_enum_values_select_front_and_back_without_numeric_assumptions",
+          "role": "direct",
+          "expected_observations": [
+            "UT: enum_high symbolic 1 front 1 other_map 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESOURCE-COLLECTION-PRIORITY-LOW",
+      "clause": "C.2.2.2",
+      "statement": {
+        "en": "The typed PRI_LOW priority value moves the selected resource to the queue back.",
+        "ja": "型付きPRI_LOW優先値は選択resourceをqueue末尾へ移す。"
+      },
+      "conditions": {
+        "en": "Assign the exact names to a priority_e variable, inspect its symbolic name and pass it to the public name-priority API.",
+        "ja": "正確な名前をpriority_e変数へ代入し、symbol名を調べ、公開name-priority APIへ渡す。"
+      },
+      "expected": {
+        "en": "The selected resource becomes the name queue tail.",
+        "ja": "選択resourceがname queue末尾となる。"
+      },
+      "limitations": {
+        "en": "No numeric encoding, arbitrary invalid enum cast or all map histories are inferred.",
+        "ja": "数値encoding、任意不正enum cast、全map履歴は推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_resource_priority_enum_values_select_front_and_back_without_numeric_assumptions",
+          "role": "direct",
+          "expected_observations": [
+            "UT: enum_low symbolic 1 back 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESOURCE-COLLECTION-CONFIG-DEFAULT",
+      "clause": "C.4.2.1",
+      "statement": {
+        "en": "The omitted config DB type is int, separate from a string specialization.",
+        "ja": "config DBの省略型はintで、string特殊化と分かれる。"
+      },
+      "conditions": {
+        "en": "Use public class-qualified functions, selected default/explicit specializations and fresh distinct scopes.",
+        "ja": "公開class修飾関数、選択した既定／明示特殊化、新規の異なるscopeを使う。"
+      },
+      "expected": {
+        "en": "Omitted/explicit int settings share updates while the same-name string setting remains independent.",
+        "ja": "省略／明示int設定は更新を共有し、同名string設定は独立する。"
+      },
+      "limitations": {
+        "en": "Selected declaration/type routes only; static call syntax does not prove all precedence, scope patterns, concurrency or automatic field configuration.",
+        "ja": "選択宣言／型経路だけで、static呼出し構文は全precedence、scope pattern、並行性、field自動設定を証明しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_config_db_omitted_type_matches_int_without_merging_string_settings",
+          "role": "direct",
+          "expected_observations": [
+            "UT: config_default integer_shared 1 string_separate 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESOURCE-COLLECTION-CONFIG-INHERITANCE",
+      "clause": "C.4.2.1",
+      "statement": {
+        "en": "The config DB inherits the resource DB interface of its matching T.",
+        "ja": "config DBは同じTのresource DB interfaceを継承する。"
+      },
+      "conditions": {
+        "en": "Use public class-qualified functions, selected default/explicit specializations and fresh distinct scopes.",
+        "ja": "公開class修飾関数、選択した既定／明示特殊化、新規の異なるscopeを使う。"
+      },
+      "expected": {
+        "en": "An original config extension inherits set_default, and explicit config/resource views recover the same resource/value.",
+        "ja": "独自config拡張がset_defaultを継承し、明示config／resource viewは同じresource／値を得る。"
+      },
+      "limitations": {
+        "en": "Selected declaration/type routes only; static call syntax does not prove all precedence, scope patterns, concurrency or automatic field configuration.",
+        "ja": "選択宣言／型経路だけで、static呼出し構文は全precedence、scope pattern、並行性、field自動設定を証明しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_config_db_inherits_the_matching_resource_database_static_interface",
+          "role": "direct",
+          "expected_observations": [
+            "UT: config_inherited same_specialization 1 stored_value 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESOURCE-COLLECTION-CONFIG-STATIC",
+      "clause": "C.4.2",
+      "statement": {
+        "en": "The selected config functions can be invoked statically with the selected T.",
+        "ja": "選択config関数は選択Tでstaticに呼べる。"
+      },
+      "conditions": {
+        "en": "Use public class-qualified functions, selected default/explicit specializations and fresh distinct scopes.",
+        "ja": "公開class修飾関数、選択した既定／明示特殊化、新規の異なるscopeを使う。"
+      },
+      "expected": {
+        "en": "Class-qualified set/get calls recover the selected typed values without allocating a DB object.",
+        "ja": "DB objectを割り当てず、class修飾set／getで選択typed値を得る。"
+      },
+      "limitations": {
+        "en": "Selected declaration/type routes only; static call syntax does not prove all precedence, scope patterns, concurrency or automatic field configuration.",
+        "ja": "選択宣言／型経路だけで、static呼出し構文は全precedence、scope pattern、並行性、field自動設定を証明しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_config_db_omitted_type_matches_int_without_merging_string_settings",
+          "role": "direct",
+          "expected_observations": [
+            "UT: config_default integer_shared 1 string_separate 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESOURCE-COLLECTION-RESOURCE-DB-STATIC",
+      "clause": "C.3.2",
+      "statement": {
+        "en": "The selected resource DB convenience functions are callable by class scope.",
+        "ja": "選択resource DB便利関数はclass scopeで呼べる。"
+      },
+      "conditions": {
+        "en": "Use public class-qualified functions, selected default/explicit specializations and fresh distinct scopes.",
+        "ja": "公開class修飾関数、選択した既定／明示特殊化、新規の異なるscopeを使う。"
+      },
+      "expected": {
+        "en": "Static creation and retrieval retain the same typed resource handle and stored value.",
+        "ja": "static生成／取得は同じtyped resource handleと保存値を保持する。"
+      },
+      "limitations": {
+        "en": "Selected declaration/type routes only; static call syntax does not prove all precedence, scope patterns, concurrency or automatic field configuration.",
+        "ja": "選択宣言／型経路だけで、static呼出し構文は全precedence、scope pattern、並行性、field自動設定を証明しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_config_db_inherits_the_matching_resource_database_static_interface",
+          "role": "direct",
+          "expected_observations": [
+            "UT: config_inherited same_specialization 1 stored_value 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESOURCE-COLLECTION-DATABASE-ANYTIME",
+      "clause": "C.1",
+      "statement": {
+        "en": "Selected type-specific resource and configuration access remains available at positive simulation times.",
+        "ja": "選択した型別resource／configuration accessは正のsimulation時刻で利用できる。"
+      },
+      "conditions": {
+        "en": "Construct original parent/child/peer components and issue explicit integer config and separate string resource requests after positive delays.",
+        "ja": "独自parent／child／peer componentを生成し、正遅延後に明示integer configと別のstring resource要求を行う。"
+      },
+      "expected": {
+        "en": "At times two and five the explicit APIs retain the selected values and keep the unrelated peer unchanged.",
+        "ja": "時刻2と5で明示APIは選択値を保持し、無関係peerは未変更である。"
+      },
+      "limitations": {
+        "en": "The original apply method calls get explicitly. No automatic field-macro application, run_test phase schedule, raw config/resource key encoding or universal timing/precedence claim is inferred.",
+        "ja": "独自apply methodはgetを明示呼出しする。field macro自動適用、run_test phase schedule、config／resource内部key encoding、普遍timing／precedenceは推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_configuration_and_resources_remain_accessible_at_selected_positive_times",
+          "role": "direct",
+          "expected_observations": [
+            "UT: late_database first 1 resource 1 peer 1",
+            "UT: late_database updated 1 positive_time 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESOURCE-COLLECTION-CONFIG-COMPONENT-LAYER",
+      "clause": "C.4.1",
+      "statement": {
+        "en": "The configuration convenience layer supplies a selected component property through an explicit typed get.",
+        "ja": "configuration便利層は明示typed getで選択component propertyを供給する。"
+      },
+      "conditions": {
+        "en": "Construct original parent/child/peer components and issue explicit integer config and separate string resource requests after positive delays.",
+        "ja": "独自parent／child／peer componentを生成し、正遅延後に明示integer configと別のstring resource要求を行う。"
+      },
+      "expected": {
+        "en": "A child explicitly applies its absolute and relative settings while an outside peer is unchanged.",
+        "ja": "childが絶対／相対設定を明示適用し、外側peerは未変更である。"
+      },
+      "limitations": {
+        "en": "The original apply method calls get explicitly. No automatic field-macro application, run_test phase schedule, raw config/resource key encoding or universal timing/precedence claim is inferred.",
+        "ja": "独自apply methodはgetを明示呼出しする。field macro自動適用、run_test phase schedule、config／resource内部key encoding、普遍timing／precedenceは推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_configuration_and_resources_remain_accessible_at_selected_positive_times",
+          "role": "direct",
+          "expected_observations": [
+            "UT: late_database first 1 resource 1 peer 1",
+            "UT: late_database updated 1 positive_time 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESOURCE-COLLECTION-CONFIG-INT-ALIAS",
+      "clause": "C.4.2.3.1",
+      "statement": {
+        "en": "The integer config alias is the bitstream specialization.",
+        "ja": "integer config aliasはbitstream特殊化である。"
+      },
+      "conditions": {
+        "en": "Compare exact type identities and perform actual cross-spelling set/get operations using selected values and fresh scopes.",
+        "ja": "正確な型同一性を比較し、選択値と新規scopeで異なる表記間の実set／getを行う。"
+      },
+      "expected": {
+        "en": "Exact type names agree and both alias-to-explicit routes preserve selected bits above 64.",
+        "ja": "正確な型名が一致し、aliasと明示型の両経路で64より上の選択bitを保持する。"
+      },
+      "limitations": {
+        "en": "Selected aliases/values and two-state data only; this does not establish four-state fidelity, automatic configuration, every field width, all derived specializations or factory object creation.",
+        "ja": "選択alias／値と2値dataのみで、4値忠実性、自動configuration、全field幅、全派生特殊化、factory object生成は立証しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_config_int_alias_matches_bitstream_type_and_preserves_high_selected_bits",
+          "role": "direct",
+          "expected_observations": [
+            "UT: config_int exact_type 1 high_bits 1",
+            "UT: config_int reverse_route 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESOURCE-COLLECTION-CONFIG-STRING-ALIAS",
+      "clause": "C.4.2.3.2",
+      "statement": {
+        "en": "The string config alias is the string specialization.",
+        "ja": "string config aliasはstring特殊化である。"
+      },
+      "conditions": {
+        "en": "Compare exact type identities and perform actual cross-spelling set/get operations using selected values and fresh scopes.",
+        "ja": "正確な型同一性を比較し、選択値と新規scopeで異なる表記間の実set／getを行う。"
+      },
+      "expected": {
+        "en": "Type names agree; both spellings share an empty-string update while a peer scope is preserved.",
+        "ja": "型名が一致し、両表記は空文字列更新を共有してpeer scopeを保持する。"
+      },
+      "limitations": {
+        "en": "Selected aliases/values and two-state data only; this does not establish four-state fidelity, automatic configuration, every field width, all derived specializations or factory object creation.",
+        "ja": "選択alias／値と2値dataのみで、4値忠実性、自動configuration、全field幅、全派生特殊化、factory object生成は立証しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_config_string_alias_shares_selected_updates_and_preserves_a_peer",
+          "role": "direct",
+          "expected_observations": [
+            "UT: config_string exact_type 1 shared_empty 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESOURCE-COLLECTION-CONFIG-OBJECT-ALIAS",
+      "clause": "C.4.2.3.3",
+      "statement": {
+        "en": "The object config alias is the object-handle specialization.",
+        "ja": "object config aliasはobject-handle特殊化である。"
+      },
+      "conditions": {
+        "en": "Compare exact type identities and perform actual cross-spelling set/get operations using selected values and fresh scopes.",
+        "ja": "正確な型同一性を比較し、選択値と新規scopeで異なる表記間の実set／getを行う。"
+      },
+      "expected": {
+        "en": "Type names agree; exact handles/replacements and a present null pass between the two spellings without cloning.",
+        "ja": "型名が一致し、cloneせず正確なhandle／置換／存在するnullを両表記で扱う。"
+      },
+      "limitations": {
+        "en": "Selected aliases/values and two-state data only; this does not establish four-state fidelity, automatic configuration, every field width, all derived specializations or factory object creation.",
+        "ja": "選択alias／値と2値dataのみで、4値忠実性、自動configuration、全field幅、全派生特殊化、factory object生成は立証しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_config_object_alias_returns_shared_handles_replacements_and_present_null",
+          "role": "direct",
+          "expected_observations": [
+            "UT: config_object exact_type 1 handles 1 present_null 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESOURCE-COLLECTION-CONFIG-WRAPPER-ALIAS",
+      "clause": "C.4.2.3.4",
+      "statement": {
+        "en": "The wrapper config alias is the factory-wrapper specialization.",
+        "ja": "wrapper config aliasはfactory-wrapper特殊化である。"
+      },
+      "conditions": {
+        "en": "Compare exact type identities and perform actual cross-spelling set/get operations using selected values and fresh scopes.",
+        "ja": "正確な型同一性を比較し、選択値と新規scopeで異なる表記間の実set／getを行う。"
+      },
+      "expected": {
+        "en": "Type names agree and live distinct factory proxy handles survive retrieval and replacement through both spellings.",
+        "ja": "型名が一致し、両表記を介した取得／置換で異なるlive factory proxy handleを保持する。"
+      },
+      "limitations": {
+        "en": "Selected aliases/values and two-state data only; this does not establish four-state fidelity, automatic configuration, every field width, all derived specializations or factory object creation.",
+        "ja": "選択alias／値と2値dataのみで、4値忠実性、自動configuration、全field幅、全派生特殊化、factory object生成は立証しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_config_wrapper_alias_preserves_live_factory_proxy_handles_and_replacement",
+          "role": "direct",
+          "expected_observations": [
+            "UT: config_wrapper exact_type 1 handles 1 distinct 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESOURCE-COLLECTION-TYPED-CONTAINER-INTERFACE",
+      "clause": "C.2.5",
+      "statement": {
+        "en": "A typed resource can retain a selected virtual-interface value.",
+        "ja": "typed resourceは選択virtual-interface値を保持できる。"
+      },
+      "conditions": {
+        "en": "Store and replace virtual handles for two original interface instances and mutate the selected instance through a retrieved view.",
+        "ja": "2つの独自interface instanceへのvirtual handleを保存／置換し、取得view経由で選択instanceを変更する。"
+      },
+      "expected": {
+        "en": "The retrieved views reach live selected state while a previously retrieved view still reaches its original instance.",
+        "ja": "取得viewは選択live状態へ到達し、以前の取得viewは元instanceへ到達し続ける。"
+      },
+      "limitations": {
+        "en": "Selected virtual-interface resource behavior only; no universal interface/modport, four-state, task timing or all arbitrary SystemVerilog types are certified.",
+        "ja": "選択virtual-interface resource動作だけで、普遍interface／modport、4値、task timing、全SystemVerilog型は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_typed_resource_virtual_interface_values_select_live_original_instances",
+          "role": "direct",
+          "expected_observations": [
+            "UT: vif_resource first_live 1",
+            "UT: vif_resource replacement 1 original_retained 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESOURCE-COLLECTION-RESOURCE-BASE-PRINT",
+      "clause": "C.2.3",
+      "statement": {
+        "en": "The resource base exposes the selected inherited virtual print interface.",
+        "ja": "resource baseは選択した継承virtual print interfaceを提供する。"
+      },
+      "conditions": {
+        "en": "Call do_print through a resource-base view of an original typed-resource extension with two supplied printer policies.",
+        "ja": "2つのprinter policyを渡し、独自typed-resource拡張のresource-base view経由でdo_printを呼ぶ。"
+      },
+      "expected": {
+        "en": "The original override sees both calls and the current policy; an untouched resource peer receives no call.",
+        "ja": "独自overrideは両呼出しと現在policyを観測し、未操作resource peerは呼出しを受けない。"
+      },
+      "limitations": {
+        "en": "Only inherited virtual dispatch is checked; original print bodies do not prescribe builtin resource text, fields, printer lifecycle or the separate legal-base pure-hook conflict.",
+        "ja": "継承virtual委譲だけを検査し、独自print本体はbuiltin resourceのtext／field、printer lifecycle、別の合法baseのpure-hook矛盾を規定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_resource_base_print_interface_dispatches_to_the_selected_typed_extension",
+          "role": "direct",
+          "expected_observations": [
+            "UT: resource_print virtual_calls 1 current_policy 1 peer 1"
+          ]
+        }
+      ]
     }
   ]
 }

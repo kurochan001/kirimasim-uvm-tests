@@ -1301,3 +1301,11 @@ in a picosecond scope.
 **Virtual override formal name** — An argument name that must match the base
 virtual method under SystemVerilog 8.20. Matching argument types and accepted
 compilation alone do not establish a valid override declaration.
+
+**Typed resource maximum** — Selection of the first maximum-precedence resource
+whose container specialization matches T. The typed DB API remains distinct
+from untyped selection and an original testbench filter.
+
+**Recent-set resource sort** — The separate equal-precedence sort rule whose
+most-recently-set wording is interpreted explicitly by a probe. It does not
+replace first-maximum tie selection or silently establish stable queue order.

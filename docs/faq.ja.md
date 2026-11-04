@@ -122,7 +122,7 @@ Ghostは公開前のシミュレータの仮名です。実行ファイルの識
 ### Q12. uvm_dpi: yesだけでDPIを使うビルドが完成しますか
 
 既定のマクロ一覧から`UVM_NO_DPI`を外す指定です。UVMのC/C++実装の供給・リンクは行いません。
-通常のVerilator runnerは、そのsourceを追加しません。`UVM_NO_DPI`が1808件、HDL DPIの明示選択が11件です。
+通常のVerilator runnerは、そのsourceを追加しません。`UVM_NO_DPI`が1829件、HDL DPIの明示選択が11件です。
 別の18検査系はHDLを無効にしてcommand-line／regex DPIを明示して有効化し、
 [command-line runner](testing.ja.md#verilatorのcommand-line部分集合)がその別backendをlinkします。
 [別のVPI runner](testing.ja.md#verilatorのvpi-hdl部分集合)は独自の限定backendをlinkし、結果は宣言した実行条件だけに適用します。
@@ -803,7 +803,7 @@ ROはbitを保持し、W1Cはmaskを適用し、RCはsampleした値を返して
 
 ### Q68. どの組み込みregister／memoryテストsequenceを検査していますか
 
-`tests/uE/`の59件で、次の系統を検査します。統合wrapperは3検査系、bit bashとregister accessは
+`tests/uE/`の88件で、次の系統に加えconstructor／宣言、target／protected slot、実行中child経路を検査します。統合wrapperはalgorithm検査系3件、bit bashとregister accessは
 ユーザー定義の未知policy、register accessはblock除外も検査します。
 
 | 系統 | sequenceのclass | 主な観測 |
@@ -923,8 +923,8 @@ controlの対応は、その要求の直接の検査ではありません。
 
 ### Q77. M4を始めたのに、カバレッジ率がないのはなぜですか
 
-AIによる3232要求案は部分的な分解で、3232要求を1836テストへ直接対応付け、直接未対応は0要求、別の1テストはcontrolです。
-全1837テストに要求の対応付けがあります。2,507の条項番号は規範的要求の単位ではありません。
+AIによる3262要求案は部分的な分解で、3262要求を1857テストへ直接対応付け、直接未対応は0要求、別の1テストはcontrolです。
+全1858テストに要求の対応付けがあります。2,507の条項番号は規範的要求の単位ではありません。
 範囲は提案、棚卸しは未完、分母は未承認で、M4の開始はどれの承認にもなりません。
 既知差分やHDL／DPIの制約によって義務を暗黙に除外しません。[承認までの手順](requirements.ja.md#m4の残作業と承認)を参照してください。
 
@@ -1709,7 +1709,7 @@ user backdoorは16 bit locationをモデル化します。location独立性、�
 
 いいえ。`tests_without_requirement_links`は0で、現在の全テストに、明示的なdirectまたはcontrolの対応があります。
 別の集計`requirements_without_direct_tests`も0件です。memory-walkの対応はQ134の限定した歴史的解釈で、
-省略されたIEEEの詳細の承認ではありません。HDL depositと利用可否には、明示VPI検査系があります。catalogの識別子335件も未評価です。
+省略されたIEEEの詳細の承認ではありません。HDL depositと利用可否には、明示VPI検査系があります。catalogの識別子315件も未評価です。
 分解と人のレビューは未完で、分母は未承認です。
 
 [新しいpolicyテスト](../tests/u16/test_policy_object_stack_tracks_nested_active_policy_push_and_pop.sv)は、
@@ -1783,7 +1783,7 @@ frontdoor保護のwarningはalgorithm oracleの対象外で、ERRORと観測し�
 個別に読んだ後、日英の根拠とAI／人のレビューを[番号の分類](../coverage/assessments.json)へ記録すれば可能です。
 構造上の見出しは関連要求を持たず、文脈の説明は既存要求を指定します。
 未レビューの記録、推測した分類、親への集約では外せません。生成状態は`assessed`で、要求条項の`partial`と区別します。
-現在の分類は386件で、分母承認や新たなpassを加えません。第11章の未評価0件でも、その要求の完了ではありません。
+現在の分類は387件で、分母承認や新たなpassを加えません。第11章の未評価0件でも、その要求の完了ではありません。
 
 ### Q136. 明示strict configurationで新規検査は成功しますか？
 
@@ -2276,7 +2276,7 @@ bound get／peek portはobject headを消費せずavailabilityを報告し、liv
 ### Q193. 互換なguest部分集合が1083件へ減った理由は？
 
 command enum引用とBoolean rerandomization観測の2入力で指紋が変わり、両方をVerilatorで測定してstale guest記録を除外しました。
-歴史的な1085記録の出典fileは保持します。現在の再利用は1083入力、未測定754件は追加752件と修正した既存2入力です。
+歴史的な1085記録の出典fileは保持します。現在の再利用は1083入力、未測定775件は追加773件と修正した既存2入力です。
 guest再実行や新しい結果は主張しません。
 
 ### Q194. predicateの実装が別のvirtual照会へ委譲してもよいですか？
@@ -2310,8 +2310,8 @@ initiatorはERRORを報告しながらentryを保持し、targetは残しませ�
 
 ### Q199. compile拒否を一致に数える理由は？
 
-選択した抽象生成28検査は、規格でvirtualと宣言したclassを意図的に直接生成します。必要な結果はfixtureとclassを識別するerrorでの拒否です。
-一致した拒否はruntime seedを伴わない成功したnegative検査であり、simulationの予期しないbuild 62件とは別です。
+選択した抽象生成32検査は、規格でvirtualと宣言したclassを意図的に直接生成します。必要な結果はfixtureとclassを識別するerrorでの拒否です。
+一致した拒否はruntime seedを伴わない成功したnegative検査であり、simulationの予期しないbuild 65件とは別です。
 pure-method／const参照検査は追加のnegative条件であり、それぞれ宣言oracleに従って判定します。
 
 ### Q200. 台帳schema 2は以前の出力linkを変えますか？
@@ -2319,10 +2319,10 @@ pure-method／const参照検査は追加のnegative条件であり、それぞ�
 いいえ。schema 2は以前の出力link形式を保持し、compile stageと正確な宣言regexの診断形式を追加します。不正elaboration metadataでruntime期待がないことを要求します。
 schema 1も引き続き読め、混在／未知fieldや古いpatternは拒否します。検証はcompiler実測結果を読みません。個別要求の照合で直接anchorを追加する場合も、既存linkは保持して変更を明示します。
 
-### Q201. 全1837テストを2 seedで実行しましたか？
+### Q201. 全1858テストを2 seedで実行しましたか？
 
-いいえ。simulation 1778件とelaboration 59件があります。通常記録はruntime両seed一致1531件、期待compiler拒否56件、既知simulation差分247件、不正compile受理の既知差分3件です。
-不正design 59件は、compileを受理された場合もruntime seedを実行しません。
+いいえ。simulation 1798件とelaboration 60件があります。通常記録はruntime両seed一致1545件、期待compiler拒否57件、既知simulation差分253件、不正compile受理の既知差分3件です。
+不正design 60件は、compileを受理された場合もruntime seedを実行しません。
 
 ### Q202. 以前の合法controlは何を示しますか？
 
@@ -2366,7 +2366,7 @@ entry-depth境界matrixは限定した読み方で、別の超過済みscopeは�
 
 ### Q209. 第6章の未評価0でreportingやM1〜M4は完了ですか？
 
-いいえ。第6章には部分分解98番号・分類19番号があり、選択print probeで残る条件は完了しません。全体の未評価は335番号です。
+いいえ。第6章には部分分解98番号・分類19番号があり、選択print probeで残る条件は完了しません。全体の未評価は315番号です。
 printer 16.2節にはtable-format概要が残り、第16章の広いpolicyでは未評価3番号があります。範囲と分母は未承認で、link queue 0件でもgoalは完了しません。
 
 ### Q210. flush時の設定規則は全printer controlで同じですか？
@@ -2452,7 +2452,7 @@ INFO 3／WARNING 6の配送は引用規則に従い、他の全override／report
 ### Q224. D.3 fileをM3に数える理由と、付録Dは完了したのか？
 
 主引用がdirectoryを決めるため、名前によるregister／memoryのD.3 fixtureはuDに置きます。機能対象はregister層なので名前アクセス6 fixtureをM3に数えます。
-章別の棚卸しとmilestone分類は同じテストに対する異なる観点です。付録Dの未評価は0ですが部分39番号が残り、条件と元のM1〜M4目標は未完了です。全体の未評価は335番号です。
+章別の棚卸しとmilestone分類は同じテストに対する異なる観点です。付録Dの未評価は0ですが部分39番号が残り、条件と元のM1〜M4目標は未完了です。全体の未評価は315番号です。
 
 ### Q225. block coverageのmetadataでcovergroupを測定しますか？
 
@@ -2498,7 +2498,7 @@ write／read中の活動、成功／失敗後のreturn、後続成功アクセ�
 
 いいえ。第9章には部分分解94番号と分類22番号があります。新しい直接delegate matrixはfunction 8行とtask 13行を持ちますが共有2 fixtureです。
 timing、走査、domain controlは選択条件を追加し、全graph形状、実行中同期変更、不正jump、継承変種、task cleanupは監査に残ります。
-既存のsignature／本文矛盾と寿命の既知差分を保持します。全体では335番号が未評価で、元のM1〜M4のgoalは継続中です。
+既存のsignature／本文矛盾と寿命の既知差分を保持します。全体では315番号が未評価で、元のM1〜M4のgoalは継続中です。
 
 ### Q233. run phaseのtimeout参照が異なる場合、どの条項を使いますか？
 
@@ -2586,7 +2586,7 @@ wrapperの実行childが宣言protected slotであり、選択対象を受け取
 ### Q248. 付録Eの未評価0はregister test sequenceの完了ですか？
 
 いいえ。部分74・分類20番号でAI案114件があり、物理reset／access、歴史的walking-ones解釈、追加skip／error／中止／並行条件は残ります。
-全体の未評価は335番号で、元のM1〜M4目標は全て未完了です。[要求](requirements.ja.md)を参照してください。
+全体の未評価は315番号で、元のM1〜M4目標は全て未完了です。[要求](requirements.ja.md)を参照してください。
 
 ## 基底class・recording・canonical time
 
@@ -2607,4 +2607,24 @@ runtimeのない合法build差分です。既定名の観測は別のruntime差�
 
 いいえ。案168件と個別分類12件があり、部分分解99番号と未評価0番号です。測定libraryではactive-policy API probe 4件が依然method欠落で停止します。
 initiatorのprint／record、全transaction link／順序、pure-method／既定bodyの衝突、旧overrideのformal名、広いlifecycle／error条件は監査が残ります。
-全体は未評価335番号で、元のM1〜M4目標は未完です。
+全体は未評価315番号で、元のM1〜M4目標は未完です。
+
+## resource収集・sort・config alias
+
+### Q252. 最初の最大値選択と同precedenceのsortは同じですか？
+
+異なります。pool helperは指定queueで最初の最大値を選び、sort条項は別に同precedenceをmost recently set firstと記述します。
+新sort probeは観測した挿入履歴と明示解釈し、その限定解釈はseed 1で異なり、レビューが必要です。
+異なるprecedenceのsortは独立に一致します。どちらの結果もrecent setの全意味や全precedence／lookup_type矛盾を解決しません。
+
+### Q253. 欠落typed DB helperをuntyped最大値helperで代用できますか？
+
+できません。印刷typed DB helperへ直接行う混合型／同順位／既定型の3呼出しはbuildできず、runtime結果がありません。
+untyped helperや独自の検査系filterでは異なるinterfaceの検査となるため、規範的APIと型で絞った最初の最大値の期待をspec-onlyに保持します。
+
+### Q254. 収集とaliasの一致で付録Cは完了しますか？
+
+いいえ。名前付き／匿名scope集合、literal名、config alias 4種、選択virtual-interface値は測定条件で一致します。
+regex alternationとbase virtual委譲はruntime差分を保持し、独自override probeはbuiltin収集algorithmを認定しません。
+付録Cは案98件、部分71／分類13／未評価0で、全体は未評価315番号です。
+広い型、queue／error／lifecycle条件、component自動configuration、元のmilestone目標は未完です。

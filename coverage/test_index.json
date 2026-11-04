@@ -6410,6 +6410,10 @@
       "primary_clause": "C.4.2.2.3",
       "inputs_sha256": "2134b52ad07182693863eba2b68a9fd2b3dc10f03909a055189d32f5fbbc947d"
     },
+    "uC/test_config_db_inherits_the_matching_resource_database_static_interface": {
+      "primary_clause": "C.4.2.1",
+      "inputs_sha256": "cabcbcb507b32e4e81d70f7f706317af69922aac4c04694426e9e10aa3912c1d"
+    },
     "uC/test_config_db_null_object_value_is_a_present_setting": {
       "primary_clause": "C.4.2.2.1",
       "inputs_sha256": "7eba0221ae9f22c8ac1d7833aee6b46223a36c7b4bf1f018c3b51b4c50ddbee6"
@@ -6425,6 +6429,10 @@
     "uC/test_config_db_object_value_preserves_handle_identity": {
       "primary_clause": "C.4.2.2.1",
       "inputs_sha256": "422ecdb7c02df9036ccfcb6178330f0f3919bffa6c9c87743b92f5c43d6b7774"
+    },
+    "uC/test_config_db_omitted_type_matches_int_without_merging_string_settings": {
+      "primary_clause": "C.4.2.1",
+      "inputs_sha256": "21ecfe96b6c00206535e4a7afa26dd43195b62b184a9b28cbe9cb6feb91bced4"
     },
     "uC/test_config_db_relative_and_absolute_lookup": {
       "primary_clause": "C.4.2.2.1",
@@ -6462,6 +6470,26 @@
       "primary_clause": "C.4.2.2.4",
       "inputs_sha256": "4964ccb2e84fdf5fab65717b436789bc08a3158117c21a97b7bc94d6f6c8b6ea"
     },
+    "uC/test_config_int_alias_matches_bitstream_type_and_preserves_high_selected_bits": {
+      "primary_clause": "C.4.2.3.1",
+      "inputs_sha256": "e34ef18c4fc51c269e0603f810c6e1594cf356f6d04ac46e8e04e2c5a4c84f48"
+    },
+    "uC/test_config_object_alias_returns_shared_handles_replacements_and_present_null": {
+      "primary_clause": "C.4.2.3.3",
+      "inputs_sha256": "be0061c47560b4f66e220d000d8f91de4433ef41c2d630f28ea82702900acd98"
+    },
+    "uC/test_config_string_alias_shares_selected_updates_and_preserves_a_peer": {
+      "primary_clause": "C.4.2.3.2",
+      "inputs_sha256": "c3238fe625a6e890b71f7e557d71921b643cac56394b3d519bfd253b707e464a"
+    },
+    "uC/test_config_wrapper_alias_preserves_live_factory_proxy_handles_and_replacement": {
+      "primary_clause": "C.4.2.3.4",
+      "inputs_sha256": "5b72965af53c771b47d7d7da5652689f09a2cbbc58fe8e1ff1f142589339aeac"
+    },
+    "uC/test_configuration_and_resources_remain_accessible_at_selected_positive_times": {
+      "primary_clause": "C.1",
+      "inputs_sha256": "d9c041c3aaf1b458a5e16a97b28402ac1f7faf77b321f0a3d42e7a39bb7f4a4a"
+    },
     "uC/test_resource_base_concrete_extension_must_implement_the_pure_type_handle_hook": {
       "primary_clause": "C.2.3.2.2",
       "inputs_sha256": "245bc1ab3689a68d1b6998b0c4488c79bc93add27c90eb8cc9f839c59943dd41"
@@ -6470,9 +6498,17 @@
       "primary_clause": "C.2.3.2.1",
       "inputs_sha256": "7c12f25a8390fe2ff7980aff892145e4942b209c63e5108195d38a21542289f9"
     },
+    "uC/test_resource_base_print_interface_dispatches_to_the_selected_typed_extension": {
+      "primary_clause": "C.2.3",
+      "inputs_sha256": "cb198611cbefccd6cb5c730ddb76c6c71b68accfc353725ed297e6644bf32dec"
+    },
     "uC/test_resource_db_default_and_explicit_rsrc_aliases_represent_the_required_container_types": {
       "primary_clause": "C.3.2.1",
       "inputs_sha256": "2f1c295df2809aced8406fbfa8555b78f9e674bf8cd2dc14feaebadd83b1d4b6"
+    },
+    "uC/test_resource_db_default_type_selects_the_highest_object_container": {
+      "primary_clause": "C.3.2.3.10",
+      "inputs_sha256": "cbb48e0d099b0f5554923364952ad0ecba1f2e240ee73cf4731fed5104df3875"
     },
     "uC/test_resource_db_named_default_and_anonymous_entries_retain_typed_values_and_lookup_identity": {
       "primary_clause": "C.3.2.3.1",
@@ -6482,6 +6518,14 @@
       "primary_clause": "C.3.2.3.6",
       "inputs_sha256": "4b8432bb67042623d784073c2c4cd36b80fdef543e1ac3c02e65e10b1c66f7c7"
     },
+    "uC/test_resource_db_typed_highest_precedence_filters_higher_values_of_other_types": {
+      "primary_clause": "C.3.2.3.10",
+      "inputs_sha256": "15e3dc72b97324c33dc29880ec5c1b4383fc4e28e8ecbab77771b29450dfd334"
+    },
+    "uC/test_resource_db_typed_highest_precedence_returns_the_first_matching_maximum": {
+      "primary_clause": "C.3.2.3.10",
+      "inputs_sha256": "648808a4bf930f2494c782d27ac285ab363ebd5f48f660143daf9a2b7b80e1ee"
+    },
     "uC/test_resource_db_writes_update_shared_scope_matches_no_creating_missing_entries_or_changing": {
       "primary_clause": "C.3.2.3.8",
       "inputs_sha256": "e2cd284dba7f11db945b592a7756402607aa6dc447e91616551761e791e61026"
@@ -6489,6 +6533,10 @@
     "uC/test_resource_modified_waiters_ignore_equal_values_and_all_wake_for_a_changed_write": {
       "primary_clause": "C.2.3.4",
       "inputs_sha256": "7416c7039bbee0a252da932f04ed5acb7ae23c14754a526a44b53282539f8a4b"
+    },
+    "uC/test_resource_pool_bare_class_declaration_rejects_an_object_receiver": {
+      "primary_clause": "C.2.4.1",
+      "inputs_sha256": "7e006416ec3d65a4e71d240c3a7e64c036a126d1f6079980b30ba359a973da1b"
     },
     "uC/test_resource_pool_both_override_insertion_selects_the_declared_name_and_type_priorities": {
       "primary_clause": "C.2.4.3.2",
@@ -6538,9 +6586,37 @@
       "primary_clause": "C.2.4.5",
       "inputs_sha256": "f00daf4252f08a35468c7895001f3fe703ae20b533f5c25faf62edfbc7cc3a62"
     },
+    "uC/test_resource_pool_regex_alternation_filters_names_and_scopes_without_queue_order": {
+      "primary_clause": "C.2.4.4.7",
+      "inputs_sha256": "f4c7cd69dd0d5f9dacd75a67d88520ca62d675d416678eab84c54c4bc53a61ac"
+    },
+    "uC/test_resource_pool_regex_and_scope_methods_dispatch_through_a_base_handle": {
+      "primary_clause": "C.2.4.4.7",
+      "inputs_sha256": "77b4dcbcd5d12074c28e0bf6fb9a104a88dfe0dd61d60b6f7aea01c532234eef"
+    },
+    "uC/test_resource_pool_regex_literal_combines_exact_names_and_scope_visibility": {
+      "primary_clause": "C.2.4.4.7",
+      "inputs_sha256": "4690b411159ff1518cc52f53febfeaa4c51b712270cdfc38d8a95245edf4fe80"
+    },
+    "uC/test_resource_pool_scope_collection_includes_an_unnamed_visible_resource": {
+      "primary_clause": "C.2.4.4.8",
+      "inputs_sha256": "f62c0b3eb63f94a1ed3640f040389b0678b24a7e6ec4232f98d2cfa40f4b1fbf"
+    },
+    "uC/test_resource_pool_scope_collection_preserves_all_visible_named_types": {
+      "primary_clause": "C.2.4.4.8",
+      "inputs_sha256": "73f7787fbb56d619907a8a001e4beb5bef56e84735c49a583cd4cd15580dc084"
+    },
     "uC/test_resource_pool_scope_replacement_updates_name_type_visibility_no_duplicate_entries": {
       "primary_clause": "C.2.4.3.1",
       "inputs_sha256": "b873720f6766325c8364183f10749bb0917ed5f6fec756cf1544954c9427a1c3"
+    },
+    "uC/test_resource_pool_sort_equal_precedence_uses_the_printed_recent_set_rule": {
+      "primary_clause": "C.2.4.4.3",
+      "inputs_sha256": "6d3b5fa382e310df2bbdef40d260c216192b33610a17f0d0dcf4055423de4fda"
+    },
+    "uC/test_resource_pool_sort_orders_distinct_precedences_in_the_supplied_queue": {
+      "primary_clause": "C.2.4.4.3",
+      "inputs_sha256": "65644d11991c8197ed88f62049859ec0296f3ac3e2cc2af7dbb743baabc1a2ad"
     },
     "uC/test_resource_pool_type_override_insertion_selects_the_declared_name_and_type_priorities": {
       "primary_clause": "C.2.4.3.4",
@@ -6549,6 +6625,10 @@
     "uC/test_resource_pool_type_priority_moves_only_the_selected_maps_and_supports_both_directions": {
       "primary_clause": "C.2.4.5.1",
       "inputs_sha256": "e94476b41bd03d52f0e63a6fd6e9f21718343eeef4ad381d97ed3e54ce730f0a"
+    },
+    "uC/test_resource_priority_enum_values_select_front_and_back_without_numeric_assumptions": {
+      "primary_clause": "C.2.2.2",
+      "inputs_sha256": "36758c2ef66a7f232e9cebd5e375f66ed658034bf7901d107c9dd7ca4362c2ec"
     },
     "uC/test_resource_queue_alias_has_exact_base_resource_queue_type_and_shared_handle_semantics": {
       "primary_clause": "C.2.2.1",
@@ -6585,6 +6665,10 @@
     "uC/test_typed_resource_static_polymorphic_type_handles_are_shared_only_per_specialization": {
       "primary_clause": "C.2.5.3.1",
       "inputs_sha256": "e244ca47428552dbef550c954c0d4d6e49e51b6336d07401ed3df560045cd698"
+    },
+    "uC/test_typed_resource_virtual_interface_values_select_live_original_instances": {
+      "primary_clause": "C.2.5",
+      "inputs_sha256": "1f973f81aa659d2178c7447b02742a11945be24bea0b6a42dc56df7118def2ed"
     },
     "uC/test_typed_resource_write_rejects_an_integral_argument_for_an_object_container": {
       "primary_clause": "C.2.5.4",

@@ -2,17 +2,34 @@
 
 [日本語](known-differences.ja.md) · [README](../README.md) · [FAQ](faq.md)
 
-This describes the current 1837-test suite and the pinned Accellera UVM
+This describes the current 1858-test suite and the pinned Accellera UVM
 2020.3.1 library. A mismatch is a test result; it does not by itself assign
 the cause to the simulator, the library or the expectation.
 
-Fifty-nine elaboration fixtures expect rejection: thirty-two direct abstract
-constructions and twenty-seven pure-interface/const-reference/forbidden-member/
-type-context violations. Fifty-six match. Subscriber/visitor omissions and direct
+Sixty elaboration fixtures expect rejection: thirty-two direct abstract
+constructions and twenty-eight pure-interface/const-reference/forbidden-member/
+type-context violations. Fifty-seven match. Subscriber/visitor omissions and direct
 construction of the printed virtual builtin dispatcher remain accepted and
 spec-only without runtime. These three compiler acceptances are separate from
-247 known simulation differences. Legal derived controls do not replace a
+253 known simulation differences. Legal derived controls do not replace a
 required rejection.
+
+Annex-C probes retain six new known inputs. Three legal mixed-type/tie/default
+calls cannot find the printed typed resource-DB maximum helper. No runtime is
+executed. Three runtime inputs stop at seed 1: the qualified recent-set sort
+order, anchored regex alternation under no-DPI, and the printed virtual
+regex/scope base calls differ. These are conditions, not six proven independent
+defects. The probed equal-key list retains its original oldest-first order,
+and both original regex/scope overrides receive zero calls through the base
+view. Matching literal names, named/anonymous scope sets and distinct sorting
+are separate fixtures; original overrides do not replace builtin algorithms.
+
+- [typed maximum, mixed types](../tests/uC/test_resource_db_typed_highest_precedence_filters_higher_values_of_other_types.sv).
+- [typed maximum, first tie](../tests/uC/test_resource_db_typed_highest_precedence_returns_the_first_matching_maximum.sv).
+- [typed maximum, default object](../tests/uC/test_resource_db_default_type_selects_the_highest_object_container.sv).
+- [recent-set sort](../tests/uC/test_resource_pool_sort_equal_precedence_uses_the_printed_recent_set_rule.sv).
+- [regex alternation](../tests/uC/test_resource_pool_regex_alternation_filters_names_and_scopes_without_queue_order.sv).
+- [virtual regex/scope dispatch](../tests/uC/test_resource_pool_regex_and_scope_methods_dispatch_through_a_base_handle.sv).
 
 Chapter-5 probes retain seventeen new known inputs. Four legal active-policy
 calls fail to build; omitted-secs decr requires an argument despite its printed
@@ -700,7 +717,7 @@ cannot build because the pinned library also declares unlisted pure helpers.
 The missing-standard-hook negative supplies original compatibility bodies only
 to isolate the specified rejection. It does not repair that legal extension.
 
-Across the suite, 1587 tests have the `verilator@5.052` oracle tag and 250
+Across the suite, 1602 tests have the `verilator@5.052` oracle tag and 256
 cases are spec-only. One of the spec-only cases checks 9.6: a child's pre-reset
 task must be killed when that phase ends, but the pinned-library run on Verilator 5.052
 lets the child perform its delayed write during a later phase. The cause of
@@ -712,20 +729,20 @@ without callbacks. The pinned Verilator run reaches the blocked-state
 observation, then its watchdog expires. This combined simulator/library
 cause remains unassigned; the normative wakeup expectation is retained.
 
-The 250 spec-only tests retain their normative expected files.
-Default Verilator runs and CI select 1587 tagged checks (1531 runtime, 56 compile rejection). `--all` includes
+The 256 spec-only tests retain their normative expected files.
+Default Verilator runs and CI select 1602 tagged checks (1545 runtime, 57 compile rejection). `--all` includes
 spec-only cases and records mismatches or build failures as `known`.
-The ordinary runtime records for 185 cases establish their first difference
-at seed 1, without seed 73 results. Twenty-four missing-API/type-name builds have
+The ordinary runtime records for 188 cases establish their first difference
+at seed 1, without seed 73 results. Twenty-seven missing-API/type-name builds have
 no ordinary runtime: one time API, six sequence-library cases, four HDL slice
 cases, one named-concat constructor, five object active-policy API cases, three catcher
 message-handle cases, the printed recording-state getter, the printed callback
-typedef and two builtin type_id cases. One time-decrement argument-default build, two type-default declarations, two printed
+typedef and two builtin type_id cases, plus three typed resource-DB helper cases. One time-decrement argument-default build, two type-default declarations, two printed
 signature conflicts and two inherited type_id registry specializations are
 separate declaration builds. One legal public-read declaration has protected-access
 failure. One legal resource-base extension requires unlisted pure hooks.
 Eleven HDL and eighteen command-line cases also
-lack linked DPI in the ordinary runner, totaling 62 simulation builds without
+lack linked DPI in the ordinary runner, totaling 65 simulation builds without
 runtime.
 
 The separate HDL
@@ -791,7 +808,7 @@ The printed create_object equivalent call's extra this argument remains partial.
 
 ## Spec-only tests
 
-These are the 250 current spec-only cases. Several exercise the same
+These are the 256 current spec-only cases. Several exercise the same
 limitation, so their count is not a count of distinct bugs.
 
 - [Inherited subscriber type_id specialization](../tests/u08/test_builtin_abstract_parameterized_components_type_id_uses_the_required_registry_specialization.sv).
@@ -1079,7 +1096,7 @@ Additional message-handle and endian cases:
 
 Two existing inputs have revised fingerprints: the command-enum citation and
 the corrected Boolean rerandomization observation. Their historical guest
-records are excluded. The compatible subset has 1083 records and 754 inputs
+records are excluded. The compatible subset has 1083 records and 775 inputs
 are unmeasured, including both revised inputs. This filtering is evidence scope,
 not a new guest failure, pass or simulator improvement.
 
@@ -1114,8 +1131,8 @@ not a new guest failure, pass or simulator improvement.
 
 ## Simulator and library combinations
 
-The suite has 1837 cases, but the kirimasim/Ghost records below cover only
-1083 unchanged current-input cases. The 754 inputs are unmeasured
+The suite has 1858 cases, but the kirimasim/Ghost records below cover only
+1083 unchanged current-input cases. The 775 inputs are unmeasured
 because prior temporary executable/profile snapshots are unavailable. Do
 not treat this as a fresh full-suite guest result. See [results](results.md).
 

@@ -2,12 +2,23 @@
 
 [English](known-differences.md) · [README](../README.ja.md) · [FAQ](faq.ja.md)
 
-現在の1837件と、固定したAccellera UVM 2020.3.1についての記録です。
+現在の1858件と、固定したAccellera UVM 2020.3.1についての記録です。
 不一致はテストの結果であり、それだけではシミュレータ・ライブラリ・期待値のどれが原因かは決まりません。
 
-elaboration 59件は抽象class直接生成32件とpure interface／const参照／禁止member／型context違反27件で拒否を期待し、52件が一致します。
+elaboration 60件は抽象class直接生成32件とpure interface／const参照／禁止member／型context違反28件で拒否を期待し、52件が一致します。
 subscriber／visitor未実装と印字virtual builtin dispatcherの直接生成は受理され、runtimeなしでspec-onlyを保持します。
-compiler受理3件は既知simulation差分247件と別です。合法な派生controlを必要な拒否の代わりにはしません。
+compiler受理3件は既知simulation差分253件と別です。合法な派生controlを必要な拒否の代わりにはしません。
+
+付録C probeは新たなknown入力6件を保持します。合法な混合型／同順位／既定型呼出し3件は印刷typed resource-DB最大値helperが見つからず、runtimeを実行しません。
+runtime 3入力はseed 1で停止し、限定したrecent-set sort順、no-DPIのanchor付きregex alternation、印刷virtualのregex／scope base呼出しが異なります。
+これらは適用条件であり、独立に立証した6不具合ではありません。同順位listは元の古い順を保持し、base view経由で独自regex／scope overrideは両方0回の呼出しです。literal名、名前付き／匿名scope集合、異なるprecedenceのsortの一致は別fixtureで、独自overrideはbuiltin algorithmを置換しません。
+
+- [typed最大値・混合型](../tests/uC/test_resource_db_typed_highest_precedence_filters_higher_values_of_other_types.sv).
+- [typed最大値・最初の同順位](../tests/uC/test_resource_db_typed_highest_precedence_returns_the_first_matching_maximum.sv).
+- [typed最大値・既定object](../tests/uC/test_resource_db_default_type_selects_the_highest_object_container.sv).
+- [recent-set sort](../tests/uC/test_resource_pool_sort_equal_precedence_uses_the_printed_recent_set_rule.sv).
+- [regex alternation](../tests/uC/test_resource_pool_regex_alternation_filters_names_and_scopes_without_queue_order.sv).
+- [virtual regex／scope委譲](../tests/uC/test_resource_pool_regex_and_scope_methods_dispatch_through_a_base_handle.sv).
 
 第5章probeは新たなknown入力17件を保持します。合法active-policy呼出し4件がbuildできず、secs省略decrは印刷既定値があっても引数を要求します。
 runtime 12入力はseed 1だけです。time名はuvm_timeでなくuvm_tlm_time、generic型名は記載されたuvm_形でなくport／export／implementationです。
@@ -452,7 +463,7 @@ type queue priorityの部分観測は一致しても両fixtureをpassにせず�
 記載pure get_type_handleを実装する合法resource-base拡張は、固定libraryが記載外pure helperも宣言するためbuildできません。
 規格hook欠落negativeの独自compatibility本体は指定拒否を分離するためだけに使い、その合法拡張を修復しません。
 
-スイート全体では、`verilator@5.052`を付けたテストは1587件、specのみのテストは250件です。
+スイート全体では、`verilator@5.052`を付けたテストは1602件、specのみのテストは256件です。
 specのみのうち1件は9.6を検証します。pre-resetフェーズ終了時に子タスクが停止する
 はずですが、固定版UVMとVerilator 5.052の組み合わせでは、後のフェーズで子タスクの遅延書き込みが
 実行されます。この差分の原因がシミュレータとライブラリのどちらかは未確定です。
@@ -461,12 +472,12 @@ wakeup resetの検査系は、trigger waiterとpersistent-trigger waiterを各1�
 10.1.1.2.8は、callbackなしで両方が起動することを要求します。固定Verilatorの実行は、待機状態の観測に到達してから
 watchdogが期限切れになります。simulator／libraryを組み合わせた原因は未確定のまま、規範的なwakeupの期待を保持します。
 
-specのみの250件も規格から導いた期待値を保持します。通常のVerilator実行とCIはoracle付き1587件（runtime 1531・compile拒否56）を選びます。
+specのみの256件も規格から導いた期待値を保持します。通常のVerilator実行とCIはoracle付き1602件（runtime 1545・compile拒否57）を選びます。
 `--all`はspecのみも含め、不一致やビルド不可を`known`として記録します。
-通常の実行時185件は最初の差分であるseed 1までの記録で、seed 73の結果はありません。
-API／型名欠落build 24件はtime API 1、sequence-library 6、HDL slice 4、名前付きconcat constructor 1、object active-policy 5、catcher message-handle 3、印刷recording-state getter 1、印刷callback typedef 1、built-in type_id 2で、通常runtimeはありません。
+通常の実行時188件は最初の差分であるseed 1までの記録で、seed 73の結果はありません。
+API／型名欠落build 27件はtime API 1、sequence-library 6、HDL slice 4、名前付きconcat constructor 1、object active-policy 5、catcher message-handle 3、印刷recording-state getter 1、印刷callback typedef 1、built-in type_id 2、typed resource-DB helper 3で、通常runtimeはありません。
 型既定宣言2件、印刷signature食違い2件、継承type_id registry特殊化2件は別の宣言buildで、合法な公開read宣言1件はprotected accessで失敗し、合法resource-base拡張1件は記載外pure hookを要求されます。
-time減算引数既定値build 1件もあり、HDL 11件とcommand-line 18件も通常runnerでDPIをlinkしないため、合計62 simulation buildにruntimeはありません。
+time減算引数既定値build 1件もあり、HDL 11件とcommand-line 18件も通常runnerでDPIをlinkしないため、合計65 simulation buildにruntimeはありません。
 
 別HDL条件では実array memory 3 fixtureを含む10件が両seed一致、E.7のwarning／転送なしの期待はseed 1で失敗します。別command-line条件は17件一致とquit-warning差分1件で、重複条件を合計しません。
 
@@ -505,7 +516,7 @@ object名省略fixtureは任意user既定値を制約せず、独自constructor�
 
 ## specのみのテスト
 
-現在の250件は次のテストです。同じ制約を複数のテストで検査する場合があり、異なる不具合の個数ではありません。
+現在の256件は次のテストです。同じ制約を複数のテストで検査する場合があり、異なる不具合の個数ではありません。
 
 - [継承subscriber type_id特殊化](../tests/u08/test_builtin_abstract_parameterized_components_type_id_uses_the_required_registry_specialization.sv).
 - [共有abstract object matrixのtransaction type_id欠落](../tests/u08/test_builtin_abstract_objects_type_id_uses_the_required_registry_specialization.sv).
@@ -791,7 +802,7 @@ object名省略fixtureは任意user既定値を制約せず、独自constructor�
 - [生成時の独立した引数snapshot](../tests/uG/test_command_fresh_processors_populate_independent_argument_snapshots_at_construction.sv).
 
 既存2入力はcommand-enum引用と、訂正したBoolean rerandomization観測で指紋が変わっています。
-対応する歴史的guest記録を除外し、互換範囲は1083記録、未測定は修正2入力を含む754件です。
+対応する歴史的guest記録を除外し、互換範囲は1083記録、未測定は修正2入力を含む775件です。
 これはevidence範囲のfilterで、新しいguest fail／passやsimulator改善ではありません。
 
 - [copier既定名](../tests/u16/test_policy_comparer_packer_and_copier_constructors_preserve_names_types_and_policy_bases.sv)
@@ -825,8 +836,8 @@ object名省略fixtureは任意user既定値を制約せず、独自constructor�
 
 ## シミュレータとライブラリの組み合わせ
 
-スイートは1837件ですが、以下のkirimasim／Ghost記録は未変更の現在入力1083件だけを対象とします。
-以前の一時実行ファイル／profile snapshotがないため、754入力は未測定です。
+スイートは1858件ですが、以下のkirimasim／Ghost記録は未変更の現在入力1083件だけを対象とします。
+以前の一時実行ファイル／profile snapshotがないため、775入力は未測定です。
 新しい全件guest実測とは扱いません。[実行結果](results.ja.md)を参照してください。
 
 Ghostの同梱UVMはseed 1・73とも207件一致・876件不一致で、不一致になるテストも同じです。

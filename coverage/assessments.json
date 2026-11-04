@@ -5885,6 +5885,23 @@
         "reviewer": null,
         "reviewed_at": null
       }
+    },
+    {
+      "clause": "C.2.5.3",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The type-interface introduction explains identification through static and polymorphic type handles, with behavior specified by the two following accessors and retained direct requirements. It introduces no independent encoding or allocation rule; those method contracts remain partial.",
+        "ja": "type-interface導入はstatic／polymorphic型handleによる識別を説明し、動作は後続2 accessorと保持する直接要求で定める。独立encoding／割当規則は追加せず、method契約は部分的に残る。"
+      },
+      "related_requirements": [
+        "UVM-RESOURCE-AUDIT-STATIC-TYPE-TOKEN",
+        "UVM-RESOURCE-AUDIT-VIRTUAL-TYPE-TOKEN"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
     }
   ]
 }

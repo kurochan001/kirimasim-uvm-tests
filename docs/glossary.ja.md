@@ -989,3 +989,9 @@ storage同一性の検査と実際の対象実行には異なる観測が必要�
 
 **virtual overrideのformal名** — SystemVerilog 8.20で基底virtual methodと一致が必要な引数名です。
 引数型の一致やcompile受理だけでは、override宣言の妥当性を証明しません。
+
+**typed resource最大値** — container特殊化がTに一致する、最初の最大precedence resourceの選択です。
+typed DB APIはuntyped選択や独自検査系filterと別に扱います。
+
+**recent-set resource sort** — probeがmost-recently-setの文言を明示解釈する、独立した同precedenceのsort規則です。
+最初の最大値の同順位選択を置換せず、安定したqueue順を暗黙に規定しません。

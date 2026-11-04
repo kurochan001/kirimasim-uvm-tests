@@ -2,7 +2,7 @@
 
 [English](history.md) · [README](../README.ja.md)
 
-M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の61回目の拡充（全1837件：simulation 1778・elaboration 59）までを記録しています。以前の349件の時点は
+M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の62回目の拡充（全1858件：simulation 1798・elaboration 60）までを記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -2469,3 +2469,36 @@ guest未測定754（simulation 695／elaboration 59）は、元の測定後の�
 初期time／override設定失敗とgeneric-portの早過ぎたtagは修正し、最終指紋が新規／修正した全記録へ対応します。
 GPL／LGPLシミュレータ実装や商用結果は利用しません。library整合性、tool test 110件、metadata、台帳／索引、生の観測／evidence、日英資料検査は成功です。
 永続goalは有効で、33反復により未評価は1463から335へ1128減少しました。完了や人の承認は主張しません。
+
+## 薄い領域の62回目の拡充：resource収集とconfig型
+
+[c9d01f3](https://github.com/kurochan001/kirimasim-uvm-tests/commit/c9d01f36f61881dd9c36750c5808cab4961e6b4e)を基に2026-11-05 JSTに実施しました。M1のresource／config 21 fixtureを追加し、15件が一致します。runtime 14件はseed 1／73、1件はpoolからobjectへの不正代入の期待拒否です。
+6件は既知差分で、runtime 3入力はseed 1だけ、合法build 3件はruntimeなしです。欠落したtyped resource-DB最大値helperは、
+混合型、最初の最大値の同順位、既定object特殊化で直接呼び、untyped pool helperや検査系filterで置換しません。
+
+異なるprecedenceのsortと変更後の再sortは一致します。同precedenceは、most-recently-setを観測した挿入履歴とする明示解釈で差分を保持し、
+その解釈にはレビューが必要です。最初の最大値選択規則とは別に扱います。literal regex lookup、正確なname集合、名前付き／無名scope収集、scope置換は走査順を固定せず一致します。
+anchor付きalternationは通常no-DPI条件で異なります。印刷virtualのregex／scope呼出しもbase view経由で異なり、独自overrideは委譲だけを検査し、builtin収集algorithmを認定しません。
+
+configの既定／継承static interfaceと正確なalias 4種は、bitstream上位bit、空文字列、共有／置換object handle、factory proxy handleを含む選択set／getを検査します。
+正時刻のcomponent要求は明示getを使い、自動configurationのoracleにはしません。typed virtual-interface resourceはliveな独自instanceを保持します。
+resource-base print probeは継承virtual委譲だけを調べます。bitstreamの補助引用1件を修正し、最終tag／detail／name所属変更を再測定し、規格由来期待を置換しません。
+これらの条件で全resource契約は完了しません。
+
+付録C監査は新M1の21 fixtureへAI義務30件を追加し、以前の未評価19番号を部分分解します。
+type-interface導入1件は保持するstatic／polymorphic accessor義務のある文脈と個別分類します。
+以前の未評価20番号へ対応し、Cは部分71／分類13／未評価0で案98件、主引用69 fixture（simulation 64／elaboration 5）です。部分条件は未完です。
+
+sort順序／recency、混合型最大値選択、regex／scope収集、virtual宣言、priority enumの意味、config継承／既定値とalias 4種、
+正時刻component access、virtual-interface値、resource-base print委譲に選択観測を持たせます。
+typed helper欠落build 3件とruntime差分3件はspec-onlyに残し、recent-setの意味とlookup_type／overviewの矛盾も限定したまま保持します。
+
+全体は部分1805／分類387／未評価315（構造265／文脈122）です。以前の全3232要求・386分類・1837テスト索引と通常実測記録は未変更です。
+直接対応1857テスト、controlだけ1テスト、control linkを持つ43テストです。範囲は提案で分母／割合はnullのままで、どの状態もM1〜M4完了を認定しません。
+
+最終スイートは1858（simulation 1798／elaboration 60）、M1 766（719／47）、M2 547（542／5）、M3 545（537／8）です。
+通常evidenceはpass 1602（両seed runtime 1545／期待拒否57）、known 256（seed 1 runtime 188、合法build 65、不正生成受理3）です。
+以前の通常1837入力／記録とcompiler 59記録はすべて未変更です。guest 1083記録、HDL 11記録、command-line 18記録も未変更で、
+guest未測定775（simulation 715／elaboration 60）は追加773件と修正した元入力2件です。最終sourceは規格oracleを保持し、
+初期補助引用を修正し、全tag／detail変更を再測定します。library整合性、tool test 110件、metadata、台帳／索引、生の観測／evidence、日英資料検査は成功です。
+GPL／LGPLシミュレータ実装や商用結果は利用しません。goalは有効で、34反復により未評価は1463から315へ1148減少し、人の承認や完了は主張しません。
