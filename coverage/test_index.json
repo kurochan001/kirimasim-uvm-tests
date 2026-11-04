@@ -826,6 +826,10 @@
       "primary_clause": "9.5",
       "inputs_sha256": "b34878a37b565eee9f6181f214abc80004b4077585f5a76274c3835b637f9cde"
     },
+    "u09/test_bottomup_phase_traverse_orders_ancestors_and_dispatches_selected_states": {
+      "primary_clause": "9.5.2.2",
+      "inputs_sha256": "db550ff8945b03045d1321a9cd357448f698daa2efd5be720b657d2446f7a02a"
+    },
     "u09/test_build_phase_visits_new_descendants": {
       "primary_clause": "9.8.1",
       "inputs_sha256": "c848068ddc2fefc4779c950bed7c479696d2a2dabbd3d0456c0ee936d03555b8"
@@ -833,6 +837,22 @@
     "u09/test_common_phases_run_in_order": {
       "primary_clause": "9.8.1",
       "inputs_sha256": "44258268e93b27348a2876f498155dfc8988ce396984f5939664793b94ec9f52"
+    },
+    "u09/test_domain_add_uvm_phases_appends_runtime_nodes_after_selected_existing_content": {
+      "primary_clause": "9.4.2.3",
+      "inputs_sha256": "86f337c77233a3ffbe6c3d5899cde237cb8c8ec427616739bc48cc4e70baa100"
+    },
+    "u09/test_domain_constructor_preserves_names_domain_type_and_phase_object_views": {
+      "primary_clause": "9.4.2.1",
+      "inputs_sha256": "dea15d46714ca1e2e87c615d402d78c35b3cbce6fef12ba409fc33a3baacd766"
+    },
+    "u09/test_domain_duplicate_name_reports_an_error_without_prescribing_post_error_registry_state": {
+      "primary_clause": "9.4.2.1",
+      "inputs_sha256": "bb8683c771eb2c00ca417f63ffe9271745cf37e70202485e9bffc11b958a158e"
+    },
+    "u09/test_domain_listing_contains_required_builtin_domains_and_retains_new_named_instances": {
+      "primary_clause": "9.4.2.2",
+      "inputs_sha256": "1c9cfc429f3d0e8efb8a38ffceda084b5262d66f4bd6c71170574f05e00fcd4e"
     },
     "u09/test_function_phase_count_query_reports_error": {
       "primary_clause": "9.3.1.7",
@@ -842,9 +862,21 @@
       "primary_clause": "9.3.1.7",
       "inputs_sha256": "9f00c74d7bf9b4d6ecdf40ed75fbf88f5c04b23b3d351553d1c04604ec35ff06"
     },
+    "u09/test_phase_backward_jump_reexecutes_nodes_and_counts_runs_independently_of_component_calls": {
+      "primary_clause": "9.3.1.9.1",
+      "inputs_sha256": "303d1ec8c0d6918e1933fa9cec0e01316ba479c294cde289a90c0adc9d267dbf"
+    },
+    "u09/test_phase_callback_constructor_keeps_default_names_and_callback_object_views": {
+      "primary_clause": "9.3.3.2.1",
+      "inputs_sha256": "71480126a66db903604ba25a07a6b002b9e905fd6014141d440a14089245b76d"
+    },
     "u09/test_phase_callbacks_observe_their_phase_states": {
       "primary_clause": "9.3.1.4.1",
       "inputs_sha256": "ed5c9d195921ded5115abcfe986d2a45fe63a3c3a806d22ae3c55ae8e927a659"
+    },
+    "u09/test_phase_callbacks_restrict_node_observers_while_global_observers_see_other_phases": {
+      "primary_clause": "9.3.3",
+      "inputs_sha256": "b6812806412fde5063cf6e96ef9ce8fa67cf580a0799d2518a8b70a93363b2ab"
     },
     "u09/test_phase_constructor_retains_default_and_explicit_node_types": {
       "primary_clause": "9.3.1.3.1",
@@ -854,9 +886,25 @@
       "primary_clause": "9.3.1.6.6",
       "inputs_sha256": "57e469f0266d13ea566d191900af708f506005f6adb40c426d299d5fdbab8e59"
     },
+    "u09/test_phase_end_prematurely_advances_without_a_jump_target_and_stops_original_task_threads": {
+      "primary_clause": "9.3.1.9.3",
+      "inputs_sha256": "05fac228d26692d2407c8560b325d2595cc7f6db4d9407a39665ff364bde07e2"
+    },
     "u09/test_phase_full_name_includes_domain_and_nested_schedules": {
       "primary_clause": "9.3.1.6.3",
       "inputs_sha256": "ac487888cb20f4fc412c717974b1683564961b92092327a5a6113db1ded9b8b8"
+    },
+    "u09/test_phase_get_imp_literal_non_imp_null_rule_remains_separate_from_the_node_prose": {
+      "primary_clause": "9.3.1.6.7",
+      "inputs_sha256": "b90a2342645c4d0cea2e59be4f52884565c0d59c650d0d15bc146b2db44f02f0"
+    },
+    "u09/test_phase_get_imp_prose_resolves_each_node_to_its_shared_singleton_implementation": {
+      "primary_clause": "9.3.1.6.7",
+      "inputs_sha256": "9cbbcee7b9686b5a0eb227c2a7ad82d3536fe3ed76ff599f537172938bda2b1d"
+    },
+    "u09/test_phase_get_schedule_printed_string_return_is_accepted_by_a_typed_string_receiver": {
+      "primary_clause": "9.3.1.6.4",
+      "inputs_sha256": "d2d697412ee24cc79e207c911624c05c4e2ee82f8f2eadc3628e19de30900b42"
     },
     "u09/test_phase_identity_distinguishes_nodes_and_matches_their_implementation": {
       "primary_clause": "9.3.1.4.5",
@@ -910,17 +958,41 @@
       "primary_clause": "9.3.1.6.1",
       "inputs_sha256": "3f850c1773614a0626c7c6636a8749ee33ff7c028ad9885cab494ed76c68d74e"
     },
+    "u09/test_phase_schedule_names_preserve_default_zero_and_explicit_single_parent_context": {
+      "primary_clause": "9.3.1.6.5",
+      "inputs_sha256": "e39ced47e494d20f8eb1b09eae0cbc0c9d7d99d26b426aa01ef3490333b4c698"
+    },
     "u09/test_phase_schedule_parallel_nodes_share_a_successor": {
       "primary_clause": "9.3.1.6.1",
       "inputs_sha256": "e4c25beb2426dd3880402e1d557b446dea7609d285398e217b11b250b732e3b2"
+    },
+    "u09/test_phase_set_jump_phase_preserves_current_task_completion_before_the_later_transition": {
+      "primary_clause": "9.3.1.9.2",
+      "inputs_sha256": "3fdcff702c7ae80b8753479407017a00213120dfc4bd2ded7dc676ad3dce7a1c"
+    },
+    "u09/test_phase_state_descriptors_track_current_previous_state_and_precede_implementation_execution": {
+      "primary_clause": "9.3.2.2.1",
+      "inputs_sha256": "c8c517fc445d58909bf91d70b8a280681ec2e8eb761730128e6df88826a1c5d0"
     },
     "u09/test_phase_task_nodes_keep_objections_independent": {
       "primary_clause": "9.3.1.7.1",
       "inputs_sha256": "f72aa33ecde81da9956fa6c41f625abcb6eda3a9454c9729ce88f04aca4c0013"
     },
+    "u09/test_phase_unattached_states_and_singleton_graph_nodes_keep_definition_and_context_distinct": {
+      "primary_clause": "9.3.1.1.3",
+      "inputs_sha256": "74efdd914cd52a9cfaaad90376257a595936a265958cceadadf472bb3f856e52"
+    },
     "u09/test_phase_wait_for_state_tracks_main_progress": {
       "primary_clause": "9.3.1.8.3",
       "inputs_sha256": "c706f2275e53c34886d74a380b3c50234a14135164d401b42dd5a93fb24ef724"
+    },
+    "u09/test_predefined_phase_getters_keep_names_typed_singletons_and_implementation_kinds": {
+      "primary_clause": "9.8",
+      "inputs_sha256": "2000c7e8155831a9fd4bd67ed40b351942337f5ab0d994a075e72ed85329bd8d"
+    },
+    "u09/test_task_phase_execute_forks_the_original_proxy_and_returns_before_its_delayed_completion": {
+      "primary_clause": "9.6.2.3",
+      "inputs_sha256": "5623a75a9def8756e4743fca75446c128ed60ec497a2052de8870ad37e96c863"
     },
     "u09/test_task_phase_kills_remaining_child_task": {
       "primary_clause": "9.6",
@@ -929,6 +1001,22 @@
     "u09/test_task_phase_return_does_not_end_held_phase": {
       "primary_clause": "9.6",
       "inputs_sha256": "c6dd01f4586b33b8670099c33b094cc1efb22fadc82cc3ede04d8ec0fee8c9a9"
+    },
+    "u09/test_topdown_phase_traverse_dispatches_selected_states_and_orders_ancestors_without_sibling_order": {
+      "primary_clause": "9.7.2.2",
+      "inputs_sha256": "7b0dc24d2340efba9ca6cb948529d9b3f6e710a99af477561423f85c1a992d06"
+    },
+    "u09/test_uvm_bottomup_phase_virtual_declaration_rejects_direct_construction": {
+      "primary_clause": "9.5.1",
+      "inputs_sha256": "5581028e190cdfa2fe5111cd4dc5fdcbe35e12cda799a7ea22b66882542fb550"
+    },
+    "u09/test_uvm_task_phase_virtual_declaration_rejects_direct_construction": {
+      "primary_clause": "9.6.1",
+      "inputs_sha256": "b5b86125735111d7a60a50992d6cfe21f7d4241c0d589d2cadd370b94b15866b"
+    },
+    "u09/test_uvm_topdown_phase_virtual_declaration_rejects_direct_construction": {
+      "primary_clause": "9.7.1",
+      "inputs_sha256": "3d376de6bb14cc71d106003c9077fb5ce1b0ec720b9e2426aec300e84642363c"
     },
     "u10/test_barrier_cancel_removes_a_killed_participant_before_a_fresh_threshold_group": {
       "primary_clause": "10.3.2.8",

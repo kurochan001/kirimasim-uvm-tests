@@ -3,8 +3,8 @@
 [日本語](history.ja.md) · [README](../README.md)
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and fifty-two cross-milestone thin-area expansions, including the
-existing-test requirement-link backlog checkpoint (1640 tests: 1597 simulation and 43 elaboration). The earlier 349-test checkpoint is
+three M4 increments and fifty-three cross-milestone thin-area expansions, including the
+existing-test requirement-link backlog checkpoint (1662 tests: 1616 simulation and 46 elaboration). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -3332,3 +3332,44 @@ Scope remains proposed, inventory incomplete, denominator/percentage null,
 reviews AI and the persistent goal active.
 
 A stale Japanese summary of unexpected simulation builds is corrected from 45 to the current 48, and both language summaries now distinguish the two printed signature conflicts. This changes documentation only; every prior build record is preserved.
+
+## Fifty-third thin-area expansion: phase state, domain and proxy contracts (2026-11-04)
+
+Twenty-two M1 fixtures add nineteen simulations and three elaboration checks.
+Fifteen simulations match seeds 1/73; three direct constructions of virtual
+phase classes match their expected rejection without runtime. Four simulations
+retain seed-1 differences without seed 73: required initial domain entries,
+premature task lifetime and qualified literal get_imp/get_schedule statements.
+The latter signature/prose conflicts remain explicit; a string receiver alone
+was strengthened with `$typename` before the current measurement.
+
+Initial fixture problems were corrected before assembling current evidence:
+a reserved variable name in the registry probe, and standalone traversal
+contexts without the applicable component domain. Their obsolete results are
+excluded from the current snapshot. Domain-attached top-down/bottom-up traversal
+matches, with ancestor order and no sibling-order assumption.
+
+Other matching controls cover callback descriptors/scope/defaults, backward
+jump run counts/targets, deferred target selection, constructor/base views,
+single-parent names, duplicate-domain ERROR and runtime insertion, asynchronous
+task proxy arguments and one twenty-one-row predefined getter matrix. The
+matrix maps three generic 9.8 duties, not complete delegate coverage.
+
+Fifty-six AI drafts reach 2887; twelve structural and six contextual assessments
+reach 308 (203/105). Overall is 1556 partial/308 assessed/643 unassessed;
+chapter 9 is 67/18/31 and annex F 33/0/104. All 2831 earlier requirements,
+290 assessments and 1640 fixture inputs/native records remain unchanged.
+The goal's twenty-fifth iteration reduces unassessed by 58, retaining partial
+obligations and all original milestone targets.
+
+Current totals are 1662 (1616 simulation/46 elaboration): M1 625 (589/36),
+M2 538 (533/5), M3 499 (494/5). Ordinary native evidence is 1453 pass
+(1409 runtime/44 compiler rejections) and 209 known (159 runtime/48 simulation
+builds/two illegal acceptances). Guest 1083 records and separate HDL/command-line
+conditions remain byte-identical; 579 inputs are unmeasured (533 simulation/46
+elaboration), including two revised old inputs. No guest run is claimed.
+
+Metadata, ledger/index, library integrity, 110 tool tests, current native/compiler
+identities and paired documentation checks pass. All review remains AI; scope
+is proposed, denominator/percentage unset and the persistent goal active.
+Schema, runners/library/catalog, workflow and six SVGs are unchanged.

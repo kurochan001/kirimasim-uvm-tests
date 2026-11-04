@@ -1235,3 +1235,13 @@ requesting a clone without claiming the new instance's unobserved contents.
 
 **Gated busy observation**: Hold an original driver response after request arrival
 so another thread can observe is_busy during an actual pending register operation.
+
+**Phase implementation / schedule node** — The reusable IMP definition and
+an individual occurrence carrying graph context/state. Sharing a singleton
+implementation does not make two schedule nodes the same handle or prove
+simultaneous domain-state independence.
+
+**Declared expression type / receiver conversion** — The type queried by
+`$typename` and a possible conversion when passing an expression to an argument.
+Acceptance by a typed receiver alone is insufficient to prove the expression's
+original declared type.

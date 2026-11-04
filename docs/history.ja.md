@@ -2,7 +2,7 @@
 
 [English](history.md) · [README](../README.ja.md)
 
-M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の52回目の拡充（全1640件：simulation 1597・elaboration 43）までを記録しています。以前の349件の時点は
+M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の53回目の拡充（全1662件：simulation 1616・elaboration 46）までを記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -2191,3 +2191,25 @@ tool test 110件、metadata、台帳／索引／library同一性、native生結�
 schema、runner／library／catalog、workflow、SVG 6つは未変更です。範囲は提案、棚卸し未完、分母／割合null、照合AI、継続goal有効を保持します。
 
 古い日本語の予期しないsimulation build要約45件を現在の48件へ訂正し、両言語の要約で印刷signatureの食違い2件を区別します。資料だけの訂正で、以前のbuild記録は全て保持します。
+
+## 薄い領域の53回目：phase状態・domain・proxyの契約（2026-11-04）
+
+M1の22 fixtureはsimulation 19件とelaboration検査3件です。simulation 15件がseed 1／73に一致し、virtual phase classの直接生成3件はruntimeなしの期待拒否に一致します。
+simulation 4件はseed 1の差分を保持しseed 73は実行しません。初期必須domain entry、早期終了taskの寿命、字面のget_imp／get_schedule文であり、後2件のsignature／本文矛盾を明示します。
+string receiverだけの検査には、現在の測定前に`$typename`を追加しました。
+
+初期fixtureの問題は現在のevidence集約前に修正しました。registry probeの予約語変数名と、適用component domainを持たない独立走査contextです。
+古い結果は現在のsnapshotから除外します。domainへ接続したtop-down／bottom-up走査は祖先順に一致し、兄弟順を仮定しません。
+
+他の一致controlはcallback descriptor／範囲／既定値、後方jump回数／target、遅延target指定、constructor／base view、単一親の名前、domain重複ERRORとruntime挿入、
+非同期task proxy引数、1つの21行定義済みgetter matrixを扱います。matrixは9.8の汎用義務3件へ対応し、完全なdelegate coverageではありません。
+
+AI案56件で2887、構造12件と文脈6件の分類で308（203／105）です。全体は部分1556／分類308／未評価643、第9章は67／18／31、付録Fは33／0／104です。
+以前の全2831要求・290分類・1640 fixture入力／native記録を未変更で保持します。goalの25反復目は未評価を58減らし、部分義務と元の全milestone目標を保持します。
+
+全1662（simulation 1616／elaboration 46）、M1 625（589／36）、M2 538（533／5）、M3 499（494／5）です。
+通常native evidenceはpass 1453（runtime 1409／compiler拒否44）、known 209（runtime 159／simulation build 48／不正受理2）です。
+guest 1083記録と別HDL／command-line条件をbyte単位で保持し、以前の修正2入力を含む未測定579（simulation 533／elaboration 46）を残します。guest実行は主張しません。
+
+metadata、台帳／索引、library整合性、tool test 110件、現在のnative／compiler同一性、日英資料検査は成功します。
+照合は全てAIで、範囲は提案、分母／割合は未設定、継続goalは有効です。schema、runner／library／catalog、workflow、SVG 6個は未変更です。

@@ -946,3 +946,9 @@ D.3の名前モデルアクセスはfileをuDに置いてもM3へ属します。
 **Clone source control（cloneのsource control）**: clone要求後に元mapのrights／関連を観測し、新instanceの未観測内容は主張しないこと。
 
 **Gated busy observation（gate制御busy観測）**: request到着後に独自driver応答を保持し、別threadが実処理待ちregister操作のis_busyを観測すること。
+
+**Phase implementation / schedule node** — 再利用するIMP定義と、graph context／stateを持つ個々の出現です。
+singleton implementationの共有によって2 schedule nodeが同じhandleになるわけではなく、同時domain状態の独立性も証明しません。
+
+**Declared expression type / receiver conversion** — `$typename`が照会する型と、式を引数へ渡すときに生じ得る変換です。
+型付きreceiverでの受理だけでは、式の元の宣言型を証明できません。

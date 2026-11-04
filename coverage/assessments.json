@@ -4441,6 +4441,283 @@
         "reviewer": null,
         "reviewed_at": null
       }
+    },
+    {
+      "clause": "9",
+      "classification": "structural",
+      "rationale": {
+        "en": "Chapter heading introducing phasing; detailed behavior follows in numbered subclauses.",
+        "ja": "phasingを導入する章見出しであり、具体的動作は下位の番号付き条項に続く。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "9.3.1.1",
+      "classification": "structural",
+      "rationale": {
+        "en": "Grouping heading for definition, context and state; the following three subclauses contain the behavior.",
+        "ja": "definition、context、stateの分類見出しであり、続く3下位条項が動作を記述する。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "9.3.1.3",
+      "classification": "structural",
+      "rationale": {
+        "en": "Methods heading organizing the phase constructor and iteration APIs without additional behavior.",
+        "ja": "phase constructorとiteration APIを整理するMethods見出しで、別の動作は追加しない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "9.3.1.4",
+      "classification": "structural",
+      "rationale": {
+        "en": "State-access API grouping heading; the following getter/search clauses provide its behaviors.",
+        "ja": "state参照APIの分類見出しで、続くgetter／search条項に動作を記述する。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "9.3.1.5",
+      "classification": "structural",
+      "rationale": {
+        "en": "Callback grouping heading; function and task proxy duties follow separately.",
+        "ja": "callbackの分類見出しで、functionとtask proxyの義務が別々に続く。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "9.3.1.6",
+      "classification": "structural",
+      "rationale": {
+        "en": "Schedule API grouping heading; graph mutation and queries are specified below it.",
+        "ja": "schedule APIの分類見出しで、graph変更と照会を下位に規定する。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "9.3.2.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "Descriptor methods heading, followed by current/previous/target query clauses.",
+        "ja": "descriptor methodの見出しで、current／previous／target照会条項が続く。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "9.3.3.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "Callback methods heading, followed by constructor and state-change callback.",
+        "ja": "callback methodの見出しで、constructorとstate-change callbackが続く。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "9.4.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "Domain methods heading; construction, enumeration, insertion and jumping follow.",
+        "ja": "domain methodの見出しで、生成、列挙、挿入、jumpが続く。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "9.5.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "Bottom-up methods heading with no behavior apart from its three method clauses.",
+        "ja": "bottom-up method見出しで、3個のmethod条項以外の動作を追加しない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "9.6.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "Task-phase methods heading with constructor/traversal/execute detailed below.",
+        "ja": "task phaseのmethod見出しで、constructor／traversal／executeを下位に記述する。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "9.7.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "Top-down methods heading with no independent behavior beyond its three methods.",
+        "ja": "top-down method見出しで、3個のmethod以外の独立動作を持たない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "9.1",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The overview introduces automated component phasing. Linked traversal requirements observe a selected mechanism; automation of every schedule remains a partial audit, not an exclusion.",
+        "ja": "概要はcomponentの自動phasingを導入する。関連する走査要求が選択した仕組みを観測するが、全scheduleの自動処理は部分監査として残し除外しない。"
+      },
+      "related_requirements": [
+        "UVM-PHASE-CONTRACT-TOPDOWN-TRAVERSE",
+        "UVM-PHASE-CONTRACT-BOTTOMUP-TRAVERSE"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "9.2.1",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The hierarchy description relates singleton definitions and graph-node state/context, already separated by the linked drafts. Concurrent-domain independence and all implementation variants remain open.",
+        "ja": "階層の説明はsingleton定義とgraph nodeのstate／contextを関連付け、関連draftで分けて扱う。並行domainの独立性と全implementation変種は残る。"
+      },
+      "related_requirements": [
+        "UVM-PHASE-CONTRACT-CUSTOM-SINGLETON",
+        "UVM-PHASE-CONTRACT-SEPARATE-GRAPH-CONTEXT",
+        "UVM-PHASE-CONTRACT-INITIAL-IMP-STATE"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "9.2.2",
+      "classification": "contextual",
+      "rationale": {
+        "en": "This is a cross-reference list of five phasing classes, not a separate runtime algorithm. The linked declaration requirements preserve class identities; individual method duties remain partial.",
+        "ja": "5 phasing classの相互参照一覧で、別のruntime algorithmではない。関連する宣言要求でclassの同一性を保持し、個別methodの義務は部分扱いを保つ。"
+      },
+      "related_requirements": [
+        "UVM-PHASE-CONTRACT-PHASE-OBJECT-VIEW",
+        "UVM-PHASE-CONTRACT-DOMAIN-BASE-VIEW",
+        "UVM-PHASE-CONTRACT-BOTTOMUP-VIRTUAL",
+        "UVM-PHASE-CONTRACT-TASK-VIRTUAL",
+        "UVM-PHASE-CONTRACT-TOPDOWN-VIRTUAL"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "9.2.3",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The two cross-references direct readers to common/runtime phase definitions. The naming/getter matrix records those classes without certifying their delegates or timing.",
+        "ja": "2つの相互参照がcommon／runtime phase定義へ案内する。名前／getter matrixでそれらのclassを記録するがdelegateやtimingは認定しない。"
+      },
+      "related_requirements": [
+        "UVM-PHASE-CONTRACT-PREDEFINED-NAMES",
+        "UVM-PHASE-CONTRACT-PREDEFINED-SINGLETONS"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "9.3",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The introduction identifies classes used to specify phases and implied functionality. Linked class/descriptor/callback drafts provide the detailed selected duties; no whole-phase completion is inferred.",
+        "ja": "導入文はphaseと付随機能を規定するclassを示す。関連するclass／descriptor／callback draftが選択した詳細義務を提供し、phase全体の完了は推定しない。"
+      },
+      "related_requirements": [
+        "UVM-PHASE-CONTRACT-PHASE-OBJECT-VIEW",
+        "UVM-PHASE-CONTRACT-DESCRIPTOR-OBJECT-VIEW",
+        "UVM-PHASE-CONTRACT-CALLBACK-BASE-VIEW"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "9.3.2",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The introduction explains the transition descriptor whose current/previous/target duties are decomposed below. It uses a callback name differing from the printed method; linked tests follow phase_state_change and retain that editorial boundary.",
+        "ja": "導入文は遷移descriptorを説明し、current／previous／targetの義務を下位で分解する。印字methodとcallback名が異なるため、関連testはphase_state_changeに従い編集上の境界を残す。"
+      },
+      "related_requirements": [
+        "UVM-PHASE-CONTRACT-DESCRIPTOR-CURRENT",
+        "UVM-PHASE-CONTRACT-DESCRIPTOR-PREVIOUS",
+        "UVM-PHASE-CONTRACT-DESCRIPTOR-NO-JUMP",
+        "UVM-PHASE-CONTRACT-DESCRIPTOR-JUMP-TARGET"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
     }
   ]
 }

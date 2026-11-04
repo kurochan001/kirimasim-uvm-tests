@@ -1,0 +1,2 @@
+UT: domain_list required_common 1 required_runtime 1
+UT: domain_list custom 1 prior_entries 1 type 1

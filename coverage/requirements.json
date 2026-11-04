@@ -103879,6 +103879,2011 @@
           ]
         }
       ]
+    },
+    {
+      "id": "UVM-PHASE-CONTRACT-INITIAL-IMP-STATE",
+      "clause": "9.3.1.1.3",
+      "statement": {
+        "en": "An unattached implementation has UNINITIALIZED state.",
+        "ja": "未接続implementationのstateはUNINITIALIZEDである。"
+      },
+      "conditions": {
+        "en": "An original task-phase singleton is added to two distinct schedules; a separate NODE remains unattached.",
+        "ja": "独自task phaseのsingletonを別々の2 scheduleへ追加し、別のNODEは未接続のままにする。"
+      },
+      "expected": {
+        "en": "imp_uninitialized is true.",
+        "ja": "imp_uninitializedが真となる。"
+      },
+      "limitations": {
+        "en": "Initial states and distinct graph contexts only; simultaneous state independence across active domains and full DAG invariants remain open.",
+        "ja": "初期状態と別々のgraph contextのみ。実行中domain間の状態独立性とDAG全体の不変条件は残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_phase_unattached_states_and_singleton_graph_nodes_keep_definition_and_context_distinct",
+          "role": "direct",
+          "expected_observations": [
+            "UT: phase_initial imp_uninitialized 1 bare_node_uninitialized 1 singleton 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-CONTRACT-UNATTACHED-NODE-STATE",
+      "clause": "F.2.5.2",
+      "statement": {
+        "en": "An unattached node remains UNINITIALIZED; attached inactive nodes are DORMANT.",
+        "ja": "未接続nodeはUNINITIALIZEDで、接続済み未実行nodeはDORMANTとなる。"
+      },
+      "conditions": {
+        "en": "An original task-phase singleton is added to two distinct schedules; a separate NODE remains unattached.",
+        "ja": "独自task phaseのsingletonを別々の2 scheduleへ追加し、別のNODEは未接続のままにする。"
+      },
+      "expected": {
+        "en": "The bare node is UNINITIALIZED and both attached nodes are DORMANT.",
+        "ja": "単独nodeはUNINITIALIZED、接続した両nodeはDORMANTとなる。"
+      },
+      "limitations": {
+        "en": "Initial states and distinct graph contexts only; simultaneous state independence across active domains and full DAG invariants remain open.",
+        "ja": "初期状態と別々のgraph contextのみ。実行中domain間の状態独立性とDAG全体の不変条件は残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_phase_unattached_states_and_singleton_graph_nodes_keep_definition_and_context_distinct",
+          "role": "direct",
+          "expected_observations": [
+            "UT: phase_initial imp_uninitialized 1 bare_node_uninitialized 1 singleton 1",
+            "UT: phase_context dormant 1 implementation_type 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-CONTRACT-CUSTOM-SINGLETON",
+      "clause": "9.3.1.1.1",
+      "statement": {
+        "en": "A custom task phase can be defined as a reusable singleton implementation.",
+        "ja": "独自task phaseを再利用可能なsingleton implementationとして定義できる。"
+      },
+      "conditions": {
+        "en": "An original task-phase singleton is added to two distinct schedules; a separate NODE remains unattached.",
+        "ja": "独自task phaseのsingletonを別々の2 scheduleへ追加し、別のNODEは未接続のままにする。"
+      },
+      "expected": {
+        "en": "Repeated get returns the original implementation handle.",
+        "ja": "繰り返したgetは元のimplementation handleを返す。"
+      },
+      "limitations": {
+        "en": "Initial states and distinct graph contexts only; simultaneous state independence across active domains and full DAG invariants remain open.",
+        "ja": "初期状態と別々のgraph contextのみ。実行中domain間の状態独立性とDAG全体の不変条件は残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_phase_unattached_states_and_singleton_graph_nodes_keep_definition_and_context_distinct",
+          "role": "direct",
+          "expected_observations": [
+            "UT: phase_initial imp_uninitialized 1 bare_node_uninitialized 1 singleton 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-CONTRACT-SEPARATE-GRAPH-CONTEXT",
+      "clause": "9.3.1.1.2",
+      "statement": {
+        "en": "Each schedule use has its own node context.",
+        "ja": "各scheduleでの利用は独自のnode contextを持つ。"
+      },
+      "conditions": {
+        "en": "An original task-phase singleton is added to two distinct schedules; a separate NODE remains unattached.",
+        "ja": "独自task phaseのsingletonを別々の2 scheduleへ追加し、別のNODEは未接続のままにする。"
+      },
+      "expected": {
+        "en": "Distinct nonnull nodes retain their respective schedule parents.",
+        "ja": "別々の非null nodeが各schedule parentを保持する。"
+      },
+      "limitations": {
+        "en": "Initial states and distinct graph contexts only; simultaneous state independence across active domains and full DAG invariants remain open.",
+        "ja": "初期状態と別々のgraph contextのみ。実行中domain間の状態独立性とDAG全体の不変条件は残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_phase_unattached_states_and_singleton_graph_nodes_keep_definition_and_context_distinct",
+          "role": "direct",
+          "expected_observations": [
+            "UT: phase_context distinct_nodes 1 left_parent 1 right_parent 1 object 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-CONTRACT-PHASE-OBJECT-VIEW",
+      "clause": "9.3.1.2",
+      "statement": {
+        "en": "A phase is an object and retains identity through its base view.",
+        "ja": "phaseはobjectでありbase view経由でも同一性を保持する。"
+      },
+      "conditions": {
+        "en": "An original task-phase singleton is added to two distinct schedules; a separate NODE remains unattached.",
+        "ja": "独自task phaseのsingletonを別々の2 scheduleへ追加し、別のNODEは未接続のままにする。"
+      },
+      "expected": {
+        "en": "The node casts back from uvm_object to the same handle.",
+        "ja": "uvm_objectから同じnode handleへcastできる。"
+      },
+      "limitations": {
+        "en": "Initial states and distinct graph contexts only; simultaneous state independence across active domains and full DAG invariants remain open.",
+        "ja": "初期状態と別々のgraph contextのみ。実行中domain間の状態独立性とDAG全体の不変条件は残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_phase_unattached_states_and_singleton_graph_nodes_keep_definition_and_context_distinct",
+          "role": "direct",
+          "expected_observations": [
+            "UT: phase_context distinct_nodes 1 left_parent 1 right_parent 1 object 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-CONTRACT-CALLBACK-NEW-NAMES",
+      "clause": "9.3.3.2.1",
+      "statement": {
+        "en": "The callback constructor preserves its printed default and explicit names.",
+        "ja": "callback constructorは印字された既定名と明示名を保持する。"
+      },
+      "conditions": {
+        "en": "Default and explicitly named callback objects are viewed through callback/object handles.",
+        "ja": "既定名と明示名のcallbackをcallback／object handle経由で参照する。"
+      },
+      "expected": {
+        "en": "Default unnamed-uvm_phase_cb and explicit chosen53 names both match.",
+        "ja": "既定名unnamed-uvm_phase_cbと明示名chosen53が一致する。"
+      },
+      "limitations": {
+        "en": "Selected constructor and legal base views; no exhaustive callback registration or lifetime claim.",
+        "ja": "選択したconstructorと合法なbase viewのみ。登録や寿命の網羅的な認定ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_phase_callback_constructor_keeps_default_names_and_callback_object_views",
+          "role": "direct",
+          "expected_observations": [
+            "UT: phase_callback_new default_name 1 explicit_name 1 distinct 1 object 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-CONTRACT-CALLBACK-BASE-VIEW",
+      "clause": "9.3.3.1",
+      "statement": {
+        "en": "A phase callback extends uvm_callback.",
+        "ja": "phase callbackはuvm_callbackを継承する。"
+      },
+      "conditions": {
+        "en": "Default and explicitly named callback objects are viewed through callback/object handles.",
+        "ja": "既定名と明示名のcallbackをcallback／object handle経由で参照する。"
+      },
+      "expected": {
+        "en": "Callback/object views cast back to the same callback.",
+        "ja": "callback／object viewから同じcallbackへ戻る。"
+      },
+      "limitations": {
+        "en": "Selected constructor and legal base views; no exhaustive callback registration or lifetime claim.",
+        "ja": "選択したconstructorと合法なbase viewのみ。登録や寿命の網羅的な認定ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_phase_callback_constructor_keeps_default_names_and_callback_object_views",
+          "role": "direct",
+          "expected_observations": [
+            "UT: phase_callback_new default_name 1 explicit_name 1 distinct 1 object 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-CONTRACT-DESCRIPTOR-CURRENT",
+      "clause": "9.3.2.2.1",
+      "statement": {
+        "en": "A transition descriptor returns the phase's newly entered state.",
+        "ja": "遷移descriptorはphaseが入った新しいstateを返す。"
+      },
+      "conditions": {
+        "en": "A type-wide observer follows normal main transitions while an objection holds the body for two delay units.",
+        "ja": "type全体のobserverが通常main遷移を追跡し、objectionでbodyを2遅延単位保持する。"
+      },
+      "expected": {
+        "en": "Every selected callback agrees with phase.get_state.",
+        "ja": "選択した各callbackでphase.get_stateと一致する。"
+      },
+      "limitations": {
+        "en": "Normal selected transitions only; no assumption on enum encodings or the first previous-state value. The printed callback method name is used despite the descriptor introduction's different name.",
+        "ja": "選択した通常遷移のみ。enum符号や最初のprevious値は仮定しない。descriptor導入文との命名差を残して印字されたcallback method名を使う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_phase_state_descriptors_track_current_previous_state_and_precede_implementation_execution",
+          "role": "direct",
+          "expected_observations": [
+            "UT: phase_descriptor states 1 current 1 previous 1 before_body 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-CONTRACT-DESCRIPTOR-PREVIOUS",
+      "clause": "9.3.2.2.2",
+      "statement": {
+        "en": "The descriptor identifies the state before the observed transition.",
+        "ja": "descriptorは観測した遷移前のstateを示す。"
+      },
+      "conditions": {
+        "en": "A type-wide observer follows normal main transitions while an objection holds the body for two delay units.",
+        "ja": "type全体のobserverが通常main遷移を追跡し、objectionでbodyを2遅延単位保持する。"
+      },
+      "expected": {
+        "en": "After the first observation, previous state equals the preceding observed state.",
+        "ja": "最初の観測以降、previous stateは直前の観測stateと一致する。"
+      },
+      "limitations": {
+        "en": "Normal selected transitions only; no assumption on enum encodings or the first previous-state value. The printed callback method name is used despite the descriptor introduction's different name.",
+        "ja": "選択した通常遷移のみ。enum符号や最初のprevious値は仮定しない。descriptor導入文との命名差を残して印字されたcallback method名を使う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_phase_state_descriptors_track_current_previous_state_and_precede_implementation_execution",
+          "role": "direct",
+          "expected_observations": [
+            "UT: phase_descriptor states 1 current 1 previous 1 before_body 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-CONTRACT-DESCRIPTOR-NO-JUMP",
+      "clause": "9.3.2.2.3",
+      "statement": {
+        "en": "A descriptor outside a jump returns no jump target.",
+        "ja": "jump以外のdescriptorはjump targetを返さない。"
+      },
+      "conditions": {
+        "en": "A type-wide observer follows normal main transitions while an objection holds the body for two delay units.",
+        "ja": "type全体のobserverが通常main遷移を追跡し、objectionでbodyを2遅延単位保持する。"
+      },
+      "expected": {
+        "en": "jump_to remains null throughout the selected normal transitions.",
+        "ja": "選択した通常遷移の間jump_toはnullを保持する。"
+      },
+      "limitations": {
+        "en": "Normal selected transitions only; no assumption on enum encodings or the first previous-state value. The printed callback method name is used despite the descriptor introduction's different name.",
+        "ja": "選択した通常遷移のみ。enum符号や最初のprevious値は仮定しない。descriptor導入文との命名差を残して印字されたcallback method名を使う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_phase_state_descriptors_track_current_previous_state_and_precede_implementation_execution",
+          "role": "direct",
+          "expected_observations": [
+            "UT: phase_descriptor no_jump 1 object 1 default_no_effect 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-CONTRACT-DESCRIPTOR-OBJECT-VIEW",
+      "clause": "9.3.2.1",
+      "statement": {
+        "en": "A transition descriptor extends uvm_object.",
+        "ja": "遷移descriptorはuvm_objectを継承する。"
+      },
+      "conditions": {
+        "en": "A type-wide observer follows normal main transitions while an objection holds the body for two delay units.",
+        "ja": "type全体のobserverが通常main遷移を追跡し、objectionでbodyを2遅延単位保持する。"
+      },
+      "expected": {
+        "en": "Each callback descriptor round-trips through the object view.",
+        "ja": "各callback descriptorがobject view経由で同じhandleへ戻る。"
+      },
+      "limitations": {
+        "en": "Normal selected transitions only; no assumption on enum encodings or the first previous-state value. The printed callback method name is used despite the descriptor introduction's different name.",
+        "ja": "選択した通常遷移のみ。enum符号や最初のprevious値は仮定しない。descriptor導入文との命名差を残して印字されたcallback method名を使う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_phase_state_descriptors_track_current_previous_state_and_precede_implementation_execution",
+          "role": "direct",
+          "expected_observations": [
+            "UT: phase_descriptor no_jump 1 object 1 default_no_effect 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-CONTRACT-CALLBACK-BEFORE-BODY",
+      "clause": "9.3.3.2.2",
+      "statement": {
+        "en": "State-change callbacks precede execution of the implementation.",
+        "ja": "state-change callbackはimplementationの実行に先行する。"
+      },
+      "conditions": {
+        "en": "A type-wide observer follows normal main transitions while an objection holds the body for two delay units.",
+        "ja": "type全体のobserverが通常main遷移を追跡し、objectionでbodyを2遅延単位保持する。"
+      },
+      "expected": {
+        "en": "The EXECUTING callback sees main_entered still false.",
+        "ja": "EXECUTING callback時にmain_enteredはまだ偽である。"
+      },
+      "limitations": {
+        "en": "Normal selected transitions only; no assumption on enum encodings or the first previous-state value. The printed callback method name is used despite the descriptor introduction's different name.",
+        "ja": "選択した通常遷移のみ。enum符号や最初のprevious値は仮定しない。descriptor導入文との命名差を残して印字されたcallback method名を使う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_phase_state_descriptors_track_current_previous_state_and_precede_implementation_execution",
+          "role": "direct",
+          "expected_observations": [
+            "UT: phase_descriptor states 1 current 1 previous 1 before_body 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-CONTRACT-CALLBACK-DEFAULT-NOOP",
+      "clause": "9.3.3.2.2",
+      "statement": {
+        "en": "The default phase-state callback has no effect.",
+        "ja": "既定のphase-state callbackは何もしない。"
+      },
+      "conditions": {
+        "en": "A type-wide observer follows normal main transitions while an objection holds the body for two delay units.",
+        "ja": "type全体のobserverが通常main遷移を追跡し、objectionでbodyを2遅延単位保持する。"
+      },
+      "expected": {
+        "en": "Calling super preserves current phase and descriptor state.",
+        "ja": "superの呼出しで現在のphase／descriptor stateが変わらない。"
+      },
+      "limitations": {
+        "en": "Normal selected transitions only; no assumption on enum encodings or the first previous-state value. The printed callback method name is used despite the descriptor introduction's different name.",
+        "ja": "選択した通常遷移のみ。enum符号や最初のprevious値は仮定しない。descriptor導入文との命名差を残して印字されたcallback method名を使う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_phase_state_descriptors_track_current_previous_state_and_precede_implementation_execution",
+          "role": "direct",
+          "expected_observations": [
+            "UT: phase_descriptor no_jump 1 object 1 default_no_effect 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-CONTRACT-TRANSITION-NOTIFICATIONS",
+      "clause": "9.3.1.1.3",
+      "statement": {
+        "en": "Phase state changes trigger state callbacks.",
+        "ja": "phaseのstate変更はstate callbackを発生させる。"
+      },
+      "conditions": {
+        "en": "A type-wide observer follows normal main transitions while an objection holds the body for two delay units.",
+        "ja": "type全体のobserverが通常main遷移を追跡し、objectionでbodyを2遅延単位保持する。"
+      },
+      "expected": {
+        "en": "STARTED, EXECUTING, READY_TO_END, ENDED and DONE are observed.",
+        "ja": "STARTED、EXECUTING、READY_TO_END、ENDED、DONEを観測する。"
+      },
+      "limitations": {
+        "en": "Normal selected transitions only; no assumption on enum encodings or the first previous-state value. The printed callback method name is used despite the descriptor introduction's different name.",
+        "ja": "選択した通常遷移のみ。enum符号や最初のprevious値は仮定しない。descriptor導入文との命名差を残して印字されたcallback method名を使う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_phase_state_descriptors_track_current_previous_state_and_precede_implementation_execution",
+          "role": "direct",
+          "expected_observations": [
+            "UT: phase_descriptor states 1 current 1 previous 1 before_body 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-CONTRACT-CALLBACK-NODE-SCOPE",
+      "clause": "9.3.3",
+      "statement": {
+        "en": "A node-specific callback observes that node.",
+        "ja": "node固有callbackはそのnodeを観測する。"
+      },
+      "conditions": {
+        "en": "A type-wide callback and a callback registered on the actual main node observe the same run.",
+        "ja": "type全体と実際のmain nodeに登録したcallbackが同じ実行を観測する。"
+      },
+      "expected": {
+        "en": "Required states are present and local_other_none/selected_context are true.",
+        "ja": "必須stateが存在しlocal_other_none／selected_contextが真となる。"
+      },
+      "limitations": {
+        "en": "One node and type-wide registration; removal, mutation during callbacks and all transitions remain separate.",
+        "ja": "1 nodeとtype全体への登録のみ。削除、callback中の変更、全遷移は別途残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_phase_callbacks_restrict_node_observers_while_global_observers_see_other_phases",
+          "role": "direct",
+          "expected_observations": [
+            "UT: phase_callback_scope local_states 1 global_states 1 local_other_none 1",
+            "UT: phase_callback_scope global_other 1 selected_context 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-CONTRACT-CALLBACK-ALL-NODES",
+      "clause": "9.3.3",
+      "statement": {
+        "en": "A type-wide phase callback can observe multiple phase nodes.",
+        "ja": "type全体のphase callbackは複数nodeを観測できる。"
+      },
+      "conditions": {
+        "en": "A type-wide callback and a callback registered on the actual main node observe the same run.",
+        "ja": "type全体と実際のmain nodeに登録したcallbackが同じ実行を観測する。"
+      },
+      "expected": {
+        "en": "The global callback observes main states and other phases.",
+        "ja": "global callbackがmainのstateと他のphaseを観測する。"
+      },
+      "limitations": {
+        "en": "One node and type-wide registration; removal, mutation during callbacks and all transitions remain separate.",
+        "ja": "1 nodeとtype全体への登録のみ。削除、callback中の変更、全遷移は別途残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_phase_callbacks_restrict_node_observers_while_global_observers_see_other_phases",
+          "role": "direct",
+          "expected_observations": [
+            "UT: phase_callback_scope local_states 1 global_states 1 local_other_none 1",
+            "UT: phase_callback_scope global_other 1 selected_context 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-CONTRACT-RUN-COUNT-PER-NODE",
+      "clause": "9.3.1.4.2",
+      "statement": {
+        "en": "get_run_count counts phase executions rather than component delegate calls.",
+        "ja": "get_run_countはcomponent delegate呼出し数ではなくphase実行回数を数える。"
+      },
+      "conditions": {
+        "en": "Two components execute main; the first main requests a backward jump to the actual pre_main node.",
+        "ja": "2 componentがmainを実行し、最初のmainで実際のpre_main nodeへの後方jumpを要求する。"
+      },
+      "expected": {
+        "en": "Two main executions with two participants yield node_runs 2 and matching ended counts.",
+        "ja": "2参加componentによるmainの2回実行でnode_runsは2となり、ended時の回数も一致する。"
+      },
+      "limitations": {
+        "en": "One legal backward target and two components; forward jumps, all related active branches and invalid targets remain separate.",
+        "ja": "合法な後方target 1つと2 componentのみ。前方jump、関連する全実行分岐、不正targetは別途残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_phase_backward_jump_reexecutes_nodes_and_counts_runs_independently_of_component_calls",
+          "role": "direct",
+          "expected_observations": [
+            "UT: phase_jump main_runs 2 pre_main_runs 2 peer_calls 2 node_runs 2",
+            "UT: phase_jump ended_counts 1 target_seen 1 getter 1 descriptor 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-CONTRACT-BACKWARD-JUMP",
+      "clause": "9.3.1.9.1",
+      "statement": {
+        "en": "A legal predecessor jump re-enters the selected phase path.",
+        "ja": "合法な先行nodeへのjumpは選択したphase経路を再実行する。"
+      },
+      "conditions": {
+        "en": "Two components execute main; the first main requests a backward jump to the actual pre_main node.",
+        "ja": "2 componentがmainを実行し、最初のmainで実際のpre_main nodeへの後方jumpを要求する。"
+      },
+      "expected": {
+        "en": "pre_main and both main participants run twice.",
+        "ja": "pre_mainと両main参加componentが2回実行される。"
+      },
+      "limitations": {
+        "en": "One legal backward target and two components; forward jumps, all related active branches and invalid targets remain separate.",
+        "ja": "合法な後方target 1つと2 componentのみ。前方jump、関連する全実行分岐、不正targetは別途残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_phase_backward_jump_reexecutes_nodes_and_counts_runs_independently_of_component_calls",
+          "role": "direct",
+          "expected_observations": [
+            "UT: phase_jump main_runs 2 pre_main_runs 2 peer_calls 2 node_runs 2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-CONTRACT-JUMP-TARGET-GETTER",
+      "clause": "9.3.1.9.4",
+      "statement": {
+        "en": "get_jump_target identifies the target during the JUMPING callback.",
+        "ja": "get_jump_targetはJUMPING callback中にtargetを示す。"
+      },
+      "conditions": {
+        "en": "Two components execute main; the first main requests a backward jump to the actual pre_main node.",
+        "ja": "2 componentがmainを実行し、最初のmainで実際のpre_main nodeへの後方jumpを要求する。"
+      },
+      "expected": {
+        "en": "The callback getter is the actual pre_main target handle.",
+        "ja": "callback getterが実際のpre_main target handleと一致する。"
+      },
+      "limitations": {
+        "en": "One legal backward target and two components; forward jumps, all related active branches and invalid targets remain separate.",
+        "ja": "合法な後方target 1つと2 componentのみ。前方jump、関連する全実行分岐、不正targetは別途残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_phase_backward_jump_reexecutes_nodes_and_counts_runs_independently_of_component_calls",
+          "role": "direct",
+          "expected_observations": [
+            "UT: phase_jump ended_counts 1 target_seen 1 getter 1 descriptor 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-CONTRACT-DESCRIPTOR-JUMP-TARGET",
+      "clause": "9.3.2.2.3",
+      "statement": {
+        "en": "A JUMPING descriptor identifies the jump target.",
+        "ja": "JUMPING descriptorはjump targetを示す。"
+      },
+      "conditions": {
+        "en": "Two components execute main; the first main requests a backward jump to the actual pre_main node.",
+        "ja": "2 componentがmainを実行し、最初のmainで実際のpre_main nodeへの後方jumpを要求する。"
+      },
+      "expected": {
+        "en": "descriptor is true for the actual selected predecessor.",
+        "ja": "実際に選択した先行nodeについてdescriptorが真となる。"
+      },
+      "limitations": {
+        "en": "One legal backward target and two components; forward jumps, all related active branches and invalid targets remain separate.",
+        "ja": "合法な後方target 1つと2 componentのみ。前方jump、関連する全実行分岐、不正targetは別途残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_phase_backward_jump_reexecutes_nodes_and_counts_runs_independently_of_component_calls",
+          "role": "direct",
+          "expected_observations": [
+            "UT: phase_jump ended_counts 1 target_seen 1 getter 1 descriptor 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-CONTRACT-SET-JUMP-DEFERRED",
+      "clause": "9.3.1.9.2",
+      "statement": {
+        "en": "Selecting the next phase does not prematurely terminate the current phase.",
+        "ja": "次のphaseの指定だけでは現在のphaseを早期終了しない。"
+      },
+      "conditions": {
+        "en": "The first main selects pre_main, waits two units and drops its objection before the second execution.",
+        "ja": "最初のmainがpre_mainを選択し、2単位待機後にobjectionをdropして再実行する。"
+      },
+      "expected": {
+        "en": "Both delayed main bodies finish before their transitions.",
+        "ja": "両main bodyが遅延処理を完了してから遷移する。"
+      },
+      "limitations": {
+        "en": "One selected predecessor and finite objection-held task; all target/synchronization combinations remain open.",
+        "ja": "選択した先行nodeと有限のobjection付きtaskのみ。全target／同期の組合せは残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_phase_set_jump_phase_preserves_current_task_completion_before_the_later_transition",
+          "role": "direct",
+          "expected_observations": [
+            "UT: phase_set_jump main_runs 2 pre_main_runs 2 completed_delays 2 target 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-CONTRACT-SET-JUMP-TARGET",
+      "clause": "9.3.1.9.4",
+      "statement": {
+        "en": "The selected target is available after set_jump_phase.",
+        "ja": "set_jump_phase後には選択したtargetを取得できる。"
+      },
+      "conditions": {
+        "en": "The first main selects pre_main, waits two units and drops its objection before the second execution.",
+        "ja": "最初のmainがpre_mainを選択し、2単位待機後にobjectionをdropして再実行する。"
+      },
+      "expected": {
+        "en": "target is true and the selected path executes twice.",
+        "ja": "targetが真となり、選択した経路が2回実行される。"
+      },
+      "limitations": {
+        "en": "One selected predecessor and finite objection-held task; all target/synchronization combinations remain open.",
+        "ja": "選択した先行nodeと有限のobjection付きtaskのみ。全target／同期の組合せは残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_phase_set_jump_phase_preserves_current_task_completion_before_the_later_transition",
+          "role": "direct",
+          "expected_observations": [
+            "UT: phase_set_jump main_runs 2 pre_main_runs 2 completed_delays 2 target 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-CONTRACT-PREMATURE-ADVANCE",
+      "clause": "9.3.1.9.3",
+      "statement": {
+        "en": "end_prematurely causes the phase to end.",
+        "ja": "end_prematurelyはphaseを終了させる。"
+      },
+      "conditions": {
+        "en": "An objection-held main requests premature ending without a target; a concurrent run observer later checks the original ticking task.",
+        "ja": "objectionで保持したmainがtargetなしで終了を要求し、並行run observerが後で元の反復taskを確認する。"
+      },
+      "expected": {
+        "en": "The successor post_main is reached.",
+        "ja": "後続post_mainへ到達する。"
+      },
+      "limitations": {
+        "en": "One main task and a later concurrent observer. Phase advancement is separate from task termination; a matching sub-observation does not make this known-difference fixture pass.",
+        "ja": "1つのmain taskと後続の並行observerのみ。phase進行とtask終了は別であり、部分観測の一致で既知差分fixtureをpassにはしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_phase_end_prematurely_advances_without_a_jump_target_and_stops_original_task_threads",
+          "role": "direct",
+          "expected_observations": [
+            "UT: phase_premature post_reached 1 no_target 1 original_task_stopped 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-CONTRACT-PREMATURE-NO-TARGET",
+      "clause": "9.3.1.9.3",
+      "statement": {
+        "en": "Premature ending alone does not select a jump target.",
+        "ja": "早期終了だけではjump targetを設定しない。"
+      },
+      "conditions": {
+        "en": "An objection-held main requests premature ending without a target; a concurrent run observer later checks the original ticking task.",
+        "ja": "objectionで保持したmainがtargetなしで終了を要求し、並行run observerが後で元の反復taskを確認する。"
+      },
+      "expected": {
+        "en": "The ended-phase observer sees no target.",
+        "ja": "終了phaseのobserverはtargetなしを観測する。"
+      },
+      "limitations": {
+        "en": "One main task and a later concurrent observer. Phase advancement is separate from task termination; a matching sub-observation does not make this known-difference fixture pass.",
+        "ja": "1つのmain taskと後続の並行observerのみ。phase進行とtask終了は別であり、部分観測の一致で既知差分fixtureをpassにはしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_phase_end_prematurely_advances_without_a_jump_target_and_stops_original_task_threads",
+          "role": "direct",
+          "expected_observations": [
+            "UT: phase_premature post_reached 1 no_target 1 original_task_stopped 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-CONTRACT-PREMATURE-TASK-TERMINATION",
+      "clause": "9.6",
+      "statement": {
+        "en": "Remaining task-phase threads terminate when the phase ends.",
+        "ja": "phase終了時には残存task phase threadを終了させる。"
+      },
+      "conditions": {
+        "en": "An objection-held main requests premature ending without a target; a concurrent run observer later checks the original ticking task.",
+        "ja": "objectionで保持したmainがtargetなしで終了を要求し、並行run observerが後で元の反復taskを確認する。"
+      },
+      "expected": {
+        "en": "The original ticking task stops before the two later observer samples.",
+        "ja": "後の2 observer sampleより前に元の反復taskが停止する。"
+      },
+      "limitations": {
+        "en": "One main task and a later concurrent observer. Phase advancement is separate from task termination; a matching sub-observation does not make this known-difference fixture pass.",
+        "ja": "1つのmain taskと後続の並行observerのみ。phase進行とtask終了は別であり、部分観測の一致で既知差分fixtureをpassにはしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_phase_end_prematurely_advances_without_a_jump_target_and_stops_original_task_threads",
+          "role": "direct",
+          "expected_observations": [
+            "UT: phase_premature post_reached 1 no_target 1 original_task_stopped 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-CONTRACT-GET-IMP-NODE-PROSE",
+      "clause": "9.3.1.6.7",
+      "statement": {
+        "en": "Under the node-resolution sentence, get_imp returns the node's implementation.",
+        "ja": "node解決文に基づくとget_impはnodeのimplementationを返す。"
+      },
+      "conditions": {
+        "en": "Two schedule nodes refer to the same original task implementation.",
+        "ja": "2 scheduleのnodeが同じ独自task implementationを参照する。"
+      },
+      "expected": {
+        "en": "Both distinct nodes resolve to the shared singleton.",
+        "ja": "別々の両nodeが共有singletonへ解決する。"
+      },
+      "limitations": {
+        "en": "Qualified first-sentence interpretation; the contradictory non-IMP-null sentence has a separate strict probe.",
+        "ja": "最初の文に基づく限定的な解釈。矛盾するnon-IMP-null文には別の厳密probeを置く。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_phase_get_imp_prose_resolves_each_node_to_its_shared_singleton_implementation",
+          "role": "direct",
+          "expected_observations": [
+            "UT: phase_imp_prose left 1 right 1 distinct_nodes 1 same_singleton 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-CONTRACT-GET-IMP-LITERAL-NULL",
+      "clause": "9.3.1.6.7",
+      "statement": {
+        "en": "Under the literal final sentence, a non-IMP phase returns null.",
+        "ja": "末尾文の字義的解釈ではnon-IMP phaseはnullを返す。"
+      },
+      "conditions": {
+        "en": "A NODE is explicitly tested against the last sentence of get_imp, separately from its node-resolution prose.",
+        "ja": "NODEをget_impの末尾文に照らして明示的に検査し、node解決の本文とは分ける。"
+      },
+      "expected": {
+        "en": "The explicit NODE satisfies non_imp_null.",
+        "ja": "明示的なNODEでnon_imp_nullが真となる。"
+      },
+      "limitations": {
+        "en": "Qualified literal last-sentence interpretation conflicts with the same clause's node-resolution sentence; this is not an unqualified library-defect claim.",
+        "ja": "末尾文の字義的解釈は同条項のnode解決文と矛盾するため限定扱いとし、無条件のlibrary不具合認定ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_phase_get_imp_literal_non_imp_null_rule_remains_separate_from_the_node_prose",
+          "role": "direct",
+          "expected_observations": [
+            "UT: phase_imp_literal node_type 1 non_imp_null 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-CONTRACT-SCHEDULE-NAME-CONTEXT",
+      "clause": "9.3.1.6.5",
+      "statement": {
+        "en": "get_schedule_name identifies the enclosing schedule context.",
+        "ja": "get_schedule_nameは親schedule contextを示す。"
+      },
+      "conditions": {
+        "en": "Each of two schedules has exactly one enclosing schedule level and a node for the original implementation.",
+        "ja": "2 scheduleは各々単一のschedule階層と独自implementationのnodeを持つ。"
+      },
+      "expected": {
+        "en": "left/right names identify their respective single parent.",
+        "ja": "left／right名が各々単一のparentを示す。"
+      },
+      "limitations": {
+        "en": "One enclosing schedule per node avoids resolving ambiguous nested topmost/closest semantics; domain-qualified naming remains separate.",
+        "ja": "nodeごとに単一の親scheduleとし、入れ子の最上位／直近の曖昧さは解決しない。domain修飾名は別途残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_phase_schedule_names_preserve_default_zero_and_explicit_single_parent_context",
+          "role": "direct",
+          "expected_observations": [
+            "UT: phase_schedule_name left 1 right 1 default_zero 1 explicit_hier 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-CONTRACT-SCHEDULE-NAME-DEFAULT",
+      "clause": "9.3.1.6.5",
+      "statement": {
+        "en": "The schedule-name hierarchy argument defaults to zero.",
+        "ja": "schedule名の階層引数の既定値は0である。"
+      },
+      "conditions": {
+        "en": "Each of two schedules has exactly one enclosing schedule level and a node for the original implementation.",
+        "ja": "2 scheduleは各々単一のschedule階層と独自implementationのnodeを持つ。"
+      },
+      "expected": {
+        "en": "Default and explicit zero agree; explicit one gives the same single-level name.",
+        "ja": "既定と明示0が一致し、明示1も単一階層の同じ名前を返す。"
+      },
+      "limitations": {
+        "en": "One enclosing schedule per node avoids resolving ambiguous nested topmost/closest semantics; domain-qualified naming remains separate.",
+        "ja": "nodeごとに単一の親scheduleとし、入れ子の最上位／直近の曖昧さは解決しない。domain修飾名は別途残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_phase_schedule_names_preserve_default_zero_and_explicit_single_parent_context",
+          "role": "direct",
+          "expected_observations": [
+            "UT: phase_schedule_name left 1 right 1 default_zero 1 explicit_hier 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-CONTRACT-SCHEDULE-PRINTED-TYPE",
+      "clause": "9.3.1.6.4",
+      "statement": {
+        "en": "The printed get_schedule prototype declares string.",
+        "ja": "印字されたget_schedule prototypeはstringを宣言する。"
+      },
+      "conditions": {
+        "en": "A node call is passed to a string receiver and independently queried with SystemVerilog $typename.",
+        "ja": "node呼出しをstring receiverへ渡し、別途SystemVerilog $typenameで型を照会する。"
+      },
+      "expected": {
+        "en": "The expression's $typename is string and the receiver is called once.",
+        "ja": "式の$typenameがstringでreceiverが1回呼ばれる。"
+      },
+      "limitations": {
+        "en": "Qualified printed string-return interpretation conflicts with prose returning a parent phase node. Receiver acceptance alone would allow conversion and cannot prove the declared return type. No string contents are prescribed.",
+        "ja": "印字されたstring戻り型は親phase nodeを返す本文と矛盾するため限定扱い。receiver受理だけでは変換を許して宣言型を証明できない。string内容は規定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_phase_get_schedule_printed_string_return_is_accepted_by_a_typed_string_receiver",
+          "role": "direct",
+          "expected_observations": [
+            "UT: phase_schedule_declaration declared_string 1 string_receiver_calls 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-CONTRACT-DOMAIN-NEW-TYPE",
+      "clause": "9.4.2.1",
+      "statement": {
+        "en": "A newly named domain has DOMAIN phase type.",
+        "ja": "新しい名前付きdomainはDOMAIN phase typeを持つ。"
+      },
+      "conditions": {
+        "en": "Two uniquely named domains are constructed and round-tripped through phase/object views.",
+        "ja": "固有名の2 domainを生成し、phase／object view経由で同じhandleへ戻す。"
+      },
+      "expected": {
+        "en": "The selected name, domain type and distinct handles match.",
+        "ja": "選択した名前とdomain type、および別々のhandleが一致する。"
+      },
+      "limitations": {
+        "en": "Names, type and handle views only; independent runtime synchronization and all domain assignment semantics remain separate.",
+        "ja": "名前、type、handle viewのみ。実行時の独立同期やdomain割当て全般は別途残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_domain_constructor_preserves_names_domain_type_and_phase_object_views",
+          "role": "direct",
+          "expected_observations": [
+            "UT: domain_new name 1 domain_type 1 distinct 1 object 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-CONTRACT-DOMAIN-BASE-VIEW",
+      "clause": "9.4.1",
+      "statement": {
+        "en": "A domain extends uvm_phase.",
+        "ja": "domainはuvm_phaseを継承する。"
+      },
+      "conditions": {
+        "en": "Two uniquely named domains are constructed and round-tripped through phase/object views.",
+        "ja": "固有名の2 domainを生成し、phase／object view経由で同じhandleへ戻す。"
+      },
+      "expected": {
+        "en": "Phase/object views cast back to the original domain.",
+        "ja": "phase／object viewから元のdomainへ戻る。"
+      },
+      "limitations": {
+        "en": "Names, type and handle views only; independent runtime synchronization and all domain assignment semantics remain separate.",
+        "ja": "名前、type、handle viewのみ。実行時の独立同期やdomain割当て全般は別途残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_domain_constructor_preserves_names_domain_type_and_phase_object_views",
+          "role": "direct",
+          "expected_observations": [
+            "UT: domain_new name 1 domain_type 1 distinct 1 object 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-CONTRACT-DOMAIN-ALWAYS-BUILTINS",
+      "clause": "9.4.2.2",
+      "statement": {
+        "en": "The domain list always includes common and uvm entries.",
+        "ja": "domain一覧はcommonとuvmのentryを常に含む。"
+      },
+      "conditions": {
+        "en": "get_domains is called before explicit built-in-domain initialization and again after constructing one uniquely named domain.",
+        "ja": "built-in domainの明示的初期化前、および固有名domainの生成後にget_domainsを呼ぶ。"
+      },
+      "expected": {
+        "en": "Both required entries exist and are nonnull before explicit initialization.",
+        "ja": "明示初期化前にも両必須entryが存在し非nullである。"
+      },
+      "limitations": {
+        "en": "Literal always-present entries are tested before explicit initialization. No exactly-two-domain assumption, iteration order or post-duplicate registry state is prescribed.",
+        "ja": "明示初期化前にも必須entryが常に存在するという文を検査する。domain数が2だけという仮定、走査順、不正重複後のregistry状態は規定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_domain_listing_contains_required_builtin_domains_and_retains_new_named_instances",
+          "role": "direct",
+          "expected_observations": [
+            "UT: domain_list required_common 1 required_runtime 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-CONTRACT-DOMAIN-REGISTER-NEW",
+      "clause": "9.4.2.1",
+      "statement": {
+        "en": "A new domain is registered under its name.",
+        "ja": "新しいdomainはその名前で登録される。"
+      },
+      "conditions": {
+        "en": "get_domains is called before explicit built-in-domain initialization and again after constructing one uniquely named domain.",
+        "ja": "built-in domainの明示的初期化前、および固有名domainの生成後にget_domainsを呼ぶ。"
+      },
+      "expected": {
+        "en": "The custom entry equals the newly constructed domain.",
+        "ja": "custom entryが新しく生成したdomainと一致する。"
+      },
+      "limitations": {
+        "en": "Literal always-present entries are tested before explicit initialization. No exactly-two-domain assumption, iteration order or post-duplicate registry state is prescribed.",
+        "ja": "明示初期化前にも必須entryが常に存在するという文を検査する。domain数が2だけという仮定、走査順、不正重複後のregistry状態は規定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_domain_listing_contains_required_builtin_domains_and_retains_new_named_instances",
+          "role": "direct",
+          "expected_observations": [
+            "UT: domain_list custom 1 prior_entries 1 type 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-CONTRACT-DOMAIN-LIST-RETAINS",
+      "clause": "9.4.2.2",
+      "statement": {
+        "en": "Listing all domains preserves earlier registered entries.",
+        "ja": "全domainの一覧は以前の登録entryも含む。"
+      },
+      "conditions": {
+        "en": "get_domains is called before explicit built-in-domain initialization and again after constructing one uniquely named domain.",
+        "ja": "built-in domainの明示的初期化前、および固有名domainの生成後にget_domainsを呼ぶ。"
+      },
+      "expected": {
+        "en": "Every prior entry remains mapped to the same handle after the new domain.",
+        "ja": "新domainの後にも以前の各entryが同じhandleを指す。"
+      },
+      "limitations": {
+        "en": "Literal always-present entries are tested before explicit initialization. No exactly-two-domain assumption, iteration order or post-duplicate registry state is prescribed.",
+        "ja": "明示初期化前にも必須entryが常に存在するという文を検査する。domain数が2だけという仮定、走査順、不正重複後のregistry状態は規定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_domain_listing_contains_required_builtin_domains_and_retains_new_named_instances",
+          "role": "direct",
+          "expected_observations": [
+            "UT: domain_list custom 1 prior_entries 1 type 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-CONTRACT-DOMAIN-DUPLICATE-ERROR",
+      "clause": "9.4.2.1",
+      "statement": {
+        "en": "Constructing a duplicate domain name reports an error.",
+        "ja": "重複domain名の生成はerrorを報告する。"
+      },
+      "conditions": {
+        "en": "A report catcher observes creation of a second domain with an already registered name.",
+        "ja": "既に登録済みの名前で2つ目のdomainを生成し、report catcherで観測する。"
+      },
+      "expected": {
+        "en": "At least one ERROR is observed.",
+        "ja": "少なくとも1つのERRORを観測する。"
+      },
+      "limitations": {
+        "en": "Requires an ERROR, without prescribing exact text/ID/count or registry contents after an invalid duplicate call.",
+        "ja": "ERRORを要求し、正確な文面／ID／件数や不正な重複呼出し後のregistry内容は規定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_domain_duplicate_name_reports_an_error_without_prescribing_post_error_registry_state",
+          "role": "direct",
+          "expected_observations": [
+            "UT: domain_duplicate error_reported 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-CONTRACT-DOMAIN-APPEND-NODES",
+      "clause": "9.4.2.3",
+      "statement": {
+        "en": "add_uvm_phases appends the selected built-in runtime phases.",
+        "ja": "add_uvm_phasesは選択したbuilt-in runtime phase群を追加する。"
+      },
+      "conditions": {
+        "en": "A schedule already containing one custom phase receives the built-in runtime phase set.",
+        "ja": "独自phaseを1つ持つscheduleへbuilt-in runtime phase群を追加する。"
+      },
+      "expected": {
+        "en": "All twelve runtime nodes are found and the custom node remains.",
+        "ja": "12 runtime nodeが全て見つかり独自nodeも保持される。"
+      },
+      "limitations": {
+        "en": "Selected twelve runtime nodes and their order after one custom node; this does not settle all common-phase applicability or duplicate insertion.",
+        "ja": "選択した12 runtime nodeと独自node後の順序のみ。全common phaseへの適用や重複挿入は解決しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_domain_add_uvm_phases_appends_runtime_nodes_after_selected_existing_content",
+          "role": "direct",
+          "expected_observations": [
+            "UT: domain_append runtime_nodes 1 runtime_order 1 existing_kept 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-CONTRACT-DOMAIN-APPEND-ORDER",
+      "clause": "9.4.2.3",
+      "statement": {
+        "en": "Appending preserves the selected existing prefix before the runtime order.",
+        "ja": "追加は選択した既存prefixをruntime順序の前に保持する。"
+      },
+      "conditions": {
+        "en": "A schedule already containing one custom phase receives the built-in runtime phase set.",
+        "ja": "独自phaseを1つ持つscheduleへbuilt-in runtime phase群を追加する。"
+      },
+      "expected": {
+        "en": "The custom node precedes pre_reset and the twelve runtime nodes remain ordered.",
+        "ja": "独自nodeがpre_resetに先行し、12 runtime nodeの順序が保たれる。"
+      },
+      "limitations": {
+        "en": "Selected twelve runtime nodes and their order after one custom node; this does not settle all common-phase applicability or duplicate insertion.",
+        "ja": "選択した12 runtime nodeと独自node後の順序のみ。全common phaseへの適用や重複挿入は解決しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_domain_add_uvm_phases_appends_runtime_nodes_after_selected_existing_content",
+          "role": "direct",
+          "expected_observations": [
+            "UT: domain_append runtime_nodes 1 runtime_order 1 existing_kept 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-CONTRACT-PREDEFINED-NAMES",
+      "clause": "9.8",
+      "statement": {
+        "en": "Each selected predefined phase has its class-derived name.",
+        "ja": "選択した各定義済みphaseはclass名に基づく名前を持つ。"
+      },
+      "conditions": {
+        "en": "One matrix fixture calls all nine common and twelve runtime phase getters using exact class-typed receivers.",
+        "ja": "1つのmatrix fixtureが9 common／12 runtime phaseのgetterを各class型のreceiverで呼ぶ。"
+      },
+      "expected": {
+        "en": "Every one of the twenty-one name comparisons is true.",
+        "ja": "21個全ての名前比較が真となる。"
+      },
+      "limitations": {
+        "en": "Twenty-one rows in one shared fixture, not independent cases. Naming/singleton/type checks do not establish each phase's delegate behavior, time-zero rules, timeout or concurrent scheduling.",
+        "ja": "1つの共有fixture内の21行であり、独立caseではない。名前／singleton／型の検査で各phaseのdelegate、時刻0、timeout、並行scheduleを認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_predefined_phase_getters_keep_names_typed_singletons_and_implementation_kinds",
+          "role": "direct",
+          "expected_observations": [
+            "UT: predefined build name 1 singleton 1 implementation 1",
+            "UT: predefined connect name 1 singleton 1 implementation 1",
+            "UT: predefined end_of_elaboration name 1 singleton 1 implementation 1",
+            "UT: predefined start_of_simulation name 1 singleton 1 implementation 1",
+            "UT: predefined run name 1 singleton 1 implementation 1",
+            "UT: predefined extract name 1 singleton 1 implementation 1",
+            "UT: predefined check name 1 singleton 1 implementation 1",
+            "UT: predefined report name 1 singleton 1 implementation 1",
+            "UT: predefined final name 1 singleton 1 implementation 1",
+            "UT: predefined pre_reset name 1 singleton 1 implementation 1",
+            "UT: predefined reset name 1 singleton 1 implementation 1",
+            "UT: predefined post_reset name 1 singleton 1 implementation 1",
+            "UT: predefined pre_configure name 1 singleton 1 implementation 1",
+            "UT: predefined configure name 1 singleton 1 implementation 1",
+            "UT: predefined post_configure name 1 singleton 1 implementation 1",
+            "UT: predefined pre_main name 1 singleton 1 implementation 1",
+            "UT: predefined main name 1 singleton 1 implementation 1",
+            "UT: predefined post_main name 1 singleton 1 implementation 1",
+            "UT: predefined pre_shutdown name 1 singleton 1 implementation 1",
+            "UT: predefined shutdown name 1 singleton 1 implementation 1",
+            "UT: predefined post_shutdown name 1 singleton 1 implementation 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-CONTRACT-PREDEFINED-SINGLETONS",
+      "clause": "9.8",
+      "statement": {
+        "en": "Each predefined phase getter returns its singleton handle.",
+        "ja": "各定義済みphaseのgetterはsingleton handleを返す。"
+      },
+      "conditions": {
+        "en": "One matrix fixture calls all nine common and twelve runtime phase getters using exact class-typed receivers.",
+        "ja": "1つのmatrix fixtureが9 common／12 runtime phaseのgetterを各class型のreceiverで呼ぶ。"
+      },
+      "expected": {
+        "en": "Repeated get calls compare equal in all twenty-one rows.",
+        "ja": "21行全てでgetの繰り返し結果が同じhandleとなる。"
+      },
+      "limitations": {
+        "en": "Twenty-one rows in one shared fixture, not independent cases. Naming/singleton/type checks do not establish each phase's delegate behavior, time-zero rules, timeout or concurrent scheduling.",
+        "ja": "1つの共有fixture内の21行であり、独立caseではない。名前／singleton／型の検査で各phaseのdelegate、時刻0、timeout、並行scheduleを認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_predefined_phase_getters_keep_names_typed_singletons_and_implementation_kinds",
+          "role": "direct",
+          "expected_observations": [
+            "UT: predefined build name 1 singleton 1 implementation 1",
+            "UT: predefined connect name 1 singleton 1 implementation 1",
+            "UT: predefined end_of_elaboration name 1 singleton 1 implementation 1",
+            "UT: predefined start_of_simulation name 1 singleton 1 implementation 1",
+            "UT: predefined run name 1 singleton 1 implementation 1",
+            "UT: predefined extract name 1 singleton 1 implementation 1",
+            "UT: predefined check name 1 singleton 1 implementation 1",
+            "UT: predefined report name 1 singleton 1 implementation 1",
+            "UT: predefined final name 1 singleton 1 implementation 1",
+            "UT: predefined pre_reset name 1 singleton 1 implementation 1",
+            "UT: predefined reset name 1 singleton 1 implementation 1",
+            "UT: predefined post_reset name 1 singleton 1 implementation 1",
+            "UT: predefined pre_configure name 1 singleton 1 implementation 1",
+            "UT: predefined configure name 1 singleton 1 implementation 1",
+            "UT: predefined post_configure name 1 singleton 1 implementation 1",
+            "UT: predefined pre_main name 1 singleton 1 implementation 1",
+            "UT: predefined main name 1 singleton 1 implementation 1",
+            "UT: predefined post_main name 1 singleton 1 implementation 1",
+            "UT: predefined pre_shutdown name 1 singleton 1 implementation 1",
+            "UT: predefined shutdown name 1 singleton 1 implementation 1",
+            "UT: predefined post_shutdown name 1 singleton 1 implementation 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-CONTRACT-PREDEFINED-TYPED-GETTERS",
+      "clause": "9.8",
+      "statement": {
+        "en": "A predefined getter returns a handle compatible with that phase's own class.",
+        "ja": "定義済みgetterはそのphase自身のclassと互換のhandleを返す。"
+      },
+      "conditions": {
+        "en": "One matrix fixture calls all nine common and twelve runtime phase getters using exact class-typed receivers.",
+        "ja": "1つのmatrix fixtureが9 common／12 runtime phaseのgetterを各class型のreceiverで呼ぶ。"
+      },
+      "expected": {
+        "en": "Exact typed receivers compile and all retrieved implementations have IMP kind.",
+        "ja": "各class型のreceiverでcompileでき、取得した全implementationがIMP kindを持つ。"
+      },
+      "limitations": {
+        "en": "Twenty-one rows in one shared fixture, not independent cases. Naming/singleton/type checks do not establish each phase's delegate behavior, time-zero rules, timeout or concurrent scheduling.",
+        "ja": "1つの共有fixture内の21行であり、独立caseではない。名前／singleton／型の検査で各phaseのdelegate、時刻0、timeout、並行scheduleを認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_predefined_phase_getters_keep_names_typed_singletons_and_implementation_kinds",
+          "role": "direct",
+          "expected_observations": [
+            "UT: predefined build name 1 singleton 1 implementation 1",
+            "UT: predefined connect name 1 singleton 1 implementation 1",
+            "UT: predefined end_of_elaboration name 1 singleton 1 implementation 1",
+            "UT: predefined start_of_simulation name 1 singleton 1 implementation 1",
+            "UT: predefined run name 1 singleton 1 implementation 1",
+            "UT: predefined extract name 1 singleton 1 implementation 1",
+            "UT: predefined check name 1 singleton 1 implementation 1",
+            "UT: predefined report name 1 singleton 1 implementation 1",
+            "UT: predefined final name 1 singleton 1 implementation 1",
+            "UT: predefined pre_reset name 1 singleton 1 implementation 1",
+            "UT: predefined reset name 1 singleton 1 implementation 1",
+            "UT: predefined post_reset name 1 singleton 1 implementation 1",
+            "UT: predefined pre_configure name 1 singleton 1 implementation 1",
+            "UT: predefined configure name 1 singleton 1 implementation 1",
+            "UT: predefined post_configure name 1 singleton 1 implementation 1",
+            "UT: predefined pre_main name 1 singleton 1 implementation 1",
+            "UT: predefined main name 1 singleton 1 implementation 1",
+            "UT: predefined post_main name 1 singleton 1 implementation 1",
+            "UT: predefined pre_shutdown name 1 singleton 1 implementation 1",
+            "UT: predefined shutdown name 1 singleton 1 implementation 1",
+            "UT: predefined post_shutdown name 1 singleton 1 implementation 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-CONTRACT-TOPDOWN-CTOR-IMP",
+      "clause": "9.7.2.1",
+      "statement": {
+        "en": "The original topdown extension is initialized as an IMP.",
+        "ja": "独自topdown拡張はIMPとして初期化される。"
+      },
+      "conditions": {
+        "en": "A four-component subtree is traversed for STARTED, EXECUTING and ENDED using a node attached to the components' domain.",
+        "ja": "componentのdomainに属するnodeを使い、4 componentの部分木をSTARTED／EXECUTING／ENDEDで走査する。"
+      },
+      "expected": {
+        "en": "implementation_kind is true.",
+        "ja": "implementation_kindが真となる。"
+      },
+      "limitations": {
+        "en": "Ancestor order only, with no sibling-order assumption; STARTED/EXECUTING/ENDED on the selected subtree, not every domain/state combination.",
+        "ja": "祖先順のみで兄弟順は仮定しない。選択した部分木のSTARTED／EXECUTING／ENDEDであり、全domain／stateの組合せではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_topdown_phase_traverse_dispatches_selected_states_and_orders_ancestors_without_sibling_order",
+          "role": "direct",
+          "expected_observations": [
+            "UT: topdown_traverse context 1 implementation_kind 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-CONTRACT-TOPDOWN-TRAVERSE",
+      "clause": "9.7.2.2",
+      "statement": {
+        "en": "The selected state traversal visits ancestors before descendants.",
+        "ja": "選択したstateの走査では祖先を子孫より前に訪問する。"
+      },
+      "conditions": {
+        "en": "A four-component subtree is traversed for STARTED, EXECUTING and ENDED using a node attached to the components' domain.",
+        "ja": "componentのdomainに属するnodeを使い、4 componentの部分木をSTARTED／EXECUTING／ENDEDで走査する。"
+      },
+      "expected": {
+        "en": "All four selected handles occur once in each state with ancestor order and no peer.",
+        "ja": "各stateで選択した4 handleが1回ずつ祖先順に現れ、peerは含まれない。"
+      },
+      "limitations": {
+        "en": "Ancestor order only, with no sibling-order assumption; STARTED/EXECUTING/ENDED on the selected subtree, not every domain/state combination.",
+        "ja": "祖先順のみで兄弟順は仮定しない。選択した部分木のSTARTED／EXECUTING／ENDEDであり、全domain／stateの組合せではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_topdown_phase_traverse_dispatches_selected_states_and_orders_ancestors_without_sibling_order",
+          "role": "direct",
+          "expected_observations": [
+            "UT: topdown_traverse start_order 1 execute_order 1 end_order 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-CONTRACT-TOPDOWN-EXECUTE",
+      "clause": "9.7.2.3",
+      "statement": {
+        "en": "execute delegates to the original exec_func with component and phase context.",
+        "ja": "executeはcomponentとphase contextを独自exec_funcへ渡す。"
+      },
+      "conditions": {
+        "en": "A four-component subtree is traversed for STARTED, EXECUTING and ENDED using a node attached to the components' domain.",
+        "ja": "componentのdomainに属するnodeを使い、4 componentの部分木をSTARTED／EXECUTING／ENDEDで走査する。"
+      },
+      "expected": {
+        "en": "The execution queue has the expected handles and each call retains the context node.",
+        "ja": "実行queueのhandle群が一致し、各呼出しはcontext nodeを保持する。"
+      },
+      "limitations": {
+        "en": "Ancestor order only, with no sibling-order assumption; STARTED/EXECUTING/ENDED on the selected subtree, not every domain/state combination.",
+        "ja": "祖先順のみで兄弟順は仮定しない。選択した部分木のSTARTED／EXECUTING／ENDEDであり、全domain／stateの組合せではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_topdown_phase_traverse_dispatches_selected_states_and_orders_ancestors_without_sibling_order",
+          "role": "direct",
+          "expected_observations": [
+            "UT: topdown_traverse start_order 1 execute_order 1 end_order 1",
+            "UT: topdown_traverse context 1 implementation_kind 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-CONTRACT-BOTTOMUP-CTOR-IMP",
+      "clause": "9.5.2.1",
+      "statement": {
+        "en": "The original bottomup extension is initialized as an IMP.",
+        "ja": "独自bottomup拡張はIMPとして初期化される。"
+      },
+      "conditions": {
+        "en": "A four-component subtree is traversed for STARTED, EXECUTING and ENDED using a node attached to the components' domain.",
+        "ja": "componentのdomainに属するnodeを使い、4 componentの部分木をSTARTED／EXECUTING／ENDEDで走査する。"
+      },
+      "expected": {
+        "en": "implementation_kind is true.",
+        "ja": "implementation_kindが真となる。"
+      },
+      "limitations": {
+        "en": "Ancestor order only, with no sibling-order assumption; STARTED/EXECUTING/ENDED on the selected subtree, not every domain/state combination.",
+        "ja": "祖先順のみで兄弟順は仮定しない。選択した部分木のSTARTED／EXECUTING／ENDEDであり、全domain／stateの組合せではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_bottomup_phase_traverse_orders_ancestors_and_dispatches_selected_states",
+          "role": "direct",
+          "expected_observations": [
+            "UT: bottomup_traverse context 1 implementation_kind 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-CONTRACT-BOTTOMUP-TRAVERSE",
+      "clause": "9.5.2.2",
+      "statement": {
+        "en": "The selected state traversal visits descendants before ancestors.",
+        "ja": "選択したstateの走査では子孫を祖先より前に訪問する。"
+      },
+      "conditions": {
+        "en": "A four-component subtree is traversed for STARTED, EXECUTING and ENDED using a node attached to the components' domain.",
+        "ja": "componentのdomainに属するnodeを使い、4 componentの部分木をSTARTED／EXECUTING／ENDEDで走査する。"
+      },
+      "expected": {
+        "en": "All four selected handles occur once in each state with ancestor order and no peer.",
+        "ja": "各stateで選択した4 handleが1回ずつ祖先順に現れ、peerは含まれない。"
+      },
+      "limitations": {
+        "en": "Ancestor order only, with no sibling-order assumption; STARTED/EXECUTING/ENDED on the selected subtree, not every domain/state combination.",
+        "ja": "祖先順のみで兄弟順は仮定しない。選択した部分木のSTARTED／EXECUTING／ENDEDであり、全domain／stateの組合せではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_bottomup_phase_traverse_orders_ancestors_and_dispatches_selected_states",
+          "role": "direct",
+          "expected_observations": [
+            "UT: bottomup_traverse start_order 1 execute_order 1 end_order 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-CONTRACT-BOTTOMUP-EXECUTE",
+      "clause": "9.5.2.3",
+      "statement": {
+        "en": "execute delegates to the original exec_func with component and phase context.",
+        "ja": "executeはcomponentとphase contextを独自exec_funcへ渡す。"
+      },
+      "conditions": {
+        "en": "A four-component subtree is traversed for STARTED, EXECUTING and ENDED using a node attached to the components' domain.",
+        "ja": "componentのdomainに属するnodeを使い、4 componentの部分木をSTARTED／EXECUTING／ENDEDで走査する。"
+      },
+      "expected": {
+        "en": "The execution queue has the expected handles and each call retains the context node.",
+        "ja": "実行queueのhandle群が一致し、各呼出しはcontext nodeを保持する。"
+      },
+      "limitations": {
+        "en": "Ancestor order only, with no sibling-order assumption; STARTED/EXECUTING/ENDED on the selected subtree, not every domain/state combination.",
+        "ja": "祖先順のみで兄弟順は仮定しない。選択した部分木のSTARTED／EXECUTING／ENDEDであり、全domain／stateの組合せではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_bottomup_phase_traverse_orders_ancestors_and_dispatches_selected_states",
+          "role": "direct",
+          "expected_observations": [
+            "UT: bottomup_traverse start_order 1 execute_order 1 end_order 1",
+            "UT: bottomup_traverse context 1 implementation_kind 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-CONTRACT-EXEC-FUNC-CONTEXT",
+      "clause": "9.3.1.5.1",
+      "statement": {
+        "en": "The function proxy receives the originating component and phase context.",
+        "ja": "function proxyは元のcomponentとphase contextを受け取る。"
+      },
+      "conditions": {
+        "en": "A four-component subtree is traversed for STARTED, EXECUTING and ENDED using a node attached to the components' domain.",
+        "ja": "componentのdomainに属するnodeを使い、4 componentの部分木をSTARTED／EXECUTING／ENDEDで走査する。"
+      },
+      "expected": {
+        "en": "The selected execution handles and context comparisons match.",
+        "ja": "選択した実行handleとcontext比較が一致する。"
+      },
+      "limitations": {
+        "en": "Ancestor order only, with no sibling-order assumption; STARTED/EXECUTING/ENDED on the selected subtree, not every domain/state combination.",
+        "ja": "祖先順のみで兄弟順は仮定しない。選択した部分木のSTARTED／EXECUTING／ENDEDであり、全domain／stateの組合せではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_topdown_phase_traverse_dispatches_selected_states_and_orders_ancestors_without_sibling_order",
+          "role": "direct",
+          "expected_observations": [
+            "UT: topdown_traverse start_order 1 execute_order 1 end_order 1",
+            "UT: topdown_traverse context 1 implementation_kind 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-CONTRACT-TASK-CTOR-IMP",
+      "clause": "9.6.2.1",
+      "statement": {
+        "en": "An original task-phase extension is initialized as an IMP.",
+        "ja": "独自task phase拡張はIMPとして初期化される。"
+      },
+      "conditions": {
+        "en": "An original task proxy is executed from an objection-held main; delayed entry/completion markers observe its asynchronous execution.",
+        "ja": "objectionで保持したmainから独自task proxyをexecuteし、遅延した開始／完了markerで非同期実行を観測する。"
+      },
+      "expected": {
+        "en": "implementation_kind is true.",
+        "ja": "implementation_kindが真となる。"
+      },
+      "limitations": {
+        "en": "Asynchronous call and exact argument views only; forced termination of remaining phase tasks and task traversal states remain independent duties.",
+        "ja": "非同期呼出しと引数handleのみ。残存phase taskの強制終了とtask走査stateは独立の義務として残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_task_phase_execute_forks_the_original_proxy_and_returns_before_its_delayed_completion",
+          "role": "direct",
+          "expected_observations": [
+            "UT: task_execute finished 1 arguments 1 implementation_kind 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-CONTRACT-TASK-EXECUTE-FORK",
+      "clause": "9.6.2.3",
+      "statement": {
+        "en": "execute forks the task proxy and returns before its delayed completion.",
+        "ja": "executeはtask proxyをforkし、遅延した完了より前にreturnする。"
+      },
+      "conditions": {
+        "en": "An original task proxy is executed from an objection-held main; delayed entry/completion markers observe its asynchronous execution.",
+        "ja": "objectionで保持したmainから独自task proxyをexecuteし、遅延した開始／完了markerで非同期実行を観測する。"
+      },
+      "expected": {
+        "en": "returned_early, entered, not_yet_done and finished are true.",
+        "ja": "returned_early、entered、not_yet_done、finishedが真となる。"
+      },
+      "limitations": {
+        "en": "Asynchronous call and exact argument views only; forced termination of remaining phase tasks and task traversal states remain independent duties.",
+        "ja": "非同期呼出しと引数handleのみ。残存phase taskの強制終了とtask走査stateは独立の義務として残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_task_phase_execute_forks_the_original_proxy_and_returns_before_its_delayed_completion",
+          "role": "direct",
+          "expected_observations": [
+            "UT: task_execute returned_early 1 entered 1 not_yet_done 1",
+            "UT: task_execute finished 1 arguments 1 implementation_kind 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-CONTRACT-EXEC-TASK-CONTEXT",
+      "clause": "9.3.1.5.2",
+      "statement": {
+        "en": "The task proxy receives the originating component and phase context.",
+        "ja": "task proxyは元のcomponentとphase contextを受け取る。"
+      },
+      "conditions": {
+        "en": "An original task proxy is executed from an objection-held main; delayed entry/completion markers observe its asynchronous execution.",
+        "ja": "objectionで保持したmainから独自task proxyをexecuteし、遅延した開始／完了markerで非同期実行を観測する。"
+      },
+      "expected": {
+        "en": "arguments is true for the exact supplied handles.",
+        "ja": "渡した正確なhandleについてargumentsが真となる。"
+      },
+      "limitations": {
+        "en": "Asynchronous call and exact argument views only; forced termination of remaining phase tasks and task traversal states remain independent duties.",
+        "ja": "非同期呼出しと引数handleのみ。残存phase taskの強制終了とtask走査stateは独立の義務として残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_task_phase_execute_forks_the_original_proxy_and_returns_before_its_delayed_completion",
+          "role": "direct",
+          "expected_observations": [
+            "UT: task_execute finished 1 arguments 1 implementation_kind 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-CONTRACT-ITERATION-INSTANCE-GETTER",
+      "clause": "9.3.1.3.4",
+      "statement": {
+        "en": "The instance getter returns its current ready-to-end limit.",
+        "ja": "instance getterは現在のready-to-end上限を返す。"
+      },
+      "conditions": {
+        "en": "An unchanged two-instance fixture changes, queries and restores the class default.",
+        "ja": "未変更の2 instance fixtureがclass既定値を変更、照会、復元する。"
+      },
+      "expected": {
+        "en": "Inherited limits are 7/7 and explicit independent limits are 3/5.",
+        "ja": "継承した上限は7／7、明示した独立上限は3／5となる。"
+      },
+      "limitations": {
+        "en": "The printed static prototype duplicates the instance getter name despite the distinct heading. This maps the existing heading/prose API only; it does not resolve that signature conflict or add a measurement.",
+        "ja": "印字されたstatic prototypeは別の見出しにもかかわらずinstance getter名を重複させている。既存の見出し／本文APIを対応付けるのみで、signature矛盾を解決せず新しい測定も追加しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_phase_iteration_limits_have_instance_and_default_state",
+          "role": "direct",
+          "expected_observations": [
+            "UT: initial default 20",
+            "UT: inherited 7 7",
+            "UT: independent 3 5",
+            "UT: restored default 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-CONTRACT-ITERATION-DEFAULT-GETTER",
+      "clause": "9.3.1.3.6",
+      "statement": {
+        "en": "Under the heading/prose interpretation, the default getter reports the class default.",
+        "ja": "見出しと本文に基づく解釈ではdefault getterはclass既定値を返す。"
+      },
+      "conditions": {
+        "en": "An unchanged two-instance fixture changes, queries and restores the class default.",
+        "ja": "未変更の2 instance fixtureがclass既定値を変更、照会、復元する。"
+      },
+      "expected": {
+        "en": "The initial default is 20 and the restored-default comparison is true.",
+        "ja": "初期既定値は20で、復元した既定値の比較が真となる。"
+      },
+      "limitations": {
+        "en": "The printed static prototype duplicates the instance getter name despite the distinct heading. This maps the existing heading/prose API only; it does not resolve that signature conflict or add a measurement.",
+        "ja": "印字されたstatic prototypeは別の見出しにもかかわらずinstance getter名を重複させている。既存の見出し／本文APIを対応付けるのみで、signature矛盾を解決せず新しい測定も追加しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_phase_iteration_limits_have_instance_and_default_state",
+          "role": "direct",
+          "expected_observations": [
+            "UT: initial default 20",
+            "UT: inherited 7 7",
+            "UT: independent 3 5",
+            "UT: restored default 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-CONTRACT-BOTTOMUP-VIRTUAL",
+      "clause": "9.5.1",
+      "statement": {
+        "en": "Direct construction of the declared virtual uvm_bottomup_phase is illegal.",
+        "ja": "virtual宣言されたuvm_bottomup_phaseの直接生成は不正である。"
+      },
+      "conditions": {
+        "en": "A minimal negative fixture directly constructs the base; the separate legal extension supplies a runtime control.",
+        "ja": "最小のnegative fixtureがbaseを直接生成し、別の合法な拡張がruntime controlを提供する。"
+      },
+      "expected": {
+        "en": "Compilation rejects the named virtual class at the fixture location.",
+        "ja": "fixture位置で指定したvirtual classのcompileを拒否する。"
+      },
+      "limitations": {
+        "en": "Compiler diagnostic only; neither rejected nor illegally accepted input executes runtime seeds. The legal control does not substitute for rejection.",
+        "ja": "compiler診断のみ。拒否された入力も不正に受理された入力もruntime seedを実行しない。合法controlは拒否の代わりにはならない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_uvm_bottomup_phase_virtual_declaration_rejects_direct_construction",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?i)^(?=.*test_uvm_bottomup_phase_virtual_declaration_rejects_direct_construction\\.sv:[0-9]+:[0-9]+:)(?=.*\\b(?:virtual|abstract)\\b)(?=.*\\buvm_bottomup_phase\\b).*error"
+          }
+        },
+        {
+          "test": "u09/test_bottomup_phase_traverse_orders_ancestors_and_dispatches_selected_states",
+          "role": "control",
+          "expected_observations": [
+            "UT: bottomup_traverse start_order 1 execute_order 1 end_order 1",
+            "UT: bottomup_traverse context 1 implementation_kind 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-CONTRACT-TASK-VIRTUAL",
+      "clause": "9.6.1",
+      "statement": {
+        "en": "Direct construction of the declared virtual uvm_task_phase is illegal.",
+        "ja": "virtual宣言されたuvm_task_phaseの直接生成は不正である。"
+      },
+      "conditions": {
+        "en": "A minimal negative fixture directly constructs the base; the separate legal extension supplies a runtime control.",
+        "ja": "最小のnegative fixtureがbaseを直接生成し、別の合法な拡張がruntime controlを提供する。"
+      },
+      "expected": {
+        "en": "Compilation rejects the named virtual class at the fixture location.",
+        "ja": "fixture位置で指定したvirtual classのcompileを拒否する。"
+      },
+      "limitations": {
+        "en": "Compiler diagnostic only; neither rejected nor illegally accepted input executes runtime seeds. The legal control does not substitute for rejection.",
+        "ja": "compiler診断のみ。拒否された入力も不正に受理された入力もruntime seedを実行しない。合法controlは拒否の代わりにはならない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_uvm_task_phase_virtual_declaration_rejects_direct_construction",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?i)^(?=.*test_uvm_task_phase_virtual_declaration_rejects_direct_construction\\.sv:[0-9]+:[0-9]+:)(?=.*\\b(?:virtual|abstract)\\b)(?=.*\\buvm_task_phase\\b).*error"
+          }
+        },
+        {
+          "test": "u09/test_task_phase_execute_forks_the_original_proxy_and_returns_before_its_delayed_completion",
+          "role": "control",
+          "expected_observations": [
+            "UT: task_execute returned_early 1 entered 1 not_yet_done 1",
+            "UT: task_execute finished 1 arguments 1 implementation_kind 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PHASE-CONTRACT-TOPDOWN-VIRTUAL",
+      "clause": "9.7.1",
+      "statement": {
+        "en": "Direct construction of the declared virtual uvm_topdown_phase is illegal.",
+        "ja": "virtual宣言されたuvm_topdown_phaseの直接生成は不正である。"
+      },
+      "conditions": {
+        "en": "A minimal negative fixture directly constructs the base; the separate legal extension supplies a runtime control.",
+        "ja": "最小のnegative fixtureがbaseを直接生成し、別の合法な拡張がruntime controlを提供する。"
+      },
+      "expected": {
+        "en": "Compilation rejects the named virtual class at the fixture location.",
+        "ja": "fixture位置で指定したvirtual classのcompileを拒否する。"
+      },
+      "limitations": {
+        "en": "Compiler diagnostic only; neither rejected nor illegally accepted input executes runtime seeds. The legal control does not substitute for rejection.",
+        "ja": "compiler診断のみ。拒否された入力も不正に受理された入力もruntime seedを実行しない。合法controlは拒否の代わりにはならない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u09/test_uvm_topdown_phase_virtual_declaration_rejects_direct_construction",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?i)^(?=.*test_uvm_topdown_phase_virtual_declaration_rejects_direct_construction\\.sv:[0-9]+:[0-9]+:)(?=.*\\b(?:virtual|abstract)\\b)(?=.*\\buvm_topdown_phase\\b).*error"
+          }
+        },
+        {
+          "test": "u09/test_topdown_phase_traverse_dispatches_selected_states_and_orders_ancestors_without_sibling_order",
+          "role": "control",
+          "expected_observations": [
+            "UT: topdown_traverse start_order 1 execute_order 1 end_order 1",
+            "UT: topdown_traverse context 1 implementation_kind 1"
+          ]
+        }
+      ]
     }
   ]
 }
