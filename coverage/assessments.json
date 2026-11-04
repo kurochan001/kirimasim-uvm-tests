@@ -5463,6 +5463,298 @@
         "reviewer": null,
         "reviewed_at": null
       }
+    },
+    {
+      "clause": "E",
+      "classification": "structural",
+      "rationale": {
+        "en": "Normative annex title grouping test sequences; individual classes and methods supply their contracts.",
+        "ja": "test sequenceをまとめる規範付録の題名で、個別class／methodが契約を与える。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "E.1.2.1",
+      "classification": "structural",
+      "rationale": {
+        "en": "Reset-sequence methods heading, followed by separately numbered constructor and body.",
+        "ja": "reset-sequence method見出しで、別番号のconstructor／bodyが続く。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "E.2.2.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "Bit-bash wrapper variables heading; model and protected child follow individually.",
+        "ja": "bit-bash wrapper変数見出しで、modelとprotected childが個別に続く。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "E.2.2.3",
+      "classification": "structural",
+      "rationale": {
+        "en": "Bit-bash wrapper methods heading; constructor and body are separately specified.",
+        "ja": "bit-bash wrapper method見出しで、constructor／bodyは別に記述する。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "E.3.2.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "Register-access wrapper variables heading with separately numbered model and child.",
+        "ja": "register-access wrapper変数見出しで、model／childは別番号である。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "E.3.2.3",
+      "classification": "structural",
+      "rationale": {
+        "en": "Register-access wrapper methods heading followed by constructor and body.",
+        "ja": "register-access wrapper method見出しで、constructor／bodyが続く。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "E.4.3.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "Shared wrapper variables heading; model, register child and memory child are individual contracts.",
+        "ja": "shared wrapper変数見出しで、model、register child、memory childは個別契約である。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "E.4.3.3",
+      "classification": "structural",
+      "rationale": {
+        "en": "Shared wrapper methods heading followed by constructor and body.",
+        "ja": "shared wrapper method見出しで、constructor／bodyが続く。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "E.5",
+      "classification": "structural",
+      "rationale": {
+        "en": "Memory-access sequence grouping title; concrete single-memory and block clauses carry behavior.",
+        "ja": "memory-access sequenceの分類題名で、動作は具象single-memory／block条項にある。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "E.5.2.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "Memory-access wrapper variables heading with separate model and child clauses.",
+        "ja": "memory-access wrapper変数見出しで、model／childは別条項である。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "E.5.2.3",
+      "classification": "structural",
+      "rationale": {
+        "en": "Memory-access wrapper methods heading; constructor and body follow individually.",
+        "ja": "memory-access wrapper method見出しで、constructor／bodyが個別に続く。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "E.6.1.3",
+      "classification": "structural",
+      "rationale": {
+        "en": "Single-memory walking methods heading, preceding constructor and body.",
+        "ja": "single-memory walking method見出しで、constructor／bodyの前に置く。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "E.6.2.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "Memory-walk wrapper variables heading; model and memory child follow separately.",
+        "ja": "memory-walk wrapper変数見出しで、model／memory childが別に続く。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "E.6.3",
+      "classification": "structural",
+      "rationale": {
+        "en": "Printed memory-walk methods heading; preserve its actual numbering instead of silently changing it to E.6.2.3.",
+        "ja": "印字されたmemory-walk method見出しで、E.6.2.3へ黙って変えず実番号を保持する。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "E.8.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "Builtin dispatcher variables heading with model and tests subclauses.",
+        "ja": "builtin dispatcher変数見出しで、model／tests下位条項を持つ。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "E.8.3",
+      "classification": "structural",
+      "rationale": {
+        "en": "Builtin dispatcher methods heading followed by constructor and body.",
+        "ja": "builtin dispatcher method見出しで、constructor／bodyが続く。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "E.2",
+      "classification": "contextual",
+      "rationale": {
+        "en": "This introduces the individual-register-bit testing family; linked bit/value/map duties supply selected behavior without a second independent algorithm here.",
+        "ja": "register個別bit検査familyの導入で、関連bit／値／map義務が選択動作を与え、ここに第2の独立algorithmはない。"
+      },
+      "related_requirements": [
+        "UVM-BIT-BASH-EVERY-BIT",
+        "UVM-BIT-BASH-ALL-MAPS"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "E.3",
+      "classification": "contextual",
+      "rationale": {
+        "en": "This introduces frontdoor/backdoor register-access roles; the concrete sequence clauses specify the cross-path operations and skip conditions.",
+        "ja": "frontdoor／backdoor register-accessの役割を導入し、具体sequence条項がcross-path操作とskip条件を定める。"
+      },
+      "related_requirements": [
+        "UVM-REGISTER-ACCESS-CROSS-PATHS",
+        "UVM-REGISTER-ACCESS-NO-BACKDOOR"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "E.4",
+      "classification": "contextual",
+      "rationale": {
+        "en": "This establishes the shared-model context of more than one map/interface; linked two/three-map obligations retain that condition. It does not itself establish physical protocol completion.",
+        "ja": "複数map／interfaceの共有model文脈を示し、関連2／3-map義務がその条件を保持する。これ自体で物理protocol完了を示さない。"
+      },
+      "related_requirements": [
+        "UVM-SHARED-REGISTER-MAP-VISIBILITY",
+        "UVM-SHARED-MEMORY-MAP-VISIBILITY"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "E.6",
+      "classification": "contextual",
+      "rationale": {
+        "en": "This introduces walking-ones sequences for one or more memories; the concrete clauses and linked historical interpretation remain partial, without inventing another algorithm from this introduction.",
+        "ja": "1つ以上のmemoryへのwalking-ones sequenceを導入する。具体条項と関連する歴史的解釈は部分的に残し、導入から別algorithmを作らない。"
+      },
+      "related_requirements": [
+        "UVM-MEMORY-WALK-ALGORITHM",
+        "UVM-BUILTIN-AUDIT-BODY-MEMORY-WALK"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
     }
   ]
 }

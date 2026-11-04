@@ -3,8 +3,8 @@
 [日本語](history.ja.md) · [README](../README.md)
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and fifty-nine cross-milestone thin-area expansions, including the
-existing-test requirement-link backlog checkpoint (1772 tests: 1720 simulation and 52 elaboration). The earlier 349-test checkpoint is
+three M4 increments and sixty cross-milestone thin-area expansions, including the
+existing-test requirement-link backlog checkpoint (1801 tests: 1746 simulation and 55 elaboration). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -3702,3 +3702,67 @@ All 110 tool tests, metadata, ledger/library, evidence identities and paired doc
 pass. FAQs/terms reach 245/277. Schema, runners/library/catalog/backend, workflow
 and six SVGs remain unchanged. No guest run, human review, denominator approval
 or completion is claimed. Goal active.
+
+## Sixtieth thin-area expansion: builtin sequence declarations and live child slots (2026-11-05)
+
+Twenty-nine M3 fixtures add twenty-four two-seed runtime matches, two expected
+protected-access rejections, two seed-1 constructor-name differences without
+seed 73, and one accepted illegal direct construction without runtime.
+The single-memory access/walk constructors retain their listed default-name
+expectations; explicit nonempty/empty names and target controls are separate
+observations. The printed virtual builtin dispatcher is accepted when directly
+constructed. Legal concrete extensions do not replace that rejection duty.
+
+Selected checks cover fifteen builtin constructor/declaration surfaces, exact
+register-sequence ancestry, public model/register/memory target handles,
+replacement/peer isolation, a 64-bit selection field, abstraction-queue storage,
+and six exact protected child slots. External access is rejected in two selected
+wrappers. Five live factory-child probes check the executing slot and selected
+targets; their original child bodies certify routing only, without standing in
+for builtin access/walking algorithms. Existing full-algorithm controls and
+unchanged reset/dispatcher body records remain separate evidence.
+
+An initial direct comparison between different concrete extension handle types
+failed in generated C++ compilation. The control now uses common builtin-base
+views for the same identity predicate and is remeasured. That obsolete build is
+not counted as a UVM difference. Two access routing probes initially lacked
+backdoor eligibility; original per-target storage backdoors now provide that
+precondition and the corrected inputs are remeasured. Their initial skip is a
+fixture setup issue, not a UVM difference. Initial citation/format preflight errors were
+also corrected before measurement. No standard-derived expectation is replaced.
+The req_seq headings versus reg_seq prototypes and the printed E.6.3 numbering
+remain explicit; no extra public accessor, child default/retention rule or
+allocation/sibling order is invented.
+
+Annex-E auditing adds 62 AI duties for twenty-nine new M3 fixtures and
+unchanged body/control inputs. Fifteen constructor/name and ancestry surfaces,
+thirteen target variables, six protected child declarations, selected visibility
+negatives, seven body duties, dispatcher selection/width and abstraction queues
+have explicit conditions. Matching original delegation probes do not prove the
+underlying builtin payload algorithms; uncited old algorithm fixtures are control
+links only. Initial-name and virtual-declaration differences remain spec-only.
+
+Sixteen headings are individually structural and four introductions contextual
+with related duties. All 77 formerly unassessed E identifiers are addressed:
+the annex is 74 partial/20 assessed/0 unassessed with 114 drafts and 88 primary
+fixtures (85 simulation/3 elaboration). This does not complete the 74 partial
+contracts, physical DUT reset/access, historical walking-ones interpretation,
+skip/error/abort/concurrency combinations or original milestone targets.
+
+Overall is 1747 partial/377 assessed/383 unassessed (257 structural/120 contextual).
+All 3110 earlier requirements and 357 assessments remain unchanged. Scope remains
+proposed with null denominator/percentage; no clause state means complete.
+
+Totals: 1801 (1746 simulation/55 elaboration), M1 709 (667/42), M2 547
+(542/5), M3 545 (537/8). Ordinary results are 1568 pass (1516 runtime/52 compiler
+rejections), 233 known (173 runtime/57 simulation builds/three illegal acceptances).
+All 1772 prior ordinary records, 3110 requirements and 357 assessments remain
+unchanged; guest 1083/HDL 11/command-line 18 records are byte-identical. Guest
+unmeasured is 718 (663 simulation/55 elaboration), including two revised inputs.
+
+The goal's thirty-second iteration reduces unassessed by 77 to 383 (1080 since
+activation); all partial obligations and original targets remain open. All 110
+tool tests, metadata, ledger/library, evidence identities and paired docs pass.
+FAQs/terms reach 248/279. Schema, runners/library/catalog/backend, workflow and
+six SVGs remain unchanged. No guest run, human review, denominator approval or
+completion is claimed. Goal active.

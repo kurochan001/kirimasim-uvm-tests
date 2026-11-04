@@ -150,6 +150,14 @@ explicit component marks and custom address/data gates model later completion.
 They certify selected notifications/timestamps, not initial pool membership,
 database layout or physical DUT behavior.
 
+Builtin-sequence declaration fixtures use actual omitted/explicit constructor
+calls, exact static base/target receivers and original legal derived accessors
+for protected slots. Minimal illegal probes assess direct virtual construction
+and external protected access without runtime. Live factory-child probes compare
+the executing child with its declared slot and selected targets; their original
+bodies do not certify the builtin access/walk algorithms. Old full-algorithm
+controls retain separate citations and execution identities.
+
 ## Where the expected outputs come from
 
 1. The expected output is derived from the cited clauses (`:oracle: spec`).
@@ -205,7 +213,7 @@ again. `--check` checks the copy that is there. The library is not committed.
 - User-defined `uvm_reg_backdoor` storage handlers work without HDL DPI.
   Commercial simulator execution/results are excluded by the project policy;
   built-in HDL-path/DPI coverage remains open.
-- 1743 current cases use `UVM_NO_DPI`; eleven explicitly enable HDL DPI.
+- 1772 current cases use `UVM_NO_DPI`; eleven explicitly enable HDL DPI.
   `:uvm_dpi: yes` removes that macro;
   it does not automatically compile or link the C/C++ DPI implementation.
   The current Verilator runner does not add DPI C/C++ sources.
@@ -311,9 +319,9 @@ For runtime cases, `--seeds 1 73` builds once and runs a fresh process for
 each seed. All requested runtime seeds must match. `--seed N` remains available for a single seed.
 The JSON configuration records either `seed` or `seeds` accordingly.
 
-By default, Verilator selects 1542 tagged two-state checks: 1492 runtime
-cases and 50 expected compiler rejections. To include
-the 230 spec-only cases as well, add `--all`. A mismatch in an untagged case
+By default, Verilator selects 1568 tagged two-state checks: 1516 runtime
+cases and 52 expected compiler rejections. To include
+the 233 spec-only cases as well, add `--all`. A mismatch in an untagged case
 is `known` and does not fail the command; a tagged mismatch does.
 Explicit test paths select only those tests. For a single smoke test:
 
@@ -367,7 +375,7 @@ python3 tools/requirements.py check
 ```
 
 The current tool suite has 110 unit tests; metadata validation checks all
-1772 tests (1720 simulation, 52 elaboration). The [ledger check](requirements.md) validates the draft
+1801 tests (1746 simulation, 55 elaboration). The [ledger check](requirements.md) validates the draft
 scope, explicit oracle links and input fingerprints without claiming coverage. [Check](../.github/workflows/check.yml) runs on pushes to
 `main`, pull requests and manual dispatch. Its separate Verilator job uses
 5.052, `UVM_NO_DPI` and seeds 1 and 73 for the tagged cases. Each model is

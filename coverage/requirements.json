@@ -113780,6 +113780,2262 @@
           ]
         }
       ]
+    },
+    {
+      "id": "UVM-BUILTIN-AUDIT-REG-HW-RESET-SEQ-CONSTRUCTOR",
+      "clause": "E.1.2.1.1",
+      "statement": {
+        "en": "uvm_reg_hw_reset_seq construction retains its listed default name and explicit names.",
+        "ja": "uvm_reg_hw_reset_seqの生成は記載された既定名と明示名を保持する。"
+      },
+      "conditions": {
+        "en": "Call the actual constructor with omitted, explicit nonempty and explicit empty names; the virtual dispatcher uses two direct original extensions to isolate omitted/explicit base calls.",
+        "ja": "実constructorへ省略、明示非空、明示空の名前を渡す。virtual dispatcherは2つの独自直接拡張で省略／明示base呼出しを分離する。"
+      },
+      "expected": {
+        "en": "Default and explicit names match and separately created objects have distinct handles.",
+        "ja": "既定／明示名が一致し、別々に生成したobjectは異なるhandleを持つ。"
+      },
+      "limitations": {
+        "en": "Construction only; no default body, random seed identity, factory creation or implicit generated full-name convention is assessed.",
+        "ja": "生成のみで、既定body、乱数seed同一性、factory生成、暗黙の生成full-name慣例は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uE/test_builtin_reg_hw_reset_seq_constructor_types_target",
+          "role": "direct",
+          "expected_observations": [
+            "UT: builtin_names default 1 explicit 1 empty 1",
+            "UT: builtin_ancestry typed 1 sequence 1 object 1 distinct 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BUILTIN-AUDIT-REG-HW-RESET-SEQ-ANCESTRY",
+      "clause": "E.1.1",
+      "statement": {
+        "en": "uvm_reg_hw_reset_seq has the declared register-sequence base specialization.",
+        "ja": "uvm_reg_hw_reset_seqは宣言されたregister-sequence base特殊化を持つ。"
+      },
+      "conditions": {
+        "en": "Use implicit assignments through uvm_reg_sequence#(uvm_sequence#(uvm_reg_item)), its selected sequence base and uvm_object, without casts.",
+        "ja": "castなしでuvm_reg_sequence#(uvm_sequence#(uvm_reg_item))、選択sequence base、uvm_objectへ暗黙代入する。"
+      },
+      "expected": {
+        "en": "All static receivers compile and retain the same original handle.",
+        "ja": "全static receiverがcompileでき、同じ元handleを保持する。"
+      },
+      "limitations": {
+        "en": "Exact declared base specialization and selected identity relationships only. No every-builtin factory registry, type_id, macro expansion or execution algorithm is inferred. The virtual dispatcher uses concrete original extensions; its separate direct-construction negative assesses abstractness.",
+        "ja": "正確な宣言base特殊化と選択した同一性関係のみ。全builtinのfactory registry、type_id、macro展開、実行algorithmを推測しない。virtual dispatcherには独自具象拡張を使い、別の直接生成negativeで抽象性を評価する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uE/test_builtin_reg_hw_reset_seq_constructor_types_target",
+          "role": "direct",
+          "expected_observations": [
+            "UT: builtin_ancestry typed 1 sequence 1 object 1 distinct 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BUILTIN-AUDIT-REG-HW-RESET-SEQ-TARGET",
+      "clause": "E.1.2",
+      "statement": {
+        "en": "The model property identifies the selected block, register or memory using its declared handle type.",
+        "ja": "model propertyは宣言handle型で選択block／register／memoryを示す。"
+      },
+      "conditions": {
+        "en": "Original concrete target objects are assigned/read through the builtin property, with separate sequence instances and static receiver types.",
+        "ja": "独自具象target objectをbuiltin property経由で代入／readし、別sequence instanceとstatic receiver型を使う。"
+      },
+      "expected": {
+        "en": "Typed reads retain initial/replacement targets, an independent peer stays unchanged and null can be stored without executing the sequence.",
+        "ja": "typed readは初期／置換対象を保持し、独立peerは未変更で、sequence実行なしでnullを保存できる。"
+      },
+      "limitations": {
+        "en": "This verifies declared handle storage, replacement and instance isolation, not successful execution with a null target, clone/ownership behavior or all model hierarchies. No unspecified initial property value is asserted. Existing algorithm fixtures remain separate evidence.",
+        "ja": "宣言handleの保存、置換、instance独立性を検査し、null対象での実行成功、clone／所有動作、全model階層ではない。未規定の初期property値を主張せず、既存algorithm fixtureは別の証拠に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uE/test_builtin_reg_hw_reset_seq_constructor_types_target",
+          "role": "direct",
+          "expected_observations": [
+            "UT: target initial 1 peer 1",
+            "UT: target replaced 1 peer_unchanged 1 null_storage 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BUILTIN-AUDIT-REG-SINGLE-BIT-BASH-SEQ-CONSTRUCTOR",
+      "clause": "E.2.1.3",
+      "statement": {
+        "en": "uvm_reg_single_bit_bash_seq construction retains its listed default name and explicit names.",
+        "ja": "uvm_reg_single_bit_bash_seqの生成は記載された既定名と明示名を保持する。"
+      },
+      "conditions": {
+        "en": "Call the actual constructor with omitted, explicit nonempty and explicit empty names; the virtual dispatcher uses two direct original extensions to isolate omitted/explicit base calls.",
+        "ja": "実constructorへ省略、明示非空、明示空の名前を渡す。virtual dispatcherは2つの独自直接拡張で省略／明示base呼出しを分離する。"
+      },
+      "expected": {
+        "en": "Default and explicit names match and separately created objects have distinct handles.",
+        "ja": "既定／明示名が一致し、別々に生成したobjectは異なるhandleを持つ。"
+      },
+      "limitations": {
+        "en": "Construction only; no default body, random seed identity, factory creation or implicit generated full-name convention is assessed.",
+        "ja": "生成のみで、既定body、乱数seed同一性、factory生成、暗黙の生成full-name慣例は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uE/test_builtin_reg_single_bit_bash_seq_constructor_types_target",
+          "role": "direct",
+          "expected_observations": [
+            "UT: builtin_names default 1 explicit 1 empty 1",
+            "UT: builtin_ancestry typed 1 sequence 1 object 1 distinct 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BUILTIN-AUDIT-REG-SINGLE-BIT-BASH-SEQ-ANCESTRY",
+      "clause": "E.2.1.1",
+      "statement": {
+        "en": "uvm_reg_single_bit_bash_seq has the declared register-sequence base specialization.",
+        "ja": "uvm_reg_single_bit_bash_seqは宣言されたregister-sequence base特殊化を持つ。"
+      },
+      "conditions": {
+        "en": "Use implicit assignments through uvm_reg_sequence#(uvm_sequence#(uvm_reg_item)), its selected sequence base and uvm_object, without casts.",
+        "ja": "castなしでuvm_reg_sequence#(uvm_sequence#(uvm_reg_item))、選択sequence base、uvm_objectへ暗黙代入する。"
+      },
+      "expected": {
+        "en": "All static receivers compile and retain the same original handle.",
+        "ja": "全static receiverがcompileでき、同じ元handleを保持する。"
+      },
+      "limitations": {
+        "en": "Exact declared base specialization and selected identity relationships only. No every-builtin factory registry, type_id, macro expansion or execution algorithm is inferred. The virtual dispatcher uses concrete original extensions; its separate direct-construction negative assesses abstractness.",
+        "ja": "正確な宣言base特殊化と選択した同一性関係のみ。全builtinのfactory registry、type_id、macro展開、実行algorithmを推測しない。virtual dispatcherには独自具象拡張を使い、別の直接生成negativeで抽象性を評価する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uE/test_builtin_reg_single_bit_bash_seq_constructor_types_target",
+          "role": "direct",
+          "expected_observations": [
+            "UT: builtin_ancestry typed 1 sequence 1 object 1 distinct 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BUILTIN-AUDIT-REG-SINGLE-BIT-BASH-SEQ-TARGET",
+      "clause": "E.2.1.2",
+      "statement": {
+        "en": "The rg property identifies the selected block, register or memory using its declared handle type.",
+        "ja": "rg propertyは宣言handle型で選択block／register／memoryを示す。"
+      },
+      "conditions": {
+        "en": "Original concrete target objects are assigned/read through the builtin property, with separate sequence instances and static receiver types.",
+        "ja": "独自具象target objectをbuiltin property経由で代入／readし、別sequence instanceとstatic receiver型を使う。"
+      },
+      "expected": {
+        "en": "Typed reads retain initial/replacement targets, an independent peer stays unchanged and null can be stored without executing the sequence.",
+        "ja": "typed readは初期／置換対象を保持し、独立peerは未変更で、sequence実行なしでnullを保存できる。"
+      },
+      "limitations": {
+        "en": "This verifies declared handle storage, replacement and instance isolation, not successful execution with a null target, clone/ownership behavior or all model hierarchies. No unspecified initial property value is asserted. Existing algorithm fixtures remain separate evidence.",
+        "ja": "宣言handleの保存、置換、instance独立性を検査し、null対象での実行成功、clone／所有動作、全model階層ではない。未規定の初期property値を主張せず、既存algorithm fixtureは別の証拠に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uE/test_builtin_reg_single_bit_bash_seq_constructor_types_target",
+          "role": "direct",
+          "expected_observations": [
+            "UT: target initial 1 peer 1",
+            "UT: target replaced 1 peer_unchanged 1 null_storage 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BUILTIN-AUDIT-REG-BIT-BASH-SEQ-CONSTRUCTOR",
+      "clause": "E.2.2.3.1",
+      "statement": {
+        "en": "uvm_reg_bit_bash_seq construction retains its listed default name and explicit names.",
+        "ja": "uvm_reg_bit_bash_seqの生成は記載された既定名と明示名を保持する。"
+      },
+      "conditions": {
+        "en": "Call the actual constructor with omitted, explicit nonempty and explicit empty names; the virtual dispatcher uses two direct original extensions to isolate omitted/explicit base calls.",
+        "ja": "実constructorへ省略、明示非空、明示空の名前を渡す。virtual dispatcherは2つの独自直接拡張で省略／明示base呼出しを分離する。"
+      },
+      "expected": {
+        "en": "Default and explicit names match and separately created objects have distinct handles.",
+        "ja": "既定／明示名が一致し、別々に生成したobjectは異なるhandleを持つ。"
+      },
+      "limitations": {
+        "en": "Construction only; no default body, random seed identity, factory creation or implicit generated full-name convention is assessed.",
+        "ja": "生成のみで、既定body、乱数seed同一性、factory生成、暗黙の生成full-name慣例は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uE/test_builtin_reg_bit_bash_seq_constructor_types_target",
+          "role": "direct",
+          "expected_observations": [
+            "UT: builtin_names default 1 explicit 1 empty 1",
+            "UT: builtin_ancestry typed 1 sequence 1 object 1 distinct 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BUILTIN-AUDIT-REG-BIT-BASH-SEQ-ANCESTRY",
+      "clause": "E.2.2.1",
+      "statement": {
+        "en": "uvm_reg_bit_bash_seq has the declared register-sequence base specialization.",
+        "ja": "uvm_reg_bit_bash_seqは宣言されたregister-sequence base特殊化を持つ。"
+      },
+      "conditions": {
+        "en": "Use implicit assignments through uvm_reg_sequence#(uvm_sequence#(uvm_reg_item)), its selected sequence base and uvm_object, without casts.",
+        "ja": "castなしでuvm_reg_sequence#(uvm_sequence#(uvm_reg_item))、選択sequence base、uvm_objectへ暗黙代入する。"
+      },
+      "expected": {
+        "en": "All static receivers compile and retain the same original handle.",
+        "ja": "全static receiverがcompileでき、同じ元handleを保持する。"
+      },
+      "limitations": {
+        "en": "Exact declared base specialization and selected identity relationships only. No every-builtin factory registry, type_id, macro expansion or execution algorithm is inferred. The virtual dispatcher uses concrete original extensions; its separate direct-construction negative assesses abstractness.",
+        "ja": "正確な宣言base特殊化と選択した同一性関係のみ。全builtinのfactory registry、type_id、macro展開、実行algorithmを推測しない。virtual dispatcherには独自具象拡張を使い、別の直接生成negativeで抽象性を評価する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uE/test_builtin_reg_bit_bash_seq_constructor_types_target",
+          "role": "direct",
+          "expected_observations": [
+            "UT: builtin_ancestry typed 1 sequence 1 object 1 distinct 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BUILTIN-AUDIT-REG-BIT-BASH-SEQ-TARGET",
+      "clause": "E.2.2.2.1",
+      "statement": {
+        "en": "The model property identifies the selected block, register or memory using its declared handle type.",
+        "ja": "model propertyは宣言handle型で選択block／register／memoryを示す。"
+      },
+      "conditions": {
+        "en": "Original concrete target objects are assigned/read through the builtin property, with separate sequence instances and static receiver types.",
+        "ja": "独自具象target objectをbuiltin property経由で代入／readし、別sequence instanceとstatic receiver型を使う。"
+      },
+      "expected": {
+        "en": "Typed reads retain initial/replacement targets, an independent peer stays unchanged and null can be stored without executing the sequence.",
+        "ja": "typed readは初期／置換対象を保持し、独立peerは未変更で、sequence実行なしでnullを保存できる。"
+      },
+      "limitations": {
+        "en": "This verifies declared handle storage, replacement and instance isolation, not successful execution with a null target, clone/ownership behavior or all model hierarchies. No unspecified initial property value is asserted. Existing algorithm fixtures remain separate evidence.",
+        "ja": "宣言handleの保存、置換、instance独立性を検査し、null対象での実行成功、clone／所有動作、全model階層ではない。未規定の初期property値を主張せず、既存algorithm fixtureは別の証拠に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uE/test_builtin_reg_bit_bash_seq_constructor_types_target",
+          "role": "direct",
+          "expected_observations": [
+            "UT: target initial 1 peer 1",
+            "UT: target replaced 1 peer_unchanged 1 null_storage 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BUILTIN-AUDIT-REG-SINGLE-ACCESS-SEQ-CONSTRUCTOR",
+      "clause": "E.3.1.3",
+      "statement": {
+        "en": "uvm_reg_single_access_seq construction retains its listed default name and explicit names.",
+        "ja": "uvm_reg_single_access_seqの生成は記載された既定名と明示名を保持する。"
+      },
+      "conditions": {
+        "en": "Call the actual constructor with omitted, explicit nonempty and explicit empty names; the virtual dispatcher uses two direct original extensions to isolate omitted/explicit base calls.",
+        "ja": "実constructorへ省略、明示非空、明示空の名前を渡す。virtual dispatcherは2つの独自直接拡張で省略／明示base呼出しを分離する。"
+      },
+      "expected": {
+        "en": "Default and explicit names match and separately created objects have distinct handles.",
+        "ja": "既定／明示名が一致し、別々に生成したobjectは異なるhandleを持つ。"
+      },
+      "limitations": {
+        "en": "Construction only; no default body, random seed identity, factory creation or implicit generated full-name convention is assessed.",
+        "ja": "生成のみで、既定body、乱数seed同一性、factory生成、暗黙の生成full-name慣例は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uE/test_builtin_reg_single_access_seq_constructor_types_target",
+          "role": "direct",
+          "expected_observations": [
+            "UT: builtin_names default 1 explicit 1 empty 1",
+            "UT: builtin_ancestry typed 1 sequence 1 object 1 distinct 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BUILTIN-AUDIT-REG-SINGLE-ACCESS-SEQ-ANCESTRY",
+      "clause": "E.3.1.1",
+      "statement": {
+        "en": "uvm_reg_single_access_seq has the declared register-sequence base specialization.",
+        "ja": "uvm_reg_single_access_seqは宣言されたregister-sequence base特殊化を持つ。"
+      },
+      "conditions": {
+        "en": "Use implicit assignments through uvm_reg_sequence#(uvm_sequence#(uvm_reg_item)), its selected sequence base and uvm_object, without casts.",
+        "ja": "castなしでuvm_reg_sequence#(uvm_sequence#(uvm_reg_item))、選択sequence base、uvm_objectへ暗黙代入する。"
+      },
+      "expected": {
+        "en": "All static receivers compile and retain the same original handle.",
+        "ja": "全static receiverがcompileでき、同じ元handleを保持する。"
+      },
+      "limitations": {
+        "en": "Exact declared base specialization and selected identity relationships only. No every-builtin factory registry, type_id, macro expansion or execution algorithm is inferred. The virtual dispatcher uses concrete original extensions; its separate direct-construction negative assesses abstractness.",
+        "ja": "正確な宣言base特殊化と選択した同一性関係のみ。全builtinのfactory registry、type_id、macro展開、実行algorithmを推測しない。virtual dispatcherには独自具象拡張を使い、別の直接生成negativeで抽象性を評価する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uE/test_builtin_reg_single_access_seq_constructor_types_target",
+          "role": "direct",
+          "expected_observations": [
+            "UT: builtin_ancestry typed 1 sequence 1 object 1 distinct 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BUILTIN-AUDIT-REG-SINGLE-ACCESS-SEQ-TARGET",
+      "clause": "E.3.1.2",
+      "statement": {
+        "en": "The rg property identifies the selected block, register or memory using its declared handle type.",
+        "ja": "rg propertyは宣言handle型で選択block／register／memoryを示す。"
+      },
+      "conditions": {
+        "en": "Original concrete target objects are assigned/read through the builtin property, with separate sequence instances and static receiver types.",
+        "ja": "独自具象target objectをbuiltin property経由で代入／readし、別sequence instanceとstatic receiver型を使う。"
+      },
+      "expected": {
+        "en": "Typed reads retain initial/replacement targets, an independent peer stays unchanged and null can be stored without executing the sequence.",
+        "ja": "typed readは初期／置換対象を保持し、独立peerは未変更で、sequence実行なしでnullを保存できる。"
+      },
+      "limitations": {
+        "en": "This verifies declared handle storage, replacement and instance isolation, not successful execution with a null target, clone/ownership behavior or all model hierarchies. No unspecified initial property value is asserted. Existing algorithm fixtures remain separate evidence.",
+        "ja": "宣言handleの保存、置換、instance独立性を検査し、null対象での実行成功、clone／所有動作、全model階層ではない。未規定の初期property値を主張せず、既存algorithm fixtureは別の証拠に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uE/test_builtin_reg_single_access_seq_constructor_types_target",
+          "role": "direct",
+          "expected_observations": [
+            "UT: target initial 1 peer 1",
+            "UT: target replaced 1 peer_unchanged 1 null_storage 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BUILTIN-AUDIT-REG-ACCESS-SEQ-CONSTRUCTOR",
+      "clause": "E.3.2.3.1",
+      "statement": {
+        "en": "uvm_reg_access_seq construction retains its listed default name and explicit names.",
+        "ja": "uvm_reg_access_seqの生成は記載された既定名と明示名を保持する。"
+      },
+      "conditions": {
+        "en": "Call the actual constructor with omitted, explicit nonempty and explicit empty names; the virtual dispatcher uses two direct original extensions to isolate omitted/explicit base calls.",
+        "ja": "実constructorへ省略、明示非空、明示空の名前を渡す。virtual dispatcherは2つの独自直接拡張で省略／明示base呼出しを分離する。"
+      },
+      "expected": {
+        "en": "Default and explicit names match and separately created objects have distinct handles.",
+        "ja": "既定／明示名が一致し、別々に生成したobjectは異なるhandleを持つ。"
+      },
+      "limitations": {
+        "en": "Construction only; no default body, random seed identity, factory creation or implicit generated full-name convention is assessed.",
+        "ja": "生成のみで、既定body、乱数seed同一性、factory生成、暗黙の生成full-name慣例は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uE/test_builtin_reg_access_seq_constructor_types_target",
+          "role": "direct",
+          "expected_observations": [
+            "UT: builtin_names default 1 explicit 1 empty 1",
+            "UT: builtin_ancestry typed 1 sequence 1 object 1 distinct 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BUILTIN-AUDIT-REG-ACCESS-SEQ-ANCESTRY",
+      "clause": "E.3.2.1",
+      "statement": {
+        "en": "uvm_reg_access_seq has the declared register-sequence base specialization.",
+        "ja": "uvm_reg_access_seqは宣言されたregister-sequence base特殊化を持つ。"
+      },
+      "conditions": {
+        "en": "Use implicit assignments through uvm_reg_sequence#(uvm_sequence#(uvm_reg_item)), its selected sequence base and uvm_object, without casts.",
+        "ja": "castなしでuvm_reg_sequence#(uvm_sequence#(uvm_reg_item))、選択sequence base、uvm_objectへ暗黙代入する。"
+      },
+      "expected": {
+        "en": "All static receivers compile and retain the same original handle.",
+        "ja": "全static receiverがcompileでき、同じ元handleを保持する。"
+      },
+      "limitations": {
+        "en": "Exact declared base specialization and selected identity relationships only. No every-builtin factory registry, type_id, macro expansion or execution algorithm is inferred. The virtual dispatcher uses concrete original extensions; its separate direct-construction negative assesses abstractness.",
+        "ja": "正確な宣言base特殊化と選択した同一性関係のみ。全builtinのfactory registry、type_id、macro展開、実行algorithmを推測しない。virtual dispatcherには独自具象拡張を使い、別の直接生成negativeで抽象性を評価する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uE/test_builtin_reg_access_seq_constructor_types_target",
+          "role": "direct",
+          "expected_observations": [
+            "UT: builtin_ancestry typed 1 sequence 1 object 1 distinct 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BUILTIN-AUDIT-REG-ACCESS-SEQ-TARGET",
+      "clause": "E.3.2.2.1",
+      "statement": {
+        "en": "The model property identifies the selected block, register or memory using its declared handle type.",
+        "ja": "model propertyは宣言handle型で選択block／register／memoryを示す。"
+      },
+      "conditions": {
+        "en": "Original concrete target objects are assigned/read through the builtin property, with separate sequence instances and static receiver types.",
+        "ja": "独自具象target objectをbuiltin property経由で代入／readし、別sequence instanceとstatic receiver型を使う。"
+      },
+      "expected": {
+        "en": "Typed reads retain initial/replacement targets, an independent peer stays unchanged and null can be stored without executing the sequence.",
+        "ja": "typed readは初期／置換対象を保持し、独立peerは未変更で、sequence実行なしでnullを保存できる。"
+      },
+      "limitations": {
+        "en": "This verifies declared handle storage, replacement and instance isolation, not successful execution with a null target, clone/ownership behavior or all model hierarchies. No unspecified initial property value is asserted. Existing algorithm fixtures remain separate evidence.",
+        "ja": "宣言handleの保存、置換、instance独立性を検査し、null対象での実行成功、clone／所有動作、全model階層ではない。未規定の初期property値を主張せず、既存algorithm fixtureは別の証拠に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uE/test_builtin_reg_access_seq_constructor_types_target",
+          "role": "direct",
+          "expected_observations": [
+            "UT: target initial 1 peer 1",
+            "UT: target replaced 1 peer_unchanged 1 null_storage 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BUILTIN-AUDIT-REG-MEM-ACCESS-SEQ-CONSTRUCTOR",
+      "clause": "E.3.3.2",
+      "statement": {
+        "en": "uvm_reg_mem_access_seq construction retains its listed default name and explicit names.",
+        "ja": "uvm_reg_mem_access_seqの生成は記載された既定名と明示名を保持する。"
+      },
+      "conditions": {
+        "en": "Call the actual constructor with omitted, explicit nonempty and explicit empty names; the virtual dispatcher uses two direct original extensions to isolate omitted/explicit base calls.",
+        "ja": "実constructorへ省略、明示非空、明示空の名前を渡す。virtual dispatcherは2つの独自直接拡張で省略／明示base呼出しを分離する。"
+      },
+      "expected": {
+        "en": "Default and explicit names match and separately created objects have distinct handles.",
+        "ja": "既定／明示名が一致し、別々に生成したobjectは異なるhandleを持つ。"
+      },
+      "limitations": {
+        "en": "Construction only; no default body, random seed identity, factory creation or implicit generated full-name convention is assessed.",
+        "ja": "生成のみで、既定body、乱数seed同一性、factory生成、暗黙の生成full-name慣例は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uE/test_builtin_reg_mem_access_seq_constructor_types_target",
+          "role": "direct",
+          "expected_observations": [
+            "UT: builtin_names default 1 explicit 1 empty 1",
+            "UT: builtin_ancestry typed 1 sequence 1 object 1 distinct 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BUILTIN-AUDIT-REG-MEM-ACCESS-SEQ-ANCESTRY",
+      "clause": "E.3.3.1",
+      "statement": {
+        "en": "uvm_reg_mem_access_seq has the declared register-sequence base specialization.",
+        "ja": "uvm_reg_mem_access_seqは宣言されたregister-sequence base特殊化を持つ。"
+      },
+      "conditions": {
+        "en": "Use implicit assignments through uvm_reg_sequence#(uvm_sequence#(uvm_reg_item)), its selected sequence base and uvm_object, without casts.",
+        "ja": "castなしでuvm_reg_sequence#(uvm_sequence#(uvm_reg_item))、選択sequence base、uvm_objectへ暗黙代入する。"
+      },
+      "expected": {
+        "en": "All static receivers compile and retain the same original handle.",
+        "ja": "全static receiverがcompileでき、同じ元handleを保持する。"
+      },
+      "limitations": {
+        "en": "Exact declared base specialization and selected identity relationships only. No every-builtin factory registry, type_id, macro expansion or execution algorithm is inferred. The virtual dispatcher uses concrete original extensions; its separate direct-construction negative assesses abstractness.",
+        "ja": "正確な宣言base特殊化と選択した同一性関係のみ。全builtinのfactory registry、type_id、macro展開、実行algorithmを推測しない。virtual dispatcherには独自具象拡張を使い、別の直接生成negativeで抽象性を評価する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uE/test_builtin_reg_mem_access_seq_constructor_types_target",
+          "role": "direct",
+          "expected_observations": [
+            "UT: builtin_ancestry typed 1 sequence 1 object 1 distinct 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BUILTIN-AUDIT-REG-SHARED-ACCESS-SEQ-CONSTRUCTOR",
+      "clause": "E.4.1.3",
+      "statement": {
+        "en": "uvm_reg_shared_access_seq construction retains its listed default name and explicit names.",
+        "ja": "uvm_reg_shared_access_seqの生成は記載された既定名と明示名を保持する。"
+      },
+      "conditions": {
+        "en": "Call the actual constructor with omitted, explicit nonempty and explicit empty names; the virtual dispatcher uses two direct original extensions to isolate omitted/explicit base calls.",
+        "ja": "実constructorへ省略、明示非空、明示空の名前を渡す。virtual dispatcherは2つの独自直接拡張で省略／明示base呼出しを分離する。"
+      },
+      "expected": {
+        "en": "Default and explicit names match and separately created objects have distinct handles.",
+        "ja": "既定／明示名が一致し、別々に生成したobjectは異なるhandleを持つ。"
+      },
+      "limitations": {
+        "en": "Construction only; no default body, random seed identity, factory creation or implicit generated full-name convention is assessed.",
+        "ja": "生成のみで、既定body、乱数seed同一性、factory生成、暗黙の生成full-name慣例は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uE/test_builtin_reg_shared_access_seq_constructor_types_target",
+          "role": "direct",
+          "expected_observations": [
+            "UT: builtin_names default 1 explicit 1 empty 1",
+            "UT: builtin_ancestry typed 1 sequence 1 object 1 distinct 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BUILTIN-AUDIT-REG-SHARED-ACCESS-SEQ-ANCESTRY",
+      "clause": "E.4.1.1",
+      "statement": {
+        "en": "uvm_reg_shared_access_seq has the declared register-sequence base specialization.",
+        "ja": "uvm_reg_shared_access_seqは宣言されたregister-sequence base特殊化を持つ。"
+      },
+      "conditions": {
+        "en": "Use implicit assignments through uvm_reg_sequence#(uvm_sequence#(uvm_reg_item)), its selected sequence base and uvm_object, without casts.",
+        "ja": "castなしでuvm_reg_sequence#(uvm_sequence#(uvm_reg_item))、選択sequence base、uvm_objectへ暗黙代入する。"
+      },
+      "expected": {
+        "en": "All static receivers compile and retain the same original handle.",
+        "ja": "全static receiverがcompileでき、同じ元handleを保持する。"
+      },
+      "limitations": {
+        "en": "Exact declared base specialization and selected identity relationships only. No every-builtin factory registry, type_id, macro expansion or execution algorithm is inferred. The virtual dispatcher uses concrete original extensions; its separate direct-construction negative assesses abstractness.",
+        "ja": "正確な宣言base特殊化と選択した同一性関係のみ。全builtinのfactory registry、type_id、macro展開、実行algorithmを推測しない。virtual dispatcherには独自具象拡張を使い、別の直接生成negativeで抽象性を評価する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uE/test_builtin_reg_shared_access_seq_constructor_types_target",
+          "role": "direct",
+          "expected_observations": [
+            "UT: builtin_ancestry typed 1 sequence 1 object 1 distinct 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BUILTIN-AUDIT-REG-SHARED-ACCESS-SEQ-TARGET",
+      "clause": "E.4.1.2",
+      "statement": {
+        "en": "The rg property identifies the selected block, register or memory using its declared handle type.",
+        "ja": "rg propertyは宣言handle型で選択block／register／memoryを示す。"
+      },
+      "conditions": {
+        "en": "Original concrete target objects are assigned/read through the builtin property, with separate sequence instances and static receiver types.",
+        "ja": "独自具象target objectをbuiltin property経由で代入／readし、別sequence instanceとstatic receiver型を使う。"
+      },
+      "expected": {
+        "en": "Typed reads retain initial/replacement targets, an independent peer stays unchanged and null can be stored without executing the sequence.",
+        "ja": "typed readは初期／置換対象を保持し、独立peerは未変更で、sequence実行なしでnullを保存できる。"
+      },
+      "limitations": {
+        "en": "This verifies declared handle storage, replacement and instance isolation, not successful execution with a null target, clone/ownership behavior or all model hierarchies. No unspecified initial property value is asserted. Existing algorithm fixtures remain separate evidence.",
+        "ja": "宣言handleの保存、置換、instance独立性を検査し、null対象での実行成功、clone／所有動作、全model階層ではない。未規定の初期property値を主張せず、既存algorithm fixtureは別の証拠に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uE/test_builtin_reg_shared_access_seq_constructor_types_target",
+          "role": "direct",
+          "expected_observations": [
+            "UT: target initial 1 peer 1",
+            "UT: target replaced 1 peer_unchanged 1 null_storage 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BUILTIN-AUDIT-MEM-SHARED-ACCESS-SEQ-CONSTRUCTOR",
+      "clause": "E.4.2.3",
+      "statement": {
+        "en": "uvm_mem_shared_access_seq construction retains its listed default name and explicit names.",
+        "ja": "uvm_mem_shared_access_seqの生成は記載された既定名と明示名を保持する。"
+      },
+      "conditions": {
+        "en": "Call the actual constructor with omitted, explicit nonempty and explicit empty names; the virtual dispatcher uses two direct original extensions to isolate omitted/explicit base calls.",
+        "ja": "実constructorへ省略、明示非空、明示空の名前を渡す。virtual dispatcherは2つの独自直接拡張で省略／明示base呼出しを分離する。"
+      },
+      "expected": {
+        "en": "Default and explicit names match and separately created objects have distinct handles.",
+        "ja": "既定／明示名が一致し、別々に生成したobjectは異なるhandleを持つ。"
+      },
+      "limitations": {
+        "en": "Construction only; no default body, random seed identity, factory creation or implicit generated full-name convention is assessed.",
+        "ja": "生成のみで、既定body、乱数seed同一性、factory生成、暗黙の生成full-name慣例は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uE/test_builtin_mem_shared_access_seq_constructor_types_target",
+          "role": "direct",
+          "expected_observations": [
+            "UT: builtin_names default 1 explicit 1 empty 1",
+            "UT: builtin_ancestry typed 1 sequence 1 object 1 distinct 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BUILTIN-AUDIT-MEM-SHARED-ACCESS-SEQ-ANCESTRY",
+      "clause": "E.4.2.1",
+      "statement": {
+        "en": "uvm_mem_shared_access_seq has the declared register-sequence base specialization.",
+        "ja": "uvm_mem_shared_access_seqは宣言されたregister-sequence base特殊化を持つ。"
+      },
+      "conditions": {
+        "en": "Use implicit assignments through uvm_reg_sequence#(uvm_sequence#(uvm_reg_item)), its selected sequence base and uvm_object, without casts.",
+        "ja": "castなしでuvm_reg_sequence#(uvm_sequence#(uvm_reg_item))、選択sequence base、uvm_objectへ暗黙代入する。"
+      },
+      "expected": {
+        "en": "All static receivers compile and retain the same original handle.",
+        "ja": "全static receiverがcompileでき、同じ元handleを保持する。"
+      },
+      "limitations": {
+        "en": "Exact declared base specialization and selected identity relationships only. No every-builtin factory registry, type_id, macro expansion or execution algorithm is inferred. The virtual dispatcher uses concrete original extensions; its separate direct-construction negative assesses abstractness.",
+        "ja": "正確な宣言base特殊化と選択した同一性関係のみ。全builtinのfactory registry、type_id、macro展開、実行algorithmを推測しない。virtual dispatcherには独自具象拡張を使い、別の直接生成negativeで抽象性を評価する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uE/test_builtin_mem_shared_access_seq_constructor_types_target",
+          "role": "direct",
+          "expected_observations": [
+            "UT: builtin_ancestry typed 1 sequence 1 object 1 distinct 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BUILTIN-AUDIT-MEM-SHARED-ACCESS-SEQ-TARGET",
+      "clause": "E.4.2.2",
+      "statement": {
+        "en": "The mem property identifies the selected block, register or memory using its declared handle type.",
+        "ja": "mem propertyは宣言handle型で選択block／register／memoryを示す。"
+      },
+      "conditions": {
+        "en": "Original concrete target objects are assigned/read through the builtin property, with separate sequence instances and static receiver types.",
+        "ja": "独自具象target objectをbuiltin property経由で代入／readし、別sequence instanceとstatic receiver型を使う。"
+      },
+      "expected": {
+        "en": "Typed reads retain initial/replacement targets, an independent peer stays unchanged and null can be stored without executing the sequence.",
+        "ja": "typed readは初期／置換対象を保持し、独立peerは未変更で、sequence実行なしでnullを保存できる。"
+      },
+      "limitations": {
+        "en": "This verifies declared handle storage, replacement and instance isolation, not successful execution with a null target, clone/ownership behavior or all model hierarchies. No unspecified initial property value is asserted. Existing algorithm fixtures remain separate evidence.",
+        "ja": "宣言handleの保存、置換、instance独立性を検査し、null対象での実行成功、clone／所有動作、全model階層ではない。未規定の初期property値を主張せず、既存algorithm fixtureは別の証拠に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uE/test_builtin_mem_shared_access_seq_constructor_types_target",
+          "role": "direct",
+          "expected_observations": [
+            "UT: target initial 1 peer 1",
+            "UT: target replaced 1 peer_unchanged 1 null_storage 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BUILTIN-AUDIT-REG-MEM-SHARED-ACCESS-SEQ-CONSTRUCTOR",
+      "clause": "E.4.3.3.1",
+      "statement": {
+        "en": "uvm_reg_mem_shared_access_seq construction retains its listed default name and explicit names.",
+        "ja": "uvm_reg_mem_shared_access_seqの生成は記載された既定名と明示名を保持する。"
+      },
+      "conditions": {
+        "en": "Call the actual constructor with omitted, explicit nonempty and explicit empty names; the virtual dispatcher uses two direct original extensions to isolate omitted/explicit base calls.",
+        "ja": "実constructorへ省略、明示非空、明示空の名前を渡す。virtual dispatcherは2つの独自直接拡張で省略／明示base呼出しを分離する。"
+      },
+      "expected": {
+        "en": "Default and explicit names match and separately created objects have distinct handles.",
+        "ja": "既定／明示名が一致し、別々に生成したobjectは異なるhandleを持つ。"
+      },
+      "limitations": {
+        "en": "Construction only; no default body, random seed identity, factory creation or implicit generated full-name convention is assessed.",
+        "ja": "生成のみで、既定body、乱数seed同一性、factory生成、暗黙の生成full-name慣例は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uE/test_builtin_reg_mem_shared_access_seq_constructor_types_target",
+          "role": "direct",
+          "expected_observations": [
+            "UT: builtin_names default 1 explicit 1 empty 1",
+            "UT: builtin_ancestry typed 1 sequence 1 object 1 distinct 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BUILTIN-AUDIT-REG-MEM-SHARED-ACCESS-SEQ-ANCESTRY",
+      "clause": "E.4.3.1",
+      "statement": {
+        "en": "uvm_reg_mem_shared_access_seq has the declared register-sequence base specialization.",
+        "ja": "uvm_reg_mem_shared_access_seqは宣言されたregister-sequence base特殊化を持つ。"
+      },
+      "conditions": {
+        "en": "Use implicit assignments through uvm_reg_sequence#(uvm_sequence#(uvm_reg_item)), its selected sequence base and uvm_object, without casts.",
+        "ja": "castなしでuvm_reg_sequence#(uvm_sequence#(uvm_reg_item))、選択sequence base、uvm_objectへ暗黙代入する。"
+      },
+      "expected": {
+        "en": "All static receivers compile and retain the same original handle.",
+        "ja": "全static receiverがcompileでき、同じ元handleを保持する。"
+      },
+      "limitations": {
+        "en": "Exact declared base specialization and selected identity relationships only. No every-builtin factory registry, type_id, macro expansion or execution algorithm is inferred. The virtual dispatcher uses concrete original extensions; its separate direct-construction negative assesses abstractness.",
+        "ja": "正確な宣言base特殊化と選択した同一性関係のみ。全builtinのfactory registry、type_id、macro展開、実行algorithmを推測しない。virtual dispatcherには独自具象拡張を使い、別の直接生成negativeで抽象性を評価する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uE/test_builtin_reg_mem_shared_access_seq_constructor_types_target",
+          "role": "direct",
+          "expected_observations": [
+            "UT: builtin_ancestry typed 1 sequence 1 object 1 distinct 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BUILTIN-AUDIT-REG-MEM-SHARED-ACCESS-SEQ-TARGET",
+      "clause": "E.4.3.2.1",
+      "statement": {
+        "en": "The model property identifies the selected block, register or memory using its declared handle type.",
+        "ja": "model propertyは宣言handle型で選択block／register／memoryを示す。"
+      },
+      "conditions": {
+        "en": "Original concrete target objects are assigned/read through the builtin property, with separate sequence instances and static receiver types.",
+        "ja": "独自具象target objectをbuiltin property経由で代入／readし、別sequence instanceとstatic receiver型を使う。"
+      },
+      "expected": {
+        "en": "Typed reads retain initial/replacement targets, an independent peer stays unchanged and null can be stored without executing the sequence.",
+        "ja": "typed readは初期／置換対象を保持し、独立peerは未変更で、sequence実行なしでnullを保存できる。"
+      },
+      "limitations": {
+        "en": "This verifies declared handle storage, replacement and instance isolation, not successful execution with a null target, clone/ownership behavior or all model hierarchies. No unspecified initial property value is asserted. Existing algorithm fixtures remain separate evidence.",
+        "ja": "宣言handleの保存、置換、instance独立性を検査し、null対象での実行成功、clone／所有動作、全model階層ではない。未規定の初期property値を主張せず、既存algorithm fixtureは別の証拠に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uE/test_builtin_reg_mem_shared_access_seq_constructor_types_target",
+          "role": "direct",
+          "expected_observations": [
+            "UT: target initial 1 peer 1",
+            "UT: target replaced 1 peer_unchanged 1 null_storage 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BUILTIN-AUDIT-MEM-SINGLE-ACCESS-SEQ-CONSTRUCTOR",
+      "clause": "E.5.1.3",
+      "statement": {
+        "en": "uvm_mem_single_access_seq construction retains its listed default name and explicit names.",
+        "ja": "uvm_mem_single_access_seqの生成は記載された既定名と明示名を保持する。"
+      },
+      "conditions": {
+        "en": "Call the actual constructor with omitted, explicit nonempty and explicit empty names; the virtual dispatcher uses two direct original extensions to isolate omitted/explicit base calls.",
+        "ja": "実constructorへ省略、明示非空、明示空の名前を渡す。virtual dispatcherは2つの独自直接拡張で省略／明示base呼出しを分離する。"
+      },
+      "expected": {
+        "en": "Default and explicit names match and separately created objects have distinct handles.",
+        "ja": "既定／明示名が一致し、別々に生成したobjectは異なるhandleを持つ。"
+      },
+      "limitations": {
+        "en": "Construction only; no default body, random seed identity, factory creation or implicit generated full-name convention is assessed.",
+        "ja": "生成のみで、既定body、乱数seed同一性、factory生成、暗黙の生成full-name慣例は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uE/test_builtin_mem_single_access_seq_constructor_types_target",
+          "role": "direct",
+          "expected_observations": [
+            "UT: builtin_names default 1 explicit 1 empty 1",
+            "UT: builtin_ancestry typed 1 sequence 1 object 1 distinct 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BUILTIN-AUDIT-MEM-SINGLE-ACCESS-SEQ-ANCESTRY",
+      "clause": "E.5.1.1",
+      "statement": {
+        "en": "uvm_mem_single_access_seq has the declared register-sequence base specialization.",
+        "ja": "uvm_mem_single_access_seqは宣言されたregister-sequence base特殊化を持つ。"
+      },
+      "conditions": {
+        "en": "Use implicit assignments through uvm_reg_sequence#(uvm_sequence#(uvm_reg_item)), its selected sequence base and uvm_object, without casts.",
+        "ja": "castなしでuvm_reg_sequence#(uvm_sequence#(uvm_reg_item))、選択sequence base、uvm_objectへ暗黙代入する。"
+      },
+      "expected": {
+        "en": "All static receivers compile and retain the same original handle.",
+        "ja": "全static receiverがcompileでき、同じ元handleを保持する。"
+      },
+      "limitations": {
+        "en": "Exact declared base specialization and selected identity relationships only. No every-builtin factory registry, type_id, macro expansion or execution algorithm is inferred. The virtual dispatcher uses concrete original extensions; its separate direct-construction negative assesses abstractness.",
+        "ja": "正確な宣言base特殊化と選択した同一性関係のみ。全builtinのfactory registry、type_id、macro展開、実行algorithmを推測しない。virtual dispatcherには独自具象拡張を使い、別の直接生成negativeで抽象性を評価する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uE/test_builtin_mem_single_access_seq_constructor_types_target",
+          "role": "direct",
+          "expected_observations": [
+            "UT: builtin_ancestry typed 1 sequence 1 object 1 distinct 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BUILTIN-AUDIT-MEM-SINGLE-ACCESS-SEQ-TARGET",
+      "clause": "E.5.1.2",
+      "statement": {
+        "en": "The mem property identifies the selected block, register or memory using its declared handle type.",
+        "ja": "mem propertyは宣言handle型で選択block／register／memoryを示す。"
+      },
+      "conditions": {
+        "en": "Original concrete target objects are assigned/read through the builtin property, with separate sequence instances and static receiver types.",
+        "ja": "独自具象target objectをbuiltin property経由で代入／readし、別sequence instanceとstatic receiver型を使う。"
+      },
+      "expected": {
+        "en": "Typed reads retain initial/replacement targets, an independent peer stays unchanged and null can be stored without executing the sequence.",
+        "ja": "typed readは初期／置換対象を保持し、独立peerは未変更で、sequence実行なしでnullを保存できる。"
+      },
+      "limitations": {
+        "en": "This verifies declared handle storage, replacement and instance isolation, not successful execution with a null target, clone/ownership behavior or all model hierarchies. No unspecified initial property value is asserted. Existing algorithm fixtures remain separate evidence.",
+        "ja": "宣言handleの保存、置換、instance独立性を検査し、null対象での実行成功、clone／所有動作、全model階層ではない。未規定の初期property値を主張せず、既存algorithm fixtureは別の証拠に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uE/test_builtin_mem_single_access_seq_constructor_types_target",
+          "role": "direct",
+          "expected_observations": [
+            "UT: target initial 1 peer 1",
+            "UT: target replaced 1 peer_unchanged 1 null_storage 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BUILTIN-AUDIT-MEM-ACCESS-SEQ-CONSTRUCTOR",
+      "clause": "E.5.2.3.1",
+      "statement": {
+        "en": "uvm_mem_access_seq construction retains its listed default name and explicit names.",
+        "ja": "uvm_mem_access_seqの生成は記載された既定名と明示名を保持する。"
+      },
+      "conditions": {
+        "en": "Call the actual constructor with omitted, explicit nonempty and explicit empty names; the virtual dispatcher uses two direct original extensions to isolate omitted/explicit base calls.",
+        "ja": "実constructorへ省略、明示非空、明示空の名前を渡す。virtual dispatcherは2つの独自直接拡張で省略／明示base呼出しを分離する。"
+      },
+      "expected": {
+        "en": "Default and explicit names match and separately created objects have distinct handles.",
+        "ja": "既定／明示名が一致し、別々に生成したobjectは異なるhandleを持つ。"
+      },
+      "limitations": {
+        "en": "Construction only; no default body, random seed identity, factory creation or implicit generated full-name convention is assessed.",
+        "ja": "生成のみで、既定body、乱数seed同一性、factory生成、暗黙の生成full-name慣例は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uE/test_builtin_mem_access_seq_constructor_types_target",
+          "role": "direct",
+          "expected_observations": [
+            "UT: builtin_names default 1 explicit 1 empty 1",
+            "UT: builtin_ancestry typed 1 sequence 1 object 1 distinct 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BUILTIN-AUDIT-MEM-ACCESS-SEQ-ANCESTRY",
+      "clause": "E.5.2.1",
+      "statement": {
+        "en": "uvm_mem_access_seq has the declared register-sequence base specialization.",
+        "ja": "uvm_mem_access_seqは宣言されたregister-sequence base特殊化を持つ。"
+      },
+      "conditions": {
+        "en": "Use implicit assignments through uvm_reg_sequence#(uvm_sequence#(uvm_reg_item)), its selected sequence base and uvm_object, without casts.",
+        "ja": "castなしでuvm_reg_sequence#(uvm_sequence#(uvm_reg_item))、選択sequence base、uvm_objectへ暗黙代入する。"
+      },
+      "expected": {
+        "en": "All static receivers compile and retain the same original handle.",
+        "ja": "全static receiverがcompileでき、同じ元handleを保持する。"
+      },
+      "limitations": {
+        "en": "Exact declared base specialization and selected identity relationships only. No every-builtin factory registry, type_id, macro expansion or execution algorithm is inferred. The virtual dispatcher uses concrete original extensions; its separate direct-construction negative assesses abstractness.",
+        "ja": "正確な宣言base特殊化と選択した同一性関係のみ。全builtinのfactory registry、type_id、macro展開、実行algorithmを推測しない。virtual dispatcherには独自具象拡張を使い、別の直接生成negativeで抽象性を評価する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uE/test_builtin_mem_access_seq_constructor_types_target",
+          "role": "direct",
+          "expected_observations": [
+            "UT: builtin_ancestry typed 1 sequence 1 object 1 distinct 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BUILTIN-AUDIT-MEM-ACCESS-SEQ-TARGET",
+      "clause": "E.5.2.2.1",
+      "statement": {
+        "en": "The model property identifies the selected block, register or memory using its declared handle type.",
+        "ja": "model propertyは宣言handle型で選択block／register／memoryを示す。"
+      },
+      "conditions": {
+        "en": "Original concrete target objects are assigned/read through the builtin property, with separate sequence instances and static receiver types.",
+        "ja": "独自具象target objectをbuiltin property経由で代入／readし、別sequence instanceとstatic receiver型を使う。"
+      },
+      "expected": {
+        "en": "Typed reads retain initial/replacement targets, an independent peer stays unchanged and null can be stored without executing the sequence.",
+        "ja": "typed readは初期／置換対象を保持し、独立peerは未変更で、sequence実行なしでnullを保存できる。"
+      },
+      "limitations": {
+        "en": "This verifies declared handle storage, replacement and instance isolation, not successful execution with a null target, clone/ownership behavior or all model hierarchies. No unspecified initial property value is asserted. Existing algorithm fixtures remain separate evidence.",
+        "ja": "宣言handleの保存、置換、instance独立性を検査し、null対象での実行成功、clone／所有動作、全model階層ではない。未規定の初期property値を主張せず、既存algorithm fixtureは別の証拠に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uE/test_builtin_mem_access_seq_constructor_types_target",
+          "role": "direct",
+          "expected_observations": [
+            "UT: target initial 1 peer 1",
+            "UT: target replaced 1 peer_unchanged 1 null_storage 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BUILTIN-AUDIT-MEM-SINGLE-WALK-SEQ-CONSTRUCTOR",
+      "clause": "E.6.1.3.1",
+      "statement": {
+        "en": "uvm_mem_single_walk_seq construction retains its listed default name and explicit names.",
+        "ja": "uvm_mem_single_walk_seqの生成は記載された既定名と明示名を保持する。"
+      },
+      "conditions": {
+        "en": "Call the actual constructor with omitted, explicit nonempty and explicit empty names; the virtual dispatcher uses two direct original extensions to isolate omitted/explicit base calls.",
+        "ja": "実constructorへ省略、明示非空、明示空の名前を渡す。virtual dispatcherは2つの独自直接拡張で省略／明示base呼出しを分離する。"
+      },
+      "expected": {
+        "en": "Default and explicit names match and separately created objects have distinct handles.",
+        "ja": "既定／明示名が一致し、別々に生成したobjectは異なるhandleを持つ。"
+      },
+      "limitations": {
+        "en": "Construction only; no default body, random seed identity, factory creation or implicit generated full-name convention is assessed.",
+        "ja": "生成のみで、既定body、乱数seed同一性、factory生成、暗黙の生成full-name慣例は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uE/test_builtin_mem_single_walk_seq_constructor_types_target",
+          "role": "direct",
+          "expected_observations": [
+            "UT: builtin_names default 1 explicit 1 empty 1",
+            "UT: builtin_ancestry typed 1 sequence 1 object 1 distinct 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BUILTIN-AUDIT-MEM-SINGLE-WALK-SEQ-ANCESTRY",
+      "clause": "E.6.1.1",
+      "statement": {
+        "en": "uvm_mem_single_walk_seq has the declared register-sequence base specialization.",
+        "ja": "uvm_mem_single_walk_seqは宣言されたregister-sequence base特殊化を持つ。"
+      },
+      "conditions": {
+        "en": "Use implicit assignments through uvm_reg_sequence#(uvm_sequence#(uvm_reg_item)), its selected sequence base and uvm_object, without casts.",
+        "ja": "castなしでuvm_reg_sequence#(uvm_sequence#(uvm_reg_item))、選択sequence base、uvm_objectへ暗黙代入する。"
+      },
+      "expected": {
+        "en": "All static receivers compile and retain the same original handle.",
+        "ja": "全static receiverがcompileでき、同じ元handleを保持する。"
+      },
+      "limitations": {
+        "en": "Exact declared base specialization and selected identity relationships only. No every-builtin factory registry, type_id, macro expansion or execution algorithm is inferred. The virtual dispatcher uses concrete original extensions; its separate direct-construction negative assesses abstractness.",
+        "ja": "正確な宣言base特殊化と選択した同一性関係のみ。全builtinのfactory registry、type_id、macro展開、実行algorithmを推測しない。virtual dispatcherには独自具象拡張を使い、別の直接生成negativeで抽象性を評価する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uE/test_builtin_mem_single_walk_seq_constructor_types_target",
+          "role": "direct",
+          "expected_observations": [
+            "UT: builtin_ancestry typed 1 sequence 1 object 1 distinct 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BUILTIN-AUDIT-MEM-SINGLE-WALK-SEQ-TARGET",
+      "clause": "E.6.1.2",
+      "statement": {
+        "en": "The mem property identifies the selected block, register or memory using its declared handle type.",
+        "ja": "mem propertyは宣言handle型で選択block／register／memoryを示す。"
+      },
+      "conditions": {
+        "en": "Original concrete target objects are assigned/read through the builtin property, with separate sequence instances and static receiver types.",
+        "ja": "独自具象target objectをbuiltin property経由で代入／readし、別sequence instanceとstatic receiver型を使う。"
+      },
+      "expected": {
+        "en": "Typed reads retain initial/replacement targets, an independent peer stays unchanged and null can be stored without executing the sequence.",
+        "ja": "typed readは初期／置換対象を保持し、独立peerは未変更で、sequence実行なしでnullを保存できる。"
+      },
+      "limitations": {
+        "en": "This verifies declared handle storage, replacement and instance isolation, not successful execution with a null target, clone/ownership behavior or all model hierarchies. No unspecified initial property value is asserted. Existing algorithm fixtures remain separate evidence.",
+        "ja": "宣言handleの保存、置換、instance独立性を検査し、null対象での実行成功、clone／所有動作、全model階層ではない。未規定の初期property値を主張せず、既存algorithm fixtureは別の証拠に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uE/test_builtin_mem_single_walk_seq_constructor_types_target",
+          "role": "direct",
+          "expected_observations": [
+            "UT: target initial 1 peer 1",
+            "UT: target replaced 1 peer_unchanged 1 null_storage 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BUILTIN-AUDIT-MEM-WALK-SEQ-CONSTRUCTOR",
+      "clause": "E.6.3.1",
+      "statement": {
+        "en": "uvm_mem_walk_seq construction retains its listed default name and explicit names.",
+        "ja": "uvm_mem_walk_seqの生成は記載された既定名と明示名を保持する。"
+      },
+      "conditions": {
+        "en": "Call the actual constructor with omitted, explicit nonempty and explicit empty names; the virtual dispatcher uses two direct original extensions to isolate omitted/explicit base calls.",
+        "ja": "実constructorへ省略、明示非空、明示空の名前を渡す。virtual dispatcherは2つの独自直接拡張で省略／明示base呼出しを分離する。"
+      },
+      "expected": {
+        "en": "Default and explicit names match and separately created objects have distinct handles.",
+        "ja": "既定／明示名が一致し、別々に生成したobjectは異なるhandleを持つ。"
+      },
+      "limitations": {
+        "en": "Construction only; no default body, random seed identity, factory creation or implicit generated full-name convention is assessed.",
+        "ja": "生成のみで、既定body、乱数seed同一性、factory生成、暗黙の生成full-name慣例は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uE/test_builtin_mem_walk_seq_constructor_types_target",
+          "role": "direct",
+          "expected_observations": [
+            "UT: builtin_names default 1 explicit 1 empty 1",
+            "UT: builtin_ancestry typed 1 sequence 1 object 1 distinct 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BUILTIN-AUDIT-MEM-WALK-SEQ-ANCESTRY",
+      "clause": "E.6.2.1",
+      "statement": {
+        "en": "uvm_mem_walk_seq has the declared register-sequence base specialization.",
+        "ja": "uvm_mem_walk_seqは宣言されたregister-sequence base特殊化を持つ。"
+      },
+      "conditions": {
+        "en": "Use implicit assignments through uvm_reg_sequence#(uvm_sequence#(uvm_reg_item)), its selected sequence base and uvm_object, without casts.",
+        "ja": "castなしでuvm_reg_sequence#(uvm_sequence#(uvm_reg_item))、選択sequence base、uvm_objectへ暗黙代入する。"
+      },
+      "expected": {
+        "en": "All static receivers compile and retain the same original handle.",
+        "ja": "全static receiverがcompileでき、同じ元handleを保持する。"
+      },
+      "limitations": {
+        "en": "Exact declared base specialization and selected identity relationships only. No every-builtin factory registry, type_id, macro expansion or execution algorithm is inferred. The virtual dispatcher uses concrete original extensions; its separate direct-construction negative assesses abstractness.",
+        "ja": "正確な宣言base特殊化と選択した同一性関係のみ。全builtinのfactory registry、type_id、macro展開、実行algorithmを推測しない。virtual dispatcherには独自具象拡張を使い、別の直接生成negativeで抽象性を評価する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uE/test_builtin_mem_walk_seq_constructor_types_target",
+          "role": "direct",
+          "expected_observations": [
+            "UT: builtin_ancestry typed 1 sequence 1 object 1 distinct 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BUILTIN-AUDIT-MEM-WALK-SEQ-TARGET",
+      "clause": "E.6.2.2.1",
+      "statement": {
+        "en": "The model property identifies the selected block, register or memory using its declared handle type.",
+        "ja": "model propertyは宣言handle型で選択block／register／memoryを示す。"
+      },
+      "conditions": {
+        "en": "Original concrete target objects are assigned/read through the builtin property, with separate sequence instances and static receiver types.",
+        "ja": "独自具象target objectをbuiltin property経由で代入／readし、別sequence instanceとstatic receiver型を使う。"
+      },
+      "expected": {
+        "en": "Typed reads retain initial/replacement targets, an independent peer stays unchanged and null can be stored without executing the sequence.",
+        "ja": "typed readは初期／置換対象を保持し、独立peerは未変更で、sequence実行なしでnullを保存できる。"
+      },
+      "limitations": {
+        "en": "This verifies declared handle storage, replacement and instance isolation, not successful execution with a null target, clone/ownership behavior or all model hierarchies. No unspecified initial property value is asserted. Existing algorithm fixtures remain separate evidence.",
+        "ja": "宣言handleの保存、置換、instance独立性を検査し、null対象での実行成功、clone／所有動作、全model階層ではない。未規定の初期property値を主張せず、既存algorithm fixtureは別の証拠に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uE/test_builtin_mem_walk_seq_constructor_types_target",
+          "role": "direct",
+          "expected_observations": [
+            "UT: target initial 1 peer 1",
+            "UT: target replaced 1 peer_unchanged 1 null_storage 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BUILTIN-AUDIT-REG-MEM-HDL-PATHS-SEQ-CONSTRUCTOR",
+      "clause": "E.7.3",
+      "statement": {
+        "en": "uvm_reg_mem_hdl_paths_seq construction retains its listed default name and explicit names.",
+        "ja": "uvm_reg_mem_hdl_paths_seqの生成は記載された既定名と明示名を保持する。"
+      },
+      "conditions": {
+        "en": "Call the actual constructor with omitted, explicit nonempty and explicit empty names; the virtual dispatcher uses two direct original extensions to isolate omitted/explicit base calls.",
+        "ja": "実constructorへ省略、明示非空、明示空の名前を渡す。virtual dispatcherは2つの独自直接拡張で省略／明示base呼出しを分離する。"
+      },
+      "expected": {
+        "en": "Default and explicit names match and separately created objects have distinct handles.",
+        "ja": "既定／明示名が一致し、別々に生成したobjectは異なるhandleを持つ。"
+      },
+      "limitations": {
+        "en": "Construction only; no default body, random seed identity, factory creation or implicit generated full-name convention is assessed.",
+        "ja": "生成のみで、既定body、乱数seed同一性、factory生成、暗黙の生成full-name慣例は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uE/test_builtin_reg_mem_hdl_paths_seq_constructor_types_target",
+          "role": "direct",
+          "expected_observations": [
+            "UT: builtin_names default 1 explicit 1 empty 1",
+            "UT: builtin_ancestry typed 1 sequence 1 object 1 distinct 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BUILTIN-AUDIT-REG-MEM-HDL-PATHS-SEQ-ANCESTRY",
+      "clause": "E.7.1",
+      "statement": {
+        "en": "uvm_reg_mem_hdl_paths_seq has the declared register-sequence base specialization.",
+        "ja": "uvm_reg_mem_hdl_paths_seqは宣言されたregister-sequence base特殊化を持つ。"
+      },
+      "conditions": {
+        "en": "Use implicit assignments through uvm_reg_sequence#(uvm_sequence#(uvm_reg_item)), its selected sequence base and uvm_object, without casts.",
+        "ja": "castなしでuvm_reg_sequence#(uvm_sequence#(uvm_reg_item))、選択sequence base、uvm_objectへ暗黙代入する。"
+      },
+      "expected": {
+        "en": "All static receivers compile and retain the same original handle.",
+        "ja": "全static receiverがcompileでき、同じ元handleを保持する。"
+      },
+      "limitations": {
+        "en": "Exact declared base specialization and selected identity relationships only. No every-builtin factory registry, type_id, macro expansion or execution algorithm is inferred. The virtual dispatcher uses concrete original extensions; its separate direct-construction negative assesses abstractness.",
+        "ja": "正確な宣言base特殊化と選択した同一性関係のみ。全builtinのfactory registry、type_id、macro展開、実行algorithmを推測しない。virtual dispatcherには独自具象拡張を使い、別の直接生成negativeで抽象性を評価する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uE/test_builtin_reg_mem_hdl_paths_seq_constructor_types_target",
+          "role": "direct",
+          "expected_observations": [
+            "UT: builtin_ancestry typed 1 sequence 1 object 1 distinct 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BUILTIN-AUDIT-REG-MEM-BUILT-IN-SEQ-CONSTRUCTOR",
+      "clause": "E.8.3.1",
+      "statement": {
+        "en": "uvm_reg_mem_built_in_seq construction retains its listed default name and explicit names.",
+        "ja": "uvm_reg_mem_built_in_seqの生成は記載された既定名と明示名を保持する。"
+      },
+      "conditions": {
+        "en": "Call the actual constructor with omitted, explicit nonempty and explicit empty names; the virtual dispatcher uses two direct original extensions to isolate omitted/explicit base calls.",
+        "ja": "実constructorへ省略、明示非空、明示空の名前を渡す。virtual dispatcherは2つの独自直接拡張で省略／明示base呼出しを分離する。"
+      },
+      "expected": {
+        "en": "Default and explicit names match and separately created objects have distinct handles.",
+        "ja": "既定／明示名が一致し、別々に生成したobjectは異なるhandleを持つ。"
+      },
+      "limitations": {
+        "en": "Construction only; no default body, random seed identity, factory creation or implicit generated full-name convention is assessed.",
+        "ja": "生成のみで、既定body、乱数seed同一性、factory生成、暗黙の生成full-name慣例は評価しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uE/test_builtin_dispatcher_concrete_extensions_preserve_constructor_target_mask",
+          "role": "direct",
+          "expected_observations": [
+            "UT: builtin_names default 1 explicit 1 empty 1",
+            "UT: builtin_ancestry typed 1 sequence 1 object 1 distinct 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BUILTIN-AUDIT-REG-MEM-BUILT-IN-SEQ-ANCESTRY",
+      "clause": "E.8.1",
+      "statement": {
+        "en": "uvm_reg_mem_built_in_seq has the declared register-sequence base specialization.",
+        "ja": "uvm_reg_mem_built_in_seqは宣言されたregister-sequence base特殊化を持つ。"
+      },
+      "conditions": {
+        "en": "Use implicit assignments through uvm_reg_sequence#(uvm_sequence#(uvm_reg_item)), its selected sequence base and uvm_object, without casts.",
+        "ja": "castなしでuvm_reg_sequence#(uvm_sequence#(uvm_reg_item))、選択sequence base、uvm_objectへ暗黙代入する。"
+      },
+      "expected": {
+        "en": "All static receivers compile and retain the same original handle.",
+        "ja": "全static receiverがcompileでき、同じ元handleを保持する。"
+      },
+      "limitations": {
+        "en": "Exact declared base specialization and selected identity relationships only. No every-builtin factory registry, type_id, macro expansion or execution algorithm is inferred. The virtual dispatcher uses concrete original extensions; its separate direct-construction negative assesses abstractness.",
+        "ja": "正確な宣言base特殊化と選択した同一性関係のみ。全builtinのfactory registry、type_id、macro展開、実行algorithmを推測しない。virtual dispatcherには独自具象拡張を使い、別の直接生成negativeで抽象性を評価する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uE/test_builtin_dispatcher_concrete_extensions_preserve_constructor_target_mask",
+          "role": "direct",
+          "expected_observations": [
+            "UT: builtin_ancestry typed 1 sequence 1 object 1 distinct 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BUILTIN-AUDIT-REG-MEM-BUILT-IN-SEQ-TARGET",
+      "clause": "E.8.2.1",
+      "statement": {
+        "en": "The model property identifies the selected block, register or memory using its declared handle type.",
+        "ja": "model propertyは宣言handle型で選択block／register／memoryを示す。"
+      },
+      "conditions": {
+        "en": "Original concrete target objects are assigned/read through the builtin property, with separate sequence instances and static receiver types.",
+        "ja": "独自具象target objectをbuiltin property経由で代入／readし、別sequence instanceとstatic receiver型を使う。"
+      },
+      "expected": {
+        "en": "The exact typed receiver and inherited base view share the selected model; the peer retains its separately assigned model.",
+        "ja": "正確なtyped receiverと継承base viewが選択modelを共有し、peerは別に代入したmodelを保持する。"
+      },
+      "limitations": {
+        "en": "This verifies declared handle storage, replacement and instance isolation, not successful execution with a null target, clone/ownership behavior or all model hierarchies. No unspecified initial property value is asserted. Existing algorithm fixtures remain separate evidence.",
+        "ja": "宣言handleの保存、置換、instance独立性を検査し、null対象での実行成功、clone／所有動作、全model階層ではない。未規定の初期property値を主張せず、既存algorithm fixtureは別の証拠に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uE/test_builtin_dispatcher_concrete_extensions_preserve_constructor_target_mask",
+          "role": "direct",
+          "expected_observations": [
+            "UT: target exact 1 inherited_alias 1 peer_unchanged 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BUILTIN-AUDIT-CHILD-BIT-BASH",
+      "clause": "E.2.2.2.2",
+      "statement": {
+        "en": "The protected reg_seq slot stores a uvm_reg_single_bit_bash_seq handle for the selected wrapper.",
+        "ja": "選択wrapperのprotected reg_seq slotはuvm_reg_single_bit_bash_seq handleを保存する。"
+      },
+      "conditions": {
+        "en": "Original derived accessors use the literal prototype member name and exact child type, assign/replace/clear the selected slot and capture a peer baseline; separate original factory children audit live routing.",
+        "ja": "独自派生accessorはprototypeのliteral member名と正確なchild型を使い、選択slotを代入／置換／clearしてpeer基準値を保存する。別の独自factory childは実行中の経路を監査する。"
+      },
+      "expected": {
+        "en": "Selected storage matches, the prior child remains valid and the peer remains unchanged; live probes require the declared slot to identify the executing child and selected targets.",
+        "ja": "選択storageが一致し、前のchildも有効でpeerは未変更となる。実行中probeは宣言slotが実行childと選択対象を示すことを要求する。"
+      },
+      "limitations": {
+        "en": "The req_seq headings print reg_seq in their prototypes; the literal prototype is used and the naming conflict retained. No default child value, post-body retention, allocation count, sibling order or builtin payload algorithm is certified by original child bodies.",
+        "ja": "req_seq見出しのprototypeはreg_seqを印字するため、literal prototypeを使い、命名矛盾を保持する。既定child値、body後の保持、割当回数、兄弟順序、独自child bodyによるbuiltin payload algorithmは認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uE/test_builtin_bit_bash_protected_child_field_has_declared_type_and_instance_storage",
+          "role": "direct",
+          "expected_observations": [
+            "UT: child_field assigned 1 peer_unchanged 1",
+            "UT: child_field replacement 1 prior_handle_valid 1 peer_unchanged 1",
+            "UT: child_field null_storage 1 peer_unchanged 1"
+          ]
+        },
+        {
+          "test": "uE/test_bit_bash_wrapper_live_protected_slot_routes_each_register_target",
+          "role": "direct",
+          "expected_observations": [
+            "UT: live_register_slot agrees 1 both_targets 1 no_foreign_target 1 delayed 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BUILTIN-AUDIT-CHILD-REGISTER-ACCESS",
+      "clause": "E.3.2.2.2",
+      "statement": {
+        "en": "The protected reg_seq slot stores a uvm_reg_single_access_seq handle for the selected wrapper.",
+        "ja": "選択wrapperのprotected reg_seq slotはuvm_reg_single_access_seq handleを保存する。"
+      },
+      "conditions": {
+        "en": "Original derived accessors use the literal prototype member name and exact child type, assign/replace/clear the selected slot and capture a peer baseline; separate original factory children audit live routing. The live access probes attach original per-target storage backdoors before starting, satisfying access-test eligibility; their routing-only child bodies do not invoke those handlers.",
+        "ja": "独自派生accessorはprototypeのliteral member名と正確なchild型を使い、選択slotを代入／置換／clearしてpeer基準値を保存する。別の独自factory childは実行中の経路を監査する。 実行中access probeはstart前に対象別の独自storage backdoorを設定してaccess-test適用条件を満たし、経路専用child bodyはhandlerを呼ばない。"
+      },
+      "expected": {
+        "en": "Selected storage matches, the prior child remains valid and the peer remains unchanged; live probes require the declared slot to identify the executing child and selected targets.",
+        "ja": "選択storageが一致し、前のchildも有効でpeerは未変更となる。実行中probeは宣言slotが実行childと選択対象を示すことを要求する。"
+      },
+      "limitations": {
+        "en": "The req_seq headings print reg_seq in their prototypes; the literal prototype is used and the naming conflict retained. No default child value, post-body retention, allocation count, sibling order or builtin payload algorithm is certified by original child bodies.",
+        "ja": "req_seq見出しのprototypeはreg_seqを印字するため、literal prototypeを使い、命名矛盾を保持する。既定child値、body後の保持、割当回数、兄弟順序、独自child bodyによるbuiltin payload algorithmは認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uE/test_builtin_register_access_protected_child_field_has_declared_type_and_instance_storage",
+          "role": "direct",
+          "expected_observations": [
+            "UT: child_field assigned 1 peer_unchanged 1",
+            "UT: child_field replacement 1 prior_handle_valid 1 peer_unchanged 1",
+            "UT: child_field null_storage 1 peer_unchanged 1"
+          ]
+        },
+        {
+          "test": "uE/test_register_access_wrapper_body_uses_live_declared_child_for_selected_targets",
+          "role": "direct",
+          "expected_observations": [
+            "UT: wrapper_body slot_agrees 1 both_targets 1 no_foreign 1 delayed 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BUILTIN-AUDIT-CHILD-SHARED-REGISTER",
+      "clause": "E.4.3.2.2",
+      "statement": {
+        "en": "The protected reg_seq slot stores a uvm_reg_shared_access_seq handle for the selected wrapper.",
+        "ja": "選択wrapperのprotected reg_seq slotはuvm_reg_shared_access_seq handleを保存する。"
+      },
+      "conditions": {
+        "en": "Original derived accessors use the literal prototype member name and exact child type, assign/replace/clear the selected slot and capture a peer baseline; separate original factory children audit live routing.",
+        "ja": "独自派生accessorはprototypeのliteral member名と正確なchild型を使い、選択slotを代入／置換／clearしてpeer基準値を保存する。別の独自factory childは実行中の経路を監査する。"
+      },
+      "expected": {
+        "en": "Selected storage matches, the prior child remains valid and the peer remains unchanged; live probes require the declared slot to identify the executing child and selected targets.",
+        "ja": "選択storageが一致し、前のchildも有効でpeerは未変更となる。実行中probeは宣言slotが実行childと選択対象を示すことを要求する。"
+      },
+      "limitations": {
+        "en": "The req_seq headings print reg_seq in their prototypes; the literal prototype is used and the naming conflict retained. No default child value, post-body retention, allocation count, sibling order or builtin payload algorithm is certified by original child bodies.",
+        "ja": "req_seq見出しのprototypeはreg_seqを印字するため、literal prototypeを使い、命名矛盾を保持する。既定child値、body後の保持、割当回数、兄弟順序、独自child bodyによるbuiltin payload algorithmは認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uE/test_builtin_shared_register_protected_child_field_has_declared_type_and_instance_storage",
+          "role": "direct",
+          "expected_observations": [
+            "UT: child_field assigned 1 peer_unchanged 1",
+            "UT: child_field replacement 1 prior_handle_valid 1 peer_unchanged 1",
+            "UT: child_field null_storage 1 peer_unchanged 1"
+          ]
+        },
+        {
+          "test": "uE/test_shared_access_wrapper_live_protected_slots_route_register_and_memory_targets",
+          "role": "direct",
+          "expected_observations": [
+            "UT: live_register_slot agrees 1 both_targets 1 no_foreign_target 1 delayed 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BUILTIN-AUDIT-CHILD-SHARED-MEMORY",
+      "clause": "E.4.3.2.3",
+      "statement": {
+        "en": "The protected mem_seq slot stores a uvm_mem_shared_access_seq handle for the selected wrapper.",
+        "ja": "選択wrapperのprotected mem_seq slotはuvm_mem_shared_access_seq handleを保存する。"
+      },
+      "conditions": {
+        "en": "Original derived accessors use the literal prototype member name and exact child type, assign/replace/clear the selected slot and capture a peer baseline; separate original factory children audit live routing.",
+        "ja": "独自派生accessorはprototypeのliteral member名と正確なchild型を使い、選択slotを代入／置換／clearしてpeer基準値を保存する。別の独自factory childは実行中の経路を監査する。"
+      },
+      "expected": {
+        "en": "Selected storage matches, the prior child remains valid and the peer remains unchanged; live probes require the declared slot to identify the executing child and selected targets.",
+        "ja": "選択storageが一致し、前のchildも有効でpeerは未変更となる。実行中probeは宣言slotが実行childと選択対象を示すことを要求する。"
+      },
+      "limitations": {
+        "en": "The req_seq headings print reg_seq in their prototypes; the literal prototype is used and the naming conflict retained. No default child value, post-body retention, allocation count, sibling order or builtin payload algorithm is certified by original child bodies.",
+        "ja": "req_seq見出しのprototypeはreg_seqを印字するため、literal prototypeを使い、命名矛盾を保持する。既定child値、body後の保持、割当回数、兄弟順序、独自child bodyによるbuiltin payload algorithmは認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uE/test_builtin_shared_memory_protected_child_field_has_declared_type_and_instance_storage",
+          "role": "direct",
+          "expected_observations": [
+            "UT: child_field assigned 1 peer_unchanged 1",
+            "UT: child_field replacement 1 prior_handle_valid 1 peer_unchanged 1",
+            "UT: child_field null_storage 1 peer_unchanged 1"
+          ]
+        },
+        {
+          "test": "uE/test_shared_access_wrapper_live_protected_slots_route_register_and_memory_targets",
+          "role": "direct",
+          "expected_observations": [
+            "UT: live_memory_slot agrees 1 both_targets 1 no_foreign_target 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BUILTIN-AUDIT-CHILD-MEMORY-ACCESS",
+      "clause": "E.5.2.2.2",
+      "statement": {
+        "en": "The protected mem_seq slot stores a uvm_mem_single_access_seq handle for the selected wrapper.",
+        "ja": "選択wrapperのprotected mem_seq slotはuvm_mem_single_access_seq handleを保存する。"
+      },
+      "conditions": {
+        "en": "Original derived accessors use the literal prototype member name and exact child type, assign/replace/clear the selected slot and capture a peer baseline; separate original factory children audit live routing. The live access probes attach original per-target storage backdoors before starting, satisfying access-test eligibility; their routing-only child bodies do not invoke those handlers.",
+        "ja": "独自派生accessorはprototypeのliteral member名と正確なchild型を使い、選択slotを代入／置換／clearしてpeer基準値を保存する。別の独自factory childは実行中の経路を監査する。 実行中access probeはstart前に対象別の独自storage backdoorを設定してaccess-test適用条件を満たし、経路専用child bodyはhandlerを呼ばない。"
+      },
+      "expected": {
+        "en": "Selected storage matches, the prior child remains valid and the peer remains unchanged; live probes require the declared slot to identify the executing child and selected targets.",
+        "ja": "選択storageが一致し、前のchildも有効でpeerは未変更となる。実行中probeは宣言slotが実行childと選択対象を示すことを要求する。"
+      },
+      "limitations": {
+        "en": "The req_seq headings print reg_seq in their prototypes; the literal prototype is used and the naming conflict retained. No default child value, post-body retention, allocation count, sibling order or builtin payload algorithm is certified by original child bodies.",
+        "ja": "req_seq見出しのprototypeはreg_seqを印字するため、literal prototypeを使い、命名矛盾を保持する。既定child値、body後の保持、割当回数、兄弟順序、独自child bodyによるbuiltin payload algorithmは認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uE/test_builtin_memory_access_protected_child_field_has_declared_type_and_instance_storage",
+          "role": "direct",
+          "expected_observations": [
+            "UT: child_field assigned 1 peer_unchanged 1",
+            "UT: child_field replacement 1 prior_handle_valid 1 peer_unchanged 1",
+            "UT: child_field null_storage 1 peer_unchanged 1"
+          ]
+        },
+        {
+          "test": "uE/test_memory_access_wrapper_body_uses_live_declared_child_for_selected_targets",
+          "role": "direct",
+          "expected_observations": [
+            "UT: wrapper_body slot_agrees 1 both_targets 1 no_foreign 1 delayed 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BUILTIN-AUDIT-CHILD-MEMORY-WALK",
+      "clause": "E.6.2.2.2",
+      "statement": {
+        "en": "The protected mem_seq slot stores a uvm_mem_single_walk_seq handle for the selected wrapper.",
+        "ja": "選択wrapperのprotected mem_seq slotはuvm_mem_single_walk_seq handleを保存する。"
+      },
+      "conditions": {
+        "en": "Original derived accessors use the literal prototype member name and exact child type, assign/replace/clear the selected slot and capture a peer baseline; separate original factory children audit live routing.",
+        "ja": "独自派生accessorはprototypeのliteral member名と正確なchild型を使い、選択slotを代入／置換／clearしてpeer基準値を保存する。別の独自factory childは実行中の経路を監査する。"
+      },
+      "expected": {
+        "en": "Selected storage matches, the prior child remains valid and the peer remains unchanged; live probes require the declared slot to identify the executing child and selected targets.",
+        "ja": "選択storageが一致し、前のchildも有効でpeerは未変更となる。実行中probeは宣言slotが実行childと選択対象を示すことを要求する。"
+      },
+      "limitations": {
+        "en": "The req_seq headings print reg_seq in their prototypes; the literal prototype is used and the naming conflict retained. No default child value, post-body retention, allocation count, sibling order or builtin payload algorithm is certified by original child bodies.",
+        "ja": "req_seq見出しのprototypeはreg_seqを印字するため、literal prototypeを使い、命名矛盾を保持する。既定child値、body後の保持、割当回数、兄弟順序、独自child bodyによるbuiltin payload algorithmは認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uE/test_builtin_memory_walk_protected_child_field_has_declared_type_and_instance_storage",
+          "role": "direct",
+          "expected_observations": [
+            "UT: child_field assigned 1 peer_unchanged 1",
+            "UT: child_field replacement 1 prior_handle_valid 1 peer_unchanged 1",
+            "UT: child_field null_storage 1 peer_unchanged 1"
+          ]
+        },
+        {
+          "test": "uE/test_memory_walk_wrapper_body_uses_live_declared_child_for_selected_targets",
+          "role": "direct",
+          "expected_observations": [
+            "UT: wrapper_body slot_agrees 1 both_targets 1 no_foreign 1 delayed 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BUILTIN-AUDIT-DISPATCHER-VIRTUAL",
+      "clause": "E.8.1",
+      "statement": {
+        "en": "Direct construction of the printed virtual builtin dispatcher is illegal.",
+        "ja": "印字されたvirtual builtin dispatcherの直接生成は不正である。"
+      },
+      "conditions": {
+        "en": "One minimal illegal declaration or external member access is isolated; a separate original legal extension is the control.",
+        "ja": "最小の不正宣言または外部member accessを分離し、別の独自合法拡張をcontrolとする。"
+      },
+      "expected": {
+        "en": "Compilation rejects the named fixture/type/member using the declared semantic diagnostic predicate; no runtime seed is executed, including illegal acceptance.",
+        "ja": "宣言した意味診断predicateにより指定fixture／type／memberをcompilerが拒否し、不正受理でもruntime seedを実行しない。"
+      },
+      "limitations": {
+        "en": "A legal subclass does not replace the direct-construction rejection duty. Any concrete implementation acceptance remains a known compile result without execution.",
+        "ja": "合法subclassは直接生成拒否義務の代わりではない。具象実装による受理は実行なしの既知compile結果に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uE/test_builtin_dispatcher_virtual_class_rejects_direct_construction",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?i)^(?=.*test_builtin_dispatcher_virtual_class_rejects_direct_construction.sv:[0-9]+:[0-9]+:)(?=.*\\b(?:virtual|abstract)\\b)(?=.*\\buvm_reg_mem_built_in_seq\\b).*error"
+          }
+        },
+        {
+          "test": "uE/test_builtin_dispatcher_concrete_extensions_preserve_constructor_target_mask",
+          "role": "control",
+          "expected_observations": [
+            "UT: builtin_names default 1 explicit 1 empty 1",
+            "UT: builtin_ancestry typed 1 sequence 1 object 1 distinct 1",
+            "UT: target exact 1 inherited_alias 1 peer_unchanged 1",
+            "UT: test_mask width 1 high_bit_retained 1 peer_unchanged 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BUILTIN-AUDIT-PROTECTED-BIT-BASH",
+      "clause": "E.2.2.2.2",
+      "statement": {
+        "en": "External code cannot access the selected protected child-sequence member.",
+        "ja": "外部codeは選択protected child-sequence memberへaccessできない。"
+      },
+      "conditions": {
+        "en": "One minimal illegal declaration or external member access is isolated; a separate original legal extension is the control.",
+        "ja": "最小の不正宣言または外部member accessを分離し、別の独自合法拡張をcontrolとする。"
+      },
+      "expected": {
+        "en": "Compilation rejects the named fixture/type/member using the declared semantic diagnostic predicate; no runtime seed is executed, including illegal acceptance.",
+        "ja": "宣言した意味診断predicateにより指定fixture／type／memberをcompilerが拒否し、不正受理でもruntime seedを実行しない。"
+      },
+      "limitations": {
+        "en": "The matching derived-access control distinguishes protected from private/inaccessible-to-derived behavior. No every-wrapper visibility matrix is claimed.",
+        "ja": "一致する派生access controlでprotectedとprivate／派生不可動作を区別する。全wrapper可視性matrixは主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uE/test_builtin_bit_bash_protected_child_rejects_external_access",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?i)^(?=.*test_builtin_bit_bash_protected_child_rejects_external_access.sv:[0-9]+:[0-9]+:)(?=.*\\b(?:protected|private|inaccessible)\\b)(?=.*\\breg_seq\\b).*error"
+          }
+        },
+        {
+          "test": "uE/test_builtin_bit_bash_protected_child_field_has_declared_type_and_instance_storage",
+          "role": "control",
+          "expected_observations": [
+            "UT: child_field assigned 1 peer_unchanged 1",
+            "UT: child_field replacement 1 prior_handle_valid 1 peer_unchanged 1",
+            "UT: child_field null_storage 1 peer_unchanged 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BUILTIN-AUDIT-PROTECTED-MEMORY-WALK",
+      "clause": "E.6.2.2.2",
+      "statement": {
+        "en": "External code cannot access the selected protected child-sequence member.",
+        "ja": "外部codeは選択protected child-sequence memberへaccessできない。"
+      },
+      "conditions": {
+        "en": "One minimal illegal declaration or external member access is isolated; a separate original legal extension is the control.",
+        "ja": "最小の不正宣言または外部member accessを分離し、別の独自合法拡張をcontrolとする。"
+      },
+      "expected": {
+        "en": "Compilation rejects the named fixture/type/member using the declared semantic diagnostic predicate; no runtime seed is executed, including illegal acceptance.",
+        "ja": "宣言した意味診断predicateにより指定fixture／type／memberをcompilerが拒否し、不正受理でもruntime seedを実行しない。"
+      },
+      "limitations": {
+        "en": "The matching derived-access control distinguishes protected from private/inaccessible-to-derived behavior. No every-wrapper visibility matrix is claimed.",
+        "ja": "一致する派生access controlでprotectedとprivate／派生不可動作を区別する。全wrapper可視性matrixは主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uE/test_builtin_memory_walk_protected_child_rejects_external_access",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?i)^(?=.*test_builtin_memory_walk_protected_child_rejects_external_access.sv:[0-9]+:[0-9]+:)(?=.*\\b(?:protected|private|inaccessible)\\b)(?=.*\\bmem_seq\\b).*error"
+          }
+        },
+        {
+          "test": "uE/test_builtin_memory_walk_protected_child_field_has_declared_type_and_instance_storage",
+          "role": "control",
+          "expected_observations": [
+            "UT: child_field assigned 1 peer_unchanged 1",
+            "UT: child_field replacement 1 prior_handle_valid 1 peer_unchanged 1",
+            "UT: child_field null_storage 1 peer_unchanged 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BUILTIN-AUDIT-BODY-RESET",
+      "clause": "E.1.2.1.2",
+      "statement": {
+        "en": "The reset-sequence body executes selected model-reset and read comparison duties.",
+        "ja": "reset-sequence bodyは選択model-resetとread比較義務を実行する。"
+      },
+      "conditions": {
+        "en": "Use the selected model and legal sequence start; original factory children audit live slots/target identity, while unchanged full-algorithm fixtures remain separate controls where their citations differ.",
+        "ja": "選択modelと合法sequence startを使う。独自factory childは実行中slot／対象同一性を監査し、引用が異なる未変更full-algorithm fixtureは別controlに残す。"
+      },
+      "expected": {
+        "en": "The declared observations identify the selected targets and completion or actual existing reset/selection behavior.",
+        "ja": "宣言観測は選択対象と完了、または既存の実際のreset／選択動作を示す。"
+      },
+      "limitations": {
+        "en": "The printed E.6.3 body numbering is retained. Original routing-only child bodies do not prove the builtin access/walk algorithm, ordering or allocation counts; control links do not supply direct evidence for an uncited clause. Physical reset hooks, full skip/error/abort/concurrency conditions and historical walking-ones interpretation remain partial.",
+        "ja": "印字E.6.3 body番号を保持する。経路専用の独自child bodyはbuiltin access／walk algorithm、順序、割当回数を証明せず、control linkは未引用条項の直接証拠にならない。物理reset hook、全skip／error／中止／並行条件、歴史的walking-ones解釈は部分的に残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uE/test_hw_reset_sequence_restores_model_reset_before_comparing_storage",
+          "role": "direct",
+          "expected_observations": [
+            "UT: clean 1 read 1 mirror 3c"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BUILTIN-AUDIT-BODY-BIT-BASH",
+      "clause": "E.2.2.3.2",
+      "statement": {
+        "en": "The bit-bash wrapper body delegates to its single-register sequence for selected model registers.",
+        "ja": "bit-bash wrapper bodyは選択model registerをsingle-register sequenceへ委譲する。"
+      },
+      "conditions": {
+        "en": "Use the selected model and legal sequence start; original factory children audit live slots/target identity, while unchanged full-algorithm fixtures remain separate controls where their citations differ.",
+        "ja": "選択modelと合法sequence startを使う。独自factory childは実行中slot／対象同一性を監査し、引用が異なる未変更full-algorithm fixtureは別controlに残す。"
+      },
+      "expected": {
+        "en": "The declared observations identify the selected targets and completion or actual existing reset/selection behavior.",
+        "ja": "宣言観測は選択対象と完了、または既存の実際のreset／選択動作を示す。"
+      },
+      "limitations": {
+        "en": "The printed E.6.3 body numbering is retained. Original routing-only child bodies do not prove the builtin access/walk algorithm, ordering or allocation counts; control links do not supply direct evidence for an uncited clause. Physical reset hooks, full skip/error/abort/concurrency conditions and historical walking-ones interpretation remain partial.",
+        "ja": "印字E.6.3 body番号を保持する。経路専用の独自child bodyはbuiltin access／walk algorithm、順序、割当回数を証明せず、control linkは未引用条項の直接証拠にならない。物理reset hook、全skip／error／中止／並行条件、歴史的walking-ones解釈は部分的に残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uE/test_bit_bash_wrapper_live_protected_slot_routes_each_register_target",
+          "role": "direct",
+          "expected_observations": [
+            "UT: live_register_slot agrees 1 both_targets 1 no_foreign_target 1 delayed 1"
+          ]
+        },
+        {
+          "test": "uE/test_bit_bash_sequence_recurses_into_child_registers",
+          "role": "control",
+          "expected_observations": [
+            "UT: clean 1 root 1 child 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BUILTIN-AUDIT-BODY-REGISTER-ACCESS",
+      "clause": "E.3.2.3.2",
+      "statement": {
+        "en": "The register-access body executes its selected per-register sequence.",
+        "ja": "register-access bodyは選択したregister別sequenceを実行する。"
+      },
+      "conditions": {
+        "en": "Use the selected model and legal sequence start; original factory children audit live slots/target identity, while unchanged full-algorithm fixtures remain separate controls where their citations differ. The live access probes attach original per-target storage backdoors before starting, satisfying access-test eligibility; their routing-only child bodies do not invoke those handlers.",
+        "ja": "選択modelと合法sequence startを使う。独自factory childは実行中slot／対象同一性を監査し、引用が異なる未変更full-algorithm fixtureは別controlに残す。 実行中access probeはstart前に対象別の独自storage backdoorを設定してaccess-test適用条件を満たし、経路専用child bodyはhandlerを呼ばない。"
+      },
+      "expected": {
+        "en": "The declared observations identify the selected targets and completion or actual existing reset/selection behavior.",
+        "ja": "宣言観測は選択対象と完了、または既存の実際のreset／選択動作を示す。"
+      },
+      "limitations": {
+        "en": "The printed E.6.3 body numbering is retained. Original routing-only child bodies do not prove the builtin access/walk algorithm, ordering or allocation counts; control links do not supply direct evidence for an uncited clause. Physical reset hooks, full skip/error/abort/concurrency conditions and historical walking-ones interpretation remain partial.",
+        "ja": "印字E.6.3 body番号を保持する。経路専用の独自child bodyはbuiltin access／walk algorithm、順序、割当回数を証明せず、control linkは未引用条項の直接証拠にならない。物理reset hook、全skip／error／中止／並行条件、歴史的walking-ones解釈は部分的に残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uE/test_register_access_wrapper_body_uses_live_declared_child_for_selected_targets",
+          "role": "direct",
+          "expected_observations": [
+            "UT: wrapper_body slot_agrees 1 both_targets 1 no_foreign 1 delayed 1"
+          ]
+        },
+        {
+          "test": "uE/test_register_access_sequence_recurses_and_cross_checks_child_paths",
+          "role": "control",
+          "expected_observations": [
+            "UT: clean 1 root 1 child 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BUILTIN-AUDIT-BODY-SHARED",
+      "clause": "E.4.3.3.2",
+      "statement": {
+        "en": "The shared wrapper body delegates selected registers and memories to their declared child sequences.",
+        "ja": "shared wrapper bodyは選択registerとmemoryを宣言child sequenceへ委譲する。"
+      },
+      "conditions": {
+        "en": "Use the selected model and legal sequence start; original factory children audit live slots/target identity, while unchanged full-algorithm fixtures remain separate controls where their citations differ.",
+        "ja": "選択modelと合法sequence startを使う。独自factory childは実行中slot／対象同一性を監査し、引用が異なる未変更full-algorithm fixtureは別controlに残す。"
+      },
+      "expected": {
+        "en": "The declared observations identify the selected targets and completion or actual existing reset/selection behavior.",
+        "ja": "宣言観測は選択対象と完了、または既存の実際のreset／選択動作を示す。"
+      },
+      "limitations": {
+        "en": "The printed E.6.3 body numbering is retained. Original routing-only child bodies do not prove the builtin access/walk algorithm, ordering or allocation counts; control links do not supply direct evidence for an uncited clause. Physical reset hooks, full skip/error/abort/concurrency conditions and historical walking-ones interpretation remain partial.",
+        "ja": "印字E.6.3 body番号を保持する。経路専用の独自child bodyはbuiltin access／walk algorithm、順序、割当回数を証明せず、control linkは未引用条項の直接証拠にならない。物理reset hook、全skip／error／中止／並行条件、歴史的walking-ones解釈は部分的に残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uE/test_shared_access_wrapper_live_protected_slots_route_register_and_memory_targets",
+          "role": "direct",
+          "expected_observations": [
+            "UT: live_register_slot agrees 1 both_targets 1 no_foreign_target 1 delayed 1",
+            "UT: live_memory_slot agrees 1 both_targets 1 no_foreign_target 1"
+          ]
+        },
+        {
+          "test": "uE/test_shared_access_wrapper_cross_checks_both_registers_and_memories",
+          "role": "control",
+          "expected_observations": [
+            "UT: clean 1 registers 1 memories 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BUILTIN-AUDIT-BODY-MEMORY-ACCESS",
+      "clause": "E.5.2.3.2",
+      "statement": {
+        "en": "The memory-access body executes its selected per-memory sequence.",
+        "ja": "memory-access bodyは選択したmemory別sequenceを実行する。"
+      },
+      "conditions": {
+        "en": "Use the selected model and legal sequence start; original factory children audit live slots/target identity, while unchanged full-algorithm fixtures remain separate controls where their citations differ. The live access probes attach original per-target storage backdoors before starting, satisfying access-test eligibility; their routing-only child bodies do not invoke those handlers.",
+        "ja": "選択modelと合法sequence startを使う。独自factory childは実行中slot／対象同一性を監査し、引用が異なる未変更full-algorithm fixtureは別controlに残す。 実行中access probeはstart前に対象別の独自storage backdoorを設定してaccess-test適用条件を満たし、経路専用child bodyはhandlerを呼ばない。"
+      },
+      "expected": {
+        "en": "The declared observations identify the selected targets and completion or actual existing reset/selection behavior.",
+        "ja": "宣言観測は選択対象と完了、または既存の実際のreset／選択動作を示す。"
+      },
+      "limitations": {
+        "en": "The printed E.6.3 body numbering is retained. Original routing-only child bodies do not prove the builtin access/walk algorithm, ordering or allocation counts; control links do not supply direct evidence for an uncited clause. Physical reset hooks, full skip/error/abort/concurrency conditions and historical walking-ones interpretation remain partial.",
+        "ja": "印字E.6.3 body番号を保持する。経路専用の独自child bodyはbuiltin access／walk algorithm、順序、割当回数を証明せず、control linkは未引用条項の直接証拠にならない。物理reset hook、全skip／error／中止／並行条件、歴史的walking-ones解釈は部分的に残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uE/test_memory_access_wrapper_body_uses_live_declared_child_for_selected_targets",
+          "role": "direct",
+          "expected_observations": [
+            "UT: wrapper_body slot_agrees 1 both_targets 1 no_foreign 1 delayed 1"
+          ]
+        },
+        {
+          "test": "uE/test_memory_access_sequence_cross_checks_root_and_child_memories",
+          "role": "control",
+          "expected_observations": [
+            "UT: clean 1 root 1 child 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BUILTIN-AUDIT-BODY-MEMORY-WALK",
+      "clause": "E.6.3.2",
+      "statement": {
+        "en": "The memory-walk wrapper body executes the single-memory sequence on the selected block members.",
+        "ja": "memory-walk wrapper bodyは選択block memberへsingle-memory sequenceを実行する。"
+      },
+      "conditions": {
+        "en": "Use the selected model and legal sequence start; original factory children audit live slots/target identity, while unchanged full-algorithm fixtures remain separate controls where their citations differ.",
+        "ja": "選択modelと合法sequence startを使う。独自factory childは実行中slot／対象同一性を監査し、引用が異なる未変更full-algorithm fixtureは別controlに残す。"
+      },
+      "expected": {
+        "en": "The declared observations identify the selected targets and completion or actual existing reset/selection behavior.",
+        "ja": "宣言観測は選択対象と完了、または既存の実際のreset／選択動作を示す。"
+      },
+      "limitations": {
+        "en": "The printed E.6.3 body numbering is retained. Original routing-only child bodies do not prove the builtin access/walk algorithm, ordering or allocation counts; control links do not supply direct evidence for an uncited clause. Physical reset hooks, full skip/error/abort/concurrency conditions and historical walking-ones interpretation remain partial.",
+        "ja": "印字E.6.3 body番号を保持する。経路専用の独自child bodyはbuiltin access／walk algorithm、順序、割当回数を証明せず、control linkは未引用条項の直接証拠にならない。物理reset hook、全skip／error／中止／並行条件、歴史的walking-ones解釈は部分的に残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uE/test_memory_walk_wrapper_body_uses_live_declared_child_for_selected_targets",
+          "role": "direct",
+          "expected_observations": [
+            "UT: wrapper_body slot_agrees 1 both_targets 1 no_foreign 1 delayed 1"
+          ]
+        },
+        {
+          "test": "uE/test_memory_walk_sequence_recurses_into_child_memories",
+          "role": "control",
+          "expected_observations": [
+            "UT: clean 1 root 1 child 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BUILTIN-AUDIT-BODY-DISPATCHER",
+      "clause": "E.8.3.2",
+      "statement": {
+        "en": "The builtin dispatcher body executes a selected predefined register test without memory transfers.",
+        "ja": "builtin dispatcher bodyは選択した定義済みregister testをmemory転送なしで実行する。"
+      },
+      "conditions": {
+        "en": "Use the selected model and legal sequence start; original factory children audit live slots/target identity, while unchanged full-algorithm fixtures remain separate controls where their citations differ.",
+        "ja": "選択modelと合法sequence startを使う。独自factory childは実行中slot／対象同一性を監査し、引用が異なる未変更full-algorithm fixtureは別controlに残す。"
+      },
+      "expected": {
+        "en": "The declared observations identify the selected targets and completion or actual existing reset/selection behavior.",
+        "ja": "宣言観測は選択対象と完了、または既存の実際のreset／選択動作を示す。"
+      },
+      "limitations": {
+        "en": "The printed E.6.3 body numbering is retained. Original routing-only child bodies do not prove the builtin access/walk algorithm, ordering or allocation counts; control links do not supply direct evidence for an uncited clause. Physical reset hooks, full skip/error/abort/concurrency conditions and historical walking-ones interpretation remain partial.",
+        "ja": "印字E.6.3 body番号を保持する。経路専用の独自child bodyはbuiltin access／walk algorithm、順序、割当回数を証明せず、control linkは未引用条項の直接証拠にならない。物理reset hook、全skip／error／中止／並行条件、歴史的walking-ones解釈は部分的に残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uE/test_built_in_test_dispatcher_reset_flag_reads_only_registers",
+          "role": "direct",
+          "expected_observations": [
+            "UT: clean 1 registers_read 1 writes_absent 1 memory_idle 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BUILTIN-AUDIT-DISPATCHER-SELECTION",
+      "clause": "E.8",
+      "statement": {
+        "en": "The builtin sequence runs a user-selected subset of predefined tests.",
+        "ja": "builtin sequenceはユーザーが選んだ定義済みtestの部分集合を実行する。"
+      },
+      "conditions": {
+        "en": "The unchanged real-transfer reset-flag fixture selects only register reset.",
+        "ja": "未変更の実転送reset-flag fixtureはregister resetだけを選択する。"
+      },
+      "expected": {
+        "en": "Registers are read with no writes or memory transfers.",
+        "ja": "registerはreadされ、writeとmemory転送はない。"
+      },
+      "limitations": {
+        "en": "A selected subset only, not every OR combination, extension bit or scheduling order. The printed virtual declaration is independently checked.",
+        "ja": "選択した部分集合のみで、全OR組合せ、拡張bit、schedule順序ではない。印字virtual宣言は独立に検査する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uE/test_built_in_test_dispatcher_reset_flag_reads_only_registers",
+          "role": "direct",
+          "expected_observations": [
+            "UT: clean 1 registers_read 1 writes_absent 1 memory_idle 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BUILTIN-AUDIT-DISPATCHER-MASK-WIDTH",
+      "clause": "E.8.2.2",
+      "statement": {
+        "en": "The dispatcher tests field has the declared sixty-four-bit storage width.",
+        "ja": "dispatcher tests fieldは宣言された64 bitの保存幅を持つ。"
+      },
+      "conditions": {
+        "en": "A legal concrete extension writes a value with both highest and lowest bits set while a peer retains its prior mask.",
+        "ja": "合法具象拡張が最上位／最下位bitを立てた値をwriteし、peerは以前のmaskを保持する。"
+      },
+      "expected": {
+        "en": "The field width is sixty-four, the full value is retained and the peer is unchanged.",
+        "ja": "field幅は64で全値を保持し、peerは未変更である。"
+      },
+      "limitations": {
+        "en": "This is storage only; unknown selection bits are not executed and no result for their dispatch is invented. Default/standard-flag traffic remains in existing fixtures.",
+        "ja": "保存のみで、未知選択bitを実行せず、そのdispatch結果を作らない。既定／規格flagの転送は既存fixtureに残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uE/test_builtin_dispatcher_concrete_extensions_preserve_constructor_target_mask",
+          "role": "direct",
+          "expected_observations": [
+            "UT: test_mask width 1 high_bit_retained 1 peer_unchanged 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BUILTIN-AUDIT-HDL-ABSTRACTION-QUEUE",
+      "clause": "E.7.2",
+      "statement": {
+        "en": "The HDL-path sequence abstraction list supports ordered queue insertion and instance-specific contents.",
+        "ja": "HDL-path sequenceのabstraction listは順序付きqueue insertとinstance別内容を持つ。"
+      },
+      "conditions": {
+        "en": "Append two selected string abstractions and an independent peer string without invoking the HDL backend.",
+        "ja": "選択string abstraction 2個と独立peer stringを追加し、HDL backendを呼ばない。"
+      },
+      "expected": {
+        "en": "Queue order and size match and the peer has only its own entry.",
+        "ja": "queue順序とsizeが一致し、peerは自身のentryだけを持つ。"
+      },
+      "limitations": {
+        "en": "Selected queue storage only; it is not physical path validation, multiple-abstraction backend coverage or four-state HDL access. Existing explicit/default path fixtures remain separate.",
+        "ja": "選択queue保存のみで、物理path検証、複数abstraction backend網羅、four-state HDL accessではない。既存の明示／既定path fixtureは別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uE/test_builtin_reg_mem_hdl_paths_seq_constructor_types_target",
+          "role": "direct",
+          "expected_observations": [
+            "UT: abstractions queue_order 1 peer 1"
+          ]
+        }
+      ]
     }
   ]
 }

@@ -2,7 +2,7 @@
 
 [English](history.md) · [README](../README.ja.md)
 
-M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の59回目の拡充（全1772件：simulation 1720・elaboration 52）までを記録しています。以前の349件の時点は
+M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の60回目の拡充（全1801件：simulation 1746・elaboration 55）までを記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -2393,4 +2393,39 @@ guest未測定は修正2入力を含む689（simulation 637／elaboration 52）�
 goalの31反復目は未評価を7減らして460（開始から1003減）とし、全部分義務と元の目標は未完了です。
 初期のreport-catcher引用誤記と生成したindentを最終入力再測定前に修正し、設定誤りをlibrary差分にはしません。
 tool test 110件、metadata、台帳／library、evidence同一性、日英資料検査は成功し、FAQ／用語は245／277件です。
+schema、runner／library／catalog／backend、workflow、SVG 6件は未変更です。guest実行、人のレビュー、分母承認、完了は主張せず、goalは継続中です。
+
+## 薄い領域の60回目：builtin sequence宣言と実行中child slot（2026-11-05）
+
+M3の29 fixtureを追加し、24件が両seed runtime一致、2件が期待protected-access拒否一致、2件がseed 1のconstructor名差分でseed 73なし、
+1件がruntimeなしの不正直接生成受理です。single-memory access／walk constructorは記載された既定名の期待を保持し、明示非空／空名と対象controlを別の観測にします。
+印字virtual builtin dispatcherは直接生成を受理され、合法具象拡張をその拒否義務の代わりにはしません。
+
+選択検査は15 builtinのconstructor／宣言、正確なregister-sequence継承、公開model／register／memory対象handle、置換／peer独立性、64 bit選択field、
+abstraction queue保存、6つの正確なprotected child slotを扱います。選択wrapper 2件で外部accessを拒否します。
+実行中factory-child probe 5件は実行slotと選択対象を調べ、独自child bodyは経路だけを認定し、builtin access／walking algorithmの代わりにはしません。
+既存full-algorithm controlと未変更reset／dispatcher body記録は別の証拠です。
+
+異なる具象拡張handle型の初期直接比較は、生成後のC++ compileに失敗しました。controlを同じ同一性predicateの共通builtin-base viewへ変えて再測定し、
+古いbuildをUVM差分には数えません。access経路probe 2件は初期にbackdoor適用条件を欠いていたため、対象別の独自storage backdoorを設定して修正入力を再測定しました。
+初期のskipは検査系の設定問題でUVM差分ではありません。初期の引用／整形preflight誤りも測定前に修正し、規格由来の期待は置換しません。
+req_seq見出しとreg_seq prototype、印字E.6.3番号を明示して保持し、追加公開accessor、childの既定／保持規則、割当／兄弟順序は作りません。
+
+付録E監査は新M3の29 fixtureと未変更body／control入力へAI義務62件を追加します。
+15個のconstructor／名前／継承、13対象変数、6 protected child宣言、選択可視性negative、7 body義務、dispatcher選択／幅、abstraction queueに明示条件を持たせます。
+一致する独自委譲probeはbuiltin payload algorithmを証明せず、未引用の旧algorithm fixtureはcontrol linkだけです。既定名とvirtual宣言の差分はspec-onlyに残します。
+
+見出し16件を個別の構造、導入4件を関連義務のある文脈と分類します。以前に未評価だったEの77番号へ対応し、付録は部分74／分類20／未評価0で案114件、主引用88 fixture（simulation 85／elaboration 3）です。
+部分契約74件、物理DUT reset／access、歴史的walking-ones解釈、skip／error／中止／並行の組合せ、元のmilestone目標の完了ではありません。
+
+全体は部分1747／分類377／未評価383（構造257／文脈120）で、以前の全3110要求・357分類は未変更です。
+範囲は提案で分母／割合はnullのままであり、どの条項状態も完了を意味しません。
+
+全1801（simulation 1746／elaboration 55）、M1 709（667／42）、M2 547（542／5）、M3 545（537／8）です。
+通常結果はpass 1568（runtime 1516／compiler拒否52）、known 233（runtime 173／simulation build 57／不正compiler受理3）です。
+以前の全1772通常記録・3110要求・357分類は未変更で、guest 1083／HDL 11／command-line 18記録はbyte単位で同一です。
+guest未測定は修正2入力を含む718（simulation 663／elaboration 55）です。
+
+goalの32反復目は未評価を77減らして383（開始から1080減）とし、全部分義務と元の目標は未完了です。
+tool test 110件、metadata、台帳／library、evidence同一性、日英資料検査は成功し、FAQ／用語は248／279件です。
 schema、runner／library／catalog／backend、workflow、SVG 6件は未変更です。guest実行、人のレビュー、分母承認、完了は主張せず、goalは継続中です。

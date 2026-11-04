@@ -2,15 +2,17 @@
 
 [日本語](known-differences.ja.md) · [README](../README.md) · [FAQ](faq.md)
 
-This describes the current 1772-test suite and the pinned Accellera UVM
+This describes the current 1801-test suite and the pinned Accellera UVM
 2020.3.1 library. A mismatch is a test result; it does not by itself assign
 the cause to the simulator, the library or the expectation.
 
-Fifty-two elaboration fixtures expect rejection: twenty-eight direct abstract
-constructions and twenty-four pure-interface/const-reference/forbidden-member/type-context
-violations. Fifty match. Subscriber and visitor omissions remain accepted and spec-only without
-runtime. These two compiler acceptances are separate from 228 known simulation
-differences. Selected component-family and recording-base construction probes and the forbidden member access reject correctly.
+Fifty-five elaboration fixtures expect rejection: twenty-nine direct abstract
+constructions and twenty-six pure-interface/const-reference/forbidden-member/
+type-context violations. Fifty-two match. Subscriber/visitor omissions and direct
+construction of the printed virtual builtin dispatcher remain accepted and
+spec-only without runtime. These three compiler acceptances are separate from
+230 known simulation differences. Legal derived controls do not replace a
+required rejection.
 
 The new [inherited-kind presence probe](../tests/u18/test_block_has_hdl_path_uses_nearest_explicit_ancestor_kind_without_changing_explicit_queries.sv)
 retains a seed-1 difference without seed 73: child and descendant keep their
@@ -82,6 +84,18 @@ shared accesses and one child-block shape; see the
 Further limitations and observations were identified during M1, M2 and M3.
 Where a test directly checks a required behavior that is missing, its
 normative expectation is retained with `:oracle: spec`.
+
+- Two builtin constructor fixtures differ at seed 1 without seed 73:
+  [single-memory access](../tests/uE/test_builtin_mem_single_access_seq_constructor_types_target.sv)
+  and [single-memory walk](../tests/uE/test_builtin_mem_single_walk_seq_constructor_types_target.sv).
+  Omitted names differ from the listed constructor defaults; explicit names,
+  ancestry and target-storage observations are separate controls. The normative
+  default strings remain unchanged. The observed names are
+  `uam_mem_single_access_seq` and `uvm_mem_walk_seq`, respectively.
+- [Direct builtin-dispatcher construction](../tests/uE/test_builtin_dispatcher_virtual_class_rejects_direct_construction.sv)
+  is accepted despite the printed virtual declaration. No runtime is executed.
+  Matching legal concrete extensions assess constructor/inheritance/model/mask
+  conditions only and do not pass the rejection fixture.
 
 - The [positive-time relevance-bound fixture](../tests/u15/test_sequencer_zero_time_relevance_limit_set_at_positive_time.sv)
   sets three at time three before its first zero-time relevance burst, but the
@@ -662,7 +676,7 @@ cannot build because the pinned library also declares unlisted pure helpers.
 The missing-standard-hook negative supplies original compatibility bodies only
 to isolate the specified rejection. It does not repair that legal extension.
 
-Across the suite, 1542 tests have the `verilator@5.052` oracle tag and 230
+Across the suite, 1568 tests have the `verilator@5.052` oracle tag and 233
 cases are spec-only. One of the spec-only cases checks 9.6: a child's pre-reset
 task must be killed when that phase ends, but the pinned-library run on Verilator 5.052
 lets the child perform its delayed write during a later phase. The cause of
@@ -674,10 +688,10 @@ without callbacks. The pinned Verilator run reaches the blocked-state
 observation, then its watchdog expires. This combined simulator/library
 cause remains unassigned; the normative wakeup expectation is retained.
 
-The 230 spec-only tests retain their normative expected files.
-Default Verilator runs and CI select 1542 tagged checks (1492 runtime, 50 compile rejection). `--all` includes
+The 233 spec-only tests retain their normative expected files.
+Default Verilator runs and CI select 1568 tagged checks (1516 runtime, 52 compile rejection). `--all` includes
 spec-only cases and records mismatches or build failures as `known`.
-The ordinary runtime records for 171 cases establish their first difference
+The ordinary runtime records for 173 cases establish their first difference
 at seed 1, without seed 73 results. Twenty missing-API/type-name builds have
 no ordinary runtime: one time API, six sequence-library cases, four HDL slice
 cases, one named-concat constructor, one object active-policy API, three catcher
@@ -753,7 +767,7 @@ The printed create_object equivalent call's extra this argument remains partial.
 
 ## Spec-only tests
 
-These are the 230 current spec-only cases. Several exercise the same
+These are the 233 current spec-only cases. Several exercise the same
 limitation, so their count is not a count of distinct bugs.
 
 - [Inherited subscriber type_id specialization](../tests/u08/test_builtin_abstract_parameterized_components_type_id_uses_the_required_registry_specialization.sv).
@@ -1041,7 +1055,7 @@ Additional message-handle and endian cases:
 
 Two existing inputs have revised fingerprints: the command-enum citation and
 the corrected Boolean rerandomization observation. Their historical guest
-records are excluded. The compatible subset has 1083 records and 689 inputs
+records are excluded. The compatible subset has 1083 records and 718 inputs
 are unmeasured, including both revised inputs. This filtering is evidence scope,
 not a new guest failure, pass or simulator improvement.
 
@@ -1076,8 +1090,8 @@ not a new guest failure, pass or simulator improvement.
 
 ## Simulator and library combinations
 
-The suite has 1772 cases, but the kirimasim/Ghost records below cover only
-1083 unchanged current-input cases. The 689 inputs are unmeasured
+The suite has 1801 cases, but the kirimasim/Ghost records below cover only
+1083 unchanged current-input cases. The 718 inputs are unmeasured
 because prior temporary executable/profile snapshots are unavailable. Do
 not treat this as a fresh full-suite guest result. See [results](results.md).
 

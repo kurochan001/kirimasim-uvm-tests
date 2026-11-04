@@ -1284,3 +1284,11 @@ simulation time are observed separately from any private counter implementation.
 **Pipelined transaction completion** — A modeled completion mark later than
 the sequence-item acknowledgement. A sequence can wait on the item-pool end
 event after finish_item returns.
+
+**Builtin-sequence target slot** — The model, register or memory handle
+that selects the target of a predefined register/memory test sequence. Storage
+identity checks and actual target execution require distinct observations.
+
+**Live child-sequence slot** — A wrapper's protected reference to the child
+currently executing selected work. A routing probe can compare the live handle
+without assuming its initial value, allocation count or post-body retention.

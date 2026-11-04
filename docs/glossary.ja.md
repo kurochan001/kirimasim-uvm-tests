@@ -977,3 +977,9 @@ callback回数と実simulation時刻をprivate counter実装と分けて観測�
 
 **Pipelined transaction completion（pipeline transactionの完了）** — sequence-item ackより後のモデル化した完了markです。
 sequenceはfinish_itemの復帰後、item-pool end eventを待つことができます。
+
+**Builtin-sequence target slot（組み込みsequenceの対象slot）** — 定義済みregister／memory test sequenceの対象を選ぶmodel／register／memory handleです。
+storage同一性の検査と実際の対象実行には異なる観測が必要です。
+
+**Live child-sequence slot（実行中child-sequence slot）** — 選択処理を実行中のchildへのwrapperのprotected参照です。
+経路probeは初期値、割当回数、body後の保持を仮定せず、実行中handleを照合できます。

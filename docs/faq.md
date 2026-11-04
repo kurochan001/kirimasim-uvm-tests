@@ -135,7 +135,7 @@ See [Ghost setup](testing.md#ghost).
 
 It removes `UVM_NO_DPI` from the default macro list. It does not supply or link
 UVM's C/C++ implementation. The current Verilator runner does not add those
-sources. There are 1743 `UVM_NO_DPI` cases and eleven explicit HDL-DPI cases.
+sources. There are 1772 `UVM_NO_DPI` cases and eleven explicit HDL-DPI cases.
 Eighteen more fixtures explicitly enable command-line/regex DPI with HDL disabled.
 The [command-line runner](testing.md#verilator-command-line-subset) links that separate backend.
 The [separate VPI runner](testing.md#verilator-vpi-hdl-subset) links the original
@@ -1143,9 +1143,9 @@ not a direct test of the requirement.
 
 ### Q77. Why is there no coverage percentage after starting M4?
 
-The 3110 AI drafts cover only a partial decomposition: 3110 requirements link
-directly to 1771 tests; all drafts have direct tests, and one separate test is a control.
-All 1772 tests have requirement links. The 2,507 clause identifiers are not normative requirement units.
+The 3172 AI drafts cover only a partial decomposition: 3172 requirements link
+directly to 1800 tests; all drafts have direct tests, and one separate test is a control.
+All 1801 tests have requirement links. The 2,507 clause identifiers are not normative requirement units.
 The scope is proposed, the inventory incomplete and the denominator unapproved;
 starting M4 approves none of those. Known differences and HDL/DPI limitations
 do not silently exclude obligations. See the [approval path](requirements.md#remaining-m4-work-and-approval).
@@ -2145,7 +2145,7 @@ No. `tests_without_requirement_links` is zero: every current test has an
 explicit direct or control link. The separate counter
 `requirements_without_direct_tests` is zero. The memory-walk link uses the
 qualified historical interpretation in Q134. It is not approval of missing
-IEEE detail. HDL deposit and accessibility use explicit VPI fixtures. Another 460
+IEEE detail. HDL deposit and accessibility use explicit VPI fixtures. Another 383
 catalog identifiers remain unassessed; decomposition and human review are
 incomplete, and the denominator remains unapproved.
 
@@ -2247,7 +2247,7 @@ in [identifier assessments](../coverage/assessments.json). Structural headings
 have no related requirements; contextual descriptions name existing requirements.
 An unreviewed record, guessed classification or parent rollup cannot do this.
 The generated state is `assessed`, separate from `partial` requirement clauses.
-357 classifications currently exist, with no denominator approval or new pass.
+377 classifications currently exist, with no denominator approval or new pass.
 Chapter 11's zero unassessed identifiers still does not complete its requirements.
 
 ### Q136. Does explicit strict configuration make the new cases pass?
@@ -2934,7 +2934,7 @@ the unassessed count or approve an exclusion. All earlier requirements remain.
 Two inputs have new fingerprints: the command enum citation and the Boolean
 rerandomization observation. Both were measured on Verilator; their stale guest
 records are excluded. The historical 1085-record source files remain intact.
-Current reuse covers 1083 inputs, with 689 unmeasured: 687 additions and two
+Current reuse covers 1083 inputs, with 718 unmeasured: 716 additions and two
 revised old inputs. No guest rerun or new result is claimed.
 
 ### Q194. May a predicate implementation delegate to another virtual query?
@@ -2995,12 +2995,12 @@ and stale patterns are rejected. Validation does not consume compiler results.
 Individual requirement reviews may add direct anchors while preserving existing
 links and identifying those changes explicitly.
 
-### Q201. Did all 1772 tests run at two seeds?
+### Q201. Did all 1801 tests run at two seeds?
 
-No. There are 1720 simulation and 52 elaboration fixtures. Ordinary evidence
-has 1492 two-seed runtime matches, 50 expected compiler rejections, 228 known
-simulation differences and two known illegal compile acceptances. None of the
-52 illegal designs executes a runtime seed, even when compilation accepts it.
+No. There are 1746 simulation and 55 elaboration fixtures. Ordinary evidence
+has 1516 two-seed runtime matches, 52 expected compiler rejections, 230 known
+simulation differences and three known illegal compile acceptances. None of the
+55 illegal designs executes a runtime seed, even when compilation accepts it.
 
 ### Q202. What do the older legal controls establish?
 
@@ -3065,7 +3065,7 @@ already-exceeded scope does not depend on equality. See [known differences](know
 ### Q209. Does zero unassessed in chapter 6 complete reporting or M1–M4?
 
 No. Chapter 6 has 98 partial and 19 assessed identifiers. Selected print probes
-do not finish its remaining conditions. Overall 460 identifiers remain
+do not finish its remaining conditions. Overall 383 identifiers remain
 unassessed. Printer subclause 16.2 retains the table-format overview; chapter 16
 has 3 unassessed identifiers in the broader policies. Scope and denominator
 are unapproved; zero link queues do not complete the goal.
@@ -3207,7 +3207,7 @@ live in uD. Their functional subject is the register layer, so the six named
 access fixtures count as M3. Chapter-based census and milestone grouping are
 different views of the same tests. Annex D has zero unassessed identifiers but
 39 partial ones. Its conditions and the original M1–M4 targets remain open;
-overall, 460 identifiers remain unassessed.
+overall, 383 identifiers remain unassessed.
 
 ### Q225. Does block coverage metadata measure covergroups?
 
@@ -3278,7 +3278,7 @@ new direct-delegate matrices have eight function and thirteen task rows, but
 are two shared fixtures. Timing, traversal and domain controls add selected
 conditions; all graph shapes, active synchronization mutation, invalid jumps,
 inheritance variants and task cleanup remain audits. Existing signature/prose
-conflicts and known lifetime differences are retained. Overall 460 identifiers
+conflicts and known lifetime differences are retained. Overall 383 identifiers
 remain unassessed and the original M1–M4 goal remains active.
 
 ### Q233. Which timeout clause is used when the run-phase cross-reference differs?
@@ -3388,3 +3388,25 @@ No. The existing subtype already names its own exact type in the required macro.
 Its empty static-membership difference remains, along with the other unchanged
 macro cases. A new requirement link is not a new execution result, and no extra
 implementation initialization helper is added. See [requirements](requirements.md).
+
+### Q246. Do matching legal builtin extensions pass all constructor/declaration checks?
+
+No. Two single-memory constructors retain different omitted names, and direct
+construction of the printed virtual dispatcher is illegally accepted without
+runtime. Legal extensions and explicit names are separate controls. The initial
+sibling-handle C++ build is replaced by a measured common-base-view control,
+not counted as a UVM difference. See [known differences](known-differences.md).
+
+### Q247. Is a live child-slot probe a builtin access-algorithm test?
+
+It checks that the wrapper's executing child is the declared protected slot and
+receives the selected targets. Original factory-child bodies audit routing only.
+They do not prove the actual bit-bash/access/walk algorithm or sibling order.
+The derived accessors are fixture helpers, not new UVM APIs. See [testing](testing.md).
+
+### Q248. Does zero unassessed in annex E complete register test sequences?
+
+No. It has 74 partial and 20 assessed identifiers, with 114 AI drafts. Physical
+reset/access, historical walking-ones interpretation and further skip/error/
+abort/concurrency conditions remain. Overall 383 identifiers are unassessed;
+all original M1–M4 targets remain open. See [requirements](requirements.md).
