@@ -2,7 +2,7 @@
 
 [English](history.md) · [README](../README.ja.md)
 
-M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の62回目の拡充（全1858件：simulation 1798・elaboration 60）までを記録しています。以前の349件の時点は
+M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の63回目の拡充（全1895件：simulation 1835・elaboration 60）までを記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -2502,3 +2502,42 @@ typed helper欠落build 3件とruntime差分3件はspec-onlyに残し、recent-s
 guest未測定775（simulation 715／elaboration 60）は追加773件と修正した元入力2件です。最終sourceは規格oracleを保持し、
 初期補助引用を修正し、全tag／detail変更を再測定します。library整合性、tool test 110件、metadata、台帳／索引、生の観測／evidence、日英資料検査は成功です。
 GPL／LGPLシミュレータ実装や商用結果は利用しません。goalは有効で、34反復により未評価は1463から315へ1148減少し、人の承認や完了は主張しません。
+
+## 薄い領域の63回目の拡充：memory mapとspecial-register FIFO
+
+[b95b8a8](https://github.com/kurochan001/kirimasim-uvm-tests/commit/b95b8a891128bdcf2c7639a820d1edd428873b2c)を基に2026-11-05 JSTに実施しました。M3の37入力を追加し、19件が両seed runtime一致、18件がseed 1だけのruntime差分です。
+25件は記載APIを使い、独立した通常register bus controlを含みます。追加のcontrol専用12入力は固定FIFOの記載外build methodで初期化し、
+別の索引指紋と期待観測を持ちます。初期化controlは7件一致・5件差分です。control結果で直接要求のconstructor／configureだけの前提をpassにしません。
+
+memory address既定値は唯一の所属mapまたは共有時のparent既定mapを選びます。無関係mapのaddress／offset／address-array warningは一致し、
+−1とcaller array未変更も検査します。rights照会はRWを返しますが必要なwarningを生成しません。独自遅延backdoor readは外部の隣接word変更を観測します。
+memory／indirect／FIFO builtinのfactory例外は合法登録拡張controlを保持し、indirectの省略／明示constructorとregister-base write／read経路は一致します。
+
+constructor／configureだけのFIFO 12入力は、set／predict、転送／update、compare／mirrorの観測完了前に内部fieldのnullで停止します。
+期待値確定後の原因調査で、固定Apache-2.0 UVMの記載外build初期化を確認しました。明示的な前提／解釈の境界であり、IEEE前提を作ったり独立library不具合を証明したりしません。
+別途初期化したcontrolは選択algorithmへ到達し、set／full、write／read prediction、比較gate 4組、compare省略既定値は一致します。
+直接writeは外部FIFO setなしでもNeeds Updateで拒否され、外部観測はbus writeなしにabstract状態を重複します。
+updateはpreload 2個を4 entry／転送へ重複し、反復updateも4 entryを保持します。公開FIFO／DUTが一致するchecked pairは両queueをpopしても、
+内部0 mirrorとの差分を報告します。公開queueの期待は限定した解釈で、レビューに残します。
+
+最終write controlは拒否write後に戻り、後続の空の独自DUTへのreadを避けます。規格由来期待は未変更です。
+分離した宣言helper directory 2個で以前の1858入力同一性を保持します。source／metadata preflight修正は検査系の作業でUVM差分ではありません。
+他の以前の通常／compiler／guest／backend記録は未変更で、guest再実行や完了は主張しません。
+
+memory／indirect／FIFO監査はAI義務45件と、個別に読んだMethods構造見出し1件を追加します。
+18.6〜18.8の以前の未評価15番号を部分分解14件とその分類へ対応します。第18章は部分312／分類43／未評価101、案651件、主引用369テストです。
+この3節の未評価番号は0ですが、残る契約と元のmilestone目標は未完です。
+
+新37入力は直接／reference probe 25件と、初期化を明示した固定libraryのcontrol専用12件です。control linkで記載API前提を置換しません。
+全体では直接対応1882テスト、control専用13テスト、control linkあり56テストです。独立した通常register転送、constructor-only FIFO停止、
+初期化後のalgorithm観測を、別々の証拠と適用条件で保持します。
+
+全体は部分1819／分類388／未評価300（構造266／文脈122）です。以前の全3262要求・387分類・1858索引入力／通常記録・60 compiler記録は未変更です。
+build controlで既知差分をpassへ変更せず、どの状態も提案範囲、分母、人のレビュー、完了を承認しません。
+
+最終スイートは1895（simulation 1835／elaboration 60）、M1 766（719／47）、M2 547（542／5）、M3 582（574／8）です。
+通常はpass 1621（両seed runtime 1564／期待compiler拒否57）、known 274（seed 1 runtime 206、合法build 65、不正生成受理3）です。
+以前の通常1858入力／記録とcompiler 60記録、guest 1083記録、HDL 11記録、command-line 18記録は未変更です。
+guest未測定812（simulation 752／elaboration 60）は追加810件と修正した元入力2件です。新初期化12入力はcontrol linkだけを持ち、
+control専用は全13入力、control linkありは56テストで、未対応入力はありません。library整合性、tool test 110件、metadata／台帳／索引、
+生の観測／evidence、日英資料検査は成功です。有効goalの35反復で初期未評価1463番号から300へ1163減少し、完了、人のレビュー、分母承認は主張しません。

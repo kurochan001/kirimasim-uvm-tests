@@ -94,6 +94,13 @@ GPL/LGPL simulator implementation source is not read. Private simulator
 identity, version, profile and paths are not published. The
 [testing guide](testing.md#rights-and-sources) records these contribution rules.
 
+FIFO expectations were written from IEEE before measurement. The locked
+Apache-2.0 UVM was then read only to diagnose null-field stops and its additional
+build initializer. Two original helper variants keep listed-API and explicitly
+initialized conditions separate. The extra call supplies a control premise;
+its implementation does not define any expected FIFO algorithm or replace a
+direct duty. No GPL/LGPL simulator implementation source is used.
+
 ## Clause catalog maintenance
 
 The identifier-only [clause catalog](../tools/clauses_1800_2.txt) now includes

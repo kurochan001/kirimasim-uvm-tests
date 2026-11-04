@@ -1309,3 +1309,11 @@ from untyped selection and an original testbench filter.
 **Recent-set resource sort** — The separate equal-precedence sort rule whose
 most-recently-set wording is interpreted explicitly by a probe. It does not
 replace first-maximum tie selection or silently establish stable queue order.
+
+**FIFO preload / DUT transfer** — set prepares the abstract FIFO; update
+transfers newly preloaded data before intervening blocking statements. Direct
+write/read and auto/external prediction are separate routes and observations.
+
+**FIFO constructor premise / build control** — A listed-API input and a
+separately indexed pinned-library initialization variant. A passing control
+does not pass the original premise or turn an unlisted method into an IEEE duty.

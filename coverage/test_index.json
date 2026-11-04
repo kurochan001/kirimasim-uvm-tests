@@ -4678,9 +4678,21 @@
       "primary_clause": "18.5.5.9",
       "inputs_sha256": "0c467662747787501ff8b58bf894cbfa20c0e0a1f52ab0686b76a5570fcd2638"
     },
+    "u18/test_fifo_builtin_factory_exception_preserves_a_legally_registered_extension": {
+      "primary_clause": "18.8",
+      "inputs_sha256": "392e56aed5d1bc191ed88c65b0935806e933fa3fac39fc349ef1cc5a6b80c96b"
+    },
     "u18/test_flattened_regfile_omits_its_name_from_full_paths_for_each_selected_abstraction": {
       "primary_clause": "18.3.2.2",
       "inputs_sha256": "7719d721eb17a245947ce5410ea68fb8b084274f6007ffe98c20f495b3d39076"
+    },
+    "u18/test_indirect_builtin_factory_exception_preserves_a_legally_registered_extension": {
+      "primary_clause": "18.7",
+      "inputs_sha256": "9bfde454f6da11a26e5e812f19e0c2a9c5fb4609de4fdeb0ba6e43f86c80992a"
+    },
+    "u18/test_indirect_register_base_view_routes_selected_real_writes_and_reads": {
+      "primary_clause": "18.7",
+      "inputs_sha256": "23be3ef820237f056a0e46fbce2ceb6b8c2a8ec612ab84bd34abbeb4395a70ff"
     },
     "u18/test_indirect_register_failed_data_read_keeps_prediction_until_a_successful_retry": {
       "primary_clause": "18.7.2.2",
@@ -4713,6 +4725,10 @@
     "u18/test_indirect_register_write_updates_only_the_index_selected_array_element": {
       "primary_clause": "18.7.2.2",
       "inputs_sha256": "266d1e5af393fb0bc8110082ddadbd2d862756320e9abf9b9b5d8536ca5c0637"
+    },
+    "u18/test_indirect_super_constructor_names_and_widths_preserve_register_ancestry": {
+      "primary_clause": "18.7.2.1",
+      "inputs_sha256": "58dbb5c5101141b1bf1d46c0ad3540ac9e533bc5c88a6865b5393d9a522dca09"
     },
     "u18/test_map_address_units_distinguish_bytes_and_the_printed_default_effective_word_width": {
       "primary_clause": "18.2.4.5",
@@ -4902,6 +4918,22 @@
       "primary_clause": "18.6.4.17",
       "inputs_sha256": "7c4ca6301406a8b736a97dc883bf486fc34cc05f65870dea775d5fd47fce5cc3"
     },
+    "u18/test_memory_address_omitted_map_selects_the_sole_member_despite_another_parent_default": {
+      "primary_clause": "18.6.4.16",
+      "inputs_sha256": "907fec404ddae45806fc1f6fa5a98b1a1d8136b0c91e81063d0a1173884efa1c"
+    },
+    "u18/test_memory_address_omitted_map_uses_the_parent_default_for_shared_storage": {
+      "primary_clause": "18.6.4.16",
+      "inputs_sha256": "15b5ec40002a74645a63597710acbf585e6d89fe0dcea1f2f91339787c609d9c"
+    },
+    "u18/test_memory_address_query_reports_a_warning_for_an_unrelated_map": {
+      "primary_clause": "18.6.4.16",
+      "inputs_sha256": "99784d40f88c4f04a58e03df6e8f3812dcecd89775df4885cc5ad68131443ad4"
+    },
+    "u18/test_memory_addresses_query_reports_a_warning_for_an_unrelated_map": {
+      "primary_clause": "18.6.4.17",
+      "inputs_sha256": "aa6a5984ca0c111b3e097b5007254176e4162b8465ec889ed1840cda3f592ecf"
+    },
     "u18/test_memory_backdoor_local_and_inherited_selection_drives_access_failure_and_retry": {
       "primary_clause": "18.6.7.1",
       "inputs_sha256": "d4a060181c7fa7be55237a248f523fa7298757921045e3be8db60dd7009a3bdc"
@@ -4917,6 +4949,10 @@
     "u18/test_memory_backdoor_write_public_call_is_a_legal_task_declaration": {
       "primary_clause": "18.6.7.11",
       "inputs_sha256": "1063d30e9c2cf44744ba4eaad1a33a7cf49c1c147e23562c7dd9d43f7483163f"
+    },
+    "u18/test_memory_builtin_factory_exception_preserves_a_legally_registered_extension": {
+      "primary_clause": "18.6",
+      "inputs_sha256": "bb0d704652d60ca9102fe30e218f6565b94b738b92a667c1ba62f336eb65a9e4"
     },
     "u18/test_memory_builtin_hdl_backdoor_tasks_read_and_write_selected_array_locations": {
       "primary_clause": "18.6.7.10",
@@ -5022,6 +5058,10 @@
       "primary_clause": "18.6.4.10",
       "inputs_sha256": "10a5769086e2e3918ae0309cc61b46f76d383eb0acc9b81a8dce6390ad127a61"
     },
+    "u18/test_memory_offset_query_reports_a_warning_for_an_unrelated_map": {
+      "primary_clause": "18.6.4.15",
+      "inputs_sha256": "adb1bac479f84dfee865958940e5d120c280a6fe06c6794d2b3c222e603d8412"
+    },
     "u18/test_memory_physical_rom_backdoor_write_and_poke_have_distinct_access_effects": {
       "primary_clause": "18.6.5.1",
       "inputs_sha256": "0a49010daec481a55ef4360dd7e225d6c977c411abc715bd1c7fba83fac4af8c"
@@ -5041,6 +5081,10 @@
     "u18/test_memory_public_allocation_manager_reserves_contiguous_locations_and_vreg_storage": {
       "primary_clause": "18.6.2",
       "inputs_sha256": "b6f2791aa6c95f8b95ff744808514b97e40c6c8d6c123b78cd5c5108b84cae79"
+    },
+    "u18/test_memory_reads_follow_external_storage_changes_at_distinct_contiguous_locations": {
+      "primary_clause": "18.6",
+      "inputs_sha256": "c6052fc5b476672c2bde714a6291f619e66654919d1ff41667d594b3045fd71e"
     },
     "u18/test_memory_region_burst_read_delegates_relative_offsets_context_data_and_status": {
       "primary_clause": "18.12.7.2.11",
@@ -5082,6 +5126,10 @@
       "primary_clause": "18.12.7.2.1",
       "inputs_sha256": "ff49ffddf46b612b0b25e2b8382ee57bb6e14890c1db668f5c0beb43745af5c0"
     },
+    "u18/test_memory_rights_query_reports_a_warning_for_an_unrelated_map": {
+      "primary_clause": "18.6.4.5",
+      "inputs_sha256": "4d77ca83d19e4708f046660a152fbad0634b59f1aedbf4f70b6ce4da648138ba"
+    },
     "u18/test_memory_virtual_name_lookup_preserves_handles_and_isolates_other_memories": {
       "primary_clause": "18.6.4.13",
       "inputs_sha256": "7740101afd780fe0d184cd6a28fc32cacdd318ab7a9aa42ab42bea62e08868d4"
@@ -5089,6 +5137,54 @@
     "u18/test_memory_virtual_register_and_field_queues_enumerate_only_local_implementations": {
       "primary_clause": "18.6.4.11",
       "inputs_sha256": "30bbfe3634717cf6cfecf0a111eec18fe3b15a74432b3abb6f5adcf1851e359c"
+    },
+    "u18/test_pinned_fifo_build_control_auto_predicted_transfer": {
+      "primary_clause": "18.8.5.3",
+      "inputs_sha256": "efc7c38057ffab5f817ee31e0c884b7cbdf582be2f193bad495d9ed7f7aebacb"
+    },
+    "u18/test_pinned_fifo_build_control_compare_default": {
+      "primary_clause": "18.8.3.2",
+      "inputs_sha256": "7c310109a67075ec41230d1aa93c2bd7a960357909060fac3e7de8af6fad80e0"
+    },
+    "u18/test_pinned_fifo_build_control_external_predictor_observation": {
+      "primary_clause": "18.8.5.3",
+      "inputs_sha256": "cc9bde35674726f2392556541c2f7b7659dc819a29c90024990561fd5d91388e"
+    },
+    "u18/test_pinned_fifo_build_control_matching_checked_mirror": {
+      "primary_clause": "18.8.5.6",
+      "inputs_sha256": "43335284beb13f765a39a3a58d24d2b608a4dcce8f4a840f5c9cdda4aad21e29"
+    },
+    "u18/test_pinned_fifo_build_control_mirror_check_with_compare_disabled": {
+      "primary_clause": "18.8.5.6",
+      "inputs_sha256": "c890db127098267d9abb080e125ba5632e0209d24b4273b3b883485c7b3661a4"
+    },
+    "u18/test_pinned_fifo_build_control_mirror_check_with_compare_enabled": {
+      "primary_clause": "18.8.5.6",
+      "inputs_sha256": "f4b9315b624f314a915a130b61d3245d0ddfbea27af4ed6a36ac4b1dbc7ff5f1"
+    },
+    "u18/test_pinned_fifo_build_control_mirror_no_check_with_compare_disabled": {
+      "primary_clause": "18.8.5.6",
+      "inputs_sha256": "77718b610d75bc94591c981ae83a7adec5493c7548fd51aaee885ab24ab03c67"
+    },
+    "u18/test_pinned_fifo_build_control_mirror_no_check_with_compare_enabled": {
+      "primary_clause": "18.8.5.6",
+      "inputs_sha256": "8d093ab52719911e9a293ff355d9e84e77eae0572b016c393e8a06cfce108c2e"
+    },
+    "u18/test_pinned_fifo_build_control_preloaded_update": {
+      "primary_clause": "18.8.5.5",
+      "inputs_sha256": "ad80b1c13ce09e2c115ca6da34161eab181c3aa2df884a844bdce69cfb33e48b"
+    },
+    "u18/test_pinned_fifo_build_control_repeated_update": {
+      "primary_clause": "18.8.5.5",
+      "inputs_sha256": "bd1ff0bcb0893ca0a863c4a74cfd8b444e157364a56d5d1880bd8927d65b0838"
+    },
+    "u18/test_pinned_fifo_build_control_set_preload_full_ignore": {
+      "primary_clause": "18.8.5.2",
+      "inputs_sha256": "7db5d26535c4767fc6ec5a73f8f6eac3492f3c146430b0a4dd1cfffa3112915b"
+    },
+    "u18/test_pinned_fifo_build_control_write_and_read_prediction": {
+      "primary_clause": "18.8.5.7",
+      "inputs_sha256": "4e50f4adb94908a8457a23956e1db990f27be8fe6ff6eff0a17d0311a5867807"
     },
     "u18/test_reg_block_default_map_selection_and_recursive_model_lock": {
       "primary_clause": "18.1.2.5",
@@ -5529,6 +5625,58 @@
     "u18/test_register_constructor_keeps_default_names_partial_bit_widths_and_available_coverage": {
       "primary_clause": "18.4.2.1",
       "inputs_sha256": "36d734fa835ab05d79d5f3d06e4519125ce6c02629ec3069b3312978be260201"
+    },
+    "u18/test_register_fifo_auto_predicted_frontdoor_write_and_read_use_the_original_dut_queue": {
+      "primary_clause": "18.8.5.3",
+      "inputs_sha256": "be7375d0173b400490115adef40e92c12e92499c44eb9d500c2dbc511b5abb50"
+    },
+    "u18/test_register_fifo_checked_matching_mirror_pops_the_predicted_front": {
+      "primary_clause": "18.8.5.6",
+      "inputs_sha256": "de9f8905f1266c0e0bc1da3f35c06dc856987067fee6d42d17a28c8a740b0a6e"
+    },
+    "u18/test_register_fifo_external_predictor_adds_a_write_only_after_observation": {
+      "primary_clause": "18.8.5.3",
+      "inputs_sha256": "e5e84b7360398a865cc0ea0442f3136921f9430f222d50ad0f8cb644345317b0"
+    },
+    "u18/test_register_fifo_mirror_check_with_compare_disabled": {
+      "primary_clause": "18.8.5.6",
+      "inputs_sha256": "62508ebd215d448f636d77b3b8c3cd53d5f1b654b384513c884f8c98c9698e05"
+    },
+    "u18/test_register_fifo_mirror_check_with_compare_enabled": {
+      "primary_clause": "18.8.5.6",
+      "inputs_sha256": "2025afb6bbbf4e1a2540ffaa80703fe7d99eb8d1c95646a68fdbab2068308df0"
+    },
+    "u18/test_register_fifo_mirror_no_check_with_compare_disabled": {
+      "primary_clause": "18.8.5.6",
+      "inputs_sha256": "ed3ab903178381487fdc8cf66b027dbf2a088d49127c205fe29c16316fc47db9"
+    },
+    "u18/test_register_fifo_mirror_no_check_with_compare_enabled": {
+      "primary_clause": "18.8.5.6",
+      "inputs_sha256": "aec555ded3cf1d80d15d178400fa46cd191973d3cacb1790b79a5e5c2405d158"
+    },
+    "u18/test_register_fifo_original_bus_control_transfers_a_normal_reference_register": {
+      "primary_clause": "18.4.4.9",
+      "inputs_sha256": "a11a45f7cd2a5558bd8aedaa3ffcfc20d82558e202de4c5b7d097c10f36b69eb"
+    },
+    "u18/test_register_fifo_predict_updates_the_abstract_queue_for_selected_write_and_read_kinds": {
+      "primary_clause": "18.8.5.7",
+      "inputs_sha256": "c92b31f1cb2a09c1dcef21e8c4e59d367b5c07a35f4c375f5fa9be40936e8c6c"
+    },
+    "u18/test_register_fifo_repeated_update_writes_only_the_new_preload": {
+      "primary_clause": "18.8.5.5",
+      "inputs_sha256": "ccf680f18ede1da96f4ab3ed26aeb00b3fa62bfb1aab66d3335978792dc35a8e"
+    },
+    "u18/test_register_fifo_set_compare_omission_enables_checked_mismatch_reporting": {
+      "primary_clause": "18.8.3.2",
+      "inputs_sha256": "1de99534bd18fce3e7104ee31610937325a394b336e1dfb0ede2677f42c0000b"
+    },
+    "u18/test_register_fifo_set_preloads_in_order_and_ignores_a_full_abstract_queue": {
+      "primary_clause": "18.8.5.2",
+      "inputs_sha256": "972677826cc50a68ae9dce1828aff095cdb1dd9cc3e047528651d659831c664b"
+    },
+    "u18/test_register_fifo_update_transfers_each_preloaded_value_without_duplicate_prediction": {
+      "primary_clause": "18.8.5.5",
+      "inputs_sha256": "fff137191f7e1f5fe8a5bd49e02ed68d0cecc7357d07f881a330c0a75253c54c"
     },
     "u18/test_register_get_fields_orders_gapped_fields_by_bit_position_and_excludes_peer_handles": {
       "primary_clause": "18.4.3.11",

@@ -3,8 +3,8 @@
 [日本語](history.ja.md) · [README](../README.md)
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and sixty-two cross-milestone thin-area expansions, including the
-existing-test requirement-link backlog checkpoint (1858 tests: 1798 simulation and 60 elaboration). The earlier 349-test checkpoint is
+three M4 increments and sixty-three cross-milestone thin-area expansions, including the
+existing-test requirement-link backlog checkpoint (1895 tests: 1835 simulation and 60 elaboration). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -3895,3 +3895,76 @@ Library integrity, 110 tool tests, metadata, ledger/index, raw/evidence and
 paired documentation checks pass. No GPL/LGPL simulator implementation or
 commercial result is used. The goal remains active: iteration 34 reduces
 unassessed from 1463 to 315 (1148), without human approval or completion.
+
+## Sixty-third thin-area expansion: memory maps and special-register FIFOs
+
+Based on [b95b8a8](https://github.com/kurochan001/kirimasim-uvm-tests/commit/b95b8a891128bdcf2c7639a820d1edd428873b2c); 2026-11-05 JST. Thirty-seven M3 inputs add nineteen two-seed runtime matches and eighteen
+seed-1 runtime differences without seed 73. Twenty-five use the listed APIs,
+including an independent ordinary-register bus control; twelve additional
+control-only inputs explicitly initialize the pinned FIFO with its unlisted
+build method. They have separately indexed fingerprints and expected observations.
+Seven initialized controls match; five retain differences. No control result
+passes the constructor/configure-only premise of a direct requirement.
+
+Memory address defaults select the sole member or shared parent-default map.
+Unrelated-map address/offset/address-array warnings match, including minus-one
+and unchanged caller-array duties. The rights query returns RW but generates
+no required warning. Original delayed backdoor reads see external adjacent-word
+changes. Memory/indirect/FIFO builtin factory exceptions retain legal registered
+extension controls; indirect omitted/explicit constructors and register-base
+write/read routing match.
+
+Twelve constructor/configure-only FIFO inputs stop on a null internal field
+before completing set/predict, transfer/update or compare/mirror observations.
+After expectations were fixed, diagnosis in the pinned Apache-2.0 UVM identified
+its unlisted build initializer. This is an explicit premise/interpretation
+boundary, not an invented IEEE prerequisite or proof of independent library bugs.
+The separately initialized controls reach the selected algorithms: set/full,
+write/read prediction, the four comparison gates and omitted compare default
+match. Direct write is rejected with Needs Update despite no external FIFO set;
+external observation then duplicates abstract state without a bus write. Update
+duplicates the two preloads into four entries/transfers; repeated update also
+retains four entries. A checked matching public FIFO/DUT pair pops both queues
+but reports an internal zero-mirror mismatch. The public-queue expectation is
+qualified and remains open for review.
+
+The final write control returns after its rejected write, avoiding a cascading
+empty-original-DUT read. Its standard-derived expectation remains unchanged.
+Two isolated declared helper directories preserve the original 1858 input
+identities. Source/metadata preflight corrections are fixture work, not UVM
+differences. All other earlier ordinary/compiler/guest/backend records remain
+unchanged; no guest rerun or completion is claimed.
+
+Memory/indirect/FIFO auditing adds 45 AI duties and one individually read
+structural Methods heading. The fifteen previously unassessed identifiers in
+18.6–18.8 receive fourteen partial decompositions and that assessment. Chapter 18
+is 312 partial/43 assessed/101 unassessed with 651 drafts and 369 primary tests.
+These three subclauses have zero unassessed identifiers, with remaining contracts
+and the original milestone targets still open.
+
+Thirty-seven new inputs consist of 25 direct/reference probes and twelve
+explicitly initialized, pinned-library control-only variants. Their control
+links do not replace the listed-API premise. Across the suite, 1882 tests have
+direct links, thirteen have only controls and 56 have control links. Separate
+normal-register transfer, constructor-only FIFO stops and initialized algorithm
+observations preserve their distinct evidence and applicability.
+
+Overall is 1819 partial/388 assessed/300 unassessed (266 structural/122 contextual).
+All 3262 earlier requirements, 387 assessments, 1858 indexed inputs/ordinary
+records and 60 compiler records remain unchanged. No known difference is changed
+to a pass through the build control, and no state approves the proposed scope,
+denominator, human review or completion.
+
+The final suite is 1895 (1835 simulation/60 elaboration): M1 766 (719/47),
+M2 547 (542/5), M3 582 (574/8). Ordinary is 1621 pass (1564 runtime at both
+seeds/57 expected compiler rejections) and 274 known (206 seed-1 runtime,
+65 legal builds and three accepted illegal constructions). All prior 1858
+ordinary inputs/records and 60 compiler records remain unchanged, as do 1083
+guest, eleven HDL and eighteen command-line records. Guest-unmeasured is 812
+(752 simulation/60 elaboration): 810 additions and two revised original inputs.
+The twelve new initialized cases have only control links; thirteen total inputs
+are control-only, with 56 control-linked tests. No input is left unlinked.
+Library integrity, 110 tool tests, metadata/ledger/index, raw/evidence and paired
+documentation checks pass. The active goal reaches iteration 35: 1463 initial
+unassessed identifiers fall to 300, a decrease of 1163. No completion, human
+review or denominator approval is claimed.

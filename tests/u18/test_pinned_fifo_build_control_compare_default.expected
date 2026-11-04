@@ -1,0 +1,2 @@
+UT: fifo_bus_control status 1 stored 1 calls 1
+UT: fifo_compare_default mismatch_reported 1 physical_read 1

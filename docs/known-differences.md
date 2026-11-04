@@ -2,7 +2,7 @@
 
 [日本語](known-differences.ja.md) · [README](../README.md) · [FAQ](faq.md)
 
-This describes the current 1858-test suite and the pinned Accellera UVM
+This describes the current 1895-test suite and the pinned Accellera UVM
 2020.3.1 library. A mismatch is a test result; it does not by itself assign
 the cause to the simulator, the library or the expectation.
 
@@ -11,8 +11,45 @@ constructions and twenty-eight pure-interface/const-reference/forbidden-member/
 type-context violations. Fifty-seven match. Subscriber/visitor omissions and direct
 construction of the printed virtual builtin dispatcher remain accepted and
 spec-only without runtime. These three compiler acceptances are separate from
-253 known simulation differences. Legal derived controls do not replace a
+271 known simulation differences. Legal derived controls do not replace a
 required rejection.
+
+Memory/FIFO auditing retains eighteen new runtime differences at seed 1,
+without seed 73. Memory get_rights returns RW for an unrelated map but issues no
+required warning; its other selected map-warning controls match independently.
+Twelve listed-API constructor/configure-only FIFO inputs stop on null internal
+field access. Diagnosis in the pinned Apache library identifies an additional
+build initializer absent from the printed IEEE interface. This premise question
+is qualified and remains explicit; it is not settled by a control pass.
+
+Seven of twelve separately initialized controls match. Five retain direct-write,
+external-observation, preload/repeated-update and matching-mirror differences.
+Direct write produces no bus transfer despite updating abstract state. Preloaded
+update duplicates two entries into four transfers; repeated update retains four
+copies of its first entry. A matching public FIFO/DUT pair still reports a
+comparison against internal zero. That public-queue interpretation requires
+review; these eighteen inputs are not eighteen independently proven defects.
+The final rejected-write control avoids a cascading empty-DUT read without
+changing its expectation. All old known records remain unchanged.
+
+- [1](../tests/u18/test_memory_rights_query_reports_a_warning_for_an_unrelated_map.sv).
+- [2](../tests/u18/test_register_fifo_set_preloads_in_order_and_ignores_a_full_abstract_queue.sv).
+- [3](../tests/u18/test_register_fifo_predict_updates_the_abstract_queue_for_selected_write_and_read_kinds.sv).
+- [4](../tests/u18/test_register_fifo_auto_predicted_frontdoor_write_and_read_use_the_original_dut_queue.sv).
+- [5](../tests/u18/test_register_fifo_external_predictor_adds_a_write_only_after_observation.sv).
+- [6](../tests/u18/test_register_fifo_update_transfers_each_preloaded_value_without_duplicate_prediction.sv).
+- [7](../tests/u18/test_register_fifo_repeated_update_writes_only_the_new_preload.sv).
+- [8](../tests/u18/test_register_fifo_mirror_check_with_compare_enabled.sv).
+- [9](../tests/u18/test_register_fifo_mirror_check_with_compare_disabled.sv).
+- [10](../tests/u18/test_register_fifo_mirror_no_check_with_compare_enabled.sv).
+- [11](../tests/u18/test_register_fifo_mirror_no_check_with_compare_disabled.sv).
+- [12](../tests/u18/test_register_fifo_set_compare_omission_enables_checked_mismatch_reporting.sv).
+- [13](../tests/u18/test_register_fifo_checked_matching_mirror_pops_the_predicted_front.sv).
+- [14](../tests/u18/test_pinned_fifo_build_control_auto_predicted_transfer.sv).
+- [15](../tests/u18/test_pinned_fifo_build_control_external_predictor_observation.sv).
+- [16](../tests/u18/test_pinned_fifo_build_control_preloaded_update.sv).
+- [17](../tests/u18/test_pinned_fifo_build_control_repeated_update.sv).
+- [18](../tests/u18/test_pinned_fifo_build_control_matching_checked_mirror.sv).
 
 Annex-C probes retain six new known inputs. Three legal mixed-type/tie/default
 calls cannot find the printed typed resource-DB maximum helper. No runtime is
@@ -717,7 +754,7 @@ cannot build because the pinned library also declares unlisted pure helpers.
 The missing-standard-hook negative supplies original compatibility bodies only
 to isolate the specified rejection. It does not repair that legal extension.
 
-Across the suite, 1602 tests have the `verilator@5.052` oracle tag and 256
+Across the suite, 1621 tests have the `verilator@5.052` oracle tag and 274
 cases are spec-only. One of the spec-only cases checks 9.6: a child's pre-reset
 task must be killed when that phase ends, but the pinned-library run on Verilator 5.052
 lets the child perform its delayed write during a later phase. The cause of
@@ -729,10 +766,10 @@ without callbacks. The pinned Verilator run reaches the blocked-state
 observation, then its watchdog expires. This combined simulator/library
 cause remains unassigned; the normative wakeup expectation is retained.
 
-The 256 spec-only tests retain their normative expected files.
-Default Verilator runs and CI select 1602 tagged checks (1545 runtime, 57 compile rejection). `--all` includes
+The 274 spec-only tests retain their normative expected files.
+Default Verilator runs and CI select 1621 tagged checks (1564 runtime, 57 compile rejection). `--all` includes
 spec-only cases and records mismatches or build failures as `known`.
-The ordinary runtime records for 188 cases establish their first difference
+The ordinary runtime records for 206 cases establish their first difference
 at seed 1, without seed 73 results. Twenty-seven missing-API/type-name builds have
 no ordinary runtime: one time API, six sequence-library cases, four HDL slice
 cases, one named-concat constructor, five object active-policy API cases, three catcher
@@ -808,7 +845,7 @@ The printed create_object equivalent call's extra this argument remains partial.
 
 ## Spec-only tests
 
-These are the 256 current spec-only cases. Several exercise the same
+These are the 274 current spec-only cases. Several exercise the same
 limitation, so their count is not a count of distinct bugs.
 
 - [Inherited subscriber type_id specialization](../tests/u08/test_builtin_abstract_parameterized_components_type_id_uses_the_required_registry_specialization.sv).
@@ -1096,7 +1133,7 @@ Additional message-handle and endian cases:
 
 Two existing inputs have revised fingerprints: the command-enum citation and
 the corrected Boolean rerandomization observation. Their historical guest
-records are excluded. The compatible subset has 1083 records and 775 inputs
+records are excluded. The compatible subset has 1083 records and 812 inputs
 are unmeasured, including both revised inputs. This filtering is evidence scope,
 not a new guest failure, pass or simulator improvement.
 
@@ -1131,8 +1168,8 @@ not a new guest failure, pass or simulator improvement.
 
 ## Simulator and library combinations
 
-The suite has 1858 cases, but the kirimasim/Ghost records below cover only
-1083 unchanged current-input cases. The 775 inputs are unmeasured
+The suite has 1895 cases, but the kirimasim/Ghost records below cover only
+1083 unchanged current-input cases. The 812 inputs are unmeasured
 because prior temporary executable/profile snapshots are unavailable. Do
 not treat this as a fresh full-suite guest result. See [results](results.md).
 

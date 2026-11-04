@@ -1,0 +1,3 @@
+UT: fifo_bus_control status 1 stored 1 calls 1
+UT: fifo_external before_observation 1 dut_written 1
+UT: fifo_external after_observation 1 one_transfer 1

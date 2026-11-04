@@ -119228,6 +119228,1865 @@
           ]
         }
       ]
+    },
+    {
+      "id": "UVM-MEM-FIFO-AUDIT-MEM-ADDRESS-EXPLICIT",
+      "clause": "18.6.4.16",
+      "statement": {
+        "en": "A selected memory location has the explicit map base physical address.",
+        "ja": "選択memory locationは明示mapの基底物理addressを持つ。"
+      },
+      "conditions": {
+        "en": "Construct valid memory maps, configure the parent default explicitly and lock before querying; distinguish sole-member and shared-memory cases.",
+        "ja": "有効memory mapを構成し、parent既定値を明示設定しlock後に照会する。唯一所属と共有memoryを区別する。"
+      },
+      "expected": {
+        "en": "Location two is 0x124 in the selected 2-byte map.",
+        "ja": "選択2-byte mapでlocation 2は0x124となる。"
+      },
+      "limitations": {
+        "en": "Selected aligned byte-addressed maps and 16-bit memory words only. These are physical-address metadata, not HDL/DUT access. Virtual delegation, all endian/word-unit hierarchies, dynamic relocation and error recovery remain partial.",
+        "ja": "選択した整列byte-addressed mapと16-bit memory wordのみ。これは物理address metadataで、HDL／DUT accessではない。virtual委譲、全endian／word-unit階層、動的再配置、error後復旧は部分的に残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_address_omitted_map_selects_the_sole_member_despite_another_parent_default",
+          "role": "direct",
+          "expected_observations": [
+            "UT: memory_sole default_other 1 one_member 1 explicit 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEM-FIFO-AUDIT-MEM-ADDRESS-SOLE-DEFAULT",
+      "clause": "18.6.4.16",
+      "statement": {
+        "en": "An omitted map selects the sole memory member despite another parent default.",
+        "ja": "map省略時は別のparent既定値があってもmemoryの唯一の所属mapを選ぶ。"
+      },
+      "conditions": {
+        "en": "Construct valid memory maps, configure the parent default explicitly and lock before querying; distinguish sole-member and shared-memory cases.",
+        "ja": "有効memory mapを構成し、parent既定値を明示設定しlock後に照会する。唯一所属と共有memoryを区別する。"
+      },
+      "expected": {
+        "en": "The omitted-map location-two query retains 0x124.",
+        "ja": "map省略のlocation 2照会は0x124を保持する。"
+      },
+      "limitations": {
+        "en": "Selected aligned byte-addressed maps and 16-bit memory words only. These are physical-address metadata, not HDL/DUT access. Virtual delegation, all endian/word-unit hierarchies, dynamic relocation and error recovery remain partial.",
+        "ja": "選択した整列byte-addressed mapと16-bit memory wordのみ。これは物理address metadataで、HDL／DUT accessではない。virtual委譲、全endian／word-unit階層、動的再配置、error後復旧は部分的に残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_address_omitted_map_selects_the_sole_member_despite_another_parent_default",
+          "role": "direct",
+          "expected_observations": [
+            "UT: memory_sole omitted_location 1 omitted_offset 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEM-FIFO-AUDIT-MEM-ADDRESS-OFFSET-DEFAULT",
+      "clause": "18.6.4.16",
+      "statement": {
+        "en": "Omitting the memory address location argument selects zero.",
+        "ja": "memory addressのlocation引数省略時は0を選ぶ。"
+      },
+      "conditions": {
+        "en": "Construct valid memory maps, configure the parent default explicitly and lock before querying; distinguish sole-member and shared-memory cases.",
+        "ja": "有効memory mapを構成し、parent既定値を明示設定しlock後に照会する。唯一所属と共有memoryを区別する。"
+      },
+      "expected": {
+        "en": "The fully omitted query returns 0x120 for location zero.",
+        "ja": "全省略の照会はlocation 0の0x120を返す。"
+      },
+      "limitations": {
+        "en": "Selected aligned byte-addressed maps and 16-bit memory words only. These are physical-address metadata, not HDL/DUT access. Virtual delegation, all endian/word-unit hierarchies, dynamic relocation and error recovery remain partial.",
+        "ja": "選択した整列byte-addressed mapと16-bit memory wordのみ。これは物理address metadataで、HDL／DUT accessではない。virtual委譲、全endian／word-unit階層、動的再配置、error後復旧は部分的に残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_address_omitted_map_selects_the_sole_member_despite_another_parent_default",
+          "role": "direct",
+          "expected_observations": [
+            "UT: memory_sole omitted_location 1 omitted_offset 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEM-FIFO-AUDIT-MEM-ADDRESS-SHARED-DEFAULT",
+      "clause": "18.6.4.16",
+      "statement": {
+        "en": "A shared memory omitted-map address query selects its parent default map.",
+        "ja": "共有memoryのmap省略address照会はparentの既定mapを選ぶ。"
+      },
+      "conditions": {
+        "en": "Construct valid memory maps, configure the parent default explicitly and lock before querying; distinguish sole-member and shared-memory cases.",
+        "ja": "有効memory mapを構成し、parent既定値を明示設定しlock後に照会する。唯一所属と共有memoryを区別する。"
+      },
+      "expected": {
+        "en": "The explicit first map returns 0x112 and the omitted map returns the second map address 0x322.",
+        "ja": "明示第1 mapは0x112、省略mapは第2 map address 0x322を返す。"
+      },
+      "limitations": {
+        "en": "Selected aligned byte-addressed maps and 16-bit memory words only. These are physical-address metadata, not HDL/DUT access. Virtual delegation, all endian/word-unit hierarchies, dynamic relocation and error recovery remain partial.",
+        "ja": "選択した整列byte-addressed mapと16-bit memory wordのみ。これは物理address metadataで、HDL／DUT accessではない。virtual委譲、全endian／word-unit階層、動的再配置、error後復旧は部分的に残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_address_omitted_map_uses_the_parent_default_for_shared_storage",
+          "role": "direct",
+          "expected_observations": [
+            "UT: memory_shared explicit 1 default_selected 1 rights 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEM-FIFO-AUDIT-MEM-ADDRESSES-SHARED-DEFAULT",
+      "clause": "18.6.4.17",
+      "statement": {
+        "en": "An omitted-map address-array query selects the parent default for shared memory.",
+        "ja": "共有memoryのmap省略address-array照会はparent既定mapを選ぶ。"
+      },
+      "conditions": {
+        "en": "Construct valid memory maps, configure the parent default explicitly and lock before querying; distinguish sole-member and shared-memory cases.",
+        "ja": "有効memory mapを構成し、parent既定値を明示設定しlock後に照会する。唯一所属と共有memoryを区別する。"
+      },
+      "expected": {
+        "en": "Location one returns the single address 0x322 and a two-byte transfer width.",
+        "ja": "location 1は単一address 0x322と2-byte転送幅を返す。"
+      },
+      "limitations": {
+        "en": "Selected aligned byte-addressed maps and 16-bit memory words only. These are physical-address metadata, not HDL/DUT access. Virtual delegation, all endian/word-unit hierarchies, dynamic relocation and error recovery remain partial.",
+        "ja": "選択した整列byte-addressed mapと16-bit memory wordのみ。これは物理address metadataで、HDL／DUT accessではない。virtual委譲、全endian／word-unit階層、動的再配置、error後復旧は部分的に残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_address_omitted_map_uses_the_parent_default_for_shared_storage",
+          "role": "direct",
+          "expected_observations": [
+            "UT: memory_shared address_array 1 transfer_width 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEM-FIFO-AUDIT-MEM-RIGHTS-SHARED-DEFAULT",
+      "clause": "18.6.4.5",
+      "statement": {
+        "en": "An omitted-map rights query selects the shared memory parent default.",
+        "ja": "共有memoryのmap省略rights照会はparent既定mapを選ぶ。"
+      },
+      "conditions": {
+        "en": "Construct valid memory maps, configure the parent default explicitly and lock before querying; distinguish sole-member and shared-memory cases.",
+        "ja": "有効memory mapを構成し、parent既定値を明示設定しlock後に照会する。唯一所属と共有memoryを区別する。"
+      },
+      "expected": {
+        "en": "The selected default reports RW while the explicit first map remains RO.",
+        "ja": "選択既定値はRW、明示第1 mapはROを保つ。"
+      },
+      "limitations": {
+        "en": "Selected aligned byte-addressed maps and 16-bit memory words only. These are physical-address metadata, not HDL/DUT access. Virtual delegation, all endian/word-unit hierarchies, dynamic relocation and error recovery remain partial.",
+        "ja": "選択した整列byte-addressed mapと16-bit memory wordのみ。これは物理address metadataで、HDL／DUT accessではない。virtual委譲、全endian／word-unit階層、動的再配置、error後復旧は部分的に残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_address_omitted_map_uses_the_parent_default_for_shared_storage",
+          "role": "direct",
+          "expected_observations": [
+            "UT: memory_shared explicit 1 default_selected 1 rights 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEM-FIFO-AUDIT-MEM-INVALID-ADDRESS-WARNING",
+      "clause": "18.6.4.16",
+      "statement": {
+        "en": "The selected memory address query warns for a map that does not contain the memory.",
+        "ja": "選択memory address照会はmemoryを含まないmapでwarningを報告する。"
+      },
+      "conditions": {
+        "en": "Observe a valid explicit address first, then gate a catcher around one unrelated-map call in a fresh independent fixture.",
+        "ja": "新規の独立fixtureで明示有効addressを先に観測し、無関係mapの1呼出しだけcatcherで観測する。"
+      },
+      "expected": {
+        "en": "At least one UVM_WARNING is reported without an exact ID/text/count requirement.",
+        "ja": "正確なID／文面／回数を要求せず、少なくとも1回のUVM_WARNINGを報告する。"
+      },
+      "limitations": {
+        "en": "No unspecified scalar address/offset return, cross-call diagnostic state or post-invalid-call recovery is imposed.",
+        "ja": "未規定のscalar address／offset返却、呼出し間診断状態、不正呼出し後の復旧は規定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_address_query_reports_a_warning_for_an_unrelated_map",
+          "role": "direct",
+          "expected_observations": [
+            "UT: invalid_memory_map warning 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEM-FIFO-AUDIT-MEM-INVALID-OFFSET-WARNING",
+      "clause": "18.6.4.15",
+      "statement": {
+        "en": "The selected memory offset query warns for a map that does not contain the memory.",
+        "ja": "選択memory offset照会はmemoryを含まないmapでwarningを報告する。"
+      },
+      "conditions": {
+        "en": "Observe a valid explicit address first, then gate a catcher around one unrelated-map call in a fresh independent fixture.",
+        "ja": "新規の独立fixtureで明示有効addressを先に観測し、無関係mapの1呼出しだけcatcherで観測する。"
+      },
+      "expected": {
+        "en": "At least one UVM_WARNING is reported without an exact ID/text/count requirement.",
+        "ja": "正確なID／文面／回数を要求せず、少なくとも1回のUVM_WARNINGを報告する。"
+      },
+      "limitations": {
+        "en": "No unspecified scalar address/offset return, cross-call diagnostic state or post-invalid-call recovery is imposed.",
+        "ja": "未規定のscalar address／offset返却、呼出し間診断状態、不正呼出し後の復旧は規定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_offset_query_reports_a_warning_for_an_unrelated_map",
+          "role": "direct",
+          "expected_observations": [
+            "UT: invalid_memory_map warning 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEM-FIFO-AUDIT-MEM-INVALID-RIGHTS-WARNING",
+      "clause": "18.6.4.5",
+      "statement": {
+        "en": "The selected memory rights query warns for a map that does not contain the memory.",
+        "ja": "選択memory rights照会はmemoryを含まないmapでwarningを報告する。"
+      },
+      "conditions": {
+        "en": "Observe a valid explicit address first, then gate a catcher around one unrelated-map call in a fresh independent fixture.",
+        "ja": "新規の独立fixtureで明示有効addressを先に観測し、無関係mapの1呼出しだけcatcherで観測する。"
+      },
+      "expected": {
+        "en": "At least one UVM_WARNING is reported without an exact ID/text/count requirement.",
+        "ja": "正確なID／文面／回数を要求せず、少なくとも1回のUVM_WARNINGを報告する。"
+      },
+      "limitations": {
+        "en": "No unspecified scalar address/offset return, cross-call diagnostic state or post-invalid-call recovery is imposed.",
+        "ja": "未規定のscalar address／offset返却、呼出し間診断状態、不正呼出し後の復旧は規定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_rights_query_reports_a_warning_for_an_unrelated_map",
+          "role": "direct",
+          "expected_observations": [
+            "UT: invalid_memory_map warning 1 fallback_rw 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEM-FIFO-AUDIT-MEM-INVALID-ADDRESSES-WARNING",
+      "clause": "18.6.4.17",
+      "statement": {
+        "en": "The selected memory addresses query warns for a map that does not contain the memory.",
+        "ja": "選択memory addresses照会はmemoryを含まないmapでwarningを報告する。"
+      },
+      "conditions": {
+        "en": "Observe a valid explicit address first, then gate a catcher around one unrelated-map call in a fresh independent fixture.",
+        "ja": "新規の独立fixtureで明示有効addressを先に観測し、無関係mapの1呼出しだけcatcherで観測する。"
+      },
+      "expected": {
+        "en": "At least one UVM_WARNING is reported without an exact ID/text/count requirement.",
+        "ja": "正確なID／文面／回数を要求せず、少なくとも1回のUVM_WARNINGを報告する。"
+      },
+      "limitations": {
+        "en": "No unspecified scalar address/offset return, cross-call diagnostic state or post-invalid-call recovery is imposed.",
+        "ja": "未規定のscalar address／offset返却、呼出し間診断状態、不正呼出し後の復旧は規定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_addresses_query_reports_a_warning_for_an_unrelated_map",
+          "role": "direct",
+          "expected_observations": [
+            "UT: invalid_memory_map warning 1 minus_one 1 unchanged 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEM-FIFO-AUDIT-MEM-INVALID-RIGHTS-FALLBACK",
+      "clause": "18.6.4.5",
+      "statement": {
+        "en": "Invalid-map memory rights return RW.",
+        "ja": "不正mapのmemory rightsはRWを返す。"
+      },
+      "conditions": {
+        "en": "Use one otherwise valid memory and one unrelated configured map; initialize the output array with two distinct sentinels where applicable.",
+        "ja": "他の条件が有効なmemoryと無関係な設定済みmapを使い、該当時は出力arrayを異なるsentinel 2個で初期化する。"
+      },
+      "expected": {
+        "en": "The unrelated-map result is RW independently of its warning obligation.",
+        "ja": "無関係mapの結果はwarning義務と別にRWである。"
+      },
+      "limitations": {
+        "en": "The warning and return/preservation duties share the same selected call; matching one does not pass the entire input. Other invalid arguments remain partial.",
+        "ja": "warningと返却／保持義務は同じ選択呼出しを共有し、一方の一致で入力全体をpassにしない。他の不正引数は部分的に残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_rights_query_reports_a_warning_for_an_unrelated_map",
+          "role": "direct",
+          "expected_observations": [
+            "UT: invalid_memory_map warning 1 fallback_rw 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEM-FIFO-AUDIT-MEM-INVALID-ADDRESSES-RETURN",
+      "clause": "18.6.4.17",
+      "statement": {
+        "en": "An invalid-map address-array query returns minus one.",
+        "ja": "不正mapのaddress-array照会は−1を返す。"
+      },
+      "conditions": {
+        "en": "Use one otherwise valid memory and one unrelated configured map; initialize the output array with two distinct sentinels where applicable.",
+        "ja": "他の条件が有効なmemoryと無関係な設定済みmapを使い、該当時は出力arrayを異なるsentinel 2個で初期化する。"
+      },
+      "expected": {
+        "en": "The returned signed transfer width is minus one.",
+        "ja": "返却signed転送幅は−1である。"
+      },
+      "limitations": {
+        "en": "The warning and return/preservation duties share the same selected call; matching one does not pass the entire input. Other invalid arguments remain partial.",
+        "ja": "warningと返却／保持義務は同じ選択呼出しを共有し、一方の一致で入力全体をpassにしない。他の不正引数は部分的に残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_addresses_query_reports_a_warning_for_an_unrelated_map",
+          "role": "direct",
+          "expected_observations": [
+            "UT: invalid_memory_map warning 1 minus_one 1 unchanged 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEM-FIFO-AUDIT-MEM-INVALID-ADDRESSES-PRESERVES",
+      "clause": "18.6.4.17",
+      "statement": {
+        "en": "An invalid-map address-array query leaves the caller array unmodified.",
+        "ja": "不正mapのaddress-array照会はcaller arrayを変更しない。"
+      },
+      "conditions": {
+        "en": "Use one otherwise valid memory and one unrelated configured map; initialize the output array with two distinct sentinels where applicable.",
+        "ja": "他の条件が有効なmemoryと無関係な設定済みmapを使い、該当時は出力arrayを異なるsentinel 2個で初期化する。"
+      },
+      "expected": {
+        "en": "Both preexisting sentinel addresses and their array size remain unchanged.",
+        "ja": "事前sentinel address 2個とarray sizeを未変更で保持する。"
+      },
+      "limitations": {
+        "en": "The warning and return/preservation duties share the same selected call; matching one does not pass the entire input. Other invalid arguments remain partial.",
+        "ja": "warningと返却／保持義務は同じ選択呼出しを共有し、一方の一致で入力全体をpassにしない。他の不正引数は部分的に残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_addresses_query_reports_a_warning_for_an_unrelated_map",
+          "role": "direct",
+          "expected_observations": [
+            "UT: invalid_memory_map warning 1 minus_one 1 unchanged 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEM-FIFO-AUDIT-MEM-CONTIGUOUS-ROLE",
+      "clause": "18.6",
+      "statement": {
+        "en": "Selected adjacent memory locations retain independent external storage values.",
+        "ja": "選択した隣接memory locationは独立した外部保存値を保持する。"
+      },
+      "conditions": {
+        "en": "An original delayed user backdoor uses the standard pre/post helpers and accesses an independent four-word array.",
+        "ja": "独自の遅延user backdoorは規格のpre／post helperを使い、独立した4-word arrayへaccessする。"
+      },
+      "expected": {
+        "en": "Location one and its adjacent peer return their selected independent original storage values.",
+        "ja": "location 1と隣接peerは選択した独立の元storage値を返す。"
+      },
+      "limitations": {
+        "en": "No mirror/prediction API is invented for memory. Fresh-read observations do not prove universal absence of internal state or all sparse/large-memory behavior; HDL/DPI and factory conditions remain separate.",
+        "ja": "memory用mirror／prediction APIを作らない。fresh-read観測は内部状態の普遍的な不在や全sparse／large-memory動作を証明せず、HDL／DPIとfactory条件は別に扱う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_reads_follow_external_storage_changes_at_distinct_contiguous_locations",
+          "role": "direct",
+          "expected_observations": [
+            "UT: memory_external initial 1 refreshed 1 adjacent 1 reads 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEM-FIFO-AUDIT-MEM-FRESH-READ",
+      "clause": "18.6.5.2",
+      "statement": {
+        "en": "A new memory read returns the selected current external storage value.",
+        "ja": "新たなmemory readは選択した現在の外部storage値を返す。"
+      },
+      "conditions": {
+        "en": "An original delayed user backdoor uses the standard pre/post helpers and accesses an independent four-word array.",
+        "ja": "独自の遅延user backdoorは規格のpre／post helperを使い、独立した4-word arrayへaccessする。"
+      },
+      "expected": {
+        "en": "A direct external change from 0x11 to 0x39 is seen on the next read, while location two remains 0x22.",
+        "ja": "直接外部変更0x11→0x39を次のreadで観測し、location 2は0x22を保つ。"
+      },
+      "limitations": {
+        "en": "No mirror/prediction API is invented for memory. Fresh-read observations do not prove universal absence of internal state or all sparse/large-memory behavior; HDL/DPI and factory conditions remain separate.",
+        "ja": "memory用mirror／prediction APIを作らない。fresh-read観測は内部状態の普遍的な不在や全sparse／large-memory動作を証明せず、HDL／DPIとfactory条件は別に扱う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_reads_follow_external_storage_changes_at_distinct_contiguous_locations",
+          "role": "direct",
+          "expected_observations": [
+            "UT: memory_external initial 1 refreshed 1 adjacent 1 reads 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEM-FIFO-AUDIT-MEMORY-FACTORY-EXCEPTION",
+      "clause": "18.6",
+      "statement": {
+        "en": "The builtin memory type is not factory registered, while an original legal extension may be registered.",
+        "ja": "builtin memory型はfactory未登録であり、合法な独自拡張は登録できる。"
+      },
+      "conditions": {
+        "en": "In a fresh process, query the builtin wrapper name and create an original utils-registered extension whose simple name constructor supplies the required base arguments.",
+        "ja": "新規processでbuiltin wrapper名を照会し、単純な名前constructorで必要base引数を補うutils登録済み独自拡張を生成する。"
+      },
+      "expected": {
+        "en": "The builtin wrapper is absent and the distinct legal extension is created with its selected name/dimensions.",
+        "ja": "builtin wrapperはなく、合法な別拡張は選択名／寸法で生成される。"
+      },
+      "limitations": {
+        "en": "This is the explicit complex-constructor factory exception, not a ban on user extensions, an exact factory print format or a proof of all named lookup/override behaviors.",
+        "ja": "明示complex-constructor factory例外であり、user拡張の禁止、正確なfactory print形式、全名前lookup／override動作の証明ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_builtin_factory_exception_preserves_a_legally_registered_extension",
+          "role": "direct",
+          "expected_observations": [
+            "UT: factory_exception builtin_absent 1 extension 1 base_view 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEM-FIFO-AUDIT-INDIRECT-FACTORY-EXCEPTION",
+      "clause": "18.7",
+      "statement": {
+        "en": "The builtin indirect type is not factory registered, while an original legal extension may be registered.",
+        "ja": "builtin indirect型はfactory未登録であり、合法な独自拡張は登録できる。"
+      },
+      "conditions": {
+        "en": "In a fresh process, query the builtin wrapper name and create an original utils-registered extension whose simple name constructor supplies the required base arguments.",
+        "ja": "新規processでbuiltin wrapper名を照会し、単純な名前constructorで必要base引数を補うutils登録済み独自拡張を生成する。"
+      },
+      "expected": {
+        "en": "The builtin wrapper is absent and the distinct legal extension is created with its selected name/dimensions.",
+        "ja": "builtin wrapperはなく、合法な別拡張は選択名／寸法で生成される。"
+      },
+      "limitations": {
+        "en": "This is the explicit complex-constructor factory exception, not a ban on user extensions, an exact factory print format or a proof of all named lookup/override behaviors.",
+        "ja": "明示complex-constructor factory例外であり、user拡張の禁止、正確なfactory print形式、全名前lookup／override動作の証明ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_indirect_builtin_factory_exception_preserves_a_legally_registered_extension",
+          "role": "direct",
+          "expected_observations": [
+            "UT: factory_exception builtin_absent 1 extension 1 base_view 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEM-FIFO-AUDIT-FIFO-FACTORY-EXCEPTION",
+      "clause": "18.8",
+      "statement": {
+        "en": "The builtin fifo type is not factory registered, while an original legal extension may be registered.",
+        "ja": "builtin fifo型はfactory未登録であり、合法な独自拡張は登録できる。"
+      },
+      "conditions": {
+        "en": "In a fresh process, query the builtin wrapper name and create an original utils-registered extension whose simple name constructor supplies the required base arguments.",
+        "ja": "新規processでbuiltin wrapper名を照会し、単純な名前constructorで必要base引数を補うutils登録済み独自拡張を生成する。"
+      },
+      "expected": {
+        "en": "The builtin wrapper is absent and the distinct legal extension is created with its selected name/dimensions.",
+        "ja": "builtin wrapperはなく、合法な別拡張は選択名／寸法で生成される。"
+      },
+      "limitations": {
+        "en": "This is the explicit complex-constructor factory exception, not a ban on user extensions, an exact factory print format or a proof of all named lookup/override behaviors.",
+        "ja": "明示complex-constructor factory例外であり、user拡張の禁止、正確なfactory print形式、全名前lookup／override動作の証明ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_fifo_builtin_factory_exception_preserves_a_legally_registered_extension",
+          "role": "direct",
+          "expected_observations": [
+            "UT: factory_exception builtin_absent 1 extension 1 base_view 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEM-FIFO-AUDIT-MEM-FACTORY-OBJECT-VIEW",
+      "clause": "18.6.1",
+      "statement": {
+        "en": "A factory-created original memory extension retains its object base view.",
+        "ja": "factory生成した独自memory拡張はobject base viewを保持する。"
+      },
+      "conditions": {
+        "en": "The registered extension calls the complex memory constructor through its own simple constructor.",
+        "ja": "登録拡張は自身の単純constructor経由で複雑なmemory constructorを呼ぶ。"
+      },
+      "expected": {
+        "en": "Implicit object assignment preserves the created extension identity.",
+        "ja": "暗黙object代入が生成拡張の同一性を保持する。"
+      },
+      "limitations": {
+        "en": "Selected legal extension and ancestry only; the builtin unregistered status is checked separately.",
+        "ja": "選択合法拡張と継承だけで、builtinの未登録状態は別に確認する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_builtin_factory_exception_preserves_a_legally_registered_extension",
+          "role": "direct",
+          "expected_observations": [
+            "UT: factory_exception builtin_absent 1 extension 1 base_view 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEM-FIFO-AUDIT-INDIRECT-CONSTRUCTOR-NAME",
+      "clause": "18.7.2.1",
+      "statement": {
+        "en": "An indirect-register extension retains actual omitted/explicit super constructor names.",
+        "ja": "indirect-register拡張は実際の省略／明示super constructor名を保持する。"
+      },
+      "conditions": {
+        "en": "Use original subclasses calling super.new, including a genuinely omitted name through the printed named arguments; do not directly construct the discouraged base.",
+        "ja": "super.newを呼ぶ独自subclassを使い、印刷named引数により名前を実際に省略し、非推奨のbase直接生成は行わない。"
+      },
+      "expected": {
+        "en": "The omitted name is uvm_reg_indirect and the explicit peer name is explicit63.",
+        "ja": "省略名はuvm_reg_indirect、明示peer名はexplicit63である。"
+      },
+      "limitations": {
+        "en": "Constructor/name/ancestry only; invalid widths, mismatched array elements, all coverage masks and direct-call rejection are not inferred.",
+        "ja": "constructor／名前／継承のみで、不正幅、array element幅不一致、全coverage mask、直接呼出しの拒否は推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_indirect_super_constructor_names_and_widths_preserve_register_ancestry",
+          "role": "direct",
+          "expected_observations": [
+            "UT: indirect_constructor omitted_name 1 explicit_name 1 dimensions 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEM-FIFO-AUDIT-INDIRECT-CONSTRUCTOR-WIDTH",
+      "clause": "18.7.2.1",
+      "statement": {
+        "en": "The indirect constructor retains the selected register widths.",
+        "ja": "indirect constructorは選択register幅を保持する。"
+      },
+      "conditions": {
+        "en": "Use original subclasses calling super.new, including a genuinely omitted name through the printed named arguments; do not directly construct the discouraged base.",
+        "ja": "super.newを呼ぶ独自subclassを使い、印刷named引数により名前を実際に省略し、非推奨のbase直接生成は行わない。"
+      },
+      "expected": {
+        "en": "The two legal extensions report eight and sixteen bits respectively.",
+        "ja": "合法拡張2個はそれぞれ8／16 bitを返す。"
+      },
+      "limitations": {
+        "en": "Constructor/name/ancestry only; invalid widths, mismatched array elements, all coverage masks and direct-call rejection are not inferred.",
+        "ja": "constructor／名前／継承のみで、不正幅、array element幅不一致、全coverage mask、直接呼出しの拒否は推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_indirect_super_constructor_names_and_widths_preserve_register_ancestry",
+          "role": "direct",
+          "expected_observations": [
+            "UT: indirect_constructor omitted_name 1 explicit_name 1 dimensions 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEM-FIFO-AUDIT-INDIRECT-ANCESTRY",
+      "clause": "18.7.1",
+      "statement": {
+        "en": "Indirect-register extensions retain distinct uvm_reg base views.",
+        "ja": "indirect-register拡張は異なるuvm_reg base viewを保持する。"
+      },
+      "conditions": {
+        "en": "Use original subclasses calling super.new, including a genuinely omitted name through the printed named arguments; do not directly construct the discouraged base.",
+        "ja": "super.newを呼ぶ独自subclassを使い、印刷named引数により名前を実際に省略し、非推奨のbase直接生成は行わない。"
+      },
+      "expected": {
+        "en": "Both implicit base views preserve their exact distinct original handles.",
+        "ja": "両暗黙base viewは異なる正確な元handleを保持する。"
+      },
+      "limitations": {
+        "en": "Constructor/name/ancestry only; invalid widths, mismatched array elements, all coverage masks and direct-call rejection are not inferred.",
+        "ja": "constructor／名前／継承のみで、不正幅、array element幅不一致、全coverage mask、直接呼出しの拒否は推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_indirect_super_constructor_names_and_widths_preserve_register_ancestry",
+          "role": "direct",
+          "expected_observations": [
+            "UT: indirect_ancestry first 1 second 1 distinct 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEM-FIFO-AUDIT-INDIRECT-BASE-TRANSFER",
+      "clause": "18.7",
+      "statement": {
+        "en": "An indirect register accessed through a register base view reaches the index-selected array slot.",
+        "ja": "register base view経由のindirect register accessはindex選択array slotへ到達する。"
+      },
+      "conditions": {
+        "en": "Complete explicit index writes before the base-view write/read; use equal-width arrays and an independent original banked driver.",
+        "ja": "明示index writeの完了後にbase-view write／readを行い、等幅arrayと独立した独自bank driverを使う。"
+      },
+      "expected": {
+        "en": "The selected write changes only slot one; reselection reads slot two while unrelated bank/slots retain their values.",
+        "ja": "選択writeはslot 1だけを変え、再選択はslot 2を読み、無関係bank／slotは値を保つ。"
+      },
+      "limitations": {
+        "en": "Selected successful index/data histories and static base view only. No automatic array-frontdoor setup, out-of-range diagnostics or concurrency completeness is inferred.",
+        "ja": "選択した成功index／data履歴とstatic base viewのみ。array-frontdoor自動設定、範囲外診断、並行性完全性は推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_indirect_register_base_view_routes_selected_real_writes_and_reads",
+          "role": "direct",
+          "expected_observations": [
+            "UT: indirect_base selected_write 1 selected_read 1 identity 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEM-FIFO-AUDIT-FIFO-ANCESTRY",
+      "clause": "18.8.1",
+      "statement": {
+        "en": "A legal FIFO extension retains the printed register ancestry.",
+        "ja": "合法FIFO拡張は印刷register継承を保持する。"
+      },
+      "conditions": {
+        "en": "Factory-create an original extension supplying the required FIFO depth/width/coverage arguments.",
+        "ja": "必要FIFO深さ／幅／coverage引数を補う独自拡張をfactory生成する。"
+      },
+      "expected": {
+        "en": "Its uvm_reg view retains identity with the selected FIFO instance.",
+        "ja": "uvm_reg viewは選択FIFO instanceとの同一性を保つ。"
+      },
+      "limitations": {
+        "en": "Declaration/creation only. The legal extension does not certify FIFO physical transfer, comparison or backdoor behavior.",
+        "ja": "宣言／生成のみ。合法拡張はFIFOの物理転送、比較、backdoor動作を認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_fifo_builtin_factory_exception_preserves_a_legally_registered_extension",
+          "role": "direct",
+          "expected_observations": [
+            "UT: factory_exception builtin_absent 1 extension 1 base_view 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEM-FIFO-AUDIT-FIFO-SET-PUSH",
+      "clause": "18.8.5.2",
+      "statement": {
+        "en": "FIFO set pushes selected values into the abstract queue in call order.",
+        "ja": "FIFO setは選択値を呼出し順にabstract queueへpushする。"
+      },
+      "conditions": {
+        "en": "Use depth two, two valid preloads, an explicit debug call, one full push and an untouched peer; finish without a blocking statement or DUT-access claim.",
+        "ja": "深さ2、有効preload 2個、明示debug呼出し、満杯push 1回、未操作peerを使い、blocking文やDUT accessの主張なしで終了する。"
+      },
+      "expected": {
+        "en": "The queue retains 0x11 then 0x22.",
+        "ja": "queueは0x11、0x22の順に保持する。"
+      },
+      "limitations": {
+        "en": "Use the listed constructor/configure and public queue/APIs only, with no unlisted build hook, private field access or replacement prediction body. Original driver storage is a testbench DUT model, not RTL or HDL-DPI. The independent normal-register bus control is separate evidence; a blocked FIFO input does not pass through that control. Broader constructor/precondition interpretation, failure, capacity/width, backdoor and concurrent histories remain partial. Separately indexed control-only inputs explicitly call the pinned library build extension; they do not replace the listed-API constructor premise or pass its blocked direct inputs.",
+        "ja": "記載constructor／configureと公開queue／APIだけを使い、記載外build hook、private field access、代用prediction本体は使わない。独自driver storageは検査系DUT modelでRTL／HDL-DPIではない。独立した通常register bus controlは別の証拠で、停止したFIFO入力をそのcontrolでpassにしない。広いconstructor／前提の解釈、失敗、容量／幅、backdoor、並行履歴は部分的に残る。 別索引のcontrol専用入力は固定libraryのbuild拡張を明示呼出しし、記載APIだけのconstructor前提を置換せず、その停止した直接入力をpassにしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_register_fifo_set_preloads_in_order_and_ignores_a_full_abstract_queue",
+          "role": "direct",
+          "expected_observations": [
+            "UT: fifo_set ordered 1 full_ignored 1 peer 1"
+          ]
+        },
+        {
+          "test": "u18/test_pinned_fifo_build_control_set_preload_full_ignore",
+          "role": "control",
+          "expected_observations": [
+            "UT: fifo_set ordered 1 full_ignored 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEM-FIFO-AUDIT-FIFO-SET-FULL-IGNORED",
+      "clause": "18.8.5.2",
+      "statement": {
+        "en": "FIFO set ignores a push into a full abstract queue.",
+        "ja": "FIFO setは満杯abstract queueへのpushを無視する。"
+      },
+      "conditions": {
+        "en": "Use depth two, two valid preloads, an explicit debug call, one full push and an untouched peer; finish without a blocking statement or DUT-access claim.",
+        "ja": "深さ2、有効preload 2個、明示debug呼出し、満杯push 1回、未操作peerを使い、blocking文やDUT accessの主張なしで終了する。"
+      },
+      "expected": {
+        "en": "The third value is absent and occupancy remains two.",
+        "ja": "第3値はなく、占有数は2のままである。"
+      },
+      "limitations": {
+        "en": "Use the listed constructor/configure and public queue/APIs only, with no unlisted build hook, private field access or replacement prediction body. Original driver storage is a testbench DUT model, not RTL or HDL-DPI. The independent normal-register bus control is separate evidence; a blocked FIFO input does not pass through that control. Broader constructor/precondition interpretation, failure, capacity/width, backdoor and concurrent histories remain partial. Separately indexed control-only inputs explicitly call the pinned library build extension; they do not replace the listed-API constructor premise or pass its blocked direct inputs.",
+        "ja": "記載constructor／configureと公開queue／APIだけを使い、記載外build hook、private field access、代用prediction本体は使わない。独自driver storageは検査系DUT modelでRTL／HDL-DPIではない。独立した通常register bus controlは別の証拠で、停止したFIFO入力をそのcontrolでpassにしない。広いconstructor／前提の解釈、失敗、容量／幅、backdoor、並行履歴は部分的に残る。 別索引のcontrol専用入力は固定libraryのbuild拡張を明示呼出しし、記載APIだけのconstructor前提を置換せず、その停止した直接入力をpassにしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_register_fifo_set_preloads_in_order_and_ignores_a_full_abstract_queue",
+          "role": "direct",
+          "expected_observations": [
+            "UT: fifo_set ordered 1 full_ignored 1 peer 1"
+          ]
+        },
+        {
+          "test": "u18/test_pinned_fifo_build_control_set_preload_full_ignore",
+          "role": "control",
+          "expected_observations": [
+            "UT: fifo_set ordered 1 full_ignored 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEM-FIFO-AUDIT-FIFO-SET-DEBUG",
+      "clause": "18.8.5.2",
+      "statement": {
+        "en": "Selected FIFO set debug arguments do not change the pushed value.",
+        "ja": "選択FIFO setのdebug引数はpush値を変えない。"
+      },
+      "conditions": {
+        "en": "Use depth two, two valid preloads, an explicit debug call, one full push and an untouched peer; finish without a blocking statement or DUT-access claim.",
+        "ja": "深さ2、有効preload 2個、明示debug呼出し、満杯push 1回、未操作peerを使い、blocking文やDUT accessの主張なしで終了する。"
+      },
+      "expected": {
+        "en": "The explicit filename/line call retains its supplied second value.",
+        "ja": "明示filename／line呼出しは指定第2値を保持する。"
+      },
+      "limitations": {
+        "en": "Use the listed constructor/configure and public queue/APIs only, with no unlisted build hook, private field access or replacement prediction body. Original driver storage is a testbench DUT model, not RTL or HDL-DPI. The independent normal-register bus control is separate evidence; a blocked FIFO input does not pass through that control. Broader constructor/precondition interpretation, failure, capacity/width, backdoor and concurrent histories remain partial. Separately indexed control-only inputs explicitly call the pinned library build extension; they do not replace the listed-API constructor premise or pass its blocked direct inputs.",
+        "ja": "記載constructor／configureと公開queue／APIだけを使い、記載外build hook、private field access、代用prediction本体は使わない。独自driver storageは検査系DUT modelでRTL／HDL-DPIではない。独立した通常register bus controlは別の証拠で、停止したFIFO入力をそのcontrolでpassにしない。広いconstructor／前提の解釈、失敗、容量／幅、backdoor、並行履歴は部分的に残る。 別索引のcontrol専用入力は固定libraryのbuild拡張を明示呼出しし、記載APIだけのconstructor前提を置換せず、その停止した直接入力をpassにしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_register_fifo_set_preloads_in_order_and_ignores_a_full_abstract_queue",
+          "role": "direct",
+          "expected_observations": [
+            "UT: fifo_set ordered 1 full_ignored 1 peer 1"
+          ]
+        },
+        {
+          "test": "u18/test_pinned_fifo_build_control_set_preload_full_ignore",
+          "role": "control",
+          "expected_observations": [
+            "UT: fifo_set ordered 1 full_ignored 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEM-FIFO-AUDIT-FIFO-PREDICT-WRITE",
+      "clause": "18.8.5.7",
+      "statement": {
+        "en": "Selected write-kind predictions append values to the mirrored FIFO.",
+        "ja": "選択write-kind predictionはmirrored FIFOへ値を追加する。"
+      },
+      "conditions": {
+        "en": "Use the public predict API with explicit WRITE/READ kinds and nonempty valid within-capacity state; apply the FIFO write/read contract to these selected kinds.",
+        "ja": "公開predict APIでWRITE／READ kindを明示し、容量内の有効な非空状態を使い、選択kindへFIFO write／read契約を適用する。"
+      },
+      "expected": {
+        "en": "Two write predictions retain ordered values 0x11 and 0x22.",
+        "ja": "write prediction 2回は0x11と0x22を順に保持する。"
+      },
+      "limitations": {
+        "en": "Use the listed constructor/configure and public queue/APIs only, with no unlisted build hook, private field access or replacement prediction body. Original driver storage is a testbench DUT model, not RTL or HDL-DPI. The independent normal-register bus control is separate evidence; a blocked FIFO input does not pass through that control. Broader constructor/precondition interpretation, failure, capacity/width, backdoor and concurrent histories remain partial. Separately indexed control-only inputs explicitly call the pinned library build extension; they do not replace the listed-API constructor premise or pass its blocked direct inputs.",
+        "ja": "記載constructor／configureと公開queue／APIだけを使い、記載外build hook、private field access、代用prediction本体は使わない。独自driver storageは検査系DUT modelでRTL／HDL-DPIではない。独立した通常register bus controlは別の証拠で、停止したFIFO入力をそのcontrolでpassにしない。広いconstructor／前提の解釈、失敗、容量／幅、backdoor、並行履歴は部分的に残る。 別索引のcontrol専用入力は固定libraryのbuild拡張を明示呼出しし、記載APIだけのconstructor前提を置換せず、その停止した直接入力をpassにしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_register_fifo_predict_updates_the_abstract_queue_for_selected_write_and_read_kinds",
+          "role": "direct",
+          "expected_observations": [
+            "UT: fifo_predict writes 1 ordered 1"
+          ]
+        },
+        {
+          "test": "u18/test_pinned_fifo_build_control_write_and_read_prediction",
+          "role": "control",
+          "expected_observations": [
+            "UT: fifo_predict writes 1 ordered 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEM-FIFO-AUDIT-FIFO-PREDICT-READ",
+      "clause": "18.8.5.7",
+      "statement": {
+        "en": "Selected read-kind prediction consumes the expected mirrored FIFO front.",
+        "ja": "選択read-kind predictionは期待mirrored FIFO先頭を消費する。"
+      },
+      "conditions": {
+        "en": "Use the public predict API with explicit WRITE/READ kinds and nonempty valid within-capacity state; apply the FIFO write/read contract to these selected kinds.",
+        "ja": "公開predict APIでWRITE／READ kindを明示し、容量内の有効な非空状態を使い、選択kindへFIFO write／read契約を適用する。"
+      },
+      "expected": {
+        "en": "Predicting the first read leaves only 0x22.",
+        "ja": "最初のreadの予測後は0x22だけを保持する。"
+      },
+      "limitations": {
+        "en": "Use the listed constructor/configure and public queue/APIs only, with no unlisted build hook, private field access or replacement prediction body. Original driver storage is a testbench DUT model, not RTL or HDL-DPI. The independent normal-register bus control is separate evidence; a blocked FIFO input does not pass through that control. Broader constructor/precondition interpretation, failure, capacity/width, backdoor and concurrent histories remain partial. Separately indexed control-only inputs explicitly call the pinned library build extension; they do not replace the listed-API constructor premise or pass its blocked direct inputs.",
+        "ja": "記載constructor／configureと公開queue／APIだけを使い、記載外build hook、private field access、代用prediction本体は使わない。独自driver storageは検査系DUT modelでRTL／HDL-DPIではない。独立した通常register bus controlは別の証拠で、停止したFIFO入力をそのcontrolでpassにしない。広いconstructor／前提の解釈、失敗、容量／幅、backdoor、並行履歴は部分的に残る。 別索引のcontrol専用入力は固定libraryのbuild拡張を明示呼出しし、記載APIだけのconstructor前提を置換せず、その停止した直接入力をpassにしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_register_fifo_predict_updates_the_abstract_queue_for_selected_write_and_read_kinds",
+          "role": "direct",
+          "expected_observations": [
+            "UT: fifo_predict read 1 remaining 1"
+          ]
+        },
+        {
+          "test": "u18/test_pinned_fifo_build_control_write_and_read_prediction",
+          "role": "control",
+          "expected_observations": [
+            "UT: fifo_predict read 1 remaining 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEM-FIFO-AUDIT-FIFO-WRITE-TRANSFER",
+      "clause": "18.8.5.3",
+      "statement": {
+        "en": "A FIFO frontdoor write pushes the supplied value to the original DUT queue.",
+        "ja": "FIFO frontdoor writeは指定値を独自DUT queueへpushする。"
+      },
+      "conditions": {
+        "en": "Use the original one-byte bus FIFO model and independent register control, explicit frontdoor/map and selected auto/external prediction. Preload update occurs before any blocking statement after set.",
+        "ja": "独自1-byte bus FIFO modelと独立register control、明示frontdoor／map、選択auto／外部予測を使う。preload updateはset後のblocking文より前に行う。"
+      },
+      "expected": {
+        "en": "The driver receives one successful write with 0x11 at the FIFO port.",
+        "ja": "driverはFIFO portで0x11の成功write 1回を受ける。"
+      },
+      "limitations": {
+        "en": "Use the listed constructor/configure and public queue/APIs only, with no unlisted build hook, private field access or replacement prediction body. Original driver storage is a testbench DUT model, not RTL or HDL-DPI. The independent normal-register bus control is separate evidence; a blocked FIFO input does not pass through that control. Broader constructor/precondition interpretation, failure, capacity/width, backdoor and concurrent histories remain partial. Separately indexed control-only inputs explicitly call the pinned library build extension; they do not replace the listed-API constructor premise or pass its blocked direct inputs.",
+        "ja": "記載constructor／configureと公開queue／APIだけを使い、記載外build hook、private field access、代用prediction本体は使わない。独自driver storageは検査系DUT modelでRTL／HDL-DPIではない。独立した通常register bus controlは別の証拠で、停止したFIFO入力をそのcontrolでpassにしない。広いconstructor／前提の解釈、失敗、容量／幅、backdoor、並行履歴は部分的に残る。 別索引のcontrol専用入力は固定libraryのbuild拡張を明示呼出しし、記載APIだけのconstructor前提を置換せず、その停止した直接入力をpassにしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_register_fifo_auto_predicted_frontdoor_write_and_read_use_the_original_dut_queue",
+          "role": "direct",
+          "expected_observations": [
+            "UT: fifo_write dut 1 abstract 1"
+          ]
+        },
+        {
+          "test": "u18/test_register_fifo_original_bus_control_transfers_a_normal_reference_register",
+          "role": "control",
+          "expected_observations": [
+            "UT: fifo_bus_control status 1 stored 1 calls 1",
+            "UT: reference_only no_fifo 1"
+          ]
+        },
+        {
+          "test": "u18/test_pinned_fifo_build_control_auto_predicted_transfer",
+          "role": "control",
+          "expected_observations": [
+            "UT: fifo_write dut 1 abstract 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEM-FIFO-AUDIT-FIFO-WRITE-AUTO-PREDICT",
+      "clause": "18.8.5.3",
+      "statement": {
+        "en": "Auto-predicted FIFO writes append to the abstract queue before returning.",
+        "ja": "auto-predictしたFIFO writeは返却前にabstract queueへ追加する。"
+      },
+      "conditions": {
+        "en": "Use the original one-byte bus FIFO model and independent register control, explicit frontdoor/map and selected auto/external prediction. Preload update occurs before any blocking statement after set.",
+        "ja": "独自1-byte bus FIFO modelと独立register control、明示frontdoor／map、選択auto／外部予測を使う。preload updateはset後のblocking文より前に行う。"
+      },
+      "expected": {
+        "en": "The returned call leaves one 0x11 abstract entry.",
+        "ja": "返却した呼出しは0x11のabstract entry 1個を保持する。"
+      },
+      "limitations": {
+        "en": "Use the listed constructor/configure and public queue/APIs only, with no unlisted build hook, private field access or replacement prediction body. Original driver storage is a testbench DUT model, not RTL or HDL-DPI. The independent normal-register bus control is separate evidence; a blocked FIFO input does not pass through that control. Broader constructor/precondition interpretation, failure, capacity/width, backdoor and concurrent histories remain partial. Separately indexed control-only inputs explicitly call the pinned library build extension; they do not replace the listed-API constructor premise or pass its blocked direct inputs.",
+        "ja": "記載constructor／configureと公開queue／APIだけを使い、記載外build hook、private field access、代用prediction本体は使わない。独自driver storageは検査系DUT modelでRTL／HDL-DPIではない。独立した通常register bus controlは別の証拠で、停止したFIFO入力をそのcontrolでpassにしない。広いconstructor／前提の解釈、失敗、容量／幅、backdoor、並行履歴は部分的に残る。 別索引のcontrol専用入力は固定libraryのbuild拡張を明示呼出しし、記載APIだけのconstructor前提を置換せず、その停止した直接入力をpassにしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_register_fifo_auto_predicted_frontdoor_write_and_read_use_the_original_dut_queue",
+          "role": "direct",
+          "expected_observations": [
+            "UT: fifo_write dut 1 abstract 1"
+          ]
+        },
+        {
+          "test": "u18/test_register_fifo_original_bus_control_transfers_a_normal_reference_register",
+          "role": "control",
+          "expected_observations": [
+            "UT: fifo_bus_control status 1 stored 1 calls 1",
+            "UT: reference_only no_fifo 1"
+          ]
+        },
+        {
+          "test": "u18/test_pinned_fifo_build_control_auto_predicted_transfer",
+          "role": "control",
+          "expected_observations": [
+            "UT: fifo_write dut 1 abstract 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEM-FIFO-AUDIT-FIFO-READ-TRANSFER",
+      "clause": "18.8.5.4",
+      "statement": {
+        "en": "A FIFO frontdoor read returns and removes the next original DUT value.",
+        "ja": "FIFO frontdoor readは次の独自DUT値を返して除去する。"
+      },
+      "conditions": {
+        "en": "Use the original one-byte bus FIFO model and independent register control, explicit frontdoor/map and selected auto/external prediction. Preload update occurs before any blocking statement after set.",
+        "ja": "独自1-byte bus FIFO modelと独立register control、明示frontdoor／map、選択auto／外部予測を使う。preload updateはset後のblocking文より前に行う。"
+      },
+      "expected": {
+        "en": "A successful read returns 0x11 and empties the physical model queue.",
+        "ja": "成功readは0x11を返し、物理model queueを空にする。"
+      },
+      "limitations": {
+        "en": "Use the listed constructor/configure and public queue/APIs only, with no unlisted build hook, private field access or replacement prediction body. Original driver storage is a testbench DUT model, not RTL or HDL-DPI. The independent normal-register bus control is separate evidence; a blocked FIFO input does not pass through that control. Broader constructor/precondition interpretation, failure, capacity/width, backdoor and concurrent histories remain partial. Separately indexed control-only inputs explicitly call the pinned library build extension; they do not replace the listed-API constructor premise or pass its blocked direct inputs.",
+        "ja": "記載constructor／configureと公開queue／APIだけを使い、記載外build hook、private field access、代用prediction本体は使わない。独自driver storageは検査系DUT modelでRTL／HDL-DPIではない。独立した通常register bus controlは別の証拠で、停止したFIFO入力をそのcontrolでpassにしない。広いconstructor／前提の解釈、失敗、容量／幅、backdoor、並行履歴は部分的に残る。 別索引のcontrol専用入力は固定libraryのbuild拡張を明示呼出しし、記載APIだけのconstructor前提を置換せず、その停止した直接入力をpassにしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_register_fifo_auto_predicted_frontdoor_write_and_read_use_the_original_dut_queue",
+          "role": "direct",
+          "expected_observations": [
+            "UT: fifo_read value 1 both_popped 1 transfers 1"
+          ]
+        },
+        {
+          "test": "u18/test_register_fifo_original_bus_control_transfers_a_normal_reference_register",
+          "role": "control",
+          "expected_observations": [
+            "UT: fifo_bus_control status 1 stored 1 calls 1",
+            "UT: reference_only no_fifo 1"
+          ]
+        },
+        {
+          "test": "u18/test_pinned_fifo_build_control_auto_predicted_transfer",
+          "role": "control",
+          "expected_observations": [
+            "UT: fifo_read value 1 both_popped 1 transfers 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEM-FIFO-AUDIT-FIFO-READ-AUTO-PREDICT",
+      "clause": "18.8.5.4",
+      "statement": {
+        "en": "An auto-predicted FIFO read pops the abstract front.",
+        "ja": "auto-predictしたFIFO readはabstract先頭をpopする。"
+      },
+      "conditions": {
+        "en": "Use the original one-byte bus FIFO model and independent register control, explicit frontdoor/map and selected auto/external prediction. Preload update occurs before any blocking statement after set.",
+        "ja": "独自1-byte bus FIFO modelと独立register control、明示frontdoor／map、選択auto／外部予測を使う。preload updateはset後のblocking文より前に行う。"
+      },
+      "expected": {
+        "en": "Both selected model and abstract queues are empty after one write/read pair.",
+        "ja": "write／read 1組後に選択model／abstract queueは両方空となる。"
+      },
+      "limitations": {
+        "en": "Use the listed constructor/configure and public queue/APIs only, with no unlisted build hook, private field access or replacement prediction body. Original driver storage is a testbench DUT model, not RTL or HDL-DPI. The independent normal-register bus control is separate evidence; a blocked FIFO input does not pass through that control. Broader constructor/precondition interpretation, failure, capacity/width, backdoor and concurrent histories remain partial. Separately indexed control-only inputs explicitly call the pinned library build extension; they do not replace the listed-API constructor premise or pass its blocked direct inputs.",
+        "ja": "記載constructor／configureと公開queue／APIだけを使い、記載外build hook、private field access、代用prediction本体は使わない。独自driver storageは検査系DUT modelでRTL／HDL-DPIではない。独立した通常register bus controlは別の証拠で、停止したFIFO入力をそのcontrolでpassにしない。広いconstructor／前提の解釈、失敗、容量／幅、backdoor、並行履歴は部分的に残る。 別索引のcontrol専用入力は固定libraryのbuild拡張を明示呼出しし、記載APIだけのconstructor前提を置換せず、その停止した直接入力をpassにしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_register_fifo_auto_predicted_frontdoor_write_and_read_use_the_original_dut_queue",
+          "role": "direct",
+          "expected_observations": [
+            "UT: fifo_read value 1 both_popped 1 transfers 1"
+          ]
+        },
+        {
+          "test": "u18/test_register_fifo_original_bus_control_transfers_a_normal_reference_register",
+          "role": "control",
+          "expected_observations": [
+            "UT: fifo_bus_control status 1 stored 1 calls 1",
+            "UT: reference_only no_fifo 1"
+          ]
+        },
+        {
+          "test": "u18/test_pinned_fifo_build_control_auto_predicted_transfer",
+          "role": "control",
+          "expected_observations": [
+            "UT: fifo_read value 1 both_popped 1 transfers 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEM-FIFO-AUDIT-FIFO-EXTERNAL-BEFORE",
+      "clause": "18.8.5.3",
+      "statement": {
+        "en": "With auto-prediction off, a returned FIFO write awaits bus observation before abstract prediction.",
+        "ja": "auto-predictがoffなら返却FIFO writeはabstract予測の前にbus観測を待つ。"
+      },
+      "conditions": {
+        "en": "Use the original one-byte bus FIFO model and independent register control, explicit frontdoor/map and selected auto/external prediction. Preload update occurs before any blocking statement after set.",
+        "ja": "独自1-byte bus FIFO modelと独立register control、明示frontdoor／map、選択auto／外部予測を使う。preload updateはset後のblocking文より前に行う。"
+      },
+      "expected": {
+        "en": "The DUT model contains 0x35 while the abstract queue is still empty.",
+        "ja": "DUT modelは0x35を保持し、abstract queueはまだ空である。"
+      },
+      "limitations": {
+        "en": "Use the listed constructor/configure and public queue/APIs only, with no unlisted build hook, private field access or replacement prediction body. Original driver storage is a testbench DUT model, not RTL or HDL-DPI. The independent normal-register bus control is separate evidence; a blocked FIFO input does not pass through that control. Broader constructor/precondition interpretation, failure, capacity/width, backdoor and concurrent histories remain partial. Separately indexed control-only inputs explicitly call the pinned library build extension; they do not replace the listed-API constructor premise or pass its blocked direct inputs.",
+        "ja": "記載constructor／configureと公開queue／APIだけを使い、記載外build hook、private field access、代用prediction本体は使わない。独自driver storageは検査系DUT modelでRTL／HDL-DPIではない。独立した通常register bus controlは別の証拠で、停止したFIFO入力をそのcontrolでpassにしない。広いconstructor／前提の解釈、失敗、容量／幅、backdoor、並行履歴は部分的に残る。 別索引のcontrol専用入力は固定libraryのbuild拡張を明示呼出しし、記載APIだけのconstructor前提を置換せず、その停止した直接入力をpassにしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_register_fifo_external_predictor_adds_a_write_only_after_observation",
+          "role": "direct",
+          "expected_observations": [
+            "UT: fifo_external before_observation 1 dut_written 1"
+          ]
+        },
+        {
+          "test": "u18/test_register_fifo_original_bus_control_transfers_a_normal_reference_register",
+          "role": "control",
+          "expected_observations": [
+            "UT: fifo_bus_control status 1 stored 1 calls 1",
+            "UT: reference_only no_fifo 1"
+          ]
+        },
+        {
+          "test": "u18/test_pinned_fifo_build_control_external_predictor_observation",
+          "role": "control",
+          "expected_observations": [
+            "UT: fifo_external before_observation 1 dut_written 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEM-FIFO-AUDIT-FIFO-EXTERNAL-AFTER",
+      "clause": "18.8.5.3",
+      "statement": {
+        "en": "A real bus predictor observation updates the FIFO abstract write state.",
+        "ja": "実bus predictor観測はFIFOのabstract write状態を更新する。"
+      },
+      "conditions": {
+        "en": "Use the original one-byte bus FIFO model and independent register control, explicit frontdoor/map and selected auto/external prediction. Preload update occurs before any blocking statement after set.",
+        "ja": "独自1-byte bus FIFO modelと独立register control、明示frontdoor／map、選択auto／外部予測を使う。preload updateはset後のblocking文より前に行う。"
+      },
+      "expected": {
+        "en": "One published successful observed write produces one abstract 0x35 without another bus transfer.",
+        "ja": "成功観測write 1回のpublishで追加bus転送なしにabstract 0x35が1個となる。"
+      },
+      "limitations": {
+        "en": "Use the listed constructor/configure and public queue/APIs only, with no unlisted build hook, private field access or replacement prediction body. Original driver storage is a testbench DUT model, not RTL or HDL-DPI. The independent normal-register bus control is separate evidence; a blocked FIFO input does not pass through that control. Broader constructor/precondition interpretation, failure, capacity/width, backdoor and concurrent histories remain partial. Separately indexed control-only inputs explicitly call the pinned library build extension; they do not replace the listed-API constructor premise or pass its blocked direct inputs.",
+        "ja": "記載constructor／configureと公開queue／APIだけを使い、記載外build hook、private field access、代用prediction本体は使わない。独自driver storageは検査系DUT modelでRTL／HDL-DPIではない。独立した通常register bus controlは別の証拠で、停止したFIFO入力をそのcontrolでpassにしない。広いconstructor／前提の解釈、失敗、容量／幅、backdoor、並行履歴は部分的に残る。 別索引のcontrol専用入力は固定libraryのbuild拡張を明示呼出しし、記載APIだけのconstructor前提を置換せず、その停止した直接入力をpassにしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_register_fifo_external_predictor_adds_a_write_only_after_observation",
+          "role": "direct",
+          "expected_observations": [
+            "UT: fifo_external after_observation 1 one_transfer 1"
+          ]
+        },
+        {
+          "test": "u18/test_register_fifo_original_bus_control_transfers_a_normal_reference_register",
+          "role": "control",
+          "expected_observations": [
+            "UT: fifo_bus_control status 1 stored 1 calls 1",
+            "UT: reference_only no_fifo 1"
+          ]
+        },
+        {
+          "test": "u18/test_pinned_fifo_build_control_external_predictor_observation",
+          "role": "control",
+          "expected_observations": [
+            "UT: fifo_external after_observation 1 one_transfer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEM-FIFO-AUDIT-FIFO-EXTERNAL-PREDICT",
+      "clause": "18.8.5.7",
+      "statement": {
+        "en": "The FIFO predict interface accepts the observed write through the standard predictor.",
+        "ja": "FIFO predict interfaceは標準predictor経由で観測writeを受ける。"
+      },
+      "conditions": {
+        "en": "Use the original one-byte bus FIFO model and independent register control, explicit frontdoor/map and selected auto/external prediction. Preload update occurs before any blocking statement after set.",
+        "ja": "独自1-byte bus FIFO modelと独立register control、明示frontdoor／map、選択auto／外部予測を使う。preload updateはset後のblocking文より前に行う。"
+      },
+      "expected": {
+        "en": "The predictor bus_in route updates the selected queue rather than an original testbench mirror implementation.",
+        "ja": "predictor bus_in経路が選択queueを更新し、独自検査系mirror実装ではない。"
+      },
+      "limitations": {
+        "en": "Use the listed constructor/configure and public queue/APIs only, with no unlisted build hook, private field access or replacement prediction body. Original driver storage is a testbench DUT model, not RTL or HDL-DPI. The independent normal-register bus control is separate evidence; a blocked FIFO input does not pass through that control. Broader constructor/precondition interpretation, failure, capacity/width, backdoor and concurrent histories remain partial. Separately indexed control-only inputs explicitly call the pinned library build extension; they do not replace the listed-API constructor premise or pass its blocked direct inputs.",
+        "ja": "記載constructor／configureと公開queue／APIだけを使い、記載外build hook、private field access、代用prediction本体は使わない。独自driver storageは検査系DUT modelでRTL／HDL-DPIではない。独立した通常register bus controlは別の証拠で、停止したFIFO入力をそのcontrolでpassにしない。広いconstructor／前提の解釈、失敗、容量／幅、backdoor、並行履歴は部分的に残る。 別索引のcontrol専用入力は固定libraryのbuild拡張を明示呼出しし、記載APIだけのconstructor前提を置換せず、その停止した直接入力をpassにしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_register_fifo_external_predictor_adds_a_write_only_after_observation",
+          "role": "direct",
+          "expected_observations": [
+            "UT: fifo_external after_observation 1 one_transfer 1"
+          ]
+        },
+        {
+          "test": "u18/test_register_fifo_original_bus_control_transfers_a_normal_reference_register",
+          "role": "control",
+          "expected_observations": [
+            "UT: fifo_bus_control status 1 stored 1 calls 1",
+            "UT: reference_only no_fifo 1"
+          ]
+        },
+        {
+          "test": "u18/test_pinned_fifo_build_control_external_predictor_observation",
+          "role": "control",
+          "expected_observations": [
+            "UT: fifo_external after_observation 1 one_transfer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEM-FIFO-AUDIT-FIFO-UPDATE-TRANSFER",
+      "clause": "18.8.5.5",
+      "statement": {
+        "en": "FIFO update transfers each selected preload to the DUT in order.",
+        "ja": "FIFO updateは選択preloadを順にDUTへ転送する。"
+      },
+      "conditions": {
+        "en": "Use the original one-byte bus FIFO model and independent register control, explicit frontdoor/map and selected auto/external prediction. Preload update occurs before any blocking statement after set.",
+        "ja": "独自1-byte bus FIFO modelと独立register control、明示frontdoor／map、選択auto／外部予測を使う。preload updateはset後のblocking文より前に行う。"
+      },
+      "expected": {
+        "en": "The original driver receives 0x11 then 0x22 in exactly two writes.",
+        "ja": "独自driverはwrite 2回で0x11、0x22を順に受ける。"
+      },
+      "limitations": {
+        "en": "Use the listed constructor/configure and public queue/APIs only, with no unlisted build hook, private field access or replacement prediction body. Original driver storage is a testbench DUT model, not RTL or HDL-DPI. The independent normal-register bus control is separate evidence; a blocked FIFO input does not pass through that control. Broader constructor/precondition interpretation, failure, capacity/width, backdoor and concurrent histories remain partial. Separately indexed control-only inputs explicitly call the pinned library build extension; they do not replace the listed-API constructor premise or pass its blocked direct inputs.",
+        "ja": "記載constructor／configureと公開queue／APIだけを使い、記載外build hook、private field access、代用prediction本体は使わない。独自driver storageは検査系DUT modelでRTL／HDL-DPIではない。独立した通常register bus controlは別の証拠で、停止したFIFO入力をそのcontrolでpassにしない。広いconstructor／前提の解釈、失敗、容量／幅、backdoor、並行履歴は部分的に残る。 別索引のcontrol専用入力は固定libraryのbuild拡張を明示呼出しし、記載APIだけのconstructor前提を置換せず、その停止した直接入力をpassにしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_register_fifo_update_transfers_each_preloaded_value_without_duplicate_prediction",
+          "role": "direct",
+          "expected_observations": [
+            "UT: fifo_update status 1 dut_order 1 abstract_once 1 transfers 1"
+          ]
+        },
+        {
+          "test": "u18/test_register_fifo_original_bus_control_transfers_a_normal_reference_register",
+          "role": "control",
+          "expected_observations": [
+            "UT: fifo_bus_control status 1 stored 1 calls 1",
+            "UT: reference_only no_fifo 1"
+          ]
+        },
+        {
+          "test": "u18/test_pinned_fifo_build_control_preloaded_update",
+          "role": "control",
+          "expected_observations": [
+            "UT: fifo_update status 1 dut_order 1 abstract_once 1 transfers 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEM-FIFO-AUDIT-FIFO-UPDATE-NO-DUPLICATE",
+      "clause": "18.8.5.3",
+      "statement": {
+        "en": "Writes issued by FIFO update do not duplicate values already preloaded in the abstract queue.",
+        "ja": "FIFO updateのwriteはabstract queueのpreload済み値を重複させない。"
+      },
+      "conditions": {
+        "en": "Use the original one-byte bus FIFO model and independent register control, explicit frontdoor/map and selected auto/external prediction. Preload update occurs before any blocking statement after set.",
+        "ja": "独自1-byte bus FIFO modelと独立register control、明示frontdoor／map、選択auto／外部予測を使う。preload updateはset後のblocking文より前に行う。"
+      },
+      "expected": {
+        "en": "Two successful preload writes leave exactly their original two abstract entries.",
+        "ja": "preload write 2回の成功後も元のabstract entry 2個だけを保持する。"
+      },
+      "limitations": {
+        "en": "Use the listed constructor/configure and public queue/APIs only, with no unlisted build hook, private field access or replacement prediction body. Original driver storage is a testbench DUT model, not RTL or HDL-DPI. The independent normal-register bus control is separate evidence; a blocked FIFO input does not pass through that control. Broader constructor/precondition interpretation, failure, capacity/width, backdoor and concurrent histories remain partial. Separately indexed control-only inputs explicitly call the pinned library build extension; they do not replace the listed-API constructor premise or pass its blocked direct inputs.",
+        "ja": "記載constructor／configureと公開queue／APIだけを使い、記載外build hook、private field access、代用prediction本体は使わない。独自driver storageは検査系DUT modelでRTL／HDL-DPIではない。独立した通常register bus controlは別の証拠で、停止したFIFO入力をそのcontrolでpassにしない。広いconstructor／前提の解釈、失敗、容量／幅、backdoor、並行履歴は部分的に残る。 別索引のcontrol専用入力は固定libraryのbuild拡張を明示呼出しし、記載APIだけのconstructor前提を置換せず、その停止した直接入力をpassにしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_register_fifo_update_transfers_each_preloaded_value_without_duplicate_prediction",
+          "role": "direct",
+          "expected_observations": [
+            "UT: fifo_update status 1 dut_order 1 abstract_once 1 transfers 1"
+          ]
+        },
+        {
+          "test": "u18/test_register_fifo_original_bus_control_transfers_a_normal_reference_register",
+          "role": "control",
+          "expected_observations": [
+            "UT: fifo_bus_control status 1 stored 1 calls 1",
+            "UT: reference_only no_fifo 1"
+          ]
+        },
+        {
+          "test": "u18/test_pinned_fifo_build_control_preloaded_update",
+          "role": "control",
+          "expected_observations": [
+            "UT: fifo_update status 1 dut_order 1 abstract_once 1 transfers 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEM-FIFO-AUDIT-FIFO-UPDATE-NEW-PRELOAD",
+      "clause": "18.8.5.5",
+      "statement": {
+        "en": "A later FIFO update transfers the newly preloaded value without retransmitting a completed preload.",
+        "ja": "後のFIFO updateは完了preloadを再送せず、新preloadを転送する。"
+      },
+      "conditions": {
+        "en": "Use the original one-byte bus FIFO model and independent register control, explicit frontdoor/map and selected auto/external prediction. Preload update occurs before any blocking statement after set.",
+        "ja": "独自1-byte bus FIFO modelと独立register control、明示frontdoor／map、選択auto／外部予測を使う。preload updateはset後のblocking文より前に行う。"
+      },
+      "expected": {
+        "en": "Two completed set/update pairs leave the original DUT and abstract queues as 0x11,0x22 with two writes.",
+        "ja": "完了したset／update 2組は元DUT／abstract queueを0x11、0x22とし、writeは2回となる。"
+      },
+      "limitations": {
+        "en": "Use the listed constructor/configure and public queue/APIs only, with no unlisted build hook, private field access or replacement prediction body. Original driver storage is a testbench DUT model, not RTL or HDL-DPI. The independent normal-register bus control is separate evidence; a blocked FIFO input does not pass through that control. Broader constructor/precondition interpretation, failure, capacity/width, backdoor and concurrent histories remain partial. Separately indexed control-only inputs explicitly call the pinned library build extension; they do not replace the listed-API constructor premise or pass its blocked direct inputs.",
+        "ja": "記載constructor／configureと公開queue／APIだけを使い、記載外build hook、private field access、代用prediction本体は使わない。独自driver storageは検査系DUT modelでRTL／HDL-DPIではない。独立した通常register bus controlは別の証拠で、停止したFIFO入力をそのcontrolでpassにしない。広いconstructor／前提の解釈、失敗、容量／幅、backdoor、並行履歴は部分的に残る。 別索引のcontrol専用入力は固定libraryのbuild拡張を明示呼出しし、記載APIだけのconstructor前提を置換せず、その停止した直接入力をpassにしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_register_fifo_repeated_update_writes_only_the_new_preload",
+          "role": "direct",
+          "expected_observations": [
+            "UT: fifo_update_reuse status 1 dut_order 1 abstract_once 1 transfers 1"
+          ]
+        },
+        {
+          "test": "u18/test_register_fifo_original_bus_control_transfers_a_normal_reference_register",
+          "role": "control",
+          "expected_observations": [
+            "UT: fifo_bus_control status 1 stored 1 calls 1",
+            "UT: reference_only no_fifo 1"
+          ]
+        },
+        {
+          "test": "u18/test_pinned_fifo_build_control_repeated_update",
+          "role": "control",
+          "expected_observations": [
+            "UT: fifo_update_reuse status 1 dut_order 1 abstract_once 1 transfers 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEM-FIFO-AUDIT-FIFO-COMPARE-GATE",
+      "clause": "18.8.3.2",
+      "statement": {
+        "en": "FIFO mismatch checking requires both the mirror check argument and the compare policy to be enabled.",
+        "ja": "FIFO不一致比較にはmirror check引数とcompare policyの両方の有効化が必要である。"
+      },
+      "conditions": {
+        "en": "Independently compile four CHECK/NO_CHECK combinations with a deliberate 0x11 abstract versus 0x22 physical mismatch and auto-prediction enabled.",
+        "ja": "意図したabstract 0x11／physical 0x22不一致とauto-predict有効化により、CHECK／NO_CHECK 4組を独立compileする。"
+      },
+      "expected": {
+        "en": "Only both-enabled reports ERROR/FATAL; every matrix member performs one physical read.",
+        "ja": "両方有効のときだけERROR／FATALを報告し、各matrix入力は物理read 1回を行う。"
+      },
+      "limitations": {
+        "en": "The scalar ERROR/FATAL predicate fixes no exact ID/text/count or failed-call recovery. Abstract pop behavior when a condition is off is not inferred from conditional wording; checked matching pop has a separate positive probe. Use the listed constructor/configure and public queue/APIs only, with no unlisted build hook, private field access or replacement prediction body. Original driver storage is a testbench DUT model, not RTL or HDL-DPI. The independent normal-register bus control is separate evidence; a blocked FIFO input does not pass through that control. Broader constructor/precondition interpretation, failure, capacity/width, backdoor and concurrent histories remain partial. Separately indexed control-only inputs explicitly call the pinned library build extension; they do not replace the listed-API constructor premise or pass its blocked direct inputs.",
+        "ja": "ERROR／FATAL predicateは正確なID／文面／回数や失敗呼出し後の復旧を固定しない。条件off時のabstract popを条件文から推測せず、検査する一致時popは別のpositive probeを持つ。記載constructor／configureと公開queue／APIだけを使い、記載外build hook、private field access、代用prediction本体は使わない。独自driver storageは検査系DUT modelでRTL／HDL-DPIではない。独立した通常register bus controlは別の証拠で、停止したFIFO入力をそのcontrolでpassにしない。広いconstructor／前提の解釈、失敗、容量／幅、backdoor、並行履歴は部分的に残る。 別索引のcontrol専用入力は固定libraryのbuild拡張を明示呼出しし、記載APIだけのconstructor前提を置換せず、その停止した直接入力をpassにしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_register_fifo_mirror_check_with_compare_enabled",
+          "role": "direct",
+          "expected_observations": [
+            "UT: fifo_mirror comparison_gate 1 physical_read 1"
+          ]
+        },
+        {
+          "test": "u18/test_register_fifo_mirror_check_with_compare_disabled",
+          "role": "direct",
+          "expected_observations": [
+            "UT: fifo_mirror comparison_gate 1 physical_read 1"
+          ]
+        },
+        {
+          "test": "u18/test_register_fifo_mirror_no_check_with_compare_enabled",
+          "role": "direct",
+          "expected_observations": [
+            "UT: fifo_mirror comparison_gate 1 physical_read 1"
+          ]
+        },
+        {
+          "test": "u18/test_register_fifo_mirror_no_check_with_compare_disabled",
+          "role": "direct",
+          "expected_observations": [
+            "UT: fifo_mirror comparison_gate 1 physical_read 1"
+          ]
+        },
+        {
+          "test": "u18/test_register_fifo_original_bus_control_transfers_a_normal_reference_register",
+          "role": "control",
+          "expected_observations": [
+            "UT: fifo_bus_control status 1 stored 1 calls 1",
+            "UT: reference_only no_fifo 1"
+          ]
+        },
+        {
+          "test": "u18/test_pinned_fifo_build_control_mirror_check_with_compare_enabled",
+          "role": "control",
+          "expected_observations": [
+            "UT: fifo_mirror comparison_gate 1 physical_read 1"
+          ]
+        },
+        {
+          "test": "u18/test_pinned_fifo_build_control_mirror_check_with_compare_disabled",
+          "role": "control",
+          "expected_observations": [
+            "UT: fifo_mirror comparison_gate 1 physical_read 1"
+          ]
+        },
+        {
+          "test": "u18/test_pinned_fifo_build_control_mirror_no_check_with_compare_enabled",
+          "role": "control",
+          "expected_observations": [
+            "UT: fifo_mirror comparison_gate 1 physical_read 1"
+          ]
+        },
+        {
+          "test": "u18/test_pinned_fifo_build_control_mirror_no_check_with_compare_disabled",
+          "role": "control",
+          "expected_observations": [
+            "UT: fifo_mirror comparison_gate 1 physical_read 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEM-FIFO-AUDIT-FIFO-MIRROR-GATE",
+      "clause": "18.8.5.6",
+      "statement": {
+        "en": "Selected FIFO mirrors apply the joint checking condition while physically reading the DUT FIFO.",
+        "ja": "選択FIFO mirrorはDUT FIFOを実readしながら両条件の比較制御を適用する。"
+      },
+      "conditions": {
+        "en": "Independently compile four CHECK/NO_CHECK combinations with a deliberate 0x11 abstract versus 0x22 physical mismatch and auto-prediction enabled.",
+        "ja": "意図したabstract 0x11／physical 0x22不一致とauto-predict有効化により、CHECK／NO_CHECK 4組を独立compileする。"
+      },
+      "expected": {
+        "en": "Only both-enabled reports ERROR/FATAL; every matrix member performs one physical read.",
+        "ja": "両方有効のときだけERROR／FATALを報告し、各matrix入力は物理read 1回を行う。"
+      },
+      "limitations": {
+        "en": "The scalar ERROR/FATAL predicate fixes no exact ID/text/count or failed-call recovery. Abstract pop behavior when a condition is off is not inferred from conditional wording; checked matching pop has a separate positive probe. Use the listed constructor/configure and public queue/APIs only, with no unlisted build hook, private field access or replacement prediction body. Original driver storage is a testbench DUT model, not RTL or HDL-DPI. The independent normal-register bus control is separate evidence; a blocked FIFO input does not pass through that control. Broader constructor/precondition interpretation, failure, capacity/width, backdoor and concurrent histories remain partial. Separately indexed control-only inputs explicitly call the pinned library build extension; they do not replace the listed-API constructor premise or pass its blocked direct inputs.",
+        "ja": "ERROR／FATAL predicateは正確なID／文面／回数や失敗呼出し後の復旧を固定しない。条件off時のabstract popを条件文から推測せず、検査する一致時popは別のpositive probeを持つ。記載constructor／configureと公開queue／APIだけを使い、記載外build hook、private field access、代用prediction本体は使わない。独自driver storageは検査系DUT modelでRTL／HDL-DPIではない。独立した通常register bus controlは別の証拠で、停止したFIFO入力をそのcontrolでpassにしない。広いconstructor／前提の解釈、失敗、容量／幅、backdoor、並行履歴は部分的に残る。 別索引のcontrol専用入力は固定libraryのbuild拡張を明示呼出しし、記載APIだけのconstructor前提を置換せず、その停止した直接入力をpassにしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_register_fifo_mirror_check_with_compare_enabled",
+          "role": "direct",
+          "expected_observations": [
+            "UT: fifo_mirror comparison_gate 1 physical_read 1"
+          ]
+        },
+        {
+          "test": "u18/test_register_fifo_mirror_check_with_compare_disabled",
+          "role": "direct",
+          "expected_observations": [
+            "UT: fifo_mirror comparison_gate 1 physical_read 1"
+          ]
+        },
+        {
+          "test": "u18/test_register_fifo_mirror_no_check_with_compare_enabled",
+          "role": "direct",
+          "expected_observations": [
+            "UT: fifo_mirror comparison_gate 1 physical_read 1"
+          ]
+        },
+        {
+          "test": "u18/test_register_fifo_mirror_no_check_with_compare_disabled",
+          "role": "direct",
+          "expected_observations": [
+            "UT: fifo_mirror comparison_gate 1 physical_read 1"
+          ]
+        },
+        {
+          "test": "u18/test_register_fifo_original_bus_control_transfers_a_normal_reference_register",
+          "role": "control",
+          "expected_observations": [
+            "UT: fifo_bus_control status 1 stored 1 calls 1",
+            "UT: reference_only no_fifo 1"
+          ]
+        },
+        {
+          "test": "u18/test_pinned_fifo_build_control_mirror_check_with_compare_enabled",
+          "role": "control",
+          "expected_observations": [
+            "UT: fifo_mirror comparison_gate 1 physical_read 1"
+          ]
+        },
+        {
+          "test": "u18/test_pinned_fifo_build_control_mirror_check_with_compare_disabled",
+          "role": "control",
+          "expected_observations": [
+            "UT: fifo_mirror comparison_gate 1 physical_read 1"
+          ]
+        },
+        {
+          "test": "u18/test_pinned_fifo_build_control_mirror_no_check_with_compare_enabled",
+          "role": "control",
+          "expected_observations": [
+            "UT: fifo_mirror comparison_gate 1 physical_read 1"
+          ]
+        },
+        {
+          "test": "u18/test_pinned_fifo_build_control_mirror_no_check_with_compare_disabled",
+          "role": "control",
+          "expected_observations": [
+            "UT: fifo_mirror comparison_gate 1 physical_read 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEM-FIFO-AUDIT-FIFO-COMPARE-DEFAULT",
+      "clause": "18.8.3.2",
+      "statement": {
+        "en": "Omitting set_compare selects UVM_CHECK for a checked FIFO mirror.",
+        "ja": "set_compare引数の省略は検査するFIFO mirrorでUVM_CHECKを選ぶ。"
+      },
+      "conditions": {
+        "en": "Call set_compare with no argument, then a checked mirror against an intentionally different original DUT front.",
+        "ja": "set_compareを引数なしで呼び、意図して異なる独自DUT先頭へcheck有効mirrorを行う。"
+      },
+      "expected": {
+        "en": "An ERROR/FATAL mismatch notification accompanies one physical read.",
+        "ja": "物理read 1回にERROR／FATAL不一致通知が伴う。"
+      },
+      "limitations": {
+        "en": "Use the listed constructor/configure and public queue/APIs only, with no unlisted build hook, private field access or replacement prediction body. Original driver storage is a testbench DUT model, not RTL or HDL-DPI. The independent normal-register bus control is separate evidence; a blocked FIFO input does not pass through that control. Broader constructor/precondition interpretation, failure, capacity/width, backdoor and concurrent histories remain partial. Separately indexed control-only inputs explicitly call the pinned library build extension; they do not replace the listed-API constructor premise or pass its blocked direct inputs.",
+        "ja": "記載constructor／configureと公開queue／APIだけを使い、記載外build hook、private field access、代用prediction本体は使わない。独自driver storageは検査系DUT modelでRTL／HDL-DPIではない。独立した通常register bus controlは別の証拠で、停止したFIFO入力をそのcontrolでpassにしない。広いconstructor／前提の解釈、失敗、容量／幅、backdoor、並行履歴は部分的に残る。 別索引のcontrol専用入力は固定libraryのbuild拡張を明示呼出しし、記載APIだけのconstructor前提を置換せず、その停止した直接入力をpassにしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_register_fifo_set_compare_omission_enables_checked_mismatch_reporting",
+          "role": "direct",
+          "expected_observations": [
+            "UT: fifo_compare_default mismatch_reported 1 physical_read 1"
+          ]
+        },
+        {
+          "test": "u18/test_register_fifo_original_bus_control_transfers_a_normal_reference_register",
+          "role": "control",
+          "expected_observations": [
+            "UT: fifo_bus_control status 1 stored 1 calls 1",
+            "UT: reference_only no_fifo 1"
+          ]
+        },
+        {
+          "test": "u18/test_pinned_fifo_build_control_compare_default",
+          "role": "control",
+          "expected_observations": [
+            "UT: fifo_compare_default mismatch_reported 1 physical_read 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEM-FIFO-AUDIT-FIFO-CHECKED-MATCH-POP",
+      "clause": "18.8.5.6",
+      "statement": {
+        "en": "A checked matching auto-predicted FIFO mirror pops the abstract front.",
+        "ja": "checkした一致auto-predict FIFO mirrorはabstract先頭をpopする。"
+      },
+      "conditions": {
+        "en": "Prepare matching one-entry abstract/original-DUT queues, enable both comparison controls and perform one frontdoor mirror. The public FIFO queue is primed directly, without an internal field-mirror accessor.",
+        "ja": "一致する1-entry abstract／独自DUT queueを準備し、両比較制御を有効にしてfrontdoor mirrorを1回行う。 内部field-mirror accessorを使わず、公開FIFO queueを直接準備する。"
+      },
+      "expected": {
+        "en": "Successful mirror reports no error and leaves both queues empty.",
+        "ja": "成功mirrorはerrorを報告せず、両queueを空にする。"
+      },
+      "limitations": {
+        "en": "Use the listed constructor/configure and public queue/APIs only, with no unlisted build hook, private field access or replacement prediction body. Original driver storage is a testbench DUT model, not RTL or HDL-DPI. The independent normal-register bus control is separate evidence; a blocked FIFO input does not pass through that control. Broader constructor/precondition interpretation, failure, capacity/width, backdoor and concurrent histories remain partial. Separately indexed control-only inputs explicitly call the pinned library build extension; they do not replace the listed-API constructor premise or pass its blocked direct inputs. The no-error expectation treats the public queue as the stated abstract FIFO used for mirror expectation; its relation to an internal field mirror is an explicit interpretation boundary requiring review.",
+        "ja": "記載constructor／configureと公開queue／APIだけを使い、記載外build hook、private field access、代用prediction本体は使わない。独自driver storageは検査系DUT modelでRTL／HDL-DPIではない。独立した通常register bus controlは別の証拠で、停止したFIFO入力をそのcontrolでpassにしない。広いconstructor／前提の解釈、失敗、容量／幅、backdoor、並行履歴は部分的に残る。 別索引のcontrol専用入力は固定libraryのbuild拡張を明示呼出しし、記載APIだけのconstructor前提を置換せず、その停止した直接入力をpassにしない。 no-error期待は公開queueをmirror期待に使う記載abstract FIFOと解釈し、内部field mirrorとの関係をレビューが必要な明示的解釈境界として残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_register_fifo_checked_matching_mirror_pops_the_predicted_front",
+          "role": "direct",
+          "expected_observations": [
+            "UT: fifo_matching_mirror status 1 no_error 1 both_popped 1"
+          ]
+        },
+        {
+          "test": "u18/test_register_fifo_original_bus_control_transfers_a_normal_reference_register",
+          "role": "control",
+          "expected_observations": [
+            "UT: fifo_bus_control status 1 stored 1 calls 1",
+            "UT: reference_only no_fifo 1"
+          ]
+        },
+        {
+          "test": "u18/test_pinned_fifo_build_control_matching_checked_mirror",
+          "role": "control",
+          "expected_observations": [
+            "UT: fifo_matching_mirror status 1 no_error 1 both_popped 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEM-FIFO-AUDIT-REFERENCE-WRITE",
+      "clause": "18.4.4.9",
+      "statement": {
+        "en": "The independent ordinary-register control transfers its selected write through the original bus.",
+        "ja": "独立した通常register controlは選択writeを独自busへ転送する。"
+      },
+      "conditions": {
+        "en": "Use the same original adapter/sequencer/driver with a standalone configured 8-bit reference register and no FIFO instance.",
+        "ja": "同じ独自adapter／sequencer／driverで、設定済み8-bit reference registerを単独使用し、FIFO instanceを作らない。"
+      },
+      "expected": {
+        "en": "One write/read pair returns 0x63, successful statuses and exactly two control bus calls.",
+        "ja": "write／read 1組は0x63、成功status、control bus呼出し計2回を返す。"
+      },
+      "limitations": {
+        "en": "This certifies only the reference route and original transport fixture, not any FIFO field/setup, payload, prediction or comparison contract.",
+        "ja": "reference経路と独自転送検査系だけを認定し、FIFOのfield／設定、payload、予測、比較契約は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_register_fifo_original_bus_control_transfers_a_normal_reference_register",
+          "role": "direct",
+          "expected_observations": [
+            "UT: fifo_bus_control status 1 stored 1 calls 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEM-FIFO-AUDIT-REFERENCE-READ",
+      "clause": "18.4.4.10",
+      "statement": {
+        "en": "The independent ordinary-register control reads its selected original bus storage.",
+        "ja": "独立した通常register controlは選択した独自bus storageをreadする。"
+      },
+      "conditions": {
+        "en": "Use the same original adapter/sequencer/driver with a standalone configured 8-bit reference register and no FIFO instance.",
+        "ja": "同じ独自adapter／sequencer／driverで、設定済み8-bit reference registerを単独使用し、FIFO instanceを作らない。"
+      },
+      "expected": {
+        "en": "One write/read pair returns 0x63, successful statuses and exactly two control bus calls.",
+        "ja": "write／read 1組は0x63、成功status、control bus呼出し計2回を返す。"
+      },
+      "limitations": {
+        "en": "This certifies only the reference route and original transport fixture, not any FIFO field/setup, payload, prediction or comparison contract.",
+        "ja": "reference経路と独自転送検査系だけを認定し、FIFOのfield／設定、payload、予測、比較契約は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_register_fifo_original_bus_control_transfers_a_normal_reference_register",
+          "role": "direct",
+          "expected_observations": [
+            "UT: fifo_bus_control status 1 stored 1 calls 1"
+          ]
+        }
+      ]
     }
   ]
 }

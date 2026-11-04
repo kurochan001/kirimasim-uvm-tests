@@ -995,3 +995,9 @@ typed DB APIはuntyped選択や独自検査系filterと別に扱います。
 
 **recent-set resource sort** — probeがmost-recently-setの文言を明示解釈する、独立した同precedenceのsort規則です。
 最初の最大値の同順位選択を置換せず、安定したqueue順を暗黙に規定しません。
+
+**FIFO preload／DUT転送** — setはabstract FIFOを準備し、updateは間にblocking文を挟む前に新preloadを転送します。
+直接write／read、auto／外部予測は別の経路と観測です。
+
+**FIFO constructor前提／build control** — 記載APIの入力と、別索引の固定library初期化variantです。
+controlのpassで元の前提をpassにせず、記載外methodをIEEE義務へ変えません。

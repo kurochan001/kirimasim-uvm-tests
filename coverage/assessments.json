@@ -5902,6 +5902,20 @@
         "reviewer": null,
         "reviewed_at": null
       }
+    },
+    {
+      "clause": "18.7.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "The individually read Methods heading groups the indirect constructor and configure APIs and supplies no separate behavior. Both method bodies and the class overview retain their own partial duties.",
+        "ja": "個別に読んだMethods見出しはindirect constructorとconfigure APIをまとめ、独立した動作を追加しない。両method本文とclass概要は自身の部分義務を保持する。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
     }
   ]
 }
