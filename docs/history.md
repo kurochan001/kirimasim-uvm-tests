@@ -3,8 +3,8 @@
 [日本語](history.ja.md) · [README](../README.md)
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and fifty-seven cross-milestone thin-area expansions, including the
-existing-test requirement-link backlog checkpoint (1731 tests: 1683 simulation and 48 elaboration). The earlier 349-test checkpoint is
+three M4 increments and fifty-eight cross-milestone thin-area expansions, including the
+existing-test requirement-link backlog checkpoint (1763 tests: 1711 simulation and 52 elaboration). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -3569,3 +3569,76 @@ and all partial obligations open. All 110 tool tests, metadata/ledger/library,
 evidence identities and paired docs pass. FAQ/terms reach 239/273. Schema,
 runners/library/catalog/backend, workflow and six SVGs are unchanged. No guest
 run, human review, denominator approval or completion is claimed. Goal active.
+
+## Fifty-eighth thin-area expansion: resources, scopes and typed storage (2026-11-05)
+
+Thirty-two M1 resource fixtures add twenty-four two-seed runtime matches,
+four expected compiler rejections, three seed-1 runtime differences without
+seed 73 and one legal extension build without runtime. Missing-name lookup
+omits the required default warning. Both independently measured local and
+global pool cases retain assigned precedence 3/9 but return the first resource
+by name instead of the required maximum; type priority and its queue match.
+The local public-constructor/singleton boundary remains explicitly qualified.
+
+The original extensions declare separate direct base-constructor calls with an
+explicit name and argument omission. They implement the standard-listed pure
+type hook but cannot compile because the pinned library also requires unlisted pure helpers.
+That legal declaration stays spec-only. A separate missing-type-hook negative
+uses original compatibility bodies to isolate the required get_type_handle
+rejection; it does not repair the legal extension. Other negative fixtures
+reject direct virtual-base construction and incompatible typed read/write
+contexts, each without a runtime seed and with independent legal controls.
+
+Matching controls cover exact queue/DB aliases, default resource/DB types,
+constructor names, static/polymorphic tokens, scalar/string/queue copying and
+object-handle identity, read-only ERROR/storage, equal/rejected-write notification
+suppression, all pending waiters on a changed write, scope replacement/deletion,
+null insertion warnings, separate name/type/both priorities and overrides,
+first-maximum queues, core-service pool/default selection, and DB values,
+identity, failed-read sentinels and shared-scope writes.
+
+Initial accessor setup mistakenly constructed abstract uvm_object directly.
+Original concrete accessor classes now replace it and are remeasured; obsolete
+setup builds are excluded rather than assigned to UVM. Expected outputs stay
+standard-derived. Constructor prose/prototype differences, lookup_type's queue/
+convenience-text conflict, type-priority versus broader lookup wording and the
+type-write paragraph's name-based references remain explicit interpretations.
+No successful-write return value is invented.
+
+Resource auditing adds 63 AI duties for thirty-two M1 fixtures. Constructor
+and declaration surfaces, exact aliases/type tokens, selected payloads and type
+safety, read-only and notifications, pool ownership/scopes/maps/precedence,
+core defaults and typed DB operations have independent conditions/observations.
+Equal and rejected writes retain pending waiters; a changed write releases both.
+Name/type/both priorities and overrides are six separate fixtures, not one row
+borrowed from an obstructed shared matrix.
+
+Three runtime differences and the unlisted-pure-hook legal build remain. The
+pure-hook negative's extra original compatibility bodies isolate rejection of
+the standard hook; they do not turn the unqualified extension into a pass.
+The assigned numeric precedences are observed independently of name selection.
+Global and local pool results are separate current inputs; interpretation
+boundaries in the singleton/constructor and lookup/type/write prose remain.
+
+Ten individually read headings are structural and two introductions are
+contextual with related duties. Annex C is 52 partial/12 assessed/20 unassessed
+with 68 drafts. Four core-service duties bring annex F to 60/14/63 with 95
+drafts. Overall is 1687 partial/353 assessed/467 unassessed (239 structural/
+114 contextual). All 3031 earlier requirements and 341 assessments are unchanged.
+Remaining C work includes overview/printing contracts, sort ties, regex/scope
+collections, typed highest-precedence filtering, static DB/config inheritance
+and convenience aliases, invalid precedence arguments and every partial
+lifecycle/concurrency condition. No number establishes complete conformance.
+Totals: 1763 (1711 simulation/52 elaboration), M1 709 (667/42), M2 538 (533/5),
+M3 516 (511/5). Ordinary results are 1534 pass (1484 runtime/50 compiler
+rejections), 229 known (170 runtime/57 simulation builds/two illegal acceptances).
+All 1731 prior ordinary records, 3031 requirements and 341 assessments remain
+unchanged; guest 1083/HDL 11/command-line 18 records are byte-identical. Guest
+unmeasured is 680 (628 simulation/52 elaboration), including two revised inputs.
+
+The goal's thirtieth iteration reduces unassessed by 64 to 467; all partial
+obligations and original targets remain open. All 110 tool tests, metadata,
+ledger/library, evidence identities and paired docs pass. FAQs/terms reach
+242/275. Schema, runners/library/catalog/backend, workflow and six SVGs are
+unchanged. No guest run, human review, denominator approval or completion is
+claimed. Goal active.

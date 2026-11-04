@@ -1,0 +1,3 @@
+UT: resource_wait initial_blocked 1
+UT: resource_wait equal_write_blocked 1
+UT: resource_wait all_released 1 value 1

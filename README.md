@@ -11,13 +11,13 @@ Verification Methodology (UVM). It targets
 [kirimasim-tests](https://github.com/kurochan001/kirimasim-tests), which tests
 the IEEE 1800-2023 SystemVerilog language.
 
-> **Status: M4 in progress.** 1731 tests: 1683 simulation and 48 elaboration,
-> in 21 chapter/annex directories; 1506 tagged oracles and 225 spec-only cases.
+> **Status: M4 in progress.** 1763 tests: 1711 simulation and 52 elaboration,
+> in 21 chapter/annex directories; 1534 tagged oracles and 229 spec-only cases.
 > All use `:spec_check: ai`; none records human review. M1–M3 targets remain open.
-> M4 has 3031 AI drafts, 1730 directly linked tests and an index of all 1731.
+> M4 has 3094 AI drafts, 1762 directly linked tests and an index of all 1763.
 > 0 tests lack requirement links and 0 drafts lack direct tests; the historical
-> memory-walk interpretation requires review. 531 identifiers remain unassessed;
-> 341 have explicit AI classifications. Scope and denominator remain unapproved.
+> memory-walk interpretation requires review. 467 identifiers remain unassessed;
+> 353 have explicit AI classifications. Scope and denominator remain unapproved.
 
 ## Contents
 
@@ -29,12 +29,12 @@ the IEEE 1800-2023 SystemVerilog language.
 
 ## Current scope
 
-- **M1: 677 tests (639 simulation, 38 elaboration).** Objects, transactions and copy/compare/print/pack policies;
+- **M1: 709 tests (667 simulation, 42 elaboration).** Objects, transactions and copy/compare/print/pack policies;
   reporting and catcher mutation/helper/issue paths, hierarchy, factory, phase states/callbacks/domains and
   graphs/jumps/proxies, objections, events and
   callbacks, barriers, heartbeats, configuration, database connections/streams/links/
   recorders, component recording, core services, visitors, component searches, pools, queues,
-  agents, package types/global reporting, run-test callbacks, string splitting/matching, enum-name and command-line queries.
+  agents, package types/global reporting, run-test callbacks, typed resources/pools/databases, string splitting/matching, enum-name and command-line queries.
 - **M2: 538 tests (533 simulation, 5 elaboration).** TLM 1 FIFOs, analysis, request/response and blocking
   transport channels; TLM 2 payloads, extensions and selected socket transports;
   sequences/libraries and default request/response printing, state waits,
@@ -78,14 +78,14 @@ python3 tools/run_verilator.py --seeds 1 73 --build-jobs 2 -j 1 \
 ```
 
 The fetcher checks the pinned Accellera UVM 2020.3.1 library. The smoke
-command selects one test. To run all 1506 tagged checks (1460 runtime, 46 compile rejection):
+command selects one test. To run all 1534 tagged checks (1484 runtime, 50 compile rejection):
 
 ```sh
 python3 tools/run_verilator.py --seeds 1 73 --build-jobs 2 -j 2 \
   --json out/verilator.json
 ```
 
-Add `--all` to include all two-state cases, including the 225 spec-only cases.
+Add `--all` to include all two-state cases, including the 229 spec-only cases.
 `known` results do not fail that command; tagged regressions do. `-j` controls
 concurrent tests and `--build-jobs` controls C++ jobs within each build.
 Each runtime model is built once and run in a fresh process for each seed.
@@ -104,20 +104,20 @@ by Git; results are not automatically published.
 
 ## Current results
 
-The Verilator snapshot assembled on 2026-11-05 covers all 1731 current cases.
-Guest records retain 1083 compatible inputs; 648 inputs are unmeasured.
+The Verilator snapshot assembled on 2026-11-05 covers all 1763 current cases.
+Guest records retain 1083 compatible inputs; 680 inputs are unmeasured.
 These results are separate from the Check badge.
 
 | Simulator and library | Observed result |
 | --- | --- |
-| Verilator 5.052, pinned UVM, ordinary runner | 1460 runtime matches at seeds 1/73; 46 expected compile rejections; 225 known differences |
+| Verilator 5.052, pinned UVM, ordinary runner | 1484 runtime matches at seeds 1/73; 50 expected compile rejections; 229 known differences |
 | Verilator 5.052, original VPI HDL backend | Separate 11-case subset: 10 match both seeds; 1 differs |
 | Verilator 5.052, VPI command-line bridge and pinned regex DPI | Separate 18-case subset: 17 match both seeds; 1 known difference |
-| kirimasim, pinned UVM | 1074 `unsupported`; nine missing-API `fail` in 1083 cases; 648 unmeasured |
-| Ghost, bundled UVM | 207 match and 876 fail at each seed in 1083 cases; 648 unmeasured |
+| kirimasim, pinned UVM | 1074 `unsupported`; nine missing-API `fail` in 1083 cases; 680 unmeasured |
+| Ghost, bundled UVM | 207 match and 876 fail at each seed in 1083 cases; 680 unmeasured |
 
-The ordinary runner records 167 runtime differences at seed 1, 20 missing API/type-name builds,
-two type-default declaration builds, two printed signature builds, two inherited type_id registry builds, one protected-access build and 29 unlinked-DPI builds (11 HDL, 18 command-line),
+The ordinary runner records 170 runtime differences at seed 1, 20 missing API/type-name builds,
+two type-default declaration builds, two printed signature builds, two inherited type_id registry builds, one protected-access build, one unlisted-pure-hook build and 29 unlinked-DPI builds (11 HDL, 18 command-line),
 plus two accepted illegal elaboration designs without runtime execution.
 The two VPI subsets are separate conditions.
 `known` and `unsupported` are not passes. Ghost bundled results do not establish
@@ -152,10 +152,10 @@ its counterpart; commands and API identifiers retain their original spelling.
 | Stage | Scope | Current state / target |
 | --- | --- | --- |
 | M0 | Fetcher, runners, metadata/tools checks, Check and smoke test | Infrastructure implemented |
-| M1 | Core classes, policies, factory, phases and their graphs, objections, configuration and reporting | 677 tests; reviewed two-tests-per-clause target open |
+| M1 | Core classes, policies, factory, phases and their graphs, objections, configuration and reporting | 709 tests; reviewed two-tests-per-clause target open |
 | M2 | Sequences, sequencers, TLM and callbacks | 538 tests; target open |
 | M3 | Register layer (17–19, D.3, annex E) | 516 tests across chapters 17–19, D.3 and annex E; target open |
-| M4 | Requirement ledger and coverage | In progress: 3031 AI drafts; 3031 requirements link to 1730 tests; denominator unapproved |
+| M4 | Requirement ledger and coverage | In progress: 3094 AI drafts; 3094 requirements link to 1762 tests; denominator unapproved |
 
 M1–M3 remain incomplete. Further work covers sequence ownership/lifecycle,
 default resources, callbacks and TLM 2 protocol/timing/socket combinations;

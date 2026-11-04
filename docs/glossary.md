@@ -1268,3 +1268,11 @@ must preserve active peers and suppress the selected removed handle.
 
 **Saved signed shift** — Store arithmetic shift output into its signed type
 before a comparison can propagate unsigned operand context into the shift.
+
+**Resource priority / precedence** — Priority moves a resource within selected
+name/type queues. Numeric precedence determines the maximum name match under
+the explicit type-lookup exception; the two controls require separate evidence.
+
+**Resource modification notification** — A changed write releases pending
+waiters. Equal-value and read-only rejected writes must not signal a modification
+under the selected resource contract.

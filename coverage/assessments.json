@@ -5214,6 +5214,182 @@
         "reviewer": null,
         "reviewed_at": null
       }
+    },
+    {
+      "clause": "C",
+      "classification": "structural",
+      "rationale": {
+        "en": "Annex title grouping configuration and resource classes; operational duties follow in its subclauses.",
+        "ja": "configuration／resource classをまとめる付録題名で、操作義務は下位条項へ続く。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "C.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "Resource-class grouping heading; the introduction and individual resource/pool/container clauses carry behavior.",
+        "ja": "resource classの分類見出しで、動作は導入と個別resource／pool／container条項にある。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "C.2.3.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "Resource-base common-methods heading; constructor and type-hook duties are separately numbered.",
+        "ja": "resource-base共通method見出しで、constructorとtype hook義務は別番号である。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "C.2.3.3",
+      "classification": "structural",
+      "rationale": {
+        "en": "Read-only interface heading; setter and query behavior are specified below.",
+        "ja": "read-only interface見出しで、setterと照会動作は下位に記述する。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "C.2.4.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "Pool common-methods heading; constructor and default accessor are separately specified.",
+        "ja": "pool共通method見出しで、constructorと既定accessorは別に記述する。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "C.3",
+      "classification": "structural",
+      "rationale": {
+        "en": "Resource-database grouping heading; introduction, parameterized declaration and convenience APIs follow.",
+        "ja": "resource-databaseの分類見出しで、導入、parameter宣言、便利APIが続く。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "C.3.2.3",
+      "classification": "structural",
+      "rationale": {
+        "en": "Resource-DB methods heading; each static operation has an individual clause.",
+        "ja": "resource-DB method見出しで、各static操作は個別条項を持つ。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "C.4",
+      "classification": "structural",
+      "rationale": {
+        "en": "Configuration-database grouping heading; the introduction and config API clauses contain its behavior.",
+        "ja": "configuration-databaseの分類見出しで、動作は導入とconfig API条項にある。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "C.4.2.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "Config methods heading; set/get/exists/wait operations are specified individually.",
+        "ja": "config method見出しで、set／get／exists／wait操作は個別に記述する。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "C.4.2.3",
+      "classification": "structural",
+      "rationale": {
+        "en": "Config convenience-types heading; four concrete typedefs follow.",
+        "ja": "config便利type見出しで、4個の具体typedefが続く。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "C.2.2",
+      "classification": "contextual",
+      "rationale": {
+        "en": "Namespace introduction for resource types; queue and priority semantics are specified by their definitions and concrete pool APIs. Selected exact alias and priority duties are linked without certifying every API.",
+        "ja": "resource type namespaceの導入で、queue／priority意味は定義と具体pool APIで記述する。選択した正確なaliasとpriority義務を関連付け、全APIを認定しない。"
+      },
+      "related_requirements": [
+        "UVM-RESOURCE-AUDIT-QUEUE-ALIAS",
+        "UVM-RESOURCE-AUDIT-PRIORITY-NAME",
+        "UVM-RESOURCE-AUDIT-PRIORITY-TYPE"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "C.3.1",
+      "classification": "contextual",
+      "rationale": {
+        "en": "Convenience-layer introduction relates direct resources to DB operations; linked create/read/write duties exercise selected routes without duplicating each method or completing every condition.",
+        "ja": "便利layer導入は直接resourceとDB操作を関連付け、関連する生成／read／write義務で選択経路を動かす。各methodを重複化せず、全条件を完了しない。"
+      },
+      "related_requirements": [
+        "UVM-RESOURCE-AUDIT-DB-SET-CREATE",
+        "UVM-RESOURCE-AUDIT-DB-READ-NAME",
+        "UVM-RESOURCE-AUDIT-DB-WRITE-NAME"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
     }
   ]
 }

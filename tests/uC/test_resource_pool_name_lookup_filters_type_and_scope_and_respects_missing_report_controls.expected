@@ -1,0 +1,4 @@
+UT: lookup_filters unchecked_type 1 checked_type 1 hidden_type 1
+UT: lookup_missing disabled_report 1 empty 1
+UT: lookup_missing default_warning 1 empty 1
+UT: lookup_empty_name empty 1

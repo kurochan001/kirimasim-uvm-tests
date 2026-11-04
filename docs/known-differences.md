@@ -2,14 +2,14 @@
 
 [日本語](known-differences.ja.md) · [README](../README.md) · [FAQ](faq.md)
 
-This describes the current 1731-test suite and the pinned Accellera UVM
+This describes the current 1763-test suite and the pinned Accellera UVM
 2020.3.1 library. A mismatch is a test result; it does not by itself assign
 the cause to the simulator, the library or the expectation.
 
-Forty-eight elaboration fixtures expect rejection: twenty-seven direct abstract
+Fifty-two elaboration fixtures expect rejection: twenty-eight direct abstract
 constructions and twenty-one pure-interface/const-reference/forbidden-member
-violations. Forty-six match. Subscriber and visitor omissions remain accepted and spec-only without
-runtime. These two compiler acceptances are separate from 223 known simulation
+violations. Fifty match. Subscriber and visitor omissions remain accepted and spec-only without
+runtime. These two compiler acceptances are separate from 227 known simulation
 differences. Selected component-family and recording-base construction probes and the forbidden member access reject correctly.
 
 The new [inherited-kind presence probe](../tests/u18/test_block_has_hdl_path_uses_nearest_explicit_ancestor_kind_without_changing_explicit_queries.sv)
@@ -642,7 +642,18 @@ no-deletion fixture isolates PRE_RUN: both pre hooks see INITIALIZED; post hooks
 see POST_RUN. Abort has a separate matching direct-die control. No peer callback
 order or missing F.2.10 post-run wording is invented for abort.
 
-Across the suite, 1506 tests have the `verilator@5.052` oracle tag and 225
+Resource name lookup omits the required warning when the default rpterr
+finds no match; explicit suppression and successful filtering controls match.
+Separate local/global pool cases observe assigned precedence 3/9 yet get the
+first rather than maximum-precedence name match. Type queue priority matches;
+those sub-observations do not pass either fixture. The local case retains its
+constructor/singleton interpretation boundary independently of the global case.
+A legal resource-base extension implementing the listed pure get_type_handle
+cannot build because the pinned library also declares unlisted pure helpers.
+The missing-standard-hook negative supplies original compatibility bodies only
+to isolate the specified rejection. It does not repair that legal extension.
+
+Across the suite, 1534 tests have the `verilator@5.052` oracle tag and 229
 cases are spec-only. One of the spec-only cases checks 9.6: a child's pre-reset
 task must be killed when that phase ends, but the pinned-library run on Verilator 5.052
 lets the child perform its delayed write during a later phase. The cause of
@@ -654,10 +665,10 @@ without callbacks. The pinned Verilator run reaches the blocked-state
 observation, then its watchdog expires. This combined simulator/library
 cause remains unassigned; the normative wakeup expectation is retained.
 
-The 225 spec-only tests retain their normative expected files.
-Default Verilator runs and CI select 1506 tagged checks (1460 runtime, 46 compile rejection). `--all` includes
+The 229 spec-only tests retain their normative expected files.
+Default Verilator runs and CI select 1534 tagged checks (1484 runtime, 50 compile rejection). `--all` includes
 spec-only cases and records mismatches or build failures as `known`.
-The ordinary runtime records for 167 cases establish their first difference
+The ordinary runtime records for 170 cases establish their first difference
 at seed 1, without seed 73 results. Twenty missing-API/type-name builds have
 no ordinary runtime: one time API, six sequence-library cases, four HDL slice
 cases, one named-concat constructor, one object active-policy API, three catcher
@@ -665,8 +676,9 @@ message-handle cases, the printed recording-state getter, the printed callback
 typedef and two builtin type_id cases. Two type-default declarations, two printed
 signature conflicts and two inherited type_id registry specializations are
 separate declaration builds. One legal public-read declaration has protected-access
-failure. Eleven HDL and eighteen command-line cases also
-lack linked DPI in the ordinary runner, totaling 56 simulation builds without
+failure. One legal resource-base extension requires unlisted pure hooks.
+Eleven HDL and eighteen command-line cases also
+lack linked DPI in the ordinary runner, totaling 57 simulation builds without
 runtime.
 
 The separate HDL
@@ -732,7 +744,7 @@ The printed create_object equivalent call's extra this argument remains partial.
 
 ## Spec-only tests
 
-These are the 225 current spec-only cases. Several exercise the same
+These are the 229 current spec-only cases. Several exercise the same
 limitation, so their count is not a count of distinct bugs.
 
 - [Inherited subscriber type_id specialization](../tests/u08/test_builtin_abstract_parameterized_components_type_id_uses_the_required_registry_specialization.sv).
@@ -1020,7 +1032,7 @@ Additional message-handle and endian cases:
 
 Two existing inputs have revised fingerprints: the command-enum citation and
 the corrected Boolean rerandomization observation. Their historical guest
-records are excluded. The compatible subset has 1083 records and 648 inputs
+records are excluded. The compatible subset has 1083 records and 680 inputs
 are unmeasured, including both revised inputs. This filtering is evidence scope,
 not a new guest failure, pass or simulator improvement.
 
@@ -1048,10 +1060,15 @@ not a new guest failure, pass or simulator improvement.
 - [run test callbacks bracket real phasing and observe core lifecycle states](../tests/uF/test_run_test_callbacks_bracket_real_phasing_and_observe_core_lifecycle_states.sv).
 - [run test callbacks without deletion observe each registered hook and core states](../tests/uF/test_run_test_callbacks_without_deletion_observe_each_registered_hook_and_core_states.sv).
 
+- [resource base legal extensions preserve default explicit names virtual type handles](../tests/uC/test_resource_base_legal_extensions_preserve_default_explicit_names_virtual_type_handles.sv).
+- [resource pool name lookup filters type and scope and respects missing report controls](../tests/uC/test_resource_pool_name_lookup_filters_type_and_scope_and_respects_missing_report_controls.sv).
+- [resource pool precedence changes name selection but not type queue priority](../tests/uC/test_resource_pool_precedence_changes_name_selection_but_not_type_queue_priority.sv).
+- [resource pool global precedence selects name maximum and keeps type priority](../tests/uC/test_resource_pool_global_precedence_selects_name_maximum_and_keeps_type_priority.sv).
+
 ## Simulator and library combinations
 
-The suite has 1731 cases, but the kirimasim/Ghost records below cover only
-1083 unchanged current-input cases. The 648 inputs are unmeasured
+The suite has 1763 cases, but the kirimasim/Ghost records below cover only
+1083 unchanged current-input cases. The 680 inputs are unmeasured
 because prior temporary executable/profile snapshots are unavailable. Do
 not treat this as a fresh full-suite guest result. See [results](results.md).
 

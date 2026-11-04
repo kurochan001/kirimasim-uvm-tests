@@ -966,3 +966,8 @@ path文字列の一致だけでは、物理選択やdata合成を証明しませ
 **Callback membership / delivery** — add／deleteの成功返却値と実通知先は別の観測です。後のentryの削除はactive peerを保持し、選択した削除handleを抑制する必要があります。
 
 **Saved signed shift** — 比較がunsigned operand contextをshiftへ伝える前に、算術shift出力をsigned型へ保存することです。
+
+**Resource priority / precedence** — priorityは選択name／type queue内でresourceを移動し、数値precedenceは明示type-lookup例外の下で最大name matchを決めます。
+2つの制御には独立したevidenceが必要です。
+
+**Resource modification notification** — 変更writeは待機waiterを解放します。選択resource契約の下では、同値writeとread-only拒否writeは変更を通知しません。

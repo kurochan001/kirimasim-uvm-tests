@@ -110944,6 +110944,2259 @@
           ]
         }
       ]
+    },
+    {
+      "id": "UVM-RESOURCE-AUDIT-BASE-CONSTRUCTOR",
+      "clause": "C.2.3.2.1",
+      "statement": {
+        "en": "A concrete resource-base extension implementing the listed pure type hook can preserve omitted/explicit constructor names.",
+        "ja": "記載されたpure type hookを実装する具象resource-base拡張は、省略／明示constructor名を保持できる。"
+      },
+      "conditions": {
+        "en": "Two original direct resource-base extensions supply get_type_handle: one calls the base constructor without a name and the other passes an explicit name, without unlisted compatibility helpers.",
+        "ja": "独自の直接resource-base拡張2個がget_type_handleを提供し、一方は名前なしでbase constructorを呼び、他方は明示名を渡す。記載外compatibility helperは使わない。"
+      },
+      "expected": {
+        "en": "The declared extension compiles and reports the empty/default and named instances with object ancestry and original virtual-hook dispatch.",
+        "ja": "宣言した拡張がcompileでき、空／既定と名前付きinstance、object継承、独自virtual hook委譲を示す。"
+      },
+      "limitations": {
+        "en": "The printed constructor contains a stray comma; this follows its prose/name default with ordinary legal syntax. Extra unlisted pure hooks in an implementation are retained as a legal-build difference, not repaired in this fixture.",
+        "ja": "印字constructorには余分なcommaがあり、通常の合法構文で本文／名前既定値に従う。実装の記載外pure hookは合法build差分として保持し、このfixtureでは修復しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_resource_base_legal_extensions_preserve_default_explicit_names_virtual_type_handles",
+          "role": "direct",
+          "expected_observations": [
+            "UT: base_constructor unnamed 1 named 1 object 1 virtual_handle 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESOURCE-AUDIT-CONCRETE-DEFAULT-TYPE",
+      "clause": "C.2.5.1",
+      "statement": {
+        "en": "The concrete typed resource defaults T to int and extends the resource base.",
+        "ja": "具象型付きresourceはTをintとし、resource baseを継承する。"
+      },
+      "conditions": {
+        "en": "Default and explicit-int resources use bidirectional static receiver assignments and distinct stored integers.",
+        "ja": "既定と明示int resourceに双方向static receiver代入と異なる保存整数を使う。"
+      },
+      "expected": {
+        "en": "Default/explicit views share the same handle and preserve the selected negative/positive integers.",
+        "ja": "既定／明示viewは同一handleで、選択した負／正整数を保持する。"
+      },
+      "limitations": {
+        "en": "Selected default specialization and concrete construction only; no every-T or every inheritance/factory rule is inferred.",
+        "ja": "選択した既定特殊化と具象生成のみで、全T、全継承／factory規則を推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_typed_resource_constructor_defaults_to_int_and_preserves_unnamed_and_named_instances",
+          "role": "direct",
+          "expected_observations": [
+            "UT: typed_constructor unnamed 1 named 1 exact_default_type 1 values 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESOURCE-AUDIT-TYPED-CONSTRUCTOR-NAMES",
+      "clause": "C.2.5.2",
+      "statement": {
+        "en": "Typed resource construction retains explicit names and the prose unnamed default.",
+        "ja": "型付きresource生成は明示名と本文の無名既定値を保持する。"
+      },
+      "conditions": {
+        "en": "One default-int resource omits the name and an explicit-int peer supplies named58.",
+        "ja": "既定int resource 1個は名前を省略し、明示int peerへnamed58を渡す。"
+      },
+      "expected": {
+        "en": "Omitted name is empty and the named resource retains named58.",
+        "ja": "省略名は空で、名前付きresourceはnamed58を保持する。"
+      },
+      "limitations": {
+        "en": "The printed prototype lacks a name default while its prose allows omission; this selected prose reading remains explicit, not approval of the conflict.",
+        "ja": "印字prototypeにはname既定値がない一方で本文は省略を許す。選択した本文の読み方を明示して保持し、矛盾を承認しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_typed_resource_constructor_defaults_to_int_and_preserves_unnamed_and_named_instances",
+          "role": "direct",
+          "expected_observations": [
+            "UT: typed_constructor unnamed 1 named 1 exact_default_type 1 values 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESOURCE-AUDIT-STATIC-TYPE-TOKEN",
+      "clause": "C.2.5.3.1",
+      "statement": {
+        "en": "Static type handles are shared within a resource specialization and distinct across selected types.",
+        "ja": "static type handleはresource特殊化内で共有され、選択型間で異なる。"
+      },
+      "conditions": {
+        "en": "Two int resources and one string resource are queried through exact static receiver types and a base view.",
+        "ja": "int resource 2個とstring resource 1個を正確なstatic receiver型とbase view経由で照会する。"
+      },
+      "expected": {
+        "en": "Both tokens are nonnull; all same-int views agree and the string token is different.",
+        "ja": "両tokenは非nullで、全same-int viewが一致し、string tokenは異なる。"
+      },
+      "limitations": {
+        "en": "Selected type identity only, not token allocation details, every alias or contents of representative resources.",
+        "ja": "選択型同一性のみで、token割当詳細、全alias、代表resourceの内容ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_typed_resource_static_polymorphic_type_handles_are_shared_only_per_specialization",
+          "role": "direct",
+          "expected_observations": [
+            "UT: type_handles nonnull 1 static_shared 1 polymorphic 1 isolated 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESOURCE-AUDIT-VIRTUAL-TYPE-TOKEN",
+      "clause": "C.2.5.3.2",
+      "statement": {
+        "en": "Polymorphic resource-base type queries return the same specialization token as the static accessor.",
+        "ja": "多態resource-base型照会はstatic accessorと同じ特殊化tokenを返す。"
+      },
+      "conditions": {
+        "en": "Two int resources and one string resource are queried through exact static receiver types and a base view.",
+        "ja": "int resource 2個とstring resource 1個を正確なstatic receiver型とbase view経由で照会する。"
+      },
+      "expected": {
+        "en": "Both tokens are nonnull; all same-int views agree and the string token is different.",
+        "ja": "両tokenは非nullで、全same-int viewが一致し、string tokenは異なる。"
+      },
+      "limitations": {
+        "en": "Selected type identity only, not token allocation details, every alias or contents of representative resources.",
+        "ja": "選択型同一性のみで、token割当詳細、全alias、代表resourceの内容ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_typed_resource_static_polymorphic_type_handles_are_shared_only_per_specialization",
+          "role": "direct",
+          "expected_observations": [
+            "UT: type_handles nonnull 1 static_shared 1 polymorphic 1 isolated 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESOURCE-AUDIT-VALUE-READ",
+      "clause": "C.2.5.4.1",
+      "statement": {
+        "en": "Typed reads recover selected scalar, string and queue values independently of accessor.",
+        "ja": "型付きreadはaccessorに依存せず選択scalar、string、queue値を回収する。"
+      },
+      "conditions": {
+        "en": "Original concrete accessor objects and initialized scalar/string/two-element queue data are used.",
+        "ja": "独自具象accessor objectと初期化したscalar／string／2要素queue dataを使う。"
+      },
+      "expected": {
+        "en": "Stored values match and repeated scalar reads with two accessor handles agree.",
+        "ja": "保存値が一致し、2 accessor handleでの反復scalar readが一致する。"
+      },
+      "limitations": {
+        "en": "Two-state selected payloads and accessor invariance only. No auditing record format, every aggregate/virtual interface or X/Z behavior is certified.",
+        "ja": "two-state選択payloadとaccessor不変性のみ。監査record形式、全aggregate／virtual interface、X／Z動作は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_typed_resource_scalar_string_queue_values_preserve_copy_semantics_accessor_invariance",
+          "role": "direct",
+          "expected_observations": [
+            "UT: typed_values scalar 1 text 1 queue_copy 1 accessor_invariant 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESOURCE-AUDIT-VALUE-WRITE",
+      "clause": "C.2.5.4.2",
+      "statement": {
+        "en": "Typed writes store selected values with normal queue value-copy behavior.",
+        "ja": "型付きwriteは通常のqueue値copyで選択値を保存する。"
+      },
+      "conditions": {
+        "en": "Original concrete accessor objects and initialized scalar/string/two-element queue data are used.",
+        "ja": "独自具象accessor objectと初期化したscalar／string／2要素queue dataを使う。"
+      },
+      "expected": {
+        "en": "Mutating the caller queue or a returned queue does not change the resource queue; scalar and string values remain exact.",
+        "ja": "caller queueや返却queueを変更してもresource queueは変わらず、scalar／string値も正確に保持する。"
+      },
+      "limitations": {
+        "en": "Two-state selected payloads and accessor invariance only. No auditing record format, every aggregate/virtual interface or X/Z behavior is certified.",
+        "ja": "two-state選択payloadとaccessor不変性のみ。監査record形式、全aggregate／virtual interface、X／Z動作は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_typed_resource_scalar_string_queue_values_preserve_copy_semantics_accessor_invariance",
+          "role": "direct",
+          "expected_observations": [
+            "UT: typed_values scalar 1 text 1 queue_copy 1 accessor_invariant 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESOURCE-AUDIT-OBJECT-HANDLES",
+      "clause": "C.2.1",
+      "statement": {
+        "en": "Resources can carry shared object handles, replacements and null values.",
+        "ja": "resourceは共有object handle、置換、null値を格納できる。"
+      },
+      "conditions": {
+        "en": "An original token object is read, mutated, replaced by a second token and then cleared to null.",
+        "ja": "独自token objectをread、変更し、第2 tokenで置換した後nullへ消去する。"
+      },
+      "expected": {
+        "en": "Reads retain identity/live alias state, the replaced handle remains valid and null is stored without affecting the peer object.",
+        "ja": "readは同一性／live alias状態を保持し、置換したhandleも有効で、peer objectを変えずnullを保存する。"
+      },
+      "limitations": {
+        "en": "Selected handle/container role only; the introduction also contains scope/priority/precedence wording and other data types that remain partial. No cloning or ownership destruction is invented.",
+        "ja": "選択handle／container役割のみ。導入にはscope／priority／precedence記述と他data型もあり、部分的に残る。cloneや所有破棄を作らない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_typed_resource_object_values_preserve_alias_identity_replacement_and_null_without_cloning",
+          "role": "direct",
+          "expected_observations": [
+            "UT: object_resource same_handle 1 live_alias 1",
+            "UT: object_resource replacement 1 old_valid 1",
+            "UT: object_resource null 1 peer_valid 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESOURCE-AUDIT-READ-ONLY-STATE",
+      "clause": "C.2.3.3.2",
+      "statement": {
+        "en": "Read-only state reports whether the selected resource has been marked read-only.",
+        "ja": "read-only stateは選択resourceがread-only指定されたかを返す。"
+      },
+      "conditions": {
+        "en": "Two initialized int resources and an original gated report catcher distinguish selected/peer state.",
+        "ja": "初期化したint resource 2個と独自gate付きreport catcherで選択／peer状態を区別する。"
+      },
+      "expected": {
+        "en": "Both initial resources are writable; only the selected resource becomes read-only.",
+        "ja": "両初期resourceは書込み可で、選択resourceだけがread-onlyとなる。"
+      },
+      "limitations": {
+        "en": "No exact report ID/text/count or hypothetical unlock API. The error is caught; this does not establish default server termination policy.",
+        "ja": "正確なreport ID／文面／回数や仮のunlock APIは規定しない。errorをcatchし、default server終了policyを示さない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_resource_read_only_write_reports_error_preserves_value_leaves_a_writable_peer_independent",
+          "role": "direct",
+          "expected_observations": [
+            "UT: read_only_initial subject 1 peer 1",
+            "UT: read_only_write state 1 error 1 unchanged 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESOURCE-AUDIT-READ-ONLY-ERROR",
+      "clause": "C.2.3.3.1",
+      "statement": {
+        "en": "Writing a read-only resource generates an error.",
+        "ja": "read-only resourceへのwriteはerrorを発生させる。"
+      },
+      "conditions": {
+        "en": "Two initialized int resources and an original gated report catcher distinguish selected/peer state.",
+        "ja": "初期化したint resource 2個と独自gate付きreport catcherで選択／peer状態を区別する。"
+      },
+      "expected": {
+        "en": "The rejecting call generates ERROR while an independent peer remains writable.",
+        "ja": "拒否呼出しはERRORを発生させ、独立peerは書込み可を保つ。"
+      },
+      "limitations": {
+        "en": "No exact report ID/text/count or hypothetical unlock API. The error is caught; this does not establish default server termination policy.",
+        "ja": "正確なreport ID／文面／回数や仮のunlock APIは規定しない。errorをcatchし、default server終了policyを示さない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_resource_read_only_write_reports_error_preserves_value_leaves_a_writable_peer_independent",
+          "role": "direct",
+          "expected_observations": [
+            "UT: read_only_initial subject 1 peer 1",
+            "UT: read_only_write state 1 error 1 unchanged 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESOURCE-AUDIT-READ-ONLY-STORAGE",
+      "clause": "C.2.5.4.2",
+      "statement": {
+        "en": "A read-only write returns without changing its stored value.",
+        "ja": "read-only writeは保存値を変えずに復帰する。"
+      },
+      "conditions": {
+        "en": "Two initialized int resources and an original gated report catcher distinguish selected/peer state.",
+        "ja": "初期化したint resource 2個と独自gate付きreport catcherで選択／peer状態を区別する。"
+      },
+      "expected": {
+        "en": "The selected resource retains eleven after the attempted ninety-nine write, while the peer changes successfully.",
+        "ja": "選択resourceは99を書こうとしても11を保持し、peerは正常に変更する。"
+      },
+      "limitations": {
+        "en": "No exact report ID/text/count or hypothetical unlock API. The error is caught; this does not establish default server termination policy.",
+        "ja": "正確なreport ID／文面／回数や仮のunlock APIは規定しない。errorをcatchし、default server終了policyを示さない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_resource_read_only_write_reports_error_preserves_value_leaves_a_writable_peer_independent",
+          "role": "direct",
+          "expected_observations": [
+            "UT: read_only_initial subject 1 peer 1",
+            "UT: read_only_write state 1 error 1 unchanged 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESOURCE-AUDIT-MODIFIED-BLOCKING",
+      "clause": "C.2.3.4",
+      "statement": {
+        "en": "Resource modification waiters block before a qualifying write.",
+        "ja": "resource変更waiterは条件を満たすwrite前にblockする。"
+      },
+      "conditions": {
+        "en": "set_default creates a fresh bit-vector resource without a write; positive delays separate waiter start, equal/rejected write and changed-write observations.",
+        "ja": "set_defaultがwriteなしで新bit-vector resourceを作り、正の遅延でwaiter開始、同値／拒否write、変更write観測を分ける。"
+      },
+      "expected": {
+        "en": "Both waiters are still pending before the first write.",
+        "ja": "両waiterは最初のwrite前に待機中である。"
+      },
+      "limitations": {
+        "en": "Selected fresh-resource notifications only; no waiter order, persistent-event history, auditing records, all reentrancy or fairness. Pending control threads are explicitly stopped at fixture completion.",
+        "ja": "新規選択resource通知のみ。waiter順序、persistent-event履歴、監査record、全再入、fairnessは規定しない。残るcontrol threadはfixture終了時に明示停止する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_resource_modified_waiters_ignore_equal_values_and_all_wake_for_a_changed_write",
+          "role": "direct",
+          "expected_observations": [
+            "UT: resource_wait initial_blocked 1",
+            "UT: resource_wait equal_write_blocked 1",
+            "UT: resource_wait all_released 1 value 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESOURCE-AUDIT-EQUAL-WRITE-NO-NOTIFY",
+      "clause": "C.2.5.4.2",
+      "statement": {
+        "en": "Writing the same value does not set modification notification.",
+        "ja": "同値writeは変更通知を設定しない。"
+      },
+      "conditions": {
+        "en": "set_default creates a fresh bit-vector resource without a write; positive delays separate waiter start, equal/rejected write and changed-write observations.",
+        "ja": "set_defaultがwriteなしで新bit-vector resourceを作り、正の遅延でwaiter開始、同値／拒否write、変更write観測を分ける。"
+      },
+      "expected": {
+        "en": "Two pending waiters remain blocked after writing the initial zero value again.",
+        "ja": "初期0値を再writeした後も両waiterがblockしたままである。"
+      },
+      "limitations": {
+        "en": "Selected fresh-resource notifications only; no waiter order, persistent-event history, auditing records, all reentrancy or fairness. Pending control threads are explicitly stopped at fixture completion.",
+        "ja": "新規選択resource通知のみ。waiter順序、persistent-event履歴、監査record、全再入、fairnessは規定しない。残るcontrol threadはfixture終了時に明示停止する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_resource_modified_waiters_ignore_equal_values_and_all_wake_for_a_changed_write",
+          "role": "direct",
+          "expected_observations": [
+            "UT: resource_wait initial_blocked 1",
+            "UT: resource_wait equal_write_blocked 1",
+            "UT: resource_wait all_released 1 value 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESOURCE-AUDIT-CHANGED-WRITE-NOTIFY-ALL",
+      "clause": "C.2.5.4.2",
+      "statement": {
+        "en": "A changed write releases all processes blocked for resource modification.",
+        "ja": "変更writeはresource変更でblockする全processを解放する。"
+      },
+      "conditions": {
+        "en": "set_default creates a fresh bit-vector resource without a write; positive delays separate waiter start, equal/rejected write and changed-write observations.",
+        "ja": "set_defaultがwriteなしで新bit-vector resourceを作り、正の遅延でwaiter開始、同値／拒否write、変更write観測を分ける。"
+      },
+      "expected": {
+        "en": "Both waiters return after the changed write and the selected stored value is 58 hex.",
+        "ja": "変更write後に両waiterが復帰し、選択保存値は16進58となる。"
+      },
+      "limitations": {
+        "en": "Selected fresh-resource notifications only; no waiter order, persistent-event history, auditing records, all reentrancy or fairness. Pending control threads are explicitly stopped at fixture completion.",
+        "ja": "新規選択resource通知のみ。waiter順序、persistent-event履歴、監査record、全再入、fairnessは規定しない。残るcontrol threadはfixture終了時に明示停止する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_resource_modified_waiters_ignore_equal_values_and_all_wake_for_a_changed_write",
+          "role": "direct",
+          "expected_observations": [
+            "UT: resource_wait initial_blocked 1",
+            "UT: resource_wait equal_write_blocked 1",
+            "UT: resource_wait all_released 1 value 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESOURCE-AUDIT-REJECTED-WRITE-NO-NOTIFY",
+      "clause": "C.2.5.4.2",
+      "statement": {
+        "en": "A rejected read-only write does not modify storage or release a pending modification waiter.",
+        "ja": "拒否read-only writeはstorageを変更せず、待機変更waiterを解放しない。"
+      },
+      "conditions": {
+        "en": "set_default creates a fresh bit-vector resource without a write; positive delays separate waiter start, equal/rejected write and changed-write observations.",
+        "ja": "set_defaultがwriteなしで新bit-vector resourceを作り、正の遅延でwaiter開始、同値／拒否write、変更write観測を分ける。"
+      },
+      "expected": {
+        "en": "ERROR is captured, the zero value remains and the waiter stays pending.",
+        "ja": "ERRORを捕捉し、0値を保持し、waiterは待機したままである。"
+      },
+      "limitations": {
+        "en": "Selected fresh-resource notifications only; no waiter order, persistent-event history, auditing records, all reentrancy or fairness. Pending control threads are explicitly stopped at fixture completion.",
+        "ja": "新規選択resource通知のみ。waiter順序、persistent-event履歴、監査record、全再入、fairnessは規定しない。残るcontrol threadはfixture終了時に明示停止する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_resource_read_only_failure_does_not_notify_a_pending_modification_waiter",
+          "role": "direct",
+          "expected_observations": [
+            "UT: read_only_notify error 1 unchanged 1 still_waiting 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESOURCE-AUDIT-QUEUE-ALIAS",
+      "clause": "C.2.2.1",
+      "statement": {
+        "en": "The resource queue typedef is uvm_queue specialized with uvm_resource_base.",
+        "ja": "resource queue typedefはuvm_resource_baseで特殊化したuvm_queueである。"
+      },
+      "conditions": {
+        "en": "The declared alias and exact required class receiver are statically assigned in both directions, then a typed resource is inserted.",
+        "ja": "宣言aliasと正確な必要class receiverを静的に双方向代入した後、型付きresourceをinsertする。"
+      },
+      "expected": {
+        "en": "The views share one handle and expose the inserted base-compatible resource.",
+        "ja": "両viewは1 handleを共有し、insertしたbase互換resourceを公開する。"
+      },
+      "limitations": {
+        "en": "Selected declared alias identity, not every queue method or iteration/concurrency behavior.",
+        "ja": "選択した宣言alias同一性のみで、全queue methodや反復／並行動作ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_resource_queue_alias_has_exact_base_resource_queue_type_and_shared_handle_semantics",
+          "role": "direct",
+          "expected_observations": [
+            "UT: queue_alias identity 1 base_element 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESOURCE-AUDIT-DEFAULT-POOL-ACCESSOR",
+      "clause": "C.2.4.2.2",
+      "statement": {
+        "en": "The default resource-pool accessor reflects the active core-service pool.",
+        "ja": "既定resource-pool accessorはactive core-service poolを反映する。"
+      },
+      "conditions": {
+        "en": "Two explicitly allocated pools are selected in turn and the saved original default is restored.",
+        "ja": "明示割当pool 2個を順に選択し、保存した元の既定poolを復元する。"
+      },
+      "expected": {
+        "en": "Before selection allocations stay detached; accessor/getter identities follow both selected pools and restoration.",
+        "ja": "選択前の割当は切り離され、accessor／getter同一性は両pool選択と復元に従う。"
+      },
+      "limitations": {
+        "en": "Qualified global-default singleton reading, not a physical one-object allocation prohibition. Null setters, concurrent replacement, shared resources across pools and all service implementations remain separate.",
+        "ja": "限定したglobal-default singleton解釈で、物理的な1 object生成制限ではない。null setter、並行置換、pool間resource共有、全service実装は別に残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_resource_pool_default_accessor_follows_core_service_selection_and_restoration",
+          "role": "direct",
+          "expected_observations": [
+            "UT: pool_default initial 1 allocations_detached 1",
+            "UT: pool_default first 1",
+            "UT: pool_default second 1",
+            "UT: pool_default restored 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESOURCE-AUDIT-POOL-SERVICE-SET",
+      "clause": "F.4.1.4.21",
+      "statement": {
+        "en": "The core-service setter selects the global-default resource pool.",
+        "ja": "core-service setterはglobal-default resource poolを選択する。"
+      },
+      "conditions": {
+        "en": "Two explicitly allocated pools are selected in turn and the saved original default is restored.",
+        "ja": "明示割当pool 2個を順に選択し、保存した元の既定poolを復元する。"
+      },
+      "expected": {
+        "en": "Before selection allocations stay detached; accessor/getter identities follow both selected pools and restoration.",
+        "ja": "選択前の割当は切り離され、accessor／getter同一性は両pool選択と復元に従う。"
+      },
+      "limitations": {
+        "en": "Qualified global-default singleton reading, not a physical one-object allocation prohibition. Null setters, concurrent replacement, shared resources across pools and all service implementations remain separate.",
+        "ja": "限定したglobal-default singleton解釈で、物理的な1 object生成制限ではない。null setter、並行置換、pool間resource共有、全service実装は別に残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_resource_pool_default_accessor_follows_core_service_selection_and_restoration",
+          "role": "direct",
+          "expected_observations": [
+            "UT: pool_default initial 1 allocations_detached 1",
+            "UT: pool_default first 1",
+            "UT: pool_default second 1",
+            "UT: pool_default restored 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESOURCE-AUDIT-POOL-SERVICE-GET",
+      "clause": "F.4.1.4.22",
+      "statement": {
+        "en": "The core-service getter returns the selected global-default resource pool.",
+        "ja": "core-service getterは選択global-default resource poolを返す。"
+      },
+      "conditions": {
+        "en": "Two explicitly allocated pools are selected in turn and the saved original default is restored.",
+        "ja": "明示割当pool 2個を順に選択し、保存した元の既定poolを復元する。"
+      },
+      "expected": {
+        "en": "Before selection allocations stay detached; accessor/getter identities follow both selected pools and restoration.",
+        "ja": "選択前の割当は切り離され、accessor／getter同一性は両pool選択と復元に従う。"
+      },
+      "limitations": {
+        "en": "Qualified global-default singleton reading, not a physical one-object allocation prohibition. Null setters, concurrent replacement, shared resources across pools and all service implementations remain separate.",
+        "ja": "限定したglobal-default singleton解釈で、物理的な1 object生成制限ではない。null setter、並行置換、pool間resource共有、全service実装は別に残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_resource_pool_default_accessor_follows_core_service_selection_and_restoration",
+          "role": "direct",
+          "expected_observations": [
+            "UT: pool_default initial 1 allocations_detached 1",
+            "UT: pool_default first 1",
+            "UT: pool_default second 1",
+            "UT: pool_default restored 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESOURCE-AUDIT-POOL-CONSTRUCTION",
+      "clause": "C.2.4.2.1",
+      "statement": {
+        "en": "The printed resource-pool constructor permits direct parameterless construction.",
+        "ja": "印字resource-pool constructorは直接の引数なし生成を許す。"
+      },
+      "conditions": {
+        "en": "Two local pools are constructed before either is selected as global default.",
+        "ja": "global defaultへ選択する前にlocal pool 2個を生成する。"
+      },
+      "expected": {
+        "en": "Both allocations are distinct and can subsequently be selected and restored through the service.",
+        "ja": "両割当は異なり、後にservice経由で選択／復元できる。"
+      },
+      "limitations": {
+        "en": "The introduction calls the database a singleton while publishing a constructor. This tests the active-default interpretation and keeps local/global behavioral boundaries explicit.",
+        "ja": "導入はdatabaseをsingletonと呼びながらconstructorを公開する。active-default解釈を検査し、local／global動作の境界を明示して残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_resource_pool_default_accessor_follows_core_service_selection_and_restoration",
+          "role": "direct",
+          "expected_observations": [
+            "UT: pool_default initial 1 allocations_detached 1",
+            "UT: pool_default first 1",
+            "UT: pool_default second 1",
+            "UT: pool_default restored 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESOURCE-AUDIT-POOL-SCOPE-MATCH-DIRECTION",
+      "clause": "C.2.4.3",
+      "statement": {
+        "en": "Scope matching uses the stored scope expression against the current lookup scope.",
+        "ja": "scope matchingは保存scope式を現在のlookup scopeに対して使う。"
+      },
+      "conditions": {
+        "en": "One original resource moves from old58.* to new58.* in a directly constructed pool and fresh name/type collections are queried.",
+        "ja": "直接生成poolで独自resource 1個をold58.*からnew58.*へ移し、新しいname／type collectionを照会する。"
+      },
+      "expected": {
+        "en": "The old scope loses both views; the new scope contains the original handle once per map and get_scope returns the new text.",
+        "ja": "旧scopeは両viewを失い、新scopeは各mapに元handleを1回含み、get_scopeは新文字列を返す。"
+      },
+      "limitations": {
+        "en": "Selected simplified-star scope only; POSIX regex, all metacharacters, multiple-pool ownership and renamed-resource keys remain partial.",
+        "ja": "選択simplified-star scopeのみで、POSIX regex、全metacharacter、複数pool所有、名前変更resource keyは部分的に残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_resource_pool_scope_replacement_updates_name_type_visibility_no_duplicate_entries",
+          "role": "direct",
+          "expected_observations": [
+            "UT: scope_initial name 1 type 1 text 1",
+            "UT: scope_replaced old_name_empty 1 old_type_empty 1",
+            "UT: scope_replaced new_name_once 1 new_type_once 1 text 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESOURCE-AUDIT-POOL-SCOPE-INSERT-REPLACE",
+      "clause": "C.2.4.3.1",
+      "statement": {
+        "en": "Scope insertion registers both maps and replacing an existing scope changes its visibility without duplicate entries.",
+        "ja": "scope insertは両mapへ登録し、既存scope置換は重複entryなしで可視性を変える。"
+      },
+      "conditions": {
+        "en": "One original resource moves from old58.* to new58.* in a directly constructed pool and fresh name/type collections are queried.",
+        "ja": "直接生成poolで独自resource 1個をold58.*からnew58.*へ移し、新しいname／type collectionを照会する。"
+      },
+      "expected": {
+        "en": "The old scope loses both views; the new scope contains the original handle once per map and get_scope returns the new text.",
+        "ja": "旧scopeは両viewを失い、新scopeは各mapに元handleを1回含み、get_scopeは新文字列を返す。"
+      },
+      "limitations": {
+        "en": "Selected simplified-star scope only; POSIX regex, all metacharacters, multiple-pool ownership and renamed-resource keys remain partial.",
+        "ja": "選択simplified-star scopeのみで、POSIX regex、全metacharacter、複数pool所有、名前変更resource keyは部分的に残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_resource_pool_scope_replacement_updates_name_type_visibility_no_duplicate_entries",
+          "role": "direct",
+          "expected_observations": [
+            "UT: scope_initial name 1 type 1 text 1",
+            "UT: scope_replaced old_name_empty 1 old_type_empty 1",
+            "UT: scope_replaced new_name_once 1 new_type_once 1 text 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESOURCE-AUDIT-POOL-SCOPE-GET",
+      "clause": "C.2.4.3.5",
+      "statement": {
+        "en": "A registered scope query returns the stored text and true.",
+        "ja": "登録済みscope照会は保存文字列とtrueを返す。"
+      },
+      "conditions": {
+        "en": "One original resource moves from old58.* to new58.* in a directly constructed pool and fresh name/type collections are queried.",
+        "ja": "直接生成poolで独自resource 1個をold58.*からnew58.*へ移し、新しいname／type collectionを照会する。"
+      },
+      "expected": {
+        "en": "The old scope loses both views; the new scope contains the original handle once per map and get_scope returns the new text.",
+        "ja": "旧scopeは両viewを失い、新scopeは各mapに元handleを1回含み、get_scopeは新文字列を返す。"
+      },
+      "limitations": {
+        "en": "Selected simplified-star scope only; POSIX regex, all metacharacters, multiple-pool ownership and renamed-resource keys remain partial.",
+        "ja": "選択simplified-star scopeのみで、POSIX regex、全metacharacter、複数pool所有、名前変更resource keyは部分的に残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_resource_pool_scope_replacement_updates_name_type_visibility_no_duplicate_entries",
+          "role": "direct",
+          "expected_observations": [
+            "UT: scope_initial name 1 type 1 text 1",
+            "UT: scope_replaced old_name_empty 1 old_type_empty 1",
+            "UT: scope_replaced new_name_once 1 new_type_once 1 text 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESOURCE-AUDIT-POOL-DELETE-BOTH-MAPS",
+      "clause": "C.2.4.3.6",
+      "statement": {
+        "en": "Deleting a registered resource removes it from name and type maps.",
+        "ja": "登録resourceのdeleteはname／type mapから削除する。"
+      },
+      "conditions": {
+        "en": "A directly constructed pool receives one resource; after deletion, repeated/absent/null operations are report-gated and a sentinel scope output is queried.",
+        "ja": "直接生成poolへ1 resourceを入れ、削除後の反復／不在／null操作でreportをgate観測し、sentinel scope出力を照会する。"
+      },
+      "expected": {
+        "en": "Both collections are empty; missing scope becomes empty/false and no gated report is delivered by no-op deletes.",
+        "ja": "両collectionは空、不在scopeは空／falseとなり、no-op deleteはgate内reportを配送しない。"
+      },
+      "limitations": {
+        "en": "Selected deletion paths only; no concurrent readers, name changes, handle destruction or implicit value reset is inferred.",
+        "ja": "選択削除経路のみ。並行reader、名前変更、handle破棄、暗黙value resetは推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_resource_pool_delete_removes_both_maps_and_silently_ignores_null_or_absent_handles",
+          "role": "direct",
+          "expected_observations": [
+            "UT: pool_delete names 1 types 1 scope_cleared 1 silent_noops 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESOURCE-AUDIT-POOL-DELETE-NOOPS",
+      "clause": "C.2.4.3.6",
+      "statement": {
+        "en": "Deleting null, absent or already deleted handles is silently ignored.",
+        "ja": "null、不在、削除済みhandleのdeleteは無言で無視する。"
+      },
+      "conditions": {
+        "en": "A directly constructed pool receives one resource; after deletion, repeated/absent/null operations are report-gated and a sentinel scope output is queried.",
+        "ja": "直接生成poolへ1 resourceを入れ、削除後の反復／不在／null操作でreportをgate観測し、sentinel scope出力を照会する。"
+      },
+      "expected": {
+        "en": "Both collections are empty; missing scope becomes empty/false and no gated report is delivered by no-op deletes.",
+        "ja": "両collectionは空、不在scopeは空／falseとなり、no-op deleteはgate内reportを配送しない。"
+      },
+      "limitations": {
+        "en": "Selected deletion paths only; no concurrent readers, name changes, handle destruction or implicit value reset is inferred.",
+        "ja": "選択削除経路のみ。並行reader、名前変更、handle破棄、暗黙value resetは推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_resource_pool_delete_removes_both_maps_and_silently_ignores_null_or_absent_handles",
+          "role": "direct",
+          "expected_observations": [
+            "UT: pool_delete names 1 types 1 scope_cleared 1 silent_noops 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESOURCE-AUDIT-POOL-MISSING-SCOPE",
+      "clause": "C.2.4.3.5",
+      "statement": {
+        "en": "A missing resource scope query returns false and clears its output string.",
+        "ja": "不在resourceのscope照会はfalseを返し、出力文字列を消去する。"
+      },
+      "conditions": {
+        "en": "A directly constructed pool receives one resource; after deletion, repeated/absent/null operations are report-gated and a sentinel scope output is queried.",
+        "ja": "直接生成poolへ1 resourceを入れ、削除後の反復／不在／null操作でreportをgate観測し、sentinel scope出力を照会する。"
+      },
+      "expected": {
+        "en": "Both collections are empty; missing scope becomes empty/false and no gated report is delivered by no-op deletes.",
+        "ja": "両collectionは空、不在scopeは空／falseとなり、no-op deleteはgate内reportを配送しない。"
+      },
+      "limitations": {
+        "en": "Selected deletion paths only; no concurrent readers, name changes, handle destruction or implicit value reset is inferred.",
+        "ja": "選択削除経路のみ。並行reader、名前変更、handle破棄、暗黙value resetは推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_resource_pool_delete_removes_both_maps_and_silently_ignores_null_or_absent_handles",
+          "role": "direct",
+          "expected_observations": [
+            "UT: pool_delete names 1 types 1 scope_cleared 1 silent_noops 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESOURCE-AUDIT-POOL-NULL-SCOPE-WARNING",
+      "clause": "C.2.4.3.1",
+      "statement": {
+        "en": "Setting scope for a null resource emits WARNING and ignores the request.",
+        "ja": "null resourceのscope設定はWARNINGを出し、要求を無視する。"
+      },
+      "conditions": {
+        "en": "A registered control is followed by a gated set_scope(null,scope).",
+        "ja": "登録controlに続けてgate内でset_scope(null,scope)を呼ぶ。"
+      },
+      "expected": {
+        "en": "A warning is observed and the original control remains the sole named match.",
+        "ja": "warningを観測し、元controlは唯一の名前matchを保つ。"
+      },
+      "limitations": {
+        "en": "No report text/ID/exact count, every other map or unrelated scope is asserted.",
+        "ja": "report文面／ID／正確な回数、全ての他map、無関係scopeは主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_resource_pool_null_scope_insertion_warns_and_leaves_registered_resources_unchanged",
+          "role": "direct",
+          "expected_observations": [
+            "UT: null_scope warning 1 intact 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESOURCE-AUDIT-LOOKUP-NAME-FILTER",
+      "clause": "C.2.4.4.1",
+      "statement": {
+        "en": "Name lookup combines exact name, scope visibility and optional type filtering.",
+        "ja": "name lookupは正確な名前、scope可視性、任意type filterを組み合わせる。"
+      },
+      "conditions": {
+        "en": "Int/string resources share a name and simplified scope. Null/int type filters, a foreign scope, empty/missing names and default/explicit reporting flags are exercised.",
+        "ja": "int／string resourceが名前とsimplified scopeを共有し、null／int type filter、別scope、空／不在名、既定／明示report flagを動かす。"
+      },
+      "expected": {
+        "en": "Unchecked type returns both original handles; int filtering returns one, hidden type/empty/missing lookups are empty, and warning behavior follows rpterr.",
+        "ja": "type無指定は両元handle、int filterは1個を返し、非可視type／空／不在lookupは空で、warningはrpterrに従う。"
+      },
+      "limitations": {
+        "en": "The printed queue signature and collection prose govern lookup_type; its convenience sentence about get_highest_precedence conflicts. No POSIX-regex or fuzzy-spelling requirement is inferred.",
+        "ja": "lookup_typeは印字queue signatureとcollection本文に従い、get_highest_precedenceに関する便利説明文とは食い違う。POSIX-regexや曖昧綴りの要求は推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_resource_pool_name_lookup_filters_type_and_scope_and_respects_missing_report_controls",
+          "role": "direct",
+          "expected_observations": [
+            "UT: lookup_filters unchecked_type 1 checked_type 1 hidden_type 1",
+            "UT: lookup_missing disabled_report 1 empty 1",
+            "UT: lookup_missing default_warning 1 empty 1",
+            "UT: lookup_empty_name empty 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESOURCE-AUDIT-LOOKUP-NAME-DIAGNOSTIC",
+      "clause": "C.2.4.4.1",
+      "statement": {
+        "en": "Missing-name lookup warns with default rpterr and suppresses warnings when zero is explicit.",
+        "ja": "不在name lookupは既定rpterrでwarnし、明示0ではwarningを抑制する。"
+      },
+      "conditions": {
+        "en": "Int/string resources share a name and simplified scope. Null/int type filters, a foreign scope, empty/missing names and default/explicit reporting flags are exercised.",
+        "ja": "int／string resourceが名前とsimplified scopeを共有し、null／int type filter、別scope、空／不在名、既定／明示report flagを動かす。"
+      },
+      "expected": {
+        "en": "Unchecked type returns both original handles; int filtering returns one, hidden type/empty/missing lookups are empty, and warning behavior follows rpterr.",
+        "ja": "type無指定は両元handle、int filterは1個を返し、非可視type／空／不在lookupは空で、warningはrpterrに従う。"
+      },
+      "limitations": {
+        "en": "The printed queue signature and collection prose govern lookup_type; its convenience sentence about get_highest_precedence conflicts. No POSIX-regex or fuzzy-spelling requirement is inferred.",
+        "ja": "lookup_typeは印字queue signatureとcollection本文に従い、get_highest_precedenceに関する便利説明文とは食い違う。POSIX-regexや曖昧綴りの要求は推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_resource_pool_name_lookup_filters_type_and_scope_and_respects_missing_report_controls",
+          "role": "direct",
+          "expected_observations": [
+            "UT: lookup_filters unchecked_type 1 checked_type 1 hidden_type 1",
+            "UT: lookup_missing disabled_report 1 empty 1",
+            "UT: lookup_missing default_warning 1 empty 1",
+            "UT: lookup_empty_name empty 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESOURCE-AUDIT-LOOKUP-NAME-EMPTY",
+      "clause": "C.2.4.4.1",
+      "statement": {
+        "en": "An empty name or absent matching resources produces an empty name-lookup queue.",
+        "ja": "空名または一致resourceの不在は空のname-lookup queueを返す。"
+      },
+      "conditions": {
+        "en": "Int/string resources share a name and simplified scope. Null/int type filters, a foreign scope, empty/missing names and default/explicit reporting flags are exercised.",
+        "ja": "int／string resourceが名前とsimplified scopeを共有し、null／int type filter、別scope、空／不在名、既定／明示report flagを動かす。"
+      },
+      "expected": {
+        "en": "Unchecked type returns both original handles; int filtering returns one, hidden type/empty/missing lookups are empty, and warning behavior follows rpterr.",
+        "ja": "type無指定は両元handle、int filterは1個を返し、非可視type／空／不在lookupは空で、warningはrpterrに従う。"
+      },
+      "limitations": {
+        "en": "The printed queue signature and collection prose govern lookup_type; its convenience sentence about get_highest_precedence conflicts. No POSIX-regex or fuzzy-spelling requirement is inferred.",
+        "ja": "lookup_typeは印字queue signatureとcollection本文に従い、get_highest_precedenceに関する便利説明文とは食い違う。POSIX-regexや曖昧綴りの要求は推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_resource_pool_name_lookup_filters_type_and_scope_and_respects_missing_report_controls",
+          "role": "direct",
+          "expected_observations": [
+            "UT: lookup_filters unchecked_type 1 checked_type 1 hidden_type 1",
+            "UT: lookup_missing disabled_report 1 empty 1",
+            "UT: lookup_missing default_warning 1 empty 1",
+            "UT: lookup_empty_name empty 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESOURCE-AUDIT-LOOKUP-TYPE-COLLECTION",
+      "clause": "C.2.4.4.5",
+      "statement": {
+        "en": "Type lookup returns a queue matching the type token and visible scope.",
+        "ja": "type lookupはtype tokenと可視scopeが一致するqueueを返す。"
+      },
+      "conditions": {
+        "en": "Int/string resources share a name and simplified scope. Null/int type filters, a foreign scope, empty/missing names and default/explicit reporting flags are exercised.",
+        "ja": "int／string resourceが名前とsimplified scopeを共有し、null／int type filter、別scope、空／不在名、既定／明示report flagを動かす。"
+      },
+      "expected": {
+        "en": "Unchecked type returns both original handles; int filtering returns one, hidden type/empty/missing lookups are empty, and warning behavior follows rpterr.",
+        "ja": "type無指定は両元handle、int filterは1個を返し、非可視type／空／不在lookupは空で、warningはrpterrに従う。"
+      },
+      "limitations": {
+        "en": "The printed queue signature and collection prose govern lookup_type; its convenience sentence about get_highest_precedence conflicts. No POSIX-regex or fuzzy-spelling requirement is inferred.",
+        "ja": "lookup_typeは印字queue signatureとcollection本文に従い、get_highest_precedenceに関する便利説明文とは食い違う。POSIX-regexや曖昧綴りの要求は推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_resource_pool_name_lookup_filters_type_and_scope_and_respects_missing_report_controls",
+          "role": "direct",
+          "expected_observations": [
+            "UT: lookup_filters unchecked_type 1 checked_type 1 hidden_type 1",
+            "UT: lookup_missing disabled_report 1 empty 1",
+            "UT: lookup_missing default_warning 1 empty 1",
+            "UT: lookup_empty_name empty 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESOURCE-AUDIT-GLOBAL-NAME-PRECEDENCE",
+      "clause": "C.2.4.4.4",
+      "statement": {
+        "en": "Global-pool name selection chooses the highest numeric precedence among matching resources.",
+        "ja": "global-pool name選択は一致resourceの最大数値precedenceを選ぶ。"
+      },
+      "conditions": {
+        "en": "Earlier/later same-name int resources receive precedence three/nine in an explicit global or directly allocated pool; type collections retain insertion priority.",
+        "ja": "明示globalまたは直接生成poolで先／後の同名int resourceへprecedence 3／9を与え、type collectionはinsert priorityを保持する。"
+      },
+      "expected": {
+        "en": "Name lookup returns the later maximum while type lookup and its collection retain the first resource.",
+        "ja": "name lookupは後の最大値を返し、type lookupとcollectionは最初のresourceを保つ。"
+      },
+      "limitations": {
+        "en": "The explicit prioritization and individual first-queue rule are used despite broader lookup wording suggesting highest precedence for type. The local case also retains the public-constructor/singleton interpretation boundary; a global match cannot pass that whole local input.",
+        "ja": "typeにも最大precedenceを示唆する広いlookup記述に対し、明示prioritizationと個別先頭queue規則を使う。local caseには公開constructor／singletonの解釈境界も残し、global一致でlocal入力全体をpassにしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_resource_pool_global_precedence_selects_name_maximum_and_keeps_type_priority",
+          "role": "direct",
+          "expected_observations": [
+            "UT: precedence_routes name_highest 1 type_first 1 queue_priority 1",
+            "UT: precedence_values first 3 later 9",
+            "UT: precedence_named first 0 later 1 nonnull 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESOURCE-AUDIT-GLOBAL-TYPE-PRIORITY",
+      "clause": "C.2.4.4.6",
+      "statement": {
+        "en": "Global-pool type selection returns the first priority-queue resource, unaffected by numeric precedence.",
+        "ja": "global-pool type選択は数値precedenceに影響されずpriority queue先頭resourceを返す。"
+      },
+      "conditions": {
+        "en": "Earlier/later same-name int resources receive precedence three/nine in an explicit global or directly allocated pool; type collections retain insertion priority.",
+        "ja": "明示globalまたは直接生成poolで先／後の同名int resourceへprecedence 3／9を与え、type collectionはinsert priorityを保持する。"
+      },
+      "expected": {
+        "en": "Name lookup returns the later maximum while type lookup and its collection retain the first resource.",
+        "ja": "name lookupは後の最大値を返し、type lookupとcollectionは最初のresourceを保つ。"
+      },
+      "limitations": {
+        "en": "The explicit prioritization and individual first-queue rule are used despite broader lookup wording suggesting highest precedence for type. The local case also retains the public-constructor/singleton interpretation boundary; a global match cannot pass that whole local input.",
+        "ja": "typeにも最大precedenceを示唆する広いlookup記述に対し、明示prioritizationと個別先頭queue規則を使う。local caseには公開constructor／singletonの解釈境界も残し、global一致でlocal入力全体をpassにしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_resource_pool_global_precedence_selects_name_maximum_and_keeps_type_priority",
+          "role": "direct",
+          "expected_observations": [
+            "UT: precedence_routes name_highest 1 type_first 1 queue_priority 1",
+            "UT: precedence_values first 3 later 9",
+            "UT: precedence_named first 0 later 1 nonnull 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESOURCE-AUDIT-TYPE-PRECEDENCE-BOUNDARY",
+      "clause": "C.2.4.5",
+      "statement": {
+        "en": "Priority and numeric precedence govern different selection paths under the explicit type exception.",
+        "ja": "明示type例外の下ではpriorityと数値precedenceは異なる選択経路を支配する。"
+      },
+      "conditions": {
+        "en": "Earlier/later same-name int resources receive precedence three/nine in an explicit global or directly allocated pool; type collections retain insertion priority.",
+        "ja": "明示globalまたは直接生成poolで先／後の同名int resourceへprecedence 3／9を与え、type collectionはinsert priorityを保持する。"
+      },
+      "expected": {
+        "en": "Name lookup returns the later maximum while type lookup and its collection retain the first resource.",
+        "ja": "name lookupは後の最大値を返し、type lookupとcollectionは最初のresourceを保つ。"
+      },
+      "limitations": {
+        "en": "The explicit prioritization and individual first-queue rule are used despite broader lookup wording suggesting highest precedence for type. The local case also retains the public-constructor/singleton interpretation boundary; a global match cannot pass that whole local input.",
+        "ja": "typeにも最大precedenceを示唆する広いlookup記述に対し、明示prioritizationと個別先頭queue規則を使う。local caseには公開constructor／singletonの解釈境界も残し、global一致でlocal入力全体をpassにしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_resource_pool_global_precedence_selects_name_maximum_and_keeps_type_priority",
+          "role": "direct",
+          "expected_observations": [
+            "UT: precedence_routes name_highest 1 type_first 1 queue_priority 1",
+            "UT: precedence_values first 3 later 9",
+            "UT: precedence_named first 0 later 1 nonnull 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESOURCE-AUDIT-LOCAL-POOL-PRECEDENCE",
+      "clause": "C.2.4.5",
+      "statement": {
+        "en": "Under the local-pool interpretation, numeric precedence belongs to the selected pool context while type priority is retained.",
+        "ja": "local-pool解釈では数値precedenceは選択pool contextに属し、type priorityは保持する。"
+      },
+      "conditions": {
+        "en": "Earlier/later same-name int resources receive precedence three/nine in an explicit global or directly allocated pool; type collections retain insertion priority.",
+        "ja": "明示globalまたは直接生成poolで先／後の同名int resourceへprecedence 3／9を与え、type collectionはinsert priorityを保持する。"
+      },
+      "expected": {
+        "en": "Name lookup returns the later maximum while type lookup and its collection retain the first resource.",
+        "ja": "name lookupは後の最大値を返し、type lookupとcollectionは最初のresourceを保つ。"
+      },
+      "limitations": {
+        "en": "The explicit prioritization and individual first-queue rule are used despite broader lookup wording suggesting highest precedence for type. The local case also retains the public-constructor/singleton interpretation boundary; a global match cannot pass that whole local input.",
+        "ja": "typeにも最大precedenceを示唆する広いlookup記述に対し、明示prioritizationと個別先頭queue規則を使う。local caseには公開constructor／singletonの解釈境界も残し、global一致でlocal入力全体をpassにしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_resource_pool_precedence_changes_name_selection_but_not_type_queue_priority",
+          "role": "direct",
+          "expected_observations": [
+            "UT: precedence_routes name_highest 1 type_first 1 queue_priority 1",
+            "UT: precedence_values first 3 later 9",
+            "UT: precedence_named first 0 later 1 nonnull 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESOURCE-AUDIT-PRIORITY-NAME",
+      "clause": "C.2.4.5.2",
+      "statement": {
+        "en": "name priority moves a resource to the selected map front/back and preserves any unselected map.",
+        "ja": "name priorityはresourceを選択mapの前／後へ移し、非選択mapを保持する。"
+      },
+      "conditions": {
+        "en": "Two equal-precedence resources share a name/type; the later one is moved HIGH then LOW.",
+        "ja": "同じprecedenceのresource 2個が名前／typeを共有し、後のresourceをHIGH、LOWへ移す。"
+      },
+      "expected": {
+        "en": "HIGH selects the later resource only in the specified maps; LOW restores the first resource in both views.",
+        "ja": "HIGHは指定mapだけで後resourceを選び、LOWは両viewで最初のresourceを復元する。"
+      },
+      "limitations": {
+        "en": "Selected two-resource maps and both directions only, no concurrency, absent/null handles or numeric-precedence interaction.",
+        "ja": "選択2-resource mapと両方向のみで、並行、不在／null handle、数値precedence相互作用ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_resource_pool_name_priority_moves_only_the_selected_maps_and_supports_both_directions",
+          "role": "direct",
+          "expected_observations": [
+            "UT: priority_high name 1 type 1",
+            "UT: priority_low name 1 type 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESOURCE-AUDIT-PRIORITY-TYPE",
+      "clause": "C.2.4.5.1",
+      "statement": {
+        "en": "type priority moves a resource to the selected map front/back and preserves any unselected map.",
+        "ja": "type priorityはresourceを選択mapの前／後へ移し、非選択mapを保持する。"
+      },
+      "conditions": {
+        "en": "Two equal-precedence resources share a name/type; the later one is moved HIGH then LOW.",
+        "ja": "同じprecedenceのresource 2個が名前／typeを共有し、後のresourceをHIGH、LOWへ移す。"
+      },
+      "expected": {
+        "en": "HIGH selects the later resource only in the specified maps; LOW restores the first resource in both views.",
+        "ja": "HIGHは指定mapだけで後resourceを選び、LOWは両viewで最初のresourceを復元する。"
+      },
+      "limitations": {
+        "en": "Selected two-resource maps and both directions only, no concurrency, absent/null handles or numeric-precedence interaction.",
+        "ja": "選択2-resource mapと両方向のみで、並行、不在／null handle、数値precedence相互作用ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_resource_pool_type_priority_moves_only_the_selected_maps_and_supports_both_directions",
+          "role": "direct",
+          "expected_observations": [
+            "UT: priority_high name 1 type 1",
+            "UT: priority_low name 1 type 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESOURCE-AUDIT-PRIORITY-BOTH",
+      "clause": "C.2.4.5.3",
+      "statement": {
+        "en": "both priority moves a resource to the selected map front/back and preserves any unselected map.",
+        "ja": "both priorityはresourceを選択mapの前／後へ移し、非選択mapを保持する。"
+      },
+      "conditions": {
+        "en": "Two equal-precedence resources share a name/type; the later one is moved HIGH then LOW.",
+        "ja": "同じprecedenceのresource 2個が名前／typeを共有し、後のresourceをHIGH、LOWへ移す。"
+      },
+      "expected": {
+        "en": "HIGH selects the later resource only in the specified maps; LOW restores the first resource in both views.",
+        "ja": "HIGHは指定mapだけで後resourceを選び、LOWは両viewで最初のresourceを復元する。"
+      },
+      "limitations": {
+        "en": "Selected two-resource maps and both directions only, no concurrency, absent/null handles or numeric-precedence interaction.",
+        "ja": "選択2-resource mapと両方向のみで、並行、不在／null handle、数値precedence相互作用ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_resource_pool_both_priority_moves_only_the_selected_maps_and_supports_both_directions",
+          "role": "direct",
+          "expected_observations": [
+            "UT: priority_high name 1 type 1",
+            "UT: priority_low name 1 type 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESOURCE-AUDIT-OVERRIDE-NAME",
+      "clause": "C.2.4.3.3",
+      "statement": {
+        "en": "name override insertion uses the prescribed high/low name/type priorities.",
+        "ja": "name override insertは規定のhigh／low name／type priorityを使う。"
+      },
+      "conditions": {
+        "en": "A normal same-name/type resource is inserted first and a second one is added by the selected override API.",
+        "ja": "通常の同名／type resourceを先にinsertし、第2 resourceを選択override APIで追加する。"
+      },
+      "expected": {
+        "en": "The second resource wins exactly the maps specified for the override while other maps retain the first.",
+        "ja": "第2 resourceはoverrideが指定するmapだけで優先し、他mapは最初を保持する。"
+      },
+      "limitations": {
+        "en": "Equal numeric precedence and explicit selected scopes only; repeated overrides, invalid arguments and all scope overlaps remain partial.",
+        "ja": "同じ数値precedenceと明示選択scopeのみで、反復override、不正引数、全scope重なりは部分的に残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_resource_pool_name_override_insertion_selects_the_declared_name_and_type_priorities",
+          "role": "direct",
+          "expected_observations": [
+            "UT: override_insertion name 1 type 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESOURCE-AUDIT-OVERRIDE-TYPE",
+      "clause": "C.2.4.3.4",
+      "statement": {
+        "en": "type override insertion uses the prescribed high/low name/type priorities.",
+        "ja": "type override insertは規定のhigh／low name／type priorityを使う。"
+      },
+      "conditions": {
+        "en": "A normal same-name/type resource is inserted first and a second one is added by the selected override API.",
+        "ja": "通常の同名／type resourceを先にinsertし、第2 resourceを選択override APIで追加する。"
+      },
+      "expected": {
+        "en": "The second resource wins exactly the maps specified for the override while other maps retain the first.",
+        "ja": "第2 resourceはoverrideが指定するmapだけで優先し、他mapは最初を保持する。"
+      },
+      "limitations": {
+        "en": "Equal numeric precedence and explicit selected scopes only; repeated overrides, invalid arguments and all scope overlaps remain partial.",
+        "ja": "同じ数値precedenceと明示選択scopeのみで、反復override、不正引数、全scope重なりは部分的に残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_resource_pool_type_override_insertion_selects_the_declared_name_and_type_priorities",
+          "role": "direct",
+          "expected_observations": [
+            "UT: override_insertion name 1 type 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESOURCE-AUDIT-OVERRIDE-BOTH",
+      "clause": "C.2.4.3.2",
+      "statement": {
+        "en": "both override insertion uses the prescribed high/low name/type priorities.",
+        "ja": "both override insertは規定のhigh／low name／type priorityを使う。"
+      },
+      "conditions": {
+        "en": "A normal same-name/type resource is inserted first and a second one is added by the selected override API.",
+        "ja": "通常の同名／type resourceを先にinsertし、第2 resourceを選択override APIで追加する。"
+      },
+      "expected": {
+        "en": "The second resource wins exactly the maps specified for the override while other maps retain the first.",
+        "ja": "第2 resourceはoverrideが指定するmapだけで優先し、他mapは最初を保持する。"
+      },
+      "limitations": {
+        "en": "Equal numeric precedence and explicit selected scopes only; repeated overrides, invalid arguments and all scope overlaps remain partial.",
+        "ja": "同じ数値precedenceと明示選択scopeのみで、反復override、不正引数、全scope重なりは部分的に残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_resource_pool_both_override_insertion_selects_the_declared_name_and_type_priorities",
+          "role": "direct",
+          "expected_observations": [
+            "UT: override_insertion name 1 type 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESOURCE-AUDIT-HIGHEST-FIRST-MAXIMUM",
+      "clause": "C.2.4.4.2",
+      "statement": {
+        "en": "The resource-queue helper returns the first resource among those with maximum precedence.",
+        "ja": "resource-queue helperは最大precedenceの中で最初のresourceを返す。"
+      },
+      "conditions": {
+        "en": "Registered resources have precedence three/seventeen/seventeen and a caller queue is reordered between calls.",
+        "ja": "登録resourceのprecedenceは3／17／17で、呼出し間にcaller queueの順序を変更する。"
+      },
+      "expected": {
+        "en": "The first peak wins initially and the other peak wins after becoming first in the supplied queue.",
+        "ja": "初回は先のpeakが勝ち、もう一方が指定queueの先になればそのpeakが勝つ。"
+      },
+      "limitations": {
+        "en": "Nonempty selected queues only; no invented empty/null behavior or sorting/stability semantics.",
+        "ja": "空でない選択queueのみで、空／null動作やsort／stability意味を作らない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_resource_pool_highest_precedence_returns_the_first_maximum_in_the_supplied_queue",
+          "role": "direct",
+          "expected_observations": [
+            "UT: highest_queue first_maximum 1",
+            "UT: highest_queue reordered_tie 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESOURCE-AUDIT-DEFAULT-PRECEDENCE-SET",
+      "clause": "C.2.4.5.4",
+      "statement": {
+        "en": "The pool default-precedence setter updates the core-service default.",
+        "ja": "pool default-precedence setterはcore-service defaultを更新する。"
+      },
+      "conditions": {
+        "en": "Capture the initial default, store one explicit resource, change the default before inserting an already constructed peer, then change it again and omit an assignment argument. Restore the initial value.",
+        "ja": "初期既定値を保存し、1 resourceを明示保存し、生成済みpeerをinsertする前に既定値を変え、再び変えて割当引数を省略する。最後に初期値を復元する。"
+      },
+      "expected": {
+        "en": "Initial default/core views agree at 1000; later values are 58/59, an existing explicit eleven stays until reassigned, and the peer retains 58.",
+        "ja": "初期既定値／core viewは1000で一致し、後の値は58／59となる。既存明示11は再割当まで保たれ、peerは58を保持する。"
+      },
+      "limitations": {
+        "en": "Selected stored resources only; null/unregistered warning/fallback, unsigned boundaries and overlapping pool ownership remain separate.",
+        "ja": "選択保存resourceのみで、null／未登録warning／fallback、unsigned境界、重なるpool所有は別に残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_resource_pool_default_precedence_updates_only_future_resources_implicit_assignments",
+          "role": "direct",
+          "expected_observations": [
+            "UT: precedence_default initial 1 core_view 1",
+            "UT: precedence_default changed 1 existing 1 future 1",
+            "UT: precedence_default implicit_assignment 1 peer_unchanged 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESOURCE-AUDIT-DEFAULT-PRECEDENCE-GET",
+      "clause": "C.2.4.5.5",
+      "statement": {
+        "en": "The pool default-precedence getter agrees with the core-service getter.",
+        "ja": "pool default-precedence getterはcore-service getterと一致する。"
+      },
+      "conditions": {
+        "en": "Capture the initial default, store one explicit resource, change the default before inserting an already constructed peer, then change it again and omit an assignment argument. Restore the initial value.",
+        "ja": "初期既定値を保存し、1 resourceを明示保存し、生成済みpeerをinsertする前に既定値を変え、再び変えて割当引数を省略する。最後に初期値を復元する。"
+      },
+      "expected": {
+        "en": "Initial default/core views agree at 1000; later values are 58/59, an existing explicit eleven stays until reassigned, and the peer retains 58.",
+        "ja": "初期既定値／core viewは1000で一致し、後の値は58／59となる。既存明示11は再割当まで保たれ、peerは58を保持する。"
+      },
+      "limitations": {
+        "en": "Selected stored resources only; null/unregistered warning/fallback, unsigned boundaries and overlapping pool ownership remain separate.",
+        "ja": "選択保存resourceのみで、null／未登録warning／fallback、unsigned境界、重なるpool所有は別に残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_resource_pool_default_precedence_updates_only_future_resources_implicit_assignments",
+          "role": "direct",
+          "expected_observations": [
+            "UT: precedence_default initial 1 core_view 1",
+            "UT: precedence_default changed 1 existing 1 future 1",
+            "UT: precedence_default implicit_assignment 1 peer_unchanged 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESOURCE-AUDIT-PRECEDENCE-ASSIGN",
+      "clause": "C.2.4.5.6",
+      "statement": {
+        "en": "A selected resource accepts explicit precedence or the current omitted-argument default.",
+        "ja": "選択resourceは明示precedenceまたは省略引数時の現在の既定値を受ける。"
+      },
+      "conditions": {
+        "en": "Capture the initial default, store one explicit resource, change the default before inserting an already constructed peer, then change it again and omit an assignment argument. Restore the initial value.",
+        "ja": "初期既定値を保存し、1 resourceを明示保存し、生成済みpeerをinsertする前に既定値を変え、再び変えて割当引数を省略する。最後に初期値を復元する。"
+      },
+      "expected": {
+        "en": "Initial default/core views agree at 1000; later values are 58/59, an existing explicit eleven stays until reassigned, and the peer retains 58.",
+        "ja": "初期既定値／core viewは1000で一致し、後の値は58／59となる。既存明示11は再割当まで保たれ、peerは58を保持する。"
+      },
+      "limitations": {
+        "en": "Selected stored resources only; null/unregistered warning/fallback, unsigned boundaries and overlapping pool ownership remain separate.",
+        "ja": "選択保存resourceのみで、null／未登録warning／fallback、unsigned境界、重なるpool所有は別に残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_resource_pool_default_precedence_updates_only_future_resources_implicit_assignments",
+          "role": "direct",
+          "expected_observations": [
+            "UT: precedence_default initial 1 core_view 1",
+            "UT: precedence_default changed 1 existing 1 future 1",
+            "UT: precedence_default implicit_assignment 1 peer_unchanged 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESOURCE-AUDIT-PRECEDENCE-QUERY",
+      "clause": "C.2.4.5.7",
+      "statement": {
+        "en": "A registered resource query returns its own assigned numeric precedence.",
+        "ja": "登録resource照会は自身に割り当てた数値precedenceを返す。"
+      },
+      "conditions": {
+        "en": "Capture the initial default, store one explicit resource, change the default before inserting an already constructed peer, then change it again and omit an assignment argument. Restore the initial value.",
+        "ja": "初期既定値を保存し、1 resourceを明示保存し、生成済みpeerをinsertする前に既定値を変え、再び変えて割当引数を省略する。最後に初期値を復元する。"
+      },
+      "expected": {
+        "en": "Initial default/core views agree at 1000; later values are 58/59, an existing explicit eleven stays until reassigned, and the peer retains 58.",
+        "ja": "初期既定値／core viewは1000で一致し、後の値は58／59となる。既存明示11は再割当まで保たれ、peerは58を保持する。"
+      },
+      "limitations": {
+        "en": "Selected stored resources only; null/unregistered warning/fallback, unsigned boundaries and overlapping pool ownership remain separate.",
+        "ja": "選択保存resourceのみで、null／未登録warning／fallback、unsigned境界、重なるpool所有は別に残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_resource_pool_default_precedence_updates_only_future_resources_implicit_assignments",
+          "role": "direct",
+          "expected_observations": [
+            "UT: precedence_default initial 1 core_view 1",
+            "UT: precedence_default changed 1 existing 1 future 1",
+            "UT: precedence_default implicit_assignment 1 peer_unchanged 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESOURCE-AUDIT-SERVICE-DEFAULT-FUTURE",
+      "clause": "F.4.1.4.23",
+      "statement": {
+        "en": "Changing the service default does not change resources already stored in the pool.",
+        "ja": "service default変更は既にpoolへ保存したresourceを変えない。"
+      },
+      "conditions": {
+        "en": "Capture the initial default, store one explicit resource, change the default before inserting an already constructed peer, then change it again and omit an assignment argument. Restore the initial value.",
+        "ja": "初期既定値を保存し、1 resourceを明示保存し、生成済みpeerをinsertする前に既定値を変え、再び変えて割当引数を省略する。最後に初期値を復元する。"
+      },
+      "expected": {
+        "en": "Initial default/core views agree at 1000; later values are 58/59, an existing explicit eleven stays until reassigned, and the peer retains 58.",
+        "ja": "初期既定値／core viewは1000で一致し、後の値は58／59となる。既存明示11は再割当まで保たれ、peerは58を保持する。"
+      },
+      "limitations": {
+        "en": "Selected stored resources only; null/unregistered warning/fallback, unsigned boundaries and overlapping pool ownership remain separate.",
+        "ja": "選択保存resourceのみで、null／未登録warning／fallback、unsigned境界、重なるpool所有は別に残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_resource_pool_default_precedence_updates_only_future_resources_implicit_assignments",
+          "role": "direct",
+          "expected_observations": [
+            "UT: precedence_default initial 1 core_view 1",
+            "UT: precedence_default changed 1 existing 1 future 1",
+            "UT: precedence_default implicit_assignment 1 peer_unchanged 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESOURCE-AUDIT-SERVICE-DEFAULT-INITIAL",
+      "clause": "F.4.1.4.24",
+      "statement": {
+        "en": "The unoverridden service default precedence is one thousand.",
+        "ja": "未上書きserviceの既定precedenceは1000である。"
+      },
+      "conditions": {
+        "en": "Capture the initial default, store one explicit resource, change the default before inserting an already constructed peer, then change it again and omit an assignment argument. Restore the initial value.",
+        "ja": "初期既定値を保存し、1 resourceを明示保存し、生成済みpeerをinsertする前に既定値を変え、再び変えて割当引数を省略する。最後に初期値を復元する。"
+      },
+      "expected": {
+        "en": "Initial default/core views agree at 1000; later values are 58/59, an existing explicit eleven stays until reassigned, and the peer retains 58.",
+        "ja": "初期既定値／core viewは1000で一致し、後の値は58／59となる。既存明示11は再割当まで保たれ、peerは58を保持する。"
+      },
+      "limitations": {
+        "en": "Selected stored resources only; null/unregistered warning/fallback, unsigned boundaries and overlapping pool ownership remain separate.",
+        "ja": "選択保存resourceのみで、null／未登録warning／fallback、unsigned境界、重なるpool所有は別に残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_resource_pool_default_precedence_updates_only_future_resources_implicit_assignments",
+          "role": "direct",
+          "expected_observations": [
+            "UT: precedence_default initial 1 core_view 1",
+            "UT: precedence_default changed 1 existing 1 future 1",
+            "UT: precedence_default implicit_assignment 1 peer_unchanged 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESOURCE-AUDIT-DB-DEFAULT-TYPE",
+      "clause": "C.3.2.1",
+      "statement": {
+        "en": "The resource DB defaults its type parameter to uvm_object.",
+        "ja": "resource DBのtype parameter既定値はuvm_objectである。"
+      },
+      "conditions": {
+        "en": "Concrete resources are created through DB aliases, assigned both directions without casts and written/read with original object/int payloads.",
+        "ja": "DB aliasで具象resourceを作り、castなしで双方向代入し、独自object／int payloadをwrite／readする。"
+      },
+      "expected": {
+        "en": "The default rsrc_t alias is statically identical to uvm_resource#(uvm_object) and stores the original token handle.",
+        "ja": "既定rsrc_t aliasはuvm_resource#(uvm_object)と静的に同一で、元token handleを保存する。"
+      },
+      "limitations": {
+        "en": "Selected declaration specializations and values only, not every T or every static DB operation.",
+        "ja": "選択した宣言特殊化と値のみで、全Tや全static DB操作ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_resource_db_default_and_explicit_rsrc_aliases_represent_the_required_container_types",
+          "role": "direct",
+          "expected_observations": [
+            "UT: db_aliases default_identity 1 int_identity 1 values 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESOURCE-AUDIT-DB-RESOURCE-ALIAS",
+      "clause": "C.3.2.2",
+      "statement": {
+        "en": "The DB rsrc_t alias uses the same T as uvm_resource#(T).",
+        "ja": "DBのrsrc_t aliasはuvm_resource#(T)と同じTを使う。"
+      },
+      "conditions": {
+        "en": "Concrete resources are created through DB aliases, assigned both directions without casts and written/read with original object/int payloads.",
+        "ja": "DB aliasで具象resourceを作り、castなしで双方向代入し、独自object／int payloadをwrite／readする。"
+      },
+      "expected": {
+        "en": "Default-object and explicit-int aliases pass bidirectional exact receiver assignments and retain their selected values.",
+        "ja": "既定object／明示int aliasは正確なreceiverへ双方向代入でき、選択値を保持する。"
+      },
+      "limitations": {
+        "en": "Selected declaration specializations and values only, not every T or every static DB operation.",
+        "ja": "選択した宣言特殊化と値のみで、全Tや全static DB操作ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_resource_db_default_and_explicit_rsrc_aliases_represent_the_required_container_types",
+          "role": "direct",
+          "expected_observations": [
+            "UT: db_aliases default_identity 1 int_identity 1 values 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESOURCE-AUDIT-DB-SET-CREATE",
+      "clause": "C.3.2.3.1",
+      "statement": {
+        "en": "set creates a named typed resource with the requested value/scope.",
+        "ja": "setは要求した値／scopeを持つ名前付き型付きresourceを作る。"
+      },
+      "conditions": {
+        "en": "Distinct scopes contain a named int, an unwritten two-state bit-vector default and an anonymous int.",
+        "ja": "異なるscopeに名前付きint、未writeのtwo-state bit-vector既定値、無名intを置く。"
+      },
+      "expected": {
+        "en": "The named value is 58, default bits are zero, anonymous value is 59 with an empty name, and typed/name getters preserve identity where both apply.",
+        "ja": "名前付き値は58、既定bitは0、無名値は空名で59となり、適用するtype／name getterは同一性を保持する。"
+      },
+      "limitations": {
+        "en": "Only the two-state default is fixed; no X default, duplicate priority, anonymous name-map internals or missing getter diagnostic is invented.",
+        "ja": "two-state既定値だけを固定し、X既定値、重複priority、無名name-map内部、不在getter診断は作らない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_resource_db_named_default_and_anonymous_entries_retain_typed_values_and_lookup_identity",
+          "role": "direct",
+          "expected_observations": [
+            "UT: database_entries default 1 named 1 named_identity 1 anonymous 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESOURCE-AUDIT-DB-SET-DEFAULT",
+      "clause": "C.3.2.3.2",
+      "statement": {
+        "en": "set_default creates an unwritten resource using its type default.",
+        "ja": "set_defaultは型既定値を使う未write resourceを作る。"
+      },
+      "conditions": {
+        "en": "Distinct scopes contain a named int, an unwritten two-state bit-vector default and an anonymous int.",
+        "ja": "異なるscopeに名前付きint、未writeのtwo-state bit-vector既定値、無名intを置く。"
+      },
+      "expected": {
+        "en": "The named value is 58, default bits are zero, anonymous value is 59 with an empty name, and typed/name getters preserve identity where both apply.",
+        "ja": "名前付き値は58、既定bitは0、無名値は空名で59となり、適用するtype／name getterは同一性を保持する。"
+      },
+      "limitations": {
+        "en": "Only the two-state default is fixed; no X default, duplicate priority, anonymous name-map internals or missing getter diagnostic is invented.",
+        "ja": "two-state既定値だけを固定し、X既定値、重複priority、無名name-map内部、不在getter診断は作らない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_resource_db_named_default_and_anonymous_entries_retain_typed_values_and_lookup_identity",
+          "role": "direct",
+          "expected_observations": [
+            "UT: database_entries default 1 named 1 named_identity 1 anonymous 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESOURCE-AUDIT-DB-SET-ANONYMOUS",
+      "clause": "C.3.2.3.3",
+      "statement": {
+        "en": "set_anonymous creates an unnamed typed resource retrievable by scope/type.",
+        "ja": "set_anonymousはscope／typeで取得できる無名型付きresourceを作る。"
+      },
+      "conditions": {
+        "en": "Distinct scopes contain a named int, an unwritten two-state bit-vector default and an anonymous int.",
+        "ja": "異なるscopeに名前付きint、未writeのtwo-state bit-vector既定値、無名intを置く。"
+      },
+      "expected": {
+        "en": "The named value is 58, default bits are zero, anonymous value is 59 with an empty name, and typed/name getters preserve identity where both apply.",
+        "ja": "名前付き値は58、既定bitは0、無名値は空名で59となり、適用するtype／name getterは同一性を保持する。"
+      },
+      "limitations": {
+        "en": "Only the two-state default is fixed; no X default, duplicate priority, anonymous name-map internals or missing getter diagnostic is invented.",
+        "ja": "two-state既定値だけを固定し、X既定値、重複priority、無名name-map内部、不在getter診断は作らない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_resource_db_named_default_and_anonymous_entries_retain_typed_values_and_lookup_identity",
+          "role": "direct",
+          "expected_observations": [
+            "UT: database_entries default 1 named 1 named_identity 1 anonymous 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESOURCE-AUDIT-DB-GET-NAME",
+      "clause": "C.3.2.3.4",
+      "statement": {
+        "en": "The typed DB name getter returns the original matching resource handle.",
+        "ja": "型付きDB name getterは一致する元resource handleを返す。"
+      },
+      "conditions": {
+        "en": "Distinct scopes contain a named int, an unwritten two-state bit-vector default and an anonymous int.",
+        "ja": "異なるscopeに名前付きint、未writeのtwo-state bit-vector既定値、無名intを置く。"
+      },
+      "expected": {
+        "en": "The named value is 58, default bits are zero, anonymous value is 59 with an empty name, and typed/name getters preserve identity where both apply.",
+        "ja": "名前付き値は58、既定bitは0、無名値は空名で59となり、適用するtype／name getterは同一性を保持する。"
+      },
+      "limitations": {
+        "en": "Only the two-state default is fixed; no X default, duplicate priority, anonymous name-map internals or missing getter diagnostic is invented.",
+        "ja": "two-state既定値だけを固定し、X既定値、重複priority、無名name-map内部、不在getter診断は作らない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_resource_db_named_default_and_anonymous_entries_retain_typed_values_and_lookup_identity",
+          "role": "direct",
+          "expected_observations": [
+            "UT: database_entries default 1 named 1 named_identity 1 anonymous 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESOURCE-AUDIT-DB-GET-TYPE",
+      "clause": "C.3.2.3.5",
+      "statement": {
+        "en": "The typed DB type getter retrieves the selected visible resource.",
+        "ja": "型付きDB type getterは選択した可視resourceを取得する。"
+      },
+      "conditions": {
+        "en": "Distinct scopes contain a named int, an unwritten two-state bit-vector default and an anonymous int.",
+        "ja": "異なるscopeに名前付きint、未writeのtwo-state bit-vector既定値、無名intを置く。"
+      },
+      "expected": {
+        "en": "The named value is 58, default bits are zero, anonymous value is 59 with an empty name, and typed/name getters preserve identity where both apply.",
+        "ja": "名前付き値は58、既定bitは0、無名値は空名で59となり、適用するtype／name getterは同一性を保持する。"
+      },
+      "limitations": {
+        "en": "Only the two-state default is fixed; no X default, duplicate priority, anonymous name-map internals or missing getter diagnostic is invented.",
+        "ja": "two-state既定値だけを固定し、X既定値、重複priority、無名name-map内部、不在getter診断は作らない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_resource_db_named_default_and_anonymous_entries_retain_typed_values_and_lookup_identity",
+          "role": "direct",
+          "expected_observations": [
+            "UT: database_entries default 1 named 1 named_identity 1 anonymous 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESOURCE-AUDIT-DB-READ-NAME",
+      "clause": "C.3.2.3.6",
+      "statement": {
+        "en": "read_by_name updates its inout value on success and preserves it on a miss.",
+        "ja": "read_by_nameは成功時にinout値を更新し、不一致時には保持する。"
+      },
+      "conditions": {
+        "en": "One int resource is read by name/type with null or original concrete accessors; foreign scopes and a wrong-type query use independent sentinels/status observations.",
+        "ja": "1 int resourceをname／typeとnull／独自具象accessorで読み、別scopeと誤type照会には独立したsentinel／status観測を使う。"
+      },
+      "expected": {
+        "en": "Successful reads return true and 58; each failed name/type/wrong-type read independently returns false and leaves its sentinel unchanged.",
+        "ja": "成功readはtrueと58を返し、各不在name／type／誤type readは独立にfalseを返してsentinelを変えない。"
+      },
+      "limitations": {
+        "en": "Selected values/scopes and accessor invariance only; failure diagnostics, every regex or overwrite priority are not asserted.",
+        "ja": "選択値／scopeとaccessor不変性のみで、失敗診断、全regex、overwrite priorityは主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_resource_db_reads_update_success_inout_values_preserve_missing_wrong_type_values",
+          "role": "direct",
+          "expected_observations": [
+            "UT: db_read_name success 1 value 1",
+            "UT: db_read_type success 1 value 1",
+            "UT: db_missing_name failed 1 unchanged 1",
+            "UT: db_missing_type failed 1 unchanged 1",
+            "UT: db_wrong_type failed 1 unchanged 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESOURCE-AUDIT-DB-READ-TYPE",
+      "clause": "C.3.2.3.7",
+      "statement": {
+        "en": "read_by_type updates its inout value on success and preserves missing-scope output.",
+        "ja": "read_by_typeは成功時にinout値を更新し、scope不在時は出力を保持する。"
+      },
+      "conditions": {
+        "en": "One int resource is read by name/type with null or original concrete accessors; foreign scopes and a wrong-type query use independent sentinels/status observations.",
+        "ja": "1 int resourceをname／typeとnull／独自具象accessorで読み、別scopeと誤type照会には独立したsentinel／status観測を使う。"
+      },
+      "expected": {
+        "en": "Successful reads return true and 58; each failed name/type/wrong-type read independently returns false and leaves its sentinel unchanged.",
+        "ja": "成功readはtrueと58を返し、各不在name／type／誤type readは独立にfalseを返してsentinelを変えない。"
+      },
+      "limitations": {
+        "en": "Selected values/scopes and accessor invariance only; failure diagnostics, every regex or overwrite priority are not asserted.",
+        "ja": "選択値／scopeとaccessor不変性のみで、失敗診断、全regex、overwrite priorityは主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_resource_db_reads_update_success_inout_values_preserve_missing_wrong_type_values",
+          "role": "direct",
+          "expected_observations": [
+            "UT: db_read_name success 1 value 1",
+            "UT: db_read_type success 1 value 1",
+            "UT: db_missing_name failed 1 unchanged 1",
+            "UT: db_missing_type failed 1 unchanged 1",
+            "UT: db_wrong_type failed 1 unchanged 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESOURCE-AUDIT-DB-WRITE-NAME",
+      "clause": "C.3.2.3.8",
+      "statement": {
+        "en": "write_by_name changes the selected shared resource without creating a missing one.",
+        "ja": "write_by_nameは選択共有resourceを変更し、不在resourceを作らない。"
+      },
+      "conditions": {
+        "en": "A shared simplified-star scope and an independent peer receive name/type writes with null/concrete accessors and missing-scope attempts.",
+        "ja": "共有simplified-star scopeと独立peerへ、null／具象accessorでname／type writeとscope不在試行を行う。"
+      },
+      "expected": {
+        "en": "The shared handle changes to 58 then 59 across both matching scopes, peer stays 22, and missing writes return zero without a new named match.",
+        "ja": "共有handleは両一致scopeで58、59へ変わり、peerは22を保持し、不在writeは新しい名前matchなしで0を返す。"
+      },
+      "limitations": {
+        "en": "No unspecified successful-write return value. C.3.2.3.9 prints write_by_name/get_by_name in its type-write prose; selected type routing/miss behavior uses the local-method interpretation and retains that textual issue.",
+        "ja": "未規定の成功write返却値は主張しない。C.3.2.3.9のtype-write本文はwrite_by_name／get_by_nameを印字しており、選択type経路／不在動作はlocal-method解釈を使い、文面問題を保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_resource_db_writes_update_shared_scope_matches_no_creating_missing_entries_or_changing",
+          "role": "direct",
+          "expected_observations": [
+            "UT: db_write_name shared 1 peer 1",
+            "UT: db_write_type shared 1 peer 1",
+            "UT: db_missing_write name_zero 1 type_zero 1 not_created 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESOURCE-AUDIT-DB-WRITE-TYPE",
+      "clause": "C.3.2.3.9",
+      "statement": {
+        "en": "write_by_type changes the selected scope/type match and leaves unrelated peers unchanged.",
+        "ja": "write_by_typeは選択scope／type一致を変更し、無関係peerを保持する。"
+      },
+      "conditions": {
+        "en": "A shared simplified-star scope and an independent peer receive name/type writes with null/concrete accessors and missing-scope attempts.",
+        "ja": "共有simplified-star scopeと独立peerへ、null／具象accessorでname／type writeとscope不在試行を行う。"
+      },
+      "expected": {
+        "en": "The shared handle changes to 58 then 59 across both matching scopes, peer stays 22, and missing writes return zero without a new named match.",
+        "ja": "共有handleは両一致scopeで58、59へ変わり、peerは22を保持し、不在writeは新しい名前matchなしで0を返す。"
+      },
+      "limitations": {
+        "en": "No unspecified successful-write return value. C.3.2.3.9 prints write_by_name/get_by_name in its type-write prose; selected type routing/miss behavior uses the local-method interpretation and retains that textual issue.",
+        "ja": "未規定の成功write返却値は主張しない。C.3.2.3.9のtype-write本文はwrite_by_name／get_by_nameを印字しており、選択type経路／不在動作はlocal-method解釈を使い、文面問題を保持する。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_resource_db_writes_update_shared_scope_matches_no_creating_missing_entries_or_changing",
+          "role": "direct",
+          "expected_observations": [
+            "UT: db_write_name shared 1 peer 1",
+            "UT: db_write_type shared 1 peer 1",
+            "UT: db_missing_write name_zero 1 type_zero 1 not_created 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESOURCE-AUDIT-VIRTUAL-BASE",
+      "clause": "C.2.3.1",
+      "statement": {
+        "en": "Direct construction of virtual uvm_resource_base is illegal.",
+        "ja": "virtual uvm_resource_baseの直接生成は不正である。"
+      },
+      "conditions": {
+        "en": "A minimal illegal fixture isolates the named constructor, pure hook or typed read/write context.",
+        "ja": "最小不正fixtureで指定constructor、pure hook、型付きread／write contextを分離する。"
+      },
+      "expected": {
+        "en": "The compiler rejects the named declaration/type at the fixture location using the declared semantic diagnostic predicate.",
+        "ja": "compilerは宣言した意味診断predicateによりfixture位置の指定宣言／型を拒否する。"
+      },
+      "limitations": {
+        "en": "No runtime seed executes even for illegal acceptance. The pure-hook negative supplies original compatibility bodies only to isolate get_type_handle; the separate legal-base extension still retains its unlisted-hook build difference. Legal controls do not substitute for rejection.",
+        "ja": "不正受理でもruntime seedを実行しない。pure-hook negativeの独自compatibility本体はget_type_handleを分離するためだけに使い、別の合法base拡張は記載外hook build差分を保持する。合法controlは拒否の代わりにならない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_resource_virtual_base_rejects_direct_construction",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?i)^(?=.*test_resource_virtual_base_rejects_direct_construction.sv:[0-9]+:[0-9]+:)(?=.*\\b(?:virtual|abstract)\\b)(?=.*\\buvm_resource_base\\b).*error"
+          }
+        },
+        {
+          "test": "uC/test_typed_resource_constructor_defaults_to_int_and_preserves_unnamed_and_named_instances",
+          "role": "control",
+          "expected_observations": [
+            "UT: typed_constructor unnamed 1 named 1 exact_default_type 1 values 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESOURCE-AUDIT-PURE-TYPE-HOOK",
+      "clause": "C.2.3.2.2",
+      "statement": {
+        "en": "A concrete extension must implement the pure get_type_handle hook.",
+        "ja": "具象拡張はpure get_type_handle hookを実装する必要がある。"
+      },
+      "conditions": {
+        "en": "A minimal illegal fixture isolates the named constructor, pure hook or typed read/write context.",
+        "ja": "最小不正fixtureで指定constructor、pure hook、型付きread／write contextを分離する。"
+      },
+      "expected": {
+        "en": "The compiler rejects the named declaration/type at the fixture location using the declared semantic diagnostic predicate.",
+        "ja": "compilerは宣言した意味診断predicateによりfixture位置の指定宣言／型を拒否する。"
+      },
+      "limitations": {
+        "en": "No runtime seed executes even for illegal acceptance. The pure-hook negative supplies original compatibility bodies only to isolate get_type_handle; the separate legal-base extension still retains its unlisted-hook build difference. Legal controls do not substitute for rejection.",
+        "ja": "不正受理でもruntime seedを実行しない。pure-hook negativeの独自compatibility本体はget_type_handleを分離するためだけに使い、別の合法base拡張は記載外hook build差分を保持する。合法controlは拒否の代わりにならない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_resource_base_concrete_extension_must_implement_the_pure_type_handle_hook",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?i)^(?=.*test_resource_base_concrete_extension_must_implement_the_pure_type_handle_hook.sv:[0-9]+:[0-9]+:)(?=.*\\bget_type_handle\\b).*error"
+          }
+        },
+        {
+          "test": "uC/test_typed_resource_static_polymorphic_type_handles_are_shared_only_per_specialization",
+          "role": "control",
+          "expected_observations": [
+            "UT: type_handles nonnull 1 static_shared 1 polymorphic 1 isolated 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESOURCE-AUDIT-WRITE-TYPE-SAFETY",
+      "clause": "C.2.5.4",
+      "statement": {
+        "en": "An object resource write rejects an incompatible nonzero integral argument.",
+        "ja": "object resource writeは非互換な非0整数引数を拒否する。"
+      },
+      "conditions": {
+        "en": "A minimal illegal fixture isolates the named constructor, pure hook or typed read/write context.",
+        "ja": "最小不正fixtureで指定constructor、pure hook、型付きread／write contextを分離する。"
+      },
+      "expected": {
+        "en": "The compiler rejects the named declaration/type at the fixture location using the declared semantic diagnostic predicate.",
+        "ja": "compilerは宣言した意味診断predicateによりfixture位置の指定宣言／型を拒否する。"
+      },
+      "limitations": {
+        "en": "No runtime seed executes even for illegal acceptance. The pure-hook negative supplies original compatibility bodies only to isolate get_type_handle; the separate legal-base extension still retains its unlisted-hook build difference. Legal controls do not substitute for rejection.",
+        "ja": "不正受理でもruntime seedを実行しない。pure-hook negativeの独自compatibility本体はget_type_handleを分離するためだけに使い、別の合法base拡張は記載外hook build差分を保持する。合法controlは拒否の代わりにならない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_typed_resource_write_rejects_an_integral_argument_for_an_object_container",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?i)^(?=.*test_typed_resource_write_rejects_an_integral_argument_for_an_object_container.sv:[0-9]+:[0-9]+:)(?=.*\\buvm_object\\b).*error"
+          }
+        },
+        {
+          "test": "uC/test_typed_resource_object_values_preserve_alias_identity_replacement_and_null_without_cloning",
+          "role": "control",
+          "expected_observations": [
+            "UT: object_resource same_handle 1 live_alias 1",
+            "UT: object_resource replacement 1 old_valid 1",
+            "UT: object_resource null 1 peer_valid 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RESOURCE-AUDIT-READ-TYPE-SAFETY",
+      "clause": "C.2.5.4",
+      "statement": {
+        "en": "An integral resource result cannot be implicitly assigned to a class-handle receiver.",
+        "ja": "integral resource結果をclass-handle receiverへ暗黙代入できない。"
+      },
+      "conditions": {
+        "en": "A minimal illegal fixture isolates the named constructor, pure hook or typed read/write context.",
+        "ja": "最小不正fixtureで指定constructor、pure hook、型付きread／write contextを分離する。"
+      },
+      "expected": {
+        "en": "The compiler rejects the named declaration/type at the fixture location using the declared semantic diagnostic predicate.",
+        "ja": "compilerは宣言した意味診断predicateによりfixture位置の指定宣言／型を拒否する。"
+      },
+      "limitations": {
+        "en": "No runtime seed executes even for illegal acceptance. The pure-hook negative supplies original compatibility bodies only to isolate get_type_handle; the separate legal-base extension still retains its unlisted-hook build difference. Legal controls do not substitute for rejection.",
+        "ja": "不正受理でもruntime seedを実行しない。pure-hook negativeの独自compatibility本体はget_type_handleを分離するためだけに使い、別の合法base拡張は記載外hook build差分を保持する。合法controlは拒否の代わりにならない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uC/test_typed_resource_read_rejects_an_object_receiver_for_an_integral_container",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?i)^(?=.*test_typed_resource_read_rejects_an_object_receiver_for_an_integral_container.sv:[0-9]+:[0-9]+:)(?=.*\\btoken_type\\b).*error"
+          }
+        },
+        {
+          "test": "uC/test_typed_resource_constructor_defaults_to_int_and_preserves_unnamed_and_named_instances",
+          "role": "control",
+          "expected_observations": [
+            "UT: typed_constructor unnamed 1 named 1 exact_default_type 1 values 1"
+          ]
+        }
+      ]
     }
   ]
 }

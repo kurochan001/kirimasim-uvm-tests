@@ -2,7 +2,7 @@
 
 [English](history.md) · [README](../README.ja.md)
 
-M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の57回目の拡充（全1731件：simulation 1683・elaboration 48）までを記録しています。以前の349件の時点は
+M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の58回目の拡充（全1763件：simulation 1711・elaboration 52）までを記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -2320,3 +2320,40 @@ guest未測定は修正した2入力を含む648（simulation 600／elaboration 
 
 goalの29反復目は未評価を37減らして531を残し、全ての部分義務は未完了です。tool test 110件、metadata／台帳／library、evidence同一性、日英資料検査は成功し、FAQ／用語は239／273件です。
 schema、runner／library／catalog／backend、workflow、SVG 6件は未変更です。guest実行、人のレビュー、分母承認、完了は主張しません。goalは継続中です。
+
+## 薄い領域の58回目：resource、scope、型付きstorage（2026-11-05）
+
+M1 resource 32 fixtureで、runtime 24件が両seed一致、4件が期待compiler拒否一致、3件がseed 1 runtime差分でseed 73なし、合法拡張1件がruntimeなしのbuild差分です。
+不在name lookupは必要な既定warningを出しません。独立に測定したlocal／global poolの両caseは割当precedence 3／9を保持しますが、
+nameでは必要な最大値でなく最初のresourceを返し、type priorityとqueueは一致します。localの公開constructor／singleton境界は限定解釈として明示します。
+
+独自の2拡張に明示名と省略のbase constructor直接呼出しを別々に宣言し、規格に記載されたpure type hookを実装しますが、固定libraryは追加の記載外pure helperも要求するためcompileできず、合法宣言をspec-onlyで保持します。
+別のtype-hook欠落negativeは必要なget_type_handle拒否を分離する独自compatibility本体を使い、合法拡張を修復しません。
+他negativeはvirtual基底の直接生成と非互換型read／write contextを拒否し、それぞれruntime seedなしで独立した合法controlを持ちます。
+
+一致controlは正確なqueue／DB alias、既定resource／DB型、constructor名、static／多態token、scalar／string／queue copyとobject handle同一性、
+read-only ERROR／storage、同値／拒否write通知の抑制、変更writeで待機全員の解放、scope置換／削除、null insert warning、name／type／bothのpriority／override、
+最初の最大値queue、core-service pool／既定値選択、DBの値／同一性／失敗read sentinel／共有scope writeを扱います。
+
+初期accessor設定はabstractなuvm_objectを直接生成していました。独自具象accessor classへ置換して再測定し、古い設定buildをUVMへ割り当てず除外します。
+期待出力は規格から導いたままです。constructorの本文／prototype差、lookup_typeのqueue／便利説明の矛盾、type-priorityと広いlookup記述の食違い、
+type-write本文のname-based参照は明示解釈に残し、成功writeの返却値は作りません。
+
+resource監査はM1の32 fixtureへAI義務63件を追加し、constructor／宣言surface、正確なalias／type token、選択payload／型安全性、
+read-only／通知、pool所有／scope／map／precedence、core既定値、型付きDB操作を独立した条件／観測で扱います。
+同値／拒否writeはwaiterを保持し、変更writeは両waiterを解放します。name／type／bothのpriorityとoverrideは独立した6 fixtureで、停止した共有matrixの行を流用しません。
+
+runtime差分3件と記載外pure-hookの合法build差分を保持します。pure-hook negativeの追加した独自compatibility本体は規格hookの拒否を分離するもので、未修正拡張をpassにはしません。
+割当数値precedenceはname選択と独立に観測し、global／local pool結果は独立した現在入力です。singleton／constructorとlookup／type／write本文の解釈境界を残します。
+
+個別に読んだ見出し10件を構造、導入2件を関連義務のある文脈に分類します。付録Cは部分52／分類12／未評価20で案68件、core-service義務4件により付録Fは60／14／63で案95件です。
+全体は部分1687／分類353／未評価467（構造239／文脈114）で、以前の全3031要求・341分類は未変更です。
+Cの残りはoverview／印字契約、sortの同値順、regex／scope collection、型filter付き最大precedence、static DB／config継承／便利alias、不正precedence引数、全ての部分lifecycle／並行条件です。
+いずれの件数も完全適合を示しません。
+全1763（simulation 1711／elaboration 52）、M1 709（667／42）、M2 538（533／5）、M3 516（511／5）です。
+通常結果はpass 1534（runtime 1484／compiler拒否50）、known 229（runtime 170／simulation build 57／不正compiler受理2）です。
+以前の全1731通常記録・3031要求・341分類を未変更で保持し、guest 1083／HDL 11／command-line 18記録はbyte単位で同一です。
+guest未測定は修正2入力を含む680（simulation 628／elaboration 52）です。
+
+goalの30反復目は未評価を64減らして467とし、全部分義務と元の目標は未完了です。tool test 110件、metadata、台帳／library、evidence同一性、日英資料検査は成功し、FAQ／用語は242／275件です。
+schema、runner／library／catalog／backend、workflow、SVG 6件は未変更です。guest実行、人のレビュー、分母承認、完了は主張せず、goalは継続中です。

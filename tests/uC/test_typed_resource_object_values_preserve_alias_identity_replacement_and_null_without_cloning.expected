@@ -1,0 +1,3 @@
+UT: object_resource same_handle 1 live_alias 1
+UT: object_resource replacement 1 old_valid 1
+UT: object_resource null 1 peer_valid 1
