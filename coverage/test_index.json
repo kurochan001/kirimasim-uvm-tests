@@ -666,6 +666,42 @@
       "primary_clause": "8.2.5.2.2",
       "inputs_sha256": "421cfad7062cd14991fb9d05ec0d80e84a544b97eea395c1e293e62505a0a567"
     },
+    "u08/test_builtin_abstract_components_type_id_uses_the_required_registry_specialization": {
+      "primary_clause": "8.2.2",
+      "inputs_sha256": "55ddb6df080cf57b0afc9a97a5a3c54e1cf5301afb51ab08341bc18cabfa05c4"
+    },
+    "u08/test_builtin_abstract_objects_type_id_uses_the_required_registry_specialization": {
+      "primary_clause": "8.2.2",
+      "inputs_sha256": "6a4c14e6a6aec0373641f2617e9603b1dbf574d1625958e0920be03bbbf90146"
+    },
+    "u08/test_builtin_abstract_parameterized_components_type_id_uses_the_required_registry_specialization": {
+      "primary_clause": "8.2.2",
+      "inputs_sha256": "5268b153c8c74c8c557110ebd86f47132636470e5c197c2cf7865cc51ee1070a"
+    },
+    "u08/test_builtin_abstract_parameterized_objects_type_id_uses_the_required_registry_specialization": {
+      "primary_clause": "8.2.2",
+      "inputs_sha256": "064d83466850851b303a5e85d32e77982ed769bf4d86f8440a5872eb4bf167b1"
+    },
+    "u08/test_builtin_objects_type_id_uses_the_required_registry_specialization": {
+      "primary_clause": "8.2.2",
+      "inputs_sha256": "6167e6dc471c9d47a9be5835af15b0c87a1964784221adf9a81ee0aaff18ac0d"
+    },
+    "u08/test_builtin_parameterized_components_type_id_uses_the_required_registry_specialization": {
+      "primary_clause": "8.2.2",
+      "inputs_sha256": "4d8f3041aae9ec9ded76241d6a903418bde6d46f72e127fa1ce4f4e82f908eb1"
+    },
+    "u08/test_builtin_parameterized_objects_type_id_uses_the_required_registry_specialization": {
+      "primary_clause": "8.2.2",
+      "inputs_sha256": "c215c42d274e9548ff1c4e4b2522ad0eb9a7440915e5106f0eedb73258a57a63"
+    },
+    "u08/test_builtin_report_server_type_id_uses_its_own_named_abstract_registry": {
+      "primary_clause": "8.2.2",
+      "inputs_sha256": "ba7aa0fe7aeeb988da5b9b06d499863d98ddfd23001eba5b9712a2900ea17380"
+    },
+    "u08/test_builtin_sequence_base_type_id_uses_its_own_named_abstract_registry": {
+      "primary_clause": "8.2.2",
+      "inputs_sha256": "840175e9fafb331371c58c2b1c611e45e8b9bd9790a6c031f72cbceb3ceef529"
+    },
     "u08/test_component_registry_context_does_not_reparent": {
       "primary_clause": "8.2.3.2.4",
       "inputs_sha256": "711a62a317454d044de4d9d7e2626bcc8b09e31adb102cb1f4b464fa673508a7"
@@ -689,6 +725,14 @@
     "u08/test_component_registry_type_override_forwards_replace_flag": {
       "primary_clause": "8.2.3.2.5",
       "inputs_sha256": "f3ea8a57fcbaa3f48c956cecf1f0ab0b91e2635790eaaf1d5e9e754bdfe42d6e"
+    },
+    "u08/test_default_factory_can_be_extended_and_used_through_the_abstract_factory_view": {
+      "primary_clause": "8.3.3",
+      "inputs_sha256": "78fe80271d495de3d13c4dfe10c267ce4850d74864ff6d43e50c2c016eccf30b"
+    },
+    "u08/test_factory_delegates_to_lightweight_original_object_and_component_proxies_on_demand": {
+      "primary_clause": "8.3.2",
+      "inputs_sha256": "39e6ea3b29db55df4747420cd82b0f954d682ad26d304fe00c9249e42db48574"
     },
     "u08/test_factory_instance_alias_creates_in_context": {
       "primary_clause": "8.3.1.6.2",
@@ -722,6 +766,22 @@
       "primary_clause": "8.3.1.7.1",
       "inputs_sha256": "47db7b48f7c66b7aae6344c0ee063204998b8432d90a8abba214b1f2dfe5c4ff"
     },
+    "u08/test_factory_print_default_reports_only_the_selected_type_and_override_inventory": {
+      "primary_clause": "8.3.1.7.5",
+      "inputs_sha256": "45ef4a3743a70ae5cb8ce61404935179378640521c517db43df5ed4165f1492e"
+    },
+    "u08/test_factory_print_one_reports_only_the_selected_type_and_override_inventory": {
+      "primary_clause": "8.3.1.7.5",
+      "inputs_sha256": "5635d5e87ca654b48b56a7db78b6fcaa0cd834943c676cee073d9b65b36b62d6"
+    },
+    "u08/test_factory_print_two_reports_only_the_selected_type_and_override_inventory": {
+      "primary_clause": "8.3.1.7.5",
+      "inputs_sha256": "77b3fcd75859536945c83e0d46fe09903cfb805e78e5863e872f0cf4b4101acc"
+    },
+    "u08/test_factory_print_zero_reports_only_the_selected_type_and_override_inventory": {
+      "primary_clause": "8.3.1.7.5",
+      "inputs_sha256": "9bdc47d0f52779f63c1dfd89815089525b15cef728b406d5957294658ee935cf"
+    },
     "u08/test_factory_registered_name_queries_use_exact_names": {
       "primary_clause": "8.3.1.7.3",
       "inputs_sha256": "87f24295941fd8ebc3bcd879d479a1692034f41538ffd56cdcaeaae2021803a6"
@@ -742,6 +802,10 @@
       "primary_clause": "8.3.1.2.1",
       "inputs_sha256": "e44a29239d2c6510dc459d3c85c8f4f69647797a57dc43864aa5a4c09bae0d0d"
     },
+    "u08/test_factory_single_active_service_view_keeps_explicit_local_instances_detached": {
+      "primary_clause": "8.1",
+      "inputs_sha256": "9210cdacdc7c136c8f9db94786c020a89c41910e39647e9d131d2a90f90c5d40"
+    },
     "u08/test_factory_static_accessors_share_core_service_factory": {
       "primary_clause": "8.3.1.2.1",
       "inputs_sha256": "4cb398ac5db23797b4b80e7ad5c01425f34af378dada13fc0707ee581c993b85"
@@ -761,6 +825,14 @@
     "u08/test_factory_type_override_replaces_previous": {
       "primary_clause": "8.3.1.4.2",
       "inputs_sha256": "fd9bba9966f2ef4aa37bc7818bfba54375617a41c63e034b7d63ea3f995bdf85"
+    },
+    "u08/test_factory_unknown_component_name_reports_an_error_and_returns_null_with_a_registered_control": {
+      "primary_clause": "8.3.1.5",
+      "inputs_sha256": "18569187f010b08af2665f319554a3ee8210572c0fc93d53a0c11953636503e8"
+    },
+    "u08/test_factory_unknown_object_name_reports_an_error_and_returns_null_with_a_registered_control": {
+      "primary_clause": "8.3.1.5",
+      "inputs_sha256": "6b6b9d77e0b454e2edca07bbfad171a4e68dd6bee20741d80cd03a553152ed38"
     },
     "u08/test_factory_wrapper_lookup_keeps_original_after_type_override": {
       "primary_clause": "8.3.1.7.2",
@@ -793,6 +865,10 @@
     "u08/test_object_registry_type_override_forwards_replace_flag": {
       "primary_clause": "8.2.4.2.5",
       "inputs_sha256": "f7d400c4fb01723b5606c7740d94ccb8bc40a422ee316bbc3101b3f3adf5595b"
+    },
+    "u08/test_uvm_factory_virtual_declaration_rejects_direct_construction": {
+      "primary_clause": "8.3.1.1",
+      "inputs_sha256": "c0262bdaaef3bb50f7b528c0038487f5785e09cc02c54bc6674df9b44c8159fa"
     },
     "u08/test_uvm_object_wrapper_abstract_declaration_rejects_direct_construction": {
       "primary_clause": "8.3.2.1",

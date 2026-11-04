@@ -1,0 +1,2 @@
+UT: type_id uvm_driver registry_compatible 1 singleton 1 named 1
+UT: type_id uvm_sequencer registry_compatible 1 singleton 1 named 1

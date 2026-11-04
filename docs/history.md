@@ -3,8 +3,8 @@
 [日本語](history.ja.md) · [README](../README.md)
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and fifty-four cross-milestone thin-area expansions, including the
-existing-test requirement-link backlog checkpoint (1677 tests: 1631 simulation and 46 elaboration). The earlier 349-test checkpoint is
+three M4 increments and fifty-five cross-milestone thin-area expansions, including the
+existing-test requirement-link backlog checkpoint (1696 tests: 1649 simulation and 47 elaboration). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -3417,3 +3417,48 @@ paired documentation checks pass. The duplicate phase-definition glossary entry
 is consolidated and synchronization terminology added; total remains 268 terms.
 All review is AI, scope proposed and denominator/percentage unset. The goal is
 active. Schema, runners/library/catalog, workflow and six SVGs are unchanged.
+
+## Fifty-fifth thin-area expansion: factory inventory and builtin registry contracts (2026-11-05)
+
+Nineteen M1 factory fixtures add eighteen simulations and one elaboration.
+Twelve simulations match seeds 1/73, and virtual uvm_factory construction matches
+compiler rejection without runtime. Four legal simulations cannot build: missing
+transaction/report-server type_id and incompatible inherited subscriber/sequence
+registry specializations. Two unknown-name fixtures return null and create their
+registered controls but observe no required ERROR at seed 1, without seed 73.
+The independent sequence-base probe matches and does not borrow the blocked
+matrix's result. Seven category fixtures plus two isolated probes select fourteen
+unique builtin declarations, not all eight categories or every package type.
+Review strengthens the declared-alias checks to static assignments in both
+directions without a runtime cast; the current versions are remeasured.
+
+Four print selections check zero/default/one/two without fixed table syntax.
+Both stdout and stderr are independently framed and the runtime message regex
+checks their union, including split content. UT markers alone cannot pass a
+content omission. Fifty-two local predicate checks reject empty/missing/forbidden
+content and names outside the frames. Original proxies observe registration
+without represented construction and by-name/by-type dispatch, names and parents.
+Valid unknown-name controls are moved before invalid requests to avoid an
+unprescribed post-error registry-state oracle. ERROR/null expectations stay.
+The default-factory extension matches after a reserved variable name in the
+initial fixture is corrected; its obsolete build is excluded. The global active
+view retains a qualified interpretation of the overview's one-instance wording.
+
+Twenty-eight AI drafts reach 2962. Six structural and two contextual assessments
+reach 320 (209/111). Overall is 1592 partial/320 assessed/595 unassessed;
+chapter 8 is 60/12/0 with 83 drafts. All 2934 prior requirements, 312 assessments
+and 1677 fixture inputs/native records remain unchanged. The goal's twenty-seventh
+iteration reduces unassessed by sixteen; partial duties and original milestone
+targets remain open.
+
+Current totals are 1696 (1649 simulation/47 elaboration): M1 659 (622/37),
+M2 538 (533/5), M3 499 (494/5). Ordinary evidence is 1481 pass (1436 runtime/
+45 compiler rejection) and 215 known (161 runtime/52 simulation builds/two
+illegal acceptances). Guest 1083 and separate HDL/command-line records remain
+byte-identical; 613 inputs are unmeasured (566 simulation/47 elaboration),
+including two revised old inputs. No guest execution is claimed.
+
+Metadata, ledger/index, library, 110 tool tests, print predicate checks,
+native/compiler identities and paired docs pass. All review is AI, scope proposed
+and denominator/percentage unset. The goal remains active. Schema, runners/library/
+catalog, workflow and six SVGs are unchanged.

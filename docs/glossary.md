@@ -1247,3 +1247,9 @@ original declared type.
 and end of selected phase nodes across domains. `sync` adds them and `unsync`
 removes them; removing one relationship preserves others. These relationships
 do not prescribe a sibling visitation order.
+
+**type_id / registry specialization** — The declared factory proxy type for
+a represented class and its name/parameters. Finding an inherited type_id member
+is insufficient when that member represents a base class; the required registry
+must be compatible with the class-specific specialization. Explicit exceptions
+and all package types require separate review.

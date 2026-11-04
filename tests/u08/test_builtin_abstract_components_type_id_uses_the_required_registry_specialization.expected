@@ -1,0 +1,3 @@
+UT: type_id uvm_component registry_compatible 1 singleton 1 named 1
+UT: type_id uvm_env registry_compatible 1 singleton 1 named 1
+UT: type_id uvm_monitor registry_compatible 1 singleton 1 named 1

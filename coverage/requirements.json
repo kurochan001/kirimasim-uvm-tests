@@ -107497,6 +107497,995 @@
           ]
         }
       ]
+    },
+    {
+      "id": "UVM-FACTORY-AUDIT-ACTIVE-GLOBAL-VIEW",
+      "clause": "8.1",
+      "statement": {
+        "en": "Under the active-service interpretation, factory accessors expose one selected global factory.",
+        "ja": "active serviceとしての解釈では、factory accessorは1つの選択global factoryを公開する。"
+      },
+      "conditions": {
+        "en": "Two explicitly allocated local default factories remain detached until selection through static/core-service setters, then the saved handle is restored.",
+        "ja": "明示生成したlocal default factory 2個はstatic／core-service setterで選択するまで切り離され、最後に保存handleを復元する。"
+      },
+      "expected": {
+        "en": "Both accessors agree on the saved, first, second and restored active handles; local allocations alone do not change the service.",
+        "ja": "保存、first、second、復元の各active handleで両accessorが一致し、local生成だけではserviceを変えない。"
+      },
+      "limitations": {
+        "en": "Qualified reading of the one-instance overview. It does not assert that only one factory object can physically be allocated or invent an error on local construction; that literal wording remains an interpretation boundary.",
+        "ja": "単一instanceという概要の限定解釈。物理的にfactory objectを1個しか生成できるとは主張せず、local生成時のerrorも作らない。その字義的記述は解釈の境界として残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u08/test_factory_single_active_service_view_keeps_explicit_local_instances_detached",
+          "role": "direct",
+          "expected_observations": [
+            "UT: active_factory detached 1 selected_first 1 selected_second 1",
+            "UT: active_factory restored 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FACTORY-AUDIT-TYPE-ID-ABSTRACT-COMPONENTS",
+      "clause": "8.2.2",
+      "statement": {
+        "en": "Selected non-parameterized virtual components use named abstract component registries.",
+        "ja": "選択した非parameter化virtual componentは名前付きabstract component registryを使う。"
+      },
+      "conditions": {
+        "en": "uvm_component, uvm_env and uvm_monitor; each named receiver uses its exact class and printed class-name parameter.",
+        "ja": "uvm_component、uvm_env、uvm_monitorの各receiverは正確なclassと印字class名parameterを使う。"
+      },
+      "expected": {
+        "en": "The declared alias and required registry are statically assignable in both directions, retain one nonnull singleton, and report the explicit class name or default <unknown> as applicable.",
+        "ja": "宣言aliasと必要registryが静的に双方向代入でき、1つの非null singletonを保持し、適用する明示class名または既定<unknown>を返す。"
+      },
+      "limitations": {
+        "en": "Selected builtins and category conditions only, not every UVM type or all eight categories. No represented instance is constructed. A missing/inherited type_id or incompatible registry build has no runtime observation; later rows in a blocked matrix are not separately certified. Explicit exceptions remain independent. Both alias directions are checked without a runtime cast; getter-return compatibility alone is insufficient.",
+        "ja": "選択built-inとcategory条件のみで、全UVM型や全8 categoryではない。表現instanceは生成しない。type_id欠落／継承またはregistry非互換のbuildにはruntime観測がなく、停止したmatrixの後続行も個別には認定しない。明示例外は別に残す。 runtime castを使わずaliasを双方向に検査し、getter返却の互換性だけでは判定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u08/test_builtin_abstract_components_type_id_uses_the_required_registry_specialization",
+          "role": "direct",
+          "expected_observations": [
+            "UT: type_id uvm_component registry_compatible 1 singleton 1 named 1",
+            "UT: type_id uvm_env registry_compatible 1 singleton 1 named 1",
+            "UT: type_id uvm_monitor registry_compatible 1 singleton 1 named 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FACTORY-AUDIT-TYPE-ID-PARAMETERIZED-COMPONENTS",
+      "clause": "8.2.2",
+      "statement": {
+        "en": "Selected parameterized concrete components use ordinary component registries without an explicit type-name parameter.",
+        "ja": "選択したparameter化具象componentは明示type-name parameterのない通常component registryを使う。"
+      },
+      "conditions": {
+        "en": "uvm_driver and uvm_sequencer have both item parameters explicitly set to uvm_sequence_item.",
+        "ja": "uvm_driverとuvm_sequencerの両item parameterをuvm_sequence_itemに明示する。"
+      },
+      "expected": {
+        "en": "The declared alias and required registry are statically assignable in both directions, retain one nonnull singleton, and report the explicit class name or default <unknown> as applicable.",
+        "ja": "宣言aliasと必要registryが静的に双方向代入でき、1つの非null singletonを保持し、適用する明示class名または既定<unknown>を返す。"
+      },
+      "limitations": {
+        "en": "Selected builtins and category conditions only, not every UVM type or all eight categories. No represented instance is constructed. A missing/inherited type_id or incompatible registry build has no runtime observation; later rows in a blocked matrix are not separately certified. Explicit exceptions remain independent. Both alias directions are checked without a runtime cast; getter-return compatibility alone is insufficient.",
+        "ja": "選択built-inとcategory条件のみで、全UVM型や全8 categoryではない。表現instanceは生成しない。type_id欠落／継承またはregistry非互換のbuildにはruntime観測がなく、停止したmatrixの後続行も個別には認定しない。明示例外は別に残す。 runtime castを使わずaliasを双方向に検査し、getter返却の互換性だけでは判定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u08/test_builtin_parameterized_components_type_id_uses_the_required_registry_specialization",
+          "role": "direct",
+          "expected_observations": [
+            "UT: type_id uvm_driver registry_compatible 1 singleton 1 named 1",
+            "UT: type_id uvm_sequencer registry_compatible 1 singleton 1 named 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FACTORY-AUDIT-TYPE-ID-ABSTRACT-PARAMETERIZED-COMPONENTS",
+      "clause": "8.2.2",
+      "statement": {
+        "en": "A parameterized abstract subscriber has its own abstract component registry specialization.",
+        "ja": "parameter化abstract subscriberは自身のabstract component registry特殊化を持つ。"
+      },
+      "conditions": {
+        "en": "uvm_subscriber#(int) is assigned to the exact registry specialization required by the generic rule.",
+        "ja": "uvm_subscriber#(int)を汎用規則が要求する正確なregistry特殊化へ代入する。"
+      },
+      "expected": {
+        "en": "The declared alias and required registry are statically assignable in both directions, retain one nonnull singleton, and report the explicit class name or default <unknown> as applicable.",
+        "ja": "宣言aliasと必要registryが静的に双方向代入でき、1つの非null singletonを保持し、適用する明示class名または既定<unknown>を返す。"
+      },
+      "limitations": {
+        "en": "Selected builtins and category conditions only, not every UVM type or all eight categories. No represented instance is constructed. A missing/inherited type_id or incompatible registry build has no runtime observation; later rows in a blocked matrix are not separately certified. Explicit exceptions remain independent. Both alias directions are checked without a runtime cast; getter-return compatibility alone is insufficient.",
+        "ja": "選択built-inとcategory条件のみで、全UVM型や全8 categoryではない。表現instanceは生成しない。type_id欠落／継承またはregistry非互換のbuildにはruntime観測がなく、停止したmatrixの後続行も個別には認定しない。明示例外は別に残す。 runtime castを使わずaliasを双方向に検査し、getter返却の互換性だけでは判定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u08/test_builtin_abstract_parameterized_components_type_id_uses_the_required_registry_specialization",
+          "role": "direct",
+          "expected_observations": [
+            "UT: type_id uvm_subscriber registry_compatible 1 singleton 1 named 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FACTORY-AUDIT-TYPE-ID-OBJECTS",
+      "clause": "8.2.2",
+      "statement": {
+        "en": "Selected named non-parameterized concrete objects use ordinary object registries.",
+        "ja": "選択した名前付き非parameter化具象objectは通常object registryを使う。"
+      },
+      "conditions": {
+        "en": "uvm_sequence_item and uvm_tlm_generic_payload use exact represented types and printed class-name parameters.",
+        "ja": "uvm_sequence_itemとuvm_tlm_generic_payloadに正確な表現型と印字class名parameterを使う。"
+      },
+      "expected": {
+        "en": "The declared alias and required registry are statically assignable in both directions, retain one nonnull singleton, and report the explicit class name or default <unknown> as applicable.",
+        "ja": "宣言aliasと必要registryが静的に双方向代入でき、1つの非null singletonを保持し、適用する明示class名または既定<unknown>を返す。"
+      },
+      "limitations": {
+        "en": "Selected builtins and category conditions only, not every UVM type or all eight categories. No represented instance is constructed. A missing/inherited type_id or incompatible registry build has no runtime observation; later rows in a blocked matrix are not separately certified. Explicit exceptions remain independent. Both alias directions are checked without a runtime cast; getter-return compatibility alone is insufficient.",
+        "ja": "選択built-inとcategory条件のみで、全UVM型や全8 categoryではない。表現instanceは生成しない。type_id欠落／継承またはregistry非互換のbuildにはruntime観測がなく、停止したmatrixの後続行も個別には認定しない。明示例外は別に残す。 runtime castを使わずaliasを双方向に検査し、getter返却の互換性だけでは判定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u08/test_builtin_objects_type_id_uses_the_required_registry_specialization",
+          "role": "direct",
+          "expected_observations": [
+            "UT: type_id uvm_sequence_item registry_compatible 1 singleton 1 named 1",
+            "UT: type_id uvm_tlm_generic_payload registry_compatible 1 singleton 1 named 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FACTORY-AUDIT-TYPE-ID-ABSTRACT-OBJECTS",
+      "clause": "8.2.2",
+      "statement": {
+        "en": "Selected non-parameterized abstract objects declare named abstract object registries.",
+        "ja": "選択した非parameter化abstract objectは名前付きabstract object registryを宣言する。"
+      },
+      "conditions": {
+        "en": "uvm_transaction, uvm_sequence_base and uvm_report_server are checked through required named registry receivers.",
+        "ja": "uvm_transaction、uvm_sequence_base、uvm_report_serverを必要な名前付きregistry receiver経由で調べる。"
+      },
+      "expected": {
+        "en": "The declared alias and required registry are statically assignable in both directions, retain one nonnull singleton, and report the explicit class name or default <unknown> as applicable.",
+        "ja": "宣言aliasと必要registryが静的に双方向代入でき、1つの非null singletonを保持し、適用する明示class名または既定<unknown>を返す。"
+      },
+      "limitations": {
+        "en": "Selected builtins and category conditions only, not every UVM type or all eight categories. No represented instance is constructed. A missing/inherited type_id or incompatible registry build has no runtime observation; later rows in a blocked matrix are not separately certified. Explicit exceptions remain independent. The two isolated sequence-base/report-server fixtures have their own input identities; they do not borrow a result from the blocked matrix. Both alias directions are checked without a runtime cast; getter-return compatibility alone is insufficient.",
+        "ja": "選択built-inとcategory条件のみで、全UVM型や全8 categoryではない。表現instanceは生成しない。type_id欠落／継承またはregistry非互換のbuildにはruntime観測がなく、停止したmatrixの後続行も個別には認定しない。明示例外は別に残す。 分離したsequence-base／report-serverの2 fixtureは独自の入力同一性を持ち、停止matrixの結果を流用しない。 runtime castを使わずaliasを双方向に検査し、getter返却の互換性だけでは判定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u08/test_builtin_abstract_objects_type_id_uses_the_required_registry_specialization",
+          "role": "direct",
+          "expected_observations": [
+            "UT: type_id uvm_transaction registry_compatible 1 singleton 1 named 1",
+            "UT: type_id uvm_sequence_base registry_compatible 1 singleton 1 named 1",
+            "UT: type_id uvm_report_server registry_compatible 1 singleton 1 named 1"
+          ]
+        },
+        {
+          "test": "u08/test_builtin_sequence_base_type_id_uses_its_own_named_abstract_registry",
+          "role": "direct",
+          "expected_observations": [
+            "UT: type_id uvm_sequence_base registry_compatible 1 singleton 1 named 1"
+          ]
+        },
+        {
+          "test": "u08/test_builtin_report_server_type_id_uses_its_own_named_abstract_registry",
+          "role": "direct",
+          "expected_observations": [
+            "UT: type_id uvm_report_server registry_compatible 1 singleton 1 named 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FACTORY-AUDIT-TYPE-ID-PARAMETERIZED-OBJECTS",
+      "clause": "8.2.2",
+      "statement": {
+        "en": "Selected parameterized concrete objects use ordinary object registries without an explicit type-name parameter.",
+        "ja": "選択したparameter化具象objectは明示type-name parameterのない通常object registryを使う。"
+      },
+      "conditions": {
+        "en": "uvm_queue#(int) and uvm_pool#(string,int) are checked through exact ordinary registry receivers.",
+        "ja": "uvm_queue#(int)とuvm_pool#(string,int)を正確な通常registry receiver経由で調べる。"
+      },
+      "expected": {
+        "en": "The declared alias and required registry are statically assignable in both directions, retain one nonnull singleton, and report the explicit class name or default <unknown> as applicable.",
+        "ja": "宣言aliasと必要registryが静的に双方向代入でき、1つの非null singletonを保持し、適用する明示class名または既定<unknown>を返す。"
+      },
+      "limitations": {
+        "en": "Selected builtins and category conditions only, not every UVM type or all eight categories. No represented instance is constructed. A missing/inherited type_id or incompatible registry build has no runtime observation; later rows in a blocked matrix are not separately certified. Explicit exceptions remain independent. Both alias directions are checked without a runtime cast; getter-return compatibility alone is insufficient.",
+        "ja": "選択built-inとcategory条件のみで、全UVM型や全8 categoryではない。表現instanceは生成しない。type_id欠落／継承またはregistry非互換のbuildにはruntime観測がなく、停止したmatrixの後続行も個別には認定しない。明示例外は別に残す。 runtime castを使わずaliasを双方向に検査し、getter返却の互換性だけでは判定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u08/test_builtin_parameterized_objects_type_id_uses_the_required_registry_specialization",
+          "role": "direct",
+          "expected_observations": [
+            "UT: type_id uvm_queue registry_compatible 1 singleton 1 named 1",
+            "UT: type_id uvm_pool registry_compatible 1 singleton 1 named 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FACTORY-AUDIT-TYPE-ID-ABSTRACT-PARAMETERIZED-OBJECTS",
+      "clause": "8.2.2",
+      "statement": {
+        "en": "A parameterized abstract sequence has its own abstract object registry specialization.",
+        "ja": "parameter化abstract sequenceは自身のabstract object registry特殊化を持つ。"
+      },
+      "conditions": {
+        "en": "uvm_sequence explicitly uses uvm_sequence_item for both parameters and an exact unnamed abstract registry receiver.",
+        "ja": "uvm_sequenceの両parameterへuvm_sequence_itemを明示し、正確な無名abstract registry receiverを使う。"
+      },
+      "expected": {
+        "en": "The declared alias and required registry are statically assignable in both directions, retain one nonnull singleton, and report the explicit class name or default <unknown> as applicable.",
+        "ja": "宣言aliasと必要registryが静的に双方向代入でき、1つの非null singletonを保持し、適用する明示class名または既定<unknown>を返す。"
+      },
+      "limitations": {
+        "en": "Selected builtins and category conditions only, not every UVM type or all eight categories. No represented instance is constructed. A missing/inherited type_id or incompatible registry build has no runtime observation; later rows in a blocked matrix are not separately certified. Explicit exceptions remain independent. Both alias directions are checked without a runtime cast; getter-return compatibility alone is insufficient.",
+        "ja": "選択built-inとcategory条件のみで、全UVM型や全8 categoryではない。表現instanceは生成しない。type_id欠落／継承またはregistry非互換のbuildにはruntime観測がなく、停止したmatrixの後続行も個別には認定しない。明示例外は別に残す。 runtime castを使わずaliasを双方向に検査し、getter返却の互換性だけでは判定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u08/test_builtin_abstract_parameterized_objects_type_id_uses_the_required_registry_specialization",
+          "role": "direct",
+          "expected_observations": [
+            "UT: type_id uvm_sequence registry_compatible 1 singleton 1 named 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FACTORY-AUDIT-PRINT-TYPE-OVERRIDES",
+      "clause": "8.3.1.7.5",
+      "statement": {
+        "en": "print includes the selected type-override state.",
+        "ja": "printは選択したtype override状態を表示する。"
+      },
+      "conditions": {
+        "en": "A fresh factory has two independent override pairs, one named user type without an override and a standard uvm_sequence_item proxy; print is framed separately on stdout and stderr.",
+        "ja": "新しいfactoryに独立したoverride 2組、overrideなしの名前付きuser型1個、標準uvm_sequence_item proxyを登録し、stdoutとstderrのprint範囲を別々に囲む。"
+      },
+      "expected": {
+        "en": "The type_base55 and type_alt55 names occur in framed output.",
+        "ja": "囲んだ出力にtype_base55とtype_alt55が現れる。"
+      },
+      "limitations": {
+        "en": "The required names and exclusions are enforced by the declared runtime expected_stderr_regex over the union of both framed streams. UT begin/end anchors alone establish no content match. No table syntax, spacing, report ID, route or registration order is prescribed.",
+        "ja": "必須名と除外は、宣言したruntime expected_stderr_regexで両streamの囲んだ範囲の和集合へ適用する。UT begin／end anchorだけでは内容一致を示さない。table構文、空白、report ID、経路、登録順は規定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u08/test_factory_print_zero_reports_only_the_selected_type_and_override_inventory",
+          "role": "direct",
+          "expected_observations": [
+            "UT: factory_print begin",
+            "UT: factory_print end"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FACTORY-AUDIT-PRINT-INSTANCE-OVERRIDES",
+      "clause": "8.3.1.7.5",
+      "statement": {
+        "en": "print includes the selected instance-override state.",
+        "ja": "printは選択したinstance override状態を表示する。"
+      },
+      "conditions": {
+        "en": "A fresh factory has two independent override pairs, one named user type without an override and a standard uvm_sequence_item proxy; print is framed separately on stdout and stderr.",
+        "ja": "新しいfactoryに独立したoverride 2組、overrideなしの名前付きuser型1個、標準uvm_sequence_item proxyを登録し、stdoutとstderrのprint範囲を別々に囲む。"
+      },
+      "expected": {
+        "en": "The inst_base55 and inst_alt55 names occur in framed output.",
+        "ja": "囲んだ出力にinst_base55とinst_alt55が現れる。"
+      },
+      "limitations": {
+        "en": "The required names and exclusions are enforced by the declared runtime expected_stderr_regex over the union of both framed streams. UT begin/end anchors alone establish no content match. No table syntax, spacing, report ID, route or registration order is prescribed.",
+        "ja": "必須名と除外は、宣言したruntime expected_stderr_regexで両streamの囲んだ範囲の和集合へ適用する。UT begin／end anchorだけでは内容一致を示さない。table構文、空白、report ID、経路、登録順は規定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u08/test_factory_print_zero_reports_only_the_selected_type_and_override_inventory",
+          "role": "direct",
+          "expected_observations": [
+            "UT: factory_print begin",
+            "UT: factory_print end"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FACTORY-AUDIT-PRINT-ZERO-NO-REGISTERED-LIST",
+      "clause": "8.3.1.7.5",
+      "statement": {
+        "en": "With all_types zero, unrelated registered-type inventory is omitted.",
+        "ja": "all_typesが0の場合、関係しない登録型の一覧は省略する。"
+      },
+      "conditions": {
+        "en": "A fresh factory has two independent override pairs, one named user type without an override and a standard uvm_sequence_item proxy; print is framed separately on stdout and stderr.",
+        "ja": "新しいfactoryに独立したoverride 2組、overrideなしの名前付きuser型1個、標準uvm_sequence_item proxyを登録し、stdoutとstderrのprint範囲を別々に囲む。"
+      },
+      "expected": {
+        "en": "Neither listed_only55 nor uvm_sequence_item appears in either framed stream.",
+        "ja": "どちらの囲んだstreamにもlisted_only55とuvm_sequence_itemが現れない。"
+      },
+      "limitations": {
+        "en": "The required names and exclusions are enforced by the declared runtime expected_stderr_regex over the union of both framed streams. UT begin/end anchors alone establish no content match. No table syntax, spacing, report ID, route or registration order is prescribed.",
+        "ja": "必須名と除外は、宣言したruntime expected_stderr_regexで両streamの囲んだ範囲の和集合へ適用する。UT begin／end anchorだけでは内容一致を示さない。table構文、空白、report ID、経路、登録順は規定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u08/test_factory_print_zero_reports_only_the_selected_type_and_override_inventory",
+          "role": "direct",
+          "expected_observations": [
+            "UT: factory_print begin",
+            "UT: factory_print end"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FACTORY-AUDIT-PRINT-NAMED-USER-TYPES",
+      "clause": "8.3.1.7.5",
+      "statement": {
+        "en": "With all_types one, registered user-defined types with names are displayed.",
+        "ja": "all_typesが1の場合、名前のある登録user定義型を表示する。"
+      },
+      "conditions": {
+        "en": "A fresh factory has two independent override pairs, one named user type without an override and a standard uvm_sequence_item proxy; print is framed separately on stdout and stderr.",
+        "ja": "新しいfactoryに独立したoverride 2組、overrideなしの名前付きuser型1個、標準uvm_sequence_item proxyを登録し、stdoutとstderrのprint範囲を別々に囲む。"
+      },
+      "expected": {
+        "en": "The override names and unrelated listed_only55 are present.",
+        "ja": "override名と無関係なlisted_only55が存在する。"
+      },
+      "limitations": {
+        "en": "The required names and exclusions are enforced by the declared runtime expected_stderr_regex over the union of both framed streams. UT begin/end anchors alone establish no content match. No table syntax, spacing, report ID, route or registration order is prescribed.",
+        "ja": "必須名と除外は、宣言したruntime expected_stderr_regexで両streamの囲んだ範囲の和集合へ適用する。UT begin／end anchorだけでは内容一致を示さない。table構文、空白、report ID、経路、登録順は規定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u08/test_factory_print_one_reports_only_the_selected_type_and_override_inventory",
+          "role": "direct",
+          "expected_observations": [
+            "UT: factory_print begin",
+            "UT: factory_print end"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FACTORY-AUDIT-PRINT-ONE-EXCLUDES-BUILTINS",
+      "clause": "8.3.1.7.5",
+      "statement": {
+        "en": "The all_types-one selection excludes the selected UVM-prefixed builtin inventory.",
+        "ja": "all_typesが1の選択では、選択したUVM接頭辞付きbuilt-in一覧を含めない。"
+      },
+      "conditions": {
+        "en": "A fresh factory has two independent override pairs, one named user type without an override and a standard uvm_sequence_item proxy; print is framed separately on stdout and stderr.",
+        "ja": "新しいfactoryに独立したoverride 2組、overrideなしの名前付きuser型1個、標準uvm_sequence_item proxyを登録し、stdoutとstderrのprint範囲を別々に囲む。"
+      },
+      "expected": {
+        "en": "uvm_sequence_item is absent while named user state is displayed.",
+        "ja": "名前付きuser状態を表示する一方、uvm_sequence_itemは現れない。"
+      },
+      "limitations": {
+        "en": "The required names and exclusions are enforced by the declared runtime expected_stderr_regex over the union of both framed streams. UT begin/end anchors alone establish no content match. No table syntax, spacing, report ID, route or registration order is prescribed.",
+        "ja": "必須名と除外は、宣言したruntime expected_stderr_regexで両streamの囲んだ範囲の和集合へ適用する。UT begin／end anchorだけでは内容一致を示さない。table構文、空白、report ID、経路、登録順は規定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u08/test_factory_print_one_reports_only_the_selected_type_and_override_inventory",
+          "role": "direct",
+          "expected_observations": [
+            "UT: factory_print begin",
+            "UT: factory_print end"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FACTORY-AUDIT-PRINT-TWO-INCLUDES-BUILTINS",
+      "clause": "8.3.1.7.5",
+      "statement": {
+        "en": "With all_types two, the selected UVM builtin is included alongside named user types.",
+        "ja": "all_typesが2の場合、名前付きuser型に加えて選択UVM built-inを含める。"
+      },
+      "conditions": {
+        "en": "A fresh factory has two independent override pairs, one named user type without an override and a standard uvm_sequence_item proxy; print is framed separately on stdout and stderr.",
+        "ja": "新しいfactoryに独立したoverride 2組、overrideなしの名前付きuser型1個、標準uvm_sequence_item proxyを登録し、stdoutとstderrのprint範囲を別々に囲む。"
+      },
+      "expected": {
+        "en": "uvm_sequence_item and all selected user names occur in framed output.",
+        "ja": "囲んだ出力にuvm_sequence_itemと選択した全user名が現れる。"
+      },
+      "limitations": {
+        "en": "The required names and exclusions are enforced by the declared runtime expected_stderr_regex over the union of both framed streams. UT begin/end anchors alone establish no content match. No table syntax, spacing, report ID, route or registration order is prescribed.",
+        "ja": "必須名と除外は、宣言したruntime expected_stderr_regexで両streamの囲んだ範囲の和集合へ適用する。UT begin／end anchorだけでは内容一致を示さない。table構文、空白、report ID、経路、登録順は規定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u08/test_factory_print_two_reports_only_the_selected_type_and_override_inventory",
+          "role": "direct",
+          "expected_observations": [
+            "UT: factory_print begin",
+            "UT: factory_print end"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FACTORY-AUDIT-PRINT-DEFAULT-ONE",
+      "clause": "8.3.1.7.5",
+      "statement": {
+        "en": "The default all_types argument selects the all-types-one inventory.",
+        "ja": "all_types引数の省略はall-types-oneの一覧を選択する。"
+      },
+      "conditions": {
+        "en": "A fresh factory has two independent override pairs, one named user type without an override and a standard uvm_sequence_item proxy; print is framed separately on stdout and stderr.",
+        "ja": "新しいfactoryに独立したoverride 2組、overrideなしの名前付きuser型1個、標準uvm_sequence_item proxyを登録し、stdoutとstderrのprint範囲を別々に囲む。"
+      },
+      "expected": {
+        "en": "The default call includes selected named user state and excludes uvm_sequence_item, like explicit one.",
+        "ja": "省略呼出しは明示1と同様に選択した名前付きuser状態を含み、uvm_sequence_itemを含まない。"
+      },
+      "limitations": {
+        "en": "The required names and exclusions are enforced by the declared runtime expected_stderr_regex over the union of both framed streams. UT begin/end anchors alone establish no content match. No table syntax, spacing, report ID, route or registration order is prescribed.",
+        "ja": "必須名と除外は、宣言したruntime expected_stderr_regexで両streamの囲んだ範囲の和集合へ適用する。UT begin／end anchorだけでは内容一致を示さない。table構文、空白、report ID、経路、登録順は規定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u08/test_factory_print_default_reports_only_the_selected_type_and_override_inventory",
+          "role": "direct",
+          "expected_observations": [
+            "UT: factory_print begin",
+            "UT: factory_print end"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FACTORY-AUDIT-REGISTRATION-WITHOUT-REPRESENTED-INSTANCES",
+      "clause": "8.2.1",
+      "statement": {
+        "en": "Lightweight registration does not construct the selected represented object/component instances.",
+        "ja": "軽量な登録は選択した表現object／component instanceを生成しない。"
+      },
+      "conditions": {
+        "en": "A fresh factory receives original object/component wrappers; requests enter through both public by-type and by-name creation APIs.",
+        "ja": "新しいfactoryへ独自object／component wrapperを登録し、公開by-type／by-name両生成APIから要求する。"
+      },
+      "expected": {
+        "en": "Both represented constructor counters remain zero after registration.",
+        "ja": "登録後も両表現constructor counterは0を保持する。"
+      },
+      "limitations": {
+        "en": "Original constructor/hook bodies are setup, not a prescribed application algorithm. Selected no-override paths only; all override, failure, concurrency and wrapper ownership combinations remain separate.",
+        "ja": "独自constructor／hook本体は設定であり、規定application algorithmではない。選択したoverrideなし経路のみで、全override、失敗、並行、wrapper所有の組合せは別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u08/test_factory_delegates_to_lightweight_original_object_and_component_proxies_on_demand",
+          "role": "direct",
+          "expected_observations": [
+            "UT: proxy_registration object_made 0 component_made 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FACTORY-AUDIT-WRAPPER-OBJECT-DISPATCH",
+      "clause": "8.3.2",
+      "statement": {
+        "en": "Factory object requests delegate to the selected wrapper.",
+        "ja": "factoryのobject要求は選択wrapperへ委譲する。"
+      },
+      "conditions": {
+        "en": "A fresh factory receives original object/component wrappers; requests enter through both public by-type and by-name creation APIs.",
+        "ja": "新しいfactoryへ独自object／component wrapperを登録し、公開by-type／by-name両生成APIから要求する。"
+      },
+      "expected": {
+        "en": "Two object requests call the object proxy twice and create two objects.",
+        "ja": "object要求2回がobject proxyを2回呼び、2 objectを生成する。"
+      },
+      "limitations": {
+        "en": "Original constructor/hook bodies are setup, not a prescribed application algorithm. Selected no-override paths only; all override, failure, concurrency and wrapper ownership combinations remain separate.",
+        "ja": "独自constructor／hook本体は設定であり、規定application algorithmではない。選択したoverrideなし経路のみで、全override、失敗、並行、wrapper所有の組合せは別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u08/test_factory_delegates_to_lightweight_original_object_and_component_proxies_on_demand",
+          "role": "direct",
+          "expected_observations": [
+            "UT: proxy_dispatch objects 1 components 1 distinct 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FACTORY-AUDIT-WRAPPER-COMPONENT-DISPATCH",
+      "clause": "8.3.2",
+      "statement": {
+        "en": "Factory component requests delegate to the selected wrapper.",
+        "ja": "factoryのcomponent要求は選択wrapperへ委譲する。"
+      },
+      "conditions": {
+        "en": "A fresh factory receives original object/component wrappers; requests enter through both public by-type and by-name creation APIs.",
+        "ja": "新しいfactoryへ独自object／component wrapperを登録し、公開by-type／by-name両生成APIから要求する。"
+      },
+      "expected": {
+        "en": "Two component requests call the component proxy twice and create two components.",
+        "ja": "component要求2回がcomponent proxyを2回呼び、2 componentを生成する。"
+      },
+      "limitations": {
+        "en": "Original constructor/hook bodies are setup, not a prescribed application algorithm. Selected no-override paths only; all override, failure, concurrency and wrapper ownership combinations remain separate.",
+        "ja": "独自constructor／hook本体は設定であり、規定application algorithmではない。選択したoverrideなし経路のみで、全override、失敗、並行、wrapper所有の組合せは別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u08/test_factory_delegates_to_lightweight_original_object_and_component_proxies_on_demand",
+          "role": "direct",
+          "expected_observations": [
+            "UT: proxy_dispatch objects 1 components 1 distinct 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FACTORY-AUDIT-CREATE-OBJECT-TYPE",
+      "clause": "8.3.1.5",
+      "statement": {
+        "en": "No-override object creation returns the represented object type.",
+        "ja": "overrideなしobject生成は表現するobject型を返す。"
+      },
+      "conditions": {
+        "en": "A fresh factory receives original object/component wrappers; requests enter through both public by-type and by-name creation APIs.",
+        "ja": "新しいfactoryへ独自object／component wrapperを登録し、公開by-type／by-name両生成APIから要求する。"
+      },
+      "expected": {
+        "en": "The selected object casts to the original item subtype.",
+        "ja": "選択objectを独自item subtypeへcastできる。"
+      },
+      "limitations": {
+        "en": "Original constructor/hook bodies are setup, not a prescribed application algorithm. Selected no-override paths only; all override, failure, concurrency and wrapper ownership combinations remain separate.",
+        "ja": "独自constructor／hook本体は設定であり、規定application algorithmではない。選択したoverrideなし経路のみで、全override、失敗、並行、wrapper所有の組合せは別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u08/test_factory_delegates_to_lightweight_original_object_and_component_proxies_on_demand",
+          "role": "direct",
+          "expected_observations": [
+            "UT: proxy_values object_type 1 component_type 1 names 1 parents 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FACTORY-AUDIT-CREATE-COMPONENT-TYPE",
+      "clause": "8.3.1.5",
+      "statement": {
+        "en": "No-override component creation returns the represented component type.",
+        "ja": "overrideなしcomponent生成は表現するcomponent型を返す。"
+      },
+      "conditions": {
+        "en": "A fresh factory receives original object/component wrappers; requests enter through both public by-type and by-name creation APIs.",
+        "ja": "新しいfactoryへ独自object／component wrapperを登録し、公開by-type／by-name両生成APIから要求する。"
+      },
+      "expected": {
+        "en": "The selected component casts to the original node subtype.",
+        "ja": "選択componentを独自node subtypeへcastできる。"
+      },
+      "limitations": {
+        "en": "Original constructor/hook bodies are setup, not a prescribed application algorithm. Selected no-override paths only; all override, failure, concurrency and wrapper ownership combinations remain separate.",
+        "ja": "独自constructor／hook本体は設定であり、規定application algorithmではない。選択したoverrideなし経路のみで、全override、失敗、並行、wrapper所有の組合せは別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u08/test_factory_delegates_to_lightweight_original_object_and_component_proxies_on_demand",
+          "role": "direct",
+          "expected_observations": [
+            "UT: proxy_values object_type 1 component_type 1 names 1 parents 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FACTORY-AUDIT-CREATE-REQUESTED-NAMES",
+      "clause": "8.3.1.5",
+      "statement": {
+        "en": "Created object/components retain the selected requested names.",
+        "ja": "生成したobject／componentは選択した要求名を保持する。"
+      },
+      "conditions": {
+        "en": "A fresh factory receives original object/component wrappers; requests enter through both public by-type and by-name creation APIs.",
+        "ja": "新しいfactoryへ独自object／component wrapperを登録し、公開by-type／by-name両生成APIから要求する。"
+      },
+      "expected": {
+        "en": "Both object names and both child names agree with the original requests.",
+        "ja": "両object名と両child名が元の要求と一致する。"
+      },
+      "limitations": {
+        "en": "Original constructor/hook bodies are setup, not a prescribed application algorithm. Selected no-override paths only; all override, failure, concurrency and wrapper ownership combinations remain separate.",
+        "ja": "独自constructor／hook本体は設定であり、規定application algorithmではない。選択したoverrideなし経路のみで、全override、失敗、並行、wrapper所有の組合せは別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u08/test_factory_delegates_to_lightweight_original_object_and_component_proxies_on_demand",
+          "role": "direct",
+          "expected_observations": [
+            "UT: proxy_values object_type 1 component_type 1 names 1 parents 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FACTORY-AUDIT-CREATE-COMPONENT-PARENTS",
+      "clause": "8.3.1.5",
+      "statement": {
+        "en": "Component creation forwards the selected parent handle.",
+        "ja": "component生成は選択したparent handleを渡す。"
+      },
+      "conditions": {
+        "en": "A fresh factory receives original object/component wrappers; requests enter through both public by-type and by-name creation APIs.",
+        "ja": "新しいfactoryへ独自object／component wrapperを登録し、公開by-type／by-name両生成APIから要求する。"
+      },
+      "expected": {
+        "en": "Both created components retain the supplied parent.",
+        "ja": "生成した両componentが渡したparentを保持する。"
+      },
+      "limitations": {
+        "en": "Original constructor/hook bodies are setup, not a prescribed application algorithm. Selected no-override paths only; all override, failure, concurrency and wrapper ownership combinations remain separate.",
+        "ja": "独自constructor／hook本体は設定であり、規定application algorithmではない。選択したoverrideなし経路のみで、全override、失敗、並行、wrapper所有の組合せは別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u08/test_factory_delegates_to_lightweight_original_object_and_component_proxies_on_demand",
+          "role": "direct",
+          "expected_observations": [
+            "UT: proxy_values object_type 1 component_type 1 names 1 parents 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FACTORY-AUDIT-DEFAULT-FACTORY-EXTENSION",
+      "clause": "8.3.3",
+      "statement": {
+        "en": "The default factory can be extended and used through the abstract factory interface.",
+        "ja": "default factoryは拡張してabstract factory interface経由で利用できる。"
+      },
+      "conditions": {
+        "en": "An original default-factory subclass supplies no replacement methods; registration, creation and a query are called through its base handle.",
+        "ja": "独自default-factory subclassは置換methodを実装せず、基底handle経由で登録、生成、照会を呼ぶ。"
+      },
+      "expected": {
+        "en": "Construction succeeds, the base view casts back, the wrapper is registered and the named object is created.",
+        "ja": "生成が成功し、基底viewから戻り、wrapperが登録され、指定名objectが生成される。"
+      },
+      "limitations": {
+        "en": "Selected methods and concreteness only, not proof of correct semantics for every factory method or every user extension.",
+        "ja": "選択methodと具象性のみで、全factory methodや全user拡張の正しい意味を証明しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u08/test_default_factory_can_be_extended_and_used_through_the_abstract_factory_view",
+          "role": "direct",
+          "expected_observations": [
+            "UT: default_factory concrete 1 identity 1 registered 1 created 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FACTORY-AUDIT-UNKNOWN-OBJECT-ERROR",
+      "clause": "8.3.1.5",
+      "statement": {
+        "en": "An unrecognized object type name generates an error.",
+        "ja": "認識されないobject型名はerrorを発生させる。"
+      },
+      "conditions": {
+        "en": "A fresh factory first creates a registered original control, then is asked for a distinct unregistered name while an ERROR observer is active.",
+        "ja": "新しいfactoryで最初に登録済み独自controlを生成し、その後ERROR observerが有効な状態で別の未登録名を要求する。"
+      },
+      "expected": {
+        "en": "An ERROR is observed during the unknown request.",
+        "ja": "未知要求中にERRORを観測する。"
+      },
+      "limitations": {
+        "en": "No report ID/text/exact count or post-error registry state is prescribed. The control precedes the invalid request. A matching null observation does not pass an error-severity difference.",
+        "ja": "report ID／文面／正確な件数やerror後のregistry状態は規定しない。controlは不正要求に先行する。null観測の一致でerror severity差分をpassにはしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u08/test_factory_unknown_object_name_reports_an_error_and_returns_null_with_a_registered_control",
+          "role": "direct",
+          "expected_observations": [
+            "UT: unknown_object error 1 null_result 1 registered_control 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FACTORY-AUDIT-UNKNOWN-OBJECT-NULL",
+      "clause": "8.3.1.5",
+      "statement": {
+        "en": "An unrecognized object type name returns null.",
+        "ja": "認識されないobject型名はnullを返す。"
+      },
+      "conditions": {
+        "en": "A fresh factory first creates a registered original control, then is asked for a distinct unregistered name while an ERROR observer is active.",
+        "ja": "新しいfactoryで最初に登録済み独自controlを生成し、その後ERROR observerが有効な状態で別の未登録名を要求する。"
+      },
+      "expected": {
+        "en": "The unknown result is null; the earlier registered control establishes successful valid creation.",
+        "ja": "未知結果はnullとなり、先行する登録controlで有効な生成の成功を確認する。"
+      },
+      "limitations": {
+        "en": "No report ID/text/exact count or post-error registry state is prescribed. The control precedes the invalid request. A matching null observation does not pass an error-severity difference.",
+        "ja": "report ID／文面／正確な件数やerror後のregistry状態は規定しない。controlは不正要求に先行する。null観測の一致でerror severity差分をpassにはしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u08/test_factory_unknown_object_name_reports_an_error_and_returns_null_with_a_registered_control",
+          "role": "direct",
+          "expected_observations": [
+            "UT: unknown_object error 1 null_result 1 registered_control 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FACTORY-AUDIT-UNKNOWN-COMPONENT-ERROR",
+      "clause": "8.3.1.5",
+      "statement": {
+        "en": "An unrecognized component type name generates an error.",
+        "ja": "認識されないcomponent型名はerrorを発生させる。"
+      },
+      "conditions": {
+        "en": "A fresh factory first creates a registered original control, then is asked for a distinct unregistered name while an ERROR observer is active.",
+        "ja": "新しいfactoryで最初に登録済み独自controlを生成し、その後ERROR observerが有効な状態で別の未登録名を要求する。"
+      },
+      "expected": {
+        "en": "An ERROR is observed during the unknown request.",
+        "ja": "未知要求中にERRORを観測する。"
+      },
+      "limitations": {
+        "en": "No report ID/text/exact count or post-error registry state is prescribed. The control precedes the invalid request. A matching null observation does not pass an error-severity difference.",
+        "ja": "report ID／文面／正確な件数やerror後のregistry状態は規定しない。controlは不正要求に先行する。null観測の一致でerror severity差分をpassにはしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u08/test_factory_unknown_component_name_reports_an_error_and_returns_null_with_a_registered_control",
+          "role": "direct",
+          "expected_observations": [
+            "UT: unknown_component error 1 null_result 1 registered_control 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FACTORY-AUDIT-UNKNOWN-COMPONENT-NULL",
+      "clause": "8.3.1.5",
+      "statement": {
+        "en": "An unrecognized component type name returns null.",
+        "ja": "認識されないcomponent型名はnullを返す。"
+      },
+      "conditions": {
+        "en": "A fresh factory first creates a registered original control, then is asked for a distinct unregistered name while an ERROR observer is active.",
+        "ja": "新しいfactoryで最初に登録済み独自controlを生成し、その後ERROR observerが有効な状態で別の未登録名を要求する。"
+      },
+      "expected": {
+        "en": "The unknown result is null; the earlier registered control establishes successful valid creation.",
+        "ja": "未知結果はnullとなり、先行する登録controlで有効な生成の成功を確認する。"
+      },
+      "limitations": {
+        "en": "No report ID/text/exact count or post-error registry state is prescribed. The control precedes the invalid request. A matching null observation does not pass an error-severity difference.",
+        "ja": "report ID／文面／正確な件数やerror後のregistry状態は規定しない。controlは不正要求に先行する。null観測の一致でerror severity差分をpassにはしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u08/test_factory_unknown_component_name_reports_an_error_and_returns_null_with_a_registered_control",
+          "role": "direct",
+          "expected_observations": [
+            "UT: unknown_component error 1 null_result 1 registered_control 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FACTORY-AUDIT-VIRTUAL-BASE-CONSTRUCTION",
+      "clause": "8.3.1.1",
+      "statement": {
+        "en": "Direct construction of virtual uvm_factory is illegal.",
+        "ja": "virtualなuvm_factoryの直接生成は不正である。"
+      },
+      "conditions": {
+        "en": "A minimal elaboration fixture directly calls new on the abstract factory base.",
+        "ja": "最小elaboration fixtureがabstract factory基底へ直接newを呼ぶ。"
+      },
+      "expected": {
+        "en": "Compilation rejects the named class at the fixture location.",
+        "ja": "fixture位置で指定classのcompileを拒否する。"
+      },
+      "limitations": {
+        "en": "Compile diagnostic only; no runtime seed executes for rejected or illegally accepted negative inputs. A separate legal default-factory extension does not substitute for rejection.",
+        "ja": "compile診断のみ。拒否または不正受理された負入力はruntime seedを実行しない。別の合法default-factory拡張は拒否の代わりにはならない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u08/test_uvm_factory_virtual_declaration_rejects_direct_construction",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?i)^(?=.*test_uvm_factory_virtual_declaration_rejects_direct_construction.sv:[0-9]+:[0-9]+:)(?=.*\\b(?:virtual|abstract)\\b)(?=.*\\buvm_factory\\b).*error"
+          }
+        },
+        {
+          "test": "u08/test_default_factory_can_be_extended_and_used_through_the_abstract_factory_view",
+          "role": "control",
+          "expected_observations": [
+            "UT: default_factory concrete 1 identity 1 registered 1 created 1"
+          ]
+        }
+      ]
     }
   ]
 }

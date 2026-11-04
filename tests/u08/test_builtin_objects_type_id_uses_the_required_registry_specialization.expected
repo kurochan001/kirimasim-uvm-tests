@@ -1,0 +1,2 @@
+UT: type_id uvm_sequence_item registry_compatible 1 singleton 1 named 1
+UT: type_id uvm_tlm_generic_payload registry_compatible 1 singleton 1 named 1

@@ -1,0 +1,2 @@
+UT: type_id uvm_queue registry_compatible 1 singleton 1 named 1
+UT: type_id uvm_pool registry_compatible 1 singleton 1 named 1

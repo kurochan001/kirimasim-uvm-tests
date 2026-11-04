@@ -4794,6 +4794,128 @@
         "reviewer": null,
         "reviewed_at": null
       }
+    },
+    {
+      "clause": "8",
+      "classification": "structural",
+      "rationale": {
+        "en": "Chapter heading introducing factory classes; observable duties are specified in the following subclauses.",
+        "ja": "factory classを導入する章見出しで、観測可能な義務は後続条項に記述する。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "8.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "Grouping heading for component/object wrappers; the introduction and individual registry/type_id clauses carry its behavior.",
+        "ja": "component／object wrapperの分類見出しで、導入と個別registry／type_id条項に動作を記述する。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "8.3.1.4",
+      "classification": "structural",
+      "rationale": {
+        "en": "Type/instance override heading with no independent text beyond the two following method groups.",
+        "ja": "type／instance override見出しで、続く2 method群以外の独立本文を持たない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "8.3.1.6",
+      "classification": "structural",
+      "rationale": {
+        "en": "Name-alias grouping heading; type and instance alias behavior follows in numbered methods.",
+        "ja": "name aliasの分類見出しで、typeとinstance aliasの動作は番号付きmethodへ続く。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "8.3.1.7",
+      "classification": "structural",
+      "rationale": {
+        "en": "Introspection grouping heading; queries and print have their own method clauses.",
+        "ja": "introspectionの分類見出しで、照会とprintは個別method条項を持つ。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "8.3.2.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "Wrapper methods heading; creation and type-name duties appear separately below.",
+        "ja": "wrapper method見出しで、生成とtype-nameの義務が下位に別々に現れる。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "8.3.1",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The overview describes abstract factory/proxy roles and name/type APIs, with concrete interfaces specified below. Linked wrapper/creation/declaration duties retain those roles; this does not certify every override, alias, failure or language-boundary path.",
+        "ja": "概要はabstract factory／proxyの役割とname／type APIを説明し、具体的interfaceを下位に規定する。関連するwrapper／生成／宣言義務で役割を保持するが、全override、alias、失敗、言語境界の経路は認定しない。"
+      },
+      "related_requirements": [
+        "UVM-FACTORY-AUDIT-VIRTUAL-BASE-CONSTRUCTION",
+        "UVM-FACTORY-AUDIT-WRAPPER-OBJECT-DISPATCH",
+        "UVM-FACTORY-AUDIT-WRAPPER-COMPONENT-DISPATCH",
+        "UVM-FACTORY-AUDIT-CREATE-REQUESTED-NAMES"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "8.3.1.8",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The usage section relates registration, factory-based construction and override configuration, each already specified by concrete APIs. Linked direct duties exercise selected operations; complete usage combinations and component-internal/external contexts remain partial.",
+        "ja": "usage節は登録、factory経由生成、override設定を関連付け、それぞれ具体APIに既に規定する。関連する直接義務が選択操作を動かすが、全usage組合せとcomponent内部／外部contextは部分扱いに残る。"
+      },
+      "related_requirements": [
+        "UVM-FACTORY-AUDIT-REGISTRATION-WITHOUT-REPRESENTED-INSTANCES",
+        "UVM-FACTORY-AUDIT-CREATE-COMPONENT-PARENTS",
+        "UVM-FACTORY-REPLACE",
+        "UVM-FACTORY-FIRST-INSTANCE"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
     }
   ]
 }

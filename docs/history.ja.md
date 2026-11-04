@@ -2,7 +2,7 @@
 
 [English](history.md) · [README](../README.ja.md)
 
-M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の54回目の拡充（全1677件：simulation 1631・elaboration 46）までを記録しています。以前の349件の時点は
+M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の55回目の拡充（全1696件：simulation 1649・elaboration 47）までを記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -2239,3 +2239,25 @@ guest 1083記録とHDL／command-line条件をbyte単位で保持し、以前の
 metadata、台帳／索引、library、tool test 110件、native／compiler同一性、日英資料検査は成功します。
 重複したphase定義の用語entryを統合し同期の用語を追加し、全268語を保持します。照合は全てAI、範囲は提案、分母／割合は未設定、goalは有効です。
 schema、runner／library／catalog、workflow、SVG 6個は未変更です。
+
+## 薄い領域の55回目：factory一覧とbuilt-in registryの契約（2026-11-05）
+
+M1 factoryの19 fixtureはsimulation 18件とelaboration 1件です。simulation 12件はseed 1／73に一致し、virtual uvm_factory生成はruntimeなしのcompiler拒否に一致します。
+合法simulation 4件はbuildできず、transaction／report-serverのtype_id欠落とsubscriber／sequenceの継承registry特殊化非互換です。
+未知名2 fixtureはnullを返して登録controlを生成しますが、seed 1で必要なERRORを観測せずseed 73はありません。独立sequence-base probeは一致し、停止matrixの結果を流用しません。
+7 category fixtureと分離2 probeは固有built-in宣言14個を選択し、全8 categoryやpackage全型ではありません。レビューで宣言aliasをruntime castなしの静的な双方向代入へ強化し、現在の版を再測定します。
+
+printの0／省略／1／2選択は固定table構文なしで検査します。stdoutとstderrを別々に囲み、runtime message regexで分割内容も含めた和集合を調べます。
+UT markerだけでは内容欠落をpassできません。local predicate検査52個は空／欠落／禁止内容と囲み外の名前を拒否します。
+独自proxyは表現instance生成なしの登録、by-name／by-type委譲、名前／parentを観測します。未知名controlは不正要求より前へ置き、規定のないerror後registry状態をoracleにせず、ERROR／nullの期待を維持します。初期fixtureの予約語変数名を修正後、default-factory拡張は一致し、古いbuildを除外します。
+global active viewは概要の単一instance記述に関する限定解釈を保持します。
+
+AI案28件で2962、構造6件と文脈2件の分類で320（209／111）です。全体は部分1592／分類320／未評価595、第8章は60／12／0で案83件です。
+以前の全2934要求・312分類・1677 fixture入力／native記録を未変更で保持します。goalの27反復目は未評価を16減らし、部分義務と元のmilestone目標は未完了です。
+
+全1696（simulation 1649／elaboration 47）、M1 659（622／37）、M2 538（533／5）、M3 499（494／5）です。
+通常evidenceはpass 1481（runtime 1436／compiler拒否45）、known 215（runtime 161／simulation build 52／不正受理2）です。
+guest 1083記録と別HDL／command-line記録をbyte単位で保持し、以前の修正2入力を含む未測定613（simulation 566／elaboration 47）を残します。guest実行は主張しません。
+
+metadata、台帳／索引、library、tool test 110件、print predicate検査、native／compiler同一性、日英資料は成功します。
+照合は全てAI、範囲は提案、分母／割合は未設定、goalは有効です。schema、runner／library／catalog、workflow、SVG 6個は未変更です。

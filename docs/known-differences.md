@@ -2,14 +2,14 @@
 
 [日本語](known-differences.ja.md) · [README](../README.md) · [FAQ](faq.md)
 
-This describes the current 1677-test suite and the pinned Accellera UVM
+This describes the current 1696-test suite and the pinned Accellera UVM
 2020.3.1 library. A mismatch is a test result; it does not by itself assign
 the cause to the simulator, the library or the expectation.
 
-Forty-six elaboration fixtures expect rejection: twenty-five direct abstract
+Forty-seven elaboration fixtures expect rejection: twenty-six direct abstract
 constructions and twenty-one pure-interface/const-reference/forbidden-member
-violations. Forty-four match. Subscriber and visitor omissions remain accepted and spec-only without
-runtime. These two compiler acceptances are separate from 207 known simulation
+violations. Forty-five match. Subscriber and visitor omissions remain accepted and spec-only without
+runtime. These two compiler acceptances are separate from 213 known simulation
 differences. Selected component-family and recording-base construction probes and the forbidden member access reject correctly.
 
 The new [inherited-kind presence probe](../tests/u18/test_block_has_hdl_path_uses_nearest_explicit_ancestor_kind_without_changing_explicit_queries.sv)
@@ -51,6 +51,23 @@ string even though a string receiver accepts the call. Receiver conversion is
 not proof of the declared return type. Single-parent schedule-name controls
 match without resolving nested hierarchy interpretation. These are reviewable
 interpretation boundaries, not four independently proven library bugs.
+
+Four new legal simulations retain type_id declaration builds without runtime.
+The shared abstract-object matrix first encounters missing `uvm_transaction`
+`type_id`; an independent `uvm_report_server` probe also cannot resolve it.
+`uvm_subscriber` and parameterized `uvm_sequence` expose inherited base registry
+specializations incompatible with the generic rule's own represented type.
+The independent `uvm_sequence_base` probe matches; that does not pass the blocked
+matrix or certify every builtin declaration. These four builds are not expected
+compiler rejections of illegal inputs.
+
+Two more fixtures return null for unknown object/component names and create
+registered controls, but observe no required ERROR at seed 1. Seed 73 is not run.
+The valid controls run before the invalid requests, so post-error registry state
+is not assumed. Keep error severity and null return as separate obligations;
+matching return values do not pass the whole fixtures. The active-global service control remains
+a qualified reading of the single-instance overview, not a claim that only one
+factory object can physically be allocated.
 
 ## Pinned-library limitations
 
@@ -605,7 +622,7 @@ warning. The YES control changes the limit to nine without a warning. This
 is a diagnostic-severity difference, not failed limit enforcement. The older
 two no-DPI argument cases remain unchanged ordinary runtime differences.
 
-Across the suite, 1468 tests have the `verilator@5.052` oracle tag and 209
+Across the suite, 1481 tests have the `verilator@5.052` oracle tag and 215
 cases are spec-only. One of the spec-only cases checks 9.6: a child's pre-reset
 task must be killed when that phase ends, but the pinned-library run on Verilator 5.052
 lets the child perform its delayed write during a later phase. The cause of
@@ -617,19 +634,21 @@ without callbacks. The pinned Verilator run reaches the blocked-state
 observation, then its watchdog expires. This combined simulator/library
 cause remains unassigned; the normative wakeup expectation is retained.
 
-The 209 spec-only tests retain their normative expected files.
-Default Verilator runs and CI select 1468 tagged checks (1424 runtime, 44 compile rejection). `--all` includes
+The 215 spec-only tests retain their normative expected files.
+Default Verilator runs and CI select 1481 tagged checks (1436 runtime, 45 compile rejection). `--all` includes
 spec-only cases and records mismatches or build failures as `known`.
-The ordinary runtime records for 159 cases establish their first difference
-at seed 1, without seed 73 results. Eighteen missing-API/type-name builds have
-no ordinary runtime seed result: one time API, six sequence-library cases,
-four HDL slice cases, one named-concat constructor, one object active-policy
-case, three catcher message-handle cases, the printed base recording getter
-and the printed report callback typedef. Two type-default declaration fixtures
-cannot build: the independent response default and the interface request default.
-The printed all_dropped function/task and clone implicit-scalar/map-return conflicts add two separate signature builds.
-Eight HDL-DPI and eighteen command-line-DPI fixtures cannot link in the ordinary
-runner either, totaling 48 simulation builds without runtime. The separate HDL
+The ordinary runtime records for 161 cases establish their first difference
+at seed 1, without seed 73 results. Twenty missing-API/type-name builds have
+no ordinary runtime: one time API, six sequence-library cases, four HDL slice
+cases, one named-concat constructor, one object active-policy API, three catcher
+message-handle cases, the printed recording-state getter, the printed callback
+typedef and two builtin type_id cases. Two type-default declarations, two printed
+signature conflicts and two inherited type_id registry specializations are
+separate declaration builds. Eight HDL and eighteen command-line cases also
+lack linked DPI in the ordinary runner, totaling 52 simulation builds without
+runtime.
+
+The separate HDL
 condition matches seven at both seeds and fails the E.7 warning/no-transfer
 expectation at seed 1. The separate command-line condition has seventeen matches
 and one quit-warning difference. These overlapping configurations are not summed.
@@ -692,8 +711,15 @@ The printed create_object equivalent call's extra this argument remains partial.
 
 ## Spec-only tests
 
-These are the 209 current spec-only cases. Several exercise the same
+These are the 215 current spec-only cases. Several exercise the same
 limitation, so their count is not a count of distinct bugs.
+
+- [Inherited subscriber type_id specialization](../tests/u08/test_builtin_abstract_parameterized_components_type_id_uses_the_required_registry_specialization.sv).
+- [Missing transaction type_id in the shared abstract-object matrix](../tests/u08/test_builtin_abstract_objects_type_id_uses_the_required_registry_specialization.sv).
+- [Inherited parameterized-sequence type_id specialization](../tests/u08/test_builtin_abstract_parameterized_objects_type_id_uses_the_required_registry_specialization.sv).
+- [Missing report-server type_id in an independent probe](../tests/u08/test_builtin_report_server_type_id_uses_its_own_named_abstract_registry.sv).
+- [Required ERROR for an unknown object type name](../tests/u08/test_factory_unknown_object_name_reports_an_error_and_returns_null_with_a_registered_control.sv).
+- [Required ERROR for an unknown component type name](../tests/u08/test_factory_unknown_component_name_reports_an_error_and_returns_null_with_a_registered_control.sv).
 
 - [Premature phase ending and original task lifetime](../tests/u09/test_phase_end_prematurely_advances_without_a_jump_target_and_stops_original_task_threads.sv).
 - [Qualified literal get_imp non-IMP-null rule](../tests/u09/test_phase_get_imp_literal_non_imp_null_rule_remains_separate_from_the_node_prose.sv).
@@ -973,7 +999,7 @@ Additional message-handle and endian cases:
 
 Two existing inputs have revised fingerprints: the command-enum citation and
 the corrected Boolean rerandomization observation. Their historical guest
-records are excluded. The compatible subset has 1083 records and 594 inputs
+records are excluded. The compatible subset has 1083 records and 613 inputs
 are unmeasured, including both revised inputs. This filtering is evidence scope,
 not a new guest failure, pass or simulator improvement.
 
@@ -991,8 +1017,8 @@ not a new guest failure, pass or simulator improvement.
 
 ## Simulator and library combinations
 
-The suite has 1677 cases, but the kirimasim/Ghost records below cover only
-1083 unchanged current-input cases. The 594 inputs are unmeasured
+The suite has 1696 cases, but the kirimasim/Ghost records below cover only
+1083 unchanged current-input cases. The 613 inputs are unmeasured
 because prior temporary executable/profile snapshots are unavailable. Do
 not treat this as a fresh full-suite guest result. See [results](results.md).
 

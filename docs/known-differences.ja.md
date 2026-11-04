@@ -2,12 +2,12 @@
 
 [English](known-differences.md) · [README](../README.ja.md) · [FAQ](faq.ja.md)
 
-現在の1677件と、固定したAccellera UVM 2020.3.1についての記録です。
+現在の1696件と、固定したAccellera UVM 2020.3.1についての記録です。
 不一致はテストの結果であり、それだけではシミュレータ・ライブラリ・期待値のどれが原因かは決まりません。
 
-elaboration 46件は抽象class直接生成25件とpure interface／const参照／禁止member違反21件で、拒否を期待します。
-44件は一致し、subscriber／visitor未実装の受理2件はruntimeを実行せずspecのみを保持します。
-compiler受理2件は既知simulation差分207件と別です。選択component-family／recording-baseの生成probeと禁止memberアクセスは正しく拒否されます。
+elaboration 47件は抽象class直接生成26件とpure interface／const参照／禁止member違反21件で、拒否を期待します。
+45件は一致し、subscriber／visitor未実装の受理2件はruntimeを実行せずspecのみを保持します。
+compiler受理2件は既知simulation差分213件と別です。選択component-family／recording-baseの生成probeと禁止memberアクセスは正しく拒否されます。
 
 新しい[継承kindの存在probe](../tests/u18/test_block_has_hdl_path_uses_nearest_explicit_ancestor_kind_without_changing_explicit_queries.sv)はseed 1で差分を保持しseed 73は実行しません。
 childと子孫は、明示選択された最寄り祖先kindでなくlocalのRTL既定値を保持します。明示path-kind照会は別で、規格から導いた継承oracleは未変更です。
@@ -31,6 +31,13 @@ domain数を2だけに制限しません。早期終了はjump targetなしで�
 get_scheduleはstring返却を印字しながら親nodeの返却を説明します。string receiverが呼出しを受理しても`$typename`観測はstringではありません。
 receiver変換は宣言された返却型の証明ではありません。単一親schedule名controlは一致しますが、入れ子階層の解釈は解決しません。
 これらは照合が必要な解釈の境界であり、独立に立証した4 library不具合ではありません。
+
+新しい合法simulation 4件はruntimeのないtype_id宣言buildを保持します。共有abstract object matrixは最初に`uvm_transaction`の`type_id`欠落へ達し、独立した`uvm_report_server` probeも解決できません。
+`uvm_subscriber`とparameter化`uvm_sequence`は、汎用規則が求める自身の表現型と非互換な継承基底registry特殊化を公開します。
+独立`uvm_sequence_base` probeは一致しますが、停止matrixや全built-in宣言は認定しません。これら4 buildは不正入力の期待compiler拒否ではありません。
+
+他2 fixtureは未知object／component名へnullを返し登録controlを生成しますが、seed 1で必要なERRORを観測せずseed 73は実行しません。
+有効controlは不正要求より前に実行し、error後のregistry状態を仮定しません。error severityとnull返却を別の義務として保持し、返却値の一致でfixture全体をpassにはしません。active-global service controlは単一instance概要の限定解釈であり、物理的にfactory objectを1つしか生成できないという主張ではありません。
 
 ## 固定版ライブラリの制約
 
@@ -398,7 +405,7 @@ command-line 18検査系は別のVPI bridgeと固定regex DPIを明示要求し�
 上限は正しく7のままですが、固定serverはINFOを発行し、警告probeはWARNINGを観測しません。YESの比較対象は警告なしで9へ変わります。
 これは診断severityの差分で、上限の強制失敗ではありません。以前のno-DPI引数2件は未変更の通常実行時差分です。
 
-スイート全体では、`verilator@5.052`を付けたテストは1468件、specのみのテストは209件です。
+スイート全体では、`verilator@5.052`を付けたテストは1481件、specのみのテストは215件です。
 specのみのうち1件は9.6を検証します。pre-resetフェーズ終了時に子タスクが停止する
 はずですが、固定版UVMとVerilator 5.052の組み合わせでは、後のフェーズで子タスクの遅延書き込みが
 実行されます。この差分の原因がシミュレータとライブラリのどちらかは未確定です。
@@ -407,12 +414,13 @@ wakeup resetの検査系は、trigger waiterとpersistent-trigger waiterを各1�
 10.1.1.2.8は、callbackなしで両方が起動することを要求します。固定Verilatorの実行は、待機状態の観測に到達してから
 watchdogが期限切れになります。simulator／libraryを組み合わせた原因は未確定のまま、規範的なwakeupの期待を保持します。
 
-specのみの209件も規格から導いた期待値を保持します。通常のVerilator実行とCIはoracle付き1468件（runtime 1424・compile拒否44）を選びます。
+specのみの215件も規格から導いた期待値を保持します。通常のVerilator実行とCIはoracle付き1481件（runtime 1436・compile拒否45）を選びます。
 `--all`はspecのみも含め、不一致やビルド不可を`known`として記録します。
-通常の実行時159件は、最初の差分であるseed 1までの記録で、seed 73の結果はありません。
-API／型名欠落build 18件は、time 1、sequence-library 6、HDL slice 4、名前付きconcat constructor 1、object active-policy 1、catcher message-handle 3、印刷されたbase記録getter 1、印刷report callback typedef 1で、通常条件の実行時seed結果はありません。
-型既定宣言の2検査系、独立response既定値とinterface request既定値もbuildできません。印刷all_dropped function／taskとclone暗黙scalar／map返却の食違いは別のsignature build 2件です。
-HDL DPI 8検査系とcommand-line DPI 18検査系も通常runnerではlinkできず、合計48 simulation buildにruntimeはありません。
+通常の実行時161件は最初の差分であるseed 1までの記録で、seed 73の結果はありません。
+API／型名欠落build 20件はtime API 1、sequence-library 6、HDL slice 4、名前付きconcat constructor 1、object active-policy 1、catcher message-handle 3、印刷recording-state getter 1、印刷callback typedef 1、built-in type_id 2で、通常runtimeはありません。
+型既定宣言2件、印刷signature食違い2件、継承type_id registry特殊化2件は別の宣言buildです。
+HDL 8件とcommand-line 18件も通常runnerでDPIをlinkしないため、合計52 simulation buildにruntimeはありません。
+
 別HDL条件では7件が両seed一致、E.7のwarning／転送なしの期待はseed 1で失敗します。別command-line条件は17件一致とquit-warning差分1件で、重複条件を合計しません。
 
 policy 7 fixtureはseed 1で最初に異なり、seed 73結果はありません。copierの省略名は空でなく、comparer threshold／copier recursion／recorder radixはflush後の規定既定値へ戻りません。
@@ -450,7 +458,14 @@ object名省略fixtureは任意user既定値を制約せず、独自constructor�
 
 ## specのみのテスト
 
-現在の209件は次のテストです。同じ制約を複数のテストで検査する場合があり、異なる不具合の個数ではありません。
+現在の215件は次のテストです。同じ制約を複数のテストで検査する場合があり、異なる不具合の個数ではありません。
+
+- [継承subscriber type_id特殊化](../tests/u08/test_builtin_abstract_parameterized_components_type_id_uses_the_required_registry_specialization.sv).
+- [共有abstract object matrixのtransaction type_id欠落](../tests/u08/test_builtin_abstract_objects_type_id_uses_the_required_registry_specialization.sv).
+- [継承parameter化sequence type_id特殊化](../tests/u08/test_builtin_abstract_parameterized_objects_type_id_uses_the_required_registry_specialization.sv).
+- [独立probeのreport-server type_id欠落](../tests/u08/test_builtin_report_server_type_id_uses_its_own_named_abstract_registry.sv).
+- [未知object型名に必要なERROR](../tests/u08/test_factory_unknown_object_name_reports_an_error_and_returns_null_with_a_registered_control.sv).
+- [未知component型名に必要なERROR](../tests/u08/test_factory_unknown_component_name_reports_an_error_and_returns_null_with_a_registered_control.sv).
 
 - [phase早期終了と元taskの寿命](../tests/u09/test_phase_end_prematurely_advances_without_a_jump_target_and_stops_original_task_threads.sv).
 - [限定した字義get_imp non-IMP-null規則](../tests/u09/test_phase_get_imp_literal_non_imp_null_rule_remains_separate_from_the_node_prose.sv).
@@ -729,7 +744,7 @@ object名省略fixtureは任意user既定値を制約せず、独自constructor�
 - [生成時の独立した引数snapshot](../tests/uG/test_command_fresh_processors_populate_independent_argument_snapshots_at_construction.sv).
 
 既存2入力はcommand-enum引用と、訂正したBoolean rerandomization観測で指紋が変わっています。
-対応する歴史的guest記録を除外し、互換範囲は1083記録、未測定は修正2入力を含む594件です。
+対応する歴史的guest記録を除外し、互換範囲は1083記録、未測定は修正2入力を含む613件です。
 これはevidence範囲のfilterで、新しいguest fail／passやsimulator改善ではありません。
 
 - [copier既定名](../tests/u16/test_policy_comparer_packer_and_copier_constructors_preserve_names_types_and_policy_bases.sv)
@@ -746,8 +761,8 @@ object名省略fixtureは任意user既定値を制約せず、独自constructor�
 
 ## シミュレータとライブラリの組み合わせ
 
-スイートは1677件ですが、以下のkirimasim／Ghost記録は未変更の現在入力1083件だけを対象とします。
-以前の一時実行ファイル／profile snapshotがないため、594入力は未測定です。
+スイートは1696件ですが、以下のkirimasim／Ghost記録は未変更の現在入力1083件だけを対象とします。
+以前の一時実行ファイル／profile snapshotがないため、613入力は未測定です。
 新しい全件guest実測とは扱いません。[実行結果](results.ja.md)を参照してください。
 
 Ghostの同梱UVMはseed 1・73とも207件一致・876件不一致で、不一致になるテストも同じです。

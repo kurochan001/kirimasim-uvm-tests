@@ -1,0 +1,3 @@
+UT: type_id uvm_transaction registry_compatible 1 singleton 1 named 1
+UT: type_id uvm_sequence_base registry_compatible 1 singleton 1 named 1
+UT: type_id uvm_report_server registry_compatible 1 singleton 1 named 1

@@ -952,3 +952,7 @@ D.3の名前モデルアクセスはfileをuDに置いてもM3へ属します。
 
 **Phase synchronization / sync / unsync** — domain間で選択phase nodeの開始と終了を揃える関係です。
 `sync`が追加し`unsync`が解除します。1関係の解除は他の関係を保持し、兄弟の訪問順は規定しません。
+
+**type_id / registry specialization** — 表現するclassと名前／parameterに応じた、宣言されたfactory proxy型です。
+継承type_id memberが見つかっても、それが基底classを表現する場合は不十分で、必要なregistryがclass固有の特殊化と互換である必要があります。
+明示例外とpackageの全型には別の照合が必要です。
