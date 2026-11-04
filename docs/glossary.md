@@ -1253,3 +1253,11 @@ a represented class and its name/parameters. Finding an inherited type_id member
 is insufficient when that member represents a base class; the required registry
 must be compatible with the class-specific specialization. Explicit exceptions
 and all package types require separate review.
+
+**Memory HDL location / slice** — A location index selects one word in a physical
+array; slice offset/size selects bits within that word. A path-string match alone
+does not prove either physical selection or data assembly.
+
+**Public declaration / inherited implementation** — Compile accessibility of a
+printed public method is distinct from reaching its base implementation through
+a legal derived wrapper. Each has its own evidence and remaining limitations.

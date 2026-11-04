@@ -135,7 +135,7 @@ See [Ghost setup](testing.md#ghost).
 
 It removes `UVM_NO_DPI` from the default macro list. It does not supply or link
 UVM's C/C++ implementation. The current Verilator runner does not add those
-sources. There are 1670 `UVM_NO_DPI` cases and eight explicit HDL-DPI cases.
+sources. There are 1684 `UVM_NO_DPI` cases and eleven explicit HDL-DPI cases.
 Eighteen more fixtures explicitly enable command-line/regex DPI with HDL disabled.
 The [command-line runner](testing.md#verilator-command-line-subset) links that separate backend.
 The [separate VPI runner](testing.md#verilator-vpi-hdl-subset) links the original
@@ -1143,9 +1143,9 @@ not a direct test of the requirement.
 
 ### Q77. Why is there no coverage percentage after starting M4?
 
-The 2962 AI drafts cover only a partial decomposition: 2962 requirements link
-directly to 1695 tests; all drafts have direct tests, and one separate test is a control.
-All 1696 tests have requirement links. The 2,507 clause identifiers are not normative requirement units.
+The 2993 AI drafts cover only a partial decomposition: 2993 requirements link
+directly to 1712 tests; all drafts have direct tests, and one separate test is a control.
+All 1713 tests have requirement links. The 2,507 clause identifiers are not normative requirement units.
 The scope is proposed, the inventory incomplete and the denominator unapproved;
 starting M4 approves none of those. Known differences and HDL/DPI limitations
 do not silently exclude obligations. See the [approval path](requirements.md#remaining-m4-work-and-approval).
@@ -2145,7 +2145,7 @@ No. `tests_without_requirement_links` is zero: every current test has an
 explicit direct or control link. The separate counter
 `requirements_without_direct_tests` is zero. The memory-walk link uses the
 qualified historical interpretation in Q134. It is not approval of missing
-IEEE detail. HDL deposit and accessibility use explicit VPI fixtures. Another 595
+IEEE detail. HDL deposit and accessibility use explicit VPI fixtures. Another 568
 catalog identifiers remain unassessed; decomposition and human review are
 incomplete, and the denominator remains unapproved.
 
@@ -2159,20 +2159,21 @@ known difference into success. See the [current ledger](requirements.md).
 
 ### Q129. How can HDL behavior be tested without commercial simulator results?
 
-Eight fixtures use the [separate VPI runner](testing.md#verilator-vpi-hdl-subset)
-and the original limited backend, which accesses real public HDL variables.
-Deposit checks target/peer isolation, missing paths and a 40-bit value crossing
-a word boundary; read checks fresh values, nondestructive sampling and failure
-without constraining failed output. This records the supplied backend's
-behavior, not a vendor overlay, kirimasim or Ghost.
+Eleven fixtures use the [separate VPI runner](testing.md#verilator-vpi-hdl-subset)
+and the original limited backend to access real public HDL storage. Deposit
+checks target/peer isolation, missing paths and a 40-bit word boundary; read
+checks fresh values, nondestructive sampling and failure without constraining
+failed output. Three memory fixtures additionally check actual array locations,
+split-bank data and ROM write versus poke. These are supplied-backend results,
+not vendor-overlay, kirimasim or Ghost results.
 
-The path-sequence control accepts an accessible default-abstraction path.
-The negative case expects warning and no storage transfer in zero time;
-the pinned sequence instead reports ERROR and attempts reads. Its expectation
-is retained. Seven cases match both seeds and one differs at seed 1. Ordinary
-runs do not link this backend, so all eight retain `:oracle: spec`; the strict
-HDL runner reports mismatches as `fail`. Its overlapping results are separate.
-Force/release, arrays, four-state values and finer permissions remain open.
+The accessible-path sequence control matches. The negative case expects warning
+and no transfer under the retained E.7 interpretation; the pinned sequence
+reports ERROR and attempts reads. Ten cases match both seeds and one differs
+at seed 1. Ordinary runs do not link this backend, so all eleven retain
+`:oracle: spec`; the strict HDL runner reports mismatches as `fail`.
+Its overlapping results are separate. Force/release, general array/type support,
+four-state values and finer permissions remain open.
 
 ### Q130. What do the port-base and export-index tests establish?
 
@@ -2246,7 +2247,7 @@ in [identifier assessments](../coverage/assessments.json). Structural headings
 have no related requirements; contextual descriptions name existing requirements.
 An unreviewed record, guessed classification or parent rollup cannot do this.
 The generated state is `assessed`, separate from `partial` requirement clauses.
-320 classifications currently exist, with no denominator approval or new pass.
+327 classifications currently exist, with no denominator approval or new pass.
 Chapter 11's zero unassessed identifiers still does not complete its requirements.
 
 ### Q136. Does explicit strict configuration make the new cases pass?
@@ -2812,7 +2813,7 @@ bus widths, physical DUT traffic, fairness or all termination hooks.
 No. The no-DPI probes check only the declared integer parameter and equality
 with the selected macro, using omitted configuration and an explicit 256
 configuration. They do not fix the implementation's numeric macro default.
-The separate eight-case VPI backend still supports its declared check/read/
+The separate eleven-case VPI backend still supports its declared check/read/
 deposit subset; its force/release stubs report failure. Actual force/release,
 release-and-read variable/net distinctions and broader HDL types remain open.
 No parameter-only pass is counted as execution evidence for those routines.
@@ -2933,7 +2934,7 @@ the unassessed count or approve an exclusion. All earlier requirements remain.
 Two inputs have new fingerprints: the command enum citation and the Boolean
 rerandomization observation. Both were measured on Verilator; their stale guest
 records are excluded. The historical 1085-record source files remain intact.
-Current reuse covers 1083 inputs, with 613 unmeasured: 611 additions and two
+Current reuse covers 1083 inputs, with 630 unmeasured: 628 additions and two
 revised old inputs. No guest rerun or new result is claimed.
 
 ### Q194. May a predicate implementation delegate to another virtual query?
@@ -2981,7 +2982,7 @@ connect signatures that omit P. Original backend algorithms are setup.
 Twenty-six selected abstract-construction fixtures deliberately instantiate classes
 that the standard declares virtual. The required result is rejection with an
 error identifying the fixture and class. A matching rejection is a successful
-negative check without runtime seeds, distinct from the 52 unexpected builds
+negative check without runtime seeds, distinct from the 56 unexpected builds
 among simulation cases. Pure-method and const-reference checks are additional
 negative conditions, each judged by its own declared oracle.
 
@@ -2994,10 +2995,10 @@ and stale patterns are rejected. Validation does not consume compiler results.
 Individual requirement reviews may add direct anchors while preserving existing
 links and identifying those changes explicitly.
 
-### Q201. Did all 1696 tests run at two seeds?
+### Q201. Did all 1713 tests run at two seeds?
 
-No. There are 1649 simulation and 47 elaboration fixtures. Ordinary evidence
-has 1436 two-seed runtime matches, 45 expected compiler rejections, 213 known
+No. There are 1666 simulation and 47 elaboration fixtures. Ordinary evidence
+has 1447 two-seed runtime matches, 45 expected compiler rejections, 219 known
 simulation differences and two known illegal compile acceptances. None of the
 47 illegal designs executes a runtime seed, even when compilation accepts it.
 
@@ -3064,7 +3065,7 @@ already-exceeded scope does not depend on equality. See [known differences](know
 ### Q209. Does zero unassessed in chapter 6 complete reporting or M1–M4?
 
 No. Chapter 6 has 98 partial and 19 assessed identifiers. Selected print probes
-do not finish its remaining conditions. Overall 595 identifiers remain
+do not finish its remaining conditions. Overall 568 identifiers remain
 unassessed. Printer subclause 16.2 retains the table-format overview; chapter 16
 has 3 unassessed identifiers in the broader policies. Scope and denominator
 are unapproved; zero link queues do not complete the goal.
@@ -3206,7 +3207,7 @@ live in uD. Their functional subject is the register layer, so the six named
 access fixtures count as M3. Chapter-based census and milestone grouping are
 different views of the same tests. Annex D has zero unassessed identifiers but
 39 partial ones. Its conditions and the original M1–M4 targets remain open;
-overall, 595 identifiers remain unassessed.
+overall, 568 identifiers remain unassessed.
 
 ### Q225. Does block coverage metadata measure covergroups?
 
@@ -3277,7 +3278,7 @@ new direct-delegate matrices have eight function and thirteen task rows, but
 are two shared fixtures. Timing, traversal and domain controls add selected
 conditions; all graph shapes, active synchronization mutation, invalid jumps,
 inheritance variants and task cleanup remain audits. Existing signature/prose
-conflicts and known lifetime differences are retained. Overall 595 identifiers
+conflicts and known lifetime differences are retained. Overall 568 identifiers
 remain unassessed and the original M1–M4 goal remains active.
 
 ### Q233. Which timeout clause is used when the run-phase cross-reference differs?
@@ -3306,3 +3307,19 @@ wrong represented type. Two fixtures fail that compatibility check; two others
 cannot resolve type_id. These are legal simulation builds, not negative compiler
 expectations. The isolated sequence-base fixture matches independently and does
 not pass the blocked shared matrix or every builtin type.
+
+### Q236. Do derived memory wrappers prove public backdoor task accessibility?
+
+No. The public-read declaration cannot compile because the pinned library marks
+backdoor_read protected; the independent public-write declaration matches.
+Those unused task bodies test the legal compile surface, not transfers. Separate
+original wrappers call inherited base implementations and actual HDL arrays;
+their results do not repair the public contract. See [results](results.md).
+
+### Q237. What do memory coverage-control matches and differences establish?
+
+Availability and measurement masks describe selected models, not covered bins.
+The derived constructor makes the selected union available and gates absent
+models, but set_coverage returns the new mask instead of the required previous
+mask. That whole fixture remains spec-only. Exact hierarchical include resources
+and requested-model intersections are checked independently.

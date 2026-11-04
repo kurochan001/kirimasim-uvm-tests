@@ -3,8 +3,8 @@
 [日本語](history.ja.md) · [README](../README.md)
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and fifty-five cross-milestone thin-area expansions, including the
-existing-test requirement-link backlog checkpoint (1696 tests: 1649 simulation and 47 elaboration). The earlier 349-test checkpoint is
+three M4 increments and fifty-six cross-milestone thin-area expansions, including the
+existing-test requirement-link backlog checkpoint (1713 tests: 1666 simulation and 47 elaboration). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -3462,3 +3462,52 @@ Metadata, ledger/index, library, 110 tool tests, print predicate checks,
 native/compiler identities and paired docs pass. All review is AI, scope proposed
 and denominator/percentage unset. The goal remains active. Schema, runners/library/
 catalog, workflow and six SVGs are unchanged.
+
+## Fifty-sixth thin-area expansion: memory selection and actual HDL arrays (2026-11-05)
+
+Seventeen M3 memory fixtures add concrete constructor/default checks, a captured
+maximum-width baseline, public allocation-manager contiguous/vreg reservations,
+exact local virtual-register/field enumeration and lookup isolation. Per-map
+custom frontdoors retain independent storage under debug metadata, while
+inherited/local user backdoors exercise actual modeled access, rejection and
+retry. ROM modeled writes preserve storage while poke deposits directly.
+Concat coordinates/duplicates, ancestor path cross products and hierarchical
+coverage-resource selection are independent metadata probes.
+
+Eleven ordinary fixtures match both seeds. Two first differ at seed 1 without
+seed 73: a local-only lookup returns a previously inherited cached backdoor,
+and coverage setters return the new rather than previous mask. One legal
+public-read declaration build is blocked by protected accessibility; its task
+body is never executed. The independent public-write declaration matches.
+Three actual-array ordinary builds lack linked DPI and have no runtime result.
+
+Those three physical fixtures separately match both seeds through the unchanged
+original VPI backend: selected 16-bit memory words, 24-bit split banks and ROM
+write versus poke/read/peek. Original derived wrappers reach inherited base
+tasks without repairing the public-read contract. Earlier eight HDL records
+remain unchanged, giving ten matches/one retained E.7 difference in eleven.
+These narrow two-state array results do not imply general HDL support.
+
+The initial maximum-width fixture used a reserved variable; an initial path setup
+also included an empty ancestor path. Both setup issues were corrected and
+remeasured before current inclusion. No valid expectation was replaced with
+observed failing output. Current inputs are fingerprinted after oracle tagging.
+
+Thirty-one bilingual AI drafts reach 2993; seven individually read structural
+headings reach 327 assessments (216/111 structural/contextual). Chapter 18 is
+298 partial/42 assessed/116 unassessed with 606 drafts. Overall is 1612/327/568.
+The goal's twenty-eighth iteration reduces unassessed by 27, leaving original
+milestone targets and all partial obligations open. All 2962 earlier requirements,
+320 assessments and 1696 ordinary inputs/records remain unchanged.
+
+Totals reach 1713 (1666 simulation/47 elaboration): M1 659 (622/37), M2 538
+(533/5), M3 516 (511/5). Ordinary results are 1492 pass (1447 runtime/45 expected
+compiler rejections) and 221 known (163 runtime/56 simulation builds/two illegal
+compiler acceptances). Guest 1083 and command-line records remain byte-identical;
+630 inputs are unmeasured (583 simulation/47 elaboration), including two revised
+old inputs. No guest run is claimed.
+
+All 110 tool tests, metadata, ledger/index, library, current-input/native/compiler
+identities and paired docs pass. Guides add two FAQs and two terms: 237/271.
+No human review, denominator approval or completion is claimed. Schema,
+runners/library/catalog, backend, workflow and six SVGs are unchanged. Goal active.

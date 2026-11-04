@@ -4916,6 +4916,104 @@
         "reviewer": null,
         "reviewed_at": null
       }
+    },
+    {
+      "clause": "18.6.3",
+      "classification": "structural",
+      "rationale": {
+        "en": "Memory methods grouping heading; constructor, instance configuration and relocation have separate clauses.",
+        "ja": "memory methodの分類見出しで、constructor、instance設定、移動は個別条項を持つ。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "18.6.4",
+      "classification": "structural",
+      "rationale": {
+        "en": "Memory introspection grouping heading; every query has a separate numbered clause below it.",
+        "ja": "memory introspectionの分類見出しで、各照会は下位に個別番号付き条項を持つ。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "18.6.5",
+      "classification": "structural",
+      "rationale": {
+        "en": "Memory HDL-access grouping heading; single, burst and direct access duties follow in individual tasks.",
+        "ja": "memory HDL accessの分類見出しで、single、burst、直接access義務は個別taskへ続く。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "18.6.6",
+      "classification": "structural",
+      "rationale": {
+        "en": "Memory frontdoor grouping heading; getter and setter specify the mechanism in their own clauses.",
+        "ja": "memory frontdoorの分類見出しで、getterとsetterが個別条項で機構を指定する。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "18.6.7",
+      "classification": "structural",
+      "rationale": {
+        "en": "Memory backdoor grouping heading; selection, path metadata and read/write methods follow individually.",
+        "ja": "memory backdoorの分類見出しで、選択、path metadata、read／write methodが個別に続く。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "18.6.8",
+      "classification": "structural",
+      "rationale": {
+        "en": "Memory coverage grouping heading; availability, controls and sampling duties are individually specified below.",
+        "ja": "memory coverageの分類見出しで、利用可能性、制御、sampling義務は下位に個別指定される。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "18.6.9",
+      "classification": "structural",
+      "rationale": {
+        "en": "Memory callbacks grouping heading; pre/post read/write callback behavior is specified by each following method.",
+        "ja": "memory callbackの分類見出しで、pre／post read／write callback動作は続く各methodが指定する。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
     }
   ]
 }

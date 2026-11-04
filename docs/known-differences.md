@@ -2,14 +2,14 @@
 
 [日本語](known-differences.ja.md) · [README](../README.md) · [FAQ](faq.md)
 
-This describes the current 1696-test suite and the pinned Accellera UVM
+This describes the current 1713-test suite and the pinned Accellera UVM
 2020.3.1 library. A mismatch is a test result; it does not by itself assign
 the cause to the simulator, the library or the expectation.
 
 Forty-seven elaboration fixtures expect rejection: twenty-six direct abstract
 constructions and twenty-one pure-interface/const-reference/forbidden-member
 violations. Forty-five match. Subscriber and visitor omissions remain accepted and spec-only without
-runtime. These two compiler acceptances are separate from 213 known simulation
+runtime. These two compiler acceptances are separate from 219 known simulation
 differences. Selected component-family and recording-base construction probes and the forbidden member access reject correctly.
 
 The new [inherited-kind presence probe](../tests/u18/test_block_has_hdl_path_uses_nearest_explicit_ancestor_kind_without_changing_explicit_queries.sv)
@@ -622,7 +622,18 @@ warning. The YES control changes the limit to nine without a warning. This
 is a diagnostic-severity difference, not failed limit enforcement. The older
 two no-DPI argument cases remain unchanged ordinary runtime differences.
 
-Across the suite, 1481 tests have the `verilator@5.052` oracle tag and 215
+Memory backdoor lookup caches the inherited block handle; a later local-only
+get_backdoor(0) therefore returns it under the retained local-selection oracle.
+The direct user-storage access, rejection and retry controls still match within
+that spec-only fixture. Coverage availability/enabling controls match, but the
+memory setter returns the new mask rather than the required previous mask.
+The public backdoor_read task is protected in the pinned library, so its legal
+external task declaration fails to build; public backdoor_write compiles
+independently. Neither declaration probe invokes a physical transfer. The three
+actual-array fixtures use a separate VPI condition; ordinary builds lack DPI.
+Derived inherited-task wrappers do not repair the public-read declaration.
+
+Across the suite, 1492 tests have the `verilator@5.052` oracle tag and 221
 cases are spec-only. One of the spec-only cases checks 9.6: a child's pre-reset
 task must be killed when that phase ends, but the pinned-library run on Verilator 5.052
 lets the child perform its delayed write during a later phase. The cause of
@@ -634,22 +645,23 @@ without callbacks. The pinned Verilator run reaches the blocked-state
 observation, then its watchdog expires. This combined simulator/library
 cause remains unassigned; the normative wakeup expectation is retained.
 
-The 215 spec-only tests retain their normative expected files.
-Default Verilator runs and CI select 1481 tagged checks (1436 runtime, 45 compile rejection). `--all` includes
+The 221 spec-only tests retain their normative expected files.
+Default Verilator runs and CI select 1492 tagged checks (1447 runtime, 45 compile rejection). `--all` includes
 spec-only cases and records mismatches or build failures as `known`.
-The ordinary runtime records for 161 cases establish their first difference
+The ordinary runtime records for 163 cases establish their first difference
 at seed 1, without seed 73 results. Twenty missing-API/type-name builds have
 no ordinary runtime: one time API, six sequence-library cases, four HDL slice
 cases, one named-concat constructor, one object active-policy API, three catcher
 message-handle cases, the printed recording-state getter, the printed callback
 typedef and two builtin type_id cases. Two type-default declarations, two printed
 signature conflicts and two inherited type_id registry specializations are
-separate declaration builds. Eight HDL and eighteen command-line cases also
-lack linked DPI in the ordinary runner, totaling 52 simulation builds without
+separate declaration builds. One legal public-read declaration has protected-access
+failure. Eleven HDL and eighteen command-line cases also
+lack linked DPI in the ordinary runner, totaling 56 simulation builds without
 runtime.
 
 The separate HDL
-condition matches seven at both seeds and fails the E.7 warning/no-transfer
+condition matches ten at both seeds, including three actual-array memory fixtures, and fails the E.7 warning/no-transfer
 expectation at seed 1. The separate command-line condition has seventeen matches
 and one quit-warning difference. These overlapping configurations are not summed.
 
@@ -711,7 +723,7 @@ The printed create_object equivalent call's extra this argument remains partial.
 
 ## Spec-only tests
 
-These are the 215 current spec-only cases. Several exercise the same
+These are the 221 current spec-only cases. Several exercise the same
 limitation, so their count is not a count of distinct bugs.
 
 - [Inherited subscriber type_id specialization](../tests/u08/test_builtin_abstract_parameterized_components_type_id_uses_the_required_registry_specialization.sv).
@@ -999,7 +1011,7 @@ Additional message-handle and endian cases:
 
 Two existing inputs have revised fingerprints: the command-enum citation and
 the corrected Boolean rerandomization observation. Their historical guest
-records are excluded. The compatible subset has 1083 records and 613 inputs
+records are excluded. The compatible subset has 1083 records and 630 inputs
 are unmeasured, including both revised inputs. This filtering is evidence scope,
 not a new guest failure, pass or simulator improvement.
 
@@ -1015,10 +1027,17 @@ not a new guest failure, pass or simulator improvement.
 - [Printed base recording getter](../tests/u15/test_sequencer_base_printed_recording_query_reports_default_disable_and_peer_state.sv)
 - [Qualified waiting interpretation](../tests/u15/test_sequencer_interface_wait_for_sequences_stays_blocked_until_a_producer_is_available.sv)
 
+- [memory backdoor local and inherited selection drives access failure and retry](../tests/u18/test_memory_backdoor_local_and_inherited_selection_drives_access_failure_and_retry.sv).
+- [memory derived constructor adds coverage models without enabling unavailable models](../tests/u18/test_memory_derived_constructor_adds_coverage_models_without_enabling_unavailable_models.sv).
+- [memory builtin hdl backdoor tasks read and write selected array locations](../tests/u18/test_memory_builtin_hdl_backdoor_tasks_read_and_write_selected_array_locations.sv).
+- [memory hdl split array paths assemble and deposit the declared bit slices](../tests/u18/test_memory_hdl_split_array_paths_assemble_and_deposit_the_declared_bit_slices.sv).
+- [memory physical rom backdoor write and poke have distinct access effects](../tests/u18/test_memory_physical_rom_backdoor_write_and_poke_have_distinct_access_effects.sv).
+- [memory backdoor read public call is a legal task declaration](../tests/u18/test_memory_backdoor_read_public_call_is_a_legal_task_declaration.sv).
+
 ## Simulator and library combinations
 
-The suite has 1696 cases, but the kirimasim/Ghost records below cover only
-1083 unchanged current-input cases. The 613 inputs are unmeasured
+The suite has 1713 cases, but the kirimasim/Ghost records below cover only
+1083 unchanged current-input cases. The 630 inputs are unmeasured
 because prior temporary executable/profile snapshots are unavailable. Do
 not treat this as a fresh full-suite guest result. See [results](results.md).
 

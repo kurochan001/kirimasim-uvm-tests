@@ -1,0 +1,4 @@
+UT: physical_rom_write unchanged 1 peer 1
+UT: physical_rom_poke status 1 data 1 peer 1
+UT: physical_rom_read status 1 data 1
+UT: physical_rom_peek status 1 data 1

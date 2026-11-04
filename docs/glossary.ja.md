@@ -956,3 +956,9 @@ D.3の名前モデルアクセスはfileをuDに置いてもM3へ属します。
 **type_id / registry specialization** — 表現するclassと名前／parameterに応じた、宣言されたfactory proxy型です。
 継承type_id memberが見つかっても、それが基底classを表現する場合は不十分で、必要なregistryがclass固有の特殊化と互換である必要があります。
 明示例外とpackageの全型には別の照合が必要です。
+
+**Memory HDL location / slice** — location indexは物理arrayの1 wordを選び、sliceのoffset／sizeはそのword内のbitを選びます。
+path文字列の一致だけでは、物理選択やdata合成を証明しません。
+
+**Public declaration / inherited implementation** — 印字された公開methodへcompile時にaccessできることと、合法な派生wrapper経由で基底実装へ到達することは別です。
+それぞれに固有のevidenceと残る制限があります。

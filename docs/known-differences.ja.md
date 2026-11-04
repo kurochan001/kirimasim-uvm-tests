@@ -2,7 +2,7 @@
 
 [English](known-differences.md) · [README](../README.ja.md) · [FAQ](faq.ja.md)
 
-現在の1696件と、固定したAccellera UVM 2020.3.1についての記録です。
+現在の1713件と、固定したAccellera UVM 2020.3.1についての記録です。
 不一致はテストの結果であり、それだけではシミュレータ・ライブラリ・期待値のどれが原因かは決まりません。
 
 elaboration 47件は抽象class直接生成26件とpure interface／const参照／禁止member違反21件で、拒否を期待します。
@@ -405,7 +405,12 @@ command-line 18検査系は別のVPI bridgeと固定regex DPIを明示要求し�
 上限は正しく7のままですが、固定serverはINFOを発行し、警告probeはWARNINGを観測しません。YESの比較対象は警告なしで9へ変わります。
 これは診断severityの差分で、上限の強制失敗ではありません。以前のno-DPI引数2件は未変更の通常実行時差分です。
 
-スイート全体では、`verilator@5.052`を付けたテストは1481件、specのみのテストは215件です。
+memory backdoor照会は継承block handleをcacheするため、保持するlocal選択oracleに対して、後のlocal-only get_backdoor(0)もそのhandleを返します。
+そのspec-only fixture内の独自storage access、拒否、retry controlは一致します。coverageの利用可能性／有効化controlも一致しますが、memory setterは必要な以前maskではなく新maskを返します。
+固定libraryでは公開backdoor_read taskがprotectedのため合法な外部task宣言をbuildできず、公開backdoor_writeは独立にcompileできます。
+どちらの宣言probeも物理transferを呼びません。実array 3 fixtureは別VPI条件を使い、通常buildはDPIを欠きます。派生継承task wrapperで公開read宣言を修復しません。
+
+スイート全体では、`verilator@5.052`を付けたテストは1492件、specのみのテストは221件です。
 specのみのうち1件は9.6を検証します。pre-resetフェーズ終了時に子タスクが停止する
 はずですが、固定版UVMとVerilator 5.052の組み合わせでは、後のフェーズで子タスクの遅延書き込みが
 実行されます。この差分の原因がシミュレータとライブラリのどちらかは未確定です。
@@ -414,14 +419,14 @@ wakeup resetの検査系は、trigger waiterとpersistent-trigger waiterを各1�
 10.1.1.2.8は、callbackなしで両方が起動することを要求します。固定Verilatorの実行は、待機状態の観測に到達してから
 watchdogが期限切れになります。simulator／libraryを組み合わせた原因は未確定のまま、規範的なwakeupの期待を保持します。
 
-specのみの215件も規格から導いた期待値を保持します。通常のVerilator実行とCIはoracle付き1481件（runtime 1436・compile拒否45）を選びます。
+specのみの221件も規格から導いた期待値を保持します。通常のVerilator実行とCIはoracle付き1492件（runtime 1447・compile拒否45）を選びます。
 `--all`はspecのみも含め、不一致やビルド不可を`known`として記録します。
-通常の実行時161件は最初の差分であるseed 1までの記録で、seed 73の結果はありません。
+通常の実行時163件は最初の差分であるseed 1までの記録で、seed 73の結果はありません。
 API／型名欠落build 20件はtime API 1、sequence-library 6、HDL slice 4、名前付きconcat constructor 1、object active-policy 1、catcher message-handle 3、印刷recording-state getter 1、印刷callback typedef 1、built-in type_id 2で、通常runtimeはありません。
-型既定宣言2件、印刷signature食違い2件、継承type_id registry特殊化2件は別の宣言buildです。
-HDL 8件とcommand-line 18件も通常runnerでDPIをlinkしないため、合計52 simulation buildにruntimeはありません。
+型既定宣言2件、印刷signature食違い2件、継承type_id registry特殊化2件は別の宣言buildで、合法な公開read宣言1件はprotected accessで失敗します。
+HDL 11件とcommand-line 18件も通常runnerでDPIをlinkしないため、合計56 simulation buildにruntimeはありません。
 
-別HDL条件では7件が両seed一致、E.7のwarning／転送なしの期待はseed 1で失敗します。別command-line条件は17件一致とquit-warning差分1件で、重複条件を合計しません。
+別HDL条件では実array memory 3 fixtureを含む10件が両seed一致、E.7のwarning／転送なしの期待はseed 1で失敗します。別command-line条件は17件一致とquit-warning差分1件で、重複条件を合計しません。
 
 policy 7 fixtureはseed 1で最初に異なり、seed 73結果はありません。copierの省略名は空でなく、comparer threshold／copier recursion／recorder radixはflush後の規定既定値へ戻りません。
 stream最大超過のpack_fieldは要求errorをreportしません。SHALLOW field automationでは別handleの等値childを等値と比較し、copyで独立childを作ります。
@@ -458,7 +463,7 @@ object名省略fixtureは任意user既定値を制約せず、独自constructor�
 
 ## specのみのテスト
 
-現在の215件は次のテストです。同じ制約を複数のテストで検査する場合があり、異なる不具合の個数ではありません。
+現在の221件は次のテストです。同じ制約を複数のテストで検査する場合があり、異なる不具合の個数ではありません。
 
 - [継承subscriber type_id特殊化](../tests/u08/test_builtin_abstract_parameterized_components_type_id_uses_the_required_registry_specialization.sv).
 - [共有abstract object matrixのtransaction type_id欠落](../tests/u08/test_builtin_abstract_objects_type_id_uses_the_required_registry_specialization.sv).
@@ -744,7 +749,7 @@ object名省略fixtureは任意user既定値を制約せず、独自constructor�
 - [生成時の独立した引数snapshot](../tests/uG/test_command_fresh_processors_populate_independent_argument_snapshots_at_construction.sv).
 
 既存2入力はcommand-enum引用と、訂正したBoolean rerandomization観測で指紋が変わっています。
-対応する歴史的guest記録を除外し、互換範囲は1083記録、未測定は修正2入力を含む613件です。
+対応する歴史的guest記録を除外し、互換範囲は1083記録、未測定は修正2入力を含む630件です。
 これはevidence範囲のfilterで、新しいguest fail／passやsimulator改善ではありません。
 
 - [copier既定名](../tests/u16/test_policy_comparer_packer_and_copier_constructors_preserve_names_types_and_policy_bases.sv)
@@ -759,10 +764,17 @@ object名省略fixtureは任意user既定値を制約せず、独自constructor�
 - [印刷されたbase記録getter](../tests/u15/test_sequencer_base_printed_recording_query_reports_default_disable_and_peer_state.sv)
 - [限定した待機解釈](../tests/u15/test_sequencer_interface_wait_for_sequences_stays_blocked_until_a_producer_is_available.sv)
 
+- [memory backdoor local and inherited selection drives access failure and retry](../tests/u18/test_memory_backdoor_local_and_inherited_selection_drives_access_failure_and_retry.sv).
+- [memory derived constructor adds coverage models without enabling unavailable models](../tests/u18/test_memory_derived_constructor_adds_coverage_models_without_enabling_unavailable_models.sv).
+- [memory builtin hdl backdoor tasks read and write selected array locations](../tests/u18/test_memory_builtin_hdl_backdoor_tasks_read_and_write_selected_array_locations.sv).
+- [memory hdl split array paths assemble and deposit the declared bit slices](../tests/u18/test_memory_hdl_split_array_paths_assemble_and_deposit_the_declared_bit_slices.sv).
+- [memory physical rom backdoor write and poke have distinct access effects](../tests/u18/test_memory_physical_rom_backdoor_write_and_poke_have_distinct_access_effects.sv).
+- [memory backdoor read public call is a legal task declaration](../tests/u18/test_memory_backdoor_read_public_call_is_a_legal_task_declaration.sv).
+
 ## シミュレータとライブラリの組み合わせ
 
-スイートは1696件ですが、以下のkirimasim／Ghost記録は未変更の現在入力1083件だけを対象とします。
-以前の一時実行ファイル／profile snapshotがないため、613入力は未測定です。
+スイートは1713件ですが、以下のkirimasim／Ghost記録は未変更の現在入力1083件だけを対象とします。
+以前の一時実行ファイル／profile snapshotがないため、630入力は未測定です。
 新しい全件guest実測とは扱いません。[実行結果](results.ja.md)を参照してください。
 
 Ghostの同梱UVMはseed 1・73とも207件一致・876件不一致で、不一致になるテストも同じです。

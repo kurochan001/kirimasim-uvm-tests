@@ -165,7 +165,7 @@ Ghostの同梱モードでは供給されたUVMを使います。ステータス
   （`UVM_HDL_NO_DPI`ならバックドアだけを外せます）。
 - ユーザー定義の`uvm_reg_backdoor`による記憶域handlerはHDL DPIなしで使えます。
   商用シミュレータの実行・結果はプロジェクトの方針で除外し、組み込みHDL path／DPIの検査は未完です。
-- 現在の1670件は`UVM_NO_DPI`を使い、8件はHDL DPIを明示的に有効にします。
+- 現在の1684件は`UVM_NO_DPI`を使い、11件はHDL DPIを明示的に有効にします。
   `:uvm_dpi: yes`はこのマクロを外す指定で、
   C/C++のDPI実装を自動でビルド・リンクする指定ではありません。
   現在のVerilatorランナーはDPIのC/C++ソースを追加しません。
@@ -175,7 +175,7 @@ Ghostの同梱モードでは供給されたUVMを使います。ステータス
 ### VerilatorのVPI HDL部分集合
 
 別の[HDL runner](../tools/run_verilator_hdl.py)は、公開VPI経由で独自の[backend](../tools/uvm_hdl_vpi.cpp)をlinkし、
-実際のHDL storageを使います。Verilatorは5.052固定です。明示選択する8検査系は、
+実際のHDL storageを使います。Verilatorは5.052固定です。明示選択する11検査系は、
 `:uvm_dpi: yes`、`:uvm_hdl_backend: vpi`、宣言した`:dpi_c:` pathを設定し、
 `UVM_REGEX_NO_DPI`と`UVM_CMDLINE_NO_DPI`で無関係なimportを無効にします。
 runnerは、どちらのdefines fieldでも、HDL無効化macroと、既定1024 bitのUVM DPI ABIの変更を拒否します。
@@ -185,16 +185,20 @@ python3 tools/run_verilator_hdl.py --seeds 1 73 --build-jobs 2 -j 1 \
   --json out/verilator-hdl.json
 ```
 
-backendは64 bitまでのpacked変数だけに対応し、検査系は8／40 bitをVPIへ明示公開します。
-check／read／depositは、実際のsimulator handleへaccessします。force／releaseは失敗を返して選択テストの対象外とし、
-配列、4値、細かな権限も対象外です。独自の限定backendで、vendor overlayの輸入でも、他のsimulatorのHDL実装の証明でもありません。
+未変更のbackendは、対応する64 bitまでのpacked変数handleを受け付けます。以前のfixtureは8／40-bit変数を使い、
+memory 3 fixtureは選択した実16-bit array wordと8／16-bit分割bankも測定します。check／read／depositは実simulator handleへ達し、neighbor cellが分離controlになります。
+固定libraryはbackdoor_readをprotectedにするため、継承taskの2 fixtureは独自公開wrapperを使います。別の合法宣言probeでそのaccess差分を保持し、公開write宣言は独立に合法です。
+wrapperで公開read契約をpassにはしません。
+
+force／releaseは失敗を返します。選択array wordの一致で、一般array／type support、four-state値、細かい権限、vendor overlayを示しません。
+独自の限定backendであり、他simulatorのHDL実装の証明ではありません。
 
 可視性と評価の制約は、[公開VPI文書](https://verilator.org/guide/latest/connecting.html#verification-procedural-interface-vpi)を参照してください。
 検査系は、deposit後に再評価を許してからHDL値を観測します。simulator実装sourceは読みません。
-通常runnerは変更せず、このbackendをlinkしないため、8検査系は`:oracle: spec`を保持します。
+通常runnerは変更せず、このbackendをlinkしないため、11検査系は`:oracle: spec`を保持します。
 別runnerは、`verilator_hdl`、独自の`runner_sha256`、backend設定を記録し、同じ共通期待値を使います。
-選択した不一致があれば失敗を返します。7件は両seed一致、E.7のwarning／転送なしの1件は差分です。
-重複する8件の別条件を、通常runnerのevidenceとは分けてください。
+選択した不一致があれば失敗を返します。実array 3 fixtureを含む10件は両seed一致、E.7のwarning／転送なしの1件は差分です。
+重複する11件の別条件を、通常runnerのevidenceとは分けてください。
 
 現在のIEEE本文にないalgorithmの詳細には、検査系と台帳で明示的に限定したAI解釈を記録する場合があります。
 memory-walkは、[Q134](faq.ja.md#q134-memory-walk-algorithmをどう解釈していますか)で説明する公式の歴史的資料を使います。
@@ -245,7 +249,7 @@ runtimeでは`--seeds 1 73`で各モデルを一度だけビルドし、seedご�
 要求した全runtime seedで一致した場合だけ成功です。従来の`--seed N`も使えます。
 結果JSONのconfigurationには、指定に応じて`seed`か`seeds`を記録します。
 
-Verilatorの既定の対象はoracle付き・2値の1481件（runtime 1436・期待compiler拒否45）です。`--all`を付けるとspecのみの215件も含めます。
+Verilatorの既定の対象はoracle付き・2値の1492件（runtime 1447・期待compiler拒否45）です。`--all`を付けるとspecのみの221件も含めます。
 oracleのないテストの不一致は`known`で、コマンドを失敗させません。oracle付きの不一致は失敗です。
 テストのパスを明示した場合は、そのテストだけが対象です。スモークテスト1件の実行例です。
 
@@ -294,7 +298,7 @@ python3 tools/lint_metadata.py
 python3 tools/requirements.py check
 ```
 
-現在のツールの単体テストは110件、メタデータの対象はテスト1696件（simulation 1649件・elaboration 47件）です。
+現在のツールの単体テストは110件、メタデータの対象はテスト1713件（simulation 1666件・elaboration 47件）です。
 [台帳の検査](requirements.ja.md)は、範囲案、明示した期待値への対応、入力の指紋を検査し、カバレッジを主張しません。
 [Check](../.github/workflows/check.yml)は`main`へのpush・pull request・手動実行で動きます。
 別のVerilatorジョブは5.052・`UVM_NO_DPI`・seed 1と73でoracle付きのテストを実行し、

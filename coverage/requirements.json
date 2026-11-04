@@ -108486,6 +108486,1111 @@
           ]
         }
       ]
+    },
+    {
+      "id": "UVM-MEMORY-AUDIT-CONCRETE-OBJECT",
+      "clause": "18.6.1",
+      "statement": {
+        "en": "uvm_mem can be directly constructed and used as uvm_object.",
+        "ja": "uvm_memは直接生成でき、uvm_objectとして利用できる。"
+      },
+      "conditions": {
+        "en": "Two concrete memories use mandatory name/size/width arguments; RAM omits access/coverage and ROM supplies RO, then both are configured in one block/map.",
+        "ja": "具象memory 2個へ必須name／size／widthを渡す。RAMはaccess／coverageを省略し、ROMはROを指定した後、同一block／mapへconfigureする。"
+      },
+      "expected": {
+        "en": "Construction succeeds; the object view is the same handle.",
+        "ja": "生成に成功し、object viewは同一handleとなる。"
+      },
+      "limitations": {
+        "en": "Selected 13- and 24-bit configurations only. No absence of every coverage model, sparse-allocation algorithm, factory-registration exception or mirror-API prohibition is inferred.",
+        "ja": "選択した13／24-bit構成のみ。全coverage modelの不在、疎な割当algorithm、factory登録例外、mirror API禁止を推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_direct_construction_defaults_and_explicit_rom_keep_distinct_configuration",
+          "role": "direct",
+          "expected_observations": [
+            "UT: concrete name 1 object 1 parent 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEMORY-AUDIT-CONSTRUCTOR-DIMENSIONS",
+      "clause": "18.6.3.1",
+      "statement": {
+        "en": "Memory construction retains the selected name, location count and per-location width.",
+        "ja": "memory生成は選択した名前、location数、各location幅を保持する。"
+      },
+      "conditions": {
+        "en": "Two concrete memories use mandatory name/size/width arguments; RAM omits access/coverage and ROM supplies RO, then both are configured in one block/map.",
+        "ja": "具象memory 2個へ必須name／size／widthを渡す。RAMはaccess／coverageを省略し、ROMはROを指定した後、同一block／mapへconfigureする。"
+      },
+      "expected": {
+        "en": "The RAM is named ram56 with seven 13-bit/two-byte locations; ROM has nine 24-bit/three-byte locations.",
+        "ja": "RAMはram56という名前で13-bit／2-byte locationを7個、ROMは24-bit／3-byte locationを9個持つ。"
+      },
+      "limitations": {
+        "en": "Selected 13- and 24-bit configurations only. No absence of every coverage model, sparse-allocation algorithm, factory-registration exception or mirror-API prohibition is inferred.",
+        "ja": "選択した13／24-bit構成のみ。全coverage modelの不在、疎な割当algorithm、factory登録例外、mirror API禁止を推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_direct_construction_defaults_and_explicit_rom_keep_distinct_configuration",
+          "role": "direct",
+          "expected_observations": [
+            "UT: concrete name 1 object 1 parent 1",
+            "UT: defaults locations 7 bits 13 bytes 2 rw 1 no_models 1",
+            "UT: rom locations 9 bits 24 bytes 3 ro 1 separate 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEMORY-AUDIT-DEFAULT-RW",
+      "clause": "18.6.3.1",
+      "statement": {
+        "en": "Omitting the memory access argument selects RW.",
+        "ja": "memory access引数の省略はRWを選択する。"
+      },
+      "conditions": {
+        "en": "Two concrete memories use mandatory name/size/width arguments; RAM omits access/coverage and ROM supplies RO, then both are configured in one block/map.",
+        "ja": "具象memory 2個へ必須name／size／widthを渡す。RAMはaccess／coverageを省略し、ROMはROを指定した後、同一block／mapへconfigureする。"
+      },
+      "expected": {
+        "en": "The unrestricted RAM map query reports RW while the explicit ROM reports RO.",
+        "ja": "制限のないRAM map照会はRW、明示ROMはROを返す。"
+      },
+      "limitations": {
+        "en": "Selected 13- and 24-bit configurations only. No absence of every coverage model, sparse-allocation algorithm, factory-registration exception or mirror-API prohibition is inferred.",
+        "ja": "選択した13／24-bit構成のみ。全coverage modelの不在、疎な割当algorithm、factory登録例外、mirror API禁止を推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_direct_construction_defaults_and_explicit_rom_keep_distinct_configuration",
+          "role": "direct",
+          "expected_observations": [
+            "UT: defaults locations 7 bits 13 bytes 2 rw 1 no_models 1",
+            "UT: rom locations 9 bits 24 bytes 3 ro 1 separate 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEMORY-AUDIT-DEFAULT-NO-COVERAGE",
+      "clause": "18.6.3.1",
+      "statement": {
+        "en": "Omitting memory coverage does not supply the selected coverage models.",
+        "ja": "memory coverageの省略は選択したcoverage modelを提供しない。"
+      },
+      "conditions": {
+        "en": "Two concrete memories use mandatory name/size/width arguments; RAM omits access/coverage and ROM supplies RO, then both are configured in one block/map.",
+        "ja": "具象memory 2個へ必須name／size／widthを渡す。RAMはaccess／coverageを省略し、ROMはROを指定した後、同一block／mapへconfigureする。"
+      },
+      "expected": {
+        "en": "ADDR_MAP, REG_BITS and FIELD_VALS are each absent in the omitted-coverage RAM.",
+        "ja": "coverage省略RAMでADDR_MAP、REG_BITS、FIELD_VALSがそれぞれ不在となる。"
+      },
+      "limitations": {
+        "en": "Selected 13- and 24-bit configurations only. No absence of every coverage model, sparse-allocation algorithm, factory-registration exception or mirror-API prohibition is inferred.",
+        "ja": "選択した13／24-bit構成のみ。全coverage modelの不在、疎な割当algorithm、factory登録例外、mirror API禁止を推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_direct_construction_defaults_and_explicit_rom_keep_distinct_configuration",
+          "role": "direct",
+          "expected_observations": [
+            "UT: defaults locations 7 bits 13 bytes 2 rw 1 no_models 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEMORY-AUDIT-CONFIGURED-PARENT",
+      "clause": "18.6.3.2",
+      "statement": {
+        "en": "configure associates the selected memory with its parent block.",
+        "ja": "configureは選択memoryをparent blockへ関連付ける。"
+      },
+      "conditions": {
+        "en": "Two concrete memories use mandatory name/size/width arguments; RAM omits access/coverage and ROM supplies RO, then both are configured in one block/map.",
+        "ja": "具象memory 2個へ必須name／size／widthを渡す。RAMはaccess／coverageを省略し、ROMはROを指定した後、同一block／mapへconfigureする。"
+      },
+      "expected": {
+        "en": "The parent query returns the supplied owner.",
+        "ja": "parent照会は渡したownerを返す。"
+      },
+      "limitations": {
+        "en": "Selected 13- and 24-bit configurations only. No absence of every coverage model, sparse-allocation algorithm, factory-registration exception or mirror-API prohibition is inferred.",
+        "ja": "選択した13／24-bit構成のみ。全coverage modelの不在、疎な割当algorithm、factory登録例外、mirror API禁止を推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_direct_construction_defaults_and_explicit_rom_keep_distinct_configuration",
+          "role": "direct",
+          "expected_observations": [
+            "UT: concrete name 1 object 1 parent 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEMORY-AUDIT-MAXIMUM-WIDTH",
+      "clause": "18.6.4.10",
+      "statement": {
+        "en": "The static memory maximum is the maximum location width in bits.",
+        "ja": "memoryのstatic最大値はlocation幅のbit単位の最大値である。"
+      },
+      "conditions": {
+        "en": "Capture the existing maximum before constructing widths 13, 57 and 9 with location counts 100, 1 and 200.",
+        "ja": "幅13、57、9とlocation数100、1、200を生成する前に既存最大値を保存する。"
+      },
+      "expected": {
+        "en": "After every construction the maximum equals max(saved maximum, widths constructed so far); a later larger location count does not shrink or replace the width maximum.",
+        "ja": "各生成後の最大値はmax（保存最大値、生成済み幅）であり、後の大きなlocation数で幅最大値を縮小／置換しない。"
+      },
+      "limitations": {
+        "en": "No initially zero maximum, destructor behavior or width beyond the selected legal data width is assumed.",
+        "ja": "最大値の初期0、destructor動作、選択した合法data幅を超える幅は仮定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_maximum_width_tracks_all_constructed_memories_without_shrinking",
+          "role": "direct",
+          "expected_observations": [
+            "UT: maximum first 1",
+            "UT: maximum wide 1",
+            "UT: maximum later 1 width_not_locations 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEMORY-AUDIT-PUBLIC-MANAGER",
+      "clause": "18.6.2",
+      "statement": {
+        "en": "The public mam manages the memory corresponding to the abstraction instance.",
+        "ja": "公開mamは抽象instanceに対応するmemoryを管理する。"
+      },
+      "conditions": {
+        "en": "A configured 32-location, 16-bit memory uses its public mam directly; six bytes are reserved at word offset three and a two-element 32-bit vreg is implemented at offset ten.",
+        "ja": "configureした32-location／16-bit memoryの公開mamを直接使い、word offset 3へ6 byteを予約し、offset 10へ2要素32-bit vregをimplementする。"
+      },
+      "expected": {
+        "en": "mam is nonnull and its memory identity is the configured memory.",
+        "ja": "mamは非nullで、そのmemory同一性はconfigureしたmemoryとなる。"
+      },
+      "limitations": {
+        "en": "Contiguous reservation and one explicit vreg range only, not randomized allocation policy, all holes/fragmentation or ownership lifecycle. Null setup failures stop the fixture rather than fabricate positive observations.",
+        "ja": "連続予約と明示vreg範囲1個のみで、random割当policy、全hole／断片化、所有lifecycleではない。設定がnullならfixtureを停止し、肯定観測を捏造しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_public_allocation_manager_reserves_contiguous_locations_and_vreg_storage",
+          "role": "direct",
+          "expected_observations": [
+            "UT: public_manager memory 1 contiguous 1 overlap_rejected 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEMORY-AUDIT-CONTIGUOUS-REGION",
+      "clause": "18.6.2",
+      "statement": {
+        "en": "The memory manager can reserve a selected consecutive memory region.",
+        "ja": "memory managerは選択した連続memory regionを予約できる。"
+      },
+      "conditions": {
+        "en": "A configured 32-location, 16-bit memory uses its public mam directly; six bytes are reserved at word offset three and a two-element 32-bit vreg is implemented at offset ten.",
+        "ja": "configureした32-location／16-bit memoryの公開mamを直接使い、word offset 3へ6 byteを予約し、offset 10へ2要素32-bit vregをimplementする。"
+      },
+      "expected": {
+        "en": "Six bytes at offset three span locations three through five; an overlapping reservation returns null.",
+        "ja": "offset 3の6 byteはlocation 3〜5を占め、重なる予約はnullを返す。"
+      },
+      "limitations": {
+        "en": "Contiguous reservation and one explicit vreg range only, not randomized allocation policy, all holes/fragmentation or ownership lifecycle. Null setup failures stop the fixture rather than fabricate positive observations.",
+        "ja": "連続予約と明示vreg範囲1個のみで、random割当policy、全hole／断片化、所有lifecycleではない。設定がnullならfixtureを停止し、肯定観測を捏造しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_public_allocation_manager_reserves_contiguous_locations_and_vreg_storage",
+          "role": "direct",
+          "expected_observations": [
+            "UT: public_manager memory 1 contiguous 1 overlap_rejected 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEMORY-AUDIT-VREG-REGION",
+      "clause": "18.6.2",
+      "statement": {
+        "en": "The associated allocation manager owns the implemented virtual-register range.",
+        "ja": "関連allocation managerはimplementしたvirtual-register範囲を所有する。"
+      },
+      "conditions": {
+        "en": "A configured 32-location, 16-bit memory uses its public mam directly; six bytes are reserved at word offset three and a two-element 32-bit vreg is implemented at offset ten.",
+        "ja": "configureした32-location／16-bit memoryの公開mamを直接使い、word offset 3へ6 byteを予約し、offset 10へ2要素32-bit vregをimplementする。"
+      },
+      "expected": {
+        "en": "Implementation succeeds and its region retains the memory and offsets ten through thirteen.",
+        "ja": "implementに成功し、regionはmemoryとoffset 10〜13を保持する。"
+      },
+      "limitations": {
+        "en": "Contiguous reservation and one explicit vreg range only, not randomized allocation policy, all holes/fragmentation or ownership lifecycle. Null setup failures stop the fixture rather than fabricate positive observations.",
+        "ja": "連続予約と明示vreg範囲1個のみで、random割当policy、全hole／断片化、所有lifecycleではない。設定がnullならfixtureを停止し、肯定観測を捏造しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_public_allocation_manager_reserves_contiguous_locations_and_vreg_storage",
+          "role": "direct",
+          "expected_observations": [
+            "UT: vreg_reservation success 1 manager 1 region 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEMORY-AUDIT-VREG-QUEUE",
+      "clause": "18.6.4.11",
+      "statement": {
+        "en": "Memory virtual-register enumeration returns every local implementation.",
+        "ja": "memoryのvirtual-register列挙は全local implementationを返す。"
+      },
+      "conditions": {
+        "en": "Two local implemented vregs contain three uniquely named fields; another memory owns an unrelated vreg/field and a fourth vreg is configured without implementation.",
+        "ja": "localにimplementしたvreg 2個が一意名field 3個を持ち、別memoryが無関係なvreg／fieldを所有し、第4のvregはimplementせずconfigureする。"
+      },
+      "expected": {
+        "en": "The queue contains exactly alpha56 and beta56 once each, excluding the foreign and unimplemented handles.",
+        "ja": "queueはalpha56とbeta56を各1回だけ含み、foreign／未implement handleを含まない。"
+      },
+      "limitations": {
+        "en": "Queue types follow the printed signatures despite the dynamic-array wording for fields. No enumeration order, duplicate-name resolution, reused caller-queue behavior or diagnostic severity for a miss is prescribed.",
+        "ja": "fieldのdynamic-arrayという本文に対し、型は印字signatureのqueueに従う。列挙順、同名解決、再利用caller queue動作、検索失敗時の診断severityは規定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_virtual_register_and_field_queues_enumerate_only_local_implementations",
+          "role": "direct",
+          "expected_observations": [
+            "UT: local_registers size 2 exact 1 unrelated_absent 1",
+            "UT: local_fields size 3 exact 1 unrelated_absent 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEMORY-AUDIT-VFIELD-QUEUE",
+      "clause": "18.6.4.12",
+      "statement": {
+        "en": "Memory virtual-field enumeration returns fields belonging to local implementations.",
+        "ja": "memoryのvirtual-field列挙はlocal implementationに属するfieldを返す。"
+      },
+      "conditions": {
+        "en": "Two local implemented vregs contain three uniquely named fields; another memory owns an unrelated vreg/field and a fourth vreg is configured without implementation.",
+        "ja": "localにimplementしたvreg 2個が一意名field 3個を持ち、別memoryが無関係なvreg／fieldを所有し、第4のvregはimplementせずconfigureする。"
+      },
+      "expected": {
+        "en": "The queue contains exactly low56, high56 and flag56 once each, with no foreign field.",
+        "ja": "queueはlow56、high56、flag56を各1回だけ含み、foreign fieldを含まない。"
+      },
+      "limitations": {
+        "en": "Queue types follow the printed signatures despite the dynamic-array wording for fields. No enumeration order, duplicate-name resolution, reused caller-queue behavior or diagnostic severity for a miss is prescribed.",
+        "ja": "fieldのdynamic-arrayという本文に対し、型は印字signatureのqueueに従う。列挙順、同名解決、再利用caller queue動作、検索失敗時の診断severityは規定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_virtual_register_and_field_queues_enumerate_only_local_implementations",
+          "role": "direct",
+          "expected_observations": [
+            "UT: local_registers size 2 exact 1 unrelated_absent 1",
+            "UT: local_fields size 3 exact 1 unrelated_absent 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEMORY-AUDIT-VREG-NAME",
+      "clause": "18.6.4.13",
+      "statement": {
+        "en": "Memory virtual-register name lookup preserves local handles and returns null when not implemented here.",
+        "ja": "memoryのvirtual-register名前検索はlocal handleを保持し、ここにimplementされていなければnullを返す。"
+      },
+      "conditions": {
+        "en": "Two local implemented vregs contain three uniquely named fields; another memory owns an unrelated vreg/field and a fourth vreg is configured without implementation.",
+        "ja": "localにimplementしたvreg 2個が一意名field 3個を持ち、別memoryが無関係なvreg／fieldを所有し、第4のvregはimplementせずconfigureする。"
+      },
+      "expected": {
+        "en": "Both local names resolve exactly; absent, foreign and unimplemented names return null.",
+        "ja": "両local名は正確に解決し、不在、foreign、未implement名はnullを返す。"
+      },
+      "limitations": {
+        "en": "Queue types follow the printed signatures despite the dynamic-array wording for fields. No enumeration order, duplicate-name resolution, reused caller-queue behavior or diagnostic severity for a miss is prescribed.",
+        "ja": "fieldのdynamic-arrayという本文に対し、型は印字signatureのqueueに従う。列挙順、同名解決、再利用caller queue動作、検索失敗時の診断severityは規定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_virtual_name_lookup_preserves_handles_and_isolates_other_memories",
+          "role": "direct",
+          "expected_observations": [
+            "UT: register_lookup alpha 1 beta 1 absent 1 foreign 1 pending 1",
+            "UT: field_lookup low 1 high 1 flag 1 absent 1 foreign 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEMORY-AUDIT-VFIELD-NAME",
+      "clause": "18.6.4.14",
+      "statement": {
+        "en": "Memory virtual-field name lookup returns the local abstraction handle or null.",
+        "ja": "memoryのvirtual-field名前検索はlocal抽象handleまたはnullを返す。"
+      },
+      "conditions": {
+        "en": "Two local implemented vregs contain three uniquely named fields; another memory owns an unrelated vreg/field and a fourth vreg is configured without implementation.",
+        "ja": "localにimplementしたvreg 2個が一意名field 3個を持ち、別memoryが無関係なvreg／fieldを所有し、第4のvregはimplementせずconfigureする。"
+      },
+      "expected": {
+        "en": "All three local field names resolve exactly; absent and foreign field names return null.",
+        "ja": "全local field名3個は正確に解決し、不在／foreign field名はnullを返す。"
+      },
+      "limitations": {
+        "en": "Queue types follow the printed signatures despite the dynamic-array wording for fields. No enumeration order, duplicate-name resolution, reused caller-queue behavior or diagnostic severity for a miss is prescribed.",
+        "ja": "fieldのdynamic-arrayという本文に対し、型は印字signatureのqueueに従う。列挙順、同名解決、再利用caller queue動作、検索失敗時の診断severityは規定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_virtual_name_lookup_preserves_handles_and_isolates_other_memories",
+          "role": "direct",
+          "expected_observations": [
+            "UT: register_lookup alpha 1 beta 1 absent 1 foreign 1 pending 1",
+            "UT: field_lookup low 1 high 1 flag 1 absent 1 foreign 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEMORY-AUDIT-FRONTDOOR-GET",
+      "clause": "18.6.6.1",
+      "statement": {
+        "en": "The selected map query returns its configured custom frontdoor, or null before one is supplied.",
+        "ja": "選択map照会は設定したcustom frontdoorを返し、未指定ならnullを返す。"
+      },
+      "conditions": {
+        "en": "One memory belongs to two explicit maps with separate original custom frontdoors/sequencer. The same location receives different values through the two maps and the second setter is repeated with empty/nonempty debug arguments.",
+        "ja": "1 memoryは独立した独自custom frontdoor／sequencerを持つ明示map 2個へ属する。同じlocationへ各mapから異なる値を書き、2つ目setterを空／非空debug引数で繰り返す。"
+      },
+      "expected": {
+        "en": "Both initial getters are null, then each returns its own exact handle.",
+        "ja": "両初期getterはnullで、後にそれぞれ自身の正確なhandleを返す。"
+      },
+      "limitations": {
+        "en": "Original storage in frontdoor bodies, not physical HDL or bus protocol coverage. Both maps are always explicit; no multi-map null-selection behavior or exact callback count is invented.",
+        "ja": "frontdoor本体の独自storageで、物理HDLやbus protocol coverageではない。両mapは常に明示し、multi-mapのnull選択動作や正確なcallback回数を作らない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_frontdoor_selection_is_per_map_and_debug_metadata_preserves_real_access",
+          "role": "direct",
+          "expected_observations": [
+            "UT: frontdoor_initial none 1",
+            "UT: selected_frontdoors debug 0 getters 1 access 1 isolated 1",
+            "UT: selected_frontdoors debug 1 getters 1 access 1 isolated 1",
+            "UT: frontdoor_descriptors element 1 offset 1 both_used 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEMORY-AUDIT-FRONTDOOR-SET",
+      "clause": "18.6.6.2",
+      "statement": {
+        "en": "The memory frontdoor setter selects the corresponding map-specific access mechanism.",
+        "ja": "memory frontdoor setterは対応するmap固有のaccess機構を選択する。"
+      },
+      "conditions": {
+        "en": "One memory belongs to two explicit maps with separate original custom frontdoors/sequencer. The same location receives different values through the two maps and the second setter is repeated with empty/nonempty debug arguments.",
+        "ja": "1 memoryは独立した独自custom frontdoor／sequencerを持つ明示map 2個へ属する。同じlocationへ各mapから異なる値を書き、2つ目setterを空／非空debug引数で繰り返す。"
+      },
+      "expected": {
+        "en": "Reads recover 5611 and 5622 independently at location one through the corresponding selected frontdoor.",
+        "ja": "対応する選択frontdoorを通じ、location 1のreadは5611と5622を独立に回収する。"
+      },
+      "limitations": {
+        "en": "Original storage in frontdoor bodies, not physical HDL or bus protocol coverage. Both maps are always explicit; no multi-map null-selection behavior or exact callback count is invented.",
+        "ja": "frontdoor本体の独自storageで、物理HDLやbus protocol coverageではない。両mapは常に明示し、multi-mapのnull選択動作や正確なcallback回数を作らない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_frontdoor_selection_is_per_map_and_debug_metadata_preserves_real_access",
+          "role": "direct",
+          "expected_observations": [
+            "UT: frontdoor_initial none 1",
+            "UT: selected_frontdoors debug 0 getters 1 access 1 isolated 1",
+            "UT: selected_frontdoors debug 1 getters 1 access 1 isolated 1",
+            "UT: frontdoor_descriptors element 1 offset 1 both_used 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEMORY-AUDIT-FRONTDOOR-DEBUG",
+      "clause": "18.6.6.2",
+      "statement": {
+        "en": "Frontdoor setter debug filename/line have no functional effect.",
+        "ja": "frontdoor setterのdebug filename／lineは機能的影響を持たない。"
+      },
+      "conditions": {
+        "en": "One memory belongs to two explicit maps with separate original custom frontdoors/sequencer. The same location receives different values through the two maps and the second setter is repeated with empty/nonempty debug arguments.",
+        "ja": "1 memoryは独立した独自custom frontdoor／sequencerを持つ明示map 2個へ属する。同じlocationへ各mapから異なる値を書き、2つ目setterを空／非空debug引数で繰り返す。"
+      },
+      "expected": {
+        "en": "Both debug variants preserve getters, successful access and isolated values.",
+        "ja": "両debug variantがgetter、成功access、値の分離を保持する。"
+      },
+      "limitations": {
+        "en": "Original storage in frontdoor bodies, not physical HDL or bus protocol coverage. Both maps are always explicit; no multi-map null-selection behavior or exact callback count is invented.",
+        "ja": "frontdoor本体の独自storageで、物理HDLやbus protocol coverageではない。両mapは常に明示し、multi-mapのnull選択動作や正確なcallback回数を作らない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_frontdoor_selection_is_per_map_and_debug_metadata_preserves_real_access",
+          "role": "direct",
+          "expected_observations": [
+            "UT: frontdoor_initial none 1",
+            "UT: selected_frontdoors debug 0 getters 1 access 1 isolated 1",
+            "UT: selected_frontdoors debug 1 getters 1 access 1 isolated 1",
+            "UT: frontdoor_descriptors element 1 offset 1 both_used 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEMORY-AUDIT-BACKDOOR-INHERITANCE",
+      "clause": "18.6.7.1",
+      "statement": {
+        "en": "Memory backdoor lookup defaults to inheritance while a local-only lookup suppresses it.",
+        "ja": "memory backdoor照会は既定で継承し、local-only照会は継承を抑制する。"
+      },
+      "conditions": {
+        "en": "One configured memory first inherits its parent block backdoor, then receives a local backdoor under empty/nonempty debug arguments. Original storage supplies poke/peek success, rejection and retry.",
+        "ja": "configureした1 memoryは最初parent blockのbackdoorを継承し、後に空／非空debug引数でlocal backdoorを受け取る。独自storageがpoke／peekの成功、拒否、retryを提供する。"
+      },
+      "expected": {
+        "en": "Initially absent; after parent selection default/explicit-one return the parent and zero returns null; inherited poke/peek reaches that storage.",
+        "ja": "初期は不在で、parent選択後の既定／明示1はparent、0はnullを返し、継承poke／peekはそのstorageへ達する。"
+      },
+      "limitations": {
+        "en": "Original user storage only; it does not prove the built-in routine obligation to use physical HDL support. No failed-read data, exact access count or post-error state beyond the original rejecting backend contract is prescribed.",
+        "ja": "独自user storageのみで、built-in routineが物理HDL supportを使う義務を証明しない。失敗read data、正確なaccess回数、独自拒否backend契約を超えるerror後状態は規定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_backdoor_local_and_inherited_selection_drives_access_failure_and_retry",
+          "role": "direct",
+          "expected_observations": [
+            "UT: backdoor_initial absent 1",
+            "UT: inherited_selection default 1 explicit 1 local_absent 1",
+            "UT: inherited_access status_data 1 used 1",
+            "UT: local_access debug 0 selected 1 data 1 inherited_unchanged 1",
+            "UT: local_access debug 1 selected 1 data 1 inherited_unchanged 1",
+            "UT: backdoor_write_failure status 1 unchanged 1",
+            "UT: backdoor_read_failure status 1",
+            "UT: backdoor_retry data 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEMORY-AUDIT-BACKDOOR-LOCAL",
+      "clause": "18.6.7.2",
+      "statement": {
+        "en": "A memory-specific backdoor supersedes the inherited mechanism.",
+        "ja": "memory固有backdoorは継承した機構に優先する。"
+      },
+      "conditions": {
+        "en": "One configured memory first inherits its parent block backdoor, then receives a local backdoor under empty/nonempty debug arguments. Original storage supplies poke/peek success, rejection and retry.",
+        "ja": "configureした1 memoryは最初parent blockのbackdoorを継承し、後に空／非空debug引数でlocal backdoorを受け取る。独自storageがpoke／peekの成功、拒否、retryを提供する。"
+      },
+      "expected": {
+        "en": "Local/default getters return the local handle and poke/peek uses local storage, leaving the parent value unchanged.",
+        "ja": "local／既定getterはlocal handleを返し、poke／peekはparent値を変えずlocal storageを使う。"
+      },
+      "limitations": {
+        "en": "Original user storage only; it does not prove the built-in routine obligation to use physical HDL support. No failed-read data, exact access count or post-error state beyond the original rejecting backend contract is prescribed.",
+        "ja": "独自user storageのみで、built-in routineが物理HDL supportを使う義務を証明しない。失敗read data、正確なaccess回数、独自拒否backend契約を超えるerror後状態は規定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_backdoor_local_and_inherited_selection_drives_access_failure_and_retry",
+          "role": "direct",
+          "expected_observations": [
+            "UT: backdoor_initial absent 1",
+            "UT: inherited_selection default 1 explicit 1 local_absent 1",
+            "UT: inherited_access status_data 1 used 1",
+            "UT: local_access debug 0 selected 1 data 1 inherited_unchanged 1",
+            "UT: local_access debug 1 selected 1 data 1 inherited_unchanged 1",
+            "UT: backdoor_write_failure status 1 unchanged 1",
+            "UT: backdoor_read_failure status 1",
+            "UT: backdoor_retry data 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEMORY-AUDIT-BACKDOOR-DEBUG",
+      "clause": "18.6.7.2",
+      "statement": {
+        "en": "Backdoor setter debug filename/line do not change functional selection/access.",
+        "ja": "backdoor setterのdebug filename／lineは機能的な選択／accessを変えない。"
+      },
+      "conditions": {
+        "en": "One configured memory first inherits its parent block backdoor, then receives a local backdoor under empty/nonempty debug arguments. Original storage supplies poke/peek success, rejection and retry.",
+        "ja": "configureした1 memoryは最初parent blockのbackdoorを継承し、後に空／非空debug引数でlocal backdoorを受け取る。独自storageがpoke／peekの成功、拒否、retryを提供する。"
+      },
+      "expected": {
+        "en": "Both debug variants select the same local mechanism and recover the same successful data.",
+        "ja": "両debug variantが同じlocal機構を選択し、同じ成功dataを回収する。"
+      },
+      "limitations": {
+        "en": "Original user storage only; it does not prove the built-in routine obligation to use physical HDL support. No failed-read data, exact access count or post-error state beyond the original rejecting backend contract is prescribed.",
+        "ja": "独自user storageのみで、built-in routineが物理HDL supportを使う義務を証明しない。失敗read data、正確なaccess回数、独自拒否backend契約を超えるerror後状態は規定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_backdoor_local_and_inherited_selection_drives_access_failure_and_retry",
+          "role": "direct",
+          "expected_observations": [
+            "UT: backdoor_initial absent 1",
+            "UT: inherited_selection default 1 explicit 1 local_absent 1",
+            "UT: inherited_access status_data 1 used 1",
+            "UT: local_access debug 0 selected 1 data 1 inherited_unchanged 1",
+            "UT: local_access debug 1 selected 1 data 1 inherited_unchanged 1",
+            "UT: backdoor_write_failure status 1 unchanged 1",
+            "UT: backdoor_read_failure status 1",
+            "UT: backdoor_retry data 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEMORY-AUDIT-ROM-WRITE-VS-POKE",
+      "clause": "18.6.5.1",
+      "statement": {
+        "en": "A modeled backdoor write respects ROM policy while poke deposits directly.",
+        "ja": "modelのbackdoor writeはROM policyを守り、pokeは直接depositする。"
+      },
+      "conditions": {
+        "en": "An explicit RO memory/map uses original user storage, selected and peer words, a parent sequence/extension and debug arguments.",
+        "ja": "明示RO memory／mapが独自user storage、選択／peer word、parent sequence／extension、debug引数を使う。"
+      },
+      "expected": {
+        "en": "write leaves the ROM word unchanged, poke changes it, read/peek return it and the successful read descriptor retains parent, extension and memory identity.",
+        "ja": "writeはROM wordを変えず、pokeは変更し、read／peekはその値を返す。成功read descriptorはparent、extension、memory同一性を保持する。"
+      },
+      "limitations": {
+        "en": "No RO-write diagnostic severity/status/count is asserted. The original backend is modeled; a separate actual-array fixture has its own DPI evidence condition.",
+        "ja": "RO writeの診断severity／status／回数は主張しない。独自backendはmodelで、別の実array fixtureは固有のDPI evidence条件を持つ。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_backdoor_read_only_write_preserves_storage_while_poke_deposits",
+          "role": "direct",
+          "expected_observations": [
+            "UT: rom_write unchanged 1 peer 1",
+            "UT: rom_poke data 1 peer 1",
+            "UT: rom_read data 1 parent 1 extension 1 element 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEMORY-AUDIT-CONCAT-SLICES",
+      "clause": "18.6.7.4",
+      "statement": {
+        "en": "Adding a memory HDL concatenation retains its path/offset/size slices.",
+        "ja": "memory HDL concatの追加はpath／offset／size sliceを保持する。"
+      },
+      "conditions": {
+        "en": "Add a two-slice RTL concatenation, then a whole-variable slice with first explicitly true.",
+        "ja": "2-slice RTL concatを追加した後、firstを明示trueにした全変数sliceを追加する。"
+      },
+      "expected": {
+        "en": "The two-slice local path retains high56 at 8/8 and low56 at 0/8.",
+        "ja": "2-slice local pathはhigh56の8／8とlow56の0／8を保持する。"
+      },
+      "limitations": {
+        "en": "Path strings and coordinates only; these observations do not certify storage access, slice packing or general HDL backend support.",
+        "ja": "path文字列と座標のみで、storage access、slice packing、一般HDL backend supportを認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_hdl_concatenations_keep_slice_coordinates_and_duplicate_implementations",
+          "role": "direct",
+          "expected_observations": [
+            "UT: concatenations paths 2 coordinates 1 duplicate 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEMORY-AUDIT-DUPLICATE-SLICE",
+      "clause": "18.6.7.5",
+      "statement": {
+        "en": "The first flag starts a duplicate memory HDL implementation.",
+        "ja": "first flagは重複memory HDL implementationを開始する。"
+      },
+      "conditions": {
+        "en": "Add a two-slice RTL concatenation, then a whole-variable slice with first explicitly true.",
+        "ja": "2-slice RTL concatを追加した後、firstを明示trueにした全変数sliceを追加する。"
+      },
+      "expected": {
+        "en": "A whole-variable copy56 with -1/-1 coordinates is a second concatenation rather than a third slice in the first.",
+        "ja": "-1／-1座標の全変数copy56は、最初の3番目sliceでなく2番目concatとなる。"
+      },
+      "limitations": {
+        "en": "Path strings and coordinates only; these observations do not certify storage access, slice packing or general HDL backend support.",
+        "ja": "path文字列と座標のみで、storage access、slice packing、一般HDL backend supportを認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_hdl_concatenations_keep_slice_coordinates_and_duplicate_implementations",
+          "role": "direct",
+          "expected_observations": [
+            "UT: concatenations paths 2 coordinates 1 duplicate 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEMORY-AUDIT-FULL-PATH-CROSS-PRODUCT",
+      "clause": "18.6.7.9",
+      "statement": {
+        "en": "Full memory paths expand duplicate ancestor paths using the supplied separator.",
+        "ja": "完全memory pathは指定separatorで重複ancestor pathを展開する。"
+      },
+      "conditions": {
+        "en": "A root and child each have two RTL incremental paths; memory has one cells56 path; query uses explicit RTL and slash separator.",
+        "ja": "rootとchildが各2個のRTL incremental pathを持ち、memoryはcells56 pathを1個持つ。照会は明示RTLとslash separatorを使う。"
+      },
+      "expected": {
+        "en": "The four distinct ancestor cross-product strings appear once each with whole-variable slice coordinates unchanged.",
+        "ja": "ancestor直積の異なる文字列4個がそれぞれ1回現れ、全変数slice座標を保持する。"
+      },
+      "limitations": {
+        "en": "Metadata only. Per-ancestor differing default kinds, deeper hierarchy, absolute roots and physical duplicate consistency remain separate.",
+        "ja": "metadataのみ。ancestorごとに異なる既定kind、より深い階層、絶対root、物理duplicate整合性は別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_full_hdl_paths_expand_ancestor_duplicates_and_custom_separators",
+          "role": "direct",
+          "expected_observations": [
+            "UT: full_paths count 4 cross_product 1 coordinates 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEMORY-AUDIT-COVERAGE-BUILD-SELECTION",
+      "clause": "18.6.8.1",
+      "statement": {
+        "en": "The memory coverage builder returns requested models selected by include_coverage resources.",
+        "ja": "memory coverage builderはinclude_coverage resourceで選択した要求modelを返す。"
+      },
+      "conditions": {
+        "en": "Configured sibling memories use exact hierarchical include scopes; an original public wrapper calls the protected nonvirtual builder after configuration.",
+        "ja": "configureした兄弟memoryが正確な階層include scopeを使い、独自公開wrapperがconfigure後にprotected nonvirtual builderを呼ぶ。"
+      },
+      "expected": {
+        "en": "The selected memory returns the selected union and requested intersection; the explicitly excluded sibling returns no models.",
+        "ja": "選択memoryは選択和集合と要求との積集合を返し、明示除外した兄弟はmodelを返さない。"
+      },
+      "limitations": {
+        "en": "Coverage availability metadata only, not actual covergroups/bins, constructor-time name resolution, wildcard precedence or all resources. No memory-specific include_coverage API is invented.",
+        "ja": "coverage availability metadataのみで、実covergroup／bin、constructor時の名前解決、wildcard優先順位、全resourceではない。memory固有include_coverage APIは作らない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_coverage_builder_intersects_requested_models_with_hierarchical_resource_selection",
+          "role": "direct",
+          "expected_observations": [
+            "UT: coverage_builder selected 1 intersection 1 excluded 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEMORY-AUDIT-COVERAGE-ADD-CONSTRUCTOR",
+      "clause": "18.6.8.2",
+      "statement": {
+        "en": "A subsequently derived memory constructor can add available coverage models.",
+        "ja": "後続の派生memory constructorは利用可能coverage modelを追加できる。"
+      },
+      "conditions": {
+        "en": "Base construction supplies REG_BITS; only the derived constructor calls add_coverage with ADDR_MAP.",
+        "ja": "基底生成がREG_BITSを供給し、派生constructorだけがADDR_MAPを指定してadd_coverageを呼ぶ。"
+      },
+      "expected": {
+        "en": "Both models and their union are available; FIELD_VALS remains absent; enabling all models and then ADDR_MAP gates unavailable models and returns the previous mask.",
+        "ja": "両modelと和集合が利用可能となり、FIELD_VALSは不在を保つ。全model、次にADDR_MAPを有効化すると、利用不可modelを抑制し、以前のmaskを返す。"
+      },
+      "limitations": {
+        "en": "Only legal constructor use is exercised; no invented diagnostic for calls from other contexts. These are control bits, not measured functional coverage.",
+        "ja": "合法constructor利用のみを動かし、他contextからの呼出しについて診断を作らない。これらは制御bitで、測定したfunctional coverageではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_derived_constructor_adds_coverage_models_without_enabling_unavailable_models",
+          "role": "direct",
+          "expected_observations": [
+            "UT: added_models base 1 extra 1 union 1 unavailable 1",
+            "UT: enabled_models previous_none 1 union 1 unavailable_off 1",
+            "UT: changed_models previous_union 1 selected 1 base_off 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEMORY-AUDIT-PHYSICAL-READ",
+      "clause": "18.6.7.10",
+      "statement": {
+        "en": "The built-in memory backdoor read uses HDL support to read the selected physical location.",
+        "ja": "built-in memory backdoor readはHDL supportで選択物理locationを読む。"
+      },
+      "conditions": {
+        "en": "A memory extension is configured with an actual 16-bit four-location HDL array path; original public wrappers call the inherited base tasks with uvm_reg_item offsets one and two.",
+        "ja": "memory拡張へ実16-bit／4-location HDL array pathをconfigureし、独自公開wrapperがuvm_reg_item offset 1と2で継承基底taskを呼ぶ。"
+      },
+      "expected": {
+        "en": "The initial read returns cell one, then a read after the selected deposit returns the new physical value with success.",
+        "ja": "初回readはcell 1を返し、選択deposit後のreadは新物理値を成功statusで返す。"
+      },
+      "limitations": {
+        "en": "Actual public two-state HDL array storage through the unchanged original VPI check/read/deposit backend; separate verilator_hdl evidence. Ordinary unlinked-DPI builds and separate HDL failures are not passes. Derived wrappers reach the inherited implementation without proving the separately blocked public-access contract. No general array/type, force/release, four-state or vendor overlay support is inferred.",
+        "ja": "未変更の独自VPI check／read／deposit backendを通じた実公開two-state HDL array storageで、別verilator_hdl evidenceを持つ。通常のDPI未link buildや別HDL失敗はpassではない。派生wrapperは別途停止している公開access契約を証明せずに継承実装へ到達する。一般array／type、force／release、four-state、vendor overlay supportは推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_builtin_hdl_backdoor_tasks_read_and_write_selected_array_locations",
+          "role": "direct",
+          "expected_observations": [
+            "UT: physical_memory_read status 1 data 1",
+            "UT: physical_memory_write status 1 selected 1 neighbors 1",
+            "UT: physical_memory_readback status 1 data 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEMORY-AUDIT-PHYSICAL-WRITE",
+      "clause": "18.6.7.11",
+      "statement": {
+        "en": "The default string-based memory backdoor write deposits the selected physical location.",
+        "ja": "既定の文字列ベースmemory backdoor writeは選択物理locationへdepositする。"
+      },
+      "conditions": {
+        "en": "A memory extension is configured with an actual 16-bit four-location HDL array path; original public wrappers call the inherited base tasks with uvm_reg_item offsets one and two.",
+        "ja": "memory拡張へ実16-bit／4-location HDL array pathをconfigureし、独自公開wrapperがuvm_reg_item offset 1と2で継承基底taskを呼ぶ。"
+      },
+      "expected": {
+        "en": "The actual cell two changes to abcd with successful status and all other selected neighbors remain unchanged.",
+        "ja": "実cell 2が成功statusでabcdへ変わり、他の選択neighborは変わらない。"
+      },
+      "limitations": {
+        "en": "Actual public two-state HDL array storage through the unchanged original VPI check/read/deposit backend; separate verilator_hdl evidence. Ordinary unlinked-DPI builds and separate HDL failures are not passes. Derived wrappers reach the inherited implementation without proving the separately blocked public-access contract. No general array/type, force/release, four-state or vendor overlay support is inferred.",
+        "ja": "未変更の独自VPI check／read／deposit backendを通じた実公開two-state HDL array storageで、別verilator_hdl evidenceを持つ。通常のDPI未link buildや別HDL失敗はpassではない。派生wrapperは別途停止している公開access契約を証明せずに継承実装へ到達する。一般array／type、force／release、four-state、vendor overlay supportは推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_builtin_hdl_backdoor_tasks_read_and_write_selected_array_locations",
+          "role": "direct",
+          "expected_observations": [
+            "UT: physical_memory_read status 1 data 1",
+            "UT: physical_memory_write status 1 selected 1 neighbors 1",
+            "UT: physical_memory_readback status 1 data 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEMORY-AUDIT-PHYSICAL-SPLIT-SLICES",
+      "clause": "18.6.7.10",
+      "statement": {
+        "en": "Memory HDL backdoor reads assemble and writes distribute the specified physical slices.",
+        "ja": "memory HDL backdoor readは指定物理sliceを合成し、writeは分配する。"
+      },
+      "conditions": {
+        "en": "A 24-bit memory uses separate actual 8-bit low and 16-bit high arrays with explicit bit coordinates and the same location index.",
+        "ja": "24-bit memoryは明示bit座標と同一location indexを持つ、独立した実8-bit low／16-bit high arrayを使う。"
+      },
+      "expected": {
+        "en": "Read assembles ab0111; write cd2356 deposits cd23 and 56 into the selected bank cells with success and leaves neighboring cells unchanged.",
+        "ja": "readはab0111を合成し、write cd2356は成功して選択bank cellへcd23と56をdepositし、neighbor cellを変えない。"
+      },
+      "limitations": {
+        "en": "Actual public two-state HDL array storage through the unchanged original VPI check/read/deposit backend; separate verilator_hdl evidence. Ordinary unlinked-DPI builds and separate HDL failures are not passes. Derived wrappers reach the inherited implementation without proving the separately blocked public-access contract. No general array/type, force/release, four-state or vendor overlay support is inferred.",
+        "ja": "未変更の独自VPI check／read／deposit backendを通じた実公開two-state HDL array storageで、別verilator_hdl evidenceを持つ。通常のDPI未link buildや別HDL失敗はpassではない。派生wrapperは別途停止している公開access契約を証明せずに継承実装へ到達する。一般array／type、force／release、four-state、vendor overlay supportは推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_hdl_split_array_paths_assemble_and_deposit_the_declared_bit_slices",
+          "role": "direct",
+          "expected_observations": [
+            "UT: physical_split_read status 1 data 1",
+            "UT: physical_split_write status 1 slices 1 peers 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEMORY-AUDIT-PHYSICAL-ROM-POLICY",
+      "clause": "18.6.5.1",
+      "statement": {
+        "en": "A modeled backdoor write preserves actual ROM storage while poke directly deposits into it.",
+        "ja": "modelのbackdoor writeは実ROM storageを保持し、pokeは直接depositする。"
+      },
+      "conditions": {
+        "en": "A 16-bit RO memory maps an actual public four-location HDL array; selected and peer words begin distinct.",
+        "ja": "16-bit RO memoryが実公開4-location HDL arrayへmapされ、選択／peer wordは異なる初期値を持つ。"
+      },
+      "expected": {
+        "en": "write leaves selected/peer cells unchanged; poke changes only the selected cell with success; read and peek return that physical value.",
+        "ja": "writeは選択／peer cellを変えず、pokeは選択cellだけを成功して変え、readとpeekはその物理値を返す。"
+      },
+      "limitations": {
+        "en": "Actual public two-state HDL array storage through the unchanged original VPI check/read/deposit backend; separate verilator_hdl evidence. Ordinary unlinked-DPI builds and separate HDL failures are not passes. Derived wrappers reach the inherited implementation without proving the separately blocked public-access contract. No general array/type, force/release, four-state or vendor overlay support is inferred.",
+        "ja": "未変更の独自VPI check／read／deposit backendを通じた実公開two-state HDL array storageで、別verilator_hdl evidenceを持つ。通常のDPI未link buildや別HDL失敗はpassではない。派生wrapperは別途停止している公開access契約を証明せずに継承実装へ到達する。一般array／type、force／release、four-state、vendor overlay supportは推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_physical_rom_backdoor_write_and_poke_have_distinct_access_effects",
+          "role": "direct",
+          "expected_observations": [
+            "UT: physical_rom_write unchanged 1 peer 1",
+            "UT: physical_rom_poke status 1 data 1 peer 1",
+            "UT: physical_rom_read status 1 data 1",
+            "UT: physical_rom_peek status 1 data 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEMORY-AUDIT-PUBLIC-READ-CALL",
+      "clause": "18.6.7.10",
+      "statement": {
+        "en": "The printed public backdoor_read task is accessible from an external task declaration.",
+        "ja": "印字された公開backdoor_read taskは外部task宣言からaccessできる。"
+      },
+      "conditions": {
+        "en": "An external original module task contains a call through uvm_mem; no physical operation is executed.",
+        "ja": "外部の独自module taskがuvm_mem経由の呼出しを含み、物理操作は実行しない。"
+      },
+      "expected": {
+        "en": "The legal task body compiles and the declaration-control marker can execute.",
+        "ja": "合法task本体がcompileでき、宣言control markerを実行できる。"
+      },
+      "limitations": {
+        "en": "Static accessibility only, not call dispatch or HDL transfer semantics. It is a legal simulation probe, never an expected-rejection negative; a protected implementation build has no runtime. Separate derived-wrapper fixtures do not repair this public contract.",
+        "ja": "static access可能性のみで、呼出しdispatchやHDL transfer意味ではない。合法simulation probeであり、期待拒否negativeではない。protected実装buildにはruntimeがなく、別の派生wrapper fixtureでこの公開契約を修復しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_backdoor_read_public_call_is_a_legal_task_declaration",
+          "role": "direct",
+          "expected_observations": [
+            "UT: public_read_task declaration_legal 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MEMORY-AUDIT-PUBLIC-WRITE-CALL",
+      "clause": "18.6.7.11",
+      "statement": {
+        "en": "The printed public backdoor_write task is accessible from an external task declaration.",
+        "ja": "印字された公開backdoor_write taskは外部task宣言からaccessできる。"
+      },
+      "conditions": {
+        "en": "An external original module task contains a call through uvm_mem; no physical operation is executed.",
+        "ja": "外部の独自module taskがuvm_mem経由の呼出しを含み、物理操作は実行しない。"
+      },
+      "expected": {
+        "en": "The legal task body compiles and the declaration-control marker can execute.",
+        "ja": "合法task本体がcompileでき、宣言control markerを実行できる。"
+      },
+      "limitations": {
+        "en": "Static accessibility only, not call dispatch or HDL transfer semantics. It is a legal simulation probe, never an expected-rejection negative; a protected implementation build has no runtime. Separate derived-wrapper fixtures do not repair this public contract.",
+        "ja": "static access可能性のみで、呼出しdispatchやHDL transfer意味ではない。合法simulation probeであり、期待拒否negativeではない。protected実装buildにはruntimeがなく、別の派生wrapper fixtureでこの公開契約を修復しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_memory_backdoor_write_public_call_is_a_legal_task_declaration",
+          "role": "direct",
+          "expected_observations": [
+            "UT: public_write_task declaration_legal 1"
+          ]
+        }
+      ]
     }
   ]
 }

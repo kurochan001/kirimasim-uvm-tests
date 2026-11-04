@@ -2,7 +2,7 @@
 
 [English](history.md) · [README](../README.ja.md)
 
-M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の55回目の拡充（全1696件：simulation 1649・elaboration 47）までを記録しています。以前の349件の時点は
+M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の56回目の拡充（全1713件：simulation 1666・elaboration 47）までを記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -2261,3 +2261,31 @@ guest 1083記録と別HDL／command-line記録をbyte単位で保持し、以前
 
 metadata、台帳／索引、library、tool test 110件、print predicate検査、native／compiler同一性、日英資料は成功します。
 照合は全てAI、範囲は提案、分母／割合は未設定、goalは有効です。schema、runner／library／catalog、workflow、SVG 6個は未変更です。
+
+## 薄い領域の56回目：memory選択と実HDL array（2026-11-05）
+
+M3 memory 17 fixtureで具象constructor／既定値、保存した幅最大値、公開allocation-managerの連続／vreg予約、
+正確なlocal virtual-register／field列挙と検索分離を追加します。mapごとのcustom frontdoorはdebug metadataでも独立storageを保持し、
+継承／local user backdoorは実際のmodel access、拒否、retryを動かします。ROMのmodel writeはstorageを保持し、pokeは直接depositします。
+concat座標／重複、ancestor path直積、階層coverage-resource選択は独立したmetadata probeです。
+
+通常11 fixtureは両seed一致で、2件はseed 1で初めて異なりseed 73は実行しません。local-only照会が以前に継承してcacheしたbackdoorを返し、
+coverage setterが以前でなく新maskを返します。合法な公開read宣言build 1件はprotected accessで停止し、task本体は実行しません。
+独立した公開write宣言は一致します。実arrayの通常build 3件はDPI未linkでruntime結果がありません。
+
+その物理3 fixtureは、未変更の独自VPI backendで別に両seed一致します。選択16-bit memory word、24-bit分割bank、ROM writeとpoke／read／peekを検査します。
+独自派生wrapperは公開read契約を修復せず継承基底taskへ達します。以前のHDL 8記録を未変更で保持し、11件中10一致／保持するE.7差分1件となります。
+これらの限定two-state array結果で一般HDL supportを示しません。
+
+初期の幅最大値fixtureは予約語の変数名を使い、初期path設定は空ancestor pathも含めていました。両設定問題を修正して再測定してから現在の対象へ含めます。
+有効な期待を観測した失敗出力で置換していません。oracle tag追加後の現在入力を指紋で結びます。
+
+日英AI案31件で2993、個別に読んだ構造見出し7件で分類327（構造216／文脈111）です。第18章は部分298／分類42／未評価116で案606、全体は1612／327／568です。
+goalの28反復目は未評価を27減らし、元のmilestone目標と全ての部分義務を未完了で残します。以前の全2962要求・320分類・1696通常入力／記録を未変更で保持します。
+
+全1713（simulation 1666／elaboration 47）、M1 659（622／37）、M2 538（533／5）、M3 516（511／5）です。
+通常結果はpass 1492（runtime 1447／期待compiler拒否45）とknown 221（runtime 163／simulation build 56／不正compiler受理2）です。
+guest 1083とcommand-line記録をbyte単位で保持し、以前に修正した2入力を含む未測定630（simulation 583／elaboration 47）を残します。guest実行は主張しません。
+
+tool test 110件、metadata、台帳／索引、library、現在の入力／native／compiler同一性、日英資料の検査は成功します。
+FAQと用語を各2件追加し、237／271件です。人のレビュー、分母承認、完了は主張しません。schema、runner／library／catalog、backend、workflow、SVG 6件は未変更です。goalは継続中です。

@@ -1,0 +1,8 @@
+UT: backdoor_initial absent 1
+UT: inherited_selection default 1 explicit 1 local_absent 1
+UT: inherited_access status_data 1 used 1
+UT: local_access debug 0 selected 1 data 1 inherited_unchanged 1
+UT: local_access debug 1 selected 1 data 1 inherited_unchanged 1
+UT: backdoor_write_failure status 1 unchanged 1
+UT: backdoor_read_failure status 1
+UT: backdoor_retry data 1

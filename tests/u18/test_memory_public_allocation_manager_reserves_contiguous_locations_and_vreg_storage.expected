@@ -1,0 +1,2 @@
+UT: public_manager memory 1 contiguous 1 overlap_rejected 1
+UT: vreg_reservation success 1 manager 1 region 1

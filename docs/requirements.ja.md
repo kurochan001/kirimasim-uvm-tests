@@ -5,12 +5,12 @@
 ## 現在の状態
 
 M4を進めています。[対象範囲の案](../coverage/scope.json)、[要求台帳](../coverage/requirements.json)、
-[番号の分類](../coverage/assessments.json)、[テスト索引](../coverage/test_index.json)を版管理します。AI要求案2962件は、すべて1695テストへ直接対応し、
-追加の1テストはcontrolです。全1696テストに要求の対応付けがあります。
+[番号の分類](../coverage/assessments.json)、[テスト索引](../coverage/test_index.json)を版管理します。AI要求案2993件は、すべて1712テストへ直接対応し、
+追加の1テストはcontrolです。全1713テストに要求の対応付けがあります。
 直接テストとテスト対応付けのqueueは両方0件です。memory-walkのoracleは、レビューが必要な歴史的解釈を明示し、
 IEEE全体のcoverageを認定しません。人による照合記録はありません。
 
-条項catalogの番号は2,507件です。1592件は要求を一部分解し、320件はAIで明示的に分類（構造209件・文脈111件）、残る595件は未評価です。
+条項catalogの番号は2,507件です。1612件は要求を一部分解し、327件はAIで明示的に分類（構造216件・文脈111件）、残る568件は未評価です。
 いずれも完了を示しません。M4の開始は、範囲や分母の承認、M1〜M3の完了を意味しません。
 `approved_denominator`と`coverage_percentage`は`null`のままです。
 
@@ -18,7 +18,7 @@ IEEE全体のcoverageを認定しません。人による照合記録はあり�
 
 適用条件を伴う、観測可能な規範的義務を1要求とする案です。methodの1条項にも、成功、失敗、default引数、
 順序、副作用など、複数の要求が必要な場合があります。見出し自体は義務ではありません。
-2962件の要求案は複数領域にわたりますが、その条項内の全義務を列挙したものではありません。
+2993件の要求案は複数領域にわたりますが、その条項内の全義務を列挙したものではありません。
 
 既存の番号catalogのすべてのrootを、1つずつ次に割り当てます。
 
@@ -46,10 +46,10 @@ SystemVerilog言語自体の要求はkirimasim-testsで扱い、言語やHDL機�
 ![条項の引用、明示的な要求の対応付け、別途測定する実行の証拠の関係。](images/requirement-evidence.ja.svg)
 
 テストの最初のUVM `:lrm:`参照を**主引用**、後続のUVM参照を**補助引用**と呼びます。
-catalogのうち主引用がある番号は943件、どちらかの引用がある番号は1,711件です。
+catalogのうち主引用がある番号は956件、どちらかの引用がある番号は1,726件です。
 補助引用は準備に使うAPIの場合もあります。引用から要求の対応付けを自動生成せず、子条項の参照を親条項へ自動集約もしません。
 
-対象候補2,482件について、従来の「各条項2テスト」の主引用の棚卸しは、0件が1,539、1件が612、2件以上が331です。
+対象候補2,482件について、従来の「各条項2テスト」の主引用の棚卸しは、0件が1,526、1件が624、2件以上が332です。
 これはテストの配置を測るだけで、2つの独立した検査があること、規範的な義務を分解したこと、実行が成功したことを示しません。
 承認された要求の分母ではなく、主引用0件の全条項が不足だと宣言するものでもありません。
 
@@ -66,7 +66,7 @@ checkerは参照、field、期待行の存在、入力の同一性を検査し�
 
 [実行の証拠](results.ja.md)は別に扱い、入力、runner、ライブラリ、設定の同一性が必要です。
 直接の対応先にもspecのみの既知差分があり得ます。対応自体は成功や適合性の主張ではありません。
-現在の1696件には新たに測定した検査系を含みます。変更していない既存テストの対応付け自体は、追加の実行結果ではありません。
+現在の1713件には新たに測定した検査系を含みます。変更していない既存テストの対応付け自体は、追加の実行結果ではありません。
 
 ## 版管理するデータと生成する棚卸し
 
@@ -84,7 +84,7 @@ checkerは参照、field、期待行の存在、入力の同一性を検査し�
   `unreviewed`のまま未評価queueから除去できません。見出しの自動分類は行いません。
 - `coverage/test_index.json`は、全テストの`primary_clause`と`inputs_sha256`を記録します。
   指紋は既存runnerの収集処理を使い、source、宣言したhelper／include／data、期待値file、UVM lockを含めます。
-  索引は棚卸しであり、1696件のレビュー済み要求対応ではありません。
+  索引は棚卸しであり、1713件のレビュー済み要求対応ではありません。
 
 compile診断の対応には`stage: compile`、検査系の`:expected_stderr_regex:`と完全一致する空でない有効regex、`:type: elaboration`、空でない`:should_fail_because:`が必要です。
 その検査系にruntime出力／終了の期待は持たせません。未知／混在field、不正stage、不正／古いpattern、未対応schema版を拒否します。
@@ -176,7 +176,7 @@ JSONは、`requirements_without_direct_tests`（controlのみも含む日英の�
 | 15 | 118 | 107 | 0 | 18 | 2 |
 | 16 | 262 | 151 | 0 | 31 | 3 |
 | 17 | 42 | 11 | 0 | 8 | 0 |
-| 18 | 575 | 315 | 0 | 35 | 143 |
+| 18 | 606 | 332 | 0 | 42 | 116 |
 | 19 | 183 | 108 | 0 | 24 | 6 |
 | B | 48 | 54 | 0 | 0 | 106 |
 | C | 9 | 16 | 0 | 0 | 80 |
@@ -186,20 +186,20 @@ JSONは、`requirements_without_direct_tests`（controlのみも含む日英の�
 | G | 45 | 20 | 0 | 4 | 0 |
 
 未対応テスト0件と直接テストのない要求案0件は、完全な要求coverageを示しません。
-残る識別子595件は評価／分解が必要です。範囲は提案、2962件のレビューはすべて`ai`、分母は未承認です。
+残る識別子568件は評価／分解が必要です。範囲は提案、2993件のレビューはすべて`ai`、分母は未承認です。
 
-factory監査は新規M1 19 fixtureへAI案28件を追加します。選択built-inのtype_id義務はmemberの存在やgetter返却型だけでなく、宣言aliasの静的な双方向代入と正確なregistry receiverでclass／kind／parameter／名前の互換性を調べます。
-欠落memberの2 fixtureと継承基底特殊化の2 fixture、計4 build差分を保持します。独立sequence-baseの一致で停止したabstract object matrixをpassにはしません。
+memory監査はM3の新17 fixtureへAI案31件を追加します。具象生成／既定値、公開allocation-manager所有、保存した幅最大値、正確なlocal virtual-register／field queueと名前検索、
+mapごとのfrontdoor、継承／local backdoor、concat metadataとancestor直積、coverage生成、実HDL arrayを分けます。
 
-print義務は全入力指紋を通じてUTの露出markerと宣言runtime message regexを結びます。regexは別々に囲んだstdout／stderrの必須名と除外を検査し、marker行だけでは内容を示せません。
-local predicate検査52個が、table形式や報告経路を規定せず、空の一致や囲み外の一致を拒否します。
+公開read宣言はprotected accessで停止する合法compile probeで、独立write宣言は一致します。物理fixtureは必要に応じて継承基底task wrapperを使いますが、その公開契約を認定しません。
+別条件で未変更の独自VPI backendを通じて実array cellとpeerを調べます。modelのuser backdoor storageで物理HDL read義務を満たしたとはしません。
 
-他の義務は表現instance生成の遅延、独自wrapper委譲、object／componentの型、名前／parent、未知名のERROR／null、default-factory拡張、virtual基底拒否を分けます。
-null／controlの観測一致で未知名2 fixtureをpassにはしません。単一active factoryの読み方は、概要の物理的な単一instance記述に対して限定解釈を明示します。
+継承照会後のlocal-only照会とcoverage setterの以前mask義務はseed 1差分を保持します。物理support欠落、backend制限、成功した部分観測を隠れた除外やpassにしません。
+coverage制御はmetadataで、bin／covergroup coverageではありません。field収集はdynamic-arrayという本文に対して印字queue signatureを使い、順序や再利用queue意味を主張しません。
 
-構造見出し6件と文脈導入2件を個別分類します。第8章は部分60／分類12／未評価0で案83件、全体は部分1592／分類320／未評価595（構造209／文脈111）です。
-以前の全2934要求・312分類を未変更で保持します。packageの全型／category、明示例外、全override／wildcard／再帰loop条件、alias、登録寿命、全factory method、概要の字義は部分監査に残ります。
-第8章の未評価0で元のM1〜M4目標は完了しません。
+個別に読んだmethod群見出し7件を構造として分類します。第18章は部分298／分類42／未評価116で案606件、全体は部分1612／分類327／未評価568（構造216／文脈111）です。
+以前の全2962要求・320分類を未変更で保持します。memoryのfactory／非mirror概要、全既定値、重複path、map／burst／policy／失敗／並行／lifecycle組合せ、広いHDL supportは監査に残ります。
+現在の番号件数で元のM1〜M4目標を完了にはしません。
 
 TLM 1要求案は、選択interface／port既定値、FIFO照会、公開export method、channel継承／既定値／constructorとqueue容量を扱います。
 実analysis impと多段exportは、選択subscriberへの配送、subscriberごとの順序、live handleを保持します。
@@ -442,4 +442,4 @@ hashが同じでも、既知差分を含む未完／未承認の棚卸しの場�
 割合の公開前に、規範的義務の棚卸しとレビューを終え、範囲を決定し、計数規則と固定した要求集合の明示的な承認を得ます。
 レビュー済みの検査対応と、実行成功をどう数えるかは分けて定義し、実行条件と証拠の同一性も含めます。
 承認には後続のschema／手順の更新が必要です。scope schema 1では意図的に、棚卸し完了や承認済み分母を表せません。
-現在のAIによる2962要求案と直接の対応は、その条件を満たしていません。
+現在のAIによる2993要求案と直接の対応は、その条件を満たしていません。

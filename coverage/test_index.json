@@ -4722,6 +4722,54 @@
       "primary_clause": "18.6.4.17",
       "inputs_sha256": "7c4ca6301406a8b736a97dc883bf486fc34cc05f65870dea775d5fd47fce5cc3"
     },
+    "u18/test_memory_backdoor_local_and_inherited_selection_drives_access_failure_and_retry": {
+      "primary_clause": "18.6.7.1",
+      "inputs_sha256": "d4a060181c7fa7be55237a248f523fa7298757921045e3be8db60dd7009a3bdc"
+    },
+    "u18/test_memory_backdoor_read_only_write_preserves_storage_while_poke_deposits": {
+      "primary_clause": "18.6.5.1",
+      "inputs_sha256": "f13807cff8d35344a5488c661609df7139618ef3df36cb7d7e57046ccca08688"
+    },
+    "u18/test_memory_backdoor_read_public_call_is_a_legal_task_declaration": {
+      "primary_clause": "18.6.7.10",
+      "inputs_sha256": "7d96ba164c38504e3f369bac1b9a24218d7984a2d3d92bb898d8ab5823069460"
+    },
+    "u18/test_memory_backdoor_write_public_call_is_a_legal_task_declaration": {
+      "primary_clause": "18.6.7.11",
+      "inputs_sha256": "1063d30e9c2cf44744ba4eaad1a33a7cf49c1c147e23562c7dd9d43f7483163f"
+    },
+    "u18/test_memory_builtin_hdl_backdoor_tasks_read_and_write_selected_array_locations": {
+      "primary_clause": "18.6.7.10",
+      "inputs_sha256": "d250edbfc91512d2c5909b70b40b51cb9a640b426f5f9c5c0ec0139c346d1197"
+    },
+    "u18/test_memory_coverage_builder_intersects_requested_models_with_hierarchical_resource_selection": {
+      "primary_clause": "18.6.8.1",
+      "inputs_sha256": "72e0a3157d1352bfb5149574563c5ebae2711c76e56fc67709b1b307179e4827"
+    },
+    "u18/test_memory_derived_constructor_adds_coverage_models_without_enabling_unavailable_models": {
+      "primary_clause": "18.6.8.2",
+      "inputs_sha256": "8632ba1f75106ff7b9da01121eb076764d91942267fe0216a62d3bf6ae7abdb6"
+    },
+    "u18/test_memory_direct_construction_defaults_and_explicit_rom_keep_distinct_configuration": {
+      "primary_clause": "18.6.1",
+      "inputs_sha256": "1170a0b630d0d2fe7f6dfb4b80272e7fa1488b9ce8d6d97e1701fce8a3c5b06e"
+    },
+    "u18/test_memory_frontdoor_selection_is_per_map_and_debug_metadata_preserves_real_access": {
+      "primary_clause": "18.6.6.1",
+      "inputs_sha256": "40e95dca17a4de9afba79dde2eb80f7a9961133c4ef759aaafc48c5967ba930f"
+    },
+    "u18/test_memory_full_hdl_paths_expand_ancestor_duplicates_and_custom_separators": {
+      "primary_clause": "18.6.7.9",
+      "inputs_sha256": "a1498fed114581b1efa0c51d276edf5718ec46054004d75a0c0e6e0a9149fe40"
+    },
+    "u18/test_memory_hdl_concatenations_keep_slice_coordinates_and_duplicate_implementations": {
+      "primary_clause": "18.6.7.4",
+      "inputs_sha256": "af27e8204f6577f69af28831b686cd248a23617640706bd37ce4784729212714"
+    },
+    "u18/test_memory_hdl_split_array_paths_assemble_and_deposit_the_declared_bit_slices": {
+      "primary_clause": "18.6.7.10",
+      "inputs_sha256": "a5f94c08c1f1be3241ef6cb5c6fc8c3a7712c10a87415a3c0478a41e08465cb9"
+    },
     "u18/test_memory_manager_configuration_query_and_compatible_shrink_preserve_active_regions": {
       "primary_clause": "18.12.4.2",
       "inputs_sha256": "ca607ab92b017a9ecdaa86b48c8b22195f1d7ef7cb637c0e27e6ab2b0d50a036"
@@ -4790,6 +4838,14 @@
       "primary_clause": "18.12.5.1",
       "inputs_sha256": "5ee34070e78572bb4f038fd162e726e35e715c7d88b4ac01c644b7b14e97bc49"
     },
+    "u18/test_memory_maximum_width_tracks_all_constructed_memories_without_shrinking": {
+      "primary_clause": "18.6.4.10",
+      "inputs_sha256": "10a5769086e2e3918ae0309cc61b46f76d383eb0acc9b81a8dce6390ad127a61"
+    },
+    "u18/test_memory_physical_rom_backdoor_write_and_poke_have_distinct_access_effects": {
+      "primary_clause": "18.6.5.1",
+      "inputs_sha256": "0a49010daec481a55ef4360dd7e225d6c977c411abc715bd1c7fba83fac4af8c"
+    },
     "u18/test_memory_policy_in_use_contains_exact_allocated_region_handles": {
       "primary_clause": "18.12.8.2.5",
       "inputs_sha256": "7a7fd80495855c3783351cffe65c70a994398f5845f150ec3bf76314f3bfad12"
@@ -4801,6 +4857,10 @@
     "u18/test_memory_policy_receives_rounded_length_bounds_and_selects_aligned_offset": {
       "primary_clause": "18.12.8",
       "inputs_sha256": "fe921af50bb39283444f77ad15ccc50bc48fab479d248e8c5c6ef6853eaeb7e5"
+    },
+    "u18/test_memory_public_allocation_manager_reserves_contiguous_locations_and_vreg_storage": {
+      "primary_clause": "18.6.2",
+      "inputs_sha256": "b6f2791aa6c95f8b95ff744808514b97e40c6c8d6c123b78cd5c5108b84cae79"
     },
     "u18/test_memory_region_burst_read_delegates_relative_offsets_context_data_and_status": {
       "primary_clause": "18.12.7.2.11",
@@ -4841,6 +4901,14 @@
     "u18/test_memory_regions_round_requested_bytes_to_complete_address_locations": {
       "primary_clause": "18.12.7.2.1",
       "inputs_sha256": "ff49ffddf46b612b0b25e2b8382ee57bb6e14890c1db668f5c0beb43745af5c0"
+    },
+    "u18/test_memory_virtual_name_lookup_preserves_handles_and_isolates_other_memories": {
+      "primary_clause": "18.6.4.13",
+      "inputs_sha256": "7740101afd780fe0d184cd6a28fc32cacdd318ab7a9aa42ab42bea62e08868d4"
+    },
+    "u18/test_memory_virtual_register_and_field_queues_enumerate_only_local_implementations": {
+      "primary_clause": "18.6.4.11",
+      "inputs_sha256": "30bbfe3634717cf6cfecf0a111eec18fe3b15a74432b3abb6f5adcf1851e359c"
     },
     "u18/test_reg_block_default_map_selection_and_recursive_model_lock": {
       "primary_clause": "18.1.2.5",

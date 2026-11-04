@@ -193,7 +193,7 @@ again. `--check` checks the copy that is there. The library is not committed.
 - User-defined `uvm_reg_backdoor` storage handlers work without HDL DPI.
   Commercial simulator execution/results are excluded by the project policy;
   built-in HDL-path/DPI coverage remains open.
-- 1670 current cases use `UVM_NO_DPI`; eight explicitly enable HDL DPI.
+- 1684 current cases use `UVM_NO_DPI`; eleven explicitly enable HDL DPI.
   `:uvm_dpi: yes` removes that macro;
   it does not automatically compile or link the C/C++ DPI implementation.
   The current Verilator runner does not add DPI C/C++ sources.
@@ -204,7 +204,7 @@ again. `--check` checks the copy that is there. The library is not committed.
 
 The separate [HDL runner](../tools/run_verilator_hdl.py) links the original
 [backend](../tools/uvm_hdl_vpi.cpp) through public VPI, using actual HDL storage.
-It requires exactly Verilator 5.052. The eight opt-in fixtures set
+It requires exactly Verilator 5.052. The eleven opt-in fixtures set
 `:uvm_dpi: yes`, `:uvm_hdl_backend: vpi` and the declared `:dpi_c:` path,
 while `UVM_REGEX_NO_DPI` and `UVM_CMDLINE_NO_DPI` disable unrelated imports.
 The runner rejects HDL disabling macros and an override of the default
@@ -215,22 +215,29 @@ python3 tools/run_verilator_hdl.py --seeds 1 73 --build-jobs 2 -j 1 \
   --json out/verilator-hdl.json
 ```
 
-Only packed variables up to 64 bits are supported by this backend; fixtures
-use 8/40 bits and explicitly expose them through VPI. Check/read/deposit
-reach actual simulator handles. Force/release return failure and are outside
-the selected tests, as are arrays, four-state values and fine-grained
-permissions. This is an original limited backend, not an imported vendor
-overlay or proof of another simulator's HDL implementation.
+The unchanged backend accepts supported packed-variable handles up to 64 bits.
+Earlier fixtures use 8/40-bit variables; three memory fixtures also measure
+selected actual 16-bit array words and 8/16-bit split banks. Check/read/deposit
+reach actual simulator handles and neighboring cells provide isolation controls.
+The two inherited-task fixtures use original public wrappers because the pinned
+library makes backdoor_read protected. A separate legal declaration probe
+retains that accessibility difference; public-write declaration is independently
+legal. Wrappers do not pass the public-read contract.
+
+Force/release return failure. Selected array-word matches do not establish
+general array/type support, four-state values, fine-grained permissions or vendor
+overlays. This is an original limited backend, not proof of another simulator's
+HDL implementation.
 
 See the [public VPI documentation](https://verilator.org/guide/latest/connecting.html#verification-procedural-interface-vpi)
 for visibility and evaluation constraints. Fixtures allow reevaluation after
 deposits before inspecting HDL values. No simulator implementation source is read.
-The ordinary runner is unchanged and does not link this backend; these eight
+The ordinary runner is unchanged and does not link this backend; these eleven
 fixtures remain `:oracle: spec`. The separate runner records `verilator_hdl`,
 its own `runner_sha256` and backend configuration, and uses the same generic
-expectations. It returns failure for any selected mismatch. Seven cases match
-both seeds; the E.7 warning/no-transfer case differs. Keep this overlapping
-eight-case condition separate from ordinary-runner evidence.
+expectations. It returns failure for any selected mismatch. Ten cases match
+both seeds, including the three actual-array fixtures; the E.7 warning/no-transfer
+case differs. Keep this overlapping eleven-case condition separate from ordinary-runner evidence.
 
 Algorithm details absent from the current IEEE text may have an explicitly
 qualified AI interpretation recorded in the fixture and ledger. The memory-walk
@@ -292,9 +299,9 @@ For runtime cases, `--seeds 1 73` builds once and runs a fresh process for
 each seed. All requested runtime seeds must match. `--seed N` remains available for a single seed.
 The JSON configuration records either `seed` or `seeds` accordingly.
 
-By default, Verilator selects 1481 tagged two-state checks: 1436 runtime
+By default, Verilator selects 1492 tagged two-state checks: 1447 runtime
 cases and 45 expected compiler rejections. To include
-the 215 spec-only cases as well, add `--all`. A mismatch in an untagged case
+the 221 spec-only cases as well, add `--all`. A mismatch in an untagged case
 is `known` and does not fail the command; a tagged mismatch does.
 Explicit test paths select only those tests. For a single smoke test:
 
@@ -348,7 +355,7 @@ python3 tools/requirements.py check
 ```
 
 The current tool suite has 110 unit tests; metadata validation checks all
-1696 tests (1649 simulation, 47 elaboration). The [ledger check](requirements.md) validates the draft
+1713 tests (1666 simulation, 47 elaboration). The [ledger check](requirements.md) validates the draft
 scope, explicit oracle links and input fingerprints without claiming coverage. [Check](../.github/workflows/check.yml) runs on pushes to
 `main`, pull requests and manual dispatch. Its separate Verilator job uses
 5.052, `UVM_NO_DPI` and seeds 1 and 73 for the tagged cases. Each model is

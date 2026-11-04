@@ -1,0 +1,3 @@
+UT: physical_memory_read status 1 data 1
+UT: physical_memory_write status 1 selected 1 neighbors 1
+UT: physical_memory_readback status 1 data 1
