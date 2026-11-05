@@ -26,6 +26,8 @@ language tests are missing.
 
 ## Shared judgment and result code
 
+Shared result code gives the two suites a common JSON format, and [the result definitions](faq.md#q5-what-do-pass-fail-known-and-unsupported-mean) explain how to interpret the statuses produced by this suite's runners.
+
 `tools/suite_results.py` comes from
 [kirimasim-tests at 19034b575e1b715c356660ac1422b45f25c15ab3](https://github.com/kurochan001/kirimasim-tests/blob/19034b575e1b715c356660ac1422b45f25c15ab3/tools/suite_results.py),
 with these changes:
@@ -130,6 +132,13 @@ derived from supplied IEEE callback/field contracts. ERROR presence and exact
 status are specified without copying implementation-specific report wording.
 The two Methods headings were read individually as grouping clauses. Correcting
 display formatting does not change the standard-derived expected observations.
+
+Recording and scalar-macro expectations were derived independently from
+supplied IEEE B.2.3–B.2.5 and recorder/packer contracts. The pinned Apache-2.0
+recorder-macro header was read afterward to diagnose extra arguments, integer
+hook selection and generic formatting; it did not define the oracle. Literal
+printed inputs, extension-tolerant controls and qualified handle interpretations
+remain distinct, as explained in [the macro FAQ](faq.md#recording-and-scalar-macro-conditions).
 
 ## Clause catalog maintenance
 

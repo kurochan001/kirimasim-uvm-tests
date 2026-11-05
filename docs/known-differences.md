@@ -4,16 +4,40 @@
 
 A difference belongs to a particular simulator/library/input condition, and [the status definitions](faq.md#q5-what-do-pass-fail-known-and-unsupported-mean) explain how it appears in runner output.
 
-This describes the current 2056-test suite and the pinned Accellera UVM
+This describes the current 2100-test suite and the pinned Accellera UVM
 2020.3.1 library. A mismatch is a test result; it does not by itself assign
 the cause to the simulator, the library or the expectation.
+
+For a particular case, find its source link under [Spec-only tests](#spec-only-tests) and read its metadata using [the test format guide](testing.md#test-format) to identify the expected observation and execution conditions.
+
+Recording/scalar-macro auditing adds eleven measured differences: six strict
+three-argument attribute builds, one printed enum-unpack arity build, two
+33-bit integer-hook runtime differences and two default-attribute runtime
+differences. Runtime differences have seed 1 only; builds have no runtime.
+Six extension-tolerant attribute controls, a printed enumN control and a direct
+small-field API control match separately. The latter two also have direct duties.
+The enum signature/prose conflict and TR_HANDLE/zero-argument accessor boundary
+remain qualified interpretations; these eleven fixtures are not eleven proven
+independent bugs. See [macro conditions](faq.md#recording-and-scalar-macro-conditions).
+
+- [Typed dynamic array attribute (three arguments)](../tests/uB/test_record_macro_attribute_dynamic_array_preserves_the_original_type_and_handle.sv).
+- [Default attribute on the selected recorder](../tests/uB/test_record_macro_attribute_handle_uses_the_declared_default_recorder_route.sv).
+- [Typed packed struct attribute (three arguments)](../tests/uB/test_record_macro_attribute_packed_struct_preserves_the_original_type_and_handle.sv).
+- [Default attribute with a peer handle](../tests/uB/test_record_macro_attribute_peer_uses_the_declared_default_recorder_route.sv).
+- [Typed real attribute (three arguments)](../tests/uB/test_record_macro_attribute_real_preserves_the_original_type_and_handle.sv).
+- [Typed string attribute (three arguments)](../tests/uB/test_record_macro_attribute_string_preserves_the_original_type_and_handle.sv).
+- [Typed time attribute (three arguments)](../tests/uB/test_record_macro_attribute_time_preserves_the_original_type_and_handle.sv).
+- [Typed wide integral attribute (three arguments)](../tests/uB/test_record_macro_attribute_wide_integral_preserves_the_original_type_and_handle.sv).
+- [Small integer macro with explicit radix](../tests/uB/test_record_macro_int_33_explicit_radix_uses_the_declared_recorder_route.sv).
+- [Small integer macro with omitted radix](../tests/uB/test_record_macro_int_default_radix_uses_the_declared_default_recorder_route.sv).
+- [Printed one-argument enum unpack](../tests/uB/test_unpack_macro_enum_interoperates_with_an_independent_scalar_api.sv).
 
 88 elaboration fixtures expect rejection: 33 direct abstract
 constructions and 55 pure-interface/const-reference/forbidden-member/
 type-context violations. 85 match. Subscriber/visitor omissions and direct
 construction of the printed virtual builtin dispatcher remain accepted and
 spec-only without runtime. These three compiler acceptances are separate from
-283 known simulation differences. Legal derived controls do not replace a
+294 known simulation differences. Legal derived controls do not replace a
 required rejection.
 
 Field-access auditing retains 5 new runtime differences at seed 1 without
@@ -811,7 +835,7 @@ cannot build because the pinned library also declares unlisted pure helpers.
 The missing-standard-hook negative supplies original compatibility bodies only
 to isolate the specified rejection. It does not repair that legal extension.
 
-Across the suite, 1770 tests have the `verilator@5.052` oracle tag and 286
+Across the suite, 1803 tests have the `verilator@5.052` oracle tag and 297
 cases are spec-only. One of the spec-only cases checks 9.6: a child's pre-reset
 task must be killed when that phase ends, but the pinned-library run on Verilator 5.052
 lets the child perform its delayed write during a later phase. The cause of
@@ -823,10 +847,10 @@ without callbacks. The pinned Verilator run reaches the blocked-state
 observation, then its watchdog expires. This combined simulator/library
 cause remains unassigned; the normative wakeup expectation is retained.
 
-The 286 spec-only tests retain their normative expected files.
-Default Verilator runs and CI select 1770 tagged checks (1685 runtime, 85 compile rejection). `--all` includes
+The 297 spec-only tests retain their normative expected files.
+Default Verilator runs and CI select 1803 tagged checks (1718 runtime, 85 compile rejection). `--all` includes
 spec-only cases and records mismatches or build failures as `known`.
-The ordinary runtime records for 214 cases establish their first difference
+The ordinary runtime records for 218 cases establish their first difference
 at seed 1, without seed 73 results. Twenty-seven missing-API/type-name builds have
 no ordinary runtime: one time API, six sequence-library cases, four HDL slice
 cases, one named-concat constructor, five object active-policy API cases, three catcher
@@ -838,7 +862,7 @@ failure. Two legal extensions, resource-base and listed-only core service, requi
 unlisted pure hooks.
 Three additional legal builds retain the enum-collection T interpretation.
 Eleven HDL and eighteen command-line cases also
-lack linked DPI in the ordinary runner, totaling 69 simulation builds without
+lack linked DPI in the ordinary runner, totaling 76 simulation builds without
 runtime.
 
 The separate HDL
@@ -906,7 +930,9 @@ The printed create_object equivalent call's extra this argument remains partial.
 
 Spec-only cases retain standard-derived expectations even without a fixed-release oracle tag; [Standards and expectations](glossary.md#standards-and-expectations) explains what that annotation means.
 
-These are the 286 current spec-only cases. Several exercise the same
+A control exercises a separate premise to help interpret a difference, and [the requirement-link guide](requirements.md#citations-requirements-and-execution-evidence) explains how its result relates to the original case.
+
+These are the 297 current spec-only cases. Several exercise the same
 limitation, so their count is not a count of distinct bugs.
 
 - [Inherited subscriber type_id specialization](../tests/u08/test_builtin_abstract_parameterized_components_type_id_uses_the_required_registry_specialization.sv).
@@ -1194,7 +1220,7 @@ Additional message-handle and endian cases:
 
 Two existing inputs have revised fingerprints: the command-enum citation and
 the corrected Boolean rerandomization observation. Their historical guest
-records are excluded. The compatible subset has 1083 records and 973 inputs
+records are excluded. The compatible subset has 1083 records and 1017 inputs
 are unmeasured, including both revised inputs. This filtering is evidence scope,
 not a new guest failure, pass or simulator improvement.
 
@@ -1231,8 +1257,8 @@ not a new guest failure, pass or simulator improvement.
 
 A bundled library and the pinned library are different execution conditions, so compare records using [Current snapshot](results.md#current-snapshot).
 
-The suite has 2056 cases, but the kirimasim/Ghost records below cover only
-1083 unchanged current-input cases. The 973 inputs are unmeasured
+The suite has 2100 cases, but the kirimasim/Ghost records below cover only
+1083 unchanged current-input cases. The 1017 inputs are unmeasured
 because prior temporary executable/profile snapshots are unavailable. Do
 not treat this as a fresh full-suite guest result. See [results](results.md).
 

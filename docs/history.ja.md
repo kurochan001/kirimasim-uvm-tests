@@ -4,12 +4,14 @@
 
 このページの件数は各変更時点の値なので、現在のスイート規模や実行範囲が必要なときは[現在のスナップショット](results.ja.md#現在のスナップショット)を使ってください。
 
-M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の67回目の拡充（全2056件：simulation 1968・elaboration 88）までを記録しています。以前の349件の時点は
+M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の68回目の拡充（全2100件：simulation 2012・elaboration 88）までを記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
 
 ## Ghostの同梱UVMによる測定
+
+同梱モードはシミュレータが供給するUVMライブラリを使う実行であり、以下の過去の件数が前提にする条件は[Q11](faq.ja.md#q11-ghostの結果は何を確認しなぜ仮名なのですか)で説明しています。
 
 最初のM1の同梱UVMでの実行はseed 1・73とも18/27件が一致し、同じ9件で不一致になりました。
 同じ実行ファイルでの固定版UVMのスモークテストは、前処理を有効にした場合も不一致でした。
@@ -2694,3 +2696,24 @@ seed 1／73、compiler拒否85件、固定依存関係、runner指紋は未変�
 続くドキュメント見直しで、日英の[読み方ガイド](reading-guide.ja.md)と、既存ガイドの34箇所に短い説明文・参照リンクを追加しました。
 READMEは現在の対象範囲を要約し、最初の実行、結果ラベル、証拠の同一性、要求件数の区別を疑問が生じる箇所から辿れるようにしました。
 以前の履歴記録は保持します。
+
+## 薄い領域の68回目の拡充：recordingとscalar I/O macro
+
+[e8a6d8e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/e8a6d8e1b5a955baed158d3e2bbaaab861a713ef)を基に、M1のsimulation 44件と独自の日英AI義務41件を追加します。
+scalarの各方向は公開packer APIと7-bit末尾値を独立に使い、選択幅・値・hook観測でserialized配置を固定しません。
+実行中のtransaction handleで独自recorder observerを動かします。3引数typed attribute入力6件はbuild差分を保持し、
+4番目の引数を明示するcontrol 6件は一致してもcontrol専用です。enumNと直接small record_fieldのcontrolは別の直接義務も持ちます。
+印刷された1引数enum signatureと既定attributeのhandle解釈は限定した前提に残します。
+
+新入力33件がseed 1／73で一致し、4件がseed 1で異なり、7件はbuildできません。元の期待値fileは保持します。
+metadata補助引用と省略radixの観測をIEEEと照合して修正し、現在の入力と最終入力を再測定しました。
+固定Apache-2.0のrecorder macro headerは独立した期待値を書いた後の原因調査だけに使います。
+
+全2100（simulation 2012／elaboration 88）、M1 887（812／75）、M2 547（542／5）、M3 666（658／8）です。
+通常passは1803（runtime 1718／compiler拒否85）、knownは297（runtime 218／build 76／不正受理3）です。
+以前の全2056通常入力／記録、3645義務、397分類、88 compiler記録は未変更です。guest／backend記録も未変更で、guest未測定は1017入力です。
+分類を追加せず21番号を部分分解し、全体は1924／397／186、付録Bは102／4／38です。
+範囲・分母・人のレビュー・元の目標は未承認／未完です。
+
+全11言語対の読み手向け案内を保持し、短い説明と関連する節へのリンクを補います。
+library／tool／metadata／台帳、現在のevidence、既存source保持、8 shardの完全選択をlocalで検証しますが、hosted Checkの成功を立証するものではありません。

@@ -5,14 +5,16 @@
 Counts on this page belong to the time of each change, so use [the current snapshot](results.md#current-snapshot) when you need the present suite size or execution scope.
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and sixty-seven cross-milestone thin-area expansions, including the
-existing-test requirement-link backlog checkpoint (2056 tests: 1968 simulation and 88 elaboration). The earlier 349-test checkpoint is
+three M4 increments and sixty-eight cross-milestone thin-area expansions, including the
+existing-test requirement-link backlog checkpoint (2100 tests: 2012 simulation and 88 elaboration). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
 current library limitations are in [known differences](known-differences.md).
 
 ## Ghost bundled-library measurements
+
+A bundled run uses the simulator-supplied UVM library, and [Q11](faq.md#q11-what-does-the-ghost-result-cover-and-why-an-alias) explains the execution condition behind these historical counts.
 
 The initial M1 bundled-library runs match 18 of 27 tests with both seeds 1
 and 73; the same nine cases differ. The pinned-library smoke test does not
@@ -4216,3 +4218,34 @@ and short explanation/link sentences at 34 reading points across the existing
 guides. The README summarizes current scope, while readers can follow the
 first run, result labels, evidence identity and requirement-count distinctions
 where those questions arise. The prior historical records are preserved.
+
+## Sixty-eighth thin-area expansion: recording and scalar I/O macros
+
+Based on [e8a6d8e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/e8a6d8e1b5a955baed158d3e2bbaaab861a713ef), this increment adds 44 M1 simulations and 41 original bilingual
+AI duties. Scalar directions use independent public packer APIs and a seven-bit
+trailer; selected widths, values and hook observations do not fix serialized
+layout. Live transaction handles support original recorder observers. Six
+three-argument typed-attribute inputs retain build differences; six explicit
+fourth-argument controls match and remain control-only. EnumN and direct small
+record_field controls also have distinct direct duties. The printed one-argument
+enum signature and default-attribute handle interpretation remain qualified.
+
+33 new inputs match seeds 1/73; four differ at seed 1 and seven cannot build.
+The original expected files are preserved. Metadata support citations and an
+omitted-radix observation were corrected from IEEE, then current and final
+inputs were remeasured. The pinned Apache-2.0 recorder-macro header was used
+only for diagnosis after independent expectations were written.
+
+The suite becomes 2100 (2012 simulation/88 elaboration): M1 887 (812/75),
+M2 547 (542/5), M3 666 (658/8). Ordinary pass is 1803 (1718 runtime/85 compiler
+rejections), with 297 known (218 runtime/76 builds/3 illegal acceptances).
+All 2056 prior ordinary inputs/records, 3645 duties, 397 assessments and 88
+compiler records remain unchanged. Guest/backend records are unchanged;
+1017 guest inputs are unmeasured. Twenty-one identifiers receive partial
+decompositions without new classifications: global 1924/397/186; annex B
+102/4/38. Scope, denominator, human review and original targets remain open.
+
+Reader guidance in all eleven language pairs is preserved and expanded with
+short contextual explanations and links. Library/tool/metadata/ledger checks,
+current evidence, source preservation and exact eight-shard selection are
+validated locally; this does not establish a successful hosted Check result.

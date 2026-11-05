@@ -133437,6 +133437,1470 @@
           ]
         }
       ]
+    },
+    {
+      "id": "UVM-MACRO-IO-AUDIT-PACK-INTN-1",
+      "clause": "B.2.4.1",
+      "statement": {
+        "en": "The selected scalar macro packs its value for independent API decoding.",
+        "ja": "選択scalar macroは独立APIでdecodeできるよう値をpackする。"
+      },
+      "conditions": {
+        "en": "Invoke the scalar macro inside its named object hook with a compatible pinned packer instance; the other direction uses the public scalar API, followed by an independent seven-bit trailer. Selected element width is 1; N arguments are positive compile-time constants.",
+        "ja": "名付けられたobject hook内でscalar macroを互換な固定packer instanceに対して呼び、反対方向は公開scalar APIを使い、独立した7-bit末尾値を付ける。 選択要素幅は1で、N引数は正のcompile-time定数にする。"
+      },
+      "expected": {
+        "en": "The selected scalar value and separate trailer match, with no bits left to unpack.",
+        "ja": "選択scalar値と別の末尾値が一致し、unpackするbitが残らない。"
+      },
+      "limitations": {
+        "en": "Only the selected macro form, scalar value or recording profile is observed. Compatible public APIs avoid prescribing an external stream layout. Selected legal positive N sizes do not close nonconstant/zero/negative-size questions. Unlisted collection algorithms, all null/error/lifecycle/concurrency conditions and printed signature/prose conflicts remain partial. A shared expected row does not create an independent test.",
+        "ja": "選択macro形式、scalar値、記録profileだけを観測する。互換な公開APIを使い、外部stream配置は規定しない。合法な正のN sizeの選択で非定数／0／負sizeの問題を完了にしない。未記載のcollection algorithm、全null／error／lifecycle／並行条件、印刷signatureと本文の食違いは部分的に残す。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_pack_macro_intn_1_interoperates_with_an_independent_scalar_api",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro_pack_intn_1 value 1 tail 1 consumed 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MACRO-IO-AUDIT-PACK-N-CONSTANT",
+      "clause": "B.2.4",
+      "statement": {
+        "en": "A selected positive constant N supplies the explicit packing width.",
+        "ja": "選択した正の定数Nは明示的なpacking幅を供給する。"
+      },
+      "conditions": {
+        "en": "Invoke the scalar macro inside its named object hook with a compatible pinned packer instance; the other direction uses the public scalar API, followed by an independent seven-bit trailer. Selected element width is 1; N arguments are positive compile-time constants.",
+        "ja": "名付けられたobject hook内でscalar macroを互換な固定packer instanceに対して呼び、反対方向は公開scalar APIを使い、独立した7-bit末尾値を付ける。 選択要素幅は1で、N引数は正のcompile-time定数にする。"
+      },
+      "expected": {
+        "en": "The selected one-bit value is handled before an independent trailer.",
+        "ja": "選択した1-bit値を独立した末尾値より前に扱う。"
+      },
+      "limitations": {
+        "en": "Only the selected macro form, scalar value or recording profile is observed. Compatible public APIs avoid prescribing an external stream layout. Selected legal positive N sizes do not close nonconstant/zero/negative-size questions. Unlisted collection algorithms, all null/error/lifecycle/concurrency conditions and printed signature/prose conflicts remain partial. A shared expected row does not create an independent test.",
+        "ja": "選択macro形式、scalar値、記録profileだけを観測する。互換な公開APIを使い、外部stream配置は規定しない。合法な正のN sizeの選択で非定数／0／負sizeの問題を完了にしない。未記載のcollection algorithm、全null／error／lifecycle／並行条件、印刷signatureと本文の食違いは部分的に残す。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_pack_macro_intn_1_interoperates_with_an_independent_scalar_api",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro_pack_intn_1 value 1 tail 1 consumed 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MACRO-IO-AUDIT-PACK-INTN-33",
+      "clause": "B.2.4.1",
+      "statement": {
+        "en": "The selected scalar macro packs its value for independent API decoding.",
+        "ja": "選択scalar macroは独立APIでdecodeできるよう値をpackする。"
+      },
+      "conditions": {
+        "en": "Invoke the scalar macro inside its named object hook with a compatible pinned packer instance; the other direction uses the public scalar API, followed by an independent seven-bit trailer. Selected element width is 33; N arguments are positive compile-time constants.",
+        "ja": "名付けられたobject hook内でscalar macroを互換な固定packer instanceに対して呼び、反対方向は公開scalar APIを使い、独立した7-bit末尾値を付ける。 選択要素幅は33で、N引数は正のcompile-time定数にする。"
+      },
+      "expected": {
+        "en": "The selected scalar value and separate trailer match, with no bits left to unpack.",
+        "ja": "選択scalar値と別の末尾値が一致し、unpackするbitが残らない。"
+      },
+      "limitations": {
+        "en": "Only the selected macro form, scalar value or recording profile is observed. Compatible public APIs avoid prescribing an external stream layout. Selected legal positive N sizes do not close nonconstant/zero/negative-size questions. Unlisted collection algorithms, all null/error/lifecycle/concurrency conditions and printed signature/prose conflicts remain partial. A shared expected row does not create an independent test.",
+        "ja": "選択macro形式、scalar値、記録profileだけを観測する。互換な公開APIを使い、外部stream配置は規定しない。合法な正のN sizeの選択で非定数／0／負sizeの問題を完了にしない。未記載のcollection algorithm、全null／error／lifecycle／並行条件、印刷signatureと本文の食違いは部分的に残す。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_pack_macro_intn_33_interoperates_with_an_independent_scalar_api",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro_pack_intn_33 value 1 tail 1 consumed 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MACRO-IO-AUDIT-PACK-INTN-97",
+      "clause": "B.2.4.1",
+      "statement": {
+        "en": "The selected scalar macro packs its value for independent API decoding.",
+        "ja": "選択scalar macroは独立APIでdecodeできるよう値をpackする。"
+      },
+      "conditions": {
+        "en": "Invoke the scalar macro inside its named object hook with a compatible pinned packer instance; the other direction uses the public scalar API, followed by an independent seven-bit trailer. Selected element width is 97; N arguments are positive compile-time constants.",
+        "ja": "名付けられたobject hook内でscalar macroを互換な固定packer instanceに対して呼び、反対方向は公開scalar APIを使い、独立した7-bit末尾値を付ける。 選択要素幅は97で、N引数は正のcompile-time定数にする。"
+      },
+      "expected": {
+        "en": "The selected scalar value and separate trailer match, with no bits left to unpack.",
+        "ja": "選択scalar値と別の末尾値が一致し、unpackするbitが残らない。"
+      },
+      "limitations": {
+        "en": "Only the selected macro form, scalar value or recording profile is observed. Compatible public APIs avoid prescribing an external stream layout. Selected legal positive N sizes do not close nonconstant/zero/negative-size questions. Unlisted collection algorithms, all null/error/lifecycle/concurrency conditions and printed signature/prose conflicts remain partial. A shared expected row does not create an independent test.",
+        "ja": "選択macro形式、scalar値、記録profileだけを観測する。互換な公開APIを使い、外部stream配置は規定しない。合法な正のN sizeの選択で非定数／0／負sizeの問題を完了にしない。未記載のcollection algorithm、全null／error／lifecycle／並行条件、印刷signatureと本文の食違いは部分的に残す。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_pack_macro_intn_97_interoperates_with_an_independent_scalar_api",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro_pack_intn_97 value 1 tail 1 consumed 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MACRO-IO-AUDIT-PACK-ENUMN",
+      "clause": "B.2.4.2",
+      "statement": {
+        "en": "The selected scalar macro packs its value for independent API decoding.",
+        "ja": "選択scalar macroは独立APIでdecodeできるよう値をpackする。"
+      },
+      "conditions": {
+        "en": "Invoke the scalar macro inside its named object hook with a compatible pinned packer instance; the other direction uses the public scalar API, followed by an independent seven-bit trailer. Selected element width is 17; N arguments are positive compile-time constants.",
+        "ja": "名付けられたobject hook内でscalar macroを互換な固定packer instanceに対して呼び、反対方向は公開scalar APIを使い、独立した7-bit末尾値を付ける。 選択要素幅は17で、N引数は正のcompile-time定数にする。"
+      },
+      "expected": {
+        "en": "The selected scalar value and separate trailer match, with no bits left to unpack.",
+        "ja": "選択scalar値と別の末尾値が一致し、unpackするbitが残らない。"
+      },
+      "limitations": {
+        "en": "Only the selected macro form, scalar value or recording profile is observed. Compatible public APIs avoid prescribing an external stream layout. Selected legal positive N sizes do not close nonconstant/zero/negative-size questions. Unlisted collection algorithms, all null/error/lifecycle/concurrency conditions and printed signature/prose conflicts remain partial. A shared expected row does not create an independent test.",
+        "ja": "選択macro形式、scalar値、記録profileだけを観測する。互換な公開APIを使い、外部stream配置は規定しない。合法な正のN sizeの選択で非定数／0／負sizeの問題を完了にしない。未記載のcollection algorithm、全null／error／lifecycle／並行条件、印刷signatureと本文の食違いは部分的に残す。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_pack_macro_enumn_interoperates_with_an_independent_scalar_api",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro_pack_enumn value 1 tail 1 consumed 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MACRO-IO-AUDIT-PACK-INT",
+      "clause": "B.2.4.6",
+      "statement": {
+        "en": "The selected scalar macro packs its value for independent API decoding.",
+        "ja": "選択scalar macroは独立APIでdecodeできるよう値をpackする。"
+      },
+      "conditions": {
+        "en": "Invoke the scalar macro inside its named object hook with a compatible pinned packer instance; the other direction uses the public scalar API, followed by an independent seven-bit trailer. Selected element width is 97; N arguments are positive compile-time constants.",
+        "ja": "名付けられたobject hook内でscalar macroを互換な固定packer instanceに対して呼び、反対方向は公開scalar APIを使い、独立した7-bit末尾値を付ける。 選択要素幅は97で、N引数は正のcompile-time定数にする。"
+      },
+      "expected": {
+        "en": "The selected scalar value and separate trailer match, with no bits left to unpack.",
+        "ja": "選択scalar値と別の末尾値が一致し、unpackするbitが残らない。"
+      },
+      "limitations": {
+        "en": "Only the selected macro form, scalar value or recording profile is observed. Compatible public APIs avoid prescribing an external stream layout. Selected legal positive N sizes do not close nonconstant/zero/negative-size questions. Unlisted collection algorithms, all null/error/lifecycle/concurrency conditions and printed signature/prose conflicts remain partial. A shared expected row does not create an independent test.",
+        "ja": "選択macro形式、scalar値、記録profileだけを観測する。互換な公開APIを使い、外部stream配置は規定しない。合法な正のN sizeの選択で非定数／0／負sizeの問題を完了にしない。未記載のcollection algorithm、全null／error／lifecycle／並行条件、印刷signatureと本文の食違いは部分的に残す。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_pack_macro_int_interoperates_with_an_independent_scalar_api",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro_pack_int value 1 tail 1 consumed 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MACRO-IO-AUDIT-PACK-ENUM",
+      "clause": "B.2.4.7",
+      "statement": {
+        "en": "The selected scalar macro packs its value for independent API decoding.",
+        "ja": "選択scalar macroは独立APIでdecodeできるよう値をpackする。"
+      },
+      "conditions": {
+        "en": "Invoke the scalar macro inside its named object hook with a compatible pinned packer instance; the other direction uses the public scalar API, followed by an independent seven-bit trailer. Selected element width is 17; N arguments are positive compile-time constants.",
+        "ja": "名付けられたobject hook内でscalar macroを互換な固定packer instanceに対して呼び、反対方向は公開scalar APIを使い、独立した7-bit末尾値を付ける。 選択要素幅は17で、N引数は正のcompile-time定数にする。"
+      },
+      "expected": {
+        "en": "The selected scalar value and separate trailer match, with no bits left to unpack.",
+        "ja": "選択scalar値と別の末尾値が一致し、unpackするbitが残らない。"
+      },
+      "limitations": {
+        "en": "Only the selected macro form, scalar value or recording profile is observed. Compatible public APIs avoid prescribing an external stream layout. Selected legal positive N sizes do not close nonconstant/zero/negative-size questions. Unlisted collection algorithms, all null/error/lifecycle/concurrency conditions and printed signature/prose conflicts remain partial. A shared expected row does not create an independent test.",
+        "ja": "選択macro形式、scalar値、記録profileだけを観測する。互換な公開APIを使い、外部stream配置は規定しない。合法な正のN sizeの選択で非定数／0／負sizeの問題を完了にしない。未記載のcollection algorithm、全null／error／lifecycle／並行条件、印刷signatureと本文の食違いは部分的に残す。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_pack_macro_enum_interoperates_with_an_independent_scalar_api",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro_pack_enum value 1 tail 1 consumed 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MACRO-IO-AUDIT-PACK-STRING",
+      "clause": "B.2.4.8",
+      "statement": {
+        "en": "The selected scalar macro packs its value for independent API decoding.",
+        "ja": "選択scalar macroは独立APIでdecodeできるよう値をpackする。"
+      },
+      "conditions": {
+        "en": "Invoke the scalar macro inside its named object hook with a compatible pinned packer instance; the other direction uses the public scalar API, followed by an independent seven-bit trailer.",
+        "ja": "名付けられたobject hook内でscalar macroを互換な固定packer instanceに対して呼び、反対方向は公開scalar APIを使い、独立した7-bit末尾値を付ける。"
+      },
+      "expected": {
+        "en": "The selected scalar value and separate trailer match, with no bits left to unpack.",
+        "ja": "選択scalar値と別の末尾値が一致し、unpackするbitが残らない。"
+      },
+      "limitations": {
+        "en": "Only the selected macro form, scalar value or recording profile is observed. Compatible public APIs avoid prescribing an external stream layout. Selected legal positive N sizes do not close nonconstant/zero/negative-size questions. Unlisted collection algorithms, all null/error/lifecycle/concurrency conditions and printed signature/prose conflicts remain partial. A shared expected row does not create an independent test.",
+        "ja": "選択macro形式、scalar値、記録profileだけを観測する。互換な公開APIを使い、外部stream配置は規定しない。合法な正のN sizeの選択で非定数／0／負sizeの問題を完了にしない。未記載のcollection algorithm、全null／error／lifecycle／並行条件、印刷signatureと本文の食違いは部分的に残す。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_pack_macro_string_interoperates_with_an_independent_scalar_api",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro_pack_string value 1 tail 1 consumed 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MACRO-IO-AUDIT-PACK-EMPTY-STRING",
+      "clause": "B.2.4.8",
+      "statement": {
+        "en": "The selected scalar macro packs its value for independent API decoding.",
+        "ja": "選択scalar macroは独立APIでdecodeできるよう値をpackする。"
+      },
+      "conditions": {
+        "en": "Invoke the scalar macro inside its named object hook with a compatible pinned packer instance; the other direction uses the public scalar API, followed by an independent seven-bit trailer.",
+        "ja": "名付けられたobject hook内でscalar macroを互換な固定packer instanceに対して呼び、反対方向は公開scalar APIを使い、独立した7-bit末尾値を付ける。"
+      },
+      "expected": {
+        "en": "The selected scalar value and separate trailer match, with no bits left to unpack.",
+        "ja": "選択scalar値と別の末尾値が一致し、unpackするbitが残らない。"
+      },
+      "limitations": {
+        "en": "Only the selected macro form, scalar value or recording profile is observed. Compatible public APIs avoid prescribing an external stream layout. Selected legal positive N sizes do not close nonconstant/zero/negative-size questions. Unlisted collection algorithms, all null/error/lifecycle/concurrency conditions and printed signature/prose conflicts remain partial. A shared expected row does not create an independent test.",
+        "ja": "選択macro形式、scalar値、記録profileだけを観測する。互換な公開APIを使い、外部stream配置は規定しない。合法な正のN sizeの選択で非定数／0／負sizeの問題を完了にしない。未記載のcollection algorithm、全null／error／lifecycle／並行条件、印刷signatureと本文の食違いは部分的に残す。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_pack_macro_empty_string_interoperates_with_an_independent_scalar_api",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro_pack_empty_string value 1 tail 1 consumed 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MACRO-IO-AUDIT-PACK-NEGATIVE-REAL",
+      "clause": "B.2.4.9",
+      "statement": {
+        "en": "The selected scalar macro packs its value for independent API decoding.",
+        "ja": "選択scalar macroは独立APIでdecodeできるよう値をpackする。"
+      },
+      "conditions": {
+        "en": "Invoke the scalar macro inside its named object hook with a compatible pinned packer instance; the other direction uses the public scalar API, followed by an independent seven-bit trailer.",
+        "ja": "名付けられたobject hook内でscalar macroを互換な固定packer instanceに対して呼び、反対方向は公開scalar APIを使い、独立した7-bit末尾値を付ける。"
+      },
+      "expected": {
+        "en": "The selected scalar value and separate trailer match, with no bits left to unpack.",
+        "ja": "選択scalar値と別の末尾値が一致し、unpackするbitが残らない。"
+      },
+      "limitations": {
+        "en": "Only the selected macro form, scalar value or recording profile is observed. Compatible public APIs avoid prescribing an external stream layout. Selected legal positive N sizes do not close nonconstant/zero/negative-size questions. Unlisted collection algorithms, all null/error/lifecycle/concurrency conditions and printed signature/prose conflicts remain partial. A shared expected row does not create an independent test.",
+        "ja": "選択macro形式、scalar値、記録profileだけを観測する。互換な公開APIを使い、外部stream配置は規定しない。合法な正のN sizeの選択で非定数／0／負sizeの問題を完了にしない。未記載のcollection algorithm、全null／error／lifecycle／並行条件、印刷signatureと本文の食違いは部分的に残す。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_pack_macro_negative_real_interoperates_with_an_independent_scalar_api",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro_pack_negative_real value 1 tail 1 consumed 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MACRO-IO-AUDIT-PACK-ZERO-REAL",
+      "clause": "B.2.4.9",
+      "statement": {
+        "en": "The selected scalar macro packs its value for independent API decoding.",
+        "ja": "選択scalar macroは独立APIでdecodeできるよう値をpackする。"
+      },
+      "conditions": {
+        "en": "Invoke the scalar macro inside its named object hook with a compatible pinned packer instance; the other direction uses the public scalar API, followed by an independent seven-bit trailer.",
+        "ja": "名付けられたobject hook内でscalar macroを互換な固定packer instanceに対して呼び、反対方向は公開scalar APIを使い、独立した7-bit末尾値を付ける。"
+      },
+      "expected": {
+        "en": "The selected scalar value and separate trailer match, with no bits left to unpack.",
+        "ja": "選択scalar値と別の末尾値が一致し、unpackするbitが残らない。"
+      },
+      "limitations": {
+        "en": "Only the selected macro form, scalar value or recording profile is observed. Compatible public APIs avoid prescribing an external stream layout. Selected legal positive N sizes do not close nonconstant/zero/negative-size questions. Unlisted collection algorithms, all null/error/lifecycle/concurrency conditions and printed signature/prose conflicts remain partial. A shared expected row does not create an independent test.",
+        "ja": "選択macro形式、scalar値、記録profileだけを観測する。互換な公開APIを使い、外部stream配置は規定しない。合法な正のN sizeの選択で非定数／0／負sizeの問題を完了にしない。未記載のcollection algorithm、全null／error／lifecycle／並行条件、印刷signatureと本文の食違いは部分的に残す。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_pack_macro_zero_real_interoperates_with_an_independent_scalar_api",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro_pack_zero_real value 1 tail 1 consumed 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MACRO-IO-AUDIT-UNPACK-INTN-1",
+      "clause": "B.2.5.1",
+      "statement": {
+        "en": "The selected scalar macro restores a value packed through an independent public API.",
+        "ja": "選択scalar macroは独立した公開APIでpackした値を復元する。"
+      },
+      "conditions": {
+        "en": "Invoke the scalar macro inside its named object hook with a compatible pinned packer instance; the other direction uses the public scalar API, followed by an independent seven-bit trailer. Selected element width is 1; N arguments are positive compile-time constants.",
+        "ja": "名付けられたobject hook内でscalar macroを互換な固定packer instanceに対して呼び、反対方向は公開scalar APIを使い、独立した7-bit末尾値を付ける。 選択要素幅は1で、N引数は正のcompile-time定数にする。"
+      },
+      "expected": {
+        "en": "The selected scalar value and separate trailer match, with no bits left to unpack.",
+        "ja": "選択scalar値と別の末尾値が一致し、unpackするbitが残らない。"
+      },
+      "limitations": {
+        "en": "Only the selected macro form, scalar value or recording profile is observed. Compatible public APIs avoid prescribing an external stream layout. Selected legal positive N sizes do not close nonconstant/zero/negative-size questions. Unlisted collection algorithms, all null/error/lifecycle/concurrency conditions and printed signature/prose conflicts remain partial. A shared expected row does not create an independent test.",
+        "ja": "選択macro形式、scalar値、記録profileだけを観測する。互換な公開APIを使い、外部stream配置は規定しない。合法な正のN sizeの選択で非定数／0／負sizeの問題を完了にしない。未記載のcollection algorithm、全null／error／lifecycle／並行条件、印刷signatureと本文の食違いは部分的に残す。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_unpack_macro_intn_1_interoperates_with_an_independent_scalar_api",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro_unpack_intn_1 value 1 tail 1 consumed 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MACRO-IO-AUDIT-UNPACK-N-CONSTANT",
+      "clause": "B.2.5",
+      "statement": {
+        "en": "A selected positive constant N supplies the explicit packing width.",
+        "ja": "選択した正の定数Nは明示的なpacking幅を供給する。"
+      },
+      "conditions": {
+        "en": "Invoke the scalar macro inside its named object hook with a compatible pinned packer instance; the other direction uses the public scalar API, followed by an independent seven-bit trailer. Selected element width is 1; N arguments are positive compile-time constants.",
+        "ja": "名付けられたobject hook内でscalar macroを互換な固定packer instanceに対して呼び、反対方向は公開scalar APIを使い、独立した7-bit末尾値を付ける。 選択要素幅は1で、N引数は正のcompile-time定数にする。"
+      },
+      "expected": {
+        "en": "The selected one-bit value is handled before an independent trailer.",
+        "ja": "選択した1-bit値を独立した末尾値より前に扱う。"
+      },
+      "limitations": {
+        "en": "Only the selected macro form, scalar value or recording profile is observed. Compatible public APIs avoid prescribing an external stream layout. Selected legal positive N sizes do not close nonconstant/zero/negative-size questions. Unlisted collection algorithms, all null/error/lifecycle/concurrency conditions and printed signature/prose conflicts remain partial. A shared expected row does not create an independent test.",
+        "ja": "選択macro形式、scalar値、記録profileだけを観測する。互換な公開APIを使い、外部stream配置は規定しない。合法な正のN sizeの選択で非定数／0／負sizeの問題を完了にしない。未記載のcollection algorithm、全null／error／lifecycle／並行条件、印刷signatureと本文の食違いは部分的に残す。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_unpack_macro_intn_1_interoperates_with_an_independent_scalar_api",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro_unpack_intn_1 value 1 tail 1 consumed 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MACRO-IO-AUDIT-UNPACK-INTN-33",
+      "clause": "B.2.5.1",
+      "statement": {
+        "en": "The selected scalar macro restores a value packed through an independent public API.",
+        "ja": "選択scalar macroは独立した公開APIでpackした値を復元する。"
+      },
+      "conditions": {
+        "en": "Invoke the scalar macro inside its named object hook with a compatible pinned packer instance; the other direction uses the public scalar API, followed by an independent seven-bit trailer. Selected element width is 33; N arguments are positive compile-time constants.",
+        "ja": "名付けられたobject hook内でscalar macroを互換な固定packer instanceに対して呼び、反対方向は公開scalar APIを使い、独立した7-bit末尾値を付ける。 選択要素幅は33で、N引数は正のcompile-time定数にする。"
+      },
+      "expected": {
+        "en": "The selected scalar value and separate trailer match, with no bits left to unpack.",
+        "ja": "選択scalar値と別の末尾値が一致し、unpackするbitが残らない。"
+      },
+      "limitations": {
+        "en": "Only the selected macro form, scalar value or recording profile is observed. Compatible public APIs avoid prescribing an external stream layout. Selected legal positive N sizes do not close nonconstant/zero/negative-size questions. Unlisted collection algorithms, all null/error/lifecycle/concurrency conditions and printed signature/prose conflicts remain partial. A shared expected row does not create an independent test.",
+        "ja": "選択macro形式、scalar値、記録profileだけを観測する。互換な公開APIを使い、外部stream配置は規定しない。合法な正のN sizeの選択で非定数／0／負sizeの問題を完了にしない。未記載のcollection algorithm、全null／error／lifecycle／並行条件、印刷signatureと本文の食違いは部分的に残す。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_unpack_macro_intn_33_interoperates_with_an_independent_scalar_api",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro_unpack_intn_33 value 1 tail 1 consumed 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MACRO-IO-AUDIT-UNPACK-INTN-97",
+      "clause": "B.2.5.1",
+      "statement": {
+        "en": "The selected scalar macro restores a value packed through an independent public API.",
+        "ja": "選択scalar macroは独立した公開APIでpackした値を復元する。"
+      },
+      "conditions": {
+        "en": "Invoke the scalar macro inside its named object hook with a compatible pinned packer instance; the other direction uses the public scalar API, followed by an independent seven-bit trailer. Selected element width is 97; N arguments are positive compile-time constants.",
+        "ja": "名付けられたobject hook内でscalar macroを互換な固定packer instanceに対して呼び、反対方向は公開scalar APIを使い、独立した7-bit末尾値を付ける。 選択要素幅は97で、N引数は正のcompile-time定数にする。"
+      },
+      "expected": {
+        "en": "The selected scalar value and separate trailer match, with no bits left to unpack.",
+        "ja": "選択scalar値と別の末尾値が一致し、unpackするbitが残らない。"
+      },
+      "limitations": {
+        "en": "Only the selected macro form, scalar value or recording profile is observed. Compatible public APIs avoid prescribing an external stream layout. Selected legal positive N sizes do not close nonconstant/zero/negative-size questions. Unlisted collection algorithms, all null/error/lifecycle/concurrency conditions and printed signature/prose conflicts remain partial. A shared expected row does not create an independent test.",
+        "ja": "選択macro形式、scalar値、記録profileだけを観測する。互換な公開APIを使い、外部stream配置は規定しない。合法な正のN sizeの選択で非定数／0／負sizeの問題を完了にしない。未記載のcollection algorithm、全null／error／lifecycle／並行条件、印刷signatureと本文の食違いは部分的に残す。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_unpack_macro_intn_97_interoperates_with_an_independent_scalar_api",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro_unpack_intn_97 value 1 tail 1 consumed 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MACRO-IO-AUDIT-UNPACK-ENUMN",
+      "clause": "B.2.5.2",
+      "statement": {
+        "en": "The selected scalar macro restores a value packed through an independent public API.",
+        "ja": "選択scalar macroは独立した公開APIでpackした値を復元する。"
+      },
+      "conditions": {
+        "en": "Invoke the scalar macro inside its named object hook with a compatible pinned packer instance; the other direction uses the public scalar API, followed by an independent seven-bit trailer. Selected element width is 17; N arguments are positive compile-time constants.",
+        "ja": "名付けられたobject hook内でscalar macroを互換な固定packer instanceに対して呼び、反対方向は公開scalar APIを使い、独立した7-bit末尾値を付ける。 選択要素幅は17で、N引数は正のcompile-time定数にする。"
+      },
+      "expected": {
+        "en": "The selected scalar value and separate trailer match, with no bits left to unpack.",
+        "ja": "選択scalar値と別の末尾値が一致し、unpackするbitが残らない。"
+      },
+      "limitations": {
+        "en": "Only the selected macro form, scalar value or recording profile is observed. Compatible public APIs avoid prescribing an external stream layout. Selected legal positive N sizes do not close nonconstant/zero/negative-size questions. Unlisted collection algorithms, all null/error/lifecycle/concurrency conditions and printed signature/prose conflicts remain partial. A shared expected row does not create an independent test.",
+        "ja": "選択macro形式、scalar値、記録profileだけを観測する。互換な公開APIを使い、外部stream配置は規定しない。合法な正のN sizeの選択で非定数／0／負sizeの問題を完了にしない。未記載のcollection algorithm、全null／error／lifecycle／並行条件、印刷signatureと本文の食違いは部分的に残す。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_unpack_macro_enumn_interoperates_with_an_independent_scalar_api",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro_unpack_enumn value 1 tail 1 consumed 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MACRO-IO-AUDIT-UNPACK-INT",
+      "clause": "B.2.5.6",
+      "statement": {
+        "en": "The selected scalar macro restores a value packed through an independent public API.",
+        "ja": "選択scalar macroは独立した公開APIでpackした値を復元する。"
+      },
+      "conditions": {
+        "en": "Invoke the scalar macro inside its named object hook with a compatible pinned packer instance; the other direction uses the public scalar API, followed by an independent seven-bit trailer. Selected element width is 97; N arguments are positive compile-time constants.",
+        "ja": "名付けられたobject hook内でscalar macroを互換な固定packer instanceに対して呼び、反対方向は公開scalar APIを使い、独立した7-bit末尾値を付ける。 選択要素幅は97で、N引数は正のcompile-time定数にする。"
+      },
+      "expected": {
+        "en": "The selected scalar value and separate trailer match, with no bits left to unpack.",
+        "ja": "選択scalar値と別の末尾値が一致し、unpackするbitが残らない。"
+      },
+      "limitations": {
+        "en": "Only the selected macro form, scalar value or recording profile is observed. Compatible public APIs avoid prescribing an external stream layout. Selected legal positive N sizes do not close nonconstant/zero/negative-size questions. Unlisted collection algorithms, all null/error/lifecycle/concurrency conditions and printed signature/prose conflicts remain partial. A shared expected row does not create an independent test.",
+        "ja": "選択macro形式、scalar値、記録profileだけを観測する。互換な公開APIを使い、外部stream配置は規定しない。合法な正のN sizeの選択で非定数／0／負sizeの問題を完了にしない。未記載のcollection algorithm、全null／error／lifecycle／並行条件、印刷signatureと本文の食違いは部分的に残す。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_unpack_macro_int_interoperates_with_an_independent_scalar_api",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro_unpack_int value 1 tail 1 consumed 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MACRO-IO-AUDIT-UNPACK-ENUM",
+      "clause": "B.2.5.7",
+      "statement": {
+        "en": "The selected scalar macro restores a value packed through an independent public API.",
+        "ja": "選択scalar macroは独立した公開APIでpackした値を復元する。"
+      },
+      "conditions": {
+        "en": "Invoke the scalar macro inside its named object hook with a compatible pinned packer instance; the other direction uses the public scalar API, followed by an independent seven-bit trailer. Selected element width is 17; N arguments are positive compile-time constants. Retain the one-argument form printed in B.2.5.7, while its prose also requires a type; this is an explicit unresolved signature/prose premise.",
+        "ja": "名付けられたobject hook内でscalar macroを互換な固定packer instanceに対して呼び、反対方向は公開scalar APIを使い、独立した7-bit末尾値を付ける。 選択要素幅は17で、N引数は正のcompile-time定数にする。 B.2.5.7の印刷された1引数形式を保持し、本文は型の指定も要求するため、未解決のsignature／本文の前提を明示する。"
+      },
+      "expected": {
+        "en": "The selected scalar value and separate trailer match, with no bits left to unpack.",
+        "ja": "選択scalar値と別の末尾値が一致し、unpackするbitが残らない。"
+      },
+      "limitations": {
+        "en": "Only the selected macro form, scalar value or recording profile is observed. Compatible public APIs avoid prescribing an external stream layout. Selected legal positive N sizes do not close nonconstant/zero/negative-size questions. Unlisted collection algorithms, all null/error/lifecycle/concurrency conditions and printed signature/prose conflicts remain partial. A shared expected row does not create an independent test. The one-argument printed signature conflicts with the type requirement in its prose. The enumN control checks a distinct printed interface; it does not validate the unresolved one-argument premise.",
+        "ja": "選択macro形式、scalar値、記録profileだけを観測する。互換な公開APIを使い、外部stream配置は規定しない。合法な正のN sizeの選択で非定数／0／負sizeの問題を完了にしない。未記載のcollection algorithm、全null／error／lifecycle／並行条件、印刷signatureと本文の食違いは部分的に残す。共有期待行で独立テストを増やさない。 印刷された1引数signatureは本文の型指定要求と食い違う。enumN controlは別の印刷interfaceを検査し、未解決の1引数前提を認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_unpack_macro_enum_interoperates_with_an_independent_scalar_api",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro_unpack_enum value 1 tail 1 consumed 1"
+          ]
+        },
+        {
+          "test": "uB/test_unpack_macro_enumn_interoperates_with_an_independent_scalar_api",
+          "role": "control",
+          "expected_observations": [
+            "UT: macro_unpack_enumn value 1 tail 1 consumed 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MACRO-IO-AUDIT-UNPACK-STRING",
+      "clause": "B.2.5.8",
+      "statement": {
+        "en": "The selected scalar macro restores a value packed through an independent public API.",
+        "ja": "選択scalar macroは独立した公開APIでpackした値を復元する。"
+      },
+      "conditions": {
+        "en": "Invoke the scalar macro inside its named object hook with a compatible pinned packer instance; the other direction uses the public scalar API, followed by an independent seven-bit trailer.",
+        "ja": "名付けられたobject hook内でscalar macroを互換な固定packer instanceに対して呼び、反対方向は公開scalar APIを使い、独立した7-bit末尾値を付ける。"
+      },
+      "expected": {
+        "en": "The selected scalar value and separate trailer match, with no bits left to unpack.",
+        "ja": "選択scalar値と別の末尾値が一致し、unpackするbitが残らない。"
+      },
+      "limitations": {
+        "en": "Only the selected macro form, scalar value or recording profile is observed. Compatible public APIs avoid prescribing an external stream layout. Selected legal positive N sizes do not close nonconstant/zero/negative-size questions. Unlisted collection algorithms, all null/error/lifecycle/concurrency conditions and printed signature/prose conflicts remain partial. A shared expected row does not create an independent test.",
+        "ja": "選択macro形式、scalar値、記録profileだけを観測する。互換な公開APIを使い、外部stream配置は規定しない。合法な正のN sizeの選択で非定数／0／負sizeの問題を完了にしない。未記載のcollection algorithm、全null／error／lifecycle／並行条件、印刷signatureと本文の食違いは部分的に残す。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_unpack_macro_string_interoperates_with_an_independent_scalar_api",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro_unpack_string value 1 tail 1 consumed 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MACRO-IO-AUDIT-UNPACK-EMPTY-STRING",
+      "clause": "B.2.5.8",
+      "statement": {
+        "en": "The selected scalar macro restores a value packed through an independent public API.",
+        "ja": "選択scalar macroは独立した公開APIでpackした値を復元する。"
+      },
+      "conditions": {
+        "en": "Invoke the scalar macro inside its named object hook with a compatible pinned packer instance; the other direction uses the public scalar API, followed by an independent seven-bit trailer.",
+        "ja": "名付けられたobject hook内でscalar macroを互換な固定packer instanceに対して呼び、反対方向は公開scalar APIを使い、独立した7-bit末尾値を付ける。"
+      },
+      "expected": {
+        "en": "The selected scalar value and separate trailer match, with no bits left to unpack.",
+        "ja": "選択scalar値と別の末尾値が一致し、unpackするbitが残らない。"
+      },
+      "limitations": {
+        "en": "Only the selected macro form, scalar value or recording profile is observed. Compatible public APIs avoid prescribing an external stream layout. Selected legal positive N sizes do not close nonconstant/zero/negative-size questions. Unlisted collection algorithms, all null/error/lifecycle/concurrency conditions and printed signature/prose conflicts remain partial. A shared expected row does not create an independent test.",
+        "ja": "選択macro形式、scalar値、記録profileだけを観測する。互換な公開APIを使い、外部stream配置は規定しない。合法な正のN sizeの選択で非定数／0／負sizeの問題を完了にしない。未記載のcollection algorithm、全null／error／lifecycle／並行条件、印刷signatureと本文の食違いは部分的に残す。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_unpack_macro_empty_string_interoperates_with_an_independent_scalar_api",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro_unpack_empty_string value 1 tail 1 consumed 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MACRO-IO-AUDIT-UNPACK-NEGATIVE-REAL",
+      "clause": "B.2.5.9",
+      "statement": {
+        "en": "The selected scalar macro restores a value packed through an independent public API.",
+        "ja": "選択scalar macroは独立した公開APIでpackした値を復元する。"
+      },
+      "conditions": {
+        "en": "Invoke the scalar macro inside its named object hook with a compatible pinned packer instance; the other direction uses the public scalar API, followed by an independent seven-bit trailer.",
+        "ja": "名付けられたobject hook内でscalar macroを互換な固定packer instanceに対して呼び、反対方向は公開scalar APIを使い、独立した7-bit末尾値を付ける。"
+      },
+      "expected": {
+        "en": "The selected scalar value and separate trailer match, with no bits left to unpack.",
+        "ja": "選択scalar値と別の末尾値が一致し、unpackするbitが残らない。"
+      },
+      "limitations": {
+        "en": "Only the selected macro form, scalar value or recording profile is observed. Compatible public APIs avoid prescribing an external stream layout. Selected legal positive N sizes do not close nonconstant/zero/negative-size questions. Unlisted collection algorithms, all null/error/lifecycle/concurrency conditions and printed signature/prose conflicts remain partial. A shared expected row does not create an independent test.",
+        "ja": "選択macro形式、scalar値、記録profileだけを観測する。互換な公開APIを使い、外部stream配置は規定しない。合法な正のN sizeの選択で非定数／0／負sizeの問題を完了にしない。未記載のcollection algorithm、全null／error／lifecycle／並行条件、印刷signatureと本文の食違いは部分的に残す。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_unpack_macro_negative_real_interoperates_with_an_independent_scalar_api",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro_unpack_negative_real value 1 tail 1 consumed 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MACRO-IO-AUDIT-UNPACK-ZERO-REAL",
+      "clause": "B.2.5.9",
+      "statement": {
+        "en": "The selected scalar macro restores a value packed through an independent public API.",
+        "ja": "選択scalar macroは独立した公開APIでpackした値を復元する。"
+      },
+      "conditions": {
+        "en": "Invoke the scalar macro inside its named object hook with a compatible pinned packer instance; the other direction uses the public scalar API, followed by an independent seven-bit trailer.",
+        "ja": "名付けられたobject hook内でscalar macroを互換な固定packer instanceに対して呼び、反対方向は公開scalar APIを使い、独立した7-bit末尾値を付ける。"
+      },
+      "expected": {
+        "en": "The selected scalar value and separate trailer match, with no bits left to unpack.",
+        "ja": "選択scalar値と別の末尾値が一致し、unpackするbitが残らない。"
+      },
+      "limitations": {
+        "en": "Only the selected macro form, scalar value or recording profile is observed. Compatible public APIs avoid prescribing an external stream layout. Selected legal positive N sizes do not close nonconstant/zero/negative-size questions. Unlisted collection algorithms, all null/error/lifecycle/concurrency conditions and printed signature/prose conflicts remain partial. A shared expected row does not create an independent test.",
+        "ja": "選択macro形式、scalar値、記録profileだけを観測する。互換な公開APIを使い、外部stream配置は規定しない。合法な正のN sizeの選択で非定数／0／負sizeの問題を完了にしない。未記載のcollection algorithm、全null／error／lifecycle／並行条件、印刷signatureと本文の食違いは部分的に残す。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_unpack_macro_zero_real_interoperates_with_an_independent_scalar_api",
+          "role": "direct",
+          "expected_observations": [
+            "UT: macro_unpack_zero_real value 1 tail 1 consumed 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MACRO-IO-AUDIT-RECORD-DEFAULT-INT-RADIX",
+      "clause": "B.2.3.2",
+      "statement": {
+        "en": "The default recording macro forwards the selected name/value and metadata to its declared recorder interface.",
+        "ja": "既定recording macroは選択した名前／値とmetadataを宣言されたrecorder interfaceへ渡す。"
+      },
+      "conditions": {
+        "en": "Use the unmodified default recording macros with attribute support disabled, an open original recorder and a live handle obtained through transaction begin_tr. Keep a separate peer recorder.",
+        "ja": "属性対応を無効にした元の既定recording macro、openした独自recorder、transaction begin_trで得た有効handle、別のpeer recorderを使う。"
+      },
+      "expected": {
+        "en": "The selected original recording hook receives the exact value/name and applicable size/radix or required generic conversion, preserving the other recorder.",
+        "ja": "選択した独自recording hookは正確な値／名前と該当size／radixまたは要求generic変換を受け、他recorderを保持する。"
+      },
+      "limitations": {
+        "en": "Only the selected macro form, scalar value or recording profile is observed. Compatible public APIs avoid prescribing an external stream layout. Selected legal positive N sizes do not close nonconstant/zero/negative-size questions. Unlisted collection algorithms, all null/error/lifecycle/concurrency conditions and printed signature/prose conflicts remain partial. A shared expected row does not create an independent test.",
+        "ja": "選択macro形式、scalar値、記録profileだけを観測する。互換な公開APIを使い、外部stream配置は規定しない。合法な正のN sizeの選択で非定数／0／負sizeの問題を完了にしない。未記載のcollection algorithm、全null／error／lifecycle／並行条件、印刷signatureと本文の食違いは部分的に残す。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_record_macro_int_radix_uses_the_declared_default_recorder_route",
+          "role": "direct",
+          "expected_observations": [
+            "UT: record_int_radix delegated 1 isolated 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MACRO-IO-AUDIT-RECORD-DEFAULT-INT-DEFAULT-RADIX",
+      "clause": "B.2.3.2",
+      "statement": {
+        "en": "The default recording macro forwards the selected name/value and metadata to its declared recorder interface.",
+        "ja": "既定recording macroは選択した名前／値とmetadataを宣言されたrecorder interfaceへ渡す。"
+      },
+      "conditions": {
+        "en": "Use the unmodified default recording macros with attribute support disabled, an open original recorder and a live handle obtained through transaction begin_tr. Keep a separate peer recorder. Select default radix UVM_BIN and omit the macro RADIX argument. The backend may retain the no-radix marker or receive the configured default under 16.4.6.1/16.4.2.3; do not require a particular internal normalization.",
+        "ja": "属性対応を無効にした元の既定recording macro、openした独自recorder、transaction begin_trで得た有効handle、別のpeer recorderを使う。 既定radixをUVM_BINに設定してmacro RADIX引数を省略する。16.4.6.1／16.4.2.3に従い、backendはradix未指定印または設定した既定値を受け取り得るため、内部正規化の一方だけを要求しない。"
+      },
+      "expected": {
+        "en": "The selected original recording hook receives the exact value/name and applicable size/radix or required generic conversion, preserving the other recorder.",
+        "ja": "選択した独自recording hookは正確な値／名前と該当size／radixまたは要求generic変換を受け、他recorderを保持する。"
+      },
+      "limitations": {
+        "en": "Only the selected macro form, scalar value or recording profile is observed. Compatible public APIs avoid prescribing an external stream layout. Selected legal positive N sizes do not close nonconstant/zero/negative-size questions. Unlisted collection algorithms, all null/error/lifecycle/concurrency conditions and printed signature/prose conflicts remain partial. A shared expected row does not create an independent test.",
+        "ja": "選択macro形式、scalar値、記録profileだけを観測する。互換な公開APIを使い、外部stream配置は規定しない。合法な正のN sizeの選択で非定数／0／負sizeの問題を完了にしない。未記載のcollection algorithm、全null／error／lifecycle／並行条件、印刷signatureと本文の食違いは部分的に残す。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_record_macro_int_default_radix_uses_the_declared_default_recorder_route",
+          "role": "direct",
+          "expected_observations": [
+            "UT: record_int_default_radix delegated 1 isolated 1"
+          ]
+        },
+        {
+          "test": "u16/test_record_macro_control_direct_small_field_preserves_default_and_explicit_radices",
+          "role": "control",
+          "expected_observations": [
+            "UT: record_direct33 default 1 explicit 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MACRO-IO-AUDIT-RECORD-DEFAULT-STRING",
+      "clause": "B.2.3.3",
+      "statement": {
+        "en": "The default recording macro forwards the selected name/value and metadata to its declared recorder interface.",
+        "ja": "既定recording macroは選択した名前／値とmetadataを宣言されたrecorder interfaceへ渡す。"
+      },
+      "conditions": {
+        "en": "Use the unmodified default recording macros with attribute support disabled, an open original recorder and a live handle obtained through transaction begin_tr. Keep a separate peer recorder.",
+        "ja": "属性対応を無効にした元の既定recording macro、openした独自recorder、transaction begin_trで得た有効handle、別のpeer recorderを使う。"
+      },
+      "expected": {
+        "en": "The selected original recording hook receives the exact value/name and applicable size/radix or required generic conversion, preserving the other recorder.",
+        "ja": "選択した独自recording hookは正確な値／名前と該当size／radixまたは要求generic変換を受け、他recorderを保持する。"
+      },
+      "limitations": {
+        "en": "Only the selected macro form, scalar value or recording profile is observed. Compatible public APIs avoid prescribing an external stream layout. Selected legal positive N sizes do not close nonconstant/zero/negative-size questions. Unlisted collection algorithms, all null/error/lifecycle/concurrency conditions and printed signature/prose conflicts remain partial. A shared expected row does not create an independent test.",
+        "ja": "選択macro形式、scalar値、記録profileだけを観測する。互換な公開APIを使い、外部stream配置は規定しない。合法な正のN sizeの選択で非定数／0／負sizeの問題を完了にしない。未記載のcollection algorithm、全null／error／lifecycle／並行条件、印刷signatureと本文の食違いは部分的に残す。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_record_macro_string_uses_the_declared_default_recorder_route",
+          "role": "direct",
+          "expected_observations": [
+            "UT: record_string delegated 1 isolated 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MACRO-IO-AUDIT-RECORD-DEFAULT-EMPTY-STRING",
+      "clause": "B.2.3.3",
+      "statement": {
+        "en": "The default recording macro forwards the selected name/value and metadata to its declared recorder interface.",
+        "ja": "既定recording macroは選択した名前／値とmetadataを宣言されたrecorder interfaceへ渡す。"
+      },
+      "conditions": {
+        "en": "Use the unmodified default recording macros with attribute support disabled, an open original recorder and a live handle obtained through transaction begin_tr. Keep a separate peer recorder.",
+        "ja": "属性対応を無効にした元の既定recording macro、openした独自recorder、transaction begin_trで得た有効handle、別のpeer recorderを使う。"
+      },
+      "expected": {
+        "en": "The selected original recording hook receives the exact value/name and applicable size/radix or required generic conversion, preserving the other recorder.",
+        "ja": "選択した独自recording hookは正確な値／名前と該当size／radixまたは要求generic変換を受け、他recorderを保持する。"
+      },
+      "limitations": {
+        "en": "Only the selected macro form, scalar value or recording profile is observed. Compatible public APIs avoid prescribing an external stream layout. Selected legal positive N sizes do not close nonconstant/zero/negative-size questions. Unlisted collection algorithms, all null/error/lifecycle/concurrency conditions and printed signature/prose conflicts remain partial. A shared expected row does not create an independent test.",
+        "ja": "選択macro形式、scalar値、記録profileだけを観測する。互換な公開APIを使い、外部stream配置は規定しない。合法な正のN sizeの選択で非定数／0／負sizeの問題を完了にしない。未記載のcollection algorithm、全null／error／lifecycle／並行条件、印刷signatureと本文の食違いは部分的に残す。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_record_macro_empty_string_uses_the_declared_default_recorder_route",
+          "role": "direct",
+          "expected_observations": [
+            "UT: record_empty_string delegated 1 isolated 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MACRO-IO-AUDIT-RECORD-DEFAULT-TIME",
+      "clause": "B.2.3.4",
+      "statement": {
+        "en": "The default recording macro forwards the selected name/value and metadata to its declared recorder interface.",
+        "ja": "既定recording macroは選択した名前／値とmetadataを宣言されたrecorder interfaceへ渡す。"
+      },
+      "conditions": {
+        "en": "Use the unmodified default recording macros with attribute support disabled, an open original recorder and a live handle obtained through transaction begin_tr. Keep a separate peer recorder.",
+        "ja": "属性対応を無効にした元の既定recording macro、openした独自recorder、transaction begin_trで得た有効handle、別のpeer recorderを使う。"
+      },
+      "expected": {
+        "en": "The selected original recording hook receives the exact value/name and applicable size/radix or required generic conversion, preserving the other recorder.",
+        "ja": "選択した独自recording hookは正確な値／名前と該当size／radixまたは要求generic変換を受け、他recorderを保持する。"
+      },
+      "limitations": {
+        "en": "Only the selected macro form, scalar value or recording profile is observed. Compatible public APIs avoid prescribing an external stream layout. Selected legal positive N sizes do not close nonconstant/zero/negative-size questions. Unlisted collection algorithms, all null/error/lifecycle/concurrency conditions and printed signature/prose conflicts remain partial. A shared expected row does not create an independent test.",
+        "ja": "選択macro形式、scalar値、記録profileだけを観測する。互換な公開APIを使い、外部stream配置は規定しない。合法な正のN sizeの選択で非定数／0／負sizeの問題を完了にしない。未記載のcollection algorithm、全null／error／lifecycle／並行条件、印刷signatureと本文の食違いは部分的に残す。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_record_macro_time_uses_the_declared_default_recorder_route",
+          "role": "direct",
+          "expected_observations": [
+            "UT: record_time delegated 1 isolated 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MACRO-IO-AUDIT-RECORD-DEFAULT-REAL",
+      "clause": "B.2.3.5",
+      "statement": {
+        "en": "The default recording macro forwards the selected name/value and metadata to its declared recorder interface.",
+        "ja": "既定recording macroは選択した名前／値とmetadataを宣言されたrecorder interfaceへ渡す。"
+      },
+      "conditions": {
+        "en": "Use the unmodified default recording macros with attribute support disabled, an open original recorder and a live handle obtained through transaction begin_tr. Keep a separate peer recorder.",
+        "ja": "属性対応を無効にした元の既定recording macro、openした独自recorder、transaction begin_trで得た有効handle、別のpeer recorderを使う。"
+      },
+      "expected": {
+        "en": "The selected original recording hook receives the exact value/name and applicable size/radix or required generic conversion, preserving the other recorder.",
+        "ja": "選択した独自recording hookは正確な値／名前と該当size／radixまたは要求generic変換を受け、他recorderを保持する。"
+      },
+      "limitations": {
+        "en": "Only the selected macro form, scalar value or recording profile is observed. Compatible public APIs avoid prescribing an external stream layout. Selected legal positive N sizes do not close nonconstant/zero/negative-size questions. Unlisted collection algorithms, all null/error/lifecycle/concurrency conditions and printed signature/prose conflicts remain partial. A shared expected row does not create an independent test.",
+        "ja": "選択macro形式、scalar値、記録profileだけを観測する。互換な公開APIを使い、外部stream配置は規定しない。合法な正のN sizeの選択で非定数／0／負sizeの問題を完了にしない。未記載のcollection algorithm、全null／error／lifecycle／並行条件、印刷signatureと本文の食違いは部分的に残す。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_record_macro_real_uses_the_declared_default_recorder_route",
+          "role": "direct",
+          "expected_observations": [
+            "UT: record_real delegated 1 isolated 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MACRO-IO-AUDIT-RECORD-DEFAULT-FIELD-STRUCT",
+      "clause": "B.2.3.6",
+      "statement": {
+        "en": "The default recording macro forwards the selected name/value and metadata to its declared recorder interface.",
+        "ja": "既定recording macroは選択した名前／値とmetadataを宣言されたrecorder interfaceへ渡す。"
+      },
+      "conditions": {
+        "en": "Use the unmodified default recording macros with attribute support disabled, an open original recorder and a live handle obtained through transaction begin_tr. Keep a separate peer recorder.",
+        "ja": "属性対応を無効にした元の既定recording macro、openした独自recorder、transaction begin_trで得た有効handle、別のpeer recorderを使う。"
+      },
+      "expected": {
+        "en": "The selected original recording hook receives the exact value/name and applicable size/radix or required generic conversion, preserving the other recorder.",
+        "ja": "選択した独自recording hookは正確な値／名前と該当size／radixまたは要求generic変換を受け、他recorderを保持する。"
+      },
+      "limitations": {
+        "en": "Only the selected macro form, scalar value or recording profile is observed. Compatible public APIs avoid prescribing an external stream layout. Selected legal positive N sizes do not close nonconstant/zero/negative-size questions. Unlisted collection algorithms, all null/error/lifecycle/concurrency conditions and printed signature/prose conflicts remain partial. A shared expected row does not create an independent test.",
+        "ja": "選択macro形式、scalar値、記録profileだけを観測する。互換な公開APIを使い、外部stream配置は規定しない。合法な正のN sizeの選択で非定数／0／負sizeの問題を完了にしない。未記載のcollection algorithm、全null／error／lifecycle／並行条件、印刷signatureと本文の食違いは部分的に残す。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_record_macro_field_struct_uses_the_declared_default_recorder_route",
+          "role": "direct",
+          "expected_observations": [
+            "UT: record_field_struct delegated 1 isolated 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MACRO-IO-AUDIT-RECORD-DEFAULT-FIELD-STRING",
+      "clause": "B.2.3.6",
+      "statement": {
+        "en": "The default recording macro forwards the selected name/value and metadata to its declared recorder interface.",
+        "ja": "既定recording macroは選択した名前／値とmetadataを宣言されたrecorder interfaceへ渡す。"
+      },
+      "conditions": {
+        "en": "Use the unmodified default recording macros with attribute support disabled, an open original recorder and a live handle obtained through transaction begin_tr. Keep a separate peer recorder.",
+        "ja": "属性対応を無効にした元の既定recording macro、openした独自recorder、transaction begin_trで得た有効handle、別のpeer recorderを使う。"
+      },
+      "expected": {
+        "en": "The selected original recording hook receives the exact value/name and applicable size/radix or required generic conversion, preserving the other recorder.",
+        "ja": "選択した独自recording hookは正確な値／名前と該当size／radixまたは要求generic変換を受け、他recorderを保持する。"
+      },
+      "limitations": {
+        "en": "Only the selected macro form, scalar value or recording profile is observed. Compatible public APIs avoid prescribing an external stream layout. Selected legal positive N sizes do not close nonconstant/zero/negative-size questions. Unlisted collection algorithms, all null/error/lifecycle/concurrency conditions and printed signature/prose conflicts remain partial. A shared expected row does not create an independent test.",
+        "ja": "選択macro形式、scalar値、記録profileだけを観測する。互換な公開APIを使い、外部stream配置は規定しない。合法な正のN sizeの選択で非定数／0／負sizeの問題を完了にしない。未記載のcollection algorithm、全null／error／lifecycle／並行条件、印刷signatureと本文の食違いは部分的に残す。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_record_macro_field_string_uses_the_declared_default_recorder_route",
+          "role": "direct",
+          "expected_observations": [
+            "UT: record_field_string delegated 1 isolated 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MACRO-IO-AUDIT-RECORD-DEFAULT-ATTRIBUTE-HANDLE",
+      "clause": "B.2.3.1",
+      "statement": {
+        "en": "The default recording macro forwards the selected name/value and metadata to its declared recorder interface.",
+        "ja": "既定recording macroは選択した名前／値とmetadataを宣言されたrecorder interfaceへ渡す。"
+      },
+      "conditions": {
+        "en": "Use the unmodified default recording macros with attribute support disabled, an open original recorder and a live handle obtained through transaction begin_tr. Keep a separate peer recorder. The zero-argument handle-accessor declaration and the macro TR_HANDLE prose remain an explicit interpretation boundary; the selected direct expectation checks default generic delivery and handle isolation.",
+        "ja": "属性対応を無効にした元の既定recording macro、openした独自recorder、transaction begin_trで得た有効handle、別のpeer recorderを使う。 handle accessorの0引数宣言とmacroのTR_HANDLE本文は明示的な解釈境界に残し、選択した直接期待は既定generic配送とhandle分離を検査する。"
+      },
+      "expected": {
+        "en": "The selected original recording hook receives the exact value/name and applicable size/radix or required generic conversion, preserving the other recorder.",
+        "ja": "選択した独自recording hookは正確な値／名前と該当size／radixまたは要求generic変換を受け、他recorderを保持する。"
+      },
+      "limitations": {
+        "en": "Only the selected macro form, scalar value or recording profile is observed. Compatible public APIs avoid prescribing an external stream layout. Selected legal positive N sizes do not close nonconstant/zero/negative-size questions. Unlisted collection algorithms, all null/error/lifecycle/concurrency conditions and printed signature/prose conflicts remain partial. A shared expected row does not create an independent test. The TR_HANDLE route is a qualified reading because B.2.3.1 asks for passing a handle to a zero-argument accessor in 16.4.6.9. These observations do not establish an unconditional independent defect; raw string delivery and recorder routing remain separately reviewable.",
+        "ja": "選択macro形式、scalar値、記録profileだけを観測する。互換な公開APIを使い、外部stream配置は規定しない。合法な正のN sizeの選択で非定数／0／負sizeの問題を完了にしない。未記載のcollection algorithm、全null／error／lifecycle／並行条件、印刷signatureと本文の食違いは部分的に残す。共有期待行で独立テストを増やさない。 B.2.3.1は16.4.6.9の0引数accessorへhandleを渡すよう求めるため、TR_HANDLE経路は限定した解釈である。この観測で無条件の独立した不具合を認定せず、元のstring配送とrecorderの選択をそれぞれ照合できる状態に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_record_macro_attribute_handle_uses_the_declared_default_recorder_route",
+          "role": "direct",
+          "expected_observations": [
+            "UT: record_attribute_handle delegated 1 isolated 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MACRO-IO-AUDIT-RECORD-DEFAULT-ATTRIBUTE-PEER",
+      "clause": "B.2.3.1",
+      "statement": {
+        "en": "The default recording macro forwards the selected name/value and metadata to its declared recorder interface.",
+        "ja": "既定recording macroは選択した名前／値とmetadataを宣言されたrecorder interfaceへ渡す。"
+      },
+      "conditions": {
+        "en": "Use the unmodified default recording macros with attribute support disabled, an open original recorder and a live handle obtained through transaction begin_tr. Keep a separate peer recorder. The zero-argument handle-accessor declaration and the macro TR_HANDLE prose remain an explicit interpretation boundary; the selected direct expectation checks default generic delivery and handle isolation.",
+        "ja": "属性対応を無効にした元の既定recording macro、openした独自recorder、transaction begin_trで得た有効handle、別のpeer recorderを使う。 handle accessorの0引数宣言とmacroのTR_HANDLE本文は明示的な解釈境界に残し、選択した直接期待は既定generic配送とhandle分離を検査する。"
+      },
+      "expected": {
+        "en": "The selected original recording hook receives the exact value/name and applicable size/radix or required generic conversion, preserving the other recorder.",
+        "ja": "選択した独自recording hookは正確な値／名前と該当size／radixまたは要求generic変換を受け、他recorderを保持する。"
+      },
+      "limitations": {
+        "en": "Only the selected macro form, scalar value or recording profile is observed. Compatible public APIs avoid prescribing an external stream layout. Selected legal positive N sizes do not close nonconstant/zero/negative-size questions. Unlisted collection algorithms, all null/error/lifecycle/concurrency conditions and printed signature/prose conflicts remain partial. A shared expected row does not create an independent test. The TR_HANDLE route is a qualified reading because B.2.3.1 asks for passing a handle to a zero-argument accessor in 16.4.6.9. These observations do not establish an unconditional independent defect; raw string delivery and recorder routing remain separately reviewable.",
+        "ja": "選択macro形式、scalar値、記録profileだけを観測する。互換な公開APIを使い、外部stream配置は規定しない。合法な正のN sizeの選択で非定数／0／負sizeの問題を完了にしない。未記載のcollection algorithm、全null／error／lifecycle／並行条件、印刷signatureと本文の食違いは部分的に残す。共有期待行で独立テストを増やさない。 B.2.3.1は16.4.6.9の0引数accessorへhandleを渡すよう求めるため、TR_HANDLE経路は限定した解釈である。この観測で無条件の独立した不具合を認定せず、元のstring配送とrecorderの選択をそれぞれ照合できる状態に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_record_macro_attribute_peer_uses_the_declared_default_recorder_route",
+          "role": "direct",
+          "expected_observations": [
+            "UT: record_attribute_peer delegated 1 isolated 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MACRO-IO-AUDIT-RECORD-ATTRIBUTE-WIDE-INTEGRAL",
+      "clause": "B.2.3.2",
+      "statement": {
+        "en": "The enabled recording macro forwards the original typed value to the user-specific attribute API.",
+        "ja": "有効なrecording macroは元の型付き値をuser-specific attribute APIへ渡す。"
+      },
+      "conditions": {
+        "en": "Enable recorder attribute support and provide an original user-specific attribute macro whose VALUE binds to an exact const-ref type. Use a valid transaction recorder and an overridden tool handle, without changing the surrounding recording macro. Keep the printed three-argument attribute definition; the separate compatibility control tolerates an unlisted fourth recorder argument and does not pass this original premise.",
+        "ja": "recorder属性対応を有効にし、VALUEが正確なconst-ref型へ束縛する独自user-specific attribute macroを供給する。有効transaction recorderと上書きtool handleを使い、周囲のrecording macroは変更しない。 印刷された3引数のattribute定義を保持し、別の互換controlは未記載の4番目のrecorder引数を許容するが、この元の前提をpassにしない。"
+      },
+      "expected": {
+        "en": "The exact typed value and name reach the original capture function with the overridden tool handle, without recorder-policy fallback.",
+        "ja": "正確な型付き値と名前が上書きtool handleで独自capture関数へ届き、recorder-policy fallbackを行わない。"
+      },
+      "limitations": {
+        "en": "Only the selected macro form, scalar value or recording profile is observed. Compatible public APIs avoid prescribing an external stream layout. Selected legal positive N sizes do not close nonconstant/zero/negative-size questions. Unlisted collection algorithms, all null/error/lifecycle/concurrency conditions and printed signature/prose conflicts remain partial. A shared expected row does not create an independent test.",
+        "ja": "選択macro形式、scalar値、記録profileだけを観測する。互換な公開APIを使い、外部stream配置は規定しない。合法な正のN sizeの選択で非定数／0／負sizeの問題を完了にしない。未記載のcollection algorithm、全null／error／lifecycle／並行条件、印刷signatureと本文の食違いは部分的に残す。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_record_macro_attribute_wide_integral_preserves_the_original_type_and_handle",
+          "role": "direct",
+          "expected_observations": [
+            "UT: record_attribute_wide_integral calls 1 typed_value 1 handle 1 fallback 0"
+          ]
+        },
+        {
+          "test": "uB/test_record_macro_attribute_wide_integral_fourth_argument_compatibility_control",
+          "role": "control",
+          "expected_observations": [
+            "UT: record_attribute_wide_integral calls 1 typed_value 1 handle 1 fallback 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MACRO-IO-AUDIT-RECORD-TYPE-WIDTH",
+      "clause": "B.2.3",
+      "statement": {
+        "en": "The selected user-specific recording path preserves type information beyond the ordinary bitstream width.",
+        "ja": "選択user-specific記録経路は通常bitstream幅を超えて型情報を保持する。"
+      },
+      "conditions": {
+        "en": "Enable recorder attribute support and provide an original user-specific attribute macro whose VALUE binds to an exact const-ref type. Use a valid transaction recorder and an overridden tool handle, without changing the surrounding recording macro. Keep the printed three-argument attribute definition; the separate compatibility control tolerates an unlisted fourth recorder argument and does not pass this original premise.",
+        "ja": "recorder属性対応を有効にし、VALUEが正確なconst-ref型へ束縛する独自user-specific attribute macroを供給する。有効transaction recorderと上書きtool handleを使い、周囲のrecording macroは変更しない。 印刷された3引数のattribute定義を保持し、別の互換controlは未記載の4番目のrecorder引数を許容するが、この元の前提をpassにしない。"
+      },
+      "expected": {
+        "en": "The original 4301-bit value retains its upper boundary bit through an exact const-ref backend.",
+        "ja": "元の4301-bit値は正確なconst-ref backendを通じて上位境界bitを保持する。"
+      },
+      "limitations": {
+        "en": "Only the selected macro form, scalar value or recording profile is observed. Compatible public APIs avoid prescribing an external stream layout. Selected legal positive N sizes do not close nonconstant/zero/negative-size questions. Unlisted collection algorithms, all null/error/lifecycle/concurrency conditions and printed signature/prose conflicts remain partial. A shared expected row does not create an independent test.",
+        "ja": "選択macro形式、scalar値、記録profileだけを観測する。互換な公開APIを使い、外部stream配置は規定しない。合法な正のN sizeの選択で非定数／0／負sizeの問題を完了にしない。未記載のcollection algorithm、全null／error／lifecycle／並行条件、印刷signatureと本文の食違いは部分的に残す。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_record_macro_attribute_wide_integral_preserves_the_original_type_and_handle",
+          "role": "direct",
+          "expected_observations": [
+            "UT: record_attribute_wide_integral calls 1 typed_value 1 handle 1 fallback 0"
+          ]
+        },
+        {
+          "test": "uB/test_record_macro_attribute_wide_integral_fourth_argument_compatibility_control",
+          "role": "control",
+          "expected_observations": [
+            "UT: record_attribute_wide_integral calls 1 typed_value 1 handle 1 fallback 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MACRO-IO-AUDIT-RECORD-ATTRIBUTE-STRING",
+      "clause": "B.2.3.3",
+      "statement": {
+        "en": "The enabled recording macro forwards the original typed value to the user-specific attribute API.",
+        "ja": "有効なrecording macroは元の型付き値をuser-specific attribute APIへ渡す。"
+      },
+      "conditions": {
+        "en": "Enable recorder attribute support and provide an original user-specific attribute macro whose VALUE binds to an exact const-ref type. Use a valid transaction recorder and an overridden tool handle, without changing the surrounding recording macro. Keep the printed three-argument attribute definition; the separate compatibility control tolerates an unlisted fourth recorder argument and does not pass this original premise.",
+        "ja": "recorder属性対応を有効にし、VALUEが正確なconst-ref型へ束縛する独自user-specific attribute macroを供給する。有効transaction recorderと上書きtool handleを使い、周囲のrecording macroは変更しない。 印刷された3引数のattribute定義を保持し、別の互換controlは未記載の4番目のrecorder引数を許容するが、この元の前提をpassにしない。"
+      },
+      "expected": {
+        "en": "The exact typed value and name reach the original capture function with the overridden tool handle, without recorder-policy fallback.",
+        "ja": "正確な型付き値と名前が上書きtool handleで独自capture関数へ届き、recorder-policy fallbackを行わない。"
+      },
+      "limitations": {
+        "en": "Only the selected macro form, scalar value or recording profile is observed. Compatible public APIs avoid prescribing an external stream layout. Selected legal positive N sizes do not close nonconstant/zero/negative-size questions. Unlisted collection algorithms, all null/error/lifecycle/concurrency conditions and printed signature/prose conflicts remain partial. A shared expected row does not create an independent test.",
+        "ja": "選択macro形式、scalar値、記録profileだけを観測する。互換な公開APIを使い、外部stream配置は規定しない。合法な正のN sizeの選択で非定数／0／負sizeの問題を完了にしない。未記載のcollection algorithm、全null／error／lifecycle／並行条件、印刷signatureと本文の食違いは部分的に残す。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_record_macro_attribute_string_preserves_the_original_type_and_handle",
+          "role": "direct",
+          "expected_observations": [
+            "UT: record_attribute_string calls 1 typed_value 1 handle 1 fallback 0"
+          ]
+        },
+        {
+          "test": "uB/test_record_macro_attribute_string_fourth_argument_compatibility_control",
+          "role": "control",
+          "expected_observations": [
+            "UT: record_attribute_string calls 1 typed_value 1 handle 1 fallback 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MACRO-IO-AUDIT-RECORD-ATTRIBUTE-TIME",
+      "clause": "B.2.3.4",
+      "statement": {
+        "en": "The enabled recording macro forwards the original typed value to the user-specific attribute API.",
+        "ja": "有効なrecording macroは元の型付き値をuser-specific attribute APIへ渡す。"
+      },
+      "conditions": {
+        "en": "Enable recorder attribute support and provide an original user-specific attribute macro whose VALUE binds to an exact const-ref type. Use a valid transaction recorder and an overridden tool handle, without changing the surrounding recording macro. Keep the printed three-argument attribute definition; the separate compatibility control tolerates an unlisted fourth recorder argument and does not pass this original premise.",
+        "ja": "recorder属性対応を有効にし、VALUEが正確なconst-ref型へ束縛する独自user-specific attribute macroを供給する。有効transaction recorderと上書きtool handleを使い、周囲のrecording macroは変更しない。 印刷された3引数のattribute定義を保持し、別の互換controlは未記載の4番目のrecorder引数を許容するが、この元の前提をpassにしない。"
+      },
+      "expected": {
+        "en": "The exact typed value and name reach the original capture function with the overridden tool handle, without recorder-policy fallback.",
+        "ja": "正確な型付き値と名前が上書きtool handleで独自capture関数へ届き、recorder-policy fallbackを行わない。"
+      },
+      "limitations": {
+        "en": "Only the selected macro form, scalar value or recording profile is observed. Compatible public APIs avoid prescribing an external stream layout. Selected legal positive N sizes do not close nonconstant/zero/negative-size questions. Unlisted collection algorithms, all null/error/lifecycle/concurrency conditions and printed signature/prose conflicts remain partial. A shared expected row does not create an independent test.",
+        "ja": "選択macro形式、scalar値、記録profileだけを観測する。互換な公開APIを使い、外部stream配置は規定しない。合法な正のN sizeの選択で非定数／0／負sizeの問題を完了にしない。未記載のcollection algorithm、全null／error／lifecycle／並行条件、印刷signatureと本文の食違いは部分的に残す。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_record_macro_attribute_time_preserves_the_original_type_and_handle",
+          "role": "direct",
+          "expected_observations": [
+            "UT: record_attribute_time calls 1 typed_value 1 handle 1 fallback 0"
+          ]
+        },
+        {
+          "test": "uB/test_record_macro_attribute_time_fourth_argument_compatibility_control",
+          "role": "control",
+          "expected_observations": [
+            "UT: record_attribute_time calls 1 typed_value 1 handle 1 fallback 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MACRO-IO-AUDIT-RECORD-ATTRIBUTE-REAL",
+      "clause": "B.2.3.5",
+      "statement": {
+        "en": "The enabled recording macro forwards the original typed value to the user-specific attribute API.",
+        "ja": "有効なrecording macroは元の型付き値をuser-specific attribute APIへ渡す。"
+      },
+      "conditions": {
+        "en": "Enable recorder attribute support and provide an original user-specific attribute macro whose VALUE binds to an exact const-ref type. Use a valid transaction recorder and an overridden tool handle, without changing the surrounding recording macro. Keep the printed three-argument attribute definition; the separate compatibility control tolerates an unlisted fourth recorder argument and does not pass this original premise.",
+        "ja": "recorder属性対応を有効にし、VALUEが正確なconst-ref型へ束縛する独自user-specific attribute macroを供給する。有効transaction recorderと上書きtool handleを使い、周囲のrecording macroは変更しない。 印刷された3引数のattribute定義を保持し、別の互換controlは未記載の4番目のrecorder引数を許容するが、この元の前提をpassにしない。"
+      },
+      "expected": {
+        "en": "The exact typed value and name reach the original capture function with the overridden tool handle, without recorder-policy fallback.",
+        "ja": "正確な型付き値と名前が上書きtool handleで独自capture関数へ届き、recorder-policy fallbackを行わない。"
+      },
+      "limitations": {
+        "en": "Only the selected macro form, scalar value or recording profile is observed. Compatible public APIs avoid prescribing an external stream layout. Selected legal positive N sizes do not close nonconstant/zero/negative-size questions. Unlisted collection algorithms, all null/error/lifecycle/concurrency conditions and printed signature/prose conflicts remain partial. A shared expected row does not create an independent test.",
+        "ja": "選択macro形式、scalar値、記録profileだけを観測する。互換な公開APIを使い、外部stream配置は規定しない。合法な正のN sizeの選択で非定数／0／負sizeの問題を完了にしない。未記載のcollection algorithm、全null／error／lifecycle／並行条件、印刷signatureと本文の食違いは部分的に残す。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_record_macro_attribute_real_preserves_the_original_type_and_handle",
+          "role": "direct",
+          "expected_observations": [
+            "UT: record_attribute_real calls 1 typed_value 1 handle 1 fallback 0"
+          ]
+        },
+        {
+          "test": "uB/test_record_macro_attribute_real_fourth_argument_compatibility_control",
+          "role": "control",
+          "expected_observations": [
+            "UT: record_attribute_real calls 1 typed_value 1 handle 1 fallback 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MACRO-IO-AUDIT-RECORD-ATTRIBUTE-PACKED-STRUCT",
+      "clause": "B.2.3.6",
+      "statement": {
+        "en": "The enabled recording macro forwards the original typed value to the user-specific attribute API.",
+        "ja": "有効なrecording macroは元の型付き値をuser-specific attribute APIへ渡す。"
+      },
+      "conditions": {
+        "en": "Enable recorder attribute support and provide an original user-specific attribute macro whose VALUE binds to an exact const-ref type. Use a valid transaction recorder and an overridden tool handle, without changing the surrounding recording macro. Keep the printed three-argument attribute definition; the separate compatibility control tolerates an unlisted fourth recorder argument and does not pass this original premise.",
+        "ja": "recorder属性対応を有効にし、VALUEが正確なconst-ref型へ束縛する独自user-specific attribute macroを供給する。有効transaction recorderと上書きtool handleを使い、周囲のrecording macroは変更しない。 印刷された3引数のattribute定義を保持し、別の互換controlは未記載の4番目のrecorder引数を許容するが、この元の前提をpassにしない。"
+      },
+      "expected": {
+        "en": "The exact typed value and name reach the original capture function with the overridden tool handle, without recorder-policy fallback.",
+        "ja": "正確な型付き値と名前が上書きtool handleで独自capture関数へ届き、recorder-policy fallbackを行わない。"
+      },
+      "limitations": {
+        "en": "Only the selected macro form, scalar value or recording profile is observed. Compatible public APIs avoid prescribing an external stream layout. Selected legal positive N sizes do not close nonconstant/zero/negative-size questions. Unlisted collection algorithms, all null/error/lifecycle/concurrency conditions and printed signature/prose conflicts remain partial. A shared expected row does not create an independent test.",
+        "ja": "選択macro形式、scalar値、記録profileだけを観測する。互換な公開APIを使い、外部stream配置は規定しない。合法な正のN sizeの選択で非定数／0／負sizeの問題を完了にしない。未記載のcollection algorithm、全null／error／lifecycle／並行条件、印刷signatureと本文の食違いは部分的に残す。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_record_macro_attribute_packed_struct_preserves_the_original_type_and_handle",
+          "role": "direct",
+          "expected_observations": [
+            "UT: record_attribute_packed_struct calls 1 typed_value 1 handle 1 fallback 0"
+          ]
+        },
+        {
+          "test": "uB/test_record_macro_attribute_packed_struct_fourth_argument_compatibility_control",
+          "role": "control",
+          "expected_observations": [
+            "UT: record_attribute_packed_struct calls 1 typed_value 1 handle 1 fallback 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MACRO-IO-AUDIT-RECORD-ATTRIBUTE-DYNAMIC-ARRAY",
+      "clause": "B.2.3.6",
+      "statement": {
+        "en": "The enabled recording macro forwards the original typed value to the user-specific attribute API.",
+        "ja": "有効なrecording macroは元の型付き値をuser-specific attribute APIへ渡す。"
+      },
+      "conditions": {
+        "en": "Enable recorder attribute support and provide an original user-specific attribute macro whose VALUE binds to an exact const-ref type. Use a valid transaction recorder and an overridden tool handle, without changing the surrounding recording macro. Keep the printed three-argument attribute definition; the separate compatibility control tolerates an unlisted fourth recorder argument and does not pass this original premise.",
+        "ja": "recorder属性対応を有効にし、VALUEが正確なconst-ref型へ束縛する独自user-specific attribute macroを供給する。有効transaction recorderと上書きtool handleを使い、周囲のrecording macroは変更しない。 印刷された3引数のattribute定義を保持し、別の互換controlは未記載の4番目のrecorder引数を許容するが、この元の前提をpassにしない。"
+      },
+      "expected": {
+        "en": "The exact typed value and name reach the original capture function with the overridden tool handle, without recorder-policy fallback.",
+        "ja": "正確な型付き値と名前が上書きtool handleで独自capture関数へ届き、recorder-policy fallbackを行わない。"
+      },
+      "limitations": {
+        "en": "Only the selected macro form, scalar value or recording profile is observed. Compatible public APIs avoid prescribing an external stream layout. Selected legal positive N sizes do not close nonconstant/zero/negative-size questions. Unlisted collection algorithms, all null/error/lifecycle/concurrency conditions and printed signature/prose conflicts remain partial. A shared expected row does not create an independent test.",
+        "ja": "選択macro形式、scalar値、記録profileだけを観測する。互換な公開APIを使い、外部stream配置は規定しない。合法な正のN sizeの選択で非定数／0／負sizeの問題を完了にしない。未記載のcollection algorithm、全null／error／lifecycle／並行条件、印刷signatureと本文の食違いは部分的に残す。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_record_macro_attribute_dynamic_array_preserves_the_original_type_and_handle",
+          "role": "direct",
+          "expected_observations": [
+            "UT: record_attribute_dynamic_array calls 1 typed_value 1 handle 1 fallback 0"
+          ]
+        },
+        {
+          "test": "uB/test_record_macro_attribute_dynamic_array_fourth_argument_compatibility_control",
+          "role": "control",
+          "expected_observations": [
+            "UT: record_attribute_dynamic_array calls 1 typed_value 1 handle 1 fallback 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MACRO-IO-AUDIT-RECORD-INT-33-EXPLICIT-RADIX",
+      "clause": "B.2.3.2",
+      "statement": {
+        "en": "The default recording macro forwards the selected name/value and metadata to its declared recorder interface.",
+        "ja": "既定recording macroは選択した名前／値とmetadataを宣言されたrecorder interfaceへ渡す。"
+      },
+      "conditions": {
+        "en": "Use the unmodified default recording macros with attribute support disabled, an open original recorder and a live handle obtained through transaction begin_tr. Keep a separate peer recorder. Set the recorder default radix to UVM_BIN but explicitly request UVM_HEX for a thirty-three-bit value; retain the declared record_field backend route.",
+        "ja": "属性対応を無効にした元の既定recording macro、openした独自recorder、transaction begin_trで得た有効handle、別のpeer recorderを使う。 recorder既定radixをUVM_BINにし、33-bit値にUVM_HEXを明示要求して、宣言されたrecord_field backend経路を保持する。"
+      },
+      "expected": {
+        "en": "The selected original recording hook receives the exact value/name and applicable size/radix or required generic conversion, preserving the other recorder.",
+        "ja": "選択した独自recording hookは正確な値／名前と該当size／radixまたは要求generic変換を受け、他recorderを保持する。"
+      },
+      "limitations": {
+        "en": "Only the selected macro form, scalar value or recording profile is observed. Compatible public APIs avoid prescribing an external stream layout. Selected legal positive N sizes do not close nonconstant/zero/negative-size questions. Unlisted collection algorithms, all null/error/lifecycle/concurrency conditions and printed signature/prose conflicts remain partial. A shared expected row does not create an independent test.",
+        "ja": "選択macro形式、scalar値、記録profileだけを観測する。互換な公開APIを使い、外部stream配置は規定しない。合法な正のN sizeの選択で非定数／0／負sizeの問題を完了にしない。未記載のcollection algorithm、全null／error／lifecycle／並行条件、印刷signatureと本文の食違いは部分的に残す。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uB/test_record_macro_int_33_explicit_radix_uses_the_declared_recorder_route",
+          "role": "direct",
+          "expected_observations": [
+            "UT: record_int_33_explicit_radix delegated 1 isolated 1"
+          ]
+        },
+        {
+          "test": "u16/test_record_macro_control_direct_small_field_preserves_default_and_explicit_radices",
+          "role": "control",
+          "expected_observations": [
+            "UT: record_direct33 default 1 explicit 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-MACRO-IO-AUDIT-DIRECT-FIELD-33",
+      "clause": "16.4.6.1",
+      "statement": {
+        "en": "A direct small-width record_field call reaches its specified field backend hook.",
+        "ja": "小さい幅の直接record_field呼出しは指定されたfield backend hookへ届く。"
+      },
+      "conditions": {
+        "en": "A valid transaction recorder, original field/int hooks and a thirty-three-bit value. Select UVM_BIN as the configured default and observe omitted radix and explicit UVM_HEX in separate counter windows.",
+        "ja": "有効transaction recorder、独自field／int hook、33-bit値を使う。設定既定値にUVM_BINを選び、radix省略と明示UVM_HEXを別counter区間で観測する。"
+      },
+      "expected": {
+        "en": "Both calls preserve name/value/width and use the field hook rather than the int hook; omitted radix can retain the marker or resolve to the configured default, while explicit HEX is retained.",
+        "ja": "両呼出しは名前／値／幅を保ち、intではなくfield hookを使う。省略radixは未指定印または設定既定値を使え、明示HEXは保持する。"
+      },
+      "limitations": {
+        "en": "A public API control is a different premise from a recording macro. Selected thirty-three-bit/default/explicit conditions do not certify all field widths or recording lifecycles.",
+        "ja": "公開API controlはrecording macroとは異なる前提であり、選択33-bit／既定／明示条件で全field幅や記録lifecycleを認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_record_macro_control_direct_small_field_preserves_default_and_explicit_radices",
+          "role": "direct",
+          "expected_observations": [
+            "UT: record_direct33 default 1 explicit 1"
+          ]
+        }
+      ]
     }
   ]
 }

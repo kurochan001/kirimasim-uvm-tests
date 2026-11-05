@@ -8,6 +8,8 @@ These are the meanings used in this repository's tests and reports. This
 glossary is a reading guide; cited clauses in each test remain the basis of
 its expected result.
 
+The main groups explain [expectations](#standards-and-expectations), [UVM components](#uvm-building-blocks), [execution records](#execution-and-result-records) and [coverage counts](#scope-and-coverage), so you can start with the terms used on the page you are reading.
+
 ## Standards and expectations
 
 **UVM / IEEE 1800.2-2020** — Universal Verification Methodology: the classes,
@@ -193,6 +195,8 @@ which individual miscompare reports are counted. Later framework rollups are
 outside that interval; the comparer result still counts every field failure.
 
 ## Transaction-level communication
+
+TLM carries transactions between testbench components, and [Q25](faq.md#q25-does-a-tlm-delay-annotation-advance-simulation-time) explains why an annotated delay and an actual wait have different effects.
 
 **Push sequencer / push driver** — A sequencer that calls a driver's blocking
 `put` / a driver that receives those calls through `req_export`. Returning
@@ -488,6 +492,8 @@ execution with the pinned library.
 compare inputs or tools / its digest algorithm / results from multiple batches
 combined after checking input, runner and configuration identities. A matching
 fingerprint supports reuse of recorded evidence; it is not a new execution.
+
+When reusing a result, compare the identities listed in [Evidence assembly](results.md#evidence-assembly) to check that the recorded inputs and execution conditions still apply.
 
 **Watchdog** — A bounded timeout in a blocking test that turns a missing
 completion into a visible failure. Positive delays let a test observe waiting
@@ -1355,3 +1361,11 @@ removal history are separate from the field's access policy.
 **Prediction callback context** — The field identity, previous/latest values,
 prediction kind, door and map delivered to post-predict. Selected direct
 prediction does not imply read/write callback delivery or physical access.
+
+**Independent scalar macro direction** — Macro packing followed by public API
+decoding, or public API encoding followed by macro unpacking, with a separate
+trailer observation; [Q269](faq.md#q269-why-use-public-scalar-apis-in-the-other-packing-direction) explains the boundary of this evidence.
+
+**Printed macro arity control** — A separate input with an explicit additional
+argument or another printed interface, used to interpret the original signature
+premise; [Q270](faq.md#q270-do-passing-compatibility-controls-resolve-the-printed-macro-signatures) explains why a control match preserves the original difference.

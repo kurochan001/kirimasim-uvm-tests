@@ -8225,6 +8225,182 @@
     "u18/test_wo_callback_remove_then_readd_restores_enforcement_after_a_success": {
       "primary_clause": "18.11.5.2.2",
       "inputs_sha256": "3cd1a3988df55f61a2612614f271b7797bd97eb5cac7312f2feeb832d8873521"
+    },
+    "uB/test_pack_macro_intn_1_interoperates_with_an_independent_scalar_api": {
+      "primary_clause": "B.2.4",
+      "inputs_sha256": "d03f90795aad0f6c3f3ecd4cd0cc104932a0b6ebddef26c91c0dc55d64f7999b"
+    },
+    "uB/test_pack_macro_intn_33_interoperates_with_an_independent_scalar_api": {
+      "primary_clause": "B.2.4.1",
+      "inputs_sha256": "7a9181b55c882d2c7051dce26b089313f30d8a784f3a2ef656c9b6e4c6f4ae11"
+    },
+    "uB/test_pack_macro_intn_97_interoperates_with_an_independent_scalar_api": {
+      "primary_clause": "B.2.4.1",
+      "inputs_sha256": "43ca58fd5d3895a1476a02db1dfd26de31beba82ead0f4b94c3f1d83aae4efe1"
+    },
+    "uB/test_pack_macro_enumn_interoperates_with_an_independent_scalar_api": {
+      "primary_clause": "B.2.4.2",
+      "inputs_sha256": "7d28939d109a29ec7d08da55dce70ab171d41811a3fcb2d015564b37a9e8bc89"
+    },
+    "uB/test_pack_macro_int_interoperates_with_an_independent_scalar_api": {
+      "primary_clause": "B.2.4.6",
+      "inputs_sha256": "fc867f68d79f8a7eb87f2b6e51ecd196cebc2b0104ba9375703c3704c8f7b943"
+    },
+    "uB/test_pack_macro_enum_interoperates_with_an_independent_scalar_api": {
+      "primary_clause": "B.2.4.7",
+      "inputs_sha256": "5650c77f7958970aa42114ff9e73ab08cbda6e325b21062ff09e854c8b2046f0"
+    },
+    "uB/test_pack_macro_string_interoperates_with_an_independent_scalar_api": {
+      "primary_clause": "B.2.4.8",
+      "inputs_sha256": "fbb37197cb4c91691fc7a2a06e09a351945a6c60d9a2659dbf2c4cc5fd1d64bb"
+    },
+    "uB/test_pack_macro_empty_string_interoperates_with_an_independent_scalar_api": {
+      "primary_clause": "B.2.4.8",
+      "inputs_sha256": "f293a9e2a998b974ae533e0e7df129a32171bdde97f5045695500065bbc52af0"
+    },
+    "uB/test_pack_macro_negative_real_interoperates_with_an_independent_scalar_api": {
+      "primary_clause": "B.2.4.9",
+      "inputs_sha256": "67ce31b6085d1bb9f7a1ed9b42a9f51a2629a4c1010126f2bf256626f68f7f28"
+    },
+    "uB/test_pack_macro_zero_real_interoperates_with_an_independent_scalar_api": {
+      "primary_clause": "B.2.4.9",
+      "inputs_sha256": "af2189c11d9a2a10117da7a349640477fa285e5956657b47ea94116081823fdd"
+    },
+    "uB/test_unpack_macro_intn_1_interoperates_with_an_independent_scalar_api": {
+      "primary_clause": "B.2.5",
+      "inputs_sha256": "24870b0198c926862a5b5f2b324101b6ba1fd5c6efef1927e68a5efd4bd776f5"
+    },
+    "uB/test_unpack_macro_intn_33_interoperates_with_an_independent_scalar_api": {
+      "primary_clause": "B.2.5.1",
+      "inputs_sha256": "cfbc963e9253922eebe8374a0de8aa701e9258ea6177bd3fa134ecb0290e0aea"
+    },
+    "uB/test_unpack_macro_intn_97_interoperates_with_an_independent_scalar_api": {
+      "primary_clause": "B.2.5.1",
+      "inputs_sha256": "18a9487c89afc0632ea471b5f4b2a09cfedbb6db8c122f1f0d5d86613eebe889"
+    },
+    "uB/test_unpack_macro_enumn_interoperates_with_an_independent_scalar_api": {
+      "primary_clause": "B.2.5.2",
+      "inputs_sha256": "2b114d93495ad4fb6e4a3c8dec9ba740aee60237e0b9d2c351c59e9794747406"
+    },
+    "uB/test_unpack_macro_int_interoperates_with_an_independent_scalar_api": {
+      "primary_clause": "B.2.5.6",
+      "inputs_sha256": "8d41d2bd8f53385fc7bd6576eb03e79cce6c3f075c1ec2155eb5e77cb4c86017"
+    },
+    "uB/test_unpack_macro_enum_interoperates_with_an_independent_scalar_api": {
+      "primary_clause": "B.2.5.7",
+      "inputs_sha256": "9bf27271fe822535b20e81a1d81ddba344f97fa571613a0f5b34d7b72d82b750"
+    },
+    "uB/test_unpack_macro_string_interoperates_with_an_independent_scalar_api": {
+      "primary_clause": "B.2.5.8",
+      "inputs_sha256": "c541a77d865eb912019f3e9ab63d5442641f74af40f06f6f5913f57f16df2f35"
+    },
+    "uB/test_unpack_macro_empty_string_interoperates_with_an_independent_scalar_api": {
+      "primary_clause": "B.2.5.8",
+      "inputs_sha256": "87d5a00d047543d7a520b91cf2b4b0273566e51a2e480cf38622ad667256abae"
+    },
+    "uB/test_unpack_macro_negative_real_interoperates_with_an_independent_scalar_api": {
+      "primary_clause": "B.2.5.9",
+      "inputs_sha256": "c08de951260e9521cbe3625e99010a014a4724cecdb16b009ec1d504bab99037"
+    },
+    "uB/test_unpack_macro_zero_real_interoperates_with_an_independent_scalar_api": {
+      "primary_clause": "B.2.5.9",
+      "inputs_sha256": "3be8c7d8ed453cf0753c5cc87d9f13b83399c8b3a3e289b31c741842f37e2623"
+    },
+    "uB/test_record_macro_int_radix_uses_the_declared_default_recorder_route": {
+      "primary_clause": "B.2.3.2",
+      "inputs_sha256": "ae73f78dd84f0f44ce69a67e69a87e3137666c83b9b95785404dcc1ff62c6bfc"
+    },
+    "uB/test_record_macro_int_default_radix_uses_the_declared_default_recorder_route": {
+      "primary_clause": "B.2.3.2",
+      "inputs_sha256": "d6eb39829cf612c94f111f86091a2da5a1505e4c9adcf40a25eb27add9bc0e46"
+    },
+    "uB/test_record_macro_string_uses_the_declared_default_recorder_route": {
+      "primary_clause": "B.2.3.3",
+      "inputs_sha256": "ca14682c46ed380a8b691026bc67e82a5c2964d8ddd19d7c05781b37ba09d7e5"
+    },
+    "uB/test_record_macro_empty_string_uses_the_declared_default_recorder_route": {
+      "primary_clause": "B.2.3.3",
+      "inputs_sha256": "ca62c100ec8804b529ebf6fa9dc4a0159c8783182c91e1c5eeca1884796c2c57"
+    },
+    "uB/test_record_macro_time_uses_the_declared_default_recorder_route": {
+      "primary_clause": "B.2.3.4",
+      "inputs_sha256": "28658a17c9b18f4a4d7b8fbfce51cbb64736330dbd335402e82789bd0c2659a2"
+    },
+    "uB/test_record_macro_real_uses_the_declared_default_recorder_route": {
+      "primary_clause": "B.2.3.5",
+      "inputs_sha256": "31f4cafcda48d9532d11542bf6c297ddb9bcc1be44db47ba6b698dbbad1c902c"
+    },
+    "uB/test_record_macro_field_struct_uses_the_declared_default_recorder_route": {
+      "primary_clause": "B.2.3.6",
+      "inputs_sha256": "660a356eaa3d08383649f4a64e8ee0390b628bf224d127431def2cd3a2040b67"
+    },
+    "uB/test_record_macro_field_string_uses_the_declared_default_recorder_route": {
+      "primary_clause": "B.2.3.6",
+      "inputs_sha256": "1fc0a3bd398502ddd730b8bd201e46a690fa2f0fd0c17b357efd6f59141ece4f"
+    },
+    "uB/test_record_macro_attribute_handle_uses_the_declared_default_recorder_route": {
+      "primary_clause": "B.2.3.1",
+      "inputs_sha256": "3bc68e49242d3cb04e6c7e439b2b391557942d3b472fd3f34ad57d7ffed150f4"
+    },
+    "uB/test_record_macro_attribute_peer_uses_the_declared_default_recorder_route": {
+      "primary_clause": "B.2.3.1",
+      "inputs_sha256": "bc6719a04a11e99616c08bfef70fd2a7b119cc5b93eff29a01e0d6d48406c437"
+    },
+    "uB/test_record_macro_attribute_wide_integral_preserves_the_original_type_and_handle": {
+      "primary_clause": "B.2.3",
+      "inputs_sha256": "68829e7ce6aab63e746591e0bba682bd545e936bdc9520130f6d434e8b038cac"
+    },
+    "uB/test_record_macro_attribute_string_preserves_the_original_type_and_handle": {
+      "primary_clause": "B.2.3.3",
+      "inputs_sha256": "ce8d46fe4524b5680c5d1d0095cd6db68a811bb3b4ce9430df6669105b75b189"
+    },
+    "uB/test_record_macro_attribute_time_preserves_the_original_type_and_handle": {
+      "primary_clause": "B.2.3.4",
+      "inputs_sha256": "d3c98646f5b64e81e33e81f093f79921b52475e65b2643a68697aae5ea1efcf6"
+    },
+    "uB/test_record_macro_attribute_real_preserves_the_original_type_and_handle": {
+      "primary_clause": "B.2.3.5",
+      "inputs_sha256": "2fbee48f43a629f6176c35143ebaaba5227c1926e84a871ba8c064d2ad058a90"
+    },
+    "uB/test_record_macro_attribute_packed_struct_preserves_the_original_type_and_handle": {
+      "primary_clause": "B.2.3.6",
+      "inputs_sha256": "99b8e885b9bb1c6c08228d5d76762f07dde8d2bd52ad1172d146f1bbf8094f31"
+    },
+    "uB/test_record_macro_attribute_dynamic_array_preserves_the_original_type_and_handle": {
+      "primary_clause": "B.2.3.6",
+      "inputs_sha256": "0c3f719a56d5a26fa78783c86634bcdd413c8b9a4e6fbf8111dbaf9c9d8f95d9"
+    },
+    "uB/test_record_macro_attribute_wide_integral_fourth_argument_compatibility_control": {
+      "primary_clause": "B.2.3",
+      "inputs_sha256": "7201cd0a0e164c513d48b5482963f887c3282f88b866df031927c6c7c084c9de"
+    },
+    "uB/test_record_macro_attribute_string_fourth_argument_compatibility_control": {
+      "primary_clause": "B.2.3.3",
+      "inputs_sha256": "6b7e5ea9eedfcb55ea967874810f863227fa373872e1e28de64bb651277c90fa"
+    },
+    "uB/test_record_macro_attribute_time_fourth_argument_compatibility_control": {
+      "primary_clause": "B.2.3.4",
+      "inputs_sha256": "3873ae7572a0fcefefd7e1a8fa874f2d35ef1f326f54b67edfa15d21a0a1c817"
+    },
+    "uB/test_record_macro_attribute_real_fourth_argument_compatibility_control": {
+      "primary_clause": "B.2.3.5",
+      "inputs_sha256": "936ee5ada3967635dd474fe7b73b8fcf29f9b218143e512de0ebb25293a1020b"
+    },
+    "uB/test_record_macro_attribute_packed_struct_fourth_argument_compatibility_control": {
+      "primary_clause": "B.2.3.6",
+      "inputs_sha256": "7986fe7e7e2a3e7a3312461fed080aeb4ccced8a89867bcdafeb7cbbb576f214"
+    },
+    "uB/test_record_macro_attribute_dynamic_array_fourth_argument_compatibility_control": {
+      "primary_clause": "B.2.3.6",
+      "inputs_sha256": "89f36153097857facbb0a9a839508d8acb16e2b377652f13f0abd373d5b4c048"
+    },
+    "uB/test_record_macro_int_33_explicit_radix_uses_the_declared_recorder_route": {
+      "primary_clause": "B.2.3.2",
+      "inputs_sha256": "0d4a7bb0a975a49bfd0b5a1b42c3074767a33e5894ff078519e7bd30a21135a8"
+    },
+    "u16/test_record_macro_control_direct_small_field_preserves_default_and_explicit_radices": {
+      "primary_clause": "16.4.6.1",
+      "inputs_sha256": "6e57acf8f8a63adf8261bcb06f27cbf0aa26cbc97c98e6da422078a74db220a4"
     }
   }
 }

@@ -25,6 +25,8 @@ UVMのテストが言語機能（クラス、パラメータ化クラス、制�
 
 ## 共通の判定・結果コード
 
+共通の結果コードによって両スイートのJSON形式を揃えており、このスイートの実行スクリプトが付けるstatusの読み方は[結果の定義](faq.ja.md#q5-passfailknownunsupportedはどう違いますか)で説明しています。
+
 `tools/suite_results.py`は、
 [kirimasim-testsの19034b575e1b715c356660ac1422b45f25c15ab3](https://github.com/kurochan001/kirimasim-tests/blob/19034b575e1b715c356660ac1422b45f25c15ab3/tools/suite_results.py)
 から取り込み、次を変更しています。
@@ -97,6 +99,10 @@ field-access期待は提供IEEEのfield／register／callback契約に基づき�
 定義済み保護とpost-predictの期待は、提供IEEEのcallback／field契約から導いた独自観測です。
 実装固有の診断文をコピーせずにERRORの存在と正確なstatusを規定します。Methods見出し2件を分類条項として個別に読みました。
 表示formatの修正で規格に基づく期待観測を変更しません。
+
+recording／scalar macroの期待は、提供IEEEのB.2.3〜B.2.5とrecorder／packer契約から独立に導きました。
+その後、固定Apache-2.0のrecorder macro headerを追加引数・整数hook選択・generic書式の原因調査に読みましたが、oracleの根拠にはしません。
+印刷どおりの入力、追加引数を許容するcontrol、限定したhandle解釈を分けており、[macroのFAQ](faq.ja.md#recordingとscalar-macroの条件)で説明しています。
 
 ## 条項カタログの保守
 

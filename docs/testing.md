@@ -121,7 +121,18 @@ prescribed. Post-predict distinguishes direct from successful read/write kinds.
 Use literal display formats for tagged observation rows; a packed concatenation
 is an integral expression. Remeasure all dependent inputs after helper changes.
 
+The [recording helper](../tests/uB/helpers68/recording_fixture68.svh) observes
+declared recorder hooks through live transaction handles. Printed three-argument
+attributes and four-argument compatibility controls have separate identities.
+The six extension-tolerant inputs are control-only; direct small-field API and
+enumN controls also have their own direct duties. Scalar macro directions use
+public APIs independently and preserve a seven-bit trailer; no raw stream
+layout or universal size/error behavior is inferred. See [macro interpretation
+and controls](faq.md#recording-and-scalar-macro-conditions) before changing a premise.
+
 ### Metadata
+
+The header tells the runner how to build and judge a case; [Q76](faq.md#q76-does-a-clause-citation-mean-its-requirements-are-tested) explains how its clause citations relate to requirement links.
 
 The metadata follows kirimasim-tests and sv-tests, with these UVM-specific fields:
 
@@ -143,13 +154,15 @@ The metadata follows kirimasim-tests and sv-tests, with these UVM-specific field
 `:files:`, `:defines:`, `:incdirs:` and `:top_module:` mean what they mean in
 kirimasim-tests; the [tool provenance](provenance.md) identifies the shared implementation.
 
-The 34 negative fixtures use `:type: elaboration` and
+Negative fixtures use `:type: elaboration` and
 `:should_fail_because:`. Their `:expected_stderr_regex:` identifies the fixture,
 class/method or const-reference diagnostic. They have no expected runtime output
 or exit. A match requires compiler rejection plus a matching error; an accepted
 design fails without running its binary. Requested seeds apply to simulation,
 so no runtime seed is executed for any illegal design, accepted or rejected. The ledger's schema-2
 diagnostic form records that declared oracle separately from measurements.
+
+A negative test matches when the compiler rejects the intended illegal design with the required diagnostic, as explained in [Q199](faq.md#q199-why-does-a-compiler-rejection-count-as-a-match).
 
 Missing-default ownership fixtures deliberately end through a testbench fatal
 after catching original UVM_FATAL severity. Their `:expected_exit: nonzero`
@@ -244,6 +257,8 @@ again. `--check` checks the copy that is there. The library is not committed.
 
 ### Compiling
 
+DPI lets SystemVerilog call external code, and [Q12](faq.md#q12-does-uvm_dpi-yes-automatically-enable-a-working-dpi-build) explains which extra implementation must be linked for a DPI-enabled test.
+
 - Pinned-library runs add the library's `src` include directory and compile
   `src/uvm_pkg.sv` before the test sources. Verilator uses `-I`; kirimasim
   and Ghost use `+incdir+`. Ghost's bundled mode supplies its own package.
@@ -258,7 +273,7 @@ again. `--check` checks the copy that is there. The library is not committed.
 - User-defined `uvm_reg_backdoor` storage handlers work without HDL DPI.
   Commercial simulator execution/results are excluded by the project policy;
   built-in HDL-path/DPI coverage remains open.
-- 2027 current cases use `UVM_NO_DPI`; eleven explicitly enable HDL DPI.
+- 2071 current cases use `UVM_NO_DPI`; eleven explicitly enable HDL DPI.
   `:uvm_dpi: yes` removes that macro;
   it does not automatically compile or link the C/C++ DPI implementation.
   The current Verilator runner does not add DPI C/C++ sources.
@@ -266,6 +281,8 @@ again. `--check` checks the copy that is there. The library is not committed.
   no annex H tests or cases requesting this macro.
 
 ### Verilator VPI HDL subset
+
+This backend connects UVM's DPI calls to the simulator's public VPI interface; [HDL execution conditions](glossary.md#hdl-execution-conditions) explains the two interfaces and the scope of a backend result.
 
 The separate [HDL runner](../tools/run_verilator_hdl.py) links the original
 [backend](../tools/uvm_hdl_vpi.cpp) through public VPI, using actual HDL storage.
@@ -366,9 +383,9 @@ For runtime cases, `--seeds 1 73` builds once and runs a fresh process for
 each seed. All requested runtime seeds must match. `--seed N` remains available for a single seed.
 The JSON configuration records either `seed` or `seeds` accordingly.
 
-By default, Verilator selects 1770 tagged two-state checks: 1685 runtime
+By default, Verilator selects 1803 tagged two-state checks: 1718 runtime
 cases and 85 expected compiler rejections. To include
-the 286 spec-only cases as well, add `--all`. A mismatch in an untagged case
+the 297 spec-only cases as well, add `--all`. A mismatch in an untagged case
 is `known` and does not fail the command; a tagged mismatch does.
 Explicit test paths select only those tests. For a single smoke test:
 
@@ -382,6 +399,8 @@ does not publish these JSON files. See the [FAQ](faq.md) for result
 statuses, exit codes and fingerprint interpretation.
 
 ### Ghost
+
+Ghost is the public alias for an authorized private simulator, and [Q11](faq.md#q11-what-does-the-ghost-result-cover-and-why-an-alias) explains the library modes used by its results.
 
 ```sh
 python3 tools/run_ghost.py --simulator /path/to/private/simulator \
@@ -414,6 +433,8 @@ against the lock before executing.
 
 ## Checks
 
+These commands validate the library, tools and test descriptions; [Continuous integration](results.md#continuous-integration) describes the additional simulator checks performed by Check.
+
 ```sh
 python3 tools/fetch_uvm.py --check
 python3 -m unittest discover -s tools -p 'test_*.py'
@@ -422,7 +443,7 @@ python3 tools/requirements.py check
 ```
 
 The current tool suite has 110 unit tests; metadata validation checks all
-2056 tests (1968 simulation, 88 elaboration). The [ledger check](requirements.md) validates the draft
+2100 tests (2012 simulation, 88 elaboration). The [ledger check](requirements.md) validates the draft
 scope, explicit oracle links and input fingerprints without claiming coverage. [Check](../.github/workflows/check.yml) runs on pushes to
 `main`, pull requests and manual dispatch. Its Verilator matrix jobs use
 5.052, `UVM_NO_DPI` and seeds 1 and 73 for the tagged cases. Each model is
@@ -431,7 +452,7 @@ not that every UVM requirement or every simulator passes.
 
 The previous unsharded [Check run](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/41976785278)
 exceeded the configured 150-minute job limit. The current workflow partitions
-the same 1770 tagged checks into 8 disjoint shards (222/222/221/221/221/221/221/221),
+the current 1803 tagged checks into 8 disjoint shards (226/226/226/225/225/225/225/225),
 with at most 4 concurrent shard jobs. The exact union and absence of duplicates are
 verified locally. The 17 command-line checks run once, on shard 0 before
 ordinary checks. Seeds 1/73, the 85 compiler rejections, pinned dependencies
@@ -470,6 +491,8 @@ seeds before adding the tag. The standard PDFs remain local and ignored by Git.
   published.
 
 ## Documentation maintenance
+
+At a term's first important use, add a brief explanation and a link to the relevant section of [the glossary](glossary.md), [FAQ](faq.md) or [reading guide](reading-guide.md), so readers can continue from that point.
 
 Maintain an English `.md` and Japanese `.ja.md` version of every project
 guide, with corresponding headings, facts, commands, tables, diagrams and

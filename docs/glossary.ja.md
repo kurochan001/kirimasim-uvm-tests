@@ -7,6 +7,8 @@
 このリポジトリのテストや結果で使う言葉をまとめています。読むための手引きであり、
 各テストの期待値の根拠は、そのテストが引用する規格の条項です。
 
+主な分類は[期待値](#規格と期待値)・[UVMの構成要素](#uvmの構成要素)・[実行記録](#実行と結果)・[カバレッジの件数](#範囲とカバレッジ)で、読んでいるページに出てくる用語の分類から調べられます。
+
 ## 規格と期待値
 
 **UVM／IEEE 1800.2-2020** — Universal Verification Methodology。
@@ -143,6 +145,8 @@ utilitiesマクロとconstructorを使ってlibraryのsubtypeを生成するこ�
 comparerの結果は全fieldの不一致を引き続き数えます。
 
 ## Transaction単位の通信
+
+TLMはテストベンチの構成要素の間でtransactionを渡す仕組みで、注記した遅延と実際の待機の効果の違いは[Q25](faq.ja.md#q25-tlmのdelay-annotationを変えるとシミュレーション時刻も進みますか)で説明しています。
 
 **push sequencer／push driver** — driverのblocking `put`を呼ぶsequencer／
 `req_export`でその呼び出しを受けるdriverです。`put`から戻ると、その要求が完了します。
@@ -367,6 +371,8 @@ Ghostは`pass`・`fail`で記録し、同梱ライブラリの差を`known`へ�
 **指紋／SHA-256／結果の合算** — 入力やツールの内容を比較する識別値／その計算方法／
 入力・ランナー・設定の同一性を確認した複数の実行結果をまとめることです。
 指紋の一致は保存済みの結果を再利用する根拠であり、新しく実行したことにはなりません。
+
+結果を再利用するときは、[記録の合算](results.ja.md#記録の合算)にある識別情報を照合すると、記録した入力と実行条件が現在も当てはまるかを確認できます。
 
 **watchdog** — blockingのテストで完了を待つ時間に上限を設け、完了しなければ失敗として知らせる仕組みです。
 正の遅延を入れることで、同じ時刻のプロセス順に頼らず待機状態を観測できます。
@@ -1032,3 +1038,9 @@ register／fieldへの所属と削除履歴はfield自身のaccess policyとは�
 
 **予測callbackのcontext** — post-predictへ渡すfield同一性、以前／最新の値、予測kind、door、mapです。
 選択したdirect予測からread／write callbackの配送や物理accessは導きません。
+
+**scalar macroの独立した方向** — macroでpackして公開APIでdecodeする入力、または公開APIでencodeしてmacroでunpackする入力に、別の末尾観測を加えることです。
+この証拠の範囲は[Q269](faq.ja.md#q269-packの反対方向に公開scalar-apiを使う理由は)で説明しています。
+
+**印刷macroの引数control** — 追加引数を明示するか別の印刷interfaceを使い、元のsignature前提を解釈するための別入力です。
+control一致後も元の差分を保持する理由は[Q270](faq.ja.md#q270-互換controlが一致すれば印刷macro-signatureは解決しますか)で説明しています。

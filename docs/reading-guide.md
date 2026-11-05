@@ -17,6 +17,8 @@ This repository supplies small UVM tests and scripts that run them. A simulator 
 
 The expected result comes from the cited standard. The Accellera library is pinned to the version and content identified by the repository lock file (uvm.lock) and is the implementation exercised, so a mismatch can involve the simulator, library or test. See [the sources of expectations](provenance.md#library-and-standards).
 
+Each test starts with metadata describing its cited rule and expected output; [the test-header example](testing.md#example) shows where to find these in a source file.
+
 Many register tests use original testbench storage; the words frontdoor or backdoor alone do not establish actual HDL access. See [the register model terms](glossary.md#register-model) and [the separate HDL backend](testing.md#verilator-vpi-hdl-subset) for that distinction.
 
 ## Before the first run
@@ -33,7 +35,7 @@ For a simulation case, the runner compares the ordered lines beginning with `UT:
 
 `pass` means the declared checks matched; `fail` means a checked condition differed; `known` records a difference for an untagged Verilator case; `unsupported` records a kirimasim unsupported-feature diagnostic recognized by the runner. The last two are not passes. See [the status definitions](faq.md#q5-what-do-pass-fail-known-and-unsupported-mean).
 
-The `elaboration` cases here expect the compiler to reject an illegal design and execute no runtime seed, while `simulation` cases run a model. Matches at both seeds do not establish four-state coverage including X/Z; see [the seed and compiler-count explanation](faq.md#q201-did-all-2056-tests-run-at-two-seeds).
+The `elaboration` cases here expect the compiler to reject an illegal design and execute no runtime seed, while `simulation` cases run a model. Matches at both seeds do not establish four-state coverage including X/Z; see [the seed and compiler-count explanation](faq.md#q201-did-all-2100-tests-run-at-two-seeds).
 
 With `--all`, known differences do not by themselves make the Verilator command fail, so inspect individual statuses as well as its exit code. See [why the exit code can still be zero](faq.md#q6-why-can-verilator-exit-successfully-with-known-results).
 

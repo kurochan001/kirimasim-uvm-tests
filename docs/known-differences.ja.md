@@ -4,12 +4,32 @@
 
 差分は特定のシミュレータ／ライブラリ／入力の条件に対するもので、runner出力での表示は[statusの定義](faq.ja.md#q5-passfailknownunsupportedはどう違いますか)で説明しています。
 
-現在の2056件と、固定したAccellera UVM 2020.3.1についての記録です。
+現在の2100件と、固定したAccellera UVM 2020.3.1についての記録です。
 不一致はテストの結果であり、それだけではシミュレータ・ライブラリ・期待値のどれが原因かは決まりません。
+
+個別のケースは[specのみの一覧](#specのみのテスト)からソースを開き、[テスト形式の説明](testing.ja.md#テストの形式)に沿ってメタデータを読むと、期待する観測と実行条件を確認できます。
+
+recording／scalar macroの監査は測定差分11件を追加します。厳密な3引数attributeのbuild 6件、印刷enum-unpackの引数build 1件、
+33-bit整数hookのruntime 2件、既定attributeのruntime 2件です。runtime差分はseed 1だけで、buildにはruntime結果がありません。
+追加引数を許容するattribute control 6件、印刷enumN control、直接small-field API controlは別に一致し、後ろの2件は直接義務も持ちます。
+enumのsignature／本文とTR_HANDLE／0引数accessorの境界は限定した解釈に残し、11入力を独立した不具合11個とは認定しません。
+[macroの条件](faq.ja.md#recordingとscalar-macroの条件)を参照してください。
+
+- [型付きdynamic arrayのattribute（3引数）](../tests/uB/test_record_macro_attribute_dynamic_array_preserves_the_original_type_and_handle.sv)。
+- [選択したrecorderへの既定attribute](../tests/uB/test_record_macro_attribute_handle_uses_the_declared_default_recorder_route.sv)。
+- [型付きpacked structのattribute（3引数）](../tests/uB/test_record_macro_attribute_packed_struct_preserves_the_original_type_and_handle.sv)。
+- [peerのhandleを指定した既定attribute](../tests/uB/test_record_macro_attribute_peer_uses_the_declared_default_recorder_route.sv)。
+- [型付きrealのattribute（3引数）](../tests/uB/test_record_macro_attribute_real_preserves_the_original_type_and_handle.sv)。
+- [型付きstringのattribute（3引数）](../tests/uB/test_record_macro_attribute_string_preserves_the_original_type_and_handle.sv)。
+- [型付きtimeのattribute（3引数）](../tests/uB/test_record_macro_attribute_time_preserves_the_original_type_and_handle.sv)。
+- [型付きwide integralのattribute（3引数）](../tests/uB/test_record_macro_attribute_wide_integral_preserves_the_original_type_and_handle.sv)。
+- [radixを明示した小整数macro](../tests/uB/test_record_macro_int_33_explicit_radix_uses_the_declared_recorder_route.sv)。
+- [radixを省略した小整数macro](../tests/uB/test_record_macro_int_default_radix_uses_the_declared_default_recorder_route.sv)。
+- [印刷された1引数のenum unpack](../tests/uB/test_unpack_macro_enum_interoperates_with_an_independent_scalar_api.sv)。
 
 elaboration 88件は抽象class直接生成33件とpure interface／const参照／禁止member／型context違反55件で拒否を期待し、85件が一致します。
 subscriber／visitor未実装と印字virtual builtin dispatcherの直接生成は受理され、runtimeなしでspec-onlyを保持します。
-compiler受理3件は既知simulation差分283件と別です。合法な派生controlを必要な拒否の代わりにはしません。
+compiler受理3件は既知simulation差分294件と別です。合法な派生controlを必要な拒否の代わりにはしません。
 
 field-access監査はseed 73結果のないseed 1 runtime差分5件を保持します。
 register write／readのpre hookは保持するRCFD期待に対してFDRCを観測し、別のcrdf post観測が一致しても入力全体をpassにしません。
@@ -532,7 +552,7 @@ type queue priorityの部分観測は一致しても両fixtureをpassにせず�
 記載pure get_type_handleを実装する合法resource-base拡張は、固定libraryが記載外pure helperも宣言するためbuildできません。
 規格hook欠落negativeの独自compatibility本体は指定拒否を分離するためだけに使い、その合法拡張を修復しません。
 
-スイート全体では、`verilator@5.052`を付けたテストは1770件、specのみのテストは286件です。
+スイート全体では、`verilator@5.052`を付けたテストは1803件、specのみのテストは297件です。
 specのみのうち1件は9.6を検証します。pre-resetフェーズ終了時に子タスクが停止する
 はずですが、固定版UVMとVerilator 5.052の組み合わせでは、後のフェーズで子タスクの遅延書き込みが
 実行されます。この差分の原因がシミュレータとライブラリのどちらかは未確定です。
@@ -541,13 +561,13 @@ wakeup resetの検査系は、trigger waiterとpersistent-trigger waiterを各1�
 10.1.1.2.8は、callbackなしで両方が起動することを要求します。固定Verilatorの実行は、待機状態の観測に到達してから
 watchdogが期限切れになります。simulator／libraryを組み合わせた原因は未確定のまま、規範的なwakeupの期待を保持します。
 
-specのみの286件も規格から導いた期待値を保持します。通常のVerilator実行とCIはoracle付き1770件（runtime 1685・compile拒否85）を選びます。
+specのみの297件も規格から導いた期待値を保持します。通常のVerilator実行とCIはoracle付き1803件（runtime 1718・compile拒否85）を選びます。
 `--all`はspecのみも含め、不一致やビルド不可を`known`として記録します。
-通常の実行時214件は最初の差分であるseed 1までの記録で、seed 73の結果はありません。
+通常の実行時218件は最初の差分であるseed 1までの記録で、seed 73の結果はありません。
 API／型名欠落build 27件はtime API 1、sequence-library 6、HDL slice 4、名前付きconcat constructor 1、object active-policy 5、catcher message-handle 3、印刷recording-state getter 1、印刷callback typedef 1、built-in type_id 2、typed resource-DB helper 3で、通常runtimeはありません。
 型既定宣言2件、印刷signature食違い2件、継承type_id registry特殊化2件は別の宣言buildで、合法な公開read宣言1件はprotected accessで失敗し、合法resource-base／記載methodだけの完全core-service拡張2件は記載外pure hookを要求されます。
 追加の合法build 3件はenum-collection T解釈を保持します。
-time減算引数既定値build 1件もあり、HDL 11件とcommand-line 18件も通常runnerでDPIをlinkしないため、合計69 simulation buildにruntimeはありません。
+time減算引数既定値build 1件もあり、HDL 11件とcommand-line 18件も通常runnerでDPIをlinkしないため、合計76 simulation buildにruntimeはありません。
 
 別HDL条件では実array memory 3 fixtureを含む10件が両seed一致、E.7のwarning／転送なしの期待はseed 1で失敗します。別command-line条件は17件一致とquit-warning差分1件で、重複条件を合計しません。
 
@@ -588,7 +608,9 @@ object名省略fixtureは任意user既定値を制約せず、独自constructor�
 
 specのみのケースも固定版oracle tagなしに規格から導いた期待値を保持するため、その注記の意味は[規格と期待値](glossary.ja.md#規格と期待値)を参照してください。
 
-現在の286件は次のテストです。同じ制約を複数のテストで検査する場合があり、異なる不具合の個数ではありません。
+controlは差分を解釈するために前提を変えて実行する補助検査であり、元のケースの結果との関係は[要求への対応付けの役割](requirements.ja.md#引用要求実行の証拠)で説明しています。
+
+現在の297件は次のテストです。同じ制約を複数のテストで検査する場合があり、異なる不具合の個数ではありません。
 
 - [継承subscriber type_id特殊化](../tests/u08/test_builtin_abstract_parameterized_components_type_id_uses_the_required_registry_specialization.sv).
 - [共有abstract object matrixのtransaction type_id欠落](../tests/u08/test_builtin_abstract_objects_type_id_uses_the_required_registry_specialization.sv).
@@ -874,7 +896,7 @@ specのみのケースも固定版oracle tagなしに規格から導いた期待
 - [生成時の独立した引数snapshot](../tests/uG/test_command_fresh_processors_populate_independent_argument_snapshots_at_construction.sv).
 
 既存2入力はcommand-enum引用と、訂正したBoolean rerandomization観測で指紋が変わっています。
-対応する歴史的guest記録を除外し、互換範囲は1083記録、未測定は修正2入力を含む973件です。
+対応する歴史的guest記録を除外し、互換範囲は1083記録、未測定は修正2入力を含む1017件です。
 これはevidence範囲のfilterで、新しいguest fail／passやsimulator改善ではありません。
 
 - [copier既定名](../tests/u16/test_policy_comparer_packer_and_copier_constructors_preserve_names_types_and_policy_bases.sv)
@@ -910,8 +932,8 @@ specのみのケースも固定版oracle tagなしに規格から導いた期待
 
 同梱ライブラリと固定ライブラリは異なる実行条件なので、記録の比較には[現在のスナップショット](results.ja.md#現在のスナップショット)を使ってください。
 
-スイートは2056件ですが、以下のkirimasim／Ghost記録は未変更の現在入力1083件だけを対象とします。
-以前の一時実行ファイル／profile snapshotがないため、973入力は未測定です。
+スイートは2100件ですが、以下のkirimasim／Ghost記録は未変更の現在入力1083件だけを対象とします。
+以前の一時実行ファイル／profile snapshotがないため、1017入力は未測定です。
 新しい全件guest実測とは扱いません。[実行結果](results.ja.md)を参照してください。
 
 Ghostの同梱UVMはseed 1・73とも207件一致・876件不一致で、不一致になるテストも同じです。

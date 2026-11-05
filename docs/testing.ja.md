@@ -99,7 +99,15 @@ callback起点のmap変更と開始時mapを明示するcontrolは異なる前�
 callback guard検査はERRORの存在、失敗status、転送0、storage保持を観測し、正確な診断文／件数は要求しません。反対方向と削除履歴を別に観測し、拒否read dataは規定しません。
 post-predictはdirectと成功read／writeのkindを区別します。観測行にはliteral表示formatを使い、packed連結は整数式であることに注意します。helper変更時には全依存入力を再測定します。
 
+[recording helper](../tests/uB/helpers68/recording_fixture68.svh)は実行中のtransaction handleを使って記述されたrecorder hookを観測します。
+印刷された3引数attributeと4引数互換controlは別の入力同一性を持ちます。
+追加引数を許容する6入力はcontrol専用で、直接small-field APIとenumNのcontrolは独自の直接義務も持ちます。
+scalar macroの各方向は公開APIを独立に使い、7-bit末尾値を保持しますが、raw stream配置や全size／error動作は推測しません。
+前提を変える前に[macroの解釈とcontrol](faq.ja.md#recordingとscalar-macroの条件)を参照してください。
+
 ### メタデータ
+
+ヘッダーは実行スクリプトにビルドと判定の条件を伝えるもので、条項の引用と要求への対応付けの関係は[Q76](faq.ja.md#q76-条項を引用すればその要求を検査したことになりますか)で説明しています。
 
 kirimasim-testsとsv-testsの形式を引き継ぎ、次の点を変えます。
 
@@ -120,9 +128,11 @@ kirimasim-testsとsv-testsの形式を引き継ぎ、次の点を変えます。
 `:expected_stderr_regex:`・`:expected_exit:`・`:files:`・`:defines:`・`:incdirs:`・`:top_module:`の意味は
 kirimasim-testsと同じです。共通実装の取得元は[ソースの出典](provenance.ja.md)を参照してください。
 
-negative検査系55件は`:type: elaboration`と`:should_fail_because:`を使い、`:expected_stderr_regex:`でfixture、class／methodまたはconst参照の診断を識別します。
+不正な設計を検査するケースは`:type: elaboration`と`:should_fail_because:`を使い、`:expected_stderr_regex:`でfixture、class／methodまたはconst参照の診断を識別します。
 期待するruntime出力や終了は持たせません。compile拒否と一致errorの両方が必要で、受理されたdesignはbinaryを実行せず不一致にします。
 要求したseedはsimulation用であり、受理／拒否いずれの不正designも実行時seedを実行しません。台帳schema-2の診断形式は、この宣言oracleを測定と別に記録します。
+
+不正な設計のテストは、意図した理由を示す診断とともにコンパイラが拒否すれば期待どおりであり、成功として数える理由は[Q199](faq.ja.md#q199-compile拒否を一致に数える理由は)で説明しています。
 
 既定sequencerなしの所有API検査系は、元のUVM_FATAL severityをcatchした後、検査系自身のfatalで意図的に終了します。
 `:expected_exit: nonzero`と`:expected_stderr_regex:`は検査系固有のsentinelを要求し、library診断やlibrary fatalの終了コードを固定しません。
@@ -195,6 +205,8 @@ Ghostの同梱モードでは供給されたUVMを使います。ステータス
 
 ### コンパイル
 
+DPIはSystemVerilogから外部コードを呼ぶ仕組みで、DPIを有効にしたテストに必要な実装のリンクは[Q12](faq.ja.md#q12-uvm_dpi-yesだけでdpiを使うビルドが完成しますか)で説明しています。
+
 - 固定版の実行は`src`をinclude先に追加し、テストより先に`src/uvm_pkg.sv`をコンパイルします。
   Verilatorは`-I`、kirimasim・Ghostは`+incdir+`を使います。Ghostの同梱モードは別途パッケージを供給します。
 - テストが`:uvm_dpi: yes`としない限り`UVM_NO_DPI`を定義します。ライブラリのHDLバックドア用のDPIは、
@@ -205,7 +217,7 @@ Ghostの同梱モードでは供給されたUVMを使います。ステータス
   （`UVM_HDL_NO_DPI`ならバックドアだけを外せます）。
 - ユーザー定義の`uvm_reg_backdoor`による記憶域handlerはHDL DPIなしで使えます。
   商用シミュレータの実行・結果はプロジェクトの方針で除外し、組み込みHDL path／DPIの検査は未完です。
-- 現在の2027件は`UVM_NO_DPI`を使い、11件はHDL DPIを明示的に有効にします。
+- 現在の2071件は`UVM_NO_DPI`を使い、11件はHDL DPIを明示的に有効にします。
   `:uvm_dpi: yes`はこのマクロを外す指定で、
   C/C++のDPI実装を自動でビルド・リンクする指定ではありません。
   現在のVerilatorランナーはDPIのC/C++ソースを追加しません。
@@ -213,6 +225,8 @@ Ghostの同梱モードでは供給されたUVMを使います。ステータス
   このマクロを要求するテストもありません。
 
 ### VerilatorのVPI HDL部分集合
+
+このbackendはUVMのDPI呼出しをシミュレータの公開VPI interfaceへ接続するもので、2つのinterfaceと測定範囲の関係は[HDLの実行条件](glossary.ja.md#hdlの実行条件)で説明しています。
 
 別の[HDL runner](../tools/run_verilator_hdl.py)は、公開VPI経由で独自の[backend](../tools/uvm_hdl_vpi.cpp)をlinkし、
 実際のHDL storageを使います。Verilatorは5.052固定です。明示選択する11検査系は、
@@ -291,7 +305,7 @@ runtimeでは`--seeds 1 73`で各モデルを一度だけビルドし、seedご�
 要求した全runtime seedで一致した場合だけ成功です。従来の`--seed N`も使えます。
 結果JSONのconfigurationには、指定に応じて`seed`か`seeds`を記録します。
 
-Verilatorの既定の対象はoracle付き・2値の1770件（runtime 1685・期待compiler拒否85）です。`--all`を付けるとspecのみの286件も含めます。
+Verilatorの既定の対象はoracle付き・2値の1803件（runtime 1718・期待compiler拒否85）です。`--all`を付けるとspecのみの297件も含めます。
 oracleのないテストの不一致は`known`で、コマンドを失敗させません。oracle付きの不一致は失敗です。
 テストのパスを明示した場合は、そのテストだけが対象です。スモークテスト1件の実行例です。
 
@@ -304,6 +318,8 @@ python3 tools/run_verilator.py --seeds 1 73 --build-jobs 2 -j 1 \
 結果の分類・終了コード・指紋の読み方は[FAQ](faq.ja.md)を参照してください。
 
 ### Ghost
+
+Ghostは利用が認められた非公開シミュレータの公開用の仮名であり、結果が前提にするライブラリのモードは[Q11](faq.ja.md#q11-ghostの結果は何を確認しなぜ仮名なのですか)で説明しています。
 
 ```sh
 python3 tools/run_ghost.py --simulator /path/to/private/simulator \
@@ -333,6 +349,8 @@ python3 tools/run_ghost.py --simulator /path/to/private/simulator \
 
 ## 検査
 
+以下のコマンドはライブラリ・ツール・テストの記述を検査し、Checkが追加で行うシミュレータの検査は[継続的インテグレーション](results.ja.md#継続的インテグレーション)で説明しています。
+
 ```sh
 python3 tools/fetch_uvm.py --check
 python3 -m unittest discover -s tools -p 'test_*.py'
@@ -340,7 +358,7 @@ python3 tools/lint_metadata.py
 python3 tools/requirements.py check
 ```
 
-現在のツールの単体テストは110件、メタデータの対象はテスト2056件（simulation 1968件・elaboration 88件）です。
+現在のツールの単体テストは110件、メタデータの対象はテスト2100件（simulation 2012件・elaboration 88件）です。
 [台帳の検査](requirements.ja.md)は、範囲案、明示した期待値への対応、入力の指紋を検査し、カバレッジを主張しません。
 [Check](../.github/workflows/check.yml)は`main`へのpush・pull request・手動実行で動きます。
 Verilator matrixの各jobは5.052・`UVM_NO_DPI`・seed 1と73でoracle付きのテストを実行し、
@@ -348,7 +366,7 @@ Verilator matrixの各jobは5.052・`UVM_NO_DPI`・seed 1と73でoracle付きの
 UVMの全要求や全シミュレータの成功を示すものではありません。
 
 以前の分割前[Check実行](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/41976785278)は、設定された150分のjob上限を超えました。
-現在のworkflowは同じタグ付き1770検査を重複しない8 shard（222／222／221／221／221／221／221／221）へ分け、同時shard jobは最大4です。
+現在のworkflowは現在のタグ付き1803検査を重複しない8 shard（226／226／226／225／225／225／225／225）へ分け、同時shard jobは最大4です。
 和集合の完全一致と重複なしをlocalで検証しました。command-line 17検査はshard 0で通常検査の前に1回だけ実行します。
 seed 1／73、compiler拒否85件、固定依存関係、runner指紋は未変更です。従来のverilator gateは全shardの成功を要求します。shard分割は実行の構成であり、local検証でhosted workflowの成功は立証しません。
 
@@ -376,6 +394,8 @@ forkの共有状態が生存するようにし、blockingの観測にはwatchdog
 - 公開前のシミュレータの名前、版、実行プロファイル、パスは公開しません。
 
 ## ドキュメントの更新
+
+重要な用語が初めて出る箇所には短い説明と、[用語集](glossary.ja.md)・[FAQ](faq.ja.md)・[読み方ガイド](reading-guide.ja.md)の該当する節へのリンクを添え、その場から読み進められるようにします。
 
 プロジェクトの各ガイドには英語の`.md`と日本語の`.ja.md`を用意し、見出し、事実、コマンド、表、図、
 リンクを対応させて、同じ変更で両方を更新します。API名、metadata、コマンドのoption、期待出力など、
