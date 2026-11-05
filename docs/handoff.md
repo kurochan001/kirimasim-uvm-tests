@@ -81,6 +81,8 @@ Canonical files are the versioned inputs maintained in Git, while generated repo
 
 ## Resume and verify
 
+The validation commands below check tools and maintained inputs; [the checks guide](testing.md#checks) distinguishes those checks from running simulator models.
+
 Use Python 3.10 or later. Verilator measurements require exactly 5.052,
 a C++ toolchain and make. Run from the repository root:
 
@@ -116,6 +118,8 @@ or spec-only cases. There is no Nightly workflow or automatic result
 publication.
 
 ## Evidence and latest differences
+
+A test can appear in both ordinary and backend measurements, so [the measurement scope](results.md#current-snapshot) explains which rows overlap before you compare their totals.
 
 | Simulator / library | Recorded result |
 | --- | --- |

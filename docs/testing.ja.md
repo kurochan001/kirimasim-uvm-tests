@@ -22,6 +22,8 @@
 
 ## ディレクトリ構成
 
+`uNN`のディレクトリは規格の章、M1〜M4は開発段階を表し、要求との関係は[対象範囲の用語](glossary.ja.md#範囲とカバレッジ)で確認できます。
+
 ```text
 tests/uNN/<name>.sv          メタデータ付きテスト（NNは1800.2の章）
 tests/uNN/<name>.expected    期待する観測行
@@ -76,6 +78,8 @@ tools/UPSTREAM               写したツールの元と、変えた点
 */
 ```
 
+fixtureはテストの準備と観測を担う検査系、helperはテストを支える補助コードやデータのことで、以下の個別例で使う用語は[実行と結果の用語集](glossary.ja.md#実行と結果)で説明しています。
+
 memory／FIFO追加では[記載API設定](../tests/u18/helpers63/fifo_frontdoor_fixture63.svh)と
 [固定build control](../tests/u18/helpers63_initialized/fifo_initialized_fixture63.svh)の独立helper directory 2個を宣言します。
 利用sourceは`:files:`でhelperを指定し、directory内容が入力指紋に入ります。helper変更時は全依存入力を再測定します。
@@ -129,6 +133,8 @@ kirimasim-testsとsv-testsの形式を引き継ぎ、次の点を変えます。
 | `:dpi_c:` | `@../../tools/uvm_hdl_vpi.cpp`で独自backendを宣言し指紋へ含める |
 | `:args:` | `+UVM_TESTNAME=…`などの実行時引数 |
 
+`:expected_stdout:`の`@`で始まる値はテストのソースからの相対パスで期待値ファイルを指定し、そのファイルに記録する出力行は[Q7](faq.ja.md#q7-なぜuvmの全メッセージを比較せずut行だけを比べるのですか)で説明しています。
+
 `:oracle:`・`:spec_check:`・`:fourstate:`・`:nondeterministic:`・`:should_fail_because:`・
 `:expected_stderr_regex:`・`:expected_exit:`・`:files:`・`:defines:`・`:incdirs:`・`:top_module:`の意味は
 kirimasim-testsと同じです。共通実装の取得元は[ソースの出典](provenance.ja.md)を参照してください。
@@ -144,6 +150,8 @@ kirimasim-testsと同じです。共通実装の取得元は[ソースの出典]
 signalは引き続き失敗とし、nonzero終了だけでは必要な観測を満たしません。
 
 ### 何を観測するか
+
+意図的に発生させたUVMエラー自体が必要な観測の場合もあり、エラーメッセージだけでテストの判定が決まらない理由は[Q7](faq.ja.md#q7-なぜuvmの全メッセージを比較せずut行だけを比べるのですか)で説明しています。
 
 1800.2が定めるのは、レポートを組み立てるメソッドの役割までで、出来上がる文字列ではありません。
 `compose_report_message`（6.5.1.2.15）は重大度・コンポーネント名・ID・メッセージから文字列を作りますが、
@@ -200,6 +208,8 @@ Ghostの同梱モードでは供給されたUVMを使います。ステータス
 シミュレータとUVMライブラリは別々の前提なので、実行ファイルやpackageが見つからない場合は[最初の実行の前に](reading-guide.ja.md#最初の実行の前に)を確認してください。
 
 ### 取得
+
+lockファイルは実行に使うライブラリの版と内容を固定するもので、取得した本体をスイートのソースと分ける理由は[ライブラリの出典](provenance.ja.md#ライブラリと規格)で確認できます。
 
 `python3 tools/fetch_uvm.py`は、`third_party/uvm.lock`が名指すリリースを
 [accellera-official/uvm-core](https://github.com/accellera-official/uvm-core)
@@ -265,6 +275,8 @@ memory-walkは、[Q134](faq.ja.md#q134-memory-walk-algorithmをどう解釈し�
 algorithm実装の複製や、simulatorの観測出力をoracleにしません。
 
 ### Verilatorのcommand-line部分集合
+
+この条件は追加でリンクするbridgeを通じて実際のプロセス引数を観測し、通常runnerの結果で代用できない理由は[command-lineのFAQ](faq.ja.md#実command-lineと別実行条件)で説明しています。
 
 [別runner](../tools/run_verilator_cmdline.py)は、標準VPIを通す独自の[引数bridge](../tools/cmdline_backend/uvm_cmdline_vpi.cpp)を使います。
 [regex wrapper](../tools/cmdline_backend/uvm_cmdline_regex.cpp)は固定したApache-2.0 UVM regex実装をcompileし、
@@ -392,6 +404,8 @@ forkの共有状態が生存するようにし、blockingの観測にはwatchdog
 
 ## 権利と出典
 
+スイートのライセンス、取得するライブラリのライセンス、引用する規格はそれぞれ別の資料に適用されるため、以下の規則を読む前に[出典の説明](provenance.ja.md#ライブラリと規格)で対応を確認できます。
+
 - 1800.2の本文・図・サンプルコードは転載しません。条項番号を引用し、自分の言葉で説明します。
 - UVMライブラリはApache-2.0です。取得するもので、コミットしません。
   コミットする場合は、`LICENSE.txt`と`NOTICE.txt`を一緒に置きます。
@@ -399,6 +413,8 @@ forkの共有状態が生存するようにし、blockingの観測にはwatchdog
 - 公開前のシミュレータの名前、版、実行プロファイル、パスは公開しません。
 
 ## ドキュメントの更新
+
+コマンド、メタデータの例、実行結果の表などで説明が必要になりそうな箇所には一文の補足を置き、同じ言語の詳しい説明の見出しへ直接リンクしてください。
 
 重要な用語が初めて出る箇所には短い説明と、[用語集](glossary.ja.md)・[FAQ](faq.ja.md)・[読み方ガイド](reading-guide.ja.md)の該当する節へのリンクを添え、その場から読み進められるようにします。
 

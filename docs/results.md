@@ -19,6 +19,8 @@ remain separate.
 
 Counts do not establish a reviewed coverage percentage.
 
+Backend rows revisit inputs already included in the ordinary row under different conditions; [the execution setup](testing.md#the-uvm-library) explains why their results are counted separately.
+
 | Simulator and library | Observation | Execution scope |
 | --- | --- | --- |
 | Verilator 5.052, pinned UVM | 1831 `pass`: 1744 runtime + 87 compile rejection; 302 `known` | Runtime matches use seeds 1/73; expected compiler rejections execute no runtime seed |
@@ -102,6 +104,8 @@ and exit-code rules. Two seeds do not prove determinism or four-state correctnes
 
 A fingerprint identifies the exact inputs behind a reused record, so [Execution and result records](glossary.md#execution-and-result-records) explains why an old match may not apply after an edit.
 
+Here an unmeasured input has no compatible current record, even if an older version was run; [Q15](faq.md#q15-how-do-i-know-whether-an-old-result-still-applies) explains the checks needed before reusing it.
+
 The snapshot retains all 2100 prior ordinary inputs/records from [19c4d55](https://github.com/kurochan001/kirimasim-uvm-tests/commit/19c4d5513ad8137d0dc1f122c0bb0568adfaf743)
 and measures the traversal-declaration increment on 2026-11-05 JST.
 
@@ -168,6 +172,8 @@ files and `out/thin-sixty-ninth-evidence-scope.json` retain the explicit exclusi
 until authorized matching execution conditions are restored.
 
 The fingerprints identify different inputs:
+
+SHA-256 is a digest of recorded content, and [the fingerprint glossary](glossary.md#execution-and-result-records) explains why matching one digest alone does not establish the same execution conditions.
 
 | Identity | What it identifies | How to use it |
 | --- | --- | --- |

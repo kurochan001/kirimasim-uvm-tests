@@ -7,6 +7,17 @@
 現在のランナーの動作を説明します。件数と測定範囲は[README](../README.ja.md#現在の実行結果)、
 個別の制約は[既知差分](known-differences.ja.md)にまとめています。
 
+## 疑問に合う説明を探す
+
+質問は話題ごとにまとめているため、知りたいことに合う入口を選び、回答内のリンクから詳しいガイドへ進めます。
+
+- 最初の実行の準備：[最初の実行](#最初の実行)と[runnerのコマンド](testing.ja.md#スイートの実行)。
+- 出力や終了コードの解釈：[結果ラベル](#結果の読み方)と[測定条件](results.ja.md#結果の解釈)。
+- sequenceや通信の理解：[lockとtransport](#lockとnonblocking-transport)と[TLMの用語](glossary.ja.md#transaction単位の通信)。
+- レジスタのテストの理解：[モデルの基本](#レジスタモデルの基本)と[レジスタの用語](glossary.ja.md#レジスタモデル)。
+- 進捗の確認や対応付けの変更：[M4の質問](#要求台帳とm4)と[台帳の更新手順](requirements.ja.md#テストや対応付けの更新)。
+- 問題の報告：[投稿方針](#商用シミュレータとissueの投稿方針)と[資料の出典](provenance.ja.md#ライブラリと規格)。
+
 ## 最初の実行
 
 ### Q1. kirimasim-testsとの違いは何ですか
@@ -189,6 +200,8 @@ AIが引用した規格と期待値を照合した記録です。人によるレ
 このスイートのライセンスはApache-2.0 WITH LLVM-exceptionです。
 
 ## lockとnonblocking transport
+
+sequenceはtransactionを供給し、sequencerはその実行を仲裁する役割を持ち、以下の所有権や通信の質問を読むための基礎は[UVMの構成要素](glossary.ja.md#uvmの構成要素)で説明しています。
 
 ### Q19. lockとgrabはどう違い、所有者がblockedになることはありますか
 
@@ -924,6 +937,8 @@ read／write権限の組み合わせや未知のpolicyは未検証です。
 既定のmaskは値の検査だけで、全flagを同時には実行しません。shared wrapperはdispatcherのflagを介さず直接検査します。
 
 ## 要求台帳とM4
+
+台帳は義務と期待する観測を実測した一致とは別に記録し、以下の回答で使う対応付けは[要求と証拠のガイド](requirements.ja.md#引用要求実行の証拠)で説明しています。
 
 ### Q76. 条項を引用すれば、その要求を検査したことになりますか
 

@@ -12,6 +12,15 @@ Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
 current library limitations are in [known differences](known-differences.md).
 
+Use these entry points to trace why an area was added, and [the handoff priorities](handoff.md#remaining-work-and-suggested-order) to choose current work.
+
+- [M1: core UVM](history.md#m1-increments)
+- [M2: sequences and TLM](history.md#m2-increments)
+- [M3: register model](history.md#m3-register-model-foundations-2026-11-01)
+- [M4: requirement ledger](history.md#first-m4-increment)
+- [Cross-milestone expansions](history.md#thin-area-expansion-across-m1m4)
+- [Traversal declarations and defaults](history.md#sixty-ninth-thin-area-expansion-traversal-declarations-and-defaults)
+
 ## Ghost bundled-library measurements
 
 A bundled run uses the simulator-supplied UVM library, and [Q11](faq.md#q11-what-does-the-ghost-result-cover-and-why-an-alias) explains the execution condition behind these historical counts.

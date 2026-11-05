@@ -8,6 +8,8 @@ This describes the current 2133-test suite and the pinned Accellera UVM
 2020.3.1 library. A mismatch is a test result; it does not by itself assign
 the cause to the simulator, the library or the expectation.
 
+For the size of a difference set, read [the measured breakdown](results.md#interpretation); use [library notes](known-differences.md#pinned-library-limitations), [the grouped source list](known-differences.md#spec-only-tests) and [simulator/library conditions](known-differences.md#simulator-and-library-combinations) to investigate a particular input.
+
 Individual source links appear in the topic explanations and [grouped list](#spec-only-tests); [the test format guide](testing.md#test-format) explains how to read their metadata, expected observations and execution conditions.
 
 Traversal declaration auditing retains five new differences: three
@@ -1268,6 +1270,8 @@ not a new guest failure, pass or simulator improvement.
 - [resource pool global precedence selects name maximum and keeps type priority](../tests/uC/test_resource_pool_global_precedence_selects_name_maximum_and_keeps_type_priority.sv).
 
 ## Simulator and library combinations
+
+One shared build blocker can stop many tests before their UVM behavior runs; [Q9](faq.md#q9-why-does-a-green-check-not-mean-kirimasim-passes-uvm) explains what can be concluded about behavior beyond those compilation blockers.
 
 A bundled library and the pinned library are different execution conditions, so compare records using [Current snapshot](results.md#current-snapshot).
 

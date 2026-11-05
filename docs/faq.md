@@ -8,6 +8,17 @@ This guide describes the current runners. Counts and measurement scope are
 kept in the [README](../README.md#current-results); specific limitations are
 in [known differences](known-differences.md).
 
+## Find an explanation
+
+The questions are grouped by topic, so use the entry matching your task and follow its links to the detailed guide.
+
+- Preparing a first run: [getting started](#getting-started) and [runner commands](testing.md#running-the-suite).
+- Interpreting output or an exit code: [result labels](#understanding-a-result) and [measurement conditions](results.md#interpretation).
+- Understanding sequences and communication: [locking and transport](#locking-and-nonblocking-transport) and [TLM terms](glossary.md#transaction-level-communication).
+- Understanding register tests: [model basics](#register-model-basics) and [register terms](glossary.md#register-model).
+- Checking progress or changing a mapping: [M4 questions](#requirement-ledger-and-m4) and [the ledger update procedure](requirements.md#updating-a-test-or-mapping).
+- Reporting a problem: [posting policy](#commercial-simulator-and-issue-reporting-policy) and [source provenance](provenance.md#library-and-standards).
+
 ## Getting started
 
 ### Q1. How does this differ from kirimasim-tests?
@@ -213,6 +224,8 @@ and cite clause numbers. The UVM library is fetched separately under Apache-2.0;
 the suite is Apache-2.0 WITH LLVM-exception.
 
 ## Locking and nonblocking transport
+
+Sequences supply transactions and sequencers arbitrate them; [the UVM building blocks](glossary.md#uvm-building-blocks) introduce those roles before the ownership and transport questions below.
 
 ### Q19. How do lock and grab differ, and can a lock owner be blocked?
 
@@ -1143,6 +1156,8 @@ The default mask is inspected without running all flags together; the shared
 wrapper is tested directly rather than through its dispatcher flag.
 
 ## Requirement ledger and M4
+
+The ledger records obligations and intended observations separately from measured matches; [the requirement-evidence guide](requirements.md#citations-requirements-and-execution-evidence) explains the links used in these answers.
 
 ### Q76. Does a clause citation mean its requirements are tested?
 

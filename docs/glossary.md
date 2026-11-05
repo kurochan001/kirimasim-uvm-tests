@@ -8,7 +8,7 @@ These are the meanings used in this repository's tests and reports. This
 glossary is a reading guide; cited clauses in each test remain the basis of
 its expected result.
 
-The main groups explain [expectations](#standards-and-expectations), [UVM components](#uvm-building-blocks), [execution records](#execution-and-result-records) and [coverage counts](#scope-and-coverage), so you can start with the terms used on the page you are reading.
+The main groups explain [expectations](#standards-and-expectations), [UVM components](#uvm-building-blocks), [transaction-level communication](#transaction-level-communication), [register models](#register-model), [execution records](#execution-and-result-records) and [coverage counts](#scope-and-coverage), so you can start with the terms used on the page you are reading.
 
 ## Standards and expectations
 
@@ -463,6 +463,11 @@ A compile rejection can be the expected success of an illegal-design check; [Int
 **Runner / metadata** — A `tools/run_*.py` script that builds, executes and
 judges tests / the fields in the test's initial comment controlling that work.
 The supported options and library mode are part of the execution conditions.
+
+**Fixture / helper** — The setup, stimulus and observers used by a test / supporting
+code or data used to build that setup. A fixture may model storage in the testbench;
+its name alone does not imply a physical DUT. Declared helpers are part of the
+test's input fingerprint; see [the test-format examples](testing.md#example).
 
 **`pass` / `fail`** — The expected output and specified exit/diagnostic checks
 matched / a check failed, or the test could not build or run. One failing test

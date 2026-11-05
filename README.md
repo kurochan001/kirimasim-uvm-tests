@@ -43,6 +43,7 @@ Test counts, execution matches and review status measure different things; [the 
   memory and virtual-register models; access paths, prediction, callbacks,
   coverage, allocation and built-in test sequences; D.3 fixtures in uD count as M3.
 
+Frontdoor and backdoor are access routes; the [register glossary](docs/glossary.md#register-model) explains their roles and the distinction from actual HDL access.
 Built-in frontdoors use testbench adapter/sequencer/driver connections.
 Custom frontdoors model storage in their sequence bodies; passive predictor
 fixtures supply observations separately. User backdoors model storage through
@@ -83,8 +84,7 @@ python3 tools/run_verilator.py --seeds 1 73 --build-jobs 2 -j 2 \
 ```
 
 Add `--all` to include all two-state cases, including the 302 spec-only cases.
-`known` results do not fail that command; tagged regressions do. `-j` controls
-concurrent tests and `--build-jobs` controls C++ jobs within each build.
+`known` results do not fail that command; tagged regressions do. `-j` controls concurrent tests and `--build-jobs` controls C++ jobs within each build; [Q13](docs/faq.md#q13-why-is-compilation-heavy-and-what-do-the-two-job-options-control) explains the build cost.
 Each runtime model is built once and run in a fresh process for each seed.
 
 For kirimasim:

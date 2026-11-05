@@ -41,6 +41,8 @@ With `--all`, known differences do not by themselves make the Verilator command 
 
 A reused result is evidence only for its recorded inputs, runner and library. See [how compatible records are combined](results.md#evidence-assembly) before treating an old JSON file as a current result.
 
+When a case differs, inspect its cited rule, expected observation and setup before changing it; [Q18](faq.md#q18-how-should-i-report-or-correct-a-wrong-expectation) describes how to report or correct a suspected expectation error.
+
 ## Read coverage and progress
 
 Tests, standard identifiers and draft requirements are different counting units. M1–M4 name development stages; starting a later stage does not complete an earlier one. Use [the current README counts](../README.md#current-results) and [the counting rules](requirements.md#counting-unit-and-scope-proposal) together.

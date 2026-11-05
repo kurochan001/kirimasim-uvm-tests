@@ -7,6 +7,8 @@
 現在の2133件と、固定したAccellera UVM 2020.3.1についての記録です。
 不一致はテストの結果であり、それだけではシミュレータ・ライブラリ・期待値のどれが原因かは決まりません。
 
+差分の件数は[実測の内訳](results.ja.md#結果の解釈)で確認し、個別の入力を調べるときは[ライブラリの注記](known-differences.ja.md#固定版ライブラリの制約)、[ソースの分類一覧](known-differences.ja.md#specのみのテスト)、[シミュレータとライブラリの条件](known-differences.ja.md#シミュレータとライブラリの組み合わせ)を使ってください。
+
 個別のソースへのリンクは話題ごとの説明と[一覧](#specのみのテスト)にあり、メタデータから期待する観測と実行条件を確認する方法は[テスト形式の説明](testing.ja.md#テストの形式)で案内しています。
 
 走査の宣言監査は新しい差分5件を保持します。STRUCTURE単独指定の依存VISITOR build 3件と、
@@ -940,6 +942,8 @@ controlは差分を解釈するために前提を変えて実行する補助検�
 - [global resource poolのname precedenceとtype priority](../tests/uC/test_resource_pool_global_precedence_selects_name_maximum_and_keeps_type_priority.sv).
 
 ## シミュレータとライブラリの組み合わせ
+
+共通するビルド上の問題1つで多数のテストがUVMの動作を実行する前に停止することがあり、その状態で後続の動作について何が分かるかは[Q9](faq.ja.md#q9-checkが緑ならkirimasimでもuvmが成功したということですか)で説明しています。
 
 同梱ライブラリと固定ライブラリは異なる実行条件なので、記録の比較には[現在のスナップショット](results.ja.md#現在のスナップショット)を使ってください。
 

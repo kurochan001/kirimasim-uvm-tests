@@ -38,6 +38,7 @@ oracleは期待値の根拠を記録する項目で、以下に出てくるタ�
 - **M3：666件（simulation 658・elaboration 8）。** register／field／block／memory／virtual registerのモデル、access path、prediction、
   callback、coverage、割り当て、組み込みtest sequence。uD内のD.3検査系はM3に数えます。
 
+frontdoorとbackdoorはアクセス経路の名前で、それぞれの役割と実際のHDLアクセスとの違いは[レジスタの用語](docs/glossary.ja.md#レジスタモデル)で説明しています。
 組み込みfrontdoorはテストベンチのadapter／sequencer／driverを接続します。
 custom frontdoorはsequence本体で記憶域をモデル化し、passive predictorは別の検査系から観測値を入力します。
 ユーザー定義backdoorは`uvm_reg_backdoor`の派生クラスでモデル化します。別のHDL検査系11件は、独自VPI backendを通じて実際の公開変数を使います。
@@ -74,7 +75,7 @@ python3 tools/run_verilator.py --seeds 1 73 --build-jobs 2 -j 2 \
 
 `--all`を付けると、specのみの302件を含め、すべての2値テストを実行します。
 `known`ではコマンドを失敗させず、oracleタグ付きの回帰では失敗させます。
-`-j`は並行するテスト数、`--build-jobs`は各ビルド内のC++ジョブ数です。
+`-j`は並行するテスト数、`--build-jobs`は各ビルド内のC++ジョブ数で、ビルドに時間がかかる理由は[Q13](docs/faq.ja.md#q13-ビルドが重い理由と2種類の並列数の違いは何ですか)で説明しています。
 runtimeの各モデルは一度ビルドし、seedごとに新しいプロセスで実行します。
 
 kirimasimの場合：

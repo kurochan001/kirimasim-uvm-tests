@@ -26,6 +26,8 @@ Here `null` records that the denominator and percentage are unset pending approv
 
 ## Counting unit and scope proposal
 
+An obligation is one behavior the standard requires under stated conditions; [the coverage glossary](glossary.md#scope-and-coverage) distinguishes it from a clause number or test count.
+
 The proposed unit is one observable normative obligation together with its
 applicability conditions. A method clause may need separate requirements for
 success, failure, default arguments, ordering and side effects. Conversely,
@@ -66,12 +68,12 @@ execution records carry the measured status and conditions.
 
 A test's first UVM `:lrm:` reference is its **primary focus**; later UVM
 references are **supporting citations**. Of the catalog identifiers, 1182
-have a primary-focus test and 1,983 have either kind of citation. Supporting
+have a primary-focus test and 1,995 have either kind of citation. Supporting
 references often describe setup APIs. No reference creates a requirement link,
 and a child-clause reference is not automatically rolled up to its parent.
 
 For the 2,482 candidate identifiers, the historical two-tests-per-clause
-census currently shows 1,316 with zero primary-focus tests, 753 with one,
+census currently shows 1,300 with zero primary-focus tests, 753 with one,
 and 429 with at least two. It measures test placement only. It does not
 establish that an identifier has two independent checks, that its normative
 obligations are decomposed, or that either test passes. It is not an approved
@@ -102,6 +104,8 @@ snapshot includes newly measured fixtures; mapping unchanged existing tests
 adds no new execution result for them.
 
 ## Versioned data and generated inventory
+
+Canonical files are the maintained source data, while inventory and backlog files are generated views; [the handoff file guide](handoff.md#files-and-local-material) explains which material is available in a fresh clone.
 
 Canonical JSON uses UTF-8. Scope, assessments and test index remain schema 1;
 the requirement ledger now uses schema 2. The checker still reads schema 1
@@ -230,6 +234,8 @@ coverage from every anchor in a shared expected-output line.
 
 All existing tests across the twenty-one primary-focus roots now have
 requirement links, while normative decomposition remains partial:
+
+Each row counts requirements by their own clause and tests by their primary citation, so [Q79](faq.md#q79-how-can-i-find-the-next-m4-review-items) explains why a linked test can belong to a different root.
 
 | Root | Draft requirements | Primary-focus tests | Tests without links | Assessed identifiers | Unassessed identifiers |
 | --- | --- | --- | --- | --- | --- |
@@ -637,6 +643,8 @@ sources stay unchanged. A same-hash report can still describe an incomplete,
 unapproved inventory with known differences.
 
 ## Updating a test or mapping
+
+The index binds a mapping to exact test inputs rather than only a filename; [Q78](faq.md#q78-what-should-i-do-when-the-test-index-becomes-stale) explains why a stale fingerprint needs mapping review before it is replaced.
 
 1. Read the applicable normative behavior; write or revise the bilingual
    requirement, conditions and limitations. Reassess its review status.

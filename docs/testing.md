@@ -28,6 +28,8 @@ The simulator runs the language and the UVM library supplies the tested classes;
 
 ## Layout
 
+The `uNN` directory identifies a standard chapter, while M1–M4 identify development stages; [the scope glossary](glossary.md#scope-and-coverage) explains how these groupings relate to requirements.
+
 ```text
 tests/uNN/<name>.sv          a test with metadata; NN is the chapter of 1800.2
 tests/uNN/<name>.expected    its expected observed lines
@@ -81,6 +83,8 @@ A test pairs observed behavior with an independently derived expectation; [Stand
 :expected_stdout: @test_common_phases_run_in_order.expected
 */
 ```
+
+The fixture is the test's setup and observers, and a helper is supporting code or data; [the execution glossary](glossary.md#execution-and-result-records) explains these terms before the specialized examples below.
 
 The memory/FIFO increment declares two isolated helper directories:
 [listed-API setup](../tests/u18/helpers63/fifo_frontdoor_fixture63.svh) and
@@ -157,6 +161,8 @@ The metadata follows kirimasim-tests and sv-tests, with these UVM-specific field
 | `:dpi_c:` | `@../../tools/uvm_hdl_vpi.cpp` declares and fingerprints the original backend |
 | `:args:` | run-time arguments such as `+UVM_TESTNAME=…` |
 
+An `@` value in `:expected_stdout:` names a file relative to the test source, and [Q7](faq.md#q7-why-compare-ut-lines-rather-than-all-uvm-messages) explains which output lines belong in that file.
+
 `:oracle:`, `:spec_check:`, `:fourstate:`, `:nondeterministic:`,
 `:should_fail_because:`, `:expected_stderr_regex:`, `:expected_exit:`,
 `:files:`, `:defines:`, `:incdirs:` and `:top_module:` mean what they mean in
@@ -179,6 +185,8 @@ fix a library diagnostic or library fatal exit code. Signals still fail; a
 nonzero exit alone never establishes the required observation.
 
 ### What is observed
+
+An intentional UVM error can be the required observation, so [Q7](faq.md#q7-why-compare-ut-lines-rather-than-all-uvm-messages) explains why an error message alone does not determine the test's status.
 
 1800.2 defines what the methods that build a report do, not the text they
 produce: `compose_report_message` (6.5.1.2.15) builds the string from the
@@ -255,6 +263,8 @@ For status meanings and command exit codes, see the
 The simulator and UVM library are separate prerequisites, so check [Before the first run](reading-guide.md#before-the-first-run) before diagnosing a missing executable or package.
 
 ### Fetching
+
+A lock file fixes the library version and content used for a run; [the library provenance](provenance.md#library-and-standards) explains why the downloaded tree is kept separate from the suite's sources.
 
 `python3 tools/fetch_uvm.py` fetches the release that `third_party/uvm.lock`
 names from [accellera-official/uvm-core](https://github.com/accellera-official/uvm-core)
@@ -336,6 +346,8 @@ Such a link is review work, not approval of missing normative detail. No copied
 algorithm implementation or observed simulator output defines that oracle.
 
 ### Verilator command-line subset
+
+This condition observes actual process arguments with an extra linked bridge, so [the command-line FAQ](faq.md#actual-command-lines-and-separate-execution-conditions) explains why ordinary-runner results cannot substitute for it.
 
 The [separate runner](../tools/run_verilator_cmdline.py) uses an original
 [argument bridge](../tools/cmdline_backend/uvm_cmdline_vpi.cpp) over standard VPI.
@@ -490,6 +502,8 @@ seeds before adding the tag. The standard PDFs remain local and ignored by Git.
 
 ## Rights and sources
 
+The suite's license, the fetched library's license and the cited standards apply to different material; [the provenance guide](provenance.md#library-and-standards) identifies each source before the contribution rules below.
+
 - No text, figure or example code of 1800.2 is copied; clauses are cited by
   number and described in our own words.
 - The UVM library is Apache-2.0. It is fetched, not committed; if it is ever
@@ -501,6 +515,8 @@ seeds before adding the tag. The standard PDFs remain local and ignored by Git.
 ## Documentation maintenance
 
 At a term's first important use, add a brief explanation and a link to the relevant section of [the glossary](glossary.md), [FAQ](faq.md) or [reading guide](reading-guide.md), so readers can continue from that point.
+
+Place a one-sentence explanation beside commands, metadata examples and result tables where a reader may need it, linking directly to the explanatory heading in the same language.
 
 Maintain an English `.md` and Japanese `.ja.md` version of every project
 guide, with corresponding headings, facts, commands, tables, diagrams and

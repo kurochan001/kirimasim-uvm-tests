@@ -41,6 +41,8 @@ with these changes:
 
 ## Original suite tools
 
+A runner builds and judges a test, while a backend connects selected calls to external code; [the HDL setup guide](testing.md#verilator-vpi-hdl-subset) shows how they work together under a specific execution condition.
+
 The runners (`run_*.py`) and `lint_metadata.py` were written for this suite
 using the kirimasim-tests tools as a model; they are not copies.
 `sv_lifetimes.py` and its regression tests are also original suite code.
