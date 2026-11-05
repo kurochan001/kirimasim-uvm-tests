@@ -1139,3 +1139,11 @@ copierの再利用との区別は[Q295](faq.ja.md#q295-型付きpackunpackは共
 
 **Emission controls（出力時の制御）** — field収集後の変更も含め、emitが文字列を生成するときに使う名前／型／sizeの有効設定です。
 新規peerの未設定条件との違いは[Q298](faq.ja.md#q298-収集後の制御とpeerの差分で何が分かりますか)で説明しています。
+
+## Adapterのsequence context
+
+**Adapter parent_sequence（adapterの親sequence）** — driverのbus item向けにadapterが選ぶsequence基底contextで、register itemの発生元の親metadataとは別です。
+driverでの観測は[Q299](faq.ja.md#q299-adapter側のparent_sequenceは何を指定しますか)で説明しています。
+
+**Original clone bridge（独自clone bridge）** — 公開clone overrideから呼ぶfixture定義のdo_clone動作で、未規定のdo_clone prototypeを推定するものではありません。
+役割の限定とcaller parentの省略条件は[Q300](faq.ja.md#q300-fixtureで標準のdo_clone-signatureを定義していますか)で説明しています。

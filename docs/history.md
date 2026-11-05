@@ -5,8 +5,8 @@
 Counts on this page belong to the time of each change, so use [the current snapshot](results.md#current-snapshot) when you need the present suite size or execution scope.
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and seventy-five cross-milestone thin-area expansions, including the
-existing-test requirement-link backlog checkpoint (2266 tests: 2174 simulation and 92 elaboration). The earlier 349-test checkpoint is
+three M4 increments and seventy-six cross-milestone thin-area expansions, including the
+existing-test requirement-link backlog checkpoint (2274 tests: 2182 simulation and 92 elaboration). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -4597,3 +4597,41 @@ precedes six oracle tags and measurement of all ten final inputs. Ordinary total
 are 1936 pass/330 known. Guests retain 1082 compatible records with 1184 unmeasured
 inputs. Goal iteration 47 strengthens partial conditions without reducing 138
 unassessed identifiers; all original M1–M4 targets remain open.
+
+## Seventy-sixth thin-area expansion: adapter parent-sequence contexts
+
+Eight new adapter parent-context fixtures match seeds 1 and 73 on final inputs.
+Independent register/memory reads and writes use an original one-byte protocol
+and a driver requiring a selected sequence base. Prototypes alternate A/B/A with
+current tags 17/34/51. Paired inputs concurrently exercise two separate adapter,
+map, sequencer and driver routes; the peer retains base B/tag 119. Real pull-driver
+handshakes expose the required parent base, current tag, successful status and
+selected data. Reads use independently seeded storage; rows are emitted after
+joining both operations without imposing a completion order.
+
+An original public clone override invokes a fixture-defined do_clone bridge.
+The clause does not supply a do_clone prototype; no standard signature, clone
+count/identity, generated name, arbitrary base-state copy or external RTL is
+inferred. Explicit caller-parent combinations remain open under the separate
+register/memory child rules; these inputs omit the caller parent rather than
+assuming the adapter rule overrides it. Predictor check_phase remains separate review work; no diagnostic severity is
+assumed from its printed void check.
+
+One new bilingual AI duty partially decomposes 19.2.1.2.4. All 3822 earlier
+duties, 406 classifications and the proposed scope remain unchanged. Global
+state is 1964 partial/406 assessed/137 unassessed. Chapter 19 is 83/24/4 with
+189 duties and 140 primary fixtures (135 simulation/5 elaboration). Its remaining
+unassessed identifiers are predictor check_phase and three HDL force/release
+entries. All partial obligations and original M1–M4 targets remain open.
+
+All 3823 duties link directly to 2250 tests; 24 others remain control-only and
+102 have control links. All 2266 prior ordinary inputs/records, 92 compiler
+records, compatible guests and both backend snapshots remain unchanged.
+Scope, denominator and human review remain unapproved/incomplete.
+
+Independent expectations are frozen first. All eight spec-only inputs match both
+seeds before tagging, followed by fresh measurement of the eight final inputs.
+Prior records retain original input hashes; ordinary totals are 1944 pass/330
+known. Guests retain 1082 compatible records with 1192 unmeasured inputs and no
+new execution/filter. Goal iteration 48 reduces unassessed by one to 137; explicit
+caller-parent combinations and all original M1–M4 targets remain open.

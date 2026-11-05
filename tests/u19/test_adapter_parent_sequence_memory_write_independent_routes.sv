@@ -1,0 +1,27 @@
+/*
+:name: test_adapter_parent_sequence_memory_write_independent_routes
+:description: adapter-selected sequence bases execute memory write with independent_routes (IEEE 1800.2-2020 Section 19.2.1.2.4)
+:tags: u19 uvm
+:type: simulation
+:lrm: 1800.2-2020 19.2.1.2.4 19.2.1.2.5 19.2.1.2.6 5.3.5.2 14.1.2.7 18.2.3.6 18.2.5.2 18.2.5.3 18.1.2.1 18.1.2.2 18.1.2.3 18.1.2.6 18.4.2.1 18.4.2.2 18.5.3.2 18.2.3.3 18.2.3.4 18.6.3.1 18.6.3.2 18.6.5.1 1800-2023 6.21 8.20
+:uvm: 2020.3.1
+:oracle: spec verilator@5.052
+:spec_check: ai
+:fourstate: no
+:nondeterministic: no
+:files: helpers76/parent_sequence76.svh
+:expected_exit: 0
+:expected_stdout: @test_adapter_parent_sequence_memory_write_independent_routes.expected
+*/
+// Required parent bases use an original clone-to-do_clone bridge.
+// No caller parent, clone count/identity, generated name or RTL is assumed.
+module test_adapter_parent_sequence_memory_write_independent_routes;
+  import uvm_pkg::*;
+  `include "uvm_macros.svh"
+  localparam bit MEMORY76 = 1;
+  localparam bit READING76 = 0;
+  localparam bit PAIRED76 = 1;
+  `include "parent_sequence76.svh"
+  initial run_test("t76");
+  initial begin #100; $fatal(1, "original parent-context watchdog expired"); end
+endmodule

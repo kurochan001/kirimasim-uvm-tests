@@ -141071,6 +141071,117 @@
           ]
         }
       ]
+    },
+    {
+      "id": "UVM-ADAPTER-REQUIRED-PARENT-CONTEXT",
+      "clause": "19.2.1.2.4",
+      "statement": {
+        "en": "When configured for a driver requiring a particular sequence base, the adapter parent_sequence supplies that required context for its bus items.",
+        "ja": "特定sequence基底を要求するdriver向けに設定したadapterのparent_sequenceは、bus itemへその要求contextを供給する。"
+      },
+      "conditions": {
+        "en": "Original one-byte numeric-word frontdoors independently exercise register/memory reads/writes with no caller parent. Required-parent subtypes alternate A/B/A and current original tags 17/34/51. Paired inputs concurrently exercise two separate adapter/map/sequencer/driver routes; the peer retains base B/tag 119. A user clone override calls an original do_clone bridge; reads use independently seeded storage.",
+        "ja": "caller parentなしの独自1-byte数値word frontdoorで、register／memoryのread／writeを独立に扱う。要求parent派生型はA／B／Aと切り替え、独自の現在tagは17／34／51とする。paired入力は別のadapter／map／sequencer／driver 2経路を並行実行し、peerは基底B／tag 119を保持する。user clone overrideが独自do_clone bridgeを呼び、read用storageは独立に事前設定する。"
+      },
+      "expected": {
+        "en": "The actual driver sees each required sequence base and the current fixture tag, completes the request successfully and transfers the selected byte. Both paired routes retain their independently selected contexts without imposing completion order.",
+        "ja": "実driverは各要求sequence基底と検査系の現在tagを受け、要求を成功完了し選択byteを転送する。paired両経路は独立した選択contextを保持し、完了順は規定しない。"
+      },
+      "limitations": {
+        "en": "Selected two-state, single-byte, caller-parent-omitted conditions only. The printed clause does not specify a do_clone prototype; the original bridge defines fixture behavior, not an inferred standard API. No clone count/identity, generated name, arbitrary base-state copy, separate response, external RTL, endian/partial-width or full adapter correctness is established. Interactions with explicit caller-parent child rules in register/memory access clauses remain a separate open review; the adapter rule is not assumed to override them. Predictor check_phase and its unspecified diagnostic severity remain unassessed.",
+        "ja": "選択した2値・単一byte・caller parent省略条件だけ。記載条項はdo_cloneのprototypeを示さず、独自bridgeは検査系の動作を定義し、推測した標準APIではない。clone件数／同一性、生成名、任意の基底状態copy、別response、外部RTL、endian／部分幅、全adapter動作は成立させない。register／memoryアクセス条項の明示caller-parentのchild規則との組合せは別の未完レビューとし、adapter規則がそれらを上書きするとは仮定しない。predictor check_phaseと未規定の診断severityは未評価に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_adapter_parent_sequence_register_read_replacement",
+          "role": "direct",
+          "expected_observations": [
+            "UT: parent76 focus 0 required 1 kind 1 tag 17 ok 1 value 31",
+            "UT: parent76 focus 1 required 1 kind 2 tag 34 ok 1 value 52",
+            "UT: parent76 focus 2 required 1 kind 1 tag 51 ok 1 value 73"
+          ]
+        },
+        {
+          "test": "u19/test_adapter_parent_sequence_register_read_independent_routes",
+          "role": "direct",
+          "expected_observations": [
+            "UT: parent76 focus 0 required 1 kind 1 tag 17 ok 1 value 31",
+            "UT: parent76 peer 0 required 1 kind 2 tag 119 ok 1 value a1",
+            "UT: parent76 focus 1 required 1 kind 2 tag 34 ok 1 value 52",
+            "UT: parent76 peer 1 required 1 kind 2 tag 119 ok 1 value b2",
+            "UT: parent76 focus 2 required 1 kind 1 tag 51 ok 1 value 73",
+            "UT: parent76 peer 2 required 1 kind 2 tag 119 ok 1 value c3"
+          ]
+        },
+        {
+          "test": "u19/test_adapter_parent_sequence_register_write_replacement",
+          "role": "direct",
+          "expected_observations": [
+            "UT: parent76 focus 0 required 1 kind 1 tag 17 ok 1 value 31",
+            "UT: parent76 focus 1 required 1 kind 2 tag 34 ok 1 value 52",
+            "UT: parent76 focus 2 required 1 kind 1 tag 51 ok 1 value 73"
+          ]
+        },
+        {
+          "test": "u19/test_adapter_parent_sequence_register_write_independent_routes",
+          "role": "direct",
+          "expected_observations": [
+            "UT: parent76 focus 0 required 1 kind 1 tag 17 ok 1 value 31",
+            "UT: parent76 peer 0 required 1 kind 2 tag 119 ok 1 value a1",
+            "UT: parent76 focus 1 required 1 kind 2 tag 34 ok 1 value 52",
+            "UT: parent76 peer 1 required 1 kind 2 tag 119 ok 1 value b2",
+            "UT: parent76 focus 2 required 1 kind 1 tag 51 ok 1 value 73",
+            "UT: parent76 peer 2 required 1 kind 2 tag 119 ok 1 value c3"
+          ]
+        },
+        {
+          "test": "u19/test_adapter_parent_sequence_memory_read_replacement",
+          "role": "direct",
+          "expected_observations": [
+            "UT: parent76 focus 0 required 1 kind 1 tag 17 ok 1 value 31",
+            "UT: parent76 focus 1 required 1 kind 2 tag 34 ok 1 value 52",
+            "UT: parent76 focus 2 required 1 kind 1 tag 51 ok 1 value 73"
+          ]
+        },
+        {
+          "test": "u19/test_adapter_parent_sequence_memory_read_independent_routes",
+          "role": "direct",
+          "expected_observations": [
+            "UT: parent76 focus 0 required 1 kind 1 tag 17 ok 1 value 31",
+            "UT: parent76 peer 0 required 1 kind 2 tag 119 ok 1 value a1",
+            "UT: parent76 focus 1 required 1 kind 2 tag 34 ok 1 value 52",
+            "UT: parent76 peer 1 required 1 kind 2 tag 119 ok 1 value b2",
+            "UT: parent76 focus 2 required 1 kind 1 tag 51 ok 1 value 73",
+            "UT: parent76 peer 2 required 1 kind 2 tag 119 ok 1 value c3"
+          ]
+        },
+        {
+          "test": "u19/test_adapter_parent_sequence_memory_write_replacement",
+          "role": "direct",
+          "expected_observations": [
+            "UT: parent76 focus 0 required 1 kind 1 tag 17 ok 1 value 31",
+            "UT: parent76 focus 1 required 1 kind 2 tag 34 ok 1 value 52",
+            "UT: parent76 focus 2 required 1 kind 1 tag 51 ok 1 value 73"
+          ]
+        },
+        {
+          "test": "u19/test_adapter_parent_sequence_memory_write_independent_routes",
+          "role": "direct",
+          "expected_observations": [
+            "UT: parent76 focus 0 required 1 kind 1 tag 17 ok 1 value 31",
+            "UT: parent76 peer 0 required 1 kind 2 tag 119 ok 1 value a1",
+            "UT: parent76 focus 1 required 1 kind 2 tag 34 ok 1 value 52",
+            "UT: parent76 peer 1 required 1 kind 2 tag 119 ok 1 value b2",
+            "UT: parent76 focus 2 required 1 kind 1 tag 51 ok 1 value 73",
+            "UT: parent76 peer 2 required 1 kind 2 tag 119 ok 1 value c3"
+          ]
+        }
+      ]
     }
   ]
 }

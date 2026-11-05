@@ -9065,6 +9065,38 @@
     "u16/test_printer_tree_textual_columns_follow_controls_before_collection_peer_enabled": {
       "primary_clause": "16.2.5.2",
       "inputs_sha256": "a54d48fe3428d5937785499970057f2b86921960e0569a0cc996e0281498b837"
+    },
+    "u19/test_adapter_parent_sequence_register_read_replacement": {
+      "primary_clause": "19.2.1.2.4",
+      "inputs_sha256": "27c4b347d6ae88de0b698baeecb6780eddc6c4112705520dd25adcd3d4098c70"
+    },
+    "u19/test_adapter_parent_sequence_register_read_independent_routes": {
+      "primary_clause": "19.2.1.2.4",
+      "inputs_sha256": "f67369d2a30f72ccf3b2a57f194ecf93733d6fe1a9b2f32e936eb6f6ccd143cf"
+    },
+    "u19/test_adapter_parent_sequence_register_write_replacement": {
+      "primary_clause": "19.2.1.2.4",
+      "inputs_sha256": "97dcca20cca76b6131f34e782c503f9ec2f62060058d230594a09e66d95eb46a"
+    },
+    "u19/test_adapter_parent_sequence_register_write_independent_routes": {
+      "primary_clause": "19.2.1.2.4",
+      "inputs_sha256": "52ba67e4c0a7ad0f2b44e89a7ea4ccc4f77bfd9a26f67d88a8b046350966ce63"
+    },
+    "u19/test_adapter_parent_sequence_memory_read_replacement": {
+      "primary_clause": "19.2.1.2.4",
+      "inputs_sha256": "7fdb5349cca7d6cc7d38f334ca1522bc92506c347709365886c2e9635e64e416"
+    },
+    "u19/test_adapter_parent_sequence_memory_read_independent_routes": {
+      "primary_clause": "19.2.1.2.4",
+      "inputs_sha256": "ab053d128a79bbd44329a23e81cd26d84637d2dc18cd85a181c584c6aa711967"
+    },
+    "u19/test_adapter_parent_sequence_memory_write_replacement": {
+      "primary_clause": "19.2.1.2.4",
+      "inputs_sha256": "f3370d80748e81931b13d352a830c0b71eafd3e69e20d5a08f87af758e0fb346"
+    },
+    "u19/test_adapter_parent_sequence_memory_write_independent_routes": {
+      "primary_clause": "19.2.1.2.4",
+      "inputs_sha256": "fdb571513a12f20dd586cf14da3e9a9db29d8d090e4eaa1950ae74586fda1b15"
     }
   }
 }

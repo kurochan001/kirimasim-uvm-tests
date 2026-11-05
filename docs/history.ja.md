@@ -4,7 +4,7 @@
 
 このページの件数は各変更時点の値なので、現在のスイート規模や実行範囲が必要なときは[現在のスナップショット](results.ja.md#現在のスナップショット)を使ってください。
 
-M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の75回目の拡充（全2266件：simulation 2174・elaboration 92）までを記録しています。以前の349件の時点は
+M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の76回目の拡充（全2274件：simulation 2182・elaboration 92）までを記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -2955,3 +2955,30 @@ controlで未設定入力をpassにはせず、4検査系の差分から独立�
 独立した明示peer control 4件を追加し、現行入力を再現してから一致6件にタグを追加し、最終10入力を測定します。
 通常合計は1936 pass／330 knownです。guestは互換1082記録を保持し、1184入力は未測定です。
 goal第47反復では部分条件を補強し、未評価138は減らしていません。元のM1〜M4目標は全て未完です。
+
+## 薄い領域の76回目の拡充：adapter親sequence context
+
+新規adapter parent-context 8検査系は、最終入力でseed 1／73に一致します。
+独自1-byte protocolと選択したsequence基底を要求するdriverで、register／memoryのreadとwriteを独立に扱います。
+prototypeはA／B／A、現在tagは17／34／51と切り替えます。paired入力はadapter、map、sequencer、driverの別々の2経路を並行実行し、peerは基底B／tag 119を保持します。
+実pull-driver handshakeで、要求parent基底、現在tag、成功status、選択dataを観測します。read storageは独立に事前設定し、
+両操作のjoin後に行を出力して完了順は規定しません。
+
+独自の公開clone overrideがfixture定義のdo_clone bridgeを呼びます。
+条項はdo_cloneのprototypeを示さず、標準signature、clone件数／同一性、生成名、任意の基底状態copy、外部RTLは推定しません。
+明示caller-parentとの組合せは別のregister／memoryのchild規則のもとで未完に残し、今回の入力ではcaller parentを省略して、adapter規則による上書きを仮定しません。
+predictor check_phaseは別のレビュー対象として未評価に残し、記載されたvoidの検査から診断severityを仮定しません。
+
+日英AI義務1件で19.2.1.2.4を部分分解し、以前の全3822義務、406分類、範囲案は未変更です。
+全体は部分1964／分類406／未評価137です。第19章は83／24／4、義務189件、主引用140検査系（simulation 135・elaboration 5）です。
+残る未評価番号はpredictor check_phaseとHDL force／releaseの3項目です。
+全ての部分義務と元のM1〜M4目標は未完です。
+
+全3823義務が2250テストへ直接対応し、他の24テストはcontrol専用、control linkあり102テストです。
+以前の全2266通常入力／記録、compiler 92記録、互換guest、両backend snapshotは未変更です。
+範囲、分母、人のレビューは未承認／未完です。
+
+独立した期待値を先に固定し、specのみの8入力が両seedで一致した後にタグを追加し、最終8入力を再測定します。
+以前の記録は元の入力hashで保持し、通常合計は1944 pass／330 knownです。
+guestは互換1082記録を保持して1192入力は未測定で、新しい実行／filterはありません。
+goal第48反復で未評価を1件減らして137とし、明示caller-parentの組合せと元のM1〜M4目標は全て未完に残します。

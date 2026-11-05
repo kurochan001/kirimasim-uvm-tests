@@ -199,6 +199,12 @@ numeric size rendering; omitted peer defaults and explicitly enabled controls
 retain distinct premises. No new implementation source or commercial result is
 used; see [the emission FAQ](faq.md#printer-attributes-and-emission-controls).
 
+Adapter parent-context expectations are derived before measurement from supplied
+IEEE 19.2.1.2.4, public clone/parent queries and register/memory frontdoor contracts.
+An original typed protocol and preseeded read storage assume neither a standard
+do_clone bridge signature nor clone count or completion order. No new
+implementation source or commercial result is used; see [the parent-context FAQ](faq.md#adapter-sequence-contexts).
+
 ## Clause catalog maintenance
 
 The catalog counts identifiers rather than normative duties, so [Counting unit and scope proposal](requirements.md#counting-unit-and-scope-proposal) explains why restoring an entry does not define a coverage denominator.

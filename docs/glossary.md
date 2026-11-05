@@ -1484,3 +1484,15 @@ explains how they separate visibility from numeric conversion and layout.
 **Emission controls** — Name/type/size enable settings used when emit generates
 text, including changes after field collection; [Q298](faq.md#q298-what-do-post-collection-controls-and-the-peer-differences-establish)
 distinguishes that behavior from a fresh peer's omitted settings.
+
+## Adapter sequence contexts
+
+**Adapter parent_sequence** — The sequence-base context selected by an
+adapter for a driver's bus items, distinct from a register item's originating
+parent metadata; [Q299](faq.md#q299-which-parent-does-the-adapter-sequence-requirement-describe)
+explains the driver observation.
+
+**Original clone bridge** — Fixture-defined do_clone behavior invoked by a public
+clone override, without inferring the unspecified do_clone prototype;
+[Q300](faq.md#q300-does-the-fixture-define-a-standard-do_clone-signature)
+explains its limited role and the omitted caller-parent condition.
