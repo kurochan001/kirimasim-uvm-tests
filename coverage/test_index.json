@@ -6370,6 +6370,174 @@
       "primary_clause": "B.4.4",
       "inputs_sha256": "98ed5941b53026076335ae099d30c892318342317d314cd45a339d2630f16ef5"
     },
+    "uB/test_field_macro_aa_integral_int_byte_copies_and_compares_values": {
+      "primary_clause": "B.2.2.6.6",
+      "inputs_sha256": "e4aa57419a42b8530a14f53dd4e630117406ae4ee2545655346c14913b3d44a9"
+    },
+    "uB/test_field_macro_aa_integral_int_byte_unsigned_copies_and_compares_values": {
+      "primary_clause": "B.2.2.6.7",
+      "inputs_sha256": "4407bd1183eaeb7001d4b7714d5699753215742029423cdcbfc542d609a90dcc"
+    },
+    "uB/test_field_macro_aa_integral_int_enum_key_t_copies_and_compares_values": {
+      "primary_clause": "B.2.2.6.13",
+      "inputs_sha256": "b412705a30c70958eabe48b088617bf5852d052f6e12d208822c7f91a104778e"
+    },
+    "uB/test_field_macro_aa_integral_int_int_copies_and_compares_values": {
+      "primary_clause": "B.2.2.6.2",
+      "inputs_sha256": "1ed8960c794b3debc99e3b432b5273bca1d20eb72a50f915d8ae0e3b06758039"
+    },
+    "uB/test_field_macro_aa_integral_int_int_unsigned_copies_and_compares_values": {
+      "primary_clause": "B.2.2.6.3",
+      "inputs_sha256": "06c06490ff0f04269e3ec22a7117b15b3c5689c16723db613b6db659ef611099"
+    },
+    "uB/test_field_macro_aa_integral_int_integer_copies_and_compares_values": {
+      "primary_clause": "B.2.2.6.4",
+      "inputs_sha256": "53b50d7b0851011ce65246de2a3359c54cf0626405aaf2ac9d35d64d9c6f6b9e"
+    },
+    "uB/test_field_macro_aa_integral_int_integer_unsigned_copies_and_compares_values": {
+      "primary_clause": "B.2.2.6.5",
+      "inputs_sha256": "445a3e6d1019f4d81cbeaf351cc84f9b06e6d5b8d508574f86caca2d40930cab"
+    },
+    "uB/test_field_macro_aa_integral_int_longint_copies_and_compares_values": {
+      "primary_clause": "B.2.2.6.10",
+      "inputs_sha256": "76df8f6e88796169e3bb329c232a0fdb2ebf29efb15cab8fd2fe01afc41031db"
+    },
+    "uB/test_field_macro_aa_integral_int_longint_unsigned_copies_and_compares_values": {
+      "primary_clause": "B.2.2.6.11",
+      "inputs_sha256": "82db51622420f7e09902d9a299fa84a9fa942e344812caa4bd0e464e341ba625"
+    },
+    "uB/test_field_macro_aa_integral_int_shortint_copies_and_compares_values": {
+      "primary_clause": "B.2.2.6.8",
+      "inputs_sha256": "d8daf3da1603ba148e15be458933521422ed8d1bf5a8438dba222c02780f6d84"
+    },
+    "uB/test_field_macro_aa_integral_int_shortint_unsigned_copies_and_compares_values": {
+      "primary_clause": "B.2.2.6.9",
+      "inputs_sha256": "f75a13c2033fbd4e5913d03711ffc501616fdf0993707fa1016b23806ddb12d1"
+    },
+    "uB/test_field_macro_aa_integral_int_wide_key_t_copies_and_compares_values": {
+      "primary_clause": "B.2.2.6.12",
+      "inputs_sha256": "9eca36f06ba949710a73c66f77ff01957e930d268fc36e96c17d4ba976b9a483"
+    },
+    "uB/test_field_macro_aa_integral_object_int_copies_and_compares_values": {
+      "primary_clause": "B.2.2.6.1",
+      "inputs_sha256": "f5be138de6cd3ab10e21e8fef9f2f9d2aa20d3f6adff6b87bf6d406f84b70a3f"
+    },
+    "uB/test_field_macro_aa_string_int_string_copies_and_compares_values": {
+      "primary_clause": "B.2.2.5.1",
+      "inputs_sha256": "0197ac02968b7d6d594b0e87fca76d46e66af7a9d91d87a8a5a52d81149370dc"
+    },
+    "uB/test_field_macro_aa_string_object_string_copies_and_compares_values": {
+      "primary_clause": "B.2.2.5.2",
+      "inputs_sha256": "9d7a26c6b917e56b9de9520aea4631f5011fbab418a1cea86483c04ebd73d58e"
+    },
+    "uB/test_field_macro_aa_string_string_string_copies_and_compares_values": {
+      "primary_clause": "B.2.2.5.3",
+      "inputs_sha256": "a9da7e8a475548e39cda20e0121984df22c1e0fa7a65806179d692738177e184"
+    },
+    "uB/test_field_macro_array_enum_copies_and_compares_values": {
+      "primary_clause": "B.2.2.3.4",
+      "inputs_sha256": "140d36b55febb7d48f66bf7b91025bf845defe9caad44e5400bfceb603fed5c9"
+    },
+    "uB/test_field_macro_array_int_copies_and_compares_values": {
+      "primary_clause": "B.2.2.3.1",
+      "inputs_sha256": "cba2db8f2962eac338339e8d0b92127cfaa75dcedc852058f68dbfd75d77bd03"
+    },
+    "uB/test_field_macro_array_object_copies_and_compares_values": {
+      "primary_clause": "B.2.2.3.2",
+      "inputs_sha256": "4fbf6216f7496f7fcad945ef934aed1af7a43c3999d9ea33c1676befb2b59734"
+    },
+    "uB/test_field_macro_array_string_copies_and_compares_values": {
+      "primary_clause": "B.2.2.3.3",
+      "inputs_sha256": "00cbccf5428c90e6e3e38ecbf5641598cba5febd69e3b7a3eda67c805845aef7"
+    },
+    "uB/test_field_macro_constant_property_is_not_a_legal_data_operation_argument": {
+      "primary_clause": "B.2.2",
+      "inputs_sha256": "f19cd390d0929ceb4bee024d3fbf59a06ba67336d7d299efb973fe5b55a8ce21"
+    },
+    "uB/test_field_macro_explicit_unpack_flag_control_preserves_the_selected_roundtrip": {
+      "primary_clause": "B.2.2",
+      "inputs_sha256": "1fe6b8165e62d91f1b4743f8de802be52514d7bac1a5dc650d896dd9a71d136c"
+    },
+    "uB/test_field_macro_negative_copy_compare_flags_override_all_positive_operations": {
+      "primary_clause": "B.2.2",
+      "inputs_sha256": "792cd22cf99251d7f09abb50504084847609ec64ce7cde32167d9905853b8fc3"
+    },
+    "uB/test_field_macro_omitted_default_and_all_on_enable_the_same_copy_and_compare_fields": {
+      "primary_clause": "B.2.2",
+      "inputs_sha256": "09097c23edfa0146e555e6d7a4db4028b6e1061b74092b1e11ca68ba5e1ce8e2"
+    },
+    "uB/test_field_macro_pack_flag_enables_unpack_and_nopack_suppresses_both_directions": {
+      "primary_clause": "B.2.2",
+      "inputs_sha256": "6b2733fc77b94840aba0e35fdc338bbfc8c157af48ac8881389dc7f1292cb5b0"
+    },
+    "uB/test_field_macro_queue_enum_copies_and_compares_values": {
+      "primary_clause": "B.2.2.4.4",
+      "inputs_sha256": "f3f94d5cbcd3bddfe82e9bb9479ee96c20eddf1519f8b8bd507507a1d24d7eb6"
+    },
+    "uB/test_field_macro_queue_int_copies_and_compares_values": {
+      "primary_clause": "B.2.2.4.1",
+      "inputs_sha256": "691424309d1d68ea4cc7d2e78ddc48cb51178fb026f43bd200ce45c1067fc0e7"
+    },
+    "uB/test_field_macro_queue_object_copies_and_compares_values": {
+      "primary_clause": "B.2.2.4.2",
+      "inputs_sha256": "a0663e6bfb6c1b04535947b76944e98766af6a764cd357afe4bc941bea49ed53"
+    },
+    "uB/test_field_macro_queue_string_copies_and_compares_values": {
+      "primary_clause": "B.2.2.4.3",
+      "inputs_sha256": "16e08412c96e2ac0c98df8052cc14c06f058d5e77202dc5a80fc9534ddcee366"
+    },
+    "uB/test_field_macro_sarray_enum_copies_and_compares_values": {
+      "primary_clause": "B.2.2.2.4",
+      "inputs_sha256": "66c885276201711d545082a7dbc7b194e38d3d98d0ab135e5ff9f52878442231"
+    },
+    "uB/test_field_macro_sarray_int_copies_and_compares_values": {
+      "primary_clause": "B.2.2.2.1",
+      "inputs_sha256": "f24dabec222ae56313d42d15ac5a2ec1faf66e27b40675738f156162e674b34a"
+    },
+    "uB/test_field_macro_sarray_object_copies_and_compares_values": {
+      "primary_clause": "B.2.2.2.2",
+      "inputs_sha256": "34c8dd9f623565edcac9e994945a3bee33b35f126f04fe398dd78584de7484f8"
+    },
+    "uB/test_field_macro_sarray_string_copies_and_compares_values": {
+      "primary_clause": "B.2.2.2.3",
+      "inputs_sha256": "b99d9d297fa35887996ff4e46315c81620aa92c5a0e7c3f9a7e71aab52a96d90"
+    },
+    "uB/test_field_macro_scalar_enum_copies_and_compares_values": {
+      "primary_clause": "B.2.2.1.4",
+      "inputs_sha256": "f95a0e21b970051bcb999b99a8d159b1c4f2f1251935fef71edc6d98bc4a47ab"
+    },
+    "uB/test_field_macro_scalar_enum_type_control_for_array": {
+      "primary_clause": "B.2.2.3.4",
+      "inputs_sha256": "6db6e8f8452dd3322c981a3decb9cea7894339c69fe8dd8c0fcf7d0768992bb1"
+    },
+    "uB/test_field_macro_scalar_enum_type_control_for_queue": {
+      "primary_clause": "B.2.2.4.4",
+      "inputs_sha256": "21e68a6ee572efb771fbfc9557fe9f8da78566172736915010c3de92119cd20e"
+    },
+    "uB/test_field_macro_scalar_enum_type_control_for_sarray": {
+      "primary_clause": "B.2.2.2.4",
+      "inputs_sha256": "7dc46737506f95676e6b742815269a718702b0028e78449a6ceb8e81a8fd65f6"
+    },
+    "uB/test_field_macro_scalar_int_copies_and_compares_values": {
+      "primary_clause": "B.2.2.1.1",
+      "inputs_sha256": "62ab5e39c8e2180e45f715c41e29f81f3a8acc9cab31b29b9bb691d376e77ed6"
+    },
+    "uB/test_field_macro_scalar_object_copies_and_compares_values": {
+      "primary_clause": "B.2.2.1.2",
+      "inputs_sha256": "1624201bf085c93d0ff7e122908a4464b1d79456cc904a21230fe846558c921e"
+    },
+    "uB/test_field_macro_scalar_real_copies_and_compares_values": {
+      "primary_clause": "B.2.2.1.5",
+      "inputs_sha256": "2a71102afa4a3373c5c94fecf81d63b2985ede47c274e0dc841e3962f16f6087"
+    },
+    "uB/test_field_macro_scalar_string_copies_and_compares_values": {
+      "primary_clause": "B.2.2.1.3",
+      "inputs_sha256": "cb66d67d5dcfac468e4e8d01e22d73037be5f4a8181a060673eb7007373371b6"
+    },
+    "uB/test_field_utils_block_keeps_manual_create_type_name_and_factory_registration_separate": {
+      "primary_clause": "B.2.1.1",
+      "inputs_sha256": "14e8129c95034f89d6a9de469296faaba4df68352727ec8921ba0cc855a74cf8"
+    },
     "uB/test_sequence_library_macro_membership_combines_with_local_addition_only_on_one_instance": {
       "primary_clause": "B.3.2.1",
       "inputs_sha256": "3a53b09f4dd93038ff5b303872a8549024e24073c0fbbc126f34bd4ad0de5efd"

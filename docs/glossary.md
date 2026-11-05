@@ -1321,3 +1321,11 @@ does not pass the original premise or turn an unlisted method into an IEEE duty.
 **Core-service declaration control** — Original method bodies used to distinguish
 legal base-view dispatch from missing pure implementations. An explicit pinned
 extra-hook control does not certify builtin algorithms or the listed-only premise.
+
+**Enum collection T premise** — A collection typedef passed literally from
+the field-macro prose, separately from a control using its element enum type.
+The control keeps storage unchanged and does not settle the original premise.
+
+**Paired PACK flag** — The field-macro contract that PACK enables packing and
+unpacking. An explicit-UNPACK control is separate evidence; a compatible
+roundtrip does not independently prove every one-way packing condition.

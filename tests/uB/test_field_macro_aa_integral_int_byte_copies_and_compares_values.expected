@@ -1,0 +1,2 @@
+UT: macro_copy shape 1 values 1 independent 1
+UT: macro_compare equal 1 changed 0 source 1 peer 1

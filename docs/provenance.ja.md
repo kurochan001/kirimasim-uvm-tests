@@ -82,6 +82,10 @@ core-service期待値は測定前に導き、固定Apache-2.0 sourceの原因調
 記載methodだけの元入力は未変更で、別の独自control本体でhookを補います。negative宣言も印刷method欠落1個を分離するためhookを補います。
 そのsourceから追加IEEE前提やbuiltin期待値を導きません。初期root fixtureの抽象生成は別に修正します。
 
+field期待は提供IEEEの型／形状、flag、copy、比較契約から導く独自観測です。
+字面collection T入力と要素enum control、明示UNPACK controlと未変更PACK単独前提を、それぞれ別の同一性で保持します。
+roundtrip一致から普遍stream配置を作ったり全方向を証明したりしません。
+
 ## 条項カタログの保守
 
 番号だけの[条項カタログ](../tools/clauses_1800_2.txt)へB.2.1.2、B.2.1.3、D.2.2.3を追加しました。

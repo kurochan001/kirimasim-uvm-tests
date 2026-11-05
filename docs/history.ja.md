@@ -2,7 +2,7 @@
 
 [English](history.md) · [README](../README.ja.md)
 
-M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の64回目の拡充（全1930件：simulation 1843・elaboration 87）までを記録しています。以前の349件の時点は
+M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の65回目の拡充（全1972件：simulation 1884・elaboration 88）までを記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -2577,3 +2577,40 @@ core-service監査は日英AI義務74件と個別に読んだ構造見出し2件
 guest未測定847（simulation 760／elaboration 87）は追加845件と修正した元入力2件です。新control専用入力は1件、全体のcontrol専用は14テスト、
 control linkありは57テストです。library整合性、tool test 110件、metadata／台帳／索引、生の観測／evidence、日英資料検査は成功です。
 goal第36反復で初期未評価1463から286へ1177減り、完了は未立証です。
+
+## 薄い領域の65回目の拡充：型別fieldと操作flag
+
+[80a8bdf](https://github.com/kurochan001/kirimasim-uvm-tests/commit/80a8bdf631334668107f42328acd6af395d69fe7)を基に2026-11-05 JSTに実施しました。M1の42入力を追加し、両seed runtime一致37件と期待compiler拒否1件を得ました。
+差分4件は合法simulation build 3件とseed 73結果のないseed 1 runtime 1件です。
+別索引の対照4件は一致してもcontrol linkだけを持ち、元の前提を置換しません。
+
+型別field probe 33個はscalar、静的／動的array、queue、string／integral keyの連想propertyを扱います。
+選択copyと正／負比較は72-bit data、signed／unsigned／high／wide key、collection size、古いentryの除去、未登録peerの分離を確認します。
+object値の6形状はDEEPを明示し、copy後の別handleとtarget変更後のsource状態を保持します。
+user copy／compare hookでfield automationを置換せず、走査順も規定しません。
+
+enum collection probeは印刷T本文が記述するcollection typedefを字面どおり使い、静的／動的／queueのbuildが失敗します。
+別のcontrol 3件はcollection storageを保ったまま要素enum型を渡して一致します。
+これは明示した解釈境界であり、library不具合数の証明や文言の解決ではありません。元の期待値は未変更です。
+
+NOCOPY／NOCOMPAREの優先順位と、省略／DEFAULT／ALL_ONのcopy／compare観測は一致します。
+PACKだけではpaired-unpack期待に失敗し、別のcontrolでUNPACKを明示追加すると一致します。
+互換roundtripとtarget sentinelの結果で、全ての独立した片方向packing義務やstream配置は証明しません。
+手動field-utilsのcreate／型名／clone観測は自動factory登録なしで一致します。const ARG禁止は宣言診断で拒否されruntime seedを実行しません。
+最終tag入力を再測定し、以前の全source／evidence記録を保持します。
+
+field-macro監査は日英AI義務125件を追加し、番号の新分類は行いません。以前の未評価45番号（Bの41件とFの4件）を部分分解します。
+附属書Bは部分81／分類4／未評価59、案164件、主引用96テスト（simulation 95／elaboration 1）です。
+附属書Fは76／16／45で案174件、全体は部分1876／分類390／未評価241（構造268／文脈122）です。元の目標はすべて未完です。
+
+全3506義務に直接テストがあり、直接対応1954テスト、control専用18テスト、control linkあり61テストです。
+新enum型／明示UNPACK controlで元の前提をpassにしません。同じ観測を共有するcopyと比較義務は独立テスト数ではありません。
+以前の全3381義務、390分類、1930索引入力／通常記録、87 compiler記録は未変更で、compiler集合は現在88入力です。
+範囲／分母承認、人のレビュー、完了は主張しません。
+
+最終スイートは1972（simulation 1884／elaboration 88）、M1 843（768／75）、M2 547（542／5）、M3 582（574／8）です。
+通常evidenceはpass 1691（seed 1／73 runtime 1606、期待compiler拒否85）、known 281（seed 1 runtime 209、合法build 69、不正受理3）です。
+以前の通常1930入力／記録とcompiler 87記録、guest 1083記録、HDL 11記録、command-line 18記録を保持します。
+guest未測定889（simulation 801／elaboration 88）は追加887件と修正した元入力2件です。新control専用入力は4件、全体のcontrol専用は18テスト、control linkありは61テストです。
+library整合性、tool test 110件、metadata／台帳／索引、生の観測／evidence、日英資料検査は成功です。goal第37反復で初期未評価1463から241へ1222減り、
+完了は未立証で、人のレビューや分母承認を作りません。

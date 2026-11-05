@@ -1004,3 +1004,9 @@ controlのpassで元の前提をpassにせず、記載外methodをIEEE義務へ�
 
 **core-service宣言control** — 合法なbase-view dispatchとpure実装欠落を区別する独自method本体です。
 固定版の追加hookを明示するcontrolでbuiltin algorithmや記載methodだけの前提を認定しません。
+
+**enum collection T前提** — field-macro本文の字面どおりに渡すcollection typedefで、要素enum型を使うcontrolとは別です。
+controlはstorageを保持しても元の前提を解決しません。
+
+**対応するPACK flag** — PACKでpackとunpackをenableするfield-macro契約です。明示UNPACK controlは別の証拠であり、
+互換roundtripで全ての片方向packing条件を独立に証明しません。

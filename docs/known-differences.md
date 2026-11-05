@@ -2,17 +2,33 @@
 
 [日本語](known-differences.ja.md) · [README](../README.md) · [FAQ](faq.md)
 
-This describes the current 1930-test suite and the pinned Accellera UVM
+This describes the current 1972-test suite and the pinned Accellera UVM
 2020.3.1 library. A mismatch is a test result; it does not by itself assign
 the cause to the simulator, the library or the expectation.
 
-87 elaboration fixtures expect rejection: 33 direct abstract
-constructions and 54 pure-interface/const-reference/forbidden-member/
-type-context violations. 84 match. Subscriber/visitor omissions and direct
+88 elaboration fixtures expect rejection: 33 direct abstract
+constructions and 55 pure-interface/const-reference/forbidden-member/
+type-context violations. 85 match. Subscriber/visitor omissions and direct
 construction of the printed virtual builtin dispatcher remain accepted and
 spec-only without runtime. These three compiler acceptances are separate from
-274 known simulation differences. Legal derived controls do not replace a
+278 known simulation differences. Legal derived controls do not replace a
 required rejection.
+
+Field-macro auditing retains four new differences. Three legal enum collection
+inputs use collection typedef T as literally described by the printed prose;
+their static/dynamic/queue builds fail without runtime. Element-enum T controls
+keep the same collection properties and match, without resolving the wording
+or passing the original inputs. The PACK-only input packs data but fails to
+restore the selected value and count on unpack at seed 1; there is no seed 73
+result. A separate explicit-UNPACK control matches the unchanged expectation.
+Roundtrip and excluded-target retention do not establish all one-way packing
+duties. These are measured conditions and qualified interpretations, not a
+count of independently proven defects.
+
+- [1](../tests/uB/test_field_macro_sarray_enum_copies_and_compares_values.sv).
+- [2](../tests/uB/test_field_macro_array_enum_copies_and_compares_values.sv).
+- [3](../tests/uB/test_field_macro_queue_enum_copies_and_compares_values.sv).
+- [4](../tests/uB/test_field_macro_pack_flag_enables_unpack_and_nopack_suppresses_both_directions.sv).
 
 Core-service auditing adds three retained differences. The listed-only complete
 subclass is a legal simulation input, but its build requires the pinned
@@ -771,7 +787,7 @@ cannot build because the pinned library also declares unlisted pure helpers.
 The missing-standard-hook negative supplies original compatibility bodies only
 to isolate the specified rejection. It does not repair that legal extension.
 
-Across the suite, 1653 tests have the `verilator@5.052` oracle tag and 277
+Across the suite, 1691 tests have the `verilator@5.052` oracle tag and 281
 cases are spec-only. One of the spec-only cases checks 9.6: a child's pre-reset
 task must be killed when that phase ends, but the pinned-library run on Verilator 5.052
 lets the child perform its delayed write during a later phase. The cause of
@@ -783,10 +799,10 @@ without callbacks. The pinned Verilator run reaches the blocked-state
 observation, then its watchdog expires. This combined simulator/library
 cause remains unassigned; the normative wakeup expectation is retained.
 
-The 277 spec-only tests retain their normative expected files.
-Default Verilator runs and CI select 1653 tagged checks (1569 runtime, 84 compile rejection). `--all` includes
+The 281 spec-only tests retain their normative expected files.
+Default Verilator runs and CI select 1691 tagged checks (1606 runtime, 85 compile rejection). `--all` includes
 spec-only cases and records mismatches or build failures as `known`.
-The ordinary runtime records for 208 cases establish their first difference
+The ordinary runtime records for 209 cases establish their first difference
 at seed 1, without seed 73 results. Twenty-seven missing-API/type-name builds have
 no ordinary runtime: one time API, six sequence-library cases, four HDL slice
 cases, one named-concat constructor, five object active-policy API cases, three catcher
@@ -796,8 +812,9 @@ signature conflicts and two inherited type_id registry specializations are
 separate declaration builds. One legal public-read declaration has protected-access
 failure. Two legal extensions, resource-base and listed-only core service, require
 unlisted pure hooks.
+Three additional legal builds retain the enum-collection T interpretation.
 Eleven HDL and eighteen command-line cases also
-lack linked DPI in the ordinary runner, totaling 66 simulation builds without
+lack linked DPI in the ordinary runner, totaling 69 simulation builds without
 runtime.
 
 The separate HDL
@@ -863,7 +880,7 @@ The printed create_object equivalent call's extra this argument remains partial.
 
 ## Spec-only tests
 
-These are the 277 current spec-only cases. Several exercise the same
+These are the 281 current spec-only cases. Several exercise the same
 limitation, so their count is not a count of distinct bugs.
 
 - [Inherited subscriber type_id specialization](../tests/u08/test_builtin_abstract_parameterized_components_type_id_uses_the_required_registry_specialization.sv).
@@ -1151,7 +1168,7 @@ Additional message-handle and endian cases:
 
 Two existing inputs have revised fingerprints: the command-enum citation and
 the corrected Boolean rerandomization observation. Their historical guest
-records are excluded. The compatible subset has 1083 records and 847 inputs
+records are excluded. The compatible subset has 1083 records and 889 inputs
 are unmeasured, including both revised inputs. This filtering is evidence scope,
 not a new guest failure, pass or simulator improvement.
 
@@ -1186,8 +1203,8 @@ not a new guest failure, pass or simulator improvement.
 
 ## Simulator and library combinations
 
-The suite has 1930 cases, but the kirimasim/Ghost records below cover only
-1083 unchanged current-input cases. The 847 inputs are unmeasured
+The suite has 1972 cases, but the kirimasim/Ghost records below cover only
+1083 unchanged current-input cases. The 889 inputs are unmeasured
 because prior temporary executable/profile snapshots are unavailable. Do
 not treat this as a fresh full-suite guest result. See [results](results.md).
 

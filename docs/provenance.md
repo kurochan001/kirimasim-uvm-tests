@@ -108,6 +108,12 @@ the hook. Each negative declaration also supplies it to isolate one printed
 omission. No extra IEEE prerequisite or builtin oracle is derived from that
 source. The initial root fixture's abstract construction is corrected separately.
 
+Field expectations are original observations derived from the supplied IEEE
+type/shape, flag, copy and comparison contracts. Literal collection-T inputs
+remain separate from element-enum controls. Explicit-UNPACK control and the
+unchanged PACK-only premise likewise retain distinct identities. Passing
+roundtrips do not invent a universal stream layout or prove every direction.
+
 ## Clause catalog maintenance
 
 The identifier-only [clause catalog](../tools/clauses_1800_2.txt) now includes

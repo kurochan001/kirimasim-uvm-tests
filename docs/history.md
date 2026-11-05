@@ -3,8 +3,8 @@
 [日本語](history.ja.md) · [README](../README.md)
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and sixty-four cross-milestone thin-area expansions, including the
-existing-test requirement-link backlog checkpoint (1930 tests: 1843 simulation and 87 elaboration). The earlier 349-test checkpoint is
+three M4 increments and sixty-five cross-milestone thin-area expansions, including the
+existing-test requirement-link backlog checkpoint (1972 tests: 1884 simulation and 88 elaboration). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -4028,3 +4028,61 @@ One new input is control-only; the suite has fourteen control-only tests and
 57 control-linked tests. Library integrity, 110 tool tests, metadata/ledger/index,
 raw/evidence and paired-doc checks pass. Goal iteration 36 reduces unassessed
 from the initial 1463 to 286, a decrease of 1177. Completion remains unproven.
+
+## Sixty-fifth thin-area expansion: typed fields and operation flags
+
+Based on [80a8bdf](https://github.com/kurochan001/kirimasim-uvm-tests/commit/80a8bdf631334668107f42328acd6af395d69fe7); 2026-11-05 JST. Forty-two M1 inputs add 37 two-seed runtime matches and one expected
+compiler rejection. Four retain differences: three legal simulation builds and
+one seed-1 runtime input without seed 73. Four separately indexed controls match
+but have only control links; they do not replace the original premises.
+
+Thirty-three typed field probes cover scalar, static/dynamic array, queue and
+string/integral-key associative properties. Selected copy and positive/negative
+comparison observations preserve 72-bit data, signed/unsigned/high/wide keys,
+collection sizes, removal of stale entries and unregistered peer isolation.
+Six object-valued shapes explicitly select DEEP and retain distinct copied
+handles and source state after target mutation. No user copy/compare hook
+substitutes for field automation; no traversal order is imposed.
+
+Enum collection probes use the collection typedef literally described by the
+printed T prose. Their static/dynamic/queue builds fail; three separate controls
+pass the element enum type while keeping collection storage unchanged. This
+is an explicit interpretation boundary, not a proven count of library defects
+or a resolution of the wording. The original expectations remain unchanged.
+
+NOCOPY/NOCOMPARE precedence and omitted/DEFAULT/ALL_ON copy/compare observations
+match. PACK alone fails the paired-unpack expectation; explicitly adding UNPACK
+in a separate control matches. Compatible roundtrip and target-sentinel results
+do not prove every independent one-way packing duty or a stream layout.
+Manual field-utils create/type-name/clone observations match without automatic
+factory registration. The const-ARG prohibition rejects with its declared
+diagnostic and executes no runtime seed. Final tagged inputs are remeasured;
+all earlier source/evidence records remain unchanged.
+
+Field-macro auditing adds 125 bilingual AI duties without new identifier
+classifications. Forty-five previously unassessed identifiers receive partial
+decompositions: 41 in B and four in F. Annex B is 81 partial/4 assessed/59
+unassessed with 164 drafts and 96 primary tests (95 simulation/one elaboration).
+Annex F is 76/16/45 with 174 drafts. Global state is 1876 partial/390 assessed/
+241 unassessed (268 structural/122 contextual). All original targets remain open.
+
+All 3506 duties have direct tests; 1954 tests have direct links, eighteen have
+only controls and 61 have control links. The new enum-type and explicit-UNPACK
+controls do not pass the original premises. Copy and comparison duties sharing
+one observation are not independent test counts. All 3381 prior duties,
+390 assessments, 1930 indexed inputs/ordinary records and 87 compiler records
+remain unchanged; the compiler set now has 88 inputs. No scope/denominator
+approval, human review or completion is claimed.
+
+The final suite is 1972 (1884 simulation/88 elaboration): M1 843 (768/75),
+M2 547 (542/5), M3 582 (574/8). Ordinary evidence is 1691 pass (1606 runtime
+at seeds 1/73 and 85 expected compiler rejections), 281 known (209 seed-1
+runtime, 69 legal builds, three illegal acceptances). All 1930 prior ordinary
+inputs/records and 87 compiler records are preserved, as are guest 1083,
+HDL eleven and command-line eighteen records. Guest-unmeasured is 889
+(801 simulation/88 elaboration): 887 additions and two revised original inputs.
+Four new inputs are control-only; the suite has eighteen control-only tests
+and 61 control-linked tests. Library integrity, 110 tool tests, metadata/ledger/
+index, raw/evidence and paired-doc checks pass. Goal iteration 37 reduces
+unassessed from the initial 1463 to 241, a decrease of 1222. Completion remains
+unproven; no human review or denominator approval is invented.
