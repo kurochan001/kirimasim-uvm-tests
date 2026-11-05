@@ -5,8 +5,8 @@
 Counts on this page belong to the time of each change, so use [the current snapshot](results.md#current-snapshot) when you need the present suite size or execution scope.
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and seventy-three cross-milestone thin-area expansions, including the
-existing-test requirement-link backlog checkpoint (2246 tests: 2154 simulation and 92 elaboration). The earlier 349-test checkpoint is
+three M4 increments and seventy-four cross-milestone thin-area expansions, including the
+existing-test requirement-link backlog checkpoint (2256 tests: 2164 simulation and 92 elaboration). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -4518,3 +4518,43 @@ records, with 1164 inputs unmeasured; no guest or backend rerun is claimed.
 Tool tests (110), metadata, ledger/index, library, paired docs and CI selector
 checks pass. The goal's forty-fifth iteration reduces unassessed by one to
 139; all original milestone targets remain open.
+
+## Seventy-fourth thin-area expansion: policy substitution and typed streams
+
+Ten new policy-plugin fixtures match seeds 1 and 73 on final current inputs.
+One unchanged original object class alternates printer/comparer and copier/recorder
+operations. Explicit subtypes alternate A/B/A; each record uses a freshly opened
+recorder, without assuming that a reused recorder forgets its processing history.
+Custom printer text, comparison masks, selected-policy identity, idle peer
+observers, exact copier arguments and current field values are observed.
+
+Four pack and four unpack inputs separately exercise bit, byte, int and longint
+object entry points. Original observer ticks check matching state retrieval after
+field packing and matching state assignment before field unpacking. Pack return
+counts match the selected policy's get_packed_size before unpack consumes state.
+Streams stay opaque and pair with the same compatible policy instance/type;
+roundtrips guard current data, not independent encoding or decoder correctness.
+
+Five new bilingual AI duties separate explicit pack/unpack policy selection,
+typed state handoff and pack return count. Four existing duties retain their IDs,
+statements and old links while adding qualified conditions and new observations;
+3811 earlier duties are unchanged. Individually read introduction 16 is contextual,
+linked to operational, base-type and configuration duties. It adds no duplicate
+parent duty or title-only exclusion. Global state is 1963 partial/406 assessed/138
+unassessed (279 structural/127 contextual). Chapter 16 is 175/32/1, with 277 duties
+and 176 primary fixtures (167 simulation/9 elaboration); 16.2.10 remains unassessed.
+All partial conditions and original M1–M4 targets remain open.
+
+All 3820 duties have direct links to 2232 tests; 24 others remain control-only,
+and the 98 control-linked tests retain their roles. All 2246 prior ordinary
+inputs/records, 92 compiler records, compatible guests and both backend snapshots
+remain unchanged. No existing known difference is passed by these new matches.
+Scope, denominator and human review remain unapproved/incomplete.
+
+Initial ten inputs and the ten later order-observer spec-only inputs each match
+both seeds under their own input identities. Tags follow the latter reproduction,
+and all ten final inputs are freshly measured. Prior logs retain original hashes
+and are not relabeled as current evidence. Ordinary totals are 1930 pass/326 known.
+Guests retain 1082 compatible records with 1174 unmeasured inputs; no new run/filter
+occurs. Goal iteration 46 reduces unassessed by one to 138; all original milestone
+targets remain open.

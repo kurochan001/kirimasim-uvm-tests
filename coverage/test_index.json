@@ -8985,6 +8985,46 @@
     "u19/test_busop_access_memory_write_big_partial48": {
       "primary_clause": "19.1.2",
       "inputs_sha256": "abcc0a1d614d5b84fc99cd92df0f64816f7e8e844db6e037363803dfd5d9eb44"
+    },
+    "u16/test_policy_plugins_alternate_copy_and_record_without_redefining_the_object": {
+      "primary_clause": "16",
+      "inputs_sha256": "6febc8ddf8f3e96cfd32ef4e3a3c5d9565631e6cabfffce8a1c1fcfa77109ca1"
+    },
+    "u16/test_policy_plugins_alternate_print_and_compare_without_redefining_the_object": {
+      "primary_clause": "16",
+      "inputs_sha256": "051825349bd7e8582b51c2e91612c6b4af2b02125ccc556abf469ebd4bb34c8a"
+    },
+    "u16/test_policy_plugins_pack_bits_select_the_current_subtype_on_reuse": {
+      "primary_clause": "16",
+      "inputs_sha256": "88c102c0d667c88ca0853e34ffe4af59ca02ef7df63a3e499f6f9a66c57bb52c"
+    },
+    "u16/test_policy_plugins_pack_bytes_select_the_current_subtype_on_reuse": {
+      "primary_clause": "16",
+      "inputs_sha256": "81983a3a0e6e5eca09eb04a46ccfa0fe9afe2804432e2be12a53f212f8a4994b"
+    },
+    "u16/test_policy_plugins_pack_ints_select_the_current_subtype_on_reuse": {
+      "primary_clause": "16",
+      "inputs_sha256": "ddb36c2652d0d1b44cd75a9e83d18c4b98786a93d172c786c6c0bec5a1d20714"
+    },
+    "u16/test_policy_plugins_pack_longints_select_the_current_subtype_on_reuse": {
+      "primary_clause": "16",
+      "inputs_sha256": "7d41c6c08bd323fc33b7f33840c9d009a6e0818f207ea4c4418a6aa1e5ab7875"
+    },
+    "u16/test_policy_plugins_unpack_bits_select_the_current_subtype_on_reuse": {
+      "primary_clause": "16",
+      "inputs_sha256": "22f96cb6efd6e8f99763e36d57d4cf8a280463c131091b220fea092e4814bf9b"
+    },
+    "u16/test_policy_plugins_unpack_bytes_select_the_current_subtype_on_reuse": {
+      "primary_clause": "16",
+      "inputs_sha256": "ea02668e4857af8ef93c219f225c918af47cbfb904687d25489e09ea5474577e"
+    },
+    "u16/test_policy_plugins_unpack_ints_select_the_current_subtype_on_reuse": {
+      "primary_clause": "16",
+      "inputs_sha256": "fa564143576d3c80736b595305d5627b22989831ffdf89f0effac566ce960b36"
+    },
+    "u16/test_policy_plugins_unpack_longints_select_the_current_subtype_on_reuse": {
+      "primary_clause": "16",
+      "inputs_sha256": "632d8c37daf2def6f67659f2d066baa6b8fd396f1ae11ab9c867b322102e874d"
     }
   }
 }

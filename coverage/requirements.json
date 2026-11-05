@@ -1746,16 +1746,16 @@
         "ja": "objectのcopyは指定したcopierを使い、省略時はdefaultを使う。"
       },
       "conditions": {
-        "en": "Install a counting default copier, supply another explicitly and repeat a copy after changing data.",
-        "ja": "countするdefault copierと別の明示copierを用い、dataを変えてcopyを繰り返す。"
+        "en": "Install a counting default copier, supply another explicitly and repeat a copy after changing data. An additional fixture alternates explicit copier subtypes A/B/A with fresh recorder operations between copies and source bytes 31/52/73 hexadecimal.",
+        "ja": "countするdefault copierと別の明示copierを用い、dataを変えてcopyを繰り返す。 追加検査系は明示copier派生型A／B／Aを切り替え、copyの間に新しいrecorder操作を挟み、source byteを16進31／52／73にする。"
       },
       "expected": {
-        "en": "Each selected policy is invoked for its operation and copies current scalar data.",
-        "ja": "各操作で選んだpolicyを呼び、現在のscalar dataをコピーする。"
+        "en": "Each selected policy is invoked for its operation and copies current scalar data. The additional selected copier receives exact lhs/rhs handles, the other observer stays idle, and each current byte reaches the target.",
+        "ja": "各操作で選んだpolicyを呼び、現在のscalar dataをコピーする。 追加の選択copierは正確なlhs／rhs handleを受け、他observerを未実行に保ち、毎回のbyteがtargetへ届く。"
       },
       "limitations": {
-        "en": "Only the listed fixtures and conditions are mapped; other branches of the clause remain unassessed.",
-        "ja": "列挙した構成と条件のみを対応付け、条項の他の分岐は未評価のままにする。"
+        "en": "Only the listed fixtures and conditions are mapped; other branches of the clause remain unassessed. Scalar do_copy follows its printed rhs-only signature; this does not resolve the separate copier prose/signature conflict or recursive alias behavior.",
+        "ja": "列挙した構成と条件のみを対応付け、条項の他の分岐は未評価のままにする。 scalar do_copyは記載されたrhs単独signatureに従い、別のcopier本文／signatureの食違いや再帰alias動作は解決しない。"
       },
       "review": {
         "status": "ai",
@@ -1777,6 +1777,15 @@
           "expected_observations": [
             "UT: first 16 calls 1",
             "UT: second 48 calls 2"
+          ]
+        },
+        {
+          "test": "u16/test_policy_plugins_alternate_copy_and_record_without_redefining_the_object",
+          "role": "direct",
+          "expected_observations": [
+            "UT: copy74 0 policy 1 idle 1 arguments 1 value 31",
+            "UT: copy74 1 policy 1 idle 1 arguments 1 value 52",
+            "UT: copy74 2 policy 1 idle 1 arguments 1 value 73"
           ]
         }
       ]
@@ -13131,16 +13140,16 @@
         "ja": "objectのsprintは、選んだprinterが出力する文字列を返す。"
       },
       "conditions": {
-        "en": "The custom printer captures field inputs and returns a controlled string.",
-        "ja": "独自printerがfield入力を記録し、制御した文字列を返す。"
+        "en": "The custom printer captures field inputs and returns a controlled string. An additional unchanged class alternates printer A/B/A with comparisons between prints; custom emit formats differ by subtype.",
+        "ja": "独自printerがfield入力を記録し、制御した文字列を返す。 追加の未変更classはprintの間にcompareを挟んでprinter A／B／Aを切り替え、独自emit書式を派生型別にする。"
       },
       "expected": {
-        "en": "Captured values match the object and sprint returns captured.",
-        "ja": "記録値はobjectに一致し、sprintはcapturedを返す。"
+        "en": "Captured values match the object and sprint returns captured. The additional fixture returns A:165/B:165/A:165, uses the selected printer and leaves the other observer idle.",
+        "ja": "記録値はobjectに一致し、sprintはcapturedを返す。 追加検査系はA:165／B:165／A:165を返し、選択printerを使って他observerを未実行に保つ。"
       },
       "limitations": {
-        "en": "Only the listed fixtures and applicability conditions are mapped; other clause branches remain unassessed.",
-        "ja": "列挙した検査系と適用条件のみを対応付け、条項の他の分岐は未評価のままにする。"
+        "en": "Only the listed fixtures and applicability conditions are mapped; other clause branches remain unassessed. Own emit text only; no builtin table/tree/line layout or all printer settings are certified.",
+        "ja": "列挙した検査系と適用条件のみを対応付け、条項の他の分岐は未評価のままにする。 独自emit文字列のみで、組み込みtable／tree／line配置や全printer設定を認定しない。"
       },
       "review": {
         "status": "ai",
@@ -13154,6 +13163,15 @@
           "expected_observations": [
             "UT: field payload value 46 size 32",
             "UT: calls 1 text captured"
+          ]
+        },
+        {
+          "test": "u16/test_policy_plugins_alternate_print_and_compare_without_redefining_the_object",
+          "role": "direct",
+          "expected_observations": [
+            "UT: print74 0 policy 1 idle 1 text A:165 payload a5",
+            "UT: print74 1 policy 1 idle 1 text B:165 payload a5",
+            "UT: print74 2 policy 1 idle 1 text A:165 payload a5"
           ]
         }
       ]
@@ -117969,16 +117987,16 @@
         "ja": "virtual recording hookは各指定recorder policyを受け取る。"
       },
       "conditions": {
-        "en": "Call the original hook through an object base with two legally opened original recorders.",
-        "ja": "合法に開いた独自recorder 2個を使いobject base経由で独自hookを呼ぶ。"
+        "en": "Call the original hook through an object base with two legally opened original recorders. An additional outer record input uses fresh legally opened A/B/A recorder subtypes after alternating copies and captures the selected eight-bit field through the public recording API.",
+        "ja": "合法に開いた独自recorder 2個を使いobject base経由で独自hookを呼ぶ。 追加のouter record入力は交互copy後に合法に開いた新しいA／B／A recorder派生型を使い、公開記録API経由で選択8 bit fieldを取得する。"
       },
       "expected": {
-        "en": "Policy identity and successive payload values match while the first policy remains unchanged.",
-        "ja": "policy同一性と連続payload値が一致し、最初のpolicyは未変更である。"
+        "en": "Policy identity and successive payload values match while the first policy remains unchanged. The additional object hook and backend field hook use the current recorder and observe copied values 31/52/73 hexadecimal.",
+        "ja": "policy同一性と連続payload値が一致し、最初のpolicyは未変更である。 追加object hookとbackend field hookは現在のrecorderを使い、copyされた16進値31／52／73を観測する。"
       },
       "limitations": {
-        "en": "Direct-hook dispatch only; not outer record recursion or a database representation.",
-        "ja": "直接hook委譲のみで、outer record再帰やDB表現ではない。"
+        "en": "Original fixture: Direct-hook dispatch only; not outer record recursion or a database representation. The added outer-wrapper fixture observes selected fresh-recorder field dispatch only; no same-recorder history reuse, complete field automation or external database format is established.",
+        "ja": "元の検査系：直接hook委譲のみで、outer record再帰やDB表現ではない。 追加のouter wrapper検査系は選択した新規recorderへのfield dispatchのみを観測し、同じrecorderの履歴再利用、全field automation、外部DB書式は成立させない。"
       },
       "review": {
         "status": "ai",
@@ -117992,6 +118010,15 @@
           "expected_observations": [
             "UT: record_hook first_policy 1 first_value 1 first_calls 1",
             "UT: record_hook second_policy 1 second_value 1 first_unchanged 1 two_hooks 1"
+          ]
+        },
+        {
+          "test": "u16/test_policy_plugins_alternate_copy_and_record_without_redefining_the_object",
+          "role": "direct",
+          "expected_observations": [
+            "UT: record74 0 policy 1 style A value 31",
+            "UT: record74 1 policy 1 style B value 52",
+            "UT: record74 2 policy 1 style A value 73"
           ]
         }
       ]
@@ -118109,16 +118136,16 @@
         "ja": "virtual compare hookは選択rhsとcomparerを受け取る。"
       },
       "conditions": {
-        "en": "Use same-type original objects and compare equal then unequal eight-bit values through a base view.",
-        "ja": "同型独自objectを使い、base viewで等値／非等値8 bit値を比較する。"
+        "en": "Use same-type original objects and compare equal then unequal eight-bit values through a base view. An additional fixture alternates strict and high-nibble-mask comparer subtypes A/B/A between prints on payloads A5/A6 hexadecimal.",
+        "ja": "同型独自objectを使い、base viewで等値／非等値8 bit値を比較する。 追加検査系は16進payload A5／A6で、printの間に厳密比較と上位nibble mask比較の派生型A／B／Aを切り替える。"
       },
       "expected": {
-        "en": "The two hook calls retain exact policy identity and return equal/unequal results.",
-        "ja": "2 hook呼出しは同じpolicyを保持し、等値／非等値結果を返す。"
+        "en": "The two hook calls retain exact policy identity and return equal/unequal results. The additional hook retains each exact comparer and returns 0/1/0 with the other observer idle and payloads unchanged.",
+        "ja": "2 hook呼出しは同じpolicyを保持し、等値／非等値結果を返す。 追加hookは各comparerの同一性を保持し、他observerが未実行でpayloadを変えずに0／1／0を返す。"
       },
       "limitations": {
-        "en": "Selected payloads only; type mismatch, recursion, X/Z and every comparison knob remain partial.",
-        "ja": "選択payloadのみで、型不一致、再帰、X／Z、全比較knobは部分的に残る。"
+        "en": "Selected payloads only; type mismatch, recursion, X/Z and every comparison knob remain partial. User-defined masking does not redefine the builtin scalar comparator or prove arbitrary policy combinations.",
+        "ja": "選択payloadのみで、型不一致、再帰、X／Z、全比較knobは部分的に残る。 独自maskは組み込みscalar比較を再定義せず、任意policy組合せを証明しない。"
       },
       "review": {
         "status": "ai",
@@ -118131,6 +118158,15 @@
           "role": "direct",
           "expected_observations": [
             "UT: compare_hook equal 1 unequal 1 policy 1 two_hooks 1"
+          ]
+        },
+        {
+          "test": "u16/test_policy_plugins_alternate_print_and_compare_without_redefining_the_object",
+          "role": "direct",
+          "expected_observations": [
+            "UT: compare74 0 policy 1 idle 1 result 0 payload a5 peer a6",
+            "UT: compare74 1 policy 1 idle 1 result 1 payload a5 peer a6",
+            "UT: compare74 2 policy 1 idle 1 result 0 payload a5 peer a6"
           ]
         }
       ]
@@ -140033,6 +140069,321 @@
           "role": "direct",
           "expected_observations": [
             "UT: busop_read responses 2 value c3d4e5f60718"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-OBJECT-PACK-EXPLICIT-POLICY",
+      "clause": "5.3.10.1",
+      "statement": {
+        "en": "Each object packing entry point uses the supplied packer for its operation.",
+        "ja": "objectの各pack入口は、その操作に指定されたpackerを使う。"
+      },
+      "conditions": {
+        "en": "Same unchanged original subject class; explicit packer subtypes A/B/A and eight-bit payloads 11/22/33 hexadecimal, separately for bit/byte/int/longint streams. Observer flags identify the selected hook and typed state method, with monotonic original callback ticks recording the selected order.",
+        "ja": "同じ未変更の独自subject classを使い、明示packer派生型A／B／Aと8 bit payload 16進11／22／33をbit／byte／int／longint stream別に扱う。observer flagで選択hookと型付き状態methodを識別し、独自callbackの単調tickで選択順序を記録する。"
+      },
+      "expected": {
+        "en": "The selected subtype receives the object hook and typed retrieval call; the other policy stays idle at each A/B/A selection.",
+        "ja": "各A／B／A選択で、選択派生型がobject hookと型付き取得呼出しを受け、他policyのobserverは未実行を保つ。"
+      },
+      "limitations": {
+        "en": "Selected two-state scalar and explicit-policy cases only. State encoding/array lengths remain opaque. Each stream is produced and consumed through the same compatible policy instance and stream type; the roundtrip is a data guard, not independent codec proof or arbitrary cross-policy compatibility. No nested/default/null, field automation, four-state or complete packing coverage is claimed.",
+        "ja": "選択した2値scalarと明示policy条件だけ。状態の符号化と配列長は不透明のままにし、同じ互換policy instanceと同じstream型で生成・消費する。往復はdata guardであり、独立codecの証明や任意policy間互換ではない。入れ子／既定／null、field automation、4値、全packing coverageは主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_policy_plugins_pack_bits_select_the_current_subtype_on_reuse",
+          "role": "direct",
+          "expected_observations": [
+            "UT: pack74 bits 0 policy 1 idle 1 size 1 order 1 value 11 src 11",
+            "UT: pack74 bits 1 policy 1 idle 1 size 1 order 1 value 22 src 22",
+            "UT: pack74 bits 2 policy 1 idle 1 size 1 order 1 value 33 src 33"
+          ]
+        },
+        {
+          "test": "u16/test_policy_plugins_pack_bytes_select_the_current_subtype_on_reuse",
+          "role": "direct",
+          "expected_observations": [
+            "UT: pack74 bytes 0 policy 1 idle 1 size 1 order 1 value 11 src 11",
+            "UT: pack74 bytes 1 policy 1 idle 1 size 1 order 1 value 22 src 22",
+            "UT: pack74 bytes 2 policy 1 idle 1 size 1 order 1 value 33 src 33"
+          ]
+        },
+        {
+          "test": "u16/test_policy_plugins_pack_ints_select_the_current_subtype_on_reuse",
+          "role": "direct",
+          "expected_observations": [
+            "UT: pack74 ints 0 policy 1 idle 1 size 1 order 1 value 11 src 11",
+            "UT: pack74 ints 1 policy 1 idle 1 size 1 order 1 value 22 src 22",
+            "UT: pack74 ints 2 policy 1 idle 1 size 1 order 1 value 33 src 33"
+          ]
+        },
+        {
+          "test": "u16/test_policy_plugins_pack_longints_select_the_current_subtype_on_reuse",
+          "role": "direct",
+          "expected_observations": [
+            "UT: pack74 longints 0 policy 1 idle 1 size 1 order 1 value 11 src 11",
+            "UT: pack74 longints 1 policy 1 idle 1 size 1 order 1 value 22 src 22",
+            "UT: pack74 longints 2 policy 1 idle 1 size 1 order 1 value 33 src 33"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-OBJECT-PACK-STREAM-TYPE",
+      "clause": "5.3.10.1",
+      "statement": {
+        "en": "After processing fields, object packing retrieves policy state using the matching stream-type method.",
+        "ja": "object packはfieldの処理後に、対応するstream型のmethodでpolicy状態を取得する。"
+      },
+      "conditions": {
+        "en": "Same unchanged original subject class; explicit packer subtypes A/B/A and eight-bit payloads 11/22/33 hexadecimal, separately for bit/byte/int/longint streams. Observer flags identify the selected hook and typed state method, with monotonic original callback ticks recording the selected order.",
+        "ja": "同じ未変更の独自subject classを使い、明示packer派生型A／B／Aと8 bit payload 16進11／22／33をbit／byte／int／longint stream別に扱う。observer flagで選択hookと型付き状態methodを識別し、独自callbackの単調tickで選択順序を記録する。"
+      },
+      "expected": {
+        "en": "The matching getter is called after the custom field packing hook, and a compatible roundtrip restores the selected value.",
+        "ja": "対応するgetterが独自field pack hookの後に呼ばれ、互換往復で選択値が戻る。"
+      },
+      "limitations": {
+        "en": "Selected two-state scalar and explicit-policy cases only. State encoding/array lengths remain opaque. Each stream is produced and consumed through the same compatible policy instance and stream type; the roundtrip is a data guard, not independent codec proof or arbitrary cross-policy compatibility. No nested/default/null, field automation, four-state or complete packing coverage is claimed.",
+        "ja": "選択した2値scalarと明示policy条件だけ。状態の符号化と配列長は不透明のままにし、同じ互換policy instanceと同じstream型で生成・消費する。往復はdata guardであり、独立codecの証明や任意policy間互換ではない。入れ子／既定／null、field automation、4値、全packing coverageは主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_policy_plugins_pack_bits_select_the_current_subtype_on_reuse",
+          "role": "direct",
+          "expected_observations": [
+            "UT: pack74 bits 0 policy 1 idle 1 size 1 order 1 value 11 src 11",
+            "UT: pack74 bits 1 policy 1 idle 1 size 1 order 1 value 22 src 22",
+            "UT: pack74 bits 2 policy 1 idle 1 size 1 order 1 value 33 src 33"
+          ]
+        },
+        {
+          "test": "u16/test_policy_plugins_pack_bytes_select_the_current_subtype_on_reuse",
+          "role": "direct",
+          "expected_observations": [
+            "UT: pack74 bytes 0 policy 1 idle 1 size 1 order 1 value 11 src 11",
+            "UT: pack74 bytes 1 policy 1 idle 1 size 1 order 1 value 22 src 22",
+            "UT: pack74 bytes 2 policy 1 idle 1 size 1 order 1 value 33 src 33"
+          ]
+        },
+        {
+          "test": "u16/test_policy_plugins_pack_ints_select_the_current_subtype_on_reuse",
+          "role": "direct",
+          "expected_observations": [
+            "UT: pack74 ints 0 policy 1 idle 1 size 1 order 1 value 11 src 11",
+            "UT: pack74 ints 1 policy 1 idle 1 size 1 order 1 value 22 src 22",
+            "UT: pack74 ints 2 policy 1 idle 1 size 1 order 1 value 33 src 33"
+          ]
+        },
+        {
+          "test": "u16/test_policy_plugins_pack_longints_select_the_current_subtype_on_reuse",
+          "role": "direct",
+          "expected_observations": [
+            "UT: pack74 longints 0 policy 1 idle 1 size 1 order 1 value 11 src 11",
+            "UT: pack74 longints 1 policy 1 idle 1 size 1 order 1 value 22 src 22",
+            "UT: pack74 longints 2 policy 1 idle 1 size 1 order 1 value 33 src 33"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-OBJECT-PACK-RETURN-SIZE",
+      "clause": "5.3.10.1",
+      "statement": {
+        "en": "Each object packing entry point returns the packed bit count reported by the selected packer.",
+        "ja": "objectの各pack入口は、選択packerが報告するpack bit数を返す。"
+      },
+      "conditions": {
+        "en": "Same unchanged original subject class; explicit packer subtypes A/B/A and eight-bit payloads 11/22/33 hexadecimal, separately for bit/byte/int/longint streams. Observer flags identify the selected hook and typed state method, with monotonic original callback ticks recording the selected order.",
+        "ja": "同じ未変更の独自subject classを使い、明示packer派生型A／B／Aと8 bit payload 16進11／22／33をbit／byte／int／longint stream別に扱う。observer flagで選択hookと型付き状態methodを識別し、独自callbackの単調tickで選択順序を記録する。"
+      },
+      "expected": {
+        "en": "Before unpack consumes state, the return value equals the selected packer get_packed_size result.",
+        "ja": "unpackが状態を消費する前に、戻り値が選択packerのget_packed_size結果と一致する。"
+      },
+      "limitations": {
+        "en": "Selected two-state scalar and explicit-policy cases only. State encoding/array lengths remain opaque. Each stream is produced and consumed through the same compatible policy instance and stream type; the roundtrip is a data guard, not independent codec proof or arbitrary cross-policy compatibility. No nested/default/null, field automation, four-state or complete packing coverage is claimed.",
+        "ja": "選択した2値scalarと明示policy条件だけ。状態の符号化と配列長は不透明のままにし、同じ互換policy instanceと同じstream型で生成・消費する。往復はdata guardであり、独立codecの証明や任意policy間互換ではない。入れ子／既定／null、field automation、4値、全packing coverageは主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_policy_plugins_pack_bits_select_the_current_subtype_on_reuse",
+          "role": "direct",
+          "expected_observations": [
+            "UT: pack74 bits 0 policy 1 idle 1 size 1 order 1 value 11 src 11",
+            "UT: pack74 bits 1 policy 1 idle 1 size 1 order 1 value 22 src 22",
+            "UT: pack74 bits 2 policy 1 idle 1 size 1 order 1 value 33 src 33"
+          ]
+        },
+        {
+          "test": "u16/test_policy_plugins_pack_bytes_select_the_current_subtype_on_reuse",
+          "role": "direct",
+          "expected_observations": [
+            "UT: pack74 bytes 0 policy 1 idle 1 size 1 order 1 value 11 src 11",
+            "UT: pack74 bytes 1 policy 1 idle 1 size 1 order 1 value 22 src 22",
+            "UT: pack74 bytes 2 policy 1 idle 1 size 1 order 1 value 33 src 33"
+          ]
+        },
+        {
+          "test": "u16/test_policy_plugins_pack_ints_select_the_current_subtype_on_reuse",
+          "role": "direct",
+          "expected_observations": [
+            "UT: pack74 ints 0 policy 1 idle 1 size 1 order 1 value 11 src 11",
+            "UT: pack74 ints 1 policy 1 idle 1 size 1 order 1 value 22 src 22",
+            "UT: pack74 ints 2 policy 1 idle 1 size 1 order 1 value 33 src 33"
+          ]
+        },
+        {
+          "test": "u16/test_policy_plugins_pack_longints_select_the_current_subtype_on_reuse",
+          "role": "direct",
+          "expected_observations": [
+            "UT: pack74 longints 0 policy 1 idle 1 size 1 order 1 value 11 src 11",
+            "UT: pack74 longints 1 policy 1 idle 1 size 1 order 1 value 22 src 22",
+            "UT: pack74 longints 2 policy 1 idle 1 size 1 order 1 value 33 src 33"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-OBJECT-UNPACK-EXPLICIT-POLICY",
+      "clause": "5.3.11.1",
+      "statement": {
+        "en": "Each object unpacking entry point uses the supplied packer for its operation.",
+        "ja": "objectの各unpack入口は、その操作に指定されたpackerを使う。"
+      },
+      "conditions": {
+        "en": "Same unchanged original subject class; explicit packer subtypes A/B/A and eight-bit payloads 11/22/33 hexadecimal, separately for bit/byte/int/longint streams. Observer flags identify the selected hook and typed state method, with monotonic original callback ticks recording the selected order.",
+        "ja": "同じ未変更の独自subject classを使い、明示packer派生型A／B／Aと8 bit payload 16進11／22／33をbit／byte／int／longint stream別に扱う。observer flagで選択hookと型付き状態methodを識別し、独自callbackの単調tickで選択順序を記録する。"
+      },
+      "expected": {
+        "en": "The selected subtype receives the typed assignment and object hook, while the other policy stays idle at each A/B/A selection.",
+        "ja": "各A／B／A選択で、選択派生型が型付き代入とobject hookを受け、他policyのobserverは未実行を保つ。"
+      },
+      "limitations": {
+        "en": "Selected two-state scalar and explicit-policy cases only. State encoding/array lengths remain opaque. Each stream is produced and consumed through the same compatible policy instance and stream type; the roundtrip is a data guard, not independent codec proof or arbitrary cross-policy compatibility. No nested/default/null, field automation, four-state or complete packing coverage is claimed.",
+        "ja": "選択した2値scalarと明示policy条件だけ。状態の符号化と配列長は不透明のままにし、同じ互換policy instanceと同じstream型で生成・消費する。往復はdata guardであり、独立codecの証明や任意policy間互換ではない。入れ子／既定／null、field automation、4値、全packing coverageは主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_policy_plugins_unpack_bits_select_the_current_subtype_on_reuse",
+          "role": "direct",
+          "expected_observations": [
+            "UT: unpack74 bits 0 policy 1 idle 1 order 1 value 11 src 11",
+            "UT: unpack74 bits 1 policy 1 idle 1 order 1 value 22 src 22",
+            "UT: unpack74 bits 2 policy 1 idle 1 order 1 value 33 src 33"
+          ]
+        },
+        {
+          "test": "u16/test_policy_plugins_unpack_bytes_select_the_current_subtype_on_reuse",
+          "role": "direct",
+          "expected_observations": [
+            "UT: unpack74 bytes 0 policy 1 idle 1 order 1 value 11 src 11",
+            "UT: unpack74 bytes 1 policy 1 idle 1 order 1 value 22 src 22",
+            "UT: unpack74 bytes 2 policy 1 idle 1 order 1 value 33 src 33"
+          ]
+        },
+        {
+          "test": "u16/test_policy_plugins_unpack_ints_select_the_current_subtype_on_reuse",
+          "role": "direct",
+          "expected_observations": [
+            "UT: unpack74 ints 0 policy 1 idle 1 order 1 value 11 src 11",
+            "UT: unpack74 ints 1 policy 1 idle 1 order 1 value 22 src 22",
+            "UT: unpack74 ints 2 policy 1 idle 1 order 1 value 33 src 33"
+          ]
+        },
+        {
+          "test": "u16/test_policy_plugins_unpack_longints_select_the_current_subtype_on_reuse",
+          "role": "direct",
+          "expected_observations": [
+            "UT: unpack74 longints 0 policy 1 idle 1 order 1 value 11 src 11",
+            "UT: unpack74 longints 1 policy 1 idle 1 order 1 value 22 src 22",
+            "UT: unpack74 longints 2 policy 1 idle 1 order 1 value 33 src 33"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-OBJECT-UNPACK-STREAM-TYPE",
+      "clause": "5.3.11.1",
+      "statement": {
+        "en": "Before processing fields, object unpacking assigns policy state using the matching stream-type method.",
+        "ja": "object unpackはfieldの処理前に、対応するstream型のmethodでpolicy状態を設定する。"
+      },
+      "conditions": {
+        "en": "Same unchanged original subject class; explicit packer subtypes A/B/A and eight-bit payloads 11/22/33 hexadecimal, separately for bit/byte/int/longint streams. Observer flags identify the selected hook and typed state method, with monotonic original callback ticks recording the selected order.",
+        "ja": "同じ未変更の独自subject classを使い、明示packer派生型A／B／Aと8 bit payload 16進11／22／33をbit／byte／int／longint stream別に扱う。observer flagで選択hookと型付き状態methodを識別し、独自callbackの単調tickで選択順序を記録する。"
+      },
+      "expected": {
+        "en": "The matching setter is called before the custom field unpacking hook, and the selected original value is restored.",
+        "ja": "対応するsetterが独自field unpack hookの前に呼ばれ、選択した元の値が戻る。"
+      },
+      "limitations": {
+        "en": "Selected two-state scalar and explicit-policy cases only. State encoding/array lengths remain opaque. Each stream is produced and consumed through the same compatible policy instance and stream type; the roundtrip is a data guard, not independent codec proof or arbitrary cross-policy compatibility. No nested/default/null, field automation, four-state or complete packing coverage is claimed.",
+        "ja": "選択した2値scalarと明示policy条件だけ。状態の符号化と配列長は不透明のままにし、同じ互換policy instanceと同じstream型で生成・消費する。往復はdata guardであり、独立codecの証明や任意policy間互換ではない。入れ子／既定／null、field automation、4値、全packing coverageは主張しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_policy_plugins_unpack_bits_select_the_current_subtype_on_reuse",
+          "role": "direct",
+          "expected_observations": [
+            "UT: unpack74 bits 0 policy 1 idle 1 order 1 value 11 src 11",
+            "UT: unpack74 bits 1 policy 1 idle 1 order 1 value 22 src 22",
+            "UT: unpack74 bits 2 policy 1 idle 1 order 1 value 33 src 33"
+          ]
+        },
+        {
+          "test": "u16/test_policy_plugins_unpack_bytes_select_the_current_subtype_on_reuse",
+          "role": "direct",
+          "expected_observations": [
+            "UT: unpack74 bytes 0 policy 1 idle 1 order 1 value 11 src 11",
+            "UT: unpack74 bytes 1 policy 1 idle 1 order 1 value 22 src 22",
+            "UT: unpack74 bytes 2 policy 1 idle 1 order 1 value 33 src 33"
+          ]
+        },
+        {
+          "test": "u16/test_policy_plugins_unpack_ints_select_the_current_subtype_on_reuse",
+          "role": "direct",
+          "expected_observations": [
+            "UT: unpack74 ints 0 policy 1 idle 1 order 1 value 11 src 11",
+            "UT: unpack74 ints 1 policy 1 idle 1 order 1 value 22 src 22",
+            "UT: unpack74 ints 2 policy 1 idle 1 order 1 value 33 src 33"
+          ]
+        },
+        {
+          "test": "u16/test_policy_plugins_unpack_longints_select_the_current_subtype_on_reuse",
+          "role": "direct",
+          "expected_observations": [
+            "UT: unpack74 longints 0 policy 1 idle 1 order 1 value 11 src 11",
+            "UT: unpack74 longints 1 policy 1 idle 1 order 1 value 22 src 22",
+            "UT: unpack74 longints 2 policy 1 idle 1 order 1 value 33 src 33"
           ]
         }
       ]

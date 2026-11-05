@@ -6168,6 +6168,39 @@
         "reviewer": null,
         "reviewed_at": null
       }
+    },
+    {
+      "clause": "16",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The individually read chapter introduction describes separately implemented, configurable and derivable policies and enumerates their roles. Object wrapper/hook and typed-state duties below already decompose the selected operational behavior; base-type and configuration duties retain the stated class/knob premises. Alternating subtype fixtures keep one object definition while changing supplied policy instances, with fresh recorders and compatible opaque streams. This is contextual linkage, not a heading-only exclusion, duplicate parent obligation, exhaustive decomposition or approval of every policy combination. Format-specific 16.2.10 and all child partial obligations remain open.",
+        "ja": "個別に読んだ章導入は、独立実装され、設定・派生で変更できるpolicyと各役割を説明する。下記のobject wrapper／hook／型付き状態の義務が選択した操作動作を分解し、基底型と設定の義務がclass／knobの前提を保持する。派生型切替検査系はobject定義を1つに保ち、指定policy instanceを替え、recordには新規recorder、streamには互換な不透明形式を使う。これは文脈の対応付けであり、見出し名だけの除外、親で重複する義務、網羅的分解、全policy組合せの承認ではない。書式固有の16.2.10と子条項の全partial義務は未完に残す。"
+      },
+      "related_requirements": [
+        "UVM-OBJECT-SPRINT-EMISSION",
+        "UVM-BASE-AUDIT-COMPARE-HOOK",
+        "UVM-OBJECT-COPY-POLICY",
+        "UVM-BASE-AUDIT-RECORD-HOOK",
+        "UVM-OBJECT-PACK-EXPLICIT-POLICY",
+        "UVM-OBJECT-PACK-STREAM-TYPE",
+        "UVM-OBJECT-PACK-RETURN-SIZE",
+        "UVM-OBJECT-UNPACK-EXPLICIT-POLICY",
+        "UVM-OBJECT-UNPACK-STREAM-TYPE",
+        "UVM-PRINTER-AUDIT-PRINTER-POLICY-BASE",
+        "UVM-POLICY-AUDIT-COMPARER-BASE",
+        "UVM-POLICY-AUDIT-RECORDER-BASE",
+        "UVM-POLICY-AUDIT-PACKER-BASE",
+        "UVM-POLICY-AUDIT-COPIER-BASE",
+        "UVM-PRINTER-RADIX-CONFIGURATION",
+        "UVM-COMPARER-RECURSION-MODE",
+        "UVM-POLICY-AUDIT-RECORDER-RECURSION-UPDATE",
+        "UVM-POLICY-AUDIT-COPIER-RECURSION-UPDATE"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
     }
   ]
 }

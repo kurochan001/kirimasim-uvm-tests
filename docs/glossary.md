@@ -1458,3 +1458,19 @@ explains its independent read setup and scope.
 address to compare word/bit relationships while leaving actual operation order
 unchanged; [Q290](faq.md#q290-why-sort-the-observed-requests-by-address) explains
 why this is separate from temporal ordering or RTL timing.
+
+## Policy substitution and typed object streams
+
+**Policy substitution** — Selecting another policy instance/subtype for an object
+operation while retaining one object class definition; [Q294](faq.md#q294-what-does-alternating-policies-on-one-object-add)
+explains the alternating operation observations.
+
+**Typed wrapper-state handoff** — An object pack entry point retrieves state
+through the matching bit/byte/int/longint getter after fields, and unpack assigns
+it through the matching setter before fields; [Q295](faq.md#q295-do-the-typed-packunpack-cases-prescribe-a-common-stream-encoding)
+explains the opaque-stream premise and independent order observations.
+
+**Fresh recorder condition** — Opening a new recorder for each selected object
+record operation so the fixture does not assume repeated recording ignores prior
+processing history; [Q295](faq.md#q295-do-the-typed-packunpack-cases-prescribe-a-common-stream-encoding)
+describes this limit separately from copier reuse.

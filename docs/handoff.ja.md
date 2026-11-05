@@ -6,8 +6,8 @@
 
 ## 引継ぎ時点と目的
 
-2026-11-06に、`main`の[92a85d8](https://github.com/kurochan001/kirimasim-uvm-tests/commit/92a85d88963935846643688e76edc20cc5f7da6f)
-を基に、薄い領域の73回目の拡充へ更新しました。再開時に最新の公開commitと作業ツリーを確認してください。
+2026-11-06に、`main`の[3c40ebb](https://github.com/kurochan001/kirimasim-uvm-tests/commit/3c40ebba883718e253468c434ed1b18398383205)
+を基に、薄い領域の74回目の拡充へ更新しました。再開時に最新の公開commitと作業ツリーを確認してください。
 
 IEEE 1800.2-2020のUVM適合を検査し、kirimasimを対象とするプロジェクトです。
 SystemVerilog言語だけのreproducerは、
@@ -16,12 +16,12 @@ M1〜M4の薄い領域を引き続き補強します。M4は進行中で、未�
 
 | 領域 | 現在の状態 |
 | --- | --- |
-| M1 | 962件（runtime 883・elaboration 79）：core object、policy、reporting、階層、factory、phase、同期、recording、utility |
+| M1 | 972件（runtime 893・elaboration 79）：core object、policy、reporting、階層、factory、phase、同期、recording、utility |
 | M2 | 547件（runtime 542・elaboration 5）：sequence、sequencer、callback、TLM |
 | M3 | 737件（runtime 729・elaboration 8）：register／memory layer、付録E |
-| 全体 | 章・付録21 directoryに2246件（simulation 2154・elaboration 92）。照合はすべてAIで、人による照合は未記録 |
-| M4 | AI要求案3815件。3815要求を2222テストへ直接対応。control専用24テスト。未対応テスト0件 |
-| 規範的棚卸し | 2,507識別子のうち1963件を一部分解、405件を明示的に分類。139件は未評価。直接テストのない要求案0件 |
+| 全体 | 章・付録21 directoryに2256件（simulation 2164・elaboration 92）。照合はすべてAIで、人による照合は未記録 |
+| M4 | AI要求案3820件。3820要求を2232テストへ直接対応。control専用24テスト。未対応テスト0件 |
+| 規範的棚卸し | 2,507識別子のうち1963件を一部分解、406件を明示的に分類。138件は未評価。直接テストのない要求案0件 |
 
 `scope_status`は提案、`normative_inventory_complete`はfalse、
 `approved_denominator`／`coverage_percentage`はnullです。主引用テストがある21 rootすべてで未対応テスト0件ですが、
@@ -55,11 +55,11 @@ M1〜M4の薄い領域を引き続き補強します。M4は進行中で、未�
   [テスト索引](../coverage/test_index.json)：M4の正規の状態です。生成inventoryはレビューの補助資料で、
   版管理する入力の代わりではありません。
 - [library lock](../third_party/uvm.lock)：Accellera UVM 2020.3.1、`78c06547a2a0`、326ファイル。
-  版管理するtoolで取得し、library本体はコミットしません。2217検査系は`UVM_NO_DPI`を使い、11件は独自VPI HDL backendを明示要求します。
+  版管理するtoolで取得し、library本体はコミットしません。2227検査系は`UVM_NO_DPI`を使い、11件は独自VPI HDL backendを明示要求します。
 - ユーザーがrepository rootへ`IEEE_Std_1800.2-2020.pdf`と
   `IEEE_Std_1800-2023_SystemVerilog.pdf`を配置済みです。Git対象外のlocalファイルで、
   新規cloneにはなく、再配布しません。`out/`内の抽出済みtextはlocalでGit対象外です。`/tmp`は消える場合があります。
-- `out/`の結果はGit対象外のlocal資料です。`out/thin-seventy-third-scratch-*.py`の一時helperは、
+- `out/`の結果はGit対象外のlocal資料です。`out/thin-seventy-fourth-scratch-*.py`の一時helperは、
   あれば使える補助で、保守対象の入口ではありません。台帳／履歴へ追記するものがあり、無条件に再実行しません。
   不在なら版管理するtoolから必要な処理を組み立てます。
 
@@ -80,9 +80,9 @@ python3 tools/requirements.py inventory --json out/requirements-inventory.json
 python3 tools/requirements.py backlog --json out/requirements-backlog.json --lang ja
 ```
 
-この記録は、tool単体テスト110件、全2246件のmetadata、台帳／索引、library整合性、現在の入力とevidenceの照合を
+この記録は、tool単体テスト110件、全2256件のmetadata、台帳／索引、library整合性、現在の入力とevidenceの照合を
 通過しています。資料だけの変更では、全シミュレーションの再buildは不要です。
-全件evidenceはVerilatorだけで、他2系統は未変更1082件の記録、1164入力は未測定です。実行のsmoke確認は次のとおりです。
+全件evidenceはVerilatorだけで、他2系統は未変更1082件の記録、1174入力は未測定です。実行のsmoke確認は次のとおりです。
 
 ```sh
 python3 tools/run_verilator.py --seeds 1 73 --build-jobs 2 -j 1 \
@@ -101,45 +101,43 @@ Nightly workflowや結果の自動公開はありません。
 
 | シミュレータ／library | 記録した結果 |
 | --- | --- |
-| Verilator 5.052／固定UVM | runtime pass 1833件（seed 1／73）・期待compile拒否87件・known 326件 |
+| Verilator 5.052／固定UVM | runtime pass 1843件（seed 1／73）・期待compile拒否87件・known 326件 |
 | Verilator 5.052／独自VPI HDL backend | 別条件の11件：10件が両seed pass、1件はseed 1でfail |
 | Verilator 5.052／command-line VPI・固定regex DPI | 別条件の18件で17件は両seed一致、1件はseed 1の既知差分 |
-| kirimasim／固定UVM | 未変更1082件で未対応1073件・API欠落fail 9件。1164入力は未測定 |
-| Ghost／同梱UVM | 未変更1082件で各seed pass 206件・fail 876件。1164入力は未測定 |
+| kirimasim／固定UVM | 未変更1082件で未対応1073件・API欠落fail 9件。1174入力は未測定 |
+| Ghost／同梱UVM | 未変更1082件で各seed pass 206件・fail 876件。1174入力は未測定 |
 | Ghost／固定UVM | 現在の実行ファイルsnapshotでは未測定 |
 
 通常条件のknownは326件で、runtime初回差分238、simulation build 83、不正compiler受理5です。
 buildはAPI／型名欠落27、time減算引数既定値1、型既定宣言2、依存visitor既定型3、印刷signature食違い2、継承type_id registry特殊化2、protected access 1、記載外pure-hook 2、DPI未link 29です。限定したvirtual抽象overview基底型のbuild 2件と、専用poolの印刷返却型build 2件も保持します。追加の合法build 3件はenum-collection T解釈です。ほか7 buildは厳密なattribute／enum-unpackの引数を保持します。別HDL／command-line evidenceは独立に記録します。
 
-新規の正準bus操作24検査系は、全registerまたは最初のmemory locationのreadとwriteを独立に測定します。
-64 bitを64-bit busで、64 bitを32-bit busで、48 bitを32-bit busで扱い、両endianを選びます。
-little-endian 12入力はseed 1／73一致、big-endian 12入力はseed 1の値の差分を保持しseed 73はありません。
-新しいbuild差分やcompiler拒否検査は追加しません。
+新規policy差し替え10検査系は、最終の現行入力でseed 1／73に一致します。
+1つの未変更の独自object classでprinter／comparerとcopier／recorderの操作を交互に行います。
+明示派生型はA／B／Aと切り替え、recordごとに新たに開いたrecorderを使い、再利用recorderの処理履歴が消えるとは仮定しません。
+独自printer文字列、比較mask、選択policyの同一性、他observerの未実行、正確なcopier引数、現在のfield値を観測します。
 
-独自の数値word adapterは、testbench itemへ変換する前のreg2bus入口で正準descriptorを記録します。
-read用の記憶域は独立に事前設定し、bus2regの件数は同じrequestへ結果を戻す変換で、driverの別response packet数ではありません。
-完了後の観測用コピーだけをaddress順に並べ、busの時間順は固定しません。宣言したdata bitだけを検査します。
-選択したbig-endianの単一wordではbyte反転、分割では選択write部分または戻り値の0を観測します。
-件数／幅が正しくてもdataが異なる全入力をpassにはしません。12検査系の差分であり、独立した不具合12件やsimulator／libraryの原因を認定しません。
+pack 4入力とunpack 4入力で、bit／byte／int／longintのobject入口を別々に扱います。
+独自observer tickで、field pack後の同型状態取得とfield unpack前の同型状態設定を確認します。
+unpackが状態を消費する前に、pack戻り値を選択policyのget_packed_sizeと比較します。
+streamは不透明のまま、同じ互換policy instance／型で往復し、現在のdataを確認しますが、独立した符号化／復号の正しさの証明にはしません。
 
-日英AI義務5件で19.1.2を部分分解します。既存のUVM-MEMORY-PARTIAL-BEAT-WIDTHはID、statement、以前のlink、限定を保持し、
-新しいregister／memory条件と幅の観測を追加します。sub-byteの20-bit解釈は未解決です。
-以前の3810義務のうち3809件は未変更、1件を再照合し、新しい分類は追加しません。
-全体は部分1963／分類405／未評価139（構造279／文脈126）です。第19章は82／24／5、義務188件、主引用132検査系（simulation 127・elaboration 5）です。
-pending transaction、parent sequence、HDL force／releaseの契約、全ての部分義務、元の目標は未完です。
+日英AI義務5件で、明示pack／unpack policyの選択、型付き状態受渡し、pack戻り件数を分けます。
+既存4義務はID、statement、旧linkを保持して限定付き条件と観測を追加し、以前の3811義務は未変更です。
+個別に読んだ導入16は、操作・基底型・設定の義務を関連付ける文脈に分類し、親の重複義務や見出し名だけの除外を追加しません。
+全体は部分1963／分類406／未評価138（構造279／文脈127）です。
+第16章は175／32／1、義務277件、主引用176検査系（simulation 167・elaboration 9）で、16.2.10は未評価に残ります。
+全ての部分条件と元のM1〜M4目標は未完です。
 
-全3815義務が2222テストへ直接対応し、ほかの24テストはcontrol専用、control linkあり98テストです。
-単一cycle 8入力は分割件数のcontrolにもなり、4件が両seed一致、4件はknownで、それぞれ固有の直接義務を持ちます。
-controlで分割入力を置換しません。以前の全2222通常入力／記録、compiler 92記録、互換guest、両backendのsnapshotは未変更です。
-組み込みTLM payloadのbyte変換、外部RTL、4-state data、byte enable、任意memory stride、protocol／timingは別のままです。
-範囲、分母、人のレビューは未承認／未完です。
+全3820義務が2232テストへ直接対応し、他の24テストはcontrol専用、control linkあり98テストの役割は保持します。
+以前の全2246通常入力／記録、compiler 92記録、互換guest、両backend snapshotは未変更です。
+新しい一致で既存の既知差分をpassにはしません。範囲、分母、人のレビューは未承認／未完です。
 
-全2246件（simulation 2154／elaboration 92）、M1 962（883／79）、M2 547（542／5）、M3 737（729／8）です。
-通常passは1920（runtime 1833／拒否87）、knownは326（runtime 238／build 83／不正受理5）です。
-24入力を追加し、以前の全2222入力は未変更です。guestとbackendのsnapshotはbyte単位で同じで、guest再実行はありません。
+全2256件（simulation 2164／elaboration 92）、M1 972（893／79）、M2 547（542／5）、M3 737（729／8）です。
+通常passは1930（runtime 1843／拒否87）、knownは326（runtime 238／build 83／不正受理5）です。
+新規10入力を追加し、guestの互換1082記録は同じで、新たなguest実行／filterはありません。未測定1174入力は追加1171件と修正した元入力3件です。
 
 以前の分割前[Check実行](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/41976785278)は、設定された150分のjob上限を超えました。
-現在のworkflowは現在のタグ付き1920検査を重複しない8 shard（240／240／240／240／240／240／240／240）へ分け、同時shard jobは最大4です。
+現在のworkflowは現在のタグ付き1930検査を重複しない8 shard（240／240／240／240／240／240／240／240）へ分け、同時shard jobは最大4です。
 和集合の完全一致と重複なしをlocalで検証しました。command-line 17検査はshard 0で通常検査の前に1回だけ実行します。
 seed 1／73、compiler拒否の判定規則、固定依存関係、runner指紋は未変更です。従来のverilator gateは全shardの成功を要求します。shard分割は実行の構成であり、local検証でhosted workflowの成功は立証しません。
 
@@ -147,15 +145,15 @@ seed 1／73、compiler拒否の判定規則、固定依存関係、runner指紋�
 現在のhostでは、互換なlocal記録は次にあります。
 
 ```text
-out/thin-seventy-third-verilator-combined.json
-out/thin-seventy-third-ghost-final-1.json
-out/thin-seventy-third-ghost-final-73.json
-out/thin-seventy-third-kirimasim-final.json
-out/thin-seventy-third-inventory.json
-out/thin-seventy-third-backlog-final.json
-out/thin-seventy-third-evidence-scope.json
-out/thin-seventy-third-hdl-combined.json
-out/thin-seventy-third-cmdline-final.json
+out/thin-seventy-fourth-verilator-combined.json
+out/thin-seventy-fourth-ghost-final-1.json
+out/thin-seventy-fourth-ghost-final-73.json
+out/thin-seventy-fourth-kirimasim-final.json
+out/thin-seventy-fourth-inventory.json
+out/thin-seventy-fourth-backlog-final.json
+out/thin-seventy-fourth-evidence-scope.json
+out/thin-seventy-fourth-hdl-combined.json
+out/thin-seventy-fourth-cmdline-final.json
 ```
 
 再利用前に、宣言した全件／部分の対象ごとのtest ID集合の完全一致、現在の`inputs_sha256`、simulatorの版／設定／libraryの同一性、
@@ -170,9 +168,9 @@ Git対象外のファイルなので別hostにはない場合があり、許可�
 未評価件数と部分的な義務は別の残作業を数えるため、件数が減るだけではgoalを完了できない理由は[対応状況と進捗を読む](reading-guide.ja.md#対応状況と進捗を読む)を参照してください。
 
 ユーザーはM1〜M4の未対応0件まで続けるgoalを依頼しました。開始時は未評価1,463番号、未対応テスト0件、直接テストのない要求0件でした。
-45反復で未評価139へ1324減らしました。直近では19.1.2を部分分解し、分類を増やさず既存の幅の義務1件を拡張します。
-第19章には部分82番号と未評価5番号、第16章には部分175番号と未評価2番号が残ります。
-既存のrecorder-link差分やget_globalの食違いは未解決で、元のmilestoneはどれも未完です。
+46反復で未評価138へ1325減らしました。直近では導入16を個別に文脈として評価し、異なるobject wrapper義務5件と既存4義務の拡張を追加します。
+第16章には部分175番号と未評価1番号の16.2.10が残ります。
+既存のrecorder-link、bus値、get_globalの差分は未解決で、元のmilestoneはどれも未完です。
 
 以前の12.2.9.2の再分類は未評価件数を減らしません。goalを有効に保ち、第12章の未評価0を部分分解169番号や明示milestone目標の完了へ置き換えません。
 最終監査は元の範囲、実際の規範的義務、有意な条件、互換な実行evidenceを確認します。限定解釈、既知差分、guest未測定を保持し、架空の承認やpass化を行いません。
@@ -198,7 +196,7 @@ clone提供／source保持には直接観測ができましたが、新map内容
 次の候補は優先順位の提案で、承認済みの除外やカバレッジ率ではありません。
 追加作業を選ぶ前に、backlogを再生成してください。
 
-既存テストの対応付けqueueは、すべてのrootで空です。未評価の識別子139件を規格と照合し、
+既存テストの対応付けqueueは、すべてのrootで空です。未評価の識別子138件を規格と照合し、
 見出しと規範的義務を区別して条件を分解し、新たなテストを選びます。
 一部分解済みの領域でも、有意なdefault、失敗、独立性、順序、lifecycleの組合せを優先します。
 oracleを導く前に、API欠落とsignature／本文の矛盾を確認します。
@@ -284,11 +282,11 @@ TLMの候補は、広いchannel／analysis適用条件、nonblocking／binding�
 既存テストはpool初期sizeを仮定しないため、その独立性を保ち、必要な初期所属を別のspec-only検査に保持します。mode 0のcallback経路が正しくても中間totalは解決しません。
 
 第6章の未評価番号は0ですが、部分分解98番号が残ります。print probeは選択した共通／設定内容を観測し、全分類、既定文面、reporting全体は認定しません。
-printer 16.2節には未評価の16.2.10 table-format概要が残り、解消のために印刷されていない列／行構文を規定しません。第16章全体では章導入とtable-format概要の未評価2番号が残り、recorder-link概要は部分分解済みです。
+printer 16.2節には未評価の16.2.10 table-format概要が残り、解消のために印刷されていない列／行構文を規定しません。第16章全体ではtable-format概要の未評価1番号が残り、導入16は個別に文脈と分類し、recorder-link概要は部分分解のままです。
 既定format意味、再帰履歴key、depth境界、循環graph、scope separator、4-state値、全radix／設定組合せ、caller所有を監査します。
 限定したentry-depth matrixと、独立した上限超過済みの不一致は別々に保持します。
 
-第16章の導入にはobjectを変えずにpolicyを差し替え／設定する説明があります。見出し名だけで整理項目に分類せず、その差し替え動作を明示的に監査してください。
+policy差し替えの監査は選択A／B／A scalar入力の先へ続け、入れ子object、alias、field操作によるhook無効化、追加設定の組合せ、同じrecorderの反復履歴を規格から確認します。章導入はこれらの部分義務へ対応する文脈であり、全組合せの認定ではありません。
 
 次の候補はreport resetとfilterの相互作用、activeなlock／grab所有とrelevance、sequence-library mode実行とunbound適用可否、adapterの片方向lane／byte順の独立した義務、parent-sequence条件です。catcher API欠落とpartial-byte有効bitの逆再構築も別のレビュー作業として残ります。
 parent_sequence条項はdo_cloneを指定しているため、objectのclone APIと同じ意味と仮定する前に記述を確認します。
@@ -303,7 +301,7 @@ task-based read境界とcallback値pipelineには選択した検査系ができ�
 診断severityの期待値を導く前に、印刷されたwrite宣言の矛盾と待機predictor検査の契約を確認します。
 
 現在の要求案には、直接テストの未対応はありません。memory-walkの限定した歴史的解釈を含め、
-直接対応のqueueを解消しますが、M1〜M4の完了ではありません。その解釈と残る識別子139件を照合し、
+直接対応のqueueを解消しますが、M1〜M4の完了ではありません。その解釈と残る識別子138件を照合し、
 適用条件、失敗、lifecycle／並行性、独立した検査を拡充します。
 第11章のmethod条項は部分的な分解のままで、概要と構造上の見出しにAIの明示的分類があります。
 他の箇所も個別に読み、根拠を保持し、見出し名から分類を推測しません。

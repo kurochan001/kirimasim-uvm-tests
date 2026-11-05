@@ -14,13 +14,13 @@ the IEEE 1800-2023 SystemVerilog language.
 An oracle records the expectation's basis: `spec` cites the standard and `verilator@5.052` adds reproduction;
 [Standards and expectations](docs/glossary.md#standards-and-expectations) explains spec-only cases.
 
-> **Status: M4 in progress.** 2246 tests: 2154 simulation and 92 elaboration,
-> in 21 chapter/annex directories; 1920 tagged oracles and 326 spec-only cases.
+> **Status: M4 in progress.** 2256 tests: 2164 simulation and 92 elaboration,
+> in 21 chapter/annex directories; 1930 tagged oracles and 326 spec-only cases.
 > All use `:spec_check: ai`; none records human review. M1–M3 targets remain open.
-> M4 has 3815 AI drafts, 2222 directly linked tests and an index of all 2246.
+> M4 has 3820 AI drafts, 2232 directly linked tests and an index of all 2256.
 > 0 tests lack requirement links and 0 drafts lack direct tests; the historical
-> memory-walk interpretation requires review. 139 identifiers remain unassessed;
-> 405 have explicit AI classifications. Scope and denominator remain unapproved.
+> memory-walk interpretation requires review. 138 identifiers remain unassessed;
+> 406 have explicit AI classifications. Scope and denominator remain unapproved.
 
 ## Contents
 
@@ -34,7 +34,7 @@ Test counts, execution matches and review status measure different things; [the 
 
 ## Current scope
 
-- **M1: 962 tests (883 simulation, 79 elaboration).** Objects and policies,
+- **M1: 972 tests (893 simulation, 79 elaboration).** Objects and policies,
   reporting, factory, hierarchy, phases, synchronization, configuration,
   recording, core services and typed utilities.
 - **M2: 547 tests (542 simulation, 5 elaboration).** Sequences and sequencers,
@@ -76,7 +76,7 @@ python3 tools/run_verilator.py --seeds 1 73 --build-jobs 2 -j 1 \
 ```
 
 The fetcher checks the pinned Accellera UVM 2020.3.1 library. The smoke
-command selects one test. To run all 1920 tagged checks (1833 runtime, 87 compile rejection):
+command selects one test. To run all 1930 tagged checks (1843 runtime, 87 compile rejection):
 
 ```sh
 python3 tools/run_verilator.py --seeds 1 73 --build-jobs 2 -j 2 \
@@ -103,17 +103,17 @@ by Git; results are not automatically published.
 
 Simulation matches and compiler rejections are different checks; [the result guide](docs/reading-guide.md#read-a-result) explains the labels and counts below.
 
-The Verilator snapshot assembled on 2026-11-06 covers all 2246 current cases.
-Guest records retain 1082 compatible inputs; 1164 inputs are unmeasured.
+The Verilator snapshot assembled on 2026-11-06 covers all 2256 current cases.
+Guest records retain 1082 compatible inputs; 1174 inputs are unmeasured.
 These results are separate from the Check badge.
 
 | Simulator and library | Observed result |
 | --- | --- |
-| Verilator 5.052, pinned UVM, ordinary runner | 1833 runtime matches at seeds 1/73; 87 expected compile rejections; 326 known differences |
+| Verilator 5.052, pinned UVM, ordinary runner | 1843 runtime matches at seeds 1/73; 87 expected compile rejections; 326 known differences |
 | Verilator 5.052, original VPI HDL backend | Separate 11-case subset: 10 match both seeds; 1 differs |
 | Verilator 5.052, VPI command-line bridge and pinned regex DPI | Separate 18-case subset: 17 match both seeds; 1 known difference |
-| kirimasim, pinned UVM | 1073 `unsupported`; nine missing-API `fail` in 1082 cases; 1164 unmeasured |
-| Ghost, bundled UVM | 206 match and 876 fail at each seed in 1082 cases; 1164 unmeasured |
+| kirimasim, pinned UVM | 1073 `unsupported`; nine missing-API `fail` in 1082 cases; 1174 unmeasured |
+| Ghost, bundled UVM | 206 match and 876 fail at each seed in 1082 cases; 1174 unmeasured |
 
 The ordinary runner records 238 runtime differences at seed 1, 83 simulation build failures
 and five accepted illegal designs without runtime; [the detailed breakdown](docs/results.md#interpretation) explains API/declaration, macro and DPI categories and qualified premises.
@@ -152,10 +152,10 @@ its counterpart; commands and API identifiers retain their original spelling.
 | Stage | Scope | Current state / target |
 | --- | --- | --- |
 | M0 | Fetcher, runners, metadata/tools checks, Check and smoke test | Infrastructure implemented |
-| M1 | Core classes, policies, factory, phases and their graphs, objections, configuration and reporting | 962 tests; reviewed two-tests-per-clause target open |
+| M1 | Core classes, policies, factory, phases and their graphs, objections, configuration and reporting | 972 tests; reviewed two-tests-per-clause target open |
 | M2 | Sequences, sequencers, TLM and callbacks | 547 tests; target open |
 | M3 | Register layer (17–19, D.3, annex E) | 737 tests across chapters 17–19, D.3 and annex E; target open |
-| M4 | Requirement ledger and coverage | In progress: 3815 AI drafts; 3815 requirements link to 2222 tests; denominator unapproved |
+| M4 | Requirement ledger and coverage | In progress: 3820 AI drafts; 3820 requirements link to 2232 tests; denominator unapproved |
 
 M1–M3 remain incomplete; [the milestone glossary](docs/glossary.md#scope-and-coverage) explains why starting M4 does not complete them. Further work covers sequence ownership/lifecycle,
 default resources, callbacks and TLM 2 protocol/timing/socket combinations;

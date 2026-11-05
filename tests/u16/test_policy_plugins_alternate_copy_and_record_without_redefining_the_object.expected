@@ -1,0 +1,6 @@
+UT: copy74 0 policy 1 idle 1 arguments 1 value 31
+UT: record74 0 policy 1 style A value 31
+UT: copy74 1 policy 1 idle 1 arguments 1 value 52
+UT: record74 1 policy 1 style B value 52
+UT: copy74 2 policy 1 idle 1 arguments 1 value 73
+UT: record74 2 policy 1 style A value 73

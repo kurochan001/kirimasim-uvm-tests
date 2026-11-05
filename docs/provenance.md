@@ -187,6 +187,12 @@ Bodies, helpers, expected output and the tag partition stay unchanged. All 24
 post-correction sources are freshly measured; earlier records keep their original
 input identities and are archived rather than relabeled. See [Q293](faq.md#q293-why-remeasure-after-correcting-only-supporting-citations).
 
+Policy-substitution expectations are independently derived from supplied IEEE
+16, object wrapper/hook and typed state APIs. Original subtypes, callback ticks
+and opaque-stream roundtrips assume neither recorder-history reset nor a shared
+encoding. No new implementation source or commercial result is used; see
+[the policy FAQ](faq.md#policy-substitution-and-typed-object-streams).
+
 ## Clause catalog maintenance
 
 The catalog counts identifiers rather than normative duties, so [Counting unit and scope proposal](requirements.md#counting-unit-and-scope-proposal) explains why restoring an entry does not define a coverage denominator.

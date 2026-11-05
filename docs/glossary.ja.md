@@ -1120,3 +1120,14 @@ free後もobject参照が残る場合がありますが、link可能性やerror�
 
 **Address-sorted observation（address順の観測表示）** — 実際の操作順を変えず、完了した観測用コピーをaddress順に並べてword／bitの関係を比較する表示です。
 時間順やRTL timingとは別である理由は[Q290](faq.ja.md#q290-観測requestをaddress順に並べる理由は)で説明しています。
+
+## Policy差し替えと型付きobject stream
+
+**Policy substitution（policy差し替え）** — objectのclass定義を1つに保ったまま、操作に別のpolicy instance／派生型を選ぶことです。
+交互操作での観測は[Q294](faq.ja.md#q294-同じobjectでpolicyを交互に選ぶと何が増えますか)で説明しています。
+
+**Typed wrapper-state handoff（型付きwrapper状態の受渡し）** — object pack入口がfield処理後に同型のbit／byte／int／longint getterで状態を取得し、unpackがfield処理前に同型setterで設定することです。
+不透明streamの前提と独立した順序観測は[Q295](faq.ja.md#q295-型付きpackunpackは共通のstream符号化を規定しますか)で説明しています。
+
+**Fresh recorder condition（新規recorderの条件）** — object recordごとに新しいrecorderを開き、以前の処理履歴が反復記録で無視されるとは仮定しない条件です。
+copierの再利用との区別は[Q295](faq.ja.md#q295-型付きpackunpackは共通のstream符号化を規定しますか)で説明しています。

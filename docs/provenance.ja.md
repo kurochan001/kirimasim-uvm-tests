@@ -133,6 +133,10 @@ recorder-linkの期待値は提供IEEE 16.4.4とclose／free／flush、streamの
 本体、helper、期待出力、タグの区分は変えません。修正後の全24 sourceを新たに測定し、以前の記録は元の入力同一性で保存して付け替えません。
 [Q293](faq.ja.md#q293-補助引用だけの修正でも再測定する理由は)で説明しています。
 
+policy差し替えの期待値は提供IEEE 16、object wrapper／hook、型付き状態APIから独立に導きます。
+独自派生型・callback tick・不透明streamの往復を使い、同じrecorderの履歴resetや共通符号化は仮定しません。
+新しい実装sourceの参照や商用結果の利用はなく、[policyのFAQ](faq.ja.md#policy差し替えと型付きobject-stream)で前提を説明しています。
+
 ## 条項カタログの保守
 
 catalogが数えるのは規範的義務ではなく識別子なので、項目の復元でcoverage分母が決まらない理由は[計数単位と対象範囲の案](requirements.ja.md#計数単位と対象範囲の案)を参照してください。

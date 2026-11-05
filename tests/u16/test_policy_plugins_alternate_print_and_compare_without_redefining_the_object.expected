@@ -1,0 +1,6 @@
+UT: print74 0 policy 1 idle 1 text A:165 payload a5
+UT: compare74 0 policy 1 idle 1 result 0 payload a5 peer a6
+UT: print74 1 policy 1 idle 1 text B:165 payload a5
+UT: compare74 1 policy 1 idle 1 result 1 payload a5 peer a6
+UT: print74 2 policy 1 idle 1 text A:165 payload a5
+UT: compare74 2 policy 1 idle 1 result 0 payload a5 peer a6
