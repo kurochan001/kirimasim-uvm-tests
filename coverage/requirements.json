@@ -141882,6 +141882,688 @@
           ]
         }
       ]
+    },
+    {
+      "id": "UVM-REG-HDL-ADD-DEFAULT-RTL",
+      "clause": "18.4.6.4",
+      "statement": {
+        "en": "Omitted add_hdl_path kind selects RTL independently of the parent default abstraction.",
+        "ja": "add_hdl_pathのkind省略は親の既定abstractionとは独立にRTLを選ぶ。"
+      },
+      "conditions": {
+        "en": "Original 16-bit register/block models, legal most-to-least nonoverlapping slices, named abstractions, isolated peers and fresh query queues. Standard-view inputs use get_slices; separately declared controls project the pinned library public slices member, an explicitly nonstandard observability premise. No HDL storage is accessed.",
+        "ja": "独自16-bit register／blockモデル、合法な上位から下位の非重複slice、名前付きabstraction、分離peer、新規query queueを使う。標準view入力はget_slicesを使い、別のcontrolは固定libraryの公開slices memberを明示的に非標準の観測前提として参照する。HDL storageへはアクセスしない。"
+      },
+      "expected": {
+        "en": "The supplied split description is under RTL; the parent-selected GATE path and peer remain unchanged.",
+        "ja": "渡したsplit記述はRTLに置き、親が選ぶGATE pathとpeerを保持する。"
+      },
+      "limitations": {
+        "en": "Symbolic path metadata only. A member-view control cannot pass the standard get_slices API or replace the corresponding standard-view input. Returned implementation alternatives have no prescribed enumeration order; slice order follows 17.2.3.1. Invalid/overlapping slices, arbitrary register-file hierarchies, prefilled output queues and full HDL access are not established. These obligations remain partial and AI-reviewed.",
+        "ja": "記号的なpath metadataだけ。member-view controlの成功で標準get_slices APIや対応する標準view入力をpassにはしない。返る実装候補の列挙順は規定せず、slice順は17.2.3.1に従う。不正／重複slice、任意register-file階層、既存出力queue、完全なHDL accessは成立させない。義務は部分的でAI照合のまま。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_hdl_add_default_rtl_standard_view79",
+          "role": "direct",
+          "expected_observations": [
+            "UT: paths79 default_rtl 1 parent_kind 1 peer 1"
+          ]
+        },
+        {
+          "test": "u18/test_reg_hdl_add_default_rtl_member_view_control79",
+          "role": "control",
+          "expected_observations": [
+            "UT: paths79 default_rtl 1 parent_kind 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-HDL-ADD-DUPLICATE-CONCATS",
+      "clause": "18.4.6.4",
+      "statement": {
+        "en": "Repeated add_hdl_path calls for one abstraction retain the register implementation alternatives.",
+        "ja": "同じabstractionへのadd_hdl_path反復はregister実装の各候補を保持する。"
+      },
+      "conditions": {
+        "en": "Original 16-bit register/block models, legal most-to-least nonoverlapping slices, named abstractions, isolated peers and fresh query queues. Standard-view inputs use get_slices; separately declared controls project the pinned library public slices member, an explicitly nonstandard observability premise. No HDL storage is accessed.",
+        "ja": "独自16-bit register／blockモデル、合法な上位から下位の非重複slice、名前付きabstraction、分離peer、新規query queueを使う。標準view入力はget_slicesを使い、別のcontrolは固定libraryの公開slices memberを明示的に非標準の観測前提として参照する。HDL storageへはアクセスしない。"
+      },
+      "expected": {
+        "en": "Two independent high/low descriptions remain queryable without prescribing alternative order.",
+        "ja": "独立したhigh／low記述2組を、候補順を固定せず取得できる。"
+      },
+      "limitations": {
+        "en": "Symbolic path metadata only. A member-view control cannot pass the standard get_slices API or replace the corresponding standard-view input. Returned implementation alternatives have no prescribed enumeration order; slice order follows 17.2.3.1. Invalid/overlapping slices, arbitrary register-file hierarchies, prefilled output queues and full HDL access are not established. These obligations remain partial and AI-reviewed.",
+        "ja": "記号的なpath metadataだけ。member-view controlの成功で標準get_slices APIや対応する標準view入力をpassにはしない。返る実装候補の列挙順は規定せず、slice順は17.2.3.1に従う。不正／重複slice、任意register-file階層、既存出力queue、完全なHDL accessは成立させない。義務は部分的でAI照合のまま。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_hdl_add_duplicates_copy_values_standard_view79",
+          "role": "direct",
+          "expected_observations": [
+            "UT: paths79 duplicate_snapshots 1 peer 1"
+          ]
+        },
+        {
+          "test": "u18/test_reg_hdl_add_duplicates_copy_values_member_view_control79",
+          "role": "control",
+          "expected_observations": [
+            "UT: paths79 duplicate_snapshots 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-HDL-ADD-SLICE-VALUE-SNAPSHOT",
+      "clause": "18.4.6.4",
+      "statement": {
+        "en": "By-value slice inputs retain the supplied path, offset and size values after the caller changes its array.",
+        "ja": "値渡しのslice入力は、呼出し元の配列変更後も渡したpath／offset／size値を保持する。"
+      },
+      "conditions": {
+        "en": "Original 16-bit register/block models, legal most-to-least nonoverlapping slices, named abstractions, isolated peers and fresh query queues. Standard-view inputs use get_slices; separately declared controls project the pinned library public slices member, an explicitly nonstandard observability premise. No HDL storage is accessed.",
+        "ja": "独自16-bit register／blockモデル、合法な上位から下位の非重複slice、名前付きabstraction、分離peer、新規query queueを使う。標準view入力はget_slicesを使い、別のcontrolは固定libraryの公開slices memberを明示的に非標準の観測前提として参照する。HDL storageへはアクセスしない。"
+      },
+      "expected": {
+        "en": "Both earlier descriptions keep their original values after changing and reusing the caller array.",
+        "ja": "呼出し元配列を変更して再利用した後も、以前の2記述は元の値を保持する。"
+      },
+      "limitations": {
+        "en": "Symbolic path metadata only. A member-view control cannot pass the standard get_slices API or replace the corresponding standard-view input. Returned implementation alternatives have no prescribed enumeration order; slice order follows 17.2.3.1. Invalid/overlapping slices, arbitrary register-file hierarchies, prefilled output queues and full HDL access are not established. These obligations remain partial and AI-reviewed.",
+        "ja": "記号的なpath metadataだけ。member-view controlの成功で標準get_slices APIや対応する標準view入力をpassにはしない。返る実装候補の列挙順は規定せず、slice順は17.2.3.1に従う。不正／重複slice、任意register-file階層、既存出力queue、完全なHDL accessは成立させない。義務は部分的でAI照合のまま。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_hdl_add_duplicates_copy_values_standard_view79",
+          "role": "direct",
+          "expected_observations": [
+            "UT: paths79 duplicate_snapshots 1 peer 1"
+          ]
+        },
+        {
+          "test": "u18/test_reg_hdl_add_duplicates_copy_values_member_view_control79",
+          "role": "control",
+          "expected_observations": [
+            "UT: paths79 duplicate_snapshots 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-HDL-SLICE-DEFAULT-APPEND",
+      "clause": "18.4.6.5",
+      "statement": {
+        "en": "Omitted first is false and appends a slice to the selected current implementation.",
+        "ja": "first省略はfalseで、選択した現在の実装へsliceを追記する。"
+      },
+      "conditions": {
+        "en": "Original 16-bit register/block models, legal most-to-least nonoverlapping slices, named abstractions, isolated peers and fresh query queues. Standard-view inputs use get_slices; separately declared controls project the pinned library public slices member, an explicitly nonstandard observability premise. No HDL storage is accessed.",
+        "ja": "独自16-bit register／blockモデル、合法な上位から下位の非重複slice、名前付きabstraction、分離peer、新規query queueを使う。標準view入力はget_slicesを使い、別のcontrolは固定libraryの公開slices memberを明示的に非標準の観測前提として参照する。HDL storageへはアクセスしない。"
+      },
+      "expected": {
+        "en": "The high and low slices form one correctly ordered RTL concatenation.",
+        "ja": "highとlowのsliceが正しい順序の1つのRTL連結を作る。"
+      },
+      "limitations": {
+        "en": "Symbolic path metadata only. A member-view control cannot pass the standard get_slices API or replace the corresponding standard-view input. Returned implementation alternatives have no prescribed enumeration order; slice order follows 17.2.3.1. Invalid/overlapping slices, arbitrary register-file hierarchies, prefilled output queues and full HDL access are not established. These obligations remain partial and AI-reviewed.",
+        "ja": "記号的なpath metadataだけ。member-view controlの成功で標準get_slices APIや対応する標準view入力をpassにはしない。返る実装候補の列挙順は規定せず、slice順は17.2.3.1に従う。不正／重複slice、任意register-file階層、既存出力queue、完全なHDL accessは成立させない。義務は部分的でAI照合のまま。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_hdl_slice_defaults_append_standard_view79",
+          "role": "direct",
+          "expected_observations": [
+            "UT: paths79 slice_defaults 1 parent_kind 1"
+          ]
+        },
+        {
+          "test": "u18/test_reg_hdl_slice_defaults_append_member_view_control79",
+          "role": "control",
+          "expected_observations": [
+            "UT: paths79 slice_defaults 1 parent_kind 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-HDL-SLICE-DEFAULT-RTL",
+      "clause": "18.4.6.5",
+      "statement": {
+        "en": "Omitted add_hdl_path_slice kind selects RTL rather than the parent default.",
+        "ja": "add_hdl_path_sliceのkind省略は親の既定ではなくRTLを選ぶ。"
+      },
+      "conditions": {
+        "en": "Original 16-bit register/block models, legal most-to-least nonoverlapping slices, named abstractions, isolated peers and fresh query queues. Standard-view inputs use get_slices; separately declared controls project the pinned library public slices member, an explicitly nonstandard observability premise. No HDL storage is accessed.",
+        "ja": "独自16-bit register／blockモデル、合法な上位から下位の非重複slice、名前付きabstraction、分離peer、新規query queueを使う。標準view入力はget_slicesを使い、別のcontrolは固定libraryの公開slices memberを明示的に非標準の観測前提として参照する。HDL storageへはアクセスしない。"
+      },
+      "expected": {
+        "en": "RTL slice appends remain separate from the interleaved GATE implementation and peer.",
+        "ja": "RTLへのslice追記は途中に置いたGATE実装やpeerと分離される。"
+      },
+      "limitations": {
+        "en": "Symbolic path metadata only. A member-view control cannot pass the standard get_slices API or replace the corresponding standard-view input. Returned implementation alternatives have no prescribed enumeration order; slice order follows 17.2.3.1. Invalid/overlapping slices, arbitrary register-file hierarchies, prefilled output queues and full HDL access are not established. These obligations remain partial and AI-reviewed.",
+        "ja": "記号的なpath metadataだけ。member-view controlの成功で標準get_slices APIや対応する標準view入力をpassにはしない。返る実装候補の列挙順は規定せず、slice順は17.2.3.1に従う。不正／重複slice、任意register-file階層、既存出力queue、完全なHDL accessは成立させない。義務は部分的でAI照合のまま。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_hdl_slice_defaults_append_standard_view79",
+          "role": "direct",
+          "expected_observations": [
+            "UT: paths79 slice_defaults 1 parent_kind 1"
+          ]
+        },
+        {
+          "test": "u18/test_reg_hdl_slice_defaults_append_member_view_control79",
+          "role": "control",
+          "expected_observations": [
+            "UT: paths79 slice_defaults 1 parent_kind 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-HDL-SLICE-FIRST-DUPLICATE",
+      "clause": "18.4.6.5",
+      "statement": {
+        "en": "A true first argument starts a duplicate HDL implementation for the selected abstraction.",
+        "ja": "firstがtrueなら選択abstractionの重複HDL実装を開始する。"
+      },
+      "conditions": {
+        "en": "Original 16-bit register/block models, legal most-to-least nonoverlapping slices, named abstractions, isolated peers and fresh query queues. Standard-view inputs use get_slices; separately declared controls project the pinned library public slices member, an explicitly nonstandard observability premise. No HDL storage is accessed.",
+        "ja": "独自16-bit register／blockモデル、合法な上位から下位の非重複slice、名前付きabstraction、分離peer、新規query queueを使う。標準view入力はget_slicesを使い、別のcontrolは固定libraryの公開slices memberを明示的に非標準の観測前提として参照する。HDL storageへはアクセスしない。"
+      },
+      "expected": {
+        "en": "Two high/low alternatives coexist while another abstraction and peer retain their single whole paths.",
+        "ja": "high／low候補2組が共存し、別abstractionとpeerは単一whole pathを保持する。"
+      },
+      "limitations": {
+        "en": "Symbolic path metadata only. A member-view control cannot pass the standard get_slices API or replace the corresponding standard-view input. Returned implementation alternatives have no prescribed enumeration order; slice order follows 17.2.3.1. Invalid/overlapping slices, arbitrary register-file hierarchies, prefilled output queues and full HDL access are not established. These obligations remain partial and AI-reviewed.",
+        "ja": "記号的なpath metadataだけ。member-view controlの成功で標準get_slices APIや対応する標準view入力をpassにはしない。返る実装候補の列挙順は規定せず、slice順は17.2.3.1に従う。不正／重複slice、任意register-file階層、既存出力queue、完全なHDL accessは成立させない。義務は部分的でAI照合のまま。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_hdl_slice_first_starts_duplicate_standard_view79",
+          "role": "direct",
+          "expected_observations": [
+            "UT: paths79 first_duplicate 1 other_kind 1 peer 1"
+          ]
+        },
+        {
+          "test": "u18/test_reg_hdl_slice_first_starts_duplicate_member_view_control79",
+          "role": "control",
+          "expected_observations": [
+            "UT: paths79 first_duplicate 1 other_kind 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-HDL-WHOLE-VARIABLE-ACCESS",
+      "clause": "18.4.6.5",
+      "statement": {
+        "en": "A -1/-1 slice implementing the entire register preserves complete register access functionality.",
+        "ja": "register全体を実装する-1／-1 sliceは完全なregister accessの機能を保持する。"
+      },
+      "conditions": {
+        "en": "Actual public 16/40-bit HDL variables under the unchanged original VPI backend. One register uses a single -1/-1 whole-variable path, while an independent reference uses legal high/low slices of two distinct HDL variables. Direct read inputs call the printed public backdoor_read task from module scope; separate peek controls do not prove that public declaration. Original backend counters expose HDL reads without prescribing exact call counts.",
+        "ja": "未変更の独自VPI backendで、実公開16／40-bit HDL変数を使う。一方のregisterは単一変数の-1／-1 path、独立referenceは別の2 HDL変数を合法なhigh／low sliceとして使う。direct read入力はmodule scopeから記載された公開backdoor_read taskを呼び、別のpeek controlではその公開宣言を証明しない。独自backend counterでHDL readを観測し、正確な呼出し数は指定しない。"
+      },
+      "expected": {
+        "en": "Whole-variable and legal split references return fresh full-width values and receive independent deposits without changing peers.",
+        "ja": "whole変数と合法split referenceが新しい全幅値を返し、peerを変えず独立したdepositを受ける。"
+      },
+      "limitations": {
+        "en": "Separate limited two-state HDL condition; ordinary runs do not link the backend. No standard concat-view helper is compiled in these physical inputs, isolating public-read and transfer observations from missing get_slices. Whole paths are compared with legal two-variable split references, not a conflicting single-variable explicit-range representation. General types/arrays, failures, permissions, four-state values and vendor overlays remain open. Peek matches do not establish entry into the exact backdoor_read task or its public accessibility.",
+        "ja": "別の限定2値HDL条件で、通常runnerはbackendをlinkしない。物理入力では標準concat-view helperをcompileせず、公開readと転送の観測をget_slices欠落から分離する。whole pathは合法な2変数split referenceと比較し、矛盾し得る単一変数の明示range表現とは比較しない。一般型／array、失敗、権限、4値、vendor overlayは未完。peek一致は正確なbackdoor_read taskへの進入や公開accessを成立させない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_hdl_whole_vs_split_direct_read_16_79",
+          "role": "direct",
+          "expected_observations": [
+            "UT: physical79 read cycle 0 target 0 status 1 data 1 dpi 1 same 1",
+            "UT: physical79 read cycle 0 target 1 status 1 data 1 dpi 1 same 1",
+            "UT: physical79 read cycle 1 target 0 status 1 data 1 dpi 1 same 1",
+            "UT: physical79 read cycle 1 target 1 status 1 data 1 dpi 1 same 1"
+          ]
+        },
+        {
+          "test": "u18/test_reg_hdl_whole_vs_split_peek_control_16_79",
+          "role": "direct",
+          "expected_observations": [
+            "UT: physical79 read cycle 0 target 0 status 1 data 1 dpi 1 same 1",
+            "UT: physical79 read cycle 0 target 1 status 1 data 1 dpi 1 same 1",
+            "UT: physical79 read cycle 1 target 0 status 1 data 1 dpi 1 same 1",
+            "UT: physical79 read cycle 1 target 1 status 1 data 1 dpi 1 same 1"
+          ]
+        },
+        {
+          "test": "u18/test_reg_hdl_whole_vs_split_poke_16_79",
+          "role": "direct",
+          "expected_observations": [
+            "UT: physical79 whole_poke status 1 selected 1 others 1",
+            "UT: physical79 split_poke status 1 selected 1 others 1"
+          ]
+        },
+        {
+          "test": "u18/test_reg_hdl_whole_vs_split_direct_read_40_79",
+          "role": "direct",
+          "expected_observations": [
+            "UT: physical79 read cycle 0 target 0 status 1 data 1 dpi 1 same 1",
+            "UT: physical79 read cycle 0 target 1 status 1 data 1 dpi 1 same 1",
+            "UT: physical79 read cycle 1 target 0 status 1 data 1 dpi 1 same 1",
+            "UT: physical79 read cycle 1 target 1 status 1 data 1 dpi 1 same 1"
+          ]
+        },
+        {
+          "test": "u18/test_reg_hdl_whole_vs_split_peek_control_40_79",
+          "role": "direct",
+          "expected_observations": [
+            "UT: physical79 read cycle 0 target 0 status 1 data 1 dpi 1 same 1",
+            "UT: physical79 read cycle 0 target 1 status 1 data 1 dpi 1 same 1",
+            "UT: physical79 read cycle 1 target 0 status 1 data 1 dpi 1 same 1",
+            "UT: physical79 read cycle 1 target 1 status 1 data 1 dpi 1 same 1"
+          ]
+        },
+        {
+          "test": "u18/test_reg_hdl_whole_vs_split_poke_40_79",
+          "role": "direct",
+          "expected_observations": [
+            "UT: physical79 whole_poke status 1 selected 1 others 1",
+            "UT: physical79 split_poke status 1 selected 1 others 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-HDL-FULL-PATH-CARTESIAN",
+      "clause": "18.4.6.9",
+      "statement": {
+        "en": "Full register paths include every applicable ancestor and register implementation alternative.",
+        "ja": "registerの完全pathは適用される祖先とregister実装の全候補を含む。"
+      },
+      "conditions": {
+        "en": "Original 16-bit register/block models, legal most-to-least nonoverlapping slices, named abstractions, isolated peers and fresh query queues. Standard-view inputs use get_slices; separately declared controls project the pinned library public slices member, an explicitly nonstandard observability premise. No HDL storage is accessed.",
+        "ja": "独自16-bit register／blockモデル、合法な上位から下位の非重複slice、名前付きabstraction、分離peer、新規query queueを使う。標準view入力はget_slicesを使い、別のcontrolは固定libraryの公開slices memberを明示的に非標準の観測前提として参照する。HDL storageへはアクセスしない。"
+      },
+      "expected": {
+        "en": "Two root, two child and two register alternatives produce all eight distinct concatenations with their slice coordinates.",
+        "ja": "root 2、child 2、register 2候補から、slice座標を持つ異なる8連結を取得する。"
+      },
+      "limitations": {
+        "en": "Symbolic path metadata only. A member-view control cannot pass the standard get_slices API or replace the corresponding standard-view input. Returned implementation alternatives have no prescribed enumeration order; slice order follows 17.2.3.1. Invalid/overlapping slices, arbitrary register-file hierarchies, prefilled output queues and full HDL access are not established. These obligations remain partial and AI-reviewed.",
+        "ja": "記号的なpath metadataだけ。member-view controlの成功で標準get_slices APIや対応する標準view入力をpassにはしない。返る実装候補の列挙順は規定せず、slice順は17.2.3.1に従う。不正／重複slice、任意register-file階層、既存出力queue、完全なHDL accessは成立させない。義務は部分的でAI照合のまま。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_hdl_full_cartesian_default_standard_view79",
+          "role": "direct",
+          "expected_observations": [
+            "UT: paths79 cartesian 1"
+          ]
+        },
+        {
+          "test": "u18/test_reg_hdl_full_cartesian_default_member_view_control79",
+          "role": "control",
+          "expected_observations": [
+            "UT: paths79 cartesian 1"
+          ]
+        },
+        {
+          "test": "u18/test_reg_hdl_full_cartesian_custom_standard_view79",
+          "role": "direct",
+          "expected_observations": [
+            "UT: paths79 cartesian 1"
+          ]
+        },
+        {
+          "test": "u18/test_reg_hdl_full_cartesian_custom_member_view_control79",
+          "role": "control",
+          "expected_observations": [
+            "UT: paths79 cartesian 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-HDL-FULL-PATH-DEFAULT-SEPARATOR",
+      "clause": "18.4.6.9",
+      "statement": {
+        "en": "The omitted full-path separator is a dot.",
+        "ja": "完全pathのseparator省略はdotである。"
+      },
+      "conditions": {
+        "en": "Original 16-bit register/block models, legal most-to-least nonoverlapping slices, named abstractions, isolated peers and fresh query queues. Standard-view inputs use get_slices; separately declared controls project the pinned library public slices member, an explicitly nonstandard observability premise. No HDL storage is accessed.",
+        "ja": "独自16-bit register／blockモデル、合法な上位から下位の非重複slice、名前付きabstraction、分離peer、新規query queueを使う。標準view入力はget_slicesを使い、別のcontrolは固定libraryの公開slices memberを明示的に非標準の観測前提として参照する。HDL storageへはアクセスしない。"
+      },
+      "expected": {
+        "en": "Every component prefix in the eight concatenations uses the default dot separator.",
+        "ja": "8連結の全component prefixが既定dot separatorを使う。"
+      },
+      "limitations": {
+        "en": "Symbolic path metadata only. A member-view control cannot pass the standard get_slices API or replace the corresponding standard-view input. Returned implementation alternatives have no prescribed enumeration order; slice order follows 17.2.3.1. Invalid/overlapping slices, arbitrary register-file hierarchies, prefilled output queues and full HDL access are not established. These obligations remain partial and AI-reviewed.",
+        "ja": "記号的なpath metadataだけ。member-view controlの成功で標準get_slices APIや対応する標準view入力をpassにはしない。返る実装候補の列挙順は規定せず、slice順は17.2.3.1に従う。不正／重複slice、任意register-file階層、既存出力queue、完全なHDL accessは成立させない。義務は部分的でAI照合のまま。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_hdl_full_cartesian_default_standard_view79",
+          "role": "direct",
+          "expected_observations": [
+            "UT: paths79 cartesian 1"
+          ]
+        },
+        {
+          "test": "u18/test_reg_hdl_full_cartesian_default_member_view_control79",
+          "role": "control",
+          "expected_observations": [
+            "UT: paths79 cartesian 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-HDL-FULL-PATH-EXPLICIT-SEPARATOR",
+      "clause": "18.4.6.9",
+      "statement": {
+        "en": "A supplied separator joins the components of each full register HDL path.",
+        "ja": "指定separatorでregisterの各完全HDL pathのcomponentを結ぶ。"
+      },
+      "conditions": {
+        "en": "Original 16-bit register/block models, legal most-to-least nonoverlapping slices, named abstractions, isolated peers and fresh query queues. Standard-view inputs use get_slices; separately declared controls project the pinned library public slices member, an explicitly nonstandard observability premise. No HDL storage is accessed.",
+        "ja": "独自16-bit register／blockモデル、合法な上位から下位の非重複slice、名前付きabstraction、分離peer、新規query queueを使う。標準view入力はget_slicesを使い、別のcontrolは固定libraryの公開slices memberを明示的に非標準の観測前提として参照する。HDL storageへはアクセスしない。"
+      },
+      "expected": {
+        "en": "All eight concatenations use the supplied slash separator while retaining slice coordinates.",
+        "ja": "slice座標を保持し、8連結すべてが指定slash separatorを使う。"
+      },
+      "limitations": {
+        "en": "Symbolic path metadata only. A member-view control cannot pass the standard get_slices API or replace the corresponding standard-view input. Returned implementation alternatives have no prescribed enumeration order; slice order follows 17.2.3.1. Invalid/overlapping slices, arbitrary register-file hierarchies, prefilled output queues and full HDL access are not established. These obligations remain partial and AI-reviewed.",
+        "ja": "記号的なpath metadataだけ。member-view controlの成功で標準get_slices APIや対応する標準view入力をpassにはしない。返る実装候補の列挙順は規定せず、slice順は17.2.3.1に従う。不正／重複slice、任意register-file階層、既存出力queue、完全なHDL accessは成立させない。義務は部分的でAI照合のまま。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_hdl_full_cartesian_custom_standard_view79",
+          "role": "direct",
+          "expected_observations": [
+            "UT: paths79 cartesian 1"
+          ]
+        },
+        {
+          "test": "u18/test_reg_hdl_full_cartesian_custom_member_view_control79",
+          "role": "control",
+          "expected_observations": [
+            "UT: paths79 cartesian 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-HDL-FULL-PATH-ANCESTOR-DEFAULTS",
+      "clause": "18.4.6.9",
+      "statement": {
+        "en": "Omitted full-path kind uses each ancestor block's own default abstraction for its incremental contribution.",
+        "ja": "完全pathのkind省略は、各祖先block自身の既定abstractionでその部分pathを取得する。"
+      },
+      "conditions": {
+        "en": "Original 16-bit register/block models, legal most-to-least nonoverlapping slices, named abstractions, isolated peers and fresh query queues. Standard-view inputs use get_slices; separately declared controls project the pinned library public slices member, an explicitly nonstandard observability premise. No HDL storage is accessed.",
+        "ja": "独自16-bit register／blockモデル、合法な上位から下位の非重複slice、名前付きabstraction、分離peer、新規query queueを使う。標準view入力はget_slicesを使い、別のcontrolは固定libraryの公開slices memberを明示的に非標準の観測前提として参照する。HDL storageへはアクセスしない。"
+      },
+      "expected": {
+        "en": "Mixed root and child defaults contribute dut_A.bank_B.reg_B without changing either default.",
+        "ja": "混在するroot／child既定値からdut_A.bank_B.reg_Bを取得し、どちらの既定も変えない。"
+      },
+      "limitations": {
+        "en": "Symbolic path metadata only. A member-view control cannot pass the standard get_slices API or replace the corresponding standard-view input. Returned implementation alternatives have no prescribed enumeration order; slice order follows 17.2.3.1. Invalid/overlapping slices, arbitrary register-file hierarchies, prefilled output queues and full HDL access are not established. These obligations remain partial and AI-reviewed.",
+        "ja": "記号的なpath metadataだけ。member-view controlの成功で標準get_slices APIや対応する標準view入力をpassにはしない。返る実装候補の列挙順は規定せず、slice順は17.2.3.1に従う。不正／重複slice、任意register-file階層、既存出力queue、完全なHDL accessは成立させない。義務は部分的でAI照合のまま。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_hdl_full_ancestor_defaults_standard_view79",
+          "role": "direct",
+          "expected_observations": [
+            "UT: paths79 ancestor_defaults 1 defaults 1"
+          ]
+        },
+        {
+          "test": "u18/test_reg_hdl_full_ancestor_defaults_member_view_control79",
+          "role": "control",
+          "expected_observations": [
+            "UT: paths79 ancestor_defaults 1 defaults 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-HDL-FULL-PATH-EXPLICIT-KIND",
+      "clause": "18.4.6.9",
+      "statement": {
+        "en": "An explicit full-path abstraction selects that abstraction despite different ancestor defaults.",
+        "ja": "完全pathの明示abstractionは、祖先の既定が異なっても指定abstractionを選ぶ。"
+      },
+      "conditions": {
+        "en": "Original 16-bit register/block models, legal most-to-least nonoverlapping slices, named abstractions, isolated peers and fresh query queues. Standard-view inputs use get_slices; separately declared controls project the pinned library public slices member, an explicitly nonstandard observability premise. No HDL storage is accessed.",
+        "ja": "独自16-bit register／blockモデル、合法な上位から下位の非重複slice、名前付きabstraction、分離peer、新規query queueを使う。標準view入力はget_slicesを使い、別のcontrolは固定libraryの公開slices memberを明示的に非標準の観測前提として参照する。HDL storageへはアクセスしない。"
+      },
+      "expected": {
+        "en": "The explicit COMMON query produces dut_X.bank_X.reg_X while retaining mixed defaults.",
+        "ja": "明示COMMON queryでdut_X.bank_X.reg_Xを取得し、混在する既定値を保持する。"
+      },
+      "limitations": {
+        "en": "Symbolic path metadata only. A member-view control cannot pass the standard get_slices API or replace the corresponding standard-view input. Returned implementation alternatives have no prescribed enumeration order; slice order follows 17.2.3.1. Invalid/overlapping slices, arbitrary register-file hierarchies, prefilled output queues and full HDL access are not established. These obligations remain partial and AI-reviewed.",
+        "ja": "記号的なpath metadataだけ。member-view controlの成功で標準get_slices APIや対応する標準view入力をpassにはしない。返る実装候補の列挙順は規定せず、slice順は17.2.3.1に従う。不正／重複slice、任意register-file階層、既存出力queue、完全なHDL accessは成立させない。義務は部分的でAI照合のまま。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_hdl_full_explicit_kind_standard_view79",
+          "role": "direct",
+          "expected_observations": [
+            "UT: paths79 explicit_kind 1 defaults 1"
+          ]
+        },
+        {
+          "test": "u18/test_reg_hdl_full_explicit_kind_member_view_control79",
+          "role": "control",
+          "expected_observations": [
+            "UT: paths79 explicit_kind 1 defaults 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-BACKDOOR-READ-PUBLIC-CALL",
+      "clause": "18.4.6.10",
+      "statement": {
+        "en": "The printed unqualified virtual backdoor_read task is callable through a register receiver from public module scope.",
+        "ja": "記載された無修飾virtual backdoor_read taskは、公開module scopeからregister receiverで呼び出せる。"
+      },
+      "conditions": {
+        "en": "Actual public 16/40-bit HDL variables under the unchanged original VPI backend. One register uses a single -1/-1 whole-variable path, while an independent reference uses legal high/low slices of two distinct HDL variables. Direct read inputs call the printed public backdoor_read task from module scope; separate peek controls do not prove that public declaration. Original backend counters expose HDL reads without prescribing exact call counts.",
+        "ja": "未変更の独自VPI backendで、実公開16／40-bit HDL変数を使う。一方のregisterは単一変数の-1／-1 path、独立referenceは別の2 HDL変数を合法なhigh／low sliceとして使う。direct read入力はmodule scopeから記載された公開backdoor_read taskを呼び、別のpeek controlではその公開宣言を証明しない。独自backend counterでHDL readを観測し、正確な呼出し数は指定しない。"
+      },
+      "expected": {
+        "en": "Direct calls build and expose successful fresh full-width read observations for both whole and split targets.",
+        "ja": "直接呼出しがbuildでき、whole／split targetの新しい全幅readの成功を観測できる。"
+      },
+      "limitations": {
+        "en": "Separate limited two-state HDL condition; ordinary runs do not link the backend. No standard concat-view helper is compiled in these physical inputs, isolating public-read and transfer observations from missing get_slices. Whole paths are compared with legal two-variable split references, not a conflicting single-variable explicit-range representation. General types/arrays, failures, permissions, four-state values and vendor overlays remain open. Peek matches do not establish entry into the exact backdoor_read task or its public accessibility.",
+        "ja": "別の限定2値HDL条件で、通常runnerはbackendをlinkしない。物理入力では標準concat-view helperをcompileせず、公開readと転送の観測をget_slices欠落から分離する。whole pathは合法な2変数split referenceと比較し、矛盾し得る単一変数の明示range表現とは比較しない。一般型／array、失敗、権限、4値、vendor overlayは未完。peek一致は正確なbackdoor_read taskへの進入や公開accessを成立させない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_hdl_whole_vs_split_direct_read_16_79",
+          "role": "direct",
+          "expected_observations": [
+            "UT: physical79 read cycle 0 target 0 status 1 data 1 dpi 1 same 1",
+            "UT: physical79 read cycle 0 target 1 status 1 data 1 dpi 1 same 1",
+            "UT: physical79 read cycle 1 target 0 status 1 data 1 dpi 1 same 1",
+            "UT: physical79 read cycle 1 target 1 status 1 data 1 dpi 1 same 1"
+          ]
+        },
+        {
+          "test": "u18/test_reg_hdl_whole_vs_split_peek_control_16_79",
+          "role": "control",
+          "expected_observations": [
+            "UT: physical79 read cycle 0 target 0 status 1 data 1 dpi 1 same 1",
+            "UT: physical79 read cycle 0 target 1 status 1 data 1 dpi 1 same 1",
+            "UT: physical79 read cycle 1 target 0 status 1 data 1 dpi 1 same 1",
+            "UT: physical79 read cycle 1 target 1 status 1 data 1 dpi 1 same 1"
+          ]
+        },
+        {
+          "test": "u18/test_reg_hdl_whole_vs_split_direct_read_40_79",
+          "role": "direct",
+          "expected_observations": [
+            "UT: physical79 read cycle 0 target 0 status 1 data 1 dpi 1 same 1",
+            "UT: physical79 read cycle 0 target 1 status 1 data 1 dpi 1 same 1",
+            "UT: physical79 read cycle 1 target 0 status 1 data 1 dpi 1 same 1",
+            "UT: physical79 read cycle 1 target 1 status 1 data 1 dpi 1 same 1"
+          ]
+        },
+        {
+          "test": "u18/test_reg_hdl_whole_vs_split_peek_control_40_79",
+          "role": "control",
+          "expected_observations": [
+            "UT: physical79 read cycle 0 target 0 status 1 data 1 dpi 1 same 1",
+            "UT: physical79 read cycle 0 target 1 status 1 data 1 dpi 1 same 1",
+            "UT: physical79 read cycle 1 target 0 status 1 data 1 dpi 1 same 1",
+            "UT: physical79 read cycle 1 target 1 status 1 data 1 dpi 1 same 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-BACKDOOR-READ-HDLSUPPORT",
+      "clause": "18.4.6.10",
+      "statement": {
+        "en": "The base backdoor_read implementation uses the UVM HDL support routines to read the register.",
+        "ja": "基底backdoor_read実装はUVM HDL support routineでregisterを読む。"
+      },
+      "conditions": {
+        "en": "Actual public 16/40-bit HDL variables under the unchanged original VPI backend. One register uses a single -1/-1 whole-variable path, while an independent reference uses legal high/low slices of two distinct HDL variables. Direct read inputs call the printed public backdoor_read task from module scope; separate peek controls do not prove that public declaration. Original backend counters expose HDL reads without prescribing exact call counts.",
+        "ja": "未変更の独自VPI backendで、実公開16／40-bit HDL変数を使う。一方のregisterは単一変数の-1／-1 path、独立referenceは別の2 HDL変数を合法なhigh／low sliceとして使う。direct read入力はmodule scopeから記載された公開backdoor_read taskを呼び、別のpeek controlではその公開宣言を証明しない。独自backend counterでHDL readを観測し、正確な呼出し数は指定しない。"
+      },
+      "expected": {
+        "en": "Direct task calls return the current actual storage values, record HDL reads and leave storage and peer unchanged.",
+        "ja": "task直接呼出しで現在の実storage値が返り、HDL readを記録し、storageとpeerを保持する。"
+      },
+      "limitations": {
+        "en": "Separate limited two-state HDL condition; ordinary runs do not link the backend. No standard concat-view helper is compiled in these physical inputs, isolating public-read and transfer observations from missing get_slices. Whole paths are compared with legal two-variable split references, not a conflicting single-variable explicit-range representation. General types/arrays, failures, permissions, four-state values and vendor overlays remain open. Peek matches do not establish entry into the exact backdoor_read task or its public accessibility.",
+        "ja": "別の限定2値HDL条件で、通常runnerはbackendをlinkしない。物理入力では標準concat-view helperをcompileせず、公開readと転送の観測をget_slices欠落から分離する。whole pathは合法な2変数split referenceと比較し、矛盾し得る単一変数の明示range表現とは比較しない。一般型／array、失敗、権限、4値、vendor overlayは未完。peek一致は正確なbackdoor_read taskへの進入や公開accessを成立させない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_hdl_whole_vs_split_direct_read_16_79",
+          "role": "direct",
+          "expected_observations": [
+            "UT: physical79 read cycle 0 target 0 status 1 data 1 dpi 1 same 1",
+            "UT: physical79 read cycle 0 target 1 status 1 data 1 dpi 1 same 1",
+            "UT: physical79 read cycle 1 target 0 status 1 data 1 dpi 1 same 1",
+            "UT: physical79 read cycle 1 target 1 status 1 data 1 dpi 1 same 1"
+          ]
+        },
+        {
+          "test": "u18/test_reg_hdl_whole_vs_split_peek_control_16_79",
+          "role": "control",
+          "expected_observations": [
+            "UT: physical79 read cycle 0 target 0 status 1 data 1 dpi 1 same 1",
+            "UT: physical79 read cycle 0 target 1 status 1 data 1 dpi 1 same 1",
+            "UT: physical79 read cycle 1 target 0 status 1 data 1 dpi 1 same 1",
+            "UT: physical79 read cycle 1 target 1 status 1 data 1 dpi 1 same 1"
+          ]
+        },
+        {
+          "test": "u18/test_reg_hdl_whole_vs_split_direct_read_40_79",
+          "role": "direct",
+          "expected_observations": [
+            "UT: physical79 read cycle 0 target 0 status 1 data 1 dpi 1 same 1",
+            "UT: physical79 read cycle 0 target 1 status 1 data 1 dpi 1 same 1",
+            "UT: physical79 read cycle 1 target 0 status 1 data 1 dpi 1 same 1",
+            "UT: physical79 read cycle 1 target 1 status 1 data 1 dpi 1 same 1"
+          ]
+        },
+        {
+          "test": "u18/test_reg_hdl_whole_vs_split_peek_control_40_79",
+          "role": "control",
+          "expected_observations": [
+            "UT: physical79 read cycle 0 target 0 status 1 data 1 dpi 1 same 1",
+            "UT: physical79 read cycle 0 target 1 status 1 data 1 dpi 1 same 1",
+            "UT: physical79 read cycle 1 target 0 status 1 data 1 dpi 1 same 1",
+            "UT: physical79 read cycle 1 target 1 status 1 data 1 dpi 1 same 1"
+          ]
+        }
+      ]
     }
   ]
 }

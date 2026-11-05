@@ -4,7 +4,7 @@
 
 このページの件数は各変更時点の値なので、現在のスイート規模や実行範囲が必要なときは[現在のスナップショット](results.ja.md#現在のスナップショット)を使ってください。
 
-M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の78回目の拡充（全2291件：simulation 2199・elaboration 92）までを記録しています。以前の349件の時点は
+M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の79回目の拡充（全2313件：simulation 2221・elaboration 92）までを記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -3038,3 +3038,27 @@ compiler、command-line、互換guest 1082記録は未変更で、新しいguest
 通常は1944 pass／347 known、別HDLは27 pass／1 failで、以前の2283通常記録と20 HDL記録は元の同一性で保持します。
 goal第50反復では既に部分分解した条項を補強するため未評価134は変わらず、分類や分母は変更しません。
 元のM1〜M4目標と全ての部分条件は未完で、読者向けの日英説明とリンクを保持して現在の資料を更新します。
+
+## 薄い領域の79回目の拡充：register HDL pathと実storage
+
+新規register HDL path 22入力は、標準concat view 8件、明示的な非標準公開member-view control 8件、実VPI転送6件を分けます。
+標準view 8件はget_slices欠落のbuild差分を保持します。修正後のmember controlは7件が両seed一致、
+祖先ごとの既定kindの1件はseed 1差分で、seed 73結果はありません。7 controlだけを再現タグ付きへ変えて新たに測定し、標準getter契約をpassにはしません。
+
+物理6入力は、未変更の別backend条件で両seed一致です。公開backdoor_read直接呼出し、peek、pokeで、実16／40-bit whole変数の-1／-1 pathと、合法な2変数high／low referenceを観測します。
+新data、独立storage、read counterで実HDL accessを区別し、peekだけで正確なbackdoor_read taskへの進入や公開宣言を証明しません。
+通常6入力はDPI未linkのbuild knownを保持します。
+
+APIの4番号へ日英AI義務14件を追加します。個別に読んだ18.4.6の整理見出しは構造分類し、以前の全3832義務、406分類、範囲案は未変更です。
+全体は部分1971／分類407／未評価129、第18章は364／52／40、義務848件、主引用522 simulationです。
+全3846義務が2281テストへ直接対応し、他の32テストはcontrol専用、control linkあり113です。
+全ての部分義務と元のM1〜M4目標は未完です。
+
+初回fixtureの引数方向と規格にないset_path呼出しは修正し、旧blob／logは再利用せず保存します。
+collectorはhelper directory内の兄弟fileも含むため、修正後の全22入力を現在の同一性で測定し、タグ追加後の7 controlも再測定します。
+以前の通常2291記録、HDL 28記録、compiler 92記録、command-line 18記録、互換guest 1082記録は未変更です。
+新しいguest実行／filterはありません。範囲、分母、人のレビューは未承認／未完です。
+
+独立期待値は測定前に固定し、fixtureの引数方向とAPI名、include directory指紋の影響を修正／監査してから現在の入力を測定します。
+初回48 blobとlogは旧同一性で保存し、現在記録へ付け替えません。修正後の18入力と追加4物理入力を通常条件で測定し、タグ後の7 controlを再測定、別HDL 6入力も両seedで測定しました。
+通常は1951 pass／362 known、別HDLは33 pass／1 failです。goal第51反復で未評価を5件減らして129にしますが、部分1971番号、元のM1〜M4目標、人のレビュー、範囲と分母は未完です。

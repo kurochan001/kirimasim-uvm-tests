@@ -192,6 +192,13 @@ supplies prototypes through an original clone bridge. This differs from register
 item parent metadata; caller parents are omitted, as explained in
 [the parent-context FAQ](faq.md#adapter-sequence-contexts).
 
+The [model helper](../tests/u18/helpers79/hdl_models79.svh) and
+[view helper](../tests/u18/helpers79/hdl_views79.svh) separate standard get_slices
+inputs from explicit nonstandard member controls. Physical inputs do not compile
+the view helper, but sibling include-directory contents affect fingerprints, so
+all twenty-two inputs were remeasured after correction. [The path FAQ](faq.md#register-hdl-paths-and-observation-premises)
+separates getter blockers, ancestor defaults and real HDL observations.
+
 ### Metadata
 
 The header tells the runner how to build and judge a case; [Q76](faq.md#q76-does-a-clause-citation-mean-its-requirements-are-tested) explains how its clause citations relate to requirement links.
@@ -345,7 +352,7 @@ DPI lets SystemVerilog call external code, and [Q12](faq.md#q12-does-uvm_dpi-yes
 - User-defined `uvm_reg_backdoor` storage handlers work without HDL DPI.
   Commercial simulator execution/results are excluded by the project policy;
   built-in HDL-path/DPI coverage remains open.
-- 2245 current cases use `UVM_NO_DPI`; twenty-eight explicitly enable HDL DPI.
+- 2261 current cases use `UVM_NO_DPI`; thirty-four explicitly enable HDL DPI.
   `:uvm_dpi: yes` removes that macro;
   it does not automatically compile or link the C/C++ DPI implementation.
   The current Verilator runner does not add DPI C/C++ sources.
@@ -358,7 +365,7 @@ This backend connects UVM's DPI calls to the simulator's public VPI interface; [
 
 The separate [HDL runner](../tools/run_verilator_hdl.py) links the original
 [backend](../tools/uvm_hdl_vpi.cpp) to actual HDL storage with exactly Verilator
-5.052. Twenty-eight fixtures declare `:uvm_dpi: yes`, `:uvm_hdl_backend: vpi` and
+5.052. Thirty-four fixtures declare `:uvm_dpi: yes`, `:uvm_hdl_backend: vpi` and
 `:dpi_c:`; `UVM_REGEX_NO_DPI` and `UVM_CMDLINE_NO_DPI` disable unrelated imports.
 The runner rejects HDL-disabling macros and changes to the default 1024-bit
 UVM DPI ABI in either defines field.
@@ -393,15 +400,16 @@ conversion, rounding, overlap or failures, four-state values, finer permissions
 and vendor overlays remain open. No simulator implementation source
 is read.
 
-Ordinary runs do not link the backend and all twenty-eight retain `:oracle: spec`.
+Ordinary runs do not link the backend and all thirty-four retain `:oracle: spec`.
 The distinct `verilator_hdl` identity, `runner_sha256` and backend configuration
-use the same expectations. Twenty-seven match both seeds; the E.7 warning/
-no-transfer case differs at seed 1 and strict mismatches fail. Twenty records
-from the earlier backend-change batch are retained. Eight new positive-duration
-force_time inputs use the unchanged backend for periods 5/13 and sequential
-same/distinct-target reuse; [the timing FAQ](faq.md#positive-duration-force_time-observations)
-explains sample windows and open conditions. This overlapping condition is
-separate from twenty-eight ordinary DPI-link failures.
+use the same expectations. Thirty-three match both seeds; the E.7 warning/
+no-transfer case differs at seed 1 and strict mismatches fail. Twenty-eight
+older records are retained. Six new physical register inputs use the unchanged
+backend for public backdoor_read, peek and poke with 16/40-bit whole variables
+and legal two-variable split representations. [The register-path FAQ](faq.md#register-hdl-paths-and-observation-premises)
+separates these observations from symbolic member controls and the missing
+standard concat getter. Keep the overlapping thirty-four ordinary DPI-link
+failures separate.
 
 Algorithm detail absent from current IEEE text may carry an explicitly qualified
 AI interpretation. [Q134](faq.md#q134-how-is-the-memory-walk-algorithm-interpreted)
@@ -470,9 +478,9 @@ For runtime cases, `--seeds 1 73` builds once and runs a fresh process for
 each seed. All requested runtime seeds must match. `--seed N` remains available for a single seed.
 The JSON configuration records either `seed` or `seeds` accordingly.
 
-By default, Verilator selects 1944 tagged two-state checks: 1857 runtime
+By default, Verilator selects 1951 tagged two-state checks: 1864 runtime
 cases and 87 expected compiler rejections. To include
-the 347 spec-only cases as well, add `--all`. A mismatch in an untagged case
+the 362 spec-only cases as well, add `--all`. A mismatch in an untagged case
 is `known` and does not fail the command; a tagged mismatch does.
 Explicit test paths select only those tests. For a single smoke test:
 
@@ -532,7 +540,7 @@ python3 tools/requirements.py check
 ```
 
 The current tool suite has 110 unit tests; metadata validation checks all
-2291 tests (2199 simulation, 92 elaboration). The [ledger check](requirements.md) validates the draft
+2313 tests (2221 simulation, 92 elaboration). The [ledger check](requirements.md) validates the draft
 scope, explicit oracle links and input fingerprints without claiming coverage. [Check](../.github/workflows/check.yml) runs on pushes to
 `main`, pull requests and manual dispatch. Its Verilator matrix jobs use
 5.052, `UVM_NO_DPI` and seeds 1 and 73 for the tagged cases. Each model is
@@ -541,7 +549,7 @@ not that every UVM requirement or every simulator passes.
 
 The previous unsharded [Check run](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/41976785278)
 exceeded the configured 150-minute job limit. The current workflow partitions
-the current 1944 tagged checks into 8 disjoint shards (243/243/243/243/243/243/243/243),
+the current 1951 tagged checks into 8 disjoint shards (244/244/244/244/244/244/244/243),
 with at most 4 concurrent shard jobs. The exact union and absence of duplicates are
 verified locally. The 17 command-line checks run once, on shard 0 before
 ordinary checks. Seeds 1/73, compiler-rejection judgment, pinned dependencies

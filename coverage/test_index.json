@@ -9165,6 +9165,94 @@
     "u19/test_hdl_force_time_wire8_same_targets": {
       "primary_clause": "19.6.2.4",
       "inputs_sha256": "e71f86efb9afa38fbb03ef97aba99ed5ba3b42b2438daa066736220adc1eb6a0"
+    },
+    "u18/test_reg_hdl_add_default_rtl_standard_view79": {
+      "primary_clause": "18.4.6.4",
+      "inputs_sha256": "045ddbabd1ad3a78dec1a37a38227a49ecdadb5f3900440a48fd42f7c7b5a903"
+    },
+    "u18/test_reg_hdl_add_default_rtl_member_view_control79": {
+      "primary_clause": "18.4.6.4",
+      "inputs_sha256": "7ea6b2efb0eff52ca12cca39386cdeceaa7cc50f66a70b4989e42aa031098b43"
+    },
+    "u18/test_reg_hdl_add_duplicates_copy_values_standard_view79": {
+      "primary_clause": "18.4.6.4",
+      "inputs_sha256": "f055d03cff20b983a0e6fce8a22c1c0a9deea0c9a425f99e94527ab256efe9bf"
+    },
+    "u18/test_reg_hdl_add_duplicates_copy_values_member_view_control79": {
+      "primary_clause": "18.4.6.4",
+      "inputs_sha256": "6eb604d50057c8c5d654f48f5ce4e35381e82c818d6451551a06c5b242638b62"
+    },
+    "u18/test_reg_hdl_slice_defaults_append_standard_view79": {
+      "primary_clause": "18.4.6.5",
+      "inputs_sha256": "236a8fb9afcc652a8c0f0bbc2812ada3811ccdaede27d709a0d134c2e6c399cb"
+    },
+    "u18/test_reg_hdl_slice_defaults_append_member_view_control79": {
+      "primary_clause": "18.4.6.5",
+      "inputs_sha256": "8a7511d9ce4af1d6087512039ab625fe6c9d1cb67c7a86ea53a974e9b080cbd8"
+    },
+    "u18/test_reg_hdl_slice_first_starts_duplicate_standard_view79": {
+      "primary_clause": "18.4.6.5",
+      "inputs_sha256": "4de8c2a2c1abf390fc1b24fea5047fe8eddf46b8af04390a6336872b536f34cc"
+    },
+    "u18/test_reg_hdl_slice_first_starts_duplicate_member_view_control79": {
+      "primary_clause": "18.4.6.5",
+      "inputs_sha256": "29a0b32ec0347527f178be48e2096da1f6dbd96ad0cebb11690d68c6f2d7ccd8"
+    },
+    "u18/test_reg_hdl_full_cartesian_default_standard_view79": {
+      "primary_clause": "18.4.6.9",
+      "inputs_sha256": "65b2c44e87943ca3dfd0c0953dc20c4e811c9b937ebd5b81cbb0ec38062bdfdc"
+    },
+    "u18/test_reg_hdl_full_cartesian_default_member_view_control79": {
+      "primary_clause": "18.4.6.9",
+      "inputs_sha256": "93b271eb30d318423bfd208d75866d8566c99b1c096b0c4aa0c78ded3f4435ed"
+    },
+    "u18/test_reg_hdl_full_cartesian_custom_standard_view79": {
+      "primary_clause": "18.4.6.9",
+      "inputs_sha256": "74a51ea84a7d425a39a51237d4c55d70e307f59d4686bd07cf6718d8f56ee150"
+    },
+    "u18/test_reg_hdl_full_cartesian_custom_member_view_control79": {
+      "primary_clause": "18.4.6.9",
+      "inputs_sha256": "c380540381cce833805f8a9b5210dcc71072488629a22efc2cb5165d579dd8b3"
+    },
+    "u18/test_reg_hdl_full_ancestor_defaults_standard_view79": {
+      "primary_clause": "18.4.6.9",
+      "inputs_sha256": "240c51df857f05d2b76c7a91364c0fe79ab8d83a98efac32c40c495d6787047e"
+    },
+    "u18/test_reg_hdl_full_ancestor_defaults_member_view_control79": {
+      "primary_clause": "18.4.6.9",
+      "inputs_sha256": "847863e3b043ce98230b44a508a39b733a06cf6086fb26fb9729d3fca10aa245"
+    },
+    "u18/test_reg_hdl_full_explicit_kind_standard_view79": {
+      "primary_clause": "18.4.6.9",
+      "inputs_sha256": "c9922522978d630ac9545af05aaf881e79713664b79a3ebb39a3c13f3a5f523e"
+    },
+    "u18/test_reg_hdl_full_explicit_kind_member_view_control79": {
+      "primary_clause": "18.4.6.9",
+      "inputs_sha256": "fbae4eaa529cd92cab9ecaccef8bf0d70374dadf645cd5dd7099ad5a66bafeb7"
+    },
+    "u18/test_reg_hdl_whole_vs_split_direct_read_16_79": {
+      "primary_clause": "18.4.6.10",
+      "inputs_sha256": "cb88bf5dc89f33608349c49276dd21df1281909951e9827959d020f8c0f3c086"
+    },
+    "u18/test_reg_hdl_whole_vs_split_peek_control_16_79": {
+      "primary_clause": "18.4.6.5",
+      "inputs_sha256": "6e4e3a9095e6036d986c9cfc69648b65728807104a73188b7f3dbff7d45cc2a8"
+    },
+    "u18/test_reg_hdl_whole_vs_split_poke_16_79": {
+      "primary_clause": "18.4.6.5",
+      "inputs_sha256": "c79671eb740e7c4ee1c426b3d5fead04d99d98eb9f7cce9adba0f9c298174a72"
+    },
+    "u18/test_reg_hdl_whole_vs_split_direct_read_40_79": {
+      "primary_clause": "18.4.6.10",
+      "inputs_sha256": "7d21dca447418e38f19cfd2201a420132cc5310838d6601880e91529e8aac158"
+    },
+    "u18/test_reg_hdl_whole_vs_split_peek_control_40_79": {
+      "primary_clause": "18.4.6.5",
+      "inputs_sha256": "a7c70714ff15a0d85a0c0bf4216998dc320f2ed12e66f3b58e731458d0d4016d"
+    },
+    "u18/test_reg_hdl_whole_vs_split_poke_40_79": {
+      "primary_clause": "18.4.6.5",
+      "inputs_sha256": "b5b520bd42ffc424dded66816807646405f781e2440da717163ac725c3868026"
     }
   }
 }

@@ -1167,3 +1167,11 @@ assertするtaskの観測は[Q305](faq.ja.md#q305-時間付きforce_time検査�
 
 **Expiration observation window（満了の観測区間）** — 終了前の期間内と終了後の正offsetでsampleし、通常更新を続ける区間で、境界のprocess順は規定しません。
 再利用、分離、未完の時間条件は[Q306](faq.ja.md#q306-同一別targetへの逐次呼出しを使う理由は)で説明しています。
+
+## Register HDL pathと観測の前提
+
+**Standard concat view／member-view control（標準連結view／member-view control）** — 宣言されたget_slices APIによる観測／明示的に追加した公開memberの前提で、入力と役割を分けます。
+controlで標準getterの欠落をpassにはできない理由は[Q308](faq.ja.md#q308-標準viewとmember-view-controlを分ける理由は)で説明しています。
+
+**Whole-variable path／split reference（whole変数path／split reference）** — register全体の変数を示す-1／-1記述／合法sliceを使う独立したhigh／low変数です。
+symbolic pathと実storageの観測の違いは[Q309](faq.ja.md#q309-物理registerの6検査は何を示しますか)で説明しています。

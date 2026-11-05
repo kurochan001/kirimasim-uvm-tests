@@ -224,6 +224,16 @@ package/time-unit setup was inspected; backend/runners remain unchanged and no
 simulator implementation source or commercial result is used. [The timing FAQ](faq.md#positive-duration-force_time-observations)
 records shared compilation-default units and sequential-call premises.
 
+Register-path expectations are derived before measurement from supplied IEEE
+18.4.6,17.2.3.1, public-task visibility and by-value argument rules. Standard
+get_slices and explicitly nonstandard public-slices member controls have distinct
+premises; controls do not pass the standard API. Actual 16/40-bit whole variables
+and legal split references use public APIs and the unchanged original VPI backend.
+No simulator implementation source or commercial result is used. Fixture argument
+directions and set_door naming are corrected; include-directory sibling hashes
+require all twenty-two corrected inputs to be measured. [The path FAQ](faq.md#register-hdl-paths-and-observation-premises)
+records old input/log retention and independent expectations.
+
 ## Clause catalog maintenance
 
 The catalog counts identifiers rather than normative duties, so [Counting unit and scope proposal](requirements.md#counting-unit-and-scope-proposal) explains why restoring an entry does not define a coverage denominator.

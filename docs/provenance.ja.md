@@ -157,6 +157,11 @@ force／releaseの期待値は、測定前に提供IEEE 19.6.2.3／.5／.6、言
 Apache-2.0のpackage／時間単位の設定を確認しましたが、backend／runnerの変更やsimulator実装source／商用結果の利用はありません。
 共通コンパイル既定単位と逐次呼出しの前提は[期間のFAQ](faq.ja.md#正時間force_timeの観測)で記録しています。
 
+register pathの期待値は提供IEEE 18.4.6、17.2.3.1、公開task、値渡し規則から測定前に導きます。
+標準get_slices入力と非標準の公開slices member-view controlは別の前提にし、後者で標準APIをpassにはしません。
+実16／40-bitのwhole変数と合法split referenceは公開APIと未変更の独自VPI backendで測定し、simulator実装sourceや商用結果は使いません。
+fixtureの引数方向とset_door API名を修正し、include directory兄弟fileの指紋も照合して、全22入力を修正後に測定します。旧入力／logと期待値の独立性は[pathのFAQ](faq.ja.md#register-hdl-pathと観測の前提)で説明しています。
+
 ## 条項カタログの保守
 
 catalogが数えるのは規範的義務ではなく識別子なので、項目の復元でcoverage分母が決まらない理由は[計数単位と対象範囲の案](requirements.ja.md#計数単位と対象範囲の案)を参照してください。

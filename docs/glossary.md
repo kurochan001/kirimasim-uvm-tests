@@ -1523,3 +1523,15 @@ explains which task observations are asserted.
 a positive-offset sample afterward, followed by a normal update, without
 prescribing process order at the boundary; [Q306](faq.md#q306-why-use-sequential-same-target-and-distinct-target-histories)
 explains reuse, isolation and open timing conditions.
+
+## Register HDL paths and observation premises
+
+**Standard concat view / member-view control** — Observation through the declared
+get_slices API / an explicitly additional public-member premise, with separate
+inputs and roles; [Q308](faq.md#q308-why-keep-standard-views-and-member-view-controls-separate)
+explains why a control cannot pass a missing standard getter.
+
+**Whole-variable path / split reference** — A -1/-1 descriptor for an entire
+register variable / independently stored high/low variables with legal slices;
+[Q309](faq.md#q309-what-do-the-six-physical-register-cases-establish)
+distinguishes their real storage observations from symbolic paths.

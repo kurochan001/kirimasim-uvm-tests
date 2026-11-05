@@ -5,8 +5,8 @@
 Counts on this page belong to the time of each change, so use [the current snapshot](results.md#current-snapshot) when you need the present suite size or execution scope.
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and seventy-eight cross-milestone thin-area expansions, including the
-existing-test requirement-link backlog checkpoint (2291 tests: 2199 simulation and 92 elaboration). The earlier 349-test checkpoint is
+three M4 increments and seventy-nine cross-milestone thin-area expansions, including the
+existing-test requirement-link backlog checkpoint (2313 tests: 2221 simulation and 92 elaboration). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -4718,3 +4718,43 @@ HDL inputs. Ordinary is 1944 pass/347 known; separate HDL is 27 pass/1 fail. Ear
 strengthens an already partial clause, leaving 134 unassessed, classifications
 and scope unchanged. Original M1–M4 targets and all partial conditions remain
 open; bilingual reader explanations and links are preserved.
+
+## Seventy-ninth thin-area expansion: register HDL paths and actual storage
+
+Twenty-two new register HDL path inputs separate eight standard concat views,
+eight explicit nonstandard public-member view controls and six physical VPI
+transfers. Standard views retain eight get_slices build differences. Corrected
+member controls have seven both-seed matches and one seed-1 mixed-ancestor-default
+difference, with no seed 73 result. Only the seven controls receive reproduction
+tags, followed by fresh measurement; none passes the standard getter contract.
+
+All six physical inputs match both seeds under the unchanged separate backend.
+Public backdoor_read calls, peek and poke observe actual 16/40-bit whole-variable
+-1/-1 paths and legal two-variable high/low references. Fresh data, independent
+storage and read counters distinguish actual HDL access; peek alone does not
+prove entry into the exact backdoor_read task or its public declaration.
+All six ordinary inputs remain unlinked-DPI build knowns.
+
+Four API identifiers gain fourteen bilingual AI duties. The individually read
+18.4.6 organizing heading is structural; all 3832 earlier duties, 406 assessments
+and proposed scope are unchanged. Global state is 1971 partial/407 assessed/
+129 unassessed. Chapter 18 is 364/52/40 with 848 duties and 522 primary simulations.
+All 3846 duties link directly to 2281 tests; 32 others are control-only and 113
+have control links. All partial obligations and original M1–M4 targets remain open.
+
+Initial fixture argument directions and an unlisted set_path call were corrected;
+their old blobs/logs are archived without reuse. The collector includes helper
+directory siblings, so all twenty-two corrected inputs have current measurements;
+seven tagged controls are then remeasured. All 2291 older ordinary records,
+28 older HDL records, 92 compiler records, 18 command-line records and 1082
+compatible guest records are unchanged. No new guest run/filter is claimed.
+Scope, denominator and human review remain unapproved/incomplete.
+
+Independent expectations are fixed before measurement. Fixture direction/API
+mistakes and include-directory fingerprint effects are corrected/audited before
+selecting current evidence. All 48 initial blobs/logs retain old identities.
+Eighteen corrected ordinary inputs plus four further physical ordinary inputs
+are measured, then seven tagged controls and six separate HDL inputs.
+Ordinary is 1951 pass/362 known; separate HDL is 33 pass/1 fail. Goal iteration 51
+reduces unassessed by five to 129, while 1971 partial identifiers, original M1–M4
+targets, human review and scope/denominator approval remain incomplete.
