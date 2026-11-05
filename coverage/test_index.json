@@ -8033,6 +8033,198 @@
     "u18/test_field_readonly_poke_without_a_prior_write_deposits_the_selected_slice": {
       "primary_clause": "18.5.5.11",
       "inputs_sha256": "57054cc2b00e2c28f7f0a76a8f62333eab4bf8844fedbdfa1348fb39e74f8f83"
+    },
+    "u18/test_combined_protection_removing_ro_keeps_the_opposite_guard_registered": {
+      "primary_clause": "18.11.4.2.3",
+      "inputs_sha256": "f7ca2f55501d313e498cf3e379ddfbaf5f8bbd5841acc0e48e4c32b024d007a7"
+    },
+    "u18/test_combined_protection_removing_wo_keeps_the_opposite_guard_registered": {
+      "primary_clause": "18.11.5.2.3",
+      "inputs_sha256": "4ee91282e4424bd25dc48e281d06ddfb1225dda66842e2695be9b9e5571b676a"
+    },
+    "u18/test_post_predict_delete_stops_subsequent_prediction_mutation": {
+      "primary_clause": "18.11.2.6",
+      "inputs_sha256": "b7953eb1c66f9785a3f845b2f0248f974509ade55ef3ecb8ad65818b551110cd"
+    },
+    "u18/test_post_predict_direct_explicit_updates_as_is_without_read_or_write_callback_delivery": {
+      "primary_clause": "18.5.5.17",
+      "inputs_sha256": "6c98c63b096eaa0cde5aa128e0b423f6d97ac4e58fac8a34dafe9c532f0d3dd5"
+    },
+    "u18/test_post_predict_direct_omitted_updates_as_is_without_read_or_write_callback_delivery": {
+      "primary_clause": "18.5.5.17",
+      "inputs_sha256": "1f6d186228a2329a9977f7ae4a802a6afa6066f21d01f44bce9d2eec04b15834"
+    },
+    "u18/test_post_predict_disable_stops_subsequent_prediction_mutation": {
+      "primary_clause": "18.11.2.6",
+      "inputs_sha256": "ee32ba08a20b4c98e56dd20ba3faaae46bf60ca331b91bdabb410a9abc087a83"
+    },
+    "u18/test_post_predict_read_backdoor_forwards_identity_context_and_replacement_to_the_mirror": {
+      "primary_clause": "18.11.2.6",
+      "inputs_sha256": "b04344da9897f330a191ba25f923a8d9c5b356d4cb13aadb9e1d3ca340ce4219"
+    },
+    "u18/test_post_predict_read_frontdoor_forwards_identity_context_and_replacement_to_the_mirror": {
+      "primary_clause": "18.11.2.6",
+      "inputs_sha256": "58d0a3ef1ba90a68b7cf0942b408b2dee4702cc718684c0250c46f1e3719bfee"
+    },
+    "u18/test_post_predict_write_backdoor_forwards_identity_context_and_replacement_to_the_mirror": {
+      "primary_clause": "18.11.2.6",
+      "inputs_sha256": "0bf37fbbcd12dd3b7c9fed208f807134077a55e4a3700e9d921844a976e8d688"
+    },
+    "u18/test_post_predict_write_frontdoor_forwards_identity_context_and_replacement_to_the_mirror": {
+      "primary_clause": "18.11.2.6",
+      "inputs_sha256": "6adf0655aa8f149045799ccdee1232ea400b7f054b41bb1d32a394bdb29b5840"
+    },
+    "u18/test_ro_callback_add_reaches_the_register_and_both_contained_fields": {
+      "primary_clause": "18.11.4.2.2",
+      "inputs_sha256": "4bd3af7cf367b6fe5dfbd24f23be173c4a1af9f13d533f02dce2e3844b4a9ac6"
+    },
+    "u18/test_ro_callback_blocks_high_field_backdoor_before_original_provider_access": {
+      "primary_clause": "18.11.4.2.1",
+      "inputs_sha256": "0604d796303a380ba0768059e62b7aa08e284675879a1e7c39d0a22faf3b1edd"
+    },
+    "u18/test_ro_callback_blocks_high_field_frontdoor_before_original_provider_access": {
+      "primary_clause": "18.11.4.2.1",
+      "inputs_sha256": "93a66e8ab95749f7283ad5d21b37e7e7075b215b0d37fb0e36e865558d2c0290"
+    },
+    "u18/test_ro_callback_blocks_low_field_backdoor_before_original_provider_access": {
+      "primary_clause": "18.11.4.2.1",
+      "inputs_sha256": "1b48d36f3b40f5d2ecbb8c5001da9eff494a4ec744239dc9100e182e55e55a03"
+    },
+    "u18/test_ro_callback_blocks_low_field_frontdoor_before_original_provider_access": {
+      "primary_clause": "18.11.4.2.1",
+      "inputs_sha256": "725536ae8ea01a52b73f3e96a6f4283351d6640e6eb37cdc60966259ea90127a"
+    },
+    "u18/test_ro_callback_blocks_register_backdoor_before_original_provider_access": {
+      "primary_clause": "18.11.4.2.1",
+      "inputs_sha256": "487ceadaef39021a1f1b39bdf111d2eb3e517ac75f1ae4cd670d215cd1657d93"
+    },
+    "u18/test_ro_callback_blocks_register_frontdoor_before_original_provider_access": {
+      "primary_clause": "18.11.4.2.1",
+      "inputs_sha256": "10ee1868a5df22b0e7acb001b18c04c9fb0a3fc50a5be61a10a03d24761a412b"
+    },
+    "u18/test_ro_callback_concrete_declaration_retains_register_callback_ancestry": {
+      "primary_clause": "18.11.4.1",
+      "inputs_sha256": "05ee9d39d6cc6785a26a69361fbf9a37d2c46dc69295c1ed45a648986ef4b076"
+    },
+    "u18/test_ro_callback_direct_hook_reports_error_and_sets_not_ok": {
+      "primary_clause": "18.11.4.2.1",
+      "inputs_sha256": "0eb3b5205292aa3794f757de8ab3bc682431d7df0f1bfe4a7230ebf7e2c836c9"
+    },
+    "u18/test_ro_callback_keeps_the_permitted_field_backdoor_direction_operational": {
+      "primary_clause": "18.11.4",
+      "inputs_sha256": "f2bce8cbebb071e7304b211f48367ac30990138bfd5fc4a3c8415346c7e95753"
+    },
+    "u18/test_ro_callback_keeps_the_permitted_field_frontdoor_direction_operational": {
+      "primary_clause": "18.11.4",
+      "inputs_sha256": "189e492a94abb1b09d2072069de65bbfa5eae7e7d4cb225474e13f48928a3dba"
+    },
+    "u18/test_ro_callback_keeps_the_permitted_register_backdoor_direction_operational": {
+      "primary_clause": "18.11.4",
+      "inputs_sha256": "acaa48e7089740a24cb69bb1a3787850227a8ac42af9a4e743ef015adc6b799f"
+    },
+    "u18/test_ro_callback_keeps_the_permitted_register_frontdoor_direction_operational": {
+      "primary_clause": "18.11.4",
+      "inputs_sha256": "f7a0b0199077cc14d7a69b0c5cb57acf2a6662d2c6bef6bbc2da250926749ad6"
+    },
+    "u18/test_ro_callback_registration_keeps_peer_register_access_independent": {
+      "primary_clause": "18.11.4.2.2",
+      "inputs_sha256": "88788430b631ac4eeb6176e618115e552282ef17337791ead4014dc67d006faf"
+    },
+    "u18/test_ro_callback_removal_from_one_register_preserves_peer_enforcement": {
+      "primary_clause": "18.11.4.2.3",
+      "inputs_sha256": "e4985d8cd9b068cc79d9ff2552e5731ec0f3f37265f55b88aed563fca2bdbf82"
+    },
+    "u18/test_ro_callback_removal_restores_the_rejected_field_backdoor_operation": {
+      "primary_clause": "18.11.4.2.3",
+      "inputs_sha256": "72f445443b46ec1711794458ada1304d0babd97f787b8bd6881cc78bcbcb432f"
+    },
+    "u18/test_ro_callback_removal_restores_the_rejected_register_frontdoor_operation": {
+      "primary_clause": "18.11.4.2.3",
+      "inputs_sha256": "e7aaaab8f5c52a4be68dd30c90b69dd8a1d5a92d8372f22f256bab0943803afb"
+    },
+    "u18/test_ro_callback_remove_preserves_unrelated_callback_handles": {
+      "primary_clause": "18.11.4.2.3",
+      "inputs_sha256": "1f280704634724f8e182e3e737dfde1c286acde27765f5e4c1521422152971f7"
+    },
+    "u18/test_ro_callback_remove_then_readd_restores_enforcement_after_a_success": {
+      "primary_clause": "18.11.4.2.2",
+      "inputs_sha256": "14fe1be8451e1a3cccf71f7db3a9c56c597d68bc8827fb81cf4532c9081713ba"
+    },
+    "u18/test_wo_callback_add_reaches_the_register_and_both_contained_fields": {
+      "primary_clause": "18.11.5.2.2",
+      "inputs_sha256": "5d5b3d67bc4d21905a648818607fe6aeb03250a2626e6850f6737b71cd82c225"
+    },
+    "u18/test_wo_callback_blocks_high_field_backdoor_before_original_provider_access": {
+      "primary_clause": "18.11.5.2.1",
+      "inputs_sha256": "db77f7eb5a0433909c7d13d33fcfa69f37bfdc5d28a2fb817ef9690cb6275907"
+    },
+    "u18/test_wo_callback_blocks_high_field_frontdoor_before_original_provider_access": {
+      "primary_clause": "18.11.5.2.1",
+      "inputs_sha256": "e5e2bc56020c5212c6280f768da06d6d108a89873911bd8fca2a3f7ff2a0eeb9"
+    },
+    "u18/test_wo_callback_blocks_low_field_backdoor_before_original_provider_access": {
+      "primary_clause": "18.11.5.2.1",
+      "inputs_sha256": "c1581447fc9a067b4d06a8825f6d5f20cfe088c2c1bb02f2bb39f57af5b9fe98"
+    },
+    "u18/test_wo_callback_blocks_low_field_frontdoor_before_original_provider_access": {
+      "primary_clause": "18.11.5.2.1",
+      "inputs_sha256": "ca541a0f22fb7de7012aaee105d6e7da1ce7520d754b8cd9d172fb07cb04b035"
+    },
+    "u18/test_wo_callback_blocks_register_backdoor_before_original_provider_access": {
+      "primary_clause": "18.11.5.2.1",
+      "inputs_sha256": "4f6b6d99f7fa83f642e4b28f79c9e5edf67c62de0e1ee4a8024ae9d1a3385acf"
+    },
+    "u18/test_wo_callback_blocks_register_frontdoor_before_original_provider_access": {
+      "primary_clause": "18.11.5.2.1",
+      "inputs_sha256": "a4e8175e272dd767e7d5da5b9763c88ff98cb304b92a2cec7e7c9074203aa8cc"
+    },
+    "u18/test_wo_callback_concrete_declaration_retains_register_callback_ancestry": {
+      "primary_clause": "18.11.5.1",
+      "inputs_sha256": "4984a9ff69aeb4ce10957d2b58188053b18e80f7108c9a578aef0207ac4140ea"
+    },
+    "u18/test_wo_callback_direct_hook_reports_error_and_sets_not_ok": {
+      "primary_clause": "18.11.5.2.1",
+      "inputs_sha256": "b6666e95bb563898c006eb41f3c2faff9d3f7e60962a4ca158a48f86a16d4be5"
+    },
+    "u18/test_wo_callback_keeps_the_permitted_field_backdoor_direction_operational": {
+      "primary_clause": "18.11.5",
+      "inputs_sha256": "167b3250d360d5eb050bfb7d3ead46a39337260521528a0032a864b7923ba740"
+    },
+    "u18/test_wo_callback_keeps_the_permitted_field_frontdoor_direction_operational": {
+      "primary_clause": "18.11.5",
+      "inputs_sha256": "5e6dfd644f5cde17e08e055c0d22680c2eda37d5388527578b1c643b42652f77"
+    },
+    "u18/test_wo_callback_keeps_the_permitted_register_backdoor_direction_operational": {
+      "primary_clause": "18.11.5",
+      "inputs_sha256": "09352d2c09e3a089135242b6197cbf25d4c2b8c1ae9d2f3f28aa1e936b742a93"
+    },
+    "u18/test_wo_callback_keeps_the_permitted_register_frontdoor_direction_operational": {
+      "primary_clause": "18.11.5",
+      "inputs_sha256": "9944fb51756c7d70e93fd07f2a8edff430bac7f8e28df01dbc6ea50a3dfc16ec"
+    },
+    "u18/test_wo_callback_registration_keeps_peer_register_access_independent": {
+      "primary_clause": "18.11.5.2.2",
+      "inputs_sha256": "2444ba0c195b0e23526494dd66015920946d22b2f64668d0035945bf741bf6c4"
+    },
+    "u18/test_wo_callback_removal_from_one_register_preserves_peer_enforcement": {
+      "primary_clause": "18.11.5.2.3",
+      "inputs_sha256": "bb6213ad0204a79e1d3b01a1ee06f9ea5db5d7b415efd615a935c842fa924c74"
+    },
+    "u18/test_wo_callback_removal_restores_the_rejected_field_backdoor_operation": {
+      "primary_clause": "18.11.5.2.3",
+      "inputs_sha256": "6d3ff68918e5a953c3e746461c2ba486bb86e7b3da28db34017ff32135616fb6"
+    },
+    "u18/test_wo_callback_removal_restores_the_rejected_register_frontdoor_operation": {
+      "primary_clause": "18.11.5.2.3",
+      "inputs_sha256": "4caac26a21d659e08c18f10c5178785321fca78b7dcf3730b5306a7489a4e3ce"
+    },
+    "u18/test_wo_callback_remove_preserves_unrelated_callback_handles": {
+      "primary_clause": "18.11.5.2.3",
+      "inputs_sha256": "50463804c942acbf64dd8c90cac614306073767fc0a07c25ac9f6b2aca51fe31"
+    },
+    "u18/test_wo_callback_remove_then_readd_restores_enforcement_after_a_success": {
+      "primary_clause": "18.11.5.2.2",
+      "inputs_sha256": "3cd1a3988df55f61a2612614f271b7797bd97eb5cac7312f2feeb832d8873521"
     }
   }
 }

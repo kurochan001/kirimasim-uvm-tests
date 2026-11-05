@@ -6016,6 +6016,34 @@
         "reviewer": null,
         "reviewed_at": null
       }
+    },
+    {
+      "clause": "18.11.4.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "The individually read Methods heading groups the predefined read-only pre-access, add and remove methods; it adds no independent runtime duty. Their methods and class overview remain partially decomposed.",
+        "ja": "個別に読んだMethods見出しは定義済みread-onlyのpre-access／add／remove methodをまとめ、独立したruntime義務を追加しない。各methodとclass overviewは部分分解のまま残す。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "18.11.5.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "The individually read Methods heading groups the predefined write-only pre-access, add and remove methods; it adds no independent runtime duty. Their methods and class overview remain partially decomposed.",
+        "ja": "個別に読んだMethods見出しは定義済みwrite-onlyのpre-access／add／remove methodをまとめ、独立したruntime義務を追加しない。各methodとclass overviewは部分分解のまま残す。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
     }
   ]
 }

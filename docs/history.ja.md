@@ -2,7 +2,9 @@
 
 [English](history.md) · [README](../README.ja.md)
 
-M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の66回目の拡充（全2008件：simulation 1920・elaboration 88）までを記録しています。以前の349件の時点は
+このページの件数は各変更時点の値なので、現在のスイート規模や実行範囲が必要なときは[現在のスナップショット](results.ja.md#現在のスナップショット)を使ってください。
+
+M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の67回目の拡充（全2056件：simulation 1968・elaboration 88）までを記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -2651,3 +2653,44 @@ guest／HDL／command-line記録も未変更で、guest未測定は925入力で�
 guest未測定925入力は追加923件と修正した元入力2件（simulation 837／elaboration 88）です。
 compiler 88記録、HDL 11記録、command-line 18記録は保持します。新control専用入力はなく、直接義務も持つ新control 3件でcontrol linkありは64、control専用は18のままです。
 goal第38反復で初期未評価1463から219へ1244減りました。goalは有効のままで、完了は未立証です。
+
+## 薄い領域の67回目の拡充：保護と予測のcallback
+
+[81da564](https://github.com/kurochan001/kirimasim-uvm-tests/commit/81da564f14ea16b4fac16870a817abcd236e27d0)を基に2026-11-05 JSTに実施しました。M3の48入力がruntime seed 1／73で一致します。定義済みread-only／write-only callbackの検査は、
+具象基底view、直接拒否hook、registerと両byte fieldへの登録、無関係なhandleを保持する削除、peer分離、
+独立したguard family、削除／再追加の履歴を扱います。registerと下位／上位fieldの拒否をそれぞれfrontdoor／backdoorで検査します。
+期待するERROR、UVM_NOT_OK、provider転送0、独自storageの保持を確認し、正確な診断ID／文面／件数は規定しません。
+許可方向と削除後のaccessも独自providerへ届きます。
+
+read／writeのpost-predict検査は、正確なfield、以前／最新data、kind、door、mapを渡し、置換で選択desired／mirror状態を更新して、
+peerと独自storageを保持します。明示／省略したdirect予測はread／write callback配送なしに指定値を使います。
+選択callbackのdisable／deleteで後続予測への効果を止めます。これらは独自frontdoor／backdoor providerであり、物理HDLやcallback guardによるfield access policyの置換を主張しません。
+
+初期fixture 14件で表示formatへpacked連結を渡す誤りがあり、literal format引数へ修正しました。期待値fileはすべて保持し、修正probeと最終tag入力を再測定します。
+以前の全2008入力／evidence記録と既知差分286件は未変更です。
+
+保護callback監査は日英AI義務70件と、個別に読んだ構造Methods見出し2件を追加します。
+以前の未評価12番号のうち10件を部分分解し、2件を明示分類します。第18章は部分339／分類50／未評価67、案785件、主引用453テストです。
+callback 18.11の未評価番号はありませんが、部分契約を保持します。全体は部分1903／分類397／未評価207（構造274／文脈123）で、元のmilestone目標はすべて未完です。
+
+全3645義務に直接テストがあり、直接対応2038テスト、control専用18テスト、control linkあり64テストです。
+新入力はすべて直接義務を持ち、新control専用入力はありません。以前の全3575義務、395分類、2008索引入力／通常記録、88 compiler記録は未変更です。
+人のレビュー、範囲／分母承認、完全coverageは主張しません。
+
+全2056（simulation 1968／elaboration 88）、M1 843（768／75）、M2 547（542／5）、M3 666（658／8）です。
+通常passは1770（runtime 1685／拒否85）、knownは286（runtime 214／build 69／不正受理3）のままです。
+以前の通常2008記録、3575義務、395分類、88 compiler記録は未変更です。library整合性、tool test 110件、metadata／台帳／索引、現在evidence、日英資料検査は成功です。
+guest／HDL／command-line記録も未変更で、guest未測定は973入力です。人の承認と完了は未立証です。
+
+guest未測定973入力は追加971件と修正した元入力2件（simulation 885／elaboration 88）です。
+compiler 88記録、HDL 11記録、command-line 18記録はすべて未変更です。新control専用入力はなく、新しいシミュレータ／library既知差分は主張しません。
+goal第39反復で初期未評価1463から207へ1256減りました。goalは有効のままです。
+
+以前の分割前[Check実行](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/41976785278)は、設定された150分のjob上限を超えました。
+現在のworkflowは同じタグ付き1770検査を重複しない8 shard（222／222／221／221／221／221／221／221）へ分け、同時shard jobは最大4です。
+和集合の完全一致と重複なしをlocalで検証しました。command-line 17検査はshard 0で通常検査の前に1回だけ実行します。
+seed 1／73、compiler拒否85件、固定依存関係、runner指紋は未変更です。従来のverilator gateは全shardの成功を要求します。shard分割は実行の構成であり、local検証でhosted workflowの成功は立証しません。
+
+続くドキュメント見直しで、日英の[読み方ガイド](reading-guide.ja.md)と、既存ガイドの34箇所に短い説明文・参照リンクを追加しました。
+READMEは現在の対象範囲を要約し、最初の実行、結果ラベル、証拠の同一性、要求件数の区別を疑問が生じる箇所から辿れるようにしました。
+以前の履歴記録は保持します。

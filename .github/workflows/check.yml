@@ -38,9 +38,15 @@ jobs:
       - name: Draft requirement ledger and test index
         run: python3 tools/requirements.py check
 
-  verilator:
+  verilator_shards:
+    name: verilator (${{ matrix.shard }})
     runs-on: ubuntu-24.04
     timeout-minutes: 150
+    strategy:
+      fail-fast: false
+      max-parallel: 4
+      matrix:
+        shard: [0, 1, 2, 3, 4, 5, 6, 7]
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
@@ -82,8 +88,49 @@ jobs:
       - name: Fetch the UVM library
         run: python3 tools/fetch_uvm.py
 
-      - name: Tagged Verilator checks (runtime seeds 1 and 73)
-        run: python3 tools/run_verilator.py --seeds 1 73 --build-jobs 2 -j 2
-
       - name: Explicit command-line checks, seeds 1 and 73
+        if: matrix.shard == 0
         run: python3 tools/run_verilator_cmdline.py --seeds 1 73 --build-jobs 2 -j 2
+
+      - name: Select this shard of the tagged checks
+        env:
+          MATRIX_SHARD_INDEX: ${{ matrix.shard }}
+          MATRIX_SHARD_COUNT: 8
+        run: |
+          python3 - <<'PY'
+          import os
+          from pathlib import Path
+          import sys
+          sys.path.insert(0, 'tools')
+          import run_verilator
+          import suite_results
+
+          index = int(os.environ['MATRIX_SHARD_INDEX'])
+          count = int(os.environ['MATRIX_SHARD_COUNT'])
+          assert 0 <= index < count
+          tests = sorted(run_verilator.selected(suite_results.find_tests(), False))
+          selected = tests[index::count]
+          assert selected, 'Empty shard must not fall back to the full suite'
+          Path('out').mkdir(exist_ok=True)
+          Path('out/verilator-shard.paths').write_text(
+              ''.join(str(path) + '\n' for path in selected))
+          print(f'Shard {index}/{count}: {len(selected)} of {len(tests)} tagged checks')
+          PY
+
+      - name: Tagged Verilator checks (runtime seeds 1 and 73)
+        run: |
+          mapfile -t cases < out/verilator-shard.paths
+          test "${#cases[@]}" -gt 0
+          python3 tools/run_verilator.py --seeds 1 73 --build-jobs 2 -j 2 \
+            --json out/verilator-shard.json "${cases[@]}"
+
+  verilator:
+    needs: verilator_shards
+    if: ${{ always() }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Require every Verilator shard to succeed
+        env:
+          SHARDS_RESULT: ${{ needs.verilator_shards.result }}
+        run: test "$SHARDS_RESULT" = success

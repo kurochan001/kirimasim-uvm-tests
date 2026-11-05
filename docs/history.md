@@ -2,9 +2,11 @@
 
 [日本語](history.ja.md) · [README](../README.md)
 
+Counts on this page belong to the time of each change, so use [the current snapshot](results.md#current-snapshot) when you need the present suite size or execution scope.
+
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and sixty-six cross-milestone thin-area expansions, including the
-existing-test requirement-link backlog checkpoint (2008 tests: 1920 simulation and 88 elaboration). The earlier 349-test checkpoint is
+three M4 increments and sixty-seven cross-milestone thin-area expansions, including the
+existing-test requirement-link backlog checkpoint (2056 tests: 1968 simulation and 88 elaboration). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -4146,3 +4148,71 @@ The 925 guest-unmeasured inputs are 923 additions and 2 revised originals
 direct controls raise control-linked tests to 64, with control-only still 18.
 Goal iteration 38 reduces the initial 1463 unassessed identifiers to 219,
 a decrease of 1244. The goal remains active; completion is unproven.
+
+## Sixty-seventh thin-area expansion: protection and prediction callbacks
+
+Based on [81da564](https://github.com/kurochan001/kirimasim-uvm-tests/commit/81da564f14ea16b4fac16870a817abcd236e27d0); 2026-11-05 JST. 48 M3 inputs match at runtime seeds 1/73. Predefined read-only/write-only
+callback probes cover concrete base views, direct rejecting hooks, registration
+on a register and both byte fields, removal with unrelated handles retained,
+peer isolation, independent guard families and removal/re-add histories.
+Register and lower/upper field rejection each use frontdoor/backdoor conditions.
+The expected ERROR, UVM_NOT_OK, zero provider transfers and unchanged original
+storage are checked without prescribing exact message IDs, text or report counts.
+Permitted-direction and post-removal accesses also reach their original providers.
+
+Read/write post-predict probes forward the exact field, previous/latest data,
+kind, door and map; replacement updates selected desired/mirrored state while
+the peer and original storage remain unchanged. Explicit and omitted direct
+prediction use the supplied value without read/write callback delivery.
+Disabling or deleting the selected callback stops its later prediction effect.
+These are original frontdoor/backdoor providers, not physical HDL or a claim
+that callback guards replace field access policies.
+
+14 initial fixtures incorrectly passed a packed concatenation as the display
+format. Literal format arguments correct that observation defect, preserving
+all expected files. Corrected probes and all final tagged inputs are remeasured.
+All 2008 prior input/evidence records and the 286 known differences remain unchanged.
+
+Protection-callback auditing adds 70 bilingual AI duties and 2 individually
+read structural Methods headings. Of 12 previously unassessed identifiers,
+10 receive partial decompositions and 2 explicit classifications. Chapter 18
+is 339 partial/50 assessed/67 unassessed with 785 drafts and 453 primary tests.
+Callback 18.11 has zero unassessed identifiers but retains partial contracts.
+Global state is 1903 partial/397 assessed/207 unassessed (274 structural/123
+contextual). All original milestone targets remain open.
+
+All 3645 duties have direct tests; 2038 tests have direct links, 18 have only
+controls and 64 have control links. Every new input has a direct duty, with
+no new control-only input. All 3575 prior duties, 395 assessments, 2008 indexed
+inputs/ordinary records and 88 compiler records remain unchanged. No human
+review, approved scope/denominator or completed coverage is asserted.
+
+Totals are 2056 (1968 simulation/88 elaboration): M1 843 (768/75), M2 547
+(542/5), M3 666 (658/8). Ordinary pass is 1770 (1685 runtime/85 rejections);
+known remains 286 (214 runtime/69 builds/3 illegal acceptances). All 2008 prior
+ordinary records, 3575 duties, 395 assessments and 88 compiler records remain
+unchanged. Library integrity, 110 tool tests, metadata/ledger/index, current
+evidence and paired docs pass. Guest/HDL/command-line records are unchanged;
+973 guest inputs remain unmeasured. Human approval and completion remain unproven.
+
+The 973 guest-unmeasured inputs are 971 additions and 2 revised originals
+(885 simulation/88 elaboration). All 88 compiler, 11 HDL and 18 command-line
+records remain unchanged. No new input is control-only and no new known
+simulator/library difference is claimed. Goal iteration 39 reduces the initial
+1463 unassessed identifiers to 207, a decrease of 1256. The goal remains active.
+
+The previous unsharded [Check run](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/41976785278)
+exceeded the configured 150-minute job limit. The current workflow partitions
+the same 1770 tagged checks into 8 disjoint shards (222/222/221/221/221/221/221/221),
+with at most 4 concurrent shard jobs. The exact union and absence of duplicates are
+verified locally. The 17 command-line checks run once, on shard 0 before
+ordinary checks. Seeds 1/73, the 85 compiler rejections, pinned dependencies
+and runner fingerprints are unchanged. The existing verilator gate requires
+all shards to succeed. Sharding is orchestration; local
+validation does not establish a successful hosted workflow result.
+
+A subsequent documentation review adds the bilingual [reading guide](reading-guide.md)
+and short explanation/link sentences at 34 reading points across the existing
+guides. The README summarizes current scope, while readers can follow the
+first run, result labels, evidence identity and requirement-count distinctions
+where those questions arise. The prior historical records are preserved.

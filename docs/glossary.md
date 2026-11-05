@@ -2,6 +2,8 @@
 
 [日本語](glossary.ja.md) · [README](../README.md) · [FAQ](faq.md)
 
+For a path from these terms to a first run and its result, use [the reading guide](reading-guide.md).
+
 These are the meanings used in this repository's tests and reports. This
 glossary is a reading guide; cited clauses in each test remain the basis of
 its expected result.
@@ -42,6 +44,8 @@ fixed-release oracle tag. A later match does not automatically change the tag.
 whether a simulator matches. All current tests record `ai`.
 
 ## UVM building blocks
+
+These names describe roles inside a testbench; [Example](testing.md#example) shows a small test using a test class, phases and an objection.
 
 **Object / component** — A UVM data or policy object / a node in the UVM
 component hierarchy that participates in phases. Components include tests,
@@ -293,6 +297,8 @@ must still route separately; duplicate matches need not imply a tie order.
 
 ## Register model
 
+A register model keeps software state separately from accessed storage; see [What this repository tests](reading-guide.md#what-this-repository-tests) before equating model updates with physical transfers.
+
 **Register / field / block** — A model of a value accessed as one entity /
 a contiguous set of bits with a shared policy / a container grouping registers,
 maps and child blocks. Register byte width rounds up when its bit width is
@@ -448,6 +454,8 @@ retains its prior mirror until its own final word arrives.
 
 ## Execution and result records
 
+A compile rejection can be the expected success of an illegal-design check; [Interpretation](results.md#interpretation) explains how that differs from a runtime failure.
+
 **Runner / metadata** — A `tools/run_*.py` script that builds, executes and
 judges tests / the fields in the test's initial comment controlling that work.
 The supported options and library mode are part of the execution conditions.
@@ -486,6 +494,8 @@ completion into a visible failure. Positive delays let a test observe waiting
 without relying on process order in the same simulation time slot.
 
 ## Scope and coverage
+
+A clause citation locates a reference but does not establish a tested duty; [Citations, requirements and execution evidence](requirements.md#citations-requirements-and-execution-evidence) explains the additional requirement and observation links.
 
 **M0–M4** — The [development stages](../README.md#plan): infrastructure, core
 UVM, TLM/sequences/callbacks, register layer, then a reviewed requirement ledger.
@@ -1337,3 +1347,11 @@ mutation duty, even when it directly demonstrates provider selection.
 **Physical/model neighbor separation** — Distinct values in original backdoor
 storage and the register model's adjacent fields, so substitution is visible.
 Selected-slice protection and qualified whole-word preservation remain separate.
+
+**Predefined protection callback** — A register callback that rejects a prohibited
+access direction with ERROR and UVM_NOT_OK. Its register/field memberships and
+removal history are separate from the field's access policy.
+
+**Prediction callback context** — The field identity, previous/latest values,
+prediction kind, door and map delivered to post-predict. Selected direct
+prediction does not imply read/write callback delivery or physical access.

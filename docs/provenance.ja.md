@@ -2,6 +2,8 @@
 
 [English](provenance.md) · [README](../README.ja.md) · [テストと開発のガイド](testing.ja.md)
 
+出典はcodeと期待値の由来を示し、変更時にその区別を使う方法は[追加資料の方針](testing.ja.md#権利と出典)で説明しています。
+
 関連リポジトリの規約、取り込んだコード、このスイート独自のコードを記録します。
 現在の測定は[実行結果](results.ja.md)、追加作業の経緯は[履歴](history.ja.md)を参照してください。
 
@@ -66,6 +68,8 @@ memory-walkのoracleは、[公式UVM 1.2 class referenceの27.7](https://accelle
 
 ## ライブラリと規格
 
+依存ライブラリ、規格、独自のスイートcodeは出典が異なり、資料を追加するときのプロジェクト方針は[権利と出典](testing.ja.md#権利と出典)にあります。
+
 外部のAccellera UVMライブラリは[uvm.lock](../third_party/uvm.lock)で取得・検査し、コミットしません。
 ライセンスはApache-2.0で、コミットする場合はライブラリ自身の`LICENSE.txt`と`NOTICE.txt`を一緒に置きます。
 リポジトリのライセンス原文は[LICENSE](../LICENSE)で、全文の[日本語参考訳](../LICENSE.ja.md)を用意します。
@@ -90,7 +94,13 @@ field-access期待は提供IEEEのfield／register／callback契約に基づき�
 物理HDL、商用シミュレータ結果、実装から導いたoracleは使いません。測定差分があっても親がfieldに先行するpre順序を保持します。
 全word RO期待はbest-effort文言の解釈を明示的に限定し、選択sliceの保護や独立したpoke controlと区別します。
 
+定義済み保護とpost-predictの期待は、提供IEEEのcallback／field契約から導いた独自観測です。
+実装固有の診断文をコピーせずにERRORの存在と正確なstatusを規定します。Methods見出し2件を分類条項として個別に読みました。
+表示formatの修正で規格に基づく期待観測を変更しません。
+
 ## 条項カタログの保守
+
+catalogが数えるのは規範的義務ではなく識別子なので、項目の復元でcoverage分母が決まらない理由は[計数単位と対象範囲の案](requirements.ja.md#計数単位と対象範囲の案)を参照してください。
 
 番号だけの[条項カタログ](../tools/clauses_1800_2.txt)へB.2.1.2、B.2.1.3、D.2.2.3を追加しました。
 折り返した見出しが以前のcatalogから欠けており、ユーザー提供のIEEE 1800.2-2020規格と手動照合しました。

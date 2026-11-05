@@ -2,6 +2,8 @@
 
 [日本語](provenance.ja.md) · [README](../README.md) · [Testing guide](testing.md)
 
+Provenance identifies where the code and expectations came from; [the contribution rules](testing.md#rights-and-sources) explain how to apply that distinction to a change.
+
 This page records related-repository conventions, copied code and original
 suite code. Current execution results are in [results](results.md), while
 increment narratives are in [history](history.md).
@@ -82,6 +84,8 @@ bilingual pointer to this source record.
 
 ## Library and standards
 
+The dependency, standard and original suite code have distinct origins, and [Rights and sources](testing.md#rights-and-sources) gives the project rules for contributing material.
+
 The external Accellera UVM library is fetched and checked using
 [uvm.lock](../third_party/uvm.lock), not committed. Its license is Apache-2.0;
 its own `LICENSE.txt` and `NOTICE.txt` accompany it if the library is ever
@@ -121,7 +125,15 @@ oracles. Parent-before-field pre order is preserved despite measured differences
 The whole-word RO expectation explicitly qualifies the best-effort wording;
 it is separate from selected-slice protection and independent poke controls.
 
+Predefined protection and post-predict expectations are original observations
+derived from supplied IEEE callback/field contracts. ERROR presence and exact
+status are specified without copying implementation-specific report wording.
+The two Methods headings were read individually as grouping clauses. Correcting
+display formatting does not change the standard-derived expected observations.
+
 ## Clause catalog maintenance
+
+The catalog counts identifiers rather than normative duties, so [Counting unit and scope proposal](requirements.md#counting-unit-and-scope-proposal) explains why restoring an entry does not define a coverage denominator.
 
 The identifier-only [clause catalog](../tools/clauses_1800_2.txt) now includes
 B.2.1.2, B.2.1.3 and D.2.2.3. Their wrapped headings were missing from the

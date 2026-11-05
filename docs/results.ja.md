@@ -4,19 +4,21 @@
 
 ## 現在のスナップショット
 
-2026-11-05に集約したVerilator記録は現在の2008件すべてを対象にします。他2系統は未変更1083件の記録で、
-925入力は未測定です。各記録は入力と実行条件を指紋で識別します。
-スイートは21 directoryの2008件で、simulation 1920件とelaboration 88件です。
-milestoneはM1 843件（768／75）、M2 547件（542／5）、M3 618件（610／8）で、括弧内はruntime／elaborationです。
-全件が`spec_check: ai`で、人のレビューは記録していません。DPIなし1979件のうち88件は不正elaboration検査であり、HDL-DPI 11件とcommand-line／regex-DPI runtime 18件は別です。
+runtime一致、compiler拒否、未測定入力は実行条件が異なるため、件数を併せて読む方法は[結果を読む](reading-guide.ja.md#結果を読む)を参照してください。
+
+2026-11-05に集約したVerilator記録は現在の2056件すべてを対象にします。他2系統は未変更1083件の記録で、
+973入力は未測定です。各記録は入力と実行条件を指紋で識別します。
+スイートは21 directoryの2056件で、simulation 1968件とelaboration 88件です。
+milestoneはM1 843件（768／75）、M2 547件（542／5）、M3 666件（658／8）で、括弧内はruntime／elaborationです。
+全件が`spec_check: ai`で、人のレビューは記録していません。DPIなし2027件のうち88件は不正elaboration検査であり、HDL-DPI 11件とcommand-line／regex-DPI runtime 18件は別です。
 
 | シミュレータとライブラリ | 観測結果 | 実行範囲 |
 | --- | --- | --- |
-| Verilator 5.052・固定版UVM | `pass` 1722件：runtime 1637＋compile拒否85、`known` 286件 | runtime一致はseed 1／73。期待compiler拒否は実行時seedを実行しない |
+| Verilator 5.052・固定版UVM | `pass` 1770件：runtime 1685＋compile拒否85、`known` 286件 | runtime一致はseed 1／73。期待compiler拒否は実行時seedを実行しない |
 | Verilator 5.052・独自VPI HDL backend | `pass` 10件、`fail` 1件 | 重複する11件の別条件。一致はseed 1／73、差分はseed 1 |
 | Verilator 5.052・独自command-line VPI bridge・固定regex DPI | `pass` 17件、`known` 1件 | 重複する18件の別条件。一致はseed 1／73、差分はseed 1 |
-| kirimasim・固定版UVM | `unsupported`が1074件、`fail`が9件 | 未変更1083入力。925入力は未測定 |
-| Ghost・同梱UVM | `pass`が207件、`fail`が876件 | 各seedで未変更1083入力。失敗集合は同じ。925入力は未測定 |
+| kirimasim・固定版UVM | `unsupported`が1074件、`fail`が9件 | 未変更1083入力。973入力は未測定 |
+| Ghost・同梱UVM | `pass`が207件、`fail`が876件 | 各seedで未変更1083入力。失敗集合は同じ。973入力は未測定 |
 | Ghost・固定版UVM | 現在の実行ファイルの固定コピーでは未測定 | 現在の固定版modeの結果は示さない |
 
 固定ライブラリはAccellera UVM 2020.3.1、コミット`78c06547a2a0`で、326ファイルを
@@ -63,34 +65,31 @@ frontdoor／backdoorの転送動作の成功は示しません。
 
 ## 記録の合算
 
-snapshotは[f827d1e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/f827d1e9922e5b1cb4d58318a257370b617c8057)の以前の通常1972入力／記録をすべて保持し、
-field-access追加を2026-11-05 JSTに測定します。
+指紋は再利用する記録の正確な入力を識別するため、変更後に古い一致を使えない理由は[実行と結果](glossary.ja.md#実行と結果)を参照してください。
 
-M3の36入力を追加し、seed 1／73でruntime一致31件、seed 73結果のないseed 1差分5件を得ました。
-field／callback構築、制約付きpublic value、構成後のrandomization mode、pending状態、実read／write hook、
-callbackのenable／delete、backdoorの選択slice、mirrorのcheck gateを扱います。
-明示した第2mapのcontrol 2件と単独read-only pokeには直接義務もあり、新しいcontrol専用入力はありません。
+snapshotは[81da564](https://github.com/kurochan001/kirimasim-uvm-tests/commit/81da564f14ea16b4fac16870a817abcd236e27d0)の以前の通常2008入力／記録をすべて保持し、
+保護callback追加を2026-11-05 JSTに測定します。
 
-親registerのwrite／read traceはRCFDBcrdfを期待しますが、FDRCBcrdfを観測し、field pre hookがregister pre hookに先行します。
-独立したpost観測はcrdfに一致しても、入力全体には順序差分を保持します。field pre-read／pre-writeでmapを変更してもprovider Aを使い、
-開始時にmap Bを明示するcontrolは一致します。独立した独自route bufferでproviderを区別し、物理map aliasの整合性やRTL protocolの証拠は主張しません。
+M3の48入力がruntime seed 1／73で一致します。定義済みread-only／write-only callbackの検査は、
+具象基底view、直接拒否hook、registerと両byte fieldへの登録、無関係なhandleを保持する削除、peer分離、
+独立したguard family、削除／再追加の履歴を扱います。registerと下位／上位fieldの拒否をそれぞれfrontdoor／backdoorで検査します。
+期待するERROR、UVM_NOT_OK、provider転送0、独自storageの保持を確認し、正確な診断ID／文面／件数は規定しません。
+許可方向と削除後のaccessも独自providerへ届きます。
 
-独自backdoor storageの物理隣接nibble B／Dは、モデルのA／3と異なります。pokeはB75DからB39Dをdepositし、peekはstorageを保持し、
-選択した失敗／extension検査も一致します。read-only writeは選択slice 75を保持しますが、全wordはA753になります。
-全wordの期待は限定したbest-effort解釈として差分を保持し、無条件の周辺bit保証や独立した不具合数にはしません。
-続くpokeの前に物理storageをB75Dへ明示resetすると一致し、履歴のない単独read-only pokeも一致します。
+read／writeのpost-predict検査は、正確なfield、以前／最新data、kind、door、mapを渡し、置換で選択desired／mirror状態を更新して、
+peerと独自storageを保持します。明示／省略したdirect予測はread／write callback配送なしに指定値を使います。
+選択callbackのdisable／deleteで後続予測への効果を止めます。これらは独自frontdoor／backdoor providerであり、物理HDLやcallback guardによるfield access policyの置換を主張しません。
 
-履歴付きfixtureでは意図したresetとslice観測の挿入が最初に漏れていたため、修正した最終sourceを再測定しました。
-以前のseed 73 logは物理／モデルの隣接値が同じ旧入力を使い、旧入力指紋付きで保存して最終evidenceから除外します。
-最終期待の順序とmap結果は規格に基づく元の内容を保持します。
+初期fixture 14件で表示formatへpacked連結を渡す誤りがあり、literal format引数へ修正しました。期待値fileはすべて保持し、修正probeと最終tag入力を再測定します。
+以前の全2008入力／evidence記録と既知差分286件は未変更です。
 
-field-access監査は日英AI義務69件と、個別に読んだ分類5件（構造見出し4件、型参照先を示す文脈1件）を追加します。
-以前の未評価22番号のうち17件を部分分解し、5件を明示分類します。第18章は部分329／分類48／未評価79、案717件、主引用405テストです。
-field 18.5の未評価番号はありませんが、部分的な契約が残ります。全体は部分1893／分類395／未評価219（構造272／文脈123）で、元の目標は未完です。
+保護callback監査は日英AI義務70件と、個別に読んだ構造Methods見出し2件を追加します。
+以前の未評価12番号のうち10件を部分分解し、2件を明示分類します。第18章は部分339／分類50／未評価67、案785件、主引用453テストです。
+callback 18.11の未評価番号はありませんが、部分契約を保持します。全体は部分1903／分類397／未評価207（構造274／文脈123）で、元のmilestone目標はすべて未完です。
 
-全3575義務に直接テストがあり、直接対応1990テスト、control専用18テスト、control linkあり64テストです。
-新control 3件にはそれぞれ独自の直接義務もあり、他入力の元前提をpassにしません。以前の全3506義務、390分類、1972索引入力／通常記録、88 compiler記録は未変更です。
-範囲／分母承認、人のレビュー、完全coverageは立証していません。
+全3645義務に直接テストがあり、直接対応2038テスト、control専用18テスト、control linkあり64テストです。
+新入力はすべて直接義務を持ち、新control専用入力はありません。以前の全3575義務、395分類、2008索引入力／通常記録、88 compiler記録は未変更です。
+人のレビュー、範囲／分母承認、完全coverageは主張しません。
 
 保持するkirimasim／Ghost記録は、固定した実行ファイルとseedごとの非公開profileで取得しました。
 
@@ -99,7 +98,7 @@ field 18.5の未評価番号はありませんが、部分的な契約が残り�
 以前のkirimasim／Ghostの一時的な実行ファイル／profile snapshotは失われているため、guest再実行は主張しません。
 歴史的fileは1085記録を保持します。現在はcommand-enum引用と修正したBoolean rerandomization観測の2入力が異なり、そのstale記録を除外します。
 互換な現在の部分集合は1083記録で、kirimasimはunsupported 1074／API欠落fail 9、Ghostは各seedでpass 207／fail 876です。
-未測定925入力は追加923件と修正した既存2件です。filterしたfileと`out/thin-sixty-sixth-evidence-scope.json`に明示除外を保持し、許可された一致実行条件の復元を待ちます。
+未測定973入力は追加971件と修正した既存2件です。filterしたfileと`out/thin-sixty-seventh-evidence-scope.json`に明示除外を保持し、許可された一致実行条件の復元を待ちます。
 
 指紋ごとに、識別する入力が異なります。
 
@@ -114,7 +113,7 @@ field 18.5の未評価番号はありませんが、部分的な契約が残り�
 
 合算する前に、次を確認します。
 
-- Verilator IDが現在の全件を覆い、guest IDは宣言した1083件の部分集合と一致すること。925入力IDは未測定のままにすること。
+- Verilator IDが現在の全件を覆い、guest IDは宣言した1083件の部分集合と一致すること。973入力IDは未測定のままにすること。
 - 各記録の`inputs_sha256`が、ランナーの集めた現在のソース、期待出力、関連入力、ライブラリのlockと一致すること。
 - batch間でシミュレータの版、configuration、`runner_sha256`が一致し、`runner_changed`がfalseであること。
 - このスナップショットでは、Verilatorタグ付きの全ケースが`pass`、現在のタグなしケースがすべて`known`であること。
@@ -124,9 +123,9 @@ field 18.5の未評価番号はありませんが、部分的な契約が残り�
 追加時の件数と測定、過去のスモーク、build変更の詳細は[開発履歴](history.ja.md)に残します。
 更新した記録で以前の記録を置き換える場合も、現在の入力の指紋を先に確認します。
 
-[要求台帳の案](requirements.ja.md)はAI義務3575件と未評価219番号、部分1893／分類395です。
-第18章は329／48／79、field 18.5は未評価番号0でも部分契約を保持します。直接対応1990テスト、他の18テストはcontrol専用です。
-guest記録は互換1083入力を保持し、修正した元入力2件を含む925（simulation 837／elaboration 88）は未測定です。
+[要求台帳の案](requirements.ja.md)はAI義務3645件と未評価207番号、部分1903／分類397です。
+第18章は339／50／67、callback 18.11は未評価番号0でも部分契約を保持します。直接対応2038テスト、他の18テストはcontrol専用です。
+guest記録は互換1083入力を保持し、修正した元入力2件を含む973（simulation 885／elaboration 88）は未測定です。
 範囲／分母と元の目標は未承認／未完です。
 
 ## 再現と結果の保存
@@ -138,7 +137,14 @@ guest記録は互換1083入力を保持し、修正した元入力2件を含む9
 
 ## 継続的インテグレーション
 
+CI shardは既存テスト集合を期待値を変えずに分割するため、badgeやlocal測定との関係は[Q268. Checkをshardへ分割すると必要なテスト範囲は減りますか？](faq.ja.md#q268-checkをshardへ分割すると必要なテスト範囲は減りますか)を参照してください。
+
 [Check](../.github/workflows/check.yml)は`main`へのpush、pull request、手動実行で動きます。
-固定ライブラリの整合性、ツールの単体テスト110件、metadata 2008件、要求台帳の案／テスト索引、通常oracle付きVerilator 1722件（seed 1／73のruntime 1637・実行時seedなしのcompiler拒否85）と、別条件の明示command-line 17件を検査します。
+固定ライブラリの整合性、ツールの単体テスト110件、metadata 2056件、要求台帳の案／テスト索引、通常oracle付きVerilator 1770件（seed 1／73のruntime 1685・実行時seedなしのcompiler拒否85）と、別条件の明示command-line 17件を検査します。
+以前の分割前[Check実行](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/41976785278)は、設定された150分のjob上限を超えました。
+現在のworkflowは同じタグ付き1770検査を重複しない8 shard（222／222／221／221／221／221／221／221）へ分け、同時shard jobは最大4です。
+和集合の完全一致と重複なしをlocalで検証しました。command-line 17検査はshard 0で通常検査の前に1回だけ実行します。
+seed 1／73、compiler拒否85件、固定依存関係、runner指紋は未変更です。従来のverilator gateは全shardの成功を要求します。shard分割は実行の構成であり、local検証でhosted workflowの成功は立証しません。
+
 kirimasim、Ghost、specのみのケースは実行しません。READMEのバッジは現在のCIで、このローカル測定とは別の状態です。
 Checkが成功しても、UVMの完全な適合性や全シミュレータの成功を示しません。Nightlyや結果の自動公開はありません。

@@ -2,7 +2,9 @@
 
 [English](known-differences.md) · [README](../README.ja.md) · [FAQ](faq.ja.md)
 
-現在の2008件と、固定したAccellera UVM 2020.3.1についての記録です。
+差分は特定のシミュレータ／ライブラリ／入力の条件に対するもので、runner出力での表示は[statusの定義](faq.ja.md#q5-passfailknownunsupportedはどう違いますか)で説明しています。
+
+現在の2056件と、固定したAccellera UVM 2020.3.1についての記録です。
 不一致はテストの結果であり、それだけではシミュレータ・ライブラリ・期待値のどれが原因かは決まりません。
 
 elaboration 88件は抽象class直接生成33件とpure interface／const参照／禁止member／型context違反55件で拒否を期待し、85件が一致します。
@@ -133,6 +135,8 @@ receiver変換は宣言された返却型の証明ではありません。単一
 有効controlは不正要求より前に実行し、error後のregistry状態を仮定しません。error severityとnull返却を別の義務として保持し、返却値の一致でfixture全体をpassにはしません。active-global service controlは単一instance概要の限定解釈であり、物理的にfactory objectを1つしか生成できないという主張ではありません。
 
 ## 固定版ライブラリの制約
+
+DPIはSystemVerilogと外部コードをつなぎ、有効化flagだけではbackendを供給しないため、DPI欠落の項目を読む際は[コンパイル](testing.ja.md#コンパイル)を参照してください。
 
 ライブラリ自身の`DEVIATIONS.md`には18.2.3.4・18.4.3.6・13.1.5.1の3件が載っています。
 現在のregister検索ではmap引数を明示します。memoryを2つの兄弟interfaceのmapに登録する単純なケースは、
@@ -528,7 +532,7 @@ type queue priorityの部分観測は一致しても両fixtureをpassにせず�
 記載pure get_type_handleを実装する合法resource-base拡張は、固定libraryが記載外pure helperも宣言するためbuildできません。
 規格hook欠落negativeの独自compatibility本体は指定拒否を分離するためだけに使い、その合法拡張を修復しません。
 
-スイート全体では、`verilator@5.052`を付けたテストは1722件、specのみのテストは286件です。
+スイート全体では、`verilator@5.052`を付けたテストは1770件、specのみのテストは286件です。
 specのみのうち1件は9.6を検証します。pre-resetフェーズ終了時に子タスクが停止する
 はずですが、固定版UVMとVerilator 5.052の組み合わせでは、後のフェーズで子タスクの遅延書き込みが
 実行されます。この差分の原因がシミュレータとライブラリのどちらかは未確定です。
@@ -537,7 +541,7 @@ wakeup resetの検査系は、trigger waiterとpersistent-trigger waiterを各1�
 10.1.1.2.8は、callbackなしで両方が起動することを要求します。固定Verilatorの実行は、待機状態の観測に到達してから
 watchdogが期限切れになります。simulator／libraryを組み合わせた原因は未確定のまま、規範的なwakeupの期待を保持します。
 
-specのみの286件も規格から導いた期待値を保持します。通常のVerilator実行とCIはoracle付き1722件（runtime 1637・compile拒否85）を選びます。
+specのみの286件も規格から導いた期待値を保持します。通常のVerilator実行とCIはoracle付き1770件（runtime 1685・compile拒否85）を選びます。
 `--all`はspecのみも含め、不一致やビルド不可を`known`として記録します。
 通常の実行時214件は最初の差分であるseed 1までの記録で、seed 73の結果はありません。
 API／型名欠落build 27件はtime API 1、sequence-library 6、HDL slice 4、名前付きconcat constructor 1、object active-policy 5、catcher message-handle 3、印刷recording-state getter 1、印刷callback typedef 1、built-in type_id 2、typed resource-DB helper 3で、通常runtimeはありません。
@@ -581,6 +585,8 @@ object名省略fixtureは任意user既定値を制約せず、独自constructor�
 - [名前による便宜replace 0](../tests/uD/test_component_factory_named_type_override_forwards_default_and_explicit_replace.sv)
 
 ## specのみのテスト
+
+specのみのケースも固定版oracle tagなしに規格から導いた期待値を保持するため、その注記の意味は[規格と期待値](glossary.ja.md#規格と期待値)を参照してください。
 
 現在の286件は次のテストです。同じ制約を複数のテストで検査する場合があり、異なる不具合の個数ではありません。
 
@@ -868,7 +874,7 @@ object名省略fixtureは任意user既定値を制約せず、独自constructor�
 - [生成時の独立した引数snapshot](../tests/uG/test_command_fresh_processors_populate_independent_argument_snapshots_at_construction.sv).
 
 既存2入力はcommand-enum引用と、訂正したBoolean rerandomization観測で指紋が変わっています。
-対応する歴史的guest記録を除外し、互換範囲は1083記録、未測定は修正2入力を含む925件です。
+対応する歴史的guest記録を除外し、互換範囲は1083記録、未測定は修正2入力を含む973件です。
 これはevidence範囲のfilterで、新しいguest fail／passやsimulator改善ではありません。
 
 - [copier既定名](../tests/u16/test_policy_comparer_packer_and_copier_constructors_preserve_names_types_and_policy_bases.sv)
@@ -902,8 +908,10 @@ object名省略fixtureは任意user既定値を制約せず、独自constructor�
 
 ## シミュレータとライブラリの組み合わせ
 
-スイートは2008件ですが、以下のkirimasim／Ghost記録は未変更の現在入力1083件だけを対象とします。
-以前の一時実行ファイル／profile snapshotがないため、925入力は未測定です。
+同梱ライブラリと固定ライブラリは異なる実行条件なので、記録の比較には[現在のスナップショット](results.ja.md#現在のスナップショット)を使ってください。
+
+スイートは2056件ですが、以下のkirimasim／Ghost記録は未変更の現在入力1083件だけを対象とします。
+以前の一時実行ファイル／profile snapshotがないため、973入力は未測定です。
 新しい全件guest実測とは扱いません。[実行結果](results.ja.md)を参照してください。
 
 Ghostの同梱UVMはseed 1・73とも207件一致・876件不一致で、不一致になるテストも同じです。

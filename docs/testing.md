@@ -8,6 +8,8 @@ Current counts and scope are in the [README](../README.md); measurement details 
 
 ## What the suite checks
 
+The simulator runs the language and the UVM library supplies the tested classes; see [What this repository tests](reading-guide.md#what-this-repository-tests) for their roles.
+
 - **Subject:** whether a simulator runs the UVM library so that the results
   are those IEEE 1800.2-2020 sets: the order of the phases, the end of a phase
   by objections, factory overrides, config_db lookups, sequences and
@@ -59,6 +61,8 @@ tools/UPSTREAM               where the copied tool comes from, and what changed
 
 ## Test format
 
+A test pairs observed behavior with an independently derived expectation; [Standards and expectations](glossary.md#standards-and-expectations) explains the oracle and expected-output terms used below.
+
 ### Example
 
 ```systemverilog
@@ -107,6 +111,15 @@ Callback-driven map changes and explicit initial-map controls retain distinct
 premises. Any helper change requires new measurements for all dependent inputs.
 Separate post rows cannot pass a complete trace with a pre-order difference.
 Never reuse a superseded seed log under a current input fingerprint.
+
+The [protection helper](../tests/u18/helpers67/protection_fixture67.svh) uses
+original per-register frontdoor/backdoor storage and two byte fields. Callback
+guard tests observe ERROR presence, failing status, zero transfers and retained
+storage without requiring exact diagnostic text or counts. Opposite directions
+and removal histories have separate observations. Rejected read data is not
+prescribed. Post-predict distinguishes direct from successful read/write kinds.
+Use literal display formats for tagged observation rows; a packed concatenation
+is an integral expression. Remeasure all dependent inputs after helper changes.
 
 ### Metadata
 
@@ -218,6 +231,8 @@ For status meanings and command exit codes, see the
 
 ## The UVM library
 
+The simulator and UVM library are separate prerequisites, so check [Before the first run](reading-guide.md#before-the-first-run) before diagnosing a missing executable or package.
+
 ### Fetching
 
 `python3 tools/fetch_uvm.py` fetches the release that `third_party/uvm.lock`
@@ -243,7 +258,7 @@ again. `--check` checks the copy that is there. The library is not committed.
 - User-defined `uvm_reg_backdoor` storage handlers work without HDL DPI.
   Commercial simulator execution/results are excluded by the project policy;
   built-in HDL-path/DPI coverage remains open.
-- 1979 current cases use `UVM_NO_DPI`; eleven explicitly enable HDL DPI.
+- 2027 current cases use `UVM_NO_DPI`; eleven explicitly enable HDL DPI.
   `:uvm_dpi: yes` removes that macro;
   it does not automatically compile or link the C/C++ DPI implementation.
   The current Verilator runner does not add DPI C/C++ sources.
@@ -330,6 +345,8 @@ separate. Check runs the seventeen default command-line checks, not the known ca
 
 ## Running the suite
 
+The Verilator exit code summarizes tagged regressions, so [Q6. Why can Verilator exit successfully with KNOWN results?](faq.md#q6-why-can-verilator-exit-successfully-with-known-results) explains why individual statuses still matter when including spec-only cases.
+
 ```sh
 python3 tools/fetch_uvm.py
 python3 tools/run_kirimasim.py --kirimasim /path/to/kirimasim -j 8 --json out/kirimasim.json
@@ -349,7 +366,7 @@ For runtime cases, `--seeds 1 73` builds once and runs a fresh process for
 each seed. All requested runtime seeds must match. `--seed N` remains available for a single seed.
 The JSON configuration records either `seed` or `seeds` accordingly.
 
-By default, Verilator selects 1722 tagged two-state checks: 1637 runtime
+By default, Verilator selects 1770 tagged two-state checks: 1685 runtime
 cases and 85 expected compiler rejections. To include
 the 286 spec-only cases as well, add `--all`. A mismatch in an untagged case
 is `known` and does not fail the command; a tagged mismatch does.
@@ -405,14 +422,26 @@ python3 tools/requirements.py check
 ```
 
 The current tool suite has 110 unit tests; metadata validation checks all
-2008 tests (1920 simulation, 88 elaboration). The [ledger check](requirements.md) validates the draft
+2056 tests (1968 simulation, 88 elaboration). The [ledger check](requirements.md) validates the draft
 scope, explicit oracle links and input fingerprints without claiming coverage. [Check](../.github/workflows/check.yml) runs on pushes to
-`main`, pull requests and manual dispatch. Its separate Verilator job uses
+`main`, pull requests and manual dispatch. Its Verilator matrix jobs use
 5.052, `UVM_NO_DPI` and seeds 1 and 73 for the tagged cases. Each model is
 built once for the two executions. A green Check establishes those checks,
 not that every UVM requirement or every simulator passes.
 
+The previous unsharded [Check run](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/41976785278)
+exceeded the configured 150-minute job limit. The current workflow partitions
+the same 1770 tagged checks into 8 disjoint shards (222/222/221/221/221/221/221/221),
+with at most 4 concurrent shard jobs. The exact union and absence of duplicates are
+verified locally. The 17 command-line checks run once, on shard 0 before
+ordinary checks. Seeds 1/73, the 85 compiler rejections, pinned dependencies
+and runner fingerprints are unchanged. The existing verilator gate requires
+all shards to succeed. Sharding is orchestration; local
+validation does not establish a successful hosted workflow result.
+
 ## Adding or correcting a test
+
+Changing a source, helper or expectation changes the input identity, so follow [Updating a test or mapping](requirements.md#updating-a-test-or-mapping) before reusing old results.
 
 Commercial simulator results, outputs and diagnostics are excluded from test
 expectations, implementation decisions and Issue reports, including private,

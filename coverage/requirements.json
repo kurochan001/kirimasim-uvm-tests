@@ -131049,6 +131049,2394 @@
           ]
         }
       ]
+    },
+    {
+      "id": "UVM-PROTECTION-AUDIT-RO-DECLARATION",
+      "clause": "18.11.4.1",
+      "statement": {
+        "en": "The predefined protection callback has a concrete register-callback base view.",
+        "ja": "定義済み保護callbackは具象register-callback基底viewを持つ。"
+      },
+      "conditions": {
+        "en": "The predefined protection callback is concrete and extends the register callback facade. Fresh original sixteen-bit RW models, two contained byte fields and independent frontdoor/backdoor storage; exact message text/count and physical HDL are not prescribed.",
+        "ja": "選択した定義済み保護callbackの登録／削除または予測callbackの条件を使う。新しい独自16-bit RWモデル、内包byte field 2個、独立したfrontdoor／backdoor storageを使い、正確な診断文／件数や物理HDLは規定しない。"
+      },
+      "expected": {
+        "en": "Construction succeeds and both callback base casts retain the original handle.",
+        "ja": "構築が成功し、両callback基底へのcastは元handleを保持する。"
+      },
+      "limitations": {
+        "en": "Only the explicitly selected object, direction, path and callback history are checked. No field-policy replacement, universal ordering, physical bus/HDL protocol, arbitrary races, null targets or complete lifecycle/error coverage is inferred. Shared expected rows do not create independent tests.",
+        "ja": "明示選択したobject、方向、path、callback履歴だけを検査する。field policyの置換、普遍的順序、物理bus／HDL protocol、任意race、null対象、全lifecycle／error coverageは導かない。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_ro_callback_concrete_declaration_retains_register_callback_ancestry",
+          "role": "direct",
+          "expected_observations": [
+            "UT: protection_ro_declaration facade 1 callback 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PROTECTION-AUDIT-RO-HOOK-ERROR",
+      "clause": "18.11.4.2.1",
+      "statement": {
+        "en": "The predefined rejection hook issues an error.",
+        "ja": "定義済み拒否hookはerrorを発行する。"
+      },
+      "conditions": {
+        "en": "The predefined hook reports an ERROR and changes the operation status. Fresh original sixteen-bit RW models, two contained byte fields and independent frontdoor/backdoor storage; exact message text/count and physical HDL are not prescribed.",
+        "ja": "選択した定義済み保護callbackの登録／削除または予測callbackの条件を使う。新しい独自16-bit RWモデル、内包byte field 2個、独立したfrontdoor／backdoor storageを使い、正確な診断文／件数や物理HDLは規定しない。"
+      },
+      "expected": {
+        "en": "At least one ERROR is captured for the direct rejecting hook invocation.",
+        "ja": "直接拒否hookの呼出しで1件以上のERRORを捕捉する。"
+      },
+      "limitations": {
+        "en": "Only the explicitly selected object, direction, path and callback history are checked. No field-policy replacement, universal ordering, physical bus/HDL protocol, arbitrary races, null targets or complete lifecycle/error coverage is inferred. Shared expected rows do not create independent tests.",
+        "ja": "明示選択したobject、方向、path、callback履歴だけを検査する。field policyの置換、普遍的順序、物理bus／HDL protocol、任意race、null対象、全lifecycle／error coverageは導かない。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_ro_callback_direct_hook_reports_error_and_sets_not_ok",
+          "role": "direct",
+          "expected_observations": [
+            "UT: protection_ro_hook error 1 status 1 transfers 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PROTECTION-AUDIT-RO-HOOK-STATUS",
+      "clause": "18.11.4.2.1",
+      "statement": {
+        "en": "The predefined rejection hook sets UVM_NOT_OK.",
+        "ja": "定義済み拒否hookはUVM_NOT_OKを設定する。"
+      },
+      "conditions": {
+        "en": "The predefined hook reports an ERROR and changes the operation status. Fresh original sixteen-bit RW models, two contained byte fields and independent frontdoor/backdoor storage; exact message text/count and physical HDL are not prescribed.",
+        "ja": "選択した定義済み保護callbackの登録／削除または予測callbackの条件を使う。新しい独自16-bit RWモデル、内包byte field 2個、独立したfrontdoor／backdoor storageを使い、正確な診断文／件数や物理HDLは規定しない。"
+      },
+      "expected": {
+        "en": "The item status changes from UVM_IS_OK to UVM_NOT_OK.",
+        "ja": "item statusはUVM_IS_OKからUVM_NOT_OKへ変わる。"
+      },
+      "limitations": {
+        "en": "Only the explicitly selected object, direction, path and callback history are checked. No field-policy replacement, universal ordering, physical bus/HDL protocol, arbitrary races, null targets or complete lifecycle/error coverage is inferred. Shared expected rows do not create independent tests.",
+        "ja": "明示選択したobject、方向、path、callback履歴だけを検査する。field policyの置換、普遍的順序、物理bus／HDL protocol、任意race、null対象、全lifecycle／error coverageは導かない。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_ro_callback_direct_hook_reports_error_and_sets_not_ok",
+          "role": "direct",
+          "expected_observations": [
+            "UT: protection_ro_hook error 1 status 1 transfers 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PROTECTION-AUDIT-RO-ADD-REGISTER",
+      "clause": "18.11.4.2.2",
+      "statement": {
+        "en": "Protection add attaches the callback to the specified register.",
+        "ja": "保護addは指定registerへcallbackを取り付ける。"
+      },
+      "conditions": {
+        "en": "Adding a protection callback registers it on the selected register and every contained field. Fresh original sixteen-bit RW models, two contained byte fields and independent frontdoor/backdoor storage; exact message text/count and physical HDL are not prescribed.",
+        "ja": "選択した定義済み保護callbackの登録／削除または予測callbackの条件を使う。新しい独自16-bit RWモデル、内包byte field 2個、独立したfrontdoor／backdoor storageを使い、正確な診断文／件数や物理HDLは規定しない。"
+      },
+      "expected": {
+        "en": "The selected concrete callback family is present on the register after add.",
+        "ja": "add後に選択した具象callback familyがregisterに存在する。"
+      },
+      "limitations": {
+        "en": "Only the explicitly selected object, direction, path and callback history are checked. No field-policy replacement, universal ordering, physical bus/HDL protocol, arbitrary races, null targets or complete lifecycle/error coverage is inferred. Shared expected rows do not create independent tests.",
+        "ja": "明示選択したobject、方向、path、callback履歴だけを検査する。field policyの置換、普遍的順序、物理bus／HDL protocol、任意race、null対象、全lifecycle／error coverageは導かない。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_ro_callback_add_reaches_the_register_and_both_contained_fields",
+          "role": "direct",
+          "expected_observations": [
+            "UT: protection_ro_members register 1 low 1 high 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PROTECTION-AUDIT-RO-ADD-FIELDS",
+      "clause": "18.11.4.2.2",
+      "statement": {
+        "en": "Protection add attaches the callback to all selected contained fields.",
+        "ja": "保護addは選択した全内包fieldへcallbackを取り付ける。"
+      },
+      "conditions": {
+        "en": "Adding a protection callback registers it on the selected register and every contained field. Fresh original sixteen-bit RW models, two contained byte fields and independent frontdoor/backdoor storage; exact message text/count and physical HDL are not prescribed.",
+        "ja": "選択した定義済み保護callbackの登録／削除または予測callbackの条件を使う。新しい独自16-bit RWモデル、内包byte field 2個、独立したfrontdoor／backdoor storageを使い、正確な診断文／件数や物理HDLは規定しない。"
+      },
+      "expected": {
+        "en": "Both the lower and upper byte field have the selected callback family after add.",
+        "ja": "add後に下位／上位の両byte fieldが選択callback familyを持つ。"
+      },
+      "limitations": {
+        "en": "Only the explicitly selected object, direction, path and callback history are checked. No field-policy replacement, universal ordering, physical bus/HDL protocol, arbitrary races, null targets or complete lifecycle/error coverage is inferred. Shared expected rows do not create independent tests.",
+        "ja": "明示選択したobject、方向、path、callback履歴だけを検査する。field policyの置換、普遍的順序、物理bus／HDL protocol、任意race、null対象、全lifecycle／error coverageは導かない。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_ro_callback_add_reaches_the_register_and_both_contained_fields",
+          "role": "direct",
+          "expected_observations": [
+            "UT: protection_ro_members register 1 low 1 high 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PROTECTION-AUDIT-RO-REMOVE-REGISTER",
+      "clause": "18.11.4.2.3",
+      "statement": {
+        "en": "Protection remove detaches it from the specified register.",
+        "ja": "保護removeは指定registerから自身を取り外す。"
+      },
+      "conditions": {
+        "en": "Removing the selected protection callback leaves independent callback identities registered. Fresh original sixteen-bit RW models, two contained byte fields and independent frontdoor/backdoor storage; exact message text/count and physical HDL are not prescribed.",
+        "ja": "選択した定義済み保護callbackの登録／削除または予測callbackの条件を使う。新しい独自16-bit RWモデル、内包byte field 2個、独立したfrontdoor／backdoor storageを使い、正確な診断文／件数や物理HDLは規定しない。"
+      },
+      "expected": {
+        "en": "The selected protection family is absent from the register after remove.",
+        "ja": "remove後に選択保護familyがregisterからなくなる。"
+      },
+      "limitations": {
+        "en": "Only the explicitly selected object, direction, path and callback history are checked. No field-policy replacement, universal ordering, physical bus/HDL protocol, arbitrary races, null targets or complete lifecycle/error coverage is inferred. Shared expected rows do not create independent tests.",
+        "ja": "明示選択したobject、方向、path、callback履歴だけを検査する。field policyの置換、普遍的順序、物理bus／HDL protocol、任意race、null対象、全lifecycle／error coverageは導かない。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_ro_callback_remove_preserves_unrelated_callback_handles",
+          "role": "direct",
+          "expected_observations": [
+            "UT: protection_ro_removed register 1 low 1 high 1 retained 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PROTECTION-AUDIT-RO-REMOVE-FIELDS",
+      "clause": "18.11.4.2.3",
+      "statement": {
+        "en": "Protection remove detaches it from the contained fields while retaining other callbacks.",
+        "ja": "保護removeは他callbackを保持して内包fieldから自身を取り外す。"
+      },
+      "conditions": {
+        "en": "Removing the selected protection callback leaves independent callback identities registered. Fresh original sixteen-bit RW models, two contained byte fields and independent frontdoor/backdoor storage; exact message text/count and physical HDL are not prescribed.",
+        "ja": "選択した定義済み保護callbackの登録／削除または予測callbackの条件を使う。新しい独自16-bit RWモデル、内包byte field 2個、独立したfrontdoor／backdoor storageを使い、正確な診断文／件数や物理HDLは規定しない。"
+      },
+      "expected": {
+        "en": "Both fields lose the selected protection callback; all three unrelated sentinel registrations retain exact handle identity.",
+        "ja": "両fieldから選択保護callbackがなくなり、3個の無関係なsentinel登録は正確なhandle同一性を保持する。"
+      },
+      "limitations": {
+        "en": "Only the explicitly selected object, direction, path and callback history are checked. No field-policy replacement, universal ordering, physical bus/HDL protocol, arbitrary races, null targets or complete lifecycle/error coverage is inferred. Shared expected rows do not create independent tests.",
+        "ja": "明示選択したobject、方向、path、callback履歴だけを検査する。field policyの置換、普遍的順序、物理bus／HDL protocol、任意race、null対象、全lifecycle／error coverageは導かない。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_ro_callback_remove_preserves_unrelated_callback_handles",
+          "role": "direct",
+          "expected_observations": [
+            "UT: protection_ro_removed register 1 low 1 high 1 retained 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PROTECTION-AUDIT-RO-ADD-ISOLATION",
+      "clause": "18.11.4.2.2",
+      "statement": {
+        "en": "Protection registration is confined to the specified register and its fields.",
+        "ja": "保護登録は指定registerとそのfieldに限定される。"
+      },
+      "conditions": {
+        "en": "Register-specific protection does not attach to or block an unrelated peer register. Fresh original sixteen-bit RW models, two contained byte fields and independent frontdoor/backdoor storage; exact message text/count and physical HDL are not prescribed.",
+        "ja": "選択した定義済み保護callbackの登録／削除または予測callbackの条件を使う。新しい独自16-bit RWモデル、内包byte field 2個、独立したfrontdoor／backdoor storageを使い、正確な診断文／件数や物理HDLは規定しない。"
+      },
+      "expected": {
+        "en": "The unrelated register and both fields have no selected guard; the peer access succeeds without ERROR or target-provider activity.",
+        "ja": "無関係なregisterと両fieldには選択guardがなく、peer accessはERRORや対象providerの活動なしで成功する。"
+      },
+      "limitations": {
+        "en": "Only the explicitly selected object, direction, path and callback history are checked. No field-policy replacement, universal ordering, physical bus/HDL protocol, arbitrary races, null targets or complete lifecycle/error coverage is inferred. Shared expected rows do not create independent tests.",
+        "ja": "明示選択したobject、方向、path、callback履歴だけを検査する。field policyの置換、普遍的順序、物理bus／HDL protocol、任意race、null対象、全lifecycle／error coverageは導かない。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_ro_callback_registration_keeps_peer_register_access_independent",
+          "role": "direct",
+          "expected_observations": [
+            "UT: protection_ro_peer membership 1 allowed 1 errors 0 target 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PROTECTION-AUDIT-RO-REMOVE-ISOLATION",
+      "clause": "18.11.4.2.3",
+      "statement": {
+        "en": "Removing one registration preserves another register protection and restores the selected access.",
+        "ja": "一方の登録削除は他registerの保護を保持し、選択accessを復元する。"
+      },
+      "conditions": {
+        "en": "Removing protection from one register preserves enforcement on another registered peer. Fresh original sixteen-bit RW models, two contained byte fields and independent frontdoor/backdoor storage; exact message text/count and physical HDL are not prescribed.",
+        "ja": "選択した定義済み保護callbackの登録／削除または予測callbackの条件を使う。新しい独自16-bit RWモデル、内包byte field 2個、独立したfrontdoor／backdoor storageを使い、正確な診断文／件数や物理HDLは規定しない。"
+      },
+      "expected": {
+        "en": "The retained peer guard rejects without transfer; the removed target guard allows its subsequent access without ERROR.",
+        "ja": "残ったpeer guardは転送なしで拒否し、削除した対象guardは後続accessをERRORなしで許可する。"
+      },
+      "limitations": {
+        "en": "Only the explicitly selected object, direction, path and callback history are checked. No field-policy replacement, universal ordering, physical bus/HDL protocol, arbitrary races, null targets or complete lifecycle/error coverage is inferred. Shared expected rows do not create independent tests.",
+        "ja": "明示選択したobject、方向、path、callback履歴だけを検査する。field policyの置換、普遍的順序、物理bus／HDL protocol、任意race、null対象、全lifecycle／error coverageは導かない。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_ro_callback_removal_from_one_register_preserves_peer_enforcement",
+          "role": "direct",
+          "expected_observations": [
+            "UT: protection_ro_peer_remove blocked 1 restored 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PROTECTION-AUDIT-RO-BLOCK-REGISTER-FRONTDOOR",
+      "clause": "18.11.4.2.1",
+      "statement": {
+        "en": "The predefined RO callback rejects the selected register frontdoor access with ERROR and failing status.",
+        "ja": "定義済みRO callbackは選択registerのfrontdoor accessをERRORと失敗statusで拒否する。"
+      },
+      "conditions": {
+        "en": "A registered protection callback rejects the selected real access before transfer. Fresh original sixteen-bit RW models, two contained byte fields and independent frontdoor/backdoor storage; exact message text/count and physical HDL are not prescribed.",
+        "ja": "選択した定義済み保護callbackの登録／削除または予測callbackの条件を使う。新しい独自16-bit RWモデル、内包byte field 2個、独立したfrontdoor／backdoor storageを使い、正確な診断文／件数や物理HDLは規定しない。"
+      },
+      "expected": {
+        "en": "The selected attempted access reports ERROR and returns UVM_NOT_OK before any provider transfer; original storage is retained.",
+        "ja": "選択した試行accessはprovider転送の前にERRORを報告してUVM_NOT_OKを返し、元storageを保持する。"
+      },
+      "limitations": {
+        "en": "Only the explicitly selected object, direction, path and callback history are checked. No field-policy replacement, universal ordering, physical bus/HDL protocol, arbitrary races, null targets or complete lifecycle/error coverage is inferred. Shared expected rows do not create independent tests.",
+        "ja": "明示選択したobject、方向、path、callback履歴だけを検査する。field policyの置換、普遍的順序、物理bus／HDL protocol、任意race、null対象、全lifecycle／error coverageは導かない。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_ro_callback_blocks_register_frontdoor_before_original_provider_access",
+          "role": "direct",
+          "expected_observations": [
+            "UT: protection_ro_register_frontdoor error 1 status 1 transfers 0 storage 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PROTECTION-AUDIT-RO-ABORT-REGISTER-FRONTDOOR",
+      "clause": "18.11.2.2",
+      "statement": {
+        "en": "A rejected pre-access callback prevents original-provider transfers and storage modification.",
+        "ja": "拒否されたpre-access callbackは独自provider転送とstorage変更を抑止する。"
+      },
+      "conditions": {
+        "en": "A registered protection callback rejects the selected real access before transfer. Fresh original sixteen-bit RW models, two contained byte fields and independent frontdoor/backdoor storage; exact message text/count and physical HDL are not prescribed.",
+        "ja": "選択した定義済み保護callbackの登録／削除または予測callbackの条件を使う。新しい独自16-bit RWモデル、内包byte field 2個、独立したfrontdoor／backdoor storageを使い、正確な診断文／件数や物理HDLは規定しない。"
+      },
+      "expected": {
+        "en": "All original frontdoor/backdoor transfer counters remain zero and both storage words retain 0x11AD.",
+        "ja": "独自frontdoor／backdoorの全転送counterは0のままで、両storage wordは0x11ADを保持する。"
+      },
+      "limitations": {
+        "en": "Only the explicitly selected object, direction, path and callback history are checked. No field-policy replacement, universal ordering, physical bus/HDL protocol, arbitrary races, null targets or complete lifecycle/error coverage is inferred. Shared expected rows do not create independent tests.",
+        "ja": "明示選択したobject、方向、path、callback履歴だけを検査する。field policyの置換、普遍的順序、物理bus／HDL protocol、任意race、null対象、全lifecycle／error coverageは導かない。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_ro_callback_blocks_register_frontdoor_before_original_provider_access",
+          "role": "direct",
+          "expected_observations": [
+            "UT: protection_ro_register_frontdoor error 1 status 1 transfers 0 storage 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PROTECTION-AUDIT-RO-BLOCK-REGISTER-BACKDOOR",
+      "clause": "18.11.4.2.1",
+      "statement": {
+        "en": "The predefined RO callback rejects the selected register backdoor access with ERROR and failing status.",
+        "ja": "定義済みRO callbackは選択registerのbackdoor accessをERRORと失敗statusで拒否する。"
+      },
+      "conditions": {
+        "en": "A registered protection callback rejects the selected real access before transfer. Fresh original sixteen-bit RW models, two contained byte fields and independent frontdoor/backdoor storage; exact message text/count and physical HDL are not prescribed.",
+        "ja": "選択した定義済み保護callbackの登録／削除または予測callbackの条件を使う。新しい独自16-bit RWモデル、内包byte field 2個、独立したfrontdoor／backdoor storageを使い、正確な診断文／件数や物理HDLは規定しない。"
+      },
+      "expected": {
+        "en": "The selected attempted access reports ERROR and returns UVM_NOT_OK before any provider transfer; original storage is retained.",
+        "ja": "選択した試行accessはprovider転送の前にERRORを報告してUVM_NOT_OKを返し、元storageを保持する。"
+      },
+      "limitations": {
+        "en": "Only the explicitly selected object, direction, path and callback history are checked. No field-policy replacement, universal ordering, physical bus/HDL protocol, arbitrary races, null targets or complete lifecycle/error coverage is inferred. Shared expected rows do not create independent tests.",
+        "ja": "明示選択したobject、方向、path、callback履歴だけを検査する。field policyの置換、普遍的順序、物理bus／HDL protocol、任意race、null対象、全lifecycle／error coverageは導かない。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_ro_callback_blocks_register_backdoor_before_original_provider_access",
+          "role": "direct",
+          "expected_observations": [
+            "UT: protection_ro_register_backdoor error 1 status 1 transfers 0 storage 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PROTECTION-AUDIT-RO-ABORT-REGISTER-BACKDOOR",
+      "clause": "18.11.2.2",
+      "statement": {
+        "en": "A rejected pre-access callback prevents original-provider transfers and storage modification.",
+        "ja": "拒否されたpre-access callbackは独自provider転送とstorage変更を抑止する。"
+      },
+      "conditions": {
+        "en": "A registered protection callback rejects the selected real access before transfer. Fresh original sixteen-bit RW models, two contained byte fields and independent frontdoor/backdoor storage; exact message text/count and physical HDL are not prescribed.",
+        "ja": "選択した定義済み保護callbackの登録／削除または予測callbackの条件を使う。新しい独自16-bit RWモデル、内包byte field 2個、独立したfrontdoor／backdoor storageを使い、正確な診断文／件数や物理HDLは規定しない。"
+      },
+      "expected": {
+        "en": "All original frontdoor/backdoor transfer counters remain zero and both storage words retain 0x11AD.",
+        "ja": "独自frontdoor／backdoorの全転送counterは0のままで、両storage wordは0x11ADを保持する。"
+      },
+      "limitations": {
+        "en": "Only the explicitly selected object, direction, path and callback history are checked. No field-policy replacement, universal ordering, physical bus/HDL protocol, arbitrary races, null targets or complete lifecycle/error coverage is inferred. Shared expected rows do not create independent tests.",
+        "ja": "明示選択したobject、方向、path、callback履歴だけを検査する。field policyの置換、普遍的順序、物理bus／HDL protocol、任意race、null対象、全lifecycle／error coverageは導かない。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_ro_callback_blocks_register_backdoor_before_original_provider_access",
+          "role": "direct",
+          "expected_observations": [
+            "UT: protection_ro_register_backdoor error 1 status 1 transfers 0 storage 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PROTECTION-AUDIT-RO-BLOCK-LOW-FIELD-FRONTDOOR",
+      "clause": "18.11.4.2.1",
+      "statement": {
+        "en": "The predefined RO callback rejects the selected low_field frontdoor access with ERROR and failing status.",
+        "ja": "定義済みRO callbackは選択low_fieldのfrontdoor accessをERRORと失敗statusで拒否する。"
+      },
+      "conditions": {
+        "en": "A registered protection callback rejects the selected real access before transfer. Fresh original sixteen-bit RW models, two contained byte fields and independent frontdoor/backdoor storage; exact message text/count and physical HDL are not prescribed.",
+        "ja": "選択した定義済み保護callbackの登録／削除または予測callbackの条件を使う。新しい独自16-bit RWモデル、内包byte field 2個、独立したfrontdoor／backdoor storageを使い、正確な診断文／件数や物理HDLは規定しない。"
+      },
+      "expected": {
+        "en": "The selected attempted access reports ERROR and returns UVM_NOT_OK before any provider transfer; original storage is retained.",
+        "ja": "選択した試行accessはprovider転送の前にERRORを報告してUVM_NOT_OKを返し、元storageを保持する。"
+      },
+      "limitations": {
+        "en": "Only the explicitly selected object, direction, path and callback history are checked. No field-policy replacement, universal ordering, physical bus/HDL protocol, arbitrary races, null targets or complete lifecycle/error coverage is inferred. Shared expected rows do not create independent tests.",
+        "ja": "明示選択したobject、方向、path、callback履歴だけを検査する。field policyの置換、普遍的順序、物理bus／HDL protocol、任意race、null対象、全lifecycle／error coverageは導かない。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_ro_callback_blocks_low_field_frontdoor_before_original_provider_access",
+          "role": "direct",
+          "expected_observations": [
+            "UT: protection_ro_low_field_frontdoor error 1 status 1 transfers 0 storage 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PROTECTION-AUDIT-RO-ABORT-LOW-FIELD-FRONTDOOR",
+      "clause": "18.11.2.2",
+      "statement": {
+        "en": "A rejected pre-access callback prevents original-provider transfers and storage modification.",
+        "ja": "拒否されたpre-access callbackは独自provider転送とstorage変更を抑止する。"
+      },
+      "conditions": {
+        "en": "A registered protection callback rejects the selected real access before transfer. Fresh original sixteen-bit RW models, two contained byte fields and independent frontdoor/backdoor storage; exact message text/count and physical HDL are not prescribed.",
+        "ja": "選択した定義済み保護callbackの登録／削除または予測callbackの条件を使う。新しい独自16-bit RWモデル、内包byte field 2個、独立したfrontdoor／backdoor storageを使い、正確な診断文／件数や物理HDLは規定しない。"
+      },
+      "expected": {
+        "en": "All original frontdoor/backdoor transfer counters remain zero and both storage words retain 0x11AD.",
+        "ja": "独自frontdoor／backdoorの全転送counterは0のままで、両storage wordは0x11ADを保持する。"
+      },
+      "limitations": {
+        "en": "Only the explicitly selected object, direction, path and callback history are checked. No field-policy replacement, universal ordering, physical bus/HDL protocol, arbitrary races, null targets or complete lifecycle/error coverage is inferred. Shared expected rows do not create independent tests.",
+        "ja": "明示選択したobject、方向、path、callback履歴だけを検査する。field policyの置換、普遍的順序、物理bus／HDL protocol、任意race、null対象、全lifecycle／error coverageは導かない。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_ro_callback_blocks_low_field_frontdoor_before_original_provider_access",
+          "role": "direct",
+          "expected_observations": [
+            "UT: protection_ro_low_field_frontdoor error 1 status 1 transfers 0 storage 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PROTECTION-AUDIT-RO-BLOCK-LOW-FIELD-BACKDOOR",
+      "clause": "18.11.4.2.1",
+      "statement": {
+        "en": "The predefined RO callback rejects the selected low_field backdoor access with ERROR and failing status.",
+        "ja": "定義済みRO callbackは選択low_fieldのbackdoor accessをERRORと失敗statusで拒否する。"
+      },
+      "conditions": {
+        "en": "A registered protection callback rejects the selected real access before transfer. Fresh original sixteen-bit RW models, two contained byte fields and independent frontdoor/backdoor storage; exact message text/count and physical HDL are not prescribed.",
+        "ja": "選択した定義済み保護callbackの登録／削除または予測callbackの条件を使う。新しい独自16-bit RWモデル、内包byte field 2個、独立したfrontdoor／backdoor storageを使い、正確な診断文／件数や物理HDLは規定しない。"
+      },
+      "expected": {
+        "en": "The selected attempted access reports ERROR and returns UVM_NOT_OK before any provider transfer; original storage is retained.",
+        "ja": "選択した試行accessはprovider転送の前にERRORを報告してUVM_NOT_OKを返し、元storageを保持する。"
+      },
+      "limitations": {
+        "en": "Only the explicitly selected object, direction, path and callback history are checked. No field-policy replacement, universal ordering, physical bus/HDL protocol, arbitrary races, null targets or complete lifecycle/error coverage is inferred. Shared expected rows do not create independent tests.",
+        "ja": "明示選択したobject、方向、path、callback履歴だけを検査する。field policyの置換、普遍的順序、物理bus／HDL protocol、任意race、null対象、全lifecycle／error coverageは導かない。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_ro_callback_blocks_low_field_backdoor_before_original_provider_access",
+          "role": "direct",
+          "expected_observations": [
+            "UT: protection_ro_low_field_backdoor error 1 status 1 transfers 0 storage 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PROTECTION-AUDIT-RO-ABORT-LOW-FIELD-BACKDOOR",
+      "clause": "18.11.2.2",
+      "statement": {
+        "en": "A rejected pre-access callback prevents original-provider transfers and storage modification.",
+        "ja": "拒否されたpre-access callbackは独自provider転送とstorage変更を抑止する。"
+      },
+      "conditions": {
+        "en": "A registered protection callback rejects the selected real access before transfer. Fresh original sixteen-bit RW models, two contained byte fields and independent frontdoor/backdoor storage; exact message text/count and physical HDL are not prescribed.",
+        "ja": "選択した定義済み保護callbackの登録／削除または予測callbackの条件を使う。新しい独自16-bit RWモデル、内包byte field 2個、独立したfrontdoor／backdoor storageを使い、正確な診断文／件数や物理HDLは規定しない。"
+      },
+      "expected": {
+        "en": "All original frontdoor/backdoor transfer counters remain zero and both storage words retain 0x11AD.",
+        "ja": "独自frontdoor／backdoorの全転送counterは0のままで、両storage wordは0x11ADを保持する。"
+      },
+      "limitations": {
+        "en": "Only the explicitly selected object, direction, path and callback history are checked. No field-policy replacement, universal ordering, physical bus/HDL protocol, arbitrary races, null targets or complete lifecycle/error coverage is inferred. Shared expected rows do not create independent tests.",
+        "ja": "明示選択したobject、方向、path、callback履歴だけを検査する。field policyの置換、普遍的順序、物理bus／HDL protocol、任意race、null対象、全lifecycle／error coverageは導かない。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_ro_callback_blocks_low_field_backdoor_before_original_provider_access",
+          "role": "direct",
+          "expected_observations": [
+            "UT: protection_ro_low_field_backdoor error 1 status 1 transfers 0 storage 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PROTECTION-AUDIT-RO-BLOCK-HIGH-FIELD-FRONTDOOR",
+      "clause": "18.11.4.2.1",
+      "statement": {
+        "en": "The predefined RO callback rejects the selected high_field frontdoor access with ERROR and failing status.",
+        "ja": "定義済みRO callbackは選択high_fieldのfrontdoor accessをERRORと失敗statusで拒否する。"
+      },
+      "conditions": {
+        "en": "A registered protection callback rejects the selected real access before transfer. Fresh original sixteen-bit RW models, two contained byte fields and independent frontdoor/backdoor storage; exact message text/count and physical HDL are not prescribed.",
+        "ja": "選択した定義済み保護callbackの登録／削除または予測callbackの条件を使う。新しい独自16-bit RWモデル、内包byte field 2個、独立したfrontdoor／backdoor storageを使い、正確な診断文／件数や物理HDLは規定しない。"
+      },
+      "expected": {
+        "en": "The selected attempted access reports ERROR and returns UVM_NOT_OK before any provider transfer; original storage is retained.",
+        "ja": "選択した試行accessはprovider転送の前にERRORを報告してUVM_NOT_OKを返し、元storageを保持する。"
+      },
+      "limitations": {
+        "en": "Only the explicitly selected object, direction, path and callback history are checked. No field-policy replacement, universal ordering, physical bus/HDL protocol, arbitrary races, null targets or complete lifecycle/error coverage is inferred. Shared expected rows do not create independent tests.",
+        "ja": "明示選択したobject、方向、path、callback履歴だけを検査する。field policyの置換、普遍的順序、物理bus／HDL protocol、任意race、null対象、全lifecycle／error coverageは導かない。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_ro_callback_blocks_high_field_frontdoor_before_original_provider_access",
+          "role": "direct",
+          "expected_observations": [
+            "UT: protection_ro_high_field_frontdoor error 1 status 1 transfers 0 storage 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PROTECTION-AUDIT-RO-ABORT-HIGH-FIELD-FRONTDOOR",
+      "clause": "18.11.2.2",
+      "statement": {
+        "en": "A rejected pre-access callback prevents original-provider transfers and storage modification.",
+        "ja": "拒否されたpre-access callbackは独自provider転送とstorage変更を抑止する。"
+      },
+      "conditions": {
+        "en": "A registered protection callback rejects the selected real access before transfer. Fresh original sixteen-bit RW models, two contained byte fields and independent frontdoor/backdoor storage; exact message text/count and physical HDL are not prescribed.",
+        "ja": "選択した定義済み保護callbackの登録／削除または予測callbackの条件を使う。新しい独自16-bit RWモデル、内包byte field 2個、独立したfrontdoor／backdoor storageを使い、正確な診断文／件数や物理HDLは規定しない。"
+      },
+      "expected": {
+        "en": "All original frontdoor/backdoor transfer counters remain zero and both storage words retain 0x11AD.",
+        "ja": "独自frontdoor／backdoorの全転送counterは0のままで、両storage wordは0x11ADを保持する。"
+      },
+      "limitations": {
+        "en": "Only the explicitly selected object, direction, path and callback history are checked. No field-policy replacement, universal ordering, physical bus/HDL protocol, arbitrary races, null targets or complete lifecycle/error coverage is inferred. Shared expected rows do not create independent tests.",
+        "ja": "明示選択したobject、方向、path、callback履歴だけを検査する。field policyの置換、普遍的順序、物理bus／HDL protocol、任意race、null対象、全lifecycle／error coverageは導かない。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_ro_callback_blocks_high_field_frontdoor_before_original_provider_access",
+          "role": "direct",
+          "expected_observations": [
+            "UT: protection_ro_high_field_frontdoor error 1 status 1 transfers 0 storage 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PROTECTION-AUDIT-RO-BLOCK-HIGH-FIELD-BACKDOOR",
+      "clause": "18.11.4.2.1",
+      "statement": {
+        "en": "The predefined RO callback rejects the selected high_field backdoor access with ERROR and failing status.",
+        "ja": "定義済みRO callbackは選択high_fieldのbackdoor accessをERRORと失敗statusで拒否する。"
+      },
+      "conditions": {
+        "en": "A registered protection callback rejects the selected real access before transfer. Fresh original sixteen-bit RW models, two contained byte fields and independent frontdoor/backdoor storage; exact message text/count and physical HDL are not prescribed.",
+        "ja": "選択した定義済み保護callbackの登録／削除または予測callbackの条件を使う。新しい独自16-bit RWモデル、内包byte field 2個、独立したfrontdoor／backdoor storageを使い、正確な診断文／件数や物理HDLは規定しない。"
+      },
+      "expected": {
+        "en": "The selected attempted access reports ERROR and returns UVM_NOT_OK before any provider transfer; original storage is retained.",
+        "ja": "選択した試行accessはprovider転送の前にERRORを報告してUVM_NOT_OKを返し、元storageを保持する。"
+      },
+      "limitations": {
+        "en": "Only the explicitly selected object, direction, path and callback history are checked. No field-policy replacement, universal ordering, physical bus/HDL protocol, arbitrary races, null targets or complete lifecycle/error coverage is inferred. Shared expected rows do not create independent tests.",
+        "ja": "明示選択したobject、方向、path、callback履歴だけを検査する。field policyの置換、普遍的順序、物理bus／HDL protocol、任意race、null対象、全lifecycle／error coverageは導かない。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_ro_callback_blocks_high_field_backdoor_before_original_provider_access",
+          "role": "direct",
+          "expected_observations": [
+            "UT: protection_ro_high_field_backdoor error 1 status 1 transfers 0 storage 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PROTECTION-AUDIT-RO-ABORT-HIGH-FIELD-BACKDOOR",
+      "clause": "18.11.2.2",
+      "statement": {
+        "en": "A rejected pre-access callback prevents original-provider transfers and storage modification.",
+        "ja": "拒否されたpre-access callbackは独自provider転送とstorage変更を抑止する。"
+      },
+      "conditions": {
+        "en": "A registered protection callback rejects the selected real access before transfer. Fresh original sixteen-bit RW models, two contained byte fields and independent frontdoor/backdoor storage; exact message text/count and physical HDL are not prescribed.",
+        "ja": "選択した定義済み保護callbackの登録／削除または予測callbackの条件を使う。新しい独自16-bit RWモデル、内包byte field 2個、独立したfrontdoor／backdoor storageを使い、正確な診断文／件数や物理HDLは規定しない。"
+      },
+      "expected": {
+        "en": "All original frontdoor/backdoor transfer counters remain zero and both storage words retain 0x11AD.",
+        "ja": "独自frontdoor／backdoorの全転送counterは0のままで、両storage wordは0x11ADを保持する。"
+      },
+      "limitations": {
+        "en": "Only the explicitly selected object, direction, path and callback history are checked. No field-policy replacement, universal ordering, physical bus/HDL protocol, arbitrary races, null targets or complete lifecycle/error coverage is inferred. Shared expected rows do not create independent tests.",
+        "ja": "明示選択したobject、方向、path、callback履歴だけを検査する。field policyの置換、普遍的順序、物理bus／HDL protocol、任意race、null対象、全lifecycle／error coverageは導かない。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_ro_callback_blocks_high_field_backdoor_before_original_provider_access",
+          "role": "direct",
+          "expected_observations": [
+            "UT: protection_ro_high_field_backdoor error 1 status 1 transfers 0 storage 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PROTECTION-AUDIT-RO-PERMITTED-REGISTER-FRONTDOOR",
+      "clause": "18.11.4",
+      "statement": {
+        "en": "The predefined RO callback leaves the selected opposite register frontdoor direction operational.",
+        "ja": "定義済みRO callbackは選択した反対方向のregister frontdoor動作を維持する。"
+      },
+      "conditions": {
+        "en": "The predefined protection callback preserves the opposite permitted access direction. Fresh original sixteen-bit RW models, two contained byte fields and independent frontdoor/backdoor storage; exact message text/count and physical HDL are not prescribed.",
+        "ja": "選択した定義済み保護callbackの登録／削除または予測callbackの条件を使う。新しい独自16-bit RWモデル、内包byte field 2個、独立したfrontdoor／backdoor storageを使い、正確な診断文／件数や物理HDLは規定しない。"
+      },
+      "expected": {
+        "en": "The permitted read returns the original selected data, or the permitted write updates the supplied selected data, with UVM_IS_OK, provider activity and no ERROR.",
+        "ja": "許可readは元の選択dataを返し、許可writeは指定した選択dataを更新し、UVM_IS_OKとprovider活動がありERRORはない。"
+      },
+      "limitations": {
+        "en": "Only the explicitly selected object, direction, path and callback history are checked. No field-policy replacement, universal ordering, physical bus/HDL protocol, arbitrary races, null targets or complete lifecycle/error coverage is inferred. Shared expected rows do not create independent tests.",
+        "ja": "明示選択したobject、方向、path、callback履歴だけを検査する。field policyの置換、普遍的順序、物理bus／HDL protocol、任意race、null対象、全lifecycle／error coverageは導かない。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_ro_callback_keeps_the_permitted_register_frontdoor_direction_operational",
+          "role": "direct",
+          "expected_observations": [
+            "UT: protection_ro_allow_register_frontdoor allowed 1 error 0 provider 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PROTECTION-AUDIT-RO-PERMITTED-REGISTER-BACKDOOR",
+      "clause": "18.11.4",
+      "statement": {
+        "en": "The predefined RO callback leaves the selected opposite register backdoor direction operational.",
+        "ja": "定義済みRO callbackは選択した反対方向のregister backdoor動作を維持する。"
+      },
+      "conditions": {
+        "en": "The predefined protection callback preserves the opposite permitted access direction. Fresh original sixteen-bit RW models, two contained byte fields and independent frontdoor/backdoor storage; exact message text/count and physical HDL are not prescribed.",
+        "ja": "選択した定義済み保護callbackの登録／削除または予測callbackの条件を使う。新しい独自16-bit RWモデル、内包byte field 2個、独立したfrontdoor／backdoor storageを使い、正確な診断文／件数や物理HDLは規定しない。"
+      },
+      "expected": {
+        "en": "The permitted read returns the original selected data, or the permitted write updates the supplied selected data, with UVM_IS_OK, provider activity and no ERROR.",
+        "ja": "許可readは元の選択dataを返し、許可writeは指定した選択dataを更新し、UVM_IS_OKとprovider活動がありERRORはない。"
+      },
+      "limitations": {
+        "en": "Only the explicitly selected object, direction, path and callback history are checked. No field-policy replacement, universal ordering, physical bus/HDL protocol, arbitrary races, null targets or complete lifecycle/error coverage is inferred. Shared expected rows do not create independent tests.",
+        "ja": "明示選択したobject、方向、path、callback履歴だけを検査する。field policyの置換、普遍的順序、物理bus／HDL protocol、任意race、null対象、全lifecycle／error coverageは導かない。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_ro_callback_keeps_the_permitted_register_backdoor_direction_operational",
+          "role": "direct",
+          "expected_observations": [
+            "UT: protection_ro_allow_register_backdoor allowed 1 error 0 provider 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PROTECTION-AUDIT-RO-PERMITTED-FIELD-FRONTDOOR",
+      "clause": "18.11.4",
+      "statement": {
+        "en": "The predefined RO callback leaves the selected opposite field frontdoor direction operational.",
+        "ja": "定義済みRO callbackは選択した反対方向のfield frontdoor動作を維持する。"
+      },
+      "conditions": {
+        "en": "The predefined protection callback preserves the opposite permitted access direction. Fresh original sixteen-bit RW models, two contained byte fields and independent frontdoor/backdoor storage; exact message text/count and physical HDL are not prescribed.",
+        "ja": "選択した定義済み保護callbackの登録／削除または予測callbackの条件を使う。新しい独自16-bit RWモデル、内包byte field 2個、独立したfrontdoor／backdoor storageを使い、正確な診断文／件数や物理HDLは規定しない。"
+      },
+      "expected": {
+        "en": "The permitted read returns the original selected data, or the permitted write updates the supplied selected data, with UVM_IS_OK, provider activity and no ERROR.",
+        "ja": "許可readは元の選択dataを返し、許可writeは指定した選択dataを更新し、UVM_IS_OKとprovider活動がありERRORはない。"
+      },
+      "limitations": {
+        "en": "Only the explicitly selected object, direction, path and callback history are checked. No field-policy replacement, universal ordering, physical bus/HDL protocol, arbitrary races, null targets or complete lifecycle/error coverage is inferred. Shared expected rows do not create independent tests.",
+        "ja": "明示選択したobject、方向、path、callback履歴だけを検査する。field policyの置換、普遍的順序、物理bus／HDL protocol、任意race、null対象、全lifecycle／error coverageは導かない。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_ro_callback_keeps_the_permitted_field_frontdoor_direction_operational",
+          "role": "direct",
+          "expected_observations": [
+            "UT: protection_ro_allow_field_frontdoor allowed 1 error 0 provider 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PROTECTION-AUDIT-RO-PERMITTED-FIELD-BACKDOOR",
+      "clause": "18.11.4",
+      "statement": {
+        "en": "The predefined RO callback leaves the selected opposite field backdoor direction operational.",
+        "ja": "定義済みRO callbackは選択した反対方向のfield backdoor動作を維持する。"
+      },
+      "conditions": {
+        "en": "The predefined protection callback preserves the opposite permitted access direction. Fresh original sixteen-bit RW models, two contained byte fields and independent frontdoor/backdoor storage; exact message text/count and physical HDL are not prescribed.",
+        "ja": "選択した定義済み保護callbackの登録／削除または予測callbackの条件を使う。新しい独自16-bit RWモデル、内包byte field 2個、独立したfrontdoor／backdoor storageを使い、正確な診断文／件数や物理HDLは規定しない。"
+      },
+      "expected": {
+        "en": "The permitted read returns the original selected data, or the permitted write updates the supplied selected data, with UVM_IS_OK, provider activity and no ERROR.",
+        "ja": "許可readは元の選択dataを返し、許可writeは指定した選択dataを更新し、UVM_IS_OKとprovider活動がありERRORはない。"
+      },
+      "limitations": {
+        "en": "Only the explicitly selected object, direction, path and callback history are checked. No field-policy replacement, universal ordering, physical bus/HDL protocol, arbitrary races, null targets or complete lifecycle/error coverage is inferred. Shared expected rows do not create independent tests.",
+        "ja": "明示選択したobject、方向、path、callback履歴だけを検査する。field policyの置換、普遍的順序、物理bus／HDL protocol、任意race、null対象、全lifecycle／error coverageは導かない。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_ro_callback_keeps_the_permitted_field_backdoor_direction_operational",
+          "role": "direct",
+          "expected_observations": [
+            "UT: protection_ro_allow_field_backdoor allowed 1 error 0 provider 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PROTECTION-AUDIT-RO-RESTORE-REGISTER-FRONTDOOR",
+      "clause": "18.11.4.2.3",
+      "statement": {
+        "en": "Protection removal restores the selected subsequent formerly rejected operation.",
+        "ja": "保護の削除は選択した後続の拒否されていた操作を復元する。"
+      },
+      "conditions": {
+        "en": "Removing protection restores a subsequent formerly rejected access. Fresh original sixteen-bit RW models, two contained byte fields and independent frontdoor/backdoor storage; exact message text/count and physical HDL are not prescribed.",
+        "ja": "選択した定義済み保護callbackの登録／削除または予測callbackの条件を使う。新しい独自16-bit RWモデル、内包byte field 2個、独立したfrontdoor／backdoor storageを使い、正確な診断文／件数や物理HDLは規定しない。"
+      },
+      "expected": {
+        "en": "The first access rejects with no transfer; after removal the same selected access succeeds without ERROR.",
+        "ja": "初回accessは転送なしで拒否し、削除後に同じ選択accessがERRORなしで成功する。"
+      },
+      "limitations": {
+        "en": "Only the explicitly selected object, direction, path and callback history are checked. No field-policy replacement, universal ordering, physical bus/HDL protocol, arbitrary races, null targets or complete lifecycle/error coverage is inferred. Shared expected rows do not create independent tests.",
+        "ja": "明示選択したobject、方向、path、callback履歴だけを検査する。field policyの置換、普遍的順序、物理bus／HDL protocol、任意race、null対象、全lifecycle／error coverageは導かない。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_ro_callback_removal_restores_the_rejected_register_frontdoor_operation",
+          "role": "direct",
+          "expected_observations": [
+            "UT: protection_ro_restore_register_frontdoor blocked 1 restored 1 error 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PROTECTION-AUDIT-RO-RESTORE-FIELD-BACKDOOR",
+      "clause": "18.11.4.2.3",
+      "statement": {
+        "en": "Protection removal restores the selected subsequent formerly rejected operation.",
+        "ja": "保護の削除は選択した後続の拒否されていた操作を復元する。"
+      },
+      "conditions": {
+        "en": "Removing protection restores a subsequent formerly rejected access. Fresh original sixteen-bit RW models, two contained byte fields and independent frontdoor/backdoor storage; exact message text/count and physical HDL are not prescribed.",
+        "ja": "選択した定義済み保護callbackの登録／削除または予測callbackの条件を使う。新しい独自16-bit RWモデル、内包byte field 2個、独立したfrontdoor／backdoor storageを使い、正確な診断文／件数や物理HDLは規定しない。"
+      },
+      "expected": {
+        "en": "The first access rejects with no transfer; after removal the same selected access succeeds without ERROR.",
+        "ja": "初回accessは転送なしで拒否し、削除後に同じ選択accessがERRORなしで成功する。"
+      },
+      "limitations": {
+        "en": "Only the explicitly selected object, direction, path and callback history are checked. No field-policy replacement, universal ordering, physical bus/HDL protocol, arbitrary races, null targets or complete lifecycle/error coverage is inferred. Shared expected rows do not create independent tests.",
+        "ja": "明示選択したobject、方向、path、callback履歴だけを検査する。field policyの置換、普遍的順序、物理bus／HDL protocol、任意race、null対象、全lifecycle／error coverageは導かない。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_ro_callback_removal_restores_the_rejected_field_backdoor_operation",
+          "role": "direct",
+          "expected_observations": [
+            "UT: protection_ro_restore_field_backdoor blocked 1 restored 1 error 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PROTECTION-AUDIT-RO-READD",
+      "clause": "18.11.4.2.2",
+      "statement": {
+        "en": "Re-adding a removed protection callback restores rejection after an allowed operation.",
+        "ja": "削除した保護callbackの再追加は許可操作の後で再び拒否を復元する。"
+      },
+      "conditions": {
+        "en": "Adding protection after removal enforces a later access again. Fresh original sixteen-bit RW models, two contained byte fields and independent frontdoor/backdoor storage; exact message text/count and physical HDL are not prescribed.",
+        "ja": "選択した定義済み保護callbackの登録／削除または予測callbackの条件を使う。新しい独自16-bit RWモデル、内包byte field 2個、独立したfrontdoor／backdoor storageを使い、正確な診断文／件数や物理HDLは規定しない。"
+      },
+      "expected": {
+        "en": "The first and last accesses reject; the middle access after removal succeeds, and the final rejection adds no transfer.",
+        "ja": "初回と最後のaccessは拒否し、削除後の中間accessは成功し、最後の拒否で転送を追加しない。"
+      },
+      "limitations": {
+        "en": "Only the explicitly selected object, direction, path and callback history are checked. No field-policy replacement, universal ordering, physical bus/HDL protocol, arbitrary races, null targets or complete lifecycle/error coverage is inferred. Shared expected rows do not create independent tests.",
+        "ja": "明示選択したobject、方向、path、callback履歴だけを検査する。field policyの置換、普遍的順序、物理bus／HDL protocol、任意race、null対象、全lifecycle／error coverageは導かない。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_ro_callback_remove_then_readd_restores_enforcement_after_a_success",
+          "role": "direct",
+          "expected_observations": [
+            "UT: protection_ro_readd first 1 middle 1 last 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PROTECTION-AUDIT-WO-DECLARATION",
+      "clause": "18.11.5.1",
+      "statement": {
+        "en": "The predefined protection callback has a concrete register-callback base view.",
+        "ja": "定義済み保護callbackは具象register-callback基底viewを持つ。"
+      },
+      "conditions": {
+        "en": "The predefined protection callback is concrete and extends the register callback facade. Fresh original sixteen-bit RW models, two contained byte fields and independent frontdoor/backdoor storage; exact message text/count and physical HDL are not prescribed.",
+        "ja": "選択した定義済み保護callbackの登録／削除または予測callbackの条件を使う。新しい独自16-bit RWモデル、内包byte field 2個、独立したfrontdoor／backdoor storageを使い、正確な診断文／件数や物理HDLは規定しない。"
+      },
+      "expected": {
+        "en": "Construction succeeds and both callback base casts retain the original handle.",
+        "ja": "構築が成功し、両callback基底へのcastは元handleを保持する。"
+      },
+      "limitations": {
+        "en": "Only the explicitly selected object, direction, path and callback history are checked. No field-policy replacement, universal ordering, physical bus/HDL protocol, arbitrary races, null targets or complete lifecycle/error coverage is inferred. Shared expected rows do not create independent tests.",
+        "ja": "明示選択したobject、方向、path、callback履歴だけを検査する。field policyの置換、普遍的順序、物理bus／HDL protocol、任意race、null対象、全lifecycle／error coverageは導かない。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_wo_callback_concrete_declaration_retains_register_callback_ancestry",
+          "role": "direct",
+          "expected_observations": [
+            "UT: protection_wo_declaration facade 1 callback 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PROTECTION-AUDIT-WO-HOOK-ERROR",
+      "clause": "18.11.5.2.1",
+      "statement": {
+        "en": "The predefined rejection hook issues an error.",
+        "ja": "定義済み拒否hookはerrorを発行する。"
+      },
+      "conditions": {
+        "en": "The predefined hook reports an ERROR and changes the operation status. Fresh original sixteen-bit RW models, two contained byte fields and independent frontdoor/backdoor storage; exact message text/count and physical HDL are not prescribed.",
+        "ja": "選択した定義済み保護callbackの登録／削除または予測callbackの条件を使う。新しい独自16-bit RWモデル、内包byte field 2個、独立したfrontdoor／backdoor storageを使い、正確な診断文／件数や物理HDLは規定しない。"
+      },
+      "expected": {
+        "en": "At least one ERROR is captured for the direct rejecting hook invocation.",
+        "ja": "直接拒否hookの呼出しで1件以上のERRORを捕捉する。"
+      },
+      "limitations": {
+        "en": "Only the explicitly selected object, direction, path and callback history are checked. No field-policy replacement, universal ordering, physical bus/HDL protocol, arbitrary races, null targets or complete lifecycle/error coverage is inferred. Shared expected rows do not create independent tests.",
+        "ja": "明示選択したobject、方向、path、callback履歴だけを検査する。field policyの置換、普遍的順序、物理bus／HDL protocol、任意race、null対象、全lifecycle／error coverageは導かない。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_wo_callback_direct_hook_reports_error_and_sets_not_ok",
+          "role": "direct",
+          "expected_observations": [
+            "UT: protection_wo_hook error 1 status 1 transfers 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PROTECTION-AUDIT-WO-HOOK-STATUS",
+      "clause": "18.11.5.2.1",
+      "statement": {
+        "en": "The predefined rejection hook sets UVM_NOT_OK.",
+        "ja": "定義済み拒否hookはUVM_NOT_OKを設定する。"
+      },
+      "conditions": {
+        "en": "The predefined hook reports an ERROR and changes the operation status. Fresh original sixteen-bit RW models, two contained byte fields and independent frontdoor/backdoor storage; exact message text/count and physical HDL are not prescribed.",
+        "ja": "選択した定義済み保護callbackの登録／削除または予測callbackの条件を使う。新しい独自16-bit RWモデル、内包byte field 2個、独立したfrontdoor／backdoor storageを使い、正確な診断文／件数や物理HDLは規定しない。"
+      },
+      "expected": {
+        "en": "The item status changes from UVM_IS_OK to UVM_NOT_OK.",
+        "ja": "item statusはUVM_IS_OKからUVM_NOT_OKへ変わる。"
+      },
+      "limitations": {
+        "en": "Only the explicitly selected object, direction, path and callback history are checked. No field-policy replacement, universal ordering, physical bus/HDL protocol, arbitrary races, null targets or complete lifecycle/error coverage is inferred. Shared expected rows do not create independent tests.",
+        "ja": "明示選択したobject、方向、path、callback履歴だけを検査する。field policyの置換、普遍的順序、物理bus／HDL protocol、任意race、null対象、全lifecycle／error coverageは導かない。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_wo_callback_direct_hook_reports_error_and_sets_not_ok",
+          "role": "direct",
+          "expected_observations": [
+            "UT: protection_wo_hook error 1 status 1 transfers 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PROTECTION-AUDIT-WO-ADD-REGISTER",
+      "clause": "18.11.5.2.2",
+      "statement": {
+        "en": "Protection add attaches the callback to the specified register.",
+        "ja": "保護addは指定registerへcallbackを取り付ける。"
+      },
+      "conditions": {
+        "en": "Adding a protection callback registers it on the selected register and every contained field. Fresh original sixteen-bit RW models, two contained byte fields and independent frontdoor/backdoor storage; exact message text/count and physical HDL are not prescribed.",
+        "ja": "選択した定義済み保護callbackの登録／削除または予測callbackの条件を使う。新しい独自16-bit RWモデル、内包byte field 2個、独立したfrontdoor／backdoor storageを使い、正確な診断文／件数や物理HDLは規定しない。"
+      },
+      "expected": {
+        "en": "The selected concrete callback family is present on the register after add.",
+        "ja": "add後に選択した具象callback familyがregisterに存在する。"
+      },
+      "limitations": {
+        "en": "Only the explicitly selected object, direction, path and callback history are checked. No field-policy replacement, universal ordering, physical bus/HDL protocol, arbitrary races, null targets or complete lifecycle/error coverage is inferred. Shared expected rows do not create independent tests.",
+        "ja": "明示選択したobject、方向、path、callback履歴だけを検査する。field policyの置換、普遍的順序、物理bus／HDL protocol、任意race、null対象、全lifecycle／error coverageは導かない。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_wo_callback_add_reaches_the_register_and_both_contained_fields",
+          "role": "direct",
+          "expected_observations": [
+            "UT: protection_wo_members register 1 low 1 high 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PROTECTION-AUDIT-WO-ADD-FIELDS",
+      "clause": "18.11.5.2.2",
+      "statement": {
+        "en": "Protection add attaches the callback to all selected contained fields.",
+        "ja": "保護addは選択した全内包fieldへcallbackを取り付ける。"
+      },
+      "conditions": {
+        "en": "Adding a protection callback registers it on the selected register and every contained field. Fresh original sixteen-bit RW models, two contained byte fields and independent frontdoor/backdoor storage; exact message text/count and physical HDL are not prescribed.",
+        "ja": "選択した定義済み保護callbackの登録／削除または予測callbackの条件を使う。新しい独自16-bit RWモデル、内包byte field 2個、独立したfrontdoor／backdoor storageを使い、正確な診断文／件数や物理HDLは規定しない。"
+      },
+      "expected": {
+        "en": "Both the lower and upper byte field have the selected callback family after add.",
+        "ja": "add後に下位／上位の両byte fieldが選択callback familyを持つ。"
+      },
+      "limitations": {
+        "en": "Only the explicitly selected object, direction, path and callback history are checked. No field-policy replacement, universal ordering, physical bus/HDL protocol, arbitrary races, null targets or complete lifecycle/error coverage is inferred. Shared expected rows do not create independent tests.",
+        "ja": "明示選択したobject、方向、path、callback履歴だけを検査する。field policyの置換、普遍的順序、物理bus／HDL protocol、任意race、null対象、全lifecycle／error coverageは導かない。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_wo_callback_add_reaches_the_register_and_both_contained_fields",
+          "role": "direct",
+          "expected_observations": [
+            "UT: protection_wo_members register 1 low 1 high 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PROTECTION-AUDIT-WO-REMOVE-REGISTER",
+      "clause": "18.11.5.2.3",
+      "statement": {
+        "en": "Protection remove detaches it from the specified register.",
+        "ja": "保護removeは指定registerから自身を取り外す。"
+      },
+      "conditions": {
+        "en": "Removing the selected protection callback leaves independent callback identities registered. Fresh original sixteen-bit RW models, two contained byte fields and independent frontdoor/backdoor storage; exact message text/count and physical HDL are not prescribed.",
+        "ja": "選択した定義済み保護callbackの登録／削除または予測callbackの条件を使う。新しい独自16-bit RWモデル、内包byte field 2個、独立したfrontdoor／backdoor storageを使い、正確な診断文／件数や物理HDLは規定しない。"
+      },
+      "expected": {
+        "en": "The selected protection family is absent from the register after remove.",
+        "ja": "remove後に選択保護familyがregisterからなくなる。"
+      },
+      "limitations": {
+        "en": "Only the explicitly selected object, direction, path and callback history are checked. No field-policy replacement, universal ordering, physical bus/HDL protocol, arbitrary races, null targets or complete lifecycle/error coverage is inferred. Shared expected rows do not create independent tests.",
+        "ja": "明示選択したobject、方向、path、callback履歴だけを検査する。field policyの置換、普遍的順序、物理bus／HDL protocol、任意race、null対象、全lifecycle／error coverageは導かない。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_wo_callback_remove_preserves_unrelated_callback_handles",
+          "role": "direct",
+          "expected_observations": [
+            "UT: protection_wo_removed register 1 low 1 high 1 retained 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PROTECTION-AUDIT-WO-REMOVE-FIELDS",
+      "clause": "18.11.5.2.3",
+      "statement": {
+        "en": "Protection remove detaches it from the contained fields while retaining other callbacks.",
+        "ja": "保護removeは他callbackを保持して内包fieldから自身を取り外す。"
+      },
+      "conditions": {
+        "en": "Removing the selected protection callback leaves independent callback identities registered. Fresh original sixteen-bit RW models, two contained byte fields and independent frontdoor/backdoor storage; exact message text/count and physical HDL are not prescribed.",
+        "ja": "選択した定義済み保護callbackの登録／削除または予測callbackの条件を使う。新しい独自16-bit RWモデル、内包byte field 2個、独立したfrontdoor／backdoor storageを使い、正確な診断文／件数や物理HDLは規定しない。"
+      },
+      "expected": {
+        "en": "Both fields lose the selected protection callback; all three unrelated sentinel registrations retain exact handle identity.",
+        "ja": "両fieldから選択保護callbackがなくなり、3個の無関係なsentinel登録は正確なhandle同一性を保持する。"
+      },
+      "limitations": {
+        "en": "Only the explicitly selected object, direction, path and callback history are checked. No field-policy replacement, universal ordering, physical bus/HDL protocol, arbitrary races, null targets or complete lifecycle/error coverage is inferred. Shared expected rows do not create independent tests.",
+        "ja": "明示選択したobject、方向、path、callback履歴だけを検査する。field policyの置換、普遍的順序、物理bus／HDL protocol、任意race、null対象、全lifecycle／error coverageは導かない。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_wo_callback_remove_preserves_unrelated_callback_handles",
+          "role": "direct",
+          "expected_observations": [
+            "UT: protection_wo_removed register 1 low 1 high 1 retained 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PROTECTION-AUDIT-WO-ADD-ISOLATION",
+      "clause": "18.11.5.2.2",
+      "statement": {
+        "en": "Protection registration is confined to the specified register and its fields.",
+        "ja": "保護登録は指定registerとそのfieldに限定される。"
+      },
+      "conditions": {
+        "en": "Register-specific protection does not attach to or block an unrelated peer register. Fresh original sixteen-bit RW models, two contained byte fields and independent frontdoor/backdoor storage; exact message text/count and physical HDL are not prescribed.",
+        "ja": "選択した定義済み保護callbackの登録／削除または予測callbackの条件を使う。新しい独自16-bit RWモデル、内包byte field 2個、独立したfrontdoor／backdoor storageを使い、正確な診断文／件数や物理HDLは規定しない。"
+      },
+      "expected": {
+        "en": "The unrelated register and both fields have no selected guard; the peer access succeeds without ERROR or target-provider activity.",
+        "ja": "無関係なregisterと両fieldには選択guardがなく、peer accessはERRORや対象providerの活動なしで成功する。"
+      },
+      "limitations": {
+        "en": "Only the explicitly selected object, direction, path and callback history are checked. No field-policy replacement, universal ordering, physical bus/HDL protocol, arbitrary races, null targets or complete lifecycle/error coverage is inferred. Shared expected rows do not create independent tests.",
+        "ja": "明示選択したobject、方向、path、callback履歴だけを検査する。field policyの置換、普遍的順序、物理bus／HDL protocol、任意race、null対象、全lifecycle／error coverageは導かない。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_wo_callback_registration_keeps_peer_register_access_independent",
+          "role": "direct",
+          "expected_observations": [
+            "UT: protection_wo_peer membership 1 allowed 1 errors 0 target 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PROTECTION-AUDIT-WO-REMOVE-ISOLATION",
+      "clause": "18.11.5.2.3",
+      "statement": {
+        "en": "Removing one registration preserves another register protection and restores the selected access.",
+        "ja": "一方の登録削除は他registerの保護を保持し、選択accessを復元する。"
+      },
+      "conditions": {
+        "en": "Removing protection from one register preserves enforcement on another registered peer. Fresh original sixteen-bit RW models, two contained byte fields and independent frontdoor/backdoor storage; exact message text/count and physical HDL are not prescribed.",
+        "ja": "選択した定義済み保護callbackの登録／削除または予測callbackの条件を使う。新しい独自16-bit RWモデル、内包byte field 2個、独立したfrontdoor／backdoor storageを使い、正確な診断文／件数や物理HDLは規定しない。"
+      },
+      "expected": {
+        "en": "The retained peer guard rejects without transfer; the removed target guard allows its subsequent access without ERROR.",
+        "ja": "残ったpeer guardは転送なしで拒否し、削除した対象guardは後続accessをERRORなしで許可する。"
+      },
+      "limitations": {
+        "en": "Only the explicitly selected object, direction, path and callback history are checked. No field-policy replacement, universal ordering, physical bus/HDL protocol, arbitrary races, null targets or complete lifecycle/error coverage is inferred. Shared expected rows do not create independent tests.",
+        "ja": "明示選択したobject、方向、path、callback履歴だけを検査する。field policyの置換、普遍的順序、物理bus／HDL protocol、任意race、null対象、全lifecycle／error coverageは導かない。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_wo_callback_removal_from_one_register_preserves_peer_enforcement",
+          "role": "direct",
+          "expected_observations": [
+            "UT: protection_wo_peer_remove blocked 1 restored 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PROTECTION-AUDIT-WO-BLOCK-REGISTER-FRONTDOOR",
+      "clause": "18.11.5.2.1",
+      "statement": {
+        "en": "The predefined WO callback rejects the selected register frontdoor access with ERROR and failing status.",
+        "ja": "定義済みWO callbackは選択registerのfrontdoor accessをERRORと失敗statusで拒否する。"
+      },
+      "conditions": {
+        "en": "A registered protection callback rejects the selected real access before transfer. Fresh original sixteen-bit RW models, two contained byte fields and independent frontdoor/backdoor storage; exact message text/count and physical HDL are not prescribed.",
+        "ja": "選択した定義済み保護callbackの登録／削除または予測callbackの条件を使う。新しい独自16-bit RWモデル、内包byte field 2個、独立したfrontdoor／backdoor storageを使い、正確な診断文／件数や物理HDLは規定しない。"
+      },
+      "expected": {
+        "en": "The selected attempted access reports ERROR and returns UVM_NOT_OK before any provider transfer; original storage is retained.",
+        "ja": "選択した試行accessはprovider転送の前にERRORを報告してUVM_NOT_OKを返し、元storageを保持する。"
+      },
+      "limitations": {
+        "en": "Only the explicitly selected object, direction, path and callback history are checked. No field-policy replacement, universal ordering, physical bus/HDL protocol, arbitrary races, null targets or complete lifecycle/error coverage is inferred. Shared expected rows do not create independent tests.",
+        "ja": "明示選択したobject、方向、path、callback履歴だけを検査する。field policyの置換、普遍的順序、物理bus／HDL protocol、任意race、null対象、全lifecycle／error coverageは導かない。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_wo_callback_blocks_register_frontdoor_before_original_provider_access",
+          "role": "direct",
+          "expected_observations": [
+            "UT: protection_wo_register_frontdoor error 1 status 1 transfers 0 storage 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PROTECTION-AUDIT-WO-ABORT-REGISTER-FRONTDOOR",
+      "clause": "18.11.2.4",
+      "statement": {
+        "en": "A rejected pre-access callback prevents original-provider transfers and storage modification.",
+        "ja": "拒否されたpre-access callbackは独自provider転送とstorage変更を抑止する。"
+      },
+      "conditions": {
+        "en": "A registered protection callback rejects the selected real access before transfer. Fresh original sixteen-bit RW models, two contained byte fields and independent frontdoor/backdoor storage; exact message text/count and physical HDL are not prescribed.",
+        "ja": "選択した定義済み保護callbackの登録／削除または予測callbackの条件を使う。新しい独自16-bit RWモデル、内包byte field 2個、独立したfrontdoor／backdoor storageを使い、正確な診断文／件数や物理HDLは規定しない。"
+      },
+      "expected": {
+        "en": "All original frontdoor/backdoor transfer counters remain zero and both storage words retain 0x11AD.",
+        "ja": "独自frontdoor／backdoorの全転送counterは0のままで、両storage wordは0x11ADを保持する。"
+      },
+      "limitations": {
+        "en": "Only the explicitly selected object, direction, path and callback history are checked. No field-policy replacement, universal ordering, physical bus/HDL protocol, arbitrary races, null targets or complete lifecycle/error coverage is inferred. Shared expected rows do not create independent tests.",
+        "ja": "明示選択したobject、方向、path、callback履歴だけを検査する。field policyの置換、普遍的順序、物理bus／HDL protocol、任意race、null対象、全lifecycle／error coverageは導かない。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_wo_callback_blocks_register_frontdoor_before_original_provider_access",
+          "role": "direct",
+          "expected_observations": [
+            "UT: protection_wo_register_frontdoor error 1 status 1 transfers 0 storage 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PROTECTION-AUDIT-WO-BLOCK-REGISTER-BACKDOOR",
+      "clause": "18.11.5.2.1",
+      "statement": {
+        "en": "The predefined WO callback rejects the selected register backdoor access with ERROR and failing status.",
+        "ja": "定義済みWO callbackは選択registerのbackdoor accessをERRORと失敗statusで拒否する。"
+      },
+      "conditions": {
+        "en": "A registered protection callback rejects the selected real access before transfer. Fresh original sixteen-bit RW models, two contained byte fields and independent frontdoor/backdoor storage; exact message text/count and physical HDL are not prescribed.",
+        "ja": "選択した定義済み保護callbackの登録／削除または予測callbackの条件を使う。新しい独自16-bit RWモデル、内包byte field 2個、独立したfrontdoor／backdoor storageを使い、正確な診断文／件数や物理HDLは規定しない。"
+      },
+      "expected": {
+        "en": "The selected attempted access reports ERROR and returns UVM_NOT_OK before any provider transfer; original storage is retained.",
+        "ja": "選択した試行accessはprovider転送の前にERRORを報告してUVM_NOT_OKを返し、元storageを保持する。"
+      },
+      "limitations": {
+        "en": "Only the explicitly selected object, direction, path and callback history are checked. No field-policy replacement, universal ordering, physical bus/HDL protocol, arbitrary races, null targets or complete lifecycle/error coverage is inferred. Shared expected rows do not create independent tests.",
+        "ja": "明示選択したobject、方向、path、callback履歴だけを検査する。field policyの置換、普遍的順序、物理bus／HDL protocol、任意race、null対象、全lifecycle／error coverageは導かない。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_wo_callback_blocks_register_backdoor_before_original_provider_access",
+          "role": "direct",
+          "expected_observations": [
+            "UT: protection_wo_register_backdoor error 1 status 1 transfers 0 storage 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PROTECTION-AUDIT-WO-ABORT-REGISTER-BACKDOOR",
+      "clause": "18.11.2.4",
+      "statement": {
+        "en": "A rejected pre-access callback prevents original-provider transfers and storage modification.",
+        "ja": "拒否されたpre-access callbackは独自provider転送とstorage変更を抑止する。"
+      },
+      "conditions": {
+        "en": "A registered protection callback rejects the selected real access before transfer. Fresh original sixteen-bit RW models, two contained byte fields and independent frontdoor/backdoor storage; exact message text/count and physical HDL are not prescribed.",
+        "ja": "選択した定義済み保護callbackの登録／削除または予測callbackの条件を使う。新しい独自16-bit RWモデル、内包byte field 2個、独立したfrontdoor／backdoor storageを使い、正確な診断文／件数や物理HDLは規定しない。"
+      },
+      "expected": {
+        "en": "All original frontdoor/backdoor transfer counters remain zero and both storage words retain 0x11AD.",
+        "ja": "独自frontdoor／backdoorの全転送counterは0のままで、両storage wordは0x11ADを保持する。"
+      },
+      "limitations": {
+        "en": "Only the explicitly selected object, direction, path and callback history are checked. No field-policy replacement, universal ordering, physical bus/HDL protocol, arbitrary races, null targets or complete lifecycle/error coverage is inferred. Shared expected rows do not create independent tests.",
+        "ja": "明示選択したobject、方向、path、callback履歴だけを検査する。field policyの置換、普遍的順序、物理bus／HDL protocol、任意race、null対象、全lifecycle／error coverageは導かない。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_wo_callback_blocks_register_backdoor_before_original_provider_access",
+          "role": "direct",
+          "expected_observations": [
+            "UT: protection_wo_register_backdoor error 1 status 1 transfers 0 storage 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PROTECTION-AUDIT-WO-BLOCK-LOW-FIELD-FRONTDOOR",
+      "clause": "18.11.5.2.1",
+      "statement": {
+        "en": "The predefined WO callback rejects the selected low_field frontdoor access with ERROR and failing status.",
+        "ja": "定義済みWO callbackは選択low_fieldのfrontdoor accessをERRORと失敗statusで拒否する。"
+      },
+      "conditions": {
+        "en": "A registered protection callback rejects the selected real access before transfer. Fresh original sixteen-bit RW models, two contained byte fields and independent frontdoor/backdoor storage; exact message text/count and physical HDL are not prescribed.",
+        "ja": "選択した定義済み保護callbackの登録／削除または予測callbackの条件を使う。新しい独自16-bit RWモデル、内包byte field 2個、独立したfrontdoor／backdoor storageを使い、正確な診断文／件数や物理HDLは規定しない。"
+      },
+      "expected": {
+        "en": "The selected attempted access reports ERROR and returns UVM_NOT_OK before any provider transfer; original storage is retained.",
+        "ja": "選択した試行accessはprovider転送の前にERRORを報告してUVM_NOT_OKを返し、元storageを保持する。"
+      },
+      "limitations": {
+        "en": "Only the explicitly selected object, direction, path and callback history are checked. No field-policy replacement, universal ordering, physical bus/HDL protocol, arbitrary races, null targets or complete lifecycle/error coverage is inferred. Shared expected rows do not create independent tests.",
+        "ja": "明示選択したobject、方向、path、callback履歴だけを検査する。field policyの置換、普遍的順序、物理bus／HDL protocol、任意race、null対象、全lifecycle／error coverageは導かない。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_wo_callback_blocks_low_field_frontdoor_before_original_provider_access",
+          "role": "direct",
+          "expected_observations": [
+            "UT: protection_wo_low_field_frontdoor error 1 status 1 transfers 0 storage 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PROTECTION-AUDIT-WO-ABORT-LOW-FIELD-FRONTDOOR",
+      "clause": "18.11.2.4",
+      "statement": {
+        "en": "A rejected pre-access callback prevents original-provider transfers and storage modification.",
+        "ja": "拒否されたpre-access callbackは独自provider転送とstorage変更を抑止する。"
+      },
+      "conditions": {
+        "en": "A registered protection callback rejects the selected real access before transfer. Fresh original sixteen-bit RW models, two contained byte fields and independent frontdoor/backdoor storage; exact message text/count and physical HDL are not prescribed.",
+        "ja": "選択した定義済み保護callbackの登録／削除または予測callbackの条件を使う。新しい独自16-bit RWモデル、内包byte field 2個、独立したfrontdoor／backdoor storageを使い、正確な診断文／件数や物理HDLは規定しない。"
+      },
+      "expected": {
+        "en": "All original frontdoor/backdoor transfer counters remain zero and both storage words retain 0x11AD.",
+        "ja": "独自frontdoor／backdoorの全転送counterは0のままで、両storage wordは0x11ADを保持する。"
+      },
+      "limitations": {
+        "en": "Only the explicitly selected object, direction, path and callback history are checked. No field-policy replacement, universal ordering, physical bus/HDL protocol, arbitrary races, null targets or complete lifecycle/error coverage is inferred. Shared expected rows do not create independent tests.",
+        "ja": "明示選択したobject、方向、path、callback履歴だけを検査する。field policyの置換、普遍的順序、物理bus／HDL protocol、任意race、null対象、全lifecycle／error coverageは導かない。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_wo_callback_blocks_low_field_frontdoor_before_original_provider_access",
+          "role": "direct",
+          "expected_observations": [
+            "UT: protection_wo_low_field_frontdoor error 1 status 1 transfers 0 storage 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PROTECTION-AUDIT-WO-BLOCK-LOW-FIELD-BACKDOOR",
+      "clause": "18.11.5.2.1",
+      "statement": {
+        "en": "The predefined WO callback rejects the selected low_field backdoor access with ERROR and failing status.",
+        "ja": "定義済みWO callbackは選択low_fieldのbackdoor accessをERRORと失敗statusで拒否する。"
+      },
+      "conditions": {
+        "en": "A registered protection callback rejects the selected real access before transfer. Fresh original sixteen-bit RW models, two contained byte fields and independent frontdoor/backdoor storage; exact message text/count and physical HDL are not prescribed.",
+        "ja": "選択した定義済み保護callbackの登録／削除または予測callbackの条件を使う。新しい独自16-bit RWモデル、内包byte field 2個、独立したfrontdoor／backdoor storageを使い、正確な診断文／件数や物理HDLは規定しない。"
+      },
+      "expected": {
+        "en": "The selected attempted access reports ERROR and returns UVM_NOT_OK before any provider transfer; original storage is retained.",
+        "ja": "選択した試行accessはprovider転送の前にERRORを報告してUVM_NOT_OKを返し、元storageを保持する。"
+      },
+      "limitations": {
+        "en": "Only the explicitly selected object, direction, path and callback history are checked. No field-policy replacement, universal ordering, physical bus/HDL protocol, arbitrary races, null targets or complete lifecycle/error coverage is inferred. Shared expected rows do not create independent tests.",
+        "ja": "明示選択したobject、方向、path、callback履歴だけを検査する。field policyの置換、普遍的順序、物理bus／HDL protocol、任意race、null対象、全lifecycle／error coverageは導かない。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_wo_callback_blocks_low_field_backdoor_before_original_provider_access",
+          "role": "direct",
+          "expected_observations": [
+            "UT: protection_wo_low_field_backdoor error 1 status 1 transfers 0 storage 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PROTECTION-AUDIT-WO-ABORT-LOW-FIELD-BACKDOOR",
+      "clause": "18.11.2.4",
+      "statement": {
+        "en": "A rejected pre-access callback prevents original-provider transfers and storage modification.",
+        "ja": "拒否されたpre-access callbackは独自provider転送とstorage変更を抑止する。"
+      },
+      "conditions": {
+        "en": "A registered protection callback rejects the selected real access before transfer. Fresh original sixteen-bit RW models, two contained byte fields and independent frontdoor/backdoor storage; exact message text/count and physical HDL are not prescribed.",
+        "ja": "選択した定義済み保護callbackの登録／削除または予測callbackの条件を使う。新しい独自16-bit RWモデル、内包byte field 2個、独立したfrontdoor／backdoor storageを使い、正確な診断文／件数や物理HDLは規定しない。"
+      },
+      "expected": {
+        "en": "All original frontdoor/backdoor transfer counters remain zero and both storage words retain 0x11AD.",
+        "ja": "独自frontdoor／backdoorの全転送counterは0のままで、両storage wordは0x11ADを保持する。"
+      },
+      "limitations": {
+        "en": "Only the explicitly selected object, direction, path and callback history are checked. No field-policy replacement, universal ordering, physical bus/HDL protocol, arbitrary races, null targets or complete lifecycle/error coverage is inferred. Shared expected rows do not create independent tests.",
+        "ja": "明示選択したobject、方向、path、callback履歴だけを検査する。field policyの置換、普遍的順序、物理bus／HDL protocol、任意race、null対象、全lifecycle／error coverageは導かない。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_wo_callback_blocks_low_field_backdoor_before_original_provider_access",
+          "role": "direct",
+          "expected_observations": [
+            "UT: protection_wo_low_field_backdoor error 1 status 1 transfers 0 storage 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PROTECTION-AUDIT-WO-BLOCK-HIGH-FIELD-FRONTDOOR",
+      "clause": "18.11.5.2.1",
+      "statement": {
+        "en": "The predefined WO callback rejects the selected high_field frontdoor access with ERROR and failing status.",
+        "ja": "定義済みWO callbackは選択high_fieldのfrontdoor accessをERRORと失敗statusで拒否する。"
+      },
+      "conditions": {
+        "en": "A registered protection callback rejects the selected real access before transfer. Fresh original sixteen-bit RW models, two contained byte fields and independent frontdoor/backdoor storage; exact message text/count and physical HDL are not prescribed.",
+        "ja": "選択した定義済み保護callbackの登録／削除または予測callbackの条件を使う。新しい独自16-bit RWモデル、内包byte field 2個、独立したfrontdoor／backdoor storageを使い、正確な診断文／件数や物理HDLは規定しない。"
+      },
+      "expected": {
+        "en": "The selected attempted access reports ERROR and returns UVM_NOT_OK before any provider transfer; original storage is retained.",
+        "ja": "選択した試行accessはprovider転送の前にERRORを報告してUVM_NOT_OKを返し、元storageを保持する。"
+      },
+      "limitations": {
+        "en": "Only the explicitly selected object, direction, path and callback history are checked. No field-policy replacement, universal ordering, physical bus/HDL protocol, arbitrary races, null targets or complete lifecycle/error coverage is inferred. Shared expected rows do not create independent tests.",
+        "ja": "明示選択したobject、方向、path、callback履歴だけを検査する。field policyの置換、普遍的順序、物理bus／HDL protocol、任意race、null対象、全lifecycle／error coverageは導かない。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_wo_callback_blocks_high_field_frontdoor_before_original_provider_access",
+          "role": "direct",
+          "expected_observations": [
+            "UT: protection_wo_high_field_frontdoor error 1 status 1 transfers 0 storage 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PROTECTION-AUDIT-WO-ABORT-HIGH-FIELD-FRONTDOOR",
+      "clause": "18.11.2.4",
+      "statement": {
+        "en": "A rejected pre-access callback prevents original-provider transfers and storage modification.",
+        "ja": "拒否されたpre-access callbackは独自provider転送とstorage変更を抑止する。"
+      },
+      "conditions": {
+        "en": "A registered protection callback rejects the selected real access before transfer. Fresh original sixteen-bit RW models, two contained byte fields and independent frontdoor/backdoor storage; exact message text/count and physical HDL are not prescribed.",
+        "ja": "選択した定義済み保護callbackの登録／削除または予測callbackの条件を使う。新しい独自16-bit RWモデル、内包byte field 2個、独立したfrontdoor／backdoor storageを使い、正確な診断文／件数や物理HDLは規定しない。"
+      },
+      "expected": {
+        "en": "All original frontdoor/backdoor transfer counters remain zero and both storage words retain 0x11AD.",
+        "ja": "独自frontdoor／backdoorの全転送counterは0のままで、両storage wordは0x11ADを保持する。"
+      },
+      "limitations": {
+        "en": "Only the explicitly selected object, direction, path and callback history are checked. No field-policy replacement, universal ordering, physical bus/HDL protocol, arbitrary races, null targets or complete lifecycle/error coverage is inferred. Shared expected rows do not create independent tests.",
+        "ja": "明示選択したobject、方向、path、callback履歴だけを検査する。field policyの置換、普遍的順序、物理bus／HDL protocol、任意race、null対象、全lifecycle／error coverageは導かない。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_wo_callback_blocks_high_field_frontdoor_before_original_provider_access",
+          "role": "direct",
+          "expected_observations": [
+            "UT: protection_wo_high_field_frontdoor error 1 status 1 transfers 0 storage 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PROTECTION-AUDIT-WO-BLOCK-HIGH-FIELD-BACKDOOR",
+      "clause": "18.11.5.2.1",
+      "statement": {
+        "en": "The predefined WO callback rejects the selected high_field backdoor access with ERROR and failing status.",
+        "ja": "定義済みWO callbackは選択high_fieldのbackdoor accessをERRORと失敗statusで拒否する。"
+      },
+      "conditions": {
+        "en": "A registered protection callback rejects the selected real access before transfer. Fresh original sixteen-bit RW models, two contained byte fields and independent frontdoor/backdoor storage; exact message text/count and physical HDL are not prescribed.",
+        "ja": "選択した定義済み保護callbackの登録／削除または予測callbackの条件を使う。新しい独自16-bit RWモデル、内包byte field 2個、独立したfrontdoor／backdoor storageを使い、正確な診断文／件数や物理HDLは規定しない。"
+      },
+      "expected": {
+        "en": "The selected attempted access reports ERROR and returns UVM_NOT_OK before any provider transfer; original storage is retained.",
+        "ja": "選択した試行accessはprovider転送の前にERRORを報告してUVM_NOT_OKを返し、元storageを保持する。"
+      },
+      "limitations": {
+        "en": "Only the explicitly selected object, direction, path and callback history are checked. No field-policy replacement, universal ordering, physical bus/HDL protocol, arbitrary races, null targets or complete lifecycle/error coverage is inferred. Shared expected rows do not create independent tests.",
+        "ja": "明示選択したobject、方向、path、callback履歴だけを検査する。field policyの置換、普遍的順序、物理bus／HDL protocol、任意race、null対象、全lifecycle／error coverageは導かない。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_wo_callback_blocks_high_field_backdoor_before_original_provider_access",
+          "role": "direct",
+          "expected_observations": [
+            "UT: protection_wo_high_field_backdoor error 1 status 1 transfers 0 storage 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PROTECTION-AUDIT-WO-ABORT-HIGH-FIELD-BACKDOOR",
+      "clause": "18.11.2.4",
+      "statement": {
+        "en": "A rejected pre-access callback prevents original-provider transfers and storage modification.",
+        "ja": "拒否されたpre-access callbackは独自provider転送とstorage変更を抑止する。"
+      },
+      "conditions": {
+        "en": "A registered protection callback rejects the selected real access before transfer. Fresh original sixteen-bit RW models, two contained byte fields and independent frontdoor/backdoor storage; exact message text/count and physical HDL are not prescribed.",
+        "ja": "選択した定義済み保護callbackの登録／削除または予測callbackの条件を使う。新しい独自16-bit RWモデル、内包byte field 2個、独立したfrontdoor／backdoor storageを使い、正確な診断文／件数や物理HDLは規定しない。"
+      },
+      "expected": {
+        "en": "All original frontdoor/backdoor transfer counters remain zero and both storage words retain 0x11AD.",
+        "ja": "独自frontdoor／backdoorの全転送counterは0のままで、両storage wordは0x11ADを保持する。"
+      },
+      "limitations": {
+        "en": "Only the explicitly selected object, direction, path and callback history are checked. No field-policy replacement, universal ordering, physical bus/HDL protocol, arbitrary races, null targets or complete lifecycle/error coverage is inferred. Shared expected rows do not create independent tests.",
+        "ja": "明示選択したobject、方向、path、callback履歴だけを検査する。field policyの置換、普遍的順序、物理bus／HDL protocol、任意race、null対象、全lifecycle／error coverageは導かない。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_wo_callback_blocks_high_field_backdoor_before_original_provider_access",
+          "role": "direct",
+          "expected_observations": [
+            "UT: protection_wo_high_field_backdoor error 1 status 1 transfers 0 storage 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PROTECTION-AUDIT-WO-PERMITTED-REGISTER-FRONTDOOR",
+      "clause": "18.11.5",
+      "statement": {
+        "en": "The predefined WO callback leaves the selected opposite register frontdoor direction operational.",
+        "ja": "定義済みWO callbackは選択した反対方向のregister frontdoor動作を維持する。"
+      },
+      "conditions": {
+        "en": "The predefined protection callback preserves the opposite permitted access direction. Fresh original sixteen-bit RW models, two contained byte fields and independent frontdoor/backdoor storage; exact message text/count and physical HDL are not prescribed.",
+        "ja": "選択した定義済み保護callbackの登録／削除または予測callbackの条件を使う。新しい独自16-bit RWモデル、内包byte field 2個、独立したfrontdoor／backdoor storageを使い、正確な診断文／件数や物理HDLは規定しない。"
+      },
+      "expected": {
+        "en": "The permitted read returns the original selected data, or the permitted write updates the supplied selected data, with UVM_IS_OK, provider activity and no ERROR.",
+        "ja": "許可readは元の選択dataを返し、許可writeは指定した選択dataを更新し、UVM_IS_OKとprovider活動がありERRORはない。"
+      },
+      "limitations": {
+        "en": "Only the explicitly selected object, direction, path and callback history are checked. No field-policy replacement, universal ordering, physical bus/HDL protocol, arbitrary races, null targets or complete lifecycle/error coverage is inferred. Shared expected rows do not create independent tests.",
+        "ja": "明示選択したobject、方向、path、callback履歴だけを検査する。field policyの置換、普遍的順序、物理bus／HDL protocol、任意race、null対象、全lifecycle／error coverageは導かない。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_wo_callback_keeps_the_permitted_register_frontdoor_direction_operational",
+          "role": "direct",
+          "expected_observations": [
+            "UT: protection_wo_allow_register_frontdoor allowed 1 error 0 provider 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PROTECTION-AUDIT-WO-PERMITTED-REGISTER-BACKDOOR",
+      "clause": "18.11.5",
+      "statement": {
+        "en": "The predefined WO callback leaves the selected opposite register backdoor direction operational.",
+        "ja": "定義済みWO callbackは選択した反対方向のregister backdoor動作を維持する。"
+      },
+      "conditions": {
+        "en": "The predefined protection callback preserves the opposite permitted access direction. Fresh original sixteen-bit RW models, two contained byte fields and independent frontdoor/backdoor storage; exact message text/count and physical HDL are not prescribed.",
+        "ja": "選択した定義済み保護callbackの登録／削除または予測callbackの条件を使う。新しい独自16-bit RWモデル、内包byte field 2個、独立したfrontdoor／backdoor storageを使い、正確な診断文／件数や物理HDLは規定しない。"
+      },
+      "expected": {
+        "en": "The permitted read returns the original selected data, or the permitted write updates the supplied selected data, with UVM_IS_OK, provider activity and no ERROR.",
+        "ja": "許可readは元の選択dataを返し、許可writeは指定した選択dataを更新し、UVM_IS_OKとprovider活動がありERRORはない。"
+      },
+      "limitations": {
+        "en": "Only the explicitly selected object, direction, path and callback history are checked. No field-policy replacement, universal ordering, physical bus/HDL protocol, arbitrary races, null targets or complete lifecycle/error coverage is inferred. Shared expected rows do not create independent tests.",
+        "ja": "明示選択したobject、方向、path、callback履歴だけを検査する。field policyの置換、普遍的順序、物理bus／HDL protocol、任意race、null対象、全lifecycle／error coverageは導かない。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_wo_callback_keeps_the_permitted_register_backdoor_direction_operational",
+          "role": "direct",
+          "expected_observations": [
+            "UT: protection_wo_allow_register_backdoor allowed 1 error 0 provider 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PROTECTION-AUDIT-WO-PERMITTED-FIELD-FRONTDOOR",
+      "clause": "18.11.5",
+      "statement": {
+        "en": "The predefined WO callback leaves the selected opposite field frontdoor direction operational.",
+        "ja": "定義済みWO callbackは選択した反対方向のfield frontdoor動作を維持する。"
+      },
+      "conditions": {
+        "en": "The predefined protection callback preserves the opposite permitted access direction. Fresh original sixteen-bit RW models, two contained byte fields and independent frontdoor/backdoor storage; exact message text/count and physical HDL are not prescribed.",
+        "ja": "選択した定義済み保護callbackの登録／削除または予測callbackの条件を使う。新しい独自16-bit RWモデル、内包byte field 2個、独立したfrontdoor／backdoor storageを使い、正確な診断文／件数や物理HDLは規定しない。"
+      },
+      "expected": {
+        "en": "The permitted read returns the original selected data, or the permitted write updates the supplied selected data, with UVM_IS_OK, provider activity and no ERROR.",
+        "ja": "許可readは元の選択dataを返し、許可writeは指定した選択dataを更新し、UVM_IS_OKとprovider活動がありERRORはない。"
+      },
+      "limitations": {
+        "en": "Only the explicitly selected object, direction, path and callback history are checked. No field-policy replacement, universal ordering, physical bus/HDL protocol, arbitrary races, null targets or complete lifecycle/error coverage is inferred. Shared expected rows do not create independent tests.",
+        "ja": "明示選択したobject、方向、path、callback履歴だけを検査する。field policyの置換、普遍的順序、物理bus／HDL protocol、任意race、null対象、全lifecycle／error coverageは導かない。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_wo_callback_keeps_the_permitted_field_frontdoor_direction_operational",
+          "role": "direct",
+          "expected_observations": [
+            "UT: protection_wo_allow_field_frontdoor allowed 1 error 0 provider 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PROTECTION-AUDIT-WO-PERMITTED-FIELD-BACKDOOR",
+      "clause": "18.11.5",
+      "statement": {
+        "en": "The predefined WO callback leaves the selected opposite field backdoor direction operational.",
+        "ja": "定義済みWO callbackは選択した反対方向のfield backdoor動作を維持する。"
+      },
+      "conditions": {
+        "en": "The predefined protection callback preserves the opposite permitted access direction. Fresh original sixteen-bit RW models, two contained byte fields and independent frontdoor/backdoor storage; exact message text/count and physical HDL are not prescribed.",
+        "ja": "選択した定義済み保護callbackの登録／削除または予測callbackの条件を使う。新しい独自16-bit RWモデル、内包byte field 2個、独立したfrontdoor／backdoor storageを使い、正確な診断文／件数や物理HDLは規定しない。"
+      },
+      "expected": {
+        "en": "The permitted read returns the original selected data, or the permitted write updates the supplied selected data, with UVM_IS_OK, provider activity and no ERROR.",
+        "ja": "許可readは元の選択dataを返し、許可writeは指定した選択dataを更新し、UVM_IS_OKとprovider活動がありERRORはない。"
+      },
+      "limitations": {
+        "en": "Only the explicitly selected object, direction, path and callback history are checked. No field-policy replacement, universal ordering, physical bus/HDL protocol, arbitrary races, null targets or complete lifecycle/error coverage is inferred. Shared expected rows do not create independent tests.",
+        "ja": "明示選択したobject、方向、path、callback履歴だけを検査する。field policyの置換、普遍的順序、物理bus／HDL protocol、任意race、null対象、全lifecycle／error coverageは導かない。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_wo_callback_keeps_the_permitted_field_backdoor_direction_operational",
+          "role": "direct",
+          "expected_observations": [
+            "UT: protection_wo_allow_field_backdoor allowed 1 error 0 provider 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PROTECTION-AUDIT-WO-RESTORE-REGISTER-FRONTDOOR",
+      "clause": "18.11.5.2.3",
+      "statement": {
+        "en": "Protection removal restores the selected subsequent formerly rejected operation.",
+        "ja": "保護の削除は選択した後続の拒否されていた操作を復元する。"
+      },
+      "conditions": {
+        "en": "Removing protection restores a subsequent formerly rejected access. Fresh original sixteen-bit RW models, two contained byte fields and independent frontdoor/backdoor storage; exact message text/count and physical HDL are not prescribed.",
+        "ja": "選択した定義済み保護callbackの登録／削除または予測callbackの条件を使う。新しい独自16-bit RWモデル、内包byte field 2個、独立したfrontdoor／backdoor storageを使い、正確な診断文／件数や物理HDLは規定しない。"
+      },
+      "expected": {
+        "en": "The first access rejects with no transfer; after removal the same selected access succeeds without ERROR.",
+        "ja": "初回accessは転送なしで拒否し、削除後に同じ選択accessがERRORなしで成功する。"
+      },
+      "limitations": {
+        "en": "Only the explicitly selected object, direction, path and callback history are checked. No field-policy replacement, universal ordering, physical bus/HDL protocol, arbitrary races, null targets or complete lifecycle/error coverage is inferred. Shared expected rows do not create independent tests.",
+        "ja": "明示選択したobject、方向、path、callback履歴だけを検査する。field policyの置換、普遍的順序、物理bus／HDL protocol、任意race、null対象、全lifecycle／error coverageは導かない。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_wo_callback_removal_restores_the_rejected_register_frontdoor_operation",
+          "role": "direct",
+          "expected_observations": [
+            "UT: protection_wo_restore_register_frontdoor blocked 1 restored 1 error 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PROTECTION-AUDIT-WO-RESTORE-FIELD-BACKDOOR",
+      "clause": "18.11.5.2.3",
+      "statement": {
+        "en": "Protection removal restores the selected subsequent formerly rejected operation.",
+        "ja": "保護の削除は選択した後続の拒否されていた操作を復元する。"
+      },
+      "conditions": {
+        "en": "Removing protection restores a subsequent formerly rejected access. Fresh original sixteen-bit RW models, two contained byte fields and independent frontdoor/backdoor storage; exact message text/count and physical HDL are not prescribed.",
+        "ja": "選択した定義済み保護callbackの登録／削除または予測callbackの条件を使う。新しい独自16-bit RWモデル、内包byte field 2個、独立したfrontdoor／backdoor storageを使い、正確な診断文／件数や物理HDLは規定しない。"
+      },
+      "expected": {
+        "en": "The first access rejects with no transfer; after removal the same selected access succeeds without ERROR.",
+        "ja": "初回accessは転送なしで拒否し、削除後に同じ選択accessがERRORなしで成功する。"
+      },
+      "limitations": {
+        "en": "Only the explicitly selected object, direction, path and callback history are checked. No field-policy replacement, universal ordering, physical bus/HDL protocol, arbitrary races, null targets or complete lifecycle/error coverage is inferred. Shared expected rows do not create independent tests.",
+        "ja": "明示選択したobject、方向、path、callback履歴だけを検査する。field policyの置換、普遍的順序、物理bus／HDL protocol、任意race、null対象、全lifecycle／error coverageは導かない。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_wo_callback_removal_restores_the_rejected_field_backdoor_operation",
+          "role": "direct",
+          "expected_observations": [
+            "UT: protection_wo_restore_field_backdoor blocked 1 restored 1 error 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PROTECTION-AUDIT-WO-READD",
+      "clause": "18.11.5.2.2",
+      "statement": {
+        "en": "Re-adding a removed protection callback restores rejection after an allowed operation.",
+        "ja": "削除した保護callbackの再追加は許可操作の後で再び拒否を復元する。"
+      },
+      "conditions": {
+        "en": "Adding protection after removal enforces a later access again. Fresh original sixteen-bit RW models, two contained byte fields and independent frontdoor/backdoor storage; exact message text/count and physical HDL are not prescribed.",
+        "ja": "選択した定義済み保護callbackの登録／削除または予測callbackの条件を使う。新しい独自16-bit RWモデル、内包byte field 2個、独立したfrontdoor／backdoor storageを使い、正確な診断文／件数や物理HDLは規定しない。"
+      },
+      "expected": {
+        "en": "The first and last accesses reject; the middle access after removal succeeds, and the final rejection adds no transfer.",
+        "ja": "初回と最後のaccessは拒否し、削除後の中間accessは成功し、最後の拒否で転送を追加しない。"
+      },
+      "limitations": {
+        "en": "Only the explicitly selected object, direction, path and callback history are checked. No field-policy replacement, universal ordering, physical bus/HDL protocol, arbitrary races, null targets or complete lifecycle/error coverage is inferred. Shared expected rows do not create independent tests.",
+        "ja": "明示選択したobject、方向、path、callback履歴だけを検査する。field policyの置換、普遍的順序、物理bus／HDL protocol、任意race、null対象、全lifecycle／error coverageは導かない。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_wo_callback_remove_then_readd_restores_enforcement_after_a_success",
+          "role": "direct",
+          "expected_observations": [
+            "UT: protection_wo_readd first 1 middle 1 last 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PROTECTION-AUDIT-RO-REMOVE-OPPOSITE",
+      "clause": "18.11.4.2.3",
+      "statement": {
+        "en": "Removing one predefined callback preserves the other protection family.",
+        "ja": "一方の定義済みcallback削除は他方の保護familyを保持する。"
+      },
+      "conditions": {
+        "en": "Removing one predefined protection family keeps the opposite guard active. Fresh original sixteen-bit RW models, two contained byte fields and independent frontdoor/backdoor storage; exact message text/count and physical HDL are not prescribed.",
+        "ja": "選択した定義済み保護callbackの登録／削除または予測callbackの条件を使う。新しい独自16-bit RWモデル、内包byte field 2個、独立したfrontdoor／backdoor storageを使い、正確な診断文／件数や物理HDLは規定しない。"
+      },
+      "expected": {
+        "en": "The removed direction succeeds and the opposite guard still rejects.",
+        "ja": "削除方向は成功し、反対側のguardは拒否を維持する。"
+      },
+      "limitations": {
+        "en": "Only the explicitly selected object, direction, path and callback history are checked. No field-policy replacement, universal ordering, physical bus/HDL protocol, arbitrary races, null targets or complete lifecycle/error coverage is inferred. Shared expected rows do not create independent tests.",
+        "ja": "明示選択したobject、方向、path、callback履歴だけを検査する。field policyの置換、普遍的順序、物理bus／HDL protocol、任意race、null対象、全lifecycle／error coverageは導かない。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_combined_protection_removing_ro_keeps_the_opposite_guard_registered",
+          "role": "direct",
+          "expected_observations": [
+            "UT: protection_combined_ro restored 1 opposite 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PROTECTION-AUDIT-WO-REMOVE-OPPOSITE",
+      "clause": "18.11.5.2.3",
+      "statement": {
+        "en": "Removing one predefined callback preserves the other protection family.",
+        "ja": "一方の定義済みcallback削除は他方の保護familyを保持する。"
+      },
+      "conditions": {
+        "en": "Removing one predefined protection family keeps the opposite guard active. Fresh original sixteen-bit RW models, two contained byte fields and independent frontdoor/backdoor storage; exact message text/count and physical HDL are not prescribed.",
+        "ja": "選択した定義済み保護callbackの登録／削除または予測callbackの条件を使う。新しい独自16-bit RWモデル、内包byte field 2個、独立したfrontdoor／backdoor storageを使い、正確な診断文／件数や物理HDLは規定しない。"
+      },
+      "expected": {
+        "en": "The removed direction succeeds and the opposite guard still rejects.",
+        "ja": "削除方向は成功し、反対側のguardは拒否を維持する。"
+      },
+      "limitations": {
+        "en": "Only the explicitly selected object, direction, path and callback history are checked. No field-policy replacement, universal ordering, physical bus/HDL protocol, arbitrary races, null targets or complete lifecycle/error coverage is inferred. Shared expected rows do not create independent tests.",
+        "ja": "明示選択したobject、方向、path、callback履歴だけを検査する。field policyの置換、普遍的順序、物理bus／HDL protocol、任意race、null対象、全lifecycle／error coverageは導かない。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_combined_protection_removing_wo_keeps_the_opposite_guard_registered",
+          "role": "direct",
+          "expected_observations": [
+            "UT: protection_combined_wo restored 1 opposite 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PROTECTION-AUDIT-POST-PREDICT-READ-FRONTDOOR-CONTEXT",
+      "clause": "18.11.2.6",
+      "statement": {
+        "en": "Successful read/write prediction supplies the selected field, previous value and actual prediction context.",
+        "ja": "成功したread／write予測は選択field、以前の値、実際の予測contextを渡す。"
+      },
+      "conditions": {
+        "en": "Post-predict observes the actual field and prediction context before changing predicted state. Fresh original sixteen-bit RW models, two contained byte fields and independent frontdoor/backdoor storage; exact message text/count and physical HDL are not prescribed. Select the low byte field, previous mirror 0xAD, supplied value 0x39, UVM_PREDICT_READ, UVM_FRONTDOOR and exact first_map handle.",
+        "ja": "選択した定義済み保護callbackの登録／削除または予測callbackの条件を使う。新しい独自16-bit RWモデル、内包byte field 2個、独立したfrontdoor／backdoor storageを使い、正確な診断文／件数や物理HDLは規定しない。 下位byte field、以前のmirror 0xAD、指定値0x39、UVM_PREDICT_READ、UVM_FRONTDOOR、正確なfirst_map handleを選択する。"
+      },
+      "expected": {
+        "en": "The callback sees the exact field, kind, path, map and previous/latest values.",
+        "ja": "callbackは正確なfield、kind、path、map、以前／最新の値を観測する。"
+      },
+      "limitations": {
+        "en": "Only the explicitly selected object, direction, path and callback history are checked. No field-policy replacement, universal ordering, physical bus/HDL protocol, arbitrary races, null targets or complete lifecycle/error coverage is inferred. Shared expected rows do not create independent tests.",
+        "ja": "明示選択したobject、方向、path、callback履歴だけを検査する。field policyの置換、普遍的順序、物理bus／HDL protocol、任意race、null対象、全lifecycle／error coverageは導かない。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_post_predict_read_frontdoor_forwards_identity_context_and_replacement_to_the_mirror",
+          "role": "direct",
+          "expected_observations": [
+            "UT: post_predict_read_frontdoor success 1 calls 1 context 1 data 1 model 1",
+            "UT: post_predict_read_frontdoor_storage transfers 0 original 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PROTECTION-AUDIT-POST-PREDICT-READ-FRONTDOOR-REPLACEMENT",
+      "clause": "18.11.2.6",
+      "statement": {
+        "en": "A post-predict value change modifies the predicted mirror.",
+        "ja": "post-predictの値変更は予測mirrorを変更する。"
+      },
+      "conditions": {
+        "en": "Post-predict observes the actual field and prediction context before changing predicted state. Fresh original sixteen-bit RW models, two contained byte fields and independent frontdoor/backdoor storage; exact message text/count and physical HDL are not prescribed. Select the low byte field, previous mirror 0xAD, supplied value 0x39, UVM_PREDICT_READ, UVM_FRONTDOOR and exact first_map handle.",
+        "ja": "選択した定義済み保護callbackの登録／削除または予測callbackの条件を使う。新しい独自16-bit RWモデル、内包byte field 2個、独立したfrontdoor／backdoor storageを使い、正確な診断文／件数や物理HDLは規定しない。 下位byte field、以前のmirror 0xAD、指定値0x39、UVM_PREDICT_READ、UVM_FRONTDOOR、正確なfirst_map handleを選択する。"
+      },
+      "expected": {
+        "en": "The selected mirror and desired value become the callback replacement.",
+        "ja": "選択mirrorとdesired値はcallbackの置換値になる。"
+      },
+      "limitations": {
+        "en": "Only the explicitly selected object, direction, path and callback history are checked. No field-policy replacement, universal ordering, physical bus/HDL protocol, arbitrary races, null targets or complete lifecycle/error coverage is inferred. Shared expected rows do not create independent tests.",
+        "ja": "明示選択したobject、方向、path、callback履歴だけを検査する。field policyの置換、普遍的順序、物理bus／HDL protocol、任意race、null対象、全lifecycle／error coverageは導かない。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_post_predict_read_frontdoor_forwards_identity_context_and_replacement_to_the_mirror",
+          "role": "direct",
+          "expected_observations": [
+            "UT: post_predict_read_frontdoor success 1 calls 1 context 1 data 1 model 1",
+            "UT: post_predict_read_frontdoor_storage transfers 0 original 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PROTECTION-AUDIT-POST-PREDICT-READ-BACKDOOR-CONTEXT",
+      "clause": "18.11.2.6",
+      "statement": {
+        "en": "Successful read/write prediction supplies the selected field, previous value and actual prediction context.",
+        "ja": "成功したread／write予測は選択field、以前の値、実際の予測contextを渡す。"
+      },
+      "conditions": {
+        "en": "Post-predict observes the actual field and prediction context before changing predicted state. Fresh original sixteen-bit RW models, two contained byte fields and independent frontdoor/backdoor storage; exact message text/count and physical HDL are not prescribed. Select the low byte field, previous mirror 0xAD, supplied value 0x39, UVM_PREDICT_READ, UVM_BACKDOOR and exact second_map handle.",
+        "ja": "選択した定義済み保護callbackの登録／削除または予測callbackの条件を使う。新しい独自16-bit RWモデル、内包byte field 2個、独立したfrontdoor／backdoor storageを使い、正確な診断文／件数や物理HDLは規定しない。 下位byte field、以前のmirror 0xAD、指定値0x39、UVM_PREDICT_READ、UVM_BACKDOOR、正確なsecond_map handleを選択する。"
+      },
+      "expected": {
+        "en": "The callback sees the exact field, kind, path, map and previous/latest values.",
+        "ja": "callbackは正確なfield、kind、path、map、以前／最新の値を観測する。"
+      },
+      "limitations": {
+        "en": "Only the explicitly selected object, direction, path and callback history are checked. No field-policy replacement, universal ordering, physical bus/HDL protocol, arbitrary races, null targets or complete lifecycle/error coverage is inferred. Shared expected rows do not create independent tests.",
+        "ja": "明示選択したobject、方向、path、callback履歴だけを検査する。field policyの置換、普遍的順序、物理bus／HDL protocol、任意race、null対象、全lifecycle／error coverageは導かない。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_post_predict_read_backdoor_forwards_identity_context_and_replacement_to_the_mirror",
+          "role": "direct",
+          "expected_observations": [
+            "UT: post_predict_read_backdoor success 1 calls 1 context 1 data 1 model 1",
+            "UT: post_predict_read_backdoor_storage transfers 0 original 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PROTECTION-AUDIT-POST-PREDICT-READ-BACKDOOR-REPLACEMENT",
+      "clause": "18.11.2.6",
+      "statement": {
+        "en": "A post-predict value change modifies the predicted mirror.",
+        "ja": "post-predictの値変更は予測mirrorを変更する。"
+      },
+      "conditions": {
+        "en": "Post-predict observes the actual field and prediction context before changing predicted state. Fresh original sixteen-bit RW models, two contained byte fields and independent frontdoor/backdoor storage; exact message text/count and physical HDL are not prescribed. Select the low byte field, previous mirror 0xAD, supplied value 0x39, UVM_PREDICT_READ, UVM_BACKDOOR and exact second_map handle.",
+        "ja": "選択した定義済み保護callbackの登録／削除または予測callbackの条件を使う。新しい独自16-bit RWモデル、内包byte field 2個、独立したfrontdoor／backdoor storageを使い、正確な診断文／件数や物理HDLは規定しない。 下位byte field、以前のmirror 0xAD、指定値0x39、UVM_PREDICT_READ、UVM_BACKDOOR、正確なsecond_map handleを選択する。"
+      },
+      "expected": {
+        "en": "The selected mirror and desired value become the callback replacement.",
+        "ja": "選択mirrorとdesired値はcallbackの置換値になる。"
+      },
+      "limitations": {
+        "en": "Only the explicitly selected object, direction, path and callback history are checked. No field-policy replacement, universal ordering, physical bus/HDL protocol, arbitrary races, null targets or complete lifecycle/error coverage is inferred. Shared expected rows do not create independent tests.",
+        "ja": "明示選択したobject、方向、path、callback履歴だけを検査する。field policyの置換、普遍的順序、物理bus／HDL protocol、任意race、null対象、全lifecycle／error coverageは導かない。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_post_predict_read_backdoor_forwards_identity_context_and_replacement_to_the_mirror",
+          "role": "direct",
+          "expected_observations": [
+            "UT: post_predict_read_backdoor success 1 calls 1 context 1 data 1 model 1",
+            "UT: post_predict_read_backdoor_storage transfers 0 original 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PROTECTION-AUDIT-POST-PREDICT-WRITE-FRONTDOOR-CONTEXT",
+      "clause": "18.11.2.6",
+      "statement": {
+        "en": "Successful read/write prediction supplies the selected field, previous value and actual prediction context.",
+        "ja": "成功したread／write予測は選択field、以前の値、実際の予測contextを渡す。"
+      },
+      "conditions": {
+        "en": "Post-predict observes the actual field and prediction context before changing predicted state. Fresh original sixteen-bit RW models, two contained byte fields and independent frontdoor/backdoor storage; exact message text/count and physical HDL are not prescribed. Select the low byte field, previous mirror 0xAD, supplied value 0x39, UVM_PREDICT_WRITE, UVM_FRONTDOOR and exact first_map handle.",
+        "ja": "選択した定義済み保護callbackの登録／削除または予測callbackの条件を使う。新しい独自16-bit RWモデル、内包byte field 2個、独立したfrontdoor／backdoor storageを使い、正確な診断文／件数や物理HDLは規定しない。 下位byte field、以前のmirror 0xAD、指定値0x39、UVM_PREDICT_WRITE、UVM_FRONTDOOR、正確なfirst_map handleを選択する。"
+      },
+      "expected": {
+        "en": "The callback sees the exact field, kind, path, map and previous/latest values.",
+        "ja": "callbackは正確なfield、kind、path、map、以前／最新の値を観測する。"
+      },
+      "limitations": {
+        "en": "Only the explicitly selected object, direction, path and callback history are checked. No field-policy replacement, universal ordering, physical bus/HDL protocol, arbitrary races, null targets or complete lifecycle/error coverage is inferred. Shared expected rows do not create independent tests.",
+        "ja": "明示選択したobject、方向、path、callback履歴だけを検査する。field policyの置換、普遍的順序、物理bus／HDL protocol、任意race、null対象、全lifecycle／error coverageは導かない。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_post_predict_write_frontdoor_forwards_identity_context_and_replacement_to_the_mirror",
+          "role": "direct",
+          "expected_observations": [
+            "UT: post_predict_write_frontdoor success 1 calls 1 context 1 data 1 model 1",
+            "UT: post_predict_write_frontdoor_storage transfers 0 original 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PROTECTION-AUDIT-POST-PREDICT-WRITE-FRONTDOOR-REPLACEMENT",
+      "clause": "18.11.2.6",
+      "statement": {
+        "en": "A post-predict value change modifies the predicted mirror.",
+        "ja": "post-predictの値変更は予測mirrorを変更する。"
+      },
+      "conditions": {
+        "en": "Post-predict observes the actual field and prediction context before changing predicted state. Fresh original sixteen-bit RW models, two contained byte fields and independent frontdoor/backdoor storage; exact message text/count and physical HDL are not prescribed. Select the low byte field, previous mirror 0xAD, supplied value 0x39, UVM_PREDICT_WRITE, UVM_FRONTDOOR and exact first_map handle.",
+        "ja": "選択した定義済み保護callbackの登録／削除または予測callbackの条件を使う。新しい独自16-bit RWモデル、内包byte field 2個、独立したfrontdoor／backdoor storageを使い、正確な診断文／件数や物理HDLは規定しない。 下位byte field、以前のmirror 0xAD、指定値0x39、UVM_PREDICT_WRITE、UVM_FRONTDOOR、正確なfirst_map handleを選択する。"
+      },
+      "expected": {
+        "en": "The selected mirror and desired value become the callback replacement.",
+        "ja": "選択mirrorとdesired値はcallbackの置換値になる。"
+      },
+      "limitations": {
+        "en": "Only the explicitly selected object, direction, path and callback history are checked. No field-policy replacement, universal ordering, physical bus/HDL protocol, arbitrary races, null targets or complete lifecycle/error coverage is inferred. Shared expected rows do not create independent tests.",
+        "ja": "明示選択したobject、方向、path、callback履歴だけを検査する。field policyの置換、普遍的順序、物理bus／HDL protocol、任意race、null対象、全lifecycle／error coverageは導かない。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_post_predict_write_frontdoor_forwards_identity_context_and_replacement_to_the_mirror",
+          "role": "direct",
+          "expected_observations": [
+            "UT: post_predict_write_frontdoor success 1 calls 1 context 1 data 1 model 1",
+            "UT: post_predict_write_frontdoor_storage transfers 0 original 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PROTECTION-AUDIT-POST-PREDICT-WRITE-BACKDOOR-CONTEXT",
+      "clause": "18.11.2.6",
+      "statement": {
+        "en": "Successful read/write prediction supplies the selected field, previous value and actual prediction context.",
+        "ja": "成功したread／write予測は選択field、以前の値、実際の予測contextを渡す。"
+      },
+      "conditions": {
+        "en": "Post-predict observes the actual field and prediction context before changing predicted state. Fresh original sixteen-bit RW models, two contained byte fields and independent frontdoor/backdoor storage; exact message text/count and physical HDL are not prescribed. Select the low byte field, previous mirror 0xAD, supplied value 0x39, UVM_PREDICT_WRITE, UVM_BACKDOOR and exact second_map handle.",
+        "ja": "選択した定義済み保護callbackの登録／削除または予測callbackの条件を使う。新しい独自16-bit RWモデル、内包byte field 2個、独立したfrontdoor／backdoor storageを使い、正確な診断文／件数や物理HDLは規定しない。 下位byte field、以前のmirror 0xAD、指定値0x39、UVM_PREDICT_WRITE、UVM_BACKDOOR、正確なsecond_map handleを選択する。"
+      },
+      "expected": {
+        "en": "The callback sees the exact field, kind, path, map and previous/latest values.",
+        "ja": "callbackは正確なfield、kind、path、map、以前／最新の値を観測する。"
+      },
+      "limitations": {
+        "en": "Only the explicitly selected object, direction, path and callback history are checked. No field-policy replacement, universal ordering, physical bus/HDL protocol, arbitrary races, null targets or complete lifecycle/error coverage is inferred. Shared expected rows do not create independent tests.",
+        "ja": "明示選択したobject、方向、path、callback履歴だけを検査する。field policyの置換、普遍的順序、物理bus／HDL protocol、任意race、null対象、全lifecycle／error coverageは導かない。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_post_predict_write_backdoor_forwards_identity_context_and_replacement_to_the_mirror",
+          "role": "direct",
+          "expected_observations": [
+            "UT: post_predict_write_backdoor success 1 calls 1 context 1 data 1 model 1",
+            "UT: post_predict_write_backdoor_storage transfers 0 original 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PROTECTION-AUDIT-POST-PREDICT-WRITE-BACKDOOR-REPLACEMENT",
+      "clause": "18.11.2.6",
+      "statement": {
+        "en": "A post-predict value change modifies the predicted mirror.",
+        "ja": "post-predictの値変更は予測mirrorを変更する。"
+      },
+      "conditions": {
+        "en": "Post-predict observes the actual field and prediction context before changing predicted state. Fresh original sixteen-bit RW models, two contained byte fields and independent frontdoor/backdoor storage; exact message text/count and physical HDL are not prescribed. Select the low byte field, previous mirror 0xAD, supplied value 0x39, UVM_PREDICT_WRITE, UVM_BACKDOOR and exact second_map handle.",
+        "ja": "選択した定義済み保護callbackの登録／削除または予測callbackの条件を使う。新しい独自16-bit RWモデル、内包byte field 2個、独立したfrontdoor／backdoor storageを使い、正確な診断文／件数や物理HDLは規定しない。 下位byte field、以前のmirror 0xAD、指定値0x39、UVM_PREDICT_WRITE、UVM_BACKDOOR、正確なsecond_map handleを選択する。"
+      },
+      "expected": {
+        "en": "The selected mirror and desired value become the callback replacement.",
+        "ja": "選択mirrorとdesired値はcallbackの置換値になる。"
+      },
+      "limitations": {
+        "en": "Only the explicitly selected object, direction, path and callback history are checked. No field-policy replacement, universal ordering, physical bus/HDL protocol, arbitrary races, null targets or complete lifecycle/error coverage is inferred. Shared expected rows do not create independent tests.",
+        "ja": "明示選択したobject、方向、path、callback履歴だけを検査する。field policyの置換、普遍的順序、物理bus／HDL protocol、任意race、null対象、全lifecycle／error coverageは導かない。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_post_predict_write_backdoor_forwards_identity_context_and_replacement_to_the_mirror",
+          "role": "direct",
+          "expected_observations": [
+            "UT: post_predict_write_backdoor success 1 calls 1 context 1 data 1 model 1",
+            "UT: post_predict_write_backdoor_storage transfers 0 original 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PROTECTION-AUDIT-POST-PREDICT-DIRECT-EXPLICIT",
+      "clause": "18.5.5.17",
+      "statement": {
+        "en": "The selected direct prediction updates as supplied, without read/write callback mutation.",
+        "ja": "選択direct予測はread／write callback変更なしで指定どおり更新する。"
+      },
+      "conditions": {
+        "en": "Direct prediction updates as supplied without read/write post-predict delivery. Fresh original sixteen-bit RW models, two contained byte fields and independent frontdoor/backdoor storage; exact message text/count and physical HDL are not prescribed.",
+        "ja": "選択した定義済み保護callbackの登録／削除または予測callbackの条件を使う。新しい独自16-bit RWモデル、内包byte field 2個、独立したfrontdoor／backdoor storageを使い、正確な診断文／件数や物理HDLは規定しない。"
+      },
+      "expected": {
+        "en": "The prediction succeeds with the supplied desired/mirror and no callback or transfer.",
+        "ja": "予測は指定desired／mirrorで成功し、callbackも転送も行わない。"
+      },
+      "limitations": {
+        "en": "Only the explicitly selected object, direction, path and callback history are checked. No field-policy replacement, universal ordering, physical bus/HDL protocol, arbitrary races, null targets or complete lifecycle/error coverage is inferred. Shared expected rows do not create independent tests.",
+        "ja": "明示選択したobject、方向、path、callback履歴だけを検査する。field policyの置換、普遍的順序、物理bus／HDL protocol、任意race、null対象、全lifecycle／error coverageは導かない。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_post_predict_direct_explicit_updates_as_is_without_read_or_write_callback_delivery",
+          "role": "direct",
+          "expected_observations": [
+            "UT: post_predict_direct_explicit success 1 calls 0 value 1 transfers 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PROTECTION-AUDIT-POST-PREDICT-DIRECT-OMITTED",
+      "clause": "18.5.5.17",
+      "statement": {
+        "en": "The selected direct prediction updates as supplied, without read/write callback mutation.",
+        "ja": "選択direct予測はread／write callback変更なしで指定どおり更新する。"
+      },
+      "conditions": {
+        "en": "Direct prediction updates as supplied without read/write post-predict delivery. Fresh original sixteen-bit RW models, two contained byte fields and independent frontdoor/backdoor storage; exact message text/count and physical HDL are not prescribed.",
+        "ja": "選択した定義済み保護callbackの登録／削除または予測callbackの条件を使う。新しい独自16-bit RWモデル、内包byte field 2個、独立したfrontdoor／backdoor storageを使い、正確な診断文／件数や物理HDLは規定しない。"
+      },
+      "expected": {
+        "en": "The prediction succeeds with the supplied desired/mirror and no callback or transfer.",
+        "ja": "予測は指定desired／mirrorで成功し、callbackも転送も行わない。"
+      },
+      "limitations": {
+        "en": "Only the explicitly selected object, direction, path and callback history are checked. No field-policy replacement, universal ordering, physical bus/HDL protocol, arbitrary races, null targets or complete lifecycle/error coverage is inferred. Shared expected rows do not create independent tests.",
+        "ja": "明示選択したobject、方向、path、callback履歴だけを検査する。field policyの置換、普遍的順序、物理bus／HDL protocol、任意race、null対象、全lifecycle／error coverageは導かない。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_post_predict_direct_omitted_updates_as_is_without_read_or_write_callback_delivery",
+          "role": "direct",
+          "expected_observations": [
+            "UT: post_predict_direct_omitted success 1 calls 0 value 1 transfers 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PROTECTION-AUDIT-POST-PREDICT-DISABLE",
+      "clause": "10.7.1.2.2",
+      "statement": {
+        "en": "Changing callback mode or membership stops its selected later prediction effect.",
+        "ja": "callbackのmode／所属変更は選択した後続予測への効果を止める。"
+      },
+      "conditions": {
+        "en": "Callback mode or membership changes stop later prediction replacement. Fresh original sixteen-bit RW models, two contained byte fields and independent frontdoor/backdoor storage; exact message text/count and physical HDL are not prescribed.",
+        "ja": "選択した定義済み保護callbackの登録／削除または予測callbackの条件を使う。新しい独自16-bit RWモデル、内包byte field 2個、独立したfrontdoor／backdoor storageを使い、正確な診断文／件数や物理HDLは規定しない。"
+      },
+      "expected": {
+        "en": "The first prediction is changed and the later prediction is not.",
+        "ja": "初回予測は変更され、後続予測は変更されない。"
+      },
+      "limitations": {
+        "en": "Only the explicitly selected object, direction, path and callback history are checked. No field-policy replacement, universal ordering, physical bus/HDL protocol, arbitrary races, null targets or complete lifecycle/error coverage is inferred. Shared expected rows do not create independent tests.",
+        "ja": "明示選択したobject、方向、path、callback履歴だけを検査する。field policyの置換、普遍的順序、物理bus／HDL protocol、任意race、null対象、全lifecycle／error coverageは導かない。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_post_predict_disable_stops_subsequent_prediction_mutation",
+          "role": "direct",
+          "expected_observations": [
+            "UT: post_predict_disable first 1 later 1 calls 1 transfers 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PROTECTION-AUDIT-POST-PREDICT-DELETE",
+      "clause": "10.7.2.3.3",
+      "statement": {
+        "en": "Changing callback mode or membership stops its selected later prediction effect.",
+        "ja": "callbackのmode／所属変更は選択した後続予測への効果を止める。"
+      },
+      "conditions": {
+        "en": "Callback mode or membership changes stop later prediction replacement. Fresh original sixteen-bit RW models, two contained byte fields and independent frontdoor/backdoor storage; exact message text/count and physical HDL are not prescribed.",
+        "ja": "選択した定義済み保護callbackの登録／削除または予測callbackの条件を使う。新しい独自16-bit RWモデル、内包byte field 2個、独立したfrontdoor／backdoor storageを使い、正確な診断文／件数や物理HDLは規定しない。"
+      },
+      "expected": {
+        "en": "The first prediction is changed and the later prediction is not.",
+        "ja": "初回予測は変更され、後続予測は変更されない。"
+      },
+      "limitations": {
+        "en": "Only the explicitly selected object, direction, path and callback history are checked. No field-policy replacement, universal ordering, physical bus/HDL protocol, arbitrary races, null targets or complete lifecycle/error coverage is inferred. Shared expected rows do not create independent tests.",
+        "ja": "明示選択したobject、方向、path、callback履歴だけを検査する。field policyの置換、普遍的順序、物理bus／HDL protocol、任意race、null対象、全lifecycle／error coverageは導かない。共有期待行で独立テストを増やさない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_post_predict_delete_stops_subsequent_prediction_mutation",
+          "role": "direct",
+          "expected_observations": [
+            "UT: post_predict_delete first 1 later 1 calls 1 transfers 0"
+          ]
+        }
+      ]
     }
   ]
 }

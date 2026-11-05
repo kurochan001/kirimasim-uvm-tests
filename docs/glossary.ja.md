@@ -2,6 +2,8 @@
 
 [English](glossary.md) · [README](../README.ja.md) · [FAQ](faq.ja.md)
 
+これらの用語を最初の実行と結果へ結び付ける読み順は、[読み方ガイド](reading-guide.ja.md)で案内しています。
+
 このリポジトリのテストや結果で使う言葉をまとめています。読むための手引きであり、
 各テストの期待値の根拠は、そのテストが引用する規格の条項です。
 
@@ -32,6 +34,8 @@ specのみは固定版のoracleタグがない状態です。後の実行で一�
 `ai`はAI、`human`は人による照合を示します。シミュレータとの一致とは別で、現在は全件が`ai`です。
 
 ## UVMの構成要素
+
+これらの名前はテストベンチ内の役割を表し、test class、phase、objectionを使う小さなテストは[例](testing.ja.md#例)で確認できます。
 
 **object／component** — UVMのデータやpolicyを表すobject／UVM階層のノードとしてphaseに参加するcomponentです。
 componentにはtest・environment・driver・sequencerなどがあります。
@@ -220,6 +224,8 @@ register／memoryの失敗readの値は推定しません。
 
 ## レジスタモデル
 
+registerモデルはソフトウェア状態とアクセス先の記憶域を分けて保持するため、model更新を物理転送と同一視する前に[このリポジトリが検査すること](reading-guide.ja.md#このリポジトリが検査すること)を参照してください。
+
 **Register／field／block** — ひとまとまりでアクセスする値のモデル／同じpolicyで扱う連続bit／
 register・map・子blockをまとめる容器です。registerのbyte幅は端数を切り上げ、fieldの列挙はbit位置の昇順です。
 
@@ -334,6 +340,8 @@ frontdoorでのwriteとbackdoorでのreadを比較し、次に経路を逆にし
 
 ## 実行と結果
 
+不正設計の検査ではcompiler拒否が期待する成功になるため、runtime失敗との違いは[結果の解釈](results.ja.md#結果の解釈)を参照してください。
+
 **ランナー／メタデータ** — ビルド・実行・判定を行う`tools/run_*.py`／
 テスト冒頭のコメントでその動作を指定する項目です。対応するoptionやライブラリのmodeも実行条件に含みます。
 
@@ -364,6 +372,8 @@ Ghostは`pass`・`fail`で記録し、同梱ライブラリの差を`known`へ�
 正の遅延を入れることで、同じ時刻のプロセス順に頼らず待機状態を観測できます。
 
 ## 範囲とカバレッジ
+
+条項の引用は参照先を示しても義務の検査を立証しないため、追加の要求と観測のlinkは[引用・要求・実行の証拠](requirements.ja.md#引用要求実行の証拠)で説明しています。
 
 **M0〜M4** — [開発段階](../README.ja.md#進め方)です。基盤、基本UVM、TLM・sequence・callback、
 レジスタ層、レビュー済みの要求台帳の順で進めます。次の段階を始めても、前の段階の完了を保証しません。
@@ -1016,3 +1026,9 @@ provider選択を直接示してもこの変更義務をpassにしません。
 
 **物理／モデル隣接値の分離** — 独自backdoor storageとregisterモデルの隣接fieldを異なる値にし、置換を観測可能にすることです。
 選択sliceの保護と、限定した全word保持は別の条件です。
+
+**定義済み保護callback** — 禁止access方向をERRORとUVM_NOT_OKで拒否するregister callbackです。
+register／fieldへの所属と削除履歴はfield自身のaccess policyとは別です。
+
+**予測callbackのcontext** — post-predictへ渡すfield同一性、以前／最新の値、予測kind、door、mapです。
+選択したdirect予測からread／write callbackの配送や物理accessは導きません。

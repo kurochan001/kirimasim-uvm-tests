@@ -9,14 +9,16 @@ IEEE 1800.2-2020のUniversal Verification Methodology（UVM）を対象にした
 [kirimasim](https://github.com/kurochan001/kirimasim)を対象とし、IEEE 1800-2023のSystemVerilog言語を検査する
 [kirimasim-tests](https://github.com/kurochan001/kirimasim-tests)と対になります。
 
-> **状態：M4を進行中。** 21の章・付録directoryに全2008件（simulation 1920件・elaboration 88件）があります。
-> oracle付きが1722件、specのみが286件です。
+> **状態：M4を進行中。** 21の章・付録directoryに全2056件（simulation 1968件・elaboration 88件）があります。
+> oracle付きが1770件、specのみが286件です。
 > 全件が`:spec_check: ai`で、人による照合は未記録です。M1〜M3の目標は未達です。
-> M4はAI要求案3575件、直接対応テスト1990件と全2008件の索引があります。
+> M4はAI要求案3645件、直接対応テスト2038件と全2056件の索引があります。
 > 未対応テスト0件、直接テストのない要求案0件で、memory-walkの歴史的解釈は照合が必要です。
-> 未評価219番号、AI分類395番号があり、範囲と分母は未承認です。
+> 未評価207番号、AI分類397番号があり、範囲と分母は未承認です。
 
 ## 目次
+
+テスト件数、実行時の一致、レビュー状態は別のものを数えるため、関係は[読み方ガイド](docs/reading-guide.ja.md)で説明しています。
 
 - [現在の対象範囲](#現在の対象範囲)
 - [スイートの実行](#スイートの実行)
@@ -26,15 +28,12 @@ IEEE 1800.2-2020のUniversal Verification Methodology（UVM）を対象にした
 
 ## 現在の対象範囲
 
-- **M1：843件（simulation 768・elaboration 75）。** object・transaction、copy／compare／print／packのpolicy、reportingとcatcherの状態変更／helper／issue経路、
-  component階層、factory、phaseのstate／callback／domainとgraph／jump／proxy、objection、eventとそのcallback、barrier、heartbeat、configuration、databaseの接続・stream・link・recorder・componentの記録、core service・visitor・component検索、pool、queue、agent、package型／global reporting／run-test callback、型付きresource／pool／database、文字列の分割／照合、enum名の変換、command-line引数の照会。
-- **M2：547件（simulation 542・elaboration 5）。** TLM 1のFIFO・analysis・request／response・blocking transport channel、TLM 2のpayload・拡張・
-  一部のsocket transport、sequence・sequence library・既定request／response印字・状態待機、response queue／handler、sequenceのreport、操作マクロ、pull／push sequencer、
-  zero-time relevance上限、transaction-eventによる完了、callback。
-- **M3：618件（simulation 610・elaboration 8）。** register／field／block・memoryのモデル、builtin sequenceの宣言／子slot、階層／reset照会・gate制御のbusy観測、fieldの制御とbyte-enableアクセス、操作記述子、mapのmember／列挙・bus選択・readの照合・transaction-order policy・sequence便利API、adapter、predictor、HDL pathの記述、register FIFOのabstract queue／制約と条件付き転送control、組み込み／custom frontdoor、
-  register／memory callback、coverage構築／照会・制御・sampling hook、block backdoor選択、間接register、virtual registerの配置・転送・割り当てpolicy・callback、ユーザー定義backdoor、
-  動的な実装、memory領域の管理、端数幅のmemory転送、失敗／再試行のstatus、付録Eのreset／bit-bash／register・memory access／shared access／memory walk、
-  統合access wrapper、未知policyのskip、テストの選択mask。
+- **M1：843件（simulation 768・elaboration 75）。** objectとpolicy、reporting、factory、階層、phase、同期、configuration、
+  recording、core service、型付きutility。
+- **M2：547件（simulation 542・elaboration 5）。** sequenceとsequencer、request／responseのlifecycle、callback、
+  TLM 1のchannel、一部のTLM 2 transport。
+- **M3：666件（simulation 658・elaboration 8）。** register／field／block／memory／virtual registerのモデル、access path、prediction、
+  callback、coverage、割り当て、組み込みtest sequence。uD内のD.3検査系はM3に数えます。
 
 組み込みfrontdoorはテストベンチのadapter／sequencer／driverを接続します。
 custom frontdoorはsequence本体で記憶域をモデル化し、passive predictorは別の検査系から観測値を入力します。
@@ -51,6 +50,8 @@ M4で主引用の棚卸しと明示的な要求の対応付けを始めました
 
 ## スイートの実行
 
+まず1件で環境を確かめるため、必要な準備とseed指定は[最初の実行の案内](docs/reading-guide.ja.md#最初の実行の前に)を参照してください。
+
 Python 3.10以降が必要です。固定版のoracleにはVerilator 5.052、C++ツールチェーン、makeを使います。
 リポジトリのrootから実行します。
 
@@ -61,7 +62,7 @@ python3 tools/run_verilator.py --seeds 1 73 --build-jobs 2 -j 1 \
 ```
 
 fetcherは固定したAccellera UVM 2020.3.1を取得して検査します。スモークのコマンドは1件だけを選びます。
-oracle付き1722件（runtime 1637・compile拒否85）をすべて実行する場合は、次のコマンドを使います。
+oracle付き1770件（runtime 1685・compile拒否85）をすべて実行する場合は、次のコマンドを使います。
 
 ```sh
 python3 tools/run_verilator.py --seeds 1 73 --build-jobs 2 -j 2 \
@@ -86,23 +87,25 @@ kirimasimとGhostは既定で全件を選びます。ライブラリ／DPI設定
 
 ## 現在の実行結果
 
-2026-11-05に集約したVerilator記録は、現在の2008件すべてを対象にします。
-他2系統は互換な1083入力の記録で、925入力は未測定です。Checkバッジとは別の結果です。
+simulation一致とcompiler拒否は別の検査なので、以下のラベルと件数は[結果の読み方](docs/reading-guide.ja.md#結果を読む)を参照してください。
+
+2026-11-05に集約したVerilator記録は、現在の2056件すべてを対象にします。
+他2系統は互換な1083入力の記録で、973入力は未測定です。Checkバッジとは別の結果です。
 
 | シミュレータとライブラリ | 観測結果 |
 | --- | --- |
-| Verilator 5.052・固定版UVM・通常runner | runtime 1637件がseed 1／73一致、期待compile拒否85件、既知差分286件 |
+| Verilator 5.052・固定版UVM・通常runner | runtime 1685件がseed 1／73一致、期待compile拒否85件、既知差分286件 |
 | Verilator 5.052・独自VPI HDL backend | 別条件の部分集合11件で、10件が両seed一致、1件が差分 |
 | Verilator 5.052・VPI command-line bridge・固定regex DPI | 別条件の18件で17件が両seed一致、1件は既知差分 |
-| kirimasim・固定版UVM | 1083件で`unsupported` 1074件・API欠落`fail` 9件、925入力は未測定 |
-| Ghost・同梱UVM | 1083件で各seed一致207件・不一致876件、925入力は未測定 |
+| kirimasim・固定版UVM | 1083件で`unsupported` 1074件・API欠落`fail` 9件、973入力は未測定 |
+| Ghost・同梱UVM | 1083件で各seed一致207件・不一致876件、973入力は未測定 |
 
 通常runnerは、seed 1のruntime差分214件、API／型名欠落build 27件、time減算引数既定値build 1件、型既定宣言build 2件、印刷signature build 2件、継承type_id registry build 2件、protected access build 1件、記載外pure-hook build 2件、enum-collection型解釈build 3件、未link DPI build 29件（HDL 11・command-line 18）と、不正elaborationの受理3件（runtimeなし）を記録します。2種類のVPI部分集合は別条件です。
 `known`・`unsupported`は成功に数えません。Ghostの同梱UVMの結果は、固定版ライブラリでの結果を示すものではありません。
 
 詳しい実行条件と記録の範囲は[実行結果と測定方法](docs/results.ja.md)、ライブラリの制約とspecのみのケースは
 [既知差分](docs/known-differences.ja.md)にあります。[Check](.github/workflows/check.yml)はツール・metadata・ライブラリ・
-通常oracle付きVerilatorと明示command-line 17件を検査し、kirimasimとGhostは実行しません。Nightlyや結果の自動公開はありません。
+通常oracle付きVerilatorを8 shardへ分け、明示command-line 17件を検査し、kirimasimとGhostは実行しません。Nightlyや結果の自動公開はありません。
 
 ## ドキュメント
 
@@ -111,6 +114,7 @@ kirimasimとGhostは既定で全件を選びます。ライブラリ／DPI設定
 
 | 資料 | English | 日本語 |
 | --- | --- | --- |
+| 初めて読むときの順序と説明 | [Reading guide](docs/reading-guide.md) | [読み方ガイド](docs/reading-guide.ja.md) |
 | 作業の再開と残課題 | [Handoff](docs/handoff.md) | [ハンドオフ](docs/handoff.ja.md) |
 | テスト形式・実行・変更時の規則 | [Testing guide](docs/testing.md) | [テストと開発のガイド](docs/testing.ja.md) |
 | 現在の測定と測定方法 | [Results](docs/results.md) | [実行結果](docs/results.ja.md) |
@@ -128,8 +132,8 @@ kirimasimとGhostは既定で全件を選びます。ライブラリ／DPI設定
 | M0 | 取得・実行・metadataとツールの検査、Check、スモークテスト | 基盤を実装済み |
 | M1 | 基本クラス・policy・factory・phase・objection・設定・reporting | 843件。各条項2件以上という目標の棚卸しは未完 |
 | M2 | sequence・sequencer・TLM・callback | 547件。目標は未達 |
-| M3 | レジスタ層（17〜19、D.3、付録E） | 第17〜19章・D.3・付録Eに618件。目標は未達 |
-| M4 | 要求台帳とカバレッジ | 進行中。AI要求案3575件、3575要求を1990テストへ直接対応。分母は未承認 |
+| M3 | レジスタ層（17〜19、D.3、付録E） | 第17〜19章・D.3・付録Eに666件。目標は未達 |
+| M4 | 要求台帳とカバレッジ | 進行中。AI要求案3645件、3645要求を2038テストへ直接対応。分母は未承認 |
 
 D.3の名前アクセス検査系は規約に従いuDに置き、register層のM3へ数えます。M1〜M3は未完です。sequenceの所有／lifecycle、default resource、callback、TLM 2のprotocol／timing／socketの組合せ、
 registerの割当／lifecycle、memory packing／端数beat、error／policy／map／prediction／frontdoor／callback／HDL／annex Eの組合せが残ります。

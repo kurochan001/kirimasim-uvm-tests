@@ -2,7 +2,9 @@
 
 [日本語](known-differences.ja.md) · [README](../README.md) · [FAQ](faq.md)
 
-This describes the current 2008-test suite and the pinned Accellera UVM
+A difference belongs to a particular simulator/library/input condition, and [the status definitions](faq.md#q5-what-do-pass-fail-known-and-unsupported-mean) explain how it appears in runner output.
+
+This describes the current 2056-test suite and the pinned Accellera UVM
 2020.3.1 library. A mismatch is a test result; it does not by itself assign
 the cause to the simulator, the library or the expectation.
 
@@ -203,6 +205,8 @@ a qualified reading of the single-instance overview, not a claim that only one
 factory object can physically be allocated.
 
 ## Pinned-library limitations
+
+DPI connects SystemVerilog to external code, and enabling its flag does not supply a backend; see [Compiling](testing.md#compiling) when reading the missing-DPI entries.
 
 The library's own `DEVIATIONS.md` lists three differences at 18.2.3.4,
 18.4.3.6 and 13.1.5.1. Current register queries use explicit map arguments.
@@ -807,7 +811,7 @@ cannot build because the pinned library also declares unlisted pure helpers.
 The missing-standard-hook negative supplies original compatibility bodies only
 to isolate the specified rejection. It does not repair that legal extension.
 
-Across the suite, 1722 tests have the `verilator@5.052` oracle tag and 286
+Across the suite, 1770 tests have the `verilator@5.052` oracle tag and 286
 cases are spec-only. One of the spec-only cases checks 9.6: a child's pre-reset
 task must be killed when that phase ends, but the pinned-library run on Verilator 5.052
 lets the child perform its delayed write during a later phase. The cause of
@@ -820,7 +824,7 @@ observation, then its watchdog expires. This combined simulator/library
 cause remains unassigned; the normative wakeup expectation is retained.
 
 The 286 spec-only tests retain their normative expected files.
-Default Verilator runs and CI select 1722 tagged checks (1637 runtime, 85 compile rejection). `--all` includes
+Default Verilator runs and CI select 1770 tagged checks (1685 runtime, 85 compile rejection). `--all` includes
 spec-only cases and records mismatches or build failures as `known`.
 The ordinary runtime records for 214 cases establish their first difference
 at seed 1, without seed 73 results. Twenty-seven missing-API/type-name builds have
@@ -899,6 +903,8 @@ The printed create_object equivalent call's extra this argument remains partial.
 - [Named convenience replace zero](../tests/uD/test_component_factory_named_type_override_forwards_default_and_explicit_replace.sv)
 
 ## Spec-only tests
+
+Spec-only cases retain standard-derived expectations even without a fixed-release oracle tag; [Standards and expectations](glossary.md#standards-and-expectations) explains what that annotation means.
 
 These are the 286 current spec-only cases. Several exercise the same
 limitation, so their count is not a count of distinct bugs.
@@ -1188,7 +1194,7 @@ Additional message-handle and endian cases:
 
 Two existing inputs have revised fingerprints: the command-enum citation and
 the corrected Boolean rerandomization observation. Their historical guest
-records are excluded. The compatible subset has 1083 records and 925 inputs
+records are excluded. The compatible subset has 1083 records and 973 inputs
 are unmeasured, including both revised inputs. This filtering is evidence scope,
 not a new guest failure, pass or simulator improvement.
 
@@ -1223,8 +1229,10 @@ not a new guest failure, pass or simulator improvement.
 
 ## Simulator and library combinations
 
-The suite has 2008 cases, but the kirimasim/Ghost records below cover only
-1083 unchanged current-input cases. The 925 inputs are unmeasured
+A bundled library and the pinned library are different execution conditions, so compare records using [Current snapshot](results.md#current-snapshot).
+
+The suite has 2056 cases, but the kirimasim/Ghost records below cover only
+1083 unchanged current-input cases. The 973 inputs are unmeasured
 because prior temporary executable/profile snapshots are unavailable. Do
 not treat this as a fresh full-suite guest result. See [results](results.md).
 
