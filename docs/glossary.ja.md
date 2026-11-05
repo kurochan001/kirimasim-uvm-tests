@@ -239,6 +239,8 @@ register・map・子blockをまとめる容器です。registerのbyte幅は端�
 書き込み可能な状態を更新する必要があるかの問い合わせです。`set`はpolicyに従ってdesiredを変え、
 直接のpredictionは両方をそろえます。どちらもDUTの読み書きは行いません。
 
+モデル内の操作について、アクセス先の記憶域を変えずにdesiredとmirroredのどちらが変わるかを[Q45](faq.ja.md#q45-setpredictresetはdutへアクセスしますか)で比較できます。
+
 **Access policy／mapの権限** — RO・RW・W1Cなどのfieldの読み書き規則／
 あるmapを通るregisterのアクセス制限です。両方からfieldの実効accessを決めます。
 モデル内の`set`にもfieldのpolicyを適用します。
@@ -252,7 +254,7 @@ blockのresetは子blockへ再帰しますが、物理的なハードウェア�
 返される配列はデータの下位側から並びます。submapはoffsetとbus幅を組み合わせます。
 
 **Frontdoor／backdoor／predictor** — モデル化したbus経路のアクセス／designの記憶域への直接のアクセス／
-観測したtransactionに基づくモデルの更新です。M3ではbusモデルのfrontdoorと観測packetによるpassive predictionを追加しました。ユーザー定義の記憶域backdoorも追加しました。RTL／HDL path／DPIとの接続は今後の作業です。
+観測したtransactionに基づくモデルの更新です。M3ではbusモデルのfrontdoorと観測packetによるpassive predictionを追加しました。ユーザー定義の記憶域backdoorも追加しました。別の[VPI HDL部分集合](testing.ja.md#verilatorのvpi-hdl部分集合)は実際の公開HDL記憶域へアクセスし、結果はそのbackend条件に適用します。
 [レジスタモデルのFAQ](faq.ja.md#レジスタモデルの基本)を参照してください。
 
 **Memory／location／location番号** — 連続した記憶域のモデル／その中の1 word／選択するwordの番号です。

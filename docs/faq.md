@@ -609,6 +609,8 @@ observe these states without a bus or HDL backdoor.
 
 ### Q46. Are map addresses bytes, and why can the returned list run backwards?
 
+Data significance and transaction timing are different orders, and [the bus-observation FAQ](#q290-why-sort-the-observed-requests-by-address) explains how an oracle compares completed requests without assuming an unspecified issue order.
+
 Address units depend on `byte_addressing`: one byte when enabled, otherwise
 the configured bus width. A register's local offset and external physical
 address have separate meanings. The
@@ -1610,6 +1612,8 @@ is prescribed by these tests.
 
 ### Q100. Do symbolic HDL paths establish that an HDL object can be accessed?
 
+An HDL path names a design object, whereas a component full name identifies a UVM testbench component; [the hierarchy glossary](glossary.md#hierarchy-binding-and-hdl-descriptions) distinguishes the structures used by these queries.
+
 The path fixtures inspect descriptions without creating HDL variables or
 calling DPI. Register/memory kind queries use RTL and GATE descriptions,
 a GATE parent default and kind-local clearing. Default clear removes RTL;
@@ -1624,9 +1628,10 @@ difference in the pinned library. The
 and setter cases retain standard API calls, most-to-least-significant slice
 order and nonoverlapping bit ranges; missing methods prevent their build.
 The [known differences](known-differences.md#pinned-library-limitations)
-keep these expectations visible. HDL deposit and annex E path-accessibility
-requirements remain without direct tests and still need an allowed backend.
-Commercial results remain excluded.
+keep these expectations visible. The separate [VPI HDL subset](testing.md#verilator-vpi-hdl-subset)
+now directly checks actual-storage deposit and annex E path accessibility;
+the inaccessible-path sequence retains its warning/no-transfer difference.
+Symbolic queries alone do not establish those accesses. Commercial results remain excluded.
 
 The ledger also maps selected existing generic-payload and extension cases.
 Address/data/mask state, command/status predicates, type-key identity,

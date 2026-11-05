@@ -94,6 +94,8 @@ A clause citation points into a separately obtained standard rather than a bundl
 
 The dependency, standard and original suite code have distinct origins, and [Rights and sources](testing.md#rights-and-sources) gives the project rules for contributing material.
 
+Use IEEE 1800.2 for UVM API behavior and IEEE 1800 for the SystemVerilog language rules it relies on; [the metadata guide](testing.md#metadata) shows how a test cites both standards.
+
 The external Accellera UVM library is fetched and checked using
 [uvm.lock](../third_party/uvm.lock), not committed. Its license is Apache-2.0;
 its own `LICENSE.txt` and `NOTICE.txt` accompany it if the library is ever

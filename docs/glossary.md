@@ -315,6 +315,8 @@ value currently recorded by the model / a query for writable state needing
 an update. `set` changes desired state under the access policy; direct
 prediction synchronizes both views. Neither operation reads or writes a DUT.
 
+For model-only operations, [Q45](faq.md#q45-do-set-predict-and-reset-access-the-dut) compares how desired and mirrored values change while accessed storage stays untouched.
+
 **Access policy / map rights** — A field's read/write rules, such as RO, RW
 or W1C / the register's access restriction through one map. Both participate
 in effective field access. Model-only `set` also applies the field policy.
@@ -333,7 +335,7 @@ arrays follow data significance; submaps combine offsets and bus widths.
 direct access to the design's storage / model updates derived from observed
 transactions. M3 now exercises frontdoor paths with a testbench bus model and passive
 prediction from supplied observations, plus user-defined storage backdoors.
-RTL/HDL-path/DPI integration remains future work. See the
+The separate [VPI HDL subset](testing.md#verilator-vpi-hdl-subset) accesses actual public HDL storage; its results apply to that backend condition. See the
 [register-model FAQ](faq.md#register-model-basics).
 
 **Memory / location / location index** — A model of contiguous storage /

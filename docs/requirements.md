@@ -16,6 +16,8 @@ Both direct-test and test-link queues are empty. The memory-walk oracle is an
 explicit historical interpretation requiring review; this does not certify
 complete IEEE coverage. No requirement records human review.
 
+A control-only test checks a supporting premise, and [the HDL-view example](faq.md#q308-why-keep-standard-views-and-member-view-controls-separate) shows why its match cannot establish a missing standard API contract.
+
 The clause catalog has 2,507 identifiers. 1971 have a partial
 requirement decomposition; 407 have explicit AI assessments (280 structural,
 127 contextual), and 129 remain unassessed. No state certifies completion.
@@ -390,7 +392,8 @@ but the pinned waiter query returns zero; all three subsequently resume on a
 fresh trigger. The barrier silent-reset/fresh-threshold control matches.
 The event pool lacks the three required initial names in the pinned run.
 Pool get_global return declarations conflict with item-return prose; both
-identifiers remain unassessed. Delta-delay options, arbitrary concurrency,
+identifiers now have partial duties, with the conflict retained as explained in
+[the dedicated-lookup FAQ](faq.md#dedicated-global-lookups-and-mapping-corrections). Delta-delay options, arbitrary concurrency,
 callback modes and broader reset/cancellation conditions remain separate.
 
 Register-interaction drafts cover selected item/adapter/backdoor names and
@@ -585,8 +588,10 @@ checks per requirement.
 Bidirectional export drafts cover nine concrete constructor variants, nested
 blocking/nonblocking custom types, status propagation and reuse. Two unchanged
 master/slave fixtures add explicit directional export links. HDL drafts cover
-explicit/default abstraction selection and zero-time force_time delegation;
-no positive-duration force_time evidence or invented task return value is claimed.
+explicit/default abstraction selection and zero-time force_time delegation.
+Selected positive-duration observations are now measured under the separate
+HDL condition; [the timing FAQ](faq.md#positive-duration-force_time-observations)
+records their scope without prescribing a task return value.
 
 Port-base drafts now distinguish omitted constructor bounds, minimum/maximum
 queries, unbounded state, leaf/full names, exact parent, role predicates,
@@ -683,6 +688,8 @@ The index binds a mapping to exact test inputs rather than only a filename; [Q78
 6. Run metadata, ledger and tool checks; update the paired guides when scope,
    schema or inventory claims change. Reproduce affected execution evidence
    separately when simulation inputs or runners change.
+
+A shared helper change may invalidate several tests at once, so [the result-reuse checklist](results.md#evidence-assembly) must be applied to every dependent record as well as to the edited fixture.
 
 There is deliberately no command that silently certifies existing mappings
 when their inputs change. The regression tests cover stale expected/helper/

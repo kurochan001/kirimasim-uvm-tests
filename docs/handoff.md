@@ -505,6 +505,8 @@ A passing control helps evaluate a different premise but cannot replace a direct
    verify the remote/CI state when pushing is authorized. Do not publish
    local standards or private simulator configuration/diagnostics.
 
+Measurement inputs include headers, expectations and collected helpers, so use [the fingerprint checklist](results.md#evidence-assembly) to decide which records need refreshing after a change.
+
 Useful backlog and index-proposal commands:
 
 ```sh

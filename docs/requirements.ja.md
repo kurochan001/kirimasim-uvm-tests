@@ -12,6 +12,8 @@ M4を進めています。[対象範囲の案](../coverage/scope.json)、[要求
 直接テストとテスト対応付けのqueueは両方0件です。memory-walkのoracleは、レビューが必要な歴史的解釈を明示し、
 IEEE全体のcoverageを認定しません。人による照合記録はありません。
 
+control専用テストは補助的な前提を検査するもので、その一致が欠落する標準APIの契約を立証しない理由は[HDL viewの例](faq.ja.md#q308-標準viewとmember-view-controlを分ける理由は)で確認できます。
+
 条項catalogの番号は2,507件です。1971件は要求を一部分解し、407件はAIで明示的に分類（構造280件・文脈127件）、残る129件は未評価です。
 いずれも完了を示しません。M4の開始は、範囲や分母の承認、M1〜M3の完了を意味しません。
 `approved_denominator`と`coverage_percentage`は`null`のままです。
@@ -273,7 +275,7 @@ callback_modeの省略引数にも宣言／本文の値の矛盾があるため�
 
 rawの早い／遅い待機検査は、trigger前に最初のwaiterを確立します。保持する差分は早いcallerに関するもので、遅いcallerは新triggerまで待機します。
 wakeupなしevent resetでは3 processが待機を保持しますが、固定版のwaiter照会は0を返し、後の新triggerでは3つとも再開します。
-barrierのsilent-reset／新threshold比較対象は一致し、固定版event poolには必要な初期3名がありません。pool get_globalの戻り型宣言はitemを返す本文と矛盾し、両識別子を未評価に保持します。
+barrierのsilent-reset／新threshold比較対象は一致し、固定版event poolには必要な初期3名がありません。pool get_globalの戻り型宣言はitemを返す本文と矛盾し、現在は両識別子を部分分解して、その食違いを[専用照会のFAQ](faq.ja.md#専用global照会と対応付けの修正)で保持します。
 delta遅延option、任意並行性、callback mode、より広いreset／中止条件は別に残します。
 
 register連携の要求案は、選択したitem／adapter／backdoorの名前と継承、virtual subtype formatter、既定function-based read、
@@ -393,7 +395,7 @@ container要求案は、名前／既定specialization、参照共有、key置換
 双方向export要求案は、9種類の具象constructor、入れ子blocking／nonblockingの独自型、status伝播、再利用を扱います。
 未変更のmaster／slave検査系2件にも、方向を明示するexportの対応を加えます。
 HDL要求案は、明示／既定abstraction選択、zero-time force_timeの委譲を扱います。
-正時間force_timeの証拠や、架空のtask戻り値は主張しません。
+現在は別HDL条件で選択した正時間の観測も測定し、その範囲とtask戻り値を規定しない理由は[期間のFAQ](faq.ja.md#正時間force_timeの観測)で説明しています。
 
 port-base要求案は、省略したconstructor bounds、最小／最大の照会、無制限状態、leaf／完全名、
 正確なparent、role predicate、generic型名、provider／client所属、export fanout解決を区別します。
@@ -462,6 +464,8 @@ hashが同じでも、既知差分を含む未完／未承認の棚卸しの場�
    新しい指紋だけでは人による照合にはなりません。
 6. metadata、台帳、ツールを検査します。範囲、schema、棚卸しの記述が変わる場合は日英資料も更新します。
    シミュレーション入力やrunnerが変わる場合は、影響する実行の証拠を別途再現します。
+
+共通helperの変更は複数テストの証拠を同時に古くする場合があるため、編集した検査系に加え、依存する各記録でも[結果の再利用の確認項目](results.ja.md#記録の合算)を確認してください。
 
 入力の変更時に既存の対応を黙って認定し直すコマンドは設けません。
 回帰テストは期待値／helper／lockの変更、direct／controlの区別、引用の自動昇格の防止、重複や不正データ、

@@ -78,6 +78,8 @@ memory-walkのoracleは、[公式UVM 1.2 class referenceの27.7](https://accelle
 
 依存ライブラリ、規格、独自のスイートcodeは出典が異なり、資料を追加するときのプロジェクト方針は[権利と出典](testing.ja.md#権利と出典)にあります。
 
+UVM APIの動作はIEEE 1800.2、その前提となるSystemVerilog言語の規則はIEEE 1800で確認し、両規格をテストで引用する方法は[メタデータの案内](testing.ja.md#メタデータ)で説明しています。
+
 外部のAccellera UVMライブラリは[uvm.lock](../third_party/uvm.lock)で取得・検査し、コミットしません。
 ライセンスはApache-2.0で、コミットする場合はライブラリ自身の`LICENSE.txt`と`NOTICE.txt`を一緒に置きます。
 リポジトリのライセンス原文は[LICENSE](../LICENSE)で、全文の[日本語参考訳](../LICENSE.ja.md)を用意します。

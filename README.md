@@ -66,8 +66,7 @@ normative decomposition and denominator approval remain open. See the
 
 Start with one test to check your setup; [the first-run notes](docs/reading-guide.md#before-the-first-run) explain the prerequisites and seed options.
 
-Use Python 3.10 or later. The fixed-release oracle requires Verilator 5.052,
-a C++ toolchain and make. Run from the repository root:
+Use Python 3.10 or later. The fixed-release oracle requires Verilator 5.052, a C++ toolchain and make. Run from the repository root:
 
 ```sh
 python3 tools/fetch_uvm.py
@@ -157,6 +156,8 @@ its counterpart; commands and API identifiers retain their original spelling.
 | M3 | Register layer (17–19, D.3, annex E) | 784 tests across chapters 17–19, D.3 and annex E; target open |
 | M4 | Requirement ledger and coverage | In progress: 3846 AI drafts; 3846 requirements link to 2281 tests; denominator unapproved |
 
+The primary-citation census tracks the two-tests-per-clause target; [the counting explanation](docs/requirements.md#citations-requirements-and-execution-evidence) describes the additional review needed to establish independent checks of required behavior.
+
 M1–M3 remain incomplete; [the milestone glossary](docs/glossary.md#scope-and-coverage) explains why starting M4 does not complete them. Further work covers sequence ownership/lifecycle,
 default resources, callbacks and TLM 2 protocol/timing/socket combinations;
 register allocation/lifecycle, memory packing/partial beats, error/policy/map/
@@ -173,8 +174,7 @@ behavior using IEEE 1800.2-2020 clauses and an independent reproducer.
 
 ## License
 
-Apache License 2.0 with LLVM Exceptions (`Apache-2.0 WITH LLVM-exception`).
-[LICENSE](LICENSE) is the original text; [日本語参考訳](LICENSE.ja.md) is a
+Apache License 2.0 with LLVM Exceptions (`Apache-2.0 WITH LLVM-exception`). [LICENSE](LICENSE) is the original text; [日本語参考訳](LICENSE.ja.md) is a
 complete, non-authoritative translation. Source attribution and rights
 handling are in [provenance](docs/provenance.md) and the
 [testing guide](docs/testing.md#rights-and-sources).

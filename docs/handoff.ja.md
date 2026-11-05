@@ -328,6 +328,8 @@ task-based read境界とcallback値pipelineには選択した検査系ができ�
 7. 両言語の見出し、事実、literal、command、表、図、local linkを確認します。stage後の空白を確認し、reviewした範囲を
    commitし、pushが許可されている場合はremoteとCIを確認します。local規格や非公開simulatorの設定／診断は公開しません。
 
+測定入力にはヘッダー、期待値、収集したhelperも含むため、変更後に更新が必要な記録は[指紋の確認項目](results.ja.md#記録の合算)に沿って判断してください。
+
 backlogと索引提案のコマンドです。
 
 ```sh

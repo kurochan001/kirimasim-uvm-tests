@@ -516,6 +516,8 @@ ROの`set`はdesiredを変えず、W1Cの`set`は指定した1のbitをdesired�
 
 ### Q46. mapのアドレスはbyte単位ですか。配列が逆順になるのはなぜですか
 
+dataの桁の順序とtransactionの時間順序は別で、未指定の発行順を仮定せず完了した要求を比較する方法は[bus観測のFAQ](#q290-観測requestをaddress順に並べる理由は)で説明しています。
+
 アドレス単位は`byte_addressing`で決まり、有効なら1 byte、無効なら設定したbus幅です。
 registerのlocal offsetと、外部から見た物理アドレスは別の値です。
 [word単位のケース](../tests/u18/test_reg_map_word_addressing_translates_offsets_in_bus_units.sv)では、
@@ -1298,6 +1300,8 @@ nonblockingの`can_put`と`try_put`は、別々の1 entry FIFOを満たし、満
 
 ### Q100. symbolicなHDL pathで、HDL objectへアクセスできることを示しますか？
 
+HDL pathはdesignのobject、componentの完全名はUVM testbenchのcomponentを指し、それぞれの照会が扱う構造は[階層の用語集](glossary.ja.md#階層bindinghdlの記述)で区別しています。
+
 HDL変数を作ったりDPIを呼んだりせず、pathの記述を照会します。register／memoryのkind照会では、RTL／GATEの記述、
 親のGATEの既定、kindごとの消去を使います。既定clearはRTLを削除し、その後の既定照会もGATEを選びます。
 これらの検査系は、返すelementのslice形状ではなく、path数とkindの所属を照会します。
@@ -1307,8 +1311,8 @@ blockの文字列照会では、重複する祖先pathの全8組合せ、独自�
 [標準concat getter](../tests/u17/test_hdl_concat_standard_get_slices_returns_the_appended_most_to_least_order.sv)とsetterの検査系は、
 標準APIの呼出し、最上位から最下位のslice順序、重ならないbit範囲を保ち、method欠落でビルドできません。
 [既知差分](known-differences.ja.md#固定版ライブラリの制約)で期待を明示します。
-HDL depositと付録Eのpath利用可否の要求は、直接テストがないままで、許可されたbackendが必要です。
-商用の実行結果は引き続き除外します。
+現在は別の[VPI HDL部分集合](testing.ja.md#verilatorのvpi-hdl部分集合)で、実際の記憶域へのdepositと付録Eのpath利用可否を直接検査します。
+利用できないpathのsequenceはwarning／転送なしの期待との差分を保持し、symbolicな照会だけでは実際のアクセスを立証しません。商用の実行結果は引き続き除外します。
 
 台帳では、選択した既存のgeneric payload／extensionの検査系も対応付けます。
 address／data／maskの状態、command／statusの述語、型keyの同一性、消去、既定packは別々の観測です。

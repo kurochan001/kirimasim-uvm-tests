@@ -176,6 +176,8 @@ kirimasim-testsとsv-testsの形式を引き継ぎ、次の点を変えます。
 `:expected_stderr_regex:`・`:expected_exit:`・`:files:`・`:defines:`・`:incdirs:`・`:top_module:`の意味は
 kirimasim-testsと同じです。共通実装の取得元は[ソースの出典](provenance.ja.md)を参照してください。
 
+`:fourstate: no`は検査系がX/Zの値を必要としないという宣言で、得られる2値の証拠の限界は[Q14](faq.ja.md#q14-seedを2つ変えれば決定性や4値の動作も証明できますか)で説明しています。
+
 不正な設計を検査するケースは`:type: elaboration`と`:should_fail_because:`を使い、`:expected_stderr_regex:`でfixture、class／methodまたはconst参照の診断を識別します。
 期待するruntime出力や終了は持たせません。compile拒否と一致errorの両方が必要で、受理されたdesignはbinaryを実行せず不一致にします。
 要求したseedはsimulation用であり、受理／拒否いずれの不正designも実行時seedを実行しません。台帳schema-2の診断形式は、この宣言oracleを測定と別に記録します。
@@ -185,6 +187,8 @@ kirimasim-testsと同じです。共通実装の取得元は[ソースの出典]
 既定sequencerなしの所有API検査系は、元のUVM_FATAL severityをcatchした後、検査系自身のfatalで意図的に終了します。
 `:expected_exit: nonzero`と`:expected_stderr_regex:`は検査系固有のsentinelを要求し、library診断やlibrary fatalの終了コードを固定しません。
 signalは引き続き失敗とし、nonzero終了だけでは必要な観測を満たしません。
+
+`:files:`やinclude directoryで指定するhelperは同じdirectoryの他のfileも入力の指紋へ含める場合があるため、directoryを変更した際は影響する各テストで[対応付けの更新手順](requirements.ja.md#テストや対応付けの更新)を確認してください。
 
 ### 何を観測するか
 
@@ -373,6 +377,8 @@ oracleのないテストの不一致は`known`で、コマンドを失敗させ�
 python3 tools/run_verilator.py --seeds 1 73 --build-jobs 2 -j 1 \
   --json out/verilator-smoke.json tests/u09/test_common_phases_run_in_order.sv
 ```
+
+seedの一覧は複数の値を受け取るため、[1件を実行する例](faq.ja.md#q3-まず1件だけ動かすにはどうしますか)のように`--seeds 1 73`とソースのパスの間へ`--build-jobs`などのoptionを置いてください。
 
 runtimeの不一致は、選択したテストのヘッダーにある`:expected_stdout:`のパスを辿り、[結果の読み方](reading-guide.ja.md#結果を読む)に沿って`UT: `行を比較すると調べられます。
 

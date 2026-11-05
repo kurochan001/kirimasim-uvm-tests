@@ -227,6 +227,8 @@ An `@` value in `:expected_stdout:` names a file relative to the test source, an
 `:files:`, `:defines:`, `:incdirs:` and `:top_module:` mean what they mean in
 kirimasim-tests; the [tool provenance](provenance.md) identifies the shared implementation.
 
+The `:fourstate: no` declaration says the fixture does not require X/Z values; [Q14](faq.md#q14-do-two-seeds-prove-determinism-or-four-state-correctness) explains the limits of the resulting two-state evidence.
+
 Negative fixtures use `:type: elaboration` and
 `:should_fail_because:`. Their `:expected_stderr_regex:` identifies the fixture,
 class/method or const-reference diagnostic. They have no expected runtime output
@@ -242,6 +244,8 @@ after catching original UVM_FATAL severity. Their `:expected_exit: nonzero`
 and `:expected_stderr_regex:` require a unique fixture sentinel. They do not
 fix a library diagnostic or library fatal exit code. Signals still fail; a
 nonzero exit alone never establishes the required observation.
+
+A helper declared through `:files:` or an include directory can bring sibling files into the input fingerprint, so follow [the mapping update procedure](requirements.md#updating-a-test-or-mapping) for every affected test when that directory changes.
 
 ### What is observed
 
@@ -488,6 +492,8 @@ Explicit test paths select only those tests. For a single smoke test:
 python3 tools/run_verilator.py --seeds 1 73 --build-jobs 2 -j 1 \
   --json out/verilator-smoke.json tests/u09/test_common_phases_run_in_order.sv
 ```
+
+The seed list accepts several values, so keep an option such as `--build-jobs` between `--seeds 1 73` and a source path as shown in [the single-test example](faq.md#q3-how-can-i-run-one-test-first).
 
 For a runtime mismatch, follow the selected test header's `:expected_stdout:` path and compare its `UT: ` lines using [the result-reading guide](reading-guide.md#read-a-result).
 
