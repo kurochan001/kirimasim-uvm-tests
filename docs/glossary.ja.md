@@ -1044,3 +1044,9 @@ register／fieldへの所属と削除履歴はfield自身のaccess policyとは�
 
 **印刷macroの引数control** — 追加引数を明示するか別の印刷interfaceを使い、元のsignature前提を解釈するための別入力です。
 control一致後も元の差分を保持する理由は[Q270](faq.ja.md#q270-互換controlが一致すれば印刷macro-signatureは解決しますか)で説明しています。
+
+**依存するvisitor既定値** — 選択したSTRUCTURE型から作るVISITOR型の既定値です。
+元の入力と明示型controlの区別は[Q274](faq.ja.md#q274-依存visitorのbuild差分はlibrary宣言の誤りを証明しますか)で説明しています。
+
+**継承した空のvisitor hook** — 派生型がvisitを実装する一方、基底本体は選択した状態を変えないbegin／end callbackです。
+選択観測の範囲は[Q276](faq.ja.md#q276-f5の未評価0で走査coverageは完了しますか)で説明しています。

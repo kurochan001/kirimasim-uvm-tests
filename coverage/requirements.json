@@ -134901,6 +134901,1183 @@
           ]
         }
       ]
+    },
+    {
+      "id": "UVM-TRAVERSAL-DECL-VISITOR-DEFAULT-NODE",
+      "clause": "F.5.1.1",
+      "statement": {
+        "en": "The visitor declaration preserves the selected NODE specialization and object base view.",
+        "ja": "visitor宣言は選択したNODE特殊化とobject基底viewを保持する。"
+      },
+      "conditions": {
+        "en": "Use a complete original visitor with default node; call through the exact typed base.",
+        "ja": "NODEの型引数を省略した独自visitorに必要な本体を与え、uvm_componentを指定した正確な基底型から呼び出す。"
+      },
+      "expected": {
+        "en": "The exact typed visitor and object base views identify the same subtype, and one visit delivers the original selected node once.",
+        "ja": "正確な型付きvisitorとobjectの基底viewは同じ派生型を識別し、1回のvisitで元の選択nodeを1回渡す。"
+      },
+      "limitations": {
+        "en": "Only the selected valid types, constructor forms and original acyclic tree are observed. No sibling order, graph cycles/aliasing, null recovery, concurrency or all-subclass completeness is certified. Legal complete bodies are fixture controls and do not prove an unimplemented base algorithm. The adapter non-virtual/pure-method wording remains an interpretation boundary. ",
+        "ja": "選択した合法型、constructor形式、独自の非循環treeだけを観測する。兄弟順序、graph循環／alias、nullからの復旧、並行性、全派生型の完全性は認定しない。合法な完全本体は検査系のcontrolであり、未実装の基底algorithmを証明しない。adapterの非virtual／pure method文言は解釈境界に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_traversal_decl_visitor_default_node",
+          "role": "direct",
+          "expected_observations": [
+            "UT: visitor_default_node type 1 delivered 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TRAVERSAL-DECL-VISITOR-EXPLICIT-NODE",
+      "clause": "F.5.1.1",
+      "statement": {
+        "en": "The visitor declaration preserves the selected NODE specialization and object base view.",
+        "ja": "visitor宣言は選択したNODE特殊化とobject基底viewを保持する。"
+      },
+      "conditions": {
+        "en": "Use a complete original visitor with explicit node; call through the exact typed base.",
+        "ja": "NODEに独自のnode69型を指定したvisitorに必要な本体を与え、同じ型を指定した正確な基底から呼び出す。"
+      },
+      "expected": {
+        "en": "The exact typed visitor and object base views identify the same subtype, and one visit delivers the original selected node once.",
+        "ja": "正確な型付きvisitorとobjectの基底viewは同じ派生型を識別し、1回のvisitで元の選択nodeを1回渡す。"
+      },
+      "limitations": {
+        "en": "Only the selected valid types, constructor forms and original acyclic tree are observed. No sibling order, graph cycles/aliasing, null recovery, concurrency or all-subclass completeness is certified. Legal complete bodies are fixture controls and do not prove an unimplemented base algorithm. The adapter non-virtual/pure-method wording remains an interpretation boundary. ",
+        "ja": "選択した合法型、constructor形式、独自の非循環treeだけを観測する。兄弟順序、graph循環／alias、nullからの復旧、並行性、全派生型の完全性は認定しない。合法な完全本体は検査系のcontrolであり、未実装の基底algorithmを証明しない。adapterの非virtual／pure method文言は解釈境界に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_traversal_decl_visitor_explicit_node",
+          "role": "direct",
+          "expected_observations": [
+            "UT: visitor_explicit_node type 1 delivered 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TRAVERSAL-DECL-VISITOR-INHERITED-BEGIN-V-PRESERVES-STATE",
+      "clause": "F.5.1.2.1",
+      "statement": {
+        "en": "The inherited visitor begin_v base body leaves selected original state unchanged.",
+        "ja": "継承したvisitorのbegin_v基底本体は選択した独自状態を保持する。"
+      },
+      "conditions": {
+        "en": "Override only visit; inherit the selected default hook and call it after one live visit.",
+        "ja": "visitだけを上書きし、選択した既定hookを継承して1回のvisit後に呼び出す。"
+      },
+      "expected": {
+        "en": "The inherited hook preserves the one prior visit, selected node and quiet69 name; the following visit advances the count to two and keeps the same base view.",
+        "ja": "継承hookは先行visit 1回、選択node、quiet69という名前を保持し、後続visitで件数を2へ進め、同じ基底viewを保持する。"
+      },
+      "limitations": {
+        "en": "Only the selected valid types, constructor forms and original acyclic tree are observed. No sibling order, graph cycles/aliasing, null recovery, concurrency or all-subclass completeness is certified. Legal complete bodies are fixture controls and do not prove an unimplemented base algorithm. The adapter non-virtual/pure-method wording remains an interpretation boundary. ",
+        "ja": "選択した合法型、constructor形式、独自の非循環treeだけを観測する。兄弟順序、graph循環／alias、nullからの復旧、並行性、全派生型の完全性は認定しない。合法な完全本体は検査系のcontrolであり、未実装の基底algorithmを証明しない。adapterの非virtual／pure method文言は解釈境界に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_traversal_decl_visitor_inherited_begin_v_preserves_state",
+          "role": "direct",
+          "expected_observations": [
+            "UT: visitor_begin_v retained 1 subsequent 1",
+            "UT: visitor_begin_v visits 2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TRAVERSAL-DECL-VISITOR-INHERITED-END-V-PRESERVES-STATE",
+      "clause": "F.5.1.2.2",
+      "statement": {
+        "en": "The inherited visitor end_v base body leaves selected original state unchanged.",
+        "ja": "継承したvisitorのend_v基底本体は選択した独自状態を保持する。"
+      },
+      "conditions": {
+        "en": "Override only visit; inherit the selected default hook and call it after one live visit.",
+        "ja": "visitだけを上書きし、選択した既定hookを継承して1回のvisit後に呼び出す。"
+      },
+      "expected": {
+        "en": "The inherited hook preserves the one prior visit, selected node and quiet69 name; the following visit advances the count to two and keeps the same base view.",
+        "ja": "継承hookは先行visit 1回、選択node、quiet69という名前を保持し、後続visitで件数を2へ進め、同じ基底viewを保持する。"
+      },
+      "limitations": {
+        "en": "Only the selected valid types, constructor forms and original acyclic tree are observed. No sibling order, graph cycles/aliasing, null recovery, concurrency or all-subclass completeness is certified. Legal complete bodies are fixture controls and do not prove an unimplemented base algorithm. The adapter non-virtual/pure-method wording remains an interpretation boundary. ",
+        "ja": "選択した合法型、constructor形式、独自の非循環treeだけを観測する。兄弟順序、graph循環／alias、nullからの復旧、並行性、全派生型の完全性は認定しない。合法な完全本体は検査系のcontrolであり、未実装の基底algorithmを証明しない。adapterの非virtual／pure method文言は解釈境界に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_traversal_decl_visitor_inherited_end_v_preserves_state",
+          "role": "direct",
+          "expected_observations": [
+            "UT: visitor_end_v retained 1 subsequent 1",
+            "UT: visitor_end_v visits 2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TRAVERSAL-DECL-PROXY-DEFAULT-STRUCTURE-AND-REFERENCE-QUEUE",
+      "clause": "F.5.2.1",
+      "statement": {
+        "en": "The proxy default STRUCTURE is compatible with the component-specialized base.",
+        "ja": "proxyの既定STRUCTUREはcomponent特殊化した基底と互換である。"
+      },
+      "conditions": {
+        "en": "A complete subtype leaves STRUCTURE omitted; its original method delegates to the public component proxy.",
+        "ja": "完全な派生型でSTRUCTUREを省略し、独自methodから公開component proxyへ委譲する。"
+      },
+      "expected": {
+        "en": "The default proxy is assignable to the component-specialized base and object view; its delegated call returns the two direct child handles in either sibling order.",
+        "ja": "既定proxyをcomponent特殊化した基底とobject viewへ代入でき、委譲した呼出しは直下の子handle 2個を兄弟順に依存せず返す。"
+      },
+      "limitations": {
+        "en": "Only the selected valid types, constructor forms and original acyclic tree are observed. No sibling order, graph cycles/aliasing, null recovery, concurrency or all-subclass completeness is certified. Legal complete bodies are fixture controls and do not prove an unimplemented base algorithm. The adapter non-virtual/pure-method wording remains an interpretation boundary. ",
+        "ja": "選択した合法型、constructor形式、独自の非循環treeだけを観測する。兄弟順序、graph循環／alias、nullからの復旧、並行性、全派生型の完全性は認定しない。合法な完全本体は検査系のcontrolであり、未実装の基底algorithmを証明しない。adapterの非virtual／pure method文言は解釈境界に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_traversal_decl_proxy_default_structure_and_reference_queue",
+          "role": "direct",
+          "expected_observations": [
+            "UT: proxy_default type 1 children 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TRAVERSAL-DECL-PROXY-REFERENCE-QUEUE-DISPATCHES-EXACT-NODE",
+      "clause": "F.5.2.2.2",
+      "statement": {
+        "en": "The declared proxy method receives the selected node and propagates its reference queue.",
+        "ja": "宣言されたproxy methodは選択nodeを受け取り、参照queueを呼出し側へ伝える。"
+      },
+      "conditions": {
+        "en": "Call the exact pure-method signature through a typed base with a seeded caller queue and an original complete body.",
+        "ja": "初期値を持つ呼出し側queueと独自の完全な本体を使い、型付き基底から正確なpure method signatureを呼ぶ。"
+      },
+      "expected": {
+        "en": "One call reaches the original complete proxy body; its reference queue replaces the caller sentinel with the selected direct child while preserving the source collection.",
+        "ja": "1回の呼出しが独自の完全なproxy本体へ届き、その参照queueは呼出し側sentinelを選択した直下の子へ置換し、元のcollectionを保持する。"
+      },
+      "limitations": {
+        "en": "Only the selected valid types, constructor forms and original acyclic tree are observed. No sibling order, graph cycles/aliasing, null recovery, concurrency or all-subclass completeness is certified. Legal complete bodies are fixture controls and do not prove an unimplemented base algorithm. The adapter non-virtual/pure-method wording remains an interpretation boundary. The queue assignment is original fixture behavior; this does not prescribe a builtin proxy algorithm.",
+        "ja": "選択した合法型、constructor形式、独自の非循環treeだけを観測する。兄弟順序、graph循環／alias、nullからの復旧、並行性、全派生型の完全性は認定しない。合法な完全本体は検査系のcontrolであり、未実装の基底algorithmを証明しない。adapterの非virtual／pure method文言は解釈境界に残す。queue代入は独自検査系の動作であり、組み込みproxy algorithmを規定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_traversal_decl_proxy_reference_queue_dispatches_exact_node",
+          "role": "direct",
+          "expected_observations": [
+            "UT: proxy_ref calls 1 updated 1 source 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TRAVERSAL-DECL-ADAPTER-COMPLETE-SUBTYPE-DISPATCHES-SIGNATURE",
+      "clause": "F.5.3.1",
+      "statement": {
+        "en": "A complete adapter subtype retains its typed object ancestry and declared accept interface.",
+        "ja": "完全なadapter派生型は型付きobjectの継承関係と宣言されたaccept interfaceを保持する。"
+      },
+      "conditions": {
+        "en": "Use explicit structure/visitor types derived from the printed visitor base and a complete original accept body delegating to the public top-down adapter.",
+        "ja": "印刷visitor基底から派生する明示structure／visitor型と、公開top-down adapterへ委譲する完全な独自accept本体を使う。"
+      },
+      "expected": {
+        "en": "Base/object views retain the same complete adapter; accept receives the original structure, visitor, proxy and default flag one, and delegated top-down traversal visits root then child.",
+        "ja": "基底／object viewは同じ完全なadapterを保持し、acceptは元のstructure・visitor・proxyと既定flag 1を受け、委譲したtop-down走査はrootの後に子をvisitする。"
+      },
+      "limitations": {
+        "en": "Only the selected valid types, constructor forms and original acyclic tree are observed. No sibling order, graph cycles/aliasing, null recovery, concurrency or all-subclass completeness is certified. Legal complete bodies are fixture controls and do not prove an unimplemented base algorithm. The adapter non-virtual/pure-method wording remains an interpretation boundary. F.5.3.1 prints a non-virtual class while F.5.3.2.2 prints pure accept. This valid complete subtype does not resolve direct constructability or that wording conflict.",
+        "ja": "選択した合法型、constructor形式、独自の非循環treeだけを観測する。兄弟順序、graph循環／alias、nullからの復旧、並行性、全派生型の完全性は認定しない。合法な完全本体は検査系のcontrolであり、未実装の基底algorithmを証明しない。adapterの非virtual／pure method文言は解釈境界に残す。F.5.3.1は非virtual class、F.5.3.2.2はpure acceptを印刷する。この合法な完全派生型で直接生成の可否や文言の食違いを解決しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_traversal_decl_adapter_complete_subtype_dispatches_signature",
+          "role": "direct",
+          "expected_observations": [
+            "UT: adapter_complete type 1 context 1 traversed 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TRAVERSAL-DECL-PROXY-CONSTRUCTOR-OMITTED",
+      "clause": "F.5.2.2.1",
+      "statement": {
+        "en": "The proxy constructor preserves the omitted name and declared ancestry.",
+        "ja": "proxyのconstructorは省略時の名前と宣言された継承関係を保持する。"
+      },
+      "conditions": {
+        "en": "A direct original subtype calls super.new with the selected argument form; all pure methods have complete bodies. The exact tested call is super.new().",
+        "ja": "独自の直接派生型が選択した引数形式でsuper.newを呼び、全pure methodへ完全な本体を与える。 正確な対象呼出しはsuper.new()である。"
+      },
+      "expected": {
+        "en": "The omitted base constructor name is the empty string. The typed ancestor and object views retain the same constructed handle.",
+        "ja": "省略した基底constructorの名前は空文字列になる。型付き祖先とobjectのviewは生成した同じhandleを保持する。"
+      },
+      "limitations": {
+        "en": "Only the selected valid types, constructor forms and original acyclic tree are observed. No sibling order, graph cycles/aliasing, null recovery, concurrency or all-subclass completeness is certified. Legal complete bodies are fixture controls and do not prove an unimplemented base algorithm. The adapter non-virtual/pure-method wording remains an interpretation boundary. ",
+        "ja": "選択した合法型、constructor形式、独自の非循環treeだけを観測する。兄弟順序、graph循環／alias、nullからの復旧、並行性、全派生型の完全性は認定しない。合法な完全本体は検査系のcontrolであり、未実装の基底algorithmを証明しない。adapterの非virtual／pure method文言は解釈境界に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_traversal_decl_proxy_constructor_omitted",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ctor_proxy_omitted name 1 ancestry 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TRAVERSAL-DECL-PROXY-CONSTRUCTOR-NAMED",
+      "clause": "F.5.2.2.1",
+      "statement": {
+        "en": "The proxy constructor preserves the named name and declared ancestry.",
+        "ja": "proxyのconstructorは明示した名前と宣言された継承関係を保持する。"
+      },
+      "conditions": {
+        "en": "A direct original subtype calls super.new with the selected argument form; all pure methods have complete bodies. The exact tested call is super.new(\"named69\").",
+        "ja": "独自の直接派生型が選択した引数形式でsuper.newを呼び、全pure methodへ完全な本体を与える。 正確な対象呼出しはsuper.new(\"named69\")である。"
+      },
+      "expected": {
+        "en": "The name is exactly named69. The typed ancestor and object views retain the same constructed handle.",
+        "ja": "名前は正確にnamed69である。型付き祖先とobjectのviewは生成した同じhandleを保持する。"
+      },
+      "limitations": {
+        "en": "Only the selected valid types, constructor forms and original acyclic tree are observed. No sibling order, graph cycles/aliasing, null recovery, concurrency or all-subclass completeness is certified. Legal complete bodies are fixture controls and do not prove an unimplemented base algorithm. The adapter non-virtual/pure-method wording remains an interpretation boundary. ",
+        "ja": "選択した合法型、constructor形式、独自の非循環treeだけを観測する。兄弟順序、graph循環／alias、nullからの復旧、並行性、全派生型の完全性は認定しない。合法な完全本体は検査系のcontrolであり、未実装の基底algorithmを証明しない。adapterの非virtual／pure method文言は解釈境界に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_traversal_decl_proxy_constructor_named",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ctor_proxy_named name 1 ancestry 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TRAVERSAL-DECL-ADAPTER-BASE-CONSTRUCTOR-OMITTED",
+      "clause": "F.5.3.2.1",
+      "statement": {
+        "en": "The adapter_base constructor preserves the omitted name and declared ancestry.",
+        "ja": "adapter_baseのconstructorは省略時の名前と宣言された継承関係を保持する。"
+      },
+      "conditions": {
+        "en": "A direct original subtype calls super.new with the selected argument form; all pure methods have complete bodies. The exact tested call is super.new().",
+        "ja": "独自の直接派生型が選択した引数形式でsuper.newを呼び、全pure methodへ完全な本体を与える。 正確な対象呼出しはsuper.new()である。"
+      },
+      "expected": {
+        "en": "The omitted base constructor name is the empty string. The typed ancestor and object views retain the same constructed handle.",
+        "ja": "省略した基底constructorの名前は空文字列になる。型付き祖先とobjectのviewは生成した同じhandleを保持する。"
+      },
+      "limitations": {
+        "en": "Only the selected valid types, constructor forms and original acyclic tree are observed. No sibling order, graph cycles/aliasing, null recovery, concurrency or all-subclass completeness is certified. Legal complete bodies are fixture controls and do not prove an unimplemented base algorithm. The adapter non-virtual/pure-method wording remains an interpretation boundary. ",
+        "ja": "選択した合法型、constructor形式、独自の非循環treeだけを観測する。兄弟順序、graph循環／alias、nullからの復旧、並行性、全派生型の完全性は認定しない。合法な完全本体は検査系のcontrolであり、未実装の基底algorithmを証明しない。adapterの非virtual／pure method文言は解釈境界に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_traversal_decl_adapter_base_constructor_omitted",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ctor_adapter_base_omitted name 1 ancestry 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TRAVERSAL-DECL-ADAPTER-BASE-CONSTRUCTOR-NAMED",
+      "clause": "F.5.3.2.1",
+      "statement": {
+        "en": "The adapter_base constructor preserves the named name and declared ancestry.",
+        "ja": "adapter_baseのconstructorは明示した名前と宣言された継承関係を保持する。"
+      },
+      "conditions": {
+        "en": "A direct original subtype calls super.new with the selected argument form; all pure methods have complete bodies. The exact tested call is super.new(\"named69\").",
+        "ja": "独自の直接派生型が選択した引数形式でsuper.newを呼び、全pure methodへ完全な本体を与える。 正確な対象呼出しはsuper.new(\"named69\")である。"
+      },
+      "expected": {
+        "en": "The name is exactly named69. The typed ancestor and object views retain the same constructed handle.",
+        "ja": "名前は正確にnamed69である。型付き祖先とobjectのviewは生成した同じhandleを保持する。"
+      },
+      "limitations": {
+        "en": "Only the selected valid types, constructor forms and original acyclic tree are observed. No sibling order, graph cycles/aliasing, null recovery, concurrency or all-subclass completeness is certified. Legal complete bodies are fixture controls and do not prove an unimplemented base algorithm. The adapter non-virtual/pure-method wording remains an interpretation boundary. ",
+        "ja": "選択した合法型、constructor形式、独自の非循環treeだけを観測する。兄弟順序、graph循環／alias、nullからの復旧、並行性、全派生型の完全性は認定しない。合法な完全本体は検査系のcontrolであり、未実装の基底algorithmを証明しない。adapterの非virtual／pure method文言は解釈境界に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_traversal_decl_adapter_base_constructor_named",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ctor_adapter_base_named name 1 ancestry 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TRAVERSAL-DECL-TOP-DOWN-CONSTRUCTOR-OMITTED",
+      "clause": "F.5.4.2",
+      "statement": {
+        "en": "The top_down constructor preserves the omitted name and declared ancestry.",
+        "ja": "top_downのconstructorは省略時の名前と宣言された継承関係を保持する。"
+      },
+      "conditions": {
+        "en": "Construct the builtin class directly with the selected argument form. The exact tested call is new().",
+        "ja": "組み込みclassを選択した引数形式で直接生成する。 正確な対象呼出しはnew()である。"
+      },
+      "expected": {
+        "en": "The omitted base constructor name is the empty string. The typed ancestor and object views retain the same constructed handle.",
+        "ja": "省略した基底constructorの名前は空文字列になる。型付き祖先とobjectのviewは生成した同じhandleを保持する。"
+      },
+      "limitations": {
+        "en": "Only the selected valid types, constructor forms and original acyclic tree are observed. No sibling order, graph cycles/aliasing, null recovery, concurrency or all-subclass completeness is certified. Legal complete bodies are fixture controls and do not prove an unimplemented base algorithm. The adapter non-virtual/pure-method wording remains an interpretation boundary. ",
+        "ja": "選択した合法型、constructor形式、独自の非循環treeだけを観測する。兄弟順序、graph循環／alias、nullからの復旧、並行性、全派生型の完全性は認定しない。合法な完全本体は検査系のcontrolであり、未実装の基底algorithmを証明しない。adapterの非virtual／pure method文言は解釈境界に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_traversal_decl_top_down_constructor_omitted",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ctor_top_down_omitted name 1 ancestry 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TRAVERSAL-DECL-TOP-DOWN-CONSTRUCTOR-NAMED",
+      "clause": "F.5.4.2",
+      "statement": {
+        "en": "The top_down constructor preserves the named name and declared ancestry.",
+        "ja": "top_downのconstructorは明示した名前と宣言された継承関係を保持する。"
+      },
+      "conditions": {
+        "en": "Construct the builtin class directly with the selected argument form. The exact tested call is new(\"named69\").",
+        "ja": "組み込みclassを選択した引数形式で直接生成する。 正確な対象呼出しはnew(\"named69\")である。"
+      },
+      "expected": {
+        "en": "The name is exactly named69. The typed ancestor and object views retain the same constructed handle.",
+        "ja": "名前は正確にnamed69である。型付き祖先とobjectのviewは生成した同じhandleを保持する。"
+      },
+      "limitations": {
+        "en": "Only the selected valid types, constructor forms and original acyclic tree are observed. No sibling order, graph cycles/aliasing, null recovery, concurrency or all-subclass completeness is certified. Legal complete bodies are fixture controls and do not prove an unimplemented base algorithm. The adapter non-virtual/pure-method wording remains an interpretation boundary. ",
+        "ja": "選択した合法型、constructor形式、独自の非循環treeだけを観測する。兄弟順序、graph循環／alias、nullからの復旧、並行性、全派生型の完全性は認定しない。合法な完全本体は検査系のcontrolであり、未実装の基底algorithmを証明しない。adapterの非virtual／pure method文言は解釈境界に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_traversal_decl_top_down_constructor_named",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ctor_top_down_named name 1 ancestry 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TRAVERSAL-DECL-BOTTOM-UP-CONSTRUCTOR-OMITTED",
+      "clause": "F.5.5.2",
+      "statement": {
+        "en": "The bottom_up constructor preserves the omitted name and declared ancestry.",
+        "ja": "bottom_upのconstructorは省略時の名前と宣言された継承関係を保持する。"
+      },
+      "conditions": {
+        "en": "Construct the builtin class directly with the selected argument form. The exact tested call is new().",
+        "ja": "組み込みclassを選択した引数形式で直接生成する。 正確な対象呼出しはnew()である。"
+      },
+      "expected": {
+        "en": "The omitted base constructor name is the empty string. The typed ancestor and object views retain the same constructed handle.",
+        "ja": "省略した基底constructorの名前は空文字列になる。型付き祖先とobjectのviewは生成した同じhandleを保持する。"
+      },
+      "limitations": {
+        "en": "Only the selected valid types, constructor forms and original acyclic tree are observed. No sibling order, graph cycles/aliasing, null recovery, concurrency or all-subclass completeness is certified. Legal complete bodies are fixture controls and do not prove an unimplemented base algorithm. The adapter non-virtual/pure-method wording remains an interpretation boundary. ",
+        "ja": "選択した合法型、constructor形式、独自の非循環treeだけを観測する。兄弟順序、graph循環／alias、nullからの復旧、並行性、全派生型の完全性は認定しない。合法な完全本体は検査系のcontrolであり、未実装の基底algorithmを証明しない。adapterの非virtual／pure method文言は解釈境界に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_traversal_decl_bottom_up_constructor_omitted",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ctor_bottom_up_omitted name 1 ancestry 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TRAVERSAL-DECL-BOTTOM-UP-CONSTRUCTOR-NAMED",
+      "clause": "F.5.5.2",
+      "statement": {
+        "en": "The bottom_up constructor preserves the named name and declared ancestry.",
+        "ja": "bottom_upのconstructorは明示した名前と宣言された継承関係を保持する。"
+      },
+      "conditions": {
+        "en": "Construct the builtin class directly with the selected argument form. The exact tested call is new(\"named69\").",
+        "ja": "組み込みclassを選択した引数形式で直接生成する。 正確な対象呼出しはnew(\"named69\")である。"
+      },
+      "expected": {
+        "en": "The name is exactly named69. The typed ancestor and object views retain the same constructed handle.",
+        "ja": "名前は正確にnamed69である。型付き祖先とobjectのviewは生成した同じhandleを保持する。"
+      },
+      "limitations": {
+        "en": "Only the selected valid types, constructor forms and original acyclic tree are observed. No sibling order, graph cycles/aliasing, null recovery, concurrency or all-subclass completeness is certified. Legal complete bodies are fixture controls and do not prove an unimplemented base algorithm. The adapter non-virtual/pure-method wording remains an interpretation boundary. ",
+        "ja": "選択した合法型、constructor形式、独自の非循環treeだけを観測する。兄弟順序、graph循環／alias、nullからの復旧、並行性、全派生型の完全性は認定しない。合法な完全本体は検査系のcontrolであり、未実装の基底algorithmを証明しない。adapterの非virtual／pure method文言は解釈境界に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_traversal_decl_bottom_up_constructor_named",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ctor_bottom_up_named name 1 ancestry 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TRAVERSAL-DECL-BY-LEVEL-CONSTRUCTOR-OMITTED",
+      "clause": "F.5.6.2",
+      "statement": {
+        "en": "The by_level constructor preserves the omitted name and declared ancestry.",
+        "ja": "by_levelのconstructorは省略時の名前と宣言された継承関係を保持する。"
+      },
+      "conditions": {
+        "en": "Construct the builtin class directly with the selected argument form. The exact tested call is new().",
+        "ja": "組み込みclassを選択した引数形式で直接生成する。 正確な対象呼出しはnew()である。"
+      },
+      "expected": {
+        "en": "The omitted base constructor name is the empty string. The typed ancestor and object views retain the same constructed handle.",
+        "ja": "省略した基底constructorの名前は空文字列になる。型付き祖先とobjectのviewは生成した同じhandleを保持する。"
+      },
+      "limitations": {
+        "en": "Only the selected valid types, constructor forms and original acyclic tree are observed. No sibling order, graph cycles/aliasing, null recovery, concurrency or all-subclass completeness is certified. Legal complete bodies are fixture controls and do not prove an unimplemented base algorithm. The adapter non-virtual/pure-method wording remains an interpretation boundary. ",
+        "ja": "選択した合法型、constructor形式、独自の非循環treeだけを観測する。兄弟順序、graph循環／alias、nullからの復旧、並行性、全派生型の完全性は認定しない。合法な完全本体は検査系のcontrolであり、未実装の基底algorithmを証明しない。adapterの非virtual／pure method文言は解釈境界に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_traversal_decl_by_level_constructor_omitted",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ctor_by_level_omitted name 1 ancestry 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TRAVERSAL-DECL-BY-LEVEL-CONSTRUCTOR-NAMED",
+      "clause": "F.5.6.2",
+      "statement": {
+        "en": "The by_level constructor preserves the named name and declared ancestry.",
+        "ja": "by_levelのconstructorは明示した名前と宣言された継承関係を保持する。"
+      },
+      "conditions": {
+        "en": "Construct the builtin class directly with the selected argument form. The exact tested call is new(\"named69\").",
+        "ja": "組み込みclassを選択した引数形式で直接生成する。 正確な対象呼出しはnew(\"named69\")である。"
+      },
+      "expected": {
+        "en": "The name is exactly named69. The typed ancestor and object views retain the same constructed handle.",
+        "ja": "名前は正確にnamed69である。型付き祖先とobjectのviewは生成した同じhandleを保持する。"
+      },
+      "limitations": {
+        "en": "Only the selected valid types, constructor forms and original acyclic tree are observed. No sibling order, graph cycles/aliasing, null recovery, concurrency or all-subclass completeness is certified. Legal complete bodies are fixture controls and do not prove an unimplemented base algorithm. The adapter non-virtual/pure-method wording remains an interpretation boundary. ",
+        "ja": "選択した合法型、constructor形式、独自の非循環treeだけを観測する。兄弟順序、graph循環／alias、nullからの復旧、並行性、全派生型の完全性は認定しない。合法な完全本体は検査系のcontrolであり、未実装の基底algorithmを証明しない。adapterの非virtual／pure method文言は解釈境界に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_traversal_decl_by_level_constructor_named",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ctor_by_level_named name 1 ancestry 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TRAVERSAL-DECL-COMPONENT-PROXY-CONSTRUCTOR-OMITTED",
+      "clause": "F.5.7.2",
+      "statement": {
+        "en": "The component_proxy constructor preserves the omitted name and declared ancestry.",
+        "ja": "component_proxyのconstructorは省略時の名前と宣言された継承関係を保持する。"
+      },
+      "conditions": {
+        "en": "Construct the builtin class directly with the selected argument form. The exact tested call is new().",
+        "ja": "組み込みclassを選択した引数形式で直接生成する。 正確な対象呼出しはnew()である。"
+      },
+      "expected": {
+        "en": "The omitted base constructor name is the empty string. The typed ancestor and object views retain the same constructed handle.",
+        "ja": "省略した基底constructorの名前は空文字列になる。型付き祖先とobjectのviewは生成した同じhandleを保持する。"
+      },
+      "limitations": {
+        "en": "Only the selected valid types, constructor forms and original acyclic tree are observed. No sibling order, graph cycles/aliasing, null recovery, concurrency or all-subclass completeness is certified. Legal complete bodies are fixture controls and do not prove an unimplemented base algorithm. The adapter non-virtual/pure-method wording remains an interpretation boundary. ",
+        "ja": "選択した合法型、constructor形式、独自の非循環treeだけを観測する。兄弟順序、graph循環／alias、nullからの復旧、並行性、全派生型の完全性は認定しない。合法な完全本体は検査系のcontrolであり、未実装の基底algorithmを証明しない。adapterの非virtual／pure method文言は解釈境界に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_traversal_decl_component_proxy_constructor_omitted",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ctor_component_proxy_omitted name 1 ancestry 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TRAVERSAL-DECL-COMPONENT-PROXY-CONSTRUCTOR-NAMED",
+      "clause": "F.5.7.2",
+      "statement": {
+        "en": "The component_proxy constructor preserves the named name and declared ancestry.",
+        "ja": "component_proxyのconstructorは明示した名前と宣言された継承関係を保持する。"
+      },
+      "conditions": {
+        "en": "Construct the builtin class directly with the selected argument form. The exact tested call is new(\"named69\").",
+        "ja": "組み込みclassを選択した引数形式で直接生成する。 正確な対象呼出しはnew(\"named69\")である。"
+      },
+      "expected": {
+        "en": "The name is exactly named69. The typed ancestor and object views retain the same constructed handle.",
+        "ja": "名前は正確にnamed69である。型付き祖先とobjectのviewは生成した同じhandleを保持する。"
+      },
+      "limitations": {
+        "en": "Only the selected valid types, constructor forms and original acyclic tree are observed. No sibling order, graph cycles/aliasing, null recovery, concurrency or all-subclass completeness is certified. Legal complete bodies are fixture controls and do not prove an unimplemented base algorithm. The adapter non-virtual/pure-method wording remains an interpretation boundary. ",
+        "ja": "選択した合法型、constructor形式、独自の非循環treeだけを観測する。兄弟順序、graph循環／alias、nullからの復旧、並行性、全派生型の完全性は認定しない。合法な完全本体は検査系のcontrolであり、未実装の基底algorithmを証明しない。adapterの非virtual／pure method文言は解釈境界に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_traversal_decl_component_proxy_constructor_named",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ctor_component_proxy_named name 1 ancestry 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TRAVERSAL-DECL-TOP-DOWN-DEFAULT-TYPES-TRAVERSES-THROUGH-THE-DECLARED-BASE",
+      "clause": "F.5.4.1",
+      "statement": {
+        "en": "The top_down adapter preserves its default_types specialization through a live base-view traversal.",
+        "ja": "top_down adapterは基底viewからの実際の走査で既定のSTRUCTUREとVISITORによる特殊化を保持する。"
+      },
+      "conditions": {
+        "en": "Use the selected printed type defaults or explicit types and traverse an acyclic original tree through its supplied proxy.",
+        "ja": "選択した印刷型の既定値または明示型を使い、供給したproxyで独自の非循環treeを走査する。 STRUCTUREとVISITORを両方省略する。"
+      },
+      "expected": {
+        "en": "The builtin default specialization is assignable to the exact component/visitor base and visits both root and child once.",
+        "ja": "組み込みの既定特殊化を正確なcomponent／visitor基底へ代入でき、rootと子をそれぞれ1回visitする。"
+      },
+      "limitations": {
+        "en": "Only the selected valid types, constructor forms and original acyclic tree are observed. No sibling order, graph cycles/aliasing, null recovery, concurrency or all-subclass completeness is certified. Legal complete bodies are fixture controls and do not prove an unimplemented base algorithm. The adapter non-virtual/pure-method wording remains an interpretation boundary. ",
+        "ja": "選択した合法型、constructor形式、独自の非循環treeだけを観測する。兄弟順序、graph循環／alias、nullからの復旧、並行性、全派生型の完全性は認定しない。合法な完全本体は検査系のcontrolであり、未実装の基底algorithmを証明しない。adapterの非virtual／pure method文言は解釈境界に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_traversal_decl_top_down_default_types_traverses_through_the_declared_base",
+          "role": "direct",
+          "expected_observations": [
+            "UT: typed_top_down_default_types type 1 members 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TRAVERSAL-DECL-TOP-DOWN-DEFAULT-VISITOR-TRAVERSES-THROUGH-THE-DECLARED-BASE",
+      "clause": "F.5.4.1",
+      "statement": {
+        "en": "The top_down adapter preserves its default_visitor specialization through a live base-view traversal.",
+        "ja": "top_down adapterは基底viewからの実際の走査で独自STRUCTUREと既定VISITORによる特殊化を保持する。"
+      },
+      "conditions": {
+        "en": "Use the selected printed type defaults or explicit types and traverse an acyclic original tree through its supplied proxy.",
+        "ja": "選択した印刷型の既定値または明示型を使い、供給したproxyで独自の非循環treeを走査する。 STRUCTUREだけをnode69に指定してVISITORを省略する。"
+      },
+      "expected": {
+        "en": "The exact selected base specialization retains identity; all four tree nodes are visited once, the selected parent/depth partial order holds, begin/end bracket the visits once, and the supplied proxy is queried.",
+        "ja": "正確な選択基底特殊化は同一性を保持し、treeの4 nodeをそれぞれ1回visitし、選択した親／深さの部分順序を満たし、begin／endでvisit全体を1回囲み、供給proxyへ照会する。"
+      },
+      "limitations": {
+        "en": "Only the selected valid types, constructor forms and original acyclic tree are observed. No sibling order, graph cycles/aliasing, null recovery, concurrency or all-subclass completeness is certified. Legal complete bodies are fixture controls and do not prove an unimplemented base algorithm. The adapter non-virtual/pure-method wording remains an interpretation boundary.  The unchanged STRUCTURE-only input retains the printed dependent VISITOR default; a separate explicit-VISITOR control also has its own direct typing duty and cannot pass that default premise.",
+        "ja": "選択した合法型、constructor形式、独自の非循環treeだけを観測する。兄弟順序、graph循環／alias、nullからの復旧、並行性、全派生型の完全性は認定しない。合法な完全本体は検査系のcontrolであり、未実装の基底algorithmを証明しない。adapterの非virtual／pure method文言は解釈境界に残す。 未変更のSTRUCTURE単独指定入力は印刷された依存VISITOR既定値を保持し、別の明示VISITOR controlは独自の直接型義務も持つが、既定値の前提をpassにはしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_traversal_decl_top_down_default_visitor_traverses_through_the_declared_base",
+          "role": "direct",
+          "expected_observations": [
+            "UT: typed_top_down_default_visitor type 1 members 1 order 1 callbacks 1"
+          ]
+        },
+        {
+          "test": "uF/test_traversal_decl_top_down_explicit_types_traverses_through_the_declared_base",
+          "role": "control",
+          "expected_observations": [
+            "UT: typed_top_down_explicit_types type 1 members 1 order 1 callbacks 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TRAVERSAL-DECL-TOP-DOWN-EXPLICIT-TYPES-TRAVERSES-THROUGH-THE-DECLARED-BASE",
+      "clause": "F.5.4.1",
+      "statement": {
+        "en": "The top_down adapter preserves its explicit_types specialization through a live base-view traversal.",
+        "ja": "top_down adapterは基底viewからの実際の走査でSTRUCTUREとVISITORを両方明示した特殊化を保持する。"
+      },
+      "conditions": {
+        "en": "Use the selected printed type defaults or explicit types and traverse an acyclic original tree through its supplied proxy.",
+        "ja": "選択した印刷型の既定値または明示型を使い、供給したproxyで独自の非循環treeを走査する。 STRUCTUREをnode69、VISITORをvisitor69と明示する。"
+      },
+      "expected": {
+        "en": "The exact selected base specialization retains identity; all four tree nodes are visited once, the selected parent/depth partial order holds, begin/end bracket the visits once, and the supplied proxy is queried.",
+        "ja": "正確な選択基底特殊化は同一性を保持し、treeの4 nodeをそれぞれ1回visitし、選択した親／深さの部分順序を満たし、begin／endでvisit全体を1回囲み、供給proxyへ照会する。"
+      },
+      "limitations": {
+        "en": "Only the selected valid types, constructor forms and original acyclic tree are observed. No sibling order, graph cycles/aliasing, null recovery, concurrency or all-subclass completeness is certified. Legal complete bodies are fixture controls and do not prove an unimplemented base algorithm. The adapter non-virtual/pure-method wording remains an interpretation boundary. ",
+        "ja": "選択した合法型、constructor形式、独自の非循環treeだけを観測する。兄弟順序、graph循環／alias、nullからの復旧、並行性、全派生型の完全性は認定しない。合法な完全本体は検査系のcontrolであり、未実装の基底algorithmを証明しない。adapterの非virtual／pure method文言は解釈境界に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_traversal_decl_top_down_explicit_types_traverses_through_the_declared_base",
+          "role": "direct",
+          "expected_observations": [
+            "UT: typed_top_down_explicit_types type 1 members 1 order 1 callbacks 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TRAVERSAL-DECL-BOTTOM-UP-DEFAULT-TYPES-TRAVERSES-THROUGH-THE-DECLARED-BASE",
+      "clause": "F.5.5.1",
+      "statement": {
+        "en": "The bottom_up adapter preserves its default_types specialization through a live base-view traversal.",
+        "ja": "bottom_up adapterは基底viewからの実際の走査で既定のSTRUCTUREとVISITORによる特殊化を保持する。"
+      },
+      "conditions": {
+        "en": "Use the selected printed type defaults or explicit types and traverse an acyclic original tree through its supplied proxy.",
+        "ja": "選択した印刷型の既定値または明示型を使い、供給したproxyで独自の非循環treeを走査する。 STRUCTUREとVISITORを両方省略する。"
+      },
+      "expected": {
+        "en": "The builtin default specialization is assignable to the exact component/visitor base and visits both root and child once.",
+        "ja": "組み込みの既定特殊化を正確なcomponent／visitor基底へ代入でき、rootと子をそれぞれ1回visitする。"
+      },
+      "limitations": {
+        "en": "Only the selected valid types, constructor forms and original acyclic tree are observed. No sibling order, graph cycles/aliasing, null recovery, concurrency or all-subclass completeness is certified. Legal complete bodies are fixture controls and do not prove an unimplemented base algorithm. The adapter non-virtual/pure-method wording remains an interpretation boundary. ",
+        "ja": "選択した合法型、constructor形式、独自の非循環treeだけを観測する。兄弟順序、graph循環／alias、nullからの復旧、並行性、全派生型の完全性は認定しない。合法な完全本体は検査系のcontrolであり、未実装の基底algorithmを証明しない。adapterの非virtual／pure method文言は解釈境界に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_traversal_decl_bottom_up_default_types_traverses_through_the_declared_base",
+          "role": "direct",
+          "expected_observations": [
+            "UT: typed_bottom_up_default_types type 1 members 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TRAVERSAL-DECL-BOTTOM-UP-DEFAULT-VISITOR-TRAVERSES-THROUGH-THE-DECLARED-BASE",
+      "clause": "F.5.5.1",
+      "statement": {
+        "en": "The bottom_up adapter preserves its default_visitor specialization through a live base-view traversal.",
+        "ja": "bottom_up adapterは基底viewからの実際の走査で独自STRUCTUREと既定VISITORによる特殊化を保持する。"
+      },
+      "conditions": {
+        "en": "Use the selected printed type defaults or explicit types and traverse an acyclic original tree through its supplied proxy.",
+        "ja": "選択した印刷型の既定値または明示型を使い、供給したproxyで独自の非循環treeを走査する。 STRUCTUREだけをnode69に指定してVISITORを省略する。"
+      },
+      "expected": {
+        "en": "The exact selected base specialization retains identity; all four tree nodes are visited once, the selected parent/depth partial order holds, begin/end bracket the visits once, and the supplied proxy is queried.",
+        "ja": "正確な選択基底特殊化は同一性を保持し、treeの4 nodeをそれぞれ1回visitし、選択した親／深さの部分順序を満たし、begin／endでvisit全体を1回囲み、供給proxyへ照会する。"
+      },
+      "limitations": {
+        "en": "Only the selected valid types, constructor forms and original acyclic tree are observed. No sibling order, graph cycles/aliasing, null recovery, concurrency or all-subclass completeness is certified. Legal complete bodies are fixture controls and do not prove an unimplemented base algorithm. The adapter non-virtual/pure-method wording remains an interpretation boundary.  The unchanged STRUCTURE-only input retains the printed dependent VISITOR default; a separate explicit-VISITOR control also has its own direct typing duty and cannot pass that default premise.",
+        "ja": "選択した合法型、constructor形式、独自の非循環treeだけを観測する。兄弟順序、graph循環／alias、nullからの復旧、並行性、全派生型の完全性は認定しない。合法な完全本体は検査系のcontrolであり、未実装の基底algorithmを証明しない。adapterの非virtual／pure method文言は解釈境界に残す。 未変更のSTRUCTURE単独指定入力は印刷された依存VISITOR既定値を保持し、別の明示VISITOR controlは独自の直接型義務も持つが、既定値の前提をpassにはしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_traversal_decl_bottom_up_default_visitor_traverses_through_the_declared_base",
+          "role": "direct",
+          "expected_observations": [
+            "UT: typed_bottom_up_default_visitor type 1 members 1 order 1 callbacks 1"
+          ]
+        },
+        {
+          "test": "uF/test_traversal_decl_bottom_up_explicit_types_traverses_through_the_declared_base",
+          "role": "control",
+          "expected_observations": [
+            "UT: typed_bottom_up_explicit_types type 1 members 1 order 1 callbacks 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TRAVERSAL-DECL-BOTTOM-UP-EXPLICIT-TYPES-TRAVERSES-THROUGH-THE-DECLARED-BASE",
+      "clause": "F.5.5.1",
+      "statement": {
+        "en": "The bottom_up adapter preserves its explicit_types specialization through a live base-view traversal.",
+        "ja": "bottom_up adapterは基底viewからの実際の走査でSTRUCTUREとVISITORを両方明示した特殊化を保持する。"
+      },
+      "conditions": {
+        "en": "Use the selected printed type defaults or explicit types and traverse an acyclic original tree through its supplied proxy.",
+        "ja": "選択した印刷型の既定値または明示型を使い、供給したproxyで独自の非循環treeを走査する。 STRUCTUREをnode69、VISITORをvisitor69と明示する。"
+      },
+      "expected": {
+        "en": "The exact selected base specialization retains identity; all four tree nodes are visited once, the selected parent/depth partial order holds, begin/end bracket the visits once, and the supplied proxy is queried.",
+        "ja": "正確な選択基底特殊化は同一性を保持し、treeの4 nodeをそれぞれ1回visitし、選択した親／深さの部分順序を満たし、begin／endでvisit全体を1回囲み、供給proxyへ照会する。"
+      },
+      "limitations": {
+        "en": "Only the selected valid types, constructor forms and original acyclic tree are observed. No sibling order, graph cycles/aliasing, null recovery, concurrency or all-subclass completeness is certified. Legal complete bodies are fixture controls and do not prove an unimplemented base algorithm. The adapter non-virtual/pure-method wording remains an interpretation boundary. ",
+        "ja": "選択した合法型、constructor形式、独自の非循環treeだけを観測する。兄弟順序、graph循環／alias、nullからの復旧、並行性、全派生型の完全性は認定しない。合法な完全本体は検査系のcontrolであり、未実装の基底algorithmを証明しない。adapterの非virtual／pure method文言は解釈境界に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_traversal_decl_bottom_up_explicit_types_traverses_through_the_declared_base",
+          "role": "direct",
+          "expected_observations": [
+            "UT: typed_bottom_up_explicit_types type 1 members 1 order 1 callbacks 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TRAVERSAL-DECL-BY-LEVEL-DEFAULT-TYPES-TRAVERSES-THROUGH-THE-DECLARED-BASE",
+      "clause": "F.5.6.1",
+      "statement": {
+        "en": "The by_level adapter preserves its default_types specialization through a live base-view traversal.",
+        "ja": "by_level adapterは基底viewからの実際の走査で既定のSTRUCTUREとVISITORによる特殊化を保持する。"
+      },
+      "conditions": {
+        "en": "Use the selected printed type defaults or explicit types and traverse an acyclic original tree through its supplied proxy.",
+        "ja": "選択した印刷型の既定値または明示型を使い、供給したproxyで独自の非循環treeを走査する。 STRUCTUREとVISITORを両方省略する。"
+      },
+      "expected": {
+        "en": "The builtin default specialization is assignable to the exact component/visitor base and visits both root and child once.",
+        "ja": "組み込みの既定特殊化を正確なcomponent／visitor基底へ代入でき、rootと子をそれぞれ1回visitする。"
+      },
+      "limitations": {
+        "en": "Only the selected valid types, constructor forms and original acyclic tree are observed. No sibling order, graph cycles/aliasing, null recovery, concurrency or all-subclass completeness is certified. Legal complete bodies are fixture controls and do not prove an unimplemented base algorithm. The adapter non-virtual/pure-method wording remains an interpretation boundary. ",
+        "ja": "選択した合法型、constructor形式、独自の非循環treeだけを観測する。兄弟順序、graph循環／alias、nullからの復旧、並行性、全派生型の完全性は認定しない。合法な完全本体は検査系のcontrolであり、未実装の基底algorithmを証明しない。adapterの非virtual／pure method文言は解釈境界に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_traversal_decl_by_level_default_types_traverses_through_the_declared_base",
+          "role": "direct",
+          "expected_observations": [
+            "UT: typed_by_level_default_types type 1 members 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TRAVERSAL-DECL-BY-LEVEL-DEFAULT-VISITOR-TRAVERSES-THROUGH-THE-DECLARED-BASE",
+      "clause": "F.5.6.1",
+      "statement": {
+        "en": "The by_level adapter preserves its default_visitor specialization through a live base-view traversal.",
+        "ja": "by_level adapterは基底viewからの実際の走査で独自STRUCTUREと既定VISITORによる特殊化を保持する。"
+      },
+      "conditions": {
+        "en": "Use the selected printed type defaults or explicit types and traverse an acyclic original tree through its supplied proxy.",
+        "ja": "選択した印刷型の既定値または明示型を使い、供給したproxyで独自の非循環treeを走査する。 STRUCTUREだけをnode69に指定してVISITORを省略する。"
+      },
+      "expected": {
+        "en": "The exact selected base specialization retains identity; all four tree nodes are visited once, the selected parent/depth partial order holds, begin/end bracket the visits once, and the supplied proxy is queried.",
+        "ja": "正確な選択基底特殊化は同一性を保持し、treeの4 nodeをそれぞれ1回visitし、選択した親／深さの部分順序を満たし、begin／endでvisit全体を1回囲み、供給proxyへ照会する。"
+      },
+      "limitations": {
+        "en": "Only the selected valid types, constructor forms and original acyclic tree are observed. No sibling order, graph cycles/aliasing, null recovery, concurrency or all-subclass completeness is certified. Legal complete bodies are fixture controls and do not prove an unimplemented base algorithm. The adapter non-virtual/pure-method wording remains an interpretation boundary.  The unchanged STRUCTURE-only input retains the printed dependent VISITOR default; a separate explicit-VISITOR control also has its own direct typing duty and cannot pass that default premise.",
+        "ja": "選択した合法型、constructor形式、独自の非循環treeだけを観測する。兄弟順序、graph循環／alias、nullからの復旧、並行性、全派生型の完全性は認定しない。合法な完全本体は検査系のcontrolであり、未実装の基底algorithmを証明しない。adapterの非virtual／pure method文言は解釈境界に残す。 未変更のSTRUCTURE単独指定入力は印刷された依存VISITOR既定値を保持し、別の明示VISITOR controlは独自の直接型義務も持つが、既定値の前提をpassにはしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_traversal_decl_by_level_default_visitor_traverses_through_the_declared_base",
+          "role": "direct",
+          "expected_observations": [
+            "UT: typed_by_level_default_visitor type 1 members 1 order 1 callbacks 1"
+          ]
+        },
+        {
+          "test": "uF/test_traversal_decl_by_level_explicit_types_traverses_through_the_declared_base",
+          "role": "control",
+          "expected_observations": [
+            "UT: typed_by_level_explicit_types type 1 members 1 order 1 callbacks 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TRAVERSAL-DECL-BY-LEVEL-EXPLICIT-TYPES-TRAVERSES-THROUGH-THE-DECLARED-BASE",
+      "clause": "F.5.6.1",
+      "statement": {
+        "en": "The by_level adapter preserves its explicit_types specialization through a live base-view traversal.",
+        "ja": "by_level adapterは基底viewからの実際の走査でSTRUCTUREとVISITORを両方明示した特殊化を保持する。"
+      },
+      "conditions": {
+        "en": "Use the selected printed type defaults or explicit types and traverse an acyclic original tree through its supplied proxy.",
+        "ja": "選択した印刷型の既定値または明示型を使い、供給したproxyで独自の非循環treeを走査する。 STRUCTUREをnode69、VISITORをvisitor69と明示する。"
+      },
+      "expected": {
+        "en": "The exact selected base specialization retains identity; all four tree nodes are visited once, the selected parent/depth partial order holds, begin/end bracket the visits once, and the supplied proxy is queried.",
+        "ja": "正確な選択基底特殊化は同一性を保持し、treeの4 nodeをそれぞれ1回visitし、選択した親／深さの部分順序を満たし、begin／endでvisit全体を1回囲み、供給proxyへ照会する。"
+      },
+      "limitations": {
+        "en": "Only the selected valid types, constructor forms and original acyclic tree are observed. No sibling order, graph cycles/aliasing, null recovery, concurrency or all-subclass completeness is certified. Legal complete bodies are fixture controls and do not prove an unimplemented base algorithm. The adapter non-virtual/pure-method wording remains an interpretation boundary. ",
+        "ja": "選択した合法型、constructor形式、独自の非循環treeだけを観測する。兄弟順序、graph循環／alias、nullからの復旧、並行性、全派生型の完全性は認定しない。合法な完全本体は検査系のcontrolであり、未実装の基底algorithmを証明しない。adapterの非virtual／pure method文言は解釈境界に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_traversal_decl_by_level_explicit_types_traverses_through_the_declared_base",
+          "role": "direct",
+          "expected_observations": [
+            "UT: typed_by_level_explicit_types type 1 members 1 order 1 callbacks 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TRAVERSAL-DECL-COMPONENT-PROXY-DECLARED-BASE-RETURNS-IMMEDIATE-MEMBERS",
+      "clause": "F.5.7.1",
+      "statement": {
+        "en": "The component proxy retains its specified structure-proxy base and immediate component members.",
+        "ja": "component proxyは指定されたstructure-proxy基底と直下のcomponent要素を保持する。"
+      },
+      "conditions": {
+        "en": "Construct the builtin component proxy directly and call its exact typed base on a root with a child and grandchild.",
+        "ja": "組み込みcomponent proxyを直接生成し、子と孫を持つrootに対して正確な型付き基底から呼び出す。"
+      },
+      "expected": {
+        "en": "The exact structure-proxy and object views identify the component proxy, and the query returns the immediate child without the grandchild.",
+        "ja": "正確なstructure-proxyとobjectのviewはcomponent proxyを識別し、照会は孫を含めず直下の子を返す。"
+      },
+      "limitations": {
+        "en": "Only the selected valid types, constructor forms and original acyclic tree are observed. No sibling order, graph cycles/aliasing, null recovery, concurrency or all-subclass completeness is certified. Legal complete bodies are fixture controls and do not prove an unimplemented base algorithm. The adapter non-virtual/pure-method wording remains an interpretation boundary. ",
+        "ja": "選択した合法型、constructor形式、独自の非循環treeだけを観測する。兄弟順序、graph循環／alias、nullからの復旧、並行性、全派生型の完全性は認定しない。合法な完全本体は検査系のcontrolであり、未実装の基底algorithmを証明しない。adapterの非virtual／pure method文言は解釈境界に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_traversal_decl_component_proxy_declared_base_returns_immediate_members",
+          "role": "direct",
+          "expected_observations": [
+            "UT: component_proxy_decl type 1 children 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TRAVERSAL-DECL-VISITOR-VIRTUAL-REQUIRES-COMPILE-REJECTION",
+      "clause": "F.5.1.1",
+      "statement": {
+        "en": "The printed virtual uvm_visitor base rejects direct construction.",
+        "ja": "印刷されたvirtual uvm_visitor基底の直接生成を拒否する。"
+      },
+      "conditions": {
+        "en": "Directly construct the printed virtual base without a derived wrapper.",
+        "ja": "派生wrapperを使わず、印刷virtual基底を直接生成する。"
+      },
+      "expected": {
+        "en": "The compiler rejects the selected illegal condition with its fixture/type/method diagnostic.",
+        "ja": "compilerは選択した不正条件をfixture／型／methodの診断とともに拒否する。"
+      },
+      "limitations": {
+        "en": "Only the selected valid types, constructor forms and original acyclic tree are observed. No sibling order, graph cycles/aliasing, null recovery, concurrency or all-subclass completeness is certified. Legal complete bodies are fixture controls and do not prove an unimplemented base algorithm. The adapter non-virtual/pure-method wording remains an interpretation boundary. ",
+        "ja": "選択した合法型、constructor形式、独自の非循環treeだけを観測する。兄弟順序、graph循環／alias、nullからの復旧、並行性、全派生型の完全性は認定しない。合法な完全本体は検査系のcontrolであり、未実装の基底algorithmを証明しない。adapterの非virtual／pure method文言は解釈境界に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_traversal_decl_visitor_virtual_requires_compile_rejection",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?i)^(?=.*test_traversal_decl_visitor_virtual_requires_compile_rejection\\.sv:[0-9]+:[0-9]+:)(?=.*\\b(?:pure|virtual|abstract|missing implementation)\\b)(?=.*\\buvm_visitor\\b).*error"
+          }
+        },
+        {
+          "test": "uF/test_traversal_decl_visitor_default_node",
+          "role": "control",
+          "expected_observations": [
+            "UT: visitor_default_node type 1 delivered 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TRAVERSAL-DECL-PROXY-VIRTUAL-REQUIRES-COMPILE-REJECTION",
+      "clause": "F.5.2.1",
+      "statement": {
+        "en": "The printed virtual uvm_structure_proxy base rejects direct construction.",
+        "ja": "印刷されたvirtual uvm_structure_proxy基底の直接生成を拒否する。"
+      },
+      "conditions": {
+        "en": "Directly construct the printed virtual base without a derived wrapper.",
+        "ja": "派生wrapperを使わず、印刷virtual基底を直接生成する。"
+      },
+      "expected": {
+        "en": "The compiler rejects the selected illegal condition with its fixture/type/method diagnostic.",
+        "ja": "compilerは選択した不正条件をfixture／型／methodの診断とともに拒否する。"
+      },
+      "limitations": {
+        "en": "Only the selected valid types, constructor forms and original acyclic tree are observed. No sibling order, graph cycles/aliasing, null recovery, concurrency or all-subclass completeness is certified. Legal complete bodies are fixture controls and do not prove an unimplemented base algorithm. The adapter non-virtual/pure-method wording remains an interpretation boundary. ",
+        "ja": "選択した合法型、constructor形式、独自の非循環treeだけを観測する。兄弟順序、graph循環／alias、nullからの復旧、並行性、全派生型の完全性は認定しない。合法な完全本体は検査系のcontrolであり、未実装の基底algorithmを証明しない。adapterの非virtual／pure method文言は解釈境界に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_traversal_decl_proxy_virtual_requires_compile_rejection",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?i)^(?=.*test_traversal_decl_proxy_virtual_requires_compile_rejection\\.sv:[0-9]+:[0-9]+:)(?=.*\\b(?:pure|virtual|abstract|missing implementation)\\b)(?=.*\\buvm_structure_proxy\\b).*error"
+          }
+        },
+        {
+          "test": "uF/test_traversal_decl_proxy_constructor_omitted",
+          "role": "control",
+          "expected_observations": [
+            "UT: ctor_proxy_omitted name 1 ancestry 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TRAVERSAL-DECL-PROXY-MISSING-CHILDREN-REQUIRES-COMPILE-REJECTION",
+      "clause": "F.5.2.2.2",
+      "statement": {
+        "en": "A concrete subtype implements the declared pure get_immediate_children method.",
+        "ja": "具象派生型は宣言されたpure get_immediate_children methodを実装する。"
+      },
+      "conditions": {
+        "en": "Omit exactly the selected pure method in a directly instantiated concrete subtype.",
+        "ja": "直接生成する具象派生型で選択したpure methodだけを省略する。"
+      },
+      "expected": {
+        "en": "The compiler rejects the selected illegal condition with its fixture/type/method diagnostic.",
+        "ja": "compilerは選択した不正条件をfixture／型／methodの診断とともに拒否する。"
+      },
+      "limitations": {
+        "en": "Only the selected valid types, constructor forms and original acyclic tree are observed. No sibling order, graph cycles/aliasing, null recovery, concurrency or all-subclass completeness is certified. Legal complete bodies are fixture controls and do not prove an unimplemented base algorithm. The adapter non-virtual/pure-method wording remains an interpretation boundary. ",
+        "ja": "選択した合法型、constructor形式、独自の非循環treeだけを観測する。兄弟順序、graph循環／alias、nullからの復旧、並行性、全派生型の完全性は認定しない。合法な完全本体は検査系のcontrolであり、未実装の基底algorithmを証明しない。adapterの非virtual／pure method文言は解釈境界に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_traversal_decl_proxy_missing_children_requires_compile_rejection",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?i)^(?=.*test_traversal_decl_proxy_missing_children_requires_compile_rejection\\.sv:[0-9]+:[0-9]+:)(?=.*\\b(?:pure|virtual|abstract|missing implementation)\\b)(?=.*\\bget_immediate_children\\b).*error"
+          }
+        },
+        {
+          "test": "uF/test_traversal_decl_proxy_reference_queue_dispatches_exact_node",
+          "role": "control",
+          "expected_observations": [
+            "UT: proxy_ref calls 1 updated 1 source 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-TRAVERSAL-DECL-ADAPTER-MISSING-ACCEPT-REQUIRES-COMPILE-REJECTION",
+      "clause": "F.5.3.2.2",
+      "statement": {
+        "en": "A concrete subtype implements the declared pure accept method.",
+        "ja": "具象派生型は宣言されたpure accept methodを実装する。"
+      },
+      "conditions": {
+        "en": "Omit exactly the selected pure method in a directly instantiated concrete subtype.",
+        "ja": "直接生成する具象派生型で選択したpure methodだけを省略する。"
+      },
+      "expected": {
+        "en": "The compiler rejects the selected illegal condition with its fixture/type/method diagnostic.",
+        "ja": "compilerは選択した不正条件をfixture／型／methodの診断とともに拒否する。"
+      },
+      "limitations": {
+        "en": "Only the selected valid types, constructor forms and original acyclic tree are observed. No sibling order, graph cycles/aliasing, null recovery, concurrency or all-subclass completeness is certified. Legal complete bodies are fixture controls and do not prove an unimplemented base algorithm. The adapter non-virtual/pure-method wording remains an interpretation boundary. ",
+        "ja": "選択した合法型、constructor形式、独自の非循環treeだけを観測する。兄弟順序、graph循環／alias、nullからの復旧、並行性、全派生型の完全性は認定しない。合法な完全本体は検査系のcontrolであり、未実装の基底algorithmを証明しない。adapterの非virtual／pure method文言は解釈境界に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_traversal_decl_adapter_missing_accept_requires_compile_rejection",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?i)^(?=.*test_traversal_decl_adapter_missing_accept_requires_compile_rejection\\.sv:[0-9]+:[0-9]+:)(?=.*\\b(?:pure|virtual|abstract|missing implementation)\\b)(?=.*\\baccept\\b).*error"
+          }
+        },
+        {
+          "test": "uF/test_traversal_decl_adapter_complete_subtype_dispatches_signature",
+          "role": "control",
+          "expected_observations": [
+            "UT: adapter_complete type 1 context 1 traversed 1"
+          ]
+        }
+      ]
     }
   ]
 }

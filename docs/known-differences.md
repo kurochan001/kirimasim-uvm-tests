@@ -4,11 +4,25 @@
 
 A difference belongs to a particular simulator/library/input condition, and [the status definitions](faq.md#q5-what-do-pass-fail-known-and-unsupported-mean) explain how it appears in runner output.
 
-This describes the current 2100-test suite and the pinned Accellera UVM
+This describes the current 2133-test suite and the pinned Accellera UVM
 2020.3.1 library. A mismatch is a test result; it does not by itself assign
 the cause to the simulator, the library or the expectation.
 
-For a particular case, find its source link under [Spec-only tests](#spec-only-tests) and read its metadata using [the test format guide](testing.md#test-format) to identify the expected observation and execution conditions.
+Individual source links appear in the topic explanations and [grouped list](#spec-only-tests); [the test format guide](testing.md#test-format) explains how to read their metadata, expected observations and execution conditions.
+
+Traversal declaration auditing retains five new differences: three
+STRUCTURE-only dependent-VISITOR builds and two accepted concrete subtypes
+omitting get_immediate_children or accept. None has a runtime seed result.
+Explicit-type and complete-subtype controls match under distinct identities.
+The pinned declarations express the standard's dependent default, so the build
+diagnostics do not assign a cause. The non-virtual/pure-accept wording remains
+separate. See [traversal declarations](faq.md#traversal-declarations-and-defaults).
+
+- [Concrete adapter omitting accept](../tests/uF/test_traversal_decl_adapter_missing_accept_requires_compile_rejection.sv).
+- [bottom_up with dependent VISITOR default](../tests/uF/test_traversal_decl_bottom_up_default_visitor_traverses_through_the_declared_base.sv).
+- [by_level with dependent VISITOR default](../tests/uF/test_traversal_decl_by_level_default_visitor_traverses_through_the_declared_base.sv).
+- [Concrete proxy omitting children](../tests/uF/test_traversal_decl_proxy_missing_children_requires_compile_rejection.sv).
+- [top_down with dependent VISITOR default](../tests/uF/test_traversal_decl_top_down_default_visitor_traverses_through_the_declared_base.sv).
 
 Recording/scalar-macro auditing adds eleven measured differences: six strict
 three-argument attribute builds, one printed enum-unpack arity build, two
@@ -32,13 +46,12 @@ independent bugs. See [macro conditions](faq.md#recording-and-scalar-macro-condi
 - [Small integer macro with omitted radix](../tests/uB/test_record_macro_int_default_radix_uses_the_declared_default_recorder_route.sv).
 - [Printed one-argument enum unpack](../tests/uB/test_unpack_macro_enum_interoperates_with_an_independent_scalar_api.sv).
 
-88 elaboration fixtures expect rejection: 33 direct abstract
-constructions and 55 pure-interface/const-reference/forbidden-member/
-type-context violations. 85 match. Subscriber/visitor omissions and direct
-construction of the printed virtual builtin dispatcher remain accepted and
-spec-only without runtime. These three compiler acceptances are separate from
-294 known simulation differences. Legal derived controls do not replace a
-required rejection.
+92 elaboration fixtures expect rejection: 35 direct abstract constructions and
+57 pure-interface/const-reference/forbidden-member/type-context violations.
+87 match. Subscriber/visitor/proxy/adapter omissions and direct construction
+of the printed virtual builtin dispatcher remain accepted and spec-only without
+runtime. These five compiler acceptances are separate from 297 known simulation
+differences. Legal derived controls do not replace a required rejection.
 
 Field-access auditing retains 5 new runtime differences at seed 1 without
 seed 73. Register write/read pre hooks observe FDRC instead of the preserved
@@ -835,7 +848,7 @@ cannot build because the pinned library also declares unlisted pure helpers.
 The missing-standard-hook negative supplies original compatibility bodies only
 to isolate the specified rejection. It does not repair that legal extension.
 
-Across the suite, 1803 tests have the `verilator@5.052` oracle tag and 297
+Across the suite, 1831 tests have the `verilator@5.052` oracle tag and 302
 cases are spec-only. One of the spec-only cases checks 9.6: a child's pre-reset
 task must be killed when that phase ends, but the pinned-library run on Verilator 5.052
 lets the child perform its delayed write during a later phase. The cause of
@@ -847,8 +860,8 @@ without callbacks. The pinned Verilator run reaches the blocked-state
 observation, then its watchdog expires. This combined simulator/library
 cause remains unassigned; the normative wakeup expectation is retained.
 
-The 297 spec-only tests retain their normative expected files.
-Default Verilator runs and CI select 1803 tagged checks (1718 runtime, 85 compile rejection). `--all` includes
+The 302 spec-only cases retain standard-derived expected output or compiler diagnostics.
+Default Verilator runs and CI select 1831 tagged checks (1744 runtime, 87 compile rejection). `--all` includes
 spec-only cases and records mismatches or build failures as `known`.
 The ordinary runtime records for 218 cases establish their first difference
 at seed 1, without seed 73 results. Twenty-seven missing-API/type-name builds have
@@ -932,8 +945,9 @@ Spec-only cases retain standard-derived expectations even without a fixed-releas
 
 A control exercises a separate premise to help interpret a difference, and [the requirement-link guide](requirements.md#citations-requirements-and-execution-evidence) explains how its result relates to the original case.
 
-These are the 297 current spec-only cases. Several exercise the same
-limitation, so their count is not a count of distinct bugs.
+The 302 current spec-only cases are linked in the explanatory notes and the
+grouped list below. Several exercise the same limitation, so their count is
+not a count of distinct bugs.
 
 - [Inherited subscriber type_id specialization](../tests/u08/test_builtin_abstract_parameterized_components_type_id_uses_the_required_registry_specialization.sv).
 - [Missing transaction type_id in the shared abstract-object matrix](../tests/u08/test_builtin_abstract_objects_type_id_uses_the_required_registry_specialization.sv).
@@ -1220,7 +1234,7 @@ Additional message-handle and endian cases:
 
 Two existing inputs have revised fingerprints: the command-enum citation and
 the corrected Boolean rerandomization observation. Their historical guest
-records are excluded. The compatible subset has 1083 records and 1017 inputs
+records are excluded. The compatible subset has 1083 records and 1050 inputs
 are unmeasured, including both revised inputs. This filtering is evidence scope,
 not a new guest failure, pass or simulator improvement.
 
@@ -1257,8 +1271,8 @@ not a new guest failure, pass or simulator improvement.
 
 A bundled library and the pinned library are different execution conditions, so compare records using [Current snapshot](results.md#current-snapshot).
 
-The suite has 2100 cases, but the kirimasim/Ghost records below cover only
-1083 unchanged current-input cases. The 1017 inputs are unmeasured
+The suite has 2133 cases, but the kirimasim/Ghost records below cover only
+1083 unchanged current-input cases. The 1050 inputs are unmeasured
 because prior temporary executable/profile snapshots are unavailable. Do
 not treat this as a fresh full-suite guest result. See [results](results.md).
 

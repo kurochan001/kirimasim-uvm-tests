@@ -140,6 +140,14 @@ hook selection and generic formatting; it did not define the oracle. Literal
 printed inputs, extension-tolerant controls and qualified handle interpretations
 remain distinct, as explained in [the macro FAQ](faq.md#recording-and-scalar-macro-conditions).
 
+Traversal declaration expectations come from supplied IEEE F.5 and the
+language's abstract-class, parameter-type and constructor rules. After the
+oracles were written, the three Apache-2.0 pinned adapter declarations were
+inspected for dependent defaults; they match the printed dependency. No
+traversal algorithm or simulator implementation source defines the expected
+ordering. Original interface bodies delegate to public adapters or expose
+declared calls; see [the declaration FAQ](faq.md#traversal-declarations-and-defaults).
+
 ## Clause catalog maintenance
 
 The catalog counts identifiers rather than normative duties, so [Counting unit and scope proposal](requirements.md#counting-unit-and-scope-proposal) explains why restoring an entry does not define a coverage denominator.

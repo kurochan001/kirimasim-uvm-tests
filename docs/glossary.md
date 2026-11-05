@@ -1369,3 +1369,9 @@ trailer observation; [Q269](faq.md#q269-why-use-public-scalar-apis-in-the-other-
 **Printed macro arity control** — A separate input with an explicit additional
 argument or another printed interface, used to interpret the original signature
 premise; [Q270](faq.md#q270-do-passing-compatibility-controls-resolve-the-printed-macro-signatures) explains why a control match preserves the original difference.
+
+**Dependent visitor default** — A VISITOR type default formed from the selected
+STRUCTURE type; [Q274](faq.md#q274-do-the-dependent-visitor-build-differences-prove-a-wrong-library-declaration) distinguishes its original input from an explicit-type control.
+
+**Inherited empty visitor hook** — A begin/end callback whose base body leaves
+selected state unchanged while a subtype implements visit; [Q276](faq.md#q276-does-zero-unassessed-in-f5-complete-traversal-coverage) explains the limits of the selected observations.

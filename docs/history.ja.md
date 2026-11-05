@@ -4,7 +4,7 @@
 
 このページの件数は各変更時点の値なので、現在のスイート規模や実行範囲が必要なときは[現在のスナップショット](results.ja.md#現在のスナップショット)を使ってください。
 
-M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の68回目の拡充（全2100件：simulation 2012・elaboration 88）までを記録しています。以前の349件の時点は
+M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の69回目の拡充（全2133件：simulation 2041・elaboration 92）までを記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -2717,3 +2717,25 @@ metadata補助引用と省略radixの観測をIEEEと照合して修正し、現
 
 全11言語対の読み手向け案内を保持し、短い説明と関連する節へのリンクを補います。
 library／tool／metadata／台帳、現在のevidence、既存source保持、8 shardの完全選択をlocalで検証しますが、hosted Checkの成功を立証するものではありません。
+
+## 薄い領域の69回目の拡充：走査の宣言と既定値
+
+[19c4d55](https://github.com/kurochan001/kirimasim-uvm-tests/commit/19c4d5513ad8137d0dc1f122c0bb0568adfaf743)を基にM1の33入力（simulation 29／elaboration 4）と独立した日英AI義務33件を追加します。
+正確な宣言型／既定値の束縛、基底／object同一性、実際の基底constructorの引数形式、継承した空hook、参照queue dispatchを観測します。
+組み込みadapterが選択treeを走査し、独自interface本体で基底algorithmを認定しません。
+
+26入力がruntime両seedで一致し、virtual生成2件は拒否されます。
+STRUCTURE単独指定の依存既定値3入力はbuildできず、明示型controlは一致します。
+確認した固定宣言は規格どおりの依存関係を持ち、原因は断定しません。pure method省略2入力は受理されますがruntimeは実行しません。
+元の期待と診断を保持し、最終tagと順序の補助引用を反映して再測定し、本体やhelperは変更しません。
+
+区切り見出し4件とoverview 3件を個別評価し、14番号を部分分解します。全体は1938／404／165（構造278／文脈126）、
+付録Fは90／23／24で、義務207件、主引用122テストです。F.5の未評価番号はありませんが部分的なままです。
+全2133（simulation 2041／elaboration 92）、M1 920（841／79）、M2 547（542／5）、M3 666（658／8）です。
+通常passは1831（runtime 1744／拒否87）、knownは302（runtime 218／build 79／不正受理5）です。
+以前の通常2100記録、3686義務、397分類、以前の88 compiler記録を保持します。guest／backend記録も未変更で、guest未測定は1050入力です。
+
+collection macroは未完です。短いpacking契約を根拠にraw stream配置を作りません。
+規格本文／algorithm、商用結果、シミュレータ実装sourceをoracleの根拠にしません。日英資料と読み手向け案内を保持し、
+local evidence、library／tool／metadata／台帳、8 shardの完全な選択を検証します。
+hosted CI成功、人のレビュー、範囲／分母承認、goal完了は未立証です。

@@ -130,6 +130,14 @@ public APIs independently and preserve a seven-bit trailer; no raw stream
 layout or universal size/error behavior is inferred. See [macro interpretation
 and controls](faq.md#recording-and-scalar-macro-conditions) before changing a premise.
 
+The [traversal helper](../tests/uF/helpers69/traversal_fixture69.svh) supplies
+original nodes, typed visitors and complete interface bodies. Actual builtin
+adapters supply traversal; original bodies only expose declared dispatch or
+delegate to that public implementation. Constructor wrappers invoke the actual
+base with the selected omitted/explicit argument form. Dependent-default and
+explicit-type inputs remain distinct; see [the traversal FAQ](faq.md#traversal-declarations-and-defaults)
+before interpreting a type, name or compiler result.
+
 ### Metadata
 
 The header tells the runner how to build and judge a case; [Q76](faq.md#q76-does-a-clause-citation-mean-its-requirements-are-tested) explains how its clause citations relate to requirement links.
@@ -273,7 +281,7 @@ DPI lets SystemVerilog call external code, and [Q12](faq.md#q12-does-uvm_dpi-yes
 - User-defined `uvm_reg_backdoor` storage handlers work without HDL DPI.
   Commercial simulator execution/results are excluded by the project policy;
   built-in HDL-path/DPI coverage remains open.
-- 2071 current cases use `UVM_NO_DPI`; eleven explicitly enable HDL DPI.
+- 2104 current cases use `UVM_NO_DPI`; eleven explicitly enable HDL DPI.
   `:uvm_dpi: yes` removes that macro;
   it does not automatically compile or link the C/C++ DPI implementation.
   The current Verilator runner does not add DPI C/C++ sources.
@@ -383,9 +391,9 @@ For runtime cases, `--seeds 1 73` builds once and runs a fresh process for
 each seed. All requested runtime seeds must match. `--seed N` remains available for a single seed.
 The JSON configuration records either `seed` or `seeds` accordingly.
 
-By default, Verilator selects 1803 tagged two-state checks: 1718 runtime
-cases and 85 expected compiler rejections. To include
-the 297 spec-only cases as well, add `--all`. A mismatch in an untagged case
+By default, Verilator selects 1831 tagged two-state checks: 1744 runtime
+cases and 87 expected compiler rejections. To include
+the 302 spec-only cases as well, add `--all`. A mismatch in an untagged case
 is `known` and does not fail the command; a tagged mismatch does.
 Explicit test paths select only those tests. For a single smoke test:
 
@@ -443,7 +451,7 @@ python3 tools/requirements.py check
 ```
 
 The current tool suite has 110 unit tests; metadata validation checks all
-2100 tests (2012 simulation, 88 elaboration). The [ledger check](requirements.md) validates the draft
+2133 tests (2041 simulation, 92 elaboration). The [ledger check](requirements.md) validates the draft
 scope, explicit oracle links and input fingerprints without claiming coverage. [Check](../.github/workflows/check.yml) runs on pushes to
 `main`, pull requests and manual dispatch. Its Verilator matrix jobs use
 5.052, `UVM_NO_DPI` and seeds 1 and 73 for the tagged cases. Each model is
@@ -452,10 +460,10 @@ not that every UVM requirement or every simulator passes.
 
 The previous unsharded [Check run](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/41976785278)
 exceeded the configured 150-minute job limit. The current workflow partitions
-the current 1803 tagged checks into 8 disjoint shards (226/226/226/225/225/225/225/225),
+the current 1831 tagged checks into 8 disjoint shards (229/229/229/229/229/229/229/228),
 with at most 4 concurrent shard jobs. The exact union and absence of duplicates are
 verified locally. The 17 command-line checks run once, on shard 0 before
-ordinary checks. Seeds 1/73, the 85 compiler rejections, pinned dependencies
+ordinary checks. Seeds 1/73, compiler-rejection judgment, pinned dependencies
 and runner fingerprints are unchanged. The existing verilator gate requires
 all shards to succeed. Sharding is orchestration; local
 validation does not establish a successful hosted workflow result.

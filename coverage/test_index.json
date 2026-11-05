@@ -8401,6 +8401,138 @@
     "u16/test_record_macro_control_direct_small_field_preserves_default_and_explicit_radices": {
       "primary_clause": "16.4.6.1",
       "inputs_sha256": "6e57acf8f8a63adf8261bcb06f27cbf0aa26cbc97c98e6da422078a74db220a4"
+    },
+    "uF/test_traversal_decl_visitor_default_node": {
+      "primary_clause": "F.5.1.1",
+      "inputs_sha256": "05da72972175ab4d276ec566a66c20c7fd480121d598bbad2b375b37e5355077"
+    },
+    "uF/test_traversal_decl_visitor_explicit_node": {
+      "primary_clause": "F.5.1.1",
+      "inputs_sha256": "fbad98b51cc4a7cac071e761064a71b9b9259584ad0832bd5abaff66338dad19"
+    },
+    "uF/test_traversal_decl_visitor_inherited_begin_v_preserves_state": {
+      "primary_clause": "F.5.1.2.1",
+      "inputs_sha256": "5bf043541991648a0b11b28b3cfaa50e8479e15108e8c90c8ecac083e262c2ad"
+    },
+    "uF/test_traversal_decl_visitor_inherited_end_v_preserves_state": {
+      "primary_clause": "F.5.1.2.2",
+      "inputs_sha256": "25bf7dadcf2d684648dd28f2e69f65a7fb9d73f1d7ce8564f95ae1486fbfde75"
+    },
+    "uF/test_traversal_decl_proxy_default_structure_and_reference_queue": {
+      "primary_clause": "F.5.2.1",
+      "inputs_sha256": "8ad0a91be0751af13ad8f0026109de691e41a2aece2f14a804a850882f1926d6"
+    },
+    "uF/test_traversal_decl_proxy_reference_queue_dispatches_exact_node": {
+      "primary_clause": "F.5.2.2.2",
+      "inputs_sha256": "b5a885b3c76400ad22f7d847e7b930009fba51eae68fa1f501df13a38757424d"
+    },
+    "uF/test_traversal_decl_adapter_complete_subtype_dispatches_signature": {
+      "primary_clause": "F.5.3.1",
+      "inputs_sha256": "b7a22ef849c98a9328969429919505d69dafbef8dc891efaec333945685146a8"
+    },
+    "uF/test_traversal_decl_proxy_constructor_omitted": {
+      "primary_clause": "F.5.2.2.1",
+      "inputs_sha256": "c0c090c777dc1474355639579de5fae71ef7fe777aa41f90bccd986dbf4dca47"
+    },
+    "uF/test_traversal_decl_proxy_constructor_named": {
+      "primary_clause": "F.5.2.2.1",
+      "inputs_sha256": "1bce3d371a2ac592f990eed4936a0db3dd8dd6dd9bc40a95700543980af93da0"
+    },
+    "uF/test_traversal_decl_adapter_base_constructor_omitted": {
+      "primary_clause": "F.5.3.2.1",
+      "inputs_sha256": "001fe2ff0195fb5b73a01a552fec1072d7e41323ef0ef3087550e494cdc5eeb7"
+    },
+    "uF/test_traversal_decl_adapter_base_constructor_named": {
+      "primary_clause": "F.5.3.2.1",
+      "inputs_sha256": "81b8136027962eda183e07421215395d4b42eb2444fd220bd9345bfbbd74a9b0"
+    },
+    "uF/test_traversal_decl_top_down_constructor_omitted": {
+      "primary_clause": "F.5.4.2",
+      "inputs_sha256": "dec4770f62d8bcaebc91a75ea9a911b1ebf2b94f80b8f86babd3332c182e4361"
+    },
+    "uF/test_traversal_decl_top_down_constructor_named": {
+      "primary_clause": "F.5.4.2",
+      "inputs_sha256": "4e24b38a0945562b610fa9692dd24bf6e511b42568fda7597eec28dfc4c0954d"
+    },
+    "uF/test_traversal_decl_bottom_up_constructor_omitted": {
+      "primary_clause": "F.5.5.2",
+      "inputs_sha256": "f60658b60443a7d17aaca247a54acf94aae7db798f4f4fb5c328e0cb8bab5377"
+    },
+    "uF/test_traversal_decl_bottom_up_constructor_named": {
+      "primary_clause": "F.5.5.2",
+      "inputs_sha256": "177d370a5c4550e1f36e4e0c13ba43d92f3b703aca80fc0ed30ca2fd575b47ab"
+    },
+    "uF/test_traversal_decl_by_level_constructor_omitted": {
+      "primary_clause": "F.5.6.2",
+      "inputs_sha256": "0030ea4efc51339fc9c9befce13bd572f1f95ef8590edf907c81178e1ffc20f7"
+    },
+    "uF/test_traversal_decl_by_level_constructor_named": {
+      "primary_clause": "F.5.6.2",
+      "inputs_sha256": "3f107a0962ee2a6a18a62377f8c2b92c00a9edde8e4c4e18b5111d5daa6dc360"
+    },
+    "uF/test_traversal_decl_component_proxy_constructor_omitted": {
+      "primary_clause": "F.5.7.2",
+      "inputs_sha256": "73fed2c9f0bf0dc238b48f7e1ba95980e726de1d46de8475bb781db83be3112c"
+    },
+    "uF/test_traversal_decl_component_proxy_constructor_named": {
+      "primary_clause": "F.5.7.2",
+      "inputs_sha256": "b818f65d837afc42547971e1f0c059bc801ddb6a97cf9a79caa477e85dd92fba"
+    },
+    "uF/test_traversal_decl_top_down_default_types_traverses_through_the_declared_base": {
+      "primary_clause": "F.5.4.1",
+      "inputs_sha256": "533e9d50d58cb94673e36575cef4d56bf35815eaf4c97d94bb236d921e967435"
+    },
+    "uF/test_traversal_decl_top_down_default_visitor_traverses_through_the_declared_base": {
+      "primary_clause": "F.5.4.1",
+      "inputs_sha256": "87f9bd8a579763d3e648d3494c11548dfcae1b27323130f2689d134cdd3c1fd0"
+    },
+    "uF/test_traversal_decl_top_down_explicit_types_traverses_through_the_declared_base": {
+      "primary_clause": "F.5.4.1",
+      "inputs_sha256": "b93b447a6c09a589b1338d916085df0b913ef23c3bf8273d5717fa643528ec6f"
+    },
+    "uF/test_traversal_decl_bottom_up_default_types_traverses_through_the_declared_base": {
+      "primary_clause": "F.5.5.1",
+      "inputs_sha256": "5aceedb403fda0da5883c09e9cce3f3b84861839d92d6daadfeaff1d5124523f"
+    },
+    "uF/test_traversal_decl_bottom_up_default_visitor_traverses_through_the_declared_base": {
+      "primary_clause": "F.5.5.1",
+      "inputs_sha256": "25ad714753d182c1661e3e60c157780ac02191bf0cb8017113d787d4e117a269"
+    },
+    "uF/test_traversal_decl_bottom_up_explicit_types_traverses_through_the_declared_base": {
+      "primary_clause": "F.5.5.1",
+      "inputs_sha256": "748be9b6d922105d2ffda9f97f6959f324cded43c3af8ca526e4de730e523ab2"
+    },
+    "uF/test_traversal_decl_by_level_default_types_traverses_through_the_declared_base": {
+      "primary_clause": "F.5.6.1",
+      "inputs_sha256": "06429dceddd87aa949491c78593a1343b5a669303146c1960f11f99127f44c5b"
+    },
+    "uF/test_traversal_decl_by_level_default_visitor_traverses_through_the_declared_base": {
+      "primary_clause": "F.5.6.1",
+      "inputs_sha256": "97587c0cbe317bc5e4678f06d7871f9b7c862371eddb7fa734eb361314e09236"
+    },
+    "uF/test_traversal_decl_by_level_explicit_types_traverses_through_the_declared_base": {
+      "primary_clause": "F.5.6.1",
+      "inputs_sha256": "5431669f638e5e41fd65cfe7294b11ea787c3b196d7a892a1e8607b5e5ebb46d"
+    },
+    "uF/test_traversal_decl_component_proxy_declared_base_returns_immediate_members": {
+      "primary_clause": "F.5.7.1",
+      "inputs_sha256": "3eac14c52375e4b6ae001a0d122eec043bac24e2bfa890d22541a63369bf4432"
+    },
+    "uF/test_traversal_decl_visitor_virtual_requires_compile_rejection": {
+      "primary_clause": "F.5.1.1",
+      "inputs_sha256": "24bbc2e6d1340f7f2ca2487fdd588e77cc8f973e2ab611eba429c50b5dc716c1"
+    },
+    "uF/test_traversal_decl_proxy_virtual_requires_compile_rejection": {
+      "primary_clause": "F.5.2.1",
+      "inputs_sha256": "8cd081ec67c6dc8c785247b80411d82c282fc042da213f6946556b20615b5543"
+    },
+    "uF/test_traversal_decl_proxy_missing_children_requires_compile_rejection": {
+      "primary_clause": "F.5.2.2.2",
+      "inputs_sha256": "dac5ead9a996437c0c5e10eb5ef1317ba3c73931e3ef10cffc381c507d542d78"
+    },
+    "uF/test_traversal_decl_adapter_missing_accept_requires_compile_rejection": {
+      "primary_clause": "F.5.3.2.2",
+      "inputs_sha256": "d39d8da002aa9fe858818e069f81d5022814387a130fa341ffa87201c6ac755c"
     }
   }
 }

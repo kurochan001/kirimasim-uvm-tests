@@ -6044,6 +6044,116 @@
         "reviewer": null,
         "reviewed_at": null
       }
+    },
+    {
+      "clause": "F.5",
+      "classification": "structural",
+      "rationale": {
+        "en": "The individually read Traversal heading groups visitors, structure proxies and adapters; its text adds no independent operation beyond the following class and method contracts.",
+        "ja": "個別に読んだTraversal見出しはvisitor・structure proxy・adapterをまとめ、後続のclass／method契約と別の独立操作を追加しない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "F.5.1.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "The individually read Methods heading groups the visitor begin/end/visit methods, whose separate subclauses retain their behavioral duties.",
+        "ja": "個別に読んだMethods見出しはvisitor begin/end/visitのmethodをまとめ、個別の子条項に動作上の義務を保持する。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "F.5.2.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "The individually read Methods heading groups the structure-proxy constructor/children methods, whose separate subclauses retain their behavioral duties.",
+        "ja": "個別に読んだMethods見出しはstructure-proxy constructor/childrenのmethodをまとめ、個別の子条項に動作上の義務を保持する。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "F.5.3.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "The individually read Methods heading groups the visitor-adapter constructor/accept methods, whose separate subclauses retain their behavioral duties.",
+        "ja": "個別に読んだMethods見出しはvisitor-adapter constructor/acceptのmethodをまとめ、個別の子条項に動作上の義務を保持する。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "F.5.1",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The individually read overview describes an abstract visitor of NODE instances. Virtuality/default typing and pure visit are decomposed in the linked declaration and method duties; the overview does not supply a separate builtin visit algorithm.",
+        "ja": "個別に読んだoverviewはNODE instanceを扱う抽象visitorを説明する。virtual性・既定型・pure visitは対応する宣言／method義務に分解し、overviewから別の組み込みvisit algorithmを作らない。"
+      },
+      "related_requirements": [
+        "UVM-TRAVERSAL-DECL-VISITOR-VIRTUAL-REQUIRES-COMPILE-REJECTION",
+        "UVM-TRAVERSAL-DECL-VISITOR-DEFAULT-NODE",
+        "UVM-NEGATIVE-VISITOR-CONCRETE-SUBCLASS-MUST-IMPLEMENT-VISIT"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "F.5.2",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The individually read overview explains separating child retrieval from operations on STRUCTURE. The abstract/default declaration and typed reference-queue interface are recorded by the linked duties; no extra traversal algorithm is specified here.",
+        "ja": "個別に読んだoverviewはSTRUCTUREへの操作と子の取得を分ける役割を説明する。抽象／既定型の宣言と型付き参照queue interfaceを対応義務に記録し、ここで追加の走査algorithmは規定しない。"
+      },
+      "related_requirements": [
+        "UVM-TRAVERSAL-DECL-PROXY-VIRTUAL-REQUIRES-COMPILE-REJECTION",
+        "UVM-TRAVERSAL-DECL-PROXY-DEFAULT-STRUCTURE-AND-REFERENCE-QUEUE",
+        "UVM-TRAVERSAL-DECL-PROXY-REFERENCE-QUEUE-DISPATCHES-EXACT-NODE"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "F.5.3",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The individually read overview describes visiting every node via the supplied adapter. Full selected-tree traversal, callbacks and subtree selection are decomposed in accept duties; class typing and the pure/non-virtual wording remain separately qualified.",
+        "ja": "個別に読んだoverviewはadapterを通して各nodeをvisitすることを説明する。選択tree全体の走査・callback・subtree選択はaccept義務に分解し、classの型とpure／非virtual文言は別の限定した前提に保持する。"
+      },
+      "related_requirements": [
+        "UVM-VISITOR-ACCEPT-DEFAULT-CALLBACKS",
+        "UVM-VISITOR-ACCEPT-SELECTED-SUBTREE-REUSE",
+        "UVM-TRAVERSAL-DECL-ADAPTER-COMPLETE-SUBTYPE-DISPATCHES-SIGNATURE"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
     }
   ]
 }

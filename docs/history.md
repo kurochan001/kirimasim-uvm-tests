@@ -5,8 +5,8 @@
 Counts on this page belong to the time of each change, so use [the current snapshot](results.md#current-snapshot) when you need the present suite size or execution scope.
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and sixty-eight cross-milestone thin-area expansions, including the
-existing-test requirement-link backlog checkpoint (2100 tests: 2012 simulation and 88 elaboration). The earlier 349-test checkpoint is
+three M4 increments and sixty-nine cross-milestone thin-area expansions, including the
+existing-test requirement-link backlog checkpoint (2133 tests: 2041 simulation and 92 elaboration). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -4249,3 +4249,35 @@ Reader guidance in all eleven language pairs is preserved and expanded with
 short contextual explanations and links. Library/tool/metadata/ledger checks,
 current evidence, source preservation and exact eight-shard selection are
 validated locally; this does not establish a successful hosted Check result.
+
+## Sixty-ninth thin-area expansion: traversal declarations and defaults
+
+Based on [19c4d55](https://github.com/kurochan001/kirimasim-uvm-tests/commit/19c4d5513ad8137d0dc1f122c0bb0568adfaf743), this increment adds 33 M1 inputs (29 simulation/4 elaboration)
+and 33 independent bilingual AI duties. Exact declared type/default bindings,
+base/object identity, actual base constructor argument forms, inherited empty
+hooks and reference-queue dispatch are observed. Builtin adapters supply the
+selected tree traversal; original interface bodies do not certify a base algorithm.
+
+26 inputs match both runtime seeds; two virtual constructions are rejected.
+Three STRUCTURE-only dependent-default inputs cannot build while explicit-type
+controls match. The inspected pinned declarations match the standard's dependency;
+no cause is assigned. Two pure-method omission inputs are accepted without
+runtime. Original expectations and diagnostics remain; final tags and order
+citations are remeasured without changing bodies or helpers.
+
+Four grouping headings and three overviews are individually assessed; fourteen
+identifiers receive partial decompositions. Global state is 1938/404/165
+(278 structural/126 contextual); annex F is 90/23/24 with 207 duties and 122
+primary tests. F.5 has zero unassessed identifiers but remains partial.
+The suite is 2133 (2041 simulation/92 elaboration): M1 920 (841/79), M2 547
+(542/5), M3 666 (658/8). Ordinary pass is 1831 (1744 runtime/87 rejections),
+known 302 (218 runtime/79 builds/5 illegal acceptances). All 2100 prior ordinary
+records, 3686 duties, 397 assessments and 88 prior compiler records are preserved.
+Guest/backend records are unchanged; 1050 guest inputs are unmeasured.
+
+The collection macros remain open: their short packing contracts do not license
+inventing a raw stream layout. No standard text/algorithm, commercial result or
+simulator implementation source supplies an oracle. Paired docs and reader
+guidance are preserved; local evidence, library/tool/metadata/ledger checks and
+the exact eight-shard selection are verified. Hosted CI success, human review,
+scope/denominator approval and goal completion remain unproven.

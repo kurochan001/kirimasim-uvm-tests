@@ -104,6 +104,11 @@ recording／scalar macroの期待は、提供IEEEのB.2.3〜B.2.5とrecorder／p
 その後、固定Apache-2.0のrecorder macro headerを追加引数・整数hook選択・generic書式の原因調査に読みましたが、oracleの根拠にはしません。
 印刷どおりの入力、追加引数を許容するcontrol、限定したhandle解釈を分けており、[macroのFAQ](faq.ja.md#recordingとscalar-macroの条件)で説明しています。
 
+走査の宣言期待は、提供IEEEのF.5と言語の抽象class・parameter型・constructorの規則から導きます。
+oracleを書いた後、Apache-2.0固定adapterの宣言3件で依存する既定値を確認し、印刷された依存関係と一致していました。
+走査algorithmやシミュレータの実装sourceを順序期待の根拠にしません。独自interface本体は公開adapterへ委譲するか宣言された呼出しを観測し、
+解釈は[宣言のFAQ](faq.ja.md#走査の宣言と既定値)に記録します。
+
 ## 条項カタログの保守
 
 catalogが数えるのは規範的義務ではなく識別子なので、項目の復元でcoverage分母が決まらない理由は[計数単位と対象範囲の案](requirements.ja.md#計数単位と対象範囲の案)を参照してください。
