@@ -120,6 +120,9 @@ virtual register／field照会の期待値は、供給されたIEEE 18.9〜18.10
 virtual field constructorの取得値は、factoryで生成した独自派生型から実際の基底を呼び出して観測します。
 既存configure sourceと安定したparent義務はconstructorの18.10.2.1からconfigureの18.10.2.2へ移し、既存の2義務へ幅／LSBのlinkを加えます。[対応のFAQ](faq.ja.md#専用global照会と対応付けの修正)で説明します。
 
+recorder-linkの期待値は提供IEEE 16.4.4とclose／free／flush、streamのlifecycle、database linkの契約から測定前に導きます。
+独自のメモリ内callbackと終了catcherを使い、外部記録databaseや測定した警告をoracleにせず、[期間のFAQ](faq.ja.md#recorderのlink可能期間)で解釈を説明しています。
+
 ## 条項カタログの保守
 
 catalogが数えるのは規範的義務ではなく識別子なので、項目の復元でcoverage分母が決まらない理由は[計数単位と対象範囲の案](requirements.ja.md#計数単位と対象範囲の案)を参照してください。

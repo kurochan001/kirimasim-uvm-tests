@@ -1437,3 +1437,12 @@ the two typed premises retain separate tests and qualified expectations.
 **Combined observation row** — One expected line containing several observed
 columns, such as parent, width and LSB. Separate duties may bind their own
 values in that row; it remains one test and its complete runner judgment.
+
+## Recorder link lifetime
+
+**Recorder link lifetime window** — The interval after open_recorder and before
+free, during which a recorder can be a database link endpoint. Close ends the
+transaction without ending this interval; flushing an open recorder or freeing
+its owning stream can free it. The object reference may remain after free;
+[the lifetime FAQ](faq.md#recorder-link-lifetime) explains why that does not keep
+it linkable or define error recovery.

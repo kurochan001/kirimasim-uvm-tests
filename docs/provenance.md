@@ -166,6 +166,12 @@ configuration source and its stable parent duty move from constructor
 18.10.2.1 to configure 18.10.2.2; two existing duties add width/LSB links.
 See [the mapping FAQ](faq.md#dedicated-global-lookups-and-mapping-corrections).
 
+Recorder-link expectations are derived before measurement from the supplied IEEE
+16.4.4 and the close/free/flush, stream-lifecycle and database-link contracts.
+Original in-memory callbacks and a terminating catcher expose the selected
+behavior; an external database or observed warning does not define the oracle.
+See [the lifetime FAQ](faq.md#recorder-link-lifetime).
+
 ## Clause catalog maintenance
 
 The catalog counts identifiers rather than normative duties, so [Counting unit and scope proposal](requirements.md#counting-unit-and-scope-proposal) explains why restoring an entry does not define a coverage denominator.

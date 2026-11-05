@@ -138799,6 +138799,524 @@
           ]
         }
       ]
+    },
+    {
+      "id": "UVM-RECORDER-LINK-WINDOW-OPEN-RELATED",
+      "clause": "16.4.4",
+      "statement": {
+        "en": "Establishing a database link is permitted while endpoint recorders are opened and not freed.",
+        "ja": "端点recorderがopen後でfree前ならdatabase linkを確立できる。"
+      },
+      "conditions": {
+        "en": "same-stream open endpoints; use original in-memory callbacks and a related link.",
+        "ja": "同じstreamのopen端点とし、独自のメモリ内callbackとrelated linkを使う。"
+      },
+      "expected": {
+        "en": "The actual database dispatches the exact link once, retaining both recorder endpoints without ERROR/FATAL.",
+        "ja": "実際のdatabaseが正確なlinkを1回dispatchし、両recorder端点を保持しERROR／FATALを報告しない。"
+      },
+      "limitations": {
+        "en": "Only this selected lifecycle and relation are checked. No external database, exact diagnostic wording/count, post-error recovery or arbitrary concurrency is inferred. Public state/handle columns guard the setup; they do not create independent tests.",
+        "ja": "選択したlifecycleとrelationだけを検査する。外部database、正確な診断文／件数、error後の回復、任意の並行性は推論しない。公開状態／handle列は構成を確認するもので独立テストには数えない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_recorder_link_window_open_related",
+          "role": "direct",
+          "expected_observations": [
+            "UT: recorder_link_valid calls 1 exact 1 endpoints 1 errors 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDER-LINK-WINDOW-RIGHT-CLOSED-PARENT-CHILD",
+      "clause": "16.4.4",
+      "statement": {
+        "en": "Establishing a database link is permitted while endpoint recorders are opened and not freed.",
+        "ja": "端点recorderがopen後でfree前ならdatabase linkを確立できる。"
+      },
+      "conditions": {
+        "en": "closed right endpoint with an open left endpoint; use original in-memory callbacks and a parent_child link.",
+        "ja": "右端点がclosed、左端点がopenとし、独自のメモリ内callbackとparent_child linkを使う。"
+      },
+      "expected": {
+        "en": "The actual database dispatches the exact link once, retaining both recorder endpoints without ERROR/FATAL.",
+        "ja": "実際のdatabaseが正確なlinkを1回dispatchし、両recorder端点を保持しERROR／FATALを報告しない。"
+      },
+      "limitations": {
+        "en": "Only this selected lifecycle and relation are checked. No external database, exact diagnostic wording/count, post-error recovery or arbitrary concurrency is inferred. Public state/handle columns guard the setup; they do not create independent tests.",
+        "ja": "選択したlifecycleとrelationだけを検査する。外部database、正確な診断文／件数、error後の回復、任意の並行性は推論しない。公開状態／handle列は構成を確認するもので独立テストには数えない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_recorder_link_window_right_closed_parent_child",
+          "role": "direct",
+          "expected_observations": [
+            "UT: recorder_link_valid calls 1 exact 1 endpoints 1 errors 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDER-LINK-WINDOW-LEFT-CLOSED-CAUSE-EFFECT",
+      "clause": "16.4.4",
+      "statement": {
+        "en": "Establishing a database link is permitted while endpoint recorders are opened and not freed.",
+        "ja": "端点recorderがopen後でfree前ならdatabase linkを確立できる。"
+      },
+      "conditions": {
+        "en": "closed left endpoint with an open right endpoint; use original in-memory callbacks and a cause_effect link.",
+        "ja": "左端点がclosed、右端点がopenとし、独自のメモリ内callbackとcause_effect linkを使う。"
+      },
+      "expected": {
+        "en": "The actual database dispatches the exact link once, retaining both recorder endpoints without ERROR/FATAL.",
+        "ja": "実際のdatabaseが正確なlinkを1回dispatchし、両recorder端点を保持しERROR／FATALを報告しない。"
+      },
+      "limitations": {
+        "en": "Only this selected lifecycle and relation are checked. No external database, exact diagnostic wording/count, post-error recovery or arbitrary concurrency is inferred. Public state/handle columns guard the setup; they do not create independent tests.",
+        "ja": "選択したlifecycleとrelationだけを検査する。外部database、正確な診断文／件数、error後の回復、任意の並行性は推論しない。公開状態／handle列は構成を確認するもので独立テストには数えない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_recorder_link_window_left_closed_cause_effect",
+          "role": "direct",
+          "expected_observations": [
+            "UT: recorder_link_valid calls 1 exact 1 endpoints 1 errors 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDER-LINK-WINDOW-BOTH-CLOSED-RELATED",
+      "clause": "16.4.4",
+      "statement": {
+        "en": "Establishing a database link is permitted while endpoint recorders are opened and not freed.",
+        "ja": "端点recorderがopen後でfree前ならdatabase linkを確立できる。"
+      },
+      "conditions": {
+        "en": "both recorders closed without freeing; use original in-memory callbacks and a related link.",
+        "ja": "両recorderをfreeせずcloseとし、独自のメモリ内callbackとrelated linkを使う。"
+      },
+      "expected": {
+        "en": "The actual database dispatches the exact link once, retaining both recorder endpoints without ERROR/FATAL.",
+        "ja": "実際のdatabaseが正確なlinkを1回dispatchし、両recorder端点を保持しERROR／FATALを報告しない。"
+      },
+      "limitations": {
+        "en": "Only this selected lifecycle and relation are checked. No external database, exact diagnostic wording/count, post-error recovery or arbitrary concurrency is inferred. Public state/handle columns guard the setup; they do not create independent tests.",
+        "ja": "選択したlifecycleとrelationだけを検査する。外部database、正確な診断文／件数、error後の回復、任意の並行性は推論しない。公開状態／handle列は構成を確認するもので独立テストには数えない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_recorder_link_window_both_closed_related",
+          "role": "direct",
+          "expected_observations": [
+            "UT: recorder_link_valid calls 1 exact 1 endpoints 1 errors 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDER-LINK-WINDOW-CROSS-STREAM-PARENT-CHILD",
+      "clause": "16.4.4",
+      "statement": {
+        "en": "Establishing a database link is permitted while endpoint recorders are opened and not freed.",
+        "ja": "端点recorderがopen後でfree前ならdatabase linkを確立できる。"
+      },
+      "conditions": {
+        "en": "open recorders in distinct streams of one database; use original in-memory callbacks and a parent_child link.",
+        "ja": "同じdatabaseの別streamにあるopen recorderとし、独自のメモリ内callbackとparent_child linkを使う。"
+      },
+      "expected": {
+        "en": "The actual database dispatches the exact link once, retaining both recorder endpoints without ERROR/FATAL.",
+        "ja": "実際のdatabaseが正確なlinkを1回dispatchし、両recorder端点を保持しERROR／FATALを報告しない。"
+      },
+      "limitations": {
+        "en": "Only this selected lifecycle and relation are checked. No external database, exact diagnostic wording/count, post-error recovery or arbitrary concurrency is inferred. Public state/handle columns guard the setup; they do not create independent tests.",
+        "ja": "選択したlifecycleとrelationだけを検査する。外部database、正確な診断文／件数、error後の回復、任意の並行性は推論しない。公開状態／handle列は構成を確認するもので独立テストには数えない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_recorder_link_window_cross_stream_parent_child",
+          "role": "direct",
+          "expected_observations": [
+            "UT: recorder_link_valid calls 1 exact 1 endpoints 1 errors 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDER-LINK-WINDOW-CLOSED-STREAM-CAUSE-EFFECT",
+      "clause": "16.4.4",
+      "statement": {
+        "en": "Establishing a database link is permitted while endpoint recorders are opened and not freed.",
+        "ja": "端点recorderがopen後でfree前ならdatabase linkを確立できる。"
+      },
+      "conditions": {
+        "en": "records closed by their owning stream; use original in-memory callbacks and a cause_effect link.",
+        "ja": "所有streamによってcloseされたrecordとし、独自のメモリ内callbackとcause_effect linkを使う。"
+      },
+      "expected": {
+        "en": "The actual database dispatches the exact link once, retaining both recorder endpoints without ERROR/FATAL.",
+        "ja": "実際のdatabaseが正確なlinkを1回dispatchし、両recorder端点を保持しERROR／FATALを報告しない。"
+      },
+      "limitations": {
+        "en": "Only this selected lifecycle and relation are checked. No external database, exact diagnostic wording/count, post-error recovery or arbitrary concurrency is inferred. Public state/handle columns guard the setup; they do not create independent tests.",
+        "ja": "選択したlifecycleとrelationだけを検査する。外部database、正確な診断文／件数、error後の回復、任意の並行性は推論しない。公開状態／handle列は構成を確認するもので独立テストには数えない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_recorder_link_window_closed_stream_cause_effect",
+          "role": "direct",
+          "expected_observations": [
+            "UT: recorder_link_valid calls 1 exact 1 endpoints 1 errors 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDER-LINK-WINDOW-ONE-STREAM-CLOSED-RELATED",
+      "clause": "16.4.4",
+      "statement": {
+        "en": "Establishing a database link is permitted while endpoint recorders are opened and not freed.",
+        "ja": "端点recorderがopen後でfree前ならdatabase linkを確立できる。"
+      },
+      "conditions": {
+        "en": "one owning stream closed while the other remains open; use original in-memory callbacks and a related link.",
+        "ja": "片方の所有streamをcloseし他方はopenとし、独自のメモリ内callbackとrelated linkを使う。"
+      },
+      "expected": {
+        "en": "The actual database dispatches the exact link once, retaining both recorder endpoints without ERROR/FATAL.",
+        "ja": "実際のdatabaseが正確なlinkを1回dispatchし、両recorder端点を保持しERROR／FATALを報告しない。"
+      },
+      "limitations": {
+        "en": "Only this selected lifecycle and relation are checked. No external database, exact diagnostic wording/count, post-error recovery or arbitrary concurrency is inferred. Public state/handle columns guard the setup; they do not create independent tests.",
+        "ja": "選択したlifecycleとrelationだけを検査する。外部database、正確な診断文／件数、error後の回復、任意の並行性は推論しない。公開状態／handle列は構成を確認するもので独立テストには数えない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_recorder_link_window_one_stream_closed_related",
+          "role": "direct",
+          "expected_observations": [
+            "UT: recorder_link_valid calls 1 exact 1 endpoints 1 errors 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDER-LINK-WINDOW-FREED-PEER-PARENT-CHILD",
+      "clause": "16.4.4",
+      "statement": {
+        "en": "Establishing a database link is permitted while endpoint recorders are opened and not freed.",
+        "ja": "端点recorderがopen後でfree前ならdatabase linkを確立できる。"
+      },
+      "conditions": {
+        "en": "unrelated third recorder freed while both selected endpoints remain open; use original in-memory callbacks and a parent_child link.",
+        "ja": "無関係な第3 recorderをfreeし選択した両端点はopenとし、独自のメモリ内callbackとparent_child linkを使う。"
+      },
+      "expected": {
+        "en": "The actual database dispatches the exact link once, retaining both recorder endpoints without ERROR/FATAL.",
+        "ja": "実際のdatabaseが正確なlinkを1回dispatchし、両recorder端点を保持しERROR／FATALを報告しない。"
+      },
+      "limitations": {
+        "en": "Only this selected lifecycle and relation are checked. No external database, exact diagnostic wording/count, post-error recovery or arbitrary concurrency is inferred. Public state/handle columns guard the setup; they do not create independent tests.",
+        "ja": "選択したlifecycleとrelationだけを検査する。外部database、正確な診断文／件数、error後の回復、任意の並行性は推論しない。公開状態／handle列は構成を確認するもので独立テストには数えない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_recorder_link_window_freed_peer_parent_child",
+          "role": "direct",
+          "expected_observations": [
+            "UT: recorder_link_valid calls 1 exact 1 endpoints 1 errors 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDER-LINK-WINDOW-FREED-LEFT-RELATED",
+      "clause": "16.4.4",
+      "statement": {
+        "en": "Establishing a database link after freeing an endpoint recorder reports an error.",
+        "ja": "端点recorderをfreeした後のdatabase link確立はerrorを報告する。"
+      },
+      "conditions": {
+        "en": "left recorder freed directly while right remains open; use original in-memory callbacks and a related link.",
+        "ja": "左recorderを直接freeし右はopenとし、独自のメモリ内callbackとrelated linkを使う。"
+      },
+      "expected": {
+        "en": "An ERROR or FATAL occurs during establish_link; the original catcher stops the simulation immediately.",
+        "ja": "establish_link中にERRORまたはFATALが生じ、独自catcherが直ちにsimulationを終了する。"
+      },
+      "limitations": {
+        "en": "Only this selected lifecycle and relation are checked. No external database, exact diagnostic wording/count, post-error recovery or arbitrary concurrency is inferred. Public state/handle columns guard the setup; they do not create independent tests.",
+        "ja": "選択したlifecycleとrelationだけを検査する。外部database、正確な診断文／件数、error後の回復、任意の並行性は推論しない。公開状態／handle列は構成を確認するもので独立テストには数えない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_recorder_link_window_freed_left_related",
+          "role": "direct",
+          "expected_observations": [
+            "UT: recorder_link_error present 1"
+          ]
+        },
+        {
+          "test": "u16/test_recorder_link_window_open_related",
+          "role": "control",
+          "expected_observations": [
+            "UT: recorder_link_valid calls 1 exact 1 endpoints 1 errors 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDER-LINK-WINDOW-FREED-CLOSED-RIGHT-PARENT-CHILD",
+      "clause": "16.4.4",
+      "statement": {
+        "en": "Establishing a database link after freeing an endpoint recorder reports an error.",
+        "ja": "端点recorderをfreeした後のdatabase link確立はerrorを報告する。"
+      },
+      "conditions": {
+        "en": "right recorder freed after close; use original in-memory callbacks and a parent_child link.",
+        "ja": "close後に右recorderをfreeとし、独自のメモリ内callbackとparent_child linkを使う。"
+      },
+      "expected": {
+        "en": "An ERROR or FATAL occurs during establish_link; the original catcher stops the simulation immediately.",
+        "ja": "establish_link中にERRORまたはFATALが生じ、独自catcherが直ちにsimulationを終了する。"
+      },
+      "limitations": {
+        "en": "Only this selected lifecycle and relation are checked. No external database, exact diagnostic wording/count, post-error recovery or arbitrary concurrency is inferred. Public state/handle columns guard the setup; they do not create independent tests.",
+        "ja": "選択したlifecycleとrelationだけを検査する。外部database、正確な診断文／件数、error後の回復、任意の並行性は推論しない。公開状態／handle列は構成を確認するもので独立テストには数えない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_recorder_link_window_freed_closed_right_parent_child",
+          "role": "direct",
+          "expected_observations": [
+            "UT: recorder_link_error present 1"
+          ]
+        },
+        {
+          "test": "u16/test_recorder_link_window_right_closed_parent_child",
+          "role": "control",
+          "expected_observations": [
+            "UT: recorder_link_valid calls 1 exact 1 endpoints 1 errors 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDER-LINK-WINDOW-BOTH-FREED-CAUSE-EFFECT",
+      "clause": "16.4.4",
+      "statement": {
+        "en": "Establishing a database link after freeing an endpoint recorder reports an error.",
+        "ja": "端点recorderをfreeした後のdatabase link確立はerrorを報告する。"
+      },
+      "conditions": {
+        "en": "both endpoints freed with retained object references; use original in-memory callbacks and a cause_effect link.",
+        "ja": "object参照を保持したまま両端点をfreeとし、独自のメモリ内callbackとcause_effect linkを使う。"
+      },
+      "expected": {
+        "en": "An ERROR or FATAL occurs during establish_link; the original catcher stops the simulation immediately.",
+        "ja": "establish_link中にERRORまたはFATALが生じ、独自catcherが直ちにsimulationを終了する。"
+      },
+      "limitations": {
+        "en": "Only this selected lifecycle and relation are checked. No external database, exact diagnostic wording/count, post-error recovery or arbitrary concurrency is inferred. Public state/handle columns guard the setup; they do not create independent tests.",
+        "ja": "選択したlifecycleとrelationだけを検査する。外部database、正確な診断文／件数、error後の回復、任意の並行性は推論しない。公開状態／handle列は構成を確認するもので独立テストには数えない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_recorder_link_window_both_freed_cause_effect",
+          "role": "direct",
+          "expected_observations": [
+            "UT: recorder_link_error present 1"
+          ]
+        },
+        {
+          "test": "u16/test_recorder_link_window_left_closed_cause_effect",
+          "role": "control",
+          "expected_observations": [
+            "UT: recorder_link_valid calls 1 exact 1 endpoints 1 errors 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDER-LINK-WINDOW-FLUSHED-LEFT-RELATED",
+      "clause": "16.4.4",
+      "statement": {
+        "en": "Establishing a database link after freeing an endpoint recorder reports an error.",
+        "ja": "端点recorderをfreeした後のdatabase link確立はerrorを報告する。"
+      },
+      "conditions": {
+        "en": "open left recorder freed by flush; use original in-memory callbacks and a related link.",
+        "ja": "openの左recorderをflushによってfreeとし、独自のメモリ内callbackとrelated linkを使う。"
+      },
+      "expected": {
+        "en": "An ERROR or FATAL occurs during establish_link; the original catcher stops the simulation immediately.",
+        "ja": "establish_link中にERRORまたはFATALが生じ、独自catcherが直ちにsimulationを終了する。"
+      },
+      "limitations": {
+        "en": "Only this selected lifecycle and relation are checked. No external database, exact diagnostic wording/count, post-error recovery or arbitrary concurrency is inferred. Public state/handle columns guard the setup; they do not create independent tests.",
+        "ja": "選択したlifecycleとrelationだけを検査する。外部database、正確な診断文／件数、error後の回復、任意の並行性は推論しない。公開状態／handle列は構成を確認するもので独立テストには数えない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_recorder_link_window_flushed_left_related",
+          "role": "direct",
+          "expected_observations": [
+            "UT: recorder_link_error present 1"
+          ]
+        },
+        {
+          "test": "u16/test_recorder_link_window_open_related",
+          "role": "control",
+          "expected_observations": [
+            "UT: recorder_link_valid calls 1 exact 1 endpoints 1 errors 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDER-LINK-WINDOW-FREED-STREAM-PARENT-CHILD",
+      "clause": "16.4.4",
+      "statement": {
+        "en": "Establishing a database link after freeing an endpoint recorder reports an error.",
+        "ja": "端点recorderをfreeした後のdatabase link確立はerrorを報告する。"
+      },
+      "conditions": {
+        "en": "owning stream frees both endpoint recorders; use original in-memory callbacks and a parent_child link.",
+        "ja": "所有streamが両端点recorderをfreeとし、独自のメモリ内callbackとparent_child linkを使う。"
+      },
+      "expected": {
+        "en": "An ERROR or FATAL occurs during establish_link; the original catcher stops the simulation immediately.",
+        "ja": "establish_link中にERRORまたはFATALが生じ、独自catcherが直ちにsimulationを終了する。"
+      },
+      "limitations": {
+        "en": "Only this selected lifecycle and relation are checked. No external database, exact diagnostic wording/count, post-error recovery or arbitrary concurrency is inferred. Public state/handle columns guard the setup; they do not create independent tests.",
+        "ja": "選択したlifecycleとrelationだけを検査する。外部database、正確な診断文／件数、error後の回復、任意の並行性は推論しない。公開状態／handle列は構成を確認するもので独立テストには数えない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_recorder_link_window_freed_stream_parent_child",
+          "role": "direct",
+          "expected_observations": [
+            "UT: recorder_link_error present 1"
+          ]
+        },
+        {
+          "test": "u16/test_recorder_link_window_cross_stream_parent_child",
+          "role": "control",
+          "expected_observations": [
+            "UT: recorder_link_valid calls 1 exact 1 endpoints 1 errors 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-RECORDER-LINK-WINDOW-FREED-OTHER-STREAM-CAUSE-EFFECT",
+      "clause": "16.4.4",
+      "statement": {
+        "en": "Establishing a database link after freeing an endpoint recorder reports an error.",
+        "ja": "端点recorderをfreeした後のdatabase link確立はerrorを報告する。"
+      },
+      "conditions": {
+        "en": "right owning stream freed while the left stream remains open; use original in-memory callbacks and a cause_effect link.",
+        "ja": "右の所有streamをfreeし左streamはopenとし、独自のメモリ内callbackとcause_effect linkを使う。"
+      },
+      "expected": {
+        "en": "An ERROR or FATAL occurs during establish_link; the original catcher stops the simulation immediately.",
+        "ja": "establish_link中にERRORまたはFATALが生じ、独自catcherが直ちにsimulationを終了する。"
+      },
+      "limitations": {
+        "en": "Only this selected lifecycle and relation are checked. No external database, exact diagnostic wording/count, post-error recovery or arbitrary concurrency is inferred. Public state/handle columns guard the setup; they do not create independent tests.",
+        "ja": "選択したlifecycleとrelationだけを検査する。外部database、正確な診断文／件数、error後の回復、任意の並行性は推論しない。公開状態／handle列は構成を確認するもので独立テストには数えない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_recorder_link_window_freed_other_stream_cause_effect",
+          "role": "direct",
+          "expected_observations": [
+            "UT: recorder_link_error present 1"
+          ]
+        },
+        {
+          "test": "u16/test_recorder_link_window_closed_stream_cause_effect",
+          "role": "control",
+          "expected_observations": [
+            "UT: recorder_link_valid calls 1 exact 1 endpoints 1 errors 0"
+          ]
+        }
+      ]
     }
   ]
 }

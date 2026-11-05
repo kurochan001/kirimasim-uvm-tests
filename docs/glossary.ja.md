@@ -1106,3 +1106,9 @@ model照会の一致では物理storageの転送や普遍的なpacking配置を�
 
 **結合した観測行（Combined observation row）** — parent、幅、LSBなどの複数の観測列を含む1つの期待行です。
 別々の義務がその行の各値へ対応しても、テストとrunner全体の判定は1つのままです。
+
+## recorderのlink可能期間
+
+**Recorder link lifetime window（recorderのlink可能期間）** — open_recorder後からfree前まで、recorderをdatabase linkの端点にできる期間です。
+closeはtransactionを終えてもこの期間を終えず、open recorderのflushや所有streamのfreeではrecorderをfreeする場合があります。
+free後もobject参照が残る場合がありますが、link可能性やerror回復を保証しない理由は[期間のFAQ](faq.ja.md#recorderのlink可能期間)で説明しています。

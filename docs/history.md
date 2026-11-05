@@ -5,8 +5,8 @@
 Counts on this page belong to the time of each change, so use [the current snapshot](results.md#current-snapshot) when you need the present suite size or execution scope.
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and seventy-one cross-milestone thin-area expansions, including the
-existing-test requirement-link backlog checkpoint (2208 tests: 2116 simulation and 92 elaboration). The earlier 349-test checkpoint is
+three M4 increments and seventy-two cross-milestone thin-area expansions, including the
+existing-test requirement-link backlog checkpoint (2222 tests: 2130 simulation and 92 elaboration). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -4421,3 +4421,46 @@ build inputs retain their exact initial evidence. All helper/expected/body
 bytes stay frozen through measurement. Recursive input/runner/library/config
 and batch identities are checked before assembly. Local artifacts use
 `out/thin-seventy-first-`; no guest rerun or approval is claimed.
+
+## Seventy-second thin-area expansion: recorder-link lifetime
+
+Based on [6608860](https://github.com/kurochan001/kirimasim-uvm-tests/commit/660886076f74d42dc7c7bfa2fad969c51af7d472).
+
+Fourteen new recorder-link fixtures measure actual recorders rather than stream
+endpoints. Eight open/closed lifetime inputs match seeds 1 and 73. Six freed-endpoint
+inputs retain a missing required-error difference at seed 1 without seed 73;
+WARNING output does not satisfy the ERROR/FATAL observation. No new build failure
+or illegal compiler acceptance is added.
+
+The original helper supplies database, stream and recorder callbacks without an
+external recording database. Related, parent/child and cause/effect links cover
+same/cross-stream endpoints, either or both recorders closed, stream-induced
+close and a separately freed peer. Negative windows use direct free after open
+or close, both endpoints freed, open-recorder flush, or owning-stream free.
+Public open/closed/handle observations establish the selected state before the
+actual establish_link call. The original catcher finishes on ERROR/FATAL inside
+that call, without assuming recovery, diagnostic text/count or post-error
+backend state. The six fixtures are observations, not six proven independent bugs.
+
+Fourteen bilingual AI duties partially decompose 16.4.4; no classification is
+added. All 3796 earlier duties, all 405 assessments and the proposed scope remain
+unchanged. Global state is 1962 partial/405 assessed/140 unassessed, including
+279 structural/126 contextual assessments. Chapter 16 is 175/31/2, with 277
+duties and 166 primary tests (157 simulation/9 elaboration). The chapter
+introduction and table-format overview remain unassessed, and all partial
+contracts and original milestone targets remain open.
+
+All 3810 duties have direct tests; 2198 tests have direct links, 24 have only
+controls and 90 have control links. Five new positive inputs also provide controls
+for the six freed-endpoint duties; their matches cannot replace the original
+premises. All 2208 prior ordinary inputs/records and all 92 compiler records
+remain unchanged. Scope, denominator and human review remain unapproved/incomplete.
+
+The first include-path setup error is archived separately; corrected inputs keep
+the original standard-derived expected observations. Eight reproduced sources are
+tagged and remeasured after the tag changes their input identity. Six spec-only
+sources retain seed-1 differences without seed 73. Tool tests (110), metadata,
+ledger/index, library, paired docs and CI selector checks pass. Ordinary totals
+are 1908 pass/314 known across 2222 fixtures; guests retain 1082 compatible inputs
+and 1140 unmeasured. This is the goal's forty-fourth iteration, reducing unassessed
+by one to 140, without completing any original milestone.

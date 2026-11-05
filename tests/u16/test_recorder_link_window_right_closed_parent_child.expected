@@ -1,0 +1,2 @@
+UT: recorder_link_state left 1 0 1 right 0 1 1
+UT: recorder_link_valid calls 1 exact 1 endpoints 1 errors 0

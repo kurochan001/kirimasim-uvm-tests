@@ -4,7 +4,7 @@
 
 このページの件数は各変更時点の値なので、現在のスイート規模や実行範囲が必要なときは[現在のスナップショット](results.ja.md#現在のスナップショット)を使ってください。
 
-M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の71回目の拡充（全2208件：simulation 2116・elaboration 92）までを記録しています。以前の349件の時点は
+M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の72回目の拡充（全2222件：simulation 2130・elaboration 92）までを記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -2835,3 +2835,33 @@ HDL／command-lineの証拠と全92 compiler記録はbyte単位で未変更で�
 修正した既存ケースは既に現在のtag付きsourceであり、両seed一致の記録を保持します。未変更の限定build 2入力は正確な初回証拠を保持します。
 測定中にhelper／期待値／本体のbyteを変えず、合算前に再帰的な入力／runner／library／設定とbatchの同一性を確認します。
 local資料は`out/thin-seventy-first-`を使い、guest再実行や承認は主張しません。
+
+## 薄い領域の72回目の拡充：recorder-linkの期間
+
+[6608860](https://github.com/kurochan001/kirimasim-uvm-tests/commit/660886076f74d42dc7c7bfa2fad969c51af7d472)を基にします。
+
+新規recorder-link検査系14件は、stream端点ではなく実際のrecorderを測定します。
+open／closedの期間を扱う8件はseed 1／73で一致します。free済み端点の6件は必要なerrorがない差分をseed 1で保持し、seed 73はありません。
+WARNING出力はERROR／FATALの観測を満たしません。新しいbuild失敗や不正compiler受理はありません。
+
+独自helperは外部の記録databaseを使わず、database／stream／recorder callbackを提供します。
+related、parent／child、cause／effect linkで、同じ／別streamの端点、片方／両方のclose、stream経由のclose、別peerのfreeを扱います。
+不正期間はopen／close後の直接free、両端点のfree、open recorderのflush、所有streamのfreeで作ります。
+実際のestablish_link呼出し前に、公開open／closed／handle観測で選択した状態を確認します。
+独自catcherはその呼出し中のERROR／FATALで終了し、回復、診断文／件数、error後のbackend状態を仮定しません。
+6検査系は観測であり、独立した不具合6件の証明ではありません。
+
+日英AI義務14件で16.4.4を部分分解し、新しい分類は追加しません。
+以前の全3796義務、全405分類、範囲案は未変更です。全体は部分1962／分類405／未評価140で、分類は構造279／文脈126です。
+第16章は175／31／2、義務277件、主引用166テスト（simulation 157／elaboration 9）です。
+章導入とtable-format概要は未評価で、全ての部分契約と元のmilestone目標は未完です。
+
+全3810義務に直接テストがあり、直接対応2198テスト、control専用24テスト、control linkあり90テストです。
+新しい正の入力5件はfree済み端点の6義務へcontrolも提供しますが、その一致で元の前提を置換しません。
+以前の全2208通常入力／記録と全92 compiler記録は未変更です。範囲、分母、人のレビューは未承認／未完です。
+
+最初のinclude-path構成の誤りは別に保存し、修正した入力でも元の規格由来の期待観測を保持します。
+再現した8 sourceはタグで入力同一性が変わるため再測定し、spec-only 6 sourceはseed 1の差分を保持してseed 73はありません。
+ツール検査110件、metadata、台帳／索引、ライブラリ、日英文書、CI selectorの検査を通します。
+通常合計は2222検査系でpass 1908／known 314、guestは互換1082入力、未測定1140入力です。
+goalの44回目の反復で未評価を1件減らして140件とし、元のmilestoneはどれも完了にしません。

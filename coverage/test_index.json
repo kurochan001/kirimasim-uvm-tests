@@ -8833,6 +8833,62 @@
     "u18/test_vreg_field_ctor_factory_different_names_creates_distinct_instances": {
       "primary_clause": "18.10.2.1",
       "inputs_sha256": "5c21625b67c6f1dae9a43dfd7802d3ca89a063076825adcc76ac11ab1d74fa89"
+    },
+    "u16/test_recorder_link_window_both_closed_related": {
+      "primary_clause": "16.4.4",
+      "inputs_sha256": "a83c2d2b0da01f3eef2d1266a4a4a0b74c0d17a1d167ec589fb8d6ad2929c852"
+    },
+    "u16/test_recorder_link_window_both_freed_cause_effect": {
+      "primary_clause": "16.4.4",
+      "inputs_sha256": "c9c8ffbfe2e74817026529ea5bacbb9ae6c843775d9bb554708933191373c2b2"
+    },
+    "u16/test_recorder_link_window_closed_stream_cause_effect": {
+      "primary_clause": "16.4.4",
+      "inputs_sha256": "dd4daeb12b4d734aba3f93d144b203c73d64040ca7ac7494dc2b581aa2aa02a1"
+    },
+    "u16/test_recorder_link_window_cross_stream_parent_child": {
+      "primary_clause": "16.4.4",
+      "inputs_sha256": "0437ce7a4adbc72dc663ecf8e26db4def1236c93758aa5b88a7aea600457b72b"
+    },
+    "u16/test_recorder_link_window_flushed_left_related": {
+      "primary_clause": "16.4.4",
+      "inputs_sha256": "03a68dd331926e9c16a5fe6dbdf0acfc83b6345e7ce0205f36e93bfb44516f7f"
+    },
+    "u16/test_recorder_link_window_freed_closed_right_parent_child": {
+      "primary_clause": "16.4.4",
+      "inputs_sha256": "0871b0f177719c77852daf29a2b3f20cbcdc290197b230d8cc26cfaaa4c99f4c"
+    },
+    "u16/test_recorder_link_window_freed_left_related": {
+      "primary_clause": "16.4.4",
+      "inputs_sha256": "f180509067f06f59e4826e034cf893d189be13facf7f83f6d83d98ec3940409c"
+    },
+    "u16/test_recorder_link_window_freed_other_stream_cause_effect": {
+      "primary_clause": "16.4.4",
+      "inputs_sha256": "54e1945a293a242fb8b66c900a2c3e7b9f198e9895d41c79fec9d7b64c479120"
+    },
+    "u16/test_recorder_link_window_freed_peer_parent_child": {
+      "primary_clause": "16.4.4",
+      "inputs_sha256": "9fbf9c28a7f6ef3198f19506d350649c0602f285b76c3f60d2c5dba6e40261e7"
+    },
+    "u16/test_recorder_link_window_freed_stream_parent_child": {
+      "primary_clause": "16.4.4",
+      "inputs_sha256": "c5f8980f45aaefa29f9626eaace5330c16912c8703803b01ccd5f1ffa1ed0a9c"
+    },
+    "u16/test_recorder_link_window_left_closed_cause_effect": {
+      "primary_clause": "16.4.4",
+      "inputs_sha256": "e874f0ac113114127a8b8848335c4c3c8b38f61c408c94a4450a664669134433"
+    },
+    "u16/test_recorder_link_window_one_stream_closed_related": {
+      "primary_clause": "16.4.4",
+      "inputs_sha256": "f2fd927720320fda4d6576ac0e48753fcc3732e050263ea75bcf20a9c9e5a3b4"
+    },
+    "u16/test_recorder_link_window_open_related": {
+      "primary_clause": "16.4.4",
+      "inputs_sha256": "cfd17bce753451bc03a499f86a9c681c6a80d1c3e38bbe2590343feae0158aeb"
+    },
+    "u16/test_recorder_link_window_right_closed_parent_child": {
+      "primary_clause": "16.4.4",
+      "inputs_sha256": "12e900ba09063c910a733184009c8b1355859c47e298768e124f5c50e1b57aca"
     }
   }
 }
