@@ -2,12 +2,23 @@
 
 [English](known-differences.md) · [README](../README.ja.md) · [FAQ](faq.ja.md)
 
-現在の1895件と、固定したAccellera UVM 2020.3.1についての記録です。
+現在の1930件と、固定したAccellera UVM 2020.3.1についての記録です。
 不一致はテストの結果であり、それだけではシミュレータ・ライブラリ・期待値のどれが原因かは決まりません。
 
-elaboration 60件は抽象class直接生成32件とpure interface／const参照／禁止member／型context違反28件で拒否を期待し、52件が一致します。
+elaboration 87件は抽象class直接生成33件とpure interface／const参照／禁止member／型context違反54件で拒否を期待し、84件が一致します。
 subscriber／visitor未実装と印字virtual builtin dispatcherの直接生成は受理され、runtimeなしでspec-onlyを保持します。
-compiler受理3件は既知simulation差分271件と別です。合法な派生controlを必要な拒否の代わりにはしません。
+compiler受理3件は既知simulation差分274件と別です。合法な派生controlを必要な拒否の代わりにはしません。
+
+core-service監査は差分3件を追加します。記載methodだけの完全subclassは合法simulation入力ですが、
+buildは印刷method 26個にない固定版のpure hook get_phase_hopperを要求します。追加hook controlは独自dispatch観測すべてに一致してもcontrol専用です。
+negative省略26入力もそのhookを補うため、最終compiler拒否は選択した印刷methodの欠落だけを示します。
+
+選択core上限は7／9を保存してもphase既定値と新nodeは20のままです。実main readyもcore上限3に対して20回反復します。
+このseed 1観測2件はseed 73を実行せず、関連条件として扱い独立不具合数を主張しません。選択seeding／RNG、既定constructor、生きたroot controlは別に一致します。
+
+- [1](../tests/uF/test_core_service_all_declared_methods_dispatch_through_the_abstract_base_view.sv).
+- [2](../tests/uF/test_core_phase_default_limit_reaches_new_nodes_and_keeps_explicit_node_limits.sv).
+- [3](../tests/uF/test_core_phase_default_limit_bounds_real_ready_to_end_reentry.sv).
 
 memory／FIFO監査は新しいruntime差分18件をseed 1に保持し、seed 73は実行しません。
 memory get_rightsは無関係mapへRWを返しますが必要なwarningを出さず、他の選択map-warning controlは独立に一致します。
@@ -492,7 +503,7 @@ type queue priorityの部分観測は一致しても両fixtureをpassにせず�
 記載pure get_type_handleを実装する合法resource-base拡張は、固定libraryが記載外pure helperも宣言するためbuildできません。
 規格hook欠落negativeの独自compatibility本体は指定拒否を分離するためだけに使い、その合法拡張を修復しません。
 
-スイート全体では、`verilator@5.052`を付けたテストは1621件、specのみのテストは274件です。
+スイート全体では、`verilator@5.052`を付けたテストは1653件、specのみのテストは277件です。
 specのみのうち1件は9.6を検証します。pre-resetフェーズ終了時に子タスクが停止する
 はずですが、固定版UVMとVerilator 5.052の組み合わせでは、後のフェーズで子タスクの遅延書き込みが
 実行されます。この差分の原因がシミュレータとライブラリのどちらかは未確定です。
@@ -501,12 +512,12 @@ wakeup resetの検査系は、trigger waiterとpersistent-trigger waiterを各1�
 10.1.1.2.8は、callbackなしで両方が起動することを要求します。固定Verilatorの実行は、待機状態の観測に到達してから
 watchdogが期限切れになります。simulator／libraryを組み合わせた原因は未確定のまま、規範的なwakeupの期待を保持します。
 
-specのみの274件も規格から導いた期待値を保持します。通常のVerilator実行とCIはoracle付き1621件（runtime 1564・compile拒否57）を選びます。
+specのみの277件も規格から導いた期待値を保持します。通常のVerilator実行とCIはoracle付き1653件（runtime 1569・compile拒否84）を選びます。
 `--all`はspecのみも含め、不一致やビルド不可を`known`として記録します。
-通常の実行時206件は最初の差分であるseed 1までの記録で、seed 73の結果はありません。
+通常の実行時208件は最初の差分であるseed 1までの記録で、seed 73の結果はありません。
 API／型名欠落build 27件はtime API 1、sequence-library 6、HDL slice 4、名前付きconcat constructor 1、object active-policy 5、catcher message-handle 3、印刷recording-state getter 1、印刷callback typedef 1、built-in type_id 2、typed resource-DB helper 3で、通常runtimeはありません。
-型既定宣言2件、印刷signature食違い2件、継承type_id registry特殊化2件は別の宣言buildで、合法な公開read宣言1件はprotected accessで失敗し、合法resource-base拡張1件は記載外pure hookを要求されます。
-time減算引数既定値build 1件もあり、HDL 11件とcommand-line 18件も通常runnerでDPIをlinkしないため、合計65 simulation buildにruntimeはありません。
+型既定宣言2件、印刷signature食違い2件、継承type_id registry特殊化2件は別の宣言buildで、合法な公開read宣言1件はprotected accessで失敗し、合法resource-base／記載methodだけの完全core-service拡張2件は記載外pure hookを要求されます。
+time減算引数既定値build 1件もあり、HDL 11件とcommand-line 18件も通常runnerでDPIをlinkしないため、合計66 simulation buildにruntimeはありません。
 
 別HDL条件では実array memory 3 fixtureを含む10件が両seed一致、E.7のwarning／転送なしの期待はseed 1で失敗します。別command-line条件は17件一致とquit-warning差分1件で、重複条件を合計しません。
 
@@ -545,7 +556,7 @@ object名省略fixtureは任意user既定値を制約せず、独自constructor�
 
 ## specのみのテスト
 
-現在の274件は次のテストです。同じ制約を複数のテストで検査する場合があり、異なる不具合の個数ではありません。
+現在の277件は次のテストです。同じ制約を複数のテストで検査する場合があり、異なる不具合の個数ではありません。
 
 - [継承subscriber type_id特殊化](../tests/u08/test_builtin_abstract_parameterized_components_type_id_uses_the_required_registry_specialization.sv).
 - [共有abstract object matrixのtransaction type_id欠落](../tests/u08/test_builtin_abstract_objects_type_id_uses_the_required_registry_specialization.sv).
@@ -831,7 +842,7 @@ object名省略fixtureは任意user既定値を制約せず、独自constructor�
 - [生成時の独立した引数snapshot](../tests/uG/test_command_fresh_processors_populate_independent_argument_snapshots_at_construction.sv).
 
 既存2入力はcommand-enum引用と、訂正したBoolean rerandomization観測で指紋が変わっています。
-対応する歴史的guest記録を除外し、互換範囲は1083記録、未測定は修正2入力を含む812件です。
+対応する歴史的guest記録を除外し、互換範囲は1083記録、未測定は修正2入力を含む847件です。
 これはevidence範囲のfilterで、新しいguest fail／passやsimulator改善ではありません。
 
 - [copier既定名](../tests/u16/test_policy_comparer_packer_and_copier_constructors_preserve_names_types_and_policy_bases.sv)
@@ -865,8 +876,8 @@ object名省略fixtureは任意user既定値を制約せず、独自constructor�
 
 ## シミュレータとライブラリの組み合わせ
 
-スイートは1895件ですが、以下のkirimasim／Ghost記録は未変更の現在入力1083件だけを対象とします。
-以前の一時実行ファイル／profile snapshotがないため、812入力は未測定です。
+スイートは1930件ですが、以下のkirimasim／Ghost記録は未変更の現在入力1083件だけを対象とします。
+以前の一時実行ファイル／profile snapshotがないため、847入力は未測定です。
 新しい全件guest実測とは扱いません。[実行結果](results.ja.md)を参照してください。
 
 Ghostの同梱UVMはseed 1・73とも207件一致・876件不一致で、不一致になるテストも同じです。

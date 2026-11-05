@@ -3,8 +3,8 @@
 [日本語](history.ja.md) · [README](../README.md)
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and sixty-three cross-milestone thin-area expansions, including the
-existing-test requirement-link backlog checkpoint (1895 tests: 1835 simulation and 60 elaboration). The earlier 349-test checkpoint is
+three M4 increments and sixty-four cross-milestone thin-area expansions, including the
+existing-test requirement-link backlog checkpoint (1930 tests: 1843 simulation and 87 elaboration). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -3968,3 +3968,63 @@ Library integrity, 110 tool tests, metadata/ledger/index, raw/evidence and paire
 documentation checks pass. The active goal reaches iteration 35: 1463 initial
 unassessed identifiers fall to 300, a decrease of 1163. No completion, human
 review or denominator approval is claimed.
+
+## Sixty-fourth thin-area expansion: core declarations, phase limits and seeding
+
+Based on [89b06ab](https://github.com/kurochan001/kirimasim-uvm-tests/commit/89b06ab55ee9970712d61e628265960a2e6650c7); 2026-11-05 JST. Thirty-five M1 inputs add 27 expected compiler rejections and five two-seed
+runtime matches. Three retain differences: two seed-1 runtime inputs and one
+legal simulation build without runtime. The 26 omission probes each implement
+all other printed pure methods plus the pinned release's extra phase-hopper
+hook. Each final compiler diagnostic identifies exactly the selected missing
+method. Direct construction of the virtual core-service base is also rejected.
+
+The original service implementing all 26 printed methods is rejected because
+the pinned library additionally requires get_phase_hopper. A separately indexed,
+control-only variant supplies that hook; all 26 exact-signature methods then
+dispatch once through the base view with original arguments and return handles.
+That control does not pass the listed-only constructor premise, install a new
+global service or certify any builtin facility algorithm. Expectations were
+derived before Apache-source diagnosis; no extra IEEE requirement is invented.
+
+Default core-service construction, legal extension and base ancestry match.
+Selected core/root/report-object handles agree and retain a real concrete
+child's live state. Core seeding starts enabled and shares changes with two
+object classes. Core disable preserves two renamed object RNGs and the calling
+process state; three later random payloads match independently seeded references.
+No random number or serialized state format is prescribed.
+
+Core ready-to-end maximum changes to seven/nine do not reach the phase default
+or new node: they retain twenty. In real main phasing, a core-selected maximum
+of three still gives twenty ready callbacks. Explicit per-node state remains
+separate. The final delayed-drop count is diagnostic only. The root probe's
+initial direct abstract-component construction is corrected to a concrete
+extension, and all edited/tagged inputs are remeasured. Prior inputs and
+ordinary/compiler/guest/backend records remain unchanged.
+
+Core-service auditing adds 74 bilingual AI duties and two individually read
+structural headings. Fourteen previously unassessed identifiers become twelve
+partial decompositions and those two assessments. Annex F is 72 partial,
+16 assessed and 49 unassessed, with 163 drafts and 89 primary tests (60 simulation,
+29 elaboration). Global state is 1831 partial/390 assessed/286 unassessed
+(268 structural/122 contextual). All original milestone targets remain open.
+
+All 3381 duties have direct tests; 1916 tests have direct links, fourteen others
+have only controls and 57 have control links. The new extra-hook control does
+not certify the listed-only complete service or builtin algorithms. Each of the
+26 negative inputs implements that hook solely to isolate its selected pure
+declaration. No test or duty is left unlinked. All 3307 previous duties,
+388 assessments and 1895 indexed inputs/ordinary records remain unchanged;
+the previous 60 compiler records remain unchanged within the new 87-case set.
+No scope/denominator approval, human review or completion is claimed.
+
+The final suite is 1930 (1843 simulation/87 elaboration): M1 801 (727/74),
+M2 547 (542/5), M3 582 (574/8). Ordinary evidence is 1653 pass (1569 runtime
+at seeds 1/73 and 84 expected compiler rejections), 277 known (208 seed-1
+runtime, 66 legal builds, three illegal acceptances). All 1895 prior ordinary
+inputs/records and 60 compiler records are preserved, as are guest 1083,
+HDL eleven and command-line eighteen records. Guest-unmeasured is 847
+(760 simulation/87 elaboration): 845 additions and two revised original inputs.
+One new input is control-only; the suite has fourteen control-only tests and
+57 control-linked tests. Library integrity, 110 tool tests, metadata/ledger/index,
+raw/evidence and paired-doc checks pass. Goal iteration 36 reduces unassessed
+from the initial 1463 to 286, a decrease of 1177. Completion remains unproven.

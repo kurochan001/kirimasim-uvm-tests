@@ -7290,6 +7290,130 @@
       "primary_clause": "F.4.1.4.9",
       "inputs_sha256": "de738259b419cf2aeeac459d91d2e5c69d15167e16b79292f9aca99a8b6794ec"
     },
+    "uF/test_core_disabled_reseed_preserves_two_type_rng_streams_and_the_calling_process": {
+      "primary_clause": "F.4.1.4.26",
+      "inputs_sha256": "7daa297c6135a85dfade01f70a2dc7eaac512aea37ed2282449c2db5c043d681"
+    },
+    "uF/test_core_phase_default_limit_bounds_real_ready_to_end_reentry": {
+      "primary_clause": "F.4.1.4.10",
+      "inputs_sha256": "892bfcd6fcf97ffbe911df0170c7caf3eedfea8268db49d60792d5e7f831e4ba"
+    },
+    "uF/test_core_phase_default_limit_reaches_new_nodes_and_keeps_explicit_node_limits": {
+      "primary_clause": "F.4.1.4.10",
+      "inputs_sha256": "16924aa5894494f97564645803c8d6216a3db24d746fbfdaef54f7c8e2b32eb4"
+    },
+    "uF/test_core_seeding_default_and_global_cross_type_accessors_agree": {
+      "primary_clause": "F.4.1.4.25",
+      "inputs_sha256": "dfaa06c15b06f8c51faaef867e1282de09db540088e5ef1bbe1417920eb75ed3"
+    },
+    "uF/test_core_service_all_declared_methods_dispatch_through_the_abstract_base_view": {
+      "primary_clause": "F.4.1.2",
+      "inputs_sha256": "92b4052103bf5fe93610405ee128e51e7efa46c8e206726b34461e2544c24f54"
+    },
+    "uF/test_core_service_concrete_extension_must_implement_get_component_visitor": {
+      "primary_clause": "F.4.1.4.8",
+      "inputs_sha256": "4201aaf115b5a598cfae3f1cd1cde6d19d4069cb140d29d4fa3e01e7e2bb0d99"
+    },
+    "uF/test_core_service_concrete_extension_must_implement_get_default_comparer": {
+      "primary_clause": "F.4.1.4.17",
+      "inputs_sha256": "2c40387cc06f076cf24850f22bec196404c898a3e13dcd3e64c4e47d2b848e34"
+    },
+    "uF/test_core_service_concrete_extension_must_implement_get_default_copier": {
+      "primary_clause": "F.4.1.4.19",
+      "inputs_sha256": "1629e7b81892a865c9dba0bdb3a270e969c7dd2db351c681e0284ac969ccee5c"
+    },
+    "uF/test_core_service_concrete_extension_must_implement_get_default_packer": {
+      "primary_clause": "F.4.1.4.15",
+      "inputs_sha256": "c3cbead66259f8cc4aa847f1375b27268bff4b677af4e5dbda155f700f025c52"
+    },
+    "uF/test_core_service_concrete_extension_must_implement_get_default_printer": {
+      "primary_clause": "F.4.1.4.13",
+      "inputs_sha256": "f05ed572565cbdd3bace2c20d741ff3ed531789cc8425800d270a25c33730a49"
+    },
+    "uF/test_core_service_concrete_extension_must_implement_get_default_tr_database": {
+      "primary_clause": "F.4.1.4.6",
+      "inputs_sha256": "a2f96e8e7d1ab41d57752eb1e34be706dea4218a49599d0fb09f2bd51062d78d"
+    },
+    "uF/test_core_service_concrete_extension_must_implement_get_factory": {
+      "primary_clause": "F.4.1.4.2",
+      "inputs_sha256": "cb998ec1ee74c3a9ec9cee254bb1c285367813895e32f68967b5eea82ef1cb6e"
+    },
+    "uF/test_core_service_concrete_extension_must_implement_get_global_seed": {
+      "primary_clause": "F.4.1.4.20",
+      "inputs_sha256": "9fd7e9941a5f3f5c3c2d1f1a1bdd5bb3b7126403376a7494cff102c9e3ec94a2"
+    },
+    "uF/test_core_service_concrete_extension_must_implement_get_phase_max_ready_to_end": {
+      "primary_clause": "F.4.1.4.11",
+      "inputs_sha256": "f6a3c7552a6d4a4eba9dabcc4cf2e90ce4758aa88ee360ffb61a52f32e51979a"
+    },
+    "uF/test_core_service_concrete_extension_must_implement_get_report_server": {
+      "primary_clause": "F.4.1.4.4",
+      "inputs_sha256": "87a71ac7e236c3aaed168009a32b118f7b4925c3de71818123ef8d6d79d33c7d"
+    },
+    "uF/test_core_service_concrete_extension_must_implement_get_resource_pool": {
+      "primary_clause": "F.4.1.4.22",
+      "inputs_sha256": "a8bab776ffa8edb258d40813d545f860d79f792f1faccd9e50a8041ece5a8f45"
+    },
+    "uF/test_core_service_concrete_extension_must_implement_get_resource_pool_default_precedence": {
+      "primary_clause": "F.4.1.4.24",
+      "inputs_sha256": "2ac94473894bd266b01ae0879092d919506925fd923c32e637195a205b426bfa"
+    },
+    "uF/test_core_service_concrete_extension_must_implement_get_root": {
+      "primary_clause": "F.4.1.4.1",
+      "inputs_sha256": "26cce95da54dbf4cba039a29a307c1c0f8ca8fc5a4fa527b4f14cdaf861a7ef7"
+    },
+    "uF/test_core_service_concrete_extension_must_implement_get_uvm_seeding": {
+      "primary_clause": "F.4.1.4.25",
+      "inputs_sha256": "650133b3dac5a37bab390ae6e40c68de9a757a2d696d06b8c3b8d4a5586f0568"
+    },
+    "uF/test_core_service_concrete_extension_must_implement_set_component_visitor": {
+      "primary_clause": "F.4.1.4.9",
+      "inputs_sha256": "a782187a69905bca497eabd8cd683b89bf06a518d90e470389dcca0eb2ab16f8"
+    },
+    "uF/test_core_service_concrete_extension_must_implement_set_default_comparer": {
+      "primary_clause": "F.4.1.4.16",
+      "inputs_sha256": "b56d5887857042efc3c494cfb0ff0980c345a9c76a754e2bae5318bfcbbd0d80"
+    },
+    "uF/test_core_service_concrete_extension_must_implement_set_default_copier": {
+      "primary_clause": "F.4.1.4.18",
+      "inputs_sha256": "63a8eb75ee1e35ec5cf03be0900b184c21e64112eaccbe6bdd11bbb9e5dbb187"
+    },
+    "uF/test_core_service_concrete_extension_must_implement_set_default_packer": {
+      "primary_clause": "F.4.1.4.14",
+      "inputs_sha256": "fefb32e35fd255899ded879032f3d2973b11d0e4a69c1998ded7395a29a146fd"
+    },
+    "uF/test_core_service_concrete_extension_must_implement_set_default_printer": {
+      "primary_clause": "F.4.1.4.12",
+      "inputs_sha256": "f0a3a36268ee3d3d1ecf586696d170c9f729be515af981670046225c455bc2fc"
+    },
+    "uF/test_core_service_concrete_extension_must_implement_set_default_tr_database": {
+      "primary_clause": "F.4.1.4.7",
+      "inputs_sha256": "ac6ab5306fc5bd7b4eac19949c74a50e99cd56f9782f8ccfad29532823bd66ac"
+    },
+    "uF/test_core_service_concrete_extension_must_implement_set_factory": {
+      "primary_clause": "F.4.1.4.3",
+      "inputs_sha256": "7119a0b64b6182204b8a4dcd3e8384714607d70b02450652be5ca38f7909dc6a"
+    },
+    "uF/test_core_service_concrete_extension_must_implement_set_phase_max_ready_to_end": {
+      "primary_clause": "F.4.1.4.10",
+      "inputs_sha256": "74783f8f692057cf6fab5a4f0d3be16f2d192851b661246c96221eec47da0d3a"
+    },
+    "uF/test_core_service_concrete_extension_must_implement_set_report_server": {
+      "primary_clause": "F.4.1.4.5",
+      "inputs_sha256": "6d4a56347c27b2fcf82c45dbbe50f5260ca4e7fa82436ee6149b83473afd464b"
+    },
+    "uF/test_core_service_concrete_extension_must_implement_set_resource_pool": {
+      "primary_clause": "F.4.1.4.21",
+      "inputs_sha256": "7b496b7715614279e658bbc99ac875be541d0c15e242384393f10ee1e3c1d7b8"
+    },
+    "uF/test_core_service_concrete_extension_must_implement_set_resource_pool_default_precedence": {
+      "primary_clause": "F.4.1.4.23",
+      "inputs_sha256": "82095a64ce073b41ae2a630e53b56cd647f81fbfbd1673dc881c6eb0fe4d76ab"
+    },
+    "uF/test_core_service_concrete_extension_must_implement_set_uvm_seeding": {
+      "primary_clause": "F.4.1.4.26",
+      "inputs_sha256": "d75e34b8ec24bb253072d333e36d399ea35a95fdd781415833cea3f4f00c124e"
+    },
     "uF/test_core_service_default_comparer_replacement_and_null_fallback": {
       "primary_clause": "F.4.1.4.16",
       "inputs_sha256": "aec9af74eec4e4cb54189b7be117a4f46f30d199fe81a832d789eadaa38a61c9"
@@ -7321,6 +7445,14 @@
     "uF/test_core_service_report_server_selection_and_restoration": {
       "primary_clause": "F.4.1.4.5",
       "inputs_sha256": "1ef96a8fc731fdf0a035fff24603e9db061a61f9438f82c33ddb7248fca55f2e"
+    },
+    "uF/test_core_service_virtual_base_rejects_direct_construction": {
+      "primary_clause": "F.4.1.1",
+      "inputs_sha256": "59823fc13fde2f597924ee3caeb910dca02b283f0b5ae0579db6def2c6738afc"
+    },
+    "uF/test_default_core_service_no_argument_construction_preserves_a_legal_extension_and_base_view": {
+      "primary_clause": "F.4.2.2",
+      "inputs_sha256": "f607704bda244fe39f23cb5974c2cff3f65f82b9fca26bba38e3ec815a54cfbc"
     },
     "uF/test_enum_from_name_default_specialization_accepts_both_active_passive_names": {
       "primary_clause": "F.3.4.2",
@@ -7402,6 +7534,10 @@
       "primary_clause": "F.3.2.1",
       "inputs_sha256": "4a04108eaae215147cb4da82e0bfd508a2cd9439aa7890021f5447ed8ea05b6a"
     },
+    "uF/test_pinned_core_extra_hook_control_dispatches_all_twenty_six_standard_methods": {
+      "primary_clause": "F.4.1.2",
+      "inputs_sha256": "7beadb04885aa9b22ccd167be943ee62cfb1f08f761fb5e518be88bea8dfcf54"
+    },
     "uF/test_root_find_all_appends_and_repeated_calls_retain_the_caller_prefix": {
       "primary_clause": "F.7.4.1",
       "inputs_sha256": "d7148604f4bf338e7dcd1ae51914c9a372c887b4bd720ead2eb63c2d2a3a4329"
@@ -7461,6 +7597,10 @@
     "uF/test_run_timeout_default_overridable_argument_allows_a_later_absolute_limit": {
       "primary_clause": "F.7.3.3",
       "inputs_sha256": "dc1f8b109e3d2ae1f324bbb503fb501f17d47c601c854451527fe9cdb544ad3c"
+    },
+    "uF/test_selected_core_root_is_the_implicit_top_and_retains_live_hierarchy_identity": {
+      "primary_clause": "F.4.1.4.1",
+      "inputs_sha256": "337ce5dda143b8ac9d1e7f166f749a2fc88d42a55f2865cb794a4fbccb233ad4"
     },
     "uF/test_string_split_empty_and_single_separator_replace_prior_queue": {
       "primary_clause": "F.3.3.2",

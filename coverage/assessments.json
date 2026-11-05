@@ -5916,6 +5916,34 @@
         "reviewer": null,
         "reviewed_at": null
       }
+    },
+    {
+      "clause": "F.4.1",
+      "classification": "structural",
+      "rationale": {
+        "en": "The individually read heading names the core-service class and adds no declaration or behavior beyond the separately numbered class, constructor and method clauses.",
+        "ja": "個別に読んだ見出しはcore-service classを命名し、別番号のclass、constructor、method条項以外の宣言や動作を追加しない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "F.4.1.4",
+      "classification": "structural",
+      "rationale": {
+        "en": "The individually read sub-typing Methods heading groups the twenty-six printed interfaces; their pure declarations and facility behavior remain individually partial.",
+        "ja": "個別に読んだsub-typing Methods見出しは印刷interface 26個をまとめる。pure宣言とfacility動作は個別に部分的なまま残る。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
     }
   ]
 }

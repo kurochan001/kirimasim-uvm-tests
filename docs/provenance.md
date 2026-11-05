@@ -101,6 +101,13 @@ initialized conditions separate. The extra call supplies a control premise;
 its implementation does not define any expected FIFO algorithm or replace a
 direct duty. No GPL/LGPL simulator implementation source is used.
 
+Core-service expectations were derived before measurement. Pinned Apache-2.0
+source diagnosis identified its additional pure phase-hopper hook. The original
+listed-only input remains unchanged; separate original control bodies supply
+the hook. Each negative declaration also supplies it to isolate one printed
+omission. No extra IEEE prerequisite or builtin oracle is derived from that
+source. The initial root fixture's abstract construction is corrected separately.
+
 ## Clause catalog maintenance
 
 The identifier-only [clause catalog](../tools/clauses_1800_2.txt) now includes

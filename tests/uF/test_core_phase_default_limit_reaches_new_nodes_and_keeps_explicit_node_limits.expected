@@ -1,0 +1,4 @@
+UT: core_limit initial 20 phase_default 20
+UT: core_limit selected 7 phase_default 7 explicit 3 inherited 7
+UT: core_limit changed 9 explicit_retained 1
+UT: core_limit restored 1

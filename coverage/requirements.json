@@ -121087,6 +121087,3013 @@
           ]
         }
       ]
+    },
+    {
+      "id": "UVM-CORE-DECL-AUDIT-GET-ROOT-PURE",
+      "clause": "F.4.1.4.1",
+      "statement": {
+        "en": "A concrete core-service extension must implement the pure get_root method.",
+        "ja": "具体core-service拡張はpure method get_rootを実装しなければならない。"
+      },
+      "conditions": {
+        "en": "An original extension implements the other twenty-five printed pure methods and the pinned release extra phase-hopper hook, omitting only this selected printed method.",
+        "ja": "独自拡張で他の印刷pure method 25個と固定版の追加phase-hopper hookを実装し、選択した印刷methodだけを省略する。"
+      },
+      "expected": {
+        "en": "Compilation rejects the concrete extension and identifies this input and get_root; no runtime binary is executed.",
+        "ja": "compileは具体拡張を拒否してこの入力とget_rootを示し、runtime binaryは実行しない。"
+      },
+      "limitations": {
+        "en": "The extra hook only isolates the selected prohibition; it is not an IEEE duty. A separate complete control does not certify any builtin algorithm. No exact diagnostic text or unrelated rejection is accepted.",
+        "ja": "追加hookは選択禁止条件を分離するだけでIEEE義務ではない。別の完全controlもbuiltin algorithmを認定しない。正確な診断文面を要求せず、無関係な拒否を受理しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_core_service_concrete_extension_must_implement_get_root",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?i)^(?=.*test_core_service_concrete_extension_must_implement_get_root\\.sv:[0-9]+:[0-9]+:)(?=.*\\b(?:pure|virtual|abstract|missing implementation)\\b)(?=.*\\bget_root\\b).*error"
+          }
+        },
+        {
+          "test": "uF/test_pinned_core_extra_hook_control_dispatches_all_twenty_six_standard_methods",
+          "role": "control",
+          "expected_observations": [
+            "UT: core_dispatch slot 1 calls 1",
+            "UT: core_dispatch exact 1 once 1 selected_unchanged 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CORE-DECL-AUDIT-GET-ROOT-DECLARATION",
+      "clause": "F.4.1.4.1",
+      "statement": {
+        "en": "The printed get_root declaration can be implemented and dispatched through the core-service base view.",
+        "ja": "印刷されたget_root宣言を実装し、core-service base view経由でdispatchできる。"
+      },
+      "conditions": {
+        "en": "An original concrete service implements all twenty-six printed methods with exact formal names and the selected uvm_root return type; arguments are (). It is not installed as the global service.",
+        "ja": "独自の具体serviceは印刷method 26個を正確なformal名と選択返却型uvm_rootで実装し、引数は()とする。global serviceには設定しない。"
+      },
+      "expected": {
+        "en": "Calling the selected slot through the base view reaches its original implementation once and retains the chosen type/argument/return identity.",
+        "ja": "base view経由の選択slot呼出しは独自実装へ1回到達し、選択した型／引数／返却の同一性を保持する。"
+      },
+      "limitations": {
+        "en": "This is a declaration/virtual-dispatch obligation, not a builtin facility algorithm. The listed-only input remains distinct from the explicit extra-hook control; the latter cannot pass the former constructor premise. Initializing the selected global service with a custom instance remains separate.",
+        "ja": "宣言／virtual dispatch義務でありbuiltin facility algorithmではない。記載methodだけの入力と明示追加hook controlを分け、後者で前者のconstructor前提をpassにしない。custom instanceでglobal serviceを初期化する条件は別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_core_service_all_declared_methods_dispatch_through_the_abstract_base_view",
+          "role": "direct",
+          "expected_observations": [
+            "UT: core_dispatch slot 1 calls 1",
+            "UT: core_dispatch exact 1 once 1 selected_unchanged 1"
+          ]
+        },
+        {
+          "test": "uF/test_pinned_core_extra_hook_control_dispatches_all_twenty_six_standard_methods",
+          "role": "control",
+          "expected_observations": [
+            "UT: core_dispatch slot 1 calls 1",
+            "UT: core_dispatch exact 1 once 1 selected_unchanged 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CORE-DECL-AUDIT-GET-FACTORY-PURE",
+      "clause": "F.4.1.4.2",
+      "statement": {
+        "en": "A concrete core-service extension must implement the pure get_factory method.",
+        "ja": "具体core-service拡張はpure method get_factoryを実装しなければならない。"
+      },
+      "conditions": {
+        "en": "An original extension implements the other twenty-five printed pure methods and the pinned release extra phase-hopper hook, omitting only this selected printed method.",
+        "ja": "独自拡張で他の印刷pure method 25個と固定版の追加phase-hopper hookを実装し、選択した印刷methodだけを省略する。"
+      },
+      "expected": {
+        "en": "Compilation rejects the concrete extension and identifies this input and get_factory; no runtime binary is executed.",
+        "ja": "compileは具体拡張を拒否してこの入力とget_factoryを示し、runtime binaryは実行しない。"
+      },
+      "limitations": {
+        "en": "The extra hook only isolates the selected prohibition; it is not an IEEE duty. A separate complete control does not certify any builtin algorithm. No exact diagnostic text or unrelated rejection is accepted.",
+        "ja": "追加hookは選択禁止条件を分離するだけでIEEE義務ではない。別の完全controlもbuiltin algorithmを認定しない。正確な診断文面を要求せず、無関係な拒否を受理しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_core_service_concrete_extension_must_implement_get_factory",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?i)^(?=.*test_core_service_concrete_extension_must_implement_get_factory\\.sv:[0-9]+:[0-9]+:)(?=.*\\b(?:pure|virtual|abstract|missing implementation)\\b)(?=.*\\bget_factory\\b).*error"
+          }
+        },
+        {
+          "test": "uF/test_pinned_core_extra_hook_control_dispatches_all_twenty_six_standard_methods",
+          "role": "control",
+          "expected_observations": [
+            "UT: core_dispatch slot 2 calls 1",
+            "UT: core_dispatch exact 1 once 1 selected_unchanged 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CORE-DECL-AUDIT-GET-FACTORY-DECLARATION",
+      "clause": "F.4.1.4.2",
+      "statement": {
+        "en": "The printed get_factory declaration can be implemented and dispatched through the core-service base view.",
+        "ja": "印刷されたget_factory宣言を実装し、core-service base view経由でdispatchできる。"
+      },
+      "conditions": {
+        "en": "An original concrete service implements all twenty-six printed methods with exact formal names and the selected uvm_factory return type; arguments are (). It is not installed as the global service.",
+        "ja": "独自の具体serviceは印刷method 26個を正確なformal名と選択返却型uvm_factoryで実装し、引数は()とする。global serviceには設定しない。"
+      },
+      "expected": {
+        "en": "Calling the selected slot through the base view reaches its original implementation once and retains the chosen type/argument/return identity.",
+        "ja": "base view経由の選択slot呼出しは独自実装へ1回到達し、選択した型／引数／返却の同一性を保持する。"
+      },
+      "limitations": {
+        "en": "This is a declaration/virtual-dispatch obligation, not a builtin facility algorithm. The listed-only input remains distinct from the explicit extra-hook control; the latter cannot pass the former constructor premise. Initializing the selected global service with a custom instance remains separate.",
+        "ja": "宣言／virtual dispatch義務でありbuiltin facility algorithmではない。記載methodだけの入力と明示追加hook controlを分け、後者で前者のconstructor前提をpassにしない。custom instanceでglobal serviceを初期化する条件は別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_core_service_all_declared_methods_dispatch_through_the_abstract_base_view",
+          "role": "direct",
+          "expected_observations": [
+            "UT: core_dispatch slot 2 calls 1",
+            "UT: core_dispatch exact 1 once 1 selected_unchanged 1"
+          ]
+        },
+        {
+          "test": "uF/test_pinned_core_extra_hook_control_dispatches_all_twenty_six_standard_methods",
+          "role": "control",
+          "expected_observations": [
+            "UT: core_dispatch slot 2 calls 1",
+            "UT: core_dispatch exact 1 once 1 selected_unchanged 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CORE-DECL-AUDIT-SET-FACTORY-PURE",
+      "clause": "F.4.1.4.3",
+      "statement": {
+        "en": "A concrete core-service extension must implement the pure set_factory method.",
+        "ja": "具体core-service拡張はpure method set_factoryを実装しなければならない。"
+      },
+      "conditions": {
+        "en": "An original extension implements the other twenty-five printed pure methods and the pinned release extra phase-hopper hook, omitting only this selected printed method.",
+        "ja": "独自拡張で他の印刷pure method 25個と固定版の追加phase-hopper hookを実装し、選択した印刷methodだけを省略する。"
+      },
+      "expected": {
+        "en": "Compilation rejects the concrete extension and identifies this input and set_factory; no runtime binary is executed.",
+        "ja": "compileは具体拡張を拒否してこの入力とset_factoryを示し、runtime binaryは実行しない。"
+      },
+      "limitations": {
+        "en": "The extra hook only isolates the selected prohibition; it is not an IEEE duty. A separate complete control does not certify any builtin algorithm. No exact diagnostic text or unrelated rejection is accepted.",
+        "ja": "追加hookは選択禁止条件を分離するだけでIEEE義務ではない。別の完全controlもbuiltin algorithmを認定しない。正確な診断文面を要求せず、無関係な拒否を受理しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_core_service_concrete_extension_must_implement_set_factory",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?i)^(?=.*test_core_service_concrete_extension_must_implement_set_factory\\.sv:[0-9]+:[0-9]+:)(?=.*\\b(?:pure|virtual|abstract|missing implementation)\\b)(?=.*\\bset_factory\\b).*error"
+          }
+        },
+        {
+          "test": "uF/test_pinned_core_extra_hook_control_dispatches_all_twenty_six_standard_methods",
+          "role": "control",
+          "expected_observations": [
+            "UT: core_dispatch slot 3 calls 1",
+            "UT: core_dispatch exact 1 once 1 selected_unchanged 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CORE-DECL-AUDIT-SET-FACTORY-DECLARATION",
+      "clause": "F.4.1.4.3",
+      "statement": {
+        "en": "The printed set_factory declaration can be implemented and dispatched through the core-service base view.",
+        "ja": "印刷されたset_factory宣言を実装し、core-service base view経由でdispatchできる。"
+      },
+      "conditions": {
+        "en": "An original concrete service implements all twenty-six printed methods with exact formal names and the selected void return type; arguments are (uvm_factory f). It is not installed as the global service.",
+        "ja": "独自の具体serviceは印刷method 26個を正確なformal名と選択返却型voidで実装し、引数は(uvm_factory f)とする。global serviceには設定しない。"
+      },
+      "expected": {
+        "en": "Calling the selected slot through the base view reaches its original implementation once and retains the chosen type/argument/return identity.",
+        "ja": "base view経由の選択slot呼出しは独自実装へ1回到達し、選択した型／引数／返却の同一性を保持する。"
+      },
+      "limitations": {
+        "en": "This is a declaration/virtual-dispatch obligation, not a builtin facility algorithm. The listed-only input remains distinct from the explicit extra-hook control; the latter cannot pass the former constructor premise. Initializing the selected global service with a custom instance remains separate.",
+        "ja": "宣言／virtual dispatch義務でありbuiltin facility algorithmではない。記載methodだけの入力と明示追加hook controlを分け、後者で前者のconstructor前提をpassにしない。custom instanceでglobal serviceを初期化する条件は別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_core_service_all_declared_methods_dispatch_through_the_abstract_base_view",
+          "role": "direct",
+          "expected_observations": [
+            "UT: core_dispatch slot 3 calls 1",
+            "UT: core_dispatch exact 1 once 1 selected_unchanged 1"
+          ]
+        },
+        {
+          "test": "uF/test_pinned_core_extra_hook_control_dispatches_all_twenty_six_standard_methods",
+          "role": "control",
+          "expected_observations": [
+            "UT: core_dispatch slot 3 calls 1",
+            "UT: core_dispatch exact 1 once 1 selected_unchanged 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CORE-DECL-AUDIT-GET-REPORT-SERVER-PURE",
+      "clause": "F.4.1.4.4",
+      "statement": {
+        "en": "A concrete core-service extension must implement the pure get_report_server method.",
+        "ja": "具体core-service拡張はpure method get_report_serverを実装しなければならない。"
+      },
+      "conditions": {
+        "en": "An original extension implements the other twenty-five printed pure methods and the pinned release extra phase-hopper hook, omitting only this selected printed method.",
+        "ja": "独自拡張で他の印刷pure method 25個と固定版の追加phase-hopper hookを実装し、選択した印刷methodだけを省略する。"
+      },
+      "expected": {
+        "en": "Compilation rejects the concrete extension and identifies this input and get_report_server; no runtime binary is executed.",
+        "ja": "compileは具体拡張を拒否してこの入力とget_report_serverを示し、runtime binaryは実行しない。"
+      },
+      "limitations": {
+        "en": "The extra hook only isolates the selected prohibition; it is not an IEEE duty. A separate complete control does not certify any builtin algorithm. No exact diagnostic text or unrelated rejection is accepted.",
+        "ja": "追加hookは選択禁止条件を分離するだけでIEEE義務ではない。別の完全controlもbuiltin algorithmを認定しない。正確な診断文面を要求せず、無関係な拒否を受理しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_core_service_concrete_extension_must_implement_get_report_server",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?i)^(?=.*test_core_service_concrete_extension_must_implement_get_report_server\\.sv:[0-9]+:[0-9]+:)(?=.*\\b(?:pure|virtual|abstract|missing implementation)\\b)(?=.*\\bget_report_server\\b).*error"
+          }
+        },
+        {
+          "test": "uF/test_pinned_core_extra_hook_control_dispatches_all_twenty_six_standard_methods",
+          "role": "control",
+          "expected_observations": [
+            "UT: core_dispatch slot 4 calls 1",
+            "UT: core_dispatch exact 1 once 1 selected_unchanged 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CORE-DECL-AUDIT-GET-REPORT-SERVER-DECLARATION",
+      "clause": "F.4.1.4.4",
+      "statement": {
+        "en": "The printed get_report_server declaration can be implemented and dispatched through the core-service base view.",
+        "ja": "印刷されたget_report_server宣言を実装し、core-service base view経由でdispatchできる。"
+      },
+      "conditions": {
+        "en": "An original concrete service implements all twenty-six printed methods with exact formal names and the selected uvm_report_server return type; arguments are (). It is not installed as the global service.",
+        "ja": "独自の具体serviceは印刷method 26個を正確なformal名と選択返却型uvm_report_serverで実装し、引数は()とする。global serviceには設定しない。"
+      },
+      "expected": {
+        "en": "Calling the selected slot through the base view reaches its original implementation once and retains the chosen type/argument/return identity.",
+        "ja": "base view経由の選択slot呼出しは独自実装へ1回到達し、選択した型／引数／返却の同一性を保持する。"
+      },
+      "limitations": {
+        "en": "This is a declaration/virtual-dispatch obligation, not a builtin facility algorithm. The listed-only input remains distinct from the explicit extra-hook control; the latter cannot pass the former constructor premise. Initializing the selected global service with a custom instance remains separate.",
+        "ja": "宣言／virtual dispatch義務でありbuiltin facility algorithmではない。記載methodだけの入力と明示追加hook controlを分け、後者で前者のconstructor前提をpassにしない。custom instanceでglobal serviceを初期化する条件は別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_core_service_all_declared_methods_dispatch_through_the_abstract_base_view",
+          "role": "direct",
+          "expected_observations": [
+            "UT: core_dispatch slot 4 calls 1",
+            "UT: core_dispatch exact 1 once 1 selected_unchanged 1"
+          ]
+        },
+        {
+          "test": "uF/test_pinned_core_extra_hook_control_dispatches_all_twenty_six_standard_methods",
+          "role": "control",
+          "expected_observations": [
+            "UT: core_dispatch slot 4 calls 1",
+            "UT: core_dispatch exact 1 once 1 selected_unchanged 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CORE-DECL-AUDIT-SET-REPORT-SERVER-PURE",
+      "clause": "F.4.1.4.5",
+      "statement": {
+        "en": "A concrete core-service extension must implement the pure set_report_server method.",
+        "ja": "具体core-service拡張はpure method set_report_serverを実装しなければならない。"
+      },
+      "conditions": {
+        "en": "An original extension implements the other twenty-five printed pure methods and the pinned release extra phase-hopper hook, omitting only this selected printed method.",
+        "ja": "独自拡張で他の印刷pure method 25個と固定版の追加phase-hopper hookを実装し、選択した印刷methodだけを省略する。"
+      },
+      "expected": {
+        "en": "Compilation rejects the concrete extension and identifies this input and set_report_server; no runtime binary is executed.",
+        "ja": "compileは具体拡張を拒否してこの入力とset_report_serverを示し、runtime binaryは実行しない。"
+      },
+      "limitations": {
+        "en": "The extra hook only isolates the selected prohibition; it is not an IEEE duty. A separate complete control does not certify any builtin algorithm. No exact diagnostic text or unrelated rejection is accepted.",
+        "ja": "追加hookは選択禁止条件を分離するだけでIEEE義務ではない。別の完全controlもbuiltin algorithmを認定しない。正確な診断文面を要求せず、無関係な拒否を受理しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_core_service_concrete_extension_must_implement_set_report_server",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?i)^(?=.*test_core_service_concrete_extension_must_implement_set_report_server\\.sv:[0-9]+:[0-9]+:)(?=.*\\b(?:pure|virtual|abstract|missing implementation)\\b)(?=.*\\bset_report_server\\b).*error"
+          }
+        },
+        {
+          "test": "uF/test_pinned_core_extra_hook_control_dispatches_all_twenty_six_standard_methods",
+          "role": "control",
+          "expected_observations": [
+            "UT: core_dispatch slot 5 calls 1",
+            "UT: core_dispatch exact 1 once 1 selected_unchanged 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CORE-DECL-AUDIT-SET-REPORT-SERVER-DECLARATION",
+      "clause": "F.4.1.4.5",
+      "statement": {
+        "en": "The printed set_report_server declaration can be implemented and dispatched through the core-service base view.",
+        "ja": "印刷されたset_report_server宣言を実装し、core-service base view経由でdispatchできる。"
+      },
+      "conditions": {
+        "en": "An original concrete service implements all twenty-six printed methods with exact formal names and the selected void return type; arguments are (uvm_report_server server). It is not installed as the global service.",
+        "ja": "独自の具体serviceは印刷method 26個を正確なformal名と選択返却型voidで実装し、引数は(uvm_report_server server)とする。global serviceには設定しない。"
+      },
+      "expected": {
+        "en": "Calling the selected slot through the base view reaches its original implementation once and retains the chosen type/argument/return identity.",
+        "ja": "base view経由の選択slot呼出しは独自実装へ1回到達し、選択した型／引数／返却の同一性を保持する。"
+      },
+      "limitations": {
+        "en": "This is a declaration/virtual-dispatch obligation, not a builtin facility algorithm. The listed-only input remains distinct from the explicit extra-hook control; the latter cannot pass the former constructor premise. Initializing the selected global service with a custom instance remains separate.",
+        "ja": "宣言／virtual dispatch義務でありbuiltin facility algorithmではない。記載methodだけの入力と明示追加hook controlを分け、後者で前者のconstructor前提をpassにしない。custom instanceでglobal serviceを初期化する条件は別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_core_service_all_declared_methods_dispatch_through_the_abstract_base_view",
+          "role": "direct",
+          "expected_observations": [
+            "UT: core_dispatch slot 5 calls 1",
+            "UT: core_dispatch exact 1 once 1 selected_unchanged 1"
+          ]
+        },
+        {
+          "test": "uF/test_pinned_core_extra_hook_control_dispatches_all_twenty_six_standard_methods",
+          "role": "control",
+          "expected_observations": [
+            "UT: core_dispatch slot 5 calls 1",
+            "UT: core_dispatch exact 1 once 1 selected_unchanged 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CORE-DECL-AUDIT-GET-DEFAULT-TR-DATABASE-PURE",
+      "clause": "F.4.1.4.6",
+      "statement": {
+        "en": "A concrete core-service extension must implement the pure get_default_tr_database method.",
+        "ja": "具体core-service拡張はpure method get_default_tr_databaseを実装しなければならない。"
+      },
+      "conditions": {
+        "en": "An original extension implements the other twenty-five printed pure methods and the pinned release extra phase-hopper hook, omitting only this selected printed method.",
+        "ja": "独自拡張で他の印刷pure method 25個と固定版の追加phase-hopper hookを実装し、選択した印刷methodだけを省略する。"
+      },
+      "expected": {
+        "en": "Compilation rejects the concrete extension and identifies this input and get_default_tr_database; no runtime binary is executed.",
+        "ja": "compileは具体拡張を拒否してこの入力とget_default_tr_databaseを示し、runtime binaryは実行しない。"
+      },
+      "limitations": {
+        "en": "The extra hook only isolates the selected prohibition; it is not an IEEE duty. A separate complete control does not certify any builtin algorithm. No exact diagnostic text or unrelated rejection is accepted.",
+        "ja": "追加hookは選択禁止条件を分離するだけでIEEE義務ではない。別の完全controlもbuiltin algorithmを認定しない。正確な診断文面を要求せず、無関係な拒否を受理しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_core_service_concrete_extension_must_implement_get_default_tr_database",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?i)^(?=.*test_core_service_concrete_extension_must_implement_get_default_tr_database\\.sv:[0-9]+:[0-9]+:)(?=.*\\b(?:pure|virtual|abstract|missing implementation)\\b)(?=.*\\bget_default_tr_database\\b).*error"
+          }
+        },
+        {
+          "test": "uF/test_pinned_core_extra_hook_control_dispatches_all_twenty_six_standard_methods",
+          "role": "control",
+          "expected_observations": [
+            "UT: core_dispatch slot 6 calls 1",
+            "UT: core_dispatch exact 1 once 1 selected_unchanged 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CORE-DECL-AUDIT-GET-DEFAULT-TR-DATABASE-DECLARATION",
+      "clause": "F.4.1.4.6",
+      "statement": {
+        "en": "The printed get_default_tr_database declaration can be implemented and dispatched through the core-service base view.",
+        "ja": "印刷されたget_default_tr_database宣言を実装し、core-service base view経由でdispatchできる。"
+      },
+      "conditions": {
+        "en": "An original concrete service implements all twenty-six printed methods with exact formal names and the selected uvm_tr_database return type; arguments are (). It is not installed as the global service.",
+        "ja": "独自の具体serviceは印刷method 26個を正確なformal名と選択返却型uvm_tr_databaseで実装し、引数は()とする。global serviceには設定しない。"
+      },
+      "expected": {
+        "en": "Calling the selected slot through the base view reaches its original implementation once and retains the chosen type/argument/return identity.",
+        "ja": "base view経由の選択slot呼出しは独自実装へ1回到達し、選択した型／引数／返却の同一性を保持する。"
+      },
+      "limitations": {
+        "en": "This is a declaration/virtual-dispatch obligation, not a builtin facility algorithm. The listed-only input remains distinct from the explicit extra-hook control; the latter cannot pass the former constructor premise. Initializing the selected global service with a custom instance remains separate.",
+        "ja": "宣言／virtual dispatch義務でありbuiltin facility algorithmではない。記載methodだけの入力と明示追加hook controlを分け、後者で前者のconstructor前提をpassにしない。custom instanceでglobal serviceを初期化する条件は別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_core_service_all_declared_methods_dispatch_through_the_abstract_base_view",
+          "role": "direct",
+          "expected_observations": [
+            "UT: core_dispatch slot 6 calls 1",
+            "UT: core_dispatch exact 1 once 1 selected_unchanged 1"
+          ]
+        },
+        {
+          "test": "uF/test_pinned_core_extra_hook_control_dispatches_all_twenty_six_standard_methods",
+          "role": "control",
+          "expected_observations": [
+            "UT: core_dispatch slot 6 calls 1",
+            "UT: core_dispatch exact 1 once 1 selected_unchanged 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CORE-DECL-AUDIT-SET-DEFAULT-TR-DATABASE-PURE",
+      "clause": "F.4.1.4.7",
+      "statement": {
+        "en": "A concrete core-service extension must implement the pure set_default_tr_database method.",
+        "ja": "具体core-service拡張はpure method set_default_tr_databaseを実装しなければならない。"
+      },
+      "conditions": {
+        "en": "An original extension implements the other twenty-five printed pure methods and the pinned release extra phase-hopper hook, omitting only this selected printed method.",
+        "ja": "独自拡張で他の印刷pure method 25個と固定版の追加phase-hopper hookを実装し、選択した印刷methodだけを省略する。"
+      },
+      "expected": {
+        "en": "Compilation rejects the concrete extension and identifies this input and set_default_tr_database; no runtime binary is executed.",
+        "ja": "compileは具体拡張を拒否してこの入力とset_default_tr_databaseを示し、runtime binaryは実行しない。"
+      },
+      "limitations": {
+        "en": "The extra hook only isolates the selected prohibition; it is not an IEEE duty. A separate complete control does not certify any builtin algorithm. No exact diagnostic text or unrelated rejection is accepted.",
+        "ja": "追加hookは選択禁止条件を分離するだけでIEEE義務ではない。別の完全controlもbuiltin algorithmを認定しない。正確な診断文面を要求せず、無関係な拒否を受理しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_core_service_concrete_extension_must_implement_set_default_tr_database",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?i)^(?=.*test_core_service_concrete_extension_must_implement_set_default_tr_database\\.sv:[0-9]+:[0-9]+:)(?=.*\\b(?:pure|virtual|abstract|missing implementation)\\b)(?=.*\\bset_default_tr_database\\b).*error"
+          }
+        },
+        {
+          "test": "uF/test_pinned_core_extra_hook_control_dispatches_all_twenty_six_standard_methods",
+          "role": "control",
+          "expected_observations": [
+            "UT: core_dispatch slot 7 calls 1",
+            "UT: core_dispatch exact 1 once 1 selected_unchanged 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CORE-DECL-AUDIT-SET-DEFAULT-TR-DATABASE-DECLARATION",
+      "clause": "F.4.1.4.7",
+      "statement": {
+        "en": "The printed set_default_tr_database declaration can be implemented and dispatched through the core-service base view.",
+        "ja": "印刷されたset_default_tr_database宣言を実装し、core-service base view経由でdispatchできる。"
+      },
+      "conditions": {
+        "en": "An original concrete service implements all twenty-six printed methods with exact formal names and the selected void return type; arguments are (uvm_tr_database db). It is not installed as the global service.",
+        "ja": "独自の具体serviceは印刷method 26個を正確なformal名と選択返却型voidで実装し、引数は(uvm_tr_database db)とする。global serviceには設定しない。"
+      },
+      "expected": {
+        "en": "Calling the selected slot through the base view reaches its original implementation once and retains the chosen type/argument/return identity.",
+        "ja": "base view経由の選択slot呼出しは独自実装へ1回到達し、選択した型／引数／返却の同一性を保持する。"
+      },
+      "limitations": {
+        "en": "This is a declaration/virtual-dispatch obligation, not a builtin facility algorithm. The listed-only input remains distinct from the explicit extra-hook control; the latter cannot pass the former constructor premise. Initializing the selected global service with a custom instance remains separate.",
+        "ja": "宣言／virtual dispatch義務でありbuiltin facility algorithmではない。記載methodだけの入力と明示追加hook controlを分け、後者で前者のconstructor前提をpassにしない。custom instanceでglobal serviceを初期化する条件は別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_core_service_all_declared_methods_dispatch_through_the_abstract_base_view",
+          "role": "direct",
+          "expected_observations": [
+            "UT: core_dispatch slot 7 calls 1",
+            "UT: core_dispatch exact 1 once 1 selected_unchanged 1"
+          ]
+        },
+        {
+          "test": "uF/test_pinned_core_extra_hook_control_dispatches_all_twenty_six_standard_methods",
+          "role": "control",
+          "expected_observations": [
+            "UT: core_dispatch slot 7 calls 1",
+            "UT: core_dispatch exact 1 once 1 selected_unchanged 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CORE-DECL-AUDIT-GET-COMPONENT-VISITOR-PURE",
+      "clause": "F.4.1.4.8",
+      "statement": {
+        "en": "A concrete core-service extension must implement the pure get_component_visitor method.",
+        "ja": "具体core-service拡張はpure method get_component_visitorを実装しなければならない。"
+      },
+      "conditions": {
+        "en": "An original extension implements the other twenty-five printed pure methods and the pinned release extra phase-hopper hook, omitting only this selected printed method.",
+        "ja": "独自拡張で他の印刷pure method 25個と固定版の追加phase-hopper hookを実装し、選択した印刷methodだけを省略する。"
+      },
+      "expected": {
+        "en": "Compilation rejects the concrete extension and identifies this input and get_component_visitor; no runtime binary is executed.",
+        "ja": "compileは具体拡張を拒否してこの入力とget_component_visitorを示し、runtime binaryは実行しない。"
+      },
+      "limitations": {
+        "en": "The extra hook only isolates the selected prohibition; it is not an IEEE duty. A separate complete control does not certify any builtin algorithm. No exact diagnostic text or unrelated rejection is accepted.",
+        "ja": "追加hookは選択禁止条件を分離するだけでIEEE義務ではない。別の完全controlもbuiltin algorithmを認定しない。正確な診断文面を要求せず、無関係な拒否を受理しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_core_service_concrete_extension_must_implement_get_component_visitor",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?i)^(?=.*test_core_service_concrete_extension_must_implement_get_component_visitor\\.sv:[0-9]+:[0-9]+:)(?=.*\\b(?:pure|virtual|abstract|missing implementation)\\b)(?=.*\\bget_component_visitor\\b).*error"
+          }
+        },
+        {
+          "test": "uF/test_pinned_core_extra_hook_control_dispatches_all_twenty_six_standard_methods",
+          "role": "control",
+          "expected_observations": [
+            "UT: core_dispatch slot 8 calls 1",
+            "UT: core_dispatch exact 1 once 1 selected_unchanged 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CORE-DECL-AUDIT-GET-COMPONENT-VISITOR-DECLARATION",
+      "clause": "F.4.1.4.8",
+      "statement": {
+        "en": "The printed get_component_visitor declaration can be implemented and dispatched through the core-service base view.",
+        "ja": "印刷されたget_component_visitor宣言を実装し、core-service base view経由でdispatchできる。"
+      },
+      "conditions": {
+        "en": "An original concrete service implements all twenty-six printed methods with exact formal names and the selected uvm_visitor#(uvm_component) return type; arguments are (). It is not installed as the global service.",
+        "ja": "独自の具体serviceは印刷method 26個を正確なformal名と選択返却型uvm_visitor#(uvm_component)で実装し、引数は()とする。global serviceには設定しない。"
+      },
+      "expected": {
+        "en": "Calling the selected slot through the base view reaches its original implementation once and retains the chosen type/argument/return identity.",
+        "ja": "base view経由の選択slot呼出しは独自実装へ1回到達し、選択した型／引数／返却の同一性を保持する。"
+      },
+      "limitations": {
+        "en": "This is a declaration/virtual-dispatch obligation, not a builtin facility algorithm. The listed-only input remains distinct from the explicit extra-hook control; the latter cannot pass the former constructor premise. Initializing the selected global service with a custom instance remains separate.",
+        "ja": "宣言／virtual dispatch義務でありbuiltin facility algorithmではない。記載methodだけの入力と明示追加hook controlを分け、後者で前者のconstructor前提をpassにしない。custom instanceでglobal serviceを初期化する条件は別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_core_service_all_declared_methods_dispatch_through_the_abstract_base_view",
+          "role": "direct",
+          "expected_observations": [
+            "UT: core_dispatch slot 8 calls 1",
+            "UT: core_dispatch exact 1 once 1 selected_unchanged 1"
+          ]
+        },
+        {
+          "test": "uF/test_pinned_core_extra_hook_control_dispatches_all_twenty_six_standard_methods",
+          "role": "control",
+          "expected_observations": [
+            "UT: core_dispatch slot 8 calls 1",
+            "UT: core_dispatch exact 1 once 1 selected_unchanged 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CORE-DECL-AUDIT-SET-COMPONENT-VISITOR-PURE",
+      "clause": "F.4.1.4.9",
+      "statement": {
+        "en": "A concrete core-service extension must implement the pure set_component_visitor method.",
+        "ja": "具体core-service拡張はpure method set_component_visitorを実装しなければならない。"
+      },
+      "conditions": {
+        "en": "An original extension implements the other twenty-five printed pure methods and the pinned release extra phase-hopper hook, omitting only this selected printed method.",
+        "ja": "独自拡張で他の印刷pure method 25個と固定版の追加phase-hopper hookを実装し、選択した印刷methodだけを省略する。"
+      },
+      "expected": {
+        "en": "Compilation rejects the concrete extension and identifies this input and set_component_visitor; no runtime binary is executed.",
+        "ja": "compileは具体拡張を拒否してこの入力とset_component_visitorを示し、runtime binaryは実行しない。"
+      },
+      "limitations": {
+        "en": "The extra hook only isolates the selected prohibition; it is not an IEEE duty. A separate complete control does not certify any builtin algorithm. No exact diagnostic text or unrelated rejection is accepted.",
+        "ja": "追加hookは選択禁止条件を分離するだけでIEEE義務ではない。別の完全controlもbuiltin algorithmを認定しない。正確な診断文面を要求せず、無関係な拒否を受理しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_core_service_concrete_extension_must_implement_set_component_visitor",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?i)^(?=.*test_core_service_concrete_extension_must_implement_set_component_visitor\\.sv:[0-9]+:[0-9]+:)(?=.*\\b(?:pure|virtual|abstract|missing implementation)\\b)(?=.*\\bset_component_visitor\\b).*error"
+          }
+        },
+        {
+          "test": "uF/test_pinned_core_extra_hook_control_dispatches_all_twenty_six_standard_methods",
+          "role": "control",
+          "expected_observations": [
+            "UT: core_dispatch slot 9 calls 1",
+            "UT: core_dispatch exact 1 once 1 selected_unchanged 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CORE-DECL-AUDIT-SET-COMPONENT-VISITOR-DECLARATION",
+      "clause": "F.4.1.4.9",
+      "statement": {
+        "en": "The printed set_component_visitor declaration can be implemented and dispatched through the core-service base view.",
+        "ja": "印刷されたset_component_visitor宣言を実装し、core-service base view経由でdispatchできる。"
+      },
+      "conditions": {
+        "en": "An original concrete service implements all twenty-six printed methods with exact formal names and the selected void return type; arguments are (uvm_visitor#(uvm_component) v). It is not installed as the global service.",
+        "ja": "独自の具体serviceは印刷method 26個を正確なformal名と選択返却型voidで実装し、引数は(uvm_visitor#(uvm_component) v)とする。global serviceには設定しない。"
+      },
+      "expected": {
+        "en": "Calling the selected slot through the base view reaches its original implementation once and retains the chosen type/argument/return identity.",
+        "ja": "base view経由の選択slot呼出しは独自実装へ1回到達し、選択した型／引数／返却の同一性を保持する。"
+      },
+      "limitations": {
+        "en": "This is a declaration/virtual-dispatch obligation, not a builtin facility algorithm. The listed-only input remains distinct from the explicit extra-hook control; the latter cannot pass the former constructor premise. Initializing the selected global service with a custom instance remains separate.",
+        "ja": "宣言／virtual dispatch義務でありbuiltin facility algorithmではない。記載methodだけの入力と明示追加hook controlを分け、後者で前者のconstructor前提をpassにしない。custom instanceでglobal serviceを初期化する条件は別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_core_service_all_declared_methods_dispatch_through_the_abstract_base_view",
+          "role": "direct",
+          "expected_observations": [
+            "UT: core_dispatch slot 9 calls 1",
+            "UT: core_dispatch exact 1 once 1 selected_unchanged 1"
+          ]
+        },
+        {
+          "test": "uF/test_pinned_core_extra_hook_control_dispatches_all_twenty_six_standard_methods",
+          "role": "control",
+          "expected_observations": [
+            "UT: core_dispatch slot 9 calls 1",
+            "UT: core_dispatch exact 1 once 1 selected_unchanged 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CORE-DECL-AUDIT-SET-PHASE-MAX-READY-TO-END-PURE",
+      "clause": "F.4.1.4.10",
+      "statement": {
+        "en": "A concrete core-service extension must implement the pure set_phase_max_ready_to_end method.",
+        "ja": "具体core-service拡張はpure method set_phase_max_ready_to_endを実装しなければならない。"
+      },
+      "conditions": {
+        "en": "An original extension implements the other twenty-five printed pure methods and the pinned release extra phase-hopper hook, omitting only this selected printed method.",
+        "ja": "独自拡張で他の印刷pure method 25個と固定版の追加phase-hopper hookを実装し、選択した印刷methodだけを省略する。"
+      },
+      "expected": {
+        "en": "Compilation rejects the concrete extension and identifies this input and set_phase_max_ready_to_end; no runtime binary is executed.",
+        "ja": "compileは具体拡張を拒否してこの入力とset_phase_max_ready_to_endを示し、runtime binaryは実行しない。"
+      },
+      "limitations": {
+        "en": "The extra hook only isolates the selected prohibition; it is not an IEEE duty. A separate complete control does not certify any builtin algorithm. No exact diagnostic text or unrelated rejection is accepted.",
+        "ja": "追加hookは選択禁止条件を分離するだけでIEEE義務ではない。別の完全controlもbuiltin algorithmを認定しない。正確な診断文面を要求せず、無関係な拒否を受理しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_core_service_concrete_extension_must_implement_set_phase_max_ready_to_end",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?i)^(?=.*test_core_service_concrete_extension_must_implement_set_phase_max_ready_to_end\\.sv:[0-9]+:[0-9]+:)(?=.*\\b(?:pure|virtual|abstract|missing implementation)\\b)(?=.*\\bset_phase_max_ready_to_end\\b).*error"
+          }
+        },
+        {
+          "test": "uF/test_pinned_core_extra_hook_control_dispatches_all_twenty_six_standard_methods",
+          "role": "control",
+          "expected_observations": [
+            "UT: core_dispatch slot 10 calls 1",
+            "UT: core_dispatch exact 1 once 1 selected_unchanged 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CORE-DECL-AUDIT-SET-PHASE-MAX-READY-TO-END-DECLARATION",
+      "clause": "F.4.1.4.10",
+      "statement": {
+        "en": "The printed set_phase_max_ready_to_end declaration can be implemented and dispatched through the core-service base view.",
+        "ja": "印刷されたset_phase_max_ready_to_end宣言を実装し、core-service base view経由でdispatchできる。"
+      },
+      "conditions": {
+        "en": "An original concrete service implements all twenty-six printed methods with exact formal names and the selected void return type; arguments are (int max). It is not installed as the global service.",
+        "ja": "独自の具体serviceは印刷method 26個を正確なformal名と選択返却型voidで実装し、引数は(int max)とする。global serviceには設定しない。"
+      },
+      "expected": {
+        "en": "Calling the selected slot through the base view reaches its original implementation once and retains the chosen type/argument/return identity.",
+        "ja": "base view経由の選択slot呼出しは独自実装へ1回到達し、選択した型／引数／返却の同一性を保持する。"
+      },
+      "limitations": {
+        "en": "This is a declaration/virtual-dispatch obligation, not a builtin facility algorithm. The listed-only input remains distinct from the explicit extra-hook control; the latter cannot pass the former constructor premise. Initializing the selected global service with a custom instance remains separate.",
+        "ja": "宣言／virtual dispatch義務でありbuiltin facility algorithmではない。記載methodだけの入力と明示追加hook controlを分け、後者で前者のconstructor前提をpassにしない。custom instanceでglobal serviceを初期化する条件は別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_core_service_all_declared_methods_dispatch_through_the_abstract_base_view",
+          "role": "direct",
+          "expected_observations": [
+            "UT: core_dispatch slot 10 calls 1",
+            "UT: core_dispatch exact 1 once 1 selected_unchanged 1"
+          ]
+        },
+        {
+          "test": "uF/test_pinned_core_extra_hook_control_dispatches_all_twenty_six_standard_methods",
+          "role": "control",
+          "expected_observations": [
+            "UT: core_dispatch slot 10 calls 1",
+            "UT: core_dispatch exact 1 once 1 selected_unchanged 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CORE-DECL-AUDIT-GET-PHASE-MAX-READY-TO-END-PURE",
+      "clause": "F.4.1.4.11",
+      "statement": {
+        "en": "A concrete core-service extension must implement the pure get_phase_max_ready_to_end method.",
+        "ja": "具体core-service拡張はpure method get_phase_max_ready_to_endを実装しなければならない。"
+      },
+      "conditions": {
+        "en": "An original extension implements the other twenty-five printed pure methods and the pinned release extra phase-hopper hook, omitting only this selected printed method.",
+        "ja": "独自拡張で他の印刷pure method 25個と固定版の追加phase-hopper hookを実装し、選択した印刷methodだけを省略する。"
+      },
+      "expected": {
+        "en": "Compilation rejects the concrete extension and identifies this input and get_phase_max_ready_to_end; no runtime binary is executed.",
+        "ja": "compileは具体拡張を拒否してこの入力とget_phase_max_ready_to_endを示し、runtime binaryは実行しない。"
+      },
+      "limitations": {
+        "en": "The extra hook only isolates the selected prohibition; it is not an IEEE duty. A separate complete control does not certify any builtin algorithm. No exact diagnostic text or unrelated rejection is accepted.",
+        "ja": "追加hookは選択禁止条件を分離するだけでIEEE義務ではない。別の完全controlもbuiltin algorithmを認定しない。正確な診断文面を要求せず、無関係な拒否を受理しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_core_service_concrete_extension_must_implement_get_phase_max_ready_to_end",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?i)^(?=.*test_core_service_concrete_extension_must_implement_get_phase_max_ready_to_end\\.sv:[0-9]+:[0-9]+:)(?=.*\\b(?:pure|virtual|abstract|missing implementation)\\b)(?=.*\\bget_phase_max_ready_to_end\\b).*error"
+          }
+        },
+        {
+          "test": "uF/test_pinned_core_extra_hook_control_dispatches_all_twenty_six_standard_methods",
+          "role": "control",
+          "expected_observations": [
+            "UT: core_dispatch slot 11 calls 1",
+            "UT: core_dispatch exact 1 once 1 selected_unchanged 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CORE-DECL-AUDIT-GET-PHASE-MAX-READY-TO-END-DECLARATION",
+      "clause": "F.4.1.4.11",
+      "statement": {
+        "en": "The printed get_phase_max_ready_to_end declaration can be implemented and dispatched through the core-service base view.",
+        "ja": "印刷されたget_phase_max_ready_to_end宣言を実装し、core-service base view経由でdispatchできる。"
+      },
+      "conditions": {
+        "en": "An original concrete service implements all twenty-six printed methods with exact formal names and the selected int return type; arguments are (). It is not installed as the global service.",
+        "ja": "独自の具体serviceは印刷method 26個を正確なformal名と選択返却型intで実装し、引数は()とする。global serviceには設定しない。"
+      },
+      "expected": {
+        "en": "Calling the selected slot through the base view reaches its original implementation once and retains the chosen type/argument/return identity.",
+        "ja": "base view経由の選択slot呼出しは独自実装へ1回到達し、選択した型／引数／返却の同一性を保持する。"
+      },
+      "limitations": {
+        "en": "This is a declaration/virtual-dispatch obligation, not a builtin facility algorithm. The listed-only input remains distinct from the explicit extra-hook control; the latter cannot pass the former constructor premise. Initializing the selected global service with a custom instance remains separate.",
+        "ja": "宣言／virtual dispatch義務でありbuiltin facility algorithmではない。記載methodだけの入力と明示追加hook controlを分け、後者で前者のconstructor前提をpassにしない。custom instanceでglobal serviceを初期化する条件は別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_core_service_all_declared_methods_dispatch_through_the_abstract_base_view",
+          "role": "direct",
+          "expected_observations": [
+            "UT: core_dispatch slot 11 calls 1",
+            "UT: core_dispatch exact 1 once 1 selected_unchanged 1"
+          ]
+        },
+        {
+          "test": "uF/test_pinned_core_extra_hook_control_dispatches_all_twenty_six_standard_methods",
+          "role": "control",
+          "expected_observations": [
+            "UT: core_dispatch slot 11 calls 1",
+            "UT: core_dispatch exact 1 once 1 selected_unchanged 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CORE-DECL-AUDIT-SET-DEFAULT-PRINTER-PURE",
+      "clause": "F.4.1.4.12",
+      "statement": {
+        "en": "A concrete core-service extension must implement the pure set_default_printer method.",
+        "ja": "具体core-service拡張はpure method set_default_printerを実装しなければならない。"
+      },
+      "conditions": {
+        "en": "An original extension implements the other twenty-five printed pure methods and the pinned release extra phase-hopper hook, omitting only this selected printed method.",
+        "ja": "独自拡張で他の印刷pure method 25個と固定版の追加phase-hopper hookを実装し、選択した印刷methodだけを省略する。"
+      },
+      "expected": {
+        "en": "Compilation rejects the concrete extension and identifies this input and set_default_printer; no runtime binary is executed.",
+        "ja": "compileは具体拡張を拒否してこの入力とset_default_printerを示し、runtime binaryは実行しない。"
+      },
+      "limitations": {
+        "en": "The extra hook only isolates the selected prohibition; it is not an IEEE duty. A separate complete control does not certify any builtin algorithm. No exact diagnostic text or unrelated rejection is accepted.",
+        "ja": "追加hookは選択禁止条件を分離するだけでIEEE義務ではない。別の完全controlもbuiltin algorithmを認定しない。正確な診断文面を要求せず、無関係な拒否を受理しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_core_service_concrete_extension_must_implement_set_default_printer",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?i)^(?=.*test_core_service_concrete_extension_must_implement_set_default_printer\\.sv:[0-9]+:[0-9]+:)(?=.*\\b(?:pure|virtual|abstract|missing implementation)\\b)(?=.*\\bset_default_printer\\b).*error"
+          }
+        },
+        {
+          "test": "uF/test_pinned_core_extra_hook_control_dispatches_all_twenty_six_standard_methods",
+          "role": "control",
+          "expected_observations": [
+            "UT: core_dispatch slot 12 calls 1",
+            "UT: core_dispatch exact 1 once 1 selected_unchanged 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CORE-DECL-AUDIT-SET-DEFAULT-PRINTER-DECLARATION",
+      "clause": "F.4.1.4.12",
+      "statement": {
+        "en": "The printed set_default_printer declaration can be implemented and dispatched through the core-service base view.",
+        "ja": "印刷されたset_default_printer宣言を実装し、core-service base view経由でdispatchできる。"
+      },
+      "conditions": {
+        "en": "An original concrete service implements all twenty-six printed methods with exact formal names and the selected void return type; arguments are (uvm_printer printer). It is not installed as the global service.",
+        "ja": "独自の具体serviceは印刷method 26個を正確なformal名と選択返却型voidで実装し、引数は(uvm_printer printer)とする。global serviceには設定しない。"
+      },
+      "expected": {
+        "en": "Calling the selected slot through the base view reaches its original implementation once and retains the chosen type/argument/return identity.",
+        "ja": "base view経由の選択slot呼出しは独自実装へ1回到達し、選択した型／引数／返却の同一性を保持する。"
+      },
+      "limitations": {
+        "en": "This is a declaration/virtual-dispatch obligation, not a builtin facility algorithm. The listed-only input remains distinct from the explicit extra-hook control; the latter cannot pass the former constructor premise. Initializing the selected global service with a custom instance remains separate.",
+        "ja": "宣言／virtual dispatch義務でありbuiltin facility algorithmではない。記載methodだけの入力と明示追加hook controlを分け、後者で前者のconstructor前提をpassにしない。custom instanceでglobal serviceを初期化する条件は別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_core_service_all_declared_methods_dispatch_through_the_abstract_base_view",
+          "role": "direct",
+          "expected_observations": [
+            "UT: core_dispatch slot 12 calls 1",
+            "UT: core_dispatch exact 1 once 1 selected_unchanged 1"
+          ]
+        },
+        {
+          "test": "uF/test_pinned_core_extra_hook_control_dispatches_all_twenty_six_standard_methods",
+          "role": "control",
+          "expected_observations": [
+            "UT: core_dispatch slot 12 calls 1",
+            "UT: core_dispatch exact 1 once 1 selected_unchanged 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CORE-DECL-AUDIT-GET-DEFAULT-PRINTER-PURE",
+      "clause": "F.4.1.4.13",
+      "statement": {
+        "en": "A concrete core-service extension must implement the pure get_default_printer method.",
+        "ja": "具体core-service拡張はpure method get_default_printerを実装しなければならない。"
+      },
+      "conditions": {
+        "en": "An original extension implements the other twenty-five printed pure methods and the pinned release extra phase-hopper hook, omitting only this selected printed method.",
+        "ja": "独自拡張で他の印刷pure method 25個と固定版の追加phase-hopper hookを実装し、選択した印刷methodだけを省略する。"
+      },
+      "expected": {
+        "en": "Compilation rejects the concrete extension and identifies this input and get_default_printer; no runtime binary is executed.",
+        "ja": "compileは具体拡張を拒否してこの入力とget_default_printerを示し、runtime binaryは実行しない。"
+      },
+      "limitations": {
+        "en": "The extra hook only isolates the selected prohibition; it is not an IEEE duty. A separate complete control does not certify any builtin algorithm. No exact diagnostic text or unrelated rejection is accepted.",
+        "ja": "追加hookは選択禁止条件を分離するだけでIEEE義務ではない。別の完全controlもbuiltin algorithmを認定しない。正確な診断文面を要求せず、無関係な拒否を受理しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_core_service_concrete_extension_must_implement_get_default_printer",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?i)^(?=.*test_core_service_concrete_extension_must_implement_get_default_printer\\.sv:[0-9]+:[0-9]+:)(?=.*\\b(?:pure|virtual|abstract|missing implementation)\\b)(?=.*\\bget_default_printer\\b).*error"
+          }
+        },
+        {
+          "test": "uF/test_pinned_core_extra_hook_control_dispatches_all_twenty_six_standard_methods",
+          "role": "control",
+          "expected_observations": [
+            "UT: core_dispatch slot 13 calls 1",
+            "UT: core_dispatch exact 1 once 1 selected_unchanged 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CORE-DECL-AUDIT-GET-DEFAULT-PRINTER-DECLARATION",
+      "clause": "F.4.1.4.13",
+      "statement": {
+        "en": "The printed get_default_printer declaration can be implemented and dispatched through the core-service base view.",
+        "ja": "印刷されたget_default_printer宣言を実装し、core-service base view経由でdispatchできる。"
+      },
+      "conditions": {
+        "en": "An original concrete service implements all twenty-six printed methods with exact formal names and the selected uvm_printer return type; arguments are (). It is not installed as the global service.",
+        "ja": "独自の具体serviceは印刷method 26個を正確なformal名と選択返却型uvm_printerで実装し、引数は()とする。global serviceには設定しない。"
+      },
+      "expected": {
+        "en": "Calling the selected slot through the base view reaches its original implementation once and retains the chosen type/argument/return identity.",
+        "ja": "base view経由の選択slot呼出しは独自実装へ1回到達し、選択した型／引数／返却の同一性を保持する。"
+      },
+      "limitations": {
+        "en": "This is a declaration/virtual-dispatch obligation, not a builtin facility algorithm. The listed-only input remains distinct from the explicit extra-hook control; the latter cannot pass the former constructor premise. Initializing the selected global service with a custom instance remains separate.",
+        "ja": "宣言／virtual dispatch義務でありbuiltin facility algorithmではない。記載methodだけの入力と明示追加hook controlを分け、後者で前者のconstructor前提をpassにしない。custom instanceでglobal serviceを初期化する条件は別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_core_service_all_declared_methods_dispatch_through_the_abstract_base_view",
+          "role": "direct",
+          "expected_observations": [
+            "UT: core_dispatch slot 13 calls 1",
+            "UT: core_dispatch exact 1 once 1 selected_unchanged 1"
+          ]
+        },
+        {
+          "test": "uF/test_pinned_core_extra_hook_control_dispatches_all_twenty_six_standard_methods",
+          "role": "control",
+          "expected_observations": [
+            "UT: core_dispatch slot 13 calls 1",
+            "UT: core_dispatch exact 1 once 1 selected_unchanged 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CORE-DECL-AUDIT-SET-DEFAULT-PACKER-PURE",
+      "clause": "F.4.1.4.14",
+      "statement": {
+        "en": "A concrete core-service extension must implement the pure set_default_packer method.",
+        "ja": "具体core-service拡張はpure method set_default_packerを実装しなければならない。"
+      },
+      "conditions": {
+        "en": "An original extension implements the other twenty-five printed pure methods and the pinned release extra phase-hopper hook, omitting only this selected printed method.",
+        "ja": "独自拡張で他の印刷pure method 25個と固定版の追加phase-hopper hookを実装し、選択した印刷methodだけを省略する。"
+      },
+      "expected": {
+        "en": "Compilation rejects the concrete extension and identifies this input and set_default_packer; no runtime binary is executed.",
+        "ja": "compileは具体拡張を拒否してこの入力とset_default_packerを示し、runtime binaryは実行しない。"
+      },
+      "limitations": {
+        "en": "The extra hook only isolates the selected prohibition; it is not an IEEE duty. A separate complete control does not certify any builtin algorithm. No exact diagnostic text or unrelated rejection is accepted.",
+        "ja": "追加hookは選択禁止条件を分離するだけでIEEE義務ではない。別の完全controlもbuiltin algorithmを認定しない。正確な診断文面を要求せず、無関係な拒否を受理しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_core_service_concrete_extension_must_implement_set_default_packer",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?i)^(?=.*test_core_service_concrete_extension_must_implement_set_default_packer\\.sv:[0-9]+:[0-9]+:)(?=.*\\b(?:pure|virtual|abstract|missing implementation)\\b)(?=.*\\bset_default_packer\\b).*error"
+          }
+        },
+        {
+          "test": "uF/test_pinned_core_extra_hook_control_dispatches_all_twenty_six_standard_methods",
+          "role": "control",
+          "expected_observations": [
+            "UT: core_dispatch slot 14 calls 1",
+            "UT: core_dispatch exact 1 once 1 selected_unchanged 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CORE-DECL-AUDIT-SET-DEFAULT-PACKER-DECLARATION",
+      "clause": "F.4.1.4.14",
+      "statement": {
+        "en": "The printed set_default_packer declaration can be implemented and dispatched through the core-service base view.",
+        "ja": "印刷されたset_default_packer宣言を実装し、core-service base view経由でdispatchできる。"
+      },
+      "conditions": {
+        "en": "An original concrete service implements all twenty-six printed methods with exact formal names and the selected void return type; arguments are (uvm_packer packer). It is not installed as the global service.",
+        "ja": "独自の具体serviceは印刷method 26個を正確なformal名と選択返却型voidで実装し、引数は(uvm_packer packer)とする。global serviceには設定しない。"
+      },
+      "expected": {
+        "en": "Calling the selected slot through the base view reaches its original implementation once and retains the chosen type/argument/return identity.",
+        "ja": "base view経由の選択slot呼出しは独自実装へ1回到達し、選択した型／引数／返却の同一性を保持する。"
+      },
+      "limitations": {
+        "en": "This is a declaration/virtual-dispatch obligation, not a builtin facility algorithm. The listed-only input remains distinct from the explicit extra-hook control; the latter cannot pass the former constructor premise. Initializing the selected global service with a custom instance remains separate.",
+        "ja": "宣言／virtual dispatch義務でありbuiltin facility algorithmではない。記載methodだけの入力と明示追加hook controlを分け、後者で前者のconstructor前提をpassにしない。custom instanceでglobal serviceを初期化する条件は別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_core_service_all_declared_methods_dispatch_through_the_abstract_base_view",
+          "role": "direct",
+          "expected_observations": [
+            "UT: core_dispatch slot 14 calls 1",
+            "UT: core_dispatch exact 1 once 1 selected_unchanged 1"
+          ]
+        },
+        {
+          "test": "uF/test_pinned_core_extra_hook_control_dispatches_all_twenty_six_standard_methods",
+          "role": "control",
+          "expected_observations": [
+            "UT: core_dispatch slot 14 calls 1",
+            "UT: core_dispatch exact 1 once 1 selected_unchanged 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CORE-DECL-AUDIT-GET-DEFAULT-PACKER-PURE",
+      "clause": "F.4.1.4.15",
+      "statement": {
+        "en": "A concrete core-service extension must implement the pure get_default_packer method.",
+        "ja": "具体core-service拡張はpure method get_default_packerを実装しなければならない。"
+      },
+      "conditions": {
+        "en": "An original extension implements the other twenty-five printed pure methods and the pinned release extra phase-hopper hook, omitting only this selected printed method.",
+        "ja": "独自拡張で他の印刷pure method 25個と固定版の追加phase-hopper hookを実装し、選択した印刷methodだけを省略する。"
+      },
+      "expected": {
+        "en": "Compilation rejects the concrete extension and identifies this input and get_default_packer; no runtime binary is executed.",
+        "ja": "compileは具体拡張を拒否してこの入力とget_default_packerを示し、runtime binaryは実行しない。"
+      },
+      "limitations": {
+        "en": "The extra hook only isolates the selected prohibition; it is not an IEEE duty. A separate complete control does not certify any builtin algorithm. No exact diagnostic text or unrelated rejection is accepted.",
+        "ja": "追加hookは選択禁止条件を分離するだけでIEEE義務ではない。別の完全controlもbuiltin algorithmを認定しない。正確な診断文面を要求せず、無関係な拒否を受理しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_core_service_concrete_extension_must_implement_get_default_packer",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?i)^(?=.*test_core_service_concrete_extension_must_implement_get_default_packer\\.sv:[0-9]+:[0-9]+:)(?=.*\\b(?:pure|virtual|abstract|missing implementation)\\b)(?=.*\\bget_default_packer\\b).*error"
+          }
+        },
+        {
+          "test": "uF/test_pinned_core_extra_hook_control_dispatches_all_twenty_six_standard_methods",
+          "role": "control",
+          "expected_observations": [
+            "UT: core_dispatch slot 15 calls 1",
+            "UT: core_dispatch exact 1 once 1 selected_unchanged 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CORE-DECL-AUDIT-GET-DEFAULT-PACKER-DECLARATION",
+      "clause": "F.4.1.4.15",
+      "statement": {
+        "en": "The printed get_default_packer declaration can be implemented and dispatched through the core-service base view.",
+        "ja": "印刷されたget_default_packer宣言を実装し、core-service base view経由でdispatchできる。"
+      },
+      "conditions": {
+        "en": "An original concrete service implements all twenty-six printed methods with exact formal names and the selected uvm_packer return type; arguments are (). It is not installed as the global service.",
+        "ja": "独自の具体serviceは印刷method 26個を正確なformal名と選択返却型uvm_packerで実装し、引数は()とする。global serviceには設定しない。"
+      },
+      "expected": {
+        "en": "Calling the selected slot through the base view reaches its original implementation once and retains the chosen type/argument/return identity.",
+        "ja": "base view経由の選択slot呼出しは独自実装へ1回到達し、選択した型／引数／返却の同一性を保持する。"
+      },
+      "limitations": {
+        "en": "This is a declaration/virtual-dispatch obligation, not a builtin facility algorithm. The listed-only input remains distinct from the explicit extra-hook control; the latter cannot pass the former constructor premise. Initializing the selected global service with a custom instance remains separate.",
+        "ja": "宣言／virtual dispatch義務でありbuiltin facility algorithmではない。記載methodだけの入力と明示追加hook controlを分け、後者で前者のconstructor前提をpassにしない。custom instanceでglobal serviceを初期化する条件は別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_core_service_all_declared_methods_dispatch_through_the_abstract_base_view",
+          "role": "direct",
+          "expected_observations": [
+            "UT: core_dispatch slot 15 calls 1",
+            "UT: core_dispatch exact 1 once 1 selected_unchanged 1"
+          ]
+        },
+        {
+          "test": "uF/test_pinned_core_extra_hook_control_dispatches_all_twenty_six_standard_methods",
+          "role": "control",
+          "expected_observations": [
+            "UT: core_dispatch slot 15 calls 1",
+            "UT: core_dispatch exact 1 once 1 selected_unchanged 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CORE-DECL-AUDIT-SET-DEFAULT-COMPARER-PURE",
+      "clause": "F.4.1.4.16",
+      "statement": {
+        "en": "A concrete core-service extension must implement the pure set_default_comparer method.",
+        "ja": "具体core-service拡張はpure method set_default_comparerを実装しなければならない。"
+      },
+      "conditions": {
+        "en": "An original extension implements the other twenty-five printed pure methods and the pinned release extra phase-hopper hook, omitting only this selected printed method.",
+        "ja": "独自拡張で他の印刷pure method 25個と固定版の追加phase-hopper hookを実装し、選択した印刷methodだけを省略する。"
+      },
+      "expected": {
+        "en": "Compilation rejects the concrete extension and identifies this input and set_default_comparer; no runtime binary is executed.",
+        "ja": "compileは具体拡張を拒否してこの入力とset_default_comparerを示し、runtime binaryは実行しない。"
+      },
+      "limitations": {
+        "en": "The extra hook only isolates the selected prohibition; it is not an IEEE duty. A separate complete control does not certify any builtin algorithm. No exact diagnostic text or unrelated rejection is accepted.",
+        "ja": "追加hookは選択禁止条件を分離するだけでIEEE義務ではない。別の完全controlもbuiltin algorithmを認定しない。正確な診断文面を要求せず、無関係な拒否を受理しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_core_service_concrete_extension_must_implement_set_default_comparer",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?i)^(?=.*test_core_service_concrete_extension_must_implement_set_default_comparer\\.sv:[0-9]+:[0-9]+:)(?=.*\\b(?:pure|virtual|abstract|missing implementation)\\b)(?=.*\\bset_default_comparer\\b).*error"
+          }
+        },
+        {
+          "test": "uF/test_pinned_core_extra_hook_control_dispatches_all_twenty_six_standard_methods",
+          "role": "control",
+          "expected_observations": [
+            "UT: core_dispatch slot 16 calls 1",
+            "UT: core_dispatch exact 1 once 1 selected_unchanged 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CORE-DECL-AUDIT-SET-DEFAULT-COMPARER-DECLARATION",
+      "clause": "F.4.1.4.16",
+      "statement": {
+        "en": "The printed set_default_comparer declaration can be implemented and dispatched through the core-service base view.",
+        "ja": "印刷されたset_default_comparer宣言を実装し、core-service base view経由でdispatchできる。"
+      },
+      "conditions": {
+        "en": "An original concrete service implements all twenty-six printed methods with exact formal names and the selected void return type; arguments are (uvm_comparer comparer). It is not installed as the global service.",
+        "ja": "独自の具体serviceは印刷method 26個を正確なformal名と選択返却型voidで実装し、引数は(uvm_comparer comparer)とする。global serviceには設定しない。"
+      },
+      "expected": {
+        "en": "Calling the selected slot through the base view reaches its original implementation once and retains the chosen type/argument/return identity.",
+        "ja": "base view経由の選択slot呼出しは独自実装へ1回到達し、選択した型／引数／返却の同一性を保持する。"
+      },
+      "limitations": {
+        "en": "This is a declaration/virtual-dispatch obligation, not a builtin facility algorithm. The listed-only input remains distinct from the explicit extra-hook control; the latter cannot pass the former constructor premise. Initializing the selected global service with a custom instance remains separate.",
+        "ja": "宣言／virtual dispatch義務でありbuiltin facility algorithmではない。記載methodだけの入力と明示追加hook controlを分け、後者で前者のconstructor前提をpassにしない。custom instanceでglobal serviceを初期化する条件は別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_core_service_all_declared_methods_dispatch_through_the_abstract_base_view",
+          "role": "direct",
+          "expected_observations": [
+            "UT: core_dispatch slot 16 calls 1",
+            "UT: core_dispatch exact 1 once 1 selected_unchanged 1"
+          ]
+        },
+        {
+          "test": "uF/test_pinned_core_extra_hook_control_dispatches_all_twenty_six_standard_methods",
+          "role": "control",
+          "expected_observations": [
+            "UT: core_dispatch slot 16 calls 1",
+            "UT: core_dispatch exact 1 once 1 selected_unchanged 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CORE-DECL-AUDIT-GET-DEFAULT-COMPARER-PURE",
+      "clause": "F.4.1.4.17",
+      "statement": {
+        "en": "A concrete core-service extension must implement the pure get_default_comparer method.",
+        "ja": "具体core-service拡張はpure method get_default_comparerを実装しなければならない。"
+      },
+      "conditions": {
+        "en": "An original extension implements the other twenty-five printed pure methods and the pinned release extra phase-hopper hook, omitting only this selected printed method.",
+        "ja": "独自拡張で他の印刷pure method 25個と固定版の追加phase-hopper hookを実装し、選択した印刷methodだけを省略する。"
+      },
+      "expected": {
+        "en": "Compilation rejects the concrete extension and identifies this input and get_default_comparer; no runtime binary is executed.",
+        "ja": "compileは具体拡張を拒否してこの入力とget_default_comparerを示し、runtime binaryは実行しない。"
+      },
+      "limitations": {
+        "en": "The extra hook only isolates the selected prohibition; it is not an IEEE duty. A separate complete control does not certify any builtin algorithm. No exact diagnostic text or unrelated rejection is accepted.",
+        "ja": "追加hookは選択禁止条件を分離するだけでIEEE義務ではない。別の完全controlもbuiltin algorithmを認定しない。正確な診断文面を要求せず、無関係な拒否を受理しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_core_service_concrete_extension_must_implement_get_default_comparer",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?i)^(?=.*test_core_service_concrete_extension_must_implement_get_default_comparer\\.sv:[0-9]+:[0-9]+:)(?=.*\\b(?:pure|virtual|abstract|missing implementation)\\b)(?=.*\\bget_default_comparer\\b).*error"
+          }
+        },
+        {
+          "test": "uF/test_pinned_core_extra_hook_control_dispatches_all_twenty_six_standard_methods",
+          "role": "control",
+          "expected_observations": [
+            "UT: core_dispatch slot 17 calls 1",
+            "UT: core_dispatch exact 1 once 1 selected_unchanged 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CORE-DECL-AUDIT-GET-DEFAULT-COMPARER-DECLARATION",
+      "clause": "F.4.1.4.17",
+      "statement": {
+        "en": "The printed get_default_comparer declaration can be implemented and dispatched through the core-service base view.",
+        "ja": "印刷されたget_default_comparer宣言を実装し、core-service base view経由でdispatchできる。"
+      },
+      "conditions": {
+        "en": "An original concrete service implements all twenty-six printed methods with exact formal names and the selected uvm_comparer return type; arguments are (). It is not installed as the global service.",
+        "ja": "独自の具体serviceは印刷method 26個を正確なformal名と選択返却型uvm_comparerで実装し、引数は()とする。global serviceには設定しない。"
+      },
+      "expected": {
+        "en": "Calling the selected slot through the base view reaches its original implementation once and retains the chosen type/argument/return identity.",
+        "ja": "base view経由の選択slot呼出しは独自実装へ1回到達し、選択した型／引数／返却の同一性を保持する。"
+      },
+      "limitations": {
+        "en": "This is a declaration/virtual-dispatch obligation, not a builtin facility algorithm. The listed-only input remains distinct from the explicit extra-hook control; the latter cannot pass the former constructor premise. Initializing the selected global service with a custom instance remains separate.",
+        "ja": "宣言／virtual dispatch義務でありbuiltin facility algorithmではない。記載methodだけの入力と明示追加hook controlを分け、後者で前者のconstructor前提をpassにしない。custom instanceでglobal serviceを初期化する条件は別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_core_service_all_declared_methods_dispatch_through_the_abstract_base_view",
+          "role": "direct",
+          "expected_observations": [
+            "UT: core_dispatch slot 17 calls 1",
+            "UT: core_dispatch exact 1 once 1 selected_unchanged 1"
+          ]
+        },
+        {
+          "test": "uF/test_pinned_core_extra_hook_control_dispatches_all_twenty_six_standard_methods",
+          "role": "control",
+          "expected_observations": [
+            "UT: core_dispatch slot 17 calls 1",
+            "UT: core_dispatch exact 1 once 1 selected_unchanged 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CORE-DECL-AUDIT-SET-DEFAULT-COPIER-PURE",
+      "clause": "F.4.1.4.18",
+      "statement": {
+        "en": "A concrete core-service extension must implement the pure set_default_copier method.",
+        "ja": "具体core-service拡張はpure method set_default_copierを実装しなければならない。"
+      },
+      "conditions": {
+        "en": "An original extension implements the other twenty-five printed pure methods and the pinned release extra phase-hopper hook, omitting only this selected printed method.",
+        "ja": "独自拡張で他の印刷pure method 25個と固定版の追加phase-hopper hookを実装し、選択した印刷methodだけを省略する。"
+      },
+      "expected": {
+        "en": "Compilation rejects the concrete extension and identifies this input and set_default_copier; no runtime binary is executed.",
+        "ja": "compileは具体拡張を拒否してこの入力とset_default_copierを示し、runtime binaryは実行しない。"
+      },
+      "limitations": {
+        "en": "The extra hook only isolates the selected prohibition; it is not an IEEE duty. A separate complete control does not certify any builtin algorithm. No exact diagnostic text or unrelated rejection is accepted.",
+        "ja": "追加hookは選択禁止条件を分離するだけでIEEE義務ではない。別の完全controlもbuiltin algorithmを認定しない。正確な診断文面を要求せず、無関係な拒否を受理しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_core_service_concrete_extension_must_implement_set_default_copier",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?i)^(?=.*test_core_service_concrete_extension_must_implement_set_default_copier\\.sv:[0-9]+:[0-9]+:)(?=.*\\b(?:pure|virtual|abstract|missing implementation)\\b)(?=.*\\bset_default_copier\\b).*error"
+          }
+        },
+        {
+          "test": "uF/test_pinned_core_extra_hook_control_dispatches_all_twenty_six_standard_methods",
+          "role": "control",
+          "expected_observations": [
+            "UT: core_dispatch slot 18 calls 1",
+            "UT: core_dispatch exact 1 once 1 selected_unchanged 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CORE-DECL-AUDIT-SET-DEFAULT-COPIER-DECLARATION",
+      "clause": "F.4.1.4.18",
+      "statement": {
+        "en": "The printed set_default_copier declaration can be implemented and dispatched through the core-service base view.",
+        "ja": "印刷されたset_default_copier宣言を実装し、core-service base view経由でdispatchできる。"
+      },
+      "conditions": {
+        "en": "An original concrete service implements all twenty-six printed methods with exact formal names and the selected void return type; arguments are (uvm_copier copier). It is not installed as the global service.",
+        "ja": "独自の具体serviceは印刷method 26個を正確なformal名と選択返却型voidで実装し、引数は(uvm_copier copier)とする。global serviceには設定しない。"
+      },
+      "expected": {
+        "en": "Calling the selected slot through the base view reaches its original implementation once and retains the chosen type/argument/return identity.",
+        "ja": "base view経由の選択slot呼出しは独自実装へ1回到達し、選択した型／引数／返却の同一性を保持する。"
+      },
+      "limitations": {
+        "en": "This is a declaration/virtual-dispatch obligation, not a builtin facility algorithm. The listed-only input remains distinct from the explicit extra-hook control; the latter cannot pass the former constructor premise. Initializing the selected global service with a custom instance remains separate.",
+        "ja": "宣言／virtual dispatch義務でありbuiltin facility algorithmではない。記載methodだけの入力と明示追加hook controlを分け、後者で前者のconstructor前提をpassにしない。custom instanceでglobal serviceを初期化する条件は別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_core_service_all_declared_methods_dispatch_through_the_abstract_base_view",
+          "role": "direct",
+          "expected_observations": [
+            "UT: core_dispatch slot 18 calls 1",
+            "UT: core_dispatch exact 1 once 1 selected_unchanged 1"
+          ]
+        },
+        {
+          "test": "uF/test_pinned_core_extra_hook_control_dispatches_all_twenty_six_standard_methods",
+          "role": "control",
+          "expected_observations": [
+            "UT: core_dispatch slot 18 calls 1",
+            "UT: core_dispatch exact 1 once 1 selected_unchanged 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CORE-DECL-AUDIT-GET-DEFAULT-COPIER-PURE",
+      "clause": "F.4.1.4.19",
+      "statement": {
+        "en": "A concrete core-service extension must implement the pure get_default_copier method.",
+        "ja": "具体core-service拡張はpure method get_default_copierを実装しなければならない。"
+      },
+      "conditions": {
+        "en": "An original extension implements the other twenty-five printed pure methods and the pinned release extra phase-hopper hook, omitting only this selected printed method.",
+        "ja": "独自拡張で他の印刷pure method 25個と固定版の追加phase-hopper hookを実装し、選択した印刷methodだけを省略する。"
+      },
+      "expected": {
+        "en": "Compilation rejects the concrete extension and identifies this input and get_default_copier; no runtime binary is executed.",
+        "ja": "compileは具体拡張を拒否してこの入力とget_default_copierを示し、runtime binaryは実行しない。"
+      },
+      "limitations": {
+        "en": "The extra hook only isolates the selected prohibition; it is not an IEEE duty. A separate complete control does not certify any builtin algorithm. No exact diagnostic text or unrelated rejection is accepted.",
+        "ja": "追加hookは選択禁止条件を分離するだけでIEEE義務ではない。別の完全controlもbuiltin algorithmを認定しない。正確な診断文面を要求せず、無関係な拒否を受理しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_core_service_concrete_extension_must_implement_get_default_copier",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?i)^(?=.*test_core_service_concrete_extension_must_implement_get_default_copier\\.sv:[0-9]+:[0-9]+:)(?=.*\\b(?:pure|virtual|abstract|missing implementation)\\b)(?=.*\\bget_default_copier\\b).*error"
+          }
+        },
+        {
+          "test": "uF/test_pinned_core_extra_hook_control_dispatches_all_twenty_six_standard_methods",
+          "role": "control",
+          "expected_observations": [
+            "UT: core_dispatch slot 19 calls 1",
+            "UT: core_dispatch exact 1 once 1 selected_unchanged 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CORE-DECL-AUDIT-GET-DEFAULT-COPIER-DECLARATION",
+      "clause": "F.4.1.4.19",
+      "statement": {
+        "en": "The printed get_default_copier declaration can be implemented and dispatched through the core-service base view.",
+        "ja": "印刷されたget_default_copier宣言を実装し、core-service base view経由でdispatchできる。"
+      },
+      "conditions": {
+        "en": "An original concrete service implements all twenty-six printed methods with exact formal names and the selected uvm_copier return type; arguments are (). It is not installed as the global service.",
+        "ja": "独自の具体serviceは印刷method 26個を正確なformal名と選択返却型uvm_copierで実装し、引数は()とする。global serviceには設定しない。"
+      },
+      "expected": {
+        "en": "Calling the selected slot through the base view reaches its original implementation once and retains the chosen type/argument/return identity.",
+        "ja": "base view経由の選択slot呼出しは独自実装へ1回到達し、選択した型／引数／返却の同一性を保持する。"
+      },
+      "limitations": {
+        "en": "This is a declaration/virtual-dispatch obligation, not a builtin facility algorithm. The listed-only input remains distinct from the explicit extra-hook control; the latter cannot pass the former constructor premise. Initializing the selected global service with a custom instance remains separate.",
+        "ja": "宣言／virtual dispatch義務でありbuiltin facility algorithmではない。記載methodだけの入力と明示追加hook controlを分け、後者で前者のconstructor前提をpassにしない。custom instanceでglobal serviceを初期化する条件は別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_core_service_all_declared_methods_dispatch_through_the_abstract_base_view",
+          "role": "direct",
+          "expected_observations": [
+            "UT: core_dispatch slot 19 calls 1",
+            "UT: core_dispatch exact 1 once 1 selected_unchanged 1"
+          ]
+        },
+        {
+          "test": "uF/test_pinned_core_extra_hook_control_dispatches_all_twenty_six_standard_methods",
+          "role": "control",
+          "expected_observations": [
+            "UT: core_dispatch slot 19 calls 1",
+            "UT: core_dispatch exact 1 once 1 selected_unchanged 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CORE-DECL-AUDIT-GET-GLOBAL-SEED-PURE",
+      "clause": "F.4.1.4.20",
+      "statement": {
+        "en": "A concrete core-service extension must implement the pure get_global_seed method.",
+        "ja": "具体core-service拡張はpure method get_global_seedを実装しなければならない。"
+      },
+      "conditions": {
+        "en": "An original extension implements the other twenty-five printed pure methods and the pinned release extra phase-hopper hook, omitting only this selected printed method.",
+        "ja": "独自拡張で他の印刷pure method 25個と固定版の追加phase-hopper hookを実装し、選択した印刷methodだけを省略する。"
+      },
+      "expected": {
+        "en": "Compilation rejects the concrete extension and identifies this input and get_global_seed; no runtime binary is executed.",
+        "ja": "compileは具体拡張を拒否してこの入力とget_global_seedを示し、runtime binaryは実行しない。"
+      },
+      "limitations": {
+        "en": "The extra hook only isolates the selected prohibition; it is not an IEEE duty. A separate complete control does not certify any builtin algorithm. No exact diagnostic text or unrelated rejection is accepted.",
+        "ja": "追加hookは選択禁止条件を分離するだけでIEEE義務ではない。別の完全controlもbuiltin algorithmを認定しない。正確な診断文面を要求せず、無関係な拒否を受理しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_core_service_concrete_extension_must_implement_get_global_seed",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?i)^(?=.*test_core_service_concrete_extension_must_implement_get_global_seed\\.sv:[0-9]+:[0-9]+:)(?=.*\\b(?:pure|virtual|abstract|missing implementation)\\b)(?=.*\\bget_global_seed\\b).*error"
+          }
+        },
+        {
+          "test": "uF/test_pinned_core_extra_hook_control_dispatches_all_twenty_six_standard_methods",
+          "role": "control",
+          "expected_observations": [
+            "UT: core_dispatch slot 20 calls 1",
+            "UT: core_dispatch exact 1 once 1 selected_unchanged 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CORE-DECL-AUDIT-GET-GLOBAL-SEED-DECLARATION",
+      "clause": "F.4.1.4.20",
+      "statement": {
+        "en": "The printed get_global_seed declaration can be implemented and dispatched through the core-service base view.",
+        "ja": "印刷されたget_global_seed宣言を実装し、core-service base view経由でdispatchできる。"
+      },
+      "conditions": {
+        "en": "An original concrete service implements all twenty-six printed methods with exact formal names and the selected int unsigned return type; arguments are (). It is not installed as the global service.",
+        "ja": "独自の具体serviceは印刷method 26個を正確なformal名と選択返却型int unsignedで実装し、引数は()とする。global serviceには設定しない。"
+      },
+      "expected": {
+        "en": "Calling the selected slot through the base view reaches its original implementation once and retains the chosen type/argument/return identity.",
+        "ja": "base view経由の選択slot呼出しは独自実装へ1回到達し、選択した型／引数／返却の同一性を保持する。"
+      },
+      "limitations": {
+        "en": "This is a declaration/virtual-dispatch obligation, not a builtin facility algorithm. The listed-only input remains distinct from the explicit extra-hook control; the latter cannot pass the former constructor premise. Initializing the selected global service with a custom instance remains separate.",
+        "ja": "宣言／virtual dispatch義務でありbuiltin facility algorithmではない。記載methodだけの入力と明示追加hook controlを分け、後者で前者のconstructor前提をpassにしない。custom instanceでglobal serviceを初期化する条件は別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_core_service_all_declared_methods_dispatch_through_the_abstract_base_view",
+          "role": "direct",
+          "expected_observations": [
+            "UT: core_dispatch slot 20 calls 1",
+            "UT: core_dispatch exact 1 once 1 selected_unchanged 1"
+          ]
+        },
+        {
+          "test": "uF/test_pinned_core_extra_hook_control_dispatches_all_twenty_six_standard_methods",
+          "role": "control",
+          "expected_observations": [
+            "UT: core_dispatch slot 20 calls 1",
+            "UT: core_dispatch exact 1 once 1 selected_unchanged 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CORE-DECL-AUDIT-SET-RESOURCE-POOL-PURE",
+      "clause": "F.4.1.4.21",
+      "statement": {
+        "en": "A concrete core-service extension must implement the pure set_resource_pool method.",
+        "ja": "具体core-service拡張はpure method set_resource_poolを実装しなければならない。"
+      },
+      "conditions": {
+        "en": "An original extension implements the other twenty-five printed pure methods and the pinned release extra phase-hopper hook, omitting only this selected printed method.",
+        "ja": "独自拡張で他の印刷pure method 25個と固定版の追加phase-hopper hookを実装し、選択した印刷methodだけを省略する。"
+      },
+      "expected": {
+        "en": "Compilation rejects the concrete extension and identifies this input and set_resource_pool; no runtime binary is executed.",
+        "ja": "compileは具体拡張を拒否してこの入力とset_resource_poolを示し、runtime binaryは実行しない。"
+      },
+      "limitations": {
+        "en": "The extra hook only isolates the selected prohibition; it is not an IEEE duty. A separate complete control does not certify any builtin algorithm. No exact diagnostic text or unrelated rejection is accepted.",
+        "ja": "追加hookは選択禁止条件を分離するだけでIEEE義務ではない。別の完全controlもbuiltin algorithmを認定しない。正確な診断文面を要求せず、無関係な拒否を受理しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_core_service_concrete_extension_must_implement_set_resource_pool",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?i)^(?=.*test_core_service_concrete_extension_must_implement_set_resource_pool\\.sv:[0-9]+:[0-9]+:)(?=.*\\b(?:pure|virtual|abstract|missing implementation)\\b)(?=.*\\bset_resource_pool\\b).*error"
+          }
+        },
+        {
+          "test": "uF/test_pinned_core_extra_hook_control_dispatches_all_twenty_six_standard_methods",
+          "role": "control",
+          "expected_observations": [
+            "UT: core_dispatch slot 21 calls 1",
+            "UT: core_dispatch exact 1 once 1 selected_unchanged 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CORE-DECL-AUDIT-SET-RESOURCE-POOL-DECLARATION",
+      "clause": "F.4.1.4.21",
+      "statement": {
+        "en": "The printed set_resource_pool declaration can be implemented and dispatched through the core-service base view.",
+        "ja": "印刷されたset_resource_pool宣言を実装し、core-service base view経由でdispatchできる。"
+      },
+      "conditions": {
+        "en": "An original concrete service implements all twenty-six printed methods with exact formal names and the selected void return type; arguments are (uvm_resource_pool pool). It is not installed as the global service.",
+        "ja": "独自の具体serviceは印刷method 26個を正確なformal名と選択返却型voidで実装し、引数は(uvm_resource_pool pool)とする。global serviceには設定しない。"
+      },
+      "expected": {
+        "en": "Calling the selected slot through the base view reaches its original implementation once and retains the chosen type/argument/return identity.",
+        "ja": "base view経由の選択slot呼出しは独自実装へ1回到達し、選択した型／引数／返却の同一性を保持する。"
+      },
+      "limitations": {
+        "en": "This is a declaration/virtual-dispatch obligation, not a builtin facility algorithm. The listed-only input remains distinct from the explicit extra-hook control; the latter cannot pass the former constructor premise. Initializing the selected global service with a custom instance remains separate.",
+        "ja": "宣言／virtual dispatch義務でありbuiltin facility algorithmではない。記載methodだけの入力と明示追加hook controlを分け、後者で前者のconstructor前提をpassにしない。custom instanceでglobal serviceを初期化する条件は別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_core_service_all_declared_methods_dispatch_through_the_abstract_base_view",
+          "role": "direct",
+          "expected_observations": [
+            "UT: core_dispatch slot 21 calls 1",
+            "UT: core_dispatch exact 1 once 1 selected_unchanged 1"
+          ]
+        },
+        {
+          "test": "uF/test_pinned_core_extra_hook_control_dispatches_all_twenty_six_standard_methods",
+          "role": "control",
+          "expected_observations": [
+            "UT: core_dispatch slot 21 calls 1",
+            "UT: core_dispatch exact 1 once 1 selected_unchanged 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CORE-DECL-AUDIT-GET-RESOURCE-POOL-PURE",
+      "clause": "F.4.1.4.22",
+      "statement": {
+        "en": "A concrete core-service extension must implement the pure get_resource_pool method.",
+        "ja": "具体core-service拡張はpure method get_resource_poolを実装しなければならない。"
+      },
+      "conditions": {
+        "en": "An original extension implements the other twenty-five printed pure methods and the pinned release extra phase-hopper hook, omitting only this selected printed method.",
+        "ja": "独自拡張で他の印刷pure method 25個と固定版の追加phase-hopper hookを実装し、選択した印刷methodだけを省略する。"
+      },
+      "expected": {
+        "en": "Compilation rejects the concrete extension and identifies this input and get_resource_pool; no runtime binary is executed.",
+        "ja": "compileは具体拡張を拒否してこの入力とget_resource_poolを示し、runtime binaryは実行しない。"
+      },
+      "limitations": {
+        "en": "The extra hook only isolates the selected prohibition; it is not an IEEE duty. A separate complete control does not certify any builtin algorithm. No exact diagnostic text or unrelated rejection is accepted.",
+        "ja": "追加hookは選択禁止条件を分離するだけでIEEE義務ではない。別の完全controlもbuiltin algorithmを認定しない。正確な診断文面を要求せず、無関係な拒否を受理しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_core_service_concrete_extension_must_implement_get_resource_pool",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?i)^(?=.*test_core_service_concrete_extension_must_implement_get_resource_pool\\.sv:[0-9]+:[0-9]+:)(?=.*\\b(?:pure|virtual|abstract|missing implementation)\\b)(?=.*\\bget_resource_pool\\b).*error"
+          }
+        },
+        {
+          "test": "uF/test_pinned_core_extra_hook_control_dispatches_all_twenty_six_standard_methods",
+          "role": "control",
+          "expected_observations": [
+            "UT: core_dispatch slot 22 calls 1",
+            "UT: core_dispatch exact 1 once 1 selected_unchanged 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CORE-DECL-AUDIT-GET-RESOURCE-POOL-DECLARATION",
+      "clause": "F.4.1.4.22",
+      "statement": {
+        "en": "The printed get_resource_pool declaration can be implemented and dispatched through the core-service base view.",
+        "ja": "印刷されたget_resource_pool宣言を実装し、core-service base view経由でdispatchできる。"
+      },
+      "conditions": {
+        "en": "An original concrete service implements all twenty-six printed methods with exact formal names and the selected uvm_resource_pool return type; arguments are (). It is not installed as the global service.",
+        "ja": "独自の具体serviceは印刷method 26個を正確なformal名と選択返却型uvm_resource_poolで実装し、引数は()とする。global serviceには設定しない。"
+      },
+      "expected": {
+        "en": "Calling the selected slot through the base view reaches its original implementation once and retains the chosen type/argument/return identity.",
+        "ja": "base view経由の選択slot呼出しは独自実装へ1回到達し、選択した型／引数／返却の同一性を保持する。"
+      },
+      "limitations": {
+        "en": "This is a declaration/virtual-dispatch obligation, not a builtin facility algorithm. The listed-only input remains distinct from the explicit extra-hook control; the latter cannot pass the former constructor premise. Initializing the selected global service with a custom instance remains separate.",
+        "ja": "宣言／virtual dispatch義務でありbuiltin facility algorithmではない。記載methodだけの入力と明示追加hook controlを分け、後者で前者のconstructor前提をpassにしない。custom instanceでglobal serviceを初期化する条件は別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_core_service_all_declared_methods_dispatch_through_the_abstract_base_view",
+          "role": "direct",
+          "expected_observations": [
+            "UT: core_dispatch slot 22 calls 1",
+            "UT: core_dispatch exact 1 once 1 selected_unchanged 1"
+          ]
+        },
+        {
+          "test": "uF/test_pinned_core_extra_hook_control_dispatches_all_twenty_six_standard_methods",
+          "role": "control",
+          "expected_observations": [
+            "UT: core_dispatch slot 22 calls 1",
+            "UT: core_dispatch exact 1 once 1 selected_unchanged 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CORE-DECL-AUDIT-SET-RESOURCE-POOL-DEFAULT-PRECEDENCE-PURE",
+      "clause": "F.4.1.4.23",
+      "statement": {
+        "en": "A concrete core-service extension must implement the pure set_resource_pool_default_precedence method.",
+        "ja": "具体core-service拡張はpure method set_resource_pool_default_precedenceを実装しなければならない。"
+      },
+      "conditions": {
+        "en": "An original extension implements the other twenty-five printed pure methods and the pinned release extra phase-hopper hook, omitting only this selected printed method.",
+        "ja": "独自拡張で他の印刷pure method 25個と固定版の追加phase-hopper hookを実装し、選択した印刷methodだけを省略する。"
+      },
+      "expected": {
+        "en": "Compilation rejects the concrete extension and identifies this input and set_resource_pool_default_precedence; no runtime binary is executed.",
+        "ja": "compileは具体拡張を拒否してこの入力とset_resource_pool_default_precedenceを示し、runtime binaryは実行しない。"
+      },
+      "limitations": {
+        "en": "The extra hook only isolates the selected prohibition; it is not an IEEE duty. A separate complete control does not certify any builtin algorithm. No exact diagnostic text or unrelated rejection is accepted.",
+        "ja": "追加hookは選択禁止条件を分離するだけでIEEE義務ではない。別の完全controlもbuiltin algorithmを認定しない。正確な診断文面を要求せず、無関係な拒否を受理しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_core_service_concrete_extension_must_implement_set_resource_pool_default_precedence",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?i)^(?=.*test_core_service_concrete_extension_must_implement_set_resource_pool_default_precedence\\.sv:[0-9]+:[0-9]+:)(?=.*\\b(?:pure|virtual|abstract|missing implementation)\\b)(?=.*\\bset_resource_pool_default_precedence\\b).*error"
+          }
+        },
+        {
+          "test": "uF/test_pinned_core_extra_hook_control_dispatches_all_twenty_six_standard_methods",
+          "role": "control",
+          "expected_observations": [
+            "UT: core_dispatch slot 23 calls 1",
+            "UT: core_dispatch exact 1 once 1 selected_unchanged 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CORE-DECL-AUDIT-SET-RESOURCE-POOL-DEFAULT-PRECEDENCE-DECLARATION",
+      "clause": "F.4.1.4.23",
+      "statement": {
+        "en": "The printed set_resource_pool_default_precedence declaration can be implemented and dispatched through the core-service base view.",
+        "ja": "印刷されたset_resource_pool_default_precedence宣言を実装し、core-service base view経由でdispatchできる。"
+      },
+      "conditions": {
+        "en": "An original concrete service implements all twenty-six printed methods with exact formal names and the selected void return type; arguments are (int unsigned precedence). It is not installed as the global service.",
+        "ja": "独自の具体serviceは印刷method 26個を正確なformal名と選択返却型voidで実装し、引数は(int unsigned precedence)とする。global serviceには設定しない。"
+      },
+      "expected": {
+        "en": "Calling the selected slot through the base view reaches its original implementation once and retains the chosen type/argument/return identity.",
+        "ja": "base view経由の選択slot呼出しは独自実装へ1回到達し、選択した型／引数／返却の同一性を保持する。"
+      },
+      "limitations": {
+        "en": "This is a declaration/virtual-dispatch obligation, not a builtin facility algorithm. The listed-only input remains distinct from the explicit extra-hook control; the latter cannot pass the former constructor premise. Initializing the selected global service with a custom instance remains separate.",
+        "ja": "宣言／virtual dispatch義務でありbuiltin facility algorithmではない。記載methodだけの入力と明示追加hook controlを分け、後者で前者のconstructor前提をpassにしない。custom instanceでglobal serviceを初期化する条件は別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_core_service_all_declared_methods_dispatch_through_the_abstract_base_view",
+          "role": "direct",
+          "expected_observations": [
+            "UT: core_dispatch slot 23 calls 1",
+            "UT: core_dispatch exact 1 once 1 selected_unchanged 1"
+          ]
+        },
+        {
+          "test": "uF/test_pinned_core_extra_hook_control_dispatches_all_twenty_six_standard_methods",
+          "role": "control",
+          "expected_observations": [
+            "UT: core_dispatch slot 23 calls 1",
+            "UT: core_dispatch exact 1 once 1 selected_unchanged 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CORE-DECL-AUDIT-GET-RESOURCE-POOL-DEFAULT-PRECEDENCE-PURE",
+      "clause": "F.4.1.4.24",
+      "statement": {
+        "en": "A concrete core-service extension must implement the pure get_resource_pool_default_precedence method.",
+        "ja": "具体core-service拡張はpure method get_resource_pool_default_precedenceを実装しなければならない。"
+      },
+      "conditions": {
+        "en": "An original extension implements the other twenty-five printed pure methods and the pinned release extra phase-hopper hook, omitting only this selected printed method.",
+        "ja": "独自拡張で他の印刷pure method 25個と固定版の追加phase-hopper hookを実装し、選択した印刷methodだけを省略する。"
+      },
+      "expected": {
+        "en": "Compilation rejects the concrete extension and identifies this input and get_resource_pool_default_precedence; no runtime binary is executed.",
+        "ja": "compileは具体拡張を拒否してこの入力とget_resource_pool_default_precedenceを示し、runtime binaryは実行しない。"
+      },
+      "limitations": {
+        "en": "The extra hook only isolates the selected prohibition; it is not an IEEE duty. A separate complete control does not certify any builtin algorithm. No exact diagnostic text or unrelated rejection is accepted.",
+        "ja": "追加hookは選択禁止条件を分離するだけでIEEE義務ではない。別の完全controlもbuiltin algorithmを認定しない。正確な診断文面を要求せず、無関係な拒否を受理しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_core_service_concrete_extension_must_implement_get_resource_pool_default_precedence",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?i)^(?=.*test_core_service_concrete_extension_must_implement_get_resource_pool_default_precedence\\.sv:[0-9]+:[0-9]+:)(?=.*\\b(?:pure|virtual|abstract|missing implementation)\\b)(?=.*\\bget_resource_pool_default_precedence\\b).*error"
+          }
+        },
+        {
+          "test": "uF/test_pinned_core_extra_hook_control_dispatches_all_twenty_six_standard_methods",
+          "role": "control",
+          "expected_observations": [
+            "UT: core_dispatch slot 24 calls 1",
+            "UT: core_dispatch exact 1 once 1 selected_unchanged 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CORE-DECL-AUDIT-GET-RESOURCE-POOL-DEFAULT-PRECEDENCE-DECLARATION",
+      "clause": "F.4.1.4.24",
+      "statement": {
+        "en": "The printed get_resource_pool_default_precedence declaration can be implemented and dispatched through the core-service base view.",
+        "ja": "印刷されたget_resource_pool_default_precedence宣言を実装し、core-service base view経由でdispatchできる。"
+      },
+      "conditions": {
+        "en": "An original concrete service implements all twenty-six printed methods with exact formal names and the selected int unsigned return type; arguments are (). It is not installed as the global service.",
+        "ja": "独自の具体serviceは印刷method 26個を正確なformal名と選択返却型int unsignedで実装し、引数は()とする。global serviceには設定しない。"
+      },
+      "expected": {
+        "en": "Calling the selected slot through the base view reaches its original implementation once and retains the chosen type/argument/return identity.",
+        "ja": "base view経由の選択slot呼出しは独自実装へ1回到達し、選択した型／引数／返却の同一性を保持する。"
+      },
+      "limitations": {
+        "en": "This is a declaration/virtual-dispatch obligation, not a builtin facility algorithm. The listed-only input remains distinct from the explicit extra-hook control; the latter cannot pass the former constructor premise. Initializing the selected global service with a custom instance remains separate.",
+        "ja": "宣言／virtual dispatch義務でありbuiltin facility algorithmではない。記載methodだけの入力と明示追加hook controlを分け、後者で前者のconstructor前提をpassにしない。custom instanceでglobal serviceを初期化する条件は別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_core_service_all_declared_methods_dispatch_through_the_abstract_base_view",
+          "role": "direct",
+          "expected_observations": [
+            "UT: core_dispatch slot 24 calls 1",
+            "UT: core_dispatch exact 1 once 1 selected_unchanged 1"
+          ]
+        },
+        {
+          "test": "uF/test_pinned_core_extra_hook_control_dispatches_all_twenty_six_standard_methods",
+          "role": "control",
+          "expected_observations": [
+            "UT: core_dispatch slot 24 calls 1",
+            "UT: core_dispatch exact 1 once 1 selected_unchanged 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CORE-DECL-AUDIT-GET-UVM-SEEDING-PURE",
+      "clause": "F.4.1.4.25",
+      "statement": {
+        "en": "A concrete core-service extension must implement the pure get_uvm_seeding method.",
+        "ja": "具体core-service拡張はpure method get_uvm_seedingを実装しなければならない。"
+      },
+      "conditions": {
+        "en": "An original extension implements the other twenty-five printed pure methods and the pinned release extra phase-hopper hook, omitting only this selected printed method.",
+        "ja": "独自拡張で他の印刷pure method 25個と固定版の追加phase-hopper hookを実装し、選択した印刷methodだけを省略する。"
+      },
+      "expected": {
+        "en": "Compilation rejects the concrete extension and identifies this input and get_uvm_seeding; no runtime binary is executed.",
+        "ja": "compileは具体拡張を拒否してこの入力とget_uvm_seedingを示し、runtime binaryは実行しない。"
+      },
+      "limitations": {
+        "en": "The extra hook only isolates the selected prohibition; it is not an IEEE duty. A separate complete control does not certify any builtin algorithm. No exact diagnostic text or unrelated rejection is accepted.",
+        "ja": "追加hookは選択禁止条件を分離するだけでIEEE義務ではない。別の完全controlもbuiltin algorithmを認定しない。正確な診断文面を要求せず、無関係な拒否を受理しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_core_service_concrete_extension_must_implement_get_uvm_seeding",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?i)^(?=.*test_core_service_concrete_extension_must_implement_get_uvm_seeding\\.sv:[0-9]+:[0-9]+:)(?=.*\\b(?:pure|virtual|abstract|missing implementation)\\b)(?=.*\\bget_uvm_seeding\\b).*error"
+          }
+        },
+        {
+          "test": "uF/test_pinned_core_extra_hook_control_dispatches_all_twenty_six_standard_methods",
+          "role": "control",
+          "expected_observations": [
+            "UT: core_dispatch slot 25 calls 1",
+            "UT: core_dispatch exact 1 once 1 selected_unchanged 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CORE-DECL-AUDIT-GET-UVM-SEEDING-DECLARATION",
+      "clause": "F.4.1.4.25",
+      "statement": {
+        "en": "The printed get_uvm_seeding declaration can be implemented and dispatched through the core-service base view.",
+        "ja": "印刷されたget_uvm_seeding宣言を実装し、core-service base view経由でdispatchできる。"
+      },
+      "conditions": {
+        "en": "An original concrete service implements all twenty-six printed methods with exact formal names and the selected bit return type; arguments are (). It is not installed as the global service.",
+        "ja": "独自の具体serviceは印刷method 26個を正確なformal名と選択返却型bitで実装し、引数は()とする。global serviceには設定しない。"
+      },
+      "expected": {
+        "en": "Calling the selected slot through the base view reaches its original implementation once and retains the chosen type/argument/return identity.",
+        "ja": "base view経由の選択slot呼出しは独自実装へ1回到達し、選択した型／引数／返却の同一性を保持する。"
+      },
+      "limitations": {
+        "en": "This is a declaration/virtual-dispatch obligation, not a builtin facility algorithm. The listed-only input remains distinct from the explicit extra-hook control; the latter cannot pass the former constructor premise. Initializing the selected global service with a custom instance remains separate.",
+        "ja": "宣言／virtual dispatch義務でありbuiltin facility algorithmではない。記載methodだけの入力と明示追加hook controlを分け、後者で前者のconstructor前提をpassにしない。custom instanceでglobal serviceを初期化する条件は別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_core_service_all_declared_methods_dispatch_through_the_abstract_base_view",
+          "role": "direct",
+          "expected_observations": [
+            "UT: core_dispatch slot 25 calls 1",
+            "UT: core_dispatch exact 1 once 1 selected_unchanged 1"
+          ]
+        },
+        {
+          "test": "uF/test_pinned_core_extra_hook_control_dispatches_all_twenty_six_standard_methods",
+          "role": "control",
+          "expected_observations": [
+            "UT: core_dispatch slot 25 calls 1",
+            "UT: core_dispatch exact 1 once 1 selected_unchanged 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CORE-DECL-AUDIT-SET-UVM-SEEDING-PURE",
+      "clause": "F.4.1.4.26",
+      "statement": {
+        "en": "A concrete core-service extension must implement the pure set_uvm_seeding method.",
+        "ja": "具体core-service拡張はpure method set_uvm_seedingを実装しなければならない。"
+      },
+      "conditions": {
+        "en": "An original extension implements the other twenty-five printed pure methods and the pinned release extra phase-hopper hook, omitting only this selected printed method.",
+        "ja": "独自拡張で他の印刷pure method 25個と固定版の追加phase-hopper hookを実装し、選択した印刷methodだけを省略する。"
+      },
+      "expected": {
+        "en": "Compilation rejects the concrete extension and identifies this input and set_uvm_seeding; no runtime binary is executed.",
+        "ja": "compileは具体拡張を拒否してこの入力とset_uvm_seedingを示し、runtime binaryは実行しない。"
+      },
+      "limitations": {
+        "en": "The extra hook only isolates the selected prohibition; it is not an IEEE duty. A separate complete control does not certify any builtin algorithm. No exact diagnostic text or unrelated rejection is accepted.",
+        "ja": "追加hookは選択禁止条件を分離するだけでIEEE義務ではない。別の完全controlもbuiltin algorithmを認定しない。正確な診断文面を要求せず、無関係な拒否を受理しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_core_service_concrete_extension_must_implement_set_uvm_seeding",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?i)^(?=.*test_core_service_concrete_extension_must_implement_set_uvm_seeding\\.sv:[0-9]+:[0-9]+:)(?=.*\\b(?:pure|virtual|abstract|missing implementation)\\b)(?=.*\\bset_uvm_seeding\\b).*error"
+          }
+        },
+        {
+          "test": "uF/test_pinned_core_extra_hook_control_dispatches_all_twenty_six_standard_methods",
+          "role": "control",
+          "expected_observations": [
+            "UT: core_dispatch slot 26 calls 1",
+            "UT: core_dispatch exact 1 once 1 selected_unchanged 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CORE-DECL-AUDIT-SET-UVM-SEEDING-DECLARATION",
+      "clause": "F.4.1.4.26",
+      "statement": {
+        "en": "The printed set_uvm_seeding declaration can be implemented and dispatched through the core-service base view.",
+        "ja": "印刷されたset_uvm_seeding宣言を実装し、core-service base view経由でdispatchできる。"
+      },
+      "conditions": {
+        "en": "An original concrete service implements all twenty-six printed methods with exact formal names and the selected void return type; arguments are (bit enable). It is not installed as the global service.",
+        "ja": "独自の具体serviceは印刷method 26個を正確なformal名と選択返却型voidで実装し、引数は(bit enable)とする。global serviceには設定しない。"
+      },
+      "expected": {
+        "en": "Calling the selected slot through the base view reaches its original implementation once and retains the chosen type/argument/return identity.",
+        "ja": "base view経由の選択slot呼出しは独自実装へ1回到達し、選択した型／引数／返却の同一性を保持する。"
+      },
+      "limitations": {
+        "en": "This is a declaration/virtual-dispatch obligation, not a builtin facility algorithm. The listed-only input remains distinct from the explicit extra-hook control; the latter cannot pass the former constructor premise. Initializing the selected global service with a custom instance remains separate.",
+        "ja": "宣言／virtual dispatch義務でありbuiltin facility algorithmではない。記載methodだけの入力と明示追加hook controlを分け、後者で前者のconstructor前提をpassにしない。custom instanceでglobal serviceを初期化する条件は別に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_core_service_all_declared_methods_dispatch_through_the_abstract_base_view",
+          "role": "direct",
+          "expected_observations": [
+            "UT: core_dispatch slot 26 calls 1",
+            "UT: core_dispatch exact 1 once 1 selected_unchanged 1"
+          ]
+        },
+        {
+          "test": "uF/test_pinned_core_extra_hook_control_dispatches_all_twenty_six_standard_methods",
+          "role": "control",
+          "expected_observations": [
+            "UT: core_dispatch slot 26 calls 1",
+            "UT: core_dispatch exact 1 once 1 selected_unchanged 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CORE-DECL-AUDIT-BASE-VIRTUAL",
+      "clause": "F.4.1.1",
+      "statement": {
+        "en": "The virtual core-service base cannot be constructed directly.",
+        "ja": "virtualなcore-service基底は直接生成できない。"
+      },
+      "conditions": {
+        "en": "Attempt direct new on an unextended uvm_coreservice_t variable.",
+        "ja": "拡張しないuvm_coreservice_t変数で直接newを試みる。"
+      },
+      "expected": {
+        "en": "The compiler rejects this input and identifies the virtual core-service type.",
+        "ja": "compilerはこの入力を拒否しvirtualなcore-service型を示す。"
+      },
+      "limitations": {
+        "en": "No runtime seed exists. Other illegal derivations and constructor arguments remain separate.",
+        "ja": "runtime seedはない。他の不正派生とconstructor引数は別に扱う。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_core_service_virtual_base_rejects_direct_construction",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?i)^(?=.*test_core_service_virtual_base_rejects_direct_construction\\.sv:[0-9]+:[0-9]+:)(?=.*\\b(?:pure|virtual|abstract|missing implementation)\\b)(?=.*\\buvm_coreservice_t\\b).*error"
+          }
+        }
+      ]
+    },
+    {
+      "id": "UVM-CORE-DECL-AUDIT-CORE-NOARG-CONSTRUCTOR",
+      "clause": "F.4.1.2",
+      "statement": {
+        "en": "An original complete core-service subclass can call the no-argument base constructor.",
+        "ja": "独自の完全なcore-service subclassは引数なしのbase constructorを呼べる。"
+      },
+      "conditions": {
+        "en": "Use fresh simulation state, exact public base views and original objects; do not install an extra custom global service or assume an implementation default concrete type.",
+        "ja": "新規simulation状態、正確な公開base view、独自objectを使い、追加custom global serviceを設定せず実装既定の具体型を仮定しない。"
+      },
+      "expected": {
+        "en": "The original base-typed instance exists and all selected dispatch observations complete.",
+        "ja": "独自のbase型instanceが存在し、選択したdispatch観測をすべて完了する。"
+      },
+      "limitations": {
+        "en": "Only the selected declaration, constructor and identity conditions are covered. Implicit pre-initialization, complete factory/server/policy algorithms and all global reconfiguration histories remain partial.",
+        "ja": "選択した宣言、constructor、同一性条件だけを検査する。暗黙の初期化前条件、完全なfactory／server／policy algorithm、全global再設定履歴は部分的に残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_core_service_all_declared_methods_dispatch_through_the_abstract_base_view",
+          "role": "direct",
+          "expected_observations": [
+            "UT: core_dispatch exact 1 once 1 selected_unchanged 1"
+          ]
+        },
+        {
+          "test": "uF/test_pinned_core_extra_hook_control_dispatches_all_twenty_six_standard_methods",
+          "role": "control",
+          "expected_observations": [
+            "UT: core_dispatch exact 1 once 1 selected_unchanged 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CORE-DECL-AUDIT-DEFAULT-CONCRETE",
+      "clause": "F.4.2",
+      "statement": {
+        "en": "The default core service supplies a concrete implementation and permits a legal extension.",
+        "ja": "既定core serviceは具体実装を備え、合法な拡張を許す。"
+      },
+      "conditions": {
+        "en": "Use fresh simulation state, exact public base views and original objects; do not install an extra custom global service or assume an implementation default concrete type.",
+        "ja": "新規simulation状態、正確な公開base view、独自objectを使い、追加custom global serviceを設定せず実装既定の具体型を仮定しない。"
+      },
+      "expected": {
+        "en": "Two distinct concrete objects can be constructed and the original override dispatches once.",
+        "ja": "別々の具体object 2個を生成でき、独自overrideへ1回dispatchする。"
+      },
+      "limitations": {
+        "en": "Only the selected declaration, constructor and identity conditions are covered. Implicit pre-initialization, complete factory/server/policy algorithms and all global reconfiguration histories remain partial.",
+        "ja": "選択した宣言、constructor、同一性条件だけを検査する。暗黙の初期化前条件、完全なfactory／server／policy algorithm、全global再設定履歴は部分的に残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_default_core_service_no_argument_construction_preserves_a_legal_extension_and_base_view",
+          "role": "direct",
+          "expected_observations": [
+            "UT: default_core concrete 1 distinct 1 ancestry 1",
+            "UT: default_core extension_dispatch 1 calls 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CORE-DECL-AUDIT-DEFAULT-ANCESTRY",
+      "clause": "F.4.2.1",
+      "statement": {
+        "en": "The default core service extends the core-service base.",
+        "ja": "既定core serviceはcore-service基底を継承する。"
+      },
+      "conditions": {
+        "en": "Use fresh simulation state, exact public base views and original objects; do not install an extra custom global service or assume an implementation default concrete type.",
+        "ja": "新規simulation状態、正確な公開base view、独自objectを使い、追加custom global serviceを設定せず実装既定の具体型を仮定しない。"
+      },
+      "expected": {
+        "en": "Implicit base assignments preserve both concrete object identities.",
+        "ja": "暗黙base代入は両方の具体objectの同一性を保持する。"
+      },
+      "limitations": {
+        "en": "Only the selected declaration, constructor and identity conditions are covered. Implicit pre-initialization, complete factory/server/policy algorithms and all global reconfiguration histories remain partial.",
+        "ja": "選択した宣言、constructor、同一性条件だけを検査する。暗黙の初期化前条件、完全なfactory／server／policy algorithm、全global再設定履歴は部分的に残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_default_core_service_no_argument_construction_preserves_a_legal_extension_and_base_view",
+          "role": "direct",
+          "expected_observations": [
+            "UT: default_core concrete 1 distinct 1 ancestry 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CORE-DECL-AUDIT-DEFAULT-NOARG-CONSTRUCTOR",
+      "clause": "F.4.2.2",
+      "statement": {
+        "en": "The default service and its legal extension support no-argument construction.",
+        "ja": "既定serviceと合法な拡張は引数なしの生成を支援する。"
+      },
+      "conditions": {
+        "en": "Use fresh simulation state, exact public base views and original objects; do not install an extra custom global service or assume an implementation default concrete type.",
+        "ja": "新規simulation状態、正確な公開base view、独自objectを使い、追加custom global serviceを設定せず実装既定の具体型を仮定しない。"
+      },
+      "expected": {
+        "en": "Both non-null, distinct objects are constructed without constructor arguments.",
+        "ja": "constructor引数なしで非nullの別object 2個を生成できる。"
+      },
+      "limitations": {
+        "en": "Only the selected declaration, constructor and identity conditions are covered. Implicit pre-initialization, complete factory/server/policy algorithms and all global reconfiguration histories remain partial.",
+        "ja": "選択した宣言、constructor、同一性条件だけを検査する。暗黙の初期化前条件、完全なfactory／server／policy algorithm、全global再設定履歴は部分的に残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_default_core_service_no_argument_construction_preserves_a_legal_extension_and_base_view",
+          "role": "direct",
+          "expected_observations": [
+            "UT: default_core concrete 1 distinct 1 ancestry 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CORE-DECL-AUDIT-GLOBAL-ROOT-POINT",
+      "clause": "F.4",
+      "statement": {
+        "en": "The selected core service is a common access point for the implicit root.",
+        "ja": "選択core serviceは暗黙rootへの共通access pointとなる。"
+      },
+      "conditions": {
+        "en": "Use fresh simulation state, exact public base views and original objects; do not install an extra custom global service or assume an implementation default concrete type.",
+        "ja": "新規simulation状態、正確な公開base view、独自objectを使い、追加custom global serviceを設定せず実装既定の具体型を仮定しない。"
+      },
+      "expected": {
+        "en": "Core/root/report-object accessors agree and repeated retrieval retains the live original child.",
+        "ja": "core／root／report-object accessorは一致し、反復取得は生きた独自childを保持する。"
+      },
+      "limitations": {
+        "en": "Only the selected declaration, constructor and identity conditions are covered. Implicit pre-initialization, complete factory/server/policy algorithms and all global reconfiguration histories remain partial.",
+        "ja": "選択した宣言、constructor、同一性条件だけを検査する。暗黙の初期化前条件、完全なfactory／server／policy algorithm、全global再設定履歴は部分的に残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_selected_core_root_is_the_implicit_top_and_retains_live_hierarchy_identity",
+          "role": "direct",
+          "expected_observations": [
+            "UT: selected_root exact 1 reporter 1 parent 1 child 1",
+            "UT: selected_root live_child 1 stable 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CORE-DECL-AUDIT-SELECTED-SERVICE-STABLE",
+      "clause": "F.4.1.3",
+      "statement": {
+        "en": "Repeated core retrieval retains the selected initialized service.",
+        "ja": "coreの反復取得は選択された初期化済みserviceを保持する。"
+      },
+      "conditions": {
+        "en": "Use fresh simulation state, exact public base views and original objects; do not install an extra custom global service or assume an implementation default concrete type.",
+        "ja": "新規simulation状態、正確な公開base view、独自objectを使い、追加custom global serviceを設定せず実装既定の具体型を仮定しない。"
+      },
+      "expected": {
+        "en": "The service and root handles remain identical after a real child is created and changed.",
+        "ja": "実childの生成と変更後もserviceとroot handleは同一のままである。"
+      },
+      "limitations": {
+        "en": "Only the selected declaration, constructor and identity conditions are covered. Implicit pre-initialization, complete factory/server/policy algorithms and all global reconfiguration histories remain partial.",
+        "ja": "選択した宣言、constructor、同一性条件だけを検査する。暗黙の初期化前条件、完全なfactory／server／policy algorithm、全global再設定履歴は部分的に残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_selected_core_root_is_the_implicit_top_and_retains_live_hierarchy_identity",
+          "role": "direct",
+          "expected_observations": [
+            "UT: selected_root live_child 1 stable 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CORE-DECL-AUDIT-SELECTED-ROOT-IDENTITY",
+      "clause": "F.4.1.4.1",
+      "statement": {
+        "en": "The selected service returns the implicit root instance.",
+        "ja": "選択serviceは暗黙root instanceを返す。"
+      },
+      "conditions": {
+        "en": "Use fresh simulation state, exact public base views and original objects; do not install an extra custom global service or assume an implementation default concrete type.",
+        "ja": "新規simulation状態、正確な公開base view、独自objectを使い、追加custom global serviceを設定せず実装既定の具体型を仮定しない。"
+      },
+      "expected": {
+        "en": "The exact root handle owns the selected original top-level child and sees its live state.",
+        "ja": "正確なroot handleは選択した独自top-level childを所有し、その生きた状態を観測する。"
+      },
+      "limitations": {
+        "en": "Only the selected declaration, constructor and identity conditions are covered. Implicit pre-initialization, complete factory/server/policy algorithms and all global reconfiguration histories remain partial.",
+        "ja": "選択した宣言、constructor、同一性条件だけを検査する。暗黙の初期化前条件、完全なfactory／server／policy algorithm、全global再設定履歴は部分的に残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_selected_core_root_is_the_implicit_top_and_retains_live_hierarchy_identity",
+          "role": "direct",
+          "expected_observations": [
+            "UT: selected_root exact 1 reporter 1 parent 1 child 1",
+            "UT: selected_root live_child 1 stable 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CORE-DECL-AUDIT-ROOT-STATIC-WRAPPER",
+      "clause": "F.7.2.2",
+      "statement": {
+        "en": "The root static accessor wraps the core root instance.",
+        "ja": "root static accessorはcoreのroot instanceを包む。"
+      },
+      "conditions": {
+        "en": "Use fresh simulation state, exact public base views and original objects; do not install an extra custom global service or assume an implementation default concrete type.",
+        "ja": "新規simulation状態、正確な公開base view、独自objectを使い、追加custom global serviceを設定せず実装既定の具体型を仮定しない。"
+      },
+      "expected": {
+        "en": "uvm_root::get and service.get_root return the same object before and after child mutation.",
+        "ja": "uvm_root::getとservice.get_rootはchild変更の前後で同じobjectを返す。"
+      },
+      "limitations": {
+        "en": "Only the selected declaration, constructor and identity conditions are covered. Implicit pre-initialization, complete factory/server/policy algorithms and all global reconfiguration histories remain partial.",
+        "ja": "選択した宣言、constructor、同一性条件だけを検査する。暗黙の初期化前条件、完全なfactory／server／policy algorithm、全global再設定履歴は部分的に残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_selected_core_root_is_the_implicit_top_and_retains_live_hierarchy_identity",
+          "role": "direct",
+          "expected_observations": [
+            "UT: selected_root exact 1 reporter 1 parent 1 child 1",
+            "UT: selected_root live_child 1 stable 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CORE-DECL-AUDIT-REPORT-ROOT-VIEW",
+      "clause": "F.3.2.1",
+      "statement": {
+        "en": "The package report-object accessor retains the implicit root view.",
+        "ja": "package report-object accessorは暗黙rootのviewを保持する。"
+      },
+      "conditions": {
+        "en": "Use fresh simulation state, exact public base views and original objects; do not install an extra custom global service or assume an implementation default concrete type.",
+        "ja": "新規simulation状態、正確な公開base view、独自objectを使い、追加custom global serviceを設定せず実装既定の具体型を仮定しない。"
+      },
+      "expected": {
+        "en": "Its handle is the same selected root instance used by the hierarchy.",
+        "ja": "handleは階層が使う選択root instanceと同じである。"
+      },
+      "limitations": {
+        "en": "Only the selected declaration, constructor and identity conditions are covered. Implicit pre-initialization, complete factory/server/policy algorithms and all global reconfiguration histories remain partial.",
+        "ja": "選択した宣言、constructor、同一性条件だけを検査する。暗黙の初期化前条件、完全なfactory／server／policy algorithm、全global再設定履歴は部分的に残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_selected_core_root_is_the_implicit_top_and_retains_live_hierarchy_identity",
+          "role": "direct",
+          "expected_observations": [
+            "UT: selected_root exact 1 reporter 1 parent 1 child 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CORE-DECL-AUDIT-LIMIT-INITIAL-DEFAULT",
+      "clause": "9.3.1.3.5",
+      "statement": {
+        "en": "The initial global ready-to-end maximum is twenty.",
+        "ja": "初期global ready-to-end最大値は20である。"
+      },
+      "conditions": {
+        "en": "Set the core default before new node construction or run_test. Keep explicit node limits separate. The live probe raises on every main readiness callback and drops after one nanosecond.",
+        "ja": "新node生成またはrun_test前にcore既定値を設定し、明示node上限を区別する。生きたprobeはmainの各ready callbackでraiseし、1ns後にdropする。"
+      },
+      "expected": {
+        "en": "The selected core and phase default accessors initially both return twenty.",
+        "ja": "選択coreとphase既定accessorは初期状態でいずれも20を返す。"
+      },
+      "limitations": {
+        "en": "Selected positive limits and main only. The completion count of the final delayed drop is diagnostic, not an oracle. The printed default-getter prototype/name conflict, phase ordering, live mid-phase changes and all graph shapes remain open.",
+        "ja": "選択した正の上限とmainだけ。最後の遅延dropの完了回数は診断で期待値ではない。印刷default-getter prototype／名前の矛盾、phase順、実行中変更、全graph形状は未完に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_core_phase_default_limit_reaches_new_nodes_and_keeps_explicit_node_limits",
+          "role": "direct",
+          "expected_observations": [
+            "UT: core_limit initial 20 phase_default 20"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CORE-DECL-AUDIT-LIMIT-CORE-SET",
+      "clause": "F.4.1.4.10",
+      "statement": {
+        "en": "The core setter changes the global default used by phases.",
+        "ja": "core setterはphaseが使うglobal既定値を変更する。"
+      },
+      "conditions": {
+        "en": "Set the core default before new node construction or run_test. Keep explicit node limits separate. The live probe raises on every main readiness callback and drops after one nanosecond.",
+        "ja": "新node生成またはrun_test前にcore既定値を設定し、明示node上限を区別する。生きたprobeはmainの各ready callbackでraiseし、1ns後にdropする。"
+      },
+      "expected": {
+        "en": "The core and phase defaults agree at seven and then nine; a new unmodified node inherits seven.",
+        "ja": "coreとphase既定値は7、次に9で一致し、新しい未変更nodeは7を継承する。"
+      },
+      "limitations": {
+        "en": "Selected positive limits and main only. The completion count of the final delayed drop is diagnostic, not an oracle. The printed default-getter prototype/name conflict, phase ordering, live mid-phase changes and all graph shapes remain open.",
+        "ja": "選択した正の上限とmainだけ。最後の遅延dropの完了回数は診断で期待値ではない。印刷default-getter prototype／名前の矛盾、phase順、実行中変更、全graph形状は未完に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_core_phase_default_limit_reaches_new_nodes_and_keeps_explicit_node_limits",
+          "role": "direct",
+          "expected_observations": [
+            "UT: core_limit selected 7 phase_default 7 explicit 3 inherited 7",
+            "UT: core_limit changed 9 explicit_retained 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CORE-DECL-AUDIT-LIMIT-CORE-GET",
+      "clause": "F.4.1.4.11",
+      "statement": {
+        "en": "The core getter returns the selected global ready-to-end default.",
+        "ja": "core getterは選択global ready-to-end既定値を返す。"
+      },
+      "conditions": {
+        "en": "Set the core default before new node construction or run_test. Keep explicit node limits separate. The live probe raises on every main readiness callback and drops after one nanosecond.",
+        "ja": "新node生成またはrun_test前にcore既定値を設定し、明示node上限を区別する。生きたprobeはmainの各ready callbackでraiseし、1ns後にdropする。"
+      },
+      "expected": {
+        "en": "The getter initially returns twenty, then seven, and retains the saved value after restoration.",
+        "ja": "getterは初期20、次に7を返し、復元後は保存値を保持する。"
+      },
+      "limitations": {
+        "en": "Selected positive limits and main only. The completion count of the final delayed drop is diagnostic, not an oracle. The printed default-getter prototype/name conflict, phase ordering, live mid-phase changes and all graph shapes remain open.",
+        "ja": "選択した正の上限とmainだけ。最後の遅延dropの完了回数は診断で期待値ではない。印刷default-getter prototype／名前の矛盾、phase順、実行中変更、全graph形状は未完に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_core_phase_default_limit_reaches_new_nodes_and_keeps_explicit_node_limits",
+          "role": "direct",
+          "expected_observations": [
+            "UT: core_limit initial 20 phase_default 20",
+            "UT: core_limit selected 7 phase_default 7 explicit 3 inherited 7",
+            "UT: core_limit restored 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CORE-DECL-AUDIT-LIMIT-EXPLICIT-INSTANCE",
+      "clause": "9.3.1.3.3",
+      "statement": {
+        "en": "An explicit per-node maximum remains independent of subsequent global default changes.",
+        "ja": "nodeごとの明示最大値は後続のglobal既定値変更から独立する。"
+      },
+      "conditions": {
+        "en": "Set the core default before new node construction or run_test. Keep explicit node limits separate. The live probe raises on every main readiness callback and drops after one nanosecond.",
+        "ja": "新node生成またはrun_test前にcore既定値を設定し、明示node上限を区別する。生きたprobeはmainの各ready callbackでraiseし、1ns後にdropする。"
+      },
+      "expected": {
+        "en": "The first node retains three while a new peer inherits seven and the global default becomes nine.",
+        "ja": "新peerが7を継承しglobal既定値が9になっても、第1 nodeは3を保持する。"
+      },
+      "limitations": {
+        "en": "Selected positive limits and main only. The completion count of the final delayed drop is diagnostic, not an oracle. The printed default-getter prototype/name conflict, phase ordering, live mid-phase changes and all graph shapes remain open.",
+        "ja": "選択した正の上限とmainだけ。最後の遅延dropの完了回数は診断で期待値ではない。印刷default-getter prototype／名前の矛盾、phase順、実行中変更、全graph形状は未完に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_core_phase_default_limit_reaches_new_nodes_and_keeps_explicit_node_limits",
+          "role": "direct",
+          "expected_observations": [
+            "UT: core_limit selected 7 phase_default 7 explicit 3 inherited 7",
+            "UT: core_limit changed 9 explicit_retained 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CORE-DECL-AUDIT-LIMIT-REAL-REENTRY",
+      "clause": "F.4.1.4.10",
+      "statement": {
+        "en": "The core-selected global limit bounds actual ready-to-end reentry.",
+        "ja": "core選択global上限は実際のready-to-end再入を制限する。"
+      },
+      "conditions": {
+        "en": "Set the core default before new node construction or run_test. Keep explicit node limits separate. The live probe raises on every main readiness callback and drops after one nanosecond.",
+        "ja": "新node生成またはrun_test前にcore既定値を設定し、明示node上限を区別する。生きたprobeはmainの各ready callbackでraiseし、1ns後にdropする。"
+      },
+      "expected": {
+        "en": "Repeated positive-time objections in the real main phase cause exactly three ready callbacks with a selected core maximum of three.",
+        "ja": "実main phaseの正の時間を伴う反復objectionは、選択core最大値3で正確に3回のready callbackを生じる。"
+      },
+      "limitations": {
+        "en": "Selected positive limits and main only. The completion count of the final delayed drop is diagnostic, not an oracle. The printed default-getter prototype/name conflict, phase ordering, live mid-phase changes and all graph shapes remain open.",
+        "ja": "選択した正の上限とmainだけ。最後の遅延dropの完了回数は診断で期待値ではない。印刷default-getter prototype／名前の矛盾、phase順、実行中変更、全graph形状は未完に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_core_phase_default_limit_bounds_real_ready_to_end_reentry",
+          "role": "direct",
+          "expected_observations": [
+            "UT: bounded_ready calls 3 core_limit 3"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CORE-DECL-AUDIT-LIMIT-READY-BOUND",
+      "clause": "13.1.4.3.2",
+      "statement": {
+        "en": "The phase stops reentering readiness at its selected maximum despite further objections.",
+        "ja": "phaseは追加objectionがあっても選択最大値でready再入を止める。"
+      },
+      "conditions": {
+        "en": "Set the core default before new node construction or run_test. Keep explicit node limits separate. The live probe raises on every main readiness callback and drops after one nanosecond.",
+        "ja": "新node生成またはrun_test前にcore既定値を設定し、明示node上限を区別する。生きたprobeはmainの各ready callbackでraiseし、1ns後にdropする。"
+      },
+      "expected": {
+        "en": "The real main phase reaches extraction after the third ready callback without hitting the original watchdog.",
+        "ja": "実main phaseは独自watchdogに達せず、3回目のready callback後にextractへ進む。"
+      },
+      "limitations": {
+        "en": "Selected positive limits and main only. The completion count of the final delayed drop is diagnostic, not an oracle. The printed default-getter prototype/name conflict, phase ordering, live mid-phase changes and all graph shapes remain open.",
+        "ja": "選択した正の上限とmainだけ。最後の遅延dropの完了回数は診断で期待値ではない。印刷default-getter prototype／名前の矛盾、phase順、実行中変更、全graph形状は未完に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_core_phase_default_limit_bounds_real_ready_to_end_reentry",
+          "role": "direct",
+          "expected_observations": [
+            "UT: bounded_ready calls 3 core_limit 3"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CORE-DECL-AUDIT-SEEDING-DEFAULT",
+      "clause": "F.4.1.4.25",
+      "statement": {
+        "en": "The core UVM seeding enable value defaults to one.",
+        "ja": "core UVM seeding enable値の既定は1である。"
+      },
+      "conditions": {
+        "en": "Use a fresh process and two original registered classes. The RNG probe explicitly seeds independent pairs, renames the selected objects before snapshots and restores the saved global flag.",
+        "ja": "新規processと登録済み独自class 2種を使う。RNG probeは独立pairへ明示seedし、snapshot前に選択objectを改名し、保存global flagを復元する。"
+      },
+      "expected": {
+        "en": "The initial core flag and two original object-class accessors all report enabled.",
+        "ja": "初期core flagと独自object class 2種のaccessorはすべてenableを報告する。"
+      },
+      "limitations": {
+        "en": "No particular random number or serialized RNG-state format is imposed. Enabled type/name seed derivation, collisions, allocation-order stability and cross-simulation determinism remain separate obligations.",
+        "ja": "特定乱数値やRNG状態の直列化形式を要求しない。enable時の型／名前seed導出、衝突、生成順安定性、simulation間決定性は別義務として残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_core_seeding_default_and_global_cross_type_accessors_agree",
+          "role": "direct",
+          "expected_observations": [
+            "UT: global_seeding initial 1 first 1 second 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CORE-DECL-AUDIT-SEEDING-GLOBAL-SET",
+      "clause": "F.4.1.4.26",
+      "statement": {
+        "en": "The core setter changes the globally shared UVM seeding enable value.",
+        "ja": "core setterはglobal共有のUVM seeding enable値を変更する。"
+      },
+      "conditions": {
+        "en": "Use a fresh process and two original registered classes. The RNG probe explicitly seeds independent pairs, renames the selected objects before snapshots and restores the saved global flag.",
+        "ja": "新規processと登録済み独自class 2種を使う。RNG probeは独立pairへ明示seedし、snapshot前に選択objectを改名し、保存global flagを復元する。"
+      },
+      "expected": {
+        "en": "Core disable is visible through both types; class re-enable is visible through the core and peer, and the saved flag can be restored.",
+        "ja": "core disableは両型から見え、class再enableはcoreとpeerから見え、保存flagを復元できる。"
+      },
+      "limitations": {
+        "en": "No particular random number or serialized RNG-state format is imposed. Enabled type/name seed derivation, collisions, allocation-order stability and cross-simulation determinism remain separate obligations.",
+        "ja": "特定乱数値やRNG状態の直列化形式を要求しない。enable時の型／名前seed導出、衝突、生成順安定性、simulation間決定性は別義務として残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_core_seeding_default_and_global_cross_type_accessors_agree",
+          "role": "direct",
+          "expected_observations": [
+            "UT: global_seeding core_disable 0 0 0",
+            "UT: global_seeding class_enable 1 1 1",
+            "UT: global_seeding restored 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CORE-DECL-AUDIT-SEEDING-OBJECT-GET",
+      "clause": "5.3.3.1",
+      "statement": {
+        "en": "Object-class getters retrieve the same core seeding flag.",
+        "ja": "object class getterは同じcore seeding flagを取得する。"
+      },
+      "conditions": {
+        "en": "Use a fresh process and two original registered classes. The RNG probe explicitly seeds independent pairs, renames the selected objects before snapshots and restores the saved global flag.",
+        "ja": "新規processと登録済み独自class 2種を使う。RNG probeは独立pairへ明示seedし、snapshot前に選択objectを改名し、保存global flagを復元する。"
+      },
+      "expected": {
+        "en": "Both original types report the core-selected enable values across the selected changes.",
+        "ja": "独自2型はいずれも選択変更を通じてcore選択enable値を報告する。"
+      },
+      "limitations": {
+        "en": "No particular random number or serialized RNG-state format is imposed. Enabled type/name seed derivation, collisions, allocation-order stability and cross-simulation determinism remain separate obligations.",
+        "ja": "特定乱数値やRNG状態の直列化形式を要求しない。enable時の型／名前seed導出、衝突、生成順安定性、simulation間決定性は別義務として残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_core_seeding_default_and_global_cross_type_accessors_agree",
+          "role": "direct",
+          "expected_observations": [
+            "UT: global_seeding initial 1 first 1 second 1",
+            "UT: global_seeding core_disable 0 0 0",
+            "UT: global_seeding class_enable 1 1 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CORE-DECL-AUDIT-SEEDING-OBJECT-SET",
+      "clause": "5.3.3.2",
+      "statement": {
+        "en": "An object-class setter updates the core seeding flag.",
+        "ja": "object class setterはcore seeding flagを更新する。"
+      },
+      "conditions": {
+        "en": "Use a fresh process and two original registered classes. The RNG probe explicitly seeds independent pairs, renames the selected objects before snapshots and restores the saved global flag.",
+        "ja": "新規processと登録済み独自class 2種を使う。RNG probeは独立pairへ明示seedし、snapshot前に選択objectを改名し、保存global flagを復元する。"
+      },
+      "expected": {
+        "en": "Enabling through the second original type updates the core and first-type views.",
+        "ja": "第2独自型経由のenableはcoreと第1型のviewを更新する。"
+      },
+      "limitations": {
+        "en": "No particular random number or serialized RNG-state format is imposed. Enabled type/name seed derivation, collisions, allocation-order stability and cross-simulation determinism remain separate obligations.",
+        "ja": "特定乱数値やRNG状態の直列化形式を要求しない。enable時の型／名前seed導出、衝突、生成順安定性、simulation間決定性は別義務として残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_core_seeding_default_and_global_cross_type_accessors_agree",
+          "role": "direct",
+          "expected_observations": [
+            "UT: global_seeding class_enable 1 1 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CORE-DECL-AUDIT-SEEDING-GLOBAL-EFFECT",
+      "clause": "F.4.1.4.26",
+      "statement": {
+        "en": "Core disable globally suppresses reseeding of preexisting objects of distinct types.",
+        "ja": "core disableは別型の既存objectの再seedをglobalに抑止する。"
+      },
+      "conditions": {
+        "en": "Use a fresh process and two original registered classes. The RNG probe explicitly seeds independent pairs, renames the selected objects before snapshots and restores the saved global flag.",
+        "ja": "新規processと登録済み独自class 2種を使う。RNG probeは独立pairへ明示seedし、snapshot前に選択objectを改名し、保存global flagを復元する。"
+      },
+      "expected": {
+        "en": "Two reseeds per renamed object preserve both RNG states and three later randomized payloads agree with independently seeded reference streams.",
+        "ja": "改名後の各objectの再seed 2回は両RNG状態を保持し、後続の乱数payload 3個は独立にseedしたreference streamと一致する。"
+      },
+      "limitations": {
+        "en": "No particular random number or serialized RNG-state format is imposed. Enabled type/name seed derivation, collisions, allocation-order stability and cross-simulation determinism remain separate obligations.",
+        "ja": "特定乱数値やRNG状態の直列化形式を要求しない。enable時の型／名前seed導出、衝突、生成順安定性、simulation間決定性は別義務として残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_core_disabled_reseed_preserves_two_type_rng_streams_and_the_calling_process",
+          "role": "direct",
+          "expected_observations": [
+            "UT: disabled_core_rng first 1 second 1 caller 1 disabled 1",
+            "UT: disabled_core_stream success 1 exact 1",
+            "UT: disabled_core_restore 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-CORE-DECL-AUDIT-DISABLED-RESEED-NOOP",
+      "clause": "5.3.3.3",
+      "statement": {
+        "en": "Disabled reseed performs no function on the selected object and caller RNGs.",
+        "ja": "disableされたreseedは選択objectとcallerのRNGへ何も作用しない。"
+      },
+      "conditions": {
+        "en": "Use a fresh process and two original registered classes. The RNG probe explicitly seeds independent pairs, renames the selected objects before snapshots and restores the saved global flag.",
+        "ja": "新規processと登録済み独自class 2種を使う。RNG probeは独立pairへ明示seedし、snapshot前に選択objectを改名し、保存global flagを復元する。"
+      },
+      "expected": {
+        "en": "The two object states and calling-process state are byte-equal before and after the four disabled calls; the reference payload streams remain equal.",
+        "ja": "disable呼出し4回の前後でobject状態2個と呼出しprocess状態はbyte単位で同一で、reference payload streamも等しい。"
+      },
+      "limitations": {
+        "en": "No particular random number or serialized RNG-state format is imposed. Enabled type/name seed derivation, collisions, allocation-order stability and cross-simulation determinism remain separate obligations.",
+        "ja": "特定乱数値やRNG状態の直列化形式を要求しない。enable時の型／名前seed導出、衝突、生成順安定性、simulation間決定性は別義務として残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_core_disabled_reseed_preserves_two_type_rng_streams_and_the_calling_process",
+          "role": "direct",
+          "expected_observations": [
+            "UT: disabled_core_rng first 1 second 1 caller 1 disabled 1",
+            "UT: disabled_core_stream success 1 exact 1"
+          ]
+        }
+      ]
     }
   ]
 }

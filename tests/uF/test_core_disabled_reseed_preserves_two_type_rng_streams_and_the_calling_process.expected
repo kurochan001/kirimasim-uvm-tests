@@ -1,0 +1,3 @@
+UT: disabled_core_rng first 1 second 1 caller 1 disabled 1
+UT: disabled_core_stream success 1 exact 1
+UT: disabled_core_restore 1

@@ -77,6 +77,11 @@ memory／FIFO追加では[記載API設定](../tests/u18/helpers63/fifo_frontdoor
 利用sourceは`:files:`でhelperを指定し、directory内容が入力指紋に入ります。helper変更時は全依存入力を再測定します。
 初期化variantは台帳でcontrol専用であり、constructor／configureだけの前提の入力をpassにしません。
 
+core-service宣言も[記載methodだけの本体](../tests/uF/helpers64/core_method_bodies64.svh)と
+[明示追加hook本体](../tests/uF/helpers64_decl_control/core_decl_control_bodies64.svh)を別の宣言directoryに保持します。
+完全な追加hook入力はcontrol専用です。省略26入力は選択したpure method欠落1個だけを分離するためhookを使い、
+最終診断は他の欠落method errorなしにそのmethodを示す必要があります。無関係なcompile拒否で期待値をpassにできません。
+
 ### メタデータ
 
 kirimasim-testsとsv-testsの形式を引き継ぎ、次の点を変えます。
@@ -181,7 +186,7 @@ Ghostの同梱モードでは供給されたUVMを使います。ステータス
   （`UVM_HDL_NO_DPI`ならバックドアだけを外せます）。
 - ユーザー定義の`uvm_reg_backdoor`による記憶域handlerはHDL DPIなしで使えます。
   商用シミュレータの実行・結果はプロジェクトの方針で除外し、組み込みHDL path／DPIの検査は未完です。
-- 現在の1866件は`UVM_NO_DPI`を使い、11件はHDL DPIを明示的に有効にします。
+- 現在の1901件は`UVM_NO_DPI`を使い、11件はHDL DPIを明示的に有効にします。
   `:uvm_dpi: yes`はこのマクロを外す指定で、
   C/C++のDPI実装を自動でビルド・リンクする指定ではありません。
   現在のVerilatorランナーはDPIのC/C++ソースを追加しません。
@@ -265,7 +270,7 @@ runtimeでは`--seeds 1 73`で各モデルを一度だけビルドし、seedご�
 要求した全runtime seedで一致した場合だけ成功です。従来の`--seed N`も使えます。
 結果JSONのconfigurationには、指定に応じて`seed`か`seeds`を記録します。
 
-Verilatorの既定の対象はoracle付き・2値の1621件（runtime 1564・期待compiler拒否57）です。`--all`を付けるとspecのみの274件も含めます。
+Verilatorの既定の対象はoracle付き・2値の1653件（runtime 1569・期待compiler拒否84）です。`--all`を付けるとspecのみの277件も含めます。
 oracleのないテストの不一致は`known`で、コマンドを失敗させません。oracle付きの不一致は失敗です。
 テストのパスを明示した場合は、そのテストだけが対象です。スモークテスト1件の実行例です。
 
@@ -314,7 +319,7 @@ python3 tools/lint_metadata.py
 python3 tools/requirements.py check
 ```
 
-現在のツールの単体テストは110件、メタデータの対象はテスト1895件（simulation 1835件・elaboration 60件）です。
+現在のツールの単体テストは110件、メタデータの対象はテスト1930件（simulation 1843件・elaboration 87件）です。
 [台帳の検査](requirements.ja.md)は、範囲案、明示した期待値への対応、入力の指紋を検査し、カバレッジを主張しません。
 [Check](../.github/workflows/check.yml)は`main`へのpush・pull request・手動実行で動きます。
 別のVerilatorジョブは5.052・`UVM_NO_DPI`・seed 1と73でoracle付きのテストを実行し、

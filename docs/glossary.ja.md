@@ -1001,3 +1001,6 @@ typed DB APIはuntyped選択や独自検査系filterと別に扱います。
 
 **FIFO constructor前提／build control** — 記載APIの入力と、別索引の固定library初期化variantです。
 controlのpassで元の前提をpassにせず、記載外methodをIEEE義務へ変えません。
+
+**core-service宣言control** — 合法なbase-view dispatchとpure実装欠落を区別する独自method本体です。
+固定版の追加hookを明示するcontrolでbuiltin algorithmや記載methodだけの前提を認定しません。

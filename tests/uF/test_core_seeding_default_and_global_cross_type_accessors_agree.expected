@@ -1,0 +1,4 @@
+UT: global_seeding initial 1 first 1 second 1
+UT: global_seeding core_disable 0 0 0
+UT: global_seeding class_enable 1 1 1
+UT: global_seeding restored 1

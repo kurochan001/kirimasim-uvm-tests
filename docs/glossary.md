@@ -1317,3 +1317,7 @@ write/read and auto/external prediction are separate routes and observations.
 **FIFO constructor premise / build control** — A listed-API input and a
 separately indexed pinned-library initialization variant. A passing control
 does not pass the original premise or turn an unlisted method into an IEEE duty.
+
+**Core-service declaration control** — Original method bodies used to distinguish
+legal base-view dispatch from missing pure implementations. An explicit pinned
+extra-hook control does not certify builtin algorithms or the listed-only premise.

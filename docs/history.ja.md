@@ -2,7 +2,7 @@
 
 [English](history.md) · [README](../README.ja.md)
 
-M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の63回目の拡充（全1895件：simulation 1835・elaboration 60）までを記録しています。以前の349件の時点は
+M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の64回目の拡充（全1930件：simulation 1843・elaboration 87）までを記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -2541,3 +2541,39 @@ build controlで既知差分をpassへ変更せず、どの状態も提案範囲
 guest未測定812（simulation 752／elaboration 60）は追加810件と修正した元入力2件です。新初期化12入力はcontrol linkだけを持ち、
 control専用は全13入力、control linkありは56テストで、未対応入力はありません。library整合性、tool test 110件、metadata／台帳／索引、
 生の観測／evidence、日英資料検査は成功です。有効goalの35反復で初期未評価1463番号から300へ1163減少し、完了、人のレビュー、分母承認は主張しません。
+
+## 薄い領域の64回目の拡充：core宣言、phase上限、seeding
+
+[89b06ab](https://github.com/kurochan001/kirimasim-uvm-tests/commit/89b06ab55ee9970712d61e628265960a2e6650c7)を基に2026-11-05 JSTに実施しました。M1の35入力を追加し、期待compiler拒否27件と両seed runtime一致5件を得ました。
+差分3件はseed 1 runtime 2入力と、runtimeのない合法simulation build 1入力です。
+method省略probe 26個は他の印刷pure method全部と固定版の追加phase-hopper hookを実装し、最終compiler診断は選択した欠落methodだけを示します。
+virtualなcore-service基底の直接生成も拒否されます。
+
+印刷method 26個をすべて実装した独自serviceは、固定libraryが追加get_phase_hopperを要求するため拒否されます。
+別索引のcontrol専用variantでそのhookを補うと、正確なsignatureの全26 methodがbase viewから各1回dispatchされ、独自引数と返却handleを保持します。
+controlで記載methodだけのconstructor前提をpassにせず、新global serviceを設定せず、builtin facility algorithmを認定しません。
+期待値はApache sourceの原因調査前に導き、追加IEEE要求を作りません。
+
+既定core-serviceの生成、合法拡張、base継承は一致します。選択core／root／report-object handleは一致し、具体的な実childの生きた状態を保持します。
+core seedingはenableで始まり、object class 2種と変更を共有します。core disableは改名したobject 2個と呼出しprocessのRNG状態を保持し、
+後続乱数payload 3個は独立にseedしたreferenceと一致します。特定乱数値や直列化状態形式は規定しません。
+
+coreのready-to-end最大値7／9への変更はphase既定値や新nodeへ届かず20を保持します。実main phasingでもcore選択最大値3に対してready callbackは20回です。
+明示node状態は区別し、最後の遅延drop回数は診断だけとします。root probeの初期の抽象component直接生成は具体拡張へ修正し、
+編集／tag変更した入力をすべて再測定しました。以前の入力と通常／compiler／guest／backend記録は未変更です。
+
+core-service監査は日英AI義務74件と個別に読んだ構造見出し2件を追加します。以前の未評価14番号は部分分解12件とその分類2件になります。
+附属書Fは部分72／分類16／未評価49、案163件、主引用89テスト（simulation 60／elaboration 29）です。
+全体は部分1831／分類390／未評価286（構造268／文脈122）で、元のmilestone目標はすべて未完です。
+
+全3381義務に直接テストがあり、直接対応1916テスト、他のcontrol専用14テスト、control linkあり57テストです。
+新追加hook controlで記載methodだけの完全serviceやbuiltin algorithmを認定しません。negative 26入力は選択pure宣言だけを分離する目的でhookを実装します。
+未対応テストと直接テストのない義務はありません。以前の全3307義務、388分類、1895索引入力／通常記録は未変更で、
+以前の60 compiler記録も新87件集合内で未変更です。範囲／分母承認、人のレビュー、完了は主張しません。
+
+最終スイートは1930（simulation 1843／elaboration 87）、M1 801（727／74）、M2 547（542／5）、M3 582（574／8）です。
+通常evidenceはpass 1653（seed 1／73 runtime 1569、期待compiler拒否84）、known 277（seed 1 runtime 208、合法build 66、不正受理3）です。
+以前の通常1895入力／記録とcompiler 60記録、guest 1083記録、HDL 11記録、command-line 18記録を保持します。
+guest未測定847（simulation 760／elaboration 87）は追加845件と修正した元入力2件です。新control専用入力は1件、全体のcontrol専用は14テスト、
+control linkありは57テストです。library整合性、tool test 110件、metadata／台帳／索引、生の観測／evidence、日英資料検査は成功です。
+goal第36反復で初期未評価1463から286へ1177減り、完了は未立証です。
