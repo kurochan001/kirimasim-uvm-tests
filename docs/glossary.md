@@ -1393,3 +1393,15 @@ retain separate identities; a control match does not resolve the conflicting tex
 byte width rounds to complete implementing-memory locations, and external addresses use
 the selected map's address units. Model-query agreement does not establish a
 physical storage transfer or universal packing layout.
+
+## Global lookup and combined observations
+
+The lookup and mapping examples keep different premises explicit; [the FAQ](faq.md#dedicated-global-lookups-and-mapping-corrections) explains how to read their results.
+
+**Dedicated global lookup** — Static access to an item bound in the shared
+event/barrier pool. Printed pool return types conflict with item-return prose;
+the two typed premises retain separate tests and qualified expectations.
+
+**Combined observation row** — One expected line containing several observed
+columns, such as parent, width and LSB. Separate duties may bind their own
+values in that row; it remains one test and its complete runner judgment.

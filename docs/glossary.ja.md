@@ -1064,3 +1064,13 @@ control一致後も元の差分を保持する理由は[Q270](faq.ja.md#q270-互
 
 **virtual照会の単位の境界（Virtual query unit boundary）** — 要素offset／incrementはmemory word単位、byte幅は実装memoryの完全なlocationへ切り上げた幅、外部addressは選択mapのaddress単位を使うことです。
 model照会の一致では物理storageの転送や普遍的なpacking配置を認定しません。
+
+## Global照会と結合した観測
+
+照会と対応付けの例は異なる前提を明示して保持し、結果の読み方は[FAQ](faq.ja.md#専用global照会と対応付けの修正)で説明しています。
+
+**専用global照会（Dedicated global lookup）** — 共有event／barrier poolに束縛したitemへの静的アクセスです。
+印刷pool返却型と本文のitem返却が食違うため、2つの型の前提を別テストと限定した期待値へ保持します。
+
+**結合した観測行（Combined observation row）** — parent、幅、LSBなどの複数の観測列を含む1つの期待行です。
+別々の義務がその行の各値へ対応しても、テストとrunner全体の判定は1つのままです。

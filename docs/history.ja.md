@@ -4,7 +4,7 @@
 
 このページの件数は各変更時点の値なので、現在のスイート規模や実行範囲が必要なときは[現在のスナップショット](results.ja.md#現在のスナップショット)を使ってください。
 
-M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の70回目の拡充（全2176件：simulation 2084・elaboration 92）までを記録しています。以前の349件の時点は
+M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の71回目の拡充（全2208件：simulation 2116・elaboration 92）までを記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -2792,3 +2792,44 @@ guest／HDL／command-line記録も未変更で、guest未測定は1093入力で
 合算前に入力／runner／library／設定の同一性を確認します。compiler証拠と以前の通常／guest／backend記録は未変更です。
 local fileは`out/thin-seventieth-`を使い、guest再実行は主張しません。
 tool、metadata、台帳／索引、source／証拠、日英資料、CIの正確な選択の検査を伴います。goalは有効に保ちます。
+
+## 薄い領域の71回目の拡充：global照会と対応の正確さ
+
+[ba5e87e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/ba5e87e2a22b9280f991ee69042e02e9ef231afc)を基に2026-11-06 JSTに集約しました。今回は新規simulation 32件（専用global pool 28・virtual field constructor 4）と、修正した既存1入力を測定します。
+新規30件と修正した1件が両seedで一致し、印刷pool返却の2入力はbuildできずruntime結果がありません。
+
+専用get_globalのsignatureはpoolを返すと記し、本文とgeneric get_globalはitemを指します。
+pool型receiverは印刷signature、item型の動作入力は本文の解釈を保持します。後者が一致しても前者をpassにせず、文言の食違いを解決しません。
+原PDFの104〜105ページでも、両方の印刷pool型を確認しました。
+印刷型のmarkerは静的な受理だけを示し、返却値の動作を示しません。
+
+静的照会前にglobal keyを明示的に用意し、正確なhandle選択、同一／別key、local／globalの独立性、生きた状態の共有、明示置換、削除／再作成、alias、item改名、空／wildcard風の字面keyを観測します。
+実際のevent待機とbarrierの2到着は、返却handle、格納した参照、正の時刻差を使います。
+解除前にwaiter数、解除後に完了時刻を観測し、同時刻の実行順は固定しません。存在しないkeyの静的動作と全並行条件は未完に保ち、instance getによる明示再作成から決めません。
+
+factory生成するfield派生型は、実際のsuper.newの名前省略／明示の結果を基底呼出し直後に取得します。
+別の組み込みfactory入力は、同じ／異なる明示名で新しい別instanceを観測します。
+既存のconfigure検査系はdescription／主引用だけを18.10.2.2へ直し、本体と期待出力を変えずに再測定します。
+その安定した義務はparentの列を扱うようにし、既存の幅／LSB義務に元の5-bit・LSB 7の構成を加えて結合期待行を共有します。
+1行を独立した3テストに数えません。これらのconstructor／configure観測からfield転送やHDL動作を推測しません。
+
+日英AI義務32件で、以前は未評価だった専用get_globalの2番号を部分分解し、選択したconstructor条件を補います。
+以前の3義務を再照合し、configure義務はconstructorからconfigureへ移してparentへ絞り、幅／LSBには同じ既存観測への別linkを加えます。
+新しい分類は追加しません。全体は部分1961／分類405／未評価141で、分類は構造279／文脈126です。
+
+第10章は部分87／分類29／未評価0、義務160件、主引用simulation 114テストです。
+未評価0でも契約、返却型の食違い、元のM1目標を完了にしません。第18章は360／51／45のままで、義務834件、主引用simulation 500テストです。
+
+全3796義務に直接テストがあり、直接対応2184テスト、control専用24テスト、control linkあり85テストです。
+新入力はすべて直接義務を持ち、うち2件はcontrolも提供します。以前の3764義務のうち3761件は未変更で、3件を明示修正します。
+ほかの全2175通常入力／記録、全405分類、全92 compiler記録は未変更です。範囲、分母、人のレビュー、元のmilestone目標は未承認／未完です。
+
+全2208（simulation 2116／elaboration 92）、M1 948（869／79）、M2 547（542／5）、M3 713（705／8）です。
+通常passは1900（runtime 1813／拒否87）、knownは308（runtime 220／build 83／不正受理5）です。
+32入力を追加し、既存1入力を再測定し、ほかの2175件は未変更です。guestのfilterは新しく古くなった1記録を除外するもので、新しい実行ではありません。
+HDL／command-lineの証拠と全92 compiler記録はbyte単位で未変更です。
+
+新規32入力と修正した1入力を初回測定し、新しくtagを付けた一致30件を再測定します。
+修正した既存ケースは既に現在のtag付きsourceであり、両seed一致の記録を保持します。未変更の限定build 2入力は正確な初回証拠を保持します。
+測定中にhelper／期待値／本体のbyteを変えず、合算前に再帰的な入力／runner／library／設定とbatchの同一性を確認します。
+local資料は`out/thin-seventy-first-`を使い、guest再実行や承認は主張しません。

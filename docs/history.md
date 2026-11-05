@@ -5,8 +5,8 @@
 Counts on this page belong to the time of each change, so use [the current snapshot](results.md#current-snapshot) when you need the present suite size or execution scope.
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and seventy cross-milestone thin-area expansions, including the
-existing-test requirement-link backlog checkpoint (2176 tests: 2084 simulation and 92 elaboration). The earlier 349-test checkpoint is
+three M4 increments and seventy-one cross-milestone thin-area expansions, including the
+existing-test requirement-link backlog checkpoint (2208 tests: 2116 simulation and 92 elaboration). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -4351,3 +4351,71 @@ The compile-evidence set and all prior ordinary/guest/backend records remain
 unchanged. Local files use `out/thin-seventieth-`; no guest rerun is claimed.
 Tool, metadata, ledger/index, source/evidence, paired documentation and exact
 CI selection checks accompany the increment. The goal remains active.
+
+## Seventy-first thin-area expansion: global lookups and mapping accuracy
+
+Based on [ba5e87e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/ba5e87e2a22b9280f991ee69042e02e9ef231afc); assembled 2026-11-06 JST. The increment measures 32 new simulations (28 dedicated global-pool and four
+virtual-field constructor cases) plus one corrected existing input. Thirty new
+cases and the corrected case match both seeds. Two printed pool-return inputs
+cannot build and have no runtime result.
+
+The dedicated get_global signatures name a pool return type, while their prose
+and the generic get_global describe an item. Pool-typed receivers retain the
+printed signature; item-typed operational inputs retain the prose interpretation.
+The latter match, without passing the former or resolving the wording conflict.
+The original PDF pages 104–105 confirm both printed pool types.
+The printed-type markers witness static admission only, not a returned value.
+
+Global keys are explicitly populated before static lookup. Tests observe exact
+handle selection, repeated/distinct keys, local/global isolation, shared live
+state, explicit replacement, deletion/recreation, aliases, item renaming and
+literal empty/wildcard-looking keys. Actual event waiting and two barrier
+arrivals use the returned handle, a stored reference and positive-time gates.
+Waiter counts precede release; completion times follow it without imposing a
+same-time process order. Absent-key static semantics and general concurrency
+remain open; explicit instance-get recreation does not decide them.
+
+Factory-created field subtypes capture the actual omitted/explicit super.new
+name immediately after the base call. Separate builtin-factory inputs observe
+fresh distinct instances under same/different explicit names. The corrected
+legacy configuration fixture changes only description/primary citation to
+18.10.2.2; its body and expected output remain unchanged and are remeasured.
+Its stable duty now covers the parent column. Existing width/LSB duties add
+the original five-bit-at-seven profile and share its combined expected row;
+one row is not three independent tests. No field transfer or HDL behavior is
+inferred from these constructor/configuration observations.
+
+Thirty-two bilingual AI duties partially decompose the two formerly
+unassessed dedicated get_global identifiers and extend selected constructor
+conditions. Three prior duties are reassessed: the configuration duty moves
+from constructor to configure and is narrowed to parent, while width/LSB
+receive separate links to the same legacy observation. No new classification
+is added. Global state is 1961 partial/405 assessed/141 unassessed, with
+279 structural/126 contextual assessments.
+
+Chapter 10 is 87 partial/29 assessed/0 unassessed, with 160 duties and 114
+primary simulation tests. Zero unassessed identifiers does not complete its
+contracts, return-type conflict or original M1 target. Chapter 18 remains
+360/51/45, with 834 duties and 500 primary simulation tests.
+
+All 3796 duties have direct tests; 2184 tests have direct links, 24 have only
+controls and 85 have control links. Each new input has a direct duty; two also
+provide controls. Of the 3764 prior duties, 3761 remain unchanged and three
+are explicitly revised. All 2175 other ordinary inputs/records, all 405
+assessments and all 92 compiler records remain unchanged. Scope, denominator,
+human review and the original milestone targets remain unapproved/incomplete.
+
+Totals are 2208 (2116 simulation/92 elaboration): M1 948 (869/79), M2 547
+(542/5), M3 713 (705/8). Ordinary pass is 1900 (1813 runtime/87 rejections),
+with 308 known (220 runtime/83 builds/5 illegal acceptances). Thirty-two inputs
+are added and one existing input is remeasured; all 2175 others are unchanged.
+Guest filtering excludes one newly stale record, not a new execution. HDL and
+command-line evidence and all 92 compiler records remain byte-identical.
+
+The 32 new inputs and one revised input are initially measured. Thirty newly
+tagged matches are remeasured; the revised case already has its current tagged
+source and retains its matching two-seed record. The two unchanged qualified
+build inputs retain their exact initial evidence. All helper/expected/body
+bytes stay frozen through measurement. Recursive input/runner/library/config
+and batch identities are checked before assembly. Local artifacts use
+`out/thin-seventy-first-`; no guest rerun or approval is claimed.

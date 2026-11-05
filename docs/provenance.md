@@ -157,6 +157,15 @@ conflict with explicit declarations and are retained as qualified inputs;
 no library or simulator implementation supplies the oracle. See [the query
 FAQ](faq.md#virtual-register-queries-and-declaration-boundaries).
 
+Dedicated global-pool expectations come from supplied IEEE 10.4/11.2,
+event/barrier and string-key contracts. Original seeded bindings and positive-time
+waits observe the actual public API, without copying an implementation. Printed
+pool-return versus item prose stays qualified. Virtual-field constructor captures
+call the actual base through factory-created original subtypes. The legacy
+configuration source and its stable parent duty move from constructor
+18.10.2.1 to configure 18.10.2.2; two existing duties add width/LSB links.
+See [the mapping FAQ](faq.md#dedicated-global-lookups-and-mapping-corrections).
+
 ## Clause catalog maintenance
 
 The catalog counts identifiers rather than normative duties, so [Counting unit and scope proposal](requirements.md#counting-unit-and-scope-proposal) explains why restoring an entry does not define a coverage denominator.

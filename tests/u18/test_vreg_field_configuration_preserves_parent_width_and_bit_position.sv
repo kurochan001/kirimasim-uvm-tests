@@ -1,9 +1,9 @@
 /*
 :name: test_vreg_field_configuration_preserves_parent_width_and_bit_position
-:description: vreg field configuration preserves parent width and bit position (IEEE 1800.2-2020 Section 18.10.2.1)
+:description: vreg field configuration preserves parent width and bit position (IEEE 1800.2-2020 Section 18.10.2.2)
 :tags: u18 uvm
 :type: simulation
-:lrm: 1800.2-2020 18.10.2.1 18.10.2.2 18.10.3.1 18.10.3.2 18.10.3.3 18.9.1.1.1 18.9.1.1.2 18.1.2.1 18.1.2.2 18.6.3.1 18.6.3.2 18.1.2.3 18.1.2.6 18.2.3.4 1800-2023 6.21
+:lrm: 1800.2-2020 18.10.2.2 18.10.2.1 18.10.3.1 18.10.3.2 18.10.3.3 18.9.1.1.1 18.9.1.1.2 18.1.2.1 18.1.2.2 18.6.3.1 18.6.3.2 18.1.2.3 18.1.2.6 18.2.3.4 1800-2023 6.21
 :uvm: 2020.3.1
 :oracle: spec verilator@5.052
 :spec_check: ai

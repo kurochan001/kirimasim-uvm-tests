@@ -115,6 +115,11 @@ virtual register／field照会の期待値は、供給されたIEEE 18.9〜18.10
 独自model設定とreport観測はHDL／storageのdataを転送しません。overviewの基底名と明示class宣言の食違いは限定した入力として保持し、libraryやシミュレータの実装からoracleを作りません。
 [照会のFAQ](faq.ja.md#virtual-registerの照会と宣言の境界)を参照してください。
 
+専用global poolの期待値は、供給されたIEEE 10.4／11.2、event／barrier、文字列keyの契約から定めます。
+独自の束縛と正の時刻差の待機で実際の公開APIを観測し、実装をコピーしません。印刷pool返却と本文のitemは限定した前提を保持します。
+virtual field constructorの取得値は、factoryで生成した独自派生型から実際の基底を呼び出して観測します。
+既存configure sourceと安定したparent義務はconstructorの18.10.2.1からconfigureの18.10.2.2へ移し、既存の2義務へ幅／LSBのlinkを加えます。[対応のFAQ](faq.ja.md#専用global照会と対応付けの修正)で説明します。
+
 ## 条項カタログの保守
 
 catalogが数えるのは規範的義務ではなく識別子なので、項目の復元でcoverage分母が決まらない理由は[計数単位と対象範囲の案](requirements.ja.md#計数単位と対象範囲の案)を参照してください。

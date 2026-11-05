@@ -5947,8 +5947,8 @@
       "inputs_sha256": "ed713d63fb4ae9dc22855c7b364ad4327039cd00e19dfc48a0ca1a6ed62a16a2"
     },
     "u18/test_vreg_field_configuration_preserves_parent_width_and_bit_position": {
-      "primary_clause": "18.10.2.1",
-      "inputs_sha256": "4ce8d1d38070eb1811d4424bc6194f35b26148c05784f13c6fc9d473b2351028"
+      "primary_clause": "18.10.2.2",
+      "inputs_sha256": "155f485ed7355c742ad48db64062248a092fa17c363dfaca96268449571a7ab1"
     },
     "u18/test_vreg_field_frontdoor_read_extracts_a_slice_across_two_memory_locations": {
       "primary_clause": "18.10.4.2",
@@ -8705,6 +8705,134 @@
     "u18/test_vreg_query_field_access_explicit_rw": {
       "primary_clause": "18.10.3.4",
       "inputs_sha256": "97721fa9fcfcff67e01f7ba2a0a69bcb52ab313dcf9543276b9ed25bd754e7b0"
+    },
+    "u10/test_pool_global_event_printed_pool_return_type": {
+      "primary_clause": "10.4.1.2.3",
+      "inputs_sha256": "9f0f6bd43b03cc579ab4249d731a893d0a430e3b3fa88d5af8593c914c3b70ce"
+    },
+    "u10/test_pool_global_event_explicitly_added_item_identity": {
+      "primary_clause": "10.4.1.2.3",
+      "inputs_sha256": "220555ae4fcaf288234174d6b1e5df825f43ee5491937c1b37b2d100b42c9219"
+    },
+    "u10/test_pool_global_event_instance_get_seeded_item_identity": {
+      "primary_clause": "10.4.1.2.3",
+      "inputs_sha256": "87b128fc58c55e9f58adb04fd18f613a06c294c0acd1dde972e93ae97426df74"
+    },
+    "u10/test_pool_global_event_repeated_calls_preserve_existing_identity": {
+      "primary_clause": "10.4.1.2.3",
+      "inputs_sha256": "65c81d331a00591f62c6cee6139916c5f7efa5792a7ed3a1d0432787c4c864ee"
+    },
+    "u10/test_pool_global_event_distinct_keys_select_distinct_bound_items": {
+      "primary_clause": "10.4.1.2.3",
+      "inputs_sha256": "e12595cd72d3123085bed4ef5d16361a6dd7028abb4060b7dc69d788158ca50c"
+    },
+    "u10/test_pool_global_event_local_same_key_does_not_shadow_global": {
+      "primary_clause": "10.4.1.2.3",
+      "inputs_sha256": "96a060f5fd0a3d2f5f95997ad6c9276e574f782e34223bff399134d7a85e38a0"
+    },
+    "u10/test_pool_global_event_shared_state_flows_between_static_and_instance_views": {
+      "primary_clause": "10.4.1.2.3",
+      "inputs_sha256": "bcfb092d3f54b26bd778d0d164e8370eb39c8ff6a9cc07a11fd76d5b32198bc1"
+    },
+    "u10/test_pool_global_event_replacement_binding_keeps_old_reference_independent": {
+      "primary_clause": "10.4.1.2.3",
+      "inputs_sha256": "08ad4ede882ec504b259f83d1187caed928a93c1def83f2ba38bc2f92e9337c3"
+    },
+    "u10/test_pool_global_event_deleting_other_key_preserves_selected_lookup": {
+      "primary_clause": "10.4.1.2.3",
+      "inputs_sha256": "e23de0dae93e92201041ffd2ea6dc6e9a8536edf8fdd122a39b83edcda611120"
+    },
+    "u10/test_pool_global_event_explicit_recreation_after_delete_uses_new_binding": {
+      "primary_clause": "10.4.1.2.3",
+      "inputs_sha256": "2fbc96a10be966750f67f739cc5e11159ff74a067a165e8be97e2e4567f2743b"
+    },
+    "u10/test_pool_global_event_explicit_alias_keys_preserve_shared_item_state": {
+      "primary_clause": "10.4.1.2.3",
+      "inputs_sha256": "5825d53ac215a321e9b07543e5aabe77febece5d085a4b308ec9223cf9740840"
+    },
+    "u10/test_pool_global_event_item_rename_keeps_the_original_key_binding": {
+      "primary_clause": "10.4.1.2.3",
+      "inputs_sha256": "3a555bfdfb7fd80bf3f2a56e1a683240d43b8030354adaa84010916378189c55"
+    },
+    "u10/test_pool_global_event_string_keys_are_literal_and_include_empty": {
+      "primary_clause": "10.4.1.2.3",
+      "inputs_sha256": "3b31463460f408969a0d7e62ead5ad84e0ab2c0a17fbd1d1254b39ac86089649"
+    },
+    "u10/test_pool_global_event_returned_handle_shares_real_synchronization": {
+      "primary_clause": "10.4.1.2.3",
+      "inputs_sha256": "e9670cc2764321712cc54c9f8254484252166c8cbdcb38c48cebcc41aa1f908f"
+    },
+    "u10/test_pool_global_barrier_printed_pool_return_type": {
+      "primary_clause": "10.4.2.2.3",
+      "inputs_sha256": "1f831a6fda0b25d9b9e65ef9f584669b277d22c033880420e1622be34e06a145"
+    },
+    "u10/test_pool_global_barrier_explicitly_added_item_identity": {
+      "primary_clause": "10.4.2.2.3",
+      "inputs_sha256": "8820bb284def1ee7ea8913bdc2851d66891a650a099abb4a81f3c793b0f3c9ed"
+    },
+    "u10/test_pool_global_barrier_instance_get_seeded_item_identity": {
+      "primary_clause": "10.4.2.2.3",
+      "inputs_sha256": "1ba3aee667e0e42a47ce58e0f5213256eb1bad12e3091d1f7b27d393d5da9276"
+    },
+    "u10/test_pool_global_barrier_repeated_calls_preserve_existing_identity": {
+      "primary_clause": "10.4.2.2.3",
+      "inputs_sha256": "d2a566d7db92f36eb4163e5b8e2ea701e4bbd63e52836b2bc507c86a93169703"
+    },
+    "u10/test_pool_global_barrier_distinct_keys_select_distinct_bound_items": {
+      "primary_clause": "10.4.2.2.3",
+      "inputs_sha256": "87e74d8286cd3b64fb4d032451152a1ce1a335c8e3f858b6857e09a58f583530"
+    },
+    "u10/test_pool_global_barrier_local_same_key_does_not_shadow_global": {
+      "primary_clause": "10.4.2.2.3",
+      "inputs_sha256": "1d9f6b4dc9ce060a25ee4430d89b980e96f2d48c29f6f3355575b10adc3cc4ad"
+    },
+    "u10/test_pool_global_barrier_shared_state_flows_between_static_and_instance_views": {
+      "primary_clause": "10.4.2.2.3",
+      "inputs_sha256": "8ba70b3b19e21a7a559a86138ea9cc6fa3443a49ecd56e69c492b775419cbc0f"
+    },
+    "u10/test_pool_global_barrier_replacement_binding_keeps_old_reference_independent": {
+      "primary_clause": "10.4.2.2.3",
+      "inputs_sha256": "cf4fc5d413761b3b90a9867549b83b607b31cc63b7420037fb2ecfb2f424de1e"
+    },
+    "u10/test_pool_global_barrier_deleting_other_key_preserves_selected_lookup": {
+      "primary_clause": "10.4.2.2.3",
+      "inputs_sha256": "8e3aba36b90df84fb3e9bcc8858c85c9ffb873803fd6e7da9cb41e0e2bfe1d02"
+    },
+    "u10/test_pool_global_barrier_explicit_recreation_after_delete_uses_new_binding": {
+      "primary_clause": "10.4.2.2.3",
+      "inputs_sha256": "bd06d7800117ef7d0168db00d75423cdcbd799e6a0b614f4587e08d29104c8ec"
+    },
+    "u10/test_pool_global_barrier_explicit_alias_keys_preserve_shared_item_state": {
+      "primary_clause": "10.4.2.2.3",
+      "inputs_sha256": "344d088810a769a5369a214fdd31bd05933019bfe20805a107954a3fc37e5d8b"
+    },
+    "u10/test_pool_global_barrier_item_rename_keeps_the_original_key_binding": {
+      "primary_clause": "10.4.2.2.3",
+      "inputs_sha256": "8dc9fc1ada3d35f6481d41bd9d3b919127994ea5ccae324dbd809c22d75e0602"
+    },
+    "u10/test_pool_global_barrier_string_keys_are_literal_and_include_empty": {
+      "primary_clause": "10.4.2.2.3",
+      "inputs_sha256": "4a662cdb102c03724688afec4b8d550f04f112fb6f7497d13f611170d215f464"
+    },
+    "u10/test_pool_global_barrier_returned_handle_shares_real_synchronization": {
+      "primary_clause": "10.4.2.2.3",
+      "inputs_sha256": "995899f72527327f5253c426aaeaab8ee35023ac7e6dd4d0c0adf4db91a88b48"
+    },
+    "u18/test_vreg_field_ctor_omitted_base_name_via_factory_subtype": {
+      "primary_clause": "18.10.2.1",
+      "inputs_sha256": "7f13899ab263fb7b5831bb1e3f8b78f7750a87372b7b80a1d36658a908cb5b64"
+    },
+    "u18/test_vreg_field_ctor_explicit_base_name_via_factory_subtype": {
+      "primary_clause": "18.10.2.1",
+      "inputs_sha256": "007fec55011160583e72328a2ed68732099c24899f4997fb3fcc8c1fcebb4e7f"
+    },
+    "u18/test_vreg_field_ctor_factory_same_name_creates_distinct_instances": {
+      "primary_clause": "18.10.2.1",
+      "inputs_sha256": "352386cd5e4cdee6821eeb4974e6f9815e2944b6bf7a10d0d6779af9077a0f51"
+    },
+    "u18/test_vreg_field_ctor_factory_different_names_creates_distinct_instances": {
+      "primary_clause": "18.10.2.1",
+      "inputs_sha256": "5c21625b67c6f1dae9a43dfd7802d3ca89a063076825adcc76ac11ab1d74fa89"
     }
   }
 }

@@ -1,0 +1,2 @@
+UT: event_global_wait before 1
+UT: event_global_wait returned 1 at 5

@@ -44069,22 +44069,22 @@
     },
     {
       "id": "UVM-VREG-FIELD-CONFIGURATION-METADATA",
-      "clause": "18.10.2.1",
+      "clause": "18.10.2.2",
       "statement": {
-        "en": "A virtual field retains its configured parent, width and least-significant position.",
-        "ja": "virtual fieldは、設定parent、幅、最下位位置を保持する。"
+        "en": "Virtual-field configuration records the selected parent virtual register.",
+        "ja": "virtual fieldのconfigureは選択した親virtual registerを記録する。"
       },
       "conditions": {
         "en": "Configure a five-bit field starting at bit seven.",
         "ja": "bit 7から5 bit fieldを設定する。"
       },
       "expected": {
-        "en": "Exact parent, width five and position seven are returned.",
-        "ja": "正確なparent、幅5、位置7を返す。"
+        "en": "The parent column identifies the configured virtual register.",
+        "ja": "parentの列がconfigureしたvirtual registerを識別する。"
       },
       "limitations": {
-        "en": "Virtual-register arrays use public allocation/configuration APIs and bounded modeled memories in one block. Fixed-start policies make placement deterministic, not a random-quality test. Relocation checks release through public reservations; no hidden free-list order is inferred. Bus callbacks use fixture drivers and only selected value slices/statuses. No physical DUT, HDL access or memory-walk algorithm is exercised.",
-        "ja": "virtual-register配列は、同じblock内の公開allocation／configuration APIと有限model化memoryを使う。固定開始policyで配置を決定し、乱数品質は検査しない。再配置のreleaseは公開予約で検査し、内部free-list順は推測しない。bus callbackは検査系driverと選択した値slice／statusだけを使う。物理DUT、HDL access、memory-walk algorithmは実行しない。"
+        "en": "Virtual-register arrays use public allocation/configuration APIs and bounded modeled memories in one block. Fixed-start policies make placement deterministic, not a random-quality test. Relocation checks release through public reservations; no hidden free-list order is inferred. Bus callbacks use fixture drivers and only selected value slices/statuses. No physical DUT, HDL access or memory-walk algorithm is exercised. This stable ID now covers only the parent column. Width and LSB columns are bound to the separate configuration duties; one combined output row is not three independent tests.",
+        "ja": "virtual-register配列は、同じblock内の公開allocation／configuration APIと有限model化memoryを使う。固定開始policyで配置を決定し、乱数品質は検査しない。再配置のreleaseは公開予約で検査し、内部free-list順は推測しない。bus callbackは検査系driverと選択した値slice／statusだけを使う。物理DUT、HDL access、memory-walk algorithmは実行しない。 この安定IDはparentの列だけを扱う。幅とLSBの列は別のconfigure義務に対応し、1つの結合出力行を独立した3テストに数えない。"
       },
       "review": {
         "status": "ai",
@@ -137524,16 +137524,16 @@
         "ja": "virtual fieldのconfigureは選択したbit幅を記録する。"
       },
       "conditions": {
-        "en": "Factory-create a field and configure width 5, LSB 0 in a 40-bit virtual register. Factory-create a field and configure width 11, LSB 7 in a 40-bit virtual register.",
-        "ja": "fieldをfactoryで生成し、40-bit virtual register内で幅5、LSB 0をconfigureする。fieldをfactoryで生成し、40-bit virtual register内で幅11、LSB 7をconfigureする。"
+        "en": "Factory-create a field and configure width 5, LSB 0 in a 40-bit virtual register. Factory-create a field and configure width 11, LSB 7 in a 40-bit virtual register. Also configure a five-bit field at LSB seven in a sixteen-bit virtual register.",
+        "ja": "fieldをfactoryで生成し、40-bit virtual register内で幅5、LSB 0をconfigureする。fieldをfactoryで生成し、40-bit virtual register内で幅11、LSB 7をconfigureする。 16-bit virtual register内のLSB 7に5-bit fieldをconfigureする構成も含む。"
       },
       "expected": {
-        "en": "Only the separately anchored width observation is bound to this duty.",
-        "ja": "widthの個別観測行だけをこの義務へ対応付ける。"
+        "en": "Only the width value in each linked observation is bound to this duty.",
+        "ja": "各対応観測のwidthの値だけをこの義務へ対応付ける。"
       },
       "limitations": {
-        "en": "Selected model-only profiles do not exhaust this clause. ",
-        "ja": "選択したmodel内だけの構成で、この条項を網羅しない。"
+        "en": "Selected model-only profiles do not exhaust this clause. A combined legacy output row also contains parent/other columns; those do not add duties to this link or independent tests.",
+        "ja": "選択したmodel内だけの構成で、この条項を網羅しない。 既存の結合出力行にはparent等の列もあり、それらをこのlinkの義務や独立テストへ追加しない。"
       },
       "review": {
         "status": "ai",
@@ -137554,6 +137554,13 @@
           "expected_observations": [
             "UT: configured_crossing width 11"
           ]
+        },
+        {
+          "test": "u18/test_vreg_field_configuration_preserves_parent_width_and_bit_position",
+          "role": "direct",
+          "expected_observations": [
+            "UT: parent 1 bits 5 lsb 7"
+          ]
         }
       ]
     },
@@ -137565,16 +137572,16 @@
         "ja": "virtual fieldのconfigureは選択した最下位bit位置を記録する。"
       },
       "conditions": {
-        "en": "Factory-create a field and configure width 5, LSB 0 in a 40-bit virtual register. Factory-create a field and configure width 11, LSB 7 in a 40-bit virtual register.",
-        "ja": "fieldをfactoryで生成し、40-bit virtual register内で幅5、LSB 0をconfigureする。fieldをfactoryで生成し、40-bit virtual register内で幅11、LSB 7をconfigureする。"
+        "en": "Factory-create a field and configure width 5, LSB 0 in a 40-bit virtual register. Factory-create a field and configure width 11, LSB 7 in a 40-bit virtual register. Also configure a five-bit field at LSB seven in a sixteen-bit virtual register.",
+        "ja": "fieldをfactoryで生成し、40-bit virtual register内で幅5、LSB 0をconfigureする。fieldをfactoryで生成し、40-bit virtual register内で幅11、LSB 7をconfigureする。 16-bit virtual register内のLSB 7に5-bit fieldをconfigureする構成も含む。"
       },
       "expected": {
-        "en": "Only the separately anchored lsb observation is bound to this duty.",
-        "ja": "lsbの個別観測行だけをこの義務へ対応付ける。"
+        "en": "Only the lsb value in each linked observation is bound to this duty.",
+        "ja": "各対応観測のlsbの値だけをこの義務へ対応付ける。"
       },
       "limitations": {
-        "en": "Selected model-only profiles do not exhaust this clause. ",
-        "ja": "選択したmodel内だけの構成で、この条項を網羅しない。"
+        "en": "Selected model-only profiles do not exhaust this clause. A combined legacy output row also contains parent/other columns; those do not add duties to this link or independent tests.",
+        "ja": "選択したmodel内だけの構成で、この条項を網羅しない。 既存の結合出力行にはparent等の列もあり、それらをこのlinkの義務や独立テストへ追加しない。"
       },
       "review": {
         "status": "ai",
@@ -137594,6 +137601,13 @@
           "role": "direct",
           "expected_observations": [
             "UT: configured_crossing lsb 7"
+          ]
+        },
+        {
+          "test": "u18/test_vreg_field_configuration_preserves_parent_width_and_bit_position",
+          "role": "direct",
+          "expected_observations": [
+            "UT: parent 1 bits 5 lsb 7"
           ]
         }
       ]
@@ -137676,6 +137690,1112 @@
           "role": "control",
           "expected_observations": [
             "UT: rights_RW value RW"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-GLOBAL-AUDIT-POOL-GLOBAL-EVENT-PRINTED-POOL-RETURN-TYPE",
+      "clause": "10.4.1.2.3",
+      "statement": {
+        "en": "Under the printed signature, get_global admits an exact pool-typed receiver.",
+        "ja": "印刷signatureの前提ではget_globalを正確なpool型receiverへ代入できる。"
+      },
+      "conditions": {
+        "en": "Use the literal printed return type at an actual call; the stored key exists.",
+        "ja": "実際の呼出しに印刷された返却型を使い、対象keyは事前に登録する。"
+      },
+      "expected": {
+        "en": "The linked static-admission, identity, live-state or bounded-wait observations match.",
+        "ja": "対応する静的受理、同一性、生きた状態、有限の待機の観測が一致する。"
+      },
+      "limitations": {
+        "en": "The printed dedicated get_global signature returns a pool, whereas the prose and generic get_global refer to an item. Operational item-typed inputs retain the prose interpretation; neither premise is replaced by a control pass. Global keys are explicitly populated before static calls; absent-key static semantics, initial pool contents and general concurrency remain unproven. The signature says pool but prose says item. The runtime marker only witnesses static admission; no returned value is prescribed. A matching item-typed control does not resolve this conflict.",
+        "ja": "専用get_globalの印刷signatureはpool、本文とgeneric get_globalはitemを返す。動作を調べるitem型入力は本文の解釈を保持し、controlのpassでどちらの前提も置換しない。静的呼出し前にglobal keyを明示的に用意し、存在しないkeyの静的動作、pool初期内容、全並行条件は未立証に保つ。signatureはpool、本文はitemを返すと記す。runtimeのmarkerは静的型の受理だけを示し、返却値を規定しない。item型controlの一致で食違いを解決しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_pool_global_event_printed_pool_return_type",
+          "role": "direct",
+          "expected_observations": [
+            "UT: event_printed_pool_type admitted 1"
+          ]
+        },
+        {
+          "test": "u10/test_pool_global_event_explicitly_added_item_identity",
+          "role": "control",
+          "expected_observations": [
+            "UT: event_added_item identity 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-GLOBAL-AUDIT-POOL-GLOBAL-EVENT-EXPLICITLY-ADDED-ITEM-IDENTITY",
+      "clause": "10.4.1.2.3",
+      "statement": {
+        "en": "Under the item-return prose, global lookup returns the explicitly added item.",
+        "ja": "itemを返す本文の前提ではglobal照会は明示addしたitemを返す。"
+      },
+      "conditions": {
+        "en": "Seed the singleton through add, then use an item-typed static lookup.",
+        "ja": "singletonへaddしてから、item型の静的照会を使う。"
+      },
+      "expected": {
+        "en": "The linked static-admission, identity, live-state or bounded-wait observations match.",
+        "ja": "対応する静的受理、同一性、生きた状態、有限の待機の観測が一致する。"
+      },
+      "limitations": {
+        "en": "The printed dedicated get_global signature returns a pool, whereas the prose and generic get_global refer to an item. Operational item-typed inputs retain the prose interpretation; neither premise is replaced by a control pass. Global keys are explicitly populated before static calls; absent-key static semantics, initial pool contents and general concurrency remain unproven. ",
+        "ja": "専用get_globalの印刷signatureはpool、本文とgeneric get_globalはitemを返す。動作を調べるitem型入力は本文の解釈を保持し、controlのpassでどちらの前提も置換しない。静的呼出し前にglobal keyを明示的に用意し、存在しないkeyの静的動作、pool初期内容、全並行条件は未立証に保つ。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_pool_global_event_explicitly_added_item_identity",
+          "role": "direct",
+          "expected_observations": [
+            "UT: event_added_item identity 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-GLOBAL-AUDIT-POOL-GLOBAL-EVENT-INSTANCE-GET-SEEDED-ITEM-IDENTITY",
+      "clause": "10.4.1.2.3",
+      "statement": {
+        "en": "Under the item-return prose, static lookup shares a key populated by instance get.",
+        "ja": "itemを返す本文の前提では静的照会はinstance getで用意したkeyを共有する。"
+      },
+      "conditions": {
+        "en": "Explicitly populate the key through the dedicated global instance get before the static call.",
+        "ja": "静的呼出しの前に、専用global instanceのgetでkeyを明示的に用意する。"
+      },
+      "expected": {
+        "en": "The linked static-admission, identity, live-state or bounded-wait observations match.",
+        "ja": "対応する静的受理、同一性、生きた状態、有限の待機の観測が一致する。"
+      },
+      "limitations": {
+        "en": "The printed dedicated get_global signature returns a pool, whereas the prose and generic get_global refer to an item. Operational item-typed inputs retain the prose interpretation; neither premise is replaced by a control pass. Global keys are explicitly populated before static calls; absent-key static semantics, initial pool contents and general concurrency remain unproven. ",
+        "ja": "専用get_globalの印刷signatureはpool、本文とgeneric get_globalはitemを返す。動作を調べるitem型入力は本文の解釈を保持し、controlのpassでどちらの前提も置換しない。静的呼出し前にglobal keyを明示的に用意し、存在しないkeyの静的動作、pool初期内容、全並行条件は未立証に保つ。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_pool_global_event_instance_get_seeded_item_identity",
+          "role": "direct",
+          "expected_observations": [
+            "UT: event_get_seed nonnull 1 identity 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-GLOBAL-AUDIT-POOL-GLOBAL-EVENT-REPEATED-CALLS-PRESERVE-EXISTING-IDENTITY",
+      "clause": "10.4.1.2.3",
+      "statement": {
+        "en": "Repeated global lookup of an existing key preserves the stored item identity.",
+        "ja": "存在するkeyの反復global照会は格納したitemの同一性を保持する。"
+      },
+      "conditions": {
+        "en": "Perform two static lookups after one explicit binding without rebinding.",
+        "ja": "1回の明示束縛後、再束縛せずに静的照会を2回行う。"
+      },
+      "expected": {
+        "en": "The linked static-admission, identity, live-state or bounded-wait observations match.",
+        "ja": "対応する静的受理、同一性、生きた状態、有限の待機の観測が一致する。"
+      },
+      "limitations": {
+        "en": "The printed dedicated get_global signature returns a pool, whereas the prose and generic get_global refer to an item. Operational item-typed inputs retain the prose interpretation; neither premise is replaced by a control pass. Global keys are explicitly populated before static calls; absent-key static semantics, initial pool contents and general concurrency remain unproven. ",
+        "ja": "専用get_globalの印刷signatureはpool、本文とgeneric get_globalはitemを返す。動作を調べるitem型入力は本文の解釈を保持し、controlのpassでどちらの前提も置換しない。静的呼出し前にglobal keyを明示的に用意し、存在しないkeyの静的動作、pool初期内容、全並行条件は未立証に保つ。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_pool_global_event_repeated_calls_preserve_existing_identity",
+          "role": "direct",
+          "expected_observations": [
+            "UT: event_repeated first 1 repeated 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-GLOBAL-AUDIT-POOL-GLOBAL-EVENT-DISTINCT-KEYS-SELECT-DISTINCT-BOUND-ITEMS",
+      "clause": "10.4.1.2.3",
+      "statement": {
+        "en": "Global lookup selects the supplied item independently for each exact key.",
+        "ja": "global照会は正確な各keyに対応する指定itemを独立に選択する。"
+      },
+      "conditions": {
+        "en": "Explicitly bind two different items under two different global keys.",
+        "ja": "異なるglobal key 2つへ異なるitem 2個を明示束縛する。"
+      },
+      "expected": {
+        "en": "The linked static-admission, identity, live-state or bounded-wait observations match.",
+        "ja": "対応する静的受理、同一性、生きた状態、有限の待機の観測が一致する。"
+      },
+      "limitations": {
+        "en": "The printed dedicated get_global signature returns a pool, whereas the prose and generic get_global refer to an item. Operational item-typed inputs retain the prose interpretation; neither premise is replaced by a control pass. Global keys are explicitly populated before static calls; absent-key static semantics, initial pool contents and general concurrency remain unproven. ",
+        "ja": "専用get_globalの印刷signatureはpool、本文とgeneric get_globalはitemを返す。動作を調べるitem型入力は本文の解釈を保持し、controlのpassでどちらの前提も置換しない。静的呼出し前にglobal keyを明示的に用意し、存在しないkeyの静的動作、pool初期内容、全並行条件は未立証に保つ。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_pool_global_event_distinct_keys_select_distinct_bound_items",
+          "role": "direct",
+          "expected_observations": [
+            "UT: event_distinct selected 1 peer 1 independent 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-GLOBAL-AUDIT-POOL-GLOBAL-EVENT-LOCAL-SAME-KEY-DOES-NOT-SHADOW-GLOBAL",
+      "clause": "10.4.1.2.3",
+      "statement": {
+        "en": "A same-key binding in a local pool does not replace the global lookup target.",
+        "ja": "local poolの同名keyの束縛はglobal照会の対象を置換しない。"
+      },
+      "conditions": {
+        "en": "Use the same string key in the singleton and an independently constructed local pool.",
+        "ja": "singletonと独立に生成したlocal poolで同じ文字列keyを使う。"
+      },
+      "expected": {
+        "en": "The linked static-admission, identity, live-state or bounded-wait observations match.",
+        "ja": "対応する静的受理、同一性、生きた状態、有限の待機の観測が一致する。"
+      },
+      "limitations": {
+        "en": "The printed dedicated get_global signature returns a pool, whereas the prose and generic get_global refer to an item. Operational item-typed inputs retain the prose interpretation; neither premise is replaced by a control pass. Global keys are explicitly populated before static calls; absent-key static semantics, initial pool contents and general concurrency remain unproven. ",
+        "ja": "専用get_globalの印刷signatureはpool、本文とgeneric get_globalはitemを返す。動作を調べるitem型入力は本文の解釈を保持し、controlのpassでどちらの前提も置換しない。静的呼出し前にglobal keyを明示的に用意し、存在しないkeyの静的動作、pool初期内容、全並行条件は未立証に保つ。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_pool_global_event_local_same_key_does_not_shadow_global",
+          "role": "direct",
+          "expected_observations": [
+            "UT: event_local_shadow global 1 local 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-GLOBAL-AUDIT-POOL-GLOBAL-EVENT-SHARED-STATE-FLOWS-BETWEEN-STATIC-AND-INSTANCE-VIEWS",
+      "clause": "10.4.1.2.3",
+      "statement": {
+        "en": "Static and instance global views expose the same live item state.",
+        "ja": "静的global viewとinstance global viewは同じ生きたitem状態を公開する。"
+      },
+      "conditions": {
+        "en": "Mutate through one returned handle and observe through the original/global view, then repeat.",
+        "ja": "返却handleを通して変更して元のglobal viewから観測し、もう一度観測する。"
+      },
+      "expected": {
+        "en": "The linked static-admission, identity, live-state or bounded-wait observations match.",
+        "ja": "対応する静的受理、同一性、生きた状態、有限の待機の観測が一致する。"
+      },
+      "limitations": {
+        "en": "The printed dedicated get_global signature returns a pool, whereas the prose and generic get_global refer to an item. Operational item-typed inputs retain the prose interpretation; neither premise is replaced by a control pass. Global keys are explicitly populated before static calls; absent-key static semantics, initial pool contents and general concurrency remain unproven. ",
+        "ja": "専用get_globalの印刷signatureはpool、本文とgeneric get_globalはitemを返す。動作を調べるitem型入力は本文の解釈を保持し、controlのpassでどちらの前提も置換しない。静的呼出し前にglobal keyを明示的に用意し、存在しないkeyの静的動作、pool初期内容、全並行条件は未立証に保つ。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_pool_global_event_shared_state_flows_between_static_and_instance_views",
+          "role": "direct",
+          "expected_observations": [
+            "UT: event_shared_state instance 1",
+            "UT: event_shared_state subsequent 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-GLOBAL-AUDIT-POOL-GLOBAL-EVENT-REPLACEMENT-BINDING-KEEPS-OLD-REFERENCE-INDEPENDENT",
+      "clause": "10.4.1.2.3",
+      "statement": {
+        "en": "After explicit replacement, global lookup returns the new bound item.",
+        "ja": "明示置換後のglobal照会は新しく束縛したitemを返す。"
+      },
+      "conditions": {
+        "en": "Retain a reference to the old item while add overwrites its key with a fresh item.",
+        "ja": "addでkeyを新しいitemへ上書きする間、元のitemへの参照を保持する。"
+      },
+      "expected": {
+        "en": "The linked static-admission, identity, live-state or bounded-wait observations match.",
+        "ja": "対応する静的受理、同一性、生きた状態、有限の待機の観測が一致する。"
+      },
+      "limitations": {
+        "en": "The printed dedicated get_global signature returns a pool, whereas the prose and generic get_global refer to an item. Operational item-typed inputs retain the prose interpretation; neither premise is replaced by a control pass. Global keys are explicitly populated before static calls; absent-key static semantics, initial pool contents and general concurrency remain unproven. ",
+        "ja": "専用get_globalの印刷signatureはpool、本文とgeneric get_globalはitemを返す。動作を調べるitem型入力は本文の解釈を保持し、controlのpassでどちらの前提も置換しない。静的呼出し前にglobal keyを明示的に用意し、存在しないkeyの静的動作、pool初期内容、全並行条件は未立証に保つ。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_pool_global_event_replacement_binding_keeps_old_reference_independent",
+          "role": "direct",
+          "expected_observations": [
+            "UT: event_replacement selected 1 old 1 fresh 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-GLOBAL-AUDIT-POOL-GLOBAL-EVENT-DELETING-OTHER-KEY-PRESERVES-SELECTED-LOOKUP",
+      "clause": "10.4.1.2.3",
+      "statement": {
+        "en": "Deleting another global key leaves the selected existing key lookup intact.",
+        "ja": "別のglobal keyを削除しても選択した既存keyの照会を保持する。"
+      },
+      "conditions": {
+        "en": "Delete only the peer key; query the separately bound selected key.",
+        "ja": "peer keyだけを削除し、別に束縛した選択keyを照会する。"
+      },
+      "expected": {
+        "en": "The linked static-admission, identity, live-state or bounded-wait observations match.",
+        "ja": "対応する静的受理、同一性、生きた状態、有限の待機の観測が一致する。"
+      },
+      "limitations": {
+        "en": "The printed dedicated get_global signature returns a pool, whereas the prose and generic get_global refer to an item. Operational item-typed inputs retain the prose interpretation; neither premise is replaced by a control pass. Global keys are explicitly populated before static calls; absent-key static semantics, initial pool contents and general concurrency remain unproven. ",
+        "ja": "専用get_globalの印刷signatureはpool、本文とgeneric get_globalはitemを返す。動作を調べるitem型入力は本文の解釈を保持し、controlのpassでどちらの前提も置換しない。静的呼出し前にglobal keyを明示的に用意し、存在しないkeyの静的動作、pool初期内容、全並行条件は未立証に保つ。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_pool_global_event_deleting_other_key_preserves_selected_lookup",
+          "role": "direct",
+          "expected_observations": [
+            "UT: event_delete_peer identity 1 peer_absent 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-GLOBAL-AUDIT-POOL-GLOBAL-EVENT-EXPLICIT-RECREATION-AFTER-DELETE-USES-NEW-BINDING",
+      "clause": "10.4.1.2.3",
+      "statement": {
+        "en": "Global lookup follows an explicitly recreated binding after deletion.",
+        "ja": "global照会は削除後に明示的に作り直した束縛へ追従する。"
+      },
+      "conditions": {
+        "en": "Delete the key, recreate it through dedicated instance get, then use static lookup.",
+        "ja": "keyを削除し、専用instance getで作り直してから静的照会する。"
+      },
+      "expected": {
+        "en": "The linked static-admission, identity, live-state or bounded-wait observations match.",
+        "ja": "対応する静的受理、同一性、生きた状態、有限の待機の観測が一致する。"
+      },
+      "limitations": {
+        "en": "The printed dedicated get_global signature returns a pool, whereas the prose and generic get_global refer to an item. Operational item-typed inputs retain the prose interpretation; neither premise is replaced by a control pass. Global keys are explicitly populated before static calls; absent-key static semantics, initial pool contents and general concurrency remain unproven. No absent-key static get_global behavior is inferred from this explicitly recreated case.",
+        "ja": "専用get_globalの印刷signatureはpool、本文とgeneric get_globalはitemを返す。動作を調べるitem型入力は本文の解釈を保持し、controlのpassでどちらの前提も置換しない。静的呼出し前にglobal keyを明示的に用意し、存在しないkeyの静的動作、pool初期内容、全並行条件は未立証に保つ。この明示再作成のケースから、存在しないkeyの静的get_global動作を推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_pool_global_event_explicit_recreation_after_delete_uses_new_binding",
+          "role": "direct",
+          "expected_observations": [
+            "UT: event_recreation selected 1 distinct 1 old 1 fresh 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-GLOBAL-AUDIT-POOL-GLOBAL-EVENT-EXPLICIT-ALIAS-KEYS-PRESERVE-SHARED-ITEM-STATE",
+      "clause": "10.4.1.2.3",
+      "statement": {
+        "en": "Two keys explicitly bound to one item return that same shared item.",
+        "ja": "同じitemへ明示束縛した2 keyは、その共有itemを返す。"
+      },
+      "conditions": {
+        "en": "Use add to bind the same caller-supplied handle under two distinct global keys.",
+        "ja": "同じ呼出し側handleをaddで別々のglobal keyへ束縛する。"
+      },
+      "expected": {
+        "en": "The linked static-admission, identity, live-state or bounded-wait observations match.",
+        "ja": "対応する静的受理、同一性、生きた状態、有限の待機の観測が一致する。"
+      },
+      "limitations": {
+        "en": "The printed dedicated get_global signature returns a pool, whereas the prose and generic get_global refer to an item. Operational item-typed inputs retain the prose interpretation; neither premise is replaced by a control pass. Global keys are explicitly populated before static calls; absent-key static semantics, initial pool contents and general concurrency remain unproven. ",
+        "ja": "専用get_globalの印刷signatureはpool、本文とgeneric get_globalはitemを返す。動作を調べるitem型入力は本文の解釈を保持し、controlのpassでどちらの前提も置換しない。静的呼出し前にglobal keyを明示的に用意し、存在しないkeyの静的動作、pool初期内容、全並行条件は未立証に保つ。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_pool_global_event_explicit_alias_keys_preserve_shared_item_state",
+          "role": "direct",
+          "expected_observations": [
+            "UT: event_alias identity 1 state 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-GLOBAL-AUDIT-POOL-GLOBAL-EVENT-ITEM-RENAME-KEEPS-THE-ORIGINAL-KEY-BINDING",
+      "clause": "10.4.1.2.3",
+      "statement": {
+        "en": "Renaming a bound item preserves its exact-key global lookup.",
+        "ja": "束縛itemの改名後も正確なkeyによるglobal照会を保持する。"
+      },
+      "conditions": {
+        "en": "Keep the binding key unchanged while changing the supplied item object name.",
+        "ja": "指定itemのobject名を変える間も束縛keyは変えない。"
+      },
+      "expected": {
+        "en": "The linked static-admission, identity, live-state or bounded-wait observations match.",
+        "ja": "対応する静的受理、同一性、生きた状態、有限の待機の観測が一致する。"
+      },
+      "limitations": {
+        "en": "The printed dedicated get_global signature returns a pool, whereas the prose and generic get_global refer to an item. Operational item-typed inputs retain the prose interpretation; neither premise is replaced by a control pass. Global keys are explicitly populated before static calls; absent-key static semantics, initial pool contents and general concurrency remain unproven. ",
+        "ja": "専用get_globalの印刷signatureはpool、本文とgeneric get_globalはitemを返す。動作を調べるitem型入力は本文の解釈を保持し、controlのpassでどちらの前提も置換しない。静的呼出し前にglobal keyを明示的に用意し、存在しないkeyの静的動作、pool初期内容、全並行条件は未立証に保つ。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_pool_global_event_item_rename_keeps_the_original_key_binding",
+          "role": "direct",
+          "expected_observations": [
+            "UT: event_rename identity 1 current_name 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-GLOBAL-AUDIT-POOL-GLOBAL-EVENT-STRING-KEYS-ARE-LITERAL-AND-INCLUDE-EMPTY",
+      "clause": "10.4.1.2.3",
+      "statement": {
+        "en": "Global lookup treats supplied string keys literally, including the empty key.",
+        "ja": "global照会は空keyを含め、指定した文字列keyを字面どおり扱う。"
+      },
+      "conditions": {
+        "en": "Explicitly bind empty, dotted/wildcard-looking and neighboring string keys to distinct items.",
+        "ja": "空、dot／wildcardに見えるkey、その隣接文字列を別々のitemへ明示束縛する。"
+      },
+      "expected": {
+        "en": "The linked static-admission, identity, live-state or bounded-wait observations match.",
+        "ja": "対応する静的受理、同一性、生きた状態、有限の待機の観測が一致する。"
+      },
+      "limitations": {
+        "en": "The printed dedicated get_global signature returns a pool, whereas the prose and generic get_global refer to an item. Operational item-typed inputs retain the prose interpretation; neither premise is replaced by a control pass. Global keys are explicitly populated before static calls; absent-key static semantics, initial pool contents and general concurrency remain unproven. ",
+        "ja": "専用get_globalの印刷signatureはpool、本文とgeneric get_globalはitemを返す。動作を調べるitem型入力は本文の解釈を保持し、controlのpassでどちらの前提も置換しない。静的呼出し前にglobal keyを明示的に用意し、存在しないkeyの静的動作、pool初期内容、全並行条件は未立証に保つ。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_pool_global_event_string_keys_are_literal_and_include_empty",
+          "role": "direct",
+          "expected_observations": [
+            "UT: event_literal_keys empty 1 star 1 neighbor 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-GLOBAL-AUDIT-POOL-GLOBAL-EVENT-RETURNED-HANDLE-SHARES-REAL-SYNCHRONIZATION",
+      "clause": "10.4.1.2.3",
+      "statement": {
+        "en": "The globally returned item participates in synchronization with its stored reference.",
+        "ja": "globalから返すitemは格納した参照と同じ同期に参加する。"
+      },
+      "conditions": {
+        "en": "Start a static-handle waiter at time two, inspect it at four and release via the stored handle at five.",
+        "ja": "静的handleのwaiterを時刻2に開始し、4に観測し、格納したhandleを通して5に解除する。"
+      },
+      "expected": {
+        "en": "The linked static-admission, identity, live-state or bounded-wait observations match.",
+        "ja": "対応する静的受理、同一性、生きた状態、有限の待機の観測が一致する。"
+      },
+      "limitations": {
+        "en": "The printed dedicated get_global signature returns a pool, whereas the prose and generic get_global refer to an item. Operational item-typed inputs retain the prose interpretation; neither premise is replaced by a control pass. Global keys are explicitly populated before static calls; absent-key static semantics, initial pool contents and general concurrency remain unproven. Only one event waiter or two barrier arrivals are checked. A watchdog bounds failures; no same-time process order or general concurrency completeness is assumed.",
+        "ja": "専用get_globalの印刷signatureはpool、本文とgeneric get_globalはitemを返す。動作を調べるitem型入力は本文の解釈を保持し、controlのpassでどちらの前提も置換しない。静的呼出し前にglobal keyを明示的に用意し、存在しないkeyの静的動作、pool初期内容、全並行条件は未立証に保つ。event waiter 1つまたはbarrier到着2つだけを検査する。watchdogで失敗を有限にし、同時刻の実行順や全並行条件の完全性は仮定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_pool_global_event_returned_handle_shares_real_synchronization",
+          "role": "direct",
+          "expected_observations": [
+            "UT: event_global_wait before 1",
+            "UT: event_global_wait returned 1 at 5"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-GLOBAL-AUDIT-POOL-GLOBAL-BARRIER-PRINTED-POOL-RETURN-TYPE",
+      "clause": "10.4.2.2.3",
+      "statement": {
+        "en": "Under the printed signature, get_global admits an exact pool-typed receiver.",
+        "ja": "印刷signatureの前提ではget_globalを正確なpool型receiverへ代入できる。"
+      },
+      "conditions": {
+        "en": "Use the literal printed return type at an actual call; the stored key exists.",
+        "ja": "実際の呼出しに印刷された返却型を使い、対象keyは事前に登録する。"
+      },
+      "expected": {
+        "en": "The linked static-admission, identity, live-state or bounded-wait observations match.",
+        "ja": "対応する静的受理、同一性、生きた状態、有限の待機の観測が一致する。"
+      },
+      "limitations": {
+        "en": "The printed dedicated get_global signature returns a pool, whereas the prose and generic get_global refer to an item. Operational item-typed inputs retain the prose interpretation; neither premise is replaced by a control pass. Global keys are explicitly populated before static calls; absent-key static semantics, initial pool contents and general concurrency remain unproven. The signature says pool but prose says item. The runtime marker only witnesses static admission; no returned value is prescribed. A matching item-typed control does not resolve this conflict.",
+        "ja": "専用get_globalの印刷signatureはpool、本文とgeneric get_globalはitemを返す。動作を調べるitem型入力は本文の解釈を保持し、controlのpassでどちらの前提も置換しない。静的呼出し前にglobal keyを明示的に用意し、存在しないkeyの静的動作、pool初期内容、全並行条件は未立証に保つ。signatureはpool、本文はitemを返すと記す。runtimeのmarkerは静的型の受理だけを示し、返却値を規定しない。item型controlの一致で食違いを解決しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_pool_global_barrier_printed_pool_return_type",
+          "role": "direct",
+          "expected_observations": [
+            "UT: barrier_printed_pool_type admitted 1"
+          ]
+        },
+        {
+          "test": "u10/test_pool_global_barrier_explicitly_added_item_identity",
+          "role": "control",
+          "expected_observations": [
+            "UT: barrier_added_item identity 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-GLOBAL-AUDIT-POOL-GLOBAL-BARRIER-EXPLICITLY-ADDED-ITEM-IDENTITY",
+      "clause": "10.4.2.2.3",
+      "statement": {
+        "en": "Under the item-return prose, global lookup returns the explicitly added item.",
+        "ja": "itemを返す本文の前提ではglobal照会は明示addしたitemを返す。"
+      },
+      "conditions": {
+        "en": "Seed the singleton through add, then use an item-typed static lookup.",
+        "ja": "singletonへaddしてから、item型の静的照会を使う。"
+      },
+      "expected": {
+        "en": "The linked static-admission, identity, live-state or bounded-wait observations match.",
+        "ja": "対応する静的受理、同一性、生きた状態、有限の待機の観測が一致する。"
+      },
+      "limitations": {
+        "en": "The printed dedicated get_global signature returns a pool, whereas the prose and generic get_global refer to an item. Operational item-typed inputs retain the prose interpretation; neither premise is replaced by a control pass. Global keys are explicitly populated before static calls; absent-key static semantics, initial pool contents and general concurrency remain unproven. ",
+        "ja": "専用get_globalの印刷signatureはpool、本文とgeneric get_globalはitemを返す。動作を調べるitem型入力は本文の解釈を保持し、controlのpassでどちらの前提も置換しない。静的呼出し前にglobal keyを明示的に用意し、存在しないkeyの静的動作、pool初期内容、全並行条件は未立証に保つ。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_pool_global_barrier_explicitly_added_item_identity",
+          "role": "direct",
+          "expected_observations": [
+            "UT: barrier_added_item identity 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-GLOBAL-AUDIT-POOL-GLOBAL-BARRIER-INSTANCE-GET-SEEDED-ITEM-IDENTITY",
+      "clause": "10.4.2.2.3",
+      "statement": {
+        "en": "Under the item-return prose, static lookup shares a key populated by instance get.",
+        "ja": "itemを返す本文の前提では静的照会はinstance getで用意したkeyを共有する。"
+      },
+      "conditions": {
+        "en": "Explicitly populate the key through the dedicated global instance get before the static call.",
+        "ja": "静的呼出しの前に、専用global instanceのgetでkeyを明示的に用意する。"
+      },
+      "expected": {
+        "en": "The linked static-admission, identity, live-state or bounded-wait observations match.",
+        "ja": "対応する静的受理、同一性、生きた状態、有限の待機の観測が一致する。"
+      },
+      "limitations": {
+        "en": "The printed dedicated get_global signature returns a pool, whereas the prose and generic get_global refer to an item. Operational item-typed inputs retain the prose interpretation; neither premise is replaced by a control pass. Global keys are explicitly populated before static calls; absent-key static semantics, initial pool contents and general concurrency remain unproven. ",
+        "ja": "専用get_globalの印刷signatureはpool、本文とgeneric get_globalはitemを返す。動作を調べるitem型入力は本文の解釈を保持し、controlのpassでどちらの前提も置換しない。静的呼出し前にglobal keyを明示的に用意し、存在しないkeyの静的動作、pool初期内容、全並行条件は未立証に保つ。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_pool_global_barrier_instance_get_seeded_item_identity",
+          "role": "direct",
+          "expected_observations": [
+            "UT: barrier_get_seed nonnull 1 identity 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-GLOBAL-AUDIT-POOL-GLOBAL-BARRIER-REPEATED-CALLS-PRESERVE-EXISTING-IDENTITY",
+      "clause": "10.4.2.2.3",
+      "statement": {
+        "en": "Repeated global lookup of an existing key preserves the stored item identity.",
+        "ja": "存在するkeyの反復global照会は格納したitemの同一性を保持する。"
+      },
+      "conditions": {
+        "en": "Perform two static lookups after one explicit binding without rebinding.",
+        "ja": "1回の明示束縛後、再束縛せずに静的照会を2回行う。"
+      },
+      "expected": {
+        "en": "The linked static-admission, identity, live-state or bounded-wait observations match.",
+        "ja": "対応する静的受理、同一性、生きた状態、有限の待機の観測が一致する。"
+      },
+      "limitations": {
+        "en": "The printed dedicated get_global signature returns a pool, whereas the prose and generic get_global refer to an item. Operational item-typed inputs retain the prose interpretation; neither premise is replaced by a control pass. Global keys are explicitly populated before static calls; absent-key static semantics, initial pool contents and general concurrency remain unproven. ",
+        "ja": "専用get_globalの印刷signatureはpool、本文とgeneric get_globalはitemを返す。動作を調べるitem型入力は本文の解釈を保持し、controlのpassでどちらの前提も置換しない。静的呼出し前にglobal keyを明示的に用意し、存在しないkeyの静的動作、pool初期内容、全並行条件は未立証に保つ。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_pool_global_barrier_repeated_calls_preserve_existing_identity",
+          "role": "direct",
+          "expected_observations": [
+            "UT: barrier_repeated first 1 repeated 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-GLOBAL-AUDIT-POOL-GLOBAL-BARRIER-DISTINCT-KEYS-SELECT-DISTINCT-BOUND-ITEMS",
+      "clause": "10.4.2.2.3",
+      "statement": {
+        "en": "Global lookup selects the supplied item independently for each exact key.",
+        "ja": "global照会は正確な各keyに対応する指定itemを独立に選択する。"
+      },
+      "conditions": {
+        "en": "Explicitly bind two different items under two different global keys.",
+        "ja": "異なるglobal key 2つへ異なるitem 2個を明示束縛する。"
+      },
+      "expected": {
+        "en": "The linked static-admission, identity, live-state or bounded-wait observations match.",
+        "ja": "対応する静的受理、同一性、生きた状態、有限の待機の観測が一致する。"
+      },
+      "limitations": {
+        "en": "The printed dedicated get_global signature returns a pool, whereas the prose and generic get_global refer to an item. Operational item-typed inputs retain the prose interpretation; neither premise is replaced by a control pass. Global keys are explicitly populated before static calls; absent-key static semantics, initial pool contents and general concurrency remain unproven. ",
+        "ja": "専用get_globalの印刷signatureはpool、本文とgeneric get_globalはitemを返す。動作を調べるitem型入力は本文の解釈を保持し、controlのpassでどちらの前提も置換しない。静的呼出し前にglobal keyを明示的に用意し、存在しないkeyの静的動作、pool初期内容、全並行条件は未立証に保つ。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_pool_global_barrier_distinct_keys_select_distinct_bound_items",
+          "role": "direct",
+          "expected_observations": [
+            "UT: barrier_distinct selected 1 peer 1 independent 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-GLOBAL-AUDIT-POOL-GLOBAL-BARRIER-LOCAL-SAME-KEY-DOES-NOT-SHADOW-GLOBAL",
+      "clause": "10.4.2.2.3",
+      "statement": {
+        "en": "A same-key binding in a local pool does not replace the global lookup target.",
+        "ja": "local poolの同名keyの束縛はglobal照会の対象を置換しない。"
+      },
+      "conditions": {
+        "en": "Use the same string key in the singleton and an independently constructed local pool.",
+        "ja": "singletonと独立に生成したlocal poolで同じ文字列keyを使う。"
+      },
+      "expected": {
+        "en": "The linked static-admission, identity, live-state or bounded-wait observations match.",
+        "ja": "対応する静的受理、同一性、生きた状態、有限の待機の観測が一致する。"
+      },
+      "limitations": {
+        "en": "The printed dedicated get_global signature returns a pool, whereas the prose and generic get_global refer to an item. Operational item-typed inputs retain the prose interpretation; neither premise is replaced by a control pass. Global keys are explicitly populated before static calls; absent-key static semantics, initial pool contents and general concurrency remain unproven. ",
+        "ja": "専用get_globalの印刷signatureはpool、本文とgeneric get_globalはitemを返す。動作を調べるitem型入力は本文の解釈を保持し、controlのpassでどちらの前提も置換しない。静的呼出し前にglobal keyを明示的に用意し、存在しないkeyの静的動作、pool初期内容、全並行条件は未立証に保つ。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_pool_global_barrier_local_same_key_does_not_shadow_global",
+          "role": "direct",
+          "expected_observations": [
+            "UT: barrier_local_shadow global 1 local 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-GLOBAL-AUDIT-POOL-GLOBAL-BARRIER-SHARED-STATE-FLOWS-BETWEEN-STATIC-AND-INSTANCE-VIEWS",
+      "clause": "10.4.2.2.3",
+      "statement": {
+        "en": "Static and instance global views expose the same live item state.",
+        "ja": "静的global viewとinstance global viewは同じ生きたitem状態を公開する。"
+      },
+      "conditions": {
+        "en": "Mutate through one returned handle and observe through the original/global view, then repeat.",
+        "ja": "返却handleを通して変更して元のglobal viewから観測し、もう一度観測する。"
+      },
+      "expected": {
+        "en": "The linked static-admission, identity, live-state or bounded-wait observations match.",
+        "ja": "対応する静的受理、同一性、生きた状態、有限の待機の観測が一致する。"
+      },
+      "limitations": {
+        "en": "The printed dedicated get_global signature returns a pool, whereas the prose and generic get_global refer to an item. Operational item-typed inputs retain the prose interpretation; neither premise is replaced by a control pass. Global keys are explicitly populated before static calls; absent-key static semantics, initial pool contents and general concurrency remain unproven. ",
+        "ja": "専用get_globalの印刷signatureはpool、本文とgeneric get_globalはitemを返す。動作を調べるitem型入力は本文の解釈を保持し、controlのpassでどちらの前提も置換しない。静的呼出し前にglobal keyを明示的に用意し、存在しないkeyの静的動作、pool初期内容、全並行条件は未立証に保つ。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_pool_global_barrier_shared_state_flows_between_static_and_instance_views",
+          "role": "direct",
+          "expected_observations": [
+            "UT: barrier_shared_state instance 7",
+            "UT: barrier_shared_state subsequent 3"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-GLOBAL-AUDIT-POOL-GLOBAL-BARRIER-REPLACEMENT-BINDING-KEEPS-OLD-REFERENCE-INDEPENDENT",
+      "clause": "10.4.2.2.3",
+      "statement": {
+        "en": "After explicit replacement, global lookup returns the new bound item.",
+        "ja": "明示置換後のglobal照会は新しく束縛したitemを返す。"
+      },
+      "conditions": {
+        "en": "Retain a reference to the old item while add overwrites its key with a fresh item.",
+        "ja": "addでkeyを新しいitemへ上書きする間、元のitemへの参照を保持する。"
+      },
+      "expected": {
+        "en": "The linked static-admission, identity, live-state or bounded-wait observations match.",
+        "ja": "対応する静的受理、同一性、生きた状態、有限の待機の観測が一致する。"
+      },
+      "limitations": {
+        "en": "The printed dedicated get_global signature returns a pool, whereas the prose and generic get_global refer to an item. Operational item-typed inputs retain the prose interpretation; neither premise is replaced by a control pass. Global keys are explicitly populated before static calls; absent-key static semantics, initial pool contents and general concurrency remain unproven. ",
+        "ja": "専用get_globalの印刷signatureはpool、本文とgeneric get_globalはitemを返す。動作を調べるitem型入力は本文の解釈を保持し、controlのpassでどちらの前提も置換しない。静的呼出し前にglobal keyを明示的に用意し、存在しないkeyの静的動作、pool初期内容、全並行条件は未立証に保つ。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_pool_global_barrier_replacement_binding_keeps_old_reference_independent",
+          "role": "direct",
+          "expected_observations": [
+            "UT: barrier_replacement selected 1 old 7 fresh 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-GLOBAL-AUDIT-POOL-GLOBAL-BARRIER-DELETING-OTHER-KEY-PRESERVES-SELECTED-LOOKUP",
+      "clause": "10.4.2.2.3",
+      "statement": {
+        "en": "Deleting another global key leaves the selected existing key lookup intact.",
+        "ja": "別のglobal keyを削除しても選択した既存keyの照会を保持する。"
+      },
+      "conditions": {
+        "en": "Delete only the peer key; query the separately bound selected key.",
+        "ja": "peer keyだけを削除し、別に束縛した選択keyを照会する。"
+      },
+      "expected": {
+        "en": "The linked static-admission, identity, live-state or bounded-wait observations match.",
+        "ja": "対応する静的受理、同一性、生きた状態、有限の待機の観測が一致する。"
+      },
+      "limitations": {
+        "en": "The printed dedicated get_global signature returns a pool, whereas the prose and generic get_global refer to an item. Operational item-typed inputs retain the prose interpretation; neither premise is replaced by a control pass. Global keys are explicitly populated before static calls; absent-key static semantics, initial pool contents and general concurrency remain unproven. ",
+        "ja": "専用get_globalの印刷signatureはpool、本文とgeneric get_globalはitemを返す。動作を調べるitem型入力は本文の解釈を保持し、controlのpassでどちらの前提も置換しない。静的呼出し前にglobal keyを明示的に用意し、存在しないkeyの静的動作、pool初期内容、全並行条件は未立証に保つ。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_pool_global_barrier_deleting_other_key_preserves_selected_lookup",
+          "role": "direct",
+          "expected_observations": [
+            "UT: barrier_delete_peer identity 1 peer_absent 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-GLOBAL-AUDIT-POOL-GLOBAL-BARRIER-EXPLICIT-RECREATION-AFTER-DELETE-USES-NEW-BINDING",
+      "clause": "10.4.2.2.3",
+      "statement": {
+        "en": "Global lookup follows an explicitly recreated binding after deletion.",
+        "ja": "global照会は削除後に明示的に作り直した束縛へ追従する。"
+      },
+      "conditions": {
+        "en": "Delete the key, recreate it through dedicated instance get, then use static lookup.",
+        "ja": "keyを削除し、専用instance getで作り直してから静的照会する。"
+      },
+      "expected": {
+        "en": "The linked static-admission, identity, live-state or bounded-wait observations match.",
+        "ja": "対応する静的受理、同一性、生きた状態、有限の待機の観測が一致する。"
+      },
+      "limitations": {
+        "en": "The printed dedicated get_global signature returns a pool, whereas the prose and generic get_global refer to an item. Operational item-typed inputs retain the prose interpretation; neither premise is replaced by a control pass. Global keys are explicitly populated before static calls; absent-key static semantics, initial pool contents and general concurrency remain unproven. No absent-key static get_global behavior is inferred from this explicitly recreated case.",
+        "ja": "専用get_globalの印刷signatureはpool、本文とgeneric get_globalはitemを返す。動作を調べるitem型入力は本文の解釈を保持し、controlのpassでどちらの前提も置換しない。静的呼出し前にglobal keyを明示的に用意し、存在しないkeyの静的動作、pool初期内容、全並行条件は未立証に保つ。この明示再作成のケースから、存在しないkeyの静的get_global動作を推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_pool_global_barrier_explicit_recreation_after_delete_uses_new_binding",
+          "role": "direct",
+          "expected_observations": [
+            "UT: barrier_recreation selected 1 distinct 1 old 7 fresh 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-GLOBAL-AUDIT-POOL-GLOBAL-BARRIER-EXPLICIT-ALIAS-KEYS-PRESERVE-SHARED-ITEM-STATE",
+      "clause": "10.4.2.2.3",
+      "statement": {
+        "en": "Two keys explicitly bound to one item return that same shared item.",
+        "ja": "同じitemへ明示束縛した2 keyは、その共有itemを返す。"
+      },
+      "conditions": {
+        "en": "Use add to bind the same caller-supplied handle under two distinct global keys.",
+        "ja": "同じ呼出し側handleをaddで別々のglobal keyへ束縛する。"
+      },
+      "expected": {
+        "en": "The linked static-admission, identity, live-state or bounded-wait observations match.",
+        "ja": "対応する静的受理、同一性、生きた状態、有限の待機の観測が一致する。"
+      },
+      "limitations": {
+        "en": "The printed dedicated get_global signature returns a pool, whereas the prose and generic get_global refer to an item. Operational item-typed inputs retain the prose interpretation; neither premise is replaced by a control pass. Global keys are explicitly populated before static calls; absent-key static semantics, initial pool contents and general concurrency remain unproven. ",
+        "ja": "専用get_globalの印刷signatureはpool、本文とgeneric get_globalはitemを返す。動作を調べるitem型入力は本文の解釈を保持し、controlのpassでどちらの前提も置換しない。静的呼出し前にglobal keyを明示的に用意し、存在しないkeyの静的動作、pool初期内容、全並行条件は未立証に保つ。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_pool_global_barrier_explicit_alias_keys_preserve_shared_item_state",
+          "role": "direct",
+          "expected_observations": [
+            "UT: barrier_alias identity 1 state 7"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-GLOBAL-AUDIT-POOL-GLOBAL-BARRIER-ITEM-RENAME-KEEPS-THE-ORIGINAL-KEY-BINDING",
+      "clause": "10.4.2.2.3",
+      "statement": {
+        "en": "Renaming a bound item preserves its exact-key global lookup.",
+        "ja": "束縛itemの改名後も正確なkeyによるglobal照会を保持する。"
+      },
+      "conditions": {
+        "en": "Keep the binding key unchanged while changing the supplied item object name.",
+        "ja": "指定itemのobject名を変える間も束縛keyは変えない。"
+      },
+      "expected": {
+        "en": "The linked static-admission, identity, live-state or bounded-wait observations match.",
+        "ja": "対応する静的受理、同一性、生きた状態、有限の待機の観測が一致する。"
+      },
+      "limitations": {
+        "en": "The printed dedicated get_global signature returns a pool, whereas the prose and generic get_global refer to an item. Operational item-typed inputs retain the prose interpretation; neither premise is replaced by a control pass. Global keys are explicitly populated before static calls; absent-key static semantics, initial pool contents and general concurrency remain unproven. ",
+        "ja": "専用get_globalの印刷signatureはpool、本文とgeneric get_globalはitemを返す。動作を調べるitem型入力は本文の解釈を保持し、controlのpassでどちらの前提も置換しない。静的呼出し前にglobal keyを明示的に用意し、存在しないkeyの静的動作、pool初期内容、全並行条件は未立証に保つ。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_pool_global_barrier_item_rename_keeps_the_original_key_binding",
+          "role": "direct",
+          "expected_observations": [
+            "UT: barrier_rename identity 1 current_name 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-GLOBAL-AUDIT-POOL-GLOBAL-BARRIER-STRING-KEYS-ARE-LITERAL-AND-INCLUDE-EMPTY",
+      "clause": "10.4.2.2.3",
+      "statement": {
+        "en": "Global lookup treats supplied string keys literally, including the empty key.",
+        "ja": "global照会は空keyを含め、指定した文字列keyを字面どおり扱う。"
+      },
+      "conditions": {
+        "en": "Explicitly bind empty, dotted/wildcard-looking and neighboring string keys to distinct items.",
+        "ja": "空、dot／wildcardに見えるkey、その隣接文字列を別々のitemへ明示束縛する。"
+      },
+      "expected": {
+        "en": "The linked static-admission, identity, live-state or bounded-wait observations match.",
+        "ja": "対応する静的受理、同一性、生きた状態、有限の待機の観測が一致する。"
+      },
+      "limitations": {
+        "en": "The printed dedicated get_global signature returns a pool, whereas the prose and generic get_global refer to an item. Operational item-typed inputs retain the prose interpretation; neither premise is replaced by a control pass. Global keys are explicitly populated before static calls; absent-key static semantics, initial pool contents and general concurrency remain unproven. ",
+        "ja": "専用get_globalの印刷signatureはpool、本文とgeneric get_globalはitemを返す。動作を調べるitem型入力は本文の解釈を保持し、controlのpassでどちらの前提も置換しない。静的呼出し前にglobal keyを明示的に用意し、存在しないkeyの静的動作、pool初期内容、全並行条件は未立証に保つ。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_pool_global_barrier_string_keys_are_literal_and_include_empty",
+          "role": "direct",
+          "expected_observations": [
+            "UT: barrier_literal_keys empty 1 star 1 neighbor 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-GLOBAL-AUDIT-POOL-GLOBAL-BARRIER-RETURNED-HANDLE-SHARES-REAL-SYNCHRONIZATION",
+      "clause": "10.4.2.2.3",
+      "statement": {
+        "en": "The globally returned item participates in synchronization with its stored reference.",
+        "ja": "globalから返すitemは格納した参照と同じ同期に参加する。"
+      },
+      "conditions": {
+        "en": "Start a static-handle waiter at time two, inspect it at four and release via the stored handle at five.",
+        "ja": "静的handleのwaiterを時刻2に開始し、4に観測し、格納したhandleを通して5に解除する。"
+      },
+      "expected": {
+        "en": "The linked static-admission, identity, live-state or bounded-wait observations match.",
+        "ja": "対応する静的受理、同一性、生きた状態、有限の待機の観測が一致する。"
+      },
+      "limitations": {
+        "en": "The printed dedicated get_global signature returns a pool, whereas the prose and generic get_global refer to an item. Operational item-typed inputs retain the prose interpretation; neither premise is replaced by a control pass. Global keys are explicitly populated before static calls; absent-key static semantics, initial pool contents and general concurrency remain unproven. Only one event waiter or two barrier arrivals are checked. A watchdog bounds failures; no same-time process order or general concurrency completeness is assumed.",
+        "ja": "専用get_globalの印刷signatureはpool、本文とgeneric get_globalはitemを返す。動作を調べるitem型入力は本文の解釈を保持し、controlのpassでどちらの前提も置換しない。静的呼出し前にglobal keyを明示的に用意し、存在しないkeyの静的動作、pool初期内容、全並行条件は未立証に保つ。event waiter 1つまたはbarrier到着2つだけを検査する。watchdogで失敗を有限にし、同時刻の実行順や全並行条件の完全性は仮定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u10/test_pool_global_barrier_returned_handle_shares_real_synchronization",
+          "role": "direct",
+          "expected_observations": [
+            "UT: barrier_global_wait before 1",
+            "UT: barrier_global_wait returned 2 times 5/5"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-GLOBAL-AUDIT-VREG-FIELD-CTOR-OMITTED-BASE-NAME-VIA-FACTORY-SUBTYPE",
+      "clause": "18.10.2.1",
+      "statement": {
+        "en": "The actual virtual-field constructor preserves the selected omitted or explicit name form.",
+        "ja": "実際のvirtual field constructorは選択した名前の省略／明示形式を保持する。"
+      },
+      "conditions": {
+        "en": "Factory-create an original subtype whose constructor calls the actual base with the selected argument form.",
+        "ja": "実際の基底へ選択した引数形式で呼び出す独自派生型をfactoryで生成する。"
+      },
+      "expected": {
+        "en": "The linked static-admission, identity, live-state or bounded-wait observations match.",
+        "ja": "対応する静的受理、同一性、生きた状態、有限の待機の観測が一致する。"
+      },
+      "limitations": {
+        "en": "Only selected constructor/factory forms are checked, not field configuration or memory transfers. The captured public name is read immediately after super.new. No factory post-creation naming policy or arbitrary subclass behavior is inferred.",
+        "ja": "選択したconstructor／factory形式だけを検査し、field設定やmemory転送は検査しない。公開名をsuper.new直後に取得する。factoryの生成後の命名policyや任意の派生型の動作は推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_field_ctor_omitted_base_name_via_factory_subtype",
+          "role": "direct",
+          "expected_observations": [
+            "UT: field_ctor_omitted captured uvm_vreg_field identity 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-GLOBAL-AUDIT-VREG-FIELD-CTOR-EXPLICIT-BASE-NAME-VIA-FACTORY-SUBTYPE",
+      "clause": "18.10.2.1",
+      "statement": {
+        "en": "The actual virtual-field constructor preserves the selected omitted or explicit name form.",
+        "ja": "実際のvirtual field constructorは選択した名前の省略／明示形式を保持する。"
+      },
+      "conditions": {
+        "en": "Factory-create an original subtype whose constructor calls the actual base with the selected argument form.",
+        "ja": "実際の基底へ選択した引数形式で呼び出す独自派生型をfactoryで生成する。"
+      },
+      "expected": {
+        "en": "The linked static-admission, identity, live-state or bounded-wait observations match.",
+        "ja": "対応する静的受理、同一性、生きた状態、有限の待機の観測が一致する。"
+      },
+      "limitations": {
+        "en": "Only selected constructor/factory forms are checked, not field configuration or memory transfers. The captured public name is read immediately after super.new. No factory post-creation naming policy or arbitrary subclass behavior is inferred.",
+        "ja": "選択したconstructor／factory形式だけを検査し、field設定やmemory転送は検査しない。公開名をsuper.new直後に取得する。factoryの生成後の命名policyや任意の派生型の動作は推測しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_field_ctor_explicit_base_name_via_factory_subtype",
+          "role": "direct",
+          "expected_observations": [
+            "UT: field_ctor_explicit captured explicit_field71 identity 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-GLOBAL-AUDIT-VREG-FIELD-CTOR-FACTORY-SAME-NAME-CREATES-DISTINCT-INSTANCES",
+      "clause": "18.10.2.1",
+      "statement": {
+        "en": "Repeated builtin factory creation returns distinct virtual-field instances.",
+        "ja": "組み込みfactoryの反復生成は別々のvirtual field instanceを返す。"
+      },
+      "conditions": {
+        "en": "Use the builtin factory wrapper twice without overrides, with selected same/different explicit names.",
+        "ja": "overrideなしの組み込みfactory wrapperを2回使い、同じ／異なる明示名を選ぶ。"
+      },
+      "expected": {
+        "en": "The nonnull and distinct columns witness new instances; name values remain additional observations in the same row.",
+        "ja": "nonnullとdistinctの列で新しいinstanceを観測し、同じ行の名前の値は追加観測として保持する。"
+      },
+      "limitations": {
+        "en": "Only selected constructor/factory forms are checked, not field configuration or memory transfers.  One combined row does not create independent tests for its other columns.",
+        "ja": "選択したconstructor／factory形式だけを検査し、field設定やmemory転送は検査しない。 結合した1行の他の列を独立したテストに数えない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_field_ctor_factory_same_name_creates_distinct_instances",
+          "role": "direct",
+          "expected_observations": [
+            "UT: field_factory_same_name nonnull 1 distinct 1 names 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-GLOBAL-AUDIT-VREG-FIELD-CTOR-FACTORY-DIFFERENT-NAMES-CREATES-DISTINCT-INSTANCES",
+      "clause": "18.10.2.1",
+      "statement": {
+        "en": "Repeated builtin factory creation returns distinct virtual-field instances.",
+        "ja": "組み込みfactoryの反復生成は別々のvirtual field instanceを返す。"
+      },
+      "conditions": {
+        "en": "Use the builtin factory wrapper twice without overrides, with selected same/different explicit names.",
+        "ja": "overrideなしの組み込みfactory wrapperを2回使い、同じ／異なる明示名を選ぶ。"
+      },
+      "expected": {
+        "en": "The nonnull and distinct columns witness new instances; name values remain additional observations in the same row.",
+        "ja": "nonnullとdistinctの列で新しいinstanceを観測し、同じ行の名前の値は追加観測として保持する。"
+      },
+      "limitations": {
+        "en": "Only selected constructor/factory forms are checked, not field configuration or memory transfers.  One combined row does not create independent tests for its other columns.",
+        "ja": "選択したconstructor／factory形式だけを検査し、field設定やmemory転送は検査しない。 結合した1行の他の列を独立したテストに数えない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_field_ctor_factory_different_names_creates_distinct_instances",
+          "role": "direct",
+          "expected_observations": [
+            "UT: field_factory_different_names nonnull 1 distinct 1 names 1"
           ]
         }
       ]
