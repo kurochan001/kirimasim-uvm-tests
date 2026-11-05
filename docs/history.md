@@ -21,6 +21,8 @@ Use these entry points to trace why an area was added, and [the handoff prioriti
 - [Cross-milestone expansions](history.md#thin-area-expansion-across-m1m4)
 - [Traversal declarations and defaults](history.md#sixty-ninth-thin-area-expansion-traversal-declarations-and-defaults)
 
+Historical `out/` paths identify local artifacts that may no longer exist; [the handoff file guide](handoff.md#files-and-local-material) points to maintained tools for resuming work without those files.
+
 ## Ghost bundled-library measurements
 
 A bundled run uses the simulator-supplied UVM library, and [Q11](faq.md#q11-what-does-the-ghost-result-cover-and-why-an-alias) explains the execution condition behind these historical counts.

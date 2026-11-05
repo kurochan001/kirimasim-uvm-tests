@@ -9,8 +9,8 @@ IEEE 1800.2-2020のUniversal Verification Methodology（UVM）を対象にした
 [kirimasim](https://github.com/kurochan001/kirimasim)を対象とし、IEEE 1800-2023のSystemVerilog言語を検査する
 [kirimasim-tests](https://github.com/kurochan001/kirimasim-tests)と対になります。
 
-oracleは期待値の根拠を記録する項目で、以下に出てくるタグの意味は
-[用語集の「規格と期待値」](docs/glossary.ja.md#規格と期待値)で説明しています。
+oracleは期待値の根拠を記録し、`spec`は規格、`verilator@5.052`は固定リリースでの再現も示します。
+specのみの意味は[用語集の「規格と期待値」](docs/glossary.ja.md#規格と期待値)で説明しています。
 
 > **状態：M4を進行中。** 21の章・付録directoryに全2246件（simulation 2154件・elaboration 92件）があります。
 > oracle付きが1920件、specのみが326件です。

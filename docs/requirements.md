@@ -183,6 +183,8 @@ python3 tools/requirements.py sync --output out/test-index-proposal.json
 
 `sync` writes a proposal for review while preserving existing linked snapshots; [Q78](faq.md#q78-what-should-i-do-when-the-test-index-becomes-stale) explains how to resolve a stale index after changing a test.
 
+These commands inspect requirement mappings without running a simulator; to obtain a measured test status, use [the runner commands](testing.md#running-the-suite).
+
 `check` validates the canonical inputs and prints a summary. `inventory` also
 writes all identifier dispositions, decomposition states, primary/supporting
 citations, requirement links, review/oracle metadata, fingerprints and root totals.

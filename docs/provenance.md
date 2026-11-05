@@ -10,6 +10,8 @@ increment narratives are in [history](history.md).
 
 ## Relation to kirimasim-tests
 
+The standard identifies the rule being checked, while a fixed-release oracle records reproduction by an implementation; [the expectation guide](testing.md#where-the-expected-outputs-come-from) explains their different roles in this table.
+
 | | kirimasim-tests | kirimasim-uvm-tests |
 | --- | --- | --- |
 | Standard | IEEE 1800-2023 | IEEE 1800.2-2020, run by the language of 1800-2023 |

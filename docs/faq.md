@@ -372,6 +372,8 @@ through the public packer API avoid prescribing a binary stream encoding.
 
 ## Sequence libraries and macro controls
 
+A sequence library selects among registered sequence types; [the UVM glossary](glossary.md#uvm-building-blocks) introduces library membership and selection before the registration rules below.
+
 ### Q30. How do instance and typewide library registration differ?
 
 `add_sequence` and `add_sequences` affect one library. The static typewide
@@ -488,6 +490,8 @@ callback matches, the tests check traversal or the absence of calls without
 prescribing the enclosing function's no-match result or fallthrough policy.
 
 ## TLM implementation declaration macros
+
+An imp supplies the methods called through a TLM port or export; [the TLM glossary](glossary.md#transaction-level-communication) explains these connection roles before the generated method names below.
 
 ### Q39. What does the suffix of an imp declaration macro change?
 
@@ -690,6 +694,8 @@ caller array. The auto-predict case checks independent mode flags only;
 the frontdoor cases below additionally check its effect during bus-model reads and writes.
 
 ## Adapter, predictor and frontdoor paths
+
+An adapter converts register and bus operations, while a predictor updates model state from observed traffic; [the register glossary](glossary.md#register-model) explains how those roles relate to frontdoor access.
 
 ### Q51. What do the adapter and operation-descriptor cases check?
 
@@ -1481,6 +1487,8 @@ protocols, HDL DPI, bursts or every callback combination.
 
 ## Event/barrier synchronization and timed transport histories
 
+An event notifies waiters, while a barrier waits for a participant threshold; [the synchronization glossary](glossary.md#synchronization-and-transport-histories) explains how persistence and reset affect repeated waits.
+
 ### Q95. Do events and barriers stay released after one trigger or threshold?
 
 For an event, `wait_on` returns immediately while the event stays on;
@@ -1686,6 +1694,8 @@ spec-only differences. Mapping these existing tests adds no execution pass
 or human review.
 
 ## Recording streams, channel waits and field controls
+
+A recording stream owns transaction recorders, and closing it and freeing it have different lifetime effects; [the recording glossary](glossary.md#recording-lifecycle-and-field-metadata) introduces streams and handles before the lifecycle checks below.
 
 ### Q104. What do stream close, free and handles establish?
 
@@ -2812,6 +2822,8 @@ usability or an unspecified pending-transaction diagnostic severity.
 
 ## Callback value pipelines and register translation
 
+A callback can transform data, so correct call order alone does not establish that the next callback receives the changed values; [the pipeline glossary](glossary.md#pipeline-and-translation-evidence) explains the separate observations.
+
 ### Q180. Does correct callback order prove encode/decode value propagation?
 
 No. The two-element user-backdoor fixtures separately observe invocation
@@ -3509,6 +3521,8 @@ all original M1–M4 targets remain open. See [requirements](requirements.md).
 
 ## Base classes, recording and canonical time
 
+A canonical time value is interpreted using the calling scope's time units; [the time-unit glossary](glossary.md#time-units-and-constructor-premises) explains why the caller matters when comparing observations.
+
 ### Q249. Does a valid transaction recorder handle prove that object recording occurred?
 
 No. The new default-policy and explicit-DEEP cases observe a valid associated
@@ -3693,6 +3707,8 @@ identifiers; callback 18.11 remains partial despite zero unassessed identifiers.
 
 ## CI shards and execution time
 
+A shard is one partition of the workflow's selected tests; [the CI guide](results.md#continuous-integration) explains which selections contribute to Check and how its result differs from local measurements.
+
 ### Q268. Does dividing Check into shards reduce the required test scope?
 
 No. The current 1920 tagged checks form 8 disjoint shards with at most 4 concurrent
@@ -3703,6 +3719,8 @@ validation proves neither hosted CI success nor conformance; use the README badg
 for the current workflow result. The 326 known cases remain outside the ordinary default CI selection.
 
 ## Recording and scalar-macro conditions
+
+Packing turns selected values into a stream whose layout need not be universal; [the scalar-macro glossary](glossary.md#scalar-macro-and-traversal-controls) explains what independent packing and unpacking observations establish.
 
 ### Q269. Why use public scalar APIs in the other packing direction?
 
@@ -3741,6 +3759,8 @@ is allowed; substituting a different hook remains the observed difference.
 See [control-link roles](glossary.md#scope-and-coverage) when reading these passes.
 
 ## Traversal declarations and defaults
+
+A traversal adapter visits structure nodes and calls a visitor; [the traversal glossary](glossary.md#traversal-and-access-wrappers) explains the visitor and proxy roles used in the declaration checks below.
 
 ### Q273. Do derived constructor defaults substitute for the tested base defaults?
 

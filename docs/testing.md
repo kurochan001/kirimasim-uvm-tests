@@ -86,6 +86,8 @@ A test pairs observed behavior with an independently derived expectation; [Stand
 
 The fixture is the test's setup and observers, and a helper is supporting code or data; [the execution glossary](glossary.md#execution-and-result-records) explains these terms before the specialized examples below.
 
+Each helper note below describes setup for a particular test family; for a first test, continue to [metadata](#metadata) and [the observation rules](#what-is-observed) before using those specialized fixtures.
+
 The memory/FIFO increment declares two isolated helper directories:
 [listed-API setup](../tests/u18/helpers63/fifo_frontdoor_fixture63.svh) and
 [pinned build control](../tests/u18/helpers63_initialized/fifo_initialized_fixture63.svh).
@@ -174,6 +176,8 @@ bits are constrained; see [the bus-operation FAQ](faq.md#canonical-bus-operation
 ### Metadata
 
 The header tells the runner how to build and judge a case; [Q76](faq.md#q76-does-a-clause-citation-mean-its-requirements-are-tested) explains how its clause citations relate to requirement links.
+
+`:spec_check: ai` records who reviewed the expectation, while `:oracle: spec verilator@5.052` also records fixed-release reproduction; [the expectation glossary](glossary.md#standards-and-expectations) explains why those fields describe separate checks.
 
 The metadata follows kirimasim-tests and sv-tests, with these UVM-specific fields:
 
@@ -412,6 +416,8 @@ separate. Check runs the seventeen default command-line checks, not the known ca
 ## Running the suite
 
 The Verilator exit code summarizes tagged regressions, so [Q6. Why can Verilator exit successfully with KNOWN results?](faq.md#q6-why-can-verilator-exit-successfully-with-known-results) explains why individual statuses still matter when including spec-only cases.
+
+`--all` expands selection within the chosen runner; it does not link the [HDL backend](#verilator-vpi-hdl-subset) or [command-line bridge](#verilator-command-line-subset), which require their separate runners.
 
 ```sh
 python3 tools/fetch_uvm.py

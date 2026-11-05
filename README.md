@@ -11,8 +11,8 @@ Verification Methodology (UVM). It targets
 [kirimasim-tests](https://github.com/kurochan001/kirimasim-tests), which tests
 the IEEE 1800-2023 SystemVerilog language.
 
-An oracle records the basis of an expected result; the tags below are explained in
-[Standards and expectations](docs/glossary.md#standards-and-expectations).
+An oracle records the expectation's basis: `spec` cites the standard and `verilator@5.052` adds reproduction;
+[Standards and expectations](docs/glossary.md#standards-and-expectations) explains spec-only cases.
 
 > **Status: M4 in progress.** 2246 tests: 2154 simulation and 92 elaboration,
 > in 21 chapter/annex directories; 1920 tagged oracles and 326 spec-only cases.

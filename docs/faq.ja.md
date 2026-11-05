@@ -320,6 +320,8 @@ item完了待ちが戻ります。push driverはpull portの`item_done`を使い
 
 ## sequence libraryとマクロの制御
 
+sequence libraryは登録されたsequence型から実行対象を選ぶもので、以下の登録規則の前提になる所属と選択は[UVMの用語集](glossary.ja.md#uvmの構成要素)で説明しています。
+
 ### Q30. libraryのinstance登録とtypewide登録はどう違いますか
 
 `add_sequence`と`add_sequences`は1つのlibraryへ登録します。staticのtypewide版は、
@@ -414,6 +416,8 @@ exit-onのテストは、trueまたはfalseの最初の一致で停止するこ�
 走査や呼び出しがないことを検査し、関数の不一致時の戻り値や後続文へ進む方針は指定しません。
 
 ## TLM実装宣言マクロ
+
+impはTLM portやexportを通じて呼ばれるmethodを供給するもので、以下に出る生成method名と接続上の役割は[TLMの用語集](glossary.ja.md#transaction単位の通信)で確認できます。
 
 ### Q39. imp宣言マクロのsuffixは何を変えますか
 
@@ -577,6 +581,8 @@ mapの`reset()`の既定値はSOFTで、register・fieldのHARDとは異なり�
 auto-predictの検査はmapごとのmode flagだけを扱い、下記のfrontdoor検査ではbusモデルの読み書きに伴う効果も確認します。
 
 ## adapter・predictor・frontdoorの経路
+
+adapterはregister操作とbus操作を変換し、predictorは観測した通信からモデル状態を更新するもので、frontdoor accessとの関係は[レジスタの用語集](glossary.ja.md#レジスタモデル)で説明しています。
 
 ### Q51. adapterと操作記述子では何を検査しますか
 
@@ -1188,6 +1194,8 @@ burst、全callback組合せは示しません。
 
 ## event／barrierの同期と時刻を隔てたtransport履歴
 
+eventは待機者へ通知し、barrierは参加者がしきい値に達するまで待つもので、繰り返し待つ際の状態保持とresetの作用は[同期の用語集](glossary.ja.md#同期とtransportの履歴)で説明しています。
+
 ### Q95. eventとbarrierは1回のtriggerやthreshold到達後も解除されたままですか？
 
 eventでは、onの間は`wait_on`が直ちに戻り、`wait_off`はresetまで待ちます。
@@ -1349,6 +1357,8 @@ model lock前後の有効な期待を保持します。固定libraryはlock前�
 既存テストの対応付けで、実行の合格や人による照合は追加しません。
 
 ## 記録stream、channel待機、field制御
+
+記録streamはtransaction recorderを所有し、closeとfreeは寿命に異なる作用を持つもので、以下のlifecycle検査で使うstreamとhandleは[記録の用語集](glossary.ja.md#記録のlifecycleとfield-metadata)で説明しています。
 
 ### Q104. streamのclose・free・handleで何が成立しますか？
 
@@ -2211,6 +2221,8 @@ pre hook、登録pre callback、function、登録post callback、post hookの順
 
 ## Callback値pipelineとregister translation
 
+callbackはdataを変換できるため、呼出し順序の一致だけでは次のcallbackに変更値が届くことを示せず、必要な観測の違いは[pipelineの用語集](glossary.ja.md#pipelineとtranslationのevidence)で説明しています。
+
 ### Q180. callbackの順序が正しければencode／decodeの値伝播も示せますか？
 
 いいえ。2要素のuser-backdoor検査系は、呼出し順序、clear-textのpre／post data、中間配列、最終の記憶／戻り値を別々に観測します。
@@ -2685,6 +2697,8 @@ wrapperの実行childが宣言protected slotであり、選択対象を受け取
 
 ## 基底class・recording・canonical time
 
+canonical timeの値は呼出しscopeの時間単位で解釈するため、観測値の比較で呼出し元が関係する理由は[時間単位の用語集](glossary.ja.md#時間単位とconstructorの前提)を参照してください。
+
 ### Q249. transaction recorderのhandleが正しければobject記録も証明できますか？
 
 できません。新しい既定policy／明示DEEPの2件では対応handle、registry同一性、end／free cleanupが正しくても、
@@ -2813,6 +2827,8 @@ ERRORの存在とUVM_NOT_OKを要求しますが、診断IDや件数は固定し
 
 ## CI shardと実行時間
 
+shardはworkflowが選んだテストを分割した1区画で、Checkの対象となる検査とローカル測定の違いは[CIのガイド](results.ja.md#継続的インテグレーション)で説明しています。
+
 ### Q268. Checkをshardへ分割すると必要なテスト範囲は減りますか？
 
 いいえ。現在のタグ付き1920検査を重複しない8 shardへ分け、同時shard jobは最大4です。以前の分割前実行は150分の上限に達しました。
@@ -2820,6 +2836,8 @@ command-line 17検査はshard 0で通常検査の前に1回だけ実行します
 分割の検証でhosted CI成功や適合性は立証しません。現在のworkflow結果はREADME badgeで確認してください。既知差分326件は通常の既定CI選択に含めません。
 
 ## recordingとscalar macroの条件
+
+packは選択した値をstreamへ変換する操作で、全実装に共通の配置を仮定するものではなく、packとunpackを独立に観測する意味は[scalar macroの用語集](glossary.ja.md#scalar-macroと走査のcontrol)で説明しています。
 
 ### Q269. packの反対方向に公開scalar APIを使う理由は？
 
@@ -2849,6 +2867,8 @@ serialized配置やcollection／不正size条件を完了にはしません。�
 成功の読み方は[control対応の役割](glossary.ja.md#範囲とカバレッジ)を参照してください。
 
 ## 走査の宣言と既定値
+
+走査adapterは構造内のnodeを辿ってvisitorを呼ぶもので、以下の宣言検査に出るvisitorとproxyの役割は[走査の用語集](glossary.ja.md#走査とaccess-wrapper)で説明しています。
 
 ### Q273. 派生constructorの既定値で対象の基底既定値を置き換えていますか？
 

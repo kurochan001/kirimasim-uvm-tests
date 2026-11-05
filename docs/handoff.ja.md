@@ -341,6 +341,8 @@ python3 tools/requirements.py backlog --root 12 --lang ja \
 python3 tools/requirements.py sync --output out/test-index-proposal.json
 ```
 
+上の`sync`コマンドは対応付けのレビュー用に索引の案を書き出すもので、影響するリンクを確認して取り込む方法は[更新手順](requirements.ja.md#テストや対応付けの更新)で説明しています。
+
 ## 再開メッセージの例
 
 > READMEと日英のハンドオフを読み、作業ツリーと最新Checkを確認して、要求backlogを再生成してください。

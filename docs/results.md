@@ -181,6 +181,8 @@ The fingerprints identify different inputs:
 
 SHA-256 is a digest of recorded content, and [the fingerprint glossary](glossary.md#execution-and-result-records) explains why matching one digest alone does not establish the same execution conditions.
 
+Editing only a requirement's wording calls for a regenerated inventory, while editing a test header changes its test fingerprint and requires compatible execution evidence; [the update procedure](requirements.md#updating-a-test-or-mapping) describes both paths.
+
 | Identity | What it identifies | How to use it |
 | --- | --- | --- |
 | `inputs_sha256` | Test source, expected files, collected helpers/data and library lock | Compare each record with the current test inputs |
@@ -219,6 +221,8 @@ revised originals, are unmeasured. Scope and denominator remain unapproved.
 ## Reproducing and retaining results
 
 The JSON output is a local record of a selected run, and [Q10](faq.md#q10-where-is-nightly-or-the-public-results-dashboard) explains how it relates to the public Check badge.
+
+Historical `out/` files may be absent in a fresh clone, so [the local-material guide](handoff.md#files-and-local-material) distinguishes reproducible tracked commands from optional measurement artifacts.
 
 The [testing guide](testing.md#running-the-suite) documents the commands,
 profile modes and library settings. Request `--json out/<name>.json` to retain

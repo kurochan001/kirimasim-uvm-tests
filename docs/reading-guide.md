@@ -23,6 +23,8 @@ Many register tests use original testbench storage; the words frontdoor or backd
 
 ## Before the first run
 
+The source path selects a fixture, while `+UVM_TESTNAME=t` selects the registered UVM test class inside it; [the example header](testing.md#example) shows both names in use.
+
 Use Python 3.10 or later, exactly Verilator 5.052, a C++ toolchain and make, then run the smoke command in [FAQ Q3](faq.md#q3-how-can-i-run-one-test-first) from the repository root, the directory containing README. Verilator generates a C++ model, so its build needs a C++ compiler and make. The UVM fetch command downloads the locked library; it does not install the simulator.
 
 An explicit test path selects one case. Seeds 1 and 73 run that same built model in separate processes with different random initialization seeds, rather than selecting two different tests. See [the runner options](testing.md#running-the-suite) before expanding to the full suite.

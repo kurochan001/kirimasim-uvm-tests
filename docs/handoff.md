@@ -515,6 +515,8 @@ python3 tools/requirements.py backlog --root 12 --lang ja \
 python3 tools/requirements.py sync --output out/test-index-proposal.json
 ```
 
+The `sync` command above writes an index proposal for mapping review; [the update procedure](requirements.md#updating-a-test-or-mapping) explains how to adopt it after checking affected links.
+
 ## Suggested restart message
 
 > Read README and the bilingual handoff, verify the working tree and latest

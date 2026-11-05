@@ -80,6 +80,8 @@ tools/UPSTREAM               写したツールの元と、変えた点
 
 fixtureはテストの準備と観測を担う検査系、helperはテストを支える補助コードやデータのことで、以下の個別例で使う用語は[実行と結果の用語集](glossary.ja.md#実行と結果)で説明しています。
 
+以下のhelperの説明は個別のテスト系列に必要な準備を扱うため、初めてテストを書く場合は、専用の検査系を使う前に[メタデータ](#メタデータ)と[観測の規則](#何を観測するか)へ進んでください。
+
 memory／FIFO追加では[記載API設定](../tests/u18/helpers63/fifo_frontdoor_fixture63.svh)と
 [固定build control](../tests/u18/helpers63_initialized/fifo_initialized_fixture63.svh)の独立helper directory 2個を宣言します。
 利用sourceは`:files:`でhelperを指定し、directory内容が入力指紋に入ります。helper変更時は全依存入力を再測定します。
@@ -134,6 +136,8 @@ readの記憶域は独立に事前設定し、完了後の観測行をaddress順
 ### メタデータ
 
 ヘッダーは実行スクリプトにビルドと判定の条件を伝えるもので、条項の引用と要求への対応付けの関係は[Q76](faq.ja.md#q76-条項を引用すればその要求を検査したことになりますか)で説明しています。
+
+`:spec_check: ai`は期待値を誰が照合したかを記録し、`:oracle: spec verilator@5.052`は固定リリースでの再現も記録するもので、両項目が別の確認を表す理由は[期待値の用語集](glossary.ja.md#規格と期待値)で説明しています。
 
 kirimasim-testsとsv-testsの形式を引き継ぎ、次の点を変えます。
 
@@ -320,6 +324,8 @@ modelを1回buildし、両seedを新規processで実行します。別の`verila
 ## スイートの実行
 
 Verilatorの終了コードはタグ付きの不一致を集計するため、specのみのケースを含めるときに個々のstatusも必要な理由は[Q6. KNOWNがあるのにVerilatorコマンドが成功するのはなぜですか](faq.ja.md#q6-knownがあるのにverilatorコマンドが成功するのはなぜですか)を参照してください。
+
+`--all`は選んだrunner内の検査対象を広げる指定で、[HDL backend](#verilatorのvpi-hdl部分集合)や[command-line bridge](#verilatorのcommand-line部分集合)をlinkするものではなく、それぞれ別のrunnerを使います。
 
 ```sh
 python3 tools/fetch_uvm.py
