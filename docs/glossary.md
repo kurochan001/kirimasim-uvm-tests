@@ -1329,3 +1329,11 @@ The control keeps storage unchanged and does not settle the original premise.
 **Paired PACK flag** — The field-macro contract that PACK enables packing and
 unpacking. An explicit-UNPACK control is separate evidence; a compatible
 roundtrip does not independently prove every one-way packing condition.
+
+**Callback map-mutation premise** — An access whose callback changes its map.
+An explicit initial-map control has a different premise and cannot pass this
+mutation duty, even when it directly demonstrates provider selection.
+
+**Physical/model neighbor separation** — Distinct values in original backdoor
+storage and the register model's adjacent fields, so substitution is visible.
+Selected-slice protection and qualified whole-word preservation remain separate.

@@ -100,6 +100,14 @@ premises. The const-ARG input is an illegal compiler check without runtime.
 Compatible packing roundtrips do not prescribe stream encoding or independently
 certify every one-way suppression condition.
 
+The [original field-access helper](../tests/u18/helpers66/field_access_fixture66.svh) supplies isolated frontdoor route
+buffers and backdoor storage; it is not actual HDL or map-alias coherence
+evidence. Physical neighbor values deliberately differ from model resets.
+Callback-driven map changes and explicit initial-map controls retain distinct
+premises. Any helper change requires new measurements for all dependent inputs.
+Separate post rows cannot pass a complete trace with a pre-order difference.
+Never reuse a superseded seed log under a current input fingerprint.
+
 ### Metadata
 
 The metadata follows kirimasim-tests and sv-tests, with these UVM-specific fields:
@@ -235,7 +243,7 @@ again. `--check` checks the copy that is there. The library is not committed.
 - User-defined `uvm_reg_backdoor` storage handlers work without HDL DPI.
   Commercial simulator execution/results are excluded by the project policy;
   built-in HDL-path/DPI coverage remains open.
-- 1943 current cases use `UVM_NO_DPI`; eleven explicitly enable HDL DPI.
+- 1979 current cases use `UVM_NO_DPI`; eleven explicitly enable HDL DPI.
   `:uvm_dpi: yes` removes that macro;
   it does not automatically compile or link the C/C++ DPI implementation.
   The current Verilator runner does not add DPI C/C++ sources.
@@ -341,9 +349,9 @@ For runtime cases, `--seeds 1 73` builds once and runs a fresh process for
 each seed. All requested runtime seeds must match. `--seed N` remains available for a single seed.
 The JSON configuration records either `seed` or `seeds` accordingly.
 
-By default, Verilator selects 1691 tagged two-state checks: 1606 runtime
+By default, Verilator selects 1722 tagged two-state checks: 1637 runtime
 cases and 85 expected compiler rejections. To include
-the 281 spec-only cases as well, add `--all`. A mismatch in an untagged case
+the 286 spec-only cases as well, add `--all`. A mismatch in an untagged case
 is `known` and does not fail the command; a tagged mismatch does.
 Explicit test paths select only those tests. For a single smoke test:
 
@@ -397,7 +405,7 @@ python3 tools/requirements.py check
 ```
 
 The current tool suite has 110 unit tests; metadata validation checks all
-1972 tests (1884 simulation, 88 elaboration). The [ledger check](requirements.md) validates the draft
+2008 tests (1920 simulation, 88 elaboration). The [ledger check](requirements.md) validates the draft
 scope, explicit oracle links and input fingerprints without claiming coverage. [Check](../.github/workflows/check.yml) runs on pushes to
 `main`, pull requests and manual dispatch. Its separate Verilator job uses
 5.052, `UVM_NO_DPI` and seeds 1 and 73 for the tagged cases. Each model is

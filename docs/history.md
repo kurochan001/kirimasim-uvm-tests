@@ -3,8 +3,8 @@
 [日本語](history.ja.md) · [README](../README.md)
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and sixty-five cross-milestone thin-area expansions, including the
-existing-test requirement-link backlog checkpoint (1972 tests: 1884 simulation and 88 elaboration). The earlier 349-test checkpoint is
+three M4 increments and sixty-six cross-milestone thin-area expansions, including the
+existing-test requirement-link backlog checkpoint (2008 tests: 1920 simulation and 88 elaboration). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -4086,3 +4086,63 @@ and 61 control-linked tests. Library integrity, 110 tool tests, metadata/ledger/
 index, raw/evidence and paired-doc checks pass. Goal iteration 37 reduces
 unassessed from the initial 1463 to 241, a decrease of 1222. Completion remains
 unproven; no human review or denominator approval is invented.
+
+## Sixty-sixth thin-area expansion: field access and callbacks
+
+Based on [f827d1e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/f827d1e9922e5b1cb4d58318a257370b617c8057); 2026-11-05 JST. 36 M3 inputs add 31 runtime matches at seeds 1/73 and 5 retained seed-1
+differences without seed 73. They cover field/callback construction, constrained
+public value, configured randomization modes, pending state, actual read/write
+hooks, callback enable/delete, selected backdoor slices and mirror check gates.
+The 2 explicit second-map controls and standalone read-only poke also have
+direct duties; no new input is control-only.
+
+Containing-register write/read traces expect RCFDBcrdf but observe FDRCBcrdf:
+field pre hooks precede register pre hooks. Separate post observations match
+crdf, while the complete inputs retain the order differences. Field pre-read
+and pre-write map changes still use provider A; explicit initial map B controls
+match. Independent original route buffers distinguish providers without
+claiming physical map-alias coherence or RTL protocol evidence.
+
+Original backdoor storage uses physical neighbor nibbles B/D distinct from
+model A/3. Poke deposits B39D from B75D, peek preserves storage, and selected
+failure/extension checks match. A read-only write preserves the selected 75
+slice but produces A753. The whole-word expectation retains a qualified
+best-effort interpretation; it is not an unconditional neighbor guarantee or
+an independent defect count. The following poke explicitly resets physical
+storage to B75D first and matches; a standalone read-only poke also matches.
+
+The intended reset and slice telemetry initially missed insertion into the
+history fixture. The corrected final source is remeasured. A superseded
+initial seed-73 log used matching physical/model neighbors and remains
+archived under its old input fingerprint; it is excluded from final evidence.
+Final expected order and map outcomes remain standard-derived and unchanged.
+
+Field-access auditing adds 69 bilingual AI duties and 5 individually read
+assessments: 4 structural headings and 1 contextual type-forwarding clause.
+Of 22 previously unassessed identifiers, 17 receive partial decompositions
+and 5 explicit classifications. Chapter 18 is 329 partial/48 assessed/79
+unassessed with 717 drafts and 405 primary tests. Field 18.5 has zero unassessed
+identifiers but retains partial contracts. Global state is 1893 partial/395
+assessed/219 unassessed (272 structural/123 contextual). Original targets remain open.
+
+All 3575 duties have direct tests; 1990 tests have direct links, 18 have only
+controls and 64 have control links. The 3 new controls also have their own
+direct duties and never pass another input's original premise. All 3506 prior
+duties, 390 assessments, 1972 indexed inputs/ordinary records and 88 compiler
+records remain unchanged. Scope/denominator approval, human review and complete
+coverage are not established.
+
+Totals are 2008 (1920 simulation/88 elaboration): M1 843 (768/75), M2 547
+(542/5), M3 618 (610/8). Ordinary pass is 1722 (1637 runtime/85 rejections);
+known is 286 (214 runtime/69 builds/3 illegal acceptances). All 1972 prior
+ordinary records, 3506 duties, 390 assessments and 88 compiler records remain
+unchanged. Library integrity, 110 tool tests, metadata/ledger/index, current
+evidence and paired docs pass. Guest/HDL/command-line records are unchanged;
+925 guest inputs remain unmeasured. Human approval and completion remain unproven.
+
+The 925 guest-unmeasured inputs are 923 additions and 2 revised originals
+(837 simulation/88 elaboration). The 88 compiler records, 11 HDL records and
+18 command-line records are preserved. No new input is control-only; 3 new
+direct controls raise control-linked tests to 64, with control-only still 18.
+Goal iteration 38 reduces the initial 1463 unassessed identifiers to 219,
+a decrease of 1244. The goal remains active; completion is unproven.

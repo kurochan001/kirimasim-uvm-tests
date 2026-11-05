@@ -2,7 +2,7 @@
 
 [日本語](known-differences.ja.md) · [README](../README.md) · [FAQ](faq.md)
 
-This describes the current 1972-test suite and the pinned Accellera UVM
+This describes the current 2008-test suite and the pinned Accellera UVM
 2020.3.1 library. A mismatch is a test result; it does not by itself assign
 the cause to the simulator, the library or the expectation.
 
@@ -11,8 +11,28 @@ constructions and 55 pure-interface/const-reference/forbidden-member/
 type-context violations. 85 match. Subscriber/visitor omissions and direct
 construction of the printed virtual builtin dispatcher remain accepted and
 spec-only without runtime. These three compiler acceptances are separate from
-278 known simulation differences. Legal derived controls do not replace a
+283 known simulation differences. Legal derived controls do not replace a
 required rejection.
+
+Field-access auditing retains 5 new runtime differences at seed 1 without
+seed 73. Register write/read pre hooks observe FDRC instead of the preserved
+RCFD expectation; their separate crdf post observations match without passing
+the complete inputs. Field pre-write/pre-read map changes still select original
+provider A; explicit initial-map B controls match separately.
+
+With physical B/D neighbors distinct from model A/3, a read-only write preserves
+the selected 75 slice but changes B75D to A753. This retains a qualified
+whole-word best-effort interpretation, not an unconditional neighbor guarantee.
+The following poke starts from explicitly reset B75D and deposits B39D, as does
+a standalone read-only poke. Corrected source telemetry is measured; a stale
+initial seed-73 log belongs to its archived old fingerprint and is excluded.
+These conditions do not establish an independent defect count.
+
+- [1](../tests/u18/test_field_write_callbacks_follow_the_containing_register_and_reverse_post_hook_order.sv).
+- [2](../tests/u18/test_field_read_callbacks_follow_the_containing_register_and_reverse_post_hook_order.sv).
+- [3](../tests/u18/test_field_pre_write_map_propagates_through_a_real_selected_access.sv).
+- [4](../tests/u18/test_field_pre_read_map_propagates_through_a_real_selected_access.sv).
+- [5](../tests/u18/test_field_readonly_backdoor_write_is_protected_while_poke_deposits_as_is.sv).
 
 Field-macro auditing retains four new differences. Three legal enum collection
 inputs use collection typedef T as literally described by the printed prose;
@@ -787,7 +807,7 @@ cannot build because the pinned library also declares unlisted pure helpers.
 The missing-standard-hook negative supplies original compatibility bodies only
 to isolate the specified rejection. It does not repair that legal extension.
 
-Across the suite, 1691 tests have the `verilator@5.052` oracle tag and 281
+Across the suite, 1722 tests have the `verilator@5.052` oracle tag and 286
 cases are spec-only. One of the spec-only cases checks 9.6: a child's pre-reset
 task must be killed when that phase ends, but the pinned-library run on Verilator 5.052
 lets the child perform its delayed write during a later phase. The cause of
@@ -799,10 +819,10 @@ without callbacks. The pinned Verilator run reaches the blocked-state
 observation, then its watchdog expires. This combined simulator/library
 cause remains unassigned; the normative wakeup expectation is retained.
 
-The 281 spec-only tests retain their normative expected files.
-Default Verilator runs and CI select 1691 tagged checks (1606 runtime, 85 compile rejection). `--all` includes
+The 286 spec-only tests retain their normative expected files.
+Default Verilator runs and CI select 1722 tagged checks (1637 runtime, 85 compile rejection). `--all` includes
 spec-only cases and records mismatches or build failures as `known`.
-The ordinary runtime records for 209 cases establish their first difference
+The ordinary runtime records for 214 cases establish their first difference
 at seed 1, without seed 73 results. Twenty-seven missing-API/type-name builds have
 no ordinary runtime: one time API, six sequence-library cases, four HDL slice
 cases, one named-concat constructor, five object active-policy API cases, three catcher
@@ -880,7 +900,7 @@ The printed create_object equivalent call's extra this argument remains partial.
 
 ## Spec-only tests
 
-These are the 281 current spec-only cases. Several exercise the same
+These are the 286 current spec-only cases. Several exercise the same
 limitation, so their count is not a count of distinct bugs.
 
 - [Inherited subscriber type_id specialization](../tests/u08/test_builtin_abstract_parameterized_components_type_id_uses_the_required_registry_specialization.sv).
@@ -1168,7 +1188,7 @@ Additional message-handle and endian cases:
 
 Two existing inputs have revised fingerprints: the command-enum citation and
 the corrected Boolean rerandomization observation. Their historical guest
-records are excluded. The compatible subset has 1083 records and 889 inputs
+records are excluded. The compatible subset has 1083 records and 925 inputs
 are unmeasured, including both revised inputs. This filtering is evidence scope,
 not a new guest failure, pass or simulator improvement.
 
@@ -1203,8 +1223,8 @@ not a new guest failure, pass or simulator improvement.
 
 ## Simulator and library combinations
 
-The suite has 1972 cases, but the kirimasim/Ghost records below cover only
-1083 unchanged current-input cases. The 889 inputs are unmeasured
+The suite has 2008 cases, but the kirimasim/Ghost records below cover only
+1083 unchanged current-input cases. The 925 inputs are unmeasured
 because prior temporary executable/profile snapshots are unavailable. Do
 not treat this as a fresh full-suite guest result. See [results](results.md).
 

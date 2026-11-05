@@ -128681,6 +128681,2374 @@
           }
         }
       ]
+    },
+    {
+      "id": "UVM-FIELD-ACCESS-AUDIT-CONSTRUCTOR-DEFAULT",
+      "clause": "18.5.3.1",
+      "statement": {
+        "en": "Field construction defaults to the declared uvm_reg_field name.",
+        "ja": "field生成は記載されたuvm_reg_field名を既定とする。"
+      },
+      "conditions": {
+        "en": "Fresh original field/register instances with valid configuration; distinguish model state and independent original access-provider storage.",
+        "ja": "有効設定の新しい独自field／register instanceを使い、model状態と独立した独自access-provider storageを区別する。"
+      },
+      "expected": {
+        "en": "The omitted constructor name is uvm_reg_field.",
+        "ja": "constructor名省略時はuvm_reg_fieldである。"
+      },
+      "limitations": {
+        "en": "Selected constructor, public declaration and configured field observations only. The word mirrored in the value-member prose is not taken as proof that randomization performs physical access or prediction. All other random distributions, access policies, map-right combinations and lifecycle/error conditions remain partial.",
+        "ja": "選択constructor、公開宣言、設定済みfieldの観測だけ。value member本文のmirroredという語から、randomizationが物理accessや予測を行う証明とはしない。他の全乱数分布、access policy、map rights組合せ、lifecycle／error条件は部分的に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_field_default_named_and_empty_constructors_preserve_object_base_identity",
+          "role": "direct",
+          "expected_observations": [
+            "UT: field_constructor default 1 named 1 empty 1 ancestry 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-ACCESS-AUDIT-CONSTRUCTOR-EXPLICIT",
+      "clause": "18.5.3.1",
+      "statement": {
+        "en": "Field construction preserves explicit and empty names.",
+        "ja": "field生成は明示名と空名を保持する。"
+      },
+      "conditions": {
+        "en": "Fresh original field/register instances with valid configuration; distinguish model state and independent original access-provider storage.",
+        "ja": "有効設定の新しい独自field／register instanceを使い、model状態と独立した独自access-provider storageを区別する。"
+      },
+      "expected": {
+        "en": "The selected named and empty objects retain their supplied names.",
+        "ja": "選択した明示名／空名objectは指定名を保持する。"
+      },
+      "limitations": {
+        "en": "Selected constructor, public declaration and configured field observations only. The word mirrored in the value-member prose is not taken as proof that randomization performs physical access or prediction. All other random distributions, access policies, map-right combinations and lifecycle/error conditions remain partial.",
+        "ja": "選択constructor、公開宣言、設定済みfieldの観測だけ。value member本文のmirroredという語から、randomizationが物理accessや予測を行う証明とはしない。他の全乱数分布、access policy、map rights組合せ、lifecycle／error条件は部分的に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_field_default_named_and_empty_constructors_preserve_object_base_identity",
+          "role": "direct",
+          "expected_observations": [
+            "UT: field_constructor default 1 named 1 empty 1 ancestry 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-ACCESS-AUDIT-FIELD-ANCESTRY",
+      "clause": "18.5.1",
+      "statement": {
+        "en": "The concrete field retains its uvm_object base view.",
+        "ja": "具体fieldはuvm_object base viewを保持する。"
+      },
+      "conditions": {
+        "en": "Fresh original field/register instances with valid configuration; distinguish model state and independent original access-provider storage.",
+        "ja": "有効設定の新しい独自field／register instanceを使い、model状態と独立した独自access-provider storageを区別する。"
+      },
+      "expected": {
+        "en": "Implicit base assignment preserves the exact original named field handle.",
+        "ja": "暗黙base代入は元の名前付きfield handleの同一性を保持する。"
+      },
+      "limitations": {
+        "en": "Selected constructor, public declaration and configured field observations only. The word mirrored in the value-member prose is not taken as proof that randomization performs physical access or prediction. All other random distributions, access policies, map-right combinations and lifecycle/error conditions remain partial.",
+        "ja": "選択constructor、公開宣言、設定済みfieldの観測だけ。value member本文のmirroredという語から、randomizationが物理accessや予測を行う証明とはしない。他の全乱数分布、access policy、map rights組合せ、lifecycle／error条件は部分的に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_field_default_named_and_empty_constructors_preserve_object_base_identity",
+          "role": "direct",
+          "expected_observations": [
+            "UT: field_constructor default 1 named 1 empty 1 ancestry 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-ACCESS-AUDIT-SINGLE-PARENT-FIELD",
+      "clause": "18.5",
+      "statement": {
+        "en": "A configured field belongs to its selected containing register and bit slice.",
+        "ja": "設定済みfieldは選択した包含registerとbit sliceに属する。"
+      },
+      "conditions": {
+        "en": "Fresh original field/register instances with valid configuration; distinguish model state and independent original access-provider storage.",
+        "ja": "有効設定の新しい独自field／register instanceを使い、model状態と独立した独自access-provider storageを区別する。"
+      },
+      "expected": {
+        "en": "The original register is the exact parent and the selected field is eight bits at LSB zero.",
+        "ja": "独自registerが正確なparentで、選択fieldはLSB 0の8 bitである。"
+      },
+      "limitations": {
+        "en": "Selected constructor, public declaration and configured field observations only. The word mirrored in the value-member prose is not taken as proof that randomization performs physical access or prediction. All other random distributions, access policies, map-right combinations and lifecycle/error conditions remain partial.",
+        "ja": "選択constructor、公開宣言、設定済みfieldの観測だけ。value member本文のmirroredという語から、randomizationが物理accessや予測を行う証明とはしない。他の全乱数分布、access policy、map rights組合せ、lifecycle／error条件は部分的に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_field_default_named_and_empty_constructors_preserve_object_base_identity",
+          "role": "direct",
+          "expected_observations": [
+            "UT: field_containment parent 1 width 8 lsb 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-ACCESS-AUDIT-PUBLIC-VALUE-TYPE",
+      "clause": "18.5.2",
+      "statement": {
+        "en": "The public randomizable field value has the register-data type width.",
+        "ja": "公開randomizable field valueはregister-data型の幅を持つ。"
+      },
+      "conditions": {
+        "en": "Fresh original field/register instances with valid configuration; distinguish model state and independent original access-provider storage.",
+        "ja": "有効設定の新しい独自field／register instanceを使い、model状態と独立した独自access-provider storageを区別する。"
+      },
+      "expected": {
+        "en": "The value property is accessible with the same bit width as uvm_reg_data_t.",
+        "ja": "value propertyへuvm_reg_data_tと同じbit幅でaccessできる。"
+      },
+      "limitations": {
+        "en": "Selected constructor, public declaration and configured field observations only. The word mirrored in the value-member prose is not taken as proof that randomization performs physical access or prediction. All other random distributions, access policies, map-right combinations and lifecycle/error conditions remain partial.",
+        "ja": "選択constructor、公開宣言、設定済みfieldの観測だけ。value member本文のmirroredという語から、randomizationが物理accessや予測を行う証明とはしない。他の全乱数分布、access policy、map rights組合せ、lifecycle／error条件は部分的に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_field_public_rand_value_accepts_a_writable_constraint_without_predicting_the_mirror",
+          "role": "direct",
+          "expected_observations": [
+            "UT: field_rand success 1 value 1 width 1 desired 1 mirror 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-ACCESS-AUDIT-PUBLIC-VALUE-CONSTRAINT",
+      "clause": "18.5.2",
+      "statement": {
+        "en": "The writable public field value can be constrained through randomization.",
+        "ja": "書込み可能な公開field valueはrandomizationで制約できる。"
+      },
+      "conditions": {
+        "en": "Fresh original field/register instances with valid configuration; distinguish model state and independent original access-provider storage.",
+        "ja": "有効設定の新しい独自field／register instanceを使い、model状態と独立した独自access-provider storageを区別する。"
+      },
+      "expected": {
+        "en": "A fixed legal constraint succeeds with value and desired state 0x63, leaving the selected mirror at 0x11 and performing no original-provider transfer.",
+        "ja": "合法固定制約はvalue／desired 0x63で成功し、選択mirrorは0x11のまま、独自provider転送を行わない。"
+      },
+      "limitations": {
+        "en": "Selected constructor, public declaration and configured field observations only. The word mirrored in the value-member prose is not taken as proof that randomization performs physical access or prediction. All other random distributions, access policies, map-right combinations and lifecycle/error conditions remain partial.",
+        "ja": "選択constructor、公開宣言、設定済みfieldの観測だけ。value member本文のmirroredという語から、randomizationが物理accessや予測を行う証明とはしない。他の全乱数分布、access policy、map rights組合せ、lifecycle／error条件は部分的に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_field_public_rand_value_accepts_a_writable_constraint_without_predicting_the_mirror",
+          "role": "direct",
+          "expected_observations": [
+            "UT: field_rand success 1 value 1 width 1 desired 1 mirror 1",
+            "UT: field_rand_pending update 1 frontdoor 0 backdoor 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-ACCESS-AUDIT-WRITABLE-RAND-MODE",
+      "clause": "18.5.3.2",
+      "statement": {
+        "en": "The selected writable predefined policies retain an explicitly enabled field rand mode.",
+        "ja": "選択した書込み可能な事前定義policyは明示enableのfield rand modeを保持する。"
+      },
+      "conditions": {
+        "en": "Fresh original field/register instances with valid configuration; distinguish model state and independent original access-provider storage.",
+        "ja": "有効設定の新しい独自field／register instanceを使い、model状態と独立した独自access-provider storageを区別する。"
+      },
+      "expected": {
+        "en": "RW, WRC, WRS, WO, W1 and WO1 retain the enabled value rand_mode.",
+        "ja": "RW、WRC、WRS、WO、W1、WO1はvalue rand_modeのenableを保持する。"
+      },
+      "limitations": {
+        "en": "Selected constructor, public declaration and configured field observations only. The word mirrored in the value-member prose is not taken as proof that randomization performs physical access or prediction. All other random distributions, access policies, map-right combinations and lifecycle/error conditions remain partial.",
+        "ja": "選択constructor、公開宣言、設定済みfieldの観測だけ。value member本文のmirroredという語から、randomizationが物理accessや予測を行う証明とはしない。他の全乱数分布、access policy、map rights組合せ、lifecycle／error条件は部分的に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_field_configured_rand_modes_follow_the_predefined_writable_policy_exceptions",
+          "role": "direct",
+          "expected_observations": [
+            "UT: field_rand_modes writable 1 restricted 1 explicit_off 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-ACCESS-AUDIT-RESTRICTED-RAND-MODE",
+      "clause": "18.5.3.2",
+      "statement": {
+        "en": "Other selected predefined policies force field value randomization off.",
+        "ja": "他の選択事前定義policyはfield value randomizationをoffにする。"
+      },
+      "conditions": {
+        "en": "Fresh original field/register instances with valid configuration; distinguish model state and independent original access-provider storage.",
+        "ja": "有効設定の新しい独自field／register instanceを使い、model状態と独立した独自access-provider storageを区別する。"
+      },
+      "expected": {
+        "en": "RO, RC, RS, W1C, W0S and W1T disable value rand_mode despite is_rand one.",
+        "ja": "RO、RC、RS、W1C、W0S、W1Tはis_rand 1でもvalue rand_modeをdisableする。"
+      },
+      "limitations": {
+        "en": "Selected constructor, public declaration and configured field observations only. The word mirrored in the value-member prose is not taken as proof that randomization performs physical access or prediction. All other random distributions, access policies, map-right combinations and lifecycle/error conditions remain partial.",
+        "ja": "選択constructor、公開宣言、設定済みfieldの観測だけ。value member本文のmirroredという語から、randomizationが物理accessや予測を行う証明とはしない。他の全乱数分布、access policy、map rights組合せ、lifecycle／error条件は部分的に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_field_configured_rand_modes_follow_the_predefined_writable_policy_exceptions",
+          "role": "direct",
+          "expected_observations": [
+            "UT: field_rand_modes writable 1 restricted 1 explicit_off 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-ACCESS-AUDIT-EXPLICIT-RAND-OFF",
+      "clause": "18.5.3.2",
+      "statement": {
+        "en": "Explicit is_rand zero disables the selected field value randomization.",
+        "ja": "明示is_rand 0は選択field value randomizationをdisableする。"
+      },
+      "conditions": {
+        "en": "Fresh original field/register instances with valid configuration; distinguish model state and independent original access-provider storage.",
+        "ja": "有効設定の新しい独自field／register instanceを使い、model状態と独立した独自access-provider storageを区別する。"
+      },
+      "expected": {
+        "en": "All independently configured off-controls retain disabled value rand_mode.",
+        "ja": "独立に設定した全off controlはvalue rand_modeのdisableを保持する。"
+      },
+      "limitations": {
+        "en": "Selected constructor, public declaration and configured field observations only. The word mirrored in the value-member prose is not taken as proof that randomization performs physical access or prediction. All other random distributions, access policies, map-right combinations and lifecycle/error conditions remain partial.",
+        "ja": "選択constructor、公開宣言、設定済みfieldの観測だけ。value member本文のmirroredという語から、randomizationが物理accessや予測を行う証明とはしない。他の全乱数分布、access policy、map rights組合せ、lifecycle／error条件は部分的に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_field_configured_rand_modes_follow_the_predefined_writable_policy_exceptions",
+          "role": "direct",
+          "expected_observations": [
+            "UT: field_rand_modes writable 1 restricted 1 explicit_off 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-ACCESS-AUDIT-PENDING-RANDOMIZATION",
+      "clause": "18.5.5.8",
+      "statement": {
+        "en": "A constrained desired-value change makes the writable field need an update.",
+        "ja": "制約によるdesired値変更は書込み可能fieldのupdateを必要にする。"
+      },
+      "conditions": {
+        "en": "Fresh original field/register instances with valid configuration; distinguish model state and independent original access-provider storage.",
+        "ja": "有効設定の新しい独自field／register instanceを使い、model状態と独立した独自access-provider storageを区別する。"
+      },
+      "expected": {
+        "en": "The selected randomized field becomes pending without a frontdoor or backdoor write.",
+        "ja": "選択randomized fieldはfrontdoor／backdoor writeなしでpendingとなる。"
+      },
+      "limitations": {
+        "en": "Selected constructor, public declaration and configured field observations only. The word mirrored in the value-member prose is not taken as proof that randomization performs physical access or prediction. All other random distributions, access policies, map-right combinations and lifecycle/error conditions remain partial.",
+        "ja": "選択constructor、公開宣言、設定済みfieldの観測だけ。value member本文のmirroredという語から、randomizationが物理accessや予測を行う証明とはしない。他の全乱数分布、access policy、map rights組合せ、lifecycle／error条件は部分的に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_field_public_rand_value_accepts_a_writable_constraint_without_predicting_the_mirror",
+          "role": "direct",
+          "expected_observations": [
+            "UT: field_rand_pending update 1 frontdoor 0 backdoor 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-ACCESS-AUDIT-PENDING-INITIAL",
+      "clause": "18.5.5.8",
+      "statement": {
+        "en": "The selected synchronized reset field initially needs no update.",
+        "ja": "選択したreset同期済みfieldは初期状態でupdateを必要としない。"
+      },
+      "conditions": {
+        "en": "Fresh original field/register instances with valid configuration; distinguish model state and independent original access-provider storage.",
+        "ja": "有効設定の新しい独自field／register instanceを使い、model状態と独立した独自access-provider storageを区別する。"
+      },
+      "expected": {
+        "en": "needs_update returns false in the selected initial state.",
+        "ja": "選択初期状態でneeds_updateはfalseを返す。"
+      },
+      "limitations": {
+        "en": "Selected constructor, public declaration and configured field observations only. The word mirrored in the value-member prose is not taken as proof that randomization performs physical access or prediction. All other random distributions, access policies, map-right combinations and lifecycle/error conditions remain partial.",
+        "ja": "選択constructor、公開宣言、設定済みfieldの観測だけ。value member本文のmirroredという語から、randomizationが物理accessや予測を行う証明とはしない。他の全乱数分布、access policy、map rights組合せ、lifecycle／error条件は部分的に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_field_needs_update_observes_desired_state_without_modifying_storage_or_mirror",
+          "role": "direct",
+          "expected_observations": [
+            "UT: field_pending initial 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-ACCESS-AUDIT-PENDING-DESIRED",
+      "clause": "18.5.5.8",
+      "statement": {
+        "en": "A selected writable desired/mirror difference makes update necessary.",
+        "ja": "選択した書込み可能なdesired／mirror差分はupdateを必要にする。"
+      },
+      "conditions": {
+        "en": "Fresh original field/register instances with valid configuration; distinguish model state and independent original access-provider storage.",
+        "ja": "有効設定の新しい独自field／register instanceを使い、model状態と独立した独自access-provider storageを区別する。"
+      },
+      "expected": {
+        "en": "Both successive queries return true after changing desired state to 0x39.",
+        "ja": "desiredを0x39へ変更すると連続照会2回はどちらもtrueを返す。"
+      },
+      "limitations": {
+        "en": "Selected constructor, public declaration and configured field observations only. The word mirrored in the value-member prose is not taken as proof that randomization performs physical access or prediction. All other random distributions, access policies, map-right combinations and lifecycle/error conditions remain partial.",
+        "ja": "選択constructor、公開宣言、設定済みfieldの観測だけ。value member本文のmirroredという語から、randomizationが物理accessや予測を行う証明とはしない。他の全乱数分布、access policy、map rights組合せ、lifecycle／error条件は部分的に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_field_needs_update_observes_desired_state_without_modifying_storage_or_mirror",
+          "role": "direct",
+          "expected_observations": [
+            "UT: field_pending dirty 1 repeat 1 mirror 1 storage 1 calls 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-ACCESS-AUDIT-PENDING-OBSERVATIONAL",
+      "clause": "18.5.5.8",
+      "statement": {
+        "en": "The pending query does not change the mirror or original storage.",
+        "ja": "pending照会はmirrorや独自storageを変更しない。"
+      },
+      "conditions": {
+        "en": "Fresh original field/register instances with valid configuration; distinguish model state and independent original access-provider storage.",
+        "ja": "有効設定の新しい独自field／register instanceを使い、model状態と独立した独自access-provider storageを区別する。"
+      },
+      "expected": {
+        "en": "The mirror and original word remain 0x11, with no original frontdoor call.",
+        "ja": "mirrorと独自wordは0x11、独自frontdoor呼出しなしを保持する。"
+      },
+      "limitations": {
+        "en": "Selected constructor, public declaration and configured field observations only. The word mirrored in the value-member prose is not taken as proof that randomization performs physical access or prediction. All other random distributions, access policies, map-right combinations and lifecycle/error conditions remain partial.",
+        "ja": "選択constructor、公開宣言、設定済みfieldの観測だけ。value member本文のmirroredという語から、randomizationが物理accessや予測を行う証明とはしない。他の全乱数分布、access policy、map rights組合せ、lifecycle／error条件は部分的に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_field_needs_update_observes_desired_state_without_modifying_storage_or_mirror",
+          "role": "direct",
+          "expected_observations": [
+            "UT: field_pending dirty 1 repeat 1 mirror 1 storage 1 calls 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-ACCESS-AUDIT-PENDING-SYNCHRONIZED",
+      "clause": "18.5.5.8",
+      "statement": {
+        "en": "Synchronizing the selected desired/mirror value clears the update need.",
+        "ja": "選択desired／mirror値の同期はupdate必要性を解消する。"
+      },
+      "conditions": {
+        "en": "Fresh original field/register instances with valid configuration; distinguish model state and independent original access-provider storage.",
+        "ja": "有効設定の新しい独自field／register instanceを使い、model状態と独立した独自access-provider storageを区別する。"
+      },
+      "expected": {
+        "en": "Direct prediction to 0x39 clears needs_update without a transfer.",
+        "ja": "0x39への直接予測は転送なしでneeds_updateを解消する。"
+      },
+      "limitations": {
+        "en": "Selected constructor, public declaration and configured field observations only. The word mirrored in the value-member prose is not taken as proof that randomization performs physical access or prediction. All other random distributions, access policies, map-right combinations and lifecycle/error conditions remain partial.",
+        "ja": "選択constructor、公開宣言、設定済みfieldの観測だけ。value member本文のmirroredという語から、randomizationが物理accessや予測を行う証明とはしない。他の全乱数分布、access policy、map rights組合せ、lifecycle／error条件は部分的に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_field_needs_update_observes_desired_state_without_modifying_storage_or_mirror",
+          "role": "direct",
+          "expected_observations": [
+            "UT: field_pending synchronized 1 calls 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-ACCESS-AUDIT-FIELD-PREWRITE-AFTER-REGISTER",
+      "clause": "18.5.6.1",
+      "statement": {
+        "en": "Field pre-write work follows containing-register pre-write callbacks.",
+        "ja": "field pre-write処理は包含registerのpre-write callbackより後である。"
+      },
+      "conditions": {
+        "en": "Invoke the containing-register API once with both typed callback registrations; record inherited-method, registered-callback and original-transfer markers.",
+        "ja": "型付きcallbackを両方に登録し包含register APIを1回呼び、継承method、registered callback、独自転送のmarkerを記録する。"
+      },
+      "expected": {
+        "en": "The selected complete trace is RCFDBcrdf: register method/callback, field method/callback, transfer, register callback/method, field callback/method.",
+        "ja": "選択した全traceはRCFDBcrdfで、register method／callback、field method／callback、転送、register callback／method、field callback／methodの順である。"
+      },
+      "limitations": {
+        "en": "One selected eight-bit field and containing register, with one callback at each level and original delayed frontdoor storage. Read/write order probes are related conditions, not a count of independent bugs. No peer callback order, HDL/bus protocol, custom backdoor prototype interpretation or arbitrary alias/concurrent history is certified.",
+        "ja": "選択8-bit fieldと包含register各1個、各level callback 1個、独自遅延frontdoor storageを使う。read／write順序probeは関連条件で独立不具合数ではない。peer callback順、HDL／bus protocol、custom backdoor prototypeの解釈、任意alias／並行履歴は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_field_write_callbacks_follow_the_containing_register_and_reverse_post_hook_order",
+          "role": "direct",
+          "expected_observations": [
+            "UT: field_write_order status 1 calls 1 trace RCFDBcrdf"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-ACCESS-AUDIT-FIELD-POSTWRITE-AFTER-REGISTER",
+      "clause": "18.5.6.2",
+      "statement": {
+        "en": "Field post-write work follows containing-register post-write callbacks.",
+        "ja": "field post-write処理は包含registerのpost-write callbackより後である。"
+      },
+      "conditions": {
+        "en": "Invoke the containing-register API once with both typed callback registrations; record inherited-method, registered-callback and original-transfer markers.",
+        "ja": "型付きcallbackを両方に登録し包含register APIを1回呼び、継承method、registered callback、独自転送のmarkerを記録する。"
+      },
+      "expected": {
+        "en": "The selected post suffix is crdf: register callback/method, then field callback/method; the full input retains its separate pre-order expectation.",
+        "ja": "選択post末尾はcrdfで、register callback／method、次にfield callback／methodとなる。入力全体は別のpre順序期待を保持する。"
+      },
+      "limitations": {
+        "en": "One selected eight-bit field and containing register, with one callback at each level and original delayed frontdoor storage. Read/write order probes are related conditions, not a count of independent bugs. No peer callback order, HDL/bus protocol, custom backdoor prototype interpretation or arbitrary alias/concurrent history is certified.",
+        "ja": "選択8-bit fieldと包含register各1個、各level callback 1個、独自遅延frontdoor storageを使う。read／write順序probeは関連条件で独立不具合数ではない。peer callback順、HDL／bus protocol、custom backdoor prototypeの解釈、任意alias／並行履歴は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_field_write_callbacks_follow_the_containing_register_and_reverse_post_hook_order",
+          "role": "direct",
+          "expected_observations": [
+            "UT: field_write_post_order contract 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-ACCESS-AUDIT-FIELD-PREREAD-AFTER-REGISTER",
+      "clause": "18.5.6.3",
+      "statement": {
+        "en": "Field pre-read work follows containing-register pre-read callbacks.",
+        "ja": "field pre-read処理は包含registerのpre-read callbackより後である。"
+      },
+      "conditions": {
+        "en": "Invoke the containing-register API once with both typed callback registrations; record inherited-method, registered-callback and original-transfer markers.",
+        "ja": "型付きcallbackを両方に登録し包含register APIを1回呼び、継承method、registered callback、独自転送のmarkerを記録する。"
+      },
+      "expected": {
+        "en": "The selected complete trace is RCFDBcrdf: register method/callback, field method/callback, transfer, register callback/method, field callback/method.",
+        "ja": "選択した全traceはRCFDBcrdfで、register method／callback、field method／callback、転送、register callback／method、field callback／methodの順である。"
+      },
+      "limitations": {
+        "en": "One selected eight-bit field and containing register, with one callback at each level and original delayed frontdoor storage. Read/write order probes are related conditions, not a count of independent bugs. No peer callback order, HDL/bus protocol, custom backdoor prototype interpretation or arbitrary alias/concurrent history is certified.",
+        "ja": "選択8-bit fieldと包含register各1個、各level callback 1個、独自遅延frontdoor storageを使う。read／write順序probeは関連条件で独立不具合数ではない。peer callback順、HDL／bus protocol、custom backdoor prototypeの解釈、任意alias／並行履歴は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_field_read_callbacks_follow_the_containing_register_and_reverse_post_hook_order",
+          "role": "direct",
+          "expected_observations": [
+            "UT: field_read_order status 1 calls 1 trace RCFDBcrdf"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-ACCESS-AUDIT-FIELD-POSTREAD-AFTER-REGISTER",
+      "clause": "18.5.6.4",
+      "statement": {
+        "en": "Field post-read work follows containing-register post-read callbacks.",
+        "ja": "field post-read処理は包含registerのpost-read callbackより後である。"
+      },
+      "conditions": {
+        "en": "Invoke the containing-register API once with both typed callback registrations; record inherited-method, registered-callback and original-transfer markers.",
+        "ja": "型付きcallbackを両方に登録し包含register APIを1回呼び、継承method、registered callback、独自転送のmarkerを記録する。"
+      },
+      "expected": {
+        "en": "The selected post suffix is crdf: register callback/method, then field callback/method; the full input retains its separate pre-order expectation.",
+        "ja": "選択post末尾はcrdfで、register callback／method、次にfield callback／methodとなる。入力全体は別のpre順序期待を保持する。"
+      },
+      "limitations": {
+        "en": "One selected eight-bit field and containing register, with one callback at each level and original delayed frontdoor storage. Read/write order probes are related conditions, not a count of independent bugs. No peer callback order, HDL/bus protocol, custom backdoor prototype interpretation or arbitrary alias/concurrent history is certified.",
+        "ja": "選択8-bit fieldと包含register各1個、各level callback 1個、独自遅延frontdoor storageを使う。read／write順序probeは関連条件で独立不具合数ではない。peer callback順、HDL／bus protocol、custom backdoor prototypeの解釈、任意alias／並行履歴は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_field_read_callbacks_follow_the_containing_register_and_reverse_post_hook_order",
+          "role": "direct",
+          "expected_observations": [
+            "UT: field_read_post_order contract 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-ACCESS-AUDIT-REGISTER-PREWRITE-BEFORE-FIELD",
+      "clause": "18.4.8.1",
+      "statement": {
+        "en": "Containing-register pre-write work precedes the contained field callbacks.",
+        "ja": "包含registerのpre-write処理は包含fieldのcallbackより先である。"
+      },
+      "conditions": {
+        "en": "Invoke the containing-register API once with both typed callback registrations; record inherited-method, registered-callback and original-transfer markers.",
+        "ja": "型付きcallbackを両方に登録し包含register APIを1回呼び、継承method、registered callback、独自転送のmarkerを記録する。"
+      },
+      "expected": {
+        "en": "The selected complete trace is RCFDBcrdf: register method/callback, field method/callback, transfer, register callback/method, field callback/method.",
+        "ja": "選択した全traceはRCFDBcrdfで、register method／callback、field method／callback、転送、register callback／method、field callback／methodの順である。"
+      },
+      "limitations": {
+        "en": "One selected eight-bit field and containing register, with one callback at each level and original delayed frontdoor storage. Read/write order probes are related conditions, not a count of independent bugs. No peer callback order, HDL/bus protocol, custom backdoor prototype interpretation or arbitrary alias/concurrent history is certified.",
+        "ja": "選択8-bit fieldと包含register各1個、各level callback 1個、独自遅延frontdoor storageを使う。read／write順序probeは関連条件で独立不具合数ではない。peer callback順、HDL／bus protocol、custom backdoor prototypeの解釈、任意alias／並行履歴は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_field_write_callbacks_follow_the_containing_register_and_reverse_post_hook_order",
+          "role": "direct",
+          "expected_observations": [
+            "UT: field_write_order status 1 calls 1 trace RCFDBcrdf"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-ACCESS-AUDIT-REGISTER-PREREAD-BEFORE-FIELD",
+      "clause": "18.4.8.3",
+      "statement": {
+        "en": "Containing-register pre-read work precedes the contained field callbacks.",
+        "ja": "包含registerのpre-read処理は包含fieldのcallbackより先である。"
+      },
+      "conditions": {
+        "en": "Invoke the containing-register API once with both typed callback registrations; record inherited-method, registered-callback and original-transfer markers.",
+        "ja": "型付きcallbackを両方に登録し包含register APIを1回呼び、継承method、registered callback、独自転送のmarkerを記録する。"
+      },
+      "expected": {
+        "en": "The selected complete trace is RCFDBcrdf: register method/callback, field method/callback, transfer, register callback/method, field callback/method.",
+        "ja": "選択した全traceはRCFDBcrdfで、register method／callback、field method／callback、転送、register callback／method、field callback／methodの順である。"
+      },
+      "limitations": {
+        "en": "One selected eight-bit field and containing register, with one callback at each level and original delayed frontdoor storage. Read/write order probes are related conditions, not a count of independent bugs. No peer callback order, HDL/bus protocol, custom backdoor prototype interpretation or arbitrary alias/concurrent history is certified.",
+        "ja": "選択8-bit fieldと包含register各1個、各level callback 1個、独自遅延frontdoor storageを使う。read／write順序probeは関連条件で独立不具合数ではない。peer callback順、HDL／bus protocol、custom backdoor prototypeの解釈、任意alias／並行履歴は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_field_read_callbacks_follow_the_containing_register_and_reverse_post_hook_order",
+          "role": "direct",
+          "expected_observations": [
+            "UT: field_read_order status 1 calls 1 trace RCFDBcrdf"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-ACCESS-AUDIT-REGISTERED-PRE-AFTER-METHOD",
+      "clause": "18.11.2.2",
+      "statement": {
+        "en": "Each selected registered pre-write callback follows its associated method.",
+        "ja": "各選択registered pre-write callbackは関連methodより後である。"
+      },
+      "conditions": {
+        "en": "Invoke the containing-register API once with both typed callback registrations; record inherited-method, registered-callback and original-transfer markers.",
+        "ja": "型付きcallbackを両方に登録し包含register APIを1回呼び、継承method、registered callback、独自転送のmarkerを記録する。"
+      },
+      "expected": {
+        "en": "The selected complete trace is RCFDBcrdf: register method/callback, field method/callback, transfer, register callback/method, field callback/method.",
+        "ja": "選択した全traceはRCFDBcrdfで、register method／callback、field method／callback、転送、register callback／method、field callback／methodの順である。"
+      },
+      "limitations": {
+        "en": "One selected eight-bit field and containing register, with one callback at each level and original delayed frontdoor storage. Read/write order probes are related conditions, not a count of independent bugs. No peer callback order, HDL/bus protocol, custom backdoor prototype interpretation or arbitrary alias/concurrent history is certified.",
+        "ja": "選択8-bit fieldと包含register各1個、各level callback 1個、独自遅延frontdoor storageを使う。read／write順序probeは関連条件で独立不具合数ではない。peer callback順、HDL／bus protocol、custom backdoor prototypeの解釈、任意alias／並行履歴は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_field_write_callbacks_follow_the_containing_register_and_reverse_post_hook_order",
+          "role": "direct",
+          "expected_observations": [
+            "UT: field_write_order status 1 calls 1 trace RCFDBcrdf"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-ACCESS-AUDIT-REGISTERED-POST-BEFORE-METHOD",
+      "clause": "18.11.2.3",
+      "statement": {
+        "en": "Each selected registered post-write callback precedes its associated method.",
+        "ja": "各選択registered post-write callbackは関連methodより先である。"
+      },
+      "conditions": {
+        "en": "Invoke the containing-register API once with both typed callback registrations; record inherited-method, registered-callback and original-transfer markers.",
+        "ja": "型付きcallbackを両方に登録し包含register APIを1回呼び、継承method、registered callback、独自転送のmarkerを記録する。"
+      },
+      "expected": {
+        "en": "The selected post suffix is crdf: register callback/method, then field callback/method; the full input retains its separate pre-order expectation.",
+        "ja": "選択post末尾はcrdfで、register callback／method、次にfield callback／methodとなる。入力全体は別のpre順序期待を保持する。"
+      },
+      "limitations": {
+        "en": "One selected eight-bit field and containing register, with one callback at each level and original delayed frontdoor storage. Read/write order probes are related conditions, not a count of independent bugs. No peer callback order, HDL/bus protocol, custom backdoor prototype interpretation or arbitrary alias/concurrent history is certified.",
+        "ja": "選択8-bit fieldと包含register各1個、各level callback 1個、独自遅延frontdoor storageを使う。read／write順序probeは関連条件で独立不具合数ではない。peer callback順、HDL／bus protocol、custom backdoor prototypeの解釈、任意alias／並行履歴は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_field_write_callbacks_follow_the_containing_register_and_reverse_post_hook_order",
+          "role": "direct",
+          "expected_observations": [
+            "UT: field_write_post_order contract 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-ACCESS-AUDIT-FACADE-REGISTER-FIELD",
+      "clause": "18.11",
+      "statement": {
+        "en": "A register callback extension supports selected register and field delivery.",
+        "ja": "register callback拡張は選択register／field配送を支援する。"
+      },
+      "conditions": {
+        "en": "Invoke the containing-register API once with both typed callback registrations; record inherited-method, registered-callback and original-transfer markers.",
+        "ja": "型付きcallbackを両方に登録し包含register APIを1回呼び、継承method、registered callback、独自転送のmarkerを記録する。"
+      },
+      "expected": {
+        "en": "The selected complete trace is RCFDBcrdf: register method/callback, field method/callback, transfer, register callback/method, field callback/method.",
+        "ja": "選択した全traceはRCFDBcrdfで、register method／callback、field method／callback、転送、register callback／method、field callback／methodの順である。"
+      },
+      "limitations": {
+        "en": "One selected eight-bit field and containing register, with one callback at each level and original delayed frontdoor storage. Read/write order probes are related conditions, not a count of independent bugs. No peer callback order, HDL/bus protocol, custom backdoor prototype interpretation or arbitrary alias/concurrent history is certified.",
+        "ja": "選択8-bit fieldと包含register各1個、各level callback 1個、独自遅延frontdoor storageを使う。read／write順序probeは関連条件で独立不具合数ではない。peer callback順、HDL／bus protocol、custom backdoor prototypeの解釈、任意alias／並行履歴は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_field_write_callbacks_follow_the_containing_register_and_reverse_post_hook_order",
+          "role": "direct",
+          "expected_observations": [
+            "UT: field_write_order status 1 calls 1 trace RCFDBcrdf"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-ACCESS-AUDIT-PRE-WRITE-VALUE",
+      "clause": "18.5.6.1",
+      "statement": {
+        "en": "Changing field pre-write data changes the selected value actually written.",
+        "ja": "field pre-write data変更は実際に書く選択値を変更する。"
+      },
+      "conditions": {
+        "en": "Set exactly one original method or registered callback change, then call the public field read/write API. Route buffers are independent testbench controls, not a proof of physical alias coherence.",
+        "ja": "独自methodまたはregistered callbackの変更をちょうど1個設定し、公開field read／write APIを呼ぶ。経路bufferは独立した検査系controlで、物理alias整合性の証明ではない。"
+      },
+      "expected": {
+        "en": "A successful original transfer stores 0x63 instead of the supplied 0x21.",
+        "ja": "成功した独自転送は指定0x21でなく0x63を保存する。"
+      },
+      "limitations": {
+        "en": "One selected eight-bit field and containing register, with one callback at each level and original delayed frontdoor storage. Read/write order probes are related conditions, not a count of independent bugs. No peer callback order, HDL/bus protocol, custom backdoor prototype interpretation or arbitrary alias/concurrent history is certified.",
+        "ja": "選択8-bit fieldと包含register各1個、各level callback 1個、独自遅延frontdoor storageを使う。read／write順序probeは関連条件で独立不具合数ではない。peer callback順、HDL／bus protocol、custom backdoor prototypeの解釈、任意alias／並行履歴は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_field_pre_write_value_propagates_through_a_real_selected_access",
+          "role": "direct",
+          "expected_observations": [
+            "UT: field_pre_write_value contract 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-ACCESS-AUDIT-PRE-WRITE-MAP",
+      "clause": "18.5.6.1",
+      "statement": {
+        "en": "Changing the field pre-write map selects the replacement access route.",
+        "ja": "field pre-write map変更は置換access経路を選ぶ。"
+      },
+      "conditions": {
+        "en": "Set exactly one original method or registered callback change, then call the public field read/write API. Route buffers are independent testbench controls, not a proof of physical alias coherence.",
+        "ja": "独自methodまたはregistered callbackの変更をちょうど1個設定し、公開field read／write APIを呼ぶ。経路bufferは独立した検査系controlで、物理alias整合性の証明ではない。"
+      },
+      "expected": {
+        "en": "Only the second original frontdoor is called and stores 0x63.",
+        "ja": "第2独自frontdoorだけを呼び0x63を保存する。"
+      },
+      "limitations": {
+        "en": "One selected eight-bit field and containing register, with one callback at each level and original delayed frontdoor storage. Read/write order probes are related conditions, not a count of independent bugs. No peer callback order, HDL/bus protocol, custom backdoor prototype interpretation or arbitrary alias/concurrent history is certified.",
+        "ja": "選択8-bit fieldと包含register各1個、各level callback 1個、独自遅延frontdoor storageを使う。read／write順序probeは関連条件で独立不具合数ではない。peer callback順、HDL／bus protocol、custom backdoor prototypeの解釈、任意alias／並行履歴は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_field_pre_write_map_propagates_through_a_real_selected_access",
+          "role": "direct",
+          "expected_observations": [
+            "UT: field_pre_write_map contract 1"
+          ]
+        },
+        {
+          "test": "u18/test_field_explicit_second_map_write_uses_the_original_selected_provider",
+          "role": "control",
+          "expected_observations": [
+            "UT: field_explicit_second_map_write contract 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-ACCESS-AUDIT-PRE-WRITE-PATH",
+      "clause": "18.5.6.1",
+      "statement": {
+        "en": "Changing field pre-write path redirects the operation to the installed backdoor.",
+        "ja": "field pre-write path変更は設定したbackdoorへ操作を向ける。"
+      },
+      "conditions": {
+        "en": "Set exactly one original method or registered callback change, then call the public field read/write API. Route buffers are independent testbench controls, not a proof of physical alias coherence.",
+        "ja": "独自methodまたはregistered callbackの変更をちょうど1個設定し、公開field read／write APIを呼ぶ。経路bufferは独立した検査系controlで、物理alias整合性の証明ではない。"
+      },
+      "expected": {
+        "en": "The installed backdoor writes 0x63 without a frontdoor call.",
+        "ja": "frontdoor呼出しなしで設定backdoorが0x63を書く。"
+      },
+      "limitations": {
+        "en": "One selected eight-bit field and containing register, with one callback at each level and original delayed frontdoor storage. Read/write order probes are related conditions, not a count of independent bugs. No peer callback order, HDL/bus protocol, custom backdoor prototype interpretation or arbitrary alias/concurrent history is certified.",
+        "ja": "選択8-bit fieldと包含register各1個、各level callback 1個、独自遅延frontdoor storageを使う。read／write順序probeは関連条件で独立不具合数ではない。peer callback順、HDL／bus protocol、custom backdoor prototypeの解釈、任意alias／並行履歴は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_field_pre_write_path_propagates_through_a_real_selected_access",
+          "role": "direct",
+          "expected_observations": [
+            "UT: field_pre_write_path contract 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-ACCESS-AUDIT-PRE-WRITE-ABORT",
+      "clause": "18.5.6.1",
+      "statement": {
+        "en": "A failing field pre-write status aborts before provider access.",
+        "ja": "失敗field pre-write statusはprovider access前にabortする。"
+      },
+      "conditions": {
+        "en": "Set exactly one original method or registered callback change, then call the public field read/write API. Route buffers are independent testbench controls, not a proof of physical alias coherence.",
+        "ja": "独自methodまたはregistered callbackの変更をちょうど1個設定し、公開field read／write APIを呼ぶ。経路bufferは独立した検査系controlで、物理alias整合性の証明ではない。"
+      },
+      "expected": {
+        "en": "NOT_OK is returned with no frontdoor call or backdoor write.",
+        "ja": "frontdoor呼出し／backdoor writeなしでNOT_OKを返す。"
+      },
+      "limitations": {
+        "en": "One selected eight-bit field and containing register, with one callback at each level and original delayed frontdoor storage. Read/write order probes are related conditions, not a count of independent bugs. No peer callback order, HDL/bus protocol, custom backdoor prototype interpretation or arbitrary alias/concurrent history is certified.",
+        "ja": "選択8-bit fieldと包含register各1個、各level callback 1個、独自遅延frontdoor storageを使う。read／write順序probeは関連条件で独立不具合数ではない。peer callback順、HDL／bus protocol、custom backdoor prototypeの解釈、任意alias／並行履歴は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_field_pre_write_abort_propagates_through_a_real_selected_access",
+          "role": "direct",
+          "expected_observations": [
+            "UT: field_pre_write_abort contract 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-ACCESS-AUDIT-PRE-READ-MAP",
+      "clause": "18.5.6.3",
+      "statement": {
+        "en": "Changing the field pre-read map selects the replacement access route.",
+        "ja": "field pre-read map変更は置換access経路を選ぶ。"
+      },
+      "conditions": {
+        "en": "Set exactly one original method or registered callback change, then call the public field read/write API. Route buffers are independent testbench controls, not a proof of physical alias coherence.",
+        "ja": "独自methodまたはregistered callbackの変更をちょうど1個設定し、公開field read／write APIを呼ぶ。経路bufferは独立した検査系controlで、物理alias整合性の証明ではない。"
+      },
+      "expected": {
+        "en": "Only the second original frontdoor is called and returns its 0x73.",
+        "ja": "第2独自frontdoorだけを呼び、その0x73を返す。"
+      },
+      "limitations": {
+        "en": "One selected eight-bit field and containing register, with one callback at each level and original delayed frontdoor storage. Read/write order probes are related conditions, not a count of independent bugs. No peer callback order, HDL/bus protocol, custom backdoor prototype interpretation or arbitrary alias/concurrent history is certified.",
+        "ja": "選択8-bit fieldと包含register各1個、各level callback 1個、独自遅延frontdoor storageを使う。read／write順序probeは関連条件で独立不具合数ではない。peer callback順、HDL／bus protocol、custom backdoor prototypeの解釈、任意alias／並行履歴は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_field_pre_read_map_propagates_through_a_real_selected_access",
+          "role": "direct",
+          "expected_observations": [
+            "UT: field_pre_read_map contract 1"
+          ]
+        },
+        {
+          "test": "u18/test_field_explicit_second_map_read_uses_the_original_selected_provider",
+          "role": "control",
+          "expected_observations": [
+            "UT: field_explicit_second_map_read contract 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-ACCESS-AUDIT-PRE-READ-PATH",
+      "clause": "18.5.6.3",
+      "statement": {
+        "en": "Changing field pre-read path selects the installed backdoor.",
+        "ja": "field pre-read path変更は設定backdoorを選ぶ。"
+      },
+      "conditions": {
+        "en": "Set exactly one original method or registered callback change, then call the public field read/write API. Route buffers are independent testbench controls, not a proof of physical alias coherence.",
+        "ja": "独自methodまたはregistered callbackの変更をちょうど1個設定し、公開field read／write APIを呼ぶ。経路bufferは独立した検査系controlで、物理alias整合性の証明ではない。"
+      },
+      "expected": {
+        "en": "The installed backdoor returns 0x55 without a frontdoor call.",
+        "ja": "frontdoor呼出しなしで設定backdoorが0x55を返す。"
+      },
+      "limitations": {
+        "en": "One selected eight-bit field and containing register, with one callback at each level and original delayed frontdoor storage. Read/write order probes are related conditions, not a count of independent bugs. No peer callback order, HDL/bus protocol, custom backdoor prototype interpretation or arbitrary alias/concurrent history is certified.",
+        "ja": "選択8-bit fieldと包含register各1個、各level callback 1個、独自遅延frontdoor storageを使う。read／write順序probeは関連条件で独立不具合数ではない。peer callback順、HDL／bus protocol、custom backdoor prototypeの解釈、任意alias／並行履歴は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_field_pre_read_path_propagates_through_a_real_selected_access",
+          "role": "direct",
+          "expected_observations": [
+            "UT: field_pre_read_path contract 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-ACCESS-AUDIT-PRE-READ-ABORT",
+      "clause": "18.5.6.3",
+      "statement": {
+        "en": "A failing field pre-read status aborts before provider access.",
+        "ja": "失敗field pre-read statusはprovider access前にabortする。"
+      },
+      "conditions": {
+        "en": "Set exactly one original method or registered callback change, then call the public field read/write API. Route buffers are independent testbench controls, not a proof of physical alias coherence.",
+        "ja": "独自methodまたはregistered callbackの変更をちょうど1個設定し、公開field read／write APIを呼ぶ。経路bufferは独立した検査系controlで、物理alias整合性の証明ではない。"
+      },
+      "expected": {
+        "en": "NOT_OK is returned with no frontdoor call or backdoor read.",
+        "ja": "frontdoor呼出し／backdoor readなしでNOT_OKを返す。"
+      },
+      "limitations": {
+        "en": "One selected eight-bit field and containing register, with one callback at each level and original delayed frontdoor storage. Read/write order probes are related conditions, not a count of independent bugs. No peer callback order, HDL/bus protocol, custom backdoor prototype interpretation or arbitrary alias/concurrent history is certified.",
+        "ja": "選択8-bit fieldと包含register各1個、各level callback 1個、独自遅延frontdoor storageを使う。read／write順序probeは関連条件で独立不具合数ではない。peer callback順、HDL／bus protocol、custom backdoor prototypeの解釈、任意alias／並行履歴は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_field_pre_read_abort_propagates_through_a_real_selected_access",
+          "role": "direct",
+          "expected_observations": [
+            "UT: field_pre_read_abort contract 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-ACCESS-AUDIT-POST-WRITE-STATUS",
+      "clause": "18.5.6.2",
+      "statement": {
+        "en": "A field post-write status change reaches the caller after storage is written.",
+        "ja": "field post-write status変更はstorage書込み後にcallerへ届く。"
+      },
+      "conditions": {
+        "en": "Set exactly one original method or registered callback change, then call the public field read/write API. Route buffers are independent testbench controls, not a proof of physical alias coherence.",
+        "ja": "独自methodまたはregistered callbackの変更をちょうど1個設定し、公開field read／write APIを呼ぶ。経路bufferは独立した検査系controlで、物理alias整合性の証明ではない。"
+      },
+      "expected": {
+        "en": "The original word is 0x63 after one transfer while returned status is NOT_OK.",
+        "ja": "1転送後の独自wordは0x63で、返却statusはNOT_OKである。"
+      },
+      "limitations": {
+        "en": "One selected eight-bit field and containing register, with one callback at each level and original delayed frontdoor storage. Read/write order probes are related conditions, not a count of independent bugs. No peer callback order, HDL/bus protocol, custom backdoor prototype interpretation or arbitrary alias/concurrent history is certified.",
+        "ja": "選択8-bit fieldと包含register各1個、各level callback 1個、独自遅延frontdoor storageを使う。read／write順序probeは関連条件で独立不具合数ではない。peer callback順、HDL／bus protocol、custom backdoor prototypeの解釈、任意alias／並行履歴は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_field_post_write_status_propagates_through_a_real_selected_access",
+          "role": "direct",
+          "expected_observations": [
+            "UT: field_post_write_status contract 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-ACCESS-AUDIT-POST-READ-VALUE",
+      "clause": "18.5.6.4",
+      "statement": {
+        "en": "A field post-read data change reaches the caller without rewriting storage.",
+        "ja": "field post-read data変更はstorageを書換えずcallerへ届く。"
+      },
+      "conditions": {
+        "en": "Set exactly one original method or registered callback change, then call the public field read/write API. Route buffers are independent testbench controls, not a proof of physical alias coherence.",
+        "ja": "独自methodまたはregistered callbackの変更をちょうど1個設定し、公開field read／write APIを呼ぶ。経路bufferは独立した検査系controlで、物理alias整合性の証明ではない。"
+      },
+      "expected": {
+        "en": "The returned data is 0x73 while original storage remains 0x11.",
+        "ja": "返却dataは0x73、独自storageは0x11を保持する。"
+      },
+      "limitations": {
+        "en": "One selected eight-bit field and containing register, with one callback at each level and original delayed frontdoor storage. Read/write order probes are related conditions, not a count of independent bugs. No peer callback order, HDL/bus protocol, custom backdoor prototype interpretation or arbitrary alias/concurrent history is certified.",
+        "ja": "選択8-bit fieldと包含register各1個、各level callback 1個、独自遅延frontdoor storageを使う。read／write順序probeは関連条件で独立不具合数ではない。peer callback順、HDL／bus protocol、custom backdoor prototypeの解釈、任意alias／並行履歴は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_field_post_read_value_propagates_through_a_real_selected_access",
+          "role": "direct",
+          "expected_observations": [
+            "UT: field_post_read_value contract 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-ACCESS-AUDIT-POST-READ-STATUS",
+      "clause": "18.5.6.4",
+      "statement": {
+        "en": "A field post-read status change reaches the caller.",
+        "ja": "field post-read status変更はcallerへ届く。"
+      },
+      "conditions": {
+        "en": "Set exactly one original method or registered callback change, then call the public field read/write API. Route buffers are independent testbench controls, not a proof of physical alias coherence.",
+        "ja": "独自methodまたはregistered callbackの変更をちょうど1個設定し、公開field read／write APIを呼ぶ。経路bufferは独立した検査系controlで、物理alias整合性の証明ではない。"
+      },
+      "expected": {
+        "en": "One completed original read returns NOT_OK after the status hook.",
+        "ja": "完了した独自read 1回がstatus hook後にNOT_OKを返す。"
+      },
+      "limitations": {
+        "en": "One selected eight-bit field and containing register, with one callback at each level and original delayed frontdoor storage. Read/write order probes are related conditions, not a count of independent bugs. No peer callback order, HDL/bus protocol, custom backdoor prototype interpretation or arbitrary alias/concurrent history is certified.",
+        "ja": "選択8-bit fieldと包含register各1個、各level callback 1個、独自遅延frontdoor storageを使う。read／write順序probeは関連条件で独立不具合数ではない。peer callback順、HDL／bus protocol、custom backdoor prototypeの解釈、任意alias／並行履歴は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_field_post_read_status_propagates_through_a_real_selected_access",
+          "role": "direct",
+          "expected_observations": [
+            "UT: field_post_read_status contract 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-ACCESS-AUDIT-REGISTERED-PRE-WRITE-ABORT",
+      "clause": "18.11.2.2",
+      "statement": {
+        "en": "A registered field pre-write callback can reject the selected access.",
+        "ja": "登録field pre-write callbackは選択accessを拒否できる。"
+      },
+      "conditions": {
+        "en": "Set exactly one original method or registered callback change, then call the public field read/write API. Route buffers are independent testbench controls, not a proof of physical alias coherence.",
+        "ja": "独自methodまたはregistered callbackの変更をちょうど1個設定し、公開field read／write APIを呼ぶ。経路bufferは独立した検査系controlで、物理alias整合性の証明ではない。"
+      },
+      "expected": {
+        "en": "One callback returns NOT_OK with no original frontdoor call.",
+        "ja": "callback 1回が独自frontdoor呼出しなしでNOT_OKを返す。"
+      },
+      "limitations": {
+        "en": "One selected eight-bit field and containing register, with one callback at each level and original delayed frontdoor storage. Read/write order probes are related conditions, not a count of independent bugs. No peer callback order, HDL/bus protocol, custom backdoor prototype interpretation or arbitrary alias/concurrent history is certified.",
+        "ja": "選択8-bit fieldと包含register各1個、各level callback 1個、独自遅延frontdoor storageを使う。read／write順序probeは関連条件で独立不具合数ではない。peer callback順、HDL／bus protocol、custom backdoor prototypeの解釈、任意alias／並行履歴は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_field_registered_pre_write_abort_propagates_through_a_real_selected_access",
+          "role": "direct",
+          "expected_observations": [
+            "UT: field_registered_pre_write_abort contract 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-ACCESS-AUDIT-REGISTERED-PRE-READ-ABORT",
+      "clause": "18.11.2.4",
+      "statement": {
+        "en": "A registered field pre-read callback can reject the selected access.",
+        "ja": "登録field pre-read callbackは選択accessを拒否できる。"
+      },
+      "conditions": {
+        "en": "Set exactly one original method or registered callback change, then call the public field read/write API. Route buffers are independent testbench controls, not a proof of physical alias coherence.",
+        "ja": "独自methodまたはregistered callbackの変更をちょうど1個設定し、公開field read／write APIを呼ぶ。経路bufferは独立した検査系controlで、物理alias整合性の証明ではない。"
+      },
+      "expected": {
+        "en": "One callback returns NOT_OK with no original frontdoor call.",
+        "ja": "callback 1回が独自frontdoor呼出しなしでNOT_OKを返す。"
+      },
+      "limitations": {
+        "en": "One selected eight-bit field and containing register, with one callback at each level and original delayed frontdoor storage. Read/write order probes are related conditions, not a count of independent bugs. No peer callback order, HDL/bus protocol, custom backdoor prototype interpretation or arbitrary alias/concurrent history is certified.",
+        "ja": "選択8-bit fieldと包含register各1個、各level callback 1個、独自遅延frontdoor storageを使う。read／write順序probeは関連条件で独立不具合数ではない。peer callback順、HDL／bus protocol、custom backdoor prototypeの解釈、任意alias／並行履歴は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_field_registered_pre_read_abort_propagates_through_a_real_selected_access",
+          "role": "direct",
+          "expected_observations": [
+            "UT: field_registered_pre_read_abort contract 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-ACCESS-AUDIT-REGISTERED-POST-WRITE-STATUS",
+      "clause": "18.11.2.3",
+      "statement": {
+        "en": "A registered field post-write callback can change returned status.",
+        "ja": "登録field post-write callbackは返却statusを変更できる。"
+      },
+      "conditions": {
+        "en": "Set exactly one original method or registered callback change, then call the public field read/write API. Route buffers are independent testbench controls, not a proof of physical alias coherence.",
+        "ja": "独自methodまたはregistered callbackの変更をちょうど1個設定し、公開field read／write APIを呼ぶ。経路bufferは独立した検査系controlで、物理alias整合性の証明ではない。"
+      },
+      "expected": {
+        "en": "One post callback returns NOT_OK after the original word becomes 0x63.",
+        "ja": "独自wordが0x63になった後、post callback 1回がNOT_OKを返す。"
+      },
+      "limitations": {
+        "en": "One selected eight-bit field and containing register, with one callback at each level and original delayed frontdoor storage. Read/write order probes are related conditions, not a count of independent bugs. No peer callback order, HDL/bus protocol, custom backdoor prototype interpretation or arbitrary alias/concurrent history is certified.",
+        "ja": "選択8-bit fieldと包含register各1個、各level callback 1個、独自遅延frontdoor storageを使う。read／write順序probeは関連条件で独立不具合数ではない。peer callback順、HDL／bus protocol、custom backdoor prototypeの解釈、任意alias／並行履歴は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_field_registered_post_write_status_propagates_through_a_real_selected_access",
+          "role": "direct",
+          "expected_observations": [
+            "UT: field_registered_post_write_status contract 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-ACCESS-AUDIT-REGISTERED-POST-READ-VALUE",
+      "clause": "18.11.2.5",
+      "statement": {
+        "en": "A registered field post-read callback can change returned read data.",
+        "ja": "登録field post-read callbackは返却read dataを変更できる。"
+      },
+      "conditions": {
+        "en": "Set exactly one original method or registered callback change, then call the public field read/write API. Route buffers are independent testbench controls, not a proof of physical alias coherence.",
+        "ja": "独自methodまたはregistered callbackの変更をちょうど1個設定し、公開field read／write APIを呼ぶ。経路bufferは独立した検査系controlで、物理alias整合性の証明ではない。"
+      },
+      "expected": {
+        "en": "One post callback returns 0x73 while original storage remains 0x11.",
+        "ja": "post callback 1回が0x73を返し、独自storageは0x11を保持する。"
+      },
+      "limitations": {
+        "en": "One selected eight-bit field and containing register, with one callback at each level and original delayed frontdoor storage. Read/write order probes are related conditions, not a count of independent bugs. No peer callback order, HDL/bus protocol, custom backdoor prototype interpretation or arbitrary alias/concurrent history is certified.",
+        "ja": "選択8-bit fieldと包含register各1個、各level callback 1個、独自遅延frontdoor storageを使う。read／write順序probeは関連条件で独立不具合数ではない。peer callback順、HDL／bus protocol、custom backdoor prototypeの解釈、任意alias／並行履歴は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_field_registered_post_read_value_propagates_through_a_real_selected_access",
+          "role": "direct",
+          "expected_observations": [
+            "UT: field_registered_post_read_value contract 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-ACCESS-AUDIT-CALLBACK-MODE",
+      "clause": "10.7.1.2.2",
+      "statement": {
+        "en": "Changing selected field callback enable/membership affects subsequent delivery.",
+        "ja": "選択field callbackのenable／所属変更は後続配送へ作用する。"
+      },
+      "conditions": {
+        "en": "Register one payload-changing callback, perform a write, disable or delete it, then repeat the same original input write.",
+        "ja": "payload変更callbackを1個登録しwrite後にdisableまたはdeleteし、同じ元入力writeを反復する。"
+      },
+      "expected": {
+        "en": "The first transfer stores 0x73; the next stores unmodified 0x21, with one callback call and two provider transfers.",
+        "ja": "最初の転送は0x73、次は未変更0x21を保存し、callback 1回とprovider転送2回を観測する。"
+      },
+      "limitations": {
+        "en": "One selected eight-bit field and containing register, with one callback at each level and original delayed frontdoor storage. Read/write order probes are related conditions, not a count of independent bugs. No peer callback order, HDL/bus protocol, custom backdoor prototype interpretation or arbitrary alias/concurrent history is certified.",
+        "ja": "選択8-bit fieldと包含register各1個、各level callback 1個、独自遅延frontdoor storageを使う。read／write順序probeは関連条件で独立不具合数ではない。peer callback順、HDL／bus protocol、custom backdoor prototypeの解釈、任意alias／並行履歴は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_field_registered_callback_mode_changes_only_subsequent_access_delivery",
+          "role": "direct",
+          "expected_observations": [
+            "UT: field_callback_mode first 1 later 1 calls 1 transfers 2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-ACCESS-AUDIT-CALLBACK-DELETE",
+      "clause": "10.7.2.3.3",
+      "statement": {
+        "en": "Changing selected field callback enable/membership affects subsequent delivery.",
+        "ja": "選択field callbackのenable／所属変更は後続配送へ作用する。"
+      },
+      "conditions": {
+        "en": "Register one payload-changing callback, perform a write, disable or delete it, then repeat the same original input write.",
+        "ja": "payload変更callbackを1個登録しwrite後にdisableまたはdeleteし、同じ元入力writeを反復する。"
+      },
+      "expected": {
+        "en": "The first transfer stores 0x73; the next stores unmodified 0x21, with one callback call and two provider transfers.",
+        "ja": "最初の転送は0x73、次は未変更0x21を保存し、callback 1回とprovider転送2回を観測する。"
+      },
+      "limitations": {
+        "en": "One selected eight-bit field and containing register, with one callback at each level and original delayed frontdoor storage. Read/write order probes are related conditions, not a count of independent bugs. No peer callback order, HDL/bus protocol, custom backdoor prototype interpretation or arbitrary alias/concurrent history is certified.",
+        "ja": "選択8-bit fieldと包含register各1個、各level callback 1個、独自遅延frontdoor storageを使う。read／write順序probeは関連条件で独立不具合数ではない。peer callback順、HDL／bus protocol、custom backdoor prototypeの解釈、任意alias／並行履歴は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_field_registered_callback_delete_changes_only_subsequent_access_delivery",
+          "role": "direct",
+          "expected_observations": [
+            "UT: field_callback_delete first 1 later 1 calls 1 transfers 2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-ACCESS-AUDIT-FIELD-CALLBACK-ALIAS",
+      "clause": "D.4.5.7",
+      "statement": {
+        "en": "The field callback convenience type manages the selected field/uvm_reg_cbs pair.",
+        "ja": "field callback便利型は選択field／uvm_reg_cbs組を管理する。"
+      },
+      "conditions": {
+        "en": "Use the printed field-callback alias to add and delete one original field callback around two real transfers.",
+        "ja": "印刷field-callback aliasで独自field callback 1個を登録／削除し、実転送2回を行う。"
+      },
+      "expected": {
+        "en": "Only the registered first transfer is modified; subsequent delivery is absent after deletion.",
+        "ja": "登録中の最初の転送だけを変更し、削除後の後続配送はなくなる。"
+      },
+      "limitations": {
+        "en": "One selected eight-bit field and containing register, with one callback at each level and original delayed frontdoor storage. Read/write order probes are related conditions, not a count of independent bugs. No peer callback order, HDL/bus protocol, custom backdoor prototype interpretation or arbitrary alias/concurrent history is certified.",
+        "ja": "選択8-bit fieldと包含register各1個、各level callback 1個、独自遅延frontdoor storageを使う。read／write順序probeは関連条件で独立不具合数ではない。peer callback順、HDL／bus protocol、custom backdoor prototypeの解釈、任意alias／並行履歴は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_field_registered_callback_delete_changes_only_subsequent_access_delivery",
+          "role": "direct",
+          "expected_observations": [
+            "UT: field_callback_delete first 1 later 1 calls 1 transfers 2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-ACCESS-AUDIT-POKE-AS-IS",
+      "clause": "18.5.5.11",
+      "statement": {
+        "en": "Field poke deposits the selected slice as supplied.",
+        "ja": "field pokeは選択sliceを指定どおりdepositする。"
+      },
+      "conditions": {
+        "en": "Use a configured sixteen-bit register, middle field at LSB four, original backdoor storage B75D and optional distinct extension; access policy is selected explicitly.",
+        "ja": "設定済み16-bit register、LSB 4の中央field、独自backdoor storage B75D、必要時は別extensionを使い、access policyを明示選択する。"
+      },
+      "expected": {
+        "en": "The selected middle byte becomes 0x39 through the original backdoor.",
+        "ja": "独自backdoorを通じて選択中央byteは0x39になる。"
+      },
+      "limitations": {
+        "en": "Selected middle eight bits in an original sixteen-bit word, with four-bit neighbors deliberately different from model reset. These providers are original testbench storage, not HDL/DPI evidence. Failed read data, all abstraction kinds, protected/public declaration conflicts and arbitrary races remain open.",
+        "ja": "独自16-bit wordの中央8 bitを選び、両隣4 bitはmodel resetと意図的に異ならせる。providerは独自検査系storageでHDL／DPI証拠ではない。失敗read data、全abstraction kind、protected／public宣言の食違い、任意raceは未完に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_field_poke_deposits_only_the_selected_slice_and_forwards_the_extension",
+          "role": "direct",
+          "expected_observations": [
+            "UT: field_poke status 1 slice 1 reads 1 writes 1 extension 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-ACCESS-AUDIT-POKE-NEIGHBORS",
+      "clause": "18.5.5.11",
+      "statement": {
+        "en": "Field poke preserves other physical word bits through peek-modify-poke.",
+        "ja": "field pokeはpeek-modify-pokeで他の物理word bitを保持する。"
+      },
+      "conditions": {
+        "en": "Use a configured sixteen-bit register, middle field at LSB four, original backdoor storage B75D and optional distinct extension; access policy is selected explicitly.",
+        "ja": "設定済み16-bit register、LSB 4の中央field、独自backdoor storage B75D、必要時は別extensionを使い、access policyを明示選択する。"
+      },
+      "expected": {
+        "en": "The original B75D word becomes B39D after at least one read and one write; neighboring B/D bits survive independently of model A/3 reset.",
+        "ja": "独自word B75Dは少なくともread 1回とwrite 1回でB39Dとなり、隣接B／D bitはmodel reset A／3と独立に保持される。"
+      },
+      "limitations": {
+        "en": "Selected middle eight bits in an original sixteen-bit word, with four-bit neighbors deliberately different from model reset. These providers are original testbench storage, not HDL/DPI evidence. Failed read data, all abstraction kinds, protected/public declaration conflicts and arbitrary races remain open.",
+        "ja": "独自16-bit wordの中央8 bitを選び、両隣4 bitはmodel resetと意図的に異ならせる。providerは独自検査系storageでHDL／DPI証拠ではない。失敗read data、全abstraction kind、protected／public宣言の食違い、任意raceは未完に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_field_poke_deposits_only_the_selected_slice_and_forwards_the_extension",
+          "role": "direct",
+          "expected_observations": [
+            "UT: field_poke status 1 slice 1 reads 1 writes 1 extension 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-ACCESS-AUDIT-POKE-EXTENSION",
+      "clause": "18.5.5.11",
+      "statement": {
+        "en": "Field poke forwards the supplied extension to both original backdoor operations.",
+        "ja": "field pokeは指定extensionを両方の独自backdoor操作へ転送する。"
+      },
+      "conditions": {
+        "en": "Use a configured sixteen-bit register, middle field at LSB four, original backdoor storage B75D and optional distinct extension; access policy is selected explicitly.",
+        "ja": "設定済み16-bit register、LSB 4の中央field、独自backdoor storage B75D、必要時は別extensionを使い、access policyを明示選択する。"
+      },
+      "expected": {
+        "en": "The exact extension handle reaches the read and write observers.",
+        "ja": "正確なextension handleがread／write観測へ届く。"
+      },
+      "limitations": {
+        "en": "Selected middle eight bits in an original sixteen-bit word, with four-bit neighbors deliberately different from model reset. These providers are original testbench storage, not HDL/DPI evidence. Failed read data, all abstraction kinds, protected/public declaration conflicts and arbitrary races remain open.",
+        "ja": "独自16-bit wordの中央8 bitを選び、両隣4 bitはmodel resetと意図的に異ならせる。providerは独自検査系storageでHDL／DPI証拠ではない。失敗read data、全abstraction kind、protected／public宣言の食違い、任意raceは未完に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_field_poke_deposits_only_the_selected_slice_and_forwards_the_extension",
+          "role": "direct",
+          "expected_observations": [
+            "UT: field_poke status 1 slice 1 reads 1 writes 1 extension 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-ACCESS-AUDIT-USER-BACKDOOR-SELECTION",
+      "clause": "18.4.6.2",
+      "statement": {
+        "en": "Installing a user backdoor selects that original provider for field deposition.",
+        "ja": "user backdoor設定はfield depositでその独自providerを選ぶ。"
+      },
+      "conditions": {
+        "en": "Use a configured sixteen-bit register, middle field at LSB four, original backdoor storage B75D and optional distinct extension; access policy is selected explicitly.",
+        "ja": "設定済み16-bit register、LSB 4の中央field、独自backdoor storage B75D、必要時は別extensionを使い、access policyを明示選択する。"
+      },
+      "expected": {
+        "en": "The configured provider receives the real read/write operations and updates its selected original word.",
+        "ja": "設定providerは実read／write操作を受けて選択独自wordを更新する。"
+      },
+      "limitations": {
+        "en": "Selected middle eight bits in an original sixteen-bit word, with four-bit neighbors deliberately different from model reset. These providers are original testbench storage, not HDL/DPI evidence. Failed read data, all abstraction kinds, protected/public declaration conflicts and arbitrary races remain open.",
+        "ja": "独自16-bit wordの中央8 bitを選び、両隣4 bitはmodel resetと意図的に異ならせる。providerは独自検査系storageでHDL／DPI証拠ではない。失敗read data、全abstraction kind、protected／public宣言の食違い、任意raceは未完に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_field_poke_deposits_only_the_selected_slice_and_forwards_the_extension",
+          "role": "direct",
+          "expected_observations": [
+            "UT: field_poke status 1 slice 1 reads 1 writes 1 extension 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-ACCESS-AUDIT-PEEK-SLICE",
+      "clause": "18.5.5.12",
+      "statement": {
+        "en": "Field peek samples the selected slice without modifying storage.",
+        "ja": "field peekはstorageを変更せず選択sliceをsampleする。"
+      },
+      "conditions": {
+        "en": "Use a configured sixteen-bit register, middle field at LSB four, original backdoor storage B75D and optional distinct extension; access policy is selected explicitly.",
+        "ja": "設定済み16-bit register、LSB 4の中央field、独自backdoor storage B75D、必要時は別extensionを使い、access policyを明示選択する。"
+      },
+      "expected": {
+        "en": "It returns 0x75, keeps original B75D unchanged and performs no write.",
+        "ja": "0x75を返し、元B75Dを未変更で保持してwriteしない。"
+      },
+      "limitations": {
+        "en": "Selected middle eight bits in an original sixteen-bit word, with four-bit neighbors deliberately different from model reset. These providers are original testbench storage, not HDL/DPI evidence. Failed read data, all abstraction kinds, protected/public declaration conflicts and arbitrary races remain open.",
+        "ja": "独自16-bit wordの中央8 bitを選び、両隣4 bitはmodel resetと意図的に異ならせる。providerは独自検査系storageでHDL／DPI証拠ではない。失敗read data、全abstraction kind、protected／public宣言の食違い、任意raceは未完に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_field_peek_samples_only_the_selected_slice_without_changing_storage",
+          "role": "direct",
+          "expected_observations": [
+            "UT: field_peek status 1 slice 1 unchanged 1 writes 0 extension 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-ACCESS-AUDIT-PEEK-EXTENSION",
+      "clause": "18.5.5.12",
+      "statement": {
+        "en": "Field peek forwards the supplied extension to the original sample.",
+        "ja": "field peekは指定extensionを独自sampleへ転送する。"
+      },
+      "conditions": {
+        "en": "Use a configured sixteen-bit register, middle field at LSB four, original backdoor storage B75D and optional distinct extension; access policy is selected explicitly.",
+        "ja": "設定済み16-bit register、LSB 4の中央field、独自backdoor storage B75D、必要時は別extensionを使い、access policyを明示選択する。"
+      },
+      "expected": {
+        "en": "The read observer receives the exact extension handle.",
+        "ja": "read観測は正確なextension handleを受ける。"
+      },
+      "limitations": {
+        "en": "Selected middle eight bits in an original sixteen-bit word, with four-bit neighbors deliberately different from model reset. These providers are original testbench storage, not HDL/DPI evidence. Failed read data, all abstraction kinds, protected/public declaration conflicts and arbitrary races remain open.",
+        "ja": "独自16-bit wordの中央8 bitを選び、両隣4 bitはmodel resetと意図的に異ならせる。providerは独自検査系storageでHDL／DPI証拠ではない。失敗read data、全abstraction kind、protected／public宣言の食違い、任意raceは未完に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_field_peek_samples_only_the_selected_slice_without_changing_storage",
+          "role": "direct",
+          "expected_observations": [
+            "UT: field_peek status 1 slice 1 unchanged 1 writes 0 extension 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-ACCESS-AUDIT-READONLY-PHYSICAL-WRITE",
+      "clause": "18.5.5.9",
+      "statement": {
+        "en": "Physical-style read-only field writes preserve its existing bits.",
+        "ja": "物理accessを模すread-only field writeは既存bitを保持する。"
+      },
+      "conditions": {
+        "en": "Use a configured sixteen-bit register, middle field at LSB four, original backdoor storage B75D and optional distinct extension; access policy is selected explicitly.",
+        "ja": "設定済み16-bit register、LSB 4の中央field、独自backdoor storage B75D、必要時は別extensionを使い、access policyを明示選択する。"
+      },
+      "expected": {
+        "en": "The selected read-only slice remains 0x75 after physical-style backdoor write.",
+        "ja": "物理accessを模すbackdoor write後も選択read-only sliceは0x75を保持する。"
+      },
+      "limitations": {
+        "en": "Selected middle eight bits in an original sixteen-bit word, with four-bit neighbors deliberately different from model reset. These providers are original testbench storage, not HDL/DPI evidence. Failed read data, all abstraction kinds, protected/public declaration conflicts and arbitrary races remain open.",
+        "ja": "独自16-bit wordの中央8 bitを選び、両隣4 bitはmodel resetと意図的に異ならせる。providerは独自検査系storageでHDL／DPI証拠ではない。失敗read data、全abstraction kind、protected／public宣言の食違い、任意raceは未完に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_field_readonly_backdoor_write_is_protected_while_poke_deposits_as_is",
+          "role": "direct",
+          "expected_observations": [
+            "UT: field_ro_slice unchanged 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-ACCESS-AUDIT-READONLY-POKE",
+      "clause": "18.5.5.11",
+      "statement": {
+        "en": "Field poke deposits as-is even when physical-style writes are read-only.",
+        "ja": "物理accessを模すwriteがread-onlyでもfield pokeはそのままdepositする。"
+      },
+      "conditions": {
+        "en": "Use a configured sixteen-bit register, middle field at LSB four, original backdoor storage B75D and optional distinct extension; access policy is selected explicitly.",
+        "ja": "設定済み16-bit register、LSB 4の中央field、独自backdoor storage B75D、必要時は別extensionを使い、access policyを明示選択する。"
+      },
+      "expected": {
+        "en": "The following poke changes B75D to B39D successfully.",
+        "ja": "後続pokeはB75DをB39Dへ正常に変更する。"
+      },
+      "limitations": {
+        "en": "Selected middle eight bits in an original sixteen-bit word, with four-bit neighbors deliberately different from model reset. These providers are original testbench storage, not HDL/DPI evidence. Failed read data, all abstraction kinds, protected/public declaration conflicts and arbitrary races remain open.",
+        "ja": "独自16-bit wordの中央8 bitを選び、両隣4 bitはmodel resetと意図的に異ならせる。providerは独自検査系storageでHDL／DPI証拠ではない。失敗read data、全abstraction kind、protected／public宣言の食違い、任意raceは未完に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_field_readonly_backdoor_write_is_protected_while_poke_deposits_as_is",
+          "role": "direct",
+          "expected_observations": [
+            "UT: field_ro_deposit protected 1 deposited 1 status 1"
+          ]
+        },
+        {
+          "test": "u18/test_field_readonly_poke_without_a_prior_write_deposits_the_selected_slice",
+          "role": "control",
+          "expected_observations": [
+            "UT: field_ro_poke_single status 1 slice 1 reads 1 writes 1 extension 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-ACCESS-AUDIT-FAILED-PEEK-STATUS",
+      "clause": "18.5.5.12",
+      "statement": {
+        "en": "An original backdoor sample failure is returned by field peek.",
+        "ja": "独自backdoor sample失敗はfield peekから返る。"
+      },
+      "conditions": {
+        "en": "Use a configured sixteen-bit register, middle field at LSB four, original backdoor storage B75D and optional distinct extension; access policy is selected explicitly.",
+        "ja": "設定済み16-bit register、LSB 4の中央field、独自backdoor storage B75D、必要時は別extensionを使い、access policyを明示選択する。"
+      },
+      "expected": {
+        "en": "It returns NOT_OK, preserves B75D and performs no write without constraining failed data.",
+        "ja": "失敗dataを制約せずNOT_OK、B75D保持、writeなしを観測する。"
+      },
+      "limitations": {
+        "en": "Selected middle eight bits in an original sixteen-bit word, with four-bit neighbors deliberately different from model reset. These providers are original testbench storage, not HDL/DPI evidence. Failed read data, all abstraction kinds, protected/public declaration conflicts and arbitrary races remain open.",
+        "ja": "独自16-bit wordの中央8 bitを選び、両隣4 bitはmodel resetと意図的に異ならせる。providerは独自検査系storageでHDL／DPI証拠ではない。失敗read data、全abstraction kind、protected／public宣言の食違い、任意raceは未完に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_field_failed_peek_preserves_original_storage_without_prescribing_failed_data",
+          "role": "direct",
+          "expected_observations": [
+            "UT: field_failed_peek failure 1 unchanged 1 writes 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-ACCESS-AUDIT-FAILED-POKE-STATUS",
+      "clause": "18.5.5.11",
+      "statement": {
+        "en": "An original backdoor write failure is returned by field poke.",
+        "ja": "独自backdoor write失敗はfield pokeから返る。"
+      },
+      "conditions": {
+        "en": "Use a configured sixteen-bit register, middle field at LSB four, original backdoor storage B75D and optional distinct extension; access policy is selected explicitly.",
+        "ja": "設定済み16-bit register、LSB 4の中央field、独自backdoor storage B75D、必要時は別extensionを使い、access policyを明示選択する。"
+      },
+      "expected": {
+        "en": "It returns NOT_OK with one attempted write while the original B75D word remains unchanged.",
+        "ja": "元B75Dを未変更で保持し、write試行1回でNOT_OKを返す。"
+      },
+      "limitations": {
+        "en": "Selected middle eight bits in an original sixteen-bit word, with four-bit neighbors deliberately different from model reset. These providers are original testbench storage, not HDL/DPI evidence. Failed read data, all abstraction kinds, protected/public declaration conflicts and arbitrary races remain open.",
+        "ja": "独自16-bit wordの中央8 bitを選び、両隣4 bitはmodel resetと意図的に異ならせる。providerは独自検査系storageでHDL／DPI証拠ではない。失敗read data、全abstraction kind、protected／public宣言の食違い、任意raceは未完に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_field_failed_poke_returns_write_failure_and_keeps_the_original_word",
+          "role": "direct",
+          "expected_observations": [
+            "UT: field_failed_poke failure 1 unchanged 1 attempts 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-ACCESS-AUDIT-MIRROR-CHECK-0-POLICY-0-REFRESH",
+      "clause": "18.5.5.13",
+      "statement": {
+        "en": "Field mirror refreshes the selected original read value.",
+        "ja": "field mirrorは選択した独自read値で更新する。"
+      },
+      "conditions": {
+        "en": "Select field and operation check settings independently, initialize mirror 0x11 and original frontdoor storage 0x73, and gate a report catcher around the single mirror call.",
+        "ja": "fieldと操作のcheck設定を独立に選び、mirror 0x11と独自frontdoor storage 0x73を初期化し、mirror 1呼出しだけをreport catcherで観測する。"
+      },
+      "expected": {
+        "en": "One original read changes the selected mirror from 0x11 to 0x73.",
+        "ja": "独自read 1回で選択mirrorを0x11から0x73へ更新する。"
+      },
+      "limitations": {
+        "en": "One selected eight-bit field and containing register, with one callback at each level and original delayed frontdoor storage. Read/write order probes are related conditions, not a count of independent bugs. No peer callback order, HDL/bus protocol, custom backdoor prototype interpretation or arbitrary alias/concurrent history is certified.",
+        "ja": "選択8-bit fieldと包含register各1個、各level callback 1個、独自遅延frontdoor storageを使う。read／write順序probeは関連条件で独立不具合数ではない。peer callback順、HDL／bus protocol、custom backdoor prototypeの解釈、任意alias／並行履歴は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_field_mirror_check_0_policy_0_gates_comparison_but_refreshes_the_selected_value",
+          "role": "direct",
+          "expected_observations": [
+            "UT: field_mirror_check_0_policy_0 read 1 mirror 1 error_gate 1 policy 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-ACCESS-AUDIT-MIRROR-CHECK-0-POLICY-0-CHECK-GATE",
+      "clause": "18.5.5.13",
+      "statement": {
+        "en": "Field mirror comparison requires both selected check gates.",
+        "ja": "field mirror比較には選択check gate両方が必要である。"
+      },
+      "conditions": {
+        "en": "Select field and operation check settings independently, initialize mirror 0x11 and original frontdoor storage 0x73, and gate a report catcher around the single mirror call.",
+        "ja": "fieldと操作のcheck設定を独立に選び、mirror 0x11と独自frontdoor storage 0x73を初期化し、mirror 1呼出しだけをreport catcherで観測する。"
+      },
+      "expected": {
+        "en": "The selected mismatch reports an error exactly when check=0 and policy=0 are both enabled; no ID/text/count is imposed.",
+        "ja": "選択不一致はcheck=0とpolicy=0の両方が有効な場合に限りerrorを報告し、ID／文面／回数は規定しない。"
+      },
+      "limitations": {
+        "en": "One selected eight-bit field and containing register, with one callback at each level and original delayed frontdoor storage. Read/write order probes are related conditions, not a count of independent bugs. No peer callback order, HDL/bus protocol, custom backdoor prototype interpretation or arbitrary alias/concurrent history is certified.",
+        "ja": "選択8-bit fieldと包含register各1個、各level callback 1個、独自遅延frontdoor storageを使う。read／write順序probeは関連条件で独立不具合数ではない。peer callback順、HDL／bus protocol、custom backdoor prototypeの解釈、任意alias／並行履歴は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_field_mirror_check_0_policy_0_gates_comparison_but_refreshes_the_selected_value",
+          "role": "direct",
+          "expected_observations": [
+            "UT: field_mirror_check_0_policy_0 read 1 mirror 1 error_gate 1 policy 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-ACCESS-AUDIT-MIRROR-CHECK-0-POLICY-0-POLICY-GET",
+      "clause": "18.5.5.14",
+      "statement": {
+        "en": "The field compare getter retains the selected policy during mirror access.",
+        "ja": "field compare getterはmirror access中も選択policyを保持する。"
+      },
+      "conditions": {
+        "en": "Select field and operation check settings independently, initialize mirror 0x11 and original frontdoor storage 0x73, and gate a report catcher around the single mirror call.",
+        "ja": "fieldと操作のcheck設定を独立に選び、mirror 0x11と独自frontdoor storage 0x73を初期化し、mirror 1呼出しだけをreport catcherで観測する。"
+      },
+      "expected": {
+        "en": "The getter still reports the independently selected check policy after the real read.",
+        "ja": "実read後もgetterは独立選択したcheck policyを報告する。"
+      },
+      "limitations": {
+        "en": "One selected eight-bit field and containing register, with one callback at each level and original delayed frontdoor storage. Read/write order probes are related conditions, not a count of independent bugs. No peer callback order, HDL/bus protocol, custom backdoor prototype interpretation or arbitrary alias/concurrent history is certified.",
+        "ja": "選択8-bit fieldと包含register各1個、各level callback 1個、独自遅延frontdoor storageを使う。read／write順序probeは関連条件で独立不具合数ではない。peer callback順、HDL／bus protocol、custom backdoor prototypeの解釈、任意alias／並行履歴は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_field_mirror_check_0_policy_0_gates_comparison_but_refreshes_the_selected_value",
+          "role": "direct",
+          "expected_observations": [
+            "UT: field_mirror_check_0_policy_0 read 1 mirror 1 error_gate 1 policy 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-ACCESS-AUDIT-MIRROR-CHECK-0-POLICY-1-REFRESH",
+      "clause": "18.5.5.13",
+      "statement": {
+        "en": "Field mirror refreshes the selected original read value.",
+        "ja": "field mirrorは選択した独自read値で更新する。"
+      },
+      "conditions": {
+        "en": "Select field and operation check settings independently, initialize mirror 0x11 and original frontdoor storage 0x73, and gate a report catcher around the single mirror call.",
+        "ja": "fieldと操作のcheck設定を独立に選び、mirror 0x11と独自frontdoor storage 0x73を初期化し、mirror 1呼出しだけをreport catcherで観測する。"
+      },
+      "expected": {
+        "en": "One original read changes the selected mirror from 0x11 to 0x73.",
+        "ja": "独自read 1回で選択mirrorを0x11から0x73へ更新する。"
+      },
+      "limitations": {
+        "en": "One selected eight-bit field and containing register, with one callback at each level and original delayed frontdoor storage. Read/write order probes are related conditions, not a count of independent bugs. No peer callback order, HDL/bus protocol, custom backdoor prototype interpretation or arbitrary alias/concurrent history is certified.",
+        "ja": "選択8-bit fieldと包含register各1個、各level callback 1個、独自遅延frontdoor storageを使う。read／write順序probeは関連条件で独立不具合数ではない。peer callback順、HDL／bus protocol、custom backdoor prototypeの解釈、任意alias／並行履歴は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_field_mirror_check_0_policy_1_gates_comparison_but_refreshes_the_selected_value",
+          "role": "direct",
+          "expected_observations": [
+            "UT: field_mirror_check_0_policy_1 read 1 mirror 1 error_gate 1 policy 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-ACCESS-AUDIT-MIRROR-CHECK-0-POLICY-1-CHECK-GATE",
+      "clause": "18.5.5.13",
+      "statement": {
+        "en": "Field mirror comparison requires both selected check gates.",
+        "ja": "field mirror比較には選択check gate両方が必要である。"
+      },
+      "conditions": {
+        "en": "Select field and operation check settings independently, initialize mirror 0x11 and original frontdoor storage 0x73, and gate a report catcher around the single mirror call.",
+        "ja": "fieldと操作のcheck設定を独立に選び、mirror 0x11と独自frontdoor storage 0x73を初期化し、mirror 1呼出しだけをreport catcherで観測する。"
+      },
+      "expected": {
+        "en": "The selected mismatch reports an error exactly when check=0 and policy=1 are both enabled; no ID/text/count is imposed.",
+        "ja": "選択不一致はcheck=0とpolicy=1の両方が有効な場合に限りerrorを報告し、ID／文面／回数は規定しない。"
+      },
+      "limitations": {
+        "en": "One selected eight-bit field and containing register, with one callback at each level and original delayed frontdoor storage. Read/write order probes are related conditions, not a count of independent bugs. No peer callback order, HDL/bus protocol, custom backdoor prototype interpretation or arbitrary alias/concurrent history is certified.",
+        "ja": "選択8-bit fieldと包含register各1個、各level callback 1個、独自遅延frontdoor storageを使う。read／write順序probeは関連条件で独立不具合数ではない。peer callback順、HDL／bus protocol、custom backdoor prototypeの解釈、任意alias／並行履歴は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_field_mirror_check_0_policy_1_gates_comparison_but_refreshes_the_selected_value",
+          "role": "direct",
+          "expected_observations": [
+            "UT: field_mirror_check_0_policy_1 read 1 mirror 1 error_gate 1 policy 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-ACCESS-AUDIT-MIRROR-CHECK-0-POLICY-1-POLICY-GET",
+      "clause": "18.5.5.14",
+      "statement": {
+        "en": "The field compare getter retains the selected policy during mirror access.",
+        "ja": "field compare getterはmirror access中も選択policyを保持する。"
+      },
+      "conditions": {
+        "en": "Select field and operation check settings independently, initialize mirror 0x11 and original frontdoor storage 0x73, and gate a report catcher around the single mirror call.",
+        "ja": "fieldと操作のcheck設定を独立に選び、mirror 0x11と独自frontdoor storage 0x73を初期化し、mirror 1呼出しだけをreport catcherで観測する。"
+      },
+      "expected": {
+        "en": "The getter still reports the independently selected check policy after the real read.",
+        "ja": "実read後もgetterは独立選択したcheck policyを報告する。"
+      },
+      "limitations": {
+        "en": "One selected eight-bit field and containing register, with one callback at each level and original delayed frontdoor storage. Read/write order probes are related conditions, not a count of independent bugs. No peer callback order, HDL/bus protocol, custom backdoor prototype interpretation or arbitrary alias/concurrent history is certified.",
+        "ja": "選択8-bit fieldと包含register各1個、各level callback 1個、独自遅延frontdoor storageを使う。read／write順序probeは関連条件で独立不具合数ではない。peer callback順、HDL／bus protocol、custom backdoor prototypeの解釈、任意alias／並行履歴は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_field_mirror_check_0_policy_1_gates_comparison_but_refreshes_the_selected_value",
+          "role": "direct",
+          "expected_observations": [
+            "UT: field_mirror_check_0_policy_1 read 1 mirror 1 error_gate 1 policy 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-ACCESS-AUDIT-MIRROR-CHECK-1-POLICY-0-REFRESH",
+      "clause": "18.5.5.13",
+      "statement": {
+        "en": "Field mirror refreshes the selected original read value.",
+        "ja": "field mirrorは選択した独自read値で更新する。"
+      },
+      "conditions": {
+        "en": "Select field and operation check settings independently, initialize mirror 0x11 and original frontdoor storage 0x73, and gate a report catcher around the single mirror call.",
+        "ja": "fieldと操作のcheck設定を独立に選び、mirror 0x11と独自frontdoor storage 0x73を初期化し、mirror 1呼出しだけをreport catcherで観測する。"
+      },
+      "expected": {
+        "en": "One original read changes the selected mirror from 0x11 to 0x73.",
+        "ja": "独自read 1回で選択mirrorを0x11から0x73へ更新する。"
+      },
+      "limitations": {
+        "en": "One selected eight-bit field and containing register, with one callback at each level and original delayed frontdoor storage. Read/write order probes are related conditions, not a count of independent bugs. No peer callback order, HDL/bus protocol, custom backdoor prototype interpretation or arbitrary alias/concurrent history is certified.",
+        "ja": "選択8-bit fieldと包含register各1個、各level callback 1個、独自遅延frontdoor storageを使う。read／write順序probeは関連条件で独立不具合数ではない。peer callback順、HDL／bus protocol、custom backdoor prototypeの解釈、任意alias／並行履歴は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_field_mirror_check_1_policy_0_gates_comparison_but_refreshes_the_selected_value",
+          "role": "direct",
+          "expected_observations": [
+            "UT: field_mirror_check_1_policy_0 read 1 mirror 1 error_gate 1 policy 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-ACCESS-AUDIT-MIRROR-CHECK-1-POLICY-0-CHECK-GATE",
+      "clause": "18.5.5.13",
+      "statement": {
+        "en": "Field mirror comparison requires both selected check gates.",
+        "ja": "field mirror比較には選択check gate両方が必要である。"
+      },
+      "conditions": {
+        "en": "Select field and operation check settings independently, initialize mirror 0x11 and original frontdoor storage 0x73, and gate a report catcher around the single mirror call.",
+        "ja": "fieldと操作のcheck設定を独立に選び、mirror 0x11と独自frontdoor storage 0x73を初期化し、mirror 1呼出しだけをreport catcherで観測する。"
+      },
+      "expected": {
+        "en": "The selected mismatch reports an error exactly when check=1 and policy=0 are both enabled; no ID/text/count is imposed.",
+        "ja": "選択不一致はcheck=1とpolicy=0の両方が有効な場合に限りerrorを報告し、ID／文面／回数は規定しない。"
+      },
+      "limitations": {
+        "en": "One selected eight-bit field and containing register, with one callback at each level and original delayed frontdoor storage. Read/write order probes are related conditions, not a count of independent bugs. No peer callback order, HDL/bus protocol, custom backdoor prototype interpretation or arbitrary alias/concurrent history is certified.",
+        "ja": "選択8-bit fieldと包含register各1個、各level callback 1個、独自遅延frontdoor storageを使う。read／write順序probeは関連条件で独立不具合数ではない。peer callback順、HDL／bus protocol、custom backdoor prototypeの解釈、任意alias／並行履歴は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_field_mirror_check_1_policy_0_gates_comparison_but_refreshes_the_selected_value",
+          "role": "direct",
+          "expected_observations": [
+            "UT: field_mirror_check_1_policy_0 read 1 mirror 1 error_gate 1 policy 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-ACCESS-AUDIT-MIRROR-CHECK-1-POLICY-0-POLICY-GET",
+      "clause": "18.5.5.14",
+      "statement": {
+        "en": "The field compare getter retains the selected policy during mirror access.",
+        "ja": "field compare getterはmirror access中も選択policyを保持する。"
+      },
+      "conditions": {
+        "en": "Select field and operation check settings independently, initialize mirror 0x11 and original frontdoor storage 0x73, and gate a report catcher around the single mirror call.",
+        "ja": "fieldと操作のcheck設定を独立に選び、mirror 0x11と独自frontdoor storage 0x73を初期化し、mirror 1呼出しだけをreport catcherで観測する。"
+      },
+      "expected": {
+        "en": "The getter still reports the independently selected check policy after the real read.",
+        "ja": "実read後もgetterは独立選択したcheck policyを報告する。"
+      },
+      "limitations": {
+        "en": "One selected eight-bit field and containing register, with one callback at each level and original delayed frontdoor storage. Read/write order probes are related conditions, not a count of independent bugs. No peer callback order, HDL/bus protocol, custom backdoor prototype interpretation or arbitrary alias/concurrent history is certified.",
+        "ja": "選択8-bit fieldと包含register各1個、各level callback 1個、独自遅延frontdoor storageを使う。read／write順序probeは関連条件で独立不具合数ではない。peer callback順、HDL／bus protocol、custom backdoor prototypeの解釈、任意alias／並行履歴は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_field_mirror_check_1_policy_0_gates_comparison_but_refreshes_the_selected_value",
+          "role": "direct",
+          "expected_observations": [
+            "UT: field_mirror_check_1_policy_0 read 1 mirror 1 error_gate 1 policy 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-ACCESS-AUDIT-MIRROR-CHECK-1-POLICY-1-REFRESH",
+      "clause": "18.5.5.13",
+      "statement": {
+        "en": "Field mirror refreshes the selected original read value.",
+        "ja": "field mirrorは選択した独自read値で更新する。"
+      },
+      "conditions": {
+        "en": "Select field and operation check settings independently, initialize mirror 0x11 and original frontdoor storage 0x73, and gate a report catcher around the single mirror call.",
+        "ja": "fieldと操作のcheck設定を独立に選び、mirror 0x11と独自frontdoor storage 0x73を初期化し、mirror 1呼出しだけをreport catcherで観測する。"
+      },
+      "expected": {
+        "en": "One original read changes the selected mirror from 0x11 to 0x73.",
+        "ja": "独自read 1回で選択mirrorを0x11から0x73へ更新する。"
+      },
+      "limitations": {
+        "en": "One selected eight-bit field and containing register, with one callback at each level and original delayed frontdoor storage. Read/write order probes are related conditions, not a count of independent bugs. No peer callback order, HDL/bus protocol, custom backdoor prototype interpretation or arbitrary alias/concurrent history is certified.",
+        "ja": "選択8-bit fieldと包含register各1個、各level callback 1個、独自遅延frontdoor storageを使う。read／write順序probeは関連条件で独立不具合数ではない。peer callback順、HDL／bus protocol、custom backdoor prototypeの解釈、任意alias／並行履歴は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_field_mirror_check_1_policy_1_gates_comparison_but_refreshes_the_selected_value",
+          "role": "direct",
+          "expected_observations": [
+            "UT: field_mirror_check_1_policy_1 read 1 mirror 1 error_gate 1 policy 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-ACCESS-AUDIT-MIRROR-CHECK-1-POLICY-1-CHECK-GATE",
+      "clause": "18.5.5.13",
+      "statement": {
+        "en": "Field mirror comparison requires both selected check gates.",
+        "ja": "field mirror比較には選択check gate両方が必要である。"
+      },
+      "conditions": {
+        "en": "Select field and operation check settings independently, initialize mirror 0x11 and original frontdoor storage 0x73, and gate a report catcher around the single mirror call.",
+        "ja": "fieldと操作のcheck設定を独立に選び、mirror 0x11と独自frontdoor storage 0x73を初期化し、mirror 1呼出しだけをreport catcherで観測する。"
+      },
+      "expected": {
+        "en": "The selected mismatch reports an error exactly when check=1 and policy=1 are both enabled; no ID/text/count is imposed.",
+        "ja": "選択不一致はcheck=1とpolicy=1の両方が有効な場合に限りerrorを報告し、ID／文面／回数は規定しない。"
+      },
+      "limitations": {
+        "en": "One selected eight-bit field and containing register, with one callback at each level and original delayed frontdoor storage. Read/write order probes are related conditions, not a count of independent bugs. No peer callback order, HDL/bus protocol, custom backdoor prototype interpretation or arbitrary alias/concurrent history is certified.",
+        "ja": "選択8-bit fieldと包含register各1個、各level callback 1個、独自遅延frontdoor storageを使う。read／write順序probeは関連条件で独立不具合数ではない。peer callback順、HDL／bus protocol、custom backdoor prototypeの解釈、任意alias／並行履歴は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_field_mirror_check_1_policy_1_gates_comparison_but_refreshes_the_selected_value",
+          "role": "direct",
+          "expected_observations": [
+            "UT: field_mirror_check_1_policy_1 read 1 mirror 1 error_gate 1 policy 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-ACCESS-AUDIT-MIRROR-CHECK-1-POLICY-1-POLICY-GET",
+      "clause": "18.5.5.14",
+      "statement": {
+        "en": "The field compare getter retains the selected policy during mirror access.",
+        "ja": "field compare getterはmirror access中も選択policyを保持する。"
+      },
+      "conditions": {
+        "en": "Select field and operation check settings independently, initialize mirror 0x11 and original frontdoor storage 0x73, and gate a report catcher around the single mirror call.",
+        "ja": "fieldと操作のcheck設定を独立に選び、mirror 0x11と独自frontdoor storage 0x73を初期化し、mirror 1呼出しだけをreport catcherで観測する。"
+      },
+      "expected": {
+        "en": "The getter still reports the independently selected check policy after the real read.",
+        "ja": "実read後もgetterは独立選択したcheck policyを報告する。"
+      },
+      "limitations": {
+        "en": "One selected eight-bit field and containing register, with one callback at each level and original delayed frontdoor storage. Read/write order probes are related conditions, not a count of independent bugs. No peer callback order, HDL/bus protocol, custom backdoor prototype interpretation or arbitrary alias/concurrent history is certified.",
+        "ja": "選択8-bit fieldと包含register各1個、各level callback 1個、独自遅延frontdoor storageを使う。read／write順序probeは関連条件で独立不具合数ではない。peer callback順、HDL／bus protocol、custom backdoor prototypeの解釈、任意alias／並行履歴は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_field_mirror_check_1_policy_1_gates_comparison_but_refreshes_the_selected_value",
+          "role": "direct",
+          "expected_observations": [
+            "UT: field_mirror_check_1_policy_1 read 1 mirror 1 error_gate 1 policy 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-ACCESS-AUDIT-MIRROR-DEFAULT-CHECK",
+      "clause": "18.5.5.13",
+      "statement": {
+        "en": "Omitting field mirror check uses NO_CHECK without changing the field policy.",
+        "ja": "field mirror check省略はfield policyを変えずNO_CHECKを使う。"
+      },
+      "conditions": {
+        "en": "Enable field comparison and call mirror with explicit path/map but omitted check on mismatching original storage.",
+        "ja": "field比較をenableし、不一致の独自storageに対してpath／mapを明示しcheckだけを省略してmirrorを呼ぶ。"
+      },
+      "expected": {
+        "en": "One read refreshes the mirror to 0x73 with no error and the field policy remains CHECK.",
+        "ja": "read 1回でerrorなしにmirrorを0x73へ更新し、field policyはCHECKを保持する。"
+      },
+      "limitations": {
+        "en": "One selected eight-bit field and containing register, with one callback at each level and original delayed frontdoor storage. Read/write order probes are related conditions, not a count of independent bugs. No peer callback order, HDL/bus protocol, custom backdoor prototype interpretation or arbitrary alias/concurrent history is certified.",
+        "ja": "選択8-bit fieldと包含register各1個、各level callback 1個、独自遅延frontdoor storageを使う。read／write順序probeは関連条件で独立不具合数ではない。peer callback順、HDL／bus protocol、custom backdoor prototypeの解釈、任意alias／並行履歴は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_field_mirror_omitted_check_defaults_to_no_check_without_disabling_field_policy",
+          "role": "direct",
+          "expected_observations": [
+            "UT: field_mirror_default mirror 1 no_error 1 policy 1 read 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-ACCESS-AUDIT-CALLBACK-CONSTRUCTOR",
+      "clause": "18.11.2.1",
+      "statement": {
+        "en": "Register callback construction preserves default, explicit and empty names.",
+        "ja": "register callback生成は既定名、明示名、空名を保持する。"
+      },
+      "conditions": {
+        "en": "Construct fresh uvm_reg_cbs instances directly without imposing a derived factory-registration requirement.",
+        "ja": "派生factory登録を要求せず、新規uvm_reg_cbs instanceを直接生成する。"
+      },
+      "expected": {
+        "en": "Default uvm_reg_cbs and supplied names are retained by concrete instances.",
+        "ja": "既定uvm_reg_cbsと指定名を具体instanceが保持する。"
+      },
+      "limitations": {
+        "en": "One selected eight-bit field and containing register, with one callback at each level and original delayed frontdoor storage. Read/write order probes are related conditions, not a count of independent bugs. No peer callback order, HDL/bus protocol, custom backdoor prototype interpretation or arbitrary alias/concurrent history is certified.",
+        "ja": "選択8-bit fieldと包含register各1個、各level callback 1個、独自遅延frontdoor storageを使う。read／write順序probeは関連条件で独立不具合数ではない。peer callback順、HDL／bus protocol、custom backdoor prototypeの解釈、任意alias／並行履歴は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_register_callback_constructors_preserve_declared_names_and_callback_ancestry",
+          "role": "direct",
+          "expected_observations": [
+            "UT: callback_constructor default 1 named 1 empty 1 ancestry 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-ACCESS-AUDIT-CALLBACK-ANCESTRY",
+      "clause": "18.11.1",
+      "statement": {
+        "en": "The concrete register callback extends uvm_callback.",
+        "ja": "具体register callbackはuvm_callbackを継承する。"
+      },
+      "conditions": {
+        "en": "Construct fresh uvm_reg_cbs instances directly without imposing a derived factory-registration requirement.",
+        "ja": "派生factory登録を要求せず、新規uvm_reg_cbs instanceを直接生成する。"
+      },
+      "expected": {
+        "en": "Implicit base assignment preserves the exact named callback handle.",
+        "ja": "暗黙base代入は名前付きcallback handleの同一性を保持する。"
+      },
+      "limitations": {
+        "en": "One selected eight-bit field and containing register, with one callback at each level and original delayed frontdoor storage. Read/write order probes are related conditions, not a count of independent bugs. No peer callback order, HDL/bus protocol, custom backdoor prototype interpretation or arbitrary alias/concurrent history is certified.",
+        "ja": "選択8-bit fieldと包含register各1個、各level callback 1個、独自遅延frontdoor storageを使う。read／write順序probeは関連条件で独立不具合数ではない。peer callback順、HDL／bus protocol、custom backdoor prototypeの解釈、任意alias／並行履歴は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_register_callback_constructors_preserve_declared_names_and_callback_ancestry",
+          "role": "direct",
+          "expected_observations": [
+            "UT: callback_constructor default 1 named 1 empty 1 ancestry 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-ACCESS-AUDIT-EXPLICIT-MAP-WRITE",
+      "clause": "18.5.5.9",
+      "statement": {
+        "en": "An explicit field access map selects its configured original provider.",
+        "ja": "明示field access mapは設定した独自providerを選ぶ。"
+      },
+      "conditions": {
+        "en": "Use the second of two valid mapped original frontdoors with no callback redirection.",
+        "ja": "callbackによる変更なしに、有効な独自frontdoor map 2個の第2を使う。"
+      },
+      "expected": {
+        "en": "Only the second provider performs the successful selected transfer and preserves its chosen original payload.",
+        "ja": "第2 providerだけが選択転送を正常に実行し、選択した独自payloadを保持する。"
+      },
+      "limitations": {
+        "en": "Original route control, not physical alias coherence. It does not pass a callback-driven map-change obligation. Other routing, callbacks and concurrency histories remain partial.",
+        "ja": "独自経路controlで、物理alias整合性ではない。callbackによるmap変更義務をpassにしない。他の経路、callback、並行履歴は部分的に残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_field_explicit_second_map_write_uses_the_original_selected_provider",
+          "role": "direct",
+          "expected_observations": [
+            "UT: field_explicit_second_map_write contract 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-ACCESS-AUDIT-EXPLICIT-MAP-READ",
+      "clause": "18.5.5.10",
+      "statement": {
+        "en": "An explicit field access map selects its configured original provider.",
+        "ja": "明示field access mapは設定した独自providerを選ぶ。"
+      },
+      "conditions": {
+        "en": "Use the second of two valid mapped original frontdoors with no callback redirection.",
+        "ja": "callbackによる変更なしに、有効な独自frontdoor map 2個の第2を使う。"
+      },
+      "expected": {
+        "en": "Only the second provider performs the successful selected transfer and preserves its chosen original payload.",
+        "ja": "第2 providerだけが選択転送を正常に実行し、選択した独自payloadを保持する。"
+      },
+      "limitations": {
+        "en": "Original route control, not physical alias coherence. It does not pass a callback-driven map-change obligation. Other routing, callbacks and concurrency histories remain partial.",
+        "ja": "独自経路controlで、物理alias整合性ではない。callbackによるmap変更義務をpassにしない。他の経路、callback、並行履歴は部分的に残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_field_explicit_second_map_read_uses_the_original_selected_provider",
+          "role": "direct",
+          "expected_observations": [
+            "UT: field_explicit_second_map_read contract 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-ACCESS-AUDIT-READONLY-NEIGHBOR-BEST-EFFORT",
+      "clause": "18.5.5.9",
+      "statement": {
+        "en": "For simple side-effect-free original storage, interpret field-write best effort as preserving the unselected peeked bits.",
+        "ja": "副作用のない単純な独自storageでは、field-writeのbest effortを未選択のpeek済みbitを保持すると解釈する。"
+      },
+      "conditions": {
+        "en": "Use a configured sixteen-bit register, middle field at LSB four, original backdoor storage B75D and optional distinct extension; access policy is selected explicitly.",
+        "ja": "設定済み16-bit register、LSB 4の中央field、独自backdoor storage B75D、必要時は別extensionを使い、access policyを明示選択する。"
+      },
+      "expected": {
+        "en": "The whole original B75D word remains unchanged during the read-only field write; an independently reset following poke deposits B39D.",
+        "ja": "read-only field write中は元word B75D全体を未変更で保持し、独立に再初期化した後続pokeはB39Dをdepositする。"
+      },
+      "limitations": {
+        "en": "Selected middle eight bits in an original sixteen-bit word, with four-bit neighbors deliberately different from model reset. These providers are original testbench storage, not HDL/DPI evidence. Failed read data, all abstraction kinds, protected/public declaration conflicts and arbitrary races remain open. The whole-word best-effort expectation is an explicit qualified interpretation, not a proven unconditional guarantee or independent defect. The selected RO-slice observation is separate; subsequent poke starts from a reset B75D control word.",
+        "ja": "独自16-bit wordの中央8 bitを選び、両隣4 bitはmodel resetと意図的に異ならせる。providerは独自検査系storageでHDL／DPI証拠ではない。失敗read data、全abstraction kind、protected／public宣言の食違い、任意raceは未完に残す。 word全体のbest-effort期待は明示的に限定した解釈で、無条件保証や独立不具合の証明ではない。選択RO-slice観測を分け、後続pokeは再初期化したcontrol word B75Dから始める。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_field_readonly_backdoor_write_is_protected_while_poke_deposits_as_is",
+          "role": "direct",
+          "expected_observations": [
+            "UT: field_ro_deposit protected 1 deposited 1 status 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-FIELD-ACCESS-AUDIT-READONLY-POKE-NO-HISTORY",
+      "clause": "18.5.5.11",
+      "statement": {
+        "en": "Field poke deposits as-is even when physical-style writes are read-only.",
+        "ja": "物理accessを模すwriteがread-onlyでもfield pokeはそのままdepositする。"
+      },
+      "conditions": {
+        "en": "Use a freshly reset model and an original B75D backdoor word with a read-only middle byte, without any previous register/field access.",
+        "ja": "以前のregister／field accessなしに、新たにresetしたmodelと、中央byteがread-onlyの独自backdoor word B75Dを使う。"
+      },
+      "expected": {
+        "en": "The standalone poke deposits B39D successfully, preserves physical neighbors B/D and forwards the exact extension to read/write.",
+        "ja": "単独pokeはB39Dを正常にdepositし、物理近傍B／Dを保持し、正確なextensionをread／writeへ転送する。"
+      },
+      "limitations": {
+        "en": "Selected middle eight bits in an original sixteen-bit word, with four-bit neighbors deliberately different from model reset. These providers are original testbench storage, not HDL/DPI evidence. Failed read data, all abstraction kinds, protected/public declaration conflicts and arbitrary races remain open.",
+        "ja": "独自16-bit wordの中央8 bitを選び、両隣4 bitはmodel resetと意図的に異ならせる。providerは独自検査系storageでHDL／DPI証拠ではない。失敗read data、全abstraction kind、protected／public宣言の食違い、任意raceは未完に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_field_readonly_poke_without_a_prior_write_deposits_the_selected_slice",
+          "role": "direct",
+          "expected_observations": [
+            "UT: field_ro_poke_single status 1 slice 1 reads 1 writes 1 extension 1"
+          ]
+        }
+      ]
     }
   ]
 }

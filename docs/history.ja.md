@@ -2,7 +2,7 @@
 
 [English](history.md) · [README](../README.ja.md)
 
-M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の65回目の拡充（全1972件：simulation 1884・elaboration 88）までを記録しています。以前の349件の時点は
+M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の66回目の拡充（全2008件：simulation 1920・elaboration 88）までを記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -2614,3 +2614,40 @@ field-macro監査は日英AI義務125件を追加し、番号の新分類は行�
 guest未測定889（simulation 801／elaboration 88）は追加887件と修正した元入力2件です。新control専用入力は4件、全体のcontrol専用は18テスト、control linkありは61テストです。
 library整合性、tool test 110件、metadata／台帳／索引、生の観測／evidence、日英資料検査は成功です。goal第37反復で初期未評価1463から241へ1222減り、
 完了は未立証で、人のレビューや分母承認を作りません。
+
+## 薄い領域の66回目の拡充：field accessとcallback
+
+[f827d1e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/f827d1e9922e5b1cb4d58318a257370b617c8057)を基に2026-11-05 JSTに実施しました。M3の36入力を追加し、seed 1／73でruntime一致31件、seed 73結果のないseed 1差分5件を得ました。
+field／callback構築、制約付きpublic value、構成後のrandomization mode、pending状態、実read／write hook、
+callbackのenable／delete、backdoorの選択slice、mirrorのcheck gateを扱います。
+明示した第2mapのcontrol 2件と単独read-only pokeには直接義務もあり、新しいcontrol専用入力はありません。
+
+親registerのwrite／read traceはRCFDBcrdfを期待しますが、FDRCBcrdfを観測し、field pre hookがregister pre hookに先行します。
+独立したpost観測はcrdfに一致しても、入力全体には順序差分を保持します。field pre-read／pre-writeでmapを変更してもprovider Aを使い、
+開始時にmap Bを明示するcontrolは一致します。独立した独自route bufferでproviderを区別し、物理map aliasの整合性やRTL protocolの証拠は主張しません。
+
+独自backdoor storageの物理隣接nibble B／Dは、モデルのA／3と異なります。pokeはB75DからB39Dをdepositし、peekはstorageを保持し、
+選択した失敗／extension検査も一致します。read-only writeは選択slice 75を保持しますが、全wordはA753になります。
+全wordの期待は限定したbest-effort解釈として差分を保持し、無条件の周辺bit保証や独立した不具合数にはしません。
+続くpokeの前に物理storageをB75Dへ明示resetすると一致し、履歴のない単独read-only pokeも一致します。
+
+履歴付きfixtureでは意図したresetとslice観測の挿入が最初に漏れていたため、修正した最終sourceを再測定しました。
+以前のseed 73 logは物理／モデルの隣接値が同じ旧入力を使い、旧入力指紋付きで保存して最終evidenceから除外します。
+最終期待の順序とmap結果は規格に基づく元の内容を保持します。
+
+field-access監査は日英AI義務69件と、個別に読んだ分類5件（構造見出し4件、型参照先を示す文脈1件）を追加します。
+以前の未評価22番号のうち17件を部分分解し、5件を明示分類します。第18章は部分329／分類48／未評価79、案717件、主引用405テストです。
+field 18.5の未評価番号はありませんが、部分的な契約が残ります。全体は部分1893／分類395／未評価219（構造272／文脈123）で、元の目標は未完です。
+
+全3575義務に直接テストがあり、直接対応1990テスト、control専用18テスト、control linkあり64テストです。
+新control 3件にはそれぞれ独自の直接義務もあり、他入力の元前提をpassにしません。以前の全3506義務、390分類、1972索引入力／通常記録、88 compiler記録は未変更です。
+範囲／分母承認、人のレビュー、完全coverageは立証していません。
+
+全2008（simulation 1920／elaboration 88）、M1 843（768／75）、M2 547（542／5）、M3 618（610／8）です。
+通常passは1722（runtime 1637／拒否85）、knownは286（runtime 214／build 69／不正受理3）です。
+以前の通常1972記録、3506義務、390分類、88 compiler記録は未変更です。library整合性、tool test 110件、metadata／台帳／索引、現在evidence、日英資料検査は成功です。
+guest／HDL／command-line記録も未変更で、guest未測定は925入力です。人の承認と完了は未立証です。
+
+guest未測定925入力は追加923件と修正した元入力2件（simulation 837／elaboration 88）です。
+compiler 88記録、HDL 11記録、command-line 18記録は保持します。新control専用入力はなく、直接義務も持つ新control 3件でcontrol linkありは64、control専用は18のままです。
+goal第38反復で初期未評価1463から219へ1244減りました。goalは有効のままで、完了は未立証です。

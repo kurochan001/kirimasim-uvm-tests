@@ -5944,6 +5944,78 @@
         "reviewer": null,
         "reviewed_at": null
       }
+    },
+    {
+      "clause": "18.4.8",
+      "classification": "structural",
+      "rationale": {
+        "en": "The individually read Callbacks heading groups the register pre/post read/write hooks and contains no independent behavior; the numbered methods retain their own partial obligations.",
+        "ja": "個別に読んだCallbacks見出しはregister pre／post read／write hookをまとめ、独立動作を持たない。番号付きmethodは自身の部分義務を保持する。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "18.5.5",
+      "classification": "structural",
+      "rationale": {
+        "en": "The individually read Access heading groups the field access APIs without adding behavior beyond their numbered method clauses.",
+        "ja": "個別に読んだAccess見出しはfield access APIをまとめ、番号付きmethod条項以外の動作を追加しない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "18.5.6",
+      "classification": "structural",
+      "rationale": {
+        "en": "The individually read Callbacks heading only groups the four field hooks; their ordering, mutation and abort contracts remain partial.",
+        "ja": "個別に読んだCallbacks見出しはfield hook 4個をまとめるだけで、順序、変更、abort契約は部分的に残る。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "18.11.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "The individually read Methods heading groups constructor and callback interfaces, whose declarations and behavior remain separately partial.",
+        "ja": "個別に読んだMethods見出しはconstructor／callback interfaceをまとめ、宣言と動作は別々に部分的なまま残る。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
+    },
+    {
+      "clause": "18.11.3",
+      "classification": "contextual",
+      "rationale": {
+        "en": "The individually read Types paragraph delegates the convenience callback type descriptions to D.4.5 and adds no separate runtime algorithm. The directly linked field alias obligation remains partial.",
+        "ja": "個別に読んだTypes段落は便利callback型の説明をD.4.5へ委ね、別のruntime algorithmを追加しない。直接対応したfield alias義務は部分的に残る。"
+      },
+      "related_requirements": [
+        "UVM-FIELD-ACCESS-AUDIT-FIELD-CALLBACK-ALIAS"
+      ],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
     }
   ]
 }

@@ -1010,3 +1010,9 @@ controlはstorageを保持しても元の前提を解決しません。
 
 **対応するPACK flag** — PACKでpackとunpackをenableするfield-macro契約です。明示UNPACK controlは別の証拠であり、
 互換roundtripで全ての片方向packing条件を独立に証明しません。
+
+**callbackによるmap変更の前提** — callbackがmapを変更するaccessです。開始時mapを明示するcontrolは異なる前提であり、
+provider選択を直接示してもこの変更義務をpassにしません。
+
+**物理／モデル隣接値の分離** — 独自backdoor storageとregisterモデルの隣接fieldを異なる値にし、置換を観測可能にすることです。
+選択sliceの保護と、限定した全word保持は別の条件です。

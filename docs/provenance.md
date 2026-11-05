@@ -114,6 +114,13 @@ remain separate from element-enum controls. Explicit-UNPACK control and the
 unchanged PACK-only premise likewise retain distinct identities. Passing
 roundtrips do not invent a universal stream layout or prove every direction.
 
+Field-access expectations come from the supplied IEEE field/register/callback
+contracts. Original delayed frontdoors and backdoor storage observe selected
+effects without physical HDL, licensed simulator results or implementation-derived
+oracles. Parent-before-field pre order is preserved despite measured differences.
+The whole-word RO expectation explicitly qualifies the best-effort wording;
+it is separate from selected-slice protection and independent poke controls.
+
 ## Clause catalog maintenance
 
 The identifier-only [clause catalog](../tools/clauses_1800_2.txt) now includes

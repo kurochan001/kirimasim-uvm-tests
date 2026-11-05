@@ -86,6 +86,10 @@ field期待は提供IEEEの型／形状、flag、copy、比較契約から導く
 字面collection T入力と要素enum control、明示UNPACK controlと未変更PACK単独前提を、それぞれ別の同一性で保持します。
 roundtrip一致から普遍stream配置を作ったり全方向を証明したりしません。
 
+field-access期待は提供IEEEのfield／register／callback契約に基づきます。独自の遅延frontdoorとbackdoor storageで選択した効果を観測し、
+物理HDL、商用シミュレータ結果、実装から導いたoracleは使いません。測定差分があっても親がfieldに先行するpre順序を保持します。
+全word RO期待はbest-effort文言の解釈を明示的に限定し、選択sliceの保護や独立したpoke controlと区別します。
+
 ## 条項カタログの保守
 
 番号だけの[条項カタログ](../tools/clauses_1800_2.txt)へB.2.1.2、B.2.1.3、D.2.2.3を追加しました。
