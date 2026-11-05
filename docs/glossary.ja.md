@@ -1131,3 +1131,11 @@ free後もobject参照が残る場合がありますが、link可能性やerror�
 
 **Fresh recorder condition（新規recorderの条件）** — object recordごとに新しいrecorderを開き、以前の処理履歴が反復記録で無視されるとは仮定しない条件です。
 copierの再利用との区別は[Q295](faq.ja.md#q295-型付きpackunpackは共通のstream符号化を規定しますか)で説明しています。
+
+## Printerの属性と出力時の制御
+
+**Textual printer attributes（printerの文字列属性）** — print_generic_elementが受け取る名前・型・size・値の文字列です。
+可視性を数値変換や配置から分離する方法は[Q297](faq.ja.md#q297-数値表記と照合せずsizeを文字列で渡す理由は)で説明しています。
+
+**Emission controls（出力時の制御）** — field収集後の変更も含め、emitが文字列を生成するときに使う名前／型／sizeの有効設定です。
+新規peerの未設定条件との違いは[Q298](faq.ja.md#q298-収集後の制御とpeerの差分で何が分かりますか)で説明しています。

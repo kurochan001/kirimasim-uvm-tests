@@ -5,8 +5,8 @@
 Counts on this page belong to the time of each change, so use [the current snapshot](results.md#current-snapshot) when you need the present suite size or execution scope.
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and seventy-four cross-milestone thin-area expansions, including the
-existing-test requirement-link backlog checkpoint (2256 tests: 2164 simulation and 92 elaboration). The earlier 349-test checkpoint is
+three M4 increments and seventy-five cross-milestone thin-area expansions, including the
+existing-test requirement-link backlog checkpoint (2266 tests: 2174 simulation and 92 elaboration). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -4558,3 +4558,42 @@ and are not relabeled as current evidence. Ordinary totals are 1930 pass/326 kno
 Guests retain 1082 compatible records with 1174 unmeasured inputs; no new run/filter
 occurs. Goal iteration 46 reduces unassessed by one to 138; all original milestone
 targets remain open.
+
+## Seventy-fifth thin-area expansion: printer attributes and emission controls
+
+Ten new printer visibility inputs retain six matches at seeds 1/73 and four
+default-peer differences at seed 1 without seed 73. Actual table/tree/line
+emitters each exercise eight name/type/size masks, before object sprint or after
+collection under the opposite mask. Distinct caller-supplied textual attributes
+isolate visibility from numeric size conversion, row grammar, headings, column
+order/widths, borders and punctuation. Current values, stale-value absence and
+an independent peer are observed.
+
+All selected main visibility/value checks match. Fresh tree/line peers return
+type-name and size controls as zero rather than the required one. The two table
+default-peer inputs and four separately named, explicitly enabled tree/line peer
+controls match both seeds. Controls do not pass the omitted-default inputs; four
+fixture differences do not establish four independent defects or assign a cause.
+
+Two new AI duties decompose actual type-name/size emission. The name-emission
+and three configuration-getter duties keep stable IDs, statements and old links,
+with new conditions and separately identified controls; 3816 other duties remain
+unchanged. All 406 classifications and the proposed scope remain unchanged.
+16.2.10 stays unassessed: the tabular-format overview does not specify the exact
+row/column grammar, and these visibility checks do not close that interpretation.
+Global state remains 1963 partial/406 assessed/138 unassessed. Chapter 16 remains
+175/32/1, with 279 duties and 186 primary fixtures (177 simulation/9 elaboration).
+All partial conditions and original M1–M4 targets remain open.
+
+All 3822 duties have direct links to 2242 tests; 24 others are control-only and
+102 have control links. All 2256 prior ordinary inputs/records, 92 compiler
+records, compatible guests and both backend snapshots remain unchanged.
+Scope, denominator and human review remain unapproved/incomplete.
+
+Initial six records retain their pre-getter-diagnostic input identities. Added
+getter expectations also come from the standard's one, not the observed zero.
+Four independent explicit-peer controls are added; current-input reproduction
+precedes six oracle tags and measurement of all ten final inputs. Ordinary totals
+are 1936 pass/330 known. Guests retain 1082 compatible records with 1184 unmeasured
+inputs. Goal iteration 47 strengthens partial conditions without reducing 138
+unassessed identifiers; all original M1–M4 targets remain open.

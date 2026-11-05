@@ -10,8 +10,8 @@ M4 is in progress. The [scope proposal](../coverage/scope.json),
 [requirement ledger](../coverage/requirements.json),
 [identifier assessments](../coverage/assessments.json) and
 [test index](../coverage/test_index.json) are versioned inputs. The ledger
-contains 3820 AI-drafted requirements, all with direct links to 2232 tests.
-Twenty-four tests have only control links. All 2256 tests have a requirement link.
+contains 3822 AI-drafted requirements, all with direct links to 2242 tests.
+Twenty-four tests have only control links. All 2266 tests have a requirement link.
 Both direct-test and test-link queues are empty. The memory-walk oracle is an
 explicit historical interpretation requiring review; this does not certify
 complete IEEE coverage. No requirement records human review.
@@ -31,7 +31,7 @@ An obligation is one behavior the standard requires under stated conditions; [th
 The proposed unit is one observable normative obligation together with its
 applicability conditions. A method clause may need separate requirements for
 success, failure, default arguments, ordering and side effects. Conversely,
-a heading is not an obligation. The 3820 draft entries span several areas,
+a heading is not an obligation. The 3822 draft entries span several areas,
 without exhausting the obligations in their clauses.
 
 The proposal assigns every root in the existing identifier catalog once:
@@ -67,14 +67,14 @@ execution records carry the measured status and conditions.
 ![Clause citations, explicit requirement links and separately measured execution evidence.](images/requirement-evidence.svg)
 
 A test's first UVM `:lrm:` reference is its **primary focus**; later UVM
-references are **supporting citations**. Of the catalog identifiers, 1208
+references are **supporting citations**. Of the catalog identifiers, 1210
 have a primary-focus test and 2,006 have either kind of citation. Supporting
 references often describe setup APIs. No reference creates a requirement link,
 and a child-clause reference is not automatically rolled up to its parent.
 
 For the 2,482 candidate identifiers, the historical two-tests-per-clause
-census currently shows 1,274 with zero primary-focus tests, 761 with one,
-and 447 with at least two. It measures test placement only. It does not
+census currently shows 1,272 with zero primary-focus tests, 761 with one,
+and 449 with at least two. It measures test placement only. It does not
 establish that an identifier has two independent checks, that its normative
 obligations are decomposed, or that either test passes. It is not an approved
 requirement denominator or a declaration that all zero-focus clauses are gaps.
@@ -99,7 +99,7 @@ lines are anchored once; the runner still compares the complete expected sequenc
 
 [Execution evidence](results.md) is separate and needs matching input, runner,
 library and configuration identities. A direct link may retain a spec-only
-known difference. It is not a pass or a conformance claim. The current 2256-test
+known difference. It is not a pass or a conformance claim. The current 2266-test
 snapshot includes newly measured fixtures; mapping unchanged existing tests
 adds no new execution result for them.
 
@@ -133,7 +133,7 @@ duplicate requirement IDs and unknown clauses/tests are rejected.
 - `coverage/test_index.json` snapshots every current test's `primary_clause`
   and `inputs_sha256`. The fingerprint uses the existing runner collector:
   source, declared helpers/includes/data, expected files and UVM lock. The
-  index is an inventory, not 2256 reviewed requirement mappings.
+  index is an inventory, not 2266 reviewed requirement mappings.
 
 A compile-diagnostic link requires `stage: compile`, a valid nonempty regex
 exactly equal to the fixture's `:expected_stderr_regex:`, `:type: elaboration`
@@ -254,7 +254,7 @@ Each row counts requirements by their own clause and tests by their primary cita
 | 13 | 152 | 58 | 0 | 21 | 0 |
 | 14 | 228 | 146 | 0 | 17 | 0 |
 | 15 | 131 | 116 | 0 | 18 | 0 |
-| 16 | 277 | 176 | 0 | 32 | 1 |
+| 16 | 279 | 186 | 0 | 32 | 1 |
 | 17 | 42 | 11 | 0 | 8 | 0 |
 | 18 | 834 | 500 | 0 | 51 | 45 |
 | 19 | 188 | 132 | 0 | 24 | 5 |
@@ -267,37 +267,36 @@ Each row counts requirements by their own clause and tests by their primary cita
 
 Zero unmapped tests and zero drafts without direct tests do not establish
 complete requirement coverage. The remaining 138 identifiers still need
-assessment/decomposition. Scope is proposed, all 3820 reviews are `ai` and
+assessment/decomposition. Scope is proposed, all 3822 reviews are `ai` and
 the denominator remains unapproved.
 
-Ten new policy-plugin fixtures match seeds 1 and 73 on final current inputs.
-One unchanged original object class alternates printer/comparer and copier/recorder
-operations. Explicit subtypes alternate A/B/A; each record uses a freshly opened
-recorder, without assuming that a reused recorder forgets its processing history.
-Custom printer text, comparison masks, selected-policy identity, idle peer
-observers, exact copier arguments and current field values are observed.
+Ten new printer visibility inputs retain six matches at seeds 1/73 and four
+default-peer differences at seed 1 without seed 73. Actual table/tree/line
+emitters each exercise eight name/type/size masks, before object sprint or after
+collection under the opposite mask. Distinct caller-supplied textual attributes
+isolate visibility from numeric size conversion, row grammar, headings, column
+order/widths, borders and punctuation. Current values, stale-value absence and
+an independent peer are observed.
 
-Four pack and four unpack inputs separately exercise bit, byte, int and longint
-object entry points. Original observer ticks check matching state retrieval after
-field packing and matching state assignment before field unpacking. Pack return
-counts match the selected policy's get_packed_size before unpack consumes state.
-Streams stay opaque and pair with the same compatible policy instance/type;
-roundtrips guard current data, not independent encoding or decoder correctness.
+All selected main visibility/value checks match. Fresh tree/line peers return
+type-name and size controls as zero rather than the required one. The two table
+default-peer inputs and four separately named, explicitly enabled tree/line peer
+controls match both seeds. Controls do not pass the omitted-default inputs; four
+fixture differences do not establish four independent defects or assign a cause.
 
-Five new bilingual AI duties separate explicit pack/unpack policy selection,
-typed state handoff and pack return count. Four existing duties retain their IDs,
-statements and old links while adding qualified conditions and new observations;
-3811 earlier duties are unchanged. Individually read introduction 16 is contextual,
-linked to operational, base-type and configuration duties. It adds no duplicate
-parent duty or title-only exclusion. Global state is 1963 partial/406 assessed/138
-unassessed (279 structural/127 contextual). Chapter 16 is 175/32/1, with 277 duties
-and 176 primary fixtures (167 simulation/9 elaboration); 16.2.10 remains unassessed.
+Two new AI duties decompose actual type-name/size emission. The name-emission
+and three configuration-getter duties keep stable IDs, statements and old links,
+with new conditions and separately identified controls; 3816 other duties remain
+unchanged. All 406 classifications and the proposed scope remain unchanged.
+16.2.10 stays unassessed: the tabular-format overview does not specify the exact
+row/column grammar, and these visibility checks do not close that interpretation.
+Global state remains 1963 partial/406 assessed/138 unassessed. Chapter 16 remains
+175/32/1, with 279 duties and 186 primary fixtures (177 simulation/9 elaboration).
 All partial conditions and original M1–M4 targets remain open.
 
-All 3820 duties have direct links to 2232 tests; 24 others remain control-only,
-and the 98 control-linked tests retain their roles. All 2246 prior ordinary
-inputs/records, 92 compiler records, compatible guests and both backend snapshots
-remain unchanged. No existing known difference is passed by these new matches.
+All 3822 duties have direct links to 2242 tests; 24 others are control-only and
+102 have control links. All 2256 prior ordinary inputs/records, 92 compiler
+records, compatible guests and both backend snapshots remain unchanged.
 Scope, denominator and human review remain unapproved/incomplete.
 
 TLM 1 drafts cover selected interface/port defaults, FIFO queries, public
@@ -702,4 +701,4 @@ counting rule and frozen requirement set. Define separately what counts as
 reviewed test coverage and as execution success, including execution conditions
 and evidence identity. Approval needs a later scope schema/procedure update; scope schema
 1 intentionally cannot express a completed inventory or approved denominator.
-The current 3820 AI drafts and their direct links do not satisfy that gate.
+The current 3822 AI drafts and their direct links do not satisfy that gate.

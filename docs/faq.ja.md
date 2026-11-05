@@ -139,7 +139,7 @@ Ghostは公開前のシミュレータの仮名です。実行ファイルの識
 ### Q12. uvm_dpi: yesだけでDPIを使うビルドが完成しますか
 
 既定のマクロ一覧から`UVM_NO_DPI`を外す指定です。UVMのC/C++実装の供給・リンクは行いません。
-通常のVerilator runnerは、そのsourceを追加しません。`UVM_NO_DPI`が2227件、HDL DPIの明示選択が11件です。
+通常のVerilator runnerは、そのsourceを追加しません。`UVM_NO_DPI`が2237件、HDL DPIの明示選択が11件です。
 別の18検査系はHDLを無効にしてcommand-line／regex DPIを明示して有効化し、
 [command-line runner](testing.ja.md#verilatorのcommand-line部分集合)がその別backendをlinkします。
 [別のVPI runner](testing.ja.md#verilatorのvpi-hdl部分集合)は独自の限定backendをlinkし、結果は宣言した実行条件だけに適用します。
@@ -956,8 +956,8 @@ controlの対応は、その要求の直接の検査ではありません。
 
 ### Q77. M4を始めたのに、カバレッジ率がないのはなぜですか
 
-AIによる3820要求案は部分的な分解で、3820要求を2232テストへ直接対応付け、直接未対応は0要求、別の24テストはcontrol専用です。
-全2256テストに要求の対応付けがあります。2,507の条項番号は規範的要求の単位ではありません。
+AIによる3822要求案は部分的な分解で、3822要求を2242テストへ直接対応付け、直接未対応は0要求、別の24テストはcontrol専用です。
+全2266テストに要求の対応付けがあります。2,507の条項番号は規範的要求の単位ではありません。
 範囲は提案、棚卸しは未完、分母は未承認で、M4の開始はどれの承認にもなりません。
 既知差分やHDL／DPIの制約によって義務を暗黙に除外しません。[承認までの手順](requirements.ja.md#m4の残作業と承認)を参照してください。
 
@@ -2321,7 +2321,7 @@ bound get／peek portはobject headを消費せずavailabilityを報告し、liv
 
 command enum引用、Boolean rerandomization観測、virtual fieldのconfigure引用の既存3入力で指紋が変わりました。
 3入力ともVerilatorで再測定し、古いguest記録を除外しています。歴史的な1085記録の出典fileは保持します。
-現在の再利用は1082入力で、未測定1174件は追加1171件と修正した既存3入力です。
+現在の再利用は1082入力で、未測定1184件は追加1181件と修正した既存3入力です。
 これは記録のfilterでありguestの再実行ではなく、[記録の合算](results.ja.md#記録の合算)で説明しています。
 
 ## interfaceの委譲とsocketの接続構造
@@ -2374,9 +2374,9 @@ pure-method／const参照検査は追加のnegative条件であり、それぞ�
 いいえ。schema 2は以前の出力link形式を保持し、compile stageと正確な宣言regexの診断形式を追加します。不正elaboration metadataでruntime期待がないことを要求します。
 schema 1も引き続き読め、混在／未知fieldや古いpatternは拒否します。検証はcompiler実測結果を読みません。個別要求の照合で直接anchorを追加する場合も、既存linkは保持して変更を明示します。
 
-### Q201. 全2256テストを2 seedで実行しましたか？
+### Q201. 全2266テストを2 seedで実行しましたか？
 
-いいえ。simulation 2164件とelaboration 92件があります。通常記録はruntime両seed一致1843件、期待compiler拒否87件、既知simulation差分321件、不正compile受理の既知差分5件です。
+いいえ。simulation 2174件とelaboration 92件があります。通常記録はruntime両seed一致1849件、期待compiler拒否87件、既知simulation差分325件、不正compile受理の既知差分5件です。
 不正design 92件は、compileを受理された場合もruntime seedを実行しません。
 
 ### Q202. 以前の合法controlは何を示しますか？
@@ -2755,7 +2755,7 @@ preloadと反復updateは余分なentry／転送を保持します。公開queue
 ### Q257. 18.6〜18.8の未評価0でgoalは完了しますか？
 
 いいえ。新しいmemory／indirect／FIFO義務は部分的に残り、第18章の残るレビューは[現在のroot別集計](requirements.ja.md#レビュー用の未整理項目とroot別集計)で確認できます。全体は未評価138番号です。
-スイートは直接対応2232テストとcontrol専用24テストです。失敗、並行性、backdoor適用条件、field／virtual-register契約、元のM1〜M4目標は未完です。
+スイートは直接対応2242テストとcontrol専用24テストです。失敗、並行性、backdoor適用条件、field／virtual-register契約、元のM1〜M4目標は未完です。
 
 ## core-service宣言とglobalな作用
 
@@ -2831,9 +2831,9 @@ shardはworkflowが選んだテストを分割した1区画で、Checkの対象�
 
 ### Q268. Checkをshardへ分割すると必要なテスト範囲は減りますか？
 
-いいえ。現在のタグ付き1930検査を重複しない8 shardへ分け、同時shard jobは最大4です。以前の分割前実行は150分の上限に達しました。
+いいえ。現在のタグ付き1936検査を重複しない8 shardへ分け、同時shard jobは最大4です。以前の分割前実行は150分の上限に達しました。
 command-line 17検査はshard 0で通常検査の前に1回だけ実行します。runtime seed 1／73と期待compiler拒否87件は元の判定を保ちます。
-分割の検証でhosted CI成功や適合性は立証しません。現在のworkflow結果はREADME badgeで確認してください。既知差分326件は通常の既定CI選択に含めません。
+分割の検証でhosted CI成功や適合性は立証しません。現在のworkflow結果はREADME badgeで確認してください。既知差分330件は通常の既定CI選択に含めません。
 
 ## recordingとscalar macroの条件
 
@@ -2952,7 +2952,7 @@ configureの18.10.2.2へ直し、安定した義務はparentへ絞り、幅とLS
 
 引用の修正は、本体とoracleが同じでも正確な入力hashを変えます。古いguest記録を除き、互換1083記録を1082へ絞ります。
 Ghostは各seedで一致206／不一致876、kirimasimはunsupported 1073／fail 9を保持し、guestは再実行していません。
-未測定1174入力は追加1171件と修正した元入力3件です。このfilterはguestの改善／回帰の証拠ではありません。[証拠の合算](results.ja.md#記録の合算)を参照してください。
+未測定1184入力は追加1181件と修正した元入力3件です。このfilterはguestの改善／回帰の証拠ではありません。[証拠の合算](results.ja.md#記録の合算)を参照してください。
 
 ### Q285. factory生成した派生型内でfield constructorの名前を取得する理由は何ですか
 
@@ -3046,3 +3046,22 @@ getter／setter flagと単調な独自tickで選択経路とfield／状態の必
 異なるwrapper義務5件と既存義務4件の限定付き拡張で、選択した証拠を補います。
 第16章は部分175／分類32／未評価1でtable-format概要16.2.10が残り、元のmilestone目標は全て未完です。
 [現在の台帳](requirements.ja.md#レビュー用の未整理項目とroot別集計)を参照してください。
+
+## Printerの属性と出力時の制御
+
+printer elementは文字列属性を出力配置とは別に保持するため、固定した表の列なしで可視性を確認できる理由は[属性の用語集](glossary.ja.md#printerの属性と出力時の制御)を参照してください。
+
+### Q297. 数値表記と照合せず、sizeを文字列で渡す理由は？
+
+公開print_generic_element APIは、名前・型・size・値を文字列で受け取ります。
+異なる独自文字列により、数値の基数、空白、見出し、句読点を仮定せず、各属性が含まれるかを観測します。
+収集前／後の6入力と明示peer control 4入力で実table／tree／lineの全8可視性maskを扱い、[helperの案内](testing.ja.md#例)で設定を説明しています。
+数値size変換や完全な書式のテストではありません。
+
+### Q298. 収集後の制御とpeerの差分で何が分かりますか？
+
+制御はemitへ作用するため、収集後の経路では反対maskでfieldを集め、出力前に制御を変えます。
+本体の可視性／現在値の検査は全て一致しますが、新規tree／line peerは型名とsizeの既定値を1に対して0と報告します。
+元の4入力はseed 1のknownを保持してseed 73はなく、別の明示有効peer controlは両seed一致です。
+その一致で未設定の既定値をpassにはせず、独立した不具合4件とも認定しません。
+16.2.10は未評価のままで、[証拠の範囲](results.ja.md#記録の合算)を参照してください。

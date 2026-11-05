@@ -193,6 +193,12 @@ and opaque-stream roundtrips assume neither recorder-history reset nor a shared
 encoding. No new implementation source or commercial result is used; see
 [the policy FAQ](faq.md#policy-substitution-and-typed-object-streams).
 
+Printer-attribute expectations are derived before measurement from supplied
+IEEE 16.2.3.4 and 16.2.5.1–16.2.5.3. Original strings isolate visibility from
+numeric size rendering; omitted peer defaults and explicitly enabled controls
+retain distinct premises. No new implementation source or commercial result is
+used; see [the emission FAQ](faq.md#printer-attributes-and-emission-controls).
+
 ## Clause catalog maintenance
 
 The catalog counts identifiers rather than normative duties, so [Counting unit and scope proposal](requirements.md#counting-unit-and-scope-proposal) explains why restoring an entry does not define a coverage denominator.

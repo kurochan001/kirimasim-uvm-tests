@@ -137,6 +137,10 @@ policy差し替えの期待値は提供IEEE 16、object wrapper／hook、型付�
 独自派生型・callback tick・不透明streamの往復を使い、同じrecorderの履歴resetや共通符号化は仮定しません。
 新しい実装sourceの参照や商用結果の利用はなく、[policyのFAQ](faq.ja.md#policy差し替えと型付きobject-stream)で前提を説明しています。
 
+printer属性の期待値は提供IEEE 16.2.3.4と16.2.5.1〜16.2.5.3から測定前に導きます。
+独自文字列で可視性と数値size表記を分け、未設定peerの既定値と明示有効化controlを保持します。
+新しい実装sourceや商用結果は使わず、[出力制御のFAQ](faq.ja.md#printerの属性と出力時の制御)で範囲を説明しています。
+
 ## 条項カタログの保守
 
 catalogが数えるのは規範的義務ではなく識別子なので、項目の復元でcoverage分母が決まらない理由は[計数単位と対象範囲の案](requirements.ja.md#計数単位と対象範囲の案)を参照してください。

@@ -4,12 +4,19 @@
 
 差分は特定のシミュレータ／ライブラリ／入力の条件に対するもので、runner出力での表示は[statusの定義](faq.ja.md#q5-passfailknownunsupportedはどう違いますか)で説明しています。
 
-現在の2256件と、固定したAccellera UVM 2020.3.1についての記録です。
+現在の2266件と、固定したAccellera UVM 2020.3.1についての記録です。
 不一致はテストの結果であり、それだけではシミュレータ・ライブラリ・期待値のどれが原因かは決まりません。
 
 差分の件数は[実測の内訳](results.ja.md#結果の解釈)で確認し、個別の入力を調べるときは[ライブラリの注記](known-differences.ja.md#固定版ライブラリの制約)、[ソースの分類一覧](known-differences.ja.md#specのみのテスト)、[シミュレータとライブラリの条件](known-differences.ja.md#シミュレータとライブラリの組み合わせ)を使ってください。
 
 個別のソースへのリンクは話題ごとの説明と[一覧](#specのみのテスト)にあり、メタデータから期待する観測と実行条件を確認する方法は[テスト形式の説明](testing.ja.md#テストの形式)で案内しています。
+
+tree／lineの未設定peer 4入力では型名とsizeのgetterが必要な1に対して0を返します。本体の明示可視性行と別の明示peer controlは一致しても元入力をpassにはせず、[出力制御のFAQ](faq.ja.md#printerの属性と出力時の制御)で解釈を説明しています。
+
+- [test_printer_line_textual_columns_follow_controls_after_collection](../tests/u16/test_printer_line_textual_columns_follow_controls_after_collection.sv).
+- [test_printer_line_textual_columns_follow_controls_before_collection](../tests/u16/test_printer_line_textual_columns_follow_controls_before_collection.sv).
+- [test_printer_tree_textual_columns_follow_controls_after_collection](../tests/u16/test_printer_tree_textual_columns_follow_controls_after_collection.sv).
+- [test_printer_tree_textual_columns_follow_controls_before_collection](../tests/u16/test_printer_tree_textual_columns_follow_controls_before_collection.sv).
 
 新規policy差し替え10入力は両seedで一致しますが、既存のprinter／copier設定やrecorder-linkの差分は保持し、[policyのFAQ](faq.ja.md#policy差し替えと型付きobject-stream)で選択条件を説明しています。
 
@@ -93,7 +100,7 @@ enumのsignature／本文とTR_HANDLE／0引数accessorの境界は限定した�
 
 elaboration 92件は抽象class直接生成35件とpure interface／const参照／禁止member／型context違反57件で拒否を期待し、87件が一致します。
 subscriber／visitor／proxy／adapterの未実装と印字virtual builtin dispatcherの直接生成は受理され、runtimeなしでspec-onlyを保持します。
-compiler受理5件は既知simulation差分321件と別です。合法な派生controlを必要な拒否の代わりにはしません。
+compiler受理5件は既知simulation差分325件と別です。合法な派生controlを必要な拒否の代わりにはしません。
 
 field-access監査はseed 73結果のないseed 1 runtime差分5件を保持します。
 register write／readのpre hookは保持するRCFD期待に対してFDRCを観測し、別のcrdf post観測が一致しても入力全体をpassにしません。
@@ -616,7 +623,7 @@ type queue priorityの部分観測は一致しても両fixtureをpassにせず�
 記載pure get_type_handleを実装する合法resource-base拡張は、固定libraryが記載外pure helperも宣言するためbuildできません。
 規格hook欠落negativeの独自compatibility本体は指定拒否を分離するためだけに使い、その合法拡張を修復しません。
 
-スイート全体では、`verilator@5.052`を付けたテストは1930件、specのみのテストは326件です。
+スイート全体では、`verilator@5.052`を付けたテストは1936件、specのみのテストは330件です。
 specのみのうち1件は9.6を検証します。pre-resetフェーズ終了時に子タスクが停止する
 はずですが、固定版UVMとVerilator 5.052の組み合わせでは、後のフェーズで子タスクの遅延書き込みが
 実行されます。この差分の原因がシミュレータとライブラリのどちらかは未確定です。
@@ -625,9 +632,9 @@ wakeup resetの検査系は、trigger waiterとpersistent-trigger waiterを各1�
 10.1.1.2.8は、callbackなしで両方が起動することを要求します。固定Verilatorの実行は、待機状態の観測に到達してから
 watchdogが期限切れになります。simulator／libraryを組み合わせた原因は未確定のまま、規範的なwakeupの期待を保持します。
 
-specのみの326件も、規格から導いた出力またはcompiler診断の期待を保持します。通常のVerilator実行とCIはoracle付き1930件（runtime 1843・compile拒否87）を選びます。
+specのみの330件も、規格から導いた出力またはcompiler診断の期待を保持します。通常のVerilator実行とCIはoracle付き1936件（runtime 1849・compile拒否87）を選びます。
 `--all`はspecのみも含め、不一致やビルド不可を`known`として記録します。
-通常の実行時238件は最初の差分であるseed 1までの記録で、seed 73の結果はありません。
+通常の実行時242件は最初の差分であるseed 1までの記録で、seed 73の結果はありません。
 API／型名欠落build 27件はtime API 1、sequence-library 6、HDL slice 4、名前付きconcat constructor 1、object active-policy 5、catcher message-handle 3、印刷recording-state getter 1、印刷callback typedef 1、built-in type_id 2、typed resource-DB helper 3で、通常runtimeはありません。
 型既定宣言2件、印刷signature食違い2件、継承type_id registry特殊化2件は別の宣言buildで、合法な公開read宣言1件はprotected accessで失敗し、合法resource-base／記載methodだけの完全core-service拡張2件は記載外pure hookを要求されます。
 追加の合法build 3件はenum-collection T解釈を保持します。
@@ -674,7 +681,7 @@ specのみのケースも固定版oracle tagなしに規格から導いた期待
 
 controlは差分を解釈するために前提を変えて実行する補助検査であり、元のケースの結果との関係は[要求への対応付けの役割](requirements.ja.md#引用要求実行の証拠)で説明しています。
 
-現在のspecのみの326件へのリンクは、個別の説明と以下の一覧にあります。同じ制約を複数のテストで検査する場合があり、異なる不具合の個数ではありません。
+現在のspecのみの330件へのリンクは、個別の説明と以下の一覧にあります。同じ制約を複数のテストで検査する場合があり、異なる不具合の個数ではありません。
 
 - [継承subscriber type_id特殊化](../tests/u08/test_builtin_abstract_parameterized_components_type_id_uses_the_required_registry_specialization.sv).
 - [共有abstract object matrixのtransaction type_id欠落](../tests/u08/test_builtin_abstract_objects_type_id_uses_the_required_registry_specialization.sv).
@@ -960,7 +967,7 @@ controlは差分を解釈するために前提を変えて実行する補助検�
 - [生成時の独立した引数snapshot](../tests/uG/test_command_fresh_processors_populate_independent_argument_snapshots_at_construction.sv).
 
 既存2入力はcommand-enum引用と、訂正したBoolean rerandomization観測で指紋が変わっています。
-対応する歴史的guest記録を除外し、互換範囲は1082記録、未測定は修正2入力を含む1174件です。
+対応する歴史的guest記録を除外し、互換範囲は1082記録、未測定は修正2入力を含む1184件です。
 これはevidence範囲のfilterで、新しいguest fail／passやsimulator改善ではありません。
 
 - [copier既定名](../tests/u16/test_policy_comparer_packer_and_copier_constructors_preserve_names_types_and_policy_bases.sv)
@@ -1000,8 +1007,8 @@ controlは差分を解釈するために前提を変えて実行する補助検�
 
 今回のguest filterはfieldのconfigure引用を直した入力を除き、以前の互換1083記録を1082へ絞るもので、guestを新しく実行していません。正確な除外と件数は[証拠のガイド](results.ja.md#記録の合算)で説明しています。
 
-スイートは2256件ですが、以下のkirimasim／Ghost記録は未変更の現在入力1082件だけを対象とします。
-以前の一時実行ファイル／profile snapshotがないため、1174入力は未測定です。
+スイートは2266件ですが、以下のkirimasim／Ghost記録は未変更の現在入力1082件だけを対象とします。
+以前の一時実行ファイル／profile snapshotがないため、1184入力は未測定です。
 新しい全件guest実測とは扱いません。[実行結果](results.ja.md)を参照してください。
 
 Ghostの同梱UVMはseed 1・73とも206件一致・876件不一致で、不一致になるテストも同じです。

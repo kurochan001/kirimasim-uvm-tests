@@ -12260,16 +12260,16 @@
         "ja": "printerのfield名の有効設定 accessorは既定値が1で、明示した値を保つ。"
       },
       "conditions": {
-        "en": "Configure one printer, flush it and inspect another instance.",
-        "ja": "片方のprinterを設定してflushし、別instanceも調べる。"
+        "en": "Configure one printer, flush it and inspect another instance. Additional actual table/tree/line fixtures query all three fresh peer settings before any peer setter; four explicit-enable controls retain a distinct premise.",
+        "ja": "片方のprinterを設定してflushし、別instanceも調べる。 追加の実table／tree／line検査系はpeerのsetterを呼ぶ前に新規peerの3設定を照会し、明示有効化control 4件は異なる前提を保持する。"
       },
       "expected": {
         "en": "The chosen value survives flush and another printer keeps its default.",
         "ja": "選んだ値はflush後も残り、他方のprinterはdefaultを保つ。"
       },
       "limitations": {
-        "en": "Only control values are checked; emitted field/depth behavior and built-in output layout remain separate.",
-        "ja": "制御値だけを検査し、実際のfield／深さの出力動作と組み込み書式は別途扱う。"
+        "en": "Only control values are checked; emitted field/depth behavior and built-in output layout remain separate. New links bind the initial getter row only; matching explicit settings or later visibility rows do not pass a missing default, and a matching getter within a differing row does not pass the entire input.",
+        "ja": "制御値だけを検査し、実際のfield／深さの出力動作と組み込み書式は別途扱う。 新規linkは最初のgetter行だけへ結び付け、明示設定や後続可視性行の一致で既定値の欠落をpassにはせず、差分のある行の一部getterの一致で全入力をpassにしない。"
       },
       "review": {
         "status": "ai",
@@ -12291,6 +12291,76 @@
           "expected_observations": [
             "UT: retained 0 0 0 0 0 depth 0",
             "UT: independent 1 1 1 1 1 depth -1"
+          ]
+        },
+        {
+          "test": "u16/test_printer_line_textual_columns_follow_controls_after_collection",
+          "role": "direct",
+          "expected_observations": [
+            "UT: p75_peer name 1 type 1 size 1"
+          ]
+        },
+        {
+          "test": "u16/test_printer_line_textual_columns_follow_controls_before_collection",
+          "role": "direct",
+          "expected_observations": [
+            "UT: p75_peer name 1 type 1 size 1"
+          ]
+        },
+        {
+          "test": "u16/test_printer_table_textual_columns_follow_controls_after_collection",
+          "role": "direct",
+          "expected_observations": [
+            "UT: p75_peer name 1 type 1 size 1"
+          ]
+        },
+        {
+          "test": "u16/test_printer_table_textual_columns_follow_controls_before_collection",
+          "role": "direct",
+          "expected_observations": [
+            "UT: p75_peer name 1 type 1 size 1"
+          ]
+        },
+        {
+          "test": "u16/test_printer_tree_textual_columns_follow_controls_after_collection",
+          "role": "direct",
+          "expected_observations": [
+            "UT: p75_peer name 1 type 1 size 1"
+          ]
+        },
+        {
+          "test": "u16/test_printer_tree_textual_columns_follow_controls_before_collection",
+          "role": "direct",
+          "expected_observations": [
+            "UT: p75_peer name 1 type 1 size 1"
+          ]
+        },
+        {
+          "test": "u16/test_printer_line_textual_columns_follow_controls_after_collection_peer_enabled",
+          "role": "control",
+          "expected_observations": [
+            "UT: p75_peer name 1 type 1 size 1"
+          ]
+        },
+        {
+          "test": "u16/test_printer_line_textual_columns_follow_controls_before_collection_peer_enabled",
+          "role": "control",
+          "expected_observations": [
+            "UT: p75_peer name 1 type 1 size 1"
+          ]
+        },
+        {
+          "test": "u16/test_printer_tree_textual_columns_follow_controls_after_collection_peer_enabled",
+          "role": "control",
+          "expected_observations": [
+            "UT: p75_peer name 1 type 1 size 1"
+          ]
+        },
+        {
+          "test": "u16/test_printer_tree_textual_columns_follow_controls_before_collection_peer_enabled",
+          "role": "control",
+          "expected_observations": [
+            "UT: p75_peer name 1 type 1 size 1"
           ]
         }
       ]
@@ -12303,16 +12373,16 @@
         "ja": "printerの型名の有効設定 accessorは既定値が1で、明示した値を保つ。"
       },
       "conditions": {
-        "en": "Configure one printer, flush it and inspect another instance.",
-        "ja": "片方のprinterを設定してflushし、別instanceも調べる。"
+        "en": "Configure one printer, flush it and inspect another instance. Additional actual table/tree/line fixtures query all three fresh peer settings before any peer setter; four explicit-enable controls retain a distinct premise.",
+        "ja": "片方のprinterを設定してflushし、別instanceも調べる。 追加の実table／tree／line検査系はpeerのsetterを呼ぶ前に新規peerの3設定を照会し、明示有効化control 4件は異なる前提を保持する。"
       },
       "expected": {
         "en": "The chosen value survives flush and another printer keeps its default.",
         "ja": "選んだ値はflush後も残り、他方のprinterはdefaultを保つ。"
       },
       "limitations": {
-        "en": "Only control values are checked; emitted field/depth behavior and built-in output layout remain separate.",
-        "ja": "制御値だけを検査し、実際のfield／深さの出力動作と組み込み書式は別途扱う。"
+        "en": "Only control values are checked; emitted field/depth behavior and built-in output layout remain separate. New links bind the initial getter row only; matching explicit settings or later visibility rows do not pass a missing default, and a matching getter within a differing row does not pass the entire input.",
+        "ja": "制御値だけを検査し、実際のfield／深さの出力動作と組み込み書式は別途扱う。 新規linkは最初のgetter行だけへ結び付け、明示設定や後続可視性行の一致で既定値の欠落をpassにはせず、差分のある行の一部getterの一致で全入力をpassにしない。"
       },
       "review": {
         "status": "ai",
@@ -12334,6 +12404,76 @@
           "expected_observations": [
             "UT: retained 0 0 0 0 0 depth 0",
             "UT: independent 1 1 1 1 1 depth -1"
+          ]
+        },
+        {
+          "test": "u16/test_printer_line_textual_columns_follow_controls_after_collection",
+          "role": "direct",
+          "expected_observations": [
+            "UT: p75_peer name 1 type 1 size 1"
+          ]
+        },
+        {
+          "test": "u16/test_printer_line_textual_columns_follow_controls_before_collection",
+          "role": "direct",
+          "expected_observations": [
+            "UT: p75_peer name 1 type 1 size 1"
+          ]
+        },
+        {
+          "test": "u16/test_printer_table_textual_columns_follow_controls_after_collection",
+          "role": "direct",
+          "expected_observations": [
+            "UT: p75_peer name 1 type 1 size 1"
+          ]
+        },
+        {
+          "test": "u16/test_printer_table_textual_columns_follow_controls_before_collection",
+          "role": "direct",
+          "expected_observations": [
+            "UT: p75_peer name 1 type 1 size 1"
+          ]
+        },
+        {
+          "test": "u16/test_printer_tree_textual_columns_follow_controls_after_collection",
+          "role": "direct",
+          "expected_observations": [
+            "UT: p75_peer name 1 type 1 size 1"
+          ]
+        },
+        {
+          "test": "u16/test_printer_tree_textual_columns_follow_controls_before_collection",
+          "role": "direct",
+          "expected_observations": [
+            "UT: p75_peer name 1 type 1 size 1"
+          ]
+        },
+        {
+          "test": "u16/test_printer_line_textual_columns_follow_controls_after_collection_peer_enabled",
+          "role": "control",
+          "expected_observations": [
+            "UT: p75_peer name 1 type 1 size 1"
+          ]
+        },
+        {
+          "test": "u16/test_printer_line_textual_columns_follow_controls_before_collection_peer_enabled",
+          "role": "control",
+          "expected_observations": [
+            "UT: p75_peer name 1 type 1 size 1"
+          ]
+        },
+        {
+          "test": "u16/test_printer_tree_textual_columns_follow_controls_after_collection_peer_enabled",
+          "role": "control",
+          "expected_observations": [
+            "UT: p75_peer name 1 type 1 size 1"
+          ]
+        },
+        {
+          "test": "u16/test_printer_tree_textual_columns_follow_controls_before_collection_peer_enabled",
+          "role": "control",
+          "expected_observations": [
+            "UT: p75_peer name 1 type 1 size 1"
           ]
         }
       ]
@@ -12346,16 +12486,16 @@
         "ja": "printerのsizeの有効設定 accessorは既定値が1で、明示した値を保つ。"
       },
       "conditions": {
-        "en": "Configure one printer, flush it and inspect another instance.",
-        "ja": "片方のprinterを設定してflushし、別instanceも調べる。"
+        "en": "Configure one printer, flush it and inspect another instance. Additional actual table/tree/line fixtures query all three fresh peer settings before any peer setter; four explicit-enable controls retain a distinct premise.",
+        "ja": "片方のprinterを設定してflushし、別instanceも調べる。 追加の実table／tree／line検査系はpeerのsetterを呼ぶ前に新規peerの3設定を照会し、明示有効化control 4件は異なる前提を保持する。"
       },
       "expected": {
         "en": "The chosen value survives flush and another printer keeps its default.",
         "ja": "選んだ値はflush後も残り、他方のprinterはdefaultを保つ。"
       },
       "limitations": {
-        "en": "Only control values are checked; emitted field/depth behavior and built-in output layout remain separate.",
-        "ja": "制御値だけを検査し、実際のfield／深さの出力動作と組み込み書式は別途扱う。"
+        "en": "Only control values are checked; emitted field/depth behavior and built-in output layout remain separate. New links bind the initial getter row only; matching explicit settings or later visibility rows do not pass a missing default, and a matching getter within a differing row does not pass the entire input.",
+        "ja": "制御値だけを検査し、実際のfield／深さの出力動作と組み込み書式は別途扱う。 新規linkは最初のgetter行だけへ結び付け、明示設定や後続可視性行の一致で既定値の欠落をpassにはせず、差分のある行の一部getterの一致で全入力をpassにしない。"
       },
       "review": {
         "status": "ai",
@@ -12377,6 +12517,76 @@
           "expected_observations": [
             "UT: retained 0 0 0 0 0 depth 0",
             "UT: independent 1 1 1 1 1 depth -1"
+          ]
+        },
+        {
+          "test": "u16/test_printer_line_textual_columns_follow_controls_after_collection",
+          "role": "direct",
+          "expected_observations": [
+            "UT: p75_peer name 1 type 1 size 1"
+          ]
+        },
+        {
+          "test": "u16/test_printer_line_textual_columns_follow_controls_before_collection",
+          "role": "direct",
+          "expected_observations": [
+            "UT: p75_peer name 1 type 1 size 1"
+          ]
+        },
+        {
+          "test": "u16/test_printer_table_textual_columns_follow_controls_after_collection",
+          "role": "direct",
+          "expected_observations": [
+            "UT: p75_peer name 1 type 1 size 1"
+          ]
+        },
+        {
+          "test": "u16/test_printer_table_textual_columns_follow_controls_before_collection",
+          "role": "direct",
+          "expected_observations": [
+            "UT: p75_peer name 1 type 1 size 1"
+          ]
+        },
+        {
+          "test": "u16/test_printer_tree_textual_columns_follow_controls_after_collection",
+          "role": "direct",
+          "expected_observations": [
+            "UT: p75_peer name 1 type 1 size 1"
+          ]
+        },
+        {
+          "test": "u16/test_printer_tree_textual_columns_follow_controls_before_collection",
+          "role": "direct",
+          "expected_observations": [
+            "UT: p75_peer name 1 type 1 size 1"
+          ]
+        },
+        {
+          "test": "u16/test_printer_line_textual_columns_follow_controls_after_collection_peer_enabled",
+          "role": "control",
+          "expected_observations": [
+            "UT: p75_peer name 1 type 1 size 1"
+          ]
+        },
+        {
+          "test": "u16/test_printer_line_textual_columns_follow_controls_before_collection_peer_enabled",
+          "role": "control",
+          "expected_observations": [
+            "UT: p75_peer name 1 type 1 size 1"
+          ]
+        },
+        {
+          "test": "u16/test_printer_tree_textual_columns_follow_controls_after_collection_peer_enabled",
+          "role": "control",
+          "expected_observations": [
+            "UT: p75_peer name 1 type 1 size 1"
+          ]
+        },
+        {
+          "test": "u16/test_printer_tree_textual_columns_follow_controls_before_collection_peer_enabled",
+          "role": "control",
+          "expected_observations": [
+            "UT: p75_peer name 1 type 1 size 1"
           ]
         }
       ]
@@ -14412,16 +14622,16 @@
         "ja": "field-nameの有効制御は、printer出力にfield名を含めるかへ反映する。"
       },
       "conditions": {
-        "en": "Emit equivalent fields with name printing enabled and disabled.",
-        "ja": "名前の出力を有効／無効にして同じfieldを出力する。"
+        "en": "Emit equivalent fields with name printing enabled and disabled. Two fields use distinct caller-supplied textual name/type/size/value attributes through print_generic_element. Actual table/tree/line printers each exercise all eight name/type/size masks. One path sets controls before object sprint; another collects under the opposite mask and changes controls only before emit. Reuse changes values and checks an independent fresh peer policy. Default-peer inputs retain their omitted-setting premise. Four separately named tree/line controls explicitly enable peer settings; their matches cannot pass the default-peer inputs.",
+        "ja": "名前の出力を有効／無効にして同じfieldを出力する。 print_generic_elementで異なる独自の名前／型／size／値の文字列を2 fieldへ渡す。実table／tree／line printerごとに名前／型／sizeの全8 maskを扱う。一方はobject sprint前に設定し、他方は反対maskで収集後、emit直前だけ設定を変更する。再利用で値を変え、独立した新規peer policyも確認する。 default-peer入力は未設定の前提を保持する。別名のtree／line control 4件はpeer設定を明示的に有効化し、その一致でdefault-peer入力をpassにはしない。"
       },
       "expected": {
         "en": "The enabled form includes names and the disabled form omits them.",
         "ja": "有効時は名前を含み、無効時は省略する。"
       },
       "limitations": {
-        "en": "Built-in table/line emitters are checked through unique field/value membership across reuse and independent policies. Exact layout and punctuation are unconstrained.",
-        "ja": "組み込みtable／lineの出力を、固有のfield／値の所属で、再利用と独立policyも含めて検査する。正確な配置や句読点は制約しない。"
+        "en": "Built-in table/line emitters are checked through unique field/value membership across reuse and independent policies. Exact layout and punctuation are unconstrained. Selected two-state, short textual generic-element attributes only. Strings isolate visibility from numeric size conversion. Membership checks prescribe no field-row grammar, column headings/order/widths, whitespace, borders or punctuation, and do not classify or pass tabular-format overview 16.2.10. Arbitrary nested, cyclic, X/Z, depth, ID/radix/prefix and configuration combinations remain partial.",
+        "ja": "組み込みtable／lineの出力を、固有のfield／値の所属で、再利用と独立policyも含めて検査する。正確な配置や句読点は制約しない。 選択した2値・短いgeneric-element文字列属性だけ。文字列で可視性を数値size変換から分離する。所属の検査はfield行の構文、列見出し／順序／幅、空白、罫線、句読点を規定せず、表形式概要16.2.10の分類／passにはしない。任意の入れ子、循環、X／Z、深さ、ID／radix／prefix、設定組合せは部分的に残る。"
       },
       "review": {
         "status": "ai",
@@ -14443,6 +14653,146 @@
           "expected_observations": [
             "UT: names hidden 0 visible 1 reused 0",
             "UT: replacement fresh 1 stale 0"
+          ]
+        },
+        {
+          "test": "u16/test_printer_line_textual_columns_follow_controls_after_collection",
+          "role": "direct",
+          "expected_observations": [
+            "UT: p75 0 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 1 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 2 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 3 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 4 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 5 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 6 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 7 name 1 type 1 size 1 value 1 stale 0 peer 1"
+          ]
+        },
+        {
+          "test": "u16/test_printer_line_textual_columns_follow_controls_before_collection",
+          "role": "direct",
+          "expected_observations": [
+            "UT: p75 0 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 1 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 2 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 3 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 4 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 5 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 6 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 7 name 1 type 1 size 1 value 1 stale 0 peer 1"
+          ]
+        },
+        {
+          "test": "u16/test_printer_table_textual_columns_follow_controls_after_collection",
+          "role": "direct",
+          "expected_observations": [
+            "UT: p75 0 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 1 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 2 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 3 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 4 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 5 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 6 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 7 name 1 type 1 size 1 value 1 stale 0 peer 1"
+          ]
+        },
+        {
+          "test": "u16/test_printer_table_textual_columns_follow_controls_before_collection",
+          "role": "direct",
+          "expected_observations": [
+            "UT: p75 0 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 1 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 2 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 3 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 4 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 5 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 6 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 7 name 1 type 1 size 1 value 1 stale 0 peer 1"
+          ]
+        },
+        {
+          "test": "u16/test_printer_tree_textual_columns_follow_controls_after_collection",
+          "role": "direct",
+          "expected_observations": [
+            "UT: p75 0 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 1 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 2 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 3 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 4 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 5 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 6 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 7 name 1 type 1 size 1 value 1 stale 0 peer 1"
+          ]
+        },
+        {
+          "test": "u16/test_printer_tree_textual_columns_follow_controls_before_collection",
+          "role": "direct",
+          "expected_observations": [
+            "UT: p75 0 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 1 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 2 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 3 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 4 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 5 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 6 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 7 name 1 type 1 size 1 value 1 stale 0 peer 1"
+          ]
+        },
+        {
+          "test": "u16/test_printer_line_textual_columns_follow_controls_after_collection_peer_enabled",
+          "role": "direct",
+          "expected_observations": [
+            "UT: p75 0 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 1 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 2 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 3 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 4 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 5 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 6 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 7 name 1 type 1 size 1 value 1 stale 0 peer 1"
+          ]
+        },
+        {
+          "test": "u16/test_printer_line_textual_columns_follow_controls_before_collection_peer_enabled",
+          "role": "direct",
+          "expected_observations": [
+            "UT: p75 0 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 1 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 2 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 3 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 4 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 5 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 6 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 7 name 1 type 1 size 1 value 1 stale 0 peer 1"
+          ]
+        },
+        {
+          "test": "u16/test_printer_tree_textual_columns_follow_controls_after_collection_peer_enabled",
+          "role": "direct",
+          "expected_observations": [
+            "UT: p75 0 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 1 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 2 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 3 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 4 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 5 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 6 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 7 name 1 type 1 size 1 value 1 stale 0 peer 1"
+          ]
+        },
+        {
+          "test": "u16/test_printer_tree_textual_columns_follow_controls_before_collection_peer_enabled",
+          "role": "direct",
+          "expected_observations": [
+            "UT: p75 0 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 1 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 2 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 3 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 4 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 5 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 6 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 7 name 1 type 1 size 1 value 1 stale 0 peer 1"
           ]
         }
       ]
@@ -140384,6 +140734,340 @@
             "UT: unpack74 longints 0 policy 1 idle 1 order 1 value 11 src 11",
             "UT: unpack74 longints 1 policy 1 idle 1 order 1 value 22 src 22",
             "UT: unpack74 longints 2 policy 1 idle 1 order 1 value 33 src 33"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-TYPE-EMISSION",
+      "clause": "16.2.5.2",
+      "statement": {
+        "en": "Field type-name emission follows the current type-name enable control.",
+        "ja": "field型名の出力は、現在の型名有効制御に従う。"
+      },
+      "conditions": {
+        "en": "Two fields use distinct caller-supplied textual name/type/size/value attributes through print_generic_element. Actual table/tree/line printers each exercise all eight name/type/size masks. One path sets controls before object sprint; another collects under the opposite mask and changes controls only before emit. Reuse changes values and checks an independent fresh peer policy. Default-peer inputs retain their omitted-setting premise. Four separately named tree/line controls explicitly enable peer settings; their matches cannot pass the default-peer inputs.",
+        "ja": "print_generic_elementで異なる独自の名前／型／size／値の文字列を2 fieldへ渡す。実table／tree／line printerごとに名前／型／sizeの全8 maskを扱う。一方はobject sprint前に設定し、他方は反対maskで収集後、emit直前だけ設定を変更する。再利用で値を変え、独立した新規peer policyも確認する。 default-peer入力は未設定の前提を保持する。別名のtree／line control 4件はpeer設定を明示的に有効化し、その一致でdefault-peer入力をpassにはしない。"
+      },
+      "expected": {
+        "en": "Both supplied attributes are present when enabled and both absent when disabled, even after collection; current values remain and prior values are absent, while the independent peer keeps its enabled defaults.",
+        "ja": "収集後の変更でも、有効時には指定した両属性があり、無効時には両属性がない。現在値を保持し以前の値はなく、独立peerは有効の既定値を保つ。"
+      },
+      "limitations": {
+        "en": "Selected two-state, short textual generic-element attributes only. Strings isolate visibility from numeric size conversion. Membership checks prescribe no field-row grammar, column headings/order/widths, whitespace, borders or punctuation, and do not classify or pass tabular-format overview 16.2.10. Arbitrary nested, cyclic, X/Z, depth, ID/radix/prefix and configuration combinations remain partial.",
+        "ja": "選択した2値・短いgeneric-element文字列属性だけ。文字列で可視性を数値size変換から分離する。所属の検査はfield行の構文、列見出し／順序／幅、空白、罫線、句読点を規定せず、表形式概要16.2.10の分類／passにはしない。任意の入れ子、循環、X／Z、深さ、ID／radix／prefix、設定組合せは部分的に残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_printer_line_textual_columns_follow_controls_after_collection",
+          "role": "direct",
+          "expected_observations": [
+            "UT: p75 0 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 1 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 2 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 3 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 4 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 5 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 6 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 7 name 1 type 1 size 1 value 1 stale 0 peer 1"
+          ]
+        },
+        {
+          "test": "u16/test_printer_line_textual_columns_follow_controls_before_collection",
+          "role": "direct",
+          "expected_observations": [
+            "UT: p75 0 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 1 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 2 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 3 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 4 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 5 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 6 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 7 name 1 type 1 size 1 value 1 stale 0 peer 1"
+          ]
+        },
+        {
+          "test": "u16/test_printer_table_textual_columns_follow_controls_after_collection",
+          "role": "direct",
+          "expected_observations": [
+            "UT: p75 0 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 1 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 2 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 3 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 4 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 5 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 6 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 7 name 1 type 1 size 1 value 1 stale 0 peer 1"
+          ]
+        },
+        {
+          "test": "u16/test_printer_table_textual_columns_follow_controls_before_collection",
+          "role": "direct",
+          "expected_observations": [
+            "UT: p75 0 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 1 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 2 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 3 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 4 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 5 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 6 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 7 name 1 type 1 size 1 value 1 stale 0 peer 1"
+          ]
+        },
+        {
+          "test": "u16/test_printer_tree_textual_columns_follow_controls_after_collection",
+          "role": "direct",
+          "expected_observations": [
+            "UT: p75 0 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 1 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 2 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 3 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 4 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 5 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 6 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 7 name 1 type 1 size 1 value 1 stale 0 peer 1"
+          ]
+        },
+        {
+          "test": "u16/test_printer_tree_textual_columns_follow_controls_before_collection",
+          "role": "direct",
+          "expected_observations": [
+            "UT: p75 0 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 1 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 2 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 3 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 4 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 5 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 6 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 7 name 1 type 1 size 1 value 1 stale 0 peer 1"
+          ]
+        },
+        {
+          "test": "u16/test_printer_line_textual_columns_follow_controls_after_collection_peer_enabled",
+          "role": "direct",
+          "expected_observations": [
+            "UT: p75 0 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 1 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 2 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 3 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 4 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 5 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 6 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 7 name 1 type 1 size 1 value 1 stale 0 peer 1"
+          ]
+        },
+        {
+          "test": "u16/test_printer_line_textual_columns_follow_controls_before_collection_peer_enabled",
+          "role": "direct",
+          "expected_observations": [
+            "UT: p75 0 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 1 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 2 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 3 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 4 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 5 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 6 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 7 name 1 type 1 size 1 value 1 stale 0 peer 1"
+          ]
+        },
+        {
+          "test": "u16/test_printer_tree_textual_columns_follow_controls_after_collection_peer_enabled",
+          "role": "direct",
+          "expected_observations": [
+            "UT: p75 0 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 1 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 2 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 3 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 4 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 5 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 6 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 7 name 1 type 1 size 1 value 1 stale 0 peer 1"
+          ]
+        },
+        {
+          "test": "u16/test_printer_tree_textual_columns_follow_controls_before_collection_peer_enabled",
+          "role": "direct",
+          "expected_observations": [
+            "UT: p75 0 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 1 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 2 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 3 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 4 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 5 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 6 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 7 name 1 type 1 size 1 value 1 stale 0 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PRINTER-SIZE-EMISSION",
+      "clause": "16.2.5.3",
+      "statement": {
+        "en": "Field size emission follows the current size enable control.",
+        "ja": "field sizeの出力は、現在のsize有効制御に従う。"
+      },
+      "conditions": {
+        "en": "Two fields use distinct caller-supplied textual name/type/size/value attributes through print_generic_element. Actual table/tree/line printers each exercise all eight name/type/size masks. One path sets controls before object sprint; another collects under the opposite mask and changes controls only before emit. Reuse changes values and checks an independent fresh peer policy. Default-peer inputs retain their omitted-setting premise. Four separately named tree/line controls explicitly enable peer settings; their matches cannot pass the default-peer inputs.",
+        "ja": "print_generic_elementで異なる独自の名前／型／size／値の文字列を2 fieldへ渡す。実table／tree／line printerごとに名前／型／sizeの全8 maskを扱う。一方はobject sprint前に設定し、他方は反対maskで収集後、emit直前だけ設定を変更する。再利用で値を変え、独立した新規peer policyも確認する。 default-peer入力は未設定の前提を保持する。別名のtree／line control 4件はpeer設定を明示的に有効化し、その一致でdefault-peer入力をpassにはしない。"
+      },
+      "expected": {
+        "en": "Both supplied attributes are present when enabled and both absent when disabled, even after collection; current values remain and prior values are absent, while the independent peer keeps its enabled defaults.",
+        "ja": "収集後の変更でも、有効時には指定した両属性があり、無効時には両属性がない。現在値を保持し以前の値はなく、独立peerは有効の既定値を保つ。"
+      },
+      "limitations": {
+        "en": "Selected two-state, short textual generic-element attributes only. Strings isolate visibility from numeric size conversion. Membership checks prescribe no field-row grammar, column headings/order/widths, whitespace, borders or punctuation, and do not classify or pass tabular-format overview 16.2.10. Arbitrary nested, cyclic, X/Z, depth, ID/radix/prefix and configuration combinations remain partial.",
+        "ja": "選択した2値・短いgeneric-element文字列属性だけ。文字列で可視性を数値size変換から分離する。所属の検査はfield行の構文、列見出し／順序／幅、空白、罫線、句読点を規定せず、表形式概要16.2.10の分類／passにはしない。任意の入れ子、循環、X／Z、深さ、ID／radix／prefix、設定組合せは部分的に残る。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u16/test_printer_line_textual_columns_follow_controls_after_collection",
+          "role": "direct",
+          "expected_observations": [
+            "UT: p75 0 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 1 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 2 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 3 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 4 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 5 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 6 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 7 name 1 type 1 size 1 value 1 stale 0 peer 1"
+          ]
+        },
+        {
+          "test": "u16/test_printer_line_textual_columns_follow_controls_before_collection",
+          "role": "direct",
+          "expected_observations": [
+            "UT: p75 0 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 1 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 2 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 3 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 4 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 5 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 6 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 7 name 1 type 1 size 1 value 1 stale 0 peer 1"
+          ]
+        },
+        {
+          "test": "u16/test_printer_table_textual_columns_follow_controls_after_collection",
+          "role": "direct",
+          "expected_observations": [
+            "UT: p75 0 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 1 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 2 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 3 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 4 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 5 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 6 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 7 name 1 type 1 size 1 value 1 stale 0 peer 1"
+          ]
+        },
+        {
+          "test": "u16/test_printer_table_textual_columns_follow_controls_before_collection",
+          "role": "direct",
+          "expected_observations": [
+            "UT: p75 0 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 1 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 2 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 3 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 4 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 5 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 6 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 7 name 1 type 1 size 1 value 1 stale 0 peer 1"
+          ]
+        },
+        {
+          "test": "u16/test_printer_tree_textual_columns_follow_controls_after_collection",
+          "role": "direct",
+          "expected_observations": [
+            "UT: p75 0 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 1 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 2 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 3 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 4 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 5 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 6 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 7 name 1 type 1 size 1 value 1 stale 0 peer 1"
+          ]
+        },
+        {
+          "test": "u16/test_printer_tree_textual_columns_follow_controls_before_collection",
+          "role": "direct",
+          "expected_observations": [
+            "UT: p75 0 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 1 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 2 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 3 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 4 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 5 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 6 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 7 name 1 type 1 size 1 value 1 stale 0 peer 1"
+          ]
+        },
+        {
+          "test": "u16/test_printer_line_textual_columns_follow_controls_after_collection_peer_enabled",
+          "role": "direct",
+          "expected_observations": [
+            "UT: p75 0 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 1 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 2 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 3 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 4 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 5 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 6 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 7 name 1 type 1 size 1 value 1 stale 0 peer 1"
+          ]
+        },
+        {
+          "test": "u16/test_printer_line_textual_columns_follow_controls_before_collection_peer_enabled",
+          "role": "direct",
+          "expected_observations": [
+            "UT: p75 0 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 1 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 2 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 3 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 4 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 5 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 6 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 7 name 1 type 1 size 1 value 1 stale 0 peer 1"
+          ]
+        },
+        {
+          "test": "u16/test_printer_tree_textual_columns_follow_controls_after_collection_peer_enabled",
+          "role": "direct",
+          "expected_observations": [
+            "UT: p75 0 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 1 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 2 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 3 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 4 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 5 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 6 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 7 name 1 type 1 size 1 value 1 stale 0 peer 1"
+          ]
+        },
+        {
+          "test": "u16/test_printer_tree_textual_columns_follow_controls_before_collection_peer_enabled",
+          "role": "direct",
+          "expected_observations": [
+            "UT: p75 0 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 1 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 2 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 3 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 4 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 5 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 6 name 1 type 1 size 1 value 1 stale 0 peer 1",
+            "UT: p75 7 name 1 type 1 size 1 value 1 stale 0 peer 1"
           ]
         }
       ]

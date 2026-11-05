@@ -151,7 +151,7 @@ See [Ghost setup](testing.md#ghost).
 
 It removes `UVM_NO_DPI` from the default macro list. It does not supply or link
 UVM's C/C++ implementation. The current Verilator runner does not add those
-sources. There are 2227 `UVM_NO_DPI` cases and eleven explicit HDL-DPI cases.
+sources. There are 2237 `UVM_NO_DPI` cases and eleven explicit HDL-DPI cases.
 Eighteen more fixtures explicitly enable command-line/regex DPI with HDL disabled.
 The [command-line runner](testing.md#verilator-command-line-subset) links that separate backend.
 The [separate VPI runner](testing.md#verilator-vpi-hdl-subset) links the original
@@ -1176,9 +1176,9 @@ not a direct test of the requirement.
 
 ### Q77. Why is there no coverage percentage after starting M4?
 
-The 3820 AI drafts cover only a partial decomposition: 3820 requirements link
-directly to 2232 tests; all drafts have direct tests, and twenty-four separate tests have only control links.
-All 2256 tests have requirement links. The 2,507 clause identifiers are not normative requirement units.
+The 3822 AI drafts cover only a partial decomposition: 3822 requirements link
+directly to 2242 tests; all drafts have direct tests, and twenty-four separate tests have only control links.
+All 2266 tests have requirement links. The 2,507 clause identifiers are not normative requirement units.
 The scope is proposed, the inventory incomplete and the denominator unapproved;
 starting M4 approves none of those. Known differences and HDL/DPI limitations
 do not silently exclude obligations. See the [approval path](requirements.md#remaining-m4-work-and-approval).
@@ -2980,7 +2980,7 @@ Three original inputs have new fingerprints: the command enum citation, the
 Boolean rerandomization observation and the virtual-field configuration citation.
 All three were remeasured on Verilator; their stale guest records are excluded.
 The historical 1085-record source files remain intact. Current reuse covers
-1082 inputs, with 1174 unmeasured: 1171 additions and three revised originals.
+1082 inputs, with 1184 unmeasured: 1181 additions and three revised originals.
 This is record filtering, not a guest rerun; see [the evidence assembly](results.md#evidence-assembly).
 
 ## Interface delegation and socket topology
@@ -3051,10 +3051,10 @@ and stale patterns are rejected. Validation does not consume compiler results.
 Individual requirement reviews may add direct anchors while preserving existing
 links and identifying those changes explicitly.
 
-### Q201. Did all 2256 tests run at two seeds?
+### Q201. Did all 2266 tests run at two seeds?
 
-No. There are 2164 simulation and 92 elaboration fixtures. Ordinary evidence
-has 1843 two-seed runtime matches, 87 expected compiler rejections, 321 known
+No. There are 2174 simulation and 92 elaboration fixtures. Ordinary evidence
+has 1849 two-seed runtime matches, 87 expected compiler rejections, 325 known
 simulation differences and five known illegal compile acceptances. None of the
 92 illegal designs executes a runtime seed, even when compilation accepts it.
 
@@ -3605,7 +3605,7 @@ independent defect count. The original normal-register control matches.
 
 No. The new memory/indirect/FIFO duties remain partial; [the current root totals](requirements.md#review-work-queue-and-root-totals)
 track chapter 18's remaining review. Overall 138 identifiers remain unassessed.
-The suite has 2232 directly linked tests and twenty-four
+The suite has 2242 directly linked tests and twenty-four
 control-only tests. Coverage of failures, concurrency, backdoor applicability,
 field/virtual-register contracts and the original M1–M4 targets remains open.
 
@@ -3711,12 +3711,12 @@ A shard is one partition of the workflow's selected tests; [the CI guide](result
 
 ### Q268. Does dividing Check into shards reduce the required test scope?
 
-No. The current 1930 tagged checks form 8 disjoint shards with at most 4 concurrent
+No. The current 1936 tagged checks form 8 disjoint shards with at most 4 concurrent
 jobs. The previous unsharded run reached its 150-minute limit. The 17 command-line
 checks now run once on shard 0 before ordinary checks. Runtime seeds 1/73 and
 87 expected compiler rejections keep their original judgment. Partition
 validation proves neither hosted CI success nor conformance; use the README badge
-for the current workflow result. The 326 known cases remain outside the ordinary default CI selection.
+for the current workflow result. The 330 known cases remain outside the ordinary default CI selection.
 
 ## Recording and scalar-macro conditions
 
@@ -3872,8 +3872,8 @@ measured passes. See [the requirement-link rules](requirements.md#citations-requ
 The corrected citation changes the exact input hash despite an unchanged body
 and oracle. Its old guest record is excluded: 1083 compatible records become
 1082, leaving Ghost 206 matches/876 failures per seed and kirimasim 1073
-unsupported/nine failures. No guest was rerun. The 1174 unmeasured inputs are
-1171 additions and three revised originals. This filter is not evidence of
+unsupported/nine failures. No guest was rerun. The 1184 unmeasured inputs are
+1181 additions and three revised originals. This filter is not evidence of
 guest improvement or regression; see [the evidence assembly](results.md#evidence-assembly).
 
 ### Q285. Why capture the field constructor name inside a factory-created subtype?
@@ -3997,3 +3997,26 @@ title nor adds duplicate parent duties. Five distinct wrapper duties and four
 qualified existing-duty extensions add selected evidence. Chapter 16 remains
 175 partial/32 assessed/1 unassessed, including the table-format overview 16.2.10;
 all original milestone targets remain open. See [the current ledger](requirements.md#review-work-queue-and-root-totals).
+
+## Printer attributes and emission controls
+
+Printer elements store textual attributes separately from output layout; [the attribute glossary](glossary.md#printer-attributes-and-emission-controls) explains why visibility can be checked without fixed table columns.
+
+### Q297. Why pass textual size attributes rather than match printed numbers?
+
+The public print_generic_element API accepts name, type, size and value as
+strings. Distinct original strings expose whether each attribute is included
+without assuming a numeric base, whitespace, headings or punctuation. Six
+before/after-collection inputs and four explicit-peer controls exercise all eight
+visibility masks across actual table/tree/line printers; [the helper guide](testing.md#example)
+explains the setup. This is not a numeric size-conversion or complete format test.
+
+### Q298. What do post-collection controls and the peer differences establish?
+
+The controls govern emit, so the after-collection path first collects fields
+under the opposite mask and then changes the controls before emission. All main
+visibility/current-value checks match, but fresh tree/line peers report type-name
+and size defaults zero rather than one. Four original inputs retain seed-1 known
+differences without seed 73; separate explicitly enabled peer controls match both
+seeds. Those matches do not pass omitted defaults or assign four independent bugs.
+16.2.10 remains unassessed; see [the evidence scope](results.md#evidence-assembly).

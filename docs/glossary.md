@@ -1474,3 +1474,13 @@ explains the opaque-stream premise and independent order observations.
 record operation so the fixture does not assume repeated recording ignores prior
 processing history; [Q295](faq.md#q295-do-the-typed-packunpack-cases-prescribe-a-common-stream-encoding)
 describes this limit separately from copier reuse.
+
+## Printer attributes and emission controls
+
+**Textual printer attributes** — The name, type, size and value strings accepted
+by print_generic_element; [Q297](faq.md#q297-why-pass-textual-size-attributes-rather-than-match-printed-numbers)
+explains how they separate visibility from numeric conversion and layout.
+
+**Emission controls** — Name/type/size enable settings used when emit generates
+text, including changes after field collection; [Q298](faq.md#q298-what-do-post-collection-controls-and-the-peer-differences-establish)
+distinguishes that behavior from a fresh peer's omitted settings.

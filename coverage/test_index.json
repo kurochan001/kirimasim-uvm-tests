@@ -9025,6 +9025,46 @@
     "u16/test_policy_plugins_unpack_longints_select_the_current_subtype_on_reuse": {
       "primary_clause": "16",
       "inputs_sha256": "632d8c37daf2def6f67659f2d066baa6b8fd396f1ae11ab9c867b322102e874d"
+    },
+    "u16/test_printer_line_textual_columns_follow_controls_after_collection": {
+      "primary_clause": "16.2.5.3",
+      "inputs_sha256": "c9cbc4d6b9c6e80efcc06f538e6fdeb7bd4c82a5a86861babca72e1c740ddfec"
+    },
+    "u16/test_printer_line_textual_columns_follow_controls_before_collection": {
+      "primary_clause": "16.2.5.2",
+      "inputs_sha256": "cae8f3fcbd34bccf7c19966a241a36c26e73c3d2b2c13b0cc753d620ef848fa6"
+    },
+    "u16/test_printer_table_textual_columns_follow_controls_after_collection": {
+      "primary_clause": "16.2.5.3",
+      "inputs_sha256": "2311af02decdc191d70466b39822847d780f4edebbb1e427febb22a5498662bc"
+    },
+    "u16/test_printer_table_textual_columns_follow_controls_before_collection": {
+      "primary_clause": "16.2.5.2",
+      "inputs_sha256": "373ca981c16e18e9a141fd927ec7f9b5091089cf0346d796f9f58cd8f6c581c9"
+    },
+    "u16/test_printer_tree_textual_columns_follow_controls_after_collection": {
+      "primary_clause": "16.2.5.3",
+      "inputs_sha256": "1d8eb204fcc7185b3c28c4a24290f22979e2096f8008a29834973939edf1d5b4"
+    },
+    "u16/test_printer_tree_textual_columns_follow_controls_before_collection": {
+      "primary_clause": "16.2.5.2",
+      "inputs_sha256": "cad81076e86c4d952b9809fb7dca908b175531b35b00fada1a0485673624a685"
+    },
+    "u16/test_printer_line_textual_columns_follow_controls_after_collection_peer_enabled": {
+      "primary_clause": "16.2.5.3",
+      "inputs_sha256": "eca44950f5d807c874f372846081107a610a6a04afb6560e06fa40fcb969514f"
+    },
+    "u16/test_printer_line_textual_columns_follow_controls_before_collection_peer_enabled": {
+      "primary_clause": "16.2.5.2",
+      "inputs_sha256": "0b61c9a9ae4c5c96b97575f25a9f44a3388398f890af3244043a3c78f6609a80"
+    },
+    "u16/test_printer_tree_textual_columns_follow_controls_after_collection_peer_enabled": {
+      "primary_clause": "16.2.5.3",
+      "inputs_sha256": "8d761939df4caa34fd84ad23bc2e9a30d700d42c20447f555a2364c8f0a3c2ad"
+    },
+    "u16/test_printer_tree_textual_columns_follow_controls_before_collection_peer_enabled": {
+      "primary_clause": "16.2.5.2",
+      "inputs_sha256": "a54d48fe3428d5937785499970057f2b86921960e0569a0cc996e0281498b837"
     }
   }
 }
