@@ -1511,3 +1511,15 @@ distinguishes that premise from a general UVM obligation.
 force data for a procedurally assigned reg until a new assignment, or the
 resolved driver value for a driven wire; [Q303](faq.md#q303-why-do-reg-and-wire-releaseread-return-different-values)
 describes the selected observations and open conditions.
+
+## Positive-duration force_time observations
+
+**Positive force interval** — A selected integer period during which a timed
+HDL force must hold despite opposing updates, with sequential 5/13-period cases
+distinct from zero-time deposit; [Q305](faq.md#q305-does-a-timed-force_time-fixture-assert-its-return-value-or-return-time)
+explains which task observations are asserted.
+
+**Expiration observation window** — Interior samples before the period ends and
+a positive-offset sample afterward, followed by a normal update, without
+prescribing process order at the boundary; [Q306](faq.md#q306-why-use-sequential-same-target-and-distinct-target-histories)
+explains reuse, isolation and open timing conditions.

@@ -1159,3 +1159,11 @@ driverでの観測は[Q299](faq.ja.md#q299-adapter側のparent_sequenceは何を
 
 **Immediate release/read value（即時release/read値）** — 解除時に返すHDL値で、手続き代入regは次の代入までforce値を保持し、駆動wireはdriverの解決値を返します。
 選択した観測と未完条件は[Q303](faq.ja.md#q303-regとwireでreleasereadの値が異なる理由は)で説明しています。
+
+## 正時間force_timeの観測
+
+**Positive force interval（正のforce期間）** — 反対の更新があっても時間付きHDL forceが保持すべき選択整数期間で、逐次の期間5／13をzero-time depositと区別します。
+assertするtaskの観測は[Q305](faq.ja.md#q305-時間付きforce_time検査は戻り値や復帰時刻をassertしますか)で説明しています。
+
+**Expiration observation window（満了の観測区間）** — 終了前の期間内と終了後の正offsetでsampleし、通常更新を続ける区間で、境界のprocess順は規定しません。
+再利用、分離、未完の時間条件は[Q306](faq.ja.md#q306-同一別targetへの逐次呼出しを使う理由は)で説明しています。

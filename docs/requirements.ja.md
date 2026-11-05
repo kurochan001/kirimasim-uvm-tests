@@ -7,8 +7,8 @@
 対応付けqueueの0はテストと義務のlinkを記録した状態で、全動作のcoverageではないため、合計を解釈する前に[対応状況と進捗を読む](reading-guide.ja.md#対応状況と進捗を読む)を参照してください。
 
 M4を進めています。[対象範囲の案](../coverage/scope.json)、[要求台帳](../coverage/requirements.json)、
-[番号の分類](../coverage/assessments.json)、[テスト索引](../coverage/test_index.json)を版管理します。AI要求案3830件は、すべて2259テストへ直接対応し、
-追加の24テストはcontrol専用です。全2283テストに要求の対応付けがあります。
+[番号の分類](../coverage/assessments.json)、[テスト索引](../coverage/test_index.json)を版管理します。AI要求案3832件は、すべて2267テストへ直接対応し、
+追加の24テストはcontrol専用です。全2291テストに要求の対応付けがあります。
 直接テストとテスト対応付けのqueueは両方0件です。memory-walkのoracleは、レビューが必要な歴史的解釈を明示し、
 IEEE全体のcoverageを認定しません。人による照合記録はありません。
 
@@ -26,7 +26,7 @@ IEEE全体のcoverageを認定しません。人による照合記録はあり�
 
 適用条件を伴う、観測可能な規範的義務を1要求とする案です。methodの1条項にも、成功、失敗、default引数、
 順序、副作用など、複数の要求が必要な場合があります。見出し自体は義務ではありません。
-3830件の要求案は複数領域にわたりますが、その条項内の全義務を列挙したものではありません。
+3832件の要求案は複数領域にわたりますが、その条項内の全義務を列挙したものではありません。
 
 既存の番号catalogのすべてのrootを、1つずつ次に割り当てます。
 
@@ -76,7 +76,7 @@ checkerは参照、field、期待行の存在、入力の同一性を検査し�
 
 [実行の証拠](results.ja.md)は別に扱い、入力、runner、ライブラリ、設定の同一性が必要です。
 直接の対応先にもspecのみの既知差分があり得ます。対応自体は成功や適合性の主張ではありません。
-現在の2283件には新たに測定した検査系を含みます。変更していない既存テストの対応付け自体は、追加の実行結果ではありません。
+現在の2291件には新たに測定した検査系を含みます。変更していない既存テストの対応付け自体は、追加の実行結果ではありません。
 
 ## 版管理するデータと生成する棚卸し
 
@@ -98,7 +98,7 @@ schemaの版はJSONの項目構成を識別するもので、UVMライブラリ�
   `unreviewed`のまま未評価queueから除去できません。見出しの自動分類は行いません。
 - `coverage/test_index.json`は、全テストの`primary_clause`と`inputs_sha256`を記録します。
   指紋は既存runnerの収集処理を使い、source、宣言したhelper／include／data、期待値file、UVM lockを含めます。
-  索引は棚卸しであり、2283件のレビュー済み要求対応ではありません。
+  索引は棚卸しであり、2291件のレビュー済み要求対応ではありません。
 
 compile診断の対応には`stage: compile`、検査系の`:expected_stderr_regex:`と完全一致する空でない有効regex、`:type: elaboration`、空でない`:should_fail_because:`が必要です。
 その検査系にruntime出力／終了の期待は持たせません。未知／混在field、不正stage、不正／古いpattern、未対応schema版を拒否します。
@@ -201,7 +201,7 @@ JSONは、`requirements_without_direct_tests`（controlのみも含む日英の�
 | 16 | 279 | 186 | 0 | 32 | 1 |
 | 17 | 42 | 11 | 0 | 8 | 0 |
 | 18 | 834 | 500 | 0 | 51 | 45 |
-| 19 | 196 | 149 | 0 | 24 | 1 |
+| 19 | 198 | 157 | 0 | 24 | 1 |
 | B | 204 | 139 | 0 | 4 | 38 |
 | C | 98 | 69 | 0 | 13 | 0 |
 | D | 120 | 28 | 0 | 8 | 0 |
@@ -210,28 +210,26 @@ JSONは、`requirements_without_direct_tests`（controlのみも含む日英の�
 | G | 45 | 20 | 0 | 4 | 0 |
 
 未対応テスト0件と直接テストのない要求案0件は、完全な要求coverageを示しません。
-残る識別子134件は評価／分解が必要です。範囲は提案、3830件のレビューはすべて`ai`、分母は未承認です。
+残る識別子134件は評価／分解が必要です。範囲は提案、3832件のレビューはすべて`ai`、分母は未承認です。
 
-新規HDL force／release 9検査系は、別のVPI条件でseed 1／73に一致します。
-公開forceableの8／40-bit regとwireへforceし、反対の手続き代入／driver更新、通常release、即時release/readを観測します。
-regは新しい手続き代入まで値を保持し、連続駆動wireは即時にdriverの解決値を返します。
-独立した未force peerと存在しない／未instrument pathで、有効呼出しと宣言したbackend失敗を区別します。
-独自backendは標準VPI force／release flagと文書化された公開capability markerを使い、path／valueの模擬やsimulator sourceの複製はありません。
+新規の正時間force_time 8検査系は、未変更の別VPI HDL条件でseed 1／73に一致します。
+実公開forceableの8／40-bit regと連続駆動wireを、同一または異なるtargetへ期間5／13で逐次呼出しします。
+独立observerは各期間のoffset 1／3／duration-1で、反対の代入／driver変更を含めて観測します。
+duration+1ではregがforce値を保持し、駆動wireはdriverへ解決し、その後の通常更新が見えます。
+未使用targetと未force peerは独立した値を保持します。両scopeは共通のコンパイル既定時間単位を使います。
 
-宣言したbackendの変更で、sourceと期待値が同じ既存11入力も指紋が変わります。
-11件の対応を再照合し、全20通常／HDL入力を新たに測定します。別HDL条件は19件が両seed一致、
-保持するE.7 warning／転送なしの差分1件はseed 1で、seed 73の結果はありません。
-通常20入力はDPIのlinkに失敗してspec-onlyのbuild knownを保持し、backendの一致を通常runnerのpassにはしません。
+task宣言と戻り値本文の矛盾から、架空の結果assertionは作りません。
+満了瞬間のprocess順、task復帰時刻、backend内部呼出し数、時間単位の変換／丸め、重なるstatic-task引数、中止、一般失敗cleanupは推定せず、部分条件に残します。
 
-新規日英AI義務7件で19.6.2.3／.5／.6を部分分解します。zero-time force_timeの以前の2義務は、
-制限の歴史的な記述を保持して現在backend／runnerの同一性更新を追記し、source／oracleとdepositだけの前提は未変更です。
-他の以前の3821義務、全406分類、範囲案は未変更です。全体は部分1967／分類406／未評価134です。
-第19章は86／24／1、義務196件、主引用149検査系（simulation 144／elaboration 5）で、predictor check_phaseは未評価です。
-正時間force_time、広いHDL型、全ての部分義務は未完です。
+新規日英AI義務2件で、既に部分分解した19.6.2.4を補強します。以前の全3830義務、406分類、範囲、既存入力の同一性は未変更です。
+全体は部分1967／分類406／未評価134のままで、未評価counterを減らさず部分契約を補強した拡充です。
+第19章は86／24／1、義務198件、主引用157検査系（simulation 152／elaboration 5）で、predictor check_phaseは未評価です。
 
-全3830義務が2259テストへ直接対応し、他の24テストはcontrol専用、control linkあり103テストです。
-影響しない通常2263記録、compiler全92記録、command-line 18記録、互換guest 1082記録を保持します。
-新しいguest実行／filterはありません。範囲、分母、人のレビュー、元のM1〜M4目標は未承認／未完です。
+通常の新規8入力はspec-onlyのDPI link build knownを保持します。以前の通常2283記録とHDL 20記録は保持し、
+別HDL条件は27件が両seed一致、保持するE.7の1件はseed 1差分です。
+全3832義務が2267テストへ直接対応し、control専用24、control linkあり103です。
+compiler、command-line、互換guest 1082記録は未変更で、新しいguest実行／filterはありません。
+範囲、分母、人のレビュー、全ての部分義務、元のM1〜M4目標は未承認／未完です。
 
 TLM 1要求案は、選択interface／port既定値、FIFO照会、公開export method、channel継承／既定値／constructorとqueue容量を扱います。
 実analysis impと多段exportは、選択subscriberへの配送、subscriberごとの順序、live handleを保持します。
@@ -481,4 +479,4 @@ hashが同じでも、既知差分を含む未完／未承認の棚卸しの場�
 割合の公開前に、規範的義務の棚卸しとレビューを終え、範囲を決定し、計数規則と固定した要求集合の明示的な承認を得ます。
 レビュー済みの検査対応と、実行成功をどう数えるかは分けて定義し、実行条件と証拠の同一性も含めます。
 承認には後続のschema／手順の更新が必要です。scope schema 1では意図的に、棚卸し完了や承認済み分母を表せません。
-現在のAIによる3830要求案と直接の対応は、その条件を満たしていません。
+現在のAIによる3832要求案と直接の対応は、その条件を満たしていません。

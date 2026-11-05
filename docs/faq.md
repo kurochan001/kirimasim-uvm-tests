@@ -155,7 +155,7 @@ See [Ghost setup](testing.md#ghost).
 
 It removes `UVM_NO_DPI` from the default macro list. It does not supply or link
 UVM's C/C++ implementation. The current Verilator runner does not add those
-sources. There are 2245 `UVM_NO_DPI` cases and twenty explicit HDL-DPI cases.
+sources. There are 2245 `UVM_NO_DPI` cases and twenty-eight explicit HDL-DPI cases.
 Eighteen more fixtures explicitly enable command-line/regex DPI with HDL disabled.
 The [command-line runner](testing.md#verilator-command-line-subset) links that separate backend.
 The [separate VPI runner](testing.md#verilator-vpi-hdl-subset) links the original
@@ -202,7 +202,7 @@ Execution success and requirement review are separate records, so use [Read cove
 
 ### Q16. Are M1, M2 or M3 complete, and what does the test count cover?
 
-M1 and M2 still have open clause targets. M3 now has 754
+M1 and M2 still have open clause targets. M3 now has 762
 register-layer cases, including testbench frontdoor paths; it is also incomplete. Starting a stage does not complete
 the preceding stages.
 The [plan](../README.md#plan) identifies current scope and remaining work.
@@ -1182,9 +1182,9 @@ not a direct test of the requirement.
 
 ### Q77. Why is there no coverage percentage after starting M4?
 
-The 3830 AI drafts cover only a partial decomposition: 3830 requirements link
-directly to 2259 tests; all drafts have direct tests, and twenty-four separate tests have only control links.
-All 2283 tests have requirement links. The 2,507 clause identifiers are not normative requirement units.
+The 3832 AI drafts cover only a partial decomposition: 3832 requirements link
+directly to 2267 tests; all drafts have direct tests, and twenty-four separate tests have only control links.
+All 2291 tests have requirement links. The 2,507 clause identifiers are not normative requirement units.
 The scope is proposed, the inventory incomplete and the denominator unapproved;
 starting M4 approves none of those. Known differences and HDL/DPI limitations
 do not silently exclude obligations. See the [approval path](requirements.md#remaining-m4-work-and-approval).
@@ -2202,18 +2202,20 @@ known difference into success. See the [current ledger](requirements.md).
 
 ### Q129. How can HDL behavior be tested without commercial simulator results?
 
-Twenty fixtures use the [separate VPI runner](testing.md#verilator-vpi-hdl-subset)
+Twenty-eight fixtures use the [separate VPI runner](testing.md#verilator-vpi-hdl-subset)
 and original backend to access real public HDL storage. Existing deposit/read
 checks cover selected variables and peers; three memory inputs also cover actual
 array cells, split banks and ROM write versus poke. Nine new inputs check
 force/release on public forceable 8/40-bit reg/wire signals, immediate release/read,
 opposing/later updates and missing/uninstrumented failure controls.
 
-Nineteen match both seeds; the inaccessible-path sequence retains its E.7
+Eight positive-duration force_time inputs add timed hold/release and sequential
+reuse observations. Twenty-seven match both seeds; the inaccessible-path
+sequence retains its E.7
 warning/no-transfer expectation but reports ERROR and attempts reads at seed 1.
-All twenty remain `:oracle: spec` under ordinary runs, which do not link the
+All twenty-eight remain `:oracle: spec` under ordinary runs, which do not link the
 backend; strict HDL mismatches are `fail`. General arrays/selects/types,
-positive-duration force_time and four-state behavior remain open. These are
+broader timed/cross-unit conditions and four-state behavior remain open. These are
 overlapping supplied-backend results; [the HDL FAQ](#hdl-force-and-release-conditions)
 explains their scope, not a vendor-overlay, kirimasim or Ghost claim.
 
@@ -2261,7 +2263,7 @@ No. For an omitted or explicit zero time, 19.6.2.4 delegates to deposit.
 [Default](../tests/u19/test_hdl_force_time_default_time_delegates_to_deposit_without_force_or_release.sv)
 and [explicit-zero](../tests/u19/test_hdl_force_time_explicit_zero_time_delegates_to_deposit_without_force_or_release.sv)
 cases observe a real storage change, one deposit, no force/release/read calls
-and no elapsed time. Positive-duration force_time remains unmeasured; separate primitive force/release evidence is described in [the HDL FAQ](#hdl-force-and-release-conditions).
+and no elapsed time. Selected positive durations are now measured separately, as described in [the timing FAQ](#positive-duration-force_time-observations); zero-time observations alone do not establish them.
 The printed return-value prose conflicts with the declared task; these tests
 invent no task return assertion. Separate path cases verify that a nonempty
 abstraction list selects its entries and an empty list uses the block default,
@@ -2860,7 +2862,7 @@ They do not fix the implementation's numeric macro default. Separate HDL
 force/release evidence now checks selected 8/40-bit reg/wire operations, as
 described in [the HDL FAQ](#hdl-force-and-release-conditions); parameter-only
 matches supply no execution evidence for those routines. Broader types and
-positive-duration force_time remain open.
+broader positive-duration force_time conditions remain open.
 
 ## Synchronization state, data and reset evidence
 
@@ -2985,7 +2987,7 @@ Three original inputs have new fingerprints: the command enum citation, the
 Boolean rerandomization observation and the virtual-field configuration citation.
 All three were remeasured on Verilator; their stale guest records are excluded.
 The historical 1085-record source files remain intact. Current reuse covers
-1082 inputs, with 1201 unmeasured: 1198 additions and three revised originals.
+1082 inputs, with 1209 unmeasured: 1206 additions and three revised originals.
 This is record filtering, not a guest rerun; see [the evidence assembly](results.md#evidence-assembly).
 
 ## Interface delegation and socket topology
@@ -3041,7 +3043,7 @@ An illegal-design check expects rejection before simulation; [negative-test meta
 Thirty-five selected abstract-construction fixtures deliberately instantiate classes
 that the standard declares virtual. The required result is rejection with an
 error identifying the fixture and class. A matching rejection is a successful
-negative check without runtime seeds, distinct from the 92 unexpected builds
+negative check without runtime seeds, distinct from the 100 unexpected builds
 among simulation cases. Pure-method and const-reference checks are additional
 negative conditions, each judged by its own declared oracle.
 
@@ -3056,10 +3058,10 @@ and stale patterns are rejected. Validation does not consume compiler results.
 Individual requirement reviews may add direct anchors while preserving existing
 links and identifying those changes explicitly.
 
-### Q201. Did all 2283 tests run at two seeds?
+### Q201. Did all 2291 tests run at two seeds?
 
-No. There are 2191 simulation and 92 elaboration fixtures. Ordinary evidence
-has 1857 two-seed runtime matches, 87 expected compiler rejections, 334 known
+No. There are 2199 simulation and 92 elaboration fixtures. Ordinary evidence
+has 1857 two-seed runtime matches, 87 expected compiler rejections, 342 known
 simulation differences and five known illegal compile acceptances. None of the
 92 illegal designs executes a runtime seed, even when compilation accepts it.
 
@@ -3610,7 +3612,7 @@ independent defect count. The original normal-register control matches.
 
 No. The new memory/indirect/FIFO duties remain partial; [the current root totals](requirements.md#review-work-queue-and-root-totals)
 track chapter 18's remaining review. Overall 134 identifiers remain unassessed.
-The suite has 2259 directly linked tests and twenty-four
+The suite has 2267 directly linked tests and twenty-four
 control-only tests. Coverage of failures, concurrency, backdoor applicability,
 field/virtual-register contracts and the original M1–M4 targets remains open.
 
@@ -3721,7 +3723,7 @@ jobs. The previous unsharded run reached its 150-minute limit. The 17 command-li
 checks now run once on shard 0 before ordinary checks. Runtime seeds 1/73 and
 87 expected compiler rejections keep their original judgment. Partition
 validation proves neither hosted CI success nor conformance; use the README badge
-for the current workflow result. The 339 known cases remain outside the ordinary default CI selection.
+for the current workflow result. The 347 known cases remain outside the ordinary default CI selection.
 
 ## Recording and scalar-macro conditions
 
@@ -3877,8 +3879,8 @@ measured passes. See [the requirement-link rules](requirements.md#citations-requ
 The corrected citation changes the exact input hash despite an unchanged body
 and oracle. Its old guest record is excluded: 1083 compatible records become
 1082, leaving Ghost 206 matches/876 failures per seed and kirimasim 1073
-unsupported/nine failures. No guest was rerun. The 1201 unmeasured inputs are
-1198 additions and three revised originals. This filter is not evidence of
+unsupported/nine failures. No guest was rerun. The 1209 unmeasured inputs are
+1206 additions and three revised originals. This filter is not evidence of
 guest improvement or regression; see [the evidence assembly](results.md#evidence-assembly).
 
 ### Q285. Why capture the field constructor name inside a factory-created subtype?
@@ -4078,16 +4080,50 @@ the forced value until a new assignment, from a continuously driven wire,
 which immediately resolves to its driver value. The original 8/40-bit fixtures
 check returned data immediately, inspect settled HDL state and then change
 the assignment or driver, with an independent peer. [The current measurement](results.md#interpretation)
-is for selected two-state scalar signals; positive-duration force_time,
+is for selected two-state scalar signals; broader timed/cross-unit conditions,
 undriven nets, general selects/types and four-state cases remain open.
 
 ### Q304. Why remeasure eleven older HDL inputs after a backend change?
 
 Their declared backend is an input even when the ordinary runner does not link
 it. Sources and expectations are unchanged, but fingerprints change and all
-affected mappings need review. Twenty ordinary and twenty separate-HDL records
-are freshly measured: ordinary builds remain known, while separate HDL has
-nineteen both-seed matches and the retained E.7 seed 1 difference. No old record
+affected mappings need review. The backend-change batch freshly measured twenty
+ordinary and twenty separate-HDL records. Eight later timed inputs extend the
+current HDL condition to twenty-seven matches and the retained E.7 seed 1
+difference; ordinary builds remain known. No old record
 is relabeled with a current input hash. [The evidence guide](results.md#evidence-assembly)
-records the 2263 unaffected ordinary inputs and unchanged guest, compiler and
-command-line evidence.
+records the backend-change batch and the currently retained ordinary inputs,
+plus unchanged guest, compiler and command-line evidence.
+
+## Positive-duration force_time observations
+
+A positive period needs timed observers beyond the zero-time deposit branch; [the interval glossary](glossary.md#positive-duration-force_time-observations) explains the observation windows used here.
+
+### Q305. Does a timed force_time fixture assert its return value or return time?
+
+Neither. The printed task declaration and return-value prose remain inconsistent.
+Independent observers check force at offsets 1,3,duration-1 for periods 5/13,
+post-period state at duration+1 and a subsequent normal update. A watchdog bounds
+completion without prescribing when the task returns or ordering processes at
+the exact expiration instant. [The setup guide](testing.md#verilator-vpi-hdl-subset)
+distinguishes these eight real-HDL inputs from zero-time delegation and primitive
+release/read tests.
+
+### Q306. Why use sequential same-target and distinct-target histories?
+
+The same target is forced with new data after an earlier interval has ended;
+the distinct-target variant also preserves the completed target while selecting
+another. A dormant forceable target and an independent peer expose unintended
+changes. Calls do not overlap: static package-task argument lifetime and broader
+overlap/cancellation/failure behavior remain separate review work. [The requirements](requirements.md#citations-requirements-and-execution-evidence)
+record the shared compilation-default time unit; cross-unit conversion and
+rounding are not inferred.
+
+### Q307. Why is the unassessed counter still 134 after adding these tests?
+
+19.6.2.4 already had partial zero-time/default requirements. Two positive-duration
+duties strengthen that contract without introducing a classification or changing
+the number of unassessed identifiers. All 3830 older duties remain unchanged.
+The current 3832 duties map directly to 2267 tests, but 1967 partial identifiers and
+the original milestone targets remain open; [the inventory guide](requirements.md#review-work-queue-and-root-totals)
+explains why this is progress without a reduced unassessed counter.

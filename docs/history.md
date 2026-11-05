@@ -5,8 +5,8 @@
 Counts on this page belong to the time of each change, so use [the current snapshot](results.md#current-snapshot) when you need the present suite size or execution scope.
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and seventy-seven cross-milestone thin-area expansions, including the
-existing-test requirement-link backlog checkpoint (2283 tests: 2191 simulation and 92 elaboration). The earlier 349-test checkpoint is
+three M4 increments and seventy-eight cross-milestone thin-area expansions, including the
+existing-test requirement-link backlog checkpoint (2291 tests: 2199 simulation and 92 elaboration). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -4680,3 +4680,41 @@ unassessed by three to 134, while positive-duration force_time, partial duties,
 human review, denominator approval and original M1–M4 targets remain open.
 The prior bilingual explanation/link additions are preserved while updating
 the current measured scope.
+
+## Seventy-eighth thin-area expansion: positive-duration HDL force
+
+Eight new positive-duration force_time fixtures match seeds 1/73 under the
+separate unchanged VPI HDL condition. Actual public forceable 8/40-bit regs and
+continuously driven wires use sequential durations 5 and 13 on the same or
+distinct targets. Independent observers sample inside each interval at offsets
+1, 3 and duration-1, including opposing assignment/driver changes. At duration+1,
+regs retain force data and driven wires resolve to their driver value; later
+normal updates become visible. Dormant targets and an unforced peer remain
+independent. Both scopes use the shared compilation-default time unit.
+
+The task's printed return-value inconsistency does not create a result assertion.
+No exact-expiry process order, task-return timing, internal backend call count,
+cross-unit/rounding, overlapping static-task arguments, cancellation or general
+failure-cleanup behavior is inferred. These remain partial conditions.
+
+Two new bilingual AI duties extend the already partial 19.6.2.4. All 3830 earlier
+duties, 406 classifications, scope and existing input identities are unchanged.
+Global state remains 1967 partial/406 assessed/134 unassessed; this increment
+strengthens a partial contract without reducing the unassessed counter.
+Chapter 19 is 86/24/1 with 198 duties and 157 primary fixtures (152 simulation/
+5 elaboration); predictor check_phase remains unassessed.
+
+All eight ordinary inputs remain spec-only DPI-link build knowns. All 2283
+prior ordinary records and twenty prior HDL records are retained; separate HDL
+is twenty-seven both-seed matches and one retained E.7 seed-1 difference.
+All 3832 duties link directly to 2267 tests, with 24 control-only and 103
+control-linked. Compiler, command-line and 1082 compatible guest records are
+unchanged; there is no new guest run/filter. Scope, denominator, human review,
+all partial duties and original M1–M4 targets remain unapproved/incomplete.
+
+Independent oracles are frozen before measuring eight final ordinary and eight
+HDL inputs. Ordinary is 1944 pass/347 known; separate HDL is 27 pass/1 fail. Earlier
+2283 ordinary and twenty HDL records retain their identities. Goal iteration 50
+strengthens an already partial clause, leaving 134 unassessed, classifications
+and scope unchanged. Original M1–M4 targets and all partial conditions remain
+open; bilingual reader explanations and links are preserved.

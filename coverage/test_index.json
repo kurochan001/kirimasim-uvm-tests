@@ -9133,6 +9133,38 @@
     "u19/test_hdl_force_release_failures_keep_independent_controls": {
       "primary_clause": "19.6.2.3",
       "inputs_sha256": "0101bd7bf429519f8c9a810bdc7364ac1e93d3228dbb36461225e86ceeaf6445"
+    },
+    "u19/test_hdl_force_time_reg40_distinct_targets": {
+      "primary_clause": "19.6.2.4",
+      "inputs_sha256": "e3d3f2271be53bd12bd6c564ffaba4e0ae7f84325538f5c65e380a795550dbf2"
+    },
+    "u19/test_hdl_force_time_reg40_same_targets": {
+      "primary_clause": "19.6.2.4",
+      "inputs_sha256": "10110fcc084946375f84c3270770b1f957481bb1ebb9e67dbbdd59da364794cb"
+    },
+    "u19/test_hdl_force_time_reg8_distinct_targets": {
+      "primary_clause": "19.6.2.4",
+      "inputs_sha256": "4b383fa38224a75132400b5d6a4b4be9d88909c09d0dd754c29c7479939b79d2"
+    },
+    "u19/test_hdl_force_time_reg8_same_targets": {
+      "primary_clause": "19.6.2.4",
+      "inputs_sha256": "6445f460e5c89e987b56eae319eac7824ca37e415445fc2accf01bf7b0b32d22"
+    },
+    "u19/test_hdl_force_time_wire40_distinct_targets": {
+      "primary_clause": "19.6.2.4",
+      "inputs_sha256": "fb6bd609ca061fb799bb23a97da9c179e544d9a5dc8bdf1dce5e5a1e884a98cf"
+    },
+    "u19/test_hdl_force_time_wire40_same_targets": {
+      "primary_clause": "19.6.2.4",
+      "inputs_sha256": "a57ff327602b6a90be64a3b5df5778224aefb98b9f43ed1a04d6f3f468cbe8c5"
+    },
+    "u19/test_hdl_force_time_wire8_distinct_targets": {
+      "primary_clause": "19.6.2.4",
+      "inputs_sha256": "43ae953980290925c06a2538564a2bbf2417e0ee22c087b08ce622e6253bdcb5"
+    },
+    "u19/test_hdl_force_time_wire8_same_targets": {
+      "primary_clause": "19.6.2.4",
+      "inputs_sha256": "e71f86efb9afa38fbb03ef97aba99ed5ba3b42b2438daa066736220adc1eb6a0"
     }
   }
 }

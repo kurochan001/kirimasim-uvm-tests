@@ -267,7 +267,7 @@ DPIはSystemVerilogから外部コードを呼ぶ仕組みで、DPIを有効に�
   （`UVM_HDL_NO_DPI`ならバックドアだけを外せます）。
 - ユーザー定義の`uvm_reg_backdoor`による記憶域handlerはHDL DPIなしで使えます。
   商用シミュレータの実行・結果はプロジェクトの方針で除外し、組み込みHDL path／DPIの検査は未完です。
-- 現在の2245件は`UVM_NO_DPI`を使い、20件はHDL DPIを明示的に有効にします。
+- 現在の2245件は`UVM_NO_DPI`を使い、28件はHDL DPIを明示的に有効にします。
   `:uvm_dpi: yes`はこのマクロを外す指定で、
   C/C++のDPI実装を自動でビルド・リンクする指定ではありません。
   現在のVerilatorランナーはDPIのC/C++ソースを追加しません。
@@ -279,7 +279,7 @@ DPIはSystemVerilogから外部コードを呼ぶ仕組みで、DPIを有効に�
 このbackendはUVMのDPI呼出しをシミュレータの公開VPI interfaceへ接続するもので、2つのinterfaceと測定範囲の関係は[HDLの実行条件](glossary.ja.md#hdlの実行条件)で説明しています。
 
 別の[HDL runner](../tools/run_verilator_hdl.py)は独自[backend](../tools/uvm_hdl_vpi.cpp)をlinkし、実HDL storageを使います。
-Verilatorは5.052固定で、20検査系は`:uvm_dpi: yes`、`:uvm_hdl_backend: vpi`、宣言した`:dpi_c:`を設定します。
+Verilatorは5.052固定で、28検査系は`:uvm_dpi: yes`、`:uvm_hdl_backend: vpi`、宣言した`:dpi_c:`を設定します。
 `UVM_REGEX_NO_DPI`と`UVM_CMDLINE_NO_DPI`で無関係なimportを無効にし、runnerはどちらのdefines fieldでもHDL無効化macroと既定1024-bit UVM DPI ABIの変更を拒否します。
 
 ```sh
@@ -298,12 +298,13 @@ regは次の手続き代入までforce値を保持し、駆動wireは即時に�
 
 可視性と評価の制約は[公開VPI文書](https://verilator.org/guide/latest/connecting.html#verification-procedural-interface-vpi)を参照してください。
 deposit／forceの観測は再評価後、release/readの戻り値は呼出し直後に確認します。
-一般array／select／型、正時間force_time、4値、細かな権限、vendor overlayは未完で、simulatorの実装sourceは読みません。
+一般array／select／型、時間単位変換／丸めや重なり／失敗を含む広いforce_time条件、4値、細かな権限、vendor overlayは未完で、simulatorの実装sourceは読みません。
 
-通常runnerはbackendをlinkせず、全20件が`:oracle: spec`を保持します。別の`verilator_hdl`同一性、`runner_sha256`、backend設定で同じ期待値を使います。
-19件は両seed一致、E.7 warning／転送なしの1件はseed 1差分で、厳格なHDL runnerは不一致で失敗終了します。
-backend変更で既存11入力の指紋も変わり、source／oracleは保持して対応を再照合し、全20通常／HDL入力を再測定します。
-通常20件のDPI link失敗とは別の重複条件です。
+通常runnerはbackendをlinkせず、全28件が`:oracle: spec`を保持します。別の`verilator_hdl`同一性、`runner_sha256`、backend設定で同じ期待値を使います。
+27件が両seed一致、E.7 warning／転送なしの1件はseed 1差分で、厳格なHDL runnerは不一致で失敗終了します。
+backend変更時に再測定した以前の20記録を保持し、未変更backendで正時間force_time 8入力を新たに測定します。
+新規入力は期間5／13の内側と後、同一／別targetへの逐次再利用を扱い、[期間のFAQ](faq.ja.md#正時間force_timeの観測)で観測時刻と未完条件を説明しています。
+通常28件のDPI link失敗とは別の重複条件です。
 
 現在のIEEE本文にないalgorithmの詳細には、明示的に限定したAI解釈を記録する場合があります。
 memory-walkの公式の歴史的資料とレビュー上の限定は[Q134](faq.ja.md#q134-memory-walk-algorithmをどう解釈していますか)にあり、algorithm実装の複製や測定出力をoracleにしません。
@@ -360,7 +361,7 @@ runtimeでは`--seeds 1 73`で各モデルを一度だけビルドし、seedご�
 要求した全runtime seedで一致した場合だけ成功です。従来の`--seed N`も使えます。
 結果JSONのconfigurationには、指定に応じて`seed`か`seeds`を記録します。
 
-Verilatorの既定の対象はoracle付き・2値の1944件（runtime 1857・期待compiler拒否87）です。`--all`を付けるとspecのみの339件も含めます。
+Verilatorの既定の対象はoracle付き・2値の1944件（runtime 1857・期待compiler拒否87）です。`--all`を付けるとspecのみの347件も含めます。
 oracleのないテストの不一致は`known`で、コマンドを失敗させません。oracle付きの不一致は失敗です。
 テストのパスを明示した場合は、そのテストだけが対象です。スモークテスト1件の実行例です。
 
@@ -415,7 +416,7 @@ python3 tools/lint_metadata.py
 python3 tools/requirements.py check
 ```
 
-現在のツールの単体テストは110件、メタデータの対象はテスト2283件（simulation 2191件・elaboration 92件）です。
+現在のツールの単体テストは110件、メタデータの対象はテスト2291件（simulation 2199件・elaboration 92件）です。
 [台帳の検査](requirements.ja.md)は、範囲案、明示した期待値への対応、入力の指紋を検査し、カバレッジを主張しません。
 [Check](../.github/workflows/check.yml)は`main`へのpush・pull request・手動実行で動きます。
 Verilator matrixの各jobは5.052・`UVM_NO_DPI`・seed 1と73でoracle付きのテストを実行し、

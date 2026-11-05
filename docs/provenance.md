@@ -216,6 +216,14 @@ No GPL/LGPL implementation file is opened or used; no commercial result supplies
 evidence. [The HDL FAQ](faq.md#hdl-force-and-release-conditions) distinguishes expectations,
 backend premises and eleven refreshed input identities.
 
+Positive-duration force_time expectations are independently derived before
+measurement from supplied IEEE 19.6.2.4, force/release behavior and task-lifetime
+rules. Original observers check interval interiors and after expiration, without
+using task-return timing/results or internal call counts as an oracle. Apache-2.0
+package/time-unit setup was inspected; backend/runners remain unchanged and no
+simulator implementation source or commercial result is used. [The timing FAQ](faq.md#positive-duration-force_time-observations)
+records shared compilation-default units and sequential-call premises.
+
 ## Clause catalog maintenance
 
 The catalog counts identifiers rather than normative duties, so [Counting unit and scope proposal](requirements.md#counting-unit-and-scope-proposal) explains why restoring an entry does not define a coverage denominator.

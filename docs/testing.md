@@ -345,7 +345,7 @@ DPI lets SystemVerilog call external code, and [Q12](faq.md#q12-does-uvm_dpi-yes
 - User-defined `uvm_reg_backdoor` storage handlers work without HDL DPI.
   Commercial simulator execution/results are excluded by the project policy;
   built-in HDL-path/DPI coverage remains open.
-- 2245 current cases use `UVM_NO_DPI`; twenty explicitly enable HDL DPI.
+- 2245 current cases use `UVM_NO_DPI`; twenty-eight explicitly enable HDL DPI.
   `:uvm_dpi: yes` removes that macro;
   it does not automatically compile or link the C/C++ DPI implementation.
   The current Verilator runner does not add DPI C/C++ sources.
@@ -358,7 +358,7 @@ This backend connects UVM's DPI calls to the simulator's public VPI interface; [
 
 The separate [HDL runner](../tools/run_verilator_hdl.py) links the original
 [backend](../tools/uvm_hdl_vpi.cpp) to actual HDL storage with exactly Verilator
-5.052. Twenty fixtures declare `:uvm_dpi: yes`, `:uvm_hdl_backend: vpi` and
+5.052. Twenty-eight fixtures declare `:uvm_dpi: yes`, `:uvm_hdl_backend: vpi` and
 `:dpi_c:`; `UVM_REGEX_NO_DPI` and `UVM_CMDLINE_NO_DPI` disable unrelated imports.
 The runner rejects HDL-disabling macros and changes to the default 1024-bit
 UVM DPI ABI in either defines field.
@@ -388,17 +388,20 @@ immediately returns its resolved value, as explained in [the HDL FAQ](faq.md#hdl
 See [public VPI documentation](https://verilator.org/guide/latest/connecting.html#verification-procedural-interface-vpi)
 for visibility/evaluation constraints. Deposit/force observations allow
 reevaluation; release/read samples the returned value immediately. General
-arrays/selects/types, positive-duration force_time, four-state values, finer
-permissions and vendor overlays remain open. No simulator implementation source
+arrays/selects/types, broader force_time conditions involving cross-unit
+conversion, rounding, overlap or failures, four-state values, finer permissions
+and vendor overlays remain open. No simulator implementation source
 is read.
 
-Ordinary runs do not link the backend and all twenty retain `:oracle: spec`.
+Ordinary runs do not link the backend and all twenty-eight retain `:oracle: spec`.
 The distinct `verilator_hdl` identity, `runner_sha256` and backend configuration
-use the same expectations. Nineteen match both seeds; the E.7 warning/no-transfer
-case differs at seed 1 and the strict runner fails on a mismatch. Changing the
-backend also changes eleven older input fingerprints: their sources/oracles
-are preserved, mappings reviewed, and all twenty ordinary/HDL inputs remeasured.
-Keep this overlapping condition separate from twenty ordinary DPI-link failures.
+use the same expectations. Twenty-seven match both seeds; the E.7 warning/
+no-transfer case differs at seed 1 and strict mismatches fail. Twenty records
+from the earlier backend-change batch are retained. Eight new positive-duration
+force_time inputs use the unchanged backend for periods 5/13 and sequential
+same/distinct-target reuse; [the timing FAQ](faq.md#positive-duration-force_time-observations)
+explains sample windows and open conditions. This overlapping condition is
+separate from twenty-eight ordinary DPI-link failures.
 
 Algorithm detail absent from current IEEE text may carry an explicitly qualified
 AI interpretation. [Q134](faq.md#q134-how-is-the-memory-walk-algorithm-interpreted)
@@ -469,7 +472,7 @@ The JSON configuration records either `seed` or `seeds` accordingly.
 
 By default, Verilator selects 1944 tagged two-state checks: 1857 runtime
 cases and 87 expected compiler rejections. To include
-the 339 spec-only cases as well, add `--all`. A mismatch in an untagged case
+the 347 spec-only cases as well, add `--all`. A mismatch in an untagged case
 is `known` and does not fail the command; a tagged mismatch does.
 Explicit test paths select only those tests. For a single smoke test:
 
@@ -529,7 +532,7 @@ python3 tools/requirements.py check
 ```
 
 The current tool suite has 110 unit tests; metadata validation checks all
-2283 tests (2191 simulation, 92 elaboration). The [ledger check](requirements.md) validates the draft
+2291 tests (2199 simulation, 92 elaboration). The [ledger check](requirements.md) validates the draft
 scope, explicit oracle links and input fingerprints without claiming coverage. [Check](../.github/workflows/check.yml) runs on pushes to
 `main`, pull requests and manual dispatch. Its Verilator matrix jobs use
 5.052, `UVM_NO_DPI` and seeds 1 and 73 for the tagged cases. Each model is

@@ -1,0 +1,10 @@
+UT: timed78 cycle 0 active 1 dormant 1 peer 1
+UT: timed78 cycle 0 opposing_held 1 dormant 1 peer 1
+UT: timed78 cycle 0 near_end 1 dormant 1 peer 1
+UT: timed78 cycle 0 released_value 1 dormant 1 peer 1
+UT: timed78 cycle 0 resumed 1 dormant 1 peer 1
+UT: timed78 cycle 1 active 1 dormant 1 peer 1
+UT: timed78 cycle 1 opposing_held 1 dormant 1 peer 1
+UT: timed78 cycle 1 near_end 1 dormant 1 peer 1
+UT: timed78 cycle 1 released_value 1 dormant 1 peer 1
+UT: timed78 cycle 1 resumed 1 dormant 1 peer 1

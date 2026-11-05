@@ -152,6 +152,11 @@ force／releaseの期待値は、測定前に提供IEEE 19.6.2.3／.5／.6、言
 最新文書の版から5.052での動作を推定せず、独自probeと最終20入力で確認します。GPL／LGPLの実装fileを開いたり利用したりせず、商用結果も使いません。
 [HDLのFAQ](faq.ja.md#hdlのforceとreleaseの条件)で期待値、backendの前提、11入力の同一性更新を区別しています。
 
+正時間force_timeの期待値は、測定前に提供IEEE 19.6.2.4とforce／release、言語のtask寿命規則から独立に導きます。
+独自observerは期間内と満了後を観測し、taskの復帰時刻や戻り値、内部呼出し数をoracleにしません。
+Apache-2.0のpackage／時間単位の設定を確認しましたが、backend／runnerの変更やsimulator実装source／商用結果の利用はありません。
+共通コンパイル既定単位と逐次呼出しの前提は[期間のFAQ](faq.ja.md#正時間force_timeの観測)で記録しています。
+
 ## 条項カタログの保守
 
 catalogが数えるのは規範的義務ではなく識別子なので、項目の復元でcoverage分母が決まらない理由は[計数単位と対象範囲の案](requirements.ja.md#計数単位と対象範囲の案)を参照してください。

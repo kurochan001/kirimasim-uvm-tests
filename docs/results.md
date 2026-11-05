@@ -6,15 +6,15 @@
 
 Runtime matches, compiler rejections and unmeasured inputs describe different execution conditions; [Read a result](reading-guide.md#read-a-result) explains how to read the counts together.
 
-The Verilator snapshot assembled on 2026-11-06 covers all 2283 current tests.
-Guest records retain 1082 compatible current inputs; 1201 inputs are
+The Verilator snapshot assembled on 2026-11-06 covers all 2291 current tests.
+Guest records retain 1082 compatible current inputs; 1209 inputs are
 unmeasured, including three revised old inputs. Each record
 fingerprints its inputs and conditions.
-The suite has 2283 fixtures in 21 directories: 2191 simulation and 92
-elaboration. Milestone totals are M1 982 (903/79), M2 547 (542/5) and M3 754
-(746/8), with runtime/elaboration counts in parentheses. All use `spec_check: ai`;
+The suite has 2291 fixtures in 21 directories: 2199 simulation and 92
+elaboration. Milestone totals are M1 982 (903/79), M2 547 (542/5) and M3 762
+(754/8), with runtime/elaboration counts in parentheses. All use `spec_check: ai`;
 none records human review. Of 2245 no-DPI fixtures, 92 are illegal elaboration
-checks. The twenty HDL-DPI and eighteen command-line/regex-DPI runtime fixtures
+checks. The twenty-eight HDL-DPI and eighteen command-line/regex-DPI runtime fixtures
 remain separate.
 
 Counts do not establish a reviewed coverage percentage.
@@ -23,11 +23,11 @@ Backend rows revisit inputs already included in the ordinary row under different
 
 | Simulator and library | Observation | Execution scope |
 | --- | --- | --- |
-| Verilator 5.052, pinned UVM | 1944 `pass`: 1857 runtime + 87 compile rejection; 339 `known` | Runtime matches use seeds 1/73; expected compiler rejections execute no runtime seed |
-| Verilator 5.052, original VPI HDL backend | 19 `pass`; 1 `fail` | Separate overlapping 20-case condition; matches at seeds 1/73, difference at seed 1 |
+| Verilator 5.052, pinned UVM | 1944 `pass`: 1857 runtime + 87 compile rejection; 347 `known` | Runtime matches use seeds 1/73; expected compiler rejections execute no runtime seed |
+| Verilator 5.052, original VPI HDL backend | 27 `pass`; 1 `fail` | Separate overlapping 28-case condition; matches at seeds 1/73, difference at seed 1 |
 | Verilator 5.052, original command-line VPI bridge and pinned regex DPI | 17 `pass`; 1 `known` | Separate overlapping 18-case condition; matches at seeds 1/73, difference at seed 1 |
-| kirimasim, pinned UVM | 1073 `unsupported`; nine `fail` | 1082 unchanged inputs; 1201 inputs unmeasured |
-| Ghost, bundled UVM | 206 `pass`; 876 `fail` | 1082 unchanged inputs at each seed; identical failing sets; 1201 inputs unmeasured |
+| kirimasim, pinned UVM | 1073 `unsupported`; nine `fail` | 1082 unchanged inputs; 1209 inputs unmeasured |
+| Ghost, bundled UVM | 206 `pass`; 876 `fail` | 1082 unchanged inputs at each seed; identical failing sets; 1209 inputs unmeasured |
 | Ghost, pinned UVM | Not measured for the current executable snapshot | No current pinned-mode claim |
 
 The pinned library is Accellera UVM 2020.3.1, commit `78c06547a2a0`, with
@@ -47,11 +47,11 @@ A build failure stops before simulation, while a runtime difference comes from a
 declared fixture/type/member diagnostic. Five illegal designs remain accepted:
 subscriber write, visitor visit, proxy get_immediate_children and adapter accept omissions, and direct construction of the
 printed virtual builtin dispatcher. They retain the rejection oracle as known
-differences without runtime, even when accepted. The 92 unexpected simulation
+differences without runtime, even when accepted. The 100 unexpected simulation
 builds remain separate. A pass requires the declared expectation.
 
-The 339 spec-only cases retain standard-derived output or compile-diagnostic
-expectations. Five are illegal compiler acceptances; 334 are simulation cases.
+The 347 spec-only cases retain standard-derived output or compile-diagnostic
+expectations. Five are illegal compiler acceptances; 342 are simulation cases.
 Of these, 242 first differ at runtime seed 1 without seed 73. Twenty-seven cannot build
 because of missing APIs/type names: one time API, six sequence-library APIs,
 four HDL slice cases, one named-concat constructor, five object active-policy API cases,
@@ -63,14 +63,14 @@ Two declaration builds retain incompatible defaults; two retain printed
 all_dropped function/task and clone implicit-scalar/map-return conflicts. Two
 retain incompatible inherited type_id registry specializations; one retains the
 protected memory backdoor_read accessibility difference. Two legal extensions, resource-base and listed-only complete core service,
-also require unlisted pure hooks. Another 38 request
-unlinked DPI: twenty HDL and eighteen command-line cases. Three additional legal
+also require unlisted pure hooks. Another 46 request
+unlinked DPI: twenty-eight HDL and eighteen command-line cases. Three additional legal
 builds use the literal enum-collection T interpretation. Seven further builds
 retain six strict attribute definitions and the printed enum-unpack arity.
 Three more builds retain dependent visitor defaults with custom STRUCTURE.
 Two qualified virtual-abstraction overview-base inputs retain the wording
 conflict; their explicit class-base controls match separately. Two additional
-printed dedicated-pool return-type inputs retain the pool/item conflict. These 92
+printed dedicated-pool return-type inputs retain the pool/item conflict. These 100
 simulation builds have no runtime result. Separate command-line evidence remains
 seventeen matches and one quit-warning difference.
 
@@ -79,23 +79,24 @@ general and ID values, action and file return to defaults. The expected reset
 and subsequent boundary delivery remain unchanged. This adds one runtime
 fixture to the known set; prior severity-override reset differences remain.
 
-The separate VPI condition has twenty HDL fixtures: nineteen match seeds 1/73.
-Three memory fixtures access actual public array cells: inherited base-task
-read/write, split 8/16-bit banks forming a 24-bit word, and ROM write versus
-poke/read/peek. Original wrappers reach inherited protected-read implementations
-without passing the separately blocked public-read declaration.
+The separate VPI condition has twenty-eight fixtures: twenty-seven match both
+seeds. Three memory inputs access real array cells through inherited tasks,
+split banks and ROM write versus poke; wrappers retain the separate public-read
+declaration limitation. Nine primitive force/release inputs check real public
+8/40-bit regs/wires and immediate release/read behavior.
 
-Nine force/release inputs add real public forceable 8/40-bit reg and wire
-observations, immediate release/read values, later assignment/driver updates
-and missing/uninstrumented failure controls. All eleven older sources and
-oracles are unchanged, but the declared backend and HDL runner identities
-change; all twenty ordinary and HDL inputs are freshly measured.
+Eight new positive-duration force_time inputs observe periods 5/13, interior
+force retention, post-period reg/wire state, later updates and dormant/peer
+isolation. Calls are sequential in the shared compilation-default time unit;
+no exact-expiry ordering, return-time/result or overlapping-argument claim is
+made. The backend and both runners are unchanged: twenty older HDL records and
+all 2283 older ordinary records are compatible and retained.
 
-The inaccessible-path sequence still first differs at seed 1, reporting ERROR
-rather than warning and attempting reads under the retained E.7 no-transfer
-interpretation. General arrays/selects/types, positive-duration force_time,
-vendor overlays and four-state behavior remain open. Do not add overlapping
-matches to the ordinary total; see [HDL setup](testing.md#verilator-vpi-hdl-subset)
+The E.7 inaccessible-path sequence still reports ERROR and attempts reads rather
+than the retained warning/no-transfer expectation at seed 1, with no seed 73
+result. General types/selects/arrays, cross-unit/rounding, overlapping timed calls,
+failure/cancellation and four-state behavior remain open. Do not add overlapping
+matches to ordinary results; see [HDL setup](testing.md#verilator-vpi-hdl-subset)
 and [known differences](known-differences.md).
 
 kirimasim reports `uvm_object_wrapper` as unsupported on 1073 cases; the other
@@ -118,42 +119,39 @@ A fingerprint identifies the exact inputs behind a reused record, so [Execution 
 
 Here an unmeasured input has no compatible current record, even if an older version was run; [Q15](faq.md#q15-how-do-i-know-whether-an-old-result-still-applies) explains the checks needed before reusing it.
 
-The snapshot starts from [27159dc](https://github.com/kurochan001/kirimasim-uvm-tests/commit/27159dc60e2bf932a2a17faebe843d01fa4b3f80), retains 2263 unaffected ordinary records,
-refreshes eleven older inputs and adds nine simulations on 2026-11-06 JST.
+The snapshot starts from [fc39572](https://github.com/kurochan001/kirimasim-uvm-tests/commit/fc395723187f444db8fa0c7ab25cca7317b9533f), retains all 2283 ordinary records,
+and adds eight simulations on 2026-11-06 JST.
 
 The control inputs below deliberately use different premises, so their matches cannot replace a differing original; [the requirement-link guide](requirements.md#citations-requirements-and-execution-evidence) explains the direct/control distinction.
 
-Nine new HDL force/release fixtures match seeds 1 and 73 under the separate VPI
-condition. Public forceable 8/40-bit reg and wire signals receive forced values,
-opposing procedural or driver updates, plain release and immediate release/read.
-Reg values persist until a new procedural assignment; driven wires immediately
-return their resolved driver value. Independent unforced peers and missing or
-uninstrumented paths distinguish valid calls and declared backend failures.
-The original backend uses standard VPI force/release flags and the documented
-public capability marker, with no path/value mock or simulator source copy.
+Eight new positive-duration force_time fixtures match seeds 1/73 under the
+separate unchanged VPI HDL condition. Actual public forceable 8/40-bit regs and
+continuously driven wires use sequential durations 5 and 13 on the same or
+distinct targets. Independent observers sample inside each interval at offsets
+1, 3 and duration-1, including opposing assignment/driver changes. At duration+1,
+regs retain force data and driven wires resolve to their driver value; later
+normal updates become visible. Dormant targets and an unforced peer remain
+independent. Both scopes use the shared compilation-default time unit.
 
-Changing the declared backend changes eleven older input fingerprints even
-though their sources and expectations are unchanged. All eleven mappings are
-reviewed and all twenty ordinary/HDL inputs are freshly measured. Separate HDL
-totals are nineteen both-seed matches and the retained E.7 warning/no-transfer
-difference at seed 1, without a seed 73 result. All twenty ordinary inputs fail
-to link DPI and keep their spec-only build-known status; no backend match
-becomes an ordinary-runner pass.
+The task's printed return-value inconsistency does not create a result assertion.
+No exact-expiry process order, task-return timing, internal backend call count,
+cross-unit/rounding, overlapping static-task arguments, cancellation or general
+failure-cleanup behavior is inferred. These remain partial conditions.
 
-Seven new bilingual AI duties partially decompose 19.6.2.3/.5/.6. Two zero-time
-force_time duty limitations retain historical wording and add current backend/
-runner identity refresh; their source/oracle and deposit-only premise are
-unchanged. The other 3821 earlier duties, all 406 classifications and proposed
-scope are unchanged. Global state is 1967 partial/406 assessed/134 unassessed.
-Chapter 19 is 86/24/1 with 196 duties and 149 primary fixtures (144 simulation/
-5 elaboration); predictor check_phase remains unassessed. Positive-duration
-force_time, broader HDL types and all partial obligations remain open.
+Two new bilingual AI duties extend the already partial 19.6.2.4. All 3830 earlier
+duties, 406 classifications, scope and existing input identities are unchanged.
+Global state remains 1967 partial/406 assessed/134 unassessed; this increment
+strengthens a partial contract without reducing the unassessed counter.
+Chapter 19 is 86/24/1 with 198 duties and 157 primary fixtures (152 simulation/
+5 elaboration); predictor check_phase remains unassessed.
 
-All 3830 duties link directly to 2259 tests; 24 others remain control-only and
-103 have control links. Unaffected 2263 ordinary records, all 92 compiler
-records, 18 command-line records and 1082 compatible guest records are retained.
-There is no new guest run/filter. Scope, denominator, human review and the
-original M1–M4 targets remain unapproved/incomplete.
+All eight ordinary inputs remain spec-only DPI-link build knowns. All 2283
+prior ordinary records and twenty prior HDL records are retained; separate HDL
+is twenty-seven both-seed matches and one retained E.7 seed-1 difference.
+All 3832 duties link directly to 2267 tests, with 24 control-only and 103
+control-linked. Compiler, command-line and 1082 compatible guest records are
+unchanged; there is no new guest run/filter. Scope, denominator, human review,
+all partial duties and original M1–M4 targets remain unapproved/incomplete.
 
 Retained kirimasim/Ghost records were collected with fixed executable
 snapshots and Ghost's seed-specific private profiles.
@@ -166,12 +164,12 @@ longer available, so no guest rerun is claimed. Historical source files retain
 1085 records; earlier filters exclude three revised original inputs: command-enum
 citation, Boolean rerandomization and virtual-field configuration citation.
 This increment retains the same 1082 compatible records byte-for-byte and adds
-nine unmeasured inputs. Ghost remains 206 pass/876 fail per seed; kirimasim
-remains 1073 unsupported/nine missing-API failures. The 1201 unmeasured inputs
-are 1198 additions and three revised originals. No guest improvement or regression
+eight unmeasured inputs. Ghost remains 206 pass/876 fail per seed; kirimasim
+remains 1073 unsupported/nine missing-API failures. The 1209 unmeasured inputs
+are 1206 additions and three revised originals. No guest improvement or regression
 is measured. Earlier filter provenance remains in
 `out/thin-seventy-first-guest-exclusions.json`; the current input scope is in
-`out/thin-seventy-seventh-evidence-scope.json`.
+`out/thin-seventy-eighth-evidence-scope.json`.
 
 The fingerprints identify different inputs:
 
@@ -192,7 +190,7 @@ simulator, configuration and library identities before reusing execution records
 Before combining records, check that:
 
 - Verilator IDs cover the current suite exactly. Retained guest IDs match
-  their declared 1082-case subset; 1201 input IDs remain unmeasured.
+  their declared 1082-case subset; 1209 input IDs remain unmeasured.
 - Each record's `inputs_sha256` matches its current source, expected output,
   associated inputs and library lock as collected by the runner.
 - Simulator version, configuration and `runner_sha256` match between batches,
@@ -207,11 +205,11 @@ claim that a single invocation reran the entire suite. The
 prior smoke tests and build-change details. Refreshed records replace older
 ones only after their current input fingerprints are verified.
 
-The [draft ledger](requirements.md) has 3830 AI duties and 134 unassessed
+The [draft ledger](requirements.md) has 3832 AI duties and 134 unassessed
 identifiers: 1967 partial/406 assessed. Chapter 10 is 87/29/0; chapter 18 is
 360/51/45. Their partial contracts and original targets remain open. Direct
-links cover 2259 tests; 24 others have only controls. Guests retain 1082
-compatible inputs; 1201 (1109 simulation/92 elaboration), including three
+links cover 2267 tests; 24 others have only controls. Guests retain 1082
+compatible inputs; 1209 (1117 simulation/92 elaboration), including three
 revised originals, are unmeasured. Scope and denominator remain unapproved.
 
 ## Reproducing and retaining results
@@ -234,7 +232,7 @@ CI shards divide the existing test set without changing its expectations; [Q268.
 
 [Check](../.github/workflows/check.yml) runs on pushes to `main`, pull requests
 and manual dispatch. It checks pinned-library integrity, 110 tool unit tests,
-2283 metadata records and the draft ledger/index. Its 1944 tagged ordinary
+2291 metadata records and the draft ledger/index. Its 1944 tagged ordinary
 Verilator checks comprise 1857 runtime cases at seeds 1/73 and 87 compiler
 rejections without runtime seeds, plus seventeen
 explicit command-line checks under their separate condition.

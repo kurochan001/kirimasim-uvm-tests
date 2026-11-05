@@ -143,7 +143,7 @@ Ghostは公開前のシミュレータの仮名です。実行ファイルの識
 ### Q12. uvm_dpi: yesだけでDPIを使うビルドが完成しますか
 
 既定のマクロ一覧から`UVM_NO_DPI`を外す指定です。UVMのC/C++実装の供給・リンクは行いません。
-通常のVerilator runnerは、そのsourceを追加しません。`UVM_NO_DPI`が2245件、HDL DPIの明示選択が20件です。
+通常のVerilator runnerは、そのsourceを追加しません。`UVM_NO_DPI`が2245件、HDL DPIの明示選択が28件です。
 別の18検査系はHDLを無効にしてcommand-line／regex DPIを明示して有効化し、
 [command-line runner](testing.ja.md#verilatorのcommand-line部分集合)がその別backendをlinkします。
 [別のVPI runner](testing.ja.md#verilatorのvpi-hdl部分集合)は独自の限定backendをlinkし、結果は宣言した実行条件だけに適用します。
@@ -184,7 +184,7 @@ Ghostはさらに実行ファイル・profile・供給されたライブラリ�
 
 ### Q16. M1・M2・M3は完了していますか。件数は何の網羅を示しますか
 
-M1・M2には条項ごとの目標に未達があります。M3はbusモデルのfrontdoor経路を含め754件まで追加した段階で、未完です。
+M1・M2には条項ごとの目標に未達があります。M3はbusモデルのfrontdoor経路を含め762件まで追加した段階で、未完です。
 次の段階の開始によって、それまでの段階が完了したとは扱いません。
 範囲と残りの作業は[進め方](../README.ja.md#進め方)にあります。
 件数はテストの本数で、規格の全要求や組み合わせの棚卸しではありません。
@@ -962,8 +962,8 @@ controlの対応は、その要求の直接の検査ではありません。
 
 ### Q77. M4を始めたのに、カバレッジ率がないのはなぜですか
 
-AIによる3830要求案は部分的な分解で、3830要求を2259テストへ直接対応付け、直接未対応は0要求、別の24テストはcontrol専用です。
-全2283テストに要求の対応付けがあります。2,507の条項番号は規範的要求の単位ではありません。
+AIによる3832要求案は部分的な分解で、3832要求を2267テストへ直接対応付け、直接未対応は0要求、別の24テストはcontrol専用です。
+全2291テストに要求の対応付けがあります。2,507の条項番号は規範的要求の単位ではありません。
 範囲は提案、棚卸しは未完、分母は未承認で、M4の開始はどれの承認にもなりません。
 既知差分やHDL／DPIの制約によって義務を暗黙に除外しません。[承認までの手順](requirements.ja.md#m4の残作業と承認)を参照してください。
 
@@ -1764,13 +1764,13 @@ buildは`known`で、`pass`ではありません。既存evidenceへの対応付
 
 ### Q129. 商用シミュレータの結果なしで、HDL動作をどう検査しますか？
 
-20検査系が[別VPI runner](testing.ja.md#verilatorのvpi-hdl部分集合)と独自backendで実公開HDL storageへアクセスします。
+28検査系が[別VPI runner](testing.ja.md#verilatorのvpi-hdl部分集合)と独自backendで実公開HDL storageへアクセスします。
 既存deposit／readは選択変数とpeerを扱い、memory 3入力は実array cell、分割bank、ROM writeとpokeも扱います。
 新規9入力は公開forceableな8／40-bit reg／wireでforce／release、即時release/read、反対／後続更新、存在しない／未instrument targetの失敗controlを検査します。
 
-19件が両seed一致し、利用できないpathのsequenceはE.7 warning／転送なしの期待を保持しますが、seed 1でERRORとread試行の差分があります。
-通常runnerはbackendをlinkせず全20件が`:oracle: spec`を保持し、厳格なHDL条件の不一致は`fail`です。
-一般array／select／型、正時間force_time、4値は未完です。与えたbackendによる重複条件の範囲は[HDLのFAQ](#hdlのforceとreleaseの条件)にあり、vendor overlay、kirimasim、Ghostの結果は主張しません。
+正時間force_time 8入力で時間付き保持／解除と逐次再利用の観測を追加し、27件が両seed一致します。利用できないpathのsequenceはE.7 warning／転送なしの期待を保持しますが、seed 1でERRORとread試行の差分があります。
+通常runnerはbackendをlinkせず全28件が`:oracle: spec`を保持し、厳格なHDL条件の不一致は`fail`です。
+一般array／select／型、広い時間付き／時間単位の条件、4値は未完です。与えたbackendによる重複条件の範囲は[HDLのFAQ](#hdlのforceとreleaseの条件)にあり、vendor overlay、kirimasim、Ghostの結果は主張しません。
 
 ### Q130. port-baseとexport-indexの検査は、何を示しますか？
 
@@ -1806,7 +1806,7 @@ slave interfaceはrequest／response methodの方向が反転するため、cons
 [既定](../tests/u19/test_hdl_force_time_default_time_delegates_to_deposit_without_force_or_release.sv)と
 [明示0](../tests/u19/test_hdl_force_time_explicit_zero_time_delegates_to_deposit_without_force_or_release.sv)は、
 実際のstorage変更、deposit 1回、force／release／read呼出しなし、時刻経過なしを観測します。
-正時間force_timeは未測定で、別のforce／release primitiveの証拠は[HDLのFAQ](#hdlのforceとreleaseの条件)で説明しています。戻り値についての本文とtask宣言が矛盾するため、task戻り値のassertionは作りません。
+選択した正の期間は別に測定し、[期間のFAQ](#正時間force_timeの観測)で説明していますが、zero-timeの観測だけでは成立しません。戻り値についての本文とtask宣言が矛盾するため、task戻り値のassertionは作りません。
 別のpath検査は、空でないabstraction listが指定entry、空listがblock既定を選び、不正な代替を訪れないことを検査します。
 
 ### Q134. memory-walk algorithmをどう解釈していますか？
@@ -2248,7 +2248,7 @@ upstream producerが抽象register itemを投入し、既定translation bodyが�
 no-DPI probeは宣言integer parameterと選択macroの一致だけを、省略設定と明示256設定で検査します。
 実装macroの数値既定値は固定しません。別のHDL force／release証拠では選択8／40-bit reg／wireの操作を検査し、
 [HDLのFAQ](#hdlのforceとreleaseの条件)で説明していますが、parameterだけの一致はそれらroutineの実行証拠にはなりません。
-広い型と正時間force_timeは未完です。
+広い型と正時間force_timeの広い条件は未完です。
 
 ## 同期の状態・data・resetのevidence
 
@@ -2328,7 +2328,7 @@ bound get／peek portはobject headを消費せずavailabilityを報告し、liv
 
 command enum引用、Boolean rerandomization観測、virtual fieldのconfigure引用の既存3入力で指紋が変わりました。
 3入力ともVerilatorで再測定し、古いguest記録を除外しています。歴史的な1085記録の出典fileは保持します。
-現在の再利用は1082入力で、未測定1201件は追加1198件と修正した既存3入力です。
+現在の再利用は1082入力で、未測定1209件は追加1206件と修正した既存3入力です。
 これは記録のfilterでありguestの再実行ではなく、[記録の合算](results.ja.md#記録の合算)で説明しています。
 
 ## interfaceの委譲とsocketの接続構造
@@ -2371,7 +2371,7 @@ initiatorはERRORを報告しながらentryを保持し、targetは残しませ�
 ### Q199. compile拒否を一致に数える理由は？
 
 選択した抽象生成35検査は、規格でvirtualと宣言したclassを意図的に直接生成します。必要な結果はfixtureとclassを識別するerrorでの拒否です。
-一致した拒否はruntime seedを伴わない成功したnegative検査であり、simulationの予期しないbuild 92件とは別です。
+一致した拒否はruntime seedを伴わない成功したnegative検査であり、simulationの予期しないbuild 100件とは別です。
 pure-method／const参照検査は追加のnegative条件であり、それぞれ宣言oracleに従って判定します。
 
 [メタデータの規則](testing.ja.md#メタデータ)では、期待する拒否と実行スクリプトが照合すべき診断を、テストに記録する方法を説明しています。
@@ -2381,9 +2381,9 @@ pure-method／const参照検査は追加のnegative条件であり、それぞ�
 いいえ。schema 2は以前の出力link形式を保持し、compile stageと正確な宣言regexの診断形式を追加します。不正elaboration metadataでruntime期待がないことを要求します。
 schema 1も引き続き読め、混在／未知fieldや古いpatternは拒否します。検証はcompiler実測結果を読みません。個別要求の照合で直接anchorを追加する場合も、既存linkは保持して変更を明示します。
 
-### Q201. 全2283テストを2 seedで実行しましたか？
+### Q201. 全2291テストを2 seedで実行しましたか？
 
-いいえ。simulation 2191件とelaboration 92件があります。通常記録はruntime両seed一致1857件、期待compiler拒否87件、既知simulation差分334件、不正compile受理の既知差分5件です。
+いいえ。simulation 2199件とelaboration 92件があります。通常記録はruntime両seed一致1857件、期待compiler拒否87件、既知simulation差分342件、不正compile受理の既知差分5件です。
 不正design 92件は、compileを受理された場合もruntime seedを実行しません。
 
 ### Q202. 以前の合法controlは何を示しますか？
@@ -2762,7 +2762,7 @@ preloadと反復updateは余分なentry／転送を保持します。公開queue
 ### Q257. 18.6〜18.8の未評価0でgoalは完了しますか？
 
 いいえ。新しいmemory／indirect／FIFO義務は部分的に残り、第18章の残るレビューは[現在のroot別集計](requirements.ja.md#レビュー用の未整理項目とroot別集計)で確認できます。全体は未評価134番号です。
-スイートは直接対応2259テストとcontrol専用24テストです。失敗、並行性、backdoor適用条件、field／virtual-register契約、元のM1〜M4目標は未完です。
+スイートは直接対応2267テストとcontrol専用24テストです。失敗、並行性、backdoor適用条件、field／virtual-register契約、元のM1〜M4目標は未完です。
 
 ## core-service宣言とglobalな作用
 
@@ -2840,7 +2840,7 @@ shardはworkflowが選んだテストを分割した1区画で、Checkの対象�
 
 いいえ。現在のタグ付き1944検査を重複しない8 shardへ分け、同時shard jobは最大4です。以前の分割前実行は150分の上限に達しました。
 command-line 17検査はshard 0で通常検査の前に1回だけ実行します。runtime seed 1／73と期待compiler拒否87件は元の判定を保ちます。
-分割の検証でhosted CI成功や適合性は立証しません。現在のworkflow結果はREADME badgeで確認してください。既知差分339件は通常の既定CI選択に含めません。
+分割の検証でhosted CI成功や適合性は立証しません。現在のworkflow結果はREADME badgeで確認してください。既知差分347件は通常の既定CI選択に含めません。
 
 ## recordingとscalar macroの条件
 
@@ -2959,7 +2959,7 @@ configureの18.10.2.2へ直し、安定した義務はparentへ絞り、幅とLS
 
 引用の修正は、本体とoracleが同じでも正確な入力hashを変えます。古いguest記録を除き、互換1083記録を1082へ絞ります。
 Ghostは各seedで一致206／不一致876、kirimasimはunsupported 1073／fail 9を保持し、guestは再実行していません。
-未測定1201入力は追加1198件と修正した元入力3件です。このfilterはguestの改善／回帰の証拠ではありません。[証拠の合算](results.ja.md#記録の合算)を参照してください。
+未測定1209入力は追加1206件と修正した元入力3件です。このfilterはguestの改善／回帰の証拠ではありません。[証拠の合算](results.ja.md#記録の合算)を参照してください。
 
 ### Q285. factory生成した派生型内でfield constructorの名前を取得する理由は何ですか
 
@@ -3113,10 +3113,34 @@ forceはreleaseまで通常の更新に優先し、release/readは解除後のHD
 
 提供された19.6.2.5では、手続き代入regは新しい代入までforce値を保持し、連続駆動wireは即時にdriverの値へ解決します。
 独自8／40-bit fixtureは戻りdataを直後に確認し、安定したHDL状態と後続の代入／driver変更を独立peerとともに観測します。
-[現在の測定](results.ja.md#結果の解釈)は選択した2値scalar信号の条件であり、正時間force_time、未駆動net、一般select／型、4値は未完です。
+[現在の測定](results.ja.md#結果の解釈)は選択した2値scalar信号の条件であり、広い時間付き／時間単位の条件、未駆動net、一般select／型、4値は未完です。
 
 ### Q304. backend変更で既存HDL 11入力も再測定する理由は？
 
 宣言backendは通常runnerがlinkしない場合も入力に含むためです。sourceと期待値が同じでも指紋が変わり、影響する全対応の再照合が必要です。
-通常20記録と別HDL 20記録を新たに測定し、通常buildはknownを保持、別HDLは19件が両seed一致とE.7のseed 1差分1件です。
-以前の記録へ現在の入力hashを付け替えず、影響しない通常2263入力と未変更guest／compiler／command-lineの証拠は[集約のガイド](results.ja.md#記録の合算)で記録しています。
+backend変更時のbatchで通常20記録と別HDL 20記録を新たに測定しました。後の時間付き8入力を加えた現在のHDL条件は27件一致とE.7のseed 1差分1件で、通常buildはknownを保持します。
+以前の記録へ現在の入力hashを付け替えず、backend変更時のbatchと現在保持する通常入力、未変更guest／compiler／command-lineの証拠は[集約のガイド](results.ja.md#記録の合算)で記録しています。
+
+## 正時間force_timeの観測
+
+正の期間にはzero-timeのdeposit分岐以外の時間付きobserverが必要で、使用する観測区間は[期間の用語集](glossary.ja.md#正時間force_timeの観測)で説明しています。
+
+### Q305. 時間付きforce_time検査は戻り値や復帰時刻をassertしますか？
+
+どちらもassertしません。印刷task宣言と戻り値の本文の矛盾を保持します。
+独立observerは期間5／13でoffset 1／3／duration-1のforce、duration+1の満了後状態、後続の通常更新を確認します。
+watchdogで完了を待つ上限を設けますが、taskの復帰時刻や満了瞬間のprocess順は規定しません。
+zero-timeの委譲やprimitive release/readと、この実HDL 8入力の違いは[準備のガイド](testing.ja.md#verilatorのvpi-hdl部分集合)で説明しています。
+
+### Q306. 同一／別targetへの逐次呼出しを使う理由は？
+
+同一targetでは以前の期間が終了した後に新dataで再forceし、別targetでは完了したtargetを保持しながら次を選択します。
+未使用のforceable targetと独立peerで意図しない変更を検出します。
+呼出しは重ねず、staticなpackage-task引数の寿命と広い重なり／中止／失敗条件は別のレビュー対象です。
+共通コンパイル既定時間単位の前提は[要求の説明](requirements.ja.md#引用要求実行の証拠)に記録し、時間単位の変換や丸めは推定しません。
+
+### Q307. テスト追加後も未評価counterが134の理由は？
+
+19.6.2.4にはzero-time／既定値の部分要求が既にあったためです。正時間の2義務でその契約を補強し、分類や未評価番号数は変えません。
+以前の3830義務は全て未変更です。現在の3832義務は2267テストへ直接対応しますが、部分1967番号と元のmilestone目標は未完です。
+未評価counterの減少と別の進捗になる理由は[棚卸しのガイド](requirements.ja.md#レビュー用の未整理項目とroot別集計)で説明しています。
