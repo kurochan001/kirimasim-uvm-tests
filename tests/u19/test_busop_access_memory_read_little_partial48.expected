@@ -1,0 +1,4 @@
+UT: busop_access ok 1 requests 2 driver 2
+UT: busop_request address 120 read 1 bits 32
+UT: busop_request address 124 read 1 bits 16
+UT: busop_read responses 2 value c3d4e5f60718

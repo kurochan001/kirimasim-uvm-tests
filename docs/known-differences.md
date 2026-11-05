@@ -4,13 +4,36 @@
 
 A difference belongs to a particular simulator/library/input condition, and [the status definitions](faq.md#q5-what-do-pass-fail-known-and-unsupported-mean) explain how it appears in runner output.
 
-This describes the current 2222-test suite and the pinned Accellera UVM
+This describes the current 2246-test suite and the pinned Accellera UVM
 2020.3.1 library. A mismatch is a test result; it does not by itself assign
 the cause to the simulator, the library or the expectation.
 
 For the size of a difference set, read [the measured breakdown](results.md#interpretation); use [library notes](known-differences.md#pinned-library-limitations), [the grouped source list](known-differences.md#spec-only-tests) and [simulator/library conditions](known-differences.md#simulator-and-library-combinations) to investigate a particular input.
 
 Individual source links appear in the topic explanations and [grouped list](#spec-only-tests); [the test format guide](testing.md#test-format) explains how to read their metadata, expected observations and execution conditions.
+
+Canonical bus-operation auditing retains twelve big-endian value differences
+at seed 1 without seed 73, across register/memory, read/write and three width
+profiles. Single-word values show byte reversal; split profiles show zero
+selected write portions or read values. Request counts and widths do not pass
+a complete mismatching input. Twelve little-endian inputs match both seeds.
+The original numeric-word adapter captures canonical requests before item
+encoding; existing builtin TLM-byte differences remain unchanged. These results
+do not assign a simulator/library cause or twelve independent defects; see
+[the bus-operation FAQ](faq.md#canonical-bus-operations).
+
+- [register read wide64](../tests/u19/test_busop_access_register_read_big_wide64.sv).
+- [register read split64](../tests/u19/test_busop_access_register_read_big_split64.sv).
+- [register read partial48](../tests/u19/test_busop_access_register_read_big_partial48.sv).
+- [register write wide64](../tests/u19/test_busop_access_register_write_big_wide64.sv).
+- [register write split64](../tests/u19/test_busop_access_register_write_big_split64.sv).
+- [register write partial48](../tests/u19/test_busop_access_register_write_big_partial48.sv).
+- [memory read wide64](../tests/u19/test_busop_access_memory_read_big_wide64.sv).
+- [memory read split64](../tests/u19/test_busop_access_memory_read_big_split64.sv).
+- [memory read partial48](../tests/u19/test_busop_access_memory_read_big_partial48.sv).
+- [memory write wide64](../tests/u19/test_busop_access_memory_write_big_wide64.sv).
+- [memory write split64](../tests/u19/test_busop_access_memory_write_big_split64.sv).
+- [memory write partial48](../tests/u19/test_busop_access_memory_write_big_partial48.sv).
 
 Recorder-link lifetime auditing retains six freed-endpoint runtime differences
 at seed 1 without seed 73. Direct free, free after close, both endpoints freed,
@@ -92,7 +115,7 @@ independent bugs. See [macro conditions](faq.md#recording-and-scalar-macro-condi
 57 pure-interface/const-reference/forbidden-member/type-context violations.
 87 match. Subscriber/visitor/proxy/adapter omissions and direct construction
 of the printed virtual builtin dispatcher remain accepted and spec-only without
-runtime. These five compiler acceptances are separate from 309 known simulation
+runtime. These five compiler acceptances are separate from 321 known simulation
 differences. Legal derived controls do not replace a required rejection.
 
 Field-access auditing retains 5 new runtime differences at seed 1 without
@@ -890,7 +913,7 @@ cannot build because the pinned library also declares unlisted pure helpers.
 The missing-standard-hook negative supplies original compatibility bodies only
 to isolate the specified rejection. It does not repair that legal extension.
 
-Across the suite, 1908 tests have the `verilator@5.052` oracle tag and 314
+Across the suite, 1920 tests have the `verilator@5.052` oracle tag and 326
 cases are spec-only. One of the spec-only cases checks 9.6: a child's pre-reset
 task must be killed when that phase ends, but the pinned-library run on Verilator 5.052
 lets the child perform its delayed write during a later phase. The cause of
@@ -902,10 +925,10 @@ without callbacks. The pinned Verilator run reaches the blocked-state
 observation, then its watchdog expires. This combined simulator/library
 cause remains unassigned; the normative wakeup expectation is retained.
 
-The 314 spec-only cases retain standard-derived expected output or compiler diagnostics.
-Default Verilator runs and CI select 1908 tagged checks (1821 runtime, 87 compile rejection). `--all` includes
+The 326 spec-only cases retain standard-derived expected output or compiler diagnostics.
+Default Verilator runs and CI select 1920 tagged checks (1833 runtime, 87 compile rejection). `--all` includes
 spec-only cases and records mismatches or build failures as `known`.
-The ordinary runtime records for 226 cases establish their first difference
+The ordinary runtime records for 238 cases establish their first difference
 at seed 1, without seed 73 results. Twenty-seven missing-API/type-name builds have
 no ordinary runtime: one time API, six sequence-library cases, four HDL slice
 cases, one named-concat constructor, five object active-policy API cases, three catcher
@@ -987,7 +1010,7 @@ Spec-only cases retain standard-derived expectations even without a fixed-releas
 
 A control exercises a separate premise to help interpret a difference, and [the requirement-link guide](requirements.md#citations-requirements-and-execution-evidence) explains how its result relates to the original case.
 
-The 314 current spec-only cases are linked in the explanatory notes and the
+The 326 current spec-only cases are linked in the explanatory notes and the
 grouped list below. Several exercise the same limitation, so their count is
 not a count of distinct bugs.
 
@@ -1276,7 +1299,7 @@ Additional message-handle and endian cases:
 
 Two existing inputs have revised fingerprints: the command-enum citation and
 the corrected Boolean rerandomization observation. Their historical guest
-records are excluded. The compatible subset has 1082 records and 1140 inputs
+records are excluded. The compatible subset has 1082 records and 1164 inputs
 are unmeasured, including both revised inputs. This filtering is evidence scope,
 not a new guest failure, pass or simulator improvement.
 
@@ -1317,8 +1340,8 @@ A bundled library and the pinned library are different execution conditions, so 
 
 The latest guest filter excludes the corrected field-configuration citation input: 1083 prior compatible records become 1082, with no new guest execution. [The evidence guide](results.md#evidence-assembly) records the exact exclusion and resulting counts.
 
-The suite has 2222 cases, but the kirimasim/Ghost records below cover only
-1082 unchanged current-input cases. The 1140 inputs are unmeasured
+The suite has 2246 cases, but the kirimasim/Ghost records below cover only
+1082 unchanged current-input cases. The 1164 inputs are unmeasured
 because prior temporary executable/profile snapshots are unavailable. Do
 not treat this as a fresh full-suite guest result. See [results](results.md).
 

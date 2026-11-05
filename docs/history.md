@@ -5,8 +5,8 @@
 Counts on this page belong to the time of each change, so use [the current snapshot](results.md#current-snapshot) when you need the present suite size or execution scope.
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and seventy-two cross-milestone thin-area expansions, including the
-existing-test requirement-link backlog checkpoint (2222 tests: 2130 simulation and 92 elaboration). The earlier 349-test checkpoint is
+three M4 increments and seventy-three cross-milestone thin-area expansions, including the
+existing-test requirement-link backlog checkpoint (2246 tests: 2154 simulation and 92 elaboration). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -4464,3 +4464,55 @@ ledger/index, library, paired docs and CI selector checks pass. Ordinary totals
 are 1908 pass/314 known across 2222 fixtures; guests retain 1082 compatible inputs
 and 1140 unmeasured. This is the goal's forty-fourth iteration, reducing unassessed
 by one to 140, without completing any original milestone.
+
+## Seventy-third thin-area expansion: canonical bus operations
+
+Based on [92a85d8](https://github.com/kurochan001/kirimasim-uvm-tests/commit/92a85d88963935846643688e76edc20cc5f7da6f).
+
+Twenty-four new canonical bus-operation fixtures independently measure reads
+and writes of a full register or first memory location. Profiles use 64 bits on
+a 64-bit bus, 64 bits on a 32-bit bus, or 48 bits on a 32-bit bus, under both
+endian settings. Twelve little-endian inputs match seeds 1 and 73; twelve
+big-endian inputs retain value differences at seed 1 without seed 73. No new
+build difference or compiler-rejection case is added.
+
+An original numeric-word adapter records the canonical descriptor on entry to
+reg2bus, before encoding a testbench item. Independent read storage is preseeded;
+bus2reg counts in-place return conversions, not separate driver response packets.
+Completed observer copies are sorted by address, without constraining temporal
+bus order. Only declared data bits are checked. Single-word big-endian values
+reverse bytes in the selected observations; split big-endian profiles have zero
+selected write portions or returned values. Correct counts/widths do not pass a
+complete input with differing data. These are twelve fixture differences, not
+twelve proven independent bugs or a confirmed simulator/library attribution.
+
+Five new bilingual AI duties partially decompose 19.1.2. One existing duty,
+UVM-MEMORY-PARTIAL-BEAT-WIDTH, keeps its ID, statement, old links and qualifications
+while adding the new register/memory conditions and width observations. Its
+sub-byte 20-bit interpretation remains open. Of 3810 earlier duties, 3809 remain
+unchanged and one is reassessed. No classification is added. Global state is
+1963 partial/405 assessed/139 unassessed (279 structural/126 contextual).
+Chapter 19 is 82/24/5, with 188 duties and 132 primary fixtures (127 simulation,
+5 elaboration). Its pending-transaction, parent-sequence and HDL force/release
+contracts, all partial obligations and original targets remain open.
+
+All 3815 duties have direct links to 2222 tests; 24 other tests have only controls,
+and 98 have control links. Eight single-cycle inputs also control the split-count
+premise: four match both seeds and four remain known; each has its own direct
+duty. No control replaces the split inputs. All 2222 prior ordinary inputs/records,
+92 compiler records, compatible guests and both backend snapshots remain
+unchanged. Builtin TLM payload byte conversion, external RTL, four-state data,
+byte enables, arbitrary memory strides and protocol/timing remain separate.
+Scope, denominator and human review remain unapproved/incomplete.
+
+Twenty-four independent IEEE-derived inputs are frozen before execution.
+The twelve matched sources are retagged and remeasured. Supporting citations
+are then corrected for all 24 inputs; unchanged bodies/helpers/oracles are
+verified and every final source is freshly remeasured. Earlier records retain
+original identities in the archive, and only post-correction records count as
+current evidence. Twelve known cases have seed 1 without seed 73. Ordinary totals
+are 1920 pass/326 known across 2246 fixtures. Guests retain 1082 compatible
+records, with 1164 inputs unmeasured; no guest or backend rerun is claimed.
+Tool tests (110), metadata, ledger/index, library, paired docs and CI selector
+checks pass. The goal's forty-fifth iteration reduces unassessed by one to
+139; all original milestone targets remain open.

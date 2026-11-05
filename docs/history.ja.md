@@ -4,7 +4,7 @@
 
 このページの件数は各変更時点の値なので、現在のスイート規模や実行範囲が必要なときは[現在のスナップショット](results.ja.md#現在のスナップショット)を使ってください。
 
-M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の72回目の拡充（全2222件：simulation 2130・elaboration 92）までを記録しています。以前の349件の時点は
+M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の73回目の拡充（全2246件：simulation 2154・elaboration 92）までを記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -2865,3 +2865,37 @@ related、parent／child、cause／effect linkで、同じ／別streamの端点�
 ツール検査110件、metadata、台帳／索引、ライブラリ、日英文書、CI selectorの検査を通します。
 通常合計は2222検査系でpass 1908／known 314、guestは互換1082入力、未測定1140入力です。
 goalの44回目の反復で未評価を1件減らして140件とし、元のmilestoneはどれも完了にしません。
+
+## 薄い領域の73回目の拡充：正準bus操作
+
+[92a85d8](https://github.com/kurochan001/kirimasim-uvm-tests/commit/92a85d88963935846643688e76edc20cc5f7da6f)を基にします。
+
+新規の正準bus操作24検査系は、全registerまたは最初のmemory locationのreadとwriteを独立に測定します。
+64 bitを64-bit busで、64 bitを32-bit busで、48 bitを32-bit busで扱い、両endianを選びます。
+little-endian 12入力はseed 1／73一致、big-endian 12入力はseed 1の値の差分を保持しseed 73はありません。
+新しいbuild差分やcompiler拒否検査は追加しません。
+
+独自の数値word adapterは、testbench itemへ変換する前のreg2bus入口で正準descriptorを記録します。
+read用の記憶域は独立に事前設定し、bus2regの件数は同じrequestへ結果を戻す変換で、driverの別response packet数ではありません。
+完了後の観測用コピーだけをaddress順に並べ、busの時間順は固定しません。宣言したdata bitだけを検査します。
+選択したbig-endianの単一wordではbyte反転、分割では選択write部分または戻り値の0を観測します。
+件数／幅が正しくてもdataが異なる全入力をpassにはしません。12検査系の差分であり、独立した不具合12件やsimulator／libraryの原因を認定しません。
+
+日英AI義務5件で19.1.2を部分分解します。既存のUVM-MEMORY-PARTIAL-BEAT-WIDTHはID、statement、以前のlink、限定を保持し、
+新しいregister／memory条件と幅の観測を追加します。sub-byteの20-bit解釈は未解決です。
+以前の3810義務のうち3809件は未変更、1件を再照合し、新しい分類は追加しません。
+全体は部分1963／分類405／未評価139（構造279／文脈126）です。第19章は82／24／5、義務188件、主引用132検査系（simulation 127・elaboration 5）です。
+pending transaction、parent sequence、HDL force／releaseの契約、全ての部分義務、元の目標は未完です。
+
+全3815義務が2222テストへ直接対応し、ほかの24テストはcontrol専用、control linkあり98テストです。
+単一cycle 8入力は分割件数のcontrolにもなり、4件が両seed一致、4件はknownで、それぞれ固有の直接義務を持ちます。
+controlで分割入力を置換しません。以前の全2222通常入力／記録、compiler 92記録、互換guest、両backendのsnapshotは未変更です。
+組み込みTLM payloadのbyte変換、外部RTL、4-state data、byte enable、任意memory stride、protocol／timingは別のままです。
+範囲、分母、人のレビューは未承認／未完です。
+
+独立したIEEE由来の24入力を実行前に固定し、一致した12 sourceはタグ変更後に再測定します。
+続いて全24入力の補助引用を修正し、本体／helper／oracleが同じことを確認して、全ての最終sourceを新たに再測定します。
+以前の記録は元の同一性で保存し、修正後の記録だけを現在のevidenceに数えます。known 12件はseed 1だけでseed 73はありません。全2246件で通常pass 1920／known 326です。
+guestは互換1082記録、未測定1164入力を保持し、guestやbackendの再実行は主張しません。
+ツール検査110件、metadata、台帳／索引、library、日英文書、CI selectorの検査を通します。
+goalの45回目の反復で未評価を1件減らして139とし、元のmilestone目標は全て未完です。

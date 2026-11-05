@@ -1446,3 +1446,15 @@ transaction without ending this interval; flushing an open recorder or freeing
 its owning stream can free it. The object reference may remain after free;
 [the lifetime FAQ](faq.md#recorder-link-lifetime) explains why that does not keep
 it linkable or define error recovery.
+
+## Canonical bus observations
+
+**Numeric-word bus fixture** — An original testbench protocol carrying a numeric
+word per address through uvm_reg_bus_op fields. It isolates canonical map values
+from a builtin TLM payload's byte encoding; [Q289](faq.md#q289-what-does-the-numeric-word-bus-fixture-measure)
+explains its independent read setup and scope.
+
+**Address-sorted observation** — A view that sorts completed observer copies by
+address to compare word/bit relationships while leaving actual operation order
+unchanged; [Q290](faq.md#q290-why-sort-the-observed-requests-by-address) explains
+why this is separate from temporal ordering or RTL timing.

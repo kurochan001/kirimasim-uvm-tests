@@ -8889,6 +8889,102 @@
     "u16/test_recorder_link_window_right_closed_parent_child": {
       "primary_clause": "16.4.4",
       "inputs_sha256": "12e900ba09063c910a733184009c8b1355859c47e298768e124f5c50e1b57aca"
+    },
+    "u19/test_busop_access_register_read_little_wide64": {
+      "primary_clause": "19.1.2",
+      "inputs_sha256": "7abbda8d5c5942e9292638bb019a2303395587ddc3b78742f3238e867ec19866"
+    },
+    "u19/test_busop_access_register_read_little_split64": {
+      "primary_clause": "19.1.2",
+      "inputs_sha256": "9234c75265bab97bd9178d8272743cf5c8b8785c742b503c20bc7d1cde121cea"
+    },
+    "u19/test_busop_access_register_read_little_partial48": {
+      "primary_clause": "19.1.2",
+      "inputs_sha256": "2dff2d297a68cc6cb76e01e908c53129e77c281c7db3382ee604501693f944ad"
+    },
+    "u19/test_busop_access_register_read_big_wide64": {
+      "primary_clause": "19.1.2",
+      "inputs_sha256": "0e8d325cf83d4b88785bf0d3663031e749fb22494afda375eeed09e7a0d2a36c"
+    },
+    "u19/test_busop_access_register_read_big_split64": {
+      "primary_clause": "19.1.2",
+      "inputs_sha256": "1d6e369ec736d6c75237c892f52828722412053243aea82503084b84ce850c63"
+    },
+    "u19/test_busop_access_register_read_big_partial48": {
+      "primary_clause": "19.1.2",
+      "inputs_sha256": "7829c6c87914e6860750e43e1224adbc0702ea8df0d11c6555b6886d94ae572d"
+    },
+    "u19/test_busop_access_register_write_little_wide64": {
+      "primary_clause": "19.1.2",
+      "inputs_sha256": "2449024d2b71080b42cbfc42386cb952880572309fd813ae04d8410809ca8421"
+    },
+    "u19/test_busop_access_register_write_little_split64": {
+      "primary_clause": "19.1.2",
+      "inputs_sha256": "52b64cf68defbc5ca61cc3feba8a1c552b7f336aba8da5d02aa2f7893c78ed09"
+    },
+    "u19/test_busop_access_register_write_little_partial48": {
+      "primary_clause": "19.1.2",
+      "inputs_sha256": "df8a14f8e4f24f3d924eaa0b652a70281c42a1c01fcfc96e877b83ad3f142df7"
+    },
+    "u19/test_busop_access_register_write_big_wide64": {
+      "primary_clause": "19.1.2",
+      "inputs_sha256": "bac174ba60ffa01330130b27e053346743cb9d9aed54e5368dc6661d56df0fa8"
+    },
+    "u19/test_busop_access_register_write_big_split64": {
+      "primary_clause": "19.1.2",
+      "inputs_sha256": "61d820fbedd90d2fabd4022e304242c47cb9526a9f7acbf1978eb53669308aaa"
+    },
+    "u19/test_busop_access_register_write_big_partial48": {
+      "primary_clause": "19.1.2",
+      "inputs_sha256": "6f0f0248fa10981782a5cbc25a70e542823c6e01c770da009232e57c9f1e2ce4"
+    },
+    "u19/test_busop_access_memory_read_little_wide64": {
+      "primary_clause": "19.1.2",
+      "inputs_sha256": "ec259b7c51a57bc4610631a40067c404c830fbd5a2f57eb1e57b01889db872af"
+    },
+    "u19/test_busop_access_memory_read_little_split64": {
+      "primary_clause": "19.1.2",
+      "inputs_sha256": "cf7adc33e45812b78cb04e22795ced917acf408205d70c1479799a2fe61abd3b"
+    },
+    "u19/test_busop_access_memory_read_little_partial48": {
+      "primary_clause": "19.1.2",
+      "inputs_sha256": "5c5ab1eb45331e1f4277716a16030bc4bd479f8ad6ac022a4df953435c2425c2"
+    },
+    "u19/test_busop_access_memory_read_big_wide64": {
+      "primary_clause": "19.1.2",
+      "inputs_sha256": "a8550c368baabc14bfbde19064959d9c014d2c95aaeda949c35aa3a8bb36da42"
+    },
+    "u19/test_busop_access_memory_read_big_split64": {
+      "primary_clause": "19.1.2",
+      "inputs_sha256": "b992aecb43b257636c09922f1f104de21c4d2fce1484a4b304e17ea93fb28be8"
+    },
+    "u19/test_busop_access_memory_read_big_partial48": {
+      "primary_clause": "19.1.2",
+      "inputs_sha256": "2b23fd3d8f9e417ca377f1dd82728be81c23ecd75fd15925b6c632c250e9ffb1"
+    },
+    "u19/test_busop_access_memory_write_little_wide64": {
+      "primary_clause": "19.1.2",
+      "inputs_sha256": "eb0c0e527afd3d33866e434e4fbafbc3580ab31f56bd3190b55c4ce0b9739b88"
+    },
+    "u19/test_busop_access_memory_write_little_split64": {
+      "primary_clause": "19.1.2",
+      "inputs_sha256": "c00e8c41948c9d744519070dc833fa6e3f27a405427e93ef177a56fe3e272501"
+    },
+    "u19/test_busop_access_memory_write_little_partial48": {
+      "primary_clause": "19.1.2",
+      "inputs_sha256": "135dfcc22af9b70640d9cf864c2819d6e950146f1b43c1eb5b5d0b3d0073675b"
+    },
+    "u19/test_busop_access_memory_write_big_wide64": {
+      "primary_clause": "19.1.2",
+      "inputs_sha256": "a3c7494e9f8eece34fe021bc18b2c6aa4a00b2250fd6c18d4edce3364300167a"
+    },
+    "u19/test_busop_access_memory_write_big_split64": {
+      "primary_clause": "19.1.2",
+      "inputs_sha256": "fef8940f700b91d1e193854257483134da19111fb3421ba4224f308a91317d65"
+    },
+    "u19/test_busop_access_memory_write_big_partial48": {
+      "primary_clause": "19.1.2",
+      "inputs_sha256": "abcc0a1d614d5b84fc99cd92df0f64816f7e8e844db6e037363803dfd5d9eb44"
     }
   }
 }

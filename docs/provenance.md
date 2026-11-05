@@ -172,6 +172,19 @@ Original in-memory callbacks and a terminating catcher expose the selected
 behavior; an external database or observed warning does not define the oracle.
 See [the lifetime FAQ](faq.md#recorder-link-lifetime).
 
+Canonical bus expectations are derived before measurement from the supplied
+IEEE 19.1.2, its field contracts and the address/endian/read/write clauses.
+Original numeric-word callbacks observe descriptors and independently seeded
+reads; builtin TLM byte conversion and observed simulator output do not define
+the oracle. The earlier width duty's statement and qualifications remain;
+see [the bus-operation FAQ](faq.md#canonical-bus-operations).
+
+Supporting references were aligned with the actual setup/API calls, including
+register write at 18.4.4.9 after an incorrect getter reference at 18.4.4.3.
+Bodies, helpers, expected output and the tag partition stay unchanged. All 24
+post-correction sources are freshly measured; earlier records keep their original
+input identities and are archived rather than relabeled. See [Q293](faq.md#q293-why-remeasure-after-correcting-only-supporting-citations).
+
 ## Clause catalog maintenance
 
 The catalog counts identifiers rather than normative duties, so [Counting unit and scope proposal](requirements.md#counting-unit-and-scope-proposal) explains why restoring an entry does not define a coverage denominator.

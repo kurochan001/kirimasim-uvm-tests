@@ -15721,16 +15721,16 @@
         "ja": "物理bus descriptorは、そのbeatが転送するmodel bit数を示す。"
       },
       "conditions": {
-        "en": "Compare adjacent 20-bit locations on an 8-bit bus with 24-bit locations on a 16-bit bus.",
-        "ja": "8-bit busの隣接20-bit locationと、16-bit busの24-bit locationを比較する。"
+        "en": "Compare adjacent 20-bit locations on an 8-bit bus with 24-bit locations on a 16-bit bus. Also inspect 48/64-bit register and first-memory-location reads/writes on 32/64-bit byte-addressed little/big-endian buses.",
+        "ja": "8-bit busの隣接20-bit locationと、16-bit busの24-bit locationを比較する。 さらに、32／64-bitのbyte address方式のlittle／big-endian busで48／64-bit registerと最初のmemory locationをread／writeする。"
       },
       "expected": {
-        "en": "The logical-bit interpretation expects widths 8, 8, 4 for 20 bits and byte-aligned widths 16, 8 for 24 bits, preserving declared data.",
-        "ja": "logical bitの解釈では20 bitに幅8・8・4を期待し、byteに整列する24 bitには16・8を期待する。宣言dataを保持する。"
+        "en": "The logical-bit interpretation expects widths 8, 8, 4 for 20 bits and byte-aligned widths 16, 8 for 24 bits, preserving declared data. New full-width profiles carry 64 bits once or 32/32 bits; a 48-bit split carries 32/16 bits in data-significance order. Observer rows are sorted by address, not execution order.",
+        "ja": "logical bitの解釈では20 bitに幅8・8・4を期待し、byteに整列する24 bitには16・8を期待する。宣言dataを保持する。 新しい全幅条件は64 bitを1回、または32／32 bitで運び、48-bit分割はdataの下位から32／16 bitで運ぶ。観測行は実行順でなくaddress順に並べる。"
       },
       "limitations": {
-        "en": "The sub-byte n_bits interpretation versus rounded byte transfer width requires review; retain the logical-bit oracle without assigning a confirmed library bug. Unused data bits are unconstrained. The 24-bit fixtures use public address lists to prepare storage, not independently certify translation.",
-        "ja": "sub-byteのn_bitsをlogical bit数とする解釈と、byteへ丸める転送幅との違いは要レビューとする。logical bitの期待値を保持し、ライブラリの確定した不具合と断定しない。未使用data bitは制約しない。24-bit構成の公開address一覧は記憶域の準備に使い、変換の独立した証明にはしない。"
+        "en": "The sub-byte n_bits interpretation versus rounded byte transfer width requires review; retain the logical-bit oracle without assigning a confirmed library bug. Unused data bits are unconstrained. The 24-bit fixtures use public address lists to prepare storage, not independently certify translation. New numeric-word adapters isolate map descriptors; builtin TLM byte encoding, four-state data, general memory strides, byte enables and arbitrary protocol/timing remain separate. Shared rows do not create independent tests.",
+        "ja": "sub-byteのn_bitsをlogical bit数とする解釈と、byteへ丸める転送幅との違いは要レビューとする。logical bitの期待値を保持し、ライブラリの確定した不具合と断定しない。未使用data bitは制約しない。24-bit構成の公開address一覧は記憶域の準備に使い、変換の独立した証明にはしない。 新しい数値word adapterはmap descriptorを分離して観測し、組み込みTLM byte encoding、4-state data、一般memory stride、byte enable、任意protocol／timingは別のままとする。共有行を独立テストには数えない。"
       },
       "review": {
         "status": "ai",
@@ -15773,6 +15773,190 @@
             "UT: statuses 1 1 beats 4 directions 1",
             "UT: widths 16 8 16 8",
             "UT: declared_values a1b2c3 13579b"
+          ]
+        },
+        {
+          "test": "u19/test_busop_access_register_read_little_wide64",
+          "role": "direct",
+          "expected_observations": [
+            "UT: busop_request address 120 read 1 bits 64"
+          ]
+        },
+        {
+          "test": "u19/test_busop_access_register_read_little_split64",
+          "role": "direct",
+          "expected_observations": [
+            "UT: busop_request address 120 read 1 bits 32",
+            "UT: busop_request address 124 read 1 bits 32"
+          ]
+        },
+        {
+          "test": "u19/test_busop_access_register_read_little_partial48",
+          "role": "direct",
+          "expected_observations": [
+            "UT: busop_request address 120 read 1 bits 32",
+            "UT: busop_request address 124 read 1 bits 16"
+          ]
+        },
+        {
+          "test": "u19/test_busop_access_register_read_big_wide64",
+          "role": "direct",
+          "expected_observations": [
+            "UT: busop_request address 120 read 1 bits 64"
+          ]
+        },
+        {
+          "test": "u19/test_busop_access_register_read_big_split64",
+          "role": "direct",
+          "expected_observations": [
+            "UT: busop_request address 120 read 1 bits 32",
+            "UT: busop_request address 124 read 1 bits 32"
+          ]
+        },
+        {
+          "test": "u19/test_busop_access_register_read_big_partial48",
+          "role": "direct",
+          "expected_observations": [
+            "UT: busop_request address 120 read 1 bits 16",
+            "UT: busop_request address 124 read 1 bits 32"
+          ]
+        },
+        {
+          "test": "u19/test_busop_access_register_write_little_wide64",
+          "role": "direct",
+          "expected_observations": [
+            "UT: busop_request address 120 read 0 bits 64 data a1b2c3d4e5f60718"
+          ]
+        },
+        {
+          "test": "u19/test_busop_access_register_write_little_split64",
+          "role": "direct",
+          "expected_observations": [
+            "UT: busop_request address 120 read 0 bits 32 data e5f60718",
+            "UT: busop_request address 124 read 0 bits 32 data a1b2c3d4"
+          ]
+        },
+        {
+          "test": "u19/test_busop_access_register_write_little_partial48",
+          "role": "direct",
+          "expected_observations": [
+            "UT: busop_request address 120 read 0 bits 32 data e5f60718",
+            "UT: busop_request address 124 read 0 bits 16 data c3d4"
+          ]
+        },
+        {
+          "test": "u19/test_busop_access_register_write_big_wide64",
+          "role": "direct",
+          "expected_observations": [
+            "UT: busop_request address 120 read 0 bits 64 data a1b2c3d4e5f60718"
+          ]
+        },
+        {
+          "test": "u19/test_busop_access_register_write_big_split64",
+          "role": "direct",
+          "expected_observations": [
+            "UT: busop_request address 120 read 0 bits 32 data a1b2c3d4",
+            "UT: busop_request address 124 read 0 bits 32 data e5f60718"
+          ]
+        },
+        {
+          "test": "u19/test_busop_access_register_write_big_partial48",
+          "role": "direct",
+          "expected_observations": [
+            "UT: busop_request address 120 read 0 bits 16 data c3d4",
+            "UT: busop_request address 124 read 0 bits 32 data e5f60718"
+          ]
+        },
+        {
+          "test": "u19/test_busop_access_memory_read_little_wide64",
+          "role": "direct",
+          "expected_observations": [
+            "UT: busop_request address 120 read 1 bits 64"
+          ]
+        },
+        {
+          "test": "u19/test_busop_access_memory_read_little_split64",
+          "role": "direct",
+          "expected_observations": [
+            "UT: busop_request address 120 read 1 bits 32",
+            "UT: busop_request address 124 read 1 bits 32"
+          ]
+        },
+        {
+          "test": "u19/test_busop_access_memory_read_little_partial48",
+          "role": "direct",
+          "expected_observations": [
+            "UT: busop_request address 120 read 1 bits 32",
+            "UT: busop_request address 124 read 1 bits 16"
+          ]
+        },
+        {
+          "test": "u19/test_busop_access_memory_read_big_wide64",
+          "role": "direct",
+          "expected_observations": [
+            "UT: busop_request address 120 read 1 bits 64"
+          ]
+        },
+        {
+          "test": "u19/test_busop_access_memory_read_big_split64",
+          "role": "direct",
+          "expected_observations": [
+            "UT: busop_request address 120 read 1 bits 32",
+            "UT: busop_request address 124 read 1 bits 32"
+          ]
+        },
+        {
+          "test": "u19/test_busop_access_memory_read_big_partial48",
+          "role": "direct",
+          "expected_observations": [
+            "UT: busop_request address 120 read 1 bits 16",
+            "UT: busop_request address 124 read 1 bits 32"
+          ]
+        },
+        {
+          "test": "u19/test_busop_access_memory_write_little_wide64",
+          "role": "direct",
+          "expected_observations": [
+            "UT: busop_request address 120 read 0 bits 64 data a1b2c3d4e5f60718"
+          ]
+        },
+        {
+          "test": "u19/test_busop_access_memory_write_little_split64",
+          "role": "direct",
+          "expected_observations": [
+            "UT: busop_request address 120 read 0 bits 32 data e5f60718",
+            "UT: busop_request address 124 read 0 bits 32 data a1b2c3d4"
+          ]
+        },
+        {
+          "test": "u19/test_busop_access_memory_write_little_partial48",
+          "role": "direct",
+          "expected_observations": [
+            "UT: busop_request address 120 read 0 bits 32 data e5f60718",
+            "UT: busop_request address 124 read 0 bits 16 data c3d4"
+          ]
+        },
+        {
+          "test": "u19/test_busop_access_memory_write_big_wide64",
+          "role": "direct",
+          "expected_observations": [
+            "UT: busop_request address 120 read 0 bits 64 data a1b2c3d4e5f60718"
+          ]
+        },
+        {
+          "test": "u19/test_busop_access_memory_write_big_split64",
+          "role": "direct",
+          "expected_observations": [
+            "UT: busop_request address 120 read 0 bits 32 data a1b2c3d4",
+            "UT: busop_request address 124 read 0 bits 32 data e5f60718"
+          ]
+        },
+        {
+          "test": "u19/test_busop_access_memory_write_big_partial48",
+          "role": "direct",
+          "expected_observations": [
+            "UT: busop_request address 120 read 0 bits 16 data c3d4",
+            "UT: busop_request address 124 read 0 bits 32 data e5f60718"
           ]
         }
       ]
@@ -139314,6 +139498,541 @@
           "role": "control",
           "expected_observations": [
             "UT: recorder_link_valid calls 1 exact 1 endpoints 1 errors 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BUSOP-ACCESS-SPLIT-CYCLE-COUNT",
+      "clause": "19.1.2",
+      "statement": {
+        "en": "A narrower default map splits a full register or memory access into its required bus operations.",
+        "ja": "狭い既定mapは全register／memory accessを必要なbus操作へ分割する。"
+      },
+      "conditions": {
+        "en": "Use 48/64-bit RW objects on a 32-bit bus, no extra frontdoor callbacks or auto prediction, both directions and endian modes.",
+        "ja": "48／64-bit RW objectを32-bit busで使い、追加frontdoor callbackやauto predictionなしで両方向／両endianを選ぶ。"
+      },
+      "expected": {
+        "en": "Each selected access presents two canonical requests and two driver operations with successful status.",
+        "ja": "選択した各accessは正準request 2件とdriver操作2件を成功statusで提示する。"
+      },
+      "limitations": {
+        "en": "Only the selected first-location/full-register numeric-word profiles are checked. No temporal bus order, builtin TLM byte conversion, external RTL, four-state data, general strides or byte-enable completeness is certified. The complete oracle, including bit-count observations, remains independent; a matching count alone is not a test pass.",
+        "ja": "選択した最初のlocation／全registerの数値word条件だけを検査する。busの時間順、組み込みTLM byte変換、外部RTL、4-state data、一般stride、byte enable全体は認定しない。bit数を含む全oracleを独立に保持し、countの一致だけをテストのpassにしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_busop_access_register_read_little_split64",
+          "role": "direct",
+          "expected_observations": [
+            "UT: busop_access ok 1 requests 2 driver 2"
+          ]
+        },
+        {
+          "test": "u19/test_busop_access_register_read_little_partial48",
+          "role": "direct",
+          "expected_observations": [
+            "UT: busop_access ok 1 requests 2 driver 2"
+          ]
+        },
+        {
+          "test": "u19/test_busop_access_register_read_big_split64",
+          "role": "direct",
+          "expected_observations": [
+            "UT: busop_access ok 1 requests 2 driver 2"
+          ]
+        },
+        {
+          "test": "u19/test_busop_access_register_read_big_partial48",
+          "role": "direct",
+          "expected_observations": [
+            "UT: busop_access ok 1 requests 2 driver 2"
+          ]
+        },
+        {
+          "test": "u19/test_busop_access_register_write_little_split64",
+          "role": "direct",
+          "expected_observations": [
+            "UT: busop_access ok 1 requests 2 driver 2"
+          ]
+        },
+        {
+          "test": "u19/test_busop_access_register_write_little_partial48",
+          "role": "direct",
+          "expected_observations": [
+            "UT: busop_access ok 1 requests 2 driver 2"
+          ]
+        },
+        {
+          "test": "u19/test_busop_access_register_write_big_split64",
+          "role": "direct",
+          "expected_observations": [
+            "UT: busop_access ok 1 requests 2 driver 2"
+          ]
+        },
+        {
+          "test": "u19/test_busop_access_register_write_big_partial48",
+          "role": "direct",
+          "expected_observations": [
+            "UT: busop_access ok 1 requests 2 driver 2"
+          ]
+        },
+        {
+          "test": "u19/test_busop_access_memory_read_little_split64",
+          "role": "direct",
+          "expected_observations": [
+            "UT: busop_access ok 1 requests 2 driver 2"
+          ]
+        },
+        {
+          "test": "u19/test_busop_access_memory_read_little_partial48",
+          "role": "direct",
+          "expected_observations": [
+            "UT: busop_access ok 1 requests 2 driver 2"
+          ]
+        },
+        {
+          "test": "u19/test_busop_access_memory_read_big_split64",
+          "role": "direct",
+          "expected_observations": [
+            "UT: busop_access ok 1 requests 2 driver 2"
+          ]
+        },
+        {
+          "test": "u19/test_busop_access_memory_read_big_partial48",
+          "role": "direct",
+          "expected_observations": [
+            "UT: busop_access ok 1 requests 2 driver 2"
+          ]
+        },
+        {
+          "test": "u19/test_busop_access_memory_write_little_split64",
+          "role": "direct",
+          "expected_observations": [
+            "UT: busop_access ok 1 requests 2 driver 2"
+          ]
+        },
+        {
+          "test": "u19/test_busop_access_memory_write_little_partial48",
+          "role": "direct",
+          "expected_observations": [
+            "UT: busop_access ok 1 requests 2 driver 2"
+          ]
+        },
+        {
+          "test": "u19/test_busop_access_memory_write_big_split64",
+          "role": "direct",
+          "expected_observations": [
+            "UT: busop_access ok 1 requests 2 driver 2"
+          ]
+        },
+        {
+          "test": "u19/test_busop_access_memory_write_big_partial48",
+          "role": "direct",
+          "expected_observations": [
+            "UT: busop_access ok 1 requests 2 driver 2"
+          ]
+        },
+        {
+          "test": "u19/test_busop_access_register_read_little_wide64",
+          "role": "control",
+          "expected_observations": [
+            "UT: busop_access ok 1 requests 1 driver 1"
+          ]
+        },
+        {
+          "test": "u19/test_busop_access_register_read_big_wide64",
+          "role": "control",
+          "expected_observations": [
+            "UT: busop_access ok 1 requests 1 driver 1"
+          ]
+        },
+        {
+          "test": "u19/test_busop_access_register_write_little_wide64",
+          "role": "control",
+          "expected_observations": [
+            "UT: busop_access ok 1 requests 1 driver 1"
+          ]
+        },
+        {
+          "test": "u19/test_busop_access_register_write_big_wide64",
+          "role": "control",
+          "expected_observations": [
+            "UT: busop_access ok 1 requests 1 driver 1"
+          ]
+        },
+        {
+          "test": "u19/test_busop_access_memory_read_little_wide64",
+          "role": "control",
+          "expected_observations": [
+            "UT: busop_access ok 1 requests 1 driver 1"
+          ]
+        },
+        {
+          "test": "u19/test_busop_access_memory_read_big_wide64",
+          "role": "control",
+          "expected_observations": [
+            "UT: busop_access ok 1 requests 1 driver 1"
+          ]
+        },
+        {
+          "test": "u19/test_busop_access_memory_write_little_wide64",
+          "role": "control",
+          "expected_observations": [
+            "UT: busop_access ok 1 requests 1 driver 1"
+          ]
+        },
+        {
+          "test": "u19/test_busop_access_memory_write_big_wide64",
+          "role": "control",
+          "expected_observations": [
+            "UT: busop_access ok 1 requests 1 driver 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BUSOP-ACCESS-SINGLE-CYCLE-COUNT",
+      "clause": "19.1.2",
+      "statement": {
+        "en": "A selected full-width map carries the complete object in one bus operation.",
+        "ja": "選択した全幅mapはobject全体をbus操作1回で運ぶ。"
+      },
+      "conditions": {
+        "en": "Use a 64-bit register or first memory location on a 64-bit byte-addressed bus, both directions and endian modes.",
+        "ja": "64-bit registerまたは最初のmemory locationを64-bitのbyte address方式busで使い、両方向／両endianを選ぶ。"
+      },
+      "expected": {
+        "en": "The access has one canonical request and one driver operation with successful status.",
+        "ja": "accessは正準request 1件とdriver操作1件を成功statusで持つ。"
+      },
+      "limitations": {
+        "en": "Only the selected first-location/full-register numeric-word profiles are checked. No temporal bus order, builtin TLM byte conversion, external RTL, four-state data, general strides or byte-enable completeness is certified. The complete oracle, including bit-count observations, remains independent; a matching count alone is not a test pass.",
+        "ja": "選択した最初のlocation／全registerの数値word条件だけを検査する。busの時間順、組み込みTLM byte変換、外部RTL、4-state data、一般stride、byte enable全体は認定しない。bit数を含む全oracleを独立に保持し、countの一致だけをテストのpassにしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_busop_access_register_read_little_wide64",
+          "role": "direct",
+          "expected_observations": [
+            "UT: busop_access ok 1 requests 1 driver 1"
+          ]
+        },
+        {
+          "test": "u19/test_busop_access_register_read_big_wide64",
+          "role": "direct",
+          "expected_observations": [
+            "UT: busop_access ok 1 requests 1 driver 1"
+          ]
+        },
+        {
+          "test": "u19/test_busop_access_register_write_little_wide64",
+          "role": "direct",
+          "expected_observations": [
+            "UT: busop_access ok 1 requests 1 driver 1"
+          ]
+        },
+        {
+          "test": "u19/test_busop_access_register_write_big_wide64",
+          "role": "direct",
+          "expected_observations": [
+            "UT: busop_access ok 1 requests 1 driver 1"
+          ]
+        },
+        {
+          "test": "u19/test_busop_access_memory_read_little_wide64",
+          "role": "direct",
+          "expected_observations": [
+            "UT: busop_access ok 1 requests 1 driver 1"
+          ]
+        },
+        {
+          "test": "u19/test_busop_access_memory_read_big_wide64",
+          "role": "direct",
+          "expected_observations": [
+            "UT: busop_access ok 1 requests 1 driver 1"
+          ]
+        },
+        {
+          "test": "u19/test_busop_access_memory_write_little_wide64",
+          "role": "direct",
+          "expected_observations": [
+            "UT: busop_access ok 1 requests 1 driver 1"
+          ]
+        },
+        {
+          "test": "u19/test_busop_access_memory_write_big_wide64",
+          "role": "direct",
+          "expected_observations": [
+            "UT: busop_access ok 1 requests 1 driver 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BUSOP-ACCESS-SINGLE-WRITE-VALUE",
+      "clause": "19.1.2",
+      "statement": {
+        "en": "A single-cycle canonical write carries the abstract access value unchanged.",
+        "ja": "1 cycleの正準writeは抽象access値を変えずに運ぶ。"
+      },
+      "conditions": {
+        "en": "Use full 64-bit writes with distinct byte values through original numeric-word adapters.",
+        "ja": "byte値を異ならせた全64-bit writeを独自の数値word adapterで実行する。"
+      },
+      "expected": {
+        "en": "The sole canonical write descriptor contains the full supplied 64-bit value.",
+        "ja": "唯一の正準write descriptorは指定した全64-bit値を持つ。"
+      },
+      "limitations": {
+        "en": "Only the selected first-location/full-register numeric-word profiles are checked. No temporal bus order, builtin TLM byte conversion, external RTL, four-state data, general strides or byte-enable completeness is certified. The complete oracle, including bit-count observations, remains independent; a matching count alone is not a test pass.",
+        "ja": "選択した最初のlocation／全registerの数値word条件だけを検査する。busの時間順、組み込みTLM byte変換、外部RTL、4-state data、一般stride、byte enable全体は認定しない。bit数を含む全oracleを独立に保持し、countの一致だけをテストのpassにしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_busop_access_register_write_little_wide64",
+          "role": "direct",
+          "expected_observations": [
+            "UT: busop_request address 120 read 0 bits 64 data a1b2c3d4e5f60718"
+          ]
+        },
+        {
+          "test": "u19/test_busop_access_register_write_big_wide64",
+          "role": "direct",
+          "expected_observations": [
+            "UT: busop_request address 120 read 0 bits 64 data a1b2c3d4e5f60718"
+          ]
+        },
+        {
+          "test": "u19/test_busop_access_memory_write_little_wide64",
+          "role": "direct",
+          "expected_observations": [
+            "UT: busop_request address 120 read 0 bits 64 data a1b2c3d4e5f60718"
+          ]
+        },
+        {
+          "test": "u19/test_busop_access_memory_write_big_wide64",
+          "role": "direct",
+          "expected_observations": [
+            "UT: busop_request address 120 read 0 bits 64 data a1b2c3d4e5f60718"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BUSOP-ACCESS-SPLIT-WRITE-PORTIONS",
+      "clause": "19.1.2",
+      "statement": {
+        "en": "Each split canonical write carries the portion of the abstract value selected by its aligned bus address.",
+        "ja": "分割した各正準writeは整列bus addressが選ぶ抽象値の部分を運ぶ。"
+      },
+      "conditions": {
+        "en": "Use 48/64-bit register or first memory-location writes on a 32-bit little/big-endian bus.",
+        "ja": "48／64-bit registerまたは最初のmemory locationを32-bitのlittle／big-endian busでwriteする。"
+      },
+      "expected": {
+        "en": "The address-sorted descriptors retain distinct low/high value portions, ignoring unused bits above n_bits.",
+        "ja": "address順descriptorは異なる下位／上位の値の部分を保持し、n_bitsより上の未使用bitは制約しない。"
+      },
+      "limitations": {
+        "en": "Only the selected first-location/full-register numeric-word profiles are checked. No temporal bus order, builtin TLM byte conversion, external RTL, four-state data, general strides or byte-enable completeness is certified. The complete oracle, including bit-count observations, remains independent; a matching count alone is not a test pass.",
+        "ja": "選択した最初のlocation／全registerの数値word条件だけを検査する。busの時間順、組み込みTLM byte変換、外部RTL、4-state data、一般stride、byte enable全体は認定しない。bit数を含む全oracleを独立に保持し、countの一致だけをテストのpassにしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_busop_access_register_write_little_split64",
+          "role": "direct",
+          "expected_observations": [
+            "UT: busop_request address 120 read 0 bits 32 data e5f60718",
+            "UT: busop_request address 124 read 0 bits 32 data a1b2c3d4"
+          ]
+        },
+        {
+          "test": "u19/test_busop_access_register_write_little_partial48",
+          "role": "direct",
+          "expected_observations": [
+            "UT: busop_request address 120 read 0 bits 32 data e5f60718",
+            "UT: busop_request address 124 read 0 bits 16 data c3d4"
+          ]
+        },
+        {
+          "test": "u19/test_busop_access_register_write_big_split64",
+          "role": "direct",
+          "expected_observations": [
+            "UT: busop_request address 120 read 0 bits 32 data a1b2c3d4",
+            "UT: busop_request address 124 read 0 bits 32 data e5f60718"
+          ]
+        },
+        {
+          "test": "u19/test_busop_access_register_write_big_partial48",
+          "role": "direct",
+          "expected_observations": [
+            "UT: busop_request address 120 read 0 bits 16 data c3d4",
+            "UT: busop_request address 124 read 0 bits 32 data e5f60718"
+          ]
+        },
+        {
+          "test": "u19/test_busop_access_memory_write_little_split64",
+          "role": "direct",
+          "expected_observations": [
+            "UT: busop_request address 120 read 0 bits 32 data e5f60718",
+            "UT: busop_request address 124 read 0 bits 32 data a1b2c3d4"
+          ]
+        },
+        {
+          "test": "u19/test_busop_access_memory_write_little_partial48",
+          "role": "direct",
+          "expected_observations": [
+            "UT: busop_request address 120 read 0 bits 32 data e5f60718",
+            "UT: busop_request address 124 read 0 bits 16 data c3d4"
+          ]
+        },
+        {
+          "test": "u19/test_busop_access_memory_write_big_split64",
+          "role": "direct",
+          "expected_observations": [
+            "UT: busop_request address 120 read 0 bits 32 data a1b2c3d4",
+            "UT: busop_request address 124 read 0 bits 32 data e5f60718"
+          ]
+        },
+        {
+          "test": "u19/test_busop_access_memory_write_big_partial48",
+          "role": "direct",
+          "expected_observations": [
+            "UT: busop_request address 120 read 0 bits 16 data c3d4",
+            "UT: busop_request address 124 read 0 bits 32 data e5f60718"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-BUSOP-ACCESS-READ-RESPONSE-ASSEMBLY",
+      "clause": "19.1.2",
+      "statement": {
+        "en": "Canonical read responses preserve the selected abstract register or memory value.",
+        "ja": "正準read responseは選択した抽象register／memory値を保持する。"
+      },
+      "conditions": {
+        "en": "Seed original bus storage before each independent read, using nonzero padding for a 16-bit final portion.",
+        "ja": "各独立readの前に独自bus記憶域へ値を置き、16-bitの最終部分には非0のpaddingを付ける。"
+      },
+      "expected": {
+        "en": "One or two bus2reg responses produce the prescribed value within the declared 48/64 bits.",
+        "ja": "bus2reg response 1／2件から、宣言した48／64 bit内に規定値を生成する。"
+      },
+      "limitations": {
+        "en": "Only the selected first-location/full-register numeric-word profiles are checked. No temporal bus order, builtin TLM byte conversion, external RTL, four-state data, general strides or byte-enable completeness is certified. The complete oracle, including bit-count observations, remains independent; a matching count alone is not a test pass.",
+        "ja": "選択した最初のlocation／全registerの数値word条件だけを検査する。busの時間順、組み込みTLM byte変換、外部RTL、4-state data、一般stride、byte enable全体は認定しない。bit数を含む全oracleを独立に保持し、countの一致だけをテストのpassにしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_busop_access_register_read_little_wide64",
+          "role": "direct",
+          "expected_observations": [
+            "UT: busop_read responses 1 value a1b2c3d4e5f60718"
+          ]
+        },
+        {
+          "test": "u19/test_busop_access_register_read_little_split64",
+          "role": "direct",
+          "expected_observations": [
+            "UT: busop_read responses 2 value a1b2c3d4e5f60718"
+          ]
+        },
+        {
+          "test": "u19/test_busop_access_register_read_little_partial48",
+          "role": "direct",
+          "expected_observations": [
+            "UT: busop_read responses 2 value c3d4e5f60718"
+          ]
+        },
+        {
+          "test": "u19/test_busop_access_register_read_big_wide64",
+          "role": "direct",
+          "expected_observations": [
+            "UT: busop_read responses 1 value a1b2c3d4e5f60718"
+          ]
+        },
+        {
+          "test": "u19/test_busop_access_register_read_big_split64",
+          "role": "direct",
+          "expected_observations": [
+            "UT: busop_read responses 2 value a1b2c3d4e5f60718"
+          ]
+        },
+        {
+          "test": "u19/test_busop_access_register_read_big_partial48",
+          "role": "direct",
+          "expected_observations": [
+            "UT: busop_read responses 2 value c3d4e5f60718"
+          ]
+        },
+        {
+          "test": "u19/test_busop_access_memory_read_little_wide64",
+          "role": "direct",
+          "expected_observations": [
+            "UT: busop_read responses 1 value a1b2c3d4e5f60718"
+          ]
+        },
+        {
+          "test": "u19/test_busop_access_memory_read_little_split64",
+          "role": "direct",
+          "expected_observations": [
+            "UT: busop_read responses 2 value a1b2c3d4e5f60718"
+          ]
+        },
+        {
+          "test": "u19/test_busop_access_memory_read_little_partial48",
+          "role": "direct",
+          "expected_observations": [
+            "UT: busop_read responses 2 value c3d4e5f60718"
+          ]
+        },
+        {
+          "test": "u19/test_busop_access_memory_read_big_wide64",
+          "role": "direct",
+          "expected_observations": [
+            "UT: busop_read responses 1 value a1b2c3d4e5f60718"
+          ]
+        },
+        {
+          "test": "u19/test_busop_access_memory_read_big_split64",
+          "role": "direct",
+          "expected_observations": [
+            "UT: busop_read responses 2 value a1b2c3d4e5f60718"
+          ]
+        },
+        {
+          "test": "u19/test_busop_access_memory_read_big_partial48",
+          "role": "direct",
+          "expected_observations": [
+            "UT: busop_read responses 2 value c3d4e5f60718"
           ]
         }
       ]

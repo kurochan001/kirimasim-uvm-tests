@@ -123,6 +123,14 @@ virtual field constructorの取得値は、factoryで生成した独自派生型
 recorder-linkの期待値は提供IEEE 16.4.4とclose／free／flush、streamのlifecycle、database linkの契約から測定前に導きます。
 独自のメモリ内callbackと終了catcherを使い、外部記録databaseや測定した警告をoracleにせず、[期間のFAQ](faq.ja.md#recorderのlink可能期間)で解釈を説明しています。
 
+正準busの期待値は、測定前に提供IEEE 19.1.2、そのfield契約、address／endian／read／write条項から導きます。
+独自の数値word callbackでdescriptorと独立に設定したreadを観測し、組み込みTLM byte変換や測定出力をoracleの根拠にしません。
+以前の幅の義務のstatementと限定は保持し、[bus操作のFAQ](faq.ja.md#正準bus操作)で説明しています。
+
+補助引用を実際の設定／API呼出しへ揃え、register writeは誤ったgetterの18.4.4.3から18.4.4.9へ修正します。
+本体、helper、期待出力、タグの区分は変えません。修正後の全24 sourceを新たに測定し、以前の記録は元の入力同一性で保存して付け替えません。
+[Q293](faq.ja.md#q293-補助引用だけの修正でも再測定する理由は)で説明しています。
+
 ## 条項カタログの保守
 
 catalogが数えるのは規範的義務ではなく識別子なので、項目の復元でcoverage分母が決まらない理由は[計数単位と対象範囲の案](requirements.ja.md#計数単位と対象範囲の案)を参照してください。

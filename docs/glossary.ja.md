@@ -1112,3 +1112,11 @@ model照会の一致では物理storageの転送や普遍的なpacking配置を�
 **Recorder link lifetime window（recorderのlink可能期間）** — open_recorder後からfree前まで、recorderをdatabase linkの端点にできる期間です。
 closeはtransactionを終えてもこの期間を終えず、open recorderのflushや所有streamのfreeではrecorderをfreeする場合があります。
 free後もobject参照が残る場合がありますが、link可能性やerror回復を保証しない理由は[期間のFAQ](faq.ja.md#recorderのlink可能期間)で説明しています。
+
+## 正準bus操作の観測
+
+**Numeric-word bus fixture（数値wordのbus検査系）** — addressごとの数値wordをuvm_reg_bus_opのfieldで運ぶ独自testbench protocolです。
+組み込みTLM payloadのbyte encodingからmapの正準値を分離し、独立したread設定と範囲は[Q289](faq.ja.md#q289-数値wordのbus検査系は何を測定しますか)で説明しています。
+
+**Address-sorted observation（address順の観測表示）** — 実際の操作順を変えず、完了した観測用コピーをaddress順に並べてword／bitの関係を比較する表示です。
+時間順やRTL timingとは別である理由は[Q290](faq.ja.md#q290-観測requestをaddress順に並べる理由は)で説明しています。
