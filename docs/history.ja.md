@@ -4,7 +4,7 @@
 
 このページの件数は各変更時点の値なので、現在のスイート規模や実行範囲が必要なときは[現在のスナップショット](results.ja.md#現在のスナップショット)を使ってください。
 
-M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の69回目の拡充（全2133件：simulation 2041・elaboration 92）までを記録しています。以前の349件の時点は
+M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の70回目の拡充（全2176件：simulation 2084・elaboration 92）までを記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -2748,3 +2748,47 @@ collection macroは未完です。短いpacking契約を根拠にraw stream配�
 規格本文／algorithm、商用結果、シミュレータ実装sourceをoracleの根拠にしません。日英資料と読み手向け案内を保持し、
 local evidence、library／tool／metadata／台帳、8 shardの完全な選択を検証します。
 hosted CI成功、人のレビュー、範囲／分母承認、goal完了は未立証です。
+
+## 薄い領域の70回目の拡充：virtual registerとfieldの照会
+
+[13e6cce](https://github.com/kurochan001/kirimasim-uvm-tests/commit/13e6cce15f930f443629dcb8e7e023c417f62952)を基に、2026-11-05と2026-11-06 JSTに測定しました。新しいM3の43入力はmodel内のsimulationで、39件がseed 1／73で一致します。
+2件はseed 1のruntime差分でseed 73結果がなく、限定したoverview基底型の2入力はbuildできずruntime結果がありません。
+
+overviewはvirtual抽象の基底にuvm_reg／uvm_reg_fieldを挙げますが、class宣言はuvm_objectを指定します。
+字面どおりの静的基底型の入力はこの食違いを保持し、object基底のcontrolは別に一致します。
+build結果で文言を解決したり、無条件の実装不具合を認定したりしません。
+
+8-bit constructorの構成は、保持する完全memory location単位の2-byte期待に対して1 byteを返し、64-bitの構成は一致します。
+名前と幅の義務には別の期待行を使い、公開constructor／getterの連鎖を観測してもconstructorへ原因を割り当てません。
+無関係なrights mapはRWを返しますが、必要なERRORを出しません。fallbackと診断を別の義務に分け、一致する行だけで入力全体をpassにしません。
+
+region照会は未実装／release後のnullと、唯一の予約descriptorとの同一性を観測します。
+明示再配置、要素数、完全memory location数、間隔、word offset、map所属、policyを別々に検査します。
+byte addressと2-byte wordのmapは、それぞれの単位で外部addressを返します。
+shared照会は必要なmapを明示し、default mapの選択は別条件にします。不正address照会はWARNINGを要求し、戻り値は固定しません。
+map列挙は所属を観測し、queue順序や空でないqueueへの追記／消去を仮定しません。
+
+fieldのconfigureは親・幅・LSBの観測を分け、memory locationをまたぐ構成も含めます。
+getterとRO／WO／RW policyの入力は別に保持します。実際のHDLやmemory storage転送は実行も認定もしません。
+control 4件も直接義務を持ち、元の限定した前提の代わりにはしません。
+
+virtual照会の監査は日英AI義務45件を追加し、以前の未評価21番号を部分分解します。
+個別に読んだIntrospection見出し1件を構造として分類します。
+全体は部分1959／分類405／未評価143（構造279／文脈126）です。
+第18章は部分360／分類51／未評価45で、義務830件、主引用simulation 496テストです。
+これらの部分的な照会契約で、レジスタ層のmilestoneやその条件を完了にしません。
+
+全3764義務に直接テストがあり、直接対応2152テスト、control専用24テスト、control linkあり83テストです。
+新入力はすべて直接義務を持ち、うち4件はcontrolも提供します。
+以前の全3719義務、404分類、2133索引入力／通常記録、92 compiler記録は未変更です。
+人のレビュー、範囲／分母承認、完全coverageは主張しません。
+
+全2176（simulation 2084／elaboration 92）、M1 920（841／79）、M2 547（542／5）、M3 709（701／8）です。
+通常passは1870（runtime 1783／拒否87）、knownは306（runtime 220／build 81／不正受理5）です。
+以前の通常2133記録、3719義務、404分類、92 compiler記録は未変更です。
+guest／HDL／command-line記録も未変更で、guest未測定は1093入力です。人の承認と完了は未立証です。
+
+測定前に期待値と独自sourceを固定しました。一致入力だけに固定版tagを付けて両seedで再測定し、未変更known入力は正確に互換な初回記録を保持します。
+合算前に入力／runner／library／設定の同一性を確認します。compiler証拠と以前の通常／guest／backend記録は未変更です。
+local fileは`out/thin-seventieth-`を使い、guest再実行は主張しません。
+tool、metadata、台帳／索引、source／証拠、日英資料、CIの正確な選択の検査を伴います。goalは有効に保ちます。

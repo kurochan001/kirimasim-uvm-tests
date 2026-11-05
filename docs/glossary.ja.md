@@ -1054,3 +1054,13 @@ control一致後も元の差分を保持する理由は[Q270](faq.ja.md#q270-互
 
 **継承した空のvisitor hook** — 派生型がvisitを実装する一方、基底本体は選択した状態を変えないbegin／end callbackです。
 選択観測の範囲は[Q276](faq.ja.md#q276-f5の未評価0で走査coverageは完了しますか)で説明しています。
+
+## Virtual抽象の照会の前提
+
+同じ照会でも単位や静的な型が異なる場合があり、測定例と制限は[照会のFAQ](faq.ja.md#virtual-registerの照会と宣言の境界)で説明しています。
+
+**virtual抽象の基底の前提（Virtual abstraction base premise）** — overviewが記載するuvm_reg／uvm_reg_field基底と、明示uvm_object宣言の違いです。
+字面の入力と宣言された基底の入力は別の同一性を保持し、controlの一致で文言の食違いを解決しません。
+
+**virtual照会の単位の境界（Virtual query unit boundary）** — 要素offset／incrementはmemory word単位、byte幅は実装memoryの完全なlocationへ切り上げた幅、外部addressは選択mapのaddress単位を使うことです。
+model照会の一致では物理storageの転送や普遍的なpacking配置を認定しません。

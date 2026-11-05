@@ -6154,6 +6154,20 @@
         "reviewer": null,
         "reviewed_at": null
       }
+    },
+    {
+      "clause": "18.9.1.2",
+      "classification": "structural",
+      "rationale": {
+        "en": "The individually read Introspection heading groups the virtual-array queries. It has no additional independent operation; the following getter clauses retain their own partial behavioral duties.",
+        "ja": "個別に読んだIntrospection見出しはvirtual配列の照会をまとめる。追加の独立操作はなく、後続getter条項に各部分的な動作義務を保持する。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
     }
   ]
 }

@@ -5,8 +5,8 @@
 Counts on this page belong to the time of each change, so use [the current snapshot](results.md#current-snapshot) when you need the present suite size or execution scope.
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and sixty-nine cross-milestone thin-area expansions, including the
-existing-test requirement-link backlog checkpoint (2133 tests: 2041 simulation and 92 elaboration). The earlier 349-test checkpoint is
+three M4 increments and seventy cross-milestone thin-area expansions, including the
+existing-test requirement-link backlog checkpoint (2176 tests: 2084 simulation and 92 elaboration). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -4290,3 +4290,64 @@ simulator implementation source supplies an oracle. Paired docs and reader
 guidance are preserved; local evidence, library/tool/metadata/ledger checks and
 the exact eight-shard selection are verified. Hosted CI success, human review,
 scope/denominator approval and goal completion remain unproven.
+
+## Seventieth thin-area expansion: virtual-register and field queries
+
+Based on [13e6cce](https://github.com/kurochan001/kirimasim-uvm-tests/commit/13e6cce15f930f443629dcb8e7e023c417f62952); measurements dated 2026-11-05 and 2026-11-06 JST. The 43 new M3 inputs are model-only simulations. Thirty-nine match both
+seeds 1/73. Two differ at runtime seed 1 without seed 73, and two qualified
+overview-base inputs cannot build and have no runtime result.
+
+The overview names uvm_reg/uvm_reg_field as virtual abstraction bases, while
+the actual class declarations name uvm_object. Literal static-base inputs
+retain this conflict; object-base controls match separately. The build results
+do not resolve the wording or establish unconditional implementation defects.
+
+The eight-bit constructor profile reports one byte instead of the retained
+two-byte whole-memory-location expectation; the sixty-four-bit profile matches.
+Name and width duties have separate expected rows. This observes the public
+constructor/getter chain without assigning the difference to the constructor.
+An unrelated rights map returns RW but produces no required ERROR. The fallback
+and diagnostic are split duties; a matching row does not pass the whole input.
+
+Region queries observe unimplemented/released null and identity with the sole
+reserved descriptor. Explicit relocation, element count, complete-memory-location
+count, spacing, word offsets, map membership and policies are checked separately.
+Byte-addressed and two-byte-word maps produce external addresses in their own
+units. Shared queries use explicit maps where required; default-map selection
+is a separate condition. Invalid address queries require WARNING without fixing
+the returned value. Map enumeration asserts membership without queue-order or
+nonempty-queue append/clear assumptions.
+
+Field configuration splits parent, width and LSB observations, including a
+memory-location crossing. Getter and RO/WO/RW policy inputs remain distinct.
+No actual HDL or memory storage transfer is performed or certified. Four controls
+also have direct duties, without substituting for an original qualified premise.
+
+The virtual-query audit adds 45 bilingual AI duties, partially decomposing
+21 formerly unassessed identifiers. One individually read Introspection heading
+is structural. Global state is 1959 partial/405 assessed/143 unassessed
+(279 structural/126 contextual). Chapter 18 is 360 partial/51 assessed/45
+unassessed, with 830 duties and 496 primary simulation tests. These partial
+query contracts do not complete the register-layer milestone or its conditions.
+
+All 3764 duties have direct tests; 2152 tests have direct links, 24 have only
+controls and 83 have control links. Every new input has a direct duty; four also
+provide controls. All 3719 prior duties, 404 assessments, 2133 indexed inputs/
+ordinary records and 92 compiler records remain unchanged. No human review,
+approved scope/denominator or completed coverage is asserted.
+
+Totals are 2176 (2084 simulation/92 elaboration): M1 920 (841/79), M2 547
+(542/5), M3 709 (701/8). Ordinary pass is 1870 (1783 runtime/87 rejections);
+known is 306 (220 runtime/81 builds/5 illegal acceptances). All 2133 prior
+ordinary records, 3719 duties, 404 assessments and 92 compiler records remain
+unchanged. Guest/HDL/command-line records are unchanged; 1093 guest inputs
+remain unmeasured. Human approval and completion remain unproven.
+
+Initial expectations and original sources were frozen before measurement.
+Only matching inputs receive the fixed-release tag and are remeasured at both
+seeds; unchanged known inputs retain their exact compatible initial records.
+Input/runner/library/configuration identities are checked before assembly.
+The compile-evidence set and all prior ordinary/guest/backend records remain
+unchanged. Local files use `out/thin-seventieth-`; no guest rerun is claimed.
+Tool, metadata, ledger/index, source/evidence, paired documentation and exact
+CI selection checks accompany the increment. The goal remains active.

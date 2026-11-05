@@ -136078,6 +136078,1607 @@
           ]
         }
       ]
+    },
+    {
+      "id": "UVM-VREG-QUERY-REGISTER-OVERVIEW-LITERAL-BASE",
+      "clause": "18.9",
+      "statement": {
+        "en": "Under the qualified overview wording, the virtual register has the named base view.",
+        "ja": "限定したoverviewの文言ではvirtual registerは記載された基底viewを持つ。"
+      },
+      "conditions": {
+        "en": "Assign the actual virtual abstraction to the exact static base receiver.",
+        "ja": "実際のvirtual抽象を正確な静的基底型のreceiverへ代入する。"
+      },
+      "expected": {
+        "en": "The stated identity, count, policy, offset or diagnostic-presence observations match.",
+        "ja": "記述した同一性、件数、policy、offset、診断の存在の観測が一致する。"
+      },
+      "limitations": {
+        "en": "Only selected model-only shapes are checked. No physical HDL/storage transfer, full lifecycle or all map/error conditions are certified. The overview names uvm_reg, whereas 18.9.1 declares uvm_object. This conflicting wording is a qualified premise, not an unconditional defect claim. The object-base control does not pass the literal overview input.",
+        "ja": "選択したmodel内だけの構成を検査する。物理HDL／storage転送、全lifecycle、全map／error条件は認定しない。overviewはuvm_regを挙げるが18.9.1はuvm_objectを宣言する。文言の食違いを限定した前提として扱い、無条件の不具合とは認定しない。object基底controlで字面のoverview入力をpassにしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_query_register_overview_literal_base",
+          "role": "direct",
+          "expected_observations": [
+            "UT: register_overview_literal_base identity 1"
+          ]
+        },
+        {
+          "test": "u18/test_vreg_query_register_declared_object_base",
+          "role": "control",
+          "expected_observations": [
+            "UT: register_declared_object_base identity 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-QUERY-REGISTER-DECLARED-OBJECT-BASE",
+      "clause": "18.9.1",
+      "statement": {
+        "en": "The declared virtual register class preserves its object base view.",
+        "ja": "宣言されたvirtual register classはobject基底viewを保持する。"
+      },
+      "conditions": {
+        "en": "Assign the actual virtual abstraction to the exact static base receiver.",
+        "ja": "実際のvirtual抽象を正確な静的基底型のreceiverへ代入する。"
+      },
+      "expected": {
+        "en": "The stated identity, count, policy, offset or diagnostic-presence observations match.",
+        "ja": "記述した同一性、件数、policy、offset、診断の存在の観測が一致する。"
+      },
+      "limitations": {
+        "en": "Only selected model-only shapes are checked. No physical HDL/storage transfer, full lifecycle or all map/error conditions are certified. ",
+        "ja": "選択したmodel内だけの構成を検査する。物理HDL／storage転送、全lifecycle、全map／error条件は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_query_register_declared_object_base",
+          "role": "direct",
+          "expected_observations": [
+            "UT: register_declared_object_base identity 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-QUERY-FIELD-OVERVIEW-LITERAL-BASE",
+      "clause": "18.10",
+      "statement": {
+        "en": "Under the qualified overview wording, the virtual field has the named base view.",
+        "ja": "限定したoverviewの文言ではvirtual fieldは記載された基底viewを持つ。"
+      },
+      "conditions": {
+        "en": "Assign the actual virtual abstraction to the exact static base receiver.",
+        "ja": "実際のvirtual抽象を正確な静的基底型のreceiverへ代入する。"
+      },
+      "expected": {
+        "en": "The stated identity, count, policy, offset or diagnostic-presence observations match.",
+        "ja": "記述した同一性、件数、policy、offset、診断の存在の観測が一致する。"
+      },
+      "limitations": {
+        "en": "Only selected model-only shapes are checked. No physical HDL/storage transfer, full lifecycle or all map/error conditions are certified. The overview names uvm_reg_field, whereas 18.10.1 declares uvm_object. This conflicting wording is a qualified premise, not an unconditional defect claim. The object-base control does not pass the literal overview input.",
+        "ja": "選択したmodel内だけの構成を検査する。物理HDL／storage転送、全lifecycle、全map／error条件は認定しない。overviewはuvm_reg_fieldを挙げるが18.10.1はuvm_objectを宣言する。文言の食違いを限定した前提として扱い、無条件の不具合とは認定しない。object基底controlで字面のoverview入力をpassにしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_query_field_overview_literal_base",
+          "role": "direct",
+          "expected_observations": [
+            "UT: field_overview_literal_base identity 1"
+          ]
+        },
+        {
+          "test": "u18/test_vreg_query_field_declared_object_base",
+          "role": "control",
+          "expected_observations": [
+            "UT: field_declared_object_base identity 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-QUERY-FIELD-DECLARED-OBJECT-BASE",
+      "clause": "18.10.1",
+      "statement": {
+        "en": "The declared virtual field class preserves its object base view.",
+        "ja": "宣言されたvirtual field classはobject基底viewを保持する。"
+      },
+      "conditions": {
+        "en": "Assign the actual virtual abstraction to the exact static base receiver.",
+        "ja": "実際のvirtual抽象を正確な静的基底型のreceiverへ代入する。"
+      },
+      "expected": {
+        "en": "The stated identity, count, policy, offset or diagnostic-presence observations match.",
+        "ja": "記述した同一性、件数、policy、offset、診断の存在の観測が一致する。"
+      },
+      "limitations": {
+        "en": "Only selected model-only shapes are checked. No physical HDL/storage transfer, full lifecycle or all map/error conditions are certified. ",
+        "ja": "選択したmodel内だけの構成を検査する。物理HDL／storage転送、全lifecycle、全map／error条件は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_query_field_declared_object_base",
+          "role": "direct",
+          "expected_observations": [
+            "UT: field_declared_object_base identity 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-QUERY-REGION-UNIMPLEMENTED-IS-NULL",
+      "clause": "18.9.1.1.5",
+      "statement": {
+        "en": "An unimplemented virtual array has no implementation region.",
+        "ja": "未実装のvirtual配列は実装regionを持たない。"
+      },
+      "conditions": {
+        "en": "Configure only the parent; do not implement or allocate the array.",
+        "ja": "親だけをconfigureし、配列をimplement／allocateしない。"
+      },
+      "expected": {
+        "en": "The stated identity, count, policy, offset or diagnostic-presence observations match.",
+        "ja": "記述した同一性、件数、policy、offset、診断の存在の観測が一致する。"
+      },
+      "limitations": {
+        "en": "Only selected model-only shapes are checked. No physical HDL/storage transfer, full lifecycle or all map/error conditions are certified. ",
+        "ja": "選択したmodel内だけの構成を検査する。物理HDL／storage転送、全lifecycle、全map／error条件は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_query_region_unimplemented_is_null",
+          "role": "direct",
+          "expected_observations": [
+            "UT: unimplemented_region null 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-QUERY-REGION-IS-THE-RESERVED-MEMORY-DESCRIPTOR",
+      "clause": "18.9.1.1.5",
+      "statement": {
+        "en": "The region getter returns the descriptor reserving the virtual array memory.",
+        "ja": "region getterはvirtual配列のmemoryを予約するdescriptorを返す。"
+      },
+      "conditions": {
+        "en": "Explicitly implement one dynamic array in a memory with no other reservations.",
+        "ja": "他の予約がないmemoryへ1つの動的配列を明示implementする。"
+      },
+      "expected": {
+        "en": "The stated identity, count, policy, offset or diagnostic-presence observations match.",
+        "ja": "記述した同一性、件数、policy、offset、診断の存在の観測が一致する。"
+      },
+      "limitations": {
+        "en": "Only selected model-only shapes are checked. No physical HDL/storage transfer, full lifecycle or all map/error conditions are certified. No region owner getter, exact region length or iteration order is assumed.",
+        "ja": "選択したmodel内だけの構成を検査する。物理HDL／storage転送、全lifecycle、全map／error条件は認定しない。regionのowner getter、正確な領域長、iteration順は仮定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_query_region_is_the_reserved_memory_descriptor",
+          "role": "direct",
+          "expected_observations": [
+            "UT: implemented_region nonnull 1 reserved_identity 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-QUERY-REGION-AFTER-DYNAMIC-RELEASE-IS-NULL",
+      "clause": "18.9.1.1.5",
+      "statement": {
+        "en": "After dynamic release the implementation-region getter returns null.",
+        "ja": "動的release後の実装region getterはnullを返す。"
+      },
+      "conditions": {
+        "en": "Release an explicitly implemented dynamic array using the virtual-register API.",
+        "ja": "明示実装した動的配列をvirtual-register APIでreleaseする。"
+      },
+      "expected": {
+        "en": "The stated identity, count, policy, offset or diagnostic-presence observations match.",
+        "ja": "記述した同一性、件数、policy、offset、診断の存在の観測が一致する。"
+      },
+      "limitations": {
+        "en": "Only selected model-only shapes are checked. No physical HDL/storage transfer, full lifecycle or all map/error conditions are certified. ",
+        "ja": "選択したmodel内だけの構成を検査する。物理HDL／storage転送、全lifecycle、全map／error条件は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_query_region_after_dynamic_release_is_null",
+          "role": "direct",
+          "expected_observations": [
+            "UT: released_region null 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-QUERY-MEMORY-STATIC-SELECTED-IDENTITY",
+      "clause": "18.9.1.2.2",
+      "statement": {
+        "en": "The memory getter identifies the implementing memory of a static array.",
+        "ja": "memory getterは静的配列を実装するmemoryを識別する。"
+      },
+      "conditions": {
+        "en": "Implement in one memory and keep a distinct peer memory in the same block.",
+        "ja": "1つのmemoryへ実装し、同じblockに別のpeer memoryを保持する。"
+      },
+      "expected": {
+        "en": "The stated identity, count, policy, offset or diagnostic-presence observations match.",
+        "ja": "記述した同一性、件数、policy、offset、診断の存在の観測が一致する。"
+      },
+      "limitations": {
+        "en": "Only selected model-only shapes are checked. No physical HDL/storage transfer, full lifecycle or all map/error conditions are certified. ",
+        "ja": "選択したmodel内だけの構成を検査する。物理HDL／storage転送、全lifecycle、全map／error条件は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_query_memory_static_selected_identity",
+          "role": "direct",
+          "expected_observations": [
+            "UT: static_memory selected 1 peer 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-QUERY-MEMORY-DYNAMIC-RELOCATION-IDENTITY",
+      "clause": "18.9.1.2.2",
+      "statement": {
+        "en": "The memory getter follows a successful explicit dynamic relocation.",
+        "ja": "memory getterは成功した明示的な動的再配置に追従する。"
+      },
+      "conditions": {
+        "en": "Relocate to a free range of an explicit peer in the same parent block.",
+        "ja": "同じ親block内の明示したpeerの空き領域へ再配置する。"
+      },
+      "expected": {
+        "en": "The stated identity, count, policy, offset or diagnostic-presence observations match.",
+        "ja": "記述した同一性、件数、policy、offset、診断の存在の観測が一致する。"
+      },
+      "limitations": {
+        "en": "Only selected model-only shapes are checked. No physical HDL/storage transfer, full lifecycle or all map/error conditions are certified. ",
+        "ja": "選択したmodel内だけの構成を検査する。物理HDL／storage転送、全lifecycle、全map／error条件は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_query_memory_dynamic_relocation_identity",
+          "role": "direct",
+          "expected_observations": [
+            "UT: relocated_memory selected 1 old 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-QUERY-MAP-MEMBERSHIP-SELECTED-AND-UNRELATED",
+      "clause": "18.9.1.2.4",
+      "statement": {
+        "en": "Map membership distinguishes an implementing-memory map from an unrelated map.",
+        "ja": "map所属は実装memoryのmapと無関係なmapを区別する。"
+      },
+      "conditions": {
+        "en": "Use shared memory maps and a sibling map containing only the peer memory.",
+        "ja": "shared memoryのmapと、peer memoryだけを含む兄弟mapを使う。"
+      },
+      "expected": {
+        "en": "The stated identity, count, policy, offset or diagnostic-presence observations match.",
+        "ja": "記述した同一性、件数、policy、offset、診断の存在の観測が一致する。"
+      },
+      "limitations": {
+        "en": "Only selected model-only shapes are checked. No physical HDL/storage transfer, full lifecycle or all map/error conditions are certified. ",
+        "ja": "選択したmodel内だけの構成を検査する。物理HDL／storage転送、全lifecycle、全map／error条件は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_query_map_membership_selected_and_unrelated",
+          "role": "direct",
+          "expected_observations": [
+            "UT: map_membership selected 1 unrelated 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-QUERY-MAPS-RETURNS-EXACT-SHARED-MEMBERSHIP",
+      "clause": "18.9.1.2.5",
+      "statement": {
+        "en": "Map enumeration returns the shared implementing-memory maps.",
+        "ja": "map列挙はshared実装memoryのmapを返す。"
+      },
+      "conditions": {
+        "en": "Supply an initially empty caller queue for three sibling implementing-memory maps.",
+        "ja": "3つの兄弟実装memory mapに対し、空の呼出し側queueを渡す。"
+      },
+      "expected": {
+        "en": "The stated identity, count, policy, offset or diagnostic-presence observations match.",
+        "ja": "記述した同一性、件数、policy、offset、診断の存在の観測が一致する。"
+      },
+      "limitations": {
+        "en": "Only selected model-only shapes are checked. No physical HDL/storage transfer, full lifecycle or all map/error conditions are certified. No ordering, hierarchy roll-up or append/clear behavior of a nonempty queue is prescribed.",
+        "ja": "選択したmodel内だけの構成を検査する。物理HDL／storage転送、全lifecycle、全map／error条件は認定しない。順序、階層の集約、空でないqueueへの追記／消去の動作は規定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_query_maps_returns_exact_shared_membership",
+          "role": "direct",
+          "expected_observations": [
+            "UT: maps count 3 rw 1 ro 1 wo 1 unrelated 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-QUERY-RIGHTS-EXPLICIT-RO",
+      "clause": "18.9.1.2.6",
+      "statement": {
+        "en": "The virtual array rights query respects explicit shared-map RO restrictions.",
+        "ja": "virtual配列のrights照会は明示したshared mapのRO制限を反映する。"
+      },
+      "conditions": {
+        "en": "Use read-write memory shared by distinct RW, RO and WO sibling maps; specify the query map.",
+        "ja": "read-write memoryを別々のRW／RO／WO兄弟mapで共有し、照会mapを明示する。"
+      },
+      "expected": {
+        "en": "The stated identity, count, policy, offset or diagnostic-presence observations match.",
+        "ja": "記述した同一性、件数、policy、offset、診断の存在の観測が一致する。"
+      },
+      "limitations": {
+        "en": "Only selected model-only shapes are checked. No physical HDL/storage transfer, full lifecycle or all map/error conditions are certified. ",
+        "ja": "選択したmodel内だけの構成を検査する。物理HDL／storage転送、全lifecycle、全map／error条件は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_query_rights_explicit_ro",
+          "role": "direct",
+          "expected_observations": [
+            "UT: rights_RO value RO"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-QUERY-ACCESS-EXPLICIT-RO",
+      "clause": "18.9.1.2.7",
+      "statement": {
+        "en": "The virtual array access query respects explicit shared-map RO restrictions.",
+        "ja": "virtual配列のaccess照会は明示したshared mapのRO制限を反映する。"
+      },
+      "conditions": {
+        "en": "Use read-write memory shared by distinct RW, RO and WO sibling maps; specify the query map.",
+        "ja": "read-write memoryを別々のRW／RO／WO兄弟mapで共有し、照会mapを明示する。"
+      },
+      "expected": {
+        "en": "The stated identity, count, policy, offset or diagnostic-presence observations match.",
+        "ja": "記述した同一性、件数、policy、offset、診断の存在の観測が一致する。"
+      },
+      "limitations": {
+        "en": "Only selected model-only shapes are checked. No physical HDL/storage transfer, full lifecycle or all map/error conditions are certified. ",
+        "ja": "選択したmodel内だけの構成を検査する。物理HDL／storage転送、全lifecycle、全map／error条件は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_query_access_explicit_ro",
+          "role": "direct",
+          "expected_observations": [
+            "UT: access_RO value RO"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-QUERY-RIGHTS-EXPLICIT-WO",
+      "clause": "18.9.1.2.6",
+      "statement": {
+        "en": "The virtual array rights query respects explicit shared-map WO restrictions.",
+        "ja": "virtual配列のrights照会は明示したshared mapのWO制限を反映する。"
+      },
+      "conditions": {
+        "en": "Use read-write memory shared by distinct RW, RO and WO sibling maps; specify the query map.",
+        "ja": "read-write memoryを別々のRW／RO／WO兄弟mapで共有し、照会mapを明示する。"
+      },
+      "expected": {
+        "en": "The stated identity, count, policy, offset or diagnostic-presence observations match.",
+        "ja": "記述した同一性、件数、policy、offset、診断の存在の観測が一致する。"
+      },
+      "limitations": {
+        "en": "Only selected model-only shapes are checked. No physical HDL/storage transfer, full lifecycle or all map/error conditions are certified. ",
+        "ja": "選択したmodel内だけの構成を検査する。物理HDL／storage転送、全lifecycle、全map／error条件は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_query_rights_explicit_wo",
+          "role": "direct",
+          "expected_observations": [
+            "UT: rights_WO value WO"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-QUERY-ACCESS-EXPLICIT-WO",
+      "clause": "18.9.1.2.7",
+      "statement": {
+        "en": "The virtual array access query respects explicit shared-map WO restrictions.",
+        "ja": "virtual配列のaccess照会は明示したshared mapのWO制限を反映する。"
+      },
+      "conditions": {
+        "en": "Use read-write memory shared by distinct RW, RO and WO sibling maps; specify the query map.",
+        "ja": "read-write memoryを別々のRW／RO／WO兄弟mapで共有し、照会mapを明示する。"
+      },
+      "expected": {
+        "en": "The stated identity, count, policy, offset or diagnostic-presence observations match.",
+        "ja": "記述した同一性、件数、policy、offset、診断の存在の観測が一致する。"
+      },
+      "limitations": {
+        "en": "Only selected model-only shapes are checked. No physical HDL/storage transfer, full lifecycle or all map/error conditions are certified. ",
+        "ja": "選択したmodel内だけの構成を検査する。物理HDL／storage転送、全lifecycle、全map／error条件は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_query_access_explicit_wo",
+          "role": "direct",
+          "expected_observations": [
+            "UT: access_WO value WO"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-QUERY-RIGHTS-EXPLICIT-RW",
+      "clause": "18.9.1.2.6",
+      "statement": {
+        "en": "The virtual array rights query respects explicit shared-map RW restrictions.",
+        "ja": "virtual配列のrights照会は明示したshared mapのRW制限を反映する。"
+      },
+      "conditions": {
+        "en": "Use read-write memory shared by distinct RW, RO and WO sibling maps; specify the query map.",
+        "ja": "read-write memoryを別々のRW／RO／WO兄弟mapで共有し、照会mapを明示する。"
+      },
+      "expected": {
+        "en": "The stated identity, count, policy, offset or diagnostic-presence observations match.",
+        "ja": "記述した同一性、件数、policy、offset、診断の存在の観測が一致する。"
+      },
+      "limitations": {
+        "en": "Only selected model-only shapes are checked. No physical HDL/storage transfer, full lifecycle or all map/error conditions are certified. ",
+        "ja": "選択したmodel内だけの構成を検査する。物理HDL／storage転送、全lifecycle、全map／error条件は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_query_rights_explicit_rw",
+          "role": "direct",
+          "expected_observations": [
+            "UT: rights_RW value RW"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-QUERY-ACCESS-EXPLICIT-RW",
+      "clause": "18.9.1.2.7",
+      "statement": {
+        "en": "The virtual array access query respects explicit shared-map RW restrictions.",
+        "ja": "virtual配列のaccess照会は明示したshared mapのRW制限を反映する。"
+      },
+      "conditions": {
+        "en": "Use read-write memory shared by distinct RW, RO and WO sibling maps; specify the query map.",
+        "ja": "read-write memoryを別々のRW／RO／WO兄弟mapで共有し、照会mapを明示する。"
+      },
+      "expected": {
+        "en": "The stated identity, count, policy, offset or diagnostic-presence observations match.",
+        "ja": "記述した同一性、件数、policy、offset、診断の存在の観測が一致する。"
+      },
+      "limitations": {
+        "en": "Only selected model-only shapes are checked. No physical HDL/storage transfer, full lifecycle or all map/error conditions are certified. ",
+        "ja": "選択したmodel内だけの構成を検査する。物理HDL／storage転送、全lifecycle、全map／error条件は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_query_access_explicit_rw",
+          "role": "direct",
+          "expected_observations": [
+            "UT: access_RW value RW"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-QUERY-RIGHTS-OMITTED-SOLE-MEMBER-IGNORES-UNRELATED-DEFAULT",
+      "clause": "18.9.1.2.6",
+      "statement": {
+        "en": "An omitted rights map selects the sole implementing-memory map.",
+        "ja": "rightsのmap省略時は唯一の実装memory mapを選択する。"
+      },
+      "conditions": {
+        "en": "Keep a sole RW member map while the parent default maps only the peer memory.",
+        "ja": "唯一のRW所属mapを保持し、親のdefaultにはpeer memoryだけを含むmapを指定する。"
+      },
+      "expected": {
+        "en": "The stated identity, count, policy, offset or diagnostic-presence observations match.",
+        "ja": "記述した同一性、件数、policy、offset、診断の存在の観測が一致する。"
+      },
+      "limitations": {
+        "en": "Only selected model-only shapes are checked. No physical HDL/storage transfer, full lifecycle or all map/error conditions are certified. ",
+        "ja": "選択したmodel内だけの構成を検査する。物理HDL／storage転送、全lifecycle、全map／error条件は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_query_rights_omitted_sole_member_ignores_unrelated_default",
+          "role": "direct",
+          "expected_observations": [
+            "UT: sole_rights value RW errors 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-QUERY-RIGHTS-OMITTED-SHARED-USES-PARENT-DEFAULT",
+      "clause": "18.9.1.2.6",
+      "statement": {
+        "en": "An omitted rights map selects the parent default when the memory has several maps.",
+        "ja": "複数mapのmemoryでrightsのmapを省略すると親のdefaultを選択する。"
+      },
+      "conditions": {
+        "en": "Select the RO map as parent default among three implementing-memory maps.",
+        "ja": "3つの実装memory mapからRO mapを親のdefaultへ選択する。"
+      },
+      "expected": {
+        "en": "The stated identity, count, policy, offset or diagnostic-presence observations match.",
+        "ja": "記述した同一性、件数、policy、offset、診断の存在の観測が一致する。"
+      },
+      "limitations": {
+        "en": "Only selected model-only shapes are checked. No physical HDL/storage transfer, full lifecycle or all map/error conditions are certified. ",
+        "ja": "選択したmodel内だけの構成を検査する。物理HDL／storage転送、全lifecycle、全map／error条件は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_query_rights_omitted_shared_uses_parent_default",
+          "role": "direct",
+          "expected_observations": [
+            "UT: default_rights value RO"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-QUERY-SIZE-STATIC-ELEMENT-COUNT",
+      "clause": "18.9.1.2.8",
+      "statement": {
+        "en": "The size getter returns the static virtual-array element count.",
+        "ja": "size getterは静的virtual配列の要素数を返す。"
+      },
+      "conditions": {
+        "en": "Configure three elements with legal padding in the implementing memory.",
+        "ja": "実装memory内へ合法な間隔で3要素をconfigureする。"
+      },
+      "expected": {
+        "en": "The stated identity, count, policy, offset or diagnostic-presence observations match.",
+        "ja": "記述した同一性、件数、policy、offset、診断の存在の観測が一致する。"
+      },
+      "limitations": {
+        "en": "Only selected model-only shapes are checked. No physical HDL/storage transfer, full lifecycle or all map/error conditions are certified. ",
+        "ja": "選択したmodel内だけの構成を検査する。物理HDL／storage転送、全lifecycle、全map／error条件は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_query_size_static_element_count",
+          "role": "direct",
+          "expected_observations": [
+            "UT: static_size elements 3"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-QUERY-SIZE-DYNAMIC-EXPLICIT-RESIZE",
+      "clause": "18.9.1.2.8",
+      "statement": {
+        "en": "The size getter follows a successful explicit resize and relocation.",
+        "ja": "size getterは成功した明示的なサイズ変更と再配置に追従する。"
+      },
+      "conditions": {
+        "en": "Start with two elements, then explicitly implement four elements in a free peer-memory range.",
+        "ja": "2要素から開始し、peer memoryの空き領域へ4要素を明示implementする。"
+      },
+      "expected": {
+        "en": "The stated identity, count, policy, offset or diagnostic-presence observations match.",
+        "ja": "記述した同一性、件数、policy、offset、診断の存在の観測が一致する。"
+      },
+      "limitations": {
+        "en": "Only selected model-only shapes are checked. No physical HDL/storage transfer, full lifecycle or all map/error conditions are certified. ",
+        "ja": "選択したmodel内だけの構成を検査する。物理HDL／storage転送、全lifecycle、全map／error条件は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_query_size_dynamic_explicit_resize",
+          "role": "direct",
+          "expected_observations": [
+            "UT: dynamic_size before 2",
+            "UT: dynamic_size after 4"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-QUERY-LOCATIONS-1-BITS-IN-8-BIT-MEMORY",
+      "clause": "18.9.1.2.10",
+      "statement": {
+        "en": "A virtual element uses enough complete memory locations for its bit width.",
+        "ja": "virtual要素はそのbit幅を収める完全なmemory location数を使う。"
+      },
+      "conditions": {
+        "en": "Implement 1 bits in 8-bit memory locations with legal element padding.",
+        "ja": "1 bitを8-bit memory locationへ合法な要素間隔で実装する。"
+      },
+      "expected": {
+        "en": "The stated identity, count, policy, offset or diagnostic-presence observations match.",
+        "ja": "記述した同一性、件数、policy、offset、診断の存在の観測が一致する。"
+      },
+      "limitations": {
+        "en": "Only selected model-only shapes are checked. No physical HDL/storage transfer, full lifecycle or all map/error conditions are certified. ",
+        "ja": "選択したmodel内だけの構成を検査する。物理HDL／storage転送、全lifecycle、全map／error条件は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_query_locations_1_bits_in_8_bit_memory",
+          "role": "direct",
+          "expected_observations": [
+            "UT: locations_1_8 count 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-QUERY-LOCATIONS-17-BITS-IN-16-BIT-MEMORY",
+      "clause": "18.9.1.2.10",
+      "statement": {
+        "en": "A virtual element uses enough complete memory locations for its bit width.",
+        "ja": "virtual要素はそのbit幅を収める完全なmemory location数を使う。"
+      },
+      "conditions": {
+        "en": "Implement 17 bits in 16-bit memory locations with legal element padding.",
+        "ja": "17 bitを16-bit memory locationへ合法な要素間隔で実装する。"
+      },
+      "expected": {
+        "en": "The stated identity, count, policy, offset or diagnostic-presence observations match.",
+        "ja": "記述した同一性、件数、policy、offset、診断の存在の観測が一致する。"
+      },
+      "limitations": {
+        "en": "Only selected model-only shapes are checked. No physical HDL/storage transfer, full lifecycle or all map/error conditions are certified. ",
+        "ja": "選択したmodel内だけの構成を検査する。物理HDL／storage転送、全lifecycle、全map／error条件は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_query_locations_17_bits_in_16_bit_memory",
+          "role": "direct",
+          "expected_observations": [
+            "UT: locations_17_16 count 2"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-QUERY-LOCATIONS-40-BITS-IN-16-BIT-MEMORY",
+      "clause": "18.9.1.2.10",
+      "statement": {
+        "en": "A virtual element uses enough complete memory locations for its bit width.",
+        "ja": "virtual要素はそのbit幅を収める完全なmemory location数を使う。"
+      },
+      "conditions": {
+        "en": "Implement 40 bits in 16-bit memory locations with legal element padding.",
+        "ja": "40 bitを16-bit memory locationへ合法な要素間隔で実装する。"
+      },
+      "expected": {
+        "en": "The stated identity, count, policy, offset or diagnostic-presence observations match.",
+        "ja": "記述した同一性、件数、policy、offset、診断の存在の観測が一致する。"
+      },
+      "limitations": {
+        "en": "Only selected model-only shapes are checked. No physical HDL/storage transfer, full lifecycle or all map/error conditions are certified. ",
+        "ja": "選択したmodel内だけの構成を検査する。物理HDL／storage転送、全lifecycle、全map／error条件は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_query_locations_40_bits_in_16_bit_memory",
+          "role": "direct",
+          "expected_observations": [
+            "UT: locations_40_16 count 3"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-QUERY-INCREMENT-TIGHT",
+      "clause": "18.9.1.2.11",
+      "statement": {
+        "en": "The increment getter reports the chosen memory-location spacing between elements.",
+        "ja": "increment getterは要素間に選択したmemory location単位の間隔を返す。"
+      },
+      "conditions": {
+        "en": "Implement 40-bit elements in 16-bit memory with the configured increment 0.",
+        "ja": "40-bit要素を16-bit memoryへincrement 0で実装する。"
+      },
+      "expected": {
+        "en": "The stated identity, count, policy, offset or diagnostic-presence observations match.",
+        "ja": "記述した同一性、件数、policy、offset、診断の存在の観測が一致する。"
+      },
+      "limitations": {
+        "en": "Only selected model-only shapes are checked. No physical HDL/storage transfer, full lifecycle or all map/error conditions are certified. ",
+        "ja": "選択したmodel内だけの構成を検査する。物理HDL／storage転送、全lifecycle、全map／error条件は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_query_increment_tight",
+          "role": "direct",
+          "expected_observations": [
+            "UT: increment_tight locations 3"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-QUERY-OFFSET-TIGHT",
+      "clause": "18.9.1.2.14",
+      "statement": {
+        "en": "The element offset combines the base and index spacing in memory words.",
+        "ja": "要素offsetはmemory word単位で基点とindex間隔を合成する。"
+      },
+      "conditions": {
+        "en": "Use memory-word base five and configured increment 0; query elements zero and two.",
+        "ja": "memory word基点5、設定increment 0で要素0と2を照会する。"
+      },
+      "expected": {
+        "en": "The stated identity, count, policy, offset or diagnostic-presence observations match.",
+        "ja": "記述した同一性、件数、policy、offset、診断の存在の観測が一致する。"
+      },
+      "limitations": {
+        "en": "Only selected model-only shapes are checked. No physical HDL/storage transfer, full lifecycle or all map/error conditions are certified. ",
+        "ja": "選択したmodel内だけの構成を検査する。物理HDL／storage転送、全lifecycle、全map／error条件は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_query_offset_tight",
+          "role": "direct",
+          "expected_observations": [
+            "UT: offset_tight first 5 third 11"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-QUERY-INCREMENT-PADDED",
+      "clause": "18.9.1.2.11",
+      "statement": {
+        "en": "The increment getter reports the chosen memory-location spacing between elements.",
+        "ja": "increment getterは要素間に選択したmemory location単位の間隔を返す。"
+      },
+      "conditions": {
+        "en": "Implement 40-bit elements in 16-bit memory with the configured increment 7.",
+        "ja": "40-bit要素を16-bit memoryへincrement 7で実装する。"
+      },
+      "expected": {
+        "en": "The stated identity, count, policy, offset or diagnostic-presence observations match.",
+        "ja": "記述した同一性、件数、policy、offset、診断の存在の観測が一致する。"
+      },
+      "limitations": {
+        "en": "Only selected model-only shapes are checked. No physical HDL/storage transfer, full lifecycle or all map/error conditions are certified. ",
+        "ja": "選択したmodel内だけの構成を検査する。物理HDL／storage転送、全lifecycle、全map／error条件は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_query_increment_padded",
+          "role": "direct",
+          "expected_observations": [
+            "UT: increment_padded locations 7"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-QUERY-OFFSET-PADDED",
+      "clause": "18.9.1.2.14",
+      "statement": {
+        "en": "The element offset combines the base and index spacing in memory words.",
+        "ja": "要素offsetはmemory word単位で基点とindex間隔を合成する。"
+      },
+      "conditions": {
+        "en": "Use memory-word base five and configured increment 7; query elements zero and two.",
+        "ja": "memory word基点5、設定increment 7で要素0と2を照会する。"
+      },
+      "expected": {
+        "en": "The stated identity, count, policy, offset or diagnostic-presence observations match.",
+        "ja": "記述した同一性、件数、policy、offset、診断の存在の観測が一致する。"
+      },
+      "limitations": {
+        "en": "Only selected model-only shapes are checked. No physical HDL/storage transfer, full lifecycle or all map/error conditions are certified. ",
+        "ja": "選択したmodel内だけの構成を検査する。物理HDL／storage転送、全lifecycle、全map／error条件は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_query_offset_padded",
+          "role": "direct",
+          "expected_observations": [
+            "UT: offset_padded first 5 third 19"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-QUERY-ADDRESS-EXPLICIT-BYTE-UNITS",
+      "clause": "18.9.1.2.15",
+      "statement": {
+        "en": "The virtual element external address uses the selected map address units.",
+        "ja": "virtual要素の外部addressは選択mapのaddress単位を使う。"
+      },
+      "conditions": {
+        "en": "Use byte addressing: map base 0x1000, memory offset 0x80, element word offset 19 at two bytes each.",
+        "ja": "byte addressでmap基点0x1000、memory offset 0x80、2-byte単位の要素word offset 19を使う。"
+      },
+      "expected": {
+        "en": "The stated identity, count, policy, offset or diagnostic-presence observations match.",
+        "ja": "記述した同一性、件数、policy、offset、診断の存在の観測が一致する。"
+      },
+      "limitations": {
+        "en": "Only selected model-only shapes are checked. No physical HDL/storage transfer, full lifecycle or all map/error conditions are certified. ",
+        "ja": "選択したmodel内だけの構成を検査する。物理HDL／storage転送、全lifecycle、全map／error条件は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_query_address_explicit_byte_units",
+          "role": "direct",
+          "expected_observations": [
+            "UT: address_byte unit_bytes 1 address 10a6"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-QUERY-ADDRESS-EXPLICIT-WORD-UNITS",
+      "clause": "18.9.1.2.15",
+      "statement": {
+        "en": "The virtual element external address uses the selected map address units.",
+        "ja": "virtual要素の外部addressは選択mapのaddress単位を使う。"
+      },
+      "conditions": {
+        "en": "Use a two-byte word-addressed bus: map base 0x200, memory offset 0x40, element word offset 19.",
+        "ja": "2-byte word addressのbusでmap基点0x200、memory offset 0x40、要素word offset 19を使う。"
+      },
+      "expected": {
+        "en": "The stated identity, count, policy, offset or diagnostic-presence observations match.",
+        "ja": "記述した同一性、件数、policy、offset、診断の存在の観測が一致する。"
+      },
+      "limitations": {
+        "en": "Only selected model-only shapes are checked. No physical HDL/storage transfer, full lifecycle or all map/error conditions are certified. ",
+        "ja": "選択したmodel内だけの構成を検査する。物理HDL／storage転送、全lifecycle、全map／error条件は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_query_address_explicit_word_units",
+          "role": "direct",
+          "expected_observations": [
+            "UT: address_word unit_bytes 2 address 253"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-QUERY-ADDRESS-OMITTED-SHARED-USES-PARENT-DEFAULT",
+      "clause": "18.9.1.2.15",
+      "statement": {
+        "en": "An omitted address map uses the shared memory parent default map.",
+        "ja": "addressのmap省略時はshared memoryの親default mapを使う。"
+      },
+      "conditions": {
+        "en": "Use the WO byte-addressed default with base 0x3000, memory offset 0x20 and element word offset 19.",
+        "ja": "WOのbyte address defaultで基点0x3000、memory offset 0x20、要素word offset 19を使う。"
+      },
+      "expected": {
+        "en": "The stated identity, count, policy, offset or diagnostic-presence observations match.",
+        "ja": "記述した同一性、件数、policy、offset、診断の存在の観測が一致する。"
+      },
+      "limitations": {
+        "en": "Only selected model-only shapes are checked. No physical HDL/storage transfer, full lifecycle or all map/error conditions are certified. ",
+        "ja": "選択したmodel内だけの構成を検査する。物理HDL／storage転送、全lifecycle、全map／error条件は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_query_address_omitted_shared_uses_parent_default",
+          "role": "direct",
+          "expected_observations": [
+            "UT: default_address value 3046"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-QUERY-ADDRESS-UNRELATED-MAP-WARNS-WITHOUT-PRESCRIBING-VALUE",
+      "clause": "18.9.1.2.15",
+      "statement": {
+        "en": "An external-address query warns when the memory is not in the supplied map.",
+        "ja": "指定mapにmemoryがない外部address照会はwarningを報告する。"
+      },
+      "conditions": {
+        "en": "Query a sibling map containing only peer memory and observe WARNING during that query.",
+        "ja": "peer memoryだけを含む兄弟mapを照会し、その照会中のWARNINGを観測する。"
+      },
+      "expected": {
+        "en": "The stated identity, count, policy, offset or diagnostic-presence observations match.",
+        "ja": "記述した同一性、件数、policy、offset、診断の存在の観測が一致する。"
+      },
+      "limitations": {
+        "en": "Only selected model-only shapes are checked. No physical HDL/storage transfer, full lifecycle or all map/error conditions are certified. The returned invalid-map address and post-warning recovery are not specified or checked.",
+        "ja": "選択したmodel内だけの構成を検査する。物理HDL／storage転送、全lifecycle、全map／error条件は認定しない。不正mapで返すaddress値とwarning後の復旧は規定も検査もしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_query_address_unrelated_map_warns_without_prescribing_value",
+          "role": "direct",
+          "expected_observations": [
+            "UT: unrelated_address warning_present 1"
+          ]
+        },
+        {
+          "test": "u18/test_vreg_query_address_explicit_byte_units",
+          "role": "control",
+          "expected_observations": [
+            "UT: address_byte unit_bytes 1 address 10a6"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-QUERY-FIELD-PARENT-CONFIGURED-VALUE",
+      "clause": "18.10.3.1",
+      "statement": {
+        "en": "The field parent getter identifies its configured virtual register.",
+        "ja": "fieldのparent getterはconfigureしたvirtual registerを識別する。"
+      },
+      "conditions": {
+        "en": "Configure an 11-bit field at bit 17 in a 40-bit virtual register and retain a distinct peer.",
+        "ja": "40-bit virtual register内のbit 17へ11-bit fieldをconfigureし、別のpeerを保持する。"
+      },
+      "expected": {
+        "en": "The stated identity, count, policy, offset or diagnostic-presence observations match.",
+        "ja": "記述した同一性、件数、policy、offset、診断の存在の観測が一致する。"
+      },
+      "limitations": {
+        "en": "Only selected model-only shapes are checked. No physical HDL/storage transfer, full lifecycle or all map/error conditions are certified. ",
+        "ja": "選択したmodel内だけの構成を検査する。物理HDL／storage転送、全lifecycle、全map／error条件は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_query_field_parent_configured_value",
+          "role": "direct",
+          "expected_observations": [
+            "UT: field_parent value 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-QUERY-FIELD-LSB-CONFIGURED-VALUE",
+      "clause": "18.10.3.2",
+      "statement": {
+        "en": "The field position getter returns its configured least-significant bit.",
+        "ja": "fieldの位置getterはconfigureした最下位bitを返す。"
+      },
+      "conditions": {
+        "en": "Configure an 11-bit field at bit 17 in a 40-bit virtual register and retain a distinct peer.",
+        "ja": "40-bit virtual register内のbit 17へ11-bit fieldをconfigureし、別のpeerを保持する。"
+      },
+      "expected": {
+        "en": "The stated identity, count, policy, offset or diagnostic-presence observations match.",
+        "ja": "記述した同一性、件数、policy、offset、診断の存在の観測が一致する。"
+      },
+      "limitations": {
+        "en": "Only selected model-only shapes are checked. No physical HDL/storage transfer, full lifecycle or all map/error conditions are certified. ",
+        "ja": "選択したmodel内だけの構成を検査する。物理HDL／storage転送、全lifecycle、全map／error条件は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_query_field_lsb_configured_value",
+          "role": "direct",
+          "expected_observations": [
+            "UT: field_lsb value 17"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-QUERY-FIELD-WIDTH-CONFIGURED-VALUE",
+      "clause": "18.10.3.3",
+      "statement": {
+        "en": "The field width getter returns its configured bit count.",
+        "ja": "fieldの幅getterはconfigureしたbit数を返す。"
+      },
+      "conditions": {
+        "en": "Configure an 11-bit field at bit 17 in a 40-bit virtual register and retain a distinct peer.",
+        "ja": "40-bit virtual register内のbit 17へ11-bit fieldをconfigureし、別のpeerを保持する。"
+      },
+      "expected": {
+        "en": "The stated identity, count, policy, offset or diagnostic-presence observations match.",
+        "ja": "記述した同一性、件数、policy、offset、診断の存在の観測が一致する。"
+      },
+      "limitations": {
+        "en": "Only selected model-only shapes are checked. No physical HDL/storage transfer, full lifecycle or all map/error conditions are certified. ",
+        "ja": "選択したmodel内だけの構成を検査する。物理HDL／storage転送、全lifecycle、全map／error条件は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_query_field_width_configured_value",
+          "role": "direct",
+          "expected_observations": [
+            "UT: field_width value 11"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-QUERY-FIELD-ACCESS-EXPLICIT-RO",
+      "clause": "18.10.3.4",
+      "statement": {
+        "en": "The virtual-field access query includes explicit shared-map RO restrictions.",
+        "ja": "virtual fieldのaccess照会は明示したshared mapのRO制限を反映する。"
+      },
+      "conditions": {
+        "en": "Use read-write memory shared by RW, RO and WO sibling maps and explicitly select the query map.",
+        "ja": "read-write memoryをRW／RO／WO兄弟mapで共有し、照会mapを明示する。"
+      },
+      "expected": {
+        "en": "The stated identity, count, policy, offset or diagnostic-presence observations match.",
+        "ja": "記述した同一性、件数、policy、offset、診断の存在の観測が一致する。"
+      },
+      "limitations": {
+        "en": "Only selected model-only shapes are checked. No physical HDL/storage transfer, full lifecycle or all map/error conditions are certified. ",
+        "ja": "選択したmodel内だけの構成を検査する。物理HDL／storage転送、全lifecycle、全map／error条件は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_query_field_access_explicit_ro",
+          "role": "direct",
+          "expected_observations": [
+            "UT: field_access_RO value RO"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-QUERY-FIELD-ACCESS-EXPLICIT-WO",
+      "clause": "18.10.3.4",
+      "statement": {
+        "en": "The virtual-field access query includes explicit shared-map WO restrictions.",
+        "ja": "virtual fieldのaccess照会は明示したshared mapのWO制限を反映する。"
+      },
+      "conditions": {
+        "en": "Use read-write memory shared by RW, RO and WO sibling maps and explicitly select the query map.",
+        "ja": "read-write memoryをRW／RO／WO兄弟mapで共有し、照会mapを明示する。"
+      },
+      "expected": {
+        "en": "The stated identity, count, policy, offset or diagnostic-presence observations match.",
+        "ja": "記述した同一性、件数、policy、offset、診断の存在の観測が一致する。"
+      },
+      "limitations": {
+        "en": "Only selected model-only shapes are checked. No physical HDL/storage transfer, full lifecycle or all map/error conditions are certified. ",
+        "ja": "選択したmodel内だけの構成を検査する。物理HDL／storage転送、全lifecycle、全map／error条件は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_query_field_access_explicit_wo",
+          "role": "direct",
+          "expected_observations": [
+            "UT: field_access_WO value WO"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-QUERY-FIELD-ACCESS-EXPLICIT-RW",
+      "clause": "18.10.3.4",
+      "statement": {
+        "en": "The virtual-field access query includes explicit shared-map RW restrictions.",
+        "ja": "virtual fieldのaccess照会は明示したshared mapのRW制限を反映する。"
+      },
+      "conditions": {
+        "en": "Use read-write memory shared by RW, RO and WO sibling maps and explicitly select the query map.",
+        "ja": "read-write memoryをRW／RO／WO兄弟mapで共有し、照会mapを明示する。"
+      },
+      "expected": {
+        "en": "The stated identity, count, policy, offset or diagnostic-presence observations match.",
+        "ja": "記述した同一性、件数、policy、offset、診断の存在の観測が一致する。"
+      },
+      "limitations": {
+        "en": "Only selected model-only shapes are checked. No physical HDL/storage transfer, full lifecycle or all map/error conditions are certified. ",
+        "ja": "選択したmodel内だけの構成を検査する。物理HDL／storage転送、全lifecycle、全map／error条件は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_query_field_access_explicit_rw",
+          "role": "direct",
+          "expected_observations": [
+            "UT: field_access_RW value RW"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-QUERY-CONSTRUCTOR-NAME",
+      "clause": "18.9.1.1.1",
+      "statement": {
+        "en": "Construction retains the supplied virtual-register name.",
+        "ja": "生成は指定したvirtual register名を保持する。"
+      },
+      "conditions": {
+        "en": "Construct 8 bits with an explicit name and implement it over 16-bit memory locations. Construct 64 bits with an explicit name and implement it over 16-bit memory locations.",
+        "ja": "明示名で8 bitを生成し、16-bit memory location上へ実装する。明示名で64 bitを生成し、16-bit memory location上へ実装する。"
+      },
+      "expected": {
+        "en": "Only the separately anchored name observation is bound to this duty.",
+        "ja": "nameの個別観測行だけをこの義務へ対応付ける。"
+      },
+      "limitations": {
+        "en": "Selected model-only profiles do not exhaust this clause. Public byte width observes the constructor/getter chain, not its internal cause or every bit width.",
+        "ja": "選択したmodel内だけの構成で、この条項を網羅しない。公開byte幅はconstructor／getterの連鎖を観測し、内部原因や全bit幅を認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_query_constructor_narrow",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ctor_name ctor_narrow70"
+          ]
+        },
+        {
+          "test": "u18/test_vreg_query_constructor_wide",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ctor_name ctor_wide70"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-QUERY-CONSTRUCTOR-WIDTH",
+      "clause": "18.9.1.1.1",
+      "statement": {
+        "en": "Construction preserves the selected width as observed in complete implementing-memory bytes.",
+        "ja": "生成は選択した幅を実装memoryの完全なbyte単位で観測できるよう保持する。"
+      },
+      "conditions": {
+        "en": "Construct 8 bits with an explicit name and implement it over 16-bit memory locations. Construct 64 bits with an explicit name and implement it over 16-bit memory locations.",
+        "ja": "明示名で8 bitを生成し、16-bit memory location上へ実装する。明示名で64 bitを生成し、16-bit memory location上へ実装する。"
+      },
+      "expected": {
+        "en": "Only the separately anchored width observation is bound to this duty.",
+        "ja": "widthの個別観測行だけをこの義務へ対応付ける。"
+      },
+      "limitations": {
+        "en": "Selected model-only profiles do not exhaust this clause. Public byte width observes the constructor/getter chain, not its internal cause or every bit width.",
+        "ja": "選択したmodel内だけの構成で、この条項を網羅しない。公開byte幅はconstructor／getterの連鎖を観測し、内部原因や全bit幅を認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_query_constructor_narrow",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ctor_width bytes 2"
+          ]
+        },
+        {
+          "test": "u18/test_vreg_query_constructor_wide",
+          "role": "direct",
+          "expected_observations": [
+            "UT: ctor_width bytes 8"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-QUERY-FIELD-CONFIGURE-PARENT",
+      "clause": "18.10.2.2",
+      "statement": {
+        "en": "Virtual-field configuration records its selected virtual-register parent.",
+        "ja": "virtual fieldのconfigureは選択したvirtual registerの親を記録する。"
+      },
+      "conditions": {
+        "en": "Factory-create a field and configure width 5, LSB 0 in a 40-bit virtual register. Factory-create a field and configure width 11, LSB 7 in a 40-bit virtual register.",
+        "ja": "fieldをfactoryで生成し、40-bit virtual register内で幅5、LSB 0をconfigureする。fieldをfactoryで生成し、40-bit virtual register内で幅11、LSB 7をconfigureする。"
+      },
+      "expected": {
+        "en": "Only the separately anchored parent observation is bound to this duty.",
+        "ja": "parentの個別観測行だけをこの義務へ対応付ける。"
+      },
+      "limitations": {
+        "en": "Selected model-only profiles do not exhaust this clause. ",
+        "ja": "選択したmodel内だけの構成で、この条項を網羅しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_query_field_configure_low",
+          "role": "direct",
+          "expected_observations": [
+            "UT: configured_low parent 1"
+          ]
+        },
+        {
+          "test": "u18/test_vreg_query_field_configure_crossing",
+          "role": "direct",
+          "expected_observations": [
+            "UT: configured_crossing parent 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-QUERY-FIELD-CONFIGURE-WIDTH",
+      "clause": "18.10.2.2",
+      "statement": {
+        "en": "Virtual-field configuration records its selected width in bits.",
+        "ja": "virtual fieldのconfigureは選択したbit幅を記録する。"
+      },
+      "conditions": {
+        "en": "Factory-create a field and configure width 5, LSB 0 in a 40-bit virtual register. Factory-create a field and configure width 11, LSB 7 in a 40-bit virtual register.",
+        "ja": "fieldをfactoryで生成し、40-bit virtual register内で幅5、LSB 0をconfigureする。fieldをfactoryで生成し、40-bit virtual register内で幅11、LSB 7をconfigureする。"
+      },
+      "expected": {
+        "en": "Only the separately anchored width observation is bound to this duty.",
+        "ja": "widthの個別観測行だけをこの義務へ対応付ける。"
+      },
+      "limitations": {
+        "en": "Selected model-only profiles do not exhaust this clause. ",
+        "ja": "選択したmodel内だけの構成で、この条項を網羅しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_query_field_configure_low",
+          "role": "direct",
+          "expected_observations": [
+            "UT: configured_low width 5"
+          ]
+        },
+        {
+          "test": "u18/test_vreg_query_field_configure_crossing",
+          "role": "direct",
+          "expected_observations": [
+            "UT: configured_crossing width 11"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-QUERY-FIELD-CONFIGURE-LSB",
+      "clause": "18.10.2.2",
+      "statement": {
+        "en": "Virtual-field configuration records its selected least-significant bit position.",
+        "ja": "virtual fieldのconfigureは選択した最下位bit位置を記録する。"
+      },
+      "conditions": {
+        "en": "Factory-create a field and configure width 5, LSB 0 in a 40-bit virtual register. Factory-create a field and configure width 11, LSB 7 in a 40-bit virtual register.",
+        "ja": "fieldをfactoryで生成し、40-bit virtual register内で幅5、LSB 0をconfigureする。fieldをfactoryで生成し、40-bit virtual register内で幅11、LSB 7をconfigureする。"
+      },
+      "expected": {
+        "en": "Only the separately anchored lsb observation is bound to this duty.",
+        "ja": "lsbの個別観測行だけをこの義務へ対応付ける。"
+      },
+      "limitations": {
+        "en": "Selected model-only profiles do not exhaust this clause. ",
+        "ja": "選択したmodel内だけの構成で、この条項を網羅しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_query_field_configure_low",
+          "role": "direct",
+          "expected_observations": [
+            "UT: configured_low lsb 0"
+          ]
+        },
+        {
+          "test": "u18/test_vreg_query_field_configure_crossing",
+          "role": "direct",
+          "expected_observations": [
+            "UT: configured_crossing lsb 7"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-QUERY-INVALID-RIGHTS-FALLBACK",
+      "clause": "18.9.1.2.6",
+      "statement": {
+        "en": "An unrelated map in the rights query returns RW.",
+        "ja": "rights照会の無関係なmapに対してRWを返す。"
+      },
+      "conditions": {
+        "en": "Query a map containing only peer memory and observe only the query report interval.",
+        "ja": "peer memoryだけを含むmapを照会し、その照会区間のreportだけを観測する。"
+      },
+      "expected": {
+        "en": "Only the separately anchored fallback observation is bound to this duty.",
+        "ja": "fallbackの個別観測行だけをこの義務へ対応付ける。"
+      },
+      "limitations": {
+        "en": "Selected model-only profiles do not exhaust this clause. The catcher preserves severity, counts ERROR presence and does not require exact wording/counts or recovery.",
+        "ja": "選択したmodel内だけの構成で、この条項を網羅しない。catcherはseverityを変えずERRORの存在を数え、正確な文言／件数や復旧を要求しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_query_rights_unrelated_map_error_and_rw_fallback",
+          "role": "direct",
+          "expected_observations": [
+            "UT: unrelated_rights fallback RW"
+          ]
+        },
+        {
+          "test": "u18/test_vreg_query_rights_explicit_rw",
+          "role": "control",
+          "expected_observations": [
+            "UT: rights_RW value RW"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-VREG-QUERY-INVALID-RIGHTS-ERROR",
+      "clause": "18.9.1.2.6",
+      "statement": {
+        "en": "An unrelated map in the rights query generates ERROR.",
+        "ja": "rights照会の無関係なmapに対してERRORを生成する。"
+      },
+      "conditions": {
+        "en": "Query a map containing only peer memory and observe only the query report interval.",
+        "ja": "peer memoryだけを含むmapを照会し、その照会区間のreportだけを観測する。"
+      },
+      "expected": {
+        "en": "Only the separately anchored error observation is bound to this duty.",
+        "ja": "errorの個別観測行だけをこの義務へ対応付ける。"
+      },
+      "limitations": {
+        "en": "Selected model-only profiles do not exhaust this clause. The catcher preserves severity, counts ERROR presence and does not require exact wording/counts or recovery.",
+        "ja": "選択したmodel内だけの構成で、この条項を網羅しない。catcherはseverityを変えずERRORの存在を数え、正確な文言／件数や復旧を要求しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_vreg_query_rights_unrelated_map_error_and_rw_fallback",
+          "role": "direct",
+          "expected_observations": [
+            "UT: unrelated_rights error_present 1"
+          ]
+        },
+        {
+          "test": "u18/test_vreg_query_rights_explicit_rw",
+          "role": "control",
+          "expected_observations": [
+            "UT: rights_RW value RW"
+          ]
+        }
+      ]
     }
   ]
 }

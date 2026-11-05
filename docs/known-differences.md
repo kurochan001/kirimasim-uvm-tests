@@ -4,13 +4,26 @@
 
 A difference belongs to a particular simulator/library/input condition, and [the status definitions](faq.md#q5-what-do-pass-fail-known-and-unsupported-mean) explain how it appears in runner output.
 
-This describes the current 2133-test suite and the pinned Accellera UVM
+This describes the current 2176-test suite and the pinned Accellera UVM
 2020.3.1 library. A mismatch is a test result; it does not by itself assign
 the cause to the simulator, the library or the expectation.
 
 For the size of a difference set, read [the measured breakdown](results.md#interpretation); use [library notes](known-differences.md#pinned-library-limitations), [the grouped source list](known-differences.md#spec-only-tests) and [simulator/library conditions](known-differences.md#simulator-and-library-combinations) to investigate a particular input.
 
 Individual source links appear in the topic explanations and [grouped list](#spec-only-tests); [the test format guide](testing.md#test-format) explains how to read their metadata, expected observations and execution conditions.
+
+Virtual-query auditing retains four differences: two qualified overview-base
+builds without runtime, a narrow constructor/getter byte-width difference and
+an unrelated-map missing ERROR at seed 1 without seed 73. Object-base and valid
+map controls match separately. Constructor name and RW fallback observations
+do not pass inputs with a differing width or missing diagnostic. The conflicting
+overview/class wording and getter-chain cause remain unresolved, rather than
+four independently established defects. See [the query FAQ](faq.md#virtual-register-queries-and-declaration-boundaries).
+
+- [constructor narrow](../tests/u18/test_vreg_query_constructor_narrow.sv).
+- [field overview literal base](../tests/u18/test_vreg_query_field_overview_literal_base.sv).
+- [register overview literal base](../tests/u18/test_vreg_query_register_overview_literal_base.sv).
+- [rights unrelated map error and rw fallback](../tests/u18/test_vreg_query_rights_unrelated_map_error_and_rw_fallback.sv).
 
 Traversal declaration auditing retains five new differences: three
 STRUCTURE-only dependent-VISITOR builds and two accepted concrete subtypes
@@ -52,7 +65,7 @@ independent bugs. See [macro conditions](faq.md#recording-and-scalar-macro-condi
 57 pure-interface/const-reference/forbidden-member/type-context violations.
 87 match. Subscriber/visitor/proxy/adapter omissions and direct construction
 of the printed virtual builtin dispatcher remain accepted and spec-only without
-runtime. These five compiler acceptances are separate from 297 known simulation
+runtime. These five compiler acceptances are separate from 301 known simulation
 differences. Legal derived controls do not replace a required rejection.
 
 Field-access auditing retains 5 new runtime differences at seed 1 without
@@ -850,7 +863,7 @@ cannot build because the pinned library also declares unlisted pure helpers.
 The missing-standard-hook negative supplies original compatibility bodies only
 to isolate the specified rejection. It does not repair that legal extension.
 
-Across the suite, 1831 tests have the `verilator@5.052` oracle tag and 302
+Across the suite, 1870 tests have the `verilator@5.052` oracle tag and 306
 cases are spec-only. One of the spec-only cases checks 9.6: a child's pre-reset
 task must be killed when that phase ends, but the pinned-library run on Verilator 5.052
 lets the child perform its delayed write during a later phase. The cause of
@@ -862,10 +875,10 @@ without callbacks. The pinned Verilator run reaches the blocked-state
 observation, then its watchdog expires. This combined simulator/library
 cause remains unassigned; the normative wakeup expectation is retained.
 
-The 302 spec-only cases retain standard-derived expected output or compiler diagnostics.
-Default Verilator runs and CI select 1831 tagged checks (1744 runtime, 87 compile rejection). `--all` includes
+The 306 spec-only cases retain standard-derived expected output or compiler diagnostics.
+Default Verilator runs and CI select 1870 tagged checks (1783 runtime, 87 compile rejection). `--all` includes
 spec-only cases and records mismatches or build failures as `known`.
-The ordinary runtime records for 218 cases establish their first difference
+The ordinary runtime records for 220 cases establish their first difference
 at seed 1, without seed 73 results. Twenty-seven missing-API/type-name builds have
 no ordinary runtime: one time API, six sequence-library cases, four HDL slice
 cases, one named-concat constructor, five object active-policy API cases, three catcher
@@ -947,7 +960,7 @@ Spec-only cases retain standard-derived expectations even without a fixed-releas
 
 A control exercises a separate premise to help interpret a difference, and [the requirement-link guide](requirements.md#citations-requirements-and-execution-evidence) explains how its result relates to the original case.
 
-The 302 current spec-only cases are linked in the explanatory notes and the
+The 306 current spec-only cases are linked in the explanatory notes and the
 grouped list below. Several exercise the same limitation, so their count is
 not a count of distinct bugs.
 
@@ -1236,7 +1249,7 @@ Additional message-handle and endian cases:
 
 Two existing inputs have revised fingerprints: the command-enum citation and
 the corrected Boolean rerandomization observation. Their historical guest
-records are excluded. The compatible subset has 1083 records and 1050 inputs
+records are excluded. The compatible subset has 1083 records and 1093 inputs
 are unmeasured, including both revised inputs. This filtering is evidence scope,
 not a new guest failure, pass or simulator improvement.
 
@@ -1275,8 +1288,8 @@ One shared build blocker can stop many tests before their UVM behavior runs; [Q9
 
 A bundled library and the pinned library are different execution conditions, so compare records using [Current snapshot](results.md#current-snapshot).
 
-The suite has 2133 cases, but the kirimasim/Ghost records below cover only
-1083 unchanged current-input cases. The 1050 inputs are unmeasured
+The suite has 2176 cases, but the kirimasim/Ghost records below cover only
+1083 unchanged current-input cases. The 1093 inputs are unmeasured
 because prior temporary executable/profile snapshots are unavailable. Do
 not treat this as a fresh full-suite guest result. See [results](results.md).
 

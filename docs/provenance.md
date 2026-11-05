@@ -150,6 +150,13 @@ traversal algorithm or simulator implementation source defines the expected
 ordering. Original interface bodies delegate to public adapters or expose
 declared calls; see [the declaration FAQ](faq.md#traversal-declarations-and-defaults).
 
+Virtual-register/field query expectations come from the supplied IEEE
+18.9–18.10 contracts and memory/map address-unit rules. Original model setup
+and report observers do not transfer HDL/storage data. The overview base names
+conflict with explicit declarations and are retained as qualified inputs;
+no library or simulator implementation supplies the oracle. See [the query
+FAQ](faq.md#virtual-register-queries-and-declaration-boundaries).
+
 ## Clause catalog maintenance
 
 The catalog counts identifiers rather than normative duties, so [Counting unit and scope proposal](requirements.md#counting-unit-and-scope-proposal) explains why restoring an entry does not define a coverage denominator.

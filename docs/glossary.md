@@ -1380,3 +1380,16 @@ STRUCTURE type; [Q274](faq.md#q274-do-the-dependent-visitor-build-differences-pr
 
 **Inherited empty visitor hook** — A begin/end callback whose base body leaves
 selected state unchanged while a subtype implements visit; [Q276](faq.md#q276-does-zero-unassessed-in-f5-complete-traversal-coverage) explains the limits of the selected observations.
+
+## Virtual abstraction query premises
+
+The same query can involve different units or static types; [the query FAQ](faq.md#virtual-register-queries-and-declaration-boundaries) explains the measured examples and their limits.
+
+**Virtual abstraction base premise** — The overview's named uvm_reg/uvm_reg_field
+base versus the explicit uvm_object declaration. Literal and declared-base inputs
+retain separate identities; a control match does not resolve the conflicting text.
+
+**Virtual query unit boundary** — Element offsets/increments count memory words,
+byte width rounds to complete implementing-memory locations, and external addresses use
+the selected map's address units. Model-query agreement does not establish a
+physical storage transfer or universal packing layout.
