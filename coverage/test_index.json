@@ -9253,6 +9253,54 @@
     "u18/test_reg_hdl_whole_vs_split_poke_40_79": {
       "primary_clause": "18.4.6.5",
       "inputs_sha256": "b5b520bd42ffc424dded66816807646405f781e2440da717163ac725c3868026"
+    },
+    "u18/test_reg_coverage_include_exact_hierarchy_80": {
+      "primary_clause": "18.4.7.1",
+      "inputs_sha256": "11214696ac648169b668e1a8df78ae4f7867ed431466664d66f8a3da3b849c46"
+    },
+    "u18/test_reg_coverage_include_glob_siblings_80": {
+      "primary_clause": "18.4.7.1",
+      "inputs_sha256": "15de800715d9a5863bda1898cf157f2d8c90bc445de1c42c88098e12a0c3203b"
+    },
+    "u18/test_reg_coverage_build_requested_masks_80": {
+      "primary_clause": "18.4.7.2",
+      "inputs_sha256": "6ddfe7a93ebbb907ec45b5820737005589d7a85cb30e17b8fa6bc8a906343106"
+    },
+    "u18/test_reg_coverage_include_block_reg_memory_80": {
+      "primary_clause": "18.4.7.1",
+      "inputs_sha256": "88c6c4084d1724540d5357b9b91d0cd6783dc3440105b55f3b3a4e1b8ab7023a"
+    },
+    "u18/test_reg_coverage_add_constructor_union_80": {
+      "primary_clause": "18.4.7.3",
+      "inputs_sha256": "9886eb3268c197cc4a8c85edf99afd91fc0adf690e6df9c38072b3d2edff7634"
+    },
+    "u18/test_reg_coverage_add_zero_and_repeated_80": {
+      "primary_clause": "18.4.7.3",
+      "inputs_sha256": "7287c86a7c12360041bf37bcc519e1f7ff8f86bca00c1292efc135a32892a6cc"
+    },
+    "u18/test_reg_coverage_add_virtual_constructor_dispatch_80": {
+      "primary_clause": "18.4.7.3",
+      "inputs_sha256": "0d2a71b6b6328441749a342c693ab79417e51402b64f8a2b96f05c35214fec7b"
+    },
+    "u18/test_reg_coverage_add_measurement_availability_80": {
+      "primary_clause": "18.4.7.3",
+      "inputs_sha256": "bceea62b21e3086cc239b393fe91a962e739efd24bdceb0603f8d035f9877dba"
+    },
+    "u18/test_reg_coverage_sample_user_base_dispatch_80": {
+      "primary_clause": "18.4.7.8",
+      "inputs_sha256": "3cb305479ed04a5be03c25d38a1f80d24b8bc490de354c1cda90b9b2b659375b"
+    },
+    "u18/test_reg_coverage_sample_parent_recursive_dispatch_80": {
+      "primary_clause": "18.4.7.8",
+      "inputs_sha256": "f9bf2ed6a6dc463cf216c444283cf2c2107f80a90c2187ea607d5f813538794a"
+    },
+    "u18/test_reg_coverage_build_coverage_protected_external_80": {
+      "primary_clause": "18.4.7.2",
+      "inputs_sha256": "775f345f5ea4a15b9fbea68db11362311588b69b32b7be7fc0eec7470abb8686"
+    },
+    "u18/test_reg_coverage_add_coverage_protected_external_80": {
+      "primary_clause": "18.4.7.3",
+      "inputs_sha256": "8afa3fac0a5dac48c8a9f19b788098a92bb6f7b22cdd8be3c800127b1e67ad13"
     }
   }
 }

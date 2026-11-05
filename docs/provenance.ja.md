@@ -164,6 +164,11 @@ register pathの期待値は提供IEEE 18.4.6、17.2.3.1、公開task、値渡�
 実16／40-bitのwhole変数と合法split referenceは公開APIと未変更の独自VPI backendで測定し、simulator実装sourceや商用結果は使いません。
 fixtureの引数方向とset_door API名を修正し、include directory兄弟fileの指紋も照合して、全22入力を修正後に測定します。旧入力／logと期待値の独立性は[pathのFAQ](faq.ja.md#register-hdl-pathと観測の前提)で説明しています。
 
+coverage構築／samplingの期待値は、提供IEEE 18.4.7.1〜.3／.8、18.1.4.1／.7、17.2.2.9と保護／virtual規則から測定前に導きます。
+短いregister-builder本文をinclude APIと明示的なblockの類似契約と合わせて読み、scope／要求maskのAI解釈と未検証のresource格納条件を明示します。
+独自helperとsampler本体はbin algorithmではなく、実継承block methodによるroutingの観測に使います。
+商用結果や新たなimplementation sourceの読取りは使わず、[coverageのFAQ](faq.ja.md#registerのcoverage構築とsampling)で部分契約を説明しています。
+
 ## 条項カタログの保守
 
 catalogが数えるのは規範的義務ではなく識別子なので、項目の復元でcoverage分母が決まらない理由は[計数単位と対象範囲の案](requirements.ja.md#計数単位と対象範囲の案)を参照してください。

@@ -236,6 +236,15 @@ directions and set_door naming are corrected; include-directory sibling hashes
 require all twenty-two corrected inputs to be measured. [The path FAQ](faq.md#register-hdl-paths-and-observation-premises)
 records old input/log retention and independent expectations.
 
+Coverage-construction/sampling expectations are derived before measurement from
+supplied IEEE18.4.7.1–.3/.8,18.1.4.1/.7,17.2.2.9 and protected/virtual rules.
+The short register-builder prose is read with its inclusion API and explicit
+block analogue; scope/requested-mask selection remains an AI interpretation with
+resource storage conditions still open. Original helper/sampler bodies do not
+define a bin algorithm; the actual inherited block method supplies routing.
+No commercial result or new implementation-source reading is used. [The coverage FAQ](faq.md#register-coverage-construction-and-sampling)
+records the partial contracts.
+
 ## Clause catalog maintenance
 
 The catalog counts identifiers rather than normative duties, so [Counting unit and scope proposal](requirements.md#counting-unit-and-scope-proposal) explains why restoring an entry does not define a coverage denominator.

@@ -6215,6 +6215,20 @@
         "reviewer": null,
         "reviewed_at": null
       }
+    },
+    {
+      "clause": "18.4.7",
+      "classification": "structural",
+      "rationale": {
+        "en": "Individually read18.4.7 is only the Coverage grouping heading immediately followed by its numbered APIs. It has no independent behavioral body. Inclusion, construction, additions and field-value sampling gain partial duties; get/set/sample and other child applicability conditions remain partial. This assessment does not close child obligations, certify functional coverage or exclude any resource/backend condition.",
+        "ja": "個別に読んだ18.4.7はCoverageをまとめる見出しだけで、直後に番号付きAPIが続き、独立した動作本文はない。include、構築、追加、field値samplingに部分義務を加えるが、get／set／sampleや他の子の適用条件は部分的に残す。この分類は子義務の完了、functional coverageの認定、resource／backend条件の除外を行わない。"
+      },
+      "related_requirements": [],
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      }
     }
   ]
 }

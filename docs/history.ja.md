@@ -4,7 +4,7 @@
 
 このページの件数は各変更時点の値なので、現在のスイート規模や実行範囲が必要なときは[現在のスナップショット](results.ja.md#現在のスナップショット)を使ってください。
 
-M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の79回目の拡充（全2313件：simulation 2221・elaboration 92）までを記録しています。以前の349件の時点は
+M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の80回目の拡充（全2325件：simulation 2231・elaboration 94）までを記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -3062,3 +3062,26 @@ collectorはhelper directory内の兄弟fileも含むため、修正後の全22�
 独立期待値は測定前に固定し、fixtureの引数方向とAPI名、include directory指紋の影響を修正／監査してから現在の入力を測定します。
 初回48 blobとlogは旧同一性で保存し、現在記録へ付け替えません。修正後の18入力と追加4物理入力を通常条件で測定し、タグ後の7 controlを再測定、別HDL 6入力も両seedで測定しました。
 通常は1951 pass／362 known、別HDLは33 pass／1 failです。goal第51反復で未評価を5件減らして129にしますが、部分1971番号、元のM1〜M4目標、人のレビュー、範囲と分母は未完です。
+
+## M1〜M4の薄い領域の80回目の拡充（register coverageの構築とsampling）
+
+register coverageの新規12検査系はsimulation 10件と不正な外部access 2件です。
+simulation 9件はseed 1／73に一致し、protected builder／addへの2呼出しは宣言した診断で拒否され、runtime seedは実行しません。
+constructorでmodelを追加した測定の1件はseed 1差分で、seed 73結果はありません。搭載、有効union、非搭載modelのgateは一致しますが、以前のmaskを返すflagが期待1に対して0です。規格由来の期待値を保持します。
+
+日英AI義務14件は完全階層名／単純patternのinclude、block／register／memoryの選択、要求した構築mask、constructor中の追加、protected／virtual宣言、field値samplingのdispatchを扱います。
+既存の部分義務2件は元の文とlinkを保持して条件と直接linkを補い、個別に読んだ18.4.7の整理見出しだけを構造分類します。以前の全407分類と範囲は保持します。
+全体は部分1975／分類408／未評価124、第18章は368／53／35、義務862件、主引用534検査系（simulation 532／elaboration 2）です。
+
+sampling overrideは独自observerで、継承block methodが実際の再帰routingを行います。搭載／有効maskはcovergroup／binの測定を立証しません。
+短いregister-builder契約はinclude APIと明示的なblockの類似契約と合わせて読み、AI解釈を明示します。
+resourceの格納namespace、重複する優先順位、全regex対応、他のconstructor／階層条件は未完です。
+
+一致入力はタグ追加前の証拠を得てからタグを付け、最終同一性で新たに測定します。
+以前の通常2313記録、HDL 34記録、command-line 18記録、互換guest 1082記録の内容は保持し、新しいguest実行／filterやHDL／backend変更はありません。
+guest未測定1243入力は追加1240件と修正した元入力3件（simulation 1149／elaboration 94）です。
+全ての部分義務、元のM1〜M4目標、人のレビュー、範囲／分母承認は未完です。
+
+要求は3860件、直接対応2293テスト、control専用32／control linkあり115です。通常は1962 pass（runtime 1873／compile拒否89）、363 known（runtime 244／build 114／不正受理5）です。
+
+goal第52反復で未評価を129から124へ減らし、有効化時1463からの減少は1339です。全体の完了は未立証でgoalを継続します。

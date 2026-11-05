@@ -1177,3 +1177,12 @@ controlで標準getterの欠落をpassにはできない理由は[Q308](faq.ja.m
 
 **Whole-variable path／split reference（whole変数path／split reference）** — register全体の変数を示す-1／-1記述／合法sliceを使う独立したhigh／low変数です。
 symbolic pathと実storageの観測の違いは[Q309](faq.ja.md#q309-物理registerの6検査は何を示しますか)で説明しています。
+
+## Coverage構築とsampling
+
+**coverage構築の選択（Coverage construction selection）** — include_coverageとprotected builderが抽象instanceへ選ぶmodelです。
+constructorのadd_coverage呼出しで搭載するmodelとは別で、maskはmetadataを表しbinを測定しません。
+選択したscopeと解釈の限界は[Q311](faq.ja.md#q311-coverageの構築でfunctional-coverageのbinを測定しますか)で記録します。
+
+**field値sampling observer（Field-value sampling observer）** — dispatchを数え現在のmodel値を取得する独自sample_values overrideです。
+builtin covergroup algorithmを供給せず、userと実際の親blockの呼出しを区別し、routingの証拠は[Q313](faq.ja.md#q313-sample_valuesのobserverは何を示しますか)で説明しています。

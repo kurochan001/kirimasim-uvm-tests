@@ -31403,8 +31403,8 @@
         "ja": "registerのset_coverageは、直前に有効なmaskを返す。"
       },
       "conditions": {
-        "en": "Change from off to bits and then from bits to fields.",
-        "ja": "offからbits、次にbitsからfieldsへ変更する。"
+        "en": "Change from off to bits and then from bits to fields. Also observe the off-to-all transition of two constructor-extended register instances after explicitly clearing measurement.",
+        "ja": "offからbits、次にbitsからfieldsへ変更する。 constructorでmodelを追加した2 instanceの測定を明示clearし、offからallへの遷移も観測する。"
       },
       "expected": {
         "en": "Return masks are NO_COVERAGE then REG_BITS.",
@@ -31426,6 +31426,13 @@
           "expected_observations": [
             "UT: reg previous_off 1 bits 1 unavailable 0 peer_off 1",
             "UT: reg previous_bits 1 fields 1 bits_off 1"
+          ]
+        },
+        {
+          "test": "u18/test_reg_coverage_add_measurement_availability_80",
+          "role": "direct",
+          "expected_observations": [
+            "UT: coverage80 enabled old_a 1 old_b 1 union 1 no_a 1 field 1 no_b 1"
           ]
         }
       ]
@@ -31763,8 +31770,8 @@
         "ja": "blockのsample_valuesは、選択subtree内だけでregisterと子blockを再帰訪問する。"
       },
       "conditions": {
-        "en": "Overrides call super; invoke root then child with local/deep registers and a separate peer.",
-        "ja": "overrideでsuperを呼び、local／deep registerと独立peerを持つroot、次にchildを呼ぶ。"
+        "en": "Overrides call super; invoke root then child with local/deep registers and a separate peer. A separate case uses the actual inherited block method over two branches, repeats with fresh values and retains an outside peer.",
+        "ja": "overrideでsuperを呼び、local／deep registerと独立peerを持つroot、次にchildを呼ぶ。 別のケースでは2 branchで実際の継承block methodを使い、新しい値で反復し、外部peerを保つ。"
       },
       "expected": {
         "en": "Root visits each descendant once; the second call increments only child/grandchild/deep counts and never visits the peer.",
@@ -31786,6 +31793,14 @@
           "expected_observations": [
             "UT: root_call root 1 child 1 grandchild 1 local 1 deep 1 peer 0",
             "UT: child_call root 1 child 2 grandchild 2 local 1 deep 2 peer 0"
+          ]
+        },
+        {
+          "test": "u18/test_reg_coverage_sample_parent_recursive_dispatch_80",
+          "role": "direct",
+          "expected_observations": [
+            "UT: coverage80 parent first 1 values 1 peer 1",
+            "UT: coverage80 parent repeat 1 fresh 1 peer 1"
           ]
         }
       ]
@@ -142561,6 +142576,537 @@
             "UT: physical79 read cycle 0 target 1 status 1 data 1 dpi 1 same 1",
             "UT: physical79 read cycle 1 target 0 status 1 data 1 dpi 1 same 1",
             "UT: physical79 read cycle 1 target 1 status 1 data 1 dpi 1 same 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-COVERAGE-INCLUDE-EXACT-FULLNAME",
+      "clause": "18.4.7.1",
+      "statement": {
+        "en": "Coverage inclusion selects register instances by their complete hierarchical names.",
+        "ja": "coverageのincludeは完全な階層名でregister instanceを選ぶ。"
+      },
+      "conditions": {
+        "en": "Original configured block/register/memory objects use full hierarchical names, exact or simple glob scopes, explicit disjoint peer inclusions and legal combined model identifiers. Protected builders are called through legal derived wrappers. The requested-model selection reads18.4.7.2 together with18.4.7.1 and the explicit analogous block contract18.1.4.1.",
+        "ja": "独自の設定済みblock／register／memoryで完全階層名、完全一致または単純glob scope、重ならないpeerへの明示include、合法なmodel識別子の組合せを使う。protected builderは合法な派生wrapperで呼ぶ。要求modelの選択は18.4.7.2を18.4.7.1と明示的なblockの類似契約18.1.4.1と合わせて読む。"
+      },
+      "expected": {
+        "en": "Registers sharing a leaf name in different branches select their own separately specified model masks.",
+        "ja": "異なるbranchで同じleaf名を持つregisterが、それぞれに指定したmodel maskを選ぶ。"
+      },
+      "limitations": {
+        "en": "AI-reviewed construction-selection interpretation and metadata only; no actual covergroup/bin coverage. The short register-builder prose is read with its inclusion API and block analogue, not an implementation-derived amendment. Overlapping-resource precedence, all POSIX expressions, accessor audit metadata, the exact resource key/storage namespace and automatic generator construction remain open. No initial enabled mask is inferred.",
+        "ja": "AI照合の構築選択の解釈とmetadataのみで、実covergroup／binのcoverageではない。短いregister-builder本文をinclude APIとblockの類似契約に合わせて読み、実装由来の改訂にはしない。重複resourceの優先順位、全POSIX式、accessor監査情報、正確なresource key／格納namespace、自動generator構築は未完。初期有効maskは仮定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_coverage_include_exact_hierarchy_80",
+          "role": "direct",
+          "expected_observations": [
+            "UT: coverage80 exact names 1 left 1 right 1 repeat 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-COVERAGE-INCLUDE-SIMPLE-SCOPE-PATTERN",
+      "clause": "18.4.7.1",
+      "statement": {
+        "en": "A simple hierarchical scope pattern includes the matching register instances.",
+        "ja": "単純な階層scope patternが一致するregister instanceをincludeする。"
+      },
+      "conditions": {
+        "en": "Original configured block/register/memory objects use full hierarchical names, exact or simple glob scopes, explicit disjoint peer inclusions and legal combined model identifiers. Protected builders are called through legal derived wrappers. The requested-model selection reads18.4.7.2 together with18.4.7.1 and the explicit analogous block contract18.1.4.1.",
+        "ja": "独自の設定済みblock／register／memoryで完全階層名、完全一致または単純glob scope、重ならないpeerへの明示include、合法なmodel識別子の組合せを使う。protected builderは合法な派生wrapperで呼ぶ。要求modelの選択は18.4.7.2を18.4.7.1と明示的なblockの類似契約18.1.4.1と合わせて読む。"
+      },
+      "expected": {
+        "en": "Both matching siblings select field-value coverage while separately excluded local and other-branch peers select none.",
+        "ja": "一致する兄弟2個がfield-value coverageを選び、別に除外指定したlocal／別branchのpeerはnoneを選ぶ。"
+      },
+      "limitations": {
+        "en": "AI-reviewed construction-selection interpretation and metadata only; no actual covergroup/bin coverage. The short register-builder prose is read with its inclusion API and block analogue, not an implementation-derived amendment. Overlapping-resource precedence, all POSIX expressions, accessor audit metadata, the exact resource key/storage namespace and automatic generator construction remain open. No initial enabled mask is inferred.",
+        "ja": "AI照合の構築選択の解釈とmetadataのみで、実covergroup／binのcoverageではない。短いregister-builder本文をinclude APIとblockの類似契約に合わせて読み、実装由来の改訂にはしない。重複resourceの優先順位、全POSIX式、accessor監査情報、正確なresource key／格納namespace、自動generator構築は未完。初期有効maskは仮定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_coverage_include_glob_siblings_80",
+          "role": "direct",
+          "expected_observations": [
+            "UT: coverage80 glob first 1 second 1 excluded 1 branch 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-COVERAGE-INCLUDE-BLOCK-REGISTER-MEMORY",
+      "clause": "18.4.7.1",
+      "statement": {
+        "en": "Register coverage inclusion applies to matching block, register and memory abstraction instances.",
+        "ja": "registerのcoverage includeは一致するblock／register／memory抽象instanceへ適用される。"
+      },
+      "conditions": {
+        "en": "Original configured block/register/memory objects use full hierarchical names, exact or simple glob scopes, explicit disjoint peer inclusions and legal combined model identifiers. Protected builders are called through legal derived wrappers. The requested-model selection reads18.4.7.2 together with18.4.7.1 and the explicit analogous block contract18.1.4.1.",
+        "ja": "独自の設定済みblock／register／memoryで完全階層名、完全一致または単純glob scope、重ならないpeerへの明示include、合法なmodel識別子の組合せを使う。protected builderは合法な派生wrapperで呼ぶ。要求modelの選択は18.4.7.2を18.4.7.1と明示的なblockの類似契約18.1.4.1と合わせて読む。"
+      },
+      "expected": {
+        "en": "One supplied hierarchical selection produces the same combined requested models in the three abstraction kinds while an outside peer remains excluded.",
+        "ja": "1つの階層指定で3種類の抽象modelが同じ組合せmodelを選び、外部peerの除外を保つ。"
+      },
+      "limitations": {
+        "en": "AI-reviewed construction-selection interpretation and metadata only; no actual covergroup/bin coverage. The short register-builder prose is read with its inclusion API and block analogue, not an implementation-derived amendment. Overlapping-resource precedence, all POSIX expressions, accessor audit metadata, the exact resource key/storage namespace and automatic generator construction remain open. No initial enabled mask is inferred.",
+        "ja": "AI照合の構築選択の解釈とmetadataのみで、実covergroup／binのcoverageではない。短いregister-builder本文をinclude APIとblockの類似契約に合わせて読み、実装由来の改訂にはしない。重複resourceの優先順位、全POSIX式、accessor監査情報、正確なresource key／格納namespace、自動generator構築は未完。初期有効maskは仮定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_coverage_include_block_reg_memory_80",
+          "role": "direct",
+          "expected_observations": [
+            "UT: coverage80 kinds block 1 register 1 memory 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-COVERAGE-BUILD-INCLUDED-REQUESTED-MODELS",
+      "clause": "18.4.7.2",
+      "statement": {
+        "en": "The register coverage builder returns the requested models selected by the applicable inclusion specification.",
+        "ja": "registerのcoverage builderは適用されるinclude指定で選択された要求modelを返す。"
+      },
+      "conditions": {
+        "en": "Original configured block/register/memory objects use full hierarchical names, exact or simple glob scopes, explicit disjoint peer inclusions and legal combined model identifiers. Protected builders are called through legal derived wrappers. The requested-model selection reads18.4.7.2 together with18.4.7.1 and the explicit analogous block contract18.1.4.1.",
+        "ja": "独自の設定済みblock／register／memoryで完全階層名、完全一致または単純glob scope、重ならないpeerへの明示include、合法なmodel識別子の組合せを使う。protected builderは合法な派生wrapperで呼ぶ。要求modelの選択は18.4.7.2を18.4.7.1と明示的なblockの類似契約18.1.4.1と合わせて読む。"
+      },
+      "expected": {
+        "en": "All, intersecting, excluded-only, zero and individual requests return the corresponding included requested masks on repeated calls.",
+        "ja": "all、一部重複、除外modelのみ、zero、単独の要求で、反復呼出しも対応するinclude済み要求maskを返す。"
+      },
+      "limitations": {
+        "en": "AI-reviewed construction-selection interpretation and metadata only; no actual covergroup/bin coverage. The short register-builder prose is read with its inclusion API and block analogue, not an implementation-derived amendment. Overlapping-resource precedence, all POSIX expressions, accessor audit metadata, the exact resource key/storage namespace and automatic generator construction remain open. No initial enabled mask is inferred.",
+        "ja": "AI照合の構築選択の解釈とmetadataのみで、実covergroup／binのcoverageではない。短いregister-builder本文をinclude APIとblockの類似契約に合わせて読み、実装由来の改訂にはしない。重複resourceの優先順位、全POSIX式、accessor監査情報、正確なresource key／格納namespace、自動generator構築は未完。初期有効maskは仮定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_coverage_build_requested_masks_80",
+          "role": "direct",
+          "expected_observations": [
+            "UT: coverage80 requested all 1 mixed 1 no 1 zero 1 field 1 repeat 1"
+          ]
+        },
+        {
+          "test": "u18/test_reg_coverage_include_exact_hierarchy_80",
+          "role": "direct",
+          "expected_observations": [
+            "UT: coverage80 exact names 1 left 1 right 1 repeat 1"
+          ]
+        },
+        {
+          "test": "u18/test_reg_coverage_include_glob_siblings_80",
+          "role": "direct",
+          "expected_observations": [
+            "UT: coverage80 glob first 1 second 1 excluded 1 branch 1"
+          ]
+        },
+        {
+          "test": "u18/test_reg_coverage_include_block_reg_memory_80",
+          "role": "direct",
+          "expected_observations": [
+            "UT: coverage80 kinds block 1 register 1 memory 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-COVERAGE-BUILD-PROTECTED-DECLARATION",
+      "clause": "18.4.7.2",
+      "statement": {
+        "en": "The protected build_coverage method cannot be called from external module scope.",
+        "ja": "protectedなbuild_coverage methodは外部module scopeから呼べない。"
+      },
+      "conditions": {
+        "en": "Original configured block/register/memory objects use full hierarchical names, exact or simple glob scopes, explicit disjoint peer inclusions and legal combined model identifiers. Protected builders are called through legal derived wrappers. The requested-model selection reads18.4.7.2 together with18.4.7.1 and the explicit analogous block contract18.1.4.1.",
+        "ja": "独自の設定済みblock／register／memoryで完全階層名、完全一致または単純glob scope、重ならないpeerへの明示include、合法なmodel識別子の組合せを使う。protected builderは合法な派生wrapperで呼ぶ。要求modelの選択は18.4.7.2を18.4.7.1と明示的なblockの類似契約18.1.4.1と合わせて読む。"
+      },
+      "expected": {
+        "en": "The compiler rejects the external call with a fixture-specific protected-access diagnostic; the legal derived wrapper remains a separate control.",
+        "ja": "外部呼出しを検査系とprotected accessを識別する診断でcompilerが拒否し、合法な派生wrapperは別のcontrolとする。"
+      },
+      "limitations": {
+        "en": "AI-reviewed construction-selection interpretation and metadata only; no actual covergroup/bin coverage. The short register-builder prose is read with its inclusion API and block analogue, not an implementation-derived amendment. Overlapping-resource precedence, all POSIX expressions, accessor audit metadata, the exact resource key/storage namespace and automatic generator construction remain open. No initial enabled mask is inferred.",
+        "ja": "AI照合の構築選択の解釈とmetadataのみで、実covergroup／binのcoverageではない。短いregister-builder本文をinclude APIとblockの類似契約に合わせて読み、実装由来の改訂にはしない。重複resourceの優先順位、全POSIX式、accessor監査情報、正確なresource key／格納namespace、自動generator構築は未完。初期有効maskは仮定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_coverage_build_coverage_protected_external_80",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?i)^(?=.*test_reg_coverage_build_coverage_protected_external_80.sv:[0-9]+:[0-9]+:)(?=.*\\b(?:protected|private|inaccessible)\\b)(?=.*\\bbuild_coverage\\b).*error"
+          }
+        },
+        {
+          "test": "u18/test_reg_coverage_build_requested_masks_80",
+          "role": "control",
+          "expected_observations": [
+            "UT: coverage80 requested all 1 mixed 1 no 1 zero 1 field 1 repeat 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-COVERAGE-ADD-CONSTRUCTOR-UNION",
+      "clause": "18.4.7.3",
+      "statement": {
+        "en": "Constructor-time coverage additions retain the original models and add the specified models.",
+        "ja": "constructor中のcoverage追加は元のmodelを保持して指定modelを加える。"
+      },
+      "conditions": {
+        "en": "Original derived register constructors preserve a supplied base mask and call the actual protected add_coverage while their constructor is active. Cases include zero, overlapping/repeated additions, isolated peers, inherited virtual dispatch and explicit measurement-off then all-model selection.",
+        "ja": "独自の派生register constructorが基底maskを保ち、constructor実行中に実protected add_coverageを呼ぶ。zero、重複／反復追加、分離peer、継承したcallerからのvirtual dispatch、測定を明示offにした後の全model選択を含む。"
+      },
+      "expected": {
+        "en": "Original, first-added and later overlapping models are all available after derived construction.",
+        "ja": "派生構築後に元のmodel、最初の追加、後の重複追加のmodelがすべて搭載される。"
+      },
+      "limitations": {
+        "en": "Availability and selected measurement metadata only. No call after construction, illegal masks, actual covergroup implementation, bin sampling or full generator behavior is certified. Correct availability/enabled observations cannot pass a complete fixture with a previous-mask return difference. General concurrency and inherited constructor profiles remain partial.",
+        "ja": "搭載と選択した測定のmetadataのみ。構築後の呼出し、不正mask、実covergroup実装、bin sampling、generator動作全体は認定しない。搭載／有効化の行が正しくても、以前のmaskを返す観測が異なる検査系全体をpassにはしない。一般的な並行性、継承constructorの全条件は部分的に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_coverage_add_constructor_union_80",
+          "role": "direct",
+          "expected_observations": [
+            "UT: coverage80 add original 1 first 1 overlap 1 union 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-COVERAGE-ADD-ZERO-REPETITION",
+      "clause": "18.4.7.3",
+      "statement": {
+        "en": "Zero or repeated coverage additions preserve the set of available register models.",
+        "ja": "zeroまたは反復のcoverage追加はregisterの搭載model集合を保つ。"
+      },
+      "conditions": {
+        "en": "Original derived register constructors preserve a supplied base mask and call the actual protected add_coverage while their constructor is active. Cases include zero, overlapping/repeated additions, isolated peers, inherited virtual dispatch and explicit measurement-off then all-model selection.",
+        "ja": "独自の派生register constructorが基底maskを保ち、constructor実行中に実protected add_coverageを呼ぶ。zero、重複／反復追加、分離peer、継承したcallerからのvirtual dispatch、測定を明示offにした後の全model選択を含む。"
+      },
+      "expected": {
+        "en": "Zero additions leave an empty set empty or a base model present; repeated field additions do not make other models available.",
+        "ja": "zero追加は空集合を空のまま、基底modelを搭載済みのままにし、fieldの反復追加で別modelは搭載されない。"
+      },
+      "limitations": {
+        "en": "Availability and selected measurement metadata only. No call after construction, illegal masks, actual covergroup implementation, bin sampling or full generator behavior is certified. Correct availability/enabled observations cannot pass a complete fixture with a previous-mask return difference. General concurrency and inherited constructor profiles remain partial.",
+        "ja": "搭載と選択した測定のmetadataのみ。構築後の呼出し、不正mask、実covergroup実装、bin sampling、generator動作全体は認定しない。搭載／有効化の行が正しくても、以前のmaskを返す観測が異なる検査系全体をpassにはしない。一般的な並行性、継承constructorの全条件は部分的に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_coverage_add_zero_and_repeated_80",
+          "role": "direct",
+          "expected_observations": [
+            "UT: coverage80 zero empty 1 retained 1 repeated 1 excluded 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-COVERAGE-ADD-INSTANCE-ISOLATION",
+      "clause": "18.4.7.3",
+      "statement": {
+        "en": "Models added in one register constructor belong to that register instance.",
+        "ja": "registerのconstructorで追加したmodelはそのinstanceに属する。"
+      },
+      "conditions": {
+        "en": "Original derived register constructors preserve a supplied base mask and call the actual protected add_coverage while their constructor is active. Cases include zero, overlapping/repeated additions, isolated peers, inherited virtual dispatch and explicit measurement-off then all-model selection.",
+        "ja": "独自の派生register constructorが基底maskを保ち、constructor実行中に実protected add_coverageを呼ぶ。zero、重複／反復追加、分離peer、継承したcallerからのvirtual dispatch、測定を明示offにした後の全model選択を含む。"
+      },
+      "expected": {
+        "en": "An independent base-only peer and a differently extended instance retain their own distinct availability and measurement masks.",
+        "ja": "独立した基底modelのみのpeerと異なる追加を行ったinstanceが、それぞれの搭載／測定maskを保持する。"
+      },
+      "limitations": {
+        "en": "Availability and selected measurement metadata only. No call after construction, illegal masks, actual covergroup implementation, bin sampling or full generator behavior is certified. Correct availability/enabled observations cannot pass a complete fixture with a previous-mask return difference. General concurrency and inherited constructor profiles remain partial.",
+        "ja": "搭載と選択した測定のmetadataのみ。構築後の呼出し、不正mask、実covergroup実装、bin sampling、generator動作全体は認定しない。搭載／有効化の行が正しくても、以前のmaskを返す観測が異なる検査系全体をpassにはしない。一般的な並行性、継承constructorの全条件は部分的に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_coverage_add_constructor_union_80",
+          "role": "direct",
+          "expected_observations": [
+            "UT: coverage80 add original 1 first 1 overlap 1 union 1 peer 1"
+          ]
+        },
+        {
+          "test": "u18/test_reg_coverage_add_measurement_availability_80",
+          "role": "direct",
+          "expected_observations": [
+            "UT: coverage80 enabled old_a 1 old_b 1 union 1 no_a 1 field 1 no_b 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-COVERAGE-ADD-VIRTUAL-DISPATCH",
+      "clause": "18.4.7.3",
+      "statement": {
+        "en": "The protected add_coverage hook dispatches virtually when an inherited caller invokes it during derived construction.",
+        "ja": "派生構築中に継承callerが呼ぶprotected add_coverage hookはvirtual dispatchする。"
+      },
+      "conditions": {
+        "en": "Original derived register constructors preserve a supplied base mask and call the actual protected add_coverage while their constructor is active. Cases include zero, overlapping/repeated additions, isolated peers, inherited virtual dispatch and explicit measurement-off then all-model selection.",
+        "ja": "独自の派生register constructorが基底maskを保ち、constructor実行中に実protected add_coverageを呼ぶ。zero、重複／反復追加、分離peer、継承したcallerからのvirtual dispatch、測定を明示offにした後の全model選択を含む。"
+      },
+      "expected": {
+        "en": "The override receives the selected model once and its super delegation preserves the base model and adds the requested model.",
+        "ja": "overrideが指定modelを1回受け、superへの委譲で基底modelを保持して要求modelを追加する。"
+      },
+      "limitations": {
+        "en": "Availability and selected measurement metadata only. No call after construction, illegal masks, actual covergroup implementation, bin sampling or full generator behavior is certified. Correct availability/enabled observations cannot pass a complete fixture with a previous-mask return difference. General concurrency and inherited constructor profiles remain partial.",
+        "ja": "搭載と選択した測定のmetadataのみ。構築後の呼出し、不正mask、実covergroup実装、bin sampling、generator動作全体は認定しない。搭載／有効化の行が正しくても、以前のmaskを返す観測が異なる検査系全体をpassにはしない。一般的な並行性、継承constructorの全条件は部分的に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_coverage_add_virtual_constructor_dispatch_80",
+          "role": "direct",
+          "expected_observations": [
+            "UT: coverage80 virtual calls 1 argument 1 original 1 added 1 excluded 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-COVERAGE-ADD-PROTECTED-DECLARATION",
+      "clause": "18.4.7.3",
+      "statement": {
+        "en": "The protected add_coverage method cannot be called from external module scope.",
+        "ja": "protectedなadd_coverage methodは外部module scopeから呼べない。"
+      },
+      "conditions": {
+        "en": "Original derived register constructors preserve a supplied base mask and call the actual protected add_coverage while their constructor is active. Cases include zero, overlapping/repeated additions, isolated peers, inherited virtual dispatch and explicit measurement-off then all-model selection.",
+        "ja": "独自の派生register constructorが基底maskを保ち、constructor実行中に実protected add_coverageを呼ぶ。zero、重複／反復追加、分離peer、継承したcallerからのvirtual dispatch、測定を明示offにした後の全model選択を含む。"
+      },
+      "expected": {
+        "en": "The compiler rejects the external call with the selected protected-access diagnostic; legitimate constructor additions are a separate control.",
+        "ja": "外部呼出しを選択したprotected access診断でcompilerが拒否し、合法なconstructor追加は別のcontrolとする。"
+      },
+      "limitations": {
+        "en": "Availability and selected measurement metadata only. No call after construction, illegal masks, actual covergroup implementation, bin sampling or full generator behavior is certified. Correct availability/enabled observations cannot pass a complete fixture with a previous-mask return difference. General concurrency and inherited constructor profiles remain partial.",
+        "ja": "搭載と選択した測定のmetadataのみ。構築後の呼出し、不正mask、実covergroup実装、bin sampling、generator動作全体は認定しない。搭載／有効化の行が正しくても、以前のmaskを返す観測が異なる検査系全体をpassにはしない。一般的な並行性、継承constructorの全条件は部分的に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_coverage_add_coverage_protected_external_80",
+          "role": "direct",
+          "expected_diagnostic": {
+            "stage": "compile",
+            "regex": "(?i)^(?=.*test_reg_coverage_add_coverage_protected_external_80.sv:[0-9]+:[0-9]+:)(?=.*\\b(?:protected|private|inaccessible)\\b)(?=.*\\badd_coverage\\b).*error"
+          }
+        },
+        {
+          "test": "u18/test_reg_coverage_add_constructor_union_80",
+          "role": "control",
+          "expected_observations": [
+            "UT: coverage80 add original 1 first 1 overlap 1 union 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-COVERAGE-ADDED-MODELS-MEASUREMENT-GATE",
+      "clause": "18.4.7.6",
+      "statement": {
+        "en": "Measurement selection can enable constructor-added available models but cannot enable models absent from that register.",
+        "ja": "測定の選択はconstructorで追加した搭載modelを有効化できるが、そのregisterにないmodelは有効化できない。"
+      },
+      "conditions": {
+        "en": "Original derived register constructors preserve a supplied base mask and call the actual protected add_coverage while their constructor is active. Cases include zero, overlapping/repeated additions, isolated peers, inherited virtual dispatch and explicit measurement-off then all-model selection.",
+        "ja": "独自の派生register constructorが基底maskを保ち、constructor実行中に実protected add_coverageを呼ぶ。zero、重複／反復追加、分離peer、継承したcallerからのvirtual dispatch、測定を明示offにした後の全model選択を含む。"
+      },
+      "expected": {
+        "en": "After an explicit off state, all-model selection enables only each instance available union and leaves absent models off.",
+        "ja": "明示off状態の後の全model選択で、各instanceの搭載unionのみを有効にし、非搭載modelはoffのままにする。"
+      },
+      "limitations": {
+        "en": "Availability and selected measurement metadata only. No call after construction, illegal masks, actual covergroup implementation, bin sampling or full generator behavior is certified. Correct availability/enabled observations cannot pass a complete fixture with a previous-mask return difference. General concurrency and inherited constructor profiles remain partial.",
+        "ja": "搭載と選択した測定のmetadataのみ。構築後の呼出し、不正mask、実covergroup実装、bin sampling、generator動作全体は認定しない。搭載／有効化の行が正しくても、以前のmaskを返す観測が異なる検査系全体をpassにはしない。一般的な並行性、継承constructorの全条件は部分的に残す。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_coverage_add_measurement_availability_80",
+          "role": "direct",
+          "expected_observations": [
+            "UT: coverage80 enabled old_a 1 old_b 1 union 1 no_a 1 field 1 no_b 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-COVERAGE-SAMPLE-USER-VIRTUAL-DISPATCH",
+      "clause": "18.4.7.8",
+      "statement": {
+        "en": "A user can invoke register sample_values publicly through a base register receiver and reach the register override.",
+        "ja": "userは基底register receiverからsample_valuesを公開呼出ししてregisterのoverrideへ到達できる。"
+      },
+      "conditions": {
+        "en": "Original register overrides count sample_values calls and capture current16-bit RW field desired values. Explicit user calls use an actual uvm_reg base receiver; parent cases invoke the actual inherited block method over two branches with an outside peer and repeat after modeled values change.",
+        "ja": "独自register overrideがsample_valuesの呼出しを数え、現在の16-bit RW fieldのdesired値を取得する。user直接呼出しは実uvm_reg基底receiverを使い、parentのケースは2 branchと外部peerに対して実際の継承block methodを呼び、model値を変えて反復する。"
+      },
+      "expected": {
+        "en": "Two explicit calls reach the selected override once each while an independent peer remains untouched.",
+        "ja": "明示した2呼出しが選択overrideへ各1回到達し、独立peerは呼ばれない。"
+      },
+      "limitations": {
+        "en": "Original sampling bodies are observers, not UVM covergroup implementations. Only public virtual dispatch, actual block-to-register routing and fresh modeled-field observations are established. No register visitation order, physical HDL transfer, covergroup/bin completeness or automatic sampling on arbitrary operations is inferred. Other callbacks, policies and hierarchy/lifetime conditions remain open.",
+        "ja": "独自sampling本体はobserverでありUVM covergroup実装ではない。公開virtual dispatch、実blockからregisterへのrouting、新しいmodel field値の観測のみを扱う。register訪問順、物理HDL転送、covergroup／binの完全性、任意操作での自動samplingは推論しない。他のcallback、policy、階層／寿命条件は未完。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_coverage_sample_user_base_dispatch_80",
+          "role": "direct",
+          "expected_observations": [
+            "UT: coverage80 user first 1 value 1 peer 1",
+            "UT: coverage80 user second 1 value 1 prediction 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-COVERAGE-SAMPLE-PARENT-DISPATCH",
+      "clause": "18.4.7.8",
+      "statement": {
+        "en": "Parent block sample_values invokes the sampling methods of registers within its recursive subtree.",
+        "ja": "親blockのsample_valuesが再帰subtree内のregisterのsampling methodを呼ぶ。"
+      },
+      "conditions": {
+        "en": "Original register overrides count sample_values calls and capture current16-bit RW field desired values. Explicit user calls use an actual uvm_reg base receiver; parent cases invoke the actual inherited block method over two branches with an outside peer and repeat after modeled values change.",
+        "ja": "独自register overrideがsample_valuesの呼出しを数え、現在の16-bit RW fieldのdesired値を取得する。user直接呼出しは実uvm_reg基底receiverを使い、parentのケースは2 branchと外部peerに対して実際の継承block methodを呼び、model値を変えて反復する。"
+      },
+      "expected": {
+        "en": "The actual inherited block method reaches both branch registers on each invocation without calling the outside peer or prescribing visit order.",
+        "ja": "実際の継承block methodが各呼出しで両branchのregisterへ到達し、外部peerを呼ばず、訪問順も規定しない。"
+      },
+      "limitations": {
+        "en": "Original sampling bodies are observers, not UVM covergroup implementations. Only public virtual dispatch, actual block-to-register routing and fresh modeled-field observations are established. No register visitation order, physical HDL transfer, covergroup/bin completeness or automatic sampling on arbitrary operations is inferred. Other callbacks, policies and hierarchy/lifetime conditions remain open.",
+        "ja": "独自sampling本体はobserverでありUVM covergroup実装ではない。公開virtual dispatch、実blockからregisterへのrouting、新しいmodel field値の観測のみを扱う。register訪問順、物理HDL転送、covergroup／binの完全性、任意操作での自動samplingは推論しない。他のcallback、policy、階層／寿命条件は未完。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_coverage_sample_parent_recursive_dispatch_80",
+          "role": "direct",
+          "expected_observations": [
+            "UT: coverage80 parent first 1 values 1 peer 1",
+            "UT: coverage80 parent repeat 1 fresh 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-REG-COVERAGE-SAMPLE-CURRENT-MODELED-FIELDS",
+      "clause": "18.4.7.8",
+      "statement": {
+        "en": "A register field-value sampling extension can observe the current modeled field values when sampling is triggered.",
+        "ja": "registerのfield値sampling拡張は、samplingがtriggerされた時点のmodel field値を観測できる。"
+      },
+      "conditions": {
+        "en": "Original register overrides count sample_values calls and capture current16-bit RW field desired values. Explicit user calls use an actual uvm_reg base receiver; parent cases invoke the actual inherited block method over two branches with an outside peer and repeat after modeled values change.",
+        "ja": "独自register overrideがsample_valuesの呼出しを数え、現在の16-bit RW fieldのdesired値を取得する。user直接呼出しは実uvm_reg基底receiverを使い、parentのケースは2 branchと外部peerに対して実際の継承block methodを呼び、model値を変えて反復する。"
+      },
+      "expected": {
+        "en": "Original observers record fresh desired values after explicit set or direct prediction on successive user and parent-triggered calls.",
+        "ja": "連続するuser／親triggerの呼出しで、独自observerが明示setまたはdirect prediction後の新しいdesired値を記録する。"
+      },
+      "limitations": {
+        "en": "Original sampling bodies are observers, not UVM covergroup implementations. Only public virtual dispatch, actual block-to-register routing and fresh modeled-field observations are established. No register visitation order, physical HDL transfer, covergroup/bin completeness or automatic sampling on arbitrary operations is inferred. Other callbacks, policies and hierarchy/lifetime conditions remain open.",
+        "ja": "独自sampling本体はobserverでありUVM covergroup実装ではない。公開virtual dispatch、実blockからregisterへのrouting、新しいmodel field値の観測のみを扱う。register訪問順、物理HDL転送、covergroup／binの完全性、任意操作での自動samplingは推論しない。他のcallback、policy、階層／寿命条件は未完。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u18/test_reg_coverage_sample_user_base_dispatch_80",
+          "role": "direct",
+          "expected_observations": [
+            "UT: coverage80 user first 1 value 1 peer 1",
+            "UT: coverage80 user second 1 value 1 prediction 1 peer 1"
+          ]
+        },
+        {
+          "test": "u18/test_reg_coverage_sample_parent_recursive_dispatch_80",
+          "role": "direct",
+          "expected_observations": [
+            "UT: coverage80 parent first 1 values 1 peer 1",
+            "UT: coverage80 parent repeat 1 fresh 1 peer 1"
           ]
         }
       ]

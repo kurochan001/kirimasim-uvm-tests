@@ -5,8 +5,8 @@
 Counts on this page belong to the time of each change, so use [the current snapshot](results.md#current-snapshot) when you need the present suite size or execution scope.
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and seventy-nine cross-milestone thin-area expansions, including the
-existing-test requirement-link backlog checkpoint (2313 tests: 2221 simulation and 92 elaboration). The earlier 349-test checkpoint is
+three M4 increments and eighty cross-milestone thin-area expansions, including the
+existing-test requirement-link backlog checkpoint (2325 tests: 2231 simulation and 94 elaboration). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -4758,3 +4758,40 @@ are measured, then seven tagged controls and six separate HDL inputs.
 Ordinary is 1951 pass/362 known; separate HDL is 33 pass/1 fail. Goal iteration 51
 reduces unassessed by five to 129, while 1971 partial identifiers, original M1–M4
 targets, human review and scope/denominator approval remain incomplete.
+
+## Eightieth thin-area expansion: register coverage construction and sampling
+
+Twelve new register-coverage fixtures comprise ten simulations and two illegal
+external accesses. Nine simulations match seeds 1/73; both protected builder/add
+calls reject with the declared diagnostic and execute no runtime seed. The
+constructor-added measurement case differs at seed 1 without a seed 73 result:
+availability, enabled unions and absent-model gates match, but the previous-mask
+return flags are zero instead of one. Its standard-derived expectation remains.
+
+Fourteen new bilingual AI duties cover full-name/simple-pattern inclusion,
+block/register/memory selection, requested construction masks, constructor-only
+additions, protected/virtual declarations and field-value sampling dispatch.
+Two existing partial duties gain new conditions and direct links while keeping
+their original statements and links. The individually read 18.4.7 grouping
+heading alone is structural; all 407 earlier classifications and scope remain.
+Global state is 1975 partial/408 assessed/124 unassessed. Chapter 18 is 368/53/35
+with 862 duties and 534 primary fixtures (532 simulation/2 elaboration).
+
+Sampling overrides are original observers; the inherited block method supplies
+actual recursive routing. Model availability and enabled masks do not establish
+covergroup/bin measurement. The short register-builder contract is read with
+its include API and explicit block analogue, with AI interpretation retained.
+Resource storage namespace, overlapping priorities, full regex support and
+further constructor/hierarchy conditions remain open.
+
+Passing inputs are tagged only after pretag proof and freshly measured under
+their final identities. All 2313 earlier ordinary records, 34 HDL records,
+18 command-line records and 1082 compatible guest records retain their exact
+content. No new guest execution/filter or HDL/backend change is claimed. The
+1243 unmeasured guest inputs are 1240 additions and three revised originals
+(1149 simulation/94 elaboration). All partial obligations, original M1–M4
+targets, human review and scope/denominator approval remain open.
+
+The ledger has 3860 duties, 2293 directly linked tests, 32 control-only and115 control-linked tests. Ordinary evidence is1962pass(1873runtime/89compiler) and363known(244runtime/114build/5illegal acceptance).
+
+Goal iteration52 reduces unassessed from129 to124, a decrease of1339 from1463 at activation. Full completion remains unproven and the goal stays active.

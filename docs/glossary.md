@@ -1537,3 +1537,15 @@ explains why a control cannot pass a missing standard getter.
 register variable / independently stored high/low variables with legal slices;
 [Q309](faq.md#q309-what-do-the-six-physical-register-cases-establish)
 distinguishes their real storage observations from symbolic paths.
+
+## Coverage construction and sampling
+
+**Coverage construction selection** — The models selected for an abstraction
+instance by include_coverage and its protected builder, separately from models
+made available by constructor add_coverage calls. These masks describe metadata;
+they do not measure bins. [Q311](faq.md#q311-does-coverage-construction-measure-functional-coverage-bins) records the selected scope and interpretation limits.
+
+**Field-value sampling observer** — An original sample_values override that
+counts dispatch and captures current model values. It distinguishes user and
+actual parent-block calls without supplying a builtin covergroup algorithm;
+[Q313](faq.md#q313-what-do-sample_values-observers-establish) explains the routing evidence.
