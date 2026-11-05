@@ -54,6 +54,8 @@ optionを置きます。パスを明示した場合は、そのテストだけ�
 
 ### Q4. specのみのテストも含めるにはどうしますか
 
+`--all`で対象を広げてもDPIの実装は追加されず、別backendのrunnerが必要になる条件は[Q12](#q12-uvm_dpi-yesだけでdpiを使うビルドが完成しますか)で確認できます。
+
 パスを指定しないVerilator実行は、X・Zに依存せず`verilator@5.052`のタグがあるテストを選びます。
 すべての2値のテストを含めるには`--all`を付けます。
 
@@ -69,6 +71,8 @@ kirimasimとGhostは既定で全件を選びます。`--all`はVerilatorラン�
 結果ラベルは指定条件に対するrunnerの判定を示し、差分だけで原因を特定できない理由は[結果の解釈](results.ja.md#結果の解釈)で説明しています。
 
 ### Q5. pass・fail・known・unsupportedはどう違いますか
+
+不正設計のケースでの一致は、必要な診断を伴って拒否されたことを意味し、simulationの成功と異なる期待の扱いは[Q199](#q199-compile拒否を一致に数える理由は)で説明しています。
 
 | ステータス | 意味 | 記録するランナー |
 | --- | --- | --- |
@@ -139,7 +143,7 @@ Ghostは公開前のシミュレータの仮名です。実行ファイルの識
 ### Q12. uvm_dpi: yesだけでDPIを使うビルドが完成しますか
 
 既定のマクロ一覧から`UVM_NO_DPI`を外す指定です。UVMのC/C++実装の供給・リンクは行いません。
-通常のVerilator runnerは、そのsourceを追加しません。`UVM_NO_DPI`が2245件、HDL DPIの明示選択が11件です。
+通常のVerilator runnerは、そのsourceを追加しません。`UVM_NO_DPI`が2245件、HDL DPIの明示選択が20件です。
 別の18検査系はHDLを無効にしてcommand-line／regex DPIを明示して有効化し、
 [command-line runner](testing.ja.md#verilatorのcommand-line部分集合)がその別backendをlinkします。
 [別のVPI runner](testing.ja.md#verilatorのvpi-hdl部分集合)は独自の限定backendをlinkし、結果は宣言した実行条件だけに適用します。
@@ -147,6 +151,8 @@ DPIなしのglobによる照合も、完全な正規表現への対応とは異�
 ユーザー定義の`uvm_reg_backdoor` handlerはHDL DPIなしで動作できます（Q67）。
 
 ### Q13. ビルドが重い理由と2種類の並列数の違いは何ですか
+
+`-j 2 --build-jobs 2`では最大2テストを並行buildし、それぞれのC++ buildに2 jobを指定するため、手元の環境に合わせる指定方法は[runnerのガイド](testing.ja.md#スイートの実行)を参照してください。
 
 各テストのモデルにUVMパッケージ全体を含めるためです。`-j`は同時に実行するテスト数、
 `--build-jobs`はVerilatorの各C++ビルド内の並列数です。runtimeで`--seeds`を使えばビルドは一度で、
@@ -178,7 +184,7 @@ Ghostはさらに実行ファイル・profile・供給されたライブラリ�
 
 ### Q16. M1・M2・M3は完了していますか。件数は何の網羅を示しますか
 
-M1・M2には条項ごとの目標に未達があります。M3はbusモデルのfrontdoor経路を含め745件まで追加した段階で、未完です。
+M1・M2には条項ごとの目標に未達があります。M3はbusモデルのfrontdoor経路を含め754件まで追加した段階で、未完です。
 次の段階の開始によって、それまでの段階が完了したとは扱いません。
 範囲と残りの作業は[進め方](../README.ja.md#進め方)にあります。
 件数はテストの本数で、規格の全要求や組み合わせの棚卸しではありません。
@@ -956,8 +962,8 @@ controlの対応は、その要求の直接の検査ではありません。
 
 ### Q77. M4を始めたのに、カバレッジ率がないのはなぜですか
 
-AIによる3823要求案は部分的な分解で、3823要求を2250テストへ直接対応付け、直接未対応は0要求、別の24テストはcontrol専用です。
-全2274テストに要求の対応付けがあります。2,507の条項番号は規範的要求の単位ではありません。
+AIによる3830要求案は部分的な分解で、3830要求を2259テストへ直接対応付け、直接未対応は0要求、別の24テストはcontrol専用です。
+全2283テストに要求の対応付けがあります。2,507の条項番号は規範的要求の単位ではありません。
 範囲は提案、棚卸しは未完、分母は未承認で、M4の開始はどれの承認にもなりません。
 既知差分やHDL／DPIの制約によって義務を暗黙に除外しません。[承認までの手順](requirements.ja.md#m4の残作業と承認)を参照してください。
 
@@ -1746,7 +1752,7 @@ user backdoorは16 bit locationをモデル化します。location独立性、�
 
 いいえ。`tests_without_requirement_links`は0で、現在の全テストに、明示的なdirectまたはcontrolの対応があります。
 別の集計`requirements_without_direct_tests`も0件です。memory-walkの対応はQ134の限定した歴史的解釈で、
-省略されたIEEEの詳細の承認ではありません。HDL depositと利用可否には、明示VPI検査系があります。catalogの識別子137件も未評価です。
+省略されたIEEEの詳細の承認ではありません。HDL depositと利用可否には、明示VPI検査系があります。catalogの識別子134件も未評価です。
 分解と人のレビューは未完で、分母は未承認です。
 
 [新しいpolicyテスト](../tests/u16/test_policy_object_stack_tracks_nested_active_policy_push_and_pop.sv)は、
@@ -1758,13 +1764,13 @@ buildは`known`で、`pass`ではありません。既存evidenceへの対応付
 
 ### Q129. 商用シミュレータの結果なしで、HDL動作をどう検査しますか？
 
-11検査系が、[別のVPI runner](testing.ja.md#verilatorのvpi-hdl部分集合)と独自の限定backendで実公開HDL storageへaccessします。
-depositは対象／peer分離、存在しないpath、40-bit word境界を検査し、readは新しい値、非破壊観測、失敗出力を制約しない失敗を検査します。
-memory 3 fixtureは実array location、分割bank data、ROM writeとpokeも検査します。与えたbackendの結果で、vendor overlay、kirimasim、Ghostの結果ではありません。
+20検査系が[別VPI runner](testing.ja.md#verilatorのvpi-hdl部分集合)と独自backendで実公開HDL storageへアクセスします。
+既存deposit／readは選択変数とpeerを扱い、memory 3入力は実array cell、分割bank、ROM writeとpokeも扱います。
+新規9入力は公開forceableな8／40-bit reg／wireでforce／release、即時release/read、反対／後続更新、存在しない／未instrument targetの失敗controlを検査します。
 
-利用可能pathのsequence controlは一致します。負の検査は保持するE.7解釈でwarningと転送なしを期待しますが、固定sequenceはERRORを報告し、readを試みます。
-10件は両seed一致、1件はseed 1で差分です。通常runnerはこのbackendをlinkせず、11件とも`:oracle: spec`を保持し、厳格なHDL runnerは不一致を`fail`として報告します。
-重複する結果は別条件です。force／release、一般array／type support、four-state値、細かな権限は未対応です。
+19件が両seed一致し、利用できないpathのsequenceはE.7 warning／転送なしの期待を保持しますが、seed 1でERRORとread試行の差分があります。
+通常runnerはbackendをlinkせず全20件が`:oracle: spec`を保持し、厳格なHDL条件の不一致は`fail`です。
+一般array／select／型、正時間force_time、4値は未完です。与えたbackendによる重複条件の範囲は[HDLのFAQ](#hdlのforceとreleaseの条件)にあり、vendor overlay、kirimasim、Ghostの結果は主張しません。
 
 ### Q130. port-baseとexport-indexの検査は、何を示しますか？
 
@@ -1800,7 +1806,7 @@ slave interfaceはrequest／response methodの方向が反転するため、cons
 [既定](../tests/u19/test_hdl_force_time_default_time_delegates_to_deposit_without_force_or_release.sv)と
 [明示0](../tests/u19/test_hdl_force_time_explicit_zero_time_delegates_to_deposit_without_force_or_release.sv)は、
 実際のstorage変更、deposit 1回、force／release／read呼出しなし、時刻経過なしを観測します。
-正の期間のforce／releaseは未対応です。戻り値についての本文とtask宣言が矛盾するため、task戻り値のassertionは作りません。
+正時間force_timeは未測定で、別のforce／release primitiveの証拠は[HDLのFAQ](#hdlのforceとreleaseの条件)で説明しています。戻り値についての本文とtask宣言が矛盾するため、task戻り値のassertionは作りません。
 別のpath検査は、空でないabstraction listが指定entry、空listがblock既定を選び、不正な代替を訪れないことを検査します。
 
 ### Q134. memory-walk algorithmをどう解釈していますか？
@@ -2239,9 +2245,10 @@ upstream producerが抽象register itemを投入し、既定translation bodyが�
 
 ### Q182. HDL幅parameterの検査はforce／release対応も示しますか？
 
-いいえ。no-DPI probeは宣言integer parameterと選択macroの一致だけを検査し、省略設定と明示256設定を使います。
-実装macroの数値既定値は固定しません。別の11件のVPI backendは宣言したcheck／read／deposit部分集合を扱い、force／release stubは失敗を返します。
-実際のforce／release、release-and-readでの変数／netの区別、広いHDL型は未完です。parameterだけのpassを、それらroutineの実行evidenceに数えません。
+no-DPI probeは宣言integer parameterと選択macroの一致だけを、省略設定と明示256設定で検査します。
+実装macroの数値既定値は固定しません。別のHDL force／release証拠では選択8／40-bit reg／wireの操作を検査し、
+[HDLのFAQ](#hdlのforceとreleaseの条件)で説明していますが、parameterだけの一致はそれらroutineの実行証拠にはなりません。
+広い型と正時間force_timeは未完です。
 
 ## 同期の状態・data・resetのevidence
 
@@ -2321,7 +2328,7 @@ bound get／peek portはobject headを消費せずavailabilityを報告し、liv
 
 command enum引用、Boolean rerandomization観測、virtual fieldのconfigure引用の既存3入力で指紋が変わりました。
 3入力ともVerilatorで再測定し、古いguest記録を除外しています。歴史的な1085記録の出典fileは保持します。
-現在の再利用は1082入力で、未測定1192件は追加1189件と修正した既存3入力です。
+現在の再利用は1082入力で、未測定1201件は追加1198件と修正した既存3入力です。
 これは記録のfilterでありguestの再実行ではなく、[記録の合算](results.ja.md#記録の合算)で説明しています。
 
 ## interfaceの委譲とsocketの接続構造
@@ -2364,7 +2371,7 @@ initiatorはERRORを報告しながらentryを保持し、targetは残しませ�
 ### Q199. compile拒否を一致に数える理由は？
 
 選択した抽象生成35検査は、規格でvirtualと宣言したclassを意図的に直接生成します。必要な結果はfixtureとclassを識別するerrorでの拒否です。
-一致した拒否はruntime seedを伴わない成功したnegative検査であり、simulationの予期しないbuild 83件とは別です。
+一致した拒否はruntime seedを伴わない成功したnegative検査であり、simulationの予期しないbuild 92件とは別です。
 pure-method／const参照検査は追加のnegative条件であり、それぞれ宣言oracleに従って判定します。
 
 [メタデータの規則](testing.ja.md#メタデータ)では、期待する拒否と実行スクリプトが照合すべき診断を、テストに記録する方法を説明しています。
@@ -2374,9 +2381,9 @@ pure-method／const参照検査は追加のnegative条件であり、それぞ�
 いいえ。schema 2は以前の出力link形式を保持し、compile stageと正確な宣言regexの診断形式を追加します。不正elaboration metadataでruntime期待がないことを要求します。
 schema 1も引き続き読め、混在／未知fieldや古いpatternは拒否します。検証はcompiler実測結果を読みません。個別要求の照合で直接anchorを追加する場合も、既存linkは保持して変更を明示します。
 
-### Q201. 全2274テストを2 seedで実行しましたか？
+### Q201. 全2283テストを2 seedで実行しましたか？
 
-いいえ。simulation 2182件とelaboration 92件があります。通常記録はruntime両seed一致1857件、期待compiler拒否87件、既知simulation差分325件、不正compile受理の既知差分5件です。
+いいえ。simulation 2191件とelaboration 92件があります。通常記録はruntime両seed一致1857件、期待compiler拒否87件、既知simulation差分334件、不正compile受理の既知差分5件です。
 不正design 92件は、compileを受理された場合もruntime seedを実行しません。
 
 ### Q202. 以前の合法controlは何を示しますか？
@@ -2425,7 +2432,7 @@ entry-depth境界matrixは限定した読み方で、別の超過済みscopeは�
 
 ### Q209. 第6章の未評価0でreportingやM1〜M4は完了ですか？
 
-いいえ。第6章には部分分解98番号・分類19番号があり、選択print probeで残る条件は完了しません。全体の未評価は137番号です。
+いいえ。第6章には部分分解98番号・分類19番号があり、選択print probeで残る条件は完了しません。全体の未評価は134番号です。
 printer 16.2節にはtable-format概要が残り、導入16を個別に文脈と評価した後も、第16章には未評価1番号があります。範囲と分母は未承認で、link queue 0件でもgoalは完了しません。
 
 ### Q210. flush時の設定規則は全printer controlで同じですか？
@@ -2531,7 +2538,7 @@ INFO 3／WARNING 6の配送は引用規則に従い、他の全override／report
 ### Q224. D.3 fileをM3に数える理由と、付録Dは完了したのか？
 
 主引用がdirectoryを決めるため、名前によるregister／memoryのD.3 fixtureはuDに置きます。機能対象はregister層なので名前アクセス6 fixtureをM3に数えます。
-章別の棚卸しとmilestone分類は同じテストに対する異なる観点です。付録Dの未評価は0ですが部分39番号が残り、条件と元のM1〜M4目標は未完了です。全体の未評価は137番号です。
+章別の棚卸しとmilestone分類は同じテストに対する異なる観点です。付録Dの未評価は0ですが部分39番号が残り、条件と元のM1〜M4目標は未完了です。全体の未評価は134番号です。
 
 ## blockとregisterの照会の境界
 
@@ -2585,7 +2592,7 @@ write／read中の活動、成功／失敗後のreturn、後続成功アクセ�
 
 いいえ。第9章には部分分解94番号と分類22番号があります。新しい直接delegate matrixはfunction 8行とtask 13行を持ちますが共有2 fixtureです。
 timing、走査、domain controlは選択条件を追加し、全graph形状、実行中同期変更、不正jump、継承変種、task cleanupは監査に残ります。
-既存のsignature／本文矛盾と寿命の既知差分を保持します。全体では137番号が未評価で、元のM1〜M4のgoalは継続中です。
+既存のsignature／本文矛盾と寿命の既知差分を保持します。全体では134番号が未評価で、元のM1〜M4のgoalは継続中です。
 
 ### Q233. run phaseのtimeout参照が異なる場合、どの条項を使いますか？
 
@@ -2693,7 +2700,7 @@ wrapperの実行childが宣言protected slotであり、選択対象を受け取
 ### Q248. 付録Eの未評価0はregister test sequenceの完了ですか？
 
 いいえ。部分74・分類20番号でAI案114件があり、物理reset／access、歴史的walking-ones解釈、追加skip／error／中止／並行条件は残ります。
-全体の未評価は137番号で、元のM1〜M4目標は全て未完了です。[要求](requirements.ja.md)を参照してください。
+全体の未評価は134番号で、元のM1〜M4目標は全て未完了です。[要求](requirements.ja.md)を参照してください。
 
 ## 基底class・recording・canonical time
 
@@ -2716,7 +2723,7 @@ runtimeのない合法build差分です。既定名の観測は別のruntime差�
 
 いいえ。案172件と個別分類12件があり、部分分解99番号と未評価0番号です。測定libraryではactive-policy API probe 4件が依然method欠落で停止します。
 initiatorのprint／record、全transaction link／順序、pure-method／既定bodyの衝突、旧overrideのformal名、広いlifecycle／error条件は監査が残ります。
-全体は未評価137番号で、元のM1〜M4目標は未完です。
+全体は未評価134番号で、元のM1〜M4目標は未完です。
 
 ## resource収集・sort・config alias
 
@@ -2735,7 +2742,7 @@ untyped helperや独自の検査系filterでは異なるinterfaceの検査とな
 
 いいえ。名前付き／匿名scope集合、literal名、config alias 4種、選択virtual-interface値は測定条件で一致します。
 regex alternationとbase virtual委譲はruntime差分を保持し、独自override probeはbuiltin収集algorithmを認定しません。
-付録Cは案98件、部分71／分類13／未評価0で、全体は未評価137番号です。
+付録Cは案98件、部分71／分類13／未評価0で、全体は未評価134番号です。
 広い型、queue／error／lifecycle条件、component自動configuration、元のmilestone目標は未完です。
 
 ## memory-map診断とFIFO初期化control
@@ -2754,8 +2761,8 @@ preloadと反復updateは余分なentry／転送を保持します。公開queue
 
 ### Q257. 18.6〜18.8の未評価0でgoalは完了しますか？
 
-いいえ。新しいmemory／indirect／FIFO義務は部分的に残り、第18章の残るレビューは[現在のroot別集計](requirements.ja.md#レビュー用の未整理項目とroot別集計)で確認できます。全体は未評価137番号です。
-スイートは直接対応2250テストとcontrol専用24テストです。失敗、並行性、backdoor適用条件、field／virtual-register契約、元のM1〜M4目標は未完です。
+いいえ。新しいmemory／indirect／FIFO義務は部分的に残り、第18章の残るレビューは[現在のroot別集計](requirements.ja.md#レビュー用の未整理項目とroot別集計)で確認できます。全体は未評価134番号です。
+スイートは直接対応2259テストとcontrol専用24テストです。失敗、並行性、backdoor適用条件、field／virtual-register契約、元のM1〜M4目標は未完です。
 
 ## core-service宣言とglobalな作用
 
@@ -2784,7 +2791,7 @@ scalar enumと選択integral／string／object形状は、別々のcopyと正／
 いいえ。印刷契約はPACKが両方向をenableすると述べます。PACK単独入力はdataをpackしても選択値／countを復元せず、
 別のcontrolでUNPACKを追加すると元の期待に一致します。両方を索引に残します。抑制target sentinelも未変更ですが、
 互換roundtripで全ての片方向packing抑制や配置は独立に証明しません。print、record、configuration、empty／null／alias、広いflag条件は部分的に残り、
-全体の未評価は137番号です。
+全体の未評価は134番号です。
 
 ## fieldのaccess順序、map変更、物理隣接値
 
@@ -2803,7 +2810,7 @@ callback変更義務をpassにしません。独自の独立bufferでproviderを
 
 同じ値だと周辺bitの置換を隠せます。モデルA／3と物理B／Dでは、read-only writeはslice 75を保ってもB75DをA753に変えます。
 全word期待は限定したbest-effort解釈で、無条件の保証ではありません。B75Dへ明示resetした後のpokeと、単独read-only pokeはB39Dをdepositします。
-修正fixtureを再測定し、旧seed 73 logは旧入力指紋付きで保存して除外します。全体には未評価137番号と部分契約が残ります。
+修正fixtureを再測定し、旧seed 73 logは旧入力指紋付きで保存して除外します。全体には未評価134番号と部分契約が残ります。
 
 ## 定義済み保護と予測callback
 
@@ -2823,7 +2830,7 @@ ERRORの存在とUVM_NOT_OKを要求しますが、診断IDや件数は固定し
 
 選択した成功read／write予測は正確なfield、以前／最新data、kind、path、mapを渡し、callbackの置換でmirrorを変更します。
 明示／省略したdirect kindはread／write callback配送なしに指定どおり更新します。disable／delete履歴は後続変更を止めます。これらのprobeは物理storage転送を行いません。
-未評価は137番号残り、callback 18.11は未評価番号0でも部分的なままです。
+未評価は134番号残り、callback 18.11は未評価番号0でも部分的なままです。
 
 ## CI shardと実行時間
 
@@ -2833,7 +2840,7 @@ shardはworkflowが選んだテストを分割した1区画で、Checkの対象�
 
 いいえ。現在のタグ付き1944検査を重複しない8 shardへ分け、同時shard jobは最大4です。以前の分割前実行は150分の上限に達しました。
 command-line 17検査はshard 0で通常検査の前に1回だけ実行します。runtime seed 1／73と期待compiler拒否87件は元の判定を保ちます。
-分割の検証でhosted CI成功や適合性は立証しません。現在のworkflow結果はREADME badgeで確認してください。既知差分330件は通常の既定CI選択に含めません。
+分割の検証でhosted CI成功や適合性は立証しません。現在のworkflow結果はREADME badgeで確認してください。既知差分339件は通常の既定CI選択に含めません。
 
 ## recordingとscalar macroの条件
 
@@ -2893,7 +2900,7 @@ VISITORを明示した入力は別に一致し、直接義務とcontrol対応を
 
 いいえ。見出し4件を個別に構造として読み、overview 3件を明示的な宣言／method義務へ対応付け、他の14番号を部分分解しました。
 選択した名前・型既定値・空hook・非循環treeだけでは、graph／alias／null／並行条件や文言の食違いが残ります。
-全体には未評価137番号があり、分類や対応付けで元のM1〜M4のgoalを認定しない理由は[レビューの状態](requirements.ja.md#レビュー用の未整理項目とroot別集計)で説明しています。
+全体には未評価134番号があり、分類や対応付けで元のM1〜M4のgoalを認定しない理由は[レビューの状態](requirements.ja.md#レビュー用の未整理項目とroot別集計)で説明しています。
 
 ## Virtual registerの照会と宣言の境界
 
@@ -2952,7 +2959,7 @@ configureの18.10.2.2へ直し、安定した義務はparentへ絞り、幅とLS
 
 引用の修正は、本体とoracleが同じでも正確な入力hashを変えます。古いguest記録を除き、互換1083記録を1082へ絞ります。
 Ghostは各seedで一致206／不一致876、kirimasimはunsupported 1073／fail 9を保持し、guestは再実行していません。
-未測定1192入力は追加1189件と修正した元入力3件です。このfilterはguestの改善／回帰の証拠ではありません。[証拠の合算](results.ja.md#記録の合算)を参照してください。
+未測定1201入力は追加1198件と修正した元入力3件です。このfilterはguestの改善／回帰の証拠ではありません。[証拠の合算](results.ja.md#記録の合算)を参照してください。
 
 ### Q285. factory生成した派生型内でfield constructorの名前を取得する理由は何ですか
 
@@ -3088,5 +3095,28 @@ register itemの親metadataとは別で、独自1-byte protocolと独立に事�
 
 記載されたvoid callbackは未完了transactionを検査しますが、診断severityを指定しません。
 今回はERRORだけを要求するoracleを創作せず、mirror／publicationの検査で最後の未完了検査を証明したとも主張しません。
-HDL force／releaseの3項目とともに別のレビュー対象に残し、一部分解した全条件も未完です。
+別のレビュー対象に残します。HDL force／releaseの3項目は部分義務と別backendの測定を追加しましたが、全ての部分条件は未完です。
 [残作業の案内](handoff.ja.md#残作業と優先候補)を参照してください。
+
+## HDLのforceとreleaseの条件
+
+forceはreleaseまで通常の更新に優先し、release/readは解除後のHDL値も返すもので、reg／wireの違いとbackendの前提は[HDLの用語集](glossary.ja.md#hdlのforceとreleaseの条件)で説明しています。
+
+### Q302. fixtureのforceableは何を意味しますか？
+
+選択した公開HDL信号に設定する明示的なcompiler統合の前提で、全targetへのIEEE UVM要求ではありません。
+独自backendは文書化された公開capability markerを確認して実handleへ標準VPI force／release flagを使い、markerへの直接書込みやpath／valueの模擬は行いません。
+[準備のガイド](testing.ja.md#verilatorのvpi-hdl部分集合)から公開interface文書と5.052固定の測定条件を確認できます。
+存在しない／未instrument targetはこの限定backendで失敗を返しますが、広い規範的義務の除外にはしません。
+
+### Q303. regとwireでrelease/readの値が異なる理由は？
+
+提供された19.6.2.5では、手続き代入regは新しい代入までforce値を保持し、連続駆動wireは即時にdriverの値へ解決します。
+独自8／40-bit fixtureは戻りdataを直後に確認し、安定したHDL状態と後続の代入／driver変更を独立peerとともに観測します。
+[現在の測定](results.ja.md#結果の解釈)は選択した2値scalar信号の条件であり、正時間force_time、未駆動net、一般select／型、4値は未完です。
+
+### Q304. backend変更で既存HDL 11入力も再測定する理由は？
+
+宣言backendは通常runnerがlinkしない場合も入力に含むためです。sourceと期待値が同じでも指紋が変わり、影響する全対応の再照合が必要です。
+通常20記録と別HDL 20記録を新たに測定し、通常buildはknownを保持、別HDLは19件が両seed一致とE.7のseed 1差分1件です。
+以前の記録へ現在の入力hashを付け替えず、影響しない通常2263入力と未変更guest／compiler／command-lineの証拠は[集約のガイド](results.ja.md#記録の合算)で記録しています。

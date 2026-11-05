@@ -11,6 +11,8 @@
 
 ## 規格と期待値
 
+期待出力ファイルだけでは結果の理由が分からないときは、[メタデータの項目](testing.ja.md#メタデータ)から診断や終了条件も要求されているか確認できます。
+
 **UVM／IEEE 1800.2-2020** — Universal Verification Methodology。
 このスイートが確認するクラス・API・動作の規格です。固定したAccellera実装は要求を実行するための
 ライブラリであり、期待値の根拠そのものにはしません。
@@ -592,6 +594,8 @@ register-sequenceのpoke／peek wrapperです。
 
 ## HDLの実行条件
 
+HDL pathはbackendがシミュレータ内で実際に解決するobjectの名前で、アクセスに必要な公開設定や実行条件は[HDLの準備](testing.ja.md#verilatorのvpi-hdl部分集合)で説明しています。
+
 **VPI（Verification Procedural Interface）** — HDL objectの検索や、対応する値の観測／変更に使う、
 simulatorの公開APIです。実際のhandle lookupは、path文字列をlocal storageへ対応付ける検査系とは異なります。
 
@@ -1147,3 +1151,11 @@ driverでの観測は[Q299](faq.ja.md#q299-adapter側のparent_sequenceは何を
 
 **Original clone bridge（独自clone bridge）** — 公開clone overrideから呼ぶfixture定義のdo_clone動作で、未規定のdo_clone prototypeを推定するものではありません。
 役割の限定とcaller parentの省略条件は[Q300](faq.ja.md#q300-fixtureで標準のdo_clone-signatureを定義していますか)で説明しています。
+
+## HDLのforceとreleaseの条件
+
+**Forceable target（force可能なtarget）** — このbackend条件でforceを可能にするcompilerの明示instrumentationを付けた、選択公開packed信号です。
+一般UVM義務との前提の違いは[Q302](faq.ja.md#q302-fixtureのforceableは何を意味しますか)で説明しています。
+
+**Immediate release/read value（即時release/read値）** — 解除時に返すHDL値で、手続き代入regは次の代入までforce値を保持し、駆動wireはdriverの解決値を返します。
+選択した観測と未完条件は[Q303](faq.ja.md#q303-regとwireでreleasereadの値が異なる理由は)で説明しています。

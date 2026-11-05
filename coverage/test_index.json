@@ -5092,7 +5092,7 @@
     },
     "u18/test_memory_builtin_hdl_backdoor_tasks_read_and_write_selected_array_locations": {
       "primary_clause": "18.6.7.10",
-      "inputs_sha256": "d250edbfc91512d2c5909b70b40b51cb9a640b426f5f9c5c0ec0139c346d1197"
+      "inputs_sha256": "c31d1c67204841f17e1363ef2c5bab582772dc6954d7faeb7192ea265e03b536"
     },
     "u18/test_memory_coverage_builder_intersects_requested_models_with_hierarchical_resource_selection": {
       "primary_clause": "18.6.8.1",
@@ -5120,7 +5120,7 @@
     },
     "u18/test_memory_hdl_split_array_paths_assemble_and_deposit_the_declared_bit_slices": {
       "primary_clause": "18.6.7.10",
-      "inputs_sha256": "a5f94c08c1f1be3241ef6cb5c6fc8c3a7712c10a87415a3c0478a41e08465cb9"
+      "inputs_sha256": "afe952bd71e383258025dd2ba34bd7a1a23b7a826a35ff69f4af0c1fe2b016b7"
     },
     "u18/test_memory_manager_configuration_query_and_compatible_shrink_preserve_active_regions": {
       "primary_clause": "18.12.4.2",
@@ -5200,7 +5200,7 @@
     },
     "u18/test_memory_physical_rom_backdoor_write_and_poke_have_distinct_access_effects": {
       "primary_clause": "18.6.5.1",
-      "inputs_sha256": "0a49010daec481a55ef4360dd7e225d6c977c411abc715bd1c7fba83fac4af8c"
+      "inputs_sha256": "728b61624091f9365381fc0a7e9cc08e800e606dabcbfd03e7d65529838eb178"
     },
     "u18/test_memory_policy_in_use_contains_exact_allocated_region_handles": {
       "primary_clause": "18.12.8.2.5",
@@ -6056,15 +6056,15 @@
     },
     "u19/test_hdl_deposit_sets_only_the_selected_variable_and_reports_missing_paths": {
       "primary_clause": "19.6.2.2",
-      "inputs_sha256": "41c8403fe382ef8b4a78a12b1ff44186eafcd1325332ef8083ce125fef9c8a34"
+      "inputs_sha256": "94091c6bc66ea31fb50c374642eb94fd86f95d7a8c8fd72e1ddb7d9a8241c7dd"
     },
     "u19/test_hdl_force_time_default_time_delegates_to_deposit_without_force_or_release": {
       "primary_clause": "19.6.2.4",
-      "inputs_sha256": "221d9176d6da5746723267733b41ae86266c18ed8bc06a68cbe740a3dc602b8d"
+      "inputs_sha256": "2a3aad03e66d6b5397f071916f515c1c0bbc652436b03a5f0d7f3ecc78654a8a"
     },
     "u19/test_hdl_force_time_explicit_zero_time_delegates_to_deposit_without_force_or_release": {
       "primary_clause": "19.6.2.4",
-      "inputs_sha256": "593e38257fd868b482ead89498239cd053ca395b5cbfea5de071b275a14df27e"
+      "inputs_sha256": "9b420460227a6c6161a94c2aab89941ae19a2265464d612412a065a139e650b0"
     },
     "u19/test_hdl_max_width_parameter_matches_the_configured_macro_value": {
       "primary_clause": "19.6.1",
@@ -6076,7 +6076,7 @@
     },
     "u19/test_hdl_read_returns_actual_wide_storage_without_modifying_either_variable": {
       "primary_clause": "19.6.2.7",
-      "inputs_sha256": "833f7e46cc00d7b85e3249167a77182c5e6909ce68f4e9c833af6229729f44fe"
+      "inputs_sha256": "908243beca7e68cbb8d00527430591b390ba43f9afa353a4432f16406b456165"
     },
     "u19/test_mem_custom_frontdoor_read_returns_the_selected_location": {
       "primary_clause": "19.4.2.2.1",
@@ -7392,19 +7392,19 @@
     },
     "uE/test_hdl_path_sequence_accepts_an_accessible_default_abstraction_without_advancing_time": {
       "primary_clause": "E.7",
-      "inputs_sha256": "f460517f7503499a9ef7afeaf092497101ba079768934f5727610d7f4ac02fbb"
+      "inputs_sha256": "3eac42f6619ae567ab416103b74dfbc1b13fc8de6dd3e8a723d4dec5143b5c9c"
     },
     "uE/test_hdl_path_sequence_uses_an_explicit_abstraction_instead_of_the_invalid_default": {
       "primary_clause": "E.7.2",
-      "inputs_sha256": "bdce9e77fc975b0da1d8db8e110c6e8bef65396fb7cf44292a81bed4c9be96d9"
+      "inputs_sha256": "d07d47bc9bf5bd4673938ee7fc0251783e5505526997c041df89300c70de94db"
     },
     "uE/test_hdl_path_sequence_uses_the_block_default_abstraction_when_the_list_is_empty": {
       "primary_clause": "E.7.2",
-      "inputs_sha256": "20bf4309da8728488c8dcb331db33e6d61cee0f3763ccbe7a4f9a900bd8d1539"
+      "inputs_sha256": "3d2ef45357d5f7c1a3fb4d0c405891c908f5c9f024b4425c30cbd531322d4240"
     },
     "uE/test_hdl_path_sequence_warns_for_inaccessible_register_paths_without_storage_access": {
       "primary_clause": "E.7",
-      "inputs_sha256": "8216986def92ba7ee10bc47c0f259d4f4b54468263a1d78709c49b96bdd5e153"
+      "inputs_sha256": "7196bbf9366ab91615b56eb1ac79bab2cd37ffd7b1e28b3473fdf2c88d4d9588"
     },
     "uE/test_hw_reset_sequence_detects_an_incorrect_storage_reset_value": {
       "primary_clause": "E.1",
@@ -9097,6 +9097,42 @@
     "u19/test_adapter_parent_sequence_memory_write_independent_routes": {
       "primary_clause": "19.2.1.2.4",
       "inputs_sha256": "fdb571513a12f20dd586cf14da3e9a9db29d8d090e4eaa1950ae74586fda1b15"
+    },
+    "u19/test_hdl_force_release_reg8": {
+      "primary_clause": "19.6.2.6",
+      "inputs_sha256": "287d9340f9675dfa45fcedae1320f01cece8ece94fb45853cb6f9ba66948f2d4"
+    },
+    "u19/test_hdl_force_release_read_reg8": {
+      "primary_clause": "19.6.2.5",
+      "inputs_sha256": "c34e385827b31d04ec4c2eb1440235cea41e952bc17b4b128de40d1aa0be563b"
+    },
+    "u19/test_hdl_force_release_wire8": {
+      "primary_clause": "19.6.2.6",
+      "inputs_sha256": "79369adbd5b51a616b73771f7677395593d337c42775be2c661dfdf8e9ece2fe"
+    },
+    "u19/test_hdl_force_release_read_wire8": {
+      "primary_clause": "19.6.2.5",
+      "inputs_sha256": "515a7204984ed8c94fd5fa77b6e0ee5dfe9afafb20809cf35df508ff661df1eb"
+    },
+    "u19/test_hdl_force_release_reg40": {
+      "primary_clause": "19.6.2.6",
+      "inputs_sha256": "83b32434d2ecd69662146feac4ba3b2b039d63b8875b33f77ae03f321850a328"
+    },
+    "u19/test_hdl_force_release_read_reg40": {
+      "primary_clause": "19.6.2.5",
+      "inputs_sha256": "d7d27a3090ac11d0112f23c1c71d7036f53368048c1875b9a97a438aea10142f"
+    },
+    "u19/test_hdl_force_release_wire40": {
+      "primary_clause": "19.6.2.6",
+      "inputs_sha256": "3ea25a2e0b9ff1c98ce2c953c672c4c5dca2b51efe3f3cc9d0dcf236c5a696a4"
+    },
+    "u19/test_hdl_force_release_read_wire40": {
+      "primary_clause": "19.6.2.5",
+      "inputs_sha256": "8d59fdb82a79aad346ca503b51a4c979c36cb36df8cfe30fe3931729d7141305"
+    },
+    "u19/test_hdl_force_release_failures_keep_independent_controls": {
+      "primary_clause": "19.6.2.3",
+      "inputs_sha256": "0101bd7bf429519f8c9a810bdc7364ac1e93d3228dbb36461225e86ceeaf6445"
     }
   }
 }

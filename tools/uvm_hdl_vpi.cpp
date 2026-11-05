@@ -1,7 +1,7 @@
-// Original fixture backend for the check/read/deposit subset of UVM HDL DPI.
-// Uses standard VPI handles and actual HDL storage, never a path/value mock.
-// Supports packed variables up to 64 bits. This is not a general UVM overlay:
-// force/release and other HDL types deliberately return failure.
+// Original UVM HDL DPI backend using public VPI and actual HDL storage.
+// Packed variables up to 64 bits; force/release require forceable signals.
+// Other HDL types return failure. This is not a general vendor overlay.
+// Public interface: https://verilator.org/guide/latest/extensions.html
 #include "svdpi.h"
 #include "vpi_user.h"
 #include <algorithm>
@@ -91,17 +91,71 @@ extern "C" int uvm_hdl_read(const char* path, svLogicVecVal* data) {
     return ok;
 }
 
-// These symbols may be referenced by compiled UVM virtual methods even when
-// no selected fixture calls them. Failure never masquerades as an operation.
-extern "C" int uvm_hdl_force(const char*, const svLogicVecVal*) {
-    ++counts[3];
-    return 0;
+namespace {
+// The forceable metacomment documents this public capability signal.
+bool forceable(const char* path) {
+    const std::string enable = std::string(path) + "__VforceEn";
+    vpiHandle handle = lookup(enable.c_str());
+    if (!handle) return false;
+    vpi_free_object(handle);
+    return true;
 }
-extern "C" int uvm_hdl_release(const char*) {
-    ++counts[3];
-    return 0;
 }
-extern "C" int uvm_hdl_release_and_read(const char*, svLogicVecVal*) {
+// Force/release use the standard VPI flags on supported public handles.
+extern "C" int uvm_hdl_force(const char* path, const svLogicVecVal* data) {
     ++counts[3];
-    return 0;
+    vpiHandle handle = lookup(path);
+    if (!supported(handle) || !forceable(path)) {
+        if (handle) vpi_free_object(handle);
+        return 0;
+    }
+    s_vpi_vecval words[2] = {};
+    const int size = (vpi_get(vpiSize, handle) + 31) / 32;
+    for (int i = 0; i < size; ++i) {
+        words[i].aval = data[i].aval;
+        words[i].bval = data[i].bval;
+    }
+    s_vpi_value value = {};
+    value.format = vpiVectorVal;
+    value.value.vector = words;
+    vpi_chk_error(nullptr);
+    vpi_put_value(handle, &value, nullptr, vpiForceFlag);
+    const int ok = vpi_chk_error(nullptr) == 0;
+    vpi_free_object(handle);
+    return ok;
+}
+namespace {
+int release_value(const char* path, svLogicVecVal* data) {
+    vpiHandle handle = lookup(path);
+    if (!supported(handle) || !forceable(path)) {
+        if (handle) vpi_free_object(handle);
+        return 0;
+    }
+    s_vpi_value value = {};
+    value.format = vpiVectorVal;
+    vpi_chk_error(nullptr);
+    vpi_put_value(handle, &value, nullptr, vpiReleaseFlag);
+    int ok = vpi_chk_error(nullptr) == 0;
+    if (ok && data) {
+        ok = value.value.vector != nullptr;
+        if (ok) {
+            std::fill(data, data + kUvmWords, svLogicVecVal{});
+            const int size = (vpi_get(vpiSize, handle) + 31) / 32;
+            for (int i = 0; i < size; ++i) {
+                data[i].aval = value.value.vector[i].aval;
+                data[i].bval = value.value.vector[i].bval;
+            }
+        }
+    }
+    vpi_free_object(handle);
+    return ok;
+}
+}
+extern "C" int uvm_hdl_release(const char* path) {
+    ++counts[3];
+    return release_value(path, nullptr);
+}
+extern "C" int uvm_hdl_release_and_read(const char* path, svLogicVecVal* data) {
+    ++counts[3];
+    return release_value(path, data);
 }

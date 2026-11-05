@@ -10,15 +10,15 @@ M4 is in progress. The [scope proposal](../coverage/scope.json),
 [requirement ledger](../coverage/requirements.json),
 [identifier assessments](../coverage/assessments.json) and
 [test index](../coverage/test_index.json) are versioned inputs. The ledger
-contains 3823 AI-drafted requirements, all with direct links to 2250 tests.
-Twenty-four tests have only control links. All 2274 tests have a requirement link.
+contains 3830 AI-drafted requirements, all with direct links to 2259 tests.
+Twenty-four tests have only control links. All 2283 tests have a requirement link.
 Both direct-test and test-link queues are empty. The memory-walk oracle is an
 explicit historical interpretation requiring review; this does not certify
 complete IEEE coverage. No requirement records human review.
 
-The clause catalog has 2,507 identifiers. 1964 have a partial
+The clause catalog has 2,507 identifiers. 1967 have a partial
 requirement decomposition; 406 have explicit AI assessments (279 structural,
-127 contextual), and 137 remain unassessed. No state certifies completion.
+127 contextual), and 134 remain unassessed. No state certifies completion.
 Starting M4 does not approve the scope or denominator, or complete
 M1–M3. `approved_denominator` and `coverage_percentage` remain `null`.
 
@@ -26,12 +26,14 @@ Here `null` records that the denominator and percentage are unset pending approv
 
 ## Counting unit and scope proposal
 
+The denominator would be the agreed set of applicable obligations, so [the approval steps](#remaining-m4-work-and-approval) must resolve that set before any requirement-coverage percentage is published.
+
 An obligation is one behavior the standard requires under stated conditions; [the coverage glossary](glossary.md#scope-and-coverage) distinguishes it from a clause number or test count.
 
 The proposed unit is one observable normative obligation together with its
 applicability conditions. A method clause may need separate requirements for
 success, failure, default arguments, ordering and side effects. Conversely,
-a heading is not an obligation. The 3823 draft entries span several areas,
+a heading is not an obligation. The 3830 draft entries span several areas,
 without exhausting the obligations in their clauses.
 
 The proposal assigns every root in the existing identifier catalog once:
@@ -67,14 +69,14 @@ execution records carry the measured status and conditions.
 ![Clause citations, explicit requirement links and separately measured execution evidence.](images/requirement-evidence.svg)
 
 A test's first UVM `:lrm:` reference is its **primary focus**; later UVM
-references are **supporting citations**. Of the catalog identifiers, 1211
-have a primary-focus test and 2,007 have either kind of citation. Supporting
+references are **supporting citations**. Of the catalog identifiers, 1214
+have a primary-focus test and 2,010 have either kind of citation. Supporting
 references often describe setup APIs. No reference creates a requirement link,
 and a child-clause reference is not automatically rolled up to its parent.
 
 For the 2,482 candidate identifiers, the historical two-tests-per-clause
-census currently shows 1,271 with zero primary-focus tests, 761 with one,
-and 450 with at least two. It measures test placement only. It does not
+census currently shows 1,268 with zero primary-focus tests, 762 with one,
+and 452 with at least two. It measures test placement only. It does not
 establish that an identifier has two independent checks, that its normative
 obligations are decomposed, or that either test passes. It is not an approved
 requirement denominator or a declaration that all zero-focus clauses are gaps.
@@ -99,11 +101,13 @@ lines are anchored once; the runner still compares the complete expected sequenc
 
 [Execution evidence](results.md) is separate and needs matching input, runner,
 library and configuration identities. A direct link may retain a spec-only
-known difference. It is not a pass or a conformance claim. The current 2274-test
+known difference. It is not a pass or a conformance claim. The current 2283-test
 snapshot includes newly measured fixtures; mapping unchanged existing tests
 adds no new execution result for them.
 
 ## Versioned data and generated inventory
+
+A schema version identifies a JSON data layout rather than a UVM library release; [the library setup](testing.md#the-uvm-library) describes the separate release lock used for execution.
 
 Canonical files are the maintained source data, while inventory and backlog files are generated views; [the handoff file guide](handoff.md#files-and-local-material) explains which material is available in a fresh clone.
 
@@ -133,7 +137,7 @@ duplicate requirement IDs and unknown clauses/tests are rejected.
 - `coverage/test_index.json` snapshots every current test's `primary_clause`
   and `inputs_sha256`. The fingerprint uses the existing runner collector:
   source, declared helpers/includes/data, expected files and UVM lock. The
-  index is an inventory, not 2274 reviewed requirement mappings.
+  index is an inventory, not 2283 reviewed requirement mappings.
 
 A compile-diagnostic link requires `stage: compile`, a valid nonempty regex
 exactly equal to the fixture's `:expected_stderr_regex:`, `:type: elaboration`
@@ -257,7 +261,7 @@ Each row counts requirements by their own clause and tests by their primary cita
 | 16 | 279 | 186 | 0 | 32 | 1 |
 | 17 | 42 | 11 | 0 | 8 | 0 |
 | 18 | 834 | 500 | 0 | 51 | 45 |
-| 19 | 189 | 140 | 0 | 24 | 4 |
+| 19 | 196 | 149 | 0 | 24 | 1 |
 | B | 204 | 139 | 0 | 4 | 38 |
 | C | 98 | 69 | 0 | 13 | 0 |
 | D | 120 | 28 | 0 | 8 | 0 |
@@ -266,38 +270,41 @@ Each row counts requirements by their own clause and tests by their primary cita
 | G | 45 | 20 | 0 | 4 | 0 |
 
 Zero unmapped tests and zero drafts without direct tests do not establish
-complete requirement coverage. The remaining 137 identifiers still need
-assessment/decomposition. Scope is proposed, all 3823 reviews are `ai` and
+complete requirement coverage. The remaining 134 identifiers still need
+assessment/decomposition. Scope is proposed, all 3830 reviews are `ai` and
 the denominator remains unapproved.
 
-Eight new adapter parent-context fixtures match seeds 1 and 73 on final inputs.
-Independent register/memory reads and writes use an original one-byte protocol
-and a driver requiring a selected sequence base. Prototypes alternate A/B/A with
-current tags 17/34/51. Paired inputs concurrently exercise two separate adapter,
-map, sequencer and driver routes; the peer retains base B/tag 119. Real pull-driver
-handshakes expose the required parent base, current tag, successful status and
-selected data. Reads use independently seeded storage; rows are emitted after
-joining both operations without imposing a completion order.
+Nine new HDL force/release fixtures match seeds 1 and 73 under the separate VPI
+condition. Public forceable 8/40-bit reg and wire signals receive forced values,
+opposing procedural or driver updates, plain release and immediate release/read.
+Reg values persist until a new procedural assignment; driven wires immediately
+return their resolved driver value. Independent unforced peers and missing or
+uninstrumented paths distinguish valid calls and declared backend failures.
+The original backend uses standard VPI force/release flags and the documented
+public capability marker, with no path/value mock or simulator source copy.
 
-An original public clone override invokes a fixture-defined do_clone bridge.
-The clause does not supply a do_clone prototype; no standard signature, clone
-count/identity, generated name, arbitrary base-state copy or external RTL is
-inferred. Explicit caller-parent combinations remain open under the separate
-register/memory child rules; these inputs omit the caller parent rather than
-assuming the adapter rule overrides it. Predictor check_phase remains separate review work; no diagnostic severity is
-assumed from its printed void check.
+Changing the declared backend changes eleven older input fingerprints even
+though their sources and expectations are unchanged. All eleven mappings are
+reviewed and all twenty ordinary/HDL inputs are freshly measured. Separate HDL
+totals are nineteen both-seed matches and the retained E.7 warning/no-transfer
+difference at seed 1, without a seed 73 result. All twenty ordinary inputs fail
+to link DPI and keep their spec-only build-known status; no backend match
+becomes an ordinary-runner pass.
 
-One new bilingual AI duty partially decomposes 19.2.1.2.4. All 3822 earlier
-duties, 406 classifications and the proposed scope remain unchanged. Global
-state is 1964 partial/406 assessed/137 unassessed. Chapter 19 is 83/24/4 with
-189 duties and 140 primary fixtures (135 simulation/5 elaboration). Its remaining
-unassessed identifiers are predictor check_phase and three HDL force/release
-entries. All partial obligations and original M1–M4 targets remain open.
+Seven new bilingual AI duties partially decompose 19.6.2.3/.5/.6. Two zero-time
+force_time duty limitations retain historical wording and add current backend/
+runner identity refresh; their source/oracle and deposit-only premise are
+unchanged. The other 3821 earlier duties, all 406 classifications and proposed
+scope are unchanged. Global state is 1967 partial/406 assessed/134 unassessed.
+Chapter 19 is 86/24/1 with 196 duties and 149 primary fixtures (144 simulation/
+5 elaboration); predictor check_phase remains unassessed. Positive-duration
+force_time, broader HDL types and all partial obligations remain open.
 
-All 3823 duties link directly to 2250 tests; 24 others remain control-only and
-102 have control links. All 2266 prior ordinary inputs/records, 92 compiler
-records, compatible guests and both backend snapshots remain unchanged.
-Scope, denominator and human review remain unapproved/incomplete.
+All 3830 duties link directly to 2259 tests; 24 others remain control-only and
+103 have control links. Unaffected 2263 ordinary records, all 92 compiler
+records, 18 command-line records and 1082 compatible guest records are retained.
+There is no new guest run/filter. Scope, denominator, human review and the
+original M1–M4 targets remain unapproved/incomplete.
 
 TLM 1 drafts cover selected interface/port defaults, FIFO queries, public
 export methods, channel inheritance/defaults/constructors and queue capacities.
@@ -397,9 +404,9 @@ translation fixtures use real upstream/bus sequencers and delayed original
 drivers; a failure/retry case preserves returned status/data. A default-BASE
 virtual sequence uses the model property for real convenience accesses to two
 independent blocks. Separate constructor/type and no-DPI HDL-parameter probes
-retain narrower limits. Chapter 19 has 81 partial, 24 assessed and six
-unassessed identifiers. Nine newly read classifications have individual
-rationale; all earlier requirements remain unchanged.
+retain narrower limits. Chapter 19 currently has 86 partial, 24 assessed and one unassessed
+identifier. The earlier nine classifications retain their individual rationale;
+current additions and the two limitation revisions are identified above.
 
 Callback encode/decode drafts distinguish invocation order from value
 propagation. Four two-element user-backdoor fixtures retain standard-derived
@@ -407,7 +414,7 @@ transformed values despite pinned-library differences; default callback
 no-change behavior is a separate matching control. Selected task-read boundary
 conditions now have direct fixtures, while broader cancellation/concurrency,
 write declaration ambiguity, default formatter completeness, parent_sequence
-do_clone, pending-predictor diagnostic severity and force/release remain open.
+do_clone, pending-predictor diagnostic severity and broader force/release conditions remain open.
 No new fixture establishes physical DUT traffic or arbitrary protocols.
 
 Sequence drafts now cover the declared item/base/generic/library inheritance
@@ -582,7 +589,7 @@ Bidirectional export drafts cover nine concrete constructor variants, nested
 blocking/nonblocking custom types, status propagation and reuse. Two unchanged
 master/slave fixtures add explicit directional export links. HDL drafts cover
 explicit/default abstraction selection and zero-time force_time delegation;
-no positive-duration force/release support or invented task return value is claimed.
+no positive-duration force_time evidence or invented task return value is claimed.
 
 Port-base drafts now distinguish omitted constructor bounds, minimum/maximum
 queries, unbounded state, leaf/full names, exact parent, role predicates,
@@ -688,6 +695,8 @@ this validation alongside the existing metadata and library checks.
 
 ## Remaining M4 work and approval
 
+An empty unassessed queue can still leave partial obligations and applicability conditions open; [the inventory states](#review-work-queue-and-root-totals) explain which remaining work to inspect.
+
 Continue reading candidate clauses and splitting their obligations and
 conditions. Map existing tests before deciding which new tests are necessary;
 record unsupported or unmatched behavior without changing its normative
@@ -701,4 +710,4 @@ counting rule and frozen requirement set. Define separately what counts as
 reviewed test coverage and as execution success, including execution conditions
 and evidence identity. Approval needs a later scope schema/procedure update; scope schema
 1 intentionally cannot express a completed inventory or approved denominator.
-The current 3823 AI drafts and their direct links do not satisfy that gate.
+The current 3830 AI drafts and their direct links do not satisfy that gate.

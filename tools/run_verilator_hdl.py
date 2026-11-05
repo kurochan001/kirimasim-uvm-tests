@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Run the explicit VPI HDL subset with an original check/read/deposit backend.
+"""Run the explicit VPI HDL subset with an original packed-signal HDL backend.
 
 This runner has its own evidence identity (verilator_hdl). It does not change
-ordinary no-DPI execution or claim general force/release, memory-array, regex
-or four-state support. Every selected fixture must opt in and fingerprint
+ordinary no-DPI execution. Force/release require public forceable packed signals;
+general memory-array, regex and four-state support remain outside this condition. Every selected fixture must opt in and fingerprint
 uvm_hdl_vpi.cpp through :dpi_c:. See docs/testing.md.
 """
 
@@ -121,7 +121,7 @@ def main() -> int:
     runner_hash = suite_results.runner_digest(SIMULATOR)
     statuses = {}
     configuration = {"seeds": args.seeds, "uvm": uvm_common.lock()["version"],
-                     "uvm_hdl_backend": "original-vpi-check-read-deposit-64",
+                     "uvm_hdl_backend": "original-vpi-hdl-force-release-64",
                      "uvm_hdl_max_width": 1024}
     with concurrent.futures.ThreadPoolExecutor(max_workers=args.jobs) as pool:
         futures = {pool.submit(run, t, args.verilator, args.seeds[0], args.build_jobs,

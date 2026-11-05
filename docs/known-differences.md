@@ -4,13 +4,25 @@
 
 A difference belongs to a particular simulator/library/input condition, and [the status definitions](faq.md#q5-what-do-pass-fail-known-and-unsupported-mean) explain how it appears in runner output.
 
-This describes the current 2274-test suite and the pinned Accellera UVM
+This describes the current 2283-test suite and the pinned Accellera UVM
 2020.3.1 library. A mismatch is a test result; it does not by itself assign
 the cause to the simulator, the library or the expectation.
 
 For the size of a difference set, read [the measured breakdown](results.md#interpretation); use [library notes](known-differences.md#pinned-library-limitations), [the grouped source list](known-differences.md#spec-only-tests) and [simulator/library conditions](known-differences.md#simulator-and-library-combinations) to investigate a particular input.
 
 Individual source links appear in the topic explanations and [grouped list](#spec-only-tests); [the test format guide](testing.md#test-format) explains how to read their metadata, expected observations and execution conditions.
+
+Nine new force/release inputs match both seeds only under the separate HDL condition and retain ordinary spec-only DPI-link failures; eleven older inputs are also remeasured after the backend change, as explained in [the HDL FAQ](faq.md#hdl-force-and-release-conditions).
+
+- [test_hdl_force_release_reg8](../tests/u19/test_hdl_force_release_reg8.sv).
+- [test_hdl_force_release_read_reg8](../tests/u19/test_hdl_force_release_read_reg8.sv).
+- [test_hdl_force_release_wire8](../tests/u19/test_hdl_force_release_wire8.sv).
+- [test_hdl_force_release_read_wire8](../tests/u19/test_hdl_force_release_read_wire8.sv).
+- [test_hdl_force_release_reg40](../tests/u19/test_hdl_force_release_reg40.sv).
+- [test_hdl_force_release_read_reg40](../tests/u19/test_hdl_force_release_read_reg40.sv).
+- [test_hdl_force_release_wire40](../tests/u19/test_hdl_force_release_wire40.sv).
+- [test_hdl_force_release_read_wire40](../tests/u19/test_hdl_force_release_read_wire40.sv).
+- [test_hdl_force_release_failures_keep_independent_controls](../tests/u19/test_hdl_force_release_failures_keep_independent_controls.sv).
 
 Eight new adapter parent-context inputs match both seeds while prior bus-value, callback and printer differences remain; [the parent-context FAQ](faq.md#adapter-sequence-contexts) records the explicit-caller and unspecified-do_clone boundaries.
 
@@ -126,7 +138,7 @@ independent bugs. See [macro conditions](faq.md#recording-and-scalar-macro-condi
 57 pure-interface/const-reference/forbidden-member/type-context violations.
 87 match. Subscriber/visitor/proxy/adapter omissions and direct construction
 of the printed virtual builtin dispatcher remain accepted and spec-only without
-runtime. These five compiler acceptances are separate from 325 known simulation
+runtime. These five compiler acceptances are separate from 334 known simulation
 differences. Legal derived controls do not replace a required rejection.
 
 Field-access auditing retains 5 new runtime differences at seed 1 without
@@ -924,7 +936,7 @@ cannot build because the pinned library also declares unlisted pure helpers.
 The missing-standard-hook negative supplies original compatibility bodies only
 to isolate the specified rejection. It does not repair that legal extension.
 
-Across the suite, 1944 tests have the `verilator@5.052` oracle tag and 330
+Across the suite, 1944 tests have the `verilator@5.052` oracle tag and 339
 cases are spec-only. One of the spec-only cases checks 9.6: a child's pre-reset
 task must be killed when that phase ends, but the pinned-library run on Verilator 5.052
 lets the child perform its delayed write during a later phase. The cause of
@@ -936,28 +948,21 @@ without callbacks. The pinned Verilator run reaches the blocked-state
 observation, then its watchdog expires. This combined simulator/library
 cause remains unassigned; the normative wakeup expectation is retained.
 
-The 330 spec-only cases retain standard-derived expected output or compiler diagnostics.
+The 339 spec-only cases retain standard-derived expected output or compiler diagnostics.
 Default Verilator runs and CI select 1944 tagged checks (1857 runtime, 87 compile rejection). `--all` includes
 spec-only cases and records mismatches or build failures as `known`.
 The ordinary runtime records for 242 cases establish their first difference
-at seed 1, without seed 73 results. Twenty-seven missing-API/type-name builds have
-no ordinary runtime: one time API, six sequence-library cases, four HDL slice
-cases, one named-concat constructor, five object active-policy API cases, three catcher
-message-handle cases, the printed recording-state getter, the printed callback
-typedef and two builtin type_id cases, plus three typed resource-DB helper cases. One time-decrement argument-default build, two type-default declarations, two printed
-signature conflicts and two inherited type_id registry specializations are
-separate declaration builds. One legal public-read declaration has protected-access
-failure. Two legal extensions, resource-base and listed-only core service, require
-unlisted pure hooks.
-Three additional legal builds retain the enum-collection T interpretation.
-Eleven HDL and eighteen command-line cases also
-lack linked DPI in the ordinary runner, totaling 76 simulation builds without
-runtime.
+at seed 1, without seed 73 results.
+The 92 simulation builds have no ordinary runtime, including 38 unlinked DPI
+inputs (20 HDL and 18 command-line); [the measured breakdown](results.md#interpretation)
+records the complete categories. Five illegal compiler acceptances remain a
+separate no-runtime condition.
 
-The separate HDL
-condition matches ten at both seeds, including three actual-array memory fixtures, and fails the E.7 warning/no-transfer
-expectation at seed 1. The separate command-line condition has seventeen matches
-and one quit-warning difference. These overlapping configurations are not summed.
+The separate HDL condition has nineteen both-seed matches in twenty inputs,
+including nine force/release and three actual-array memory inputs, plus the
+retained E.7 warning/no-transfer difference at seed 1. The separate command-line
+condition retains seventeen matches and one quit-warning difference. These
+overlapping conditions are not summed.
 
 Seven policy fixtures first differ at seed 1 without seed 73: the copier's
 omitted name is nonempty, comparer threshold/copy recursion/recorder radix do
@@ -983,6 +988,8 @@ runtime cases and the corrected rerandomization case match both seeds; two
 abstract constructions reject without runtime execution.
 
 ## Printed report callback alias
+
+Here “printed” means the literal declaration in the standard, whose wording may conflict with its heading; [the correction guide](faq.md#q18-how-should-i-report-or-correct-a-wrong-expectation) explains how to report an interpretation that needs review.
 
 D.4.3 heads the entry as report_cb but prints the typedef name report_db.
 The [literal declaration probe](../tests/uD/test_printed_report_callback_typedef_name_matches_the_declared_specialization.sv)
@@ -1017,11 +1024,13 @@ The printed create_object equivalent call's extra this argument remains partial.
 
 ## Spec-only tests
 
+Several listed inputs can stop at the same missing API, so their count is not a count of independent defects; [the measured breakdown](results.md#interpretation) separates build blockers from runtime observations.
+
 Spec-only cases retain standard-derived expectations even without a fixed-release oracle tag; [Standards and expectations](glossary.md#standards-and-expectations) explains what that annotation means.
 
 A control exercises a separate premise to help interpret a difference, and [the requirement-link guide](requirements.md#citations-requirements-and-execution-evidence) explains how its result relates to the original case.
 
-The 330 current spec-only cases are linked in the explanatory notes and the
+The 339 current spec-only cases are linked in the explanatory notes and the
 grouped list below. Several exercise the same limitation, so their count is
 not a count of distinct bugs.
 
@@ -1310,7 +1319,7 @@ Additional message-handle and endian cases:
 
 Two existing inputs have revised fingerprints: the command-enum citation and
 the corrected Boolean rerandomization observation. Their historical guest
-records are excluded. The compatible subset has 1082 records and 1192 inputs
+records are excluded. The compatible subset has 1082 records and 1201 inputs
 are unmeasured, including both revised inputs. This filtering is evidence scope,
 not a new guest failure, pass or simulator improvement.
 
@@ -1351,8 +1360,8 @@ A bundled library and the pinned library are different execution conditions, so 
 
 The latest guest filter excludes the corrected field-configuration citation input: 1083 prior compatible records become 1082, with no new guest execution. [The evidence guide](results.md#evidence-assembly) records the exact exclusion and resulting counts.
 
-The suite has 2274 cases, but the kirimasim/Ghost records below cover only
-1082 unchanged current-input cases. The 1192 inputs are unmeasured
+The suite has 2283 cases, but the kirimasim/Ghost records below cover only
+1082 unchanged current-input cases. The 1201 inputs are unmeasured
 because prior temporary executable/profile snapshots are unavailable. Do
 not treat this as a fresh full-suite guest result. See [results](results.md).
 

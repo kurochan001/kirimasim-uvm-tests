@@ -46749,8 +46749,8 @@
         "ja": "depositは正確に1回で、force／release／read呼出しも時刻経過もなく、対象値だけが変わりpeerを保持する。"
       },
       "limitations": {
-        "en": "Measured only with the unchanged original limited VPI backend/runner and real eight-bit HDL variables. Invalid alternative paths must remain unselected; no warning text, path iteration order or finer permissions are prescribed. E.7 read attempts remain separate from these abstraction-selection observations. Zero-time force_time tests exercise the UVM wrapper, not force/release backend support; the printed task/return-value inconsistency is not converted into an invented return assertion.",
-        "ja": "未変更の独自限定VPI backend／runnerと、実際の8 bit HDL変数だけで実測する。不正な代替pathは未選択を要求し、warning本文、path列挙順、細かな権限は指定しない。E.7のread試行は、abstraction選択の観測とは別に残す。zero-time force_timeはUVM wrapperの検査で、force／release backendの対応ではない。記載されたtask／戻り値の矛盾から、架空の戻り値assertionは作らない。"
+        "en": "Earlier measurement condition: Measured only with the unchanged original limited VPI backend/runner and real eight-bit HDL variables. Invalid alternative paths must remain unselected; no warning text, path iteration order or finer permissions are prescribed. E.7 read attempts remain separate from these abstraction-selection observations. Zero-time force_time tests exercise the UVM wrapper, not force/release backend support; the printed task/return-value inconsistency is not converted into an invented return assertion. Current reproduction refreshes the extended backend/runner identities; these unchanged fixtures still check only deposit delegation, with the original check/read/deposit implementation paths unchanged.",
+        "ja": "以前の測定条件：未変更の独自限定VPI backend／runnerと、実際の8 bit HDL変数だけで実測する。不正な代替pathは未選択を要求し、warning本文、path列挙順、細かな権限は指定しない。E.7のread試行は、abstraction選択の観測とは別に残す。zero-time force_timeはUVM wrapperの検査で、force／release backendの対応ではない。記載されたtask／戻り値の矛盾から、架空の戻り値assertionは作らない。 現在の再現では拡張backend／runnerの同一性を更新し、未変更のこれらのfixtureは引き続きdeposit委譲だけを検査する。元のcheck／read／deposit実装経路は未変更である。"
       },
       "review": {
         "status": "ai",
@@ -46784,8 +46784,8 @@
         "ja": "force／release／read呼出しや時刻進行なしにdepositを1回使い、実際の対象／peer値が一致する。"
       },
       "limitations": {
-        "en": "Measured only with the unchanged original limited VPI backend/runner and real eight-bit HDL variables. Invalid alternative paths must remain unselected; no warning text, path iteration order or finer permissions are prescribed. E.7 read attempts remain separate from these abstraction-selection observations. Zero-time force_time tests exercise the UVM wrapper, not force/release backend support; the printed task/return-value inconsistency is not converted into an invented return assertion.",
-        "ja": "未変更の独自限定VPI backend／runnerと、実際の8 bit HDL変数だけで実測する。不正な代替pathは未選択を要求し、warning本文、path列挙順、細かな権限は指定しない。E.7のread試行は、abstraction選択の観測とは別に残す。zero-time force_timeはUVM wrapperの検査で、force／release backendの対応ではない。記載されたtask／戻り値の矛盾から、架空の戻り値assertionは作らない。"
+        "en": "Earlier measurement condition: Measured only with the unchanged original limited VPI backend/runner and real eight-bit HDL variables. Invalid alternative paths must remain unselected; no warning text, path iteration order or finer permissions are prescribed. E.7 read attempts remain separate from these abstraction-selection observations. Zero-time force_time tests exercise the UVM wrapper, not force/release backend support; the printed task/return-value inconsistency is not converted into an invented return assertion. Current reproduction refreshes the extended backend/runner identities; these unchanged fixtures still check only deposit delegation, with the original check/read/deposit implementation paths unchanged.",
+        "ja": "以前の測定条件：未変更の独自限定VPI backend／runnerと、実際の8 bit HDL変数だけで実測する。不正な代替pathは未選択を要求し、warning本文、path列挙順、細かな権限は指定しない。E.7のread試行は、abstraction選択の観測とは別に残す。zero-time force_timeはUVM wrapperの検査で、force／release backendの対応ではない。記載されたtask／戻り値の矛盾から、架空の戻り値assertionは作らない。 現在の再現では拡張backend／runnerの同一性を更新し、未変更のこれらのfixtureは引き続きdeposit委譲だけを検査する。元のcheck／read／deposit実装経路は未変更である。"
       },
       "review": {
         "status": "ai",
@@ -141179,6 +141179,476 @@
             "UT: parent76 peer 1 required 1 kind 2 tag 119 ok 1 value b2",
             "UT: parent76 focus 2 required 1 kind 1 tag 51 ok 1 value 73",
             "UT: parent76 peer 2 required 1 kind 2 tag 119 ok 1 value c3"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-HDL-FORCE-RETURN-STATUS",
+      "clause": "19.6.2.3",
+      "statement": {
+        "en": "HDL force reports one for a successful operation and zero when the call fails.",
+        "ja": "HDL forceは成功時に1、呼出し失敗時に0を返す。"
+      },
+      "conditions": {
+        "en": "Actual public forceable 8/40-bit reg and wire signals, one independent unforced peer, opposing procedural assignments or changed continuous drivers, plain release or immediate release-and-read, and missing/uninstrumented failure targets. Public VPI force/release flags implement the separately fingerprinted backend; ordinary runs do not link it.",
+        "ja": "実際の公開forceableな8／40-bit regとwire、独立した未force peer、反対値への手続き代入または連続driver変更、通常releaseまたは即時release-and-read、存在しない／未instrumentの失敗targetを使う。公開VPI force／release flagによるbackendを別の指紋で識別し、通常実行ではlinkしない。"
+      },
+      "expected": {
+        "en": "Instrumented valid paths return one; missing/uninstrumented paths return zero and the independent valid control succeeds.",
+        "ja": "instrument済み有効pathは1、存在しない／未instrument pathは0を返し、独立した有効controlは成功する。"
+      },
+      "limitations": {
+        "en": "Selected two-state packed scalar signals up to 64 bits with forceable instrumentation only. Settled force observations do not certify every delta-cycle update; release-and-read observations check the returned value immediately. No general array/select/user-nettype, force_time positive-duration, four-state, vendor overlay, permissions or complete HDL coverage is established. Failure output buffers, exact diagnostics and general rollback are unspecified here. Unsupported target failures are a declared backend condition, not a normative exclusion.",
+        "ja": "forceableのinstrumentationを付けた64 bit以下の選択2値packed scalar信号だけ。安定後のforce観測で全delta-cycle更新を認定せず、release-and-readは戻り直後の値を検査する。一般array／select／user nettype、正時間force_time、4値、vendor overlay、権限、完全なHDL検査は成立させない。失敗時の出力buffer、正確な診断、一般rollbackはここでは規定しない。非対応targetの失敗は宣言したbackend条件であり、規範的な除外ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_hdl_force_release_reg8",
+          "role": "direct",
+          "expected_observations": [
+            "UT: force77 success 1 held 1 peer 1"
+          ]
+        },
+        {
+          "test": "u19/test_hdl_force_release_read_reg8",
+          "role": "direct",
+          "expected_observations": [
+            "UT: force77 success 1 held 1 peer 1"
+          ]
+        },
+        {
+          "test": "u19/test_hdl_force_release_wire8",
+          "role": "direct",
+          "expected_observations": [
+            "UT: force77 success 1 held 1 peer 1"
+          ]
+        },
+        {
+          "test": "u19/test_hdl_force_release_read_wire8",
+          "role": "direct",
+          "expected_observations": [
+            "UT: force77 success 1 held 1 peer 1"
+          ]
+        },
+        {
+          "test": "u19/test_hdl_force_release_reg40",
+          "role": "direct",
+          "expected_observations": [
+            "UT: force77 success 1 held 1 peer 1"
+          ]
+        },
+        {
+          "test": "u19/test_hdl_force_release_read_reg40",
+          "role": "direct",
+          "expected_observations": [
+            "UT: force77 success 1 held 1 peer 1"
+          ]
+        },
+        {
+          "test": "u19/test_hdl_force_release_wire40",
+          "role": "direct",
+          "expected_observations": [
+            "UT: force77 success 1 held 1 peer 1"
+          ]
+        },
+        {
+          "test": "u19/test_hdl_force_release_read_wire40",
+          "role": "direct",
+          "expected_observations": [
+            "UT: force77 success 1 held 1 peer 1"
+          ]
+        },
+        {
+          "test": "u19/test_hdl_force_release_failures_keep_independent_controls",
+          "role": "direct",
+          "expected_observations": [
+            "UT: failure77 missing force 0 release 0 read 0",
+            "UT: failure77 unmarked force 0 release 0 read 0",
+            "UT: failure77 valid_force 1 held 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-HDL-FORCE-HOLDS-VALUE",
+      "clause": "19.6.2.3",
+      "statement": {
+        "en": "A forced value overrides subsequent ordinary procedural or continuous-driver updates until release.",
+        "ja": "forceした値は、releaseまで後続の通常の手続き代入または連続driver更新より優先される。"
+      },
+      "conditions": {
+        "en": "Actual public forceable 8/40-bit reg and wire signals, one independent unforced peer, opposing procedural assignments or changed continuous drivers, plain release or immediate release-and-read, and missing/uninstrumented failure targets. Public VPI force/release flags implement the separately fingerprinted backend; ordinary runs do not link it.",
+        "ja": "実際の公開forceableな8／40-bit regとwire、独立した未force peer、反対値への手続き代入または連続driver変更、通常releaseまたは即時release-and-read、存在しない／未instrumentの失敗targetを使う。公開VPI force／release flagによるbackendを別の指紋で識別し、通常実行ではlinkしない。"
+      },
+      "expected": {
+        "en": "The selected forced value remains while the opposing assignment/driver changes, and the unforced peer is unchanged.",
+        "ja": "反対の代入／driver変更中も選択したforce値が残り、未force peerは変化しない。"
+      },
+      "limitations": {
+        "en": "Selected two-state packed scalar signals up to 64 bits with forceable instrumentation only. Settled force observations do not certify every delta-cycle update; release-and-read observations check the returned value immediately. No general array/select/user-nettype, force_time positive-duration, four-state, vendor overlay, permissions or complete HDL coverage is established. Failure output buffers, exact diagnostics and general rollback are unspecified here. Unsupported target failures are a declared backend condition, not a normative exclusion.",
+        "ja": "forceableのinstrumentationを付けた64 bit以下の選択2値packed scalar信号だけ。安定後のforce観測で全delta-cycle更新を認定せず、release-and-readは戻り直後の値を検査する。一般array／select／user nettype、正時間force_time、4値、vendor overlay、権限、完全なHDL検査は成立させない。失敗時の出力buffer、正確な診断、一般rollbackはここでは規定しない。非対応targetの失敗は宣言したbackend条件であり、規範的な除外ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_hdl_force_release_reg8",
+          "role": "direct",
+          "expected_observations": [
+            "UT: force77 success 1 held 1 peer 1",
+            "UT: force77 reassignment_held 1 peer 1"
+          ]
+        },
+        {
+          "test": "u19/test_hdl_force_release_read_reg8",
+          "role": "direct",
+          "expected_observations": [
+            "UT: force77 success 1 held 1 peer 1",
+            "UT: force77 reassignment_held 1 peer 1"
+          ]
+        },
+        {
+          "test": "u19/test_hdl_force_release_wire8",
+          "role": "direct",
+          "expected_observations": [
+            "UT: force77 success 1 held 1 peer 1",
+            "UT: force77 reassignment_held 1 peer 1"
+          ]
+        },
+        {
+          "test": "u19/test_hdl_force_release_read_wire8",
+          "role": "direct",
+          "expected_observations": [
+            "UT: force77 success 1 held 1 peer 1",
+            "UT: force77 reassignment_held 1 peer 1"
+          ]
+        },
+        {
+          "test": "u19/test_hdl_force_release_reg40",
+          "role": "direct",
+          "expected_observations": [
+            "UT: force77 success 1 held 1 peer 1",
+            "UT: force77 reassignment_held 1 peer 1"
+          ]
+        },
+        {
+          "test": "u19/test_hdl_force_release_read_reg40",
+          "role": "direct",
+          "expected_observations": [
+            "UT: force77 success 1 held 1 peer 1",
+            "UT: force77 reassignment_held 1 peer 1"
+          ]
+        },
+        {
+          "test": "u19/test_hdl_force_release_wire40",
+          "role": "direct",
+          "expected_observations": [
+            "UT: force77 success 1 held 1 peer 1",
+            "UT: force77 reassignment_held 1 peer 1"
+          ]
+        },
+        {
+          "test": "u19/test_hdl_force_release_read_wire40",
+          "role": "direct",
+          "expected_observations": [
+            "UT: force77 success 1 held 1 peer 1",
+            "UT: force77 reassignment_held 1 peer 1"
+          ]
+        },
+        {
+          "test": "u19/test_hdl_force_release_failures_keep_independent_controls",
+          "role": "control",
+          "expected_observations": [
+            "UT: failure77 valid_force 1 held 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-HDL-RELEASE-RETURN-STATUS",
+      "clause": "19.6.2.6",
+      "statement": {
+        "en": "HDL release reports one for success and zero when the call fails.",
+        "ja": "HDL releaseは成功時に1、呼出し失敗時に0を返す。"
+      },
+      "conditions": {
+        "en": "Actual public forceable 8/40-bit reg and wire signals, one independent unforced peer, opposing procedural assignments or changed continuous drivers, plain release or immediate release-and-read, and missing/uninstrumented failure targets. Public VPI force/release flags implement the separately fingerprinted backend; ordinary runs do not link it.",
+        "ja": "実際の公開forceableな8／40-bit regとwire、独立した未force peer、反対値への手続き代入または連続driver変更、通常releaseまたは即時release-and-read、存在しない／未instrumentの失敗targetを使う。公開VPI force／release flagによるbackendを別の指紋で識別し、通常実行ではlinkしない。"
+      },
+      "expected": {
+        "en": "Valid forced paths return one and the declared missing/uninstrumented failure paths return zero.",
+        "ja": "有効なforce済みpathは1、宣言した存在しない／未instrumentの失敗pathは0を返す。"
+      },
+      "limitations": {
+        "en": "Selected two-state packed scalar signals up to 64 bits with forceable instrumentation only. Settled force observations do not certify every delta-cycle update; release-and-read observations check the returned value immediately. No general array/select/user-nettype, force_time positive-duration, four-state, vendor overlay, permissions or complete HDL coverage is established. Failure output buffers, exact diagnostics and general rollback are unspecified here. Unsupported target failures are a declared backend condition, not a normative exclusion.",
+        "ja": "forceableのinstrumentationを付けた64 bit以下の選択2値packed scalar信号だけ。安定後のforce観測で全delta-cycle更新を認定せず、release-and-readは戻り直後の値を検査する。一般array／select／user nettype、正時間force_time、4値、vendor overlay、権限、完全なHDL検査は成立させない。失敗時の出力buffer、正確な診断、一般rollbackはここでは規定しない。非対応targetの失敗は宣言したbackend条件であり、規範的な除外ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_hdl_force_release_reg8",
+          "role": "direct",
+          "expected_observations": [
+            "UT: release77 success 1"
+          ]
+        },
+        {
+          "test": "u19/test_hdl_force_release_wire8",
+          "role": "direct",
+          "expected_observations": [
+            "UT: release77 success 1"
+          ]
+        },
+        {
+          "test": "u19/test_hdl_force_release_reg40",
+          "role": "direct",
+          "expected_observations": [
+            "UT: release77 success 1"
+          ]
+        },
+        {
+          "test": "u19/test_hdl_force_release_wire40",
+          "role": "direct",
+          "expected_observations": [
+            "UT: release77 success 1"
+          ]
+        },
+        {
+          "test": "u19/test_hdl_force_release_failures_keep_independent_controls",
+          "role": "direct",
+          "expected_observations": [
+            "UT: failure77 missing force 0 release 0 read 0",
+            "UT: failure77 unmarked force 0 release 0 read 0"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-HDL-RELEASE-REMOVES-FORCE",
+      "clause": "19.6.2.6",
+      "statement": {
+        "en": "A successful release removes the prior force so ordinary assignment or net-driver behavior resumes.",
+        "ja": "releaseに成功すると以前のforceが除去され、通常の代入またはnet driver動作が再開する。"
+      },
+      "conditions": {
+        "en": "Actual public forceable 8/40-bit reg and wire signals, one independent unforced peer, opposing procedural assignments or changed continuous drivers, plain release or immediate release-and-read, and missing/uninstrumented failure targets. Public VPI force/release flags implement the separately fingerprinted backend; ordinary runs do not link it.",
+        "ja": "実際の公開forceableな8／40-bit regとwire、独立した未force peer、反対値への手続き代入または連続driver変更、通常releaseまたは即時release-and-read、存在しない／未instrumentの失敗targetを使う。公開VPI force／release flagによるbackendを別の指紋で識別し、通常実行ではlinkしない。"
+      },
+      "expected": {
+        "en": "Reg retains the forced value until the next procedural assignment; wire resolves to its current driver and follows a subsequent driver change.",
+        "ja": "regは次の手続き代入までforce値を保ち、wireは現在driverへ解決し、その後のdriver変更にも従う。"
+      },
+      "limitations": {
+        "en": "Selected two-state packed scalar signals up to 64 bits with forceable instrumentation only. Settled force observations do not certify every delta-cycle update; release-and-read observations check the returned value immediately. No general array/select/user-nettype, force_time positive-duration, four-state, vendor overlay, permissions or complete HDL coverage is established. Failure output buffers, exact diagnostics and general rollback are unspecified here. Unsupported target failures are a declared backend condition, not a normative exclusion.",
+        "ja": "forceableのinstrumentationを付けた64 bit以下の選択2値packed scalar信号だけ。安定後のforce観測で全delta-cycle更新を認定せず、release-and-readは戻り直後の値を検査する。一般array／select／user nettype、正時間force_time、4値、vendor overlay、権限、完全なHDL検査は成立させない。失敗時の出力buffer、正確な診断、一般rollbackはここでは規定しない。非対応targetの失敗は宣言したbackend条件であり、規範的な除外ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_hdl_force_release_reg8",
+          "role": "direct",
+          "expected_observations": [
+            "UT: release77 success 1",
+            "UT: reg77 retained 1 peer 1",
+            "UT: reg77 resumed 1 peer 1"
+          ]
+        },
+        {
+          "test": "u19/test_hdl_force_release_wire8",
+          "role": "direct",
+          "expected_observations": [
+            "UT: release77 success 1",
+            "UT: wire77 resolved 1 peer 1",
+            "UT: wire77 resumed 1 peer 1"
+          ]
+        },
+        {
+          "test": "u19/test_hdl_force_release_reg40",
+          "role": "direct",
+          "expected_observations": [
+            "UT: release77 success 1",
+            "UT: reg77 retained 1 peer 1",
+            "UT: reg77 resumed 1 peer 1"
+          ]
+        },
+        {
+          "test": "u19/test_hdl_force_release_wire40",
+          "role": "direct",
+          "expected_observations": [
+            "UT: release77 success 1",
+            "UT: wire77 resolved 1 peer 1",
+            "UT: wire77 resumed 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-HDL-RELEASE-READ-RETURN-STATUS",
+      "clause": "19.6.2.5",
+      "statement": {
+        "en": "HDL release-and-read reports one for success and zero when the call fails.",
+        "ja": "HDL release-and-readは成功時に1、呼出し失敗時に0を返す。"
+      },
+      "conditions": {
+        "en": "Actual public forceable 8/40-bit reg and wire signals, one independent unforced peer, opposing procedural assignments or changed continuous drivers, plain release or immediate release-and-read, and missing/uninstrumented failure targets. Public VPI force/release flags implement the separately fingerprinted backend; ordinary runs do not link it.",
+        "ja": "実際の公開forceableな8／40-bit regとwire、独立した未force peer、反対値への手続き代入または連続driver変更、通常releaseまたは即時release-and-read、存在しない／未instrumentの失敗targetを使う。公開VPI force／release flagによるbackendを別の指紋で識別し、通常実行ではlinkしない。"
+      },
+      "expected": {
+        "en": "Valid forced paths return one; missing/uninstrumented paths return zero without prescribing failed output data.",
+        "ja": "有効なforce済みpathは1、存在しない／未instrument pathは0を返し、失敗出力dataは規定しない。"
+      },
+      "limitations": {
+        "en": "Selected two-state packed scalar signals up to 64 bits with forceable instrumentation only. Settled force observations do not certify every delta-cycle update; release-and-read observations check the returned value immediately. No general array/select/user-nettype, force_time positive-duration, four-state, vendor overlay, permissions or complete HDL coverage is established. Failure output buffers, exact diagnostics and general rollback are unspecified here. Unsupported target failures are a declared backend condition, not a normative exclusion.",
+        "ja": "forceableのinstrumentationを付けた64 bit以下の選択2値packed scalar信号だけ。安定後のforce観測で全delta-cycle更新を認定せず、release-and-readは戻り直後の値を検査する。一般array／select／user nettype、正時間force_time、4値、vendor overlay、権限、完全なHDL検査は成立させない。失敗時の出力buffer、正確な診断、一般rollbackはここでは規定しない。非対応targetの失敗は宣言したbackend条件であり、規範的な除外ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_hdl_force_release_read_reg8",
+          "role": "direct",
+          "expected_observations": [
+            "UT: release77 success 1 sampled 1"
+          ]
+        },
+        {
+          "test": "u19/test_hdl_force_release_read_wire8",
+          "role": "direct",
+          "expected_observations": [
+            "UT: release77 success 1 sampled 1"
+          ]
+        },
+        {
+          "test": "u19/test_hdl_force_release_read_reg40",
+          "role": "direct",
+          "expected_observations": [
+            "UT: release77 success 1 sampled 1"
+          ]
+        },
+        {
+          "test": "u19/test_hdl_force_release_read_wire40",
+          "role": "direct",
+          "expected_observations": [
+            "UT: release77 success 1 sampled 1"
+          ]
+        },
+        {
+          "test": "u19/test_hdl_force_release_failures_keep_independent_controls",
+          "role": "direct",
+          "expected_observations": [
+            "UT: failure77 missing force 0 release 0 read 0",
+            "UT: failure77 unmarked force 0 release 0 read 0",
+            "UT: failure77 valid_release 1 sampled 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-HDL-RELEASE-READ-REG-VALUE",
+      "clause": "19.6.2.5",
+      "statement": {
+        "en": "For a procedurally assigned reg, release-and-read returns its retained forced value until the next procedural assignment.",
+        "ja": "手続き代入されるregのrelease-and-readは、次の手続き代入まで保持するforce値を返す。"
+      },
+      "conditions": {
+        "en": "Actual public forceable 8/40-bit reg and wire signals, one independent unforced peer, opposing procedural assignments or changed continuous drivers, plain release or immediate release-and-read, and missing/uninstrumented failure targets. Public VPI force/release flags implement the separately fingerprinted backend; ordinary runs do not link it.",
+        "ja": "実際の公開forceableな8／40-bit regとwire、独立した未force peer、反対値への手続き代入または連続driver変更、通常releaseまたは即時release-and-read、存在しない／未instrumentの失敗targetを使う。公開VPI force／release flagによるbackendを別の指紋で識別し、通常実行ではlinkしない。"
+      },
+      "expected": {
+        "en": "Immediate readback and the retained reg equal the forced value; a subsequent procedural assignment becomes visible.",
+        "ja": "即時readbackと保持したregはforce値と一致し、後続の手続き代入が見える。"
+      },
+      "limitations": {
+        "en": "Selected two-state packed scalar signals up to 64 bits with forceable instrumentation only. Settled force observations do not certify every delta-cycle update; release-and-read observations check the returned value immediately. No general array/select/user-nettype, force_time positive-duration, four-state, vendor overlay, permissions or complete HDL coverage is established. Failure output buffers, exact diagnostics and general rollback are unspecified here. Unsupported target failures are a declared backend condition, not a normative exclusion.",
+        "ja": "forceableのinstrumentationを付けた64 bit以下の選択2値packed scalar信号だけ。安定後のforce観測で全delta-cycle更新を認定せず、release-and-readは戻り直後の値を検査する。一般array／select／user nettype、正時間force_time、4値、vendor overlay、権限、完全なHDL検査は成立させない。失敗時の出力buffer、正確な診断、一般rollbackはここでは規定しない。非対応targetの失敗は宣言したbackend条件であり、規範的な除外ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_hdl_force_release_read_reg8",
+          "role": "direct",
+          "expected_observations": [
+            "UT: release77 success 1 sampled 1",
+            "UT: reg77 retained 1 peer 1",
+            "UT: reg77 resumed 1 peer 1"
+          ]
+        },
+        {
+          "test": "u19/test_hdl_force_release_read_reg40",
+          "role": "direct",
+          "expected_observations": [
+            "UT: release77 success 1 sampled 1",
+            "UT: reg77 retained 1 peer 1",
+            "UT: reg77 resumed 1 peer 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-HDL-RELEASE-READ-WIRE-VALUE",
+      "clause": "19.6.2.5",
+      "statement": {
+        "en": "For a continuously driven wire, release-and-read returns the resolved value after removing force.",
+        "ja": "連続駆動wireのrelease-and-readは、force除去後の解決値を返す。"
+      },
+      "conditions": {
+        "en": "Actual public forceable 8/40-bit reg and wire signals, one independent unforced peer, opposing procedural assignments or changed continuous drivers, plain release or immediate release-and-read, and missing/uninstrumented failure targets. Public VPI force/release flags implement the separately fingerprinted backend; ordinary runs do not link it.",
+        "ja": "実際の公開forceableな8／40-bit regとwire、独立した未force peer、反対値への手続き代入または連続driver変更、通常releaseまたは即時release-and-read、存在しない／未instrumentの失敗targetを使う。公開VPI force／release flagによるbackendを別の指紋で識別し、通常実行ではlinkしない。"
+      },
+      "expected": {
+        "en": "Immediate returned data matches the changed continuous driver; the wire follows that value and a later driver update.",
+        "ja": "即時の戻りdataは変更した連続driverと一致し、wireはその値と後続driver更新に従う。"
+      },
+      "limitations": {
+        "en": "Selected two-state packed scalar signals up to 64 bits with forceable instrumentation only. Settled force observations do not certify every delta-cycle update; release-and-read observations check the returned value immediately. No general array/select/user-nettype, force_time positive-duration, four-state, vendor overlay, permissions or complete HDL coverage is established. Failure output buffers, exact diagnostics and general rollback are unspecified here. Unsupported target failures are a declared backend condition, not a normative exclusion.",
+        "ja": "forceableのinstrumentationを付けた64 bit以下の選択2値packed scalar信号だけ。安定後のforce観測で全delta-cycle更新を認定せず、release-and-readは戻り直後の値を検査する。一般array／select／user nettype、正時間force_time、4値、vendor overlay、権限、完全なHDL検査は成立させない。失敗時の出力buffer、正確な診断、一般rollbackはここでは規定しない。非対応targetの失敗は宣言したbackend条件であり、規範的な除外ではない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "u19/test_hdl_force_release_read_wire8",
+          "role": "direct",
+          "expected_observations": [
+            "UT: release77 success 1 sampled 1",
+            "UT: wire77 resolved 1 peer 1",
+            "UT: wire77 resumed 1 peer 1"
+          ]
+        },
+        {
+          "test": "u19/test_hdl_force_release_read_wire40",
+          "role": "direct",
+          "expected_observations": [
+            "UT: release77 success 1 sampled 1",
+            "UT: wire77 resolved 1 peer 1",
+            "UT: wire77 resumed 1 peer 1"
           ]
         }
       ]

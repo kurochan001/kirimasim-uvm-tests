@@ -1,0 +1,6 @@
+UT: failure77 missing force 0 release 0 read 0
+UT: failure77 unmarked force 0 release 0 read 0
+UT: failure77 untouched 1 1
+UT: failure77 valid_force 1 held 1 peer 1
+UT: failure77 valid_release 1 sampled 1
+UT: failure77 reassigned 1 peer 1

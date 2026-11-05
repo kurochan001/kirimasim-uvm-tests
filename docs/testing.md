@@ -67,6 +67,8 @@ A test pairs observed behavior with an independently derived expectation; [Stand
 
 ### Example
 
+The block below shows only a metadata header; [the complete smoke-test source](../tests/u09/test_common_phases_run_in_order.sv) also contains the classes and top module needed to run it.
+
 ```systemverilog
 /*
 :name: test_common_phases_run_in_order
@@ -282,6 +284,8 @@ controls retain separate citations and execution identities.
 
 ## Where the expected outputs come from
 
+A suspected expectation error needs a clause-based correction, so use [Q18](faq.md#q18-how-should-i-report-or-correct-a-wrong-expectation) to distinguish that correction from a simulator or library difference.
+
 1. The expected output is derived from the cited clauses (`:oracle: spec`).
 2. The library's source (Apache-2.0) may be read to understand the text of the
    standard, but expected outputs come from the standard. The library's
@@ -341,7 +345,7 @@ DPI lets SystemVerilog call external code, and [Q12](faq.md#q12-does-uvm_dpi-yes
 - User-defined `uvm_reg_backdoor` storage handlers work without HDL DPI.
   Commercial simulator execution/results are excluded by the project policy;
   built-in HDL-path/DPI coverage remains open.
-- 2245 current cases use `UVM_NO_DPI`; eleven explicitly enable HDL DPI.
+- 2245 current cases use `UVM_NO_DPI`; twenty explicitly enable HDL DPI.
   `:uvm_dpi: yes` removes that macro;
   it does not automatically compile or link the C/C++ DPI implementation.
   The current Verilator runner does not add DPI C/C++ sources.
@@ -353,47 +357,53 @@ DPI lets SystemVerilog call external code, and [Q12](faq.md#q12-does-uvm_dpi-yes
 This backend connects UVM's DPI calls to the simulator's public VPI interface; [HDL execution conditions](glossary.md#hdl-execution-conditions) explains the two interfaces and the scope of a backend result.
 
 The separate [HDL runner](../tools/run_verilator_hdl.py) links the original
-[backend](../tools/uvm_hdl_vpi.cpp) through public VPI, using actual HDL storage.
-It requires exactly Verilator 5.052. The eleven opt-in fixtures set
-`:uvm_dpi: yes`, `:uvm_hdl_backend: vpi` and the declared `:dpi_c:` path,
-while `UVM_REGEX_NO_DPI` and `UVM_CMDLINE_NO_DPI` disable unrelated imports.
-The runner rejects HDL disabling macros and an override of the default
-1024-bit UVM DPI ABI in either defines field.
+[backend](../tools/uvm_hdl_vpi.cpp) to actual HDL storage with exactly Verilator
+5.052. Twenty fixtures declare `:uvm_dpi: yes`, `:uvm_hdl_backend: vpi` and
+`:dpi_c:`; `UVM_REGEX_NO_DPI` and `UVM_CMDLINE_NO_DPI` disable unrelated imports.
+The runner rejects HDL-disabling macros and changes to the default 1024-bit
+UVM DPI ABI in either defines field.
 
 ```sh
 python3 tools/run_verilator_hdl.py --seeds 1 73 --build-jobs 2 -j 1 \
   --json out/verilator-hdl.json
 ```
 
-The unchanged backend accepts supported packed-variable handles up to 64 bits.
-Earlier fixtures use 8/40-bit variables; three memory fixtures also measure
-selected actual 16-bit array words and 8/16-bit split banks. Check/read/deposit
-reach actual simulator handles and neighboring cells provide isolation controls.
-The two inherited-task fixtures use original public wrappers because the pinned
-library makes backdoor_read protected. A separate legal declaration probe
-retains that accessibility difference; public-write declaration is independently
-legal. Wrappers do not pass the public-read contract.
+Check/read/deposit reach supported packed handles up to 64 bits. Three memory
+fixtures use actual 16-bit array words and 8/16-bit split banks with neighboring
+cell controls. Two inherited-task fixtures use original public wrappers because
+the pinned backdoor_read is protected; the separate legal public-read declaration
+probe retains that difference. Wrapper matches do not pass its contract.
 
-Force/release return failure. Selected array-word matches do not establish
-general array/type support, four-state values, fine-grained permissions or vendor
-overlays. This is an original limited backend, not proof of another simulator's
-HDL implementation.
+Force/release require public forceable packed signals. The backend checks the
+documented public capability marker and applies standard VPI flags to the actual
+handle; it does not write that marker or mock path/value storage. Public
+[extension documentation](https://verilator.org/guide/latest/extensions.html)
+describes integration, while original probes and current measurements establish
+behavior on exactly 5.052. Eight 8/40-bit reg/wire inputs check force held across
+opposing updates, plain release, immediate release/read and later updates. One
+additional input checks missing/uninstrumented targets and a valid control.
+Reg retains its forced value until a new procedural assignment; a driven wire
+immediately returns its resolved value, as explained in [the HDL FAQ](faq.md#hdl-force-and-release-conditions).
 
-See the [public VPI documentation](https://verilator.org/guide/latest/connecting.html#verification-procedural-interface-vpi)
-for visibility and evaluation constraints. Fixtures allow reevaluation after
-deposits before inspecting HDL values. No simulator implementation source is read.
-The ordinary runner is unchanged and does not link this backend; these eleven
-fixtures remain `:oracle: spec`. The separate runner records `verilator_hdl`,
-its own `runner_sha256` and backend configuration, and uses the same generic
-expectations. It returns failure for any selected mismatch. Ten cases match
-both seeds, including the three actual-array fixtures; the E.7 warning/no-transfer
-case differs. Keep this overlapping eleven-case condition separate from ordinary-runner evidence.
+See [public VPI documentation](https://verilator.org/guide/latest/connecting.html#verification-procedural-interface-vpi)
+for visibility/evaluation constraints. Deposit/force observations allow
+reevaluation; release/read samples the returned value immediately. General
+arrays/selects/types, positive-duration force_time, four-state values, finer
+permissions and vendor overlays remain open. No simulator implementation source
+is read.
 
-Algorithm details absent from the current IEEE text may have an explicitly
-qualified AI interpretation recorded in the fixture and ledger. The memory-walk
-case uses an official historical reference as explained in [Q134](faq.md#q134-how-is-the-memory-walk-algorithm-interpreted).
-Such a link is review work, not approval of missing normative detail. No copied
-algorithm implementation or observed simulator output defines that oracle.
+Ordinary runs do not link the backend and all twenty retain `:oracle: spec`.
+The distinct `verilator_hdl` identity, `runner_sha256` and backend configuration
+use the same expectations. Nineteen match both seeds; the E.7 warning/no-transfer
+case differs at seed 1 and the strict runner fails on a mismatch. Changing the
+backend also changes eleven older input fingerprints: their sources/oracles
+are preserved, mappings reviewed, and all twenty ordinary/HDL inputs remeasured.
+Keep this overlapping condition separate from twenty ordinary DPI-link failures.
+
+Algorithm detail absent from current IEEE text may carry an explicitly qualified
+AI interpretation. [Q134](faq.md#q134-how-is-the-memory-walk-algorithm-interpreted)
+records the memory-walk historical reference and review limits; copied algorithm
+implementations or measured output do not define its oracle.
 
 ### Verilator command-line subset
 
@@ -432,6 +442,8 @@ separate. Check runs the seventeen default command-line checks, not the known ca
 
 ## Running the suite
 
+Paths such as `/path/to/kirimasim` are placeholders for your installed executable; [the prerequisites](faq.md#q2-what-do-i-need-and-where-does-uvm-come-from) explain what to prepare before copying the commands.
+
 The Verilator exit code summarizes tagged regressions, so [Q6. Why can Verilator exit successfully with KNOWN results?](faq.md#q6-why-can-verilator-exit-successfully-with-known-results) explains why individual statuses still matter when including spec-only cases.
 
 `--all` expands selection within the chosen runner; it does not link the [HDL backend](#verilator-vpi-hdl-subset) or [command-line bridge](#verilator-command-line-subset), which require their separate runners.
@@ -457,7 +469,7 @@ The JSON configuration records either `seed` or `seeds` accordingly.
 
 By default, Verilator selects 1944 tagged two-state checks: 1857 runtime
 cases and 87 expected compiler rejections. To include
-the 330 spec-only cases as well, add `--all`. A mismatch in an untagged case
+the 339 spec-only cases as well, add `--all`. A mismatch in an untagged case
 is `known` and does not fail the command; a tagged mismatch does.
 Explicit test paths select only those tests. For a single smoke test:
 
@@ -517,7 +529,7 @@ python3 tools/requirements.py check
 ```
 
 The current tool suite has 110 unit tests; metadata validation checks all
-2274 tests (2182 simulation, 92 elaboration). The [ledger check](requirements.md) validates the draft
+2283 tests (2191 simulation, 92 elaboration). The [ledger check](requirements.md) validates the draft
 scope, explicit oracle links and input fingerprints without claiming coverage. [Check](../.github/workflows/check.yml) runs on pushes to
 `main`, pull requests and manual dispatch. Its Verilator matrix jobs use
 5.052, `UVM_NO_DPI` and seeds 1 and 73 for the tagged cases. Each model is
@@ -535,6 +547,8 @@ all shards to succeed. Sharding is orchestration; local
 validation does not establish a successful hosted workflow result.
 
 ## Adding or correcting a test
+
+A watchdog limits how long a blocking observation may wait; [the execution glossary](glossary.md#execution-and-result-records) explains how it makes a missing completion observable.
 
 Changing a source, helper or expectation changes the input identity, so follow [Updating a test or mapping](requirements.md#updating-a-test-or-mapping) before reusing old results.
 

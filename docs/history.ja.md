@@ -4,7 +4,7 @@
 
 このページの件数は各変更時点の値なので、現在のスイート規模や実行範囲が必要なときは[現在のスナップショット](results.ja.md#現在のスナップショット)を使ってください。
 
-M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の76回目の拡充（全2274件：simulation 2182・elaboration 92）までを記録しています。以前の349件の時点は
+M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の77回目の拡充（全2283件：simulation 2191・elaboration 92）までを記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -19,6 +19,8 @@ M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求へ�
 - [走査の宣言と既定値](history.ja.md#薄い領域の69回目の拡充走査の宣言と既定値)
 
 履歴中の`out/`パスは現在も残っているとは限らないローカル資料を指すため、そのファイルがない環境での再開に使う保守対象のツールは[引継ぎ資料のファイル案内](handoff.ja.md#ファイルとローカル資料)を参照してください。
+
+「追加」や「拡充」は開発作業のひとまとまりを表し、段階の完了を意味せず、残るM1〜M4の目標は[現在の進め方](../README.ja.md#進め方)で確認できます。
 
 ## Ghostの同梱UVMによる測定
 
@@ -2982,3 +2984,31 @@ predictor check_phaseは別のレビュー対象として未評価に残し、�
 以前の記録は元の入力hashで保持し、通常合計は1944 pass／330 knownです。
 guestは互換1082記録を保持して1192入力は未測定で、新しい実行／filterはありません。
 goal第48反復で未評価を1件減らして137とし、明示caller-parentの組合せと元のM1〜M4目標は全て未完に残します。
+
+## 薄い領域の77回目の拡充：実HDLのforceとrelease
+
+新規HDL force／release 9検査系は、別のVPI条件でseed 1／73に一致します。
+公開forceableの8／40-bit regとwireへforceし、反対の手続き代入／driver更新、通常release、即時release/readを観測します。
+regは新しい手続き代入まで値を保持し、連続駆動wireは即時にdriverの解決値を返します。
+独立した未force peerと存在しない／未instrument pathで、有効呼出しと宣言したbackend失敗を区別します。
+独自backendは標準VPI force／release flagと文書化された公開capability markerを使い、path／valueの模擬やsimulator sourceの複製はありません。
+
+宣言したbackendの変更で、sourceと期待値が同じ既存11入力も指紋が変わります。
+11件の対応を再照合し、全20通常／HDL入力を新たに測定します。別HDL条件は19件が両seed一致、
+保持するE.7 warning／転送なしの差分1件はseed 1で、seed 73の結果はありません。
+通常20入力はDPIのlinkに失敗してspec-onlyのbuild knownを保持し、backendの一致を通常runnerのpassにはしません。
+
+新規日英AI義務7件で19.6.2.3／.5／.6を部分分解します。zero-time force_timeの以前の2義務は、
+制限の歴史的な記述を保持して現在backend／runnerの同一性更新を追記し、source／oracleとdepositだけの前提は未変更です。
+他の以前の3821義務、全406分類、範囲案は未変更です。全体は部分1967／分類406／未評価134です。
+第19章は86／24／1、義務196件、主引用149検査系（simulation 144／elaboration 5）で、predictor check_phaseは未評価です。
+正時間force_time、広いHDL型、全ての部分義務は未完です。
+
+全3830義務が2259テストへ直接対応し、他の24テストはcontrol専用、control linkあり103テストです。
+影響しない通常2263記録、compiler全92記録、command-line 18記録、互換guest 1082記録を保持します。
+新しいguest実行／filterはありません。範囲、分母、人のレビュー、元のM1〜M4目標は未承認／未完です。
+
+新規9件の期待値を測定前に固定し、probe後に最終20通常入力と20HDL入力を測定します。
+通常は1944 pass／339 known、別HDLは19 pass／1 failです。以前のbackend／runnerの証拠は元の同一性で保存し付け替えません。
+goal第49反復で未評価を3件減らして134としますが、正時間force_time、未分解の部分義務、人のレビュー、分母承認、元のM1〜M4目標は未完です。
+前の資料レビューで追加した日英の説明とリンクを保持し、現在の測定範囲に合わせて資料を更新します。

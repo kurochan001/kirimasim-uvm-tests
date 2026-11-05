@@ -7,12 +7,12 @@
 対応付けqueueの0はテストと義務のlinkを記録した状態で、全動作のcoverageではないため、合計を解釈する前に[対応状況と進捗を読む](reading-guide.ja.md#対応状況と進捗を読む)を参照してください。
 
 M4を進めています。[対象範囲の案](../coverage/scope.json)、[要求台帳](../coverage/requirements.json)、
-[番号の分類](../coverage/assessments.json)、[テスト索引](../coverage/test_index.json)を版管理します。AI要求案3823件は、すべて2250テストへ直接対応し、
-追加の24テストはcontrol専用です。全2274テストに要求の対応付けがあります。
+[番号の分類](../coverage/assessments.json)、[テスト索引](../coverage/test_index.json)を版管理します。AI要求案3830件は、すべて2259テストへ直接対応し、
+追加の24テストはcontrol専用です。全2283テストに要求の対応付けがあります。
 直接テストとテスト対応付けのqueueは両方0件です。memory-walkのoracleは、レビューが必要な歴史的解釈を明示し、
 IEEE全体のcoverageを認定しません。人による照合記録はありません。
 
-条項catalogの番号は2,507件です。1964件は要求を一部分解し、406件はAIで明示的に分類（構造279件・文脈127件）、残る137件は未評価です。
+条項catalogの番号は2,507件です。1967件は要求を一部分解し、406件はAIで明示的に分類（構造279件・文脈127件）、残る134件は未評価です。
 いずれも完了を示しません。M4の開始は、範囲や分母の承認、M1〜M3の完了を意味しません。
 `approved_denominator`と`coverage_percentage`は`null`のままです。
 
@@ -20,11 +20,13 @@ IEEE全体のcoverageを認定しません。人による照合記録はあり�
 
 ## 計数単位と対象範囲の案
 
+分母は合意した適用対象の義務集合を指し、要求カバレッジの割合を公開する前にその集合を確定する手順は[残作業と承認](#m4の残作業と承認)にあります。
+
 義務とは、特定の条件で規格が要求する1つの動作を指し、条項番号やテスト件数との違いは[カバレッジの用語](glossary.ja.md#範囲とカバレッジ)で説明しています。
 
 適用条件を伴う、観測可能な規範的義務を1要求とする案です。methodの1条項にも、成功、失敗、default引数、
 順序、副作用など、複数の要求が必要な場合があります。見出し自体は義務ではありません。
-3823件の要求案は複数領域にわたりますが、その条項内の全義務を列挙したものではありません。
+3830件の要求案は複数領域にわたりますが、その条項内の全義務を列挙したものではありません。
 
 既存の番号catalogのすべてのrootを、1つずつ次に割り当てます。
 
@@ -54,10 +56,10 @@ directとcontrolは、義務を直接検査するか、準備や条件の評価�
 ![条項の引用、明示的な要求の対応付け、別途測定する実行の証拠の関係。](images/requirement-evidence.ja.svg)
 
 テストの最初のUVM `:lrm:`参照を**主引用**、後続のUVM参照を**補助引用**と呼びます。
-catalogのうち主引用がある番号は1211件、どちらかの引用がある番号は2,007件です。
+catalogのうち主引用がある番号は1214件、どちらかの引用がある番号は2,010件です。
 補助引用は準備に使うAPIの場合もあります。引用から要求の対応付けを自動生成せず、子条項の参照を親条項へ自動集約もしません。
 
-対象候補2,482件について、従来の「各条項2テスト」の主引用の棚卸しは、0件が1,271、1件が761、2件以上が450です。
+対象候補2,482件について、従来の「各条項2テスト」の主引用の棚卸しは、0件が1,268、1件が762、2件以上が452です。
 これはテストの配置を測るだけで、2つの独立した検査があること、規範的な義務を分解したこと、実行が成功したことを示しません。
 承認された要求の分母ではなく、主引用0件の全条項が不足だと宣言するものでもありません。
 
@@ -74,9 +76,11 @@ checkerは参照、field、期待行の存在、入力の同一性を検査し�
 
 [実行の証拠](results.ja.md)は別に扱い、入力、runner、ライブラリ、設定の同一性が必要です。
 直接の対応先にもspecのみの既知差分があり得ます。対応自体は成功や適合性の主張ではありません。
-現在の2274件には新たに測定した検査系を含みます。変更していない既存テストの対応付け自体は、追加の実行結果ではありません。
+現在の2283件には新たに測定した検査系を含みます。変更していない既存テストの対応付け自体は、追加の実行結果ではありません。
 
 ## 版管理するデータと生成する棚卸し
+
+schemaの版はJSONの項目構成を識別するもので、UVMライブラリの版とは別に管理し、実行用の版を固定するlockは[ライブラリの準備](testing.ja.md#uvmライブラリ)で説明しています。
 
 正本は保守する元データ、inventoryとbacklogはそこから生成する表示であり、新規cloneで利用できる資料の範囲は[引継ぎ資料のファイル案内](handoff.ja.md#ファイルとローカル資料)で確認できます。
 
@@ -94,7 +98,7 @@ checkerは参照、field、期待行の存在、入力の同一性を検査し�
   `unreviewed`のまま未評価queueから除去できません。見出しの自動分類は行いません。
 - `coverage/test_index.json`は、全テストの`primary_clause`と`inputs_sha256`を記録します。
   指紋は既存runnerの収集処理を使い、source、宣言したhelper／include／data、期待値file、UVM lockを含めます。
-  索引は棚卸しであり、2274件のレビュー済み要求対応ではありません。
+  索引は棚卸しであり、2283件のレビュー済み要求対応ではありません。
 
 compile診断の対応には`stage: compile`、検査系の`:expected_stderr_regex:`と完全一致する空でない有効regex、`:type: elaboration`、空でない`:should_fail_because:`が必要です。
 その検査系にruntime出力／終了の期待は持たせません。未知／混在field、不正stage、不正／古いpattern、未対応schema版を拒否します。
@@ -197,7 +201,7 @@ JSONは、`requirements_without_direct_tests`（controlのみも含む日英の�
 | 16 | 279 | 186 | 0 | 32 | 1 |
 | 17 | 42 | 11 | 0 | 8 | 0 |
 | 18 | 834 | 500 | 0 | 51 | 45 |
-| 19 | 189 | 140 | 0 | 24 | 4 |
+| 19 | 196 | 149 | 0 | 24 | 1 |
 | B | 204 | 139 | 0 | 4 | 38 |
 | C | 98 | 69 | 0 | 13 | 0 |
 | D | 120 | 28 | 0 | 8 | 0 |
@@ -206,27 +210,28 @@ JSONは、`requirements_without_direct_tests`（controlのみも含む日英の�
 | G | 45 | 20 | 0 | 4 | 0 |
 
 未対応テスト0件と直接テストのない要求案0件は、完全な要求coverageを示しません。
-残る識別子137件は評価／分解が必要です。範囲は提案、3823件のレビューはすべて`ai`、分母は未承認です。
+残る識別子134件は評価／分解が必要です。範囲は提案、3830件のレビューはすべて`ai`、分母は未承認です。
 
-新規adapter parent-context 8検査系は、最終入力でseed 1／73に一致します。
-独自1-byte protocolと選択したsequence基底を要求するdriverで、register／memoryのreadとwriteを独立に扱います。
-prototypeはA／B／A、現在tagは17／34／51と切り替えます。paired入力はadapter、map、sequencer、driverの別々の2経路を並行実行し、peerは基底B／tag 119を保持します。
-実pull-driver handshakeで、要求parent基底、現在tag、成功status、選択dataを観測します。read storageは独立に事前設定し、
-両操作のjoin後に行を出力して完了順は規定しません。
+新規HDL force／release 9検査系は、別のVPI条件でseed 1／73に一致します。
+公開forceableの8／40-bit regとwireへforceし、反対の手続き代入／driver更新、通常release、即時release/readを観測します。
+regは新しい手続き代入まで値を保持し、連続駆動wireは即時にdriverの解決値を返します。
+独立した未force peerと存在しない／未instrument pathで、有効呼出しと宣言したbackend失敗を区別します。
+独自backendは標準VPI force／release flagと文書化された公開capability markerを使い、path／valueの模擬やsimulator sourceの複製はありません。
 
-独自の公開clone overrideがfixture定義のdo_clone bridgeを呼びます。
-条項はdo_cloneのprototypeを示さず、標準signature、clone件数／同一性、生成名、任意の基底状態copy、外部RTLは推定しません。
-明示caller-parentとの組合せは別のregister／memoryのchild規則のもとで未完に残し、今回の入力ではcaller parentを省略して、adapter規則による上書きを仮定しません。
-predictor check_phaseは別のレビュー対象として未評価に残し、記載されたvoidの検査から診断severityを仮定しません。
+宣言したbackendの変更で、sourceと期待値が同じ既存11入力も指紋が変わります。
+11件の対応を再照合し、全20通常／HDL入力を新たに測定します。別HDL条件は19件が両seed一致、
+保持するE.7 warning／転送なしの差分1件はseed 1で、seed 73の結果はありません。
+通常20入力はDPIのlinkに失敗してspec-onlyのbuild knownを保持し、backendの一致を通常runnerのpassにはしません。
 
-日英AI義務1件で19.2.1.2.4を部分分解し、以前の全3822義務、406分類、範囲案は未変更です。
-全体は部分1964／分類406／未評価137です。第19章は83／24／4、義務189件、主引用140検査系（simulation 135・elaboration 5）です。
-残る未評価番号はpredictor check_phaseとHDL force／releaseの3項目です。
-全ての部分義務と元のM1〜M4目標は未完です。
+新規日英AI義務7件で19.6.2.3／.5／.6を部分分解します。zero-time force_timeの以前の2義務は、
+制限の歴史的な記述を保持して現在backend／runnerの同一性更新を追記し、source／oracleとdepositだけの前提は未変更です。
+他の以前の3821義務、全406分類、範囲案は未変更です。全体は部分1967／分類406／未評価134です。
+第19章は86／24／1、義務196件、主引用149検査系（simulation 144／elaboration 5）で、predictor check_phaseは未評価です。
+正時間force_time、広いHDL型、全ての部分義務は未完です。
 
-全3823義務が2250テストへ直接対応し、他の24テストはcontrol専用、control linkあり102テストです。
-以前の全2266通常入力／記録、compiler 92記録、互換guest、両backend snapshotは未変更です。
-範囲、分母、人のレビューは未承認／未完です。
+全3830義務が2259テストへ直接対応し、他の24テストはcontrol専用、control linkあり103テストです。
+影響しない通常2263記録、compiler全92記録、command-line 18記録、互換guest 1082記録を保持します。
+新しいguest実行／filterはありません。範囲、分母、人のレビュー、元のM1〜M4目標は未承認／未完です。
 
 TLM 1要求案は、選択interface／port既定値、FIFO照会、公開export method、channel継承／既定値／constructorとqueue容量を扱います。
 実analysis impと多段exportは、選択subscriberへの配送、subscriberごとの順序、live handleを保持します。
@@ -278,11 +283,11 @@ register連携の要求案は、選択したitem／adapter／backdoorの名前�
 最初／最後にprotected helperを置く遅延task-based read、callback pipeline、実際のregister translation、run前のpredictor設定を扱います。
 直接／layered translation検査系は実際のupstream／bus sequencerと遅延する独自driverを使い、失敗／再試行の検査は戻るstatus／dataを保持します。
 既定BASEのvirtual sequenceはmodel propertyから独立した2 blockへ実際の便利accessを行います。constructor／型とno-DPI HDL parameterの別probeには狭い制限を保持します。
-第19章は部分分解81番号・分類24番号・未評価6番号です。新たに読んだ分類9件には個別の根拠があり、以前の要求はすべて保持します。
+第19章の現在値は部分分解86番号・分類24番号・未評価1番号です。以前の9分類は個別の根拠を保持し、現在の追加と制限2件の改訂は上記に記録しています。
 
 callback encode／decode要求案は呼出し順序と値の伝播を区別します。2要素のuser-backdoor 4検査系は固定libraryの差分があっても、規格から導いた変換値を保持し、
 既定callbackの無変更動作を別の一致する比較対象にします。選択したtask-read境界条件には直接検査系ができましたが、
-広い中止／並行性、write宣言の曖昧さ、既定formatterの完全性、parent_sequenceのdo_clone、待機predictorの診断severity、force／releaseは未完です。
+広い中止／並行性、write宣言の曖昧さ、既定formatterの完全性、parent_sequenceのdo_clone、待機predictorの診断severity、広いforce／release条件は未完です。
 新規検査系は物理DUT trafficや任意protocolを認定しません。
 
 sequence要求案は、宣言されたitem／base／generic／libraryの継承、request／response型の既定値、標準protected実行counter field、
@@ -391,7 +396,7 @@ container要求案は、名前／既定specialization、参照共有、key置換
 双方向export要求案は、9種類の具象constructor、入れ子blocking／nonblockingの独自型、status伝播、再利用を扱います。
 未変更のmaster／slave検査系2件にも、方向を明示するexportの対応を加えます。
 HDL要求案は、明示／既定abstraction選択、zero-time force_timeの委譲を扱います。
-正の期間のforce／release対応や、架空のtask戻り値は主張しません。
+正時間force_timeの証拠や、架空のtask戻り値は主張しません。
 
 port-base要求案は、省略したconstructor bounds、最小／最大の照会、無制限状態、leaf／完全名、
 正確なparent、role predicate、generic型名、provider／client所属、export fanout解決を区別します。
@@ -467,6 +472,8 @@ hashが同じでも、既知差分を含む未完／未承認の棚卸しの場�
 
 ## M4の残作業と承認
 
+未評価の一覧が空になっても部分分解の義務や適用条件が残ることがあり、次に確認する残作業は[棚卸しの状態](#レビュー用の未整理項目とroot別集計)で説明しています。
+
 候補の条項を読み、義務と条件への分解を続けます。既存テストを対応付けてから必要な追加テストを決め、
 未対応や不一致でも規範的な期待値は変えません。文脈／保留の区分、catalogの完全性、要求の同一性、重複、
 実際に非規範的な箇所をレビューします。backendの制約は制限として記録し、分母から暗黙に除外しません。
@@ -474,4 +481,4 @@ hashが同じでも、既知差分を含む未完／未承認の棚卸しの場�
 割合の公開前に、規範的義務の棚卸しとレビューを終え、範囲を決定し、計数規則と固定した要求集合の明示的な承認を得ます。
 レビュー済みの検査対応と、実行成功をどう数えるかは分けて定義し、実行条件と証拠の同一性も含めます。
 承認には後続のschema／手順の更新が必要です。scope schema 1では意図的に、棚卸し完了や承認済み分母を表せません。
-現在のAIによる3823要求案と直接の対応は、その条件を満たしていません。
+現在のAIによる3830要求案と直接の対応は、その条件を満たしていません。

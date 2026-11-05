@@ -5,8 +5,8 @@
 Counts on this page belong to the time of each change, so use [the current snapshot](results.md#current-snapshot) when you need the present suite size or execution scope.
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and seventy-six cross-milestone thin-area expansions, including the
-existing-test requirement-link backlog checkpoint (2274 tests: 2182 simulation and 92 elaboration). The earlier 349-test checkpoint is
+three M4 increments and seventy-seven cross-milestone thin-area expansions, including the
+existing-test requirement-link backlog checkpoint (2283 tests: 2191 simulation and 92 elaboration). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -22,6 +22,8 @@ Use these entry points to trace why an area was added, and [the handoff prioriti
 - [Traversal declarations and defaults](history.md#sixty-ninth-thin-area-expansion-traversal-declarations-and-defaults)
 
 Historical `out/` paths identify local artifacts that may no longer exist; [the handoff file guide](handoff.md#files-and-local-material) points to maintained tools for resuming work without those files.
+
+An increment is a batch of development work rather than a completed milestone; [the current plan](../README.md#plan) shows which M1–M4 targets remain open.
 
 ## Ghost bundled-library measurements
 
@@ -4635,3 +4637,46 @@ Prior records retain original input hashes; ordinary totals are 1944 pass/330
 known. Guests retain 1082 compatible records with 1192 unmeasured inputs and no
 new execution/filter. Goal iteration 48 reduces unassessed by one to 137; explicit
 caller-parent combinations and all original M1–M4 targets remain open.
+
+## Seventy-seventh thin-area expansion: real HDL force and release
+
+Nine new HDL force/release fixtures match seeds 1 and 73 under the separate VPI
+condition. Public forceable 8/40-bit reg and wire signals receive forced values,
+opposing procedural or driver updates, plain release and immediate release/read.
+Reg values persist until a new procedural assignment; driven wires immediately
+return their resolved driver value. Independent unforced peers and missing or
+uninstrumented paths distinguish valid calls and declared backend failures.
+The original backend uses standard VPI force/release flags and the documented
+public capability marker, with no path/value mock or simulator source copy.
+
+Changing the declared backend changes eleven older input fingerprints even
+though their sources and expectations are unchanged. All eleven mappings are
+reviewed and all twenty ordinary/HDL inputs are freshly measured. Separate HDL
+totals are nineteen both-seed matches and the retained E.7 warning/no-transfer
+difference at seed 1, without a seed 73 result. All twenty ordinary inputs fail
+to link DPI and keep their spec-only build-known status; no backend match
+becomes an ordinary-runner pass.
+
+Seven new bilingual AI duties partially decompose 19.6.2.3/.5/.6. Two zero-time
+force_time duty limitations retain historical wording and add current backend/
+runner identity refresh; their source/oracle and deposit-only premise are
+unchanged. The other 3821 earlier duties, all 406 classifications and proposed
+scope are unchanged. Global state is 1967 partial/406 assessed/134 unassessed.
+Chapter 19 is 86/24/1 with 196 duties and 149 primary fixtures (144 simulation/
+5 elaboration); predictor check_phase remains unassessed. Positive-duration
+force_time, broader HDL types and all partial obligations remain open.
+
+All 3830 duties link directly to 2259 tests; 24 others remain control-only and
+103 have control links. Unaffected 2263 ordinary records, all 92 compiler
+records, 18 command-line records and 1082 compatible guest records are retained.
+There is no new guest run/filter. Scope, denominator, human review and the
+original M1–M4 targets remain unapproved/incomplete.
+
+Expectations for all nine new inputs are frozen before measurement; after
+engineering probes, twenty final ordinary and twenty HDL inputs are measured.
+Ordinary is 1944 pass/339 known; separate HDL is 19 pass/1 fail. Historical backend/
+runner evidence retains its original identity. Goal iteration 49 reduces
+unassessed by three to 134, while positive-duration force_time, partial duties,
+human review, denominator approval and original M1–M4 targets remain open.
+The prior bilingual explanation/link additions are preserved while updating
+the current measured scope.

@@ -74,6 +74,8 @@ memory-walkのoracleは、[公式UVM 1.2 class referenceの27.7](https://accelle
 
 ## ライブラリと規格
 
+条項の引用先は別途入手する規格で、リポジトリ同梱のマニュアルではなく、新規cloneで利用できる資料の範囲は[ローカル資料の案内](handoff.ja.md#ファイルとローカル資料)で確認できます。
+
 依存ライブラリ、規格、独自のスイートcodeは出典が異なり、資料を追加するときのプロジェクト方針は[権利と出典](testing.ja.md#権利と出典)にあります。
 
 外部のAccellera UVMライブラリは[uvm.lock](../third_party/uvm.lock)で取得・検査し、コミットしません。
@@ -144,6 +146,11 @@ printer属性の期待値は提供IEEE 16.2.3.4と16.2.5.1〜16.2.5.3から測�
 adapter親contextの期待値は提供IEEE 19.2.1.2.4、公開clone／parent照会、register／memory frontdoor契約から測定前に導きます。
 独自の型付きprotocolと事前設定read storageを使い、do_clone bridgeのsignatureを標準APIにせず、clone件数や完了順も仮定しません。
 新しい実装sourceや商用結果は使わず、[親contextのFAQ](faq.ja.md#adapterのsequence-context)で限定を説明しています。
+
+force／releaseの期待値は、測定前に提供IEEE 19.6.2.3／.5／.6、言語の10.6.2、VPIの38.34から独立に導きます。
+独自backendは標準VPI flagと実handleを使い、[公開extension文書](https://verilator.org/guide/latest/extensions.html)は公開capabilityの統合だけに参照します。
+最新文書の版から5.052での動作を推定せず、独自probeと最終20入力で確認します。GPL／LGPLの実装fileを開いたり利用したりせず、商用結果も使いません。
+[HDLのFAQ](faq.ja.md#hdlのforceとreleaseの条件)で期待値、backendの前提、11入力の同一性更新を区別しています。
 
 ## 条項カタログの保守
 

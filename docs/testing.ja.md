@@ -61,6 +61,8 @@ tools/UPSTREAM               写したツールの元と、変えた点
 
 ### 例
 
+次のコードはメタデータのヘッダーだけを示しており、実行に必要なクラスやtop moduleは[動作確認用テストの全ソース](../tests/u09/test_common_phases_run_in_order.sv)で確認できます。
+
 ```systemverilog
 /*
 :name: test_common_phases_run_in_order
@@ -213,6 +215,8 @@ builtin-sequence宣言fixtureは実際の省略／明示constructor呼出し、�
 
 ## 期待出力の決め方
 
+期待値の誤りが疑われるときは条項に基づく修正が必要で、シミュレータやライブラリの差分との切り分け方は[Q18](faq.ja.md#q18-期待値の誤りはどう報告修正しますか)で説明しています。
+
 1. 引用した条項から期待出力を決めます（`:oracle: spec`）。
 2. ライブラリのソース（Apache-2.0）は規格の理解のために読めますが、期待値は規格から決めます。
    ライブラリ自身の`DEVIATIONS.md`と[既知差分](known-differences.ja.md)で、
@@ -263,7 +267,7 @@ DPIはSystemVerilogから外部コードを呼ぶ仕組みで、DPIを有効に�
   （`UVM_HDL_NO_DPI`ならバックドアだけを外せます）。
 - ユーザー定義の`uvm_reg_backdoor`による記憶域handlerはHDL DPIなしで使えます。
   商用シミュレータの実行・結果はプロジェクトの方針で除外し、組み込みHDL path／DPIの検査は未完です。
-- 現在の2245件は`UVM_NO_DPI`を使い、11件はHDL DPIを明示的に有効にします。
+- 現在の2245件は`UVM_NO_DPI`を使い、20件はHDL DPIを明示的に有効にします。
   `:uvm_dpi: yes`はこのマクロを外す指定で、
   C/C++のDPI実装を自動でビルド・リンクする指定ではありません。
   現在のVerilatorランナーはDPIのC/C++ソースを追加しません。
@@ -274,36 +278,35 @@ DPIはSystemVerilogから外部コードを呼ぶ仕組みで、DPIを有効に�
 
 このbackendはUVMのDPI呼出しをシミュレータの公開VPI interfaceへ接続するもので、2つのinterfaceと測定範囲の関係は[HDLの実行条件](glossary.ja.md#hdlの実行条件)で説明しています。
 
-別の[HDL runner](../tools/run_verilator_hdl.py)は、公開VPI経由で独自の[backend](../tools/uvm_hdl_vpi.cpp)をlinkし、
-実際のHDL storageを使います。Verilatorは5.052固定です。明示選択する11検査系は、
-`:uvm_dpi: yes`、`:uvm_hdl_backend: vpi`、宣言した`:dpi_c:` pathを設定し、
-`UVM_REGEX_NO_DPI`と`UVM_CMDLINE_NO_DPI`で無関係なimportを無効にします。
-runnerは、どちらのdefines fieldでも、HDL無効化macroと、既定1024 bitのUVM DPI ABIの変更を拒否します。
+別の[HDL runner](../tools/run_verilator_hdl.py)は独自[backend](../tools/uvm_hdl_vpi.cpp)をlinkし、実HDL storageを使います。
+Verilatorは5.052固定で、20検査系は`:uvm_dpi: yes`、`:uvm_hdl_backend: vpi`、宣言した`:dpi_c:`を設定します。
+`UVM_REGEX_NO_DPI`と`UVM_CMDLINE_NO_DPI`で無関係なimportを無効にし、runnerはどちらのdefines fieldでもHDL無効化macroと既定1024-bit UVM DPI ABIの変更を拒否します。
 
 ```sh
 python3 tools/run_verilator_hdl.py --seeds 1 73 --build-jobs 2 -j 1 \
   --json out/verilator-hdl.json
 ```
 
-未変更のbackendは、対応する64 bitまでのpacked変数handleを受け付けます。以前のfixtureは8／40-bit変数を使い、
-memory 3 fixtureは選択した実16-bit array wordと8／16-bit分割bankも測定します。check／read／depositは実simulator handleへ達し、neighbor cellが分離controlになります。
-固定libraryはbackdoor_readをprotectedにするため、継承taskの2 fixtureは独自公開wrapperを使います。別の合法宣言probeでそのaccess差分を保持し、公開write宣言は独立に合法です。
-wrapperで公開read契約をpassにはしません。
+check／read／depositは64 bit以下の対応packed handleへ到達します。memory 3検査系は実16-bit array wordと8／16-bit分割bankを扱い、neighbor cellで分離を確認します。
+固定libraryのbackdoor_readがprotectedであるため、継承taskの2検査系は独自公開wrapperを使います。
+別の合法宣言probeで公開readのaccess差分を保持し、wrapperの成功でその契約をpassにはしません。
 
-force／releaseは失敗を返します。選択array wordの一致で、一般array／type support、four-state値、細かい権限、vendor overlayを示しません。
-独自の限定backendであり、他simulatorのHDL実装の証明ではありません。
+force／releaseは公開forceable packed信号を必要とします。backendは文書化された公開capability markerを確認し、実handleへ標準VPI flagを使います。
+公開markerそのものへの書込みやpath／valueの模擬は行いません。[公開extensionの文書](https://verilator.org/guide/latest/extensions.html)は統合interfaceの参照先で、5.052での動作は独自probeと現在の測定で確認します。
+8／40-bit reg／wireの8入力は、反対値への更新中のforce保持、通常release、即時release/read、後続更新を扱い、別の1入力は存在しない／未instrument pathと有効controlを区別します。
+regは次の手続き代入までforce値を保持し、駆動wireは即時に解決値を返す違いを[HDLのFAQ](faq.ja.md#hdlのforceとreleaseの条件)で説明しています。
 
-可視性と評価の制約は、[公開VPI文書](https://verilator.org/guide/latest/connecting.html#verification-procedural-interface-vpi)を参照してください。
-検査系は、deposit後に再評価を許してからHDL値を観測します。simulator実装sourceは読みません。
-通常runnerは変更せず、このbackendをlinkしないため、11検査系は`:oracle: spec`を保持します。
-別runnerは、`verilator_hdl`、独自の`runner_sha256`、backend設定を記録し、同じ共通期待値を使います。
-選択した不一致があれば失敗を返します。実array 3 fixtureを含む10件は両seed一致、E.7のwarning／転送なしの1件は差分です。
-重複する11件の別条件を、通常runnerのevidenceとは分けてください。
+可視性と評価の制約は[公開VPI文書](https://verilator.org/guide/latest/connecting.html#verification-procedural-interface-vpi)を参照してください。
+deposit／forceの観測は再評価後、release/readの戻り値は呼出し直後に確認します。
+一般array／select／型、正時間force_time、4値、細かな権限、vendor overlayは未完で、simulatorの実装sourceは読みません。
 
-現在のIEEE本文にないalgorithmの詳細には、検査系と台帳で明示的に限定したAI解釈を記録する場合があります。
-memory-walkは、[Q134](faq.ja.md#q134-memory-walk-algorithmをどう解釈していますか)で説明する公式の歴史的資料を使います。
-この対応はレビュー対象で、省略された規範的詳細の承認ではありません。
-algorithm実装の複製や、simulatorの観測出力をoracleにしません。
+通常runnerはbackendをlinkせず、全20件が`:oracle: spec`を保持します。別の`verilator_hdl`同一性、`runner_sha256`、backend設定で同じ期待値を使います。
+19件は両seed一致、E.7 warning／転送なしの1件はseed 1差分で、厳格なHDL runnerは不一致で失敗終了します。
+backend変更で既存11入力の指紋も変わり、source／oracleは保持して対応を再照合し、全20通常／HDL入力を再測定します。
+通常20件のDPI link失敗とは別の重複条件です。
+
+現在のIEEE本文にないalgorithmの詳細には、明示的に限定したAI解釈を記録する場合があります。
+memory-walkの公式の歴史的資料とレビュー上の限定は[Q134](faq.ja.md#q134-memory-walk-algorithmをどう解釈していますか)にあり、algorithm実装の複製や測定出力をoracleにしません。
 
 ### Verilatorのcommand-line部分集合
 
@@ -333,6 +336,8 @@ modelを1回buildし、両seedを新規processで実行します。別の`verila
 
 ## スイートの実行
 
+`/path/to/kirimasim`などのパスは手元の実行ファイルの場所へ置き換える例で、コマンドを使う前の準備は[必要な環境](faq.ja.md#q2-必要な環境とuvmの取得元は何ですか)で確認できます。
+
 Verilatorの終了コードはタグ付きの不一致を集計するため、specのみのケースを含めるときに個々のstatusも必要な理由は[Q6. KNOWNがあるのにVerilatorコマンドが成功するのはなぜですか](faq.ja.md#q6-knownがあるのにverilatorコマンドが成功するのはなぜですか)を参照してください。
 
 `--all`は選んだrunner内の検査対象を広げる指定で、[HDL backend](#verilatorのvpi-hdl部分集合)や[command-line bridge](#verilatorのcommand-line部分集合)をlinkするものではなく、それぞれ別のrunnerを使います。
@@ -355,7 +360,7 @@ runtimeでは`--seeds 1 73`で各モデルを一度だけビルドし、seedご�
 要求した全runtime seedで一致した場合だけ成功です。従来の`--seed N`も使えます。
 結果JSONのconfigurationには、指定に応じて`seed`か`seeds`を記録します。
 
-Verilatorの既定の対象はoracle付き・2値の1944件（runtime 1857・期待compiler拒否87）です。`--all`を付けるとspecのみの330件も含めます。
+Verilatorの既定の対象はoracle付き・2値の1944件（runtime 1857・期待compiler拒否87）です。`--all`を付けるとspecのみの339件も含めます。
 oracleのないテストの不一致は`known`で、コマンドを失敗させません。oracle付きの不一致は失敗です。
 テストのパスを明示した場合は、そのテストだけが対象です。スモークテスト1件の実行例です。
 
@@ -410,7 +415,7 @@ python3 tools/lint_metadata.py
 python3 tools/requirements.py check
 ```
 
-現在のツールの単体テストは110件、メタデータの対象はテスト2274件（simulation 2182件・elaboration 92件）です。
+現在のツールの単体テストは110件、メタデータの対象はテスト2283件（simulation 2191件・elaboration 92件）です。
 [台帳の検査](requirements.ja.md)は、範囲案、明示した期待値への対応、入力の指紋を検査し、カバレッジを主張しません。
 [Check](../.github/workflows/check.yml)は`main`へのpush・pull request・手動実行で動きます。
 Verilator matrixの各jobは5.052・`UVM_NO_DPI`・seed 1と73でoracle付きのテストを実行し、
@@ -418,11 +423,13 @@ Verilator matrixの各jobは5.052・`UVM_NO_DPI`・seed 1と73でoracle付きの
 UVMの全要求や全シミュレータの成功を示すものではありません。
 
 以前の分割前[Check実行](https://github.com/kurochan001/kirimasim-uvm-tests/actions/runs/41976785278)は、設定された150分のjob上限を超えました。
-現在のworkflowは現在のタグ付き1944検査を重複しない8 shard（240／240／240／240／240／240／240／240）へ分け、同時shard jobは最大4です。
+現在のworkflowは現在のタグ付き1944検査を重複しない8 shard（243／243／243／243／243／243／243／243）へ分け、同時shard jobは最大4です。
 和集合の完全一致と重複なしをlocalで検証しました。command-line 17検査はshard 0で通常検査の前に1回だけ実行します。
 seed 1／73、compiler拒否の判定規則、固定依存関係、runner指紋は未変更です。従来のverilator gateは全shardの成功を要求します。shard分割は実行の構成であり、local検証でhosted workflowの成功は立証しません。
 
 ## テストの追加・修正
+
+watchdogはblockingの観測で待つ時間に上限を設ける仕組みで、完了しない動作を検出する役割は[実行の用語](glossary.ja.md#実行と結果)で説明しています。
 
 source、helper、期待値を変えると入力同一性が変わるため、古い結果を再利用する前に[テストや対応付けの更新](requirements.ja.md#テストや対応付けの更新)に従ってください。
 

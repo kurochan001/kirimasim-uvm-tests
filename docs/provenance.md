@@ -90,6 +90,8 @@ bilingual pointer to this source record.
 
 ## Library and standards
 
+A clause citation points into a separately obtained standard rather than a bundled manual; [the local-material guide](handoff.md#files-and-local-material) identifies what a fresh clone supplies.
+
 The dependency, standard and original suite code have distinct origins, and [Rights and sources](testing.md#rights-and-sources) gives the project rules for contributing material.
 
 The external Accellera UVM library is fetched and checked using
@@ -204,6 +206,15 @@ IEEE 19.2.1.2.4, public clone/parent queries and register/memory frontdoor contr
 An original typed protocol and preseeded read storage assume neither a standard
 do_clone bridge signature nor clone count or completion order. No new
 implementation source or commercial result is used; see [the parent-context FAQ](faq.md#adapter-sequence-contexts).
+
+Force/release expectations are independently derived before measurement from
+supplied IEEE 19.6.2.3/.5/.6, language 10.6.2 and VPI 38.34. The original backend
+uses standard VPI flags and actual handles; [public extension documentation](https://verilator.org/guide/latest/extensions.html)
+informs capability integration only. Original probes and all twenty final inputs
+verify exactly 5.052 rather than inferring its behavior from latest documentation.
+No GPL/LGPL implementation file is opened or used; no commercial result supplies
+evidence. [The HDL FAQ](faq.md#hdl-force-and-release-conditions) distinguishes expectations,
+backend premises and eleven refreshed input identities.
 
 ## Clause catalog maintenance
 

@@ -12,6 +12,8 @@ The main groups explain [expectations](#standards-and-expectations), [UVM compon
 
 ## Standards and expectations
 
+When an expected-output file does not explain a result by itself, [the metadata fields](testing.md#metadata) show whether a diagnostic or exit condition is also required.
+
 **UVM / IEEE 1800.2-2020** — Universal Verification Methodology: the classes,
 APIs and behavior checked by this suite. The pinned Accellera implementation
 is a library used to exercise those requirements, rather than the source of
@@ -771,6 +773,8 @@ supplies its sequence as parent while accessing a selected memory location.
 
 ## HDL execution conditions
 
+An HDL path names an object the backend must actually resolve in the simulator; [the HDL setup](testing.md#verilator-vpi-hdl-subset) explains the visibility and execution conditions needed to access it.
+
 **VPI (Verification Procedural Interface)** — A public simulator API for
 finding HDL objects and inspecting or changing supported values. A real
 handle lookup differs from a fixture that maps path strings to local storage.
@@ -1496,3 +1500,14 @@ explains the driver observation.
 clone override, without inferring the unspecified do_clone prototype;
 [Q300](faq.md#q300-does-the-fixture-define-a-standard-do_clone-signature)
 explains its limited role and the omitted caller-parent condition.
+
+## HDL force and release conditions
+
+**Forceable target** — A selected public packed signal with explicit compiler
+instrumentation enabling this backend condition; [Q302](faq.md#q302-what-does-forceable-mean-in-these-fixtures)
+distinguishes that premise from a general UVM obligation.
+
+**Immediate release/read value** — The HDL value returned at release: retained
+force data for a procedurally assigned reg until a new assignment, or the
+resolved driver value for a driven wire; [Q303](faq.md#q303-why-do-reg-and-wire-releaseread-return-different-values)
+describes the selected observations and open conditions.
