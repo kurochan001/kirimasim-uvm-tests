@@ -152,7 +152,7 @@ kirimasim-testsと同じです。共通実装の取得元は[ソースの出典]
 期待するruntime出力や終了は持たせません。compile拒否と一致errorの両方が必要で、受理されたdesignはbinaryを実行せず不一致にします。
 要求したseedはsimulation用であり、受理／拒否いずれの不正designも実行時seedを実行しません。台帳schema-2の診断形式は、この宣言oracleを測定と別に記録します。
 
-不正な設計のテストは、意図した理由を示す診断とともにコンパイラが拒否すれば期待どおりであり、成功として数える理由は[Q199](faq.ja.md#q199-compile拒否を一致に数える理由は)で説明しています。
+ここでの`elaboration`はUVMのphaseを実行しないcompiler拒否テストの分類であり、拒否だけでなく意図した診断も必要な理由は[Q199](faq.ja.md#q199-compile拒否を一致に数える理由は)で説明しています。
 
 既定sequencerなしの所有API検査系は、元のUVM_FATAL severityをcatchした後、検査系自身のfatalで意図的に終了します。
 `:expected_exit: nonzero`と`:expected_stderr_regex:`は検査系固有のsentinelを要求し、library診断やlibrary fatalの終了コードを固定しません。
@@ -339,6 +339,8 @@ oracleのないテストの不一致は`known`で、コマンドを失敗させ�
 python3 tools/run_verilator.py --seeds 1 73 --build-jobs 2 -j 1 \
   --json out/verilator-smoke.json tests/u09/test_common_phases_run_in_order.sv
 ```
+
+runtimeの不一致は、選択したテストのヘッダーにある`:expected_stdout:`のパスを辿り、[結果の読み方](reading-guide.ja.md#結果を読む)に沿って`UT: `行を比較すると調べられます。
 
 各実行は一時的なビルドディレクトリを使います。`out/`はGitの対象外で、CheckはそのJSONを公開しません。
 結果の分類・終了コード・指紋の読み方は[FAQ](faq.ja.md)を参照してください。

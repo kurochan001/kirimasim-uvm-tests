@@ -142,6 +142,8 @@ forbidden on that fixture. Unknown or mixed link fields, wrong stages,
 invalid/stale patterns and unsupported schema versions are rejected. Schema 1
 retains its original output-only link contract. The structure is:
 
+The value `<exact :expected_stderr_regex: value>` below is a placeholder for the test header's actual diagnostic pattern; [the metadata guide](testing.md#metadata) explains how that pattern is declared.
+
 ```json
 {
   "test": "u12/test_uvm_tlm_extension_base_abstract_declaration_rejects_direct_construction",

@@ -47,7 +47,7 @@ whether a simulator matches. All current tests record `ai`.
 
 ## UVM building blocks
 
-These names describe roles inside a testbench; [Example](testing.md#example) shows a small test using a test class, phases and an objection.
+These names describe roles inside a testbench; [the smoke test source](../tests/u09/test_common_phases_run_in_order.sv) shows a test class, phases and an objection, and [the test-format guide](testing.md#example) explains its header.
 
 **Object / component** — A UVM data or policy object / a node in the UVM
 component hierarchy that participates in phases. Components include tests,
@@ -1062,6 +1062,10 @@ measurement or a resolution of the empty unbounded is_full wording.
 through their public virtual interface base. It checks selected type/dispatch
 and forwarding paths; an original backend algorithm is not a library oracle.
 
+## Declaration defaults and compiler checks
+
+These terms distinguish the declared API shape from runtime behavior; [the compiler-check FAQ](faq.md#compiler-rejection-and-legal-controls) explains how illegal inputs and legal controls are judged.
+
 **Default type argument**: The declared type selected when a parameterized
 class omits a type argument. REQ-dependent RSP defaults in channels do not
 settle a separate regular-port declaration's independent integer default.
@@ -1106,6 +1110,8 @@ concrete parent. Selected incomplete classes are negative compile fixtures.
 standard-derived oracle requires rejection. This is a negative-test mismatch;
 the runner does not execute the resulting binary or runtime seeds.
 
+## Reporting and policy state
+
 **Report pipeline trace**: An original catcher and server overrides expose
 the order in which catching, composition and execution occur. This observes
 framework dispatch without prescribing a default formatter algorithm.
@@ -1134,6 +1140,8 @@ operation order. History can become FINISHED before the active object is popped.
 
 **Independent post-error control**: A separately constructed valid policy used
 after testing an invalid request, without relying on the invalid policy's state.
+
+## Region, sequence and component boundaries
 
 **Region location unit**: The address unit counted by region offsets and
 length. Configured bytes per location convert a byte request into whole locations.
@@ -1164,6 +1172,8 @@ a generic library process-control algorithm.
 own simulation after observing a required generic error. It avoids prescribing
 invalid-call recovery, return behavior or post-error object state.
 
+## Component lifetime and convenience hooks
+
 **Phase-task descendant**: A process forked by a component's phase task.
 Selected lifetime probes observe whether its later writes stop after that phase,
 without depending on private process handles or exact tick counts.
@@ -1182,6 +1192,8 @@ can still report its threshold; that query is not the actual report path.
 **Empty convenience name**: The empty default at a convenience creation API.
 A selected original constructor also defaults empty; that fixture does not
 impose an empty name on every application constructor's fallback behavior.
+
+## Recording callbacks and register forwarding
 
 **Selected recording backend**: An original database/stream/recorder implementation
 used to observe public recording callbacks. Its timestamp interpretation does
@@ -1222,6 +1234,10 @@ bus read/refresh is distinct from the comparison outcome.
 while primary standard clauses govern chapter directories. D.3 named model
 access belongs to M3 even though its files reside in uD.
 
+## Block and register query boundaries
+
+A query can inspect model configuration without performing a transfer; [the query FAQ](faq.md#block-and-register-query-boundaries) explains the additional observations needed for access or coverage claims.
+
 **Available coverage mask**: Models advertised by a selected abstraction class,
 distinct from which models currently have measurement enabled.
 
@@ -1259,6 +1275,8 @@ requesting a clone without claiming the new instance's unobserved contents.
 **Gated busy observation**: Hold an original driver response after request arrival
 so another thread can observe is_busy during an actual pending register operation.
 
+## Expression types and registry declarations
+
 **Declared expression type / receiver conversion** — The type queried by
 `$typename` and a possible conversion when passing an expression to an argument.
 Acceptance by a typed receiver alone is insufficient to prove the expression's
@@ -1275,6 +1293,8 @@ is insufficient when that member represents a base class; the required registry
 must be compatible with the class-specific specialization. Explicit exceptions
 and all package types require separate review.
 
+## Memory locations and callback delivery
+
 **Memory HDL location / slice** — A location index selects one word in a physical
 array; slice offset/size selects bits within that word. A path-string match alone
 does not prove either physical selection or data assembly.
@@ -1289,6 +1309,10 @@ must preserve active peers and suppress the selected removed handle.
 
 **Saved signed shift** — Store arithmetic shift output into its signed type
 before a comparison can propagate unsigned operand context into the shift.
+
+## Resource and sequence ordering
+
+Queue ordering, request release and transaction completion are different checkpoints; [the sequence FAQ](faq.md#sequence-relevance-and-transaction-completion) explains why observing one does not establish the others.
 
 **Resource priority / precedence** — Priority moves a resource within selected
 name/type queues. Numeric precedence determines the maximum name match under
@@ -1313,6 +1337,8 @@ identity checks and actual target execution require distinct observations.
 **Live child-sequence slot** — A wrapper's protected reference to the child
 currently executing selected work. A routing probe can compare the live handle
 without assuming its initial value, allocation count or post-body retention.
+
+## Time units and constructor premises
 
 **Caller-unit canonical time** — A real time quantity interpreted in the calling
 scope's time units. Explicit scaled/secs arguments convert it to or from the
@@ -1343,6 +1369,8 @@ does not pass the original premise or turn an unlisted method into an IEEE duty.
 legal base-view dispatch from missing pure implementations. An explicit pinned
 extra-hook control does not certify builtin algorithms or the listed-only premise.
 
+## Field-macro and callback controls
+
 **Enum collection T premise** — A collection typedef passed literally from
 the field-macro prose, separately from a control using its element enum type.
 The control keeps storage unchanged and does not settle the original premise.
@@ -1366,6 +1394,10 @@ removal history are separate from the field's access policy.
 **Prediction callback context** — The field identity, previous/latest values,
 prediction kind, door and map delivered to post-predict. Selected direct
 prediction does not imply read/write callback delivery or physical access.
+
+## Scalar-macro and traversal controls
+
+A successful compatibility control uses its own stated premise; [the macro FAQ](faq.md#recording-and-scalar-macro-conditions) explains why it cannot replace a differing printed-form input.
 
 **Independent scalar macro direction** — Macro packing followed by public API
 decoding, or public API encoding followed by macro unpacking, with a separate

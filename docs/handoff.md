@@ -252,6 +252,8 @@ state is conversation-owned; these notes are a handoff, not a replacement goal.
 
 ## Remaining work and suggested order
 
+An empty mapping queue can coexist with partially decomposed obligations, so use [the inventory states](requirements.md#versioned-data-and-generated-inventory) to distinguish remaining review from missing test links.
+
 These are prioritization suggestions, not approved exclusions or a coverage
 percentage. Regenerate the backlog before choosing the next increment.
 
@@ -297,8 +299,9 @@ and unlisted-pure-hook builds. Selected aliases, component get and interface
 handles do not certify every type, automatic configuration or concurrent
 history. C has no unassessed identifier; its contracts remain partial.
 
-Package follow-up: audit annex F’s 45 unassessed identifiers and all partial
-type, global service, callback mutation, initialization and run/abort duties.
+Package follow-up: use [the current root totals](requirements.md#review-work-queue-and-root-totals)
+to audit annex F’s remaining unassessed identifiers and all partial type, global
+service, callback mutation, initialization and run/abort duties.
 Keep return-value and actual delivery evidence separate; preserve the isolated
 PRE_RUN and report-default differences.
 

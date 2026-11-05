@@ -13,6 +13,7 @@
 
 - 最初の実行の準備：[最初の実行](#最初の実行)と[runnerのコマンド](testing.ja.md#スイートの実行)。
 - 出力や終了コードの解釈：[結果ラベル](#結果の読み方)と[測定条件](results.ja.md#結果の解釈)。
+- compiler診断を読む：[拒否と合法control](#compiler拒否と合法control)と[テストのmetadata](testing.ja.md#メタデータ)。
 - sequenceや通信の理解：[lockとtransport](#lockとnonblocking-transport)と[TLMの用語](glossary.ja.md#transaction単位の通信)。
 - レジスタのテストの理解：[モデルの基本](#レジスタモデルの基本)と[レジスタの用語](glossary.ja.md#レジスタモデル)。
 - 進捗の確認や対応付けの変更：[M4の質問](#要求台帳とm4)と[台帳の更新手順](requirements.ja.md#テストや対応付けの更新)。
@@ -2248,8 +2249,9 @@ eventがonでも後のsliceでは待機します。正の安定待ちと公開co
 
 event-pool初期所属には専用検査があり、getが生成する前からbegin・accept・endが必要です。固定poolはそれらを欠きますが、
 以前の増分テストは意図的に初期sizeを無視しており、有効なままです。constructorと正確なgeneric基底型には正の検査があります。
-専用get_globalの両条項はpool戻り型を宣言しながら、本文はitemを返すと説明するため、解釈を待って両番号を未評価に保持します。
-get_global_pool後のgetが成功しても解決しません。constructor／名前の検査で既定内容や任意のglobal範囲は認定しません。
+専用get_globalの両条項はpool戻り型を宣言しながら、本文はitemを返すと説明します。両番号には現在部分的な要求がありますが、返却型の食違いは未解決です。
+[現在の照会の証拠](results.ja.md#記録の合算)では、印刷pool receiverとitem型の動作controlを分けます。
+get_global_pool後のgetが成功しても食違いは解決しません。constructor／名前の検査で既定内容や任意のglobal範囲は認定しません。
 
 ## Objectionの伝播とcallback parameter
 
@@ -2293,6 +2295,10 @@ bound get／peek portはobject headを消費せずavailabilityを報告し、liv
 選択した無制限probeはis_fullをassertせず、size 0、使用数の増加／消費、availabilityを検査します。正の有限sizeのfullには別の直接検査があります。
 未解決条件を残し、固定実装をoracleにはしません。広いprotocol、並行性、不正sizeの条件も未完です。
 
+## 分類の変更と互換な記録
+
+条項の分類は解釈を記録し、互換な実行記録は結果の再利用に使うもので、再利用に必要な同一性の確認は[証拠のガイド](results.ja.md#記録の合算)で説明しています。
+
 ### Q192. 文脈分類を後から修正できますか？
 
 はい。12.2.9.2を再読し、結合transport channelが両FIFO sizeを1に固定する義務を確認しました。
@@ -2301,9 +2307,14 @@ bound get／peek portはobject headを消費せずavailabilityを報告し、liv
 
 ### Q193. 互換なguest部分集合が1082件へ減った理由は？
 
-command enum引用とBoolean rerandomization観測の2入力で指紋が変わり、両方をVerilatorで測定してstale guest記録を除外しました。
-歴史的な1085記録の出典fileは保持します。現在の再利用は1082入力、未測定1126件は追加1123件と修正した既存2入力です。
-guest再実行や新しい結果は主張しません。
+command enum引用、Boolean rerandomization観測、virtual fieldのconfigure引用の既存3入力で指紋が変わりました。
+3入力ともVerilatorで再測定し、古いguest記録を除外しています。歴史的な1085記録の出典fileは保持します。
+現在の再利用は1082入力で、未測定1126件は追加1123件と修正した既存3入力です。
+これは記録のfilterでありguestの再実行ではなく、[記録の合算](results.ja.md#記録の合算)で説明しています。
+
+## interfaceの委譲とsocketの接続構造
+
+portはinterfaceを呼び、exportは転送し、implementationはmethodを提供する役割で、接続構造の疑問に進む前に[TLMの用語](glossary.ja.md#transaction単位の通信)で区別を確認できます。
 
 ### Q194. predicateの実装が別のvirtual照会へ委譲してもよいですか？
 
@@ -2333,6 +2344,10 @@ initiatorはERRORを報告しながらentryを保持し、targetは残しませ�
 実socket 2組で、明示worker hookとIMP省略時に選ぶ互換親hookを区別します。
 実際の独自transaction／phase relayで両経路とreference phase更新を保持します。
 これらの正の宣言／転送probeは名目的IMP=intやPを省略した印刷connect signatureを認定しません。独自backend algorithmは設定です。
+
+## compiler拒否と合法control
+
+不正入力の検査はシミュレーション前の拒否を期待するもので、必要なcompiler診断の指定方法は[不正入力のmetadata](testing.ja.md#メタデータ)で説明しています。
 
 ### Q199. compile拒否を一致に数える理由は？
 
@@ -2371,6 +2386,10 @@ guest実行、人のレビュー、範囲／分母承認は推論しません。
 独自の記録／copy algorithmは準備であり、任意adapterの正しさ、全subclass、物理bus、抽象interface全体のcoverageは認定しません。
 両seedが一致しても、negative期待は独立して保持します。
 
+## reportの配送先とprinterの状態
+
+reportの配送設定は出力先を選び、printer policyは選択した値や書式の状態を扱うもので、それぞれの役割は[UVMの用語](glossary.ja.md#uvmの構成要素)で確認できます。
+
 ### Q205. 共有resetは全てのverbosity keyを復帰しますか？
 
 いいえ。[新条件](../tests/u06/test_reporting_shared_reset_restores_all_threshold_keys_before_live_filtering.sv)ではgeneralとID閾値は復帰してもseverity／ID値が残ります。
@@ -2402,6 +2421,10 @@ printer 16.2節にはtable-format概要が残り、第16章の広いpolicyでは
 いいえ。引用した各controlの規則を保ちます。table／tree indentとtree／line separator条項は、後続setterがなければflush後の既定値を明示します。
 新fixtureは固定libraryが変更値を保持しても、その期待を維持します。以前のbase-control観測で種類別条項を上書きせず、全flush／formatting動作も承認しません。
 
+## recorder hookとhandleの観測
+
+hookはrecorderの実装が提供するmethod、返却するattribute handleは識別用tokenであり、呼出しの観測とdataの記録の違いは[recorderの用語](glossary.ja.md#recorderと間接access)で確認できます。
+
 ### Q211. recorder pure hookはruntime失敗をoracleにしますか？
 
 いいえ。不正具象subtypeごとに必須pure hook 1つだけを省略し、他を実装します。対象compile診断が直接oracleで、compilerが不正designを受理してもruntime seedは実行しません。
@@ -2411,6 +2434,10 @@ printer 16.2節にはtable-format概要が残り、第16章の広いpolicyでは
 
 いいえ。独自overrideはdummy token 4343を返し、recorder base view経由のvirtual dispatchを観測します。
 vendor macroを呼ばず、専用handleやrecording backendを検証しません。既定対応状態とhandle等値は別の公開API観測です。
+
+## regionの委譲とburst宣言
+
+regionのobserverは物理記憶域へアクセスせずに変換後の引数を検査でき、モデルとアクセスの層の違いは[レジスタモデルの用語](glossary.ja.md#レジスタモデル)で説明しています。
 
 ### Q213. region委譲テストで実memoryやHDL転送を立証しますか？
 
@@ -2422,16 +2449,24 @@ vendor macroを呼ばず、専用handleやrecording backendを検証しません
 いいえ。memory burst-write宣言は本文が開始offsetを要求する位置でoffsetを省略し、region burst-read arrayはmemory APIがrefを使う位置にoutputを使います。
 選択した独自observerでは限定した読み方を保持し、全burst長規則を認定せず、印刷された食違いも解決しません。
 
+## sequence入力の修正とguestの記録
+
+sequenceテストを修正するとguestを再実行しなくても以前の記録が使えなくなる場合があり、再利用できる記録の条件は[証拠の集約](results.ja.md#記録の合算)で説明しています。
+
 ### Q215. guest実行なしで互換部分集合が減った理由は何ですか？
 
 [rerandomization fixture](../tests/u14/test_sequence_send_request_rerandomize_uses_request_constraint_once.sv)を正確なcallback 1回ではなく、正の回数全てを許容するよう訂正しました。
-入力指紋が変わるため、古いfail／unsupported guest記録を以前の引用変更command入力とともに除外します。元の1085記録fileは保持し、現在の再利用は1082入力です。
+入力指紋が変わるため、古いfail／unsupported guest記録を、引用を変更したcommand入力とvirtual fieldのconfigure入力とともに除外します。元の1085記録fileは保持し、現在の再利用は1082入力です。
 これはfilterで、新しいpass／failやsimulator改善ではありません。
 
 ### Q216. 新しいsequencer検査で残りの契約は完了しますか？
 
 いいえ。型付interface flow、base grant／send／done、選択記録controlにはprobeがありますが、[差分3件](known-differences.ja.md)を保持します。
-interface導入／型関係とzero-time relevance guardは未評価です。type、topology、priority、記録event、protocolの部分条件は全て残り、待機解釈は限定したままです。
+interface導入／型関係とzero-time relevance guardには部分的な要求があります。type、topology、priority、記録event、protocolの部分条件は全て残り、待機解釈は限定したままです。
+
+## componentの寿命と便宜interface
+
+phase taskとcallbackから開始したthreadでは寿命が異なる場合があり、観測対象となるthreadの違いは[componentの寿命の用語](glossary.ja.md#componentの寿命と便宜hook)で説明しています。
 
 ### Q217. componentのdomain／protocol probeで任意実行を認定しますか？
 
@@ -2458,6 +2493,10 @@ objectionで選択task phaseを維持し、別のexit hookで子孫から祖先�
 [階層report probe](../tests/uD/test_component_hierarchical_id_and_pair_verbosity_preserve_subtree_precedence_and_live_filtering.sv)は設定照会と、verbosityを無視する実WARNING callを区別します。
 INFO 3／WARNING 6の配送は引用規則に従い、他の全override／report組合せは部分対応に残します。
 
+## recording callbackとregisterへの転送
+
+宣言、記録した時刻、記憶域への転送はそれぞれ異なる観測で、選択した効果を期待出力にする考え方は[観測の規則](testing.ja.md#何を観測するか)で説明しています。
+
 ### Q221. 選択error／event timestampで全recording backendを認定しますか？
 
 いいえ。[error](../tests/u13/test_component_error_recording_selected_backend_marks_explicit_default_and_zero_times.sv)／[event](../tests/u13/test_component_event_recording_selected_backend_marks_explicit_default_and_zero_times.sv) probeは独自公開backend callbackでtimestampを解釈します。
@@ -2481,6 +2520,10 @@ INFO 3／WARNING 6の配送は引用規則に従い、他の全override／report
 
 主引用がdirectoryを決めるため、名前によるregister／memoryのD.3 fixtureはuDに置きます。機能対象はregister層なので名前アクセス6 fixtureをM3に数えます。
 章別の棚卸しとmilestone分類は同じテストに対する異なる観点です。付録Dの未評価は0ですが部分39番号が残り、条件と元のM1〜M4目標は未完了です。全体の未評価は141番号です。
+
+## blockとregisterの照会の境界
+
+モデルの照会は選択した状態や設定を返すもので、実際のDUTアクセスとの違いは[レジスタの用語](glossary.ja.md#レジスタモデル)で確認できます。
 
 ### Q225. block coverageのmetadataでcovergroupを測定しますか？
 
@@ -2516,6 +2559,10 @@ backend read／writeが0の状態でgetter結果を確認し、その後の実pe
 [gate制御busy case](../tests/u18/test_register_is_busy_tracks_gated_reads_writes_failure_completion_and_an_idle_peer.sv)は独自driverのrequest到着を待ち、完了を保持して別threadからregisterを照会します。
 write／read中の活動、成功／失敗後のreturn、後続成功アクセス、idle peerを確認します。終了threadのsemaphore回復や競合callerの全履歴は認定しません。
 
+## phaseの型と同期
+
+返却値は受け取る変数の型へ変換される場合があり、代入できることだけでは宣言された返却型を証明しない理由は[宣言の用語](glossary.ja.md#式の型とregistry宣言)で説明しています。
+
 ### Q231. string receiverで受理できてもget_scheduleの返却型を証明しないのはなぜですか？
 
 引数はreceiverの型へ変換される場合があります。限定probeは式を`$typename`でも照会し、その観測は印字されたstring prototypeと異なります。
@@ -2533,6 +2580,10 @@ timing、走査、domain controlは選択条件を追加し、全graph形状、�
 run段落はF.7.2.3を指しますが、実際の`set_timeout`見出しはF.7.3.3です。fixtureはその定義とrun要求を別々に引用します。
 lockした絶対上限のFATALと、overridable引数省略時に置換できることを観測します。実装依存の既定timeout、report ID、文面は作りません。
 
+## factory出力とregistry宣言
+
+factory出力とregistry宣言は異なるinterfaceの検査で、wrapperと登録された型の関係は[factoryの用語](glossary.ja.md#uvmの構成要素)で説明しています。
+
 ### Q234. factory printのbegin／end markerだけで一覧の表示を証明しますか？
 
 いいえ。判定全体は`expected_stderr_regex`でも、別々に囲んだstdoutとstderrの和集合内に必要名があり、除外名がないことを要求します。
@@ -2544,6 +2595,10 @@ table形式や報告経路は規定しません。
 規則はclass kindとparameterに応じたbuilt-in自身のregistry特殊化を要求します。宣言aliasと必要registryを静的に双方向代入し、runtime castで非互換型を隠しません。基底から継承したmemberが存在しても、表現型が異なる場合があります。
 2 fixtureはその互換性で失敗し、別の2 fixtureはtype_idを解決できません。これらは合法simulationのbuildであり、負のcompiler期待ではありません。
 分離sequence-base fixtureは独立に一致し、停止した共有matrixや全built-in型をpassにはしません。
+
+## memoryの可視性とcallbackの配送
+
+wrapperから継承した操作を呼べても元のアクセス修飾を証明したことにはならず、そのcontrolの意味は[memoryとcallbackの用語](glossary.ja.md#memory位置とcallbackの配送)で説明しています。
 
 ### Q236. 派生memory wrapperで公開backdoor taskのaccess可能性を証明できますか？
 
@@ -2567,6 +2622,10 @@ set_coverageは必要な以前maskではなく新maskを返すためfixture全�
 SystemVerilogの比較contextは、相手がunsigned based literalの場合、shift式をunsignedにできます。修正したUVM型fixtureは算術shiftを宣言したsigned receiverへ先に保存し、
 保存値を比較します。古いfixture差分を現在のknown結果から除外し、two-state一致でX／Z保持を証明しません。
 
+## resourceのprecedenceと変更通知
+
+priorityはqueue内の位置、precedenceは値の選択に影響し、それぞれを別に観測する理由は[resourceの用語](glossary.ja.md#resourceとsequenceの順序)で説明しています。
+
 ### Q240. resourceのpriorityとprecedenceは同じですか？
 
 違います。priorityはname／type queue内の位置を変え、数値precedenceは明示type例外の下でname lookupの最大値を選びます。
@@ -2584,6 +2643,10 @@ type precedenceに関する広いlookup記述の矛盾も限定して保持し�
 negativeはm_value_type_name、m_value_as_string、set_priorityへ独自compatibility本体を追加し、必要なget_type_handleだけを欠かせてcompiler拒否を分離します。その一致で未修正の合法拡張をpassにしません。
 [既知差分](known-differences.ja.md)も参照してください。
 
+## sequenceの実行可否とtransaction完了
+
+sequenceが実行可能になること、要求を送ること、transactionが完了することは別の出来事で、それぞれの確認点は[sequenceの用語](glossary.ja.md#resourceとsequenceの順序)で説明しています。
+
 ### Q243. zero-time relevance errorは厳密に1つのcallback回数で必要ですか？
 
 選択した限定解釈は設定上限または最初の超過を許し、未指定の通知としてERROR／FATALを受け入れます。
@@ -2599,6 +2662,10 @@ private counter初期化、report識別、負上限、復旧を固定しませ�
 
 いいえ。既存subtypeは既に必要macroで自身の正確な型を指定しています。空static membership差分は他の未変更macro caseと共に残します。
 新しい要求linkは新たな実行結果ではなく、実装固有の追加init helperも使いません。[要求](requirements.ja.md)を参照してください。
+
+## 組み込みsequenceの宣言とchild slot
+
+child slotの検査は実行中の子を識別し、algorithmの検査はその処理を観測するもので、両者の境界は[sequence slotの用語](glossary.ja.md#resourceとsequenceの順序)で説明しています。
 
 ### Q246. 合法builtin拡張の一致は全constructor／宣言検査のpassですか？
 
@@ -2673,7 +2740,7 @@ preloadと反復updateは余分なentry／転送を保持します。公開queue
 
 ### Q257. 18.6〜18.8の未評価0でgoalは完了しますか？
 
-いいえ。新しいmemory／indirect／FIFO義務は部分的に残ります。第18章は部分339／分類50／未評価67、全体は未評価141番号です。
+いいえ。新しいmemory／indirect／FIFO義務は部分的に残り、第18章の残るレビューは[現在のroot別集計](requirements.ja.md#レビュー用の未整理項目とroot別集計)で確認できます。全体は未評価141番号です。
 スイートは直接対応2184テストとcontrol専用24テストです。失敗、並行性、backdoor適用条件、field／virtual-register契約、元のM1〜M4目標は未完です。
 
 ## core-service宣言とglobalな作用

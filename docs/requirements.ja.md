@@ -100,6 +100,8 @@ compile診断の対応には`stage: compile`、検査系の`:expected_stderr_reg
 その検査系にruntime出力／終了の期待は持たせません。未知／混在field、不正stage、不正／古いpattern、未対応schema版を拒否します。
 schema 1の出力対応の契約は保持します。構造は次のとおりです。
 
+以下の`<exact :expected_stderr_regex: value>`はテストのヘッダーにある実際の診断patternを入れるための仮の値であり、patternの指定方法は[メタデータのガイド](testing.ja.md#メタデータ)で説明しています。
+
 ```json
 {
   "test": "u12/test_uvm_tlm_extension_base_abstract_declaration_rejects_direct_construction",

@@ -132,6 +132,8 @@ catalogが数えるのは規範的義務ではなく識別子なので、項目�
 
 ## Issueの投稿方針とフォーム
 
+再現例は疑問のある観測を切り出した小さな独立テストであり、併記する期待動作や根拠は[Q18](faq.ja.md#q18-期待値の誤りはどう報告修正しますか)で説明しています。
+
 商用結果の方針は[kirimasim-tests](https://github.com/kurochan001/kirimasim-tests)のFAQと日英の報告フォームを踏襲します。
 [元のフォーム](https://github.com/kurochan001/kirimasim-tests/blob/0ca2ff7c922a257b1db681e96352a169625ebb9b/.github/ISSUE_TEMPLATE/report.yml)を、
 IEEE 1800.2-2020、このリポジトリの確認対象ランナー、ローカルの投稿方針リンクへ合わせました。

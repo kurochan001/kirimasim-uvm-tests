@@ -37,7 +37,7 @@ specのみは固定版のoracleタグがない状態です。後の実行で一�
 
 ## UVMの構成要素
 
-これらの名前はテストベンチ内の役割を表し、test class、phase、objectionを使う小さなテストは[例](testing.ja.md#例)で確認できます。
+これらの名前はテストベンチ内の役割を表し、test class、phase、objectionは[動作確認用テストのソース](../tests/u09/test_common_phases_run_in_order.sv)、そのヘッダーは[テスト形式のガイド](testing.ja.md#例)で確認できます。
 
 **object／component** — UVMのデータやpolicyを表すobject／UVM階層のノードとしてphaseに参加するcomponentです。
 componentにはtest・environment・driver・sequencerなどがあります。
@@ -822,6 +822,10 @@ hookを省略するだけで、異なるtotal照会の定義は認定しませ�
 **Interface-view forwarding（interface view経由の転送）** — 公開virtual interface基底を通して実際の標準port／exportを呼ぶことです。
 選択型／委譲と転送経路を検査し、独自backend algorithmをlibrary oracleにはしません。
 
+## 宣言の既定値とcompiler検査
+
+以下の用語は宣言されたAPIの形とruntime動作を区別するもので、不正入力と合法controlの判定方法は[compiler検査のFAQ](faq.ja.md#compiler拒否と合法control)で説明しています。
+
 **既定型引数（Default type argument）**：parameterized classで型引数を省略したときに選ぶ宣言型です。
 channelのREQ依存RSP既定値から、通常port宣言の独立integer既定値は決まりません。
 
@@ -855,6 +859,8 @@ runtime binaryやseedは実行せず、予期しないlibrary／API／link build
 **不正compile受理（Illegal compile acceptance）**：規格から導いたoracleが拒否を要求するfixtureのcompileが成功することです。
 negative検査の不一致であり、runnerは生成binaryやruntime seedを実行しません。
 
+## reportingとpolicyの状態
+
 **report pipeline trace（Report pipeline trace）**：独自catcherとserver overrideでcatching、composition、executionの順序を観測することです。
 既定formatter algorithmを規定せず、framework dispatchを確認します。
 
@@ -876,6 +882,8 @@ entry-depth等号の読み方を、既にmaximumを超えるscopeと分けて保
 active objectをpopする前に履歴がFINISHEDになる場合があります。
 
 **独立したerror後control（Independent post-error control）**：不正要求を検査した後、不正policyの状態に依存せず使う別生成の有効policyです。
+
+## regionとsequenceとcomponentの境界
 
 **region location単位（Region location unit）**：region offsetと長さが数えるaddress単位です。
 設定したlocation当たりbyte数によりbyte要求を全locationへ変換します。
@@ -899,6 +907,8 @@ active objectをpopする前に履歴がFINISHEDになる場合があります�
 **Terminal error observer（errorで終了するobserver）**: 要求された一般errorを観測した後、自身のsimulationを終了する独自report catcher。
 不正呼出の回復、return動作、error後のobject状態を規定せずに済みます。
 
+## componentの寿命と便宜hook
+
 **Phase-task descendant（phase taskの子孫）**: component phase taskがforkするprocess。
 選択寿命probeは非公開process handleや正確なtick数によらず、phase後のwriteが止まるかを観測します。
 
@@ -913,6 +923,8 @@ severity-ID設定照会は閾値を返せても、その照会は実report経路
 
 **Empty convenience name（便宜APIの空名）**: 便宜生成APIの空の既定名。
 選択した独自constructorも空を既定とし、そのfixtureは全application constructorのfallbackを空に制約しません。
+
+## recording callbackとregisterへの転送
 
 **Selected recording backend（選択recording backend）**: 公開recording callbackを観測する独自database／stream／recorder実装。
 そのtimestamp解釈はapplication固有token／string encodingを標準化しません。
@@ -943,6 +955,10 @@ wrapper algorithmを置換せず境界を検査し、targetの物理transportを
 **Milestone grouping（milestone分類）**: 機能対象のmilestoneでテストを数え、主引用条項で章directoryを決めます。
 D.3の名前モデルアクセスはfileをuDに置いてもM3へ属します。
 
+## blockとregisterの照会の境界
+
+照会は転送を行わずにモデルの設定を調べる場合があり、アクセスやcoverageの主張に追加で必要な観測は[照会のFAQ](faq.ja.md#blockとregisterの照会の境界)で説明しています。
+
 **Available coverage mask（利用可能coverage mask）**: 選択抽象classが保持するmodelで、現在測定が有効なmodelとは区別します。
 
 **Coverage inclusion intersection（coverage includeの共通部分）**: 選択build_coverage結果には、要求され、一致する階層instance scopeへincludeされたmodelが入ります。
@@ -967,6 +983,8 @@ D.3の名前モデルアクセスはfileをuDに置いてもM3へ属します。
 
 **Gated busy observation（gate制御busy観測）**: request到着後に独自driver応答を保持し、別threadが実処理待ちregister操作のis_busyを観測すること。
 
+## 式の型とregistry宣言
+
 **Declared expression type / receiver conversion** — `$typename`が照会する型と、式を引数へ渡すときに生じ得る変換です。
 型付きreceiverでの受理だけでは、式の元の宣言型を証明できません。
 
@@ -977,6 +995,8 @@ D.3の名前モデルアクセスはfileをuDに置いてもM3へ属します。
 継承type_id memberが見つかっても、それが基底classを表現する場合は不十分で、必要なregistryがclass固有の特殊化と互換である必要があります。
 明示例外とpackageの全型には別の照合が必要です。
 
+## memory位置とcallbackの配送
+
 **Memory HDL location / slice** — location indexは物理arrayの1 wordを選び、sliceのoffset／sizeはそのword内のbitを選びます。
 path文字列の一致だけでは、物理選択やdata合成を証明しません。
 
@@ -986,6 +1006,10 @@ path文字列の一致だけでは、物理選択やdata合成を証明しませ
 **Callback membership / delivery** — add／deleteの成功返却値と実通知先は別の観測です。後のentryの削除はactive peerを保持し、選択した削除handleを抑制する必要があります。
 
 **Saved signed shift** — 比較がunsigned operand contextをshiftへ伝える前に、算術shift出力をsigned型へ保存することです。
+
+## resourceとsequenceの順序
+
+queueの順序、要求の解放、transactionの完了は別の確認点で、1つの観測が他の成立を示さない理由は[sequenceのFAQ](faq.ja.md#sequenceの実行可否とtransaction完了)で説明しています。
 
 **Resource priority / precedence** — priorityは選択name／type queue内でresourceを移動し、数値precedenceは明示type-lookup例外の下で最大name matchを決めます。
 2つの制御には独立したevidenceが必要です。
@@ -1003,6 +1027,8 @@ storage同一性の検査と実際の対象実行には異なる観測が必要�
 
 **Live child-sequence slot（実行中child-sequence slot）** — 選択処理を実行中のchildへのwrapperのprotected参照です。
 経路probeは初期値、割当回数、body後の保持を仮定せず、実行中handleを照合できます。
+
+## 時間単位とconstructorの前提
 
 **caller単位のcanonical time** — 呼出しscopeの時間単位で解釈するreal時間量です。
 明示scaled／secs引数がcanonical表現との換算を指定し、nanosecond基準の例をpicosecond scopeで未変更のまま再利用できません。
@@ -1025,6 +1051,8 @@ controlのpassで元の前提をpassにせず、記載外methodをIEEE義務へ�
 **core-service宣言control** — 合法なbase-view dispatchとpure実装欠落を区別する独自method本体です。
 固定版の追加hookを明示するcontrolでbuiltin algorithmや記載methodだけの前提を認定しません。
 
+## field macroとcallbackのcontrol
+
 **enum collection T前提** — field-macro本文の字面どおりに渡すcollection typedefで、要素enum型を使うcontrolとは別です。
 controlはstorageを保持しても元の前提を解決しません。
 
@@ -1042,6 +1070,10 @@ register／fieldへの所属と削除履歴はfield自身のaccess policyとは�
 
 **予測callbackのcontext** — post-predictへ渡すfield同一性、以前／最新の値、予測kind、door、mapです。
 選択したdirect予測からread／write callbackの配送や物理accessは導きません。
+
+## scalar macroと走査のcontrol
+
+互換性を確認するcontrolの成功はそのcontrol固有の前提での結果であり、印刷された形の入力の差分を置き換えない理由は[macroのFAQ](faq.ja.md#recordingとscalar-macroの条件)で説明しています。
 
 **scalar macroの独立した方向** — macroでpackして公開APIでdecodeする入力、または公開APIでencodeしてmacroでunpackする入力に、別の末尾観測を加えることです。
 この証拠の範囲は[Q269](faq.ja.md#q269-packの反対方向に公開scalar-apiを使う理由は)で説明しています。

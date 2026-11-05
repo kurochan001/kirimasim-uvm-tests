@@ -141,7 +141,7 @@ API／宣言、macro、DPIの内訳と限定した前提は[詳しい内訳](doc
 | M3 | レジスタ層（17〜19、D.3、付録E） | 第17〜19章・D.3・付録Eに713件。目標は未達 |
 | M4 | 要求台帳とカバレッジ | 進行中。AI要求案3796件、3796要求を2184テストへ直接対応。分母は未承認 |
 
-D.3の名前アクセス検査系は規約に従いuDに置き、register層のM3へ数えます。M1〜M3は未完です。sequenceの所有／lifecycle、default resource、callback、TLM 2のprotocol／timing／socketの組合せ、
+D.3の名前アクセス検査系は規約に従いuDに置き、register層のM3へ数えます。M1〜M3は未完で、M4の開始が前段階の完了を意味しない理由は[段階の用語](docs/glossary.ja.md#範囲とカバレッジ)で説明しています。sequenceの所有／lifecycle、default resource、callback、TLM 2のprotocol／timing／socketの組合せ、
 registerの割当／lifecycle、memory packing／端数beat、error／policy／map／prediction／frontdoor／callback／HDL／annex Eの組合せが残ります。
 library注釈は規格との照合が必要で、RTL protocolとtimingのcoverageは別作業です。
 

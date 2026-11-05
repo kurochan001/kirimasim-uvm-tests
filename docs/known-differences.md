@@ -12,6 +12,8 @@ For the size of a difference set, read [the measured breakdown](results.md#inter
 
 Individual source links appear in the topic explanations and [grouped list](#spec-only-tests); [the test format guide](testing.md#test-format) explains how to read their metadata, expected observations and execution conditions.
 
+Here a qualified interpretation makes the test's reading of conflicting text explicit and leaves it open to review; [the lookup FAQ](faq.md#q281-does-dedicated-get_global-return-a-pool-or-an-item) gives an example of that limit.
+
 Dedicated global-pool auditing retains two qualified build differences.
 The printed get_global return types require pool receivers, while the prose
 and generic method describe items. Item-typed existing-binding, alias/state

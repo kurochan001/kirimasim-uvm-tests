@@ -182,6 +182,8 @@ content. No standard text is redistributed.
 
 ## Issue reporting policy and form
 
+A reproducer is a small independent test that isolates the disputed observation; [Q18](faq.md#q18-how-should-i-report-or-correct-a-wrong-expectation) explains the expected behavior and evidence to include with it.
+
 The commercial-result policy follows the FAQ and the bilingual reporting form
 in [kirimasim-tests](https://github.com/kurochan001/kirimasim-tests). The
 [upstream form](https://github.com/kurochan001/kirimasim-tests/blob/0ca2ff7c922a257b1db681e96352a169625ebb9b/.github/ISSUE_TEMPLATE/report.yml)

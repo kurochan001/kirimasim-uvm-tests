@@ -59,6 +59,8 @@ The Check badge describes a workflow run; the result tables have their own measu
 
 Derive an expectation from a standard clause before changing a test to address a difference. A changed source, helper or expectation needs a new input identity and compatible measurements; see [the mapping update procedure](requirements.md#updating-a-test-or-mapping).
 
+The local standard PDFs and private Ghost configuration are not supplied by cloning this repository; [the handoff file guide](handoff.md#files-and-local-material) lists those prerequisites before you change an expectation or attempt a guest run.
+
 Files under `out/` are generated local material and may be absent in a fresh clone. The versioned ledger and index record the maintained inputs; see [the file and evidence guide](handoff.md#files-and-local-material).
 
 For an issue, describe the expected behavior and an independent reproducer using the [posting policy](faq.md#commercial-simulator-and-issue-reporting-policy); that page explains which source material the project accepts.

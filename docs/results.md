@@ -120,6 +120,8 @@ virtual-field constructor cases) plus one corrected existing input. Thirty new
 cases and the corrected case match both seeds. Two printed pool-return inputs
 cannot build and have no runtime result.
 
+The control inputs below deliberately use different premises, so their matches cannot replace a differing original; [the requirement-link guide](requirements.md#citations-requirements-and-execution-evidence) explains the direct/control distinction.
+
 The dedicated get_global signatures name a pool return type, while their prose
 and the generic get_global describe an item. Pool-typed receivers retain the
 printed signature; item-typed operational inputs retain the prose interpretation.

@@ -187,6 +187,8 @@ Git対象外のファイルなので別hostにはない場合があり、許可�
 
 ## 残作業と優先候補
 
+対応付けqueueが空でも一部分解した義務は残るため、[棚卸しの状態](requirements.ja.md#版管理するデータと生成する棚卸し)で、残るレビューとテストlinkの不足を区別してください。
+
 第15章は未評価0番号・部分67番号です。選択relevance上限と実pull-port記録eventに直接検査ができましたが、正時刻上限とinterface継承の解釈は限定して残します。
 新しい継承oracleを導く前にclass宣言を合わせて読み、wait_for_sequencesの待機動作は即時tryと分けます。
 connectorの既定／不正型、priority、他の記録経路、phase／default連携、完全なprotocol履歴などの条件は残ります。
@@ -226,7 +228,7 @@ virtual regex／scope宣言、欠落typed-DB最大値helperを扱います。最
 全precedence／lookup_type矛盾、既存のwarning欠落と記載外pure-hook buildを保持します。
 選択alias、component get、interface handleで全型、自動configuration、並行履歴は認定しません。Cの未評価番号はなく、契約は部分的に残ります。
 
-packageの次作業は付録Fの未評価45番号と全ての部分的な型、global service、callback変更、初期化、run／abort義務の監査です。
+packageの次作業は、[現在のroot別集計](requirements.ja.md#レビュー用の未整理項目とroot別集計)を使い、付録Fに残る未評価番号と全ての部分的な型、global service、callback変更、初期化、run／abort義務を監査することです。
 返却値と実配送のevidenceを分け、分離したPRE_RUNとreport既定値の差分を保持します。
 
 専用poolの続き：印刷pool返却と本文のitem返却の入力を区別します。明示したglobal束縛と有限の待機では、存在しないkeyの静的動作や全並行／寿命条件は決まりません。

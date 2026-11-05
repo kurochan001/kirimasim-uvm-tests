@@ -193,7 +193,7 @@ design fails without running its binary. Requested seeds apply to simulation,
 so no runtime seed is executed for any illegal design, accepted or rejected. The ledger's schema-2
 diagnostic form records that declared oracle separately from measurements.
 
-A negative test matches when the compiler rejects the intended illegal design with the required diagnostic, as explained in [Q199](faq.md#q199-why-does-a-compiler-rejection-count-as-a-match).
+Here `elaboration` labels a compiler-rejection test that runs no UVM phases; [Q199](faq.md#q199-why-does-a-compiler-rejection-count-as-a-match) explains why the intended diagnostic, as well as rejection, is required.
 
 Missing-default ownership fixtures deliberately end through a testbench fatal
 after catching original UVM_FATAL severity. Their `:expected_exit: nonzero`
@@ -430,6 +430,8 @@ Explicit test paths select only those tests. For a single smoke test:
 python3 tools/run_verilator.py --seeds 1 73 --build-jobs 2 -j 1 \
   --json out/verilator-smoke.json tests/u09/test_common_phases_run_in_order.sv
 ```
+
+For a runtime mismatch, follow the selected test header's `:expected_stdout:` path and compare its `UT: ` lines using [the result-reading guide](reading-guide.md#read-a-result).
 
 Each run uses a temporary build directory. `out/` is ignored by Git; Check
 does not publish these JSON files. See the [FAQ](faq.md) for result

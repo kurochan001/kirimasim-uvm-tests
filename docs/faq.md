@@ -14,6 +14,7 @@ The questions are grouped by topic, so use the entry matching your task and foll
 
 - Preparing a first run: [getting started](#getting-started) and [runner commands](testing.md#running-the-suite).
 - Interpreting output or an exit code: [result labels](#understanding-a-result) and [measurement conditions](results.md#interpretation).
+- Interpreting compiler diagnostics: [rejection and legal controls](#compiler-rejection-and-legal-controls) and [test metadata](testing.md#metadata).
 - Understanding sequences and communication: [locking and transport](#locking-and-nonblocking-transport) and [TLM terms](glossary.md#transaction-level-communication).
 - Understanding register tests: [model basics](#register-model-basics) and [register terms](glossary.md#register-model).
 - Checking progress or changing a mapping: [M4 questions](#requirement-ledger-and-m4) and [the ledger update procedure](requirements.md#updating-a-test-or-mapping).
@@ -2875,8 +2876,10 @@ must already exist before any get could create them. The pinned pool lacks
 those entries; earlier growth tests deliberately ignore initial size and
 remain valid. Constructors and exact generic base types have positive checks.
 Both dedicated get_global clauses print a pool return type while their prose
-describes an item return. Those two identifiers remain unassessed pending
-interpretation; passing get_global_pool followed by get does not resolve them.
+describes an item return. Both identifiers now have partial requirements, but
+the return-type conflict remains open; [the current lookup evidence](results.md#evidence-assembly)
+separates printed pool receivers from item-typed operational controls.
+Passing get_global_pool followed by get does not resolve that conflict.
 No constructor/name check certifies default contents or arbitrary global scope.
 
 ## Objection propagation and callback parameters
@@ -2948,6 +2951,10 @@ Positive finite-size fullness has a separate direct test. The unresolved
 condition stays open rather than taking the pinned implementation as the
 oracle. Broader protocol, concurrency and malformed-size conditions also remain.
 
+## Classification changes and compatible records
+
+A clause classification records an interpretation, while a compatible execution record can support result reuse; [the evidence guide](results.md#evidence-assembly) explains the identity checks for that reuse.
+
 ### Q192. Can a contextual classification be corrected later?
 
 Yes. Re-reading 12.2.9.2 found that the coupled transport channel fixes both
@@ -2957,11 +2964,16 @@ the unassessed count or approve an exclusion. All earlier requirements remain.
 
 ### Q193. Why did the compatible guest subset decrease to 1082?
 
-Two inputs have new fingerprints: the command enum citation and the Boolean
-rerandomization observation. Both were measured on Verilator; their stale guest
-records are excluded. The historical 1085-record source files remain intact.
-Current reuse covers 1082 inputs, with 1126 unmeasured: 1123 additions and two
-revised old inputs. No guest rerun or new result is claimed.
+Three original inputs have new fingerprints: the command enum citation, the
+Boolean rerandomization observation and the virtual-field configuration citation.
+All three were remeasured on Verilator; their stale guest records are excluded.
+The historical 1085-record source files remain intact. Current reuse covers
+1082 inputs, with 1126 unmeasured: 1123 additions and three revised originals.
+This is record filtering, not a guest rerun; see [the evidence assembly](results.md#evidence-assembly).
+
+## Interface delegation and socket topology
+
+A port calls an interface, an export forwards it and an implementation supplies its methods; [the TLM glossary](glossary.md#transaction-level-communication) explains those roles before the topology questions below.
 
 ### Q194. May a predicate implementation delegate to another virtual query?
 
@@ -3002,6 +3014,10 @@ hooks selected when IMP is omitted. Actual custom transaction/phase relays
 preserve both paths and reference phase updates. These positive declaration
 and forwarding probes do not certify nominal IMP=int or literal printed
 connect signatures that omit P. Original backend algorithms are setup.
+
+## Compiler rejection and legal controls
+
+An illegal-design check expects rejection before simulation; [negative-test metadata](testing.md#metadata) explains how the required compiler diagnostic is declared.
 
 ### Q199. Why does a compiler rejection count as a match?
 
@@ -3058,6 +3074,10 @@ arbitrary adapter correctness, every subclass, physical buses or complete
 abstract-interface coverage. Both seeds match, while negative expectations
 remain independent.
 
+## Report routing and printer state
+
+Report routing chooses output destinations, while printer policies expose selected values and formatting state; [the UVM glossary](glossary.md#uvm-building-blocks) introduces those separate roles.
+
 ### Q205. Does the shared reset now restore every verbosity key?
 
 No. The [new condition](../tests/u06/test_reporting_shared_reset_restores_all_threshold_keys_before_live_filtering.sv) observes general and ID
@@ -3106,6 +3126,10 @@ runs. The new fixtures retain those expectations even when the pinned library
 keeps changed values. Older base-control observations do not override the
 format-specific clauses or approve all flush/formatting behavior.
 
+## Recorder hooks and handle observations
+
+A hook is a method supplied by a recorder implementation, and a returned attribute handle is a token; [the recorder terms](glossary.md#recorders-and-indirect-access) explain the boundary between observing a call and recording data.
+
 ### Q211. Do pure recorder hooks use runtime failure as their oracle?
 
 No. Each illegal concrete subtype omits one required pure hook while supplying
@@ -3119,6 +3143,10 @@ No. The original override returns dummy token 4343 to observe virtual dispatch
 through a recorder base view. It does not call a vendor macro or validate any
 proprietary handle or recording backend. Default support and handle equality
 are separate public-API observations.
+
+## Region delegation and burst declarations
+
+A region observer can check translated arguments without accessing physical storage; [the register-model glossary](glossary.md#register-model) explains the model and access layers.
 
 ### Q213. Do region delegation tests establish real memory or HDL transfers?
 
@@ -3135,12 +3163,16 @@ starting offset. The region burst-read array uses output where the memory API
 uses ref. The selected original observers retain these qualified readings;
 they do not certify every burst-length rule or resolve the printed discrepancies.
 
+## Revised sequence inputs and guest records
+
+Editing a sequence test can invalidate its older guest record without another guest run; [Evidence assembly](results.md#evidence-assembly) explains which records remain reusable.
+
 ### Q215. Why did the compatible guest subset shrink without a guest run?
 
 The [rerandomization fixture](../tests/u14/test_sequence_send_request_rerandomize_uses_request_constraint_once.sv)
 now accepts any positive callback count rather than requiring exactly one.
 Its input fingerprint changed, so its old failing/unsupported guest record is
-excluded alongside the earlier citation-revised command input. The original
+excluded alongside the citation-revised command and virtual-field configuration inputs. The original
 1085-record files remain intact. Current reuse covers 1082 inputs; this is
 filtering, not a new pass, failure or simulator improvement.
 
@@ -3148,9 +3180,13 @@ filtering, not a new pass, failure or simulator improvement.
 
 No. Typed interface flow, base grant/send/done and selected recording controls
 have probes, but [three differences](known-differences.md) remain. The interface
-introduction/type relationship and zero-time relevance guard are unassessed.
+introduction/type relationship and zero-time relevance guard have partial requirements.
 All partial type, topology, priority, recording-event and protocol conditions
 remain open; the waiting interpretation is qualified.
+
+## Component lifecycle and convenience interfaces
+
+A phase task and a thread started by a callback can have different lifetimes; [the component-lifetime terms](glossary.md#component-lifetime-and-convenience-hooks) explain which threads each observation follows.
 
 ### Q217. Do the component domain and protocol probes certify arbitrary execution?
 
@@ -3194,6 +3230,10 @@ distinguishes configuration queries from actual WARNING calls, whose verbosity
 is ignored. Its three INFO/six WARNING deliveries follow the cited rule,
 leaving all other override/report combinations partial.
 
+## Recording callbacks and register forwarding
+
+A declaration, a recorded timestamp and a storage transfer are different observations; [the observation rules](testing.md#what-is-observed) explain how selected effects become expected output.
+
 ### Q221. Do selected error/event timestamps certify every recording backend?
 
 No. The [error](../tests/u13/test_component_error_recording_selected_backend_marks_explicit_default_and_zero_times.sv)
@@ -3236,6 +3276,10 @@ access fixtures count as M3. Chapter-based census and milestone grouping are
 different views of the same tests. Annex D has zero unassessed identifiers but
 39 partial ones. Its conditions and the original M1–M4 targets remain open;
 overall, 141 identifiers remain unassessed.
+
+## Block and register query boundaries
+
+Model queries report selected state and configuration; [the register glossary](glossary.md#register-model) distinguishes those values from actual DUT access.
 
 ### Q225. Does block coverage metadata measure covergroups?
 
@@ -3291,6 +3335,10 @@ independent thread queries the register. It checks write/read activity, return
 after success/failure, a later successful access and an idle peer. It does not
 certify killed-thread semaphore recovery or every overlapping-caller history.
 
+## Phase types and synchronization
+
+A receiver may convert a returned value to its own type; [the declaration terms](glossary.md#expression-types-and-registry-declarations) explain why assignment alone does not prove the declared return type.
+
 ### Q231. Why does accepting a string receiver not prove get_schedule returns string?
 
 An argument may be converted to the receiver's type. The qualified probe also
@@ -3317,6 +3365,10 @@ They observe a locked absolute limit producing FATAL and an omitted overridable
 argument permitting replacement. No implementation-specific default timeout,
 report ID or text is invented.
 
+## Factory output and registry declarations
+
+Factory output and registry declarations check different interfaces; [the factory terms](glossary.md#uvm-building-blocks) explain how wrappers and registered types relate.
+
 ### Q234. Do factory print begin/end markers prove the inventory was printed?
 
 No. The whole verdict also requires `expected_stderr_regex` to find selected
@@ -3335,6 +3387,10 @@ wrong represented type. Two fixtures fail that compatibility check; two others
 cannot resolve type_id. These are legal simulation builds, not negative compiler
 expectations. The isolated sequence-base fixture matches independently and does
 not pass the blocked shared matrix or every builtin type.
+
+## Memory visibility and callback delivery
+
+A wrapper can expose an inherited operation without proving its original access level; [the memory and callback terms](glossary.md#memory-locations-and-callback-delivery) explain these controls.
 
 ### Q236. Do derived memory wrappers prove public backdoor task accessibility?
 
@@ -3368,6 +3424,10 @@ stores the arithmetic shift in its declared signed receiver first, then compares
 the saved value. Its obsolete fixture difference is excluded from current known
 results. Two-state matches do not prove X/Z preservation.
 
+## Resource precedence and modification notifications
+
+Priority affects queue position, whereas precedence affects value selection; [the resource terms](glossary.md#resource-and-sequence-ordering) explain why each needs its own observation.
+
 ### Q240. Are resource priority and precedence interchangeable?
 
 No. Priority changes name/type queue position; numeric precedence selects a
@@ -3395,6 +3455,10 @@ missing and compiler rejection can be isolated. Its match
 does not pass the unqualified legal extension. See
 [known differences](known-differences.md).
 
+## Sequence relevance and transaction completion
+
+A sequence becoming eligible, sending a request and completing a transaction are distinct events; [the sequence terms](glossary.md#resource-and-sequence-ordering) explain these checkpoints.
+
 ### Q243. Is a zero-time relevance error required at one exact callback count?
 
 The selected qualified interpretation permits the configured bound or its first
@@ -3416,6 +3480,10 @@ No. The existing subtype already names its own exact type in the required macro.
 Its empty static-membership difference remains, along with the other unchanged
 macro cases. A new requirement link is not a new execution result, and no extra
 implementation initialization helper is added. See [requirements](requirements.md).
+
+## Builtin sequence declarations and child slots
+
+A child-slot check identifies the running child, while an algorithm check observes its work; [the sequence-slot terms](glossary.md#resource-and-sequence-ordering) explain this boundary.
 
 ### Q246. Do matching legal builtin extensions pass all constructor/declaration checks?
 
@@ -3521,9 +3589,9 @@ independent defect count. The original normal-register control matches.
 
 ### Q257. Does zero unassessed in 18.6–18.8 complete the goal?
 
-No. The new memory/indirect/FIFO duties remain partial. Chapter 18 still has
-339 partial, 50 assessed and 67 unassessed identifiers; overall 141 identifiers
-remain unassessed. The suite has 2184 directly linked tests and twenty-four
+No. The new memory/indirect/FIFO duties remain partial; [the current root totals](requirements.md#review-work-queue-and-root-totals)
+track chapter 18's remaining review. Overall 141 identifiers remain unassessed.
+The suite has 2184 directly linked tests and twenty-four
 control-only tests. Coverage of failures, concurrency, backdoor applicability,
 field/virtual-register contracts and the original M1–M4 targets remains open.
 

@@ -157,7 +157,7 @@ its counterpart; commands and API identifiers retain their original spelling.
 | M3 | Register layer (17–19, D.3, annex E) | 713 tests across chapters 17–19, D.3 and annex E; target open |
 | M4 | Requirement ledger and coverage | In progress: 3796 AI drafts; 3796 requirements link to 2184 tests; denominator unapproved |
 
-M1–M3 remain incomplete. Further work covers sequence ownership/lifecycle,
+M1–M3 remain incomplete; [the milestone glossary](docs/glossary.md#scope-and-coverage) explains why starting M4 does not complete them. Further work covers sequence ownership/lifecycle,
 default resources, callbacks and TLM 2 protocol/timing/socket combinations;
 register allocation/lifecycle, memory packing/partial beats, error/policy/map/
 prediction/frontdoor/callback/HDL and annex E combinations. Library annotations

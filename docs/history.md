@@ -1191,6 +1191,8 @@ UVM_NO_DPI and no deprecated API.
 
 ## First M4 increment
 
+The following entries describe earlier ledger formats; [the current versioned-data guide](requirements.md#versioned-data-and-generated-inventory) gives the schema and update rules to use today.
+
 Start the [requirement ledger](requirements.md), retaining all M1–M3 targets
 as incomplete. Index all 805 unchanged tests and the existing 2,504 clause
 identifiers. Propose candidate roots 5–19/B–G (2,479 identifiers), context

@@ -83,6 +83,8 @@ snapshotは[ba5e87e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/b
 今回は新規simulation 32件（専用global pool 28・virtual field constructor 4）と、修正した既存1入力を測定します。
 新規30件と修正した1件が両seedで一致し、印刷pool返却の2入力はbuildできずruntime結果がありません。
 
+以下のcontrol入力は意図的に別の前提を使うため、その一致で元の入力の差分は解消せず、direct／controlの区別は[要求対応のガイド](requirements.ja.md#引用要求実行の証拠)で説明しています。
+
 専用get_globalのsignatureはpoolを返すと記し、本文とgeneric get_globalはitemを指します。
 pool型receiverは印刷signature、item型の動作入力は本文の解釈を保持します。後者が一致しても前者をpassにせず、文言の食違いを解決しません。
 原PDFの104〜105ページでも、両方の印刷pool型を確認しました。
