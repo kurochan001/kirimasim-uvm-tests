@@ -970,7 +970,7 @@ wrapper algorithmを置換せず境界を検査し、targetの物理transportを
 成功bus read／更新は比較結果と別です。
 
 **Milestone grouping（milestone分類）**: 機能対象のmilestoneでテストを数え、主引用条項で章directoryを決めます。
-D.3の名前モデルアクセスはfileをuDに置いてもM3へ属します。F.2.3のport役割入力はfileをuFに置いても、TLMという機能対象からM2へ属します。
+D.3の名前モデルアクセスはfileをuDに置いてもM3へ属します。F.2.3のport役割入力はfileをuFに置いても、TLMという機能対象からM2へ属します。F.2.4.3のsequence-library入力もsequenceという対象からM2へ属します。
 
 ## blockとregisterの照会の境界
 
@@ -1314,3 +1314,15 @@ modelと実HDL記憶域の違いは[Q326](faq.ja.md#q326-user-backdoorの一致�
 **objection eventの完了** — 観測したcallback処理後に選択raise／drop／all-dropped waiterが戻ることで、部分dropと最終完了の違いは[Q349](faq.ja.md#q349-dropped-eventなら全objectionが終了していますか)にあります。
 
 **topology printerの選択** — 選択component階層の訪問で明示引数または現在の既定policyを使うことで、配置を固定しない独自hook／emitterの観測は[Q350](faq.ja.md#q350-文面を一致させずにtopology-printerを検査できますか)で説明しています。
+
+## Modeの設定とheartbeatへの参加
+
+比較用の準備は標準APIの前提と異なる場合があり、各観測が属する元入力は[mode／windowのFAQ](faq.ja.md#sequence-libraryのmodeとheartbeatのwindow)で説明しています。
+
+**Mode API／legacy-field control（mode APIとlegacy-field control）** — 記載された選択setter／getter呼出し／診断で確認した実装固有fieldを使う別の準備で、controlの成功は欠けるAPI契約を立証しない。
+
+**Constrained RAND／RANDC cycle（制約したRANDとRANDCのcycle）** — subtypeで制約した合法な乱数index／対象indexの順列cycleで、選択したテストは任意の乱数列ではなくchildの同一性とcycleの所属を観測する。
+
+**Tracked participant／outsider activity（監視参加者と監視外の活動）** — heartbeatの監視list内のcomponent／list外で同じ同期objectionを使うcomponentで、1 actorの複数raise／dropでも参加componentは1つのまま。
+
+**NO_HB_MODE interpretation（NO_HB_MODEの解釈）** — enumの無効という説明とAPIの照会用既定引数との限定した関係で、静かな明示stop controlでは設定の疑問を解決しない。

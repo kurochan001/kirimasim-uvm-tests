@@ -5,8 +5,8 @@
 Counts on this page belong to the time of each change, so use [the current snapshot](results.md#current-snapshot) when you need the present suite size or execution scope.
 
 These records cover M1, fifteen M2 increments, nine M3 increments,
-three M4 increments and ninety-one cross-milestone thin-area expansions, including the
-existing-test requirement-link backlog checkpoint (2499 tests: 2400 simulation and 99 elaboration). The earlier 349-test checkpoint is
+three M4 increments and ninety-two cross-milestone thin-area expansions, including the
+existing-test requirement-link backlog checkpoint (2527 tests: 2428 simulation and 99 elaboration). The earlier 349-test checkpoint is
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5).
 Counts, measurements and statements about missing tests describe each
 increment at that time. Current scope and commands are in the README;
@@ -5336,5 +5336,66 @@ remain open.
 The 99 compiler, 38 HDL, 18 command-line and 1082 compatible guest records are
 retained unchanged. Guests have 1417 unmeasured inputs: 1414 additions and
 three revised originals (1318 simulation/99 elaboration). There is no guest
+rerun/filter, scope/catalog, runner/backend/tool/workflow change, commercial
+result, implementation-derived oracle, human review or scope/denominator approval.
+
+## Ninety-second thin-area expansion: sequence-library modes and heartbeat windows
+
+Twenty-eight new runtime inputs add sixteen M2 sequence-library cases and
+twelve M1 heartbeat cases. Sixteen match seeds 1/73. Eight standard mode-API
+inputs stop at the missing setter/getter before runtime. Four keep exit-0
+seed-1 differences without seed 73: two ONE_ACTIVE inputs with activity from
+an untracked outsider, and two explicitly selected NO_HB_MODE inputs under
+the qualified literal-disabled reading. [The mode/window FAQ](faq.md#sequence-library-modes-and-heartbeat-windows)
+explains these distinct conditions.
+
+The four standard library modes retain their printed setter/getter calls and
+actual execution predicates. Two default RAND inputs constrain opposite valid
+indices and execute opposite child types. Six separate legacy-field controls
+observe two-type cyclic selection, real item-driver handshakes without child
+execution, or an original USER selection hook. The controls never pass the
+standard API inputs. There is no fixed numeric enum encoding, arbitrary
+random trace, unspecified registration order, count-accessor substitution or
+complete sequence-library claim.
+
+Heartbeat ALL windows have both tracked actors; ANY windows alternate one or
+both. Original ONE windows have exactly one tracked actor, repeated balanced
+raises/drops and an active untracked outsider. Separate controls remove only
+the outsider activity and match, while the originals keep their first-window
+report differences. Public report witnesses identify those reports without
+fixing severity, text or multiplicity as the oracle. An original catcher requests termination
+on a nonINFO report and assumes no continuation or recovery.
+
+The two NO_HB_MODE inputs first complete a healthy ALL or ONE window, then
+pass that explicit value and expect quiet empty windows. The selected value
+does not read back as disabled and a later window reports. F.2.11 calls this
+value disabled while 10.6.2.2 uses it as the query default; configuration through
+that API remains a qualified interpretation question, not a confirmed defect
+attribution. Two separate stop controls use the printed stop method and match;
+they do not pass the literal mode inputs or rewrite older query tests.
+
+Before the final proof, the original library fixture was strengthened so the
+two RAND variants exercise different child types, and the original heartbeat
+catcher gained nonUT public report diagnostics. Expectations remain unchanged.
+All dependent inputs were freshly measured; earlier input records are archived
+and excluded from current evidence. A further independence review gave the
+second ALL case a separate helper with reversed watch-list/participation order
+and counts A1/B3 instead of A2/B1; its unchanged expected rows were freshly
+proved at both seeds before tagging and freshly measured again after tagging.
+Sixteen current proven tags have compatible final measurements; no input
+fingerprint is relabeled.
+
+Ten bilingual AI duties add eight annex-F entries, a mode-API execution entry
+and an explicit-stop entry. F.2.4.3 and F.2.11 gain partial decomposition, with
+no classification. All 4009 prior duties, 420 assessments and 2499 ordinary
+records retain content. Totals are 4019 duties, 2475 directly linked tests,
+fifty-two control-only tests and 150 control-linked tests. Inventory is
+2036 partial/420 assessed/51 unassessed. Annex F is 109/23/5 with 261 duties and
+192 primary tests (158 simulation/34 elaboration). All partial applicability
+and original milestone targets remain open.
+
+The 99 compiler, 38 HDL, 18 command-line and 1082 compatible guest records are
+retained unchanged. Guests have 1445 unmeasured inputs: 1442 additions and
+three revised originals (1346 simulation/99 elaboration). There is no guest
 rerun/filter, scope/catalog, runner/backend/tool/workflow change, commercial
 result, implementation-derived oracle, human review or scope/denominator approval.

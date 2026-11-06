@@ -345,6 +345,11 @@ expected row. No implementation body or commercial output supplies an oracle;
 [the typed-role FAQ](faq.md#named-roles-wait-operators-and-topology-policies)
 records applicability and evidence limits.
 
+Mode/window expectations were independently frozen from the provided IEEE clauses before execution.
+After already recorded accessor failures, only the pinned Apache public selection_mode declaration supplied the binding for separate legacy controls; its selection implementation did not define the oracle.
+Original child/driver/hook observers and positive-time objection stimulus remain suite code. The RAND fixture strength and nonUT report witness were changed without editing expectations, followed by fresh measurements of every dependent input. A separate stronger ALL helper changes only its declared input, with an independent both-seed proof before tagging and a fresh tagged measurement; older records of that case are excluded.
+The NO_HB_MODE/API wording remains qualified; no commercial result, simulator implementation source or human approval is used.
+
 ## Clause catalog maintenance
 
 The catalog counts identifiers rather than normative duties, so [Counting unit and scope proposal](requirements.md#counting-unit-and-scope-proposal) explains why restoring an entry does not define a coverage denominator.

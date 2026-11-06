@@ -1,0 +1,4 @@
+UT: heartbeat92 disabled_selected 1
+UT: heartbeat92 heartbeat_no_hb_mode_0 idle_window 0 quiet 1 counts_zero 1
+UT: heartbeat92 heartbeat_no_hb_mode_0 idle_window 1 quiet 1 counts_zero 1
+UT: heartbeat92 peer_mode 1

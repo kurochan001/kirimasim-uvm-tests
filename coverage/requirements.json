@@ -150790,6 +150790,660 @@
           ]
         }
       ]
+    },
+    {
+      "id": "UVM-PKG-SEQUENCE-LIB-MODE-RAND-92",
+      "clause": "F.2.4.3",
+      "statement": {
+        "en": "UVM_SEQ_LIB_RAND selects child sequences using the constrained random index.",
+        "ja": "UVM_SEQ_LIB_RANDは制約された乱数indexでchild sequenceを選ぶ。"
+      },
+      "conditions": {
+        "en": "Two registration/selection histories use two distinct original child sequence types,a real sequencer/driver pair and an idle peer. Standard inputs configure the named enum through the printed setter/getter;default RAND inputs keep the constructor mode and no mode accessor is replaced. The default legal budget10 is retained. Independent subtype constraints and original USER choices define the selected observations without fixing unspecified registration order.",
+        "ja": "2つの登録／選択履歴は異なる独自child sequence型2つ、実sequencer／driver、待機peerを使う。標準入力は記載setter／getterで名前付きenumを設定し、既定RAND入力はconstructor modeを保ち、mode accessorを置換しない。既定の合法budget 10を保持する。独自subtype制約とUSER選択で、未指定の登録順を固定せず観測を定める。"
+      },
+      "expected": {
+        "en": "Ten completed child bodies match the wrapper selected by the independently constrained valid index;no user-selector hook or item transfer occurs.",
+        "ja": "独立に制約した合法indexが選ぶwrapperと完了child body 10件が一致し、user-selector hookやitem転送はない。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. A declared expected anchor is not a measured pass for every duty. Additional-premise controls cannot pass the original standard-API or literal-disabled input. All applicability,classification/scope/denominator decisions,human review and original M1-M4 targets remain open. The standard accessors may stop a build before any runtime observation;legacy-field controls have an explicit nonstandard additional premise. No fixed enum encoding,arbitrary random distribution,all randomization failures,count accessors,counter API,lifecycle conditions or complete library conformance is inferred.",
+        "ja": "AIによる部分分解のみ。宣言した期待anchorは各義務の実測passではない。追加前提controlで元の標準API入力や字義的な無効化入力をpassにしない。全適用条件、分類／範囲／分母の判断、人の照合、元のM1〜M4目標は未完。 標準accessorの欠落でruntime観測前にbuild停止し得る。legacy-field controlは非標準の追加前提を明示する。enum数値encoding、任意の乱数分布、全randomization失敗、count accessor、counter API、lifecycle条件、library全体の適合は推論しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_library_standard_rand_0_92",
+          "role": "direct",
+          "expected_observations": [
+            "UT: library92 library_standard_rand_0 configured 1 membership 1",
+            "UT: library92 selected_effect 1 peer_idle 1"
+          ]
+        },
+        {
+          "test": "uF/test_library_standard_rand_1_92",
+          "role": "direct",
+          "expected_observations": [
+            "UT: library92 library_standard_rand_1 configured 1 membership 1",
+            "UT: library92 selected_effect 1 peer_idle 1"
+          ]
+        },
+        {
+          "test": "uF/test_library_default_rand_0_92",
+          "role": "direct",
+          "expected_observations": [
+            "UT: library92 library_default_rand_0 configured 1 membership 1",
+            "UT: library92 selected_effect 1 peer_idle 1"
+          ]
+        },
+        {
+          "test": "uF/test_library_default_rand_1_92",
+          "role": "direct",
+          "expected_observations": [
+            "UT: library92 library_default_rand_1 configured 1 membership 1",
+            "UT: library92 selected_effect 1 peer_idle 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PKG-SEQUENCE-LIB-MODE-RANDC-92",
+      "clause": "F.2.4.3",
+      "statement": {
+        "en": "UVM_SEQ_LIB_RANDC selects child sequences cyclically across the constrained valid indices.",
+        "ja": "UVM_SEQ_LIB_RANDCは制約された合法indexを循環してchild sequenceを選ぶ。"
+      },
+      "conditions": {
+        "en": "Two registration/selection histories use two distinct original child sequence types,a real sequencer/driver pair and an idle peer. Standard inputs configure the named enum through the printed setter/getter;default RAND inputs keep the constructor mode and no mode accessor is replaced. The default legal budget10 is retained. Independent subtype constraints and original USER choices define the selected observations without fixing unspecified registration order.",
+        "ja": "2つの登録／選択履歴は異なる独自child sequence型2つ、実sequencer／driver、待機peerを使う。標準入力は記載setter／getterで名前付きenumを設定し、既定RAND入力はconstructor modeを保ち、mode accessorを置換しない。既定の合法budget 10を保持する。独自subtype制約とUSER選択で、未指定の登録順を固定せず観測を定める。"
+      },
+      "expected": {
+        "en": "With two eligible types,each successive pair of the ten child bodies contains both types and totals5/5;no initial permutation,user hook or item transfer is imposed.",
+        "ja": "対象型が2つのとき、child body 10件の連続した各2件に両型が含まれ、合計5／5となり、最初の並び、user hook、item転送は固定しない。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. A declared expected anchor is not a measured pass for every duty. Additional-premise controls cannot pass the original standard-API or literal-disabled input. All applicability,classification/scope/denominator decisions,human review and original M1-M4 targets remain open. The standard accessors may stop a build before any runtime observation;legacy-field controls have an explicit nonstandard additional premise. No fixed enum encoding,arbitrary random distribution,all randomization failures,count accessors,counter API,lifecycle conditions or complete library conformance is inferred.",
+        "ja": "AIによる部分分解のみ。宣言した期待anchorは各義務の実測passではない。追加前提controlで元の標準API入力や字義的な無効化入力をpassにしない。全適用条件、分類／範囲／分母の判断、人の照合、元のM1〜M4目標は未完。 標準accessorの欠落でruntime観測前にbuild停止し得る。legacy-field controlは非標準の追加前提を明示する。enum数値encoding、任意の乱数分布、全randomization失敗、count accessor、counter API、lifecycle条件、library全体の適合は推論しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_library_standard_randc_0_92",
+          "role": "direct",
+          "expected_observations": [
+            "UT: library92 library_standard_randc_0 configured 1 membership 1",
+            "UT: library92 selected_effect 1 peer_idle 1"
+          ]
+        },
+        {
+          "test": "uF/test_library_standard_randc_1_92",
+          "role": "direct",
+          "expected_observations": [
+            "UT: library92 library_standard_randc_1 configured 1 membership 1",
+            "UT: library92 selected_effect 1 peer_idle 1"
+          ]
+        },
+        {
+          "test": "uF/test_library_legacy_randc_0_92",
+          "role": "control",
+          "expected_observations": [
+            "UT: library92 library_legacy_randc_0 configured 1 membership 1",
+            "UT: library92 selected_effect 1 peer_idle 1"
+          ]
+        },
+        {
+          "test": "uF/test_library_legacy_randc_1_92",
+          "role": "control",
+          "expected_observations": [
+            "UT: library92 library_legacy_randc_1 configured 1 membership 1",
+            "UT: library92 selected_effect 1 peer_idle 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PKG-SEQUENCE-LIB-MODE-ITEM-92",
+      "clause": "F.2.4.3",
+      "statement": {
+        "en": "UVM_SEQ_LIB_ITEM emits request items without executing registered child sequences.",
+        "ja": "UVM_SEQ_LIB_ITEMは登録child sequenceを実行せずrequest itemを発行する。"
+      },
+      "conditions": {
+        "en": "Two registration/selection histories use two distinct original child sequence types,a real sequencer/driver pair and an idle peer. Standard inputs configure the named enum through the printed setter/getter;default RAND inputs keep the constructor mode and no mode accessor is replaced. The default legal budget10 is retained. Independent subtype constraints and original USER choices define the selected observations without fixing unspecified registration order.",
+        "ja": "2つの登録／選択履歴は異なる独自child sequence型2つ、実sequencer／driver、待機peerを使う。標準入力は記載setter／getterで名前付きenumを設定し、既定RAND入力はconstructor modeを保ち、mode accessorを置換しない。既定の合法budget 10を保持する。独自subtype制約とUSER選択で、未指定の登録順を固定せず観測を定める。"
+      },
+      "expected": {
+        "en": "The real driver accepts ten nonnull typed request items and completes their handshakes;no child body or USER selection hook runs and the peer stays idle.",
+        "ja": "実driverがnullでない型付きrequest item 10件を受け取りhandshakeを完了し、child bodyもUSER選択hookも実行せず、peerは待機したままとなる。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. A declared expected anchor is not a measured pass for every duty. Additional-premise controls cannot pass the original standard-API or literal-disabled input. All applicability,classification/scope/denominator decisions,human review and original M1-M4 targets remain open. The standard accessors may stop a build before any runtime observation;legacy-field controls have an explicit nonstandard additional premise. No fixed enum encoding,arbitrary random distribution,all randomization failures,count accessors,counter API,lifecycle conditions or complete library conformance is inferred.",
+        "ja": "AIによる部分分解のみ。宣言した期待anchorは各義務の実測passではない。追加前提controlで元の標準API入力や字義的な無効化入力をpassにしない。全適用条件、分類／範囲／分母の判断、人の照合、元のM1〜M4目標は未完。 標準accessorの欠落でruntime観測前にbuild停止し得る。legacy-field controlは非標準の追加前提を明示する。enum数値encoding、任意の乱数分布、全randomization失敗、count accessor、counter API、lifecycle条件、library全体の適合は推論しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_library_standard_item_0_92",
+          "role": "direct",
+          "expected_observations": [
+            "UT: library92 library_standard_item_0 configured 1 membership 1",
+            "UT: library92 selected_effect 1 peer_idle 1"
+          ]
+        },
+        {
+          "test": "uF/test_library_standard_item_1_92",
+          "role": "direct",
+          "expected_observations": [
+            "UT: library92 library_standard_item_1 configured 1 membership 1",
+            "UT: library92 selected_effect 1 peer_idle 1"
+          ]
+        },
+        {
+          "test": "uF/test_library_legacy_item_0_92",
+          "role": "control",
+          "expected_observations": [
+            "UT: library92 library_legacy_item_0 configured 1 membership 1",
+            "UT: library92 selected_effect 1 peer_idle 1"
+          ]
+        },
+        {
+          "test": "uF/test_library_legacy_item_1_92",
+          "role": "control",
+          "expected_observations": [
+            "UT: library92 library_legacy_item_1 configured 1 membership 1",
+            "UT: library92 selected_effect 1 peer_idle 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PKG-SEQUENCE-LIB-MODE-USER-92",
+      "clause": "F.2.4.3",
+      "statement": {
+        "en": "UVM_SEQ_LIB_USER uses the original select_sequence override to choose each next child.",
+        "ja": "UVM_SEQ_LIB_USERは独自select_sequence overrideで次の各childを選ぶ。"
+      },
+      "conditions": {
+        "en": "Two registration/selection histories use two distinct original child sequence types,a real sequencer/driver pair and an idle peer. Standard inputs configure the named enum through the printed setter/getter;default RAND inputs keep the constructor mode and no mode accessor is replaced. The default legal budget10 is retained. Independent subtype constraints and original USER choices define the selected observations without fixing unspecified registration order.",
+        "ja": "2つの登録／選択履歴は異なる独自child sequence型2つ、実sequencer／driver、待機peerを使う。標準入力は記載setter／getterで名前付きenumを設定し、既定RAND入力はconstructor modeを保ち、mode accessorを置換しない。既定の合法budget 10を保持する。独自subtype制約とUSER選択で、未指定の登録順を固定せず観測を定める。"
+      },
+      "expected": {
+        "en": "Ten hook calls receive max1,return valid alternating or modulo3 indices,and the ten actual child bodies match their chosen wrappers without item transfers.",
+        "ja": "hook 10呼出しはmax 1を受け、交互またはmodulo 3の合法indexを返し、実child body 10件は選んだwrapperに一致し、item転送はない。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. A declared expected anchor is not a measured pass for every duty. Additional-premise controls cannot pass the original standard-API or literal-disabled input. All applicability,classification/scope/denominator decisions,human review and original M1-M4 targets remain open. The standard accessors may stop a build before any runtime observation;legacy-field controls have an explicit nonstandard additional premise. No fixed enum encoding,arbitrary random distribution,all randomization failures,count accessors,counter API,lifecycle conditions or complete library conformance is inferred.",
+        "ja": "AIによる部分分解のみ。宣言した期待anchorは各義務の実測passではない。追加前提controlで元の標準API入力や字義的な無効化入力をpassにしない。全適用条件、分類／範囲／分母の判断、人の照合、元のM1〜M4目標は未完。 標準accessorの欠落でruntime観測前にbuild停止し得る。legacy-field controlは非標準の追加前提を明示する。enum数値encoding、任意の乱数分布、全randomization失敗、count accessor、counter API、lifecycle条件、library全体の適合は推論しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_library_standard_user_0_92",
+          "role": "direct",
+          "expected_observations": [
+            "UT: library92 library_standard_user_0 configured 1 membership 1",
+            "UT: library92 selected_effect 1 peer_idle 1"
+          ]
+        },
+        {
+          "test": "uF/test_library_standard_user_1_92",
+          "role": "direct",
+          "expected_observations": [
+            "UT: library92 library_standard_user_1 configured 1 membership 1",
+            "UT: library92 selected_effect 1 peer_idle 1"
+          ]
+        },
+        {
+          "test": "uF/test_library_legacy_user_0_92",
+          "role": "control",
+          "expected_observations": [
+            "UT: library92 library_legacy_user_0 configured 1 membership 1",
+            "UT: library92 selected_effect 1 peer_idle 1"
+          ]
+        },
+        {
+          "test": "uF/test_library_legacy_user_1_92",
+          "role": "control",
+          "expected_observations": [
+            "UT: library92 library_legacy_user_1 configured 1 membership 1",
+            "UT: library92 selected_effect 1 peer_idle 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-SEQUENCE-LIB-MODE-API-EXECUTION-92",
+      "clause": "14.4.4.1",
+      "statement": {
+        "en": "The selected mode is set and retrieved through the printed APIs and governs subsequent library execution.",
+        "ja": "選択modeは記載APIで設定・取得し、その後のlibrary実行を制御する。"
+      },
+      "conditions": {
+        "en": "Two registration/selection histories use two distinct original child sequence types,a real sequencer/driver pair and an idle peer. Standard inputs configure the named enum through the printed setter/getter;default RAND inputs keep the constructor mode and no mode accessor is replaced. The default legal budget10 is retained. Independent subtype constraints and original USER choices define the selected observations without fixing unspecified registration order.",
+        "ja": "2つの登録／選択履歴は異なる独自child sequence型2つ、実sequencer／driver、待機peerを使う。標準入力は記載setter／getterで名前付きenumを設定し、既定RAND入力はconstructor modeを保ち、mode accessorを置換しない。既定の合法budget 10を保持する。独自subtype制約とUSER選択で、未指定の登録順を固定せず観測を定める。"
+      },
+      "expected": {
+        "en": "Each of the four explicit named modes reads back as selected and exhibits its mode-specific child,cyclic,item or USER-hook behavior.",
+        "ja": "明示した4つの名前付きmodeは選択どおり読み戻され、それぞれのchild、循環、item、USER-hook動作を示す。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. A declared expected anchor is not a measured pass for every duty. Additional-premise controls cannot pass the original standard-API or literal-disabled input. All applicability,classification/scope/denominator decisions,human review and original M1-M4 targets remain open. The standard accessors may stop a build before any runtime observation;legacy-field controls have an explicit nonstandard additional premise. No fixed enum encoding,arbitrary random distribution,all randomization failures,count accessors,counter API,lifecycle conditions or complete library conformance is inferred.",
+        "ja": "AIによる部分分解のみ。宣言した期待anchorは各義務の実測passではない。追加前提controlで元の標準API入力や字義的な無効化入力をpassにしない。全適用条件、分類／範囲／分母の判断、人の照合、元のM1〜M4目標は未完。 標準accessorの欠落でruntime観測前にbuild停止し得る。legacy-field controlは非標準の追加前提を明示する。enum数値encoding、任意の乱数分布、全randomization失敗、count accessor、counter API、lifecycle条件、library全体の適合は推論しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_library_standard_rand_0_92",
+          "role": "direct",
+          "expected_observations": [
+            "UT: library92 library_standard_rand_0 configured 1 membership 1",
+            "UT: library92 selected_effect 1 peer_idle 1"
+          ]
+        },
+        {
+          "test": "uF/test_library_standard_rand_1_92",
+          "role": "direct",
+          "expected_observations": [
+            "UT: library92 library_standard_rand_1 configured 1 membership 1",
+            "UT: library92 selected_effect 1 peer_idle 1"
+          ]
+        },
+        {
+          "test": "uF/test_library_standard_randc_0_92",
+          "role": "direct",
+          "expected_observations": [
+            "UT: library92 library_standard_randc_0 configured 1 membership 1",
+            "UT: library92 selected_effect 1 peer_idle 1"
+          ]
+        },
+        {
+          "test": "uF/test_library_standard_randc_1_92",
+          "role": "direct",
+          "expected_observations": [
+            "UT: library92 library_standard_randc_1 configured 1 membership 1",
+            "UT: library92 selected_effect 1 peer_idle 1"
+          ]
+        },
+        {
+          "test": "uF/test_library_standard_item_0_92",
+          "role": "direct",
+          "expected_observations": [
+            "UT: library92 library_standard_item_0 configured 1 membership 1",
+            "UT: library92 selected_effect 1 peer_idle 1"
+          ]
+        },
+        {
+          "test": "uF/test_library_standard_item_1_92",
+          "role": "direct",
+          "expected_observations": [
+            "UT: library92 library_standard_item_1 configured 1 membership 1",
+            "UT: library92 selected_effect 1 peer_idle 1"
+          ]
+        },
+        {
+          "test": "uF/test_library_standard_user_0_92",
+          "role": "direct",
+          "expected_observations": [
+            "UT: library92 library_standard_user_0 configured 1 membership 1",
+            "UT: library92 selected_effect 1 peer_idle 1"
+          ]
+        },
+        {
+          "test": "uF/test_library_standard_user_1_92",
+          "role": "direct",
+          "expected_observations": [
+            "UT: library92 library_standard_user_1 configured 1 membership 1",
+            "UT: library92 selected_effect 1 peer_idle 1"
+          ]
+        },
+        {
+          "test": "uF/test_library_legacy_randc_0_92",
+          "role": "control",
+          "expected_observations": [
+            "UT: library92 library_legacy_randc_0 configured 1 membership 1",
+            "UT: library92 selected_effect 1 peer_idle 1"
+          ]
+        },
+        {
+          "test": "uF/test_library_legacy_randc_1_92",
+          "role": "control",
+          "expected_observations": [
+            "UT: library92 library_legacy_randc_1 configured 1 membership 1",
+            "UT: library92 selected_effect 1 peer_idle 1"
+          ]
+        },
+        {
+          "test": "uF/test_library_legacy_item_0_92",
+          "role": "control",
+          "expected_observations": [
+            "UT: library92 library_legacy_item_0 configured 1 membership 1",
+            "UT: library92 selected_effect 1 peer_idle 1"
+          ]
+        },
+        {
+          "test": "uF/test_library_legacy_item_1_92",
+          "role": "control",
+          "expected_observations": [
+            "UT: library92 library_legacy_item_1 configured 1 membership 1",
+            "UT: library92 selected_effect 1 peer_idle 1"
+          ]
+        },
+        {
+          "test": "uF/test_library_legacy_user_0_92",
+          "role": "control",
+          "expected_observations": [
+            "UT: library92 library_legacy_user_0 configured 1 membership 1",
+            "UT: library92 selected_effect 1 peer_idle 1"
+          ]
+        },
+        {
+          "test": "uF/test_library_legacy_user_1_92",
+          "role": "control",
+          "expected_observations": [
+            "UT: library92 library_legacy_user_1 configured 1 membership 1",
+            "UT: library92 selected_effect 1 peer_idle 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PKG-HEARTBEAT-MODE-ALL-92",
+      "clause": "F.2.11",
+      "statement": {
+        "en": "UVM_ALL_ACTIVE accepts activity from all tracked components during each selected window.",
+        "ja": "UVM_ALL_ACTIVEは選択した各windowで全監視componentの活動を受け入れる。"
+      },
+      "conditions": {
+        "en": "Two original histories monitor actor_a and actor_b through a chosen synchronizing objection. Three positive-time windows contain repeated balanced activity from selected tracked actors and from an untracked outsider. A context-bound original catcher requests termination on a nonINFO report;no post-failure state or recovery is asserted. An unstarted peer retains its explicitly selected mode. The ALL variants reverse watch-list and participation order and use counts A2/B1 versus A1/B3.",
+        "ja": "独自の2履歴は選択した同期objectionを通じてactor_aとactor_bを監視する。正時間の3 windowでは、選択した監視actorと監視外のoutsiderが反復した釣り合う活動を行う。contextに束縛した独自catcherは非INFO報告で終了を要求し、失敗後の状態や回復を主張しない。未開始peerは明示したmodeを保持する。 ALL variantは監視listと参加順を反転し、countをA2／B1とA1／B3に分ける。"
+      },
+      "expected": {
+        "en": "Both tracked actors participate in every window without a nonINFO report,balanced counts return to zero,and peer mode is unchanged.",
+        "ja": "各windowで両監視actorが参加し、非INFO報告を生じず、釣り合うcountが0へ戻り、peer modeを変えない。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. A declared expected anchor is not a measured pass for every duty. Additional-premise controls cannot pass the original standard-API or literal-disabled input. All applicability,classification/scope/denominator decisions,human review and original M1-M4 targets remain open. Only selected healthy windows are checked. Missed or overactive windows,exact failure severity/text/count,nonzero drain,cross-scope timing,empty lists,dynamic membership,races and general failure/recovery behavior remain open. No numeric enum encoding is assumed.",
+        "ja": "AIによる部分分解のみ。宣言した期待anchorは各義務の実測passではない。追加前提controlで元の標準API入力や字義的な無効化入力をpassにしない。全適用条件、分類／範囲／分母の判断、人の照合、元のM1〜M4目標は未完。 選択した正常windowだけを検査する。活動不足／過多のwindow、正確な失敗severity／文面／件数、非0 drain、scope間の時刻変換、空list、動的所属、競合、一般の失敗／回復動作は未完。enum数値encodingは仮定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_heartbeat_all_active_0_92",
+          "role": "direct",
+          "expected_observations": [
+            "UT: heartbeat92 selected 1",
+            "UT: heartbeat92 heartbeat_all_active_0 window 0 quiet 1 counts_zero 1",
+            "UT: heartbeat92 heartbeat_all_active_0 window 1 quiet 1 counts_zero 1",
+            "UT: heartbeat92 heartbeat_all_active_0 window 2 quiet 1 counts_zero 1",
+            "UT: heartbeat92 peer_mode 1"
+          ]
+        },
+        {
+          "test": "uF/test_heartbeat_all_active_1_92",
+          "role": "direct",
+          "expected_observations": [
+            "UT: heartbeat92 selected 1",
+            "UT: heartbeat92 heartbeat_all_active_1 window 0 quiet 1 counts_zero 1",
+            "UT: heartbeat92 heartbeat_all_active_1 window 1 quiet 1 counts_zero 1",
+            "UT: heartbeat92 heartbeat_all_active_1 window 2 quiet 1 counts_zero 1",
+            "UT: heartbeat92 peer_mode 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PKG-HEARTBEAT-MODE-ONE-92",
+      "clause": "F.2.11",
+      "statement": {
+        "en": "UVM_ONE_ACTIVE accepts exactly one tracked component participating in the selected window.",
+        "ja": "UVM_ONE_ACTIVEは選択windowで監視componentのちょうど1つが参加することを受け入れる。"
+      },
+      "conditions": {
+        "en": "Two original histories monitor actor_a and actor_b through a chosen synchronizing objection. Three positive-time windows contain repeated balanced activity from selected tracked actors and from an untracked outsider. A context-bound original catcher requests termination on a nonINFO report;no post-failure state or recovery is asserted. An unstarted peer retains its explicitly selected mode. Separate controls remove only the outsider activity and retain the tracked actor windows.",
+        "ja": "独自の2履歴は選択した同期objectionを通じてactor_aとactor_bを監視する。正時間の3 windowでは、選択した監視actorと監視外のoutsiderが反復した釣り合う活動を行う。contextに束縛した独自catcherは非INFO報告で終了を要求し、失敗後の状態や回復を主張しない。未開始peerは明示したmodeを保持する。 別controlはoutsiderの活動だけを外し、監視actorのwindowを保つ。"
+      },
+      "expected": {
+        "en": "Alternating one tracked actor per window may raise/drop multiple counts while untracked outsider activity does not add a monitored participant;all selected windows remain quiet.",
+        "ja": "windowごとに交互に1監視actorが複数countをraise／dropでき、監視外outsiderの活動で監視参加者が増えず、選択windowは全て報告なしとなる。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. A declared expected anchor is not a measured pass for every duty. Additional-premise controls cannot pass the original standard-API or literal-disabled input. All applicability,classification/scope/denominator decisions,human review and original M1-M4 targets remain open. Only selected healthy windows are checked. Missed or overactive windows,exact failure severity/text/count,nonzero drain,cross-scope timing,empty lists,dynamic membership,races and general failure/recovery behavior remain open. No numeric enum encoding is assumed.",
+        "ja": "AIによる部分分解のみ。宣言した期待anchorは各義務の実測passではない。追加前提controlで元の標準API入力や字義的な無効化入力をpassにしない。全適用条件、分類／範囲／分母の判断、人の照合、元のM1〜M4目標は未完。 選択した正常windowだけを検査する。活動不足／過多のwindow、正確な失敗severity／文面／件数、非0 drain、scope間の時刻変換、空list、動的所属、競合、一般の失敗／回復動作は未完。enum数値encodingは仮定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_heartbeat_one_active_0_92",
+          "role": "direct",
+          "expected_observations": [
+            "UT: heartbeat92 selected 1",
+            "UT: heartbeat92 heartbeat_one_active_0 window 0 quiet 1 counts_zero 1",
+            "UT: heartbeat92 heartbeat_one_active_0 window 1 quiet 1 counts_zero 1",
+            "UT: heartbeat92 heartbeat_one_active_0 window 2 quiet 1 counts_zero 1",
+            "UT: heartbeat92 peer_mode 1"
+          ]
+        },
+        {
+          "test": "uF/test_heartbeat_one_active_1_92",
+          "role": "direct",
+          "expected_observations": [
+            "UT: heartbeat92 selected 1",
+            "UT: heartbeat92 heartbeat_one_active_1 window 0 quiet 1 counts_zero 1",
+            "UT: heartbeat92 heartbeat_one_active_1 window 1 quiet 1 counts_zero 1",
+            "UT: heartbeat92 heartbeat_one_active_1 window 2 quiet 1 counts_zero 1",
+            "UT: heartbeat92 peer_mode 1"
+          ]
+        },
+        {
+          "test": "uF/test_heartbeat_one_active_scoped_0_92",
+          "role": "control",
+          "expected_observations": [
+            "UT: heartbeat92 selected 1",
+            "UT: heartbeat92 heartbeat_one_active_scoped_0 window 0 quiet 1 counts_zero 1",
+            "UT: heartbeat92 heartbeat_one_active_scoped_0 window 1 quiet 1 counts_zero 1",
+            "UT: heartbeat92 heartbeat_one_active_scoped_0 window 2 quiet 1 counts_zero 1",
+            "UT: heartbeat92 peer_mode 1"
+          ]
+        },
+        {
+          "test": "uF/test_heartbeat_one_active_scoped_1_92",
+          "role": "control",
+          "expected_observations": [
+            "UT: heartbeat92 selected 1",
+            "UT: heartbeat92 heartbeat_one_active_scoped_1 window 0 quiet 1 counts_zero 1",
+            "UT: heartbeat92 heartbeat_one_active_scoped_1 window 1 quiet 1 counts_zero 1",
+            "UT: heartbeat92 heartbeat_one_active_scoped_1 window 2 quiet 1 counts_zero 1",
+            "UT: heartbeat92 peer_mode 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PKG-HEARTBEAT-MODE-ANY-92",
+      "clause": "F.2.11",
+      "statement": {
+        "en": "UVM_ANY_ACTIVE accepts one or more tracked components participating in the selected window.",
+        "ja": "UVM_ANY_ACTIVEは選択windowで監視componentの1つ以上が参加することを受け入れる。"
+      },
+      "conditions": {
+        "en": "Two original histories monitor actor_a and actor_b through a chosen synchronizing objection. Three positive-time windows contain repeated balanced activity from selected tracked actors and from an untracked outsider. A context-bound original catcher requests termination on a nonINFO report;no post-failure state or recovery is asserted. An unstarted peer retains its explicitly selected mode.",
+        "ja": "独自の2履歴は選択した同期objectionを通じてactor_aとactor_bを監視する。正時間の3 windowでは、選択した監視actorと監視外のoutsiderが反復した釣り合う活動を行う。contextに束縛した独自catcherは非INFO報告で終了を要求し、失敗後の状態や回復を主張しない。未開始peerは明示したmodeを保持する。"
+      },
+      "expected": {
+        "en": "Windows containing actor_a only,actor_b only or both remain quiet with balanced counts and an untouched peer.",
+        "ja": "actor_aのみ、actor_bのみ、両方のwindowが釣り合うcountと未変更peerを保って報告なしとなる。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. A declared expected anchor is not a measured pass for every duty. Additional-premise controls cannot pass the original standard-API or literal-disabled input. All applicability,classification/scope/denominator decisions,human review and original M1-M4 targets remain open. Only selected healthy windows are checked. Missed or overactive windows,exact failure severity/text/count,nonzero drain,cross-scope timing,empty lists,dynamic membership,races and general failure/recovery behavior remain open. No numeric enum encoding is assumed.",
+        "ja": "AIによる部分分解のみ。宣言した期待anchorは各義務の実測passではない。追加前提controlで元の標準API入力や字義的な無効化入力をpassにしない。全適用条件、分類／範囲／分母の判断、人の照合、元のM1〜M4目標は未完。 選択した正常windowだけを検査する。活動不足／過多のwindow、正確な失敗severity／文面／件数、非0 drain、scope間の時刻変換、空list、動的所属、競合、一般の失敗／回復動作は未完。enum数値encodingは仮定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_heartbeat_any_active_0_92",
+          "role": "direct",
+          "expected_observations": [
+            "UT: heartbeat92 selected 1",
+            "UT: heartbeat92 heartbeat_any_active_0 window 0 quiet 1 counts_zero 1",
+            "UT: heartbeat92 heartbeat_any_active_0 window 1 quiet 1 counts_zero 1",
+            "UT: heartbeat92 heartbeat_any_active_0 window 2 quiet 1 counts_zero 1",
+            "UT: heartbeat92 peer_mode 1"
+          ]
+        },
+        {
+          "test": "uF/test_heartbeat_any_active_1_92",
+          "role": "direct",
+          "expected_observations": [
+            "UT: heartbeat92 selected 1",
+            "UT: heartbeat92 heartbeat_any_active_1 window 0 quiet 1 counts_zero 1",
+            "UT: heartbeat92 heartbeat_any_active_1 window 1 quiet 1 counts_zero 1",
+            "UT: heartbeat92 heartbeat_any_active_1 window 2 quiet 1 counts_zero 1",
+            "UT: heartbeat92 peer_mode 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-PKG-HEARTBEAT-NO-MODE-DISABLED-READING-92",
+      "clause": "F.2.11",
+      "statement": {
+        "en": "Under the literal disabled reading,explicit UVM_NO_HB_MODE selection disables heartbeat monitoring.",
+        "ja": "字義どおりの無効化の解釈では、UVM_NO_HB_MODEの明示選択でheartbeat監視を無効にする。"
+      },
+      "conditions": {
+        "en": "After one healthy ALL or ONE window,pass an explicit UVM_NO_HB_MODE argument and trigger two empty positive-time windows. Separate stop controls call the printed stop API instead of changing mode.",
+        "ja": "正常なALLまたはONE windowの後でUVM_NO_HB_MODEを明示引数として渡し、正時間の空windowを2つtriggerする。別stop controlはmode変更の代わりに記載stop APIを呼ぶ。"
+      },
+      "expected": {
+        "en": "The selected disabled value reads back and the empty windows emit no nonINFO report;the peer mode and balanced counts remain intact.",
+        "ja": "選択した無効値を読み戻し、空windowで非INFO報告を生じず、peer modeと釣り合うcountを保持する。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. A declared expected anchor is not a measured pass for every duty. Additional-premise controls cannot pass the original standard-API or literal-disabled input. All applicability,classification/scope/denominator decisions,human review and original M1-M4 targets remain open. This is explicitly qualified:10.6.2.2 uses NO_HB_MODE as its default query argument while F.2.11 calls it disabled. The way to activate that enum meaning through this API remains an interpretation question,not a confirmed library/simulator defect. Earlier query-preservation inputs and stop-control successes are not rewritten or used to pass the literal input.",
+        "ja": "AIによる部分分解のみ。宣言した期待anchorは各義務の実測passではない。追加前提controlで元の標準API入力や字義的な無効化入力をpassにしない。全適用条件、分類／範囲／分母の判断、人の照合、元のM1〜M4目標は未完。 この解釈は明示的に限定する。10.6.2.2はNO_HB_MODEを照会用の既定引数に使い、F.2.11は無効と記す。このAPIでenumの意味を有効にする方法は解釈の疑問であり、確定したlibrary／simulator欠陥ではない。以前の照会保持入力を書き換えず、stop-controlの成功で字義的入力をpassにしない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_heartbeat_no_hb_mode_0_92",
+          "role": "direct",
+          "expected_observations": [
+            "UT: heartbeat92 disabled_selected 1",
+            "UT: heartbeat92 heartbeat_no_hb_mode_0 idle_window 0 quiet 1 counts_zero 1",
+            "UT: heartbeat92 heartbeat_no_hb_mode_0 idle_window 1 quiet 1 counts_zero 1",
+            "UT: heartbeat92 peer_mode 1"
+          ]
+        },
+        {
+          "test": "uF/test_heartbeat_no_hb_mode_1_92",
+          "role": "direct",
+          "expected_observations": [
+            "UT: heartbeat92 disabled_selected 1",
+            "UT: heartbeat92 heartbeat_no_hb_mode_1 idle_window 0 quiet 1 counts_zero 1",
+            "UT: heartbeat92 heartbeat_no_hb_mode_1 idle_window 1 quiet 1 counts_zero 1",
+            "UT: heartbeat92 peer_mode 1"
+          ]
+        },
+        {
+          "test": "uF/test_heartbeat_stop_0_92",
+          "role": "control",
+          "expected_observations": [
+            "UT: heartbeat92 heartbeat_stop_0 idle_window 0 quiet 1 counts_zero 1",
+            "UT: heartbeat92 heartbeat_stop_0 idle_window 1 quiet 1 counts_zero 1",
+            "UT: heartbeat92 peer_mode 1"
+          ]
+        },
+        {
+          "test": "uF/test_heartbeat_stop_1_92",
+          "role": "control",
+          "expected_observations": [
+            "UT: heartbeat92 heartbeat_stop_1 idle_window 0 quiet 1 counts_zero 1",
+            "UT: heartbeat92 heartbeat_stop_1 idle_window 1 quiet 1 counts_zero 1",
+            "UT: heartbeat92 peer_mode 1"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "UVM-HEARTBEAT-STOP-QUIET-TRIGGERS-92",
+      "clause": "10.6.2.7",
+      "statement": {
+        "en": "An explicit stop ends the selected heartbeat monitoring even when its old event is triggered again.",
+        "ja": "明示stopは、以前のeventを再びtriggerしても選択heartbeatの監視を停止する。"
+      },
+      "conditions": {
+        "en": "First complete a healthy ALL or ONE window with two tracked components,then call stop and trigger the same event twice without tracked activity.",
+        "ja": "監視component 2つで正常なALLまたはONE windowを先に完了し、stopを呼んだ後で監視活動なしに同じeventを2回triggerする。"
+      },
+      "expected": {
+        "en": "The later empty windows do not produce a nonINFO report;counts remain zero and the unstarted peer retains its selected mode.",
+        "ja": "後続の空windowで非INFO報告を生じず、countは0を保ち、未開始peerは選択modeを保持する。"
+      },
+      "limitations": {
+        "en": "AI partial decomposition only. A declared expected anchor is not a measured pass for every duty. Additional-premise controls cannot pass the original standard-API or literal-disabled input. All applicability,classification/scope/denominator decisions,human review and original M1-M4 targets remain open. Only explicit-stop quiet behavior is observed;restart-state reset,all event replacement cases,races and NO_HB_MODE configuration are not certified.",
+        "ja": "AIによる部分分解のみ。宣言した期待anchorは各義務の実測passではない。追加前提controlで元の標準API入力や字義的な無効化入力をpassにしない。全適用条件、分類／範囲／分母の判断、人の照合、元のM1〜M4目標は未完。 明示stop後の静かな動作だけを観測し、再開状態のreset、全event置換、競合、NO_HB_MODEの設定は認定しない。"
+      },
+      "review": {
+        "status": "ai",
+        "reviewer": null,
+        "reviewed_at": null
+      },
+      "test_links": [
+        {
+          "test": "uF/test_heartbeat_stop_0_92",
+          "role": "direct",
+          "expected_observations": [
+            "UT: heartbeat92 heartbeat_stop_0 idle_window 0 quiet 1 counts_zero 1",
+            "UT: heartbeat92 heartbeat_stop_0 idle_window 1 quiet 1 counts_zero 1",
+            "UT: heartbeat92 peer_mode 1"
+          ]
+        },
+        {
+          "test": "uF/test_heartbeat_stop_1_92",
+          "role": "direct",
+          "expected_observations": [
+            "UT: heartbeat92 heartbeat_stop_1 idle_window 0 quiet 1 counts_zero 1",
+            "UT: heartbeat92 heartbeat_stop_1 idle_window 1 quiet 1 counts_zero 1",
+            "UT: heartbeat92 peer_mode 1"
+          ]
+        }
+      ]
     }
   ]
 }

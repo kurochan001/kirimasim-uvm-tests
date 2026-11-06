@@ -219,6 +219,10 @@ ignoredのplain-class診断ではMAM requestなしで失敗randomizationのpost-
 公開同一性の診断で共有domainのnode選択を記録し、別prescoped入力によって元の解釈を隠しません。独自topology emitterは期待行を変えず改行を加え、新しく測定します。
 実装本体や商用出力をoracleにせず、適用条件と証拠の境界は[型付き役割のFAQ](faq.ja.md#名前付きの役割待機演算とtopology-policy)に記録しています。
 
+mode／windowの期待は、実行前に提供IEEE条項から独立に定めました。既に記録したaccessor欠落の後で、固定Apacheの公開selection_mode宣言だけを別legacy controlの束縛に使い、選択の実装でoracleを定めません。
+独自child／driver／hookのobserverと正時間のobjection刺激はスイートのcodeです。期待値を変えずにRAND検査系を強めて非UTのreport診断を加え、全依存入力を新たに測定します。別の強めたALL helperは宣言した1入力だけを変え、tag前の独立した両seed確認とtag後の新たな測定を行い、そのケースの以前の記録は除きます。
+NO_HB_MODEとAPIの文言は限定した解釈に残し、商用結果、シミュレータ実装source、人の承認は使いません。
+
 ## 条項カタログの保守
 
 catalogが数えるのは規範的義務ではなく識別子なので、項目の復元でcoverage分母が決まらない理由は[計数単位と対象範囲の案](requirements.ja.md#計数単位と対象範囲の案)を参照してください。

@@ -4,7 +4,7 @@
 
 このページの件数は各変更時点の値なので、現在のスイート規模や実行範囲が必要なときは[現在のスナップショット](results.ja.md#現在のスナップショット)を使ってください。
 
-M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の91回目の拡充（全2499件：simulation 2400・elaboration 99）までを記録しています。以前の349件の時点は
+M1・M2の15回目、M3の9回目、M4の3回目と既存テストの要求への未対応付け解消の時点を含む、段階をまたぐ薄い領域の92回目の拡充（全2527件：simulation 2428・elaboration 99）までを記録しています。以前の349件の時点は
 [500f22e](https://github.com/kurochan001/kirimasim-uvm-tests/commit/500f22e10c3ce62a497df929232a562b78952fc5)
 です。件数・測定・未検証項目の説明は、それぞれの追加時点のものです。
 現状と実行方法はREADME、現在のライブラリの制約は[既知差分](known-differences.ja.md)を参照してください。
@@ -3387,4 +3387,34 @@ topology printerの明示・省略・null呼び出しは、選択policyの同一
 
 compiler 99記録、HDL 38記録、command-line 18記録、互換guest 1082記録も未変更で保持します。
 guest未測定1417入力は追加1414件と修正した元入力3件（simulation 1318／elaboration 99）です。
+新しいguest実行／filter、範囲／catalog、runner／backend／tool／workflow変更、商用結果、実装由来oracle、人の照合、範囲／分母承認はありません。
+
+## 薄い領域の92回目の拡充：sequence-libraryのmodeとheartbeatのwindow
+
+新規runtime 28入力はM2のsequence library 16件とM1のheartbeat 12件で、16件がseed 1／73に一致します。
+標準mode APIの8入力はsetter／getter欠落でruntime前に停止します。4件はexit 0のseed 1で差分を保持し、seed 73結果はありません。
+監視外outsiderが活動するONE_ACTIVE入力2件と、字義どおりの無効化を限定して解釈するNO_HB_MODE明示入力2件で、条件の違いは[mode／windowのFAQ](faq.ja.md#sequence-libraryのmodeとheartbeatのwindow)で説明しています。
+
+4つの標準library modeは記載setter／getter呼出しと実行のpredicateを保持します。既定RANDの2入力は反対の合法indexを制約し、反対のchild型を実行します。
+別のlegacy-field control 6件は、2型の循環選択、childを実行しない実item-driver handshake、独自USER選択hookを観測します。
+controlで標準API入力をpassにしません。enum数値encoding、任意の乱数列、未指定の登録順、count accessorの置換、sequence library全体の完了は主張しません。
+
+heartbeatのALL windowには両監視actor、ANY windowには一方または両方が参加します。元のONE windowでは監視actorのちょうど1つが反復した釣り合うraise／dropを行い、監視外outsiderも活動します。
+outsiderの活動だけを外す別controlは一致しますが、元入力は最初のwindowの報告差分を保持します。公開reportの診断は報告を識別するためのもので、severity、文面、件数をoracleとして固定しません。
+独自catcherは非INFO報告で終了を要求し、その後の継続や回復を仮定しません。
+
+NO_HB_MODEの2入力は正常なALLまたはONE windowを先に完了し、その値を明示して空windowが静かであることを期待します。
+選択値は無効値として読み戻されず、後続windowで報告を生じます。F.2.11はこの値を無効とし、10.6.2.2は照会の既定値に使うため、APIによる設定は限定した解釈の疑問であり、確定した欠陥の帰属ではありません。
+別stop control 2件は記載stop methodを使って一致し、字義的mode入力をpassにせず、以前の照会テストも書き換えません。
+
+最終proofの前に独自library検査系を強めてRANDの2 variantが異なるchild型を実行するようにし、独自heartbeat catcherには非UTの公開report診断を加えました。
+期待値は未変更です。全依存入力を新たに測定し、以前の入力の記録は保存して現在の証拠から除きます。独立性の追加確認でALLの2件目には別helperを用意し、監視list／参加順を反転し、countもA2／B1からA1／B3へ変えます。
+期待行は未変更で、tagの前に両seedを測定し、tagの後でも新たに測定します。現在の実測済みtag 16件は互換な最終記録を持ち、入力指紋の読み替えはしません。
+
+日英AI義務10件は、付録Fの8件、mode APIによる実行1件、明示stop 1件です。F.2.4.3とF.2.11を部分分解し、新たな分類は追加しません。
+以前の4009義務、420分類、通常2499記録は内容を保持します。現在は4019義務、直接対応2475テスト、control専用52テスト、control linkあり150です。
+棚卸しは部分2036／分類420／未評価51です。付録Fは109／23／5、義務261件、主引用192テスト（simulation 158／elaboration 34）です。部分的な全適用条件と元の段階目標は未完です。
+
+compiler 99記録、HDL 38記録、command-line 18記録、互換guest 1082記録を未変更で保持します。
+guest未測定1445入力は追加1442件と修正した元入力3件（simulation 1346／elaboration 99）です。
 新しいguest実行／filter、範囲／catalog、runner／backend／tool／workflow変更、商用結果、実装由来oracle、人の照合、範囲／分母承認はありません。

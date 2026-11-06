@@ -1249,7 +1249,8 @@ bus read/refresh is distinct from the comparison outcome.
 **Milestone grouping**: Tests are counted by their functional milestone subject,
 while primary standard clauses govern chapter directories. D.3 named model
 access belongs to M3 even though its files reside in uD. The F.2.3 port-role
-inputs use M2 by their TLM subject even though their files reside in uF.
+inputs use M2 by their TLM subject even though their files reside in uF. F.2.4.3
+sequence-library inputs also use M2 by their sequence subject.
 
 ## Block and register query boundaries
 
@@ -1695,3 +1696,15 @@ the same modeled words when a partial write may read through either route.
 **Objection event completion** — Return of the selected raise, drop or all-dropped waiter after its observed callback work; [Q349](faq.md#q349-does-a-dropped-event-mean-all-objections-have-finished) distinguishes a partial drop from final completion.
 
 **Topology printer selection** — Choosing the explicit argument or current default policy while visiting the selected component hierarchy; [Q350](faq.md#q350-how-is-the-topology-printer-checked-without-matching-its-text) explains the original hook/emitter observations without fixing layout.
+
+## Mode setup and heartbeat participation
+
+A comparison setup can differ from the standard API premise, so [the mode/window FAQ](faq.md#sequence-library-modes-and-heartbeat-windows) explains which original inputs each observation belongs to.
+
+**Mode API / legacy-field control** — Printed selection setter/getter calls / a separate setup using a diagnosed implementation-specific field; control success does not establish the missing API contract.
+
+**Constrained RAND / RANDC cycle** — A subtype-constrained valid random index / a permutation cycle of eligible indices; selected tests observe child identity and cycle membership rather than an arbitrary random trace.
+
+**Tracked participant / outsider activity** — A component in the heartbeat watch list / a component outside that list using the same synchronizing objection; several raises/drops from one actor are still one participating component.
+
+**NO_HB_MODE interpretation** — The qualified relationship between the enum's disabled description and the API's default query argument; a quiet explicit-stop control does not resolve that configuration question.
